@@ -1,0 +1,140 @@
+<div class="cardDesc">
+  PA Sentence Card
+</div>
+
+<!-- priority is on the alternate display sentence -->
+{{#AltDisplaySentence}}
+  <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
+{{/AltDisplaySentence}}
+
+{{^AltDisplaySentence}}
+  <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+{{/AltDisplaySentence}}
+
+
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div style='font-size: 16px;'>{{hint:Hint}}</div>
+          </div>
+    </div>
+</div>
+</center>
+
+
+<hr id=answer>
+
+<div class=backside>
+
+
+{{#WordPitch}}
+ <div style='font-size: 10px;'  id="WordPitch2"> <p> </p> </div>
+ <div class="wordpitch2" id="WordPitch">
+    {{WordPitch}}
+</div>
+
+<script>
+    // entirely removes the (N/A) text instead
+    var g_ele = document.getElementById("graph");
+    if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
+        document.getElementById("graph").remove();
+        document.getElementById("position").remove();
+        document.getElementById("boxsep").remove();
+
+        /*
+        document.getElementById("position").innerHTML = document.getElementById("WordPitch").innerHTML;
+        document.getElementById("position").classList.replace("box2p", "wordpitch"); 
+        document.getElementById("WordPitch").remove();
+        document.getElementById("WordPitch2").remove();
+        */
+    }
+</script>
+{{/WordPitch}}
+
+{{^WordPitch}}
+<script>
+    var g_ele = document.getElementById("graph");
+    if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
+        // assumes document.getElementById("position").innerText == "No pitch accent data"
+        document.getElementById("graph").remove();
+        document.getElementById("position").innerText = "(N/A)";
+    }
+</script>
+{{/WordPitch}}
+
+
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div class="box-cell box1p" id="graph">
+                {{Graph}}
+            </div>
+            <div class="box-cell box2p" id="position">
+                {{Position}}
+            </div>
+            <div class="box-cell boxsep" id="boxsep">
+                ・
+            </div>
+            <div class="box-cell box3p">
+                 {{Audio}} <span id="hackaudio"> {{SentenceAudio}} </span>
+            </div>
+        </div>
+    </div>
+</div>
+</center>
+
+
+
+
+<blockquote id="glossary", class="glossary">
+    {{edit:PrimaryDefinition}}
+</blockquote>
+
+
+{{#AdditionalNotes}}
+<details class=additionalnotes>
+    <summary>Additional Notes</summary>
+    <blockquote class=additionalnotes>
+    {{AdditionalNotes}}
+    </blockquote>
+</details>
+{{/AdditionalNotes}}
+
+
+
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div class="fullsentence" id="FullSentence">
+                {{furigana:SentenceReading}}
+            </div>
+          </div>
+    </div>
+</div>
+</center>
+
+<div>{{Picture}}</div>
+
+
+<script>
+    var glossary_ele = document.getElementById("glossary");
+    glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
+
+
+  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
+  var elem = document.querySelector("#hackaudio .soundLink, #hackaudio .replaybutton"); 
+  if (elem) {
+    elem.click();
+  }
+  
+</script>
+
+
+</div>
+
+
+
+

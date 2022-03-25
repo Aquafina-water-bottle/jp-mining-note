@@ -1,0 +1,350 @@
+.card {
+ font-family: hiragino;
+ font-size: 30px;
+ text-align: center;
+ font-style: normal;
+ color: white;
+ background-color: black;
+}
+
+@font-face { font-family: yumin; src: url('_yumin.ttf'); }
+@font-face { font-family: hiragino; src: url('hiragino-mincho-pron-w3.otf'); }
+@font-face { font-family: notosans; src: url('NotoSansCJK-Regular.ttc'); }
+@font-face { font-family: notoserif; src: url('NotoSerifCJK-Regular.ttc'); }
+
+/* makes lists tolerable to look at */
+ol, ul {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  padding-left: 1.5em;
+}
+
+/* adds a width constraint to the backside to make things look better */
+.backside {
+ max-width: 700px;
+ margin: 20px auto 20px auto;
+ padding: 0 20px 0 20px;
+}
+
+/*  */
+.testPAStar {
+    color: #5cf570;
+    vertical-align: top;
+    font-size: 50px;
+}
+.testPAWordStar {
+    color: #34dbef;
+    vertical-align: top;
+    font-size: 50px;
+}
+.noTestPAStar {
+    color: #f53b39;
+    vertical-align: top;
+    font-size: 40px;
+    font-weight: bold;
+}
+.defaultTestPAStar { /* unused */
+    color: #21dd1e;
+    vertical-align: top;
+    font-size: 50px;
+}
+
+
+.cardDesc {
+  color: #585858;
+  font-size: 20px;
+  text-align: left;
+}
+
+/* space at the top of the window */
+.expression {
+  margin-bottom: -0.0em;
+  margin-top: 0.3em;
+  font-size: 50px;
+}
+
+.expression b {
+  color: #fffd9e;
+  font-weight:normal; /* LMFAO */
+}
+.expression ruby rt { opacity: 0; }
+.expression:hover ruby rt { opacity: 1; }
+
+.reading {
+  font-size: 50px;
+}
+
+/* resets the color to initial */
+.nightMode .overridedisplay b {
+  color: white;
+}
+.overridedisplay b {
+  color: initial;
+}
+
+
+/* fancy blockquote css */
+blockquote {
+  text-align: left;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  border-left: 5px solid #ccc;
+  margin: 1em 10px;
+  padding: 0.5em 10px;
+}
+blockquote p {
+  display: inline;
+}
+blockquote b {
+  color: #fffd9e;
+}
+
+
+
+/* hack to get the image to appear normal when first loading in */
+img {
+  max-width: 400px;
+  max-height: 300px;
+}
+
+.smallImage {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: block;
+  max-width: 400px;
+  max-height: 300px;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.smallImage:hover {opacity: 0.7;}
+
+
+
+@-webkit-keyframes zoom {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  0.001% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 100;
+  }
+}
+@keyframes zoom {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  0.001% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 100;
+  }
+
+}
+
+@-webkit-keyframes zoom-out {
+  0% {
+    display: block;
+    opacity: 100;
+  }
+  99.999% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-out {
+  0% {
+    display: block;
+    opacity: 100;
+  }
+  99.999% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 99; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.75); /* Black w/ opacity */
+}
+
+.modal {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.25s ;
+    animation-name: zoom;
+    animation-duration: 0.25s;
+}
+
+/* Add Animation */
+.modal-content/*, #caption*/ {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.25s ;
+    animation-name: zoom;
+    animation-duration: 0.25s;
+    max-width: initial;
+    max-height: initial;
+
+    /*
+     * center image vertically and horizontally
+     * https://stackoverflow.com/a/11716065
+     */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.out {
+  animation-name: zoom-out;
+  animation-duration: 0.25s;
+}
+
+
+.glossary {
+  font-size: 18px;
+  font-family: notosans; /* apparently using a sans font makes crammed kanji like 暇 and 鬱 more readable  */
+}
+
+
+.additionalnotes {
+  font-size: 15px;
+  font-family: notosans; 
+}
+.additionalnotes b {
+  color: #fffd9e;
+}
+
+
+.fullsentence b {
+  color: #fffd9e;
+}
+.fullsentence {
+  font-size: 25px;
+}
+.fullsentence ruby rt { opacity: 0; }
+.fullsentence:hover ruby rt { opacity: 1; }
+
+.wordpitch {
+  font-size: 20px;
+  font-family: notosans;
+  vertical-align:middle;
+}
+/* overwriting the bold ability:  bold == not the correct sound used in the sound clip */
+.wordpitch b {
+  font-weight:normal; /* LMFAO */
+  color: #808080;
+  font-size: 15px;
+}
+.wordpitch2 {
+  font-size: 30px;
+  font-family: notosans;
+  vertical-align:middle;
+}
+/* overwriting the bold ability:  bold == not the correct sound used in the sound clip */
+.wordpitch2 b {
+  font-weight:normal; /* LMFAO */
+  color: #808080;
+  font-size: 18px;
+}
+
+/* https://www.geeksforgeeks.org/how-to-float-three-div-side-by-side-using-css/ */
+.container .box {
+  width: auto;
+  display: table;
+  font-size: 25px;
+  text-align: left;
+}
+.container .box .box-row {
+  display: table-row;
+}
+.container .box .box-cell {
+  display: table-cell;
+  padding: 5px;
+}
+
+
+/* pitch accent graphs */
+.container .box .box-cell.box1p {
+  /*background:green;*/
+  vertical-align:middle;
+  font-size: 15px;
+}
+.container .box .box-cell.box2p {
+  /*background:lightgreen;*/
+  vertical-align:middle;
+  font-size: 15px;
+}
+.container .box .box-cell.box3p {
+  /*background:darkgreen;*/
+  vertical-align:middle;
+  font-size: 15px;
+}
+.container .box .box-cell.boxsep {
+  /*background:darkgreen;*/
+  vertical-align:middle;
+  padding-left: 10px;
+  font-size: 20px;
+  color: #d0d0d0;
+}
+
+
+.nopatest {
+  font-size: 30px;
+  font-family: notosans;
+  /*color: #ff4646;*/
+}
+
+.paTestWordFront {
+  font-size: 35px;
+}
+
+/* I have no idea what this does */
+svg > text { fill: #fff !important; }
+svg > path { stroke: #fff !important; }
+svg > circle[r="5"] { fill: #fff !important; }
+svg > circle[r="3.25"] { fill: #2d2d2d !important; }
+
+
+/* I have no idea what this does */
+.win .jp { font-family: "MS Mincho", "ＭＳ 明朝"; }
+.mac .jp { font-family: "Hiragino Mincho Pro", "ヒラギノ明朝 Pro"; }
+.linux .jp { font-family: "Kochi Mincho", "東風明朝"; }
+.mobile .jp { font-family: "Hiragino Mincho ProN"; }
+
+
+
+

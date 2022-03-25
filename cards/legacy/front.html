@@ -1,0 +1,89 @@
+{{#PASeparateCardLegacy}}
+
+
+<!--
+  - tests pitch accent ONLY (for the given word or sentence)
+  - does NOT test reading or meaning
+-->
+<div class="cardDesc">
+  PA Legacy Card:
+
+  {{#IsSentenceCard}}
+    {{#PATestOnlyWord}}
+      Word
+    {{/PATestOnlyWord}}
+
+    {{^PATestOnlyWord}}
+      Sentence
+    {{/PATestOnlyWord}}
+  {{/IsSentenceCard}}
+
+  {{^IsSentenceCard}}
+    Word
+  {{/IsSentenceCard}}
+</div>
+
+<!-- priority is on the alternate display sentence -->
+{{#AltDisplaySentence}}
+    {{#IsSentenceCard}}
+        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
+    {{/IsSentenceCard}}
+
+    {{^IsSentenceCard}}
+        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplaySentence}}</div>
+    {{/IsSentenceCard}}
+
+    <details>
+        <summary class=glossary>Full Sentence</summary>
+         <div class=fullsentence id="fullsentence">「{{furigana:SentenceReading}}」</div>
+    </details>
+{{/AltDisplaySentence}}
+
+
+{{^AltDisplaySentence}}
+
+    <!-- if it is a sentence card, remove "bold" -->
+    {{#IsSentenceCard}}
+        {{#PATestOnlyWord}}
+            <div class="expression" id="Display">「{{furigana:SentenceReading}}」</div>
+        {{/PATestOnlyWord}}
+
+        {{^PATestOnlyWord}}
+            <div class="expression overridedisplay" id="Display">「{{furigana:SentenceReading}}」</div>
+        {{/PATestOnlyWord}}
+    {{/IsSentenceCard}}
+
+    {{^IsSentenceCard}}
+        <div class="expression" id="Display">「{{furigana:SentenceReading}}」</div>
+    {{/IsSentenceCard}}
+{{/AltDisplaySentence}}
+
+
+
+<script>
+  // THIS IS A HACK
+  // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
+  // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
+  // 
+  var elem = document.querySelector(".soundLink, .replaybutton"); 
+  if (elem) {
+    elem.click();
+  }
+</script>
+<span id="audio-front" style="display:none">{{PASilence}}</span>
+<span id="audio-front">{{SentenceAudio}}</span>
+
+
+
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div style='font-size: 16px;'>{{hint:Hint}}</div>
+          </div>
+    </div>
+</div>
+</center>
+
+{{/PASeparateCardLegacy}}
+

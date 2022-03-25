@@ -1,0 +1,338 @@
+<div class="cardDesc">
+  Mining Card:
+
+  {{#IsSentenceCard}}
+      Sentence
+  {{/IsSentenceCard}}
+
+  {{^IsSentenceCard}}
+      Word
+  {{/IsSentenceCard}}
+
+  /
+
+  {{#IsListeningUnknownWordCard}}
+    Listening
+  {{/IsListeningUnknownWordCard}}
+
+  <!-- not listening card -->
+  {{^IsListeningUnknownWordCard}}
+    {{#PASeparateCardLegacy}}
+      Legacy
+    {{/PASeparateCardLegacy}}
+
+    <!-- not legacy card -->
+    {{^PASeparateCardLegacy}}
+
+      {{#PADoNotTest}}
+        None
+      {{/PADoNotTest}}
+
+      <!-- not (explicity do not test PA) -->
+      {{^PADoNotTest}}
+
+        <!--
+          ffs anki
+          - realistically, it shouldn't ever be (A ^ B) but whatever
+          - separate sentence card & ~test only word is normal
+          - ~separate sentence card & test only word is also normal (force a test word instead)
+          A v B  = (A ^ ~B) v (~A ^ B) v (A ^ B)
+          ~(A v B) =  ~A ^ ~B
+        -->
+        {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+          Word
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+          Word
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+          Word
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+
+        {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
+          Sentence
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+
+      {{/PADoNotTest}}
+
+    {{/PASeparateCardLegacy}}
+
+  {{/IsListeningUnknownWordCard}}
+</div>
+
+
+
+
+<!-- listening unknown card -->
+{{#IsListeningUnknownWordCard}}
+    <!-- defaults to sentence card -->
+    {{#AltDisplaySentence}}
+        <div class="expression" id="Display">{{furigana:AltDisplaySentence}}</div>
+    {{/AltDisplaySentence}}
+
+    {{^AltDisplaySentence}}
+        <div class="expression" id="Display">{{Sentence}}</div>
+    {{/AltDisplaySentence}}
+
+    <script>
+        document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
+    </script>
+
+{{/IsListeningUnknownWordCard}}
+
+
+
+
+
+<!-- not listening card -->
+{{^IsListeningUnknownWordCard}}
+
+<!-- priority is on the alternate display sentence -->
+{{#AltDisplaySentence}}
+    {{#IsSentenceCard}}
+        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
+    {{/IsSentenceCard}}
+
+    {{^IsSentenceCard}}
+        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplaySentence}}</div>
+    {{/IsSentenceCard}}
+{{/AltDisplaySentence}}
+
+
+<!-- no alt display sentence, not listening card -->
+{{^AltDisplaySentence}}
+
+    {{#IsSentenceCard}}
+        <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+    {{/IsSentenceCard}}
+
+    {{^IsSentenceCard}}
+        <div class="expression" id="Display", style='font-size: 70px;'>{{Word}}</div>
+    {{/IsSentenceCard}}
+
+{{/AltDisplaySentence}}
+
+
+
+{{/IsListeningUnknownWordCard}}
+
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div style='font-size: 16px;'>{{hint:Hint}}</div>
+          </div>
+    </div>
+</div>
+</center>
+
+
+
+
+<!-- do not separate pitch accent card -->
+{{^PASeparateCardLegacy}}
+
+<!-- for pitch accent to be properly tested:
+  - Must not be already a listening card here
+  - PADoNotTest must be empty
+  - WordPitch be non-empty
+-->
+
+{{^IsListeningUnknownWordCard}}
+
+{{^PADoNotTest}}
+
+<!-- test pitch accent -->
+  <script>
+    // adds * at the front
+    var d = document.getElementById("Display");
+
+    var style_class = "";
+    if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") { // either PASeparateSentenceCard or PATestOnlyWord
+      style_class = "testPAWordStar";
+    } else {
+      style_class = "testPAStar";
+    }
+
+    // ~(isSentenceCard) overrides style (should be test PA star)
+    if (!"{{IsSentenceCard}}") {
+      style_class = "testPAStar"
+    }
+
+    if (d.innerText[0] == "「") { // makes styling look better
+        d.innerHTML =  "<span class=" + style_class + ">*</span>" + d.innerHTML;
+    } else {
+        d.innerHTML =  "<span class=" + style_class + ">*&nbsp</span>" + d.innerHTML + "<span class=testPAStar>&nbsp&nbsp</span>";
+    }
+  </script>
+
+{{/PADoNotTest}}
+
+
+<!-- explicitly do not test pitch accent <div class="nopatest">×</div> -->
+{{#PADoNotTest}}
+  <script>
+    var d = document.getElementById("Display");
+    if (d.innerText[0] == "「") {
+        d.innerHTML =  "<span class=noTestPAStar>×</span>" + d.innerHTML;
+    } else {
+        d.innerHTML =  "<span class=noTestPAStar>×&nbsp</span>" + d.innerHTML + "<span class=testPAStar>&nbsp&nbsp</span>";
+    }
+  </script>
+
+{{/PADoNotTest}}
+
+
+{{/IsListeningUnknownWordCard}}
+
+{{/PASeparateCardLegacy}}
+
+
+
+
+<hr id=answer>
+
+<div class=backside>
+
+<div class=reading> {{furigana:Reading}} </div>
+
+
+{{#WordPitch}}
+ <div style='font-size: 20px;'  id="WordPitch2"> <p> </p> </div>
+ <div class="wordpitch" id="WordPitch">
+    {{WordPitch}}
+</div>
+
+<script>
+    // entirely removes the (N/A) text instead
+    var g_ele = document.getElementById("graph");
+    if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
+        document.getElementById("graph").remove();
+        document.getElementById("position").remove();
+        document.getElementById("boxsep").remove();
+
+        /*
+        document.getElementById("position").innerHTML = document.getElementById("WordPitch").innerHTML;
+        document.getElementById("position").classList.replace("box2p", "wordpitch"); 
+        document.getElementById("WordPitch").remove();
+        document.getElementById("WordPitch2").remove();
+        */
+    }
+</script>
+{{/WordPitch}}
+
+{{^WordPitch}}
+<script>
+    var g_ele = document.getElementById("graph");
+    if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
+        // assumes document.getElementById("position").innerText == "No pitch accent data"
+        document.getElementById("graph").remove();
+        document.getElementById("position").innerText = "(N/A)";
+    }
+</script>
+{{/WordPitch}}
+
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div class="box-cell box1p" id="graph">
+                {{Graph}}
+            </div>
+            <div class="box-cell box2p" id="position">
+                {{Position}}
+            </div>
+            <div class="box-cell boxsep" id="boxsep">
+                ・
+            </div>
+            <div class="box-cell box3p">
+                {{Audio}} {{SentenceAudio}}
+            </div>
+        </div>
+    </div>
+</div>
+</center>
+
+
+
+<blockquote id="glossary" class="glossary">
+    {{edit:PrimaryDefinition}}
+</blockquote>
+
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div class="fullsentence" id="FullSentence">
+                {{furigana:SentenceReading}}
+            </div>
+          </div>
+    </div>
+</div>
+</center>
+
+
+
+{{#AdditionalNotes}}
+<details class=additionalnotes>
+    <summary>Additional Notes</summary>
+    <blockquote class=additionalnotes>
+    {{AdditionalNotes}}
+    </blockquote>
+</details>
+{{/AdditionalNotes}}
+
+<div id="smallimgdiv">{{Picture}}</div>
+
+
+<!--
+  https://codeconvey.com/html-image-zoom-on-click/
+  http://www.liangshunet.com/en/202005/743233073.htm
+  https://stackoverflow.com/questions/8449933/how-to-transition-css-display-opacity-properties
+  https://www.javascripttutorial.net/dom/css/add-styles-to-an-element/
+  https://stackoverflow.com/questions/507138/how-to-add-a-class-to-a-given-element
+-->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <img class="modal-content" id="bigimg">
+</div>
+
+<script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  //var img = document.getElementById('myImg');
+  var img = document.getElementById("smallimgdiv").getElementsByTagName("img")[0];
+  img.classList.add("smallImage");
+
+  var modalImg = document.getElementById("bigimg");
+  img.onclick = function() {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    modalImg.alt = this.alt;
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  modal.onclick = function() {
+    //bigimg.className += " out";
+    bigimg.classList.add("out");
+    modal.classList.add("out");
+    setTimeout(function() {
+      modal.style.display = "none";
+      bigimg.className = "modal-content";
+      modal.className = "modal";
+    }, 200);
+
+  }
+
+  var glossary_ele = document.getElementById("glossary");
+  glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
+</script>
+
+
+</div>
+
+
+

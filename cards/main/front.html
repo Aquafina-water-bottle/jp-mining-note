@@ -1,0 +1,286 @@
+<!--
+  Listening
+  X / Y
+
+  X:
+    Word
+    Sentence
+
+  Y:
+    Legacy
+    None
+    Word
+    Sentence
+
+-->
+<div class="cardDesc">
+  Mining Card:
+
+  {{#IsSentenceCard}}
+      Sentence
+  {{/IsSentenceCard}}
+
+  {{^IsSentenceCard}}
+      Word
+  {{/IsSentenceCard}}
+
+  /
+
+  {{#IsListeningUnknownWordCard}}
+    Listening
+  {{/IsListeningUnknownWordCard}}
+
+  <!-- not listening card -->
+  {{^IsListeningUnknownWordCard}}
+    {{#PASeparateCardLegacy}}
+      Legacy
+    {{/PASeparateCardLegacy}}
+
+    <!-- not legacy card -->
+    {{^PASeparateCardLegacy}}
+
+      {{#PADoNotTest}}
+        None
+      {{/PADoNotTest}}
+
+      <!-- not (explicity do not test PA) -->
+      {{^PADoNotTest}}
+
+        <!--
+          ffs anki
+          - realistically, it shouldn't ever be (A ^ B) but whatever
+          - separate sentence card & ~test only word is normal
+          - ~separate sentence card & test only word is also normal (force a test word instead)
+          A v B  = (A ^ ~B) v (~A ^ B) v (A ^ B)
+          ~(A v B) =  ~A ^ ~B
+        -->
+        {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+          Word
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+          Word
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+          Word
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+
+        {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
+          Sentence
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+
+      {{/PADoNotTest}}
+
+    {{/PASeparateCardLegacy}}
+
+  {{/IsListeningUnknownWordCard}}
+</div>
+
+
+<!-- listening unknown card -->
+{{#IsListeningUnknownWordCard}}
+    <!-- defaults to sentence card -->
+    {{#AltDisplaySentence}}
+        <div class="expression" id="Display">{{furigana:AltDisplaySentence}}</div>
+    {{/AltDisplaySentence}}
+
+    {{^AltDisplaySentence}}
+        <div class="expression" id="Display">{{Sentence}}</div>
+    {{/AltDisplaySentence}}
+
+    <script>
+        document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
+    </script>
+
+{{/IsListeningUnknownWordCard}}
+
+
+
+
+
+<!-- not listening card -->
+{{^IsListeningUnknownWordCard}}
+
+<!-- priority is on the alternate display sentence -->
+{{#AltDisplaySentence}}
+    {{#IsSentenceCard}}
+        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
+    {{/IsSentenceCard}}
+
+    {{^IsSentenceCard}}
+        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplaySentence}}</div>
+    {{/IsSentenceCard}}
+{{/AltDisplaySentence}}
+
+
+<!-- no alt display sentence, not listening card -->
+{{^AltDisplaySentence}}
+
+    {{#IsSentenceCard}}
+        <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+    {{/IsSentenceCard}}
+
+    {{^IsSentenceCard}}
+        <div class="expression" id="Display", style='font-size: 70px;'>{{Word}}</div>
+    {{/IsSentenceCard}}
+
+{{/AltDisplaySentence}}
+
+
+
+{{/IsListeningUnknownWordCard}}
+<!-- not listening card -->
+
+
+
+<!-- hint -->
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div style='font-size: 16px;'>{{hint:Hint}}</div>
+          </div>
+    </div>
+</div>
+</center>
+
+
+
+<!-- audio and [...] replace for the listening card -->
+{{#IsListeningUnknownWordCard}}
+
+    <script>
+        document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
+    </script>
+    <span id="audio-front">{{SentenceAudio}}</span>
+
+{{/IsListeningUnknownWordCard}}
+
+
+
+<!-- do not separate pitch accent card -->
+{{^PASeparateCardLegacy}}
+
+<!-- for pitch accent to be properly tested:
+  - Must not be already a listening card here
+  - PADoNotTest must be empty
+-->
+
+{{^IsListeningUnknownWordCard}}
+
+{{^PADoNotTest}}
+
+
+
+<!-- if the display is a sentence but we only want to test word pitch accent -->
+{{#IsSentenceCard}}
+  {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+    <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+  {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+  {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+    <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+  {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+  {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+    <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+  {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+
+  <!-- script here because too lazy to copy/paste -->
+  <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
+  <script>
+    var pa_button = document.getElementById("PAButton");
+    var d = document.getElementById("Display");
+
+    function logMouseButton() {
+      if (pa_button.innerText == "Show") {
+        pa_button.innerText = "Hide";
+        d.classList = "expression";
+      } else {
+        pa_button.innerText = "Show";
+        d.classList.add("overridedisplay");
+      }
+    }
+  </script>
+
+{{/IsSentenceCard}}
+
+
+<!--
+  if the display is a word: show sentence preview (spoilered)
+  - note that it is guaranteed we test pitch accent here already
+-->
+{{^IsSentenceCard}}
+  <details>
+      <summary class=glossary>Full Sentence</summary>
+      <div class=fullsentence id="fullsentencefront">「{{Sentence}}」</div>
+  </details>
+{{/IsSentenceCard}}
+
+
+
+  <script>
+    // THIS IS A HACK
+    // this hack is to not auto-play the audio at the front of the card
+    // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
+    // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
+    var elem = document.querySelector(".soundLink, .replaybutton");
+    if (elem) {
+      elem.click();
+    }
+
+
+    // adds * at the front
+    var d = document.getElementById("Display");
+
+    var style_class = "";
+    if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") { // either PASeparateSentenceCard or PATestOnlyWord
+      style_class = "testPAWordStar";
+    } else {
+      style_class = "testPAStar";
+    }
+
+    // ~(isSentenceCard) overrides style (should be test PA star)
+    if (!"{{IsSentenceCard}}") {
+      style_class = "testPAStar"
+    }
+
+    if (d.innerText[0] == "「") { // makes styling look better
+        d.innerHTML =  "<span class=" + style_class + ">*</span>" + d.innerHTML;
+    } else {
+        d.innerHTML =  "<span class=" + style_class + ">*&nbsp</span>" + d.innerHTML + "<span class=testPAStar>&nbsp&nbsp</span>";
+    }
+
+  </script>
+  <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
+  <span id="audio-front">
+    {{#SentenceAudio}}
+      {{SentenceAudio}}
+    {{/SentenceAudio}}
+    {{^SentenceAudio}}
+      {{Audio}}
+    {{/SentenceAudio}}
+  </span>
+
+
+{{/PADoNotTest}}
+
+
+<!-- explicitly do not test pitch accent -->
+{{#PADoNotTest}}
+
+  <script>
+    var d = document.getElementById("Display");
+    if (d.innerText[0] == "「") {
+        d.innerHTML =  "<span class=noTestPAStar>×</span>" + d.innerHTML;
+    } else {
+        d.innerHTML =  "<span class=noTestPAStar>×&nbsp</span>" + d.innerHTML + "<span class=testPAStar>&nbsp&nbsp</span>";
+    }
+  </script>
+
+{{/PADoNotTest}}
+
+
+{{/IsListeningUnknownWordCard}}
+
+{{/PASeparateCardLegacy}}
+
+
+

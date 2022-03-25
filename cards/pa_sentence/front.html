@@ -1,0 +1,50 @@
+{{#PASeparateSentenceCard}}
+
+
+<!--
+  - tests pitch accent AND reading (you hopefully know the reading by now)
+  - does NOT test meaning
+-->
+<div class="cardDesc">
+  PA Sentence Card
+</div>
+
+<!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
+
+<!-- priority is on the alternate display sentence -->
+{{#AltDisplaySentence}}
+  <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
+{{/AltDisplaySentence}}
+
+{{^AltDisplaySentence}}
+  <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+{{/AltDisplaySentence}}
+
+
+
+<script>
+  // THIS IS A HACK
+  // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
+  // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
+  var elem = document.querySelector(".soundLink, .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>
+<span id="audio-front" style="display:none">{{PASilence}}</span>
+<span id="audio-front">{{SentenceAudio}}</span>
+
+
+
+<center>
+<div class="container">
+    <div class="box">
+        <div class="box-row">
+            <div style='font-size: 16px;'>{{hint:Hint}}</div>
+          </div>
+    </div>
+</div>
+</center>
+
+{{/PASeparateSentenceCard}}
+
