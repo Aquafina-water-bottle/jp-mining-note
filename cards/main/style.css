@@ -21,7 +21,7 @@ ol, ul {
 
 /* adds a width constraint to the backside to make things look better */
 .backside {
- max-width: 700px;
+ max-width: 850px;
  margin: 20px auto 20px auto;
  padding: 0 20px 0 20px;
 }
@@ -48,6 +48,31 @@ ol, ul {
     vertical-align: top;
     font-size: 50px;
 }
+
+
+.flexboxtop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftbox {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.5em 0.5em; /* top/bottom, right/left */
+  border-radius: 10px 10px 0px 0px;
+}
+
+.flexboxgap {
+  min-width: 15px
+}
+
+.rightbox {
+}
+
+.smallimgdiv {
+}
+
+
 
 
 .cardDesc {
@@ -104,7 +129,7 @@ blockquote b {
 /* hack to get the image to appear normal when first loading in */
 img {
   max-width: 400px;
-  max-height: 300px;
+  max-height: 210px;
 }
 
 .smallImage {
@@ -113,9 +138,9 @@ img {
   transition: 0.3s;
   display: block;
   max-width: 400px;
-  max-height: 300px;
+  max-height: 210px;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
 
 .smallImage:hover {opacity: 0.7;}

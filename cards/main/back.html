@@ -192,66 +192,50 @@
 
 <hr id=answer>
 
-<div class=backside>
-
-<div class=reading> {{furigana:Reading}} </div>
 
 
-{{#WordPitch}}
- <div style='font-size: 20px;'  id="WordPitch2"> <p> </p> </div>
- <div class="wordpitch" id="WordPitch">
-    {{WordPitch}}
-</div>
 
-<script>
-    // entirely removes the (N/A) text instead
-    var g_ele = document.getElementById("graph");
-    if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
-        document.getElementById("graph").remove();
-        document.getElementById("position").remove();
-        document.getElementById("boxsep").remove();
+<div id=flex_box_top class=flexboxtop>
 
-        /*
-        document.getElementById("position").innerHTML = document.getElementById("WordPitch").innerHTML;
-        document.getElementById("position").classList.replace("box2p", "wordpitch"); 
-        document.getElementById("WordPitch").remove();
-        document.getElementById("WordPitch2").remove();
-        */
-    }
-</script>
-{{/WordPitch}}
+  <!--<div id=left_gap class=flexboxgap> </div>-->
 
-{{^WordPitch}}
-<script>
-    var g_ele = document.getElementById("graph");
-    if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
-        // assumes document.getElementById("position").innerText == "No pitch accent data"
-        document.getElementById("graph").remove();
-        document.getElementById("position").innerText = "(N/A)";
-    }
-</script>
-{{/WordPitch}}
+  <!-- everything on the left side -->
+  <div id=left_box class=leftbox>
 
-<center>
-<div class="container">
-    <div class="box">
-        <div class="box-row">
-            <div class="box-cell box1p" id="graph">
-                {{Graph}}
-            </div>
-            <div class="box-cell box2p" id="position">
-                {{Position}}
-            </div>
-            <div class="box-cell boxsep" id="boxsep">
-                ・
-            </div>
-            <div class="box-cell box3p">
-                {{Audio}} {{SentenceAudio}}
-            </div>
-        </div>
+    <div class=reading> {{furigana:Reading}} </div>
+    {{#WordPitch}}
+     <div style='font-size: 20px;'  id="WordPitch2"> <p> </p> </div>
+     <div class="wordpitch" id="WordPitch">
+        {{WordPitch}}
     </div>
+    {{/WordPitch}}
+
+     <div class="wordpitch" id="WordPitch">
+        {{Audio}} {{SentenceAudio}}
+    </div>
+  </div>
+
+  <div id=mid_gap class=flexboxgap> </div>
+
+  <!-- everything on the left side -->
+  <div id=right_box class=rightbox>
+
+    <div id="small_img_div" class=smallimgdiv>{{Picture}}</div>
+  </div>
+
+  <!--<div id=right_gap class=flexboxgap> </div>-->
+
 </div>
-</center>
+
+
+
+
+
+<div id="backsidediv" class=backside>
+
+    <div class="fullsentence" id="FullSentence">
+      {{furigana:SentenceReading}}
+    </div>
 
 
 
@@ -259,19 +243,25 @@
     {{edit:PrimaryDefinition}}
 </blockquote>
 
-<center>
-<div class="container">
-    <div class="box">
-        <div class="box-row">
-            <div class="fullsentence" id="FullSentence">
-                {{furigana:SentenceReading}}
-            </div>
-          </div>
-    </div>
-</div>
-</center>
 
+<!-- TODO move -->
+{{#SecondaryDefinition}}
+<details class=glossary>
+    <summary>Secondary Definition</summary>
+    <blockquote class=glossary>
+    {{SecondaryDefinition}}
+    </blockquote>
+</details>
+{{/SecondaryDefinition}}
 
+{{#TertiaryDefinition}}
+<details class=glossary>
+    <summary>Tertiary Definition</summary>
+    <blockquote class=glossary>
+    {{TertiaryDefinition}}
+    </blockquote>
+</details>
+{{/TertiaryDefinition}}
 
 {{#AdditionalNotes}}
 <details class=additionalnotes>
@@ -281,8 +271,6 @@
     </blockquote>
 </details>
 {{/AdditionalNotes}}
-
-<div id="smallimgdiv">{{Picture}}</div>
 
 
 <!--
@@ -304,8 +292,9 @@
 
   // Get the image and insert it inside the modal - use its "alt" text as a caption
   //var img = document.getElementById('myImg');
-  var img = document.getElementById("smallimgdiv").getElementsByTagName("img")[0];
+  var img = document.getElementById("small_img_div").getElementsByTagName("img")[0];
   img.classList.add("smallImage");
+  //img.style.maxHeight = document.getElementById("left_box").clientHeight + "px";
 
   var modalImg = document.getElementById("bigimg");
   img.onclick = function() {
@@ -327,8 +316,34 @@
 
   }
 
+  // remove all jmdict english dict tags lol
   var glossary_ele = document.getElementById("glossary");
   glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
+
+  var height_left = document.getElementById("left_box").clientHeight;
+  img.style.maxHeight = height_left + "px";
+  glossary_ele.innerText += "h:" + height_left;
+  glossary_ele.innerText += "nh:" + img.naturalHeight;
+
+  // dynamically adjusts gap width
+  // https://stackoverflow.com/questions/4787527/how-to-find-the-width-of-a-div-using-vanilla-javascript
+  img.onload = function() { // a bit of a hack to require the image to load first before getting the width
+    var width_left = document.getElementById("left_box").clientWidth;
+    var width_right = img.clientWidth;
+    //glossary_ele.innerText += "x:" + width_left + " y:" + width_right
+
+    var width = width_left + width_right;
+    // what https://attacomsian.com/blog/javascript-get-css-styles
+    var max_width = window.getComputedStyle(document.getElementById("backsidediv")).maxWidth;
+    max_width = parseInt(max_width.replace("px", ""));
+    var gap_width = (max_width - width - 3) / 3.5;
+
+    //document.getElementById("left_gap").style.width  = gap_width + "px";
+    document.getElementById("mid_gap").style.width   = gap_width + "px";
+    //document.getElementById("right_gap").style.width = gap_width + "px";
+  }
+
+
 </script>
 
 
