@@ -7,6 +7,13 @@
  background-color: black;
 }
 
+
+.bodyidk {
+  display: flex;
+  flex-direction: column;
+}
+
+
 @font-face { font-family: yumin; src: url('_yumin.ttf'); }
 @font-face { font-family: hiragino; src: url('hiragino-mincho-pron-w3.otf'); }
 @font-face { font-family: notosans; src: url('NotoSansCJK-Regular.ttc'); }
@@ -63,15 +70,15 @@ ol, ul {
 }
 
 .flexboxgap {
-  min-width: 15px
+  min-width: 35px
 }
 
 .rightbox {
 }
 
-.smallimgdiv {
+.scrollable {
+    overflow-y: auto;
 }
-
 
 
 
@@ -114,7 +121,7 @@ blockquote {
   background: rgba(0, 0, 0, 0.1);
   font-size: 18px;
   border-left: 5px solid #ccc;
-  margin: 1em 10px;
+  margin: 1em 5px;
   padding: 0.5em 10px;
 }
 blockquote p {
@@ -135,15 +142,23 @@ img {
 .smallImage {
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  /*transition: 0.3s;*/
   display: block;
+  min-width: 250px;
   max-width: 400px;
   max-height: 210px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.smallImage:hover {opacity: 0.7;}
+/*.smallImage:hover {opacity: 0.7;}*/
+
+/* moved the hover element to the div to prevent the size transform transition from showing */
+.smallimgdiv {
+  transition: 0.3s;
+}
+.smallimgdiv:hover {opacity: 0.7;}
+
 
 
 
@@ -318,7 +333,7 @@ img {
 }
 .container .box .box-cell {
   display: table-cell;
-  padding: 5px;
+  /*padding: 5px;*/
 }
 
 

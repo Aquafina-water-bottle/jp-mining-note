@@ -1,3 +1,5 @@
+<div class=body>
+
 <div class="cardDesc">
   Mining Card:
 
@@ -233,11 +235,16 @@
 
 <div id="backsidediv" class=backside>
 
-    <div class="fullsentence" id="FullSentence">
-      {{furigana:SentenceReading}}
-    </div>
+
+<div class="fullsentence" id="FullSentence">
+  {{furigana:SentenceReading}}
+</div>
 
 
+<!-- https://stackoverflow.com/questions/14380442/make-one-section-of-simple-web-page-have-own-scroll-bar -->
+
+
+<div id="scrollablediv" class=scrollable>
 
 <blockquote id="glossary" class="glossary">
     {{edit:PrimaryDefinition}}
@@ -320,34 +327,55 @@
   var glossary_ele = document.getElementById("glossary");
   glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
 
-  var height_left = document.getElementById("left_box").clientHeight;
+  var lb = document.getElementById("left_box");
+  var rb = document.getElementById("left_box");
+  var width_left =  lb.clientWidth;
+  var height_left = rb.clientHeight;
   img.style.maxHeight = height_left + "px";
-  glossary_ele.innerText += "h:" + height_left;
-  glossary_ele.innerText += "nh:" + img.naturalHeight;
+  //glossary_ele.innerText += "h:" + height_left;
+  //glossary_ele.innerText += "nh:" + img.naturalHeight;
 
   // dynamically adjusts gap width
+  // note: the image appears after a short period of the card loading
+  // which makes the image "pop" into place (and doesn't look very good)
+  // not really sure how to fix this though :(
   // https://stackoverflow.com/questions/4787527/how-to-find-the-width-of-a-div-using-vanilla-javascript
   img.onload = function() { // a bit of a hack to require the image to load first before getting the width
-    var width_left = document.getElementById("left_box").clientWidth;
+    //var width_left = document.getElementById("left_box").clientWidth;
     var width_right = img.clientWidth;
     //glossary_ele.innerText += "x:" + width_left + " y:" + width_right
 
-    var width = width_left + width_right;
-    // what https://attacomsian.com/blog/javascript-get-css-styles
+    //var width = width_left + width_right;
+    //// what https://attacomsian.com/blog/javascript-get-css-styles
     var max_width = window.getComputedStyle(document.getElementById("backsidediv")).maxWidth;
     max_width = parseInt(max_width.replace("px", ""));
-    var gap_width = (max_width - width - 3) / 3.5;
+    var gap_width = 35; // TODO get dynamically from css
+    //var gap_width = (max_width - width - 3) / 3.2;
 
-    //document.getElementById("left_gap").style.width  = gap_width + "px";
-    document.getElementById("mid_gap").style.width   = gap_width + "px";
-    //document.getElementById("right_gap").style.width = gap_width + "px";
+    ////document.getElementById("left_gap").style.width  = gap_width + "px";
+    //document.getElementById("mid_gap").style.width   = gap_width + "px";
+    ////document.getElementById("right_gap").style.width = gap_width + "px";
+
+    var add_padding = max_width - (width_left + width_right + gap_width);
+    //glossary_ele.innerText += "nh:" + add_padding;
+    if (add_padding < 0) { // left box is too big, shrink image
+
+      var shrink_size = max_width - width_left + gap_width;
+      img.style.maxWidth = shrink_size + "px";
+
+    } else { // add extra padding to left box to make it bigger
+      var add_padding_side = (add_padding / 2) - 1;
+      document.getElementById("left_box").style.paddingLeft = add_padding_side + "px";
+      document.getElementById("left_box").style.paddingRight = add_padding_side + "px";
+    }
   }
 
 
 </script>
 
+</div> <!-- scrollable -->
 
-</div>
+</div> <!-- backside -->
 
-
+</div> <!-- body -->
 
