@@ -163,10 +163,15 @@ img {
 
 /* moved the hover element to the div to prevent the size transform transition from showing */
 .smallimgdiv {
+  font-size: 40px;
   transition: 0.3s;
 }
 .smallimgdiv:hover {opacity: 0.7;}
 
+
+.smallimgdivreplace {
+  font-size: 40px;
+}
 
 
 
@@ -301,7 +306,7 @@ img {
   color: #fffd9e;
 }
 .fullsentence {
-  font-size: 25px;
+  font-size: 28px;
 }
 .fullsentence ruby rt { opacity: 0; }
 .fullsentence:hover ruby rt { opacity: 1; }

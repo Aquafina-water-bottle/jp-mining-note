@@ -259,15 +259,6 @@
 </details>
 {{/SecondaryDefinition}}
 
-{{#TertiaryDefinition}}
-<details class=glossary>
-    <summary>Tertiary Definition</summary>
-    <blockquote class=glossary>
-    {{TertiaryDefinition}}
-    </blockquote>
-</details>
-{{/TertiaryDefinition}}
-
 {{#AdditionalNotes}}
 <details class=additionalnotes>
     <summary>Additional Notes</summary>
@@ -276,6 +267,16 @@
     </blockquote>
 </details>
 {{/AdditionalNotes}}
+
+
+{{#TertiaryDefinition}}
+<details class=additionalnotes>
+    <summary>Extra Definitions</summary>
+    <blockquote class=additionalnotes>
+    {{TertiaryDefinition}}
+    </blockquote>
+</details>
+{{/TertiaryDefinition}}
 
 
 <!--
@@ -292,63 +293,19 @@
 </div>
 
 <script>
-  // Get the modal
-  var modal = document.getElementById('myModal');
-
-  // Get the image and insert it inside the modal - use its "alt" text as a caption
-  //var img = document.getElementById('myImg');
-  var img = document.getElementById("small_img_div").getElementsByTagName("img")[0];
-  img.classList.add("smallImage");
-  //img.style.maxHeight = document.getElementById("left_box").clientHeight + "px";
-
-  var modalImg = document.getElementById("bigimg");
-  img.onclick = function() {
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    modalImg.alt = this.alt;
-  }
-
-  // When the user clicks on <span> (x), close the modal
-  modal.onclick = function() {
-    //bigimg.className += " out";
-    bigimg.classList.add("out");
-    modal.classList.add("out");
-    setTimeout(function() {
-      modal.style.display = "none";
-      bigimg.className = "modal-content";
-      modal.className = "modal";
-    }, 200);
-
-  }
-
-  // remove all jmdict english dict tags lol
-  var glossary_ele = document.getElementById("glossary");
-  glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
-
-  var lb = document.getElementById("left_box");
-  var rb = document.getElementById("left_box");
-
-  var width_left =  lb.clientWidth;
-  //var saved_width_img = null;
-
-  var height_left = rb.clientHeight;
-  img.style.maxHeight = height_left + "px";
-  //glossary_ele.innerText += "h:" + height_left;
-  //glossary_ele.innerText += "nh:" + img.naturalHeight;
-
 
   // dynamically adjusts gap width
   // note: the image appears after a short period of the card loading
   // which makes the image "pop" into place (and doesn't look very good)
   // not really sure how to fix this though :(
   // https://stackoverflow.com/questions/4787527/how-to-find-the-width-of-a-div-using-vanilla-javascript
-  img.onload = function() { // a bit of a hack to require the image to load first before getting the width
+  function adjust_boxes(width_right, ele_right) {
     //var width_left = document.getElementById("left_box").clientWidth;
     //if (saved_width_img === null) {
     //  saved_width_img = img.clientWidth;
     //}
     //var width_right = saved_width_img;
-    var width_right = img.clientWidth;
+    //var width_right = img.clientWidth;
     //glossary_ele.innerText += "x:" + width_left + " y:" + width_right
 
     //var width = width_left + width_right;
@@ -371,7 +328,7 @@
     if (add_padding < 0) { // left box is too big, shrink image
 
       var shrink_size = current_width - width_left - gap_width;
-      img.style.maxWidth = shrink_size + "px";
+      ele_right.style.maxWidth = shrink_size + "px";
       //document.getElementById("left_box").style.paddingLeft = "0px";
       //document.getElementById("left_box").style.paddingRight = "0px";
 
@@ -381,6 +338,65 @@
       document.getElementById("left_box").style.paddingRight = add_padding_side + "px";
     }
   }
+
+
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // restricting the max height of image to the definition box
+  var lb = document.getElementById("left_box");
+  var rb = document.getElementById("left_box");
+  var smalldiv = document.getElementById("small_img_div");
+  var width_left =  lb.clientWidth;
+  var height_left = rb.clientHeight;
+
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  //var img = document.getElementById('myImg');
+  var img_list = smalldiv.getElementsByTagName("img");
+  if (img_list.length == 1) {
+    var img = smalldiv.getElementsByTagName("img")[0];
+    img.classList.add("smallImage");
+    img.style.maxHeight = height_left + "px";
+
+    var modalImg = document.getElementById("bigimg");
+    img.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      modalImg.alt = this.alt;
+    }
+
+    img.onload = function() { // a bit of a hack to require the image to load first before getting the width
+      adjust_boxes(img.clientWidth, img);
+    }
+
+  } else {
+    // hopefully length is 0 here...
+    // support for no images here: remove 
+    // the hacky method is just to remove the class all together lol
+    smalldiv.className = "smallimgdivreplace";
+    adjust_boxes(smalldiv.clientWidth, smalldiv)
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  modal.onclick = function() {
+    //bigimg.className += " out";
+    bigimg.classList.add("out");
+    modal.classList.add("out");
+    setTimeout(function() {
+      modal.style.display = "none";
+      bigimg.className = "modal-content";
+      modal.className = "modal";
+    }, 200);
+
+  }
+
+  // remove all jmdict english dict tags lol
+  var glossary_ele = document.getElementById("glossary");
+  glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
+
+  //glossary_ele.innerText += "h:" + height_left;
+  //glossary_ele.innerText += "nh:" + img.naturalHeight;
+
 
   //var resizeTimeout;
   //window.addEventListener('resize', function(event) {
