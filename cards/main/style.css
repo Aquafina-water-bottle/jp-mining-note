@@ -8,10 +8,21 @@
 }
 
 
-.bodyidk {
+/*
+.head {
+  flex-shrink: 0;
+}
+
+.body {
+  position: absolute;
   display: flex;
   flex-direction: column;
 }
+
+.scrollable {
+    overflow-y: auto;
+}
+*/
 
 
 @font-face { font-family: yumin; src: url('_yumin.ttf'); }
@@ -76,9 +87,6 @@ ol, ul {
 .rightbox {
 }
 
-.scrollable {
-    overflow-y: auto;
-}
 
 
 
@@ -144,7 +152,7 @@ img {
   cursor: pointer;
   /*transition: 0.3s;*/
   display: block;
-  min-width: 250px;
+  min-width: 200px;
   max-width: 400px;
   max-height: 210px;
   margin-left: auto;
