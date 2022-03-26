@@ -80,6 +80,16 @@ ol, ul {
   border-radius: 10px 10px 0px 0px;
 }
 
+
+.leftboxpa {
+  background: rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 71, 83, 1);
+  padding: 0.5em 0.5em; /* top/bottom, right/left */
+  border-radius: 10px 10px 0px 0px;
+}
+
 .flexboxgap {
   min-width: 35px
 }
