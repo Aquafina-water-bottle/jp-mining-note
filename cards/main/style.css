@@ -320,12 +320,26 @@ img {
 }
 .fullsentence ruby rt { opacity: 0; }
 .fullsentence:hover ruby rt { opacity: 1; }
-
 .wordpitch {
-  font-size: 25px;
+  font-size: 23px;
   font-family: notosans;
   vertical-align:middle;
 }
+
+.downstep {
+  color: #fffd9e;
+}
+.pitchoverline {
+  text-decoration: overline;
+  text-decoration-color: #fffd9e !important;
+}
+.nopron {
+  color: #42a3ff;
+}
+.nasal {
+  color: #f12a2a;
+}
+
 /* overwriting the bold ability:  bold == not the correct sound used in the sound clip */
 .wordpitch b {
   font-weight:normal; /* LMFAO */
