@@ -36,8 +36,6 @@
 
 
 
-
-
 <div id=flex_box_top class=flexboxtop>
 
   <!--<div id=left_gap class=flexboxgap> </div>-->
@@ -66,7 +64,6 @@
         var g_ele = document.getElementById("graph");
         if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
             document.getElementById("graph").remove();
-            document.getElementById("position").remove();
             document.getElementById("boxsep").remove();
 
             /*
@@ -84,8 +81,7 @@
         var g_ele = document.getElementById("graph");
         if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
             // assumes document.getElementById("position").innerText == "No pitch accent data"
-            document.getElementById("graph").remove();
-            document.getElementById("position").innerText = "(N/A)";
+            document.getElementById("graph").innerText = "(N/A)";
         }
     </script>
     {{/WordPitch}}
@@ -97,9 +93,6 @@
             <div class="box-row">
                 <div class="box-cell box1p" id="graph">
                     {{Graph}}
-                </div>
-                <div class="box-cell box2p" id="position">
-                    {{Position}}
                 </div>
                 <div class="box-cell boxsep" id="boxsep">
                     ・
