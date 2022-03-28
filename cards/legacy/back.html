@@ -169,11 +169,18 @@
 
 <div id="backsidediv" class=backside>
 
-
-<div class="fullsentence" id="FullSentence">
-  {{furigana:SentenceReading}}
-</div>
-
+<!-- TODO simplify css / html -->
+<center>
+  <div class="container">
+      <div class="box">
+          <div class="box-row">
+              <div class="fullsentence" id="FullSentence">
+                  {{furigana:SentenceReading}}
+              </div>
+            </div>
+      </div>
+  </div>
+</center>
 
 <!-- https://stackoverflow.com/questions/14380442/make-one-section-of-simple-web-page-have-own-scroll-bar -->
 
@@ -185,7 +192,7 @@
 
 <!-- TODO move -->
 {{#SecondaryDefinition}}
-<details class=glossary>
+<details class=glossarydetails>
     <summary>Secondary Definition</summary>
     <blockquote class=glossary>
     {{SecondaryDefinition}}
@@ -194,7 +201,7 @@
 {{/SecondaryDefinition}}
 
 {{#AdditionalNotes}}
-<details class=additionalnotes>
+<details class=additionalnotesdetails>
     <summary>Additional Notes</summary>
     <blockquote class=additionalnotes>
     {{AdditionalNotes}}
@@ -204,7 +211,7 @@
 
 
 {{#TertiaryDefinition}}
-<details class=additionalnotes>
+<details class=additionalnotesdetails>
     <summary>Extra Definitions</summary>
     <blockquote class=additionalnotes>
     {{TertiaryDefinition}}
@@ -352,3 +359,4 @@
 </script>
 
 </div> <!-- backside -->
+

@@ -139,7 +139,7 @@ blockquote {
   background: rgba(0, 0, 0, 0.1);
   font-size: 18px;
   border-left: 5px solid #ccc;
-  margin: 1em 5px;
+  margin: 0 5px;
   padding: 0.5em 10px;
 }
 blockquote p {
@@ -301,14 +301,27 @@ img {
   font-size: 18px;
   font-family: notosans; /* apparently using a sans font makes crammed kanji like 暇 and 鬱 more readable  */
 }
+.glossary b {
+  color: #fffd9e;
+}
+.glossarydetails {
+  font-size: 18px;
+  font-family: notosans;
+  margin: 0.5em 0 0 0;
+}
 
 
 .additionalnotes {
   font-size: 15px;
-  font-family: notosans; 
+  font-family: notosans;
 }
 .additionalnotes b {
   color: #fffd9e;
+}
+.additionalnotesdetails {
+  font-size: 15px;
+  font-family: notosans;
+  margin: 0.5em 0 0 0;
 }
 
 
@@ -317,6 +330,7 @@ img {
 }
 .fullsentence {
   font-size: 28px;
+  margin: 0 0 0.5em 0;
 }
 .fullsentence ruby rt { opacity: 0; }
 .fullsentence:hover ruby rt { opacity: 1; }
