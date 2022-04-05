@@ -1,0 +1,240 @@
+
+
+{{~! all bilingual definitions ~}}
+{{~#*inline "glossary-bilingual"~}}
+
+    {{~#scope~}}
+
+        {{~#set "valid-dict-found" false}}{{/set~}}
+        {{~#each definition.definitions~}}
+            {{~! CONDITION 1 ~}}
+            {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+                {{~#set "valid-dict-found" true}}{{/set~}}
+            {{~/if~}}
+        {{~/each~}}
+
+        {{~#if (get "valid-dict-found")~}}
+            <div style="text-align: left;"><ol>
+            {{~#each definition.definitions~}}
+                {{~! CONDITION 2 ~}}
+                {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                {{~/if~}}
+            {{~/each~}}
+            <ol></div>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+{{~! first biliingual definition found ~}}
+{{~! (A) what I use ~}}
+{{~#*inline "glossary-bilingual-first"~}}
+
+    {{~#scope~}}
+
+        {{~#set "first-dictionary" null}}{{/set~}}
+
+        {{~#set "valid-dict-found" false}}{{/set~}}
+        {{~#each definition.definitions~}}
+            {{~! CONDITION 1 ~}}
+            {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+                {{~#set "valid-dict-found" true}}{{/set~}}
+
+                {{~#if (op "===" null (get "first-dictionary"))~}}
+                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                {{~/if~}}
+
+            {{~/if~}}
+        {{~/each~}}
+
+        {{~#if (get "valid-dict-found")~}}
+            <div style="text-align: left;"><ol>
+            {{~#each definition.definitions~}}
+                {{~! CONDITION 2 ~}}
+                {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+
+                    {{~#if (op "===" dictionary (get "first-dictionary"))~}}
+                        <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                    {{~/if~}}
+                {{~/if~}}
+            {{~/each~}}
+            </ol></div>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+
+
+
+{{~! all mononlingual definitions ~}}
+{{~#*inline "glossary-monolingual"~}}
+
+    {{~#scope~}}
+
+        {{~#set "valid-dict-found" false}}{{/set~}}
+        {{~#each definition.definitions~}}
+            {{~! CONDITION 1 ~}}
+            {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+                {{~#set "valid-dict-found" true}}{{/set~}}
+            {{~/if~}}
+        {{~/each~}}
+
+        {{~#if (get "valid-dict-found")~}}
+            <div style="text-align: left;"><ol>
+            {{~#each definition.definitions~}}
+                {{~! CONDITION 2 ~}}
+                {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                {{~/if~}}
+            {{~/each~}}
+            <ol></div>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+
+{{~! first mononlingual definition ~}}
+{{~! (B) what I use ~}}
+{{~#*inline "glossary-monolingual-first"~}}
+
+    {{~#scope~}}
+
+        {{~#set "first-dictionary" null}}{{/set~}}
+
+        {{~#set "valid-dict-found" false}}{{/set~}}
+        {{~#each definition.definitions~}}
+            {{~! CONDITION 1 ~}}
+            {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+                {{~#set "valid-dict-found" true}}{{/set~}}
+
+                {{~#if (op "===" null (get "first-dictionary"))~}}
+                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                {{~/if~}}
+
+            {{~/if~}}
+        {{~/each~}}
+
+        {{~#if (get "valid-dict-found")~}}
+            <div style="text-align: left;"><ol>
+            {{~#each definition.definitions~}}
+                {{~! CONDITION 2 ~}}
+                {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+
+                    {{~#if (op "===" dictionary (get "first-dictionary"))~}}
+                        <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                    {{~/if~}}
+                {{~/if~}}
+            {{~/each~}}
+            </ol></div>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+
+
+{{~! everything but the first mononlingual definition ~}}
+{{~#*inline "glossary-monolingual-extra"~}}
+
+    {{~#scope~}}
+
+        {{~#set "first-dictionary" null}}{{/set~}}
+
+        {{~#set "valid-dict-found" false}}{{/set~}}
+        {{~#each definition.definitions~}}
+            {{~! CONDITION 1 ~}}
+            {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+                {{~#set "valid-dict-found" true}}{{/set~}}
+
+                {{~#if (op "===" null (get "first-dictionary"))~}}
+                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                {{~/if~}}
+
+            {{~/if~}}
+        {{~/each~}}
+
+        {{~#if (get "valid-dict-found")~}}
+            <div style="text-align: left;"><ol>
+            {{~#each definition.definitions~}}
+                {{~! CONDITION 2 ~}}
+                {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+
+                    {{~#if (op "!==" dictionary (get "first-dictionary"))~}}
+                        <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                    {{~/if~}}
+                {{~/if~}}
+            {{~/each~}}
+            </ol></div>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+
+
+
+
+
+{{~! everything BUT the first bilingual and first monolingual definition ~}}
+{{~! (C) what I use ~}}
+{{~#*inline "glossary-extra"~}}
+
+    {{~#scope~}}
+
+        {{~#set "first-monolingual-dict" null}}{{/set~}}
+        {{~#set "first-bilingual-dict" null}}{{/set~}}
+
+        {{~#set "valid-dict-found" false}}{{/set~}}
+        {{~#each definition.definitions~}}
+            {{~! CONDITION 1 ~}}
+
+            {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+
+                {{~#if (op "===" null (get "first-bilingual-dict"))~}}
+                    {{~#set "first-bilingual-dict" dictionary~}}{{~/set~}}
+                {{~else~}}
+                    {{~#set "valid-dict-found" true}}{{/set~}}
+                {{~/if~}}
+
+            {{~else~}}
+
+                {{~#if (op "===" null (get "first-monolingual-dict"))~}}
+                    {{~#set "first-monolingual-dict" dictionary~}}{{~/set~}}
+                {{~else~}}
+                    {{~#set "valid-dict-found" true}}{{/set~}}
+                {{~/if~}}
+
+            {{~/if~}}
+
+        {{~/each~}}
+
+        {{~#if (get "valid-dict-found")~}}
+            <div style="text-align: left;"><ol>
+            {{~#each definition.definitions~}}
+                {{~! not the first monolingual/bilingual dicts found ~}}
+                {{~#if (op "&&" (op "!==" dictionary (get "first-bilingual-dict")) (op "!==" dictionary (get "first-monolingual-dict")) )~}}
+                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                {{~/if~}}
+            {{~/each~}}
+            </ol></div>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+
