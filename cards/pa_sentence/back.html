@@ -2,14 +2,27 @@
   PA Sentence Card
 </div>
 
-<!-- priority is on the alternate display sentence -->
-{{#AltDisplay}}
-  <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
-{{/AltDisplay}}
+<!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
+<!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
 
-{{^AltDisplay}}
-  <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
-{{/AltDisplay}}
+<!-- option 1: AltDisplayPASentenceCard -->
+{{#AltDisplayPASentenceCard}}
+  <div class="expression overridedisplay" id="Display">{{furigana:AltDisplayPASentenceCard}}</div>
+{{/AltDisplayPASentenceCard}}
+
+
+{{^AltDisplayPASentenceCard}}
+  <!-- option 2: AltDisplay -->
+  {{#AltDisplay}}
+    <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+  {{/AltDisplay}}
+
+  <!-- option 3: Sentence -->
+  {{^AltDisplay}}
+    <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+  {{/AltDisplay}}
+
+{{/AltDisplayPASentenceCard}}
 
 
 <center>

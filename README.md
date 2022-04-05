@@ -23,7 +23,7 @@ VERY WIP Anki card type.
 * Sentence
 * SentenceReading
 * AltDisplay
-* AltDisplayPASentenceCad
+* AltDisplayPASentenceCard
 * AdditionalNotes
 * IsSentenceCard
 * PASeparateLegacyCard
