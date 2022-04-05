@@ -3,13 +3,13 @@
 </div>
 
 <!-- priority is on the alternate display sentence -->
-{{#AltDisplaySentence}}
-  <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
-{{/AltDisplaySentence}}
+{{#AltDisplay}}
+  <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+{{/AltDisplay}}
 
-{{^AltDisplaySentence}}
+{{^AltDisplay}}
   <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
-{{/AltDisplaySentence}}
+{{/AltDisplay}}
 
 
 <center>
@@ -45,7 +45,7 @@
   <!-- everything on the left side -->
   <div id=left_box class=leftboxpa>
 
-    <div class=reading> {{furigana:Reading}} </div>
+    <div class=reading> {{furigana:WordReading}} </div>
     <!--
     {{#WordPitch}}
      <div style='font-size: 20px;'  id="WordPitch2"> <p> </p> </div>
@@ -100,7 +100,7 @@
                     ・
                 </div>
                 <div class="box-cell box3p">
-                     {{Audio}} <span id="hackaudio"> {{SentenceAudio}} </span>
+                     {{WordAudio}} <span id="hackaudio"> {{SentenceAudio}} </span>
                 </div>
             </div>
         </div>
@@ -172,14 +172,14 @@
 {{/AdditionalNotes}}
 
 
-{{#TertiaryDefinition}}
+{{#ExtraDefinitions}}
 <details class=additionalnotesdetails>
     <summary>Extra Definitions</summary>
     <blockquote class=additionalnotes>
-    {{TertiaryDefinition}}
+    {{ExtraDefinitions}}
     </blockquote>
 </details>
-{{/TertiaryDefinition}}
+{{/ExtraDefinitions}}
 
 
 <!--

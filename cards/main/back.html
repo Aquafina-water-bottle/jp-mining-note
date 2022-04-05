@@ -1,5 +1,3 @@
-
-
 <div class="cardDesc">
   Mining Card:
 
@@ -68,13 +66,13 @@
 <!-- listening unknown card -->
 {{#IsListeningUnknownWordCard}}
     <!-- defaults to sentence card -->
-    {{#AltDisplaySentence}}
-        <div class="expression" id="Display">{{furigana:AltDisplaySentence}}</div>
-    {{/AltDisplaySentence}}
+    {{#AltDisplay}}
+        <div class="expression" id="Display">{{furigana:AltDisplay}}</div>
+    {{/AltDisplay}}
 
-    {{^AltDisplaySentence}}
+    {{^AltDisplay}}
         <div class="expression" id="Display">{{Sentence}}</div>
-    {{/AltDisplaySentence}}
+    {{/AltDisplay}}
 
     <script>
         document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
@@ -90,19 +88,19 @@
 {{^IsListeningUnknownWordCard}}
 
 <!-- priority is on the alternate display sentence -->
-{{#AltDisplaySentence}}
+{{#AltDisplay}}
     {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
+        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplaySentence}}</div>
+        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
-{{/AltDisplaySentence}}
+{{/AltDisplay}}
 
 
 <!-- no alt display sentence, not listening card -->
-{{^AltDisplaySentence}}
+{{^AltDisplay}}
 
     {{#IsSentenceCard}}
         <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
@@ -112,7 +110,7 @@
         <div class="expression" id="Display", style='font-size: 70px;'>{{Word}}</div>
     {{/IsSentenceCard}}
 
-{{/AltDisplaySentence}}
+{{/AltDisplay}}
 
 
 
@@ -191,12 +189,11 @@
 
 
 
-
-
-
-
-
 <hr id=answer width="95%">
+
+
+
+
 
 <div id=flex_box_top class=flexboxtop>
 
@@ -205,7 +202,7 @@
   <!-- everything on the left side -->
   <div id=left_box class=leftbox>
 
-    <div class=reading> {{furigana:Reading}} </div>
+    <div class=reading> {{furigana:WordReading}} </div>
     {{#WordPitch}}
      <div style='font-size: 20px;'  id="WordPitch2"> <p> </p> </div>
      <div class="wordpitch" id="WordPitch">
@@ -214,7 +211,7 @@
     {{/WordPitch}}
 
      <div class="wordpitch" id="WordPitch">
-        {{Audio}} {{SentenceAudio}}
+        {{WordAudio}} {{SentenceAudio}}
     </div>
   </div>
 
@@ -235,6 +232,8 @@
 
 
 <div id="backsidediv" class=backside>
+
+
 
 <!-- TODO simplify css / html -->
 <center>
@@ -277,14 +276,14 @@
 {{/AdditionalNotes}}
 
 
-{{#TertiaryDefinition}}
+{{#ExtraDefinitions}}
 <details class=additionalnotesdetails>
     <summary>Extra Definitions</summary>
     <blockquote class=additionalnotes>
-    {{TertiaryDefinition}}
+    {{ExtraDefinitions}}
     </blockquote>
 </details>
-{{/TertiaryDefinition}}
+{{/ExtraDefinitions}}
 
 
 <!--

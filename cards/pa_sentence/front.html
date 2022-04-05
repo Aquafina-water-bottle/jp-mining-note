@@ -12,13 +12,13 @@
 <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
 
 <!-- priority is on the alternate display sentence -->
-{{#AltDisplaySentence}}
-  <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
-{{/AltDisplaySentence}}
+{{#AltDisplay}}
+  <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+{{/AltDisplay}}
 
-{{^AltDisplaySentence}}
+{{^AltDisplay}}
   <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
-{{/AltDisplaySentence}}
+{{/AltDisplay}}
 
 
 

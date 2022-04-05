@@ -13,3 +13,29 @@ VERY WIP Anki card type.
   * How to setup mandatory Anki plugins
   * How to setup Yomichan (templates and anki fields)
 * Add sample cards
+
+## Anki Fields
+* Word
+* WordReading
+* WordPitch
+* PrimaryDefinition
+* SecondaryDefinition
+* Sentence
+* SentenceReading
+* AltDisplay
+* AltDisplayPASentenceCad
+* AdditionalNotes
+* IsSentenceCard
+* PASeparateLegacyCard
+* PASeparateSentenceCard
+* PADoNotTest
+* IsListeningUnknownWordCard
+* Hint
+* Picture
+* WordAudio
+* SentenceAudio
+* Graph
+* Position
+* PASilence
+* ExtraDefinitions
+* Comment

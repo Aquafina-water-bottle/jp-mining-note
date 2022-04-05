@@ -24,23 +24,23 @@
 </div>
 
 <!-- priority is on the alternate display sentence -->
-{{#AltDisplaySentence}}
+{{#AltDisplay}}
     {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
+        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplaySentence}}</div>
+        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     <details>
         <summary class=glossary>Full Sentence</summary>
          <div class=fullsentence id="fullsentence">「{{furigana:SentenceReading}}」</div>
     </details>
-{{/AltDisplaySentence}}
+{{/AltDisplay}}
 
 
-{{^AltDisplaySentence}}
+{{^AltDisplay}}
 
     <!-- if it is a sentence card, remove "bold" -->
     {{#IsSentenceCard}}
@@ -56,7 +56,7 @@
     {{^IsSentenceCard}}
         <div class="expression" id="Display">「{{furigana:SentenceReading}}」</div>
     {{/IsSentenceCard}}
-{{/AltDisplaySentence}}
+{{/AltDisplay}}
 
 
 

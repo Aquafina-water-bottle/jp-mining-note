@@ -79,13 +79,13 @@
 <!-- listening unknown card -->
 {{#IsListeningUnknownWordCard}}
     <!-- defaults to sentence card -->
-    {{#AltDisplaySentence}}
-        <div class="expression" id="Display">{{furigana:AltDisplaySentence}}</div>
-    {{/AltDisplaySentence}}
+    {{#AltDisplay}}
+        <div class="expression" id="Display">{{furigana:AltDisplay}}</div>
+    {{/AltDisplay}}
 
-    {{^AltDisplaySentence}}
+    {{^AltDisplay}}
         <div class="expression" id="Display">{{Sentence}}</div>
-    {{/AltDisplaySentence}}
+    {{/AltDisplay}}
 
     <script>
         document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
@@ -101,19 +101,19 @@
 {{^IsListeningUnknownWordCard}}
 
 <!-- priority is on the alternate display sentence -->
-{{#AltDisplaySentence}}
+{{#AltDisplay}}
     {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplaySentence}}</div>
+        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplaySentence}}</div>
+        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
-{{/AltDisplaySentence}}
+{{/AltDisplay}}
 
 
 <!-- no alt display sentence, not listening card -->
-{{^AltDisplaySentence}}
+{{^AltDisplay}}
 
     {{#IsSentenceCard}}
         <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
@@ -123,7 +123,7 @@
         <div class="expression" id="Display", style='font-size: 70px;'>{{Word}}</div>
     {{/IsSentenceCard}}
 
-{{/AltDisplaySentence}}
+{{/AltDisplay}}
 
 
 
@@ -255,7 +255,7 @@
       {{SentenceAudio}}
     {{/SentenceAudio}}
     {{^SentenceAudio}}
-      {{Audio}}
+      {{WordAudio}}
     {{/SentenceAudio}}
   </span>
 
