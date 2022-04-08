@@ -65,13 +65,13 @@
 
 <!-- listening unknown card -->
 {{#IsClozeDeletionCard}}
-    <!-- defaults to sentence card -->
+    <!-- defaults to alt display -->
     {{#AltDisplay}}
-        <div class="expression" id="Display">{{furigana:AltDisplay}}</div>
+        <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
     {{/AltDisplay}}
 
     {{^AltDisplay}}
-        <div class="expression" id="Display">{{Sentence}}</div>
+        <div class="expression expression--single" id="Display">{{Sentence}}</div>
     {{/AltDisplay}}
 
     <script>
@@ -87,28 +87,17 @@
 <!-- not listening card -->
 {{^IsClozeDeletionCard}}
 
-<div class="expression-box">
+<!-- legacy display -->
+{{#PADoNotShowInfoLegacy}}
 
   <!-- priority is on the alternate display sentence -->
   {{#AltDisplay}}
     {{#IsSentenceCard}}
-      <div class="flag-box">
-        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-          style="display:inline-block;vertical-align:middle;height:1.5em;">
-          <circle id="flag-box__circle" cx="35" cy="11" r="7"></circle>
-        </svg>
-      </div>
-      <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+      <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-      <div class="flag-box">
-        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-          style="display:inline-block;vertical-align:middle;height:1.5em;">
-          <circle id="flag-box__circle" cx="25" cy="15" r="7"></circle>
-        </svg>
-      </div>
-      <div class="expression expression--word" id="Display">{{furigana:AltDisplay}}</div>
+      <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
   {{/AltDisplay}}
 
@@ -116,27 +105,71 @@
   <!-- no alt display sentence, not listening card -->
   {{^AltDisplay}}
     {{#IsSentenceCard}}
-      <div class="flag-box">
-        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-          style="display:inline-block;vertical-align:middle;height:1.5em;">
-          <circle id="flag-box__circle" cx="35" cy="11" r="7"></circle>
-        </svg>
-      </div>
-      <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+      <div class="expression expression--single overridedisplay" id="Display">「{{Sentence}}」</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-      <div class="flag-box">
-        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-          style="display:inline-block;vertical-align:middle;height:1.5em;">
-          <circle id="flag-box__circle" cx="25" cy="15" r="7"></circle>
-        </svg>
-      </div>
-      <div class="expression expression--word" id="Display">{{Word}}</div>
+      <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
     {{/IsSentenceCard}}
   {{/AltDisplay}}
 
-</div>
+{{/PADoNotShowInfoLegacy}}
+
+
+<!-- regular display -->
+{{^PADoNotShowInfoLegacy}}
+  <div class="expression-box">
+
+    <!-- priority is on the alternate display sentence -->
+    {{#AltDisplay}}
+      {{#IsSentenceCard}}
+        <div class="flag-box">
+          <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+            style="display:inline-block;vertical-align:middle;height:1.5em;">
+            <circle id="flag-box__circle" cx="35" cy="11" r="7"></circle>
+          </svg>
+        </div>
+        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+      {{/IsSentenceCard}}
+
+      {{^IsSentenceCard}}
+        <div class="flag-box">
+          <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+            style="display:inline-block;vertical-align:middle;height:1.5em;">
+            <circle id="flag-box__circle" cx="25" cy="15" r="7"></circle>
+          </svg>
+        </div>
+        <div class="expression expression--word" id="Display">{{furigana:AltDisplay}}</div>
+      {{/IsSentenceCard}}
+    {{/AltDisplay}}
+
+
+    <!-- no alt display sentence, not listening card -->
+    {{^AltDisplay}}
+      {{#IsSentenceCard}}
+        <div class="flag-box">
+          <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+            style="display:inline-block;vertical-align:middle;height:1.5em;">
+            <circle id="flag-box__circle" cx="35" cy="11" r="7"></circle>
+          </svg>
+        </div>
+        <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+      {{/IsSentenceCard}}
+
+      {{^IsSentenceCard}}
+        <div class="flag-box">
+          <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+            style="display:inline-block;vertical-align:middle;height:1.5em;">
+            <circle id="flag-box__circle" cx="25" cy="15" r="7"></circle>
+          </svg>
+        </div>
+        <div class="expression expression--word" id="Display">{{Word}}</div>
+      {{/IsSentenceCard}}
+    {{/AltDisplay}}
+
+  </div>
+
+{{/PADoNotShowInfoLegacy}}
 
 
 {{/IsClozeDeletionCard}}
