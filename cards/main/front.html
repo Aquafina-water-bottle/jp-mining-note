@@ -96,35 +96,59 @@
 
 
 
-
 <!-- not listening card -->
 {{^IsListeningUnknownWordCard}}
 
-<!-- priority is on the alternate display sentence -->
-{{#AltDisplay}}
+<div class="expression-box">
+
+  <!-- priority is on the alternate display sentence -->
+  {{#AltDisplay}}
     {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+      <div class="flag-box">
+        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+          style="display:inline-block;vertical-align:middle;height:1.5em;">
+          <circle id="flag-box__circle" cx="35" cy="11" r="7"></circle>
+        </svg>
+      </div>
+      <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
+      <div class="flag-box">
+        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+          style="display:inline-block;vertical-align:middle;height:1.5em;">
+          <circle id="flag-box__circle" cx="25" cy="15" r="7"></circle>
+        </svg>
+      </div>
+      <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
-{{/AltDisplay}}
+  {{/AltDisplay}}
 
 
-<!-- no alt display sentence, not listening card -->
-{{^AltDisplay}}
-
+  <!-- no alt display sentence, not listening card -->
+  {{^AltDisplay}}
     {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+      <div class="flag-box">
+        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+          style="display:inline-block;vertical-align:middle;height:1.5em;">
+          <circle id="flag-box__circle" cx="35" cy="11" r="7"></circle>
+        </svg>
+      </div>
+      <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display", style='font-size: 70px;'>{{Word}}</div>
+      <div class="flag-box">
+        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+          style="display:inline-block;vertical-align:middle;height:1.5em;">
+          <circle id="flag-box__circle" cx="25" cy="15" r="7"></circle>
+        </svg>
+      </div>
+      <div class="expression" id="Display", style='font-size: 70px;'>{{Word}}</div>
     {{/IsSentenceCard}}
+  {{/AltDisplay}}
 
-{{/AltDisplay}}
-
+</div>
 
 
 {{/IsListeningUnknownWordCard}}
@@ -217,7 +241,9 @@
 
 
   <script>
-    // THIS IS A HACK
+    // =====================
+    //  THIS PART IS A HACK
+    // =====================
     // this hack is to not auto-play the audio at the front of the card
     // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
     // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
@@ -227,27 +253,23 @@
     }
 
 
-    // adds * at the front
-    var d = document.getElementById("Display");
-
+    // ======================
+    //  Word pitch indicator
+    // ======================
     var style_class = "";
     if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") { // either PASeparateSentenceCard or PATestOnlyWord
-      style_class = "testPAWordStar";
+      style_class = "flag-box__circle--word";
     } else {
-      style_class = "testPAStar";
+      style_class = "flag-box__circle--all";
     }
 
     // ~(isSentenceCard) overrides style (should be test PA star)
     if (!"{{IsSentenceCard}}") {
-      style_class = "testPAStar"
+      style_class = "flag-box__circle--all"
     }
 
-    if (d.innerText[0] == "「") { // makes styling look better
-        d.innerHTML =  "<span class=" + style_class + ">*</span>" + d.innerHTML;
-    } else {
-        d.innerHTML =  "<span class=" + style_class + ">*&nbsp</span>" + d.innerHTML + "<span class=testPAStar>&nbsp&nbsp</span>";
-    }
-
+    var circ = document.getElementById("flag-box__circle");
+    circ.classList.add(style_class);
   </script>
   <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
   <span id="audio-front">
@@ -267,12 +289,8 @@
 {{#PADoNotTest}}
 
   <script>
-    var d = document.getElementById("Display");
-    if (d.innerText[0] == "「") {
-        d.innerHTML =  "<span class=noTestPAStar>×</span>" + d.innerHTML;
-    } else {
-        d.innerHTML =  "<span class=noTestPAStar>×&nbsp</span>" + d.innerHTML + "<span class=testPAStar>&nbsp&nbsp</span>";
-    }
+    var circ = document.getElementById("flag-box__circle");
+    circ.classList.add("flag-box__circle--none");
   </script>
 
 {{/PADoNotTest}}

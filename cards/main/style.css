@@ -2,7 +2,7 @@
  * Going to attempt to adhere to the following conventions: (currently not done)
  * - js: camelCase
  * - html id's: snake_case
- * - css id's: BEM
+ * - css id's: BEM https://www.freecodecamp.org/news/css-naming-conventions-that-will-save-you-hours-of-debugging-35cea737d849/
  * - all tabs should be 2 spaces long, and anki templates count for tab spaces
  */
 
@@ -67,36 +67,64 @@ ol, ul {
   text-align: left;
 }
 
-/* TODO make this prettier */
-.testPAStar {
-    color: #5cf570;
-    vertical-align: top;
-    font-size: 50px;
+
+
+/*.wtf {
+  position: absolute;
+  width: 10;
+  height: 10;
+  left: 100px;
+  bottom: 0px;
+}*/
+
+
+
+/* wtf? */
+/* https://stackoverflow.com/a/38948646 (ver 5) */
+.expression-box {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-column-gap: 5px;
+  justify-items: center;
+
+  margin-bottom: -0.0em;
+  margin-top: 0.3em;
+  font-size: 50px;
+  font-family: hiragino;
 }
-.testPAWordStar {
-    color: #34dbef;
-    vertical-align: top;
-    font-size: 50px;
+
+.flag-box {
+  margin-left: auto;
+  grid-column-start: 1;
 }
-.noTestPAStar {
-    color: #f53b39;
-    vertical-align: top;
-    font-size: 40px;
-    font-weight: bold;
+
+.flag-box__circle {
 }
-.defaultTestPAStar { /* unused */
-    color: #21dd1e;
-    vertical-align: top;
-    font-size: 50px;
+
+
+.flag-box__circle--all { /* test entire display (whether it's a word or sentence) */
+    fill: #5cf570;
+}
+.flag-box__circle--word {
+    fill: #34dbef;
+}
+.flag-box__circle--none {
+    fill: #f53b39;
+}
+.flag-box__circle--default { /* unused */
+    fill: #21dd1e;
 }
 
 
 /* space at the top of the window */
 .expression {
-  margin-bottom: -0.0em;
+  /*margin-left: auto;
+  grid-column-start: 1;*/
+
+  /*margin-bottom: -0.0em;
   margin-top: 0.3em;
   font-size: 50px;
-  font-family: hiragino;
+  font-family: hiragino;*/
 }
 
 .expression b {
