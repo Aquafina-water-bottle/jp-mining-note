@@ -274,18 +274,6 @@
 
 
   <script>
-    // =====================
-    //  THIS PART IS A HACK
-    // =====================
-    // this hack is to not auto-play the audio at the front of the card
-    // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
-    // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
-    var elem = document.querySelector(".soundLink, .replaybutton");
-    if (elem) {
-      elem.click();
-    }
-
-
     // ======================
     //  Word pitch indicator
     // ======================
@@ -304,15 +292,6 @@
     var circ = document.getElementById("flag-box__circle");
     circ.classList.add(style_class);
   </script>
-  <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
-  <span id="audio-front">
-    {{#SentenceAudio}}
-      {{SentenceAudio}}
-    {{/SentenceAudio}}
-    {{^SentenceAudio}}
-      {{WordAudio}}
-    {{/SentenceAudio}}
-  </span>
 
 
 {{/PADoNotTest}}
@@ -327,6 +306,30 @@
   </script>
 
 {{/PADoNotTest}}
+
+
+  <script>
+    // =====================
+    //  THIS PART IS A HACK
+    // =====================
+    // this hack is to not auto-play the audio at the front of the card
+    // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
+    // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
+    var elem = document.querySelector(".soundLink, .replaybutton");
+    if (elem) {
+      elem.click();
+    }
+  </script>
+
+  <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
+  <span id="audio-front">
+    {{#SentenceAudio}}
+      {{SentenceAudio}}
+    {{/SentenceAudio}}
+    {{^SentenceAudio}}
+      {{WordAudio}}
+    {{/SentenceAudio}}
+  </span>
 
 
 {{/IsClozeDeletionCard}}
