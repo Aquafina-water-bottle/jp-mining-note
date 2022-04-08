@@ -26,10 +26,12 @@ VERY WIP Anki card type.
 * AltDisplayPASentenceCard
 * AdditionalNotes
 * IsSentenceCard
-* PASeparateLegacyCard
+* PASeparateWordCard
 * PASeparateSentenceCard
+* PATestOnlyWord
 * PADoNotTest
-* IsListeningUnknownWordCard
+* PADoNotShowInfoLegacy
+* IsClozeDeletionCard
 * Hint
 * Picture
 * WordAudio

@@ -11,18 +11,18 @@
 
   /
 
-  {{#IsListeningUnknownWordCard}}
+  {{#IsClozeDeletionCard}}
     Listening
-  {{/IsListeningUnknownWordCard}}
+  {{/IsClozeDeletionCard}}
 
   <!-- not listening card -->
-  {{^IsListeningUnknownWordCard}}
-    {{#PASeparateCardLegacy}}
+  {{^IsClozeDeletionCard}}
+    {{#PADoNotShowInfoLegacy}}
       Legacy
-    {{/PASeparateCardLegacy}}
+    {{/PADoNotShowInfoLegacy}}
 
     <!-- not legacy card -->
-    {{^PASeparateCardLegacy}}
+    {{^PADoNotShowInfoLegacy}}
 
       {{#PADoNotTest}}
         None
@@ -55,16 +55,16 @@
 
       {{/PADoNotTest}}
 
-    {{/PASeparateCardLegacy}}
+    {{/PADoNotShowInfoLegacy}}
 
-  {{/IsListeningUnknownWordCard}}
+  {{/IsClozeDeletionCard}}
 </div>
 
 
 
 
 <!-- listening unknown card -->
-{{#IsListeningUnknownWordCard}}
+{{#IsClozeDeletionCard}}
     <!-- defaults to sentence card -->
     {{#AltDisplay}}
         <div class="expression" id="Display">{{furigana:AltDisplay}}</div>
@@ -78,14 +78,14 @@
         document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
     </script>
 
-{{/IsListeningUnknownWordCard}}
+{{/IsClozeDeletionCard}}
 
 
 
 
 
 <!-- not listening card -->
-{{^IsListeningUnknownWordCard}}
+{{^IsClozeDeletionCard}}
 
 <div class="expression-box">
 
@@ -139,7 +139,7 @@
 </div>
 
 
-{{/IsListeningUnknownWordCard}}
+{{/IsClozeDeletionCard}}
 <!-- not listening card -->
 
 
@@ -155,7 +155,7 @@
 
 
 <!-- do not separate pitch accent card -->
-{{^PASeparateCardLegacy}}
+{{^PADoNotShowInfoLegacy}}
 
 <!-- for pitch accent to be properly tested:
   - Must not be already a listening card here
@@ -163,7 +163,7 @@
   - WordPitch be non-empty
 -->
 
-{{^IsListeningUnknownWordCard}}
+{{^IsClozeDeletionCard}}
 
 {{^PADoNotTest}}
 
@@ -202,9 +202,9 @@
 {{/PADoNotTest}}
 
 
-{{/IsListeningUnknownWordCard}}
+{{/IsClozeDeletionCard}}
 
-{{/PASeparateCardLegacy}}
+{{/PADoNotShowInfoLegacy}}
 
 
 
