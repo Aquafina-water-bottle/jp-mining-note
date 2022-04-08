@@ -19,16 +19,20 @@
 <!-- priority is on the alternate display sentence -->
 {{#AltDisplay}}
     {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+        <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
+        <div class="expression expression--single" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     <details>
-        <summary class=glossary>Full Sentence</summary>
-         <div class=fullsentence id="fullsentence">「{{furigana:SentenceReading}}」</div>
+      <summary class=glossary>Full Sentence</summary>
+      <div class="center-box-1">
+        <div class="center-box-2">
+          <div class=fullsentence id="fullsentencefront">「{{Sentence}}」</div>
+        </div>
+      </div>
     </details>
 {{/AltDisplay}}
 
@@ -38,16 +42,16 @@
     <!-- if it is a sentence card, remove "bold" -->
     {{#IsSentenceCard}}
         {{#PATestOnlyWord}}
-            <div class="expression" id="Display">「{{furigana:SentenceReading}}」</div>
+            <div class="expression expression--single" id="Display">「{{furigana:SentenceReading}}」</div>
         {{/PATestOnlyWord}}
 
         {{^PATestOnlyWord}}
-            <div class="expression overridedisplay" id="Display">「{{furigana:SentenceReading}}」</div>
+            <div class="expression expression--single overridedisplay" id="Display">「{{furigana:SentenceReading}}」</div>
         {{/PATestOnlyWord}}
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display">「{{furigana:SentenceReading}}」</div>
+        <div class="expression expression--single" id="Display">「{{furigana:SentenceReading}}」</div>
     {{/IsSentenceCard}}
 {{/AltDisplay}}
 

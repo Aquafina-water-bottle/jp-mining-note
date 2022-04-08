@@ -1,4 +1,4 @@
-{{#PASeparateSentenceCard}}
+{{#PASeparateWordCard}}
 
 
 <!--
@@ -6,30 +6,33 @@
   - does NOT test meaning
 -->
 <div class="cardDesc">
-  PA Sentence Card
+  PA Word Card
 </div>
 
-<!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
-<!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
-
-<!-- option 1: AltDisplayPASentenceCard -->
-{{#AltDisplayPASentenceCard}}
-  <div class="expression expression--single overridedisplay" id="Display">「{{furigana:AltDisplayPASentenceCard}}」</div>
-{{/AltDisplayPASentenceCard}}
-
-
+<!-- note that for the PA separate word card, the front is ALWAYS a word -->
+<!-- priority: AltDisplay -> Word -->
 {{^AltDisplayPASentenceCard}}
-  <!-- option 2: AltDisplay -->
+  <!-- option 1: AltDisplay -->
   {{#AltDisplay}}
-    <div class="expression expression--single overridedisplay" id="Display">「{{furigana:AltDisplay}}」</div>
+    <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
   {{/AltDisplay}}
 
-  <!-- option 3: Sentence -->
+  <!-- option 2: Word -->
   {{^AltDisplay}}
-    <div class="expression expression--single overridedisplay" id="Display">「{{Sentence}}」</div>
+    <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
   {{/AltDisplay}}
 
 {{/AltDisplayPASentenceCard}}
+
+
+<details>
+  <summary class=glossary>Full Sentence</summary>
+  <div class="center-box-1">
+    <div class="center-box-2">
+      <div class=fullsentence id="fullsentencefront">「{{Sentence}}」</div>
+    </div>
+  </div>
+</details>
 
 
 <script>
@@ -53,4 +56,4 @@
 {{/Hint}}
 
 
-{{/PASeparateSentenceCard}}
+{{/PASeparateWordCard}}

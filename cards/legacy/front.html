@@ -1,3 +1,13 @@
+<!--
+  IMPORTANT!!!
+
+  This card type is no longer maintained, and has been succeeded
+  with `PA Sentence Card` and `PA Word Card`.
+  This is left here in the code for historical purposes.
+
+  There is no guarantee that this card type will work with the most up-to-date note,
+  as field names, id names and css class names may be different.
+-->
 {{#PASeparateCardLegacy}}
 
 
@@ -26,11 +36,11 @@
 <!-- priority is on the alternate display sentence -->
 {{#AltDisplay}}
     {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+        <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
+        <div class="expression expression--single" id="Display", style='font-size: 70px;'>{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     <details>
@@ -49,16 +59,16 @@
     <!-- if it is a sentence card, remove "bold" -->
     {{#IsSentenceCard}}
         {{#PATestOnlyWord}}
-            <div class="expression" id="Display">「{{furigana:SentenceReading}}」</div>
+            <div class="expression expression--single" id="Display">「{{furigana:SentenceReading}}」</div>
         {{/PATestOnlyWord}}
 
         {{^PATestOnlyWord}}
-            <div class="expression overridedisplay" id="Display">「{{furigana:SentenceReading}}」</div>
+            <div class="expression expression--single overridedisplay" id="Display">「{{furigana:SentenceReading}}」</div>
         {{/PATestOnlyWord}}
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
-        <div class="expression" id="Display">「{{furigana:SentenceReading}}」</div>
+        <div class="expression expression--single" id="Display">「{{furigana:SentenceReading}}」</div>
     {{/IsSentenceCard}}
 {{/AltDisplay}}
 

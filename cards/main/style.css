@@ -135,6 +135,19 @@ ol, ul {
 .expression:hover ruby rt { opacity: 1; }
 
 
+/* used in other cards where PA flag is not shown */
+.expression--single {
+  margin-bottom: -0.0em;
+  margin-top: 0.3em;
+  font-size: 50px;
+  font-family: hiragino;
+}
+
+.expression--word {
+  font-size: 70px;
+}
+
+
 .hint {
   font-size: 16px;
 }
@@ -197,7 +210,8 @@ ol, ul {
   font-family: hiragino;
 }
 
-/* resets the color to initial */
+/* resets the bold color to initial */
+/* TODO rename to reset-bold-color */
 .nightMode .overridedisplay b {
   color: white;
 }
