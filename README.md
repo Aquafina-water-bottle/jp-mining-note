@@ -14,30 +14,34 @@ VERY WIP Anki card type.
   * How to setup Yomichan (templates and anki fields)
 * Add sample cards
 
-## Anki Fields
-* Word
-* WordReading
-* WordPitch
-* PrimaryDefinition
-* SecondaryDefinition
-* Sentence
-* SentenceReading
-* AltDisplay
-* AltDisplayPASentenceCard
-* AdditionalNotes
-* IsSentenceCard
-* PASeparateWordCard
-* PASeparateSentenceCard
-* PATestOnlyWord
-* PADoNotTest
-* PADoNotShowInfoLegacy
-* IsClozeDeletionCard
-* Hint
-* Picture
-* WordAudio
-* SentenceAudio
-* Graph
-* Position
-* PASilence
-* ExtraDefinitions
-* Comment
+## Anki Fields Summary
+
+|  Anki Fields               | Yomichan Format                                   |
+|----------------------------|---------------------------------------------------|
+|  Word                      | `{expression}`                                    |
+|  WordReading               | `{furigana-plain}`                                |
+|  WordPitch                 |                                                   |
+|  PrimaryDefinition         | `{glossary-bilingual-first}`                      |
+|  SecondaryDefinition       | `{glossary-monolingual-first}`                    |
+|  Sentence                  | `{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}` |
+|  SentenceReading           |                                                   |
+|  AltDisplay                |                                                   |
+|  AltDisplayPASentenceCard  |                                                   |
+|  AdditionalNotes           |                                                   |
+| *IsSentenceCard            |                                                   |
+| *PASeparateWordCard        |                                                   |
+| *PASeparateSentenceCard    | `1`                                               |
+| *PATestOnlyWord            |                                                   |
+| *PADoNotTest               |                                                   |
+| *PADoNotShowInfoLegacy     |                                                   |
+| *IsClozeDeletionCard       |                                                   |
+|  Hint                      |                                                   |
+|  Picture                   |                                                   |
+|  WordAudio                 | `{audio}`                                         |
+|  SentenceAudio             |                                                   |
+|  Graph                     | `{pitch-accent-graphs}`                           |
+|  Position                  | `{pitch-accent-positions}`                        |
+|  PASilence                 | `[sound:silence.wav]`                             |
+|  ExtraDefinitions          | `{glossary-extra}`                                |
+|  Comment                   |                                                   |
+
