@@ -34,8 +34,12 @@
     {{/IsSentenceCard}}
 
     <details>
-        <summary class=glossary>Full Sentence</summary>
-         <div class=fullsentence id="fullsentence">「{{furigana:SentenceReading}}」</div>
+      <summary class=glossary>Full Sentence</summary>
+      <div class="center-box-1">
+        <div class="center-box-2">
+          <div class=fullsentence id="fullsentencefront">「{{Sentence}}」</div>
+        </div>
+      </div>
     </details>
 {{/AltDisplay}}
 
@@ -74,15 +78,13 @@
 <span id="audio-front">{{SentenceAudio}}</span>
 
 
-
-<center>
-<div class="container">
-    <div class="box">
-        <div class="box-row">
-            <div style='font-size: 16px;'>{{hint:Hint}}</div>
-          </div>
+{{#Hint}}
+  <div class="center-box-1">
+    <div class="center-box-2">
+      <div class="hint">{{hint:Hint}}</div>
     </div>
-</div>
-</center>
+  </div>
+{{/Hint}}
+
 
 {{/PASeparateCardLegacy}}

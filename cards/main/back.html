@@ -113,18 +113,16 @@
 {{/AltDisplay}}
 
 
-
 {{/IsListeningUnknownWordCard}}
 
-<center>
-<div class="container">
-    <div class="box">
-        <div class="box-row">
-            <div style='font-size: 16px;'>{{hint:Hint}}</div>
-          </div>
+
+{{#Hint}}
+  <div class="center-box-1">
+    <div class="center-box-2">
+      <div class="hint">{{hint:Hint}}</div>
     </div>
-</div>
-</center>
+  </div>
+{{/Hint}}
 
 
 
@@ -217,7 +215,7 @@
 
   <div id=mid_gap class=flexboxgap> </div>
 
-  <!-- everything on the left side -->
+  <!-- everything on the right side -->
   <div id=right_box class=rightbox>
 
     <div id="small_img_div" class=smallimgdiv>{{Picture}}</div>
@@ -233,20 +231,15 @@
 
 <div id="backsidediv" class=backside>
 
-
-
-<!-- TODO simplify css / html -->
-<center>
-  <div class="container">
-      <div class="box">
-          <div class="box-row">
-              <div class="fullsentence" id="FullSentence">
-                  {{furigana:SentenceReading}}
-              </div>
-            </div>
-      </div>
+<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
+<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
+<div class="center-box-1">
+  <div class="center-box-2">
+    <div class="fullsentence" id="FullSentence">
+        {{furigana:SentenceReading}}
+    </div>
   </div>
-</center>
+</div>
 
 <!-- https://stackoverflow.com/questions/14380442/make-one-section-of-simple-web-page-have-own-scroll-bar -->
 

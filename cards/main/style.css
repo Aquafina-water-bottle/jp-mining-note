@@ -1,34 +1,28 @@
-.card {
- font-family: hiragino;
- font-size: 30px;
- text-align: center;
- font-style: normal;
- color: white;
- background-color: black;
-}
+/*
+ * Going to attempt to adhere to the following conventions: (currently not done)
+ * - js: camelCase
+ * - html id's: snake_case
+ * - css id's: BEM
+ * - all tabs should be 2 spaces long, and anki templates count for tab spaces
+ */
+
 
 
 /*
-.head {
-  flex-shrink: 0;
+ *  ============
+ *   GLOBAL CSS
+ *  ============
+ */
+
+.card {
+  /*font-family: hiragino;*/
+  font-family: notosans;
+  font-size: 30px;
+  text-align: center;
+  font-style: normal;
+  color: white;
+  background-color: black;
 }
-
-.body {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-}
-
-.scrollable {
-    overflow-y: auto;
-}
-*/
-
-
-@font-face { font-family: yumin; src: url('_yumin.ttf'); }
-@font-face { font-family: hiragino; src: url('hiragino-mincho-pron-w3.otf'); }
-@font-face { font-family: notosans; src: url('NotoSansCJK-Regular.ttc'); }
-@font-face { font-family: notoserif; src: url('NotoSerifCJK-Regular.ttc'); }
 
 /* makes lists tolerable to look at */
 ol, ul {
@@ -37,14 +31,43 @@ ol, ul {
   padding-left: 1.5em;
 }
 
-/* adds a width constraint to the backside to make things look better */
-.backside {
- max-width: 850px;
- margin: 20px auto 20px auto;
- padding: 0 20px 0 20px;
+.center-box-1 {
+  text-align: center;
 }
 
-/*  */
+.center-box-2 {
+  display: inline-block;
+  text-align: left;
+}
+
+@font-face {
+  font-family: hiragino;
+  src: url('hiragino-mincho-pron-w3.otf');
+}
+@font-face {
+  font-family: notosans;
+  src: url('NotoSansCJK-Regular.ttc');
+}
+/*@font-face { font-family: yumin; src: url('_yumin.ttf'); }*/
+/*@font-face { font-family: notoserif; src: url('NotoSerifCJK-Regular.ttc'); }*/
+
+
+
+
+/*
+ *  ================
+ *   FRONT SIDE CSS
+ *  ================
+ */
+
+.cardDesc {
+  font-family: hiragino;
+  color: #585858;
+  font-size: 20px;
+  text-align: left;
+}
+
+/* TODO make this prettier */
 .testPAStar {
     color: #5cf570;
     vertical-align: top;
@@ -68,6 +91,47 @@ ol, ul {
 }
 
 
+/* space at the top of the window */
+.expression {
+  margin-bottom: -0.0em;
+  margin-top: 0.3em;
+  font-size: 50px;
+  font-family: hiragino;
+}
+
+.expression b {
+  color: #fffd9e;
+  font-weight: normal; /* LMFAO */
+}
+.expression ruby rt { opacity: 0; }
+.expression:hover ruby rt { opacity: 1; }
+
+
+.hint {
+  font-size: 16px;
+}
+
+
+/*
+ *  ===============
+ *   BACK SIDE CSS
+ *  ===============
+ */
+
+
+/*
+ * global backside css
+ */
+.backside {
+ /* adds a width constraint to the backside to make things look better */
+ max-width: 850px;
+ margin: 20px auto 20px auto;
+ padding: 0 20px 0 20px;
+}
+
+
+
+/* contains the word, picture, and pitch accent */
 .flexboxtop {
   display: flex;
   justify-content: center;
@@ -100,28 +164,9 @@ ol, ul {
 
 
 
-.cardDesc {
-  color: #585858;
-  font-size: 20px;
-  text-align: left;
-}
-
-/* space at the top of the window */
-.expression {
-  margin-bottom: -0.0em;
-  margin-top: 0.3em;
-  font-size: 50px;
-}
-
-.expression b {
-  color: #fffd9e;
-  font-weight:normal; /* LMFAO */
-}
-.expression ruby rt { opacity: 0; }
-.expression:hover ruby rt { opacity: 1; }
-
 .reading {
   font-size: 50px;
+  font-family: hiragino;
 }
 
 /* resets the color to initial */
@@ -299,44 +344,40 @@ img {
 
 .glossary {
   font-size: 18px;
-  font-family: notosans; /* apparently using a sans font makes crammed kanji like 暇 and 鬱 more readable  */
 }
 .glossary b {
   color: #fffd9e;
 }
 .glossarydetails {
   font-size: 18px;
-  font-family: notosans;
   margin: 0.5em 0 0 0;
 }
 
 
 .additionalnotes {
   font-size: 15px;
-  font-family: notosans;
 }
 .additionalnotes b {
   color: #fffd9e;
 }
 .additionalnotesdetails {
   font-size: 15px;
-  font-family: notosans;
   margin: 0.5em 0 0 0;
 }
 
 
-.fullsentence b {
-  color: #fffd9e;
-}
 .fullsentence {
   font-size: 28px;
   margin: 0 0 0.5em 0;
+  font-family: hiragino;
+}
+.fullsentence b {
+  color: #fffd9e;
 }
 .fullsentence ruby rt { opacity: 0; }
 .fullsentence:hover ruby rt { opacity: 1; }
 .wordpitch {
   font-size: 23px;
-  font-family: notosans;
   vertical-align:middle;
 }
 
