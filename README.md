@@ -28,6 +28,7 @@ VERY WIP Anki card type.
 |  AltDisplay                |                                                   |
 |  AltDisplayPASentenceCard  |                                                   |
 |  AdditionalNotes           |                                                   |
+|  Hint                      |                                                   |
 | *IsSentenceCard            |                                                   |
 | *PASeparateWordCard        |                                                   |
 | *PASeparateSentenceCard    | `1`                                               |
@@ -35,7 +36,6 @@ VERY WIP Anki card type.
 | *PADoNotTest               |                                                   |
 | *PADoNotShowInfoLegacy     |                                                   |
 | *IsClozeDeletionCard       |                                                   |
-|  Hint                      |                                                   |
 |  Picture                   |                                                   |
 |  WordAudio                 | `{audio}`                                         |
 |  SentenceAudio             |                                                   |
