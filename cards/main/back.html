@@ -120,25 +120,36 @@
 {{^PADoNotShowInfoLegacy}}
   <div class="expression-box">
 
+    <!-- different circle positions depending on whether it's a sentence or not -->
+    {{#IsSentenceCard}}
+      <div class="flag-box">
+        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+          style="display:inline-block;vertical-align:middle;height:1.5em;">
+          <circle id="svg_circle" class="flag-box__circle" cx="35" cy="11" r="7">
+            <title id=svg_title></title>
+          </circle>
+        </svg>
+      </div>
+    {{/IsSentenceCard}}
+
+    {{^IsSentenceCard}}
+      <div class="flag-box">
+        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+          style="display:inline-block;vertical-align:middle;height:1.5em;">
+          <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
+            <title id=svg_title></title>
+          </circle>
+        </svg>
+      </div>
+    {{/IsSentenceCard}}
+
     <!-- priority is on the alternate display sentence -->
     {{#AltDisplay}}
       {{#IsSentenceCard}}
-        <div class="flag-box">
-          <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-            style="display:inline-block;vertical-align:middle;height:1.5em;">
-            <circle id="flag-box__circle" cx="35" cy="11" r="7"></circle>
-          </svg>
-        </div>
         <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
       {{/IsSentenceCard}}
 
       {{^IsSentenceCard}}
-        <div class="flag-box">
-          <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-            style="display:inline-block;vertical-align:middle;height:1.5em;">
-            <circle id="flag-box__circle" cx="25" cy="15" r="7"></circle>
-          </svg>
-        </div>
         <div class="expression expression--word" id="Display">{{furigana:AltDisplay}}</div>
       {{/IsSentenceCard}}
     {{/AltDisplay}}
@@ -147,22 +158,10 @@
     <!-- no alt display sentence, not listening card -->
     {{^AltDisplay}}
       {{#IsSentenceCard}}
-        <div class="flag-box">
-          <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-            style="display:inline-block;vertical-align:middle;height:1.5em;">
-            <circle id="flag-box__circle" cx="35" cy="11" r="7"></circle>
-          </svg>
-        </div>
         <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
       {{/IsSentenceCard}}
 
       {{^IsSentenceCard}}
-        <div class="flag-box">
-          <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-            style="display:inline-block;vertical-align:middle;height:1.5em;">
-            <circle id="flag-box__circle" cx="25" cy="15" r="7"></circle>
-          </svg>
-        </div>
         <div class="expression expression--word" id="Display">{{Word}}</div>
       {{/IsSentenceCard}}
     {{/AltDisplay}}
@@ -170,7 +169,6 @@
   </div>
 
 {{/PADoNotShowInfoLegacy}}
-
 
 {{/IsClozeDeletionCard}}
 <!-- not listening card -->
@@ -205,20 +203,25 @@
     // ======================
     //  Word pitch indicator
     // ======================
-    var style_class = "";
+
+    var svgTitle = document.getElementById("svg_title");
+
+    var styleClass = "";
     if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") { // either PASeparateSentenceCard or PATestOnlyWord
-      style_class = "flag-box__circle--word";
+      styleClass = "flag-box__circle--word";
+      svgTitle.textContent = "PA: Word";
     } else {
-      style_class = "flag-box__circle--all";
+      styleClass = "flag-box__circle--all";
+      svgTitle.textContent = "PA: Sentence";
     }
 
     // ~(isSentenceCard) overrides style (should be test PA star)
     if (!"{{IsSentenceCard}}") {
-      style_class = "flag-box__circle--all"
+      styleClass = "flag-box__circle--all"
     }
 
-    var circ = document.getElementById("flag-box__circle");
-    circ.classList.add(style_class);
+    var circ = document.getElementById("svg_circle");
+    circ.classList.add(styleClass);
   </script>
 
 {{/PADoNotTest}}
@@ -228,8 +231,12 @@
 {{#PADoNotTest}}
 
   <script>
-    var circ = document.getElementById("flag-box__circle");
+    var circ = document.getElementById("svg_circle");
     circ.classList.add("flag-box__circle--none");
+
+    // https://stackoverflow.com/a/13546213
+    var svgTitle = document.getElementById("svg_title");
+    svgTitle.textContent = "PA: Do not test";
   </script>
 
 {{/PADoNotTest}}

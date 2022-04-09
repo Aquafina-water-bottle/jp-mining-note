@@ -14,6 +14,11 @@
  *  ============
  */
 
+:root {
+  --yellow: #fffd9e;
+}
+
+
 .card {
   /*font-family: hiragino;*/
   font-family: notosans;
@@ -69,17 +74,6 @@ ol, ul {
 
 
 
-/*.wtf {
-  position: absolute;
-  width: 10;
-  height: 10;
-  left: 100px;
-  bottom: 0px;
-}*/
-
-
-
-/* wtf? */
 /* https://stackoverflow.com/a/38948646 (ver 5) */
 .expression-box {
   display: grid;
@@ -103,32 +97,25 @@ ol, ul {
 
 
 .flag-box__circle--all { /* test entire display (whether it's a word or sentence) */
-    fill: #5cf570;
+  fill: #5cf570;
 }
 .flag-box__circle--word {
-    fill: #34dbef;
+  fill: #34dbef;
 }
 .flag-box__circle--none {
-    fill: #f53b39;
+  fill: #f53b39;
 }
 .flag-box__circle--default { /* unused */
-    fill: #21dd1e;
+  fill: #21dd1e;
 }
 
 
-/* space at the top of the window */
+/* space at the top of the window on the front side */
 .expression {
-  /*margin-left: auto;
-  grid-column-start: 1;*/
-
-  /*margin-bottom: -0.0em;
-  margin-top: 0.3em;
-  font-size: 50px;
-  font-family: hiragino;*/
 }
 
 .expression b {
-  color: #fffd9e;
+  color: var(--yellow);
   font-weight: normal; /* LMFAO */
 }
 .expression ruby rt { opacity: 0; }
@@ -143,6 +130,7 @@ ol, ul {
   font-family: hiragino;
 }
 
+/* used when the front side display is a word and not a sentence (increase font size) */
 .expression--word {
   font-size: 70px;
 }
@@ -233,16 +221,10 @@ blockquote p {
   display: inline;
 }
 blockquote b {
-  color: #fffd9e;
+  color: var(--yellow);
 }
 
 
-
-/* hack to get the image to appear normal when first loading in */
-img {
-  max-width: 400px;
-  max-height: 210px;
-}
 
 .smallImage {
   border-radius: 5px;
@@ -263,6 +245,13 @@ img {
   font-size: 40px;
   transition: 0.3s;
 }
+
+/* hack to get the image to appear normal when first loading in */
+.smallimgdiv img {
+  max-width: 400px;
+  max-height: 210px;
+}
+
 .smallimgdiv:hover {opacity: 0.7;}
 
 
@@ -338,44 +327,44 @@ img {
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 99; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.75); /* Black w/ opacity */
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 99; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.75); /* Black w/ opacity */
 }
 
 .modal {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.25s ;
-    animation-name: zoom;
-    animation-duration: 0.25s;
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.25s ;
+  animation-name: zoom;
+  animation-duration: 0.25s;
 }
 
 /* Add Animation */
 .modal-content/*, #caption*/ {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.25s ;
-    animation-name: zoom;
-    animation-duration: 0.25s;
-    max-width: initial;
-    max-height: initial;
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.25s ;
+  animation-name: zoom;
+  animation-duration: 0.25s;
+  max-width: initial;
+  max-height: initial;
 
-    /*
-     * center image vertically and horizontally
-     * https://stackoverflow.com/a/11716065
-     */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+  /*
+   * center image vertically and horizontally
+   * https://stackoverflow.com/a/11716065
+   */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .out {
@@ -388,7 +377,7 @@ img {
   font-size: 18px;
 }
 .glossary b {
-  color: #fffd9e;
+  color: var(--yellow);
 }
 .glossarydetails {
   font-size: 18px;
@@ -400,7 +389,7 @@ img {
   font-size: 15px;
 }
 .additionalnotes b {
-  color: #fffd9e;
+  color: var(--yellow);
 }
 .additionalnotesdetails {
   font-size: 15px;
@@ -414,7 +403,7 @@ img {
   font-family: hiragino;
 }
 .fullsentence b {
-  color: #fffd9e;
+  color: var(--yellow);
 }
 .fullsentence ruby rt { opacity: 0; }
 .fullsentence:hover ruby rt { opacity: 1; }
@@ -424,11 +413,11 @@ img {
 }
 
 .downstep {
-  color: #fffd9e;
+  color: var(--yellow);
 }
 .pitchoverline {
   text-decoration: overline;
-  text-decoration-color: #fffd9e !important;
+  text-decoration-color: var(--yellow) !important;
 }
 .nopron {
   color: #42a3ff;
