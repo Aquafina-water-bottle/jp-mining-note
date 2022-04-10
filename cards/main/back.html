@@ -290,7 +290,7 @@
 
 
 
-<div id="backsidediv" class=backside>
+<div id="back_side" class=backside>
 
 <!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
 <!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
@@ -371,12 +371,12 @@
 
     //var width = width_left + width_right;
     //// what https://attacomsian.com/blog/javascript-get-css-styles
-    var computed_style = window.getComputedStyle(document.getElementById("backsidediv"));
+    var computed_style = window.getComputedStyle(document.getElementById("back_side"));
     var max_width = parseInt(computed_style.maxWidth.replace("px", ""));
     var scaled_width = parseInt(computed_style.width.replace("px", ""));
     var current_width = Math.min(max_width, scaled_width);
 
-    //glossary_ele.innerText += "A: " + window.getComputedStyle(document.getElementById("backsidediv")).width;
+    //glossary_ele.innerText += "A: " + window.getComputedStyle(document.getElementById("back_side")).width;
     var gap_width = 35; // TODO get dynamically from css
     //var gap_width = (max_width - width - 3) / 3.2;
 

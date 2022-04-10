@@ -1,6 +1,30 @@
-VERY WIP Anki card type.
 
-### TODO:
+TODO gif showing the main features of the card type
+
+WIP Anki card type.
+Working on documentation, fleshing out details, providing example cards, etc.
+
+## Main Features
+* All cards are automatically created and populated within seconds
+* Supports either sentence or vocab cards
+* Support for both monolingual and bilingual definitions (and with any combination of them)
+* Support for cloze-deletion card types
+* Support for various ways of testing pitch accent
+   * Word level pitch accent
+   * Sentence level pitch accent
+   * Separate cards or in the same card
+   * Or don't test it at all!
+* Customizable front display to show anything you want
+* Optional hint (front side) and collapsable notes (back side)
+* Click on any image to expand them
+
+## Limitations
+* No support for mobile
+* Stylization is for my personal anki theme (default dark mode) and screen resolution (1920x1080)
+* See customization section (TODO link) for further points
+
+
+## TODO:
 * Clean up the codebase
   * Use a consistent code style
   * Add more comments on style sheet
@@ -14,34 +38,5 @@ VERY WIP Anki card type.
   * How to setup Yomichan (templates and anki fields)
 * Add sample cards
 
-## Anki Fields Summary
 
-|  Anki Fields               | Yomichan Format                                   |
-|----------------------------|---------------------------------------------------|
-|  Word                      | `{expression}`                                    |
-|  WordReading               | `{furigana-plain}`                                |
-|  WordPitch                 |                                                   |
-|  PrimaryDefinition         | `{glossary-bilingual-first}`                      |
-|  SecondaryDefinition       | `{glossary-monolingual-first}`                    |
-|  Sentence                  | `{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}` |
-|  SentenceReading           |                                                   |
-|  AltDisplay                |                                                   |
-|  AltDisplayPASentenceCard  |                                                   |
-|  AdditionalNotes           |                                                   |
-|  Hint                      |                                                   |
-| *IsSentenceCard            |                                                   |
-| *PASeparateWordCard        |                                                   |
-| *PASeparateSentenceCard    | `1`                                               |
-| *PATestOnlyWord            |                                                   |
-| *PADoNotTest               |                                                   |
-| *PADoNotShowInfoLegacy     |                                                   |
-| *IsClozeDeletionCard       |                                                   |
-|  Picture                   |                                                   |
-|  WordAudio                 | `{audio}`                                         |
-|  SentenceAudio             |                                                   |
-|  Graph                     | `{pitch-accent-graphs}`                           |
-|  Position                  | `{pitch-accent-positions}`                        |
-|  PASilence                 | `[sound:silence.wav]`                             |
-|  ExtraDefinitions          | `{glossary-extra}`                                |
-|  Comment                   |                                                   |
 
