@@ -190,8 +190,8 @@
 -->
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
-  <img class="modal-content" id="bigimg">
+<div id="modal" class="modal">
+  <img class="modal-img" id="bigimg">
 </div>
 
 <script>
@@ -249,7 +249,7 @@
 
 
   // Get the modal
-  var modal = document.getElementById('myModal');
+  var modal = document.getElementById('modal');
 
   // restricting the max height of image to the definition box
   var lb = document.getElementById("left_box");
@@ -288,11 +288,11 @@
   // When the user clicks on <span> (x), close the modal
   modal.onclick = function() {
     //bigimg.className += " out";
-    bigimg.classList.add("out");
-    modal.classList.add("out");
+    bigimg.classList.add("modal-img__zoom-out");
+    modal.classList.add("modal-img__zoom-out");
     setTimeout(function() {
       modal.style.display = "none";
-      bigimg.className = "modal-content";
+      bigimg.className = "modal-img";
       modal.className = "modal";
     }, 200);
 

@@ -80,17 +80,12 @@
 {{#IsClozeDeletionCard}}
     <!-- defaults to alt display -->
     {{#AltDisplay}}
-        <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
+        <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
     {{/AltDisplay}}
 
     {{^AltDisplay}}
-        <div class="expression expression--single" id="Display">{{Sentence}}</div>
+        <div class="expression expression--single overridedisplay" id="Display">{{Sentence}}</div>
     {{/AltDisplay}}
-
-    <script>
-        document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
-    </script>
-
 {{/IsClozeDeletionCard}}
 
 
@@ -197,14 +192,8 @@
 {{/Hint}}
 
 
-<!-- audio and [...] replace for the listening card -->
 {{#IsClozeDeletionCard}}
-
-    <script>
-        document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
-    </script>
     <span id="audio-front">{{SentenceAudio}}</span>
-
 {{/IsClozeDeletionCard}}
 
 

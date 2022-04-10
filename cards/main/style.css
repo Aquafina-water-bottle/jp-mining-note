@@ -325,18 +325,20 @@ blockquote b {
   }
 }
 
-/* The Modal (background) */
+
+
+/* modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 99; /* Sit on top */
+  display: none; /* hidden by default */
+  position: fixed; /* stay in place */
+  z-index: 99; /* sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.75); /* Black w/ opacity */
+  width: 100%; /* full width */
+  height: 100%; /* full height */
+  overflow: auto; /* enable scroll if needed */
+  background-color: rgb(0,0,0); /* fallback color */
+  background-color: rgba(0,0,0,0.75); /* black w/ opacity */
 }
 
 .modal {
@@ -347,7 +349,7 @@ blockquote b {
 }
 
 /* Add Animation */
-.modal-content/*, #caption*/ {
+.modal-img/*, #caption*/ {
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.25s ;
   animation-name: zoom;
@@ -367,12 +369,19 @@ blockquote b {
   margin: auto;
 }
 
-.out {
+.modal-img__zoom-out {
   animation-name: zoom-out;
   animation-duration: 0.25s;
 }
 
 
+/* TODO rename & remove
+ *
+ * glossary -> glossary-blockquote
+ * glossarydetails -> glossary-details
+ * additionalnotes -> glossary-blockquote--small
+ * additionalnotesdetails -> glossary-details--small
+ */
 .glossary {
   font-size: 18px;
 }
@@ -395,6 +404,37 @@ blockquote b {
   font-size: 15px;
   margin: 0.5em 0 0 0;
 }
+
+
+/* styles to all images within any definition blockquote */
+.glossary__image-container {
+  display: inline-block;
+}
+
+.glossary__image-hover-text {
+}
+
+.glossary__image-hover-media {
+  display: none;
+}
+
+.glossary__image-hover-text:hover ~ .glossary__image-hover-media {
+  display: block;
+  position: absolute;
+}
+
+.glossary__image-hover-media {
+  cursor: pointer;
+  max-height: 500px;
+  max-width:  100px;
+}
+
+/* so the image doesn't disappear once you move your mouse away from the text */
+.glossary__image-hover-media:hover {
+  display: block;
+  position: absolute;
+}
+
 
 
 .fullsentence {
