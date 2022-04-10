@@ -32,7 +32,7 @@ https://github.com/eshrh/ames
 
 https://github.com/lrorpilla/jidoujisho
 * android, can create anki cards
-* never used it to create anki cards (yet), but other features look good
+* never personally used it to create anki cards (yet), but other features look good
 
 
 
@@ -42,6 +42,9 @@ https://github.com/lrorpilla/jidoujisho
    * optional furigana
    * word / sentence card
 * TODO how to create different cards / set card type + pretty pictures
+* TODO hint and additional notes
+
+## Card Options: Default values
 
 
 ## Testing Pitch Accent
@@ -54,9 +57,20 @@ https://github.com/lrorpilla/jidoujisho
 TODO add further details
 TODO put this in some other document
 
+## Changing default value for binary field
+* option A: rename field, swap `#` and `^` in card type
+* option B: just default in yomichan
+  * may require batch scripting to change existing cards, TODO show sample python code of batch scripting
+
 ## Customization Tips
-* changing default values for binary field: rename field, change in card type OR just default in yomichan
-* not testing pitch accent? set `PADoNotShowInfoLegacy` to 1 (or change default value as specified above)
+* not testing pitch accent? set `PADoNotShowInfoLegacy` to filled (or change default value)
+* Want to make the default card a sentence card? Change default value of `IsSentenceCard`.
+* starting to test pitch accent? (what I recommend) create separate cards
+   * word -> word (and sentence if fully understood now)
+   * sentence -> word/sentence
+   * all future cards test word pitch accent
+* Remember that anki cards are fully customizable!
+   Feel free to use as much or as little of of my cards as you want!
 
 
 
@@ -65,10 +79,12 @@ TODO put this in some other document
 ## Anki Tips
 * how to remove empty cards (link to anki)
 * editing a field's html: ctrl+shift+x
+* want to add a duplicate word? Change the `Word` field to something different and add the card
+   * If the card was a vocab card, make sure to change the `AltDisplay` field to match the word
 
 ## Other Resources
 * animecards site
-* themoeway -> ani
+* themoeway -> yomichan section
 * https://ankiweb.net/shared/info/1557722832
 * https://github.com/Ajatt-Tools/AnkiNoteTypes
 

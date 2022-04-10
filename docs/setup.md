@@ -32,14 +32,15 @@ Required for Yomichan and most other Anki-related automated tasks to work.
 
 
 ## Optional Anki Plugins
-These are the plugins I use outside of card creation.
 
-* Adjust Sound Volume
-* AJT Flexible Grading
-* AJT Mortician
+These plugins assist in card creation, but are ultimately optional.
 * Paste Images As WebP
 * Yomichan Forvo Server
 
+These are the plugins I use outside of the main card creation process.
+* Adjust Sound Volume
+* AJT Flexible Grading
+* AJT Mortician
 
 ## Optional: Separate Pitch Accent Deck
 * Make all new cards to be created in a separate deck by default
@@ -49,6 +50,13 @@ These are the plugins I use outside of card creation.
 # Yomichan Setup
 
 ## Yomichan Fields
+The following setup creates the following:
+* A vocab card that also tests for pitch accent
+* A sentence pitch accent card
+* Shows the bilingual definition by default, with monolingual definitions in collapsable fields
+
+See customization (TODO) to change the default values.
+
 |  Anki Fields               | Yomichan Format                                   |
 |----------------------------|---------------------------------------------------|
 |  Word                      | `{expression}`                                    |
