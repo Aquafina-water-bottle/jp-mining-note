@@ -263,13 +263,16 @@
 
     <div class=reading> {{furigana:WordReading}} </div>
     {{#WordPitch}}
-     <div style='font-size: 20px;'  id="WordPitch2"> <p> </p> </div>
-     <div class="wordpitch" id="WordPitch">
+     <div class="wordpitch" id="word_pitch">
         {{WordPitch}}
     </div>
+    <script>
+      var wp = document.getElementById("word_pitch");
+      wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+    </script>
     {{/WordPitch}}
 
-     <div class="wordpitch" id="WordPitch">
+     <div class="audio-buttons">
         {{WordAudio}} {{SentenceAudio}}
     </div>
   </div>

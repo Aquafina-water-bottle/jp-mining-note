@@ -57,34 +57,21 @@
   <div id=left_box class=leftboxpa>
 
     <div class=reading> {{furigana:WordReading}} </div>
-    <!--
-    {{#WordPitch}}
-     <div style='font-size: 20px;'  id="WordPitch2"> <p> </p> </div>
-     <div class="wordpitch" id="WordPitch">
-        {{WordPitch}}
-    </div>
-    {{/WordPitch}}
-    -->
 
     {{#WordPitch}}
-     <div style='font-size: 10px;'  id="WordPitch2"> <p> </p> </div>
-     <div class="wordpitch2" id="WordPitch">
-        {{WordPitch}}
-    </div>
+      <div class="wordpitch word-pitch--big" id="word_pitch">
+         {{WordPitch}}
+      </div>
 
-    <script>
+      <script>
+        var wp = document.getElementById("word_pitch");
+        wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+
         // entirely removes the (N/A) text instead
         var g_ele = document.getElementById("graph");
         if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
-            document.getElementById("graph").remove();
-            document.getElementById("boxsep").remove();
-
-            /*
-            document.getElementById("position").innerHTML = document.getElementById("WordPitch").innerHTML;
-            document.getElementById("position").classList.replace("box2p", "wordpitch"); 
-            document.getElementById("WordPitch").remove();
-            document.getElementById("WordPitch2").remove();
-            */
+          document.getElementById("graph").remove();
+          document.getElementById("boxsep").remove();
         }
     </script>
     {{/WordPitch}}
