@@ -54,7 +54,7 @@
 <div class="def-header" id="def_header">
 
   <!-- everything on the left side -->
-  <div class="dh-left dh-left__-blue-border" id="dh_left">
+  <div class="dh-left dh-left__blue-border" id="dh_left">
 
     <div class="dh-left__reading"> {{furigana:WordReading}} </div>
 
@@ -65,7 +65,9 @@
     <script>
       var wp = document.getElementById("dh_word_pitch");
 
-      // only replaces if it exists
+      // a bit of a hack...
+      // The only reason why the downstep arrow exists in the first place is to make the downstep
+      // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
       wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
 
       // entirely removes the (N/A) text instead

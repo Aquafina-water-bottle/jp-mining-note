@@ -265,6 +265,9 @@
         {{WordPitch}}
     </div>
     <script>
+      // a bit of a hack...
+      // The only reason why the downstep arrow exists in the first place is to make the downstep
+      // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
       var wp = document.getElementById("dh_word_pitch");
       wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
     </script>
@@ -308,7 +311,7 @@
 </blockquote>
 
 
-<!-- TODO move -->
+<!-- TODO rename -->
 {{#SecondaryDefinition}}
 <details class=glossarydetails>
     <summary>Secondary Definition</summary>
@@ -461,6 +464,32 @@
   //  modal.style.display = "block";
   //  modalImg.src = defImg.src;
   //}
+
+
+
+  /*
+  function createImgContainer(htmlStr) {
+    var frag = document.createDocumentFragment(),
+      temp = document.createElement('div');
+    temp.innerHTML = htmlStr;
+    while (temp.firstChild) {
+      frag.appendChild(temp.firstChild);
+    }
+    return frag;
+  }
+
+
+  var imageSearchElements = document.getElementsByTagName("blockquote");
+  for (var ele in imageSearchElements) {
+    anchorTags = imageSearchElements.getElementsByTagName("a");
+    for (var atag in anchorTags) {
+      if (atag.href) {
+        document.getElementById("glossary").innerText += "detected";
+      }
+    }
+  }
+*/
+
 
   // remove all jmdict english dict tags lol
   var glossary_ele = document.getElementById("glossary");

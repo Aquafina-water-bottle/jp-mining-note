@@ -174,10 +174,11 @@ ol, ul {
 .dh-left { /* left */
   background: rgba(0, 0, 0, 0.1);
   padding: 0.5em 0.5em; /* top/bottom, right/left */
-  border-radius: 10px 10px 0px 0px;
+  /*border-radius: 10px 10px 0px 0px;*/
+  border-radius: 5px;
 }
 
-.dh-left__-blue-border { /* left */
+.dh-left__blue-border { /* left */
 /*.leftboxpa {*/
   border-style: solid;
   border-width: 1px;
