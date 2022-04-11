@@ -11,18 +11,17 @@
 
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
 <!-- priority: AltDisplay -> Word -->
-{{^AltDisplayPASentenceCard}}
-  <!-- option 1: AltDisplay -->
-  {{#AltDisplay}}
-    <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
-  {{/AltDisplay}}
 
-  <!-- option 2: Word -->
-  {{^AltDisplay}}
-    <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-  {{/AltDisplay}}
+<!-- option 1: AltDisplay -->
+{{#AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
+{{/AltDisplay}}
 
-{{/AltDisplayPASentenceCard}}
+<!-- option 2: Word -->
+{{^AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
+{{/AltDisplay}}
+
 
 
 <details>
