@@ -394,27 +394,23 @@ blockquote b {
  * additionalnotes -> glossary-blockquote--small
  * additionalnotesdetails -> glossary-details--small
  */
-.glossary {
+.glossary-blockquote {
   font-size: 18px;
 }
-.glossary b {
+.glossary-blockquote b {
   color: var(--yellow);
 }
-.glossarydetails {
+.glossary-details {
   font-size: 18px;
   margin: 0.5em 0 0 0;
 }
 
 
-.additionalnotes {
+.glossary-blockquote--small {
   font-size: 15px;
 }
-.additionalnotes b {
-  color: var(--yellow);
-}
-.additionalnotesdetails {
+.glossary-details--small {
   font-size: 15px;
-  margin: 0.5em 0 0 0;
 }
 
 

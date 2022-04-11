@@ -306,38 +306,37 @@
 <!-- https://stackoverflow.com/questions/14380442/make-one-section-of-simple-web-page-have-own-scroll-bar -->
 
 
-<blockquote id="glossary" class="glossary">
-    {{edit:PrimaryDefinition}}
+<blockquote class="glossary-blockquote" id="primary_definition">
+  {{edit:PrimaryDefinition}}
 </blockquote>
 
 
-<!-- TODO rename -->
 {{#SecondaryDefinition}}
-<details class=glossarydetails>
+  <details class="glossary-details">
     <summary>Secondary Definition</summary>
-    <blockquote class=glossary>
+    <blockquote class="glossary-blockquote">
     {{SecondaryDefinition}}
     </blockquote>
-</details>
+  </details>
 {{/SecondaryDefinition}}
 
 {{#AdditionalNotes}}
-<details class=additionalnotesdetails>
+  <details class="glossary-details glossary-details--small">
     <summary>Additional Notes</summary>
-    <blockquote class=additionalnotes>
+    <blockquote class="glossary-blockquote glossary-blockquote--small">
     {{AdditionalNotes}}
     </blockquote>
-</details>
+  </details>
 {{/AdditionalNotes}}
 
 
 {{#ExtraDefinitions}}
-<details class=additionalnotesdetails>
+  <details class="glossary-details glossary-details--small">
     <summary>Extra Definitions</summary>
-    <blockquote class=additionalnotes>
+    <blockquote class="glossary-blockquote glossary-blockquote--small">
     {{ExtraDefinitions}}
     </blockquote>
-</details>
+  </details>
 {{/ExtraDefinitions}}
 
 
@@ -402,6 +401,7 @@
 
 
   var modal = document.getElementById('modal');
+  var modalImg = document.getElementById("bigimg");
 
   // restricting the max height of image to the definition box
   var lb = document.getElementById("dh_left");
@@ -418,7 +418,6 @@
     img.classList.add("dh-right__img");
     img.style.maxHeight = height_left + "px";
 
-    var modalImg = document.getElementById("bigimg");
     img.onclick = function() {
       modal.style.display = "block";
       modalImg.src = this.src;
@@ -449,50 +448,59 @@
     }, 200);
   }
 
-  // zoom support for all definition images
-  // TODO
-  //var modalImg = document.getElementById("bigimg");
-  //var defImg = document.getElementById("tempaaa");
-  //var defAnc = document.getElementById("tempanchor");
+  function createImgContainer(imgName) {
+    // creating this programmically:
+    // <span class="glossary__image-container">
+    //   <a class="glossary__image-hover-text" href='javascript:;'>[Image]</a>
+    //   <img class="glossary__image-hover-media" src="${imgName}">
+    // </span>
 
-  //defImg.onclick = function() {
-  //  modal.style.display = "block";
-  //  modalImg.src = this.src;
-  //}
+    var defSpan = document.createElement('span');
+    defSpan.classList.add("glossary__image-container");
 
-  //defAnc.onclick = function() {
-  //  modal.style.display = "block";
-  //  modalImg.src = defImg.src;
-  //}
+    var defAnc = document.createElement('a');
+    defAnc.classList.add("glossary__image-hover-text");
+    defAnc.href = "javascript:;'>[Image]";
+    defAnc.textContent = "[Image]";
 
+    var defImg = document.createElement('img');
+    defImg.classList.add("glossary__image-hover-media");
+    defImg.src = imgName;
 
-
-  /*
-  function createImgContainer(htmlStr) {
-    var frag = document.createDocumentFragment(),
-      temp = document.createElement('div');
-    temp.innerHTML = htmlStr;
-    while (temp.firstChild) {
-      frag.appendChild(temp.firstChild);
+    defImg.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = this.src;
     }
-    return frag;
+
+    defAnc.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = defImg.src;
+    }
+
+    defSpan.appendChild(defAnc);
+    defSpan.appendChild(defImg);
+
+    return defSpan;
   }
 
-
+  // goes through each blockquote and searches for yomichan inserted images
   var imageSearchElements = document.getElementsByTagName("blockquote");
-  for (var ele in imageSearchElements) {
-    anchorTags = imageSearchElements.getElementsByTagName("a");
-    for (var atag in anchorTags) {
-      if (atag.href) {
-        document.getElementById("glossary").innerText += "detected";
+  for (var searchEle of imageSearchElements) {
+    anchorTags = searchEle.getElementsByTagName("a");
+    for (var atag of anchorTags) {
+      var imgFileName = atag.getAttribute("href");
+      //var imgFileName = atag.href;
+      if (imgFileName && imgFileName.substring(0, 25) == "yomichan_dictionary_media") {
+        //document.getElementById("primary_definition").innerHTML += `detected '${imgFileName}'`;
+        var fragment = createImgContainer(imgFileName);
+        atag.parentNode.replaceChild(fragment, atag);
       }
     }
   }
-*/
 
 
   // remove all jmdict english dict tags lol
-  var glossary_ele = document.getElementById("glossary");
+  var glossary_ele = document.getElementById("primary_definition");
   glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
 
   //glossary_ele.innerText += "h:" + height_left;
