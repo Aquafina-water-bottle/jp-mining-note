@@ -162,39 +162,45 @@ ol, ul {
 
 
 /* contains the word, picture, and pitch accent */
-.flexboxtop {
+/* no idea for a good name, so going to call it "def-header" == definition header */
+/*.flexboxtop {*/
+.def-header {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.leftbox {
+/*.leftbox {*/
+.dh-left { /* left */
   background: rgba(0, 0, 0, 0.1);
   padding: 0.5em 0.5em; /* top/bottom, right/left */
   border-radius: 10px 10px 0px 0px;
 }
 
-
-.leftboxpa {
-  background: rgba(0, 0, 0, 0.1);
+.dh-left__-blue-border { /* left */
+/*.leftboxpa {*/
   border-style: solid;
   border-width: 1px;
   border-color: rgba(0, 71, 83, 1);
-  padding: 0.5em 0.5em; /* top/bottom, right/left */
-  border-radius: 10px 10px 0px 0px;
+  /*background: rgba(0, 0, 0, 0.1);
+  padding: 0.5em 0.5em;
+  border-radius: 10px 10px 0px 0px;*/
 }
 
-.flexboxgap {
+/*.flexboxgap {*/
+.dh-gap {
   min-width: 35px
 }
 
-.rightbox {
+/*.rightbox {*/
+.dh-right {
+  font-size: 40px;
 }
 
 
 
 
-.reading {
+.dh-left__reading {
   font-size: 50px;
   font-family: hiragino;
 }
@@ -227,7 +233,7 @@ blockquote b {
 
 
 
-.smallImage {
+.dh-right__img {
   border-radius: 5px;
   cursor: pointer;
   /*transition: 0.3s;*/
@@ -242,23 +248,27 @@ blockquote b {
 /*.smallImage:hover {opacity: 0.7;}*/
 
 /* moved the hover element to the div to prevent the size transform transition from showing */
-.smallimgdiv {
-  font-size: 40px;
+.dh-right__img-container {
   transition: 0.3s;
 }
 
 /* hack to get the image to appear normal when first loading in */
-.smallimgdiv img {
+.dh-right__img-container img {
   max-width: 400px;
   max-height: 210px;
 }
 
-.smallimgdiv:hover {opacity: 0.7;}
+/* not applied to the image because of above comment (prevent showing the transition) */
+.dh-right__img-container:hover {
+  opacity: 0.7;
+}
 
 
+/*
 .smallimgdivreplace {
   font-size: 40px;
 }
+*/
 
 
 
@@ -458,12 +468,8 @@ blockquote b {
  * -------------------
  */
 
-.wordpitch {
-  margin-top: 15px;
-  font-size: 23px;
-  vertical-align: middle;
-}
 
+/* css classes used by the plugin */
 .downstep {
   color: var(--yellow);
   position: relative;
@@ -504,19 +510,28 @@ blockquote b {
 }
 
 
-.word-pitch--big {
+
+/* css classes defined in the note */
+.dh-left__word-pitch {
+  margin-top: 15px;
+  font-size: 23px;
+  vertical-align: middle;
+}
+
+
+.dh-left__word-pitch--big {
   font-size: 30px;
   margin-top: 8px;
 }
 
 
 /* overwriting the bold ability:  bold == not the correct sound used in the sound clip */
-.wordpitch b {
+.dh-left__word-pitch b {
   font-weight:normal;
   color: #808080;
   font-size: 15px;
 }
-.wordpitch b .pitchoverline:after {
+.dh-left__word-pitch b .pitchoverline:after {
   content: '';
   width: 100%;
   height: 1px;
@@ -526,7 +541,7 @@ blockquote b {
   top: -1px;
   right: -1px;
 }
-.wordpitch b .downstep:before {
+.dh-left__word-pitch b .downstep:before {
   content: '';
   width: 1px;
   height: 25%;
@@ -538,13 +553,13 @@ blockquote b {
   left: 0px;
 }
 
-.wordpitch b .nopron {
+.dh-left__word-pitch b .nopron {
   filter: brightness(var(--pa-brightness-reduce));
 }
-.wordpitch b .nasal {
+.dh-left__word-pitch b .nasal {
   filter: brightness(var(--pa-brightness-reduce));
 }
-.wordpitch b .downstep {
+.dh-left__word-pitch b .downstep {
   filter: brightness(var(--pa-brightness-reduce));
 }
 
@@ -558,44 +573,32 @@ blockquote b {
 
 
 
-/* https://www.geeksforgeeks.org/how-to-float-three-div-side-by-side-using-css/ */
-.container .box {
-  width: auto;
-  display: table;
-  font-size: 25px;
-  text-align: left;
-}
-.container .box .box-row {
-  display: table-row;
-}
-.container .box .box-cell {
-  display: table-cell;
-  /*padding: 5px;*/
+
+.def-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
-/* pitch accent graphs */
-.container .box .box-cell.box1p {
-  /*background:green;*/
-  vertical-align:middle;
+.dh-left__bottom {
+  justify-content: center;
+  display: flex;
+  align-items: center;
   font-size: 15px;
 }
-.container .box .box-cell.box2p {
-  /*background:lightgreen;*/
-  vertical-align:middle;
-  font-size: 15px;
+
+
+.dh-left__graph {
 }
-.container .box .box-cell.box3p {
-  /*background:darkgreen;*/
-  vertical-align:middle;
-  font-size: 15px;
-}
-.container .box .box-cell.boxsep {
-  /*background:darkgreen;*/
-  vertical-align:middle;
-  padding-left: 10px;
+
+.dh-left__gap {
   font-size: 20px;
+  padding-left: 10px;
   color: #d0d0d0;
+}
+
+.dh-left__audio {
 }
 
 

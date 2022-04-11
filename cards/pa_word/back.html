@@ -5,10 +5,12 @@
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
 <!-- priority: AltDisplay -> Word -->
 
-<!-- option 1: AltDisplay -->
-{{#AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
-{{/AltDisplay}}
+<!-- option 1: AltDisplay (only if the original card is not a sentence card) -->
+{{^IsSentenceCard}}
+  {{#AltDisplay}}
+    <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
+  {{/AltDisplay}}
+{{/IsSentenceCard}}
 
 <!-- option 2: Word -->
 {{^AltDisplay}}
@@ -41,72 +43,56 @@
 
 
 
-<div id=flex_box_top class=flexboxtop>
-
-  <!--<div id=left_gap class=flexboxgap> </div>-->
+<div class="def-header" id="def_header">
 
   <!-- everything on the left side -->
-  <div id=left_box class=leftboxpa>
+  <div class="dh-left" id="dh_left">
 
-    <div class=reading> {{furigana:WordReading}} </div>
+    <div class="dh-left__reading"> {{furigana:WordReading}} </div>
 
-    {{#WordPitch}}
-      <div class="wordpitch word-pitch--big" id="word_pitch">
-         {{WordPitch}}
-      </div>
-
-      <script>
-        var wp = document.getElementById("word_pitch");
-        wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
-
-        // entirely removes the (N/A) text instead
-        var g_ele = document.getElementById("graph");
-        if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
-          document.getElementById("graph").remove();
-          document.getElementById("boxsep").remove();
-        }
-    </script>
-    {{/WordPitch}}
-
-    {{^WordPitch}}
-    <script>
-        var g_ele = document.getElementById("graph");
-        if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
-            // assumes document.getElementById("position").innerText == "No pitch accent data"
-            document.getElementById("graph").innerText = "(N/A)";
-        }
-    </script>
-    {{/WordPitch}}
-
-
-    <center>
-    <div class="container">
-        <div class="box">
-            <div class="box-row">
-                <div class="box-cell box1p" id="graph">
-                    {{Graph}}
-                </div>
-                <div class="box-cell boxsep" id="boxsep">
-                    ・
-                </div>
-                <div class="box-cell box3p">
-                     {{WordAudio}} <span id="hackaudio"> {{SentenceAudio}} </span>
-                </div>
-            </div>
-        </div>
+    <div class="dh-left__word-pitch dh-left__word-pitch--big" id="dh_word_pitch">
+       {{WordPitch}}
     </div>
-    </center>
+
+    <script>
+      var wp = document.getElementById("dh_word_pitch");
+
+      // only replaces if it exists
+      wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+
+      // entirely removes the (N/A) text instead
+      var g_ele = document.getElementById("dh_left_graph");
+      if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
+        document.getElementById("dh_left_graph").remove();
+        document.getElementById("dh_left_gap").remove();
+
+        // if there is no word pitch either, overrides it with N/A
+        {{^WordPitch}}
+          wp.innerText = "(N/A)";
+        {{/WordPitch}}
+      }
+    </script>
+
+    <div class="dh-left__bottom">
+      <div class="dh-left__graph" id="dh_left_graph">
+          {{Graph}}
+      </div>
+      <div class="dh-left__gap" id="dh_left_gap">
+          ・
+      </div>
+      <div class="dh-left__audio">
+           {{WordAudio}} <span id="audio_play_first"> {{SentenceAudio}} </span>
+      </div>
+    </div>
+
   </div>
 
-  <div id=mid_gap class=flexboxgap> </div>
+  <div class="dh-gap" id="dh_gap"> </div>
 
   <!-- everything on the right side -->
-  <div id=right_box class=rightbox>
-
-    <div id="small_img_div" class=smallimgdiv>{{Picture}}</div>
+  <div class="dh-right" id="dh_right">
+    <div class="dh-right__img-container" id="dh_img_container">{{Picture}}</div>
   </div>
-
-  <!--<div id=right_gap class=flexboxgap> </div>-->
 
 </div>
 
@@ -183,7 +169,7 @@
 <script>
 
   // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
-  var elem = document.querySelector("#hackaudio .soundLink, #hackaudio .replaybutton"); 
+  var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton"); 
   if (elem) {
     elem.click();
   }
@@ -194,7 +180,7 @@
   // not really sure how to fix this though :(
   // https://stackoverflow.com/questions/4787527/how-to-find-the-width-of-a-div-using-vanilla-javascript
   function adjust_boxes(width_right, ele_right) {
-    //var width_left = document.getElementById("left_box").clientWidth;
+    //var width_left = document.getElementById("dh_left").clientWidth;
     //if (saved_width_img === null) {
     //  saved_width_img = img.clientWidth;
     //}
@@ -214,7 +200,7 @@
     //var gap_width = (max_width - width - 3) / 3.2;
 
     ////document.getElementById("left_gap").style.width  = gap_width + "px";
-    //document.getElementById("mid_gap").style.width   = gap_width + "px";
+    //document.getElementById("dh_gap").style.width   = gap_width + "px";
     ////document.getElementById("right_gap").style.width = gap_width + "px";
 
     var add_padding = current_width - (width_left + width_right + gap_width);
@@ -223,13 +209,13 @@
 
       var shrink_size = current_width - width_left - gap_width;
       ele_right.style.maxWidth = shrink_size + "px";
-      //document.getElementById("left_box").style.paddingLeft = "0px";
-      //document.getElementById("left_box").style.paddingRight = "0px";
+      //document.getElementById("dh_left").style.paddingLeft = "0px";
+      //document.getElementById("dh_left").style.paddingRight = "0px";
 
     } else { // add extra padding to left box to make it bigger
       var add_padding_side = (add_padding / 2) - 1;
-      document.getElementById("left_box").style.paddingLeft = add_padding_side + "px";
-      document.getElementById("left_box").style.paddingRight = add_padding_side + "px";
+      document.getElementById("dh_left").style.paddingLeft = add_padding_side + "px";
+      document.getElementById("dh_left").style.paddingRight = add_padding_side + "px";
     }
   }
 
@@ -238,18 +224,18 @@
   var modal = document.getElementById('modal');
 
   // restricting the max height of image to the definition box
-  var lb = document.getElementById("left_box");
-  var rb = document.getElementById("left_box");
-  var smalldiv = document.getElementById("small_img_div");
+  var lb = document.getElementById("dh_left");
+  var rb = document.getElementById("dh_right");
+  var smalldiv = document.getElementById("dh_img_container");
   var width_left =  lb.clientWidth;
-  var height_left = rb.clientHeight;
+  var height_left = lb.clientHeight;
 
   // Get the image and insert it inside the modal - use its "alt" text as a caption
   //var img = document.getElementById('myImg');
   var img_list = smalldiv.getElementsByTagName("img");
   if (img_list.length == 1) {
     var img = smalldiv.getElementsByTagName("img")[0];
-    img.classList.add("smallImage");
+    img.classList.add("dh-right__img");
     img.style.maxHeight = height_left + "px";
 
     var modalImg = document.getElementById("bigimg");
@@ -267,7 +253,7 @@
     // hopefully length is 0 here...
     // support for no images here: remove 
     // the hacky method is just to remove the class all together lol
-    smalldiv.className = "smallimgdivreplace";
+    smalldiv.className = "";
     adjust_boxes(smalldiv.clientWidth, smalldiv)
   }
 

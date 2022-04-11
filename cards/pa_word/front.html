@@ -12,10 +12,12 @@
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
 <!-- priority: AltDisplay -> Word -->
 
-<!-- option 1: AltDisplay -->
-{{#AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
-{{/AltDisplay}}
+<!-- option 1: AltDisplay (only if the original card is not a sentence card) -->
+{{^IsSentenceCard}}
+  {{#AltDisplay}}
+    <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
+  {{/AltDisplay}}
+{{/IsSentenceCard}}
 
 <!-- option 2: Word -->
 {{^AltDisplay}}

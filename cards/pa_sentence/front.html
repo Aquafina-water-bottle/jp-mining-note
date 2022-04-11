@@ -19,10 +19,12 @@
 
 
 {{^AltDisplayPASentenceCard}}
-  <!-- option 2: AltDisplay -->
-  {{#AltDisplay}}
-    <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
-  {{/AltDisplay}}
+  <!-- option 2: AltDisplay (only if the original card is a sentence card) -->
+  {{#IsSentenceCard}}
+    {{#AltDisplay}}
+      <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+    {{/AltDisplay}}
+  {{/IsSentenceCard}}
 
   <!-- option 3: Sentence -->
   {{^AltDisplay}}
