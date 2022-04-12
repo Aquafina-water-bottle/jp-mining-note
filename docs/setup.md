@@ -1,46 +1,112 @@
 
 # Anki Setup
-* TODO required plugins and their configs
+For this card type to work, some Anki addons are required to connect to external sources and to auto-generate
+certain fields.
 
 ## Required Anki Plugins
+To download all the required plugins, copy and paste the following numbers into the Add-ons window.
+(Tools -> Add-ons -> "Get Add-ons...")
+```
+1344485230 1225470483 2055492159
+```
+Further details on each of the plugins and the required config changes are listed below.
 
 #### AJT Furigana
+[(Link)](https://ankiweb.net/shared/info/1344485230)
 Alternative and up-to-date version of JapaneseSupport.
-Automatically adds furigana from one field to another.
+Automatically generates furigana upon yomichan card creation.
+Note that furigana generation is occasionally incorrect, so you should double-check the readings
+to make sure they are correct.
 
-[Link] (TODO)
-
-Config:
+The important things to change in the config are `generate_on_note_add`, `fields` and `note_types`.
+Here is my full config:
 ```
-TODO
+{
+    "context_menu": {
+        "generate_furigana": true,
+        "to_hiragana": true,
+        "to_katakana": true
+    },
+    "fields": [
+        {
+            "destination": "SentenceReading",
+            "source": "Sentence"
+        }
+    ],
+    "furigana_suffix": " (furigana)",
+    "generate_on_note_add": true,
+    "note_types": [
+        "jp"
+    ],
+    "skip_numbers": false,
+    "skip_words": "",
+    "toolbar": {
+        "clean_furigana_button": {
+            "enable": false,
+            "shortcut": "Alt+u",
+            "text": "削"
+        },
+        "furigana_button": {
+            "enable": false,
+            "shortcut": "Alt+o",
+            "text": "振"
+        }
+    }
+}
 ```
 
 #### AJT Pitch Accent
+[(Link)](https://ankiweb.net/shared/info/1225470483)
 Automatically adds pitch accent info given the word.
+Note: Although I have two fields for Yomichan to import the pitch accent, I primarily use the
+pitch accent info generated from this plugin because I personally find it easier to edit.
+More about editing pitch accent in usage (TODO).
 
-[Link] (TODO)
-
-Config:
+The important things to change in the config are `generate_on_note_add`,
+`destination_fields`, `source_fields` and `styles`.
+Here is my full config:
 ```
-TODO
+{
+    "destination_fields": [
+        "WordPitch"
+    ],
+    "generate_on_note_add": true,
+    "kana_lookups": true,
+    "lookup_shortcut": "Ctrl+8",
+    "note_types": [
+        "jp"
+    ],
+    "regenerate_readings": false,
+    "skip_words": "へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,です",
+    "source_fields": [
+        "Word"
+    ],
+    "styles": {
+        "&#42780;": "<span class=\"downstep\">&#42780;</span>",
+        "class=\"overline\"": "style=\"text-decoration:overline;\" class=\"pitchoverline\""
+    },
+    "use_hiragana": false,
+    "use_mecab": true
+}
 ```
 
 #### AnkiConnect
+[(Link)](https://ankiweb.net/shared/info/2055492159)
 Required for Yomichan and most other Anki-related automated tasks to work.
-
-[Link] (TODO)
+I use the default config that comes with the plugin.
 
 
 ## Optional Anki Plugins
 
 These plugins assist in card creation, but are ultimately optional.
-* Paste Images As WebP
-* Yomichan Forvo Server
+* Paste Images As WebP [(link)](https://ankiweb.net/shared/info/1151815987)
+* Yomichan Forvo Server [(link)](https://ankiweb.net/shared/info/580654285)
 
 These are the plugins I use outside of the main card creation process.
-* Adjust Sound Volume
-* AJT Flexible Grading
-* AJT Mortician
+* Adjust Sound Volume [(link)](https://ankiweb.net/shared/info/2123044452)
+* AJT Flexible Grading [(link)](https://ankiweb.net/shared/info/1715096333)
+* AJT Mortician [(link)](https://ankiweb.net/shared/info/1255924302)
+* True Retention by Card Maturity Simplified [(link)](https://ankiweb.net/shared/info/1779060522)
 
 ## Optional: Separate Pitch Accent Deck
 * Make all new cards to be created in a separate deck by default

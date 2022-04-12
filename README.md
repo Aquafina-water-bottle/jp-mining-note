@@ -26,7 +26,7 @@ Working on documentation, fleshing out details, providing example cards, etc.
 
 
 ## TODO:
-* Clean up the codebase
+* Clean up the codebase (almost done!)
   * Use a consistent code style
   * Add more comments on style sheet
   * Use better variable names
