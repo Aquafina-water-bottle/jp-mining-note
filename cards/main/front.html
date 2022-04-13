@@ -39,21 +39,31 @@
     <!-- not legacy card -->
     {{^PADoNotShowInfoLegacy}}
 
-      {{#PADoNotTest}}
-        None
-      {{/PADoNotTest}}
+      <!--
+      anki doesn't allow "or" logic in templates,
+      so I replicate it by repeating things a bunch of times...
 
-      <!-- not (explicity do not test PA) -->
-      {{^PADoNotTest}}
-
-        <!--
-          ffs anki
-          - realistically, it shouldn't ever be (A ^ B) but whatever
-          - separate sentence card & ~test only word is normal
-          - ~separate sentence card & test only word is also normal (force a test word instead)
           A v B  = (A ^ ~B) v (~A ^ B) v (A ^ B)
           ~(A v B) =  ~A ^ ~B
-        -->
+      For more readable logic, check the "Word pitch indicator color" javascript code
+      -->
+
+      <!-- PADoNotTest or PASeparateWordCard == none -->
+      {{#PADoNotTest}} {{#PASeparateWordCard}}
+        None
+      {{/PASeparateWordCard}} {{/PADoNotTest}}
+      {{^PADoNotTest}} {{#PASeparateWordCard}}
+        None
+      {{/PASeparateWordCard}} {{/PADoNotTest}}
+      {{#PADoNotTest}} {{^PASeparateWordCard}}
+        None
+      {{/PASeparateWordCard}} {{/PADoNotTest}}
+
+      <!-- neither PADoNotTest, PASeparateWordCard are filled -->
+      <!-- we then test the PA somewhere -->
+      {{^PADoNotTest}} {{^PASeparateWordCard}}
+
+        <!-- PASeparateSentenceCard or PATestOnlyWord == word -->
         {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
           Word
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
@@ -64,11 +74,12 @@
           Word
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
+        <!-- if none of the above, then we test the sentence (default value) -->
         {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
           Sentence
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
-      {{/PADoNotTest}}
+      {{/PASeparateWordCard}} {{/PADoNotTest}}
 
     {{/PADoNotShowInfoLegacy}}
 
@@ -128,28 +139,63 @@
 {{^PADoNotShowInfoLegacy}}
   <div class="expression-box">
 
-    <!-- different circle positions depending on whether it's a sentence or not -->
+    <div class="flag-box">
+      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+        style="display:inline-block;vertical-align:middle;height:1.5em;">
+        <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
+          <title id=svg_title></title>
+        </circle>
+      </svg>
+    </div>
+
     {{#IsSentenceCard}}
-      <div class="flag-box">
-        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-          style="display:inline-block;vertical-align:middle;height:1.5em;">
-          <circle id="svg_circle" class="flag-box__circle" cx="35" cy="11" r="7">
-            <title id=svg_title></title>
-          </circle>
-        </svg>
-      </div>
+      <!--
+        different circle positions depending on whether it's a sentence or not.
+        More specifically, checks if the first character is "「",
+        and adjusts the position based on that
+      -->
+      <script>
+        var circ = document.getElementById("svg_circle");
+        var d = document.getElementById("Display");
+        if (d.innerText.length > 0 && d.innerText[0] == "「") {
+          circ.setAttributeNS(null, "cx", "35");
+          circ.setAttributeNS(null, "cy", "11");
+        }
+      </script>
     {{/IsSentenceCard}}
 
-    {{^IsSentenceCard}}
-      <div class="flag-box">
-        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-          style="display:inline-block;vertical-align:middle;height:1.5em;">
-          <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
-            <title id=svg_title></title>
-          </circle>
-        </svg>
-      </div>
-    {{/IsSentenceCard}}
+    <script>
+      // ============================
+      //  Word pitch indicator color
+      // ============================
+      var svgTitle = document.getElementById("svg_title");
+      var styleClass = "";
+
+      if ("{{PADoNotTest}}{{PASeparateWordCard}}") {
+        // PADoNotTest or PASeparateWordCard
+        styleClass = "flag-box__circle--none";
+        svgTitle.textContent = "PA: Do not test";
+      } else {
+        if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
+          // either PASeparateSentenceCard or PATestOnlyWord
+          styleClass = "flag-box__circle--word";
+          svgTitle.textContent = "PA: Word";
+        } else {
+          styleClass = "flag-box__circle--all";
+          svgTitle.textContent = "PA: Sentence";
+        }
+
+        // ~(isSentenceCard) overrides color (should 'test all')
+        if (!"{{IsSentenceCard}}") {
+          styleClass = "flag-box__circle--all"
+        }
+      }
+
+      var circ = document.getElementById("svg_circle");
+      circ.classList.add(styleClass);
+    </script>
+
+
 
     <!-- priority is on the alternate display sentence -->
     {{#AltDisplay}}
@@ -198,7 +244,8 @@
 
 
 
-<!-- do not separate pitch accent card -->
+<!-- regular display -->
+<!-- displays the audio and show/hide button, used only when testing pitch accent -->
 {{^PADoNotShowInfoLegacy}}
 
 <!-- for pitch accent to be properly tested:
@@ -208,12 +255,14 @@
 
 {{^IsClozeDeletionCard}}
 
-{{^PADoNotTest}}
+{{^PADoNotTest}} {{^PASeparateWordCard}}
 
 
 
 <!-- if the display is a sentence but we only want to test word pitch accent -->
 {{#IsSentenceCard}}
+
+  <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
   {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
     <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
   {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
@@ -259,52 +308,9 @@
   </details>
 {{/IsSentenceCard}}
 
+{{/PASeparateWordCard}} {{/PADoNotTest}}
 
-
-  <script>
-    // ======================
-    //  Word pitch indicator
-    // ======================
-
-    var svgTitle = document.getElementById("svg_title");
-
-    var styleClass = "";
-    if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") { // either PASeparateSentenceCard or PATestOnlyWord
-      styleClass = "flag-box__circle--word";
-      svgTitle.textContent = "PA: Word";
-    } else {
-      styleClass = "flag-box__circle--all";
-      svgTitle.textContent = "PA: Sentence";
-    }
-
-    // ~(isSentenceCard) overrides style (should be test PA star)
-    if (!"{{IsSentenceCard}}") {
-      styleClass = "flag-box__circle--all"
-    }
-
-    var circ = document.getElementById("svg_circle");
-    circ.classList.add(styleClass);
-  </script>
-
-
-{{/PADoNotTest}}
-
-
-<!-- explicitly do not test pitch accent -->
-{{#PADoNotTest}}
-
-  <script>
-    var circ = document.getElementById("svg_circle");
-    circ.classList.add("flag-box__circle--none");
-
-    // https://stackoverflow.com/a/13546213
-    var svgTitle = document.getElementById("svg_title");
-    svgTitle.textContent = "PA: Do not test";
-  </script>
-
-{{/PADoNotTest}}
-
-
+  <!-- we include the audio at the front regardless if we test PA or not -->
   <script>
     // =====================
     //  THIS PART IS A HACK
