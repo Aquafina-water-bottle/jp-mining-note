@@ -72,25 +72,23 @@
 </div>
 
 
-
-
 <!-- listening unknown card -->
 {{#IsClozeDeletionCard}}
-    <!-- defaults to alt display -->
-    {{#AltDisplay}}
-        <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
-    {{/AltDisplay}}
+  <!-- defaults to alt display -->
+  {{#AltDisplay}}
+    <div class="expression expression--single bold-yellow" id="Display">{{furigana:AltDisplay}}</div>
+  {{/AltDisplay}}
 
-    {{^AltDisplay}}
-        <div class="expression expression--single" id="Display">{{Sentence}}</div>
-    {{/AltDisplay}}
+  {{^AltDisplay}}
+    <div class="expression expression--single bold-yellow" id="Display">「{{Sentence}}」</div>
+  {{/AltDisplay}}
 
-    <script>
-        document.getElementById("Display").innerHTML = "「{{Sentence}}」".replace(/<b>.*<\/b>/g, "<b>[...]</b>");
-    </script>
+  <script>
+    var d = document.getElementById("Display");
+    d.innerHTML = d.innerHTML.replace(/<b>.*<\/b>/g, "<b>[...]</b>");
+  </script>
 
 {{/IsClozeDeletionCard}}
-
 
 
 
@@ -98,13 +96,14 @@
 <!-- not listening card -->
 {{^IsClozeDeletionCard}}
 
+
 <!-- legacy display -->
 {{#PADoNotShowInfoLegacy}}
 
   <!-- priority is on the alternate display sentence -->
   {{#AltDisplay}}
     {{#IsSentenceCard}}
-      <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+      <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
@@ -116,7 +115,7 @@
   <!-- no alt display sentence, not listening card -->
   {{^AltDisplay}}
     {{#IsSentenceCard}}
-      <div class="expression expression--single overridedisplay" id="Display">「{{Sentence}}」</div>
+      <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
     {{/IsSentenceCard}}
 
     {{^IsSentenceCard}}
@@ -192,7 +191,7 @@
     <!-- priority is on the alternate display sentence -->
     {{#AltDisplay}}
       {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
+        <div class="expression" id="Display">{{furigana:AltDisplay}}</div>
       {{/IsSentenceCard}}
 
       {{^IsSentenceCard}}
@@ -204,7 +203,7 @@
     <!-- no alt display sentence, not listening card -->
     {{^AltDisplay}}
       {{#IsSentenceCard}}
-        <div class="expression overridedisplay" id="Display">「{{Sentence}}」</div>
+        <div class="expression" id="Display">「{{Sentence}}」</div>
       {{/IsSentenceCard}}
 
       {{^IsSentenceCard}}
@@ -223,7 +222,7 @@
 {{#Hint}}
   <div class="center-box-1">
     <div class="center-box-2">
-      <div class="hint">{{hint:Hint}}</div>
+      <div class="hint bold-yellow">{{hint:Hint}}</div>
     </div>
   </div>
 {{/Hint}}
@@ -343,7 +342,7 @@
 <!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 <div class="center-box-1">
   <div class="center-box-2">
-    <div class="fullsentence" id="FullSentence">
+    <div class="full-sentence bold-yellow" id="full_sentence">
         {{furigana:SentenceReading}}
     </div>
   </div>
@@ -352,7 +351,7 @@
 <!-- https://stackoverflow.com/questions/14380442/make-one-section-of-simple-web-page-have-own-scroll-bar -->
 
 
-<blockquote class="glossary-blockquote" id="primary_definition">
+<blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
   {{edit:PrimaryDefinition}}
 </blockquote>
 
@@ -360,7 +359,7 @@
 {{#SecondaryDefinition}}
   <details class="glossary-details">
     <summary>Secondary Definition</summary>
-    <blockquote class="glossary-blockquote">
+    <blockquote class="glossary-blockquote bold-yellow">
     {{SecondaryDefinition}}
     </blockquote>
   </details>
@@ -369,7 +368,7 @@
 {{#AdditionalNotes}}
   <details class="glossary-details glossary-details--small">
     <summary>Additional Notes</summary>
-    <blockquote class="glossary-blockquote glossary-blockquote--small">
+    <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
     {{AdditionalNotes}}
     </blockquote>
   </details>
@@ -379,7 +378,7 @@
 {{#ExtraDefinitions}}
   <details class="glossary-details glossary-details--small">
     <summary>Extra Definitions</summary>
-    <blockquote class="glossary-blockquote glossary-blockquote--small">
+    <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
     {{ExtraDefinitions}}
     </blockquote>
   </details>

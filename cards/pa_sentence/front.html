@@ -14,22 +14,28 @@
 
 <!-- option 1: AltDisplayPASentenceCard -->
 {{#AltDisplayPASentenceCard}}
-  <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplayPASentenceCard}}</div>
+  <div class="expression expression--single" id="Display">{{furigana:AltDisplayPASentenceCard}}</div>
 {{/AltDisplayPASentenceCard}}
 
 
 {{^AltDisplayPASentenceCard}}
   <!-- option 2: AltDisplay (only if the original card is a sentence card) -->
-  {{#IsSentenceCard}}
-    {{#AltDisplay}}
-      <div class="expression expression--single overridedisplay" id="Display">{{furigana:AltDisplay}}</div>
-    {{/AltDisplay}}
-  {{/IsSentenceCard}}
+  <!--IsSentenceCard and AltDisplay -->
+  {{#IsSentenceCard}} {{#AltDisplay}}
+      <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
+  {{/AltDisplay}} {{/IsSentenceCard}}
 
   <!-- option 3: Sentence -->
-  {{^AltDisplay}}
-    <div class="expression expression--single overridedisplay" id="Display">「{{Sentence}}」</div>
-  {{/AltDisplay}}
+  <!-- opposite of above ~(IsSentenceCard ^ AltDisplay) -->
+  {{#IsSentenceCard}} {{^AltDisplay}}
+    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
+  {{/AltDisplay}} {{/IsSentenceCard}}
+  {{^IsSentenceCard}} {{#AltDisplay}}
+    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
+  {{/AltDisplay}} {{/IsSentenceCard}}
+  {{^IsSentenceCard}} {{^AltDisplay}}
+    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
+  {{/AltDisplay}} {{/IsSentenceCard}}
 
 {{/AltDisplayPASentenceCard}}
 

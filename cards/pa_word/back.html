@@ -6,16 +6,21 @@
 <!-- priority: AltDisplay -> Word -->
 
 <!-- option 1: AltDisplay (only if the original card is not a sentence card) -->
-{{^IsSentenceCard}}
-  {{#AltDisplay}}
-    <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
-  {{/AltDisplay}}
-{{/IsSentenceCard}}
+{{^IsSentenceCard}} {{#AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
+{{/AltDisplay}} {{/IsSentenceCard}}
 
 <!-- option 2: Word -->
-{{^AltDisplay}}
+<!-- opposite of above ~(~IsSentenceCard ^ AltDisplay) -->
+{{#IsSentenceCard}} {{#AltDisplay}}
   <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-{{/AltDisplay}}
+{{/AltDisplay}} {{/IsSentenceCard}}
+{{#IsSentenceCard}} {{^AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
+{{/AltDisplay}} {{/IsSentenceCard}}
+{{^IsSentenceCard}} {{^AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
+{{/AltDisplay}} {{/IsSentenceCard}}
 
 
 
@@ -111,7 +116,7 @@
 
 <div class="center-box-1">
   <div class="center-box-2">
-    <div class="fullsentence" id="FullSentence">
+    <div class="full-sentence bold-yellow" id="full_sentence">
         {{furigana:SentenceReading}}
     </div>
   </div>
@@ -120,7 +125,7 @@
 <!-- https://stackoverflow.com/questions/14380442/make-one-section-of-simple-web-page-have-own-scroll-bar -->
 
 
-<blockquote class="glossary-blockquote" id="primary_definition">
+<blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
   {{edit:PrimaryDefinition}}
 </blockquote>
 
@@ -128,7 +133,7 @@
 {{#SecondaryDefinition}}
   <details class="glossary-details">
     <summary>Secondary Definition</summary>
-    <blockquote class="glossary-blockquote">
+    <blockquote class="glossary-blockquote bold-yellow">
     {{SecondaryDefinition}}
     </blockquote>
   </details>
@@ -137,7 +142,7 @@
 {{#AdditionalNotes}}
   <details class="glossary-details glossary-details--small">
     <summary>Additional Notes</summary>
-    <blockquote class="glossary-blockquote glossary-blockquote--small">
+    <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
     {{AdditionalNotes}}
     </blockquote>
   </details>
@@ -147,7 +152,7 @@
 {{#ExtraDefinitions}}
   <details class="glossary-details glossary-details--small">
     <summary>Extra Definitions</summary>
-    <blockquote class="glossary-blockquote glossary-blockquote--small">
+    <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
     {{ExtraDefinitions}}
     </blockquote>
   </details>

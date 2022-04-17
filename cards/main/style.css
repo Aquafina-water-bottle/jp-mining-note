@@ -58,6 +58,17 @@ ol, ul {
 /*@font-face { font-family: notoserif; src: url('NotoSerifCJK-Regular.ttc'); }*/
 
 
+.bold-yellow b {
+  color: var(--yellow);
+}
+
+/*.bold-remove-font-weight b {
+  font-weight: normal;
+}*/
+
+
+
+
 
 
 /*
@@ -116,9 +127,10 @@ ol, ul {
 }
 
 .expression b {
-  color: var(--yellow);
-  font-weight: normal; /* LMFAO */
+  /*color: var(--yellow);*/
+  font-weight: normal;
 }
+
 .expression ruby rt { opacity: 0; }
 .expression:hover ruby rt { opacity: 1; }
 
@@ -208,16 +220,16 @@ ol, ul {
 
 /* resets the bold color to initial */
 /* TODO rename to reset-bold-color */
-.nightMode .overridedisplay b {
+/*.nightMode .overridedisplay b {
   color: white;
 }
 .overridedisplay b {
   color: initial;
-}
+}*/
 
 
 /* fancy blockquote css */
-blockquote {
+/*blockquote {
   text-align: left;
   background: rgba(0, 0, 0, 0.1);
   font-size: 18px;
@@ -230,7 +242,7 @@ blockquote p {
 }
 blockquote b {
   color: var(--yellow);
-}
+}*/
 
 
 
@@ -387,22 +399,56 @@ blockquote b {
 }
 
 
-/* TODO rename & remove
- *
- * glossary -> glossary-blockquote
- * glossarydetails -> glossary-details
- * additionalnotes -> glossary-blockquote--small
- * additionalnotesdetails -> glossary-details--small
+
+/*
+ * -----------------------------------
+ *  Definitions and collapsable boxes
+ * -----------------------------------
  */
 .glossary-blockquote {
   font-size: 18px;
+
+  text-align: left;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  border-left: 5px solid #ccc;
+  margin: 0 5px;
+  padding: 0.5em 10px;
 }
-.glossary-blockquote b {
+
+.glossary-blockquote p {
+  display: inline;
+}
+
+/*.glossary-blockquote b {
   color: var(--yellow);
-}
+}*/
 .glossary-details {
   font-size: 18px;
   margin: 0.5em 0 0 0;
+}
+
+
+/*
+ * For some reason, it appears that the furigana positioning is way too high when used in the glossary.
+ * Athough I would like these settings to work globally, it would sacrifice some minor things
+ * that <ruby> normally takes care of automatically, such as not having additional spacing on
+ * the left/right of the kanjis when the furigana takes up more space than the allocated kanjis.
+ *
+ * tl;dr only affects glossary css as a quick fix, as the default <ruby> styles are usually preferable.
+ */
+.glossary-blockquote ruby {
+  display: inline-flex;
+  flex-direction: column-reverse;
+}
+.glossary-blockquote rt {
+  display: inline;
+  line-height: 1;
+}
+.glossary-blockquote rb {
+  display: inline;
+  line-height: 1;
+  text-align: center;
 }
 
 
@@ -445,16 +491,16 @@ blockquote b {
 
 
 
-.fullsentence {
+.full-sentence {
   font-size: 28px;
   margin: 0 0 0.5em 0;
   font-family: hiragino;
 }
-.fullsentence b {
+/*.fullsentence b {
   color: var(--yellow);
-}
-.fullsentence ruby rt { opacity: 0; }
-.fullsentence:hover ruby rt { opacity: 1; }
+}*/
+.full-sentence ruby rt { opacity: 0; }
+.full-sentence:hover ruby rt { opacity: 1; }
 
 
 
@@ -479,7 +525,7 @@ blockquote b {
   position: absolute;
   display: block;
   top: 0px;
-  left: -2px;
+  left: 0px;
 }
 
 
@@ -525,9 +571,9 @@ blockquote b {
 
 .dh-left__word-pitch--big .downstep:before {
   width: 3px;
-  height: 22%;
+  height: 19%;
   top: 0px;
-  left: -1px;
+  left: 0px;
 }
 
 .dh-left__word-pitch--big .pitchoverline:after {
@@ -632,10 +678,12 @@ blockquote b {
 /* I have no idea what these do but I'm assuming they are useless for this card */
 
 /*
-svg > text { fill: #fff !important; }
-svg > path { stroke: #fff !important; }
-svg > circle[r="5"] { fill: #fff !important; }
-svg > circle[r="3.25"] { fill: #2d2d2d !important; }
+.nightMode {
+  svg > text { fill: #fff !important; }
+  svg > path { stroke: #fff !important; }
+  svg > circle[r="5"] { fill: #fff !important; }
+  svg > circle[r="3.25"] { fill: #2d2d2d !important; }
+}
 */
 
 /*

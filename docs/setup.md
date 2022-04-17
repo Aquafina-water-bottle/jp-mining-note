@@ -298,6 +298,7 @@ the `PASeparateSentenceCard` field filled in.
 * TODO link moeway yomichan stuffs
 * TODO compact viewing to export things in compact form
 * TODO link moeway single definition / single dictionary handlebars code
+* https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336
 * forvo: https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source
 
 
