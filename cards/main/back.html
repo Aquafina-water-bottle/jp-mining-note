@@ -159,6 +159,8 @@
       // ============================
       //  Word pitch indicator color
       // ============================
+      // done in javascript to simplify templating logic
+      // however, special characters in the field like " can break the code
       var svgTitle = document.getElementById("svg_title");
       var styleClass = "";
 
@@ -228,68 +230,6 @@
 {{/Hint}}
 
 
-
-
-<!-- regular display -->
-{{^PADoNotShowInfoLegacy}}
-
-<!-- for pitch accent to be properly tested:
-  - Must not be already a listening card here
-  - PADoNotTest must be empty
-  - WordPitch be non-empty
--->
-
-{{^IsClozeDeletionCard}}
-
-{{^PADoNotTest}}
-
-
-  <script>
-    // ======================
-    //  Word pitch indicator
-    // ======================
-
-    var svgTitle = document.getElementById("svg_title");
-
-    var styleClass = "";
-    if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") { // either PASeparateSentenceCard or PATestOnlyWord
-      styleClass = "flag-box__circle--word";
-      svgTitle.textContent = "PA: Word";
-    } else {
-      styleClass = "flag-box__circle--all";
-      svgTitle.textContent = "PA: Sentence";
-    }
-
-    // ~(isSentenceCard) overrides style (should be test PA star)
-    if (!"{{IsSentenceCard}}") {
-      styleClass = "flag-box__circle--all"
-    }
-
-    var circ = document.getElementById("svg_circle");
-    circ.classList.add(styleClass);
-  </script>
-
-{{/PADoNotTest}}
-
-
-<!-- explicitly do not test pitch accent -->
-{{#PADoNotTest}}
-
-  <script>
-    var circ = document.getElementById("svg_circle");
-    circ.classList.add("flag-box__circle--none");
-
-    // https://stackoverflow.com/a/13546213
-    var svgTitle = document.getElementById("svg_title");
-    svgTitle.textContent = "PA: Do not test";
-  </script>
-
-{{/PADoNotTest}}
-
-
-{{/IsClozeDeletionCard}}
-
-{{/PADoNotShowInfoLegacy}}
 
 
 
