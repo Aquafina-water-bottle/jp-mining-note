@@ -77,7 +77,7 @@ ol, ul {
  *  ================
  */
 
-.cardDesc {
+.card-description {
   font-family: hiragino;
   color: #585858;
   font-size: 20px;
@@ -162,10 +162,10 @@ ol, ul {
 
 
 /*
- * global backside css
+ * adds a width constraint to the backside to make things look better
+ * - only applied after the main definition header
  */
-.backside {
- /* adds a width constraint to the backside to make things look better */
+.back-side {
  max-width: 850px;
  margin: 20px auto 20px auto;
  padding: 0 20px 0 20px;
@@ -173,44 +173,83 @@ ol, ul {
 
 
 
+/*
+ * -------------------
+ *  Word pitch accent
+ * -------------------
+ */
+
+/* css classes used by the plugin */
+.downstep {
+  color: var(--yellow);
+  position: relative;
+}
+.downstep:before {
+  content: '';
+  width: 2px;
+  height: 18%;
+  background: var(--yellow);
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 0px;
+}
+
+
+.pitchoverline {
+  text-decoration: none !important;
+  text-decoration-color: var(--yellow) !important;
+  position: relative;
+}
+.pitchoverline:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: var(--yellow);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+
+.nopron {
+  color: #42a3ff;
+}
+.nasal {
+  color: #f12a2a;
+}
+
+
+
+
+
+/*
+ * -------------------
+ *  Definition header
+ * -------------------
+ */
+
+
 /* contains the word, picture, and pitch accent */
 /* no idea for a good name, so going to call it "def-header" == definition header */
-/*.flexboxtop {*/
 .def-header {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/*.leftbox {*/
 .dh-left { /* left */
   background: rgba(0, 0, 0, 0.1);
   padding: 0.5em 0.5em; /* top/bottom, right/left */
-  /*border-radius: 10px 10px 0px 0px;*/
   border-radius: 5px;
 }
 
-.dh-left__blue-border { /* left */
-/*.leftboxpa {*/
+/* PA cards only */
+.dh-left--blue-border { /* left */
   border-style: solid;
   border-width: 1px;
   border-color: rgba(0, 71, 83, 1);
-  /*background: rgba(0, 0, 0, 0.1);
-  padding: 0.5em 0.5em;
-  border-radius: 10px 10px 0px 0px;*/
 }
-
-/*.flexboxgap {*/
-.dh-gap {
-  min-width: 35px
-}
-
-/*.rightbox {*/
-.dh-right {
-  font-size: 40px;
-}
-
-
 
 
 .dh-left__reading {
@@ -218,31 +257,116 @@ ol, ul {
   font-family: hiragino;
 }
 
-/* resets the bold color to initial */
-/* TODO rename to reset-bold-color */
-/*.nightMode .overridedisplay b {
-  color: white;
+.dh-left__word-pitch {
+  margin-top: 15px;
+  font-size: 23px;
+  vertical-align: middle;
 }
-.overridedisplay b {
-  color: initial;
-}*/
+
+/* bigger word pitch for the pitch accent cards */
+.dh-left__word-pitch--big {
+  font-size: 30px;
+  margin-top: 8px;
+}
+
+.dh-left__word-pitch--big .downstep:before {
+  width: 3px;
+  height: 19%;
+  top: 0px;
+  left: 0px;
+}
+
+.dh-left__word-pitch--big .pitchoverline:after {
+  height: 3px;
+  top: 0px;
+  right: 0px;
+}
 
 
-/* fancy blockquote css */
-/*blockquote {
-  text-align: left;
-  background: rgba(0, 0, 0, 0.1);
-  font-size: 18px;
-  border-left: 5px solid #ccc;
-  margin: 0 5px;
-  padding: 0.5em 10px;
+
+/*
+ * -----------------------------------------
+ *  Def Header Left - Word PA bold override
+ * -----------------------------------------
+ * overwriting the bold ability:
+ * - bold == not the correct sound used in the sound clip
+ *
+ */
+.dh-left__word-pitch b {
+  font-weight: normal;
+  color: #808080;
+  font-size: 15px;
 }
-blockquote p {
-  display: inline;
+
+.dh-left__word-pitch b .pitchoverline:after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: var(--yellow);
+  filter: brightness(var(--pa-brightness-reduce));
+  position: absolute;
+  top: -1px;
+  right: -1px;
 }
-blockquote b {
-  color: var(--yellow);
-}*/
+
+.dh-left__word-pitch b .downstep:before {
+  content: '';
+  width: 1px;
+  height: 25%;
+  background: var(--yellow);
+  /*filter: brightness(var(--pa-brightness-reduce));*/
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: 0px;
+}
+
+.dh-left__word-pitch b .nopron {
+  filter: brightness(var(--pa-brightness-reduce));
+}
+.dh-left__word-pitch b .nasal {
+  filter: brightness(var(--pa-brightness-reduce));
+}
+.dh-left__word-pitch b .downstep {
+  filter: brightness(var(--pa-brightness-reduce));
+}
+
+
+
+/*
+ * ----------------------------
+ *  Def Header Left - PA cards
+ * ----------------------------
+ */
+.dh-left__bottom {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+.dh-left__graph {
+}
+
+.dh-left__gap {
+  font-size: 20px;
+  padding-left: 10px;
+  color: #d0d0d0;
+}
+
+.dh-left__audio-buttons {
+  font-size: 23px;
+  vertical-align: middle;
+}
+
+
+
+/*
+ * --------------------------
+ *  Def Header Right - Image
+ * --------------------------
+ */
+
 
 
 
@@ -277,12 +401,78 @@ blockquote b {
 }
 
 
+
+
 /*
-.smallimgdivreplace {
+ * --------------------
+ *  Def Header - Other
+ * --------------------
+ */
+.dh-gap {
+  min-width: 35px
+}
+
+.dh-right {
   font-size: 40px;
 }
-*/
 
+
+
+
+
+
+/*
+ * -------
+ *  Modal
+ * -------
+ */
+
+
+.modal {
+  display: none; /* hidden by default */
+  position: fixed; /* stay in place */
+  z-index: 99; /* sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* full width */
+  height: 100%; /* full height */
+  overflow: auto; /* enable scroll if needed */
+  background-color: rgb(0,0,0); /* fallback color */
+  background-color: rgba(0,0,0,0.75); /* black w/ opacity */
+}
+
+.modal {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.25s ;
+  animation-name: zoom;
+  animation-duration: 0.25s;
+}
+
+/* Add Animation */
+.modal-img/*, #caption*/ {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.25s ;
+  animation-name: zoom;
+  animation-duration: 0.25s;
+  max-width: initial;
+  max-height: initial;
+
+  /*
+   * center image vertically and horizontally
+   * https://stackoverflow.com/a/11716065
+   */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.modal-img__zoom-out {
+  animation-name: zoom-out;
+  animation-duration: 0.25s;
+}
 
 
 @-webkit-keyframes zoom {
@@ -350,53 +540,19 @@ blockquote b {
 }
 
 
+/*
+ * ---------------
+ *  Full sentence
+ * ---------------
+ */
 
-/* modal (background) */
-.modal {
-  display: none; /* hidden by default */
-  position: fixed; /* stay in place */
-  z-index: 99; /* sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* full width */
-  height: 100%; /* full height */
-  overflow: auto; /* enable scroll if needed */
-  background-color: rgb(0,0,0); /* fallback color */
-  background-color: rgba(0,0,0,0.75); /* black w/ opacity */
+.full-sentence {
+  font-size: 28px;
+  margin: 0 0 0.5em 0;
+  font-family: hiragino;
 }
-
-.modal {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.25s ;
-  animation-name: zoom;
-  animation-duration: 0.25s;
-}
-
-/* Add Animation */
-.modal-img/*, #caption*/ {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.25s ;
-  animation-name: zoom;
-  animation-duration: 0.25s;
-  max-width: initial;
-  max-height: initial;
-
-  /*
-   * center image vertically and horizontally
-   * https://stackoverflow.com/a/11716065
-   */
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-
-.modal-img__zoom-out {
-  animation-name: zoom-out;
-  animation-duration: 0.25s;
-}
+.full-sentence ruby rt { opacity: 0; }
+.full-sentence:hover ruby rt { opacity: 1; }
 
 
 
@@ -420,9 +576,6 @@ blockquote b {
   display: inline;
 }
 
-/*.glossary-blockquote b {
-  color: var(--yellow);
-}*/
 .glossary-details {
   font-size: 18px;
   margin: 0.5em 0 0 0;
@@ -489,189 +642,6 @@ blockquote b {
   position: absolute;
 }
 
-
-
-.full-sentence {
-  font-size: 28px;
-  margin: 0 0 0.5em 0;
-  font-family: hiragino;
-}
-/*.fullsentence b {
-  color: var(--yellow);
-}*/
-.full-sentence ruby rt { opacity: 0; }
-.full-sentence:hover ruby rt { opacity: 1; }
-
-
-
-
-/*
- * -------------------
- *  Word pitch accent
- * -------------------
- */
-
-
-/* css classes used by the plugin */
-.downstep {
-  color: var(--yellow);
-  position: relative;
-}
-.downstep:before {
-  content: '';
-  width: 2px;
-  height: 18%;
-  background: var(--yellow);
-  position: absolute;
-  display: block;
-  top: 0px;
-  left: 0px;
-}
-
-
-.pitchoverline {
-  text-decoration: none !important;
-  text-decoration-color: var(--yellow) !important;
-  position: relative;
-}
-.pitchoverline:after {
-  content: '';
-  width: 100%;
-  height: 2px;
-  background: var(--yellow);
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
-
-
-.nopron {
-  color: #42a3ff;
-}
-.nasal {
-  color: #f12a2a;
-}
-
-
-
-/* css classes defined in the note */
-.dh-left__word-pitch {
-  margin-top: 15px;
-  font-size: 23px;
-  vertical-align: middle;
-}
-
-
-/* bigger word pitch for the pitch accent cards */
-.dh-left__word-pitch--big {
-  font-size: 30px;
-  margin-top: 8px;
-}
-
-
-.dh-left__word-pitch--big .downstep:before {
-  width: 3px;
-  height: 19%;
-  top: 0px;
-  left: 0px;
-}
-
-.dh-left__word-pitch--big .pitchoverline:after {
-  height: 3px;
-  top: 0px;
-  right: 0px;
-}
-
-
-
-/* overwriting the bold ability:  bold == not the correct sound used in the sound clip */
-.dh-left__word-pitch b {
-  font-weight:normal;
-  color: #808080;
-  font-size: 15px;
-}
-.dh-left__word-pitch b .pitchoverline:after {
-  content: '';
-  width: 100%;
-  height: 1px;
-  background: var(--yellow);
-  filter: brightness(var(--pa-brightness-reduce));
-  position: absolute;
-  top: -1px;
-  right: -1px;
-}
-.dh-left__word-pitch b .downstep:before {
-  content: '';
-  width: 1px;
-  height: 25%;
-  background: var(--yellow);
-  /*filter: brightness(var(--pa-brightness-reduce));*/
-  position: absolute;
-  display: block;
-  top: -1px;
-  left: 0px;
-}
-
-.dh-left__word-pitch b .nopron {
-  filter: brightness(var(--pa-brightness-reduce));
-}
-.dh-left__word-pitch b .nasal {
-  filter: brightness(var(--pa-brightness-reduce));
-}
-.dh-left__word-pitch b .downstep {
-  filter: brightness(var(--pa-brightness-reduce));
-}
-
-
-
-.audio-buttons {
-  font-size: 23px;
-  vertical-align: middle;
-}
-
-
-
-
-
-.def-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.dh-left__bottom {
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-}
-
-
-.dh-left__graph {
-}
-
-.dh-left__gap {
-  font-size: 20px;
-  padding-left: 10px;
-  color: #d0d0d0;
-}
-
-.dh-left__audio {
-}
-
-
-/*
-.nopatest {
-  font-size: 30px;
-  font-family: notosans;
-  color: #ff4646;
-}
-
-.paTestWordFront {
-  font-size: 35px;
-}
-*/
 
 
 

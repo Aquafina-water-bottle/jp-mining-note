@@ -1,4 +1,4 @@
-<div class="cardDesc">
+<div class="card-description">
   Mining Card:
 
   {{#IsSentenceCard}}
@@ -305,9 +305,13 @@
   <div class="dh-left" id="dh_left">
 
     <div class="dh-left__reading"> {{furigana:WordReading}} </div>
-    {{#WordPitch}}
-     <div class="dh-left__word-pitch" id="dh_word_pitch">
+    <div class="dh-left__word-pitch" id="dh_word_pitch">
+      {{#WordPitch}}
         {{WordPitch}}
+      {{/WordPitch}}
+      {{^WordPitch}}
+        N/A
+      {{/WordPitch}}
     </div>
     <script>
       // a bit of a hack...
@@ -316,7 +320,6 @@
       var wp = document.getElementById("dh_word_pitch");
       wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
     </script>
-    {{/WordPitch}}
 
      <div class="dh-left__audio-buttons">
         {{WordAudio}} {{SentenceAudio}}
@@ -336,7 +339,7 @@
 
 
 
-<div id="back_side" class=backside>
+<div id="back_side" class="back-side">
 
 <!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
 <!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
