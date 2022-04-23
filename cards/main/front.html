@@ -74,9 +74,17 @@
           Word
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
-        <!-- if none of the above, then we test the sentence (default value) -->
+        <!-- if none of the above, then we test the default value -->
         {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
-          Sentence
+
+          {{#IsSentenceCard}}
+              Sentence
+          {{/IsSentenceCard}}
+
+          {{^IsSentenceCard}}
+              Word
+          {{/IsSentenceCard}}
+
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
       {{/PASeparateWordCard}} {{/PADoNotTest}}
@@ -236,11 +244,14 @@
 
 
 {{#Hint}}
-  <div class="center-box-1">
-    <div class="center-box-2">
-      <div class="hint bold-yellow">{{hint:Hint}}</div>
+  <details>
+    <summary class="hint">Hint</summary>
+    <div class="center-box-1">
+      <div class="center-box-2">
+        <div class="hint bold-yellow">{{Hint}}</div>
+      </div>
     </div>
-  </div>
+  </details>
 {{/Hint}}
 
 
@@ -281,10 +292,10 @@
     function logMouseButton() {
       if (pa_button.innerText == "Show") {
         pa_button.innerText = "Hide";
-        d.classList = "expression";
+        d.classList.add("bold-yellow");
       } else {
         pa_button.innerText = "Show";
-        d.classList.add("overridedisplay");
+        d.classList = "expression";
       }
     }
   </script>
@@ -301,7 +312,9 @@
     <summary class=glossary-details>Full Sentence</summary>
     <div class="center-box-1">
       <div class="center-box-2">
-        <div class="full-sentence bold-yellow" id="full_sentence_front">「{{Sentence}}」</div>
+        <div class="full-sentence bold-yellow" id="full_sentence_front">
+          {{furigana:SentenceReading}}
+        </div>
       </div>
     </div>
   </details>

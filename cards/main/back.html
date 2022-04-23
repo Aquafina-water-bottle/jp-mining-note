@@ -59,9 +59,17 @@
           Word
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
-        <!-- if none of the above, then we test the sentence (default value) -->
+        <!-- if none of the above, then we test the default value -->
         {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
-          Sentence
+
+          {{#IsSentenceCard}}
+              Sentence
+          {{/IsSentenceCard}}
+
+          {{^IsSentenceCard}}
+              Word
+          {{/IsSentenceCard}}
+
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
       {{/PASeparateWordCard}} {{/PADoNotTest}}
@@ -222,11 +230,14 @@
 
 
 {{#Hint}}
-  <div class="center-box-1">
-    <div class="center-box-2">
-      <div class="hint bold-yellow">{{hint:Hint}}</div>
+  <details>
+    <summary class="hint">Hint</summary>
+    <div class="center-box-1">
+      <div class="center-box-2">
+        <div class="hint bold-yellow">{{Hint}}</div>
+      </div>
     </div>
-  </div>
+  </details>
 {{/Hint}}
 
 
@@ -295,7 +306,7 @@
 
 
 <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
-  {{edit:PrimaryDefinition}}
+  {{furigana:PrimaryDefinition}}
 </blockquote>
 
 

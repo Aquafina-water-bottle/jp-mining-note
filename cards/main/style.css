@@ -37,6 +37,8 @@ ol, ul {
   padding-left: 1.5em;
 }
 
+/* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
+/* wrap elements in two divs: center-box-1 and center-box-2 */
 .center-box-1 {
   text-align: center;
 }
@@ -273,7 +275,7 @@ ol, ul {
   width: 3px;
   height: 19%;
   top: 0px;
-  left: 0px;
+  left: -1px;
 }
 
 .dh-left__word-pitch--big .pitchoverline:after {
@@ -595,6 +597,7 @@ ol, ul {
   flex-direction: column-reverse;
 }
 .glossary-blockquote rt {
+  padding-top: 3px;
   display: inline;
   line-height: 1;
 }
