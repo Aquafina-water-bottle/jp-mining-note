@@ -219,6 +219,8 @@
 
 
 
+<div class="def-header-wrapper" id="def_header_wrapper">
+
 <div class="def-header" id="def_header">
 
   <!-- everything on the left side -->
@@ -252,6 +254,8 @@
   <div class="dh-right" id="dh_right">
     <div class="dh-right__img-container" id="dh_img_container">{{Picture}}</div>
   </div>
+
+</div>
 
 </div>
 
@@ -321,53 +325,6 @@
 </div>
 
 <script>
-
-  // dynamically adjusts gap width
-  // note: the image appears after a short period of the card loading
-  // which makes the image "pop" into place (and doesn't look very good)
-  // not really sure how to fix this though :(
-  // https://stackoverflow.com/questions/4787527/how-to-find-the-width-of-a-div-using-vanilla-javascript
-  function adjust_boxes(width_right, ele_right) {
-    //var width_left = document.getElementById("dh_left").clientWidth;
-    //if (saved_width_img === null) {
-    //  saved_width_img = img.clientWidth;
-    //}
-    //var width_right = saved_width_img;
-    //var width_right = img.clientWidth;
-    //glossary_ele.innerText += "x:" + width_left + " y:" + width_right
-
-    //var width = width_left + width_right;
-    //// what https://attacomsian.com/blog/javascript-get-css-styles
-    var computed_style = window.getComputedStyle(document.getElementById("back_side"));
-    var max_width = parseInt(computed_style.maxWidth.replace("px", ""));
-    var scaled_width = parseInt(computed_style.width.replace("px", ""));
-    var current_width = Math.min(max_width, scaled_width);
-
-    //glossary_ele.innerText += "A: " + window.getComputedStyle(document.getElementById("back_side")).width;
-    var gap_width = 35; // TODO get dynamically from css
-    //var gap_width = (max_width - width - 3) / 3.2;
-
-    ////document.getElementById("left_gap").style.width  = gap_width + "px";
-    //document.getElementById("dh_gap").style.width   = gap_width + "px";
-    ////document.getElementById("right_gap").style.width = gap_width + "px";
-
-    var add_padding = current_width - (width_left + width_right + gap_width);
-    //glossary_ele.innerText += "nh:" + add_padding;
-    if (add_padding < 0) { // left box is too big, shrink image
-
-      var shrink_size = current_width - width_left - gap_width;
-      ele_right.style.maxWidth = shrink_size + "px";
-      //document.getElementById("dh_left").style.paddingLeft = "0px";
-      //document.getElementById("dh_left").style.paddingRight = "0px";
-
-    } else { // add extra padding to left box to make it bigger
-      var add_padding_side = (add_padding / 2) - 1;
-      document.getElementById("dh_left").style.paddingLeft = add_padding_side + "px";
-      document.getElementById("dh_left").style.paddingRight = add_padding_side + "px";
-    }
-  }
-
-
   var modal = document.getElementById('modal');
   var modalImg = document.getElementById("bigimg");
 
@@ -375,12 +332,13 @@
   var lb = document.getElementById("dh_left");
   var rb = document.getElementById("dh_right");
   var smalldiv = document.getElementById("dh_img_container");
-  var width_left =  lb.clientWidth;
-  var height_left = lb.clientHeight;
+  var height_left = lb.offsetHeight;
 
   // Get the image and insert it inside the modal - use its "alt" text as a caption
   //var img = document.getElementById('myImg');
   var img_list = smalldiv.getElementsByTagName("img");
+  rb.style.maxHeight = height_left + "px";
+
   if (img_list.length == 1) {
     var img = smalldiv.getElementsByTagName("img")[0];
     img.classList.add("dh-right__img");
@@ -392,16 +350,10 @@
       modalImg.alt = this.alt;
     }
 
-    img.onload = function() { // a bit of a hack to require the image to load first before getting the width
-      adjust_boxes(img.clientWidth, img);
-    }
-
-  } else {
-    // hopefully length is 0 here...
-    // support for no images here: remove 
-    // the hacky method is just to remove the class all together lol
+  } else { // otherwise we hope that there are 0 images here
+    // support for no images here: remove the fade-in / fade-out on text
+    // the slightly hacky method is just to remove the class all together lol
     smalldiv.className = "";
-    adjust_boxes(smalldiv.clientWidth, smalldiv)
   }
 
   // When the user clicks on <span> (x), close the modal
@@ -416,6 +368,7 @@
     }, 200);
   }
 
+  // creates a custom image container to hold yomichan images
   function createImgContainer(imgName) {
     // creating this programmically:
     // <span class="glossary__image-container">
@@ -457,34 +410,16 @@
     anchorTags = searchEle.getElementsByTagName("a");
     for (var atag of anchorTags) {
       var imgFileName = atag.getAttribute("href");
-      //var imgFileName = atag.href;
       if (imgFileName && imgFileName.substring(0, 25) == "yomichan_dictionary_media") {
-        //document.getElementById("primary_definition").innerHTML += `detected '${imgFileName}'`;
         var fragment = createImgContainer(imgFileName);
         atag.parentNode.replaceChild(fragment, atag);
       }
     }
   }
 
-
-  // remove all jmdict english dict tags lol
+  // remove all jmdict english dict tags
   var glossary_ele = document.getElementById("primary_definition");
   glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
-
-  //glossary_ele.innerText += "h:" + height_left;
-  //glossary_ele.innerText += "nh:" + img.naturalHeight;
-
-
-  //var resizeTimeout;
-  //window.addEventListener('resize', function(event) {
-  //  clearTimeout(resizeTimeout);
-  //  resizeTimeout = setTimeout(function(){
-  //    // DOES THIS WORK LOL
-  //    img.onload();
-  //    //window.location.reload();
-  //  }, 1500);
-  //});
-
 
 </script>
 

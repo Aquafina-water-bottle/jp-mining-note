@@ -168,9 +168,9 @@ ol, ul {
  * - only applied after the main definition header
  */
 .back-side {
- max-width: 850px;
- margin: 20px auto 20px auto;
- padding: 0 20px 0 20px;
+  max-width: 850px;
+  margin: 20px auto 20px auto;
+  padding: 0 20px 0 20px;
 }
 
 
@@ -232,6 +232,12 @@ ol, ul {
  */
 
 
+.def-header-wrapper {
+  max-width: 820px;
+  margin: auto;
+}
+
+
 /* contains the word, picture, and pitch accent */
 /* no idea for a good name, so going to call it "def-header" == definition header */
 .def-header {
@@ -244,6 +250,7 @@ ol, ul {
   background: rgba(0, 0, 0, 0.1);
   padding: 0.5em 0.5em; /* top/bottom, right/left */
   border-radius: 5px;
+  flex: 1; /* takes up all available space */
 }
 
 /* PA cards only */
@@ -257,6 +264,7 @@ ol, ul {
 .dh-left__reading {
   font-size: 50px;
   font-family: hiragino;
+  white-space: nowrap; /* so the reading can expand into the image */
 }
 
 .dh-left__word-pitch {
@@ -375,26 +383,16 @@ ol, ul {
 .dh-right__img {
   border-radius: 5px;
   cursor: pointer;
-  /*transition: 0.3s;*/
   display: block;
   min-width: 200px;
   max-width: 400px;
-  max-height: 210px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/*.smallImage:hover {opacity: 0.7;}*/
-
 /* moved the hover element to the div to prevent the size transform transition from showing */
 .dh-right__img-container {
   transition: 0.3s;
-}
-
-/* hack to get the image to appear normal when first loading in */
-.dh-right__img-container img {
-  max-width: 400px;
-  max-height: 210px;
 }
 
 /* not applied to the image because of above comment (prevent showing the transition) */
@@ -416,6 +414,9 @@ ol, ul {
 
 .dh-right {
   font-size: 40px;
+
+  max-width: 400px;
+  max-height: 210px;
 }
 
 
