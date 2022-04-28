@@ -129,7 +129,6 @@ See customization (TODO) to change the default values.
 |  WordReading               | `{furigana-plain}`                                |
 |  WordPitch                 |                                                   |
 |  PrimaryDefinition         | `{glossary-bilingual-first}`                      |
-|  SecondaryDefinition       | `{glossary-monolingual-first}`                    |
 |  Sentence                  | `{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}` |
 |  SentenceReading           |                                                   |
 |  AltDisplay                |                                                   |
@@ -149,6 +148,7 @@ See customization (TODO) to change the default values.
 |  Graph                     | `{pitch-accent-graphs}`                           |
 |  Position                  | `{pitch-accent-positions}`                        |
 |  PASilence                 | `[sound:silence.wav]`                             |
+|  SecondaryDefinition       | `{glossary-monolingual-first}`                    |
 |  ExtraDefinitions          | `{glossary-extra}`                                |
 |  Comment                   |                                                   |
 

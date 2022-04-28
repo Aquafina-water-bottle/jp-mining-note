@@ -1,200 +1,27 @@
 <div class="card-description">
-  Mining Card:
-
-  {{#IsSentenceCard}}
-      Sentence
-  {{/IsSentenceCard}}
-
-  {{^IsSentenceCard}}
-      Word
-  {{/IsSentenceCard}}
-
-  /
-
-    {{#PADoNotShowInfoLegacy}}
-      Legacy
-    {{/PADoNotShowInfoLegacy}}
-
-    <!-- not legacy card -->
-    {{^PADoNotShowInfoLegacy}}
-
-
-    <!--
-    anki doesn't allow "or" logic in templates,
-    so I replicate it by repeating things a bunch of times...
-
-        A v B  = (A ^ ~B) v (~A ^ B) v (A ^ B)
-        ~(A v B) =  ~A ^ ~B
-    For more readable logic, check the "Word pitch indicator color" javascript code
-    -->
-
-    <!-- PADoNotTest or PASeparateWordCard == none -->
-    {{#PADoNotTest}} {{#PASeparateWordCard}}
-      None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-    {{^PADoNotTest}} {{#PASeparateWordCard}}
-      None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-    {{#PADoNotTest}} {{^PASeparateWordCard}}
-      None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-
-    <!-- neither PADoNotTest, PASeparateWordCard are filled -->
-    <!-- we then test the PA somewhere -->
-    {{^PADoNotTest}} {{^PASeparateWordCard}}
-
-      <!-- PASeparateSentenceCard or PATestOnlyWord == word -->
-      {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
-        Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
-        Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
-        Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-
-      <!-- if none of the above, then we test the default value -->
-      {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
-
-        {{#IsSentenceCard}}
-            Sentence
-        {{/IsSentenceCard}}
-
-        {{^IsSentenceCard}}
-            Word
-        {{/IsSentenceCard}}
-
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-
-  {{/PADoNotShowInfoLegacy}}
+  Mining Card: Cloze Deletion
 </div>
 
 
-
-
-
-<!-- legacy display -->
-{{#PADoNotShowInfoLegacy}}
-
-  <!-- priority is on the alternate display sentence -->
+<!-- listening unknown card -->
+{{#IsClozeDeletionCard}}
+  <!-- defaults to alt display -->
   {{#AltDisplay}}
-    {{#IsSentenceCard}}
-      <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
-    {{/IsSentenceCard}}
-
-    {{^IsSentenceCard}}
-      <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
-    {{/IsSentenceCard}}
+    <div class="expression expression--single bold-yellow" id="Display">{{furigana:AltDisplay}}</div>
   {{/AltDisplay}}
 
-
-  <!-- no alt display sentence, not listening card -->
   {{^AltDisplay}}
-    {{#IsSentenceCard}}
-      <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
-    {{/IsSentenceCard}}
-
-    {{^IsSentenceCard}}
-      <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-    {{/IsSentenceCard}}
+    <div class="expression expression--single bold-yellow" id="Display">「{{Sentence}}」</div>
   {{/AltDisplay}}
 
-{{/PADoNotShowInfoLegacy}}
+  <script>
+    var d = document.getElementById("Display");
+    d.innerHTML = d.innerHTML.replace(/<b>.*<\/b>/g, "<b>[...]</b>");
+  </script>
+
+{{/IsClozeDeletionCard}}
 
 
-<!-- regular display -->
-{{^PADoNotShowInfoLegacy}}
-  <div class="expression-box">
-
-    <div class="flag-box">
-      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-        style="display:inline-block;vertical-align:middle;height:1.5em;">
-        <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
-          <title id=svg_title></title>
-        </circle>
-      </svg>
-    </div>
-
-    {{#IsSentenceCard}}
-      <!--
-        different circle positions depending on whether it's a sentence or not.
-        More specifically, checks if the first character is "「",
-        and adjusts the position based on that
-      -->
-      <script>
-        var circ = document.getElementById("svg_circle");
-        var d = document.getElementById("Display");
-        if (d.innerText.length > 0 && d.innerText[0] == "「") {
-          circ.setAttributeNS(null, "cx", "35");
-          circ.setAttributeNS(null, "cy", "11");
-        }
-      </script>
-    {{/IsSentenceCard}}
-
-    <script>
-      // ============================
-      //  Word pitch indicator color
-      // ============================
-      // done in javascript to simplify templating logic
-      // however, special characters in the field like " can break the code
-      var svgTitle = document.getElementById("svg_title");
-      var styleClass = "";
-
-      if ("{{PADoNotTest}}{{PASeparateWordCard}}") {
-        // PADoNotTest or PASeparateWordCard
-        styleClass = "flag-box__circle--none";
-        svgTitle.textContent = "PA: Do not test";
-      } else {
-        if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
-          // either PASeparateSentenceCard or PATestOnlyWord
-          styleClass = "flag-box__circle--word";
-          svgTitle.textContent = "PA: Word";
-        } else {
-          styleClass = "flag-box__circle--all";
-          svgTitle.textContent = "PA: Sentence";
-        }
-
-        // ~(isSentenceCard) overrides color (should 'test all')
-        if (!"{{IsSentenceCard}}") {
-          styleClass = "flag-box__circle--all"
-        }
-      }
-
-      var circ = document.getElementById("svg_circle");
-      circ.classList.add(styleClass);
-    </script>
-
-
-
-    <!-- priority is on the alternate display sentence -->
-    {{#AltDisplay}}
-      {{#IsSentenceCard}}
-        <div class="expression" id="Display">{{furigana:AltDisplay}}</div>
-      {{/IsSentenceCard}}
-
-      {{^IsSentenceCard}}
-        <div class="expression expression--word" id="Display">{{furigana:AltDisplay}}</div>
-      {{/IsSentenceCard}}
-    {{/AltDisplay}}
-
-
-    <!-- no alt display sentence, not listening card -->
-    {{^AltDisplay}}
-      {{#IsSentenceCard}}
-        <div class="expression" id="Display">「{{Sentence}}」</div>
-      {{/IsSentenceCard}}
-
-      {{^IsSentenceCard}}
-        <div class="expression expression--word" id="Display">{{Word}}</div>
-      {{/IsSentenceCard}}
-    {{/AltDisplay}}
-
-  </div>
-
-{{/PADoNotShowInfoLegacy}}
 
 
 
@@ -224,7 +51,7 @@
   <!-- everything on the left side -->
   <div class="dh-left" id="dh_left">
 
-    <div class="dh-left__reading"> {{furigana:WordReading}} </div>
+    <div class="dh-left__reading"> {{kana:WordReading}} </div>
     <div class="dh-left__word-pitch" id="dh_word_pitch">
       {{#WordPitch}}
         {{WordPitch}}
@@ -242,7 +69,7 @@
     </script>
 
      <div class="dh-left__audio-buttons">
-        {{WordAudio}} {{SentenceAudio}}
+       {{WordAudio}} <span id="audio_play_first"> {{SentenceAudio}} </span>
     </div>
   </div>
 
@@ -263,20 +90,28 @@
 
 <!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
 <!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
-<div class="center-box-1">
+<!--<div class="center-box-1">
   <div class="center-box-2">
     <div class="full-sentence bold-yellow" id="full_sentence">
         {{furigana:SentenceReading}}
     </div>
   </div>
-</div>
+</div>-->
 
 <!-- https://stackoverflow.com/questions/14380442/make-one-section-of-simple-web-page-have-own-scroll-bar -->
 
 
-<blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
-  {{furigana:PrimaryDefinition}}
-</blockquote>
+
+<!-- this if statement really isn't necessary
+  since it's assumed the primary definition exists for all cards -->
+{{#PrimaryDefinition}}
+  <details class="glossary-details">
+    <summary>Primary Definition</summary>
+    <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
+      {{furigana:PrimaryDefinition}}
+    </blockquote>
+  </details>
+{{/PrimaryDefinition}}
 
 
 {{#SecondaryDefinition}}
@@ -287,6 +122,7 @@
     </blockquote>
   </details>
 {{/SecondaryDefinition}}
+
 
 {{#AdditionalNotes}}
   <details class="glossary-details glossary-details--small">
@@ -321,6 +157,11 @@
 </div>
 
 <script>
+  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
+  var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton"); 
+  if (elem) {
+    elem.click();
+  }
 
   // dynamically adjusts gap width
   // note: the image appears after a short period of the card loading
