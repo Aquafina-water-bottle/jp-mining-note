@@ -173,6 +173,13 @@ ol, ul {
   padding: 0 20px 0 20px;
 }
 
+.answer-border {
+  border-bottom: 1px solid;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  width: 95%;
+}
+
 
 
 /*
