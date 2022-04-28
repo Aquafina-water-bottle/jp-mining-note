@@ -141,7 +141,7 @@ See customization (TODO) to change the default values.
 | *PATestOnlyWord            |                                                   |
 | *PADoNotTest               |                                                   |
 | *PADoNotShowInfoLegacy     |                                                   |
-| *IsClozeDeletionCard       |                                                   |
+| *SeparateClozeDeletionCard |                                                   |
 |  Picture                   |                                                   |
 |  WordAudio                 | `{audio}`                                         |
 |  SentenceAudio             |                                                   |
