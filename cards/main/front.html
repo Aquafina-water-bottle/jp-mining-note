@@ -228,60 +228,61 @@
 <!-- displays the audio and show/hide button, used only when testing pitch accent -->
 {{^PADoNotShowInfoLegacy}}
 
-{{^PADoNotTest}} {{^PASeparateWordCard}}
+  {{^PADoNotTest}} {{^PASeparateWordCard}}
 
-<!-- if the display is a sentence but we only want to test word pitch accent -->
-{{#IsSentenceCard}}
+    <!-- if the display is a sentence but we only want to test word pitch accent -->
+    {{#IsSentenceCard}}
 
-  <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
-  {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
-    <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-  {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-  {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
-    <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-  {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-  {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
-    <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-  {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
+      {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
-  <!-- script here because too lazy to copy/paste -->
-  <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
-  <script>
-    var pa_button = document.getElementById("PAButton");
-    var d = document.getElementById("Display");
+      <!-- script here because too lazy to copy/paste -->
+      <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
+      <script>
+        var pa_button = document.getElementById("PAButton");
+        var d = document.getElementById("Display");
 
-    function logMouseButton() {
-      if (pa_button.innerText == "Show") {
-        pa_button.innerText = "Hide";
-        d.classList.add("bold-yellow");
-      } else {
-        pa_button.innerText = "Show";
-        d.classList = "expression";
-      }
-    }
-  </script>
+        function logMouseButton() {
+          if (pa_button.innerText == "Show") {
+            pa_button.innerText = "Hide";
+            d.classList.add("bold-yellow");
+          } else {
+            pa_button.innerText = "Show";
+            d.classList = "expression";
+          }
+        }
+      </script>
 
-{{/IsSentenceCard}}
+    {{/IsSentenceCard}}
+
+  {{/PASeparateWordCard}} {{/PADoNotTest}}
 
 
-<!--
-  if the display is a word: show sentence preview (spoilered)
-  - note that it is guaranteed we test pitch accent here already
--->
-{{^IsSentenceCard}}
-  <details>
-    <summary class=glossary-details>Full Sentence</summary>
-    <div class="center-box-1">
-      <div class="center-box-2">
-        <div class="full-sentence bold-yellow" id="full_sentence_front">
-          {{furigana:SentenceReading}}
+  <!--
+    if the display is a word: show sentence preview (spoilered)
+    - note that it is guaranteed we test pitch accent here already
+  -->
+  {{^IsSentenceCard}}
+    <details>
+      <summary class=glossary-details>Full Sentence</summary>
+      <div class="center-box-1">
+        <div class="center-box-2">
+          <div class="full-sentence bold-yellow" id="full_sentence_front">
+            {{furigana:SentenceReading}}
+          </div>
         </div>
       </div>
-    </div>
-  </details>
-{{/IsSentenceCard}}
+    </details>
+  {{/IsSentenceCard}}
 
-{{/PASeparateWordCard}} {{/PADoNotTest}}
 
   <!-- we include the audio at the front regardless if we test PA or not -->
   <script>

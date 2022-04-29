@@ -26,10 +26,6 @@ Working on documentation, fleshing out details, providing example cards, etc.
 
 
 ## TODO:
-* Clean up the codebase (almost done!)
-  * Use a consistent code style
-  * Add more comments on style sheet
-  * Use better variable names
 * Add proper documentation:
   * Links to Anki documentation for specific vocab (i.e. notes vs cards)
   * What I test myself on for each type of card
@@ -37,7 +33,7 @@ Working on documentation, fleshing out details, providing example cards, etc.
   * Fields
   * How to setup mandatory Anki plugins
   * How to setup Yomichan (templates and anki fields)
-* Add sample cards
+* Add sample cards to releases
 
 
 

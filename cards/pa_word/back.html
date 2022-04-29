@@ -122,8 +122,6 @@
   </div>
 </div>
 
-<!-- https://stackoverflow.com/questions/14380442/make-one-section-of-simple-web-page-have-own-scroll-bar -->
-
 
 <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
   {{furigana:PrimaryDefinition}}
@@ -184,36 +182,34 @@
   var modalImg = document.getElementById("bigimg");
 
   // restricting the max height of image to the definition box
-  var lb = document.getElementById("dh_left");
-  var rb = document.getElementById("dh_right");
-  var smalldiv = document.getElementById("dh_img_container");
-  var height_left = lb.offsetHeight;
+  var dhLeft = document.getElementById("dh_left");
+  var dhRight = document.getElementById("dh_right");
+  var heightLeft = dhLeft.offsetHeight;
+  dhRight.style.maxHeight = heightLeft + "px";
 
-  // Get the image and insert it inside the modal - use its "alt" text as a caption
-  //var img = document.getElementById('myImg');
-  var img_list = smalldiv.getElementsByTagName("img");
-  rb.style.maxHeight = height_left + "px";
 
-  if (img_list.length == 1) {
-    var img = smalldiv.getElementsByTagName("img")[0];
+  // setting up the modal styles and clicking
+  var dhImgContainer = document.getElementById("dh_img_container");
+  var imgList = dhImgContainer.getElementsByTagName("img");
+
+  if (imgList.length == 1) {
+    var img = dhImgContainer.getElementsByTagName("img")[0];
     img.classList.add("dh-right__img");
-    img.style.maxHeight = height_left + "px";
+    img.style.maxHeight = heightLeft + "px"; // restricts max height here too
 
     img.onclick = function() {
       modal.style.display = "block";
       modalImg.src = this.src;
-      modalImg.alt = this.alt;
     }
 
   } else { // otherwise we hope that there are 0 images here
     // support for no images here: remove the fade-in / fade-out on text
     // the slightly hacky method is just to remove the class all together lol
-    smalldiv.className = "";
+    dhImgContainer.className = "";
   }
 
-  // When the user clicks on <span> (x), close the modal
+  // close the modal upon click
   modal.onclick = function() {
-    //bigimg.className += " out";
     bigimg.classList.add("modal-img__zoom-out");
     modal.classList.add("modal-img__zoom-out");
     setTimeout(function() {
@@ -273,8 +269,8 @@
   }
 
   // remove all jmdict english dict tags
-  var glossary_ele = document.getElementById("primary_definition");
-  glossary_ele.innerHTML = glossary_ele.innerHTML.replace(/, JMdict \(English\)/g, "");
+  var glossaryEle = document.getElementById("primary_definition");
+  glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
 
 </script>
 

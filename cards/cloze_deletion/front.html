@@ -15,6 +15,10 @@
 {{/AltDisplay}}
 
 <script>
+  // I tried figuring out a way to do this with CSS, but I can't find a non-hacky way of doing so.
+  // Problem: if css is display:none, anything with :after is also not displayed
+  // Only working css-only solution I found was by moving the text to -9999
+  // - above is hacky because copy/pastes will still copy the text
   var d = document.getElementById("Display");
   d.innerHTML = d.innerHTML.replace(/<b>.*<\/b>/g, "<b>[...]</b>");
 </script>
