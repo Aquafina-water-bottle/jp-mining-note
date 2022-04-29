@@ -53,8 +53,6 @@
 
 
 
-<div class="def-header-wrapper" id="def_header_wrapper">
-
 <div class="def-header" id="def_header">
 
   <!-- everything on the left side -->
@@ -75,8 +73,8 @@
       wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
 
       // entirely removes the (N/A) text instead
-      var g_ele = document.getElementById("dh_left_graph");
-      if (g_ele.innerText == "No pitch accent data" || g_ele.innerHTML == "") {
+      var graphElement = document.getElementById("dh_left_graph");
+      if (graphElement.innerText == "No pitch accent data" || graphElement.innerHTML == "") {
         document.getElementById("dh_left_graph").remove();
         document.getElementById("dh_left_gap").remove();
 
@@ -107,8 +105,6 @@
   <div class="dh-right" id="dh_right">
     <div class="smallimgdiv" id="dh_img_container">{{Picture}}</div>
   </div>
-
-</div>
 
 </div>
 

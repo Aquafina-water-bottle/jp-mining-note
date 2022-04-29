@@ -247,15 +247,15 @@
       <!-- script here because too lazy to copy/paste -->
       <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
       <script>
-        var pa_button = document.getElementById("PAButton");
+        var paButton = document.getElementById("PAButton");
         var d = document.getElementById("Display");
 
         function logMouseButton() {
-          if (pa_button.innerText == "Show") {
-            pa_button.innerText = "Hide";
+          if (paButton.innerText == "Show") {
+            paButton.innerText = "Hide";
             d.classList.add("bold-yellow");
           } else {
-            pa_button.innerText = "Show";
+            paButton.innerText = "Show";
             d.classList = "expression";
           }
         }
