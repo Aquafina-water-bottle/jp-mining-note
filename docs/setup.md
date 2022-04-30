@@ -190,7 +190,7 @@ To make the new markers usable, do the following:
 * Copy and paste the code below to the **bottom** of the default Yomichan template code:
 
 <details>
-<summary class="hint"><i>Click here to show the template code to copy.</i></summary>
+<summary><i>Click here to show the template code to copy.</i></summary>
 
     {{~! first biliingual definition found ~}}
     {{~#*inline "glossary-bilingual-first"~}}
