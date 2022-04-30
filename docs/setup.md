@@ -192,8 +192,6 @@ To make the new markers usable, do the following:
 <details>
 <summary class="hint"><i>Click here to show the template code to copy.</i></summary>
 
-<code>
-
     {{~! first biliingual definition found ~}}
     {{~#*inline "glossary-bilingual-first"~}}
 
@@ -320,7 +318,7 @@ To make the new markers usable, do the following:
         {{~/scope~}}
 
     {{~/inline~}}
-</code>
+
 </details>
 <br>
 
