@@ -1,11 +1,10 @@
-
 # Anki Setup
 For this card type to work, some Anki addons are required to connect to external sources and to auto-generate
 certain fields.
 
 ## Required Anki Plugins
 To download all the required plugins, copy and paste the following numbers into the Add-ons window.
-(Tools -> Add-ons -> "Get Add-ons...")
+(Tools →  Add-ons →  "Get Add-ons...")
 ```
 1344485230 1225470483 2055492159
 ```
@@ -102,26 +101,37 @@ These plugins assist in card creation, but are ultimately optional.
 * Paste Images As WebP [(link)](https://ankiweb.net/shared/info/1151815987)
 * Yomichan Forvo Server [(link)](https://ankiweb.net/shared/info/580654285)
 
-These are the plugins I use outside of the main card creation process.
-* Adjust Sound Volume [(link)](https://ankiweb.net/shared/info/2123044452)
-* AJT Flexible Grading [(link)](https://ankiweb.net/shared/info/1715096333)
-* AJT Mortician [(link)](https://ankiweb.net/shared/info/1255924302)
-* True Retention by Card Maturity Simplified [(link)](https://ankiweb.net/shared/info/1779060522)
-
 ## Optional: Separate Pitch Accent Deck
-* Make all new cards to be created in a separate deck by default
-* Browse -> Cards -> (top) Card Type selector -> (choose pitch accent card type) -> Options -> Deck Override
+If you want card types to go to a different deck by default, you can change it by doing the following:
+
+Browse
+→  Cards
+→  Card Type selector (top of the screen)
+→  (choose pitch accent card type)
+→  Options
+→  Deck Override
+
+More info can be found in the official Anki Documentation
+[here](https://docs.ankiweb.net/templates/intro.html?highlight=override#the-templates-screen).
 
 
 # Yomichan Setup
+[Yomichan](https://github.com/FooSoft/yomichan)
+is the main program that will create the cards. You can download Yomichan as a Firefox extension
+or under the Chrome web store.
+This will go over the very basic Yomichan setup to work with this card type.
+
+**If you have never used Yomichan before**, please see
+[this page](https://learnjapanese.moe/yomichan/) first to get it working.
 
 ## Yomichan Fields
-The following setup creates the following:
-* A vocab card that also tests for pitch accent
-* A sentence pitch accent card
-* Shows the bilingual definition by default, with monolingual definitions in collapsable fields
+To edit the fields that Yomichan will automatically fill out, do the following:
+* Navigate to Yomichan Settings.
+* Go to the "Anki" section
+* Select "Anki card format..."
+* Set "Model" as `JP Mining Note`
+* Copy and paste the following values into the fields:
 
-See customization (TODO) to change the default values.
 
 |  Anki Fields               | Yomichan Format                                   |
 |----------------------------|---------------------------------------------------|
@@ -137,7 +147,7 @@ See customization (TODO) to change the default values.
 |  Hint                      |                                                   |
 | *IsSentenceCard            |                                                   |
 | *PASeparateWordCard        |                                                   |
-| *PASeparateSentenceCard    | `1`                                               |
+| *PASeparateSentenceCard    |                                                   |
 | *PATestOnlyWord            |                                                   |
 | *PADoNotTest               |                                                   |
 | *PADoNotShowInfoLegacy     |                                                   |
@@ -152,154 +162,218 @@ See customization (TODO) to change the default values.
 |  ExtraDefinitions          | `{glossary-extra}`                                |
 |  Comment                   |                                                   |
 
-Anything field with a * are binary fields, and should be configured to each user's personal
-usages. I personally like separating the pitch accent card by default, hence why I have
-the `PASeparateSentenceCard` field filled in.
+The above fields will create, by default:
+* A vocab card that also tests for pitch accent
+* Shows the bilingual definition by default, with monolingual definitions in collapsable fields
+
+Anything field with a * are binary fields, and **should be configured to each user's personal
+preferences.** I personally like separating the pitch accent card by default, hence my normal setup
+has the `PASeparateSentenceCard` field filled in (say, with `1` in Yomichan).
+More info on how to configure the default values is shown (TODO)
+
+Markers like `{glossary-bilingual-first}` is not provided by Yomichan by default.
+This will be explained in the section below.
 
 
 
 ## Yomichan Templates
-* TODO finish & explanation
-* TODO separate into different link as to not take up that much space lmao (or some sort of spoiler)
+Yomichan supports user inserted template code that allows the automatic
+separation of bilingual and monolingual dictionary definitions,
+among other things.
+I created some templates to do exactly just that.
 
-```
-{{~! first biliingual definition found ~}}
-{{~! (A) what I use ~}}
-{{~#*inline "glossary-bilingual-first"~}}
+To make the new markers usable, do the following:
+* Navigate to Yomichan Settings.
+* Make sure that advanced settings are turned on (bottom left corner).
+* Go to the "Anki" section
+* Select "Configure Anki card templates..."
+* Copy and paste the code below to the **bottom** of the default Yomichan template code:
 
-    {{~#scope~}}
+<details>
+<summary class="hint"><i>Click here to show the template code to copy.</i></summary>
 
-        {{~#set "first-dictionary" null}}{{/set~}}
+<code>
 
-        {{~#set "valid-dict-found" false}}{{/set~}}
-        {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-            {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
-                {{~#set "valid-dict-found" true}}{{/set~}}
+    {{~! first biliingual definition found ~}}
+    {{~#*inline "glossary-bilingual-first"~}}
 
-                {{~#if (op "===" null (get "first-dictionary"))~}}
-                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
-                {{~/if~}}
+        {{~#scope~}}
 
-            {{~/if~}}
-        {{~/each~}}
+            {{~#set "first-dictionary" null}}{{/set~}}
 
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
+            {{~#set "valid-dict-found" false}}{{/set~}}
             {{~#each definition.definitions~}}
-                {{~! CONDITION 2 ~}}
+                {{~! CONDITION 1 ~}}
+                {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+                    {{~#set "valid-dict-found" true}}{{/set~}}
+
+                    {{~#if (op "===" null (get "first-dictionary"))~}}
+                        {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                    {{~/if~}}
+
+                {{~/if~}}
+            {{~/each~}}
+
+            {{~#if (get "valid-dict-found")~}}
+                <div style="text-align: left;"><ol>
+                {{~#each definition.definitions~}}
+                    {{~! CONDITION 2 ~}}
+                    {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+
+                        {{~#if (op "===" dictionary (get "first-dictionary"))~}}
+                            <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                        {{~/if~}}
+                    {{~/if~}}
+                {{~/each~}}
+                </ol></div>
+            {{~/if~}}
+
+        {{~/scope~}}
+
+    {{~/inline~}}
+
+
+
+    {{~! first mononlingual definition ~}}
+    {{~#*inline "glossary-monolingual-first"~}}
+
+        {{~#scope~}}
+
+            {{~#set "first-dictionary" null}}{{/set~}}
+
+            {{~#set "valid-dict-found" false}}{{/set~}}
+            {{~#each definition.definitions~}}
+                {{~! CONDITION 1 ~}}
+
+                {{~#if (op "!" (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") ) )~}}
+                    {{~#set "valid-dict-found" true}}{{/set~}}
+
+                    {{~#if (op "===" null (get "first-dictionary"))~}}
+                        {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                    {{~/if~}}
+
+                {{~/if~}}
+            {{~/each~}}
+
+            {{~#if (get "valid-dict-found")~}}
+                <div style="text-align: left;"><ol>
+                {{~#each definition.definitions~}}
+                    {{~! CONDITION 2 ~}}
+                    {{~#if (op "!" (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") ) )~}}
+
+                        {{~#if (op "===" dictionary (get "first-dictionary"))~}}
+                            <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                        {{~/if~}}
+                    {{~/if~}}
+                {{~/each~}}
+                </ol></div>
+            {{~/if~}}
+
+        {{~/scope~}}
+
+    {{~/inline~}}
+
+
+    {{~! everything BUT the first bilingual and first monolingual definition ~}}
+    {{~#*inline "glossary-extra"~}}
+
+        {{~#scope~}}
+
+            {{~#set "first-monolingual-dict" null}}{{/set~}}
+            {{~#set "first-bilingual-dict" null}}{{/set~}}
+
+            {{~#set "valid-dict-found" false}}{{/set~}}
+            {{~#each definition.definitions~}}
+                {{~! CONDITION 1 ~}}
+
                 {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
 
-                    {{~#if (op "===" dictionary (get "first-dictionary"))~}}
+                    {{~#if (op "===" null (get "first-bilingual-dict"))~}}
+                        {{~#set "first-bilingual-dict" dictionary~}}{{~/set~}}
+                    {{~else~}}
+                        {{~#set "valid-dict-found" true}}{{/set~}}
+                    {{~/if~}}
+
+                {{~else~}}
+
+                    {{~#if (op "===" null (get "first-monolingual-dict"))~}}
+                        {{~#set "first-monolingual-dict" dictionary~}}{{~/set~}}
+                    {{~else~}}
+                        {{~#set "valid-dict-found" true}}{{/set~}}
+                    {{~/if~}}
+
+                {{~/if~}}
+
+            {{~/each~}}
+
+            {{~#if (get "valid-dict-found")~}}
+                <div style="text-align: left;"><ol>
+                {{~#each definition.definitions~}}
+                    {{~! not the first monolingual/bilingual dicts found ~}}
+                    {{~#if (op "&&" (op "!==" dictionary (get "first-bilingual-dict")) (op "!==" dictionary (get "first-monolingual-dict")) )~}}
                         <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
                     {{~/if~}}
-                {{~/if~}}
-            {{~/each~}}
-            </ol></div>
-        {{~/if~}}
-
-    {{~/scope~}}
-
-{{~/inline~}}
-
-
-
-{{~! first mononlingual definition ~}}
-{{~! (B) what I use ~}}
-{{~#*inline "glossary-monolingual-first"~}}
-
-    {{~#scope~}}
-
-        {{~#set "first-dictionary" null}}{{/set~}}
-
-        {{~#set "valid-dict-found" false}}{{/set~}}
-        {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-            {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
-                {{~#set "valid-dict-found" true}}{{/set~}}
-
-                {{~#if (op "===" null (get "first-dictionary"))~}}
-                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
-                {{~/if~}}
-
-            {{~/if~}}
-        {{~/each~}}
-
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~! CONDITION 2 ~}}
-                {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
-
-                    {{~#if (op "===" dictionary (get "first-dictionary"))~}}
-                        <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
-                    {{~/if~}}
-                {{~/if~}}
-            {{~/each~}}
-            </ol></div>
-        {{~/if~}}
-
-    {{~/scope~}}
-
-{{~/inline~}}
-
-
-{{~! everything BUT the first bilingual and first monolingual definition ~}}
-{{~! (C) what I use ~}}
-{{~#*inline "glossary-extra"~}}
-
-    {{~#scope~}}
-
-        {{~#set "first-monolingual-dict" null}}{{/set~}}
-        {{~#set "first-bilingual-dict" null}}{{/set~}}
-
-        {{~#set "valid-dict-found" false}}{{/set~}}
-        {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-
-            {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
-
-                {{~#if (op "===" null (get "first-bilingual-dict"))~}}
-                    {{~#set "first-bilingual-dict" dictionary~}}{{~/set~}}
-                {{~else~}}
-                    {{~#set "valid-dict-found" true}}{{/set~}}
-                {{~/if~}}
-
-            {{~else~}}
-
-                {{~#if (op "===" null (get "first-monolingual-dict"))~}}
-                    {{~#set "first-monolingual-dict" dictionary~}}{{~/set~}}
-                {{~else~}}
-                    {{~#set "valid-dict-found" true}}{{/set~}}
-                {{~/if~}}
-
+                {{~/each~}}
+                </ol></div>
             {{~/if~}}
 
-        {{~/each~}}
+        {{~/scope~}}
 
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~! not the first monolingual/bilingual dicts found ~}}
-                {{~#if (op "&&" (op "!==" dictionary (get "first-bilingual-dict")) (op "!==" dictionary (get "first-monolingual-dict")) )~}}
-                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
-                {{~/if~}}
-            {{~/each~}}
-            </ol></div>
-        {{~/if~}}
+    {{~/inline~}}
+</code>
+</details>
+<br>
 
-    {{~/scope~}}
 
-{{~/inline~}}
+
+#### What the markers do
+
+`{glossary-bilingual-first}`:
+Selects the first bilingual dictionary found.
+This follows the order of how you order your dictionaries in yomichan.
+In other words, the first definition shown on the Yomichan popup is the definition that is chosen here.
+Note that this will contain **ALL definitions** in said dictionary.
+
+`{glossary-monolingual-first}`:
+Selects the first monolingual dictionary found.
+
+`{glossary-extra}`:
+All other dictionaries found that is not the first bilingual and first monolingual dictionary found.
+
+
+**NOTE:** The template code works specifically for if the bilingual dictionaries you use are either
+`JMdict (English)` or `新和英` (and must have exactly that tag).
+If you are using other bilingual dictionaries, you will have to edit the template code
+by stringing together `op` statements.
+For example, to add a third monolingual dictionary with the tag of `AmazingDictionary`,
+then you can do so by changing the conditions to the following:
 
 ```
+(op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )
+```
+to
+```
+(op "||" (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") ) (op "===" dictionary "AmazingDictionary") )
+```
+
+
+
 
 ## Other Yomichan Settings
-* TODO link moeway yomichan stuffs
-* TODO compact viewing to export things in compact form
-* TODO link moeway single definition / single dictionary handlebars code
-* https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336
-* forvo: https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source
+* Again, if you have never used Yomichan before, I recommend checking out
+  [this page](https://learnjapanese.moe/yomichan/).
+* I personally use the "JMedict (English) Alternate" dictionary found in
+  [this](https://learnjapanese.link/dictionaries) dictionary collection.
+    * I also combine this with "Compact glossaries" turned on and "Compact tags" turned off,
+      under Yomichan settings →  "Popup Appearance".
+* [This](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
+  link has further template code, which creates markers for individual dictionaries.
+  This has certain extended capabilities over my template code, such as removing the first line.
+* I have written additional template code here (TODO) that has extended capabilities over the ones
+  I provided above.
+  Note that the code here is unmaintained, and may not work without fixing.
+* Instructions on adding Forvo as an alternate audio source to Yomichan
+  can be found [here](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
 
 
 
