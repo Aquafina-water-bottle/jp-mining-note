@@ -18,41 +18,44 @@ Note that furigana generation is occasionally incorrect, so you should double-ch
 to make sure they are correct.
 
 The important things to change in the config are `generate_on_note_add`, `fields` and `note_types`.
-Here is my full config:
-```
-{
-    "context_menu": {
-        "generate_furigana": true,
-        "to_hiragana": true,
-        "to_katakana": true
-    },
-    "fields": [
-        {
-            "destination": "SentenceReading",
-            "source": "Sentence"
-        }
-    ],
-    "furigana_suffix": " (furigana)",
-    "generate_on_note_add": true,
-    "note_types": [
-        "jp"
-    ],
-    "skip_numbers": false,
-    "skip_words": "",
-    "toolbar": {
-        "clean_furigana_button": {
-            "enable": false,
-            "shortcut": "Alt+u",
-            "text": "削"
+
+<details>
+<summary><i>Click here to see the full AJT Furigana config</i></summary>
+
+    {
+        "context_menu": {
+            "generate_furigana": true,
+            "to_hiragana": true,
+            "to_katakana": true
         },
-        "furigana_button": {
-            "enable": false,
-            "shortcut": "Alt+o",
-            "text": "振"
+        "fields": [
+            {
+                "destination": "SentenceReading",
+                "source": "Sentence"
+            }
+        ],
+        "furigana_suffix": " (furigana)",
+        "generate_on_note_add": true,
+        "note_types": [
+            "jp"
+        ],
+        "skip_numbers": false,
+        "skip_words": "",
+        "toolbar": {
+            "clean_furigana_button": {
+                "enable": false,
+                "shortcut": "Alt+u",
+                "text": "削"
+            },
+            "furigana_button": {
+                "enable": false,
+                "shortcut": "Alt+o",
+                "text": "振"
+            }
         }
     }
-}
-```
+
+</details>
 
 #### AJT Pitch Accent
 [(Link)](https://ankiweb.net/shared/info/1225470483)
@@ -63,31 +66,34 @@ More about editing pitch accent in usage (TODO).
 
 The important things to change in the config are `generate_on_note_add`,
 `destination_fields`, `source_fields` and `styles`.
-Here is my full config:
-```
-{
-    "destination_fields": [
-        "WordPitch"
-    ],
-    "generate_on_note_add": true,
-    "kana_lookups": true,
-    "lookup_shortcut": "Ctrl+8",
-    "note_types": [
-        "jp"
-    ],
-    "regenerate_readings": false,
-    "skip_words": "へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,です",
-    "source_fields": [
-        "Word"
-    ],
-    "styles": {
-        "&#42780;": "<span class=\"downstep\">&#42780;</span>",
-        "class=\"overline\"": "style=\"text-decoration:overline;\" class=\"pitchoverline\""
-    },
-    "use_hiragana": false,
-    "use_mecab": true
-}
-```
+
+<details>
+<summary><i>Click here to see the full AJT Pitch Accent config</i></summary>
+
+    {
+        "destination_fields": [
+            "WordPitch"
+        ],
+        "generate_on_note_add": true,
+        "kana_lookups": true,
+        "lookup_shortcut": "Ctrl+8",
+        "note_types": [
+            "jp"
+        ],
+        "regenerate_readings": false,
+        "skip_words": "へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,です",
+        "source_fields": [
+            "Word"
+        ],
+        "styles": {
+            "&#42780;": "<span class=\"downstep\">&#42780;</span>",
+            "class=\"overline\"": "style=\"text-decoration:overline;\" class=\"pitchoverline\""
+        },
+        "use_hiragana": false,
+        "use_mecab": true
+    }
+
+</details>
 
 #### AnkiConnect
 [(Link)](https://ankiweb.net/shared/info/2055492159)
