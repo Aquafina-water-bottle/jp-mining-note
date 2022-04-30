@@ -1,8 +1,8 @@
 
 TODO gif showing the main features of the card type
 
-WIP Anki card type.
-Working on documentation, fleshing out details, providing example cards, etc.
+(WIP Documentation -> move to the wiki section)
+See docs/setup.md and docs/usage.md to see how to use this card.
 
 ## Main Features
 * All cards are **automatically created** and populated within seconds
@@ -21,7 +21,7 @@ Working on documentation, fleshing out details, providing example cards, etc.
 
 ## Limitations
 * No support for mobile
-* Stylization is for my personal anki theme (default dark mode) and screen resolution (1920x1080)
+* Stylization is for my personal anki theme (default dark mode) and screen resolution (1920x1080). TODO use em units rather than px units
 * See customization section (TODO link) for further points
 
 
