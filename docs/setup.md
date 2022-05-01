@@ -65,7 +65,7 @@ pitch accent info generated from this plugin because I personally find it easier
 More about editing pitch accent in usage (TODO).
 
 The important things to change in the config are `generate_on_note_add`,
-`destination_fields`, `source_fields` and `styles`.
+`destination_fields`, `source_fields` `note_types`, and `styles`.
 
 <details>
 <summary><i>Click here to see the full AJT Pitch Accent config</i></summary>

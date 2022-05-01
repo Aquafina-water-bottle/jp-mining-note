@@ -37,6 +37,15 @@ ol, ul {
   padding-left: 1.5em;
 }
 
+/* makes the summary tag's clickable area not span the entire width of the given area */
+summary {
+  display: inline-block;
+  width: min-content;
+  white-space: nowrap;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 /* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
 /* wrap elements in two divs: center-box-1 and center-box-2 */
 .center-box-1 {
