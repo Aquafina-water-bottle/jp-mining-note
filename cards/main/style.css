@@ -55,21 +55,11 @@ ol, ul {
   font-family: notosans;
   src: url('NotoSansCJK-Regular.ttc');
 }
-/*@font-face { font-family: yumin; src: url('_yumin.ttf'); }*/
-/*@font-face { font-family: notoserif; src: url('NotoSerifCJK-Regular.ttc'); }*/
 
 
 .bold-yellow b {
   color: var(--yellow);
 }
-
-/*.bold-remove-font-weight b {
-  font-weight: normal;
-}*/
-
-
-
-
 
 
 /*
@@ -647,28 +637,6 @@ ol, ul {
   display: block;
   position: absolute;
 }
-
-
-
-
-/* I have no idea what these do but I'm assuming they are useless for this card */
-
-/*
-.nightMode {
-  svg > text { fill: #fff !important; }
-  svg > path { stroke: #fff !important; }
-  svg > circle[r="5"] { fill: #fff !important; }
-  svg > circle[r="3.25"] { fill: #2d2d2d !important; }
-}
-*/
-
-/*
-.win .jp { font-family: "MS Mincho", "ＭＳ 明朝"; }
-.mac .jp { font-family: "Hiragino Mincho Pro", "ヒラギノ明朝 Pro"; }
-.linux .jp { font-family: "Kochi Mincho", "東風明朝"; }
-.mobile .jp { font-family: "Hiragino Mincho ProN"; }
-*/
-
 
 
 
