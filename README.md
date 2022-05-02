@@ -1,7 +1,7 @@
 
 TODO gif showing the main features of the card type
 
-Documentation currently under the [wiki](wiki).
+Documentation currently under the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
 Documentation is still WIP but is mostly done.
 
 ## Main Features
