@@ -1,8 +1,8 @@
 
 TODO gif showing the main features of the card type
 
-(WIP Documentation -> move to the wiki section)
-See docs/setup.md and docs/usage.md to see how to use this card.
+Documentation currently under the [wiki](wiki).
+Documentation is still WIP but is mostly done.
 
 ## Main Features
 * All cards are **automatically created** and populated within seconds
