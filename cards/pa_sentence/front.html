@@ -7,6 +7,7 @@
   - tests pitch accent AND reading (you hopefully know the reading by now)
   - does NOT test meaning
 -->
+
 <div class="card-description">
   PA Sentence Card
 </div>
@@ -41,7 +42,6 @@
 
 {{/AltDisplayPASentenceCard}}
 
-
 <script>
   // THIS IS A HACK
   // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
@@ -54,6 +54,8 @@
 <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
 <span id="audio-front">{{SentenceAudio}}</span>
 
+<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
+<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {{#Hint}}
   <details class="hint">
     <summary>Hint</summary>

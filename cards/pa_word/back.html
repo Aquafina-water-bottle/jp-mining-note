@@ -1,3 +1,4 @@
+
 <div class="card-description">
   PA Word Card
 </div>
@@ -22,8 +23,8 @@
   <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
 {{/AltDisplay}} {{/IsSentenceCard}}
 
-
-
+<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
+<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {{#Hint}}
   <details class="hint">
     <summary>Hint</summary>
@@ -37,13 +38,9 @@
 
 
 
-
-
 <center>
   <div class="answer-border"></div>
 </center>
-
-
 
 
 
@@ -121,11 +118,9 @@
   </div>
 </div>
 
-
 <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
   {{furigana:PrimaryDefinition}}
 </blockquote>
-
 
 {{#SecondaryDefinition}}
   <details class="glossary-details">
@@ -155,6 +150,8 @@
   </details>
 {{/ExtraDefinitions}}
 
+</div> <!-- backside -->
+
 
 <!--
   https://codeconvey.com/html-image-zoom-on-click/
@@ -163,20 +160,12 @@
   https://www.javascripttutorial.net/dom/css/add-styles-to-an-element/
   https://stackoverflow.com/questions/507138/how-to-add-a-class-to-a-given-element
 -->
-
 <!-- The Modal -->
 <div id="modal" class="modal">
   <img class="modal-img" id="bigimg">
 </div>
 
 <script>
-
-  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
-  var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton"); 
-  if (elem) {
-    elem.click();
-  }
-
   var modal = document.getElementById('modal');
   var modalImg = document.getElementById("bigimg");
 
@@ -270,8 +259,12 @@
   // remove all jmdict english dict tags
   var glossaryEle = document.getElementById("primary_definition");
   glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
-
 </script>
 
-</div> <!-- backside -->
-
+<script>
+  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
+  var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>

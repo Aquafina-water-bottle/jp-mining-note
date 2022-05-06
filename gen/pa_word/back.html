@@ -1,0 +1,90 @@
+
+{{PA_WORD_FRONT}}
+
+{{HINT}}
+
+
+
+{{ANSWER_BORDER}}
+
+
+
+<div class="def-header" id="def_header">
+
+  <!-- everything on the left side -->
+  <div class="dh-left dh-left--blue-border" id="dh_left">
+
+    <div class="dh-left__reading"> {{furigana:WordReading}} </div>
+
+    <div class="dh-left__word-pitch dh-left__word-pitch--big" id="dh_word_pitch">
+       {{WordPitch}}
+    </div>
+
+    <script>
+      var wp = document.getElementById("dh_word_pitch");
+
+      // a bit of a hack...
+      // The only reason why the downstep arrow exists in the first place is to make the downstep
+      // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
+      wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+
+      // entirely removes the (N/A) text instead
+      var graphElement = document.getElementById("dh_left_graph");
+      if (graphElement.innerText == "No pitch accent data" || graphElement.innerHTML == "") {
+        document.getElementById("dh_left_graph").remove();
+        document.getElementById("dh_left_gap").remove();
+
+        // if there is no word pitch either, overrides it with N/A
+        {{^WordPitch}}
+          wp.innerText = "(N/A)";
+        {{/WordPitch}}
+      }
+    </script>
+
+    <div class="dh-left__bottom">
+      <div class="dh-left__graph" id="dh_left_graph">
+          {{Graph}}
+      </div>
+      <div class="dh-left__gap" id="dh_left_gap">
+          ・
+      </div>
+      <div class="dh-left__audio">
+           {{WordAudio}} <span id="audio_play_first"> {{SentenceAudio}} </span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dh-gap" id="dh_gap"> </div>
+
+  <!-- everything on the right side -->
+  <div class="dh-right" id="dh_right">
+    <div class="dh-right__img-container" id="dh_img_container">{{Picture}}</div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="back_side" class="back-side">
+
+{{FULL_SENTENCE}}
+
+{{PRIMARY_DEFINITION}}
+
+{{OTHER_DEFINITIONS}}
+
+</div> <!-- backside -->
+
+
+{{MODAL_AND_COMMON_JS}}
+
+{{PLAY_SENTENCE_ONLY_JS}}
+

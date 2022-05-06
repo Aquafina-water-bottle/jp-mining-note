@@ -1,3 +1,4 @@
+
 <div class="card-description">
   Mining Card: Cloze Deletion
 </div>
@@ -13,13 +14,16 @@
 {{/AltDisplay}}
 
 <script>
+  // I tried figuring out a way to do this with CSS, but I can't find a non-hacky way of doing so.
+  // Problem: if css is display:none, anything with :after is also not displayed
+  // Only working css-only solution I found was by moving the text to -9999
+  // - above is hacky because copy/pastes will still copy the text
   var d = document.getElementById("Display");
   d.innerHTML = d.innerHTML.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
 </script>
 
-
-
-
+<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
+<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {{#Hint}}
   <details class="hint">
     <summary>Hint</summary>
@@ -34,11 +38,9 @@
 
 
 
-
 <center>
   <div class="answer-border"></div>
 </center>
-
 
 
 
@@ -85,10 +87,7 @@
 
 <div id="back_side" class="back-side">
 
-
-
-<!-- this if statement really isn't necessary
-  since it's assumed the primary definition exists for all cards -->
+<!-- hides primary definition since the definition is not important for this card -->
 {{#PrimaryDefinition}}
   <details class="glossary-details">
     <summary>Primary Definition</summary>
@@ -98,7 +97,6 @@
   </details>
 {{/PrimaryDefinition}}
 
-
 {{#SecondaryDefinition}}
   <details class="glossary-details">
     <summary>Secondary Definition</summary>
@@ -107,7 +105,6 @@
     </blockquote>
   </details>
 {{/SecondaryDefinition}}
-
 
 {{#AdditionalNotes}}
   <details class="glossary-details glossary-details--small">
@@ -128,6 +125,8 @@
   </details>
 {{/ExtraDefinitions}}
 
+</div> <!-- backside -->
+
 
 <!--
   https://codeconvey.com/html-image-zoom-on-click/
@@ -136,18 +135,12 @@
   https://www.javascripttutorial.net/dom/css/add-styles-to-an-element/
   https://stackoverflow.com/questions/507138/how-to-add-a-class-to-a-given-element
 -->
-
+<!-- The Modal -->
 <div id="modal" class="modal">
   <img class="modal-img" id="bigimg">
 </div>
 
 <script>
-  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
-  var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton"); 
-  if (elem) {
-    elem.click();
-  }
-
   var modal = document.getElementById('modal');
   var modalImg = document.getElementById("bigimg");
 
@@ -241,8 +234,12 @@
   // remove all jmdict english dict tags
   var glossaryEle = document.getElementById("primary_definition");
   glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
-
 </script>
 
-</div> <!-- backside -->
-
+<script>
+  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
+  var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>

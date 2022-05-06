@@ -1,0 +1,101 @@
+<!--
+  Listening
+  X / Y
+
+  X:
+    Word
+    Sentence
+
+  Y:
+    Legacy
+    None
+    Word
+    Sentence
+-->
+
+{{MAIN_FRONT}}
+
+{{HINT}}
+
+
+
+<!-- regular display -->
+<!-- displays the audio and show/hide button, used only when testing pitch accent -->
+{{^PADoNotShowInfoLegacy}}
+
+  {{^PADoNotTest}} {{^PASeparateWordCard}}
+
+    <!-- if the display is a sentence but we only want to test word pitch accent -->
+    {{#IsSentenceCard}}
+
+      <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
+      {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+
+      <!-- script here because too lazy to copy/paste -->
+      <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
+      <script>
+        var paButton = document.getElementById("PAButton");
+        var d = document.getElementById("Display");
+
+        function logMouseButton() {
+          if (paButton.innerText == "Show") {
+            paButton.innerText = "Hide";
+            d.classList.add("bold-yellow");
+          } else {
+            paButton.innerText = "Show";
+            d.classList = "expression";
+          }
+        }
+      </script>
+
+    {{/IsSentenceCard}}
+
+  {{/PASeparateWordCard}} {{/PADoNotTest}}
+
+
+  <!--
+    if the display is a word: show sentence preview (spoilered)
+    - note that it is guaranteed we test pitch accent here already
+  -->
+  {{^IsSentenceCard}}
+    {{FULL_SENTENCE_FRONT}}
+  {{/IsSentenceCard}}
+
+
+  <!-- we include the audio at the front regardless if we test PA or not -->
+  <script>
+    // =====================
+    //  THIS PART IS A HACK
+    // =====================
+    // this hack is to not auto-play the audio at the front of the card
+    // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
+    // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
+    var elem = document.querySelector(".soundLink, .replaybutton");
+    if (elem) {
+      elem.click();
+    }
+  </script>
+
+  <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
+  <span id="audio-front">
+    {{#SentenceAudio}}
+      {{SentenceAudio}}
+    {{/SentenceAudio}}
+    {{^SentenceAudio}}
+      {{WordAudio}}
+    {{/SentenceAudio}}
+  </span>
+
+
+{{/PADoNotShowInfoLegacy}}
+
+
+

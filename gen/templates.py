@@ -1,4 +1,35 @@
+# ALL templates defined below must follow the corresponding format:
 
+class TemplatesRaw:
+    hint = r"""
+<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
+<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
+{{#Hint}}
+  <details class="hint">
+    <summary>Hint</summary>
+    <div class="center-box-1">
+      <div class="center-box-2">
+        <div class="bold-yellow">{{Hint}}</div>
+      </div>
+    </div>
+  </details>
+{{/Hint}}
+"""
+
+    full_sentence_front = r"""
+<details>
+  <summary class=glossary-details>Full Sentence</summary>
+  <div class="center-box-1">
+    <div class="center-box-2">
+      <div class="full-sentence bold-yellow" id="full_sentence_front">
+        {{furigana:SentenceReading}}
+      </div>
+    </div>
+  </div>
+</details>
+"""
+
+    main_front = r"""
 <div class="card-description">
   Mining Card:
 
@@ -196,71 +227,104 @@
   </div>
 
 {{/PADoNotShowInfoLegacy}}
+"""
 
-<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
-<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
-{{#Hint}}
-  <details class="hint">
-    <summary>Hint</summary>
-    <div class="center-box-1">
-      <div class="center-box-2">
-        <div class="bold-yellow">{{Hint}}</div>
-      </div>
-    </div>
-  </details>
-{{/Hint}}
+    pa_sent_front = r"""
+<div class="card-description">
+  PA Sentence Card
+</div>
 
+<!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
+<!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
 
-
-<center>
-  <div class="answer-border"></div>
-</center>
+<!-- option 1: AltDisplayPASentenceCard -->
+{{#AltDisplayPASentenceCard}}
+  <div class="expression expression--single" id="Display">{{furigana:AltDisplayPASentenceCard}}</div>
+{{/AltDisplayPASentenceCard}}
 
 
+{{^AltDisplayPASentenceCard}}
+  <!-- option 2: AltDisplay (only if the original card is a sentence card) -->
+  <!--IsSentenceCard and AltDisplay -->
+  {{#IsSentenceCard}} {{#AltDisplay}}
+      <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
+  {{/AltDisplay}} {{/IsSentenceCard}}
 
+  <!-- option 3: Sentence -->
+  <!-- opposite of above ~(IsSentenceCard ^ AltDisplay) -->
+  {{#IsSentenceCard}} {{^AltDisplay}}
+    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
+  {{/AltDisplay}} {{/IsSentenceCard}}
+  {{^IsSentenceCard}} {{#AltDisplay}}
+    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
+  {{/AltDisplay}} {{/IsSentenceCard}}
+  {{^IsSentenceCard}} {{^AltDisplay}}
+    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
+  {{/AltDisplay}} {{/IsSentenceCard}}
 
-<div class="def-header" id="def_header">
+{{/AltDisplayPASentenceCard}}
+"""
 
-  <!-- everything on the left side -->
-  <div class="dh-left" id="dh_left">
+    pa_word_front = r"""
+<div class="card-description">
+  PA Word Card
+</div>
 
-    <div class="dh-left__reading"> {{furigana:WordReading}} </div>
-    <div class="dh-left__word-pitch" id="dh_word_pitch">
-      {{#WordPitch}}
-        {{WordPitch}}
-      {{/WordPitch}}
-      {{^WordPitch}}
-        N/A
-      {{/WordPitch}}
-    </div>
-    <script>
-      // a bit of a hack...
-      // The only reason why the downstep arrow exists in the first place is to make the downstep
-      // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
-      var wp = document.getElementById("dh_word_pitch");
-      wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
-    </script>
+<!-- note that for the PA separate word card, the front is ALWAYS a word -->
+<!-- priority: AltDisplay -> Word -->
 
-     <div class="dh-left__audio-buttons">
-        {{WordAudio}} {{SentenceAudio}}
-    </div>
-  </div>
+<!-- option 1: AltDisplay (only if the original card is not a sentence card) -->
+{{^IsSentenceCard}} {{#AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
+{{/AltDisplay}} {{/IsSentenceCard}}
 
-  <div class="dh-gap" id="dh_gap"> </div>
+<!-- option 2: Word -->
+<!-- opposite of above ~(~IsSentenceCard ^ AltDisplay) -->
+{{#IsSentenceCard}} {{#AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
+{{/AltDisplay}} {{/IsSentenceCard}}
+{{#IsSentenceCard}} {{^AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
+{{/AltDisplay}} {{/IsSentenceCard}}
+{{^IsSentenceCard}} {{^AltDisplay}}
+  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
+{{/AltDisplay}} {{/IsSentenceCard}}
+"""
 
-  <!-- everything on the right side -->
-  <div class="dh-right" id="dh_right">
-    <div class="dh-right__img-container" id="dh_img_container">{{Picture}}</div>
-  </div>
-
+    cloze_deletion_front = r"""
+<div class="card-description">
+  Mining Card: Cloze Deletion
 </div>
 
 
+<!-- defaults to alt display -->
+{{#AltDisplay}}
+  <div class="expression expression--single bold-yellow" id="Display">{{furigana:AltDisplay}}</div>
+{{/AltDisplay}}
 
+{{^AltDisplay}}
+  <div class="expression expression--single bold-yellow" id="Display">「{{Sentence}}」</div>
+{{/AltDisplay}}
 
+<script>
+  // I tried figuring out a way to do this with CSS, but I can't find a non-hacky way of doing so.
+  // Problem: if css is display:none, anything with :after is also not displayed
+  // Only working css-only solution I found was by moving the text to -9999
+  // - above is hacky because copy/pastes will still copy the text
+  var d = document.getElementById("Display");
+  d.innerHTML = d.innerHTML.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
+</script>
+"""
 
-<div id="back_side" class="back-side">
+    # back side
 
+    answer_border = r"""
+<center>
+  <div class="answer-border"></div>
+</center>
+"""
+
+    full_sentence = r"""
 <div class="center-box-1">
   <div class="center-box-2">
     <div class="full-sentence bold-yellow" id="full_sentence">
@@ -268,11 +332,15 @@
     </div>
   </div>
 </div>
+"""
 
+    primary_definition = r"""
 <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
   {{furigana:PrimaryDefinition}}
 </blockquote>
+"""
 
+    other_definitions = r"""
 {{#SecondaryDefinition}}
   <details class="glossary-details">
     <summary>Secondary Definition</summary>
@@ -300,11 +368,10 @@
     </blockquote>
   </details>
 {{/ExtraDefinitions}}
+"""
 
-</div> <!-- backside -->
-
-
-
+    # image zooming and jmedit replace
+    modal_and_common_js = r"""
 <!--
   https://codeconvey.com/html-image-zoom-on-click/
   http://www.liangshunet.com/en/202005/743233073.htm
@@ -412,3 +479,16 @@
   var glossaryEle = document.getElementById("primary_definition");
   glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
 </script>
+"""
+
+    play_sentence_only_js = r"""
+<script>
+  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
+  var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>
+"""
+
+
