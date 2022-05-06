@@ -153,6 +153,8 @@
       // ============================
       //  Word pitch indicator color
       // ============================
+      // done in javascript to simplify templating logic
+      // however, special characters in the field like " can break the code
       var svgTitle = document.getElementById("svg_title");
       var styleClass = "";
 
@@ -209,8 +211,8 @@
 
 {{/PADoNotShowInfoLegacy}}
 
-
-
+<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
+<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {{#Hint}}
   <details class="hint">
     <summary>Hint</summary>
@@ -310,6 +312,5 @@
 
 
 {{/PADoNotShowInfoLegacy}}
-
 
 

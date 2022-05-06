@@ -1,0 +1,73 @@
+
+{{CLOZE_DELETION_FRONT}}
+
+{{HINT}}
+
+
+
+
+{{ANSWER_BORDER}}
+
+
+
+
+<div class="def-header" id="def_header">
+
+  <!-- everything on the left side -->
+  <div class="dh-left" id="dh_left">
+
+    <div class="dh-left__reading"> {{kana:WordReading}} </div>
+    <div class="dh-left__word-pitch" id="dh_word_pitch">
+      {{#WordPitch}}
+        {{WordPitch}}
+      {{/WordPitch}}
+      {{^WordPitch}}
+        N/A
+      {{/WordPitch}}
+    </div>
+    <script>
+      // a bit of a hack...
+      // The only reason why the downstep arrow exists in the first place is to make the downstep
+      // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
+      var wp = document.getElementById("dh_word_pitch");
+      wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+    </script>
+
+     <div class="dh-left__audio-buttons">
+       {{WordAudio}} <span id="audio_play_first"> {{SentenceAudio}} </span>
+    </div>
+  </div>
+
+  <div class="dh-gap" id="dh_gap"> </div>
+
+  <!-- everything on the right side -->
+  <div class="dh-right" id="dh_right">
+    <div class="dh-right__img-container" id="dh_img_container">{{Picture}}</div>
+  </div>
+
+</div>
+
+
+
+
+
+<div id="back_side" class="back-side">
+
+<!-- hides primary definition since the definition is not important for this card -->
+{{#PrimaryDefinition}}
+  <details class="glossary-details">
+    <summary>Primary Definition</summary>
+    <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
+      {{furigana:PrimaryDefinition}}
+    </blockquote>
+  </details>
+{{/PrimaryDefinition}}
+
+{{OTHER_DEFINITIONS}}
+
+</div> <!-- backside -->
+
+
+{{MODAL_AND_COMMON_JS}}
+
+{{PLAY_SENTENCE_ONLY_JS}}

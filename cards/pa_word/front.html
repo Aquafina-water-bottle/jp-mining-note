@@ -30,12 +30,13 @@
 {{/AltDisplay}} {{/IsSentenceCard}}
 
 
-
 <details>
   <summary class=glossary-details>Full Sentence</summary>
   <div class="center-box-1">
     <div class="center-box-2">
-      <div class="full-sentence bold-yellow" id="full_sentence_front">「{{Sentence}}」</div>
+      <div class="full-sentence bold-yellow" id="full_sentence_front">
+        {{furigana:SentenceReading}}
+      </div>
     </div>
   </div>
 </details>
@@ -53,6 +54,8 @@
 <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
 <span id="audio-front">{{SentenceAudio}}</span>
 
+<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
+<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {{#Hint}}
   <details class="hint">
     <summary>Hint</summary>
