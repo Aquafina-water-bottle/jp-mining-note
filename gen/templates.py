@@ -462,6 +462,10 @@ class TemplatesRaw:
     return defSpan;
   }
 
+  // remove all jmdict english dict tags
+  var glossaryEle = document.getElementById("primary_definition");
+  glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
+
   // goes through each blockquote and searches for yomichan inserted images
   var imageSearchElements = document.getElementsByTagName("blockquote");
   for (var searchEle of imageSearchElements) {
@@ -474,10 +478,6 @@ class TemplatesRaw:
       }
     }
   }
-
-  // remove all jmdict english dict tags
-  var glossaryEle = document.getElementById("primary_definition");
-  glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
 </script>
 """
 
