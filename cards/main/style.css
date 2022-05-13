@@ -240,7 +240,7 @@ ol, ul {
 
 .dh-left { /* left */
   background: rgba(0, 0, 0, 0.1);
-  padding: 0.5em 0.5em; /* top/bottom, right/left */
+  padding: 0.625em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
 }
@@ -250,6 +250,7 @@ ol, ul {
   border-style: solid;
   border-width: 1px;
   border-color: rgba(0, 71, 83, 1);
+  padding: 0.55em;
 }
 
 
@@ -364,12 +365,17 @@ ol, ul {
 
 
 /*
- * --------------------------
- *  Def Header Right - Image
- * --------------------------
+ * ------------------
+ *  Def Header Right
+ * ------------------
  */
 
-
+.dh-right {
+  font-size: 40px;
+  padding-left: 35px;
+  max-width: 400px;
+  max-height: 210px;
+}
 
 
 .dh-right__img {
@@ -393,23 +399,6 @@ ol, ul {
 }
 
 
-
-
-/*
- * --------------------
- *  Def Header - Other
- * --------------------
- */
-.dh-gap {
-  min-width: 35px
-}
-
-.dh-right {
-  font-size: 40px;
-
-  max-width: 400px;
-  max-height: 210px;
-}
 
 
 
