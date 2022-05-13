@@ -14,6 +14,14 @@ class TemplatesRaw:
     </div>
   </details>
 {{/Hint}}
+
+{{#HintNotHidden}}
+  <div class="center-box-1 hint">
+    <div class="center-box-2">
+      <div class="bold-yellow">{{HintNotHidden}}</div>
+    </div>
+  </div>
+{{/HintNotHidden}}
 """
 
     full_sentence_front = r"""
