@@ -2,6 +2,14 @@
 
 class TemplatesRaw:
     hint = r"""
+{{#HintNotHidden}}
+  <div class="center-box-1 hint">
+    <div class="center-box-2">
+      <div class="bold-yellow">{{HintNotHidden}}</div>
+    </div>
+  </div>
+{{/HintNotHidden}}
+
 <!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
 <!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {{#Hint}}
@@ -14,14 +22,6 @@ class TemplatesRaw:
     </div>
   </details>
 {{/Hint}}
-
-{{#HintNotHidden}}
-  <div class="center-box-1 hint">
-    <div class="center-box-2">
-      <div class="bold-yellow">{{HintNotHidden}}</div>
-    </div>
-  </div>
-{{/HintNotHidden}}
 """
 
     full_sentence_front = r"""
