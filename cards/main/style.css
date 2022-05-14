@@ -28,7 +28,7 @@ ol, ul {
 }
 
 /* makes the summary tag's clickable area not span the entire width of the given area */
-.summary-test {
+summary {
   display: inline-block;
   width: min-content;
   white-space: nowrap;
