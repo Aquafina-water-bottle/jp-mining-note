@@ -5,7 +5,6 @@ updateModelTemplates
 """
 
 import os
-import re
 from dataclasses import dataclass
 
 import json
@@ -99,7 +98,6 @@ def send_note_type(model: NoteType):
     print(invoke("updateModelTemplates", **format_templates(model)))
     print(invoke("updateModelStyling", **format_styling(model)))
 
-# not very portable but oh well
 def read_model() -> NoteType:
     return NoteType(
         name=MODEL_NAME,
