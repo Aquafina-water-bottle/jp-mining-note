@@ -19,6 +19,7 @@ import re
 from templates import TemplatesRaw
 
 
+
 class Templates:
     def __init__(self):
         self.raw = TemplatesRaw()
@@ -52,24 +53,31 @@ class Templates:
             fp.write("\n".join(lines))
 
 
-file_names = [
-    "main/front.html",
-    "main/back.html",
-    "pa_sentence/front.html",
-    "pa_sentence/back.html",
-    "pa_word/front.html",
-    "pa_word/back.html",
-    "cloze_deletion/front.html",
-    "cloze_deletion/back.html",
-    ]
+#file_names = [
+#    "main/front.html",
+#    "main/back.html",
+#    "pa_sentence/front.html",
+#    "pa_sentence/back.html",
+#    "pa_word/front.html",
+#    "pa_word/back.html",
+#    "cloze_deletion/front.html",
+#    "cloze_deletion/back.html",
+#    ]
+
 
 
 def main():
     t = Templates()
-    for f in file_names:
-        input_file = os.path.join("gen", f)
-        output_file = os.path.join("cards", f)
-        t.process(input_file, output_file)
+    dir_name = "./gen"
+
+    dirs = [d for d in os.listdir(dir_name) if os.path.isdir(os.path.join(dir_name, d))]
+
+    for d in dirs:
+        for file_name in ("front.html", "back.html"):
+            input_file = os.path.join("gen", d, file_name)
+            output_file = os.path.join("cards", d, file_name)
+            t.process(input_file, output_file)
 
 if __name__ == "__main__":
     main()
+

@@ -1,4 +1,3 @@
-# ALL templates defined below must follow the corresponding format:
 
 class TemplatesRaw:
     hint = r"""
