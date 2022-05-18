@@ -324,6 +324,11 @@ class TemplatesRaw:
 """
 
     # back side
+    frequencies_back = r"""
+{{#FrequenciesStylized}}
+  {{FrequenciesStylized}}
+{{/FrequenciesStylized}}
+"""
 
     answer_border = r"""
 <center>
