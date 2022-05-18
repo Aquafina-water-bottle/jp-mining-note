@@ -7,6 +7,8 @@
 :root {
   --yellow: #fffd9e;
   --pa-brightness-reduce: 60%;
+  --frequencies-padding: 5px;
+  --frequencies-border: 5px;
 }
 
 
@@ -625,6 +627,63 @@ summary {
 .glossary__image-hover-media:hover {
   display: block;
   position: absolute;
+}
+
+
+
+
+/*
+ * ------------------------------
+ *  Frequencies at the top-right
+ * ------------------------------
+ */
+.frequencies {
+  display: flex;
+  float: right;
+  font-family: hiragino;
+  color: #585858;
+  font-size: 20px;
+  line-height: 85%;
+}
+
+.frequencies__group {
+  display: block;
+  padding-left: 10px;
+}
+
+.frequencies__number {
+  text-align: right;
+}
+
+.frequencies__number-inner {
+  border-radius: var(--frequencies-border) var(--frequencies-border) 0px 0px;
+  padding: var(--frequencies-padding) var(--frequencies-padding) 3px var(--frequencies-padding);
+}
+
+.frequencies__dictionary {
+  text-align: right;
+  font-size: 9px;
+}
+
+.frequencies__dictionary-inner {
+  border-radius: 0px 0px var(--frequencies-border) var(--frequencies-border);
+  padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
+}
+
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+  content: "A&J";
+}
+.frequencies__group[data-details="JPDB"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+  content: "JPDB";
+}
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+  content: "VN";
+}
+.frequencies__group[data-details="VN Freq"] .frequencies__number .frequencies__number-inner:after {
+  content: "%";
+}
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+  content: "Inn.";
 }
 
 

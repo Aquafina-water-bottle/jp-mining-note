@@ -238,3 +238,22 @@
 
 
 
+{{#*inline "s"}}{{/inline}}
+
+{{#*inline "freq-stylized"}}
+    {{~#if (op ">" definition.frequencies.length 0)~}}
+        <div class="frequencies">
+        {{~#each definition.frequencies~}}
+            <div class="frequencies__group" data-details="{{~dictionary~}}"> {{~s~}}
+                <div class="frequencies__number"> {{~s~}}
+                    <span class="frequencies__number-inner">{{~frequency~}}</span> {{~s~}}
+                </div> {{~s~}}
+                <div class="frequencies__dictionary"> {{~s~}}
+                    <span class="frequencies__dictionary-inner"></span> {{~s~}}
+                </div> {{~s~}}
+            </div>
+        {{~/each~}}
+        </div>
+    {{~/if~}}
+{{/inline}}
+
