@@ -670,17 +670,32 @@ summary {
   padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
 }
 
+.frequencies__dictionary-inner2 {
+}
+
+
+/* Overriding the dictionary name shown */
+
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+  display: none;
+}
 .frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner:after {
   content: "A&J";
 }
-.frequencies__group[data-details="JPDB"] .frequencies__dictionary .frequencies__dictionary-inner:after {
-  content: "JPDB";
+
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+  display: none;
 }
 .frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner:after {
   content: "VN";
 }
 .frequencies__group[data-details="VN Freq"] .frequencies__number .frequencies__number-inner:after {
   content: "%";
+}
+
+
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+  display: none;
 }
 .frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner:after {
   content: "Inn.";
