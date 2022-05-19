@@ -63,6 +63,14 @@ summary {
   color: var(--yellow);
 }
 
+.override-display-none {
+  display: none !important;
+}
+
+.override-display-inline-block {
+  display: inline-block !important;
+}
+
 
 /*
  *  ================
@@ -141,10 +149,63 @@ summary {
   font-size: 70px;
 }
 
+.expression--sentence {
+  font-size: 50px;
+}
+
 
 .hint {
   font-size: 16px;
 }
+
+
+
+/*
+ * -----------------
+ *  Hybrid card css
+ * -----------------
+ */
+
+.expression--hybrid-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.expression--hybrid {
+  position: relative;
+}
+
+.expression--hybrid-word {
+  display: block;
+  /*border-bottom: 2px solid;
+  border-color: var(--yellow);*/
+}
+.expression--hybrid-word:after {
+  content: '';
+  height: 2px;
+  width: 104%;
+  background: var(--yellow);
+  position: absolute;
+  top: 90%;
+  left: -2%;
+  display: block;
+}
+.expression--hybrid-sentence {
+    display: none;
+}
+
+.expression--hybrid:hover > .expression--hybrid-word {
+    display: none;
+}
+.expression--hybrid:hover > .expression--hybrid-sentence {
+    display: block;
+}
+
+
+
+
+
+
 
 
 /*

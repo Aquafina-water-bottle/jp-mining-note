@@ -5,13 +5,19 @@
 <div class="card-description">
   Mining Card:
 
-  {{#IsSentenceCard}}
-      Sentence
-  {{/IsSentenceCard}}
+  {{#IsHybridCard}}
+    Hybrid
+  {{/IsHybridCard}}
 
-  {{^IsSentenceCard}}
-      Word
-  {{/IsSentenceCard}}
+  {{^IsHybridCard}}
+    {{#IsSentenceCard}}
+        Sentence
+    {{/IsSentenceCard}}
+
+    {{^IsSentenceCard}}
+        Word
+    {{/IsSentenceCard}}
+  {{/IsHybridCard}}
 
   /
 
@@ -61,6 +67,7 @@
       <!-- if none of the above, then we test the default value -->
       {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
 
+        <!-- note that hybrid cards only test the word -->
         {{#IsSentenceCard}}
             Sentence
         {{/IsSentenceCard}}
@@ -85,25 +92,47 @@
 
   <!-- priority is on the alternate display sentence -->
   {{#AltDisplay}}
-    {{#IsSentenceCard}}
-      <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
-    {{/IsSentenceCard}}
+    {{#IsHybridCard}}
+      <div class="expression--hybrid-wrapper">
+        <div class="expression expression--single expression--hybrid" id="Display">
+          <span class="expression--hybrid-sentence bold-yellow" id="hybrid-sentence">{{furigana:AltDisplay}}</span>
+          <span class="expression--word expression--hybrid-word bold-yellow" id="hybrid-word">{{Word}}</span>
+        </div>
+      </div>
+    {{/IsHybridCard}}
 
-    {{^IsSentenceCard}}
-      <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
-    {{/IsSentenceCard}}
+    {{^IsHybridCard}}
+      {{#IsSentenceCard}}
+        <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
+      {{/IsSentenceCard}}
+
+      {{^IsSentenceCard}}
+        <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
+      {{/IsSentenceCard}}
+    {{/IsHybridCard}}
   {{/AltDisplay}}
 
 
-  <!-- no alt display sentence, not listening card -->
+  <!-- no alt display sentence -->
   {{^AltDisplay}}
-    {{#IsSentenceCard}}
-      <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
-    {{/IsSentenceCard}}
+    {{#IsHybridCard}}
+      <div class="expression--hybrid-wrapper">
+        <div class="expression expression--single expression--hybrid" id="Display">
+          <span class="expression--hybrid-sentence bold-yellow" id="hybrid-sentence">｢{{Sentence}}｣</span>
+          <span class="expression--word expression--hybrid-word bold-yellow" id="hybrid-word">{{Word}}</span>
+        </div>
+      </div>
+    {{/IsHybridCard}}
 
-    {{^IsSentenceCard}}
-      <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-    {{/IsSentenceCard}}
+    {{^IsHybridCard}}
+      {{#IsSentenceCard}}
+        <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
+      {{/IsSentenceCard}}
+
+      {{^IsSentenceCard}}
+        <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
+      {{/IsSentenceCard}}
+    {{/IsHybridCard}}
   {{/AltDisplay}}
 
 {{/PADoNotShowInfoLegacy}}
@@ -175,25 +204,43 @@
 
     <!-- priority is on the alternate display sentence -->
     {{#AltDisplay}}
-      {{#IsSentenceCard}}
-        <div class="expression" id="Display">{{furigana:AltDisplay}}</div>
-      {{/IsSentenceCard}}
+      {{#IsHybridCard}}
+        <div class="expression expression--hybrid" id="Display">
+          <span class="expression--hybrid-sentence bold-yellow" id="hybrid-sentence">{{furigana:AltDisplay}}</span>
+          <span class="expression--word expression--hybrid-word" id="hybrid-word">{{Word}}</span>
+        </div>
+      {{/IsHybridCard}}
 
-      {{^IsSentenceCard}}
-        <div class="expression expression--word" id="Display">{{furigana:AltDisplay}}</div>
-      {{/IsSentenceCard}}
+      {{^IsHybridCard}}
+        {{#IsSentenceCard}}
+          <div class="expression" id="Display">{{furigana:AltDisplay}}</div>
+        {{/IsSentenceCard}}
+
+        {{^IsSentenceCard}}
+          <div class="expression expression--word" id="Display">{{furigana:AltDisplay}}</div>
+        {{/IsSentenceCard}}
+      {{/IsHybridCard}}
     {{/AltDisplay}}
 
 
-    <!-- no alt display sentence, not listening card -->
+    <!-- no alt display sentence -->
     {{^AltDisplay}}
-      {{#IsSentenceCard}}
-        <div class="expression" id="Display">「{{Sentence}}」</div>
-      {{/IsSentenceCard}}
+      {{#IsHybridCard}}
+        <div class="expression expression--hybrid" id="Display">
+          <span class="expression--hybrid-sentence bold-yellow" id="hybrid-sentence">｢{{Sentence}}｣</span>
+          <span class="expression--word expression--hybrid-word" id="hybrid-word">{{Word}}</span>
+        </div>
+      {{/IsHybridCard}}
 
-      {{^IsSentenceCard}}
-        <div class="expression expression--word" id="Display">{{Word}}</div>
-      {{/IsSentenceCard}}
+      {{^IsHybridCard}}
+        {{#IsSentenceCard}}
+          <div class="expression" id="Display">「{{Sentence}}」</div>
+        {{/IsSentenceCard}}
+
+        {{^IsSentenceCard}}
+          <div class="expression expression--word" id="Display">{{Word}}</div>
+        {{/IsSentenceCard}}
+      {{/IsHybridCard}}
     {{/AltDisplay}}
 
   </div>
