@@ -6,7 +6,7 @@ Documentation is still WIP but is mostly done.
 
 ## Main Features
 * All cards are **automatically created** and populated within seconds
-* Supports **both sentence and vocab** cards
+* Supports **both sentence and vocab** cards (and now **fallback cards**, currently subject to change)
 * Support for **both monolingual and bilingual** definitions,
    including **automatic separation** of bilingual and monolingual definitions
 * Support for **cloze-deletion** card types
