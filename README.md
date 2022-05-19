@@ -17,6 +17,7 @@ Documentation is still WIP but is mostly done.
    * Or don't test it at all!
 * Customizable front display to show anything you want
 * Optional hint (front side) and collapsable notes (back side)
+* Displays frequency list information
 * Click on any image to expand them
 
 ## Limitations
