@@ -6,7 +6,7 @@
   Mining Card:
 
   {{#IsHybridCard}}
-    Hybrid
+    Hybrid ({{#HybridIsSentenceCard}}Sentence{{/HybridIsSentenceCard}}{{^HybridIsSentenceCard}}Word{{/HybridIsSentenceCard}})
   {{/IsHybridCard}}
 
   {{^IsHybridCard}}
@@ -95,8 +95,16 @@
     {{#IsHybridCard}}
       <div class="expression--hybrid-wrapper">
         <div class="expression expression--single expression--hybrid" id="Display">
-          <span class="expression--hybrid-sentence bold-yellow" id="hybrid-sentence">{{furigana:AltDisplay}}</span>
-          <span class="expression--word expression--hybrid-word bold-yellow" id="hybrid-word">{{Word}}</span>
+          <span class="expression--hybrid-sentence
+              {{^HybridIsSentenceCard}}bold-yellow{{/HybridIsSentenceCard}}"
+              id="hybrid-sentence">
+            {{furigana:AltDisplay}}
+          </span>
+          <span class="expression--word expression--hybrid-word
+              {{#HybridIsSentenceCard}}expression--hybrid-word-white-underline{{/HybridIsSentenceCard}}"
+              id="hybrid-word">
+            {{Word}}
+          </span>
         </div>
       </div>
     {{/IsHybridCard}}
@@ -118,8 +126,16 @@
     {{#IsHybridCard}}
       <div class="expression--hybrid-wrapper">
         <div class="expression expression--single expression--hybrid" id="Display">
-          <span class="expression--hybrid-sentence bold-yellow" id="hybrid-sentence">｢{{Sentence}}｣</span>
-          <span class="expression--word expression--hybrid-word bold-yellow" id="hybrid-word">{{Word}}</span>
+          <span class="expression--hybrid-sentence
+              {{^HybridIsSentenceCard}}bold-yellow{{/HybridIsSentenceCard}}"
+              id="hybrid-sentence">
+            {{Sentence}}
+          </span>
+          <span class="expression--word expression--hybrid-word
+              {{#HybridIsSentenceCard}}expression--hybrid-word-white-underline{{/HybridIsSentenceCard}}"
+              id="hybrid-word">
+            {{Word}}
+          </span>
         </div>
       </div>
     {{/IsHybridCard}}
@@ -177,23 +193,21 @@
       var styleClass = "";
 
       if ("{{PADoNotTest}}{{PASeparateWordCard}}") {
-        // PADoNotTest or PASeparateWordCard
+        // PADoNotTest or PASeparateWordCard -> nothing is tested
         styleClass = "flag-box__circle--none";
         svgTitle.textContent = "PA: Do not test";
+      } else if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
+        // either PASeparateSentenceCard or PATestOnlyWord -> only word is tested
+        styleClass = "flag-box__circle--word";
+        svgTitle.textContent = "PA: Word";
+      } else if ("{{IsSentenceCard}}") {
+        // sentence card but no pitch accent indicators are overridden
+        styleClass = "flag-box__circle--sentence";
+        svgTitle.textContent = "PA: Sentence";
       } else {
-        if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
-          // either PASeparateSentenceCard or PATestOnlyWord
-          styleClass = "flag-box__circle--word";
-          svgTitle.textContent = "PA: Word";
-        } else {
-          styleClass = "flag-box__circle--all";
-          svgTitle.textContent = "PA: Sentence";
-        }
-
-        // ~(isSentenceCard) overrides color (should 'test all')
-        if (!"{{IsSentenceCard}}") {
-          styleClass = "flag-box__circle--all"
-        }
+        // regular word card
+        styleClass = "flag-box__circle--word";
+        svgTitle.textContent = "PA: Word";
       }
 
       var circ = document.getElementById("svg_circle");
@@ -206,8 +220,16 @@
     {{#AltDisplay}}
       {{#IsHybridCard}}
         <div class="expression expression--hybrid" id="Display">
-          <span class="expression--hybrid-sentence bold-yellow" id="hybrid-sentence">{{furigana:AltDisplay}}</span>
-          <span class="expression--word expression--hybrid-word" id="hybrid-word">{{Word}}</span>
+          <span class="expression--hybrid-sentence
+              {{^HybridIsSentenceCard}}bold-yellow{{/HybridIsSentenceCard}}"
+              id="hybrid-sentence">
+            {{furigana:AltDisplay}}
+          </span>
+          <span class="expression--word expression--hybrid-word
+              {{#HybridIsSentenceCard}}expression--hybrid-word-white-underline{{/HybridIsSentenceCard}}"
+              id="hybrid-word">
+            {{Word}}
+          </span>
         </div>
       {{/IsHybridCard}}
 
@@ -227,8 +249,16 @@
     {{^AltDisplay}}
       {{#IsHybridCard}}
         <div class="expression expression--hybrid" id="Display">
-          <span class="expression--hybrid-sentence bold-yellow" id="hybrid-sentence">｢{{Sentence}}｣</span>
-          <span class="expression--word expression--hybrid-word" id="hybrid-word">{{Word}}</span>
+          <span class="expression--hybrid-sentence
+              {{^HybridIsSentenceCard}}bold-yellow{{/HybridIsSentenceCard}}"
+              id="hybrid-sentence">
+            ｢{{Sentence}}｣
+          </span>
+          <span class="expression--word expression--hybrid-word
+              {{#HybridIsSentenceCard}}expression--hybrid-word-white-underline{{/HybridIsSentenceCard}}"
+              id="hybrid-word">
+            {{Word}}
+          </span>
         </div>
       {{/IsHybridCard}}
 
