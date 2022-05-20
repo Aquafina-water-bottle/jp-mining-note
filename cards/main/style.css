@@ -109,7 +109,7 @@ summary {
 }
 
 
-.flag-box__circle--all { /* test entire display (whether it's a word or sentence) */
+.flag-box__circle--sentence {
   fill: #5cf570;
 }
 .flag-box__circle--word {
@@ -190,6 +190,10 @@ summary {
   left: -2%;
   display: block;
 }
+.expression--hybrid-word-white-underline:after {
+  background: white;
+}
+
 .expression--hybrid-sentence {
     display: none;
 }
