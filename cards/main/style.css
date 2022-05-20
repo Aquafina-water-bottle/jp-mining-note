@@ -166,21 +166,36 @@ summary {
  * -----------------
  */
 
-.expression--hybrid-wrapper {
+.expression__hybrid-wrapper {
   display: flex;
   justify-content: center;
 }
 
-.expression--hybrid {
+.expression__hybrid {
   position: relative;
 }
 
-.expression--hybrid-word {
+/* used to specify that hovering toggles between word/sentence */
+.expression__hybrid--hover {
+}
+
+/* used to specify that clicking toggles between word/sentence */
+.expression__hybrid--click {
+  transition: 0.3s;
+}
+
+/* not applied to the image because of above comment (prevent showing the transition) */
+.expression__hybrid--click:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.expression__hybrid-word {
   display: block;
   /*border-bottom: 2px solid;
   border-color: var(--yellow);*/
 }
-.expression--hybrid-word:after {
+.expression__hybrid-word:after {
   content: '';
   height: 2px;
   width: 104%;
@@ -190,18 +205,18 @@ summary {
   left: -2%;
   display: block;
 }
-.expression--hybrid-word-white-underline:after {
+.expression__hybrid-word--white-underline:after {
   background: white;
 }
 
-.expression--hybrid-sentence {
+.expression__hybrid-sentence {
     display: none;
 }
 
-.expression--hybrid:hover > .expression--hybrid-word {
+.expression__hybrid--hover:hover > .expression__hybrid-word {
     display: none;
 }
-.expression--hybrid:hover > .expression--hybrid-sentence {
+.expression__hybrid--hover:hover > .expression__hybrid-sentence {
     display: block;
 }
 
