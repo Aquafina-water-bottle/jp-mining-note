@@ -6,14 +6,11 @@ Documentation is still WIP but is mostly done.
 
 ## Main Features (Card Creation Workflow)
 * All cards are **automatically created** and populated within seconds, with:
-   * Definitions
-   * Pitch accent
-   * Word frequency (frequency list info)
+   * Definitions (with **automatic separation** of bilingual and monolingual definitions, using any combination of dictionaries)
+   * Word pitch accent, audio, and frequency list information
    * The selected sentence with the tested word automatically highlighted
-   * Automatically generated furigana on the above sentence
-   * Scene image and sentence audio
-   * Word audio
-* Supports **automatic separation** of bilingual and monolingual definitions with any dictionary you want
+   * Automatically generated furigana on the selected sentence
+   * (Optional) scene image and sentence audio
 
 ## Main Features (Card Features)
 * Supports **both sentence and vocab** cards
