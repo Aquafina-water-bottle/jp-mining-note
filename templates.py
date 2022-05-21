@@ -189,7 +189,8 @@ class TemplatesRaw:
               {{/AltDisplay}}
             </span>
             <span class="expression--word expression__hybrid-word
-                expression__hybrid-word--white-underline"
+                {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}"
                 id="hybrid-word">
               {{Word}}
             </span>
@@ -345,7 +346,8 @@ class TemplatesRaw:
                 {{/AltDisplay}}
               </span>
               <span class="expression--word expression__hybrid-word
-                  expression__hybrid-word--white-underline"
+                {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}"
                   id="hybrid-word">
                 {{Word}}
               </span>
