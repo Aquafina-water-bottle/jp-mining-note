@@ -277,7 +277,7 @@ class TemplatesRaw:
         // either PASeparateSentenceCard or PATestOnlyWord -> only word is tested
         styleClass = "flag-box__circle--word";
         svgTitle.textContent = "PA: Word";
-      } else if ("{{IsSentenceCard}}{{IsHybridCard}}") {
+      } else if ("{{IsSentenceCard}}") {
         // sentence card but no pitch accent indicators are overridden
         styleClass = "flag-box__circle--sentence";
         svgTitle.textContent = "PA: Sentence";
