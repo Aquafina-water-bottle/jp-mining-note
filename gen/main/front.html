@@ -65,9 +65,9 @@
   <!--
     if the display is a word: show sentence preview (spoilered)
   -->
-  {{^IsSentenceCard}} {{^IsHybridCard}}
+  {{^IsSentenceCard}} {{^IsFallbackCard}} {{^IsTargetedContextCard}} {{^IsHybridCard}}
     {{FULL_SENTENCE_FRONT}}
-  {{/IsHybridCard}} {{/IsSentenceCard}}
+  {{/IsHybridCard}} {{/IsTargetedContextCard}} {{/IsFallbackCard}} {{/IsSentenceCard}}
 
 
   <!-- we include the audio at the front regardless if we test PA or not -->
