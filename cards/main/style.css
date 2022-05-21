@@ -205,7 +205,12 @@ summary {
   left: -2%;
   display: block;
 }
-.expression__hybrid-word--white-underline:after {
+.expression__hybrid-word--sentence-underline:after {
+  /*background: #95f2a1;*/
+  background: #a7ffa9;
+}
+.expression__hybrid-word--word-underline:after {
+  /*background: #79ebf8;*/ /* light blue */
   background: white;
 }
 
