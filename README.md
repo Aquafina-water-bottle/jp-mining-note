@@ -18,18 +18,18 @@ Documentation is still WIP but is mostly done.
   [TSC](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards),
   [Fallback Cards](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#fallback-cards),
   [Hybrid Cards](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/Experimental#hybrid-vocab-card))
-* Support for **both monolingual and bilingual** definitions
 * Support for **cloze-deletion** card types
+* Support for **both monolingual and bilingual** definitions
 * Support for various ways of **testing pitch accent**
    * Word level pitch accent
    * Sentence level pitch accent
    * Test the pitch accent in the same card or with different cards
    * Or don't test it at all!
-* Customizable front display to show anything you want
+* Customizable front display to show and test anything you want
 * Optional hint (front-side)
 * Collapsible fields to hide non-crucial info (back-side)
-* Displays furigana (on mouse hover), frequency list information, and pitch accent info
-* Click on any image to zoom in (similar to discord)
+* Displays furigana (on mouse hover), frequency list information, and word pitch accent info
+* Click on any image to zoom in (in a similar style to Discord)
 
 ## Limitations
 * No support for mobile
