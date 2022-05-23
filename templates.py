@@ -342,7 +342,7 @@ class TemplatesRaw:
                   {{furigana:AltDisplay}}
                 {{/AltDisplay}}
                 {{^AltDisplay}}
-                  ｢{{Sentence}}｣
+                  「{{Sentence}}」
                 {{/AltDisplay}}
               </span>
               <span class="expression--word expression__hybrid-word
@@ -390,20 +390,37 @@ class TemplatesRaw:
 {{/PADoNotShowInfoLegacy}}
 
 
+<script>
+var hybridClick = function() {
+  var hSent = document.getElementById("hybrid-sentence");
+  var hWord = document.getElementById("hybrid-word");
+  var circ = document.getElementById("svg_circle");
+  if (hSent.classList.contains("override-display-inline-block")) {
+    // currently showing sentence
+    hWord.classList.remove("override-display-none");
+    hSent.classList.remove("override-display-inline-block");
+    if (circ !== null) {
+      circ.setAttributeNS(null, "cx", "25");
+      circ.setAttributeNS(null, "cy", "15");
+    }
+  } else {
+    // currently showing word
+    hWord.classList.add("override-display-none");
+    hSent.classList.add("override-display-inline-block");
+    if (circ !== null) { // sentence
+      if (hSent.innerText.length > 0 && hSent.innerText[0] == "「") {
+        circ.setAttributeNS(null, "cx", "35");
+        circ.setAttributeNS(null, "cy", "11");
+      }
+    }
+  }
+}
+</script>
+
 {{#IsHybridCard}}
   <script>
     var d = document.getElementById("Display");
-    var hSent = document.getElementById("hybrid-sentence");
-    var hWord = document.getElementById("hybrid-word");
-    d.onclick = function() {
-      if (hSent.classList.contains("override-display-inline-block")) {
-        hWord.classList.remove("override-display-none");
-        hSent.classList.remove("override-display-inline-block");
-      } else {
-        hWord.classList.add("override-display-none");
-        hSent.classList.add("override-display-inline-block");
-      }
-    }
+    d.onclick = hybridClick;
   </script>
 {{/IsHybridCard}}
 """
