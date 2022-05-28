@@ -45,17 +45,17 @@ class TemplatesRaw:
   {{/IsTargetedContextCard}}
 
   {{^IsTargetedContextCard}}
-    {{#IsFallbackCard}}
-      Fallback
-    {{/IsFallbackCard}}
+    {{#IsHoverCard}}
+      Hover ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
+    {{/IsHoverCard}}
 
-    {{^IsFallbackCard}}
+    {{^IsHoverCard}}
 
-      {{#IsHybridCard}}
-        Hybrid ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
-      {{/IsHybridCard}}
+      {{#IsClickCard}}
+        Click ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
+      {{/IsClickCard}}
 
-      {{^IsHybridCard}}
+      {{^IsClickCard}}
         {{#IsSentenceCard}}
             Sentence
         {{/IsSentenceCard}}
@@ -63,8 +63,8 @@ class TemplatesRaw:
         {{^IsSentenceCard}}
             Word
         {{/IsSentenceCard}}
-      {{/IsHybridCard}}
-    {{/IsFallbackCard}}
+      {{/IsClickCard}}
+    {{/IsHoverCard}}
   {{/IsTargetedContextCard}}
 
   /
@@ -152,12 +152,13 @@ class TemplatesRaw:
 
   {{^IsTargetedContextCard}}
 
-    {{#IsFallbackCard}}
+    {{#IsHoverCard}}
       <!-- fallback card card html
         in css: default hybrid css, but with hover instead of click -->
       <div class="expression__hybrid-wrapper">
         <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
-          <span class="expression__hybrid-sentence bold-yellow" id="hybrid-sentence">
+          <span class="expression__hybrid-sentence {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}"
+                id="hybrid-sentence">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
@@ -165,16 +166,20 @@ class TemplatesRaw:
               ｢{{Sentence}}｣
             {{/AltDisplay}}
           </span>
-          <span class="expression--word expression__hybrid-word" id="hybrid-word">
+          <span class="expression--word expression__hybrid-word
+              {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+              {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+              expression__hybrid-word--hover-indicator"
+              id="hybrid-word">
             {{Word}}
           </span>
         </div>
       </div>
-    {{/IsFallbackCard}}
+    {{/IsHoverCard}}
 
-    {{^IsFallbackCard}}
+    {{^IsHoverCard}}
 
-      {{#IsHybridCard}}
+      {{#IsClickCard}}
         <!-- hybrid (sentence or word) card html
           in css: default hybrid css, with click -->
         <div class="expression__hybrid-wrapper">
@@ -190,15 +195,16 @@ class TemplatesRaw:
             </span>
             <span class="expression--word expression__hybrid-word
                 {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}"
+                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+                expression__hybrid-word--click-indicator"
                 id="hybrid-word">
               {{Word}}
             </span>
           </div>
         </div>
-      {{/IsHybridCard}}
+      {{/IsClickCard}}
 
-      {{^IsHybridCard}}
+      {{^IsClickCard}}
 
         {{#IsSentenceCard}}
           <div class="expression expression--single" id="Display">
@@ -222,9 +228,9 @@ class TemplatesRaw:
           </div>
         {{/IsSentenceCard}}
 
-      {{/IsHybridCard}}
+      {{/IsClickCard}}
 
-    {{/IsFallbackCard}}
+    {{/IsHoverCard}}
 
   {{/IsTargetedContextCard}}
 
@@ -309,12 +315,13 @@ class TemplatesRaw:
 
     {{^IsTargetedContextCard}}
 
-      {{#IsFallbackCard}}
+      {{#IsHoverCard}}
         <!-- fallback card card html
           in css: default hybrid css, but with hover instead of click -->
         <div class="expression__hybrid-wrapper">
           <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
-            <span class="expression__hybrid-sentence bold-yellow" id="hybrid-sentence">
+            <span class="expression__hybrid-sentence {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}"
+                  id="hybrid-sentence">
               {{#AltDisplay}}
                 {{furigana:AltDisplay}}
               {{/AltDisplay}}
@@ -322,16 +329,20 @@ class TemplatesRaw:
                 ｢{{Sentence}}｣
               {{/AltDisplay}}
             </span>
-            <span class="expression--word expression__hybrid-word" id="hybrid-word">
+            <span class="expression--word expression__hybrid-word
+                {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+                expression__hybrid-word--hover-indicator"
+                id="hybrid-word">
               {{Word}}
             </span>
           </div>
         </div>
-      {{/IsFallbackCard}}
+      {{/IsHoverCard}}
 
-      {{^IsFallbackCard}}
+      {{^IsHoverCard}}
 
-        {{#IsHybridCard}}
+        {{#IsClickCard}}
           <!-- hybrid (sentence or word) card html
             in css: default hybrid css, with click -->
           <div class="expression__hybrid-wrapper">
@@ -347,15 +358,16 @@ class TemplatesRaw:
               </span>
               <span class="expression--word expression__hybrid-word
                 {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}"
+                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+                expression__hybrid-word--click-indicator"
                   id="hybrid-word">
                 {{Word}}
               </span>
             </div>
           </div>
-        {{/IsHybridCard}}
+        {{/IsClickCard}}
 
-        {{^IsHybridCard}}
+        {{^IsClickCard}}
 
           {{#IsSentenceCard}}
             <div class="expression" id="Display">
@@ -379,9 +391,9 @@ class TemplatesRaw:
             </div>
           {{/IsSentenceCard}}
 
-        {{/IsHybridCard}}
+        {{/IsClickCard}}
 
-      {{/IsFallbackCard}}
+      {{/IsHoverCard}}
 
     {{/IsTargetedContextCard}}
 
@@ -417,18 +429,18 @@ var hybridClick = function() {
 }
 </script>
 
-{{#IsHybridCard}}
+{{#IsClickCard}}
   <script>
     var d = document.getElementById("Display");
     d.onclick = hybridClick;
   </script>
-{{/IsHybridCard}}
+{{/IsClickCard}}
 
 <!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
 {{^AltDisplay}}
   <script>
     var sent = null;
-    if ("{{IsHybridCard}}{{IsFallbackCard}}") {
+    if ("{{IsClickCard}}{{IsHoverCard}}") {
       sent = document.getElementById("hybrid-sentence");
     } else if ("{{IsSentenceCard}}{{IsTargetedContextCard}}") {
       sent = document.getElementById("Display");

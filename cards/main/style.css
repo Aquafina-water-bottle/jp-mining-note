@@ -173,6 +173,7 @@ summary {
 
 .expression__hybrid {
   position: relative;
+  padding-bottom: 10px; /* overriden line-height causes the buttons underneath the word to be too close */
 }
 
 /* used to specify that hovering toggles between word/sentence */
@@ -192,9 +193,26 @@ summary {
 
 .expression__hybrid-word {
   display: block;
-  /*border-bottom: 2px solid;
-  border-color: var(--yellow);*/
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+  line-height: 125%;
 }
+
+.expression__hybrid-word--click-indicator {
+}
+.expression__hybrid-word--hover-indicator {
+  border-bottom-color: var(--yellow);
+}
+
+.expression__hybrid-word--sentence-underline {
+}
+.expression__hybrid-word--word-underline {
+  border-bottom-style: dashed;
+}
+
+
+/*
 .expression__hybrid-word:after {
   content: '';
   height: 2px;
@@ -205,14 +223,24 @@ summary {
   left: -2%;
   display: block;
 }
+
+.expression__hybrid-word--click-indicator:after {
+  background: #a7ffa9;
+}
+.expression__hybrid-word--hover-indicator:after {
+  background: white;
+}
+
 .expression__hybrid-word--sentence-underline:after {
-  /*background: #95f2a1;*/
   background: #a7ffa9;
 }
 .expression__hybrid-word--word-underline:after {
-  /*background: #79ebf8;*/ /* light blue */
   background: white;
 }
+*/
+
+  /*background: #95f2a1;*/
+  /*background: #79ebf8;*/ /* light blue */
 
 .expression__hybrid-sentence {
     display: none;
