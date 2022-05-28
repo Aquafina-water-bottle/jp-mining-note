@@ -423,6 +423,21 @@ var hybridClick = function() {
     d.onclick = hybridClick;
   </script>
 {{/IsHybridCard}}
+
+<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
+{{^AltDisplay}}
+  <script>
+    var sent = null;
+    if ("{{IsHybridCard}}{{IsFallbackCard}}") {
+      sent = document.getElementById("hybrid-sentence");
+    } else if ("{{IsSentenceCard}}{{IsTargetedContextCard}}") {
+      sent = document.getElementById("Display");
+    }
+    if (sent !== null) {
+      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+    }
+  </script>
+{{/AltDisplay}}
 """
 
     pa_sent_front = r"""
