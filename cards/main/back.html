@@ -215,21 +215,20 @@
       </svg>
     </div>
 
-    {{#IsSentenceCard}}
-      <!--
-        different circle positions depending on whether it's a sentence or not.
-        More specifically, checks if the first character is "「",
-        and adjusts the position based on that
-      -->
-      <script>
-        var circ = document.getElementById("svg_circle");
-        var d = document.getElementById("Display");
-        if (d.innerText.length > 0 && d.innerText[0] == "「") {
-          circ.setAttributeNS(null, "cx", "35");
-          circ.setAttributeNS(null, "cy", "11");
-        }
-      </script>
-    {{/IsSentenceCard}}
+    <!--
+      different circle positions depending on whether it's a sentence or not.
+      More specifically, checks if the first character is "「",
+      and adjusts the position based on that
+    -->
+    <script>
+      var circ = document.getElementById("svg_circle");
+      var d = document.getElementById("Display");
+      if ("{{IsSentenceCard}}{{IsTargetedContextCard}}" &&
+          d.innerText.length > 0 && d.innerText[0] == "「") {
+        circ.setAttributeNS(null, "cx", "35");
+        circ.setAttributeNS(null, "cy", "11");
+      }
+    </script>
 
     <script>
       // ============================
