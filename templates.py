@@ -485,6 +485,16 @@ var hybridClick = function() {
   {{/AltDisplay}} {{/IsSentenceCard}}
 
 {{/AltDisplayPASentenceCard}}
+
+<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
+{{^AltDisplay}}
+  <script>
+    sent = document.getElementById("Display");
+    if (sent !== null) {
+      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+    }
+  </script>
+{{/AltDisplay}}
 """
 
     pa_word_front = r"""
@@ -511,6 +521,16 @@ var hybridClick = function() {
 {{^IsSentenceCard}} {{^AltDisplay}}
   <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
 {{/AltDisplay}} {{/IsSentenceCard}}
+
+<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
+{{^AltDisplay}}
+  <script>
+    sent = document.getElementById("Display");
+    if (sent !== null) {
+      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+    }
+  </script>
+{{/AltDisplay}}
 """
 
     cloze_deletion_front = r"""
@@ -536,6 +556,16 @@ var hybridClick = function() {
   var d = document.getElementById("Display");
   d.innerHTML = d.innerHTML.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
 </script>
+
+<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
+{{^AltDisplay}}
+  <script>
+    sent = document.getElementById("Display");
+    if (sent !== null) {
+      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+    }
+  </script>
+{{/AltDisplay}}
 """
 
     # back side
