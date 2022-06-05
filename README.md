@@ -13,11 +13,10 @@ Documentation is still WIP but is mostly done.
    * (Optional) scene image and sentence audio
 
 ## Main Features (Card Features)
-* Supports **both sentence and vocab** cards
-* Supports (currently experimental) card types:
-  [TSC](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards),
-  [Fallback Cards](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#fallback-cards),
-  [Hybrid Cards](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/Experimental#hybrid-vocab-card))
+* Supports **both sentence and vocab** cards, as well as:
+    * [Targetted Sentence Cards (TSC)](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards),
+    * Hover Cards (AKA [Fallback Cards](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#fallback-cards))
+    * Click Cards (TODO link)
 * Support for **cloze-deletion** card types
 * Support for **both monolingual and bilingual** definitions
 * Support for various ways of **testing pitch accent**

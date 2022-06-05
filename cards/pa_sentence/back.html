@@ -36,6 +36,16 @@
 
 {{/AltDisplayPASentenceCard}}
 
+<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
+{{^AltDisplay}}
+  <script>
+    sent = document.getElementById("Display");
+    if (sent !== null) {
+      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+    }
+  </script>
+{{/AltDisplay}}
+
 {{#HintNotHidden}}
   <div class="center-box-1 hint">
     <div class="center-box-2">

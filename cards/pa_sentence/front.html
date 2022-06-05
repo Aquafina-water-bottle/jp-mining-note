@@ -42,6 +42,16 @@
 
 {{/AltDisplayPASentenceCard}}
 
+<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
+{{^AltDisplay}}
+  <script>
+    sent = document.getElementById("Display");
+    if (sent !== null) {
+      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+    }
+  </script>
+{{/AltDisplay}}
+
 <script>
   // THIS IS A HACK
   // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
