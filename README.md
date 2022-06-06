@@ -1,8 +1,7 @@
 
+<!--
 TODO gif showing the main features of the card type
-
-Documentation currently under the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
-Documentation is still WIP but is mostly done.
+-->
 
 ## Main Features (Card Creation Workflow)
 * All cards are **automatically created** and populated within seconds, with:
@@ -13,10 +12,8 @@ Documentation is still WIP but is mostly done.
    * (Optional) scene image and sentence audio
 
 ## Main Features (Card Features)
-* Supports **both sentence and vocab** cards, as well as:
-    * [Targetted Sentence Cards (TSC)](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards),
-    * Hover Cards (AKA [Fallback Cards](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#fallback-cards))
-    * Click Cards (TODO link)
+* Supports **both sentence and vocab** cards, as well as
+  [many alternative card types](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/CardTypes).
 * Support for **cloze-deletion** card types
 * Support for **both monolingual and bilingual** definitions
 * Support for various ways of **testing pitch accent**
@@ -24,27 +21,18 @@ Documentation is still WIP but is mostly done.
    * Sentence level pitch accent
    * Test the pitch accent in the same card or with different cards
    * Or don't test it at all!
-* Customizable front display to show and test anything you want
 * Optional hint (front-side)
-* Collapsible fields to hide non-crucial info (back-side)
-* Displays furigana (on mouse hover), frequency list information, and word pitch accent info
-* Click on any image to zoom in (in a similar style to Discord)
+* Various quality of life features:
+    * Collapsible fields to hide non-crucial info (back-side)
+    * Displays furigana (on mouse hover), frequency list information, and word pitch accent info
+    * Click on any image to zoom in (in a similar style to Discord)
 
 ## Limitations
-* No support for mobile
-* Stylization is for my personal anki theme (default dark mode) and screen resolution (1920x1080). TODO use em units rather than px units
-* See customization section (TODO link) for further points
+* No support for mobile.
+* Stylization is for my personal anki theme (default dark mode) and screen resolution (1920x1080).
+  This will likely not have good HiDPI support.
 
-
-## TODO:
-* Add proper documentation:
-  * Links to Anki documentation for specific vocab (i.e. notes vs cards)
-  * What I test myself on for each type of card
-  * Features
-  * Fields
-  * How to setup mandatory Anki plugins
-  * How to setup Yomichan (templates and anki fields)
-* Add sample cards to releases
-
+## Setup & Usage
+See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
 
 
