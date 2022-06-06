@@ -3,7 +3,7 @@
 TODO gif showing the main features of the card type
 -->
 
-## Main Features (Card Creation Workflow)
+# Main Features (Card Creation Workflow)
 * All cards are **automatically created** and populated within seconds, with:
    * Definitions (with **automatic separation** of bilingual and monolingual definitions, using any combination of dictionaries)
    * Word pitch accent, audio, and frequency list information
@@ -11,7 +11,7 @@ TODO gif showing the main features of the card type
    * Automatically generated furigana on the selected sentence
    * (Optional) scene image and sentence audio
 
-## Main Features (Card Features)
+# Main Features (Card Features)
 * Supports **both sentence and vocab** cards, as well as
   [many alternative card types](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/CardTypes).
 * Support for **cloze-deletion** card types
@@ -27,12 +27,12 @@ TODO gif showing the main features of the card type
     * Displays furigana (on mouse hover), frequency list information, and word pitch accent info
     * Click on any image to zoom in (in a similar style to Discord)
 
-## Limitations
+# Limitations
 * No support for mobile.
 * Stylization is for my personal anki theme (default dark mode) and screen resolution (1920x1080).
   This will likely not have good HiDPI support.
 
-## Setup & Usage
+# Setup & Usage
 See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
 
 
