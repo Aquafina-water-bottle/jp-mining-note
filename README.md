@@ -13,7 +13,7 @@ TODO gif showing the main features of the card type
 
 # Main Features (Card Features)
 * Supports **both sentence and vocab** cards, as well as
-  [many alternative card types](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/CardTypes).
+  [many alternative card types](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/CardTypes)
 * Support for **cloze-deletion** card types
 * Support for **both monolingual and bilingual** definitions
 * Support for various ways of **testing pitch accent**
@@ -34,5 +34,9 @@ TODO gif showing the main features of the card type
 
 # Setup & Usage
 See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
+
+# Other Info
+Tested on Anki 2.1.53, Linux (Ubuntu) & Windows.
+(It should work on any PC where Anki is supported.)
 
 
