@@ -29,14 +29,24 @@ ol, ul {
   padding-left: 1.5em;
 }
 
-/* makes the summary tag's clickable area not span the entire width of the given area */
-summary {
+/*
+ * makes the summary tag's clickable area not span the entire width of the given area
+ *
+ * NOTE: currently doesn't work as intended: it hides the triangle indicator
+ * - only way to solve this is to set the display to `list-item`
+ * - can't find a good fix for it other than `display: inline list-item`
+ *   which doesn't seem to be supported on anki yet :(
+ * - reverting back to the entire width span until further notice
+ */
+/*
+details > summary {
   display: inline-block;
   width: min-content;
   white-space: nowrap;
   padding-left: 20px;
   padding-right: 20px;
 }
+*/
 
 /* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
 /* wrap elements in two divs: center-box-1 and center-box-2 */
