@@ -1,3 +1,7 @@
+{{~! NOTE: this MUST be put at the very top of the templates section! ~}}
+{{~! returns "" if the dictionary is not bilingual ~}}
+{{~! matches most JMdict dictionaries and 新和英 ~}}
+{{~#set "bilingual-dict-regex"~}}[Jj][Mm][Dd]ict.*|新和英{{~/set~}}
 
 
 {{~! all bilingual definitions ~}}
@@ -7,8 +11,8 @@
 
         {{~#set "valid-dict-found" false}}{{/set~}}
         {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-            {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+            {{~! CONDITION bilingual ~}}
+            {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
                 {{~#set "valid-dict-found" true}}{{/set~}}
             {{~/if~}}
         {{~/each~}}
@@ -16,8 +20,8 @@
         {{~#if (get "valid-dict-found")~}}
             <div style="text-align: left;"><ol>
             {{~#each definition.definitions~}}
-                {{~! CONDITION 2 ~}}
-                {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+                {{~! CONDITION bilingual ~}}
+                {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
                     <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
                 {{~/if~}}
             {{~/each~}}
@@ -39,8 +43,8 @@
 
         {{~#set "valid-dict-found" false}}{{/set~}}
         {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-            {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+            {{~! CONDITION bilingual ~}}
+            {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
                 {{~#set "valid-dict-found" true}}{{/set~}}
 
                 {{~#if (op "===" null (get "first-dictionary"))~}}
@@ -53,8 +57,8 @@
         {{~#if (get "valid-dict-found")~}}
             <div style="text-align: left;"><ol>
             {{~#each definition.definitions~}}
-                {{~! CONDITION 2 ~}}
-                {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+                {{~! CONDITION bilingual ~}}
+                {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
 
                     {{~#if (op "===" dictionary (get "first-dictionary"))~}}
                         <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
@@ -79,8 +83,8 @@
 
         {{~#set "valid-dict-found" false}}{{/set~}}
         {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-            {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+            {{~! CONDITION monolingual ~}}
+            {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
                 {{~#set "valid-dict-found" true}}{{/set~}}
             {{~/if~}}
         {{~/each~}}
@@ -88,8 +92,8 @@
         {{~#if (get "valid-dict-found")~}}
             <div style="text-align: left;"><ol>
             {{~#each definition.definitions~}}
-                {{~! CONDITION 2 ~}}
-                {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+                {{~! CONDITION monolingual ~}}
+                {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
                     <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
                 {{~/if~}}
             {{~/each~}}
@@ -112,8 +116,8 @@
 
         {{~#set "valid-dict-found" false}}{{/set~}}
         {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-            {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+            {{~! CONDITION monolingual ~}}
+            {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
                 {{~#set "valid-dict-found" true}}{{/set~}}
 
                 {{~#if (op "===" null (get "first-dictionary"))~}}
@@ -126,8 +130,8 @@
         {{~#if (get "valid-dict-found")~}}
             <div style="text-align: left;"><ol>
             {{~#each definition.definitions~}}
-                {{~! CONDITION 2 ~}}
-                {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+                {{~! CONDITION monolingual ~}}
+                {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
 
                     {{~#if (op "===" dictionary (get "first-dictionary"))~}}
                         <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
@@ -153,8 +157,8 @@
 
         {{~#set "valid-dict-found" false}}{{/set~}}
         {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-            {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+            {{~! CONDITION monolingual ~}}
+            {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
                 {{~#set "valid-dict-found" true}}{{/set~}}
 
                 {{~#if (op "===" null (get "first-dictionary"))~}}
@@ -167,8 +171,8 @@
         {{~#if (get "valid-dict-found")~}}
             <div style="text-align: left;"><ol>
             {{~#each definition.definitions~}}
-                {{~! CONDITION 2 ~}}
-                {{~#if (op "&&" (op "!==" dictionary "JMdict (English)") (op "!==" dictionary "新和英") )~}}
+                {{~! CONDITION monolingual ~}}
+                {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
 
                     {{~#if (op "!==" dictionary (get "first-dictionary"))~}}
                         <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
@@ -199,9 +203,8 @@
 
         {{~#set "valid-dict-found" false}}{{/set~}}
         {{~#each definition.definitions~}}
-            {{~! CONDITION 1 ~}}
-
-            {{~#if (op "||" (op "===" dictionary "JMdict (English)") (op "===" dictionary "新和英") )~}}
+            {{~! CONDITION bilingual ~}}
+            {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
 
                 {{~#if (op "===" null (get "first-bilingual-dict"))~}}
                     {{~#set "first-bilingual-dict" dictionary~}}{{~/set~}}
