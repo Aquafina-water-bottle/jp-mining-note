@@ -527,14 +527,7 @@ var hybridClick = function() {
 
     if (hSent && hWord) {
       if (e.shiftKey) {
-        // if it contains an override value, that means shift has been pressed
-        if (hSent.classList.contains("override-display-inline-block")) {
-          hWord.classList.remove("override-display-none");
-          hSent.classList.remove("override-display-inline-block");
-        } else {
-          hWord.classList.add("override-display-none");
-          hSent.classList.add("override-display-inline-block");
-        }
+        hybridClick();
       }
     }
   })
