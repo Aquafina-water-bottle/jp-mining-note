@@ -563,8 +563,12 @@ details > summary {
   -webkit-animation-duration: 0.25s ;
   animation-name: zoom;
   animation-duration: 0.25s;
-  max-width: initial;
-  max-height: initial;
+  /*max-width: initial;
+  max-height: initial;*/
+
+  /* prevents the zoomed-in image from exceeding the screen size */
+  max-width: 90%;
+  max-height: 90%;
 
   /*
    * center image vertically and horizontally
