@@ -1,6 +1,10 @@
 
-class TemplatesRaw:
-    hint = r"""
+#class TemplatesRaw:
+TEMPLATES = {
+
+"hint":
+
+r"""
 {{#HintNotHidden}}
   <div class="center-box-1 hint">
     <div class="center-box-2">
@@ -21,9 +25,106 @@ class TemplatesRaw:
     </div>
   </details>
 {{/Hint}}
-"""
+""",
 
-    full_sentence_front = r"""
+
+
+# processes display sentence
+"process_sent":
+
+
+r"""
+
+/* processes the sentence (if there is no altdisplay)
+ * - removes newlines
+ * - finds the shortest possible sentence around the bolded characters
+ */
+
+// removes linebreaks
+var temp = sent.innerHTML.replace(/<br>/g, "");
+
+// removes leading and trailing white space (equiv. of strip() in python)
+temp = temp.trim();
+
+// only chooses the sentence around the bold characters
+var firstMatch = temp.indexOf("<b>");
+var lastMatch = temp.lastIndexOf("</b>");
+
+// list of valid terminators
+// "removeEnd": is removed if found at the end of a sentence
+var terminators = {
+  ".": {removeEnd: true},
+  "。": {removeEnd: true},
+  "．": {removeEnd: true},
+  "︒": {removeEnd: true},
+
+  "!": {removeEnd: false},
+  "?": {removeEnd: false},
+  "！": {removeEnd: false},
+  "？": {removeEnd: false},
+  "…": {removeEnd: false},
+  "︕": {removeEnd: false},
+  "︖": {removeEnd: false},
+  "︙": {removeEnd: false},
+}
+
+
+if (firstMatch !== -1 && lastMatch !== -1) {
+  var beginIdx = firstMatch;
+  var endIdx = lastMatch;
+
+  for (; beginIdx >= 0; beginIdx--) {
+    if (temp[beginIdx] in terminators) {
+      var obj = terminators[temp[beginIdx]];
+      beginIdx++;
+
+      //console.log(beginIdx);
+      //console.log(temp[beginIdx]);
+      break;
+    }
+  }
+
+  for (; endIdx < temp.length; endIdx++) {
+    if (temp[endIdx] in terminators) {
+      var obj = terminators[temp[endIdx]];
+      if (obj.removeEnd) {
+          endIdx--;
+      }
+
+      //console.log(endIdx);
+      //console.log(temp[endIdx]);
+      //console.log(obj.removeEnd);
+      break;
+    }
+  }
+
+  // clamp
+  if (beginIdx < 0) {
+    beginIdx = 0;
+  }
+  if (endIdx > temp.length-1) {
+    endIdx = temp.length-1;
+  }
+
+  temp = temp.substring(beginIdx, endIdx+1)
+
+  // re-adds quotes if necessary
+  if (temp[0] !== "「") {
+    temp = "「" + temp;
+  }
+  if (temp[temp.length-1] !== "」") {
+    temp = temp + "」";
+  }
+}
+
+sent.innerHTML = temp;
+""",
+
+
+
+"full_sentence_front":
+
+r"""
 <details>
   <summary class=glossary-details>Full Sentence</summary>
   <div class="center-box-1">
@@ -34,9 +135,13 @@ class TemplatesRaw:
     </div>
   </div>
 </details>
-"""
+""",
 
-    main_front = r"""
+
+
+"main_front":
+
+r"""
 <div class="card-description">
   Mining Card:
 
@@ -416,7 +521,6 @@ var hybridClick = function() {
   </script>
 {{/IsClickCard}}
 
-<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
 {{^AltDisplay}}
   <script>
     var sent = null;
@@ -426,13 +530,17 @@ var hybridClick = function() {
       sent = document.getElementById("Display");
     }
     if (sent !== null) {
-      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+      {{PROCESS_SENT}}
     }
   </script>
 {{/AltDisplay}}
-"""
+""",
 
-    pa_sent_front = r"""
+
+
+"pa_sent_front":
+
+r"""
 <div class="card-description">
   PA Sentence Card
 </div>
@@ -467,18 +575,21 @@ var hybridClick = function() {
 
 {{/AltDisplayPASentenceCard}}
 
-<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
 {{^AltDisplay}}
   <script>
     sent = document.getElementById("Display");
     if (sent !== null) {
-      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+      {{PROCESS_SENT}}
     }
   </script>
 {{/AltDisplay}}
-"""
+""",
 
-    pa_word_front = r"""
+
+
+"pa_word_front":
+
+r"""
 <div class="card-description">
   PA Word Card
 </div>
@@ -503,18 +614,22 @@ var hybridClick = function() {
   <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
 {{/AltDisplay}} {{/IsSentenceCard}}
 
-<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
 {{^AltDisplay}}
   <script>
     sent = document.getElementById("Display");
     if (sent !== null) {
-      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+      {{PROCESS_SENT}}
     }
   </script>
 {{/AltDisplay}}
-"""
+""",
 
-    cloze_deletion_front = r"""
+
+
+
+"cloze_deletion_front":
+
+r"""
 <div class="card-description">
   Mining Card: Cloze Deletion
 </div>
@@ -538,31 +653,40 @@ var hybridClick = function() {
   d.innerHTML = d.innerHTML.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
 </script>
 
-<!-- removes all newlines by default if there's no alt display + it's not a vocab card -->
 {{^AltDisplay}}
   <script>
     sent = document.getElementById("Display");
     if (sent !== null) {
-      sent.innerHTML = sent.innerHTML.replace(/<br>/g, "");
+      {{PROCESS_SENT}}
     }
   </script>
 {{/AltDisplay}}
-"""
+""",
 
-    # back side
-    frequencies_back = r"""
+
+# back side
+"frequencies_back":
+
+r"""
 {{#FrequenciesStylized}}
   {{FrequenciesStylized}}
 {{/FrequenciesStylized}}
-"""
+""",
 
-    answer_border = r"""
+
+
+"answer_border":
+
+r"""
 <center>
   <div class="answer-border"></div>
 </center>
-"""
+""",
 
-    full_sentence = r"""
+
+"full_sentence":
+
+r"""
 <div class="center-box-1">
   <div class="center-box-2">
     <div class="full-sentence bold-yellow" id="full_sentence">
@@ -570,15 +694,22 @@ var hybridClick = function() {
     </div>
   </div>
 </div>
-"""
+""",
 
-    primary_definition = r"""
+
+
+"primary_definition":
+
+r"""
 <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
   {{furigana:PrimaryDefinition}}
 </blockquote>
-"""
+""",
 
-    other_definitions = r"""
+
+"other_definitions":
+
+r"""
 {{#SecondaryDefinition}}
   <details class="glossary-details">
     <summary>Secondary Definition</summary>
@@ -606,10 +737,14 @@ var hybridClick = function() {
     </blockquote>
   </details>
 {{/ExtraDefinitions}}
-"""
+""",
 
-    # image zooming and jmedit replace
-    modal_and_common_js = r"""
+
+
+# image zooming and jmedit replace
+"modal_and_common_js":
+
+r"""
 <!--
   https://codeconvey.com/html-image-zoom-on-click/
   http://www.liangshunet.com/en/202005/743233073.htm
@@ -717,9 +852,13 @@ var hybridClick = function() {
     }
   }
 </script>
-"""
+""",
 
-    play_sentence_only_js = r"""
+
+
+"play_sentence_only_js":
+
+r"""
 <script>
   // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
   var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton");
@@ -729,4 +868,4 @@ var hybridClick = function() {
 </script>
 """
 
-
+}
