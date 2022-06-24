@@ -1,6 +1,17 @@
 
+with open("version.txt") as file:
+    version = file.read().strip()
+
+
 #class TemplatesRaw:
 TEMPLATES = {
+
+"version":
+
+rf"""
+<div class="card-description-ver">Version {version}</div>
+""",
+
 
 "hint":
 
@@ -29,6 +40,86 @@ r"""
 
 
 
+"process_sent_js":
+
+r"""
+var selectSentence = function(temp) {
+  // only chooses the sentence around the bold characters
+  var firstMatch = temp.indexOf("<b>");
+  var lastMatch = temp.lastIndexOf("</b>");
+
+  // list of valid terminators
+  // "removeEnd": is removed if found at the end of a sentence
+  var terminators = {
+    ".": {removeEnd: true},
+    "。": {removeEnd: true},
+    "．": {removeEnd: true},
+    "︒": {removeEnd: true},
+
+    "!": {removeEnd: false},
+    "?": {removeEnd: false},
+    "！": {removeEnd: false},
+    "？": {removeEnd: false},
+    "…": {removeEnd: false},
+    "︕": {removeEnd: false},
+    "︖": {removeEnd: false},
+    "︙": {removeEnd: false},
+  }
+
+
+  if (firstMatch !== -1 && lastMatch !== -1) {
+    var beginIdx = firstMatch;
+    var endIdx = lastMatch;
+
+    for (; beginIdx >= 0; beginIdx--) {
+      if (temp[beginIdx] in terminators) {
+        var obj = terminators[temp[beginIdx]];
+        beginIdx++;
+
+        //console.log(beginIdx);
+        //console.log(temp[beginIdx]);
+        break;
+      }
+    }
+
+    for (; endIdx < temp.length; endIdx++) {
+      if (temp[endIdx] in terminators) {
+        var obj = terminators[temp[endIdx]];
+        if (obj.removeEnd) {
+            endIdx--;
+        }
+
+        //console.log(endIdx);
+        //console.log(temp[endIdx]);
+        //console.log(obj.removeEnd);
+        break;
+      }
+    }
+
+    // clamp
+    if (beginIdx < 0) {
+      beginIdx = 0;
+    }
+    if (endIdx > temp.length-1) {
+      endIdx = temp.length-1;
+    }
+
+    temp = temp.substring(beginIdx, endIdx+1)
+
+    // re-adds quotes if necessary
+    if (temp[0] !== "「") {
+      temp = "「" + temp;
+    }
+    if (temp[temp.length-1] !== "」") {
+      temp = temp + "」";
+    }
+  }
+
+  return temp;
+}
+""",
+
+
 # processes display sentence
 "process_sent":
 
@@ -46,76 +137,9 @@ var temp = sent.innerHTML.replace(/<br>/g, "");
 // removes leading and trailing white space (equiv. of strip() in python)
 temp = temp.trim();
 
-// only chooses the sentence around the bold characters
-var firstMatch = temp.indexOf("<b>");
-var lastMatch = temp.lastIndexOf("</b>");
+// selects the smallest containing sentence
+//temp = selectSentence(temp);
 
-// list of valid terminators
-// "removeEnd": is removed if found at the end of a sentence
-var terminators = {
-  ".": {removeEnd: true},
-  "。": {removeEnd: true},
-  "．": {removeEnd: true},
-  "︒": {removeEnd: true},
-
-  "!": {removeEnd: false},
-  "?": {removeEnd: false},
-  "！": {removeEnd: false},
-  "？": {removeEnd: false},
-  "…": {removeEnd: false},
-  "︕": {removeEnd: false},
-  "︖": {removeEnd: false},
-  "︙": {removeEnd: false},
-}
-
-
-if (firstMatch !== -1 && lastMatch !== -1) {
-  var beginIdx = firstMatch;
-  var endIdx = lastMatch;
-
-  for (; beginIdx >= 0; beginIdx--) {
-    if (temp[beginIdx] in terminators) {
-      var obj = terminators[temp[beginIdx]];
-      beginIdx++;
-
-      //console.log(beginIdx);
-      //console.log(temp[beginIdx]);
-      break;
-    }
-  }
-
-  for (; endIdx < temp.length; endIdx++) {
-    if (temp[endIdx] in terminators) {
-      var obj = terminators[temp[endIdx]];
-      if (obj.removeEnd) {
-          endIdx--;
-      }
-
-      //console.log(endIdx);
-      //console.log(temp[endIdx]);
-      //console.log(obj.removeEnd);
-      break;
-    }
-  }
-
-  // clamp
-  if (beginIdx < 0) {
-    beginIdx = 0;
-  }
-  if (endIdx > temp.length-1) {
-    endIdx = temp.length-1;
-  }
-
-  temp = temp.substring(beginIdx, endIdx+1)
-
-  // re-adds quotes if necessary
-  if (temp[0] !== "「") {
-    temp = "「" + temp;
-  }
-  if (temp[temp.length-1] !== "」") {
-    temp = temp + "」";
-  }
-}
 
 sent.innerHTML = temp;
 """,
@@ -232,6 +256,8 @@ r"""
     {{/PASeparateWordCard}} {{/PADoNotTest}}
 
   {{/PADoNotShowInfoLegacy}}
+
+  {{VERSION}}
 </div>
 
 
@@ -256,7 +282,7 @@ r"""
             {{furigana:AltDisplay}}
           {{/AltDisplay}}
           {{^AltDisplay}}
-            ｢{{Sentence}}｣
+            「{{Sentence}}」
           {{/AltDisplay}}
         </span>
         <span class="expression--word expression__hybrid-word
@@ -285,7 +311,7 @@ r"""
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
             {{^AltDisplay}}
-              ｢{{Sentence}}｣
+              「{{Sentence}}」
             {{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
@@ -409,7 +435,7 @@ r"""
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
             {{^AltDisplay}}
-              ｢{{Sentence}}｣
+              「{{Sentence}}」
             {{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
@@ -512,6 +538,7 @@ var hybridClick = function() {
     }
   }
 }
+
 </script>
 
 {{#IsClickCard}}
@@ -523,6 +550,8 @@ var hybridClick = function() {
 
 {{^AltDisplay}}
   <script>
+    {{PROCESS_SENT_JS}}
+
     var sent = null;
     if ("{{IsClickCard}}{{IsHoverCard}}") {
       sent = document.getElementById("hybrid-sentence");
@@ -542,7 +571,8 @@ var hybridClick = function() {
 
 r"""
 <div class="card-description">
-  PA Sentence Card
+  Mining Card: PA Sentence
+  {{VERSION}}
 </div>
 
 <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
@@ -577,6 +607,8 @@ r"""
 
 {{^AltDisplay}}
   <script>
+    {{PROCESS_SENT_JS}}
+
     sent = document.getElementById("Display");
     if (sent !== null) {
       {{PROCESS_SENT}}
@@ -591,7 +623,8 @@ r"""
 
 r"""
 <div class="card-description">
-  PA Word Card
+  Mining Card: PA Word
+  {{VERSION}}
 </div>
 
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
@@ -632,6 +665,7 @@ r"""
 r"""
 <div class="card-description">
   Mining Card: Cloze Deletion
+  {{VERSION}}
 </div>
 
 

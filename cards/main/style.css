@@ -92,7 +92,12 @@ details > summary {
   font-family: hiragino;
   color: #585858;
   font-size: 20px;
+  line-height: 85%;
   text-align: left;
+}
+
+.card-description-ver {
+  font-size: 9px;
 }
 
 

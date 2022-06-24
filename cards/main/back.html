@@ -92,6 +92,8 @@
     {{/PASeparateWordCard}} {{/PADoNotTest}}
 
   {{/PADoNotShowInfoLegacy}}
+
+  <div class="card-description-ver">Version 0.1.0</div>
 </div>
 
 
@@ -116,7 +118,7 @@
             {{furigana:AltDisplay}}
           {{/AltDisplay}}
           {{^AltDisplay}}
-            ｢{{Sentence}}｣
+            「{{Sentence}}」
           {{/AltDisplay}}
         </span>
         <span class="expression--word expression__hybrid-word
@@ -145,7 +147,7 @@
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
             {{^AltDisplay}}
-              ｢{{Sentence}}｣
+              「{{Sentence}}」
             {{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
@@ -269,7 +271,7 @@
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
             {{^AltDisplay}}
-              ｢{{Sentence}}｣
+              「{{Sentence}}」
             {{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
@@ -372,6 +374,7 @@ var hybridClick = function() {
     }
   }
 }
+
 </script>
 
 {{#IsClickCard}}
@@ -383,24 +386,7 @@ var hybridClick = function() {
 
 {{^AltDisplay}}
   <script>
-    var sent = null;
-    if ("{{IsClickCard}}{{IsHoverCard}}") {
-      sent = document.getElementById("hybrid-sentence");
-    } else if ("{{IsSentenceCard}}") {
-      sent = document.getElementById("Display");
-    }
-    if (sent !== null) {
-      /* processes the sentence (if there is no altdisplay)
-       * - removes newlines
-       * - finds the shortest possible sentence around the bolded characters
-       */
-
-      // removes linebreaks
-      var temp = sent.innerHTML.replace(/<br>/g, "");
-
-      // removes leading and trailing white space (equiv. of strip() in python)
-      temp = temp.trim();
-
+    var selectSentence = function(temp) {
       // only chooses the sentence around the bold characters
       var firstMatch = temp.indexOf("<b>");
       var lastMatch = temp.lastIndexOf("</b>");
@@ -471,6 +457,31 @@ var hybridClick = function() {
           temp = temp + "」";
         }
       }
+
+      return temp;
+    }
+
+    var sent = null;
+    if ("{{IsClickCard}}{{IsHoverCard}}") {
+      sent = document.getElementById("hybrid-sentence");
+    } else if ("{{IsSentenceCard}}") {
+      sent = document.getElementById("Display");
+    }
+    if (sent !== null) {
+      /* processes the sentence (if there is no altdisplay)
+       * - removes newlines
+       * - finds the shortest possible sentence around the bolded characters
+       */
+
+      // removes linebreaks
+      var temp = sent.innerHTML.replace(/<br>/g, "");
+
+      // removes leading and trailing white space (equiv. of strip() in python)
+      temp = temp.trim();
+
+      // selects the smallest containing sentence
+      //temp = selectSentence(temp);
+
 
       sent.innerHTML = temp;
     }
