@@ -3,7 +3,8 @@
 {{/FrequenciesStylized}}
 
 <div class="card-description">
-  PA Sentence Card
+  Mining Card: PA Sentence
+  <div class="card-description-ver">Version 0.1.0</div>
 </div>
 
 <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
@@ -38,19 +39,7 @@
 
 {{^AltDisplay}}
   <script>
-    sent = document.getElementById("Display");
-    if (sent !== null) {
-      /* processes the sentence (if there is no altdisplay)
-       * - removes newlines
-       * - finds the shortest possible sentence around the bolded characters
-       */
-
-      // removes linebreaks
-      var temp = sent.innerHTML.replace(/<br>/g, "");
-
-      // removes leading and trailing white space (equiv. of strip() in python)
-      temp = temp.trim();
-
+    var selectSentence = function(temp) {
       // only chooses the sentence around the bold characters
       var firstMatch = temp.indexOf("<b>");
       var lastMatch = temp.lastIndexOf("</b>");
@@ -121,6 +110,26 @@
           temp = temp + "」";
         }
       }
+
+      return temp;
+    }
+
+    sent = document.getElementById("Display");
+    if (sent !== null) {
+      /* processes the sentence (if there is no altdisplay)
+       * - removes newlines
+       * - finds the shortest possible sentence around the bolded characters
+       */
+
+      // removes linebreaks
+      var temp = sent.innerHTML.replace(/<br>/g, "");
+
+      // removes leading and trailing white space (equiv. of strip() in python)
+      temp = temp.trim();
+
+      // selects the smallest containing sentence
+      //temp = selectSentence(temp);
+
 
       sent.innerHTML = temp;
     }
