@@ -1,9 +1,27 @@
-0.1.0
+Notes on versioning:
+- The last 3 numbers (# in X.#.#.#) follow basic semantic versioning.
+The 2nd number is bumped when any BREAKING changes occur (field rename, field
+addition, field deletion).
+- The first number (X in X.#.#.#) is an arbitrary number that I decide for
+when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
+subsequent bumps are when the card has changed enough that a bump should be
+signified.)
+
+0.0.1.0
 - First official "version" attached to the card
 
-0.1.1
+0.0.1.1
 - (WIP) Adding various support for mobile anki styles. PC styles should not be
 affected.
 
+0.1.0.0
+- (BREAKING) renamed "ForceHighlightSentence" -> "IsTargetedSentenceCard"
+- changed the functionality of `ForceHighlightSentence` to be its own
+individual `IsTargetedSentenceCard` (filling `IsSentenceCard` is now optional,
+click and hover cards still use the field to create the (now renamed) click
+TSCs and hover TSCs.
+- fixed having the "show" button on TSCs
+- Changed the versioning system from normal semantic versioning to X.(semantic
+versioning)
 
 

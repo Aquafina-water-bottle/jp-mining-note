@@ -26,14 +26,16 @@
     {{/IsClickCard}}
 
     {{^IsClickCard}}
-      {{#IsSentenceCard}}
-        {{#ForceHighlightSentence}}
-          TSC
-        {{/ForceHighlightSentence}}
-        {{^ForceHighlightSentence}}
-          Sentence
-        {{/ForceHighlightSentence}}
-      {{/IsSentenceCard}}
+      {{#IsTargetedSentenceCard}}
+        TSC
+      {{/IsTargetedSentenceCard}}
+      {{^IsTargetedSentenceCard}}
+        {{#IsSentenceCard}}
+          {{^IsTargetedSentenceCard}}
+            Sentence
+          {{/IsTargetedSentenceCard}}
+        {{/IsSentenceCard}}
+      {{/IsTargetedSentenceCard}}
 
       {{^IsSentenceCard}}
           Word
@@ -103,7 +105,7 @@
 
   {{/PADoNotShowInfoLegacy}}
 
-  <div class="card-description-ver">Mining Card: Version 0.1.1</div>
+  <div class="card-description-ver">Mining Card: Version 0.1.0.0</div>
 </div>
 
 
@@ -122,7 +124,7 @@
       <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
         <span class="expression__hybrid-sentence
                      {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                     {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
+                     {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
               id="hybrid-sentence">
           {{#AltDisplay}}
             {{furigana:AltDisplay}}
@@ -151,7 +153,7 @@
         <div class="expression expression--single expression__hybrid expression__hybrid--click" id="Display">
           <span class="expression__hybrid-sentence
                        {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                       {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
+                       {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
@@ -173,10 +175,8 @@
 
     {{^IsClickCard}}
 
-      {{#IsSentenceCard}}
-        <div class="expression expression--single
-                    {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
-              id="Display">
+      {{#IsTargetedSentenceCard}}
+        <div class="expression expression--single bold-yellow" id="Display">
           {{#AltDisplay}}
             {{furigana:AltDisplay}}
           {{/AltDisplay}}
@@ -184,18 +184,31 @@
             「{{Sentence}}」
           {{/AltDisplay}}
         </div>
-      {{/IsSentenceCard}}
+      {{/IsTargetedSentenceCard}}
 
-      {{^IsSentenceCard}}
-        <div class="expression expression--single expression--word" id="Display">
-          {{#AltDisplay}}
-            {{furigana:AltDisplay}}
-          {{/AltDisplay}}
-          {{^AltDisplay}}
-            {{Word}}
-          {{/AltDisplay}}
-        </div>
-      {{/IsSentenceCard}}
+      {{^IsTargetedSentenceCard}}
+        {{#IsSentenceCard}}
+          <div class="expression expression--single" id="Display">
+            {{#AltDisplay}}
+              {{furigana:AltDisplay}}
+            {{/AltDisplay}}
+            {{^AltDisplay}}
+              「{{Sentence}}」
+            {{/AltDisplay}}
+          </div>
+        {{/IsSentenceCard}}
+
+        {{^IsSentenceCard}}
+          <div class="expression expression--single expression--word" id="Display">
+            {{#AltDisplay}}
+              {{furigana:AltDisplay}}
+            {{/AltDisplay}}
+            {{^AltDisplay}}
+              {{Word}}
+            {{/AltDisplay}}
+          </div>
+        {{/IsSentenceCard}}
+      {{/IsTargetedSentenceCard}}
 
     {{/IsClickCard}}
 
@@ -275,7 +288,7 @@
         <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
           <span class="expression__hybrid-sentence
                        {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                       {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
+                       {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
@@ -304,7 +317,7 @@
           <div class="expression expression__hybrid expression__hybrid--click" id="Display">
             <span class="expression__hybrid-sentence
                          {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                         {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
+                         {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
               {{#AltDisplay}}
                 {{furigana:AltDisplay}}
@@ -326,9 +339,8 @@
 
       {{^IsClickCard}}
 
-        {{#IsSentenceCard}}
-          <div class="expression {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
-                id="Display">
+        {{#IsTargetedSentenceCard}}
+          <div class="expression bold-yellow" id="Display">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
@@ -336,18 +348,31 @@
               「{{Sentence}}」
             {{/AltDisplay}}
           </div>
-        {{/IsSentenceCard}}
+        {{/IsTargetedSentenceCard}}
 
-        {{^IsSentenceCard}}
-          <div class="expression expression--word" id="Display">
-            {{#AltDisplay}}
-              {{furigana:AltDisplay}}
-            {{/AltDisplay}}
-            {{^AltDisplay}}
-              {{Word}}
-            {{/AltDisplay}}
-          </div>
-        {{/IsSentenceCard}}
+        {{^IsTargetedSentenceCard}}
+          {{#IsSentenceCard}}
+            <div class="expression" id="Display">
+              {{#AltDisplay}}
+                {{furigana:AltDisplay}}
+              {{/AltDisplay}}
+              {{^AltDisplay}}
+                「{{Sentence}}」
+              {{/AltDisplay}}
+            </div>
+          {{/IsSentenceCard}}
+
+          {{^IsSentenceCard}}
+            <div class="expression expression--word" id="Display">
+              {{#AltDisplay}}
+                {{furigana:AltDisplay}}
+              {{/AltDisplay}}
+              {{^AltDisplay}}
+                {{Word}}
+              {{/AltDisplay}}
+            </div>
+          {{/IsSentenceCard}}
+        {{/IsTargetedSentenceCard}}
 
       {{/IsClickCard}}
 
@@ -530,33 +555,37 @@ var hybridClick = function() {
     <!-- if the display is a sentence but we only want to test word pitch accent -->
     {{#IsSentenceCard}}
 
-      <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
-      {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
-        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
-        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
-        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      <!-- if it's a TSC, then it's already shown -->
+      {{^IsTargetedSentenceCard}}
 
-      <!-- script here because too lazy to copy/paste -->
-      <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
-      <script>
-        var paButton = document.getElementById("PAButton");
-        var d = document.getElementById("Display");
+        <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
+        {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
-        function logMouseButton() {
-          if (paButton.innerText == "Show") {
-            paButton.innerText = "Hide";
-            d.classList.add("bold-yellow");
-          } else {
-            paButton.innerText = "Show";
-            d.classList = "expression";
+        <!-- script here because too lazy to copy/paste -->
+        <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
+        <script>
+          var paButton = document.getElementById("PAButton");
+          var d = document.getElementById("Display");
+
+          function logMouseButton() {
+            if (paButton.innerText == "Show") {
+              paButton.innerText = "Hide";
+              d.classList.add("bold-yellow");
+            } else {
+              paButton.innerText = "Show";
+              d.classList = "expression";
+            }
           }
-        }
-      </script>
+        </script>
+      {{/IsTargetedSentenceCard}}
 
     {{/IsSentenceCard}}
 
