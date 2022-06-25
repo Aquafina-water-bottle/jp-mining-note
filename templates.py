@@ -178,14 +178,16 @@ r"""
     {{/IsClickCard}}
 
     {{^IsClickCard}}
-      {{#IsSentenceCard}}
-        {{#ForceHighlightSentence}}
-          TSC
-        {{/ForceHighlightSentence}}
-        {{^ForceHighlightSentence}}
-          Sentence
-        {{/ForceHighlightSentence}}
-      {{/IsSentenceCard}}
+      {{#IsTargetedSentenceCard}}
+        TSC
+      {{/IsTargetedSentenceCard}}
+      {{^IsTargetedSentenceCard}}
+        {{#IsSentenceCard}}
+          {{^IsTargetedSentenceCard}}
+            Sentence
+          {{/IsTargetedSentenceCard}}
+        {{/IsSentenceCard}}
+      {{/IsTargetedSentenceCard}}
 
       {{^IsSentenceCard}}
           Word
@@ -274,7 +276,7 @@ r"""
       <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
         <span class="expression__hybrid-sentence
                      {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                     {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
+                     {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
               id="hybrid-sentence">
           {{#AltDisplay}}
             {{furigana:AltDisplay}}
@@ -303,7 +305,7 @@ r"""
         <div class="expression expression--single expression__hybrid expression__hybrid--click" id="Display">
           <span class="expression__hybrid-sentence
                        {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                       {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
+                       {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
@@ -325,10 +327,8 @@ r"""
 
     {{^IsClickCard}}
 
-      {{#IsSentenceCard}}
-        <div class="expression expression--single
-                    {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
-              id="Display">
+      {{#IsTargetedSentenceCard}}
+        <div class="expression expression--single bold-yellow" id="Display">
           {{#AltDisplay}}
             {{furigana:AltDisplay}}
           {{/AltDisplay}}
@@ -336,18 +336,31 @@ r"""
             「{{Sentence}}」
           {{/AltDisplay}}
         </div>
-      {{/IsSentenceCard}}
+      {{/IsTargetedSentenceCard}}
 
-      {{^IsSentenceCard}}
-        <div class="expression expression--single expression--word" id="Display">
-          {{#AltDisplay}}
-            {{furigana:AltDisplay}}
-          {{/AltDisplay}}
-          {{^AltDisplay}}
-            {{Word}}
-          {{/AltDisplay}}
-        </div>
-      {{/IsSentenceCard}}
+      {{^IsTargetedSentenceCard}}
+        {{#IsSentenceCard}}
+          <div class="expression expression--single" id="Display">
+            {{#AltDisplay}}
+              {{furigana:AltDisplay}}
+            {{/AltDisplay}}
+            {{^AltDisplay}}
+              「{{Sentence}}」
+            {{/AltDisplay}}
+          </div>
+        {{/IsSentenceCard}}
+
+        {{^IsSentenceCard}}
+          <div class="expression expression--single expression--word" id="Display">
+            {{#AltDisplay}}
+              {{furigana:AltDisplay}}
+            {{/AltDisplay}}
+            {{^AltDisplay}}
+              {{Word}}
+            {{/AltDisplay}}
+          </div>
+        {{/IsSentenceCard}}
+      {{/IsTargetedSentenceCard}}
 
     {{/IsClickCard}}
 
@@ -427,7 +440,7 @@ r"""
         <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
           <span class="expression__hybrid-sentence
                        {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                       {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
+                       {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
@@ -456,7 +469,7 @@ r"""
           <div class="expression expression__hybrid expression__hybrid--click" id="Display">
             <span class="expression__hybrid-sentence
                          {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                         {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
+                         {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
               {{#AltDisplay}}
                 {{furigana:AltDisplay}}
@@ -478,9 +491,8 @@ r"""
 
       {{^IsClickCard}}
 
-        {{#IsSentenceCard}}
-          <div class="expression {{#ForceHighlightSentence}} bold-yellow {{/ForceHighlightSentence}}"
-                id="Display">
+        {{#IsTargetedSentenceCard}}
+          <div class="expression bold-yellow" id="Display">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
@@ -488,18 +500,31 @@ r"""
               「{{Sentence}}」
             {{/AltDisplay}}
           </div>
-        {{/IsSentenceCard}}
+        {{/IsTargetedSentenceCard}}
 
-        {{^IsSentenceCard}}
-          <div class="expression expression--word" id="Display">
-            {{#AltDisplay}}
-              {{furigana:AltDisplay}}
-            {{/AltDisplay}}
-            {{^AltDisplay}}
-              {{Word}}
-            {{/AltDisplay}}
-          </div>
-        {{/IsSentenceCard}}
+        {{^IsTargetedSentenceCard}}
+          {{#IsSentenceCard}}
+            <div class="expression" id="Display">
+              {{#AltDisplay}}
+                {{furigana:AltDisplay}}
+              {{/AltDisplay}}
+              {{^AltDisplay}}
+                「{{Sentence}}」
+              {{/AltDisplay}}
+            </div>
+          {{/IsSentenceCard}}
+
+          {{^IsSentenceCard}}
+            <div class="expression expression--word" id="Display">
+              {{#AltDisplay}}
+                {{furigana:AltDisplay}}
+              {{/AltDisplay}}
+              {{^AltDisplay}}
+                {{Word}}
+              {{/AltDisplay}}
+            </div>
+          {{/IsSentenceCard}}
+        {{/IsTargetedSentenceCard}}
 
       {{/IsClickCard}}
 

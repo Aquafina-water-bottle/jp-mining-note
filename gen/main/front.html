@@ -29,33 +29,37 @@
     <!-- if the display is a sentence but we only want to test word pitch accent -->
     {{#IsSentenceCard}}
 
-      <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
-      {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
-        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
-        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
-        <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      <!-- if it's a TSC, then it's already shown -->
+      {{^IsTargetedSentenceCard}}
 
-      <!-- script here because too lazy to copy/paste -->
-      <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
-      <script>
-        var paButton = document.getElementById("PAButton");
-        var d = document.getElementById("Display");
+        <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
+        {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
-        function logMouseButton() {
-          if (paButton.innerText == "Show") {
-            paButton.innerText = "Hide";
-            d.classList.add("bold-yellow");
-          } else {
-            paButton.innerText = "Show";
-            d.classList = "expression";
+        <!-- script here because too lazy to copy/paste -->
+        <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
+        <script>
+          var paButton = document.getElementById("PAButton");
+          var d = document.getElementById("Display");
+
+          function logMouseButton() {
+            if (paButton.innerText == "Show") {
+              paButton.innerText = "Hide";
+              d.classList.add("bold-yellow");
+            } else {
+              paButton.innerText = "Show";
+              d.classList = "expression";
+            }
           }
-        }
-      </script>
+        </script>
+      {{/IsTargetedSentenceCard}}
 
     {{/IsSentenceCard}}
 
