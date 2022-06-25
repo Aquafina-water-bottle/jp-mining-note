@@ -9,7 +9,7 @@ TEMPLATES = {
 "version":
 
 rf"""
-<div class="card-description-ver">Version {version}</div>
+<div class="card-description-ver">Mining Card: Version {version}</div>
 """,
 
 
@@ -167,8 +167,6 @@ r"""
 
 r"""
 <div class="card-description">
-  Mining Card:
-
   {{#IsHoverCard}}
     Hover ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
   {{/IsHoverCard}}
@@ -360,7 +358,7 @@ r"""
 
 <!-- regular display -->
 {{^PADoNotShowInfoLegacy}}
-  <div class="expression-box">
+  <div class="expression expression-box">
 
     <div class="flag-box">
       <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
@@ -571,7 +569,7 @@ var hybridClick = function() {
 
 r"""
 <div class="card-description">
-  Mining Card: PA Sentence
+  PA Sentence
   {{VERSION}}
 </div>
 
@@ -623,7 +621,7 @@ r"""
 
 r"""
 <div class="card-description">
-  Mining Card: PA Word
+  PA Word
   {{VERSION}}
 </div>
 
@@ -664,7 +662,7 @@ r"""
 
 r"""
 <div class="card-description">
-  Mining Card: Cloze Deletion
+  Cloze Deletion
   {{VERSION}}
 </div>
 

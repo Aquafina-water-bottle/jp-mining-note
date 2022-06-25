@@ -9,6 +9,19 @@
   --pa-brightness-reduce: 60%;
   --frequencies-padding: 5px;
   --frequencies-border: 5px;
+  --sentence-font-size: 50px;
+  --full-sentence-font-size: 28px;
+  --word-font-size: 70px;
+  --description-font-size: 20px;
+  --description-footer-font-size: 9px;
+}
+
+/* override variables for mobile */
+.mobile {
+  --word-font-size: 50px;
+  --sentence-font-size: 30px;
+  --description-font-size: 15px;
+  /*--description-footer-font-size: 7px;*/
 }
 
 
@@ -19,8 +32,25 @@
   text-align: center;
   font-style: normal;
   color: white;
-  background-color: black;
 }
+
+.card.night_mode {
+ color: white;
+ background-color: #2f2f31;
+}
+
+/* can't figure out how to customize the replay button on mobile... */
+/*a.replay-button svg path { fill: #2f2f31; }
+a.replay-button svg circle { fill: #FFFAF0; }*/
+
+/*.mobile .replaybutton svg path { fill: #2f2f31; }
+.mobile .replaybutton svg circle { fill: #FFFAF0; }*/
+/*.replaybutton svg path   { fill: #FFFAF0 !important; }
+.replaybutton svg circle { fill: #2f2f31 !important; }*/
+/*.replay-button svg {
+  fill: black !important;
+}*/
+
 
 /* makes lists tolerable to look at */
 ol, ul {
@@ -91,13 +121,16 @@ details > summary {
 .card-description {
   font-family: hiragino;
   color: #585858;
-  font-size: 20px;
+  font-size: var(--description-font-size);
   line-height: 85%;
   text-align: left;
 }
 
 .card-description-ver {
-  font-size: 9px;
+  font-size: var(--description-footer-font-size);
+}
+.mobile .card-description-ver {
+  padding-bottom: 30px;
 }
 
 
@@ -111,7 +144,7 @@ details > summary {
 
   margin-bottom: -0.0em;
   margin-top: 0.3em;
-  font-size: 50px;
+  font-size: var(--sentence-font-size);
   font-family: hiragino;
 }
 
@@ -142,6 +175,10 @@ details > summary {
 .expression {
 }
 
+.mobile .expression {
+  border-top: 30px;
+}
+
 .expression b {
   /*color: var(--yellow);*/
   font-weight: normal;
@@ -155,17 +192,17 @@ details > summary {
 .expression--single {
   margin-bottom: -0.0em;
   margin-top: 0.3em;
-  font-size: 50px;
+  font-size: var(--sentence-font-size);
   font-family: hiragino;
 }
 
 /* used when the front side display is a word and not a sentence (increase font size) */
 .expression--word {
-  font-size: 70px;
+  font-size: var(--word-font-size);
 }
 
 .expression--sentence {
-  font-size: 50px;
+  font-size: var(--sentence-font-size);
 }
 
 
@@ -340,12 +377,16 @@ details > summary {
 }
 
 
-.nopron {
+
+.nopron,
+.night_mode .nopron {
   color: #42a3ff;
 }
-.nasal {
+.nasal,
+.night_mode .nasal {
   color: #f12a2a;
 }
+
 
 
 
@@ -500,12 +541,27 @@ details > summary {
  * ------------------
  */
 
+
 .dh-right {
   font-size: 40px;
   padding-left: 35px;
   max-width: 400px;
   max-height: 210px;
 }
+
+/* TODO put the image at the top right corner always for mobile */
+.mobile .dh-right {
+  padding-left: 0px;
+
+  max-height: 60px !important;
+  min-width: 0px;
+  min-height: 0px;
+
+  position: fixed;
+  top: 15px;
+  right: 15px;
+}
+
 
 
 .dh-right__img {
@@ -516,6 +572,13 @@ details > summary {
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.mobile .dh-right__img {
+  max-height: 60px !important;
+
+  min-width: 0px;
+  min-height: 0px;
 }
 
 /* moved the hover element to the div to prevent the size transform transition from showing */
@@ -774,8 +837,13 @@ details > summary {
   float: right;
   font-family: hiragino;
   color: #585858;
-  font-size: 20px;
+  font-size: var(--description-font-size);
   line-height: 85%;
+}
+
+/* temporarily removing these for the mobile class since they clog up the space */
+.mobile .frequencies {
+  display: none;
 }
 
 .frequencies__group {
@@ -794,7 +862,7 @@ details > summary {
 
 .frequencies__dictionary {
   text-align: right;
-  font-size: 9px;
+  font-size: var(--description-footer-font-size);
 }
 
 .frequencies__dictionary-inner {
@@ -832,6 +900,7 @@ details > summary {
 .frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner:after {
   content: "Inn.";
 }
+
 
 
 

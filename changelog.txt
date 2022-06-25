@@ -1,0 +1,9 @@
+0.1.0
+- First official "version" attached to the card
+
+0.1.1
+- (WIP) Adding various support for mobile anki styles. PC styles should not be
+affected.
+
+
+
