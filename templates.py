@@ -166,6 +166,42 @@ r"""
 "main_front":
 
 r"""
+
+<script>
+  /*
+   * Options for the main card.
+   *
+   * Options are set around the "AJT Flexible Grading" addon, where h, j, k and l keys
+   * are used to grade cards. In other words, all keybinds here should be usable
+   * by the right hand.
+   *
+   * TODO move to a separate js file (say, "options.js") and update documentation
+   */
+
+  // Keybind to toggle between showing the sentence and word on click and hover cards.
+  // Equivalent to either clicking on the sentence/word on a click card,
+  // or hovering over the word on a hover card.
+  const KB_TOGGLE_HYBRID_SENTENCE = ["Shift", "n"];
+
+  // Keybind to toggle between showing the tested word in a raw sentence card.
+  // Equivalent to clicking on the "show" button.
+  // This is the same as the above because both should never happen at the same time.
+  const KB_TOGGLE_HIGHLIGHT_WORD = ["Shift", "n,"];
+
+  // Keybind to play the sentence audio (if available)
+  const KB_PLAY_SENTENCE_AUDIO = ["p"];
+
+  // Keybind to play the word audio (if available)
+  const KB_PLAY_WORD_AUDIO = ["w", "o"];
+
+  // Keybind to zoom into the image (if available)
+  const KB_TOGGLE_IMAGE_ZOOM = ["i"];
+
+  // Keybind to toggle furigana on the full sentence
+  const KB_TOGGLE_FURIGANA = ["f", "m"];
+</script>
+
+
 <div class="card-description">
   {{#IsHoverCard}}
     Hover ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
@@ -286,8 +322,11 @@ r"""
           {{/AltDisplay}}
         </span>
         <span class="expression--word expression__hybrid-word
-            {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-            {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+            {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
+            {{^IsTargetedSentenceCard}}
+              {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+              {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+            {{/IsTargetedSentenceCard}}
             expression__hybrid-word--hover-indicator"
             id="hybrid-word">
           {{Word}}
@@ -315,8 +354,11 @@ r"""
             {{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
-              {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-              {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+              {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
+              {{^IsTargetedSentenceCard}}
+                {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+              {{/IsTargetedSentenceCard}}
               expression__hybrid-word--click-indicator"
               id="hybrid-word">
             {{Word}}
@@ -450,8 +492,11 @@ r"""
             {{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
-              {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-              {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+              {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
+              {{^IsTargetedSentenceCard}}
+                {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+              {{/IsTargetedSentenceCard}}
               expression__hybrid-word--hover-indicator"
               id="hybrid-word">
             {{Word}}
@@ -479,9 +524,12 @@ r"""
               {{/AltDisplay}}
             </span>
             <span class="expression--word expression__hybrid-word
-              {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-              {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-              expression__hybrid-word--click-indicator"
+                {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
+                {{^IsTargetedSentenceCard}}
+                  {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+                  {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+                {{/IsTargetedSentenceCard}}
+                expression__hybrid-word--click-indicator"
                 id="hybrid-word">
               {{Word}}
             </span>
@@ -561,6 +609,33 @@ var hybridClick = function() {
     }
   }
 }
+
+
+// shift to switch between sentence & word on click & hover cards
+// NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
+// because functions persist and cannot be easily removed within anki,
+// whereas .onkeyup = ... replaces the previous function with the current.
+document.onkeyup = (e => {
+  var hSent = document.getElementById("hybrid-sentence");
+  var hWord = document.getElementById("hybrid-word");
+  var paButton = document.getElementById("pa-button");
+
+  if (hSent && hWord && KB_TOGGLE_HYBRID_SENTENCE.includes(e.key)) {
+    hybridClick();
+  }
+  if (paButton && KB_TOGGLE_HIGHLIGHT_WORD.includes(e.key)) {
+    toggleHighlightWord();
+  }
+  {{#SentenceAudio}}
+    if (KB_PLAY_SENTENCE_AUDIO.includes(e.key)) {
+      var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+      if (elem) {
+        elem.click();
+      }
+    }
+  {{/SentenceAudio}}
+})
+
 
 </script>
 

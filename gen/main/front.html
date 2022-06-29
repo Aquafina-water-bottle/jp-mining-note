@@ -34,22 +34,25 @@
 
         <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
         {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
-          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+          <button id="pa-button" oncontextmenu="event.preventDefault();"
+            onclick="toggleHighlightWord()">Show</button>
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
         {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
-          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+          <button id="pa-button" oncontextmenu="event.preventDefault();"
+            onclick="toggleHighlightWord()">Show</button>
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
         {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
-          <button id="PAButton" oncontextmenu="event.preventDefault();" onclick="logMouseButton()">Show</button>
+          <button id="pa-button" oncontextmenu="event.preventDefault();"
+            onclick="toggleHighlightWord()">Show</button>
         {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
         <!-- script here because too lazy to copy/paste -->
         <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
         <script>
-          var paButton = document.getElementById("PAButton");
+          var paButton = document.getElementById("pa-button");
           var d = document.getElementById("Display");
 
-          function logMouseButton() {
+          function toggleHighlightWord() {
             if (paButton.innerText == "Show") {
               paButton.innerText = "Hide";
               d.classList.add("bold-yellow");
@@ -91,7 +94,7 @@
   <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
   <span id="audio-front">
     {{#SentenceAudio}}
-      {{SentenceAudio}}
+      <span id="sentence-audio"> {{SentenceAudio}} </span>
     {{/SentenceAudio}}
   </span>
 
@@ -99,21 +102,4 @@
 {{/PADoNotShowInfoLegacy}}
 
 
-
-<script>
-  // Javascript to have hybrid cards show the sentence with "shift"
-  // For some reason, this only works on the first document shown (upon javascript refresh).
-  // Therefore, this is not included in the backside html;
-  // the full sentence is already shown at the back side.
-  document.addEventListener("keyup", e => {
-    var hSent = document.getElementById("hybrid-sentence");
-    var hWord = document.getElementById("hybrid-word");
-
-    if (hSent && hWord) {
-      if (e.shiftKey) {
-        hybridClick();
-      }
-    }
-  })
-</script>
 
