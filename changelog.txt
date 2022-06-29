@@ -25,3 +25,10 @@ TSCs and hover TSCs.
 versioning)
 
 
+0.1.1.0
+- Added keybind functionality to the main card type for playing sentence
+audio, toggling pitch accent word in a sentence card & toggling hybrid cards
+
+- fixed the shift button not always working
+- fixed TSC field not properly changing the underline to solid when the
+`IsSentenceCard` field is not filled, on click / hover cards
