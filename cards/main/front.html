@@ -244,7 +244,7 @@ the following should work (null check):
 
   {{/PADoNotShowInfoLegacy}}
 
-  <div class="card-description-ver">JP Mining Note: Version 0.2.1.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.2.1.1</div>
 </div>
 
 
@@ -383,7 +383,7 @@ the following should work (null check):
     <script>
       var circ = document.getElementById("svg_circle");
       var d = document.getElementById("Display");
-      if ("{{IsSentenceCard}}" &&
+      if ("{{IsSentenceCard}}{{IsTargetedSentenceCard}}" &&
           d.innerText.length > 0 && d.innerText[0] == "「") {
         circ.setAttributeNS(null, "cx", "35");
         circ.setAttributeNS(null, "cy", "11");
@@ -664,7 +664,9 @@ the following should work (null check):
                 d.classList.add("bold-yellow");
               } else {
                 paButton.innerText = "Show";
-                d.classList = "expression";
+                if (d.classList.contains("bold-yellow") {
+                  d.classList.remove("bold-yellow");
+                }
               }
             }
           </script>

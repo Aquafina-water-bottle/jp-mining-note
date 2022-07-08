@@ -9,6 +9,12 @@ when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
 subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
+## [0.2.1.1] - 2022-07-08
+#### Added
+- css constuct to not repeat code with anki templates
+
+#### Fixed
+- Removed old comments in options file
 
 ## [0.2.1.0] - 2022-07-07
 #### Added

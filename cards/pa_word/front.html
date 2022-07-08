@@ -146,37 +146,29 @@ the following should work (null check):
 
 <div class="card-description">
   PA Word
-  <div class="card-description-ver">JP Mining Note: Version 0.2.1.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.2.1.1</div>
 </div>
 
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
 <!-- priority: AltDisplay -> Word -->
 
-<!-- option 1: AltDisplay (only if the original card is not a sentence card) -->
-{{^IsSentenceCard}} {{#AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
-{{/AltDisplay}} {{/IsSentenceCard}}
+<!-- option 1: AltDisplay (only if the original card is not a sentence card or hybrid card) -->
+<div class="outer-display1
+    {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}} {{#AltDisplay}}
+      outer-display2
+    {{/AltDisplay}} {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}"
+  id="Display">
 
-<!-- option 2: Word -->
-<!-- opposite of above ~(~IsSentenceCard ^ AltDisplay) -->
-{{#IsSentenceCard}} {{#AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-{{/AltDisplay}} {{/IsSentenceCard}}
-{{#IsSentenceCard}} {{^AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-{{/AltDisplay}} {{/IsSentenceCard}}
-{{^IsSentenceCard}} {{^AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-{{/AltDisplay}} {{/IsSentenceCard}}
+  <!-- if NOT (altdisplay, AND none of (click, hover, sentence, TSC)) -->
+  <div class="expression expression--single expression--word inner-display1">
+    {{Word}}
+  </div>
 
-{{^AltDisplay}}
-  <script>
-    sent = document.getElementById("Display");
-    if (sent !== null) {
-      processSentence(sent);
-    }
-  </script>
-{{/AltDisplay}}
+  <!-- if altdisplay, AND none of (click, hover, sentence, TSC) -->
+  <div class="expression expression--single expression--word inner-display2">
+    {{furigana:AltDisplay}}
+  </div>
+</div>
 
 
 <details class="glossary-details" id="full_sentence_front_details">
