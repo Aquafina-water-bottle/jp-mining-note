@@ -113,6 +113,43 @@ details > summary {
 
 
 /*
+ * Problem: Anki doesn't have {{field1 OR field2}}. This means to make something equivalent to:
+ *   {{A OR B}} A {{/A OR B}}
+ * one has to write:
+ *   {{#A}} {{#B}} A or B {{/B}} {{/A}}
+ *   {{^A}} {{#B}} A or B {{/B}} {{/A}}
+ *   {{#A}} {{^B}} A or B {{/B}} {{/A}}
+ * which is clearly not scalable past 2 fields.
+ *
+ * A non-javascript solution to deal with the above problem:
+ * Specify an outer field with class
+ * <div class="outer-display1 {{^A}} {{^B}} outer-display2 {{/B}} {{/A}}">
+ *   <div class="inner-display1">
+ *     A or B
+ *   </div>
+ *   <div class="inner-display2">
+ *     neither A nor B is filled
+ *   </div>
+ * </div>
+ */
+
+.outer-display1 > .inner-display1 {
+  display: inherit;
+}
+.outer-display1 > .inner-display2 {
+  display: none;
+}
+
+.outer-display2 > .inner-display1 {
+  display: none;
+}
+.outer-display2 > .inner-display2 {
+  display: inherit;
+}
+
+
+
+/*
  *  ================
  *   FRONT SIDE CSS
  *  ================

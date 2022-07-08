@@ -143,7 +143,7 @@ the following should work (null check):
 
 <div class="card-description">
   PA Sentence
-  <div class="card-description-ver">JP Mining Note: Version 0.2.1.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.2.1.1</div>
 </div>
 
 <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
@@ -156,28 +156,39 @@ the following should work (null check):
 
 
 {{^AltDisplayPASentenceCard}}
-  <!-- option 2: AltDisplay (only if the original card is a sentence card) -->
-  <!--IsSentenceCard and AltDisplay -->
-  {{#IsSentenceCard}} {{#AltDisplay}}
-      <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
-  {{/AltDisplay}} {{/IsSentenceCard}}
+  {{#AltDisplay}}
 
-  <!-- option 3: Sentence -->
-  <!-- opposite of above ~(IsSentenceCard ^ AltDisplay) -->
-  {{#IsSentenceCard}} {{^AltDisplay}}
+    <div class="outer-display1
+        {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
+          outer-display2
+        {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}"
+      id="Display">
+
+      <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
+      <!-- if any of (click, hover, sentence, TSC) -->
+      <div class="expression expression--single inner-display1">
+        {{furigana:AltDisplay}}
+      </div>
+
+      <!-- if none of (click, hover, sentence, TSC) -->
+      <div class="expression expression--single inner-display2">
+        「{{Sentence}}」
+      </div>
+    </div>
+
+  {{/AltDisplay}}
+
+  {{^AltDisplay}}
     <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
-  {{/AltDisplay}} {{/IsSentenceCard}}
-  {{^IsSentenceCard}} {{#AltDisplay}}
-    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
-  {{/AltDisplay}} {{/IsSentenceCard}}
-  {{^IsSentenceCard}} {{^AltDisplay}}
-    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
-  {{/AltDisplay}} {{/IsSentenceCard}}
+  {{/AltDisplay}}
+
 
 {{/AltDisplayPASentenceCard}}
 
 {{^AltDisplay}}
   <script>
+    // TODO change this into a query for sentences,
+    // since Display is now a wrapper around inner-display 1/2
     sent = document.getElementById("Display");
     if (sent !== null) {
       processSentence(sent);

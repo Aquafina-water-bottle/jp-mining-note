@@ -569,7 +569,7 @@ r"""
     <script>
       var circ = document.getElementById("svg_circle");
       var d = document.getElementById("Display");
-      if ("{{IsSentenceCard}}" &&
+      if ("{{IsSentenceCard}}{{IsTargetedSentenceCard}}" &&
           d.innerText.length > 0 && d.innerText[0] == "「") {
         circ.setAttributeNS(null, "cx", "35");
         circ.setAttributeNS(null, "cy", "11");
@@ -809,28 +809,39 @@ r"""
 
 
 {{^AltDisplayPASentenceCard}}
-  <!-- option 2: AltDisplay (only if the original card is a sentence card) -->
-  <!--IsSentenceCard and AltDisplay -->
-  {{#IsSentenceCard}} {{#AltDisplay}}
-      <div class="expression expression--single" id="Display">{{furigana:AltDisplay}}</div>
-  {{/AltDisplay}} {{/IsSentenceCard}}
+  {{#AltDisplay}}
 
-  <!-- option 3: Sentence -->
-  <!-- opposite of above ~(IsSentenceCard ^ AltDisplay) -->
-  {{#IsSentenceCard}} {{^AltDisplay}}
+    <div class="outer-display1
+        {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
+          outer-display2
+        {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}"
+      id="Display">
+
+      <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
+      <!-- if any of (click, hover, sentence, TSC) -->
+      <div class="expression expression--single inner-display1">
+        {{furigana:AltDisplay}}
+      </div>
+
+      <!-- if none of (click, hover, sentence, TSC) -->
+      <div class="expression expression--single inner-display2">
+        「{{Sentence}}」
+      </div>
+    </div>
+
+  {{/AltDisplay}}
+
+  {{^AltDisplay}}
     <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
-  {{/AltDisplay}} {{/IsSentenceCard}}
-  {{^IsSentenceCard}} {{#AltDisplay}}
-    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
-  {{/AltDisplay}} {{/IsSentenceCard}}
-  {{^IsSentenceCard}} {{^AltDisplay}}
-    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
-  {{/AltDisplay}} {{/IsSentenceCard}}
+  {{/AltDisplay}}
+
 
 {{/AltDisplayPASentenceCard}}
 
 {{^AltDisplay}}
   <script>
+    // TODO change this into a query for sentences,
+    // since Display is now a wrapper around inner-display 1/2
     sent = document.getElementById("Display");
     if (sent !== null) {
       processSentence(sent);
@@ -854,31 +865,23 @@ r"""
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
 <!-- priority: AltDisplay -> Word -->
 
-<!-- option 1: AltDisplay (only if the original card is not a sentence card) -->
-{{^IsSentenceCard}} {{#AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{furigana:AltDisplay}}</div>
-{{/AltDisplay}} {{/IsSentenceCard}}
+<!-- option 1: AltDisplay (only if the original card is not a sentence card or hybrid card) -->
+<div class="outer-display1
+    {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}} {{#AltDisplay}}
+      outer-display2
+    {{/AltDisplay}} {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}"
+  id="Display">
 
-<!-- option 2: Word -->
-<!-- opposite of above ~(~IsSentenceCard ^ AltDisplay) -->
-{{#IsSentenceCard}} {{#AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-{{/AltDisplay}} {{/IsSentenceCard}}
-{{#IsSentenceCard}} {{^AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-{{/AltDisplay}} {{/IsSentenceCard}}
-{{^IsSentenceCard}} {{^AltDisplay}}
-  <div class="expression expression--single expression--word" id="Display">{{Word}}</div>
-{{/AltDisplay}} {{/IsSentenceCard}}
+  <!-- if NOT (altdisplay, AND none of (click, hover, sentence, TSC)) -->
+  <div class="expression expression--single expression--word inner-display1">
+    {{Word}}
+  </div>
 
-{{^AltDisplay}}
-  <script>
-    sent = document.getElementById("Display");
-    if (sent !== null) {
-      processSentence(sent);
-    }
-  </script>
-{{/AltDisplay}}
+  <!-- if altdisplay, AND none of (click, hover, sentence, TSC) -->
+  <div class="expression expression--single expression--word inner-display2">
+    {{furigana:AltDisplay}}
+  </div>
+</div>
 """,
 
 
