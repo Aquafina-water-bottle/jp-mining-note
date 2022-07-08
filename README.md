@@ -28,7 +28,7 @@ TODO gif showing the main features of the card type
     * Click on any image to zoom in (in a similar style to Discord)
 
 # Limitations
-* No support for mobile.
+* No support for mobile. (Currently working on basic Ankidroid support!)
 * Stylization is for my personal anki theme (default dark mode) and screen resolution (1920x1080).
   This will likely not have good HiDPI support.
 

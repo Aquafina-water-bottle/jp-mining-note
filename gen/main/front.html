@@ -32,36 +32,40 @@
       <!-- if it's a TSC, then it's already shown -->
       {{^IsTargetedSentenceCard}}
 
-        <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
-        {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
-          <button id="pa-button" oncontextmenu="event.preventDefault();"
-            onclick="toggleHighlightWord()">Show</button>
-        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-        {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
-          <button id="pa-button" oncontextmenu="event.preventDefault();"
-            onclick="toggleHighlightWord()">Show</button>
-        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-        {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
-          <button id="pa-button" oncontextmenu="event.preventDefault();"
-            onclick="toggleHighlightWord()">Show</button>
-        {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+        <!-- hybrid cards do not need the show button -->
+        {{^IsClickCard}} {{^IsHoverCard}}
 
-        <!-- script here because too lazy to copy/paste -->
-        <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
-        <script>
-          var paButton = document.getElementById("pa-button");
-          var d = document.getElementById("Display");
+          <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
+          {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+            <button id="pa-button" oncontextmenu="event.preventDefault();"
+              onclick="toggleHighlightWord()">Show</button>
+          {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+          {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+            <button id="pa-button" oncontextmenu="event.preventDefault();"
+              onclick="toggleHighlightWord()">Show</button>
+          {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+          {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+            <button id="pa-button" oncontextmenu="event.preventDefault();"
+              onclick="toggleHighlightWord()">Show</button>
+          {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
 
-          function toggleHighlightWord() {
-            if (paButton.innerText == "Show") {
-              paButton.innerText = "Hide";
-              d.classList.add("bold-yellow");
-            } else {
-              paButton.innerText = "Show";
-              d.classList = "expression";
+          <!-- script here because too lazy to copy/paste -->
+          <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
+          <script>
+            var paButton = document.getElementById("pa-button");
+            var d = document.getElementById("Display");
+
+            function toggleHighlightWord() {
+              if (paButton.innerText == "Show") {
+                paButton.innerText = "Hide";
+                d.classList.add("bold-yellow");
+              } else {
+                paButton.innerText = "Show";
+                d.classList = "expression";
+              }
             }
-          }
-        </script>
+          </script>
+        {{/IsHoverCard}} {{/IsClickCard}}
       {{/IsTargetedSentenceCard}}
 
     {{/IsSentenceCard}}
@@ -72,9 +76,9 @@
   <!--
     if the display is a word: show sentence preview (spoilered)
   -->
-  {{^IsSentenceCard}} {{^IsHoverCard}} {{^IsClickCard}}
+  {{^IsSentenceCard}} {{^IsHoverCard}} {{^IsClickCard}} {{^IsTargetedSentenceCard}}
     {{FULL_SENTENCE_FRONT}}
-  {{/IsClickCard}} {{/IsHoverCard}} {{/IsSentenceCard}}
+  {{/IsTargetedSentenceCard}} {{/IsClickCard}} {{/IsHoverCard}} {{/IsSentenceCard}}
 
 
   <!-- we include the audio at the front regardless if we test PA or not -->
@@ -91,12 +95,10 @@
     }
   </script>
 
-  <span id="audio-front-silence" style="display:none">{{PASilence}}</span>
-  <span id="audio-front">
-    {{#SentenceAudio}}
-      <span id="sentence-audio"> {{SentenceAudio}} </span>
-    {{/SentenceAudio}}
-  </span>
+  <span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
+  {{#SentenceAudio}}
+    <span id="sentence-audio"> {{SentenceAudio}} </span>
+  {{/SentenceAudio}}
 
 
 {{/PADoNotShowInfoLegacy}}
