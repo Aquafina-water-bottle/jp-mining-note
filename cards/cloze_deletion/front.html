@@ -1,8 +1,133 @@
 {{#SeparateClozeDeletionCard}}
 
+<!-- it is expected that this file exists!
+TODO visible error if it doesn't exist
+the following should work (null check):
+
+  var JPMNOpts = (JPMNOpts || null);
+-->
+<script src="jp-mining-note-options.js"></script>
+
+
+<script>
+  // helper function
+  var _getSetting = function(settingStr, settingObj) {
+    if (!(settingStr in settingObj)) {
+      return null;
+    }
+    return settingObj[settingStr];
+  }
+
+  var kbSetting = function(settingStr) {
+    return _getSetting(settingStr, JPMNOpts.keybindSettings);
+  }
+
+  var getSetting = function(settingStr) {
+    return _getSetting(settingStr, JPMNOpts.settings);
+  }
+
+  var selectSentence = function(temp) {
+    // only chooses the sentence around the bold characters
+    var firstMatch = temp.indexOf("<b>");
+    var lastMatch = temp.lastIndexOf("</b>");
+
+    // list of valid terminators
+    // "removeEnd": is removed if found at the end of a sentence
+    var terminators = {
+      ".": {removeEnd: true},
+      "。": {removeEnd: true},
+      "．": {removeEnd: true},
+      "︒": {removeEnd: true},
+
+      "!": {removeEnd: false},
+      "?": {removeEnd: false},
+      "！": {removeEnd: false},
+      "？": {removeEnd: false},
+      "…": {removeEnd: false},
+      "︕": {removeEnd: false},
+      "︖": {removeEnd: false},
+      "︙": {removeEnd: false},
+    }
+
+
+    if (firstMatch !== -1 && lastMatch !== -1) {
+      var beginIdx = firstMatch;
+      var endIdx = lastMatch;
+
+      for (; beginIdx >= 0; beginIdx--) {
+        if (temp[beginIdx] in terminators) {
+          var obj = terminators[temp[beginIdx]];
+          beginIdx++;
+
+          //console.log(beginIdx);
+          //console.log(temp[beginIdx]);
+          break;
+        }
+      }
+
+      for (; endIdx < temp.length; endIdx++) {
+        if (temp[endIdx] in terminators) {
+          var obj = terminators[temp[endIdx]];
+          if (obj.removeEnd) {
+              endIdx--;
+          }
+
+          //console.log(endIdx);
+          //console.log(temp[endIdx]);
+          //console.log(obj.removeEnd);
+          break;
+        }
+      }
+
+      // clamp
+      if (beginIdx < 0) {
+        beginIdx = 0;
+      }
+      if (endIdx > temp.length-1) {
+        endIdx = temp.length-1;
+      }
+
+      temp = temp.substring(beginIdx, endIdx+1)
+
+      // re-adds quotes if necessary
+      if (temp[0] !== "「") {
+        temp = "「" + temp;
+      }
+      if (temp[temp.length-1] !== "」") {
+        temp = temp + "」";
+      }
+    }
+
+    return temp;
+  }
+
+
+  /*
+   * processes the sentence (if there is no altdisplay)
+   * - removes newlines
+   * - finds the shortest possible sentence around the bolded characters
+   *   (if specified in the config)
+   */
+  var processSentence = function(sent) {
+
+    // removes linebreaks
+    var temp = sent.innerHTML.replace(/<br>/g, "");
+
+    // removes leading and trailing white space (equiv. of strip() in python)
+    temp = temp.trim();
+
+    // selects the smallest containing sentence
+    //temp = selectSentence(temp);
+
+    sent.innerHTML = temp;
+  }
+
+
+</script>
+
 <div class="card-description">
   Cloze Deletion
-  <div class="card-description-ver">Mining Card: Version 0.1.1.0</div>
+  <div class="card-description-ver">Mining Note: Version 0.2.0.0</div>
 </div>
 
 
@@ -28,22 +153,7 @@
   <script>
     sent = document.getElementById("Display");
     if (sent !== null) {
-      /* processes the sentence (if there is no altdisplay)
-       * - removes newlines
-       * - finds the shortest possible sentence around the bolded characters
-       */
-
-      // removes linebreaks
-      var temp = sent.innerHTML.replace(/<br>/g, "");
-
-      // removes leading and trailing white space (equiv. of strip() in python)
-      temp = temp.trim();
-
-      // selects the smallest containing sentence
-      //temp = selectSentence(temp);
-
-
-      sent.innerHTML = temp;
+      processSentence(sent);
     }
   </script>
 {{/AltDisplay}}

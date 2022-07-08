@@ -10,6 +10,18 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
+## [0.2.0.0] - 2022-07-07
+#### Changed (BREAKING)
+- Moved options to separate media file.
+
+#### Added
+- Automatic way to add / update options file from the repo to the deck via update.py (with flag -o)
+
+#### Fixed
+- Fixed the Show/Hide (highlight word) button at the front from appearing on click/hover cards
+- No longer shows the full sentence at the front when the card is a TSC
+- Fixed process sentence function not working on pure TSCs
+
 
 ## [0.1.1.0] - 2022-06-28
 #### Added

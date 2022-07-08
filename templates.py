@@ -6,13 +6,166 @@ with open("version.txt") as file:
 #class TemplatesRaw:
 TEMPLATES = {
 
+# ================
+#  meta templates
+# ================
+# i.e. templates used within templates used in this file
 "version":
 
 rf"""
-<div class="card-description-ver">Mining Card: Version {version}</div>
+<div class="card-description-ver">Mining Note: Version {version}</div>
 """,
 
 
+"global_js_top":
+
+r"""
+<!-- it is expected that this file exists!
+TODO visible error if it doesn't exist
+the following should work (null check):
+
+  var JPMNOpts = (JPMNOpts || null);
+-->
+<script src="jp-mining-note-options.js"></script>
+
+
+<script>
+  // helper function
+  var _getSetting = function(settingStr, settingObj) {
+    if (!(settingStr in settingObj)) {
+      return null;
+    }
+    return settingObj[settingStr];
+  }
+
+  var kbSetting = function(settingStr) {
+    return _getSetting(settingStr, JPMNOpts.keybindSettings);
+  }
+
+  var getSetting = function(settingStr) {
+    return _getSetting(settingStr, JPMNOpts.settings);
+  }
+
+  var selectSentence = function(temp) {
+    // only chooses the sentence around the bold characters
+    var firstMatch = temp.indexOf("<b>");
+    var lastMatch = temp.lastIndexOf("</b>");
+
+    // list of valid terminators
+    // "removeEnd": is removed if found at the end of a sentence
+    var terminators = {
+      ".": {removeEnd: true},
+      "。": {removeEnd: true},
+      "．": {removeEnd: true},
+      "︒": {removeEnd: true},
+
+      "!": {removeEnd: false},
+      "?": {removeEnd: false},
+      "！": {removeEnd: false},
+      "？": {removeEnd: false},
+      "…": {removeEnd: false},
+      "︕": {removeEnd: false},
+      "︖": {removeEnd: false},
+      "︙": {removeEnd: false},
+    }
+
+
+    if (firstMatch !== -1 && lastMatch !== -1) {
+      var beginIdx = firstMatch;
+      var endIdx = lastMatch;
+
+      for (; beginIdx >= 0; beginIdx--) {
+        if (temp[beginIdx] in terminators) {
+          var obj = terminators[temp[beginIdx]];
+          beginIdx++;
+
+          //console.log(beginIdx);
+          //console.log(temp[beginIdx]);
+          break;
+        }
+      }
+
+      for (; endIdx < temp.length; endIdx++) {
+        if (temp[endIdx] in terminators) {
+          var obj = terminators[temp[endIdx]];
+          if (obj.removeEnd) {
+              endIdx--;
+          }
+
+          //console.log(endIdx);
+          //console.log(temp[endIdx]);
+          //console.log(obj.removeEnd);
+          break;
+        }
+      }
+
+      // clamp
+      if (beginIdx < 0) {
+        beginIdx = 0;
+      }
+      if (endIdx > temp.length-1) {
+        endIdx = temp.length-1;
+      }
+
+      temp = temp.substring(beginIdx, endIdx+1)
+
+      // re-adds quotes if necessary
+      if (temp[0] !== "「") {
+        temp = "「" + temp;
+      }
+      if (temp[temp.length-1] !== "」") {
+        temp = temp + "」";
+      }
+    }
+
+    return temp;
+  }
+
+
+  /*
+   * processes the sentence (if there is no altdisplay)
+   * - removes newlines
+   * - finds the shortest possible sentence around the bolded characters
+   *   (if specified in the config)
+   */
+  var processSentence = function(sent) {
+
+    // removes linebreaks
+    var temp = sent.innerHTML.replace(/<br>/g, "");
+
+    // removes leading and trailing white space (equiv. of strip() in python)
+    temp = temp.trim();
+
+    // selects the smallest containing sentence
+    //temp = selectSentence(temp);
+
+    sent.innerHTML = temp;
+  }
+
+
+</script>
+""",
+
+
+"full_sentence_front":
+
+r"""
+<details>
+  <summary class=glossary-details>Full Sentence</summary>
+  <div class="center-box-1">
+    <div class="center-box-2">
+      <div class="full-sentence bold-yellow" id="full_sentence_front">
+        {{furigana:SentenceReading}}
+      </div>
+    </div>
+  </div>
+</details>
+""",
+
+
+# ============
+#  front side
+# ============
 "hint":
 
 r"""
@@ -40,167 +193,12 @@ r"""
 
 
 
-"process_sent_js":
-
-r"""
-var selectSentence = function(temp) {
-  // only chooses the sentence around the bold characters
-  var firstMatch = temp.indexOf("<b>");
-  var lastMatch = temp.lastIndexOf("</b>");
-
-  // list of valid terminators
-  // "removeEnd": is removed if found at the end of a sentence
-  var terminators = {
-    ".": {removeEnd: true},
-    "。": {removeEnd: true},
-    "．": {removeEnd: true},
-    "︒": {removeEnd: true},
-
-    "!": {removeEnd: false},
-    "?": {removeEnd: false},
-    "！": {removeEnd: false},
-    "？": {removeEnd: false},
-    "…": {removeEnd: false},
-    "︕": {removeEnd: false},
-    "︖": {removeEnd: false},
-    "︙": {removeEnd: false},
-  }
-
-
-  if (firstMatch !== -1 && lastMatch !== -1) {
-    var beginIdx = firstMatch;
-    var endIdx = lastMatch;
-
-    for (; beginIdx >= 0; beginIdx--) {
-      if (temp[beginIdx] in terminators) {
-        var obj = terminators[temp[beginIdx]];
-        beginIdx++;
-
-        //console.log(beginIdx);
-        //console.log(temp[beginIdx]);
-        break;
-      }
-    }
-
-    for (; endIdx < temp.length; endIdx++) {
-      if (temp[endIdx] in terminators) {
-        var obj = terminators[temp[endIdx]];
-        if (obj.removeEnd) {
-            endIdx--;
-        }
-
-        //console.log(endIdx);
-        //console.log(temp[endIdx]);
-        //console.log(obj.removeEnd);
-        break;
-      }
-    }
-
-    // clamp
-    if (beginIdx < 0) {
-      beginIdx = 0;
-    }
-    if (endIdx > temp.length-1) {
-      endIdx = temp.length-1;
-    }
-
-    temp = temp.substring(beginIdx, endIdx+1)
-
-    // re-adds quotes if necessary
-    if (temp[0] !== "「") {
-      temp = "「" + temp;
-    }
-    if (temp[temp.length-1] !== "」") {
-      temp = temp + "」";
-    }
-  }
-
-  return temp;
-}
-""",
-
-
-# processes display sentence
-"process_sent":
-
-
-r"""
-
-/* processes the sentence (if there is no altdisplay)
- * - removes newlines
- * - finds the shortest possible sentence around the bolded characters
- */
-
-// removes linebreaks
-var temp = sent.innerHTML.replace(/<br>/g, "");
-
-// removes leading and trailing white space (equiv. of strip() in python)
-temp = temp.trim();
-
-// selects the smallest containing sentence
-//temp = selectSentence(temp);
-
-
-sent.innerHTML = temp;
-""",
-
-
-
-"full_sentence_front":
-
-r"""
-<details>
-  <summary class=glossary-details>Full Sentence</summary>
-  <div class="center-box-1">
-    <div class="center-box-2">
-      <div class="full-sentence bold-yellow" id="full_sentence_front">
-        {{furigana:SentenceReading}}
-      </div>
-    </div>
-  </div>
-</details>
-""",
-
 
 
 "main_front":
 
 r"""
-
-<script>
-  /*
-   * Options for the main card.
-   *
-   * Options are set around the "AJT Flexible Grading" addon, where h, j, k and l keys
-   * are used to grade cards. In other words, all keybinds here should be usable
-   * by the right hand.
-   *
-   * TODO move to a separate js file (say, "options.js") and update documentation
-   */
-
-  // Keybind to toggle between showing the sentence and word on click and hover cards.
-  // Equivalent to either clicking on the sentence/word on a click card,
-  // or hovering over the word on a hover card.
-  const KB_TOGGLE_HYBRID_SENTENCE = ["Shift", "n"];
-
-  // Keybind to toggle between showing the tested word in a raw sentence card.
-  // Equivalent to clicking on the "show" button.
-  // This is the same as the above because both should never happen at the same time.
-  const KB_TOGGLE_HIGHLIGHT_WORD = ["Shift", "n,"];
-
-  // Keybind to play the sentence audio (if available)
-  const KB_PLAY_SENTENCE_AUDIO = ["p"];
-
-  // Keybind to play the word audio (if available)
-  const KB_PLAY_WORD_AUDIO = ["w", "o"];
-
-  // Keybind to zoom into the image (if available)
-  const KB_TOGGLE_IMAGE_ZOOM = ["i"];
-
-  // Keybind to toggle furigana on the full sentence
-  const KB_TOGGLE_FURIGANA = ["f", "m"];
-</script>
-
+{{GLOBAL_JS_TOP}}
 
 <div class="card-description">
   {{#IsHoverCard}}
@@ -619,15 +617,21 @@ document.onkeyup = (e => {
   var hSent = document.getElementById("hybrid-sentence");
   var hWord = document.getElementById("hybrid-word");
   var paButton = document.getElementById("pa-button");
+  var keys = null;
 
-  if (hSent && hWord && KB_TOGGLE_HYBRID_SENTENCE.includes(e.key)) {
+  keys = kbSetting("toggle-hybrid-sentence");
+  if (keys != null && hSent && hWord && keys.includes(e.key)) {
     hybridClick();
   }
-  if (paButton && KB_TOGGLE_HIGHLIGHT_WORD.includes(e.key)) {
+
+  keys = kbSetting("toggle-highlight-word");
+  if (keys != null && paButton && keys.includes(e.key)) {
     toggleHighlightWord();
   }
+
   {{#SentenceAudio}}
-    if (KB_PLAY_SENTENCE_AUDIO.includes(e.key)) {
+    keys = kbSetting("play-sentence-audio");
+    if (keys != null && keys.includes(e.key)) {
       var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
       if (elem) {
         elem.click();
@@ -648,16 +652,14 @@ document.onkeyup = (e => {
 
 {{^AltDisplay}}
   <script>
-    {{PROCESS_SENT_JS}}
-
     var sent = null;
     if ("{{IsClickCard}}{{IsHoverCard}}") {
       sent = document.getElementById("hybrid-sentence");
-    } else if ("{{IsSentenceCard}}") {
+    } else if ("{{IsSentenceCard}}{{IsTargetedSentenceCard}}") {
       sent = document.getElementById("Display");
     }
     if (sent !== null) {
-      {{PROCESS_SENT}}
+      processSentence(sent);
     }
   </script>
 {{/AltDisplay}}
@@ -668,6 +670,8 @@ document.onkeyup = (e => {
 "pa_sent_front":
 
 r"""
+{{GLOBAL_JS_TOP}}
+
 <div class="card-description">
   PA Sentence
   {{VERSION}}
@@ -705,11 +709,9 @@ r"""
 
 {{^AltDisplay}}
   <script>
-    {{PROCESS_SENT_JS}}
-
     sent = document.getElementById("Display");
     if (sent !== null) {
-      {{PROCESS_SENT}}
+      processSentence(sent);
     }
   </script>
 {{/AltDisplay}}
@@ -720,6 +722,8 @@ r"""
 "pa_word_front":
 
 r"""
+{{GLOBAL_JS_TOP}}
+
 <div class="card-description">
   PA Word
   {{VERSION}}
@@ -749,7 +753,7 @@ r"""
   <script>
     sent = document.getElementById("Display");
     if (sent !== null) {
-      {{PROCESS_SENT}}
+      processSentence(sent);
     }
   </script>
 {{/AltDisplay}}
@@ -761,6 +765,8 @@ r"""
 "cloze_deletion_front":
 
 r"""
+{{GLOBAL_JS_TOP}}
+
 <div class="card-description">
   Cloze Deletion
   {{VERSION}}
@@ -789,14 +795,16 @@ r"""
   <script>
     sent = document.getElementById("Display");
     if (sent !== null) {
-      {{PROCESS_SENT}}
+      processSentence(sent);
     }
   </script>
 {{/AltDisplay}}
 """,
 
 
-# back side
+# ===========
+#  back side
+# ===========
 "frequencies_back":
 
 r"""
