@@ -10,6 +10,21 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
+## [0.2.1.0] - 2022-07-07
+#### Added
+- Implemented following js options:
+    - select-smallest-sentence
+    - play-word-audio
+    - toggle-front-full-sentence-display
+    - toggle-hint-display
+    - toggle-secondary-definitions-display
+    - toggle-additional-notes-display
+    - toggle-extra-definitions-display
+
+#### Fixed
+- No image breaking javascript
+
+
 ## [0.2.0.0] - 2022-07-07
 #### Changed (BREAKING)
 - Moved options to separate media file.

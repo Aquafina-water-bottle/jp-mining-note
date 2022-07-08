@@ -6,14 +6,14 @@ with open("version.txt") as file:
 #class TemplatesRaw:
 TEMPLATES = {
 
-# ================
-#  meta templates
-# ================
+# ==================
+#  helper templates
+# ==================
 # i.e. templates used within templates used in this file
 "version":
 
 rf"""
-<div class="card-description-ver">Mining Note: Version {version}</div>
+<div class="card-description-ver">JP Mining Note: Version {version}</div>
 """,
 
 
@@ -24,7 +24,7 @@ r"""
 TODO visible error if it doesn't exist
 the following should work (null check):
 
-  var JPMNOpts = (JPMNOpts || null);
+  if (typeof JPMNOpts === 'undefined') { ... }
 -->
 <script src="jp-mining-note-options.js"></script>
 
@@ -137,9 +137,23 @@ the following should work (null check):
     temp = temp.trim();
 
     // selects the smallest containing sentence
-    //temp = selectSentence(temp);
+
+    if (getSetting("select-smallest-sentence")) {
+      temp = selectSentence(temp);
+    }
 
     sent.innerHTML = temp;
+  }
+
+  /*
+   * Toggles the display of any given details tag
+   */
+  var toggleDetailsTag = function(ele) {
+    if (ele.hasAttribute('open')) {
+      ele.removeAttribute('open');
+    } else {
+      ele.setAttribute("open", "true");
+    }
   }
 
 
@@ -150,8 +164,8 @@ the following should work (null check):
 "full_sentence_front":
 
 r"""
-<details>
-  <summary class=glossary-details>Full Sentence</summary>
+<details class="glossary-details" id="full_sentence_front_details">
+  <summary>Full Sentence</summary>
   <div class="center-box-1">
     <div class="center-box-2">
       <div class="full-sentence bold-yellow" id="full_sentence_front">
@@ -163,9 +177,124 @@ r"""
 """,
 
 
-# ============
-#  front side
-# ============
+
+"play_sentence_only_js":
+
+r"""
+<script>
+  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
+  var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>
+""",
+
+
+"play_silence_only_js":
+
+r"""
+<script>
+  // THIS IS A HACK: this hack is to not auto-play the audio at the front of the card
+  // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
+  // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
+  var elem = document.querySelector("#pa-silence-audio .soundLink, #pa-silence-audio .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>
+""",
+
+
+"sentence_audio_no_autoplay":
+
+r"""
+<span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
+{{#SentenceAudio}}
+<span id="sentence-audio"> {{SentenceAudio}} </span>
+{{/SentenceAudio}}
+
+{{PLAY_SILENCE_ONLY_JS}}
+""",
+
+
+
+"kb_global_inline_js":
+"""
+
+// shift to switch between sentence & word on click & hover cards
+// NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
+// because functions persist and cannot be easily removed within anki,
+// whereas .onkeyup = ... replaces the previous function with the current.
+document.onkeyup = (e => {
+  var keys = null;
+
+  // tests for the existance of extraKeybindSettings
+  if (typeof extraKeybindSettings !== 'undefined') {
+    extraKeybindSettings(e);
+  }
+
+  {{#WordAudio}}
+    keys = kbSetting("play-word-audio");
+    if (keys !== null && keys.includes(e.key)) {
+      var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
+      if (elem) {
+        elem.click();
+      }
+    }
+  {{/WordAudio}}
+
+  {{#SentenceAudio}}
+    keys = kbSetting("play-sentence-audio");
+    if (keys !== null && keys.includes(e.key)) {
+      var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+      if (elem) {
+        elem.click();
+      }
+    }
+  {{/SentenceAudio}}
+
+  keys = kbSetting("toggle-front-full-sentence-display");
+  var ele = document.getElementById("full_sentence_front_details");
+  if (keys !== null && ele && keys.includes(e.key)) {
+    toggleDetailsTag(ele)
+  }
+
+  {{#Hint}}
+    keys = kbSetting("toggle-hint-display");
+    var ele = document.getElementById("hint_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
+    }
+  {{/Hint}}
+
+  {{#SecondaryDefinition}}
+    keys = kbSetting("toggle-secondary-definitions-display");
+    var ele = document.getElementById("secondary_definition_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
+    }
+  {{/SecondaryDefinition}}
+
+  {{#AdditionalNotes}}
+    keys = kbSetting("toggle-additional-notes-display");
+    var ele = document.getElementById("additional_notes_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
+    }
+  {{/AdditionalNotes}}
+
+  {{#ExtraDefinitions}}
+    keys = kbSetting("toggle-extra-definitions-display");
+    var ele = document.getElementById("extra_definitions_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
+    }
+  {{/ExtraDefinitions}}
+})
+""",
+
+
 "hint":
 
 r"""
@@ -180,7 +309,7 @@ r"""
 <!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
 <!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {{#Hint}}
-  <details class="hint">
+  <details class="hint" id="hint_details">
     <summary>Hint</summary>
     <div class="center-box-1">
       <div class="center-box-2">
@@ -192,9 +321,19 @@ r"""
 """,
 
 
+"global_js_bottom":
+
+r"""
+<script>
+  {{KB_GLOBAL_INLINE_JS}}
+</script>
+""",
 
 
 
+# =================
+#  main front side
+# =================
 "main_front":
 
 r"""
@@ -583,64 +722,47 @@ r"""
 
 
 <script>
-var hybridClick = function() {
-  var hSent = document.getElementById("hybrid-sentence");
-  var hWord = document.getElementById("hybrid-word");
-  var circ = document.getElementById("svg_circle");
-  if (hSent.classList.contains("override-display-inline-block")) {
-    // currently showing sentence
-    hWord.classList.remove("override-display-none");
-    hSent.classList.remove("override-display-inline-block");
-    if (circ !== null) {
-      circ.setAttributeNS(null, "cx", "25");
-      circ.setAttributeNS(null, "cy", "15");
-    }
-  } else {
-    // currently showing word
-    hWord.classList.add("override-display-none");
-    hSent.classList.add("override-display-inline-block");
-    if (circ !== null) { // sentence
-      if (hSent.innerText.length > 0 && hSent.innerText[0] == "「") {
-        circ.setAttributeNS(null, "cx", "35");
-        circ.setAttributeNS(null, "cy", "11");
+  var hybridClick = function() {
+    var hSent = document.getElementById("hybrid-sentence");
+    var hWord = document.getElementById("hybrid-word");
+    var circ = document.getElementById("svg_circle");
+    if (hSent.classList.contains("override-display-inline-block")) {
+      // currently showing sentence
+      hWord.classList.remove("override-display-none");
+      hSent.classList.remove("override-display-inline-block");
+      if (circ !== null) {
+        circ.setAttributeNS(null, "cx", "25");
+        circ.setAttributeNS(null, "cy", "15");
+      }
+    } else {
+      // currently showing word
+      hWord.classList.add("override-display-none");
+      hSent.classList.add("override-display-inline-block");
+      if (circ !== null) { // sentence
+        if (hSent.innerText.length > 0 && hSent.innerText[0] === "「") {
+          circ.setAttributeNS(null, "cx", "35");
+          circ.setAttributeNS(null, "cy", "11");
+        }
       }
     }
   }
-}
 
+  var extraKeybindSettings = function(e) {
+    var keys = null;
 
-// shift to switch between sentence & word on click & hover cards
-// NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
-// because functions persist and cannot be easily removed within anki,
-// whereas .onkeyup = ... replaces the previous function with the current.
-document.onkeyup = (e => {
-  var hSent = document.getElementById("hybrid-sentence");
-  var hWord = document.getElementById("hybrid-word");
-  var paButton = document.getElementById("pa-button");
-  var keys = null;
-
-  keys = kbSetting("toggle-hybrid-sentence");
-  if (keys != null && hSent && hWord && keys.includes(e.key)) {
-    hybridClick();
-  }
-
-  keys = kbSetting("toggle-highlight-word");
-  if (keys != null && paButton && keys.includes(e.key)) {
-    toggleHighlightWord();
-  }
-
-  {{#SentenceAudio}}
-    keys = kbSetting("play-sentence-audio");
-    if (keys != null && keys.includes(e.key)) {
-      var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
-      if (elem) {
-        elem.click();
-      }
+    keys = kbSetting("toggle-hybrid-sentence");
+    var hSent = document.getElementById("hybrid-sentence");
+    var hWord = document.getElementById("hybrid-word");
+    if (keys !== null && hSent && hWord && keys.includes(e.key)) {
+      hybridClick();
     }
-  {{/SentenceAudio}}
-})
 
-
+    keys = kbSetting("toggle-highlight-word");
+    var paButton = document.getElementById("pa-button");
+    if (keys !== null && paButton && keys.includes(e.key)) {
+      toggleHighlightWord();
+    }
+  }
 </script>
 
 {{#IsClickCard}}
@@ -851,7 +973,7 @@ r"""
 
 r"""
 {{#SecondaryDefinition}}
-  <details class="glossary-details">
+  <details class="glossary-details" id="secondary_definition_details">
     <summary>Secondary Definition</summary>
     <blockquote class="glossary-blockquote bold-yellow">
     {{SecondaryDefinition}}
@@ -860,7 +982,7 @@ r"""
 {{/SecondaryDefinition}}
 
 {{#AdditionalNotes}}
-  <details class="glossary-details glossary-details--small">
+  <details class="glossary-details glossary-details--small" id="additional_notes_details">
     <summary>Additional Notes</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
     {{AdditionalNotes}}
@@ -870,7 +992,7 @@ r"""
 
 
 {{#ExtraDefinitions}}
-  <details class="glossary-details glossary-details--small">
+  <details class="glossary-details glossary-details--small" id="extra_definitions_details">
     <summary>Extra Definitions</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
     {{ExtraDefinitions}}
@@ -905,28 +1027,31 @@ r"""
   var dhLeft = document.getElementById("dh_left");
   var dhRight = document.getElementById("dh_right");
   var heightLeft = dhLeft.offsetHeight;
-  dhRight.style.maxHeight = heightLeft + "px";
 
+  if (dhRight) {
+    dhRight.style.maxHeight = heightLeft + "px";
 
-  // setting up the modal styles and clicking
-  var dhImgContainer = document.getElementById("dh_img_container");
-  var imgList = dhImgContainer.getElementsByTagName("img");
+    // setting up the modal styles and clicking
+    var dhImgContainer = document.getElementById("dh_img_container");
+    var imgList = dhImgContainer.getElementsByTagName("img");
 
-  if (imgList.length == 1) {
-    var img = dhImgContainer.getElementsByTagName("img")[0];
-    img.classList.add("dh-right__img");
-    img.style.maxHeight = heightLeft + "px"; // restricts max height here too
+    if (imgList && imgList.length === 1) {
+      var img = dhImgContainer.getElementsByTagName("img")[0];
+      img.classList.add("dh-right__img");
+      img.style.maxHeight = heightLeft + "px"; // restricts max height here too
 
-    img.onclick = function() {
-      modal.style.display = "block";
-      modalImg.src = this.src;
+      img.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+      }
+
+    } else { // otherwise we hope that there are 0 images here
+      // support for no images here: remove the fade-in / fade-out on text
+      // the slightly hacky method is just to remove the class all together lol
+      dhImgContainer.className = "";
     }
-
-  } else { // otherwise we hope that there are 0 images here
-    // support for no images here: remove the fade-in / fade-out on text
-    // the slightly hacky method is just to remove the class all together lol
-    dhImgContainer.className = "";
   }
+
 
   // close the modal upon click
   modal.onclick = function() {
@@ -985,7 +1110,7 @@ r"""
     anchorTags = searchEle.getElementsByTagName("a");
     for (var atag of anchorTags) {
       var imgFileName = atag.getAttribute("href");
-      if (imgFileName && imgFileName.substring(0, 25) == "yomichan_dictionary_media") {
+      if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
         var fragment = createImgContainer(imgFileName);
         atag.parentNode.replaceChild(fragment, atag);
       }
@@ -995,17 +1120,5 @@ r"""
 """,
 
 
-
-"play_sentence_only_js":
-
-r"""
-<script>
-  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
-  var elem = document.querySelector("#audio_play_first .soundLink, #audio_play_first .replaybutton");
-  if (elem) {
-    elem.click();
-  }
-</script>
-"""
 
 }

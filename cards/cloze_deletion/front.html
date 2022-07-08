@@ -4,7 +4,7 @@
 TODO visible error if it doesn't exist
 the following should work (null check):
 
-  var JPMNOpts = (JPMNOpts || null);
+  if (typeof JPMNOpts === 'undefined') { ... }
 -->
 <script src="jp-mining-note-options.js"></script>
 
@@ -117,9 +117,23 @@ the following should work (null check):
     temp = temp.trim();
 
     // selects the smallest containing sentence
-    //temp = selectSentence(temp);
+
+    if (getSetting("select-smallest-sentence")) {
+      temp = selectSentence(temp);
+    }
 
     sent.innerHTML = temp;
+  }
+
+  /*
+   * Toggles the display of any given details tag
+   */
+  var toggleDetailsTag = function(ele) {
+    if (ele.hasAttribute('open')) {
+      ele.removeAttribute('open');
+    } else {
+      ele.setAttribute("open", "true");
+    }
   }
 
 
@@ -127,7 +141,7 @@ the following should work (null check):
 
 <div class="card-description">
   Cloze Deletion
-  <div class="card-description-ver">Mining Note: Version 0.2.0.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.2.1.0</div>
 </div>
 
 
@@ -169,7 +183,7 @@ the following should work (null check):
 <!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
 <!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {{#Hint}}
-  <details class="hint">
+  <details class="hint" id="hint_details">
     <summary>Hint</summary>
     <div class="center-box-1">
       <div class="center-box-2">
@@ -179,6 +193,79 @@ the following should work (null check):
   </details>
 {{/Hint}}
 
-<span id="audio-front">{{SentenceAudio}}</span>
+<span id="sentence-audio">{{SentenceAudio}}</span>
 
 {{/SeparateClozeDeletionCard}}
+
+<script>
+  // shift to switch between sentence & word on click & hover cards
+  // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
+  // because functions persist and cannot be easily removed within anki,
+  // whereas .onkeyup = ... replaces the previous function with the current.
+  document.onkeyup = (e => {
+    var keys = null;
+
+    // tests for the existance of extraKeybindSettings
+    if (typeof extraKeybindSettings !== 'undefined') {
+      extraKeybindSettings(e);
+    }
+
+    {{#WordAudio}}
+      keys = kbSetting("play-word-audio");
+      if (keys !== null && keys.includes(e.key)) {
+        var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
+        if (elem) {
+          elem.click();
+        }
+      }
+    {{/WordAudio}}
+
+    {{#SentenceAudio}}
+      keys = kbSetting("play-sentence-audio");
+      if (keys !== null && keys.includes(e.key)) {
+        var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+        if (elem) {
+          elem.click();
+        }
+      }
+    {{/SentenceAudio}}
+
+    keys = kbSetting("toggle-front-full-sentence-display");
+    var ele = document.getElementById("full_sentence_front_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
+    }
+
+    {{#Hint}}
+      keys = kbSetting("toggle-hint-display");
+      var ele = document.getElementById("hint_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele)
+      }
+    {{/Hint}}
+
+    {{#SecondaryDefinition}}
+      keys = kbSetting("toggle-secondary-definitions-display");
+      var ele = document.getElementById("secondary_definition_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele)
+      }
+    {{/SecondaryDefinition}}
+
+    {{#AdditionalNotes}}
+      keys = kbSetting("toggle-additional-notes-display");
+      var ele = document.getElementById("additional_notes_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele)
+      }
+    {{/AdditionalNotes}}
+
+    {{#ExtraDefinitions}}
+      keys = kbSetting("toggle-extra-definitions-display");
+      var ele = document.getElementById("extra_definitions_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele)
+      }
+    {{/ExtraDefinitions}}
+  })
+</script>

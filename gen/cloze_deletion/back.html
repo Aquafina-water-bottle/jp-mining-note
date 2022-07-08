@@ -34,8 +34,9 @@
       wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
     </script>
 
-     <div class="dh-left__audio-buttons">
-       {{WordAudio}} <span id="audio_play_first"> {{SentenceAudio}} </span>
+    <div class="dh-left__audio-buttons">
+      <span id="word-audio"> {{WordAudio}} </span>
+      <span id="sentence-audio"> {{SentenceAudio}} </span>
     </div>
   </div>
 
@@ -72,3 +73,7 @@
 {{MODAL_AND_COMMON_JS}}
 
 {{PLAY_SENTENCE_ONLY_JS}}
+
+
+{{GLOBAL_JS_BOTTOM}}
+
