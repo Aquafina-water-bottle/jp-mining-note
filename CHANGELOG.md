@@ -12,9 +12,12 @@ signified.)
 ## [0.2.1.1] - 2022-07-08
 #### Added
 - css constuct to not repeat code with anki templates
+- added info circle
 
 #### Fixed
 - Removed old comments in options file
+- show/hide highlight word button not working
+
 
 ## [0.2.1.0] - 2022-07-07
 #### Added

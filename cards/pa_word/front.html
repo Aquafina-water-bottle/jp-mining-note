@@ -15,20 +15,27 @@ the following should work (null check):
 
 
 <script>
-  // helper function
-  var _getSetting = function(settingStr, settingObj) {
+  /*
+   * helper function
+   * defaultOpt argument is optional
+   */
+  var _getSetting = function(settingStr, settingObj, defaultOpt) {
     if (!(settingStr in settingObj)) {
-      return null;
+      if (typeof defaultOpt === "undefined") {
+        return null;
+      } else {
+        return defaultOpt;
+      }
     }
     return settingObj[settingStr];
   }
 
-  var kbSetting = function(settingStr) {
-    return _getSetting(settingStr, JPMNOpts.keybindSettings);
+  var kbSetting = function(settingStr, defaultOpt) {
+    return _getSetting(settingStr, JPMNOpts.keybindSettings, defaultOpt);
   }
 
-  var getSetting = function(settingStr) {
-    return _getSetting(settingStr, JPMNOpts.settings);
+  var getSetting = function(settingStr, defaultOpt) {
+    return _getSetting(settingStr, JPMNOpts.settings, defaultOpt);
   }
 
   var selectSentence = function(temp) {
@@ -123,7 +130,7 @@ the following should work (null check):
 
     // selects the smallest containing sentence
 
-    if (getSetting("select-smallest-sentence")) {
+    if (getSetting("select-smallest-sentence", false)) {
       temp = selectSentence(temp);
     }
 
