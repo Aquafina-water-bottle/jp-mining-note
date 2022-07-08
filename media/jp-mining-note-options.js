@@ -56,17 +56,25 @@ var JPMNOpts = (function (my) {
     // This is the same as the above because both should never happen at the same time.
     "toggle-highlight-word": ["Shift", "n"],
 
+    // Keybind to toggle a vocab card's full sentence display (front side).
+    // Techinically can be Shift / n as it doesn't interfere with the other two above.
+    "toggle-front-full-sentence-display": ["'"],
+
     "play-sentence-audio": ["p"],
 
     "play-word-audio": ["w"],
 
     // Equivalent to clicking on the image.
+    // TODO: Implement
     "toggle-image-zoom": ["z"],
 
     // Equivalent to hovering over the full sentence (back side)
+    // TODO: Implement
     "toggle-sentence-furigana": [","],
 
-    // Equivalent to hovering over the front display
+    // Equivalent to hovering over the front display.
+    // Also toggles the furigana on the vocab card's full sentence section (front side) if available.
+    // TODO: Implement
     "toggle-front-display-furigana": [","],
 
     // Equivalent to toggling the hint show/hide
@@ -76,7 +84,7 @@ var JPMNOpts = (function (my) {
 
     "toggle-additional-notes-display": ["9"],
 
-    "toggle-other-definitions-display": ["0"],
+    "toggle-extra-definitions-display": ["0"],
   }
 
   my.settings = {

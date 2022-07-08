@@ -10,20 +10,13 @@
 
 {{PA_SENT_FRONT}}
 
-<script>
-  // THIS IS A HACK
-  // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
-  // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
-  var elem = document.querySelector(".soundLink, .replaybutton");
-  if (elem) {
-    elem.click();
-  }
-</script>
-<span id="audio-front-silence" style="display:none">{{PASilence}}</span>
-<span id="audio-front">{{SentenceAudio}}</span>
+{{SENTENCE_AUDIO_NO_AUTOPLAY}}
 
 {{HINT}}
 
 
 {{/SentenceAudio}}
 {{/PASeparateSentenceCard}}
+
+{{GLOBAL_JS_BOTTOM}}
+

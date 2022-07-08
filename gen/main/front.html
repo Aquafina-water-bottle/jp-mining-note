@@ -81,27 +81,10 @@
   {{/IsTargetedSentenceCard}} {{/IsClickCard}} {{/IsHoverCard}} {{/IsSentenceCard}}
 
 
-  <!-- we include the audio at the front regardless if we test PA or not -->
-  <script>
-    // =====================
-    //  THIS PART IS A HACK
-    // =====================
-    // this hack is to not auto-play the audio at the front of the card
-    // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
-    // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
-    var elem = document.querySelector(".soundLink, .replaybutton");
-    if (elem) {
-      elem.click();
-    }
-  </script>
-
-  <span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
-  {{#SentenceAudio}}
-    <span id="sentence-audio"> {{SentenceAudio}} </span>
-  {{/SentenceAudio}}
+  {{SENTENCE_AUDIO_NO_AUTOPLAY}}
 
 
 {{/PADoNotShowInfoLegacy}}
 
-
+{{GLOBAL_JS_BOTTOM}}
 
