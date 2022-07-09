@@ -9,10 +9,16 @@ when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
 subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
+
+## [0.2.2.0] - 2022-07-08
+#### Added
+- Implemented info circle with js fail errors, options warnings and general info
+
+
 ## [0.2.1.1] - 2022-07-08
 #### Added
-- css constuct to not repeat code with anki templates
-- added info circle
+- CSS constuct to not repeat code with anki templates
+- Added info circle icon
 
 #### Fixed
 - Removed old comments in options file

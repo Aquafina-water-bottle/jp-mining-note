@@ -2,22 +2,53 @@
   {{FrequenciesStylized}}
 {{/FrequenciesStylized}}
 
-<!-- it is expected that this file exists!
-TODO visible error if it doesn't exist
-the following should work (null check):
-
-  if (typeof JPMNOpts === 'undefined') { ... }
--->
+<!-- it is expected that this file exists! -->
 <script src="jp-mining-note-options.js"></script>
 
 
 <script>
+  var _appendMsg = function(message, groupEle) {
+    var msgEle = document.createElement('div');
+    msgEle.textContent = message;
+    groupEle.appendChild(msgEle);
+  }
+
+  var errorMsg = function(message) {
+    var groupEle = document.getElementById("info_circle_text_error");
+    _appendMsg(message, groupEle);
+    var infoCirc = document.getElementById("info_circle");
+    if (!infoCirc.classList.contains("info-circle-error")) {
+      infoCirc.classList.add("info-circle-error")
+    }
+  }
+
+  // on any javascript error: log it
+  window.onerror = function(msg, url, lineNo, columnNo, error) {
+    errorMsg("Javascript error: `" + msg + "`");
+  }
+
+  var warningMsg = function(message) {
+    var groupEle = document.getElementById("info_circle_text_warning");
+    _appendMsg(message, groupEle);
+    var infoCirc = document.getElementById("info_circle");
+    if (!infoCirc.classList.contains("info-circle-warning")) {
+      infoCirc.classList.add("info-circle-warning")
+    }
+  }
+
+  var infoMsg = function(message) {
+    var groupEle = document.getElementById("info_circle_text_info");
+    _appendMsg(message, groupEle);
+  }
+
+
   /*
    * helper function
    * defaultOpt argument is optional
    */
   var _getSetting = function(settingStr, settingObj, defaultOpt) {
     if (!(settingStr in settingObj)) {
+      warningMsg("Option `" + settingStr + "` does not exist.");
       if (typeof defaultOpt === "undefined") {
         return null;
       } else {
@@ -27,6 +58,12 @@ the following should work (null check):
     return settingObj[settingStr];
   }
 
+  // makes sure file exists
+
+  if (typeof JPMNOpts === 'undefined') {
+    errorMsg("Options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
+  }
+
   var kbSetting = function(settingStr, defaultOpt) {
     return _getSetting(settingStr, JPMNOpts.keybindSettings, defaultOpt);
   }
@@ -34,6 +71,8 @@ the following should work (null check):
   var getSetting = function(settingStr, defaultOpt) {
     return _getSetting(settingStr, JPMNOpts.settings, defaultOpt);
   }
+
+
 
   var selectSentence = function(temp) {
     // only chooses the sentence around the bold characters
@@ -150,7 +189,7 @@ the following should work (null check):
 
 <div class="card-description">
   Cloze Deletion
-  <div class="card-description-ver">JP Mining Note: Version 0.2.1.1</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.2.2.0</div>
 </div>
 
 
@@ -487,4 +526,25 @@ the following should work (null check):
       }
     {{/ExtraDefinitions}}
   })
+
+  // cleanup info circle (removes js error)
+  //var jsLoadFail = document.getElementById("info_circle_text_error_js");
+  //if (jsLoadFail !== null) {
+  //  jsLoadFail.parentNode.removeChild(jsLoadFail);
+  //}
+
+  var msgGroupCleanup = function(groupId, className) {
+    var errorMsgGroup = document.getElementById(groupId);
+    if (errorMsgGroup.children.length == 0) {
+      var infoCirc = document.getElementById("info_circle");
+      if (infoCirc.classList.contains(className)) {
+        infoCirc.classList.remove(className);
+      }
+      errorMsgGroup.parentNode.removeChild(errorMsgGroup);
+    }
+  }
+
+  //msgGroupCleanup("info_circle_text_warning", "info-circle-warning");
+  //msgGroupCleanup("info_circle_text_error", "info-circle-error");
+
 </script>
