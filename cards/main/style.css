@@ -211,7 +211,7 @@ details > summary {
   position: absolute;
   z-index: 1;
 
-  top: -30%;
+  top: -10px;
   margin-left: 16px;
 }
 
