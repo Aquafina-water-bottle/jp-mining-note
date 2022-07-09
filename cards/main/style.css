@@ -219,24 +219,25 @@ details > summary {
   visibility: visible;
 }
 
+/* prevents the tooltip text from disappearing on hover */
+.info-circle-text:hover {
+  visibility: visible;
+}
+
 
 /* arrow */
-.info-circle-svg-wrapper:after {
+.info-circle-text:after {
   content: "";
   position: absolute;
 
   /* position tooltip correctly */
-  left: 100%;
-
-  /* vertically center */
-  top: 50%;
-  transform: translateY(-50%);
+  left: -15px;
+  top: 11px;
 
   /* the arrow */
   border: 8px solid #000000;
   border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
 
-  visibility: hidden;
   z-index: 1;
 }
 
