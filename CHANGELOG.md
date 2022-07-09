@@ -9,6 +9,12 @@ when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
 subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
+## ???
+
+#### Fixed
+- Positioning of the arrow on the info circle tooltip
+- Info circle tooltip not remaining upon hovering on windows machines
+
 
 ## [0.2.2.1] - 2022-07-08
 #### Fixed
