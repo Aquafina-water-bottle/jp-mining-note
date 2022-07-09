@@ -10,6 +10,12 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
+## [0.2.2.1] - 2022-07-08
+#### Fixed
+- Made the info circle appear on all cards instead of just the main card
+- Made the tooltip scale up to 500px width
+
+
 ## [0.2.2.0] - 2022-07-08
 #### Added
 - Implemented info circle with js fail errors, options warnings and general info
