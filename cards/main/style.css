@@ -172,6 +172,113 @@ details > summary {
 
 
 
+/* info circle & tooltip */
+.info-circle {
+  position: relative;
+  display: inline-block;
+}
+
+.info-circle:hover path {
+  fill: #bdbdbd;
+}
+
+
+
+/* Tooltip text */
+.info-circle .info-circle-text {
+  visibility: hidden;
+  min-width: 250px;
+  max-width: 500px;
+
+  font-family: notosans;
+  font-size: 14px;
+  text-align: left;
+
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+
+  position: absolute;
+  /*z-index: 5;*/
+
+  top: -30%;
+  margin-left: 16px;
+}
+
+.info-circle:hover .info-circle-text {
+  visibility: visible;
+}
+
+
+/* arrow */
+.info-circle:after {
+  content: "";
+  position: absolute;
+
+  /* position tooltip correctly */
+  left: 100%;
+
+  /* vertically center */
+  top: 50%;
+  transform: translateY(-50%);
+
+  /* the arrow */
+  border: 8px solid #000000;
+  border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
+
+  visibility: hidden;
+  z-index: 1;
+}
+
+.info-circle:hover:after {
+  visibility: visible;
+}
+
+
+
+
+/* warning text */
+.info-circle-text-warning:not(:empty) {
+  margin-bottom: 10px;
+}
+.info-circle-text-warning div:before {
+  content: "Warning: ";
+  font-weight: bold;
+  color: #f9c24e;
+}
+
+.info-circle-warning path {
+  fill: #ff8d0d;
+}
+
+.info-circle-warning:hover path {
+  fill: #f9c24e;
+}
+
+
+/* error text */
+.info-circle-text-error:not(:empty) {
+  margin-bottom: 10px;
+}
+.info-circle-text-error div:before {
+  content: "ERROR: ";
+  font-weight: bold;
+  color: #fd5a5a;
+}
+
+.info-circle-error path {
+  fill: #f12a2a;
+}
+
+.info-circle-error:hover path {
+  fill: #fd5a5a;
+}
+
+
+
+
+
 /* https://stackoverflow.com/a/38948646 (ver 5) */
 .expression-box {
   display: grid;

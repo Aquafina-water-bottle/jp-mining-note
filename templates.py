@@ -20,22 +20,53 @@ rf"""
 "global_js_top":
 
 r"""
-<!-- it is expected that this file exists!
-TODO visible error if it doesn't exist
-the following should work (null check):
-
-  if (typeof JPMNOpts === 'undefined') { ... }
--->
+<!-- it is expected that this file exists! -->
 <script src="jp-mining-note-options.js"></script>
 
 
 <script>
+  var _appendMsg = function(message, groupEle) {
+    var msgEle = document.createElement('div');
+    msgEle.textContent = message;
+    groupEle.appendChild(msgEle);
+  }
+
+  var errorMsg = function(message) {
+    var groupEle = document.getElementById("info_circle_text_error");
+    _appendMsg(message, groupEle);
+    var infoCirc = document.getElementById("info_circle");
+    if (!infoCirc.classList.contains("info-circle-error")) {
+      infoCirc.classList.add("info-circle-error")
+    }
+  }
+
+  // on any javascript error: log it
+  window.onerror = function(msg, url, lineNo, columnNo, error) {
+    errorMsg("Javascript error: `" + msg + "`");
+  }
+
+  var warningMsg = function(message) {
+    var groupEle = document.getElementById("info_circle_text_warning");
+    _appendMsg(message, groupEle);
+    var infoCirc = document.getElementById("info_circle");
+    if (!infoCirc.classList.contains("info-circle-warning")) {
+      infoCirc.classList.add("info-circle-warning")
+    }
+  }
+
+  var infoMsg = function(message) {
+    var groupEle = document.getElementById("info_circle_text_info");
+    _appendMsg(message, groupEle);
+  }
+
+
   /*
    * helper function
    * defaultOpt argument is optional
    */
   var _getSetting = function(settingStr, settingObj, defaultOpt) {
     if (!(settingStr in settingObj)) {
+      warningMsg("Option `" + settingStr + "` is not defined in the options file.");
       if (typeof defaultOpt === "undefined") {
         return null;
       } else {
@@ -45,6 +76,12 @@ the following should work (null check):
     return settingObj[settingStr];
   }
 
+  // makes sure file exists
+
+  if (typeof JPMNOpts === 'undefined') {
+    errorMsg("Options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
+  }
+
   var kbSetting = function(settingStr, defaultOpt) {
     return _getSetting(settingStr, JPMNOpts.keybindSettings, defaultOpt);
   }
@@ -52,6 +89,8 @@ the following should work (null check):
   var getSetting = function(settingStr, defaultOpt) {
     return _getSetting(settingStr, JPMNOpts.settings, defaultOpt);
   }
+
+
 
   var selectSentence = function(temp) {
     // only chooses the sentence around the bold characters
@@ -333,6 +372,27 @@ r"""
 r"""
 <script>
   {{KB_GLOBAL_INLINE_JS}}
+
+  // cleanup info circle (removes js error)
+  //var jsLoadFail = document.getElementById("info_circle_text_error_js");
+  //if (jsLoadFail !== null) {
+  //  jsLoadFail.parentNode.removeChild(jsLoadFail);
+  //}
+
+  var msgGroupCleanup = function(groupId, className) {
+    var errorMsgGroup = document.getElementById(groupId);
+    if (errorMsgGroup.children.length == 0) {
+      var infoCirc = document.getElementById("info_circle");
+      if (infoCirc.classList.contains(className)) {
+        infoCirc.classList.remove(className);
+      }
+      errorMsgGroup.parentNode.removeChild(errorMsgGroup);
+    }
+  }
+
+  //msgGroupCleanup("info_circle_text_warning", "info-circle-warning");
+  //msgGroupCleanup("info_circle_text_error", "info-circle-error");
+
 </script>
 """,
 
@@ -436,6 +496,31 @@ r"""
     {{/PASeparateWordCard}} {{/PADoNotTest}}
 
   {{/PADoNotShowInfoLegacy}}
+
+  <span class="info-circle" id="info_circle">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#585858" class="bi bi-info-circle" viewBox="0 0 16 16">
+      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+    </svg>
+    <span class="info-circle-text" id="info_circle_text">
+      <div class="info-circle-text-error" id="info_circle_text_error"></div>
+      <div class="info-circle-text-warning" id="info_circle_text_warning"></div>
+      <div class="info-circle-text-info" id="info_circle_text_info">
+        <div>
+          Need help? View the
+          <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/wiki">documentation</a>.
+        </div>
+        <div>
+          Have an issue?
+          <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/issues">Report it here</a>.
+        </div>
+        <div>
+          View the
+          <a href="https://github.com/Aquafina-water-bottle/jp-mining-note">source code</a>.
+        </div>
+      </div>
+    </span>
+  </span>
 
   {{VERSION}}
 </div>
