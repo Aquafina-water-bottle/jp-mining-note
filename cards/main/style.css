@@ -183,9 +183,18 @@ details > summary {
 }
 
 
+.info-circle-text-wrapper {
+  width: 500px;
+  height: 0px;
+  position: absolute;
+}
+
 
 /* Tooltip text */
-.info-circle .info-circle-text {
+.info-circle-text {
+  position: absolute;
+  display: inline-block;
+
   visibility: hidden;
   min-width: 250px;
   max-width: 500px;
@@ -200,19 +209,19 @@ details > summary {
   border-radius: 6px;
 
   position: absolute;
-  /*z-index: 5;*/
+  z-index: 1;
 
   top: -30%;
   margin-left: 16px;
 }
 
-.info-circle:hover .info-circle-text {
+.info-circle-svg-wrapper:hover + .info-circle-text-wrapper > .info-circle-text {
   visibility: visible;
 }
 
 
 /* arrow */
-.info-circle:after {
+.info-circle-svg-wrapper:after {
   content: "";
   position: absolute;
 
@@ -231,7 +240,7 @@ details > summary {
   z-index: 1;
 }
 
-.info-circle:hover:after {
+.info-circle-svg-wrapper:hover:after {
   visibility: visible;
 }
 
