@@ -12,8 +12,13 @@ TODO gif showing the main features of the card type
    * (Optional) scene image and sentence audio
 
 # Main Features (Card Features)
-* Supports **both sentence and vocab** cards, as well as
-  [many alternative card types](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/CardTypes)
+* Supports many card types, including:
+   * The usual sentence & vocab cards,
+   * [Targeted Sentence Cards](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards),
+     (see [here](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/CardTypes#targetted-sentence-card-tsc)),
+   * [Anime Cards](https://animecards.site/ankicards/#anime-cardsword-context-cards)
+     (see here (TODO link to FAQ)),
+   * And [many more](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/CardTypes)!
 * Support for **cloze-deletion** card types
 * Support for **both monolingual and bilingual** definitions
 * Support for various ways of **testing pitch accent**
@@ -22,15 +27,17 @@ TODO gif showing the main features of the card type
    * Test the pitch accent in the same card or with different cards
    * Or don't test it at all!
 * Optional hint (front-side)
-* Various quality of life features:
+* Various quality of life features, including but not limited to:
+    * Customizable keyboard shortcuts for almost everything
     * Collapsible fields to hide non-crucial info (back-side)
     * Displays furigana (on mouse hover), frequency list information, and word pitch accent info
     * Click on any image to zoom in (in a similar style to Discord)
+    * Error and warning messages for when things don't go as planned (info circle)
 
 # Limitations
 * No support for mobile. (Currently working on basic Ankidroid support!)
-* Stylization is for my personal anki theme (default dark mode) and screen resolution (1920x1080).
-  This will likely not have good HiDPI support.
+* No support for Anki light theme. (Support for light theme is planned for the future.)
+* No easy way to scale the card within the card itself.
 
 # Setup & Usage
 See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
