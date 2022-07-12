@@ -9,7 +9,14 @@ when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
 subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
-## ???
+## [0.3.0.0] - 2022-07-11
+
+#### Changed (BREAKING)
+- Format of the settings file has been changed (javascript will break with the old settings format)
+
+#### Changed
+- Redid the settings format and made the settings easier to use
+- Fixed sentence parsing not always selecting a sentence (PA cards, AltDisplay)
 
 #### Fixed
 - Positioning of the arrow on the info circle tooltip

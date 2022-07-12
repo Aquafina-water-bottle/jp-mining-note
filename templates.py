@@ -20,10 +20,6 @@ rf"""
 "global_js_top":
 
 r"""
-<!-- it is expected that this file exists! -->
-<script src="jp-mining-note-options.js"></script>
-
-
 <script>
   var _appendMsg = function(message, groupEle) {
     var msgEle = document.createElement('div');
@@ -44,7 +40,18 @@ r"""
   window.onerror = function(msg, url, lineNo, columnNo, error) {
     errorMsg("Javascript error: `" + msg + "`");
   }
+</script>
 
+
+<!--
+  it is expected that this file exists!
+  placed after the logging javascript to log any possible errors in the imports
+-->
+<script src="jp-mining-note-options.js"></script>
+
+
+
+<script>
   var warningMsg = function(message) {
     var groupEle = document.getElementById("info_circle_text_warning");
     _appendMsg(message, groupEle);
@@ -61,34 +68,45 @@ r"""
 
 
   /*
-   * helper function
-   * defaultOpt argument is optional
+   * class to read settings
    */
-  var _getSetting = function(settingStr, settingObj, defaultOpt) {
-    if (!(settingStr in settingObj)) {
-      warningMsg("Option `" + settingStr + "` is not defined in the options file.");
-      if (typeof defaultOpt === "undefined") {
-        return null;
-      } else {
-        return defaultOpt;
-      }
-    }
-    return settingObj[settingStr];
-  }
-
-  // makes sure file exists
 
   if (typeof JPMNOpts === 'undefined') {
-    errorMsg("Options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
+    errorMsg("Error in the options file, or options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
   }
 
-  var kbSetting = function(settingStr, defaultOpt) {
-    return _getSetting(settingStr, JPMNOpts.keybindSettings, defaultOpt);
-  }
+  var settings = (function () {
+    var my = {};
 
-  var getSetting = function(settingStr, defaultOpt) {
-    return _getSetting(settingStr, JPMNOpts.settings, defaultOpt);
-  }
+    /* defaultOpt=null */
+    var _getSetting = function(settingStr, settingObj, defaultOpt) {
+      if (!(settingStr in settingObj)) {
+        warningMsg("Option `" + settingStr + "` is not defined in the options file.");
+        if (typeof defaultOpt === "undefined") {
+          return null;
+        } else {
+          return defaultOpt;
+        }
+      }
+      return settingObj[settingStr];
+    }
+
+    my.keybind = function(settingStr, defaultOpt) {
+      return _getSetting(settingStr, JPMNOpts.settings["keybinds"], defaultOpt);
+    }
+
+    my.sentence = function(settingStr, defaultOpt) {
+      return _getSetting(settingStr, JPMNOpts.settings["sentence-module"], defaultOpt);
+    }
+
+    my.quote = function(settingStr, defaultOpt) {
+      return _getSetting(settingStr, JPMNOpts.settings["sentence-module"]["quote-module"], defaultOpt);
+    }
+
+    return my;
+
+  }());
+
 
 
 
@@ -173,22 +191,37 @@ r"""
    * - removes newlines
    * - finds the shortest possible sentence around the bolded characters
    *   (if specified in the config)
+   *
+   * isAltDisplay=false
    */
-  var processSentence = function(sent) {
+  var processSentence = function(sent, isAltDisplay) {
+    if (!settings.sentence("enabled", true)) {
+      return;
+    }
+
+    if (typeof isAltDisplay === 'undefined') {
+      isAltDisplay = false;
+    }
 
     // removes linebreaks
-    var temp = sent.innerHTML.replace(/<br>/g, "");
+    var result = sent.innerHTML;
+
+    if (!isAltDisplay && settings.sentence("remove-line-breaks", true)) {
+      result = result.replace(/<br>/g, "");
+    } else if (isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
+      result = result.replace(/<br>/g, "");
+    }
 
     // removes leading and trailing white space (equiv. of strip() in python)
-    temp = temp.trim();
+    result = result.trim();
 
     // selects the smallest containing sentence
 
-    if (getSetting("select-smallest-sentence", false)) {
-      temp = selectSentence(temp);
+    if (!isAltDisplay && settings.sentence("select-smallest-sentence", false)) {
+      result = selectSentence(result);
     }
 
-    sent.innerHTML = temp;
+    sent.innerHTML = result;
   }
 
   /*
@@ -317,7 +350,7 @@ document.onkeyup = (e => {
   }
 
   {{#WordAudio}}
-    keys = kbSetting("play-word-audio");
+    keys = settings.keybind("play-word-audio");
     if (keys !== null && keys.includes(e.key)) {
       var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
       if (elem) {
@@ -327,7 +360,7 @@ document.onkeyup = (e => {
   {{/WordAudio}}
 
   {{#SentenceAudio}}
-    keys = kbSetting("play-sentence-audio");
+    keys = settings.keybind("play-sentence-audio");
     if (keys !== null && keys.includes(e.key)) {
       var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
       if (elem) {
@@ -336,14 +369,14 @@ document.onkeyup = (e => {
     }
   {{/SentenceAudio}}
 
-  keys = kbSetting("toggle-front-full-sentence-display");
+  keys = settings.keybind("toggle-front-full-sentence-display");
   var ele = document.getElementById("full_sentence_front_details");
   if (keys !== null && ele && keys.includes(e.key)) {
     toggleDetailsTag(ele)
   }
 
   {{#Hint}}
-    keys = kbSetting("toggle-hint-display");
+    keys = settings.keybind("toggle-hint-display");
     var ele = document.getElementById("hint_details");
     if (keys !== null && ele && keys.includes(e.key)) {
       toggleDetailsTag(ele)
@@ -351,7 +384,7 @@ document.onkeyup = (e => {
   {{/Hint}}
 
   {{#SecondaryDefinition}}
-    keys = kbSetting("toggle-secondary-definitions-display");
+    keys = settings.keybind("toggle-secondary-definitions-display");
     var ele = document.getElementById("secondary_definition_details");
     if (keys !== null && ele && keys.includes(e.key)) {
       toggleDetailsTag(ele)
@@ -359,7 +392,7 @@ document.onkeyup = (e => {
   {{/SecondaryDefinition}}
 
   {{#AdditionalNotes}}
-    keys = kbSetting("toggle-additional-notes-display");
+    keys = settings.keybind("toggle-additional-notes-display");
     var ele = document.getElementById("additional_notes_details");
     if (keys !== null && ele && keys.includes(e.key)) {
       toggleDetailsTag(ele)
@@ -367,7 +400,7 @@ document.onkeyup = (e => {
   {{/AdditionalNotes}}
 
   {{#ExtraDefinitions}}
-    keys = kbSetting("toggle-extra-definitions-display");
+    keys = settings.keybind("toggle-extra-definitions-display");
     var ele = document.getElementById("extra_definitions_details");
     if (keys !== null && ele && keys.includes(e.key)) {
       toggleDetailsTag(ele)
@@ -552,7 +585,7 @@ r"""
       in css: default hybrid css, but with hover instead of click -->
     <div class="expression__hybrid-wrapper">
       <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
-        <span class="expression__hybrid-sentence
+        <span class="expression--sentence expression__hybrid-sentence expression
                      {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
                      {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
               id="hybrid-sentence">
@@ -584,7 +617,7 @@ r"""
         in css: default hybrid css, with click -->
       <div class="expression__hybrid-wrapper">
         <div class="expression expression--single expression__hybrid expression__hybrid--click" id="Display">
-          <span class="expression__hybrid-sentence
+          <span class="expression--sentence expression__hybrid-sentence
                        {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
                        {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
@@ -612,7 +645,7 @@ r"""
     {{^IsClickCard}}
 
       {{#IsTargetedSentenceCard}}
-        <div class="expression expression--single bold-yellow" id="Display">
+        <div class="expression expression--sentence expression--single bold-yellow" id="Display">
           {{#AltDisplay}}
             {{furigana:AltDisplay}}
           {{/AltDisplay}}
@@ -624,7 +657,7 @@ r"""
 
       {{^IsTargetedSentenceCard}}
         {{#IsSentenceCard}}
-          <div class="expression expression--single" id="Display">
+          <div class="expression expression--sentence expression--single" id="Display">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
@@ -692,19 +725,19 @@ r"""
 
       if ("{{PADoNotTest}}{{PASeparateWordCard}}") {
         // PADoNotTest or PASeparateWordCard -> nothing is tested
-        styleClass = "flag-box__circle--none";
+        styleClass = "pa-indicator-color--none";
         svgTitle.textContent = "PA: Do not test";
       } else if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
         // either PASeparateSentenceCard or PATestOnlyWord -> only word is tested
-        styleClass = "flag-box__circle--word";
+        styleClass = "pa-indicator-color--word";
         svgTitle.textContent = "PA: Word";
       } else if ("{{IsSentenceCard}}") {
         // sentence card but no pitch accent indicators are overridden
-        styleClass = "flag-box__circle--sentence";
+        styleClass = "pa-indicator-color--sentence";
         svgTitle.textContent = "PA: Sentence";
       } else {
         // regular word card
-        styleClass = "flag-box__circle--word";
+        styleClass = "pa-indicator-color--word";
         svgTitle.textContent = "PA: Word";
       }
 
@@ -722,7 +755,7 @@ r"""
         in css: default hybrid css, but with hover instead of click -->
       <div class="expression__hybrid-wrapper">
         <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
-          <span class="expression__hybrid-sentence
+          <span class="expression--sentence expression__hybrid-sentence
                        {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
                        {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
@@ -754,7 +787,7 @@ r"""
           in css: default hybrid css, with click -->
         <div class="expression__hybrid-wrapper">
           <div class="expression expression__hybrid expression__hybrid--click" id="Display">
-            <span class="expression__hybrid-sentence
+            <span class="expression--sentence expression__hybrid-sentence
                          {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
                          {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
                 id="hybrid-sentence">
@@ -782,7 +815,7 @@ r"""
       {{^IsClickCard}}
 
         {{#IsTargetedSentenceCard}}
-          <div class="expression bold-yellow" id="Display">
+          <div class="expression expression--sentence bold-yellow" id="Display">
             {{#AltDisplay}}
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
@@ -794,7 +827,7 @@ r"""
 
         {{^IsTargetedSentenceCard}}
           {{#IsSentenceCard}}
-            <div class="expression" id="Display">
+            <div class="expression expression--sentence" id="Display">
               {{#AltDisplay}}
                 {{furigana:AltDisplay}}
               {{/AltDisplay}}
@@ -855,19 +888,28 @@ r"""
   var extraKeybindSettings = function(e) {
     var keys = null;
 
-    keys = kbSetting("toggle-hybrid-sentence");
+    keys = settings.keybind("toggle-hybrid-sentence");
     var hSent = document.getElementById("hybrid-sentence");
     var hWord = document.getElementById("hybrid-word");
     if (keys !== null && hSent && hWord && keys.includes(e.key)) {
       hybridClick();
     }
 
-    keys = kbSetting("toggle-highlight-word");
+    keys = settings.keybind("toggle-highlight-word");
     var paButton = document.getElementById("pa-button");
     if (keys !== null && paButton && keys.includes(e.key)) {
       toggleHighlightWord();
     }
   }
+
+  var sentences = document.querySelectorAll(".expression--sentence")
+  var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
+  if (sentences !== null) {
+    for (var sent of sentences) {
+      processSentence(sent, isAltDisplay);
+    }
+  }
+
 </script>
 
 {{#IsClickCard}}
@@ -877,19 +919,6 @@ r"""
   </script>
 {{/IsClickCard}}
 
-{{^AltDisplay}}
-  <script>
-    var sent = null;
-    if ("{{IsClickCard}}{{IsHoverCard}}") {
-      sent = document.getElementById("hybrid-sentence");
-    } else if ("{{IsSentenceCard}}{{IsTargetedSentenceCard}}") {
-      sent = document.getElementById("Display");
-    }
-    if (sent !== null) {
-      processSentence(sent);
-    }
-  </script>
-{{/AltDisplay}}
 """,
 
 
@@ -912,7 +941,7 @@ r"""
 
 <!-- option 1: AltDisplayPASentenceCard -->
 {{#AltDisplayPASentenceCard}}
-  <div class="expression expression--single" id="Display">{{furigana:AltDisplayPASentenceCard}}</div>
+  <div class="expression expression--single expression--sentence" id="Display">{{furigana:AltDisplayPASentenceCard}}</div>
 {{/AltDisplayPASentenceCard}}
 
 
@@ -927,12 +956,12 @@ r"""
 
       <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
       <!-- if any of (click, hover, sentence, TSC) -->
-      <div class="expression expression--single inner-display1">
+      <div class="expression expression--single expression--sentence inner-display1">
         {{furigana:AltDisplay}}
       </div>
 
       <!-- if none of (click, hover, sentence, TSC) -->
-      <div class="expression expression--single inner-display2">
+      <div class="expression expression--single expression--sentence inner-display2">
         「{{Sentence}}」
       </div>
     </div>
@@ -940,22 +969,30 @@ r"""
   {{/AltDisplay}}
 
   {{^AltDisplay}}
-    <div class="expression expression--single" id="Display">「{{Sentence}}」</div>
+    <div class="expression expression--single expression--sentence" id="Display">「{{Sentence}}」</div>
   {{/AltDisplay}}
 
 
 {{/AltDisplayPASentenceCard}}
 
-{{^AltDisplay}}
-  <script>
-    // TODO change this into a query for sentences,
-    // since Display is now a wrapper around inner-display 1/2
-    sent = document.getElementById("Display");
-    if (sent !== null) {
-      processSentence(sent);
+
+<script>
+  var isAltDisplay = (
+    {{#AltDisplayPASentenceCard}} true {{/AltDisplayPASentenceCard}}
+    {{^AltDisplayPASentenceCard}}
+      {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
+        false &&
+      {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}
+      true ? true : false
+    {{/AltDisplayPASentenceCard}});
+
+  var sentences = document.querySelectorAll(".expression--sentence");
+  if (sentences !== null) {
+    for (var sent of sentences) {
+      processSentence(sent, isAltDisplay);
     }
-  </script>
-{{/AltDisplay}}
+  }
+</script>
 """,
 
 
@@ -1014,11 +1051,11 @@ r"""
 
 <!-- defaults to alt display -->
 {{#AltDisplay}}
-  <div class="expression expression--single bold-yellow" id="Display">{{furigana:AltDisplay}}</div>
+  <div class="expression expression--single expression--sentence bold-yellow" id="Display">{{furigana:AltDisplay}}</div>
 {{/AltDisplay}}
 
 {{^AltDisplay}}
-  <div class="expression expression--single bold-yellow" id="Display">「{{Sentence}}」</div>
+  <div class="expression expression--single expression--sentence bold-yellow" id="Display">「{{Sentence}}」</div>
 {{/AltDisplay}}
 
 <script>
@@ -1028,16 +1065,15 @@ r"""
   // - above is hacky because copy/pastes will still copy the text
   var d = document.getElementById("Display");
   d.innerHTML = d.innerHTML.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
-</script>
 
-{{^AltDisplay}}
-  <script>
-    sent = document.getElementById("Display");
-    if (sent !== null) {
-      processSentence(sent);
+  var sentences = document.querySelectorAll(".expression--sentence")
+  var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
+  if (sentences !== null) {
+    for (var sent of sentences) {
+      processSentence(sent, isAltDisplay);
     }
-  </script>
-{{/AltDisplay}}
+  }
+</script>
 """,
 
 

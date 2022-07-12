@@ -307,20 +307,27 @@ details > summary {
   grid-column-start: 1;
 }
 
+.flag-box__svg {
+  display: inline-block;
+  vertical-align: middle;
+  height: 1.5em;
+}
+
 .flag-box__circle {
 }
 
 
-.flag-box__circle--sentence {
+/* pitch accent indicator colors */
+.pa-indicator-color--sentence {
   fill: #5cf570;
 }
-.flag-box__circle--word {
+.pa-indicator-color--word {
   fill: #34dbef;
 }
-.flag-box__circle--none {
+.pa-indicator-color--none {
   fill: #f53b39;
 }
-.flag-box__circle--default { /* unused */
+.pa-indicator-color--default { /* unused */
   fill: #21dd1e;
 }
 
@@ -355,8 +362,10 @@ details > summary {
   font-size: var(--word-font-size);
 }
 
+
+/* class used to identify exactly which div(s) contain a sentence, for js purposes */
 .expression--sentence {
-  font-size: var(--sentence-font-size);
+  /*font-size: var(--sentence-font-size);*/
 }
 
 

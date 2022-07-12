@@ -45,62 +45,117 @@ var JPMNOpts = (function (my) {
   // private variables/functions can be defined with `var varname = ...`
   // globals are defined with `my.varname = ...`
 
-  my.keybindSettings = {
-    // Keybind to toggle between showing the sentence and word on click and hover cards.
-    // Equivalent to either clicking on the sentence/word on a click card,
-    // or hovering over the word on a hover card.
-    "toggle-hybrid-sentence": ["Shift", "n"],
+  // TODO implement
+  var isMobile = function() {
+    return false;
+  }
 
-    // Keybind to toggle between showing the tested word in a raw sentence card.
-    // Equivalent to clicking on the "show" button.
-    // This is the same as the above because both should never happen at the same time.
-    "toggle-highlight-word": ["Shift", "n"],
-
-    // Keybind to toggle a vocab card's full sentence display (front side).
-    // Techinically can be Shift / n as it doesn't interfere with the other two above.
-    "toggle-front-full-sentence-display": ["'"],
-
-    "play-sentence-audio": ["p"],
-
-    "play-word-audio": ["w"],
-
-    // Equivalent to clicking on the image.
-    // TODO: Implement
-    "toggle-image-zoom": ["z"],
-
-    // Equivalent to hovering over the full sentence (back side)
-    // TODO: Implement
-    "toggle-sentence-furigana": [","],
-
-    // Equivalent to hovering over the front display.
-    // Also toggles the furigana on the vocab card's full sentence section (front side) if available.
-    // TODO: Implement
-    "toggle-front-display-furigana": [","],
-
-    // Equivalent to toggling the hint show/hide
-    "toggle-hint-display": ["."],
-
-    "toggle-secondary-definitions-display": ["8"],
-
-    "toggle-additional-notes-display": ["9"],
-
-    "toggle-extra-definitions-display": ["0"],
+  // Example: ifMobile("A", "B") will return "A" if ran on a mobile device, and "B" if not.
+  var ifMobile = function(a, b) {
+    return isMobile() ? a : b;
   }
 
   my.settings = {
-    // if the AltDisplay field is not filled, it attempts to choose the
-    // smallest possible sentence, similar to Yomichan's internal sentence parser.
-    //
-    // For example, if the sentence field was:
-    //
-    //   飛行機のチケット！そんなの空席待ちとかしないでいいから！ね？
-    //
-    // and the bolded part was "飛行機", then only
-    //
-    //   飛行機のチケット！
-    //
-    // would be selected.
-    "select-smallest-sentence": false,
+
+    "keybinds": {
+      // Keybind to toggle between showing the sentence and word on click and hover cards.
+      // Equivalent to either clicking on the sentence/word on a click card,
+      // or hovering over the word on a hover card.
+      "toggle-hybrid-sentence": ["Shift", "n"],
+
+      // Keybind to toggle between showing the tested word in a raw sentence card.
+      // Equivalent to clicking on the "show" button.
+      // This is the same as the above because both should never happen at the same time.
+      "toggle-highlight-word": ["Shift", "n"],
+
+      // Keybind to toggle a vocab card's full sentence display (front side).
+      // Techinically can be Shift / n as it doesn't interfere with the other two above.
+      "toggle-front-full-sentence-display": ["'"],
+
+      "play-sentence-audio": ["p"],
+
+      "play-word-audio": ["w"],
+
+      // Equivalent to clicking on the image.
+      // TODO: Implement
+      "toggle-image-zoom": ["z"],
+
+      // Equivalent to hovering over the full sentence (back side)
+      // TODO: Implement
+      "toggle-sentence-furigana": [","],
+
+      // Equivalent to hovering over the front display.
+      // Also toggles the furigana on the vocab card's full sentence section (front side) if available.
+      // TODO: Implement
+      "toggle-front-display-furigana": [","],
+
+      // Equivalent to toggling the hint show/hide
+      "toggle-hint-display": ["."],
+
+      "toggle-secondary-definitions-display": ["8"],
+
+      "toggle-additional-notes-display": ["9"],
+
+      "toggle-extra-definitions-display": ["0"],
+    },
+
+
+    "sentence-module": {
+      // Automatic processing to sentences
+      "enabled": true,
+
+      // if the AltDisplay field is not filled, it attempts to choose the
+      // smallest possible sentence, similar to Yomichan's internal sentence parser.
+      //
+      // For example, if the sentence field was:
+      //
+      //   飛行機のチケット！そんなの空席待ちとかしないでいいから！ね？
+      //
+      // and the bolded part was "飛行機", then only
+      //
+      //   飛行機のチケット！
+      //
+      // would be selected.
+      "select-smallest-sentence": false,
+
+      // Removes all line breaks on the sentence if AltDisplay is not filled
+      "remove-line-breaks": true,
+
+      // Removes all line breaks on the AltDisplay sentence
+      "remove-line-breaks-on-altdisplay": ifMobile(true, false),
+
+
+      // =========================
+      //  Quote Processing Module
+      // =========================
+
+      "quote-module": {
+        "enabled": true,
+
+        "pa-indicator-color-quotes": true,
+
+        // Formats sentences such that the first quote encompasses the entire sentence,
+        // like so:
+        //
+        // 「そーすっと、こんな風に、相手は頭突きを警戒して
+        // 　自然と上体を引くのよさ」
+        //
+        "left-align-adjust-format": true,
+
+        // automatically adds quotes to the sentence if AltDisplay is not filled
+        "auto-quote-sentence": true,
+        "auto-quote-sentence-strings": ["「", "」"],
+
+        "quote-match-strings": [
+          ["「", "」"],
+          ["『", "』"],
+          ["｢", "｣"],
+        ],
+
+      }
+
+    }
+
   }
 
   return my;
