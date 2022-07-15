@@ -3,6 +3,9 @@
 TODO gif showing the main features of the card type
 -->
 
+![image](https://user-images.githubusercontent.com/17107540/179312248-c75751d9-a0ad-4f89-96ab-73f85ae657da.png)
+
+
 # Main Features (Card Creation Workflow)
 * All cards are **automatically created** and populated within seconds, with:
    * Definitions (with **automatic separation** of bilingual and monolingual definitions, using any combination of dictionaries)
