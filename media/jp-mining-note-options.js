@@ -45,9 +45,11 @@ var JPMNOpts = (function (my) {
   // private variables/functions can be defined with `var varname = ...`
   // globals are defined with `my.varname = ...`
 
-  // TODO implement
   var isMobile = function() {
-    return false;
+    // TODO what about non-android?
+    var UA = navigator.userAgent;
+    var isAndroid = /Android/i.test(UA);
+    return isAndroid;
   }
 
   // Example: ifMobile("A", "B") will return "A" if ran on a mobile device, and "B" if not.
@@ -61,24 +63,24 @@ var JPMNOpts = (function (my) {
       // Keybind to toggle between showing the sentence and word on click and hover cards.
       // Equivalent to either clicking on the sentence/word on a click card,
       // or hovering over the word on a hover card.
-      "toggle-hybrid-sentence": ["Shift", "n"],
+      "toggle-hybrid-sentence": ["Shift", "n", "N"],
 
       // Keybind to toggle between showing the tested word in a raw sentence card.
       // Equivalent to clicking on the "show" button.
       // This is the same as the above because both should never happen at the same time.
-      "toggle-highlight-word": ["Shift", "n"],
+      "toggle-highlight-word": ["Shift", "n", "N"],
 
       // Keybind to toggle a vocab card's full sentence display (front side).
       // Techinically can be Shift / n as it doesn't interfere with the other two above.
       "toggle-front-full-sentence-display": ["'"],
 
-      "play-sentence-audio": ["p"],
+      "play-sentence-audio": ["p", "P"],
 
-      "play-word-audio": ["w"],
+      "play-word-audio": ["w", "W"],
 
       // Equivalent to clicking on the image.
       // TODO: Implement
-      "toggle-image-zoom": ["z"],
+      "toggle-image-zoom": ["z", "Z"],
 
       // Equivalent to hovering over the full sentence (back side)
       // TODO: Implement

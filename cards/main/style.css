@@ -14,6 +14,8 @@
   --word-font-size: 70px;
   --description-font-size: 20px;
   --description-footer-font-size: 9px;
+  --tooltip-max-width: 500px;
+  --tooltip-font-size: 14px;
 }
 
 /* override variables for mobile */
@@ -22,6 +24,10 @@
   --sentence-font-size: 30px;
   --description-font-size: 15px;
   /*--description-footer-font-size: 7px;*/
+
+  /* TODO more portable solution */
+  --tooltip-max-width: 200px;
+  --tooltip-font-size: 11px;
 }
 
 
@@ -184,7 +190,7 @@ details > summary {
 
 
 .info-circle-text-wrapper {
-  width: 500px;
+  width: var(--tooltip-max-width);
   height: 0px;
   position: absolute;
 }
@@ -196,11 +202,11 @@ details > summary {
   display: inline-block;
 
   visibility: hidden;
-  min-width: 250px;
-  max-width: 500px;
+  min-width: 200px;
+  max-width: var(--tooltip-max-width);
 
   font-family: notosans;
-  font-size: 14px;
+  font-size: var(--tooltip-font-size);
   text-align: left;
 
   background-color: rgba(0, 0, 0, 0.9);
@@ -305,6 +311,12 @@ details > summary {
 .flag-box {
   margin-left: auto;
   grid-column-start: 1;
+
+  /*
+   * so that the svg can be placed after the sentence (to remove upon hover)
+   * while appearing to be before the sentence
+   */
+  order: -1;
 }
 
 .flag-box__svg {
@@ -319,16 +331,20 @@ details > summary {
 
 /* pitch accent indicator colors */
 .pa-indicator-color--sentence {
-  fill: #5cf570;
+  fill:  #5cf570;
+  color: #5cf570;
 }
 .pa-indicator-color--word {
-  fill: #34dbef;
+  fill:  #34dbef;
+  color: #34dbef;
 }
 .pa-indicator-color--none {
-  fill: #f53b39;
+  fill:  #f53b39;
+  color: #f53b39;
 }
 .pa-indicator-color--default { /* unused */
-  fill: #21dd1e;
+  fill:  #21dd1e;
+  color: #21dd1e;
 }
 
 
@@ -365,6 +381,9 @@ details > summary {
 
 /* class used to identify exactly which div(s) contain a sentence, for js purposes */
 .expression--sentence {
+  display: inline-block;
+  text-align: left;
+
   /*font-size: var(--sentence-font-size);*/
 }
 
@@ -384,6 +403,10 @@ details > summary {
 .expression__hybrid-wrapper {
   display: flex;
   justify-content: center;
+}
+
+.expression__hybrid-wrapper--hover:hover + .flag-box > .flag-box__svg {
+  display: none;
 }
 
 .expression__hybrid {

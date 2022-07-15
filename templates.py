@@ -17,28 +17,107 @@ rf"""
 """,
 
 
+"global_js_top_main":
+
+r"""
+<script>
+  var note = (function () {
+    let my = {};
+    my.cardType = "main";
+    return my;
+  }());
+</script>
+""",
+
+
+"global_js_top_pa_word":
+
+r"""
+<script>
+  var note = (function () {
+    let my = {};
+    my.cardType = "pa_word";
+    return my;
+  }());
+</script>
+""",
+
+
+"global_js_top_pa_sent":
+
+r"""
+<script>
+  var note = (function () {
+    let my = {};
+    my.cardType = "pa_sent";
+    return my;
+  }());
+</script>
+""",
+
+
+"global_js_top_cloze_deletion":
+
+r"""
+<script>
+  var note = (function () {
+    let my = {};
+    my.cardType = "cloze_deletion";
+    return my;
+  }());
+</script>
+""",
+
+
 "global_js_top":
 
 r"""
 <script>
-  var _appendMsg = function(message, groupEle) {
-    var msgEle = document.createElement('div');
-    msgEle.textContent = message;
-    groupEle.appendChild(msgEle);
-  }
+  var logger = (function () {
+    let my = {};
 
-  var errorMsg = function(message) {
-    var groupEle = document.getElementById("info_circle_text_error");
-    _appendMsg(message, groupEle);
-    var infoCirc = document.getElementById("info_circle");
-    if (!infoCirc.classList.contains("info-circle-error")) {
-      infoCirc.classList.add("info-circle-error")
+    let _appendMsg = function(message, groupEle) {
+      var msgEle = document.createElement('div');
+      msgEle.textContent = message;
+      groupEle.appendChild(msgEle);
     }
-  }
+
+    my.error = function(message) {
+      var groupEle = document.getElementById("info_circle_text_error");
+      _appendMsg(message, groupEle);
+      var infoCirc = document.getElementById("info_circle");
+      if (!infoCirc.classList.contains("info-circle-error")) {
+        infoCirc.classList.add("info-circle-error")
+      }
+    }
+
+    my.assert = function(condition, message) {
+      if (!condition) {
+        my.error("(assert) " + message);
+      }
+    }
+
+    my.warn = function(message) {
+      var groupEle = document.getElementById("info_circle_text_warning");
+      _appendMsg(message, groupEle);
+      var infoCirc = document.getElementById("info_circle");
+      if (!infoCirc.classList.contains("info-circle-warning")) {
+        infoCirc.classList.add("info-circle-warning")
+      }
+    }
+
+    my.info = function(message) {
+      var groupEle = document.getElementById("info_circle_text_info");
+      _appendMsg(message, groupEle);
+    }
+
+    return my;
+  }());
+
 
   // on any javascript error: log it
   window.onerror = function(msg, url, lineNo, columnNo, error) {
-    errorMsg("Javascript error: `" + msg + "`");
+    logger.error("Javascript error: `" + msg + "`");
   }
 </script>
 
@@ -52,36 +131,22 @@ r"""
 
 
 <script>
-  var warningMsg = function(message) {
-    var groupEle = document.getElementById("info_circle_text_warning");
-    _appendMsg(message, groupEle);
-    var infoCirc = document.getElementById("info_circle");
-    if (!infoCirc.classList.contains("info-circle-warning")) {
-      infoCirc.classList.add("info-circle-warning")
-    }
-  }
-
-  var infoMsg = function(message) {
-    var groupEle = document.getElementById("info_circle_text_info");
-    _appendMsg(message, groupEle);
-  }
-
 
   /*
    * class to read settings
    */
 
   if (typeof JPMNOpts === 'undefined') {
-    errorMsg("Error in the options file, or options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
+    logger.error("Error in the options file, or options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
   }
 
   var settings = (function () {
-    var my = {};
+    let my = {};
 
     /* defaultOpt=null */
     var _getSetting = function(settingStr, settingObj, defaultOpt) {
       if (!(settingStr in settingObj)) {
-        warningMsg("Option `" + settingStr + "` is not defined in the options file.");
+        logger.warn("Option `" + settingStr + "` is not defined in the options file.");
         if (typeof defaultOpt === "undefined") {
           return null;
         } else {
@@ -186,6 +251,127 @@ r"""
   }
 
 
+  // global variable to set the PA indicator color (as a css class)
+  var paIndicator = (function () {
+    let my = {};
+    my.type = null;
+    my.className = null;
+    my.tooltip = null;
+
+    if ("{{PADoNotTest}}{{PASeparateWordCard}}") {
+      // PADoNotTest or PASeparateWordCard -> nothing is tested
+      my.type = "none";
+    } else if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
+      // either PASeparateSentenceCard or PATestOnlyWord -> only word is tested
+      my.type = "word";
+    } else if ("{{IsSentenceCard}}") {
+      // sentence card but no pitch accent indicators are overridden
+      my.type = "sentence";
+    } else {
+      // regular word card
+      my.type = "word";
+    }
+
+    my.className = "pa-indicator-color--" + my.type;
+
+    if (my.type === "none") {
+      my.tooltip = "Do not test"
+    } else if (my.type == "word") {
+      my.tooltip = "Word"
+    } else { // sentence
+      my.tooltip = "Sentence"
+    }
+
+    return my;
+  }());
+
+
+  var processQuote = function(sentEle, sent, isAltDisplay) {
+    let result = sent;
+    let left = null;
+    let right = null;
+    let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
+
+    if (!isAltDisplay && settings.quote("auto-quote-sentence", true)) {
+      // this operation seems to be supported in anki!
+      let arr = settings.quote("auto-quote-sentence-strings", ["「", "」"])
+      logger.assert(Array.isArray(arr), "expected array");
+      logger.assert(arr.length === 2, "expected array of len 2");
+      [left, right] = arr;
+    }
+
+    // existing quotes override the default quotes, even on alt displays
+    for (let quotePair of validQuotes) {
+      if ((sent[0] === quotePair[0]) && (sent[sent.length-1] === quotePair[1])) {
+        [left, right] = quotePair;
+        result = sent.slice(1, -1);
+        break;
+      }
+    }
+
+    if (left === null) { // implies right === null
+      // does nothing: no quotes!
+      return result;
+    }
+
+    //if (!settings.quote("pa-indicator-color-quotes") && !settings.quote("left-align-adjust-format")) {
+    //}
+
+    // replaces the element (should only contain text) with the following:
+    //
+    // <(previous div or span)>
+    //  <span style="display: flex;">
+    //    <span> (open quote) </span>
+    //    <span> (text) <span> (close quote) </span> </span>
+    //  </span>
+    // </(previous div or span)>
+
+    let wrapperEle = document.createElement('span');
+    if (settings.quote("left-align-adjust-format")) {
+      wrapperEle.style.display = "flex";
+    }
+
+    let leftQuoteEle = document.createElement('span');
+    leftQuoteEle.innerHTML = left;
+
+    let rightQuoteEle = document.createElement('span');
+    rightQuoteEle.innerHTML = right;
+
+    {{^PADoNotShowInfo}}
+      if (note.cardType === "main" && settings.quote("pa-indicator-color-quotes")) {
+        leftQuoteEle.classList.add(paIndicator.className);
+        rightQuoteEle.classList.add(paIndicator.className);
+
+        // affects on hover cards
+        {{#IsHoverCard}}
+          var elem = document.querySelector(".expression__hybrid-wrapper");
+          if (elem !== null) {
+            elem.classList.add("expression__hybrid-wrapper--hover");
+          }
+        {{/IsHoverCard}}
+
+        {{^IsHoverCard}} {{^IsClickCard}}
+        if ("{{IsTargetedSentenceCard}}{{IsSentenceCard}}") {
+          var svgEle = document.getElementById("flag_box_svg");
+          svgEle.style.display = "none";
+        }
+        {{/IsClickCard}} {{/IsHoverCard}}
+      }
+    {{/PADoNotShowInfo}}
+
+    let textEle = document.createElement('span');
+    textEle.innerHTML = result;
+    textEle.appendChild(rightQuoteEle)
+
+    sentEle.innerText = "";
+    wrapperEle.appendChild(leftQuoteEle);
+    wrapperEle.appendChild(textEle);
+    sentEle.appendChild(wrapperEle);
+
+    return result;
+  }
+
+
   /*
    * processes the sentence (if there is no altdisplay)
    * - removes newlines
@@ -194,7 +380,7 @@ r"""
    *
    * isAltDisplay=false
    */
-  var processSentence = function(sent, isAltDisplay) {
+  var processSentence = function(sentEle, isAltDisplay) {
     if (!settings.sentence("enabled", true)) {
       return;
     }
@@ -204,7 +390,7 @@ r"""
     }
 
     // removes linebreaks
-    var result = sent.innerHTML;
+    var result = sentEle.innerHTML;
 
     if (!isAltDisplay && settings.sentence("remove-line-breaks", true)) {
       result = result.replace(/<br>/g, "");
@@ -221,7 +407,11 @@ r"""
       result = selectSentence(result);
     }
 
-    sent.innerHTML = result;
+    if (settings.quote("enabled", true)) {
+      result = processQuote(sentEle, result, isAltDisplay);
+    } else {
+      sentEle.innerHTML = result;
+    }
   }
 
   /*
@@ -272,6 +462,8 @@ r"""
     </span>
   </span>
 </span>
+
+
 """,
 
 
@@ -326,7 +518,7 @@ r"""
 r"""
 <span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
 {{#SentenceAudio}}
-<span id="sentence-audio"> {{SentenceAudio}} </span>
+<div id="sentence-audio"> {{SentenceAudio}} </div>
 {{/SentenceAudio}}
 
 {{PLAY_SILENCE_ONLY_JS}}
@@ -441,27 +633,6 @@ r"""
 r"""
 <script>
   {{KB_GLOBAL_INLINE_JS}}
-
-  // cleanup info circle (removes js error)
-  //var jsLoadFail = document.getElementById("info_circle_text_error_js");
-  //if (jsLoadFail !== null) {
-  //  jsLoadFail.parentNode.removeChild(jsLoadFail);
-  //}
-
-  var msgGroupCleanup = function(groupId, className) {
-    var errorMsgGroup = document.getElementById(groupId);
-    if (errorMsgGroup.children.length == 0) {
-      var infoCirc = document.getElementById("info_circle");
-      if (infoCirc.classList.contains(className)) {
-        infoCirc.classList.remove(className);
-      }
-      errorMsgGroup.parentNode.removeChild(errorMsgGroup);
-    }
-  }
-
-  //msgGroupCleanup("info_circle_text_warning", "info-circle-warning");
-  //msgGroupCleanup("info_circle_text_error", "info-circle-error");
-
 </script>
 """,
 
@@ -473,6 +644,8 @@ r"""
 "main_front":
 
 r"""
+{{GLOBAL_JS_TOP_MAIN}}
+
 {{GLOBAL_JS_TOP}}
 
 <div class="card-description">
@@ -504,14 +677,10 @@ r"""
     {{/IsClickCard}}
   {{/IsHoverCard}}
 
-  /
-
-  {{#PADoNotShowInfoLegacy}}
-    Legacy
-  {{/PADoNotShowInfoLegacy}}
-
   <!-- not legacy card -->
-  {{^PADoNotShowInfoLegacy}}
+  {{^PADoNotShowInfo}}
+
+    /
 
     <!--
     anki doesn't allow "or" logic in templates,
@@ -564,7 +733,7 @@ r"""
 
     {{/PASeparateWordCard}} {{/PADoNotTest}}
 
-  {{/PADoNotShowInfoLegacy}}
+  {{/PADoNotShowInfo}}
 
   {{INFO_CIRCLE}}
 
@@ -576,7 +745,7 @@ r"""
 
 
 <!-- legacy display -->
-{{#PADoNotShowInfoLegacy}}
+{{#PADoNotShowInfo}}
 
   <!-- priority is on the alternate display sentence -->
 
@@ -593,7 +762,7 @@ r"""
             {{furigana:AltDisplay}}
           {{/AltDisplay}}
           {{^AltDisplay}}
-            「{{Sentence}}」
+            {{Sentence}}
           {{/AltDisplay}}
         </span>
         <span class="expression--word expression__hybrid-word
@@ -625,7 +794,7 @@ r"""
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
             {{^AltDisplay}}
-              「{{Sentence}}」
+              {{Sentence}}
             {{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
@@ -650,7 +819,7 @@ r"""
             {{furigana:AltDisplay}}
           {{/AltDisplay}}
           {{^AltDisplay}}
-            「{{Sentence}}」
+            {{Sentence}}
           {{/AltDisplay}}
         </div>
       {{/IsTargetedSentenceCard}}
@@ -662,7 +831,7 @@ r"""
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
             {{^AltDisplay}}
-              「{{Sentence}}」
+              {{Sentence}}
             {{/AltDisplay}}
           </div>
         {{/IsSentenceCard}}
@@ -683,69 +852,12 @@ r"""
 
   {{/IsHoverCard}}
 
-{{/PADoNotShowInfoLegacy}}
+{{/PADoNotShowInfo}}
 
 
 <!-- regular display -->
-{{^PADoNotShowInfoLegacy}}
+{{^PADoNotShowInfo}}
   <div class="expression expression-box">
-
-    <div class="flag-box">
-      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-        style="display:inline-block;vertical-align:middle;height:1.5em;">
-        <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
-          <title id=svg_title></title>
-        </circle>
-      </svg>
-    </div>
-
-    <!--
-      different circle positions depending on whether it's a sentence or not.
-      More specifically, checks if the first character is "「",
-      and adjusts the position based on that
-    -->
-    <script>
-      var circ = document.getElementById("svg_circle");
-      var d = document.getElementById("Display");
-      if ("{{IsSentenceCard}}{{IsTargetedSentenceCard}}" &&
-          d.innerText.length > 0 && d.innerText[0] == "「") {
-        circ.setAttributeNS(null, "cx", "35");
-        circ.setAttributeNS(null, "cy", "11");
-      }
-    </script>
-
-    <script>
-      // ============================
-      //  Word pitch indicator color
-      // ============================
-      // done in javascript to simplify templating logic
-      // however, special characters in the field like " can break the code
-      var svgTitle = document.getElementById("svg_title");
-      var styleClass = "";
-
-      if ("{{PADoNotTest}}{{PASeparateWordCard}}") {
-        // PADoNotTest or PASeparateWordCard -> nothing is tested
-        styleClass = "pa-indicator-color--none";
-        svgTitle.textContent = "PA: Do not test";
-      } else if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
-        // either PASeparateSentenceCard or PATestOnlyWord -> only word is tested
-        styleClass = "pa-indicator-color--word";
-        svgTitle.textContent = "PA: Word";
-      } else if ("{{IsSentenceCard}}") {
-        // sentence card but no pitch accent indicators are overridden
-        styleClass = "pa-indicator-color--sentence";
-        svgTitle.textContent = "PA: Sentence";
-      } else {
-        // regular word card
-        styleClass = "pa-indicator-color--word";
-        svgTitle.textContent = "PA: Word";
-      }
-
-      var circ = document.getElementById("svg_circle");
-      circ.classList.add(styleClass);
-    </script>
-
-
 
     <!-- priority is on the alternate display sentence -->
 
@@ -763,7 +875,7 @@ r"""
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
             {{^AltDisplay}}
-              「{{Sentence}}」
+              {{Sentence}}
             {{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
@@ -777,7 +889,9 @@ r"""
             {{Word}}
           </span>
         </div>
+
       </div>
+
     {{/IsHoverCard}}
 
     {{^IsHoverCard}}
@@ -795,7 +909,7 @@ r"""
                 {{furigana:AltDisplay}}
               {{/AltDisplay}}
               {{^AltDisplay}}
-                「{{Sentence}}」
+                {{Sentence}}
               {{/AltDisplay}}
             </span>
             <span class="expression--word expression__hybrid-word
@@ -820,7 +934,7 @@ r"""
               {{furigana:AltDisplay}}
             {{/AltDisplay}}
             {{^AltDisplay}}
-              「{{Sentence}}」
+              {{Sentence}}
             {{/AltDisplay}}
           </div>
         {{/IsTargetedSentenceCard}}
@@ -832,7 +946,7 @@ r"""
                 {{furigana:AltDisplay}}
               {{/AltDisplay}}
               {{^AltDisplay}}
-                「{{Sentence}}」
+                {{Sentence}}
               {{/AltDisplay}}
             </div>
           {{/IsSentenceCard}}
@@ -854,26 +968,77 @@ r"""
     {{/IsHoverCard}}
 
 
+    <!-- appears to the left -->
+    <div class="flag-box">
+      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+        class="flag-box__svg" id="flag_box_svg">
+        <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
+          <title id=svg_title></title>
+        </circle>
+      </svg>
+    </div>
+
+    <!--
+      different circle positions depending on whether it's a sentence or not.
+      More specifically, checks if the first character is "「",
+      and adjusts the position based on that
+    -->
+    <script>
+      var circ = document.getElementById("svg_circle");
+      var d = document.getElementById("Display");
+      if ("{{IsSentenceCard}}{{IsTargetedSentenceCard}}" &&
+          d.innerText.length > 0 && d.innerText[0] == "「") {
+        circ.setAttributeNS(null, "cx", "35");
+        circ.setAttributeNS(null, "cy", "11");
+      }
+
+      // ============================
+      //  Word pitch indicator color
+      // ============================
+      // done in javascript to simplify templating logic
+      // however, special characters in the field like " can break the code
+      var svgTitle = document.getElementById("svg_title");
+      if (svgTitle !== null) {
+        svgTitle.textContent = "PA: " + paIndicator.tooltip;
+      }
+
+      var circ = document.getElementById("svg_circle");
+      circ.classList.add(paIndicator.className);
+    </script>
+
+
+
+
   </div> <!-- expression box -->
 
-{{/PADoNotShowInfoLegacy}}
+{{/PADoNotShowInfo}}
 
 
 <script>
   var hybridClick = function() {
     var hSent = document.getElementById("hybrid-sentence");
     var hWord = document.getElementById("hybrid-word");
+    var svgEle = document.getElementById("flag_box_svg");
     var circ = document.getElementById("svg_circle");
+
+    var colorQuotes = (document.querySelector("." + paIndicator.className) !== null);
+
+
     if (hSent.classList.contains("override-display-inline-block")) {
-      // currently showing sentence
+      // currently showing sentence, change to word
       hWord.classList.remove("override-display-none");
       hSent.classList.remove("override-display-inline-block");
       if (circ !== null) {
         circ.setAttributeNS(null, "cx", "25");
         circ.setAttributeNS(null, "cy", "15");
       }
+      // re-adds if quote module enabled
+      if (svgEle !== null && colorQuotes) {
+        svgEle.style.display = "initial";
+      }
+
     } else {
-      // currently showing word
+      // currently showing word, change to sentence
       hWord.classList.add("override-display-none");
       hSent.classList.add("override-display-inline-block");
       if (circ !== null) { // sentence
@@ -881,6 +1046,10 @@ r"""
           circ.setAttributeNS(null, "cx", "35");
           circ.setAttributeNS(null, "cy", "11");
         }
+      }
+      // removes if quote module enabled
+      if (svgEle !== null && colorQuotes) {
+        svgEle.style.display = "none";
       }
     }
   }
@@ -926,6 +1095,8 @@ r"""
 "pa_sent_front":
 
 r"""
+{{GLOBAL_JS_TOP_PA_SENT}}
+
 {{GLOBAL_JS_TOP}}
 
 <div class="card-description">
@@ -962,14 +1133,14 @@ r"""
 
       <!-- if none of (click, hover, sentence, TSC) -->
       <div class="expression expression--single expression--sentence inner-display2">
-        「{{Sentence}}」
+        {{Sentence}}
       </div>
     </div>
 
   {{/AltDisplay}}
 
   {{^AltDisplay}}
-    <div class="expression expression--single expression--sentence" id="Display">「{{Sentence}}」</div>
+    <div class="expression expression--single expression--sentence" id="Display">{{Sentence}}</div>
   {{/AltDisplay}}
 
 
@@ -980,10 +1151,15 @@ r"""
   var isAltDisplay = (
     {{#AltDisplayPASentenceCard}} true {{/AltDisplayPASentenceCard}}
     {{^AltDisplayPASentenceCard}}
-      {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
-        false &&
-      {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}
-      true ? true : false
+      {{#AltDisplay}}
+        {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
+          false &&
+        {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}
+        true ? true : false
+      {{/AltDisplay}}
+      {{^AltDisplay}}
+        false
+      {{/AltDisplay}}
     {{/AltDisplayPASentenceCard}});
 
   var sentences = document.querySelectorAll(".expression--sentence");
@@ -1000,6 +1176,8 @@ r"""
 "pa_word_front":
 
 r"""
+{{GLOBAL_JS_TOP_PA_WORD}}
+
 {{GLOBAL_JS_TOP}}
 
 <div class="card-description">
@@ -1038,6 +1216,8 @@ r"""
 "cloze_deletion_front":
 
 r"""
+{{GLOBAL_JS_TOP_CLOZE_DELETION}}
+
 {{GLOBAL_JS_TOP}}
 
 <div class="card-description">
@@ -1055,7 +1235,7 @@ r"""
 {{/AltDisplay}}
 
 {{^AltDisplay}}
-  <div class="expression expression--single expression--sentence bold-yellow" id="Display">「{{Sentence}}」</div>
+  <div class="expression expression--single expression--sentence bold-yellow" id="Display">{{Sentence}}</div>
 {{/AltDisplay}}
 
 <script>

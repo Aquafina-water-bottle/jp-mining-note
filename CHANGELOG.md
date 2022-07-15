@@ -9,6 +9,28 @@ when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
 subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
+
+## [0.4.0.0] - ???
+#### Changed (BREAKING)
+- Renamed PADoNotShowInfoLegacy -> PADoNotShowInfo
+
+#### Added
+- Quote parsing:
+  - Quotes are now right aligned with proper spacing (so the left quote covers the entire text box)
+  - Quotes can be colored
+    - PA indicator is automatically hidden with colored quotes
+  - Support for custom automated quotes
+- Implemented "isMobile" function in options
+- Lowercase and uppercase keybinds are now supported
+  - i.e. keybinds still work in case one accidentally presses capslock
+- Implemented isMobile() in options
+
+#### Dev notes
+- Moved log messages into its own class
+- Moved PA indicator into its own class
+- Moved PA indicator to after the element with order 1 for css styling purposes
+
+
 ## [0.3.0.0] - 2022-07-11
 
 #### Changed (BREAKING)
