@@ -10,7 +10,7 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
-## [0.4.0.0] - ???
+## [0.4.0.0] - 2022-07-15
 #### Changed (BREAKING)
 - Renamed PADoNotShowInfoLegacy -> PADoNotShowInfo
 
