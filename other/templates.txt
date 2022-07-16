@@ -1,8 +1,8 @@
 {{~! NOTE: this MUST be put at the very top of the templates section! ~}}
 {{~! returns "" if the dictionary is not bilingual ~}}
 {{~! matches most JMdict dictionaries and 新和英 ~}}
-{{~#set "bilingual-dict-regex"~}} ^([Jj][Mm][Dd]ict.*|新和英.*)$ {{~/set~}}
-{{~#set "pitch-accent-dict-regex"~}} ^(Kanjium.*|NHK.*|大辞泉)$ {{~/set~}}
+{{~#set "bilingual-dict-regex"~}} ^([Jj][Mm][Dd]ict.*|新和英)(\[object Object\])?$ {{~/set~}}
+{{~#set "pitch-accent-dict-regex"~}} ^(NHK.*)(\[object Object\])?$ {{~/set~}}
 {{~! https://stackoverflow.com/questions/6787716/regular-expression-for-japanese-characters ~}}
 {{~#set "jp-characters-regex"~}}[一-龠]+|[ぁ-ゔ]+|[ァ-ヴー]+{{~/set~}}
 
@@ -35,13 +35,16 @@
 {{~#*inline "jpmn-get-primary-definition-dict"~}}
     {{~#scope~}}
 
+        {{~#set "first-dictionary-type" "monolingual"}}{{/set~}}
+        {{~#set "second-dictionary-type" "bilingual"}}{{/set~}}
+
         {{~! first-dictionary === null <=> no valid dictionary was found ~}}
         {{~#set "first-dictionary" null}}{{/set~}}
 
         {{~#each definition.definitions~}}
 
             {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-            {{~#if (op "===" (get "test-dict-name") "monolingual")~}}
+            {{~#if (op "===" (get "test-dict-name") (get "first-dictionary-type"))~}}
                 {{~#if (op "===" null (get "first-dictionary"))~}}
                     {{~#set "first-dictionary" dictionary~}}{{~/set~}}
                 {{~/if~}}
@@ -56,7 +59,7 @@
             {{~#each definition.definitions~}}
 
                 {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-                {{~#if (op "===" (get "test-dict-name") "bilingual")~}}
+                {{~#if (op "===" (get "test-dict-name") (get "second-dictionary-type"))~}}
                     {{~#if (op "===" null (get "first-dictionary"))~}}
                         {{~#set "first-dictionary" dictionary~}}{{~/set~}}
                     {{~/if~}}
