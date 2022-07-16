@@ -302,3 +302,60 @@
 
 
 
+
+
+
+{{~! used for the new templates (testing) ~}}
+
+{{~#*inline "test-dict-type"~}}
+{{~#scope~}}
+{{~#each definition.definitions~}}
+- {{dictionary}}:{{~> jpmn-get-dict-type . dictionaryName=dictionary}}
+{{/each~}}
+{{~/scope~}}
+{{~/inline~}}
+
+
+
+
+{{~#*inline "test-dict-order"~}}
+
+{{~#scope~}}
+
+{{~#set "first-dictionary"}}{{~> jpmn-get-primary-definition-dict . ~}}{{/set~}}
+
+primary definition dict:
+{{#if (op "!==" (get "first-dictionary") "")~}}
+
+{{#get "first-dictionary"}}{{/get}}
+{{/if~}}
+
+{{~! looks to see if another dictionary exists ~}}
+
+secondary dictionaries:
+{{#each definition.definitions~}}
+
+{{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+{{~#if (op "&&" (op "===" (get "test-dict-name") "bilingual") (op "!==" (get "first-dictionary") dictionary))~}}
+{{dictionary}}
+{{/if~}}
+
+{{~/each~}}
+
+
+extra dictionaries:
+{{#each definition.definitions~}}
+
+{{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+{{~#if (op "&&" (op "===" (get "test-dict-name") "monolingual") (op "!==" (get "first-dictionary") dictionary))~}}
+{{dictionary}}
+{{/if~}}
+
+{{~/each~}}
+
+
+{{~/scope~}}
+
+
+{{~/inline~}}
+
