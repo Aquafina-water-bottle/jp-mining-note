@@ -1090,3 +1090,34 @@ details > summary {
 
 
 
+/*
+ * ---------------------
+ *  pitch accent graphs
+ * ---------------------
+ */
+.pa-graphs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.pa-graphs__dictionary-inner:after {
+  content: ":";
+}
+
+.pa-graphs__none {
+  display: none;
+}
+
+/* Custom highlights for NHK and 大辞泉 */
+
+.pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
+  color: var(--yellow);
+  font-weight: bold;
+}
+.pa-graphs__group[data-details="大辞泉"] .pa-graphs__dictionary {
+  color: var(--yellow);
+  font-weight: bold;
+}
+
+

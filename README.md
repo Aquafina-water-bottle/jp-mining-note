@@ -45,6 +45,9 @@ TODO gif showing the main features of the card type
 # Setup & Usage
 See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
 
+Note: The anki card package download is not publically available yet, as this is still WIP.
+If you want the latest version to download, hit me up on Discord (Aquafina water bottle#3026).
+
 # Other Info
 Tested on Anki 2.1.53, Linux (Ubuntu) & Windows.
 (It should work on any PC where Anki is supported.)
