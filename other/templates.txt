@@ -1,249 +1,144 @@
 {{~! NOTE: this MUST be put at the very top of the templates section! ~}}
 {{~! returns "" if the dictionary is not bilingual ~}}
 {{~! matches most JMdict dictionaries and 新和英 ~}}
-{{~#set "bilingual-dict-regex"~}}[Jj][Mm][Dd]ict.*|新和英{{~/set~}}
+{{~#set "bilingual-dict-regex"~}} ^([Jj][Mm][Dd]ict.*|新和英.*)$ {{~/set~}}
+{{~#set "pitch-accent-dict-regex"~}} ^(Kanjium.*|NHK.*|大辞泉)$ {{~/set~}}
+{{~! https://stackoverflow.com/questions/6787716/regular-expression-for-japanese-characters ~}}
+{{~#set "jp-characters-regex"~}}[一-龠]+|[ぁ-ゔ]+|[ァ-ヴー]+{{~/set~}}
 
 
-{{~! all bilingual definitions ~}}
-{{~#*inline "glossary-bilingual"~}}
 
-    {{~#scope~}}
 
-        {{~#set "valid-dict-found" false}}{{/set~}}
-        {{~#each definition.definitions~}}
-            {{~! CONDITION bilingual ~}}
-            {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-                {{~#set "valid-dict-found" true}}{{/set~}}
-            {{~/if~}}
-        {{~/each~}}
 
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~! CONDITION bilingual ~}}
-                {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
-                {{~/if~}}
-            {{~/each~}}
-            <ol></div>
-        {{~/if~}}
 
-    {{~/scope~}}
 
+{{~! NOTE: this should be put at the very bottom of the templates section! ~}}
+
+{{~!
+    ==================
+     helper functions
+    ==================
+~}}
+
+{{~! categorizes into 3 types: "bilingual", "monolingual", or "pitch-accent" ~}}
+{{~#*inline "jpmn-get-dict-type"~}}
+    {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "gu" dictionaryName) "")~}}
+        bilingual
+    {{~else if (op "!==" (regexMatch (get "pitch-accent-dict-regex") "gu" dictionaryName) "")~}}
+        pitch-accent
+    {{~else~}}
+        {{~! assumed that anything else is a monolingual dictionary ~}}
+        monolingual
+    {{~/if~}}
 {{~/inline~}}
 
-
-{{~! first biliingual definition found ~}}
-{{~! (A) what I use ~}}
-{{~#*inline "glossary-bilingual-first"~}}
-
+{{~#*inline "jpmn-get-primary-definition-dict"~}}
     {{~#scope~}}
 
+        {{~! first-dictionary === null <=> no valid dictionary was found ~}}
         {{~#set "first-dictionary" null}}{{/set~}}
 
-        {{~#set "valid-dict-found" false}}{{/set~}}
         {{~#each definition.definitions~}}
-            {{~! CONDITION bilingual ~}}
-            {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-                {{~#set "valid-dict-found" true}}{{/set~}}
 
+            {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+            {{~#if (op "===" (get "test-dict-name") "monolingual")~}}
                 {{~#if (op "===" null (get "first-dictionary"))~}}
                     {{~#set "first-dictionary" dictionary~}}{{~/set~}}
                 {{~/if~}}
-
             {{~/if~}}
+
         {{~/each~}}
 
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~! CONDITION bilingual ~}}
-                {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
 
-                    {{~#if (op "===" dictionary (get "first-dictionary"))~}}
-                        <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+        {{~! first bilingual dictionary instead, last resort ~}}
+        {{~#if (op "===" (get "first-dictionary") null)~}}
+
+            {{~#each definition.definitions~}}
+
+                {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+                {{~#if (op "===" (get "test-dict-name") "bilingual")~}}
+                    {{~#if (op "===" null (get "first-dictionary"))~}}
+                        {{~#set "first-dictionary" dictionary~}}{{~/set~}}
                     {{~/if~}}
                 {{~/if~}}
+
             {{~/each~}}
-            </ol></div>
+
         {{~/if~}}
+
+        {{~#get "first-dictionary"~}}{{~/get~}}
 
     {{~/scope~}}
 
 {{~/inline~}}
 
 
-
-
-
-{{~! all mononlingual definitions ~}}
-{{~#*inline "glossary-monolingual"~}}
-
+{{~! custom glossary-single function for additional regex parsing per dictionary ~}}
+{{#*inline "jpmn-glossary-single"}}
     {{~#scope~}}
-
-        {{~#set "valid-dict-found" false}}{{/set~}}
-        {{~#each definition.definitions~}}
-            {{~! CONDITION monolingual ~}}
-            {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-                {{~#set "valid-dict-found" true}}{{/set~}}
-            {{~/if~}}
-        {{~/each~}}
-
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~! CONDITION monolingual ~}}
-                {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
-                {{~/if~}}
-            {{~/each~}}
-            <ol></div>
+        {{~#if (op "===" dictionary "NHK日本語発音アクセント新辞典")~}}
+            {{~#regexReplace "<br> ・" "<br>" "g"~}}
+                {{~> jpmn-glossary-single-2 . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+            {{~/regexReplace~}}
+        {{~else~}}
+            {{~> jpmn-glossary-single-2 . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
         {{~/if~}}
-
     {{~/scope~}}
-
-{{~/inline~}}
-
+{{/inline}}
 
 
-{{~! first mononlingual definition ~}}
-{{~! (B) what I use ~}}
-{{~#*inline "glossary-monolingual-first"~}}
+{{~! custom glossary-single function to remove italics if necessary ~}}
+{{#*inline "jpmn-glossary-single-2"}}
+    {{~#unless brief~}}
+        {{~#scope~}}
 
-    {{~#scope~}}
-
-        {{~#set "first-dictionary" null}}{{/set~}}
-
-        {{~#set "valid-dict-found" false}}{{/set~}}
-        {{~#each definition.definitions~}}
-            {{~! CONDITION monolingual ~}}
-            {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-                {{~#set "valid-dict-found" true}}{{/set~}}
-
-                {{~#if (op "===" null (get "first-dictionary"))~}}
-                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
-                {{~/if~}}
-
-            {{~/if~}}
-        {{~/each~}}
-
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~! CONDITION monolingual ~}}
-                {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-
-                    {{~#if (op "===" dictionary (get "first-dictionary"))~}}
-                        <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
-                    {{~/if~}}
-                {{~/if~}}
-            {{~/each~}}
-            </ol></div>
-        {{~/if~}}
-
-    {{~/scope~}}
-
-{{~/inline~}}
-
-
-
-
-{{~! everything but the first mononlingual definition ~}}
-{{~#*inline "glossary-monolingual-extra"~}}
-
-    {{~#scope~}}
-
-        {{~#set "first-dictionary" null}}{{/set~}}
-
-        {{~#set "valid-dict-found" false}}{{/set~}}
-        {{~#each definition.definitions~}}
-            {{~! CONDITION monolingual ~}}
-            {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-                {{~#set "valid-dict-found" true}}{{/set~}}
-
-                {{~#if (op "===" null (get "first-dictionary"))~}}
-                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
-                {{~/if~}}
-
-            {{~/if~}}
-        {{~/each~}}
-
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~! CONDITION monolingual ~}}
-                {{~#if (op "===" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-
-                    {{~#if (op "!==" dictionary (get "first-dictionary"))~}}
-                        <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
-                    {{~/if~}}
-                {{~/if~}}
-            {{~/each~}}
-            </ol></div>
-        {{~/if~}}
-
-    {{~/scope~}}
-
-{{~/inline~}}
-
-
-
-
-
-
-
-{{~! everything BUT the first bilingual and first monolingual definition ~}}
-{{~! (C) what I use ~}}
-{{~#*inline "glossary-extra"~}}
-
-    {{~#scope~}}
-
-        {{~#set "first-monolingual-dict" null}}{{/set~}}
-        {{~#set "first-bilingual-dict" null}}{{/set~}}
-
-        {{~#set "valid-dict-found" false}}{{/set~}}
-        {{~#each definition.definitions~}}
-            {{~! CONDITION bilingual ~}}
-            {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "g" dictionary) "")~}}
-
-                {{~#if (op "===" null (get "first-bilingual-dict"))~}}
-                    {{~#set "first-bilingual-dict" dictionary~}}{{~/set~}}
-                {{~else~}}
-                    {{~#set "valid-dict-found" true}}{{/set~}}
-                {{~/if~}}
-
-            {{~else~}}
-
-                {{~#if (op "===" null (get "first-monolingual-dict"))~}}
-                    {{~#set "first-monolingual-dict" dictionary~}}{{~/set~}}
-                {{~else~}}
-                    {{~#set "valid-dict-found" true}}{{/set~}}
-                {{~/if~}}
-
+            {{~! only italics if jp-characters-regex finds no matches ~}}
+            {{~#set "italics-start"}}{{/set~}}
+            {{~#set "italics-end"}}{{/set~}}
+            {{~#if (op "===" (regexMatch (get "jp-characters-regex") "u" dictionary) "")~}}
+                {{~#set "italics-start"}}<i>{{/set~}}
+                {{~#set "italics-end"}}</i>{{/set~}}
             {{~/if~}}
 
-        {{~/each~}}
-
-        {{~#if (get "valid-dict-found")~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~! not the first monolingual/bilingual dicts found ~}}
-                {{~#if (op "&&" (op "!==" dictionary (get "first-bilingual-dict")) (op "!==" dictionary (get "first-monolingual-dict")) )~}}
-                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+            {{~#set "any" false}}{{/set~}}
+            {{~#each definitionTags~}}
+                {{~#if (op "||" (op "!" @root.compactTags) (op "!" redundant))~}}
+                    {{~#if (get "any")}}, {{else}}{{#get "italics-start"}}{{/get}}({{/if~}}
+                    {{name}}
+                    {{~#set "any" true}}{{/set~}}
                 {{~/if~}}
             {{~/each~}}
-            </ol></div>
-        {{~/if~}}
+            {{~#unless noDictionaryTag~}}
+                {{~#if (op "||" (op "!" @root.compactTags) (op "!==" dictionary (get "previousDictionary")))~}}
+                    {{~#if (get "any")}}, {{else}}{{#get "italics-start"}}{{/get}}({{/if~}}
+                    {{dictionary}}
+                    {{~#set "any" true}}{{/set~}}
+                {{~/if~}}
+            {{~/unless~}}
+            {{~#if (get "any")}}){{#get "italics-end"}}{{/get}} {{/if~}}
+        {{~/scope~}}
+        {{~#if only~}}({{#each only}}{{.}}{{#unless @last}}, {{/unless}}{{/each}} only) {{/if~}}
+    {{~/unless~}}
+    {{~#if (op "<=" glossary.length 1)~}}
+        {{#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{/each}}
+    {{~else if @root.compactGlossaries~}}
+        {{#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each}}
+    {{~else~}}
+        <ul>{{#each glossary}}<li>{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}</li>{{/each}}</ul>
+    {{~/if~}}
+    {{~#set "previousDictionary" dictionary~}}{{~/set~}}
+{{/inline}}
 
-    {{~/scope~}}
 
-{{~/inline~}}
-
-
+{{~!
+    =============
+     frequencies
+    =============
+~}}
 
 {{#*inline "s"}}{{/inline}}
 
-{{#*inline "freq-stylized"}}
+{{#*inline "jpmn-frequencies"}}
     {{~#if (op ">" definition.frequencies.length 0)~}}
         <div class="frequencies">
         {{~#each definition.frequencies~}}
@@ -261,4 +156,181 @@
         </div>
     {{~/if~}}
 {{/inline}}
+
+
+{{~!
+    ==============
+     pitch accent
+    ==============
+~}}
+
+{{#*inline "jpmn-pitch-accent-graphs"}}
+    {{~#if (op ">" pitchCount 0)~}}
+        {{~#each pitches~}}
+            <div class="pa-graphs__group" data-details="{{dictionary}}"> {{~s~}}
+                <div class="pa-graphs__dictionary"> {{~s~}}
+                    <div class="pa-graphs__dictionary-inner"> {{~s~}}
+                        {{~dictionary~}}
+                    </div> {{~s~}}
+                </div> {{~s~}}
+                <ol> {{~s~}}
+                    {{~#each pitches~}}
+                        <li>
+                            {{~> pitch-accent-item-disambiguation~}}
+                            {{~> pitch-accent-item format="graph"~}}
+                        </li>
+                    {{~/each~}}
+                </ol> {{~s~}}
+            </div>
+        {{~/each~}}
+    {{~else~}}
+        <div class="pa-graphs__none"> {{~s~}}
+            <div class="pa-graphs__none-inner"> {{~s~}}
+                No pitch accent data {{~s~}}
+            </div> {{~s~}}
+        </div> {{~s~}}
+    {{~/if~}}
+{{/inline}}
+
+
+{{~!
+    ==============
+     dictionaries
+    ==============
+~}}
+
+
+{{~! primary def: first monolingual (or first bilingual if no monolingual dicts found) ~}}
+{{~#*inline "jpmn-primary-definition"~}}
+
+    {{~#scope~}}
+
+        {{~#set "first-dictionary"}}{{~> jpmn-get-primary-definition-dict . ~}}{{/set~}}
+
+        {{~#if (op "!==" (get "first-dictionary") "")~}}
+            <ol>
+            {{~#each definition.definitions~}}
+                {{~#if (op "===" dictionary (get "first-dictionary"))~}}
+                    <li data-details="{{~dictionary~}}">
+                        {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                    </li>
+                {{~/if~}}
+            {{~/each~}}
+            </ol>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+{{~! secondary def: first bilingual that isn't the primary def ~}}
+{{~#*inline "jpmn-secondary-definition"~}}
+
+    {{~#scope~}}
+
+        {{~#set "first-dictionary"}}{{~> jpmn-get-primary-definition-dict . ~}}{{/set~}}
+
+        {{~#if (op "!==" (get "first-dictionary") "")~}}
+
+            {{~! looks to see if another dictionary exists ~}}
+            {{~#set "valid-dict" false}}{{/set~}}
+
+            {{~#each definition.definitions~}}
+                {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+                {{~#if (op "&&" (op "===" (get "test-dict-name") "bilingual") (op "!==" (get "first-dictionary") dictionary))~}}
+                    {{~#set "valid-dict" true}}{{/set~}}
+                {{~/if~}}
+            {{~/each~}}
+
+            {{~#if (get "valid-dict") ~}}
+                <ol>
+                {{~#each definition.definitions~}}
+                    {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+                    {{~#if (op "&&" (op "===" (get "test-dict-name") "bilingual") (op "!==" (get "first-dictionary") dictionary))~}}
+                        <li data-details="{{~dictionary~}}">
+                            {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                        </li>
+                    {{~/if~}}
+                {{~/each~}}
+                </ol>
+            {{~/if~}}
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+{{~! extra def: other monolingual defs (excluding primary def) ~}}
+{{~#*inline "jpmn-extra-definitions"~}}
+
+    {{~#scope~}}
+
+        {{~#set "first-dictionary"}}{{~> jpmn-get-primary-definition-dict . ~}}{{/set~}}
+
+        {{~#if (op "!==" (get "first-dictionary") "")~}}
+
+            {{~! looks to see if another dictionary exists ~}}
+            {{~#set "valid-dict" false}}{{/set~}}
+
+            {{~#each definition.definitions~}}
+                {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+                {{~#if (op "&&" (op "===" (get "test-dict-name") "monolingual") (op "!==" (get "first-dictionary") dictionary))~}}
+                    {{~#set "valid-dict" true}}{{/set~}}
+                {{~/if~}}
+            {{~/each~}}
+
+            {{~#if (get "valid-dict") ~}}
+                <ol>
+                {{~#each definition.definitions~}}
+                    {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+                    {{~#if (op "&&" (op "===" (get "test-dict-name") "monolingual") (op "!==" (get "first-dictionary") dictionary))~}}
+                        <li data-details="{{~dictionary~}}">
+                            {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                        </li>
+                    {{~/if~}}
+                {{~/each~}}
+                </ol>
+            {{~/if~}}
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+
+{{~! pitch accent info: all pitch accent info dictionaries ~}}
+
+{{~#*inline "jpmn-pitch-accent-dicts"~}}
+
+    {{~#scope~}}
+
+        {{~! looks to see if another dictionary exists ~}}
+        {{~#set "valid-dict" false}}{{/set~}}
+
+        {{~#each definition.definitions~}}
+            {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+            {{~#if (op "===" (get "test-dict-name") "pitch-accent")~}}
+                {{~#set "valid-dict" true}}{{/set~}}
+            {{~/if~}}
+        {{~/each~}}
+
+        {{~#if (get "valid-dict") ~}}
+            <ol>
+            {{~#each definition.definitions~}}
+                {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+                {{~#if (op "===" (get "test-dict-name") "pitch-accent")~}}
+                    <li data-details="{{~dictionary~}}">
+                        {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                    </li>
+                {{~/if~}}
+            {{~/each~}}
+            </ol>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
 

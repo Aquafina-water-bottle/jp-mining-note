@@ -279,6 +279,7 @@
     let wrapperEle = document.createElement('span');
     if (settings.quote("left-align-adjust-format")) {
       wrapperEle.style.display = "flex";
+      /*wrapperEle.style.alignItems = "flex-end";*/
     }
 
     let leftQuoteEle = document.createElement('span');
@@ -495,7 +496,7 @@
     </span>
   </span>
 
-  <div class="card-description-ver">JP Mining Note: Version 0.4.0.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.5.0.0</div>
 </div>
 
 
@@ -1029,5 +1030,13 @@
         toggleDetailsTag(ele)
       }
     {{/ExtraDefinitions}}
+
+    keys = settings.keybind("toggle-pitch-accent-info-display");
+    var ele = document.getElementById("pitch_accent_info_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
+    }
+
+
   })
 </script>

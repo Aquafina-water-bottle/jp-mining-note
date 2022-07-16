@@ -99,6 +99,8 @@ var JPMNOpts = (function (my) {
       "toggle-additional-notes-display": ["9"],
 
       "toggle-extra-definitions-display": ["0"],
+
+      "toggle-pitch-accent-info-display": ["["],
     },
 
 

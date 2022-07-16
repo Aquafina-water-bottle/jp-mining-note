@@ -30,7 +30,7 @@
       wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
 
       // entirely removes the (N/A) text instead
-      var graphElement = document.getElementById("dh_left_graph");
+      /*var graphElement = document.getElementById("dh_left_graph");
       if (graphElement.innerText == "No pitch accent data" || graphElement.innerHTML == "") {
         document.getElementById("dh_left_graph").remove();
         document.getElementById("dh_left_gap").remove();
@@ -39,20 +39,12 @@
         {{^WordPitch}}
           wp.innerText = "(N/A)";
         {{/WordPitch}}
-      }
+      }*/
     </script>
 
-    <div class="dh-left__bottom">
-      <div class="dh-left__graph" id="dh_left_graph">
-        {{Graph}}
-      </div>
-      <div class="dh-left__gap" id="dh_left_gap">
-        ・
-      </div>
-      <div class="dh-left__audio-buttons">
-        <span id="word-audio"> {{WordAudio}} </span>
-        <span id="sentence-audio"> {{SentenceAudio}} </span>
-      </div>
+    <div class="dh-left__audio-buttons">
+      <span id="word-audio"> {{WordAudio}} </span>
+      <span id="sentence-audio"> {{SentenceAudio}} </span>
     </div>
 
   </div>
@@ -82,6 +74,9 @@
 {{PRIMARY_DEFINITION}}
 
 {{OTHER_DEFINITIONS}}
+
+{{PITCH_ACCENT_INFO}}
+
 
 </div> <!-- backside -->
 

@@ -10,6 +10,29 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
+## [0.5.0.0] - 2022-07-16
+#### Changed (BREAKING)
+- Renamed Graph -> PAGraphs
+    - All instances here now be wrapped with:
+      - `<div class="pa-graphs__group" data-details="Kanjium"><ol><li>` and `</li></ol></div>`
+        if single entry
+      - `<div class="pa-graphs__group" data-details="Kanjium">` and `</div>`
+        if multiple entry
+- Renamed Position -> PADictionaries
+    - Completely replaced the usage of this field:
+      all previous filled instances of this field must be removed.
+
+#### Changed
+- Completely rewrite yomichan handlebars code
+  - Primary definition now grabs the bilingual definition if no other dictionary exists
+  - Removed italics on dictionary names that have japanese characters
+    (effectively restricting it to jmdict only)
+
+#### Added
+- Better support for multiple pitch accent dictionaries (section under Extra Definitions)
+  - Added the corresponding keybind (default "[")
+
+
 ## [0.4.0.0] - 2022-07-15
 #### Changed (BREAKING)
 - Renamed PADoNotShowInfoLegacy -> PADoNotShowInfo

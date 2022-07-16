@@ -329,6 +329,7 @@ r"""
     let wrapperEle = document.createElement('span');
     if (settings.quote("left-align-adjust-format")) {
       wrapperEle.style.display = "flex";
+      /*wrapperEle.style.alignItems = "flex-end";*/
     }
 
     let leftQuoteEle = document.createElement('span');
@@ -598,6 +599,14 @@ document.onkeyup = (e => {
       toggleDetailsTag(ele)
     }
   {{/ExtraDefinitions}}
+
+  keys = settings.keybind("toggle-pitch-accent-info-display");
+  var ele = document.getElementById("pitch_accent_info_details");
+  if (keys !== null && ele && keys.includes(e.key)) {
+    toggleDetailsTag(ele)
+  }
+
+
 })
 """,
 
@@ -1123,7 +1132,7 @@ r"""
         {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
           outer-display2
         {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}"
-      id="Display">
+      style="display: inline-block;" id="Display">
 
       <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
       <!-- if any of (click, hover, sentence, TSC) -->
@@ -1297,7 +1306,9 @@ r"""
 
 r"""
 <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
-  {{furigana:PrimaryDefinition}}
+  <div class="glossary-text glossary-text--primary-definition">
+    {{furigana:PrimaryDefinition}}
+  </div>
 </blockquote>
 """,
 
@@ -1309,7 +1320,9 @@ r"""
   <details class="glossary-details" id="secondary_definition_details">
     <summary>Secondary Definition</summary>
     <blockquote class="glossary-blockquote bold-yellow">
-    {{SecondaryDefinition}}
+      <div class="glossary-text glossary-text--secondary-definition">
+        {{SecondaryDefinition}}
+      </div>
     </blockquote>
   </details>
 {{/SecondaryDefinition}}
@@ -1318,21 +1331,64 @@ r"""
   <details class="glossary-details glossary-details--small" id="additional_notes_details">
     <summary>Additional Notes</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
-    {{AdditionalNotes}}
+      <div class="glossary-text glossary-text--additional-notes">
+        {{AdditionalNotes}}
+      </div>
     </blockquote>
   </details>
 {{/AdditionalNotes}}
-
 
 {{#ExtraDefinitions}}
   <details class="glossary-details glossary-details--small" id="extra_definitions_details">
     <summary>Extra Definitions</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
-    {{ExtraDefinitions}}
+      <div class="glossary-text glossary-text--extra-definitions">
+        {{ExtraDefinitions}}
+      </div>
     </blockquote>
   </details>
 {{/ExtraDefinitions}}
 """,
+
+
+
+"pitch_accent_info":
+
+r"""
+
+<div class="outer-display1
+    {{^PAGraphs}} {{^PADictionaries}}
+      outer-display2
+    {{/PADictionaries}} {{/PAGraphs}}
+  id="Display">
+
+  <!-- only showed if outer-display2 doesn't exist -->
+  <details class="glossary-details glossary-details--small inner-display1" id="pitch_accent_info_details">
+    <summary>Pitch Accent Info</summary>
+    <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
+      <div class="glossary-text glossary-text--pitch-accent-info">
+
+        <div class="pa-graphs">
+          {{PAGraphs}}
+        </div>
+
+        <div class="pa-dicts">
+          {{PADictionaries}}
+        </div>
+
+      </div>
+    </blockquote>
+  </details>
+  <script>
+    var ele = document.querySelector(".pa-graphs");
+    if (ele !== null && ele.innerText.trim() === "No pitch accent data" && !"{{#PADictionaries}}exists{{/PADictionaries}}") {
+      document.getElementById("pitch_accent_info_details").style.display = "none";
+    }
+  </script>
+</div>
+
+""",
+
 
 
 
