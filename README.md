@@ -52,4 +52,7 @@ If you want the latest version to download, hit me up on Discord (Aquafina water
 Tested on Anki 2.1.53, Linux (Ubuntu) & Windows.
 (It should work on any PC where Anki is supported.)
 
+# License
+MIT. Go insane.
+
 
