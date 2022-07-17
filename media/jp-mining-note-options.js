@@ -158,6 +158,13 @@ var JPMNOpts = (function (my) {
 
       }
 
+    },
+
+    "general": {
+      // Overrides the play keybind button to show the sentence if the
+      // card is a hybrid sentence AND the sentence is not currently being shown.
+      // Only affects the front side.
+      "hybrid-sentence-open-on-play-sentence": true,
     }
 
   }

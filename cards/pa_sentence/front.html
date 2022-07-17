@@ -11,8 +11,9 @@
 <script>
   var note = (function () {
     let my = {};
-    my.cardType = "pa_sent";
-    return my;
+  my.side = "front";
+  my.cardType = "pa_sent";
+return my;
   }());
 </script>
 
@@ -99,7 +100,7 @@
 
     /* defaultOpt=null */
     var _getSetting = function(settingStr, settingObj, defaultOpt) {
-      if (!(settingStr in settingObj)) {
+      if (typeof settingObj === "undefined" || !(settingStr in settingObj)) {
         logger.warn("Option `" + settingStr + "` is not defined in the options file.");
         if (typeof defaultOpt === "undefined") {
           return null;
@@ -120,6 +121,10 @@
 
     my.quote = function(settingStr, defaultOpt) {
       return _getSetting(settingStr, JPMNOpts.settings["sentence-module"]["quote-module"], defaultOpt);
+    }
+
+    my.general = function(settingStr, defaultOpt) {
+      return _getSetting(settingStr, JPMNOpts.settings["general"], defaultOpt);
     }
 
     return my;
@@ -281,7 +286,7 @@
     let closeQuoteEle = document.createElement('span');
     closeQuoteEle.innerHTML = closeQuote;
 
-    {{^PADoNotShowInfo}}
+    {{#PAShowInfo}}
       if (note.cardType === "main" && settings.quote("pa-indicator-color-quotes")) {
         openQuoteEle.classList.add(paIndicator.className);
         closeQuoteEle.classList.add(paIndicator.className);
@@ -302,7 +307,7 @@
         }
         {{/IsClickCard}} {{/IsHoverCard}}
       }
-    {{/PADoNotShowInfo}}
+    {{/PAShowInfo}}
 
     if (settings.quote("left-align-adjust-format")) {
       sentEle.classList.add("left-align-quote-format");
@@ -376,7 +381,7 @@
 
   <span class="info-circle" id="info_circle">
     <span class="info-circle-svg-wrapper">
-      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="#585858" class="bi bi-info-circle" viewBox="0 0 16 16">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="bi bi-info-circle" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
       </svg>
@@ -405,7 +410,7 @@
     </span>
   </span>
 
-  <div class="card-description-ver">JP Mining Note: Version 0.5.1.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.6.0.0</div>
 </div>
 
 <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
@@ -473,7 +478,7 @@
 
 <span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
 {{#SentenceAudio}}
-<div id="sentence-audio"> {{SentenceAudio}} </div>
+<span id="sentence-audio"> {{SentenceAudio}} </span>
 {{/SentenceAudio}}
 
 <script>
@@ -537,9 +542,20 @@
     {{#SentenceAudio}}
       keys = settings.keybind("play-sentence-audio");
       if (keys !== null && keys.includes(e.key)) {
-        var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
-        if (elem) {
-          elem.click();
+
+        var hSent = document.getElementById("hybrid-sentence");
+
+        if (settings.general("hybrid-sentence-open-on-play-sentence", true)
+            && note.side === "front"
+            && "{{IsHoverCard}}{{IsClickCard}}" && "{{IsTargetedSentenceCard}}{{IsSentenceCard}}"
+            && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
+          // this somehow works even when hybridClick is undefined here, woah
+          hybridClick();
+        } else {
+          var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+          if (elem) {
+            elem.click();
+          }
         }
       }
     {{/SentenceAudio}}

@@ -5,7 +5,6 @@
  */
 
 :root {
-  --yellow: #fffd9e;
   --pa-brightness-reduce: 60%;
   --frequencies-padding: 5px;
   --frequencies-border: 5px;
@@ -16,6 +15,32 @@
   --description-footer-font-size: 9px;
   --tooltip-max-width: 500px;
   --tooltip-font-size: 14px;
+
+  --yellow: #0060ff; /* not actually yellow ;) */
+  --background-darken: rgba(0, 0, 0, 0.05);
+  --card-description-color: #acacac;
+
+  --info-circle-hover-color: #5f5f5f;
+
+  --info-circle-leech-color: #3983ff;
+  --info-circle-leech-hover-color: #609cff;
+  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+
+  --info-circle-warning-color: #ff8700;
+  --info-circle-warning-hover-color: #f2a753;
+  --info-circle-warning-text-color: #f9c24e;
+
+  --info-circle-error-color: #ff0200;
+  --info-circle-error-hover-color: #ff4d4c;
+  --info-circle-error-text-color: #fe7776;
+
+  --pa-indicator-sentence-color: #4cd200;
+  --pa-indicator-word-color: var(--yellow);
+  --pa-indicator-none-color: #ec3a2d;
+
+  --hybrid-underline-color: black;
+
+
 }
 
 /* override variables for mobile */
@@ -30,6 +55,32 @@
   --tooltip-font-size: 11px;
 }
 
+.night_mode {
+  --yellow: #fffd9e;
+  --background-darken: rgba(0, 0, 0, 0.05);
+  --card-description-color: #585858;
+
+  --info-circle-hover-color: #bdbdbd;
+
+  --info-circle-leech-color: #ead623;
+  --info-circle-leech-hover-color: var(--yellow);
+  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+
+  --info-circle-warning-color: #ff8d0d;
+  --info-circle-warning-hover-color: #f9c24e;
+  --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
+
+  --info-circle-error-color: #f53b39;
+  --info-circle-error-hover-color: #fe7776;
+  --info-circle-error-text-color: var(--info-circle-error-hover-color);
+
+  --pa-indicator-sentence-color: #62ff73;
+  --pa-indicator-word-color: var(--yellow);
+  --pa-indicator-none-color: #ff6b66;
+
+  --hybrid-underline-color: white;
+}
+
 
 .card {
   /*font-family: hiragino;*/
@@ -37,7 +88,6 @@
   font-size: 30px;
   text-align: center;
   font-style: normal;
-  color: white;
 }
 
 .card.night_mode {
@@ -173,7 +223,7 @@ details > summary {
 
 .card-description {
   font-family: hiragino;
-  color: #585858;
+  color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
   text-align: left;
@@ -194,8 +244,12 @@ details > summary {
   display: inline-block;
 }
 
+.info-circle path {
+  fill: var(--card-description-color);
+}
+
 .info-circle:hover path {
-  fill: #bdbdbd;
+  fill: var(--info-circle-hover-color);
 }
 
 
@@ -269,15 +323,15 @@ details > summary {
 .info-circle-text-leech div:before {
   content: "Leech";
   font-weight: bold;
-  color: var(--yellow);
+  color: var(--info-circle-leech-text-color);
 }
 
 .info-circle-leech path {
-  fill: #ead623;
+  fill: var(--info-circle-leech-color);
 }
 
 .info-circle-leech:hover path {
-  fill: var(--yellow);
+  fill: var(--info-circle-leech-hover-color);
 }
 
 
@@ -289,15 +343,15 @@ details > summary {
 .info-circle-text-warning div:before {
   content: "Warning: ";
   font-weight: bold;
-  color: #f9c24e;
+  color: var(--info-circle-warning-text-color);
 }
 
 .info-circle-warning path {
-  fill: #ff8d0d;
+  fill: var(--info-circle-warning-color);
 }
 
 .info-circle-warning:hover path {
-  fill: #f9c24e;
+  fill: var(--info-circle-warning-hover-color);
 }
 
 
@@ -308,15 +362,15 @@ details > summary {
 .info-circle-text-error div:before {
   content: "ERROR: ";
   font-weight: bold;
-  color: #fe7776;
+  color: var(--info-circle-error-text-color);
 }
 
 .info-circle-error path {
-  fill: #f53b39;
+  fill: var(--info-circle-error-color);
 }
 
 .info-circle-error:hover path {
-  fill: #fe7776;
+  fill: var(--info-circle-error-hover-color);
 }
 
 
@@ -359,20 +413,16 @@ details > summary {
 
 /* pitch accent indicator colors */
 .pa-indicator-color--sentence {
-  fill:  #5cf570;
-  color: #5cf570;
+  fill:  var(--pa-indicator-sentence-color);
+  color: var(--pa-indicator-sentence-color);
 }
 .pa-indicator-color--word {
-  fill:  #34dbef;
-  color: #34dbef;
+  fill:  var(--pa-indicator-word-color);
+  color: var(--pa-indicator-word-color);
 }
 .pa-indicator-color--none {
-  fill:  #f53b39;
-  color: #f53b39;
-}
-.pa-indicator-color--default { /* unused */
-  fill:  #21dd1e;
-  color: #21dd1e;
+  fill:  var(--pa-indicator-none-color);
+  color: var(--pa-indicator-none-color);
 }
 
 
@@ -461,7 +511,7 @@ details > summary {
   display: block;
   border-bottom-width: 2px;
   border-bottom-style: solid;
-  border-bottom-color: white;
+  border-bottom-color: var(--hybrid-underline-color);
   line-height: 125%;
 }
 
@@ -624,7 +674,7 @@ details > summary {
 }
 
 .dh-left { /* left */
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--background-darken);
   padding: 0.625em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
@@ -960,7 +1010,7 @@ details > summary {
   font-size: 18px;
 
   text-align: left;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--background-darken);
   font-size: 18px;
   border-left: 5px solid #ccc;
   margin: 0 5px;
@@ -1050,7 +1100,7 @@ details > summary {
   display: flex;
   float: right;
   font-family: hiragino;
-  color: #585858;
+  color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
 }

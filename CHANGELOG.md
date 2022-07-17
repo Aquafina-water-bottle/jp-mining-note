@@ -10,6 +10,21 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
+
+
+## [0.6.0.0] - 2022-07-16
+
+#### Changed (BREAKING)
+- Changed `PADoNotShowInfo` -> `PAShowInfo` and reversed its role
+    - Intention is to make PA not show by default,
+      to avoid confusion for beginners and to make writing documentation easier
+
+#### Added
+- Basic support for light mode
+- Option to override the play button on hybrid sentence cards
+
+
+
 ## [0.5.1.0] - 2022-07-16
 
 #### Added
@@ -21,6 +36,9 @@ signified.)
 
 #### Fixed
 - Quote left align working properly (now uses text-indent instead of flex div hackery)
+
+
+
 
 ## [0.5.0.0] - 2022-07-16
 #### Changed (BREAKING)
@@ -40,6 +58,7 @@ signified.)
 - Better support for multiple pitch accent dictionaries (section under Extra Definitions)
   - Added the corresponding keybind (default "[")
   - Added corresponding yomichan handlebars code
+
 
 
 ## [0.4.0.0] - 2022-07-15

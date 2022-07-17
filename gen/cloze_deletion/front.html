@@ -1,12 +1,18 @@
 {{#SeparateClozeDeletionCard}}
 
+
+{{NOTE_CLASS_JS_OPEN}}
+  my.side = "front";
+  my.cardType = "cloze_deletion";
+{{NOTE_CLASS_JS_CLOSE}}
+
 {{CLOZE_DELETION_FRONT}}
 
 {{HINT}}
 
-<span id="sentence-audio">{{SentenceAudio}}</span>
-
-{{/SeparateClozeDeletionCard}}
+<div id="sentence-audio">{{SentenceAudio}}</div>
 
 {{GLOBAL_JS_BOTTOM}}
+
+{{/SeparateClozeDeletionCard}}
 
