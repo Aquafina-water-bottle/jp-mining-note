@@ -11,8 +11,8 @@
 <script>
   var note = (function () {
     let my = {};
-  my.side = "front";
-  my.cardType = "pa_sent";
+    my.side = "front";
+    my.cardType = "pa_sent";
 return my;
   }());
 </script>
@@ -410,7 +410,7 @@ return my;
     </span>
   </span>
 
-  <div class="card-description-ver">JP Mining Note: Version 0.6.0.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.6.0.1</div>
 </div>
 
 <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
@@ -476,6 +476,7 @@ return my;
   }
 </script>
 
+<div>
 <span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
 {{#SentenceAudio}}
 <span id="sentence-audio"> {{SentenceAudio}} </span>
@@ -490,6 +491,7 @@ return my;
     elem.click();
   }
 </script>
+</div>
 
 {{#HintNotHidden}}
   <div class="center-box-1 hint">
@@ -514,7 +516,6 @@ return my;
 
 
 {{/SentenceAudio}}
-{{/PASeparateSentenceCard}}
 
 <script>
   // shift to switch between sentence & word on click & hover cards
@@ -607,3 +608,5 @@ return my;
 
   })
 </script>
+
+{{/PASeparateSentenceCard}}
