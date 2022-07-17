@@ -14,6 +14,12 @@
     Sentence
 -->
 
+
+{{NOTE_CLASS_JS_OPEN}}
+  my.side = "front";
+  my.cardType = "main";
+{{NOTE_CLASS_JS_CLOSE}}
+
 {{MAIN_FRONT}}
 
 {{HINT}}
@@ -22,7 +28,7 @@
 
 <!-- regular display -->
 <!-- displays the audio and show/hide button, used only when testing pitch accent -->
-{{^PADoNotShowInfo}}
+{{#PAShowInfo}}
 
   {{^PADoNotTest}} {{^PASeparateWordCard}}
 
@@ -86,7 +92,7 @@
   {{SENTENCE_AUDIO_NO_AUTOPLAY}}
 
 
-{{/PADoNotShowInfo}}
+{{/PAShowInfo}}
 
 {{GLOBAL_JS_BOTTOM}}
 
