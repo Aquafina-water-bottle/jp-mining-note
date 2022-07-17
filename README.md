@@ -29,7 +29,6 @@ TODO gif showing the main features of the card type
    * Sentence level pitch accent
    * Test the pitch accent in the same card or with different cards
    * Or don't test it at all!
-* Optional hint (front-side)
 * Various quality of life features, including but not limited to:
     * Customizable keyboard shortcuts for almost everything
     * Collapsible fields to hide non-crucial info (back-side)
@@ -39,7 +38,6 @@ TODO gif showing the main features of the card type
 
 # Limitations
 * No support for mobile. (Currently working on basic Ankidroid support!)
-* No support for Anki light theme. (Support for light theme is planned for the future.)
 * No easy way to scale the card within the card itself.
 
 # Setup & Usage
