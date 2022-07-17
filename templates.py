@@ -111,6 +111,16 @@ r"""
       _appendMsg(message, groupEle);
     }
 
+
+    my.leech = function() {
+      var groupEle = document.getElementById("info_circle_text_leech");
+      _appendMsg("", groupEle);
+      var infoCirc = document.getElementById("info_circle");
+      if (!infoCirc.classList.contains("info-circle-leech")) {
+        infoCirc.classList.add("info-circle-leech")
+      }
+    }
+
     return my;
   }());
 
@@ -288,8 +298,8 @@ r"""
 
   var processQuote = function(sentEle, sent, isAltDisplay) {
     let result = sent;
-    let left = null;
-    let right = null;
+    let openQuote = null;
+    let closeQuote = null;
     let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
 
     if (!isAltDisplay && settings.quote("auto-quote-sentence", true)) {
@@ -297,51 +307,40 @@ r"""
       let arr = settings.quote("auto-quote-sentence-strings", ["「", "」"])
       logger.assert(Array.isArray(arr), "expected array");
       logger.assert(arr.length === 2, "expected array of len 2");
-      [left, right] = arr;
+      [openQuote, closeQuote] = arr;
     }
 
     // existing quotes override the default quotes, even on alt displays
     for (let quotePair of validQuotes) {
       if ((sent[0] === quotePair[0]) && (sent[sent.length-1] === quotePair[1])) {
-        [left, right] = quotePair;
+        [openQuote, closeQuote] = quotePair;
         result = sent.slice(1, -1);
         break;
       }
     }
 
-    if (left === null) { // implies right === null
-      // does nothing: no quotes!
-      return result;
-    }
-
-    //if (!settings.quote("pa-indicator-color-quotes") && !settings.quote("left-align-adjust-format")) {
-    //}
 
     // replaces the element (should only contain text) with the following:
     //
     // <(previous div or span)>
-    //  <span style="display: flex;">
-    //    <span> (open quote) </span>
-    //    <span> (text) <span> (close quote) </span> </span>
-    //  </span>
+    //  <span> (open quote) </span>
+    //  <span> (text) </span>
+    //  <span> (close quote) </span>
     // </(previous div or span)>
 
-    let wrapperEle = document.createElement('span');
-    if (settings.quote("left-align-adjust-format")) {
-      wrapperEle.style.display = "flex";
-      /*wrapperEle.style.alignItems = "flex-end";*/
-    }
+    let textEle = document.createElement('span');
+    textEle.innerHTML = result;
 
-    let leftQuoteEle = document.createElement('span');
-    leftQuoteEle.innerHTML = left;
+    let openQuoteEle = document.createElement('span');
+    openQuoteEle.innerHTML = openQuote;
 
-    let rightQuoteEle = document.createElement('span');
-    rightQuoteEle.innerHTML = right;
+    let closeQuoteEle = document.createElement('span');
+    closeQuoteEle.innerHTML = closeQuote;
 
     {{^PADoNotShowInfo}}
       if (note.cardType === "main" && settings.quote("pa-indicator-color-quotes")) {
-        leftQuoteEle.classList.add(paIndicator.className);
-        rightQuoteEle.classList.add(paIndicator.className);
+        openQuoteEle.classList.add(paIndicator.className);
+        closeQuoteEle.classList.add(paIndicator.className);
 
         // affects on hover cards
         {{#IsHoverCard}}
@@ -351,6 +350,7 @@ r"""
           }
         {{/IsHoverCard}}
 
+        // neither hover & click and is either one of TSC / sentence -> removes flag
         {{^IsHoverCard}} {{^IsClickCard}}
         if ("{{IsTargetedSentenceCard}}{{IsSentenceCard}}") {
           var svgEle = document.getElementById("flag_box_svg");
@@ -360,16 +360,14 @@ r"""
       }
     {{/PADoNotShowInfo}}
 
-    let textEle = document.createElement('span');
-    textEle.innerHTML = result;
-    textEle.appendChild(rightQuoteEle)
+    if (settings.quote("left-align-adjust-format")) {
+      sentEle.classList.add("left-align-quote-format");
+    }
 
     sentEle.innerText = "";
-    wrapperEle.appendChild(leftQuoteEle);
-    wrapperEle.appendChild(textEle);
-    sentEle.appendChild(wrapperEle);
-
-    return result;
+    sentEle.appendChild(openQuoteEle);
+    sentEle.appendChild(textEle);
+    sentEle.appendChild(closeQuoteEle);
   }
 
 
@@ -446,6 +444,7 @@ r"""
     <span class="info-circle-text" id="info_circle_text">
       <div class="info-circle-text-error" id="info_circle_text_error"></div>
       <div class="info-circle-text-warning" id="info_circle_text_warning"></div>
+      <div class="info-circle-text-leech" id="info_circle_text_leech"></div>
       <div class="info-circle-text-info" id="info_circle_text_info">
         <div>
           Need help? View the
@@ -1393,7 +1392,7 @@ r"""
 
 
 # image zooming and jmedit replace
-"modal_and_common_js":
+"global_js_bottom_back":
 
 r"""
 <!--
@@ -1409,6 +1408,12 @@ r"""
 </div>
 
 <script>
+  // checks leech
+  var tags = "{{Tags}}".split(" ");
+  if (tags.includes("leech")) {
+    logger.leech();
+  }
+
   var modal = document.getElementById('modal');
   var modalImg = document.getElementById("bigimg");
 

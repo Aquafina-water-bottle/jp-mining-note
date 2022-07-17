@@ -136,7 +136,7 @@ var JPMNOpts = (function (my) {
       "quote-module": {
         "enabled": true,
 
-        "pa-indicator-color-quotes": true,
+        "pa-indicator-color-quotes": ifMobile(true, false),
 
         // Formats sentences such that the first quote encompasses the entire sentence,
         // like so:

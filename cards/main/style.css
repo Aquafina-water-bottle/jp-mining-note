@@ -156,6 +156,16 @@ details > summary {
 
 
 /*
+ *
+ */
+
+.left-align-quote-format {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+
+/*
  *  ================
  *   FRONT SIDE CSS
  *  ================
@@ -252,6 +262,24 @@ details > summary {
 }
 
 
+/* leech text */
+.info-circle-text-leech:not(:empty) {
+  margin-bottom: 10px;
+}
+.info-circle-text-leech div:before {
+  content: "Leech";
+  font-weight: bold;
+  color: var(--yellow);
+}
+
+.info-circle-leech path {
+  fill: #ead623;
+}
+
+.info-circle-leech:hover path {
+  fill: var(--yellow);
+}
+
 
 
 /* warning text */
@@ -280,15 +308,15 @@ details > summary {
 .info-circle-text-error div:before {
   content: "ERROR: ";
   font-weight: bold;
-  color: #fd5a5a;
+  color: #fe7776;
 }
 
 .info-circle-error path {
-  fill: #f12a2a;
+  fill: #f53b39;
 }
 
 .info-circle-error:hover path {
-  fill: #fd5a5a;
+  fill: #fe7776;
 }
 
 

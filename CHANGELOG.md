@@ -10,6 +10,18 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
+## [0.5.1.0] - 2022-07-16
+
+#### Added
+- Leech now shows as yellow on the info circle on the back side of cards
+
+#### Changed
+- Templates now use some global options to make things easier to change
+- Pitch accent template now uses tags (I have no idea why they didn't before)
+
+#### Fixed
+- Quote left align working properly (now uses text-indent instead of flex div hackery)
+
 ## [0.5.0.0] - 2022-07-16
 #### Changed (BREAKING)
 - Renamed Graph -> PAGraphs
