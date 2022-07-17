@@ -12,6 +12,12 @@ signified.)
 
 
 
+## [0.6.0.1] - 2022-07-17
+
+#### Fixed
+- Generating pitch accent (sentence and word) cards despite not specifying to
+
+
 ## [0.6.0.0] - 2022-07-16
 
 #### Changed (BREAKING)
@@ -42,9 +48,9 @@ signified.)
 
 ## [0.5.0.0] - 2022-07-16
 #### Changed (BREAKING)
-- Renamed Graph -> PAGraphs
+- Renamed `Graph` -> `PAGraphs`
     - Format of data has been changed as well to include divs, css classes and dictionary names
-- Renamed Position -> PADictionaries
+- Renamed `Position` -> `PADictionaries`
     - Completely replaced the usage of this field:
       all previous filled instances of this field must be removed.
 

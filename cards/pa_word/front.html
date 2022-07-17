@@ -407,7 +407,7 @@ return my;
     </span>
   </span>
 
-  <div class="card-description-ver">JP Mining Note: Version 0.6.0.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.6.0.1</div>
 </div>
 
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
@@ -443,6 +443,7 @@ return my;
   </div>
 </details>
 
+<div>
 <span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
 {{#SentenceAudio}}
 <span id="sentence-audio"> {{SentenceAudio}} </span>
@@ -457,6 +458,7 @@ return my;
     elem.click();
   }
 </script>
+</div>
 
 {{#HintNotHidden}}
   <div class="center-box-1 hint">
@@ -479,8 +481,6 @@ return my;
   </details>
 {{/Hint}}
 
-
-{{/PASeparateWordCard}}
 
 <script>
   // shift to switch between sentence & word on click & hover cards
@@ -573,3 +573,5 @@ return my;
 
   })
 </script>
+
+{{/PASeparateWordCard}}
