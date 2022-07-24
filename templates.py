@@ -17,12 +17,14 @@ rf"""
 """,
 
 
+# stores various global variables for the note js to use
 "note_class_js_open":
 
 r"""
 <script>
   var note = (function () {
     let my = {};
+    my.colorQuotes = false;
 """,
 
 "note_class_js_close":
@@ -309,6 +311,7 @@ r"""
 
     {{#PAShowInfo}}
       if (note.cardType === "main" && settings.quote("pa-indicator-color-quotes")) {
+        note.colorQuotes = true;
         openQuoteEle.classList.add(paIndicator.className);
         closeQuoteEle.classList.add(paIndicator.className);
 
@@ -361,10 +364,18 @@ r"""
     // removes linebreaks
     var result = sentEle.innerHTML;
 
-    if (!isAltDisplay && settings.sentence("remove-line-breaks", true)) {
-      result = result.replace(/<br>/g, "");
-    } else if (isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
-      result = result.replace(/<br>/g, "");
+    if ((!isAltDisplay && settings.sentence("remove-line-breaks", true))
+        || isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
+      let noNewlines = result.replace(/<br>/g, "");
+
+      // automatically removes newlines and other html elements
+      // https://stackoverflow.com/a/54369605
+      let charCount = [...sentEle.innerText.trim()].length;
+      let maxCharCount = settings.sentence("remove-line-breaks-until-char-count", 0)
+
+      if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
+        result = noNewlines;
+      }
     }
 
     // removes leading and trailing white space (equiv. of strip() in python)
@@ -580,8 +591,8 @@ document.onkeyup = (e => {
     }
   {{/ExtraDefinitions}}
 
-  keys = settings.keybind("toggle-pitch-accent-info-display");
-  var ele = document.getElementById("pitch_accent_info_details");
+  keys = settings.keybind("toggle-extra-info-display");
+  var ele = document.getElementById("extra_info_details");
   if (keys !== null && ele && keys.includes(e.key)) {
     toggleDetailsTag(ele)
   }
@@ -1008,8 +1019,6 @@ r"""
     var svgEle = document.getElementById("flag_box_svg");
     var circ = document.getElementById("svg_circle");
 
-    var colorQuotes = (document.querySelector("." + paIndicator.className) !== null);
-
 
     if (hSent.classList.contains("override-display-inline-block")) {
       // currently showing sentence, change to word
@@ -1020,7 +1029,7 @@ r"""
         circ.setAttributeNS(null, "cy", "15");
       }
       // re-adds if quote module enabled
-      if (svgEle !== null && colorQuotes) {
+      if (svgEle !== null && note.colorQuotes) {
         svgEle.style.display = "initial";
       }
 
@@ -1035,7 +1044,7 @@ r"""
         }
       }
       // removes if quote module enabled
-      if (svgEle !== null && colorQuotes) {
+      if (svgEle !== null && note.colorQuotes) {
         svgEle.style.display = "none";
       }
     }
@@ -1324,28 +1333,28 @@ r"""
 
 
 
-"pitch_accent_info":
+"extra_info":
 
 r"""
 
 <div class="outer-display1
-    {{^PAGraphs}} {{^PADictionaries}}
+    {{^PAGraphs}} {{^UtilityDictionaries}}
       outer-display2
-    {{/PADictionaries}} {{/PAGraphs}}
+    {{/UtilityDictionaries}} {{/PAGraphs}}"
   id="Display">
 
   <!-- only showed if outer-display2 doesn't exist -->
-  <details class="glossary-details glossary-details--small inner-display1" id="pitch_accent_info_details">
-    <summary>Pitch Accent Info</summary>
+  <details class="glossary-details glossary-details--small inner-display1" id="extra_info_details">
+    <summary>Extra Info</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
-      <div class="glossary-text glossary-text--pitch-accent-info">
+      <div class="glossary-text glossary-text--extra-info">
 
         <div class="pa-graphs">
           {{PAGraphs}}
         </div>
 
-        <div class="pa-dicts">
-          {{PADictionaries}}
+        <div class="utility-dicts">
+          {{UtilityDictionaries}}
         </div>
 
       </div>
@@ -1353,8 +1362,8 @@ r"""
   </details>
   <script>
     var ele = document.querySelector(".pa-graphs");
-    if (ele !== null && ele.innerText.trim() === "No pitch accent data" && !"{{#PADictionaries}}exists{{/PADictionaries}}") {
-      document.getElementById("pitch_accent_info_details").style.display = "none";
+    if (ele !== null && ele.innerText.trim() === "No pitch accent data" && !"{{#UtilityDictionaries}}exists{{/UtilityDictionaries}}") {
+      document.getElementById("extra_info_details").style.display = "none";
     }
   </script>
 </div>
@@ -1468,8 +1477,8 @@ r"""
   }
 
   // remove all jmdict english dict tags
-  var glossaryEle = document.getElementById("primary_definition");
-  glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
+  //var glossaryEle = document.getElementById("primary_definition");
+  //glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
 
   // goes through each blockquote and searches for yomichan inserted images
   var imageSearchElements = document.getElementsByTagName("blockquote");

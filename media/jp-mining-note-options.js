@@ -63,24 +63,24 @@ var JPMNOpts = (function (my) {
       // Keybind to toggle between showing the sentence and word on click and hover cards.
       // Equivalent to either clicking on the sentence/word on a click card,
       // or hovering over the word on a hover card.
-      "toggle-hybrid-sentence": ["Shift", "n", "N"],
+      "toggle-hybrid-sentence": ["n"],
 
       // Keybind to toggle between showing the tested word in a raw sentence card.
       // Equivalent to clicking on the "show" button.
       // This is the same as the above because both should never happen at the same time.
-      "toggle-highlight-word": ["Shift", "n", "N"],
+      "toggle-highlight-word": ["n"],
 
       // Keybind to toggle a vocab card's full sentence display (front side).
       // Techinically can be Shift / n as it doesn't interfere with the other two above.
       "toggle-front-full-sentence-display": ["'"],
 
-      "play-sentence-audio": ["p", "P"],
+      "play-sentence-audio": ["p"],
 
-      "play-word-audio": ["w", "W"],
+      "play-word-audio": ["w"],
 
       // Equivalent to clicking on the image.
       // TODO: Implement
-      "toggle-image-zoom": ["z", "Z"],
+      "toggle-image-zoom": ["z"],
 
       // Equivalent to hovering over the full sentence (back side)
       // TODO: Implement
@@ -100,7 +100,7 @@ var JPMNOpts = (function (my) {
 
       "toggle-extra-definitions-display": ["0"],
 
-      "toggle-pitch-accent-info-display": ["["],
+      "toggle-extra-info-display": ["["],
     },
 
 
@@ -124,6 +124,10 @@ var JPMNOpts = (function (my) {
 
       // Removes all line breaks on the sentence if AltDisplay is not filled
       "remove-line-breaks": true,
+
+      // removes line count specifically if the text is <= (specified number) characters in length.
+      // 0 means that newlines are ALWAYS removed.
+      "remove-line-breaks-until-char-count": ifMobile(0, 33),
 
       // Removes all line breaks on the AltDisplay sentence
       "remove-line-breaks-on-altdisplay": ifMobile(true, false),

@@ -4,6 +4,7 @@
 <script>
   var note = (function () {
     let my = {};
+    my.colorQuotes = false;
   my.side = "front";
   my.cardType = "cloze_deletion";
 return my;
@@ -281,6 +282,7 @@ return my;
 
     {{#PAShowInfo}}
       if (note.cardType === "main" && settings.quote("pa-indicator-color-quotes")) {
+        note.colorQuotes = true;
         openQuoteEle.classList.add(paIndicator.className);
         closeQuoteEle.classList.add(paIndicator.className);
 
@@ -333,10 +335,18 @@ return my;
     // removes linebreaks
     var result = sentEle.innerHTML;
 
-    if (!isAltDisplay && settings.sentence("remove-line-breaks", true)) {
-      result = result.replace(/<br>/g, "");
-    } else if (isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
-      result = result.replace(/<br>/g, "");
+    if ((!isAltDisplay && settings.sentence("remove-line-breaks", true))
+        || isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
+      let noNewlines = result.replace(/<br>/g, "");
+
+      // automatically removes newlines and other html elements
+      // https://stackoverflow.com/a/54369605
+      let charCount = [...sentEle.innerText.trim()].length;
+      let maxCharCount = settings.sentence("remove-line-breaks-until-char-count", 0)
+
+      if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
+        result = noNewlines;
+      }
     }
 
     // removes leading and trailing white space (equiv. of strip() in python)
@@ -538,8 +548,8 @@ return my;
       }
     {{/ExtraDefinitions}}
 
-    keys = settings.keybind("toggle-pitch-accent-info-display");
-    var ele = document.getElementById("pitch_accent_info_details");
+    keys = settings.keybind("toggle-extra-info-display");
+    var ele = document.getElementById("extra_info_details");
     if (keys !== null && ele && keys.includes(e.key)) {
       toggleDetailsTag(ele)
     }

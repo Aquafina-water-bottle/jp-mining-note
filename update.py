@@ -19,6 +19,7 @@ FRONT_FILENAME = "front.html"
 BACK_FILENAME = "back.html"
 CSS_FILEPATH = "cards/main/style.css"
 OPTIONS_FILENAME = "jp-mining-note-options.js"
+FIELD_FILENAME = "field.css"
 
 MODEL_NAME = "JP Mining Note"
 TEMPLATE_NAMES = {
@@ -117,12 +118,20 @@ def read_model() -> NoteType:
 def to_base64_str(string: str) -> str:
     return base64.b64encode(bytes(string, "utf-8")).decode("utf-8")
 
-def read_options_file() -> str:
-    with open(os.path.join("media", OPTIONS_FILENAME), encoding='utf8') as f:
-        return f.read()
 
-def read_options_media() -> MediaFile:
-    return MediaFile(name=OPTIONS_FILENAME, contents=to_base64_str(read_options_file()))
+#def read_options_file() -> str:
+#    with open(os.path.join("media", OPTIONS_FILENAME), encoding='utf8') as f:
+#        return f.read()
+#
+#def read_options_media() -> MediaFile:
+#    return MediaFile(name=OPTIONS_FILENAME, contents=to_base64_str(read_options_file()))
+
+
+
+def get_media_file(file_name) -> MediaFile:
+    with open(os.path.join("media", file_name), encoding='utf8') as f:
+        contents = f.read()
+    return MediaFile(name=file_name, contents=to_base64_str(contents))
 
 
 def send_note_type(model: NoteType):
@@ -137,6 +146,7 @@ def send_media(media: MediaFile):
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-o', '--import-options', action="store_true")
+    parser.add_argument('-m', '--import-media', action="store_true")
     parser.add_argument('-a', '--all', action="store_true")
     return parser.parse_args()
 
@@ -146,8 +156,12 @@ def main():
     model = read_model()
     send_note_type(model)
 
-    if args.import_options:
-        options_media = read_options_media()
+    if args.import_options or args.all:
+        options_media = get_media_file(OPTIONS_FILENAME)
+        send_media(options_media)
+
+    if args.import_media or args.all:
+        options_media = get_media_file(FIELD_FILENAME)
         send_media(options_media)
 
 
