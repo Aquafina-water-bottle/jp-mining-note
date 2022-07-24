@@ -1,0 +1,72 @@
+/* TODO use @import in the main css (or <link>) with this file
+ *
+ * ln -s ~/.local/share/Anki2/Japanese/collection.media/field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+ *
+ */
+
+:root {
+  --yellow: #0060ff; /* not actually yellow ;) */
+}
+
+.nightMode {
+  --yellow: #fffd9e;
+}
+
+
+.dict-group__tag-list .dict-group__tag:not(:first-child)::before {
+  content: ", ";
+}
+.dict-group__tag-list::before {
+  content: "(";
+}
+.dict-group__tag-list::after {
+  content: ") ";
+}
+
+
+
+/* css classes used by the plugin */
+.downstep {
+  color: var(--yellow);
+  position: relative;
+}
+.downstep:before {
+  content: '';
+  width: 2px;
+  height: 18%;
+  background: var(--yellow);
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 0px;
+}
+
+
+.pitchoverline {
+  text-decoration: none !important;
+  text-decoration-color: var(--yellow) !important;
+  position: relative;
+}
+.pitchoverline:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: var(--yellow);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+
+
+.nopron,
+.night_mode .nopron {
+  color: #42a3ff;
+}
+.nasal,
+.night_mode .nasal {
+  color: #f12a2a;
+}
+
+
+

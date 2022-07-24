@@ -1,23 +1,3 @@
-{{~! NOTE: this MUST be put at the very top of the templates section! ~}}
-
-{{~! REGEX ~}}
-{{~! matches most JMdict dictionaries and 新和英 ~}}
-{{~#set "bilingual-dict-regex"~}} ^([Jj][Mm][Dd]ict.*|新和英)(\[object Object\])?$ {{~/set~}}
-{{~#set "pitch-accent-dict-regex"~}} ^(NHK.*)(\[object Object\])?$ {{~/set~}}
-
-{{~! OPTIONS ~}}
-{{~#set "opt-first-dictionary-type" "bilingual"}}{{/set~}}
-{{~#set "opt-second-dictionary-type" "monolingual"}}{{/set~}}
-{{~#set "opt-second-def-only-use-first-dict" false}}{{/set~}}
-
-{{~! OTHER ~}}
-{{~! https://stackoverflow.com/questions/6787716/regular-expression-for-japanese-characters ~}}
-{{~#set "jp-characters-regex"~}}[一-龠]+|[ぁ-ゔ]+|[ァ-ヴー]+{{~/set~}}
-
-
-
-
-
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
 
 {{~!
@@ -26,12 +6,14 @@
     ==================
 ~}}
 
+{{#*inline "s"}}{{/inline}}
+
 {{~! categorizes into 3 types: "bilingual", "monolingual", or "pitch-accent" ~}}
 {{~#*inline "jpmn-get-dict-type"~}}
     {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "gu" dictionaryName) "")~}}
         bilingual
-    {{~else if (op "!==" (regexMatch (get "pitch-accent-dict-regex") "gu" dictionaryName) "")~}}
-        pitch-accent
+    {{~else if (op "!==" (regexMatch (get "utility-dict-regex") "gu" dictionaryName) "")~}}
+        utility
     {{~else~}}
         {{~! assumed that anything else is a monolingual dictionary ~}}
         monolingual
@@ -80,59 +62,59 @@
 
 
 {{~! custom glossary-single function for additional regex parsing per dictionary ~}}
+{{~! OVERRIDES brief and noDictionaryTag ~}}
 {{#*inline "jpmn-glossary-single"}}
     {{~#scope~}}
         {{~#if (op "===" dictionary "NHK日本語発音アクセント新辞典")~}}
             {{~#regexReplace "<br> ・" "<br>" "g"~}}
-                {{~> jpmn-glossary-single-2 . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                {{~> jpmn-glossary-single-override . ~}}
             {{~/regexReplace~}}
         {{~else~}}
-            {{~> jpmn-glossary-single-2 . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+            {{~> jpmn-glossary-single-override . ~}}
         {{~/if~}}
     {{~/scope~}}
 {{/inline}}
 
 
 {{~! custom glossary-single function to remove italics if necessary ~}}
-{{#*inline "jpmn-glossary-single-2"}}
-    {{~#unless brief~}}
-        {{~#scope~}}
+{{#*inline "jpmn-glossary-single-override"}}
+
+    {{~#scope~}}
+
+        <span class="dict-group__tag-list"> {{~s~}}
 
             {{~! only italics if jp-characters-regex finds no matches ~}}
             {{~#set "italics-start"}}{{/set~}}
             {{~#set "italics-end"}}{{/set~}}
-            {{~#if (op "===" (regexMatch (get "jp-characters-regex") "u" dictionary) "")~}}
-                {{~#set "italics-start"}}<i>{{/set~}}
-                {{~#set "italics-end"}}</i>{{/set~}}
-            {{~/if~}}
 
             {{~#set "any" false}}{{/set~}}
             {{~#each definitionTags~}}
-                {{~#if (op "||" (op "!" @root.compactTags) (op "!" redundant))~}}
-                    {{~#if (get "any")}}, {{else}}{{#get "italics-start"}}{{/get}}({{/if~}}
-                    {{name}}
-                    {{~#set "any" true}}{{/set~}}
-                {{~/if~}}
+
+                <span class="dict-group__tag dict-group__tag--name"> {{~s~}}
+                    <span class="dict-group__tag-inner"> {{~s~}}
+                        {{~name~}}
+                    </span> {{~s~}}
+                </span> {{~s~}}
+
             {{~/each~}}
             {{~#unless noDictionaryTag~}}
-                {{~#if (op "||" (op "!" @root.compactTags) (op "!==" dictionary (get "previousDictionary")))~}}
-                    {{~#if (get "any")}}, {{else}}{{#get "italics-start"}}{{/get}}({{/if~}}
-                    {{dictionary}}
-                    {{~#set "any" true}}{{/set~}}
-                {{~/if~}}
+
+                <span class="dict-group__tag dict-group__tag--dict"> {{~s~}}
+                    <span class="dict-group__tag-inner"> {{~s~}}
+                        {{~dictionary~}}
+                    </span> {{~s~}}
+                </span> {{~s~}}
+
             {{~/unless~}}
             {{~#if (get "any")}}){{#get "italics-end"}}{{/get}} {{/if~}}
-        {{~/scope~}}
-        {{~#if only~}}({{#each only}}{{.}}{{#unless @last}}, {{/unless}}{{/each}} only) {{/if~}}
-    {{~/unless~}}
-    {{~#if (op "<=" glossary.length 1)~}}
-        {{#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{/each}}
-    {{~else if @root.compactGlossaries~}}
+
+        </span> {{~s~}}
+
         {{#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each}}
-    {{~else~}}
-        <ul>{{#each glossary}}<li>{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}</li>{{/each}}</ul>
-    {{~/if~}}
-    {{~#set "previousDictionary" dictionary~}}{{~/set~}}
+
+    {{~/scope~}}
+
+    {{~#if only~}}({{#each only}}{{.}}{{#unless @last}}, {{/unless}}{{/each}} only) {{/if~}}
 {{/inline}}
 
 
@@ -141,8 +123,6 @@
      frequencies
     =============
 ~}}
-
-{{#*inline "s"}}{{/inline}}
 
 {{#*inline "jpmn-frequencies"}}
     {{~#if (op ">" definition.frequencies.length 0)~}}
@@ -335,7 +315,7 @@
 
 {{~! pitch accent info: all pitch accent info dictionaries ~}}
 
-{{~#*inline "jpmn-pitch-accent-dicts"~}}
+{{~#*inline "jpmn-utility-dictionaries"~}}
 
     {{~#scope~}}
 
@@ -344,7 +324,7 @@
 
         {{~#each definition.definitions~}}
             {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-            {{~#if (op "===" (get "test-dict-name") "pitch-accent")~}}
+            {{~#if (op "===" (get "test-dict-name") "utility")~}}
                 {{~#set "valid-dict" true}}{{/set~}}
             {{~/if~}}
         {{~/each~}}
@@ -353,7 +333,7 @@
             <ol>
             {{~#each definition.definitions~}}
                 {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-                {{~#if (op "===" (get "test-dict-name") "pitch-accent")~}}
+                {{~#if (op "===" (get "test-dict-name") "utility")~}}
                     <li data-details="{{~dictionary~}}">
                         {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
                     </li>

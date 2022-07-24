@@ -1,0 +1,12 @@
+{{~! NOTE: this MUST be put at the very top of the templates section! ~}}
+
+{{~! REGEX ~}}
+{{~! matches most JMdict dictionaries and 新和英 ~}}
+{{~#set "bilingual-dict-regex"~}} ^([Jj][Mm][Dd]ict.*|新和英)(\[object Object\])?$ {{~/set~}}
+{{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考)(\[object Object\])?$ {{~/set~}}
+
+{{~! OPTIONS ~}}
+{{~#set "opt-first-dictionary-type" "bilingual"}}{{/set~}}
+{{~#set "opt-second-dictionary-type" "monolingual"}}{{/set~}}
+{{~#set "opt-second-def-only-use-first-dict" false}}{{/set~}}
+

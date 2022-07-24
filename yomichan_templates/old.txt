@@ -301,6 +301,54 @@
 
 
 
+{{~! custom glossary-single function to remove italics if necessary ~}}
+{{#*inline "jpmn-glossary-single-2"}}
+    {{~#unless brief~}}
+        {{~#scope~}}
+
+            {{~! only italics if jp-characters-regex finds no matches ~}}
+            {{~#set "italics-start"}}{{/set~}}
+            {{~#set "italics-end"}}{{/set~}}
+            {{~#if (op "===" (regexMatch (get "jp-characters-regex") "u" dictionary) "")~}}
+                {{~#set "italics-start"}}<i>{{/set~}}
+                {{~#set "italics-end"}}</i>{{/set~}}
+            {{~/if~}}
+
+            {{~#set "any" false}}{{/set~}}
+            {{~#each definitionTags~}}
+                {{~#if (op "||" (op "!" @root.compactTags) (op "!" redundant))~}}
+                    {{~#if (get "any")}}, {{else}}{{#get "italics-start"}}{{/get}}({{/if~}}
+                    {{name}}
+                    {{~#set "any" true}}{{/set~}}
+                {{~/if~}}
+            {{~/each~}}
+            {{~#unless noDictionaryTag~}}
+                {{~#if (op "||" (op "!" @root.compactTags) (op "!==" dictionary (get "previousDictionary")))~}}
+                    {{~#if (get "any")}}, {{else}}{{#get "italics-start"}}{{/get}}({{/if~}}
+                    {{dictionary}}
+                    {{~#set "any" true}}{{/set~}}
+                {{~/if~}}
+            {{~/unless~}}
+            {{~#if (get "any")}}){{#get "italics-end"}}{{/get}} {{/if~}}
+        {{~/scope~}}
+        {{~#if only~}}({{#each only}}{{.}}{{#unless @last}}, {{/unless}}{{/each}} only) {{/if~}}
+    {{~/unless~}}
+    {{~#if (op "<=" glossary.length 1)~}}
+        {{#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{/each}}
+    {{~else if @root.compactGlossaries~}}
+        {{#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each}}
+    {{~else~}}
+        <ul>{{#each glossary}}<li>{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}</li>{{/each}}</ul>
+    {{~/if~}}
+    {{~#set "previousDictionary" dictionary~}}{{~/set~}}
+{{/inline}}
+
+
+
+
+
+
+
 
 
 
@@ -358,4 +406,5 @@ extra dictionaries:
 
 
 {{~/inline~}}
+
 

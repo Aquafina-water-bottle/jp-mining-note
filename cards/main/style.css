@@ -57,7 +57,7 @@
 
 .night_mode {
   --yellow: #fffd9e;
-  --background-darken: rgba(0, 0, 0, 0.05);
+  --background-darken: rgba(0, 0, 0, 0.12);
   --card-description-color: #585858;
 
   --info-circle-hover-color: #bdbdbd;
@@ -75,7 +75,7 @@
   --info-circle-error-text-color: var(--info-circle-error-hover-color);
 
   --pa-indicator-sentence-color: #62ff73;
-  --pa-indicator-word-color: var(--yellow);
+  --pa-indicator-word-color: #34dbef;
   --pa-indicator-none-color: #ff6b66;
 
   --hybrid-underline-color: white;
@@ -113,6 +113,12 @@ ol, ul {
   margin-top: 0px;
   margin-bottom: 10px;
   padding-left: 1.5em;
+}
+
+
+/* makes the background of the top row of tables slightly lighter */
+th {
+  background: rgba(255, 255, 255, 0.09);
 }
 
 /*
@@ -206,13 +212,29 @@ details > summary {
 
 
 /*
- *
+ * formats the open right quote to be to the left of the entire text box
  */
 
 .left-align-quote-format {
   text-indent: -1em;
   padding-left: 1em;
 }
+
+
+/*
+ * makes ruby text unselectable (and hence uncopyable) (TODO: javascript option)
+ * TODO: this doesn't actually seem to work in my anki version...
+ * - it makes the text unselectable, but the goal was to make the text also uncopyable
+ * - however, the text remains copyable for some reason in anki
+ * - text is not copyable in modern browsers like firefox
+ */
+
+/*
+ruby rt {
+  user-select: none;
+}
+*/
+
 
 
 /*
@@ -1138,7 +1160,54 @@ details > summary {
 }
 
 
-/* Overriding the dictionary name shown */
+
+/*
+ * ---------------------
+ *  pitch accent graphs
+ * ---------------------
+ */
+.pa-graphs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.pa-graphs__dictionary-inner:after {
+  content: ":";
+}
+
+.pa-graphs__none {
+  display: none;
+}
+
+
+
+
+/*
+ * --------------------
+ *  dictionary entries
+ * --------------------
+ */
+.dict-group__tag-list .dict-group__tag:not(:first-child)::before {
+  content: ", ";
+}
+.dict-group__tag-list::before {
+  content: "(";
+}
+.dict-group__tag-list::after {
+  content: ") ";
+}
+
+
+
+
+/*
+ * ---------------
+ *  customization
+ * ---------------
+ */
+
+/* frequency names */
 
 .frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
   display: none;
@@ -1166,27 +1235,6 @@ details > summary {
 }
 
 
-
-
-/*
- * ---------------------
- *  pitch accent graphs
- * ---------------------
- */
-.pa-graphs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
-.pa-graphs__dictionary-inner:after {
-  content: ":";
-}
-
-.pa-graphs__none {
-  display: none;
-}
-
 /* Custom highlights for NHK and 大辞泉 */
 
 .pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
@@ -1198,4 +1246,28 @@ details > summary {
   font-weight: bold;
 }
 
+
+
+/* Makes JMDict italic */
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
+  font-style: italic;
+}
+
+/* removes the dictionary entry for jmdict */
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
+  display: none;
+}
+
+
+
+/*
+ * TODO orthography dictionary
+ *
+ * ★  Common
+ * ●  Valid
+ * ⛬  Outdated
+ * ⚠  Irregular
+ * 🠋  Rarely-used kanji form
+ *
+ */
 

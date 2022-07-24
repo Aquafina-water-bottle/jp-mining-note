@@ -11,6 +11,17 @@ signified.)
 
 
 
+## [0.7.0.0] - ???
+
+#### Changed (BREAKING)
+- Changed `PADictionaries` -> `UtilityDictionaries`
+
+#### Changed
+- More changes to yomichan templates, still WIP
+- Added options file to be automatically updated from ./update.py
+
+
+
 
 ## [0.6.0.1] - 2022-07-17
 
