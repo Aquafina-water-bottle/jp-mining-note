@@ -20,6 +20,8 @@ signified.)
 - More changes to yomichan templates, still WIP
 - Added options file to be automatically updated from ./update.py
 
+#### Fixed
+- Properly handled script (options file) asynchronously loading
 
 
 

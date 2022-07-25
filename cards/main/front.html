@@ -82,26 +82,48 @@ return my;
   window.onerror = function(msg, url, lineNo, columnNo, error) {
     logger.error("Javascript error: `" + msg + "`");
   }
-</script>
+
+  // https://stackoverflow.com/a/55178672
+  window.onunhandledrejection = function(errorEvent) {
+    logger.error("Javascript handler error: `" + errorEvent.reason + "`");
+  }
 
 
-<!--
-  it is expected that this file exists!
-  placed after the logging javascript to log any possible errors in the imports
--->
-<script src="jp-mining-note-options.js"></script>
+  // loads the options script
+  // TODO look to separate async / sync things further in javascript
+  // TODO compile card such that settings don't have to be used
+  // https://forums.ankiweb.net/t/linking-to-external-javascript/1713
+  var injectScript = (src) => {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.onload = resolve;
+      script.onerror = reject;
+
+      document.head.appendChild(script);
+    });
+  };
+
+  if (typeof JPMNOpts === 'undefined') {
+    var settingsPromise = injectScript('jp-mining-note-options.js');
+  }
+  settingsPromise.then(() => {
+    // various sanity checks
+    if (typeof JPMNOpts === 'undefined') {
+      logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+    }
+    var scriptIsLoaded = document.querySelectorAll("script[src='jp-mining-note-options.js']").length > 0;
+    if (!scriptIsLoaded) {
+      logger.error("Options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
+    }
+  })
 
 
-
-<script>
 
   /*
    * class to read settings
    */
-
-  if (typeof JPMNOpts === 'undefined') {
-    logger.error("Error in the options file, or options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
-  }
 
   var settings = (function () {
     let my = {};
@@ -846,9 +868,11 @@ return my;
   var sentences = document.querySelectorAll(".expression--sentence")
   var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
   if (sentences !== null) {
-    for (var sent of sentences) {
-      processSentence(sent, isAltDisplay);
-    }
+    settingsPromise.then(() => {
+      for (var sent of sentences) {
+        processSentence(sent, isAltDisplay);
+      }
+    });
   }
 
 </script>
