@@ -11,6 +11,13 @@ signified.)
 
 
 
+## [0.7.0.1] - 2022-07-26
+
+#### Fixed
+- Changed the promise into an async / await function at the cost of code separation
+    - Previous fix to promises didn't work upon any card flip...
+
+
 ## [0.7.0.0] - 2022-07-26
 
 #### Changed (BREAKING)

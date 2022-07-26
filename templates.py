@@ -131,27 +131,74 @@ r"""
   // a very specific environment (toggle between IsSentenceCard & preview multiple times).
   // this ensures that the promise is not yet defined, and prevents adding further
   // then() statements to it
-  var promiseJustCreated = false;
-  var promiseAlreadyExists = (typeof settingsPromise !== "undefined");
-  if (promiseAlreadyExists) {
-    if (typeof JPMNOpts === 'undefined') {
-      // ASSUMPTION: JPMNOpts will get loaded up from the promise (which is kind of weird behavior tbh)
-      //logger.error("WTF");
-    }
-  } else {
-    if (typeof JPMNOpts === 'undefined') {
-      var settingsPromise = injectScript(OPTIONS_FILE);
-      promiseJustCreated = true;
+  //var promiseJustCreated = false;
+  //var promiseAlreadyExists = (typeof settingsPromise !== "undefined");
+  //if (promiseAlreadyExists) {
+  //  if (typeof JPMNOpts === 'undefined') {
+  //    // ASSUMPTION: JPMNOpts will get loaded up from the promise (which is kind of weird behavior tbh)
+  //    //logger.error("WTF");
+  //  }
+  //} else {
+  //  if (typeof JPMNOpts === 'undefined') {
+  //    var settingsPromise = injectScript(OPTIONS_FILE);
+  //    promiseJustCreated = true;
 
-      settingsPromise.then(() => {
-        // sanity check
-        if (typeof JPMNOpts === 'undefined') {
-          logger.error("JPMNOpts was not defined in the options file. Was there an error?");
-        }
-      })
+  //    settingsPromise.then(() => {
+  //      // sanity check
+  //      if (typeof JPMNOpts === 'undefined') {
+  //        logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+  //      }
+  //    })
 
+  //  }
+  //}
+
+
+  (async () => {
+    if (typeof JPMNOpts === 'undefined') {
+      await injectScript(OPTIONS_FILE);
     }
-  }
+
+    // sanity check
+    if (typeof JPMNOpts === 'undefined') {
+      logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+    }
+
+    // I'd prefer putting this within individual files for better code separation
+    // however, I cannot find a way around the above promises issue,
+    // otherwise I could use the .then construct...
+
+    var sentences = document.querySelectorAll(".expression--sentence")
+    var isAltDisplay = false;
+    var isClozeDeletion = false;
+    if (note.cardType === "main") {
+      isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
+    } else if (note.cardType === "cloze_deletion") {
+      isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
+      isClozeDeletion = true;
+    } else if (note.cardType === "pa_sent") {
+      isAltDisplay = (
+        {{#AltDisplayPASentenceCard}} true {{/AltDisplayPASentenceCard}}
+        {{^AltDisplayPASentenceCard}}
+          {{#AltDisplay}}
+            {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
+              false &&
+            {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}
+            true ? true : false
+          {{/AltDisplay}}
+          {{^AltDisplay}}
+            false
+          {{/AltDisplay}}
+        {{/AltDisplayPASentenceCard}});
+    }
+
+    if (sentences !== null) {
+      for (var sent of sentences) {
+        processSentence(sent, isAltDisplay, isClozeDeletion);
+      }
+    }
+
+  })();
 
 
 
@@ -393,7 +440,7 @@ r"""
    *
    * isAltDisplay=false
    */
-  var processSentence = function(sentEle, isAltDisplay) {
+  var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
     if (!settings.sentence("enabled", true)) {
       return;
     }
@@ -404,6 +451,11 @@ r"""
 
     // removes linebreaks
     var result = sentEle.innerHTML;
+
+    // cloze deletion replacing bold with [...]
+    if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
+      result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
+    }
 
     if ((!isAltDisplay && settings.sentence("remove-line-breaks", true))
         || isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
@@ -1108,17 +1160,17 @@ r"""
     }
   }
 
-  var sentences = document.querySelectorAll(".expression--sentence")
-  var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
-  if (sentences !== null) {
-    if (promiseJustCreated) {
-      settingsPromise.then(() => {
-        for (var sent of sentences) {
-          processSentence(sent, isAltDisplay);
-        }
-      });
-    }
-  }
+  //var sentences = document.querySelectorAll(".expression--sentence")
+  //var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
+  //if (sentences !== null) {
+  //  if (promiseJustCreated) {
+  //    settingsPromise.then(() => {
+  //      for (var sent of sentences) {
+  //        processSentence(sent, isAltDisplay);
+  //      }
+  //    });
+  //  }
+  //}
 
 </script>
 
@@ -1201,16 +1253,16 @@ r"""
       {{/AltDisplay}}
     {{/AltDisplayPASentenceCard}});
 
-  var sentences = document.querySelectorAll(".expression--sentence");
-  if (sentences !== null) {
-    if (promiseJustCreated) {
-      settingsPromise.then(() => {
-        for (var sent of sentences) {
-          processSentence(sent, isAltDisplay);
-        }
-      });
-    }
-  }
+  //var sentences = document.querySelectorAll(".expression--sentence");
+  //if (sentences !== null) {
+  //  if (promiseJustCreated) {
+  //    settingsPromise.then(() => {
+  //      for (var sent of sentences) {
+  //        processSentence(sent, isAltDisplay);
+  //      }
+  //    });
+  //  }
+  //}
 </script>
 """,
 
@@ -1283,20 +1335,20 @@ r"""
   // Only working css-only solution I found was by moving the text to -9999
   // - above is hacky because copy/pastes will still copy the text
   // TODO move this to processSentence
-  var d = document.getElementById("Display");
-  d.innerHTML = d.innerHTML.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
+  //var d = document.getElementById("Display");
+  //d.innerHTML = d.innerHTML.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
 
-  var sentences = document.querySelectorAll(".expression--sentence")
-  var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
-  if (sentences !== null) {
-    if (promiseJustCreated) {
-      settingsPromise.then(() => {
-        for (var sent of sentences) {
-          processSentence(sent, isAltDisplay);
-        }
-      });
-    }
-  }
+  //var sentences = document.querySelectorAll(".expression--sentence")
+  //var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
+  //if (sentences !== null) {
+  //  if (promiseJustCreated) {
+  //    settingsPromise.then(() => {
+  //      for (var sent of sentences) {
+  //        processSentence(sent, isAltDisplay);
+  //      }
+  //    });
+  //  }
+  //}
 </script>
 """,
 
