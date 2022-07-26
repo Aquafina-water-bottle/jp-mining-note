@@ -93,31 +93,50 @@ return my;
   // TODO look to separate async / sync things further in javascript
   // TODO compile card such that settings don't have to be used
   // https://forums.ankiweb.net/t/linking-to-external-javascript/1713
+  var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
   var injectScript = (src) => {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = src;
       script.async = true;
       script.onload = resolve;
-      script.onerror = reject;
+      script.onerror = function(errorEvent) {
+        // seems only to error if the options file is not found
+        // syntax errors trigger the sanity check section and javascript error section
+        logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
+      }
+
 
       document.head.appendChild(script);
     });
   };
 
-  if (typeof JPMNOpts === 'undefined') {
-    var settingsPromise = injectScript('jp-mining-note-options.js');
-  }
-  settingsPromise.then(() => {
-    // various sanity checks
+  // crazy hack for anki (as of writing: 2.1.53
+  // for some reason, the settingsPromise variable could be defined already in
+  // a very specific environment (toggle between IsSentenceCard & preview multiple times).
+  // this ensures that the promise is not yet defined, and prevents adding further
+  // then() statements to it
+  var promiseJustCreated = false;
+  var promiseAlreadyExists = (typeof settingsPromise !== "undefined");
+  if (promiseAlreadyExists) {
     if (typeof JPMNOpts === 'undefined') {
-      logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+      // ASSUMPTION: JPMNOpts will get loaded up from the promise (which is kind of weird behavior tbh)
+      //logger.error("WTF");
     }
-    var scriptIsLoaded = document.querySelectorAll("script[src='jp-mining-note-options.js']").length > 0;
-    if (!scriptIsLoaded) {
-      logger.error("Options file not found! Make sure `jp-mining-note-options.js` is placed in the media folder.");
+  } else {
+    if (typeof JPMNOpts === 'undefined') {
+      var settingsPromise = injectScript(OPTIONS_FILE);
+      promiseJustCreated = true;
+
+      settingsPromise.then(() => {
+        // sanity check
+        if (typeof JPMNOpts === 'undefined') {
+          logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+        }
+      })
+
     }
-  })
+  }
 
 
 
@@ -868,11 +887,13 @@ return my;
   var sentences = document.querySelectorAll(".expression--sentence")
   var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
   if (sentences !== null) {
-    settingsPromise.then(() => {
-      for (var sent of sentences) {
-        processSentence(sent, isAltDisplay);
-      }
-    });
+    if (promiseJustCreated) {
+      settingsPromise.then(() => {
+        for (var sent of sentences) {
+          processSentence(sent, isAltDisplay);
+        }
+      });
+    }
   }
 
 </script>

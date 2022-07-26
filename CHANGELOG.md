@@ -11,7 +11,7 @@ signified.)
 
 
 
-## [0.7.0.0] - ???
+## [0.7.0.0] - 2022-07-26
 
 #### Changed (BREAKING)
 - Changed `PADictionaries` -> `UtilityDictionaries`
@@ -22,6 +22,7 @@ signified.)
 
 #### Fixed
 - Properly handled script (options file) asynchronously loading
+- Properly handled the promise to not execute twice
 
 
 
