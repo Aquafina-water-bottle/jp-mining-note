@@ -1,0 +1,21 @@
+
+
+<div class="expression expression-box">
+  {{ IF("IsTargetedSentenceCard") }}
+    <div class="expression expression--sentence bold-yellow" id="Display">
+      {{ utils.prioritize_alt_display("Sentence") }}
+    </div>
+  {{ END("IsTargetedSentenceCard") }}
+
+  <!-- appears to the left -->
+  <div class="flag-box">
+    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+      class="flag-box__svg" id="flag_box_svg">
+      <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
+        <title id=svg_title></title>
+      </circle>
+    </svg>
+  </div>
+
+</div> <!-- expression box -->
+

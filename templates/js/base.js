@@ -1,3 +1,4 @@
+
 var logger = (function () {
   let my = {};
 
@@ -196,19 +197,13 @@ var paIndicator = (function () {
   my.className = null;
   my.tooltip = null;
 
-  // TODO
-  /* {#
-  if ("{{PADoNotTest}}{{PASeparateWordCard}}") {
-    // PADoNotTest or PASeparateWordCard -> nothing is tested
+  if ('{{ utils.any_of_str("PADoNotTest", "PASeparateWordCard") }}') {
     my.type = "none";
-  } else if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
-    // either PASeparateSentenceCard or PATestOnlyWord -> only word is tested
+  } else if ('{{ utils.any_of_str("PASeparateSentenceCard", "PATestOnlyWord") }}') {
     my.type = "word";
-  } else if ("{{IsSentenceCard}}") {
-    // sentence card but no pitch accent indicators are overridden
+  } else if ('{{ utils.any_of_str("IsSentenceCard") }}') {
     my.type = "sentence";
   } else {
-    // regular word card
     my.type = "word";
   }
 
@@ -221,7 +216,6 @@ var paIndicator = (function () {
   } else { // sentence
     my.tooltip = "Sentence"
   }
-  #} */
 
   return my;
 }());
@@ -284,8 +278,8 @@ var processQuote = function(sentEle, sent, isAltDisplay) {
 
         // neither hover & click and is either one of TSC / sentence -> removes flag
 
-        /// {% call utils.none_of("IsHoverCard", "IsClickCard") %}
-          /// {% call utils.any_of("IsTargetedSentenceCard", "IsSentenceCard") %}
+        /// {% call utils.none_of_js("IsHoverCard", "IsClickCard") %}
+          /// {% call utils.any_of_js("IsTargetedSentenceCard", "IsSentenceCard") %}
             var svgEle = document.getElementById("flag_box_svg");
             svgEle.style.display = "none";
           /// {% endcall %}
@@ -392,6 +386,106 @@ function processSentences(isAltDisplay, isClozeDeletion ) {
 
 
 
+
+// shift to switch between sentence & word on click & hover cards
+// NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
+// because functions persist and cannot be easily removed within anki,
+// whereas .onkeyup = ... replaces the previous function with the current.
+document.onkeyup = (e => {
+  var keys = null;
+
+  // tests for the existance of extraKeybindSettings
+  if (typeof extraKeybindSettings !== 'undefined') {
+    extraKeybindSettings(e);
+  }
+
+  /// {% call IF("WordAudio") %}
+    keys = settings.keybind("play-word-audio");
+    if (keys !== null && keys.includes(e.key)) {
+      var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
+      if (elem) {
+        elem.click();
+      }
+    }
+  /// {% endcall %}
+
+  /// {% call IF("SentenceAudio") %}
+    keys = settings.keybind("play-sentence-audio");
+    if (keys !== null && keys.includes(e.key)) {
+
+      var hSent = document.getElementById("hybrid-sentence");
+
+      /// {% if note.card_type == "main" and note.side == "front" %}
+      if (settings.general("hybrid-sentence-open-on-play-sentence", true)
+          && '{{ utils.any_of_str("IsHoverCard", "IsClickCard") }}'
+          && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
+          && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
+        // this somehow works even when hybridClick is undefined here, woah
+        hybridClick();
+      } else {
+      /// {% endif %}
+        var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+        if (elem) {
+          elem.click();
+        }
+      /// {% if note.card_type == "main" and note.side == "front" %}
+      }
+      /// {% endif %}
+    }
+  /// {% endcall %}
+
+  keys = settings.keybind("toggle-front-full-sentence-display");
+  var ele = document.getElementById("full_sentence_front_details");
+  if (keys !== null && ele && keys.includes(e.key)) {
+    toggleDetailsTag(ele)
+  }
+
+  /// {% call IF("Hint") %}
+    keys = settings.keybind("toggle-hint-display");
+    var ele = document.getElementById("hint_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
+    }
+  /// {% endcall %}
+
+  /// {% if note.side == "back" %}
+    /// {% call IF("SecondaryDefinition") %}
+      keys = settings.keybind("toggle-secondary-definitions-display");
+      var ele = document.getElementById("secondary_definition_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele)
+      }
+    /// {% endcall %}
+
+    /// {% call IF("AdditionalNotes") %}
+      keys = settings.keybind("toggle-additional-notes-display");
+      var ele = document.getElementById("additional_notes_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele)
+      }
+    /// {% endcall %}
+
+    /// {% call IF("ExtraDefinitions") %}
+      keys = settings.keybind("toggle-extra-definitions-display");
+      var ele = document.getElementById("extra_definitions_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele)
+      }
+    /// {% endcall %}
+
+    if ('{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
+      keys = settings.keybind("toggle-extra-info-display");
+      var ele = document.getElementById("extra_info_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele)
+      }
+    }
+  /// {% endif %}
+
+})
+
+
+
 (async () => {
   if (typeof JPMNOpts === 'undefined') {
     await injectScript(OPTIONS_FILE);
@@ -401,29 +495,6 @@ function processSentences(isAltDisplay, isClozeDeletion ) {
   if (typeof JPMNOpts === 'undefined') {
     logger.error("JPMNOpts was not defined in the options file. Was there an error?");
   }
-
-  // I'd prefer putting this within individual files for better code separation
-  // however, I cannot find a way around the above promises issue,
-  // otherwise I could use the .then construct...
-
-  //{#var sentences = document.querySelectorAll(".expression--sentence")
-  //var isAltDisplay = false;
-  //var isClozeDeletion = false;
-
-  //{% if note.card_type == "main" %}
-  //isAltDisplay = {{ IF("AltDisplay") }} true || {{ END("AltDisplay") }} false ? true : false;
-  //{% elif note.card_type == "cloze_deletion" %}
-  //isAltDisplay = {{ IF("AltDisplay") }} true || {{ END("AltDisplay") }} false ? true : false;
-  //isClozeDeletion = true;
-  //{% elif note.card_type == "pa_sent" %}
-  //{% endif %}
-
-  //if (sentences !== null) {
-  //  for (var sent of sentences) {
-  //    processSentence(sent, isAltDisplay, isClozeDeletion);
-  //  }
-  //}
-  //#}
 
   //{% block js_run %}
   //{% endblock %}

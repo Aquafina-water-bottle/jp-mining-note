@@ -1,0 +1,91 @@
+{% set card_type %}
+{% raw %}
+
+  {{#IsHoverCard}}
+    Hover ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
+  {{/IsHoverCard}}
+
+  {{^IsHoverCard}}
+
+    {{#IsClickCard}}
+      Click ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
+    {{/IsClickCard}}
+
+    {{^IsClickCard}}
+      {{#IsTargetedSentenceCard}}
+        TSC
+      {{/IsTargetedSentenceCard}}
+      {{^IsTargetedSentenceCard}}
+        {{#IsSentenceCard}}
+          {{^IsTargetedSentenceCard}}
+            Sentence
+          {{/IsTargetedSentenceCard}}
+        {{/IsSentenceCard}}
+      {{/IsTargetedSentenceCard}}
+
+      {{^IsSentenceCard}}
+          Word
+      {{/IsSentenceCard}}
+    {{/IsClickCard}}
+  {{/IsHoverCard}}
+
+  <!-- not legacy card -->
+  {{#PAShowInfo}}
+
+    /
+
+    <!--
+    anki doesn't allow "or" logic in templates,
+    so I replicate it by repeating things a bunch of times...
+
+        A v B  = (A ^ ~B) v (~A ^ B) v (A ^ B)
+        ~(A v B) =  ~A ^ ~B
+    For more readable logic, check the "Word pitch indicator color" javascript code
+    -->
+
+    <!-- PADoNotTest or PASeparateWordCard == none -->
+    {{#PADoNotTest}} {{#PASeparateWordCard}}
+      None
+    {{/PASeparateWordCard}} {{/PADoNotTest}}
+    {{^PADoNotTest}} {{#PASeparateWordCard}}
+      None
+    {{/PASeparateWordCard}} {{/PADoNotTest}}
+    {{#PADoNotTest}} {{^PASeparateWordCard}}
+      None
+    {{/PASeparateWordCard}} {{/PADoNotTest}}
+
+    <!-- neither PADoNotTest, PASeparateWordCard are filled -->
+    <!-- we then test the PA somewhere -->
+    {{^PADoNotTest}} {{^PASeparateWordCard}}
+
+      <!-- PASeparateSentenceCard or PATestOnlyWord == word -->
+      {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+        Word
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+        Word
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+        Word
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+
+      <!-- if none of the above, then we test the default value -->
+      {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
+
+        <!-- note that hybrid cards only test the word -->
+        {{#IsSentenceCard}}
+            Sentence
+        {{/IsSentenceCard}}
+
+        {{^IsSentenceCard}}
+            Word
+        {{/IsSentenceCard}}
+
+      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+
+    {{/PASeparateWordCard}} {{/PADoNotTest}}
+
+  {{/PAShowInfo}}
+{% endraw %}
+{% endset %}
+

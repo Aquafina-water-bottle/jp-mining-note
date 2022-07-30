@@ -9,9 +9,14 @@
 {# {{#<name>}} #}
 {% macro IF(name) -%}
 {%- if caller is defined -%}
-{{ "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" }}
-{{- caller() -}}
-{{ "{" }}{{ "{" }}{{ "/" }}{{ name }}{{ "}" }}{{ "}" }}
+  {%- if name in ALWAYS_FALSE -%} {# nothing #}
+  {%- elif name in ALWAYS_TRUE -%}
+  {{- caller() -}}
+  {%- else -%}
+  {{ "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" }}
+  {{- caller() -}}
+  {{ "{" }}{{ "{" }}{{ "/" }}{{ name }}{{ "}" }}{{ "}" }}
+  {%- endif -%}
 {%- else -%}
 {{- "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" -}}
 {%- endif -%}
@@ -20,9 +25,14 @@
 {# {{^<name>}} #}
 {% macro IFNOT(name) -%}
 {%- if caller is defined -%}
-{{ "{" }}{{ "{" }}{{ "^" }}{{ name }}{{ "}" }}{{ "}" }}
-{{- caller() -}}
-{{ "{" }}{{ "{" }}{{ "/" }}{{ name }}{{ "}" }}{{ "}" }}
+  {%- if name in ALWAYS_TRUE -%} {# nothing #}
+  {%- elif name in ALWAYS_FALSE -%}
+  {{- caller() -}}
+  {%- else -%}
+  {{ "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" }}
+  {{- caller() -}}
+  {{ "{" }}{{ "{" }}{{ "/" }}{{ name }}{{ "}" }}{{ "}" }}
+  {%- endif -%}
 {%- else -%}
 {{- "{" }}{{ "{" }}{{ "^" }}{{ name }}{{ "}" }}{{ "}" -}}
 {%- endif -%}

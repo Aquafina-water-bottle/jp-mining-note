@@ -1,5 +1,6 @@
 {# syntax looks weird to not screw up vim syntax highlighting... #}
 
+{#
 {% macro any_of() %}
   {% for n in range(1, (2 ** (varargs|length))) %}
     {% for i in range(varargs|length) -%}
@@ -82,3 +83,16 @@
   }
   // {% endcall %}
 </script>
+#}
+
+
+{% macro any_of(comment=False) %}
+{{ varargs }}
+"{{ comment }}"
+{{ caller() }}
+{% endmacro %}
+
+/// {% call any_of("IsTargetedSentenceCard", "IsSentenceCard", False) %}
+  hello
+/// {% endcall %}
+

@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% set note = namespace() %}
-{% set note.side = "front" %}
+{% set note.side = "back" %}
 {% set note.card_type = "main" %}
 
 {% from "cards/main/common.html" import card_type %}
+{% from "cards/common.html" import border %}
 
 {% block card_type %}
   {{ card_type }}
@@ -16,6 +17,7 @@
 
 
 {% block javascript %}
-  {% include "js/cards/main/front.js" %}
+  {% include "js/cards/main/back.js" %}
 {% endblock %}
+
 

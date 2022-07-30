@@ -334,4 +334,6 @@ temp.html
 tmp/
 media_options.js
 templates/temp.txt
+templates/out.html
+templates/output/
 
