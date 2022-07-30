@@ -59,7 +59,8 @@ def generate_cards():
 
     # TODO use data folder perhaps
 
-    print(template.render(version="1.0.1"))
+    with open("templates/out.html", "w") as file:
+        file.write(template.render(version="1.0.1"))
 
 
 if __name__ == "__main__":
