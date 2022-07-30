@@ -80,23 +80,23 @@ return my;
   // TODO look to separate async / sync things further in javascript
   // TODO compile card such that settings don't have to be used
   // https://forums.ankiweb.net/t/linking-to-external-javascript/1713
-  var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
-  var injectScript = (src) => {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-      script.onload = resolve;
-      script.onerror = function(errorEvent) {
-        // seems only to error if the options file is not found
-        // syntax errors trigger the sanity check section and javascript error section
-        logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
-      }
+  //var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
+  //var injectScript = (src) => {
+  //  return new Promise((resolve, reject) => {
+  //    const script = document.createElement('script');
+  //    script.src = src;
+  //    script.async = true;
+  //    script.onload = resolve;
+  //    script.onerror = function(errorEvent) {
+  //      // seems only to error if the options file is not found
+  //      // syntax errors trigger the sanity check section and javascript error section
+  //      logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
+  //    }
 
 
-      document.head.appendChild(script);
-    });
-  };
+  //    document.head.appendChild(script);
+  //  });
+  //};
 
   // crazy hack for anki (as of writing) 2.1.53
   // for some reason, the settingsPromise variable could be defined already in
@@ -126,52 +126,57 @@ return my;
   //}
 
 
-  (async () => {
-    if (typeof JPMNOpts === 'undefined') {
-      await injectScript(OPTIONS_FILE);
-    }
+  //(async () => {
+  //  if (typeof JPMNOpts === 'undefined') {
+  //    await injectScript(OPTIONS_FILE);
+  //  }
 
-    // sanity check
-    if (typeof JPMNOpts === 'undefined') {
-      logger.error("JPMNOpts was not defined in the options file. Was there an error?");
-    }
+  //  // sanity check
+  //  if (typeof JPMNOpts === 'undefined') {
+  //    logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+  //  }
 
-    // I'd prefer putting this within individual files for better code separation
-    // however, I cannot find a way around the above promises issue,
-    // otherwise I could use the .then construct...
+  //  // I'd prefer putting this within individual files for better code separation
+  //  // however, I cannot find a way around the above promises issue,
+  //  // otherwise I could use the .then construct...
 
-    var sentences = document.querySelectorAll(".expression--sentence")
-    var isAltDisplay = false;
-    var isClozeDeletion = false;
-    if (note.cardType === "main") {
-      isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
-    } else if (note.cardType === "cloze_deletion") {
-      isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
-      isClozeDeletion = true;
-    } else if (note.cardType === "pa_sent") {
-      isAltDisplay = (
-        {{#AltDisplayPASentenceCard}} true {{/AltDisplayPASentenceCard}}
-        {{^AltDisplayPASentenceCard}}
-          {{#AltDisplay}}
-            {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
-              false &&
-            {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}
-            true ? true : false
-          {{/AltDisplay}}
-          {{^AltDisplay}}
-            false
-          {{/AltDisplay}}
-        {{/AltDisplayPASentenceCard}});
-    }
+  //  var sentences = document.querySelectorAll(".expression--sentence")
+  //  var isAltDisplay = false;
+  //  var isClozeDeletion = false;
+  //  if (note.cardType === "main") {
+  //    isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
+  //  } else if (note.cardType === "cloze_deletion") {
+  //    isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
+  //    isClozeDeletion = true;
+  //  } else if (note.cardType === "pa_sent") {
+  //    isAltDisplay = (
+  //      {{#AltDisplayPASentenceCard}} true {{/AltDisplayPASentenceCard}}
+  //      {{^AltDisplayPASentenceCard}}
+  //        {{#AltDisplay}}
+  //          {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
+  //            false &&
+  //          {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}
+  //          true ? true : false
+  //        {{/AltDisplay}}
+  //        {{^AltDisplay}}
+  //          false
+  //        {{/AltDisplay}}
+  //      {{/AltDisplayPASentenceCard}});
+  //  }
 
-    if (sentences !== null) {
-      for (var sent of sentences) {
-        processSentence(sent, isAltDisplay, isClozeDeletion);
-      }
-    }
+  //  if (sentences !== null) {
+  //    for (var sent of sentences) {
+  //      processSentence(sent, isAltDisplay, isClozeDeletion);
+  //    }
+  //  }
 
-  })();
+  //})();
+</script>
 
+<!-- TEMPORARILY bringing this back until javascript is all compiled -->
+<script src="jp-mining-note-options.js"></script>
+
+<script>
 
 
   /*
