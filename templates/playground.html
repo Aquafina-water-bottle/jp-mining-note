@@ -1,0 +1,84 @@
+{# syntax looks weird to not screw up vim syntax highlighting... #}
+
+{% macro any_of() %}
+  {% for n in range(1, (2 ** (varargs|length))) %}
+    {% for i in range(varargs|length) -%}
+      {%- set mask = 1 | bitwise_shift_left(i) -%}
+      {%- if mask | bitwise_and(n) -%}
+        {{ "{" }}{{ "{" }}{{ "#" }}{{varargs[i]}}{{ "}" }}{{ "}" }}
+      {%- else -%}
+        {{ "{" }}{{ "{" }}{{ "^" }}{{varargs[i]}}{{ "}" }}{{ "}" }}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {{ caller() }}
+
+    {%- for name in varargs|reverse -%}
+      {{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
+    {%- endfor -%}
+
+  {%- endfor %}
+{% endmacro %}
+
+{% call any_of("a", "b", "c", "d", "e") %}oh hell yeah{% endcall %}
+
+
+
+
+{% macro none_of() %}
+  {%- for name in varargs -%}
+    {{ "{" }}{{ "{" }}{{ "^" }}{{name}}{{ "}" }}{{ "}" }}
+  {%- endfor -%}
+
+  {{ caller() }}
+
+  {%- for name in varargs|reverse -%}
+    {{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
+  {%- endfor -%}
+{% endmacro %}
+
+
+{% call none_of("a", "b", "c", "d") %}
+  oh hell no
+{% endcall %}
+
+
+
+
+{% macro caller_exists() %}
+
+  {% if caller is defined %}
+    caller
+  {% else %}
+    no caller
+  {% endif %}
+
+{% endmacro %}
+
+
+{% call caller_exists() %}
+  oh hell yeah
+{% endcall %}
+
+{{ caller_exists() }}
+
+{% macro IF(name) -%}
+{%- if caller is defined -%}
+{{ "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" }}
+{{- caller() -}}
+{{ "{" }}{{ "{" }}{{ "/" }}{{ name }}{{ "}" }}{{ "}" }}
+{%- else -%}
+{{- "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" -}}
+{%- endif -%}
+{%- endmacro %}
+
+
+
+<script>
+  // {% call IF("IsHoverCard") %}
+  var elem = document.querySelector(".expression__hybrid-wrapper");
+  if (elem !== null) {
+    elem.classList.add("expression__hybrid-wrapper--hover-remove-flag");
+  }
+  // {% endcall %}
+</script>

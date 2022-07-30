@@ -1,0 +1,37 @@
+{# syntax looks weird to not screw up vim syntax highlighting... #}
+
+
+{# {{#<name>}} #}
+{% macro T(name) -%}
+{{ "{" }}{{ "{" }}{{ name }}{{ "}" }}{{ "}" }}
+{%- endmacro %}
+
+{# {{#<name>}} #}
+{% macro IF(name) -%}
+{%- if caller is defined -%}
+{{ "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" }}
+{{- caller() -}}
+{{ "{" }}{{ "{" }}{{ "/" }}{{ name }}{{ "}" }}{{ "}" }}
+{%- else -%}
+{{- "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" -}}
+{%- endif -%}
+{%- endmacro %}
+
+{# {{^<name>}} #}
+{% macro IFNOT(name) -%}
+{%- if caller is defined -%}
+{{ "{" }}{{ "{" }}{{ "^" }}{{ name }}{{ "}" }}{{ "}" }}
+{{- caller() -}}
+{{ "{" }}{{ "{" }}{{ "/" }}{{ name }}{{ "}" }}{{ "}" }}
+{%- else -%}
+{{- "{" }}{{ "{" }}{{ "^" }}{{ name }}{{ "}" }}{{ "}" -}}
+{%- endif -%}
+{%- endmacro %}
+
+{# {{/<name>}} #}
+{% macro END(name) -%}
+{{ "{" }}{{ "{" }}{{ "/" }}{{ name }}{{ "}" }}{{ "}" }}
+{%- endmacro %}
+
+
+

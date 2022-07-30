@@ -505,7 +505,7 @@ ruby rt {
   justify-content: center;
 }
 
-.expression__hybrid-wrapper--hover:hover + .flag-box > .flag-box__svg {
+.expression__hybrid-wrapper--hover-remove-flag:hover + .flag-box > .flag-box__svg {
   display: none;
 }
 

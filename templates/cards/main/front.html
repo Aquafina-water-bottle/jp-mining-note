@@ -1,64 +1,49 @@
-<!--
-  Listening
-  X / Y
-
-  X:
-    Word
-    Sentence
-    Hybrid
-
-  Y:
-    Legacy
-    None
-    Word
-    Sentence
--->
+{% extends "base.html" %}
+{#{% from "macros/utils.html" import whatever with context %}#}
+{% from "macros/global.html" import T, IF, IFNOT, END %}
+{% import "macros/utils.html" as utils %}
 
 {% set note = namespace() %}
 {% set note.side = "front" %}
 {% set note.card_type = "main" %}
 
 
+{% block card_html %}
+  {{ super() }}
 
+  <div class="expression expression-box">
+    {{ IF("IsTargetedSentenceCard") }}
+      <div class="expression expression--sentence bold-yellow" id="Display">
+        {{ IF("AltDisplay") }}
+          {{ T("furigana:AltDisplay") }}
+        {{ END("AltDisplay") }}
+        {{ IFNOT("AltDisplay") }}
+          {{ T("Sentence") }}
+        {{ END("AltDisplay") }}
+      </div>
+    {{ END("IsTargetedSentenceCard") }}
 
-<div class="card-description">
-  Gamer Card
-
-  {{{ info_circle }}}
-
-  {{{ version }}}
-</div>
-
-
-
-<div class="expression expression-box">
-  {{#IsTargetedSentenceCard}}
-    <div class="expression expression--sentence bold-yellow" id="Display">
-      {{#AltDisplay}}
-        {{furigana:AltDisplay}}
-      {{/AltDisplay}}
-      {{^AltDisplay}}
-        {{Sentence}}
-      {{/AltDisplay}}
+    <!-- appears to the left -->
+    <div class="flag-box">
+      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+        class="flag-box__svg" id="flag_box_svg">
+        <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
+          <title id=svg_title></title>
+        </circle>
+      </svg>
     </div>
-  {{/IsTargetedSentenceCard}}
 
-  <!-- appears to the left -->
-  <div class="flag-box">
-    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-      class="flag-box__svg" id="flag_box_svg">
-      <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
-        <title id=svg_title></title>
-      </circle>
-    </svg>
-  </div>
-
-
-</div> <!-- expression box -->
-
-
-<script>
-{% block javascript %}
+  </div> <!-- expression box -->
 {% endblock %}
-</script>
+
+
+
+
+{% block javascript %}
+  {% filter indent(width=2, first=False) %}
+  {% include "js/main.js" %}
+
+  {% endfilter %}
+{% endblock %}
+
 
