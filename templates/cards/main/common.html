@@ -1,91 +1,68 @@
+{# man #}
+
+{% from "macros/global.html" import T, IF, IFNOT, END with context %}
+{% import "macros/utils.html" as utils with context %}
+
 {% set card_type %}
-{% raw %}
+  {% call IF("IsHoverCard") %}
+    Hover ({% call IF("IsSentenceCard") %}Sentence{% endcall %}{% call IFNOT("IsSentenceCard") %}WORD{% endcall %})
+  {% endcall %}
 
-  {{#IsHoverCard}}
-    Hover ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
-  {{/IsHoverCard}}
 
-  {{^IsHoverCard}}
+  {% call IFNOT("IsHoverCard") %}
 
-    {{#IsClickCard}}
-      Click ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
-    {{/IsClickCard}}
+    {% call IF("IsClickCard") %}
+      Click ({% call IF("IsSentenceCard") %}Sentence{% endcall %}{% call IFNOT("IsSentenceCard") %}WORD{% endcall %})
+    {% endcall %}
 
-    {{^IsClickCard}}
-      {{#IsTargetedSentenceCard}}
+    {% call IFNOT("IsClickCard") %}
+      {% call IF("IsTargetedSentenceCard") %}
         TSC
-      {{/IsTargetedSentenceCard}}
-      {{^IsTargetedSentenceCard}}
-        {{#IsSentenceCard}}
-          {{^IsTargetedSentenceCard}}
-            Sentence
-          {{/IsTargetedSentenceCard}}
-        {{/IsSentenceCard}}
-      {{/IsTargetedSentenceCard}}
-
-      {{^IsSentenceCard}}
+      {% endcall %}
+      {% call IFNOT("IsTargetedSentenceCard") %}
+        {% call IF("IsSentenceCard") %}
+          Sentence
+        {% endcall %}
+        {% call IFNOT("IsSentenceCard") %}
           Word
-      {{/IsSentenceCard}}
-    {{/IsClickCard}}
-  {{/IsHoverCard}}
+        {% endcall %}
+      {% endcall %}  {# NOT IsTargetedSentenceCard #}
+    {% endcall %}  {# NOT IsClickCard #}
+  {% endcall %} {# NOT IsHoverCard #}
 
-  <!-- not legacy card -->
-  {{#PAShowInfo}}
+  {% call IF("PAShowInfo") %}
 
     /
 
-    <!--
-    anki doesn't allow "or" logic in templates,
-    so I replicate it by repeating things a bunch of times...
-
-        A v B  = (A ^ ~B) v (~A ^ B) v (A ^ B)
-        ~(A v B) =  ~A ^ ~B
-    For more readable logic, check the "Word pitch indicator color" javascript code
-    -->
-
     <!-- PADoNotTest or PASeparateWordCard == none -->
-    {{#PADoNotTest}} {{#PASeparateWordCard}}
+    {% call utils.any_of("PADoNotTest", "PASeparateWordCard") %}
       None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-    {{^PADoNotTest}} {{#PASeparateWordCard}}
-      None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-    {{#PADoNotTest}} {{^PASeparateWordCard}}
-      None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
+    {% endcall %}
 
     <!-- neither PADoNotTest, PASeparateWordCard are filled -->
     <!-- we then test the PA somewhere -->
-    {{^PADoNotTest}} {{^PASeparateWordCard}}
+    {% call utils.none_of("PADoNotTest", "PASeparateWordCard") %}
 
       <!-- PASeparateSentenceCard or PATestOnlyWord == word -->
-      {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+      {% call utils.any_of("PASeparateSentenceCard", "PATestOnlyWord") %}
         Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
-        Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
-        Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {% endcall %}
 
       <!-- if none of the above, then we test the default value -->
-      {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
+      {% call utils.none_of("PASeparateSentenceCard", "PATestOnlyWord") %}
 
-        <!-- note that hybrid cards only test the word -->
-        {{#IsSentenceCard}}
-            Sentence
-        {{/IsSentenceCard}}
+        <!-- note: default for TSC is test word, may change in the future... -->
+        {% call IF("IsSentenceCard") %}
+          Sentence
+        {% endcall %}
+        {% call IFNOT("IsSentenceCard") %}
+          Word
+        {% endcall %}
 
-        {{^IsSentenceCard}}
-            Word
-        {{/IsSentenceCard}}
+      {% endcall %}
 
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+    {% endcall %}
 
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-
-  {{/PAShowInfo}}
-{% endraw %}
+  {% endcall %} {# IF PAShowInfo #}
 {% endset %}
 

@@ -1,23 +1,28 @@
-{% extends "base.html" %}
+{% extends "cards/base_back.html" %}
 
 {% set note = namespace() %}
 {% set note.side = "back" %}
 {% set note.card_type = "main" %}
 
-{% from "cards/main/common.html" import card_type %}
-{% from "cards/common.html" import border %}
+{% from "cards/main/common.html" import card_type with context %}
 
 {% block card_type %}
+  {{ super() }}
   {{ card_type }}
 {% endblock %}
 
-{% block card_html %}
+{% block card_html_top %}
+  {{ super() }}
   {% include "cards/main/front_display.html" %}
 {% endblock %}
 
+{% block card_html_bottom %}
+  {{ super() }}
+{% endblock %}
 
 {% block javascript %}
-  {% include "js/cards/main/back.js" %}
+  {{ super() }}
+  {% include "js/main/back.js" %}
 {% endblock %}
 
 

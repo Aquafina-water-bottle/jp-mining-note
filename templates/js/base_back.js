@@ -1,4 +1,4 @@
-/// {% extends "js/cards/main/base.js" %}
+/// {% extends "js/base.js" %}
 
 /// {% block js_functions %}
   {{ super() }}
@@ -41,14 +41,24 @@
 /// {% endblock %}
 
 
+
+
 /// {% block js_run %}
   {{ super() }}
 
   // checks leech
-  var tags = "{{Tags}}".split(" ");
+  var tags = "{{ T('Tags') }}".split(" ");
   if (tags.includes("leech")) {
     logger.leech();
   }
+
+
+  // a bit of a hack...
+  // The only reason why the downstep arrow exists in the first place is to make the downstep
+  // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
+  var wp = document.getElementById("dh_word_pitch");
+  wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+
 
   var modal = document.getElementById('modal');
   var modalImg = document.getElementById("bigimg");

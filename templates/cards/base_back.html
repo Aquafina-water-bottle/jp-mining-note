@@ -1,0 +1,60 @@
+{# gamer #}
+
+{% from "macros/global.html" import T, IF, IFNOT, END with context %}
+{% import "macros/utils.html" as utils with context %}
+
+{% import "cards/common.html" as common with context %}
+
+
+{% call IF("FrequenciesStylized") %}
+  {{ T("FrequenciesStylized") }}
+{% endcall %}
+
+
+<div class="card-description">
+  {% block card_type %}
+  {% endblock %}
+
+  {{ common.info_circle }}
+
+  {{ common.version }}
+
+</div>
+
+
+{% block card_html_top %}
+{% endblock %}
+
+{{ common.answer_border }}
+
+{% block card_html_bottom %}
+
+{{ common.def_header() }}
+{{ common.full_sentence }}
+{{ common.all_definitions }}
+
+{% endblock %}
+
+
+<!--
+  https://codeconvey.com/html-image-zoom-on-click/
+  http://www.liangshunet.com/en/202005/743233073.htm
+  https://stackoverflow.com/questions/8449933/how-to-transition-css-display-opacity-properties
+  https://www.javascripttutorial.net/dom/css/add-styles-to-an-element/
+  https://stackoverflow.com/questions/507138/how-to-add-a-class-to-a-given-element
+-->
+<!-- The Modal -->
+<div id="modal" class="modal">
+  <img class="modal-img" id="bigimg">
+</div>
+
+
+<script>
+{% block javascript %}
+{% endblock %}
+</script>
+
+
+
+
+

@@ -1,0 +1,31 @@
+{% from "macros/global.html" import T, IF, IFNOT, END with context %}
+{% import "macros/utils.html" as utils with context %}
+
+{% import "cards/common.html" as common with context %}
+
+
+<div class="card-description">
+  {% block card_type %}
+  {% endblock %}
+
+  {{ common.info_circle }}
+
+  {{ common.version }}
+
+</div>
+
+
+{% block card_html %}
+{% endblock %}
+
+
+
+<script>
+{% block javascript %}
+{% endblock %}
+</script>
+
+
+
+
+

@@ -1,3 +1,5 @@
+(function () { // restricts ALL javascript to hidden scope
+
 
 var logger = (function () {
   let my = {};
@@ -379,9 +381,8 @@ function processSentences(isAltDisplay, isClozeDeletion ) {
 
 
 
-//{% block js_functions %}
-//{% endblock %}
-
+/// {% block js_functions %}
+/// {% endblock %}
 
 
 
@@ -395,9 +396,13 @@ document.onkeyup = (e => {
   var keys = null;
 
   // tests for the existance of extraKeybindSettings
-  if (typeof extraKeybindSettings !== 'undefined') {
-    extraKeybindSettings(e);
-  }
+  //if (typeof extraKeybindSettings !== 'undefined') {
+  //  extraKeybindSettings(e);
+  //}
+
+  /// {% block js_keybind_settings %}
+  /// {% endblock %}
+
 
   /// {% call IF("WordAudio") %}
     keys = settings.keybind("play-word-audio");
@@ -485,8 +490,25 @@ document.onkeyup = (e => {
 })
 
 
+var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
+var injectScript = (src) => {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = function(errorEvent) {
+      // seems only to error if the options file is not found
+      // syntax errors trigger the sanity check section and javascript error section
+      logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
+    }
+    document.head.appendChild(script);
+  });
+};
+
 
 (async () => {
+
   if (typeof JPMNOpts === 'undefined') {
     await injectScript(OPTIONS_FILE);
   }
@@ -496,8 +518,12 @@ document.onkeyup = (e => {
     logger.error("JPMNOpts was not defined in the options file. Was there an error?");
   }
 
-  //{% block js_run %}
-  //{% endblock %}
+  /// {% block js_run %}
+  /// {% endblock %}
 
 })();
 
+
+
+
+}());
