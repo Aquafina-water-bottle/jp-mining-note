@@ -1,12 +1,36 @@
+
 (function () { // restricts ALL javascript to hidden scope
+
+
+// TODO remove this at some point and replace with proper checks
+var note = (function () {
+  let my = {};
+  my.colorQuotes = false;
+  return my;
+}());
+
 
 
 var logger = (function () {
   let my = {};
 
   let _appendMsg = function(message, groupEle) {
-    var msgEle = document.createElement('div');
-    msgEle.textContent = message;
+    let msgEle = document.createElement('div');
+    msgEle.classList.add("info-circle__message")
+    if (Array.isArray(message)) {
+      if (message.length > 0) {
+        msgEle.textContent = message[0];
+
+        for (let line of message.slice(1)) {
+          let lineEle = document.createElement('div');
+          lineEle.textContent = line;
+          msgEle.appendChild(lineEle);
+        }
+      }
+
+    } else {
+      msgEle.textContent = message;
+    }
     groupEle.appendChild(msgEle);
   }
 
@@ -54,17 +78,20 @@ var logger = (function () {
 
 
 // on any javascript error: log it
-//window.onerror = function(msg, url, lineNo, columnNo, error) {
-window.onerror = function(msg) {
-  logger.error("Javascript error: `" + msg + "`");
+window.onerror = function(msg, url, lineNo, columnNo, error) {
+//window.onerror = function(msg) {
+  //logger.error("Javascript error: `" + msg + "`" + "\n" + error.stack);
+  let stackList = error.stack.split(" at ");
+  for (let i = 1; i < stackList.length; i++) {
+    stackList[i] = ">>> " + stackList[i];
+  }
+  logger.error(stackList);
 }
 
 // https://stackoverflow.com/a/55178672
 window.onunhandledrejection = function(errorEvent) {
   logger.error("Javascript handler error: `" + errorEvent.reason + "`");
 }
-
-
 
 
 
@@ -372,7 +399,7 @@ function processSentences(isAltDisplay, isClozeDeletion ) {
   var sentences = document.querySelectorAll(".expression--sentence")
 
   if (sentences !== null) {
-    for (var sent of sentences) {
+    for (let sent of sentences) {
       processSentence(sent, isAltDisplay, isClozeDeletion);
     }
   }

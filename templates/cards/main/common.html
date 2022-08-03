@@ -2,17 +2,18 @@
 
 {% from "macros/global.html" import T, IF, IFNOT, END with context %}
 {% import "macros/utils.html" as utils with context %}
+{% import "cards/common.html" as common with context %}
 
 {% set card_type %}
   {% call IF("IsHoverCard") %}
-    Hover ({% call IF("IsSentenceCard") %}Sentence{% endcall %}{% call IFNOT("IsSentenceCard") %}WORD{% endcall %})
+    Hover ({% call IF("IsSentenceCard") %}Sentence{% endcall %}{% call IFNOT("IsSentenceCard") %}Word{% endcall %})
   {% endcall %}
 
 
   {% call IFNOT("IsHoverCard") %}
 
     {% call IF("IsClickCard") %}
-      Click ({% call IF("IsSentenceCard") %}Sentence{% endcall %}{% call IFNOT("IsSentenceCard") %}WORD{% endcall %})
+      Click ({% call IF("IsSentenceCard") %}Sentence{% endcall %}{% call IFNOT("IsSentenceCard") %}Word{% endcall %})
     {% endcall %}
 
     {% call IFNOT("IsClickCard") %}
@@ -66,3 +67,203 @@
   {% endcall %} {# IF PAShowInfo #}
 {% endset %}
 
+
+
+{% set front_display %}
+
+  <!-- legacy display -->
+  {% call IFNOT("PAShowInfo") %}
+
+    <!-- priority is on the alternate display sentence -->
+
+    {% call IF("IsHoverCard") %}
+      <!-- fallback card card html
+        in css: default hybrid css, but with hover instead of click -->
+      <div class="expression__hybrid-wrapper">
+        <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
+          <span class="expression--sentence expression__hybrid-sentence expression
+                     {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
+                     {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
+                     "
+                id="hybrid-sentence">
+            {{ utils.prioritize_alt_display("Sentence") }}
+          </span>
+          <span class="expression--word expression__hybrid-word
+              {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+              {% call IFNOT('IsTargetedSentenceCard') %}
+                {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+                {% call IFNOT('IsSentenceCard') %} expression__hybrid-word--word-underline {% endcall %}
+              {% endcall %}
+              expression__hybrid-word--hover-indicator"
+              id="hybrid-word">
+            {{ T("Word") }}
+          </span>
+        </div>
+      </div>
+    {% endcall %} {# IF IsHoverCard #}
+
+    {% call IFNOT("IsHoverCard") %}
+
+      {% call IF("IsClickCard") %}
+        <!-- hybrid (sentence or word) card html
+          in css: default hybrid css, with click -->
+        <div class="expression__hybrid-wrapper">
+          <div class="expression expression--single expression__hybrid expression__hybrid--click" id="Display">
+            <span class="expression--sentence expression__hybrid-sentence
+                      {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
+                      {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
+                      "
+                  id="hybrid-sentence">
+              {{ utils.prioritize_alt_display("Sentence") }}
+            </span>
+            <span class="expression--word expression__hybrid-word
+                  {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+                  {% call IFNOT('IsTargetedSentenceCard') %}
+                    {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+                    {% call IFNOT('IsSentenceCard') %} expression__hybrid-word--word-underline {% endcall %}
+                  {% endcall %}
+                expression__hybrid-word--click-indicator"
+                id="hybrid-word">
+              {{ T("Word") }}
+            </span>
+          </div>
+        </div>
+      {% endcall %} {# IF IsClickCard #}
+
+
+      {% call IFNOT("IsClickCard") %}
+
+        {% call IF("IsTargetedSentenceCard") %}
+          <div class="expression expression--sentence expression--single bold-yellow" id="Display">
+            {{ utils.prioritize_alt_display("Sentence") }}
+          </div>
+        {% endcall %}
+
+        {% call IFNOT("IsTargetedSentenceCard") %}
+          {% call IF("IsSentenceCard") %}
+            <div class="expression expression--sentence expression--single" id="Display">
+              {{ utils.prioritize_alt_display("Sentence") }}
+            </div>
+          {% endcall %}
+
+          {% call IFNOT("IsSentenceCard") %}
+            <div class="expression expression--word expression--single" id="Display">
+              {{ utils.prioritize_alt_display("Word") }}
+            </div>
+          {% endcall %}
+        {% endcall %} {# ISNOT IsTargetedSentenceCard #}
+
+      {% endcall %} {# IFNOT IsClickCard #}
+
+    {% endcall %} {# IFNOT IsHoverCard #}
+
+  {% endcall %} {# IFNOT PAShowInfo #}
+
+
+  <!-- regular display -->
+  {% call IF("PAShowInfo") %}
+    <div class="expression expression-box">
+
+      <!-- priority is on the alternate display sentence -->
+
+
+      {% call IF("IsHoverCard") %}
+        <!-- fallback card card html
+          in css: default hybrid css, but with hover instead of click -->
+        <div class="expression__hybrid-wrapper">
+          <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
+            <span class="expression--sentence expression__hybrid-sentence
+                         {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
+                         {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
+                         "
+                  id="hybrid-sentence">
+              {{ utils.prioritize_alt_display("Sentence") }}
+            </span>
+            <span class="expression--word expression__hybrid-word
+                {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+                {% call IFNOT('IsTargetedSentenceCard') %}
+                  {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+                  {% call IFNOT('IsSentenceCard') %} expression__hybrid-word--word-underline {% endcall %}
+                {% endcall %}
+                expression__hybrid-word--hover-indicator"
+                id="hybrid-word">
+              {{ T("Word") }}
+            </span>
+          </div>
+
+        </div>
+
+      {% endcall %} {# IF IsHoverCard #}
+
+      {% call IFNOT("IsHoverCard") %}
+
+        {% call IF("IsClickCard") %}
+          <!-- hybrid (sentence or word) card html
+            in css: default hybrid css, with click -->
+          <div class="expression__hybrid-wrapper">
+            <div class="expression expression__hybrid expression__hybrid--click" id="Display">
+              <span class="expression--sentence expression__hybrid-sentence
+                        {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
+                        {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
+                        "
+                    id="hybrid-sentence">
+                {{ utils.prioritize_alt_display("Sentence") }}
+              </span>
+              <span class="expression--word expression__hybrid-word
+                  {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+                  {% call IFNOT('IsTargetedSentenceCard') %}
+                    {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+                    {% call IFNOT('IsSentenceCard') %} expression__hybrid-word--word-underline {% endcall %}
+                  {% endcall %}
+                  expression__hybrid-word--click-indicator"
+                  id="hybrid-word">
+                {{ T("Word") }}
+              </span>
+            </div>
+          </div>
+        {% endcall %} {# IF IsClickCard #}
+
+        {% call IFNOT("IsClickCard") %}
+
+          {% call IF("IsTargetedSentenceCard") %}
+            <div class="expression expression--sentence bold-yellow" id="Display">
+              {{ utils.prioritize_alt_display("Sentence") }}
+            </div>
+          {% endcall %}
+
+          {% call IFNOT("IsTargetedSentenceCard") %}
+            {% call IF("IsSentenceCard") %}
+              <div class="expression expression--sentence" id="Display">
+                {{ utils.prioritize_alt_display("Sentence") }}
+              </div>
+            {% endcall %}
+
+            {% call IFNOT("IsSentenceCard") %}
+              <div class="expression expression--word" id="Display">
+                {{ utils.prioritize_alt_display("Word") }}
+              </div>
+            {% endcall %}
+          {% endcall %} {# ISNOT IsTargetedSentenceCard #}
+
+        {% endcall %} {# IFNOT IsClickCard #}
+
+      {% endcall %} {# IFNOT IsHoverCard #}
+
+
+      <!-- appears to the left -->
+      <div class="flag-box">
+        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+          class="flag-box__svg" id="flag_box_svg">
+          <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
+            <title id=svg_title></title>
+          </circle>
+        </svg>
+      </div>
+
+    </div> <!-- expression box -->
+
+  {% endcall %} {# IF PAShowInfo #}
+
+  {{ common.hint }}
+
+{% endset %}

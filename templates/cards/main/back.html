@@ -4,7 +4,7 @@
 {% set note.side = "back" %}
 {% set note.card_type = "main" %}
 
-{% from "cards/main/common.html" import card_type with context %}
+{% from "cards/main/common.html" import card_type, front_display with context %}
 
 {% block card_type %}
   {{ super() }}
@@ -13,7 +13,7 @@
 
 {% block card_html_top %}
   {{ super() }}
-  {% include "cards/main/front_display.html" %}
+  {{ front_display }}
 {% endblock %}
 
 {% block card_html_bottom %}

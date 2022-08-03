@@ -13,6 +13,8 @@
   --word-font-size: 70px;
   --description-font-size: 20px;
   --description-footer-font-size: 9px;
+
+  /* TODO dynamic solution */
   --tooltip-max-width: 500px;
   --tooltip-font-size: 14px;
 
@@ -342,7 +344,7 @@ ruby rt {
 .info-circle-text-leech:not(:empty) {
   margin-bottom: 10px;
 }
-.info-circle-text-leech div:before {
+.info-circle-text-leech .info-circle__message:before {
   content: "Leech";
   font-weight: bold;
   color: var(--info-circle-leech-text-color);
@@ -362,7 +364,7 @@ ruby rt {
 .info-circle-text-warning:not(:empty) {
   margin-bottom: 10px;
 }
-.info-circle-text-warning div:before {
+.info-circle-text-warning .info-circle__message:before {
   content: "Warning: ";
   font-weight: bold;
   color: var(--info-circle-warning-text-color);
@@ -381,7 +383,7 @@ ruby rt {
 .info-circle-text-error:not(:empty) {
   margin-bottom: 10px;
 }
-.info-circle-text-error div:before {
+.info-circle-text-error .info-circle__message:before {
   content: "ERROR: ";
   font-weight: bold;
   color: var(--info-circle-error-text-color);

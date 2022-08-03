@@ -4,7 +4,7 @@
 {% set note.side = "front" %}
 {% set note.card_type = "main" %}
 
-{% from "cards/main/common.html" import card_type with context %}
+{% from "cards/main/common.html" import card_type, front_display with context %}
 
 {% block card_type %}
   {{ super() }}
@@ -13,7 +13,41 @@
 
 {% block card_html %}
   {{ super() }}
-  {% include "cards/main/front_display.html" %}
+  {{ front_display }}
+
+
+  <!-- regular display -->
+  <!-- displays the audio and show/hide button, used only when testing pitch accent -->
+  {% call IF("PAShowInfo") %}
+
+    <!-- only shown if:
+      - word PA should be tested
+      - sentence card
+        - TSC and hybrid cards already shows the word
+    -->
+    {% call IF("IsSentenceCard") %}
+    {% call utils.none_of("PADoNotTest", "PASeparateWordCard",
+        "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard") %}
+
+    {% call utils.any_of("PASeparateSentenceCard", "PATestOnlyWord") %}
+      <button id="pa-button">Show</button>
+
+    {% endcall %}
+    {% endcall %}
+    {% endcall %}
+
+    <!--
+      if the display is a word: show sentence preview (spoilered)
+    -->
+    {% call utils.none_of("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard") %}
+      {{ common.full_sentence_front }}
+    {% endcall %}
+
+    {{ common.sentence_audio_no_autoplay }}
+
+  {% endcall %} {# PAShowInfo #}
+
+
 {% endblock %}
 
 

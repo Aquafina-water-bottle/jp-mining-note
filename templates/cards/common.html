@@ -70,6 +70,63 @@
 {% endset %}
 
 
+{% set full_sentence_front %}
+<details class="glossary-details" id="full_sentence_front_details">
+  <summary>Full Sentence</summary>
+  <div class="center-box-1">
+    <div class="center-box-2">
+      <div class="full-sentence bold-yellow" id="full_sentence_front">
+        {{ T("furigana:SentenceReading") }}
+      </div>
+    </div>
+  </div>
+</details>
+{% endset %}
+
+
+
+{% set play_sentence_only_js %}
+
+<script>
+  // THIS IS A HACK to play sentence audio first and to not autoplay the word audio
+  var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>
+
+{% endset %}
+
+
+
+{% set play_silence_only_js %}
+
+<script>
+  // THIS IS A HACK: this hack is to not auto-play the audio at the front of the card
+  // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
+  // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
+  var elem = document.querySelector("#pa-silence-audio .soundLink, #pa-silence-audio .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>
+
+{% endset %}
+
+
+{% set sentence_audio_no_autoplay %}
+
+<span id="pa-silence-audio" style="display:none">{{ T("PASilence") }}</span>
+
+{% call IF("SentenceAudio") %}
+  <span id="sentence-audio"> {{ T("SentenceAudio") }} </span>
+{% endcall %}
+
+{{ play_silence_only_js }}
+
+{% endset %}
+
+
 
 
 
