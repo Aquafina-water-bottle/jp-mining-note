@@ -1,4 +1,23 @@
 
+
+// import settings as a global variable
+// https://forums.ankiweb.net/t/how-to-include-external-files-in-your-template-js-css-etc-guide/11719
+
+//function getAnkiPrefix() {
+//  // TODO cross-platform support
+//  // "https://appassets.androidplatform.net" ?
+//  return "./";
+//}
+//
+//var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
+
+// import statements cannot be contained in a function, if statement, etc.
+//import {createOptions} from getAnkiPrefix() + OPTIONS_FILE;
+//
+import {createOptions} from "./jp-mining-note-options.js";
+
+
+
 (function () { // restricts ALL javascript to hidden scope
 
 
@@ -143,6 +162,40 @@ var settings = (function () {
 
 
 
+// global variable to set the PA indicator color (as a css class)
+/// {% call IF("PAShowInfo") %}
+var paIndicator = (function () {
+  let my = {};
+  my.type = null;
+  my.className = null;
+  my.tooltip = null;
+
+  if ('{{ utils.any_of_str("PADoNotTest", "PASeparateWordCard") }}') {
+    my.type = "none";
+  } else if ('{{ utils.any_of_str("PASeparateSentenceCard", "PATestOnlyWord") }}') {
+    my.type = "word";
+  } else if ('{{ utils.any_of_str("IsSentenceCard") }}') {
+    my.type = "sentence";
+  } else {
+    my.type = "word";
+  }
+
+  my.className = "pa-indicator-color--" + my.type;
+
+  if (my.type === "none") {
+    my.tooltip = "Do not test"
+  } else if (my.type == "word") {
+    my.tooltip = "Word"
+  } else { // sentence
+    my.tooltip = "Sentence"
+  }
+
+  return my;
+}());
+/// {% endcall %} // PAShowInfo
+
+
+
 var selectSentence = function(temp) {
   // only chooses the sentence around the bold characters
   var firstMatch = temp.indexOf("<b>");
@@ -219,36 +272,6 @@ var selectSentence = function(temp) {
 }
 
 
-// global variable to set the PA indicator color (as a css class)
-var paIndicator = (function () {
-  let my = {};
-  my.type = null;
-  my.className = null;
-  my.tooltip = null;
-
-  if ('{{ utils.any_of_str("PADoNotTest", "PASeparateWordCard") }}') {
-    my.type = "none";
-  } else if ('{{ utils.any_of_str("PASeparateSentenceCard", "PATestOnlyWord") }}') {
-    my.type = "word";
-  } else if ('{{ utils.any_of_str("IsSentenceCard") }}') {
-    my.type = "sentence";
-  } else {
-    my.type = "word";
-  }
-
-  my.className = "pa-indicator-color--" + my.type;
-
-  if (my.type === "none") {
-    my.tooltip = "Do not test"
-  } else if (my.type == "word") {
-    my.tooltip = "Word"
-  } else { // sentence
-    my.tooltip = "Sentence"
-  }
-
-  return my;
-}());
-
 
 var processQuote = function(sentEle, sent, isAltDisplay) {
   let result = sent;
@@ -257,10 +280,10 @@ var processQuote = function(sentEle, sent, isAltDisplay) {
   let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
 
   if (!isAltDisplay && settings.quote("auto-quote-sentence", true)) {
-    // this operation seems to be supported in anki!
     let arr = settings.quote("auto-quote-sentence-strings", ["「", "」"])
     logger.assert(Array.isArray(arr), "expected array");
     logger.assert(arr.length === 2, "expected array of len 2");
+    // this operation seems to be supported in anki!
     [openQuote, closeQuote] = arr;
   }
 
@@ -395,7 +418,7 @@ var toggleDetailsTag = function(ele) {
 }
 
 
-function processSentences(isAltDisplay, isClozeDeletion ) {
+function processSentences(isAltDisplay, isClozeDeletion) {
   var sentences = document.querySelectorAll(".expression--sentence")
 
   if (sentences !== null) {
@@ -517,38 +540,47 @@ document.onkeyup = (e => {
 })
 
 
-var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
-var injectScript = (src) => {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = src;
-    script.async = true;
-    script.onload = resolve;
-    script.onerror = function(errorEvent) {
-      // seems only to error if the options file is not found
-      // syntax errors trigger the sanity check section and javascript error section
-      logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
-    }
-    document.head.appendChild(script);
-  });
-};
+//var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
+//var injectScript = (src) => {
+//  return new Promise((resolve, reject) => {
+//    const script = document.createElement('script');
+//    script.src = src;
+//    script.async = true;
+//    script.onload = resolve;
+//    script.onerror = function(errorEvent) {
+//      // seems only to error if the options file is not found
+//      // syntax errors trigger the sanity check section and javascript error section
+//      logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
+//    }
+//    document.head.appendChild(script);
+//  });
+//};
 
 
-(async () => {
+//(async () => {
 
-  if (typeof JPMNOpts === 'undefined') {
-    await injectScript(OPTIONS_FILE);
-  }
+//if (typeof JPMNOpts === 'undefined') {
+//  await injectScript(OPTIONS_FILE);
+//}
 
-  // sanity check
-  if (typeof JPMNOpts === 'undefined') {
-    logger.error("JPMNOpts was not defined in the options file. Was there an error?");
-  }
+let JPMNOpts = createOptions();
 
-  /// {% block js_run %}
-  /// {% endblock %}
+// sanity check
+if (typeof JPMNOpts === 'undefined') {
+  logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+}
 
-})();
+// removes extra info section if not necessary
+var ele = document.querySelector(".pa-graphs");
+if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
+    !"{{ utils.any_of_str('UtilityDictionaries') }}") {
+  document.getElementById("extra_info_details").style.display = "none";
+}
+
+/// {% block js_run %}
+/// {% endblock %}
+
+//})();
 
 
 

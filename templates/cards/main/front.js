@@ -1,10 +1,10 @@
-/// {% extends "js/base.js" %}
-/// {% import "js/main/base.js" as js_main_base with context %}
+/// {% extends "cards/base.js" %}
+/// {% import "cards/main/common.js" as js_common with context %}
 
 
 /// {% block js_functions %}
   {{ super() }}
-  {{ js_main_base.functions }}
+  {{ js_common.functions }}
 
   function toggleHighlightWord() {
     var paButton = document.getElementById("pa-button");
@@ -26,13 +26,13 @@
 
 /// {% block js_keybind_settings %}
   {{ super() }}
-  {{ js_main_base.keybind_settings }}
+  {{ js_common.keybind_settings }}
 /// {% endblock %}
 
 
 /// {% block js_run %}
   {{ super() }}
-  {{ js_main_base.run }}
+  {{ js_common.run }}
 
   /// {% call IF("PAShowInfo") %}
   var paButton = document.getElementById("pa-button");

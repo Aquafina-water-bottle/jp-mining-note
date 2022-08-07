@@ -2,9 +2,9 @@
 
 {% set note = namespace() %}
 {% set note.side = "back" %}
-{% set note.card_type = "main" %}
+{% set note.card_type = "pa_sent" %}
 
-{% from "cards/main/common.html" import card_type, front_display with context %}
+{% from "cards/pa_sent/common.html" import card_type, front_display with context %}
 
 {% block card_type %}
   {{ super() }}
@@ -22,7 +22,8 @@
 
 {% block javascript %}
   {{ super() }}
-  {% include "cards/main/back.js" %}
+  {% include "cards/pa_sent/back.js" %}
 {% endblock %}
+
 
 

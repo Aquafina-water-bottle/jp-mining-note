@@ -60,17 +60,8 @@
 
 
 /// {% set run %}
-  var sentences = document.querySelectorAll(".expression--sentence")
-  var isAltDisplay = false;
-  var isClozeDeletion = false;
-
-  isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
-
-  if (sentences !== null) {
-    for (var sent of sentences) {
-      processSentence(sent, isAltDisplay);
-    }
-  }
+  var isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
+  processSentences(isAltDisplay);
 
   /// {% call IF("IsClickCard") %}
   var d = document.getElementById("Display");

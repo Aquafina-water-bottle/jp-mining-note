@@ -1,22 +1,22 @@
-/// {% extends "js/base_back.js" %}
-/// {% import "js/main/base.js" as js_main_base with context %}
+/// {% extends "cards/base_back.js" %}
+/// {% import "cards/main/common.js" as js_common with context %}
 
 
 /// {% block js_functions %}
   {{ super() }}
-  {{ js_main_base.functions }}
+  {{ js_common.functions }}
 /// {% endblock %}
 
 
 /// {% block js_keybind_settings %}
   {{ super() }}
-  {{ js_main_base.keybind_settings }}
+  {{ js_common.keybind_settings }}
 /// {% endblock %}
 
 
 /// {% block js_run %}
   {{ super() }}
-  {{ js_main_base.run }}
+  {{ js_common.run }}
 
   // make sure the sentence is already 'clicked'
   /// {% call IF("IsClickCard") %}

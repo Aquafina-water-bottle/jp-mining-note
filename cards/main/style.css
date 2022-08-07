@@ -1059,6 +1059,9 @@ ruby rt {
  *
  * tl;dr only affects glossary css as a quick fix, as the default <ruby> styles are usually preferable.
  */
+
+/* NO LONGER REQUIRED IN ANKI 2.1.53+ */
+/*
 .glossary-blockquote ruby {
   display: inline-flex;
   flex-direction: column-reverse;
@@ -1072,6 +1075,12 @@ ruby rt {
   display: inline;
   line-height: 1;
   text-align: center;
+}
+*/
+
+/* makes ruby text non-selectable (and non-copyable) */
+ruby rt {
+  user-select: none;
 }
 
 

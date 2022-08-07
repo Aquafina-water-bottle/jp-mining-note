@@ -1,0 +1,23 @@
+{% extends "cards/base.html" %}
+
+{% set note = namespace() %}
+{% set note.side = "front" %}
+{% set note.card_type = "pa_sent" %}
+
+{% from "cards/pa_sent/common.html" import card_type, front_display with context %}
+
+{% block card_type %}
+  {{ super() }}
+  {{ card_type }}
+{% endblock %}
+
+{% block card_html %}
+  {{ super() }}
+  {{ front_display }}
+{% endblock %}
+
+
+{% block javascript %}
+  {{ super() }}
+  {% include "cards/pa_sent/front.js" %}
+{% endblock %}

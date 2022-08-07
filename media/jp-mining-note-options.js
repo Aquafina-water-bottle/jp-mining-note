@@ -175,6 +175,12 @@ var JPMNOpts = (function (my) {
 
   return my;
 }(JPMNOpts || {}));
+
+export function createOptions() {
+  return JPMNOpts;
+}
+
+
 // {} is short for `new Object()`, think python dicts `{}`
 // any variable in javascript can be automatically declared
 

@@ -16,84 +16,7 @@
   
   
   
-  {{#IsHoverCard}}
-    Hover ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
-  {{/IsHoverCard}}
-
-
-  {{^IsHoverCard}}
-
-    {{#IsClickCard}}
-      Click ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
-    {{/IsClickCard}}
-
-    {{^IsClickCard}}
-      {{#IsTargetedSentenceCard}}
-        TSC
-      {{/IsTargetedSentenceCard}}
-      {{^IsTargetedSentenceCard}}
-        {{#IsSentenceCard}}
-          Sentence
-        {{/IsSentenceCard}}
-        {{^IsSentenceCard}}
-          Word
-        {{/IsSentenceCard}}
-      {{/IsTargetedSentenceCard}}  
-    {{/IsClickCard}}  
-  {{/IsHoverCard}} 
-
-  {{#PAShowInfo}}
-
-    /
-
-    <!-- PADoNotTest or PASeparateWordCard == none -->
-    
-  
-    {{#PADoNotTest}}{{^PASeparateWordCard}}
-      None
-    {{/PASeparateWordCard}}{{/PADoNotTest}}
-    {{^PADoNotTest}}{{#PASeparateWordCard}}
-      None
-    {{/PASeparateWordCard}}{{/PADoNotTest}}
-    {{#PADoNotTest}}{{#PASeparateWordCard}}
-      None
-    {{/PASeparateWordCard}}{{/PADoNotTest}}
-
-
-    <!-- neither PADoNotTest, PASeparateWordCard are filled -->
-    <!-- we then test the PA somewhere -->
-    {{^PADoNotTest}}{{^PASeparateWordCard}}
-
-      <!-- PASeparateSentenceCard or PATestOnlyWord == word -->
-      
-  
-    {{#PASeparateSentenceCard}}{{^PATestOnlyWord}}
-        Word
-      {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
-    {{^PASeparateSentenceCard}}{{#PATestOnlyWord}}
-        Word
-      {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
-    {{#PASeparateSentenceCard}}{{#PATestOnlyWord}}
-        Word
-      {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
-
-
-      <!-- if none of the above, then we test the default value -->
-      {{^PASeparateSentenceCard}}{{^PATestOnlyWord}}
-
-        <!-- note: default for TSC is test word, may change in the future... -->
-        {{#IsSentenceCard}}
-          Sentence
-        {{/IsSentenceCard}}
-        {{^IsSentenceCard}}
-          Word
-        {{/IsSentenceCard}}
-
-      {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
-
-    {{/PASeparateWordCard}}{{/PADoNotTest}}
-
-  {{/PAShowInfo}} 
+  PA Sentence
 
 
 
@@ -142,198 +65,47 @@
 
   
 
-  <!-- legacy display -->
-  {{^PAShowInfo}}
+  <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
+  <!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
 
-    <!-- priority is on the alternate display sentence -->
+  <!-- option 1: AltDisplayPASentenceCard -->
+  {{#AltDisplayPASentenceCard}}
+    <div class="expression expression--single expression--sentence" id="Display">
+      {{furigana:AltDisplayPASentenceCard}}</div>
+  {{/AltDisplayPASentenceCard}}
 
-    {{#IsHoverCard}}
-      <!-- fallback card card html
-        in css: default hybrid css, but with hover instead of click -->
-      <div class="expression__hybrid-wrapper">
-        <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
-          <span class="expression--sentence expression__hybrid-sentence expression
-                     {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                     {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
-                     "
-                id="hybrid-sentence">
-            {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
-          </span>
-          <span class="expression--word expression__hybrid-word
-              {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-              {{^IsTargetedSentenceCard}}
-                {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-              {{/IsTargetedSentenceCard}}
-              expression__hybrid-word--hover-indicator"
-              id="hybrid-word">
-            {{Word}}
-          </span>
+  {{^AltDisplayPASentenceCard}}
+    {{#AltDisplay}}
+
+      <div class="outer-display1
+          {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}}
+            outer-display2
+          {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}}
+          "
+        style="display: inline-block;" id="Display">
+
+        <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
+        <!-- if any of (click, hover, sentence, TSC) -->
+        <div class="expression expression--single expression--sentence inner-display1">
+          {{furigana:AltDisplay}}
+        </div>
+
+        <!-- if none of (click, hover, sentence, TSC) -->
+        <div class="expression expression--single expression--sentence inner-display2">
+          {{Sentence}}
         </div>
       </div>
-    {{/IsHoverCard}} 
 
-    {{^IsHoverCard}}
+    {{/AltDisplay}}
 
-      {{#IsClickCard}}
-        <!-- hybrid (sentence or word) card html
-          in css: default hybrid css, with click -->
-        <div class="expression__hybrid-wrapper">
-          <div class="expression expression--single expression__hybrid expression__hybrid--click" id="Display">
-            <span class="expression--sentence expression__hybrid-sentence
-                      {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                      {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
-                      "
-                  id="hybrid-sentence">
-              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
-            </span>
-            <span class="expression--word expression__hybrid-word
-                  {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-                  {{^IsTargetedSentenceCard}}
-                    {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                    {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-                  {{/IsTargetedSentenceCard}}
-                expression__hybrid-word--click-indicator"
-                id="hybrid-word">
-              {{Word}}
-            </span>
-          </div>
-        </div>
-      {{/IsClickCard}} 
-
-
-      {{^IsClickCard}}
-
-        {{#IsTargetedSentenceCard}}
-          <div class="expression expression--sentence expression--single bold-yellow" id="Display">
-            {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
-          </div>
-        {{/IsTargetedSentenceCard}}
-
-        {{^IsTargetedSentenceCard}}
-          {{#IsSentenceCard}}
-            <div class="expression expression--sentence expression--single" id="Display">
-              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
-            </div>
-          {{/IsSentenceCard}}
-
-          {{^IsSentenceCard}}
-            <div class="expression expression--word expression--single" id="Display">
-              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Word}}{{/AltDisplay}}
-            </div>
-          {{/IsSentenceCard}}
-        {{/IsTargetedSentenceCard}} 
-
-      {{/IsClickCard}} 
-
-    {{/IsHoverCard}} 
-
-  {{/PAShowInfo}} 
-
-
-  <!-- regular display -->
-  {{#PAShowInfo}}
-    <div class="expression expression-box">
-
-      <!-- priority is on the alternate display sentence -->
-
-
-      {{#IsHoverCard}}
-        <!-- fallback card card html
-          in css: default hybrid css, but with hover instead of click -->
-        <div class="expression__hybrid-wrapper">
-          <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
-            <span class="expression--sentence expression__hybrid-sentence
-                         {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                         {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
-                         "
-                  id="hybrid-sentence">
-              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
-            </span>
-            <span class="expression--word expression__hybrid-word
-                {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-                {{^IsTargetedSentenceCard}}
-                  {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                  {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-                {{/IsTargetedSentenceCard}}
-                expression__hybrid-word--hover-indicator"
-                id="hybrid-word">
-              {{Word}}
-            </span>
-          </div>
-
-        </div>
-
-      {{/IsHoverCard}} 
-
-      {{^IsHoverCard}}
-
-        {{#IsClickCard}}
-          <!-- hybrid (sentence or word) card html
-            in css: default hybrid css, with click -->
-          <div class="expression__hybrid-wrapper">
-            <div class="expression expression__hybrid expression__hybrid--click" id="Display">
-              <span class="expression--sentence expression__hybrid-sentence
-                        {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                        {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
-                        "
-                    id="hybrid-sentence">
-                {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
-              </span>
-              <span class="expression--word expression__hybrid-word
-                  {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-                  {{^IsTargetedSentenceCard}}
-                    {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                    {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-                  {{/IsTargetedSentenceCard}}
-                  expression__hybrid-word--click-indicator"
-                  id="hybrid-word">
-                {{Word}}
-              </span>
-            </div>
-          </div>
-        {{/IsClickCard}} 
-
-        {{^IsClickCard}}
-
-          {{#IsTargetedSentenceCard}}
-            <div class="expression expression--sentence bold-yellow" id="Display">
-              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
-            </div>
-          {{/IsTargetedSentenceCard}}
-
-          {{^IsTargetedSentenceCard}}
-            {{#IsSentenceCard}}
-              <div class="expression expression--sentence" id="Display">
-                {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
-              </div>
-            {{/IsSentenceCard}}
-
-            {{^IsSentenceCard}}
-              <div class="expression expression--word" id="Display">
-                {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Word}}{{/AltDisplay}}
-              </div>
-            {{/IsSentenceCard}}
-          {{/IsTargetedSentenceCard}} 
-
-        {{/IsClickCard}} 
-
-      {{/IsHoverCard}} 
-
-
-      <!-- appears to the left -->
-      <div class="flag-box">
-        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-          class="flag-box__svg" id="flag_box_svg">
-          <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
-            <title id=svg_title></title>
-          </circle>
-        </svg>
+    {{^AltDisplay}}
+      <div class="expression expression--single expression--sentence" id="Display">
+        {{Sentence}}
       </div>
+    {{/AltDisplay}}
 
-    </div> <!-- expression box -->
 
-  {{/PAShowInfo}} 
+  {{/AltDisplayPASentenceCard}}
 
   
 
@@ -834,41 +606,6 @@ var processQuote = function(sentEle, sent, isAltDisplay) {
   closeQuoteEle.innerHTML = closeQuote;
 
   /// 
-    /// {{#PAShowInfo}}
-      if (settings.quote("pa-indicator-color-quotes")) {
-        note.colorQuotes = true;
-        openQuoteEle.classList.add(paIndicator.className);
-        closeQuoteEle.classList.add(paIndicator.className);
-
-        /// {{#IsHoverCard}}
-          var elem = document.querySelector(".expression__hybrid-wrapper");
-          if (elem !== null) {
-            elem.classList.add("expression__hybrid-wrapper--hover-remove-flag");
-          }
-        /// {{/IsHoverCard}}
-
-        // neither hover & click and is either one of TSC / sentence -> removes flag
-
-        /// ///{{^IsHoverCard}}///{{^IsClickCard}}
-          /// 
-  
-    ///{{#IsTargetedSentenceCard}}///{{^IsSentenceCard}}
-            var svgEle = document.getElementById("flag_box_svg");
-            svgEle.style.display = "none";
-          /// ///{{/IsSentenceCard}}///{{/IsTargetedSentenceCard}}
-    ///{{^IsTargetedSentenceCard}}///{{#IsSentenceCard}}
-            var svgEle = document.getElementById("flag_box_svg");
-            svgEle.style.display = "none";
-          /// ///{{/IsSentenceCard}}///{{/IsTargetedSentenceCard}}
-    ///{{#IsTargetedSentenceCard}}///{{#IsSentenceCard}}
-            var svgEle = document.getElementById("flag_box_svg");
-            svgEle.style.display = "none";
-          /// ///{{/IsSentenceCard}}///{{/IsTargetedSentenceCard}}
-
-        /// ///{{/IsClickCard}}///{{/IsHoverCard}}
-      }
-    /// {{/PAShowInfo}}
-  /// 
 
   if (settings.quote("left-align-adjust-format")) {
     sentEle.classList.add("left-align-quote-format");
@@ -1003,42 +740,6 @@ function processSentences(isAltDisplay, isClozeDeletion) {
   }
 /// 
   
-  function hybridClick() {
-    var hSent = document.getElementById("hybrid-sentence");
-    var hWord = document.getElementById("hybrid-word");
-    var svgEle = document.getElementById("flag_box_svg");
-    var circ = document.getElementById("svg_circle");
-
-
-    if (hSent.classList.contains("override-display-inline-block")) {
-      // currently showing sentence, change to word
-      hWord.classList.remove("override-display-none");
-      hSent.classList.remove("override-display-inline-block");
-      if (circ !== null) {
-        circ.setAttributeNS(null, "cx", "25");
-        circ.setAttributeNS(null, "cy", "15");
-      }
-      // re-adds if quote module enabled
-      if (svgEle !== null && note.colorQuotes) {
-        svgEle.style.display = "initial";
-      }
-
-    } else {
-      // currently showing word, change to sentence
-      hWord.classList.add("override-display-none");
-      hSent.classList.add("override-display-inline-block");
-      if (circ !== null) { // sentence
-        if (hSent.innerText.length > 0 && hSent.innerText[0] === "「") {
-          circ.setAttributeNS(null, "cx", "35");
-          circ.setAttributeNS(null, "cy", "11");
-        }
-      }
-      // removes if quote module enabled
-      if (svgEle !== null && note.colorQuotes) {
-        svgEle.style.display = "none";
-      }
-    }
-  }
 
 /// 
 /// 
@@ -1063,19 +764,6 @@ document.onkeyup = (e => {
   
   /// 
   
-
-  keys = settings.keybind("toggle-hybrid-sentence");
-  var hSent = document.getElementById("hybrid-sentence");
-  var hWord = document.getElementById("hybrid-word");
-  if (keys !== null && hSent && hWord && keys.includes(e.key)) {
-    hybridClick();
-  }
-
-  keys = settings.keybind("toggle-highlight-word");
-  var paButton = document.getElementById("pa-button");
-  if (keys !== null && paButton && keys.includes(e.key)) {
-    toggleHighlightWord();
-  }
 
 /// 
 /// 
@@ -1277,57 +965,36 @@ if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
 
 /// 
   
-  var isAltDisplay = !!'{{#AltDisplay}}a{{/AltDisplay}}';
+  //var sentences = document.querySelectorAll(".expression--sentence")
+  //var isAltDisplay = false;
+  //var isClozeDeletion = false;
+
+  //isAltDisplay = !!'{{#AltDisplay}}a{{/AltDisplay}}';
+
+  var isAltDisplay = false;
+  /* {{#AltDisplayPASentenceCard}} */
+    isAltDisplay = true;
+  /* {{/AltDisplayPASentenceCard}} */
+
+  /* {{^AltDisplayPASentenceCard}} */
+    /* {{#AltDisplay}} */
+    isAltDisplay = (
+      /* {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}} */
+        false &&
+      /* {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}} */
+      true ? true : false
+    );
+    /* {{/AltDisplay}} */
+
+    /* {{^AltDisplay}} */
+      isAltDisplay = false;
+    /* {{/AltDisplay}} */
+  /* {{/AltDisplayPASentenceCard}} */
+
   processSentences(isAltDisplay);
-
-  /// {{#IsClickCard}}
-  var d = document.getElementById("Display");
-  d.onclick = hybridClick;
-  /// {{/IsClickCard}}
-
-
-
-  /// {{#PAShowInfo}}
-  // different circle positions depending on whether it's a sentence or not.
-  // More specifically, checks if the first character is "「",
-  // and adjusts the position based on that
-
-  var circ = document.getElementById("svg_circle");
-  var d = document.getElementById("Display");
-  if ('{{#IsSentenceCard}}a{{/IsSentenceCard}}{{#IsTargetedSentenceCard}}a{{/IsTargetedSentenceCard}}' &&
-      d.innerText.length > 0 && d.innerText[0] == "「") { // TODO: compatability with quote module
-    circ.setAttributeNS(null, "cx", "35");
-    circ.setAttributeNS(null, "cy", "11");
-  }
-
-  // ============================
-  //  Word pitch indicator color
-  // ============================
-  // done in javascript to simplify templating logic
-  var svgTitle = document.getElementById("svg_title");
-  if (svgTitle !== null) {
-    svgTitle.textContent = "PA: " + paIndicator.tooltip;
-  }
-
-  var circ = document.getElementById("svg_circle");
-  circ.classList.add(paIndicator.className);
-  /// {{/PAShowInfo}}
 
 
 /// 
-
-  // make sure the sentence is already 'clicked'
-  /// {{#IsClickCard}}
-    hybridClick()
-  /// {{/IsClickCard}}
-
-  // removes extra info section if not necessary
-  var ele = document.querySelector(".pa-graphs");
-  if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
-      !"{{#UtilityDictionaries}}a{{/UtilityDictionaries}}") {
-    document.getElementById("extra_info_details").style.display = "none";
-  }
-
 /// 
 
 //})();

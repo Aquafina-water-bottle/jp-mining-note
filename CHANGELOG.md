@@ -11,6 +11,20 @@ signified.)
 
 
 
+## [0.7.1.0] - 2022-08-??
+
+#### Added
+- css to no longer select furigana (note: text is still copied on linux)
+- stack trace to error messages
+
+#### Changed
+- Completely reworked the backend generation of cards to use jinja2
+
+#### Fixed
+- The async race condition by compiling almost all of the javascript into one `<script>` block
+    - And making use of the import statement + export function statement
+
+
 ## [0.7.0.1] - 2022-07-26
 
 #### Fixed

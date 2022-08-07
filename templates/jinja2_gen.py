@@ -85,7 +85,7 @@ def main(root_folder: str = ""):
     else:
         dir_name = "./cards"
         #dirs = [d for d in os.listdir(dir_name) if os.path.isdir(os.path.join(dir_name, d))]
-        dirs = ["main"]
+        dirs = ["main", "pa_sent"]
 
         for d in dirs:
             for file_name in ("front.html", "back.html"):

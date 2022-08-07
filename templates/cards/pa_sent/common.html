@@ -1,0 +1,60 @@
+{# man #}
+
+{% from "macros/global.html" import T, IF, IFNOT, END with context %}
+{% import "macros/utils.html" as utils with context %}
+{% import "cards/common.html" as common with context %}
+
+{% set card_type %}
+  PA Sentence
+{% endset %}
+
+
+
+{% set front_display %}
+
+  <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
+  <!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
+
+  <!-- option 1: AltDisplayPASentenceCard -->
+  {% call IF('AltDisplayPASentenceCard') %}
+    <div class="expression expression--single expression--sentence" id="Display">
+      {{ T('furigana:AltDisplayPASentenceCard') }}</div>
+  {% endcall%}
+
+  {% call IFNOT('AltDisplayPASentenceCard') %}
+    {% call IF('AltDisplay') %}
+
+      <div class="outer-display1
+          {% call utils.none_of('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %}
+            outer-display2
+          {% endcall %}
+          "
+        style="display: inline-block;" id="Display">
+
+        <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
+        <!-- if any of (click, hover, sentence, TSC) -->
+        <div class="expression expression--single expression--sentence inner-display1">
+          {{ T('furigana:AltDisplay') }}
+        </div>
+
+        <!-- if none of (click, hover, sentence, TSC) -->
+        <div class="expression expression--single expression--sentence inner-display2">
+          {{ T('Sentence') }}
+        </div>
+      </div>
+
+    {% endcall %}
+
+    {% call IFNOT('AltDisplay') %}
+      <div class="expression expression--single expression--sentence" id="Display">
+        {{ T('Sentence') }}
+      </div>
+    {% endcall %}
+
+
+  {% endcall %}
+
+  {{ common.hint }}
+
+{% endset %}
+

@@ -1,4 +1,4 @@
-/// {% extends "js/base.js" %}
+/// {% extends "cards/base.js" %}
 
 /// {% block js_functions %}
   {{ super() }}
@@ -110,13 +110,13 @@
   //glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
 
   // goes through each blockquote and searches for yomichan inserted images
-  var imageSearchElements = document.getElementsByTagName("blockquote");
-  for (var searchEle of imageSearchElements) {
-    anchorTags = searchEle.getElementsByTagName("a");
-    for (var atag of anchorTags) {
-      var imgFileName = atag.getAttribute("href");
+  let imageSearchElements = document.getElementsByTagName("blockquote");
+  for (let searchEle of imageSearchElements) {
+    let anchorTags = searchEle.getElementsByTagName("a");
+    for (let atag of anchorTags) {
+      let imgFileName = atag.getAttribute("href");
       if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
-        var fragment = createImgContainer(imgFileName);
+        let fragment = createImgContainer(imgFileName);
         atag.parentNode.replaceChild(fragment, atag);
       }
     }
