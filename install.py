@@ -13,6 +13,8 @@ import json
 import urllib.request
 from typing import Any, Dict, List
 
+import utils
+
 
 NOTE_TYPES_DIR = "cards"
 FRONT_FILENAME = "front.html"
@@ -49,6 +51,13 @@ class MediaFile:
     name: str
     contents: str
 
+
+
+def add_args(parser):
+    group = parser.add_argument_group(title="install")
+    group.add_argument('-o', '--install-options', action="store_true")
+    group.add_argument('-m', '--install-media', action="store_true")
+    group.add_argument('-a', '--install-all', action="store_true")
 
 
 # taken from https://github.com/FooSoft/anki-connect#python
@@ -142,16 +151,9 @@ def send_media(media: MediaFile):
     print(invoke("storeMediaFile", **format_media(media)))
 
 
-
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-o', '--import-options', action="store_true")
-    parser.add_argument('-m', '--import-media', action="store_true")
-    parser.add_argument('-a', '--all', action="store_true")
-    return parser.parse_args()
-
-def main():
-    args = get_args()
+def main(args=None):
+    if args is None:
+        args = utils.get_args(utils.add_args, add_args)
 
     model = read_model()
     send_note_type(model)

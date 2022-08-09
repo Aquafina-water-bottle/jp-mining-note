@@ -147,7 +147,6 @@ var JPMNOpts = (function (my) {
         //
         // 「そーすっと、こんな風に、相手は頭突きを警戒して
         // 　自然と上体を引くのよさ」
-        //
         "left-align-adjust-format": true,
 
         // automatically adds quotes to the sentence if AltDisplay is not filled

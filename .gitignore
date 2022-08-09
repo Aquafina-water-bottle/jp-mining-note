@@ -336,4 +336,5 @@ media_options.js
 templates/temp.txt
 templates/out.html
 templates/output/
+config.py
 

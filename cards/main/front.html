@@ -1,500 +1,18 @@
-<!--
-  Listening
-  X / Y
 
-  X:
-    Word
-    Sentence
-    Hybrid
 
-  Y:
-    Legacy
-    None
-    Word
-    Sentence
--->
 
 
-<script>
-  var note = (function () {
-    let my = {};
-    my.colorQuotes = false;
-  my.side = "front";
-  my.cardType = "main";
-return my;
-  }());
-</script>
 
-<script>
-  var logger = (function () {
-    let my = {};
-
-    let _appendMsg = function(message, groupEle) {
-      var msgEle = document.createElement('div');
-      msgEle.textContent = message;
-      groupEle.appendChild(msgEle);
-    }
-
-    my.error = function(message) {
-      var groupEle = document.getElementById("info_circle_text_error");
-      _appendMsg(message, groupEle);
-      var infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-error")) {
-        infoCirc.classList.add("info-circle-error")
-      }
-    }
-
-    my.assert = function(condition, message) {
-      if (!condition) {
-        my.error("(assert) " + message);
-      }
-    }
-
-    my.warn = function(message) {
-      var groupEle = document.getElementById("info_circle_text_warning");
-      _appendMsg(message, groupEle);
-      var infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.add("info-circle-warning")
-      }
-    }
-
-    my.info = function(message) {
-      var groupEle = document.getElementById("info_circle_text_info");
-      _appendMsg(message, groupEle);
-    }
-
-
-    my.leech = function() {
-      var groupEle = document.getElementById("info_circle_text_leech");
-      _appendMsg("", groupEle);
-      var infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-leech")) {
-        infoCirc.classList.add("info-circle-leech")
-      }
-    }
-
-    return my;
-  }());
-
-
-  // on any javascript error: log it
-  window.onerror = function(msg, url, lineNo, columnNo, error) {
-    logger.error("Javascript error: `" + msg + "`");
-  }
-
-  // https://stackoverflow.com/a/55178672
-  window.onunhandledrejection = function(errorEvent) {
-    logger.error("Javascript handler error: `" + errorEvent.reason + "`");
-  }
-
-
-  // loads the options script
-  // TODO look to separate async / sync things further in javascript
-  // TODO compile card such that settings don't have to be used
-  // https://forums.ankiweb.net/t/linking-to-external-javascript/1713
-  //var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
-  //var injectScript = (src) => {
-  //  return new Promise((resolve, reject) => {
-  //    const script = document.createElement('script');
-  //    script.src = src;
-  //    script.async = true;
-  //    script.onload = resolve;
-  //    script.onerror = function(errorEvent) {
-  //      // seems only to error if the options file is not found
-  //      // syntax errors trigger the sanity check section and javascript error section
-  //      logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
-  //    }
-
-
-  //    document.head.appendChild(script);
-  //  });
-  //};
-
-  // crazy hack for anki (as of writing) 2.1.53
-  // for some reason, the settingsPromise variable could be defined already in
-  // a very specific environment (toggle between IsSentenceCard & preview multiple times).
-  // this ensures that the promise is not yet defined, and prevents adding further
-  // then() statements to it
-  //var promiseJustCreated = false;
-  //var promiseAlreadyExists = (typeof settingsPromise !== "undefined");
-  //if (promiseAlreadyExists) {
-  //  if (typeof JPMNOpts === 'undefined') {
-  //    // ASSUMPTION: JPMNOpts will get loaded up from the promise (which is kind of weird behavior tbh)
-  //    //logger.error("WTF");
-  //  }
-  //} else {
-  //  if (typeof JPMNOpts === 'undefined') {
-  //    var settingsPromise = injectScript(OPTIONS_FILE);
-  //    promiseJustCreated = true;
-
-  //    settingsPromise.then(() => {
-  //      // sanity check
-  //      if (typeof JPMNOpts === 'undefined') {
-  //        logger.error("JPMNOpts was not defined in the options file. Was there an error?");
-  //      }
-  //    })
-
-  //  }
-  //}
-
-
-  //(async () => {
-  //  if (typeof JPMNOpts === 'undefined') {
-  //    await injectScript(OPTIONS_FILE);
-  //  }
-
-  //  // sanity check
-  //  if (typeof JPMNOpts === 'undefined') {
-  //    logger.error("JPMNOpts was not defined in the options file. Was there an error?");
-  //  }
-
-  //  // I'd prefer putting this within individual files for better code separation
-  //  // however, I cannot find a way around the above promises issue,
-  //  // otherwise I could use the .then construct...
-
-  //  var sentences = document.querySelectorAll(".expression--sentence")
-  //  var isAltDisplay = false;
-  //  var isClozeDeletion = false;
-  //  if (note.cardType === "main") {
-  //    isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
-  //  } else if (note.cardType === "cloze_deletion") {
-  //    isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
-  //    isClozeDeletion = true;
-  //  } else if (note.cardType === "pa_sent") {
-  //    isAltDisplay = (
-  //      {{#AltDisplayPASentenceCard}} true {{/AltDisplayPASentenceCard}}
-  //      {{^AltDisplayPASentenceCard}}
-  //        {{#AltDisplay}}
-  //          {{^IsClickCard}} {{^IsHoverCard}} {{^IsSentenceCard}} {{^IsTargetedSentenceCard}}
-  //            false &&
-  //          {{/IsTargetedSentenceCard}} {{/IsSentenceCard}} {{/IsHoverCard}} {{/IsClickCard}}
-  //          true ? true : false
-  //        {{/AltDisplay}}
-  //        {{^AltDisplay}}
-  //          false
-  //        {{/AltDisplay}}
-  //      {{/AltDisplayPASentenceCard}});
-  //  }
-
-  //  if (sentences !== null) {
-  //    for (var sent of sentences) {
-  //      processSentence(sent, isAltDisplay, isClozeDeletion);
-  //    }
-  //  }
-
-  //})();
-</script>
-
-<!-- TEMPORARILY bringing this back until javascript is all compiled -->
-<script src="jp-mining-note-options.js"></script>
-
-<script>
-
-
-  /*
-   * class to read settings
-   */
-
-  var settings = (function () {
-    let my = {};
-
-    /* defaultOpt=null */
-    var _getSetting = function(settingStr, settingObj, defaultOpt) {
-      if (typeof settingObj === "undefined" || !(settingStr in settingObj)) {
-        logger.warn("Option `" + settingStr + "` is not defined in the options file.");
-        if (typeof defaultOpt === "undefined") {
-          return null;
-        } else {
-          return defaultOpt;
-        }
-      }
-      return settingObj[settingStr];
-    }
-
-    my.keybind = function(settingStr, defaultOpt) {
-      return _getSetting(settingStr, JPMNOpts.settings["keybinds"], defaultOpt);
-    }
-
-    my.sentence = function(settingStr, defaultOpt) {
-      return _getSetting(settingStr, JPMNOpts.settings["sentence-module"], defaultOpt);
-    }
-
-    my.quote = function(settingStr, defaultOpt) {
-      return _getSetting(settingStr, JPMNOpts.settings["sentence-module"]["quote-module"], defaultOpt);
-    }
-
-    my.general = function(settingStr, defaultOpt) {
-      return _getSetting(settingStr, JPMNOpts.settings["general"], defaultOpt);
-    }
-
-    return my;
-
-  }());
-
-
-
-
-  var selectSentence = function(temp) {
-    // only chooses the sentence around the bold characters
-    var firstMatch = temp.indexOf("<b>");
-    var lastMatch = temp.lastIndexOf("</b>");
-
-    // list of valid terminators
-    // "removeEnd": is removed if found at the end of a sentence
-    var terminators = {
-      ".": {removeEnd: true},
-      "。": {removeEnd: true},
-      "．": {removeEnd: true},
-      "︒": {removeEnd: true},
-
-      "!": {removeEnd: false},
-      "?": {removeEnd: false},
-      "！": {removeEnd: false},
-      "？": {removeEnd: false},
-      "…": {removeEnd: false},
-      "︕": {removeEnd: false},
-      "︖": {removeEnd: false},
-      "︙": {removeEnd: false},
-    }
-
-
-    if (firstMatch !== -1 && lastMatch !== -1) {
-      var beginIdx = firstMatch;
-      var endIdx = lastMatch;
-
-      for (; beginIdx >= 0; beginIdx--) {
-        if (temp[beginIdx] in terminators) {
-          var obj = terminators[temp[beginIdx]];
-          beginIdx++;
-
-          //console.log(beginIdx);
-          //console.log(temp[beginIdx]);
-          break;
-        }
-      }
-
-      for (; endIdx < temp.length; endIdx++) {
-        if (temp[endIdx] in terminators) {
-          var obj = terminators[temp[endIdx]];
-          if (obj.removeEnd) {
-              endIdx--;
-          }
-
-          //console.log(endIdx);
-          //console.log(temp[endIdx]);
-          //console.log(obj.removeEnd);
-          break;
-        }
-      }
-
-      // clamp
-      if (beginIdx < 0) {
-        beginIdx = 0;
-      }
-      if (endIdx > temp.length-1) {
-        endIdx = temp.length-1;
-      }
-
-      temp = temp.substring(beginIdx, endIdx+1)
-
-      // re-adds quotes if necessary
-      if (temp[0] !== "「") {
-        temp = "「" + temp;
-      }
-      if (temp[temp.length-1] !== "」") {
-        temp = temp + "」";
-      }
-    }
-
-    return temp;
-  }
-
-
-  // global variable to set the PA indicator color (as a css class)
-  var paIndicator = (function () {
-    let my = {};
-    my.type = null;
-    my.className = null;
-    my.tooltip = null;
-
-    if ("{{PADoNotTest}}{{PASeparateWordCard}}") {
-      // PADoNotTest or PASeparateWordCard -> nothing is tested
-      my.type = "none";
-    } else if ("{{PASeparateSentenceCard}}{{PATestOnlyWord}}") {
-      // either PASeparateSentenceCard or PATestOnlyWord -> only word is tested
-      my.type = "word";
-    } else if ("{{IsSentenceCard}}") {
-      // sentence card but no pitch accent indicators are overridden
-      my.type = "sentence";
-    } else {
-      // regular word card
-      my.type = "word";
-    }
-
-    my.className = "pa-indicator-color--" + my.type;
-
-    if (my.type === "none") {
-      my.tooltip = "Do not test"
-    } else if (my.type == "word") {
-      my.tooltip = "Word"
-    } else { // sentence
-      my.tooltip = "Sentence"
-    }
-
-    return my;
-  }());
-
-
-  var processQuote = function(sentEle, sent, isAltDisplay) {
-    let result = sent;
-    let openQuote = null;
-    let closeQuote = null;
-    let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
-
-    if (!isAltDisplay && settings.quote("auto-quote-sentence", true)) {
-      // this operation seems to be supported in anki!
-      let arr = settings.quote("auto-quote-sentence-strings", ["「", "」"])
-      logger.assert(Array.isArray(arr), "expected array");
-      logger.assert(arr.length === 2, "expected array of len 2");
-      [openQuote, closeQuote] = arr;
-    }
-
-    // existing quotes override the default quotes, even on alt displays
-    for (let quotePair of validQuotes) {
-      if ((sent[0] === quotePair[0]) && (sent[sent.length-1] === quotePair[1])) {
-        [openQuote, closeQuote] = quotePair;
-        result = sent.slice(1, -1);
-        break;
-      }
-    }
-
-
-    // replaces the element (should only contain text) with the following:
-    //
-    // <(previous div or span)>
-    //  <span> (open quote) </span>
-    //  <span> (text) </span>
-    //  <span> (close quote) </span>
-    // </(previous div or span)>
-
-    let textEle = document.createElement('span');
-    textEle.innerHTML = result;
-
-    let openQuoteEle = document.createElement('span');
-    openQuoteEle.innerHTML = openQuote;
-
-    let closeQuoteEle = document.createElement('span');
-    closeQuoteEle.innerHTML = closeQuote;
-
-    {{#PAShowInfo}}
-      if (note.cardType === "main" && settings.quote("pa-indicator-color-quotes")) {
-        note.colorQuotes = true;
-        openQuoteEle.classList.add(paIndicator.className);
-        closeQuoteEle.classList.add(paIndicator.className);
-
-        // affects on hover cards
-        {{#IsHoverCard}}
-          var elem = document.querySelector(".expression__hybrid-wrapper");
-          if (elem !== null) {
-            elem.classList.add("expression__hybrid-wrapper--hover");
-          }
-        {{/IsHoverCard}}
-
-        // neither hover & click and is either one of TSC / sentence -> removes flag
-        {{^IsHoverCard}} {{^IsClickCard}}
-        if ("{{IsTargetedSentenceCard}}{{IsSentenceCard}}") {
-          var svgEle = document.getElementById("flag_box_svg");
-          svgEle.style.display = "none";
-        }
-        {{/IsClickCard}} {{/IsHoverCard}}
-      }
-    {{/PAShowInfo}}
-
-    if (settings.quote("left-align-adjust-format")) {
-      sentEle.classList.add("left-align-quote-format");
-    }
-
-    sentEle.innerText = "";
-    sentEle.appendChild(openQuoteEle);
-    sentEle.appendChild(textEle);
-    sentEle.appendChild(closeQuoteEle);
-  }
-
-
-  /*
-   * processes the sentence (if there is no altdisplay)
-   * - removes newlines
-   * - finds the shortest possible sentence around the bolded characters
-   *   (if specified in the config)
-   *
-   * isAltDisplay=false
-   */
-  var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
-    if (!settings.sentence("enabled", true)) {
-      return;
-    }
-
-    if (typeof isAltDisplay === 'undefined') {
-      isAltDisplay = false;
-    }
-
-    // removes linebreaks
-    var result = sentEle.innerHTML;
-
-    // cloze deletion replacing bold with [...]
-    if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
-      result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
-    }
-
-    if ((!isAltDisplay && settings.sentence("remove-line-breaks", true))
-        || isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
-      let noNewlines = result.replace(/<br>/g, "");
-
-      // automatically removes newlines and other html elements
-      // https://stackoverflow.com/a/54369605
-      let charCount = [...sentEle.innerText.trim()].length;
-      let maxCharCount = settings.sentence("remove-line-breaks-until-char-count", 0)
-
-      if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
-        result = noNewlines;
-      }
-    }
-
-    // removes leading and trailing white space (equiv. of strip() in python)
-    result = result.trim();
-
-    // selects the smallest containing sentence
-
-    if (!isAltDisplay && settings.sentence("select-smallest-sentence", false)) {
-      result = selectSentence(result);
-    }
-
-    if (settings.quote("enabled", true)) {
-      result = processQuote(sentEle, result, isAltDisplay);
-    } else {
-      sentEle.innerHTML = result;
-    }
-  }
-
-  /*
-   * Toggles the display of any given details tag
-   */
-  var toggleDetailsTag = function(ele) {
-    if (ele.hasAttribute('open')) {
-      ele.removeAttribute('open');
-    } else {
-      ele.setAttribute("open", "true");
-    }
-  }
-
-
-</script>
 
 <div class="card-description">
+  
+  
+  
+  
   {{#IsHoverCard}}
     Hover ({{#IsSentenceCard}}Sentence{{/IsSentenceCard}}{{^IsSentenceCard}}Word{{/IsSentenceCard}})
   {{/IsHoverCard}}
+
 
   {{^IsHoverCard}}
 
@@ -508,76 +26,71 @@ return my;
       {{/IsTargetedSentenceCard}}
       {{^IsTargetedSentenceCard}}
         {{#IsSentenceCard}}
-          {{^IsTargetedSentenceCard}}
-            Sentence
-          {{/IsTargetedSentenceCard}}
+          Sentence
         {{/IsSentenceCard}}
-      {{/IsTargetedSentenceCard}}
-
-      {{^IsSentenceCard}}
+        {{^IsSentenceCard}}
           Word
-      {{/IsSentenceCard}}
-    {{/IsClickCard}}
-  {{/IsHoverCard}}
+        {{/IsSentenceCard}}
+      {{/IsTargetedSentenceCard}}  
+    {{/IsClickCard}}  
+  {{/IsHoverCard}} 
 
-  <!-- not legacy card -->
   {{#PAShowInfo}}
 
     /
 
-    <!--
-    anki doesn't allow "or" logic in templates,
-    so I replicate it by repeating things a bunch of times...
-
-        A v B  = (A ^ ~B) v (~A ^ B) v (A ^ B)
-        ~(A v B) =  ~A ^ ~B
-    For more readable logic, check the "Word pitch indicator color" javascript code
-    -->
-
     <!-- PADoNotTest or PASeparateWordCard == none -->
-    {{#PADoNotTest}} {{#PASeparateWordCard}}
+    
+  
+    {{#PADoNotTest}}{{^PASeparateWordCard}}
       None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-    {{^PADoNotTest}} {{#PASeparateWordCard}}
+    {{/PASeparateWordCard}}{{/PADoNotTest}}
+    {{^PADoNotTest}}{{#PASeparateWordCard}}
       None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
-    {{#PADoNotTest}} {{^PASeparateWordCard}}
+    {{/PASeparateWordCard}}{{/PADoNotTest}}
+    {{#PADoNotTest}}{{#PASeparateWordCard}}
       None
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
+    {{/PASeparateWordCard}}{{/PADoNotTest}}
+
 
     <!-- neither PADoNotTest, PASeparateWordCard are filled -->
     <!-- we then test the PA somewhere -->
-    {{^PADoNotTest}} {{^PASeparateWordCard}}
+    {{^PADoNotTest}}{{^PASeparateWordCard}}
 
       <!-- PASeparateSentenceCard or PATestOnlyWord == word -->
-      {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
+      
+  
+    {{#PASeparateSentenceCard}}{{^PATestOnlyWord}}
         Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
+      {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
+    {{^PASeparateSentenceCard}}{{#PATestOnlyWord}}
         Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-      {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
+      {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
+    {{#PASeparateSentenceCard}}{{#PATestOnlyWord}}
         Word
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
+
 
       <!-- if none of the above, then we test the default value -->
-      {{^PASeparateSentenceCard}} {{^PATestOnlyWord}}
+      {{^PASeparateSentenceCard}}{{^PATestOnlyWord}}
 
-        <!-- note that hybrid cards only test the word -->
+        <!-- note: default for TSC is test word, may change in the future... -->
         {{#IsSentenceCard}}
-            Sentence
+          Sentence
         {{/IsSentenceCard}}
-
         {{^IsSentenceCard}}
-            Word
+          Word
         {{/IsSentenceCard}}
 
-      {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
+      {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
 
-    {{/PASeparateWordCard}} {{/PADoNotTest}}
+    {{/PASeparateWordCard}}{{/PADoNotTest}}
 
-  {{/PAShowInfo}}
+  {{/PAShowInfo}} 
 
+
+
+  
   <span class="info-circle" id="info_circle">
     <span class="info-circle-svg-wrapper">
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -609,146 +122,35 @@ return my;
     </span>
   </span>
 
-  <div class="card-description-ver">JP Mining Note: Version 0.7.0.1</div>
+
+  
+  <div class="card-description-ver">JP Mining Note: Version 1.0.1</div>
+
+
 </div>
 
 
 
+  
 
+  
 
-<!-- legacy display -->
-{{^PAShowInfo}}
-
-  <!-- priority is on the alternate display sentence -->
-
-  {{#IsHoverCard}}
-    <!-- fallback card card html
-      in css: default hybrid css, but with hover instead of click -->
-    <div class="expression__hybrid-wrapper">
-      <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
-        <span class="expression--sentence expression__hybrid-sentence expression
-                     {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                     {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
-              id="hybrid-sentence">
-          {{#AltDisplay}}
-            {{furigana:AltDisplay}}
-          {{/AltDisplay}}
-          {{^AltDisplay}}
-            {{Sentence}}
-          {{/AltDisplay}}
-        </span>
-        <span class="expression--word expression__hybrid-word
-            {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-            {{^IsTargetedSentenceCard}}
-              {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-              {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-            {{/IsTargetedSentenceCard}}
-            expression__hybrid-word--hover-indicator"
-            id="hybrid-word">
-          {{Word}}
-        </span>
-      </div>
-    </div>
-  {{/IsHoverCard}}
-
-  {{^IsHoverCard}}
-
-    {{#IsClickCard}}
-      <!-- hybrid (sentence or word) card html
-        in css: default hybrid css, with click -->
-      <div class="expression__hybrid-wrapper">
-        <div class="expression expression--single expression__hybrid expression__hybrid--click" id="Display">
-          <span class="expression--sentence expression__hybrid-sentence
-                       {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                       {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
-                id="hybrid-sentence">
-            {{#AltDisplay}}
-              {{furigana:AltDisplay}}
-            {{/AltDisplay}}
-            {{^AltDisplay}}
-              {{Sentence}}
-            {{/AltDisplay}}
-          </span>
-          <span class="expression--word expression__hybrid-word
-              {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-              {{^IsTargetedSentenceCard}}
-                {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-              {{/IsTargetedSentenceCard}}
-              expression__hybrid-word--click-indicator"
-              id="hybrid-word">
-            {{Word}}
-          </span>
-        </div>
-      </div>
-    {{/IsClickCard}}
-
-    {{^IsClickCard}}
-
-      {{#IsTargetedSentenceCard}}
-        <div class="expression expression--sentence expression--single bold-yellow" id="Display">
-          {{#AltDisplay}}
-            {{furigana:AltDisplay}}
-          {{/AltDisplay}}
-          {{^AltDisplay}}
-            {{Sentence}}
-          {{/AltDisplay}}
-        </div>
-      {{/IsTargetedSentenceCard}}
-
-      {{^IsTargetedSentenceCard}}
-        {{#IsSentenceCard}}
-          <div class="expression expression--sentence expression--single" id="Display">
-            {{#AltDisplay}}
-              {{furigana:AltDisplay}}
-            {{/AltDisplay}}
-            {{^AltDisplay}}
-              {{Sentence}}
-            {{/AltDisplay}}
-          </div>
-        {{/IsSentenceCard}}
-
-        {{^IsSentenceCard}}
-          <div class="expression expression--single expression--word" id="Display">
-            {{#AltDisplay}}
-              {{furigana:AltDisplay}}
-            {{/AltDisplay}}
-            {{^AltDisplay}}
-              {{Word}}
-            {{/AltDisplay}}
-          </div>
-        {{/IsSentenceCard}}
-      {{/IsTargetedSentenceCard}}
-
-    {{/IsClickCard}}
-
-  {{/IsHoverCard}}
-
-{{/PAShowInfo}}
-
-
-<!-- regular display -->
-{{#PAShowInfo}}
-  <div class="expression expression-box">
+  <!-- legacy display -->
+  {{^PAShowInfo}}
 
     <!-- priority is on the alternate display sentence -->
-
 
     {{#IsHoverCard}}
       <!-- fallback card card html
         in css: default hybrid css, but with hover instead of click -->
       <div class="expression__hybrid-wrapper">
-        <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
-          <span class="expression--sentence expression__hybrid-sentence
-                       {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                       {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
+        <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
+          <span class="expression--sentence expression__hybrid-sentence expression
+                     {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
+                     {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
+                     "
                 id="hybrid-sentence">
-            {{#AltDisplay}}
-              {{furigana:AltDisplay}}
-            {{/AltDisplay}}
-            {{^AltDisplay}}
-              {{Sentence}}
-            {{/AltDisplay}}
+            {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
           </span>
           <span class="expression--word expression__hybrid-word
               {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
@@ -761,10 +163,8 @@ return my;
             {{Word}}
           </span>
         </div>
-
       </div>
-
-    {{/IsHoverCard}}
+    {{/IsHoverCard}} 
 
     {{^IsHoverCard}}
 
@@ -772,17 +172,76 @@ return my;
         <!-- hybrid (sentence or word) card html
           in css: default hybrid css, with click -->
         <div class="expression__hybrid-wrapper">
-          <div class="expression expression__hybrid expression__hybrid--click" id="Display">
+          <div class="expression expression--single expression__hybrid expression__hybrid--click" id="Display">
+            <span class="expression--sentence expression__hybrid-sentence
+                      {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
+                      {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
+                      "
+                  id="hybrid-sentence">
+              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
+            </span>
+            <span class="expression--word expression__hybrid-word
+                  {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
+                  {{^IsTargetedSentenceCard}}
+                    {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+                    {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+                  {{/IsTargetedSentenceCard}}
+                expression__hybrid-word--click-indicator"
+                id="hybrid-word">
+              {{Word}}
+            </span>
+          </div>
+        </div>
+      {{/IsClickCard}} 
+
+
+      {{^IsClickCard}}
+
+        {{#IsTargetedSentenceCard}}
+          <div class="expression expression--sentence expression--single bold-yellow" id="Display">
+            {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
+          </div>
+        {{/IsTargetedSentenceCard}}
+
+        {{^IsTargetedSentenceCard}}
+          {{#IsSentenceCard}}
+            <div class="expression expression--sentence expression--single" id="Display">
+              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
+            </div>
+          {{/IsSentenceCard}}
+
+          {{^IsSentenceCard}}
+            <div class="expression expression--word expression--single" id="Display">
+              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Word}}{{/AltDisplay}}
+            </div>
+          {{/IsSentenceCard}}
+        {{/IsTargetedSentenceCard}} 
+
+      {{/IsClickCard}} 
+
+    {{/IsHoverCard}} 
+
+  {{/PAShowInfo}} 
+
+
+  <!-- regular display -->
+  {{#PAShowInfo}}
+    <div class="expression expression-box">
+
+      <!-- priority is on the alternate display sentence -->
+
+
+      {{#IsHoverCard}}
+        <!-- fallback card card html
+          in css: default hybrid css, but with hover instead of click -->
+        <div class="expression__hybrid-wrapper">
+          <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
             <span class="expression--sentence expression__hybrid-sentence
                          {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                         {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}"
-                id="hybrid-sentence">
-              {{#AltDisplay}}
-                {{furigana:AltDisplay}}
-              {{/AltDisplay}}
-              {{^AltDisplay}}
-                {{Sentence}}
-              {{/AltDisplay}}
+                         {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
+                         "
+                  id="hybrid-sentence">
+              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
             </span>
             <span class="expression--word expression__hybrid-word
                 {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
@@ -790,104 +249,645 @@ return my;
                   {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
                   {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
                 {{/IsTargetedSentenceCard}}
-                expression__hybrid-word--click-indicator"
+                expression__hybrid-word--hover-indicator"
                 id="hybrid-word">
               {{Word}}
             </span>
           </div>
+
         </div>
-      {{/IsClickCard}}
 
-      {{^IsClickCard}}
+      {{/IsHoverCard}} 
 
-        {{#IsTargetedSentenceCard}}
-          <div class="expression expression--sentence bold-yellow" id="Display">
-            {{#AltDisplay}}
-              {{furigana:AltDisplay}}
-            {{/AltDisplay}}
-            {{^AltDisplay}}
-              {{Sentence}}
-            {{/AltDisplay}}
-          </div>
-        {{/IsTargetedSentenceCard}}
+      {{^IsHoverCard}}
 
-        {{^IsTargetedSentenceCard}}
-          {{#IsSentenceCard}}
-            <div class="expression expression--sentence" id="Display">
-              {{#AltDisplay}}
-                {{furigana:AltDisplay}}
-              {{/AltDisplay}}
-              {{^AltDisplay}}
-                {{Sentence}}
-              {{/AltDisplay}}
-            </div>
-          {{/IsSentenceCard}}
-
-          {{^IsSentenceCard}}
-            <div class="expression expression--word" id="Display">
-              {{#AltDisplay}}
-                {{furigana:AltDisplay}}
-              {{/AltDisplay}}
-              {{^AltDisplay}}
+        {{#IsClickCard}}
+          <!-- hybrid (sentence or word) card html
+            in css: default hybrid css, with click -->
+          <div class="expression__hybrid-wrapper">
+            <div class="expression expression__hybrid expression__hybrid--click" id="Display">
+              <span class="expression--sentence expression__hybrid-sentence
+                        {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
+                        {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
+                        "
+                    id="hybrid-sentence">
+                {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
+              </span>
+              <span class="expression--word expression__hybrid-word
+                  {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
+                  {{^IsTargetedSentenceCard}}
+                    {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
+                    {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+                  {{/IsTargetedSentenceCard}}
+                  expression__hybrid-word--click-indicator"
+                  id="hybrid-word">
                 {{Word}}
-              {{/AltDisplay}}
+              </span>
             </div>
-          {{/IsSentenceCard}}
-        {{/IsTargetedSentenceCard}}
+          </div>
+        {{/IsClickCard}} 
 
-      {{/IsClickCard}}
+        {{^IsClickCard}}
 
-    {{/IsHoverCard}}
+          {{#IsTargetedSentenceCard}}
+            <div class="expression expression--sentence bold-yellow" id="Display">
+              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
+            </div>
+          {{/IsTargetedSentenceCard}}
+
+          {{^IsTargetedSentenceCard}}
+            {{#IsSentenceCard}}
+              <div class="expression expression--sentence" id="Display">
+                {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}
+              </div>
+            {{/IsSentenceCard}}
+
+            {{^IsSentenceCard}}
+              <div class="expression expression--word" id="Display">
+                {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Word}}{{/AltDisplay}}
+              </div>
+            {{/IsSentenceCard}}
+          {{/IsTargetedSentenceCard}} 
+
+        {{/IsClickCard}} 
+
+      {{/IsHoverCard}} 
 
 
-    <!-- appears to the left -->
-    <div class="flag-box">
-      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-        class="flag-box__svg" id="flag_box_svg">
-        <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
-          <title id=svg_title></title>
-        </circle>
-      </svg>
+      <!-- appears to the left -->
+      <div class="flag-box">
+        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+          class="flag-box__svg" id="flag_box_svg">
+          <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
+            <title id=svg_title></title>
+          </circle>
+        </svg>
+      </div>
+
+    </div> <!-- expression box -->
+
+  {{/PAShowInfo}} 
+
+  
+
+{{#HintNotHidden}}
+  <div class="center-box-1 hint">
+    <div class="center-box-2">
+      <div class="bold-yellow">{{HintNotHidden}}</div>
     </div>
+  </div>
+{{/HintNotHidden}}
+
+<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
+<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
+{{#Hint}}
+  <details class="hint" id="hint_details">
+    <summary>Hint</summary>
+    <div class="center-box-1">
+      <div class="center-box-2">
+        <div class="bold-yellow">{{Hint}}</div>
+      </div>
+    </div>
+  </details>
+{{/Hint}}
+
+
+
+
+
+
+  <!-- regular display -->
+  <!-- displays the audio and show/hide button, used only when testing pitch accent -->
+  {{#PAShowInfo}}
+
+    <!-- only shown if:
+      - word PA should be tested
+      - sentence card
+        - TSC and hybrid cards already shows the word
+    -->
+    {{#IsSentenceCard}}
+    {{^PADoNotTest}}{{^PASeparateWordCard}}{{^IsTargetedSentenceCard}}{{^IsClickCard}}{{^IsHoverCard}}
+
+    
+  
+    {{#PASeparateSentenceCard}}{{^PATestOnlyWord}}
+      <button id="pa-button">Show</button>
+
+    {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
+    {{^PASeparateSentenceCard}}{{#PATestOnlyWord}}
+      <button id="pa-button">Show</button>
+
+    {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
+    {{#PASeparateSentenceCard}}{{#PATestOnlyWord}}
+      <button id="pa-button">Show</button>
+
+    {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
+
+    {{/IsHoverCard}}{{/IsClickCard}}{{/IsTargetedSentenceCard}}{{/PASeparateWordCard}}{{/PADoNotTest}}
+    {{/IsSentenceCard}}
 
     <!--
-      different circle positions depending on whether it's a sentence or not.
-      More specifically, checks if the first character is "「",
-      and adjusts the position based on that
+      if the display is a word: show sentence preview (spoilered)
     -->
-    <script>
-      var circ = document.getElementById("svg_circle");
-      var d = document.getElementById("Display");
-      if ("{{IsSentenceCard}}{{IsTargetedSentenceCard}}" &&
-          d.innerText.length > 0 && d.innerText[0] == "「") {
-        circ.setAttributeNS(null, "cx", "35");
-        circ.setAttributeNS(null, "cy", "11");
-      }
+    {{^IsSentenceCard}}{{^IsHoverCard}}{{^IsClickCard}}{{^IsTargetedSentenceCard}}
+      
+<details class="glossary-details" id="full_sentence_front_details">
+  <summary>Full Sentence</summary>
+  <div class="center-box-1">
+    <div class="center-box-2">
+      <div class="full-sentence bold-yellow" id="full_sentence_front">
+        {{furigana:SentenceReading}}
+      </div>
+    </div>
+  </div>
+</details>
 
-      // ============================
-      //  Word pitch indicator color
-      // ============================
-      // done in javascript to simplify templating logic
-      // however, special characters in the field like " can break the code
-      var svgTitle = document.getElementById("svg_title");
-      if (svgTitle !== null) {
-        svgTitle.textContent = "PA: " + paIndicator.tooltip;
-      }
+    {{/IsTargetedSentenceCard}}{{/IsClickCard}}{{/IsHoverCard}}{{/IsSentenceCard}}
 
-      var circ = document.getElementById("svg_circle");
-      circ.classList.add(paIndicator.className);
-    </script>
+    
 
+<span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
 
+{{#SentenceAudio}}
+  <span id="sentence-audio"> {{SentenceAudio}} </span>
+{{/SentenceAudio}}
 
-
-  </div> <!-- expression box -->
-
-{{/PAShowInfo}}
 
 
 <script>
-  var hybridClick = function() {
+  // THIS IS A HACK: this hack is to not auto-play the audio at the front of the card
+  // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
+  // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
+  var elem = document.querySelector("#pa-silence-audio .soundLink, #pa-silence-audio .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+</script>
+
+
+
+
+
+  {{/PAShowInfo}} 
+
+
+
+
+
+
+<script type="module">
+
+  
+
+  /// 
+
+// import settings as a global variable
+// https://forums.ankiweb.net/t/how-to-include-external-files-in-your-template-js-css-etc-guide/11719
+
+//function getAnkiPrefix() {
+//  // TODO cross-platform support
+//  // "https://appassets.androidplatform.net" ?
+//  return "./";
+//}
+//
+//var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
+
+// import statements cannot be contained in a function, if statement, etc.
+//import {createOptions} from getAnkiPrefix() + OPTIONS_FILE;
+//
+import {createOptions} from "./jp-mining-note-options.js";
+
+
+
+(function () { // restricts ALL javascript to hidden scope
+
+
+// TODO remove this at some point and replace with proper checks
+var note = (function () {
+  let my = {};
+  my.colorQuotes = false;
+  return my;
+}());
+
+
+
+var logger = (function () {
+  let my = {};
+
+  let _appendMsg = function(message, groupEle) {
+    let msgEle = document.createElement('div');
+    msgEle.classList.add("info-circle__message")
+    if (Array.isArray(message)) {
+      if (message.length > 0) {
+        msgEle.textContent = message[0];
+
+        for (let line of message.slice(1)) {
+          let lineEle = document.createElement('div');
+          lineEle.textContent = line;
+          msgEle.appendChild(lineEle);
+        }
+      }
+
+    } else {
+      msgEle.textContent = message;
+    }
+    groupEle.appendChild(msgEle);
+  }
+
+  my.error = function(message) {
+    var groupEle = document.getElementById("info_circle_text_error");
+    _appendMsg(message, groupEle);
+    var infoCirc = document.getElementById("info_circle");
+    if (!infoCirc.classList.contains("info-circle-error")) {
+      infoCirc.classList.add("info-circle-error")
+    }
+  }
+
+  my.assert = function(condition, message) {
+    if (!condition) {
+      my.error("(assert) " + message);
+    }
+  }
+
+  my.warn = function(message) {
+    var groupEle = document.getElementById("info_circle_text_warning");
+    _appendMsg(message, groupEle);
+    var infoCirc = document.getElementById("info_circle");
+    if (!infoCirc.classList.contains("info-circle-warning")) {
+      infoCirc.classList.add("info-circle-warning")
+    }
+  }
+
+  my.info = function(message) {
+    var groupEle = document.getElementById("info_circle_text_info");
+    _appendMsg(message, groupEle);
+  }
+
+
+  my.leech = function() {
+    var groupEle = document.getElementById("info_circle_text_leech");
+    _appendMsg("", groupEle);
+    var infoCirc = document.getElementById("info_circle");
+    if (!infoCirc.classList.contains("info-circle-leech")) {
+      infoCirc.classList.add("info-circle-leech")
+    }
+  }
+
+  return my;
+}());
+
+
+// on any javascript error: log it
+window.onerror = function(msg, url, lineNo, columnNo, error) {
+//window.onerror = function(msg) {
+  //logger.error("Javascript error: `" + msg + "`" + "\n" + error.stack);
+  let stackList = error.stack.split(" at ");
+  for (let i = 1; i < stackList.length; i++) {
+    stackList[i] = ">>> " + stackList[i];
+  }
+  logger.error(stackList);
+}
+
+// https://stackoverflow.com/a/55178672
+window.onunhandledrejection = function(errorEvent) {
+  logger.error("Javascript handler error: `" + errorEvent.reason + "`");
+}
+
+
+
+
+
+
+
+
+/*
+ * class to read settings
+ */
+
+var settings = (function () {
+  let my = {};
+
+  /* defaultOpt=null */
+  var _getSetting = function(settingStr, settingObj, defaultOpt) {
+    if (typeof settingObj === "undefined" || !(settingStr in settingObj)) {
+      logger.warn("Option `" + settingStr + "` is not defined in the options file.");
+      if (typeof defaultOpt === "undefined") {
+        return null;
+      } else {
+        return defaultOpt;
+      }
+    }
+    return settingObj[settingStr];
+  }
+
+  my.keybind = function(settingStr, defaultOpt) {
+    return _getSetting(settingStr, JPMNOpts.settings["keybinds"], defaultOpt);
+  }
+
+  my.sentence = function(settingStr, defaultOpt) {
+    return _getSetting(settingStr, JPMNOpts.settings["sentence-module"], defaultOpt);
+  }
+
+  my.quote = function(settingStr, defaultOpt) {
+    return _getSetting(settingStr, JPMNOpts.settings["sentence-module"]["quote-module"], defaultOpt);
+  }
+
+  my.general = function(settingStr, defaultOpt) {
+    return _getSetting(settingStr, JPMNOpts.settings["general"], defaultOpt);
+  }
+
+  return my;
+
+}());
+
+
+
+
+// global variable to set the PA indicator color (as a css class)
+/// {{#PAShowInfo}}
+var paIndicator = (function () {
+  let my = {};
+  my.type = null;
+  my.className = null;
+  my.tooltip = null;
+
+  if ('{{#PADoNotTest}}a{{/PADoNotTest}}{{#PASeparateWordCard}}a{{/PASeparateWordCard}}') {
+    my.type = "none";
+  } else if ('{{#PASeparateSentenceCard}}a{{/PASeparateSentenceCard}}{{#PATestOnlyWord}}a{{/PATestOnlyWord}}') {
+    my.type = "word";
+  } else if ('{{#IsSentenceCard}}a{{/IsSentenceCard}}') {
+    my.type = "sentence";
+  } else {
+    my.type = "word";
+  }
+
+  my.className = "pa-indicator-color--" + my.type;
+
+  if (my.type === "none") {
+    my.tooltip = "Do not test"
+  } else if (my.type == "word") {
+    my.tooltip = "Word"
+  } else { // sentence
+    my.tooltip = "Sentence"
+  }
+
+  return my;
+}());
+/// {{/PAShowInfo}} // PAShowInfo
+
+
+
+var selectSentence = function(temp) {
+  // only chooses the sentence around the bold characters
+  var firstMatch = temp.indexOf("<b>");
+  var lastMatch = temp.lastIndexOf("</b>");
+
+  // list of valid terminators
+  // "removeEnd": is removed if found at the end of a sentence
+  var terminators = {
+    ".": {removeEnd: true},
+    "。": {removeEnd: true},
+    "．": {removeEnd: true},
+    "︒": {removeEnd: true},
+
+    "!": {removeEnd: false},
+    "?": {removeEnd: false},
+    "！": {removeEnd: false},
+    "？": {removeEnd: false},
+    "…": {removeEnd: false},
+    "︕": {removeEnd: false},
+    "︖": {removeEnd: false},
+    "︙": {removeEnd: false},
+  }
+
+
+  if (firstMatch !== -1 && lastMatch !== -1) {
+    var beginIdx = firstMatch;
+    var endIdx = lastMatch;
+
+    for (; beginIdx >= 0; beginIdx--) {
+      if (temp[beginIdx] in terminators) {
+        var obj = terminators[temp[beginIdx]];
+        beginIdx++;
+
+        //console.log(beginIdx);
+        //console.log(temp[beginIdx]);
+        break;
+      }
+    }
+
+    for (; endIdx < temp.length; endIdx++) {
+      if (temp[endIdx] in terminators) {
+        var obj = terminators[temp[endIdx]];
+        if (obj.removeEnd) {
+            endIdx--;
+        }
+
+        //console.log(endIdx);
+        //console.log(temp[endIdx]);
+        //console.log(obj.removeEnd);
+        break;
+      }
+    }
+
+    // clamp
+    if (beginIdx < 0) {
+      beginIdx = 0;
+    }
+    if (endIdx > temp.length-1) {
+      endIdx = temp.length-1;
+    }
+
+    temp = temp.substring(beginIdx, endIdx+1)
+
+    // re-adds quotes if necessary
+    if (temp[0] !== "「") {
+      temp = "「" + temp;
+    }
+    if (temp[temp.length-1] !== "」") {
+      temp = temp + "」";
+    }
+  }
+
+  return temp;
+}
+
+
+
+var processQuote = function(sentEle, sent, isAltDisplay) {
+  let result = sent;
+  let openQuote = null;
+  let closeQuote = null;
+  let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
+
+  if (!isAltDisplay && settings.quote("auto-quote-sentence", true)) {
+    let arr = settings.quote("auto-quote-sentence-strings", ["「", "」"])
+    logger.assert(Array.isArray(arr), "expected array");
+    logger.assert(arr.length === 2, "expected array of len 2");
+    // this operation seems to be supported in anki!
+    [openQuote, closeQuote] = arr;
+  }
+
+  // existing quotes override the default quotes, even on alt displays
+  for (let quotePair of validQuotes) {
+    if ((sent[0] === quotePair[0]) && (sent[sent.length-1] === quotePair[1])) {
+      [openQuote, closeQuote] = quotePair;
+      result = sent.slice(1, -1);
+      break;
+    }
+  }
+
+
+  // replaces the element (should only contain text) with the following:
+  //
+  // <(previous div or span)>
+  //  <span> (open quote) </span>
+  //  <span> (text) </span>
+  //  <span> (close quote) </span>
+  // </(previous div or span)>
+
+  let textEle = document.createElement('span');
+  textEle.innerHTML = result;
+
+  let openQuoteEle = document.createElement('span');
+  openQuoteEle.innerHTML = openQuote;
+
+  let closeQuoteEle = document.createElement('span');
+  closeQuoteEle.innerHTML = closeQuote;
+
+  /// 
+    /// {{#PAShowInfo}}
+      if (settings.quote("pa-indicator-color-quotes")) {
+        note.colorQuotes = true;
+        openQuoteEle.classList.add(paIndicator.className);
+        closeQuoteEle.classList.add(paIndicator.className);
+
+        /// {{#IsHoverCard}}
+          var elem = document.querySelector(".expression__hybrid-wrapper");
+          if (elem !== null) {
+            elem.classList.add("expression__hybrid-wrapper--hover-remove-flag");
+          }
+        /// {{/IsHoverCard}}
+
+        // neither hover & click and is either one of TSC / sentence -> removes flag
+
+        /// ///{{^IsHoverCard}}///{{^IsClickCard}}
+          /// 
+  
+    ///{{#IsTargetedSentenceCard}}///{{^IsSentenceCard}}
+            var svgEle = document.getElementById("flag_box_svg");
+            svgEle.style.display = "none";
+          /// ///{{/IsSentenceCard}}///{{/IsTargetedSentenceCard}}
+    ///{{^IsTargetedSentenceCard}}///{{#IsSentenceCard}}
+            var svgEle = document.getElementById("flag_box_svg");
+            svgEle.style.display = "none";
+          /// ///{{/IsSentenceCard}}///{{/IsTargetedSentenceCard}}
+    ///{{#IsTargetedSentenceCard}}///{{#IsSentenceCard}}
+            var svgEle = document.getElementById("flag_box_svg");
+            svgEle.style.display = "none";
+          /// ///{{/IsSentenceCard}}///{{/IsTargetedSentenceCard}}
+
+        /// ///{{/IsClickCard}}///{{/IsHoverCard}}
+      }
+    /// {{/PAShowInfo}}
+  /// 
+
+  if (settings.quote("left-align-adjust-format")) {
+    sentEle.classList.add("left-align-quote-format");
+  }
+
+  sentEle.innerText = "";
+  sentEle.appendChild(openQuoteEle);
+  sentEle.appendChild(textEle);
+  sentEle.appendChild(closeQuoteEle);
+}
+
+
+/*
+ * processes the sentence (if there is no altdisplay)
+ * - removes newlines
+ * - finds the shortest possible sentence around the bolded characters
+ *   (if specified in the config)
+ *
+ * isAltDisplay=false
+ */
+var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
+  if (!settings.sentence("enabled", true)) {
+    return;
+  }
+
+  if (typeof isAltDisplay === 'undefined') {
+    isAltDisplay = false;
+  }
+
+  // removes linebreaks
+  var result = sentEle.innerHTML;
+
+  // cloze deletion replacing bold with [...]
+  if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
+    result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
+  }
+
+  if ((!isAltDisplay && settings.sentence("remove-line-breaks", true))
+      || isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
+    let noNewlines = result.replace(/<br>/g, "");
+
+    // automatically removes newlines and other html elements
+    // https://stackoverflow.com/a/54369605
+    let charCount = [...sentEle.innerText.trim()].length;
+    let maxCharCount = settings.sentence("remove-line-breaks-until-char-count", 0)
+
+    if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
+      result = noNewlines;
+    }
+  }
+
+  // removes leading and trailing white space (equiv. of strip() in python)
+  result = result.trim();
+
+  // selects the smallest containing sentence
+
+  if (!isAltDisplay && settings.sentence("select-smallest-sentence", false)) {
+    result = selectSentence(result);
+  }
+
+  if (settings.quote("enabled", true)) {
+    result = processQuote(sentEle, result, isAltDisplay);
+  } else {
+    sentEle.innerHTML = result;
+  }
+}
+
+/*
+ * Toggles the display of any given details tag
+ */
+var toggleDetailsTag = function(ele) {
+  if (ele.hasAttribute('open')) {
+    ele.removeAttribute('open');
+  } else {
+    ele.setAttribute("open", "true");
+  }
+}
+
+
+function processSentences(isAltDisplay, isClozeDeletion) {
+  var sentences = document.querySelectorAll(".expression--sentence")
+
+  if (sentences !== null) {
+    for (let sent of sentences) {
+      processSentence(sent, isAltDisplay, isClozeDeletion);
+    }
+  }
+}
+
+
+
+
+/// 
+  
+/// 
+  
+  function hybridClick() {
     var hSent = document.getElementById("hybrid-sentence");
     var hWord = document.getElementById("hybrid-word");
     var svgEle = document.getElementById("flag_box_svg");
@@ -924,245 +924,229 @@ return my;
     }
   }
 
-  var extraKeybindSettings = function(e) {
-    var keys = null;
+/// 
 
-    keys = settings.keybind("toggle-hybrid-sentence");
-    var hSent = document.getElementById("hybrid-sentence");
-    var hWord = document.getElementById("hybrid-word");
-    if (keys !== null && hSent && hWord && keys.includes(e.key)) {
-      hybridClick();
-    }
-
-    keys = settings.keybind("toggle-highlight-word");
+  function toggleHighlightWord() {
     var paButton = document.getElementById("pa-button");
-    if (keys !== null && paButton && keys.includes(e.key)) {
-      toggleHighlightWord();
-    }
-  }
-
-  var sentences = document.querySelectorAll(".expression--sentence")
-  var isAltDisplay = {{#AltDisplay}} true || {{/AltDisplay}} false ? true : false;
-  if (sentences !== null) {
-    //if (promiseJustCreated) {
-    //  settingsPromise.then(() => {
-        for (var sent of sentences) {
-          processSentence(sent, isAltDisplay);
-        }
-    //  });
-    //}
-  }
-
-</script>
-
-{{#IsClickCard}}
-  <script>
     var d = document.getElementById("Display");
-    d.onclick = hybridClick;
-  </script>
-{{/IsClickCard}}
 
-{{#HintNotHidden}}
-  <div class="center-box-1 hint">
-    <div class="center-box-2">
-      <div class="bold-yellow">{{HintNotHidden}}</div>
-    </div>
-  </div>
-{{/HintNotHidden}}
-
-<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
-<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
-{{#Hint}}
-  <details class="hint" id="hint_details">
-    <summary>Hint</summary>
-    <div class="center-box-1">
-      <div class="center-box-2">
-        <div class="bold-yellow">{{Hint}}</div>
-      </div>
-    </div>
-  </details>
-{{/Hint}}
-
-
-
-<!-- regular display -->
-<!-- displays the audio and show/hide button, used only when testing pitch accent -->
-{{#PAShowInfo}}
-
-  {{^PADoNotTest}} {{^PASeparateWordCard}}
-
-    <!-- if the display is a sentence but we only want to test word pitch accent -->
-    {{#IsSentenceCard}}
-
-      <!-- if it's a TSC, then it's already shown -->
-      {{^IsTargetedSentenceCard}}
-
-        <!-- hybrid cards do not need the show button -->
-        {{^IsClickCard}} {{^IsHoverCard}}
-
-          <!-- ankified `PASeparateSentenceCard or PATestOnlyWord` -->
-          {{#PASeparateSentenceCard}} {{^PATestOnlyWord}}
-            <button id="pa-button" oncontextmenu="event.preventDefault();"
-              onclick="toggleHighlightWord()">Show</button>
-          {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-          {{^PASeparateSentenceCard}} {{#PATestOnlyWord}}
-            <button id="pa-button" oncontextmenu="event.preventDefault();"
-              onclick="toggleHighlightWord()">Show</button>
-          {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-          {{#PASeparateSentenceCard}} {{#PATestOnlyWord}}
-            <button id="pa-button" oncontextmenu="event.preventDefault();"
-              onclick="toggleHighlightWord()">Show</button>
-          {{/PATestOnlyWord}} {{/PASeparateSentenceCard}}
-
-          <!-- script here because too lazy to copy/paste -->
-          <!-- https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button -->
-          <script>
-            var paButton = document.getElementById("pa-button");
-            var d = document.getElementById("Display");
-
-            function toggleHighlightWord() {
-              if (paButton.innerText == "Show") {
-                paButton.innerText = "Hide";
-                d.classList.add("bold-yellow");
-              } else {
-                paButton.innerText = "Show";
-                if (d.classList.contains("bold-yellow")) {
-                  d.classList.remove("bold-yellow");
-                }
-              }
-            }
-          </script>
-        {{/IsHoverCard}} {{/IsClickCard}}
-      {{/IsTargetedSentenceCard}}
-
-    {{/IsSentenceCard}}
-
-  {{/PASeparateWordCard}} {{/PADoNotTest}}
-
-
-  <!--
-    if the display is a word: show sentence preview (spoilered)
-  -->
-  {{^IsSentenceCard}} {{^IsHoverCard}} {{^IsClickCard}} {{^IsTargetedSentenceCard}}
-    <details class="glossary-details" id="full_sentence_front_details">
-      <summary>Full Sentence</summary>
-      <div class="center-box-1">
-        <div class="center-box-2">
-          <div class="full-sentence bold-yellow" id="full_sentence_front">
-            {{furigana:SentenceReading}}
-          </div>
-        </div>
-      </div>
-    </details>
-  {{/IsTargetedSentenceCard}} {{/IsClickCard}} {{/IsHoverCard}} {{/IsSentenceCard}}
-
-
-  <span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
-  {{#SentenceAudio}}
-  <span id="sentence-audio"> {{SentenceAudio}} </span>
-  {{/SentenceAudio}}
-
-  <script>
-  // THIS IS A HACK: this hack is to not auto-play the audio at the front of the card
-  // https://forums.ankiweb.net/t/disabling-audio-autoplay-for-certain-fields/6318/3
-  // https://forums.ankiweb.net/t/controlling-display-and-function-of-audio-buttons/10234
-  var elem = document.querySelector("#pa-silence-audio .soundLink, #pa-silence-audio .replaybutton");
-  if (elem) {
-    elem.click();
-  }
-</script>
-
-
-{{/PAShowInfo}}
-
-<script>
-  // shift to switch between sentence & word on click & hover cards
-  // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
-  // because functions persist and cannot be easily removed within anki,
-  // whereas .onkeyup = ... replaces the previous function with the current.
-  document.onkeyup = (e => {
-    var keys = null;
-
-    // tests for the existance of extraKeybindSettings
-    if (typeof extraKeybindSettings !== 'undefined') {
-      extraKeybindSettings(e);
+    if (paButton.innerText == "Show") {
+      paButton.innerText = "Hide";
+      d.classList.add("bold-yellow");
+    } else {
+      paButton.innerText = "Show";
+      if (d.classList.contains("bold-yellow")) {
+        d.classList.remove("bold-yellow");
+      }
     }
+  }
 
-    {{#WordAudio}}
-      keys = settings.keybind("play-word-audio");
-      if (keys !== null && keys.includes(e.key)) {
-        var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
+/// 
+
+
+
+
+
+// shift to switch between sentence & word on click & hover cards
+// NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
+// because functions persist and cannot be easily removed within anki,
+// whereas .onkeyup = ... replaces the previous function with the current.
+document.onkeyup = (e => {
+  var keys = null;
+
+  // tests for the existance of extraKeybindSettings
+  //if (typeof extraKeybindSettings !== 'undefined') {
+  //  extraKeybindSettings(e);
+  //}
+
+  /// 
+  
+  /// 
+  
+
+  keys = settings.keybind("toggle-hybrid-sentence");
+  var hSent = document.getElementById("hybrid-sentence");
+  var hWord = document.getElementById("hybrid-word");
+  if (keys !== null && hSent && hWord && keys.includes(e.key)) {
+    hybridClick();
+  }
+
+  keys = settings.keybind("toggle-highlight-word");
+  var paButton = document.getElementById("pa-button");
+  if (keys !== null && paButton && keys.includes(e.key)) {
+    toggleHighlightWord();
+  }
+
+/// 
+/// 
+
+
+  /// {{#WordAudio}}
+    keys = settings.keybind("play-word-audio");
+    if (keys !== null && keys.includes(e.key)) {
+      var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
+      if (elem) {
+        elem.click();
+      }
+    }
+  /// {{/WordAudio}}
+
+  /// {{#SentenceAudio}}
+    keys = settings.keybind("play-sentence-audio");
+    if (keys !== null && keys.includes(e.key)) {
+
+      var hSent = document.getElementById("hybrid-sentence");
+
+      /// 
+      if (settings.general("hybrid-sentence-open-on-play-sentence", true)
+          && '{{#IsHoverCard}}a{{/IsHoverCard}}{{#IsClickCard}}a{{/IsClickCard}}'
+          && '{{#IsTargetedSentenceCard}}a{{/IsTargetedSentenceCard}}{{#IsSentenceCard}}a{{/IsSentenceCard}}'
+          && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
+        // this somehow works even when hybridClick is undefined here, woah
+        hybridClick();
+      } else {
+      /// 
+        var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
         if (elem) {
           elem.click();
         }
+      /// 
       }
-    {{/WordAudio}}
+      /// 
+    }
+  /// {{/SentenceAudio}}
 
-    {{#SentenceAudio}}
-      keys = settings.keybind("play-sentence-audio");
-      if (keys !== null && keys.includes(e.key)) {
+  keys = settings.keybind("toggle-front-full-sentence-display");
+  var ele = document.getElementById("full_sentence_front_details");
+  if (keys !== null && ele && keys.includes(e.key)) {
+    toggleDetailsTag(ele)
+  }
 
-        var hSent = document.getElementById("hybrid-sentence");
+  /// {{#Hint}}
+    keys = settings.keybind("toggle-hint-display");
+    var ele = document.getElementById("hint_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
+    }
+  /// {{/Hint}}
 
-        if (settings.general("hybrid-sentence-open-on-play-sentence", true)
-            && note.side === "front"
-            && "{{IsHoverCard}}{{IsClickCard}}" && "{{IsTargetedSentenceCard}}{{IsSentenceCard}}"
-            && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
-          // this somehow works even when hybridClick is undefined here, woah
-          hybridClick();
-        } else {
-          var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
-          if (elem) {
-            elem.click();
-          }
+  /// 
+
+})
+
+
+//var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
+//var injectScript = (src) => {
+//  return new Promise((resolve, reject) => {
+//    const script = document.createElement('script');
+//    script.src = src;
+//    script.async = true;
+//    script.onload = resolve;
+//    script.onerror = function(errorEvent) {
+//      // seems only to error if the options file is not found
+//      // syntax errors trigger the sanity check section and javascript error section
+//      logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
+//    }
+//    document.head.appendChild(script);
+//  });
+//};
+
+
+//(async () => {
+
+//if (typeof JPMNOpts === 'undefined') {
+//  await injectScript(OPTIONS_FILE);
+//}
+
+let JPMNOpts = createOptions();
+
+// sanity check
+if (typeof JPMNOpts === 'undefined') {
+  logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+}
+
+// removes extra info section if not necessary
+var ele = document.querySelector(".pa-graphs");
+if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
+    !"{{#UtilityDictionaries}}a{{/UtilityDictionaries}}") {
+  document.getElementById("extra_info_details").style.display = "none";
+}
+
+/// 
+  
+/// 
+  
+  var isAltDisplay = !!'{{#AltDisplay}}a{{/AltDisplay}}';
+  processSentences(isAltDisplay);
+
+  /// {{#IsClickCard}}
+  var d = document.getElementById("Display");
+  d.onclick = hybridClick;
+  /// {{/IsClickCard}}
+
+
+
+  /// {{#PAShowInfo}}
+  // different circle positions depending on whether it's a sentence or not.
+  // More specifically, checks if the first character is "「",
+  // and adjusts the position based on that
+
+  var circ = document.getElementById("svg_circle");
+  var d = document.getElementById("Display");
+  if ('{{#IsSentenceCard}}a{{/IsSentenceCard}}{{#IsTargetedSentenceCard}}a{{/IsTargetedSentenceCard}}' &&
+      d.innerText.length > 0 && d.innerText[0] == "「") { // TODO: compatability with quote module
+    circ.setAttributeNS(null, "cx", "35");
+    circ.setAttributeNS(null, "cy", "11");
+  }
+
+  // ============================
+  //  Word pitch indicator color
+  // ============================
+  // done in javascript to simplify templating logic
+  var svgTitle = document.getElementById("svg_title");
+  if (svgTitle !== null) {
+    svgTitle.textContent = "PA: " + paIndicator.tooltip;
+  }
+
+  var circ = document.getElementById("svg_circle");
+  circ.classList.add(paIndicator.className);
+  /// {{/PAShowInfo}}
+
+
+/// 
+
+  /// {{#PAShowInfo}}
+  var paButton = document.getElementById("pa-button");
+  var d = document.getElementById("Display");
+  if (paButton !== null) {
+    //paButton.oncontextmenu = oncontextmenu = (event) => {
+    //  event.preventDefault();
+    //};
+    paButton.onclick = () => {
+      if (paButton.innerText == "Show") {
+        paButton.innerText = "Hide";
+        d.classList.add("bold-yellow");
+      } else {
+        paButton.innerText = "Show";
+        if (d.classList.contains("bold-yellow")) {
+          d.classList.remove("bold-yellow");
         }
       }
-    {{/SentenceAudio}}
-
-    keys = settings.keybind("toggle-front-full-sentence-display");
-    var ele = document.getElementById("full_sentence_front_details");
-    if (keys !== null && ele && keys.includes(e.key)) {
-      toggleDetailsTag(ele)
     }
+  }
+  /// {{/PAShowInfo}}
 
-    {{#Hint}}
-      keys = settings.keybind("toggle-hint-display");
-      var ele = document.getElementById("hint_details");
-      if (keys !== null && ele && keys.includes(e.key)) {
-        toggleDetailsTag(ele)
-      }
-    {{/Hint}}
+/// 
 
-    {{#SecondaryDefinition}}
-      keys = settings.keybind("toggle-secondary-definitions-display");
-      var ele = document.getElementById("secondary_definition_details");
-      if (keys !== null && ele && keys.includes(e.key)) {
-        toggleDetailsTag(ele)
-      }
-    {{/SecondaryDefinition}}
-
-    {{#AdditionalNotes}}
-      keys = settings.keybind("toggle-additional-notes-display");
-      var ele = document.getElementById("additional_notes_details");
-      if (keys !== null && ele && keys.includes(e.key)) {
-        toggleDetailsTag(ele)
-      }
-    {{/AdditionalNotes}}
-
-    {{#ExtraDefinitions}}
-      keys = settings.keybind("toggle-extra-definitions-display");
-      var ele = document.getElementById("extra_definitions_details");
-      if (keys !== null && ele && keys.includes(e.key)) {
-        toggleDetailsTag(ele)
-      }
-    {{/ExtraDefinitions}}
-
-    keys = settings.keybind("toggle-extra-info-display");
-    var ele = document.getElementById("extra_info_details");
-    if (keys !== null && ele && keys.includes(e.key)) {
-      toggleDetailsTag(ele)
-    }
+//})();
 
 
-  })
+
+
+}());
+
 </script>
+
+
+
+
