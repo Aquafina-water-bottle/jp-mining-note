@@ -35,13 +35,69 @@ DEFAULT_CONFIG_PATH = "config/config.py"
 
 def add_args(parser):
     group = parser.add_argument_group(title="common")
-    group.add_argument('-c', '--config-file', type=str)
+    group.add_argument('-c', '--config-file', type=str, default=None)
+    group.add_argument(      '--override-config', action="store_true",
+            help="overrides the current config file with the example config, "
+                 "if no specific config file was specified.")
 
 def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     for add_args_func in args:
         add_args_func(parser)
     return parser.parse_args()
+
+
+class Config:
+    def __init__(self, config_data: dict, description: str=""):
+        self.data = config_data
+        assert isinstance(self.data, dict)
+        self.desc = description
+
+    #def get_opt(self, *args):
+    #    current_dict = self.data
+    #    for key in args:
+    #        if not isinstance(self.data, dict):
+    #            raise RuntimeError(f"Argument {key} (from {args}) is not a dictionary")
+    #        if key not in self.data:
+    #            raise RuntimeError(f"Argument {key} (from {args}) not in config")
+    #        current_dict = current_dict[key]
+
+    #    if isinstance(current_dict, dict):
+    #        return Config(current_dict)
+    #    return current_dict
+
+    def __call__(self, *keys: str, get_dict=False):
+        """
+        - returns a config object if dictionary
+        - otherwise returns the expected object (list, str, int, etc.)
+        - automatically detects errors with unknown keys
+
+        can be called either way:
+        >>> config("note_opts")("keybinds")("toggle-hybrid-sentence")
+        >>> config("note_opts", "keybinds", "toggle-hybrid-sentence")
+        """
+        result = self  # returns itself if no keys lol
+
+        current_config = self
+        for i, key in enumerate(keys):
+            if key not in current_config.data:
+                raise RuntimeError(f"Key '{key}' is not in {repr(current_config)}")
+            result = current_config.data[key]
+
+            if isinstance(result, dict):
+                current_config = Config(result, description=f"{current_config.desc}.{key}")
+            elif i < len(keys)-1:
+                # ensures that current_config is always a config object
+                raise RuntimeError(f"Key '{keys[i+1]}' is not in the data value "
+                                   f"Config({current_config.desc + '.' + key}). "
+                                    "Ensure your config matches the example config!")
+
+        if isinstance(result, dict) and not get_dict:
+            return current_config
+        return result
+
+    def __repr__(self):
+        return f"Config({self.desc})"
 
 
 
@@ -77,33 +133,55 @@ def import_source_file(fname: str, modname: str) -> "types.ModuleType":
         raise ImportError(f"{e.strerror}: {fname}") from e
     return module
 
-def get_config(file_path=None):
+
+def get_config_from_str(file_path: str):
+    module = import_source_file(file_path, "config")
+    if module is None:
+        raise Exception("Module is None and cannot be imported")
+    #config = getattr(module, "CONFIG", None)
+    #if config is None:
+    if not hasattr(module, "CONFIG"):
+        raise Exception("CONFIG variable is not defined in the config file")
+
+    return module.CONFIG
+
+def get_config(args):
     """
     creates the config file from the example config if it doesn't exist
     """
+    file_path = args.config_file
 
     if file_path is None:
         file_path = DEFAULT_CONFIG_PATH
 
-        if not os.path.isfile(DEFAULT_CONFIG_PATH):
+        if not os.path.isfile(DEFAULT_CONFIG_PATH) or args.override_config:
+            print(f"Creating the config file under '{file_path}'...")
             if not os.path.isfile(EXAMPLE_CONFIG_PATH):
                 raise Exception("Example config file does not exist")
             shutil.copy(EXAMPLE_CONFIG_PATH, DEFAULT_CONFIG_PATH)
 
-    module = import_source_file(file_path, "config")
-    if module is None:
-        raise Exception("Module is None and cannot be imported")
-    config = getattr(module, "CONFIG", None)
-    if config is None:
-        raise Exception("CONFIG variable is not defined in the config file")
+    config_data = get_config_from_str(file_path)
 
-    return config
+    return Config(config_data, description="root")
+
+
 
 
 if __name__ == "__main__":
-    x = import_source_file(EXAMPLE_CONFIG_PATH, "config")
-    print(x)
-    print(getattr(x, "CONFIG", None))
-    print(getattr(x, "not_a_variable", None))
+    #x = import_source_file(EXAMPLE_CONFIG_PATH, "config")
+    #print(x)
+    #print(getattr(x, "CONFIG", None))
+    #print(getattr(x, "not_a_variable", None))
+
+    args = get_args(add_args)
+    config = get_config(args)
+
+    #print(config("build_opts", "optimize_opts", "always_filled"))
+    #print(config("build_opts")("optimize_opts")("never_filled"))
+    #print(config("note_opts")("keybinds")("toggle-hybrid-sentence"))
+    #print(config("note_opts", "keybinds", "toggle-hybrid-sentence"))
+    #print(config("note_opts", "keybinds", "toggle-hybrid-sentence", "a", "b"))
+    #print(config("note_opts", "keybinds", "a"))
+
     #print(x.CONFIG)
 

@@ -22,12 +22,13 @@ import utils
 
 def add_args(parser):
     group = parser.add_argument_group(title="build")
-    group.add_argument('-p', '--playground', action="store_true")
-    group.add_argument('-f', '--files', type=str, nargs=2, help="input and output files")
+    group.add_argument(      '--playground', action="store_true")
+    group.add_argument(      '--files', type=str, nargs=2, help="input and output files")
+    group.add_argument('-p', '--enable-prettier', action="store_true", default=False)
 
 
 class Generator:
-    def __init__(self, root_folder: str):
+    def __init__(self, root_folder: str, config):
         self.root_folder = root_folder
         self.env = Environment(
             loader = FileSystemLoader(root_folder),
@@ -46,6 +47,24 @@ class Generator:
         }
         for k, v in filters.items():
             self.env.filters[k] = v
+
+        self.get_render_data(config)
+
+
+    def get_render_data(self, config):
+        """
+        gets rendering variables from config
+        """
+        optimize_opts = config("build_opts", "optimize_opts")
+        with open("version.txt") as f:
+            version = f.read().strip()
+
+        self.data = {
+            "ALWAYS_TRUE": optimize_opts("always_filled"),
+            "ALWAYS_FALSE": optimize_opts("never_filled"),
+            "NOTE_OPTS": config("note_opts", get_dict=True),
+            "VERSION": version,
+        }
 
     def bitwise_and(self, x, y):
         return x & y
@@ -71,7 +90,7 @@ class Generator:
         rooted at (repo root)/templates
         """
         template = self.env.get_template(input_file)
-        result = template.render(VERSION="1.0.1", ALWAYS_TRUE=[], ALWAYS_FALSE=[])
+        result = template.render(self.data)
         output_file_path = os.path.join(self.root_folder, output_file)
         with open(output_file_path, "w") as file:
             file.write(result)
@@ -79,10 +98,12 @@ class Generator:
 
 
 def main(root_folder: str="", args=None):
-    generator = Generator(root_folder)
 
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
+    config = utils.get_config(args)
+
+    generator = Generator(root_folder, config)
 
     if args.playground:
         input_file = "playground.html"
@@ -97,12 +118,26 @@ def main(root_folder: str="", args=None):
         #dirs = [d for d in os.listdir(dir_name) if os.path.isdir(os.path.join(dir_name, d))]
         dirs = ["main", "pa_sent"]
 
+        # https://stackoverflow.com/a/16505750
+        #from lxml import etree, html
+
         for d in dirs:
             for file_name in ("front.html", "back.html"):
             #for file_name in ["front.html"]:
                 input_file = os.path.join("cards", d, file_name)
                 output_file = os.path.join("..", "cards", d, file_name)
+
                 generator.generate(input_file, output_file)
+
+                if args.enable_prettier:
+                    # TODO cross platform?
+                    output_path = os.path.join(root_folder, output_file)
+                    os.system(f"npx prettier --write {output_path}")
+
+                    #with open(full_path) as f:
+                    #    document_root = html.fromstring(f.read())
+                    #with open(full_path, "w") as f:
+                    #    f.write(etree.tostring(document_root, encoding='unicode', pretty_print=True))
 
 #def main():
 #    t = Templates()

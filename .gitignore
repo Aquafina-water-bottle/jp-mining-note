@@ -337,4 +337,5 @@ templates/temp.txt
 templates/out.html
 templates/output/
 config.py
+config/config.py
 

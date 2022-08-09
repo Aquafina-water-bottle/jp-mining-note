@@ -59,6 +59,10 @@ def add_args(parser):
     group.add_argument('-m', '--install-media', action="store_true")
     group.add_argument('-a', '--install-all', action="store_true")
 
+    # TODO implement
+    # force update version
+    group.add_argument('-f', '--force', action="store_true")
+
 
 # taken from https://github.com/FooSoft/anki-connect#python
 def request(action, **params):
