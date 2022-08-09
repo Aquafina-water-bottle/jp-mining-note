@@ -52,34 +52,38 @@ class MediaFile:
     contents: str
 
 
-
 def add_args(parser):
     group = parser.add_argument_group(title="install")
-    group.add_argument('-o', '--install-options', action="store_true")
-    group.add_argument('-m', '--install-media', action="store_true")
-    group.add_argument('-a', '--install-all', action="store_true")
+    group.add_argument("-o", "--install-options", action="store_true")
+    group.add_argument("-m", "--install-media", action="store_true")
+    group.add_argument("-a", "--install-all", action="store_true")
 
     # TODO implement
     # force update version
-    group.add_argument('-f', '--force', action="store_true")
+    group.add_argument("-f", "--force", action="store_true")
 
 
 # taken from https://github.com/FooSoft/anki-connect#python
 def request(action, **params):
-    return {'action': action, 'params': params, 'version': 6}
+    return {"action": action, "params": params, "version": 6}
+
 
 def invoke(action, **params):
-    requestJson = json.dumps(request(action, **params)).encode('utf-8')
-    response = json.load(urllib.request.urlopen(urllib.request.Request('http://localhost:8765', requestJson)))
+    requestJson = json.dumps(request(action, **params)).encode("utf-8")
+    response = json.load(
+        urllib.request.urlopen(
+            urllib.request.Request("http://localhost:8765", requestJson)
+        )
+    )
     if len(response) != 2:
-        raise Exception('response has an unexpected number of fields')
-    if 'error' not in response:
-        raise Exception('response is missing required error field')
-    if 'result' not in response:
-        raise Exception('response is missing required result field')
-    if response['error'] is not None:
-        raise Exception(response['error'])
-    return response['result']
+        raise Exception("response has an unexpected number of fields")
+    if "error" not in response:
+        raise Exception("response is missing required error field")
+    if "result" not in response:
+        raise Exception("response is missing required result field")
+    if response["error"] is not None:
+        raise Exception(response["error"])
+    return response["result"]
 
 
 # taken from https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/antp/updater.py
@@ -88,24 +92,19 @@ def format_templates(model: NoteType) -> Dict[str, Any]:
         "model": {
             "name": model.name,
             "templates": {
-                template.name: {"Front": template.front, "Back": template.back} for template in model.templates
-            }
+                template.name: {"Front": template.front, "Back": template.back}
+                for template in model.templates
+            },
         }
     }
+
 
 def format_styling(model: NoteType) -> Dict[str, Any]:
-    return {
-        "model": {
-            "name": model.name,
-            "css": model.css
-        }
-    }
+    return {"model": {"name": model.name, "css": model.css}}
+
 
 def format_media(media: MediaFile) -> Dict[str, Any]:
-    return {
-        "filename": media.name,
-        "data": media.contents
-    }
+    return {"filename": media.name, "data": media.contents}
 
 
 def read_card_templates() -> List[CardTemplate]:
@@ -114,15 +113,17 @@ def read_card_templates() -> List[CardTemplate]:
         template_name = TEMPLATE_NAMES[model_dir_name]
         dir_path = os.path.join(NOTE_TYPES_DIR, model_dir_name)
 
-        with open(os.path.join(dir_path, FRONT_FILENAME), encoding='utf8') as front:
-            with open(os.path.join(dir_path, BACK_FILENAME), encoding='utf8') as back:
+        with open(os.path.join(dir_path, FRONT_FILENAME), encoding="utf8") as front:
+            with open(os.path.join(dir_path, BACK_FILENAME), encoding="utf8") as back:
                 templates.append(CardTemplate(template_name, front.read(), back.read()))
 
     return templates
 
+
 def read_css() -> str:
-    with open(CSS_FILEPATH, encoding='utf8') as f:
+    with open(CSS_FILEPATH, encoding="utf8") as f:
         return f.read()
+
 
 def read_model() -> NoteType:
     return NoteType(name=MODEL_NAME, css=read_css(), templates=read_card_templates())
@@ -132,17 +133,16 @@ def to_base64_str(string: str) -> str:
     return base64.b64encode(bytes(string, "utf-8")).decode("utf-8")
 
 
-#def read_options_file() -> str:
+# def read_options_file() -> str:
 #    with open(os.path.join("media", OPTIONS_FILENAME), encoding='utf8') as f:
 #        return f.read()
 #
-#def read_options_media() -> MediaFile:
+# def read_options_media() -> MediaFile:
 #    return MediaFile(name=OPTIONS_FILENAME, contents=to_base64_str(read_options_file()))
 
 
-
 def get_media_file(file_name) -> MediaFile:
-    with open(os.path.join("media", file_name), encoding='utf8') as f:
+    with open(os.path.join("media", file_name), encoding="utf8") as f:
         contents = f.read()
     return MediaFile(name=file_name, contents=to_base64_str(contents))
 
@@ -150,6 +150,7 @@ def get_media_file(file_name) -> MediaFile:
 def send_note_type(model: NoteType):
     print(invoke("updateModelTemplates", **format_templates(model)))
     print(invoke("updateModelStyling", **format_styling(model)))
+
 
 def send_media(media: MediaFile):
     print(invoke("storeMediaFile", **format_media(media)))
@@ -173,4 +174,3 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
-

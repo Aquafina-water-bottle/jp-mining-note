@@ -6,8 +6,7 @@
 """
 
 
-
-#from jinja2 import Template
+# from jinja2 import Template
 
 import os
 import argparse
@@ -22,34 +21,37 @@ import utils
 
 def add_args(parser):
     group = parser.add_argument_group(title="build")
-    group.add_argument(      '--playground', action="store_true")
-    group.add_argument(      '--files', type=str, nargs=2, help="input and output files")
-    group.add_argument('-p', '--enable-prettier', action="store_true", default=False)
+    # group.add_argument("--playground", action="store_true")
+    # group.add_argument("--files", type=str, nargs=2, help="input and output files")
+    group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
+    group.add_argument("--output-folder", type=str, default="build")
+    group.add_argument(
+        "--release", action="store_true", default=False, help="build for release"
+    )
 
 
 class Generator:
     def __init__(self, root_folder: str, config):
         self.root_folder = root_folder
         self.env = Environment(
-            loader = FileSystemLoader(root_folder),
-            autoescape = select_autoescape(),
-            undefined = StrictUndefined,
-            #lstrip_blocks = True,
+            loader=FileSystemLoader(root_folder),
+            autoescape=select_autoescape(),
+            undefined=StrictUndefined,
+            # lstrip_blocks = True,
         )
 
         filters = {
-            'bitwise_and':          self.bitwise_and,
-            'bitwise_or':           self.bitwise_or,
-            'bitwise_xor':          self.bitwise_xor,
-            'bitwise_complement':   self.bitwise_complement,
-            'bitwise_shift_left':   self.bitwise_shift_left,
-            'bitwise_shift_right':  self.bitwise_shift_right,
+            "bitwise_and": self.bitwise_and,
+            "bitwise_or": self.bitwise_or,
+            "bitwise_xor": self.bitwise_xor,
+            "bitwise_complement": self.bitwise_complement,
+            "bitwise_shift_left": self.bitwise_shift_left,
+            "bitwise_shift_right": self.bitwise_shift_right,
         }
         for k, v in filters.items():
             self.env.filters[k] = v
 
         self.get_render_data(config)
-
 
     def get_render_data(self, config):
         """
@@ -76,14 +78,13 @@ class Generator:
         return x ^ y
 
     def bitwise_complement(self, x):
-        return ~ x
+        return ~x
 
     def bitwise_shift_left(self, x, b):
         return x << b
 
     def bitwise_shift_right(self, x, b):
         return x >> b
-
 
     def generate(self, input_file, output_file):
         """
@@ -97,7 +98,7 @@ class Generator:
         return result
 
 
-def main(root_folder: str="", args=None):
+def main(root_folder: str = "", args=None):
 
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
@@ -105,41 +106,33 @@ def main(root_folder: str="", args=None):
 
     generator = Generator(root_folder, config)
 
-    if args.playground:
-        input_file = "playground.html"
-        output_file = "out.html"
-        result = generator.generate(input_file, output_file)
-        print(result)
-    elif args.files:
-        result = generator.generate(args.files[0], args.files[1])
-        print(result)
-    else:
-        dir_name = "cards"
-        #dirs = [d for d in os.listdir(dir_name) if os.path.isdir(os.path.join(dir_name, d))]
-        dirs = ["main", "pa_sent"]
+    dir_name = "cards"
+    # dirs = [d for d in os.listdir(dir_name) if os.path.isdir(os.path.join(dir_name, d))]
+    dirs = ["main", "pa_sent"]
 
-        # https://stackoverflow.com/a/16505750
-        #from lxml import etree, html
+    # https://stackoverflow.com/a/16505750
+    # from lxml import etree, html
 
-        for d in dirs:
-            for file_name in ("front.html", "back.html"):
-            #for file_name in ["front.html"]:
-                input_file = os.path.join("cards", d, file_name)
-                output_file = os.path.join("..", "cards", d, file_name)
+    for d in dirs:
+        for file_name in ("front.html", "back.html"):
+            # for file_name in ["front.html"]:
+            input_file = os.path.join("cards", d, file_name)
+            output_file = os.path.join("..", "cards", d, file_name)
 
-                generator.generate(input_file, output_file)
+            generator.generate(input_file, output_file)
 
-                if args.enable_prettier:
-                    # TODO cross platform?
-                    output_path = os.path.join(root_folder, output_file)
-                    os.system(f"npx prettier --write {output_path}")
+            if args.enable_prettier:
+                # TODO cross platform?
+                output_path = os.path.join(root_folder, output_file)
+                os.system(f"npx prettier --write {output_path}")
 
-                    #with open(full_path) as f:
-                    #    document_root = html.fromstring(f.read())
-                    #with open(full_path, "w") as f:
-                    #    f.write(etree.tostring(document_root, encoding='unicode', pretty_print=True))
+                # with open(full_path) as f:
+                #    document_root = html.fromstring(f.read())
+                # with open(full_path, "w") as f:
+                #    f.write(etree.tostring(document_root, encoding='unicode', pretty_print=True))
 
-#def main():
+
+# def main():
 #    t = Templates()
 #    dir_name = "./gen"
 #
@@ -151,21 +144,17 @@ def main(root_folder: str="", args=None):
 #            output_file = os.path.join("cards", d, file_name)
 #            t.process(input_file, output_file)
 #
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    main()
-
 
 
 if __name__ == "__main__":
     main(root_folder="templates")
-    #test()
-    #generate_cards()
+    # test()
+    # generate_cards()
 
 
-
-
-
-#def main():
+# def main():
 #    env = Environment(
 #        loader = FileSystemLoader("templates"),
 #        autoescape = select_autoescape(),
@@ -189,7 +178,7 @@ if __name__ == "__main__":
 #
 #
 #
-#def test_block():
+# def test_block():
 #    env = Environment(
 #        loader = FileSystemLoader("templates"),
 #        autoescape = select_autoescape(),
@@ -209,4 +198,3 @@ if __name__ == "__main__":
 #    }
 #
 #    print(template.render(data))
-

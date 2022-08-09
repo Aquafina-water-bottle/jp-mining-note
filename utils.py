@@ -1,11 +1,11 @@
 # import from arbitrary file path
 # https://stackoverflow.com/a/19011259
-#import types
-#import importlib.machinery
-#import importlib.util, sys
+# import types
+# import importlib.machinery
+# import importlib.util, sys
 #
 #
-#def get_config(file_path):
+# def get_config(file_path):
 #    #loader = importlib.machinery.SourceFileLoader('config', file_path)
 #    #mod = types.ModuleType(loader.name)
 #    #return loader.exec_module(mod)
@@ -32,13 +32,16 @@ EXAMPLE_CONFIG_PATH = "config/example_config.py"
 DEFAULT_CONFIG_PATH = "config/config.py"
 
 
-
 def add_args(parser):
     group = parser.add_argument_group(title="common")
-    group.add_argument('-c', '--config-file', type=str, default=None)
-    group.add_argument(      '--override-config', action="store_true",
-            help="overrides the current config file with the example config, "
-                 "if no specific config file was specified.")
+    group.add_argument("-c", "--config-file", type=str, default=None)
+    group.add_argument(
+        "--override-config",
+        action="store_true",
+        help="overrides the current config file with the example config, "
+        "if no specific config file was specified.",
+    )
+
 
 def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -48,12 +51,12 @@ def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Names
 
 
 class Config:
-    def __init__(self, config_data: dict, description: str=""):
+    def __init__(self, config_data: dict, description: str = ""):
         self.data = config_data
         assert isinstance(self.data, dict)
         self.desc = description
 
-    #def get_opt(self, *args):
+    # def get_opt(self, *args):
     #    current_dict = self.data
     #    for key in args:
     #        if not isinstance(self.data, dict):
@@ -85,12 +88,16 @@ class Config:
             result = current_config.data[key]
 
             if isinstance(result, dict):
-                current_config = Config(result, description=f"{current_config.desc}.{key}")
-            elif i < len(keys)-1:
+                current_config = Config(
+                    result, description=f"{current_config.desc}.{key}"
+                )
+            elif i < len(keys) - 1:
                 # ensures that current_config is always a config object
-                raise RuntimeError(f"Key '{keys[i+1]}' is not in the data value "
-                                   f"Config({current_config.desc + '.' + key}). "
-                                    "Ensure your config matches the example config!")
+                raise RuntimeError(
+                    f"Key '{keys[i+1]}' is not in the data value "
+                    f"Config({current_config.desc + '.' + key}). "
+                    "Ensure your config matches the example config!"
+                )
 
         if isinstance(result, dict) and not get_dict:
             return current_config
@@ -98,7 +105,6 @@ class Config:
 
     def __repr__(self):
         return f"Config({self.desc})"
-
 
 
 # TODO upgrade python to 3.10 so I can do str | Path
@@ -138,12 +144,13 @@ def get_config_from_str(file_path: str):
     module = import_source_file(file_path, "config")
     if module is None:
         raise Exception("Module is None and cannot be imported")
-    #config = getattr(module, "CONFIG", None)
-    #if config is None:
+    # config = getattr(module, "CONFIG", None)
+    # if config is None:
     if not hasattr(module, "CONFIG"):
         raise Exception("CONFIG variable is not defined in the config file")
 
     return module.CONFIG
+
 
 def get_config(args):
     """
@@ -165,23 +172,20 @@ def get_config(args):
     return Config(config_data, description="root")
 
 
-
-
 if __name__ == "__main__":
-    #x = import_source_file(EXAMPLE_CONFIG_PATH, "config")
-    #print(x)
-    #print(getattr(x, "CONFIG", None))
-    #print(getattr(x, "not_a_variable", None))
+    # x = import_source_file(EXAMPLE_CONFIG_PATH, "config")
+    # print(x)
+    # print(getattr(x, "CONFIG", None))
+    # print(getattr(x, "not_a_variable", None))
 
     args = get_args(add_args)
     config = get_config(args)
 
-    #print(config("build_opts", "optimize_opts", "always_filled"))
-    #print(config("build_opts")("optimize_opts")("never_filled"))
-    #print(config("note_opts")("keybinds")("toggle-hybrid-sentence"))
-    #print(config("note_opts", "keybinds", "toggle-hybrid-sentence"))
-    #print(config("note_opts", "keybinds", "toggle-hybrid-sentence", "a", "b"))
-    #print(config("note_opts", "keybinds", "a"))
+    # print(config("build_opts", "optimize_opts", "always_filled"))
+    # print(config("build_opts")("optimize_opts")("never_filled"))
+    # print(config("note_opts")("keybinds")("toggle-hybrid-sentence"))
+    # print(config("note_opts", "keybinds", "toggle-hybrid-sentence"))
+    # print(config("note_opts", "keybinds", "toggle-hybrid-sentence", "a", "b"))
+    # print(config("note_opts", "keybinds", "a"))
 
-    #print(x.CONFIG)
-
+    # print(x.CONFIG)
