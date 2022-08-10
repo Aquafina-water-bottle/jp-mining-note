@@ -6,21 +6,22 @@
 // JPMN is short for JP Mining Note
 var JPMNOpts = (function (my) {
 
-  var isMobile = function() {
-    // TODO what about non-android?
-    var UA = navigator.userAgent;
-    var isAndroid = /Android/i.test(UA);
-    return isAndroid;
-  }
+  //var isMobile = function() {
+  //  // TODO what about non-android?
+  //  var UA = navigator.userAgent;
+  //  var isAndroid = /Android/i.test(UA);
+  //  return isAndroid;
+  //}
 
-  // Example: ifMobile("A", "B") will return "A" if ran on a mobile device, and "B" if not.
-  var ifMobile = function(a, b) {
-    return isMobile() ? a : b;
-  }
+  //// Example: ifMobile("A", "B") will return "A" if ran on a mobile device, and "B" if not.
+  //var ifMobile = function(a, b) {
+  //  return isMobile() ? a : b;
+  //}
 
-  my.settings = {
-    // {{ SETTINGS }}
-  }
+  my.settings =
+{% filter indent(width=4) %}
+{{ NOTE_OPTS }}
+{% endfilter %}
 
   return my;
 }(JPMNOpts || {}));

@@ -9,12 +9,15 @@
 # from jinja2 import Template
 
 import os
+import json
 import argparse
+from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
 import utils
 
+OPTIONS_FILENAME = "jp-mining-note-options.js"
 
 # https://eengstrom.github.io/musings/add-bitwise-operations-to-ansible-jinja2
 
@@ -24,10 +27,6 @@ def add_args(parser):
     # group.add_argument("--playground", action="store_true")
     # group.add_argument("--files", type=str, nargs=2, help="input and output files")
     group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
-    group.add_argument("--output-folder", type=str, default="build")
-    group.add_argument(
-        "--release", action="store_true", default=False, help="build for release"
-    )
 
 
 class Generator:
@@ -64,7 +63,9 @@ class Generator:
         self.data = {
             "ALWAYS_TRUE": optimize_opts("always_filled"),
             "ALWAYS_FALSE": optimize_opts("never_filled"),
-            "NOTE_OPTS": config("note_opts", get_dict=True),
+            #"NOTE_OPTS": config("note_opts", get_dict=True),
+            "NOTE_OPTS": json.dumps(config("note_opts", get_dict=True), indent=2),
+            #json_output = 
             "VERSION": version,
         }
 
@@ -89,19 +90,28 @@ class Generator:
     def generate(self, input_file, output_file):
         """
         rooted at (repo root)/templates
+        output rooted at (repo root)
         """
         template = self.env.get_template(input_file)
         result = template.render(self.data)
-        output_file_path = os.path.join(self.root_folder, output_file)
-        with open(output_file_path, "w") as file:
+        # output_file_path = os.path.join(self.root_folder, output_file)
+
+        # creates directories if it doesn't exist
+        Path(output_file).parent.mkdir(parents=True, exist_ok=True)
+
+        with open(output_file, "w") as file:
             file.write(result)
         return result
 
 
-def main(root_folder: str = "", args=None):
+def main(root_folder: str = "templates", args=None):
 
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
+    if args.release:
+        args.folder = os.path.join("cards")
+        args.enable_prettier = True
+
     config = utils.get_config(args)
 
     generator = Generator(root_folder, config)
@@ -113,11 +123,12 @@ def main(root_folder: str = "", args=None):
     # https://stackoverflow.com/a/16505750
     # from lxml import etree, html
 
+    # generates html files
     for d in dirs:
         for file_name in ("front.html", "back.html"):
             # for file_name in ["front.html"]:
             input_file = os.path.join("cards", d, file_name)
-            output_file = os.path.join("..", "cards", d, file_name)
+            output_file = os.path.join(args.folder, d, file_name)
 
             generator.generate(input_file, output_file)
 
@@ -130,6 +141,13 @@ def main(root_folder: str = "", args=None):
                 #    document_root = html.fromstring(f.read())
                 # with open(full_path, "w") as f:
                 #    f.write(etree.tostring(document_root, encoding='unicode', pretty_print=True))
+
+    # generates config file
+    generator.generate(
+        os.path.join(OPTIONS_FILENAME),
+        os.path.join(args.folder, OPTIONS_FILENAME),
+    )
+    # print(json_output)
 
 
 # def main():

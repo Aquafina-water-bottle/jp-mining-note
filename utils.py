@@ -32,6 +32,10 @@ EXAMPLE_CONFIG_PATH = "config/example_config.py"
 DEFAULT_CONFIG_PATH = "config/config.py"
 
 
+
+cached_config = None
+
+
 def add_args(parser):
     group = parser.add_argument_group(title="common")
     group.add_argument("-c", "--config-file", type=str, default=None)
@@ -40,6 +44,20 @@ def add_args(parser):
         action="store_true",
         help="overrides the current config file with the example config, "
         "if no specific config file was specified.",
+    )
+    group.add_argument(
+        "-r",
+        "--release",
+        action="store_true",
+        default=False,
+        help="uses the default options for when building for release",
+    )
+    group.add_argument(
+        "-f",
+        "--folder",
+        type=str,
+        default="build",
+        help="output folder for the build process, and input folder for installation",
     )
 
 
@@ -134,6 +152,7 @@ def import_source_file(fname: str, modname: str) -> "types.ModuleType":
     module = importlib.util.module_from_spec(spec)
     sys.modules[modname] = module
     try:
+        assert spec.loader is not None
         spec.loader.exec_module(module)
     except FileNotFoundError as e:
         raise ImportError(f"{e.strerror}: {fname}") from e
@@ -151,17 +170,25 @@ def get_config_from_str(file_path: str):
 
     return module.CONFIG
 
-
 def get_config(args):
     """
     creates the config file from the example config if it doesn't exist
     """
+    global cached_config # lazy fix
+
+    if cached_config is not None:
+        return cached_config
+
     file_path = args.config_file
 
     if file_path is None:
         file_path = DEFAULT_CONFIG_PATH
 
-        if not os.path.isfile(DEFAULT_CONFIG_PATH) or args.override_config:
+        if args.release:
+            file_path = EXAMPLE_CONFIG_PATH
+            print(f"Using the example config for release...")
+
+        elif not os.path.isfile(DEFAULT_CONFIG_PATH) or args.override_config:
             print(f"Creating the config file under '{file_path}'...")
             if not os.path.isfile(EXAMPLE_CONFIG_PATH):
                 raise Exception("Example config file does not exist")
@@ -169,7 +196,9 @@ def get_config(args):
 
     config_data = get_config_from_str(file_path)
 
-    return Config(config_data, description="root")
+    config = Config(config_data, description="root")
+    cached_config = config
+    return config
 
 
 if __name__ == "__main__":

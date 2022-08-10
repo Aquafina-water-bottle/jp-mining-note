@@ -13,7 +13,7 @@
 
 // import statements cannot be contained in a function, if statement, etc.
 //import {createOptions} from getAnkiPrefix() + OPTIONS_FILE;
-//
+
 import {createOptions} from "./jp-mining-note-options.js";
 
 
