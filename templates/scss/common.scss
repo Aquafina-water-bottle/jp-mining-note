@@ -1,0 +1,69 @@
+
+@mixin common {
+  /*
+   * --------------------
+   *  dictionary entries
+   * --------------------
+   */
+  .dict-group__tag-list .dict-group__tag:not(:first-child)::before {
+    content: ", ";
+  }
+  .dict-group__tag-list::before {
+    content: "(";
+  }
+  .dict-group__tag-list::after {
+    content: ") ";
+  }
+
+
+
+  /*
+   * -------------------
+   *  Word pitch accent
+   * -------------------
+   */
+
+  /* css classes used by the plugin */
+  .downstep {
+    color: var(--yellow);
+    position: relative;
+  }
+  .downstep:before {
+    content: '';
+    width: 2px;
+    height: 18%;
+    background: var(--yellow);
+    position: absolute;
+    display: block;
+    top: 0px;
+    left: 0px;
+  }
+
+
+  .pitchoverline {
+    text-decoration: none !important;
+    text-decoration-color: var(--yellow) !important;
+    position: relative;
+  }
+  .pitchoverline:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: var(--yellow);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+
+
+
+  .nopron,
+  .night_mode .nopron {
+    color: #42a3ff;
+  }
+  .nasal,
+  .night_mode .nasal {
+    color: #f12a2a;
+  }
+
+}

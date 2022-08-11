@@ -15,11 +15,20 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
+from dataclasses import dataclass
+
 import utils
 
 OPTIONS_FILENAME = "jp-mining-note-options.js"
 
 # https://eengstrom.github.io/musings/add-bitwise-operations-to-ansible-jinja2
+
+
+#@dataclass(frozen=True)
+#class RenderFilePair:
+#    src_file: str
+#    dst_file: str
+#    prettify: bool = False
 
 
 def add_args(parser):
@@ -30,7 +39,7 @@ def add_args(parser):
 
 
 class Generator:
-    def __init__(self, root_folder: str, config):
+    def __init__(self, root_folder: str, config, enable_prettier=False):
         self.root_folder = root_folder
         self.env = Environment(
             loader=FileSystemLoader(root_folder),
@@ -51,6 +60,7 @@ class Generator:
             self.env.filters[k] = v
 
         self.get_render_data(config)
+        self.enable_prettier = enable_prettier
 
     def get_render_data(self, config):
         """
@@ -87,7 +97,7 @@ class Generator:
     def bitwise_shift_right(self, x, b):
         return x >> b
 
-    def generate(self, input_file, output_file):
+    def generate(self, input_file, output_file, prettify=False):
         """
         rooted at (repo root)/templates
         output rooted at (repo root)
@@ -101,7 +111,18 @@ class Generator:
 
         with open(output_file, "w") as file:
             file.write(result)
+
+        if self.enable_prettier and prettify:
+            # TODO cross platform?
+            os.system(f"npx prettier --write {output_file}")
+
+            with open(output_file) as f:
+                result = f.read()
+
         return result
+
+
+
 
 
 def main(root_folder: str = "templates", args=None):
@@ -130,12 +151,12 @@ def main(root_folder: str = "templates", args=None):
             input_file = os.path.join("cards", d, file_name)
             output_file = os.path.join(args.folder, d, file_name)
 
-            generator.generate(input_file, output_file)
+            generator.generate(input_file, output_file, prettify=True)
 
-            if args.enable_prettier:
-                # TODO cross platform?
-                output_path = os.path.join(root_folder, output_file)
-                os.system(f"npx prettier --write {output_path}")
+            #if args.enable_prettier:
+            #    # TODO cross platform?
+            #    output_path = os.path.join(root_folder, output_file)
+            #    os.system(f"npx prettier --write {output_path}")
 
                 # with open(full_path) as f:
                 #    document_root = html.fromstring(f.read())
@@ -147,6 +168,14 @@ def main(root_folder: str = "templates", args=None):
         os.path.join(OPTIONS_FILENAME),
         os.path.join(args.folder, OPTIONS_FILENAME),
     )
+
+    # generates css files
+    generator.generate(
+        os.path.join(OPTIONS_FILENAME),
+        os.path.join(args.folder, OPTIONS_FILENAME),
+    )
+
+
     # print(json_output)
 
 

@@ -1,0 +1,20 @@
+/* TODO use @import in the main css (or <link>) with this file
+ *
+ * ln -s ~/.local/share/Anki2/Japanese/collection.media/field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+ *
+ */
+
+@use "common";
+
+:root {
+  --yellow: #0060ff; /* not actually yellow ;) */
+}
+
+.nightMode {
+  --yellow: #fffd9e;
+}
+
+@include common.common;
+
+
+

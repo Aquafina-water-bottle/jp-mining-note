@@ -5,6 +5,8 @@ Config file used for both build.py and install.py
 CONFIG = {
 
   "build_opts": {  # build options
+    "sass-path": False,
+
     "optimize": False,
 
     "optimize_opts": {
@@ -65,15 +67,61 @@ CONFIG = {
 
 
   "install_opts": {  # install options
+    "notes": {
 
-    # list of note types to install
-    "model_name": "JP Mining Note",
-    "template_names": {
-      "main": "Mining Card",
-      "pa_sentence": "PA Sentence Card",
-      "pa_word": "PA Word Card",
-      "cloze_deletion": "Cloze Deletion Card",
-    }
+      # each note is:
+      # - given its own directory in the repository root
+      # - read from (root)/templates/(note name)
+      # - css is read from (root)/templates/scss/(note name).scss
+      "jp-mining-note": {
+        # list of note types to install
+        "model_name": "JP Mining Note",
+        "templates": {
+          "main": {
+            "name": "Mining Card",
+          },
+          "pa_sentence": {
+            "name": "PA Sentence Card",
+          },
+          "pa_word": {
+            "name": "PA Word Card",
+          },
+          "cloze_deletion": {
+            "name": "Cloze Deletion Card",
+          },
+        },
+
+        "media": [
+          {
+            "input_file": "scss/fields.scss",
+            "output_file": "fields.css",
+            "type": "scss",
+          },
+        ],
+        "install_media": {
+          "static": [
+            "silence.wav"
+          ],
+          "dynamic": [
+            "fields.css"
+            "jp-mining-note-options.css"
+          ],
+        },
+
+      },
+
+    },
+
+    # input file:
+    # - searched under (root)/templates
+    # output file:
+    # - placed under (root)/media, or build
+    # type:
+    # - none
+    #   - simply there to copy files
+    # - scss:
+    #   - scss:
+    # - none
   },
 
 

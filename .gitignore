@@ -327,6 +327,18 @@ dist
 
 
 
+# Created by https://www.toptal.com/developers/gitignore/api/sass
+# Edit at https://www.toptal.com/developers/gitignore?templates=sass
+
+### Sass ###
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
+# End of https://www.toptal.com/developers/gitignore/api/sass
+
+
 
 notes.txt
 temp.txt
@@ -339,4 +351,5 @@ templates/output/
 config.py
 config/config.py
 build/
+templates/scss/*.css
 

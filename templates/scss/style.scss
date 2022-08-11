@@ -1,0 +1,1218 @@
+/*
+ *  ============
+ *   GLOBAL CSS
+ *  ============
+ */
+
+@use "common";
+
+:root {
+  --pa-brightness-reduce: 60%;
+  --frequencies-padding: 5px;
+  --frequencies-border: 5px;
+  --sentence-font-size: 50px;
+  --full-sentence-font-size: 28px;
+  --word-font-size: 70px;
+  --description-font-size: 20px;
+  --description-footer-font-size: 9px;
+
+  /* TODO dynamic solution */
+  --tooltip-max-width: 500px;
+  --tooltip-font-size: 14px;
+
+  --yellow: #0060ff; /* not actually yellow ;) */
+  --background-darken: rgba(0, 0, 0, 0.05);
+  --card-description-color: #acacac;
+
+  --info-circle-hover-color: #5f5f5f;
+
+  --info-circle-leech-color: #3983ff;
+  --info-circle-leech-hover-color: #609cff;
+  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+
+  --info-circle-warning-color: #ff8700;
+  --info-circle-warning-hover-color: #f2a753;
+  --info-circle-warning-text-color: #f9c24e;
+
+  --info-circle-error-color: #ff0200;
+  --info-circle-error-hover-color: #ff4d4c;
+  --info-circle-error-text-color: #fe7776;
+
+  --pa-indicator-sentence-color: #4cd200;
+  --pa-indicator-word-color: var(--yellow);
+  --pa-indicator-none-color: #ec3a2d;
+
+  --hybrid-underline-color: black;
+
+
+}
+
+/* override variables for mobile */
+.mobile {
+  --word-font-size: 50px;
+  --sentence-font-size: 30px;
+  --description-font-size: 15px;
+  /*--description-footer-font-size: 7px;*/
+
+  /* TODO more portable solution */
+  --tooltip-max-width: 200px;
+  --tooltip-font-size: 11px;
+}
+
+.night_mode {
+  --yellow: #fffd9e;
+  --background-darken: rgba(0, 0, 0, 0.12);
+  --card-description-color: #585858;
+
+  --info-circle-hover-color: #bdbdbd;
+
+  --info-circle-leech-color: #ead623;
+  --info-circle-leech-hover-color: var(--yellow);
+  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+
+  --info-circle-warning-color: #ff8d0d;
+  --info-circle-warning-hover-color: #f9c24e;
+  --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
+
+  --info-circle-error-color: #f53b39;
+  --info-circle-error-hover-color: #fe7776;
+  --info-circle-error-text-color: var(--info-circle-error-hover-color);
+
+  --pa-indicator-sentence-color: #62ff73;
+  --pa-indicator-word-color: #34dbef;
+  --pa-indicator-none-color: #ff6b66;
+
+  --hybrid-underline-color: white;
+}
+
+
+.card {
+  /*font-family: hiragino;*/
+  font-family: notosans;
+  font-size: 30px;
+  text-align: center;
+  font-style: normal;
+}
+
+.card.night_mode {
+ color: white;
+ background-color: #2f2f31;
+}
+
+/* can't figure out how to customize the replay button on mobile... */
+/*a.replay-button svg path { fill: #2f2f31; }
+a.replay-button svg circle { fill: #FFFAF0; }*/
+
+/*.mobile .replaybutton svg path { fill: #2f2f31; }
+.mobile .replaybutton svg circle { fill: #FFFAF0; }*/
+/*.replaybutton svg path   { fill: #FFFAF0 !important; }
+.replaybutton svg circle { fill: #2f2f31 !important; }*/
+/*.replay-button svg {
+  fill: black !important;
+}*/
+
+
+/* makes lists tolerable to look at */
+ol, ul {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  padding-left: 1.5em;
+}
+
+
+/* makes the background of the top row of tables slightly lighter */
+th {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+/*
+ * makes the summary tag's clickable area not span the entire width of the given area
+ *
+ * NOTE: currently doesn't work as intended: it hides the triangle indicator
+ * - only way to solve this is to set the display to `list-item`
+ * - can't find a good fix for it other than `display: inline list-item`
+ *   which doesn't seem to be supported on anki yet :(
+ * - reverting back to the entire width span until further notice
+ */
+/*
+details > summary {
+  display: inline-block;
+  width: min-content;
+  white-space: nowrap;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+*/
+
+/* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
+/* wrap elements in two divs: center-box-1 and center-box-2 */
+.center-box-1 {
+  text-align: center;
+}
+
+.center-box-2 {
+  display: inline-block;
+  text-align: left;
+}
+
+@font-face {
+  font-family: hiragino;
+  src: url('hiragino-mincho-pron-w3.otf');
+}
+@font-face {
+  font-family: notosans;
+  src: url('NotoSansCJK-Regular.ttc');
+}
+
+
+.bold-yellow b {
+  color: var(--yellow);
+}
+
+.override-display-none {
+  display: none !important;
+}
+
+.override-display-inline-block {
+  display: inline-block !important;
+}
+
+
+/*
+ * Problem: Anki doesn't have {{field1 OR field2}}. This means to make something equivalent to:
+ *   {{A OR B}} A {{/A OR B}}
+ * one has to write:
+ *   {{#A}} {{#B}} A or B {{/B}} {{/A}}
+ *   {{^A}} {{#B}} A or B {{/B}} {{/A}}
+ *   {{#A}} {{^B}} A or B {{/B}} {{/A}}
+ * which is clearly not scalable past 2 fields.
+ *
+ * A non-javascript solution to deal with the above problem:
+ * Specify an outer field with class
+ * <div class="outer-display1 {{^A}} {{^B}} outer-display2 {{/B}} {{/A}}">
+ *   <div class="inner-display1">
+ *     A or B
+ *   </div>
+ *   <div class="inner-display2">
+ *     neither A nor B is filled
+ *   </div>
+ * </div>
+ */
+
+.outer-display1 > .inner-display1 {
+  display: inherit;
+}
+.outer-display1 > .inner-display2 {
+  display: none;
+}
+
+.outer-display2 > .inner-display1 {
+  display: none;
+}
+.outer-display2 > .inner-display2 {
+  display: inherit;
+}
+
+
+
+/*
+ * formats the open right quote to be to the left of the entire text box
+ */
+
+.left-align-quote-format {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+
+/*
+ * makes ruby text unselectable (and hence uncopyable) (TODO: javascript option)
+ * TODO: this doesn't actually seem to work in my anki version...
+ * - it makes the text unselectable, but the goal was to make the text also uncopyable
+ * - however, the text remains copyable for some reason in anki
+ * - text is not copyable in modern browsers like firefox
+ */
+
+/*
+ruby rt {
+  user-select: none;
+}
+*/
+
+
+
+/*
+ *  ================
+ *   FRONT SIDE CSS
+ *  ================
+ */
+
+.card-description {
+  font-family: hiragino;
+  color: var(--card-description-color);
+  font-size: var(--description-font-size);
+  line-height: 85%;
+  text-align: left;
+}
+
+.card-description-ver {
+  font-size: var(--description-footer-font-size);
+}
+.mobile .card-description-ver {
+  padding-bottom: 30px;
+}
+
+
+
+/* info circle & tooltip */
+.info-circle {
+  position: relative;
+  display: inline-block;
+}
+
+.info-circle path {
+  fill: var(--card-description-color);
+}
+
+.info-circle:hover path {
+  fill: var(--info-circle-hover-color);
+}
+
+
+.info-circle-text-wrapper {
+  width: var(--tooltip-max-width);
+  height: 0px;
+  position: absolute;
+}
+
+
+/* Tooltip text */
+.info-circle-text {
+  position: absolute;
+  display: inline-block;
+
+  visibility: hidden;
+  min-width: 200px;
+  max-width: var(--tooltip-max-width);
+
+  font-family: notosans;
+  font-size: var(--tooltip-font-size);
+  text-align: left;
+
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+
+  top: -10px;
+  margin-left: 16px;
+}
+
+.info-circle-svg-wrapper:hover + .info-circle-text-wrapper > .info-circle-text {
+  visibility: visible;
+}
+
+/* prevents the tooltip text from disappearing on hover */
+.info-circle-text:hover {
+  visibility: visible;
+}
+
+
+/* arrow */
+.info-circle-text:after {
+  content: "";
+  position: absolute;
+
+  /* position tooltip correctly */
+  left: -15px;
+  top: 11px;
+
+  /* the arrow */
+  border: 8px solid #000000;
+  border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
+
+  z-index: 1;
+}
+
+.info-circle-svg-wrapper:hover:after {
+  visibility: visible;
+}
+
+
+/* leech text */
+.info-circle-text-leech:not(:empty) {
+  margin-bottom: 10px;
+}
+.info-circle-text-leech .info-circle__message:before {
+  content: "Leech";
+  font-weight: bold;
+  color: var(--info-circle-leech-text-color);
+}
+
+.info-circle-leech path {
+  fill: var(--info-circle-leech-color);
+}
+
+.info-circle-leech:hover path {
+  fill: var(--info-circle-leech-hover-color);
+}
+
+
+
+/* warning text */
+.info-circle-text-warning:not(:empty) {
+  margin-bottom: 10px;
+}
+.info-circle-text-warning .info-circle__message:before {
+  content: "Warning: ";
+  font-weight: bold;
+  color: var(--info-circle-warning-text-color);
+}
+
+.info-circle-warning path {
+  fill: var(--info-circle-warning-color);
+}
+
+.info-circle-warning:hover path {
+  fill: var(--info-circle-warning-hover-color);
+}
+
+
+/* error text */
+.info-circle-text-error:not(:empty) {
+  margin-bottom: 10px;
+}
+.info-circle-text-error .info-circle__message:before {
+  content: "ERROR: ";
+  font-weight: bold;
+  color: var(--info-circle-error-text-color);
+}
+
+.info-circle-error path {
+  fill: var(--info-circle-error-color);
+}
+
+.info-circle-error:hover path {
+  fill: var(--info-circle-error-hover-color);
+}
+
+
+
+
+
+/* https://stackoverflow.com/a/38948646 (ver 5) */
+.expression-box {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-column-gap: 5px;
+  justify-items: center;
+
+  margin-bottom: -0.0em;
+  margin-top: 0.3em;
+  font-size: var(--sentence-font-size);
+  font-family: hiragino;
+}
+
+.flag-box {
+  margin-left: auto;
+  grid-column-start: 1;
+
+  /*
+   * so that the svg can be placed after the sentence (to remove upon hover)
+   * while appearing to be before the sentence
+   */
+  order: -1;
+}
+
+.flag-box__svg {
+  display: inline-block;
+  vertical-align: middle;
+  height: 1.5em;
+}
+
+.flag-box__circle {
+}
+
+
+/* pitch accent indicator colors */
+.pa-indicator-color--sentence {
+  fill:  var(--pa-indicator-sentence-color);
+  color: var(--pa-indicator-sentence-color);
+}
+.pa-indicator-color--word {
+  fill:  var(--pa-indicator-word-color);
+  color: var(--pa-indicator-word-color);
+}
+.pa-indicator-color--none {
+  fill:  var(--pa-indicator-none-color);
+  color: var(--pa-indicator-none-color);
+}
+
+
+/* space at the top of the window on the front side */
+.expression {
+}
+
+.mobile .expression {
+  border-top: 30px;
+}
+
+.expression b {
+  /*color: var(--yellow);*/
+  font-weight: normal;
+}
+
+.expression ruby rt { opacity: 0; }
+.expression:hover ruby rt { opacity: 1; }
+
+
+/* used in other cards where PA flag is not shown */
+.expression--single {
+  margin-bottom: -0.0em;
+  margin-top: 0.3em;
+  font-size: var(--sentence-font-size);
+  font-family: hiragino;
+}
+
+/* used when the front side display is a word and not a sentence (increase font size) */
+.expression--word {
+  font-size: var(--word-font-size);
+}
+
+
+/* class used to identify exactly which div(s) contain a sentence, for js purposes */
+.expression--sentence {
+  display: inline-block;
+  text-align: left;
+
+  /*font-size: var(--sentence-font-size);*/
+}
+
+
+.hint {
+  font-size: 16px;
+}
+
+
+
+/*
+ * -----------------
+ *  Hybrid card css
+ * -----------------
+ */
+
+.expression__hybrid-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.expression__hybrid-wrapper--hover-remove-flag:hover + .flag-box > .flag-box__svg {
+  display: none;
+}
+
+.expression__hybrid {
+  position: relative;
+  padding-bottom: 10px; /* overriden line-height causes the buttons underneath the word to be too close */
+}
+
+/* used to specify that hovering toggles between word/sentence */
+.expression__hybrid--hover {
+}
+
+/* used to specify that clicking toggles between word/sentence */
+.expression__hybrid--click {
+  transition: 0.3s;
+}
+
+/* not applied to the image because of above comment (prevent showing the transition) */
+.expression__hybrid--click:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.expression__hybrid-word {
+  display: block;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--hybrid-underline-color);
+  line-height: 125%;
+}
+
+.expression__hybrid-word--click-indicator {
+}
+.expression__hybrid-word--hover-indicator {
+  border-bottom-color: var(--yellow);
+}
+
+.expression__hybrid-word--sentence-underline {
+}
+.expression__hybrid-word--word-underline {
+  border-bottom-style: dashed;
+}
+
+
+/*
+.expression__hybrid-word:after {
+  content: '';
+  height: 2px;
+  width: 104%;
+  background: var(--yellow);
+  position: absolute;
+  top: 90%;
+  left: -2%;
+  display: block;
+}
+
+.expression__hybrid-word--click-indicator:after {
+  background: #a7ffa9;
+}
+.expression__hybrid-word--hover-indicator:after {
+  background: white;
+}
+
+.expression__hybrid-word--sentence-underline:after {
+  background: #a7ffa9;
+}
+.expression__hybrid-word--word-underline:after {
+  background: white;
+}
+*/
+
+  /*background: #95f2a1;*/
+  /*background: #79ebf8;*/ /* light blue */
+
+.expression__hybrid-sentence {
+    display: none;
+}
+
+.expression__hybrid--hover:hover > .expression__hybrid-word {
+    display: none;
+}
+.expression__hybrid--hover:hover > .expression__hybrid-sentence {
+    display: block;
+}
+
+
+
+
+
+
+
+
+/*
+ *  ===============
+ *   BACK SIDE CSS
+ *  ===============
+ */
+
+
+/*
+ * adds a width constraint to the backside to make things look better
+ * - only applied after the main definition header
+ */
+.back-side {
+  max-width: 850px;
+  margin: 20px auto 20px auto;
+  padding: 0 20px 0 20px;
+}
+
+.answer-border {
+  border-bottom: 1px solid;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  width: 95%;
+}
+
+
+
+@include common.common;
+
+
+
+/*
+ * -------------------
+ *  Definition header
+ * -------------------
+ */
+
+
+/* contains the word, picture, and pitch accent */
+/* no idea for a good name, so going to call it "def-header" == definition header */
+.def-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 820px;
+  margin: auto;
+}
+
+.dh-left { /* left */
+  background: var(--background-darken);
+  padding: 0.625em;
+  border-radius: 5px;
+  flex: 1; /* takes up all available space */
+}
+
+/* PA cards only */
+.dh-left--blue-border { /* left */
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 71, 83, 1);
+  padding: 0.55em;
+}
+
+
+.dh-left__reading {
+  font-size: 50px;
+  font-family: hiragino;
+  white-space: nowrap; /* so the reading can expand into the image */
+}
+
+.dh-left__word-pitch {
+  margin-top: 15px;
+  font-size: 23px;
+  vertical-align: middle;
+}
+
+/* bigger word pitch for the pitch accent cards */
+.dh-left__word-pitch--big {
+  font-size: 30px;
+  margin-top: 8px;
+}
+
+.dh-left__word-pitch--big .downstep:before {
+  width: 3px;
+  height: 19%;
+  top: 0px;
+  left: -1px;
+}
+
+.dh-left__word-pitch--big .pitchoverline:after {
+  height: 3px;
+  top: 0px;
+  right: 0px;
+}
+
+
+
+/*
+ * -----------------------------------------
+ *  Def Header Left - Word PA bold override
+ * -----------------------------------------
+ * overwriting the bold ability:
+ * - bold == not the correct sound used in the sound clip
+ *
+ */
+.dh-left__word-pitch b {
+  font-weight: normal;
+  color: #808080;
+  font-size: 15px;
+}
+
+.dh-left__word-pitch b .pitchoverline:after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: var(--yellow);
+  filter: brightness(var(--pa-brightness-reduce));
+  position: absolute;
+  top: -1px;
+  right: -1px;
+}
+
+.dh-left__word-pitch b .downstep:before {
+  content: '';
+  width: 1px;
+  height: 25%;
+  background: var(--yellow);
+  /*filter: brightness(var(--pa-brightness-reduce));*/
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: 0px;
+}
+
+.dh-left__word-pitch b .nopron {
+  filter: brightness(var(--pa-brightness-reduce));
+}
+.dh-left__word-pitch b .nasal {
+  filter: brightness(var(--pa-brightness-reduce));
+}
+.dh-left__word-pitch b .downstep {
+  filter: brightness(var(--pa-brightness-reduce));
+}
+
+
+
+/*
+ * ----------------------------
+ *  Def Header Left - PA cards
+ * ----------------------------
+ */
+.dh-left__bottom {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+.dh-left__graph {
+}
+
+.dh-left__gap {
+  font-size: 20px;
+  padding-left: 10px;
+  color: #d0d0d0;
+}
+
+.dh-left__audio-buttons {
+  font-size: 23px;
+  vertical-align: middle;
+}
+
+
+
+/*
+ * ------------------
+ *  Def Header Right
+ * ------------------
+ */
+
+
+.dh-right {
+  font-size: 40px;
+  padding-left: 35px;
+  max-width: 400px;
+  max-height: 210px;
+}
+
+/* TODO put the image at the top right corner always for mobile */
+.mobile .dh-right {
+  padding-left: 0px;
+
+  max-height: 60px !important;
+  min-width: 0px;
+  min-height: 0px;
+
+  position: fixed;
+  top: 15px;
+  right: 15px;
+}
+
+
+
+.dh-right__img {
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  min-width: 200px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mobile .dh-right__img {
+  max-height: 60px !important;
+
+  min-width: 0px;
+  min-height: 0px;
+}
+
+/* moved the hover element to the div to prevent the size transform transition from showing */
+.dh-right__img-container {
+  transition: 0.3s;
+}
+
+/* not applied to the image because of above comment (prevent showing the transition) */
+.dh-right__img-container:hover {
+  opacity: 0.7;
+}
+
+
+
+
+
+
+
+
+/*
+ * -------
+ *  Modal
+ * -------
+ */
+
+
+.modal {
+  display: none; /* hidden by default */
+  position: fixed; /* stay in place */
+  z-index: 99; /* sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* full width */
+  height: 100%; /* full height */
+  overflow: auto; /* enable scroll if needed */
+  background-color: rgb(0,0,0); /* fallback color */
+  background-color: rgba(0,0,0,0.75); /* black w/ opacity */
+}
+
+.modal {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.25s ;
+  animation-name: zoom;
+  animation-duration: 0.25s;
+}
+
+/* Add Animation */
+.modal-img/*, #caption*/ {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.25s ;
+  animation-name: zoom;
+  animation-duration: 0.25s;
+  /*max-width: initial;
+  max-height: initial;*/
+
+  /* prevents the zoomed-in image from exceeding the screen size */
+  max-width: 90%;
+  max-height: 90%;
+
+  /*
+   * center image vertically and horizontally
+   * https://stackoverflow.com/a/11716065
+   */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.modal-img__zoom-out {
+  animation-name: zoom-out;
+  animation-duration: 0.25s;
+}
+
+
+@-webkit-keyframes zoom {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  0.001% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 100;
+  }
+}
+@keyframes zoom {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  0.001% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 100;
+  }
+
+}
+
+@-webkit-keyframes zoom-out {
+  0% {
+    display: block;
+    opacity: 100;
+  }
+  99.999% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-out {
+  0% {
+    display: block;
+    opacity: 100;
+  }
+  99.999% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+
+
+/*
+ * ---------------
+ *  Full sentence
+ * ---------------
+ */
+
+.full-sentence {
+  font-size: 28px;
+  margin: 0 0 0.5em 0;
+  font-family: hiragino;
+}
+.full-sentence ruby rt { opacity: 0; }
+.full-sentence:hover ruby rt { opacity: 1; }
+
+
+
+/*
+ * -----------------------------------
+ *  Definitions and collapsable boxes
+ * -----------------------------------
+ */
+.glossary-blockquote {
+  font-size: 18px;
+
+  text-align: left;
+  background: var(--background-darken);
+  font-size: 18px;
+  border-left: 5px solid #ccc;
+  margin: 0 5px;
+  padding: 0.5em 10px;
+}
+
+.glossary-blockquote p {
+  display: inline;
+}
+
+.glossary-details {
+  font-size: 18px;
+  margin: 0.5em 0 0 0;
+}
+
+
+/*
+ * For some reason, it appears that the furigana positioning is way too high when used in the glossary.
+ * Athough I would like these settings to work globally, it would sacrifice some minor things
+ * that <ruby> normally takes care of automatically, such as not having additional spacing on
+ * the left/right of the kanjis when the furigana takes up more space than the allocated kanjis.
+ *
+ * tl;dr only affects glossary css as a quick fix, as the default <ruby> styles are usually preferable.
+ */
+
+/* NO LONGER REQUIRED IN ANKI 2.1.53+ */
+/*
+.glossary-blockquote ruby {
+  display: inline-flex;
+  flex-direction: column-reverse;
+}
+.glossary-blockquote rt {
+  padding-top: 3px;
+  display: inline;
+  line-height: 1;
+}
+.glossary-blockquote rb {
+  display: inline;
+  line-height: 1;
+  text-align: center;
+}
+*/
+
+/* makes ruby text non-selectable (and non-copyable) */
+ruby rt {
+  user-select: none;
+}
+
+
+.glossary-blockquote--small {
+  font-size: 15px;
+}
+.glossary-details--small {
+  font-size: 15px;
+}
+
+
+/* styles to all images within any definition blockquote */
+.glossary__image-container {
+  display: inline-block;
+}
+
+.glossary__image-hover-text {
+}
+
+.glossary__image-hover-media {
+  display: none;
+}
+
+.glossary__image-hover-text:hover ~ .glossary__image-hover-media {
+  display: block;
+  position: absolute;
+}
+
+.glossary__image-hover-media {
+  cursor: pointer;
+  max-height: 500px;
+  max-width:  100px;
+}
+
+/* so the image doesn't disappear once you move your mouse away from the text */
+.glossary__image-hover-media:hover {
+  display: block;
+  position: absolute;
+}
+
+
+
+
+/*
+ * ------------------------------
+ *  Frequencies at the top-right
+ * ------------------------------
+ */
+.frequencies {
+  display: flex;
+  float: right;
+  font-family: hiragino;
+  color: var(--card-description-color);
+  font-size: var(--description-font-size);
+  line-height: 85%;
+}
+
+/* temporarily removing these for the mobile class since they clog up the space */
+.mobile .frequencies {
+  display: none;
+}
+
+.frequencies__group {
+  display: block;
+  padding-left: 10px;
+}
+
+.frequencies__number {
+  text-align: right;
+}
+
+.frequencies__number-inner {
+  border-radius: var(--frequencies-border) var(--frequencies-border) 0px 0px;
+  padding: var(--frequencies-padding) var(--frequencies-padding) 3px var(--frequencies-padding);
+}
+
+.frequencies__dictionary {
+  text-align: right;
+  font-size: var(--description-footer-font-size);
+}
+
+.frequencies__dictionary-inner {
+  border-radius: 0px 0px var(--frequencies-border) var(--frequencies-border);
+  padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
+}
+
+.frequencies__dictionary-inner2 {
+}
+
+
+
+/*
+ * ---------------------
+ *  pitch accent graphs
+ * ---------------------
+ */
+.pa-graphs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.pa-graphs__dictionary-inner:after {
+  content: ":";
+}
+
+.pa-graphs__none {
+  display: none;
+}
+
+
+
+
+/*
+ * ---------------
+ *  customization
+ * ---------------
+ */
+
+/* frequency names */
+
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+  display: none;
+}
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+  content: "A&J";
+}
+
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+  display: none;
+}
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+  content: "VN";
+}
+.frequencies__group[data-details="VN Freq"] .frequencies__number .frequencies__number-inner:after {
+  content: "%";
+}
+
+
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+  display: none;
+}
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+  content: "Inn.";
+}
+
+
+/* Custom highlights for NHK and 大辞泉 */
+
+.pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
+  color: var(--yellow);
+  font-weight: bold;
+}
+.pa-graphs__group[data-details="大辞泉"] .pa-graphs__dictionary {
+  color: var(--yellow);
+  font-weight: bold;
+}
+
+
+
+/* Makes JMDict italic */
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
+  font-style: italic;
+}
+
+/* removes the dictionary entry for jmdict */
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
+  display: none;
+}
+
+
+
+/*
+ * TODO orthography dictionary
+ *
+ * ★  Common
+ * ●  Valid
+ * ⛬  Outdated
+ * ⚠  Irregular
+ * 🠋  Rarely-used kanji form
+ *
+ */
+
