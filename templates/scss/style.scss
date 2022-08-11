@@ -10,9 +10,10 @@
   --pa-brightness-reduce: 60%;
   --frequencies-padding: 5px;
   --frequencies-border: 5px;
-  --sentence-font-size: 50px;
+  --sentence-font-size: 52px;
+  --reading-font-size: 55px;
   --full-sentence-font-size: 28px;
-  --word-font-size: 70px;
+  --word-font-size: 80px;
   --description-font-size: 20px;
   --description-footer-font-size: 9px;
 
@@ -157,11 +158,18 @@ details > summary {
 
 @font-face {
   font-family: hiragino;
-  src: url('hiragino-mincho-pron-w3.otf');
+  //src: url('hiragino-mincho-pron-w3.otf');
+  src: url('GenEiKoburiMin6-R.ttf');
 }
 @font-face {
   font-family: notosans;
-  src: url('NotoSansCJK-Regular.ttc');
+  //src: url('NotoSansCJK-Regular.ttc');
+  src: url('NotoSansJP-Regular.otf');
+}
+@font-face {
+  font-family: notosans;
+  src: url('NotoSansJP-Bold.otf');
+  font-weight: bold;
 }
 
 
@@ -414,6 +422,7 @@ ruby rt {
   margin-top: 0.3em;
   font-size: var(--sentence-font-size);
   font-family: hiragino;
+  line-height: 130%;
 }
 
 .flag-box {
@@ -475,6 +484,7 @@ ruby rt {
   margin-top: 0.3em;
   font-size: var(--sentence-font-size);
   font-family: hiragino;
+  line-height: 130%;
 }
 
 /* used when the front side display is a word and not a sentence (increase font size) */
@@ -651,7 +661,8 @@ ruby rt {
 
 .dh-left { /* left */
   background: var(--background-darken);
-  padding: 0.625em;
+  /*padding: 0.625em;*/
+  padding: 0.8em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
 }
@@ -666,7 +677,7 @@ ruby rt {
 
 
 .dh-left__reading {
-  font-size: 50px;
+  font-size: var(--reading-font-size);
   font-family: hiragino;
   white-space: nowrap; /* so the reading can expand into the image */
 }
