@@ -1,10 +1,10 @@
-{% extends "cards/base_back.html" %}
+{% extends "jp-mining-note/base_back.html" %}
 
 {% set note = namespace() %}
 {% set note.side = "back" %}
 {% set note.card_type = "pa_sent" %}
 
-{% from "cards/pa_sent/common.html" import card_type, front_display with context %}
+{% from "jp-mining-note/pa_sent/common.html" import card_type, front_display with context %}
 
 {% block card_type %}
   {{ super() }}
@@ -22,7 +22,7 @@
 
 {% block javascript %}
   {{ super() }}
-  {% include "cards/pa_sent/back.js" %}
+  {% include "jp-mining-note/pa_sent/back.js" %}
 {% endblock %}
 
 
