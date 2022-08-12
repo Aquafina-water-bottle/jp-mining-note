@@ -1,48 +1,39 @@
+@charset "UTF-8";
 /*
  *  ============
  *   GLOBAL CSS
  *  ============
  */
-
 :root {
   --pa-brightness-reduce: 60%;
   --frequencies-padding: 5px;
   --frequencies-border: 5px;
-  --sentence-font-size: 50px;
+  --sentence-font-size: 52px;
+  --reading-font-size: 55px;
   --full-sentence-font-size: 28px;
-  --word-font-size: 70px;
+  --word-font-size: 80px;
   --description-font-size: 20px;
   --description-footer-font-size: 9px;
-
   /* TODO dynamic solution */
   --tooltip-max-width: 500px;
   --tooltip-font-size: 14px;
-
   --yellow: #0060ff; /* not actually yellow ;) */
   --background-darken: rgba(0, 0, 0, 0.05);
   --card-description-color: #acacac;
-
   --info-circle-hover-color: #5f5f5f;
-
   --info-circle-leech-color: #3983ff;
   --info-circle-leech-hover-color: #609cff;
   --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
-
   --info-circle-warning-color: #ff8700;
   --info-circle-warning-hover-color: #f2a753;
   --info-circle-warning-text-color: #f9c24e;
-
   --info-circle-error-color: #ff0200;
   --info-circle-error-hover-color: #ff4d4c;
   --info-circle-error-text-color: #fe7776;
-
   --pa-indicator-sentence-color: #4cd200;
   --pa-indicator-word-color: var(--yellow);
   --pa-indicator-none-color: #ec3a2d;
-
   --hybrid-underline-color: black;
-
-
 }
 
 /* override variables for mobile */
@@ -51,7 +42,6 @@
   --sentence-font-size: 30px;
   --description-font-size: 15px;
   /*--description-footer-font-size: 7px;*/
-
   /* TODO more portable solution */
   --tooltip-max-width: 200px;
   --tooltip-font-size: 11px;
@@ -61,31 +51,24 @@
   --yellow: #fffd9e;
   --background-darken: rgba(0, 0, 0, 0.12);
   --card-description-color: #585858;
-
   --info-circle-hover-color: #bdbdbd;
-
   --info-circle-leech-color: #ead623;
   --info-circle-leech-hover-color: var(--yellow);
   --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
-
   --info-circle-warning-color: #ff8d0d;
   --info-circle-warning-hover-color: #f9c24e;
   --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
-
   --info-circle-error-color: #f53b39;
   --info-circle-error-hover-color: #fe7776;
   --info-circle-error-text-color: var(--info-circle-error-hover-color);
-
   --pa-indicator-sentence-color: #62ff73;
   --pa-indicator-word-color: #34dbef;
   --pa-indicator-none-color: #ff6b66;
-
   --hybrid-underline-color: white;
 }
 
-
 .card {
-  /*font-family: hiragino;*/
+  /*font-family: notoserif;*/
   font-family: notosans;
   font-size: 30px;
   text-align: center;
@@ -93,14 +76,13 @@
 }
 
 .card.night_mode {
- color: white;
- background-color: #2f2f31;
+  color: white;
+  background-color: #2f2f31;
 }
 
 /* can't figure out how to customize the replay button on mobile... */
 /*a.replay-button svg path { fill: #2f2f31; }
 a.replay-button svg circle { fill: #FFFAF0; }*/
-
 /*.mobile .replaybutton svg path { fill: #2f2f31; }
 .mobile .replaybutton svg circle { fill: #FFFAF0; }*/
 /*.replaybutton svg path   { fill: #FFFAF0 !important; }
@@ -108,15 +90,12 @@ a.replay-button svg circle { fill: #FFFAF0; }*/
 /*.replay-button svg {
   fill: black !important;
 }*/
-
-
 /* makes lists tolerable to look at */
 ol, ul {
   margin-top: 0px;
   margin-bottom: 10px;
   padding-left: 1.5em;
 }
-
 
 /* makes the background of the top row of tables slightly lighter */
 th {
@@ -141,7 +120,6 @@ details > summary {
   padding-right: 20px;
 }
 */
-
 /* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
 /* wrap elements in two divs: center-box-1 and center-box-2 */
 .center-box-1 {
@@ -154,15 +132,24 @@ details > summary {
 }
 
 @font-face {
-  font-family: hiragino;
-  src: url('hiragino-mincho-pron-w3.otf');
+  /* TODO rename */
+  font-family: notoserif;
+  src: url("NotoSerifJP-Regular.otf");
+}
+@font-face {
+  font-family: notoserif;
+  src: url("NotoSerifJP-Bold.otf");
+  font-weight: bold;
 }
 @font-face {
   font-family: notosans;
-  src: url('NotoSansCJK-Regular.ttc');
+  src: url("NotoSansJP-Regular.otf");
 }
-
-
+@font-face {
+  font-family: notosans;
+  src: url("NotoSansJP-Bold.otf");
+  font-weight: bold;
+}
 .bold-yellow b {
   color: var(--yellow);
 }
@@ -174,7 +161,6 @@ details > summary {
 .override-display-inline-block {
   display: inline-block !important;
 }
-
 
 /*
  * Problem: Anki doesn't have {{field1 OR field2}}. This means to make something equivalent to:
@@ -196,10 +182,10 @@ details > summary {
  *   </div>
  * </div>
  */
-
 .outer-display1 > .inner-display1 {
   display: inherit;
 }
+
 .outer-display1 > .inner-display2 {
   display: none;
 }
@@ -207,21 +193,18 @@ details > summary {
 .outer-display2 > .inner-display1 {
   display: none;
 }
+
 .outer-display2 > .inner-display2 {
   display: inherit;
 }
 
-
-
 /*
  * formats the open right quote to be to the left of the entire text box
  */
-
 .left-align-quote-format {
   text-indent: -1em;
   padding-left: 1em;
 }
-
 
 /*
  * makes ruby text unselectable (and hence uncopyable) (TODO: javascript option)
@@ -230,23 +213,18 @@ details > summary {
  * - however, the text remains copyable for some reason in anki
  * - text is not copyable in modern browsers like firefox
  */
-
 /*
 ruby rt {
   user-select: none;
 }
 */
-
-
-
 /*
  *  ================
  *   FRONT SIDE CSS
  *  ================
  */
-
 .card-description {
-  font-family: hiragino;
+  font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
@@ -256,11 +234,10 @@ ruby rt {
 .card-description-ver {
   font-size: var(--description-footer-font-size);
 }
+
 .mobile .card-description-ver {
   padding-bottom: 30px;
 }
-
-
 
 /* info circle & tooltip */
 .info-circle {
@@ -276,35 +253,28 @@ ruby rt {
   fill: var(--info-circle-hover-color);
 }
 
-
 .info-circle-text-wrapper {
   width: var(--tooltip-max-width);
   height: 0px;
   position: absolute;
 }
 
-
 /* Tooltip text */
 .info-circle-text {
   position: absolute;
   display: inline-block;
-
   visibility: hidden;
   min-width: 200px;
   max-width: var(--tooltip-max-width);
-
   font-family: notosans;
   font-size: var(--tooltip-font-size);
   text-align: left;
-
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
   padding: 10px;
   border-radius: 6px;
-
   position: absolute;
   z-index: 1;
-
   top: -10px;
   margin-left: 16px;
 }
@@ -318,20 +288,16 @@ ruby rt {
   visibility: visible;
 }
 
-
 /* arrow */
 .info-circle-text:after {
   content: "";
   position: absolute;
-
   /* position tooltip correctly */
   left: -15px;
   top: 11px;
-
   /* the arrow */
   border: 8px solid #000000;
   border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
-
   z-index: 1;
 }
 
@@ -339,11 +305,11 @@ ruby rt {
   visibility: visible;
 }
 
-
 /* leech text */
 .info-circle-text-leech:not(:empty) {
   margin-bottom: 10px;
 }
+
 .info-circle-text-leech .info-circle__message:before {
   content: "Leech";
   font-weight: bold;
@@ -358,12 +324,11 @@ ruby rt {
   fill: var(--info-circle-leech-hover-color);
 }
 
-
-
 /* warning text */
 .info-circle-text-warning:not(:empty) {
   margin-bottom: 10px;
 }
+
 .info-circle-text-warning .info-circle__message:before {
   content: "Warning: ";
   font-weight: bold;
@@ -378,11 +343,11 @@ ruby rt {
   fill: var(--info-circle-warning-hover-color);
 }
 
-
 /* error text */
 .info-circle-text-error:not(:empty) {
   margin-bottom: 10px;
 }
+
 .info-circle-text-error .info-circle__message:before {
   content: "ERROR: ";
   font-weight: bold;
@@ -397,27 +362,22 @@ ruby rt {
   fill: var(--info-circle-error-hover-color);
 }
 
-
-
-
-
 /* https://stackoverflow.com/a/38948646 (ver 5) */
 .expression-box {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   grid-column-gap: 5px;
   justify-items: center;
-
-  margin-bottom: -0.0em;
+  margin-bottom: 0em;
   margin-top: 0.3em;
   font-size: var(--sentence-font-size);
-  font-family: hiragino;
+  font-family: notoserif;
+  line-height: 130%;
 }
 
 .flag-box {
   margin-left: auto;
   grid-column-start: 1;
-
   /*
    * so that the svg can be placed after the sentence (to remove upon hover)
    * while appearing to be before the sentence
@@ -431,29 +391,23 @@ ruby rt {
   height: 1.5em;
 }
 
-.flag-box__circle {
-}
-
-
 /* pitch accent indicator colors */
 .pa-indicator-color--sentence {
-  fill:  var(--pa-indicator-sentence-color);
+  fill: var(--pa-indicator-sentence-color);
   color: var(--pa-indicator-sentence-color);
 }
+
 .pa-indicator-color--word {
-  fill:  var(--pa-indicator-word-color);
+  fill: var(--pa-indicator-word-color);
   color: var(--pa-indicator-word-color);
 }
+
 .pa-indicator-color--none {
-  fill:  var(--pa-indicator-none-color);
+  fill: var(--pa-indicator-none-color);
   color: var(--pa-indicator-none-color);
 }
 
-
 /* space at the top of the window on the front side */
-.expression {
-}
-
 .mobile .expression {
   border-top: 30px;
 }
@@ -463,16 +417,21 @@ ruby rt {
   font-weight: normal;
 }
 
-.expression ruby rt { opacity: 0; }
-.expression:hover ruby rt { opacity: 1; }
+.expression ruby rt {
+  opacity: 0;
+}
 
+.expression:hover ruby rt {
+  opacity: 1;
+}
 
 /* used in other cards where PA flag is not shown */
 .expression--single {
-  margin-bottom: -0.0em;
+  margin-bottom: 0em;
   margin-top: 0.3em;
   font-size: var(--sentence-font-size);
-  font-family: hiragino;
+  font-family: notoserif;
+  line-height: 130%;
 }
 
 /* used when the front side display is a word and not a sentence (increase font size) */
@@ -480,28 +439,22 @@ ruby rt {
   font-size: var(--word-font-size);
 }
 
-
 /* class used to identify exactly which div(s) contain a sentence, for js purposes */
 .expression--sentence {
   display: inline-block;
   text-align: left;
-
   /*font-size: var(--sentence-font-size);*/
 }
-
 
 .hint {
   font-size: 16px;
 }
-
-
 
 /*
  * -----------------
  *  Hybrid card css
  * -----------------
  */
-
 .expression__hybrid-wrapper {
   display: flex;
   justify-content: center;
@@ -517,9 +470,6 @@ ruby rt {
 }
 
 /* used to specify that hovering toggles between word/sentence */
-.expression__hybrid--hover {
-}
-
 /* used to specify that clicking toggles between word/sentence */
 .expression__hybrid--click {
   transition: 0.3s;
@@ -539,18 +489,13 @@ ruby rt {
   line-height: 125%;
 }
 
-.expression__hybrid-word--click-indicator {
-}
 .expression__hybrid-word--hover-indicator {
   border-bottom-color: var(--yellow);
 }
 
-.expression__hybrid-word--sentence-underline {
-}
 .expression__hybrid-word--word-underline {
   border-bottom-style: dashed;
 }
-
 
 /*
 .expression__hybrid-word:after {
@@ -578,35 +523,25 @@ ruby rt {
   background: white;
 }
 */
-
-  /*background: #95f2a1;*/
-  /*background: #79ebf8;*/ /* light blue */
-
+/*background: #95f2a1;*/
+/*background: #79ebf8;*/ /* light blue */
 .expression__hybrid-sentence {
-    display: none;
+  display: none;
 }
 
 .expression__hybrid--hover:hover > .expression__hybrid-word {
-    display: none;
+  display: none;
 }
+
 .expression__hybrid--hover:hover > .expression__hybrid-sentence {
-    display: block;
+  display: block;
 }
-
-
-
-
-
-
-
 
 /*
  *  ===============
  *   BACK SIDE CSS
  *  ===============
  */
-
-
 /*
  * adds a width constraint to the backside to make things look better
  * - only applied after the main definition header
@@ -624,21 +559,36 @@ ruby rt {
   width: 95%;
 }
 
+/*
+ * --------------------
+ *  dictionary entries
+ * --------------------
+ */
+.dict-group__tag-list .dict-group__tag:not(:first-child)::before {
+  content: ", ";
+}
 
+.dict-group__tag-list::before {
+  content: "(";
+}
+
+.dict-group__tag-list::after {
+  content: ") ";
+}
 
 /*
  * -------------------
  *  Word pitch accent
  * -------------------
  */
-
 /* css classes used by the plugin */
 .downstep {
   color: var(--yellow);
   position: relative;
 }
+
 .downstep:before {
-  content: '';
+  content: "";
   width: 2px;
   height: 18%;
   background: var(--yellow);
@@ -648,14 +598,14 @@ ruby rt {
   left: 0px;
 }
 
-
 .pitchoverline {
   text-decoration: none !important;
   text-decoration-color: var(--yellow) !important;
   position: relative;
 }
+
 .pitchoverline:after {
-  content: '';
+  content: "";
   width: 100%;
   height: 2px;
   background: var(--yellow);
@@ -664,29 +614,21 @@ ruby rt {
   right: 0px;
 }
 
-
-
 .nopron,
 .night_mode .nopron {
   color: #42a3ff;
 }
+
 .nasal,
 .night_mode .nasal {
   color: #f12a2a;
 }
-
-
-
-
-
 
 /*
  * -------------------
  *  Definition header
  * -------------------
  */
-
-
 /* contains the word, picture, and pitch accent */
 /* no idea for a good name, so going to call it "def-header" == definition header */
 .def-header {
@@ -699,7 +641,8 @@ ruby rt {
 
 .dh-left { /* left */
   background: var(--background-darken);
-  padding: 0.625em;
+  /*padding: 0.625em;*/
+  padding: 0.52em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
 }
@@ -708,14 +651,13 @@ ruby rt {
 .dh-left--blue-border { /* left */
   border-style: solid;
   border-width: 1px;
-  border-color: rgba(0, 71, 83, 1);
+  border-color: rgb(0, 71, 83);
   padding: 0.55em;
 }
 
-
 .dh-left__reading {
-  font-size: 50px;
-  font-family: hiragino;
+  font-size: var(--reading-font-size);
+  font-family: notoserif;
   white-space: nowrap; /* so the reading can expand into the image */
 }
 
@@ -744,8 +686,6 @@ ruby rt {
   right: 0px;
 }
 
-
-
 /*
  * -----------------------------------------
  *  Def Header Left - Word PA bold override
@@ -761,7 +701,7 @@ ruby rt {
 }
 
 .dh-left__word-pitch b .pitchoverline:after {
-  content: '';
+  content: "";
   width: 100%;
   height: 1px;
   background: var(--yellow);
@@ -772,7 +712,7 @@ ruby rt {
 }
 
 .dh-left__word-pitch b .downstep:before {
-  content: '';
+  content: "";
   width: 1px;
   height: 25%;
   background: var(--yellow);
@@ -786,14 +726,14 @@ ruby rt {
 .dh-left__word-pitch b .nopron {
   filter: brightness(var(--pa-brightness-reduce));
 }
+
 .dh-left__word-pitch b .nasal {
   filter: brightness(var(--pa-brightness-reduce));
 }
+
 .dh-left__word-pitch b .downstep {
   filter: brightness(var(--pa-brightness-reduce));
 }
-
-
 
 /*
  * ----------------------------
@@ -807,9 +747,6 @@ ruby rt {
   font-size: 15px;
 }
 
-.dh-left__graph {
-}
-
 .dh-left__gap {
   font-size: 20px;
   padding-left: 10px;
@@ -821,15 +758,11 @@ ruby rt {
   vertical-align: middle;
 }
 
-
-
 /*
  * ------------------
  *  Def Header Right
  * ------------------
  */
-
-
 .dh-right {
   font-size: 40px;
   padding-left: 35px;
@@ -840,17 +773,13 @@ ruby rt {
 /* TODO put the image at the top right corner always for mobile */
 .mobile .dh-right {
   padding-left: 0px;
-
   max-height: 60px !important;
   min-width: 0px;
   min-height: 0px;
-
   position: fixed;
   top: 15px;
   right: 15px;
 }
-
-
 
 .dh-right__img {
   border-radius: 5px;
@@ -864,7 +793,6 @@ ruby rt {
 
 .mobile .dh-right__img {
   max-height: 60px !important;
-
   min-width: 0px;
   min-height: 0px;
 }
@@ -879,20 +807,11 @@ ruby rt {
   opacity: 0.7;
 }
 
-
-
-
-
-
-
-
 /*
  * -------
  *  Modal
  * -------
  */
-
-
 .modal {
   display: none; /* hidden by default */
   position: fixed; /* stay in place */
@@ -902,30 +821,28 @@ ruby rt {
   width: 100%; /* full width */
   height: 100%; /* full height */
   overflow: auto; /* enable scroll if needed */
-  background-color: rgb(0,0,0); /* fallback color */
-  background-color: rgba(0,0,0,0.75); /* black w/ opacity */
+  background-color: rgb(0, 0, 0); /* fallback color */
+  background-color: rgba(0, 0, 0, 0.75); /* black w/ opacity */
 }
 
 .modal {
   -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.25s ;
+  -webkit-animation-duration: 0.25s;
   animation-name: zoom;
   animation-duration: 0.25s;
 }
 
 /* Add Animation */
-.modal-img/*, #caption*/ {
+.modal-img {
   -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.25s ;
+  -webkit-animation-duration: 0.25s;
   animation-name: zoom;
   animation-duration: 0.25s;
   /*max-width: initial;
   max-height: initial;*/
-
   /* prevents the zoomed-in image from exceeding the screen size */
   max-width: 90%;
   max-height: 90%;
-
   /*
    * center image vertically and horizontally
    * https://stackoverflow.com/a/11716065
@@ -943,18 +860,15 @@ ruby rt {
   animation-duration: 0.25s;
 }
 
-
 @-webkit-keyframes zoom {
   0% {
     display: none;
     opacity: 0;
   }
-
   0.001% {
     display: block;
     opacity: 0;
   }
-
   100% {
     display: block;
     opacity: 100;
@@ -965,19 +879,15 @@ ruby rt {
     display: none;
     opacity: 0;
   }
-
   0.001% {
     display: block;
     opacity: 0;
   }
-
   100% {
     display: block;
     opacity: 100;
   }
-
 }
-
 @-webkit-keyframes zoom-out {
   0% {
     display: block;
@@ -992,7 +902,6 @@ ruby rt {
     opacity: 0;
   }
 }
-
 @keyframes zoom-out {
   0% {
     display: block;
@@ -1007,23 +916,27 @@ ruby rt {
     opacity: 0;
   }
 }
-
-
 /*
  * ---------------
  *  Full sentence
  * ---------------
  */
-
 .full-sentence {
   font-size: 28px;
   margin: 0 0 0.5em 0;
-  font-family: hiragino;
+  font-family: notoserif;
 }
-.full-sentence ruby rt { opacity: 0; }
-.full-sentence:hover ruby rt { opacity: 1; }
 
+/*.full-sentence b {
+  font-weight: normal;
+}*/
+.full-sentence ruby rt {
+  opacity: 0;
+}
 
+.full-sentence:hover ruby rt {
+  opacity: 1;
+}
 
 /*
  * -----------------------------------
@@ -1032,7 +945,6 @@ ruby rt {
  */
 .glossary-blockquote {
   font-size: 18px;
-
   text-align: left;
   background: var(--background-darken);
   font-size: 18px;
@@ -1050,7 +962,6 @@ ruby rt {
   margin: 0.5em 0 0 0;
 }
 
-
 /*
  * For some reason, it appears that the furigana positioning is way too high when used in the glossary.
  * Athough I would like these settings to work globally, it would sacrifice some minor things
@@ -1059,7 +970,6 @@ ruby rt {
  *
  * tl;dr only affects glossary css as a quick fix, as the default <ruby> styles are usually preferable.
  */
-
 /* NO LONGER REQUIRED IN ANKI 2.1.53+ */
 /*
 .glossary-blockquote ruby {
@@ -1077,27 +987,22 @@ ruby rt {
   text-align: center;
 }
 */
-
 /* makes ruby text non-selectable (and non-copyable) */
 ruby rt {
   user-select: none;
 }
 
-
 .glossary-blockquote--small {
   font-size: 15px;
 }
+
 .glossary-details--small {
   font-size: 15px;
 }
 
-
 /* styles to all images within any definition blockquote */
 .glossary__image-container {
   display: inline-block;
-}
-
-.glossary__image-hover-text {
 }
 
 .glossary__image-hover-media {
@@ -1112,7 +1017,7 @@ ruby rt {
 .glossary__image-hover-media {
   cursor: pointer;
   max-height: 500px;
-  max-width:  100px;
+  max-width: 100px;
 }
 
 /* so the image doesn't disappear once you move your mouse away from the text */
@@ -1120,9 +1025,6 @@ ruby rt {
   display: block;
   position: absolute;
 }
-
-
-
 
 /*
  * ------------------------------
@@ -1132,7 +1034,7 @@ ruby rt {
 .frequencies {
   display: flex;
   float: right;
-  font-family: hiragino;
+  font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
@@ -1160,18 +1062,15 @@ ruby rt {
 .frequencies__dictionary {
   text-align: right;
   font-size: var(--description-footer-font-size);
-}
-
-.frequencies__dictionary-inner {
   border-radius: 0px 0px var(--frequencies-border) var(--frequencies-border);
   padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
 }
 
-.frequencies__dictionary-inner2 {
+/*.frequencies__dictionary-inner {
 }
 
-
-
+.frequencies__dictionary-inner2 {
+}*/
 /*
  * ---------------------
  *  pitch accent graphs
@@ -1191,73 +1090,50 @@ ruby rt {
   display: none;
 }
 
-
-
-
-/*
- * --------------------
- *  dictionary entries
- * --------------------
- */
-.dict-group__tag-list .dict-group__tag:not(:first-child)::before {
-  content: ", ";
-}
-.dict-group__tag-list::before {
-  content: "(";
-}
-.dict-group__tag-list::after {
-  content: ") ";
-}
-
-
-
-
 /*
  * ---------------
  *  customization
  * ---------------
  */
-
 /* frequency names */
-
-.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner {
   display: none;
 }
-.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary:after {
   content: "A&J";
 }
 
-.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner {
   display: none;
 }
-.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary:after {
   content: "VN";
 }
+
 .frequencies__group[data-details="VN Freq"] .frequencies__number .frequencies__number-inner:after {
   content: "%";
 }
 
-
-.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner {
   display: none;
 }
-.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary:after {
   content: "Inn.";
 }
 
-
 /* Custom highlights for NHK and 大辞泉 */
-
-.pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
-  color: var(--yellow);
-  font-weight: bold;
-}
-.pa-graphs__group[data-details="大辞泉"] .pa-graphs__dictionary {
+.pa-graphs__group[data-details=NHK] .pa-graphs__dictionary {
   color: var(--yellow);
   font-weight: bold;
 }
 
-
+.pa-graphs__group[data-details=大辞泉] .pa-graphs__dictionary {
+  color: var(--yellow);
+  font-weight: bold;
+}
 
 /* Makes JMDict italic */
 .glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
@@ -1268,8 +1144,6 @@ ruby rt {
 .glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
   display: none;
 }
-
-
 
 /*
  * TODO orthography dictionary
@@ -1282,3 +1156,4 @@ ruby rt {
  *
  */
 
+/*# sourceMappingURL=style.css.map */

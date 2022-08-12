@@ -24,7 +24,7 @@ import os.path
 import shutil
 import argparse
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Union, List, Any
+from typing import TYPE_CHECKING, Callable, Union, List, Any, Iterable, Tuple
 
 
 if TYPE_CHECKING:
@@ -105,6 +105,25 @@ class Config:
     def item(self) -> Any:
         # assert not (isinstance(self.data, dict) or isinstance(self.data, list))
         return self.data
+
+    def key(self) -> Any:
+        # assert not (isinstance(self.data, dict) or isinstance(self.data, list))
+        return self.path[-1]
+
+    def dict_values(self) -> Iterable[Config]:
+        assert isinstance(self.data, dict)
+        for key in self.data.keys():
+            yield Config(self.data[key], self.path + [key])
+
+    def dict_items(self) -> Iterable[Tuple["str", Config]]:
+        assert isinstance(self.data, dict)
+        for key in self.data.keys():
+            yield key, Config(self.data[key], self.path + [key])
+
+    def list_items(self) -> Iterable[Config]:
+        assert isinstance(self.data, list)
+        for i, item in enumerate(self.data):
+            yield Config(item, self.path + [i])
 
     def __call__(self, *keys: Union[str, int]) -> Config:
         """
@@ -227,7 +246,7 @@ def get_config(args):
 
         if args.release:
             file_path = EXAMPLE_CONFIG_PATH
-            print(f"Using the example config for release...")
+            print(f"Building release: using the example config...")
 
         elif not os.path.isfile(DEFAULT_CONFIG_PATH) or args.override_config:
             print(f"Creating the config file under '{file_path}'...")

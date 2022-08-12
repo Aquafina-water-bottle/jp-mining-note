@@ -3,7 +3,6 @@
  * ln -s ~/.local/share/Anki2/Japanese/collection.media/field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
  *
  */
-
 :root {
   --yellow: #0060ff; /* not actually yellow ;) */
 }
@@ -12,26 +11,36 @@
   --yellow: #fffd9e;
 }
 
-
+/*
+ * --------------------
+ *  dictionary entries
+ * --------------------
+ */
 .dict-group__tag-list .dict-group__tag:not(:first-child)::before {
   content: ", ";
 }
+
 .dict-group__tag-list::before {
   content: "(";
 }
+
 .dict-group__tag-list::after {
   content: ") ";
 }
 
-
-
+/*
+ * -------------------
+ *  Word pitch accent
+ * -------------------
+ */
 /* css classes used by the plugin */
 .downstep {
   color: var(--yellow);
   position: relative;
 }
+
 .downstep:before {
-  content: '';
+  content: "";
   width: 2px;
   height: 18%;
   background: var(--yellow);
@@ -41,14 +50,14 @@
   left: 0px;
 }
 
-
 .pitchoverline {
   text-decoration: none !important;
   text-decoration-color: var(--yellow) !important;
   position: relative;
 }
+
 .pitchoverline:after {
-  content: '';
+  content: "";
   width: 100%;
   height: 2px;
   background: var(--yellow);
@@ -57,16 +66,14 @@
   right: 0px;
 }
 
-
-
 .nopron,
 .night_mode .nopron {
   color: #42a3ff;
 }
+
 .nasal,
 .night_mode .nasal {
   color: #f12a2a;
 }
 
-
-
+/*# sourceMappingURL=field.css.map */
