@@ -204,7 +204,9 @@ class MediaInstaller:
         }
 
     def send_media(self, media: MediaFile):
-        print(invoke("storeMediaFile", **self.format_media(media)))
+        if invoke("storeMediaFile", **self.format_media(media)) == media.name:
+            print(f"Updated '{media.name}' media file successfully.")
+
 
     def media_exists(self, file_name: str):
         #if self.media_files is None:
