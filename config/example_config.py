@@ -117,7 +117,7 @@ CONFIG = {
         ],
         "dynamic": [
           "field.css",
-          "jp-mining-note-options.css",
+          "jp-mining-note-options.js",
         ],
       },
 
@@ -226,21 +226,21 @@ CONFIG = {
       # removes line count specifically if the text is <= (specified number) characters in length.
       # 0 means that newlines are ALWAYS removed.
       #"remove-line-breaks-until-char-count": "ifMobile(0, 33)",
-      "remove-line-breaks-until-char-count": {
-        "type": "check-mobile",
-        "mobile": 0,
-        "not-mobile": 33,
-      },
-      #"remove-line-breaks-until-char-count": 33,
+      #"remove-line-breaks-until-char-count": {
+      #  "type": "check-mobile",
+      #  "mobile": 0,
+      #  "not-mobile": 33,
+      #},
+      "remove-line-breaks-until-char-count": 33,
 
       # Removes all line breaks on the AltDisplay sentence
       #"remove-line-breaks-on-altdisplay": "ifMobile(true, false)",
-      "remove-line-breaks-on-altdisplay": {
-        "type": "check-mobile",
-        "mobile": True,
-        "not-mobile": False,
-      },
-      #"remove-line-breaks-on-altdisplay": False,
+      #"remove-line-breaks-on-altdisplay": {
+      #  "type": "check-mobile",
+      #  "mobile": True,
+      #  "not-mobile": False,
+      #},
+      "remove-line-breaks-on-altdisplay": False,
 
       # =========================
       #  Quote Processing Module
@@ -254,12 +254,12 @@ CONFIG = {
         # 「そーすっと、こんな風に、相手は頭突きを警戒して
         # 　自然と上体を引くのよさ」
         #"pa-indicator-color-quotes": "ifMobile(true, false)",
-        "pa-indicator-color-quotes": {
-          "type": "check-mobile",
-          "mobile": True,
-          "not-mobile": False,
-        },
-        #"pa-indicator-color-quotes": False,
+        #"pa-indicator-color-quotes": {
+        #  "type": "check-mobile",
+        #  "mobile": True,
+        #  "not-mobile": False,
+        #},
+        "pa-indicator-color-quotes": True,
 
         # automatically adds quotes to the sentence if AltDisplay is not filled
         "left-align-adjust-format": True,

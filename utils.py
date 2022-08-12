@@ -106,7 +106,7 @@ class Config:
         # assert not (isinstance(self.data, dict) or isinstance(self.data, list))
         return self.data
 
-    def key(self) -> Any:
+    def key(self) -> Union[int, str]:
         # assert not (isinstance(self.data, dict) or isinstance(self.data, list))
         return self.path[-1]
 
