@@ -5,7 +5,7 @@ Config file used for both build.py and install.py
 CONFIG = {
 
   "build_opts": {  # build options
-    "sass-path": False,
+    "sass-path": "sass",
 
     "optimize": False,
 
@@ -66,62 +66,63 @@ CONFIG = {
   },
 
 
-  "install_opts": {  # install options
-    "notes": {
+  "notes": {
 
-      # each note is:
-      # - given its own directory in the repository root
-      # - read from (root)/templates/(note name)
-      # - css is read from (root)/templates/scss/(note name).scss
-      "jp-mining-note": {
-        # list of note types to install
-        "model_name": "JP Mining Note",
-        "templates": {
-          "main": {
-            "name": "Mining Card",
-          },
-          "pa_sentence": {
-            "name": "PA Sentence Card",
-          },
-          "pa_word": {
-            "name": "PA Word Card",
-          },
-          "cloze_deletion": {
-            "name": "Cloze Deletion Card",
-          },
+    # - read from (root)/templates/(note name)
+    # - written to (root)/(build folder)/(note name)
+    # - css is read from (root)/templates/scss/(note name).scss
+    # - release mode copes to (root)/(note name) folder
+    "jp-mining-note": {
+      # list of note types to install
+      "model_name": "JP Mining Note",
+      "templates": {
+        "main": {
+          "name": "Mining Card",
         },
+        "pa_sentence": {
+          "name": "PA Sentence Card",
+        },
+        "pa_word": {
+          "name": "PA Word Card",
+        },
+        "cloze_deletion": {
+          "name": "Cloze Deletion Card",
+        },
+      },
 
-        "media": [
-          {
-            "input_file": "scss/fields.scss",
-            "output_file": "fields.css",
-            "type": "scss",
-          },
+      "media_build": [
+        # - read from (root)/templates
+        # - written to (root)/(build folder)/media
+        # - release mode copies to (root)/media
+        {
+          "input_file": "scss/fields.scss",
+          "output_file": "fields.css",
+          "type": "scss",
+        },
+        {
+          "input_file": "jp-mining-note-options.js",
+          "output_file": "jp-mining-note-options.js",
+          "type": "jinja2",
+        },
+      ],
+
+      "media_install": {
+        "static": [
+          "silence.wav",
+          #"GenEiKoburiMin6-R.ttf",
+          "NotoSansJP-Regular.otf",
+          "NotoSansJP-Bold.otf",
+          "NotoSerifJP-Regular.otf",
+          "NotoSerifJP-Bold.otf",
         ],
-        "install_media": {
-          "static": [
-            "silence.wav"
-          ],
-          "dynamic": [
-            "fields.css"
-            "jp-mining-note-options.css"
-          ],
-        },
-
+        "dynamic": [
+          "fields.css",
+          "jp-mining-note-options.css",
+        ],
       },
 
     },
 
-    # input file:
-    # - searched under (root)/templates
-    # output file:
-    # - placed under (root)/media, or build
-    # type:
-    # - none
-    #   - simply there to copy files
-    # - scss:
-    #   - scss:
-    # - none
   },
 
 
