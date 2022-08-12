@@ -22,20 +22,9 @@ import utils
 
 OPTIONS_FILENAME = "jp-mining-note-options.js"
 
-# https://eengstrom.github.io/musings/add-bitwise-operations-to-ansible-jinja2
-
-
-# @dataclass(frozen=True)
-# class RenderFilePair:
-#    src_file: str
-#    dst_file: str
-#    prettify: bool = False
-
 
 def add_args(parser):
     group = parser.add_argument_group(title="build")
-    # group.add_argument("--playground", action="store_true")
-    # group.add_argument("--files", type=str, nargs=2, help="input and output files")
     group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
     group.add_argument("--to-release", action="store_true", default=False)
 
@@ -63,12 +52,13 @@ class Generator:
         )
 
         filters = {
-            "bitwise_and": self.bitwise_and,
-            "bitwise_or": self.bitwise_or,
-            "bitwise_xor": self.bitwise_xor,
-            "bitwise_complement": self.bitwise_complement,
-            "bitwise_shift_left": self.bitwise_shift_left,
-            "bitwise_shift_right": self.bitwise_shift_right,
+            # https://eengstrom.github.io/musings/add-bitwise-operations-to-ansible-jinja2
+            "bitwise_and": lambda x, y: x & y,
+            "bitwise_or": lambda x, y: x | y,
+            "bitwise_xor": lambda x, y: x ^ y,
+            "bitwise_complement": lambda x: ~x,
+            "bitwise_shift_left": lambda x, y: x << y,
+            "bitwise_shift_right": lambda x, y: x >> y,
         }
         for k, v in filters.items():
             self.env.filters[k] = v
@@ -94,24 +84,6 @@ class Generator:
             # json_output =
             "VERSION": version,
         }
-
-    def bitwise_and(self, x, y):
-        return x & y
-
-    def bitwise_or(self, x, y):
-        return x | y
-
-    def bitwise_xor(self, x, y):
-        return x ^ y
-
-    def bitwise_complement(self, x):
-        return ~x
-
-    def bitwise_shift_left(self, x, b):
-        return x << b
-
-    def bitwise_shift_right(self, x, b):
-        return x >> b
 
     def generate(
         self,
@@ -143,12 +115,7 @@ class Generator:
                 # TODO cross platform?
                 os.system(f"npx prettier --write {output_file}")
 
-            #    with open(output_file) as f:
-            #        result = f.read()
-            # return result
-
         elif type == GenerateType.SASS:
-            # input_path = os.path.join(input_file)
             error_code = os.system(f"{self.sass_path} {input_file} {output_file}")
             if error_code != 0:
                 raise Exception(f"sass failed with error code {error_code}")
@@ -167,7 +134,6 @@ def main(root_folder: str = "templates", args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
     if args.release:
-        #args.folder = os.path.join("cards")
         args.enable_prettier = True
         args.to_release = True
 
@@ -179,10 +145,6 @@ def main(root_folder: str = "templates", args=None):
         enable_prettier=args.enable_prettier,
         to_release=args.to_release,
     )
-
-    # note_config = config("notes")
-    # assert isinstance(note_config, utils.Config)
-    # for note_name in note_config.get_dict():
 
     for note_model_id in config("notes").dict():
         # generates for each template
@@ -209,11 +171,6 @@ def main(root_folder: str = "templates", args=None):
             os.path.join(note_model_id, "style.css"),
         )
 
-        # media_build = config("notes", note_model_id, "media-build")
-        # for i in range(0, len(media_build.list())):
-        #    pass
-        # for file_config in media_build.list_items():
-
         type_map = {
             "scss": GenerateType.SASS,
             "jinja": GenerateType.JINJA,
@@ -239,110 +196,6 @@ def main(root_folder: str = "templates", args=None):
                 os.path.join("media", file_config("output-file").item()),
             )
 
-    # dir_name = "cards"
-    # dirs = [d for d in os.listdir(dir_name) if os.path.isdir(os.path.join(dir_name, d))]
-    # dirs = ["main", "pa_sent"]
-
-    # https://stackoverflow.com/a/16505750
-    # from lxml import etree, html
-
-    # generates html files
-    # for d in dirs:
-    #    for file_name in ("front.html", "back.html"):
-    #        # for file_name in ["front.html"]:
-    #        input_file = os.path.join("cards", d, file_name)
-    #        output_file = os.path.join(args.folder, d, file_name)
-
-    #        generator.generate(input_file, output_file, prettify=True)
-
-    # if args.enable_prettier:
-    #    # TODO cross platform?
-    #    output_path = os.path.join(root_folder, output_file)
-    #    os.system(f"npx prettier --write {output_path}")
-
-    # with open(full_path) as f:
-    #    document_root = html.fromstring(f.read())
-    # with open(full_path, "w") as f:
-    #    f.write(etree.tostring(document_root, encoding='unicode', pretty_print=True))
-
-    ## generates config file
-    # generator.generate(
-    #    os.path.join(OPTIONS_FILENAME),
-    #    os.path.join(args.folder, OPTIONS_FILENAME),
-    # )
-
-    ## generates css files
-    # generator.generate(
-    #    os.path.join(OPTIONS_FILENAME),
-    #    os.path.join(args.folder, OPTIONS_FILENAME),
-    # )
-
-    # print(json_output)
-
-
-# def main():
-#    t = Templates()
-#    dir_name = "./gen"
-#
-#    dirs = [d for d in os.listdir(dir_name) if os.path.isdir(os.path.join(dir_name, d))]
-#
-#    for d in dirs:
-#        for file_name in ("front.html", "back.html"):
-#            input_file = os.path.join("gen", d, file_name)
-#            output_file = os.path.join("cards", d, file_name)
-#            t.process(input_file, output_file)
-#
-# if __name__ == "__main__":
-#    main()
-
 
 if __name__ == "__main__":
     main(root_folder="templates")
-    # test()
-    # generate_cards()
-
-
-# def main():
-#    env = Environment(
-#        loader = FileSystemLoader("templates"),
-#        autoescape = select_autoescape(),
-#        undefined = StrictUndefined,
-#        variable_start_string = "{{{", # to distinguish it from anki's {{ }} strings
-#        variable_end_string = "}}}",
-#    )
-#
-#    template = env.get_template("mytemplate.html")
-#
-#    data = {
-#        "hostname": "core-sw-waw-01",
-#        "name_server_pri": "1.1.1.1",
-#        "name_server_sec": "8.8.8.8",
-#        "ntp_server_pri": "0.pool.ntp.org",
-#        "ntp_server_sec": "1.pool.ntp.org",
-#    }
-#
-#    print(template.render(data))
-#
-#
-#
-#
-# def test_block():
-#    env = Environment(
-#        loader = FileSystemLoader("templates"),
-#        autoescape = select_autoescape(),
-#        undefined = StrictUndefined,
-#        #variable_start_string = "{{{", # to distinguish it from anki's {{ }} strings
-#        #variable_end_string = "}}}",
-#    )
-#
-#    template = env.get_template("child.html")
-#
-#    data = {
-#        "hostname": "core-sw-waw-01",
-#        "name_server_pri": "1.1.1.1",
-#        "name_server_sec": "8.8.8.8",
-#        "ntp_server_pri": "0.pool.ntp.org",
-#        "ntp_server_sec": "1.pool.ntp.org",
-#    }
-#
-#    print(template.render(data))
