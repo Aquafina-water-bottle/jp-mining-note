@@ -4,15 +4,15 @@ Config file used for both build.py and install.py
 
 CONFIG = {
 
-  "build_opts": {  # build options
+  "build-opts": {  # build options
     "sass-path": "sass",
 
     "optimize": False,
 
-    "optimize_opts": {
+    "optimize-opts": {
 
       # equivalent to "always true"
-      "always_filled": [
+      "always-filled": [
         #"AltDisplay",
         #"AltDisplayPASentenceCard",
         #"AdditionalNotes",
@@ -38,7 +38,7 @@ CONFIG = {
       ],
 
       # equivalent to "always false"
-      "never_filled": [
+      "never-filled": [
         #"AltDisplay",
         #"AltDisplayPASentenceCard",
         #"AdditionalNotes",
@@ -74,39 +74,39 @@ CONFIG = {
     # - release mode copes to (root)/(note name) folder
     "jp-mining-note": {
       # list of note types to install
-      "model_name": "JP Mining Note",
+      "model-name": "JP Mining Note",
       "templates": {
         "main": {
           "name": "Mining Card",
         },
-        "pa_sentence": {
-          "name": "PA Sentence Card",
-        },
-        "pa_word": {
-          "name": "PA Word Card",
-        },
-        "cloze_deletion": {
-          "name": "Cloze Deletion Card",
-        },
+        #"pa_sentence": {
+        #  "name": "PA Sentence Card",
+        #},
+        #"pa_word": {
+        #  "name": "PA Word Card",
+        #},
+        #"cloze_deletion": {
+        #  "name": "Cloze Deletion Card",
+        #},
       },
 
-      "media_build": [
+      "media-build": [
         # - read from (root)/templates
         # - written to (root)/(build folder)/media
         # - release mode copies to (root)/media
         {
-          "input_file": "scss/fields.scss",
-          "output_file": "fields.css",
+          "input-file": "scss/fields.scss",
+          "output-file": "fields.css",
           "type": "scss",
         },
         {
-          "input_file": "jp-mining-note-options.js",
-          "output_file": "jp-mining-note-options.js",
+          "input-file": "jp-mining-note-options.js",
+          "output-file": "jp-mining-note-options.js",
           "type": "jinja2",
         },
       ],
 
-      "media_install": {
+      "media-install": {
         "static": [
           "silence.wav",
           #"GenEiKoburiMin6-R.ttf",
@@ -127,7 +127,7 @@ CONFIG = {
 
 
   # Global options for the JP Mining Note type.
-  "note_opts": {
+  "note-opts": {
 
     # RESERVED KEYS (by anki):
     # - e (edit)

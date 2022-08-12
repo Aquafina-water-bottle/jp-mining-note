@@ -1,4 +1,4 @@
-/// {% extends "cards/base.js" %}
+/// {% extends "jp-mining-note/base.js" %}
 
 /// {% block js_functions %}
   {{ super() }}

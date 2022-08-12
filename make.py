@@ -11,11 +11,11 @@
 import os
 import json
 import argparse
+from enum import Enum
 from pathlib import Path
+from dataclasses import dataclass
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
-
-from dataclasses import dataclass
 
 import utils
 
@@ -37,8 +37,18 @@ def add_args(parser):
     # group.add_argument("--files", type=str, nargs=2, help="input and output files")
     group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
 
+class GenerateType(Enum):
+    JINJA = 1
+    SASS = 2
+    COPY = 3
+
 
 class Generator:
+    """
+    handles file generation with jinja2, sass, or just copying
+    """
+
+
     def __init__(self, root_folder: str, config, enable_prettier=False):
         self.root_folder = root_folder
         self.env = Environment(
@@ -60,21 +70,22 @@ class Generator:
             self.env.filters[k] = v
 
         self.get_render_data(config)
+        self.sass_path = config("build-opts", "sass-path").item()
         self.enable_prettier = enable_prettier
 
     def get_render_data(self, config):
         """
         gets rendering variables from config
         """
-        optimize_opts = config("build_opts", "optimize_opts")
+        optimize_opts = config("build-opts", "optimize-opts")
         with open("version.txt") as f:
             version = f.read().strip()
 
         self.data = {
-            "ALWAYS_TRUE": optimize_opts("always_filled"),
-            "ALWAYS_FALSE": optimize_opts("never_filled"),
+            "ALWAYS_TRUE": optimize_opts("always-filled").list(),
+            "ALWAYS_FALSE": optimize_opts("never-filled").list(),
             #"NOTE_OPTS": config("note_opts", get_dict=True),
-            "NOTE_OPTS": json.dumps(config("note_opts", get_dict=True), indent=2),
+            "NOTE_OPTS": json.dumps(config("note-opts").dict(), indent=2),
             #json_output = 
             "VERSION": version,
         }
@@ -97,31 +108,34 @@ class Generator:
     def bitwise_shift_right(self, x, b):
         return x >> b
 
-    def generate(self, input_file, output_file, prettify=False):
+    def generate(self, input_file, output_file, type: GenerateType, prettify=False):
         """
         rooted at (repo root)/templates
         output rooted at (repo root)
         """
-        template = self.env.get_template(input_file)
-        result = template.render(self.data)
-        # output_file_path = os.path.join(self.root_folder, output_file)
 
         # creates directories if it doesn't exist
         Path(output_file).parent.mkdir(parents=True, exist_ok=True)
 
-        with open(output_file, "w") as file:
-            file.write(result)
+        if type == GenerateType.JINJA:
+            template = self.env.get_template(input_file)
+            result = template.render(self.data)
+            # output_file_path = os.path.join(self.root_folder, output_file)
 
-        if self.enable_prettier and prettify:
-            # TODO cross platform?
-            os.system(f"npx prettier --write {output_file}")
+            with open(output_file, "w") as file:
+                file.write(result)
 
-            with open(output_file) as f:
-                result = f.read()
+            if self.enable_prettier and prettify:
+                # TODO cross platform?
+                os.system(f"npx prettier --write {output_file}")
 
-        return result
+            #    with open(output_file) as f:
+            #        result = f.read()
+            #return result
 
-
+        elif type == GenerateType.SASS:
+            input_path = os.path.join(self.root_folder, input_file)
+            os.system(f"{self.sass_path} {input_path} {output_file}")
 
 
 
@@ -137,21 +151,40 @@ def main(root_folder: str = "templates", args=None):
 
     generator = Generator(root_folder, config)
 
-    dir_name = "cards"
+    #note_config = config("notes")
+    #assert isinstance(note_config, utils.Config)
+    #for note_name in note_config.get_dict():
+    for note_model_id in config("notes").dict():
+        for card_model_id in config("notes", note_model_id, "templates").dict():
+            for file_name in ("front.html", "back.html"):
+                input_file = os.path.join(note_model_id, card_model_id, file_name)
+                output_file = os.path.join(args.folder, note_model_id, card_model_id, file_name)
+
+                generator.generate(input_file, output_file, GenerateType.JINJA, prettify=True)
+
+        # generates css file for each note
+        generator.generate(
+            os.path.join("scss", f"{note_model_id}.scss"),
+            os.path.join(args.folder, note_model_id, "style.css"),
+            GenerateType.SASS
+        )
+
+
+    #dir_name = "cards"
     # dirs = [d for d in os.listdir(dir_name) if os.path.isdir(os.path.join(dir_name, d))]
-    dirs = ["main", "pa_sent"]
+    #dirs = ["main", "pa_sent"]
 
     # https://stackoverflow.com/a/16505750
     # from lxml import etree, html
 
     # generates html files
-    for d in dirs:
-        for file_name in ("front.html", "back.html"):
-            # for file_name in ["front.html"]:
-            input_file = os.path.join("cards", d, file_name)
-            output_file = os.path.join(args.folder, d, file_name)
+    #for d in dirs:
+    #    for file_name in ("front.html", "back.html"):
+    #        # for file_name in ["front.html"]:
+    #        input_file = os.path.join("cards", d, file_name)
+    #        output_file = os.path.join(args.folder, d, file_name)
 
-            generator.generate(input_file, output_file, prettify=True)
+    #        generator.generate(input_file, output_file, prettify=True)
 
             #if args.enable_prettier:
             #    # TODO cross platform?
@@ -163,17 +196,17 @@ def main(root_folder: str = "templates", args=None):
                 # with open(full_path, "w") as f:
                 #    f.write(etree.tostring(document_root, encoding='unicode', pretty_print=True))
 
-    # generates config file
-    generator.generate(
-        os.path.join(OPTIONS_FILENAME),
-        os.path.join(args.folder, OPTIONS_FILENAME),
-    )
+    ## generates config file
+    #generator.generate(
+    #    os.path.join(OPTIONS_FILENAME),
+    #    os.path.join(args.folder, OPTIONS_FILENAME),
+    #)
 
-    # generates css files
-    generator.generate(
-        os.path.join(OPTIONS_FILENAME),
-        os.path.join(args.folder, OPTIONS_FILENAME),
-    )
+    ## generates css files
+    #generator.generate(
+    #    os.path.join(OPTIONS_FILENAME),
+    #    os.path.join(args.folder, OPTIONS_FILENAME),
+    #)
 
 
     # print(json_output)
