@@ -88,7 +88,7 @@
 
 
 .card {
-  /*font-family: hiragino;*/
+  /*font-family: notoserif;*/
   font-family: notosans;
   font-size: 30px;
   text-align: center;
@@ -157,10 +157,18 @@ details > summary {
 }
 
 @font-face {
-  font-family: hiragino;
-  //src: url('hiragino-mincho-pron-w3.otf');
-  src: url('GenEiKoburiMin6-R.ttf');
+  /* TODO rename */
+  font-family: notoserif;
+  src: url("NotoSerifJP-Regular.otf");
 }
+@font-face {
+  font-family: notoserif;
+  src: url("NotoSerifJP-Bold.otf");
+  font-weight: bold;
+}
+
+
+
 @font-face {
   font-family: notosans;
   //src: url('NotoSansCJK-Regular.ttc');
@@ -256,7 +264,7 @@ ruby rt {
  */
 
 .card-description {
-  font-family: hiragino;
+  font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
@@ -421,7 +429,7 @@ ruby rt {
   margin-bottom: -0.0em;
   margin-top: 0.3em;
   font-size: var(--sentence-font-size);
-  font-family: hiragino;
+  font-family: notoserif;
   line-height: 130%;
 }
 
@@ -483,7 +491,7 @@ ruby rt {
   margin-bottom: -0.0em;
   margin-top: 0.3em;
   font-size: var(--sentence-font-size);
-  font-family: hiragino;
+  font-family: notoserif;
   line-height: 130%;
 }
 
@@ -662,7 +670,7 @@ ruby rt {
 .dh-left { /* left */
   background: var(--background-darken);
   /*padding: 0.625em;*/
-  padding: 0.8em;
+  padding: 0.52em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
 }
@@ -678,7 +686,7 @@ ruby rt {
 
 .dh-left__reading {
   font-size: var(--reading-font-size);
-  font-family: hiragino;
+  font-family: notoserif;
   white-space: nowrap; /* so the reading can expand into the image */
 }
 
@@ -981,8 +989,12 @@ ruby rt {
 .full-sentence {
   font-size: 28px;
   margin: 0 0 0.5em 0;
-  font-family: hiragino;
+  font-family: notoserif;
 }
+/*.full-sentence b {
+  font-weight: normal;
+}*/
+
 .full-sentence ruby rt { opacity: 0; }
 .full-sentence:hover ruby rt { opacity: 1; }
 
@@ -1095,7 +1107,7 @@ ruby rt {
 .frequencies {
   display: flex;
   float: right;
-  font-family: hiragino;
+  font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
@@ -1123,15 +1135,15 @@ ruby rt {
 .frequencies__dictionary {
   text-align: right;
   font-size: var(--description-footer-font-size);
-}
-
-.frequencies__dictionary-inner {
   border-radius: 0px 0px var(--frequencies-border) var(--frequencies-border);
   padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
 }
 
-.frequencies__dictionary-inner2 {
+/*.frequencies__dictionary-inner {
 }
+
+.frequencies__dictionary-inner2 {
+}*/
 
 
 
@@ -1165,28 +1177,27 @@ ruby rt {
 
 /* frequency names */
 
-.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner {
   display: none;
 }
-.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary:after {
   content: "A&J";
 }
 
-.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner {
   display: none;
 }
-.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary:after {
   content: "VN";
 }
 .frequencies__group[data-details="VN Freq"] .frequencies__number .frequencies__number-inner:after {
   content: "%";
 }
 
-
-.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner {
   display: none;
 }
-.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary:after {
   content: "Inn.";
 }
 
