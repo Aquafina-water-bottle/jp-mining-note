@@ -3,7 +3,9 @@
 TODO gif showing the main features of the card type
 -->
 
-![image](https://user-images.githubusercontent.com/17107540/179312248-c75751d9-a0ad-4f89-96ab-73f85ae657da.png)
+
+![image](https://user-images.githubusercontent.com/17107540/184517988-cc2b36df-b09b-4f57-9866-e3ce7393d6a4.png)
+
 
 
 # Main Features (Card Creation Workflow)
