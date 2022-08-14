@@ -84,9 +84,10 @@ class Generator:
             "ALWAYS_TRUE": optimize_opts("always-filled").list(),
             "ALWAYS_FALSE": optimize_opts("never-filled").list(),
             # "NOTE_OPTS": config("note_opts", get_dict=True),
-            "NOTE_OPTS": json.dumps(config("note-opts").dict(), indent=2),
+            "NOTE_OPTS_JSON": json.dumps(config("note-opts").dict(), indent=2),
             # json_output =
             "VERSION": version,
+            "NOTE_OPTS": config("note-opts"),
         }
 
     def generate(

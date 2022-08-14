@@ -20,7 +20,7 @@ var JPMNOpts = (function (my) {
 
   my.settings =
 {% filter indent(width=4) %}
-{{ NOTE_OPTS }}
+{{ NOTE_OPTS_JSON }}
 {% endfilter %}
 
   return my;

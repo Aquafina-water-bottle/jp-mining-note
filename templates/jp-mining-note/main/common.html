@@ -86,7 +86,7 @@
                      {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
                      "
                 id="hybrid-sentence">
-            {{ utils.prioritize_alt_display("Sentence") }}
+            {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
           </span>
           <span class="expression--word expression__hybrid-word
               {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
@@ -114,7 +114,7 @@
                       {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
                       "
                   id="hybrid-sentence">
-              {{ utils.prioritize_alt_display("Sentence") }}
+              {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
             </span>
             <span class="expression--word expression__hybrid-word
                   {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
@@ -135,14 +135,14 @@
 
         {% call IF("IsTargetedSentenceCard") %}
           <div class="expression expression--sentence expression--single bold-yellow" id="Display">
-            {{ utils.prioritize_alt_display("Sentence") }}
+            {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
           </div>
         {% endcall %}
 
         {% call IFNOT("IsTargetedSentenceCard") %}
           {% call IF("IsSentenceCard") %}
             <div class="expression expression--sentence expression--single" id="Display">
-              {{ utils.prioritize_alt_display("Sentence") }}
+              {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
             </div>
           {% endcall %}
 
@@ -177,7 +177,7 @@
                          {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
                          "
                   id="hybrid-sentence">
-              {{ utils.prioritize_alt_display("Sentence") }}
+              {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
             </span>
             <span class="expression--word expression__hybrid-word
                 {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
@@ -207,7 +207,7 @@
                         {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
                         "
                     id="hybrid-sentence">
-                {{ utils.prioritize_alt_display("Sentence") }}
+                {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
               </span>
               <span class="expression--word expression__hybrid-word
                   {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
@@ -227,14 +227,14 @@
 
           {% call IF("IsTargetedSentenceCard") %}
             <div class="expression expression--sentence bold-yellow" id="Display">
-              {{ utils.prioritize_alt_display("Sentence") }}
+              {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
             </div>
           {% endcall %}
 
           {% call IFNOT("IsTargetedSentenceCard") %}
             {% call IF("IsSentenceCard") %}
               <div class="expression expression--sentence" id="Display">
-                {{ utils.prioritize_alt_display("Sentence") }}
+                {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
               </div>
             {% endcall %}
 

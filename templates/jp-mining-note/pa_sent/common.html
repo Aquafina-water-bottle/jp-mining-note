@@ -34,12 +34,16 @@
         <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
         <!-- if any of (click, hover, sentence, TSC) -->
         <div class="expression expression--single expression--sentence inner-display1">
+          {{ utils.quote_open -}}
           {{ T('furigana:AltDisplay') }}
+          {{- utils.quote_close }}
         </div>
 
         <!-- if none of (click, hover, sentence, TSC) -->
         <div class="expression expression--single expression--sentence inner-display2">
+          {{ utils.quote_open -}}
           {{ T('Sentence') }}
+          {{- utils.quote_close }}
         </div>
       </div>
 
@@ -47,7 +51,9 @@
 
     {% call IFNOT('AltDisplay') %}
       <div class="expression expression--single expression--sentence" id="Display">
+        {{ utils.quote_open -}}
         {{ T('Sentence') }}
+        {{- utils.quote_close }}
       </div>
     {% endcall %}
 

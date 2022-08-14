@@ -62,36 +62,26 @@ var JPMNOpts = (function (my) {
           "["
         ]
       },
-      "sentence-module": {
+      "sentence": {
         "enabled": true,
-        "select-smallest-sentence": false,
         "remove-line-breaks": true,
         "remove-line-breaks-until-char-count": 30,
         "remove-line-breaks-on-altdisplay": false,
-        "quote-module": {
-          "enabled": true,
-          "pa-indicator-color-quotes": true,
-          "left-align-adjust-format": true,
-          "auto-quote-sentence": true,
-          "auto-quote-sentence-strings": [
+        "pa-indicator-color-quotes": true,
+        "auto-quote-sentence": true,
+        "auto-quote-alt-display-sentence": false,
+        "auto-quote-open": "\u300c",
+        "auto-quote-close": "\u300d",
+        "quote-match-strings": [
+          [
             "\u300c",
             "\u300d"
           ],
-          "quote-match-strings": [
-            [
-              "\u300c",
-              "\u300d"
-            ],
-            [
-              "\u300e",
-              "\u300f"
-            ],
-            [
-              "\uff62",
-              "\uff63"
-            ]
+          [
+            "\u300e",
+            "\u300f"
           ]
-        }
+        ]
       },
       "general": {
         "hybrid-sentence-open-on-play-sentence": true

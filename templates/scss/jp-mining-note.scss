@@ -235,10 +235,10 @@ details > summary {
  * formats the open right quote to be to the left of the entire text box
  */
 
-.left-align-quote-format {
-  text-indent: -1em;
-  padding-left: 1em;
-}
+//.left-align-quote-format {
+//  text-indent: -1em;
+//  padding-left: 1em;
+//}
 
 
 /*
@@ -426,8 +426,8 @@ ruby rt {
   grid-column-gap: 5px;
   justify-items: center;
 
-  margin-bottom: -0.0em;
-  margin-top: 0.3em;
+  margin-bottom: 0em;
+  margin-top: 0.1em;
   font-size: var(--sentence-font-size);
   font-family: notoserif;
   line-height: 150%;
@@ -488,8 +488,8 @@ ruby rt {
 
 /* used in other cards where PA flag is not shown */
 .expression--single {
-  margin-bottom: -0.0em;
-  margin-top: 0.3em;
+  margin-bottom: 0em;
+  margin-top: 0.1em;
   font-size: var(--sentence-font-size);
   font-family: notoserif;
   line-height: 150%;
@@ -506,6 +506,8 @@ ruby rt {
   display: inline-block;
   text-align: left;
 
+  text-indent: -1em;
+  padding-left: 1em;
   /*font-size: var(--sentence-font-size);*/
 }
 
@@ -612,6 +614,21 @@ ruby rt {
 .expression__hybrid--hover:hover > .expression__hybrid-sentence {
     display: block;
 }
+
+
+
+.sentence-quote {
+}
+
+/*
+ * formats the open quote to be to the left of the entire text box
+ */
+.sentence-quote--open {
+}
+
+.sentence-quote--close {
+}
+
 
 
 

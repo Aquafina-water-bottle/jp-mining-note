@@ -31,46 +31,19 @@ var note = (function () {
 
 
 
+var getSetting = function(keys, defaultVal) {
+  let keyList = ["settings"].concat(keys)
 
-/*
- * class to read settings
- */
-
-var settings = (function () {
-  let my = {};
-
-  /* defaultOpt=null */
-  var _getSetting = function(settingStr, settingObj, defaultOpt) {
-    if (typeof settingObj === "undefined" || !(settingStr in settingObj)) {
-      logger.warn("Option `" + settingStr + "` is not defined in the options file.");
-      if (typeof defaultOpt === "undefined") {
-        return null;
-      } else {
-        return defaultOpt;
-      }
+  let obj = JPMNOpts
+  for (let key of keyList) {
+    if (!(key in obj)) {
+      logger.warn("Option " + keys.join(".") + " is not defined in the options file.");
+      return defaultVal;
     }
-    return settingObj[settingStr];
+    obj = obj[key]
   }
-
-  my.keybind = function(settingStr, defaultOpt) {
-    return _getSetting(settingStr, JPMNOpts.settings["keybinds"], defaultOpt);
-  }
-
-  my.sentence = function(settingStr, defaultOpt) {
-    return _getSetting(settingStr, JPMNOpts.settings["sentence-module"], defaultOpt);
-  }
-
-  my.quote = function(settingStr, defaultOpt) {
-    return _getSetting(settingStr, JPMNOpts.settings["sentence-module"]["quote-module"], defaultOpt);
-  }
-
-  my.general = function(settingStr, defaultOpt) {
-    return _getSetting(settingStr, JPMNOpts.settings["general"], defaultOpt);
-  }
-
-  return my;
-
-}());
+  return obj;
+}
 
 
 
@@ -110,127 +83,124 @@ var paIndicator = (function () {
 
 /// {% if note.card_type != "pa_word" %}
 
-var selectSentence = function(temp) {
-  // only chooses the sentence around the bold characters
-  var firstMatch = temp.indexOf("<b>");
-  var lastMatch = temp.lastIndexOf("</b>");
 
-  // list of valid terminators
-  // "removeEnd": is removed if found at the end of a sentence
-  var terminators = {
-    ".": {removeEnd: true},
-    "。": {removeEnd: true},
-    "．": {removeEnd: true},
-    "︒": {removeEnd: true},
-
-    "!": {removeEnd: false},
-    "?": {removeEnd: false},
-    "！": {removeEnd: false},
-    "？": {removeEnd: false},
-    "…": {removeEnd: false},
-    "︕": {removeEnd: false},
-    "︖": {removeEnd: false},
-    "︙": {removeEnd: false},
+/*
+ * processes the sentence (if there is no altdisplay)
+ * - removes newlines
+ * - replaces bold with [...] if cloze deletion
+ * - handles adding or replacing quotes if specified
+ *
+ * isAltDisplay=false
+ */
+var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
+  if (!{{ utils.opt("sentence", "enabled") }}) {
+    return;
   }
 
+  if (typeof isAltDisplay === 'undefined') {
+    logger.warn("isAltDisplay is undefined");
+    isAltDisplay = false;
+  }
 
-  if (firstMatch !== -1 && lastMatch !== -1) {
-    var beginIdx = firstMatch;
-    var endIdx = lastMatch;
+  // removes linebreaks
+  var result = sentEle.children[1].innerHTML;
 
-    for (; beginIdx >= 0; beginIdx--) {
-      if (temp[beginIdx] in terminators) {
-        var obj = terminators[temp[beginIdx]];
-        beginIdx++;
+  // cloze deletion replacing bold with [...]
+  if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
+    result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
+  }
 
-        //console.log(beginIdx);
-        //console.log(temp[beginIdx]);
-        break;
-      }
-    }
+  if ((!isAltDisplay && {{ utils.opt("sentence", "remove-line-breaks") }})
+      || isAltDisplay && {{ utils.opt("sentence", "remove-line-breaks-on-altdisplay") }}) {
+    let noNewlines = result.replace(/<br>/g, "");
 
-    for (; endIdx < temp.length; endIdx++) {
-      if (temp[endIdx] in terminators) {
-        var obj = terminators[temp[endIdx]];
-        if (obj.removeEnd) {
-            endIdx--;
-        }
+    // automatically removes newlines and other html elements
+    // https://stackoverflow.com/a/54369605
+    let charCount = [...sentEle.innerText.trim()].length;
+    let maxCharCount = {{ utils.opt("sentence", "remove-line-breaks-until-char-count") }}
 
-        //console.log(endIdx);
-        //console.log(temp[endIdx]);
-        //console.log(obj.removeEnd);
-        break;
-      }
-    }
-
-    // clamp
-    if (beginIdx < 0) {
-      beginIdx = 0;
-    }
-    if (endIdx > temp.length-1) {
-      endIdx = temp.length-1;
-    }
-
-    temp = temp.substring(beginIdx, endIdx+1)
-
-    // re-adds quotes if necessary
-    if (temp[0] !== "「") {
-      temp = "「" + temp;
-    }
-    if (temp[temp.length-1] !== "」") {
-      temp = temp + "」";
+    if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
+      result = noNewlines;
     }
   }
 
-  return temp;
-}
+  // removes leading and trailing white space (equiv. of strip() in python)
+  result = result.trim();
+
+  // selects the smallest containing sentence
+
+  //if (!isAltDisplay && settings.sentence("select-smallest-sentence")) {
+  //  result = selectSentence(result);
+  //}
+
+  //if (settings.quote("enabled", true)) {
+  //  result = processQuote(sentEle, result, isAltDisplay);
+  //} else {
+  //  sentEle.innerHTML = result;
+  //}
+
+  //var processQuote = function(sentEle, sent, isAltDisplay) {
+  //let result = sent;
+
+  //let openQuote = null;
+  //let closeQuote = null;
+  //let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
 
 
+  // if existing quotes:
+  //     remove from sentence
+  //     add to quote spans
+  // if no existing quotes and if autoquote:
+  //     add autoquote open / close to quote spans (if different)
+  // if color quotes:
+  //     add color quote class to outer divs
+  
 
-var processQuote = function(sentEle, sent, isAltDisplay) {
-  let result = sent;
-  let openQuote = null;
-  let closeQuote = null;
-  let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
+  let validQuotes = {{ utils.opt("sentence", "quote-match-strings") }};
+  let existingQuote = false;
 
-  if (!isAltDisplay && settings.quote("auto-quote-sentence", true)) {
-    let arr = settings.quote("auto-quote-sentence-strings", ["「", "」"])
-    logger.assert(Array.isArray(arr), "expected array");
-    logger.assert(arr.length === 2, "expected array of len 2");
-    // this operation seems to be supported in anki!
-    [openQuote, closeQuote] = arr;
-  }
+  let openQuoteEle = sentEle.children[0];
+  let closeQuoteEle = sentEle.children[2];
 
-  // existing quotes override the default quotes, even on alt displays
   for (let quotePair of validQuotes) {
-    if ((sent[0] === quotePair[0]) && (sent[sent.length-1] === quotePair[1])) {
+    if ((result[0] === quotePair[0]) && (result[result.length-1] === quotePair[1])) {
+
+      // adds quote to surrounding divs
+      let openQuote = null;
+      let closeQuote = null;
       [openQuote, closeQuote] = quotePair;
-      result = sent.slice(1, -1);
+      openQuoteEle.innerText = openQuote;
+      closeQuoteEle.innerText = closeQuote;
+
+      result = result.slice(1, -1);
+      existingQuote = true;
       break;
     }
   }
 
+  let autoQuote = (
+    (!isAltDisplay && {{ utils.opt("sentence", "auto-quote-sentence") }})
+    || (isAltDisplay && {{ utils.opt("sentence", "auto-quote-alt-display-sentence") }})
+  );
+  if (!existingQuote && autoQuote) {
+    openQuoteEle.innerText = {{ utils.opt("sentence", "auto-quote-open") }};
+    closeQuoteEle.innerText = {{ utils.opt("sentence", "auto-quote-close") }};
+  }
 
-  // replaces the element (should only contain text) with the following:
-  //
-  // <(previous div or span)>
-  //  <span> (open quote) </span>
-  //  <span> (text) </span>
-  //  <span> (close quote) </span>
-  // </(previous div or span)>
+  // no quotes are added
+  if (!existingQuote && !autoQuote) {
+    // defaults to having quotes, in case javascript fails to load for some reason
+    openQuoteEle.innerText = "";
+    closeQuoteEle.innerText = "";
 
-  let textEle = document.createElement('span');
-  textEle.innerHTML = result;
+    sentEle.style["text-indent"] = "0em";
+    sentEle.style["padding-left"] = "0em";
+  }
 
-  let openQuoteEle = document.createElement('span');
-  openQuoteEle.innerHTML = openQuote;
-
-  let closeQuoteEle = document.createElement('span');
-  closeQuoteEle.innerHTML = closeQuote;
 
   /// {% if note.card_type == "main" %}
     /// {% call IF("PAShowInfo") %}
-      if (settings.quote("pa-indicator-color-quotes")) {
+      if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-indicator-color-quotes") }}) {
         note.colorQuotes = true;
         openQuoteEle.classList.add(paIndicator.className);
         closeQuoteEle.classList.add(paIndicator.className);
@@ -254,70 +224,7 @@ var processQuote = function(sentEle, sent, isAltDisplay) {
     /// {% endcall %}
   /// {% endif %}
 
-  if (settings.quote("left-align-adjust-format")) {
-    sentEle.classList.add("left-align-quote-format");
-  }
-
-  sentEle.innerText = "";
-  sentEle.appendChild(openQuoteEle);
-  sentEle.appendChild(textEle);
-  sentEle.appendChild(closeQuoteEle);
-}
-
-
-/*
- * processes the sentence (if there is no altdisplay)
- * - removes newlines
- * - finds the shortest possible sentence around the bolded characters
- *   (if specified in the config)
- *
- * isAltDisplay=false
- */
-var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
-  if (!settings.sentence("enabled", true)) {
-    return;
-  }
-
-  if (typeof isAltDisplay === 'undefined') {
-    isAltDisplay = false;
-  }
-
-  // removes linebreaks
-  var result = sentEle.innerHTML;
-
-  // cloze deletion replacing bold with [...]
-  if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
-    result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
-  }
-
-  if ((!isAltDisplay && settings.sentence("remove-line-breaks", true))
-      || isAltDisplay && settings.sentence("remove-line-breaks-on-altdisplay", true)) {
-    let noNewlines = result.replace(/<br>/g, "");
-
-    // automatically removes newlines and other html elements
-    // https://stackoverflow.com/a/54369605
-    let charCount = [...sentEle.innerText.trim()].length;
-    let maxCharCount = settings.sentence("remove-line-breaks-until-char-count", 0)
-
-    if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
-      result = noNewlines;
-    }
-  }
-
-  // removes leading and trailing white space (equiv. of strip() in python)
-  result = result.trim();
-
-  // selects the smallest containing sentence
-
-  if (!isAltDisplay && settings.sentence("select-smallest-sentence", false)) {
-    result = selectSentence(result);
-  }
-
-  if (settings.quote("enabled", true)) {
-    result = processQuote(sentEle, result, isAltDisplay);
-  } else {
-    sentEle.innerHTML = result;
-  }
+  sentEle.children[1].innerHTML = result;
 }
 
 /*
@@ -370,7 +277,9 @@ document.onkeyup = (e => {
 
 
   /// {% call IF("WordAudio") %}
-    keys = settings.keybind("play-word-audio");
+    //keys = settings.keybind("play-word-audio");
+    keys = {{ utils.opt("keybinds", "play-word-audio") }};
+
     if (keys !== null && keys.includes(e.key)) {
       var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
       if (elem) {
@@ -380,13 +289,13 @@ document.onkeyup = (e => {
   /// {% endcall %}
 
   /// {% call IF("SentenceAudio") %}
-    keys = settings.keybind("play-sentence-audio");
+    keys = {{ utils.opt("keybinds", "play-sentence-audio") }};
     if (keys !== null && keys.includes(e.key)) {
 
       var hSent = document.getElementById("hybrid-sentence");
 
       /// {% if note.card_type == "main" and note.side == "front" %}
-      if (settings.general("hybrid-sentence-open-on-play-sentence", true)
+      if ({{ utils.opt("general", "hybrid-sentence-open-on-play-sentence") }}
           && '{{ utils.any_of_str("IsHoverCard", "IsClickCard") }}'
           && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
           && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
@@ -404,14 +313,14 @@ document.onkeyup = (e => {
     }
   /// {% endcall %}
 
-  keys = settings.keybind("toggle-front-full-sentence-display");
+  keys = {{ utils.opt("keybinds", "toggle-front-full-sentence-display") }};
   var ele = document.getElementById("full_sentence_front_details");
   if (keys !== null && ele && keys.includes(e.key)) {
     toggleDetailsTag(ele)
   }
 
   /// {% call IF("Hint") %}
-    keys = settings.keybind("toggle-hint-display");
+    keys = {{ utils.opt("keybinds", "toggle-hint-display") }};
     var ele = document.getElementById("hint_details");
     if (keys !== null && ele && keys.includes(e.key)) {
       toggleDetailsTag(ele)
@@ -420,7 +329,7 @@ document.onkeyup = (e => {
 
   /// {% if note.side == "back" %}
     /// {% call IF("SecondaryDefinition") %}
-      keys = settings.keybind("toggle-secondary-definitions-display");
+      keys = {{ utils.opt("keybinds", "toggle-secondary-definitions-display") }};
       var ele = document.getElementById("secondary_definition_details");
       if (keys !== null && ele && keys.includes(e.key)) {
         toggleDetailsTag(ele)
@@ -428,7 +337,7 @@ document.onkeyup = (e => {
     /// {% endcall %}
 
     /// {% call IF("AdditionalNotes") %}
-      keys = settings.keybind("toggle-additional-notes-display");
+      keys = {{ utils.opt("keybinds", "toggle-additional-notes-display") }};
       var ele = document.getElementById("additional_notes_details");
       if (keys !== null && ele && keys.includes(e.key)) {
         toggleDetailsTag(ele)
@@ -436,7 +345,7 @@ document.onkeyup = (e => {
     /// {% endcall %}
 
     /// {% call IF("ExtraDefinitions") %}
-      keys = settings.keybind("toggle-extra-definitions-display");
+      keys = {{ utils.opt("keybinds", "toggle-extra-definitions-display") }};
       var ele = document.getElementById("extra_definitions_details");
       if (keys !== null && ele && keys.includes(e.key)) {
         toggleDetailsTag(ele)
@@ -444,7 +353,7 @@ document.onkeyup = (e => {
     /// {% endcall %}
 
     if ('{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
-      keys = settings.keybind("toggle-extra-info-display");
+      keys = {{ utils.opt("keybinds", "toggle-extra-info-display") }};
       var ele = document.getElementById("extra_info_details");
       if (keys !== null && ele && keys.includes(e.key)) {
         toggleDetailsTag(ele)
