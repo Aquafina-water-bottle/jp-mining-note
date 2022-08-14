@@ -29,6 +29,10 @@ def add_args(parser):
     group.add_argument("--to-release", action="store_true", default=False)
 
 
+def gen_dirs(file_path):
+    Path(file_path).parent.mkdir(parents=True, exist_ok=True)
+
+
 class GenerateType(Enum):
     JINJA = 1
     SASS = 2
@@ -101,7 +105,7 @@ class Generator:
         """
 
         # creates directories if it doesn't exist
-        Path(output_file).parent.mkdir(parents=True, exist_ok=True)
+        gen_dirs(output_file)
 
         if type == GenerateType.JINJA:
             template = self.env.get_template(input_file)
@@ -121,12 +125,8 @@ class Generator:
                 raise Exception(f"sass failed with error code {error_code}")
 
         if self.to_release:
+            gen_dirs(release_output)
             shutil.copy(output_file, release_output)
-
-
-def to_release(args, input_path, output_path: str):
-    if args.to_release:
-        shutil.copy(input_path, output_path)
 
 
 def main(root_folder: str = "templates", args=None):

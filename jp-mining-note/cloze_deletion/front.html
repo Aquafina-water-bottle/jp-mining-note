@@ -1,4 +1,4 @@
-{{#PASeparateSentenceCard}} {{#SentenceAudio}}
+{{#SeparateClozeDeletionCard}}
 
 <script>
   var logger = (function (my) {
@@ -88,7 +88,7 @@
 <script onerror="optionsNotFound();" src="jp-mining-note-options.js"></script>
 
 <div class="card-description">
-  PA Sentence
+  Cloze Deletion
 
   <span class="info-circle" id="info_circle">
     <span class="info-circle-svg-wrapper">
@@ -145,46 +145,21 @@
   <div class="card-description-ver">JP Mining Note: Version 0.8.0.0</div>
 </div>
 
-<!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
-<!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
-
-<!-- option 1: AltDisplayPASentenceCard -->
-{{#AltDisplayPASentenceCard}}
-<div class="expression expression--single expression--sentence" id="Display">
-  {{furigana:AltDisplayPASentenceCard}}
-</div>
-{{/AltDisplayPASentenceCard}} {{^AltDisplayPASentenceCard}} {{#AltDisplay}}
-
+{{#AltDisplay}}
 <div
-  class="outer-display1
-          {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}}
-            outer-display2
-          {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}}
-          "
-  style="display: inline-block"
+  class="expression expression--single expression--sentence bold-yellow"
   id="Display"
 >
-  <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
-  <!-- if any of (click, hover, sentence, TSC) -->
-  <div
-    class="expression expression--single expression--sentence inner-display1"
-  >
-    {{furigana:AltDisplay}}
-  </div>
-
-  <!-- if none of (click, hover, sentence, TSC) -->
-  <div
-    class="expression expression--single expression--sentence inner-display2"
-  >
-    {{Sentence}}
-  </div>
+  {{furigana:AltDisplay}}
 </div>
-
 {{/AltDisplay}} {{^AltDisplay}}
-<div class="expression expression--single expression--sentence" id="Display">
+<div
+  class="expression expression--single expression--sentence bold-yellow"
+  id="Display"
+>
   {{Sentence}}
 </div>
-{{/AltDisplay}} {{/AltDisplayPASentenceCard}} {{#HintNotHidden}}
+{{/AltDisplay}} {{#HintNotHidden}}
 <div class="center-box-1 hint">
   <div class="center-box-2">
     <div class="bold-yellow">{{HintNotHidden}}</div>
@@ -662,34 +637,12 @@
 
     ///
 
-    //var sentences = document.querySelectorAll(".expression--sentence")
-    //var isAltDisplay = false;
-    //var isClozeDeletion = false;
-
-    //isAltDisplay = !!'{{#AltDisplay}}a{{/AltDisplay}}';
-
     var isAltDisplay = false;
-    /* {{#AltDisplayPASentenceCard}} */
-    isAltDisplay = true;
-    /* {{/AltDisplayPASentenceCard}} */
-
-    /* {{^AltDisplayPASentenceCard}} */
     /* {{#AltDisplay}} */
-    isAltDisplay =
-      /* {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}} */
-      false &&
-      /* {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}} */
-      true
-        ? true
-        : false;
-    /* {{/AltDisplay}} */
-
-    /* {{^AltDisplay}} */
     isAltDisplay = false;
     /* {{/AltDisplay}} */
-    /* {{/AltDisplayPASentenceCard}} */
 
-    processSentences(isAltDisplay);
+    processSentences(isAltDisplay, true);
 
     ///
     ///
@@ -698,4 +651,4 @@
   })();
 </script>
 
-{{/SentenceAudio}} {{/PASeparateSentenceCard}}
+{{/SeparateClozeDeletionCard}}

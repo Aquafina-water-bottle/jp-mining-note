@@ -372,7 +372,7 @@ ruby rt {
   margin-top: 0.3em;
   font-size: var(--sentence-font-size);
   font-family: notoserif;
-  line-height: 130%;
+  line-height: 150%;
 }
 
 .flag-box {
@@ -431,7 +431,7 @@ ruby rt {
   margin-top: 0.3em;
   font-size: var(--sentence-font-size);
   font-family: notoserif;
-  line-height: 130%;
+  line-height: 150%;
 }
 
 /* used when the front side display is a word and not a sentence (increase font size) */
@@ -652,7 +652,7 @@ ruby rt {
   border-style: solid;
   border-width: 1px;
   border-color: rgb(0, 71, 83);
-  padding: 0.55em;
+  padding: 0.5em;
 }
 
 .dh-left__reading {

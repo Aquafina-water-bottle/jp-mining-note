@@ -1,4 +1,4 @@
-{{#PASeparateSentenceCard}} {{#SentenceAudio}}
+{{#FrequenciesStylized}} {{FrequenciesStylized}} {{/FrequenciesStylized}}
 
 <script>
   var logger = (function (my) {
@@ -88,7 +88,7 @@
 <script onerror="optionsNotFound();" src="jp-mining-note-options.js"></script>
 
 <div class="card-description">
-  PA Sentence
+  Cloze Deletion
 
   <span class="info-circle" id="info_circle">
     <span class="info-circle-svg-wrapper">
@@ -145,46 +145,21 @@
   <div class="card-description-ver">JP Mining Note: Version 0.8.0.0</div>
 </div>
 
-<!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
-<!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
-
-<!-- option 1: AltDisplayPASentenceCard -->
-{{#AltDisplayPASentenceCard}}
-<div class="expression expression--single expression--sentence" id="Display">
-  {{furigana:AltDisplayPASentenceCard}}
-</div>
-{{/AltDisplayPASentenceCard}} {{^AltDisplayPASentenceCard}} {{#AltDisplay}}
-
+{{#AltDisplay}}
 <div
-  class="outer-display1
-          {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}}
-            outer-display2
-          {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}}
-          "
-  style="display: inline-block"
+  class="expression expression--single expression--sentence bold-yellow"
   id="Display"
 >
-  <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
-  <!-- if any of (click, hover, sentence, TSC) -->
-  <div
-    class="expression expression--single expression--sentence inner-display1"
-  >
-    {{furigana:AltDisplay}}
-  </div>
-
-  <!-- if none of (click, hover, sentence, TSC) -->
-  <div
-    class="expression expression--single expression--sentence inner-display2"
-  >
-    {{Sentence}}
-  </div>
+  {{furigana:AltDisplay}}
 </div>
-
 {{/AltDisplay}} {{^AltDisplay}}
-<div class="expression expression--single expression--sentence" id="Display">
+<div
+  class="expression expression--single expression--sentence bold-yellow"
+  id="Display"
+>
   {{Sentence}}
 </div>
-{{/AltDisplay}} {{/AltDisplayPASentenceCard}} {{#HintNotHidden}}
+{{/AltDisplay}} {{#HintNotHidden}}
 <div class="center-box-1 hint">
   <div class="center-box-2">
     <div class="bold-yellow">{{HintNotHidden}}</div>
@@ -205,8 +180,134 @@
 </details>
 {{/Hint}}
 
+<center>
+  <div class="answer-border"></div>
+</center>
+
+<div class="def-header" id="def_header">
+  <!-- everything on the left side -->
+
+  <div class="dh-left" id="dh_left">
+    <div class="dh-left__reading">{{furigana:WordReading}}</div>
+
+    <div class="dh-left__word-pitch" id="dh_word_pitch">
+      {{#WordPitch}} {{WordPitch}} {{/WordPitch}} {{^WordPitch}} (N/A)
+      {{/WordPitch}}
+    </div>
+
+    <div class="dh-left__audio-buttons">
+      <span id="word-audio"> {{WordAudio}} </span>
+      <span id="sentence-audio"> {{SentenceAudio}} </span>
+    </div>
+  </div>
+
+  <!-- everything on the right side -->
+  {{#Picture}}
+  <div class="dh-right" id="dh_right">
+    <div class="dh-right__img-container" id="dh_img_container">{{Picture}}</div>
+  </div>
+  {{/Picture}}
+</div>
+
+<div id="back_side" class="back-side">
+  <div class="center-box-1">
+    <div class="center-box-2">
+      <div class="full-sentence bold-yellow" id="full_sentence">
+        {{furigana:SentenceReading}}
+      </div>
+    </div>
+  </div>
+
+  <!-- hides primary definition since the definition is not important for this card -->
+  {{#PrimaryDefinition}}
+  <details class="glossary-details">
+    <summary>Primary Definition</summary>
+    <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
+      <div class="glossary-text glossary-text--primary-definition">
+        {{furigana:PrimaryDefinition}}
+      </div>
+    </blockquote>
+  </details>
+  {{/PrimaryDefinition}} {{#SecondaryDefinition}}
+  <details class="glossary-details" id="secondary_definition_details">
+    <summary>Secondary Definition</summary>
+    <blockquote class="glossary-blockquote bold-yellow">
+      <div class="glossary-text glossary-text--secondary-definition">
+        {{SecondaryDefinition}}
+      </div>
+    </blockquote>
+  </details>
+  {{/SecondaryDefinition}} {{#AdditionalNotes}}
+  <details
+    class="glossary-details glossary-details--small"
+    id="additional_notes_details"
+  >
+    <summary>Additional Notes</summary>
+    <blockquote
+      class="glossary-blockquote glossary-blockquote--small bold-yellow"
+    >
+      <div class="glossary-text glossary-text--additional-notes">
+        {{AdditionalNotes}}
+      </div>
+    </blockquote>
+  </details>
+  {{/AdditionalNotes}} {{#ExtraDefinitions}}
+  <details
+    class="glossary-details glossary-details--small"
+    id="extra_definitions_details"
+  >
+    <summary>Extra Definitions</summary>
+    <blockquote
+      class="glossary-blockquote glossary-blockquote--small bold-yellow"
+    >
+      <div class="glossary-text glossary-text--extra-definitions">
+        {{ExtraDefinitions}}
+      </div>
+    </blockquote>
+  </details>
+  {{/ExtraDefinitions}}
+
+  <div
+    class="outer-display1
+    {{^PAGraphs}}{{^UtilityDictionaries}}
+      outer-display2
+    {{/UtilityDictionaries}}{{/PAGraphs}}"
+    id="Display"
+  >
+    <!-- only showed if outer-display2 doesn't exist -->
+    <details
+      class="glossary-details glossary-details--small inner-display1"
+      id="extra_info_details"
+    >
+      <summary>Extra Info</summary>
+      <blockquote
+        class="glossary-blockquote glossary-blockquote--small bold-yellow"
+      >
+        <div class="glossary-text glossary-text--extra-info">
+          <div class="pa-graphs">{{PAGraphs}}</div>
+
+          <div class="utility-dicts">{{UtilityDictionaries}}</div>
+        </div>
+      </blockquote>
+    </details>
+  </div>
+</div>
+<!-- backside -->
+
+<!--
+  https://codeconvey.com/html-image-zoom-on-click/
+  http://www.liangshunet.com/en/202005/743233073.htm
+  https://stackoverflow.com/questions/8449933/how-to-transition-css-display-opacity-properties
+  https://www.javascripttutorial.net/dom/css/add-styles-to-an-element/
+  https://stackoverflow.com/questions/507138/how-to-add-a-class-to-a-given-element
+-->
+<!-- The Modal -->
+<div id="modal" class="modal">
+  <img class="modal-img" id="bigimg" />
+</div>
+
 <script>
-  ///
+  /// ///
 
   // import settings as a global variable
   // https://forums.ankiweb.net/t/how-to-include-external-files-in-your-template-js-css-etc-guide/11719
@@ -550,6 +651,43 @@
 
     ///
 
+    // creates a custom image container to hold yomichan images
+    function createImgContainer(imgName) {
+      // creating this programmically:
+      // <span class="glossary__image-container">
+      //   <a class="glossary__image-hover-text" href='javascript:;'>[Image]</a>
+      //   <img class="glossary__image-hover-media" src="${imgName}">
+      // </span>
+
+      var defSpan = document.createElement("span");
+      defSpan.classList.add("glossary__image-container");
+
+      var defAnc = document.createElement("a");
+      defAnc.classList.add("glossary__image-hover-text");
+      defAnc.href = "javascript:;'>[Image]";
+      defAnc.textContent = "[Image]";
+
+      var defImg = document.createElement("img");
+      defImg.classList.add("glossary__image-hover-media");
+      defImg.src = imgName;
+
+      defImg.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+      };
+
+      defAnc.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = defImg.src;
+      };
+
+      defSpan.appendChild(defAnc);
+      defSpan.appendChild(defImg);
+
+      return defSpan;
+    }
+    ///
+
     ///
     ///
 
@@ -615,6 +753,40 @@
       /// {{/Hint}}
 
       ///
+      /// {{#SecondaryDefinition}}
+      keys = settings.keybind("toggle-secondary-definitions-display");
+      var ele = document.getElementById("secondary_definition_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele);
+      }
+      /// {{/SecondaryDefinition}}
+
+      /// {{#AdditionalNotes}}
+      keys = settings.keybind("toggle-additional-notes-display");
+      var ele = document.getElementById("additional_notes_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele);
+      }
+      /// {{/AdditionalNotes}}
+
+      /// {{#ExtraDefinitions}}
+      keys = settings.keybind("toggle-extra-definitions-display");
+      var ele = document.getElementById("extra_definitions_details");
+      if (keys !== null && ele && keys.includes(e.key)) {
+        toggleDetailsTag(ele);
+      }
+      /// {{/ExtraDefinitions}}
+
+      if (
+        "{{#PAGraphs}}a{{/PAGraphs}}{{#UtilityDictionaries}}a{{/UtilityDictionaries}}"
+      ) {
+        keys = settings.keybind("toggle-extra-info-display");
+        var ele = document.getElementById("extra_info_details");
+        if (keys !== null && ele && keys.includes(e.key)) {
+          toggleDetailsTag(ele);
+        }
+      }
+      ///
     };
 
     //var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
@@ -662,34 +834,89 @@
 
     ///
 
-    //var sentences = document.querySelectorAll(".expression--sentence")
-    //var isAltDisplay = false;
-    //var isClozeDeletion = false;
+    // checks leech
+    var tags = "{{Tags}}".split(" ");
+    if (tags.includes("leech")) {
+      logger.leech();
+    }
 
-    //isAltDisplay = !!'{{#AltDisplay}}a{{/AltDisplay}}';
+    // a bit of a hack...
+    // The only reason why the downstep arrow exists in the first place is to make the downstep
+    // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
+    var wp = document.getElementById("dh_word_pitch");
+    wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+
+    var modal = document.getElementById("modal");
+    var modalImg = document.getElementById("bigimg");
+
+    // restricting the max height of image to the definition box
+    var dhLeft = document.getElementById("dh_left");
+    var dhRight = document.getElementById("dh_right");
+    var heightLeft = dhLeft.offsetHeight;
+
+    if (dhRight) {
+      dhRight.style.maxHeight = heightLeft + "px";
+
+      // setting up the modal styles and clicking
+      var dhImgContainer = document.getElementById("dh_img_container");
+      var imgList = dhImgContainer.getElementsByTagName("img");
+
+      if (imgList && imgList.length === 1) {
+        var img = dhImgContainer.getElementsByTagName("img")[0];
+        img.classList.add("dh-right__img");
+        img.style.maxHeight = heightLeft + "px"; // restricts max height here too
+
+        img.onclick = function () {
+          modal.style.display = "block";
+          modalImg.src = this.src;
+        };
+      } else {
+        // otherwise we hope that there are 0 images here
+        // support for no images here: remove the fade-in / fade-out on text
+        // the slightly hacky method is just to remove the class all together lol
+        dhImgContainer.className = "";
+      }
+    }
+
+    // close the modal upon click
+    modal.onclick = function () {
+      bigimg.classList.add("modal-img__zoom-out");
+      modal.classList.add("modal-img__zoom-out");
+      setTimeout(function () {
+        modal.style.display = "none";
+        bigimg.className = "modal-img";
+        modal.className = "modal";
+      }, 200);
+    };
+
+    // remove all jmdict english dict tags
+    //var glossaryEle = document.getElementById("primary_definition");
+    //glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
+
+    // goes through each blockquote and searches for yomichan inserted images
+    let imageSearchElements = document.getElementsByTagName("blockquote");
+    for (let searchEle of imageSearchElements) {
+      let anchorTags = searchEle.getElementsByTagName("a");
+      for (let atag of anchorTags) {
+        let imgFileName = atag.getAttribute("href");
+        if (
+          imgFileName &&
+          imgFileName.substring(0, 25) === "yomichan_dictionary_media"
+        ) {
+          let fragment = createImgContainer(imgFileName);
+          atag.parentNode.replaceChild(fragment, atag);
+        }
+      }
+    }
+
+    ///
 
     var isAltDisplay = false;
-    /* {{#AltDisplayPASentenceCard}} */
-    isAltDisplay = true;
-    /* {{/AltDisplayPASentenceCard}} */
-
-    /* {{^AltDisplayPASentenceCard}} */
     /* {{#AltDisplay}} */
-    isAltDisplay =
-      /* {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}} */
-      false &&
-      /* {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}} */
-      true
-        ? true
-        : false;
-    /* {{/AltDisplay}} */
-
-    /* {{^AltDisplay}} */
     isAltDisplay = false;
     /* {{/AltDisplay}} */
-    /* {{/AltDisplayPASentenceCard}} */
 
-    processSentences(isAltDisplay);
+    processSentences(isAltDisplay, true);
 
     ///
     ///
@@ -697,5 +924,3 @@
     //})();
   })();
 </script>
-
-{{/SentenceAudio}} {{/PASeparateSentenceCard}}

@@ -1,4 +1,4 @@
-{{#PASeparateSentenceCard}} {{#SentenceAudio}}
+{{#PASeparateWordCard}}
 
 <script>
   var logger = (function (my) {
@@ -88,7 +88,7 @@
 <script onerror="optionsNotFound();" src="jp-mining-note-options.js"></script>
 
 <div class="card-description">
-  PA Sentence
+  PA Word
 
   <span class="info-circle" id="info_circle">
     <span class="info-circle-svg-wrapper">
@@ -145,46 +145,32 @@
   <div class="card-description-ver">JP Mining Note: Version 0.8.0.0</div>
 </div>
 
-<!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
-<!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
+<!-- note that for the PA separate word card, the front is ALWAYS a word -->
+<!-- priority: AltDisplay -> Word -->
 
-<!-- option 1: AltDisplayPASentenceCard -->
-{{#AltDisplayPASentenceCard}}
-<div class="expression expression--single expression--sentence" id="Display">
-  {{furigana:AltDisplayPASentenceCard}}
-</div>
-{{/AltDisplayPASentenceCard}} {{^AltDisplayPASentenceCard}} {{#AltDisplay}}
-
+<!-- option 1: AltDisplay (only if the original card is not a sentence card or hybrid card) -->
 <div
   class="outer-display1
-          {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}}
-            outer-display2
-          {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}}
-          "
-  style="display: inline-block"
+      {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}}
+      {{#AltDisplay}}
+        outer-display2
+      {{/AltDisplay}}
+      {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}}
+      "
   id="Display"
 >
-  <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
-  <!-- if any of (click, hover, sentence, TSC) -->
-  <div
-    class="expression expression--single expression--sentence inner-display1"
-  >
+  <!-- if NOT (altdisplay, AND none of (click, hover, sentence, TSC)) -->
+  <div class="expression expression--single expression--word inner-display1">
+    {{Word}}
+  </div>
+
+  <!-- if altdisplay, AND none of (click, hover, sentence, TSC) -->
+  <div class="expression expression--single expression--word inner-display2">
     {{furigana:AltDisplay}}
   </div>
-
-  <!-- if none of (click, hover, sentence, TSC) -->
-  <div
-    class="expression expression--single expression--sentence inner-display2"
-  >
-    {{Sentence}}
-  </div>
 </div>
 
-{{/AltDisplay}} {{^AltDisplay}}
-<div class="expression expression--single expression--sentence" id="Display">
-  {{Sentence}}
-</div>
-{{/AltDisplay}} {{/AltDisplayPASentenceCard}} {{#HintNotHidden}}
+{{#HintNotHidden}}
 <div class="center-box-1 hint">
   <div class="center-box-2">
     <div class="bold-yellow">{{HintNotHidden}}</div>
@@ -328,222 +314,6 @@
     })();
     /// {{/PAShowInfo}} // PAShowInfo
 
-    ///
-
-    var selectSentence = function (temp) {
-      // only chooses the sentence around the bold characters
-      var firstMatch = temp.indexOf("<b>");
-      var lastMatch = temp.lastIndexOf("</b>");
-
-      // list of valid terminators
-      // "removeEnd": is removed if found at the end of a sentence
-      var terminators = {
-        ".": { removeEnd: true },
-        "。": { removeEnd: true },
-        "．": { removeEnd: true },
-        "︒": { removeEnd: true },
-
-        "!": { removeEnd: false },
-        "?": { removeEnd: false },
-        "！": { removeEnd: false },
-        "？": { removeEnd: false },
-        "…": { removeEnd: false },
-        "︕": { removeEnd: false },
-        "︖": { removeEnd: false },
-        "︙": { removeEnd: false },
-      };
-
-      if (firstMatch !== -1 && lastMatch !== -1) {
-        var beginIdx = firstMatch;
-        var endIdx = lastMatch;
-
-        for (; beginIdx >= 0; beginIdx--) {
-          if (temp[beginIdx] in terminators) {
-            var obj = terminators[temp[beginIdx]];
-            beginIdx++;
-
-            //console.log(beginIdx);
-            //console.log(temp[beginIdx]);
-            break;
-          }
-        }
-
-        for (; endIdx < temp.length; endIdx++) {
-          if (temp[endIdx] in terminators) {
-            var obj = terminators[temp[endIdx]];
-            if (obj.removeEnd) {
-              endIdx--;
-            }
-
-            //console.log(endIdx);
-            //console.log(temp[endIdx]);
-            //console.log(obj.removeEnd);
-            break;
-          }
-        }
-
-        // clamp
-        if (beginIdx < 0) {
-          beginIdx = 0;
-        }
-        if (endIdx > temp.length - 1) {
-          endIdx = temp.length - 1;
-        }
-
-        temp = temp.substring(beginIdx, endIdx + 1);
-
-        // re-adds quotes if necessary
-        if (temp[0] !== "「") {
-          temp = "「" + temp;
-        }
-        if (temp[temp.length - 1] !== "」") {
-          temp = temp + "」";
-        }
-      }
-
-      return temp;
-    };
-
-    var processQuote = function (sentEle, sent, isAltDisplay) {
-      let result = sent;
-      let openQuote = null;
-      let closeQuote = null;
-      let validQuotes = settings.quote("quote-match-strings", [["「", "」"]]);
-
-      if (!isAltDisplay && settings.quote("auto-quote-sentence", true)) {
-        let arr = settings.quote("auto-quote-sentence-strings", ["「", "」"]);
-        logger.assert(Array.isArray(arr), "expected array");
-        logger.assert(arr.length === 2, "expected array of len 2");
-        // this operation seems to be supported in anki!
-        [openQuote, closeQuote] = arr;
-      }
-
-      // existing quotes override the default quotes, even on alt displays
-      for (let quotePair of validQuotes) {
-        if (
-          sent[0] === quotePair[0] &&
-          sent[sent.length - 1] === quotePair[1]
-        ) {
-          [openQuote, closeQuote] = quotePair;
-          result = sent.slice(1, -1);
-          break;
-        }
-      }
-
-      // replaces the element (should only contain text) with the following:
-      //
-      // <(previous div or span)>
-      //  <span> (open quote) </span>
-      //  <span> (text) </span>
-      //  <span> (close quote) </span>
-      // </(previous div or span)>
-
-      let textEle = document.createElement("span");
-      textEle.innerHTML = result;
-
-      let openQuoteEle = document.createElement("span");
-      openQuoteEle.innerHTML = openQuote;
-
-      let closeQuoteEle = document.createElement("span");
-      closeQuoteEle.innerHTML = closeQuote;
-
-      ///
-
-      if (settings.quote("left-align-adjust-format")) {
-        sentEle.classList.add("left-align-quote-format");
-      }
-
-      sentEle.innerText = "";
-      sentEle.appendChild(openQuoteEle);
-      sentEle.appendChild(textEle);
-      sentEle.appendChild(closeQuoteEle);
-    };
-
-    /*
-     * processes the sentence (if there is no altdisplay)
-     * - removes newlines
-     * - finds the shortest possible sentence around the bolded characters
-     *   (if specified in the config)
-     *
-     * isAltDisplay=false
-     */
-    var processSentence = function (sentEle, isAltDisplay, isClozeDeletion) {
-      if (!settings.sentence("enabled", true)) {
-        return;
-      }
-
-      if (typeof isAltDisplay === "undefined") {
-        isAltDisplay = false;
-      }
-
-      // removes linebreaks
-      var result = sentEle.innerHTML;
-
-      // cloze deletion replacing bold with [...]
-      if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
-        result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
-      }
-
-      if (
-        (!isAltDisplay && settings.sentence("remove-line-breaks", true)) ||
-        (isAltDisplay &&
-          settings.sentence("remove-line-breaks-on-altdisplay", true))
-      ) {
-        let noNewlines = result.replace(/<br>/g, "");
-
-        // automatically removes newlines and other html elements
-        // https://stackoverflow.com/a/54369605
-        let charCount = [...sentEle.innerText.trim()].length;
-        let maxCharCount = settings.sentence(
-          "remove-line-breaks-until-char-count",
-          0
-        );
-
-        if (maxCharCount === 0 || charCount <= maxCharCount) {
-          result = noNewlines;
-        }
-      }
-
-      // removes leading and trailing white space (equiv. of strip() in python)
-      result = result.trim();
-
-      // selects the smallest containing sentence
-
-      if (
-        !isAltDisplay &&
-        settings.sentence("select-smallest-sentence", false)
-      ) {
-        result = selectSentence(result);
-      }
-
-      if (settings.quote("enabled", true)) {
-        result = processQuote(sentEle, result, isAltDisplay);
-      } else {
-        sentEle.innerHTML = result;
-      }
-    };
-
-    /*
-     * Toggles the display of any given details tag
-     */
-    var toggleDetailsTag = function (ele) {
-      if (ele.hasAttribute("open")) {
-        ele.removeAttribute("open");
-      } else {
-        ele.setAttribute("open", "true");
-      }
-    };
-
-    function processSentences(isAltDisplay, isClozeDeletion) {
-      var sentences = document.querySelectorAll(".expression--sentence");
-
-      if (sentences !== null) {
-        for (let sent of sentences) {
-          processSentence(sent, isAltDisplay, isClozeDeletion);
-        }
-      }
-    }
-
     ///  /// note.card_type != "pa_word"
 
     ///
@@ -662,35 +432,6 @@
 
     ///
 
-    //var sentences = document.querySelectorAll(".expression--sentence")
-    //var isAltDisplay = false;
-    //var isClozeDeletion = false;
-
-    //isAltDisplay = !!'{{#AltDisplay}}a{{/AltDisplay}}';
-
-    var isAltDisplay = false;
-    /* {{#AltDisplayPASentenceCard}} */
-    isAltDisplay = true;
-    /* {{/AltDisplayPASentenceCard}} */
-
-    /* {{^AltDisplayPASentenceCard}} */
-    /* {{#AltDisplay}} */
-    isAltDisplay =
-      /* {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}} */
-      false &&
-      /* {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}} */
-      true
-        ? true
-        : false;
-    /* {{/AltDisplay}} */
-
-    /* {{^AltDisplay}} */
-    isAltDisplay = false;
-    /* {{/AltDisplay}} */
-    /* {{/AltDisplayPASentenceCard}} */
-
-    processSentences(isAltDisplay);
-
     ///
     ///
 
@@ -698,4 +439,4 @@
   })();
 </script>
 
-{{/SentenceAudio}} {{/PASeparateSentenceCard}}
+{{/PASeparateWordCard}}
