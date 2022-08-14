@@ -11,7 +11,7 @@ signified.)
 
 
 
-## [0.8.0.0] - 2022-08-??
+## [0.8.0.0] - 2022-08-13
 
 #### Changed (BREAKING)
 - Changed the serif font family to NotoSerif
@@ -25,6 +25,11 @@ signified.)
 
 #### Changed
 - Completely reworked the backend generation of cards to use jinja2
+- Renamed:
+    - `refresh.py` -> `main.py`
+    - `update.py` -> `install.py`
+    - `generate.py` -> `make.py`
+- Reworked the directory structure of the project
 
 #### Fixed
 - The async race condition (undid all changes to use script src)

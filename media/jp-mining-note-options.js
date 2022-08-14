@@ -66,23 +66,11 @@ var JPMNOpts = (function (my) {
         "enabled": true,
         "select-smallest-sentence": false,
         "remove-line-breaks": true,
-        "remove-line-breaks-until-char-count": {
-          "type": "check-mobile",
-          "mobile": 0,
-          "not-mobile": 33
-        },
-        "remove-line-breaks-on-altdisplay": {
-          "type": "check-mobile",
-          "mobile": true,
-          "not-mobile": false
-        },
+        "remove-line-breaks-until-char-count": 30,
+        "remove-line-breaks-on-altdisplay": false,
         "quote-module": {
           "enabled": true,
-          "pa-indicator-color-quotes": {
-            "type": "check-mobile",
-            "mobile": true,
-            "not-mobile": false
-          },
+          "pa-indicator-color-quotes": true,
           "left-align-adjust-format": true,
           "auto-quote-sentence": true,
           "auto-quote-sentence-strings": [
@@ -114,7 +102,7 @@ var JPMNOpts = (function (my) {
   return my;
 }(JPMNOpts || {}));
 
-export function createOptions() {
-  return JPMNOpts;
-}
+//export function createOptions() {
+//  return JPMNOpts;
+//}
 
