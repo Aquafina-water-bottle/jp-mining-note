@@ -3,12 +3,22 @@
 Following semantic versioning, the 2nd number is bumped when any
 BREAKING changes occur (field rename, field addition, field deletion).
 "Breaking" in this case, is defined when someone cannot update their cards
-with the `refresh.py` script without changing something else first.
+with the `install.py` script without changing something else first.
 - The first number (X in X.#.#.#) is an arbitrary number that I decide for
 when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
 subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
+
+
+## [0.8.1.0] - 2022-08-14
+
+#### Changed
+- Options file layout (no longer breaking as every option has defaults now)
+- Quotes now generate by default (and even if javascript fails to run entirely)
+
+#### Removed
+- Smallest sentence option (adds bloat, don't think people will use it when better alternatives exist)
 
 
 ## [0.8.0.0] - 2022-08-13

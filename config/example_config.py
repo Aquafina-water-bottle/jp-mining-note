@@ -202,7 +202,7 @@ CONFIG = {
       "toggle-extra-info-display": ["["],
     },
 
-    "sentence-module": {
+    "sentence": {
       # Automatic processing to sentences
       "enabled": True,
 
@@ -218,7 +218,7 @@ CONFIG = {
       #   飛行機のチケット！
       #
       # would be selected.
-      "select-smallest-sentence": False,
+      #"select-smallest-sentence": False,
 
       # Removes all line breaks on the sentence if AltDisplay is not filled
       "remove-line-breaks": True,
@@ -242,38 +242,28 @@ CONFIG = {
       #},
       "remove-line-breaks-on-altdisplay": False,
 
-      # =========================
-      #  Quote Processing Module
-      # =========================
-      "quote-module": {
-        "enabled": True,
 
-        # Formats sentences such that the first quote encompasses the entire sentence,
-        # like so:
-        #
-        # 「そーすっと、こんな風に、相手は頭突きを警戒して
-        # 　自然と上体を引くのよさ」
-        #"pa-indicator-color-quotes": "ifMobile(true, false)",
-        #"pa-indicator-color-quotes": {
-        #  "type": "check-mobile",
-        #  "mobile": True,
-        #  "not-mobile": False,
-        #},
-        "pa-indicator-color-quotes": True,
+      # colors the quotes instead of showing a pitch accent indicator
+      # if this is enabled
+      # TODO mobile true, desktop false
+      "pa-indicator-color-quotes": True,
 
-        # automatically adds quotes to the sentence if AltDisplay is not filled
-        "left-align-adjust-format": True,
+      # automatically adds quotes to the sentence (if not alt display)
+      "auto-quote-sentence": True,
 
-        "auto-quote-sentence": True,
-        "auto-quote-sentence-strings": ["「", "」"],
+      # automatically adds quotes to the sentence (if alt display)
+      "auto-quote-alt-display-sentence": False,
 
-        "quote-match-strings": [
-          ["「", "」"],
-          ["『", "』"],
-          ["｢", "｣"],
-        ],
+      # the quote pair to automatically add to the sentence
+      "auto-quote-open": "「",
+      "auto-quote-close": "」",
 
-      }
+      # quotes to search for on existing sentences,
+      # to not double-quote a sentence that already has quotes on it
+      "quote-match-strings": [
+        ["「", "」"],
+        ["『", "』"],
+      ],
     },
 
     # Overrides the play keybind button to show the sentence if the

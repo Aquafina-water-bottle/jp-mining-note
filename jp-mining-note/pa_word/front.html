@@ -142,7 +142,7 @@
     </span>
   </span>
 
-  <div class="card-description-ver">JP Mining Note: Version 0.8.0.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.8.1.0</div>
 </div>
 
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
@@ -220,62 +220,21 @@
       return my;
     })();
 
-    /*
-     * class to read settings
-     */
+    var getSetting = function (keys, defaultVal) {
+      let keyList = ["settings"].concat(keys);
 
-    var settings = (function () {
-      let my = {};
-
-      /* defaultOpt=null */
-      var _getSetting = function (settingStr, settingObj, defaultOpt) {
-        if (typeof settingObj === "undefined" || !(settingStr in settingObj)) {
+      let obj = JPMNOpts;
+      for (let key of keyList) {
+        if (!(key in obj)) {
           logger.warn(
-            "Option `" + settingStr + "` is not defined in the options file."
+            "Option " + keys.join(".") + " is not defined in the options file."
           );
-          if (typeof defaultOpt === "undefined") {
-            return null;
-          } else {
-            return defaultOpt;
-          }
+          return defaultVal;
         }
-        return settingObj[settingStr];
-      };
-
-      my.keybind = function (settingStr, defaultOpt) {
-        return _getSetting(
-          settingStr,
-          JPMNOpts.settings["keybinds"],
-          defaultOpt
-        );
-      };
-
-      my.sentence = function (settingStr, defaultOpt) {
-        return _getSetting(
-          settingStr,
-          JPMNOpts.settings["sentence-module"],
-          defaultOpt
-        );
-      };
-
-      my.quote = function (settingStr, defaultOpt) {
-        return _getSetting(
-          settingStr,
-          JPMNOpts.settings["sentence-module"]["quote-module"],
-          defaultOpt
-        );
-      };
-
-      my.general = function (settingStr, defaultOpt) {
-        return _getSetting(
-          settingStr,
-          JPMNOpts.settings["general"],
-          defaultOpt
-        );
-      };
-
-      return my;
-    })();
+        obj = obj[key];
+      }
+      return obj;
+    };
 
     // global variable to set the PA indicator color (as a css class)
     /// {{#PAShowInfo}}
@@ -343,7 +302,9 @@
       ///
 
       /// {{#WordAudio}}
-      keys = settings.keybind("play-word-audio");
+      //keys = settings.keybind("play-word-audio");
+      keys = getSetting(["keybinds", "play-word-audio"], ["w"]);
+
       if (keys !== null && keys.includes(e.key)) {
         var elem = document.querySelector(
           "#word-audio .soundLink, #word-audio .replaybutton"
@@ -355,7 +316,7 @@
       /// {{/WordAudio}}
 
       /// {{#SentenceAudio}}
-      keys = settings.keybind("play-sentence-audio");
+      keys = getSetting(["keybinds", "play-sentence-audio"], ["p"]);
       if (keys !== null && keys.includes(e.key)) {
         var hSent = document.getElementById("hybrid-sentence");
 
@@ -370,14 +331,17 @@
       }
       /// {{/SentenceAudio}}
 
-      keys = settings.keybind("toggle-front-full-sentence-display");
+      keys = getSetting(
+        ["keybinds", "toggle-front-full-sentence-display"],
+        ["'"]
+      );
       var ele = document.getElementById("full_sentence_front_details");
       if (keys !== null && ele && keys.includes(e.key)) {
         toggleDetailsTag(ele);
       }
 
       /// {{#Hint}}
-      keys = settings.keybind("toggle-hint-display");
+      keys = getSetting(["keybinds", "toggle-hint-display"], ["."]);
       var ele = document.getElementById("hint_details");
       if (keys !== null && ele && keys.includes(e.key)) {
         toggleDetailsTag(ele);

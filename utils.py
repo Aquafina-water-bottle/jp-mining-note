@@ -102,9 +102,18 @@ class Config:
         assert isinstance(self.data, dict)
         return self.data
 
-    def item(self) -> Any:
+    def item(self, javascript=False) -> Any:
         # assert not (isinstance(self.data, dict) or isinstance(self.data, list))
-        return self.data
+        if not javascript:
+            return self.data
+        var = self.data
+        if var == True:
+            return "true"
+        elif var == False:
+            return "false"
+        elif isinstance(var, str):
+            return f"'{var}'"
+        return var
 
     def key(self) -> Union[int, str]:
         # assert not (isinstance(self.data, dict) or isinstance(self.data, list))

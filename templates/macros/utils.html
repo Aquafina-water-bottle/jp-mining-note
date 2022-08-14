@@ -92,8 +92,39 @@
 {%- endmacro %}
 
 
-{% macro prioritize_alt_display(name) -%}
-  {%- call IF("AltDisplay") %}{{ T("furigana:AltDisplay") }}{% endcall -%}
-  {%- call IFNOT("AltDisplay") %}{{ T(name) }}{% endcall -%}
+
+
+{% macro opt() -%}
+  {%- autoescape false -%}
+  {{ "getSetting([" }}
+  {%- for name in varargs -%}
+    {{ "'" }}{{name}}{{ "'," }}
+  {%- endfor -%}
+  {{ "]," }}{{NOTE_OPTS(*varargs).item(javascript=True)}}{{ ")" }}
+  {%- endautoescape -%}
 {%- endmacro %}
 
+
+
+{% set quote_open -%}
+  {%- autoescape false -%}
+  <span class="sentence-quote sentence-quote--open">
+    {{- NOTE_OPTS("sentence", "auto-quote-open").item() -}}
+  </span><span>
+  {%- endautoescape -%}
+{%- endset -%}
+
+{% set quote_close -%}
+  {%- autoescape false -%}
+  </span><span class="sentence-quote sentence-quote--close">
+    {{- NOTE_OPTS("sentence", "auto-quote-close").item() -}}
+  </span>
+  {%- endautoescape -%}
+{%- endset -%}
+
+{% macro prioritize_alt_display(name, sentence=False) -%}
+  {%- if sentence -%} {{quote_open}} {%- endif -%}
+  {%- call IF("AltDisplay") %}{{ T("furigana:AltDisplay") }}{% endcall -%}
+  {%- call IFNOT("AltDisplay") %}{{ T(name) }}{% endcall -%}
+  {%- if sentence -%} {{quote_close}} {%- endif -%}
+{%- endmacro -%}

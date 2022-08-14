@@ -14,13 +14,17 @@
 
   {% call IF('AltDisplay') %}
     <div class="expression expression--single expression--sentence bold-yellow" id="Display">
+      {{ utils.quote_open -}}
       {{ T('furigana:AltDisplay') }}
+      {{- utils.quote_close }}
     </div>
   {% endcall %}
 
   {% call IFNOT('AltDisplay') %}
     <div class="expression expression--single expression--sentence bold-yellow" id="Display">
+      {{ utils.quote_open -}}
       {{ T('Sentence') }}
+      {{- utils.quote_close }}
     </div>
   {% endcall %}
 
