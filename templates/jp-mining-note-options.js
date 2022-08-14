@@ -26,8 +26,8 @@ var JPMNOpts = (function (my) {
   return my;
 }(JPMNOpts || {}));
 
-export function createOptions() {
-  return JPMNOpts;
-}
+//export function createOptions() {
+//  return JPMNOpts;
+//}
 
 

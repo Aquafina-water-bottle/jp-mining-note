@@ -11,18 +11,23 @@ signified.)
 
 
 
-## [0.7.1.0] - 2022-08-??
+## [0.8.0.0] - 2022-08-??
+
+#### Changed (BREAKING)
+- Changed the serif font family to NotoSerif
+- Added bold variants to both serif and sans
+- Requires an update to the media folder with the new font files
 
 #### Added
 - css to no longer select furigana (note: text is still copied on linux)
 - stack trace to error messages
+- initial sharex shortcuts (powershell scripts) to tools
 
 #### Changed
 - Completely reworked the backend generation of cards to use jinja2
 
 #### Fixed
-- The async race condition by compiling almost all of the javascript into one `<script>` block
-    - And making use of the import statement + export function statement
+- The async race condition (undid all changes to use script src)
 
 
 ## [0.7.0.1] - 2022-07-26

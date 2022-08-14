@@ -1,0 +1,49 @@
+{% extends "jp-mining-note/base_back.html" %}
+
+{% set note = namespace() %}
+{% set note.side = "back" %}
+{% set note.card_type = "cloze_deletion" %}
+
+{% from "jp-mining-note/cloze_deletion/common.html" import card_type, front_display with context %}
+
+{% block card_type %}
+  {{ super() }}
+  {{ card_type }}
+{% endblock %}
+
+{% block card_html_top %}
+  {{ super() }}
+  {{ front_display }}
+{% endblock %}
+
+{% block card_html_bottom %}
+
+{{ common.def_header() }}
+
+<div id="back_side" class="back-side">
+
+{{ common.full_sentence }}
+
+<!-- hides primary definition since the definition is not important for this card -->
+{% call IF('PrimaryDefinition') %}
+  <details class="glossary-details">
+    <summary>Primary Definition</summary>
+    <blockquote class="glossary-blockquote bold-yellow" id="primary_definition">
+      <div class="glossary-text glossary-text--primary-definition">
+        {{ T('furigana:PrimaryDefinition') }}
+      </div>
+    </blockquote>
+</details>
+{% endcall %}
+
+{{ common.other_definitions }}
+
+{% endblock %}
+
+{% block javascript %}
+  {{ super() }}
+  {% include "jp-mining-note/cloze_deletion/back.js" %}
+{% endblock %}
+
+
+

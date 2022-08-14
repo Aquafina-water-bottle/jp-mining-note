@@ -11,6 +11,15 @@
 {% endcall %}
 
 
+<script>
+{% block top_javascript %}
+{% include "jp-mining-note/logger.js" %}
+{% endblock %}
+</script>
+
+<script onerror="optionsNotFound();" src="jp-mining-note-options.js"></script>
+
+
 <div class="card-description">
   {% block card_type %}
   {% endblock %}
@@ -55,7 +64,7 @@
 </div>
 
 
-<script type="module">
+<script>
 {% block javascript %}
 {% endblock %}
 </script>
