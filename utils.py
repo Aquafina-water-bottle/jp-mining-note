@@ -24,7 +24,7 @@ import os.path
 import shutil
 import argparse
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Union, List, Any, Iterable, Tuple
+from typing import TYPE_CHECKING, Callable, Any, Iterable
 
 
 if TYPE_CHECKING:
@@ -71,7 +71,7 @@ def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Names
 
 class Config:
     # def __init__(self, config_data: dict, description: str = ""):
-    def __init__(self, data, path: List[Union[int, str]] = []):
+    def __init__(self, data, path: list[int | str] = []):
         self.data = data
         # assert isinstance(self.data, dict)
         # self.desc = description
@@ -90,7 +90,7 @@ class Config:
     #        return Config(current_dict)
     #    return current_dict
 
-    def container(self) -> Union[dict, list]:
+    def container(self) -> dict | list:
         assert isinstance(self.data, dict) or isinstance(self.data, list)
         return self.data
 
@@ -115,7 +115,7 @@ class Config:
             return f"'{var}'"
         return var
 
-    def key(self) -> Union[int, str]:
+    def key(self) -> int | str:
         # assert not (isinstance(self.data, dict) or isinstance(self.data, list))
         return self.path[-1]
 
@@ -124,7 +124,7 @@ class Config:
         for key in self.data.keys():
             yield Config(self.data[key], self.path + [key])
 
-    def dict_items(self) -> Iterable[Tuple["str", Config]]:
+    def dict_items(self) -> Iterable[tuple["str", Config]]:
         assert isinstance(self.data, dict)
         for key in self.data.keys():
             yield key, Config(self.data[key], self.path + [key])
@@ -134,7 +134,7 @@ class Config:
         for i, item in enumerate(self.data):
             yield Config(item, self.path + [i])
 
-    def __call__(self, *keys: Union[str, int]) -> Config:
+    def __call__(self, *keys: str | int) -> Config:
         """
         - returns a config object if dictionary
         - otherwise returns the expected object (list, str, int, etc.)
