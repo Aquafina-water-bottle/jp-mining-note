@@ -109,6 +109,8 @@ def format_create_model(model: NoteType) -> Dict[str, Any]:
     }
 
 
+
+
 #def to_base64_str(string: str) -> str:
 #    return base64.b64encode(bytes(string, "utf-8")).decode("utf-8")
 
@@ -226,7 +228,9 @@ class MediaInstaller:
 def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
-    if args.release:
+    #if args.release:
+    #    args.from_release = True
+    if __name__ == "__main__":
         args.from_release = True
 
     config = utils.get_config(args)

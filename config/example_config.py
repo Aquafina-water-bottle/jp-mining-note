@@ -79,15 +79,15 @@ CONFIG = {
         "main": {
           "name": "Mining Card",
         },
-        #"pa_sentence": {
-        #  "name": "PA Sentence Card",
-        #},
-        #"pa_word": {
-        #  "name": "PA Word Card",
-        #},
-        #"cloze_deletion": {
-        #  "name": "Cloze Deletion Card",
-        #},
+        "pa_sent": {
+          "name": "PA Sentence Card",
+        },
+        "pa_word": {
+          "name": "PA Word Card",
+        },
+        "cloze_deletion": {
+          "name": "Cloze Deletion Card",
+        },
       },
 
       "media-build": [
@@ -231,7 +231,7 @@ CONFIG = {
       #  "mobile": 0,
       #  "not-mobile": 33,
       #},
-      "remove-line-breaks-until-char-count": 33,
+      "remove-line-breaks-until-char-count": 30,
 
       # Removes all line breaks on the AltDisplay sentence
       #"remove-line-breaks-on-altdisplay": "ifMobile(true, false)",
