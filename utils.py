@@ -55,7 +55,7 @@ def add_args(parser):
     )
     group.add_argument(
         "-f",
-        "--folder",
+        "--build_folder",
         type=str,
         default="build",
         help="output folder for the build process, and input folder for installation",

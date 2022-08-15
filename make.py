@@ -153,7 +153,7 @@ def main(root_folder: str = "templates", args=None):
             for file_name in ("front.html", "back.html"):
                 input_file = os.path.join(note_model_id, card_model_id, file_name)
                 output_file = os.path.join(
-                    args.folder, note_model_id, card_model_id, file_name
+                    args.build_folder, note_model_id, card_model_id, file_name
                 )
 
                 generator.generate(
@@ -168,7 +168,7 @@ def main(root_folder: str = "templates", args=None):
         generator.generate(
             GenerateType.SASS,
             os.path.join("templates", "scss", f"{note_model_id}.scss"),
-            os.path.join(args.folder, note_model_id, "style.css"),
+            os.path.join(args.build_folder, note_model_id, "style.css"),
             os.path.join(note_model_id, "style.css"),
         )
 
@@ -187,7 +187,7 @@ def main(root_folder: str = "templates", args=None):
                 input_file = os.path.join("templates", file_config("input-file").item())
 
             output_file = os.path.join(
-                args.folder, "media", file_config("output-file").item()
+                args.build_folder, "media", file_config("output-file").item()
             )
 
             generator.generate(

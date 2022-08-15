@@ -41,14 +41,16 @@
 
 /// {% set keybind_settings %}
 
-  keys = settings.keybind("toggle-hybrid-sentence");
+  //keys = settings.keybind("toggle-hybrid-sentence");
+  keys = {{ utils.opt("keybinds", "toggle-hybrid-sentence") }};
   var hSent = document.getElementById("hybrid-sentence");
   var hWord = document.getElementById("hybrid-word");
   if (keys !== null && hSent && hWord && keys.includes(e.key)) {
     hybridClick();
   }
 
-  keys = settings.keybind("toggle-highlight-word");
+  //keys = settings.keybind("toggle-highlight-word");
+  keys = {{ utils.opt("keybinds", "toggle-highlight-word") }};
   var paButton = document.getElementById("pa-button");
   if (keys !== null && paButton && keys.includes(e.key)) {
     toggleHighlightWord();
