@@ -59,10 +59,10 @@ def add_args(parser):
     #group.add_argument("-m", "--install-media", action="store_true")
     #group.add_argument("-a", "--install-all", action="store_true")
     group.add_argument(
-        "--from-release",
+        "--from-build",
         action="store_true",
-        help="installs files directly from the release version files, "
-        "rather than the build folder",
+        help="installs files directly from the build folder, "
+        "rather than the release files",
     )
 
     # TODO implement
@@ -231,14 +231,14 @@ def main(args=None):
     #if args.release:
     #    args.from_release = True
     if __name__ == "__main__":
-        args.from_release = True
+        args.from_build = False
 
     config = utils.get_config(args)
 
     static_media = set()
     dynamic_media = set()
 
-    note_folder = "." if args.from_release else args.folder
+    note_folder = args.build_folder if args.from_build else "."
     note_installer = NoteInstaller(note_folder)
     for note_config in config("notes").dict_values():
         # note_installer = NoteInstaller(
@@ -251,7 +251,7 @@ def main(args=None):
         static_media |= set(note_config("media-install", "static").list())
         dynamic_media |= set(note_config("media-install", "dynamic").list())
 
-    media_folder = "media" if args.from_release else os.path.join(args.folder, "media")
+    media_folder = os.path.join(args.build_folder, "media") if args.build_folder else "media"
     media_installer = MediaInstaller(media_folder)
 
     for media_file in dynamic_media:

@@ -353,3 +353,8 @@ config/config.py
 build/
 templates/scss/*.css
 
+bin/
+lib64
+pyvenv.cfg
+
+
