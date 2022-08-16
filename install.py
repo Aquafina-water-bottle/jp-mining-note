@@ -67,7 +67,7 @@ def add_args(parser):
 
     # TODO implement
     # force update version
-    group.add_argument("--force", action="store_true")
+    #group.add_argument("--force", action="store_true")
 
 
 # taken from https://github.com/FooSoft/anki-connect#python
@@ -230,8 +230,6 @@ def main(args=None):
         args = utils.get_args(utils.add_args, add_args)
     #if args.release:
     #    args.from_release = True
-    if __name__ == "__main__":
-        args.from_build = False
 
     config = utils.get_config(args)
 
