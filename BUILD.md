@@ -28,6 +28,13 @@ pip3 install -r tools/requirements.txt
 npm ci
 ```
 
+In case you don't want to use a `venv` (highly recommended that you use venv!!),
+you can install the following python packages:
+```
+pip3 install anki aqt jinja2
+```
+
+
 Further resources on how to run venv can be found in the official documentation
 [here](https://docs.python.org/3/library/venv.html).
 

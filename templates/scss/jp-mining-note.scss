@@ -8,8 +8,8 @@
 
 :root {
   --pa-brightness-reduce: 60%;
-  --frequencies-padding: 5px;
-  --frequencies-border: 5px;
+  //--frequencies-padding: 5px;
+  //--frequencies-border: 5px;
   --sentence-font-size: 52px;
   --reading-font-size: 55px;
   --full-sentence-font-size: 28px;
@@ -426,8 +426,6 @@ ruby rt {
   grid-column-gap: 5px;
   justify-items: center;
 
-  margin-bottom: 0em;
-  margin-top: 0.1em;
   font-size: var(--sentence-font-size);
   font-family: notoserif;
   line-height: 150%;
@@ -488,8 +486,6 @@ ruby rt {
 
 /* used in other cards where PA flag is not shown */
 .expression--single {
-  margin-bottom: 0em;
-  margin-top: 0.1em;
   font-size: var(--sentence-font-size);
   font-family: notoserif;
   line-height: 150%;
@@ -1137,7 +1133,7 @@ ruby rt {
 
 .frequencies__group {
   display: block;
-  padding-left: 10px;
+  padding-left: 20px;
 }
 
 .frequencies__number {
@@ -1145,15 +1141,15 @@ ruby rt {
 }
 
 .frequencies__number-inner {
-  border-radius: var(--frequencies-border) var(--frequencies-border) 0px 0px;
-  padding: var(--frequencies-padding) var(--frequencies-padding) 3px var(--frequencies-padding);
+  //border-radius: var(--frequencies-border) var(--frequencies-border) 0px 0px;
+  //padding: var(--frequencies-padding) var(--frequencies-padding) 3px var(--frequencies-padding);
 }
 
 .frequencies__dictionary {
   text-align: right;
   font-size: var(--description-footer-font-size);
-  border-radius: 0px 0px var(--frequencies-border) var(--frequencies-border);
-  padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
+  //border-radius: 0px 0px var(--frequencies-border) var(--frequencies-border);
+  //padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
 }
 
 /*.frequencies__dictionary-inner {

@@ -11,6 +11,13 @@ signified.)
 
 
 
+## [0.8.1.1] - 2022-08-15
+
+#### Fixed
+- settings variable not being defined
+- a bug regarding sentences occasionally being off-center (due to the frequencies)
+
+
 ## [0.8.1.0] - 2022-08-14
 
 #### Changed
