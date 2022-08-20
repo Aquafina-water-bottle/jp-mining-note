@@ -88,6 +88,7 @@ class Generator:
             # json_output =
             "VERSION": version,
             "NOTE_OPTS": config("note-opts"),
+            "TEMPLATES": config("notes", "jp-mining-note", "templates"),
         }
 
     def generate(

@@ -120,12 +120,14 @@ var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
 
     // automatically removes newlines and other html elements
     // https://stackoverflow.com/a/54369605
-    let charCount = [...sentEle.innerText.trim()].length;
-    let maxCharCount = {{ utils.opt("sentence", "remove-line-breaks-until-char-count") }}
+    //let charCount = [...sentEle.innerText.trim()].length;
+    //let maxCharCount = { utils.opt("sentence", "remove-line-breaks-until-char-count") }
 
-    if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
-      result = noNewlines;
-    }
+    //if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
+    //  result = noNewlines;
+    //}
+
+    result = noNewlines;
   }
 
   // removes leading and trailing white space (equiv. of strip() in python)
