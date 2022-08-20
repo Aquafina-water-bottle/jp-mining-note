@@ -172,6 +172,12 @@
     </blockquote>
   </details>
 {% endcall %}
+{% call IFNOT("SecondaryDefinition") %}
+  <div class="glossary-details glossary-details--grey">
+    Secondary Definition
+  </div>
+{% endcall %}
+
 
 {% call IF("AdditionalNotes") %}
   <details class="glossary-details glossary-details--small" id="additional_notes_details">
@@ -183,6 +189,11 @@
     </blockquote>
   </details>
 {% endcall %}
+{% call IFNOT("AdditionalNotes") %}
+  <div class="glossary-details glossary-details--small glossary-details--grey">
+    Additional Notes
+  </div>
+{% endcall %}
 
 {% call IF("ExtraDefinitions") %}
   <details class="glossary-details glossary-details--small" id="extra_definitions_details">
@@ -193,6 +204,11 @@
       </div>
     </blockquote>
   </details>
+{% endcall %}
+{% call IFNOT("ExtraDefinitions") %}
+  <div class="glossary-details glossary-details--small glossary-details--grey">
+    Extra Definitions
+  </div>
 {% endcall %}
 
 
@@ -220,6 +236,12 @@
       </div>
     </blockquote>
   </details>
+
+  <!-- only showed if outer-display2 exists -->
+  <div class="glossary-details glossary-details--small glossary-details--grey inner-display2">
+    Extra Info
+  </div>
+
 </div>
 
 {% endset %}

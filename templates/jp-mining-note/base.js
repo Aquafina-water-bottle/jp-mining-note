@@ -32,15 +32,19 @@ var note = (function () {
 
 
 var getSetting = function(keys, defaultVal) {
-  let keyList = ["settings"].concat(keys)
+  if (typeof JPMNOpts === "undefined") {
+    return defaultVal;
+  }
 
-  let obj = JPMNOpts
+  let keyList = ["settings"].concat(keys);
+
+  let obj = JPMNOpts;
   for (let key of keyList) {
     if (!(key in obj)) {
       logger.warn("Option " + keys.join(".") + " is not defined in the options file.");
       return defaultVal;
     }
-    obj = obj[key]
+    obj = obj[key];
   }
   return obj;
 }
@@ -391,15 +395,15 @@ document.onkeyup = (e => {
 
 // sanity check
 if (typeof JPMNOpts === 'undefined') {
-  logger.error("JPMNOpts was not defined in the options file. Was there an error?");
+  logger.warn("JPMNOpts was not defined in the options file. Was there an error?");
 }
 
 // removes extra info section if not necessary
-var ele = document.querySelector(".pa-graphs");
-if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
-    !"{{ utils.any_of_str('UtilityDictionaries') }}") {
-  document.getElementById("extra_info_details").style.display = "none";
-}
+//var ele = document.querySelector(".pa-graphs");
+//if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
+//    !"{{ utils.any_of_str('UtilityDictionaries') }}") {
+//  document.getElementById("extra_info_details").style.display = "none";
+//}
 
 /// {% block js_run %}
 /// {% endblock %}

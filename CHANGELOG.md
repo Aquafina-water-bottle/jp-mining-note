@@ -11,10 +11,23 @@ signified.)
 
 
 
+## [0.8.2.0] - 2022-08-??
+
+#### Changed
+- yomichan templates:
+    - unified one option for monolingual / bilingual
+    - added "unused dictionaries" section, takes priority over all other searches
+    - removed "No pitch accent data" in favor of an empty field
+    - added "JMDict Surface Forms" to utility dict and "日本語文法辞典" to bilingual dict regex
+    - added a span around each dictionary glossary entry
+
+- collapsable fields are now greyed out instead of gone (no option for this yet)
+- added css to center elements in the orthographic forms dictionary
+
 ## [0.8.1.1] - 2022-08-15
 
 #### Fixed
-- settings variable not being defined
+- settings variable not being defined causing an error
 - a bug regarding sentences occasionally being off-center (due to the frequencies)
 
 

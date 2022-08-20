@@ -10,7 +10,9 @@
 
 {{~! categorizes into 3 types: "bilingual", "monolingual", or "pitch-accent" ~}}
 {{~#*inline "jpmn-get-dict-type"~}}
-    {{~#if (op "!==" (regexMatch (get "bilingual-dict-regex") "gu" dictionaryName) "")~}}
+    {{~#if (op "!==" (regexMatch (get "ignored-dict-regex") "gu" dictionaryName) "")~}}
+        ignored
+    {{~else if (op "!==" (regexMatch (get "bilingual-dict-regex") "gu" dictionaryName) "")~}}
         bilingual
     {{~else if (op "!==" (regexMatch (get "utility-dict-regex") "gu" dictionaryName) "")~}}
         utility
@@ -20,8 +22,20 @@
     {{~/if~}}
 {{~/inline~}}
 
+
+{{~! primary def: first monolingual (or first bilingual if no monolingual dicts found) ~}}
 {{~#*inline "jpmn-get-primary-definition-dict"~}}
     {{~#scope~}}
+
+
+        {{~#if (op "===" (get "opt-dictionary-export") "bilingual")~}}
+            {{~#set "first-definition-search-type-1" "bilingual"}}{{/set~}}
+            {{~#set "first-definition-search-type-2" "monolingual"}}{{/set~}}
+        {{~else~}}
+            {{~#set "first-definition-search-type-1" "monolingual"}}{{/set~}}
+            {{~#set "first-definition-search-type-2" "bilingual"}}{{/set~}}
+        {{~/if~}}
+
 
         {{~! first-dictionary === null <=> no valid dictionary was found ~}}
         {{~#set "first-dictionary" null}}{{/set~}}
@@ -29,7 +43,7 @@
         {{~#each definition.definitions~}}
 
             {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-            {{~#if (op "===" (get "test-dict-name") (get "opt-first-dictionary-type"))~}}
+            {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-1"))~}}
                 {{~#if (op "===" null (get "first-dictionary"))~}}
                     {{~#set "first-dictionary" dictionary~}}{{~/set~}}
                 {{~/if~}}
@@ -38,13 +52,13 @@
         {{~/each~}}
 
 
-        {{~! first bilingual dictionary instead, last resort ~}}
+        {{~! uses other dictionary type, last resort ~}}
         {{~#if (op "===" (get "first-dictionary") null)~}}
 
             {{~#each definition.definitions~}}
 
                 {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-                {{~#if (op "===" (get "test-dict-name") (get "opt-second-dictionary-type"))~}}
+                {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-2"))~}}
                     {{~#if (op "===" null (get "first-dictionary"))~}}
                         {{~#set "first-dictionary" dictionary~}}{{~/set~}}
                     {{~/if~}}
@@ -76,7 +90,7 @@
 {{/inline}}
 
 
-{{~! custom glossary-single function to remove italics if necessary ~}}
+{{~! custom glossary-single function to add custom html around the dictionary and tags ~}}
 {{#*inline "jpmn-glossary-single-override"}}
 
     {{~#scope~}}
@@ -110,7 +124,9 @@
 
         </span> {{~s~}}
 
-        {{#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each}}
+        <span class="dict-group__glossary"> {{~s~}}
+            {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each~}}
+        </span> {{~s~}}
 
     {{~/scope~}}
 
@@ -180,12 +196,6 @@
                 </ol> {{~s~}}
             </div>
         {{~/each~}}
-    {{~else~}}
-        <div class="pa-graphs__none"> {{~s~}}
-            <div class="pa-graphs__none-inner"> {{~s~}}
-                No pitch accent data {{~s~}}
-            </div> {{~s~}}
-        </div> {{~s~}}
     {{~/if~}}
 {{/inline}}
 
@@ -198,6 +208,7 @@
 
 
 {{~! primary def: first monolingual (or first bilingual if no monolingual dicts found) ~}}
+{{~! does the reverse if opt-first-definition-type is "bilingual" ~}}
 {{~#*inline "jpmn-primary-definition"~}}
 
     {{~#scope~}}
@@ -221,12 +232,10 @@
 {{~/inline~}}
 
 
-{{~! secondary def: first bilingual that isn't the primary def ~}}
+{{~! extra def: bilingual defs (excluding primary def) ~}}
 {{~#*inline "jpmn-secondary-definition"~}}
 
     {{~#scope~}}
-
-        {{~#set "first-dict" null}}{{/set~}}
 
         {{~#set "primary-dictionary"}}{{~> jpmn-get-primary-definition-dict . ~}}{{/set~}}
 
@@ -248,20 +257,9 @@
                     {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
                     {{~#if (op "&&" (op "===" (get "test-dict-name") "bilingual") (op "!==" (get "primary-dictionary") dictionary))~}}
 
-                        {{~#if (get "opt-second-def-only-use-first-dict")}}
-                            {{~#if (op "===" (get "first-dict") null)}}
-                                {{~#set "first-dict" dictionary}}{{/set~}}
-                            {{~/if~}}
-                            {{~#if (op "===" (get "first-dict") dictionary)~}}
-                                <li data-details="{{~dictionary~}}">
-                                    {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
-                                </li>
-                            {{~/if~}}
-                        {{~else~}}
-                            <li data-details="{{~dictionary~}}">
-                                {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
-                            </li>
-                        {{~/if~}}
+                        <li data-details="{{~dictionary~}}">
+                            {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                        </li>
 
                     {{~/if~}}
                 {{~/each~}}
@@ -274,7 +272,7 @@
 {{~/inline~}}
 
 
-{{~! extra def: other monolingual defs (excluding primary def) ~}}
+{{~! extra def: monolingual defs (excluding primary def) ~}}
 {{~#*inline "jpmn-extra-definitions"~}}
 
     {{~#scope~}}

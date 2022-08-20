@@ -13,6 +13,7 @@ import urllib.request
 from typing import Any, Dict, List
 
 import utils
+#from note_changes import NoteChanges
 
 
 # NOTE_TYPES_DIR = "cards"
@@ -232,6 +233,11 @@ def main(args=None):
     #    args.from_release = True
 
     config = utils.get_config(args)
+
+    # checks if the note has to be changed first outside templates / media files
+    #note_changes = NoteChanges()
+    #if note_changes.has_changes():
+    #    pass
 
     static_media = set()
     dynamic_media = set()
