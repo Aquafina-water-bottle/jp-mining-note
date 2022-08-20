@@ -24,10 +24,10 @@
   /// {% endcall %}
 
   // removes extra info section if not necessary
-  var ele = document.querySelector(".pa-graphs");
-  if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
-      !"{{ utils.any_of_str('UtilityDictionaries') }}") {
-    document.getElementById("extra_info_details").style.display = "none";
-  }
+  //var ele = document.querySelector(".pa-graphs");
+  //if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
+  //    !"{{ utils.any_of_str('UtilityDictionaries') }}") {
+  //  document.getElementById("extra_info_details").style.display = "none";
+  //}
 
 /// {% endblock %}

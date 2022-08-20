@@ -24,6 +24,7 @@
   --yellow: #0060ff; /* not actually yellow ;) */
   --background-darken: rgba(0, 0, 0, 0.05);
   --card-description-color: #acacac;
+  --glossary-grey: #585858;
 
   --info-circle-hover-color: #5f5f5f;
 
@@ -64,6 +65,7 @@
   --yellow: #fffd9e;
   --background-darken: rgba(0, 0, 0, 0.12);
   --card-description-color: #585858;
+  --glossary-grey: #acacac;
 
   --info-circle-hover-color: #bdbdbd;
 
@@ -1039,6 +1041,11 @@ ruby rt {
 }
 
 
+.glossary-details--grey {
+  color: var(--glossary-grey);
+}
+
+
 /*
  * For some reason, it appears that the furigana positioning is way too high when used in the glossary.
  * Athough I would like these settings to work globally, it would sacrifice some minor things
@@ -1250,4 +1257,9 @@ ruby rt {
  * 🠋  Rarely-used kanji form
  *
  */
+
+/* makes the symbols centered */
+[data-sc-ortho="table"] td {
+  text-align: center;
+}
 
