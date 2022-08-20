@@ -38,6 +38,95 @@
 
     return defSpan;
   }
+
+  // https://github.com/FooSoft/anki-connect#javascript
+  function invoke(action, params={}) {
+    let version = 6;
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('error', () => reject('failed to issue request'));
+      xhr.addEventListener('load', () => {
+        try {
+          const response = JSON.parse(xhr.responseText);
+          if (Object.getOwnPropertyNames(response).length != 2) {
+            throw 'response has an unexpected number of fields';
+          }
+          if (!response.hasOwnProperty('error')) {
+            throw 'response is missing required error field';
+          }
+          if (!response.hasOwnProperty('result')) {
+            throw 'response is missing required result field';
+          }
+          if (response.error) {
+            throw response.error;
+          }
+          resolve(response.result);
+        } catch (e) {
+          reject(e);
+        }
+      });
+
+      xhr.open('POST', 'http://127.0.0.1:8765');
+      xhr.send(JSON.stringify({action, version, params}));
+    });
+  }
+
+
+
+  // functions relating to kanji hover
+
+  async function cardQueries(kanjiArr) {
+    const cardTypeName = '{{ TEMPLATES(note.card_type, "name").item() }}';
+
+    function constructFindCardAction(query) {
+      return {
+        "action": "findCards",
+        "params": {
+          "query": query,
+        }
+      }
+    }
+
+    // constructs the multi findCards request for ankiconnect
+    let actions = [];
+    for (const character of kanjiArr) {
+      const nonNewQuery =
+        `-is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+      const newQuery =
+        `is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+
+      //logger.warn(nonNewQuery)
+      //logger.warn(newQuery)
+      actions.push(constructFindCardAction(nonNewQuery))
+      actions.push(constructFindCardAction(newQuery))
+    }
+
+    return await invoke("multi", {"actions": actions})
+  }
+
+  function filterCards(nonNewCardIds, newCardIds) {
+    // TODO settings
+    const nonNewEarliest = 3;
+    const nonNewLatest = 2;
+    const newLatest = 2;
+
+    // non new: gets the earliest and latest
+    let nonNewResultIds = []
+    if (nonNewCardIds.length > nonNewEarliest + nonNewLatest) {
+      nonNewResultIds = [
+        ...nonNewCardIds.slice(0, nonNewEarliest), // earliest
+        ...nonNewCardIds.slice(-nonNewLatest, nonNewCardIds.length), // latest
+      ];
+    } else {
+      nonNewResultIds = [...nonNewCardIds];
+    }
+
+    let newResultIds = newCardIds.slice(0, newLatest);
+
+    return [nonNewResultIds, newResultIds];
+  }
+
+
 /// {% endblock %}
 
 
@@ -58,6 +147,86 @@
   // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
   var wp = document.getElementById("dh_word_pitch");
   wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+
+
+  // kanji hover
+  // some code shamelessly stolen from cade's kanji hover:
+  // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
+
+  // element outside async function to prevent double-adding due to anki funkyness
+  let wordReading = document.getElementById("dh_reading");
+
+  (async function() {
+
+    var kanji = new Set()
+    const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
+    const matches = wordReading.innerHTML.matchAll(regex);
+    for (const match of matches) {
+      kanji.add(...match);
+    }
+
+    let kanjiArr = [...kanji];
+
+    //const cardTypeName = '{{ TEMPLATES(note.card_type, "name").item() }}';
+
+    //function constructFindCardAction(query) {
+    //  return {
+    //    "action": "findCards",
+    //    "params": {
+    //      "query": query,
+    //    }
+    //  }
+    //}
+
+    //// constructs the multi findCards request for ankiconnect
+    //let actions = [];
+    //for (const character of kanjiArr) {
+    //  const nonNewQuery =
+    //    `-is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+    //  const newQuery =
+    //    `is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+
+    //  //logger.warn(nonNewQuery)
+    //  //logger.warn(newQuery)
+    //  actions.push(constructFindCardAction(nonNewQuery))
+    //  actions.push(constructFindCardAction(newQuery))
+    //}
+
+    //const queryResults = await invoke("multi", {"actions": actions})
+    const queryResults = await cardQueries(kanjiArr);
+
+    // TODO settings
+    //const nonNewEarliest = 3;
+    //const nonNewLatest = 2;
+    //const newLatest = 2;
+
+    for (const [i, character] of kanjiArr.entries()) {
+      // ids are equivalent to creation dates, so sorting ids is equivalent to
+      // sorting to card creation date
+      let nonNewCardIds = queryResults[i*2].sort();
+      let newCardIds = queryResults[i*2 + 1].sort();
+      [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
+
+      //// non new: gets the earliest and latest
+      //let nonNewResultIds = []
+      //if (nonNewCardIds.length > nonNewEarliest + nonNewLatest) {
+      //  nonNewResultIds = [
+      //    ...nonNewCardIds.slice(0, nonNewEarliest), // earliest
+      //    ...nonNewCardIds.slice(-nonNewLatest, nonNewCardIds.length), // latest
+      //  ];
+      //} else {
+      //  nonNewResultIds = [...nonNewCardIds];
+      //}
+      ////logger.warn(nonNewCardIds);
+      ////logger.warn(nonNewResultIds);
+
+      //// new: gets the earliest
+      //let newResultIds = newCardIds.slice(0, newLatest);
+      //logger.warn(newCardIds);
+      //logger.warn(newResultIds);
+    }
+
+  })();
 
 
   var modal = document.getElementById('modal');

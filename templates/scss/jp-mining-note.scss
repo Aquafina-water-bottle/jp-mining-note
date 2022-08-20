@@ -782,6 +782,133 @@ ruby rt {
 
 
 /*
+ * kanji hover
+ */
+
+.kanji-hover-tooltip-wrapper {
+  width: var(--tooltip-max-width);
+  height: 0px;
+  position: absolute;
+}
+
+
+/* Tooltip text */
+//.kanji-hover-tooltip {
+//  position: absolute;
+//  display: inline-block;
+//
+//  visibility: hidden;
+//  min-width: 200px;
+//  max-width: var(--tooltip-max-width);
+//
+//  font-family: notosans;
+//  font-size: var(--tooltip-font-size);
+//  text-align: left;
+//
+//  background-color: rgba(0, 0, 0, 0.9);
+//  color: white;
+//  padding: 10px;
+//  border-radius: 6px;
+//
+//  position: absolute;
+//  z-index: 1;
+//
+//  top: -10px;
+//  margin-left: 16px;
+//}
+//
+//.kanji-hover-text:hover > .kanji-hover-tooltip-wrapper > .kanji-hover-tooltip {
+//  visibility: visible;
+//}
+//
+///* prevents the tooltip text from disappearing on hover */
+//.kanji-hover-tooltip:hover {
+//  visibility: visible;
+//}
+//
+///* arrow */
+//.kanji-hover-tooltip:after {
+//  content: "";
+//  position: absolute;
+//
+//  /* position tooltip correctly */
+//  left: -15px;
+//  top: 11px;
+//
+//  /* the arrow */
+//  border: 8px solid #000000;
+//  border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
+//
+//  z-index: 1;
+//}
+//
+//.kanji-hover-tooltip-wrapper:hover:after {
+//  visibility: visible;
+//}
+
+/* Tooltip text */
+.kanji-hover-text {
+  position: relative;
+}
+
+.kanji-hover-tooltip {
+  position: absolute;
+  display: inline-block;
+  visibility: hidden;
+  width: 400px;
+  font-family: notosans;
+  font-size: 18px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 4px 10px 8px 10px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -25px;
+  margin-top: 5px;
+}
+
+
+.kanji-hover-tooltip b {
+  font-weight: normal;
+  color: var(--yellow);
+}
+
+.kanji-hover-text:hover > .kanji-hover-tooltip {
+  visibility: visible;
+}
+
+/* prevents the tooltip text from disappearing on hover */
+.kanji-hover-tooltip:hover {
+  visibility: visible;
+}
+
+
+
+/* arrow */
+.kanji-hover-tooltip:after {
+  content: "";
+  position: absolute;
+  /* position tooltip correctly */
+  left: 20px;
+  top: -16px;
+  /* the arrow */
+  border: 8px solid #000000;
+  border-color: transparent transparent rgb(0, 0, 0) transparent;
+  z-index: 1;
+}
+
+.kanji-hover-tooltip:hover:after {
+  visibility: visible;
+}
+
+
+
+
+/*
  * ----------------------------
  *  Def Header Left - PA cards
  * ----------------------------
@@ -1021,8 +1148,6 @@ ruby rt {
  * -----------------------------------
  */
 .glossary-blockquote {
-  font-size: 18px;
-
   text-align: left;
   background: var(--background-darken);
   font-size: 18px;

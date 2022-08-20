@@ -7,8 +7,10 @@ CONFIG = {
   "build-opts": {  # build options
     "sass-path": "sass",
 
+    # NOTE: currently does nothing!
     "optimize": False,
 
+    # NOTE: currently does nothing!
     "optimize-opts": {
 
       # equivalent to "always true"
@@ -222,6 +224,11 @@ CONFIG = {
 
       # Removes all line breaks on the sentence if AltDisplay is not filled
       "remove-line-breaks": True,
+      #"remove-line-breaks": {
+      #  "type": "check-mobile",
+      #  "mobile": True,
+      #  "not-mobile": False,
+      #},
 
       # removes line count specifically if the text is <= (specified number) characters in length.
       # 0 means that newlines are ALWAYS removed.
@@ -231,7 +238,7 @@ CONFIG = {
       #  "mobile": 0,
       #  "not-mobile": 33,
       #},
-      "remove-line-breaks-until-char-count": 30,
+      #"remove-line-breaks-until-char-count": 30,
 
       # Removes all line breaks on the AltDisplay sentence
       #"remove-line-breaks-on-altdisplay": "ifMobile(true, false)",
@@ -266,11 +273,17 @@ CONFIG = {
       ],
     },
 
-    # Overrides the play keybind button to show the sentence if the
-    # card is a hybrid sentence AND the sentence is not currently being shown.
-    # Only affects the front side.
     "general": {
+      # Overrides the play keybind button to show the sentence if the
+      # card is a hybrid sentence AND the sentence is not currently being shown.
+      # Only affects the front side.
       "hybrid-sentence-open-on-play-sentence": True,
+
+      # TODO implement
+      "greyed-out-collapsable-fields-when-empty": False,
+
+      # TODO implement
+      "open-extra-info-when-new": False,
     }
 
   },
