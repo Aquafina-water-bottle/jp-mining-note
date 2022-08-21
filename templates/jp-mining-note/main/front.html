@@ -7,52 +7,56 @@
 {% from "jp-mining-note/main/common.html" import card_type, front_display with context %}
 
 {% block card_type %}
-  {{ super() }}
-  {{ card_type }}
+{{ super() }}
+{{ card_type }}
 {% endblock %}
 
+
 {% block card_html %}
-  {{ super() }}
-  {{ front_display }}
+{{ super() }}
+{{ front_display }}
 
 
-  <!-- regular display -->
-  <!-- displays the audio and show/hide button, used only when testing pitch accent -->
-  {% call IF("PAShowInfo") %}
+<!-- regular display -->
+<!-- displays the audio and show/hide button, used only when testing pitch accent -->
+{% call IF("PAShowInfo") %}
 
-    <!-- only shown if:
-      - word PA should be tested
-      - sentence card
-        - TSC and hybrid cards already shows the word
-    -->
-    {% call IF("IsSentenceCard") %}
-    {% call utils.none_of("PADoNotTest", "PASeparateWordCard",
-        "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard") %}
+  <!-- only shown if:
+    - word PA should be tested
+    - sentence card
+      - TSC and hybrid cards already shows the word
+  -->
+  {% call IF("IsSentenceCard") %}
+  {% call utils.none_of("PADoNotTest", "PASeparateWordCard",
+      "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard") %}
 
-    {% call utils.any_of("PASeparateSentenceCard", "PATestOnlyWord") %}
-      <button id="pa-button">Show</button>
+  {% call utils.any_of("PASeparateSentenceCard", "PATestOnlyWord") %}
+    <button id="pa-button">Show</button>
 
-    {% endcall %}
-    {% endcall %}
-    {% endcall %}
+  {% endcall %}
+  {% endcall %}
+  {% endcall %}
 
-    <!--
-      if the display is a word: show sentence preview (spoilered)
-    -->
-    {% call utils.none_of("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard") %}
-      {{ common.full_sentence_front }}
-    {% endcall %}
+  <!--
+    if the display is a word: show sentence preview (spoilered)
+  -->
+  {% call utils.none_of("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard") %}
+    {% filter indent(width=4) %}
+    {{ common.full_sentence_front }}
+    {% endfilter %}
+  {% endcall %}
 
-    {{ common.sentence_audio_no_autoplay }}
+  {% filter indent(width=2) %}
+  {{ common.sentence_audio_no_autoplay }}
+  {% endfilter %}
 
-  {% endcall %} {# PAShowInfo #}
-
+{% endcall %} {# PAShowInfo #}
 
 {% endblock %}
 
 
 {% block javascript %}
-  {{ super() }}
-  {% include "jp-mining-note/main/front.js" %}
+{{ super() }}
+{% include "jp-mining-note/main/front.js" %}
 {% endblock %}
 

@@ -136,7 +136,7 @@ def main(root_folder: str = "templates", args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
     if args.release:
-        args.enable_prettier = True
+        #args.enable_prettier = True
         args.to_release = True
 
     config = utils.get_config(args)

@@ -7,22 +7,22 @@
 {% from "jp-mining-note/main/common.html" import card_type, front_display with context %}
 
 {% block card_type %}
-  {{ super() }}
-  {{ card_type }}
+{{ super() }}
+{{ card_type }}
 {% endblock %}
 
 {% block card_html_top %}
-  {{ super() }}
-  {{ front_display }}
+{{ super() }}
+{{ front_display }}
 {% endblock %}
 
 {% block card_html_bottom %}
-  {{ super() }}
+{{ super() }}
 {% endblock %}
 
 {% block javascript %}
-  {{ super() }}
-  {% include "jp-mining-note/main/back.js" %}
+{{ super() }}
+{% include "jp-mining-note/main/back.js" %}
 {% endblock %}
 
 

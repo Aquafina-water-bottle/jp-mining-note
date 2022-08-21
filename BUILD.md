@@ -23,10 +23,17 @@ python3 -m venv .
 source ./bin/activate # linux only, see how to activate venv on your system below
 pip3 install -r tools/requirements.txt
 
+```
+
+<!--
+
+NO LONGER NEEDED
+
 # Installs prettier, which is needed ONLY for release builds (required for contributing new code)
 # Optional for debugging purposes and for personal usage.
 npm ci
-```
+
+-->
 
 In case you don't want to use a `venv` (highly recommended that you use venv!!),
 you can install the following python packages:

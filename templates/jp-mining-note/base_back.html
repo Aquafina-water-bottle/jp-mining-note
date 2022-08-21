@@ -21,6 +21,8 @@
 
 
 <div class="card-description">
+  {% filter indent(width=2) %}
+
   {% block card_type %}
   {% endblock %}
 
@@ -28,6 +30,7 @@
 
   {{ common.version }}
 
+  {% endfilter %}
 </div>
 
 

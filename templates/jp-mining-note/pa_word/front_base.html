@@ -7,17 +7,17 @@
 {% from "jp-mining-note/pa_word/common.html" import card_type, front_display with context %}
 
 {% block card_type %}
-  {{ super() }}
-  {{ card_type }}
+{{ super() }}
+{{ card_type }}
 {% endblock %}
 
 {% block card_html %}
-  {{ super() }}
-  {{ front_display }}
+{{ super() }}
+{{ front_display }}
 {% endblock %}
 
 
 {% block javascript %}
-  {{ super() }}
-  {% include "jp-mining-note/pa_word/front.js" %}
+{{ super() }}
+{% include "jp-mining-note/pa_word/front.js" %}
 {% endblock %}
