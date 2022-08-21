@@ -24,7 +24,7 @@
   --yellow: #0060ff; /* not actually yellow ;) */
   --background-darken: rgba(0, 0, 0, 0.05);
   --card-description-color: #acacac;
-  --glossary-grey: #585858;
+  --glossary-grey: #acacac; // TODO light mode
 
   --info-circle-hover-color: #5f5f5f;
 
@@ -65,7 +65,7 @@
   --yellow: #fffd9e;
   --background-darken: rgba(0, 0, 0, 0.12);
   --card-description-color: #585858;
-  --glossary-grey: #acacac;
+  --glossary-grey: #acacac; // TODO
 
   --info-circle-hover-color: #bdbdbd;
 
@@ -786,7 +786,7 @@ ruby rt {
  */
 
 .kanji-hover-tooltip-wrapper {
-  width: var(--tooltip-max-width);
+  width: 400px;
   height: 0px;
   position: absolute;
 }
@@ -853,22 +853,23 @@ ruby rt {
 
 .kanji-hover-tooltip {
   position: absolute;
-  display: inline-block;
-  visibility: hidden;
-  width: 400px;
+  /*display: inline-block;*/
+  display: none;
+  width: 450px;
   font-family: notosans;
   font-size: 18px;
   text-align: left;
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
-  padding: 4px 10px 8px 10px;
+  padding: 8px 10px 8px 10px;
   border-radius: 6px;
-  position: absolute;
   z-index: 1;
   top: 100%;
   left: 50%;
   margin-left: -25px;
   margin-top: 5px;
+
+  white-space: normal;
 }
 
 
@@ -878,7 +879,13 @@ ruby rt {
 }
 
 .kanji-hover-text:hover > .kanji-hover-tooltip {
-  visibility: visible;
+  display: inline-block;
+  /*visibility: visible;*/
+}
+
+.kanji-hover-text:hover > .kanji-hover-tooltip-wrapper > .kanji-hover-tooltip {
+  display: inline-block;
+  /*visibility: visible;*/
 }
 
 /* prevents the tooltip text from disappearing on hover */
