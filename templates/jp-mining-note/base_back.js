@@ -283,6 +283,21 @@
   }
 
 
+  function getWordReadings(nonNewCardInfo, newCardInfo) {
+    let wordsArr = []
+
+    for (let card of nonNewCardInfo) {
+      wordsArr.push(card["fields"]["WordReading"]["value"])
+    }
+    for (let card of newCardInfo) {
+      wordsArr.push(card["fields"]["WordReading"]["value"])
+    }
+
+    //logger.warn(wordsArr.join(" "));
+    return wordsArr;
+  }
+
+
 /// {% endblock %}
 
 
@@ -321,8 +336,9 @@
   (async function() {
 
     let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
-    if (cacheKey in kanjiHoverCache) {
-      wordReading.innerHTML = kanjiHoverCache[cacheKey];
+    if (cacheKey in kanjiHoverCardCache) {
+      wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
+      //logger.info(`using cached card ${cacheKey}`);
       return;
     }
 
@@ -330,7 +346,7 @@
 
     // uses cache if it already exists
 
-    let kanjiSet = new Set()
+    let kanjiSet = new Set() // set of kanjis that requires api calls
     const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
     const matches = readingHTML.matchAll(regex);
     for (const match of matches) {
@@ -338,6 +354,17 @@
     }
 
     let kanjiDict = {};
+    let wordReadings = {}; // used only for the cache
+
+    // attempts to fill out the kanji dict with cached entries
+    for (let kanji of [...kanjiSet]) {
+      // also checks that the current word is not used
+      if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{ T('WordReading') }}"))) {
+        //logger.info(`using cached kanji ${kanji}`);
+        kanjiDict[kanji] = kanjiHoverCache[kanji][1];
+        kanjiSet.delete(kanji);
+      }
+    }
 
     // filters out 
     //let existingKeys = new Set(Object.keys(kanjiDict));
@@ -346,10 +373,13 @@
     //logger.warn([...kanjiSet].join(","));
     //logger.warn([...newKeys].join(","));
 
-    let kanjiArr = [...kanjiSet];
+    // only calls the api on the needed kanjis
+    const kanjiArr = [...kanjiSet];
     //let kanjiArr = [...newKeys];
     const queryResults = await cardQueries(kanjiArr);
     const cardsInfo = await getCardsInfo(queryResults);
+
+    //logger.info(`new kanjis: [${kanjiArr.join(", ")}]`);
 
     //logger.warn(cardsInfo);
     //logger.warn(Array.isArray(cardsInfo));
@@ -361,10 +391,11 @@
 
       // attempts to insert string
       kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo);
+      wordReadings[character] = getWordReadings(nonNewCardInfo, newCardInfo);
       //logger.warn(JSON.stringify(nonNewCardInfo));
     }
 
-    let re = new RegExp([...kanjiSet].join("|"), "gi");
+    let re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
     let resultHTML = readingHTML.replace(re, function (matched) {
       return kanjiDict[matched] ?? matched;
       //if (kanjiDict[matched]) {
@@ -375,8 +406,13 @@
 
     //logger.warn(resultHTML);
     wordReading.innerHTML = resultHTML;
-    kanjiHoverCache[cacheKey] = resultHTML;
 
+    // cache
+    kanjiHoverCardCache[cacheKey] = resultHTML;
+
+    for (let character of kanjiArr) {
+      kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
+    }
 
     //function constructCardsInfoAction(idList) {
     //  return {

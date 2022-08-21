@@ -18,6 +18,11 @@
 
 
 
+// global cache for an entire card's kanji hover html
+// maps key.word_reading -> html string
+var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
+
+// maps kanji -> [{set of used words}, html string]
 var kanjiHoverCache = kanjiHoverCache ?? {};
 
 (function () { // restricts ALL javascript to hidden scope
