@@ -75,6 +75,8 @@
 
   // functions relating to kanji hover
 
+  // multi query result, in the format of
+  // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
   async function cardQueries(kanjiArr) {
     const cardTypeName = '{{ TEMPLATES(note.card_type, "name").item() }}';
 
@@ -127,6 +129,118 @@
   }
 
 
+
+  async function getCardsInfo(queryResults) {
+    function constructCardsInfoAction(idList) {
+      return {
+        "action": "cardsInfo",
+        "params": {
+          "cards": idList,
+        }
+      }
+    }
+
+    let actions = [];
+    logger.assert(queryResults.length % 2 == 0, "query results not even");
+
+    //for (const [i, character] of kanjiArr.entries()) {
+    for (let i = 0; i < queryResults.length/2; i++) {
+      // ids are equivalent to creation dates, so sorting ids is equivalent to
+      // sorting to card creation date
+      let nonNewCardIds = queryResults[i*2].sort();
+      let newCardIds = queryResults[i*2 + 1].sort();
+      let [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
+
+      // creates a multi request of the following format:
+      // [cardInfo (nonNewCardIds, kanji 1), cardInfo (newCardIds, kanji 1), etc.]
+
+      actions.push(constructCardsInfoAction(nonNewResultIds))
+      actions.push(constructCardsInfoAction(newResultIds))
+    }
+
+    return await invoke("multi", {"actions": actions})
+  }
+
+
+  // taken directly from anki's implementation of { {furigana:...} }
+  // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
+  function buildWordDiv(wordReading) {
+
+    //let wrapper = document.createElement('div');
+
+    let wordDiv = document.createElement('div');
+    // TODO reading
+    //let wordReading = card["fields"]["WordReading"]["value"];
+    let re = / ?([^ >]+?)\[(.+?)\]/g
+
+    //let wordReadingRuby = wordReading.replaceAll(re, function (matched) {
+    //  logger.warn(matched);
+    //  logger.warn(matched[1] + "--" + matched[2]);
+    //  return `<ruby><rb>${matched[1]}</rb><rt>${matched[2]}</rt></ruby>`
+    //});
+    let wordReadingRuby = wordReading.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
+    //logger.warn(wordReadingRuby);
+
+    wordDiv.innerHTML = wordReadingRuby;
+    return wordDiv;
+
+    //wrapper.appendChild(kanjiSpan);
+
+    //return wrapper.innerHTML;
+  }
+
+  function buildCardDiv(card, isNew=false) {
+    let cardDiv = document.createElement('div');
+    // TODO
+    //cardDiv.classList.add("kanji-hover-text")
+
+    // TODO reading
+    //let wordDiv = document.createElement('div');
+    //wordDiv.innerText = card["fields"]["Word"]["value"];
+    //logger.warn(JSON.stringify(card["fields"]["Word"]));
+    let wordDiv = buildWordDiv(card["fields"]["WordReading"]["value"]);
+    //buildWordDiv(card["fields"]["WordReading"]["value"]);
+
+    let sentenceDiv = document.createElement('div');
+    sentenceDiv.innerHTML = card["fields"]["Sentence"]["value"];
+    //logger.warn(sentenceDiv.innerHTML);
+
+    cardDiv.appendChild(wordDiv);
+    cardDiv.appendChild(sentenceDiv);
+
+    return cardDiv;
+  }
+
+  function buildString(character, nonNewCardInfo, newCardInfo) {
+
+    let wrapper = document.createElement('span');
+
+    let kanjiSpan = document.createElement('span');
+    kanjiSpan.classList.add("kanji-hover-text")
+    kanjiSpan.innerText = character;
+
+    tooltipSpan = document.createElement('span');
+    tooltipSpan.classList.add("kanji-hover-tooltip")
+
+    logger.warn(character);
+    for (let card of nonNewCardInfo) {
+      //logger.warn(card);
+      let cardDiv = buildCardDiv(card);
+      tooltipSpan.appendChild(cardDiv);
+    }
+    for (let card of newCardInfo) {
+      let cardDiv = buildCardDiv(card, isNew=true);
+      tooltipSpan.appendChild(cardDiv);
+    }
+
+    kanjiSpan.appendChild(tooltipSpan);
+
+    wrapper.appendChild(kanjiSpan);
+
+    return wrapper.innerHTML;
+  }
+
+
 /// {% endblock %}
 
 
@@ -157,74 +271,73 @@
   let wordReading = document.getElementById("dh_reading");
 
   (async function() {
+    return;
 
-    var kanji = new Set()
+    readingHTML = wordReading.innerHTML;
+
+    var kanjiSet = new Set()
     const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
-    const matches = wordReading.innerHTML.matchAll(regex);
+    const matches = readingHTML.matchAll(regex);
     for (const match of matches) {
-      kanji.add(...match);
+      kanjiSet.add(...match);
     }
 
-    let kanjiArr = [...kanji];
+    let kanjiArr = [...kanjiSet];
+    const queryResults = await cardQueries(kanjiArr);
+    const cardsInfo = await getCardsInfo(queryResults);
 
-    //const cardTypeName = '{{ TEMPLATES(note.card_type, "name").item() }}';
+    //logger.warn(cardsInfo);
+    //logger.warn(Array.isArray(cardsInfo));
+    //logger.warn(cardsInfo.length);
 
-    //function constructFindCardAction(query) {
+    let kanjiDict = {};
+    for (const [i, character] of kanjiArr.entries()) {
+      let nonNewCardInfo = cardsInfo[i*2];
+      let newCardInfo = cardsInfo[i*2 + 1];
+
+      // attempts to insert string
+      kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo);
+      //logger.warn(JSON.stringify(nonNewCardInfo));
+    }
+
+    let re = new RegExp([...kanjiSet].join("|"), "gi");
+    let resultHTML = readingHTML.replace(re, function (matched) {
+      return kanjiDict[matched] ?? matched;
+      //if (kanjiDict[matched]) {
+      //  return buildString(matched);
+      //}
+      //return matched;
+    });
+
+    logger.warn(resultHTML);
+    //wordReading.innerHTML = resultHTML;
+
+
+    //function constructCardsInfoAction(idList) {
     //  return {
-    //    "action": "findCards",
+    //    "action": "cardsInfo",
     //    "params": {
-    //      "query": query,
+    //      "cards": idList,
     //    }
     //  }
     //}
 
-    //// constructs the multi findCards request for ankiconnect
     //let actions = [];
-    //for (const character of kanjiArr) {
-    //  const nonNewQuery =
-    //    `-is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
-    //  const newQuery =
-    //    `is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+    //for (const [i, character] of kanjiArr.entries()) {
+    //  // ids are equivalent to creation dates, so sorting ids is equivalent to
+    //  // sorting to card creation date
+    //  let nonNewCardIds = queryResults[i*2].sort();
+    //  let newCardIds = queryResults[i*2 + 1].sort();
+    //  let [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
 
-    //  //logger.warn(nonNewQuery)
-    //  //logger.warn(newQuery)
-    //  actions.push(constructFindCardAction(nonNewQuery))
-    //  actions.push(constructFindCardAction(newQuery))
+    //  // creates a multi request of the following format:
+    //  // [cardInfo (nonNewCardIds, kanji 1), cardInfo (newCardIds, kanji 1), etc.]
+
+    //  actions.push(constructCardsInfoAction(nonNewResultIds))
+    //  actions.push(constructCardsInfoAction(newResultIds))
     //}
 
-    //const queryResults = await invoke("multi", {"actions": actions})
-    const queryResults = await cardQueries(kanjiArr);
-
-    // TODO settings
-    //const nonNewEarliest = 3;
-    //const nonNewLatest = 2;
-    //const newLatest = 2;
-
-    for (const [i, character] of kanjiArr.entries()) {
-      // ids are equivalent to creation dates, so sorting ids is equivalent to
-      // sorting to card creation date
-      let nonNewCardIds = queryResults[i*2].sort();
-      let newCardIds = queryResults[i*2 + 1].sort();
-      [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
-
-      //// non new: gets the earliest and latest
-      //let nonNewResultIds = []
-      //if (nonNewCardIds.length > nonNewEarliest + nonNewLatest) {
-      //  nonNewResultIds = [
-      //    ...nonNewCardIds.slice(0, nonNewEarliest), // earliest
-      //    ...nonNewCardIds.slice(-nonNewLatest, nonNewCardIds.length), // latest
-      //  ];
-      //} else {
-      //  nonNewResultIds = [...nonNewCardIds];
-      //}
-      ////logger.warn(nonNewCardIds);
-      ////logger.warn(nonNewResultIds);
-
-      //// new: gets the earliest
-      //let newResultIds = newCardIds.slice(0, newLatest);
-      //logger.warn(newCardIds);
-      //logger.warn(newResultIds);
-    }
+    //return await invoke("multi", {"actions": actions})
 
   })();
 
