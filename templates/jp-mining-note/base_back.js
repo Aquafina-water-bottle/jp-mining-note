@@ -93,9 +93,11 @@
     let actions = [];
     for (const character of kanjiArr) {
       const nonNewQuery =
-        `-is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+        //`-is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+        `-is:new -Word:{{ T('Word') }} Word:*${character}* "card:${cardTypeName}" -(is:suspended flag:1)`;
       const newQuery =
-        `is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+        //`is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
+        `is:new -Word:{{ T('Word') }} Word:*${character}* "card:${cardTypeName}" -(is:suspended flag:1)`;
 
       //logger.warn(nonNewQuery)
       //logger.warn(newQuery)
@@ -108,7 +110,7 @@
 
   function filterCards(nonNewCardIds, newCardIds) {
     // TODO settings
-    const nonNewEarliest = 3;
+    const nonNewEarliest = 2;
     const nonNewLatest = 2;
     const newLatest = 2;
 
@@ -164,7 +166,7 @@
 
   // taken directly from anki's implementation of { {furigana:...} }
   // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-  function buildWordDiv(wordReading) {
+  function buildWordDiv(character, wordReading) {
 
     //let wrapper = document.createElement('div');
 
@@ -180,6 +182,7 @@
     //});
     let wordReadingRuby = wordReading.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
     //logger.warn(wordReadingRuby);
+    wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
 
     wordDiv.innerHTML = wordReadingRuby;
     return wordDiv;
@@ -189,7 +192,35 @@
     //return wrapper.innerHTML;
   }
 
-  function buildCardDiv(card, isNew=false) {
+  function buildSentDiv(sentence) {
+    let sentenceSpan = document.createElement('span');
+
+    let resultSent = sentence;
+    //resultSent = resultSent.replace("<b>", "<u>");
+    //resultSent = resultSent.replace("</b>", "</u>");
+    resultSent = resultSent.replaceAll("<b>", "");
+    resultSent = resultSent.replaceAll("</b>", "");
+    sentenceSpan.innerHTML = resultSent;
+
+    let openQuote = document.createElement('span');
+    //openQuote.classList.add("sentence-quote--open");
+    openQuote.innerText = "「";
+    let closeQuote = document.createElement('span');
+    //closeQuote.classList.add("sentence-quote--close");
+    closeQuote.innerText = "」";
+
+
+    let sentenceDiv = document.createElement('div');
+    sentenceDiv.classList.add("left-align-quote");
+
+    sentenceDiv.appendChild(openQuote);
+    sentenceDiv.appendChild(sentenceSpan);
+    sentenceDiv.appendChild(closeQuote);
+
+    return sentenceDiv;
+  }
+
+  function buildCardDiv(character, card, isNew=false) {
     let cardDiv = document.createElement('div');
     // TODO
     //cardDiv.classList.add("kanji-hover-text")
@@ -198,15 +229,20 @@
     //let wordDiv = document.createElement('div');
     //wordDiv.innerText = card["fields"]["Word"]["value"];
     //logger.warn(JSON.stringify(card["fields"]["Word"]));
-    let wordDiv = buildWordDiv(card["fields"]["WordReading"]["value"]);
+    let wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
     //buildWordDiv(card["fields"]["WordReading"]["value"]);
 
-    let sentenceDiv = document.createElement('div');
-    sentenceDiv.innerHTML = card["fields"]["Sentence"]["value"];
+    //let sentenceDiv = document.createElement('div');
+    //sentenceDiv.innerHTML = card["fields"]["Sentence"]["value"];
+    let sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
     //logger.warn(sentenceDiv.innerHTML);
 
     cardDiv.appendChild(wordDiv);
     cardDiv.appendChild(sentenceDiv);
+
+    if (isNew) {
+      cardDiv.classList.add("kanji-hover-tooltip--new");
+    }
 
     return cardDiv;
   }
@@ -222,15 +258,21 @@
     tooltipSpan = document.createElement('span');
     tooltipSpan.classList.add("kanji-hover-tooltip")
 
-    logger.warn(character);
+    //logger.warn(character);
     for (let card of nonNewCardInfo) {
       //logger.warn(card);
-      let cardDiv = buildCardDiv(card);
+      let cardDiv = buildCardDiv(character, card);
       tooltipSpan.appendChild(cardDiv);
     }
     for (let card of newCardInfo) {
-      let cardDiv = buildCardDiv(card, isNew=true);
+      let cardDiv = buildCardDiv(character, card, isNew=true);
       tooltipSpan.appendChild(cardDiv);
+    }
+
+
+    // 0 length checks
+    if (nonNewCardInfo.length + newCardInfo.length == 0) {
+      tooltipSpan.innerText = "No other kanjis found.";
     }
 
     kanjiSpan.appendChild(tooltipSpan);
@@ -250,7 +292,7 @@
   {{ super() }}
 
   // checks leech
-  var tags = "{{ T('Tags') }}".split(" ");
+  let tags = "{{ T('Tags') }}".split(" ");
   if (tags.includes("leech")) {
     logger.leech();
   }
@@ -259,7 +301,7 @@
   // a bit of a hack...
   // The only reason why the downstep arrow exists in the first place is to make the downstep
   // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
-  var wp = document.getElementById("dh_word_pitch");
+  let wp = document.getElementById("dh_word_pitch");
   wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
 
 
@@ -270,19 +312,42 @@
   // element outside async function to prevent double-adding due to anki funkyness
   let wordReading = document.getElementById("dh_reading");
 
+  // why isn't this built in already...
+  // computes a - b, given a and b are both sets
+  function set_difference(a, b) {
+    return new Set([...a].filter(x => !b.has(x)));
+  }
+
   (async function() {
-    return;
 
-    readingHTML = wordReading.innerHTML;
+    let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
+    if (cacheKey in kanjiHoverCache) {
+      wordReading.innerHTML = kanjiHoverCache[cacheKey];
+      return;
+    }
 
-    var kanjiSet = new Set()
+    let readingHTML = wordReading.innerHTML;
+
+    // uses cache if it already exists
+
+    let kanjiSet = new Set()
     const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
     const matches = readingHTML.matchAll(regex);
     for (const match of matches) {
       kanjiSet.add(...match);
     }
 
+    let kanjiDict = {};
+
+    // filters out 
+    //let existingKeys = new Set(Object.keys(kanjiDict));
+    //let newKeys = set_difference(kanjiSet, existingKeys);
+    //logger.warn([...existingKeys].join(","));
+    //logger.warn([...kanjiSet].join(","));
+    //logger.warn([...newKeys].join(","));
+
     let kanjiArr = [...kanjiSet];
+    //let kanjiArr = [...newKeys];
     const queryResults = await cardQueries(kanjiArr);
     const cardsInfo = await getCardsInfo(queryResults);
 
@@ -290,7 +355,6 @@
     //logger.warn(Array.isArray(cardsInfo));
     //logger.warn(cardsInfo.length);
 
-    let kanjiDict = {};
     for (const [i, character] of kanjiArr.entries()) {
       let nonNewCardInfo = cardsInfo[i*2];
       let newCardInfo = cardsInfo[i*2 + 1];
@@ -309,8 +373,9 @@
       //return matched;
     });
 
-    logger.warn(resultHTML);
-    //wordReading.innerHTML = resultHTML;
+    //logger.warn(resultHTML);
+    wordReading.innerHTML = resultHTML;
+    kanjiHoverCache[cacheKey] = resultHTML;
 
 
     //function constructCardsInfoAction(idList) {

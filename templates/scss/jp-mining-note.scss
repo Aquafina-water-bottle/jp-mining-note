@@ -196,6 +196,13 @@ details > summary {
 }
 
 
+
+.left-align-quote {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+
 /*
  * Problem: Anki doesn't have {{field1 OR field2}}. This means to make something equivalent to:
  *   {{A OR B}} A {{/A OR B}}
@@ -855,7 +862,11 @@ ruby rt {
   position: absolute;
   /*display: inline-block;*/
   display: none;
-  width: 450px;
+
+  flex-direction: column;
+  gap: 10px;
+
+  width: 500px;
   font-family: notosans;
   font-size: 18px;
   text-align: left;
@@ -874,19 +885,26 @@ ruby rt {
 
 
 .kanji-hover-tooltip b {
-  font-weight: normal;
+  //font-weight: normal;
   color: var(--yellow);
 }
 
+
+.kanji-hover-tooltip--new {
+  color: #acacac; // TODO light mode
+}
+
 .kanji-hover-text:hover > .kanji-hover-tooltip {
-  display: inline-block;
+  //display: inline-block;
+  display: flex;
   /*visibility: visible;*/
 }
 
-.kanji-hover-text:hover > .kanji-hover-tooltip-wrapper > .kanji-hover-tooltip {
-  display: inline-block;
-  /*visibility: visible;*/
-}
+//.kanji-hover-text:hover > .kanji-hover-tooltip-wrapper > .kanji-hover-tooltip {
+//  //display: inline-block;
+//  display: flex;
+//  /*visibility: visible;*/
+//}
 
 /* prevents the tooltip text from disappearing on hover */
 .kanji-hover-tooltip:hover {
@@ -900,7 +918,7 @@ ruby rt {
   content: "";
   position: absolute;
   /* position tooltip correctly */
-  left: 20px;
+  left: 16px;
   top: -16px;
   /* the arrow */
   border: 8px solid #000000;

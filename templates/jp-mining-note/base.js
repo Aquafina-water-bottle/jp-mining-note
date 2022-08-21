@@ -18,6 +18,8 @@
 
 
 
+var kanjiHoverCache = kanjiHoverCache ?? {};
+
 (function () { // restricts ALL javascript to hidden scope
 
 
@@ -257,6 +259,7 @@ function processSentences(isAltDisplay, isClozeDeletion) {
 
 
 /// {% endif %} /// note.card_type != "pa_word"
+
 
 
 /// {% block js_functions %}
