@@ -212,29 +212,29 @@ var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
 
 
   /// {% if note.card_type == "main" %}
-    /// {% call IF("PAShowInfo") %}
-      if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-indicator-color-quotes") }}) {
-        note.colorQuotes = true;
-        openQuoteEle.classList.add(paIndicator.className);
-        closeQuoteEle.classList.add(paIndicator.className);
+  /// {% call IF("PAShowInfo") %}
+  if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-indicator-color-quotes") }}) {
+    note.colorQuotes = true;
+    openQuoteEle.classList.add(paIndicator.className);
+    closeQuoteEle.classList.add(paIndicator.className);
 
-        /// {% call IF("IsHoverCard") %}
-          var elem = document.querySelector(".expression__hybrid-wrapper");
-          if (elem !== null) {
-            elem.classList.add("expression__hybrid-wrapper--hover-remove-flag");
-          }
-        /// {% endcall %}
-
-        // neither hover & click and is either one of TSC / sentence -> removes flag
-
-        /// {% call utils.none_of_js("IsHoverCard", "IsClickCard") %}
-          /// {% call utils.any_of_js("IsTargetedSentenceCard", "IsSentenceCard") %}
-            var svgEle = document.getElementById("flag_box_svg");
-            svgEle.style.display = "none";
-          /// {% endcall %}
-        /// {% endcall %}
-      }
+    /// {% call IF("IsHoverCard") %}
+    var elem = document.querySelector(".expression__hybrid-wrapper");
+    if (elem !== null) {
+      elem.classList.add("expression__hybrid-wrapper--hover-remove-flag");
+    }
     /// {% endcall %}
+
+    // neither hover & click and is either one of TSC / sentence -> removes flag
+
+    /// {% call utils.none_of_js("IsHoverCard", "IsClickCard") %}
+    /// {% call utils.any_of_js("IsTargetedSentenceCard", "IsSentenceCard") %}
+    var svgEle = document.getElementById("flag_box_svg");
+    svgEle.style.display = "none";
+    /// {% endcall %}
+    /// {% endcall %}
+  }
+  /// {% endcall %}
   /// {% endif %}
 
   sentEle.children[1].innerHTML = result;
@@ -291,40 +291,40 @@ document.onkeyup = (e => {
 
 
   /// {% call IF("WordAudio") %}
-    //keys = settings.keybind("play-word-audio");
-    keys = {{ utils.opt("keybinds", "play-word-audio") }};
+  //keys = settings.keybind("play-word-audio");
+  keys = {{ utils.opt("keybinds", "play-word-audio") }};
 
-    if (keys !== null && keys.includes(e.key)) {
-      var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
-      if (elem) {
-        elem.click();
-      }
+  if (keys !== null && keys.includes(e.key)) {
+    var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
+    if (elem) {
+      elem.click();
     }
+  }
   /// {% endcall %}
 
   /// {% call IF("SentenceAudio") %}
-    keys = {{ utils.opt("keybinds", "play-sentence-audio") }};
-    if (keys !== null && keys.includes(e.key)) {
+  keys = {{ utils.opt("keybinds", "play-sentence-audio") }};
+  if (keys !== null && keys.includes(e.key)) {
 
-      var hSent = document.getElementById("hybrid-sentence");
+    var hSent = document.getElementById("hybrid-sentence");
 
-      /// {% if note.card_type == "main" and note.side == "front" %}
-      if ({{ utils.opt("general", "hybrid-sentence-open-on-play-sentence") }}
-          && '{{ utils.any_of_str("IsHoverCard", "IsClickCard") }}'
-          && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
-          && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
-        // this somehow works even when hybridClick is undefined here, woah
-        hybridClick();
-      } else {
-      /// {% endif %}
-        var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
-        if (elem) {
-          elem.click();
-        }
-      /// {% if note.card_type == "main" and note.side == "front" %}
+    /// {% if note.card_type == "main" and note.side == "front" %}
+    if ({{ utils.opt("general", "hybrid-sentence-open-on-play-sentence") }}
+        && '{{ utils.any_of_str("IsHoverCard", "IsClickCard") }}'
+        && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
+        && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
+      // this somehow works even when hybridClick is undefined here, woah
+      hybridClick();
+    } else {
+    /// {% endif %}
+      var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+      if (elem) {
+        elem.click();
       }
-      /// {% endif %}
+    /// {% if note.card_type == "main" and note.side == "front" %}
     }
+    /// {% endif %}
+  }
   /// {% endcall %}
 
   keys = {{ utils.opt("keybinds", "toggle-front-full-sentence-display") }};
@@ -334,46 +334,46 @@ document.onkeyup = (e => {
   }
 
   /// {% call IF("Hint") %}
-    keys = {{ utils.opt("keybinds", "toggle-hint-display") }};
-    var ele = document.getElementById("hint_details");
-    if (keys !== null && ele && keys.includes(e.key)) {
-      toggleDetailsTag(ele)
-    }
+  keys = {{ utils.opt("keybinds", "toggle-hint-display") }};
+  var ele = document.getElementById("hint_details");
+  if (keys !== null && ele && keys.includes(e.key)) {
+    toggleDetailsTag(ele)
+  }
   /// {% endcall %}
 
   /// {% if note.side == "back" %}
-    /// {% call IF("SecondaryDefinition") %}
-      keys = {{ utils.opt("keybinds", "toggle-secondary-definitions-display") }};
-      var ele = document.getElementById("secondary_definition_details");
-      if (keys !== null && ele && keys.includes(e.key)) {
-        toggleDetailsTag(ele)
-      }
-    /// {% endcall %}
+  /// {% call IF("SecondaryDefinition") %}
+  keys = {{ utils.opt("keybinds", "toggle-secondary-definitions-display") }};
+  var ele = document.getElementById("secondary_definition_details");
+  if (keys !== null && ele && keys.includes(e.key)) {
+    toggleDetailsTag(ele)
+  }
+  /// {% endcall %}
 
-    /// {% call IF("AdditionalNotes") %}
-      keys = {{ utils.opt("keybinds", "toggle-additional-notes-display") }};
-      var ele = document.getElementById("additional_notes_details");
-      if (keys !== null && ele && keys.includes(e.key)) {
-        toggleDetailsTag(ele)
-      }
-    /// {% endcall %}
+  /// {% call IF("AdditionalNotes") %}
+  keys = {{ utils.opt("keybinds", "toggle-additional-notes-display") }};
+  var ele = document.getElementById("additional_notes_details");
+  if (keys !== null && ele && keys.includes(e.key)) {
+    toggleDetailsTag(ele)
+  }
+  /// {% endcall %}
 
-    /// {% call IF("ExtraDefinitions") %}
-      keys = {{ utils.opt("keybinds", "toggle-extra-definitions-display") }};
-      var ele = document.getElementById("extra_definitions_details");
-      if (keys !== null && ele && keys.includes(e.key)) {
-        toggleDetailsTag(ele)
-      }
-    /// {% endcall %}
+  /// {% call IF("ExtraDefinitions") %}
+  keys = {{ utils.opt("keybinds", "toggle-extra-definitions-display") }};
+  var ele = document.getElementById("extra_definitions_details");
+  if (keys !== null && ele && keys.includes(e.key)) {
+    toggleDetailsTag(ele)
+  }
+  /// {% endcall %}
 
-    if ('{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
-      keys = {{ utils.opt("keybinds", "toggle-extra-info-display") }};
-      var ele = document.getElementById("extra_info_details");
-      if (keys !== null && ele && keys.includes(e.key)) {
-        toggleDetailsTag(ele)
-      }
+  if ('{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
+    keys = {{ utils.opt("keybinds", "toggle-extra-info-display") }};
+    var ele = document.getElementById("extra_info_details");
+    if (keys !== null && ele && keys.includes(e.key)) {
+      toggleDetailsTag(ele)
     }
-  /// {% endif %}
+  }
+  /// {% endif %} {# note.side == back #}
 
 })
 

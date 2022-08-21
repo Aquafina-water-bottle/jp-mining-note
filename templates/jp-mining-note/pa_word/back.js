@@ -4,18 +4,18 @@
 
 
 /// {% block js_functions %}
-  {{ super() }}
-  {{ js_common.functions }}
+{{ super() }}
+{{ js_common.functions }}
 /// {% endblock %}
 
 
 /// {% block js_keybind_settings %}
-  {{ super() }}
-  {{ js_common.keybind_settings }}
+{{ super() }}
+{{ js_common.keybind_settings }}
 /// {% endblock %}
 
 
 /// {% block js_run %}
-  {{ super() }}
-  {{ js_common.run }}
+{{ super() }}
+{{ js_common.run }}
 /// {% endblock %}

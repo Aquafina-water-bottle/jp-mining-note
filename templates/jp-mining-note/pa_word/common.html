@@ -5,38 +5,38 @@
 {% import "jp-mining-note/common.html" as common with context %}
 
 {% set card_type %}
-  PA Word
+PA Word
 {% endset %}
 
 
 
 {% set front_display %}
 
-  <!-- note that for the PA separate word card, the front is ALWAYS a word -->
-  <!-- priority: AltDisplay -> Word -->
+<!-- note that for the PA separate word card, the front is ALWAYS a word -->
+<!-- priority: AltDisplay -> Word -->
 
-  <!-- option 1: AltDisplay (only if the original card is not a sentence card or hybrid card) -->
-  <div class="outer-display1
-      {% call utils.none_of('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %}
-      {% call IF('AltDisplay') %}
-        outer-display2
-      {% endcall %}
-      {% endcall %}
-      "
-    id="Display">
+<!-- option 1: AltDisplay (only if the original card is not a sentence card or hybrid card) -->
+<div class="outer-display1
+    {% call utils.none_of('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %}
+    {% call IF('AltDisplay') %}
+      outer-display2
+    {% endcall %}
+    {% endcall %}
+    "
+  id="Display">
 
-    <!-- if NOT (altdisplay, AND none of (click, hover, sentence, TSC)) -->
-    <div class="expression expression--single expression--word inner-display1">
-      {{ T('Word') }}
-    </div>
-
-    <!-- if altdisplay, AND none of (click, hover, sentence, TSC) -->
-    <div class="expression expression--single expression--word inner-display2">
-      {{ T('furigana:AltDisplay') }}
-    </div>
+  <!-- if NOT (altdisplay, AND none of (click, hover, sentence, TSC)) -->
+  <div class="expression expression--single expression--word inner-display1">
+    {{ T('Word') }}
   </div>
 
-  {{ common.hint }}
+  <!-- if altdisplay, AND none of (click, hover, sentence, TSC) -->
+  <div class="expression expression--single expression--word inner-display2">
+    {{ T('furigana:AltDisplay') }}
+  </div>
+</div>
+
+{{ common.hint }}
 
 {% endset %}
 
