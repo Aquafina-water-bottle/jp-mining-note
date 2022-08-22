@@ -14,6 +14,107 @@
   --yellow: #fffd9e;
 }
 
+
+/* does this work? */
+
+//@font-face {
+//  font-family: notoserif;
+//  src: url("GenEiChikugoMin3-R.ttf");
+//}
+//
+//
+//anki-editable {
+//  font-family: notoserif;
+//}
+
+/* font sizes */
+//anki-editable {
+//  /* default font size */
+//  font-size: 20px;
+//}
+//
+//anki-editable[field="Key"],
+//anki-editable[field="Word"] {
+//  font-size: 40px;
+//}
+
+/* makes the primary definition bolded sections colored */
+anki-editable[field="PrimaryDefinition"] b,
+anki-editable[field="Sentence"] b,
+anki-editable[field="SentenceReading"] b
+{
+  color: var(--yellow);
+}
+
+/* Makes JMDict italic */
+anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list {
+  font-style: italic;
+}
+
+/* greys out dictionary entry for jmdict */
+anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
+  // TODO light mode
+  color: #8e8e8e;
+}
+
+
+anki-editable[field="WordPitch"] {
+  @include common.bold-pitch;
+}
+
+
+
+
+.frequencies {
+  display: flex;
+}
+
+/* temporarily removing these for the mobile class since they clog up the space */
+.mobile .frequencies {
+  display: none;
+}
+
+.frequencies__group {
+  display: block;
+  padding-right: 20px;
+}
+
+.frequencies__number {
+  text-align: left;
+}
+
+.frequencies__number-inner {
+}
+
+.frequencies__dictionary {
+  text-align: left;
+  font-size: 0.5em;
+}
+
+
+
+
+anki-editable[field="PAGraphs"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.pa-graphs__dictionary-inner:after {
+  content: ":";
+}
+
+.pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
+  color: var(--yellow);
+  font-weight: bold;
+}
+.pa-graphs__group[data-details="大辞泉"] .pa-graphs__dictionary {
+  color: var(--yellow);
+  font-weight: bold;
+}
+
+
+
 @include common.common;
 
 

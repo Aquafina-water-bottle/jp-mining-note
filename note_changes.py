@@ -3,16 +3,15 @@ from __future__ import annotations
 import os
 import re
 import sys
-from abc import ABC
-from dataclasses import dataclass, field
 
-#import aqt
-#from aqt.main import AnkiQt
-#from anki.collection import Collection
-#from anki.models import ModelManager, NotetypeId
+# import aqt
+# from aqt.main import AnkiQt
+# from anki.collection import Collection
+# from anki.models import ModelManager, NotetypeId
 
 
 import utils
+import action
 
 """
 goal of this script:
@@ -72,81 +71,16 @@ def add_args(parser):
 #        return path
 
 
-@dataclass
-class Action(ABC):
-    description: str = field(init=False)
-    # edits_cards: bool = field(init=False)
-
-    def run(self):
-        pass
-
-
-@dataclass
-class SetFieldAction(Action):
-    field_name: str
-    value: str
-
-    def __post_init__(self):
-        self.description = f"Sets the field `{self.field_name}` -> `{self.value}`"
-
-    def run(self):
-        pass
-
-
-@dataclass
-class MoveFieldAction(Action):
-    field_name: str
-    index: int
-
-    def __post_init__(self):
-        self.description = f"Moves the field `{self.field_name}` to index {self.index}"
-
-    def run(self):
-        pass
-    #    models = col.models()
-
-    #    ntdict = models.get(ntid)
-    #    assert ntdict is not None
-
-    #    field_map = models.field_map(ntdict)
-    #    field = field_map[self.field_name][1]
-
-    #    print(ntdict, field, self.index)
-
-        #models.reposition_field(ntdict, field, self.index)
-        #models.add_field(
-
-
-@dataclass
-class AddFieldAction(Action):
-    field_name: str
-    index: int
-
-    def __post_init__(self):
-        self.description = (
-            f"Creates the field `{self.field_name}` at index {self.index}"
-        )
-
-
-@dataclass
-class DeleteFieldAction(Action):
-    field_name: str
-
-    def __post_init__(self):
-        self.description = f"Deletes the field `{self.field_name}`"
-
-
-
 class ActionRunner:
     def __init__(self, path: str, warn=True):
         self.path = path
-        self.actions: list[Action] = []
+        self.actions: list[action.Action] = []
         self.warn = warn
 
     def add(self, action):
         self.actions.append(action)
 
-    #def window(self) -> AnkiQt:
+    # def window(self) -> AnkiQt:
     #    if aqt.mw is None:
     #        raise Exception("window is not available")
     #    return aqt.mw
@@ -169,25 +103,23 @@ class ActionRunner:
 
     #    self.run_with_anki(note_name)
 
-    #def run_with_anki(self, note_name: str):
+    # def run_with_anki(self, note_name: str):
 
-        #from anki.collection import Collection
-        #from anki.models import ModelManager, NotetypeId
+    # from anki.collection import Collection
+    # from anki.models import ModelManager, NotetypeId
 
-        #collection = self.window().col
-        #col = Collection(self.path)
-        #if col is None:
-        #    raise Exception("collection is not available")
+    # collection = self.window().col
+    # col = Collection(self.path)
+    # if col is None:
+    #    raise Exception("collection is not available")
 
+    ##col = self.collection()
+    # note_type_id = col.models.id_for_name(note_name)
+    # if note_type_id is None:
+    #    raise Exception(f"Note type not found: {note_name}")
 
-
-        ##col = self.collection()
-        #note_type_id = col.models.id_for_name(note_name)
-        #if note_type_id is None:
-        #    raise Exception(f"Note type not found: {note_name}")
-
-        #for action in self.actions:
-        #    action.run(col, note_type_id)
+    # for action in self.actions:
+    #    action.run(col, note_type_id)
 
 
 class Version:
@@ -204,7 +136,6 @@ class Version:
         ints = tuple(int(i) for i in str_ver.split("."))
         return cls(ints)
 
-
     def cmp(self, other):
         """
         returns:
@@ -214,17 +145,17 @@ class Version:
         """
         assert isinstance(other, Version)
 
-        #ver_tuple = lambda x: tuple(int(i) for i in x.split("."))
+        # ver_tuple = lambda x: tuple(int(i) for i in x.split("."))
 
-        #ver1_tup = ver_tuple(ver1)
-        #ver2_tup = ver_tuple(ver2)
+        # ver1_tup = ver_tuple(ver1)
+        # ver2_tup = ver_tuple(ver2)
         for i, j in zip(self.ints, other.ints):
             if i < j:
-                return -1;
+                return -1
             if i > j:
-                return 1;
+                return 1
 
-        return 0;
+        return 0
 
     def __eq__(self, other):
         return self.cmp(other) == 0
@@ -244,24 +175,94 @@ class Version:
     def __ge__(self, other):
         return not (self < other)
 
+
 class NoteChanges:
     """
     note changes that require editing the note type outside of template changes
     """
 
-
     CONFIG_CHANGES = {
-        Version(0,9,0,0): {
+        Version(0, 9, 0, 0): {
             "actions": [
-                MoveFieldAction("PAShowInfo", 15),
-                MoveFieldAction("PASeparateWordCard", 19),
-                MoveFieldAction("PASeparateSentenceCard", 19),
-                AddFieldAction("FrequencySort", 29),
-            ]
+                action.MoveField("PAShowInfo", 15),
+                action.MoveField("PASeparateWordCard", 19),
+                action.MoveField("PASeparateSentenceCard", 19),
+                action.AddField("FrequencySort", 29),
+                action.AJTPitchAccentconfigChange(),
+            ],
+            "fields_check": [
+                "Key",
+                "Word",
+                "WordReading",
+                "WordPitch",
+                "PrimaryDefinition",
+                "Sentence",
+                "SentenceReading",
+                "AltDisplay",
+                "AltDisplayPASentenceCard",
+                "AdditionalNotes",
+                "IsSentenceCard",
+                "IsClickCard",
+                "IsHoverCard",
+                "IsTargetedSentenceCard",
+                "PAShowInfo",
+                "PATestOnlyWord",
+                "PADoNotTest",
+                "PASeparateWordCard",
+                "PASeparateSentenceCard",
+                "SeparateClozeDeletionCard",
+                "Hint",
+                "HintNotHidden",
+                "Picture",
+                "WordAudio",
+                "SentenceAudio",
+                "PAGraphs",
+                "PASilence",
+                "FrequenciesStylized",
+                "FrequencySort",
+                "SecondaryDefinition",
+                "ExtraDefinitions",
+                "UtilityDictionaries",
+                "Comment",
+            ],
         },
-        Version(0,8,1,0): []
+        Version(0, 8, 1, 0): {
+            "fields_check": [
+                "Key",
+                "Word",
+                "WordReading",
+                "WordPitch",
+                "PrimaryDefinition",
+                "Sentence",
+                "SentenceReading",
+                "AltDisplay",
+                "AltDisplayPASentenceCard",
+                "AdditionalNotes",
+                "IsSentenceCard",
+                "IsClickCard",
+                "IsHoverCard",
+                "IsTargetedSentenceCard",
+                "PASeparateWordCard",
+                "PASeparateSentenceCard",
+                "PAShowInfo",
+                "PATestOnlyWord",
+                "PADoNotTest",
+                "SeparateClozeDeletionCard",
+                "Hint",
+                "HintNotHidden",
+                "Picture",
+                "WordAudio",
+                "SentenceAudio",
+                "PAGraphs",
+                "PASilence",
+                "FrequenciesStylized",
+                "SecondaryDefinition",
+                "ExtraDefinitions",
+                "UtilityDictionaries",
+                "Comment",
+            ],
+        },
     }
-
 
     def __init__(self, current_ver, new_ver):
         pass
@@ -288,12 +289,11 @@ def main(args=None):
     print(v3 == v4)
     print(v3 != v4)
 
+    # runner = ActionRunner("temp", warn=not args.no_warn)
 
-    #runner = ActionRunner("temp", warn=not args.no_warn)
+    # note_name = config("notes", "jp-mining-note", "model-name").item()
 
-    #note_name = config("notes", "jp-mining-note", "model-name").item()
-
-    #runner.run(note_name)
+    # runner.run(note_name)
 
     print("lolol")
     # anki_home = '/home/austin/.local/share/Anki2/test3'

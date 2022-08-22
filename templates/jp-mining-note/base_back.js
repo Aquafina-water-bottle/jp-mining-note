@@ -320,8 +320,8 @@ if (tags.includes("leech")) {
 // a bit of a hack...
 // The only reason why the downstep arrow exists in the first place is to make the downstep
 // mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
-let wp = document.getElementById("dh_word_pitch");
-wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+//let wp = document.getElementById("dh_word_pitch");
+//wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
 
 
 // kanji hover
