@@ -358,4 +358,4 @@ lib64
 pyvenv.cfg
 include/
 
-
+.nvimrc
