@@ -129,7 +129,8 @@ class Generator:
             shutil.copy(output_file, release_output)
 
 
-def main(root_folder: str = "templates", args=None):
+#def main(root_folder: str = "templates", args=None):
+def main(args=None):
 
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
@@ -139,8 +140,12 @@ def main(root_folder: str = "templates", args=None):
 
     config = utils.get_config(args)
 
+    tools_folder = os.path.dirname(os.path.abspath(__file__))
+    root_folder = os.path.join(tools_folder, "..")
+    templates_folder = os.path.join(root_folder, "templates")
+
     generator = Generator(
-        root_folder,
+        templates_folder,
         config,
         enable_prettier=args.enable_prettier,
         to_release=args.to_release,
@@ -166,7 +171,7 @@ def main(root_folder: str = "templates", args=None):
         # generates css file for each note
         generator.generate(
             GenerateType.SASS,
-            os.path.join("templates", "scss", f"{note_model_id}.scss"),
+            os.path.join(templates_folder, "scss", f"{note_model_id}.scss"),
             os.path.join(args.build_folder, note_model_id, "style.css"),
             os.path.join(note_model_id, "style.css"),
         )
@@ -183,7 +188,7 @@ def main(root_folder: str = "templates", args=None):
             if gen_type == GenerateType.JINJA:
                 input_file = os.path.join(file_config("input-file").item())
             else:
-                input_file = os.path.join("templates", file_config("input-file").item())
+                input_file = os.path.join(templates_folder, file_config("input-file").item())
 
             output_file = os.path.join(
                 args.build_folder, "media", file_config("output-file").item()
@@ -198,4 +203,5 @@ def main(root_folder: str = "templates", args=None):
 
 
 if __name__ == "__main__":
-    main(root_folder="templates")
+    #main(root_folder="templates")
+    main()

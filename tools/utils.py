@@ -272,7 +272,10 @@ def get_version():
     """
     gets version of the jp mining note within the repo
     """
-    with open("version.txt") as f:
+
+    tools_folder = os.path.dirname(os.path.abspath(__file__))
+    root_folder = os.path.join(tools_folder, "..")
+    with open(os.path.join(root_folder, "version.txt")) as f:
         version = f.read().strip()
 
 
@@ -306,18 +309,24 @@ def get_config(args):
 
     file_path = args.config_file
 
+    tools_folder = os.path.dirname(os.path.abspath(__file__))
+    root_folder = os.path.join(tools_folder, "..")
+
+    example_config_path = os.path.join(root_folder, EXAMPLE_CONFIG_PATH)
+    default_config_path = os.path.join(root_folder, DEFAULT_CONFIG_PATH)
+
     if file_path is None:
-        file_path = DEFAULT_CONFIG_PATH
+        file_path = default_config_path
 
         if args.release:
-            file_path = EXAMPLE_CONFIG_PATH
+            file_path = example_config_path
             print(f"Building release: using the example config...")
 
-        elif not os.path.isfile(DEFAULT_CONFIG_PATH) or args.override_config:
+        elif not os.path.isfile(default_config_path) or args.override_config:
             print(f"Creating the config file under '{file_path}'...")
             if not os.path.isfile(EXAMPLE_CONFIG_PATH):
                 raise Exception("Example config file does not exist")
-            shutil.copy(EXAMPLE_CONFIG_PATH, DEFAULT_CONFIG_PATH)
+            shutil.copy(example_config_path, default_config_path)
 
     config_data = get_config_from_str(file_path)
 
