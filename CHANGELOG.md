@@ -20,6 +20,7 @@ signified.)
     - removed "No pitch accent data" in favor of an empty field
     - added "JMDict Surface Forms" to utility dict and "日本語文法辞典" to bilingual dict regex
     - added a span around each dictionary glossary entry
+    - renamed `silence.wav` -> `_silence.wav`
 
 - collapsable fields are now greyed out instead of gone (no option for this yet)
 - added css to center elements in the orthographic forms dictionary

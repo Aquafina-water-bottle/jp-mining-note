@@ -77,8 +77,6 @@ class Generator:
         gets rendering variables from config
         """
         optimize_opts = config("build-opts", "optimize-opts")
-        with open("version.txt") as f:
-            version = f.read().strip()
 
         self.data = {
             "ALWAYS_TRUE": optimize_opts("always-filled").list(),
@@ -86,7 +84,7 @@ class Generator:
             # "NOTE_OPTS": config("note_opts", get_dict=True),
             "NOTE_OPTS_JSON": json.dumps(config("note-opts").dict(), indent=2),
             # json_output =
-            "VERSION": version,
+            "VERSION": utils.get_version(),
             "NOTE_OPTS": config("note-opts"),
             "TEMPLATES": config("notes", "jp-mining-note", "templates"),
         }

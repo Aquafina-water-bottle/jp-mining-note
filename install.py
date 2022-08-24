@@ -8,11 +8,10 @@ import os
 import base64
 from dataclasses import dataclass
 
-import json
-import urllib.request
 from typing import Any, Dict, List
 
 import utils
+from utils import invoke
 #from note_changes import NoteChanges
 
 
@@ -71,43 +70,21 @@ def add_args(parser):
     #group.add_argument("--force", action="store_true")
 
 
-# taken from https://github.com/FooSoft/anki-connect#python
-def request(action, **params):
-    return {"action": action, "params": params, "version": 6}
 
-
-def invoke(action, **params):
-    requestJson = json.dumps(request(action, **params)).encode("utf-8")
-    response = json.load(
-        urllib.request.urlopen(
-            urllib.request.Request("http://localhost:8765", requestJson)
-        )
-    )
-    if len(response) != 2:
-        raise Exception("response has an unexpected number of fields")
-    if "error" not in response:
-        raise Exception("response is missing required error field")
-    if "result" not in response:
-        raise Exception("response is missing required result field")
-    if response["error"] is not None:
-        raise Exception(response["error"])
-    return response["result"]
-
-
-def format_create_model(model: NoteType) -> Dict[str, Any]:
-    return {
-        "modelName": "newModelName",
-        "inOrderFields": ["Field1", "Field2", "Field3"],
-        "css": "Optional CSS with default to builtin css",
-        "isCloze": False,
-        "cardTemplates": [
-            {
-                "Name": "My Card 1",
-                "Front": "Front html {{Field1}}",
-                "Back": "Back html  {{Field2}}",
-            }
-        ],
-    }
+#def format_create_model(model: NoteType) -> Dict[str, Any]:
+#    return {
+#        "modelName": "newModelName",
+#        "inOrderFields": ["Field1", "Field2", "Field3"],
+#        "css": "Optional CSS with default to builtin css",
+#        "isCloze": False,
+#        "cardTemplates": [
+#            {
+#                "Name": "My Card 1",
+#                "Front": "Front html {{Field1}}",
+#                "Back": "Back html  {{Field2}}",
+#            }
+#        ],
+#    }
 
 
 

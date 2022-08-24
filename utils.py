@@ -17,13 +17,17 @@
 
 from __future__ import annotations
 
-import importlib.util
+import re
 import sys
 import copy
-import os.path
+import json
 import shutil
+import os.path
 import argparse
-from pathlib import Path
+import importlib.util
+import urllib.request
+
+# from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Any, Iterable
 
 
@@ -32,6 +36,8 @@ if TYPE_CHECKING:
 
 EXAMPLE_CONFIG_PATH = "config/example_config.py"
 DEFAULT_CONFIG_PATH = "config/config.py"
+
+rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+)")
 
 
 cached_config = None
@@ -227,6 +233,29 @@ def import_source_file(fname: str, modname: str) -> "types.ModuleType":
     return module
 
 
+# taken from https://github.com/FooSoft/anki-connect#python
+def request(action, **params):
+    return {"action": action, "params": params, "version": 6}
+
+
+def invoke(action, **params):
+    requestJson = json.dumps(request(action, **params)).encode("utf-8")
+    response = json.load(
+        urllib.request.urlopen(
+            urllib.request.Request("http://localhost:8765", requestJson)
+        )
+    )
+    if len(response) != 2:
+        raise Exception("response has an unexpected number of fields")
+    if "error" not in response:
+        raise Exception("response is missing required error field")
+    if "result" not in response:
+        raise Exception("response is missing required result field")
+    if response["error"] is not None:
+        raise Exception(response["error"])
+    return response["result"]
+
+
 def get_config_from_str(file_path: str):
     module = import_source_file(file_path, "config")
     if module is None:
@@ -237,6 +266,33 @@ def get_config_from_str(file_path: str):
         raise Exception("CONFIG variable is not defined in the config file")
 
     return module.CONFIG
+
+
+def get_version():
+    """
+    gets version of the jp mining note within the repo
+    """
+    with open("version.txt") as f:
+        version = f.read().strip()
+
+
+def get_version_from_anki(config):
+    """
+    gets version of the jp mining note from the installed note in anki
+    """
+    result = invoke(
+        "modelTemplates",
+        modelName=config("notes", "jp-mining-note", "model-name").item(),
+    )
+
+    assert result.keys()
+
+    # doesn't matter which card it is
+    what = list(result.values())[0]["Front"]
+    match = rx_GET_VERSION.search(what)
+
+    assert match is not None
+    return match.group(1)
 
 
 def get_config(args):
@@ -280,13 +336,15 @@ if __name__ == "__main__":
     config = get_config(args)
     # print(config("build_opts"))
 
-    print(config("build-opts", "optimize-opts", "always-filled"))
-    print(config("build-opts")("optimize-opts")("never-filled"))
-    print(config("note-opts")("keybinds")("toggle-hybrid-sentence"))
-    print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
-    print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
-    print(config("notes", "jp-mining-note", "media-build", 0))
+    #print(config("build-opts", "optimize-opts", "always-filled"))
+    #print(config("build-opts")("optimize-opts")("never-filled"))
+    #print(config("note-opts")("keybinds")("toggle-hybrid-sentence"))
+    #print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
+    #print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
+    #print(config("notes", "jp-mining-note", "media-build", 0))
     # print(config("note_opts", "keybinds", "toggle-hybrid-sentence", "a", "b"))
     # print(config("note_opts", "keybinds", "a"))
+
+    print(get_version_from_anki(config))
 
     # print(x.CONFIG)
