@@ -48,10 +48,9 @@ def clear_pitch_accent_data():
 
 
 def add_downstep_inner_span_tag():
-    #notes = invoke("findNotes", query=r'"note:JP Mining Note" -WordPitch: added:3')
-    notes = invoke('findNotes', query=r'"note:JP Mining Note" -WordPitch:')
+    # notes = invoke("findNotes", query=r'"note:JP Mining Note" -WordPitch: added:3')
+    notes = invoke("findNotes", query=r'"note:JP Mining Note" -WordPitch:')
     notes_info = invoke("notesInfo", notes=notes)
-
 
     # creates multi request
     actions = []
@@ -88,7 +87,7 @@ def add_downstep_inner_span_tag():
         new_count = field_val.count("&#42780;")
         assert previous_count == new_count
 
-        #print(info["fields"]["Key"]["value"], field_val)
+        # print(info["fields"]["Key"]["value"], field_val)
 
         action = {
             "action": "updateNoteFields",
@@ -97,19 +96,47 @@ def add_downstep_inner_span_tag():
                     "id": info["noteId"],
                     "fields": {
                         "WordPitch": field_val,
-                    }
+                    },
                 }
-            }
+            },
         }
 
         actions.append(action)
 
-    notes = invoke('multi', actions=actions)
+    notes = invoke("multi", actions=actions)
+
+
+# def batch_field(field_name: str, lmbda):
+def rename_silence_wav():
+    notes = invoke(
+        "findNotes", query=r'"note:JP Mining Note"'
+    )
+
+    # creates multi request
+    actions = []
+
+    for nid in notes:
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": nid,
+                    "fields": {"PASilence": "[sound:_silence.wav]"},
+                }
+            },
+        }
+
+        actions.append(action)
+
+    notes = invoke("multi", actions=actions)
 
 
 def main():
     # clear_pitch_accent_data()
-    add_downstep_inner_span_tag()
+    # add_downstep_inner_span_tag()
+    rename_silence_wav()
+
+    pass
 
 
 if __name__ == "__main__":
