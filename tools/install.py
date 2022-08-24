@@ -12,7 +12,8 @@ from typing import Any, Dict, List
 
 import utils
 from utils import invoke
-#from note_changes import NoteChanges
+
+# from note_changes import NoteChanges
 
 
 # NOTE_TYPES_DIR = "cards"
@@ -55,9 +56,9 @@ class MediaFile:
 
 def add_args(parser):
     group = parser.add_argument_group(title="install")
-    #group.add_argument("-o", "--install-options", action="store_true")
-    #group.add_argument("-m", "--install-media", action="store_true")
-    #group.add_argument("-a", "--install-all", action="store_true")
+    # group.add_argument("-o", "--install-options", action="store_true")
+    # group.add_argument("-m", "--install-media", action="store_true")
+    # group.add_argument("-a", "--install-all", action="store_true")
     group.add_argument(
         "--from-build",
         action="store_true",
@@ -67,11 +68,10 @@ def add_args(parser):
 
     # TODO implement
     # force update version
-    #group.add_argument("--force", action="store_true")
+    # group.add_argument("--force", action="store_true")
 
 
-
-#def format_create_model(model: NoteType) -> Dict[str, Any]:
+# def format_create_model(model: NoteType) -> Dict[str, Any]:
 #    return {
 #        "modelName": "newModelName",
 #        "inOrderFields": ["Field1", "Field2", "Field3"],
@@ -87,9 +87,7 @@ def add_args(parser):
 #    }
 
 
-
-
-#def to_base64_str(string: str) -> str:
+# def to_base64_str(string: str) -> str:
 #    return base64.b64encode(bytes(string, "utf-8")).decode("utf-8")
 
 
@@ -102,7 +100,9 @@ class NoteInstaller:
 
     def read_css(self, note_config: utils.Config) -> str:
         # with open(os.path.join(self.input_folder, CSS_FILENAME), encoding="utf8") as f:
-        input_path = os.path.join(self.input_folder, str(note_config.key()), "style.css")
+        input_path = os.path.join(
+            self.input_folder, str(note_config.key()), "style.css"
+        )
         with open(input_path, encoding="utf8") as f:
             return f.read()
 
@@ -110,7 +110,9 @@ class NoteInstaller:
         templates = []
         for template_id, template_config in note_config("templates").dict_items():
             template_name = template_config("name").item()
-            dir_path = os.path.join(self.input_folder, str(note_config.key()), template_id)
+            dir_path = os.path.join(
+                self.input_folder, str(note_config.key()), template_id
+            )
 
             with open(os.path.join(dir_path, FRONT_FILENAME), encoding="utf8") as front:
                 front_contents = front.read()
@@ -163,16 +165,18 @@ class NoteInstaller:
 class MediaInstaller:
     def __init__(self, input_folder: str):
         self.input_folder = input_folder
-        #self.media_files = None:
+        # self.media_files = None:
 
     def get_media_file(self, file_name) -> MediaFile:
         with open(os.path.join(self.input_folder, file_name), mode="rb") as f:
             contents = f.read()
-        #print(contents)
-        return MediaFile(name=file_name, contents=base64.b64encode(contents).decode("utf-8"))
+        # print(contents)
+        return MediaFile(
+            name=file_name, contents=base64.b64encode(contents).decode("utf-8")
+        )
 
-        #if binary:
-        #else:
+        # if binary:
+        # else:
         #    with open(os.path.join(self.input_folder, file_name), encoding="utf8") as f:
         #        contents = f.read()
         #    return MediaFile(name=file_name, contents=to_base64_str(contents))
@@ -187,9 +191,8 @@ class MediaInstaller:
         if invoke("storeMediaFile", **self.format_media(media)) == media.name:
             print(f"Updated '{media.name}' media file successfully.")
 
-
     def media_exists(self, file_name: str):
-        #if self.media_files is None:
+        # if self.media_files is None:
         return bool(invoke("getMediaFilesNames", **{"pattern": ""}))
 
     def install(self, file_name: str, static=False):
@@ -199,27 +202,30 @@ class MediaInstaller:
                 return
 
         media = self.get_media_file(file_name)
-        #return
+        # return
         self.send_media(media)
 
 
 def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
-    #if args.release:
+    # if args.release:
     #    args.from_release = True
 
     config = utils.get_config(args)
 
     # checks if the note has to be changed first outside templates / media files
-    #note_changes = NoteChanges()
-    #if note_changes.has_changes():
+    # note_changes = NoteChanges()
+    # if note_changes.has_changes():
     #    pass
 
     static_media = set()
     dynamic_media = set()
 
-    note_folder = args.build_folder if args.from_build else "."
+    tools_folder = os.path.dirname(os.path.abspath(__file__))
+    root_folder = os.path.join(tools_folder, "..")
+
+    note_folder = args.build_folder if args.from_build else root_folder
     note_installer = NoteInstaller(note_folder)
     for note_config in config("notes").dict_values():
         # note_installer = NoteInstaller(
@@ -232,7 +238,11 @@ def main(args=None):
         static_media |= set(note_config("media-install", "static").list())
         dynamic_media |= set(note_config("media-install", "dynamic").list())
 
-    media_folder = os.path.join(args.build_folder, "media") if args.build_folder else "media"
+    media_folder = (
+        os.path.join(args.build_folder, "media")
+        if args.build_folder
+        else os.path.join(root_folder, "media")
+    )
     media_installer = MediaInstaller(media_folder)
 
     for media_file in dynamic_media:
@@ -240,10 +250,8 @@ def main(args=None):
     for media_file in static_media:
         media_installer.install(media_file, static=True)
 
-
-    #media_installer.install("test_silence.wav", binary=True)
-    #media_installer.install("NotoSerifJP-Bold.otf")
-
+    # media_installer.install("test_silence.wav", binary=True)
+    # media_installer.install("NotoSerifJP-Bold.otf")
 
     # model = reader.read_model()
     # send_note_type(model)
