@@ -20,11 +20,11 @@ from utils import invoke
 # NOTE_TYPES_DIR = "cards"
 FRONT_FILENAME = "front.html"
 BACK_FILENAME = "back.html"
-CSS_FILEPATH = "cards/style.css"
-# CSS_FILENAME = "style.css"
+# CSS_FILEPATH = "cards/style.css"
+CSS_FILENAME = "style.css"
 
-OPTIONS_FILENAME = "jp-mining-note-options.js"
-FIELD_FILENAME = "field.css"
+# OPTIONS_FILENAME = "jp-mining-note-options.js"
+# FIELD_FILENAME = "field.css"
 
 # MODEL_NAME = "JP Mining Note"
 TEMPLATE_NAMES = {
@@ -58,6 +58,12 @@ class MediaFile:
 def add_args(parser):
     group = parser.add_argument_group(title="install")
     group.add_argument("--install-options", action="store_true")
+    group.add_argument(
+        "-u",
+        "--update",
+        action="store_true",
+        help="updates the note instead of installing it",
+    )
     # group.add_argument("-o", "--install-options", action="store_true")
     # group.add_argument("-m", "--install-media", action="store_true")
     # group.add_argument("-a", "--install-all", action="store_true")
@@ -94,7 +100,7 @@ def add_args(parser):
 
 
 # class NoteReader:
-class NoteInstaller:
+class NoteUpdater:
     def __init__(self, input_folder: str):
         self.input_folder = input_folder
         # self.note_model_id = note_model_id
@@ -103,7 +109,7 @@ class NoteInstaller:
     def read_css(self, note_config: utils.Config) -> str:
         # with open(os.path.join(self.input_folder, CSS_FILENAME), encoding="utf8") as f:
         input_path = os.path.join(
-            self.input_folder, str(note_config.key()), "style.css"
+            self.input_folder, str(note_config.key()), CSS_FILENAME
         )
         with open(input_path, encoding="utf8") as f:
             return f.read()
@@ -156,10 +162,11 @@ class NoteInstaller:
     def format_styling(self, model: NoteType) -> Dict[str, Any]:
         return {"model": {"name": model.name, "css": model.css}}
 
-    def install(self, note_config: utils.Config):
+    def update(self, note_config: utils.Config):
         model = self.read_model(note_config)
         if invoke("updateModelTemplates", **self.format_templates(model)) is None:
-            print(f"Updated {note_config.key()} templates successfully.")
+            template_names = [t.name for t in model.templates]
+            print(f"Updated {note_config.key()} templates {template_names} successfully.")
         if invoke("updateModelStyling", **self.format_styling(model)) is None:
             print(f"Updated {note_config.key()} css successfully.")
 
@@ -257,7 +264,7 @@ def main(args=None):
     # if args.release:
     #    args.from_release = True
 
-    #config = utils.get_config(args)
+    # config = utils.get_config(args)
     notes_files_config = utils.get_note_files_config()
 
     # checks if the note has to be changed first outside templates / media files
@@ -272,14 +279,35 @@ def main(args=None):
     root_folder = utils.get_root_folder()
 
     note_folder = args.build_folder if args.from_build else root_folder
-    note_installer = NoteInstaller(note_folder)
+    note_updater = NoteUpdater(note_folder)
     for note_config in notes_files_config.dict_values():
         # note_installer = NoteInstaller(
         #    args.folder,
         #    config("note", note_model_id),
         #    # config("note", note_model_id, "templates").dict(),
         # )
-        note_installer.install(note_config)
+
+        model_name = note_config("model-name").item()
+        if utils.note_is_installed(model_name):
+            # print(f"Updating {model_name}...")
+
+            if not args.update:
+                print(
+                    f"{model_name} is already installed. Did you mean to update?\n"
+                    "To update, run `python3 install.py --update`",
+                )
+                return
+
+            print(f"Updating {model_name}...")
+            note_updater.update(note_config)
+
+        else:
+            print(f"Installing {model_name}...")
+            version = utils.get_version()
+            # TODO note-independent file name
+            install_path = os.path.join(root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg")
+
+            #invoke("importPackage", path=install_path)
 
         options_media |= set(note_config("media-install", "options").list())
         static_media |= set(note_config("media-install", "static").list())

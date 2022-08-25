@@ -35,7 +35,7 @@ def main():
 
     version = utils.get_version()
 
-    path = os.path.join(root_folder, "versions", f"{version}-jpmn_example_cards.apkg")
+    path = os.path.join(root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg")
     utils.gen_dirs(path)
 
     export_params = {
