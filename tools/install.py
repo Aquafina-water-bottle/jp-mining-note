@@ -6,6 +6,7 @@ updateModelTemplates
 
 import os
 import base64
+import datetime
 from dataclasses import dataclass
 
 from typing import Any, Dict, List
@@ -56,6 +57,7 @@ class MediaFile:
 
 def add_args(parser):
     group = parser.add_argument_group(title="install")
+    group.add_argument("--install-options", action="store_true")
     # group.add_argument("-o", "--install-options", action="store_true")
     # group.add_argument("-m", "--install-media", action="store_true")
     # group.add_argument("-a", "--install-all", action="store_true")
@@ -162,9 +164,24 @@ class NoteInstaller:
             print(f"Updated {note_config.key()} css successfully.")
 
 
+def b64_decode(contents):
+    """
+    turns b64 string into string
+    """
+    return base64.b64decode(contents).decode("utf-8")
+
+
+def b64_encode(contents):
+    """
+    turns string into b64 string (as opposed to a binary object)
+    """
+    return base64.b64encode(contents).decode("utf-8")
+
+
 class MediaInstaller:
-    def __init__(self, input_folder: str):
+    def __init__(self, input_folder: str, backup_folder: str):
         self.input_folder = input_folder
+        self.backup_folder = backup_folder
         # self.media_files = None:
 
     def get_media_file(self, file_name) -> MediaFile:
@@ -181,6 +198,32 @@ class MediaInstaller:
         #        contents = f.read()
         #    return MediaFile(name=file_name, contents=to_base64_str(contents))
 
+    def backup(self, file_name):
+        # attempts to file from anki
+        contents_b64 = invoke("retrieveMediaFile", filename=file_name)
+        if not contents_b64:
+            # file doesn't exist in the first place, nothing to backup
+            print(f"No backup is necessary: `{file_name}` doesn't exist")
+            return
+
+        contents = base64.b64decode(contents_b64).decode("utf-8")
+
+        TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
+        backup_file = datetime.datetime.now().strftime(TIME_FORMAT) + "---" + file_name
+        backup_file_path = os.path.join(self.backup_folder, backup_file)
+        print(f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ...")
+
+        utils.gen_dirs(backup_file_path)
+        with open(backup_file_path, mode="w") as f:
+            f.write(contents)
+
+        # with open(os.path.join(self.input_folder, file_name), mode="rb") as f:
+        #    contents = f.read()
+        ## print(contents)
+        # return MediaFile(
+        #    name=file_name, contents=base64.b64encode(contents).decode("utf-8")
+        # )
+
     def format_media(self, media: MediaFile) -> Dict[str, Any]:
         return {
             "filename": media.name,
@@ -193,13 +236,15 @@ class MediaInstaller:
 
     def media_exists(self, file_name: str):
         # if self.media_files is None:
-        return bool(invoke("getMediaFilesNames", **{"pattern": ""}))
+        return bool(invoke("getMediaFilesNames", pattern=file_name))
 
-    def install(self, file_name: str, static=False):
+    def install(self, file_name: str, static=False, backup=False):
         if static:
             # only adds if the media file doesn't already exist
             if self.media_exists(file_name):
                 return
+        if backup and self.media_exists(file_name):
+            self.backup(file_name)
 
         media = self.get_media_file(file_name)
         # return
@@ -219,6 +264,7 @@ def main(args=None):
     # if note_changes.has_changes():
     #    pass
 
+    options_media = set()
     static_media = set()
     dynamic_media = set()
 
@@ -235,6 +281,7 @@ def main(args=None):
         # )
         note_installer.install(note_config)
 
+        options_media |= set(note_config("media-install", "options").list())
         static_media |= set(note_config("media-install", "static").list())
         dynamic_media |= set(note_config("media-install", "dynamic").list())
 
@@ -243,12 +290,19 @@ def main(args=None):
         if args.build_folder
         else os.path.join(root_folder, "media")
     )
-    media_installer = MediaInstaller(media_folder)
+    backup_folder = os.path.join(root_folder, "backup")
+
+    media_installer = MediaInstaller(media_folder, backup_folder)
 
     for media_file in dynamic_media:
         media_installer.install(media_file, static=False)
     for media_file in static_media:
         media_installer.install(media_file, static=True)
+
+    if args.install_options:
+        for media_file in options_media:
+            # backs up existing options
+            media_installer.install(media_file, static=False, backup=True)
 
     # media_installer.install("test_silence.wav", binary=True)
     # media_installer.install("NotoSerifJP-Bold.otf")
@@ -267,3 +321,11 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
+
+    # tools_folder = os.path.dirname(os.path.abspath(__file__))
+    # root_folder = os.path.join(tools_folder, "..")
+
+    # media_folder = os.path.join("build", "media")
+    # media_installer = MediaInstaller(media_folder)
+
+    # media_installer.install("_jpmn-options.js", static=True)

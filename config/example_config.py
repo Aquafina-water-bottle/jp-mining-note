@@ -50,7 +50,7 @@ CONFIG = {
 
       "media-install": {
         "static": [
-          "silence.wav",
+          "_silence.wav",
           #"GenEiKoburiMin6-R.ttf",
           "NotoSansJP-Regular.otf",
           "NotoSansJP-Bold.otf",
@@ -59,7 +59,8 @@ CONFIG = {
         ],
         "dynamic": [
           "field.css",
-          # TODO move out
+        ],
+        "options": [
           "_jpmn-options.js",
         ],
       },

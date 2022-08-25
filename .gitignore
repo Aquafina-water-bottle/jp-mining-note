@@ -357,5 +357,6 @@ bin/
 lib64
 pyvenv.cfg
 include/
+backup/
 
 .nvimrc

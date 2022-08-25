@@ -6,8 +6,6 @@
 """
 
 
-
-
 #    in example config, optimize options
 #
 #    # NOTE: currently does nothing!
@@ -70,8 +68,6 @@
 #    },
 
 
-
-
 # from jinja2 import Template
 
 import os
@@ -79,7 +75,6 @@ import json
 import shutil
 import argparse
 from enum import Enum
-from pathlib import Path
 from dataclasses import dataclass
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
@@ -93,10 +88,6 @@ def add_args(parser):
     group = parser.add_argument_group(title="build")
     group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
     group.add_argument("--to-release", action="store_true", default=False)
-
-
-def gen_dirs(file_path):
-    Path(file_path).parent.mkdir(parents=True, exist_ok=True)
 
 
 class GenerateType(Enum):
@@ -142,11 +133,11 @@ class Generator:
         """
         gets rendering variables from config
         """
-        #optimize_opts = config("build-opts", "optimize-opts")
+        # optimize_opts = config("build-opts", "optimize-opts")
 
         self.data = {
-            #"ALWAYS_TRUE": optimize_opts("always-filled").list(),
-            #"ALWAYS_FALSE": optimize_opts("never-filled").list(),
+            # "ALWAYS_TRUE": optimize_opts("always-filled").list(),
+            # "ALWAYS_FALSE": optimize_opts("never-filled").list(),
             "ALWAYS_TRUE": [],
             "ALWAYS_FALSE": [],
             # "NOTE_OPTS": config("note_opts", get_dict=True),
@@ -173,7 +164,7 @@ class Generator:
         """
 
         # creates directories if it doesn't exist
-        gen_dirs(output_file)
+        utils.gen_dirs(output_file)
 
         if type == GenerateType.JINJA:
             template = self.env.get_template(input_file)
@@ -193,17 +184,17 @@ class Generator:
                 raise Exception(f"sass failed with error code {error_code}")
 
         if self.to_release:
-            gen_dirs(release_output)
+            utils.gen_dirs(release_output)
             shutil.copy(output_file, release_output)
 
 
-#def main(root_folder: str = "templates", args=None):
+# def main(root_folder: str = "templates", args=None):
 def main(args=None):
 
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
     if args.release:
-        #args.enable_prettier = True
+        # args.enable_prettier = True
         args.to_release = True
 
     config = utils.get_config(args)
@@ -256,7 +247,9 @@ def main(args=None):
             if gen_type == GenerateType.JINJA:
                 input_file = os.path.join(file_config("input-file").item())
             else:
-                input_file = os.path.join(templates_folder, file_config("input-file").item())
+                input_file = os.path.join(
+                    templates_folder, file_config("input-file").item()
+                )
 
             print(input_file)
 
@@ -274,10 +267,10 @@ def main(args=None):
         if args.to_release:
             # also exports the existing cards
             import export
+
             export.main()
 
 
-
 if __name__ == "__main__":
-    #main(root_folder="templates")
+    # main(root_folder="templates")
     main()
