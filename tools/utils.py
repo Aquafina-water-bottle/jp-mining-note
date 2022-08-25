@@ -27,7 +27,7 @@ import argparse
 import importlib.util
 import urllib.request
 
-# from pathlib import Path
+from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Any, Iterable
 
 
@@ -335,6 +335,13 @@ def get_config(args):
     return config
 
 
+def gen_dirs(file_path):
+    """
+    generates all directories for a file path if the directories don't exist
+    """
+    Path(file_path).parent.mkdir(parents=True, exist_ok=True)
+
+
 if __name__ == "__main__":
     # x = import_source_file(EXAMPLE_CONFIG_PATH, "config")
     # print(x)
@@ -345,12 +352,12 @@ if __name__ == "__main__":
     config = get_config(args)
     # print(config("build_opts"))
 
-    #print(config("build-opts", "optimize-opts", "always-filled"))
-    #print(config("build-opts")("optimize-opts")("never-filled"))
-    #print(config("note-opts")("keybinds")("toggle-hybrid-sentence"))
-    #print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
-    #print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
-    #print(config("notes", "jp-mining-note", "media-build", 0))
+    # print(config("build-opts", "optimize-opts", "always-filled"))
+    # print(config("build-opts")("optimize-opts")("never-filled"))
+    # print(config("note-opts")("keybinds")("toggle-hybrid-sentence"))
+    # print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
+    # print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
+    # print(config("notes", "jp-mining-note", "media-build", 0))
     # print(config("note_opts", "keybinds", "toggle-hybrid-sentence", "a", "b"))
     # print(config("note_opts", "keybinds", "a"))
 
