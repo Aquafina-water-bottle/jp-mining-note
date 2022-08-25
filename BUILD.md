@@ -22,7 +22,6 @@ cd jp-mining-note
 python3 -m venv .
 source ./bin/activate # linux only, see how to activate venv on your system below
 pip3 install -r tools/requirements.txt
-
 ```
 
 <!--
@@ -38,7 +37,12 @@ npm ci
 In case you don't want to use a `venv` (highly recommended that you use venv!!),
 you can install the following python packages:
 ```
-pip3 install anki aqt jinja2
+pip3 install JSON-minify jinja2 black
+```
+
+Additonal packages I use for development on my local system are:
+```
+pip3 install neovim anki aqt
 ```
 
 

@@ -30,6 +30,10 @@ import urllib.request
 from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Any, Iterable
 
+import note_files
+
+from json_minify import json_minify
+
 
 if TYPE_CHECKING:
     import types
@@ -46,12 +50,12 @@ cached_config = None
 def add_args(parser):
     group = parser.add_argument_group(title="common")
     group.add_argument("-c", "--config-file", type=str, default=None)
-    group.add_argument(
-        "--override-config",
-        action="store_true",
-        help="overrides the current config file with the example config, "
-        "if no specific config file was specified.",
-    )
+    #group.add_argument(
+    #    "--override-config",
+    #    action="store_true",
+    #    help="overrides the current config file with the example config, "
+    #    "if no specific config file was specified.",
+    #)
     group.add_argument(
         "-r",
         "--release",
@@ -268,18 +272,35 @@ def get_config_from_str(file_path: str):
     return module.CONFIG
 
 
-def get_version():
+
+def get_note_opts(config, as_config=False):
+    opts_file = config("jp-mining-note", "opts-path").item()
+    root_folder = get_root_folder()
+    opts_path = os.path.join(root_folder, "config", opts_file)
+
+    with open(opts_path) as f:
+        contents = f.read()
+
+    if as_config:
+        return Config(json.loads(json_minify(contents)))
+
+    return contents
+
+
+
+def get_version() -> str:
     """
     gets version of the jp mining note within the repo
     """
 
-    tools_folder = os.path.dirname(os.path.abspath(__file__))
-    root_folder = os.path.join(tools_folder, "..")
+    root_folder = get_root_folder()
     with open(os.path.join(root_folder, "version.txt")) as f:
         version = f.read().strip()
 
+    return version
 
-def get_version_from_anki(config):
+
+def get_version_from_anki(config: Config) -> str:
     """
     gets version of the jp mining note from the installed note in anki
     """
@@ -298,7 +319,7 @@ def get_version_from_anki(config):
     return match.group(1)
 
 
-def get_config(args):
+def get_config(args) -> Config:
     """
     creates the config file from the example config if it doesn't exist
     """
@@ -322,7 +343,7 @@ def get_config(args):
             file_path = example_config_path
             print(f"Building release: using the example config...")
 
-        elif not os.path.isfile(default_config_path) or args.override_config:
+        elif not os.path.isfile(default_config_path):# or args.override_config:
             print(f"Creating the config file under '{file_path}'...")
             if not os.path.isfile(EXAMPLE_CONFIG_PATH):
                 raise Exception("Example config file does not exist")
@@ -335,11 +356,27 @@ def get_config(args):
     return config
 
 
+def get_note_files_config():
+    return Config(note_files.NOTE_DATA)
+
+
+
+
 def gen_dirs(file_path):
     """
     generates all directories for a file path if the directories don't exist
     """
     Path(file_path).parent.mkdir(parents=True, exist_ok=True)
+
+def get_root_folder():
+    """
+    grabs the repository root folder
+    """
+
+    tools_folder = os.path.dirname(os.path.abspath(__file__))
+    root_folder = os.path.join(tools_folder, "..")
+
+    return root_folder
 
 
 if __name__ == "__main__":

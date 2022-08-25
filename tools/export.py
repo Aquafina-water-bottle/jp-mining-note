@@ -2,6 +2,8 @@ import os
 import json
 import urllib.request
 
+import utils
+
 def request(action, **params):
     return {'action': action, 'params': params, 'version': 6}
 
@@ -31,7 +33,10 @@ def main():
     tools_folder = os.path.dirname(os.path.abspath(__file__))
     root_folder = os.path.join(tools_folder, "..")
 
-    path = os.path.join(root_folder, "jp-mining-note", "jpmn_example_cards.apkg")
+    version = utils.get_version()
+
+    path = os.path.join(root_folder, "versions", f"{version}-jpmn_example_cards.apkg")
+    utils.gen_dirs(path)
 
     export_params = {
         "deck": "JPMN-Examples",
@@ -39,7 +44,8 @@ def main():
         "includeSched": False,
     }
 
-    print(invoke("exportPackage", **export_params))
+    if not invoke("exportPackage", **export_params):
+        raise Exception("exportPackage returned False")
 
 
 
