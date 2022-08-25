@@ -6,6 +6,72 @@
 """
 
 
+
+
+#    in example config, optimize options
+#
+#    # NOTE: currently does nothing!
+#    "optimize": False,
+#
+#    # NOTE: currently does nothing!
+#    "optimize-opts": {
+#
+#      # equivalent to "always true"
+#      "always-filled": [
+#        #"AltDisplay",
+#        #"AltDisplayPASentenceCard",
+#        #"AdditionalNotes",
+#
+#        #"IsSentenceCard",
+#        #"IsClickCard",
+#        #"IsHoverCard",
+#        #"IsTargetedSentenceCard",
+#        #"PASeparateWordCard",
+#        #"PASeparateSentenceCard",
+#        #"PAShowInfo",
+#        #"PATestOnlyWord",
+#        #"PADoNotTest",
+#        #"SeparateClozeDeletionCard",
+#
+#        #"Hint",
+#        #"HintNotHidden",
+#        #"Picture",
+#        #"SentenceAudio",
+#        #"SecondaryDefinition",
+#        #"ExtraDefinitions",
+#        #"UtilityDictionaries",
+#      ],
+#
+#      # equivalent to "always false"
+#      "never-filled": [
+#        #"AltDisplay",
+#        #"AltDisplayPASentenceCard",
+#        #"AdditionalNotes",
+#
+#        #"IsSentenceCard",
+#        #"IsClickCard",
+#        #"IsHoverCard",
+#        #"IsTargetedSentenceCard",
+#        #"PASeparateWordCard",
+#        #"PASeparateSentenceCard",
+#        #"PAShowInfo",
+#        #"PATestOnlyWord",
+#        #"PADoNotTest",
+#        #"SeparateClozeDeletionCard",
+#
+#        #"Hint",
+#        #"HintNotHidden",
+#        #"Picture",
+#        #"SentenceAudio",
+#        #"SecondaryDefinition",
+#        #"ExtraDefinitions",
+#        #"UtilityDictionaries",
+#      ],
+#    },
+
+
+
+
 # from jinja2 import Template
 
 import os
@@ -20,7 +86,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndef
 
 import utils
 
-OPTIONS_FILENAME = "jp-mining-note-options.js"
+OPTIONS_FILENAME = "_jpmn-options.js"
 
 
 def add_args(parser):
@@ -76,11 +142,13 @@ class Generator:
         """
         gets rendering variables from config
         """
-        optimize_opts = config("build-opts", "optimize-opts")
+        #optimize_opts = config("build-opts", "optimize-opts")
 
         self.data = {
-            "ALWAYS_TRUE": optimize_opts("always-filled").list(),
-            "ALWAYS_FALSE": optimize_opts("never-filled").list(),
+            #"ALWAYS_TRUE": optimize_opts("always-filled").list(),
+            #"ALWAYS_FALSE": optimize_opts("never-filled").list(),
+            "ALWAYS_TRUE": [],
+            "ALWAYS_FALSE": [],
             # "NOTE_OPTS": config("note_opts", get_dict=True),
             "NOTE_OPTS_JSON": json.dumps(config("note-opts").dict(), indent=2),
             # json_output =
@@ -190,6 +258,8 @@ def main(args=None):
             else:
                 input_file = os.path.join(templates_folder, file_config("input-file").item())
 
+            print(input_file)
+
             output_file = os.path.join(
                 args.build_folder, "media", file_config("output-file").item()
             )
@@ -200,6 +270,12 @@ def main(args=None):
                 output_file,
                 os.path.join("media", file_config("output-file").item()),
             )
+
+        if args.to_release:
+            # also exports the existing cards
+            import export
+            export.main()
+
 
 
 if __name__ == "__main__":

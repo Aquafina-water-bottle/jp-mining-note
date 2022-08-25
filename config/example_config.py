@@ -6,67 +6,7 @@ CONFIG = {
 
   "build-opts": {  # build options
     "sass-path": "sass",
-
-    # NOTE: currently does nothing!
-    "optimize": False,
-
-    # NOTE: currently does nothing!
-    "optimize-opts": {
-
-      # equivalent to "always true"
-      "always-filled": [
-        #"AltDisplay",
-        #"AltDisplayPASentenceCard",
-        #"AdditionalNotes",
-
-        #"IsSentenceCard",
-        #"IsClickCard",
-        #"IsHoverCard",
-        #"IsTargetedSentenceCard",
-        #"PASeparateWordCard",
-        #"PASeparateSentenceCard",
-        #"PAShowInfo",
-        #"PATestOnlyWord",
-        #"PADoNotTest",
-        #"SeparateClozeDeletionCard",
-
-        #"Hint",
-        #"HintNotHidden",
-        #"Picture",
-        #"SentenceAudio",
-        #"SecondaryDefinition",
-        #"ExtraDefinitions",
-        #"UtilityDictionaries",
-      ],
-
-      # equivalent to "always false"
-      "never-filled": [
-        #"AltDisplay",
-        #"AltDisplayPASentenceCard",
-        #"AdditionalNotes",
-
-        #"IsSentenceCard",
-        #"IsClickCard",
-        #"IsHoverCard",
-        #"IsTargetedSentenceCard",
-        #"PASeparateWordCard",
-        #"PASeparateSentenceCard",
-        #"PAShowInfo",
-        #"PATestOnlyWord",
-        #"PADoNotTest",
-        #"SeparateClozeDeletionCard",
-
-        #"Hint",
-        #"HintNotHidden",
-        #"Picture",
-        #"SentenceAudio",
-        #"SecondaryDefinition",
-        #"ExtraDefinitions",
-        #"UtilityDictionaries",
-      ],
-    },
   },
-
 
   "notes": {
 
@@ -102,8 +42,8 @@ CONFIG = {
           "type": "scss",
         },
         {
-          "input-file": "jp-mining-note-options.js",
-          "output-file": "jp-mining-note-options.js",
+          "input-file": "jp-mining-note/_jpmn-options.js",
+          "output-file": "_jpmn-options.js",
           "type": "jinja",
         },
       ],
@@ -119,7 +59,8 @@ CONFIG = {
         ],
         "dynamic": [
           "field.css",
-          "jp-mining-note-options.js",
+          # TODO move out
+          "_jpmn-options.js",
         ],
       },
 
@@ -208,47 +149,13 @@ CONFIG = {
       # Automatic processing to sentences
       "enabled": True,
 
-      # if the AltDisplay field is not filled, it attempts to choose the
-      # smallest possible sentence, similar to Yomichan's internal sentence parser.
-      #
-      # For example, if the sentence field was:
-      #
-      #   飛行機のチケット！そんなの空席待ちとかしないでいいから！ね？
-      #
-      # and the bolded part was "飛行機", then only
-      #
-      #   飛行機のチケット！
-      #
-      # would be selected.
-      #"select-smallest-sentence": False,
-
       # Removes all line breaks on the sentence if AltDisplay is not filled
+      # TODO mobile true, desktop false
       "remove-line-breaks": True,
-      #"remove-line-breaks": {
-      #  "type": "check-mobile",
-      #  "mobile": True,
-      #  "not-mobile": False,
-      #},
-
-      # removes line count specifically if the text is <= (specified number) characters in length.
-      # 0 means that newlines are ALWAYS removed.
-      #"remove-line-breaks-until-char-count": "ifMobile(0, 33)",
-      #"remove-line-breaks-until-char-count": {
-      #  "type": "check-mobile",
-      #  "mobile": 0,
-      #  "not-mobile": 33,
-      #},
-      #"remove-line-breaks-until-char-count": 30,
 
       # Removes all line breaks on the AltDisplay sentence
-      #"remove-line-breaks-on-altdisplay": "ifMobile(true, false)",
-      #"remove-line-breaks-on-altdisplay": {
-      #  "type": "check-mobile",
-      #  "mobile": True,
-      #  "not-mobile": False,
-      #},
+      # TODO mobile true, desktop false
       "remove-line-breaks-on-altdisplay": False,
-
 
       # colors the quotes instead of showing a pitch accent indicator
       # if this is enabled
