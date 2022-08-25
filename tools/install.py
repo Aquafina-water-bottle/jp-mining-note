@@ -257,7 +257,8 @@ def main(args=None):
     # if args.release:
     #    args.from_release = True
 
-    config = utils.get_config(args)
+    #config = utils.get_config(args)
+    notes_files_config = utils.get_note_files_config()
 
     # checks if the note has to be changed first outside templates / media files
     # note_changes = NoteChanges()
@@ -268,12 +269,11 @@ def main(args=None):
     static_media = set()
     dynamic_media = set()
 
-    tools_folder = os.path.dirname(os.path.abspath(__file__))
-    root_folder = os.path.join(tools_folder, "..")
+    root_folder = utils.get_root_folder()
 
     note_folder = args.build_folder if args.from_build else root_folder
     note_installer = NoteInstaller(note_folder)
-    for note_config in config("notes").dict_values():
+    for note_config in notes_files_config.dict_values():
         # note_installer = NoteInstaller(
         #    args.folder,
         #    config("note", note_model_id),

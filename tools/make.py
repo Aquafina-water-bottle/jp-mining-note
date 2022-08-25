@@ -5,7 +5,6 @@
 
 """
 
-
 #    in example config, optimize options
 #
 #    # NOTE: currently does nothing!
@@ -85,8 +84,8 @@ OPTIONS_FILENAME = "_jpmn-options.js"
 
 
 def add_args(parser):
-    group = parser.add_argument_group(title="build")
-    group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
+    group = parser.add_argument_group(title="make")
+    #group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
     group.add_argument("--to-release", action="store_true", default=False)
 
 
@@ -102,7 +101,7 @@ class Generator:
     """
 
     def __init__(
-        self, jinja_root_folder: str, config, enable_prettier=False, to_release=False
+        self, jinja_root_folder: str, config, to_release=False
     ):
         self.jinja_root_folder = jinja_root_folder
         self.env = Environment(
@@ -125,8 +124,7 @@ class Generator:
             self.env.filters[k] = v
 
         self.get_render_data(config)
-        self.sass_path = config("build-opts", "sass-path").item()
-        self.enable_prettier = enable_prettier
+        self.sass_path = config("sass-path").item()
         self.to_release = to_release
 
     def get_render_data(self, config):
@@ -141,11 +139,13 @@ class Generator:
             "ALWAYS_TRUE": [],
             "ALWAYS_FALSE": [],
             # "NOTE_OPTS": config("note_opts", get_dict=True),
-            "NOTE_OPTS_JSON": json.dumps(config("note-opts").dict(), indent=2),
+            "NOTE_OPTS_JSON": utils.get_note_opts(config),
             # json_output =
             "VERSION": utils.get_version(),
-            "NOTE_OPTS": config("note-opts"),
-            "TEMPLATES": config("notes", "jp-mining-note", "templates"),
+            #"NOTE_OPTS": config("note-opts"),
+            "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
+            "NOTE_FILES": utils.get_note_files_config(),
+            #"TEMPLATES": config("notes", "jp-mining-note", "templates"),
         }
 
     def generate(
@@ -174,10 +174,6 @@ class Generator:
             with open(output_file, "w") as file:
                 file.write(result)
 
-            if self.enable_prettier and prettify:
-                # TODO cross platform?
-                os.system(f"npx prettier --write {output_file}")
-
         elif type == GenerateType.SASS:
             error_code = os.system(f"{self.sass_path} {input_file} {output_file}")
             if error_code != 0:
@@ -194,25 +190,24 @@ def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
     if args.release:
-        # args.enable_prettier = True
         args.to_release = True
 
     config = utils.get_config(args)
 
-    tools_folder = os.path.dirname(os.path.abspath(__file__))
-    root_folder = os.path.join(tools_folder, "..")
+    root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "templates")
 
     generator = Generator(
         templates_folder,
         config,
-        enable_prettier=args.enable_prettier,
         to_release=args.to_release,
     )
 
-    for note_model_id in config("notes").dict():
+    notes_files_config = utils.get_note_files_config()
+
+    for note_model_id in notes_files_config.dict():
         # generates for each template
-        for card_model_id in config("notes", note_model_id, "templates").dict():
+        for card_model_id in notes_files_config(note_model_id, "templates").dict():
             for file_name in ("front.html", "back.html"):
                 input_file = os.path.join(note_model_id, card_model_id, file_name)
                 output_file = os.path.join(
@@ -241,7 +236,7 @@ def main(args=None):
         }
 
         # generates each file in media-build
-        for file_config in config("notes", note_model_id, "media-build").list_items():
+        for file_config in notes_files_config(note_model_id, "media-build").list_items():
             gen_type = type_map[file_config("type").item()]
 
             if gen_type == GenerateType.JINJA:
@@ -250,8 +245,6 @@ def main(args=None):
                 input_file = os.path.join(
                     templates_folder, file_config("input-file").item()
                 )
-
-            print(input_file)
 
             output_file = os.path.join(
                 args.build_folder, "media", file_config("output-file").item()

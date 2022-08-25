@@ -350,6 +350,7 @@ templates/out.html
 templates/output/
 config.py
 config/config.py
+config/user_jpmn_opts.jsonc
 build/
 templates/scss/*.css
 

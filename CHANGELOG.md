@@ -22,8 +22,14 @@ signified.)
     - added a span around each dictionary glossary entry
     - renamed `silence.wav` -> `_silence.wav`
 
+- added an additional inner html field around the downstep arrow so css can automatically remove it
 - collapsable fields are now greyed out instead of gone (no option for this yet)
 - added css to center elements in the orthographic forms dictionary
+- removed prettier dependency, added JSON-minify dependency
+- separated `config/example_config.py` into {
+     `config/example_config.py`,
+     `config/jpmn_opts.jsonc`,
+     `tools/note_files.py` } to prevent having to regenerate the config file on version updates
 
 ## [0.8.1.1] - 2022-08-15
 
