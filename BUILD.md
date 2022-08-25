@@ -37,7 +37,7 @@ npm ci
 In case you don't want to use a `venv` (highly recommended that you use venv!!),
 you can install the following python packages:
 ```
-pip3 install JSON-minify jinja2 black
+pip3 install JSON-minify jinja2 black pytest
 ```
 
 Additonal packages I use for development on my local system are:
@@ -53,19 +53,27 @@ Further resources on how to run venv can be found in the official documentation
 
 Building and installing:
 ```
-# Builds and installs
+cd tools
+
+# Builds into a temporary folder and installs
 python3 ./main.py
 
-
-# ...or building and installing separately:
-# Building into the temporary ./build folder
-python3 ./build.py
-
-# Installs from the temporary ./build folder
-python3 ./install.py --from-build
-
-
 # Build for release, if you want to contribute to the project
-python3 ./build.py --release
+python3 ./make.py --release
 ```
+
+Testing:
+
+```
+cd tools
+python3 -m pytest ./tests
+```
+
+
+<!--
+TODO: contributing (separate doc probably)
+- use black to format all python files
+- make sure tests run
+
+-->
 

@@ -15,8 +15,6 @@ from typing import TYPE_CHECKING, Callable, Any, Iterable
 
 import note_files
 
-from json_minify import json_minify
-
 
 if TYPE_CHECKING:
     import types
@@ -256,6 +254,7 @@ def get_config_from_str(file_path: str):
 
 
 def get_note_opts(config, as_config=False):
+
     opts_file = config("jp-mining-note", "opts-path").item()
     root_folder = get_root_folder()
     opts_path = os.path.join(root_folder, "config", opts_file)
@@ -264,6 +263,9 @@ def get_note_opts(config, as_config=False):
         contents = f.read()
 
     if as_config:
+        # import put here so certain scripts can be ran without external dependencies
+        from json_minify import json_minify
+
         return Config(json.loads(json_minify(contents)))
 
     return contents
