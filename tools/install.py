@@ -300,6 +300,8 @@ def main(args=None):
 
             print(f"Updating {model_name}...")
             note_updater.update(note_config)
+            if args.install_options:
+                options_media |= set(note_config("media-install", "options").list())
 
         else:
             print(f"Installing {model_name}...")
@@ -308,8 +310,8 @@ def main(args=None):
             install_path = os.path.join(root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg")
 
             #invoke("importPackage", path=install_path)
+            options_media |= set(note_config("media-install", "options").list())
 
-        options_media |= set(note_config("media-install", "options").list())
         static_media |= set(note_config("media-install", "static").list())
         dynamic_media |= set(note_config("media-install", "dynamic").list())
 
@@ -326,11 +328,9 @@ def main(args=None):
         media_installer.install(media_file, static=False)
     for media_file in static_media:
         media_installer.install(media_file, static=True)
-
-    if args.install_options:
-        for media_file in options_media:
-            # backs up existing options
-            media_installer.install(media_file, static=False, backup=True)
+    for media_file in options_media:
+        # backs up existing options
+        media_installer.install(media_file, static=False, backup=True)
 
     # media_installer.install("test_silence.wav", binary=True)
     # media_installer.install("NotoSerifJP-Bold.otf")
