@@ -1,20 +1,3 @@
-# import from arbitrary file path
-# https://stackoverflow.com/a/19011259
-# import types
-# import importlib.machinery
-# import importlib.util, sys
-#
-#
-# def get_config(file_path):
-#    #loader = importlib.machinery.SourceFileLoader('config', file_path)
-#    #mod = types.ModuleType(loader.name)
-#    #return loader.exec_module(mod)
-#    modname = "config"
-#    spec = importlib.util.spec_from_file_location(modname, file_path)
-#    module = importlib.util.module_from_spec(spec)
-#    sys.modules[modname] = module
-#    return spec.loader.exec_module(module)
-
 from __future__ import annotations
 
 import re
@@ -50,12 +33,12 @@ cached_config = None
 def add_args(parser):
     group = parser.add_argument_group(title="common")
     group.add_argument("-c", "--config-file", type=str, default=None)
-    #group.add_argument(
+    # group.add_argument(
     #    "--override-config",
     #    action="store_true",
     #    help="overrides the current config file with the example config, "
     #    "if no specific config file was specified.",
-    #)
+    # )
     group.add_argument(
         "-r",
         "--release",
@@ -154,7 +137,7 @@ class Config:
         >>> config("note_opts")("keybinds")("toggle-hybrid-sentence")
         >>> config("note_opts", "keybinds", "toggle-hybrid-sentence")
         """
-        result = self  # returns itself if no keys lol
+        result = self  # returns itself if no keys
 
         current_config = self
         for i, key in enumerate(keys):
@@ -272,7 +255,6 @@ def get_config_from_str(file_path: str):
     return module.CONFIG
 
 
-
 def get_note_opts(config, as_config=False):
     opts_file = config("jp-mining-note", "opts-path").item()
     root_folder = get_root_folder()
@@ -287,7 +269,6 @@ def get_note_opts(config, as_config=False):
     return contents
 
 
-
 def get_version() -> str:
     """
     gets version of the jp mining note within the repo
@@ -298,6 +279,11 @@ def get_version() -> str:
         version = f.read().strip()
 
     return version
+
+
+def note_is_installed(note_name) -> bool:
+    result = invoke("modelNames")
+    return note_name in result
 
 
 def get_version_from_anki(config: Config) -> str:
@@ -343,7 +329,7 @@ def get_config(args) -> Config:
             file_path = example_config_path
             print(f"Building release: using the example config...")
 
-        elif not os.path.isfile(default_config_path):# or args.override_config:
+        elif not os.path.isfile(default_config_path):  # or args.override_config:
             print(f"Creating the config file under '{file_path}'...")
             if not os.path.isfile(EXAMPLE_CONFIG_PATH):
                 raise Exception("Example config file does not exist")
@@ -360,13 +346,12 @@ def get_note_files_config():
     return Config(note_files.NOTE_DATA)
 
 
-
-
 def gen_dirs(file_path):
     """
     generates all directories for a file path if the directories don't exist
     """
     Path(file_path).parent.mkdir(parents=True, exist_ok=True)
+
 
 def get_root_folder():
     """

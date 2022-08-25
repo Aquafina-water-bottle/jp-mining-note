@@ -5,82 +5,20 @@
 
 """
 
-#    in example config, optimize options
-#
-#    # NOTE: currently does nothing!
-#    "optimize": False,
-#
-#    # NOTE: currently does nothing!
-#    "optimize-opts": {
-#
-#      # equivalent to "always true"
-#      "always-filled": [
-#        #"AltDisplay",
-#        #"AltDisplayPASentenceCard",
-#        #"AdditionalNotes",
-#
-#        #"IsSentenceCard",
-#        #"IsClickCard",
-#        #"IsHoverCard",
-#        #"IsTargetedSentenceCard",
-#        #"PASeparateWordCard",
-#        #"PASeparateSentenceCard",
-#        #"PAShowInfo",
-#        #"PATestOnlyWord",
-#        #"PADoNotTest",
-#        #"SeparateClozeDeletionCard",
-#
-#        #"Hint",
-#        #"HintNotHidden",
-#        #"Picture",
-#        #"SentenceAudio",
-#        #"SecondaryDefinition",
-#        #"ExtraDefinitions",
-#        #"UtilityDictionaries",
-#      ],
-#
-#      # equivalent to "always false"
-#      "never-filled": [
-#        #"AltDisplay",
-#        #"AltDisplayPASentenceCard",
-#        #"AdditionalNotes",
-#
-#        #"IsSentenceCard",
-#        #"IsClickCard",
-#        #"IsHoverCard",
-#        #"IsTargetedSentenceCard",
-#        #"PASeparateWordCard",
-#        #"PASeparateSentenceCard",
-#        #"PAShowInfo",
-#        #"PATestOnlyWord",
-#        #"PADoNotTest",
-#        #"SeparateClozeDeletionCard",
-#
-#        #"Hint",
-#        #"HintNotHidden",
-#        #"Picture",
-#        #"SentenceAudio",
-#        #"SecondaryDefinition",
-#        #"ExtraDefinitions",
-#        #"UtilityDictionaries",
-#      ],
-#    },
-
-
 # from jinja2 import Template
 
 import os
-import json
+#import json
 import shutil
-import argparse
+#import argparse
 from enum import Enum
-from dataclasses import dataclass
+#from dataclasses import dataclass
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
 import utils
 
-OPTIONS_FILENAME = "_jpmn-options.js"
+#OPTIONS_FILENAME = "_jpmn-options.js"
 
 
 def add_args(parser):
