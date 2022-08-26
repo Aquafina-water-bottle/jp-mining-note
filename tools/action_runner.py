@@ -27,9 +27,10 @@ TODO:
 
 from __future__ import annotations
 
-import os
-import re
-import sys
+#import os
+#import re
+#import sys
+import copy
 
 # import aqt
 # from aqt.main import AnkiQt
@@ -38,7 +39,10 @@ import sys
 
 
 import utils
-from action import Action, GlobalAction
+from action import Action, GlobalAction, RenameField, MoveField, AddField, DeleteField
+#from note_changes import NOTE_CHANGES
+import note_changes
+from typing import Any
 
 
 def add_args(parser):
@@ -125,6 +129,75 @@ class Version:
 #        return path
 
 
+class FieldEditSimulator:
+    """
+    class to absolutely make sure that the field editing logic is sound
+
+    note:
+        allows the user to set the fields by themselves, i.e:
+        >>> simulator = FieldEditSimulator(...)
+        >>> simulator.original_fields = ...
+    """
+    def __init__(
+        self, original_fields: list[str]
+    ):
+        self.original_fields = original_fields
+        self.simulated_fields = copy.deepcopy(self.original_fields)
+
+    def _rename_field(self, old_field_name, new_field_name):
+        assert old_field_name in self.simulated_fields
+
+        i = self.simulated_fields.index(old_field_name)
+        self.simulated_fields[i] = new_field_name
+
+    def _move_field(self, field_name, index):
+        TEMP_FIELD = "TEMP_FIELD_NAME"
+        assert field_name in self.simulated_fields
+
+        self.simulated_fields.insert(index, TEMP_FIELD)
+        self.simulated_fields.remove(field_name)
+        i = self.simulated_fields.index(TEMP_FIELD)
+        self.simulated_fields[i] = field_name
+
+    def _add_field(self, field_name, index):
+        if field_name not in self.simulated_fields:
+            self.simulated_fields.append(field_name)
+
+        if index != -1:
+            self._move_field(field_name, index)
+
+    def _delete_field(self, field_name):
+        self.simulated_fields.remove(field_name)
+
+
+    def simulate(self, actions, reset=True):
+        # reset simulated fields
+        if reset:
+            self.simulated_fields = copy.deepcopy(self.original_fields)
+
+        for action in actions:
+            if isinstance(action, RenameField):
+                self._rename_field(action.old_field_name, action.new_field_name)
+
+            elif isinstance(action, MoveField):
+                self._move_field(action.field_name, action.index)
+
+            elif isinstance(action, AddField):
+                self._add_field(action.field_name, action.index)
+
+            elif isinstance(action, DeleteField):
+                self._delete_field(action.field_name)
+
+    def verify(self, new_fields):
+        if self.simulated_fields != new_fields:
+            print ("    {:<25} {:<25}".format("Simulated", "Expected"))
+            for f1, f2 in zip(self.simulated_fields, new_fields):
+                print(">>> " if f1 != f2 else "    ", end="")
+                print ("{:<25} {:<25}".format(f1, f2))
+
+            raise Exception("Fields are different")
+
+
 class ActionRunner:
     # def __init__(self, path: str, warn=True):
     def __init__(self, warn=True):
@@ -143,7 +216,33 @@ class ActionRunner:
         """
         applies changes specified in the range (current_ver, new_ver]
         """
-        pass
+
+        self._get_note_changes(current_ver, new_ver, note_changes.NOTE_CHANGES)
+
+    def _get_note_changes(
+        self, current_ver: Version, new_ver: Version, note_changes: list
+    ):
+
+        if current_ver == new_ver:
+            # nothing to do
+            return
+
+        if current_ver > new_ver:
+            print("Warning: current version is higher than the newer version?")
+            return
+
+        original_fields = None
+        new_fields = None
+
+        for data in reversed(note_changes):
+            ver = data["version"]
+            if ver <= current_ver:
+                # records last known fields_check
+                pass
+
+            # finds all versions that are > current_ver and <= new_ver
+            if (ver > current_ver) and (ver <= new_ver):
+                pass
 
     def clear(self):
         self.actions.clear()
@@ -161,11 +260,13 @@ class ActionRunner:
 
         return "\n".join(desc_list)
 
-    def verify_actions(self):
+    def verify_actions(
+        self, original_fields: list[str], new_fields: list[str], actions: list[Action]
+    ):
         """
         verifies that the field editing actions do what they are supposed to do
 
-        raises an error if verify check failed
+        raises an error if check failed
         """
         pass
 
@@ -177,7 +278,7 @@ class ActionRunner:
     #        raise Exception("window is not available")
     #    return aqt.mw
 
-    #def run(self, note_name: str):
+    # def run(self, note_name: str):
     def run(self):
 
         if self.warn:
@@ -210,7 +311,7 @@ def main(args=None):
     if action_runner.has_actions():
         action_runner.run()
 
-    #action_runner.get_note_changes(V"0.2.0.0", "0.9.0.0")
+    # action_runner.get_note_changes(V"0.2.0.0", "0.9.0.0")
 
     v3 = Version(3, 3, 3, 3)
     v4 = Version(3, 3, 3, 3)
@@ -227,6 +328,12 @@ def main(args=None):
     # runner.run(note_name)
 
     print("lolol")
+    
+    s = FieldEditSimulator(note_changes.NOTE_CHANGES[-1]["fields_check"])
+    s.simulate(note_changes.NOTE_CHANGES[-2]["actions"])
+    s.verify(note_changes.NOTE_CHANGES[-2]["fields_check"])
+
+
     # anki_home = '/home/austin/.local/share/Anki2/test3'
     # WARNING: THIS IS THE MAIN DECK!!!
     # BACKUP ANY COLLECTION BEFORE RUNNING THIS SCRIPT ON IT
