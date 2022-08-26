@@ -98,10 +98,12 @@ class Config:
         if not javascript:
             return self.data
         var = self.data
-        if var == True:
+        if var is True:
             return "true"
-        elif var == False:
+        elif var is False:
             return "false"
+        elif var is None:
+            return "null"
         elif isinstance(var, str):
             return f"'{var}'"
         return var
@@ -288,13 +290,16 @@ def note_is_installed(note_name) -> bool:
     return note_name in result
 
 
-def get_version_from_anki(config: Config) -> str:
+def get_version_from_anki() -> str:
     """
     gets version of the jp mining note from the installed note in anki
     """
+
+    nf_config = get_note_files_config()
+
     result = invoke(
         "modelTemplates",
-        modelName=config("notes", "jp-mining-note", "model-name").item(),
+        modelName=nf_config("jp-mining-note", "model-name").item(),
     )
 
     assert result.keys()

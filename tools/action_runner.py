@@ -38,13 +38,11 @@ import sys
 
 
 import utils
-import action
-
-
+from action import Action, GlobalAction
 
 
 def add_args(parser):
-    group = parser.add_argument_group(title="update")
+    group = parser.add_argument_group(title="actions")
 
     group.add_argument(
         "--no-warn",
@@ -55,73 +53,8 @@ def add_args(parser):
     group.add_argument(
         "--initialize",
         action="store_true",
-        help="Adds `[sound:silence.wav]` to the PASilence field of every card",
+        help="Adds `[sound:_silence.wav]` to the PASilence field of every card",
     )
-
-
-# def get_anki_path():
-#    home_path = os.path.expanduser("~")
-#    # windows
-#    if sys in {"win32", "cygwin"} and os.path.isdir(
-#        path := os.path.join(home_path, "AppData", "Roaming", "Anki2")
-#    ):
-#        return path
-#
-#    if sys in {"linux", "darwin"} and os.path.isdir(
-#        path := os.path.join(home_path, ".local", "share", "Anki2")
-#    ):
-#        return path
-
-
-class ActionRunner:
-    def __init__(self, path: str, warn=True):
-        self.path = path
-        self.actions: list[action.Action] = []
-        self.warn = warn
-
-    def add(self, action):
-        self.actions.append(action)
-
-    # def window(self) -> AnkiQt:
-    #    if aqt.mw is None:
-    #        raise Exception("window is not available")
-    #    return aqt.mw
-
-    def run(self, note_name: str):
-
-        if self.warn:
-            print(
-                "WARNING: The following actions WILL modify the deck and the notes inside of it.\n"
-                "Please make a backup (File -> Export -> Anki Collection Package before\n"
-                "running this, just in case!\n"
-                "If you have made a backup, please type 'yes' to confirm:"
-            )
-            x = input()
-            if x != "yes":
-                print("Aborting update...")
-                return
-
-        # TODO anki connect related stuff
-
-    #    self.run_with_anki(note_name)
-
-    # def run_with_anki(self, note_name: str):
-
-    # from anki.collection import Collection
-    # from anki.models import ModelManager, NotetypeId
-
-    # collection = self.window().col
-    # col = Collection(self.path)
-    # if col is None:
-    #    raise Exception("collection is not available")
-
-    ##col = self.collection()
-    # note_type_id = col.models.id_for_name(note_name)
-    # if note_type_id is None:
-    #    raise Exception(f"Note type not found: {note_name}")
-
-    # for action in self.actions:
-    #    action.run(col, note_type_id)
 
 
 class Version:
@@ -178,20 +111,43 @@ class Version:
         return not (self < other)
 
 
-class NoteChanges:
-    """
-    note changes that require editing the note type outside of template changes
-    """
-    def __init__(self, current_ver, new_ver):
-        self.current_ver = current_ver
-        self.new_ver = new_ver
+# def get_anki_path():
+#    home_path = os.path.expanduser("~")
+#    # windows
+#    if sys in {"win32", "cygwin"} and os.path.isdir(
+#        path := os.path.join(home_path, "AppData", "Roaming", "Anki2")
+#    ):
+#        return path
+#
+#    if sys in {"linux", "darwin"} and os.path.isdir(
+#        path := os.path.join(home_path, ".local", "share", "Anki2")
+#    ):
+#        return path
 
-        # parses 
-        self.actions = []
-        self.global_actions = []
 
-    def has_changes(self) -> bool:
-        return bool(self.actions)
+class ActionRunner:
+    # def __init__(self, path: str, warn=True):
+    def __init__(self, warn=True):
+        # self.path = path
+        self.actions: list[Action] = []
+        self.global_actions: list[GlobalAction] = []
+        self.warn = warn
+
+    def add(self, action):
+        if isinstance(action, GlobalAction):
+            self.global_actions.append(action)
+        else:
+            self.actions.append(action)
+
+    def get_note_changes(self, current_ver: Version, new_ver: Version):
+        """
+        applies changes specified in the range (current_ver, new_ver]
+        """
+        pass
+
+    def clear(self):
+        self.actions.clear()
+        self.global_actions.clear()
 
     def get_actions_desc(self) -> str:
         desc_list = []
@@ -213,7 +169,29 @@ class NoteChanges:
         """
         pass
 
+    def has_actions(self) -> bool:
+        return bool(self.actions) or bool(self.global_actions)
+
+    # def window(self) -> AnkiQt:
+    #    if aqt.mw is None:
+    #        raise Exception("window is not available")
+    #    return aqt.mw
+
+    #def run(self, note_name: str):
     def run(self):
+
+        if self.warn:
+            print(
+                "WARNING: The following actions WILL modify the deck and the notes inside of it.\n"
+                "Please make a backup (File -> Export -> Anki Collection Package before\n"
+                "running this, just in case!\n"
+                "If you have made a backup, please type 'yes' to confirm:"
+            )
+            x = input()
+            if x != "yes":
+                print("Aborting update...")
+                return
+
         for action in self.actions:
             print(f"Running action {action}...")
             action.run()
@@ -224,7 +202,15 @@ def main(args=None):
         args = utils.get_args(utils.add_args, add_args)
     config = utils.get_config(args)
 
-    changes = NoteChanges("0.2.0.0", "0.9.0.0")
+    action_runner = ActionRunner()
+    current_ver = Version.from_str(utils.get_version_from_anki())
+    new_ver = Version.from_str(utils.get_version())
+    action_runner.get_note_changes(current_ver, new_ver)
+
+    if action_runner.has_actions():
+        action_runner.run()
+
+    #action_runner.get_note_changes(V"0.2.0.0", "0.9.0.0")
 
     v3 = Version(3, 3, 3, 3)
     v4 = Version(3, 3, 3, 3)

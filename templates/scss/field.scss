@@ -41,7 +41,10 @@
 /* makes the primary definition bolded sections colored */
 anki-editable[field="PrimaryDefinition"] b,
 anki-editable[field="Sentence"] b,
-anki-editable[field="SentenceReading"] b
+anki-editable[field="SentenceReading"] b,
+anki-editable[field="AdditionalNotes"] b,
+anki-editable[field="AltDisplay"] b,
+anki-editable[field="AltDisplayPASentenceCard"] b
 {
   color: var(--yellow);
 }

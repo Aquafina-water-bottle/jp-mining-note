@@ -308,8 +308,8 @@ def main(args=None):
             version = utils.get_version()
             # TODO note-independent file name
             install_path = os.path.join(root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg")
+            invoke("importPackage", path=install_path)
 
-            #invoke("importPackage", path=install_path)
             options_media |= set(note_config("media-install", "options").list())
 
         static_media |= set(note_config("media-install", "static").list())
