@@ -1,30 +1,47 @@
-import json
-import urllib.request
+#import json
+#import urllib.request
 
+import argparse
 
-def request(action, **params):
-    return {"action": action, "params": params, "version": 6}
+from utils import invoke
 
-
-def invoke(action, **params):
-    requestJson = json.dumps(request(action, **params)).encode("utf-8")
-    response = json.load(
-        urllib.request.urlopen(
-            urllib.request.Request("http://localhost:8765", requestJson)
-        )
-    )
-    if len(response) != 2:
-        raise Exception("response has an unexpected number of fields")
-    if "error" not in response:
-        raise Exception("response is missing required error field")
-    if "result" not in response:
-        raise Exception("response is missing required result field")
-    if response["error"] is not None:
-        raise Exception(response["error"])
-    return response["result"]
+#def request(action, **params):
+#    return {"action": action, "params": params, "version": 6}
+#
+#
+#def invoke(action, **params):
+#    requestJson = json.dumps(request(action, **params)).encode("utf-8")
+#    response = json.load(
+#        urllib.request.urlopen(
+#            urllib.request.Request("http://localhost:8765", requestJson)
+#        )
+#    )
+#    if len(response) != 2:
+#        raise Exception("response has an unexpected number of fields")
+#    if "error" not in response:
+#        raise Exception("response is missing required error field")
+#    if "result" not in response:
+#        raise Exception("response is missing required result field")
+#    if response["error"] is not None:
+#        raise Exception(response["error"])
+#    return response["result"]
 
 
 # removes all no pitch accent data fields
+
+
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-f",
+        "--function",
+        type=str,
+        default=None,
+        help="executes a specific function defined in this file",
+    )
+    return parser.parse_args()
 
 
 # def batch_field(field_name: str, lmbda):
@@ -134,7 +151,15 @@ def rename_silence_wav():
 def main():
     # clear_pitch_accent_data()
     # add_downstep_inner_span_tag()
-    rename_silence_wav()
+    #rename_silence_wav()
+    args = get_args()
+
+    if args.function:
+        assert args.function in globals(), f"function {args.function} does not exist"
+        func = globals()[args.function]
+        print(f"executing {args.finction}")
+        func()
+
 
     pass
 

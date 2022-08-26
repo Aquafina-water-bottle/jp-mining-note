@@ -9,7 +9,7 @@ from utils import invoke
 @dataclass
 class Action(ABC):
     description: str = field(init=False)
-    # edits_cards: bool = field(init=False)
+    edits_cards: bool = field(init=False)
 
     def run(self):
         pass
@@ -30,6 +30,7 @@ class SetField(Action):
 
     def __post_init__(self):
         self.description = f"Sets the field `{self.field_name}` -> `{self.value}`"
+        self.edits_cards = True
 
     def run(self):
         notes = invoke("findNotes", query=r'"note:JP Mining Note"')
@@ -60,6 +61,7 @@ class RenameField(Action):
 
     def __post_init__(self):
         self.description = f"Renames the field `{self.old_field_name}` to {self.new_field_name}"
+        self.edits_cards = True
 
     def run(self):
         return invoke(
@@ -96,6 +98,7 @@ class AddField(Action):
         self.description = (
             f"Creates the field `{self.field_name}` at index {self.index}"
         )
+        self.edits_cards = True
 
     def run(self):
         return invoke(
@@ -112,6 +115,7 @@ class DeleteField(Action):
 
     def __post_init__(self):
         self.description = f"Deletes the field `{self.field_name}`"
+        self.edits_cards = True
 
     def run(self):
         return invoke(
@@ -131,24 +135,28 @@ class DeleteField(Action):
 class YomichanTemplatesChange(GlobalAction):
     def __post_init__(self):
         self.description = "Requires an update to the yomichan templates"
+        self.edits_cards = False
 
 
 @dataclass
 class AJTPitchAccentconfigChange(GlobalAction):
     def __post_init__(self):
         self.description = "Requires an update to the AJT Pitch Accent config"
+        self.edits_cards = False
 
 
 @dataclass
 class AJTFuriganaconfigChange(GlobalAction):
     def __post_init__(self):
         self.description = "Requires an update to the AJT Furigana config"
+        self.edits_cards = False
 
 
 @dataclass
 class BatchUpdate:
     batch_func: Callable[[], None]
     description: str
+    edits_cards = True
 
     def run(self):
         self.batch_func()
