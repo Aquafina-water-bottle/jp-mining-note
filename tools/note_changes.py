@@ -1,13 +1,14 @@
 import action
 from action_runner import Version
 
-CONFIG_CHANGES = {
-    Version(0, 9, 0, 0): {
+NOTE_CHANGES = [
+    {
+        "version": Version(0, 9, 0, 0),
         "actions": [
-            action.MoveField("PAShowInfo", 15),
-            action.MoveField("PASeparateWordCard", 19),
-            action.MoveField("PASeparateSentenceCard", 19),
-            action.AddField("FrequencySort", 29),
+            action.MoveField("PAShowInfo", 15-1),
+            action.MoveField("PASeparateWordCard", 20-1),
+            action.MoveField("PASeparateSentenceCard", 20-1),
+            action.AddField("FrequencySort", 29-1),
             action.AJTPitchAccentconfigChange(),
         ],
         "fields_check": [
@@ -46,7 +47,8 @@ CONFIG_CHANGES = {
             "Comment",
         ],
     },
-    Version(0, 8, 1, 0): {
+    {
+        "version": Version(0, 8, 1, 0),
         "fields_check": [
             "Key",
             "Word",
@@ -82,12 +84,4 @@ CONFIG_CHANGES = {
             "Comment",
         ],
     },
-}
-
-
-
-
-
-
-
-
+]

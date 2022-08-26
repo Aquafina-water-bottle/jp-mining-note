@@ -60,7 +60,9 @@ class RenameField(Action):
     new_field_name: str
 
     def __post_init__(self):
-        self.description = f"Renames the field `{self.old_field_name}` to {self.new_field_name}"
+        self.description = (
+            f"Renames the field `{self.old_field_name}` to {self.new_field_name}"
+        )
         self.edits_cards = True
 
     def run(self):
@@ -92,7 +94,7 @@ class MoveField(Action):
 @dataclass
 class AddField(Action):
     field_name: str
-    index: int
+    index: int  # -1 if doesn't exist
 
     def __post_init__(self):
         self.description = (
@@ -153,7 +155,7 @@ class AJTFuriganaconfigChange(GlobalAction):
 
 
 @dataclass
-class BatchUpdate:
+class BatchUpdate(Action):
     batch_func: Callable[[], None]
     description: str
     edits_cards = True
@@ -167,4 +169,4 @@ if __name__ == "__main__":
     def f():
         pass
 
-    BatchUpdate(f, description="test")
+    print(BatchUpdate(batch_func=f, description="test"))
