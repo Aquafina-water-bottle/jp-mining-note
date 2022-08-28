@@ -266,29 +266,24 @@ def main(args=None):
     # if args.release:
     #    args.from_release = True
 
+    # checks for note changes
+    action_runner = ar.ActionRunner()
+    current_ver = ar.Version.from_str(utils.get_version_from_anki())
+    new_ver = ar.Version.from_str(utils.get_version())
+    action_runner.get_note_changes(current_ver, new_ver) # also verifies field changes
+
+    if action_runner.has_actions():
+        if not action_runner.warn(): # == false
+            return
+
     # config = utils.get_config(args)
     notes_files_config = utils.get_note_files_config()
-
-    # checks if the note has to be changed first outside templates / media files
-    # note_changes = NoteChanges()
-    # if note_changes.has_changes():
-    #    pass
 
     options_media = set()
     static_media = set()
     dynamic_media = set()
 
     root_folder = utils.get_root_folder()
-
-    # checks for note changes
-    action_runner = ar.ActionRunner()
-    current_ver = ar.Version.from_str(utils.get_version_from_anki())
-    new_ver = ar.Version.from_str(utils.get_version())
-    action_runner.get_note_changes(current_ver, new_ver)
-
-    if action_runner.has_actions():
-        if not action_runner.warn(): # == false
-            return
 
     note_folder = args.build_folder if args.from_build else root_folder
     note_updater = NoteUpdater(note_folder)
