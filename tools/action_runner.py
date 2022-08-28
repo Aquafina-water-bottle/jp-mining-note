@@ -41,8 +41,8 @@ from pprint import pprint
 
 import utils
 from action import Action, GlobalAction, RenameField, MoveField, AddField, DeleteField
-#from note_changes import NOTE_CHANGES
-import note_changes
+from note_changes import NOTE_CHANGES, Version, NoteChange
+#import note_changes
 from typing import Any
 
 
@@ -80,62 +80,6 @@ def naive_diff(list1, list2, title1, title2):
         print(">>> " if x != y else "    ", end="")
         print(str_format.format(x, y))
 
-
-class Version:
-    #ints: tuple[int, int, int, int]
-
-    def __init__(self, *args):
-        assert len(args) == 4
-        self.ints = tuple(args)
-
-    @classmethod
-    def from_str(cls, str_ver):
-        assert str_ver.count(".") == 3
-        assert str_ver.replace(".", "").isdigit()
-        ints = tuple(int(i) for i in str_ver.split("."))
-        return cls(*ints)
-
-    def cmp(self, other):
-        """
-        returns:
-        -1 if self < other
-        1  if self > other
-        0  if self == other
-        """
-        assert isinstance(other, Version), other
-
-        # ver_tuple = lambda x: tuple(int(i) for i in x.split("."))
-
-        # ver1_tup = ver_tuple(ver1)
-        # ver2_tup = ver_tuple(ver2)
-        for i, j in zip(self.ints, other.ints):
-            if i < j:
-                return -1
-            if i > j:
-                return 1
-
-        return 0
-
-    def __eq__(self, other):
-        return self.cmp(other) == 0
-
-    def __lt__(self, other):
-        return self.cmp(other) == -1
-
-    def __le__(self, other):
-        return self < other or self == other
-
-    def __ne__(self, other):
-        return not (self == other)
-
-    def __gt__(self, other):
-        return not (self <= other)
-
-    def __ge__(self, other):
-        return not (self < other)
-    
-    def __repr__(self):
-        return f"Version({', '.join(str(x) for x in self.ints)})"
 
 
 # def get_anki_path():
@@ -220,18 +164,20 @@ class FieldEditSimulator:
 
 class ActionRunner:
     def __init__(self, warn=True):
-        self.changes = []
+        self.changes: list[NoteChange] = []
         #self.warn = warn
 
     def get_note_changes(self, current_ver: Version, new_ver: Version):
         """
         applies changes specified in the range (current_ver, new_ver]
+
+        - verifies field changes by default
         """
 
-        self._get_note_changes(current_ver, new_ver, note_changes.NOTE_CHANGES)
+        self._get_note_changes(current_ver, new_ver, NOTE_CHANGES)
 
     def _get_note_changes(
-        self, current_ver: Version, new_ver: Version, note_changes: list
+        self, current_ver: Version, new_ver: Version, note_changes: list[NoteChange]
     ):
 
         self.clear()
@@ -248,15 +194,15 @@ class ActionRunner:
         new_fields = None
 
         for data in reversed(note_changes):
-            ver = Version.from_str(data["version"])
-            if ver <= current_ver and "fields_check" in data:
+            ver = data.version
+            if ver <= current_ver:
                 # records last known fields_check
-                original_fields = data["fields_check"]
+                original_fields = data.fields
 
             # finds all versions that are > current_ver and <= new_ver
             if (ver > current_ver) and (ver <= new_ver):
                 self.changes.append(data)
-                new_fields = data["fields_check"]
+                new_fields = data.fields
 
             if (ver > new_ver):
                 break
@@ -272,6 +218,11 @@ class ActionRunner:
             self.verify(original_fields, new_fields)
 
     def verify(self, original_fields, new_fields):
+        """
+        verifies that:
+        - fields in anki are the same
+        - changes to fields are correct through the simulator
+        """
         # makes sure that the anki fields are the same
 
         field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
@@ -283,24 +234,24 @@ class ActionRunner:
             raise Exception("Anki fields are different")
 
         simulator = FieldEditSimulator(original_fields=original_fields)
-        actions = sum((data["actions"] for data in self.changes), start=[])
+        actions = sum((data.actions for data in self.changes), start=[])
         simulator.simulate(actions)
         simulator.verify(new_fields=new_fields)
 
     def clear(self):
         self.changes.clear()
 
-    def get_version_actions_desc(self, data) -> str:
+    def get_version_actions_desc(self, data: NoteChange) -> str:
         """
         description w/out global changes
         """
 
         desc_list = []
 
-        version = data["version"]
+        version = data.version
         desc_list.append(f"Changes from version {version}:")
 
-        for action in data["actions"]:
+        for action in data.actions:
             if not isinstance(action, GlobalAction):
                 desc_list.append("    " + action.description)
 
@@ -314,7 +265,7 @@ class ActionRunner:
         global_changes_keys = set()
 
         for data in self.changes:
-            for action in data["actions"]:
+            for action in data.actions:
                 if isinstance(action, GlobalAction) and action.key not in global_changes_keys:
                     global_changes_keys.add(action.key)
                     desc_list.append("    " + action.description)
@@ -360,7 +311,7 @@ class ActionRunner:
 
     def run(self):
         for data in self.changes:
-            for action in data["actions"]:
+            for action in data.actions:
                 action.run()
 
     def post_message(self):
@@ -377,12 +328,12 @@ def main(args=None):
         args = utils.get_args(utils.add_args, add_args)
     config = utils.get_config(args)
 
-    action_runner = ActionRunner()
-    current_ver = Version.from_str(utils.get_version_from_anki())
-    #new_ver = Version.from_str(utils.get_version())
-    new_ver = Version(0, 9, 0, 0)
-    action_runner.get_note_changes(current_ver, new_ver)
-    print(action_runner.get_actions_desc())
+    #action_runner = ActionRunner()
+    #current_ver = Version.from_str(utils.get_version_from_anki())
+    ##new_ver = Version.from_str(utils.get_version())
+    #new_ver = Version(0, 9, 0, 0)
+    #action_runner.get_note_changes(current_ver, new_ver)
+    #print(action_runner.get_actions_desc())
 
     #if action_runner.has_actions():
     #    action_runner.run()
@@ -403,9 +354,11 @@ def main(args=None):
 
     # runner.run(note_name)
 
-    s = FieldEditSimulator(note_changes.NOTE_CHANGES[-1]["fields_check"])
-    s.simulate(note_changes.NOTE_CHANGES[-2]["actions"])
-    s.verify(note_changes.NOTE_CHANGES[-2]["fields_check"])
+    s = FieldEditSimulator(NOTE_CHANGES[-1].fields)
+    actions = sum((data.actions for data in NOTE_CHANGES), start=[])
+    #print(actions)
+    s.simulate(actions)
+    s.verify(NOTE_CHANGES[0].fields)
 
 
     # anki_home = '/home/austin/.local/share/Anki2/test3'
