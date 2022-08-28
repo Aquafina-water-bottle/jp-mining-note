@@ -76,9 +76,9 @@
     // Automatic processing to sentences
     "enabled": true,
 
-    // Removes all line breaks on the sentence if AltDisplay is not filled
+    // Removes all line breaks on the regular sentence (if AltDisplay is not filled)
     // TODO mobile true, desktop false
-    "remove-line-breaks": true,
+    "remove-line-breaks": false,
 
     // Removes all line breaks on the AltDisplay sentence
     // TODO mobile true, desktop false
@@ -87,7 +87,7 @@
     // colors the quotes instead of showing a pitch accent indicator
     // if this is enabled
     // TODO mobile true, desktop false
-    "pa-indicator-color-quotes": true,
+    "pa-indicator-color-quotes": false,
 
     // automatically adds quotes to the sentence (if not alt display)
     "auto-quote-sentence": true,
@@ -99,6 +99,11 @@
     "auto-quote-open": "「",
     "auto-quote-close": "」",
 
+    // the quote pair to automatically add to the sentence if it's a PA sentence card
+    // TODO implement
+    "pa-sent-auto-quote-open": "『",
+    "pa-sent-auto-quote-close": "』",
+
     // quotes to search for on existing sentences,
     // to not double-quote a sentence that already has quotes on it
     "quote-match-strings": [
@@ -107,17 +112,17 @@
     ]
   },
 
-  "general": {
-    // Overrides the play keybind button to show the sentence if the
-    // card is a hybrid sentence AND the sentence is not currently being shown.
-    // Only affects the front side.
-    "hybrid-sentence-open-on-play-sentence": true,
+  // Overrides the play keybind button to show the sentence if the
+  // card is a hybrid sentence AND the sentence is not currently being shown.
+  // Only affects the front side.
+  "hybrid-sentence-open-on-play-sentence": true,
 
-    // TODO implement
-    "greyed-out-collapsable-fields-when-empty": false,
+  // TODO implement
+  "greyed-out-collapsable-fields-when-empty": false,
 
-    // TODO implement
-    "open-extra-info-when-new": false
-  }
+  // TODO implement
+  "open-extra-info-when-new": false,
 
+  // used to show debug messages when debugging the card
+  "debug": false
 }
