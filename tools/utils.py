@@ -9,6 +9,7 @@ import os.path
 import argparse
 import importlib.util
 import urllib.request
+import urllib.error
 
 from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Any, Iterable
@@ -31,12 +32,7 @@ cached_config = None
 def add_args(parser):
     group = parser.add_argument_group(title="common")
     group.add_argument("-c", "--config-file", type=str, default=None)
-    # group.add_argument(
-    #    "--override-config",
-    #    action="store_true",
-    #    help="overrides the current config file with the example config, "
-    #    "if no specific config file was specified.",
-    # )
+
     group.add_argument(
         "-r",
         "--release",
@@ -44,6 +40,7 @@ def add_args(parser):
         default=False,
         help="uses the default options for when building for release",
     )
+
     group.add_argument(
         "-f",
         "--build-folder",
@@ -52,8 +49,19 @@ def add_args(parser):
         help="output folder for the build process, and input folder for installation",
     )
 
+    group.add_argument(
+        "--custom-version",
+        type=str,
+        default=None,
+        help="custom output version to be used instead of version.txt "
+        "(only use this if you know what you're doing)",
+    )
+
 
 def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
+    # placed here because this function is called at the beginning of all the scripts
+    assert_ankiconnect_running()
+
     parser = argparse.ArgumentParser()
     for add_args_func in args:
         add_args_func(parser)
@@ -273,10 +281,13 @@ def get_note_opts(config, as_config=False):
     return contents
 
 
-def get_version() -> str:
+def get_version(args) -> str:
     """
     gets version of the jp mining note within the repo
     """
+
+    if args.custom_version is not None:
+        return args.custom_version
 
     root_folder = get_root_folder()
     with open(os.path.join(root_folder, "version.txt")) as f:
@@ -295,11 +306,11 @@ def get_version_from_anki() -> str:
     gets version of the jp mining note from the installed note in anki
     """
 
-    nf_config = get_note_files_config()
+    nf_config = get_note_config()
 
     result = invoke(
         "modelTemplates",
-        modelName=nf_config("jp-mining-note", "model-name").item(),
+        modelName=nf_config("model-name").item(),
     )
 
     assert result.keys()
@@ -349,7 +360,7 @@ def get_config(args) -> Config:
     return config
 
 
-def get_note_files_config():
+def get_note_config():
     return Config(note_files.NOTE_DATA)
 
 
@@ -371,6 +382,15 @@ def get_root_folder():
     return root_folder
 
 
+def assert_ankiconnect_running():
+    try:
+        invoke("version")
+    except urllib.error.URLError as e:
+        raise Exception("Ankiconnect is not running. Is Anki open, and is Ankiconnect installed and enabled?")
+
+
+
+
 if __name__ == "__main__":
     # x = import_source_file(EXAMPLE_CONFIG_PATH, "config")
     # print(x)
@@ -390,6 +410,6 @@ if __name__ == "__main__":
     # print(config("note_opts", "keybinds", "toggle-hybrid-sentence", "a", "b"))
     # print(config("note_opts", "keybinds", "a"))
 
-    print(get_version_from_anki(config))
+    print(get_version_from_anki())
 
     # print(x.CONFIG)
