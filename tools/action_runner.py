@@ -31,6 +31,7 @@ from __future__ import annotations
 #import re
 #import sys
 import copy
+from pprint import pprint
 
 # import aqt
 # from aqt.main import AnkiQt
@@ -61,8 +62,27 @@ def add_args(parser):
     )
 
 
+def naive_diff(list1, list2, title1, title2):
+    # extends the list to the longest length
+    max_len = max(len(list1), len(list2))
+    for l in (list1, list2):
+        l += ["" * (max_len - len(l))]
+
+    # gets max length for each item in both lists
+    max1 = max(len(x) for x in list1)
+    max2 = max(len(x) for x in list1)
+
+    str_format = "{:<" + str(max1) + "} {:<" + str(max2) + "}"
+
+    # naive diff (compares per line without any line group matching
+    print ("    " + str_format.format(title1, title2))
+    for x, y in zip(list1, list2):
+        print(">>> " if x != y else "    ", end="")
+        print(str_format.format(x, y))
+
+
 class Version:
-    ints: tuple[int, int, int, int]
+    #ints: tuple[int, int, int, int]
 
     def __init__(self, *args):
         assert len(args) == 4
@@ -82,7 +102,7 @@ class Version:
         1  if self > other
         0  if self == other
         """
-        assert isinstance(other, Version)
+        assert isinstance(other, Version), other
 
         # ver_tuple = lambda x: tuple(int(i) for i in x.split("."))
 
@@ -113,6 +133,9 @@ class Version:
 
     def __ge__(self, other):
         return not (self < other)
+    
+    def __repr__(self):
+        return f"Version({', '.join(str(x) for x in self.ints)})"
 
 
 # def get_anki_path():
@@ -167,6 +190,7 @@ class FieldEditSimulator:
             self._move_field(field_name, index)
 
     def _delete_field(self, field_name):
+        assert field_name in self.simulated_fields
         self.simulated_fields.remove(field_name)
 
 
@@ -190,27 +214,14 @@ class FieldEditSimulator:
 
     def verify(self, new_fields):
         if self.simulated_fields != new_fields:
-            print ("    {:<25} {:<25}".format("Simulated", "Expected"))
-            for f1, f2 in zip(self.simulated_fields, new_fields):
-                print(">>> " if f1 != f2 else "    ", end="")
-                print ("{:<25} {:<25}".format(f1, f2))
-
+            naive_diff(self.simulated_fields, new_fields, "Simulated", "Expected")
             raise Exception("Fields are different")
 
 
 class ActionRunner:
-    # def __init__(self, path: str, warn=True):
     def __init__(self, warn=True):
-        # self.path = path
-        self.actions: list[Action] = []
-        self.global_actions: list[GlobalAction] = []
-        self.warn = warn
-
-    def add(self, action):
-        if isinstance(action, GlobalAction):
-            self.global_actions.append(action)
-        else:
-            self.actions.append(action)
+        self.changes = []
+        #self.warn = warn
 
     def get_note_changes(self, current_ver: Version, new_ver: Version):
         """
@@ -222,6 +233,8 @@ class ActionRunner:
     def _get_note_changes(
         self, current_ver: Version, new_ver: Version, note_changes: list
     ):
+
+        self.clear()
 
         if current_ver == new_ver:
             # nothing to do
@@ -235,67 +248,128 @@ class ActionRunner:
         new_fields = None
 
         for data in reversed(note_changes):
-            ver = data["version"]
-            if ver <= current_ver:
+            ver = Version.from_str(data["version"])
+            if ver <= current_ver and "fields_check" in data:
                 # records last known fields_check
-                pass
+                original_fields = data["fields_check"]
 
             # finds all versions that are > current_ver and <= new_ver
             if (ver > current_ver) and (ver <= new_ver):
-                pass
+                self.changes.append(data)
+                new_fields = data["fields_check"]
+
+            if (ver > new_ver):
+                break
+
+        # basic error checking
+        assert original_fields is not None
+
+        if not self.changes: # if self.changes is empty
+            return
+
+        if new_fields is not None:
+            # verifies that fields are correct
+            self.verify(original_fields, new_fields)
+
+    def verify(self, original_fields, new_fields):
+        # makes sure that the anki fields are the same
+
+        field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
+        # allows extra fields added by the user past the original fields
+        first_fields = field_names[:len(original_fields)]
+
+        if field_names != first_fields:
+            naive_diff(first_fields, field_names, "Anki", "Expected")
+            raise Exception("Anki fields are different")
+
+        simulator = FieldEditSimulator(original_fields=original_fields)
+        actions = sum((data["actions"] for data in self.changes), start=[])
+        simulator.simulate(actions)
+        simulator.verify(new_fields=new_fields)
 
     def clear(self):
-        self.actions.clear()
-        self.global_actions.clear()
+        self.changes.clear()
 
-    def get_actions_desc(self) -> str:
+    def get_version_actions_desc(self, data) -> str:
+        """
+        description w/out global changes
+        """
+
         desc_list = []
-        if self.actions:
-            desc_list.append("Automatic Changes:")
-            desc_list = ["    " + action.description for action in self.actions]
 
-        if self.global_actions:
-            desc_list.append("Manual Changes:")
-            desc_list = ["    " + action.description for action in self.global_actions]
+        version = data["version"]
+        desc_list.append(f"Changes from version {version}:")
+
+        for action in data["actions"]:
+            if not isinstance(action, GlobalAction):
+                desc_list.append("    " + action.description)
 
         return "\n".join(desc_list)
 
-    def verify_actions(
-        self, original_fields: list[str], new_fields: list[str], actions: list[Action]
-    ):
-        """
-        verifies that the field editing actions do what they are supposed to do
+    def get_global_actions_desc(self) -> str:
+        desc_list = []
 
-        raises an error if check failed
-        """
-        pass
+        desc_list.append(f"Global changes:")
+
+        global_changes_keys = set()
+
+        for data in self.changes:
+            for action in data["actions"]:
+                if isinstance(action, GlobalAction) and action.key not in global_changes_keys:
+                    global_changes_keys.add(action.key)
+                    desc_list.append("    " + action.description)
+
+        return "\n".join(desc_list)
+
+
+    def get_actions_desc(self) -> str:
+        desc_list = []
+
+        for data in self.changes:
+            desc_list.append(self.get_version_actions_desc(data))
+
+        global_changes_desc = self.get_global_actions_desc()
+        if global_changes_desc:
+            desc_list.append(global_changes_desc)
+
+
+        return "\n\n".join(desc_list)
 
     def has_actions(self) -> bool:
-        return bool(self.actions) or bool(self.global_actions)
+        return bool(self.changes)
 
-    # def window(self) -> AnkiQt:
-    #    if aqt.mw is None:
-    #        raise Exception("window is not available")
-    #    return aqt.mw
+    def warn(self) -> bool:
+        """
+        false if user doesn't want to run, true otherwise
+        """
 
-    # def run(self, note_name: str):
+        print(self.get_actions_desc())
+        print()
+
+        print(
+            "WARNING: The above actions WILL modify the deck and the notes inside of it.\n"
+            "Please make a backup (File -> Export -> Anki Collection Package before\n"
+            "running this, just in case!\n"
+            "If you have made a backup, please type 'yes' to confirm, or anything else to abort:"
+        )
+        x = input()
+        if x != "yes":
+            print("Aborting update...")
+            return False
+        return True
+
     def run(self):
+        for data in self.changes:
+            for action in data["actions"]:
+                action.run()
 
-        if self.warn:
-            print(
-                "WARNING: The following actions WILL modify the deck and the notes inside of it.\n"
-                "Please make a backup (File -> Export -> Anki Collection Package before\n"
-                "running this, just in case!\n"
-                "If you have made a backup, please type 'yes' to confirm:"
-            )
-            x = input()
-            if x != "yes":
-                print("Aborting update...")
-                return
+    def post_message(self):
+        print("Make sure you don't forget to do the following actions afterwards:")
+        print(self.get_global_actions_desc())
 
-        for action in self.actions:
-            print(f"Running action {action}...")
-            action.run()
+        #for action in self.actions:
+        #    print(f"Running action {action}...")
+        #    action.run()
 
 
 def main(args=None):
@@ -305,21 +379,23 @@ def main(args=None):
 
     action_runner = ActionRunner()
     current_ver = Version.from_str(utils.get_version_from_anki())
-    new_ver = Version.from_str(utils.get_version())
+    #new_ver = Version.from_str(utils.get_version())
+    new_ver = Version(0, 9, 0, 0)
     action_runner.get_note_changes(current_ver, new_ver)
+    print(action_runner.get_actions_desc())
 
-    if action_runner.has_actions():
-        action_runner.run()
+    #if action_runner.has_actions():
+    #    action_runner.run()
 
-    # action_runner.get_note_changes(V"0.2.0.0", "0.9.0.0")
+    ## action_runner.get_note_changes(V"0.2.0.0", "0.9.0.0")
 
-    v3 = Version(3, 3, 3, 3)
-    v4 = Version(3, 3, 3, 3)
-    v3.cmp(v4)
-    print(v3 < v4)
-    print(v3 > v4)
-    print(v3 == v4)
-    print(v3 != v4)
+    #v3 = Version(3, 3, 3, 3)
+    #v4 = Version(3, 3, 3, 3)
+    #v3.cmp(v4)
+    #print(v3 < v4)
+    #print(v3 > v4)
+    #print(v3 == v4)
+    #print(v3 != v4)
 
     # runner = ActionRunner("temp", warn=not args.no_warn)
 
@@ -327,8 +403,6 @@ def main(args=None):
 
     # runner.run(note_name)
 
-    print("lolol")
-    
     s = FieldEditSimulator(note_changes.NOTE_CHANGES[-1]["fields_check"])
     s.simulate(note_changes.NOTE_CHANGES[-2]["actions"])
     s.verify(note_changes.NOTE_CHANGES[-2]["fields_check"])

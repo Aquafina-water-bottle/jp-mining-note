@@ -14,6 +14,8 @@ from typing import Any, Dict, List
 import utils
 from utils import invoke
 
+import action_runner as ar
+
 # from note_changes import NoteChanges
 
 
@@ -278,18 +280,22 @@ def main(args=None):
 
     root_folder = utils.get_root_folder()
 
+    # checks for note changes
+    action_runner = ar.ActionRunner()
+    current_ver = ar.Version.from_str(utils.get_version_from_anki())
+    new_ver = ar.Version.from_str(utils.get_version())
+    action_runner.get_note_changes(current_ver, new_ver)
+
+    if action_runner.has_actions():
+        if not action_runner.warn(): # == false
+            return
+
     note_folder = args.build_folder if args.from_build else root_folder
     note_updater = NoteUpdater(note_folder)
     for note_config in notes_files_config.dict_values():
-        # note_installer = NoteInstaller(
-        #    args.folder,
-        #    config("note", note_model_id),
-        #    # config("note", note_model_id, "templates").dict(),
-        # )
 
         model_name = note_config("model-name").item()
         if utils.note_is_installed(model_name):
-            # print(f"Updating {model_name}...")
 
             if not args.update:
                 print(
@@ -331,6 +337,9 @@ def main(args=None):
     for media_file in options_media:
         # backs up existing options
         media_installer.install(media_file, static=False, backup=True)
+
+    action_runner.run()
+    action_runner.post_message()
 
     # media_installer.install("test_silence.wav", binary=True)
     # media_installer.install("NotoSerifJP-Bold.otf")
