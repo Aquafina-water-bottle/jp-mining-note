@@ -16,8 +16,9 @@ class Action(ABC):
 
 
 @dataclass
-class GlobalAction(Action, ABC):
+class GlobalAction(Action):
     # edits_cards: bool = field(init=False)
+    key: str = field(init=False)
 
     def run(self):
         pass
@@ -81,6 +82,7 @@ class MoveField(Action):
 
     def __post_init__(self):
         self.description = f"Moves the field `{self.field_name}` to index {self.index}"
+        self.edits_cards = True
 
     def run(self):
         return invoke(
@@ -138,6 +140,7 @@ class YomichanTemplatesChange(GlobalAction):
     def __post_init__(self):
         self.description = "Requires an update to the yomichan templates"
         self.edits_cards = False
+        self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
 
 
 @dataclass
@@ -145,6 +148,7 @@ class AJTPitchAccentconfigChange(GlobalAction):
     def __post_init__(self):
         self.description = "Requires an update to the AJT Pitch Accent config"
         self.edits_cards = False
+        self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
 
 
 @dataclass
@@ -152,6 +156,7 @@ class AJTFuriganaconfigChange(GlobalAction):
     def __post_init__(self):
         self.description = "Requires an update to the AJT Furigana config"
         self.edits_cards = False
+        self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
 
 
 @dataclass

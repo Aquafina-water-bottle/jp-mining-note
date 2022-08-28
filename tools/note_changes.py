@@ -1,9 +1,11 @@
+from dataclasses import dataclass
+
 import action
-from action_runner import Version
+
 
 NOTE_CHANGES = [
     {
-        "version": Version(0, 9, 0, 0),
+        "version": "0.9.0.0",
         "actions": [
             action.MoveField("PAShowInfo", 15-1),
             action.MoveField("PASeparateWordCard", 20-1),
@@ -48,7 +50,7 @@ NOTE_CHANGES = [
         ],
     },
     {
-        "version": Version(0, 8, 1, 0),
+        "version": "0.0.0.0",
         "fields_check": [
             "Key",
             "Word",
