@@ -185,8 +185,6 @@ def main(args=None):
             args.build_folder, "media", file_config("output-file").item()
         )
 
-        print(input_file, output_file)
-
         generator.generate(
             gen_type,
             input_file,
