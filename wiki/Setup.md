@@ -228,7 +228,6 @@ To make the new markers usable, do the following:
 * Make sure that advanced settings are turned on (bottom left corner).
 * Go to the "Anki" section
 * Select "Configure Anki card templates..."
-
 * If you have existing template code already, I highly recommend
   **resetting the templates** (bottom right corner, red button)
   unless you know exactly what you are doing.
