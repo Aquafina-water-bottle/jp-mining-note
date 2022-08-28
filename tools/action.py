@@ -138,10 +138,17 @@ class DeleteField(Action):
 @dataclass
 class YomichanTemplatesChange(GlobalAction):
     def __post_init__(self):
-        self.description = "Requires an update to the yomichan templates"
+        self.description = "Requires an update to the Yomichan 'Anki Card Templates' section"
         self.edits_cards = False
         self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
 
+
+@dataclass
+class YomichanFormatChange(GlobalAction):
+    def __post_init__(self):
+        self.description = "Requires an update to the Yomichan 'Anki Card format' section"
+        self.edits_cards = False
+        self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
 
 @dataclass
 class AJTPitchAccentconfigChange(GlobalAction):

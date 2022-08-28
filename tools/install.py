@@ -111,7 +111,7 @@ class NoteUpdater:
     def read_css(self, note_config: utils.Config) -> str:
         # with open(os.path.join(self.input_folder, CSS_FILENAME), encoding="utf8") as f:
         input_path = os.path.join(
-            self.input_folder, str(note_config.key()), CSS_FILENAME
+            self.input_folder, str(note_config("id").item()), CSS_FILENAME
         )
         with open(input_path, encoding="utf8") as f:
             return f.read()
@@ -121,7 +121,7 @@ class NoteUpdater:
         for template_id, template_config in note_config("templates").dict_items():
             template_name = template_config("name").item()
             dir_path = os.path.join(
-                self.input_folder, str(note_config.key()), template_id
+                self.input_folder, str(note_config("id").item()), template_id
             )
 
             with open(os.path.join(dir_path, FRONT_FILENAME), encoding="utf8") as front:
@@ -168,9 +168,11 @@ class NoteUpdater:
         model = self.read_model(note_config)
         if invoke("updateModelTemplates", **self.format_templates(model)) is None:
             template_names = [t.name for t in model.templates]
-            print(f"Updated {note_config.key()} templates {template_names} successfully.")
+            print(
+                f"Updated {note_config('id').item()} templates {template_names} successfully."
+            )
         if invoke("updateModelStyling", **self.format_styling(model)) is None:
-            print(f"Updated {note_config.key()} css successfully.")
+            print(f"Updated {note_config('id').item()} css successfully.")
 
 
 def b64_decode(contents):
@@ -188,13 +190,16 @@ def b64_encode(contents):
 
 
 class MediaInstaller:
-    def __init__(self, input_folder: str, backup_folder: str):
+    def __init__(self, input_folder: str, static_folder: str, backup_folder: str):
         self.input_folder = input_folder
+        self.static_folder = static_folder
         self.backup_folder = backup_folder
         # self.media_files = None:
 
-    def get_media_file(self, file_name) -> MediaFile:
-        with open(os.path.join(self.input_folder, file_name), mode="rb") as f:
+    def get_media_file(self, file_name, static=False) -> MediaFile:
+        input_folder = self.static_folder if static else self.input_folder
+
+        with open(os.path.join(input_folder, file_name), mode="rb") as f:
             contents = f.read()
         # print(contents)
         return MediaFile(
@@ -247,6 +252,10 @@ class MediaInstaller:
         # if self.media_files is None:
         return bool(invoke("getMediaFilesNames", pattern=file_name))
 
+    def install_from_list(self, file_list, **kwargs):
+        for file in file_list:
+            self.install(file, **kwargs)
+
     def install(self, file_name: str, static=False, backup=False):
         if static:
             # only adds if the media file doesn't already exist
@@ -255,7 +264,7 @@ class MediaInstaller:
         if backup and self.media_exists(file_name):
             self.backup(file_name)
 
-        media = self.get_media_file(file_name)
+        media = self.get_media_file(file_name, static=static)
         # return
         self.send_media(media)
 
@@ -269,15 +278,15 @@ def main(args=None):
     # checks for note changes
     action_runner = ar.ActionRunner()
     current_ver = ar.Version.from_str(utils.get_version_from_anki())
-    new_ver = ar.Version.from_str(utils.get_version())
-    action_runner.get_note_changes(current_ver, new_ver) # also verifies field changes
+    new_ver = ar.Version.from_str(utils.get_version(args))
+    action_runner.get_note_changes(current_ver, new_ver)  # also verifies field changes
 
     if action_runner.has_actions():
-        if not action_runner.warn(): # == false
+        if not action_runner.warn():  # == false
             return
 
     # config = utils.get_config(args)
-    notes_files_config = utils.get_note_files_config()
+    note_config = utils.get_note_config()
 
     options_media = set()
     static_media = set()
@@ -287,68 +296,60 @@ def main(args=None):
 
     note_folder = args.build_folder if args.from_build else root_folder
     note_updater = NoteUpdater(note_folder)
-    for note_config in notes_files_config.dict_values():
-
-        model_name = note_config("model-name").item()
-        if utils.note_is_installed(model_name):
-
-            if not args.update:
-                print(
-                    f"{model_name} is already installed. Did you mean to update?\n"
-                    "To update, run `python3 install.py --update`",
-                )
-                return
-
-            print(f"Updating {model_name}...")
-            note_updater.update(note_config)
-            if args.install_options:
-                options_media |= set(note_config("media-install", "options").list())
-
-        else:
-            print(f"Installing {model_name}...")
-            version = utils.get_version()
-            # TODO note-independent file name
-            install_path = os.path.join(root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg")
-            invoke("importPackage", path=install_path)
-
-            options_media |= set(note_config("media-install", "options").list())
-
-        static_media |= set(note_config("media-install", "static").list())
-        dynamic_media |= set(note_config("media-install", "dynamic").list())
+    # for note_config in note_config.dict_values():
 
     media_folder = (
         os.path.join(args.build_folder, "media")
         if args.build_folder
         else os.path.join(root_folder, "media")
     )
+    static_folder = os.path.join(root_folder, "media")
     backup_folder = os.path.join(root_folder, "backup")
+    media_installer = MediaInstaller(media_folder, static_folder, backup_folder)
 
-    media_installer = MediaInstaller(media_folder, backup_folder)
+    model_name = note_config("model-name").item()
+    is_installed = utils.note_is_installed(model_name)
+    if is_installed:
 
-    for media_file in dynamic_media:
-        media_installer.install(media_file, static=False)
-    for media_file in static_media:
-        media_installer.install(media_file, static=True)
-    for media_file in options_media:
-        # backs up existing options
-        media_installer.install(media_file, static=False, backup=True)
+        if not args.update:
+            print(
+                f"{model_name} is already installed. Did you mean to update?\n"
+                "To update, run `python3 install.py --update`",
+            )
+            return
 
-    action_runner.run()
-    action_runner.post_message()
+        print(f"Updating {model_name}...")
+        note_updater.update(note_config)
 
-    # media_installer.install("test_silence.wav", binary=True)
-    # media_installer.install("NotoSerifJP-Bold.otf")
+        for option_file in note_config("media-install", "options").list():
+            if args.install_options or not media_installer.media_exists(option_file):
+                media_installer.install(option_file, static=False, backup=True)
 
-    # model = reader.read_model()
-    # send_note_type(model)
+    else:
+        print(f"Installing {model_name}...")
+        version = utils.get_version(args)
+        # TODO note-independent file name
+        install_path = os.path.join(
+            root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg"
+        )
+        invoke("importPackage", path=install_path)
 
-    # if args.install_options or args.install_all:
-    #    options_media = reader.get_media_file(OPTIONS_FILENAME, dir_name=args.folder)
-    #    send_media(options_media)
+        # backs up existing options if they exist
+        media_installer.install_from_list(
+            note_config("media-install", "options").list(), static=False, backup=True
+        )
 
-    # if args.install_media or args.install_all:
-    #    options_media = reader.get_media_file(FIELD_FILENAME)
-    #    send_media(options_media)
+    media_installer.install_from_list(
+        note_config("media-install", "static").list(), static=True
+    )
+
+    media_installer.install_from_list(
+        note_config("media-install", "dynamic").list(), static=False
+    )
+
+    if action_runner.has_actions():
+        action_runner.run()
+        action_runner.post_message()
 
 
 if __name__ == "__main__":

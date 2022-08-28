@@ -10,53 +10,53 @@ NOTE_DATA = {
     # - written to (root)/(build folder)/(note name)
     # - css is read from (root)/templates/scss/(note name).scss
     # - release mode copes to (root)/(note name) folder
-    "jp-mining-note": {
-        # list of note types to install
-        "model-name": "JP Mining Note",
-        "templates": {
-            "main": {
-                "name": "Mining Card",
-            },
-            "pa_sent": {
-                "name": "PA Sentence Card",
-            },
-            "pa_word": {
-                "name": "PA Word Card",
-            },
-            "cloze_deletion": {
-                "name": "Cloze Deletion Card",
-            },
+
+    "id": "jp-mining-note",
+    "model-name": "JP Mining Note",
+    "templates": {
+        "main": {
+            "name": "Mining Card",
         },
-        "media-build": [
-            # - read from (root)/templates
-            # - written to (root)/(build folder)/media
-            # - release mode copies to (root)/media
-            {
-                "input-file": "scss/field.scss",
-                "output-file": "field.css",
-                "type": "scss",
-            },
-            {
-                "input-file": "jp-mining-note/_jpmn-options.js",
-                "output-file": "_jpmn-options.js",
-                "type": "jinja",
-            },
+        "pa_sent": {
+            "name": "PA Sentence Card",
+        },
+        "pa_word": {
+            "name": "PA Word Card",
+        },
+        "cloze_deletion": {
+            "name": "Cloze Deletion Card",
+        },
+    },
+    "media-build": [
+        # - read from (root)/templates
+        # - written to (root)/(build folder)/media
+        # - release mode copies to (root)/media
+        {
+            "input-file": "scss/field.scss",
+            "output-file": "field.css",
+            "type": "scss",
+        },
+        {
+            "input-file": "jp-mining-note/_jpmn-options.js",
+            "output-file": "_jpmn-options.js",
+            "type": "jinja",
+        },
+    ],
+    "media-install": {
+        "static": [
+            # assumption: these don't have to be built from media-build
+            "_silence.wav",
+            # "GenEiKoburiMin6-R.ttf",
+            "NotoSansJP-Regular.otf",
+            "NotoSansJP-Bold.otf",
+            "NotoSerifJP-Regular.otf",
+            "NotoSerifJP-Bold.otf",
         ],
-        "media-install": {
-            "static": [
-                "_silence.wav",
-                # "GenEiKoburiMin6-R.ttf",
-                "NotoSansJP-Regular.otf",
-                "NotoSansJP-Bold.otf",
-                "NotoSerifJP-Regular.otf",
-                "NotoSerifJP-Bold.otf",
-            ],
-            "dynamic": [
-                "field.css",
-            ],
-            "options": [
-                "_jpmn-options.js",
-            ],
-        },
+        "dynamic": [
+            "field.css",
+        ],
+        "options": [
+            "_jpmn-options.js",
+        ],
     },
 }

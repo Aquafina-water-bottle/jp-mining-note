@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import batch
 
 import action
 
@@ -75,7 +76,10 @@ NOTE_CHANGES = [
             action.MoveField("PASeparateWordCard", 20 - 1),
             action.MoveField("PASeparateSentenceCard", 20 - 1),
             action.AddField("FrequencySort", 29 - 1),
+            action.SetField("PASilence", "[sound:_silence.wav]"),
             action.AJTPitchAccentconfigChange(),
+            action.YomichanTemplatesChange(),
+            action.YomichanFormatChange(),
         ],
         fields=[
             "Key",

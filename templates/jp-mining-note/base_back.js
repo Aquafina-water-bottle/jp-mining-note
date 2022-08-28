@@ -78,7 +78,7 @@ function invoke(action, params={}) {
 // multi query result, in the format of
 // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
 async function cardQueries(kanjiArr) {
-  const cardTypeName = '{{ NOTE_FILES("jp-mining-note", "templates", note.card_type, "name").item() }}';
+  const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
 
   function constructFindCardAction(query) {
     return {

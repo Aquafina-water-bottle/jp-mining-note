@@ -296,14 +296,15 @@ class ActionRunner:
 
         print(self.get_actions_desc())
         print()
+        print()
 
-        print(
+        x = input(
             "WARNING: The above actions WILL modify the deck and the notes inside of it.\n"
             "Please make a backup (File -> Export -> Anki Collection Package before\n"
             "running this, just in case!\n"
-            "If you have made a backup, please type 'yes' to confirm, or anything else to abort:"
+            "\n"
+            "If you have made a backup, please type 'yes' to confirm, or anything else to abort: "
         )
-        x = input()
         if x != "yes":
             print("Aborting update...")
             return False
