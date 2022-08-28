@@ -153,7 +153,7 @@ def main(args=None):
                 GenerateType.JINJA,
                 input_file,
                 output_file,
-                os.path.join(note_model_id, card_model_id, file_name),
+                os.path.join(root_folder, note_model_id, card_model_id, file_name),
             )
 
     # generates css file for each note
@@ -161,7 +161,7 @@ def main(args=None):
         GenerateType.SASS,
         os.path.join(templates_folder, "scss", f"{note_model_id}.scss"),
         os.path.join(args.build_folder, note_model_id, "style.css"),
-        os.path.join(note_model_id, "style.css"),
+        os.path.join(root_folder, note_model_id, "style.css"),
     )
 
     type_map = {
@@ -189,7 +189,7 @@ def main(args=None):
             gen_type,
             input_file,
             output_file,
-            os.path.join("media", file_config("output-file").item()),
+            os.path.join(root_folder, "media", file_config("output-file").item()),
         )
 
         if args.to_release:
