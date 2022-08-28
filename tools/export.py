@@ -29,11 +29,13 @@ def invoke(action, **params):
 
 
 def main():
+    args = utils.get_args(utils.add_args)
+    #config = utils.get_config(args)
 
     tools_folder = os.path.dirname(os.path.abspath(__file__))
     root_folder = os.path.join(tools_folder, "..")
 
-    version = utils.get_version()
+    version = utils.get_version(args)
 
     path = os.path.join(root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg")
     utils.gen_dirs(path)

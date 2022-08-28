@@ -151,7 +151,7 @@ class YomichanFormatChange(GlobalAction):
         self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
 
 @dataclass
-class AJTPitchAccentconfigChange(GlobalAction):
+class AJTPitchAccentConfigChange(GlobalAction):
     def __post_init__(self):
         self.description = "Requires an update to the AJT Pitch Accent config"
         self.edits_cards = False

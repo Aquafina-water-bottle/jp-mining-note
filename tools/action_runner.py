@@ -311,11 +311,14 @@ class ActionRunner:
         return True
 
     def run(self):
+        # hack to ensure that updateNoteFields fields will work
+        utils.invoke("guiBrowse", query="nid:1")
         for data in self.changes:
             for action in data.actions:
                 action.run()
 
     def post_message(self):
+        print()
         print("Make sure you don't forget to do the following actions afterwards:")
         print(self.get_global_actions_desc())
 

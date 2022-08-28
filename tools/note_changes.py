@@ -77,9 +77,14 @@ NOTE_CHANGES = [
             action.MoveField("PASeparateSentenceCard", 20 - 1),
             action.AddField("FrequencySort", 29 - 1),
             action.SetField("PASilence", "[sound:_silence.wav]"),
-            action.AJTPitchAccentconfigChange(),
+            action.AJTPitchAccentConfigChange(),
             action.YomichanTemplatesChange(),
             action.YomichanFormatChange(),
+            action.BatchUpdate(
+                batch_func=batch.add_downstep_inner_span_tag,
+                description="Updates the WordPitch field to work with the new AJT Pitch "
+                "Accent config settings",
+            ),
         ],
         fields=[
             "Key",
