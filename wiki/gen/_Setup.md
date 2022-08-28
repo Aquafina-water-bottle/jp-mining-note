@@ -198,8 +198,14 @@ To make the new markers usable, do the following:
 * Make sure that advanced settings are turned on (bottom left corner).
 * Go to the "Anki" section
 * Select "Configure Anki card templates..."
+* If you have existing template code already, I highly recommend
+  **resetting the templates** (bottom right corner, red button)
+  unless you know exactly what you are doing.
+  If you are updating from a previous version of this card,
+  absolutely reset the templates before moving on.
 
-Without removing any of the default template code,
+After resetting the templates,
+**without** removing any of the existing template code,
 add the following template code as follows:
 
 1. Copy and paste the code below to the **top** of the default Yomichan template code:

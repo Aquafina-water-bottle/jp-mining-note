@@ -3,7 +3,7 @@
 #  L wiki/
 #  L jp-mining/note/
 
-# run under ./wiki
+# run under ./jp-mining-note/wiki
 
 if [ -z "$1" ]
   then
@@ -11,9 +11,14 @@ if [ -z "$1" ]
     exit 1
 fi
 
+# jp-mining-note/wiki
 cd ./gen
 python3 make.py
 cd ..
+
+git add .
+git commit -m "$1"
+git push
 
 rm -r ../../wiki/assets
 rm ../../wiki/*.md
@@ -21,6 +26,7 @@ rm ../../wiki/*.md
 cp ./*.md ../../wiki
 cp -r ./assets ../../wiki
 
+# wiki
 cd ../../wiki
 git add .
 git commit -m "$1"
