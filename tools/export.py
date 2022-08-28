@@ -28,8 +28,10 @@ def invoke(action, **params):
 #print(invoke("exportPackage", **export_params))
 
 
-def main():
-    args = utils.get_args(utils.add_args)
+def main(args=None):
+
+    if args is None:
+        args = utils.get_args(utils.add_args)
     #config = utils.get_config(args)
 
     tools_folder = os.path.dirname(os.path.abspath(__file__))

@@ -223,7 +223,7 @@ class MediaInstaller:
         contents = base64.b64decode(contents_b64).decode("utf-8")
 
         TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
-        backup_file = datetime.datetime.now().strftime(TIME_FORMAT) + "---" + file_name
+        backup_file = datetime.datetime.now().strftime(TIME_FORMAT) + "-" + file_name
         backup_file_path = os.path.join(self.backup_folder, backup_file)
         print(f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ...")
 
@@ -285,18 +285,16 @@ def main(args=None):
         if not action_runner.warn():  # == false
             return
 
+        # must run before the note templates gets updated, in case
+        # the new templates use different fields / is otherwise somehow
+        # incompatable with the previous model
+        action_runner.run()
+
     # config = utils.get_config(args)
-    note_config = utils.get_note_config()
-
-    options_media = set()
-    static_media = set()
-    dynamic_media = set()
-
     root_folder = utils.get_root_folder()
 
     note_folder = args.build_folder if args.from_build else root_folder
     note_updater = NoteUpdater(note_folder)
-    # for note_config in note_config.dict_values():
 
     media_folder = (
         os.path.join(args.build_folder, "media")
@@ -307,6 +305,7 @@ def main(args=None):
     backup_folder = os.path.join(root_folder, "backup")
     media_installer = MediaInstaller(media_folder, static_folder, backup_folder)
 
+    note_config = utils.get_note_config()
     model_name = note_config("model-name").item()
     is_installed = utils.note_is_installed(model_name)
     if is_installed:
@@ -348,9 +347,7 @@ def main(args=None):
     )
 
     if action_runner.has_actions():
-        action_runner.run()
         action_runner.post_message()
-
 
 if __name__ == "__main__":
     main()

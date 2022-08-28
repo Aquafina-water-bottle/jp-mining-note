@@ -25,11 +25,11 @@ var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
 // maps kanji -> [{set of used words}, html string]
 var kanjiHoverCache = kanjiHoverCache ?? {};
 
+
 (function () { // restricts ALL javascript to hidden scope
 
-
-// TODO remove this at some point and replace with proper checks
-var note = (function () {
+// "global" variables within the hidden scope
+let note = (function () {
   let my = {};
   my.colorQuotes = false;
   return my;
@@ -37,8 +37,7 @@ var note = (function () {
 
 
 
-
-var getSetting = function(keys, defaultVal) {
+function getSetting(keys, defaultVal) {
   if (typeof JPMNOpts === "undefined") {
     return defaultVal;
   }
@@ -48,14 +47,24 @@ var getSetting = function(keys, defaultVal) {
   let obj = JPMNOpts;
   for (let key of keyList) {
     if (!(key in obj)) {
-      logger.warn("Option " + keys.join(".") + " is not defined in the options file.");
+
+      // checks if we need to warn, manual search
+      if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
+        logger.warn("Option " + keys.join(".") + " is not defined in the options file.");
+      }
       return defaultVal;
     }
     obj = obj[key];
   }
   return obj;
-}
+};
 
+
+function _debug(message) {
+  if ({{ utils.opt("debug") }}) {
+    logger.info(message);
+  }
+}
 
 
 
@@ -309,7 +318,7 @@ document.onkeyup = (e => {
     var hSent = document.getElementById("hybrid-sentence");
 
     /// {% if note.card_type == "main" and note.side == "front" %}
-    if ({{ utils.opt("general", "hybrid-sentence-open-on-play-sentence") }}
+    if ({{ utils.opt("hybrid-sentence-open-on-play-sentence") }}
         && '{{ utils.any_of_str("IsHoverCard", "IsClickCard") }}'
         && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
         && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {

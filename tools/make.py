@@ -196,7 +196,7 @@ def main(args=None):
             # also exports the existing cards
             import export
 
-            export.main()
+            export.main(args)
 
 
 if __name__ == "__main__":
