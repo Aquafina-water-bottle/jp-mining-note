@@ -144,7 +144,7 @@ class DeleteField(Action):
 @dataclass
 class YomichanTemplatesChange(UserAction):
     def __post_init__(self):
-        self.description = "Requires an update to the Yomichan 'Anki Card Templates' section"
+        self.description = "Update Yomichan's 'Anki Card Templates' section (https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/setup#yomichan-templates)"
         self.edits_cards = False
         self.unique = True
         self.ankiconnect_actions = set()
@@ -157,7 +157,7 @@ class YomichanFormatChange(UserAction):
     new_value: str
 
     def __post_init__(self):
-        self.description = f"Yomichan 'Anki Card format' {self.field}: `{self.previous_value}` -> `{self.new_value}`"
+        self.description = f"Update Yomichan's 'Anki Card format' section ({self.field}: `{self.previous_value}` -> `{self.new_value}`)"
         self.edits_cards = False
         self.unique = False
         self.ankiconnect_actions = set()
@@ -167,7 +167,7 @@ class AJTPitchAccentConfigChange(UserAction):
     additional_desc: str
 
     def __post_init__(self):
-        self.description = f"Requires an update to the AJT Pitch Accent config ({self.additional_desc})"
+        self.description = f"Update the AJT Pitch Accent config: {self.additional_desc} (https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/setup#ajt-pitch-accent)"
         self.edits_cards = False
         self.unique = False
         self.ankiconnect_actions = set()
@@ -178,7 +178,7 @@ class AJTFuriganaconfigChange(UserAction):
     additional_desc: str
 
     def __post_init__(self):
-        self.description = "Requires an update to the AJT Furigana config ({self.additional_desc})"
+        self.description = "Update to the AJT Furigana config: {self.additional_desc} (https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/setup#ajt-furigana)"
         self.edits_cards = False
         self.unique = False
         self.ankiconnect_actions = set()

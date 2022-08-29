@@ -276,10 +276,9 @@ def main(args=None):
     #    args.from_release = True
 
     # checks for note changes
-    action_runner = ar.ActionRunner()
     current_ver = ar.Version.from_str(utils.get_version_from_anki())
     new_ver = ar.Version.from_str(utils.get_version(args))
-    action_runner.get_note_changes(current_ver, new_ver)  # also verifies field changes
+    action_runner = ar.ActionRunner(current_ver, new_ver)  # also verifies field changes
 
     if action_runner.has_actions():
         if not action_runner.warn():  # == false

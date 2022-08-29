@@ -161,16 +161,16 @@ class FieldEditSimulator:
 
 
 class ActionRunner:
-    def __init__(self, warn=True):
-        self.changes: list[NoteChange] = []
-        # self.warn = warn
-
-    def get_note_changes(self, current_ver: Version, new_ver: Version):
+    def __init__(self, current_ver: Version, new_ver: Version):
         """
         applies changes specified in the range (current_ver, new_ver]
 
         - verifies field changes by default
         """
+
+        self.changes: list[NoteChange] = []
+        self.edits_cards = False
+        self.requires_user_action = False
 
         self._get_note_changes(current_ver, new_ver, NOTE_CHANGES)
 
@@ -215,6 +215,16 @@ class ActionRunner:
             # verifies that fields are correct
             self.verify(original_fields, new_fields)
 
+        # sees if actions edits the cards
+        for data in self.changes:
+            for action in data.actions:
+                if action.edits_cards:
+                    self.edits_cards = True
+                if isinstance(action, UserAction):
+                    self.requires_user_action = True
+                if self.edits_cards and self.requires_user_action:
+                    return # saves some cycles
+
     def verify(self, original_fields, new_fields):
         """
         verifies that:
@@ -242,7 +252,6 @@ class ActionRunner:
             *[action.ankiconnect_actions for action in actions]
         )
 
-        print(list(ankiconnect_actions))
         api_actions = utils.invoke(
             "apiReflect", scopes=["actions"], actions=list(ankiconnect_actions)
         )["actions"]
@@ -301,8 +310,9 @@ class ActionRunner:
         for data in self.changes:
             desc_list.append(self.get_version_actions_desc(data))
 
-        user_changes_desc = self.get_user_actions_desc()
-        if user_changes_desc:
+        if self.requires_user_action:
+            user_changes_desc = self.get_user_actions_desc()
+            assert user_changes_desc
             desc_list.append(user_changes_desc)
 
         return "\n\n".join(desc_list)
@@ -313,19 +323,42 @@ class ActionRunner:
     def warn(self) -> bool:
         """
         false if user doesn't want to run, true otherwise
+
+        should only be ran if has actions
         """
 
         print(self.get_actions_desc())
         print()
         print()
 
-        x = input(
-            "WARNING: The above actions WILL modify the deck and the notes inside of it.\n"
-            "Please make a backup (File -> Export -> Anki Collection Package) before\n"
-            "running this, just in case!\n"
-            "\n"
-            "If you have made a backup, please type 'yes' to confirm, or anything else to abort: "
-        )
+        if self.edits_cards and self.requires_user_action:
+            x = input(
+                "WARNING: The above actions WILL modify the deck and the notes inside of it.\n"
+                "Please make a backup (File -> Export -> Anki Collection Package) before\n"
+                "running this, just in case!\n"
+                "\n"
+                "There are also required user actions that this script cannot perform.\n"
+                "\n"
+                "If you have made a backup, please type 'yes' to confirm, or anything else to abort: "
+            )
+        elif self.edits_cards and not self.requires_user_action:
+            x = input(
+                "WARNING: The above actions WILL modify the deck and the notes inside of it.\n"
+                "Please make a backup (File -> Export -> Anki Collection Package) before\n"
+                "running this, just in case!\n"
+                "\n"
+                "If you have made a backup, please type 'yes' to confirm, or anything else to abort: "
+            )
+        elif not self.edits_cards and self.requires_user_action:
+            x = input(
+                "WARNING: There are required user actions that must be done by the user.\n"
+                "Please update each section specified above after this note is done updating.\n"
+                "\n"
+                "Type 'yes' to acknowledge, or anything else to abort: "
+            )
+        else:
+            raise Exception("are there no actions?")
+
         if x != "yes":
             print("Aborting update...")
             return False
