@@ -253,23 +253,55 @@ function buildCardDiv(character, card, isNew=false) {
 
 function buildString(character, nonNewCardInfo, newCardInfo) {
 
+  /*
+   * <span class="kanji-hover-wrapper">
+   *   <span class="kanji-hover-text"> (kanji) </span>
+   *   <span class="kanji-hover-tooltip-wrapper">
+   *     <span class="kanji-hover-tooltip"> ... </span>
+   *   </span>
+   * </span>
+   *
+   */
+
+  // wrapper element that isn't used, to get the inner html
   let wrapper = document.createElement('span');
 
+  let kanjiHoverWrapper = document.createElement('span');
+  kanjiHoverWrapper.classList.add("kanji-hover-wrapper");
+
+
   let kanjiSpan = document.createElement('span');
-  kanjiSpan.classList.add("kanji-hover-text")
+  kanjiSpan.classList.add("kanji-hover-text");
   kanjiSpan.innerText = character;
 
+  tooltipWrapperSpan = document.createElement('span');
+  tooltipWrapperSpan.classList.add("kanji-hover-tooltip-wrapper");
+
   tooltipSpan = document.createElement('span');
-  tooltipSpan.classList.add("kanji-hover-tooltip")
+  tooltipSpan.classList.add("kanji-hover-tooltip");
 
   //logger.warn(character);
+  let count = 0;
+
+
   for (let card of nonNewCardInfo) {
     //logger.warn(card);
     let cardDiv = buildCardDiv(character, card);
+    if (count >= 1) {
+      cardDiv.classList.add("kanji-hover-tooltip--not-first");
+    }
+    count++;
+
     tooltipSpan.appendChild(cardDiv);
   }
+
   for (let card of newCardInfo) {
     let cardDiv = buildCardDiv(character, card, isNew=true);
+    if (count >= 1) {
+      cardDiv.classList.add("kanji-hover-tooltip--not-first");
+    }
+    count++;
+
     tooltipSpan.appendChild(cardDiv);
   }
 
@@ -279,9 +311,10 @@ function buildString(character, nonNewCardInfo, newCardInfo) {
     tooltipSpan.innerText = "No other kanjis found.";
   }
 
-  kanjiSpan.appendChild(tooltipSpan);
-
-  wrapper.appendChild(kanjiSpan);
+  tooltipWrapperSpan.appendChild(tooltipSpan)
+  kanjiHoverWrapper.appendChild(kanjiSpan);
+  kanjiHoverWrapper.appendChild(tooltipWrapperSpan);
+  wrapper.appendChild(kanjiHoverWrapper);
 
   return wrapper.innerHTML;
 }
@@ -340,7 +373,6 @@ function set_difference(a, b) {
 (async function() {
   // kanji hover code
 
-  return;
   let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
   if (cacheKey in kanjiHoverCardCache) {
     _debug("Card was cached")
@@ -398,7 +430,7 @@ function set_difference(a, b) {
   // caches card
   kanjiHoverCardCache[cacheKey] = resultHTML;
 
-  _debug(resultHTML);
+  //_debug(resultHTML);
 
   for (let character of kanjiArr) {
     kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
