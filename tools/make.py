@@ -192,12 +192,6 @@ def main(args=None):
             os.path.join(root_folder, "media", file_config("output-file").item()),
         )
 
-        if args.to_release:
-            # also exports the existing cards
-            import export
-
-            export.main(args)
-
 
 if __name__ == "__main__":
     # main(root_folder="templates")
