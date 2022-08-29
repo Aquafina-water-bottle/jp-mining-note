@@ -92,16 +92,12 @@ async function cardQueries(kanjiArr) {
   // constructs the multi findCards request for ankiconnect
   let actions = [];
   for (const character of kanjiArr) {
-    const nonNewQuery = (
-      // creates
-      `-Word:{{ T('Word') }} Word:*${character}* "card:${cardTypeName}"` +
-      ` (-is:new OR (is:new flag:3))` + // not new, or new and green
-      ` -(is:suspended flag:1)`); // not red (and suspended)
-    const newQuery = (
-      //`is:new -Word:{{ T('Word') }} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
-      `-Word:{{ T('Word') }} Word:*${character}* "card:${cardTypeName}"` +
-      ` is:new` + // new
-      ` -(is:suspended (flag:1 OR flag:3))`); // not suspended and neither red nor green
+    const baseQuery = (
+      `(-"Key:{{ T('Key') }}" -"WordReading:{{ T('WordReading') }}"`
+      + `Word:*${character}* "card:${cardTypeName}") `
+    );
+    const nonNewQuery = baseQuery + {{ utils.opt("kanji-hover", "non-new-query") }};
+    const newQuery = baseQuery + {{ utils.opt("kanji-hover", "new-query") }};
 
     //logger.warn(nonNewQuery)
     //logger.warn(newQuery)
@@ -529,7 +525,7 @@ if ({{ utils.opt("kanji-hover", "enabled") }}) {
     kanjiHover();
   } else { // === 1
     wordReading.onmouseover = function() {
-      // replaces the function with a null function
+      // replaces the function with a null function to avoid calling this function
       wordReading.onmouseover = function() {}
       kanjiHover();
     }
