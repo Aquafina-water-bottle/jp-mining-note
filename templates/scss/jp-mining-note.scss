@@ -791,128 +791,236 @@ ruby rt {
 
 
 
-/*
- * kanji hover
- */
-
-.kanji-hover-tooltip-wrapper {
-  width: 400px;
-  height: 0px;
-  position: absolute;
-}
-
-
-/* Tooltip text */
+///*
+// * kanji hover
+// */
+//
+//.kanji-hover-wrapper {
+//  width: 500px;
+//  height: 0px;
+//  position: relative;
+//}
+//
+//
+///* Tooltip text */
+//.kanji-hover-text {
+//  position: relative;
+//}
+//
 //.kanji-hover-tooltip {
 //  position: absolute;
 //  display: inline-block;
+//  /*display: none;*/
+//  //display: flex;
 //
-//  visibility: hidden;
+//  flex-direction: column;
+//  gap: 10px;
+//
 //  min-width: 200px;
-//  max-width: var(--tooltip-max-width);
-//
 //  font-family: notosans;
-//  font-size: var(--tooltip-font-size);
+//  font-size: 18px;
 //  text-align: left;
-//
 //  background-color: rgba(0, 0, 0, 0.9);
 //  color: white;
-//  padding: 10px;
+//  padding: 8px 10px 8px 10px;
 //  border-radius: 6px;
-//
-//  position: absolute;
 //  z-index: 1;
+//  top: 100%;
+//  left: 50%;
+//  margin-left: -25px;
+//  margin-top: 5px;
 //
-//  top: -10px;
-//  margin-left: 16px;
+//  white-space: normal;
 //}
 //
-//.kanji-hover-text:hover > .kanji-hover-tooltip-wrapper > .kanji-hover-tooltip {
-//  visibility: visible;
+//
+//.kanji-hover-tooltip b {
+//  //font-weight: normal;
+//  color: var(--yellow);
 //}
+//
+//
+//.kanji-hover-tooltip--new {
+//  color: #acacac; // TODO light mode
+//}
+//
+//.kanji-hover-text:hover + .kanji-hover-tooltip {
+//  //display: inline-block;
+//  display: flex;
+//  /*visibility: visible;*/
+//}
+//
+////.kanji-hover-text:hover > .kanji-hover-tooltip-wrapper > .kanji-hover-tooltip {
+////  //display: inline-block;
+////  display: flex;
+////  /*visibility: visible;*/
+////}
 //
 ///* prevents the tooltip text from disappearing on hover */
 //.kanji-hover-tooltip:hover {
 //  visibility: visible;
+//}
+
+
+
+///* arrow */
+//.kanji-hover-tooltip:after {
+//  content: "";
+//  position: absolute;
+//  /* position tooltip correctly */
+//  left: 16px;
+//  top: -16px;
+//  /* the arrow */
+//  border: 8px solid #000000;
+//  border-color: transparent transparent rgb(0, 0, 0) transparent;
+//  z-index: 1;
+//}
+
+///.kanji-hover-tooltip:hover:after {
+///  visibility: visible;
+///}
+
+
+
+
+
+///*
+// * kanji hover
+// */
+//.kanji-hover-wrapper {
+//  position: relative;
+//}
+//
+///* Tooltip text */
+//.kanji-hover-text {
+//  position: relative;
+//}
+//
+//.kanji-hover-tooltip {
+//  /*display: none;*/
+//  display: inline-block;
+//  gap: 10px;
+//  min-width: 200px;
+//  font-family: notosans;
+//  font-size: 18px;
+//  text-align: left;
+//  background-color: rgba(0, 0, 0, 0.9);
+//  color: white;
+//  padding: 8px 10px 8px 10px;
+//  border-radius: 6px;
+//  z-index: 1;
+//  margin-left: -25px;
+//  margin-top: 5px;
+//  white-space: normal;
+//}
+//
+//
+//.kanji-hover-tooltip-wrapper {
+//  position: absolute;
+//  width: 500px;
+//  height: 2px;
+//  top: 100%;
+//  left: 10%;
+//  background-color: #FF0000;
+//  display: none;
+//}
+//
+//.kanji-hover-tooltip b {
+//  color: var(--yellow);
+//}
+//
+//.kanji-hover-tooltip--new {
+//  color: #acacac;
+//}
+//
+//.kanji-hover-text:hover + .kanji-hover-tooltip-wrapper {
+//  display: inline-block;
+//}
+//
+//
+//
+///* prevents the tooltip text from disappearing on hover */
+//.kanji-hover-tooltip-wrapper:hover {
+//  display: inline-block;
 //}
 //
 ///* arrow */
 //.kanji-hover-tooltip:after {
 //  content: "";
 //  position: absolute;
-//
 //  /* position tooltip correctly */
-//  left: -15px;
-//  top: 11px;
-//
+//  left: 16px;
+//  top: -16px;
 //  /* the arrow */
 //  border: 8px solid #000000;
-//  border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
-//
+//  border-color: transparent transparent rgb(0, 0, 0) transparent;
 //  z-index: 1;
 //}
 //
-//.kanji-hover-tooltip-wrapper:hover:after {
+//.kanji-hover-tooltip:hover:after {
 //  visibility: visible;
 //}
 
-/* Tooltip text */
-.kanji-hover-text {
+
+/*
+ * kanji hover
+ */
+.kanji-hover-wrapper {
   position: relative;
 }
 
+/* Tooltip text */
+.kanji-hover-text {
+}
+
 .kanji-hover-tooltip {
-  position: absolute;
-  /*display: inline-block;*/
-  display: none;
-
-  flex-direction: column;
-  gap: 10px;
-
-  width: 500px;
-  font-family: notosans;
-  font-size: 18px;
-  text-align: left;
+  display: inline-block;
+  min-width: 100px;
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
   padding: 8px 10px 8px 10px;
   border-radius: 6px;
-  z-index: 1;
-  top: 100%;
-  left: 50%;
-  margin-left: -25px;
-  margin-top: 5px;
-
-  white-space: normal;
 }
 
+.kanji-hover-tooltip-wrapper {
+  font-size: 18px;
+  font-family: notosans;
+  text-align: left;
+  position: absolute;
+  width: 500px;
+  height: 0px;
+  top: 100%;
+  left: 0%;
+  background-color: #FF0000;
+  display: none;
+  z-index: 1;
+  margin-top: 5px;
+}
 
 .kanji-hover-tooltip b {
-  //font-weight: normal;
   color: var(--yellow);
 }
 
-
 .kanji-hover-tooltip--new {
-  color: #acacac; // TODO light mode
+  color: #acacac;
 }
 
-.kanji-hover-text:hover > .kanji-hover-tooltip {
-  //display: inline-block;
-  display: flex;
-  /*visibility: visible;*/
+/*
+ * "gap" class to be inserted to elements after the first one,
+ * since flex can't be used
+ */
+.kanji-hover-tooltip--not-first {
+  margin-top: 10px;
 }
 
-//.kanji-hover-text:hover > .kanji-hover-tooltip-wrapper > .kanji-hover-tooltip {
-//  //display: inline-block;
-//  display: flex;
-//  /*visibility: visible;*/
-//}
-
+.kanji-hover-text:hover + .kanji-hover-tooltip-wrapper {
+  display: inline-block;
+}
 /* prevents the tooltip text from disappearing on hover */
-.kanji-hover-tooltip:hover {
-  visibility: visible;
+.kanji-hover-tooltip-wrapper:hover {
+  display: inline-block;
 }
+
 
 
 
@@ -921,7 +1029,7 @@ ruby rt {
   content: "";
   position: absolute;
   /* position tooltip correctly */
-  left: 16px;
+  left: 19px;
   top: -16px;
   /* the arrow */
   border: 8px solid #000000;
@@ -929,9 +1037,8 @@ ruby rt {
   z-index: 1;
 }
 
-.kanji-hover-tooltip:hover:after {
-  visibility: visible;
-}
+
+
 
 
 
