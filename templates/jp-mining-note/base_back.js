@@ -578,6 +578,15 @@ for (let searchEle of imageSearchElements) {
       atag.parentNode.replaceChild(fragment, atag);
     }
   }
+
+  // looks for user inserted images
+  let imgTags = searchEle.getElementsByTagName("img");
+  for (let imgEle of imgTags) {
+    if (!imgEle.classList.contains("glossary__image-hover-media")) { // created by us
+      let fragment = createImgContainer(imgEle.src);
+      imgEle.parentNode.replaceChild(fragment, imgEle);
+    }
+  }
 }
 
 
