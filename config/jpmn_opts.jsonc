@@ -106,7 +106,18 @@
 
     // 0: loads every time, slower to reveal the back side of the card
     // 1: loads only upon hover, has a small delay upon first hovering over a word
-    "mode": 1
+    "mode": 1,
+
+    // all queries will have the following at the beginning:
+    // (-"Key:{{ T('Key') }}" Word:*${character}* "card:${cardTypeName}")
+
+    // not new, or new and green
+    // not flagged as red and suspended
+    "non-new-query": "(-is:new OR (is:new flag:3)) -(is:suspended flag:1)",
+
+    // new
+    // not suspended, and neither flagged as red or green
+    "new-query": "is:new -(is:suspended (flag:1 OR flag:3))"
   },
 
 
