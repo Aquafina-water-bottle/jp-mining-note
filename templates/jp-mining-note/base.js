@@ -402,49 +402,15 @@ document.onkeyup = (e => {
 })
 
 
-//var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
-//var injectScript = (src) => {
-//  return new Promise((resolve, reject) => {
-//    const script = document.createElement('script');
-//    script.src = src;
-//    script.async = true;
-//    script.onload = resolve;
-//    script.onerror = function(errorEvent) {
-//      // seems only to error if the options file is not found
-//      // syntax errors trigger the sanity check section and javascript error section
-//      logger.error("Options file not found! Make sure `" + OPTIONS_FILE + "` is placed in the media folder.");
-//    }
-//    document.head.appendChild(script);
-//  });
-//};
-
-
-//(async () => {
-
-//if (typeof JPMNOpts === 'undefined') {
-//  await injectScript(OPTIONS_FILE);
-//}
-
-//let JPMNOpts = createOptions();
-
 // sanity check
 if (typeof JPMNOpts === 'undefined') {
   logger.warn("JPMNOpts was not defined in the options file. Was there an error?");
 }
 
-// removes extra info section if not necessary
-//var ele = document.querySelector(".pa-graphs");
-//if (ele !== null && ele.innerText.trim() === "No pitch accent data" &&
-//    !"{{ utils.any_of_str('UtilityDictionaries') }}") {
-//  document.getElementById("extra_info_details").style.display = "none";
-//}
-
 /// {% block js_run %}
 /// {% endblock %}
 
 //})();
-
-
 
 
 }());

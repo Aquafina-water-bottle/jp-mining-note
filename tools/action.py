@@ -10,15 +10,16 @@ from utils import invoke
 class Action(ABC):
     description: str = field(init=False)
     edits_cards: bool = field(init=False)
+    ankiconnect_actions: set[str] = field(init=False)
 
     def run(self):
         pass
 
 
 @dataclass
-class GlobalAction(Action):
+class UserAction(Action):
     # edits_cards: bool = field(init=False)
-    key: str = field(init=False)
+    unique: bool = field(init=False)
 
     def run(self):
         pass
@@ -32,6 +33,7 @@ class SetField(Action):
     def __post_init__(self):
         self.description = f"Sets the field `{self.field_name}` -> `{self.value}`"
         self.edits_cards = True
+        self.ankiconnect_actions = {"findNotes", "updateNoteFields", "multi"}
 
     def run(self):
         notes = invoke("findNotes", query=r'"note:JP Mining Note"')
@@ -61,6 +63,7 @@ class RenameField(Action):
     new_field_name: str
 
     def __post_init__(self):
+        self.ankiconnect_actions = {"modelFieldRename"}
         self.description = (
             f"Renames the field `{self.old_field_name}` to {self.new_field_name}"
         )
@@ -81,6 +84,7 @@ class MoveField(Action):
     index: int
 
     def __post_init__(self):
+        self.ankiconnect_actions = {"modelFieldReposition"}
         self.description = f"Moves the field `{self.field_name}` to index {self.index}"
         self.edits_cards = True
 
@@ -99,6 +103,7 @@ class AddField(Action):
     index: int  # -1 if doesn't exist
 
     def __post_init__(self):
+        self.ankiconnect_actions = {"modelFieldAdd"}
         self.description = (
             f"Creates the field `{self.field_name}` at index {self.index}"
         )
@@ -118,6 +123,7 @@ class DeleteField(Action):
     field_name: str
 
     def __post_init__(self):
+        self.ankiconnect_actions = {"modelFieldRemove"}
         self.description = f"Deletes the field `{self.field_name}`"
         self.edits_cards = True
 
@@ -136,40 +142,53 @@ class DeleteField(Action):
 
 
 @dataclass
-class YomichanTemplatesChange(GlobalAction):
+class YomichanTemplatesChange(UserAction):
     def __post_init__(self):
         self.description = "Requires an update to the Yomichan 'Anki Card Templates' section"
         self.edits_cards = False
-        self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
+        self.unique = True
+        self.ankiconnect_actions = set()
 
 
 @dataclass
-class YomichanFormatChange(GlobalAction):
+class YomichanFormatChange(UserAction):
+    field: str
+    previous_value: str
+    new_value: str
+
     def __post_init__(self):
-        self.description = "Requires an update to the Yomichan 'Anki Card format' section"
+        self.description = f"Yomichan 'Anki Card format' {self.field}: `{self.previous_value}` -> `{self.new_value}`"
         self.edits_cards = False
-        self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
+        self.unique = False
+        self.ankiconnect_actions = set()
 
 @dataclass
-class AJTPitchAccentConfigChange(GlobalAction):
+class AJTPitchAccentConfigChange(UserAction):
+    additional_desc: str
+
     def __post_init__(self):
-        self.description = "Requires an update to the AJT Pitch Accent config"
+        self.description = f"Requires an update to the AJT Pitch Accent config ({self.additional_desc})"
         self.edits_cards = False
-        self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
+        self.unique = False
+        self.ankiconnect_actions = set()
 
 
 @dataclass
-class AJTFuriganaconfigChange(GlobalAction):
+class AJTFuriganaconfigChange(UserAction):
+    additional_desc: str
+
     def __post_init__(self):
-        self.description = "Requires an update to the AJT Furigana config"
+        self.description = "Requires an update to the AJT Furigana config ({self.additional_desc})"
         self.edits_cards = False
-        self.key = self.__class__.__name__ # is there an easier way of doing this w/out copying/pasting?
+        self.unique = False
+        self.ankiconnect_actions = set()
 
 
 @dataclass
 class BatchUpdate(Action):
     batch_func: Callable[[], None]
     description: str
+    ankiconnect_actions: set[str]
     edits_cards = True
 
     def run(self):
@@ -181,4 +200,5 @@ if __name__ == "__main__":
     def f():
         pass
 
-    print(BatchUpdate(batch_func=f, description="test"))
+    print(BatchUpdate(batch_func=f, ankiconnect_actions=set(), description="test"))
+

@@ -11,13 +11,14 @@
 
 
 /// {% set run %}
+{
+  let isAltDisplay = false;
+  /* {% call IF('AltDisplay') %} */
+    isAltDisplay = false;
+  /* {% endcall %} */
 
-var isAltDisplay = false;
-/* {% call IF('AltDisplay') %} */
-  isAltDisplay = false;
-/* {% endcall %} */
-
-processSentences(isAltDisplay, true);
+  processSentences(isAltDisplay, true);
+}
 
 /// {% endset %}
 
