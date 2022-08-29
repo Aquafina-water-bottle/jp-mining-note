@@ -109,10 +109,9 @@ async function cardQueries(kanjiArr) {
 }
 
 function filterCards(nonNewCardIds, newCardIds) {
-  // TODO settings
-  const nonNewEarliest = 2;
-  const nonNewLatest = 2;
-  const newLatest = 2;
+  const nonNewEarliest = {{ utils.opt("kanji-hover", "max-non-new-oldest") }};
+  const nonNewLatest = {{ utils.opt("kanji-hover", "max-non-new-latest") }};
+  const newLatest = {{ utils.opt("kanji-hover", "max-new-latest") }};
 
   // non new: gets the earliest and latest
   let nonNewResultIds = []
