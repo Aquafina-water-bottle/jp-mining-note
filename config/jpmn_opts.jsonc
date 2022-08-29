@@ -89,6 +89,10 @@
     // TODO mobile true, desktop false
     "pa-indicator-color-quotes": false,
 
+    // automatically colors the quote with the sentence pa indicator color,
+    // on PA sentence cards
+    "pa-sent-pa-indicator-color-quotes": false,
+
     // automatically adds quotes to the sentence (if not alt display)
     "auto-quote-sentence": true,
 
