@@ -90,16 +90,6 @@ FIELDS = {
         "personal_setup": "1",
     },
 
-    "PASeparateWordCard": {
-        "auto_fill": False,
-        "customize": True,
-    },
-
-    "PASeparateSentenceCard": {
-        "auto_fill": False,
-        "customize": True,
-    },
-
     "PATestOnlyWord": {
         "auto_fill": False,
         "customize": True,
@@ -107,6 +97,16 @@ FIELDS = {
     },
 
     "PADoNotTest": {
+        "auto_fill": False,
+        "customize": True,
+    },
+
+    "PASeparateWordCard": {
+        "auto_fill": False,
+        "customize": True,
+    },
+
+    "PASeparateSentenceCard": {
         "auto_fill": False,
         "customize": True,
     },
@@ -163,6 +163,12 @@ FIELDS = {
         "auto_fill": True,
         "customize": False,
         "setup": "{jpmn-frequencies}",
+    },
+
+    "FrequencySort": {
+        "auto_fill": True,
+        "customize": False,
+        "setup": "{jpmn-min-freq}",
     },
 
     "SecondaryDefinition": {

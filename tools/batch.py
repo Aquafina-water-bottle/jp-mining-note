@@ -152,6 +152,91 @@ def rename_silence_wav():
     notes = invoke("multi", actions=actions)
 
 
+def rename_vn_freq():
+    """
+    renames `VN Freq` -> `VN Freq Percent` in FrequenciesStylized
+    """
+
+    notes = invoke("findNotes", query=r'"FrequenciesStylized:*>VN Freq<*" OR "FrequenciesStylized:*data-details=\"VN Freq\"*"')
+    notes_info = invoke("notesInfo", notes=notes)
+
+    actions = []
+    for info in notes_info:
+
+        field_val = info["fields"]["FrequenciesStylized"]["value"]
+        field_val = field_val.replace(">VN Freq<", ">VN Freq Percent<")
+        field_val = field_val.replace('"VN Freq"', '"VN Freq Percent"')
+
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": info["noteId"],
+                    "fields": {
+                        "FrequenciesStylized": field_val,
+                    },
+                }
+            },
+        }
+
+        actions.append(action)
+
+    notes = invoke("multi", actions=actions)
+
+
+def add_sort_freq():
+    # pip3 install beautifulsoup4
+    from bs4 import BeautifulSoup
+
+    def parse_str(html_str, ignored):
+        soup = BeautifulSoup(html_str, 'html.parser')
+
+        assert soup.div is not None
+
+        freqs = []
+        for x in soup.div.children:
+            if x["data-details"] not in ignored:
+                freq = int("".join(c for c in str(x.div.span.get_text()) if c.isdigit()))
+                freqs.append(freq)
+
+        if freqs:
+            return min(freqs)
+
+        return None
+
+
+    ignored = ["VN Freq Percent"]
+
+    notes = invoke("findNotes", query=r'-FrequenciesStylized:')
+    notes_info = invoke("notesInfo", notes=notes)
+
+    actions = []
+    for info in notes_info:
+        field_val = info["fields"]["FrequenciesStylized"]["value"]
+        #print("parsing", info["fields"]["Key"]["value"])
+
+        min_freq = parse_str(field_val, ignored)
+        if min_freq is not None:
+            action = {
+                "action": "updateNoteFields",
+                "params": {
+                    "note": {
+                        "id": info["noteId"],
+                        "fields": {
+                            "FrequencySort": str(min_freq),
+                        },
+                    }
+                },
+            }
+
+            actions.append(action)
+
+    #print(actions)
+    notes = invoke("multi", actions=actions)
+
+
+
+
 def main():
     # clear_pitch_accent_data()
     # add_downstep_inner_span_tag()
@@ -161,7 +246,7 @@ def main():
     if args.function:
         assert args.function in globals(), f"function {args.function} does not exist"
         func = globals()[args.function]
-        print(f"executing {args.finction}")
+        print(f"executing {args.function}")
         func()
 
 

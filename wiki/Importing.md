@@ -32,10 +32,10 @@ example with animecards:
 | IsHoverCard |  |
 | IsTargetedSentenceCard |  |
 | PAShowInfo |  |
-| PASeparateWordCard |  |
-| PASeparateSentenceCard |  |
 | PATestOnlyWord |  |
 | PADoNotTest |  |
+| PASeparateWordCard |  |
+| PASeparateSentenceCard |  |
 | SeparateClozeDeletionCard |  |
 | Hint |  |
 | HintNotHidden | `Hint` |
@@ -45,6 +45,7 @@ example with animecards:
 | PAGraphs | `Graph` |
 | PASilence |  |
 | FrequenciesStylized |  |
+| FrequencySort |  |
 | SecondaryDefinition |  |
 | ExtraDefinitions |  |
 | UtilityDictionaries |  |

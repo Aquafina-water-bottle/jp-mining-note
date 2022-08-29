@@ -18,7 +18,10 @@ PA Sentence
 <!-- option 1: AltDisplayPASentenceCard -->
 {% call IF('AltDisplayPASentenceCard') %}
   <div class="expression expression--single expression--sentence" id="Display">
-    {{ T('furigana:AltDisplayPASentenceCard') }}</div>
+    {{ utils.quote_open -}}
+    {{ T('furigana:AltDisplayPASentenceCard') }}
+    {{- utils.quote_close }}
+  </div>
 {% endcall%}
 
 {% call IFNOT('AltDisplayPASentenceCard') %}

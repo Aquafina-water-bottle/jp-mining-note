@@ -46,20 +46,6 @@
 
     "play-word-audio": ["w"],
 
-    // Equivalent to clicking on the image.
-    // TODO: Implement
-    "toggle-image-zoom": ["z"],
-
-    // Equivalent to hovering over the full sentence (back side)
-    // TODO: Implement
-    "toggle-sentence-furigana": [","],
-
-    // Equivalent to hovering over the front display.
-    // Also toggles the furigana on the vocab card's full sentence section (front side)
-    // if available.
-    // TODO: Implement
-    "toggle-front-display-furigana": [","],
-
     // Equivalent to toggling the hint show/hide
     "toggle-hint-display": ["."],
 
@@ -104,7 +90,6 @@
     "auto-quote-close": "」",
 
     // the quote pair to automatically add to the sentence if it's a PA sentence card
-    // TODO implement
     "pa-sent-auto-quote-open": "『",
     "pa-sent-auto-quote-close": "』",
 
@@ -121,11 +106,10 @@
   // Only affects the front side.
   "hybrid-sentence-open-on-play-sentence": true,
 
-  // TODO implement
   "greyed-out-collapsable-fields-when-empty": false,
 
   // TODO implement
-  "open-extra-info-when-new": false,
+  //"open-extra-info-when-new": false,
 
   // used to show debug messages when debugging the card
   "debug": false
