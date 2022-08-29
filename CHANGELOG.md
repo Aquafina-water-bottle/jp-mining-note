@@ -6,7 +6,7 @@ BREAKING changes occur.
 "Breaking" in this case, is defined when someone has to perform any action
 outside of running `./install.py --update` for the card to work properly.
 
-The following are breaking changes:
+The following are examples breaking changes:
 - Changes to anki plugin configs
 - Changes to yomichan templates / format
 
@@ -16,11 +16,23 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
-## [0.10.0.0] - 2022-08-??
+## [0.9.1.0] - 2022-08-??
 
-#### Changed (BREAKING)
+#### Added
 - Added `FrequencySort` field
+- Settings:
+    - Kanji hover query
+    - Kanji hover enable/disable
+    - Kanji hover activation mode (only run on first hover, or run as soon as the back-side is open)
+- Frequency sort support in batch and yomichan templates
+    - Note: not updating the yomichan templates does not break the card functionality,
+      so this is not a breaking change
+- Open extra info field on new feature
+- Caps lock warning
 
+#### Fixed
+- Field simulator bug with move field
+- Installing from scratch not working
 
 
 ## [0.9.0.0] - 2022-08-28

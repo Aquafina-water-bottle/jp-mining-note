@@ -25,6 +25,10 @@ var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
 // maps kanji -> [{set of used words}, html string]
 var kanjiHoverCache = kanjiHoverCache ?? {};
 
+// note that this cache will NOT respect card review undos,
+// but that should be a niche enough case to not warrent caching.
+// maps key -> bool
+var isNewCardCache = isNewCardCache ?? {};
 
 (function () { // restricts ALL javascript to hidden scope
 
@@ -312,6 +316,20 @@ document.onkeyup = (e => {
   /// {% block js_keybind_settings %}
   /// {% endblock %}
   /// {% endfilter %}
+
+
+
+
+  if (e.getModifierState && e.getModifierState('CapsLock')) {
+    if ("CapsLock" === e.key) {
+      // either just enabled or disabled
+      logger.removeWarn("caps");
+    } else {
+      logger.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
+    }
+  } else {
+    //_debug("Caps lock is not enabled");
+  }
 
 
   /// {% call IF("WordAudio") %}

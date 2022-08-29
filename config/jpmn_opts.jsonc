@@ -101,6 +101,8 @@
     ]
   },
 
+  // Hover over a kanji in the word reading to see if it has been used
+  // in previous cards or not.
   "kanji-hover": {
     "enabled": true,
 
@@ -126,11 +128,16 @@
   // Only affects the front side.
   "hybrid-sentence-open-on-play-sentence": true,
 
+  // By default, the indicator for collapsable fields are completely removed.
+  // Making this true keeps the indicator, but greys out the text to show that
+  // it cannot be opened.
   "greyed-out-collapsable-fields-when-empty": false,
 
-  // TODO implement
-  //"open-extra-info-when-new": false,
+  // Opens the "extra info" field if the card is new.
+  // Useful for checking pitch accent, etc.
+  "open-extra-info-when-new": false,
 
-  // used to show debug messages when debugging the card
+  // (Developer option) Used to show debug messages when debugging the card.
+  // Use the `_debug()` function in javascript to write debug messages.
   "debug": false
 }
