@@ -6,8 +6,6 @@
  */
 :root {
   --pa-brightness-reduce: 60%;
-  --frequencies-padding: 5px;
-  --frequencies-border: 5px;
   --sentence-font-size: 52px;
   --reading-font-size: 55px;
   --full-sentence-font-size: 28px;
@@ -20,6 +18,7 @@
   --yellow: #0060ff; /* not actually yellow ;) */
   --background-darken: rgba(0, 0, 0, 0.05);
   --card-description-color: #acacac;
+  --glossary-grey: #acacac;
   --info-circle-hover-color: #5f5f5f;
   --info-circle-leech-color: #3983ff;
   --info-circle-leech-hover-color: #609cff;
@@ -51,6 +50,7 @@
   --yellow: #fffd9e;
   --background-darken: rgba(0, 0, 0, 0.12);
   --card-description-color: #585858;
+  --glossary-grey: #acacac;
   --info-circle-hover-color: #bdbdbd;
   --info-circle-leech-color: #ead623;
   --info-circle-leech-hover-color: var(--yellow);
@@ -132,7 +132,6 @@ details > summary {
 }
 
 @font-face {
-  /* TODO rename */
   font-family: notoserif;
   src: url("NotoSerifJP-Regular.otf");
 }
@@ -160,6 +159,14 @@ details > summary {
 
 .override-display-inline-block {
   display: inline-block !important;
+}
+
+/*
+ * formats the open right quote to be to the left of the entire text box
+ */
+.left-align-quote {
+  text-indent: -1em;
+  padding-left: 1em;
 }
 
 /*
@@ -199,20 +206,16 @@ details > summary {
 }
 
 /*
- * formats the open right quote to be to the left of the entire text box
- */
-/*
  * makes ruby text unselectable (and hence uncopyable) (TODO: javascript option)
  * TODO: this doesn't actually seem to work in my anki version...
  * - it makes the text unselectable, but the goal was to make the text also uncopyable
  * - however, the text remains copyable for some reason in anki
  * - text is not copyable in modern browsers like firefox
  */
-/*
 ruby rt {
   user-select: none;
 }
-*/
+
 /*
  *  ================
  *   FRONT SIDE CSS
@@ -363,8 +366,6 @@ ruby rt {
   grid-template-columns: 1fr auto 1fr;
   grid-column-gap: 5px;
   justify-items: center;
-  margin-bottom: 0em;
-  margin-top: 0.1em;
   font-size: var(--sentence-font-size);
   font-family: notoserif;
   line-height: 150%;
@@ -422,8 +423,6 @@ ruby rt {
 
 /* used in other cards where PA flag is not shown */
 .expression--single {
-  margin-bottom: 0em;
-  margin-top: 0.1em;
   font-size: var(--sentence-font-size);
   font-family: notoserif;
   line-height: 150%;
@@ -494,34 +493,6 @@ ruby rt {
   border-bottom-style: dashed;
 }
 
-/*
-.expression__hybrid-word:after {
-  content: '';
-  height: 2px;
-  width: 104%;
-  background: var(--yellow);
-  position: absolute;
-  top: 90%;
-  left: -2%;
-  display: block;
-}
-
-.expression__hybrid-word--click-indicator:after {
-  background: #a7ffa9;
-}
-.expression__hybrid-word--hover-indicator:after {
-  background: white;
-}
-
-.expression__hybrid-word--sentence-underline:after {
-  background: #a7ffa9;
-}
-.expression__hybrid-word--word-underline:after {
-  background: white;
-}
-*/
-/*background: #95f2a1;*/
-/*background: #79ebf8;*/ /* light blue */
 .expression__hybrid-sentence {
   display: none;
 }
@@ -624,6 +595,10 @@ ruby rt {
   color: #f12a2a;
 }
 
+.downstep .downstep-inner {
+  display: none;
+}
+
 /*
  * -------------------
  *  Definition header
@@ -699,7 +674,6 @@ ruby rt {
   color: #808080;
   font-size: 15px;
 }
-
 .dh-left__word-pitch b .pitchoverline:after {
   content: "";
   width: 100%;
@@ -710,7 +684,6 @@ ruby rt {
   top: -1px;
   right: -1px;
 }
-
 .dh-left__word-pitch b .downstep:before {
   content: "";
   width: 1px;
@@ -722,17 +695,84 @@ ruby rt {
   top: -1px;
   left: 0px;
 }
-
 .dh-left__word-pitch b .nopron {
   filter: brightness(var(--pa-brightness-reduce));
 }
-
 .dh-left__word-pitch b .nasal {
   filter: brightness(var(--pa-brightness-reduce));
 }
-
 .dh-left__word-pitch b .downstep {
   filter: brightness(var(--pa-brightness-reduce));
+}
+
+/*
+ * kanji hover
+ */
+.kanji-hover-wrapper {
+  position: relative;
+}
+
+/* Tooltip text */
+.kanji-hover-tooltip {
+  display: inline-block;
+  min-width: 100px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 10px 8px 10px;
+  border-radius: 6px;
+}
+
+.kanji-hover-tooltip-wrapper {
+  font-size: 18px;
+  font-family: notosans;
+  text-align: left;
+  position: absolute;
+  width: 500px;
+  height: 0px;
+  top: 100%;
+  left: 0%;
+  background-color: #FF0000;
+  display: none;
+  z-index: 1;
+  margin-top: 5px;
+}
+
+.kanji-hover-tooltip b {
+  color: var(--yellow);
+}
+
+.kanji-hover-tooltip--new {
+  color: #acacac;
+}
+
+/*
+ * "gap" class to be inserted to elements after the first one,
+ * since flex can't be used
+ */
+.kanji-hover-tooltip--not-first {
+  margin-top: 10px;
+}
+
+.kanji-hover-text:hover + .kanji-hover-tooltip-wrapper {
+  display: inline-block;
+}
+
+/* prevents the tooltip text from disappearing on hover */
+.kanji-hover-tooltip-wrapper:hover {
+  display: inline-block;
+}
+
+/* arrow */
+.kanji-hover-tooltip:after {
+  content: "";
+  position: absolute;
+  /* position tooltip correctly */
+  left: 19px;
+  top: -16px;
+  /* the arrow */
+  border: 8px solid #000000;
+  border-color: transparent transparent rgb(0, 0, 0) transparent;
+  z-index: 1;
 }
 
 /*
@@ -944,7 +984,6 @@ ruby rt {
  * -----------------------------------
  */
 .glossary-blockquote {
-  font-size: 18px;
   text-align: left;
   background: var(--background-darken);
   font-size: 18px;
@@ -960,6 +999,10 @@ ruby rt {
 .glossary-details {
   font-size: 18px;
   margin: 0.5em 0 0 0;
+}
+
+.glossary-details--grey {
+  color: var(--glossary-grey);
 }
 
 /*
@@ -987,11 +1030,6 @@ ruby rt {
   text-align: center;
 }
 */
-/* makes ruby text non-selectable (and non-copyable) */
-ruby rt {
-  user-select: none;
-}
-
 .glossary-blockquote--small {
   font-size: 15px;
 }
@@ -1047,23 +1085,16 @@ ruby rt {
 
 .frequencies__group {
   display: block;
-  padding-left: 10px;
+  padding-left: 20px;
 }
 
 .frequencies__number {
   text-align: right;
 }
 
-.frequencies__number-inner {
-  border-radius: var(--frequencies-border) var(--frequencies-border) 0px 0px;
-  padding: var(--frequencies-padding) var(--frequencies-padding) 3px var(--frequencies-padding);
-}
-
 .frequencies__dictionary {
   text-align: right;
   font-size: var(--description-footer-font-size);
-  border-radius: 0px 0px var(--frequencies-border) var(--frequencies-border);
-  padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
 }
 
 /*.frequencies__dictionary-inner {
@@ -1155,5 +1186,9 @@ ruby rt {
  * 🠋  Rarely-used kanji form
  *
  */
+/* makes the symbols centered */
+[data-sc-ortho=table] td {
+  text-align: center;
+}
 
 /*# sourceMappingURL=style.css.map */
