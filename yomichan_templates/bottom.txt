@@ -28,7 +28,7 @@
     {{~#scope~}}
 
 
-        {{~#if (op "===" (get "opt-dictionary-export") "bilingual")~}}
+        {{~#if (op "===" (get "opt-first-definition-type") "bilingual")~}}
             {{~#set "first-definition-search-type-1" "bilingual"}}{{/set~}}
             {{~#set "first-definition-search-type-2" "monolingual"}}{{/set~}}
         {{~else~}}

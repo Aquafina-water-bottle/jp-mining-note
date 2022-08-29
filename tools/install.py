@@ -272,22 +272,9 @@ class MediaInstaller:
 def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
-    # if args.release:
-    #    args.from_release = True
 
-    # checks for note changes
-    current_ver = ar.Version.from_str(utils.get_version_from_anki())
-    new_ver = ar.Version.from_str(utils.get_version(args))
-    action_runner = ar.ActionRunner(current_ver, new_ver)  # also verifies field changes
-
-    if action_runner.has_actions():
-        if not action_runner.warn():  # == false
-            return
-
-        # must run before the note templates gets updated, in case
-        # the new templates use different fields / is otherwise somehow
-        # incompatable with the previous model (will raise an error after installing)
-        action_runner.run()
+    note_config = utils.get_note_config()
+    model_name = note_config("model-name").item()
 
     # config = utils.get_config(args)
     root_folder = utils.get_root_folder()
@@ -297,16 +284,15 @@ def main(args=None):
 
     media_folder = (
         os.path.join(args.build_folder, "media")
-        if args.build_folder
+        if args.from_build
         else os.path.join(root_folder, "media")
     )
     static_folder = os.path.join(root_folder, "media")
     backup_folder = os.path.join(root_folder, "backup")
     media_installer = MediaInstaller(media_folder, static_folder, backup_folder)
 
-    note_config = utils.get_note_config()
-    model_name = note_config("model-name").item()
     is_installed = utils.note_is_installed(model_name)
+    action_runner = None
     if is_installed:
 
         if not args.update:
@@ -315,6 +301,21 @@ def main(args=None):
                 "To update, run `python3 install.py --update`",
             )
             return
+
+        # checks for note changes
+        current_ver = ar.Version.from_str(utils.get_version_from_anki())
+        new_ver = ar.Version.from_str(utils.get_version(args))
+        action_runner = ar.ActionRunner(current_ver, new_ver)  # also verifies field changes
+
+        if action_runner.has_actions():
+            if not action_runner.warn():  # == false
+                return
+
+            # must run before the note templates gets updated, in case
+            # the new templates use different fields / is otherwise somehow
+            # incompatable with the previous model (will raise an error after installing)
+            action_runner.run()
+
 
         print(f"Updating {model_name}...")
         note_updater.update(note_config)
@@ -333,9 +334,10 @@ def main(args=None):
         invoke("importPackage", path=install_path)
 
         # backs up existing options if they exist
-        media_installer.install_from_list(
-            note_config("media-install", "options").list(), static=False, backup=True
-        )
+        # this really shouldn't be necessary, as the options should be inside the package already
+        #media_installer.install_from_list(
+        #    note_config("media-install", "options").list(), static=False, backup=True
+        #)
 
     media_installer.install_from_list(
         note_config("media-install", "static").list(), static=True
@@ -345,7 +347,7 @@ def main(args=None):
         note_config("media-install", "dynamic").list(), static=False
     )
 
-    if action_runner.has_actions():
+    if action_runner is not None and action_runner.has_actions():
         action_runner.post_message()
 
 if __name__ == "__main__":
