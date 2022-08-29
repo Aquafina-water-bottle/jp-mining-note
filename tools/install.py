@@ -287,7 +287,7 @@ def main(args=None):
 
         # must run before the note templates gets updated, in case
         # the new templates use different fields / is otherwise somehow
-        # incompatable with the previous model
+        # incompatable with the previous model (will raise an error after installing)
         action_runner.run()
 
     # config = utils.get_config(args)

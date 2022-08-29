@@ -83,6 +83,10 @@ def add_downstep_inner_span_tag():
             '<span class="downstep"><span class="downstep-inner">&#42780;</span></span>'
         )
 
+        # skips if the downstep-inner class is already found: nothing has to be done
+        if "downstep-inner" in field_val:
+            continue
+
         # cleaning up ig
         field_val = field_val.replace(SPAN_DOWNSTEP_EMPTY, SPAN_DOWNSTEP_UCODE)
         field_val = field_val.replace(SPAN_DOWNSTEP_ARROW, SPAN_DOWNSTEP_UCODE)

@@ -30,6 +30,9 @@ signified.)
      `config/example_config.py`,
      `config/jpmn_opts.jsonc`,
      `tools/note_files.py` } to prevent having to regenerate the config file on version updates
+- made install.py work when updating a card to add new fields
+- added kanji hover (to display which kanjis were used in previous cards)
+
 
 ## [0.8.1.1] - 2022-08-15
 
