@@ -11,15 +11,15 @@ function createImgContainer(imgName) {
   //   <img class="glossary__image-hover-media" src="${imgName}">
   // </span>
 
-  var defSpan = document.createElement('span');
+  let defSpan = document.createElement('span');
   defSpan.classList.add("glossary__image-container");
 
-  var defAnc = document.createElement('a');
+  let defAnc = document.createElement('a');
   defAnc.classList.add("glossary__image-hover-text");
   defAnc.href = "javascript:;'>[Image]";
   defAnc.textContent = "[Image]";
 
-  var defImg = document.createElement('img');
+  let defImg = document.createElement('img');
   defImg.classList.add("glossary__image-hover-media");
   defImg.src = imgName;
 
@@ -356,6 +356,15 @@ if (tags.includes("leech")) {
 //let wp = document.getElementById("dh_word_pitch");
 //wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
 
+// removes greyed out fields if they should be hidden
+if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
+  let elems = document.getElementsByClassName("glossary-details--grey");
+  for (let x of elems) {
+    x.style.display = "none";
+  }
+}
+
+
 
 // kanji hover
 // some code shamelessly stolen from cade's kanji hover:
@@ -439,23 +448,23 @@ function set_difference(a, b) {
 })();
 
 
-var modal = document.getElementById('modal');
-var modalImg = document.getElementById("bigimg");
+let modal = document.getElementById('modal');
+let modalImg = document.getElementById("bigimg");
 
 // restricting the max height of image to the definition box
-var dhLeft = document.getElementById("dh_left");
-var dhRight = document.getElementById("dh_right");
-var heightLeft = dhLeft.offsetHeight;
+let dhLeft = document.getElementById("dh_left");
+let dhRight = document.getElementById("dh_right");
+let heightLeft = dhLeft.offsetHeight;
 
 if (dhRight) {
   dhRight.style.maxHeight = heightLeft + "px";
 
   // setting up the modal styles and clicking
-  var dhImgContainer = document.getElementById("dh_img_container");
-  var imgList = dhImgContainer.getElementsByTagName("img");
+  let dhImgContainer = document.getElementById("dh_img_container");
+  let imgList = dhImgContainer.getElementsByTagName("img");
 
   if (imgList && imgList.length === 1) {
-    var img = dhImgContainer.getElementsByTagName("img")[0];
+    let img = dhImgContainer.getElementsByTagName("img")[0];
     img.classList.add("dh-right__img");
     img.style.maxHeight = heightLeft + "px"; // restricts max height here too
 

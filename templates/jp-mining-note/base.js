@@ -112,7 +112,7 @@ var paIndicator = (function () {
  *
  * isAltDisplay=false
  */
-var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
+function processSentence(sentEle, isAltDisplay, isClozeDeletion) {
   if (!{{ utils.opt("sentence", "enabled") }}) {
     return;
   }
@@ -123,7 +123,7 @@ var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
   }
 
   // removes linebreaks
-  var result = sentEle.children[1].innerHTML;
+  let result = sentEle.children[1].innerHTML;
 
   // cloze deletion replacing bold with [...]
   if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
@@ -205,8 +205,13 @@ var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
     || (isAltDisplay && {{ utils.opt("sentence", "auto-quote-alt-display-sentence") }})
   );
   if (!existingQuote && autoQuote) {
+    /// {% if note.card_type == "pa_sent" %}
+    openQuoteEle.innerText = {{ utils.opt("sentence", "pa-sent-auto-quote-open") }};
+    closeQuoteEle.innerText = {{ utils.opt("sentence", "pa-sent-auto-quote-close") }};
+    /// {% else %}
     openQuoteEle.innerText = {{ utils.opt("sentence", "auto-quote-open") }};
     closeQuoteEle.innerText = {{ utils.opt("sentence", "auto-quote-close") }};
+    /// {% endif %}
   }
 
   // no quotes are added
@@ -220,6 +225,13 @@ var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
   }
 
 
+  /// {% if note.card_type == "pa_sent" %}
+  if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-sent-pa-indicator-color-quotes") }}) {
+    openQuoteEle.classList.add("pa-indicator-color--sentence");
+    closeQuoteEle.classList.add("pa-indicator-color--sentence");
+  }
+  /// {% endif %}
+
   /// {% if note.card_type == "main" %}
   /// {% call IF("PAShowInfo") %}
   if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-indicator-color-quotes") }}) {
@@ -228,9 +240,9 @@ var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
     closeQuoteEle.classList.add(paIndicator.className);
 
     /// {% call IF("IsHoverCard") %}
-    var elem = document.querySelector(".expression__hybrid-wrapper");
-    if (elem !== null) {
-      elem.classList.add("expression__hybrid-wrapper--hover-remove-flag");
+    let elems = document.getElementsByClassName("expression__hybrid-wrapper");
+    if (elems.length > 0) {
+      elems[0].classList.add("expression__hybrid-wrapper--hover-remove-flag");
     }
     /// {% endcall %}
 
@@ -238,7 +250,7 @@ var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
 
     /// {% call utils.none_of_js("IsHoverCard", "IsClickCard") %}
     /// {% call utils.any_of_js("IsTargetedSentenceCard", "IsSentenceCard") %}
-    var svgEle = document.getElementById("flag_box_svg");
+    let svgEle = document.getElementById("flag_box_svg");
     svgEle.style.display = "none";
     /// {% endcall %}
     /// {% endcall %}
@@ -252,7 +264,7 @@ var processSentence = function(sentEle, isAltDisplay, isClozeDeletion) {
 /*
  * Toggles the display of any given details tag
  */
-var toggleDetailsTag = function(ele) {
+function toggleDetailsTag(ele) {
   if (ele.hasAttribute('open')) {
     ele.removeAttribute('open');
   } else {
@@ -262,7 +274,7 @@ var toggleDetailsTag = function(ele) {
 
 
 function processSentences(isAltDisplay, isClozeDeletion) {
-  var sentences = document.querySelectorAll(".expression--sentence")
+  let sentences = document.querySelectorAll(".expression--sentence")
 
   if (sentences !== null) {
     for (let sent of sentences) {
@@ -288,15 +300,18 @@ function processSentences(isAltDisplay, isClozeDeletion) {
 // because functions persist and cannot be easily removed within anki,
 // whereas .onkeyup = ... replaces the previous function with the current.
 document.onkeyup = (e => {
-  var keys = null;
+  let keys = null;
+  let ele = null;
 
   // tests for the existance of extraKeybindSettings
   //if (typeof extraKeybindSettings !== 'undefined') {
   //  extraKeybindSettings(e);
   //}
 
+  /// {% filter indent(width=2) %}
   /// {% block js_keybind_settings %}
   /// {% endblock %}
+  /// {% endfilter %}
 
 
   /// {% call IF("WordAudio") %}
@@ -304,9 +319,9 @@ document.onkeyup = (e => {
   keys = {{ utils.opt("keybinds", "play-word-audio") }};
 
   if (keys !== null && keys.includes(e.key)) {
-    var elem = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
-    if (elem) {
-      elem.click();
+    ele = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
+    if (ele) {
+      ele.click();
     }
   }
   /// {% endcall %}
@@ -315,7 +330,7 @@ document.onkeyup = (e => {
   keys = {{ utils.opt("keybinds", "play-sentence-audio") }};
   if (keys !== null && keys.includes(e.key)) {
 
-    var hSent = document.getElementById("hybrid-sentence");
+    let hSent = document.getElementById("hybrid-sentence");
 
     /// {% if note.card_type == "main" and note.side == "front" %}
     if ({{ utils.opt("hybrid-sentence-open-on-play-sentence") }}
@@ -326,9 +341,9 @@ document.onkeyup = (e => {
       hybridClick();
     } else {
     /// {% endif %}
-      var elem = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
-      if (elem) {
-        elem.click();
+      ele = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+      if (ele) {
+        ele.click();
       }
     /// {% if note.card_type == "main" and note.side == "front" %}
     }
@@ -337,14 +352,14 @@ document.onkeyup = (e => {
   /// {% endcall %}
 
   keys = {{ utils.opt("keybinds", "toggle-front-full-sentence-display") }};
-  var ele = document.getElementById("full_sentence_front_details");
+  ele = document.getElementById("full_sentence_front_details");
   if (keys !== null && ele && keys.includes(e.key)) {
     toggleDetailsTag(ele)
   }
 
   /// {% call IF("Hint") %}
   keys = {{ utils.opt("keybinds", "toggle-hint-display") }};
-  var ele = document.getElementById("hint_details");
+  ele = document.getElementById("hint_details");
   if (keys !== null && ele && keys.includes(e.key)) {
     toggleDetailsTag(ele)
   }
@@ -353,7 +368,7 @@ document.onkeyup = (e => {
   /// {% if note.side == "back" %}
   /// {% call IF("SecondaryDefinition") %}
   keys = {{ utils.opt("keybinds", "toggle-secondary-definitions-display") }};
-  var ele = document.getElementById("secondary_definition_details");
+  ele = document.getElementById("secondary_definition_details");
   if (keys !== null && ele && keys.includes(e.key)) {
     toggleDetailsTag(ele)
   }
@@ -361,7 +376,7 @@ document.onkeyup = (e => {
 
   /// {% call IF("AdditionalNotes") %}
   keys = {{ utils.opt("keybinds", "toggle-additional-notes-display") }};
-  var ele = document.getElementById("additional_notes_details");
+  ele = document.getElementById("additional_notes_details");
   if (keys !== null && ele && keys.includes(e.key)) {
     toggleDetailsTag(ele)
   }
@@ -369,7 +384,7 @@ document.onkeyup = (e => {
 
   /// {% call IF("ExtraDefinitions") %}
   keys = {{ utils.opt("keybinds", "toggle-extra-definitions-display") }};
-  var ele = document.getElementById("extra_definitions_details");
+  ele = document.getElementById("extra_definitions_details");
   if (keys !== null && ele && keys.includes(e.key)) {
     toggleDetailsTag(ele)
   }
@@ -377,7 +392,7 @@ document.onkeyup = (e => {
 
   if ('{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
     keys = {{ utils.opt("keybinds", "toggle-extra-info-display") }};
-    var ele = document.getElementById("extra_info_details");
+    ele = document.getElementById("extra_info_details");
     if (keys !== null && ele && keys.includes(e.key)) {
       toggleDetailsTag(ele)
     }
