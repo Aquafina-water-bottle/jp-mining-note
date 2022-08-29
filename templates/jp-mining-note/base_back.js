@@ -375,11 +375,21 @@ let wordReading = document.getElementById("dh_reading");
 
 // why isn't this built in already...
 // computes a - b, given a and b are both sets
-function set_difference(a, b) {
-  return new Set([...a].filter(x => !b.has(x)));
-}
+//function set_difference(a, b) {
+//  return new Set([...a].filter(x => !b.has(x)));
+//}
 
-(async function() {
+
+let kanjiHoverEnabled = false;
+
+async function kanjiHover() {
+
+  if (kanjiHoverEnabled) {
+    _debug("Kanji hover already enabled");
+    return;
+  }
+  kanjiHoverEnabled = true;
+
   // kanji hover code
 
   let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
@@ -445,7 +455,9 @@ function set_difference(a, b) {
     kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
   }
 
-})();
+}
+
+
 
 
 let modal = document.getElementById('modal');
@@ -509,6 +521,23 @@ for (let searchEle of imageSearchElements) {
     }
   }
 }
+
+
+// only continues if kanji-hover is actually enabled
+if ({{ utils.opt("kanji-hover", "enabled") }}) {
+  if ({{ utils.opt("kanji-hover", "mode") }} === 0) {
+    kanjiHover();
+  } else { // === 1
+    wordReading.onmouseover = function() {
+      // replaces the function with a null function
+      wordReading.onmouseover = function() {}
+      kanjiHover();
+    }
+  }
+}
+
+
+
 
 //_debug(document.documentElement.innerHTML);
 
