@@ -137,6 +137,7 @@ th {
  *   which doesn't seem to be supported on anki yet :(
  * - reverting back to the entire width span until further notice
  */
+
 /*
 details > summary {
   display: inline-block;
@@ -196,6 +197,10 @@ details > summary {
 
 
 
+/*
+ * formats the open right quote to be to the left of the entire text box
+ */
+
 .left-align-quote {
   text-indent: -1em;
   padding-left: 1em;
@@ -240,28 +245,15 @@ details > summary {
 
 
 /*
- * formats the open right quote to be to the left of the entire text box
- */
-
-//.left-align-quote-format {
-//  text-indent: -1em;
-//  padding-left: 1em;
-//}
-
-
-/*
  * makes ruby text unselectable (and hence uncopyable) (TODO: javascript option)
  * TODO: this doesn't actually seem to work in my anki version...
  * - it makes the text unselectable, but the goal was to make the text also uncopyable
  * - however, the text remains copyable for some reason in anki
  * - text is not copyable in modern browsers like firefox
  */
-
-/*
 ruby rt {
   user-select: none;
 }
-*/
 
 
 
@@ -578,36 +570,6 @@ ruby rt {
 }
 
 
-/*
-.expression__hybrid-word:after {
-  content: '';
-  height: 2px;
-  width: 104%;
-  background: var(--yellow);
-  position: absolute;
-  top: 90%;
-  left: -2%;
-  display: block;
-}
-
-.expression__hybrid-word--click-indicator:after {
-  background: #a7ffa9;
-}
-.expression__hybrid-word--hover-indicator:after {
-  background: white;
-}
-
-.expression__hybrid-word--sentence-underline:after {
-  background: #a7ffa9;
-}
-.expression__hybrid-word--word-underline:after {
-  background: white;
-}
-*/
-
-  /*background: #95f2a1;*/
-  /*background: #79ebf8;*/ /* light blue */
-
 .expression__hybrid-sentence {
     display: none;
 }
@@ -746,220 +708,11 @@ ruby rt {
  * - bold == not the correct sound used in the sound clip
  *
  */
-//.dh-left__word-pitch b {
-//  font-weight: normal;
-//  color: #808080;
-//  font-size: 15px;
-//}
-//
-//.dh-left__word-pitch b .pitchoverline:after {
-//  content: '';
-//  width: 100%;
-//  height: 1px;
-//  background: var(--yellow);
-//  filter: brightness(var(--pa-brightness-reduce));
-//  position: absolute;
-//  top: -1px;
-//  right: -1px;
-//}
-//
-//.dh-left__word-pitch b .downstep:before {
-//  content: '';
-//  width: 1px;
-//  height: 25%;
-//  background: var(--yellow);
-//  /*filter: brightness(var(--pa-brightness-reduce));*/
-//  position: absolute;
-//  display: block;
-//  top: -1px;
-//  left: 0px;
-//}
-//
-//.dh-left__word-pitch b .nopron {
-//  filter: brightness(var(--pa-brightness-reduce));
-//}
-//.dh-left__word-pitch b .nasal {
-//  filter: brightness(var(--pa-brightness-reduce));
-//}
-//.dh-left__word-pitch b .downstep {
-//  filter: brightness(var(--pa-brightness-reduce));
-//}
 
 .dh-left__word-pitch {
   @include common.bold-pitch;
 }
 
-
-
-///*
-// * kanji hover
-// */
-//
-//.kanji-hover-wrapper {
-//  width: 500px;
-//  height: 0px;
-//  position: relative;
-//}
-//
-//
-///* Tooltip text */
-//.kanji-hover-text {
-//  position: relative;
-//}
-//
-//.kanji-hover-tooltip {
-//  position: absolute;
-//  display: inline-block;
-//  /*display: none;*/
-//  //display: flex;
-//
-//  flex-direction: column;
-//  gap: 10px;
-//
-//  min-width: 200px;
-//  font-family: notosans;
-//  font-size: 18px;
-//  text-align: left;
-//  background-color: rgba(0, 0, 0, 0.9);
-//  color: white;
-//  padding: 8px 10px 8px 10px;
-//  border-radius: 6px;
-//  z-index: 1;
-//  top: 100%;
-//  left: 50%;
-//  margin-left: -25px;
-//  margin-top: 5px;
-//
-//  white-space: normal;
-//}
-//
-//
-//.kanji-hover-tooltip b {
-//  //font-weight: normal;
-//  color: var(--yellow);
-//}
-//
-//
-//.kanji-hover-tooltip--new {
-//  color: #acacac; // TODO light mode
-//}
-//
-//.kanji-hover-text:hover + .kanji-hover-tooltip {
-//  //display: inline-block;
-//  display: flex;
-//  /*visibility: visible;*/
-//}
-//
-////.kanji-hover-text:hover > .kanji-hover-tooltip-wrapper > .kanji-hover-tooltip {
-////  //display: inline-block;
-////  display: flex;
-////  /*visibility: visible;*/
-////}
-//
-///* prevents the tooltip text from disappearing on hover */
-//.kanji-hover-tooltip:hover {
-//  visibility: visible;
-//}
-
-
-
-///* arrow */
-//.kanji-hover-tooltip:after {
-//  content: "";
-//  position: absolute;
-//  /* position tooltip correctly */
-//  left: 16px;
-//  top: -16px;
-//  /* the arrow */
-//  border: 8px solid #000000;
-//  border-color: transparent transparent rgb(0, 0, 0) transparent;
-//  z-index: 1;
-//}
-
-///.kanji-hover-tooltip:hover:after {
-///  visibility: visible;
-///}
-
-
-
-
-
-///*
-// * kanji hover
-// */
-//.kanji-hover-wrapper {
-//  position: relative;
-//}
-//
-///* Tooltip text */
-//.kanji-hover-text {
-//  position: relative;
-//}
-//
-//.kanji-hover-tooltip {
-//  /*display: none;*/
-//  display: inline-block;
-//  gap: 10px;
-//  min-width: 200px;
-//  font-family: notosans;
-//  font-size: 18px;
-//  text-align: left;
-//  background-color: rgba(0, 0, 0, 0.9);
-//  color: white;
-//  padding: 8px 10px 8px 10px;
-//  border-radius: 6px;
-//  z-index: 1;
-//  margin-left: -25px;
-//  margin-top: 5px;
-//  white-space: normal;
-//}
-//
-//
-//.kanji-hover-tooltip-wrapper {
-//  position: absolute;
-//  width: 500px;
-//  height: 2px;
-//  top: 100%;
-//  left: 10%;
-//  background-color: #FF0000;
-//  display: none;
-//}
-//
-//.kanji-hover-tooltip b {
-//  color: var(--yellow);
-//}
-//
-//.kanji-hover-tooltip--new {
-//  color: #acacac;
-//}
-//
-//.kanji-hover-text:hover + .kanji-hover-tooltip-wrapper {
-//  display: inline-block;
-//}
-//
-//
-//
-///* prevents the tooltip text from disappearing on hover */
-//.kanji-hover-tooltip-wrapper:hover {
-//  display: inline-block;
-//}
-//
-///* arrow */
-//.kanji-hover-tooltip:after {
-//  content: "";
-//  position: absolute;
-//  /* position tooltip correctly */
-//  left: 16px;
-//  top: -16px;
-//  /* the arrow */
-//  border: 8px solid #000000;
-//  border-color: transparent transparent rgb(0, 0, 0) transparent;
-//  z-index: 1;
-//}
-//
-//.kanji-hover-tooltip:hover:after {
-//  visibility: visible;
-//}
 
 
 /*
@@ -1332,11 +1085,6 @@ ruby rt {
   text-align: center;
 }
 */
-
-/* makes ruby text non-selectable (and non-copyable) */
-ruby rt {
-  user-select: none;
-}
 
 
 .glossary-blockquote--small {
