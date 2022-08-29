@@ -274,10 +274,10 @@ li.definition-item[data-dictionary='新和英'] {
 | IsHoverCard |  |
 | IsTargetedSentenceCard |  |
 | PAShowInfo | `1` |
-| PASeparateWordCard |  |
-| PASeparateSentenceCard |  |
 | PATestOnlyWord | `1` |
 | PADoNotTest |  |
+| PASeparateWordCard |  |
+| PASeparateSentenceCard |  |
 | SeparateClozeDeletionCard |  |
 | Hint |  |
 | HintNotHidden |  |
@@ -287,6 +287,7 @@ li.definition-item[data-dictionary='新和英'] {
 | PAGraphs | `{jpmn-pitch-accent-graphs}` |
 | PASilence | `[sound:_silence.wav]` |
 | FrequenciesStylized | `{jpmn-frequencies}` |
+| FrequencySort | `{jpmn-min-freq}` |
 | SecondaryDefinition | `{jpmn-secondary-definition}` |
 | ExtraDefinitions | `{jpmn-extra-definitions}` |
 | UtilityDictionaries | `{jpmn-utility-dictionaries}` |

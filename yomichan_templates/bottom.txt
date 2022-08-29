@@ -159,6 +159,19 @@
     {{~/if~}}
 {{/inline}}
 
+{{~! taken from here: https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency ~}}
+{{#*inline "jpmn-min-freq"}}
+    {{~#scope~}}
+        {{~#set "min-freq" 0}}{{/set~}}
+            {{#each definition.frequencies}}
+                {{~#if (op "||" (op "===" (get "min-freq") 0) (op ">" (op "+" (get "min-freq")) (op "+" (regexMatch "\d" "g" this.frequency))))}}
+                    {{~#set "min-freq" (op "+" (regexMatch "\d" "g" this.frequency))}}{{/set~}}
+                {{~/if~}}
+            {{/each}}
+        {{get "min-freq"}}
+    {{~/scope~}}
+{{/inline}}
+
 
 {{~!
     ==============

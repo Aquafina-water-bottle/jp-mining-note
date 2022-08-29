@@ -182,10 +182,10 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 | *IsHoverCard |  |
 | *IsTargetedSentenceCard |  |
 | *PAShowInfo |  |
-| *PASeparateWordCard |  |
-| *PASeparateSentenceCard |  |
 | *PATestOnlyWord |  |
 | *PADoNotTest |  |
+| *PASeparateWordCard |  |
+| *PASeparateSentenceCard |  |
 | *SeparateClozeDeletionCard |  |
 | Hint |  |
 | HintNotHidden |  |
@@ -195,6 +195,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 | PAGraphs | `{jpmn-pitch-accent-graphs}` |
 | PASilence | `[sound:_silence.wav]` |
 | FrequenciesStylized | `{jpmn-frequencies}` |
+| FrequencySort | `{jpmn-min-freq}` |
 | SecondaryDefinition | `{jpmn-secondary-definition}` |
 | ExtraDefinitions | `{jpmn-extra-definitions}` |
 | UtilityDictionaries | `{jpmn-utility-dictionaries}` |
@@ -299,7 +300,7 @@ add the following template code as follows:
            {{~#scope~}}
 
 
-               {{~#if (op "===" (get "opt-dictionary-export") "bilingual")~}}
+               {{~#if (op "===" (get "opt-first-definition-type") "bilingual")~}}
                    {{~#set "first-definition-search-type-1" "bilingual"}}{{/set~}}
                    {{~#set "first-definition-search-type-2" "monolingual"}}{{/set~}}
                {{~else~}}
@@ -428,6 +429,19 @@ add the following template code as follows:
                {{~/each~}}
                </div>
            {{~/if~}}
+       {{/inline}}
+
+       {{~! taken from here: https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency ~}}
+       {{#*inline "jpmn-min-freq"}}
+           {{~#scope~}}
+               {{~#set "min-freq" 0}}{{/set~}}
+                   {{#each definition.frequencies}}
+                       {{~#if (op "||" (op "===" (get "min-freq") 0) (op ">" (op "+" (get "min-freq")) (op "+" (regexMatch "\d" "g" this.frequency))))}}
+                           {{~#set "min-freq" (op "+" (regexMatch "\d" "g" this.frequency))}}{{/set~}}
+                       {{~/if~}}
+                   {{/each}}
+               {{get "min-freq"}}
+           {{~/scope~}}
        {{/inline}}
 
 
