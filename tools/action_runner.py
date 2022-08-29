@@ -120,8 +120,8 @@ class FieldEditSimulator:
         TEMP_FIELD = "TEMP_FIELD_NAME"
         assert field_name in self.simulated_fields
 
-        self.simulated_fields.insert(index, TEMP_FIELD)
         self.simulated_fields.remove(field_name)
+        self.simulated_fields.insert(index, TEMP_FIELD)
         i = self.simulated_fields.index(TEMP_FIELD)
         self.simulated_fields[i] = field_name
 
@@ -411,6 +411,21 @@ def main(args=None):
     # note_name = config("notes", "jp-mining-note", "model-name").item()
 
     # runner.run(note_name)
+
+    #from copy import deepcopy
+
+    #s = FieldEditSimulator(NOTE_CHANGES[-1].fields)
+    #f1 = deepcopy(s.simulated_fields)
+    #s._move_field("PAShowInfo", 15-1)
+    #f2 = deepcopy(s.simulated_fields)
+    #s._move_field("PASeparateWordCard", 19-1)
+    #f3 = deepcopy(s.simulated_fields)
+
+    #for (i, a, b, c) in zip(range(len(f1)), f1, f2, f3):
+    #    str_format = "{:<3} {:<25} {:<25} {:<25}"
+    #    print(str_format.format(i, a, b, c))
+
+    #return
 
     s = FieldEditSimulator(NOTE_CHANGES[-1].fields)
     actions = sum((data.actions for data in NOTE_CHANGES), start=[])
