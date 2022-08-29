@@ -1,28 +1,36 @@
 # Changelog
-- The last 3 numbers (# in X.#.#.#) follow semantic versioning.
+The last 3 numbers (# in X.#.#.#) follow semantic versioning.
 Following semantic versioning, the 2nd number is bumped when any
-BREAKING changes occur (field rename, field addition, field deletion).
-"Breaking" in this case, is defined when someone cannot update their cards
-with the `install.py` script without changing something else first.
-- The first number (X in X.#.#.#) is an arbitrary number that I decide for
+BREAKING changes occur.
+
+"Breaking" in this case, is defined when someone has to perform any action
+outside of running `./install.py --update` for the card to work properly.
+
+The following are breaking changes:
+- Changes to anki plugin configs
+- Changes to yomichan templates / format
+
+The first number (X in X.#.#.#) is an arbitrary number that I decide for
 when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
 subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
 
-## [0.8.2.0] - 2022-08-??
+## [0.9.0.0] - 2022-08-??
 
-#### Changed
+#### Changed (BREAKING)
 - yomichan templates:
     - unified one option for monolingual / bilingual
     - added "unused dictionaries" section, takes priority over all other searches
     - removed "No pitch accent data" in favor of an empty field
     - added "JMDict Surface Forms" to utility dict and "日本語文法辞典" to bilingual dict regex
     - added a span around each dictionary glossary entry
-    - renamed `silence.wav` -> `_silence.wav`
-
+- renamed `silence.wav` -> `_silence.wav`
 - added an additional inner html field around the downstep arrow so css can automatically remove it
+    - requires a change to the AJT pitch accent plugin config
+
+#### Changed
 - collapsable fields are now greyed out instead of gone (no option for this yet)
 - added css to center elements in the orthographic forms dictionary
 - removed prettier dependency, added JSON-minify dependency
@@ -30,7 +38,9 @@ signified.)
      `config/example_config.py`,
      `config/jpmn_opts.jsonc`,
      `tools/note_files.py` } to prevent having to regenerate the config file on version updates
-- made install.py work when updating a card to add new fields
+- made install.py work when updating a card to:
+    - edit existing fields in place
+    - warn the user on updates outside anki (e.g. config changes, yomichan templates, etc.)
 - added kanji hover (to display which kanjis were used in previous cards)
 
 
