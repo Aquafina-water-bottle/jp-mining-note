@@ -331,36 +331,6 @@ function getWordReadings(nonNewCardInfo, newCardInfo) {
 }
 
 
-/// {% endblock %}
-
-
-
-
-/// {% block js_run %}
-{{ super() }}
-
-// checks leech
-let tags = "{{ T('Tags') }}".split(" ");
-if (tags.includes("leech")) {
-  logger.leech();
-}
-
-
-// a bit of a hack...
-// The only reason why the downstep arrow exists in the first place is to make the downstep
-// mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
-//let wp = document.getElementById("dh_word_pitch");
-//wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
-
-// removes greyed out fields if they should be hidden
-if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
-  let elems = document.getElementsByClassName("glossary-details--grey");
-  for (let x of elems) {
-    x.style.display = "none";
-  }
-}
-
-
 
 // kanji hover
 // some code shamelessly stolen from cade's kanji hover:
@@ -368,13 +338,6 @@ if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
 
 // element outside async function to prevent double-adding due to anki funkyness
 let wordReading = document.getElementById("dh_reading");
-
-// why isn't this built in already...
-// computes a - b, given a and b are both sets
-//function set_difference(a, b) {
-//  return new Set([...a].filter(x => !b.has(x)));
-//}
-
 
 let kanjiHoverEnabled = false;
 
@@ -386,8 +349,8 @@ async function kanjiHover() {
   }
   kanjiHoverEnabled = true;
 
-  // kanji hover code
-
+  // realistically, key should be good enough since we assume that key has no duplicates
+  // however, just in case, wordreading is added
   let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
   if (cacheKey in kanjiHoverCardCache) {
     _debug("Card was cached")
@@ -452,6 +415,106 @@ async function kanjiHover() {
   }
 
 }
+
+
+
+
+async function openExtraInfoIfNew() {
+
+  // checks option first to see if it's enabled in the first place
+  if ( !{{ utils.opt("open-extra-info-when-new") }}) {
+    return;
+  }
+
+  // cancels if not new
+  // refreshes on every new check, b/c one cannot assume that a card
+  // is no longer new once you see a new card
+  // (editing a new card will consistently refresh the currently new card)
+  const key = "{{ T('Key') }}";
+  if (key in isNewCardCache && !isNewCardCache[key]) {
+    _debug("Key in new card cache and is not new");
+    return;
+  }
+
+  // requires that any of PAGraphs and UtilityDictionaries be filled to even open extra info
+  if (!'{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
+    _debug("Neither PAGraphs nor UtilityDictionaries exists");
+    return;
+  }
+
+  _debug("Testing for new card...");
+
+  function constructFindCardAction(query) {
+    return {
+      "action": "findCards",
+      "params": {
+        "query": query,
+      }
+    }
+  }
+
+  // constructs the multi findCards request for ankiconnect
+  let actions = [];
+  actions.push(constructFindCardAction(`"Key:${key}"`));
+  actions.push(constructFindCardAction(`is:new "Key:${key}"`));
+
+  const multi = await invoke("multi", {"actions": actions});
+  const cards = multi[0];
+
+  if (cards.length > 1) {
+    logger.warn("Duplicate key found.");
+    return;
+  }
+  if (cards.length == 0) {
+    logger.error("Open extra info if new: Cannot find its own card?");
+    return;
+  }
+
+  const isNew = (multi[1].length > 0);
+  isNewCardCache[key] = isNew;
+
+  if (isNew) {
+    _debug("Card is new, opening extra info...");
+    let ele = document.getElementById("extra_info_details");
+    if (ele) {
+      toggleDetailsTag(ele)
+    }
+  } else {
+    _debug("Card is not new.");
+  }
+}
+
+
+/// {% endblock %}
+
+
+
+
+
+/// {% block js_run %}
+{{ super() }}
+
+// checks leech
+let tags = "{{ T('Tags') }}".split(" ");
+if (tags.includes("leech")) {
+  logger.leech();
+}
+
+
+// a bit of a hack...
+// The only reason why the downstep arrow exists in the first place is to make the downstep
+// mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
+//let wp = document.getElementById("dh_word_pitch");
+//wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+
+// removes greyed out fields if they should be hidden
+if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
+  let elems = document.getElementsByClassName("glossary-details--grey");
+  for (let x of elems) {
+    x.style.display = "none";
+  }
+}
+
 
 
 
@@ -532,7 +595,7 @@ if ({{ utils.opt("kanji-hover", "enabled") }}) {
   }
 }
 
-
+openExtraInfoIfNew();
 
 
 //_debug(document.documentElement.innerHTML);

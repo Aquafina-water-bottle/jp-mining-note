@@ -1,8 +1,18 @@
 var logger = (function (my) {
+  let uniqueKeys = new Set();
 
-  let _appendMsg = function(message, groupEle) {
+  let _appendMsg = function(message, groupEle, key=null) {
+    // I think this stops an infinite loop somewhere if you log a null for some reason...
+    if (message === null) {
+      message = "null";
+    }
+
     let msgEle = document.createElement('div');
     msgEle.classList.add("info-circle__message")
+    if (key !== null) {
+      msgEle.setAttribute("data-key", key);
+    }
+
     if (Array.isArray(message)) {
       if (message.length > 0) {
         msgEle.textContent = message[0];
@@ -21,9 +31,9 @@ var logger = (function (my) {
   }
 
   my.error = function(message) {
-    var groupEle = document.getElementById("info_circle_text_error");
+    let groupEle = document.getElementById("info_circle_text_error");
     _appendMsg(message, groupEle);
-    var infoCirc = document.getElementById("info_circle");
+    let infoCirc = document.getElementById("info_circle");
     if (!infoCirc.classList.contains("info-circle-error")) {
       infoCirc.classList.add("info-circle-error")
     }
@@ -35,25 +45,66 @@ var logger = (function (my) {
     }
   }
 
-  my.warn = function(message) {
-    var groupEle = document.getElementById("info_circle_text_warning");
-    _appendMsg(message, groupEle);
-    var infoCirc = document.getElementById("info_circle");
+  my.removeWarn = function(key) {
+    // assumes that this is a unique warn message
+
+    if (!uniqueKeys.has(key)) {
+      return;
+    }
+
+    let groupEle = document.getElementById("info_circle_text_warning");
+    for (let e of groupEle.children) {
+      if (e.getAttribute("data-key") === key) {
+        groupEle.removeChild(e);
+      }
+    }
+
+    let infoCirc = document.getElementById("info_circle");
+    if (groupEle.children.length === 0 && infoCirc.classList.contains("info-circle-warning")) {
+      infoCirc.classList.remove("info-circle-warning")
+    }
+
+    uniqueKeys.delete(key);
+  }
+
+  // key defaults to the message if unique is true and key is null
+  // key is ignored if unique == false
+  my.warn = function(message, unique=true, key=null) {
+
+    // skips any non-unique warns as defined by the key
+    if (unique) {
+      if (key === null) {
+        key = message;
+      }
+
+      if (uniqueKeys.has(key)) {
+        return;
+      }
+    }
+
+    let groupEle = document.getElementById("info_circle_text_warning");
+    _appendMsg(message, groupEle, key);
+    let infoCirc = document.getElementById("info_circle");
     if (!infoCirc.classList.contains("info-circle-warning")) {
       infoCirc.classList.add("info-circle-warning")
     }
+
+    if (key !== null) {
+      uniqueKeys.add(key);
+    }
+
   }
 
   my.info = function(message) {
-    var groupEle = document.getElementById("info_circle_text_info");
+    let groupEle = document.getElementById("info_circle_text_info");
     _appendMsg(message, groupEle);
   }
 
 
   my.leech = function() {
-    var groupEle = document.getElementById("info_circle_text_leech");
+    let groupEle = document.getElementById("info_circle_text_leech");
     _appendMsg("", groupEle);
-    var infoCirc = document.getElementById("info_circle");
+    let infoCirc = document.getElementById("info_circle");
     if (!infoCirc.classList.contains("info-circle-leech")) {
       infoCirc.classList.add("info-circle-leech")
     }
