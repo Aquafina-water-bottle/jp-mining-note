@@ -101,6 +101,15 @@
     ]
   },
 
+  "kanji-hover": {
+    "enabled": true,
+
+    // 0: loads every time, slower to reveal the back side of the card
+    // 1: loads only upon hover, has a small delay upon first hovering over a word
+    "mode": 1
+  },
+
+
   // Overrides the play keybind button to show the sentence if the
   // card is a hybrid sentence AND the sentence is not currently being shown.
   // Only affects the front side.
