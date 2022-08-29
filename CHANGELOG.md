@@ -29,6 +29,9 @@ signified.)
       so this is not a breaking change
 - Open extra info field on new feature
 - Caps lock warning
+- Options to specify max number of words per category in the kanji hover tooltip
+- User inserted images now also change to the [Image] / hover / click to zoom property
+  that Yomichan images have
 
 #### Fixed
 - Field simulator bug with move field

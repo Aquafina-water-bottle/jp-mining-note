@@ -70,12 +70,13 @@ class NoteChange:
 
 NOTE_CHANGES = [
     NoteChange(
-        version=Version(0, 10, 0, 0),
+        version=Version(0, 9, 1, 0),
         actions=[
             action.MoveField("PAShowInfo", 15 - 1),
             action.MoveField("PASeparateWordCard", 19 - 1),
             action.MoveField("PASeparateSentenceCard", 19 - 1),
             action.AddField("FrequencySort", 29 - 1),
+            action.YomichanTemplatesChange(),
         ],
         fields=[
             "Key",

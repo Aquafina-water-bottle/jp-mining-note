@@ -121,7 +121,7 @@
     // not suspended, and neither flagged as red or green
     "new-query": "is:new -(is:suspended (flag:1 OR flag:3))",
 
-    // maximum number of cards per category
+    // maximum number of words per category
     "max-non-new-oldest": 2,
     "max-non-new-latest": 2,
     "max-new-latest": 2
