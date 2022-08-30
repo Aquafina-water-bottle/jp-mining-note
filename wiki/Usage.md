@@ -234,6 +234,16 @@ and other notes that aren't completely crutial to understanding the tested conte
 
 
 
+# Modifying Other aspects of the card
+
+## `Key` field
+TODO
+
+## `Comment` field
+TODO
+
+
+
 # Testing Pitch Accent
 This note type provides many options to target exactly what parts of pitch accent
 you want to test yourself on.
