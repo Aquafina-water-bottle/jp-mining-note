@@ -226,6 +226,8 @@ Similarly to the normal TSC, if you want to use the hover sentence card or click
 to only test a specific portion of the sentence, you can bold the desired
 selection of the sentence and fill `IsTargetedSentenceCard`.
 
+The above example is a Hover TSC, with the last sentence was bolded.
+
 
 
 
@@ -244,7 +246,7 @@ selection of the sentence and fill `IsTargetedSentenceCard`.
 |                |                        |             | x           | Hover Vocab        |
 | x              |                        |             | x           | Hover Sentence     |
 
-
+<!--
 # Motivation behind each card type
 (TODO)
 
@@ -273,5 +275,5 @@ ultimately, I have my own opinions, and
 [their](https://animecards.site/ankicards/#sentence-cards-vs-anime-cards)
 [own](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards).
 My personal recommendation is to **try all of them out** and see which works best for you.
-
+-->
 
