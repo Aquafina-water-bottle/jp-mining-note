@@ -373,17 +373,12 @@ Cloze deletion cards are simply a fancy way of saying "fill-in-the-blank cards".
 To test yourself, you simply check if you can hear the correct word in the missing sections.
 
 To create a cloze deletion card, simply fill in the `SeparateClozeDeletionCard` field.
-The words that are hidden are exactly the words that are bolded in the `Sentence` field.
+The words that are hidden are exactly the words that are bolded in the `Sentence` (or `AltDisplay`) field.
 
 
-| [[assets/cloze_deletion_front.png]] |
+| [[assets/cloze_deletion.png]] |
 |:--:|
-| The highlighted words are automatically hidden. Note that this cards has two hidden words. |
-
-
-| [[assets/cloze_deletion_back.png]] |
-|:--:|
-| The back side of the card. Note that I edited the reading field to include two words. |
+| The highlighted word(s) are automatically hidden. |
 
 
 
