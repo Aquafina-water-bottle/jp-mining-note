@@ -31,6 +31,7 @@ This entire section is dedicated to showcasing all the various card types
 that this note has to offer.
 
 
+<!--
 ## Common Features
 TODO REMOVE THIS SECTION
 
@@ -53,16 +54,13 @@ this section will apply to all card types, and explain the features and reasonin
 
 - Pitch accent can also be tested for all of the note types.
     This is explained in detail here (TODO).
+-->
 
 
 
 ## Vocab Card
 
-(TODO update picture)
-
-| [[assets/nisemono_front.png]] |
-|:--:|
-| Example vocab card (front) |
+[[assets/nisemono_word_blank.png]]
 
 A vocab card simply shows the target word at the front.
 You test yourself on the reading and definition of the word.
@@ -75,7 +73,7 @@ Nothing has to be done for the card to be a vocab card.
 
 ## Sentence Card
 
-(TODO example picture)
+[[assets/nisemono_sentence_blank.png]]
 
 A sentence card simply shows the entire sentence at the front.
 You test yourself on the reading and meaning of the entire sentence.
@@ -85,11 +83,36 @@ Fill the `IsSentenceCard` field.
 
 
 
+## Targetted Sentence Card (TSC)
+
+[[assets/nisemono_tsc.png]]
+
+A targetted sentence card is a special case of the sentence card.
+The sentence is shown at the front, but only the highlighted content (only the word by default)
+is tested.
+
+This card type was originally defined
+[here](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards).
+
+Note that this is really just a special case of the normal sentence card,
+where the highlighted content is only the tested word.
+
+**How to create:** <br>
+Fill the `IsTargetedSentenceCard` field.
 
 
-## Hover Vocab Card
 
-(TODO gif)
+
+
+## Hybrid Cards
+
+Hybrid cards are a group of cards that attempt to combine the power of
+sentence cards and vocab cards into one.
+
+
+#### Hover Vocab Card
+
+[[assets/nisemono_hover_word.gif]]
 
 A hover vocab word shows the tested word at the front.
 When you hover over the word,
@@ -116,9 +139,9 @@ For all forms of hover cards, you can press "shift" to toggle whether the senten
 
 
 
-## Click Vocab Card
+#### Click Vocab Card
 
-(TODO gif)
+[[assets/nisemono_click_word.gif]]
 
 A click vocab word shows the tested word at the front.
 When you click on the word, you can see the full sentence,
@@ -139,8 +162,10 @@ but you can use the sentence to guess the definition.
     * In other words, if you can only guess the definition by reading the sentence,
         then the card should still be passed.
 
+<!--
 Notice that this is different from the hover vocab card,
 because you are **not** allowed to see the sentence when guessing the reading.
+-->
 
 **How to create:** <br>
 Fill the `IsClickCard` field.
@@ -149,13 +174,13 @@ Fill the `IsClickCard` field.
 
 
 
-## Hover Sentence Card
+#### Hover Sentence Card
 
-(TODO gif)
+[[assets/nisemono_hover_sentence.gif]]
 
 This acts similarly to the hover vocab card.
-However, the tested content is the display,
-so you must hover over the word to test the entire display.
+However, the tested content is the entire sentence,
+so you must hover over the word to test the entire sentence.
 
 **Indicator:** Yellow & solid underline under the word.
 
@@ -166,13 +191,11 @@ so you must hover over the word to test the entire display.
 
 **How to create:** <br>
 Fill the `IsHoverCard` and `IsSentenceCard` fields.
-If one wants to test a particular section of a sentence,
-bold the desired selection of the sentence and fill in the `ForceSentenceHighlight` field.
 
 
-## Click Sentence Card
+#### Click Sentence Card
 
-(TODO gif)
+[[assets/nisemono_click_sentence.gif]]
 
 This acts similar to the click vocab card.
 However, similarly to the hover sentence card, the tested content is the entire display,
@@ -189,32 +212,16 @@ so you must click the word to test the entire display
 
 **How to create:** <br>
 Fill the `IsClickCard` and `IsSentenceCard` fields.
-If one wants to test a particular section of a sentence,
-bold the desired selection of the sentence and fill in the `ForceSentenceHighlight` field.
 
 
 
+#### Hybrid TSC
 
-## Targetted Sentence Card (TSC)
+[[assets/nisemono_hover_tsc.gif]]
 
-(TODO picture)
-
-<!--
-A targetted sentence card shows the entire sentence at the front,
-but has the tested word highlighted.
-Only the highlighted word is tested.
--->
-A targetted sentence card is a special case of the sentence card.
-The sentence is shown at the front, but only the highlighted content (usually just the word)
-is tested.
-
-This was originally defined here (TODO).
-
-Note that this is really just a special case of the normal sentence card,
-where the highlighted content is only the tested word.
-
-**How to create:** <br>
-Fill the `IsSentenceCard` and `ForceSentenceHighlight` field.
+Similarly to the normal TSC, if you want to use the hover sentence card or click sentence card
+to only test a specific portion of the sentence, you can bold the desired
+selection of the sentence and fill `IsTargetedSentenceCard`.
 
 
 
@@ -224,11 +231,11 @@ Fill the `IsSentenceCard` and `ForceSentenceHighlight` field.
 
 # Card Creation Summary
 
-| IsSentenceCard | ForceSentenceHighlight | IsClickCard | IsHoverCard | Result (Card Type) |
+| IsSentenceCard | IsTargetedSentenceCard | IsClickCard | IsHoverCard | Result (Card Type) |
 |----------------|------------------------|-------------|-------------|--------------------|
 |                |                        |             |             | Vocab Card         |
 | x              |                        |             |             | Sentence Card      |
-| x              | x                      |             |             | TSC                |
+|                | x                      |             |             | TSC                |
 |                |                        | x           |             | Click Vocab        |
 | x              |                        | x           |             | Click Sentence     |
 |                |                        |             | x           | Hover Vocab        |
