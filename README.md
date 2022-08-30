@@ -4,7 +4,10 @@ designed to be visually appealing and simple to use without sacrificing function
 Easily paired with most automatic card creation workflows,
 this aims to make your experience with Anki as smooth as possible.
 
-![image](https://user-images.githubusercontent.com/17107540/184517988-cc2b36df-b09b-4f57-9866-e3ce7393d6a4.png)
+
+https://user-images.githubusercontent.com/17107540/187539915-80f5a778-d481-41d2-b693-21aee1c8c94d.mp4
+
+
 
 <!-- TODO video demo
 
