@@ -106,11 +106,14 @@ Fill the `IsTargetedSentenceCard` field.
 
 ## Hybrid Cards
 
-Hybrid cards are a group of cards that attempt to combine the power of
+Hybrid cards are a group of card types that attempt to combine the power of
 sentence cards and vocab cards into one.
+They all have the distinct feature that the word is shown at the front,
+but the sentence can be shown through some natural means.
 
 
-#### Hover Vocab Card
+
+### Hover Vocab Card
 
 [[assets/nisemono_hover_word.gif]]
 
@@ -139,7 +142,7 @@ For all forms of hover cards, you can press "shift" to toggle whether the senten
 
 
 
-#### Click Vocab Card
+### Click Vocab Card
 
 [[assets/nisemono_click_word.gif]]
 
@@ -174,7 +177,7 @@ Fill the `IsClickCard` field.
 
 
 
-#### Hover Sentence Card
+### Hover Sentence Card
 
 [[assets/nisemono_hover_sentence.gif]]
 
@@ -193,7 +196,7 @@ so you must hover over the word to test the entire sentence.
 Fill the `IsHoverCard` and `IsSentenceCard` fields.
 
 
-#### Click Sentence Card
+### Click Sentence Card
 
 [[assets/nisemono_click_sentence.gif]]
 
@@ -215,7 +218,7 @@ Fill the `IsClickCard` and `IsSentenceCard` fields.
 
 
 
-#### Hybrid TSC
+### Hybrid TSC
 
 [[assets/nisemono_hover_tsc.gif]]
 
