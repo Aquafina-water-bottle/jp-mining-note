@@ -230,7 +230,7 @@ and other notes that aren't completely crutial to understanding the tested conte
 * Bolding anything in these sections will highlight the word in a light yellow tint,
   to make the bold stand out more.
 
-TODO show picture of all 3
+[[assets/nisemono_modify_back_side.png]]
 
 
 
@@ -250,7 +250,10 @@ TODO annotated image for testing pitch accent
 This circle you see is called the "Pitch Accent Indicator", or "PA Indicator" for short.
 How this card indicates what pitch accent is tested is by the PA indicator's color.
 
-TODO compilation image of a vocab card with all 3 pitch accent indicators
+
+| [[assets/pa_indicators.png]] |
+|:--:|
+| The possible circles to the left of the display. |
 
 <!--
 | [[assets/pa_indicator_circles.png]] |
