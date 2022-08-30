@@ -16,6 +16,13 @@ with detailed rigor.
 Instead, this section will give you some general tips
 on operations that will likely be common across most or all formats.
 
+Additionally, although you maybe able to import most of the card,
+it is unlikely that you will have complete 100% full
+functionality after importing the notes.
+The biggest example is frequency list information,
+as it requires special HTML + css formatting that can only be specified
+in the Yomichan Templates section.
+
 
 # Prerequisites
 Before doing anything that affects your Anki collection in a major way,
@@ -55,6 +62,12 @@ However, here are a few tips:
   The only thing you should import is the pitch accent graphs,
   into the `PAGraphs` field.
   PA positions and PA text should be ignored.
+
+- You may have frequency list info already in your card.
+  As a quick warning, although you are free to import that info
+  it may not work as you would expect in the JPMN card.
+  Because there's no standard way to store this data, there is no convenience function
+  to convert it to the proper format.
 
 - See the field reference (TODO link) for more information about other fields.
 
@@ -146,4 +159,5 @@ for an example of how to do this.
 Auto-generating frequency info (with the correct css, html, etc.) doesn't seem trivial,
 and I currently provide no way of doing that
 (primarily because I'm not sure how to do it in the first place).
+If you know of a way or would like to help me out with doing this, please let me know!
 

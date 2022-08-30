@@ -5,6 +5,15 @@
 * [Card Creation](setup#creating-the-cards)
 * [Pictures and Audio](setup#automating-pictures-and-sentence-audio)
 
+[**Usage**](usage)
+* [UI Summary](usage#user-interface-summary)
+* [Modifying: Front](usage#modifying-the-front-side-tested-content)
+* [Modifying: Back](usage#modifying-the-back-side)
+* [Modifying: Other](usage#modifying-other-aspects-of-the-card)
+* [Testing Pitch Accent](usage#testing-pitch-accent)
+* [Options](usage#options)
+* [Cloze Deletion Cards](usage#cloze-deletion-cards)
+
 [**Card Types**](cardtypes)
 * [Vocab Card](cardtypes#vocab-card)
 * [Sentence Card](cardtypes#sentence-card)
@@ -14,26 +23,11 @@
 * [Hover Sentence Card](cardtypes#hover-sentence-card)
 * [Hover Click Card](cardtypes#click-sentence-card)
 
-[**Usage**](usage)
-* [UI Summary](usage#user-interface-summary)
-* [Modifying: Front](usage#modifying-the-front-side-tested-content)
-* [Modifying: Back](usage#modifying-the-back-side)
-* [Modifying: Other](usage#modifying-other-aspects-of-the-card)
-* [Testing Pitch Accent](usage#testing-pitch-accent)
-* [Options](usage#options)
-* [Cloze Deletion Cards](usage#cloze-deletion-cards)
-<!--
-* [Miscellaneous](usage#miscellaneous-notes)
-* [Reference](usage#anki-field-reference)
--->
-
 [**Importing Old Cards**](importing)
 
-[**Templates Info & Customization**](yomichantemplates)
+[**Templates Info & Customization**](yomichantemplates) (TODO)
 
-[**Updating the Note**](updating)
-
-
+[**Updating the Note**](updating) (TODO)
 
 [**FAQ (Troubleshooting)**](faq) (TODO)
 
