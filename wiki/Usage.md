@@ -122,15 +122,14 @@ To see the full list, see this section: TODO link
 Vocab cards show the `Word` field and sentence cards show the `Sentence` fields by default.
 However, you can modify what is exactly shown in the front by using the `AltDisplay` field.
 
-For example, the above sentence card looks a little ugly, because the sentence splits off
-at a strange point.
-In the `AltDisplay` field, we add a newline at a sensible place (after the period).
+| [[assets/nisemono_altdisplay_newline.png]] |
+|:--:|
+| For example, the previous sentence card looks a little ugly, because the sentence splits off at a strange point. In the `AltDisplay` field, we add a newline at a sensible place (after the period). |
 
-[[assets/nisemono_altdisplay_newline.png]]
+| [[assets/nisemono_altdisplay_last_sent.png]] |
+|:--:|
+| Another example is if we want to only test the last sentence. |
 
-Another example is if we want to only test the last sentence.
-
-[[assets/nisemono_altdisplay_last_sent.png]]
 
 
 <!--
