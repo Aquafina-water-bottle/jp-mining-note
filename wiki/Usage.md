@@ -161,7 +161,7 @@ testing myself on how to read a name.
 
 | [[assets/altdisplay_furigana.gif]] |
 |:--:|
-| The front display, with the `AltDisplay` containing the following HTML: `上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの` |
+| The front display, with the `AltDisplay` containing the following HTML: <br> `上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの` |
 
 <!--
 | [[assets/furigana_altdisplay.png]] |
@@ -177,6 +177,7 @@ to show something that differs from the `Word` field.
 
 
 > **Note**
+>
 > On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
 > the front displayed word.
 
@@ -264,6 +265,7 @@ Alternatively, you can look at the top right of the screen and look at the value
 
 
 > **Note**
+>
 > If the tested content is a sentence (card), but you want to only test for word pitch accent,
 > you would not be able to see the word normally.
 > To see the word that is tested, there is a button to toggle whether the word is highlighted or not.
