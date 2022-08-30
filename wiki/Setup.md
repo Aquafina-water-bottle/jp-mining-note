@@ -180,13 +180,16 @@ so I *strongly* recommend using this.
 There are two ways of using css injector:
 
 1. Automatically updates with the card (recommended)
-    - For Windows users, run this command in command prompt with elevated permissions:
+    - For Windows users, run this command in command prompt with elevated permissions (be sure to change `USERNAME` to your computer username and `DECKNAME` to your Anki deck):
 
-          mklink C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css C:\Users\USERNAME\AppData\Roaming\Anki2\Japanese\collection.media\_field.css
+          mklink C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css C:\Users\USERNAME\AppData\Roaming\Anki2\DECKNAME\collection.media\_field.css
 
-    - For nix users, run the following command:
+      If you've never used command prompt before, see
+      [here](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/)
 
-          ln -s ~/.local/share/Anki2/Japanese/collection.media/_field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+    - For nix users, run the following command (be sure to change `DECKNAME` to your Anki deck):
+
+          ln -s ~/.local/share/Anki2/DECKNAME/collection.media/_field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
 
 2. Manually without respecting updates:
     - Manually copy the `_field.css` file (found under your deck's `media` directory)
