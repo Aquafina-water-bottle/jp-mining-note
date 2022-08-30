@@ -5,7 +5,10 @@ Easily paired with most automatic card creation workflows,
 this aims to make your experience with Anki as smooth as possible.
 
 
-https://user-images.githubusercontent.com/17107540/187539915-80f5a778-d481-41d2-b693-21aee1c8c94d.mp4
+
+
+https://user-images.githubusercontent.com/17107540/187550103-7e50c317-9074-4c7c-a499-fa4ddc89e419.mp4
+
 
 
 
