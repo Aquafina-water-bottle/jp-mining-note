@@ -18,7 +18,7 @@ There are two ways of installing the card:
 
 
 ## The Cool Way
-If you know what `git` and `python`, here's all you have to do:
+If you know what `git` and `python` is, here's all you have to do:
 
 ```
 git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
