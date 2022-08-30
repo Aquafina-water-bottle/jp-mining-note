@@ -50,6 +50,8 @@ leech
 ## Kanji Hover
 TODO flesh out + pictures
 
+[[assets/kanji_hover.gif]]
+
 - by default, shows in 3 different categories:
 - 2 oldest, not new (already reviewed before, in order of add date)
 - 2 latest, not new (the latest 2 cards that you have reviewed, in order of add date)
@@ -60,7 +62,6 @@ TODO flesh out + pictures
     - and is completely un-true for people who are reviewing in order of frequency
 
 - currently no way to order it in anything other than add date
-
 
 ## Word Pitch
 The colors and what the lines mean are all described in the
