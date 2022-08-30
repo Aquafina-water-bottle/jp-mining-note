@@ -66,7 +66,7 @@ certain fields.
 To download all the required plugins, copy and paste the following numbers into the Add-ons window.
 (Tools →  Add-ons →  "Get Add-ons...")
 ```
-1344485230 1225470483 2055492159
+1344485230 1225470483 2055492159 181103283
 ```
 Further details on each of the plugins and the required config changes are listed below.
 
@@ -164,6 +164,17 @@ Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the plugin.
 
 
+#### CSS Injector
+[(Link)](https://ankiweb.net/shared/info/181103283)
+This plugin is not strictly necessary.
+However, if you don't use this, the fields within the Anki field editor
+won't look very good, so I *strongly* recommend using this.
+
+[[assets/css_injector.png]]
+
+
+
+
 <!--
 idk why this section is here
 
@@ -171,9 +182,6 @@ More info can be found in the official Anki Documentation
 [here](https://docs.ankiweb.net/templates/intro.html?highlight=override#the-templates-screen).
 -->
 
-
-## Installing custom fonts
-(TODO)
 
 ## Transfer existing notes
 (TODO)
