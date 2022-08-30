@@ -26,6 +26,7 @@ rm ../../wiki/*.md
 cp ./*.md ../../wiki
 mkdir ../../wiki/assets
 cp -r ./assets/*.png ../../wiki/assets
+cp -r ./assets/*.gif ../../wiki/assets
 
 # wiki
 cd ../../wiki
