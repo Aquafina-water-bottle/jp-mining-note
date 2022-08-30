@@ -36,6 +36,7 @@ signified.)
 #### Fixed
 - Field simulator bug with move field
 - Installing from scratch not working
+- Cloze-deletion cards not having sentence audio at the front
 
 
 ## [0.9.0.0] - 2022-08-28
