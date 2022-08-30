@@ -1143,7 +1143,15 @@ ruby rt {
   content: "VN";
 }
 
-.frequencies__group[data-details="VN Freq"] .frequencies__number .frequencies__number-inner:after {
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__dictionary:after {
+  content: "VN%";
+}
+
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__number .frequencies__number-inner:after {
   content: "%";
 }
 

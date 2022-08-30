@@ -16,7 +16,7 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
-## [0.9.1.0] - 2022-08-??
+## [0.9.1.0] - 2022-08-30
 
 #### Added
 - Added `FrequencySort` field

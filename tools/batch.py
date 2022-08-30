@@ -128,7 +128,7 @@ def add_downstep_inner_span_tag():
 
 
 # def batch_field(field_name: str, lmbda):
-def rename_silence_wav():
+def set_pasilence_field():
     notes = invoke(
         "findNotes", query=r'"note:JP Mining Note"'
     )
