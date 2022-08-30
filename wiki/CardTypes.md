@@ -75,7 +75,7 @@ Nothing has to be done for the card to be a vocab card.
 
 ## Sentence Card
 
-[[assets/nisemono_sentence_blank.png]]
+[[assets/nisemono_altdisplay_newline.png]]
 
 A sentence card simply shows the entire sentence at the front.
 You test yourself on the reading and meaning of the entire sentence.
