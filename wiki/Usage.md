@@ -42,9 +42,10 @@ error (javascript error)
 - should NOT appear, report as an issue if it does...
 
 warn (caps lock enabled)
-- 
+- can appear to present alerting info to the user
 
 leech
+- yellow
 
 ## Kanji Hover
 TODO flesh out + pictures
