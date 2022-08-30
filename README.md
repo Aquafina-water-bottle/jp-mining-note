@@ -24,6 +24,15 @@ TODO in video demo:
 - add a newline with AltDisplay and show again
 - add something in AdditionalNotes and Hint and show again
 
+
+TODO gif demo:
+- show front
+- click on back
+- furigana hover
+- click on image
+- kanji hover
+- open/close additional fields
+
 -->
 
 Note that this project is still in its early stages.
