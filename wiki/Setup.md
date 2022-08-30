@@ -856,12 +856,12 @@ These plugin(s) assist in card creation, but are ultimately optional.
 ## Separate Pitch Accent Deck
 If you want card types to go to a different deck by default, you can change it by doing the following:
 
-`Browse` (top middle)
-→  `Cards`
-→  `Card Type selector` (top of the screen)
-→  (choose pitch accent card type)
-→  `Options`
-→  `Deck Override`
+`Browse` (top middle) <br>
+→  `Cards...` (right above the `Key` field, NOT the `Cards` dropdown menu at the top right corner) <br>
+→  `Card Type` dropdown (top of the screen) <br>
+→  (choose pitch accent card type) <br>
+→  `Options` (the first `Options` you see at the very top of the screen) <br>
+→  `Deck Override...`
 
 
 # Updating
