@@ -5,9 +5,18 @@
 
 
 {% call IF('SeparateClozeDeletionCard') %}
+{% call IF('SentenceAudio') %}
 
 
 {% include "jp-mining-note/cloze_deletion/front_base.html" %}
 
+<div>
+{% call IF("SentenceAudio") %}
+  <span id="sentence-audio"> {{ T("SentenceAudio") }} </span>
+{% endcall %}
+</div>
+
+
+{% endcall %}
 {% endcall %}
 
