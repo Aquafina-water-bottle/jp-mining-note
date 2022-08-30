@@ -192,17 +192,25 @@ to show something that differs from the `Word` field.
 Finally, you can include a customized hint to show at the front of the card, by using the `Hint` field.
 This will show as a collapsible field at the front of card.
 
+[[assets/hint.gif]]
 
+<!--
 | [[assets/hint.png]] |
 |:--:|
 | Showcasing how hints are shown and hidden. Hints are hidden by default. |
 - TODO change picture to gif
 - TODO write exactly what the value of `Hint` is (within picture)
+-->
+
 
 
 If you do not want the hint to be hidden by default, you can use the `HintNotHidden` field instead.
+<!--
 - TODO picture
 - TODO write exactly what the value of `HintNotHidden` is (within picture)
+-->
+
+[[assets/hint_not_hidden.png]]
 
 
 # Modifying the Back Side
