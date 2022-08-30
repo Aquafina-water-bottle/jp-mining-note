@@ -128,7 +128,7 @@ However, you can modify what is exactly shown in the front by using the `AltDisp
 
 | [[assets/nisemono_altdisplay_last_sent.png]] |
 |:--:|
-| Another example is if we want to only test the last sentence. |
+| Another example: if we want to only test the last sentence. |
 
 
 
@@ -152,11 +152,18 @@ I personally use this to insert furigana for certain names, since I'm usually no
 testing myself on how to read a name.
 
 
+
+| [[assets/altdisplay_furigana.gif]] |
+|:--:|
+| The front display, with the `AltDisplay` containing the following HTML: `上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの` |
+
+<!--
 | [[assets/furigana_altdisplay.png]] |
 |:--:|
 | A picture of the front display, with the cursor over the text. |
 - TODO change picture
 - TODO write exactly what the value of `AltDisplay` is (within picture)
+-->
 
 
 Similarly, if you are using a vocab card, you can use `AltDisplay`
