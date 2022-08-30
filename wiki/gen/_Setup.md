@@ -57,6 +57,7 @@ View one of the cards and make sure the card looks similar to the one below:
 [[assets/eg_fushinnsha.png]]
 
 
+<br>
 
 # Anki Setup
 For this card type to work, some Anki addons are required to connect to external sources and to auto-generate
@@ -199,13 +200,14 @@ There are two ways of using css injector:
 
 
 
-## Transfer existing notes
-(TODO)
+# Transfer existing notes
+(TODO separate page)
 * [sound:silence.wav]
 * mention important reference fields
 * batch editing plugin?
     * section on batch editing
 
+<br>
 
 # Yomichan Setup
 [Yomichan](https://github.com/FooSoft/yomichan)

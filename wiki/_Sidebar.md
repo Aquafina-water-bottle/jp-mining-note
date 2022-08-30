@@ -97,6 +97,8 @@ Usage:
     - separate cards
 
 * options
+    - how to access
+    - most should be self explanatory tbh
     - keybinds
     - sentence
     - quotes
