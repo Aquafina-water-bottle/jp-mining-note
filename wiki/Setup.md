@@ -39,7 +39,7 @@ here's the normal way of installing the cards:
     and download the cards from the latest release.
     You should download the `{version}-jpmn_example_cards.apkg` file.
 2. After you download the cards, import them by navigating to Anki by doing the following:
-    - File (top left) →  Import...
+    - `File` (top left corner) →  `Import...`
 3. By default, the custom fonts do not come with the `.apkg` file.
     To install these fonts, head over to this
     repository's [media folder](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
@@ -65,7 +65,7 @@ certain fields.
 
 ## Required Anki Plugins
 To download all the required plugins, copy and paste the following numbers into the Add-ons window.
-(Tools →  Add-ons →  "Get Add-ons...")
+(`Tools` →  `Add-ons` →  `Get Add-ons...`)
 ```
 1344485230 1225470483 2055492159 181103283
 ```
@@ -856,12 +856,12 @@ These plugin(s) assist in card creation, but are ultimately optional.
 ## Separate Pitch Accent Deck
 If you want card types to go to a different deck by default, you can change it by doing the following:
 
-Browse (top middle)
-→  Cards
-→  Card Type selector (top of the screen)
+`Browse` (top middle)
+→  `Cards`
+→  `Card Type selector` (top of the screen)
 →  (choose pitch accent card type)
-→  Options
-→  Deck Override
+→  `Options`
+→  `Deck Override`
 
 
 # Updating

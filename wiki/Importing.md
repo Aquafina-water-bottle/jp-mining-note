@@ -33,7 +33,7 @@ There are two ways you can do this:
 # Anki
 Anki provides a feature to switch between note types, without affecting scheduling information.
 To do this, follow the proceeding steps:
-1. Head to the Card Browser window (Main Window →  Browse)
+1. Head to the Card Browser window (Main Window →  `Browse`)
 2. Select all the cards that you want to switch
    - Tip: ctrl+a selects all cards in the browser.
 3. Right click the selection →  `Notes` →  `Change Note Type...`
