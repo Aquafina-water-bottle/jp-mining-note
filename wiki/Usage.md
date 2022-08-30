@@ -271,6 +271,7 @@ Here are what the colors represent:
 If you ever forget what the colors mean, you can hover your mouse over the circle to
 get a description of what is being tested.
 
+Alternatively, you can look at the top right of the screen and look at the value after the `/`.
 
 [[assets/pa_indicator_hover.gif]]
 TODO gif of hovering over the circle
@@ -280,8 +281,6 @@ TODO gif of hovering over the circle
 |:--:|
 | The PA indicator when the cursor hovers over it. |
 -->
-
-Alternatively, you can look at the top right of the screen and look at the value after the `/`.
 
 
 **Note**: <br>
