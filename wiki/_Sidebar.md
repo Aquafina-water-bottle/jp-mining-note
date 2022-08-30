@@ -61,6 +61,10 @@ Usage:
     - collapsable fields (gif)
     - keybinds (gif)
 
+* User Interface (details)
+    - info circle
+    - info circle
+
 * User Interface Summary (Android)
     - TODO
     - line breaks removed by default on altdisplay
