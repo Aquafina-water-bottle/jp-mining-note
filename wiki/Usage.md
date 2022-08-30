@@ -290,8 +290,7 @@ To see the word that is tested, there is a button to toggle whether the word is 
 The content that is highlighted is exactly what is bolded in the `Sentence`
 (or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
 
-
-(TODO picture)
+[[assets/show_word_button.gif]]
 
 
 ## Selecting the Pitch Accent
