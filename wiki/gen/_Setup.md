@@ -13,8 +13,8 @@ with your card exporter:
 
 
 
-# Installing the Note
-There are two ways of installing the note:
+# Installing the Card
+There are two ways of installing the card:
 
 
 ## The Cool Way
@@ -74,7 +74,9 @@ Further details on each of the plugins and the required config changes are liste
 [(Link)](https://ankiweb.net/shared/info/1344485230)
 Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon yomichan card creation.
-Note that furigana generation is occasionally incorrect, so you should double-check the readings
+
+Note: Furigana generation is occasionally incorrect,
+so if you plan on using these regularly, you should double-check the readings
 to make sure they are correct.
 
 The important things to change in the config are `generate_on_note_add`, `fields` and `note_types`.
@@ -122,6 +124,7 @@ The important things to change in the config are `generate_on_note_add`, `fields
 #### AJT Pitch Accent
 [(Link)](https://ankiweb.net/shared/info/1225470483)
 Automatically adds pitch accent info given the word.
+
 Note: Although I have two fields for Yomichan to import the pitch accent, I primarily use the
 pitch accent info generated from this plugin because I personally find it easier to edit.
 More about editing pitch accent in usage (TODO).
@@ -163,6 +166,7 @@ The important things to change in the config are `generate_on_note_add`,
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the plugin.
 
+<br>
 
 #### CSS Injector
 [(Link)](https://ankiweb.net/shared/info/181103283)
@@ -172,15 +176,23 @@ won't look very good, so I *strongly* recommend using this.
 
 [[assets/css_injector.png]]
 
+There are two ways of using css injector:
 
+1. Automatically updates with the card (recommended)
+    - For Windows users, run this command in command prompt with elevated permissions:
 
+        mklink C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css C:\Users\USERNAME\AppData\Roaming\Anki2\Japanese\collection.media\_field.css
 
-<!--
-idk why this section is here
+    - For nix users, run the following command:
 
-More info can be found in the official Anki Documentation
-[here](https://docs.ankiweb.net/templates/intro.html?highlight=override#the-templates-screen).
--->
+        ln -s ~/.local/share/Anki2/Japanese/collection.media/_field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+
+2. Manually without respecting updates:
+    - Manually copy the `_field.css` file (found under your deck's `media` directory)
+        into the css injector plugin directory (`Anki2\addons21\181103283\user_files`)
+    - If the `_field.css` file ever updates, you will have to manually copy the file again
+      into the correct position.
+
 
 
 ## Transfer existing notes
@@ -199,6 +211,14 @@ This will go over the very basic Yomichan setup to work with this card type.
 
 **If you have never used Yomichan before**, please see
 [this page](https://learnjapanese.moe/yomichan/) first to get it working.
+
+
+## Preliminary Steps
+If you have used Yomichan before, please make a backup of your settings (just in case):
+* Navigate to Yomichan Settings.
+* Go to the "Backup" section
+* Select "Export Settings"
+
 
 ## Yomichan Fields
 To edit the fields that Yomichan will automatically fill out, do the following:
@@ -220,21 +240,19 @@ The above fields will create, by default:
 * Shows the first monolingual definition (if not found, uses the first bilingual definition)
 * All other definitions in collapsable fields
 
-Anything field with a * are binary fields, and **should be configured to each user's personal
-preferences.** I personally like separating the pitch accent card by default, hence my normal setup
-has the `PASeparateSentenceCard` field filled in (say, with `1` in Yomichan).
+Anything field with a * are binary fields, and
+**should be configured to each user's personal preferences.**
 More info on how to configure the default values is shown (TODO)
 
 Note that markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
-This will be explained in the section below.
+See the section below to make these markers usable.
 
 
 
 ## Yomichan Templates
 Yomichan supports user inserted template code that allows the automatic
 separation of bilingual and monolingual dictionary definitions,
-among other things.
-I created some templates to do exactly just that.
+among many other things.
 
 To make the new markers usable, do the following:
 * Navigate to Yomichan Settings.
@@ -244,8 +262,6 @@ To make the new markers usable, do the following:
 * If you have existing template code already, I highly recommend
   **resetting the templates** (bottom right corner, red button)
   unless you know exactly what you are doing.
-  If you are updating from a previous version of this card,
-  absolutely reset the templates before moving on.
 
 After resetting the templates,
 **without** removing any of the existing template code,
@@ -315,6 +331,8 @@ see the templates section [here](yomichantemplates).
   [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
   and using [yomichan-import](https://github.com/FooSoft/yomichan-import)
   to get the latest jmdict version available.
+  This is because other sources could have older definitions,
+  which usually means less accurate definitions.
 * [This](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
   link has further template code, which creates markers for individual dictionaries.
   This has certain extended capabilities over my template code, such as removing the first line.
@@ -326,16 +344,20 @@ see the templates section [here](yomichantemplates).
 # Creating the Cards
 I use a texthooker setup, which is able to extract subtitles or text into the browser.
 Once the text is on the browser, you can use Yomichan to select the word and create the
-Anki card.
-This texthooker setup works for most games, and any show with subtitle file.
-The texthooker process has already been explained in great detail by
+Anki card (click on the green plus button).
+Here's an excerpt of text you can test Yomichan on:
+
+「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
+
+The classic texthooker setup works for most games, and any show with subtitle file.
+This texthooker process has already been explained in great detail by
 many other smart people in the following links:
 * [Texthooker basics](https://rentry.co/mining#browser)
 * [Texthooker basics & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
 
 The setup also works with video files if the video player supports automated copying of subtitles,
 and if you have the correct subtitle files.
-* MPV with either mpvacious or Immersive plugins supports this workflow, as detailed in the next section.
+* MPV with either `mpvacious` or `Immersive` plugins supports this workflow, as detailed in the next section.
 * Many anime subtitle files can be found under
 [kitsuneko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F).
 

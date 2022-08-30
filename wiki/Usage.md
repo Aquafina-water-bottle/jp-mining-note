@@ -10,12 +10,12 @@ For example, the `IsSentenceCard` field will turn the card into a sentence card 
 If it is not filled, then the card will be a word card.
 To fill a field automatically, see here (TODO).
 
-**Note vs Card** (Anki fundamentals):
+<!--**Note vs Card** (Anki fundamentals):
 In a nutshell, a note is a collection of fillable fields.
 One note can create multiple cards, and cards are the actual things you see and study off of.
 See the official Anki documentation
 [here](https://docs.ankiweb.net/getting-started.html#key-concepts)
-for additional information.
+for additional information.-->
 
 **PA:** Short for "Pitch Accent".
 
