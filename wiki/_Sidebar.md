@@ -1,11 +1,37 @@
 
-### [Setup](setup)
+[**Setup**](setup)
 * [Anki](setup#anki-setup)
-    * [Importing Old Cards](importing)
 * [Yomichan](setup#yomichan-setup)
-    * [Templates Info & Customization](yomichantemplates)
 * [Card Creation](setup#creating-the-cards)
 * [Pictures and Audio](setup#automating-pictures-and-sentence-audio)
+
+[**Importing Old Cards**](importing)
+
+[**Templates Info & Customization**](yomichantemplates)
+
+[**Updating the Note**](updating)
+
+[**Card Types**](cardtypes)
+
+[**Usage**](usage)
+* [UI Summary](usage#user-interface-summary)
+* [Modifying: Front](usage#modifying-the-front-side-tested-content)
+* [Modifying: Back](usage#modifying-the-back-side)
+* [Modifying: Other](usage#modifying-other-aspects-of-the-card)
+* [Testing Pitch Accent](usage#testing-pitch-accent)
+* [Options](usage#options)
+* [Cloze Deletion Cards](usage#cloze-deletion-cards)
+<!--
+* [Miscellaneous](usage#miscellaneous-notes)
+* [Reference](usage#anki-field-reference)
+-->
+
+
+[**FAQ (Troubleshooting)**](faq) (TODO)
+
+[**Other**](other) (TODO)
+* [Personal Setup](personalsetup)
+* [ShareX](sharex)
 
 
 <!--
@@ -30,8 +56,6 @@ Card Types:
 * conclusion
 
 -->
-
-### [Card Types](cardtypes)
 
 
 <!--
@@ -112,20 +136,3 @@ Usage:
 
 -->
 
-### [Usage](usage)
-* [UI Summary](usage#user-interface-summary)
-* [Modifying: Front](usage#modifying-the-front-side-tested-content)
-* [Modifying: Back](usage#modifying-the-back-side)
-* [Modifying: Other](usage#modifying-other-aspects-of-the-card)
-* [Testing Pitch Accent](usage#testing-pitch-accent)
-* [Options](usage#options)
-* [Cloze Deletion Cards](usage#cloze-deletion-cards)
-<!--
-* [Miscellaneous](usage#miscellaneous-notes)
-* [Reference](usage#anki-field-reference)
--->
-
-
-### [FAQ (Troubleshooting)](faq) (TODO)
-
-### [Other](other) (TODO)
