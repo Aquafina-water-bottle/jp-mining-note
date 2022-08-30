@@ -172,7 +172,8 @@ I use the default config that comes with the plugin.
 [(Link)](https://ankiweb.net/shared/info/181103283)
 This plugin is not strictly necessary.
 However, if you don't use this, the fields within the Anki field editor
-won't look very good, so I *strongly* recommend using this.
+won't have certain stylizations that makes the field actually interpretable,
+so I *strongly* recommend using this.
 
 [[assets/css_injector.png]]
 
@@ -181,11 +182,11 @@ There are two ways of using css injector:
 1. Automatically updates with the card (recommended)
     - For Windows users, run this command in command prompt with elevated permissions:
 
-        mklink C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css C:\Users\USERNAME\AppData\Roaming\Anki2\Japanese\collection.media\_field.css
+          mklink C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css C:\Users\USERNAME\AppData\Roaming\Anki2\Japanese\collection.media\_field.css
 
     - For nix users, run the following command:
 
-        ln -s ~/.local/share/Anki2/Japanese/collection.media/_field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+          ln -s ~/.local/share/Anki2/Japanese/collection.media/_field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
 
 2. Manually without respecting updates:
     - Manually copy the `_field.css` file (found under your deck's `media` directory)
