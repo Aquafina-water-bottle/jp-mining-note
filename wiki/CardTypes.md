@@ -68,9 +68,9 @@ You test yourself on the reading and definition of the word.
 **How to create:** <br>
 This is the default card type.
 Nothing has to be done for the card to be a vocab card.
-
-
 <br>
+
+
 ## Sentence Card
 
 [[assets/nisemono_sentence_blank.png]]
@@ -80,10 +80,10 @@ You test yourself on the reading and meaning of the entire sentence.
 
 **How to create:** <br>
 Fill the `IsSentenceCard` field.
-
-
-
 <br>
+
+
+
 ## Targetted Sentence Card (TSC)
 
 [[assets/nisemono_tsc.png]]
@@ -100,12 +100,12 @@ where the highlighted content is only the tested word.
 
 **How to create:** <br>
 Fill the `IsTargetedSentenceCard` field.
-
-
-
-
-
 <br>
+
+
+
+
+
 ## Hybrid Cards
 
 Hybrid cards are a group of card types that attempt to combine the power of
@@ -141,10 +141,10 @@ Fill the `IsHoverCard` field.
 
 **Note:** <br>
 For all forms of hover cards, you can press "shift" to toggle whether the sentence is shown or not.
-
-
-
 <br>
+
+
+
 ### Click Vocab Card
 
 [[assets/nisemono_click_word.gif]]
@@ -175,12 +175,12 @@ because you are **not** allowed to see the sentence when guessing the reading.
 
 **How to create:** <br>
 Fill the `IsClickCard` field.
-
-
-
-
-
 <br>
+
+
+
+
+
 ### Hover Sentence Card
 
 [[assets/nisemono_hover_sentence.gif]]
@@ -198,9 +198,9 @@ so you must hover over the word to test the entire sentence.
 
 **How to create:** <br>
 Fill the `IsHoverCard` and `IsSentenceCard` fields.
-
-
 <br>
+
+
 ### Click Sentence Card
 
 [[assets/nisemono_click_sentence.gif]]
@@ -220,10 +220,10 @@ so you must click the word to test the entire display
 
 **How to create:** <br>
 Fill the `IsClickCard` and `IsSentenceCard` fields.
-
-
-
 <br>
+
+
+
 ### Hybrid TSC
 
 [[assets/nisemono_hover_tsc.gif]]
@@ -233,14 +233,14 @@ to only test a specific portion of the sentence, you can bold the desired
 selection of the sentence and fill `IsTargetedSentenceCard`.
 
 The above example is a Hover TSC, with the last sentence was bolded.
-
-
-
-
-
-
-
 <br>
+
+
+
+
+
+
+
 # Card Creation Summary
 
 | IsSentenceCard | IsTargetedSentenceCard | IsClickCard | IsHoverCard | Result (Card Type) |
