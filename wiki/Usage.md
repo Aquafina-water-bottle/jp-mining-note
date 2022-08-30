@@ -179,8 +179,8 @@ to show something that differs from the `Word` field.
 
 
 **Note**: <br>
-> On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
-> the front displayed word.
+On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
+the front displayed word.
 
 <!-- apparently this syntax isn't available in the wikis...
 > **Note** <br>
@@ -253,7 +253,7 @@ How this card indicates what pitch accent is tested is by the PA indicator's col
 
 | [[assets/pa_indicators.png]] |
 |:--:|
-| The possible circles to the left of the display. |
+| The possible types of PA indicators. |
 
 <!--
 | [[assets/pa_indicator_circles.png]] |
@@ -271,6 +271,8 @@ Here are what the colors represent:
 If you ever forget what the colors mean, you can hover your mouse over the circle to
 get a description of what is being tested.
 
+
+[[assets/pa_indicator_hover.gif]]
 TODO gif of hovering over the circle
 
 <!--
@@ -283,11 +285,11 @@ Alternatively, you can look at the top right of the screen and look at the value
 
 
 **Note**: <br>
-> If the tested content is a sentence (card), but you want to only test for word pitch accent,
-> you would not be able to see the word normally.
-> To see the word that is tested, there is a button to toggle whether the word is highlighted or not.
-> The content that is highlighted is exactly what is bolded in the `Sentence`
-> (or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
+If the tested content is a sentence (card), but you want to only test for word pitch accent,
+you would not be able to see the word normally.
+To see the word that is tested, there is a button to toggle whether the word is highlighted or not.
+The content that is highlighted is exactly what is bolded in the `Sentence`
+(or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
 
 
 (TODO picture)
