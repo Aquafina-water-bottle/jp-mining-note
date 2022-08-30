@@ -114,8 +114,9 @@ Usage:
 
 ### [Usage](usage)
 * [UI Summary](usage#user-interface-summary)
-* [Front Side](usage#modifying-the-front-side-tested-content)
-* [Back Side](usage#modifying-the-back-side)
+* [Modifying: Front](usage#modifying-the-front-side-tested-content)
+* [Modifying: Back](usage#modifying-the-back-side)
+* [Modifying: Other](usage#modifying-other-aspects-of-the-card)
 * [Testing Pitch Accent](usage#testing-pitch-accent)
 * [Options](usage#options)
 * [Cloze Deletion Cards](usage#cloze-deletion-cards)
