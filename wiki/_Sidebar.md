@@ -113,12 +113,16 @@ Usage:
 -->
 
 ### [Usage](usage)
-* [Front Side Modification](usage#modifying-the-front-side)
-* [Back Side Modification](usage#modifying-the-back-side)
+* [UI Summary](usage#user-interface-summary)
+* [Front Side](usage#modifying-the-front-side-tested-content)
+* [Back Side](usage#modifying-the-back-side)
 * [Testing Pitch Accent](usage#testing-pitch-accent)
+* [Options](usage#options)
 * [Cloze Deletion Cards](usage#cloze-deletion-cards)
+<!--
 * [Miscellaneous](usage#miscellaneous-notes)
 * [Reference](usage#anki-field-reference)
+-->
 
 
 ### [FAQ (Troubleshooting)](faq) (TODO)
