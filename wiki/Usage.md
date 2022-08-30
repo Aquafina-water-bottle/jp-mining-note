@@ -107,10 +107,16 @@ many ways to change this tested content.
 ## Card types
 The default card type is a vocab card,
 where the tested content is simply the word.
-(TODO image)
+
+| [[assets/nisemono_word.png]] |
+|:--:|
+| A vocab card. |
 
 To change the card to a sentence card, toggle the `IsSentenceCard` binary field.
-(TODO image)
+
+| [[assets/nisemono_sentence.png]] |
+|:--:|
+| A sentence card. |
 
 There are many other card types that this note supports.
 To see the full list, see this section: TODO link
