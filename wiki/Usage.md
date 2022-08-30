@@ -234,7 +234,7 @@ and other notes that aren't completely crutial to understanding the tested conte
 
 
 
-# Modifying Other aspects of the card
+# Modifying Other Aspects of the Card
 
 ## `Key` field
 TODO
