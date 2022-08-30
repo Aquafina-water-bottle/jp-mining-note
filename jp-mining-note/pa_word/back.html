@@ -14,10 +14,20 @@
 <script>
 
 var logger = (function (my) {
+  let uniqueKeys = new Set();
 
-  let _appendMsg = function(message, groupEle) {
+  let _appendMsg = function(message, groupEle, key=null) {
+    // I think this stops an infinite loop somewhere if you log a null for some reason...
+    if (message === null) {
+      message = "null";
+    }
+
     let msgEle = document.createElement('div');
     msgEle.classList.add("info-circle__message")
+    if (key !== null) {
+      msgEle.setAttribute("data-key", key);
+    }
+
     if (Array.isArray(message)) {
       if (message.length > 0) {
         msgEle.textContent = message[0];
@@ -36,9 +46,9 @@ var logger = (function (my) {
   }
 
   my.error = function(message) {
-    var groupEle = document.getElementById("info_circle_text_error");
+    let groupEle = document.getElementById("info_circle_text_error");
     _appendMsg(message, groupEle);
-    var infoCirc = document.getElementById("info_circle");
+    let infoCirc = document.getElementById("info_circle");
     if (!infoCirc.classList.contains("info-circle-error")) {
       infoCirc.classList.add("info-circle-error")
     }
@@ -50,25 +60,66 @@ var logger = (function (my) {
     }
   }
 
-  my.warn = function(message) {
-    var groupEle = document.getElementById("info_circle_text_warning");
-    _appendMsg(message, groupEle);
-    var infoCirc = document.getElementById("info_circle");
+  my.removeWarn = function(key) {
+    // assumes that this is a unique warn message
+
+    if (!uniqueKeys.has(key)) {
+      return;
+    }
+
+    let groupEle = document.getElementById("info_circle_text_warning");
+    for (let e of groupEle.children) {
+      if (e.getAttribute("data-key") === key) {
+        groupEle.removeChild(e);
+      }
+    }
+
+    let infoCirc = document.getElementById("info_circle");
+    if (groupEle.children.length === 0 && infoCirc.classList.contains("info-circle-warning")) {
+      infoCirc.classList.remove("info-circle-warning")
+    }
+
+    uniqueKeys.delete(key);
+  }
+
+  // key defaults to the message if unique is true and key is null
+  // key is ignored if unique == false
+  my.warn = function(message, unique=true, key=null) {
+
+    // skips any non-unique warns as defined by the key
+    if (unique) {
+      if (key === null) {
+        key = message;
+      }
+
+      if (uniqueKeys.has(key)) {
+        return;
+      }
+    }
+
+    let groupEle = document.getElementById("info_circle_text_warning");
+    _appendMsg(message, groupEle, key);
+    let infoCirc = document.getElementById("info_circle");
     if (!infoCirc.classList.contains("info-circle-warning")) {
       infoCirc.classList.add("info-circle-warning")
     }
+
+    if (key !== null) {
+      uniqueKeys.add(key);
+    }
+
   }
 
   my.info = function(message) {
-    var groupEle = document.getElementById("info_circle_text_info");
+    let groupEle = document.getElementById("info_circle_text_info");
     _appendMsg(message, groupEle);
   }
 
 
   my.leech = function() {
-    var groupEle = document.getElementById("info_circle_text_leech");
+    let groupEle = document.getElementById("info_circle_text_leech");
     _appendMsg("", groupEle);
-    var infoCirc = document.getElementById("info_circle");
+    let infoCirc = document.getElementById("info_circle");
     if (!infoCirc.classList.contains("info-circle-leech")) {
       infoCirc.classList.add("info-circle-leech")
     }
@@ -152,7 +203,7 @@ function optionsNotFound() {
 
 
     
-  <div class="card-description-ver">JP Mining Note: Version 0.9.0.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.9.1.0</div>
 
 
     
@@ -417,6 +468,10 @@ var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
 // maps kanji -> [{set of used words}, html string]
 var kanjiHoverCache = kanjiHoverCache ?? {};
 
+// note that this cache will NOT respect card review undos,
+// but that should be a niche enough case to not warrent caching.
+// maps key -> bool
+var isNewCardCache = isNewCardCache ?? {};
 
 (function () { // restricts ALL javascript to hidden scope
 
@@ -591,16 +646,12 @@ async function cardQueries(kanjiArr) {
   // constructs the multi findCards request for ankiconnect
   let actions = [];
   for (const character of kanjiArr) {
-    const nonNewQuery = (
-      // creates
-      `-Word:{{Word}} Word:*${character}* "card:${cardTypeName}"` +
-      ` (-is:new OR (is:new flag:3))` + // not new, or new and green
-      ` -(is:suspended flag:1)`); // not red (and suspended)
-    const newQuery = (
-      //`is:new -Word:{{Word}} Word:*${character}* Sentence:*${character}* "card:${cardTypeName}"`;
-      `-Word:{{Word}} Word:*${character}* "card:${cardTypeName}"` +
-      ` is:new` + // new
-      ` -(is:suspended (flag:1 OR flag:3))`); // not suspended and neither red nor green
+    const baseQuery = (
+      `(-"Key:{{Key}}" -"WordReading:{{WordReading}}"`
+      + `Word:*${character}* "card:${cardTypeName}") `
+    );
+    const nonNewQuery = baseQuery + getSetting(['kanji-hover','non-new-query',],'(-is:new OR (is:new flag:3)) -(is:suspended flag:1)');
+    const newQuery = baseQuery + getSetting(['kanji-hover','new-query',],'is:new -(is:suspended (flag:1 OR flag:3))');
 
     //logger.warn(nonNewQuery)
     //logger.warn(newQuery)
@@ -612,10 +663,9 @@ async function cardQueries(kanjiArr) {
 }
 
 function filterCards(nonNewCardIds, newCardIds) {
-  // TODO settings
-  const nonNewEarliest = 2;
-  const nonNewLatest = 2;
-  const newLatest = 2;
+  const nonNewEarliest = getSetting(['kanji-hover','max-non-new-oldest',],2);
+  const nonNewLatest = getSetting(['kanji-hover','max-non-new-latest',],2);
+  const newLatest = getSetting(['kanji-hover','max-new-latest',],2);
 
   // non new: gets the earliest and latest
   let nonNewResultIds = []
@@ -834,6 +884,160 @@ function getWordReadings(nonNewCardInfo, newCardInfo) {
 }
 
 
+
+// kanji hover
+// some code shamelessly stolen from cade's kanji hover:
+// https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
+
+// element outside async function to prevent double-adding due to anki funkyness
+let wordReading = document.getElementById("dh_reading");
+
+let kanjiHoverEnabled = false;
+
+async function kanjiHover() {
+
+  if (kanjiHoverEnabled) {
+    _debug("Kanji hover already enabled");
+    return;
+  }
+  kanjiHoverEnabled = true;
+
+  // realistically, key should be good enough since we assume that key has no duplicates
+  // however, just in case, wordreading is added
+  let cacheKey = "{{Key}}.{{WordReading}}"
+  if (cacheKey in kanjiHoverCardCache) {
+    _debug("Card was cached")
+    wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
+    //logger.info(`using cached card ${cacheKey}`);
+    return;
+  }
+
+  let readingHTML = wordReading.innerHTML;
+
+  // uses cache if it already exists
+  let kanjiSet = new Set() // set of kanjis that requires api calls
+  const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
+  const matches = readingHTML.matchAll(regex);
+  for (const match of matches) {
+    kanjiSet.add(...match);
+  }
+
+  let kanjiDict = {};
+  let wordReadings = {}; // used only for the cache
+
+  // attempts to fill out the kanji dict with cached entries
+  for (let kanji of [...kanjiSet]) {
+    // also checks that the current word is not used
+    if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{WordReading}}"))) {
+      _debug(`Using cached kanji ${kanji}`)
+      kanjiDict[kanji] = kanjiHoverCache[kanji][1];
+      kanjiSet.delete(kanji);
+    }
+  }
+
+  // only calls the api on the needed kanjis
+  const kanjiArr = [...kanjiSet];
+  const queryResults = await cardQueries(kanjiArr);
+  const cardsInfo = await getCardsInfo(queryResults);
+
+  _debug(`New kanjis: [${kanjiArr.join(", ")}]`)
+
+  for (const [i, character] of kanjiArr.entries()) {
+    let nonNewCardInfo = cardsInfo[i*2];
+    let newCardInfo = cardsInfo[i*2 + 1];
+
+    // attempts to insert string
+    kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo);
+    wordReadings[character] = getWordReadings(nonNewCardInfo, newCardInfo);
+  }
+
+  let re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
+  let resultHTML = readingHTML.replace(re, function (matched) {
+    return kanjiDict[matched] ?? matched;
+  });
+
+  wordReading.innerHTML = resultHTML;
+
+  // caches card
+  kanjiHoverCardCache[cacheKey] = resultHTML;
+
+  //_debug(resultHTML);
+
+  for (let character of kanjiArr) {
+    kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
+  }
+
+}
+
+
+
+
+async function openExtraInfoIfNew() {
+
+  // checks option first to see if it's enabled in the first place
+  if ( !getSetting(['open-extra-info-when-new',],false)) {
+    return;
+  }
+
+  // cancels if not new
+  // refreshes on every new check, b/c one cannot assume that a card
+  // is no longer new once you see a new card
+  // (editing a new card will consistently refresh the currently new card)
+  const key = "{{Key}}";
+  if (key in isNewCardCache && !isNewCardCache[key]) {
+    _debug("Key in new card cache and is not new");
+    return;
+  }
+
+  // requires that any of PAGraphs and UtilityDictionaries be filled to even open extra info
+  if (!'{{#PAGraphs}}a{{/PAGraphs}}{{#UtilityDictionaries}}a{{/UtilityDictionaries}}') {
+    _debug("Neither PAGraphs nor UtilityDictionaries exists");
+    return;
+  }
+
+  _debug("Testing for new card...");
+
+  function constructFindCardAction(query) {
+    return {
+      "action": "findCards",
+      "params": {
+        "query": query,
+      }
+    }
+  }
+
+  // constructs the multi findCards request for ankiconnect
+  let actions = [];
+  actions.push(constructFindCardAction(`"Key:${key}"`));
+  actions.push(constructFindCardAction(`is:new "Key:${key}"`));
+
+  const multi = await invoke("multi", {"actions": actions});
+  const cards = multi[0];
+
+  if (cards.length > 1) {
+    logger.warn("Duplicate key found.");
+    return;
+  }
+  if (cards.length == 0) {
+    logger.error("Open extra info if new: Cannot find its own card?");
+    return;
+  }
+
+  const isNew = (multi[1].length > 0);
+  isNewCardCache[key] = isNew;
+
+  if (isNew) {
+    _debug("Card is new, opening extra info...");
+    let ele = document.getElementById("extra_info_details");
+    if (ele) {
+      toggleDetailsTag(ele)
+    }
+  } else {
+    _debug("Card is not new.");
+  }
+}
+
+
 /// 
 
 
@@ -866,6 +1070,20 @@ document.onkeyup = (e => {
   /// 
   /// 
     /// 
+
+
+
+
+  if (e.getModifierState && e.getModifierState('CapsLock')) {
+    if ("CapsLock" === e.key) {
+      // either just enabled or disabled
+      logger.removeWarn("caps");
+    } else {
+      logger.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
+    }
+  } else {
+    //_debug("Caps lock is not enabled");
+  }
 
 
   /// {{#WordAudio}}
@@ -979,86 +1197,6 @@ if ( !getSetting(['greyed-out-collapsable-fields-when-empty',],false)) {
 
 
 
-// kanji hover
-// some code shamelessly stolen from cade's kanji hover:
-// https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
-
-// element outside async function to prevent double-adding due to anki funkyness
-let wordReading = document.getElementById("dh_reading");
-
-// why isn't this built in already...
-// computes a - b, given a and b are both sets
-function set_difference(a, b) {
-  return new Set([...a].filter(x => !b.has(x)));
-}
-
-(async function() {
-  // kanji hover code
-
-  let cacheKey = "{{Key}}.{{WordReading}}"
-  if (cacheKey in kanjiHoverCardCache) {
-    _debug("Card was cached")
-    wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
-    //logger.info(`using cached card ${cacheKey}`);
-    return;
-  }
-
-  let readingHTML = wordReading.innerHTML;
-
-  // uses cache if it already exists
-  let kanjiSet = new Set() // set of kanjis that requires api calls
-  const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
-  const matches = readingHTML.matchAll(regex);
-  for (const match of matches) {
-    kanjiSet.add(...match);
-  }
-
-  let kanjiDict = {};
-  let wordReadings = {}; // used only for the cache
-
-  // attempts to fill out the kanji dict with cached entries
-  for (let kanji of [...kanjiSet]) {
-    // also checks that the current word is not used
-    if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{WordReading}}"))) {
-      _debug(`Using cached kanji ${kanji}`)
-      kanjiDict[kanji] = kanjiHoverCache[kanji][1];
-      kanjiSet.delete(kanji);
-    }
-  }
-
-  // only calls the api on the needed kanjis
-  const kanjiArr = [...kanjiSet];
-  const queryResults = await cardQueries(kanjiArr);
-  const cardsInfo = await getCardsInfo(queryResults);
-
-  _debug(`New kanjis: [${kanjiArr.join(", ")}]`)
-
-  for (const [i, character] of kanjiArr.entries()) {
-    let nonNewCardInfo = cardsInfo[i*2];
-    let newCardInfo = cardsInfo[i*2 + 1];
-
-    // attempts to insert string
-    kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo);
-    wordReadings[character] = getWordReadings(nonNewCardInfo, newCardInfo);
-  }
-
-  let re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
-  let resultHTML = readingHTML.replace(re, function (matched) {
-    return kanjiDict[matched] ?? matched;
-  });
-
-  wordReading.innerHTML = resultHTML;
-
-  // caches card
-  kanjiHoverCardCache[cacheKey] = resultHTML;
-
-  //_debug(resultHTML);
-
-  for (let character of kanjiArr) {
-    kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
-  }
-
-})();
 
 
 let modal = document.getElementById('modal');
@@ -1121,7 +1259,33 @@ for (let searchEle of imageSearchElements) {
       atag.parentNode.replaceChild(fragment, atag);
     }
   }
+
+  // looks for user inserted images
+  let imgTags = searchEle.getElementsByTagName("img");
+  for (let imgEle of imgTags) {
+    if (!imgEle.classList.contains("glossary__image-hover-media")) { // created by us
+      let fragment = createImgContainer(imgEle.src);
+      imgEle.parentNode.replaceChild(fragment, imgEle);
+    }
+  }
 }
+
+
+// only continues if kanji-hover is actually enabled
+if (getSetting(['kanji-hover','enabled',],true)) {
+  if (getSetting(['kanji-hover','mode',],1) === 0) {
+    kanjiHover();
+  } else { // === 1
+    wordReading.onmouseover = function() {
+      // replaces the function with a null function to avoid calling this function
+      wordReading.onmouseover = function() {}
+      kanjiHover();
+    }
+  }
+}
+
+openExtraInfoIfNew();
+
 
 //_debug(document.documentElement.innerHTML);
 

@@ -76,6 +76,12 @@ def add_args(parser):
         "rather than the release files",
     )
 
+    group.add_argument(
+        "--ignore-note-changes",
+        action="store_true",
+        help="(dev option) bypasses the note changes section",
+    )
+
     # TODO implement
     # force update version
     # group.add_argument("--force", action="store_true")
@@ -303,18 +309,19 @@ def main(args=None):
             return
 
         # checks for note changes
-        current_ver = ar.Version.from_str(utils.get_version_from_anki())
-        new_ver = ar.Version.from_str(utils.get_version(args))
-        action_runner = ar.ActionRunner(current_ver, new_ver)  # also verifies field changes
+        if not args.ignore_note_changes:
+            current_ver = ar.Version.from_str(utils.get_version_from_anki())
+            new_ver = ar.Version.from_str(utils.get_version(args))
+            action_runner = ar.ActionRunner(current_ver, new_ver)  # also verifies field changes
 
-        if action_runner.has_actions():
-            if not action_runner.warn():  # == false
-                return
+            if action_runner.has_actions():
+                if not action_runner.warn():  # == false
+                    return
 
-            # must run before the note templates gets updated, in case
-            # the new templates use different fields / is otherwise somehow
-            # incompatable with the previous model (will raise an error after installing)
-            action_runner.run()
+                # must run before the note templates gets updated, in case
+                # the new templates use different fields / is otherwise somehow
+                # incompatable with the previous model (will raise an error after installing)
+                action_runner.run()
 
 
         print(f"Updating {model_name}...")

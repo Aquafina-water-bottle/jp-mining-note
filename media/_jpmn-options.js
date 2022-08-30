@@ -49,20 +49,6 @@ var JPMNOpts = (function (my) {
 
         "play-word-audio": ["w"],
 
-        // Equivalent to clicking on the image.
-        // TODO: Implement
-        "toggle-image-zoom": ["z"],
-
-        // Equivalent to hovering over the full sentence (back side)
-        // TODO: Implement
-        "toggle-sentence-furigana": [","],
-
-        // Equivalent to hovering over the front display.
-        // Also toggles the furigana on the vocab card's full sentence section (front side)
-        // if available.
-        // TODO: Implement
-        "toggle-front-display-furigana": [","],
-
         // Equivalent to toggling the hint show/hide
         "toggle-hint-display": ["."],
 
@@ -100,14 +86,13 @@ var JPMNOpts = (function (my) {
         "auto-quote-sentence": true,
 
         // automatically adds quotes to the sentence (if alt display)
-        "auto-quote-alt-display-sentence": false,
+        "auto-quote-alt-display-sentence": true,
 
         // the quote pair to automatically add to the sentence
         "auto-quote-open": "「",
         "auto-quote-close": "」",
 
         // the quote pair to automatically add to the sentence if it's a PA sentence card
-        // TODO implement
         "pa-sent-auto-quote-open": "『",
         "pa-sent-auto-quote-close": "』",
 
@@ -119,18 +104,49 @@ var JPMNOpts = (function (my) {
         ]
       },
 
+      // Hover over a kanji in the word reading to see if it has been used
+      // in previous cards or not.
+      "kanji-hover": {
+        "enabled": true,
+
+        // 0: loads every time, slower to reveal the back side of the card
+        // 1: loads only upon hover, has a small delay upon first hovering over a word
+        "mode": 1,
+
+        // all queries will have the following at the beginning:
+        // (-"Key:{{ T('Key') }}" Word:*${character}* "card:${cardTypeName}")
+
+        // not new, or new and green
+        // not flagged as red and suspended
+        "non-new-query": "(-is:new OR (is:new flag:3)) -(is:suspended flag:1)",
+
+        // new
+        // not suspended, and neither flagged as red or green
+        "new-query": "is:new -(is:suspended (flag:1 OR flag:3))",
+
+        // maximum number of words per category
+        "max-non-new-oldest": 2,
+        "max-non-new-latest": 2,
+        "max-new-latest": 2
+      },
+
+
       // Overrides the play keybind button to show the sentence if the
       // card is a hybrid sentence AND the sentence is not currently being shown.
       // Only affects the front side.
       "hybrid-sentence-open-on-play-sentence": true,
 
-      // TODO implement
+      // By default, the indicator for collapsable fields are completely removed.
+      // Making this true keeps the indicator, but greys out the text to show that
+      // it cannot be opened.
       "greyed-out-collapsable-fields-when-empty": false,
 
-      // TODO implement
+      // Opens the "extra info" field if the card is new.
+      // Useful for checking pitch accent, etc.
       "open-extra-info-when-new": false,
 
-      // used to show debug messages when debugging the card
+      // (Developer option) Used to show debug messages when debugging the card.
+      // Use the `_debug()` function in javascript to write debug messages.
       "debug": false
     }
 

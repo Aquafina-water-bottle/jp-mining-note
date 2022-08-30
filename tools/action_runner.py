@@ -173,6 +173,8 @@ class ActionRunner:
         self.requires_user_action = False
 
         self._get_note_changes(current_ver, new_ver, NOTE_CHANGES)
+        self.original_fields = None
+        self.new_fields = None
 
     def _get_note_changes(
         self, current_ver: Version, new_ver: Version, note_changes: list[NoteChange]
@@ -188,32 +190,32 @@ class ActionRunner:
             print("Warning: current version is higher than the newer version?")
             return
 
-        original_fields = None
-        new_fields = None
+        self.original_fields = None
+        self.new_fields = None
 
         for data in reversed(note_changes):
             ver = data.version
             if ver <= current_ver:
                 # records last known fields_check
-                original_fields = data.fields
+                self.original_fields = data.fields
 
             # finds all versions that are > current_ver and <= new_ver
             if (ver > current_ver) and (ver <= new_ver):
                 self.changes.append(data)
-                new_fields = data.fields
+                self.new_fields = data.fields
 
             if ver > new_ver:
                 break
 
         # basic error checking
-        assert original_fields is not None
+        assert self.original_fields is not None
 
         if not self.changes:  # if self.changes is empty
             return
 
-        if new_fields is not None:
+        if self.new_fields is not None:
             # verifies that fields are correct
-            self.verify(original_fields, new_fields)
+            self.verify(self.original_fields, self.new_fields)
 
         # sees if actions edits the cards
         for data in self.changes:
@@ -232,13 +234,14 @@ class ActionRunner:
         - changes to fields are correct through the simulator
         - all actions are available from the currently installed anki connect
         """
+
         # makes sure that the anki fields are the same
         field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
         # allows extra fields added by the user past the original fields
         first_fields = field_names[: len(original_fields)]
 
         if field_names != first_fields:
-            naive_diff(first_fields, field_names, "Anki", "Expected")
+            naive_diff(first_fields, original_fields, "Anki", "Expected (Before)")
             raise Exception("Anki fields are different")
 
         # test simulator
@@ -370,6 +373,17 @@ class ActionRunner:
         for data in self.changes:
             for action in data.actions:
                 action.run()
+
+        if self.new_fields is not None:
+            # makes sure that the anki fields are the same
+            field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
+            # allows extra fields added by the user past the original fields
+            first_fields = field_names[: len(self.new_fields)]
+
+            if field_names != first_fields:
+                naive_diff(first_fields, self.new_fields, "Anki", "Expected (After)")
+                raise Exception("Anki fields are different")
+
 
     def post_message(self):
         print()
