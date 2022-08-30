@@ -5,13 +5,14 @@
 * [Card Creation](setup#creating-the-cards)
 * [Pictures and Audio](setup#automating-pictures-and-sentence-audio)
 
-[**Importing Old Cards**](importing)
-
-[**Templates Info & Customization**](yomichantemplates)
-
-[**Updating the Note**](updating)
-
 [**Card Types**](cardtypes)
+* [Vocab Card](cardtypes#vocab-card)
+* [Sentence Card](cardtypes#sentence-card)
+* [Targeted Sentence Card](cardtypes#targetted-sentence-card-tsc)
+* [Hover Vocab Card](cardtypes#hover-vocab-card)
+* [Click Vocab Card](cardtypes#click-vocab-card)
+* [Hover Sentence Card](cardtypes#hover-sentence-card)
+* [Hover Click Card](cardtypes#click-sentence-card)
 
 [**Usage**](usage)
 * [UI Summary](usage#user-interface-summary)
@@ -25,6 +26,13 @@
 * [Miscellaneous](usage#miscellaneous-notes)
 * [Reference](usage#anki-field-reference)
 -->
+
+[**Importing Old Cards**](importing)
+
+[**Templates Info & Customization**](yomichantemplates)
+
+[**Updating the Note**](updating)
+
 
 
 [**FAQ (Troubleshooting)**](faq) (TODO)
