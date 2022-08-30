@@ -1,14 +1,14 @@
-![image](https://user-images.githubusercontent.com/17107540/184517988-cc2b36df-b09b-4f57-9866-e3ce7393d6a4.png)
 
-jp-mining-note is an Anki card template for studying Japanese,
+**jp-mining-note** (JPMN) is an Anki card template for studying Japanese,
 designed to be visually appealing and simple to use without sacrificing functionality.
 Easily paired with most automatic card creation workflows,
 this aims to make your experience with Anki as smooth as possible.
 
+![image](https://user-images.githubusercontent.com/17107540/184517988-cc2b36df-b09b-4f57-9866-e3ce7393d6a4.png)
 
 <!-- TODO video demo
 
-**See the video demo:**
+Video demo to see the workflow and showcase some features of the card:
 ...
 
 TODO in video demo:
@@ -25,6 +25,9 @@ TODO in video demo:
 - add something in AdditionalNotes and Hint and show again
 
 -->
+
+Note that this project is still in its early stages.
+Better support across systems and more features are planned for the future.
 
 
 # Known Limitations
