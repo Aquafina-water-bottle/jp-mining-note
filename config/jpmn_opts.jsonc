@@ -83,7 +83,7 @@
     "auto-quote-sentence": true,
 
     // automatically adds quotes to the sentence (if alt display)
-    "auto-quote-alt-display-sentence": false,
+    "auto-quote-alt-display-sentence": true,
 
     // the quote pair to automatically add to the sentence
     "auto-quote-open": "「",
