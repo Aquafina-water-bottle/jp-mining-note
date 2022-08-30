@@ -361,3 +361,4 @@ include/
 backup/
 
 .nvimrc
+wiki/assets/old
