@@ -13,14 +13,49 @@ with your card exporter:
 
 
 
-# Getting the cards
-(TODO) releases page
+# Installing the Note
+There are two ways of installing the note:
 
-After you download the cards, import them by navigating to Anki by doing the following:
 
-File (top left) →  Import...
+## The Cool Way
+If you know what `git` and `python`, here's all you have to do:
 
-With this, you should see multiple example cards in your anki deck.
+```
+git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
+cd ./jp-mining-note
+# Ensure you have Anki open, and with anki-connect running
+# Also ensure that you have python 3.10+ installed.
+# It *MAY* work with lower versions of python, but I make no such guarantee. ;)
+python ./tools/install.py
+```
+
+
+## The Normal Way
+If the above made literally no sense to you,
+or you just want to install this normally,
+here's the normal way of installing the cards:
+
+1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
+    and download the cards from the latest release.
+    You should download the `{version}-jpmn_example_cards.apkg` file.
+2. After you download the cards, import them by navigating to Anki by doing the following:
+    - File (top left) →  Import...
+3. By default, the custom fonts do not come with the `.apkg` file.
+    To install these fonts, head over to this
+    repository's [media folder](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
+    and download the 4 `.otf` files.
+4. Move the `.otf` files into the media folder of your deck.
+    This folder should be located under:
+    - (windows) `C:\Users\{username}\AppData\Roaming\Anki2\{deck_name}\collecion.media`
+    - (nix) `~/.local/share/Anki2/{deck_name}/collection.media`
+
+
+## Final Steps
+You should see a deck `JPMN-Examples` in your collection.
+View one of the cards and make sure the card looks similar to the one below:
+
+[[assets/eg_fushinnsha.png]]
+
 
 
 # Anki Setup
