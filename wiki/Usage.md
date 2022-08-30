@@ -121,6 +121,19 @@ To see the full list, see this section: TODO link
 ## Changing the Displayed Content
 Vocab cards show the `Word` field and sentence cards show the `Sentence` fields by default.
 However, you can modify what is exactly shown in the front by using the `AltDisplay` field.
+
+For example, the above sentence card looks a little ugly, because the sentence splits off
+at a strange point.
+In the `AltDisplay` field, we add a newline at a sensible place (after the period).
+
+[[assets/nisemono_altdisplay_newline.png]]
+
+Another example is if we want to only test the last sentence.
+
+[[assets/nisemono_altdisplay_last_sent.png]]
+
+
+<!--
 For example, I personally use the `Sentence` field to contain text for the entire audio clip.
 If I want to test only a portion of the sentence, I put what I want to test into the `AltDisplay` field.
 
@@ -130,6 +143,7 @@ If I want to test only a portion of the sentence, I put what I want to test into
 | Notice how the section at the bottom (`Sentence`) is different from the tested sentence at the top. |
 - TODO change picture
 - TODO write exactly what the value of `AltDisplay` is (within picture)
+-->
 
 
 
