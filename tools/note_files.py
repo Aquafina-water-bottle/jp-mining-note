@@ -33,7 +33,7 @@ NOTE_DATA = {
         # - release mode copies to (root)/media
         {
             "input-file": "scss/field.scss",
-            "output-file": "field.css",
+            "output-file": "_field.css",
             "type": "scss",
         },
         {
@@ -53,7 +53,7 @@ NOTE_DATA = {
             "NotoSerifJP-Bold.otf",
         ],
         "dynamic": [
-            "field.css",
+            "_field.css",
         ],
         "options": [
             "_jpmn-options.js",
