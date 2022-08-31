@@ -29,6 +29,12 @@ Before doing anything that affects your Anki collection in a major way,
 please make a **complete backup** of your collection
 (Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`)
 
+[[assets/anki/media_export.png]]
+
+**Note**: <br>
+Importing your previous notes shouldn't change your media files at all.
+However I recommend exporting **with media** just in case, so long as you have the disk space for it.
+
 
 As explained further below, you will likely need to batch edit your newly imported notes.
 There are two ways you can do this:
@@ -44,6 +50,8 @@ To do this, follow the proceeding steps:
 2. Select all the cards that you want to switch
    - Tip: ctrl+a selects all cards in the browser.
 3. Right click the selection →  `Notes` →  `Change Note Type...`
+
+(TODO gif)
 
 
 # Mapping Fields
@@ -122,6 +130,8 @@ After swtitching your notes, you will have to do the following 3 things:
     - Tip: the query `"note:JP Mining Note"` should reveal all of your newly imported notes.
       Make sure you include the double quotes in the query search.
 3. Head over to `Edit` (top left corner) →  `Bulk-add pitch accents`.
+
+(TODO gif)
 
 #### (2) Batch generate sentence furigana
 1. Head to the Card Browser window.
