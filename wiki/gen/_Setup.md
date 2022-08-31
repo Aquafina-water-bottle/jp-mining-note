@@ -76,7 +76,7 @@ To download all the required plugins, copy and paste the following numbers into 
 1344485230 1225470483 2055492159 181103283
 ```
 
-[[assets/anki/media_export.png]]
+[[assets/anki/tools_addons.png]]
 
 
 **Note**: <br>
