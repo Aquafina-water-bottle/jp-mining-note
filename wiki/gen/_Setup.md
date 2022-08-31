@@ -38,6 +38,7 @@ The above does the following:
 If the above made literally no sense to you,
 or you just want to install this normally,
 here's the normal way of installing the cards:
+(video format of the steps on linux [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
 
 1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
     and download the cards from the latest release.
@@ -53,7 +54,9 @@ here's the normal way of installing the cards:
     - (windows) `C:\Users\{username}\AppData\Roaming\Anki2\{deck_name}\collecion.media`
     - (nix) `~/.local/share/Anki2/{deck_name}/collection.media`
 
-(TODO gif)
+   **Note**: <br>
+   If you don't know how to access that folder on Windows, see [here](https://www.freecodecamp.org/news/appdata-where-to-find-the-appdata-folder-in-windows-10/)
+
 
 
 ## Final Steps
@@ -198,6 +201,8 @@ To explain the changes:
 - `destination_fields` and `source_fields` are changed similarily to `fields` in the previous section.
 - `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
     in the example note.
+
+<br>
 
 
 #### AnkiConnect
@@ -347,11 +352,10 @@ See the section below to make these markers usable.
 
 ## Yomichan Templates
 Yomichan supports user inserted template code that allows the automatic
-separation of bilingual and monolingual dictionary definitions,
-among many other things.
+separation of bilingual and monolingual dictionary definitions, custom stylization, etc.
+This note type makes heavy use of these custom templates.
 
-**Note**: <br>
-For a full video example of the steps below,
+For a **full video example** of the steps below,
 see [here](https://user-images.githubusercontent.com/17107540/187789174-f7f71429-1990-49aa-b99a-0aa74e4ff12c.mp4).
 
 To make the new markers usable, do the following:
@@ -393,8 +397,8 @@ add the following template code as follows:
 
 
 
-If you want the first definition you see (PrimaryDefinition) to be monolingual,
-change the following line:
+If you want the first definition you see (the `PrimaryDefinition` field) to be monolingual,
+change the following line at the top of the templates code:
 
 {%- raw %}
 ```
