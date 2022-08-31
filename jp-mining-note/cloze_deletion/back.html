@@ -203,7 +203,7 @@ function optionsNotFound() {
 
 
     
-  <div class="card-description-ver">JP Mining Note: Version 0.9.1.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.9.1.1</div>
 
 
     
@@ -1115,10 +1115,18 @@ async function kanjiHover() {
 
 
 
+// placed outside due to anki's async weirdness
+let extraInfoDetailsEle = document.getElementById("extra_info_details");
+
 async function openExtraInfoIfNew() {
 
   // checks option first to see if it's enabled in the first place
   if ( !getSetting(['open-extra-info-when-new',],false)) {
+    return;
+  }
+
+  // doesn't do anything if the element doesn't exist in the first place
+  if (extraInfoDetailsEle === null) {
     return;
   }
 
@@ -1171,10 +1179,7 @@ async function openExtraInfoIfNew() {
 
   if (isNew) {
     _debug("Card is new, opening extra info...");
-    let ele = document.getElementById("extra_info_details");
-    if (ele) {
-      toggleDetailsTag(ele)
-    }
+    toggleDetailsTag(extraInfoDetailsEle);
   } else {
     _debug("Card is not new.");
   }
