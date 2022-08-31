@@ -418,10 +418,18 @@ async function kanjiHover() {
 
 
 
+// placed outside due to anki's async weirdness
+let extraInfoDetailsEle = document.getElementById("extra_info_details");
+
 async function openExtraInfoIfNew() {
 
   // checks option first to see if it's enabled in the first place
   if ( !{{ utils.opt("open-extra-info-when-new") }}) {
+    return;
+  }
+
+  // doesn't do anything if the element doesn't exist in the first place
+  if (extraInfoDetailsEle === null) {
     return;
   }
 
@@ -474,10 +482,7 @@ async function openExtraInfoIfNew() {
 
   if (isNew) {
     _debug("Card is new, opening extra info...");
-    let ele = document.getElementById("extra_info_details");
-    if (ele) {
-      toggleDetailsTag(ele)
-    }
+    toggleDetailsTag(extraInfoDetailsEle);
   } else {
     _debug("Card is not new.");
   }

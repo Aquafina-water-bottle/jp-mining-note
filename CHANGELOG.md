@@ -16,6 +16,12 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
+## [0.9.1.1] - 2022-08-31
+#### Fixed
+- `media.css` now properly renamed to `_media.css`
+- Fixed extra info not properly opening on some new cards
+
+
 ## [0.9.1.0] - 2022-08-30
 
 #### Added
