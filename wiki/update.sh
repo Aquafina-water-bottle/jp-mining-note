@@ -25,8 +25,15 @@ rm ../../wiki/*.md
 
 cp ./*.md ../../wiki
 mkdir ../../wiki/assets
+mkdir ../../wiki/assets/yomichan
+mkdir ../../wiki/assets/anki
+
 cp -r ./assets/*.png ../../wiki/assets
 cp -r ./assets/*.gif ../../wiki/assets
+cp -r ./assets/yomichan/*.png ../../wiki/assets
+cp -r ./assets/yomichan/*.gif ../../wiki/assets
+cp -r ./assets/anki/*.png ../../wiki/assets
+cp -r ./assets/anki/*.gif ../../wiki/assets
 
 # wiki
 cd ../../wiki
