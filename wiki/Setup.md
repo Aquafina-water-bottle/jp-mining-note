@@ -205,8 +205,8 @@ There are two ways of using css injector with this note type:
       Make sure to replace all the fields!
 
       **Note**: <br>
-      If you've never used command prompt before, see
-      [here](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/)
+      If you've never used command prompt before, check
+      [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
 
     - For nix users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
 
@@ -215,14 +215,14 @@ There are two ways of using css injector with this note type:
       ```
 
 2. Manually without respecting updates:
-    1. Navigate to css injector plugin directory (`Anki2\addons21\181103283\user_files`)
+    1. Navigate to css injector plugin directory (`Anki2/addons21/181103283/user_files`)
     2. Remove the existing `field.css` file
     3. Manually copy the `_field.css` file (found under your profile's `media` directory)
        into the css injector plugin directory
     4. Rename `_field.css` into `field.css`.
 
     **Note**: <br>
-    If the `_field.css` file ever updates, you will have to manually copy the file again
+    If the `_field.css` file ever updates, you will have to manually copy and rename the file again
     into the correct position.
 
 
