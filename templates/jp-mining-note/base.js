@@ -320,15 +320,30 @@ document.onkeyup = (e => {
 
 
 
+  //if (e.getModifierState && e.getModifierState('CapsLock')) {
+  //  if ("CapsLock" === e.key) {
+  //    // either just enabled or disabled
+  //    logger.removeWarn("caps");
+  //  } else {
+  //    logger.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
+  //  }
+  //} else {
+  //  //_debug("Caps lock is not enabled");
+  //}
+
+
   if (e.getModifierState && e.getModifierState('CapsLock')) {
-    if ("CapsLock" === e.key) {
-      // either just enabled or disabled
+    if (e.key === "CapsLock") {
+      // either just enabled or disabled, not sure which one is which
+      // it seems like normal browsers can't reach this point during (caps lock enabled -> caps lock disabled...)
       logger.removeWarn("caps");
-    } else {
+    } else if (!["Meta"].includes(e.key)) {
+      _debug(e.key);
       logger.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
     }
   } else {
     //_debug("Caps lock is not enabled");
+    logger.removeWarn("caps");
   }
 
 

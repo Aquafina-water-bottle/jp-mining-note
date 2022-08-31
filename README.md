@@ -11,6 +11,23 @@ https://user-images.githubusercontent.com/17107540/187550103-7e50c317-9074-4c7c-
 
 
 
+<!-- TODO make another video demo showcasing the stuff below -->
+<!--
+Some features not shown in the video demo include:
+- Support to easily change between various different card types (e.g. sentence / vocab)
+- Ability to test various levels of pitch accent
+- Hints & an alternate display field to replace the front side sentence
+
+- vocab & flip
+- sentence card & flip
+- TSC
+- hover
+- alt display
+- hint (without changing altdisplay)
+- enable PA for the sentence
+- change to test only word
+
+-->
 
 <!-- TODO video demo
 
