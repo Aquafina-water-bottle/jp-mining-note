@@ -1,6 +1,8 @@
 This section explains what the templates used for this note type do.
 The template code can be found
-[here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/other/templates.txt).
+[here](setup#yomichan-templates) (or for the raw files:
+[here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/top.txt) and
+[here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/bottom.txt)).
 
 
 # Definitions
@@ -9,27 +11,40 @@ Your standard pitch accent dictionary for Yomichan.
 Imports and shows pitch accent as normal.
 
 
+<!--
 **YPA dictionary** (pitch accent dictionary for Yomichan):  <br>
 This is a pitch accent dictionary that is stylized as a normal Yomichan dictionary (i.e. for definitions),
 but it is used to display pitch accent information.
 An example can be found [here](https://mega.nz/file/rlIURS5I#oSbcIN3gK7dJLpggf3mN6JHFNazdpI5690uCE-H2eY8).
 
 It's very likely that you won't be using something like this.
+-->
+
+
+**Utility Dictionary**: <br>
+There are some dictionaries that don't actually provide the definition of the word,
+but serve some other purpose.
+Some examples include:
+- The NHK Pitch Accent dictionary (except in regular yomichan dictionary form instead of PA dictionary form)
+- [JMDict Surface forms](https://github.com/FooSoft/yomichan/issues/2183):
+  A dictionary to show alternate spellings of a word, if there are any.
+
+These dictionaries are all grouped together into what I call a "Utility Dictionary".
 
 
 # What the markers do
 
 ### `{jpmn-primary-definition}`
-Contains the definitions from the selected dictionary.
+Contains the definitions from the first selected dictionary.
 
-The logic to select the dictionary works like the following:
-- Attempts to get the first monolingual dictionary
-- If there is no monolingual dictionary, then attempts to get the first bilingual dictionary
+The logic to select the first dictionary works like the following:
+- Attempts to get the first bilingual dictionary.
+- If there is no bilingual dictionary, then attempts to get the first monolingual dictionary.
 
 This follows the order of how you order your dictionaries in yomichan.
-In other words, the first monolingul dictionary shown on the Yomichan popup
-is the definition that is chosen here (or if there is no monolingual dictionary,
-the first bilingual dictionary shown on the popup.)
+In other words, the first bilingual dictionary shown on the Yomichan popup
+is the definition that is chosen here (or if there is no bilingual dictionary,
+the first monolingual dictionary shown on the popup.)
 
 Note that this will contain **ALL definitions** in said dictionary.
 
@@ -43,11 +58,14 @@ Contains all monolingual dictionaries that is not in the primary definition.
 Contains the frequency list info, and extra css info
 required to display the frequency info.
 
+### `{jpmn-min-freq}`
+Contains the smallest frequency in the entire list of installed frequencies.
+
 ### `{jpmn-pitch-accent-graphs}`
 Contains the pitch accent graphs for all [PA dictionaries](yomichantemplates#definitions).
 
-### `{jpmn-pitch-accent-dicts}`
-Contains the pitch accent info for all [YPA dictionaries](yomichantemplates#definitions).
+### `{jpmn-utility-dictionaries}`
+Contains the pitch accent info for all [Utility dictionaries](yomichantemplates#definitions).
 
 
 <!--
@@ -91,6 +109,26 @@ TODO include points:
 -->
 
 
+# Monolingual Setup
+
+By default, the primary definition chooses the first bilingual dictionary.
+If you want to use the monolingual dictionary first, navigate to the
+options at the top of the templates page.
+
+Within this, change the following line:
+
+```
+{{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
+```
+
+to:
+
+```
+{{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
+```
+
+
+<!--
 # Using a bilingual dictionary first
 
 TODO outdated
@@ -111,7 +149,7 @@ into:
 {{~#set "opt-first-dictionary-type" "bilingual"}}{{/set~}}
 {{~#set "opt-second-dictionary-type" "monolingual"}}{{/set~}}
 ```
-
+-->
 
 
 # Categorization of Dictionaries
@@ -143,11 +181,11 @@ To modify a regex string:
   For example, if your dictionary tag is `Amazing Dictionary`, change the line
 
   ```
-  {{~#set "bilingual-dict-regex"~}} ^([Jj][Mm][Dd]ict.*|新和英)(\[object Object\])?$ {{~/set~}}
+  {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)(\[object Object\])?$ {{~/set~}}
   ```
   to:
   ```
-  {{~#set "bilingual-dict-regex"~}} ^([Jj][Mm][Dd]ict.*|新和英|Amazing Dictionary)(\[object Object\])?$ {{~/set~}}
+  {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|Amazing Dictionary)(\[object Object\])?$ {{~/set~}}
   ```
 
 To test whether the regex works, one can use the following template to test:
@@ -179,16 +217,16 @@ An example output of the above is the following:
 
 
 # Customizing Frequency List Entries
-You may have noticed that in the sample screenshots (TODO),
+You may have noticed that in the sample screenshots that
 the frequency list dictionary name is shortened.
 This is done in CSS, and if you want to shorten your own frequency dictionaries,
-you will have to add to the styling sheet of the card.
+you will have to add to the styles sheet of the card.
 Sample code to shorten the `Innocent Ranked` to `Inn.` is shown below:
 ```
-.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner .frequencies__dictionary-inner2 {
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner {
   display: none;
 }
-.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner:after {
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary:after {
   content: "Inn.";
 }
 ```
@@ -228,9 +266,10 @@ The documentation I used:
 
 Sample template code can be found here:
 - Template code for this note:
-  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/other/templates.txt)
-- Template code for this note (NO LONGER USED / MAINTAINED):
-  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/other/templates_old.txt)
+  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/top.txt) and
+  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/bottom.txt)
+- Old template code for this note (NO LONGER USED / MAINTAINED):
+  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/old.txt)
 - Markers for individual dictionaries:
   [here](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
   - This has certain extended capabilities over my template code, such as removing the first line.
