@@ -78,6 +78,8 @@ To download all the required plugins, copy and paste the following numbers into 
 
 [[assets/anki/tools_addons.png]]
 
+[[assets/anki/addons_install.png]]
+
 
 **Note**: <br>
 You will have to restart Anki after downloading and after editing the configuration
