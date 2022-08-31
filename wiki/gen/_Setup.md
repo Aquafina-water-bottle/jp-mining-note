@@ -38,7 +38,7 @@ The above does the following:
 If the above made literally no sense to you,
 or you just want to install this normally,
 here's the normal way of installing the cards:
-(video format of the steps on linux [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
+(**full video example** of the steps below for ubuntu [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
 
 1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
     and download the cards from the latest release.
@@ -55,7 +55,7 @@ here's the normal way of installing the cards:
     - (nix) `~/.local/share/Anki2/{deck_name}/collection.media`
 
    **Note**: <br>
-   If you don't know how to access that folder on Windows, see [here](https://www.freecodecamp.org/news/appdata-where-to-find-the-appdata-folder-in-windows-10/)
+   If you don't know how to access the `AppData` folder on Windows, see [here](https://www.freecodecamp.org/news/appdata-where-to-find-the-appdata-folder-in-windows-10/).
 
 
 
