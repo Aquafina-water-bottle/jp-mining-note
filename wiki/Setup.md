@@ -17,7 +17,7 @@ with your card exporter:
 There are two ways of installing the card:
 
 
-## The Cool Way
+## The Automatic Way
 If you know what `git` and `python` is, here's all you have to do:
 
 ```
@@ -28,6 +28,10 @@ cd ./jp-mining-note
 # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
 python ./tools/install.py
 ```
+
+The above does the following:
+- Installs the latest version of the note
+- Installs the required fonts
 
 
 ## The Normal Way
@@ -49,6 +53,8 @@ here's the normal way of installing the cards:
     - (windows) `C:\Users\{username}\AppData\Roaming\Anki2\{deck_name}\collecion.media`
     - (nix) `~/.local/share/Anki2/{deck_name}/collection.media`
 
+(TODO gif)
+
 
 ## Final Steps
 You should see a deck `JPMN-Examples` in your collection.
@@ -69,16 +75,31 @@ To download all the required plugins, copy and paste the following numbers into 
 ```
 1344485230 1225470483 2055492159 181103283
 ```
-Further details on each of the plugins and the required config changes are listed below.
+
+[[assets/anki/media_export.png]]
+
+
+**Note**: <br>
+You will have to restart Anki after downloading and after editing the configuration
+file for the changes to take effect.
+
+After installing the add-ons, you will have to change the configs of the add-ons
+to work with this note type.
+Continue reading to see the required config changes.
 
 #### AJT Furigana
 [(Link)](https://ankiweb.net/shared/info/1344485230)
 Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon yomichan card creation.
 
-Note: Furigana generation is occasionally incorrect,
+**Note**:
+Furigana generation is occasionally incorrect,
 so if you plan on using these regularly, you should double-check the readings
 to make sure they are correct.
+
+**Config Changes**: <br>
+To change the config of any Anki add-on, head over to
+`Tools` →  `Add-ons` →  (select the add-on) →  `Config`.
 
 The important things to change in the config are `generate_on_note_add`, `fields` and `note_types`.
 
@@ -120,16 +141,26 @@ The important things to change in the config are `generate_on_note_add`, `fields
     }
 
 </details>
+
+To explain the changes:
+- `generate_on_note_add` ensures that the pitch accent is added upon initial note creation.
+- The change to `fields` changes the field names to match this note type.
+- Similarily, the `note_types` changes makes the add-on work with this specific note type.
+
+
 <br>
 
 #### AJT Pitch Accent
 [(Link)](https://ankiweb.net/shared/info/1225470483)
 Automatically adds pitch accent info given the word.
 
-Note: Although I have two fields for Yomichan to import the pitch accent, I primarily use the
+**Note**: <br>
+Although I have a field for Yomichan to import the pitch accent graph (`PAGraphs`), I primarily use the
 pitch accent info generated from this plugin because I personally find it easier to edit.
-More about editing pitch accent in usage (TODO).
+You can read more about editing pitch accent in the [usage page](setup#modifying-pitch-accent).
 
+
+**Config Changes**: <br>
 The important things to change in the config are `generate_on_note_add`,
 `destination_fields`, `source_fields` `note_types`, and `styles`.
 
@@ -162,6 +193,13 @@ The important things to change in the config are `generate_on_note_add`,
 </details>
 <br>
 
+To explain the changes:
+- `generate_on_note_add` and `note_types` are changed similarly in the previous section.
+- `destination_fields` and `source_fields` are changed similarily to `fields` in the previous section.
+- `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
+    in the example note.
+
+
 #### AnkiConnect
 [(Link)](https://ankiweb.net/shared/info/2055492159)
 Required for Yomichan and most other Anki-related automated tasks to work.
@@ -192,7 +230,7 @@ There are two ways of using css injector with this note type:
       rm "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
 
       # nix command
-      rm ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+      rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
       ```
 
     - For Windows users, run these two commands in command prompt with elevated permissions (be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile):
@@ -211,7 +249,7 @@ There are two ways of using css injector with this note type:
     - For nix users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
 
       ```
-      ln -s ~/.local/share/Anki2/PROFILENAME/collection.media/_field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+      ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
       ```
 
 2. Manually without respecting updates:
@@ -226,21 +264,30 @@ There are two ways of using css injector with this note type:
     into the correct position.
 
 
-After the above setup and restarting Anki,
-your Anki field editor should now have color!
+#### Final Steps
+After the above setup, make sure to restart Anki for the plugins and config changes to take effect.
+If the css injector add-on is installed correctly, your Anki field editor should now have color!
+
+<br>
 
 
 # Transfer existing notes
 If you wish to transfer existing cards into this note type,
 please see [this page](importing).
 
-<!--
-(TODO separate page)
-* [sound:silence.wav]
-* mention important reference fields
-* batch editing plugin?
-    * section on batch editing
--->
+<br>
+
+
+
+# Updating the Note
+If you wish to update the note, follow the steps in [this page](updating) (TODO, WIP PAGE).
+
+**Note**: <br>
+This note doesn't auto-update, as it is extremely likely that people will be editing the note
+type for their own setups.
+Plus, who even likes Windows updates? ;)
+
+
 
 <br>
 
@@ -259,6 +306,8 @@ If you have used Yomichan before, please make a backup of your settings (just in
 * Navigate to Yomichan Settings.
 * Go to the "Backup" section
 * Select "Export Settings"
+
+[[assets/yomichan/import_settings.gif]]
 
 
 ## Yomichan Fields
@@ -307,6 +356,12 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 
 
 
+<!--
+(TODO gif)
+[[assets/anki/media_export.png]]
+-->
+
+
 The above fields will create, by default:
 * A vocab card that does not test pitch accent
 * Shows the first monolingual definition (if not found, uses the first bilingual definition)
@@ -334,6 +389,8 @@ To make the new markers usable, do the following:
 * If you have existing template code already, I highly recommend
   **resetting the templates** (bottom right corner, red button)
   unless you know exactly what you are doing.
+
+(TODO gif)
 
 After resetting the templates,
 **without** removing any of the existing template code,
@@ -736,15 +793,11 @@ add the following template code as follows:
    <br>
 
 
-<!--
-TODO test what happens with biliingual defs
+(TODO gif)
 
-By default, this will grab the monolingual definition in the primary definition field,
-bilingual definitions in the secondary definition field, and monolingual definitions
-in the extra definitions field.
--->
 
-If you want to grab the monolingual definition first, change
+If you want the first definition you see (PrimaryDefinition) to be monolingual,
+change the following line:
 ```
 {{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
 ```
@@ -752,6 +805,10 @@ to
 ```
 {{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
 ```
+
+
+
+(TODO gif)
 
 
 Various other customizations can be easily done, such as:
@@ -765,10 +822,10 @@ see the templates section [here](yomichantemplates).
 ## Other Yomichan Settings
 * Again, if you have never used Yomichan before, I recommend checking out
   [this page](https://learnjapanese.moe/yomichan/).
-* The layout of Yomichan **changes the appearance of the exported card**.
+<!--* The layout of Yomichan **changes the appearance of the exported card**.
   To get exactly the same look as the sample images and cards type,
   use "Compact glossaries" turned on and "Compact tags" turned off,
-  found under Yomichan settings →  "Popup Appearance".
+  found under Yomichan settings →  "Popup Appearance".-->
 * If you are planning on using the JMDict dictionary,
   I recommend downloading from the
   [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
@@ -791,6 +848,8 @@ Anki card (click on the green plus button).
 Here's an excerpt of text you can test Yomichan on:
 
 「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
+
+(TODO gif)
 
 The classic texthooker setup works for most games, and any show with subtitle file.
 This texthooker process has already been explained in great detail by
