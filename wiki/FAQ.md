@@ -3,11 +3,34 @@ You are absolutely free to tear the code apart and make these card formats your 
 
 
 
+<!--
 # How do I get rid of all of this pitch accent info?
 See [here](usage#wait-i-dont-want-to-test-pitch-accent).
+-->
 
 
 # How do I change the default value of a binary field?
+In Yomichan Format, you can simply toggle the field.
+Any new card that is created will now default to that default value.
+
+Of course, this will not affect existing cards.
+To change existing cards, I recommend using something to bulk-edit
+your cards.
+I recommend [This add-on](https://ankiweb.net/shared/info/291119185)
+to do just that.
+
+(TODO write a way with python)
+
+
+**Note**: <br>
+You technically have a second option, and that is to change the code itself
+(i.e. flip `#` with `^` for the desired field).
+However, you should only do this if you know what you are doing,
+and are fine with knowing you may lose those changes
+if you update this note.
+
+
+<!--
 You have two main options:
 
 **Option A:** You can simply fill the field in Yomichan.
@@ -15,7 +38,8 @@ When any new card is created, the option will be defaulted to true.
 
 If you have many existing cards that you want to change,
 this approach will then require batch changes to the cards.
-To do Anki batch editing, you can either use plugins or do python scripting.
+To do Anki batch editing, you can either use [plugins](a) or do python scripting.
+
 I personally use the latter, with some example scripts here (TODO).
 
 
@@ -26,6 +50,10 @@ here are the following steps:
 * Rename the field `IsSentenceCard` →  `IsVocabCard`
 * Replace all instances of `{{#IsVocabCard}}` →  `{{^IsVocabCard}}`
 * Replace all instances of `{{^IsVocabCard}}` →  `{{#IsVocabCard}}`
+-->
+
+# The sentence quotes are on completely different lines!
+If your card looks like this:
 
 
 
@@ -40,15 +68,37 @@ It's a hack to not play audio even if you setup your Anki client to do so.
 See the `PASilence` field in the [field reference](usage#anki-field-reference) for more information.
 
 
-# The replay audio button does not work as expected?
+# The replay audio button plays the sentence, word, and then sentence.
+This is playing the audio from the front of the card,
+and then the back of the card, in sequence.
+To fix it so you only hear the audio displayed in the back of the card,
+go to:
+
+`Decks` (main anki browser) <br>
+→  The gear beside your deck <br>
+→  `Options` <br>
+→  `Audio` section <br>
+→  Toggle `Skip question when replaying answer`
+
+<!--
 This is a bug related to the above.
 Unfortunately, I can't find another way to selectively suppress audio from playing,
 so the bug is here to stay until a better solution is found.
+-->
+
+
 
 
 # What card type should I use?
-See here (TODO link to card types page)
+The short answer is: whichever one you want. :)
+
+The long answer is: whichever one you want,
+because everyone has their own preferences on what card types they like.
+I recommend being open about it and experiment with them, to see which one you like.
+
+
 <!--
+See here (TODO link to card types page)
 Surprisingly, there's a lot of debate on this within the community.
 In short,
 [many](http://www.alljapaneseallthetime.com/blog/10000-sentences-why/)

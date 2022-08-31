@@ -178,19 +178,41 @@ so I *strongly* recommend using this.
 
 [[assets/css_injector.png]]
 
-There are two ways of using css injector:
+There are two ways of using css injector with this note type:
 
 1. Automatically updates with the card (recommended)
-    - For Windows users, run this command in command prompt with elevated permissions (be sure to change `USERNAME` to your computer username and `DECKNAME` to your Anki deck):
+    - As a preliminary step, you will have to remove the empty `field.css` file
+      that comes with the plugin.
+      That can be done through command line (below), or you can simply navigate to the
+      `addons21\181103283\user_files` folder and delete `field.css`.
 
-          mklink C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css C:\Users\USERNAME\AppData\Roaming\Anki2\DECKNAME\collection.media\_field.css
+      ```
+      # windows command
+      # be sure to change USERNAME to your computer username!
+      rm C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css
 
+      # nix command
+      rm ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+      ```
+
+    - For Windows users, run these two commands in command prompt with elevated permissions (be sure to change `USERNAME` to your computer username and `DECKNAME` to your Anki deck):
+
+      ```
+      mklink C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css C:\Users\USERNAME\AppData\Roaming\Anki2\DECKNAME\collection.media\_field.css
+      ```
+      **Note**: <br>
+      There are two `USERNAME`'s to replace, and one `DECKNAME` to replace in the above command.
+      Make sure to replace all the fields!
+
+      **Note**: <br>
       If you've never used command prompt before, see
       [here](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/)
 
     - For nix users, run the following command (be sure to change `DECKNAME` to your Anki deck):
 
-          ln -s ~/.local/share/Anki2/DECKNAME/collection.media/_field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+      ```
+      ln -s ~/.local/share/Anki2/DECKNAME/collection.media/_field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
+      ```
 
 2. Manually without respecting updates:
     - Manually copy the `_field.css` file (found under your deck's `media` directory)
@@ -201,11 +223,16 @@ There are two ways of using css injector:
 
 
 # Transfer existing notes
+If you wish to transfer existing cards into this note type,
+please see [this page](importing).
+
+<!--
 (TODO separate page)
 * [sound:silence.wav]
 * mention important reference fields
 * batch editing plugin?
     * section on batch editing
+-->
 
 <br>
 
