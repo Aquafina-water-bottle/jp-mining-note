@@ -381,6 +381,10 @@ Yomichan supports user inserted template code that allows the automatic
 separation of bilingual and monolingual dictionary definitions,
 among many other things.
 
+**Note**: <br>
+For a full video example of the steps below,
+see [here](https://user-images.githubusercontent.com/17107540/187789174-f7f71429-1990-49aa-b99a-0aa74e4ff12c.mp4).
+
 To make the new markers usable, do the following:
 * Navigate to Yomichan Settings.
 * Make sure that advanced settings are turned on (bottom left corner).
@@ -389,8 +393,6 @@ To make the new markers usable, do the following:
 * If you have existing template code already, I highly recommend
   **resetting the templates** (bottom right corner, red button)
   unless you know exactly what you are doing.
-
-(TODO gif)
 
 After resetting the templates,
 **without** removing any of the existing template code,
@@ -792,8 +794,6 @@ add the following template code as follows:
    </details>
    <br>
 
-
-(TODO gif)
 
 
 If you want the first definition you see (PrimaryDefinition) to be monolingual,
