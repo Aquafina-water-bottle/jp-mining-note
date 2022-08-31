@@ -284,7 +284,6 @@ get a description of what is being tested.
 Alternatively, you can look at the top right of the screen and look at the value after the `/`.
 
 [[assets/pa_indicator_hover.gif]]
-TODO gif of hovering over the circle
 
 <!--
 | [[assets/pa_indicator_hover.png]] |
