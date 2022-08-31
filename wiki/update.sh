@@ -30,10 +30,10 @@ mkdir ../../wiki/assets/anki
 
 cp -r ./assets/*.png ../../wiki/assets
 cp -r ./assets/*.gif ../../wiki/assets
-cp -r ./assets/yomichan/*.png ../../wiki/yomichan
-cp -r ./assets/yomichan/*.gif ../../wiki/yomichan
-cp -r ./assets/anki/*.png ../../wiki/anki
-cp -r ./assets/anki/*.gif ../../wiki/anki
+cp -r ./assets/yomichan/*.png ../../wiki/assets/yomichan
+cp -r ./assets/yomichan/*.gif ../../wiki/assets/yomichan
+cp -r ./assets/anki/*.png ../../wiki/assets/anki
+cp -r ./assets/anki/*.gif ../../wiki/assets/anki
 
 # wiki
 cd ../../wiki
