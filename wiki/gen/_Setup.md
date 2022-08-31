@@ -407,9 +407,6 @@ to
 {% endraw %}
 
 
-(TODO gif)
-
-
 Various other customizations can be easily done, such as:
 - Various styling to the frequency list and pitch accent graph entries
 - Specifying exactly which dictionaries are monolingual and bilingual
@@ -448,7 +445,7 @@ Here's an excerpt of text you can test Yomichan on:
 
 「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
 
-(TODO gif)
+[[assets/yomichan/add_card.gif]]
 
 The classic texthooker setup works for most games, and any show with subtitle file.
 This texthooker process has already been explained in great detail by
