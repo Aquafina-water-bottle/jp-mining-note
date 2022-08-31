@@ -54,9 +54,9 @@ See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
 
 # Other Info
 Tested on Anki 2.1.54, Linux (Ubuntu) & Windows.
+Note: it currently does NOT work on 2.1.49 (and likely below).
 
-It should work on any PC where Anki is supported.
-However, it is recommended you use the latest version of Anki if possible.
+It is recommended you use the latest version of Anki if possible.
 
 # License
 MIT. Go insane.
