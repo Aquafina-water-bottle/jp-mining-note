@@ -59,19 +59,25 @@ The following will be some general troubleshooting tips that can help you figure
 what the error is:
 
 1. Is AnkiConnect installed? If it isn't, please see [this](setup#required-anki-add-ons).
+
 2. Do you have a [conflicting addon](setup#conflicting-add-ons) installed?
+
 3. As a generalized version of the above,
    try disabling all of your add-ons other than the mandatory ones listed in the setup page.
-   If it works after this step, then re-enable the add-ons one-by-one to determine which add-on(s)
-   this note isn't compatible with
-3. Try to upgrade Anki to the latest version. Worst case scenario, you can downgrade if any
-   essential add-ons you have no longer work.
+   Note that you have to restart Anki after disabling the add-ons for the changes to take effect.
+
+   If it works after this step, please let me know which add-on(s) conflicts with this note type!
+   To do this, re-enable the add-ons one-by-one (remembering to restart Anki each time!).
+
+4. With all of your non-mandatory add-ons disabled, try to upgrade Anki to the latest version,
+   and see if the issue still persists.
+   If this works but an add-on you consider mandatory no longer works, please let me know!
+   (I won't be able to upgrade the add-on for you, but I can potentially point to alternatives
+    and/or add it to the documentation somewhere so others are aware of the issue.)
 
 - TODO expand list in the future
 
-If you can't manage to fix it (or managed to fix it but requires disab
-
-
+If you can't manage to fix it, please submit an issue!
 
 
 

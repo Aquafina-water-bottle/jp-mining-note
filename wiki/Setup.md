@@ -12,6 +12,14 @@ with your card exporter:
 * [Anki Field Reference](usage#anki-field-reference)
 
 
+# Prerequisites
+Please ensure that you are using the latest Anki version
+(or as close as you can get to the latest Anki version), as the note is primarily tested
+and maintained on the latest versions of Anki.
+
+Worst case scenario, if any essential add-ons no longer work,
+you can downgrade back to your current version.
+
 
 # Installing the Card
 There are two ways of installing the card:
@@ -65,10 +73,13 @@ View one of the cards and make sure the card looks similar to the one below:
 
 [[assets/eg_fushinnsha.png]]
 
-Notice how at the top left corner, the info circle (the "i" encased within the circle)
-is the default grey color.
-If this is red, that means something is wrong with the note.
-Please see [this](faq-general-troubleshooting) section for basic troubleshooting.
+Please check the following in particular:
+- The fonts should match very similarly with the above example.
+- Notice how at the top left corner, the info circle (the "i" encased within the circle)
+  is the default grey color.
+  If this is red, that means something is wrong with the note.
+  Please see [this](faq-general-troubleshooting) section for basic troubleshooting.
+- Kanji hover and clicking on the image to zoom should work out of the box.
 
 
 <br>
