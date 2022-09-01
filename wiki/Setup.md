@@ -59,21 +59,34 @@ here's the normal way of installing the cards:
 
 
 
-## Final Steps
+## Verifying the Note Works
 You should see a deck `JPMN-Examples` in your collection.
 View one of the cards and make sure the card looks similar to the one below:
 
 [[assets/eg_fushinnsha.png]]
 
+Notice how at the top left corner, the info circle (the "i" encased within the circle)
+is the default grey color.
+If this is red, that means something is wrong with the note.
+Please see [this](faq-general-troubleshooting) section for basic troubleshooting.
+
 
 <br>
 
 # Anki Setup
-For this card type to work, some Anki addons are required to connect to external sources and to auto-generate
+For this card type to work, some Anki add-ons are required to connect to external sources and to auto-generate
 certain fields.
 
-## Required Anki Plugins
-To download all the required plugins, copy and paste the following numbers into the Add-ons window.
+There are also certain add-ons that will **not** be supported by this note type.
+Please disable them and restart Anki before continuing.
+
+
+#### Conflicting add-ons
+- (currently none since I'm not aware of any currently)
+
+
+## Required Anki add-ons
+To download all the required add-ons, copy and paste the following numbers into the Add-ons window.
 (`Tools` →  `Add-ons` →  `Get Add-ons...`)
 ```
 1344485230 1225470483 2055492159 181103283
@@ -159,7 +172,7 @@ Automatically adds pitch accent info given the word.
 
 **Note**: <br>
 Although I have a field for Yomichan to import the pitch accent graph (`PAGraphs`), I primarily use the
-pitch accent info generated from this plugin because I personally find it easier to edit.
+pitch accent info generated from this add-on because I personally find it easier to edit.
 You can read more about editing pitch accent in the [usage page](setup#modifying-pitch-accent).
 
 
@@ -208,13 +221,13 @@ To explain the changes:
 #### AnkiConnect
 [(Link)](https://ankiweb.net/shared/info/2055492159)
 Required for Yomichan and most other Anki-related automated tasks to work.
-I use the default config that comes with the plugin.
+I use the default config that comes with the add-on.
 
 <br>
 
 #### CSS Injector
 [(Link)](https://ankiweb.net/shared/info/181103283)
-This plugin is not strictly necessary.
+This add-on is not strictly necessary.
 However, if you don't use this, the fields within the Anki field editor
 won't have certain stylizations that makes the field actually interpretable,
 so I *strongly* recommend using this.
@@ -225,7 +238,7 @@ There are two ways of using css injector with this note type:
 
 1. Automatically updates with the card (recommended)
     - As a preliminary step, you will have to remove the empty `field.css` file
-      that comes with the plugin.
+      that comes with the add-on.
       That can be done through command line (below), or you can simply navigate to the
       `addons21\181103283\user_files` folder and delete `field.css`.
 
@@ -258,10 +271,10 @@ There are two ways of using css injector with this note type:
       ```
 
 2. Manually without respecting updates:
-    1. Navigate to css injector plugin directory (`Anki2/addons21/181103283/user_files`)
+    1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
     2. Remove the existing `field.css` file
     3. Manually copy the `_field.css` file (found under your profile's `media` directory)
-       into the css injector plugin directory
+       into the css injector add-on directory
     4. Rename `_field.css` into `field.css`.
 
     **Note**: <br>
@@ -270,8 +283,9 @@ There are two ways of using css injector with this note type:
 
 
 #### Final Steps
-After the above setup, make sure to restart Anki for the plugins and config changes to take effect.
+After the above setup, make sure to restart Anki for the add-ons and config changes to take effect.
 If the css injector add-on is installed correctly, your Anki field editor should now have color!
+
 
 <br>
 
@@ -856,7 +870,7 @@ many other smart people in the following links:
 
 The setup also works with video files if the video player supports automated copying of subtitles,
 and if you have the correct subtitle files.
-* MPV with either `mpvacious` or `Immersive` plugins supports this workflow, as detailed in the next section.
+* MPV with either `mpvacious` or `Immersive` add-ons supports this workflow, as detailed in the next section.
 * Many anime subtitle files can be found under
 [kitsuneko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F).
 
@@ -877,11 +891,11 @@ Of course, this list is incomplete, and there could be tools better suited for y
 
 
 [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious)
-* Plugin for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
+* add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
 * Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
 
 [**Immersive**](https://github.com/Ben-Kerman/immersive)
-* A powerful alternative to the mpvacious plugin above, with certain different capabilities.
+* A powerful alternative to the mpvacious add-on above, with certain different capabilities.
 * Can also be used to automatically extract sentence audio and pictures.
 
 [**asbplayer**](https://github.com/killergerbah/asbplayer)
@@ -934,7 +948,7 @@ TheMoeWay documents two setups for getting audio:
   (TODO pastebin mirror)
   The main difference is that this uses sqlite,
   so the database is saved on the disk to prevent excessive memory caching
-  (each time anki loads, about 250MB of data has to be loaded into memory for the original plugin to work.)
+  (each time anki loads, about 250MB of data has to be loaded into memory for the original add-on to work.)
   * To use this, replace the python files with the ones linked above.
   * This requires Anki 2.1.50 or greater.
    -->
@@ -943,8 +957,8 @@ TheMoeWay documents two setups for getting audio:
     as a backup audio source, in case previous sources do not have audio.
 
 
-## Anki Plugin(s)
-These plugin(s) assist in card creation, but are ultimately optional.
+## Anki add-on(s)
+These add-on(s) assist in card creation, but are ultimately optional.
 * Paste Images As WebP [(link)](https://ankiweb.net/shared/info/1151815987)
 
 
