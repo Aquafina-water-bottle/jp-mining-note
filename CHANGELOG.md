@@ -17,6 +17,13 @@ signified.)
 
 
 ## [0.9.1.2] - 2022-09-??
+
+#### Added
+- `jpmn-test-dict-type` yomichan template marker to bottom.txt
+
+#### Changed
+- regex options in yomichan templates to be more clear in documentation
+
 #### Fixed
 - `??` operator not working on legacy anki versions (changed to use `nullish` function instead)
 
