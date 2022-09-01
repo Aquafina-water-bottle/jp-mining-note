@@ -262,17 +262,4 @@ Sample code to not show an entry is shown below:
 
 
 # Further links
-The documentation I used:
-- [Yomichan template helper functions](https://github.com/FooSoft/yomichan/blob/master/docs/templates.md)
-- [Yomichan template structure](https://github.com/FooSoft/yomichan/blob/master/docs/interfaces/dictionary-entry.ts)
-
-Sample template code can be found here:
-- Template code for this note:
-  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/top.txt) and
-  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/bottom.txt)
-- Old template code for this note (NO LONGER USED / MAINTAINED):
-  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/old.txt)
-- Markers for individual dictionaries:
-  [here](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
-  - This has certain extended capabilities over my template code, such as removing the first line.
-
+- moved to the [jp resources page](jpresources#further-reading)

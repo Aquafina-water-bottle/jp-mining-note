@@ -36,7 +36,11 @@
 
 [**Other**](other) (TODO)
 * [Personal Setup](personalsetup)
-* [ShareX](sharex)
+* [Various Resources](sharex)
+  * [ShareX](sharex)
+  * [CSS (Yomichan)](sharex)
+  * [CSS (General)](sharex)
+  * [Yomichan Handlebars](sharex)
 
 
 <!--

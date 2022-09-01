@@ -132,11 +132,13 @@ def main():
 
     generator = Generator(sharex_only=args.sharex_only)
 
+    #if args.sharex_only:
+    #    files = ["_Sharex.md"]
+    #else:
+    #    files = ["_Importing.md", "_Setup.md", "_PersonalSetup.md", "_Sharex.md"]
+
     # TODO change to automated with _
-    if args.sharex_only:
-        files = ["_Sharex.md"]
-    else:
-        files = ["_Importing.md", "_Setup.md", "_PersonalSetup.md", "_Sharex.md"]
+    files = ["_Importing.md", "_Setup.md", "_PersonalSetup.md", "_JPResources.md"]
 
     for file in files:
         input_file = file
