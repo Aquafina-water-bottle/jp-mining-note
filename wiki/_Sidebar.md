@@ -25,16 +25,18 @@
 
 [**Transfer Existing Notes**](importing)
 
-[**Templates Info & Customization**](yomichantemplates)
+[**Templates Info & Customization**](yomichantemplates) (TODO)
 
 [**Updating the Note**](updating) (TODO)
+
+[**Modding the Note**](yomichantemplates) (TODO)
 
 [**FAQ**](faq) (TODO)
 * [Troubleshooting](faq#troubleshooting)
 * [Card Editing](faq#card-editing)
 * [Other](faq#other)
 
-[**Various Resources**](jpresources)
+[**Various Resources**](jpresources) (TODO)
 * [CSS (Yomichan)](jpresources#css-yomichan)
 * [CSS (General)](jpresources#css-general)
 * [Yomichan Handlebars](jpresources#css-general)

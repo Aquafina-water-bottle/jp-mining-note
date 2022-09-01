@@ -77,6 +77,47 @@ https://cdn.discordapp.com/attachments/778430038159655012/998424188203303033/unk
 
 
 
+## Hide the dictionary but allow it to be used by Anki
+
+1. ensure that the dictionary is enabled in your profile
+2. add the following css for the dictionary (has to be done for each individual dictionary)
+```
+li.definition-item[data-dictionary='DICTIONARY'] {
+  display: none;
+}
+```
+
+
+## Only see bilingual definitions on hover
+```
+li.definition-item[data-dictionary='DICTIONARY'] .gloss-list {
+  opacity: 0;
+}
+li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
+  opacity: 1;
+}
+```
+
+example:
+```
+li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
+  opacity: 0;
+}
+li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
+  opacity: 1;
+}
+
+li.definition-item[data-dictionary='新和英'] .gloss-list {
+  opacity: 0;
+}
+li.definition-item[data-dictionary='新和英']:hover .gloss-list {
+  opacity: 1;
+}
+
+
+```
+
+
 # CSS (General)
 
 ## Ensuring the open quote properly "quotes" the text

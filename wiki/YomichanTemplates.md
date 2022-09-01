@@ -192,10 +192,10 @@ To modify a regex string:
 
 To test whether the regex works, one can use the following template to test:
 ```
-{{~#*inline "test-dict-type"~}}
+{{~#*inline "jpmn-test-dict-type"~}}
 {{~#scope~}}
 {{~#each definition.definitions~}}
-- {{dictionary}}:{{~> jpmn-get-dict-type . dictionaryName=dictionary}}
+- {{dictionary}}: {{~> jpmn-get-dict-type . dictionaryName=dictionary}}
 {{/each~}}
 {{~/scope~}}
 {{~/inline~}}
