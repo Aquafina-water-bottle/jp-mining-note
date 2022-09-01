@@ -2,6 +2,7 @@
 {% from "macros.html" import sharex_display with context %}
 
 
+{% raw %}
 # CSS (Yomichan)
 
 ## general howto
@@ -122,7 +123,6 @@ example [jsfiddle](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/12/)
 {{#*inline "pitch-accent-positions-single-dict"}}
     {{~> pitch-accent-list-single-dict format='position'~}}
 {{/inline}}
-
 ```
 
 modified to match animecards (thanks An#7416)
@@ -152,20 +152,19 @@ modified to match animecards (thanks An#7416)
     {{#regexReplace "<(.|\n)*?>" ""}}{{~> pitch-accent-list-single-dict format='position'~}}{{/regexReplace}}
 {{/inline}}
 ```
+
+
 [og message](https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130)
 
 
-```
 
-In Yomichan settings -> Anki -> Configure Anki Card Templates -> Then look for {{! End Pitch Accents }} and paste it just above that -> Close
+copy/paste of above msg:
+In Yomichan settings -> Anki -> Configure Anki Card Templates -> Then look for `End Pitch Accents` and paste it just above that -> Close
 
 Then click Configure Anki card format -> If you're using  {pitch-accent-positions}, {pitch-accent-graphs}  or {pitch-accents}, you just replace
 1. {pitch-accent-positions} with {pitch-accent-positions-single-dict}
 2. {pitch-accent-graphs} with {pitch-accent-graphs-single-dict}
 3. {pitch-accents} with {pitch-accents-single-dict}
-
-
-```
 
 
 ## Automatically styling the highlighted word upon card creation
@@ -235,6 +234,7 @@ Example template code can be found here:
   [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/old.txt)
 
 
+{% endraw %}
 
 
 # Sharex
@@ -287,6 +287,7 @@ Example template code can be found here:
 
 
 
+{% raw %}
 
 # Updated plugins for outdated plugins
 
@@ -301,3 +302,4 @@ Example template code can be found here:
 - only does one thing: adds pitch accent colors (along with furigana)
 
 
+{% endraw %}
