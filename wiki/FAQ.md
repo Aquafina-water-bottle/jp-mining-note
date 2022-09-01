@@ -81,7 +81,7 @@ If you can't manage to fix it, please submit an issue!
 
 
 
-# Card Customization
+# Card Editing
 
 
 ## How do I use this note type as an Anime Card?
