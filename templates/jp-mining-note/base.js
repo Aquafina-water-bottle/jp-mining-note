@@ -18,17 +18,30 @@
 
 
 
+/* quick fix for legacy anki versions */
+function nullish(a, b) {
+  if ((typeof a === "undefined") || (a === null)) {
+    return b;
+  }
+  return a;
+}
+
+
+
 // global cache for an entire card's kanji hover html
 // maps key.word_reading -> html string
-var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
+//var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
+var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
 
 // maps kanji -> [{set of used words}, html string]
-var kanjiHoverCache = kanjiHoverCache ?? {};
+//var kanjiHoverCache = kanjiHoverCache ?? {};
+var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 // note that this cache will NOT respect card review undos,
 // but that should be a niche enough case to not warrent caching.
 // maps key -> bool
-var isNewCardCache = isNewCardCache ?? {};
+//var isNewCardCache = isNewCardCache ?? {};
+var isNewCardCache = nullish(isNewCardCache, {});
 
 (function () { // restricts ALL javascript to hidden scope
 
