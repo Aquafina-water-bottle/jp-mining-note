@@ -31,6 +31,8 @@ Some examples include:
 
 These dictionaries are all grouped together into what I call a "Utility Dictionary".
 
+[[assets/yomichan/pa_utility_dicts.png]]
+
 
 # What the markers do
 
