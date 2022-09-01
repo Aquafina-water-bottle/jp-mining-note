@@ -433,6 +433,7 @@ Outside of that, there are some final settings you can adjust in Yomichan if
 the card doesn't look quite right.
 
 
+{%- raw %}
 ## Yomichan Templates Settings
 
 #### Monolingual Definition
@@ -440,7 +441,6 @@ the card doesn't look quite right.
 If you want the first definition you see (the `PrimaryDefinition` field) to be monolingual,
 change the following line at the top of the templates code:
 
-{%- raw %}
 ```
 {{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
 ```
@@ -448,7 +448,6 @@ to
 ```
 {{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
 ```
-{% endraw %}
 
 
 
@@ -547,6 +546,9 @@ Various other customizations can be easily done, such as:
 For more information on the templates used here, including **customization and troubleshooting**,
 see the templates section [here](yomichantemplates).
 -->
+
+{% endraw %}
+
 
 
 ## Other Yomichan Settings
