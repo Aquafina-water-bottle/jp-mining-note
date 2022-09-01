@@ -433,9 +433,9 @@ add the following template code as follows:
 
        {{~! REGEX ~}}
        {{~! matches most JMdict dictionaries and 新和英 ~}}
-       {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)(\[object Object\])?$ {{~/set~}}
-       {{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms)(\[object Object\])?$ {{~/set~}}
-       {{~#set "ignored-dict-regex"~}} ^(ADD IGNORED DICTIONARIES HERE)(\[object Object\])?$ {{~/set~}}
+       {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|ADD_BILINGUAL_DICTIONARIES_HERE)(\[object Object\])?$ {{~/set~}}
+       {{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms|ADD_UTILITY_DICTIONARIES_HERE)(\[object Object\])?$ {{~/set~}}
+       {{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTIONARIES_HERE)(\[object Object\])?$ {{~/set~}}
 
        {{~! OPTIONS ~}}
        {{~! valid values: "bilingual", "monolingual" ~}}
@@ -815,14 +815,43 @@ add the following template code as follows:
 
 
 
+       {{~! a test to check if your dictionaries are correctly classified. ~}}
+       {{~! Only meant to be used for debugging purposes, not Anki. ~}}
+       {{~#*inline "jpmn-test-dict-type"~}}
+       {{~#scope~}}
+       {{~#each definition.definitions~}}
+       - {{dictionary}}: {{> jpmn-get-dict-type . dictionaryName=dictionary}}
+       {{/each~}}
+       {{~/scope~}}
+       {{~/inline~}}
+
+
 
    </details>
    <br>
 
 
+## Make an example card!
+At this point, you should be able to make an example card with Yomichan!
+
+Here's an excerpt of text you can test Yomichan on:
+
+「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
+
+[[assets/yomichan/add_card.gif]]
+
+Obviously, just Yomichan alone doesn't fill every field:
+the picture and sentence audio is missing.
+
+Outside of that, there are some final settings you can adjust in Yomichan if
+the card doesn't look quite right.
+## Yomichan Templates Settings
+
+#### Monolingual Definition
 
 If you want the first definition you see (the `PrimaryDefinition` field) to be monolingual,
 change the following line at the top of the templates code:
+
 ```
 {{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
 ```
@@ -833,12 +862,104 @@ to
 
 
 
+#### Categorization of Dictionaries
+If your dictionaries are ending up in the wrong sections,
+then it is likely a problem with how the template code categorizes the dictionaries.
+If you made a card above, check that your dictionaries are in the expected places.
+
+The foolproof way to check that your dictionaries are correctly categorized is with the
+`{jpmn-test-dict-type}` (new as of 0.9.1.2) marker.
+Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
+
+An example output of the above (on the word 結構) is the following:
+```
+- 旺文社国語辞典 第十一版: monolingual
+- 明鏡国語辞典 第二版: monolingual
+- ハイブリッド新辞林: monolingual
+- 新明解国語辞典 第五版: monolingual
+- デジタル大辞泉: monolingual
+- NHK日本語発音アクセント新辞典: utility
+- JMDict Surface Forms: utility
+- JMdict (English): bilingual
+- JMdict (English): bilingual
+- JMdict (English): bilingual
+- JMdict (English): bilingual
+- JMdict (English): bilingual
+- 新和英: bilingual
+```
+
+
+<!--
+The template code **only works** if the bilingual dictionaries
+and utility dictionaries are explicitly specified in the templates.
+
+In other words, (as of writing this)
+if you use bilingual dictionaries that are not `JMdict` or `新和英`,
+or you use a Yomichan dictionary for pitch accent that isn't
+`NHK日本語発音アクセント新辞典`,
+then you will have to add your dictionary to the handlebars code.
+-->
+
+
+If a dictionary is miscategorized
+you will have to edit `bilingual-dict-regex` or `utility-dict-regex`
+at the top of the template code.
+Monolingual dictionaries are considered to be dictionaries that aren't either
+of the two above, so no handlebars code has to be changed if one were to
+use more monolingual dictionaries.
+
+To see how to edit the regex, go to [this section](setup#editing-the-dictionary-regex).
+
+
+#### Ignoring a Dictionary
+If you want to see the dictionary on Yomichan but not have it show on Anki,
+you can use the `ignored-dict-regex` option.
+
+To see how to edit the option, see [the section below](setup#editing-the-dictionary-regex).
+
+Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
+[see here](). TODO link
+
+
+#### Editing the dictionary regex
+
+To modify a regex string:
+
+1. Determine the exact tag your dictionary has.
+
+   An easy way to see this is by getting a word that is defined in the dictionary and
+   exporting it into Anki.
+   Within Anki, the dictionary tag should appear in parenthesis before the definition.
+
+   TODO better way: yomichan options -> dicts
+
+2. Add the dictionary tag to the string, by replacing the example `ADD_x_DICTIONARIES_HERE`.
+   For example, if your bilingual dictionary tag is `Amazing Dictionary`, change
+   `ADD_BILINGUAL_DICTIONARIES_HERE` to
+   `Amazing Dictionary`.
+
+   If you want to add more than one dictionary, they have to be joined with the `|` character.
+   For example, if you want to add the bilingual dictionaries
+   `Amazing Dictionary` and `Somewhat-Okay-Dictionary`, change
+   `ADD_BILINGUAL_DICTIONARIES_HERE` to
+   `Amazing Dictionary|Somewhat-Okay-Dictionary`.
+
+   For a full example, here is the modified line for the second example:
+   ```
+   {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|Amazing Dictionary|Somewhat-Okay-Dictionary)(\[object Object\])?$ {{~/set~}}
+   ```
+
+
+<!--
 Various other customizations can be easily done, such as:
 - Various styling to the frequency list and pitch accent graph entries
 - Specifying exactly which dictionaries are monolingual and bilingual
-
 For more information on the templates used here, including **customization and troubleshooting**,
 see the templates section [here](yomichantemplates).
+-->
+
+
+
 
 
 ## Other Yomichan Settings
@@ -867,11 +988,6 @@ see the templates section [here](yomichantemplates).
 I use a texthooker setup, which is able to extract subtitles or text into the browser.
 Once the text is on the browser, you can use Yomichan to select the word and create the
 Anki card (click on the green plus button).
-Here's an excerpt of text you can test Yomichan on:
-
-「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
-
-[[assets/yomichan/add_card.gif]]
 
 The classic texthooker setup works for most games, and any show with subtitle file.
 This texthooker process has already been explained in great detail by

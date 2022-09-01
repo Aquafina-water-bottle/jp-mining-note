@@ -14,6 +14,13 @@ fi
 # jp-mining-note/wiki
 cd ./gen
 python3 make.py
+status=$?
+if [ $status -ne 0 ]; then
+    >&2 echo "python command failed with exit code ${status}."
+    cd ..
+    exit $status
+fi
+
 cd ..
 
 git add .
