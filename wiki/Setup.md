@@ -81,7 +81,7 @@ There are also certain add-ons that will **not** be supported by this note type.
 Please disable them and restart Anki before continuing.
 
 
-#### Conflicting add-ons
+## Conflicting add-ons
 - (currently none since I'm not aware of any currently)
 
 

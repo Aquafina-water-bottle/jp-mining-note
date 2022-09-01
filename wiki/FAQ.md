@@ -58,8 +58,8 @@ so the bug is here to stay until a better solution is found.
 The following will be some general troubleshooting tips that can help you figure out
 what the error is:
 
-1. Is AnkiConnect installed? If it isn't, please see [this]().
-2. Do you have a [conflicting addon]() installed?
+1. Is AnkiConnect installed? If it isn't, please see [this](setup#required-anki-add-ons).
+2. Do you have a [conflicting addon](setup#conflicting-add-ons) installed?
 3. As a generalized version of the above,
    try disabling all of your add-ons other than the mandatory ones listed in the setup page.
    If it works after this step, then re-enable the add-ons one-by-one to determine which add-on(s)
