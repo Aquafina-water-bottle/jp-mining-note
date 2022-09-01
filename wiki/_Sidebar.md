@@ -23,9 +23,9 @@
 * [Hover Sentence Card](cardtypes#hover-sentence-card)
 * [Hover Click Card](cardtypes#click-sentence-card)
 
-[**Importing Old Cards**](importing)
+[**Transfer Existing Notes**](importing)
 
-[**Templates Info & Customization**](yomichantemplates) (TODO)
+[**Templates Info & Customization**](yomichantemplates)
 
 [**Updating the Note**](updating) (TODO)
 

@@ -87,6 +87,10 @@ so the bug is here to stay until a better solution is found.
 -->
 
 
+# Pitch accent bold doesn't work on the last downstep
+- TODO
+- weird quirk with css injector
+- only solution I know of atm is to edit the raw html and move the `</b>` to the very end of the html
 
 
 # What card type should I use?

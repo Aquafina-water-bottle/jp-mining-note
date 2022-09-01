@@ -276,7 +276,7 @@ If the css injector add-on is installed correctly, your Anki field editor should
 <br>
 
 
-# Transfer existing notes
+# Transfer Existing Notes
 If you wish to transfer existing cards into this note type,
 please see [this page](importing).
 

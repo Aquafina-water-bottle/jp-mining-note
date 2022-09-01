@@ -1,4 +1,4 @@
-# Importing Anki Cards
+# Transfer Existing Notes
 This section is dedicated to explaining how you can change
 other Anki cards into this note format.
 
