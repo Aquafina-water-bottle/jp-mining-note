@@ -16,6 +16,11 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
+## [0.9.1.2] - 2022-09-??
+#### Fixed
+- `??` operator not working on legacy anki versions (changed to use `nullish` function instead)
+
+
 ## [0.9.1.1] - 2022-08-31
 #### Fixed
 - `media.css` now properly renamed to `_media.css`

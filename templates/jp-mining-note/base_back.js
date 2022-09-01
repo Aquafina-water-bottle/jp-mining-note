@@ -399,7 +399,8 @@ async function kanjiHover() {
 
   let re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
   let resultHTML = readingHTML.replace(re, function (matched) {
-    return kanjiDict[matched] ?? matched;
+    //return kanjiDict[matched] ?? matched;
+    return nullish(kanjiDict[matched], matched);
   });
 
   wordReading.innerHTML = resultHTML;
