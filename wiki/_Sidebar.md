@@ -29,7 +29,10 @@
 
 [**Updating the Note**](updating) (TODO)
 
-[**FAQ (Troubleshooting)**](faq) (TODO)
+[**FAQ**](faq) (TODO)
+* [Troubleshooting](faq#troubleshooting)
+* [Card Editing](faq#card-editing)
+* [Other](faq#other)
 
 [**Other**](other) (TODO)
 * [Personal Setup](personalsetup)
