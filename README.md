@@ -76,7 +76,7 @@ See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
 
 # Other Info
 Tested on Anki 2.1.54, Linux (Ubuntu) & Windows.
-Note: it currently does NOT work on 2.1.49 (and likely below).
+It currently does **NOT** work on legacy versions of Anki 2.1.49 and below.
 
 It is recommended you use the latest version of Anki if possible.
 
