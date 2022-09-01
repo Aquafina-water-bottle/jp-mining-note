@@ -2,9 +2,9 @@
 
 {{~! REGEX ~}}
 {{~! matches most JMdict dictionaries and 新和英 ~}}
-{{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)(\[object Object\])?$ {{~/set~}}
-{{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms)(\[object Object\])?$ {{~/set~}}
-{{~#set "ignored-dict-regex"~}} ^(ADD IGNORED DICTIONARIES HERE)(\[object Object\])?$ {{~/set~}}
+{{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|ADD_BILINGUAL_DICTIONARIES_HERE)(\[object Object\])?$ {{~/set~}}
+{{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms|ADD_UTILITY_DICTIONARIES_HERE)(\[object Object\])?$ {{~/set~}}
+{{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTIONARIES_HERE)(\[object Object\])?$ {{~/set~}}
 
 {{~! OPTIONS ~}}
 {{~! valid values: "bilingual", "monolingual" ~}}
