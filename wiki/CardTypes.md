@@ -129,7 +129,7 @@ you can see the full sentence, with the tested word highlighted.
 This acts similarly to a vocab card.
 However, you are given the option to see the full sentence without failing the card.
 
-This is also known as the fallback card (TODO).
+This is also known as the [fallback card](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#fallback-cards).
 
 **Indicator:** Yellow & dashed underline under the word.
 

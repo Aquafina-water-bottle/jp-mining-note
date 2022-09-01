@@ -321,7 +321,8 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 * Go to the "Anki" section
 * Select "Anki card format..."
 * Set "Model" as `JP Mining Note`
-* Copy and paste the following values into the fields:
+* Copy and paste the following values into the fields
+  (the custom markers won't be available in the dropdown arrow):
 
 | Anki Fields | Yomichan Format |
 |-------------|-----------------|
@@ -361,12 +362,6 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 
 
 
-<!--
-(TODO gif)
-[[assets/anki/media_export.png]]
--->
-
-
 The above fields will create, by default:
 * A vocab card that does not test pitch accent
 * Shows the first monolingual definition (if not found, uses the first bilingual definition)
@@ -374,9 +369,10 @@ The above fields will create, by default:
 
 Anything field with a * are binary fields, and
 **should be configured to each user's personal preferences.**
-More info on how to configure the default values is shown (TODO)
+To change the default value of any of the fields, simply fill
+the field in within the aforementioned `Anki card format...` section.
 
-Note that markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
+The custom markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
 See the section below to make these markers usable.
 
 
@@ -930,6 +926,9 @@ TheMoeWay documents two setups for getting audio:
   **Note:** that if you are using linux,
   unzip the files with the following command: `unzip -O shift-jis filename.zip`
 
+  TODO document alternative setup with sqlite
+
+  <!--
   **Note:** There is an alternative setup for this with the files as described in The Moe Way discord server
   [here](http://discordapp.com/channels/617136488840429598/778430038159655012/984607054616481832).
   (TODO pastebin mirror)
@@ -938,6 +937,7 @@ TheMoeWay documents two setups for getting audio:
   (each time anki loads, about 250MB of data has to be loaded into memory for the original plugin to work.)
   * To use this, replace the python files with the ones linked above.
   * This requires Anki 2.1.50 or greater.
+   -->
 
 * [Forvo](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
     as a backup audio source, in case previous sources do not have audio.
@@ -952,15 +952,11 @@ These plugin(s) assist in card creation, but are ultimately optional.
 If you want card types to go to a different deck by default, you can change it by doing the following:
 
 `Browse` (top middle) <br>
-→  `Cards...` (right above the `Key` field, NOT the `Cards` dropdown menu at the top right corner) <br>
+→  `Cards...` (around the middle of the screen, right above first field of the note. This is NOT the `Cards` dropdown menu at the top right corner) <br>
 →  `Card Type` dropdown (top of the screen) <br>
 →  (choose pitch accent card type) <br>
 →  `Options` (the first `Options` you see at the very top of the screen) <br>
 →  `Deck Override...`
-
-
-# Updating
-(TODO steps on how to update)
 
 
 # Conclusion
