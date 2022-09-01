@@ -34,13 +34,14 @@
 * [Card Editing](faq#card-editing)
 * [Other](faq#other)
 
+[**Various Resources**](jpresources)
+* [CSS (Yomichan)](jpresources#css-yomichan)
+* [CSS (General)](jpresources#css-general)
+* [Yomichan Handlebars](jpresources#css-general)
+* [ShareX](jpresources#sharex)
+
 [**Other**](other) (TODO)
 * [Personal Setup](personalsetup)
-* [Various Resources](sharex)
-  * [ShareX](sharex)
-  * [CSS (Yomichan)](sharex)
-  * [CSS (General)](sharex)
-  * [Yomichan Handlebars](sharex)
 
 
 <!--
