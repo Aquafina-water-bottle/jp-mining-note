@@ -13,7 +13,7 @@ with your card exporter:
 
 
 # Prerequisites
-Please ensure that you are using the latest Anki version
+It is highly recommend that you are using the latest Anki version
 (or as close as you can get to the latest Anki version), as the note is primarily tested
 and maintained on the latest versions of Anki.
 
