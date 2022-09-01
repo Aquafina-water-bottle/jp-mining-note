@@ -36,7 +36,7 @@ Note: I didn't write these guides at all, I just have it here to spam to anyone 
 setup process of mokuro
 
 - [main mokuro page](https://github.com/kha-white/mokuro)
-- [lazy guide](https://rentry.co/lazyXel#manga-with-yomichan)
+- [lazy guide (recommend)](https://rentry.co/lazyXel#manga-with-yomichan)
     - (windows users) make sure to check the "add python to path" on install
     - make sure online processing (google colab) is
       [using the gpu](https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm)
@@ -45,7 +45,3 @@ setup process of mokuro
 - [basic setup guide](https://docs.google.com/document/d/1ddUINNHZoln6wXGAiGiVpZb4QPtonEy-jgrT1zQbXow/edit?usp=sharing)
     - doesn't include how to process online, like the one above
 
-
-# Contact Me!
-I'm most active on Discord at `Aquafina water bottle#3026`.
-I exist on the TheMoeWay and Refold (Japanese) servers.

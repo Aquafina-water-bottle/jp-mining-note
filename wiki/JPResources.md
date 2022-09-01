@@ -2,6 +2,15 @@
 
 
 
+TODO flesh out!
+
+- @ me on discord `Aquafina water bottle#3026`.
+  I exist on the TheMoeWay and Refold (Japanese) servers.
+
+- inspired by [marv's resources page](https://github.com/MarvNC/JP-Resources),
+which has a bunch of different resources
+
+
 
 # CSS (Yomichan)
 
