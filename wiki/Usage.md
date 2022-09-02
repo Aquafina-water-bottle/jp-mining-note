@@ -1,6 +1,20 @@
 
-This entire section is dedicated to testing exactly what you want, through card options and editing.
-NOTE: This is still a WIP section as I figure out how to best present the features of this card.
+This entire section is dedicated to showcasing the user interface,
+as well as how to use the fields and card options to change the card
+to your liking.
+
+
+# Table of Contents
+## [Definitions](usage#definitions)
+## [UI Summary](usage#user-interface-summary)
+## [Modifying: Front](usage#modifying-the-front-side-tested-content)
+## [Modifying: Back](usage#modifying-the-back-side)
+## [Modifying: Other](usage#modifying-other-aspects-of-the-card)
+## [Testing Pitch Accent](usage#testing-pitch-accent)
+## [Options](usage#options)
+## [Cloze Deletion Cards](usage#cloze-deletion-cards)
+
+
 
 # Definitions used
 **Binary Field:**

@@ -1,5 +1,10 @@
 
 [**Setup**](setup)
+
+[**Usage**](usage)
+
+<!--
+[**Setup**](setup)
 * [Anki](setup#anki-setup)
 * [Yomichan](setup#yomichan-setup)
 * [Card Creation](setup#creating-the-cards)
@@ -13,6 +18,7 @@
 * [Testing Pitch Accent](usage#testing-pitch-accent)
 * [Options](usage#options)
 * [Cloze Deletion Cards](usage#cloze-deletion-cards)
+-->
 
 [**Card Types**](cardtypes)
 * [Vocab Card](cardtypes#vocab-card)
