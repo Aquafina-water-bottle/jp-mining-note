@@ -359,12 +359,13 @@
 
 
 
+
 {{~! a test to check if your dictionaries are correctly classified. ~}}
 {{~! Only meant to be used for debugging purposes, not Anki. ~}}
 {{~#*inline "jpmn-test-dict-type"~}}
 {{~#scope~}}
 {{~#each definition.definitions~}}
-- {{dictionary}}: {{> jpmn-get-dict-type . dictionaryName=dictionary}}
+「{{dictionary}}」: {{> jpmn-get-dict-type . dictionaryName=dictionary}}
 {{/each~}}
 {{~/scope~}}
 {{~/inline~}}
