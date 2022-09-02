@@ -12,6 +12,19 @@ with your card exporter:
 * [Anki Field Reference](usage#anki-field-reference)
 
 
+
+# Table of Contents
+## [Prerequisites](setup#prerequisites)
+## [Installing](setup#installing-the-card)
+## [Anki Setup](setup#anki-setup)
+## [Updating the Note](setup#updating-the-note)
+## [Yomichan Setup](setup#yomichan-setup)
+## [Card Creation](setup#creating-the-cards)
+## [Pictures and Audio](setup#automating-pictures-and-sentence-audio)
+## [Conclusion](setup#conclusion)
+
+
+
 # Prerequisites
 It is highly recommend that you are using the latest Anki version
 (or as close as you can get to the latest Anki version), as the note is primarily tested
