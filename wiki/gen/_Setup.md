@@ -57,13 +57,16 @@ here's the normal way of installing the cards:
     To install these fonts, head over to this
     repository's [media folder](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
     and download the 4 `.otf` files.
-4. Move the `.otf` files into the media folder of your deck.
+4. Move the `.otf` files into the [media folder](https://docs.ankiweb.net/files.html#file-locations)
+    of your deck (`Anki2/DECK_NAME/collections.media`).
+    <!--TODO FAQ on media folder and link it rather than showing it here!
+    (it appears throughout the documentation)
     This folder should be located under:
     - (windows) `C:\Users\{username}\AppData\Roaming\Anki2\{deck_name}\collecion.media`
     - (nix) `~/.local/share/Anki2/{deck_name}/collection.media`
 
    **Note**: <br>
-   If you don't know how to access the `AppData` folder on Windows, see [here](https://www.freecodecamp.org/news/appdata-where-to-find-the-appdata-folder-in-windows-10/).
+   If you don't know how to access the `AppData` folder on Windows, see [here](https://www.freecodecamp.org/news/appdata-where-to-find-the-appdata-folder-in-windows-10/).-->
 
 
 
@@ -258,11 +261,15 @@ There are two ways of using css injector with this note type:
       # be sure to change USERNAME to your computer username!
       rm "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
 
-      # nix command
+      # mac command
+      rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+
+      # linux command
       rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
       ```
 
-    - For Windows users, run these two commands in command prompt with elevated permissions (be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile):
+    - For Windows users, run these two commands in command prompt with elevated permissions
+      (be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile):
 
       ```
       mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
@@ -275,7 +282,12 @@ There are two ways of using css injector with this note type:
       If you've never used command prompt before, check
       [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
 
-    - For nix users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
+    - For Mac users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
+      ```
+      ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+      ```
+
+    - For Linux users, run the following command (be sure to change `PROFILENAME` to your Anki profile)」
 
       ```
       ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
@@ -507,7 +519,7 @@ you can use the `ignored-dict-regex` option.
 To see how to edit the option, see [the section below](setup#editing-the-dictionary-regex).
 
 Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
-[see here](). TODO link
+[see here](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki).
 
 
 #### Editing the dictionary regex
@@ -648,6 +660,8 @@ Of course, this list is incomplete, and there could be tools better suited for y
   BUT it allows you to use popup-dictionaries like Yomichan on manga (an actual game-changer).
 
 
+<!-- TODO move this somewhere else, or just straight up remove it :eyes:
+
 # Optional Yomichan & Anki Setup
 
 ## Audio Sources
@@ -658,12 +672,11 @@ TheMoeWay documents two setups for getting audio:
     * You are able to get word audio regardless of internet connection.
     * Card creation is significantly faster (for me personally, it reduced card creation time from around 5 seconds to less than half a second.)
 
-  **Note:** that if you are using linux,
+  **Note:** that if you are using Linux,
   unzip the files with the following command: `unzip -O shift-jis filename.zip`
 
   TODO document alternative setup with sqlite
 
-  <!--
   **Note:** There is an alternative setup for this with the files as described in The Moe Way discord server
   [here](http://discordapp.com/channels/617136488840429598/778430038159655012/984607054616481832).
   (TODO pastebin mirror)
@@ -672,10 +685,11 @@ TheMoeWay documents two setups for getting audio:
   (each time anki loads, about 250MB of data has to be loaded into memory for the original add-on to work.)
   * To use this, replace the python files with the ones linked above.
   * This requires Anki 2.1.50 or greater.
-   -->
 
 * [Forvo](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
     as a backup audio source, in case previous sources do not have audio.
+
+-->
 
 
 ## Anki add-on(s)

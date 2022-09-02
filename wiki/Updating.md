@@ -9,6 +9,10 @@
 ```
 # assuming you are at the root of the repo,
 # i.e. after the `git clone ...` and `cd jp-mining-note`
+
+git fetch origin/master
+git merge origin/master
+
 cd ./tools
 
 # make sure you have Anki open and Anki-Connect installed!
