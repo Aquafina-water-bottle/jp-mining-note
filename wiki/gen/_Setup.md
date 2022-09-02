@@ -3,13 +3,14 @@ This entire section is dedicated to providing the minimal setup to properly crea
 cards with this note type.
 Note that this setup is primarly PC based,
 and requires **Anki** and **Yomichan** for the main card creation process.
-I recommend using the latest version of Anki if possible.
 
+<!--
 If you are on PC (Windows, MacOS, Linux, etc.), **the following setup should work**.
 Otherwise, see the following sections to see how the cards should be filled
 with your card exporter:
 * [Yomichan Fields](setup#yomichan-fields)
 * [Anki Field Reference](usage#anki-field-reference)
+-->
 
 
 
@@ -33,12 +34,16 @@ and maintained on the latest versions of Anki.
 Worst case scenario, if any essential add-ons no longer work,
 you can downgrade back to your current version.
 
+Similarly, if you downloaded Yomichan from a file, I recommend updating that as well.
+(Most users should have installed it from their browser's extension page, in which case
+nothing has to be done).
+
 
 # Installing the Card
 There are two ways of installing the card:
 
 
-## The Automatic Way
+## (1) The Automatic Way
 If you know what `git` and `python` is, here's all you have to do:
 
 ```
@@ -52,14 +57,14 @@ python ./tools/install.py
 
 The above does the following:
 - Installs the latest version of the note
-- Installs the required fonts
+- Installs the fonts required for the note
 
 
-## The Normal Way
+## (2) The Normal Way
 If the above made literally no sense to you,
 or you just want to install this normally,
 here's the normal way of installing the cards:
-(**full video example** of the steps below for ubuntu [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
+(**full video example** of the steps below for linux (ubuntu) [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
 
 1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
     and download the cards from the latest release.
@@ -71,7 +76,7 @@ here's the normal way of installing the cards:
     repository's [media folder](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
     and download the 4 `.otf` files.
 4. Move the `.otf` files into the [media folder](https://docs.ankiweb.net/files.html#file-locations)
-    of your deck (`Anki2/DECK_NAME/collections.media`).
+    of your profile (`Anki2/PROFILENAME/collections.media`).
     <!--TODO FAQ on media folder and link it rather than showing it here!
     (it appears throughout the documentation)
     This folder should be located under:
@@ -95,7 +100,7 @@ Please check the following in particular:
   is the default grey color.
   If this is red, that means something is wrong with the note.
   Please see [this](faq-general-troubleshooting) section for basic troubleshooting.
-- Kanji hover and clicking on the image to zoom should work out of the box.
+- Clicking on the image to zoom should work out of the box.
 
 
 <br>
@@ -109,7 +114,7 @@ Please disable them and restart Anki before continuing.
 
 
 ## Conflicting add-ons
-- (currently none since I'm not aware of any currently)
+- None since I'm not aware of any currently. Let me know if you find one!
 
 
 ## Required Anki add-ons
@@ -135,7 +140,7 @@ Continue reading to see the required config changes.
 Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon yomichan card creation.
 
-**Note**:
+**Note**: <br>
 Furigana generation is occasionally incorrect,
 so if you plan on using these regularly, you should double-check the readings
 to make sure they are correct.
@@ -263,65 +268,69 @@ so I *strongly* recommend using this.
 
 There are two ways of using css injector with this note type:
 
-1. Automatically updates with the card (recommended)
-    - As a preliminary step, you will have to remove the empty `field.css` file
-      that comes with the add-on.
-      That can be done through command line (below), or you can simply navigate to the
-      `addons21\181103283\user_files` folder and delete `field.css`.
+###### (1) Automatically updates with the card (recommended)
+As a preliminary step, you will have to remove the empty `field.css` file
+that comes with the add-on.
+That can be done through command line (below), or you can simply navigate to the
+`Anki2/addons21/181103283/user_files` folder and delete `field.css`.
 
-      ```
-      # windows command
-      # be sure to change USERNAME to your computer username!
-      rm "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+```
+# windows command
+# be sure to change USERNAME to your computer username!
+rm "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
 
-      # mac command
-      rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+# mac command
+rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
 
-      # linux command
-      rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-      ```
+# linux command
+rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+```
 
-    - For Windows users, run these two commands in command prompt with elevated permissions
-      (be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile):
+For **Windows** users, run these two commands in command prompt with elevated permissions
+(be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile):
 
-      ```
-      mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
-      ```
-      **Note**: <br>
-      There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
-      Make sure to replace all the fields!
+```
+mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+```
+**Note**: <br>
+There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
+Make sure to replace all the fields!
 
-      **Note**: <br>
-      If you've never used command prompt before, check
-      [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
+**Note**: <br>
+If you've never used command prompt before, check
+[this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
 
-    - For Mac users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
-      ```
-      ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-      ```
 
-    - For Linux users, run the following command (be sure to change `PROFILENAME` to your Anki profile)」
+For **Mac** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
+```
+ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+```
 
-      ```
-      ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-      ```
+For **Linux** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
 
-2. Manually without respecting updates:
-    1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
-    2. Remove the existing `field.css` file
-    3. Manually copy the `_field.css` file (found under your profile's `media` directory)
-       into the css injector add-on directory
-    4. Rename `_field.css` into `field.css`.
+```
+ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+```
 
-    **Note**: <br>
-    If the `_field.css` file ever updates, you will have to manually copy and rename the file again
-    into the correct position.
+###### (2) Manually without respecting updates:
+1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
+2. Remove the existing `field.css` file
+3. Manually copy the `_field.css` file (found under your profile's `media` directory)
+   into the css injector add-on directory
+4. Rename `_field.css` into `field.css`.
+
+**Note**: <br>
+If the `_field.css` file ever updates, you will have to manually copy and rename the file again
+into the correct position.
 
 
 #### Final Steps
 After the above setup, make sure to restart Anki for the add-ons and config changes to take effect.
 If the css injector add-on is installed correctly, your Anki field editor should now have color!
 
+Additionally, now that Anki-Connect is installed, kanji hover should also be functioning.
+Hover over a kanji within the word reading to make sure that a popup appears.
+In particular, the 者 kanji in the example 偽者 and 不審者 cards should point to each other.
 
 <br>
 
@@ -335,13 +344,9 @@ please see [this page](importing).
 
 
 # Updating the Note
-If you wish to update the note, follow the steps in [this page](updating) (TODO, WIP PAGE).
-
-**Note**: <br>
-This note doesn't auto-update, as it is extremely likely that people will be editing the note
-type for their own setups.
-Plus, who even likes Windows updates? ;)
-
+If you wish to update the note, follow the steps in [this page](updating).
+Be assured that this note doesn't auto-update,
+and the only way to update the note is through user action.
 
 
 <br>
@@ -350,7 +355,8 @@ Plus, who even likes Windows updates? ;)
 [Yomichan](https://github.com/FooSoft/yomichan)
 is the main program that will create the cards. You can download Yomichan as a Firefox extension
 or under the Chrome web store.
-This will go over the very basic Yomichan setup to work with this card type.
+
+This section will go over the minimal Yomichan setup to work with this card type.
 
 **If you have never used Yomichan before**, please see
 [this page](https://learnjapanese.moe/yomichan/) first to get it working.
@@ -381,11 +387,14 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 {% endfor %}
 
 
-The above fields will create, by default:
-* A vocab card that does not test pitch accent
-* Shows the first monolingual definition (if not found, uses the first bilingual definition)
-* All other definitions in collapsable fields
+TODO video format
 
+
+The above fields will create, by default,
+a basic **vocab card** in **bilingual format**,
+with all other definitions in collapsable fields.
+
+**Note**: <br>
 Anything field with a * are binary fields, and
 **should be configured to each user's personal preferences.**
 To change the default value of any of the fields, simply fill
@@ -451,11 +460,11 @@ Here's an excerpt of text you can test Yomichan on:
 
 [[assets/yomichan/add_card.gif]]
 
-Obviously, just Yomichan alone doesn't fill every field:
-the picture and sentence audio is missing.
+Obviously, just Yomichan alone doesn't fill every field.
+In particular, the picture and sentence audio is missing.
 
-Outside of that, there are some final settings you can adjust in Yomichan if
-the card doesn't look quite right.
+Outside of that, there are some final settings you can adjust within the Yomichan templates
+if the card doesn't look quite right.
 
 
 {%- raw %}
