@@ -202,9 +202,9 @@ to show something that differs from the `Word` field.
 
 
 
-**Note**: <br>
-On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
-the front displayed word.
+* **Note**: <br>
+  On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
+  the front displayed word.
 
 <!-- apparently this syntax isn't available in the wikis...
 > **Note** <br>
@@ -304,12 +304,12 @@ Alternatively, you can look at the top right of the screen and look at the value
 -->
 
 
-**Note**: <br>
-If the tested content is a sentence (card), but you want to only test for word pitch accent,
-you would not be able to see the word normally.
-To see the word that is tested, there is a button to toggle whether the word is highlighted or not.
-The content that is highlighted is exactly what is bolded in the `Sentence`
-(or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
+* **Note**: <br>
+  If the tested content is a sentence (card), but you want to only test for word pitch accent,
+  you would not be able to see the word normally.
+  To see the word that is tested, there is a button to toggle whether the word is highlighted or not.
+  The content that is highlighted is exactly what is bolded in the `Sentence`
+  (or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
 
 [[assets/show_word_button.gif]]
 

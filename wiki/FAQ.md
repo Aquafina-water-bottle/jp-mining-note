@@ -112,12 +112,12 @@ to do just that.
 (TODO write a way with python)
 
 
-**Note**: <br>
-You technically have a second option, and that is to change the code itself
-(i.e. flip `#` with `^` for the desired field).
-However, you should only do this if you know what you are doing,
-and are fine with knowing you may lose those changes
-if you update this note.
+* **Note**: <br>
+  You technically have a second option, and that is to change the code itself
+  (i.e. flip `#` with `^` for the desired field).
+  However, you should only do this if you know what you are doing,
+  and are fine with knowing you may lose those changes
+  if you update this note.
 
 
 <!--

@@ -127,9 +127,9 @@ To download all the required add-ons, copy and paste the following numbers into 
 [[assets/anki/addons_install.png]]
 
 
-**Note**: <br>
-You will have to restart Anki after downloading and after editing the configuration
-file for the changes to take effect.
+* **Note**: <br>
+  You will have to restart Anki after downloading and after editing the configuration
+  file for the changes to take effect.
 
 After installing the add-ons, you will have to change the configs of the add-ons
 to work with this note type.
@@ -140,10 +140,10 @@ Continue reading to see the required config changes.
 Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon yomichan card creation.
 
-**Note**: <br>
-Furigana generation is occasionally incorrect,
-so if you plan on using these regularly, you should double-check the readings
-to make sure they are correct.
+* **Note**: <br>
+  Furigana generation is occasionally incorrect,
+  so if you plan on using these regularly, you should double-check the readings
+  to make sure they are correct.
 
 **Config Changes**: <br>
 To change the config of any Anki add-on, head over to
@@ -202,10 +202,10 @@ To explain the changes:
 [(Link)](https://ankiweb.net/shared/info/1225470483)
 Automatically adds pitch accent info given the word.
 
-**Note**: <br>
-Although I have a field for Yomichan to import the pitch accent graph (`PAGraphs`), I primarily use the
-pitch accent info generated from this add-on because I personally find it easier to edit.
-You can read more about editing pitch accent in the [usage page](setup#modifying-pitch-accent).
+* **Note**: <br>
+  Although I have a field for Yomichan to import the pitch accent graph (`PAGraphs`), I primarily use the
+  pitch accent info generated from this add-on because I personally find it easier to edit.
+  You can read more about editing pitch accent in the [usage page](setup#modifying-pitch-accent).
 
 
 **Config Changes**: <br>
@@ -319,9 +319,9 @@ ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/s
    into the css injector add-on directory
 4. Rename `_field.css` into `field.css`.
 
-**Note**: <br>
-If the `_field.css` file ever updates, you will have to manually copy and rename the file again
-into the correct position.
+* **Note**: <br>
+  If the `_field.css` file ever updates, you will have to manually copy and rename the file again
+  into the correct position.
 
 
 #### Final Steps
@@ -394,11 +394,11 @@ The above fields will create, by default,
 a basic **vocab card** in **bilingual format**,
 with all other definitions in collapsable fields.
 
-**Note**: <br>
-Anything field with a `*` are binary fields, and
-**should be configured to each user's personal preferences.**
-To change the default value of any of the fields, simply fill
-the field in within the aforementioned `Anki card format...` section.
+* **Note**: <br>
+  Anything field marked with `*` are binary fields, and
+  **should be configured to each user's personal preferences.**
+  To change the default value of any of the fields, simply fill
+  the field in within the aforementioned `Anki card format...` section.
 
 The custom markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
 See the section below to make these markers usable.
