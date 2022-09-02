@@ -1,15 +1,17 @@
 
-1. [**Setup**](setup)
-1. [**Usage**](usage)
-1. [**Card Types**](cardtypes)
-1. [**Transfer Existing Notes**](importing)
-1. [**Templates Info & Customization**](yomichantemplates) (TODO)
-1. [**Updating the Note**](updating) (TODO)
-1. [**Modding the Note**](modding) (TODO)
-1. [**FAQ**](faq) (TODO)
-1. [**Various Resources**](jpresources) (TODO)
-1. [**Personal Setup**](personalsetup) (TODO)
-1. [**Other**](other) (TODO)
+**Pages**
+
+1. [Setup](setup)
+1. [Usage](usage)
+1. [Card Types](cardtypes)
+1. [Transfer Existing Notes](importing)
+1. [Templates Info & Customization](yomichantemplates) (TODO)
+1. [Updating the Note](updating) (TODO)
+1. [Modding the Note](modding) (TODO)
+1. [FAQ](faq) (TODO)
+1. [Various Resources](jpresources) (TODO)
+1. [Personal Setup](personalsetup) (TODO)
+1. [Other](other) (TODO)
 
 <!--
 [**Setup**](setup)
