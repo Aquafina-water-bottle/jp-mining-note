@@ -418,7 +418,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 
 
 
-TODO video format
+TODO gif format
 
 
 The above fields will create, by default,
@@ -426,7 +426,7 @@ a basic **vocab card** in **bilingual format**,
 with all other definitions in collapsable fields.
 
 **Note**: <br>
-Anything field with a * are binary fields, and
+Anything field with a `*` are binary fields, and
 **should be configured to each user's personal preferences.**
 To change the default value of any of the fields, simply fill
 the field in within the aforementioned `Anki card format...` section.
