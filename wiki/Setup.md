@@ -815,12 +815,13 @@ add the following template code as follows:
 
 
 
+
        {{~! a test to check if your dictionaries are correctly classified. ~}}
        {{~! Only meant to be used for debugging purposes, not Anki. ~}}
        {{~#*inline "jpmn-test-dict-type"~}}
        {{~#scope~}}
        {{~#each definition.definitions~}}
-       - {{dictionary}}: {{> jpmn-get-dict-type . dictionaryName=dictionary}}
+       「{{dictionary}}」: {{> jpmn-get-dict-type . dictionaryName=dictionary}}
        {{/each~}}
        {{~/scope~}}
        {{~/inline~}}
@@ -873,19 +874,19 @@ Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}`
 
 An example output of the above (on the word 結構) is the following:
 ```
-- 旺文社国語辞典 第十一版: monolingual
-- 明鏡国語辞典 第二版: monolingual
-- ハイブリッド新辞林: monolingual
-- 新明解国語辞典 第五版: monolingual
-- デジタル大辞泉: monolingual
-- NHK日本語発音アクセント新辞典: utility
-- JMDict Surface Forms: utility
-- JMdict (English): bilingual
-- JMdict (English): bilingual
-- JMdict (English): bilingual
-- JMdict (English): bilingual
-- JMdict (English): bilingual
-- 新和英: bilingual
+「旺文社国語辞典 第十一版」: monolingual
+「明鏡国語辞典 第二版」: monolingual
+「ハイブリッド新辞林」: monolingual
+「新明解国語辞典 第五版」: monolingual
+「デジタル大辞泉」: monolingual
+「NHK日本語発音アクセント新辞典」: utility
+「JMDict Surface Forms」: utility
+「JMdict (English)」: bilingual
+「JMdict (English)」: bilingual
+「JMdict (English)」: bilingual
+「JMdict (English)」: bilingual
+「JMdict (English)」: bilingual
+「新和英」: bilingual
 ```
 
 
@@ -926,14 +927,19 @@ Conversely, if you want to not see the dictionary on Yomichan but want it to sho
 To modify a regex string:
 
 1. Determine the exact tag your dictionary has.
+   To see this, take a word that has a definition in the desired dictionary, and test
+   `{jpmn-test-dict-type}` like above.
+   The string inside the quotes 「」 is exactly the tag of the dictionary.
 
+   <!--
    An easy way to see this is by getting a word that is defined in the dictionary and
    exporting it into Anki.
    Within Anki, the dictionary tag should appear in parenthesis before the definition.
+   -->
 
    TODO better way: yomichan options -> dicts
 
-2. Add the dictionary tag to the string, by replacing the example `ADD_x_DICTIONARIES_HERE`.
+2. Add the dictionary tag to the string, by replacing `ADD_x_DICTIONARIES_HERE`.
    For example, if your bilingual dictionary tag is `Amazing Dictionary`, change
    `ADD_BILINGUAL_DICTIONARIES_HERE` to
    `Amazing Dictionary`.
@@ -944,7 +950,7 @@ To modify a regex string:
    `ADD_BILINGUAL_DICTIONARIES_HERE` to
    `Amazing Dictionary|Somewhat-Okay-Dictionary`.
 
-   For a full example, here is the modified line for the second example:
+   For completeness, here is the modified line for the second example:
    ```
    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|Amazing Dictionary|Somewhat-Okay-Dictionary)(\[object Object\])?$ {{~/set~}}
    ```
