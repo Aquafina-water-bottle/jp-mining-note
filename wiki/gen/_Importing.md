@@ -31,9 +31,9 @@ please make a **complete backup** of your collection
 
 [[assets/anki/media_export.png]]
 
-**Note**: <br>
-Importing your previous notes shouldn't change your media files at all.
-However I recommend exporting **with media** just in case, so long as you have the disk space for it.
+* **Note**: <br>
+  Importing your previous notes shouldn't change your media files at all.
+  However I recommend exporting **with media** just in case, so long as you have the disk space for it.
 
 
 As explained further below, you will likely need to batch edit your newly imported notes.
