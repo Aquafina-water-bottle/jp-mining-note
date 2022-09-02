@@ -127,9 +127,11 @@ To download all the required add-ons, copy and paste the following numbers into 
 [[assets/anki/addons_install.png]]
 
 
+<!--
 * **Note**: <br>
   You will have to restart Anki after downloading and after editing the configuration
   file for the changes to take effect.
+-->
 
 After installing the add-ons, you will have to change the configs of the add-ons
 to work with this note type.
@@ -325,7 +327,7 @@ ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/s
 
 
 #### Final Steps
-After the above setup, make sure to restart Anki for the add-ons and config changes to take effect.
+After the above setup, **make sure to restart Anki** for the add-ons and config changes to take effect.
 If the css injector add-on is installed correctly, your Anki field editor should now have color!
 
 Additionally, now that Anki-Connect is installed, kanji hover should also be functioning.
