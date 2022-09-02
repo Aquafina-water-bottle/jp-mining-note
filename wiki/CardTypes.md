@@ -9,7 +9,6 @@
 
 -->
 
-# Motivation
 Previously, this note type only had vocab and sentence cards.
 Although I was originally fine with this,
 I started to realize some issues with only having these two card types:
@@ -22,14 +21,28 @@ of the sentence that I wanted to test.
 This lead to many sentence cards, which naturally meant that Anki sessions lasted longer.
 
 I attempted to tackle these exact issues by introducing new card types
-outside of the simple vocab and sentence cards.
+outside of the fundamental vocab and sentence cards.
 
 
+# Table of Contents
+1. [Vocab Card](cardtypes#vocab-card)
+1. [Sentence Card](cardtypes#sentence-card)
+1. [Targeted Sentence Card](cardtypes#targetted-sentence-card-tsc)
+1. [Hybrid Cards](cardtypes#hybrid-cards)
+    1. [Hover Vocab Card](cardtypes#hover-vocab-card)
+    1. [Click Vocab Card](cardtypes#click-vocab-card)
+    1. [Hover Sentence Card](cardtypes#hover-sentence-card)
+    1. [Hover Click Card](cardtypes#click-sentence-card)
+1. [Summary](cardtypes#card-creation-summary)
+
+
+<!--
 # Card types
 
 This entire section is dedicated to showcasing all the various card types
 that this note has to offer.
 
+-->
 
 <!--
 ## Common Features
@@ -58,7 +71,7 @@ this section will apply to all card types, and explain the features and reasonin
 
 
 
-## Vocab Card
+# Vocab Card
 
 [[assets/nisemono_word_blank.png]]
 
@@ -73,7 +86,7 @@ Nothing has to be done for the card to be a vocab card.
 
 <br>
 
-## Sentence Card
+# Sentence Card
 
 [[assets/nisemono_sentence_blank.png]]
 
@@ -87,7 +100,7 @@ Fill the `IsSentenceCard` field.
 
 <br>
 
-## Targetted Sentence Card (TSC)
+# Targetted Sentence Card (TSC)
 
 [[assets/nisemono_tsc.png]]
 
@@ -109,7 +122,7 @@ Fill the `IsTargetedSentenceCard` field.
 
 <br>
 
-## Hybrid Cards
+# Hybrid Cards
 
 Hybrid cards are a group of card types that attempt to combine the power of
 sentence cards and vocab cards into one.
@@ -118,7 +131,7 @@ but the sentence can be shown through some natural means.
 
 
 
-### Hover Vocab Card
+## Hover Vocab Card
 
 [[assets/nisemono_hover_word.gif]]
 
@@ -149,7 +162,7 @@ For all forms of hover cards, you can press "shift" to toggle whether the senten
 
 <br>
 
-### Click Vocab Card
+## Click Vocab Card
 
 [[assets/nisemono_click_word.gif]]
 
@@ -185,7 +198,7 @@ Fill the `IsClickCard` field.
 
 <br>
 
-### Hover Sentence Card
+## Hover Sentence Card
 
 [[assets/nisemono_hover_sentence.gif]]
 
@@ -207,7 +220,7 @@ Fill the `IsHoverCard` and `IsSentenceCard` fields.
 
 <br>
 
-### Click Sentence Card
+## Click Sentence Card
 
 [[assets/nisemono_click_sentence.gif]]
 
@@ -230,7 +243,7 @@ Fill the `IsClickCard` and `IsSentenceCard` fields.
 
 <br>
 
-### Hybrid TSC
+## Hybrid TSC
 
 [[assets/nisemono_hover_tsc.gif]]
 

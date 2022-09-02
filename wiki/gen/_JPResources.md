@@ -8,7 +8,16 @@ TODO flesh out!
   I exist on the TheMoeWay and Refold (Japanese) servers.
 
 - inspired by [marv's resources page](https://github.com/MarvNC/JP-Resources),
-which has a bunch of different resources. Highly recommend checking it out!
+  which has a bunch of different but equally awesome resources.
+  Highly recommend checking it out!
+
+
+# Table of Contents
+* [CSS (Yomichan)](jpresources#css-yomichan)
+* [CSS (General)](jpresources#css-general)
+* [Yomichan Handlebars](jpresources#css-general)
+* [ShareX](jpresources#sharex)
+
 
 
 {% raw %}

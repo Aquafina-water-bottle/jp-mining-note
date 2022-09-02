@@ -14,14 +14,14 @@ with your card exporter:
 
 
 # Table of Contents
-* [Prerequisites](setup#prerequisites)
-* [Installing](setup#installing-the-card)
-* [Anki Setup](setup#anki-setup)
-* [Updating the Note](setup#updating-the-note)
-* [Yomichan Setup](setup#yomichan-setup)
-* [Card Creation](setup#creating-the-cards)
-* [Pictures and Audio](setup#automating-pictures-and-sentence-audio)
-* [Conclusion](setup#conclusion)
+1. [Prerequisites](setup#prerequisites)
+1. [Installing](setup#installing-the-card)
+1. [Anki Setup](setup#anki-setup)
+1. [Updating the Note](setup#updating-the-note)
+1. [Yomichan Setup](setup#yomichan-setup)
+1. [Card Creation](setup#creating-the-cards)
+1. [Pictures and Audio](setup#automating-pictures-and-sentence-audio)
+1. [Conclusion](setup#conclusion)
 
 
 
