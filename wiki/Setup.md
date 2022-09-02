@@ -22,6 +22,7 @@ with your card exporter:
 1. [Yomichan Setup](setup#yomichan-setup)
 1. [Card Creation](setup#creating-the-cards)
 1. [Pictures and Audio](setup#automating-pictures-and-sentence-audio)
+1. [Other](setup#other)
 1. [Conclusion](setup#conclusion)
 
 
@@ -878,7 +879,7 @@ Here's an excerpt of text you can test Yomichan on:
 [[assets/yomichan/add_card.gif]]
 
 Obviously, just Yomichan alone doesn't fill every field.
-In particular, the picture and sentence audio is missing.
+Notably, the picture and sentence audio is missing.
 
 Outside of that, there are some final settings you can adjust within the Yomichan templates
 if the card doesn't look quite right.
@@ -1127,6 +1128,8 @@ TheMoeWay documents two setups for getting audio:
 
 -->
 
+
+# Other
 
 ## Anki add-on(s)
 These add-on(s) assist in card creation, but are ultimately optional.
