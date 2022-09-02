@@ -268,7 +268,7 @@ so I *strongly* recommend using this.
 
 There are two ways of using css injector with this note type:
 
-###### (1) Automatically updates with the card (recommended)
+##### (1) Automatically updates with the card (recommended)
 As a preliminary step, you will have to remove the empty `field.css` file
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
@@ -312,7 +312,7 @@ For **Linux** users, run the following command (be sure to change `PROFILENAME` 
 ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
 ```
 
-###### (2) Manually without respecting updates:
+##### (2) Manually without respecting updates:
 1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
 2. Remove the existing `field.css` file
 3. Manually copy the `_field.css` file (found under your profile's `media` directory)
