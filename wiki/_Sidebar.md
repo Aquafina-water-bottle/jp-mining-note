@@ -1,6 +1,7 @@
 
-**Pages**
+**Pages:**
 
+1. [Home](home)
 1. [Setup](setup)
 1. [Usage](usage)
 1. [Card Types](cardtypes)
