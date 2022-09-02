@@ -348,6 +348,7 @@ please see [this page](importing).
 
 # Updating the Note
 If you wish to update the note, follow the steps in [this page](updating).
+
 Be assured that this note doesn't auto-update,
 and the only way to update the note is through user action.
 

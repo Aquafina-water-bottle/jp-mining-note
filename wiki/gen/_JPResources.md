@@ -42,8 +42,10 @@ ruby rt {
   user-select: none;
 }
 ```
-- tested on anki 2.1.54: only works on windows
+- rule doesn't work on linux (tested on anki 2.1.54)
+- works as normal on the browser though
 
+TODO example gif
 
 ## Reducing the number of frequency lists
 
@@ -97,7 +99,7 @@ li.definition-item[data-dictionary='DICTIONARY'] {
 ```
 
 
-## Only see bilingual definitions on hover
+## Hide bilingual definitions until hover
 ```
 li.definition-item[data-dictionary='DICTIONARY'] .gloss-list {
   opacity: 0;
@@ -122,10 +124,9 @@ li.definition-item[data-dictionary='新和英'] .gloss-list {
 li.definition-item[data-dictionary='新和英']:hover .gloss-list {
   opacity: 1;
 }
-
-
 ```
 
+TODO example gif
 
 # CSS (General)
 
