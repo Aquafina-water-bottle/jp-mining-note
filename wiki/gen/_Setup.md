@@ -292,13 +292,13 @@ For **Windows** users, run these two commands in command prompt with elevated pe
 ```
 mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
 ```
-**Note**: <br>
-There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
-Make sure to replace all the fields!
+* **Note**: <br>
+  There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
+  Make sure to replace all the fields!
 
-**Note**: <br>
-If you've never used command prompt before, check
-[this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
+* **Note**: <br>
+  If you've never used command prompt before, check
+  [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
 
 
 For **Mac** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
