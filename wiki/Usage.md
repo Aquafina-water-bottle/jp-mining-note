@@ -47,12 +47,18 @@ warn (caps lock enabled)
 leech
 - yellow
 
+
+<!--(not to be confused with [Cade's kanji hover](https://cademcniven.com/projects/kanjihover/))-->
 ## Kanji Hover
-TODO flesh out + pictures
+Kanji hover shows you if you have seen the kanji in previous cards or not.
+By default, it searches for the kanji within the "Word" field,
+only for notes of the same type (JP Mining Note).
 
 [[assets/kanji_hover.gif]]
 
-- by default, shows in 3 different categories:
+TODO not bullet points
+
+by default, shows in 3 different categories:
 - 2 oldest, not new (already reviewed before, in order of add date)
 - 2 latest, not new (the latest 2 cards that you have reviewed, in order of add date)
 - 2 oldest, new (the first 2 new cards that you will see with the kanji)
@@ -62,6 +68,10 @@ TODO flesh out + pictures
     - and is completely un-true for people who are reviewing in order of frequency
 
 - currently no way to order it in anything other than add date
+
+- has entire section within the [options file](usage#options)
+- see `_jpmn-options.js` for more details
+- available options include changing the number of words shown per category + the query itself
 
 ## Word Pitch
 The colors and what the lines mean are all described in the
@@ -195,21 +205,9 @@ This will show as a collapsible field at the front of card.
 
 [[assets/hint.gif]]
 
-<!--
-| [[assets/hint.png]] |
-|:--:|
-| Showcasing how hints are shown and hidden. Hints are hidden by default. |
-- TODO change picture to gif
-- TODO write exactly what the value of `Hint` is (within picture)
--->
-
 
 
 If you do not want the hint to be hidden by default, you can use the `HintNotHidden` field instead.
-<!--
-- TODO picture
-- TODO write exactly what the value of `HintNotHidden` is (within picture)
--->
 
 [[assets/hint_not_hidden.png]]
 
@@ -357,8 +355,10 @@ in the PA sentence card.
 
 # Options
 There are many options that can be set within the options javascript file.
-To edit this, navigate to your deck's media folder, and open the `_jpmn-options.js` file as a text file.
+To edit this, navigate to your deck's [media folder](https://docs.ankiweb.net/files.html#file-locations),
+and open the `_jpmn-options.js` file as a text file.
 The contents of the file should look something like the following:
+
 
 ```
 var JPMNOpts = (function (my) {

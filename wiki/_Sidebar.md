@@ -29,7 +29,7 @@
 
 [**Updating the Note**](updating) (TODO)
 
-[**Modding the Note**](yomichantemplates) (TODO)
+[**Modding the Note**](modding) (TODO)
 
 [**FAQ**](faq) (TODO)
 * [Troubleshooting](faq#troubleshooting)

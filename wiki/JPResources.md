@@ -8,7 +8,7 @@ TODO flesh out!
   I exist on the TheMoeWay and Refold (Japanese) servers.
 
 - inspired by [marv's resources page](https://github.com/MarvNC/JP-Resources),
-which has a bunch of different resources
+which has a bunch of different resources. Highly recommend checking it out!
 
 
 
