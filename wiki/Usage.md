@@ -5,14 +5,14 @@ to your liking.
 
 
 # Table of Contents
-* [Definitions](usage#definitions)
-* [UI Summary](usage#user-interface-summary)
-* [Modifying: Front](usage#modifying-the-front-side-tested-content)
-* [Modifying: Back](usage#modifying-the-back-side)
-* [Modifying: Other](usage#modifying-other-aspects-of-the-card)
-* [Testing Pitch Accent](usage#testing-pitch-accent)
-* [Options](usage#options)
-* [Cloze Deletion Cards](usage#cloze-deletion-cards)
+1. [Definitions](usage#definitions)
+1. [UI Summary](usage#user-interface-summary)
+1. [Modifying: Front](usage#modifying-the-front-side-tested-content)
+1. [Modifying: Back](usage#modifying-the-back-side)
+1. [Modifying: Other](usage#modifying-other-aspects-of-the-card)
+1. [Testing Pitch Accent](usage#testing-pitch-accent)
+1. [Options](usage#options)
+1. [Cloze Deletion Cards](usage#cloze-deletion-cards)
 
 
 

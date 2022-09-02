@@ -1,5 +1,9 @@
+<!--
+TODO reword this maybe?
+
 Remember that all cards are fully customizable!
 You are absolutely free to tear the code apart and make these card formats your own.
+-->
 
 
 
@@ -9,11 +13,14 @@ See [here](usage#wait-i-dont-want-to-test-pitch-accent).
 -->
 
 
+# Table of Contents
+* [Troubleshooting](faq#troubleshooting)
+* [Card Editing](faq#card-editing)
+* [Other](faq#other)
+
+
+
 # Troubleshooting
-
-
-
-
 
 ## The sentence quotes are on completely different lines!
 If your card looks like this:
