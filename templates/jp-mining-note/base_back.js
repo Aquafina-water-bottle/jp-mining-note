@@ -510,6 +510,7 @@ let JPMN_PAPositions = (function () {
   let my = {};
 
   const ele = document.getElementById("hidden_pa_positions");
+  const eleAJT = document.getElementById("hidden_ajt_word_pitch");
   const eleOverride = document.getElementById("hidden_pa_override");
   const eleDisp = document.getElementById("dh_word_pitch");
 
@@ -598,73 +599,84 @@ let JPMN_PAPositions = (function () {
     return result;
   }
 
-
-  // returns list of indices that contain devoiced mora
-  function getDevoiced(moras) {
-    let result = [];
-
-    // NOTE: doesn't look for katakana atm
-    // ぷ, ぴ apparently has some?
-    // ぷ: 潜伏
-    // ぴ: 鉛筆
-    // ぶ, づ, ず, ぐ, ぢ, じ have none it seems
-    // don't know any other Xゅ mora other than しゅ
-    let devoiced = [..."つすくふぷちしきひぴ"] + ["しゅ"];
-    let devoicedAfter = "かきくけこさしすせそたちつてとはひふへほぱぴぷぺぽ";
-    let exceptions = ["すし"];
-
-    // 祝福 should be [しゅ]く[ふ]く
-
-    let i = 0;
-    while (i < moras.length-1) {
-      if (
-        moras[i+1] === "っ"
-          && devoiced.includes(moras[i])
-          && devoicedAfter.includes(moras[i+2])
-          && !exceptions.includes(moras[i] + moras[i+2])
-        ) {
-        result.push(i);
-
-        // skips past the next one because you can't string two devoiced mora together
-        i += 3;
-
-      } else if (
-          devoiced.includes(moras[i])
-          && devoicedAfter.includes(moras[i+1])
-          && !exceptions.includes(moras[i] + moras[i+1])
-        ) {
-        result.push(i);
-
-        // skips past the next one because you can't string two devoiced mora together
-        i += 2;
-
-      } else {
-        i++;
+  function hiraganaAndKatakana(obj) {
+    if (Array.isArray(obj)) {
+      result = obj.slice(); // shallow copy
+      for (let i = 0; i < result.length; i++) {
+        result[i] = convertHiraganaToKatakana(result[i]);
       }
+      return obj + result;
     }
 
-    return result;
+    return obj + convertHiraganaToKatakana(obj);
   }
+
+  // returns list of indices that contain devoiced mora
+  //function getDevoiced(moras) {
+  //  let result = [];
+
+  //  // NOTE: doesn't look for katakana atm
+  //  // ぷ, ぴ apparently has some?
+  //  // ぷ: 潜伏
+  //  // ぴ: 鉛筆
+  //  // ぶ, づ, ず, ぐ, ぢ, じ have none it seems
+  //  // don't know any other Xゅ mora other than しゅ
+  //  let devoiced = hiraganaAndKatakana([..."つすくふぷちしきひぴ"] + ["しゅ"]);
+  //  let devoicedAfter = hiraganaAndKatakana("かきくけこさしすせそたちつてとはひふへほぱぴぷぺぽ");
+  //  let exceptions = hiraganaAndKatakana(["すし"]);
+
+  //  // 祝福 should be [しゅ]く[ふ]く
+
+  //  let i = 0;
+  //  while (i < moras.length-1) {
+  //    if (
+  //      moras[i+1] === "っ"
+  //        && devoiced.includes(moras[i])
+  //        && devoicedAfter.includes(moras[i+2])
+  //        && !exceptions.includes(moras[i] + moras[i+2])
+  //      ) {
+  //      result.push(i);
+
+  //      // skips past the next one because you can't string two devoiced mora together
+  //      i += 3;
+
+  //    } else if (
+  //        devoiced.includes(moras[i])
+  //        && devoicedAfter.includes(moras[i+1])
+  //        && !exceptions.includes(moras[i] + moras[i+1])
+  //      ) {
+  //      result.push(i);
+
+  //      // skips past the next one because you can't string two devoiced mora together
+  //      i += 2;
+
+  //    } else {
+  //      i++;
+  //    }
+  //  }
+
+  //  return result;
+  //}
 
   function convertDevoiced(mora) {
     return `<span class="nopron">${mora}</span>`
   }
 
-  function getNasal(moras) {
-    const searchKana = "がぎぐげごガギグゲゴ";
+  //function getNasal(moras) {
+  //  const searchKana = "がぎぐげごガギグゲゴ";
 
-    let result = []
+  //  let result = []
 
-    let i = 1;
-    while (i < moras.length) {
-      if (searchKana.includes(moras[i])) {
-        result.push(i);
-      }
-      i++;
-    }
+  //  let i = 1;
+  //  while (i < moras.length) {
+  //    if (searchKana.includes(moras[i])) {
+  //      result.push(i);
+  //    }
+  //    i++;
+  //  }
 
-    return result;
-  }
+  //  return result;
+  //}
 
   function convertNasal(mora) {
     const searchKana  = [..."がぎぐげごガギグゲゴ"];
@@ -678,6 +690,8 @@ let JPMN_PAPositions = (function () {
 
 
   function buildReadingSpan(pos, readingKana) {
+    // creates the span to show the pitch accent overline
+    // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
 
     // creates div
     const ignoredKana = "ょゅゃョュャ";
@@ -717,16 +731,16 @@ let JPMN_PAPositions = (function () {
 
 
     // TODO devoiced & nasal
-    const devoicedIndices = getDevoiced(moras);
-    const nasalIndices = getNasal(moras);
-    _debug(`(JPMN_PAPositions) devoiced: ${devoicedIndices.join(", ")}`);
-    _debug(`(JPMN_PAPositions) nasal: ${nasalIndices.join(", ")}`);
-    for (const i of nasalIndices) {
-      result[i] = convertNasal(result[i]);
-    }
-    for (const i of devoicedIndices) {
-      result[i] = convertDevoiced(result[i]);
-    }
+    //const devoicedIndices = getDevoiced(moras);
+    //const nasalIndices = getNasal(moras);
+    //_debug(`(JPMN_PAPositions) devoiced: ${devoicedIndices.join(", ")}`);
+    //_debug(`(JPMN_PAPositions) nasal: ${nasalIndices.join(", ")}`);
+    //for (const i of nasalIndices) {
+    //  result[i] = convertNasal(result[i]);
+    //}
+    //for (const i of devoicedIndices) {
+    //  result[i] = convertDevoiced(result[i]);
+    //}
 
     if (pos === 0) {
       result.splice(1, 0, startOverline); // insert at index 1
@@ -747,19 +761,53 @@ let JPMN_PAPositions = (function () {
   }
 
   function addPosition() {
-    const posResult = getPosition();
+    // priority:
+    // - PA Override number
+    // - PA Override raw text
+    // - PA Positions
+    // - AJT Word Pitch
+
+    // first checks pa override
+    let posResult = null;
+    if (eleOverride.innerHTML.length !== 0) {
+      let digit = eleOverride.innerText.match(/\d+/)
+      if (digit !== null) {
+        posResult = [Number(digit), "Override (Position)"];
+      } else {
+        eleDisp.innerHTML = eleOverride.innerHTML;
+        posResult = [null, "Override (Text)"];
+        return;
+      }
+    } else {
+      posResult = getPosition();
+    }
+
     if (posResult === null) {
-      _debug("(JPMN_PAPositions) Position not found.");
-      return;
+      // last resort: AJT pitch accent
+      if (eleAJT.innerHTML.length !== 0) {
+        eleDisp.innerHTML = eleAJT.innerHTML;
+        posResult = [null, "Override (AJT)"];
+      } else {
+        _debug("(JPMN_PAPositions) Nothing found.");
+        return;
+      }
     }
 
     const [pos, dictName] = posResult;
     const readingKana = getReadingKana();
     _debug(`(JPMN_PAPositions) pos/dict/reading: ${pos} ${dictName} ${readingKana}`);
 
-    const readingSpanHTML = buildReadingSpan(pos, readingKana);
-    _debug(`(JPMN_PAPositions) result html: ${readingSpanHTML}`);
-    eleDisp.innerHTML = readingSpanHTML;
+    if (pos !== null) {
+      const readingSpanHTML = buildReadingSpan(pos, readingKana);
+      eleDisp.innerHTML = readingSpanHTML;
+    }
+
+    if (dictName !== null) {
+      // TODO
+    }
+
+    _debug(`(JPMN_PAPositions) result html: ${eleDisp.innerHTML}`);
+
   }
 
   my.run = addPosition;
