@@ -151,6 +151,15 @@ function invoke(action, params={}) {
 //  kanji hover
 // =============
 
+
+// element outside async function to prevent double-adding due to anki funkyness
+let wordReading = document.getElementById("dh_reading");
+let kanjiHoverEnabled = false;
+
+
+let JPMN_KanjiHover = (function () {
+  let my = {};
+
 // multi query result, in the format of
 // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
 async function cardQueries(kanjiArr) {
@@ -243,45 +252,27 @@ async function getCardsInfo(queryResults) {
 // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
 function buildWordDiv(character, wordReading) {
 
-  //let wrapper = document.createElement('div');
-
   let wordDiv = document.createElement('div');
-  // TODO reading
-  //let wordReading = card["fields"]["WordReading"]["value"];
   let re = / ?([^ >]+?)\[(.+?)\]/g
 
-  //let wordReadingRuby = wordReading.replaceAll(re, function (matched) {
-  //  logger.warn(matched);
-  //  logger.warn(matched[1] + "--" + matched[2]);
-  //  return `<ruby><rb>${matched[1]}</rb><rt>${matched[2]}</rt></ruby>`
-  //});
   let wordReadingRuby = wordReading.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
-  //logger.warn(wordReadingRuby);
   wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
 
   wordDiv.innerHTML = wordReadingRuby;
   return wordDiv;
-
-  //wrapper.appendChild(kanjiSpan);
-
-  //return wrapper.innerHTML;
 }
 
 function buildSentDiv(sentence) {
   let sentenceSpan = document.createElement('span');
 
   let resultSent = sentence;
-  //resultSent = resultSent.replace("<b>", "<u>");
-  //resultSent = resultSent.replace("</b>", "</u>");
   resultSent = resultSent.replaceAll("<b>", "");
   resultSent = resultSent.replaceAll("</b>", "");
   sentenceSpan.innerHTML = resultSent;
 
   let openQuote = document.createElement('span');
-  //openQuote.classList.add("sentence-quote--open");
   openQuote.innerText = "「";
   let closeQuote = document.createElement('span');
-  //closeQuote.classList.add("sentence-quote--close");
   closeQuote.innerText = "」";
 
 
@@ -297,20 +288,9 @@ function buildSentDiv(sentence) {
 
 function buildCardDiv(character, card, isNew=false) {
   let cardDiv = document.createElement('div');
-  // TODO
-  //cardDiv.classList.add("kanji-hover-text")
-
-  // TODO reading
-  //let wordDiv = document.createElement('div');
-  //wordDiv.innerText = card["fields"]["Word"]["value"];
-  //logger.warn(JSON.stringify(card["fields"]["Word"]));
   let wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
-  //buildWordDiv(card["fields"]["WordReading"]["value"]);
 
-  //let sentenceDiv = document.createElement('div');
-  //sentenceDiv.innerHTML = card["fields"]["Sentence"]["value"];
   let sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
-  //logger.warn(sentenceDiv.innerHTML);
 
   cardDiv.appendChild(wordDiv);
   cardDiv.appendChild(sentenceDiv);
@@ -411,12 +391,8 @@ function getWordReadings(nonNewCardInfo, newCardInfo) {
 // some code shamelessly stolen from cade's kanji hover:
 // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
 
-// element outside async function to prevent double-adding due to anki funkyness
-let wordReading = document.getElementById("dh_reading");
-
-let kanjiHoverEnabled = false;
-
-async function kanjiHover() {
+// main function
+async function main() {
 
   if (kanjiHoverEnabled) {
     _debug("Kanji hover already enabled");
@@ -492,7 +468,98 @@ async function kanjiHover() {
 
 }
 
+my.main = main;
+return my;
 
+}());
+
+
+
+// ==============
+//  PA positions
+// ==============
+
+// TODO put everything else in modules!
+let JPMN_PAPositions = (function () {
+
+  let my = {};
+
+  const ele = document.getElementById("hidden_pa_positions");
+  let digit = 0;
+
+  // returns null if cannot find anything
+  // otherwise, returns (position (int), dict_name (str))
+  // dict_name can be null
+  function getPosition() {
+    if (ele === null) {
+      return null;
+    }
+
+    let searchHTML = null;
+    let dictName = null;
+    if ((ele.children.length > 0)
+        && (ele.children[0] !== null)
+        && (ele.children[0].nodeName === "DIV")
+        && (ele.children[0].classList.contains("pa-positions__group"))
+    ) {
+      // stylized, walks through
+
+      // <div class="pa-positions__group" data-details="NHK">
+      //   <div class="pa-positions__dictionary"><div class="pa-positions__dictionary-inner">NHK</div></div>
+      //   <ol>
+      //     <li>
+      //       <span style="display: inline;"><span>[</span><span>1</span><span>]</span></span>
+      //     </li>
+      //   </ol>
+      // </div>
+      // ...
+
+      // (ele -> div (pa pos. group) -> ol -> li
+
+      let first = true;
+
+      dictName = ele.children[0].getAttribute("data-details");
+
+      for (let groupDiv of ele.children) {
+        for (let liEle of groupDiv.children[1].children) {
+          if (first) {
+            searchHTML = liEle.innerHTML;
+          }
+          if (liEle.innerHTML.includes("<b>")) {
+            searchHTML = liEle.innerHTML;
+            dictName = groupDiv.getAttribute("data-details");
+          }
+        }
+      }
+      //searchHTML = ele.children[0].children[1].children[0].innerHTML
+
+    } else {
+      // just search for any digit
+      searchHTML = ele.innerHTML
+    }
+
+    digit = ele.innerHTML.match(/\d+/)
+    if (digit === null) {
+      return null;
+    }
+
+    return (digit, dictName);
+  }
+
+  function getReading() {}
+
+  my.addPosition = function() {
+    _debug("hello3?");
+    const pos = getPosition();
+    if (pos === null) {
+      _debug("Position not found.");
+      return;
+    }
+  }
+
+  return my;
+
+}());
 
 
 /// {% endblock %}
@@ -607,15 +674,18 @@ for (let searchEle of imageSearchElements) {
 // only continues if kanji-hover is actually enabled
 if ({{ utils.opt("kanji-hover", "enabled") }}) {
   if ({{ utils.opt("kanji-hover", "mode") }} === 0) {
-    kanjiHover();
+    JPMN_KanjiHover.main();
   } else { // === 1
     wordReading.onmouseover = function() {
       // replaces the function with a null function to avoid calling this function
       wordReading.onmouseover = function() {}
-      kanjiHover();
+      JPMN_KanjiHover.main();
     }
   }
 }
+
+
+JPMN_PAPositions.addPosition();
 
 
 //_debug(document.documentElement.innerHTML);
