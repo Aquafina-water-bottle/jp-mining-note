@@ -397,9 +397,6 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 {% endfor %}
 
 
-TODO gif format
-
-
 The above fields will create, by default,
 a basic **vocab card** in **bilingual format**,
 with all other definitions in collapsable fields.
@@ -564,13 +561,15 @@ To modify a regex string:
    `{jpmn-test-dict-type}` like above.
    The string inside the quotes 「」 is exactly the tag of the dictionary.
 
+   [[assets/yomichan/test_dictionary_categorization.gif]]
+
    <!--
    An easy way to see this is by getting a word that is defined in the dictionary and
    exporting it into Anki.
    Within Anki, the dictionary tag should appear in parenthesis before the definition.
    -->
 
-   TODO better way: yomichan options -> dicts
+   <!--TODO better way: yomichan options -> dicts-->
 
 2. Add the dictionary tag to the string, by replacing `ADD_x_DICTIONARIES_HERE`.
    For example, if your bilingual dictionary tag is `Amazing Dictionary`, change
