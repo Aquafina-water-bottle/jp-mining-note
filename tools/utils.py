@@ -50,12 +50,13 @@ def add_args(parser):
     )
 
     group.add_argument(
-        "--custom-version",
+        "--dev-custom-version",
         type=str,
         default=None,
         help="custom output version to be used instead of version.txt "
         "(only use this if you know what you're doing)",
     )
+
 
 
 def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
@@ -286,8 +287,8 @@ def get_version(args) -> str:
     gets version of the jp mining note within the repo
     """
 
-    if args.custom_version is not None:
-        return args.custom_version
+    if args.dev_custom_version is not None:
+        return args.dev_custom_version
 
     root_folder = get_root_folder()
     with open(os.path.join(root_folder, "version.txt")) as f:

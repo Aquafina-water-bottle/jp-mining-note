@@ -463,8 +463,9 @@ async function openExtraInfoIfNew() {
 
   // constructs the multi findCards request for ankiconnect
   let actions = [];
-  actions.push(constructFindCardAction(`"Key:${key}"`));
-  actions.push(constructFindCardAction(`is:new "Key:${key}"`));
+  const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
+  actions.push(constructFindCardAction(`"Key:${key}" "card:${cardTypeName}"`));
+  actions.push(constructFindCardAction(`is:new "Key:${key}" "card:${cardTypeName}"`));
 
   const multi = await invoke("multi", {"actions": actions});
   const cards = multi[0];
