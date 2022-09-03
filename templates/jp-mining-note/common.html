@@ -267,10 +267,10 @@
 
     {# word_pitch_class can be "dh-left__word-pitch--big" #}
     <div class="dh-left__word-pitch {{word_pitch_class}}" id="dh_word_pitch">
-      {% call IF("WordPitch") %}
-        {{ T("WordPitch") }}
+      {% call IF("PAWordPitchOverride") %}
+        {{ T("PAWordPitchOverride") }}
       {% endcall %}
-      {% call IFNOT("WordPitch") %}
+      {% call IFNOT("PAWordPitchOverride") %}
         (N/A)
       {% endcall %}
     </div>

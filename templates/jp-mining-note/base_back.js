@@ -510,15 +510,23 @@ let JPMN_PAPositions = (function () {
   let my = {};
 
   const ele = document.getElementById("hidden_pa_positions");
+  const eleOverride = document.getElementById("hidden_pa_override");
   const eleDisp = document.getElementById("dh_word_pitch");
-  let digit = 0;
 
   // returns null if cannot find anything
   // otherwise, returns (position (int), dict_name (str))
   // dict_name can be null
   function getPosition() {
+    let digit = null;
+
     if (ele === null) {
       return null;
+    }
+
+    // first checks pa override
+    digit = eleOverride.innerText.match(/\d+/)
+    if (digit !== null) {
+      return [Number(digit), "override"];
     }
 
     let searchHTML = null;
@@ -553,7 +561,7 @@ let JPMN_PAPositions = (function () {
           }
           if (liEle.innerHTML.includes("<b>")) {
             searchHTML = liEle.innerHTML;
-            dictName = groupDiv.getAttribute("data-details") + " (override)";
+            dictName = groupDiv.getAttribute("data-details") + " (bold)";
             found = true;
             break;
           }
@@ -566,10 +574,10 @@ let JPMN_PAPositions = (function () {
 
     } else {
       // just search for any digit in the element
-      searchHTML = ele.innerHTML
+      searchHTML = ele.innerHTML;
     }
 
-    digit = searchHTML.match(/\d+/)
+    digit = searchHTML.match(/\d+/);
     if (digit === null) {
       return null;
     }

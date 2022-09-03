@@ -74,7 +74,7 @@ NOTE_CHANGES = [
         actions=[
             action.RenameField("WordPitch", "PAWordPitchOverride"),
             action.MoveField("PAWordPitchOverride", 10 - 1),
-            action.AddField("PAPositions", 10 - 1),
+            action.AddField("PAPositions", 27 - 1),
         ],
         fields=[
             "Key",
@@ -86,7 +86,6 @@ NOTE_CHANGES = [
             "AltDisplay",
             "AltDisplayPASentenceCard",
             "AdditionalNotes",
-            "PAPositions",
             "PAWordPitchOverride",
             "IsSentenceCard",
             "IsClickCard",
@@ -104,6 +103,7 @@ NOTE_CHANGES = [
             "WordAudio",
             "SentenceAudio",
             "PAGraphs",
+            "PAPositions",
             "PASilence",
             "FrequenciesStylized",
             "FrequencySort",
