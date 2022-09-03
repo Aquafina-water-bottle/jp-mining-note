@@ -24,6 +24,9 @@ I attempted to tackle these exact issues by introducing new card types
 outside of the fundamental vocab and sentence cards.
 
 
+[[assets/card_types_1_pic.png]]
+
+
 # Table of Contents
 1. [Vocab Card](cardtypes#vocab-card)
 1. [Sentence Card](cardtypes#sentence-card)
