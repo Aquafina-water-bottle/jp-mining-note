@@ -118,6 +118,13 @@ anki-editable[field="PAGraphs"] {
 
 
 
+
+anki-editable[field="Comment"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
 @include common.common;
 
 
