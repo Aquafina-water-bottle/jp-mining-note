@@ -160,316 +160,316 @@ let kanjiHoverEnabled = false;
 let JPMN_KanjiHover = (function () {
   let my = {};
 
-// multi query result, in the format of
-// [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
-async function cardQueries(kanjiArr) {
-  const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
+  // multi query result, in the format of
+  // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
+  async function cardQueries(kanjiArr) {
+    const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
 
-  function constructFindCardAction(query) {
-    return {
-      "action": "findCards",
-      "params": {
-        "query": query,
+    function constructFindCardAction(query) {
+      return {
+        "action": "findCards",
+        "params": {
+          "query": query,
+        }
       }
     }
+
+    // constructs the multi findCards request for ankiconnect
+    let actions = [];
+    for (const character of kanjiArr) {
+      const baseQuery = (
+        `(-"Key:{{ T('Key') }}" -"WordReading:{{ T('WordReading') }}"`
+        + `Word:*${character}* "card:${cardTypeName}") `
+      );
+      const nonNewQuery = baseQuery + {{ utils.opt("kanji-hover", "non-new-query") }};
+      const newQuery = baseQuery + {{ utils.opt("kanji-hover", "new-query") }};
+
+      //logger.warn(nonNewQuery)
+      //logger.warn(newQuery)
+      actions.push(constructFindCardAction(nonNewQuery))
+      actions.push(constructFindCardAction(newQuery))
+    }
+
+    return await invoke("multi", {"actions": actions})
   }
 
-  // constructs the multi findCards request for ankiconnect
-  let actions = [];
-  for (const character of kanjiArr) {
-    const baseQuery = (
-      `(-"Key:{{ T('Key') }}" -"WordReading:{{ T('WordReading') }}"`
-      + `Word:*${character}* "card:${cardTypeName}") `
-    );
-    const nonNewQuery = baseQuery + {{ utils.opt("kanji-hover", "non-new-query") }};
-    const newQuery = baseQuery + {{ utils.opt("kanji-hover", "new-query") }};
+  function filterCards(nonNewCardIds, newCardIds) {
+    const nonNewEarliest = {{ utils.opt("kanji-hover", "max-non-new-oldest") }};
+    const nonNewLatest = {{ utils.opt("kanji-hover", "max-non-new-latest") }};
+    const newLatest = {{ utils.opt("kanji-hover", "max-new-latest") }};
 
-    //logger.warn(nonNewQuery)
-    //logger.warn(newQuery)
-    actions.push(constructFindCardAction(nonNewQuery))
-    actions.push(constructFindCardAction(newQuery))
+    // non new: gets the earliest and latest
+    let nonNewResultIds = []
+    if (nonNewCardIds.length > nonNewEarliest + nonNewLatest) {
+      nonNewResultIds = [
+        ...nonNewCardIds.slice(0, nonNewEarliest), // earliest
+        ...nonNewCardIds.slice(-nonNewLatest, nonNewCardIds.length), // latest
+      ];
+    } else {
+      nonNewResultIds = [...nonNewCardIds];
+    }
+
+    let newResultIds = newCardIds.slice(0, newLatest);
+
+    return [nonNewResultIds, newResultIds];
   }
 
-  return await invoke("multi", {"actions": actions})
-}
-
-function filterCards(nonNewCardIds, newCardIds) {
-  const nonNewEarliest = {{ utils.opt("kanji-hover", "max-non-new-oldest") }};
-  const nonNewLatest = {{ utils.opt("kanji-hover", "max-non-new-latest") }};
-  const newLatest = {{ utils.opt("kanji-hover", "max-new-latest") }};
-
-  // non new: gets the earliest and latest
-  let nonNewResultIds = []
-  if (nonNewCardIds.length > nonNewEarliest + nonNewLatest) {
-    nonNewResultIds = [
-      ...nonNewCardIds.slice(0, nonNewEarliest), // earliest
-      ...nonNewCardIds.slice(-nonNewLatest, nonNewCardIds.length), // latest
-    ];
-  } else {
-    nonNewResultIds = [...nonNewCardIds];
-  }
-
-  let newResultIds = newCardIds.slice(0, newLatest);
-
-  return [nonNewResultIds, newResultIds];
-}
 
 
-
-async function getCardsInfo(queryResults) {
-  function constructCardsInfoAction(idList) {
-    return {
-      "action": "cardsInfo",
-      "params": {
-        "cards": idList,
+  async function getCardsInfo(queryResults) {
+    function constructCardsInfoAction(idList) {
+      return {
+        "action": "cardsInfo",
+        "params": {
+          "cards": idList,
+        }
       }
     }
-  }
 
-  let actions = [];
-  logger.assert(queryResults.length % 2 == 0, "query results not even");
+    let actions = [];
+    logger.assert(queryResults.length % 2 == 0, "query results not even");
 
-  //for (const [i, character] of kanjiArr.entries()) {
-  for (let i = 0; i < queryResults.length/2; i++) {
-    // ids are equivalent to creation dates, so sorting ids is equivalent to
-    // sorting to card creation date
-    let nonNewCardIds = queryResults[i*2].sort();
-    let newCardIds = queryResults[i*2 + 1].sort();
-    let [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
+    //for (const [i, character] of kanjiArr.entries()) {
+    for (let i = 0; i < queryResults.length/2; i++) {
+      // ids are equivalent to creation dates, so sorting ids is equivalent to
+      // sorting to card creation date
+      let nonNewCardIds = queryResults[i*2].sort();
+      let newCardIds = queryResults[i*2 + 1].sort();
+      let [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
 
-    // creates a multi request of the following format:
-    // [cardInfo (nonNewCardIds, kanji 1), cardInfo (newCardIds, kanji 1), etc.]
+      // creates a multi request of the following format:
+      // [cardInfo (nonNewCardIds, kanji 1), cardInfo (newCardIds, kanji 1), etc.]
 
-    actions.push(constructCardsInfoAction(nonNewResultIds))
-    actions.push(constructCardsInfoAction(newResultIds))
-  }
-
-  return await invoke("multi", {"actions": actions})
-}
-
-
-// taken directly from anki's implementation of { {furigana:...} }
-// https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-function buildWordDiv(character, wordReading) {
-
-  let wordDiv = document.createElement('div');
-  let re = / ?([^ >]+?)\[(.+?)\]/g
-
-  let wordReadingRuby = wordReading.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
-  wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
-
-  wordDiv.innerHTML = wordReadingRuby;
-  return wordDiv;
-}
-
-function buildSentDiv(sentence) {
-  let sentenceSpan = document.createElement('span');
-
-  let resultSent = sentence;
-  resultSent = resultSent.replaceAll("<b>", "");
-  resultSent = resultSent.replaceAll("</b>", "");
-  sentenceSpan.innerHTML = resultSent;
-
-  let openQuote = document.createElement('span');
-  openQuote.innerText = "「";
-  let closeQuote = document.createElement('span');
-  closeQuote.innerText = "」";
-
-
-  let sentenceDiv = document.createElement('div');
-  sentenceDiv.classList.add("left-align-quote");
-
-  sentenceDiv.appendChild(openQuote);
-  sentenceDiv.appendChild(sentenceSpan);
-  sentenceDiv.appendChild(closeQuote);
-
-  return sentenceDiv;
-}
-
-function buildCardDiv(character, card, isNew=false) {
-  let cardDiv = document.createElement('div');
-  let wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
-
-  let sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
-
-  cardDiv.appendChild(wordDiv);
-  cardDiv.appendChild(sentenceDiv);
-
-  if (isNew) {
-    cardDiv.classList.add("kanji-hover-tooltip--new");
-  }
-
-  return cardDiv;
-}
-
-function buildString(character, nonNewCardInfo, newCardInfo) {
-
-  /*
-   * <span class="kanji-hover-wrapper">
-   *   <span class="kanji-hover-text"> (kanji) </span>
-   *   <span class="kanji-hover-tooltip-wrapper">
-   *     <span class="kanji-hover-tooltip"> ... </span>
-   *   </span>
-   * </span>
-   *
-   */
-
-  // wrapper element that isn't used, to get the inner html
-  let wrapper = document.createElement('span');
-
-  let kanjiHoverWrapper = document.createElement('span');
-  kanjiHoverWrapper.classList.add("kanji-hover-wrapper");
-
-
-  let kanjiSpan = document.createElement('span');
-  kanjiSpan.classList.add("kanji-hover-text");
-  kanjiSpan.innerText = character;
-
-  tooltipWrapperSpan = document.createElement('span');
-  tooltipWrapperSpan.classList.add("kanji-hover-tooltip-wrapper");
-
-  tooltipSpan = document.createElement('span');
-  tooltipSpan.classList.add("kanji-hover-tooltip");
-
-  //logger.warn(character);
-  let count = 0;
-
-
-  for (let card of nonNewCardInfo) {
-    //logger.warn(card);
-    let cardDiv = buildCardDiv(character, card);
-    if (count >= 1) {
-      cardDiv.classList.add("kanji-hover-tooltip--not-first");
+      actions.push(constructCardsInfoAction(nonNewResultIds))
+      actions.push(constructCardsInfoAction(newResultIds))
     }
-    count++;
 
-    tooltipSpan.appendChild(cardDiv);
+    return await invoke("multi", {"actions": actions})
   }
 
-  for (let card of newCardInfo) {
-    let cardDiv = buildCardDiv(character, card, isNew=true);
-    if (count >= 1) {
-      cardDiv.classList.add("kanji-hover-tooltip--not-first");
+
+  // taken directly from anki's implementation of { {furigana:...} }
+  // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
+  function buildWordDiv(character, wordReading) {
+
+    let wordDiv = document.createElement('div');
+    let re = / ?([^ >]+?)\[(.+?)\]/g
+
+    let wordReadingRuby = wordReading.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
+    wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
+
+    wordDiv.innerHTML = wordReadingRuby;
+    return wordDiv;
+  }
+
+  function buildSentDiv(sentence) {
+    let sentenceSpan = document.createElement('span');
+
+    let resultSent = sentence;
+    resultSent = resultSent.replaceAll("<b>", "");
+    resultSent = resultSent.replaceAll("</b>", "");
+    sentenceSpan.innerHTML = resultSent;
+
+    let openQuote = document.createElement('span');
+    openQuote.innerText = "「";
+    let closeQuote = document.createElement('span');
+    closeQuote.innerText = "」";
+
+
+    let sentenceDiv = document.createElement('div');
+    sentenceDiv.classList.add("left-align-quote");
+
+    sentenceDiv.appendChild(openQuote);
+    sentenceDiv.appendChild(sentenceSpan);
+    sentenceDiv.appendChild(closeQuote);
+
+    return sentenceDiv;
+  }
+
+  function buildCardDiv(character, card, isNew=false) {
+    let cardDiv = document.createElement('div');
+    let wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
+
+    let sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
+
+    cardDiv.appendChild(wordDiv);
+    cardDiv.appendChild(sentenceDiv);
+
+    if (isNew) {
+      cardDiv.classList.add("kanji-hover-tooltip--new");
     }
-    count++;
 
-    tooltipSpan.appendChild(cardDiv);
+    return cardDiv;
   }
 
+  function buildString(character, nonNewCardInfo, newCardInfo) {
 
-  // 0 length checks
-  if (nonNewCardInfo.length + newCardInfo.length == 0) {
-    tooltipSpan.innerText = "No other kanjis found.";
-  }
+    /*
+     * <span class="kanji-hover-wrapper">
+     *   <span class="kanji-hover-text"> (kanji) </span>
+     *   <span class="kanji-hover-tooltip-wrapper">
+     *     <span class="kanji-hover-tooltip"> ... </span>
+     *   </span>
+     * </span>
+     *
+     */
 
-  tooltipWrapperSpan.appendChild(tooltipSpan)
-  kanjiHoverWrapper.appendChild(kanjiSpan);
-  kanjiHoverWrapper.appendChild(tooltipWrapperSpan);
-  wrapper.appendChild(kanjiHoverWrapper);
+    // wrapper element that isn't used, to get the inner html
+    let wrapper = document.createElement('span');
 
-  return wrapper.innerHTML;
-}
-
-
-function getWordReadings(nonNewCardInfo, newCardInfo) {
-  let wordsArr = []
-
-  for (let card of nonNewCardInfo) {
-    wordsArr.push(card["fields"]["WordReading"]["value"])
-  }
-  for (let card of newCardInfo) {
-    wordsArr.push(card["fields"]["WordReading"]["value"])
-  }
-
-  //logger.warn(wordsArr.join(" "));
-  return wordsArr;
-}
+    let kanjiHoverWrapper = document.createElement('span');
+    kanjiHoverWrapper.classList.add("kanji-hover-wrapper");
 
 
+    let kanjiSpan = document.createElement('span');
+    kanjiSpan.classList.add("kanji-hover-text");
+    kanjiSpan.innerText = character;
 
-// kanji hover
-// some code shamelessly stolen from cade's kanji hover:
-// https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
+    tooltipWrapperSpan = document.createElement('span');
+    tooltipWrapperSpan.classList.add("kanji-hover-tooltip-wrapper");
 
-// main function
-async function main() {
+    tooltipSpan = document.createElement('span');
+    tooltipSpan.classList.add("kanji-hover-tooltip");
 
-  if (kanjiHoverEnabled) {
-    _debug("Kanji hover already enabled");
-    return;
-  }
-  kanjiHoverEnabled = true;
+    //logger.warn(character);
+    let count = 0;
 
-  // realistically, key should be good enough since we assume that key has no duplicates
-  // however, just in case, wordreading is added
-  let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
-  if (cacheKey in kanjiHoverCardCache) {
-    _debug("Card was cached")
-    wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
-    //logger.info(`using cached card ${cacheKey}`);
-    return;
-  }
 
-  let readingHTML = wordReading.innerHTML;
+    for (let card of nonNewCardInfo) {
+      //logger.warn(card);
+      let cardDiv = buildCardDiv(character, card);
+      if (count >= 1) {
+        cardDiv.classList.add("kanji-hover-tooltip--not-first");
+      }
+      count++;
 
-  // uses cache if it already exists
-  let kanjiSet = new Set() // set of kanjis that requires api calls
-  const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
-  const matches = readingHTML.matchAll(regex);
-  for (const match of matches) {
-    kanjiSet.add(...match);
-  }
-
-  let kanjiDict = {};
-  let wordReadings = {}; // used only for the cache
-
-  // attempts to fill out the kanji dict with cached entries
-  for (let kanji of [...kanjiSet]) {
-    // also checks that the current word is not used
-    if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{ T('WordReading') }}"))) {
-      _debug(`Using cached kanji ${kanji}`)
-      kanjiDict[kanji] = kanjiHoverCache[kanji][1];
-      kanjiSet.delete(kanji);
+      tooltipSpan.appendChild(cardDiv);
     }
+
+    for (let card of newCardInfo) {
+      let cardDiv = buildCardDiv(character, card, isNew=true);
+      if (count >= 1) {
+        cardDiv.classList.add("kanji-hover-tooltip--not-first");
+      }
+      count++;
+
+      tooltipSpan.appendChild(cardDiv);
+    }
+
+
+    // 0 length checks
+    if (nonNewCardInfo.length + newCardInfo.length == 0) {
+      tooltipSpan.innerText = "No other kanjis found.";
+    }
+
+    tooltipWrapperSpan.appendChild(tooltipSpan)
+    kanjiHoverWrapper.appendChild(kanjiSpan);
+    kanjiHoverWrapper.appendChild(tooltipWrapperSpan);
+    wrapper.appendChild(kanjiHoverWrapper);
+
+    return wrapper.innerHTML;
   }
 
-  // only calls the api on the needed kanjis
-  const kanjiArr = [...kanjiSet];
-  const queryResults = await cardQueries(kanjiArr);
-  const cardsInfo = await getCardsInfo(queryResults);
 
-  _debug(`New kanjis: [${kanjiArr.join(", ")}]`)
+  function getWordReadings(nonNewCardInfo, newCardInfo) {
+    let wordsArr = []
 
-  for (const [i, character] of kanjiArr.entries()) {
-    let nonNewCardInfo = cardsInfo[i*2];
-    let newCardInfo = cardsInfo[i*2 + 1];
+    for (let card of nonNewCardInfo) {
+      wordsArr.push(card["fields"]["WordReading"]["value"])
+    }
+    for (let card of newCardInfo) {
+      wordsArr.push(card["fields"]["WordReading"]["value"])
+    }
 
-    // attempts to insert string
-    kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo);
-    wordReadings[character] = getWordReadings(nonNewCardInfo, newCardInfo);
+    //logger.warn(wordsArr.join(" "));
+    return wordsArr;
   }
 
-  let re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
-  let resultHTML = readingHTML.replace(re, function (matched) {
-    //return kanjiDict[matched] ?? matched;
-    return nullish(kanjiDict[matched], matched);
-  });
 
-  wordReading.innerHTML = resultHTML;
 
-  // caches card
-  kanjiHoverCardCache[cacheKey] = resultHTML;
+  // kanji hover
+  // some code shamelessly stolen from cade's kanji hover:
+  // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
 
-  //_debug(resultHTML);
+  // main function
+  async function main() {
 
-  for (let character of kanjiArr) {
-    kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
+    if (kanjiHoverEnabled) {
+      _debug("Kanji hover already enabled");
+      return;
+    }
+    kanjiHoverEnabled = true;
+
+    // realistically, key should be good enough since we assume that key has no duplicates
+    // however, just in case, wordreading is added
+    let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
+    if (cacheKey in kanjiHoverCardCache) {
+      _debug("Card was cached")
+      wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
+      //logger.info(`using cached card ${cacheKey}`);
+      return;
+    }
+
+    let readingHTML = wordReading.innerHTML;
+
+    // uses cache if it already exists
+    let kanjiSet = new Set() // set of kanjis that requires api calls
+    const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
+    const matches = readingHTML.matchAll(regex);
+    for (const match of matches) {
+      kanjiSet.add(...match);
+    }
+
+    let kanjiDict = {};
+    let wordReadings = {}; // used only for the cache
+
+    // attempts to fill out the kanji dict with cached entries
+    for (let kanji of [...kanjiSet]) {
+      // also checks that the current word is not used
+      if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{ T('WordReading') }}"))) {
+        _debug(`Using cached kanji ${kanji}`)
+        kanjiDict[kanji] = kanjiHoverCache[kanji][1];
+        kanjiSet.delete(kanji);
+      }
+    }
+
+    // only calls the api on the needed kanjis
+    const kanjiArr = [...kanjiSet];
+    const queryResults = await cardQueries(kanjiArr);
+    const cardsInfo = await getCardsInfo(queryResults);
+
+    _debug(`New kanjis: [${kanjiArr.join(", ")}]`)
+
+    for (const [i, character] of kanjiArr.entries()) {
+      let nonNewCardInfo = cardsInfo[i*2];
+      let newCardInfo = cardsInfo[i*2 + 1];
+
+      // attempts to insert string
+      kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo);
+      wordReadings[character] = getWordReadings(nonNewCardInfo, newCardInfo);
+    }
+
+    let re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
+    let resultHTML = readingHTML.replace(re, function (matched) {
+      //return kanjiDict[matched] ?? matched;
+      return nullish(kanjiDict[matched], matched);
+    });
+
+    wordReading.innerHTML = resultHTML;
+
+    // caches card
+    kanjiHoverCardCache[cacheKey] = resultHTML;
+
+    //_debug(resultHTML);
+
+    for (let character of kanjiArr) {
+      kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
+    }
+
   }
 
-}
-
-my.main = main;
-return my;
+  my.main = main;
+  return my;
 
 }());
 
