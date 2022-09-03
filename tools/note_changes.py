@@ -70,6 +70,50 @@ class NoteChange:
 
 NOTE_CHANGES = [
     NoteChange(
+        version=Version(0, 10, 0, 0),
+        actions=[
+            action.RenameField("WordPitch", "PAWordPitchOverride"),
+            action.MoveField("PAWordPitchOverride", 10 - 1),
+            action.AddField("PAPositions", 10 - 1),
+        ],
+        fields=[
+            "Key",
+            "Word",
+            "WordReading",
+            "PrimaryDefinition",
+            "Sentence",
+            "SentenceReading",
+            "AltDisplay",
+            "AltDisplayPASentenceCard",
+            "AdditionalNotes",
+            "PAPositions",
+            "PAWordPitchOverride",
+            "IsSentenceCard",
+            "IsClickCard",
+            "IsHoverCard",
+            "IsTargetedSentenceCard",
+            "PAShowInfo",
+            "PATestOnlyWord",
+            "PADoNotTest",
+            "PASeparateWordCard",
+            "PASeparateSentenceCard",
+            "SeparateClozeDeletionCard",
+            "Hint",
+            "HintNotHidden",
+            "Picture",
+            "WordAudio",
+            "SentenceAudio",
+            "PAGraphs",
+            "PASilence",
+            "FrequenciesStylized",
+            "FrequencySort",
+            "SecondaryDefinition",
+            "ExtraDefinitions",
+            "UtilityDictionaries",
+            "Comment",
+        ],
+    ),
+    NoteChange(
         version=Version(0, 9, 1, 0),
         actions=[
             action.MoveField("PAShowInfo", 15 - 1),
@@ -112,23 +156,32 @@ NOTE_CHANGES = [
             "ExtraDefinitions",
             "UtilityDictionaries",
             "Comment",
-        ]
+        ],
     ),
     NoteChange(
         version=Version(0, 9, 0, 0),
         actions=[
             action.BatchUpdate(
                 batch_func=batch.add_downstep_inner_span_tag,
-                ankiconnect_actions={"findNotes", "notesInfo", "multi", "updateNoteFields"},
+                ankiconnect_actions={
+                    "findNotes",
+                    "notesInfo",
+                    "multi",
+                    "updateNoteFields",
+                },
                 description="Updates the WordPitch field to work with the new AJT Pitch "
                 "Accent config settings",
             ),
             action.SetField("PASilence", "[sound:_silence.wav]"),
-            action.AJTPitchAccentConfigChange("update the 'styles' -> '&#42780;' field"),
+            action.AJTPitchAccentConfigChange(
+                "update the 'styles' -> '&#42780;' field"
+            ),
             action.YomichanTemplatesChange(),
-            action.YomichanFormatChange("PASilence", "[sound:silence.wav]", "[sound:_silence.wav]"),
+            action.YomichanFormatChange(
+                "PASilence", "[sound:silence.wav]", "[sound:_silence.wav]"
+            ),
         ],
-        fields=[
+        fields=[  # same as below
             "Key",
             "Word",
             "WordReading",

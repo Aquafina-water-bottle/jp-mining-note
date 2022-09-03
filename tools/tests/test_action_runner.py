@@ -22,6 +22,6 @@ def test_version_cmp():
 
 def test_note_changes():
     s = FieldEditSimulator(note_changes.NOTE_CHANGES[-1].fields)
-    actions = sum((data.actions for data in note_changes.NOTE_CHANGES), start=[])
+    actions = sum((data.actions for data in reversed(note_changes.NOTE_CHANGES)), start=[])
     s.simulate(actions)
     s.verify(note_changes.NOTE_CHANGES[0].fields)
