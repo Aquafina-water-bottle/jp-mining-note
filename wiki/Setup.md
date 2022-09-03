@@ -702,6 +702,40 @@ add the following template code as follows:
        {{/inline}}
 
 
+       {{#*inline "jpmn-pitch-accent-positions"}}
+           {{~#if (op ">" pitchCount 0)~}}
+               {{~#each pitches~}}
+                   <div class="pa-positions__group" data-details="{{dictionary}}"> {{~s~}}
+                       <div class="pa-positions__dictionary"> {{~s~}}
+                           <div class="pa-positions__dictionary-inner"> {{~s~}}
+                               {{~dictionary~}}
+                           </div> {{~s~}}
+                       </div> {{~s~}}
+                       <ol> {{~s~}}
+                           {{~#each pitches~}}
+                               <li>
+                                   {{~> pitch-accent-item-disambiguation~}}
+
+                                   {{~#scope~}}
+                                       {{~#set "any" false}}{{/set~}}
+                                       {{~#each tags~}}
+                                           {{~#if (get "any")}}, {{else}}({{/if~}}
+                                           {{name}}
+                                           {{~#set "any" true}}{{/set~}}
+                                       {{~/each~}}
+                                       {{~#if (get "any")}}) {{/if~}}
+                                   {{~/scope~}}
+
+                                   {{~> pitch-accent-item format="position"~}}
+                               </li>
+                           {{~/each~}}
+                       </ol> {{~s~}}
+                   </div>
+               {{~/each~}}
+           {{~/if~}}
+       {{/inline}}
+
+
        {{~!
            ==============
             dictionaries

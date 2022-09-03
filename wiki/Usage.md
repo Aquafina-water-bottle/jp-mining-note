@@ -11,7 +11,7 @@ to your liking.
 1. [Modifying: Back](usage#modifying-the-back-side)
 1. [Modifying: Other](usage#modifying-other-aspects-of-the-card)
 1. [Testing Pitch Accent](usage#testing-pitch-accent)
-1. [Options](usage#options)
+1. [Options](usage#javascript-options)
 1. [Cloze Deletion Cards](usage#cloze-deletion-cards)
 
 
@@ -50,16 +50,34 @@ However, to dispell any mysteries, here is a fully annotated summary of the user
 Additional information on some parts of the UI is stated below:
 
 ## Info Circle
-TODO flesh out + pictures
+On hover, the info circle on the top left corner just shows some basic info.
 
-error (javascript error)
-- should NOT appear, report as an issue if it does...
+TODO gif
 
-warn (caps lock enabled)
-- can appear to present alerting info to the user
+However, it serves as a sort of notification system to the user, when it has a color.
 
-leech
-- yellow
+#### Error
+TODO gif
+
+This should only appear when some javascript code fails.
+In other words, this should **not** appear normally.
+If you get this without modifying the note in any way,
+please report this as an issue!
+
+#### Warning
+TODO gif
+
+This serves to warn the user about something.
+It can appear without breaking the functionality of the card.
+In other words, you can choose to ignore it.
+
+#### Leech
+
+TODO gif
+
+When the card is a leech, the circle is highlighted yellow
+(only on the back side) to indicate that it is a leech.
+
 
 
 <!--(not to be confused with [Cade's kanji hover](https://cademcniven.com/projects/kanjihover/))-->
@@ -70,22 +88,43 @@ only for notes of the same type (JP Mining Note).
 
 [[assets/kanji_hover.gif]]
 
-TODO not bullet points
 
-by default, shows in 3 different categories:
-- 2 oldest, not new (already reviewed before, in order of add date)
-- 2 latest, not new (the latest 2 cards that you have reviewed, in order of add date)
-- 2 oldest, new (the first 2 new cards that you will see with the kanji)
-    - new cards are greyed out to show that you haven't reviewed the card yet (and may not know the word yet)
+To explain exactly how the results are being shown,
+the words are searched and moved into 3 categories:
+- The two oldest, not new cards (already reviewed before, in order of add date)
+- The two latest, not new cards (the most recent two cards that you have reviewed, in order of add date)
+- The two oldest, new cards (the first 2 new cards that you will see with the kanji)
 
-- makes the assumption that you are reviewing in order of add date (this may not be completely true)
-    - and is completely un-true for people who are reviewing in order of frequency
+The last category (the new cards) are greyed out to show that you haven't reviewed
+the card yet (i.e. you may not know the word yet).
+Conversely, the first two categories (the non-new cards) represent words that you likely already
+know, so they are not greyed out.
 
-- currently no way to order it in anything other than add date
+* **Note**: <br>
+  The number of results per category can be changed in the
+  [options file](usage#javascript-options).
 
-- has entire section within the [options file](usage#options)
-- see `_jpmn-options.js` for more details
-- available options include changing the number of words shown per category + the query itself
+
+
+#### Results Sorting
+The above makes the assumption that you are reviewing in order of creation date,
+rather than the time of first review, to save resources.
+In other words, if you re-ordered your cards to be different from the add-date,
+then the kanji hover will not be able to recognize that.
+
+For people who review in order of frequency only, then the assumption above is completely broken.
+
+Unfortunately, there is currently no way to order the results by anything
+other than by the creation date.
+
+
+#### Suspended Cards
+Some assumptions are made about suspended cards.
+For example, suspended cards flagged as `green` are counted in the "non-new" cards category
+(known words), and suspended cards flagged as `red` are counted as words that you
+do not know AND will not study in the future (not shown in any category).
+This can be changed in the [options file](usage#javascript-options).
+
 
 ## Word Pitch
 The colors and what the lines mean are all described in the
@@ -93,35 +132,6 @@ official anki addon page as specified
 [here](https://ankiweb.net/shared/info/1225470483).
 
 
-<!--(WIP - currently a separate page)-->
-
-
-<!--
-# Card types
-(WIP)
-
-* figure out how to combine this section with the above to make the explanations more seamless
-* might just explain the card types + features surrounding it
-
-## Vocab
-Only the tested word is shown at the front.
-No changes have to be made to the fields to use a vocab card.
-* tests reading and meaning for the word
-
-## Sentence
-The entire sentence is shown at the front.
-* tests reading and meaning for entire sentence, as well as base form of the verb if applicable
-
-(TODO) separate picture and make them all use the same card
-| [[assets/vocab_vs_sentence_card.png]] |
-| An example with a vocab card at the top and a sentence card at the bottom. |
-
-## EXPERIMENTAL card types
-This section and some other sections will be expanded in the future,
-once I am happy with the resulting card types.
-These are currently (bullet point) documented [here](experimental).
-
--->
 
 # Modifying the Front Side (Tested Content)
 The front side is exactly the content that we want to test ourselves on.
@@ -163,19 +173,6 @@ However, you can modify what is exactly shown in the front by using the `AltDisp
 
 
 
-<!--
-For example, I personally use the `Sentence` field to contain text for the entire audio clip.
-If I want to test only a portion of the sentence, I put what I want to test into the `AltDisplay` field.
-
-
-| [[assets/altdisplay.png]] |
-|:--:|
-| Notice how the section at the bottom (`Sentence`) is different from the tested sentence at the top. |
-- TODO change picture
-- TODO write exactly what the value of `AltDisplay` is (within picture)
--->
-
-
 
 One nice feature is that the `AltDisplay` has hoverable furigana text enabled by default.
 In other words, you can use furigana in the field.
@@ -187,15 +184,6 @@ testing myself on how to read a name.
 | [[assets/altdisplay_furigana.gif]] |
 |:--:|
 | The front display, with the `AltDisplay` containing the following HTML: <br> `上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの` |
-
-<!--
-| [[assets/furigana_altdisplay.png]] |
-|:--:|
-| A picture of the front display, with the cursor over the text. |
-- TODO change picture
-- TODO write exactly what the value of `AltDisplay` is (within picture)
--->
-
 
 Similarly, if you are using a vocab card, you can use `AltDisplay`
 to show something that differs from the `Word` field.
@@ -249,10 +237,23 @@ and other notes that aren't completely crutial to understanding the tested conte
 # Modifying Other Aspects of the Card
 
 ## `Key` field
-TODO
+This contains the tested word.
+In other words, this contains the exact same content as the field below,
+but this field is specifically not used in the card template.
+This is to allow the user to modify the key if duplicates arise,
+while still being able to test the word.
+
+For example, if I were to test different usages of 上,
+I can change this key value to `上 (proposition)`, `上 (grammar)`,
+etc. and add a new card.
+
+It is expected that this `Key` field is unique;
+a warning will appear on a card that has a duplicate key.
 
 ## `Comment` field
-TODO
+Similarly to the `Key` field, this field will not be used in any card template.
+In other words, this is a place where you can write down notes without affecting the card itself.
+
 
 
 
@@ -347,6 +348,7 @@ To preserve the style and get expected results, you must use `Ctrl + Shift + x` 
 and edit the html tags directly. Use other cards as examples of what the html should look like.
 
 TODO more details + example (華)
+- TODO replace with positions :eyes:
 
 example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
 ```html
@@ -373,8 +375,8 @@ in the PA sentence card.
 
 
 
-# Options
-There are many options that can be set within the options javascript file.
+# (Javascript) Options
+There are many options that can be set within the (javascript) options file.
 To edit this, navigate to your deck's [media folder](https://docs.ankiweb.net/files.html#file-locations),
 and open the `_jpmn-options.js` file as a text file.
 The contents of the file should look something like the following:

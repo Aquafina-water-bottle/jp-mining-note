@@ -275,6 +275,19 @@ or if your card is formatted like `<div class="sentence">{{Sentence}}</div>`:
 ```
 
 
+## Get selection text instead of glossary (only if text is selected)
+```
+{{#*inline "selection-text"}}
+    {{~#if (op "!==" (getMedia "selectionText") "")~}}
+        {{~#getMedia "selectionText"}}{{/getMedia~}}
+    {{~else~}}
+        {{~> glossary ~}}
+    {{/if~}}
+{{/inline}}
+```
+- [Related github issue](https://github.com/FooSoft/yomichan/issues/2097)
+
+
 
 ## Further Reading
 The documentation I used:
