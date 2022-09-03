@@ -73,13 +73,33 @@ python3 -m pytest ./tests
 TODO
 
 
+## Tips and Tricks
+
+#### Print statements
+Anki doesn't come with a way to use `console.log()` normally, so I made one myself.
+
+```
+logger.error("message");
+logger.warn("message");
+logger.info("message");
+_debug("message");
+```
+
+The above functions prints a message of the given log level to the info circle.
+To see the message, hover over the info circle.
+
+To use the `_debug` function, make sure that the `debug` option is set to `true`
+in the javascript options.
+
+
+
 # Modding Yomichan Templates
 TODO transfer yomichan templates section here
 
 
 
 # Contributing
-TODO
+TODO separate page
 
 - before:
     - highly prefer if you contact me before-hand with the changes you want to make
