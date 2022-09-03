@@ -119,10 +119,10 @@ anki-editable[field="PAGraphs"] {
 
 
 
-anki-editable[field="Comment"] {
+anki-editable[field="PAPositions"] {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px;
 }
 
 @include common.common;
