@@ -355,8 +355,6 @@ one can bold the unused pitch accents to grey them out.
 |:--:|
 | The section on the left is bolded to grey it out. |
 
-TODO replace image with something that shows the field being edited
-
 
 ## Modifying Pitch Accent Sentence Cards
 The field `AltDisplayPASentenceCard` exists to customize the display of the

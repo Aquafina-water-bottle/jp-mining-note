@@ -80,14 +80,6 @@ see below:
     and download the 4 `.otf` files.
 4. Move the `.otf` files into the [media folder](https://docs.ankiweb.net/files.html#file-locations)
     of your profile (`Anki2/PROFILENAME/collections.media`).
-    <!--TODO FAQ on media folder and link it rather than showing it here!
-    (it appears throughout the documentation)
-    This folder should be located under:
-    - (windows) `C:\Users\{username}\AppData\Roaming\Anki2\{deck_name}\collecion.media`
-    - (nix) `~/.local/share/Anki2/{deck_name}/collection.media`
-
-   **Note**: <br>
-   If you don't know how to access the `AppData` folder on Windows, see [here](https://www.freecodecamp.org/news/appdata-where-to-find-the-appdata-folder-in-windows-10/).-->
 
 
 
@@ -980,8 +972,6 @@ To modify a regex string:
    exporting it into Anki.
    Within Anki, the dictionary tag should appear in parenthesis before the definition.
    -->
-
-   <!--TODO better way: yomichan options -> dicts-->
 
 2. Add the dictionary tag to the string, by replacing `ADD_x_DICTIONARIES_HERE`.
    For example, if your bilingual dictionary tag is `Amazing Dictionary`, change
