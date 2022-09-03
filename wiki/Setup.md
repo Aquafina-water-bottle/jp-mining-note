@@ -914,6 +914,8 @@ The foolproof way to check that your dictionaries are correctly categorized is w
 `{jpmn-test-dict-type}` (new as of 0.9.1.2) marker.
 Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
 
+[[assets/yomichan/test_dictionary_categorization.gif]]
+
 An example output of the above (on the word 結構) is the following:
 ```
 「旺文社国語辞典 第十一版」: monolingual
@@ -972,8 +974,6 @@ To modify a regex string:
    To see this, take a word that has a definition in the desired dictionary, and test
    `{jpmn-test-dict-type}` like above.
    The string inside the quotes 「」 is exactly the tag of the dictionary.
-
-   [[assets/yomichan/test_dictionary_categorization.gif]]
 
    <!--
    An easy way to see this is by getting a word that is defined in the dictionary and
