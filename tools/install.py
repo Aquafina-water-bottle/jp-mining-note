@@ -82,6 +82,15 @@ def add_args(parser):
         help="(dev option) bypasses the note changes section",
     )
 
+
+    group.add_argument(
+        "--from-version",
+        type=str,
+        default=None,
+        help="Installs an older version of the card. "
+             "This option only works on first install, and not when updating the note.",
+    )
+
     # TODO implement
     # force update version
     # group.add_argument("--force", action="store_true")

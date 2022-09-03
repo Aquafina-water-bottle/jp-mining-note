@@ -23,9 +23,11 @@ signified.)
 
 #### Changed
 - regex options in yomichan templates to be more clear in documentation
+    - added "ADD_x_DICTIONARIES_HERE" strings
 
 #### Fixed
 - `??` operator not working on legacy anki versions (changed to use `nullish` function instead)
+- duplicate key wrongly detecting the same note with different cards
 
 
 ## [0.9.1.1] - 2022-08-31
