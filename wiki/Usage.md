@@ -22,7 +22,7 @@ A field that checks whether it is filled or not with any value, say `1`.
 The default is implied by the name of the field, and a value of "true" means that the field is filled.
 For example, the `IsSentenceCard` field will turn the card into a sentence card if filled.
 If it is not filled, then the card will be a word card.
-To fill a field automatically, see here (TODO).
+To fill a field automatically, see [here](faq#how-do-i-change-the-default-value-of-a-binary-field).
 
 To "toggle" a binary field means to either fill the value if is not filled yet,
 or to remove the value if it is filled.
@@ -144,9 +144,9 @@ To change the card to a sentence card, toggle the `IsSentenceCard` binary field.
 | A sentence card. |
 
 There are many other card types that this note supports.
-To see the full list, see this section: TODO link
+To see the full list, see [this section](cardtypes).
 
-(TODO image, compile card types)
+[[assets/card_types_1_pic.png]]
 
 
 ## Changing the Displayed Content
@@ -345,6 +345,14 @@ To clarify some of the above:
 Editing the content in `WordPitch` requires some special attention.
 To preserve the style and get expected results, you must use `Ctrl + Shift + x` when editing the field,
 and edit the html tags directly. Use other cards as examples of what the html should look like.
+
+TODO more details + example (華)
+
+example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
+```html
+チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span><span class="nopron">ク</span>セイ<b>・チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span><span class="nopron">ク</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セイ</b>
+```
+
 
 The `WordPitch` field may have more than one pitch accent for a given word.
 To choose which pitch accent is correct to the sentence,

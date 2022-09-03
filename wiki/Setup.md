@@ -375,12 +375,12 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 * **Note**: <br>
     **Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/188249030-b1bab33b-49d9-45b8-ba7b-78fbe39e5950.mp4).
 
-* Navigate to Yomichan Settings.
-* Go to the "Anki" section
-* Select "Anki card format..."
-* Set "Model" as `JP Mining Note`
-* Copy and paste the following values into the fields
-  (the custom markers won't be available in the dropdown arrow):
+1. Navigate to Yomichan Settings.
+1. Go to the "Anki" section
+1. Select "Anki card format..."
+1. Set "Model" as `JP Mining Note`
+1. Copy and paste the following values into the fields
+   (the custom markers won't be available in the dropdown arrow):
 
 | Anki Fields | Yomichan Format |
 |-------------|-----------------|
@@ -440,18 +440,17 @@ Yomichan supports user inserted template code that allows the automatic
 separation of bilingual and monolingual dictionary definitions, custom stylization, etc.
 This note type makes heavy use of these custom templates.
 
-
 * **Note**: <br>
     **Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/187789174-f7f71429-1990-49aa-b99a-0aa74e4ff12c.mp4).
 
 To make the new markers usable, do the following:
-* Navigate to Yomichan Settings.
-* Make sure that advanced settings are turned on (bottom left corner).
-* Go to the "Anki" section
-* Select "Configure Anki card templates..."
-* If you have existing template code already, I highly recommend
-  **resetting the templates** (bottom right corner, red button)
-  unless you know exactly what you are doing.
+1. Navigate to Yomichan Settings.
+1. Make sure that advanced settings are turned on (bottom left corner).
+1. Go to the "Anki" section
+1. Select "Configure Anki card templates..."
+1. If you have existing template code already, I highly recommend
+   **resetting the templates** (bottom right corner, red button)
+   unless you know exactly what you are doing.
 
 After resetting the templates,
 **without** removing any of the existing template code,
