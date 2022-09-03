@@ -66,7 +66,8 @@ If the above made literally no sense to you,
 or you just want to install this normally,
 see below:
 
-**Full video example** of the steps below for Linux (Ubuntu) [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
+* **Note**: <br>
+    **Full video example** of the steps below for Linux (Ubuntu) [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
 
 1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
     and download the cards from the latest release.
@@ -379,7 +380,8 @@ If you have used Yomichan before, please make a backup of your settings (just in
 ## Yomichan Fields
 To edit the fields that Yomichan will automatically fill out, do the following:
 
-**Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/188249030-b1bab33b-49d9-45b8-ba7b-78fbe39e5950.mp4)
+* **Note**: <br>
+    **Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/188249030-b1bab33b-49d9-45b8-ba7b-78fbe39e5950.mp4).
 
 * Navigate to Yomichan Settings.
 * Go to the "Anki" section
@@ -449,8 +451,9 @@ Yomichan supports user inserted template code that allows the automatic
 separation of bilingual and monolingual dictionary definitions, custom stylization, etc.
 This note type makes heavy use of these custom templates.
 
-For a **full video example** of the steps below,
-see [here](https://user-images.githubusercontent.com/17107540/187789174-f7f71429-1990-49aa-b99a-0aa74e4ff12c.mp4).
+
+* **Note**: <br>
+    **Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/187789174-f7f71429-1990-49aa-b99a-0aa74e4ff12c.mp4).
 
 To make the new markers usable, do the following:
 * Navigate to Yomichan Settings.
