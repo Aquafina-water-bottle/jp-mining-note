@@ -64,8 +64,9 @@ The above does the following:
 ## (2) The Normal Way
 If the above made literally no sense to you,
 or you just want to install this normally,
-here's the normal way of installing the cards:
-(**full video example** of the steps below for linux (ubuntu) [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
+see below:
+
+**Full video example** of the steps below for Linux (Ubuntu) [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
 
 1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
     and download the cards from the latest release.
@@ -377,6 +378,9 @@ If you have used Yomichan before, please make a backup of your settings (just in
 
 ## Yomichan Fields
 To edit the fields that Yomichan will automatically fill out, do the following:
+
+**Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/188249030-b1bab33b-49d9-45b8-ba7b-78fbe39e5950.mp4)
+
 * Navigate to Yomichan Settings.
 * Go to the "Anki" section
 * Select "Anki card format..."
