@@ -36,6 +36,7 @@ signified.)
 
 #### Changed (BREAKING)
 - Added fields (`PAOverride`, `PAPositions`)
+    - `PAOverride` requires updated Yomichan templates
 - Renamed field `WordPitch` -> `AJTWordPitch`
 
 
