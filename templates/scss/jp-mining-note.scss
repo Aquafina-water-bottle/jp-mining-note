@@ -745,7 +745,7 @@ ruby rt {
   font-family: notosans;
   text-align: left;
   position: absolute;
-  width: 500px;
+  width: 620px;
   height: 0px;
   top: 100%;
   left: 0%;
@@ -753,6 +753,7 @@ ruby rt {
   display: none;
   z-index: 1;
   margin-top: 5px;
+  white-space: normal;
 }
 
 .kanji-hover-tooltip b {
