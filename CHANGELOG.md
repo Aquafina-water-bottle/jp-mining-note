@@ -1,5 +1,19 @@
 # Changelog
 The last 3 numbers (# in X.#.#.#) follow semantic versioning.
+
+Historically, the 2nd number was bumped up for different reasons,
+but now, the 2nd number will have a constant representation:
+it is bumped when the Anki database schema becomes different
+from the previous version.
+This specifically happens when the fields are edited in any way
+(renamed, moved, added, removed, etc.)
+
+When the database schema changes, a user cannot automatically update their cards
+by simply installing a new version of the .apkg package,
+and must use `./install.py --update`.
+
+
+<!--
 Following semantic versioning, the 2nd number is bumped when any
 BREAKING changes occur.
 
@@ -9,6 +23,8 @@ outside of running `./install.py --update` for the card to work properly.
 The following are examples breaking changes:
 - Changes to anki plugin configs
 - Changes to yomichan templates / format
+-->
+
 
 The first number (X in X.#.#.#) is an arbitrary number that I decide for
 when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
@@ -16,14 +32,24 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
-## [0.9.1.2] - 2022-09-??
+## [0.10.0.0] - 2022-09-??
+
+#### Changed (BREAKING)
+- Added fields ()
 
 #### Added
-- `jpmn-test-dict-type` yomichan template marker to bottom.txt
+- Added support for showing pitch accent using only Yomichan's `pitch-accent-positions` template
+    - as well as customly from AJT Pitch accent & ways to overwrite both
+- Added fields (`PAOverride` and `PAPositions`)
+- `jpmn-test-dict-type` and `jpmn-pitch-accent-positions` yomichan template markers
+  to bottom.txt
+- Debug warning if `SentenceReading` is empty
+- Warning if `IsHoverCard` and `IsClickCard` are both filled
 
 #### Changed
 - regex options in yomichan templates to be more clear in documentation
     - added "ADD_x_DICTIONARIES_HERE" strings
+- Backend javascript to be more modulized (so far, modulized auto pitch accent and kanji hover)
 
 #### Fixed
 - `??` operator not working on legacy anki versions (changed to use `nullish` function instead)
