@@ -77,6 +77,9 @@ NOTE_CHANGES = [
             action.AddField("PAPositions", 28 - 1),
             action.MoveField("AJTWordPitch", 5 - 1),
             action.YomichanTemplatesChange(),
+            action.YomichanFormatChange(
+                "PAPositions", "(empty)", "{jpmn-pitch-accent-positions}"
+            ),
         ],
         fields=[
             "Key",
