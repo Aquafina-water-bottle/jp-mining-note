@@ -249,7 +249,8 @@ let JPMN_KanjiHover = (function () {
     let wordDiv = document.createElement('div');
     let re = / ?([^ >]+?)\[(.+?)\]/g
 
-    let wordReadingRuby = wordReading.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
+    let wordReadingRuby = wordReading.replaceAll("&nbsp;", " ");
+    wordReadingRuby = wordReadingRuby.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
     wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
 
     wordDiv.innerHTML = wordReadingRuby;
@@ -562,7 +563,8 @@ let JPMN_AutoPA = (function () {
 
     const re = / ?([^ >]+?)\[(.+?)\]/g
 
-    let result = readingStr.replace(re, "$2");
+    let result = readingStr.replaceAll("&nbsp;", " ");
+    result = readingStr.replace(re, "$2");
     //wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
 
     return result;

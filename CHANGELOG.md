@@ -35,6 +35,7 @@ signified.)
 
 #### Fixed
 - Clicking on inserted images not working
+- certain readings not converting to ruby properly due to manually inserted spaces (`&nbsp;`)
 
 
 ## [0.10.0.0] - 2022-09-04
