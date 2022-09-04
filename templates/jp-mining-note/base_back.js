@@ -924,11 +924,14 @@ let JPMN_ImgUtils = (function () {
 
   let my = {};
 
+  let modal = document.getElementById('modal');
+  let modalImg = document.getElementById("bigimg");
+
   // creates a custom image container to hold yomichan images
   function createImgContainer(imgName) {
     // creating this programmically:
     // <span class="glossary__image-container">
-    //   <a class="glossary__image-hover-text" href='javascript:;'>[Image]</a>
+    //   <a class="glossary__image-hover-text" href='javascript:;'</a>
     //   <img class="glossary__image-hover-media" src="${imgName}">
     // </span>
 
@@ -937,7 +940,7 @@ let JPMN_ImgUtils = (function () {
 
     let defAnc = document.createElement('a');
     defAnc.classList.add("glossary__image-hover-text");
-    defAnc.href = "javascript:;'>[Image]";
+    defAnc.href = "javascript:;";
     defAnc.textContent = "[Image]";
 
     let defImg = document.createElement('img');
@@ -965,9 +968,6 @@ let JPMN_ImgUtils = (function () {
     // edits the display image width/height
     // makes the display image clickable to zoom
     // makes the modal clickable to un-zoom
-
-    let modal = document.getElementById('modal');
-    let modalImg = document.getElementById("bigimg");
 
     // restricting the max height of image to the definition box
     let dhLeft = document.getElementById("dh_left");

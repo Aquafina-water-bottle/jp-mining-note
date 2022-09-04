@@ -31,6 +31,11 @@ when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
 subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
+## [0.10.0.1] - 2022-09-??
+
+#### Fixed
+- Clicking on inserted images not working
+
 
 ## [0.10.0.0] - 2022-09-04
 
