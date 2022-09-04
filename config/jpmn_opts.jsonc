@@ -153,6 +153,9 @@
   // Useful for checking pitch accent, etc.
   "open-extra-info-when-new": false,
 
+  // Warn if using the `Sentence` field instead of the `SentenceReading` field
+  "no-sentence-reading-warn": false,
+
   // (Developer option) Used to show debug messages when debugging the card.
   // Use the `_debug()` function in javascript to write debug messages.
   "debug": false

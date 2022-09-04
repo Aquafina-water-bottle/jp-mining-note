@@ -892,10 +892,6 @@ let JPMN_AutoPA = (function () {
 
   // main function
   function addPosition() {
-    if (!{{ utils.opt("auto-select-pitch-accent", "enabled") }}) {
-      return;
-    }
-
     // priority:
     // - PA Override number
     // - PA Override raw text
@@ -973,6 +969,14 @@ if (tags.includes("leech")) {
 logger.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
 /// {% endcall %}
 /// {% endcall %}
+
+
+/// {% call IFNOT("SentenceReading") %}
+if ({{ utils.opt("no-sentence-reading-warn") }}) {
+  logger.warn("`SentenceReading` is not filled out. Using `Sentence` field instead.");
+}
+/// {% endcall %}
+
 
 // option taken care of in the function itself
 openExtraInfoIfNew();
@@ -1081,8 +1085,11 @@ if ({{ utils.opt("kanji-hover", "enabled") }}) {
   }
 }
 
+if ({{ utils.opt("auto-select-pitch-accent", "enabled") }}) {
+  JPMN_AutoPA.run();
+}
 
-JPMN_AutoPA.run();
+
 
 
 //_debug(document.documentElement.innerHTML);
