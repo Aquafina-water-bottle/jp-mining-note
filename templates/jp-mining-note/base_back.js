@@ -652,11 +652,12 @@ let JPMN_AutoPA = (function () {
 
 
   const LONG_VOWEL_MARKER_TO_VOWEL = {
-    "ナタサカワラヤマハャパバダザガ": "ア",
-    "ニチシキリミヒピビヂジギ":       "イ",
-    "ヌツスクルユムフュプブヅズグ":   "ウ",
-    "ネテセケレメヘペベデゼゲ":       "イ", // "エ",
-    "ノトソコヲロヨモホョポボドゾゴ": "ウ", // "オ",
+    "アナタサカワラヤマハャパバダザガ": "ア",
+    "イニチシキリミヒピビヂジギ":       "イ",
+    "ウヌツスクルユムフュプブヅズグ":   "ウ",
+    "エネテセケレメヘペベデゼゲ":       "イ", // "エ",
+    "ノトソコヲロヨモホョポボドゾゴ":   "ウ", // "オ",
+    "オ": "オ", // "オ",
   }
 
   function normalizeAJTHTML() {
@@ -705,7 +706,7 @@ let JPMN_AutoPA = (function () {
           }
 
           if (!found) {
-            _debug(`(JPMN_AutoPA) Cannot find replacement! ${first} ${second} ${searchStr}`);
+            _debug(`(JPMN_AutoPA) Cannot find replacement! ${first} ${second}`);
           }
         }
       }
