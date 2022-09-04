@@ -1,4 +1,4 @@
-(WIP, OUTDATED)
+(OUTDATED!!!)
 
 # Anki Field Reference
 The following table provides a quick reference of what each field does.
