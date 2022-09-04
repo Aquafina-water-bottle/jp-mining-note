@@ -506,7 +506,6 @@ let JPMN_KanjiHover = (function () {
 //  PA positions
 // ==============
 
-// TODO put everything else in modules!
 let JPMN_PAPositions = (function () {
 
   let my = {};
@@ -601,120 +600,28 @@ let JPMN_PAPositions = (function () {
     return result;
   }
 
-  function hiraganaAndKatakana(obj) {
-    if (Array.isArray(obj)) {
-      result = obj.slice(); // shallow copy
-      for (let i = 0; i < result.length; i++) {
-        result[i] = convertHiraganaToKatakana(result[i]);
+  const EXTENDED_VOWELS = {
+    "ア": "ナタサカワラヤマハャパバダザガ",
+    "イ": "ニチシキリミヒピビヂジギ" + "ネテセケレメヘペベデゼゲ",
+    "ウ": "ヌツスクルユムフュプブヅズグ" + "ノトソコヲロヨモホョポボドゾゴ",
+    "エ": "ネテセケレメヘペベデゼゲ",
+    "オ": "ノトソコヲロヨモホョポボドゾゴ",
+  };
+
+  // function name gore :sob:
+  function convertHiraganaToKatakanaWithLongVowelMarks(reading) {
+    // converts to katakana and changes vowels to extended vowel form
+    let katakana = convertHiraganaToKatakana(reading);
+    let result = [...katakana];
+
+    for (let i = 1; i < result.length; i++) {
+      if (result[i] in EXTENDED_VOWELS && EXTENDED_VOWELS[result[i]].includes(result[i-1])) {
+        result[i] = "ー";
       }
-      return obj + result;
     }
 
-    return obj + convertHiraganaToKatakana(obj);
+    return result.join("");
   }
-
-  // returns list of indices that contain devoiced mora
-  //function getDevoiced(moras) {
-  //  let result = [];
-
-  //  // NOTE: doesn't look for katakana atm
-  //  // ぷ, ぴ apparently has some?
-  //  // ぷ: 潜伏
-  //  // ぴ: 鉛筆
-  //  // ぶ, づ, ず, ぐ, ぢ, じ have none it seems
-  //  // don't know any other Xゅ mora other than しゅ
-  //  let devoiced = hiraganaAndKatakana([..."つすくふぷちしきひぴ"] + ["しゅ"]);
-  //  let devoicedAfter = hiraganaAndKatakana("かきくけこさしすせそたちつてとはひふへほぱぴぷぺぽ");
-  //  let exceptions = hiraganaAndKatakana(["すし"]);
-
-  //  // 祝福 should be [しゅ]く[ふ]く
-
-  //  let i = 0;
-  //  while (i < moras.length-1) {
-  //    if (
-  //      moras[i+1] === "っ"
-  //        && devoiced.includes(moras[i])
-  //        && devoicedAfter.includes(moras[i+2])
-  //        && !exceptions.includes(moras[i] + moras[i+2])
-  //      ) {
-  //      result.push(i);
-
-  //      // skips past the next one because you can't string two devoiced mora together
-  //      i += 3;
-
-  //    } else if (
-  //        devoiced.includes(moras[i])
-  //        && devoicedAfter.includes(moras[i+1])
-  //        && !exceptions.includes(moras[i] + moras[i+1])
-  //      ) {
-  //      result.push(i);
-
-  //      // skips past the next one because you can't string two devoiced mora together
-  //      i += 2;
-
-  //    } else {
-  //      i++;
-  //    }
-  //  }
-
-  //  return result;
-  //}
-
-  function convertDevoiced(mora) {
-    return `<span class="nopron">${mora}</span>`
-  }
-
-  //function getNasal(moras) {
-  //  const searchKana = "がぎぐげごガギグゲゴ";
-
-  //  let result = []
-
-  //  let i = 1;
-  //  while (i < moras.length) {
-  //    if (searchKana.includes(moras[i])) {
-  //      result.push(i);
-  //    }
-  //    i++;
-  //  }
-
-  //  return result;
-  //}
-
-  const NASAL_SEARCH_KANA  = [..."がぎぐげごガギグゲゴ"];
-  const NASAL_REPLACE_KANA = "かきくけこカキクケコ";
-
-  function convertNasal(mora) {
-
-    let i = NASAL_SEARCH_KANA.indexOf(mora)
-    let result = NASAL_REPLACE_KANA[i];
-
-    return `${result}<span class="nasal">°</span>`
-  }
-
-
-  //const EXTENDED_VOWELS = {
-  //  "ア": "ナタサカワラヤマハャパバダザガ",
-  //  "イ": "ニチシキリミヒピビヂジギ" + "ネテセケレメヘペベデゼゲ",
-  //  "ウ": "ヌツスクルユムフュプブヅズグ" + "ノトソコヲロヨモホョポボドゾゴ",
-  //  "エ": "ネテセケレメヘペベデゼゲ",
-  //  "オ": "ノトソコヲロヨモホョポボドゾゴ",
-  //};
-
-  //function normalizeReading(reading) {
-  //  // converts to katakana and changes vowels to extended vowel form
-  //  let katakana = convertHiraganaToKatakana(reading);
-  //  let result = [...katakana];
-
-  //  for (let i = 1; i < result.length; i++) {
-  //    // EXTENDED_VOWELS[result[i]].includes(result[i+1])
-  //    // result[i+1] in EXTENDED_VOWELS[result[i]]
-  //    if (result[i] in EXTENDED_VOWELS && EXTENDED_VOWELS[result[i]].includes(result[i-1])) {
-  //      result[i] = "ー";
-  //    }
-  //  }
-
-  //  return result.join("");
-  //}
 
 
   function getMoras(readingKana) {
@@ -806,7 +713,8 @@ let JPMN_PAPositions = (function () {
   }
 
 
-  function getAJTWord(normalizedReading) {
+  function getAJTWord(hiraganaReading) {
+    const normalizedReading = convertHiraganaToKatakana(hiraganaReading);
     // grabs the raw html split between the ・ characters
     // ASSUMPTION: no html element is split between the ・ characters
     // (apart from <b>, which are ignored)
@@ -872,7 +780,24 @@ let JPMN_PAPositions = (function () {
     // creates the span to show the pitch accent overline
     // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
 
-    const normalizedReading = convertHiraganaToKatakana(readingKana);
+    let normalizedReading = null;
+    switch ({{ utils.opt("auto-pitch-accent", "reading-display-mode") }}) {
+      case 0:
+        normalizedReading = readingKana;
+        break;
+
+      case 1:
+        normalizedReading = convertHiraganaToKatakana(readingKana);
+        break;
+
+      case 2:
+        normalizedReading = convertHiraganaToKatakanaWithLongVowelMarks(readingKana);
+        break;
+
+      default:
+        throw 'Invalid option for auto-pitch-accent.reading-display-mode';
+    }
+
     const moras = getMoras(normalizedReading);
     _debug(`(JPMN_PAPositions) Moras: ${normalizedReading} -> ${moras.join(", ")}`);
     if (moras.length === 0) {
@@ -885,7 +810,7 @@ let JPMN_PAPositions = (function () {
       return readingKana;
     }
 
-    const ajtWord = getAJTWord(normalizedReading);
+    const ajtWord = getAJTWord(readingKana);
 
     let result = [];
 
@@ -927,7 +852,12 @@ let JPMN_PAPositions = (function () {
           //for (c of x.data) {
           //  result.push(c);
           //}
-        } else { // assumption: span
+        } else if (x.nodeName === "SPAN" && x.classList.contains("nasal")) {
+          // assumption: there already exists at least one element before
+          // (the nasal marker can't come by itself)
+          result[result.length-1] = result[result.length-1] + x.outerHTML;
+        } else {
+          // assumption: this is the nopron span
           result.push(x.outerHTML);
         }
       }
