@@ -774,7 +774,7 @@ let JPMN_PAPositions = (function () {
     let second = null;
 
     for (const [i, c] of result.entries()) {
-      if (isCodePointInRange(c, KATAKANA_RANGE)) {
+      if (isCodePointInRange(c.codePointAt(0), KATAKANA_RANGE)) {
         if (first === null) {
           first = c;
         } else if (second === null) {
@@ -787,7 +787,7 @@ let JPMN_PAPositions = (function () {
 
         if (first !== null && second !== null && second === "ー") {
           let found = false;
-          for (const [searchStr, vowel] of LONG_VOWEL_MARKER_TO_VOWEL.entries()) {
+          for (const [searchStr, vowel] of Object.entries(LONG_VOWEL_MARKER_TO_VOWEL)) {
             if (searchStr.includes(first)) {
               result[i] = vowel;
               found = true;
@@ -818,9 +818,11 @@ let JPMN_PAPositions = (function () {
 
     // normalizes the ajt search string
     const ajtHTML = normalizeAJTHTML();
+    //_debug(`ajt html: ${ajtHTML}`)
+
+    // temp used for innerText
     let temp = document.createElement("div");
     temp.innerHTML = ajtHTML;
-
     const searchString = temp.innerText;
     const wordSearch = searchString.split("・");
     const idx = wordSearch.indexOf(normalizedReading)
@@ -843,7 +845,7 @@ let JPMN_PAPositions = (function () {
         currentWord += 1;
 
         if (currentWord === idx) {
-          startIdx = i;
+          startIdx = i+1;
         } else if (currentWord === idx+1) {
           endIdx = i;
           break
@@ -870,11 +872,9 @@ let JPMN_PAPositions = (function () {
     // creates the span to show the pitch accent overline
     // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
 
-    //const normalizedReading = normalizeReading(readingKana);
-    //const moras = getMoras(normalizedReading);
     const normalizedReading = convertHiraganaToKatakana(readingKana);
     const moras = getMoras(normalizedReading);
-    _debug(`(JPMN_PAPositions) moras: ${normalizedReading} -> ${moras.join(", ")}`);
+    _debug(`(JPMN_PAPositions) Moras: ${normalizedReading} -> ${moras.join(", ")}`);
     if (moras.length === 0) {
       _debug("(JPMN_PAPositions) Reading has length of 0?");
       return;
@@ -885,16 +885,12 @@ let JPMN_PAPositions = (function () {
       return readingKana;
     }
 
-    const startOverline = '<span class="pitchoverline">';
-    const stopOverline = `</span>`;
-    const downstep = '<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';
-
     const ajtWord = getAJTWord(normalizedReading);
 
     let result = [];
 
     if (ajtWord !== null) {
-      //let result = document.createElement("span");
+      _debug("(JPMN_PAPositions) Using AJT Word");
       let temp = document.createElement("div");
       let temp2 = document.createElement("div");
       temp.innerHTML = ajtWord;
@@ -923,60 +919,28 @@ let JPMN_PAPositions = (function () {
         );
       }
 
-      // ASSUMPTION: moras are not split between span boundaries
-      // ASSUMPTION 2: non #text elements contain exactly 1 mora
-
-      //let insertIndexElements = {};
-      //if (pos === 0) {
-      //  insertIndexElements[1] = startOverline;
-      //  insertIndexElements[-1] = stopOverline;
-      //} else if (pos === 1) {
-      //  // start overline starts at the very beginning
-      //  insertIndexElements[pos] = stopOverline + downstep;
-      //  insertIndexElements[0] = startOverline; // insert at the very beginning
-      //} else {
-      //  // start overline starts over the 2nd mora
-      //  insertIndexElements[pos] = stopOverline + downstep;
-      //  insertIndexElements[1] = startOverline; // insert at the very beginning
-      //}
-
-
       for (let x of temp2.childNodes) {
         if (x.nodeName === "#text") {
-          for (c of x.data) {
-            result.push(c);
-          }
+          let moras = getMoras(x.data);
+          result = result.concat(moras);
+          //_debug(`moras: ${moras.join(", ")}`);
+          //for (c of x.data) {
+          //  result.push(c);
+          //}
         } else { // assumption: span
           result.push(x.outerHTML);
         }
       }
+      //_debug(`result: ${result.join(", ")}`);
 
-      //_debug(resultHTML);
-
-      // finally adds pitch accent!
-      //if (pos === 0) {
-      //}
-
-      //result.innerHTML = temp2.innerHTML;
-
-
-      //return resultHTML;
-
-      // TODO devoiced & nasal
-      //const devoicedIndices = getDevoiced(moras);
-      //const nasalIndices = getNasal(moras);
-      //_debug(`(JPMN_PAPositions) devoiced: ${devoicedIndices.join(", ")}`);
-      //_debug(`(JPMN_PAPositions) nasal: ${nasalIndices.join(", ")}`);
-      //for (const i of nasalIndices) {
-      //  result[i] = convertNasal(result[i]);
-      //}
-      //for (const i of devoicedIndices) {
-      //  result[i] = convertDevoiced(result[i]);
-      //}
     } else {
       result = moras.slice(); // shallow copy
     }
 
+
+    const startOverline = '<span class="pitchoverline">';
+    const stopOverline = `</span>`;
+    const downstep = '<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';
 
     if (pos === 0) {
       result.splice(1, 0, startOverline); // insert at index 1
@@ -992,11 +956,7 @@ let JPMN_PAPositions = (function () {
     }
 
     result = result.join("");
-    //return convertHiraganaToKatakana(result);
     return result;
-
-    //}
-
 
   }
 
