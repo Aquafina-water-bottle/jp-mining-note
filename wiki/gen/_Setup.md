@@ -116,7 +116,7 @@ Please disable them and restart Anki before continuing.
 To download all the required add-ons, copy and paste the following numbers into the Add-ons window.
 (`Tools` →  `Add-ons` →  `Get Add-ons...`)
 ```
-1344485230 1225470483 2055492159 181103283
+2055492159 181103283
 ```
 
 [[assets/anki/addons_install.png]]
@@ -132,10 +132,95 @@ After installing the add-ons, you will have to change the configs of the add-ons
 to work with this note type.
 Continue reading to see the required config changes.
 
+
+#### AnkiConnect
+[(Link)](https://ankiweb.net/shared/info/2055492159)
+Required for Yomichan and most other Anki-related automated tasks to work.
+I use the default config that comes with the add-on.
+
+<br>
+
+#### CSS Injector
+[(Link)](https://ankiweb.net/shared/info/181103283)
+This add-on is not strictly necessary.
+However, if you don't use this, the fields within the Anki field editor
+won't have certain stylizations that makes the field actually interpretable,
+so I *strongly* recommend using this.
+
+[[assets/css_injector.png]]
+
+There are two ways of using css injector with this note type:
+
+##### (1) Automatically updates with the card (recommended)
+As a preliminary step, you will have to remove the empty `field.css` file
+that comes with the add-on.
+That can be done through command line (below), or you can simply navigate to the
+`Anki2/addons21/181103283/user_files` folder and delete `field.css`.
+
+```
+# windows command
+# be sure to change USERNAME to your computer username!
+del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+
+# mac command
+rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+
+# linux command
+rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+```
+
+For **Windows** users, run these two commands in command prompt with elevated permissions
+(be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile):
+
+```
+mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+```
+* **Note**: <br>
+  There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
+  Make sure to replace all the fields!
+
+* **Note**: <br>
+  If you've never used command prompt before, check
+  [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
+
+
+For **Mac** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
+```
+ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+```
+
+For **Linux** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
+
+```
+ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+```
+
+##### (2) Manually without respecting updates:
+1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
+2. Remove the existing `field.css` file
+3. Manually copy the `_field.css` file (found under your profile's `media` directory)
+   into the css injector add-on directory
+4. Rename `_field.css` into `field.css`.
+
+* **Note**: <br>
+  If the `_field.css` file ever updates, you will have to manually copy and rename the file again
+  into the correct position.
+
+
+
+## Optional Add-ons
+These are a set of optional, but useful add-ons that can easily work with the card.
+
+
 #### AJT Furigana
-[(Link)](https://ankiweb.net/shared/info/1344485230)
+Code: `1344485230` <br>
+[Link](https://ankiweb.net/shared/info/1344485230)
+
 Alternative and up-to-date version of JapaneseSupport.
-Automatically generates furigana upon yomichan card creation.
+Automatically generates furigana upon Yomichan card creation.
+
+This add-on is optional, because the card will simply show the sentence without
+furigana if there is no furigana generated sentence.
 
 * **Note**: <br>
   Furigana generation is occasionally incorrect,
@@ -196,14 +281,24 @@ To explain the changes:
 <br>
 
 #### AJT Pitch Accent
-[(Link)](https://ankiweb.net/shared/info/1225470483)
+Code: `1225470483` <br>
+[Link](https://ankiweb.net/shared/info/1225470483)
+
 Automatically adds pitch accent info given the word.
 
+For the purposes of the card,
+the only purpose that this add-on serves is the following:
+- Adds devoiced and nasal information to the existing reading.
+- If your Yomichan pitch accent dictionary did not contain the info, but the add-on does,
+  then it will use the add-on data.
+
+
+<!--
 * **Note**: <br>
   Although I have a field for Yomichan to import the pitch accent graph (`PAGraphs`), I primarily use the
   pitch accent info generated from this add-on because I personally find it easier to edit.
-  You can read more about editing pitch accent in the [usage page](setup#modifying-pitch-accent).
-
+  You can read more about editing pitch accent in the [usage page](usage#modifying-pitch-accent).
+-->
 
 **Config Changes**: <br>
 The important things to change in the config are `generate_on_note_add`,
@@ -214,7 +309,7 @@ The important things to change in the config are `generate_on_note_add`,
 
     {
         "destination_fields": [
-            "WordPitch"
+            "AJTWordPitch"
         ],
         "generate_on_note_add": true,
         "kana_lookups": true,
@@ -247,81 +342,8 @@ To explain the changes:
 <br>
 
 
-#### AnkiConnect
-[(Link)](https://ankiweb.net/shared/info/2055492159)
-Required for Yomichan and most other Anki-related automated tasks to work.
-I use the default config that comes with the add-on.
 
-<br>
-
-#### CSS Injector
-[(Link)](https://ankiweb.net/shared/info/181103283)
-This add-on is not strictly necessary.
-However, if you don't use this, the fields within the Anki field editor
-won't have certain stylizations that makes the field actually interpretable,
-so I *strongly* recommend using this.
-
-[[assets/css_injector.png]]
-
-There are two ways of using css injector with this note type:
-
-##### (1) Automatically updates with the card (recommended)
-As a preliminary step, you will have to remove the empty `field.css` file
-that comes with the add-on.
-That can be done through command line (below), or you can simply navigate to the
-`Anki2/addons21/181103283/user_files` folder and delete `field.css`.
-
-```
-# windows command
-# be sure to change USERNAME to your computer username!
-rm "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
-
-# mac command
-rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-
-# linux command
-rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-```
-
-For **Windows** users, run these two commands in command prompt with elevated permissions
-(be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile):
-
-```
-mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
-```
-* **Note**: <br>
-  There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
-  Make sure to replace all the fields!
-
-* **Note**: <br>
-  If you've never used command prompt before, check
-  [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
-
-
-For **Mac** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
-```
-ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-```
-
-For **Linux** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
-
-```
-ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-```
-
-##### (2) Manually without respecting updates:
-1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
-2. Remove the existing `field.css` file
-3. Manually copy the `_field.css` file (found under your profile's `media` directory)
-   into the css injector add-on directory
-4. Rename `_field.css` into `field.css`.
-
-* **Note**: <br>
-  If the `_field.css` file ever updates, you will have to manually copy and rename the file again
-  into the correct position.
-
-
-#### Final Steps
+## Final Steps
 After the above setup, **make sure to restart Anki** for the add-ons and config changes to take effect.
 If the css injector add-on is installed correctly, your Anki field editor should now have color!
 
@@ -344,7 +366,7 @@ please see [this page](importing).
 If you wish to update the note, follow the steps in [this page](updating).
 
 Be assured that this note doesn't auto-update,
-and the only way to update the note is through user action.
+and you have to manually update the note if you want it to update.
 
 
 <br>

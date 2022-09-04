@@ -38,7 +38,7 @@ for additional information.-->
 **PA:** Short for "Pitch Accent".
 
 
-# User Interface Summary
+# User Interface
 Most of the user interface is already shown off in the video demo in the README,
 and I would recommend watching it before continuing.
 However, to dispell any mysteries, here is a fully annotated summary of the user interface.
@@ -132,6 +132,13 @@ official anki addon page as specified
 [here](https://ankiweb.net/shared/info/1225470483).
 
 
+## Images
+TODO non bullet point
+
+- click to zoom (the obvious feature)
+- yomichan inserted images + user inserted images get changed to be similar to how yomichan displays images
+- TODO gif
+
 
 # Modifying the Front Side (Tested Content)
 The front side is exactly the content that we want to test ourselves on.
@@ -215,7 +222,8 @@ If you do not want the hint to be hidden by default, you can use the `HintNotHid
 
 
 # Modifying the Back Side
-Not much has to be said about modifying the back side of the card.
+Not much has to be said about modifying the back side of the card,
+outside of modifying pitch accent.
 
 * The `PrimaryDefinition` field contains the main content, and should be the main field to edit
 if one wants to put down more notes about the card.
@@ -231,6 +239,59 @@ and other notes that aren't completely crutial to understanding the tested conte
   to make the bold stand out more.
 
 [[assets/nisemono_modify_back_side.png]]
+
+
+## Modifying Pitch Accent
+
+TODO update
+- primary field to edit is `PAOverride`
+- takes in the inputs:
+    - number (position), or
+    - text: whatever you want it to show
+- for most people, the number will suffice
+- TODO gif
+
+
+#### Auto Selected Pitch Accent
+- TODO details on exactly how the displayed pitch accent is displayed
+
+priority:
+- PA Override number
+- PA Override raw text
+- PA Positions
+- AJT Word Pitch
+
+if module disabled:
+- only shows AJT Word Pitch
+
+
+#### Pitch Accent Styling Details
+- TODO outdated
+- TODO only if you care about the exact text value
+- TODO what bold does
+
+
+Editing the content in `WordPitch` requires some special attention.
+To preserve the style and get expected results, you must use `Ctrl + Shift + x` when editing the field,
+and edit the html tags directly. Use other cards as examples of what the html should look like.
+
+TODO more details + example (華)
+- TODO replace with positions :eyes:
+
+example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
+```html
+チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span><span class="nopron">ク</span>セイ<b>・チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span><span class="nopron">ク</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セイ</b>
+```
+
+
+The `WordPitch` field may have more than one pitch accent for a given word.
+To choose which pitch accent is correct to the sentence,
+one can bold the unused pitch accents to grey them out.
+
+
+| [[assets/bold_pa.png]] |
+|:--:|
+| The section on the left is bolded to grey it out. |
 
 
 
@@ -341,29 +402,6 @@ To clarify some of the above:
 * If a PA word card is created, then the default card does not test pitch accent.
   Similarly, if a PA sentence card is created, then the default card only tests the word pitch accent.
 
-
-## Modifying Pitch Accent
-Editing the content in `WordPitch` requires some special attention.
-To preserve the style and get expected results, you must use `Ctrl + Shift + x` when editing the field,
-and edit the html tags directly. Use other cards as examples of what the html should look like.
-
-TODO more details + example (華)
-- TODO replace with positions :eyes:
-
-example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
-```html
-チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span><span class="nopron">ク</span>セイ<b>・チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span><span class="nopron">ク</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セイ</b>
-```
-
-
-The `WordPitch` field may have more than one pitch accent for a given word.
-To choose which pitch accent is correct to the sentence,
-one can bold the unused pitch accents to grey them out.
-
-
-| [[assets/bold_pa.png]] |
-|:--:|
-| The section on the left is bolded to grey it out. |
 
 
 ## Modifying Pitch Accent Sentence Cards
