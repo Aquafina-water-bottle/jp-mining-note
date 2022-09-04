@@ -134,16 +134,14 @@ Continue reading to see the required config changes.
 
 
 #### Anki-Connect
-Code: `2055492159` <br>
-[(Link)](https://ankiweb.net/shared/info/2055492159)
+[(Official page)](https://ankiweb.net/shared/info/2055492159) Code: `2055492159` <br>
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the add-on.
 
 <br>
 
 #### CSS Injector
-Code: `181103283` <br>
-[(Link)](https://ankiweb.net/shared/info/181103283)
+[(Official page)](https://ankiweb.net/shared/info/181103283) Code: `181103283` <br>
 This add-on is not strictly necessary.
 However, if you don't use this, the fields within the Anki field editor
 won't have certain stylizations that makes the field actually interpretable,
@@ -215,8 +213,7 @@ These are a set of optional, but useful add-ons that can easily work with the ca
 
 
 #### AJT Furigana
-Code: `1344485230` <br>
-[(link)](https://ankiweb.net/shared/info/1344485230)
+[(Official page)](https://ankiweb.net/shared/info/1344485230) Code: `1344485230` <br>
 Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon Yomichan card creation.
 
@@ -284,8 +281,7 @@ To explain the changes:
 <br>
 
 #### AJT Pitch Accent
-Code: `1225470483` <br>
-[(link)](https://ankiweb.net/shared/info/1225470483)
+[(Official page)](https://ankiweb.net/shared/info/1225470483) Code: `1225470483` <br>
 Automatically adds pitch accent info given the word.
 
 For the purposes of the card,
