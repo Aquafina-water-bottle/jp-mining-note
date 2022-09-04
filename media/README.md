@@ -7,7 +7,6 @@ To download the most recent files:
     - Download the bold and regular font files
 
 - Serif font:
-    - https://okoneya.jp/font/download.html
-    - Download 源暎こぶり明朝
-
+    - https://github.com/googlefonts/noto-cjk/tree/main/Serif/OTF/Japanese
+    - Download the bold and regular font files
 
