@@ -411,7 +411,8 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 | Key | `{expression}` |
 | Word | `{expression}` |
 | WordReading | `{furigana-plain}` |
-| WordPitch |  |
+| PAOverride |  |
+| AJTWordPitch |  |
 | PrimaryDefinition | `{jpmn-primary-definition}` |
 | Sentence | `{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}` |
 | SentenceReading |  |
@@ -434,6 +435,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 | WordAudio | `{audio}` |
 | SentenceAudio |  |
 | PAGraphs | `{jpmn-pitch-accent-graphs}` |
+| PAPositions | `{jpmn-pitch-accent-positions}` |
 | PASilence | `[sound:_silence.wav]` |
 | FrequenciesStylized | `{jpmn-frequencies}` |
 | FrequencySort | `{jpmn-min-freq}` |

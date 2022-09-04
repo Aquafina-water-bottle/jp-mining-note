@@ -25,7 +25,12 @@ FIELDS = {
         "anime_cards_import": "Reading",
     },
 
-    "WordPitch": {
+    "PAOverride": {
+        "auto_fill": False,
+        "customize": False,
+    },
+
+    "AJTWordPitch": {
         "auto_fill": True,
         "customize": False,
     },
@@ -151,6 +156,12 @@ FIELDS = {
         "customize": False,
         "setup": "{jpmn-pitch-accent-graphs}",
         "anime_cards_import": "Graph",
+    },
+
+    "PAPositions": {
+        "auto_fill": True,
+        "customize": False,
+        "setup": "{jpmn-pitch-accent-positions}",
     },
 
     "PASilence": {

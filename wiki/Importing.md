@@ -86,7 +86,8 @@ Here is an example with [Anime cards](https://animecards.site/ankicards/):
 | Key | front |
 | Word | front |
 | WordReading | Reading |
-| WordPitch |  |
+| PAOverride |  |
+| AJTWordPitch |  |
 | PrimaryDefinition | Glossary |
 | Sentence |  |
 | SentenceReading |  |
@@ -109,6 +110,7 @@ Here is an example with [Anime cards](https://animecards.site/ankicards/):
 | WordAudio | WordAudio |
 | SentenceAudio | SentenceAudio |
 | PAGraphs | Graph |
+| PAPositions |  |
 | PASilence |  |
 | FrequenciesStylized |  |
 | FrequencySort |  |
