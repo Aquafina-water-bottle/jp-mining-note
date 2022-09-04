@@ -147,6 +147,11 @@ function invoke(action, params={}) {
 }
 
 
+
+const HIRAGANA_CONVERSION_RANGE = [0x3041, 0x3096];
+const KATAKANA_CONVERSION_RANGE = [0x30a1, 0x30f6];
+const KATAKANA_RANGE = [0x30a0, 0x30ff];
+
 // copied/pasted directly from yomichan
 // https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
 // I have no idea what is going on tbh but it seems to work
@@ -155,9 +160,6 @@ function isCodePointInRange(codePoint, [min, max]) {
 }
 
 function convertHiraganaToKatakana(text) {
-  const HIRAGANA_CONVERSION_RANGE = [0x3041, 0x3096];
-  const KATAKANA_CONVERSION_RANGE = [0x30a1, 0x30f6];
-
   let result = '';
   const offset = (KATAKANA_CONVERSION_RANGE[0] - HIRAGANA_CONVERSION_RANGE[0]);
   for (let char of text) {
@@ -678,28 +680,47 @@ let JPMN_PAPositions = (function () {
   //  return result;
   //}
 
-  function convertNasal(mora) {
-    const searchKana  = [..."がぎぐげごガギグゲゴ"];
-    const replaceKana = "かきくけこカキクケコ";
+  const NASAL_SEARCH_KANA  = [..."がぎぐげごガギグゲゴ"];
+  const NASAL_REPLACE_KANA = "かきくけこカキクケコ";
 
-    let i = searchKana.indexOf(mora)
-    let result = replaceKana[i];
+  function convertNasal(mora) {
+
+    let i = NASAL_SEARCH_KANA.indexOf(mora)
+    let result = NASAL_REPLACE_KANA[i];
 
     return `${result}<span class="nasal">°</span>`
   }
 
 
-  function buildReadingSpan(pos, readingKana) {
-    // creates the span to show the pitch accent overline
-    // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
+  //const EXTENDED_VOWELS = {
+  //  "ア": "ナタサカワラヤマハャパバダザガ",
+  //  "イ": "ニチシキリミヒピビヂジギ" + "ネテセケレメヘペベデゼゲ",
+  //  "ウ": "ヌツスクルユムフュプブヅズグ" + "ノトソコヲロヨモホョポボドゾゴ",
+  //  "エ": "ネテセケレメヘペベデゼゲ",
+  //  "オ": "ノトソコヲロヨモホョポボドゾゴ",
+  //};
 
+  //function normalizeReading(reading) {
+  //  // converts to katakana and changes vowels to extended vowel form
+  //  let katakana = convertHiraganaToKatakana(reading);
+  //  let result = [...katakana];
+
+  //  for (let i = 1; i < result.length; i++) {
+  //    // EXTENDED_VOWELS[result[i]].includes(result[i+1])
+  //    // result[i+1] in EXTENDED_VOWELS[result[i]]
+  //    if (result[i] in EXTENDED_VOWELS && EXTENDED_VOWELS[result[i]].includes(result[i-1])) {
+  //      result[i] = "ー";
+  //    }
+  //  }
+
+  //  return result.join("");
+  //}
+
+
+  function getMoras(readingKana) {
     // creates div
     const ignoredKana = "ょゅゃョュャ";
     const len = [...readingKana].length;
-    if (len === 0) {
-      _debug("(JPMN_PAPositions) Reading has length of 0?");
-      return;
-    }
 
     // I think the plural of mora is mora, but oh well
     let moras = [];
@@ -717,30 +738,245 @@ let JPMN_PAPositions = (function () {
       currentPos++;
     }
 
-    _debug(`(JPMN_PAPositions) moras: ${moras.join(", ")}`);
+    return moras;
+  }
+
+
+  const LONG_VOWEL_MARKER_TO_VOWEL = {
+    "ナタサカワラヤマハャパバダザガ": "ア",
+    "ニチシキリミヒピビヂジギ":       "イ",
+    "ヌツスクルユムフュプブヅズグ":   "ウ",
+    "ネテセケレメヘペベデゼゲ":       "イ", // "エ",
+    "ノトソコヲロヨモホョポボドゾゴ": "ウ", // "オ",
+  }
+
+  function normalizeAJTHTML() {
+    // replaces all long katakana markers with the respective normal katakana symbol
+    // also removes all ꜜ (remember that we can search for downsteps from the now empty div)
+
+    let result = eleAJT.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+
+    // replaces all nasal entries
+    if (result.includes("nasal")) {
+      const unmarked = "カキクケコ";
+      const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
+
+      for (let i = 0; i < 5; i++) {
+        result = result.replace(RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
+      }
+    }
+    logger.assert(!result.includes("nasal"));
+
+    result = [...result];
+
+
+    let first = null;
+    let second = null;
+
+    for (const [i, c] of result.entries()) {
+      if (isCodePointInRange(c, KATAKANA_RANGE)) {
+        if (first === null) {
+          first = c;
+        } else if (second === null) {
+          second = c;
+        } else {
+          // pushes back
+          first = second;
+          second = c;
+        }
+
+        if (first !== null && second !== null && second === "ー") {
+          let found = false;
+          for (const [searchStr, vowel] of LONG_VOWEL_MARKER_TO_VOWEL.entries()) {
+            if (searchStr.includes(first)) {
+              result[i] = vowel;
+              found = true;
+              break;
+            }
+          }
+
+          if (!found) {
+            _debug(`Cannot find replacement! ${first} ${second} ${searchStr}`);
+          }
+        }
+      }
+    }
+
+    return result.join("");
+  }
+
+
+  function getAJTWord(normalizedReading) {
+    // grabs the raw html split between the ・ characters
+    // ASSUMPTION: no html element is split between the ・ characters
+    // (apart from <b>, which are ignored)
+
+    if (eleAJT.innerHTML.length === 0) {
+      _debug(`(JPMN_PAPositions) ajt word: empty field`);
+      return null;
+    }
+
+    // normalizes the ajt search string
+    const ajtHTML = normalizeAJTHTML();
+    let temp = document.createElement("div");
+    temp.innerHTML = ajtHTML;
+
+    const searchString = temp.innerText;
+    const wordSearch = searchString.split("・");
+    const idx = wordSearch.indexOf(normalizedReading)
+
+    if (idx === -1) {
+      _debug(`(JPMN_PAPositions) ajt word: ${normalizedReading} not found among [${wordSearch.join(", ")}]`);
+      return null;
+    }
+
+    if (wordSearch.length === 1) {
+      return eleAJT.innerHTML;
+    }
+
+    // otherwise searches on the raw html
+    let startIdx = 0;
+    let endIdx = 0;
+    let currentWord = 0;
+    for (const [i, c] of [...eleAJT.innerHTML].entries()) {
+      if (c === "・") {
+        currentWord += 1;
+
+        if (currentWord === idx) {
+          startIdx = i;
+        } else if (currentWord === idx+1) {
+          endIdx = i;
+          break
+        }
+      }
+    }
+
+    if (endIdx === 0) {
+      endIdx = eleAJT.innerHTML.length
+    }
+
+    result = eleAJT.innerHTML.substring(startIdx, endIdx);
+    // removes any bold in case it messes with the formatting
+    result = result.replace(/<b>/g, "");
+    result = result.replace(/<\/b>/g, "");
+
+    //_debug(`(JPMN_PAPositions) ajt word: ${result}`);
+    _debug(`(JPMN_PAPositions) Found AJT word`);
+    return result;
+  }
+
+
+  function buildReadingSpan(pos, readingKana) {
+    // creates the span to show the pitch accent overline
+    // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
+
+    //const normalizedReading = normalizeReading(readingKana);
+    //const moras = getMoras(normalizedReading);
+    const normalizedReading = convertHiraganaToKatakana(readingKana);
+    const moras = getMoras(normalizedReading);
+    _debug(`(JPMN_PAPositions) moras: ${normalizedReading} -> ${moras.join(", ")}`);
+    if (moras.length === 0) {
+      _debug("(JPMN_PAPositions) Reading has length of 0?");
+      return;
+    }
 
     // special case: 0 and length of moras === 1 (nothing needs to be done)
     if (pos === 0 && moras.length === 1) {
       return readingKana;
     }
 
-    let result = moras.slice(); // shallow copy
     const startOverline = '<span class="pitchoverline">';
     const stopOverline = `</span>`;
     const downstep = '<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';
 
+    const ajtWord = getAJTWord(normalizedReading);
 
-    // TODO devoiced & nasal
-    //const devoicedIndices = getDevoiced(moras);
-    //const nasalIndices = getNasal(moras);
-    //_debug(`(JPMN_PAPositions) devoiced: ${devoicedIndices.join(", ")}`);
-    //_debug(`(JPMN_PAPositions) nasal: ${nasalIndices.join(", ")}`);
-    //for (const i of nasalIndices) {
-    //  result[i] = convertNasal(result[i]);
-    //}
-    //for (const i of devoicedIndices) {
-    //  result[i] = convertDevoiced(result[i]);
-    //}
+    let result = [];
+
+    if (ajtWord !== null) {
+      //let result = document.createElement("span");
+      let temp = document.createElement("div");
+      let temp2 = document.createElement("div");
+      temp.innerHTML = ajtWord;
+
+      // removes pitch accent overline and downstep
+      for (let x of temp.childNodes) {
+        if (x.nodeName === "SPAN" && x.classList.contains("pitchoverline")) {
+          for (const child of x.childNodes) {
+            temp2.appendChild(child.cloneNode(true));
+          }
+        } else if (x.nodeName === "SPAN" && x.classList.contains("downstep")) {
+          // skips
+        } else {
+          temp2.appendChild(x.cloneNode(true));
+        }
+      }
+
+      // combines the devoiced character into one mora, if it can
+      // (e.g. 神出鬼没 (しんしゅつきぼつ) only has the 2nd (し) devoiced, instead of (しゅ)
+      // シ<span class="pitchoverline">ン<span class="nopron">シ</span>ュツキボツ</span>
+      if (ajtWord.includes("nopron")) {
+        // crazy regex replace
+        temp2.innerHTML = temp2.innerHTML.replace(
+          /<span class="nopron">(.)<\/span>([ュャョ])/g,
+          '<span class="nopron">$1$2<\/span>'
+        );
+      }
+
+      // ASSUMPTION: moras are not split between span boundaries
+      // ASSUMPTION 2: non #text elements contain exactly 1 mora
+
+      //let insertIndexElements = {};
+      //if (pos === 0) {
+      //  insertIndexElements[1] = startOverline;
+      //  insertIndexElements[-1] = stopOverline;
+      //} else if (pos === 1) {
+      //  // start overline starts at the very beginning
+      //  insertIndexElements[pos] = stopOverline + downstep;
+      //  insertIndexElements[0] = startOverline; // insert at the very beginning
+      //} else {
+      //  // start overline starts over the 2nd mora
+      //  insertIndexElements[pos] = stopOverline + downstep;
+      //  insertIndexElements[1] = startOverline; // insert at the very beginning
+      //}
+
+
+      for (let x of temp2.childNodes) {
+        if (x.nodeName === "#text") {
+          for (c of x.data) {
+            result.push(c);
+          }
+        } else { // assumption: span
+          result.push(x.outerHTML);
+        }
+      }
+
+      //_debug(resultHTML);
+
+      // finally adds pitch accent!
+      //if (pos === 0) {
+      //}
+
+      //result.innerHTML = temp2.innerHTML;
+
+
+      //return resultHTML;
+
+      // TODO devoiced & nasal
+      //const devoicedIndices = getDevoiced(moras);
+      //const nasalIndices = getNasal(moras);
+      //_debug(`(JPMN_PAPositions) devoiced: ${devoicedIndices.join(", ")}`);
+      //_debug(`(JPMN_PAPositions) nasal: ${nasalIndices.join(", ")}`);
+      //for (const i of nasalIndices) {
+      //  result[i] = convertNasal(result[i]);
+      //}
+      //for (const i of devoicedIndices) {
+      //  result[i] = convertDevoiced(result[i]);
+      //}
+    } else {
+      result = moras.slice(); // shallow copy
+    }
+
 
     if (pos === 0) {
       result.splice(1, 0, startOverline); // insert at index 1
@@ -756,7 +992,11 @@ let JPMN_PAPositions = (function () {
     }
 
     result = result.join("");
-    return convertHiraganaToKatakana(result);
+    //return convertHiraganaToKatakana(result);
+    return result;
+
+    //}
+
 
   }
 
