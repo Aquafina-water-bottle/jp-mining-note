@@ -291,9 +291,8 @@ Automatically adds pitch accent info given the word.
 For the purposes of the card,
 the only purpose that this add-on serves is the following:
 - Adds devoiced and nasal information to the existing reading.
-- If your Yomichan pitch accent dictionary did not contain the info, but the add-on does,
-  then it will use the add-on data.
-
+- If your Yomichan pitch accent dictionaries did not contain any pitch accent info for the word
+  but the add-on does, then it will use the add-on data.
 
 <!--
 * **Note**: <br>

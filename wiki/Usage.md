@@ -264,6 +264,12 @@ priority:
 if module disabled:
 - only shows AJT Word Pitch
 
+reading:
+- AJT word pitch by default
+- can be changed to hiragana / katakana / katakana with long vowel marks
+- ajt word pitch is katakana with long vowel marks (most of the time)
+    - some words don't have long vowel marks (i.e. adjectives ending with 〜しい will be displayed as 〜シイ and not 〜シー)
+
 
 #### Pitch Accent Styling Details
 - TODO outdated
