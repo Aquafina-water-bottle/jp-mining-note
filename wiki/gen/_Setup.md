@@ -272,6 +272,8 @@ The important things to change in the config are `generate_on_note_add`, `fields
 
 </details>
 
+<br>
+
 To explain the changes:
 - `generate_on_note_add` ensures that the pitch accent is added upon initial note creation.
 - The change to `fields` changes the field names to match this note type.
@@ -331,6 +333,7 @@ The important things to change in the config are `generate_on_note_add`,
     }
 
 </details>
+
 <br>
 
 To explain the changes:
