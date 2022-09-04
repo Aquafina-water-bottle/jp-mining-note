@@ -35,7 +35,8 @@ signified.)
 
 #### Fixed
 - Clicking on inserted images not working
-- certain readings not converting to ruby properly due to manually inserted spaces (`&nbsp;`)
+- Certain readings not converting to ruby properly due to manually inserted spaces (`&nbsp;`)
+- Kanji Hover tooltip not having a max-width
 
 
 ## [0.10.0.0] - 2022-09-04
