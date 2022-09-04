@@ -139,6 +139,20 @@
     "reading-display-mode": 2
   },
 
+
+  "image-utilities": {
+    // HIGHLY recommend to be enabled as this doesn't take much javascript
+    // and makes things look infinitely better
+    "enabled": true,
+
+    // Replaces all images in the glossary (definition) sections
+    // with an internal representation similar to how Yomichan displays images:
+    // an `[Image]` text where you can see the image upon hover, and with click to zoom.
+    // You MAY have to disable this if you want to use the "Edit Field During Review" add-on
+    // (https://ankiweb.net/shared/info/1020366288).
+    "stylize-images-in-glossary": true
+  },
+
   // Overrides the play keybind button to show the sentence if the
   // card is a hybrid sentence AND the sentence is not currently being shown.
   // Only affects the front side.

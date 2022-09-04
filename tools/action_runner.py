@@ -386,9 +386,10 @@ class ActionRunner:
 
 
     def post_message(self):
-        print()
-        print("Make sure you don't forget to do the following actions afterwards:")
-        print(self.get_user_actions_desc())
+        if self.requires_user_action:
+            print()
+            print("Make sure you don't forget to do the following actions afterwards:")
+            print(self.get_user_actions_desc())
 
         # for action in self.actions:
         #    print(f"Running action {action}...")

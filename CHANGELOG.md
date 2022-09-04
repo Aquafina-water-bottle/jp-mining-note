@@ -32,10 +32,12 @@ subsequent bumps are when the card has changed enough that a bump should be
 signified.)
 
 
-## [0.10.0.0] - 2022-09-??
+## [0.10.0.0] - 2022-09-04
 
 #### Changed (BREAKING)
-- Added fields ()
+- Added fields (`PAOverride`, `PAPositions`)
+- Renamed field `WordPitch` -> `AJTWordPitch`
+
 
 #### Added
 - Added support for showing pitch accent using only Yomichan's `pitch-accent-positions` template
@@ -43,13 +45,15 @@ signified.)
 - Added fields (`PAOverride` and `PAPositions`)
 - `jpmn-test-dict-type` and `jpmn-pitch-accent-positions` yomichan template markers
   to bottom.txt
-- Debug warning if `SentenceReading` is empty
+- Uses `Sentence` if `SentenceReading` is empty
+    - Option to warn if `SentenceReading` is empty
 - Warning if `IsHoverCard` and `IsClickCard` are both filled
+- Option to disable `searchImages` (for {{edit:FIELD}} compatability
 
 #### Changed
-- regex options in yomichan templates to be more clear in documentation
+- regex options in Yomichan templates to be more clear in documentation
     - added "ADD_x_DICTIONARIES_HERE" strings
-- Backend javascript to be more modulized (so far, modulized auto pitch accent and kanji hover)
+- Backend javascript to be more modulized (so far, modulized auto pitch accent, kanji hover, images)
 
 #### Fixed
 - `??` operator not working on legacy anki versions (changed to use `nullish` function instead)

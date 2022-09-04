@@ -1,24 +1,7 @@
 
 
-// import settings as a global variable
-// https://forums.ankiweb.net/t/how-to-include-external-files-in-your-template-js-css-etc-guide/11719
 
-//function getAnkiPrefix() {
-//  // TODO cross-platform support
-//  // "https://appassets.androidplatform.net" ?
-//  return "./";
-//}
-//
-//var OPTIONS_FILE = "jp-mining-note-options.js"; // const screws up anki for some reason lol
-
-// import statements cannot be contained in a function, if statement, etc.
-//import {createOptions} from getAnkiPrefix() + OPTIONS_FILE;
-
-//import {createOptions} from "./jp-mining-note-options.js";
-
-
-
-/* quick fix for legacy anki versions */
+/* quick fix for legacy anki versions (replaces ?? operator) */
 function nullish(a, b) {
   if ((typeof a === "undefined") || (a === null)) {
     return b;
@@ -193,7 +176,7 @@ function processSentence(sentEle, isAltDisplay, isClozeDeletion) {
   //     add autoquote open / close to quote spans (if different)
   // if color quotes:
   //     add color quote class to outer divs
-  
+
 
   let validQuotes = {{ utils.opt("sentence", "quote-match-strings") }};
   let existingQuote = false;
