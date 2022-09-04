@@ -133,7 +133,8 @@ to work with this note type.
 Continue reading to see the required config changes.
 
 
-#### AnkiConnect
+#### Anki-Connect
+Code: `2055492159` <br>
 [(Link)](https://ankiweb.net/shared/info/2055492159)
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the add-on.
@@ -141,6 +142,7 @@ I use the default config that comes with the add-on.
 <br>
 
 #### CSS Injector
+Code: `181103283` <br>
 [(Link)](https://ankiweb.net/shared/info/181103283)
 This add-on is not strictly necessary.
 However, if you don't use this, the fields within the Anki field editor
@@ -214,8 +216,7 @@ These are a set of optional, but useful add-ons that can easily work with the ca
 
 #### AJT Furigana
 Code: `1344485230` <br>
-[Link](https://ankiweb.net/shared/info/1344485230)
-
+[(link)](https://ankiweb.net/shared/info/1344485230)
 Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon Yomichan card creation.
 
@@ -284,8 +285,7 @@ To explain the changes:
 
 #### AJT Pitch Accent
 Code: `1225470483` <br>
-[Link](https://ankiweb.net/shared/info/1225470483)
-
+[(link)](https://ankiweb.net/shared/info/1225470483)
 Automatically adds pitch accent info given the word.
 
 For the purposes of the card,
@@ -549,7 +549,7 @@ then you will have to add your dictionary to the handlebars code.
 -->
 
 
-If a dictionary is miscategorized
+If a dictionary is miscategorized,
 you will have to edit `bilingual-dict-regex` or `utility-dict-regex`
 at the top of the template code.
 Monolingual dictionaries are considered to be dictionaries that aren't either
