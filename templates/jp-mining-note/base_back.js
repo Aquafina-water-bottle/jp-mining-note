@@ -78,41 +78,6 @@ async function openExtraInfoIfNew() {
 
 
 
-// creates a custom image container to hold yomichan images
-function createImgContainer(imgName) {
-  // creating this programmically:
-  // <span class="glossary__image-container">
-  //   <a class="glossary__image-hover-text" href='javascript:;'>[Image]</a>
-  //   <img class="glossary__image-hover-media" src="${imgName}">
-  // </span>
-
-  let defSpan = document.createElement('span');
-  defSpan.classList.add("glossary__image-container");
-
-  let defAnc = document.createElement('a');
-  defAnc.classList.add("glossary__image-hover-text");
-  defAnc.href = "javascript:;'>[Image]";
-  defAnc.textContent = "[Image]";
-
-  let defImg = document.createElement('img');
-  defImg.classList.add("glossary__image-hover-media");
-  defImg.src = imgName;
-
-  defImg.onclick = function() {
-    modal.style.display = "block";
-    modalImg.src = this.src;
-  }
-
-  defAnc.onclick = function() {
-    modal.style.display = "block";
-    modalImg.src = defImg.src;
-  }
-
-  defSpan.appendChild(defAnc);
-  defSpan.appendChild(defImg);
-
-  return defSpan;
-}
 
 // https://github.com/FooSoft/anki-connect#javascript
 function invoke(action, params={}) {
@@ -171,6 +136,7 @@ function convertHiraganaToKatakana(text) {
   }
   return result;
 }
+
 
 
 
@@ -907,12 +873,13 @@ let JPMN_AutoPA = (function () {
       } else {
         eleDisp.innerHTML = eleOverride.innerHTML;
         posResult = [null, "Override (Text)"];
-        return;
       }
     } else {
+      // if no PA override, checks PAPositions field
       posResult = getPosition();
     }
 
+    // if no PAPositions or PA Override, then check AJTWordPitch
     if (posResult === null) {
       // last resort: AJT pitch accent
       if (eleAJT.innerHTML.length !== 0) {
@@ -920,6 +887,7 @@ let JPMN_AutoPA = (function () {
         posResult = [null, "AJT Pitch Accent"];
       } else {
         _debug("(JPMN_AutoPA) Nothing found.");
+        eleDisp.innerText = "(N/A)";
         return;
       }
     }
@@ -928,20 +896,158 @@ let JPMN_AutoPA = (function () {
     const readingKana = getReadingKana();
     _debug(`(JPMN_AutoPA) pos/dict/reading: ${pos} ${dictName} ${readingKana}`);
 
-    if (pos !== null) {
-      const readingSpanHTML = buildReadingSpan(pos, readingKana);
-      eleDisp.innerHTML = readingSpanHTML;
+    // if pos is null, then the display element has already been set
+    if (pos === null) {
+      return;
     }
 
-    if (dictName !== null) {
-      // TODO
-    }
+    const readingSpanHTML = buildReadingSpan(pos, readingKana);
+    eleDisp.innerHTML = readingSpanHTML;
+
+    //if (dictName !== null) {
+    //  // TODO
+    //}
 
     //_debug(`(JPMN_AutoPA) result html: ${eleDisp.innerHTML}`);
 
   }
 
   my.run = addPosition;
+  return my;
+
+}());
+
+
+
+
+let JPMN_ImgUtils = (function () {
+
+  let my = {};
+
+  // creates a custom image container to hold yomichan images
+  function createImgContainer(imgName) {
+    // creating this programmically:
+    // <span class="glossary__image-container">
+    //   <a class="glossary__image-hover-text" href='javascript:;'>[Image]</a>
+    //   <img class="glossary__image-hover-media" src="${imgName}">
+    // </span>
+
+    let defSpan = document.createElement('span');
+    defSpan.classList.add("glossary__image-container");
+
+    let defAnc = document.createElement('a');
+    defAnc.classList.add("glossary__image-hover-text");
+    defAnc.href = "javascript:;'>[Image]";
+    defAnc.textContent = "[Image]";
+
+    let defImg = document.createElement('img');
+    defImg.classList.add("glossary__image-hover-media");
+    defImg.src = imgName;
+
+    defImg.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = this.src;
+    }
+
+    defAnc.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = defImg.src;
+    }
+
+    defSpan.appendChild(defAnc);
+    defSpan.appendChild(defImg);
+
+    return defSpan;
+  }
+
+
+  function editDisplayImage() {
+    // edits the display image width/height
+    // makes the display image clickable to zoom
+    // makes the modal clickable to un-zoom
+
+    let modal = document.getElementById('modal');
+    let modalImg = document.getElementById("bigimg");
+
+    // restricting the max height of image to the definition box
+    let dhLeft = document.getElementById("dh_left");
+    let dhRight = document.getElementById("dh_right");
+    let heightLeft = dhLeft.offsetHeight;
+
+    if (dhRight) {
+      dhRight.style.maxHeight = heightLeft + "px";
+
+      // setting up the modal styles and clicking
+      let dhImgContainer = document.getElementById("dh_img_container");
+      let imgList = dhImgContainer.getElementsByTagName("img");
+
+      if (imgList && imgList.length === 1) {
+        let img = dhImgContainer.getElementsByTagName("img")[0];
+        img.classList.add("dh-right__img");
+        img.style.maxHeight = heightLeft + "px"; // restricts max height here too
+
+        img.onclick = function() {
+          modal.style.display = "block";
+          modalImg.src = this.src;
+        }
+
+      } else { // otherwise we hope that there are 0 images here
+        // support for no images here: remove the fade-in / fade-out on text
+        // the slightly hacky method is just to remove the class all together lol
+        dhImgContainer.className = "";
+      }
+    }
+
+
+    // close the modal upon click
+    modal.onclick = function() {
+      bigimg.classList.add("modal-img__zoom-out");
+      modal.classList.add("modal-img__zoom-out");
+      setTimeout(function() {
+        modal.style.display = "none";
+        bigimg.className = "modal-img";
+        modal.className = "modal";
+      }, 200);
+    }
+
+  }
+
+  function searchImages() {
+
+    // goes through each blockquote and searches for yomichan inserted images
+    let imageSearchElements = document.getElementsByTagName("blockquote");
+    for (let searchEle of imageSearchElements) {
+      let anchorTags = searchEle.getElementsByTagName("a");
+      for (let atag of anchorTags) {
+        let imgFileName = atag.getAttribute("href");
+        if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
+          let fragment = createImgContainer(imgFileName);
+          atag.parentNode.replaceChild(fragment, atag);
+        }
+      }
+
+      // looks for user inserted images
+      let imgTags = searchEle.getElementsByTagName("img");
+      for (let imgEle of imgTags) {
+        if (!imgEle.classList.contains("glossary__image-hover-media")) { // created by us
+          let fragment = createImgContainer(imgEle.src);
+          imgEle.parentNode.replaceChild(fragment, imgEle);
+        }
+      }
+    }
+  }
+
+  function run() {
+    editDisplayImage();
+
+    // may have to disable this for template {edit:} functionality
+    if ({{ utils.opt("image-utilities", "stylize-images-in-glossary") }}) {
+      searchImages();
+    }
+  }
+
+
+  my.run = run;
   return my;
 
 }());
@@ -997,81 +1103,6 @@ if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
 }
 
 
-
-
-
-let modal = document.getElementById('modal');
-let modalImg = document.getElementById("bigimg");
-
-// restricting the max height of image to the definition box
-let dhLeft = document.getElementById("dh_left");
-let dhRight = document.getElementById("dh_right");
-let heightLeft = dhLeft.offsetHeight;
-
-if (dhRight) {
-  dhRight.style.maxHeight = heightLeft + "px";
-
-  // setting up the modal styles and clicking
-  let dhImgContainer = document.getElementById("dh_img_container");
-  let imgList = dhImgContainer.getElementsByTagName("img");
-
-  if (imgList && imgList.length === 1) {
-    let img = dhImgContainer.getElementsByTagName("img")[0];
-    img.classList.add("dh-right__img");
-    img.style.maxHeight = heightLeft + "px"; // restricts max height here too
-
-    img.onclick = function() {
-      modal.style.display = "block";
-      modalImg.src = this.src;
-    }
-
-  } else { // otherwise we hope that there are 0 images here
-    // support for no images here: remove the fade-in / fade-out on text
-    // the slightly hacky method is just to remove the class all together lol
-    dhImgContainer.className = "";
-  }
-}
-
-
-// close the modal upon click
-modal.onclick = function() {
-  bigimg.classList.add("modal-img__zoom-out");
-  modal.classList.add("modal-img__zoom-out");
-  setTimeout(function() {
-    modal.style.display = "none";
-    bigimg.className = "modal-img";
-    modal.className = "modal";
-  }, 200);
-}
-
-
-// remove all jmdict english dict tags
-//var glossaryEle = document.getElementById("primary_definition");
-//glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
-
-// goes through each blockquote and searches for yomichan inserted images
-let imageSearchElements = document.getElementsByTagName("blockquote");
-for (let searchEle of imageSearchElements) {
-  let anchorTags = searchEle.getElementsByTagName("a");
-  for (let atag of anchorTags) {
-    let imgFileName = atag.getAttribute("href");
-    if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
-      let fragment = createImgContainer(imgFileName);
-      atag.parentNode.replaceChild(fragment, atag);
-    }
-  }
-
-  // looks for user inserted images
-  let imgTags = searchEle.getElementsByTagName("img");
-  for (let imgEle of imgTags) {
-    if (!imgEle.classList.contains("glossary__image-hover-media")) { // created by us
-      let fragment = createImgContainer(imgEle.src);
-      imgEle.parentNode.replaceChild(fragment, imgEle);
-    }
-  }
-}
-
-
 // only continues if kanji-hover is actually enabled
 if ({{ utils.opt("kanji-hover", "enabled") }}) {
   if ({{ utils.opt("kanji-hover", "mode") }} === 0) {
@@ -1089,6 +1120,15 @@ if ({{ utils.opt("auto-select-pitch-accent", "enabled") }}) {
   JPMN_AutoPA.run();
 }
 
+// ran after the auto pitch accent to properly calculate the height of the left div
+if ({{ utils.opt("image-utilities", "enabled") }}) {
+  JPMN_ImgUtils.run();
+}
+
+
+// remove all jmdict english dict tags
+//var glossaryEle = document.getElementById("primary_definition");
+//glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
 
 
 

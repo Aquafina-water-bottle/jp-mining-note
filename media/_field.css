@@ -113,6 +113,16 @@ anki-editable[field=PAGraphs] {
   font-weight: bold;
 }
 
+anki-editable[field=PAPositions] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pa-positions__dictionary-inner:after {
+  content: ":";
+}
+
 /*
  * --------------------
  *  dictionary entries

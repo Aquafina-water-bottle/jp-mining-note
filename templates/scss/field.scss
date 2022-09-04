@@ -125,6 +125,12 @@ anki-editable[field="PAPositions"] {
   gap: 20px;
 }
 
+.pa-positions__dictionary-inner:after {
+  content: ":";
+}
+
+
+
 @include common.common;
 
 
