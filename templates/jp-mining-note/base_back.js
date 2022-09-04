@@ -25,17 +25,17 @@ async function openExtraInfoIfNew() {
   // (editing a new card will consistently refresh the currently new card)
   const key = "{{ T('Key') }}";
   if (key in isNewCardCache && !isNewCardCache[key]) {
-    _debug("Key in new card cache and is not new");
+    _debug("(JPMN_ExtraInfo) Key in new card cache and is not new");
     return;
   }
 
   // requires that any of PAGraphs and UtilityDictionaries be filled to even open extra info
   if (!'{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
-    _debug("Neither PAGraphs nor UtilityDictionaries exists");
+    _debug("(JPMN_ExtraInfo) Neither PAGraphs nor UtilityDictionaries exists");
     return;
   }
 
-  _debug("Testing for new card...");
+  _debug("(JPMN_ExtraInfo) Testing for new card...");
 
   function constructFindCardAction(query) {
     return {
@@ -60,7 +60,7 @@ async function openExtraInfoIfNew() {
     return;
   }
   if (cards.length == 0) {
-    logger.error("Open extra info if new: Cannot find its own card?");
+    logger.error("(JPMN_ExtraInfo) Cannot find its own card?");
     return;
   }
 
@@ -68,10 +68,10 @@ async function openExtraInfoIfNew() {
   isNewCardCache[key] = isNew;
 
   if (isNew) {
-    _debug("Card is new, opening extra info...");
+    _debug("(JPMN_ExtraInfo) Card is new, opening extra info...");
     toggleDetailsTag(extraInfoDetailsEle);
   } else {
-    _debug("Card is not new.");
+    _debug("(JPMN_ExtraInfo) Card is not new.");
   }
 }
 
@@ -422,7 +422,7 @@ let JPMN_KanjiHover = (function () {
   async function kanjiHover() {
 
     if (kanjiHoverEnabled) {
-      _debug("Kanji hover already enabled");
+      _debug("(JPMN_Kanji) Kanji hover is already enabled");
       return;
     }
     kanjiHoverEnabled = true;
@@ -431,7 +431,7 @@ let JPMN_KanjiHover = (function () {
     // however, just in case, wordreading is added
     let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
     if (cacheKey in kanjiHoverCardCache) {
-      _debug("Card was cached")
+      _debug("(JPMN_Kanji) Card was cached")
       wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
       //logger.info(`using cached card ${cacheKey}`);
       return;
@@ -454,7 +454,7 @@ let JPMN_KanjiHover = (function () {
     for (let kanji of [...kanjiSet]) {
       // also checks that the current word is not used
       if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{ T('WordReading') }}"))) {
-        _debug(`Using cached kanji ${kanji}`)
+        _debug(`(JPMN_Kanji) Using cached kanji ${kanji}`)
         kanjiDict[kanji] = kanjiHoverCache[kanji][1];
         kanjiSet.delete(kanji);
       }
@@ -465,7 +465,7 @@ let JPMN_KanjiHover = (function () {
     const queryResults = await cardQueries(kanjiArr);
     const cardsInfo = await getCardsInfo(queryResults);
 
-    _debug(`New kanjis: [${kanjiArr.join(", ")}]`)
+    _debug(`(JPMN_Kanji) New kanjis: [${kanjiArr.join(", ")}]`)
 
     for (const [i, character] of kanjiArr.entries()) {
       let nonNewCardInfo = cardsInfo[i*2];
@@ -502,11 +502,13 @@ let JPMN_KanjiHover = (function () {
 
 
 
-// ==============
-//  PA positions
-// ==============
+// ==========================
+//  Auto Select Pitch Accent
+// ==========================
+// sets the pitch accent section to be whatever you specify it
+// by the pitch accent position number
 
-let JPMN_PAPositions = (function () {
+let JPMN_AutoPA = (function () {
 
   let my = {};
 
@@ -703,7 +705,7 @@ let JPMN_PAPositions = (function () {
           }
 
           if (!found) {
-            _debug(`Cannot find replacement! ${first} ${second} ${searchStr}`);
+            _debug(`(JPMN_AutoPA) Cannot find replacement! ${first} ${second} ${searchStr}`);
           }
         }
       }
@@ -720,7 +722,7 @@ let JPMN_PAPositions = (function () {
     // (apart from <b>, which are ignored)
 
     if (eleAJT.innerHTML.length === 0) {
-      _debug(`(JPMN_PAPositions) ajt word: empty field`);
+      _debug(`(JPMN_AutoPA) AJT word: empty field`);
       return null;
     }
 
@@ -736,7 +738,7 @@ let JPMN_PAPositions = (function () {
     const idx = wordSearch.indexOf(normalizedReading)
 
     if (idx === -1) {
-      _debug(`(JPMN_PAPositions) ajt word: ${normalizedReading} not found among [${wordSearch.join(", ")}]`);
+      _debug(`(JPMN_AutoPA) AJT word: ${normalizedReading} not found among [${wordSearch.join(", ")}]`);
       return null;
     }
 
@@ -770,8 +772,8 @@ let JPMN_PAPositions = (function () {
     result = result.replace(/<b>/g, "");
     result = result.replace(/<\/b>/g, "");
 
-    //_debug(`(JPMN_PAPositions) ajt word: ${result}`);
-    _debug(`(JPMN_PAPositions) Found AJT word`);
+    //_debug(`(JPMN_AutoPA) ajt word: ${result}`);
+    _debug(`(JPMN_AutoPA) Found AJT word`);
     return result;
   }
 
@@ -781,7 +783,7 @@ let JPMN_PAPositions = (function () {
     // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
 
     let normalizedReading = null;
-    switch ({{ utils.opt("auto-pitch-accent", "reading-display-mode") }}) {
+    switch ({{ utils.opt("auto-select-pitch-accent", "reading-display-mode") }}) {
       case 0:
         normalizedReading = readingKana;
         break;
@@ -795,13 +797,13 @@ let JPMN_PAPositions = (function () {
         break;
 
       default:
-        throw 'Invalid option for auto-pitch-accent.reading-display-mode';
+        throw 'Invalid option for auto-select-pitch-accent.reading-display-mode';
     }
 
     const moras = getMoras(normalizedReading);
-    _debug(`(JPMN_PAPositions) Moras: ${normalizedReading} -> ${moras.join(", ")}`);
+    _debug(`(JPMN_AutoPA) Moras: ${normalizedReading} -> ${moras.join(", ")}`);
     if (moras.length === 0) {
-      _debug("(JPMN_PAPositions) Reading has length of 0?");
+      logger.warn("(JPMN_AutoPA) Reading has length of 0?");
       return;
     }
 
@@ -815,7 +817,7 @@ let JPMN_PAPositions = (function () {
     let result = [];
 
     if (ajtWord !== null) {
-      _debug("(JPMN_PAPositions) Using AJT Word");
+      _debug("(JPMN_AutoPA) Using AJT Word");
       let temp = document.createElement("div");
       let temp2 = document.createElement("div");
       temp.innerHTML = ajtWord;
@@ -848,10 +850,6 @@ let JPMN_PAPositions = (function () {
         if (x.nodeName === "#text") {
           let moras = getMoras(x.data);
           result = result.concat(moras);
-          //_debug(`moras: ${moras.join(", ")}`);
-          //for (c of x.data) {
-          //  result.push(c);
-          //}
         } else if (x.nodeName === "SPAN" && x.classList.contains("nasal")) {
           // assumption: there already exists at least one element before
           // (the nasal marker can't come by itself)
@@ -864,6 +862,7 @@ let JPMN_PAPositions = (function () {
       //_debug(`result: ${result.join(", ")}`);
 
     } else {
+      _debug(`(JPMN_AutoPA) Using reading from WordReading field`);
       result = moras.slice(); // shallow copy
     }
 
@@ -890,7 +889,12 @@ let JPMN_PAPositions = (function () {
 
   }
 
+  // main function
   function addPosition() {
+    if (!{{ utils.opt("auto-select-pitch-accent", "enabled") }}) {
+      return;
+    }
+
     // priority:
     // - PA Override number
     // - PA Override raw text
@@ -916,16 +920,16 @@ let JPMN_PAPositions = (function () {
       // last resort: AJT pitch accent
       if (eleAJT.innerHTML.length !== 0) {
         eleDisp.innerHTML = eleAJT.innerHTML;
-        posResult = [null, "Override (AJT)"];
+        posResult = [null, "AJT Pitch Accent"];
       } else {
-        _debug("(JPMN_PAPositions) Nothing found.");
+        _debug("(JPMN_AutoPA) Nothing found.");
         return;
       }
     }
 
     const [pos, dictName] = posResult;
     const readingKana = getReadingKana();
-    _debug(`(JPMN_PAPositions) pos/dict/reading: ${pos} ${dictName} ${readingKana}`);
+    _debug(`(JPMN_AutoPA) pos/dict/reading: ${pos} ${dictName} ${readingKana}`);
 
     if (pos !== null) {
       const readingSpanHTML = buildReadingSpan(pos, readingKana);
@@ -936,7 +940,7 @@ let JPMN_PAPositions = (function () {
       // TODO
     }
 
-    _debug(`(JPMN_PAPositions) result html: ${eleDisp.innerHTML}`);
+    //_debug(`(JPMN_AutoPA) result html: ${eleDisp.innerHTML}`);
 
   }
 
@@ -960,6 +964,14 @@ let tags = "{{ T('Tags') }}".split(" ");
 if (tags.includes("leech")) {
   logger.leech();
 }
+
+
+// checks that both `IsHoverCard` and `IsClickCard` are both not activated
+/// {% call IF("IsHoverCard") %}
+/// {% call IF("IsClickCard") %}
+logger.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
+/// {% endcall %}
+/// {% endcall %}
 
 // option taken care of in the function itself
 openExtraInfoIfNew();
@@ -1069,7 +1081,7 @@ if ({{ utils.opt("kanji-hover", "enabled") }}) {
 }
 
 
-JPMN_PAPositions.run();
+JPMN_AutoPA.run();
 
 
 //_debug(document.documentElement.innerHTML);
