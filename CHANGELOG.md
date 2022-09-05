@@ -33,7 +33,7 @@ The following are examples breaking changes:
 -->
 
 
-## [0.10.0.1] - 2022-09-??
+## [0.10.0.1] - 2022-09-05
 
 #### Added
 - `search-for-ajt-word` js option
@@ -53,7 +53,7 @@ The following are examples breaking changes:
 
 #### Changed (BREAKING)
 - Added fields (`PAOverride`, `PAPositions`)
-    - `PAOverride` requires updated Yomichan templates
+    - `PAPositions` requires updated Yomichan templates
 - Renamed field `WordPitch` -> `AJTWordPitch`
 
 
