@@ -35,6 +35,14 @@ The following are examples breaking changes:
 
 ## [0.10.0.1] - 2022-09-??
 
+#### Added
+- `search-for-ajt-word` js option
+
+#### Changed
+- Minor stylistic changes
+    - JPDB's "X" emote changed to a non-colored version in Yomichan Templates
+    - Changed margin-bottom of lists from 10px to 0.3em to better match font sizes
+
 #### Fixed
 - Clicking on inserted images not working
 - Certain readings not converting to ruby properly due to manually inserted spaces (`&nbsp;`)
