@@ -139,7 +139,10 @@ var JPMNOpts = (function (my) {
         // 0: hiragana
         // 1: katakana
         // 2: katakana with long vowel marks
-        "reading-display-mode": 2
+        "reading-display-mode": 2,
+
+        // whether to search for the ajt word, given the field is filled out
+        "search-for-ajt-word": true
       },
 
 

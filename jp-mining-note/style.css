@@ -93,7 +93,7 @@ a.replay-button svg circle { fill: #FFFAF0; }*/
 /* makes lists tolerable to look at */
 ol, ul {
   margin-top: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 0.3em;
   padding-left: 1.5em;
 }
 
@@ -731,7 +731,7 @@ ruby rt {
   font-family: notosans;
   text-align: left;
   position: absolute;
-  width: 500px;
+  width: 620px;
   height: 0px;
   top: 100%;
   left: 0%;
@@ -739,6 +739,7 @@ ruby rt {
   display: none;
   z-index: 1;
   margin-top: 5px;
+  white-space: normal;
 }
 
 .kanji-hover-tooltip b {
