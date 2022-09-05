@@ -229,13 +229,17 @@
     <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
       <div class="glossary-text glossary-text--extra-info">
 
-        <div class="pa-graphs">
-          {{ T("PAGraphs") }}
-        </div>
+        {% call IF("PAGraphs") %}
+          <div class="pa-graphs">
+            {{ T("PAGraphs") }}
+          </div>
+        {% endcall %}
 
-        <div class="utility-dicts">
-          {{ T("UtilityDictionaries") }}
-        </div>
+        {% call IF("UtilityDictionaries") %}
+          <div class="utility-dicts">
+            {{ T("UtilityDictionaries") }}
+          </div>
+        {% endcall %}
 
       </div>
     </blockquote>

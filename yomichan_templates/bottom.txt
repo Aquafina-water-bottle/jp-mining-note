@@ -146,7 +146,14 @@
         {{~#each definition.frequencies~}}
             <div class="frequencies__group" data-details="{{~dictionary~}}"> {{~s~}}
                 <div class="frequencies__number"> {{~s~}}
-                    <span class="frequencies__number-inner">{{~frequency~}}</span> {{~s~}}
+                    <span class="frequencies__number-inner"> {{~s~}}
+                        {{~! removes the "X" in JPDB's frequency and replaces it with a less assuming character
+                            (it interferes with the color of the card, since you see red
+                            at the top corner which is somewhat distracting) ~}}
+                        {{~#regexReplace "❌" "✖" "g"~}}
+                            {{~frequency~}}
+                        {{~/regexReplace~}}
+                    </span> {{~s~}}
                 </div> {{~s~}}
                 <div class="frequencies__dictionary"> {{~s~}}
                     <span class="frequencies__dictionary-inner"> {{~s~}}

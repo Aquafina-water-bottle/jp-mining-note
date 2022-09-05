@@ -742,7 +742,7 @@ let JPMN_AutoPA = (function () {
     result = result.replace(/<\/b>/g, "");
 
     //_debug(`(JPMN_AutoPA) ajt word: ${result}`);
-    _debug(`(JPMN_AutoPA) Found AJT word`);
+    //_debug(`(JPMN_AutoPA) Found AJT word`);
     return result;
   }
 
@@ -751,37 +751,10 @@ let JPMN_AutoPA = (function () {
     // creates the span to show the pitch accent overline
     // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
 
-    let normalizedReading = null;
-    switch ({{ utils.opt("auto-select-pitch-accent", "reading-display-mode") }}) {
-      case 0:
-        normalizedReading = readingKana;
-        break;
-
-      case 1:
-        normalizedReading = convertHiraganaToKatakana(readingKana);
-        break;
-
-      case 2:
-        normalizedReading = convertHiraganaToKatakanaWithLongVowelMarks(readingKana);
-        break;
-
-      default:
-        throw 'Invalid option for auto-select-pitch-accent.reading-display-mode';
+    let ajtWord = null;
+    if ({{ utils.opt("auto-select-pitch-accent", "search-for-ajt-word") }}) {
+      ajtWord = getAJTWord(readingKana);
     }
-
-    const moras = getMoras(normalizedReading);
-    _debug(`(JPMN_AutoPA) Moras: ${normalizedReading} -> ${moras.join(", ")}`);
-    if (moras.length === 0) {
-      logger.warn("(JPMN_AutoPA) Reading has length of 0?");
-      return;
-    }
-
-    // special case: 0 and length of moras === 1 (nothing needs to be done)
-    if (pos === 0 && moras.length === 1) {
-      return readingKana;
-    }
-
-    const ajtWord = getAJTWord(readingKana);
 
     let result = [];
 
@@ -832,9 +805,40 @@ let JPMN_AutoPA = (function () {
 
     } else {
       _debug(`(JPMN_AutoPA) Using reading from WordReading field`);
-      result = moras.slice(); // shallow copy
+      //result = moras.slice(); // shallow copy
+
+      let normalizedReading = null;
+      switch ({{ utils.opt("auto-select-pitch-accent", "reading-display-mode") }}) {
+        case 0:
+          normalizedReading = readingKana;
+          break;
+
+        case 1:
+          normalizedReading = convertHiraganaToKatakana(readingKana);
+          break;
+
+        case 2:
+          normalizedReading = convertHiraganaToKatakanaWithLongVowelMarks(readingKana);
+          break;
+
+        default:
+          throw 'Invalid option for auto-select-pitch-accent.reading-display-mode';
+      }
+
+      result = getMoras(normalizedReading);
+
+      _debug(`(JPMN_AutoPA) Moras: ${normalizedReading} -> ${result.join(", ")}`);
     }
 
+    if (result.length === 0) {
+      logger.warn("(JPMN_AutoPA) Reading has length of 0?");
+      return;
+    }
+
+    // special case: 0 and length of moras === 1 (nothing needs to be done)
+    if (pos === 0 && result.length === 1) {
+      return readingKana;
+    }
 
     const startOverline = '<span class="pitchoverline">';
     const stopOverline = `</span>`;
