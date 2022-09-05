@@ -119,6 +119,8 @@ def add_args(parser):
 # class NoteReader:
 class NoteUpdater:
     def __init__(self, input_folder: str):
+        # input folder is the folder above the "note" item
+
         self.input_folder = input_folder
         # self.note_model_id = note_model_id
         # self.templates = templates
@@ -131,7 +133,24 @@ class NoteUpdater:
         with open(input_path, encoding="utf8") as f:
             return f.read()
 
+    def backup(self):
+        """
+        backs up as the following:
+            - backup folder
+               L Note name in Anki (e.g. "JP Mining Note")
+                  L style.css
+                  L Template name in Anki (e.g. "Mining Card")
+                     L front.html
+                     L back.html
+                  ...
+        """
+        pass
+
     def get_templates(self, note_config: utils.Config) -> List[CardTemplate]:
+        """
+        gets the templates from the JPMN project
+        """
+
         templates = []
         for template_id, template_config in note_config("templates").dict_items():
             template_name = template_config("name").item()
@@ -288,20 +307,15 @@ def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
 
+    # config = utils.get_config(args)
+    root_folder = utils.get_root_folder()
+    search_folder = args.build_folder if args.from_build else root_folder
+    note_updater = NoteUpdater(search_folder)
+
     note_config = utils.get_note_config()
     model_name = note_config("model-name").item()
 
-    # config = utils.get_config(args)
-    root_folder = utils.get_root_folder()
-
-    note_folder = args.build_folder if args.from_build else root_folder
-    note_updater = NoteUpdater(note_folder)
-
-    media_folder = (
-        os.path.join(args.build_folder, "media")
-        if args.from_build
-        else os.path.join(root_folder, "media")
-    )
+    media_folder = os.path.join(search_folder, "media")
     static_folder = os.path.join(root_folder, "media")
     backup_folder = os.path.join(root_folder, "backup")
     media_installer = MediaInstaller(media_folder, static_folder, backup_folder)

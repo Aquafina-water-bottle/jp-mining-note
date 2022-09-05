@@ -212,7 +212,7 @@ function optionsNotFound() {
 
 
     
-  <div class="card-description-ver">JP Mining Note: Version 0.10.0.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.10.0.1</div>
 
 
     
@@ -425,13 +425,17 @@ function optionsNotFound() {
     <blockquote class="glossary-blockquote glossary-blockquote--small bold-yellow">
       <div class="glossary-text glossary-text--extra-info">
 
-        <div class="pa-graphs">
-          {{PAGraphs}}
-        </div>
+        {{#PAGraphs}}
+          <div class="pa-graphs">
+            {{PAGraphs}}
+          </div>
+        {{/PAGraphs}}
 
-        <div class="utility-dicts">
-          {{UtilityDictionaries}}
-        </div>
+        {{#UtilityDictionaries}}
+          <div class="utility-dicts">
+            {{UtilityDictionaries}}
+          </div>
+        {{/UtilityDictionaries}}
 
       </div>
     </blockquote>
@@ -983,7 +987,8 @@ let JPMN_KanjiHover = (function () {
     let wordDiv = document.createElement('div');
     let re = / ?([^ >]+?)\[(.+?)\]/g
 
-    let wordReadingRuby = wordReading.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
+    let wordReadingRuby = wordReading.replaceAll("&nbsp;", " ");
+    wordReadingRuby = wordReadingRuby.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
     wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
 
     wordDiv.innerHTML = wordReadingRuby;
@@ -1296,7 +1301,8 @@ let JPMN_AutoPA = (function () {
 
     const re = / ?([^ >]+?)\[(.+?)\]/g
 
-    let result = readingStr.replace(re, "$2");
+    let result = readingStr.replaceAll("&nbsp;", " ");
+    result = readingStr.replace(re, "$2");
     //wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
 
     return result;
@@ -1474,7 +1480,7 @@ let JPMN_AutoPA = (function () {
     result = result.replace(/<\/b>/g, "");
 
     //_debug(`(JPMN_AutoPA) ajt word: ${result}`);
-    _debug(`(JPMN_AutoPA) Found AJT word`);
+    //_debug(`(JPMN_AutoPA) Found AJT word`);
     return result;
   }
 
@@ -1483,37 +1489,10 @@ let JPMN_AutoPA = (function () {
     // creates the span to show the pitch accent overline
     // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
 
-    let normalizedReading = null;
-    switch (getSetting(['auto-select-pitch-accent','reading-display-mode',],2)) {
-      case 0:
-        normalizedReading = readingKana;
-        break;
-
-      case 1:
-        normalizedReading = convertHiraganaToKatakana(readingKana);
-        break;
-
-      case 2:
-        normalizedReading = convertHiraganaToKatakanaWithLongVowelMarks(readingKana);
-        break;
-
-      default:
-        throw 'Invalid option for auto-select-pitch-accent.reading-display-mode';
+    let ajtWord = null;
+    if (getSetting(['auto-select-pitch-accent','search-for-ajt-word',],true)) {
+      ajtWord = getAJTWord(readingKana);
     }
-
-    const moras = getMoras(normalizedReading);
-    _debug(`(JPMN_AutoPA) Moras: ${normalizedReading} -> ${moras.join(", ")}`);
-    if (moras.length === 0) {
-      logger.warn("(JPMN_AutoPA) Reading has length of 0?");
-      return;
-    }
-
-    // special case: 0 and length of moras === 1 (nothing needs to be done)
-    if (pos === 0 && moras.length === 1) {
-      return readingKana;
-    }
-
-    const ajtWord = getAJTWord(readingKana);
 
     let result = [];
 
@@ -1564,9 +1543,40 @@ let JPMN_AutoPA = (function () {
 
     } else {
       _debug(`(JPMN_AutoPA) Using reading from WordReading field`);
-      result = moras.slice(); // shallow copy
+      //result = moras.slice(); // shallow copy
+
+      let normalizedReading = null;
+      switch (getSetting(['auto-select-pitch-accent','reading-display-mode',],2)) {
+        case 0:
+          normalizedReading = readingKana;
+          break;
+
+        case 1:
+          normalizedReading = convertHiraganaToKatakana(readingKana);
+          break;
+
+        case 2:
+          normalizedReading = convertHiraganaToKatakanaWithLongVowelMarks(readingKana);
+          break;
+
+        default:
+          throw 'Invalid option for auto-select-pitch-accent.reading-display-mode';
+      }
+
+      result = getMoras(normalizedReading);
+
+      _debug(`(JPMN_AutoPA) Moras: ${normalizedReading} -> ${result.join(", ")}`);
     }
 
+    if (result.length === 0) {
+      logger.warn("(JPMN_AutoPA) Reading has length of 0?");
+      return;
+    }
+
+    // special case: 0 and length of moras === 1 (nothing needs to be done)
+    if (pos === 0 && result.length === 1) {
+      return readingKana;
+    }
 
     const startOverline = '<span class="pitchoverline">';
     const stopOverline = `</span>`;
@@ -1658,11 +1668,14 @@ let JPMN_ImgUtils = (function () {
 
   let my = {};
 
+  let modal = document.getElementById('modal');
+  let modalImg = document.getElementById("bigimg");
+
   // creates a custom image container to hold yomichan images
   function createImgContainer(imgName) {
     // creating this programmically:
     // <span class="glossary__image-container">
-    //   <a class="glossary__image-hover-text" href='javascript:;'>[Image]</a>
+    //   <a class="glossary__image-hover-text" href='javascript:;'</a>
     //   <img class="glossary__image-hover-media" src="${imgName}">
     // </span>
 
@@ -1671,7 +1684,7 @@ let JPMN_ImgUtils = (function () {
 
     let defAnc = document.createElement('a');
     defAnc.classList.add("glossary__image-hover-text");
-    defAnc.href = "javascript:;'>[Image]";
+    defAnc.href = "javascript:;";
     defAnc.textContent = "[Image]";
 
     let defImg = document.createElement('img');
@@ -1699,9 +1712,6 @@ let JPMN_ImgUtils = (function () {
     // edits the display image width/height
     // makes the display image clickable to zoom
     // makes the modal clickable to un-zoom
-
-    let modal = document.getElementById('modal');
-    let modalImg = document.getElementById("bigimg");
 
     // restricting the max height of image to the definition box
     let dhLeft = document.getElementById("dh_left");
