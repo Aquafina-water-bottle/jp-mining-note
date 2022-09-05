@@ -1,6 +1,13 @@
 # Changelog
 The last 3 numbers (# in X.#.#.#) follow semantic versioning.
 
+
+The first number (X in X.#.#.#) is an arbitrary number that I decide for
+when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
+subsequent bumps are when the card has changed enough that a bump should be
+signified.)
+
+
 Historically, the 2nd number was bumped up for different reasons,
 but now, the 2nd number will have a constant representation:
 it is bumped when the Anki database schema becomes different
@@ -25,11 +32,6 @@ The following are examples breaking changes:
 - Changes to yomichan templates / format
 -->
 
-
-The first number (X in X.#.#.#) is an arbitrary number that I decide for
-when the card passes a specific stage (i.e. 0 == pre-release, 1 = release, and
-subsequent bumps are when the card has changed enough that a bump should be
-signified.)
 
 ## [0.10.0.1] - 2022-09-??
 
