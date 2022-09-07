@@ -1,23 +1,103 @@
 
 
 # Updating The Card
-- TODO
-- warning: will completely wipe out any custom changes to the card that you made (backup yet again)
-- look at the first 2 numbers: if they're higher, then you can't manually update
-- main supported way is a python script: 
+If you want to update the card, the supported and highly recommended way is by using a Python
+script.
+
+## Preliminary steps
+A very big warning up front:
+updating your card will **wipe out any custom changes** you might have made to the templates.
+
+Please make a **complete backup** of your collection
+(Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
+
+## Preliminary steps
+
+## Recommended way
+
+If you know what `python` and `git` is, please skip this section
+and go straight to the [summary section](updating#command-line-summary).
+
+
+#### Windows instructions
+1. Install [Python](https://www.python.org/).
+   Whatever the latest version should suffice.
+
+   On Windows, make sure the box for "Add Python to PATH" is checked.
+   (This is a common error for Windows users. Please pay attention to this step!)
+
+1. Get the latest version of the repository.
+   The easiest way to do this is by heading to the
+   [main repository](https://github.com/Aquafina-water-bottle/jp-mining-note),
+   click on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
+   After that, unzip the directory.
+
+1. Open command line, and cd (change directory) into `jp-mining-note/tools`.
+   If you don't know how to do that, see
+   [here](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/).
+
+1. With your command line in the `tools` directory, run the following command:
+   ```
+   python install.py --update
+   ```
+
+
+#### Mac OS instructions
+Unfortunately, I'm not very familiar with Mac OS, and I don't have a computer with Mac OS
+to test this on.
+However, the [command line summary section](updating#command-line-summary)
+below should be the same regardless of operating system.
+
+Make sure you have `Python` and `git` installed!
+
+
+#### Linux instructions
+You won't be getting any detailed instructions outside of the
+[summary section](updating#command-line-summary) below,
+but you probably already knew that, didn't you? ;)
+
+
+#### Command Line Summary
 
 ```
-# assuming you are at the root of the repo,
-# i.e. after the `git clone ...` and `cd jp-mining-note`
+# assuming you are at the root of the repo, i.e. after:
+#  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
+#  $ cd jp-mining-note
 
 git fetch origin/master
 git merge origin/master
 
 cd ./tools
 
-# make sure you have Anki open and Anki-Connect installed!
+# Make sure you have Anki open and Anki-Connect installed!
+# Also ensure that your python version is 3.10.6 or higher.
 python3 ./install.py --upgrade
 ```
+
+
+## Manual way
+To preface this section, this method is **not recommended at all**, and **very limited support** will
+be given if you attempt this method.
+
+Sometimes, you may be able to update the card simply by re-installing the newer version of the
+`.apkg`.
+However, this has the main caveat where
+if any of the fields are added, renamed, repositioned or deleted between card versions,
+this will **not work** (and instead add a new version of `JP Mining Note`,
+e.g. named `JP Mining Note-b320fa`).
+Additionally, if you manually edited any of the fields, then this method will not work.
+
+To see if the fields have been changed, compare the
+first two numbers in the version you want to install
+to the first two numbers of the current card version. (TODO link FAQ)
+If the first two numbers match, then you are likely safe to manually update the card.
+
+If they don't match, then you MAY be able to get away with installing it and transferring
+the old note types to the new note type.
+See the changelog to see how the fields have changed and how you have to map the old fields
+to the new fields.
+
+
 
 # Updating Yomichan's Anki Card Format
 

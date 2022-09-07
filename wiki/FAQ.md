@@ -194,7 +194,14 @@ It's a hack to not play audio even if you setup your Anki client to do so.
 See the `PASilence` field in the [field reference](usage#anki-field-reference) for more information.
 
 
+## How do you see the currently installed version of this note?
+Preview any card. At the top left corner the version should be displayed.
+For example:
 
+```
+Vocab (info circle)
+JP Mining Note: Version (VERSION DISPLAYED HERE)
+```
 
 
 

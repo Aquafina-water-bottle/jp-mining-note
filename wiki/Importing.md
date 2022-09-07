@@ -27,7 +27,7 @@ in the Yomichan Templates section.
 # Prerequisites
 Before doing anything that affects your Anki collection in a major way,
 please make a **complete backup** of your collection
-(Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`)
+(Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
 
 [[assets/anki/media_export.png]]
 
