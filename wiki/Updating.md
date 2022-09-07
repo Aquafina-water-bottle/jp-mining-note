@@ -7,24 +7,93 @@ script.
 
 
 ## Preliminary steps
-A very big warning up front:
-updating your card will **wipe out any custom changes** you might have made to the templates.
+A **very big warning** up front: <br>
+Updating your card will **wipe out any custom changes** you might have made to the templates.
 
 Please make a **complete backup** of your collection
 (Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
 
-## Preliminary steps
 
-(TODO)
+Note that it is expected that you know how to do basic command line related tasks.
+If you're a Windows user, I provide more detailed instructions and external links
+on how to do basic command line related tasks, as well as explicitly reduce the number
+of command line instructions you have to run.
+However, if you're a MacOS or Linux user, no special guidance will be given
+in this documentation.
+
+
+## Anki-Connect: Dev Version
+At the time of writing this (2022/09/07),
+you will need the developer version of Anki-Connect,
+because the Anki web version of Anki-Connect is too old
+and does not have the required API calls that the installation script
+will very likely need.
+
+
+#### Command Line
+```
+git clone https://github.com/FooSoft/anki-connect.git
+cd anki-connect
+./link.sh
+```
+
+#### Manual
+
+TODO
+- download zip
+- paste plugin folder into anki addons folder
+- rename to `AnkiConnectDev`
+
+should look like this:
+```
+Anki2
+ L addons21
+    L AnkiConnectDev
+       L __init__.py
+       L config.json
+       L config.md
+       L edit.py
+       ...
+```
+
 
 
 ## Recommended way
 
+<!--
 If you know what `python` and `git` is, please skip this section
 and go straight to the [summary section](updating#command-line-summary).
+-->
+The recommended way to install the note is by using a python script.
+This will change the note in place, and gives you various options on how
+the note will be changed.
+Lastly, it will give you warnings on anything you have to change manually,
+such as Yomichan Templates.
+
+The cross-platform command line summary is shown below if you know command line.
+A more detailed set of instructions for Windows users can be
+found [here](updating#windows-instructions).
+
+#### Command Line
+
+```
+# assuming you are at the root of the repo, i.e. after:
+#  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
+#  $ cd jp-mining-note
+
+# mostly equivalent to git pull origin/master
+git fetch origin/master
+git merge origin/master
+
+cd ./tools
+
+# Make sure you have Anki open and Anki-Connect installed!
+# Also ensure that your python version is 3.10.6 or higher.
+python3 ./install.py --update
+```
 
 
-#### Windows instructions
+#### Windows Instructions
 1. Install [Python](https://www.python.org/).
    Whatever the latest version should suffice.
 
@@ -46,7 +115,7 @@ and go straight to the [summary section](updating#command-line-summary).
    python install.py --update
    ```
 
-
+<!--
 #### Mac OS instructions
 Unfortunately, I'm not very familiar with Mac OS, and I don't have a computer with Mac OS
 to test this on.
@@ -60,24 +129,7 @@ Make sure you have `Python` and `git` installed!
 You won't be getting any detailed instructions outside of the
 [summary section](updating#command-line-summary) below,
 but you probably already knew that, didn't you? ;)
-
-
-#### Command Line Summary
-
-```
-# assuming you are at the root of the repo, i.e. after:
-#  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
-#  $ cd jp-mining-note
-
-git fetch origin/master
-git merge origin/master
-
-cd ./tools
-
-# Make sure you have Anki open and Anki-Connect installed!
-# Also ensure that your python version is 3.10.6 or higher.
-python3 ./install.py --upgrade
-```
+-->
 
 
 ## Manual way
