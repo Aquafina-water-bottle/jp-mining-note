@@ -102,6 +102,12 @@ def add_args(parser):
         "overwrites their note type.",
     )
 
+    group.add_argument(
+        "--ignore-order",
+        action="store_true",
+        help="does not check for order of fields when updating",
+    )
+
     # TODO implement
     # force update version
     # group.add_argument("--force", action="store_true")
@@ -386,7 +392,7 @@ def main(args=None):
             current_ver = ar.Version.from_str(utils.get_version_from_anki())
             new_ver = ar.Version.from_str(utils.get_version(args))
             action_runner = ar.ActionRunner(
-                current_ver, new_ver
+                current_ver, new_ver, in_order=(not args.ignore_order)
             )  # also verifies field changes
 
             if action_runner.has_actions():
