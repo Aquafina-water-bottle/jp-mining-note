@@ -78,7 +78,7 @@ see below:
     To install these fonts, head over to this
     repository's [media folder](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
     and download the 4 `.otf` files.
-4. Move the `.otf` files into the [media folder](https://docs.ankiweb.net/files.html#file-locations)
+4. Move the `.otf` files into the [media folder](faq#where-is-the-x-folder-in-anki)
     of your profile (`Anki2/PROFILENAME/collections.media`).
 
 
@@ -155,7 +155,9 @@ There are two ways of using css injector with this note type:
 As a preliminary step, you will have to remove the empty `field.css` file
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
-`Anki2/addons21/181103283/user_files` folder and delete `field.css`.
+`Anki2/addons21/181103283/user_files` folder
+(within the [addons folder](faq#where-is-the-x-folder-in-anki))
+and delete `field.css`.
 
 ```
 # windows command
