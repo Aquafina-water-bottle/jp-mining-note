@@ -50,17 +50,17 @@ from typing import Any
 def add_args(parser):
     group = parser.add_argument_group(title="actions")
 
-    group.add_argument(
-        "--no-warn",
-        action="store_true",
-        help="does not warn when updating",
-    )
+    #group.add_argument(
+    #    "--no-warn",
+    #    action="store_true",
+    #    help="does not warn when updating",
+    #)
 
-    group.add_argument(
-        "--initialize",
-        action="store_true",
-        help="Adds `[sound:_silence.wav]` to the PASilence field of every card",
-    )
+    #group.add_argument(
+    #    "--initialize",
+    #    action="store_true",
+    #    help="Adds `[sound:_silence.wav]` to the PASilence field of every card",
+    #)
 
 
 # def get_anki_path():
@@ -272,9 +272,35 @@ class Verifier:
         self.verify_api_reflect(actions)
         self.verify_simulator(actions)
 
+    def verify_post(self):
+        # makes sure that the anki fields are the same
+        anki_fields = utils.invoke("modelFieldNames", modelName="JP Mining Note")
+
+        if self.in_order:
+            # allows extra fields added by the user past the original fields
+            first_anki_fields = anki_fields[: len(self.new_fields)]
+
+            if anki_fields != first_anki_fields:
+                self.naive_diff_list(first_anki_fields, self.new_fields, "Anki", "Expected (After)")
+                raise Exception("Anki fields are different")
+        else:
+
+            # allows fields in anki that are not in the expected beginning,
+            # BUT does not allow expected fields to not be in anki at the current moment
+            # (i.e. you can't delete fields)
+            anki_fields = set(anki_fields)
+            new_fields = set(self.new_fields)
+
+            if new_fields - anki_fields:
+                raise Exception(
+                    "Expected fields do not appear in Anki's fields list: "
+                    f"{new_fields - anki_fields} "
+                )
+
+
 
 class ActionRunner:
-    def __init__(self, current_ver: Version, new_ver: Version):
+    def __init__(self, current_ver: Version, new_ver: Version, in_order=True, note_changes=NOTE_CHANGES):
         """
         applies changes specified in the range (current_ver, new_ver]
 
@@ -287,14 +313,8 @@ class ActionRunner:
 
         self.original_fields = None
         self.new_fields = None
-
-        self._get_note_changes(current_ver, new_ver, NOTE_CHANGES)
-
-    def _get_note_changes(
-        self, current_ver: Version, new_ver: Version, note_changes: list[NoteChange]
-    ):
-
-        self.clear()
+        self.in_order = in_order
+        self.verifier: Verifier | None = None
 
         if current_ver == new_ver:
             # nothing to do
@@ -303,9 +323,6 @@ class ActionRunner:
         if current_ver > new_ver:
             print("Warning: current version is higher than the newer version?")
             return
-
-        self.original_fields = None
-        self.new_fields = None
 
         for data in reversed(note_changes):
             ver = data.version
@@ -328,9 +345,9 @@ class ActionRunner:
             return
 
         if self.new_fields is not None:
-            verifier = Verifier(self.original_fields, self.new_fields)
+            self.verifier = Verifier(self.original_fields, self.new_fields, in_order=self.in_order)
             actions = sum((c.actions for c in self.changes), start=[])
-            verifier.verify(actions)
+            self.verifier.verify(actions)
 
         # sees if actions edits the cards
         for data in self.changes:
@@ -457,6 +474,7 @@ class ActionRunner:
                 "WARNING: The above actions WILL modify the deck and the notes inside of it.\n"
                 "Please make a backup (File -> Export -> Anki Collection Package) before\n"
                 "running this, just in case!\n"
+                "Please also ensure that Anki is open, but the card browser is not open.\n"
                 "\n"
                 "There are also required user actions that this script cannot perform.\n"
                 "\n"
@@ -467,6 +485,7 @@ class ActionRunner:
                 "WARNING: The above actions WILL modify the deck and the notes inside of it.\n"
                 "Please make a backup (File -> Export -> Anki Collection Package) before\n"
                 "running this, just in case!\n"
+                "Please also ensure that Anki is open, but the card browser is not open.\n"
                 "\n"
                 "If you have made a backup, please type 'yes' to confirm, or anything else to abort: "
             )
@@ -474,6 +493,7 @@ class ActionRunner:
             x = input(
                 "WARNING: There are required user actions that must be done by the user.\n"
                 "Please update each section specified above after this note is done updating.\n"
+                "Please also ensure that Anki is open, but the card browser is not open.\n"
                 "\n"
                 "Type 'yes' to acknowledge, or anything else to abort: "
             )
@@ -487,20 +507,22 @@ class ActionRunner:
 
     def run(self):
         # hack to ensure that updateNoteFields fields will work
-        utils.invoke("guiBrowse", query="nid:1")
+        #utils.invoke("guiBrowse", query="nid:1")
         for data in self.changes:
             for action in data.actions:
                 action.run()
 
-        if self.new_fields is not None:
-            # makes sure that the anki fields are the same
-            field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
-            # allows extra fields added by the user past the original fields
-            first_fields = field_names[: len(self.new_fields)]
+        if self.new_fields is not None and self.verifier is not None:
+            self.verifier.verify_post()
 
-            if field_names != first_fields:
-                naive_diff(first_fields, self.new_fields, "Anki", "Expected (After)")
-                raise Exception("Anki fields are different")
+            ## makes sure that the anki fields are the same
+            #field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
+            ## allows extra fields added by the user past the original fields
+            #first_fields = field_names[: len(self.new_fields)]
+
+            #if field_names != first_fields:
+            #    self.naive_diff_list(first_fields, self.new_fields, "Anki", "Expected (After)")
+            #    raise Exception("Anki fields are different")
 
     def post_message(self):
         if self.requires_user_action:
