@@ -1,8 +1,10 @@
 
 
 # Updating The Card
+(TODO)
 If you want to update the card, the supported and highly recommended way is by using a Python
 script.
+
 
 ## Preliminary steps
 A very big warning up front:
@@ -12,6 +14,9 @@ Please make a **complete backup** of your collection
 (Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
 
 ## Preliminary steps
+
+(TODO)
+
 
 ## Recommended way
 
