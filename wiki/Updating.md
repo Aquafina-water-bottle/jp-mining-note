@@ -30,17 +30,27 @@ and does not have the required API calls that the installation script
 will very likely need.
 
 
-#### Command Line
+#### Command Line Installation
+Note: this method **only** works on MacOS and Linux systems.
 ```
 git clone https://github.com/FooSoft/anki-connect.git
 cd anki-connect
 ./link.sh
 ```
 
-#### Manual
+#### Manual Installation
+
+
+1. Download the zip of the
+   [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
+   clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
+   After that, unzip the directory.
+
+2. Copy the `plugin` folder (found inside `./anki-connect`), and paste
+   in
 
 TODO
-- download zip
+- download zip (or clone the repository)
 - paste plugin folder into anki addons folder
 - rename to `AnkiConnectDev`
 
@@ -77,7 +87,7 @@ found [here](updating#windows-instructions).
 #### Command Line
 
 ```
-# assuming you are at the root of the repo, i.e. after:
+# assuming you are at the root of the repo, i.e. after the following commands:
 #  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 #  $ cd jp-mining-note
 
@@ -165,9 +175,13 @@ However, there are some differences that you should keep in mind.
 ## Refreshing the Fields
 The most important difference is that **if a new field was added**,
 then the field will not show up automatically in Yomichan.
-The only way to refresh the fields[^1]
+The only way to refresh the fields as of writing this (2022/09/06)
 is to change the `Model` at the top right hand corner to something else,
 and then switching back to `JP Mining Note`.
+
+<!--
+Hopefully in the future, there will be a `refresh` button in Yomichan itself to avoid all this trouble.
+-->
 
 * **WARNING**: <br>
   Doing the above WILL clear all the fields that you previously had, unless there
@@ -207,6 +221,4 @@ Like the above, you can simply follow the steps already specified in [setup](set
 Again, please make sure you **reset the existing templates** (unless you know what you are doing),
 and again, please make a [backup](setup#preliminary-steps) of your Yomichan settings just in case.
 
-
-[^1]: As of writing this (2022/09/06). Hopefully in the future, there will be a `refresh` button in Yomichan itself to avoid all this trouble.
 

@@ -22,6 +22,16 @@ See [here](usage#wait-i-dont-want-to-test-pitch-accent).
 
 # Troubleshooting
 
+
+## Where is the (X) folder in Anki?
+See the [official documentation](https://docs.ankiweb.net/files.html#file-locations)
+to find the `Anki2` folder.
+* Your profile folder is under `Anki2/PROFILE_NAME`.
+* Your media folder is under `Anki2/PROFILE_NAME/collections.media`.
+* Your addons folder is under `Anki2/addons21`.
+
+
+
 ## The sentence quotes are on completely different lines!
 If your card looks like this:
 
