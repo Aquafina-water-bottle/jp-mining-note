@@ -7,8 +7,8 @@ script.
 
 
 ## Preliminary steps
-A **very big warning** up front: <br>
-Updating your card will **wipe out any custom changes** you might have made to the templates.
+A **VERY BIG WARNING** up front: <br>
+Updating your card will **DELETE ANY CUSTOM CHANGES** you might have made to the templates.
 
 Please make a **complete backup** of your collection
 (Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
@@ -170,8 +170,8 @@ is to change the `Model` at the top right hand corner to something else,
 and then switching back to `JP Mining Note`.
 
 [^1]:
-    As of writing this (2022/09/06). Hopefully in the future, there will be a `refresh` button
-    in Yomichan itself to avoid all this trouble.
+     As of writing this (2022/09/06). Hopefully in the future, there will be a `refresh` button
+     in Yomichan itself to avoid all this trouble.
 
 * **WARNING**: <br>
   Doing the above WILL clear all the fields that you previously had, unless there
