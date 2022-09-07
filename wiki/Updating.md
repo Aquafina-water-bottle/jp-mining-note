@@ -169,10 +169,6 @@ The only way to refresh the fields[^1]
 is to change the `Model` at the top right hand corner to something else,
 and then switching back to `JP Mining Note`.
 
-[^1]:
-     As of writing this (2022/09/06). Hopefully in the future, there will be a `refresh` button
-     in Yomichan itself to avoid all this trouble.
-
 * **WARNING**: <br>
   Doing the above WILL clear all the fields that you previously had, unless there
   is a matching field in that other card.
@@ -211,4 +207,6 @@ Like the above, you can simply follow the steps already specified in [setup](set
 Again, please make sure you **reset the existing templates** (unless you know what you are doing),
 and again, please make a [backup](setup#preliminary-steps) of your Yomichan settings just in case.
 
+
+[^1]: As of writing this (2022/09/06). Hopefully in the future, there will be a `refresh` button in Yomichan itself to avoid all this trouble.
 
