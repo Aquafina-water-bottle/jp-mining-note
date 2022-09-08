@@ -8,6 +8,9 @@ update all the notes in place.
 To update JPMN, see [**this section**](updating).
 
 
+# Table of Contents
+TODO
+
 
 # Introduction
 Unfortunately, there are so many card formats out there that

@@ -6,7 +6,7 @@ to your liking.
 
 # Table of Contents
 1. [Definitions](usage#definitions)
-1. [UI Summary](usage#user-interface-summary)
+1. [User Interface](usage#user-interface)
 1. [Modifying: Front](usage#modifying-the-front-side-tested-content)
 1. [Modifying: Back](usage#modifying-the-back-side)
 1. [Modifying: Other](usage#modifying-other-aspects-of-the-card)
