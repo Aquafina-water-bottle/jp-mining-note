@@ -1,9 +1,19 @@
 
 
-# Updating The Card
-(TODO)
-If you want to update the card, the supported and highly recommended way is by using a Python
-script.
+# Table of Contents
+TODO
+* [Updating the Card](updating#updating-the-card)
+    * [Preliminary Steps](updating#preliminary-steps)
+    * [Python Script Method](updating#python-script-method-recommended) (recommended)
+    * [Manual Method](updating#manual-method) (not recommended)
+    * [Final Steps](updating#final-steps)
+* Updating Yomichan Templates
+* Updating Yomichan Format
+
+
+# Updating the Card
+This section is dedicated to explaining how to update the card itself.
+The supported and highly recommended way is by using a Python script.
 
 
 ## Preliminary steps
@@ -22,15 +32,28 @@ However, if you're a MacOS or Linux user, no special guidance will be given
 in this documentation.
 
 
-## Anki-Connect: Dev Version
+## Python Script Method (recommended)
+
+<!--
+If you know what `python` and `git` is, please skip this section
+and go straight to the [summary section](updating#command-line-summary).
+-->
+The recommended way to install the note is by using a python script.
+This will change the note in place, and gives you various options on how
+the note will be changed.
+Lastly, it will give you warnings on anything you have to change manually,
+such as Yomichan Templates.
+
+
+#### Anki-Connect: Dev Version
 At the time of writing this (2022/09/07),
 you will need the developer version of Anki-Connect,
 because the Anki web version of Anki-Connect is too old
 and does not have the required API calls that the installation script
-will very likely need.
+will likely need (calls related to field editing).
 
 
-#### Command Line Installation
+##### Command Line Installation
 Note: this method **only** works on MacOS and Linux systems.
 ```
 git clone https://github.com/FooSoft/anki-connect.git
@@ -38,8 +61,7 @@ cd anki-connect
 ./link.sh
 ```
 
-#### Manual Installation
-
+##### Manual Installation
 
 1. Download the zip of the
    [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
@@ -68,32 +90,22 @@ Anki2
 
 
 
-## Recommended way
 
-<!--
-If you know what `python` and `git` is, please skip this section
-and go straight to the [summary section](updating#command-line-summary).
--->
-The recommended way to install the note is by using a python script.
-This will change the note in place, and gives you various options on how
-the note will be changed.
-Lastly, it will give you warnings on anything you have to change manually,
-such as Yomichan Templates.
 
-The cross-platform command line summary is shown below if you know command line.
+#### Command Line
+The cross-platform command line summary is shown below.
 A more detailed set of instructions for Windows users can be
 found [here](updating#windows-instructions).
 
-#### Command Line
+
 
 ```
 # assuming you are at the root of the repo, i.e. after the following commands:
 #  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 #  $ cd jp-mining-note
 
-# mostly equivalent to git pull origin/master
-git fetch origin/master
-git merge origin/master
+# grabs the latest version of the master branch
+git pull origin/master
 
 cd ./tools
 
@@ -105,10 +117,10 @@ python3 ./install.py --update
 
 #### Windows Instructions
 1. Install [Python](https://www.python.org/).
-   Whatever the latest version should suffice.
+   Any version above 3.10.6 should suffice.
 
-   On Windows, make sure the box for "Add Python to PATH" is checked.
-   (This is a common error for Windows users. Please pay attention to this step!)
+   Make sure the box for "Add Python to PATH" is checked.
+   (This is a common error for people to make. Please pay attention to this step!)
 
 1. Get the latest version of the repository.
    The easiest way to do this is by heading to the
@@ -116,11 +128,11 @@ python3 ./install.py --update
    click on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
    After that, unzip the directory.
 
-1. Open command line, and cd (change directory) into `jp-mining-note/tools`.
+1. Open command prompt, and cd (change directory) into `jp-mining-note/tools`.
    If you don't know how to do that, see
    [here](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/).
 
-1. With your command line in the `tools` directory, run the following command:
+1. With your current directory being the `tools` directory, run the following command:
    ```
    python install.py --update
    ```
@@ -142,8 +154,8 @@ but you probably already knew that, didn't you? ;)
 -->
 
 
-## Manual way
-To preface this section, this method is **not recommended at all**, and **very limited support** will
+## Manual Method
+To preface this section, this method is **not recommended**, and **very limited support** will
 be given if you attempt this method.
 
 Sometimes, you may be able to update the card simply by re-installing the newer version of the
@@ -159,10 +171,21 @@ first two numbers in the version you want to install
 to the first two numbers of the current card version. (TODO link FAQ)
 If the first two numbers match, then you are likely safe to manually update the card.
 
-If they don't match, then you MAY be able to get away with installing it and transferring
+If they don't match, then you MAY be able to get away with installing it anyways and transferring
 the old note types to the new note type.
+For example, a possible way to update the note is:
+1. Install the new version of the note.
+1. Select all the cards you want to transfer to the version, and change note type.
+1. Remove the old note type.
+1. Rename the new note type to the old note type name (`JP Mining Note`).
 See the changelog to see how the fields have changed and how you have to map the old fields
 to the new fields.
+
+
+## Final Steps
+There may be further steps outside of just updating the card,
+such as updating Yomichan's templates / format.
+Further instructions on these are written below.
 
 
 

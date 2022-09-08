@@ -18,6 +18,7 @@ with your card exporter:
 1. [Prerequisites](setup#prerequisites)
 1. [Installing](setup#installing-the-card)
 1. [Anki Setup](setup#anki-setup)
+1. [Transfer Existing Notes](setup#transfer-existing-notes)
 1. [Updating the Note](setup#updating-the-note)
 1. [Yomichan Setup](setup#yomichan-setup)
 1. [Card Creation](setup#creating-the-cards)
