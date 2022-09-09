@@ -75,8 +75,8 @@ Better support across systems and more features are planned for the future.
 See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
 
 # Other Info
-Tested on Anki 2.1.54, Linux (Ubuntu) & Windows.
-It currently does **NOT** work on legacy versions of Anki 2.1.49 and below.
+Tested on Anki 2.1.54 (Qt6), Linux (Ubuntu) & Windows.
+<!--It currently does **NOT** work on legacy versions of Anki 2.1.49 and below.-->
 
 It is recommended you use the latest version of Anki if possible.
 
