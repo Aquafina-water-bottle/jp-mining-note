@@ -16,7 +16,7 @@ See [here](usage#wait-i-dont-want-to-test-pitch-accent).
 # Table of Contents
 * [Troubleshooting](faq#troubleshooting)
 * [Card Editing](faq#card-editing)
-* [Other](faq#other)
+* [Other](faq#other-questions)
 
 
 

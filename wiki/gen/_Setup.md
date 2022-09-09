@@ -644,7 +644,7 @@ I use a texthooker setup, which is able to extract subtitles or text into the br
 Once the text is on the browser, you can use Yomichan to select the word and create the
 Anki card (click on the green plus button).
 
-The classic texthooker setup works for most games, and any show with subtitle file.
+The classic texthooker setup works for most games, and any show with subtitle files.
 This texthooker process has already been explained in great detail by
 many other smart people in the following links:
 * [Texthooker basics](https://rentry.co/mining#browser)

@@ -16,7 +16,7 @@ to your liking.
 
 
 
-# Definitions used
+# Definitions
 **Binary Field:**
 A field that checks whether it is filled or not with any value, say `1`.
 The default is implied by the name of the field, and a value of "true" means that the field is filled.
