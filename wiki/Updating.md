@@ -67,6 +67,7 @@ will likely need (calls related to field editing).
 > ```
 > Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
 >
+> <br>
 >
 > ##### Manual Installation (Anki-Connect-Dev)
 > 1. Download the zip of the
@@ -90,6 +91,8 @@ will likely need (calls related to field editing).
 > ```
 >
 > Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
+>
+> <br>
 >
 > ##### Final steps (Anki-Connect-Dev)
 > After installing `AnkiConnectDev`:
