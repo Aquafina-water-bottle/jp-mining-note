@@ -33,6 +33,13 @@ The following are examples breaking changes:
 -->
 
 
+## [0.10.0.2] - 2022-09-??
+
+#### Fixed
+- `replaceAll` -> `replace` with `g` flag, to support older versions of Anki (qt5)
+
+
+
 ## [0.10.0.1] - 2022-09-05
 
 #### Added
