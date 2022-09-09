@@ -6,7 +6,7 @@ TODO
     * [Preliminary Steps](updating#preliminary-steps)
     * [Python Script Method](updating#python-script-method-recommended) (recommended)
     * [Manual Method](updating#manual-method) (not recommended)
-    * [Final Steps](updating#final-steps)
+    * [Final Steps](updating#final-steps-1)
 * Updating Yomichan Templates
 * Updating Yomichan Format
 
@@ -60,7 +60,8 @@ git clone https://github.com/FooSoft/anki-connect.git
 cd anki-connect
 ./link.sh
 ```
-Be sure to 
+Be sure to see the [final steps](updating#final-steps) after installing.
+
 
 ##### Manual Installation
 
@@ -83,6 +84,8 @@ Anki2
        L edit.py
        ...
 ```
+
+Be sure to see the [final steps](updating#final-steps) after installing.
 
 ##### Final steps
 After installing `AnkiConnectDev`:
