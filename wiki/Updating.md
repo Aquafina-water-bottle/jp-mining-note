@@ -53,46 +53,53 @@ and does not have the required API calls that the installation script
 will likely need (calls related to field editing).
 
 
-##### Command Line Installation (Anki-Connect-Dev)
-Note: this method **only** works on MacOS and Linux systems.
-```
-git clone https://github.com/FooSoft/anki-connect.git
-cd anki-connect
-./link.sh
-```
-Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
+<details>
+<spoiler>*Click here to see how to install the dev version of Anki-Connect*</spoiler>
 
+> ##### Command Line Installation (Anki-Connect-Dev)
+> Note: this method **only** works on MacOS and Linux systems.
+> ```
+> git clone https://github.com/FooSoft/anki-connect.git
+> cd anki-connect
+> ./link.sh
+> ```
+> Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
+>
+>
+> ##### Manual Installation (Anki-Connect-Dev)
+> 1. Download the zip of the
+>    [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
+>    clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
+>    After that, unzip the directory.
+> 1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
+>    in the [addons folder](faq#where-is-the-x-folder-in-anki).
+> 1. Rename `plugin` to `AnkiConnectDev`.
+>
+> In the end, the file structure should look something like below:
+> ```
+> Anki2
+>  L addons21
+>     L AnkiConnectDev
+>        L __init__.py
+>        L config.json
+>        L config.md
+>        L edit.py
+>        ...
+> ```
+>
+> Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
+>
+> ##### Final steps (Anki-Connect-Dev)
+> After installing `AnkiConnectDev`:
+> 1. Disable the old Anki-Connect add-on.
+> 1. Restart Anki to apply the changes.
+>
+> To confirm you have the dev version installed, check your list of installed add-ons in Anki.
+> You should be able to see `AnkiConnectDev` in the aforementioned list.
 
-##### Manual Installation (Anki-Connect-Dev)
-1. Download the zip of the
-   [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
-   clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
-   After that, unzip the directory.
-1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
-   in the [addons folder](faq#where-is-the-x-folder-in-anki).
-1. Rename `plugin` to `AnkiConnectDev`.
+</details>
 
-In the end, the file structure should look something like below:
-```
-Anki2
- L addons21
-    L AnkiConnectDev
-       L __init__.py
-       L config.json
-       L config.md
-       L edit.py
-       ...
-```
-
-Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
-
-##### Final steps (Anki-Connect-Dev)
-After installing `AnkiConnectDev`:
-1. Disable the old Anki-Connect add-on.
-1. Restart Anki to apply the changes.
-
-To confirm you have the dev version installed, check your list of installed add-ons in Anki.
-You should be able to see `AnkiConnectDev` in the aforementioned list.
+<br>
 
 
 
