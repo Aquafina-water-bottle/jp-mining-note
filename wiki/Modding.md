@@ -73,6 +73,84 @@ python3 -m pytest ./tests
 TODO
 
 
+## Yomichan Templates CSS
+
+
+example generated html for frequencies:
+
+
+```html
+
+<div class="frequencies">
+  <div class="frequencies__group" data-details="Anime &amp; Jdrama Freq:">
+    <div class="frequencies__number"><span class="frequencies__number-inner">3128</span></div>
+    <div class="frequencies__dictionary">
+      <span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">Anime &amp; Jdrama Freq:</span></span>
+    </div>
+  </div>
+  <div class="frequencies__group" data-details="Innocent Ranked">
+    <div class="frequencies__number"><span class="frequencies__number-inner">6230</span></div>
+    <div class="frequencies__dictionary">
+      <span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">Innocent Ranked</span></span>
+    </div>
+  </div>
+  <!-- etc. -->
+</div>
+```
+
+
+example generated html for pitch accent positions:
+```html
+<!-- surrounded by <div class="pa-positions"> in Anki template -->
+
+<div class="pa-positions__group" data-details="NHK">
+  <div class="pa-positions__dictionary"><div class="pa-positions__dictionary-inner">NHK</div></div>
+  <ol>
+    <li>
+      <span style="display: inline;"><span>[</span><span>0</span><span>]</span></span>
+    </li>
+    <li>
+      <span style="display: inline;"><span>[</span><span>3</span><span>]</span></span>
+    </li>
+  </ol>
+</div>
+<div class="pa-positions__group" data-details="大辞泉">
+  <div class="pa-positions__dictionary"><div class="pa-positions__dictionary-inner">大辞泉</div></div>
+  <ol>
+    <li>
+      <span style="display: inline;"><span>[</span><span>0</span><span>]</span></span>
+    </li>
+  </ol>
+</div>
+<!-- etc. -->
+
+```
+
+
+example generated html for pitch accent graphs:
+```html
+<!-- surrounded by <div class="pa-graphs"> in Anki template -->
+
+<div class="pa-graphs__group" data-details="NHK">
+  <div class="pa-graphs__dictionary"><div class="pa-graphs__dictionary-inner">NHK</div></div>
+  <ol>
+    <li>
+      <svg> ... </svg> <!-- Yomichan's generated SVG -->
+    </li>
+  </ol>
+</div>
+<div class="pa-graphs__group" data-details="大辞泉">
+  <div class="pa-graphs__dictionary"><div class="pa-graphs__dictionary-inner">大辞泉</div></div>
+  <ol>
+    <li>
+      <svg> ... </svg> <!-- Yomichan's generated SVG -->
+    </li>
+  </ol>
+</div>
+<!-- etc... -->
+```
+
+
 ## Tips and Tricks
 
 #### Print statements
