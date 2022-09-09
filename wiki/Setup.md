@@ -49,13 +49,18 @@ There are two ways of installing the card:
 If you know what `git` and `python` is, here's all you have to do:
 
 ```
-git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
-cd ./jp-mining-note
+git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
+cd jp-mining-note
+
 # Ensure you have Anki open, and with anki-connect running
 # Also ensure that you have python 3.10+ installed.
 # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
-python ./tools/install.py
+
+# You may have to use `python3` instead of `python`.
+# Additionally, on Windows machines, your file path should be `tools\install.py`
+python tools/install.py
 ```
+
 
 The above does the following:
 - Installs the latest version of the note
@@ -68,7 +73,7 @@ or you just want to install this normally,
 see below:
 
 * **Note**: <br>
-    **Full video example** of the steps below for Linux (Ubuntu) [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4))
+    **Full video example** of the steps below for Linux (Ubuntu) [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4)
 
 1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
     and download the cards from the latest release.
@@ -94,8 +99,8 @@ Please check the following in particular:
 - The fonts should match very similarly with the above example.
 - Notice how at the top left corner, the info circle (the "i" encased within the circle)
   is the default grey color.
-  If this is red, that means something is wrong with the note.
-  Please see [this](faq-general-troubleshooting) section for basic troubleshooting.
+  If this is red, that means something is wrong with the note's javascript.
+  Please see [this](faq#the-info-circle-displays-an-error) section for basic troubleshooting.
 - Clicking on the image to zoom should work out of the box.
 
 
@@ -172,8 +177,8 @@ rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
 rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
 ```
 
-For **Windows** users, run these two commands in command prompt with elevated permissions
-(be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile):
+For **Windows** users, run these two commands in command prompt (not PowerShell!) with elevated permissions.
+Additionally, be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile.
 
 ```
 mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
