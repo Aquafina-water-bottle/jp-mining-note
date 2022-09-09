@@ -6,7 +6,7 @@ TODO
     * [Preliminary Steps](updating#preliminary-steps)
     * [Python Script Method](updating#python-script-method-recommended) (recommended)
     * [Manual Method](updating#manual-method) (not recommended)
-    * [Final Steps](updating#final-steps-1)
+    * [Final Steps](updating#final-steps)
 * [Updating Yomichan Format](updating#updating-yomichans-anki-card-format)
 * [Updating Yomichan Templates](updating#updating-yomichan-templates)
 
@@ -53,18 +53,17 @@ and does not have the required API calls that the installation script
 will likely need (calls related to field editing).
 
 
-##### Command Line Installation
+##### Command Line Installation (Anki-Connect-Dev)
 Note: this method **only** works on MacOS and Linux systems.
 ```
 git clone https://github.com/FooSoft/anki-connect.git
 cd anki-connect
 ./link.sh
 ```
-Be sure to see the [final steps](updating#final-steps) after installing.
+Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
 
 
-##### Manual Installation
-
+##### Manual Installation (Anki-Connect-Dev)
 1. Download the zip of the
    [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
    clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
@@ -85,9 +84,9 @@ Anki2
        ...
 ```
 
-Be sure to see the [final steps](updating#final-steps) after installing.
+Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
 
-##### Final steps
+##### Final steps (Anki-Connect-Dev)
 After installing `AnkiConnectDev`:
 1. Disable the old Anki-Connect add-on.
 1. Restart Anki to apply the changes.
