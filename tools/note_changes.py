@@ -127,9 +127,7 @@ NOTE_CHANGES = [
             action.MoveField("PASeparateSentenceCard", 19 - 1),
             action.AddField("FrequencySort", 29 - 1),
             action.YomichanTemplatesChange(),
-            action.YomichanFormatChange(
-                "FrequencySort", "(empty)", "{jpmn-min-freq}"
-            ),
+            action.YomichanFormatChange("FrequencySort", "(empty)", "{jpmn-min-freq}"),
         ],
         fields=[
             "Key",

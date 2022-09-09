@@ -58,7 +58,6 @@ def add_args(parser):
     )
 
 
-
 def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
     # placed here because this function is called at the beginning of all the scripts
     assert_ankiconnect_running()
@@ -387,9 +386,9 @@ def assert_ankiconnect_running():
     try:
         invoke("version")
     except urllib.error.URLError as e:
-        raise Exception("Ankiconnect is not running. Is Anki open, and is Ankiconnect installed and enabled?")
-
-
+        raise Exception(
+            "Ankiconnect is not running. Is Anki open, and is Ankiconnect installed and enabled?"
+        )
 
 
 if __name__ == "__main__":

@@ -50,17 +50,17 @@ from typing import Any
 def add_args(parser):
     group = parser.add_argument_group(title="actions")
 
-    #group.add_argument(
+    # group.add_argument(
     #    "--no-warn",
     #    action="store_true",
     #    help="does not warn when updating",
-    #)
+    # )
 
-    #group.add_argument(
+    # group.add_argument(
     #    "--initialize",
     #    action="store_true",
     #    help="Adds `[sound:_silence.wav]` to the PASilence field of every card",
-    #)
+    # )
 
 
 # def get_anki_path():
@@ -281,7 +281,9 @@ class Verifier:
             first_anki_fields = anki_fields[: len(self.new_fields)]
 
             if anki_fields != first_anki_fields:
-                self.naive_diff_list(first_anki_fields, self.new_fields, "Anki", "Expected (After)")
+                self.naive_diff_list(
+                    first_anki_fields, self.new_fields, "Anki", "Expected (After)"
+                )
                 raise Exception("Anki fields are different")
         else:
 
@@ -298,9 +300,14 @@ class Verifier:
                 )
 
 
-
 class ActionRunner:
-    def __init__(self, current_ver: Version, new_ver: Version, in_order=True, note_changes=NOTE_CHANGES):
+    def __init__(
+        self,
+        current_ver: Version,
+        new_ver: Version,
+        in_order=True,
+        note_changes=NOTE_CHANGES,
+    ):
         """
         applies changes specified in the range (current_ver, new_ver]
 
@@ -345,7 +352,9 @@ class ActionRunner:
             return
 
         if self.new_fields is not None:
-            self.verifier = Verifier(self.original_fields, self.new_fields, in_order=self.in_order)
+            self.verifier = Verifier(
+                self.original_fields, self.new_fields, in_order=self.in_order
+            )
             actions = sum((c.actions for c in self.changes), start=[])
             self.verifier.verify(actions)
 
@@ -407,6 +416,9 @@ class ActionRunner:
     def clear(self):
         self.changes.clear()
 
+    def indent(self, desc, indent="    "):
+        return indent + desc.replace("\n", "\n" + indent)
+
     def get_version_actions_desc(self, data: NoteChange) -> str:
         """
         description w/out global changes
@@ -419,7 +431,7 @@ class ActionRunner:
 
         for action in data.actions:
             if not isinstance(action, UserAction):
-                desc_list.append("    " + action.description)
+                desc_list.append(self.indent(action.description))
 
         return "\n".join(desc_list)
 
@@ -436,9 +448,9 @@ class ActionRunner:
                     if action.unique:
                         if action.__class__ not in user_changes_unique:
                             user_changes_unique.add(action.__class__)
-                            desc_list.append("    " + action.description)
+                            desc_list.append(self.indent(action.description))
                     else:
-                        desc_list.append("    " + action.description)
+                        desc_list.append(self.indent(action.description))
 
         return "\n".join(desc_list)
 
@@ -507,7 +519,7 @@ class ActionRunner:
 
     def run(self):
         # hack to ensure that updateNoteFields fields will work
-        #utils.invoke("guiBrowse", query="nid:1")
+        # utils.invoke("guiBrowse", query="nid:1")
         for data in self.changes:
             for action in data.actions:
                 action.run()
@@ -516,11 +528,11 @@ class ActionRunner:
             self.verifier.verify_post()
 
             ## makes sure that the anki fields are the same
-            #field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
+            # field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
             ## allows extra fields added by the user past the original fields
-            #first_fields = field_names[: len(self.new_fields)]
+            # first_fields = field_names[: len(self.new_fields)]
 
-            #if field_names != first_fields:
+            # if field_names != first_fields:
             #    self.naive_diff_list(first_fields, self.new_fields, "Anki", "Expected (After)")
             #    raise Exception("Anki fields are different")
 

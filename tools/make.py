@@ -8,22 +8,25 @@
 # from jinja2 import Template
 
 import os
-#import json
+
+# import json
 import shutil
-#import argparse
+
+# import argparse
 from enum import Enum
-#from dataclasses import dataclass
+
+# from dataclasses import dataclass
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
 import utils
 
-#OPTIONS_FILENAME = "_jpmn-options.js"
+# OPTIONS_FILENAME = "_jpmn-options.js"
 
 
 def add_args(parser):
     group = parser.add_argument_group(title="make")
-    #group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
+    # group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
     group.add_argument("--to-release", action="store_true", default=False)
 
 
@@ -38,9 +41,7 @@ class Generator:
     handles file generation with jinja2, sass, or just copying
     """
 
-    def __init__(
-        self, jinja_root_folder: str, args, to_release=False
-    ):
+    def __init__(self, jinja_root_folder: str, args, to_release=False):
         self.jinja_root_folder = jinja_root_folder
         self.env = Environment(
             loader=FileSystemLoader(jinja_root_folder),
@@ -75,10 +76,10 @@ class Generator:
             "NOTE_OPTS_JSON": utils.get_note_opts(config),
             # json_output =
             "VERSION": utils.get_version(args),
-            #"NOTE_OPTS": config("note-opts"),
+            # "NOTE_OPTS": config("note-opts"),
             "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
             "NOTE_FILES": utils.get_note_config(),
-            #"TEMPLATES": config("notes", "jp-mining-note", "templates"),
+            # "TEMPLATES": config("notes", "jp-mining-note", "templates"),
         }
 
     def generate(
