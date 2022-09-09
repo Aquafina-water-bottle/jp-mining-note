@@ -60,6 +60,7 @@ git clone https://github.com/FooSoft/anki-connect.git
 cd anki-connect
 ./link.sh
 ```
+Be sure to 
 
 ##### Manual Installation
 
@@ -67,16 +68,11 @@ cd anki-connect
    [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
    clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
    After that, unzip the directory.
+1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
+   in the [addons folder](faq#where-is-the-x-folder-in-anki).
+1. Rename `plugin` to `AnkiConnectDev`.
 
-2. Copy the `plugin` folder (found inside `./anki-connect`), and paste
-   in
-
-TODO
-- download zip (or clone the repository)
-- paste plugin folder into anki addons folder
-- rename to `AnkiConnectDev`
-
-should look like this:
+In the end, the file structure should look something like below:
 ```
 Anki2
  L addons21
@@ -88,16 +84,22 @@ Anki2
        ...
 ```
 
+##### Final steps
+After installing `AnkiConnectDev`:
+1. Disable the old Anki-Connect add-on.
+1. Restart Anki to apply the changes.
+
+To confirm you have the dev version installed, check your list of installed add-ons in Anki.
+You should be able to see `AnkiConnectDev` in the aforementioned list.
+
 
 
 
 
 #### Command Line
-The cross-platform command line summary is shown below.
+The cross-platform command line summary on how to update the note is shown below.
 A more detailed set of instructions for Windows users can be
 found [here](updating#windows-instructions).
-
-
 
 ```
 # assuming you are at the root of the repo, i.e. after the following commands:
@@ -136,6 +138,8 @@ python3 ./install.py --update
    ```
    python install.py --update
    ```
+   Once you run the command, further instructions should be given to you through the command
+   line interface.
 
 <!--
 #### Mac OS instructions
@@ -196,8 +200,8 @@ one specified already in the [setup](setup#yomichan-fields).
 However, there are some differences that you should keep in mind.
 
 ## Refreshing the Fields
-The most important difference is that **if a new field was added**,
-then the field will not show up automatically in Yomichan.
+The most important difference is that if a new field was added or a field has been renamed,
+then **the field will not show up automatically in Yomichan**.
 The only way to refresh the fields as of writing this (2022/09/06)
 is to change the `Model` at the top right hand corner to something else,
 and then switching back to `JP Mining Note`.
@@ -211,6 +215,7 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
   is a matching field in that other card.
 
 Here is how I recommend transitioning as smoothly as possible:
+1. As always, create a [backup](setup#preliminary-steps) of your Yomichan settings, just in case.
 1. After running `install.py --update`, create a temporary copy of the note by: <br>
     `Tools` <br>
     →  `Manage Note Types` <br>
@@ -218,9 +223,9 @@ Here is how I recommend transitioning as smoothly as possible:
     →  (select `Clone: JP Mining Note`) <br>
     →  (name it to anything you want. For the following examples, it will be named `JP Mining Note (copy)`.) <br>
     →  `Ok`
-1. As always, create a [backup](setup#preliminary-steps) of your Yomichan settings, just in case.
 1. Head over to Anki Card Format [as before](setup#yomichan-fields).
-1. In the top right corner, change `Model` to `JP Mining Note (copy)`, and then back to `JP Mining Note`.
+1. In the top right corner, change `Model` to `JP Mining Note (copy)`,
+   and then change it back to `JP Mining Note`.
 1. Update the fields as specified.
     - It will be both specified in the text you see when running `install.py --update`.
     - However, you should also simply compare the table on the setup page to your filled out fields.
