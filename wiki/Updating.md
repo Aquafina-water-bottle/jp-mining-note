@@ -7,8 +7,8 @@ TODO
     * [Python Script Method](updating#python-script-method-recommended) (recommended)
     * [Manual Method](updating#manual-method) (not recommended)
     * [Final Steps](updating#final-steps-1)
-* Updating Yomichan Templates
-* Updating Yomichan Format
+* [Updating Yomichan Format](updating#updating-yomichans-anki-card-format)
+* [Updating Yomichan Templates](updating#updating-yomichan-templates)
 
 
 # Updating the Card

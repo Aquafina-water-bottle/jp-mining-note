@@ -33,9 +33,15 @@ to find the `Anki2` folder.
 
 
 ## The sentence quotes are on completely different lines!
+<!--
 If your card looks like this:
+--->
 
 (TODO)
+
+- edit the underlying html (ctrl+shift+x) and remove the `<div>` and `</div>` tags.
+- happens if you copy/paste directly from certain pages (i.e. texthooker)
+- the sharex clipboard shortcut shouldn't have this problem because it uses `<br>` instead of `<div>`s
 
 
 
