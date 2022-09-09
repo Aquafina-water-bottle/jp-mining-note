@@ -54,7 +54,7 @@ will likely need (calls related to field editing).
 
 
 <details>
-<summary>*Click here to see how to install the dev version of Anki-Connect*</summary>
+<summary><i>Click here to see how to install the dev version of Anki-Connect</i></summary>
 
 > ##### Command Line Installation (Anki-Connect-Dev)
 > Note: this method **only** works on MacOS and Linux systems.
