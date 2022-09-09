@@ -249,9 +249,11 @@ let JPMN_KanjiHover = (function () {
     let wordDiv = document.createElement('div');
     let re = / ?([^ >]+?)\[(.+?)\]/g
 
-    let wordReadingRuby = wordReading.replaceAll("&nbsp;", " ");
+    //let wordReadingRuby = wordReading.replaceAll("&nbsp;", " ");
+    let wordReadingRuby = wordReading.replace(/&nbsp;/g, " ");
     wordReadingRuby = wordReadingRuby.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
-    wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
+    //wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
+    wordReadingRuby = wordReadingRuby.replace(new RegExp(character, "g"), `<b>${character}</b>`);
 
     wordDiv.innerHTML = wordReadingRuby;
     return wordDiv;
@@ -261,8 +263,10 @@ let JPMN_KanjiHover = (function () {
     let sentenceSpan = document.createElement('span');
 
     let resultSent = sentence;
-    resultSent = resultSent.replaceAll("<b>", "");
-    resultSent = resultSent.replaceAll("</b>", "");
+    //resultSent = resultSent.replaceAll("<b>", "");
+    //resultSent = resultSent.replaceAll("</b>", "");
+    resultSent = resultSent.replace(/<b>/g, "");
+    resultSent = resultSent.replace(/<\/b>/g, "");
     sentenceSpan.innerHTML = resultSent;
 
     let openQuote = document.createElement('span');
@@ -563,7 +567,8 @@ let JPMN_AutoPA = (function () {
 
     const re = / ?([^ >]+?)\[(.+?)\]/g
 
-    let result = readingStr.replaceAll("&nbsp;", " ");
+    //let result = readingStr.replaceAll("&nbsp;", " ");
+    let result = readingStr.replace(/&nbsp;/g, " ");
     result = readingStr.replace(re, "$2");
     //wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
 
@@ -640,7 +645,7 @@ let JPMN_AutoPA = (function () {
       const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
 
       for (let i = 0; i < 5; i++) {
-        result = result.replace(RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
+        result = result.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
       }
     }
     logger.assert(!result.includes("nasal"));
