@@ -7,7 +7,7 @@ This page was automatically generated from gen/_JPResources.md.
 If you are planning on editing this page, please edit the file above!
 -->
 
-A collection of tips and tricks, primarily related to CSS and Yomichan Templates.
+A collection of tips and tricks, primarily related to CSS and Yomichan templates.
 
 This page was inspired by [Marv's resources page](https://github.com/MarvNC/JP-Resources),
 which has a bunch of different but equally awesome resources.
@@ -262,7 +262,7 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 
 ## Grab only the first pitch accent dictionary
 
-Add the following template code to Yomichan Templates:
+Add the following template code to Yomichan templates:
 ```
 {{#*inline "pitch-accent-list-single-dict"}}
     {{~#if (op ">" pitchCount 1)~}}<ol>{{~/if~}}
@@ -302,7 +302,7 @@ You can now use the following in Yomichan Fields:
 <!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
 
 <details>
-<summary><i>Click here to see a modified version for Anime Cards (thanks An#7416).</i></summary>
+<summary><i>Click here to see a modified version for Anime Cards.</i></summary>
 
 ```
 {{#*inline "pitch-accent-list-single-dict"}}
@@ -332,6 +332,7 @@ You can now use the following in Yomichan Fields:
 ```
 
 </details>
+<sup>(Thanks An#7416 for the template code)</sup>
 
 <br>
 
