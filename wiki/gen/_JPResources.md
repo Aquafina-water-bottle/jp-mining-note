@@ -57,7 +57,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
     * [Automatically highlight the tested word within the sentence](jpresources#automatically-highlight-the-tested-word-within-the-sentence-upon-card-creation)
     * [Export only the selected text (only if text is selected)](jpresources#export-only-the-selected-text-only-if-text-is-selected)
     * [Further Reading](jpresources#further-reading)
-* [ShareX](jpresources#sharex)
+* [ShareX](jpresources#sharex) (TODO)
 
 
 
@@ -494,11 +494,13 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 
 
 
+
+
+
+
 {% raw %}
 
 # Updated plugins for outdated plugins
-
-
 
 ## migaku
 [migaku updated](https://github.com/MikeMoolenaar/Migaku-Japanese-Addon-Updated)

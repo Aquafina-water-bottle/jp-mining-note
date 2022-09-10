@@ -9,7 +9,7 @@
 1. [Updating the Note](updating)
 1. [Modding the Note](modding) (TODO)
 1. [FAQ](faq) (TODO)
-1. [Various Resources](jpresources) (TODO)
+1. [Various JP Resources](jpresources)
 1. [Personal Setup](personalsetup) (TODO)
 1. [Other](other) (TODO)
 
