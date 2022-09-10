@@ -17,7 +17,7 @@ I highly recommend checking it out!
 If you encounter any problems, have any questions, etc., feel free to contact
 me on discord `Aquafina water bottle#3026`,
 or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
-I exist on the TheMoeWay and Refold (Japanese) servers.
+I exist on the [TheMoeWay](https://learnjapanese.moe/join/) and Refold (Japanese) servers.
 <!--
 If you want to fix some typos or make certain sections clearer,
 please see [this](TODO).
@@ -42,7 +42,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 
 # Table of Contents
 * [CSS (Yomichan)](jpresources#css-yomichan)
-    * [How To Add Custom CSS In Yomichan](jpresources#how-to-add-custom-css-in-yomichan)
+    * [How-To (add custom CSS In Yomichan)](jpresources#how-to-add-custom-css-in-yomichan)
     * [Not selecting / copying furigana](jpresources#copying-the-word-without-copying-the-furigana)
     * [Limiting the number of frequency lists](jpresources#limiting-the-number-of-frequency-lists)
     * [Limiting the number of pitch accent dictionaries](jpresources#limiting-the-number-of-pitch-accent-dictionaries)
@@ -51,7 +51,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 * [CSS (General)](jpresources#css-general)
     * [Ensuring 「」 properly quotes the text](jpresources#ensuring--properly-quotes-the-text)
 * [Yomichan Templates / Handlebars](jpresources#yomichan-templates--handlebars)
-    * How To ([Fields](jpresources#how-to-edit-yomichan-fields) and
+    * How-To ([Fields](jpresources#how-to-edit-yomichan-fields) and
           [Templates](jpresources#how-to-edit-yomichan-templates-handlebars))
     * [Grab only the first pitch accent dictionary](jpresources#grab-only-the-first-pitch-accent-dictionary)
     * [Automatically highlight the tested word within the sentence](jpresources#automatically-highlight-the-tested-word-within-the-sentence-upon-card-creation)
