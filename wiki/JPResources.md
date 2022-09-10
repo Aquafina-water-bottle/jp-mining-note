@@ -42,7 +42,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 
 # Table of Contents
 * [CSS (Yomichan)](jpresources#css-yomichan)
-    * [How To](jpresources#how-to-add-custom-css-in-yomichan)
+    * [How To Add Custom CSS In Yomichan](jpresources#how-to-add-custom-css-in-yomichan)
     * [Not selecting / copying furigana](jpresources#copying-the-word-without-copying-the-furigana)
     * [Limiting the number of frequency lists](jpresources#limiting-the-number-of-frequency-lists)
     * [Limiting the number of pitch accent dictionaries](jpresources#limiting-the-number-of-pitch-accent-dictionaries)
@@ -64,7 +64,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 
 # CSS (Yomichan)
 
-## How to add Custom CSS In Yomichan
+## How to Add Custom CSS In Yomichan
 To add custom CSS in Yomichan, do the following:
 1. Head over to Yomichan settings (Yomichan extension marker -> cogwheel)
 1. Go to `Appearance` →  `Configure custom CSS...`
