@@ -8,7 +8,7 @@
 
 function toggleHighlightWord() {
   let paButton = document.getElementById("pa-button");
-  let d = document.getElementById("Display");
+  let d = document.getElementById("display");
 
   if (paButton.innerText == "Show") {
     paButton.innerText = "Hide";
@@ -38,7 +38,7 @@ function toggleHighlightWord() {
 /// {% call IF("PAShowInfo") %}
 {
   let paButton = document.getElementById("pa-button");
-  let d = document.getElementById("Display");
+  let d = document.getElementById("display");
   if (paButton !== null) {
     //paButton.oncontextmenu = oncontextmenu = (event) => {
     //  event.preventDefault();

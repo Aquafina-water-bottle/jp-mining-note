@@ -17,7 +17,7 @@ PA Sentence
 
 <!-- option 1: AltDisplayPASentenceCard -->
 {% call IF('AltDisplayPASentenceCard') %}
-  <div class="expression expression--single expression--sentence" id="Display">
+  <div class="expression expression--single expression--sentence" id="display">
     {{ utils.quote_open -}}
     {{ T('furigana:AltDisplayPASentenceCard') }}
     {{- utils.quote_close }}
@@ -32,7 +32,7 @@ PA Sentence
           outer-display2
         {% endcall %}
         "
-      style="display: inline-block;" id="Display">
+      style="display: inline-block;" id="display">
 
       <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
       <!-- if any of (click, hover, sentence, TSC) -->
@@ -53,7 +53,7 @@ PA Sentence
   {% endcall %}
 
   {% call IFNOT('AltDisplay') %}
-    <div class="expression expression--single expression--sentence" id="Display">
+    <div class="expression expression--single expression--sentence" id="display">
       {{ utils.quote_open -}}
       {{ T('Sentence') }}
       {{- utils.quote_close }}

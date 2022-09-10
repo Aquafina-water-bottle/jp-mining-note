@@ -61,7 +61,7 @@ anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict
 }
 
 
-anki-editable[field="WordPitch"] {
+anki-editable[field="AJTWordPitch"] {
   @include common.bold-pitch;
 }
 

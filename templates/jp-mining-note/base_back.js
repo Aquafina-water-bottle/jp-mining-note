@@ -5,7 +5,7 @@
 
 
 // placed outside due to anki's async weirdness
-let extraInfoDetailsEle = document.getElementById("extra_info_details");
+const extraInfoDetailsEle = document.getElementById("extra_info_details");
 
 async function openExtraInfoIfNew() {
 
@@ -147,11 +147,11 @@ function convertHiraganaToKatakana(text) {
 
 
 // element outside async function to prevent double-adding due to anki funkyness
-let wordReading = document.getElementById("dh_reading");
+const wordReading = document.getElementById("dh_reading");
 let kanjiHoverEnabled = false;
 
 
-let JPMN_KanjiHover = (function () {
+const JPMN_KanjiHover = (function () {
   let my = {};
 
   // multi query result, in the format of
@@ -178,8 +178,6 @@ let JPMN_KanjiHover = (function () {
       const nonNewQuery = baseQuery + {{ utils.opt("kanji-hover", "non-new-query") }};
       const newQuery = baseQuery + {{ utils.opt("kanji-hover", "new-query") }};
 
-      //logger.warn(nonNewQuery)
-      //logger.warn(newQuery)
       actions.push(constructFindCardAction(nonNewQuery))
       actions.push(constructFindCardAction(newQuery))
     }
@@ -223,17 +221,15 @@ let JPMN_KanjiHover = (function () {
     let actions = [];
     logger.assert(queryResults.length % 2 == 0, "query results not even");
 
-    //for (const [i, character] of kanjiArr.entries()) {
-    for (let i = 0; i < queryResults.length/2; i++) {
+    for (const i = 0; i < queryResults.length/2; i++) {
       // ids are equivalent to creation dates, so sorting ids is equivalent to
       // sorting to card creation date
-      let nonNewCardIds = queryResults[i*2].sort();
-      let newCardIds = queryResults[i*2 + 1].sort();
-      let [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
+      const nonNewCardIds = queryResults[i*2].sort();
+      const newCardIds = queryResults[i*2 + 1].sort();
+      const [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
 
       // creates a multi request of the following format:
       // [cardInfo (nonNewCardIds, kanji 1), cardInfo (newCardIds, kanji 1), etc.]
-
       actions.push(constructCardsInfoAction(nonNewResultIds))
       actions.push(constructCardsInfoAction(newResultIds))
     }
@@ -246,8 +242,8 @@ let JPMN_KanjiHover = (function () {
   // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
   function buildWordDiv(character, wordReading) {
 
-    let wordDiv = document.createElement('div');
-    let re = / ?([^ >]+?)\[(.+?)\]/g
+    const wordDiv = document.createElement('div');
+    const re = / ?([^ >]+?)\[(.+?)\]/g
 
     //let wordReadingRuby = wordReading.replaceAll("&nbsp;", " ");
     let wordReadingRuby = wordReading.replace(/&nbsp;/g, " ");
@@ -260,7 +256,7 @@ let JPMN_KanjiHover = (function () {
   }
 
   function buildSentDiv(sentence) {
-    let sentenceSpan = document.createElement('span');
+    const sentenceSpan = document.createElement('span');
 
     let resultSent = sentence;
     //resultSent = resultSent.replaceAll("<b>", "");
@@ -269,13 +265,13 @@ let JPMN_KanjiHover = (function () {
     resultSent = resultSent.replace(/<\/b>/g, "");
     sentenceSpan.innerHTML = resultSent;
 
-    let openQuote = document.createElement('span');
+    const openQuote = document.createElement('span');
     openQuote.innerText = "「";
-    let closeQuote = document.createElement('span');
+    const closeQuote = document.createElement('span');
     closeQuote.innerText = "」";
 
 
-    let sentenceDiv = document.createElement('div');
+    const sentenceDiv = document.createElement('div');
     sentenceDiv.classList.add("left-align-quote");
 
     sentenceDiv.appendChild(openQuote);
@@ -286,10 +282,9 @@ let JPMN_KanjiHover = (function () {
   }
 
   function buildCardDiv(character, card, isNew=false) {
-    let cardDiv = document.createElement('div');
-    let wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
-
-    let sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
+    const cardDiv = document.createElement('div');
+    const wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
+    const sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
 
     cardDiv.appendChild(wordDiv);
     cardDiv.appendChild(sentenceDiv);
@@ -314,13 +309,12 @@ let JPMN_KanjiHover = (function () {
      */
 
     // wrapper element that isn't used, to get the inner html
-    let wrapper = document.createElement('span');
 
-    let kanjiHoverWrapper = document.createElement('span');
+    const kanjiHoverWrapper = document.createElement('span');
     kanjiHoverWrapper.classList.add("kanji-hover-wrapper");
 
 
-    let kanjiSpan = document.createElement('span');
+    const kanjiSpan = document.createElement('span');
     kanjiSpan.classList.add("kanji-hover-text");
     kanjiSpan.innerText = character;
 
@@ -330,13 +324,11 @@ let JPMN_KanjiHover = (function () {
     tooltipSpan = document.createElement('span');
     tooltipSpan.classList.add("kanji-hover-tooltip");
 
-    //logger.warn(character);
     let count = 0;
 
 
-    for (let card of nonNewCardInfo) {
-      //logger.warn(card);
-      let cardDiv = buildCardDiv(character, card);
+    for (const card of nonNewCardInfo) {
+      const cardDiv = buildCardDiv(character, card);
       if (count >= 1) {
         cardDiv.classList.add("kanji-hover-tooltip--not-first");
       }
@@ -345,8 +337,8 @@ let JPMN_KanjiHover = (function () {
       tooltipSpan.appendChild(cardDiv);
     }
 
-    for (let card of newCardInfo) {
-      let cardDiv = buildCardDiv(character, card, isNew=true);
+    for (const card of newCardInfo) {
+      const cardDiv = buildCardDiv(character, card, isNew=true);
       if (count >= 1) {
         cardDiv.classList.add("kanji-hover-tooltip--not-first");
       }
@@ -364,23 +356,21 @@ let JPMN_KanjiHover = (function () {
     tooltipWrapperSpan.appendChild(tooltipSpan)
     kanjiHoverWrapper.appendChild(kanjiSpan);
     kanjiHoverWrapper.appendChild(tooltipWrapperSpan);
-    wrapper.appendChild(kanjiHoverWrapper);
 
-    return wrapper.innerHTML;
+    return kanjiHoverWrapper.outerHTML;
   }
 
 
   function getWordReadings(nonNewCardInfo, newCardInfo) {
     let wordsArr = []
 
-    for (let card of nonNewCardInfo) {
+    for (const card of nonNewCardInfo) {
       wordsArr.push(card["fields"]["WordReading"]["value"])
     }
-    for (let card of newCardInfo) {
+    for (const card of newCardInfo) {
       wordsArr.push(card["fields"]["WordReading"]["value"])
     }
 
-    //logger.warn(wordsArr.join(" "));
     return wordsArr;
   }
 
@@ -400,15 +390,14 @@ let JPMN_KanjiHover = (function () {
 
     // realistically, key should be good enough since we assume that key has no duplicates
     // however, just in case, wordreading is added
-    let cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
+    const cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
     if (cacheKey in kanjiHoverCardCache) {
       _debug("(JPMN_Kanji) Card was cached")
       wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
-      //logger.info(`using cached card ${cacheKey}`);
       return;
     }
 
-    let readingHTML = wordReading.innerHTML;
+    const readingHTML = wordReading.innerHTML;
 
     // uses cache if it already exists
     let kanjiSet = new Set() // set of kanjis that requires api calls
@@ -447,8 +436,8 @@ let JPMN_KanjiHover = (function () {
       wordReadings[character] = getWordReadings(nonNewCardInfo, newCardInfo);
     }
 
-    let re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
-    let resultHTML = readingHTML.replace(re, function (matched) {
+    const re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
+    const resultHTML = readingHTML.replace(re, function (matched) {
       //return kanjiDict[matched] ?? matched;
       return nullish(kanjiDict[matched], matched);
     });
@@ -458,9 +447,7 @@ let JPMN_KanjiHover = (function () {
     // caches card
     kanjiHoverCardCache[cacheKey] = resultHTML;
 
-    //_debug(resultHTML);
-
-    for (let character of kanjiArr) {
+    for (const character of kanjiArr) {
       kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
     }
 
@@ -479,7 +466,7 @@ let JPMN_KanjiHover = (function () {
 // sets the pitch accent section to be whatever you specify it
 // by the pitch accent position number
 
-let JPMN_AutoPA = (function () {
+const JPMN_AutoPA = (function () {
 
   let my = {};
 
@@ -528,8 +515,8 @@ let JPMN_AutoPA = (function () {
       // searches for a bolded element
       let first = true;
       let found = false;
-      for (let groupDiv of ele.children) {
-        for (let liEle of groupDiv.children[1].children) {
+      for (const groupDiv of ele.children) {
+        for (const liEle of groupDiv.children[1].children) {
           if (first) {
             first = false;
             searchHTML = liEle.innerHTML;
@@ -570,7 +557,6 @@ let JPMN_AutoPA = (function () {
     //let result = readingStr.replaceAll("&nbsp;", " ");
     let result = readingStr.replace(/&nbsp;/g, " ");
     result = readingStr.replace(re, "$2");
-    //wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
 
     return result;
   }
@@ -586,7 +572,7 @@ let JPMN_AutoPA = (function () {
   // function name gore :sob:
   function convertHiraganaToKatakanaWithLongVowelMarks(reading) {
     // converts to katakana and changes vowels to extended vowel form
-    let katakana = convertHiraganaToKatakana(reading);
+    const katakana = convertHiraganaToKatakana(reading);
     let result = [...katakana];
 
     for (let i = 1; i < result.length; i++) {
@@ -644,7 +630,8 @@ let JPMN_AutoPA = (function () {
       const unmarked = "カキクケコ";
       const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
 
-      for (let i = 0; i < 5; i++) {
+      // 5 is length of unmarked and marked
+      for (const i = 0; i < 5; i++) {
         result = result.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
       }
     }
@@ -702,7 +689,6 @@ let JPMN_AutoPA = (function () {
 
     // normalizes the ajt search string
     const ajtHTML = normalizeAJTHTML();
-    //_debug(`ajt html: ${ajtHTML}`)
 
     // temp used for innerText
     let temp = document.createElement("div");
@@ -742,12 +728,11 @@ let JPMN_AutoPA = (function () {
     }
 
     result = eleAJT.innerHTML.substring(startIdx, endIdx);
+
     // removes any bold in case it messes with the formatting
     result = result.replace(/<b>/g, "");
     result = result.replace(/<\/b>/g, "");
 
-    //_debug(`(JPMN_AutoPA) ajt word: ${result}`);
-    //_debug(`(JPMN_AutoPA) Found AJT word`);
     return result;
   }
 
@@ -765,12 +750,17 @@ let JPMN_AutoPA = (function () {
 
     if (ajtWord !== null) {
       _debug("(JPMN_AutoPA) Using AJT Word");
-      let temp = document.createElement("div");
-      let temp2 = document.createElement("div");
+
+      // temp element to iterate through childnodes of ajt word
+      const temp = document.createElement("div");
+
+      // temp element to store the flattened version of the ajt word div
+      // and for converting into a list of moras
+      const temp2 = document.createElement("div");
       temp.innerHTML = ajtWord;
 
       // removes pitch accent overline and downstep
-      for (let x of temp.childNodes) {
+      for (const x of temp.childNodes) {
         if (x.nodeName === "SPAN" && x.classList.contains("pitchoverline")) {
           for (const child of x.childNodes) {
             temp2.appendChild(child.cloneNode(true));
@@ -793,9 +783,9 @@ let JPMN_AutoPA = (function () {
         );
       }
 
-      for (let x of temp2.childNodes) {
+      for (const x of temp2.childNodes) {
         if (x.nodeName === "#text") {
-          let moras = getMoras(x.data);
+          const moras = getMoras(x.data);
           result = result.concat(moras);
         } else if (x.nodeName === "SPAN" && x.classList.contains("nasal")) {
           // assumption: there already exists at least one element before
@@ -806,11 +796,9 @@ let JPMN_AutoPA = (function () {
           result.push(x.outerHTML);
         }
       }
-      //_debug(`result: ${result.join(", ")}`);
 
     } else {
       _debug(`(JPMN_AutoPA) Using reading from WordReading field`);
-      //result = moras.slice(); // shallow copy
 
       let normalizedReading = null;
       switch ({{ utils.opt("auto-select-pitch-accent", "reading-display-mode") }}) {
@@ -878,7 +866,7 @@ let JPMN_AutoPA = (function () {
     // first checks pa override
     let posResult = null;
     if (eleOverride.innerHTML.length !== 0) {
-      let digit = eleOverride.innerText.match(/\d+/)
+      const digit = eleOverride.innerText.match(/\d+/)
       if (digit !== null) {
         posResult = [Number(digit), "Override (Position)"];
       } else {
@@ -931,12 +919,12 @@ let JPMN_AutoPA = (function () {
 
 
 
-let JPMN_ImgUtils = (function () {
+const JPMN_ImgUtils = (function () {
 
   let my = {};
 
-  let modal = document.getElementById('modal');
-  let modalImg = document.getElementById("bigimg");
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById("bigimg");
 
   // creates a custom image container to hold yomichan images
   function createImgContainer(imgName) {
@@ -946,15 +934,15 @@ let JPMN_ImgUtils = (function () {
     //   <img class="glossary__image-hover-media" src="${imgName}">
     // </span>
 
-    let defSpan = document.createElement('span');
+    const defSpan = document.createElement('span');
     defSpan.classList.add("glossary__image-container");
 
-    let defAnc = document.createElement('a');
+    const defAnc = document.createElement('a');
     defAnc.classList.add("glossary__image-hover-text");
     defAnc.href = "javascript:;";
     defAnc.textContent = "[Image]";
 
-    let defImg = document.createElement('img');
+    const defImg = document.createElement('img');
     defImg.classList.add("glossary__image-hover-media");
     defImg.src = imgName;
 
@@ -981,19 +969,19 @@ let JPMN_ImgUtils = (function () {
     // makes the modal clickable to un-zoom
 
     // restricting the max height of image to the definition box
-    let dhLeft = document.getElementById("dh_left");
-    let dhRight = document.getElementById("dh_right");
-    let heightLeft = dhLeft.offsetHeight;
+    const dhLeft = document.getElementById("dh_left");
+    const dhRight = document.getElementById("dh_right");
+    const heightLeft = dhLeft.offsetHeight;
 
     if (dhRight) {
       dhRight.style.maxHeight = heightLeft + "px";
 
       // setting up the modal styles and clicking
-      let dhImgContainer = document.getElementById("dh_img_container");
-      let imgList = dhImgContainer.getElementsByTagName("img");
+      const dhImgContainer = document.getElementById("dh_img_container");
+      const imgList = dhImgContainer.getElementsByTagName("img");
 
       if (imgList && imgList.length === 1) {
-        let img = dhImgContainer.getElementsByTagName("img")[0];
+        const img = dhImgContainer.getElementsByTagName("img")[0];
         img.classList.add("dh-right__img");
         img.style.maxHeight = heightLeft + "px"; // restricts max height here too
 
@@ -1026,22 +1014,22 @@ let JPMN_ImgUtils = (function () {
   function searchImages() {
 
     // goes through each blockquote and searches for yomichan inserted images
-    let imageSearchElements = document.getElementsByTagName("blockquote");
-    for (let searchEle of imageSearchElements) {
-      let anchorTags = searchEle.getElementsByTagName("a");
-      for (let atag of anchorTags) {
-        let imgFileName = atag.getAttribute("href");
+    const imageSearchElements = document.getElementsByTagName("blockquote");
+    for (const searchEle of imageSearchElements) {
+      const anchorTags = searchEle.getElementsByTagName("a");
+      for (const atag of anchorTags) {
+        const imgFileName = atag.getAttribute("href");
         if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
-          let fragment = createImgContainer(imgFileName);
+          const fragment = createImgContainer(imgFileName);
           atag.parentNode.replaceChild(fragment, atag);
         }
       }
 
       // looks for user inserted images
-      let imgTags = searchEle.getElementsByTagName("img");
-      for (let imgEle of imgTags) {
+      const imgTags = searchEle.getElementsByTagName("img");
+      for (const imgEle of imgTags) {
         if (!imgEle.classList.contains("glossary__image-hover-media")) { // created by us
-          let fragment = createImgContainer(imgEle.src);
+          const fragment = createImgContainer(imgEle.src);
           imgEle.parentNode.replaceChild(fragment, imgEle);
         }
       }
@@ -1074,7 +1062,8 @@ let JPMN_ImgUtils = (function () {
 {{ super() }}
 
 // checks leech
-let tags = "{{ T('Tags') }}".split(" ");
+const tagsEle = document.getElementById("tags");
+const tags = tagsEle.innerHTML.split(" ");
 if (tags.includes("leech")) {
   logger.leech();
 }
@@ -1107,8 +1096,8 @@ openExtraInfoIfNew();
 
 // removes greyed out fields if they should be hidden
 if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
-  let elems = document.getElementsByClassName("glossary-details--grey");
-  for (let x of elems) {
+  const elems = document.getElementsByClassName("glossary-details--grey");
+  for (const x of elems) {
     x.style.display = "none";
   }
 }

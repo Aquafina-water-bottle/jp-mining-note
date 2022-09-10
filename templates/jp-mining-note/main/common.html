@@ -82,7 +82,7 @@
     <!-- fallback card card html
       in css: default hybrid css, but with hover instead of click -->
     <div class="expression__hybrid-wrapper">
-      <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="Display">
+      <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="display">
         <span class="expression--sentence expression__hybrid-sentence expression
                    {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
                    {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
@@ -110,7 +110,7 @@
       <!-- hybrid (sentence or word) card html
         in css: default hybrid css, with click -->
       <div class="expression__hybrid-wrapper">
-        <div class="expression expression--single expression__hybrid expression__hybrid--click" id="Display">
+        <div class="expression expression--single expression__hybrid expression__hybrid--click" id="display">
           <span class="expression--sentence expression__hybrid-sentence
                     {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
                     {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
@@ -136,20 +136,20 @@
     {% call IFNOT("IsClickCard") %}
 
       {% call IF("IsTargetedSentenceCard") %}
-        <div class="expression expression--sentence expression--single bold-yellow" id="Display">
+        <div class="expression expression--sentence expression--single bold-yellow" id="display">
           {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
         </div>
       {% endcall %}
 
       {% call IFNOT("IsTargetedSentenceCard") %}
         {% call IF("IsSentenceCard") %}
-          <div class="expression expression--sentence expression--single" id="Display">
+          <div class="expression expression--sentence expression--single" id="display">
             {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
           </div>
         {% endcall %}
 
         {% call IFNOT("IsSentenceCard") %}
-          <div class="expression expression--word expression--single" id="Display">
+          <div class="expression expression--word expression--single" id="display">
             {{ utils.prioritize_alt_display("Word") }}
           </div>
         {% endcall %}
@@ -173,7 +173,7 @@
       <!-- fallback card card html
         in css: default hybrid css, but with hover instead of click -->
       <div class="expression__hybrid-wrapper">
-        <div class="expression expression__hybrid expression__hybrid--hover" id="Display">
+        <div class="expression expression__hybrid expression__hybrid--hover" id="display">
           <span class="expression--sentence expression__hybrid-sentence
                        {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
                        {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
@@ -203,7 +203,7 @@
         <!-- hybrid (sentence or word) card html
           in css: default hybrid css, with click -->
         <div class="expression__hybrid-wrapper">
-          <div class="expression expression__hybrid expression__hybrid--click" id="Display">
+          <div class="expression expression__hybrid expression__hybrid--click" id="display">
             <span class="expression--sentence expression__hybrid-sentence
                       {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
                       {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
@@ -228,20 +228,20 @@
       {% call IFNOT("IsClickCard") %}
 
         {% call IF("IsTargetedSentenceCard") %}
-          <div class="expression expression--sentence bold-yellow" id="Display">
+          <div class="expression expression--sentence bold-yellow" id="display">
             {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
           </div>
         {% endcall %}
 
         {% call IFNOT("IsTargetedSentenceCard") %}
           {% call IF("IsSentenceCard") %}
-            <div class="expression expression--sentence" id="Display">
+            <div class="expression expression--sentence" id="display">
               {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
             </div>
           {% endcall %}
 
           {% call IFNOT("IsSentenceCard") %}
-            <div class="expression expression--word" id="Display">
+            <div class="expression expression--word" id="display">
               {{ utils.prioritize_alt_display("Word") }}
             </div>
           {% endcall %}
