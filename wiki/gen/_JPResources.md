@@ -2,14 +2,24 @@
 {% from "macros.html" import sharex_display with context %}
 
 
-TODO flesh out!
+<!--
+This page was automatically generated from gen/_JPResources.md.
+If you are planning on editing this page, please edit the file above!
+-->
 
-- @ me on discord `Aquafina water bottle#3026`.
-  I exist on the TheMoeWay and Refold (Japanese) servers.
+This page was inspired by [marv's resources page](https://github.com/MarvNC/JP-Resources),
+which has a bunch of different but equally awesome resources.
+I highly recommend checking it out!
 
-- inspired by [marv's resources page](https://github.com/MarvNC/JP-Resources),
-  which has a bunch of different but equally awesome resources.
-  Highly recommend checking it out!
+For fixing typos and making things clearer, it would especially help if you
+fork [this repo](https://github.com/Aquafina-water-bottle/jp-mining-note)
+and make a pull request! (Edit the `wiki/gen/_JPResources.md`
+file [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/wiki/gen/_JPResources.md).)
+
+Otherwise, if you encounter any problems, feel free to contact
+me on discord `Aquafina water bottle#3026`.
+I exist on the TheMoeWay and Refold (Japanese) servers.
+
 
 
 # Table of Contents
@@ -21,7 +31,7 @@ TODO flesh out!
     * [Hide the dictionary but allow it to be used by Anki](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki)
     * [Hide bilingual dictionaries until hover](jpresources#hide-bilingual-definitions-until-hover)
 * [CSS (General)](jpresources#css-general)
-    * [Ensuring the quote characters 「」 properly quotes the text]()
+    * [Ensuring 「」 properly quotes the text]()
 * [Yomichan Templates / Handlebars](jpresources#css-general)
     * How To ([Fields](jpresources#editing-yomichan-fields) and
           [Templates](jpresources#editing-yomichan-templates-handlebars))
@@ -185,7 +195,7 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 
 # CSS (General)
 
-## Ensuring the quote characters 「」 properly quotes the text
+## Ensuring 「」 properly quotes the text
 
 ```css
 .text {
