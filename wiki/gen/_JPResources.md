@@ -15,9 +15,9 @@ TODO flesh out!
 # Table of Contents
 * [CSS (Yomichan)](jpresources#css-yomichan)
     * [Do not copy furigana](jpresources#copying-the-word-without-copying-the-furigana)
-    * [Limit # of frequency lists]()
-    * [Limit # of pitch accent dictionaries]()
-    * [Hide the dictionary but allow it to be used by Anki]()
+    * [Limiting the number of frequency lists](jpresources#limiting-the-number-of-frequency-lists)
+    * [Limiting the number of pitch accent dictionaries](jpresources#limiting-the-number-of-pitch-accent-dictionaries)
+    * [Hide the dictionary but allow it to be used by Anki](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki)
     * [Hide bilingual dictionaries until hover]()
 * [CSS (General)](jpresources#css-general)
 * [Yomichan Templates / Handlebars](jpresources#css-general)
@@ -59,8 +59,6 @@ TODO example gif
 
 ## Limiting the number of frequency lists
 
-[[assets/yomichan/limit_frequencies.gif]]
-
 ```css
 /* Only shows the first 2 frequency lists */
 span.frequency-group-item:nth-child(n+3) {
@@ -70,6 +68,8 @@ span.frequency-group-item:nth-child(n+3) {
 <sup>(Thanks Marv#5144 for the CSS)</sup>
 <!-- http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464 -->
 
+[[assets/yomichan/limit_frequencies.gif]]
+
 <br>
 
 
@@ -78,8 +78,6 @@ span.frequency-group-item:nth-child(n+3) {
 
 
 ## Limiting the number of pitch accent dictionaries
-
-[[assets/yomichan/limit_pitch_accents.gif]]
 
 
 The following CSS displays only the first 2 pitch accent dictionaries:
@@ -104,6 +102,9 @@ to any dictionary you find to be of higher quality)
 }
 ```
 
+[[assets/yomichan/limit_pitch_accents.gif]]
+
+
 <br>
 
 
@@ -127,14 +128,18 @@ li.definition-item[data-dictionary='DICTIONARY'] {
 
 <details>
 <summary><i>Click here to see an example.</i></summary>
+
 ```css
 li.definition-item[data-dictionary='JMdict (English)'] {
   display: none;
 }
 ```
+
 </details>
 
 [[assets/yomichan/hide_dictionary.gif]]
+
+<br>
 
 
 ## Hide bilingual definitions until hover
@@ -152,6 +157,7 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
 
 <details>
 <summary><i>Click here to see an example.</i></summary>
+
 ```css
 li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
   opacity: 0;
@@ -160,11 +166,14 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
   opacity: 1;
 }
 ```
+
 </details>
 
 [[assets/yomichan/bilingual_hover.gif]]
 
 <br>
+
+
 
 # CSS (General)
 
