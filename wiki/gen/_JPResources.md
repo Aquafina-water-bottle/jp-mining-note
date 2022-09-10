@@ -56,6 +56,11 @@ To add custom CSS in Yomichan, do the following:
 
 [[assets/yomichan/howto_css.gif]]
 
+<br>
+
+
+
+
 ## Copying the word without copying the furigana
 
 ```css
@@ -73,9 +78,8 @@ ruby rt {
 - rule doesn't work on linux (tested on anki 2.1.54)
 - works as normal on the browser though
 
-<!--
-TODO example gif
--->
+<br>
+
 
 ## Limiting the number of frequency lists
 
@@ -91,9 +95,6 @@ span.frequency-group-item:nth-child(n+3) {
 [[assets/yomichan/limit_frequencies.gif]]
 
 <br>
-
-
-
 
 
 
@@ -226,6 +227,7 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 
 [[assets/yomichan/howto_format.gif]]
 
+<br>
 
 ## Editing Yomichan Templates (Handlebars)
 1. Navigate to Yomichan Settings.
@@ -235,8 +237,7 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 
 [[assets/yomichan/howto_templates.gif]]
 
-- TODO how to access handlebars
-- TODO how to access format
+<br>
 
 
 ## Grab only the first pitch accent dictionary
@@ -278,6 +279,8 @@ You can now use the following in Yomichan Fields:
 ```
 
 
+<!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
+
 <details>
 <summary><i>Click here to see an modified version for Anime Cards (thanks An#7416).</i></summary>
 
@@ -310,8 +313,7 @@ You can now use the following in Yomichan Fields:
 
 </details>
 
-<!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
-
+<br>
 
 
 
@@ -387,6 +389,7 @@ and uses the glossary by default if you don't have anything highlighted.
 * **Note**:
   Related [Github issue](https://github.com/FooSoft/yomichan/issues/2097).
 
+<br>
 
 
 ## Further Reading
@@ -406,8 +409,9 @@ Example template code can be found here:
 - Old template code for this note (NO LONGER USED / MAINTAINED):
   [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/old.txt)
 
-
 {% endraw %}
+
+<br>
 
 
 # Sharex
