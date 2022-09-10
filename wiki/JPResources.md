@@ -187,7 +187,7 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 ```
 
 [[assets/other/left_quote.png]] <br>
-<sup>First quote is without the CSS, second quote is with the CSS.</sup>
+<sup>The first quote is the standard display without any custom CSS. The second quote is with the aforementioned CSS.</sup>
 
 [(Example JSFiddle)](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/12/)
 
