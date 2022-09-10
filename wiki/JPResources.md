@@ -23,11 +23,12 @@ TODO flesh out!
 * [CSS (General)](jpresources#css-general)
     * [Ensuring the quote characters 「」 properly quotes the text]()
 * [Yomichan Templates / Handlebars](jpresources#css-general)
-    * How To ([Fields](jpresources#editing-yomichan-fields) and [Templates](jpresources#editing-yomichan-templates))
-    * [Grab only the first pitch accent dictionary]()
-    * [Automatically highlight the tested word within the sentence]()
-    * [Export only the selected text (only if text is selected)]()
-    * [Further Reading]()
+    * How To ([Fields](jpresources#editing-yomichan-fields) and
+          [Templates](jpresources#editing-yomichan-templates-handlebars))
+    * [Grab only the first pitch accent dictionary](jpresources#grab-only-the-first-pitch-accent-dictionary)
+    * [Automatically highlight the tested word within the sentence](jpresources#automatically-highlight-the-tested-word-within-the-sentence-upon-card-creation)
+    * [Export only the selected text (only if text is selected)](jpresources#export-only-the-selected-text-only-if-text-is-selected)
+    * [Further Reading](jpresources#further-reading)
 * [ShareX](jpresources#sharex)
 
 
