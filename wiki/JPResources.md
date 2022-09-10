@@ -58,7 +58,8 @@ TODO example gif
 -->
 
 ## Limiting the number of frequency lists
-<!-- http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464 -->
+
+[[assets/yomichan/limit_frequencies.gif]]
 
 ```css
 /* Only shows the first 2 frequency lists */
@@ -67,15 +68,19 @@ span.frequency-group-item:nth-child(n+3) {
 }
 ```
 <sup>(Thanks Marv#5144 for the CSS)</sup>
+<!-- http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464 -->
 
+<br>
 
-[[assets/yomichan/limit_frequencies.gif]]
 
 
 
 
 
 ## Limiting the number of pitch accent dictionaries
+
+[[assets/yomichan/limit_pitch_accents.gif]]
+
 
 The following CSS displays only the first 2 pitch accent dictionaries:
 ```css
@@ -84,7 +89,6 @@ li.pronunciation-group:nth-child(n+3) {
   display: none;
 }
 ```
-
 
 Make the pitch accent dictionary text a bit grey by default,
 and to make specifically the "NHK" and "大辞泉" white (change these two
@@ -100,16 +104,7 @@ to any dictionary you find to be of higher quality)
 }
 ```
 
-[[assets/yomichan/limit_pitch_accents.gif]]
-
-
-<!--
-the above 2 combined:
-
-https://cdn.discordapp.com/attachments/778430038159655012/998424187888734260/unknown.png
-
-https://cdn.discordapp.com/attachments/778430038159655012/998424188203303033/unknown.png
--->
+<br>
 
 
 
