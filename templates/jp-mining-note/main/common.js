@@ -70,7 +70,7 @@ if (keys !== null && keys.includes(e.key)) {
   let isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
   processSentences(isAltDisplay);
 
-  let d = document.getElementById("Display");
+  let d = document.getElementById("display");
   let circ = document.getElementById("svg_circle");
   let svgTitle = document.getElementById("svg_title");
 

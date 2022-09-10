@@ -13,7 +13,7 @@ Cloze Deletion
 {% set front_display %}
 
 {% call IF('AltDisplay') %}
-  <div class="expression expression--single expression--sentence bold-yellow" id="Display">
+  <div class="expression expression--single expression--sentence bold-yellow" id="display">
     {{ utils.quote_open -}}
     {{ T('furigana:AltDisplay') }}
     {{- utils.quote_close }}
@@ -21,7 +21,7 @@ Cloze Deletion
 {% endcall %}
 
 {% call IFNOT('AltDisplay') %}
-  <div class="expression expression--single expression--sentence bold-yellow" id="Display">
+  <div class="expression expression--single expression--sentence bold-yellow" id="display">
     {{ utils.quote_open -}}
     {{ T('Sentence') }}
     {{- utils.quote_close }}

@@ -20,12 +20,17 @@
 <script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
 
 
-<!-- hidden fields -->
-<!-- TODO Comment -> PAFields -->
-<div class="hidden" id="hidden_pa_positions">{{ T('PAPositions') }}</div>
-<div class="hidden" id="hidden_word_reading">{{ T('WordReading') }}</div>
-<div class="hidden" id="hidden_ajt_word_pitch">{{ T('AJTWordPitch') }}</div>
-<div class="hidden" id="hidden_pa_override">{{ T('PAOverride') }}</div>
+<!-- hidden fields
+     used instead of inserting a template directly into javascript code
+     in order to prevent escaping errors (e.g. if the field contains a `"`)
+-->
+<div class="hidden">
+  <div id="hidden_pa_positions">{{ T('PAPositions') }}</div>
+  <div id="hidden_word_reading">{{ T('WordReading') }}</div>
+  <div id="hidden_ajt_word_pitch">{{ T('AJTWordPitch') }}</div>
+  <div id="hidden_pa_override">{{ T('PAOverride') }}</div>
+  <div id="tags">{{ T('Tags') }}</div>
+</div>
 
 
 

@@ -33,10 +33,16 @@ The following are examples breaking changes:
 -->
 
 
-## [0.10.0.2] - 2022-09-??
+## [0.10.1.0] - 2022-09-??
+
+#### Changed
+- cleaning up the code:
+    - id `Display` -> `display`
+    - replaced as many `let` statements with `const`
 
 #### Fixed
 - `replaceAll` -> `replace` with `g` flag, to support older versions of Anki (qt5)
+- AJTWordPitch field not having the proper css for bolded words
 
 
 
