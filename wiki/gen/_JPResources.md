@@ -50,7 +50,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
     * [Hide bilingual dictionaries until hover](jpresources#hide-bilingual-definitions-until-hover)
 * [CSS (General)](jpresources#css-general)
     * [Ensuring 「」 properly quotes the text](jpresources#ensuring--properly-quotes-the-text)
-* [Yomichan Templates / Handlebars](jpresources#css-general)
+* [Yomichan Templates / Handlebars](jpresources#yomichan-templates--handlebars)
     * How To ([Fields](jpresources#editing-yomichan-fields) and
           [Templates](jpresources#editing-yomichan-templates-handlebars))
     * [Grab only the first pitch accent dictionary](jpresources#grab-only-the-first-pitch-accent-dictionary)
