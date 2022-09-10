@@ -260,6 +260,7 @@ You can now use the following in Yomichan Fields:
 
 <details>
 <summary><i>Click here to see an modified version for Anime Cards (thanks An#7416).</i></summary>
+
 ```
 {{#*inline "pitch-accent-list-single-dict"}}
     {{~#if (op ">" pitchCount 1)~}}{{~/if~}}
@@ -286,20 +287,10 @@ You can now use the following in Yomichan Fields:
     {{#regexReplace "<(.|\n)*?>" ""}}{{~> pitch-accent-list-single-dict format='position'~}}{{/regexReplace}}
 {{/inline}}
 ```
+
 </details>
 
-<!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130
-
-
-copy/paste of above msg:
-
-> In Yomichan settings -> Anki -> Configure Anki Card Templates -> Then look for `End Pitch Accents` and paste it just above that -> Close
->
-> Then click Configure Anki card format -> If you're using  {pitch-accent-positions}, {pitch-accent-graphs}  or {pitch-accents}, you just replace
-> 1. {pitch-accent-positions} with {pitch-accent-positions-single-dict}
-> 2. {pitch-accent-graphs} with {pitch-accent-graphs-single-dict}
-> 3. {pitch-accents} with {pitch-accents-single-dict}
--->
+<!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
 
 
 
