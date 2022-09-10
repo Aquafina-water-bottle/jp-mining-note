@@ -42,8 +42,8 @@ cp -r ./assets/yomichan/*.png ../../wiki/assets/yomichan
 cp -r ./assets/yomichan/*.gif ../../wiki/assets/yomichan
 cp -r ./assets/anki/*.png ../../wiki/assets/anki
 cp -r ./assets/anki/*.gif ../../wiki/assets/anki
-cp -r ./assets/other/*.png ../../wiki/assets/anki
-cp -r ./assets/other/*.gif ../../wiki/assets/anki
+cp -r ./assets/other/*.png ../../wiki/assets/other
+cp -r ./assets/other/*.gif ../../wiki/assets/other
 
 # wiki
 cd ../../wiki
