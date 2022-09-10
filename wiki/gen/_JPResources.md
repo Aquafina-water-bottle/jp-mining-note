@@ -19,7 +19,7 @@ and make a pull request!
 file [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/wiki/gen/_JPResources.md).)
 
 Otherwise, if you encounter any problems, feel free to contact
-me on discord `Aquafina water bottle#3026`.
+me on discord `Aquafina water bottle#3026`, or submit an issue.
 I exist on the TheMoeWay and Refold (Japanese) servers.
 
 
@@ -33,7 +33,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
     * [Hide the dictionary but allow it to be used by Anki](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki)
     * [Hide bilingual dictionaries until hover](jpresources#hide-bilingual-definitions-until-hover)
 * [CSS (General)](jpresources#css-general)
-    * [Ensuring 「」 properly quotes the text]()
+    * [Ensuring 「」 properly quotes the text](jpresources#ensuring--properly-quotes-the-text)
 * [Yomichan Templates / Handlebars](jpresources#css-general)
     * How To ([Fields](jpresources#editing-yomichan-fields) and
           [Templates](jpresources#editing-yomichan-templates-handlebars))
