@@ -322,7 +322,7 @@ You can now use the following in Yomichan Fields:
 
 ## Automatically highlight the tested word within the sentence upon card creation
 
-#### Option 1: Bold only
+#### (Option 1) Bold only
 
 > **Yomichan Fields**:
 > ```
@@ -330,7 +330,7 @@ You can now use the following in Yomichan Fields:
 > ```
 
 
-#### Option 2: Bold + Styling
+#### (Option 2) Bold + Styling
 
 > **Yomichan Fields**:
 > ```
@@ -355,7 +355,7 @@ You can now use the following in Yomichan Fields:
 > }
 > ```
 
-#### Option 3: Custom div
+#### (Option 3) Custom div
 
 > **Yomichan Fields**:
 > ```

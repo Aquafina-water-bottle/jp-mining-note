@@ -45,7 +45,7 @@ nothing has to be done).
 There are two ways of installing the card:
 
 
-## (1) The Automatic Way
+## (Option 1) The Automatic Way
 If you know what `git` and `python` is, here's all you have to do:
 
 ```
@@ -67,7 +67,7 @@ The above does the following:
 - Installs the fonts required for the note
 
 
-## (2) The Normal Way
+## (Option 2) The Normal Way
 If the above made literally no sense to you,
 or you just want to install this normally,
 see below:
