@@ -43,7 +43,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 # Table of Contents
 * [CSS (Yomichan)](jpresources#css-yomichan)
     * [How To](jpresources#how-to-add-custom-css-in-yomichan)
-    * [Do not copy furigana](jpresources#copying-the-word-without-copying-the-furigana)
+    * [Not selecting / copying furigana](jpresources#copying-the-word-without-copying-the-furigana)
     * [Limiting the number of frequency lists](jpresources#limiting-the-number-of-frequency-lists)
     * [Limiting the number of pitch accent dictionaries](jpresources#limiting-the-number-of-pitch-accent-dictionaries)
     * [Hide the dictionary but allow it to be used by Anki](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki)
@@ -79,7 +79,7 @@ To add custom CSS in Yomichan, do the following:
 
 
 ## Copying the word without copying the furigana
-If you want to copy the main word within Yomichan without copying the furigana,
+If you want to select / copy the main word within Yomichan without copying the furigana,
 you can use the following CSS:
 
 ```css
