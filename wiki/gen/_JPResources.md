@@ -52,7 +52,8 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 To add custom CSS in Yomichan, do the following:
 1. Head over to Yomichan settings (Yomichan extension marker -> cogwheel)
 1. Go to `Appearance` →  `Configure custom CSS...`
-1. Add the CSS to the top window.
+1. Add the CSS to the top section.
+1. Close the window.
 
 [[assets/yomichan/howto_css.gif]]
 
@@ -62,6 +63,8 @@ To add custom CSS in Yomichan, do the following:
 
 
 ## Copying the word without copying the furigana
+If you want to copy the main word within Yomichan without copying the furigana,
+you can use the following CSS:
 
 ```css
 .headword-term ruby rt {
@@ -69,14 +72,14 @@ To add custom CSS in Yomichan, do the following:
 }
 ```
 
-the above is general enough for anki cards too:
-```css
-ruby rt {
-  user-select: none;
-}
-```
-- rule doesn't work on linux (tested on anki 2.1.54)
-- works as normal on the browser though
+* **Note**: <br>
+  The above is actually general enough to use for Anki cards itself, say with the following CSS:
+  ```css
+  ruby rt {
+    user-select: none;
+  }
+  ```
+  Unfortunately, the above doesn't seem to work on Linux (tested on Ubuntu / Xfce, Anki Qt6 2.1.54).
 
 <br>
 
@@ -320,19 +323,20 @@ You can now use the following in Yomichan Fields:
 ## Automatically highlight the tested word within the sentence upon card creation
 
 #### Option 1: Bold only
-**Yomichan Fields**:
+
+##### Yomichan Fields:
 ```
 {cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
 ```
 
 
 #### Option 2: Bold + Styling
-**Yomichan Fields**:
+##### Yomichan Fields:
 ```
 {cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
 ```
 
-**Anki Note CSS**:
+##### Anki Note CSS:
 ```css
 b {
     color: #fffd9e; /* bright yellow */
@@ -352,24 +356,27 @@ If your card template is formatted like
 
 #### Option 3: Custom div
 
-**Yomichan Fields**:
+##### Yomichan Fields:
 ```
 {cloze-prefix}<span class="word-highlight">{cloze-body}</span>{cloze-suffix}
 ```
 
-**Anki Note CSS**:
+##### Anki Note CSS:
 ```css
 .word-highlight {
     color: #fffd9e;
 }
 ```
 
-* **Note**:
+* **Note**: <br>
   I personally prefer using Option 2 (bolded) over a custom div
   because it makes editing the note easier.
   For example, if you want to edit the highlighted region, you only have to bold
   the desired region (say, with ctrl+b) instead of having to edit
   the raw HTML of the field (say, with ctrl+shift+x).
+
+<br>
+
 
 
 ## Export only the selected text (only if text is selected)
@@ -386,7 +393,7 @@ and uses the glossary by default if you don't have anything highlighted.
 {{/inline}}
 ```
 
-* **Note**:
+* **Note**: <br>
   Related [Github issue](https://github.com/FooSoft/yomichan/issues/2097).
 
 <br>
