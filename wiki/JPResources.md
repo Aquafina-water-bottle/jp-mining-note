@@ -18,7 +18,7 @@ TODO flesh out!
     * [Limiting the number of frequency lists](jpresources#limiting-the-number-of-frequency-lists)
     * [Limiting the number of pitch accent dictionaries](jpresources#limiting-the-number-of-pitch-accent-dictionaries)
     * [Hide the dictionary but allow it to be used by Anki](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki)
-    * [Hide bilingual dictionaries until hover]()
+    * [Hide bilingual dictionaries until hover](jpresources#hide-bilingual-definitions-until-hover)
 * [CSS (General)](jpresources#css-general)
 * [Yomichan Templates / Handlebars](jpresources#css-general)
 * [ShareX](jpresources#sharex)
@@ -144,7 +144,7 @@ li.definition-item[data-dictionary='JMdict (English)'] {
 
 ## Hide bilingual definitions until hover
 
-1. Add the following CSS for the desired dictionaries (this has to be done for each individual dictionary):
+Add the following CSS for the desired dictionaries (this has to be done for each individual dictionary):
 ```css
 li.definition-item[data-dictionary='DICTIONARY'] .gloss-list {
   opacity: 0;
@@ -189,8 +189,9 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 [[assets/other/left_quote.png]]
 <sup>First quote is without the CSS, second quote is with the CSS.</sup>
 
-example [jsfiddle](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/12/)
+[(Example JSFiddle)](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/12/)
 
+<br>
 
 
 
