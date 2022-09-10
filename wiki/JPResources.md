@@ -424,12 +424,17 @@ Example template code can be found here:
 
 # Sharex
 - TODO make non-point form
-- alternate code for sharex following [this setup](https://rentry.co/mining)
-- note that f3 keybinds do NOT record media, requires slightly different setup
-    - TODO document
-    - iirc grabs current window picture + deletes after (the only purpose of the f3 keybinds
-      is to execute ankiconnect calls in powershell)
+- main steps from are https://rentry.co/mining
+  (webarchive link without pictures
+  [here](https://web.archive.org/web/20220216001950/https://rentry.co/mining#sharex))
+- all powershell commands rewritten to be readable + work with jp-mining-note by default
 - 1 liners are generated from [this file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/wiki/gen/make.py)
+
+note that f3 keybinds do NOT record media, requires slightly different setup
+- TODO document
+- iirc grabs current window picture + deletes after (the only purpose of the f3 keybinds
+  is to execute ankiconnect calls in powershell)
+
 
 ## f1: screenshot and clipboard
 - adds the image to the note
