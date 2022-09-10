@@ -7,13 +7,15 @@ This page was automatically generated from gen/_JPResources.md.
 If you are planning on editing this page, please edit the file above!
 -->
 
-This page was inspired by [marv's resources page](https://github.com/MarvNC/JP-Resources),
+This page was inspired by [Marv's resources page](https://github.com/MarvNC/JP-Resources),
 which has a bunch of different but equally awesome resources.
 I highly recommend checking it out!
 
 For fixing typos and making things clearer, it would especially help if you
-fork [this repo](https://github.com/Aquafina-water-bottle/jp-mining-note)
-and make a pull request! (Edit the `wiki/gen/_JPResources.md`
+fork [the main repository](https://github.com/Aquafina-water-bottle/jp-mining-note)
+(not the dedicated wiki repository!)
+and make a pull request!
+(Edit the `wiki/gen/_JPResources.md`
 file [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/wiki/gen/_JPResources.md).)
 
 Otherwise, if you encounter any problems, feel free to contact
