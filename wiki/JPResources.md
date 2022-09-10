@@ -14,13 +14,20 @@ TODO flesh out!
 
 # Table of Contents
 * [CSS (Yomichan)](jpresources#css-yomichan)
+    * [How To](jpresources#how-to-add-custom-css-in-yomichan)
     * [Do not copy furigana](jpresources#copying-the-word-without-copying-the-furigana)
     * [Limiting the number of frequency lists](jpresources#limiting-the-number-of-frequency-lists)
     * [Limiting the number of pitch accent dictionaries](jpresources#limiting-the-number-of-pitch-accent-dictionaries)
     * [Hide the dictionary but allow it to be used by Anki](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki)
     * [Hide bilingual dictionaries until hover](jpresources#hide-bilingual-definitions-until-hover)
 * [CSS (General)](jpresources#css-general)
+    * [Ensuring the quote characters 「」 properly quotes the text]()
 * [Yomichan Templates / Handlebars](jpresources#css-general)
+    * How To ([Fields](jpresources#editing-yomichan-fields) and [Templates](jpresources#editing-yomichan-templates))
+    * [Grab only the first pitch accent dictionary]()
+    * [Automatically highlight the tested word within the sentence]()
+    * [Export only the selected text (only if text is selected)]()
+    * [Further Reading]()
 * [ShareX](jpresources#sharex)
 
 
@@ -177,7 +184,7 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 
 # CSS (General)
 
-## Ensuring the open quote properly "quotes" the text
+## Ensuring the quote characters 「」 properly quotes the text
 
 ```css
 .text {
@@ -295,7 +302,7 @@ You can now use the following in Yomichan Fields:
 
 
 
-## Automatically styling the highlighted word upon card creation
+## Automatically highlight the tested word within the sentence upon card creation
 
 #### Option 1: Bold only
 **Yomichan Fields**:
@@ -350,7 +357,10 @@ If your card template is formatted like
   the raw HTML of the field (say, with ctrl+shift+x).
 
 
-## Get selection text instead of glossary (only if text is selected)
+## Export only the selected text (only if text is selected)
+
+Allows you to export only a section of a glossary by highlighting over it,
+and uses the glossary by default if you don't have anything highlighted.
 ```
 {{#*inline "selection-text"}}
     {{~#if (op "!==" (getMedia "selectionText") "")~}}
