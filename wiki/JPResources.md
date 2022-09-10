@@ -7,10 +7,25 @@ This page was automatically generated from gen/_JPResources.md.
 If you are planning on editing this page, please edit the file above!
 -->
 
+A collection of tips and tricks, primarily related to CSS and Yomichan.
+
 This page was inspired by [Marv's resources page](https://github.com/MarvNC/JP-Resources),
 which has a bunch of different but equally awesome resources.
 I highly recommend checking it out!
 
+
+If you encounter any problems, have any questions, etc., feel free to contact
+me on discord `Aquafina water bottle#3026`,
+or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
+I exist on the TheMoeWay and Refold (Japanese) servers.
+<!--
+If you want to fix some typos or make certain sections clearer,
+please see [this](TODO).
+I appreciate any help with maintaining this page!
+-->
+
+
+<!--
 For fixing typos and making things clearer, it would especially help if you
 fork [the main repository](https://github.com/Aquafina-water-bottle/jp-mining-note)
 (not the dedicated wiki repository!)
@@ -21,6 +36,7 @@ file [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/
 Otherwise, if you encounter any problems, feel free to contact
 me on discord `Aquafina water bottle#3026`, or submit an issue.
 I exist on the TheMoeWay and Refold (Japanese) servers.
+-->
 
 
 
@@ -228,7 +244,8 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 1. Go to the `Anki` section.
 1. Select `Anki card format...`.
 
-[[assets/yomichan/howto_format.gif]]
+[[assets/yomichan/howto_format.gif]] <br>
+<sup> Note that the above showcases [this example](jpresources#option-2-bold--styling). </sup>
 
 <br>
 
@@ -285,7 +302,7 @@ You can now use the following in Yomichan Fields:
 <!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
 
 <details>
-<summary><i>Click here to see an modified version for Anime Cards (thanks An#7416).</i></summary>
+<summary><i>Click here to see a modified version for Anime Cards (thanks An#7416).</i></summary>
 
 ```
 {{#*inline "pitch-accent-list-single-dict"}}
@@ -370,7 +387,7 @@ You can now use the following in Yomichan Fields:
 > ```
 >
 > * **Note**: <br>
->   I personally prefer using Option 2 (bolded) over a custom div
+>   I personally prefer using Option 2 (bold + styling) over a custom div
 >   because it makes editing the note easier.
 >   For example, if you want to edit the highlighted region, you only have to bold
 >   the desired region (say, with ctrl+b) instead of having to edit
