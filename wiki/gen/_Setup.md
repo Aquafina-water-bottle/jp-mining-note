@@ -391,8 +391,8 @@ This section will go over the minimal Yomichan setup to work with this card type
 ## Preliminary Steps
 If you have used Yomichan before, please make a backup of your settings (just in case):
 * Navigate to Yomichan Settings.
-* Go to the "Backup" section
-* Select "Export Settings"
+* Go to the `Backup` section
+* Select `Export Settings`
 
 [[assets/yomichan/import_settings.gif]]
 
@@ -404,9 +404,9 @@ To edit the fields that Yomichan will automatically fill out, do the following:
     **Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/188249030-b1bab33b-49d9-45b8-ba7b-78fbe39e5950.mp4).
 
 1. Navigate to Yomichan Settings.
-1. Go to the "Anki" section
-1. Select "Anki card format..."
-1. Set "Model" as `JP Mining Note`
+1. Go to the `Anki` section.
+1. Select `Anki card format...`.
+1. Set "Model" as `JP Mining Note`.
 1. Copy and paste the following values into the fields
    (the custom markers won't be available in the dropdown arrow):
 
@@ -443,8 +443,8 @@ This note type makes heavy use of these custom templates.
 To make the new markers usable, do the following:
 1. Navigate to Yomichan Settings.
 1. Make sure that advanced settings are turned on (bottom left corner).
-1. Go to the "Anki" section
-1. Select "Configure Anki card templates..."
+1. Go to the `Anki` section
+1. Select `Configure Anki card templates...`
 1. If you have existing template code already, I highly recommend
    **resetting the templates** (bottom right corner, red button)
    unless you know exactly what you are doing.
