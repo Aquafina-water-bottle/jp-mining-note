@@ -324,56 +324,57 @@ You can now use the following in Yomichan Fields:
 
 #### Option 1: Bold only
 
-##### Yomichan Fields:
-```
-{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
-```
+> **Yomichan Fields**:
+> ```
+> {cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
+> ```
 
 
 #### Option 2: Bold + Styling
-##### Yomichan Fields:
-```
-{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
-```
 
-##### Anki Note CSS:
-```css
-b {
-    color: #fffd9e; /* bright yellow */
-}
-```
-
-If your card template is formatted like
-`<div class="sentence">{{Sentence}}</div>`:
-```css
-.sentence b {
-    color: #fffd9e; /* bright yellow */
-
-    /* if you want to make the word not bolded, un-comment the following */
-    /*font-weight: normal;*/
-}
-```
+> **Yomichan Fields**:
+> ```
+> {cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
+> ```
+>
+> **Anki Note CSS**:
+> ```css
+> b {
+>     color: #fffd9e; /* bright yellow */
+> }
+> ```
+>
+> If your card template is formatted like
+> `<div class="sentence">{{Sentence}}</div>`:
+> ```css
+> .sentence b {
+>     color: #fffd9e; /* bright yellow */
+>
+>     /* if you want to make the word not bolded, un-comment the following */
+>     /*font-weight: normal;*/
+> }
+> ```
 
 #### Option 3: Custom div
 
-##### Yomichan Fields:
-```
-{cloze-prefix}<span class="word-highlight">{cloze-body}</span>{cloze-suffix}
-```
-
-##### Anki Note CSS:
-```css
-.word-highlight {
-    color: #fffd9e;
-}
-```
-
-* **Note**: <br>
-  I personally prefer using Option 2 (bolded) over a custom div
-  because it makes editing the note easier.
-  For example, if you want to edit the highlighted region, you only have to bold
-  the desired region (say, with ctrl+b) instead of having to edit
-  the raw HTML of the field (say, with ctrl+shift+x).
+> **Yomichan Fields**:
+> ```
+> {cloze-prefix}<span class="word-highlight">{cloze-body}</span>{cloze-suffix}
+> ```
+>
+> **Anki Note CSS**:
+> ```css
+> .word-highlight {
+>     color: #fffd9e;
+> }
+> ```
+>
+> * **Note**: <br>
+>   I personally prefer using Option 2 (bolded) over a custom div
+>   because it makes editing the note easier.
+>   For example, if you want to edit the highlighted region, you only have to bold
+>   the desired region (say, with ctrl+b) instead of having to edit
+>   the raw HTML of the field (say, with ctrl+shift+x).
 
 <br>
 
