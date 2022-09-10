@@ -14,8 +14,7 @@ TODO flesh out!
 
 # Table of Contents
 * [CSS (Yomichan)](jpresources#css-yomichan)
-    * [How To]()
-    * [Do not copy furigana]()
+    * [Do not copy furigana](jpresources#copying-the-word-without-copying-the-furigana)
     * [Limit # of frequency lists]()
     * [Limit # of pitch accent dictionaries]()
     * [Hide the dictionary but allow it to be used by Anki]()
@@ -58,7 +57,7 @@ ruby rt {
 TODO example gif
 -->
 
-## Reducing the number of frequency lists
+## Limiting the number of frequency lists
 <!-- http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464 -->
 
 ```css
@@ -76,7 +75,7 @@ span.frequency-group-item:nth-child(n+3) {
 
 
 
-## Reducing the number of pitch accent dictionaries
+## Limiting the number of pitch accent dictionaries
 
 The following CSS displays only the first 2 pitch accent dictionaries:
 ```css
@@ -114,10 +113,17 @@ https://cdn.discordapp.com/attachments/778430038159655012/998424188203303033/unk
 
 
 
-## Hide the dictionary but allow it to be used by Anki
+## Hide the dictionary, but allow it to be used by Anki
 
-1. ensure that the dictionary is enabled in your profile
-2. add the following css for the dictionary (has to be done for each individual dictionary)
+The default way to hide a dictionary is by disabling the dictionary
+under Yomichan's `Dictionaries` section.
+However, if you disable the dictionary, you cannot export it into Anki,
+which is a problem if you are using a bilingual profile but you want to export
+monolingual definitions.
+
+**Steps**:
+1. Ensure that the dictionary is enabled in your Yomichan profile.
+1. Add the following CSS for the desired dictionaries (this has to be done for each individual dictionary):
 ```css
 li.definition-item[data-dictionary='DICTIONARY'] {
   display: none;
@@ -137,6 +143,8 @@ li.definition-item[data-dictionary='JMdict (English)'] {
 
 
 ## Hide bilingual definitions until hover
+
+1. Add the following CSS for the desired dictionaries (this has to be done for each individual dictionary):
 ```css
 li.definition-item[data-dictionary='DICTIONARY'] .gloss-list {
   opacity: 0;
@@ -174,9 +182,8 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 }
 ```
 
-https://cdn.discordapp.com/attachments/778430038159655012/997998961128390687/unknown.png
-
-https://cdn.discordapp.com/attachments/778430038159655012/997998961463930950/unknown.png
+[[assets/other/left_quote.png]]
+<sup>First quote is without the CSS, second quote is with the CSS.</sup>
 
 example [jsfiddle](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/12/)
 
