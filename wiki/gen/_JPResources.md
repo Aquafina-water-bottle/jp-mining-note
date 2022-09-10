@@ -331,8 +331,9 @@ You can now use the following in Yomichan Fields:
 {{/inline}}
 ```
 
-</details>
 <sup>(Thanks An#7416 for the template code)</sup>
+
+</details>
 
 <br>
 
