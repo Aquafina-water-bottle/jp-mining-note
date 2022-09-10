@@ -159,6 +159,17 @@ here are the following steps:
 -->
 
 
+## How do I remove an empty card without deleting the entire note?
+> To remove the empty cards, go to `Tools` →  `Empty Cards` in the main window.
+> You will be shown a list of empty cards and be given the option to delete them.
+
+(Taken from the official Anki documentation
+[here](https://docs.ankiweb.net/templates/generation.html#card-generation--deletion))
+
+
+## How do I edit the field's raw HTML?
+- ctrl+shift+x
+
 
 # Other Questions
 
