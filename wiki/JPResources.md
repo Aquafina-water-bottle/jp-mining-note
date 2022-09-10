@@ -51,8 +51,8 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 * [CSS (General)](jpresources#css-general)
     * [Ensuring 「」 properly quotes the text](jpresources#ensuring--properly-quotes-the-text)
 * [Yomichan Templates / Handlebars](jpresources#yomichan-templates--handlebars)
-    * How To ([Fields](jpresources#editing-yomichan-fields) and
-          [Templates](jpresources#editing-yomichan-templates-handlebars))
+    * How To ([Fields](jpresources#how-to-edit-yomichan-fields) and
+          [Templates](jpresources#how-to-edit-yomichan-templates-handlebars))
     * [Grab only the first pitch accent dictionary](jpresources#grab-only-the-first-pitch-accent-dictionary)
     * [Automatically highlight the tested word within the sentence](jpresources#automatically-highlight-the-tested-word-within-the-sentence-upon-card-creation)
     * [Export only the selected text (only if text is selected)](jpresources#export-only-the-selected-text-only-if-text-is-selected)
@@ -239,7 +239,7 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 # Yomichan Templates / Handlebars
 
 
-## Editing Yomichan Fields
+## How to Edit Yomichan Fields
 1. Navigate to Yomichan Settings.
 1. Go to the `Anki` section.
 1. Select `Anki card format...`.
@@ -249,7 +249,7 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 
 <br>
 
-## Editing Yomichan Templates (Handlebars)
+## How to Edit Yomichan Templates (Handlebars)
 1. Navigate to Yomichan Settings.
 1. Make sure that advanced settings are turned on (bottom left corner).
 1. Go to the `Anki` section
