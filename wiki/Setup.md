@@ -157,62 +157,64 @@ so I *strongly* recommend using this.
 
 There are two ways of using css injector with this note type:
 
-##### (1) Automatically updates with the card (recommended)
-As a preliminary step, you will have to remove the empty `field.css` file
-that comes with the add-on.
-That can be done through command line (below), or you can simply navigate to the
-`Anki2/addons21/181103283/user_files` folder
-(within the [addons folder](faq#where-is-the-x-folder-in-anki))
-and delete `field.css`.
+##### (Option 1) Automatically updates with the card (recommended)
 
-```
-# windows command
-# be sure to change USERNAME to your computer username!
-del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+> As a preliminary step, you will have to remove the empty `field.css` file
+> that comes with the add-on.
+> That can be done through command line (below), or you can simply navigate to the
+> `Anki2/addons21/181103283/user_files` folder
+> (within the [addons folder](faq#where-is-the-x-folder-in-anki))
+> and delete `field.css`.
+>
+> ```
+> # windows command
+> # be sure to change USERNAME to your computer username!
+> del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+>
+> # mac command
+> rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+>
+> # linux command
+> rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+> ```
+>
+> For **Windows** users, run these two commands in command prompt (not PowerShell!) with elevated permissions.
+> Additionally, be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile.
+>
+> ```
+> mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+> ```
+> * **Note**: <br>
+>   There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
+>   Make sure to replace all the fields!
+>
+> * **Note**: <br>
+>   If you've never used command prompt before, check
+>   [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
+>
+>
+> For **Mac** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
+> ```
+> ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+> ```
+>
+> For **Linux** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
+>
+> ```
+> ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+> ```
 
-# mac command
-rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+##### (Option 2) Manually without respecting updates:
 
-# linux command
-rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-```
-
-For **Windows** users, run these two commands in command prompt (not PowerShell!) with elevated permissions.
-Additionally, be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile.
-
-```
-mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
-```
-* **Note**: <br>
-  There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
-  Make sure to replace all the fields!
-
-* **Note**: <br>
-  If you've never used command prompt before, check
-  [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
-
-
-For **Mac** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
-```
-ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-```
-
-For **Linux** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
-
-```
-ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-```
-
-##### (2) Manually without respecting updates:
-1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
-2. Remove the existing `field.css` file
-3. Manually copy the `_field.css` file (found under your profile's `media` directory)
-   into the css injector add-on directory
-4. Rename `_field.css` into `field.css`.
-
-* **Note**: <br>
-  If the `_field.css` file ever updates, you will have to manually copy and rename the file again
-  into the correct position.
+> 1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
+> 2. Remove the existing `field.css` file
+> 3. Manually copy the `_field.css` file (found under your profile's `media` directory)
+>    into the css injector add-on directory
+> 4. Rename `_field.css` into `field.css`.
+>
+> * **Note**: <br>
+>   If the `_field.css` file ever updates, you will have to manually copy and rename the file again
+>   into the correct position.
 
 
 
