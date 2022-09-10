@@ -7,7 +7,7 @@ This page was automatically generated from gen/_JPResources.md.
 If you are planning on editing this page, please edit the file above!
 -->
 
-A collection of tips and tricks, primarily related to CSS and Yomichan.
+A collection of tips and tricks, primarily related to CSS and Yomichan Templates.
 
 This page was inspired by [Marv's resources page](https://github.com/MarvNC/JP-Resources),
 which has a bunch of different but equally awesome resources.
