@@ -14,8 +14,14 @@ TODO flesh out!
 
 # Table of Contents
 * [CSS (Yomichan)](jpresources#css-yomichan)
+    * [How To]()
+    * [Do not copy furigana]()
+    * [Limit # of frequency lists]()
+    * [Limit # of pitch accent dictionaries]()
+    * [Hide the dictionary but allow it to be used by Anki]()
+    * [Hide bilingual dictionaries until hover]()
 * [CSS (General)](jpresources#css-general)
-* [Yomichan Handlebars](jpresources#css-general)
+* [Yomichan Templates / Handlebars](jpresources#css-general)
 * [ShareX](jpresources#sharex)
 
 
@@ -23,12 +29,15 @@ TODO flesh out!
 {% raw %}
 # CSS (Yomichan)
 
-## general howto
-- TODO how to add custom css
-- inspect element is your friend if you want to figure out how to write your own custom css for elements you don't know the class / structure of
+## How to add Custom CSS In Yomichan
+To add custom CSS in Yomichan, do the following:
+1. Head over to Yomichan settings (Yomichan extension marker -> cogwheel)
+1. Go to `Appearance` →  `Configure custom CSS...`
+1. Add the CSS to the top window.
 
+[[assets/yomichan/howto_css.gif]]
 
-## Highlighting / copying the definition word without copying the furigana
+## Copying the word without copying the furigana
 
 ```css
 .headword-term ruby rt {
@@ -45,23 +54,33 @@ ruby rt {
 - rule doesn't work on linux (tested on anki 2.1.54)
 - works as normal on the browser though
 
+<!--
 TODO example gif
+-->
 
 ## Reducing the number of frequency lists
+<!-- http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464 -->
 
 ```css
-span.frequency-group-item:nth-child(n+5) {
+/* Only shows the first 2 frequency lists */
+span.frequency-group-item:nth-child(n+3) {
     display: none;
 }
 ```
+<sup>(Thanks Marv#5144 for the CSS)</sup>
 
-(thanks Marv#5144, [og message](http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464))
+
+[[assets/yomichan/limit_frequencies.gif]]
+
+
+
 
 
 ## Reducing the number of pitch accent dictionaries
 
-only shows the first 2 pitch accent dictionaries:
+The following CSS displays only the first 2 pitch accent dictionaries:
 ```css
+/* Only shows the first 2 pitch accent dictionaries */
 li.pronunciation-group:nth-child(n+3) {
   display: none;
 }
@@ -72,6 +91,8 @@ Make the pitch accent dictionary text a bit grey by default,
 and to make specifically the "NHK" and "大辞泉" white (change these two
 to any dictionary you find to be of higher quality)
 ```css
+/* Greys out all pitch accent dictionary names */
+/* Sets NHK and 大辞泉 pitch accent dictionaries to a white name */
 .tag[data-category="pronunciation-dictionary"] {
   --tag-text-color: #c8bfdb;
 }
@@ -80,11 +101,16 @@ to any dictionary you find to be of higher quality)
 }
 ```
 
+[[assets/yomichan/limit_pitch_accents.gif]]
+
+
+<!--
 the above 2 combined:
 
 https://cdn.discordapp.com/attachments/778430038159655012/998424187888734260/unknown.png
 
 https://cdn.discordapp.com/attachments/778430038159655012/998424188203303033/unknown.png
+-->
 
 
 
@@ -92,15 +118,26 @@ https://cdn.discordapp.com/attachments/778430038159655012/998424188203303033/unk
 
 1. ensure that the dictionary is enabled in your profile
 2. add the following css for the dictionary (has to be done for each individual dictionary)
-```
+```css
 li.definition-item[data-dictionary='DICTIONARY'] {
   display: none;
 }
 ```
 
+<details>
+<summary><i>Click here to see an example.</i></summary>
+```css
+li.definition-item[data-dictionary='JMdict (English)'] {
+  display: none;
+}
+```
+</details>
+
+[[assets/yomichan/hide_dictionary.gif]]
+
 
 ## Hide bilingual definitions until hover
-```
+```css
 li.definition-item[data-dictionary='DICTIONARY'] .gloss-list {
   opacity: 0;
 }
@@ -109,24 +146,22 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
 }
 ```
 
-example:
-```
+
+<details>
+<summary><i>Click here to see an example.</i></summary>
+```css
 li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
   opacity: 0;
 }
 li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
   opacity: 1;
 }
-
-li.definition-item[data-dictionary='新和英'] .gloss-list {
-  opacity: 0;
-}
-li.definition-item[data-dictionary='新和英']:hover .gloss-list {
-  opacity: 1;
-}
 ```
+</details>
 
-TODO example gif
+[[assets/yomichan/bilingual_hover.gif]]
+
+<br>
 
 # CSS (General)
 
@@ -149,14 +184,32 @@ example [jsfiddle](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/12/)
 
 
 
-# Yomichan Templates + Handlebars
+# Yomichan Templates / Handlebars
 
-## general howto
+
+## Editing Yomichan Fields
+1. Navigate to Yomichan Settings.
+1. Go to the `Anki` section.
+1. Select `Anki card format...`.
+
+[[assets/yomichan/howto_format.gif]]
+
+
+## Editing Yomichan Templates (Handlebars)
+1. Navigate to Yomichan Settings.
+1. Make sure that advanced settings are turned on (bottom left corner).
+1. Go to the `Anki` section
+1. Select `Configure Anki card templates...`
+
+[[assets/yomichan/howto_templates.gif]]
+
 - TODO how to access handlebars
 - TODO how to access format
 
-## grab first pitch accent dictionary only
 
+## Grab only the first pitch accent dictionary
+
+Add the following template code to Yomichan Templates:
 ```
 {{#*inline "pitch-accent-list-single-dict"}}
     {{~#if (op ">" pitchCount 1)~}}<ol>{{~/if~}}
@@ -185,7 +238,16 @@ example [jsfiddle](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/12/)
 {{/inline}}
 ```
 
-modified to match animecards (thanks An#7416)
+You can now use the following in Yomichan Fields:
+```
+{pitch-accents-single-dict}
+{pitch-accent-graphs-single-dict}
+{pitch-accent-positions-single-dict}
+```
+
+
+<details>
+<summary><i>Click here to see an modified version for Anime Cards (thanks An#7416).</i></summary>
 ```
 {{#*inline "pitch-accent-list-single-dict"}}
     {{~#if (op ">" pitchCount 1)~}}{{~/if~}}
@@ -212,67 +274,77 @@ modified to match animecards (thanks An#7416)
     {{#regexReplace "<(.|\n)*?>" ""}}{{~> pitch-accent-list-single-dict format='position'~}}{{/regexReplace}}
 {{/inline}}
 ```
+</details>
 
-
-[og message](https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130)
-
+<!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130
 
 
 copy/paste of above msg:
-In Yomichan settings -> Anki -> Configure Anki Card Templates -> Then look for `End Pitch Accents` and paste it just above that -> Close
 
-Then click Configure Anki card format -> If you're using  {pitch-accent-positions}, {pitch-accent-graphs}  or {pitch-accents}, you just replace
-1. {pitch-accent-positions} with {pitch-accent-positions-single-dict}
-2. {pitch-accent-graphs} with {pitch-accent-graphs-single-dict}
-3. {pitch-accents} with {pitch-accents-single-dict}
+> In Yomichan settings -> Anki -> Configure Anki Card Templates -> Then look for `End Pitch Accents` and paste it just above that -> Close
+>
+> Then click Configure Anki card format -> If you're using  {pitch-accent-positions}, {pitch-accent-graphs}  or {pitch-accents}, you just replace
+> 1. {pitch-accent-positions} with {pitch-accent-positions-single-dict}
+> 2. {pitch-accent-graphs} with {pitch-accent-graphs-single-dict}
+> 3. {pitch-accents} with {pitch-accents-single-dict}
+-->
+
+
 
 
 ## Automatically styling the highlighted word upon card creation
-- yomichan format
-- personally prefer bold over custom div
-- can easily edit it in the anki field editor (ctrl+b to bold)
-  as opposed to having to stylize with a div on each edit
 
-#### option 1: bold
-```
-{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
-```
-- simply bolds
-
-#### option 2: bold + styling
+#### Option 1: Bold only
+**Yomichan Fields**:
 ```
 {cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
 ```
 
-css:
+
+#### Option 2: Bold + Styling
+**Yomichan Fields**:
+```
+{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
+```
+
+**Anki Note CSS**:
 ```css
 b {
-    color: #fffd9e;
+    color: #fffd9e; /* bright yellow */
 }
 ```
 
-or if your card is formatted like `<div class="sentence">{{Sentence}}</div>`:
-
+If your card template is formatted like
+`<div class="sentence">{{Sentence}}</div>`:
 ```css
 .sentence b {
-    color: #fffd9e;
+    color: #fffd9e; /* bright yellow */
 
-    /* if you want to make the word not bolded: */
+    /* if you want to make the word not bolded, un-comment the following */
     /*font-weight: normal;*/
 }
 ```
 
-#### option 3: custom div
+#### Option 3: Custom div
 
+**Yomichan Fields**:
 ```
 {cloze-prefix}<span class="word-highlight">{cloze-body}</span>{cloze-suffix}
 ```
 
+**Anki Note CSS**:
 ```css
 .word-highlight {
     color: #fffd9e;
 }
 ```
+
+* **Note**:
+  I personally prefer using Option 2 (bolded) over a custom div
+  because it makes editing the note easier.
+  For example, if you want to edit the highlighted region, you only have to bold
+  the desired region (say, with ctrl+b) instead of having to edit
+  the raw HTML of the field (say, with ctrl+shift+x).
 
 
 ## Get selection text instead of glossary (only if text is selected)
@@ -285,7 +357,9 @@ or if your card is formatted like `<div class="sentence">{{Sentence}}</div>`:
     {{/if~}}
 {{/inline}}
 ```
-- [Related github issue](https://github.com/FooSoft/yomichan/issues/2097)
+
+* **Note**:
+  Related [Github issue](https://github.com/FooSoft/yomichan/issues/2097).
 
 
 
