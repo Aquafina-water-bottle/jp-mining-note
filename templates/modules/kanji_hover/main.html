@@ -4,11 +4,10 @@
 {% import "modules/kanji_hover/main.js" as js with context %}
 
 
-{# required boilerplate #}
 {% set kanji_hover = namespace() %}
-{% set kanji_hover.js = JavascriptContainer() %}
 {% set kanji_hover.id = "kanji-hover" %}
 
+{% set kanji_hover.js = JavascriptContainer(kanji_hover.id) %}
 
 {{ kanji_hover.js.globals.set_all(js.globals) }}
 {{ kanji_hover.js.functions.set_back(js.functions) }}

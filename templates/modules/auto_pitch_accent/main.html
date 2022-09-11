@@ -1,0 +1,15 @@
+{# auto pitch accent #}
+
+
+{% import "modules/auto_pitch_accent/main.js" as js with context %}
+
+
+{% set auto_pitch_accent = namespace() %}
+{% set auto_pitch_accent.id = "auto-pitch-accent" %}
+
+{% set auto_pitch_accent.js = JavascriptContainer(auto_pitch_accent.id) %}
+
+{{ auto_pitch_accent.js.functions.set_back(js.functions) }}
+{{ auto_pitch_accent.js.run.set_back(js.run) }}
+
+

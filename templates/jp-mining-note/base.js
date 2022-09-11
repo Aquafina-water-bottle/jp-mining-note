@@ -12,7 +12,9 @@ function nullish(a, b) {
 
 
 /// {% for m in modules %}
+/// {% if m.js is defined %}
 {{ m.js.globals.get(note.card_type, note.side) }}
+/// {% endif %}
 /// {% endfor %}
 
 
@@ -283,7 +285,9 @@ function processSentences(isAltDisplay, isClozeDeletion) {
 /// {% endblock %}
 
 /// {% for m in modules %}
+/// {% if m.js is defined %}
 {{ m.js.functions.get(note.card_type, note.side) }}
+/// {% endif %}
 /// {% endfor %}
 
 
@@ -307,7 +311,9 @@ document.onkeyup = (e => {
   /// {% block js_keybind_settings %}
   /// {% endblock %}
   /// {% for m in modules %}
+  /// {% if m.js is defined %}
   {{ m.js.keybinds.get(note.card_type, note.side) }}
+  /// {% endif %}
   /// {% endfor %}
   /// {% endfilter %}
 
@@ -437,7 +443,9 @@ if (typeof JPMNOpts === 'undefined') {
 /// {% block js_run %}
 /// {% endblock %}
 /// {% for m in modules %}
+/// {% if m.js is defined %}
 {{ m.js.run.get(note.card_type, note.side) }}
+/// {% endif %}
 /// {% endfor %}
 
 //})();

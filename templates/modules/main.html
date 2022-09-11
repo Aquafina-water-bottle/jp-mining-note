@@ -1,19 +1,11 @@
 {# idk #}
 
+{% from "modules/img_utils/main.html" import img_utils with context %}
+{# {% from "modules/sentences/main.html" import sentences with context %} #}
 {% from "modules/kanji_hover/main.html" import kanji_hover with context %}
+{% from "modules/auto_pitch_accent/main.html" import auto_pitch_accent with context %}
 
-{% set all_modules = [kanji_hover] %}
+{# img_utils is ran after auto_pitch_accent to properly calculate the height of the left div #}
+{# {% set modules = [sentences, kanji_hover, auto_pitch_accent, img_utils] %} #}
+{% set modules = [kanji_hover, auto_pitch_accent, img_utils] %}
 
-{# enabled modules #}
-{% set modules = [] %}
-
-{#
-{% set modules = ModuleContainer() %}
-{{ modules.add_modules(all_modules, COMPILE_OPTIONS("enabled-modules").item()) }}
-#}
-
-{% for m in all_modules %}
-  {% if m.id in COMPILE_OPTIONS("enabled-modules").item() %}
-    {{ modules.append(m) }}
-  {% endif %}
-{% endfor %}
