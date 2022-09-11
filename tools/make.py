@@ -38,59 +38,70 @@ class GenerateType(Enum):
 
 
 class TextContainer:
-    def __init__(self):
-        self.card_types = ["main", "pa_sent", "pa_word", "cloze_deletion"]
-        self.sides = ["front", "back"]
+    card_types = ["main", "pa_sent", "pa_word", "cloze_deletion"]
+    sides = ["front", "back"]
+    enabled_modules: list | None = None # added in the future
+
+    def __init__(self, module_name):
+        self.module_name = module_name
 
         # matx[side][card]
-        self.matx = [([""] * len(self.card_types)) for _ in self.sides]
+        self.matx = [([""] * len(TextContainer.card_types)) for _ in TextContainer.sides]
 
     def _get_indices(self, card_type, side):
-        assert card_type in self.card_types
-        assert side in self.sides
+        assert card_type in TextContainer.card_types
+        assert side in TextContainer.sides
 
-        x = self.sides.index(side)
-        y = self.card_types.index(card_type)
+        x = TextContainer.sides.index(side)
+        y = TextContainer.card_types.index(card_type)
 
         return (x, y)
 
     def set(self, card_type, side, value):
+        """
+        sets specific (card_type, side) pair
+        """
         x, y = self._get_indices(card_type, side)
         self.matx[x][y] = value
 
-
     def set_all(self, value):
-        for card_type in self.card_types:
-            for side in self.sides:
+        for card_type in TextContainer.card_types:
+            for side in TextContainer.sides:
                 x, y = self._get_indices(card_type, side)
                 self.matx[x][y] = value
 
     def set_front(self, value):
-        for card_type in self.card_types:
+        for card_type in TextContainer.card_types:
             x, y = self._get_indices(card_type, "front")
             self.matx[x][y] = value
 
     def set_back(self, value):
-        for card_type in self.card_types:
+        for card_type in TextContainer.card_types:
             x, y = self._get_indices(card_type, "back")
             self.matx[x][y] = value
 
     def set_card_type(self, card_type, value):
-        for side in self.sides:
+        for side in TextContainer.sides:
             x, y = self._get_indices(card_type, side)
             self.matx[x][y] = value
 
-    def get(self, card_type, side):
+    def _get(self, card_type, side):
         x, y = self._get_indices(card_type, side)
         return self.matx[x][y]
 
+    def get(self, card_type, side):
+        if self.module_name in TextContainer.enabled_modules:
+            return self._get(card_type, side)
+        return ""
 
-@dataclass
+
+
 class JavascriptContainer:
-    globals = TextContainer()
-    functions = TextContainer()
-    keybinds = TextContainer()
-    run = TextContainer()
+    def __init__(self, module_name):
+        self.globals = TextContainer(module_name)
+        self.functions = TextContainer(module_name)
+        self.keybinds = TextContainer(module_name)
+        self.run = TextContainer(module_name)
 
 
 #class ModuleContainer:
@@ -123,6 +134,7 @@ class Generator:
         )
 
         config = utils.get_config(args)
+        TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
 
         filters = {
             # https://eengstrom.github.io/musings/add-bitwise-operations-to-ansible-jinja2
@@ -154,6 +166,7 @@ class Generator:
             "COMPILE_OPTIONS": config("compile-options"),
 
             "JavascriptContainer": JavascriptContainer,
+            "TextContainer": TextContainer,
             #"ModuleContainer": ModuleContainer,
             # "TEMPLATES": config("notes", "jp-mining-note", "templates"),
         }

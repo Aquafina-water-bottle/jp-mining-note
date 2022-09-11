@@ -1,0 +1,16 @@
+{# image utilities #}
+
+
+{% import "modules/img_utils/main.js" as js with context %}
+
+
+{% set img_utils = namespace() %}
+{% set img_utils.id = "auto-pitch-accent" %}
+
+{% set img_utils.js = JavascriptContainer(img_utils.id) %}
+
+{{ img_utils.js.functions.set_back(js.functions) }}
+{{ img_utils.js.run.set_back(js.run) }}
+
+
+
