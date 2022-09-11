@@ -221,7 +221,7 @@ const JPMN_KanjiHover = (function () {
     let actions = [];
     logger.assert(queryResults.length % 2 == 0, "query results not even");
 
-    for (const i = 0; i < queryResults.length/2; i++) {
+    for (let i = 0; i < queryResults.length/2; i++) {
       // ids are equivalent to creation dates, so sorting ids is equivalent to
       // sorting to card creation date
       const nonNewCardIds = queryResults[i*2].sort();
@@ -631,7 +631,7 @@ const JPMN_AutoPA = (function () {
       const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
 
       // 5 is length of unmarked and marked
-      for (const i = 0; i < 5; i++) {
+      for (let i = 0; i < 5; i++) {
         result = result.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
       }
     }
