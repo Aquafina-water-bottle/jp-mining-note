@@ -14,10 +14,11 @@ import shutil
 
 # import argparse
 from enum import Enum
+from dataclasses import dataclass
 
 # from dataclasses import dataclass
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
+from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined, pass_context
 
 import utils
 
@@ -34,6 +35,77 @@ class GenerateType(Enum):
     JINJA = 1
     SASS = 2
     COPY = 3
+
+
+class TextContainer:
+    def __init__(self):
+        self.card_types = ["main", "pa_sent", "pa_word", "cloze_deletion"]
+        self.sides = ["front", "back"]
+
+        # matx[side][card]
+        self.matx = [([""] * len(self.card_types)) for _ in self.sides]
+
+    def _get_indices(self, card_type, side):
+        assert card_type in self.card_types
+        assert side in self.sides
+
+        x = self.sides.index(side)
+        y = self.card_types.index(card_type)
+
+        return (x, y)
+
+    def set(self, card_type, side, value):
+        x, y = self._get_indices(card_type, side)
+        self.matx[x][y] = value
+
+
+    def set_all(self, value):
+        for card_type in self.card_types:
+            for side in self.sides:
+                x, y = self._get_indices(card_type, side)
+                self.matx[x][y] = value
+
+    def set_front(self, value):
+        for card_type in self.card_types:
+            x, y = self._get_indices(card_type, "front")
+            self.matx[x][y] = value
+
+    def set_back(self, value):
+        for card_type in self.card_types:
+            x, y = self._get_indices(card_type, "back")
+            self.matx[x][y] = value
+
+    def set_card_type(self, card_type, value):
+        for side in self.sides:
+            x, y = self._get_indices(card_type, side)
+            self.matx[x][y] = value
+
+    def get(self, card_type, side):
+        x, y = self._get_indices(card_type, side)
+        return self.matx[x][y]
+
+
+@dataclass
+class JavascriptContainer:
+    globals = TextContainer()
+    functions = TextContainer()
+    keybinds = TextContainer()
+    run = TextContainer()
+
+
+#class ModuleContainer:
+#    def __init__(self):
+#        self.modules = []
+#
+#    def add_modules(self, all_modules, enabled_modules):
+#        for m in all_modules:
+#            if m.id in enabled_modules:
+#                print("A", m)
+#                self.modules.append(m)
+#
+#    def __getattr__(self):
+#        pass
+
 
 
 class Generator:
@@ -79,8 +151,18 @@ class Generator:
             # "NOTE_OPTS": config("note-opts"),
             "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
             "NOTE_FILES": utils.get_note_config(),
+            "COMPILE_OPTIONS": config("compile-options"),
+
+            "JavascriptContainer": JavascriptContainer,
+            #"ModuleContainer": ModuleContainer,
             # "TEMPLATES": config("notes", "jp-mining-note", "templates"),
         }
+
+    @pass_context
+    def wtf(self, context, var):
+        #result = do_something(value)
+        return context.vars[var]
+
 
     def generate(
         self,
@@ -197,3 +279,6 @@ def main(args=None):
 if __name__ == "__main__":
     # main(root_folder="templates")
     main()
+    #x = TextContainer()
+    #print(x.matx)
+
