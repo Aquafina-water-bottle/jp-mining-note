@@ -1,4 +1,4 @@
-
+/// {% from "modules/main.html" import modules with context %}
 
 
 /* quick fix for legacy anki versions (replaces ?? operator) */
@@ -11,20 +11,11 @@ function nullish(a, b) {
 
 
 
-// global cache for an entire card's kanji hover html
-// maps key.word_reading -> html string
-//var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
-var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
+/// {% for m in modules %}
+{{ m.js.globals.get(note.card_type, note.side) }}
+/// {% endfor %}
 
-// maps kanji -> [{set of used words}, html string]
-//var kanjiHoverCache = kanjiHoverCache ?? {};
-var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
-// note that this cache will NOT respect card review undos,
-// but that should be a niche enough case to not warrent caching.
-// maps key -> bool
-//var isNewCardCache = isNewCardCache ?? {};
-var isNewCardCache = nullish(isNewCardCache, {});
 
 (function () { // restricts ALL javascript to hidden scope
 
@@ -291,6 +282,10 @@ function processSentences(isAltDisplay, isClozeDeletion) {
 /// {% block js_functions %}
 /// {% endblock %}
 
+/// {% for m in modules %}
+{{ m.js.functions.get(note.card_type, note.side) }}
+/// {% endfor %}
+
 
 
 
@@ -311,6 +306,9 @@ document.onkeyup = (e => {
   /// {% filter indent(width=2) %}
   /// {% block js_keybind_settings %}
   /// {% endblock %}
+  /// {% for m in modules %}
+  {{ m.js.keybinds.get(note.card_type, note.side) }}
+  /// {% endfor %}
   /// {% endfilter %}
 
 
@@ -438,6 +436,9 @@ if (typeof JPMNOpts === 'undefined') {
 
 /// {% block js_run %}
 /// {% endblock %}
+/// {% for m in modules %}
+{{ m.js.run.get(note.card_type, note.side) }}
+/// {% endfor %}
 
 //})();
 

@@ -1,0 +1,19 @@
+{# idk #}
+
+{% from "modules/kanji_hover/main.html" import kanji_hover with context %}
+
+{% set all_modules = [kanji_hover] %}
+
+{# enabled modules #}
+{% set modules = [] %}
+
+{#
+{% set modules = ModuleContainer() %}
+{{ modules.add_modules(all_modules, COMPILE_OPTIONS("enabled-modules").item()) }}
+#}
+
+{% for m in all_modules %}
+  {% if m.id in COMPILE_OPTIONS("enabled-modules").item() %}
+    {{ modules.append(m) }}
+  {% endif %}
+{% endfor %}
