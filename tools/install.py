@@ -354,6 +354,8 @@ class MediaInstaller:
 
 
 def main(args=None):
+    utils.assert_ankiconnect_running()
+
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
 

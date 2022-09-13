@@ -11,6 +11,8 @@ import utils
 
 
 def main():
+    utils.assert_ankiconnect_running()
+
     args = utils.get_args(utils.add_args, make.add_args, install.add_args)
 
     # defaults to install from the build folder

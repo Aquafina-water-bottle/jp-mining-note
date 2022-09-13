@@ -1,5 +1,6 @@
 /// {% set functions %}
 function hybridClick() {
+  // CURRENTLY DEPENDS ON THE SENTENCE MODULE TO WORK (due to note.colorQuotes)
   let hSent = document.getElementById("hybrid-sentence");
   let hWord = document.getElementById("hybrid-word");
   let svgEle = document.getElementById("flag_box_svg");
@@ -67,8 +68,8 @@ if (keys !== null && keys.includes(e.key)) {
 
 /// {% set run %}
 {
-  let isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
-  processSentences(isAltDisplay);
+  //let isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
+  //processSentences(isAltDisplay);
 
   let d = document.getElementById("display");
   let circ = document.getElementById("svg_circle");

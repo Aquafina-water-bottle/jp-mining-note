@@ -1,0 +1,20 @@
+{# sentence utilities #}
+
+
+{% import "modules/sent_utils/main.js" as js with context %}
+
+
+{% set sent_utils = namespace() %}
+{% set sent_utils.id = "sent-utils" %}
+
+{% set sent_utils.js = JavascriptContainer(sent_utils.id) %}
+
+{# sets all, and un-sets pa_word #}
+{{ sent_utils.js.functions.set_all(js.functions) }}
+{{ sent_utils.js.functions.set_card_type("pa_word", "") }}
+
+{{ sent_utils.js.run.set_card_type("main", js.run_main) }}
+{{ sent_utils.js.run.set_card_type("pa_sent", js.run_pa_sent) }}
+{{ sent_utils.js.run.set_card_type("cloze_deletion", js.run_cloze_deletion) }}
+
+
