@@ -48,6 +48,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
     * [Limiting the number of pitch accent dictionaries](jpresources#limiting-the-number-of-pitch-accent-dictionaries)
     * [Hide the dictionary but allow it to be used by Anki](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki)
     * [Hide bilingual dictionaries until hover](jpresources#hide-bilingual-definitions-until-hover)
+    * [Remove the "Add Reading" button](jpresources#remove-the-add-reading-button)
 * [CSS (General)](jpresources#css-general)
     * [Ensuring 「」 properly quotes the text](jpresources#ensuring--properly-quotes-the-text)
 * [Yomichan Templates / Handlebars](jpresources#yomichan-templates--handlebars)
@@ -212,6 +213,23 @@ li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
 [[assets/yomichan/bilingual_hover.gif]]
 
 <br>
+
+
+
+## Remove the "Add Reading" button
+
+```
+button[title^="Add reading"] {
+  display:none;
+}
+```
+
+[[assets/yomichan/hide_add_reading.png]] <br>
+<sup> Left: without CSS. Right: with CSS. </sup>
+
+
+<br>
+
 
 
 
