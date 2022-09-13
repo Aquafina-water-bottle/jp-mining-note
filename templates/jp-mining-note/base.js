@@ -98,163 +98,6 @@ var paIndicator = (function () {
 
 
 /*
- * processes the sentence (if there is no altdisplay)
- * - removes newlines
- * - replaces bold with [...] if cloze deletion
- * - handles adding or replacing quotes if specified
- *
- * isAltDisplay=false
- */
-function processSentence(sentEle, isAltDisplay, isClozeDeletion) {
-  if (!{{ utils.opt("sentence", "enabled") }}) {
-    return;
-  }
-
-  if (typeof isAltDisplay === 'undefined') {
-    logger.warn("isAltDisplay is undefined");
-    isAltDisplay = false;
-  }
-
-  // removes linebreaks
-  let result = sentEle.children[1].innerHTML;
-
-  // cloze deletion replacing bold with [...]
-  if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
-    result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
-  }
-
-  if ((!isAltDisplay && {{ utils.opt("sentence", "remove-line-breaks") }})
-      || isAltDisplay && {{ utils.opt("sentence", "remove-line-breaks-on-altdisplay") }}) {
-    let noNewlines = result.replace(/<br>/g, "");
-
-    // automatically removes newlines and other html elements
-    // https://stackoverflow.com/a/54369605
-    //let charCount = [...sentEle.innerText.trim()].length;
-    //let maxCharCount = { utils.opt("sentence", "remove-line-breaks-until-char-count") }
-
-    //if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
-    //  result = noNewlines;
-    //}
-
-    result = noNewlines;
-  }
-
-  // removes leading and trailing white space (equiv. of strip() in python)
-  result = result.trim();
-
-  // selects the smallest containing sentence
-
-  //if (!isAltDisplay && settings.sentence("select-smallest-sentence")) {
-  //  result = selectSentence(result);
-  //}
-
-  //if (settings.quote("enabled", true)) {
-  //  result = processQuote(sentEle, result, isAltDisplay);
-  //} else {
-  //  sentEle.innerHTML = result;
-  //}
-
-  //var processQuote = function(sentEle, sent, isAltDisplay) {
-  //let result = sent;
-
-  //let openQuote = null;
-  //let closeQuote = null;
-  //let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
-
-
-  // if existing quotes:
-  //     remove from sentence
-  //     add to quote spans
-  // if no existing quotes and if autoquote:
-  //     add autoquote open / close to quote spans (if different)
-  // if color quotes:
-  //     add color quote class to outer divs
-
-
-  let validQuotes = {{ utils.opt("sentence", "quote-match-strings") }};
-  let existingQuote = false;
-
-  let openQuoteEle = sentEle.children[0];
-  let closeQuoteEle = sentEle.children[2];
-
-  for (let quotePair of validQuotes) {
-    if ((result[0] === quotePair[0]) && (result[result.length-1] === quotePair[1])) {
-
-      // adds quote to surrounding divs
-      let openQuote = null;
-      let closeQuote = null;
-      [openQuote, closeQuote] = quotePair;
-      openQuoteEle.innerText = openQuote;
-      closeQuoteEle.innerText = closeQuote;
-
-      result = result.slice(1, -1);
-      existingQuote = true;
-      break;
-    }
-  }
-
-  let autoQuote = (
-    (!isAltDisplay && {{ utils.opt("sentence", "auto-quote-sentence") }})
-    || (isAltDisplay && {{ utils.opt("sentence", "auto-quote-alt-display-sentence") }})
-  );
-  if (!existingQuote && autoQuote) {
-    /// {% if note.card_type == "pa_sent" %}
-    openQuoteEle.innerText = {{ utils.opt("sentence", "pa-sent-auto-quote-open") }};
-    closeQuoteEle.innerText = {{ utils.opt("sentence", "pa-sent-auto-quote-close") }};
-    /// {% else %}
-    openQuoteEle.innerText = {{ utils.opt("sentence", "auto-quote-open") }};
-    closeQuoteEle.innerText = {{ utils.opt("sentence", "auto-quote-close") }};
-    /// {% endif %}
-  }
-
-  // no quotes are added
-  if (!existingQuote && !autoQuote) {
-    // defaults to having quotes, in case javascript fails to load for some reason
-    openQuoteEle.innerText = "";
-    closeQuoteEle.innerText = "";
-
-    sentEle.style["text-indent"] = "0em";
-    sentEle.style["padding-left"] = "0em";
-  }
-
-
-  /// {% if note.card_type == "pa_sent" %}
-  if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-sent-pa-indicator-color-quotes") }}) {
-    openQuoteEle.classList.add("pa-indicator-color--sentence");
-    closeQuoteEle.classList.add("pa-indicator-color--sentence");
-  }
-  /// {% endif %}
-
-  /// {% if note.card_type == "main" %}
-  /// {% call IF("PAShowInfo") %}
-  if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-indicator-color-quotes") }}) {
-    note.colorQuotes = true;
-    openQuoteEle.classList.add(paIndicator.className);
-    closeQuoteEle.classList.add(paIndicator.className);
-
-    /// {% call IF("IsHoverCard") %}
-    let elems = document.getElementsByClassName("expression__hybrid-wrapper");
-    if (elems.length > 0) {
-      elems[0].classList.add("expression__hybrid-wrapper--hover-remove-flag");
-    }
-    /// {% endcall %}
-
-    // neither hover & click and is either one of TSC / sentence -> removes flag
-
-    /// {% call utils.none_of_js("IsHoverCard", "IsClickCard") %}
-    /// {% call utils.any_of_js("IsTargetedSentenceCard", "IsSentenceCard") %}
-    let svgEle = document.getElementById("flag_box_svg");
-    svgEle.style.display = "none";
-    /// {% endcall %}
-    /// {% endcall %}
-  }
-  /// {% endcall %}
-  /// {% endif %}
-
-  sentEle.children[1].innerHTML = result;
-}
-
-/*
  * Toggles the display of any given details tag
  */
 function toggleDetailsTag(ele) {
@@ -265,16 +108,6 @@ function toggleDetailsTag(ele) {
   }
 }
 
-
-function processSentences(isAltDisplay, isClozeDeletion) {
-  let sentences = document.querySelectorAll(".expression--sentence")
-
-  if (sentences !== null) {
-    for (let sent of sentences) {
-      processSentence(sent, isAltDisplay, isClozeDeletion);
-    }
-  }
-}
 
 
 /// {% endif %} /// note.card_type != "pa_word"
@@ -371,6 +204,7 @@ document.onkeyup = (e => {
         && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
         && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
       // this somehow works even when hybridClick is undefined here, woah
+      // TODO clean this up lmao
       hybridClick();
     } else {
     /// {% endif %}

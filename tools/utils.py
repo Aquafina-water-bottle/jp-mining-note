@@ -60,7 +60,7 @@ def add_args(parser):
 
 def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
     # placed here because this function is called at the beginning of all the scripts
-    assert_ankiconnect_running()
+    #assert_ankiconnect_running()
 
     parser = argparse.ArgumentParser()
     for add_args_func in args:
