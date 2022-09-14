@@ -284,12 +284,17 @@ def define_env(env):
         return c
 
     @env.macro
-    def img(alt_text, file_path):
+    def img(alt_text, file_path, options=""):
         """
         clickable image
         """
 
         # ![alt text](file path)
         # [![alt text](file path)](file_path)
+        if options:
+            return "[![" + alt_text + "](" + file_path + "){ " + options + " } ](" + file_path + ")"
+
         return f"[![{alt_text}]({file_path})]({file_path})"
+
+
 

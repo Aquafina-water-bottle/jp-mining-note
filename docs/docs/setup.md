@@ -43,6 +43,7 @@ There are two ways of installing the card:
 
 
     The above does the following:
+
     - Installs the latest version of the note
     - Installs the fonts required for the note
 
