@@ -1,0 +1,858 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the jp-mining-note project.">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.0">
+    
+    
+      
+        <title>Card Types - jp-mining-note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2e8b5541.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vocab-card" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            jp-mining-note
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Card Types
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    jp-mining-note
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        Preface
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Card Types
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Card Types
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vocab-card" class="md-nav__link">
+    Vocab Card
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sentence-card" class="md-nav__link">
+    Sentence Card
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#targetted-sentence-card-tsc" class="md-nav__link">
+    Targetted Sentence Card (TSC)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-cards" class="md-nav__link">
+    Hybrid Cards
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hover-vocab-card" class="md-nav__link">
+    Hover Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#click-vocab-card" class="md-nav__link">
+    Click Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hover-sentence-card" class="md-nav__link">
+    Hover Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#click-sentence-card" class="md-nav__link">
+    Click Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-tsc" class="md-nav__link">
+    Hybrid TSC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#card-creation-summary" class="md-nav__link">
+    Card Creation Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        Transfer Existing Notes
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updating/" class="md-nav__link">
+        Updating the Note (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding & Dev Docs (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        FAQ (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresources/" class="md-nav__link">
+        Various Resources
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vocab-card" class="md-nav__link">
+    Vocab Card
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sentence-card" class="md-nav__link">
+    Sentence Card
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#targetted-sentence-card-tsc" class="md-nav__link">
+    Targetted Sentence Card (TSC)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-cards" class="md-nav__link">
+    Hybrid Cards
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hover-vocab-card" class="md-nav__link">
+    Hover Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#click-vocab-card" class="md-nav__link">
+    Click Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hover-sentence-card" class="md-nav__link">
+    Hover Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#click-sentence-card" class="md-nav__link">
+    Click Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-tsc" class="md-nav__link">
+    Hybrid TSC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#card-creation-summary" class="md-nav__link">
+    Card Creation Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Card Types</h1>
+
+<!--
+
+**Summary:** <br>
+
+**How to test:** <br>
+
+**How to create:** <br>
+
+-->
+
+<p>Previously, this note type only had vocab and sentence cards.
+Although I was originally fine with this,
+I started to realize some issues with only having these two card types:</p>
+<ul>
+<li>Vocab cards that require context have to be turned into sentence cards, and</li>
+<li>Sentence cards take a very long time to review, and can create context-based memories.</li>
+</ul>
+<p>I found that many vocab cards had to be turned into sentence cards, since either the
+context was fundamental to understanding the definition, or there were other parts
+of the sentence that I wanted to test.
+This lead to many sentence cards, which naturally meant that Anki sessions lasted longer.</p>
+<p>I attempted to tackle these exact issues by introducing new card types
+outside of the fundamental vocab and sentence cards.</p>
+<p><a href="../assets/card_types_1_pic.png"><img alt="" src="../assets/card_types_1_pic.png" /></a></p>
+<!--
+# Card types
+
+This entire section is dedicated to showcasing all the various card types
+that this note has to offer.
+
+-->
+
+<!--
+## Common Features
+TODO REMOVE THIS SECTION
+
+Before going into the specific card types,
+this section will apply to all card types, and explain the features and reasoning behind them.
+
+- All card types have an optional **hint** field.
+    This hint field can contain anything you want, and can be used without failing the card.
+
+- All card types will have the sentence audio button at the front (if sentence audio is available.)
+    The purpose of this button is to check if the reading is correct after you guess the reading.
+    Unless the card type is a cloze-deletion card, you **MUST** test yourself on the normal
+    tested content of the card **BEFORE** pressing this button.
+    If you realize that you were wrong after hearing the sentence audio, you must still
+    mark the card as incorrect.
+
+- Vocab cards will also have a collapsable field to reveal the entire sentence.
+    Like the above, the purpose of this is to check the reading of the word after you guess it,
+    and you should only use this **AFTER** you test yourself fully on the word.
+
+- Pitch accent can also be tested for all of the note types.
+    This is explained in detail here (TODO).
+-->
+
+<hr />
+<h2 id="vocab-card">Vocab Card<a class="headerlink" href="#vocab-card" title="Permanent link">&para;</a></h2>
+<p><a href="../assets/nisemono_word_blank.png"><img alt="" src="../assets/nisemono_word_blank.png" /></a></p>
+<p>A vocab card simply shows the target word at the front.
+You test yourself on the reading and definition of the word.</p>
+<p><strong>How to create:</strong> <br>
+This is the default card type.
+Nothing has to be done for the card to be a vocab card.</p>
+<hr />
+<h2 id="sentence-card">Sentence Card<a class="headerlink" href="#sentence-card" title="Permanent link">&para;</a></h2>
+<p><a href="../assets/nisemono_sentence_blank.png"><img alt="" src="../assets/nisemono_sentence_blank.png" /></a></p>
+<p>A sentence card simply shows the entire sentence at the front.
+You test yourself on the reading and meaning of the entire sentence.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsSentenceCard</code> field.</p>
+<hr />
+<h2 id="targetted-sentence-card-tsc">Targetted Sentence Card (TSC)<a class="headerlink" href="#targetted-sentence-card-tsc" title="Permanent link">&para;</a></h2>
+<p><a href="../assets/nisemono_tsc.png"><img alt="" src="../assets/nisemono_tsc.png" /></a></p>
+<p>A targetted sentence card is a special case of the sentence card.
+The sentence is shown at the front, but only the highlighted content (only the word by default)
+is tested.</p>
+<p>This card type was originally defined
+<a href="https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards">here</a>.</p>
+<p>Note that this is really just a special case of the normal sentence card,
+where the highlighted content is only the tested word.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsTargetedSentenceCard</code> field.</p>
+<hr />
+<h2 id="hybrid-cards">Hybrid Cards<a class="headerlink" href="#hybrid-cards" title="Permanent link">&para;</a></h2>
+<p>Hybrid cards are a group of card types that attempt to combine the power of
+sentence cards and vocab cards into one.
+They all have the distinct feature that the word is shown at the front,
+but the sentence can be shown through some natural means.</p>
+<h3 id="hover-vocab-card">Hover Vocab Card<a class="headerlink" href="#hover-vocab-card" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/nisemono_hover_word.gif"><img alt="" src="../assets/nisemono_hover_word.gif" /></a></p>
+<p>A hover vocab word shows the tested word at the front.
+When you hover over the word,
+you can see the full sentence, with the tested word highlighted.</p>
+<p>This acts similarly to a vocab card.
+However, you are given the option to see the full sentence without failing the card.</p>
+<p>This is also known as the <a href="https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#fallback-cards">fallback card</a>.</p>
+<p><strong>Indicator:</strong> Yellow &amp; dashed underline under the word.</p>
+<p><strong>How to test:</strong> <br></p>
+<ol>
+<li>Attempt to guess the reading and definition of the word without hovering over the word.</li>
+<li>If you are able to guess both the reading and definition of the word, flip the card.</li>
+<li>Otherwise, hover over the word and guess the reading and definition of the word
+    with the entire sentence.</li>
+</ol>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHoverCard</code> field.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For all forms of hover cards, you can press "shift" to toggle whether the sentence is shown or not.</p>
+</div>
+<p><br></p>
+<h3 id="click-vocab-card">Click Vocab Card<a class="headerlink" href="#click-vocab-card" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/nisemono_click_word.gif"><img alt="" src="../assets/nisemono_click_word.gif" /></a></p>
+<p>A click vocab word shows the tested word at the front.
+When you click on the word, you can see the full sentence,
+with the tested word highlighted.</p>
+<p>This card acts as an intermediary between the hover vocab card and the vocab card itself.
+You must guess the reading <strong>BEFORE</strong> revealing the sentence,
+but you can use the sentence to guess the definition.</p>
+<p><strong>Indicator:</strong> White &amp; dashed underline under the word.</p>
+<p><strong>How to test:</strong> <br></p>
+<ol>
+<li>Attempt to guess the reading of the word without hovering over the word.
+    If you are unable to guess the reading of the word before revealing the entire sentence,
+    then the card must be <strong>marked as a fail</strong>.</li>
+<li>After guessing the reading of the word, you can optionally click on the word
+    to reveal the entire sentence to guess the definition.<ul>
+<li>In other words, if you can only guess the definition by reading the sentence,
+    then the card should still be passed.</li>
+</ul>
+</li>
+</ol>
+<!--
+Notice that this is different from the hover vocab card,
+because you are **not** allowed to see the sentence when guessing the reading.
+-->
+
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsClickCard</code> field.</p>
+<p><br></p>
+<h3 id="hover-sentence-card">Hover Sentence Card<a class="headerlink" href="#hover-sentence-card" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/nisemono_hover_sentence.gif"><img alt="" src="../assets/nisemono_hover_sentence.gif" /></a></p>
+<p>This acts similarly to the hover vocab card.
+However, the tested content is the entire sentence,
+so you must hover over the word to test the entire sentence.</p>
+<p><strong>Indicator:</strong> Yellow &amp; solid underline under the word.</p>
+<p><strong>How to test:</strong> <br></p>
+<ol>
+<li>Attempt to guess the reading and definition of the word without hovering over the word.</li>
+<li>Regardless of whether you are able to guess the reading and definition of the word,
+    hover over the word and test yourself on the sentence (as if it was a sentence card).</li>
+</ol>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHoverCard</code> and <code>IsSentenceCard</code> fields.</p>
+<p><br></p>
+<h3 id="click-sentence-card">Click Sentence Card<a class="headerlink" href="#click-sentence-card" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/nisemono_click_sentence.gif"><img alt="" src="../assets/nisemono_click_sentence.gif" /></a></p>
+<p>This acts similar to the click vocab card.
+However, similarly to the hover sentence card, the tested content is the entire display,
+so you must click the word to test the entire display</p>
+<p><strong>Indicator:</strong> White &amp; solid underline under the word.</p>
+<p><strong>How to test:</strong> <br></p>
+<ol>
+<li>Attempt to guess the reading of the word without hovering over the word.
+    If you are unable to guess the reading of the word before revealing the entire sentence,
+    then the card must be <strong>marked as a fail</strong>.</li>
+<li>After guessing the reading of the word, click on the word
+    to reveal the entire sentence, and test yourself on the sentence (as if it was a sentence card).</li>
+</ol>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsClickCard</code> and <code>IsSentenceCard</code> fields.</p>
+<p><br></p>
+<h3 id="hybrid-tsc">Hybrid TSC<a class="headerlink" href="#hybrid-tsc" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/nisemono_hover_tsc.gif"><img alt="" src="../assets/nisemono_hover_tsc.gif" /></a></p>
+<p>Similarly to the normal TSC, if you want to use the hover sentence card or click sentence card
+to only test a specific portion of the sentence, you can bold the desired
+selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
+<p>The above example is a Hover TSC, with the last sentence was bolded.</p>
+<hr />
+<h2 id="card-creation-summary">Card Creation Summary<a class="headerlink" href="#card-creation-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th align="center">IsSentenceCard</th>
+<th align="center">IsTargetedSentenceCard</th>
+<th align="center">IsClickCard</th>
+<th align="center">IsHoverCard</th>
+<th>Result (Card Type)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td>Vocab Card</td>
+</tr>
+<tr>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td>Sentence Card</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+<td>TSC</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+<td>Click Vocab</td>
+</tr>
+<tr>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+<td>Click Sentence</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+<td>Hover Vocab</td>
+</tr>
+<tr>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">x</td>
+<td>Hover Sentence</td>
+</tr>
+</tbody>
+</table>
+<!--
+# Motivation behind each card type
+(TODO)
+
+## Vocab Card
+
+## Sentence Card
+
+## Hover Vocab Card
+
+## Click Vocab Card
+
+## Hover Sentence Card
+
+## Click Sentence Card
+
+## Targetted Sentence Card
+
+
+# Conclusion
+This note type has many available ways to test the unknown content.
+On the question of what card type you should use,
+ultimately, I have my own opinions, and
+[many](http://www.alljapaneseallthetime.com/blog/10000-sentences-why/)
+[others](https://refold.la/roadmap/stage-2/a/basic-sentence-mining#Mine-Sentences-Not-Words)
+[have](https://learnjapanese.moe/guide/#mining)
+[their](https://animecards.site/ankicards/#sentence-cards-vs-anime-cards)
+[own](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards).
+My personal recommendation is to **try all of them out** and see which works best for you.
+-->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "header.autohide", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.48f2be22.min.js"></script>
+      
+    
+  </body>
+</html>

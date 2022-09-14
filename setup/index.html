@@ -204,8 +204,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../about/" class="md-nav__link">
-        About
+      <a href="../preface/" class="md-nav__link">
+        Preface
       </a>
     </li>
   
@@ -437,6 +437,111 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        Transfer Existing Notes
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updating/" class="md-nav__link">
+        Updating the Note (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding & Dev Docs (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        FAQ (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresources/" class="md-nav__link">
+        Various Resources
+      </a>
     </li>
   
 
@@ -698,9 +803,11 @@ nothing has to be done).</p>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a># Additionally, on Windows machines, your file path should be `tools\install.py`
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>python tools/install.py
 </code></pre></div>
-<p>The above does the following:
-- Installs the latest version of the note
-- Installs the fonts required for the note</p>
+<p>The above does the following:</p>
+<ul>
+<li>Installs the latest version of the note</li>
+<li>Installs the fonts required for the note</li>
+</ul>
 </div>
 <div class="admonition info">
 <p class="admonition-title">(Option 2) The Manual Way</p>
@@ -719,7 +826,7 @@ see below:</p>
     To install these fonts, head over to this
     repository's <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media">media folder</a>
     and download the 4 <code>.otf</code> files.</li>
-<li>Move the <code>.otf</code> files into the <a href="faq.md#where-is-the-x-folder-in-anki">media folder</a>
+<li>Move the <code>.otf</code> files into the <a href="../faq/#where-is-the-x-folder-in-anki">media folder</a>
     of your profile (<code>Anki2/PROFILENAME/collections.media</code>).</li>
 </ol>
 <p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/anki/manual_import-0.9.1.1.mp4" type="video/mp4" /></video></div></p>
@@ -734,7 +841,7 @@ View one of the cards and make sure the card looks similar to the one below:</p>
 <li>Notice how at the top left corner, the info circle (the "i" encased within the circle)
   is the default grey color.
   If this is red, that means something is wrong with the note's javascript.
-  Please see <a href="faq.md#the-info-circle-displays-an-error">this</a> section for basic troubleshooting.</li>
+  Please see <a href="../faq/#the-info-circle-displays-an-error">this</a> section for basic troubleshooting.</li>
 <li>Clicking on the image to zoom should work out of the box.</li>
 </ul>
 <hr />
@@ -796,7 +903,7 @@ so I <em>strongly</em> recommend using this.</p>
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
 <code>Anki2/addons21/181103283/user_files</code> folder
-(within the <a href="faq.md#where-is-the-x-folder-in-anki">addons folder</a>)
+(within the <a href="../faq/#where-is-the-x-folder-in-anki">addons folder</a>)
 and delete <code>field.css</code>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># windows command
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># be sure to change USERNAME to your computer username!
@@ -978,10 +1085,10 @@ In particular, the 者 kanji in the example 偽者 and 不審者 cards should po
 <hr />
 <h2 id="transfer-existing-notes">Transfer Existing Notes<a class="headerlink" href="#transfer-existing-notes" title="Permanent link">&para;</a></h2>
 <p>If you wish to transfer existing cards into this note type,
-please see <a href="importing.md">this page</a>.</p>
+please see <a href="../importing/">this page</a>.</p>
 <hr />
 <h2 id="updating-the-note">Updating the Note<a class="headerlink" href="#updating-the-note" title="Permanent link">&para;</a></h2>
-<p>If you wish to update the note, follow the steps in <a href="updating.md">this page</a>.</p>
+<p>If you wish to update the note, follow the steps in <a href="../updating/">this page</a>.</p>
 <p>Be assured that this note doesn't auto-update,
 and you have to manually update the note if you want it to update.</p>
 <hr />
@@ -1697,7 +1804,7 @@ use more monolingual dictionaries.</p>
 you can use the <code>ignored-dict-regex</code> option.</p>
 <p>To see how to edit the option, see <a href="./#editing-the-dictionary-regex">the section below</a>.</p>
 <p>Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
-<a href="jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki">see here</a>.</p>
+<a href="../jpresources/#hide-the-dictionary-but-allow-it-to-be-used-by-anki">see here</a>.</p>
 <h4 id="editing-the-dictionary-regex">Editing the dictionary regex<a class="headerlink" href="#editing-the-dictionary-regex" title="Permanent link">&para;</a></h4>
 <p>To modify a regex string:</p>
 <ol>
@@ -1879,7 +1986,7 @@ TheMoeWay documents two setups for getting audio:
 <p>If everything is setup correctly, then the difficult part is finally done!
 The cards can now be created at ease, and now all that's left is understanding how to
 use and edit the card itself.
-Head over to <a href="usage.md">Usage</a> to see exactly that.</p>
+Head over to <a href="../usage/">Usage</a> to see exactly that.</p>
 
 
 

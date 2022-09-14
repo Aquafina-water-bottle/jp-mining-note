@@ -1,0 +1,901 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the jp-mining-note project.">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.0">
+    
+    
+      
+        <title>FAQ (TODO) - jp-mining-note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2e8b5541.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#troubleshooting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            jp-mining-note
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FAQ (TODO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    jp-mining-note
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        Preface
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        Transfer Existing Notes
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updating/" class="md-nav__link">
+        Updating the Note (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding & Dev Docs (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          FAQ (TODO)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        FAQ (TODO)
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-is-the-x-folder-in-anki" class="md-nav__link">
+    Where is the (X) folder in Anki?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sentence-quotes-are-on-completely-different-lines" class="md-nav__link">
+    The sentence quotes are on completely different lines!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-showhide-button-doesnt-do-anything" class="md-nav__link">
+    The Show/Hide button doesn't do anything.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-replay-audio-button-plays-the-sentence-word-and-then-sentence" class="md-nav__link">
+    The replay audio button plays the sentence, word, and then sentence.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pitch-accent-bold-doesnt-work-on-the-last-downstep" class="md-nav__link">
+    Pitch accent bold doesn't work on the last downstep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-info-circle-displays-an-error" class="md-nav__link">
+    The info circle displays an error!
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#card-editing" class="md-nav__link">
+    Card Editing
+  </a>
+  
+    <nav class="md-nav" aria-label="Card Editing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-use-this-note-type-as-an-anime-card" class="md-nav__link">
+    How do I use this note type as an Anime Card?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-change-the-default-value-of-a-binary-field" class="md-nav__link">
+    How do I change the default value of a binary field?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-remove-an-empty-card-without-deleting-the-entire-note" class="md-nav__link">
+    How do I remove an empty card without deleting the entire note?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-edit-the-fields-raw-html" class="md-nav__link">
+    How do I edit the field's raw HTML?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-questions" class="md-nav__link">
+    Other Questions
+  </a>
+  
+    <nav class="md-nav" aria-label="Other Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-card-type-should-i-use" class="md-nav__link">
+    What card type should I use?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-point-of-the-pasilence-field" class="md-nav__link">
+    What is the point of the PASilence field?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-you-see-the-currently-installed-version-of-this-note" class="md-nav__link">
+    How do you see the currently installed version of this note?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresources/" class="md-nav__link">
+        Various Resources
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-is-the-x-folder-in-anki" class="md-nav__link">
+    Where is the (X) folder in Anki?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sentence-quotes-are-on-completely-different-lines" class="md-nav__link">
+    The sentence quotes are on completely different lines!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-showhide-button-doesnt-do-anything" class="md-nav__link">
+    The Show/Hide button doesn't do anything.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-replay-audio-button-plays-the-sentence-word-and-then-sentence" class="md-nav__link">
+    The replay audio button plays the sentence, word, and then sentence.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pitch-accent-bold-doesnt-work-on-the-last-downstep" class="md-nav__link">
+    Pitch accent bold doesn't work on the last downstep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-info-circle-displays-an-error" class="md-nav__link">
+    The info circle displays an error!
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#card-editing" class="md-nav__link">
+    Card Editing
+  </a>
+  
+    <nav class="md-nav" aria-label="Card Editing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-use-this-note-type-as-an-anime-card" class="md-nav__link">
+    How do I use this note type as an Anime Card?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-change-the-default-value-of-a-binary-field" class="md-nav__link">
+    How do I change the default value of a binary field?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-remove-an-empty-card-without-deleting-the-entire-note" class="md-nav__link">
+    How do I remove an empty card without deleting the entire note?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-edit-the-fields-raw-html" class="md-nav__link">
+    How do I edit the field's raw HTML?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-questions" class="md-nav__link">
+    Other Questions
+  </a>
+  
+    <nav class="md-nav" aria-label="Other Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-card-type-should-i-use" class="md-nav__link">
+    What card type should I use?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-point-of-the-pasilence-field" class="md-nav__link">
+    What is the point of the PASilence field?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-you-see-the-currently-installed-version-of-this-note" class="md-nav__link">
+    How do you see the currently installed version of this note?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>FAQ (TODO)</h1>
+
+<!--
+TODO reword this maybe?
+
+Remember that all cards are fully customizable!
+You are absolutely free to tear the code apart and make these card formats your own.
+-->
+
+<!--
+# How do I get rid of all of this pitch accent info?
+See [here](usage#wait-i-dont-want-to-test-pitch-accent).
+-->
+
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="where-is-the-x-folder-in-anki">Where is the (X) folder in Anki?<a class="headerlink" href="#where-is-the-x-folder-in-anki" title="Permanent link">&para;</a></h3>
+<p>See the <a href="https://docs.ankiweb.net/files.html#file-locations">official documentation</a>
+to find the <code>Anki2</code> folder.</p>
+<ul>
+<li>Your <strong>profile folder</strong> is under <code>Anki2/PROFILE_NAME</code>.</li>
+<li>Your <strong>media folder</strong> is under <code>Anki2/PROFILE_NAME/collections.media</code>.</li>
+<li>Your <strong>addons folder</strong> is under <code>Anki2/addons21</code>.</li>
+</ul>
+<hr />
+<h3 id="the-sentence-quotes-are-on-completely-different-lines">The sentence quotes are on completely different lines!<a class="headerlink" href="#the-sentence-quotes-are-on-completely-different-lines" title="Permanent link">&para;</a></h3>
+<!--
+If your card looks like this:
+--->
+
+<p>(TODO)</p>
+<ul>
+<li>edit the underlying html (ctrl+shift+x) and remove the <code>&lt;div&gt;</code> and <code>&lt;/div&gt;</code> tags.</li>
+<li>happens if you copy/paste directly from certain pages (i.e. texthooker)</li>
+<li>the sharex clipboard shortcut shouldn't have this problem because it uses <code>&lt;br&gt;</code> instead of <code>&lt;div&gt;</code></li>
+</ul>
+<hr />
+<h3 id="the-showhide-button-doesnt-do-anything">The Show/Hide button doesn't do anything.<a class="headerlink" href="#the-showhide-button-doesnt-do-anything" title="Permanent link">&para;</a></h3>
+<p>The show/hide button requires that the displayed sentence has a bolded element.
+For example, this means if the currently displayed sentence comes from the <code>AltDisplay</code>
+field and nothing in that field is bolded, then the show/hide button will do nothing.</p>
+<hr />
+<h3 id="the-replay-audio-button-plays-the-sentence-word-and-then-sentence">The replay audio button plays the sentence, word, and then sentence.<a class="headerlink" href="#the-replay-audio-button-plays-the-sentence-word-and-then-sentence" title="Permanent link">&para;</a></h3>
+<p>This is playing the audio from the front of the card,
+and then the back of the card, in sequence.
+To fix it so you only hear the audio displayed in the back of the card,
+go to:</p>
+<p><code>Decks</code> (main anki browser) <br>
+→  The gear beside your deck <br>
+→  <code>Options</code> <br>
+→  <code>Audio</code> section <br>
+→  Toggle <code>Skip question when replaying answer</code></p>
+<!--
+This is a bug related to the above.
+Unfortunately, I can't find another way to selectively suppress audio from playing,
+so the bug is here to stay until a better solution is found.
+-->
+
+<hr />
+<h3 id="pitch-accent-bold-doesnt-work-on-the-last-downstep">Pitch accent bold doesn't work on the last downstep<a class="headerlink" href="#pitch-accent-bold-doesnt-work-on-the-last-downstep" title="Permanent link">&para;</a></h3>
+<ul>
+<li>TODO</li>
+<li>weird quirk with css injector</li>
+<li>only solution I know of atm is to edit the raw html and move the <code>&lt;/b&gt;</code> to the very end of the html</li>
+</ul>
+<hr />
+<h3 id="the-info-circle-displays-an-error">The info circle displays an error!<a class="headerlink" href="#the-info-circle-displays-an-error" title="Permanent link">&para;</a></h3>
+<p>The following will be some general troubleshooting tips that can help you figure out
+what the error is:</p>
+<ol>
+<li>
+<p>Is AnkiConnect installed? If it isn't, please see <a href="setup#required-anki-add-ons">this</a>.</p>
+</li>
+<li>
+<p>Do you have a <a href="setup#conflicting-add-ons">conflicting addon</a> installed?</p>
+</li>
+<li>
+<p>As a generalized version of the above,
+   try disabling all of your add-ons other than the mandatory ones listed in the setup page.
+   Note that you have to restart Anki after disabling the add-ons for the changes to take effect.</p>
+</li>
+</ol>
+<p>If it works after this step, please let me know which add-on(s) conflicts with this note type!
+   To do this, re-enable the add-ons one-by-one (remembering to restart Anki each time!).</p>
+<ol>
+<li>
+<p>With all of your non-mandatory add-ons disabled, try to upgrade Anki to the latest version,
+   and see if the issue still persists.
+   If this works but an add-on you consider mandatory no longer works, please let me know!
+   (I won't be able to upgrade the add-on for you, but I can potentially point to alternatives
+    and/or add it to the documentation somewhere so others are aware of the issue.)</p>
+</li>
+<li>
+<p>TODO expand list in the future</p>
+</li>
+</ol>
+<p>If you can't manage to fix it, please submit an issue!</p>
+<hr />
+<h2 id="card-editing">Card Editing<a class="headerlink" href="#card-editing" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="how-do-i-use-this-note-type-as-an-anime-card">How do I use this note type as an Anime Card?<a class="headerlink" href="#how-do-i-use-this-note-type-as-an-anime-card" title="Permanent link">&para;</a></h3>
+<p>Anime Cards, as defined <a href="https://animecards.site/ankicards/#anime-cardsword-context-cards">here</a>,
+are simply regular vocab cards with a non-collapsable hint field.
+To use this as an Anime Card, follow the steps to make a vocab card (<a href="cardtypes#vocab-card">here</a>),
+and use the <code>HintNotHidden</code> field for your hint.</p>
+<hr />
+<h3 id="how-do-i-change-the-default-value-of-a-binary-field">How do I change the default value of a binary field?<a class="headerlink" href="#how-do-i-change-the-default-value-of-a-binary-field" title="Permanent link">&para;</a></h3>
+<p>In Yomichan Format, you can simply toggle the field.
+Any new card that is created will now default to that default value.</p>
+<p>Of course, this will not affect existing cards.
+To change existing cards, I recommend using something to bulk-edit
+your cards.
+I recommend <a href="https://ankiweb.net/shared/info/291119185">This add-on</a>
+to do just that.</p>
+<p>(TODO write a way with python)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You technically have a second option, and that is to change the code itself
+(i.e. flip <code>#</code> with <code>^</code> for the desired field).
+However, you should only do this if you know what you are doing,
+and are fine with knowing that you may lose those changes
+if you update this note.</p>
+</div>
+<!--
+
+You have two main options:
+
+**Option A:** You can simply fill the field in Yomichan.
+When any new card is created, the option will be defaulted to true.
+
+If you have many existing cards that you want to change,
+this approach will then require batch changes to the cards.
+To do Anki batch editing, you can either use [plugins](a) or do python scripting.
+
+I personally use the latter, with some example scripts here (TODO).
+
+
+**Option B:** To completely change the default value without requiring to fill the field,
+you can rename the field to make more sense and swap all instances of `#` with `^`, and visa versa.
+For example, if your goal is to make the cards a sentence card by default,
+here are the following steps:
+* Rename the field `IsSentenceCard` →  `IsVocabCard`
+* Replace all instances of `{{#IsVocabCard}}` →  `{{^IsVocabCard}}`
+* Replace all instances of `{{^IsVocabCard}}` →  `{{#IsVocabCard}}`
+
+-->
+
+<hr />
+<h3 id="how-do-i-remove-an-empty-card-without-deleting-the-entire-note">How do I remove an empty card without deleting the entire note?<a class="headerlink" href="#how-do-i-remove-an-empty-card-without-deleting-the-entire-note" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>To remove the empty cards, go to <code>Tools</code> →  <code>Empty Cards</code> in the main window.
+You will be shown a list of empty cards and be given the option to delete them.</p>
+</blockquote>
+<p>(Taken from the official Anki documentation
+<a href="https://docs.ankiweb.net/templates/generation.html#card-generation--deletion">here</a>)</p>
+<hr />
+<h3 id="how-do-i-edit-the-fields-raw-html">How do I edit the field's raw HTML?<a class="headerlink" href="#how-do-i-edit-the-fields-raw-html" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ctrl+shift+x</li>
+</ul>
+<hr />
+<h2 id="other-questions">Other Questions<a class="headerlink" href="#other-questions" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="what-card-type-should-i-use">What card type should I use?<a class="headerlink" href="#what-card-type-should-i-use" title="Permanent link">&para;</a></h3>
+<p>The short answer is: whichever one you want. :)</p>
+<p>The long answer is: whichever one you want,
+because everyone has their own preferences on what card types they like.
+I recommend being open about it and experiment with them, to see which one you like.</p>
+<!--
+See here (TODO link to card types page)
+Surprisingly, there's a lot of debate on this within the community.
+In short,
+[many](http://www.alljapaneseallthetime.com/blog/10000-sentences-why/)
+[people](https://refold.la/roadmap/stage-2/a/basic-sentence-mining#Mine-Sentences-Not-Words)
+prefer sentence cards, whereas
+[many](https://learnjapanese.moe/guide/#mining)
+[others](https://animecards.site/ankicards/#sentence-cards-vs-anime-cards)
+prefer vocab cards.
+Hell,
+[some people](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards)
+even use a funny combination of both.
+Instead of giving a direct answer,
+I would advise you to test all of them out to see which works best for you.
+-->
+
+<!--
+I'm still not 100% sure what the best way to test pitch accent is,
+so this section is removed until then
+
+# How would I transition to test pitch accent with this note type?
+Note that this answer is my personal opinion on how this should be done.
+
+TODO
+* starting to test pitch accent? (what I recommend) create separate cards
+   * word -> word (and sentence if fully understood now)
+   * sentence -> word/sentence
+   * all future cards test word pitch accent
+
+-->
+
+<hr />
+<h3 id="what-is-the-point-of-the-pasilence-field">What is the point of the <code>PASilence</code> field?<a class="headerlink" href="#what-is-the-point-of-the-pasilence-field" title="Permanent link">&para;</a></h3>
+<p>It's a hack to not play audio even if you setup your Anki client to do so.
+See the <code>PASilence</code> field in the <a href="usage#anki-field-reference">field reference</a> for more information.</p>
+<hr />
+<h3 id="how-do-you-see-the-currently-installed-version-of-this-note">How do you see the currently installed version of this note?<a class="headerlink" href="#how-do-you-see-the-currently-installed-version-of-this-note" title="Permanent link">&para;</a></h3>
+<p>Preview any card. At the top left corner the version should be displayed.
+For example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Vocab (info circle)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>JP Mining Note: Version (VERSION DISPLAYED HERE)
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "header.autohide", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.48f2be22.min.js"></script>
+      
+    
+  </body>
+</html>

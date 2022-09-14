@@ -1,0 +1,1301 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the jp-mining-note project.">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.0">
+    
+    
+      
+        <title>Usage - jp-mining-note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2e8b5541.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#definitions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            jp-mining-note
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Usage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    jp-mining-note
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        Preface
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Usage
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-interface" class="md-nav__link">
+    User Interface
+  </a>
+  
+    <nav class="md-nav" aria-label="User Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#info-circle" class="md-nav__link">
+    Info Circle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kanji-hover" class="md-nav__link">
+    Kanji Hover
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#word-pitch" class="md-nav__link">
+    Word Pitch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#images" class="md-nav__link">
+    Images
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-the-front-side-tested-content" class="md-nav__link">
+    Modifying the Front Side (Tested Content)
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying the Front Side (Tested Content)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card-types" class="md-nav__link">
+    Card types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-the-displayed-content" class="md-nav__link">
+    Changing the Displayed Content
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hints" class="md-nav__link">
+    Hints
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-the-back-side" class="md-nav__link">
+    Modifying the Back Side
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying the Back Side">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-pitch-accent" class="md-nav__link">
+    Modifying Pitch Accent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-other-aspects-of-the-card" class="md-nav__link">
+    Modifying Other Aspects of the Card
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying Other Aspects of the Card">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-field" class="md-nav__link">
+    Key field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-field" class="md-nav__link">
+    Comment field
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-pitch-accent" class="md-nav__link">
+    Testing Pitch Accent
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Pitch Accent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pitch-accent-indicator" class="md-nav__link">
+    Pitch Accent Indicator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-the-pitch-accent" class="md-nav__link">
+    Selecting the Pitch Accent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-pitch-accent-sentence-cards" class="md-nav__link">
+    Modifying Pitch Accent Sentence Cards
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-options" class="md-nav__link">
+    Runtime Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Runtime Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keybinds" class="md-nav__link">
+    Keybinds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    Modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#colored-quotes-instead-of-pa-indicator" class="md-nav__link">
+    Colored Quotes instead of PA Indicator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#greyed-out-fields" class="md-nav__link">
+    Greyed out fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-extra-info" class="md-nav__link">
+    Open Extra Info
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloze-deletion-cards" class="md-nav__link">
+    Cloze Deletion Cards
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        Transfer Existing Notes
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updating/" class="md-nav__link">
+        Updating the Note (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding & Dev Docs (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        FAQ (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresources/" class="md-nav__link">
+        Various Resources
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-interface" class="md-nav__link">
+    User Interface
+  </a>
+  
+    <nav class="md-nav" aria-label="User Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#info-circle" class="md-nav__link">
+    Info Circle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kanji-hover" class="md-nav__link">
+    Kanji Hover
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#word-pitch" class="md-nav__link">
+    Word Pitch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#images" class="md-nav__link">
+    Images
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-the-front-side-tested-content" class="md-nav__link">
+    Modifying the Front Side (Tested Content)
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying the Front Side (Tested Content)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card-types" class="md-nav__link">
+    Card types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-the-displayed-content" class="md-nav__link">
+    Changing the Displayed Content
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hints" class="md-nav__link">
+    Hints
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-the-back-side" class="md-nav__link">
+    Modifying the Back Side
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying the Back Side">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-pitch-accent" class="md-nav__link">
+    Modifying Pitch Accent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-other-aspects-of-the-card" class="md-nav__link">
+    Modifying Other Aspects of the Card
+  </a>
+  
+    <nav class="md-nav" aria-label="Modifying Other Aspects of the Card">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-field" class="md-nav__link">
+    Key field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-field" class="md-nav__link">
+    Comment field
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-pitch-accent" class="md-nav__link">
+    Testing Pitch Accent
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Pitch Accent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pitch-accent-indicator" class="md-nav__link">
+    Pitch Accent Indicator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-the-pitch-accent" class="md-nav__link">
+    Selecting the Pitch Accent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-pitch-accent-sentence-cards" class="md-nav__link">
+    Modifying Pitch Accent Sentence Cards
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-options" class="md-nav__link">
+    Runtime Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Runtime Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keybinds" class="md-nav__link">
+    Keybinds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    Modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#colored-quotes-instead-of-pa-indicator" class="md-nav__link">
+    Colored Quotes instead of PA Indicator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#greyed-out-fields" class="md-nav__link">
+    Greyed out fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-extra-info" class="md-nav__link">
+    Open Extra Info
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloze-deletion-cards" class="md-nav__link">
+    Cloze Deletion Cards
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Usage</h1>
+
+<p>This entire section is dedicated to showcasing the user interface,
+as well as how to use the fields and card options to change the card
+to your liking.</p>
+<h2 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h2>
+<p><strong>Binary Field:</strong>
+A field that checks whether it is filled or not with any value, say <code>1</code>.
+The default is implied by the name of the field, and a value of "true" means that the field is filled.
+For example, the <code>IsSentenceCard</code> field will turn the card into a sentence card if filled.
+If it is not filled, then the card will be a word card.
+To fill a field automatically, see <a href="../faq/#how-do-i-change-the-default-value-of-a-binary-field">here</a>.</p>
+<p>To "toggle" a binary field means to either fill the value if is not filled yet,
+or to remove the value if it is filled.
+In other words, it means to flip the value of the field between empty and filled.</p>
+<!--**Note vs Card** (Anki fundamentals):
+In a nutshell, a note is a collection of fillable fields.
+One note can create multiple cards, and cards are the actual things you see and study off of.
+See the official Anki documentation
+[here](https://docs.ankiweb.net/getting-started.html#key-concepts)
+for additional information.-->
+
+<p><strong>PA:</strong> Short for "Pitch Accent".</p>
+<hr />
+<h2 id="user-interface">User Interface<a class="headerlink" href="#user-interface" title="Permanent link">&para;</a></h2>
+<p>Most of the user interface is already shown off in the video demo in the README,
+and I would recommend watching it before continuing.
+However, to dispell any mysteries, here is a fully annotated summary of the user interface.</p>
+<p><a href="../assets/eg_fushinnsha_diagram.png"><img alt="UI annotated summary" src="../assets/eg_fushinnsha_diagram.png" /></a></p>
+<p>Additional information on some parts of the UI is stated below:</p>
+<h3 id="info-circle">Info Circle<a class="headerlink" href="#info-circle" title="Permanent link">&para;</a></h3>
+<p>On hover, the info circle on the top left corner just shows some basic info.</p>
+<p>TODO gif</p>
+<p>However, it serves as a sort of notification system to the user, when it has a color.</p>
+<h4 id="error">Error<a class="headerlink" href="#error" title="Permanent link">&para;</a></h4>
+<p>TODO gif</p>
+<p>This should only appear when some javascript code fails.
+In other words, this should <strong>not</strong> appear normally.
+If you get this without modifying the note in any way,
+please report this as an issue!</p>
+<h4 id="warning">Warning<a class="headerlink" href="#warning" title="Permanent link">&para;</a></h4>
+<p>TODO gif</p>
+<p>This serves to warn the user about something.
+It can appear without breaking the functionality of the card.
+In other words, you can choose to ignore it.</p>
+<h4 id="leech">Leech<a class="headerlink" href="#leech" title="Permanent link">&para;</a></h4>
+<p>TODO gif</p>
+<p>When the card is a leech, the circle is highlighted yellow
+(only on the back side) to indicate that it is a leech.</p>
+<!--(not to be confused with [Cade's kanji hover](https://cademcniven.com/projects/kanjihover/))-->
+<h3 id="kanji-hover">Kanji Hover<a class="headerlink" href="#kanji-hover" title="Permanent link">&para;</a></h3>
+<p>Kanji hover shows you if you have seen the kanji in previous cards or not.
+By default, it searches for the kanji within the "Word" field,
+only for notes of the same type (JP Mining Note).</p>
+<p><a href="../assets/kanji_hover.gif"><img alt="kanji hover demo" src="../assets/kanji_hover.gif" /></a></p>
+<p>To explain exactly how the results are being shown,
+the words are searched and moved into 3 categories:</p>
+<ul>
+<li>The two oldest, not new cards (already reviewed before, in order of add date)</li>
+<li>The two latest, not new cards (the most recent two cards that you have reviewed, in order of add date)</li>
+<li>The two oldest, new cards (the first 2 new cards that you will see with the kanji)</li>
+</ul>
+<p>The last category (the new cards) are greyed out to show that you haven't reviewed
+the card yet (i.e. you may not know the word yet).
+Conversely, the first two categories (the non-new cards) represent words that you likely already
+know, so they are not greyed out.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of results per category can be changed in the
+<a href="./#runtime-options">options file</a>.</p>
+</div>
+<h4 id="results-sorting">Results Sorting<a class="headerlink" href="#results-sorting" title="Permanent link">&para;</a></h4>
+<p>The above makes the assumption that you are reviewing in order of creation date,
+rather than the time of first review, to save resources.
+In other words, if you re-ordered your cards to be different from the add-date,
+then the kanji hover will not be able to recognize that.</p>
+<p>For people who review in order of frequency only, then the assumption above is completely broken.</p>
+<p>Unfortunately, there is currently no way to order the results by anything
+other than by the creation date.</p>
+<h4 id="suspended-cards">Suspended Cards<a class="headerlink" href="#suspended-cards" title="Permanent link">&para;</a></h4>
+<p>Some assumptions are made about suspended cards.
+For example, suspended cards flagged as <code>green</code> are counted in the "non-new" cards category
+(known words), and suspended cards flagged as <code>red</code> are counted as words that you
+do not know AND will not study in the future (not shown in any category).
+This can be changed in the <a href="./#runtime-options">options file</a>.</p>
+<h3 id="word-pitch">Word Pitch<a class="headerlink" href="#word-pitch" title="Permanent link">&para;</a></h3>
+<p>The colors and what the lines mean are all described in the
+official anki addon page as specified
+<a href="https://ankiweb.net/shared/info/1225470483">here</a>.</p>
+<h3 id="images">Images<a class="headerlink" href="#images" title="Permanent link">&para;</a></h3>
+<p>TODO non bullet point</p>
+<ul>
+<li>click to zoom (the obvious feature)</li>
+<li>yomichan inserted images + user inserted images get changed to be similar to how yomichan displays images</li>
+<li>TODO gif</li>
+</ul>
+<hr />
+<h2 id="modifying-the-front-side-tested-content">Modifying the Front Side (Tested Content)<a class="headerlink" href="#modifying-the-front-side-tested-content" title="Permanent link">&para;</a></h2>
+<p>The front side is exactly the content that we want to test ourselves on.
+Naturally, since we can test ourselves on many aspects of the word, there are
+many ways to change this tested content.</p>
+<h3 id="card-types">Card types<a class="headerlink" href="#card-types" title="Permanent link">&para;</a></h3>
+<p>The default card type is a vocab card,
+where the tested content is simply the word.</p>
+<p><a href="../assets/nisemono_word.png"><img alt="vocab card example" src="../assets/nisemono_word.png" /></a></p>
+<!--
+<figure markdown>
+  [![vocab card example](assets/nisemono_word.png)](assets/nisemono_word.png)
+  <figcaption>A vocab card.</figcaption>
+</figure>
+-->
+
+<p>To change the card to a sentence card, toggle the <code>IsSentenceCard</code> binary field.</p>
+<p><a href="../assets/nisemono_sentence.png"><img alt="sentence card example" src="../assets/nisemono_sentence.png" /></a></p>
+<!--
+<figure markdown>
+  [![sentence card example](assets/nisemono_sentence.png)](assets/nisemono_sentence.png)
+  <figcaption>A sentence card.</figcaption>
+</figure>
+-->
+
+<p>There are many other card types that this note supports.
+To see the full list, see <a href="../cardtypes/">this section</a>.</p>
+<p><a href="../assets/card_types_1_pic.png"><img alt="card types compilation" src="../assets/card_types_1_pic.png" /></a></p>
+<h3 id="changing-the-displayed-content">Changing the Displayed Content<a class="headerlink" href="#changing-the-displayed-content" title="Permanent link">&para;</a></h3>
+<p>Vocab cards show the <code>Word</code> field and sentence cards show the <code>Sentence</code> fields by default.
+However, you can modify what is exactly shown in the front by using the <code>AltDisplay</code> field.</p>
+<p>For example, the previous sentence card looks a little ugly,
+because the sentence splits off at a strange point.
+In the <code>AltDisplay</code> field, we add a newline at a sensible place (after the period)
+to get the following:</p>
+<p><a href="../assets/nisemono_altdisplay_newline.png"><img alt="altdisplay with newline" src="../assets/nisemono_altdisplay_newline.png" /></a></p>
+<p>Another example is shown below, when we want to only test the last sentence:</p>
+<p><a href="../assets/nisemono_altdisplay_last_sent.png"><img alt="altdisplay with only last sentence" src="../assets/nisemono_altdisplay_last_sent.png" /></a></p>
+<p>One nice feature is that the <code>AltDisplay</code> has hoverable furigana text enabled by default.
+In other words, you can use furigana in the field.
+I personally use this to insert furigana for certain names, since I'm usually not
+testing myself on how to read a name.</p>
+<p>For example, the card below has the following HTML:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>上条[かみじょう] 恭介[きょうすけ]君のことお<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>慕い<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>してましたの
+</code></pre></div></p>
+<p><a href="../assets/altdisplay_furigana.gif"><img alt="altdisplay with furigana" src="../assets/altdisplay_furigana.gif" /></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using a vocab card, you can use <code>AltDisplay</code>
+to show something that differs from the <code>Word</code> field.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Hybrid Card types, the <code>AltDisplay</code> field only affects the sentence, and not
+the front displayed word.</p>
+</div>
+<!-- apparently this syntax isn't available in the wikis...
+> **Note** <br>
+> On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
+> the front displayed word.
+ -->
+
+<h3 id="hints">Hints<a class="headerlink" href="#hints" title="Permanent link">&para;</a></h3>
+<p>Finally, you can include a customized hint to show at the front of the card, by using the <code>Hint</code> field.
+This will show as a collapsible field at the front of card.</p>
+<p><a href="../assets/hint.gif"><img alt="hint field demo" src="../assets/hint.gif" /></a></p>
+<p>If you do not want the hint to be hidden by default, you can use the <code>HintNotHidden</code> field instead.</p>
+<p><a href="../assets/hint_not_hidden.png"><img alt="HintNotHidden field demo" src="../assets/hint_not_hidden.png" /></a></p>
+<hr />
+<h2 id="modifying-the-back-side">Modifying the Back Side<a class="headerlink" href="#modifying-the-back-side" title="Permanent link">&para;</a></h2>
+<p>Not much has to be said about modifying the back side of the card,
+outside of modifying pitch accent.</p>
+<ul>
+<li>
+<p>The <code>PrimaryDefinition</code> field contains the main content, and should be the main field to edit
+    if one wants to put down more notes about the card.
+    I personally use this to write down grammar point explanations, sentence pitch accent info, etc.
+    on top of the defintions.</p>
+</li>
+<li>
+<p>The <code>AdditionalNotes</code> field is useful if you want to put down even more notes,
+    but keep it in a collapsible field to reduce vertical space.
+    I personally use it to write down the context of the scene,
+    and other notes that aren't completely crutial to understanding the tested content.</p>
+</li>
+<li>
+<p>Bolding anything in these sections will highlight the word in a light yellow tint,
+    to make the bold stand out more.</p>
+</li>
+</ul>
+<p><a href="../assets/nisemono_modify_back_side.png"><img alt="" src="../assets/nisemono_modify_back_side.png" /></a></p>
+<h3 id="modifying-pitch-accent">Modifying Pitch Accent<a class="headerlink" href="#modifying-pitch-accent" title="Permanent link">&para;</a></h3>
+<p>TODO update</p>
+<ul>
+<li>primary field to edit is <code>PAOverride</code></li>
+<li>takes in the inputs:<ul>
+<li>number (position), or</li>
+<li>text: whatever you want it to show</li>
+</ul>
+</li>
+<li>for most people, the number will suffice</li>
+<li>TODO gif</li>
+</ul>
+<h4 id="auto-selected-pitch-accent">Auto Selected Pitch Accent<a class="headerlink" href="#auto-selected-pitch-accent" title="Permanent link">&para;</a></h4>
+<ul>
+<li>TODO details on exactly how the displayed pitch accent is displayed</li>
+</ul>
+<p>priority:</p>
+<ul>
+<li>PA Override number</li>
+<li>PA Override raw text</li>
+<li>PA Positions</li>
+<li>AJT Word Pitch</li>
+</ul>
+<p>if module disabled:</p>
+<ul>
+<li>only shows AJT Word Pitch</li>
+</ul>
+<p>reading:</p>
+<ul>
+<li>AJT word pitch by default</li>
+<li>can be changed to hiragana / katakana / katakana with long vowel marks</li>
+<li>ajt word pitch is katakana with long vowel marks (most of the time)<ul>
+<li>some words don't have long vowel marks (i.e. adjectives ending with 〜しい will be displayed as 〜シイ and not 〜シー)</li>
+</ul>
+</li>
+</ul>
+<h4 id="pitch-accent-styling-details">Pitch Accent Styling Details<a class="headerlink" href="#pitch-accent-styling-details" title="Permanent link">&para;</a></h4>
+<ul>
+<li>TODO outdated</li>
+<li>TODO only if you care about the exact text value</li>
+<li>TODO what bold does</li>
+</ul>
+<p>Editing the content in <code>WordPitch</code> requires some special attention.
+To preserve the style and get expected results, you must use <code>Ctrl + Shift + x</code> when editing the field,
+and edit the html tags directly. Use other cards as examples of what the html should look like.</p>
+<p>TODO more details + example (華)</p>
+<ul>
+<li>TODO replace with positions :eyes:</li>
+</ul>
+<p>example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<p>The <code>WordPitch</code> field may have more than one pitch accent for a given word.
+To choose which pitch accent is correct to the sentence,
+one can bold the unused pitch accents to grey them out.</p>
+<figure>
+<p><a href="../assets/bold_pa.png"><img alt="word pitch with bolded field to grey out" src="../assets/bold_pa.png" /></a></p>
+</figure>
+<hr />
+<h2 id="modifying-other-aspects-of-the-card">Modifying Other Aspects of the Card<a class="headerlink" href="#modifying-other-aspects-of-the-card" title="Permanent link">&para;</a></h2>
+<h3 id="key-field"><code>Key</code> field<a class="headerlink" href="#key-field" title="Permanent link">&para;</a></h3>
+<p>This contains the tested word.
+In other words, this contains the exact same content as the field below,
+but this field is specifically not used in the card template.
+This is to allow the user to modify the key if duplicates arise,
+while still being able to test the word.</p>
+<p>For example, if I were to test different usages of 上,
+I can change this key value to <code>上 (proposition)</code>, <code>上 (grammar)</code>,
+etc. and add a new card.</p>
+<p>It is expected that this <code>Key</code> field is unique;
+a warning will appear on a card that has a duplicate key.</p>
+<h3 id="comment-field"><code>Comment</code> field<a class="headerlink" href="#comment-field" title="Permanent link">&para;</a></h3>
+<p>Similarly to the <code>Key</code> field, this field will not be used in any card template.
+In other words, this is a place where you can write down notes without affecting the card itself.</p>
+<hr />
+<h2 id="testing-pitch-accent">Testing Pitch Accent<a class="headerlink" href="#testing-pitch-accent" title="Permanent link">&para;</a></h2>
+<p>This note type provides many options to target exactly what parts of pitch accent
+you want to test yourself on.
+By default, pitch accent is not tested.</p>
+<p>To test for pitch accent, fill the <code>PAShowInfo</code> field.
+You should see a circle to the left of the word or sentence.</p>
+<p>TODO annotated image for testing pitch accent</p>
+<h3 id="pitch-accent-indicator">Pitch Accent Indicator<a class="headerlink" href="#pitch-accent-indicator" title="Permanent link">&para;</a></h3>
+<p>This circle you see is called the "Pitch Accent Indicator", or "PA Indicator" for short.
+How this card indicates what pitch accent is tested is by the PA indicator's color.</p>
+<p><a href="../assets/pa_indicators.png"><img alt="pitch accent indicators" src="../assets/pa_indicators.png" /></a></p>
+<!--
+| [[assets/pa_indicator_circles.png]] |
+|:--:|
+| The possible circles to the left of the display. |
+-->
+
+<p>Here are what the colors represent:</p>
+<ul>
+<li><strong>Green:</strong> The <em>entire sentence</em> is tested.</li>
+<li><strong>Blue:</strong> Only the <em>word</em> is tested.</li>
+<li><strong>Red:</strong> Pitch accent should <em>not be tested</em> in any way.</li>
+</ul>
+<p>If you ever forget what the colors mean, you can hover your mouse over the circle to
+get a description of what is being tested.</p>
+<p>Alternatively, you can look at the top right of the screen and look at the value after the <code>/</code>.</p>
+<p><a href="../assets/pa_indicator_hover.gif"><img alt="pitch accent indicator hover demo" src="../assets/pa_indicator_hover.gif" /></a></p>
+<!--
+| [[assets/pa_indicator_hover.png]] |
+|:--:|
+| The PA indicator when the cursor hovers over it. |
+-->
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the tested content is a sentence (card), but you want to only test for word pitch accent,
+you would not be able to see the word normally.
+To see the word that is tested, there is a button to toggle whether the word is highlighted or not.
+The content that is highlighted is exactly what is bolded in the <code>Sentence</code>
+(or <code>AltDisplay</code> / <code>AltDisplayPASentenceCard</code>) field, which is the added word by default.</p>
+<p><a href="../assets/show_word_button.gif"><img alt="show word button demo" src="../assets/show_word_button.gif" /></a></p>
+</div>
+<h3 id="selecting-the-pitch-accent">Selecting the Pitch Accent<a class="headerlink" href="#selecting-the-pitch-accent" title="Permanent link">&para;</a></h3>
+<p>The following shows how to fill in the proper fields to test pitch accent:</p>
+<table>
+<thead>
+<tr>
+<th>Filled fields</th>
+<th>PA Indicator</th>
+<th>Separated Cards</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(None, default)</td>
+<td>(Doesn't exist)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PAShowInfo</code></td>
+<td>Green (sentence) or blue (word), <br> depending on the tested content</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PAShowInfo</code> &amp; <br> <code>PADoNotTest</code></td>
+<td>Red (not tested)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PAShowInfo</code> &amp; <br> <code>PATestOnlyWord</code></td>
+<td>Blue (word)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PAShowInfo</code> &amp; <br> <code>PASeparateWordCard</code></td>
+<td>Red (not tested)</td>
+<td>Word</td>
+</tr>
+<tr>
+<td><code>PAShowInfo</code> &amp; <br> <code>PASeparateSentenceCard</code></td>
+<td>Blue (word)</td>
+<td>Sentence</td>
+</tr>
+<tr>
+<td><code>PAShowInfo</code> &amp; <br> <code>PASeparateWordCard</code> &amp; <br> <code>PASeparateSentenceCard</code></td>
+<td>Red (not tested)</td>
+<td>Word &amp; Sentence</td>
+</tr>
+</tbody>
+</table>
+<p>To clarify some of the above:</p>
+<ul>
+<li>By default, if only <code>PAShowInfo</code> is filled, then the entire display is tested<ul>
+<li>For vocab cards, targeted sentence cards, and hybrid vocab cards,
+  only the word PA is tested (PA indicator: blue).</li>
+<li>For sentence cards and hybrid sentence,
+  the entire sentence PA is tested (PA indicator: green).</li>
+</ul>
+</li>
+<li>To test just the word pitch accent, fill the <code>PATestOnlyWord</code> field.</li>
+<li>To create completely separate cards to just test pitch accent on,
+  use the fields <code>PASeparateSentenceCard</code> and/or <code>PASeparateWordCard</code>.</li>
+<li>If a PA word card is created, then the default card does not test pitch accent.
+  Similarly, if a PA sentence card is created, then the default card only tests the word pitch accent.</li>
+</ul>
+<h3 id="modifying-pitch-accent-sentence-cards">Modifying Pitch Accent Sentence Cards<a class="headerlink" href="#modifying-pitch-accent-sentence-cards" title="Permanent link">&para;</a></h3>
+<p>The field <code>AltDisplayPASentenceCard</code> exists to customize the display of the
+PA sentence card, if it exists.
+It works similarly to <code>AltDisplay</code>, and takes priority over <code>AltDisplay</code>
+in the PA sentence card.</p>
+<hr />
+<h2 id="runtime-options">Runtime Options<a class="headerlink" href="#runtime-options" title="Permanent link">&para;</a></h2>
+<p>There are many options that can be set within the (javascript) runtime options file.
+To edit this, navigate to your profile's
+<a href="../faq/#where-is-the-x-folder-in-anki">media folder</a>),
+and open the <code>_jpmn-options.js</code> file as a text file.</p>
+<p>TODO gif for windows (open as notepad)</p>
+<p>The contents of the file should look something like the following:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>var JPMNOpts = (function (my) {
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  my.settings = {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    ... // a bunch of settings
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  }
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  return my;
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>}(JPMNOpts || {}));
+</code></pre></div></p>
+<p>I recommend going through this file and selecting the options that best fits your workflow.
+As each setting is already documented in the file,
+the settings will not be documented heavily here.
+Instead, a small number of hand selected settings will be showcased below,
+to give you a taste of what is available.</p>
+<p>TODO flesh out below</p>
+<h3 id="keybinds">Keybinds<a class="headerlink" href="#keybinds" title="Permanent link">&para;</a></h3>
+<p>TODO gif with screenkey</p>
+<h3 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h3>
+<p>Many javascript heavy code are separated into modules by default.
+These can be enabled and disabled at the user's will if the user
+wants to sacrifice functionality for a potentially faster card.</p>
+<p>Some examples include:</p>
+<ul>
+<li>kanji hover</li>
+<li>pitch accent selection.</li>
+<li>sentence processing</li>
+<li>image processing</li>
+</ul>
+<p>These modules likely also also have their own collection of settings
+to modify the behavior of said module.</p>
+<h3 id="colored-quotes-instead-of-pa-indicator">Colored Quotes instead of PA Indicator<a class="headerlink" href="#colored-quotes-instead-of-pa-indicator" title="Permanent link">&para;</a></h3>
+<p>TODO picture comparisons between word PA indicator in quotes / word PA with PA indicator</p>
+<h3 id="greyed-out-fields">Greyed out fields<a class="headerlink" href="#greyed-out-fields" title="Permanent link">&para;</a></h3>
+<p>TODO picture comparisons empty fields / empty fields but greyed out</p>
+<h3 id="open-extra-info">Open Extra Info<a class="headerlink" href="#open-extra-info" title="Permanent link">&para;</a></h3>
+<p>TODO gif</p>
+<hr />
+<h2 id="cloze-deletion-cards">Cloze Deletion Cards<a class="headerlink" href="#cloze-deletion-cards" title="Permanent link">&para;</a></h2>
+<p>Cloze deletion cards are simply a fancy way of saying "fill-in-the-blank cards".
+To test yourself, you simply check if you can hear the correct word in the missing sections.</p>
+<p>To create a cloze deletion card, simply fill in the <code>SeparateClozeDeletionCard</code> field.
+The words that are hidden are exactly the words that are bolded in the <code>Sentence</code> (or <code>AltDisplay</code>) field.</p>
+<p><a href="../assets/cloze_deletion.png"><img alt="cloze deletion card" src="../assets/cloze_deletion.png" /></a></p>
+<!--
+# Miscellaneous Notes
+* The contents of `Comment` does not appear in any card.
+  You can use this to write down anything that you don't want to be shown in any card.
+* The `Positions` field is populated with the pitch accent positions
+  (indicates the mora of which the downstep happens).
+  Although filled, this is currently UNUSED, and can be safely removed without any adverse effects.
+* You might have noticed that there are multiple fields to display pitch accent.
+  The main field that is used is the `WordPitch` field,
+  because it is the easiest to edit.
+  The reason for the other fields (`Graph` and `Position`) is to confirm that the
+  pitch accent generated in `WordPitch` is "correct", in case of any doubts.
+
+  -->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "header.autohide", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.48f2be22.min.js"></script>
+      
+    
+  </body>
+</html>

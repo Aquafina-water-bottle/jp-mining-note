@@ -1,0 +1,813 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the jp-mining-note project.">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.0">
+    
+    
+      
+        <title>Transfer Existing Notes - jp-mining-note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2e8b5541.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#transfer-existing-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            jp-mining-note
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Transfer Existing Notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    jp-mining-note
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        Preface
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Transfer Existing Notes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Transfer Existing Notes
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-existing-notes" class="md-nav__link">
+    Transfer Existing Notes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anki" class="md-nav__link">
+    Anki
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapping-fields" class="md-nav__link">
+    Mapping Fields
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-editing" class="md-nav__link">
+    Batch Editing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-notes" class="md-nav__link">
+    Final Notes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updating/" class="md-nav__link">
+        Updating the Note (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding & Dev Docs (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        FAQ (TODO)
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresources/" class="md-nav__link">
+        Various Resources
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-existing-notes" class="md-nav__link">
+    Transfer Existing Notes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anki" class="md-nav__link">
+    Anki
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapping-fields" class="md-nav__link">
+    Mapping Fields
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-editing" class="md-nav__link">
+    Batch Editing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-notes" class="md-nav__link">
+    Final Notes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Transfer Existing Notes</h1>
+
+<h2 id="transfer-existing-notes">Transfer Existing Notes<a class="headerlink" href="#transfer-existing-notes" title="Permanent link">&para;</a></h2>
+<p>This section is dedicated to explaining how you can change
+other Anki cards into this note format.</p>
+<p><strong>Note:</strong> <br>
+If you are simply importing old JPMN notes, updating JPMN will
+update all the notes in place.
+To update JPMN, see <a href="updating"><strong>this section</strong></a>.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Unfortunately, there are so many card formats out there that
+it would be impossible to cover how to import from every format
+with detailed rigor.
+Instead, this section will give you some general tips
+on operations that will likely be common across most or all formats,
+as well as present a small example for Anime Cards.</p>
+<p>Additionally, although you maybe able to import most of the card,
+it is unlikely that you will have complete 100% full
+functionality after importing the notes.
+The biggest example is frequency list information,
+as it requires special HTML + css formatting that can only be specified
+in the Yomichan Templates section.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p><a href="../assets/anki/media_export.png"><img align="right" alt="anki export package" src="../assets/anki/media_export.png" width="300" /> </a></p>
+<p>Before doing anything that affects your Anki collection in a major way,
+please make a <strong>complete backup</strong> of your collection
+(Main Window →  <code>File</code> (top left corner) →  <code>Export...</code> →  <code>Anki Collection Package</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Importing your previous notes shouldn't change your media files at all.
+However I recommend exporting <strong>with media</strong> just in case, so long as you have the disk space for it.</p>
+</div>
+<p>As explained further below, you will likely need to batch edit your newly imported notes.
+There are two ways you can do this:</p>
+<ol>
+<li>If you have <code>python</code>, then you're already set.</li>
+<li>Otherwise, you require a batch editing add-on. I recommend
+    <a href="https://ankiweb.net/shared/info/291119185">this one</a>.</li>
+</ol>
+<h2 id="anki">Anki<a class="headerlink" href="#anki" title="Permanent link">&para;</a></h2>
+<p>Anki provides a feature to switch between note types, without affecting scheduling information.
+To do this, follow the proceeding steps:</p>
+<ol>
+<li>Head to the Card Browser window (Main Window →  <code>Browse</code>)</li>
+<li>Select all the cards that you want to switch</li>
+<li>Tip: ctrl+a selects all cards in the browser.</li>
+<li>Right click the selection →  <code>Notes</code> →  <code>Change Note Type...</code></li>
+</ol>
+<p>(TODO gif)</p>
+<h2 id="mapping-fields">Mapping Fields<a class="headerlink" href="#mapping-fields" title="Permanent link">&para;</a></h2>
+<p>Here is where I can't give specific advice, as every note is different.
+However, here are a few tips:</p>
+<ul>
+<li>
+<p>Your card likely doesn't have a separate <code>Key</code> and <code>Word</code> field,
+  and instead only contains one <code>Word</code> field.
+  To import this correctly into JPMN, make sure JPMN's <code>Key</code> and <code>Word</code> field are exactly
+  your old card's <code>Word</code> field.</p>
+</li>
+<li>
+<p><code>WordPitch</code> and <code>SentenceReading</code> can be left empty, as the AJT plugins
+  can batch generate both word pitches and sentence furigana.</p>
+</li>
+<li>
+<p>You may have some word pitch fields already in your card.
+  The only thing you should import is the pitch accent graphs,
+  into the <code>PAGraphs</code> field.
+  PA positions and PA text should be ignored.</p>
+</li>
+<li>
+<p>You may have frequency list info already in your card.
+  As a quick warning, although you are free to import that info
+  it may not work as you would expect in the JPMN card.
+  Because there's no standard way to store this data, there is no convenience function
+  to convert it to the proper format.</p>
+</li>
+<li>
+<p>See the field reference (TODO link) for more information about other fields.</p>
+</li>
+</ul>
+<p>An example with <a href="https://animecards.site/ankicards/">Anime cards</a> is shown below.</p>
+<details class="quote">
+<summary>Click here to see the example for Anime Cards.</summary>
+<table>
+<thead>
+<tr>
+<th>Anki Fields</th>
+<th>Yomichan Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="smaller-table-row">Key</td>
+<td class="smaller-table-row">front</td>
+</tr>
+<tr>
+<td class="smaller-table-row">Word</td>
+<td class="smaller-table-row">front</td>
+</tr>
+<tr>
+<td class="smaller-table-row">WordReading</td>
+<td class="smaller-table-row">Reading</td>
+</tr>
+<tr>
+<td class="smaller-table-row">PAOverride</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AJTWordPitch</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PrimaryDefinition</td>
+<td class="smaller-table-row">Glossary</td>
+</tr>
+<tr>
+<td class="smaller-table-row">Sentence</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">SentenceReading</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AltDisplay</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AltDisplayPASentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AdditionalNotes</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">IsSentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">IsClickCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">IsHoverCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">IsTargetedSentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PAShowInfo</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PATestOnlyWord</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PADoNotTest</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PASeparateWordCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PASeparateSentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">SeparateClozeDeletionCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">Hint</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">HintNotHidden</td>
+<td class="smaller-table-row">Hint</td>
+</tr>
+<tr>
+<td class="smaller-table-row">Picture</td>
+<td class="smaller-table-row">Picture</td>
+</tr>
+<tr>
+<td class="smaller-table-row">WordAudio</td>
+<td class="smaller-table-row">WordAudio</td>
+</tr>
+<tr>
+<td class="smaller-table-row">SentenceAudio</td>
+<td class="smaller-table-row">SentenceAudio</td>
+</tr>
+<tr>
+<td class="smaller-table-row">PAGraphs</td>
+<td class="smaller-table-row">Graph</td>
+</tr>
+<tr>
+<td class="smaller-table-row">PAPositions</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PASilence</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">FrequenciesStylized</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">FrequencySort</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">SecondaryDefinition</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">ExtraDefinitions</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">UtilityDictionaries</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">Comment</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Anything not specified should be set to <code>(Nothing)</code></p>
+</div>
+</details>
+<h2 id="batch-editing">Batch Editing<a class="headerlink" href="#batch-editing" title="Permanent link">&para;</a></h2>
+<p>After switching your notes, you will have to do the following 3 things:</p>
+<h4 id="1-batch-generate-pitch-accents">(1) Batch generate pitch accents<a class="headerlink" href="#1-batch-generate-pitch-accents" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Head to the Card Browser window.</li>
+<li>Select all of your newly imported notes.<ul>
+<li>Tip: the query <code>"note:JP Mining Note"</code> should reveal all of your newly imported notes.
+  Make sure you include the double quotes in the query search.</li>
+</ul>
+</li>
+<li>Head over to <code>Edit</code> (top left corner) →  <code>Bulk-add pitch accents</code>.</li>
+</ol>
+<p>(TODO gif)</p>
+<h4 id="2-batch-generate-sentence-furigana">(2) Batch generate sentence furigana<a class="headerlink" href="#2-batch-generate-sentence-furigana" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Head to the Card Browser window.</li>
+<li>Select all of your newly imported notes.</li>
+<li>Head over to <code>Edit</code> (top left corner) →  <code>Bulk-add furigana</code>.</li>
+</ol>
+<h4 id="3-batch-set-pasilence-field">(3) Batch set <code>PASilence</code> field<a class="headerlink" href="#3-batch-set-pasilence-field" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Head to the Card Browser window.</li>
+<li>Select all of your newly imported notes.</li>
+</ol>
+<p>The following step differs if you are using <code>python</code> or the Batch Note Editing Add-on.</p>
+<p>If you are using <code>python</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># assuming you are at the root of the repo,
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>cd ./tools
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a># make sure you have Anki open and Anki-Connect installed!
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>python3 ./batch.py -f &quot;set_pasilence_field&quot;
+</code></pre></div></p>
+<p>Otherwise, if you are using the add-on, follow the instructions in the videos</p>
+<ul>
+<li>Head over to <code>Edit</code> (top left corner) →  <code>Batch Edit...</code>.</li>
+<li>Set the content to be <code>[sound:_silence.wav]</code>.</li>
+<li>Set the field to be <code>PASilence</code>.</li>
+<li>Click on <strong>Replace</strong>.</li>
+</ul>
+<p>See the official add-on video <a href="https://youtu.be/iCZzcSnAeH4?t=31">here</a>
+for an example of how to do this.</p>
+<h2 id="final-notes">Final Notes<a class="headerlink" href="#final-notes" title="Permanent link">&para;</a></h2>
+<p>Auto-generating frequency info (with the correct css, html, etc.) doesn't seem trivial,
+and I currently provide no way of doing that
+(primarily because I'm not sure how to do it in the first place).
+If you know of a way or would like to help me out with doing this, please let me know!</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "header.autohide", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.48f2be22.min.js"></script>
+      
+    
+  </body>
+</html>
