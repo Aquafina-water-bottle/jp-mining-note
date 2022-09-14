@@ -115,7 +115,7 @@ If you can't manage to fix it, please submit an issue!
 
 
 ## How do I use this note type as an Anime Card?
-Anime Cards, as defined [here](https://animecards.site/ankicards/#anime-cardsword-context-cards),
+[Anime Cards](https://animecards.site/ankicards/#anime-cardsword-context-cards)
 are simply regular vocab cards with a non-collapsable hint field.
 To use this as an Anime Card, follow the steps to make a vocab card ([here](cardtypes#vocab-card)),
 and use the `HintNotHidden` field for your hint.
@@ -173,11 +173,13 @@ here are the following steps:
 
 
 ## How do I remove an empty card without deleting the entire note?
-> To remove the empty cards, go to `Tools` →  `Empty Cards` in the main window.
-> You will be shown a list of empty cards and be given the option to delete them.
+!!! quote
+    To remove the empty cards, go to `Tools` →  `Empty Cards` in the main window.
+    You will be shown a list of empty cards and be given the option to delete them.
 
-(Taken from the official Anki documentation
-[here](https://docs.ankiweb.net/templates/generation.html#card-generation--deletion))
+<sup>Taken from the
+[official Anki documentation](https://docs.ankiweb.net/templates/generation.html#card-generation--deletion).
+</sup>
 
 ---
 
