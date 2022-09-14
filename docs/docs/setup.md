@@ -10,9 +10,11 @@ and requires **Anki** and **Yomichan** for the main card creation process.
 It is highly recommend that you are using the latest Anki version
 (or as close as you can get to the latest Anki version), as the note is primarily tested
 and maintained on the latest versions of Anki.
+Additionally, it is recommeded to use the Qt6 version of Anki if possible.
 
-Worst case scenario, if any essential add-ons no longer work,
-you can downgrade back to your current version.
+!!! note
+    Worst case scenario, if any essential add-ons no longer work,
+    you can always downgrade back to your current version.
 
 Similarly, if you downloaded Yomichan from a file, I recommend updating that as well.
 (Most users should have installed it from their browser's extension page, in which case
@@ -149,6 +151,8 @@ I use the default config that comes with the add-on.
     Of course, this [isn't very safe](https://w3c.github.io/webappsec-cors-for-developers/#avoid-returning-access-control-allow-origin-null)
     and it is highly recommended that you upgrade Anki to avoid this problem.
 
+    If you don't care for those features, you can disable them in the
+    [runtime options](usage.md#runtime-options).
 
 <br>
 
