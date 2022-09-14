@@ -1,13 +1,8 @@
 /// {% from "modules/main.html" import modules with context %}
 
 
-/* quick fix for legacy anki versions (replaces ?? operator) */
-function nullish(a, b) {
-  if ((typeof a === "undefined") || (a === null)) {
-    return b;
-  }
-  return a;
-}
+
+
 
 
 
@@ -43,7 +38,7 @@ function getSetting(keys, defaultVal) {
 
       // checks if we need to warn, manual search
       if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
-        logger.warn("Option " + keys.join(".") + " is not defined in the options file.");
+        LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
       }
       return defaultVal;
     }
@@ -156,9 +151,9 @@ document.onkeyup = (e => {
   //if (e.getModifierState && e.getModifierState('CapsLock')) {
   //  if ("CapsLock" === e.key) {
   //    // either just enabled or disabled
-  //    logger.removeWarn("caps");
+  //    LOGGER.removeWarn("caps");
   //  } else {
-  //    logger.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
+  //    LOGGER.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
   //  }
   //} else {
   //  //_debug("Caps lock is not enabled");
@@ -169,14 +164,14 @@ document.onkeyup = (e => {
     if (e.key === "CapsLock") {
       // either just enabled or disabled, not sure which one is which
       // it seems like normal browsers can't reach this point during (caps lock enabled -> caps lock disabled...)
-      logger.removeWarn("caps");
+      LOGGER.removeWarn("caps");
     } else if (!["Meta"].includes(e.key)) {
       _debug(e.key);
-      logger.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
+      LOGGER.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
     }
   } else {
     //_debug("Caps lock is not enabled");
-    logger.removeWarn("caps");
+    LOGGER.removeWarn("caps");
   }
 
 
@@ -271,7 +266,7 @@ document.onkeyup = (e => {
 
 // sanity check
 if (typeof JPMNOpts === 'undefined') {
-  logger.warn("JPMNOpts was not defined in the options file. Was there an error?");
+  LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
 }
 
 /// {% block js_run %}

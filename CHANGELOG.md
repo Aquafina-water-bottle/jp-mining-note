@@ -39,6 +39,19 @@ The following are examples breaking changes:
 - cleaning up the code:
     - id `Display` -> `display`
     - replaced as many `let` statements with `const`
+    - moved javascript code out into their own `modules` folder under `templates`
+    - (WIP) changed javascript modules to return classes, in the format of:
+      ```
+      const CLASS_NAME = (() => {
+        // private variables and functions
+
+        class CLASS_NAME {
+          // public functions
+        }
+
+        return CLASS_NAME;
+      })();
+      ```
 
 #### Fixed
 - `replaceAll` -> `replace` with `g` flag, to support older versions of Anki (qt5)

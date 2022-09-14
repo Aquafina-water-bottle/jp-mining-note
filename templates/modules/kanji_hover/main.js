@@ -36,8 +36,9 @@ const wordReading = document.getElementById("dh_reading");
 let kanjiHoverEnabled = false;
 
 
-const JPMN_KanjiHover = (function () {
-  let my = {};
+const JPMNKanjiHover = (() => {
+
+  let logger = new JPMNLogger("JPMN_Kanji");
 
   // multi query result, in the format of
   // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
@@ -268,7 +269,7 @@ const JPMN_KanjiHover = (function () {
   async function kanjiHover() {
 
     if (kanjiHoverEnabled) {
-      _debug("(JPMN_Kanji) Kanji hover is already enabled");
+      logger.debug("Kanji hover is already enabled");
       return;
     }
     kanjiHoverEnabled = true;
@@ -277,7 +278,7 @@ const JPMN_KanjiHover = (function () {
     // however, just in case, wordreading is added
     const cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
     if (cacheKey in kanjiHoverCardCache) {
-      _debug("(JPMN_Kanji) Card was cached")
+      logger.debug("Card was cached")
       wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
       return;
     }
@@ -299,7 +300,7 @@ const JPMN_KanjiHover = (function () {
     for (let kanji of [...kanjiSet]) {
       // also checks that the current word is not used
       if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{ T('WordReading') }}"))) {
-        _debug(`(JPMN_Kanji) Using cached kanji ${kanji}`)
+        logger.debug(`Using cached kanji ${kanji}`)
         kanjiDict[kanji] = kanjiHoverCache[kanji][1];
         kanjiSet.delete(kanji);
       }
@@ -310,7 +311,7 @@ const JPMN_KanjiHover = (function () {
     const queryResults = await cardQueries(kanjiArr);
     const cardsInfo = await getCardsInfo(queryResults);
 
-    _debug(`(JPMN_Kanji) New kanjis: [${kanjiArr.join(", ")}]`)
+    logger.debug(`New kanjis: [${kanjiArr.join(", ")}]`)
 
     for (const [i, character] of kanjiArr.entries()) {
       let nonNewCardInfo = cardsInfo[i*2];
@@ -338,10 +339,19 @@ const JPMN_KanjiHover = (function () {
 
   }
 
-  my.run = kanjiHover;
-  return my;
 
-}());
+  class JPMNKanjiHover {
+    constructor() {}
+
+    async run() {
+      kanjiHover();
+    }
+  }
+
+
+  return JPMNKanjiHover;
+
+})();
 
 /// {% endset %}
 
@@ -354,13 +364,14 @@ const JPMN_KanjiHover = (function () {
 
 // only continues if kanji-hover is actually enabled
 if ({{ utils.opt("kanji-hover", "enabled") }}) {
+  let kanji_hover = new JPMNKanjiHover()
   if ({{ utils.opt("kanji-hover", "mode") }} === 0) {
-    JPMN_KanjiHover.run();
+    kanji_hover.run();
   } else { // === 1
     wordReading.onmouseover = function() {
       // replaces the function with a null function to avoid calling this function
       wordReading.onmouseover = function() {}
-      JPMN_KanjiHover.run();
+      kanji_hover.run();
     }
   }
 }
