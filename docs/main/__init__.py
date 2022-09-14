@@ -74,8 +74,18 @@ def define_env(env):
         formats into a one line argument form
         """
 
-        c = self.sharex_post_processing(sharex_code)
+        c = sharex_post(sharex_code)
         c = '-NoProfile -Command "' + c.replace('"', '\\"') + '"'
 
         return c
+
+    @env.macro
+    def img(alt_text, file_path):
+        """
+        clickable image
+        """
+
+        # ![alt text](file path)
+        # [![alt text](file path)](file_path)
+        return f"[![{alt_text}]({file_path})]({file_path})"
 
