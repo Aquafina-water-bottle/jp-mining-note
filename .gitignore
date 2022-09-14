@@ -362,3 +362,5 @@ backup/
 
 .nvimrc
 wiki/assets/old
+docs/site/
+docs/notes.txt
