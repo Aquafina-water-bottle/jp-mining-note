@@ -1,0 +1,34 @@
+{% import "sharex_input.ps1" as sharex %}
+
+{% macro sharex_display(text) %}
+
+{%- set text = sharex.COMMON_FRONT + text -%}
+
+```
+{% autoescape false -%}
+{{ sharex_arg(text) }}
+{%- endautoescape %}
+```
+{#
+
+temp field
+```
+{% autoescape false -%}
+{{ sharex_post(text) }}
+{%- endautoescape %}
+```
+
+#}
+
+??? quote "Click here to see the original code."
+
+    {% autoescape false -%}
+    {% filter indent(8) %}
+    {{ text }}
+    {%- endfilter -%}
+    {%- endautoescape %}
+
+<br>
+
+{% endmacro %}
+

@@ -30,8 +30,15 @@ plugins:
 
 nav:
   - Home: index.md
-  - About: about.md
+  - Preface: preface.md
   - Setup: setup.md
+  - Usage: usage.md
+  - Card Types: cardtypes.md
+  - Transfer Existing Notes: importing.md
+  - Updating the Note (TODO): updating.md
+  - "Modding & Dev Docs (TODO)": modding.md
+  - FAQ (TODO): faq.md
+  - Various Resources: jpresources.md
 
 extra_css:
   - stylesheets/extra.css
@@ -53,3 +60,5 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+
+  - md_in_html
