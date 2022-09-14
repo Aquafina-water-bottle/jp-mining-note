@@ -71,8 +71,8 @@ Better support across systems and more features are planned for the future.
 * No support for mobile. (Support for Ankidroid is planned for the future, but with no ETA.)
 * No easy way to scale the card within the card itself.
 
-# Setup, Usage and Everything Else:
-See the [wiki](https://github.com/Aquafina-water-bottle/jp-mining-note/wiki).
+# Installation, Documentation and Everything Else:
+See the documentation [here](https://aquafina-water-bottle.github.io/jp-mining-note/).
 
 # Other Info
 Tested on Anki 2.1.54 (Qt6), Linux (Ubuntu) & Windows.
