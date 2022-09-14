@@ -144,6 +144,23 @@ Continue reading to see the required config changes.
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the add-on.
 
+> **Note**: <br>
+> Some older versions of Anki (2.1.49 and below) require a hack to the Anki-Connect
+> config for the card to work.
+> Add "null" to the `webCorsOriginList` list.
+> An example of how the config should look is shown below:
+>
+> ```
+> "webCorsOriginList": [
+>     "http://localhost",
+>     "null"
+> ]
+> ```
+>
+> Of course, this [isn't very safe](https://w3c.github.io/webappsec-cors-for-developers/#avoid-returning-access-control-allow-origin-null)
+> and it is highly recommended that you upgrade Anki to avoid this problem.
+
+
 <br>
 
 #### CSS Injector
