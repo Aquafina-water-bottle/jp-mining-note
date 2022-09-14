@@ -108,6 +108,39 @@
     
     
     
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
     
   </nav>
   
@@ -206,6 +239,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#various-options" class="md-nav__link">
+    Various Options
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -276,6 +316,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#various-options" class="md-nav__link">
+    Various Options
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -316,6 +363,8 @@ docs/
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="k">user-select</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
+<!-- https://squidfunk.github.io/mkdocs-material/reference/admonitions -->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
@@ -328,12 +377,27 @@ massa, nec semper lorem quam in massa.</p>
 nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
 massa, nec semper lorem quam in massa.</p>
 </div>
+<h2 id="various-options">Various Options<a class="headerlink" href="#various-options" title="Permanent link">&para;</a></h2>
 <details class="info">
 <summary>Option 1: test</summary>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
 nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
 massa, nec semper lorem quam in massa.</p>
 </details>
+<details class="info">
+<summary>Option 2: testing</summary>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+massa, nec semper lorem quam in massa.</p>
+</details>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{{</span><span class="m m-Attribute">#*inline</span> <span class="s2">&quot;selection-text&quot;</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="na">&quot;!=</span><span class="o">=</span><span class="s2">&quot; (getMedia &quot;</span><span class="nv">selectionText</span><span class="s2">&quot;) &quot;&quot;)~}}</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="s2">        {{~#getMedia &quot;</span><span class="nv">selectionText</span><span class="err">&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">/getMedia~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~else~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">glossary</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="cp">{{</span><span class="m m-Attribute">/inline</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div>
 
 
 

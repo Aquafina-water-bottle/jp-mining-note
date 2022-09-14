@@ -8,10 +8,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +38520 ~/s/other/notes/notes.txt
-badd +44 ~/pgc/other/weeb/anki/jp-mining-note/mkdocs.yml
-badd +86 ~/pgc/other/weeb/anki/jp-mining-note/wiki/JPResources.md
+badd +20 ~/pgc/other/weeb/anki/jp-mining-note/mkdocs.yml
+badd +424 ~/pgc/other/weeb/anki/jp-mining-note/wiki/JPResources.md
 badd +48 about.md
-badd +29 index.md
+badd +35 index.md
 argglobal
 %argdel
 edit index.md
