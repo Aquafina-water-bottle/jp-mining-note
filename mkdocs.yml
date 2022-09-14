@@ -17,6 +17,7 @@ theme:
     - navigation.sections
 
 plugins:
+  - search
   - mkdocs-video:
       css_style:
         width: "100%"
