@@ -53,9 +53,6 @@ There are two ways of installing the card:
     or you just want to install this normally,
     see below:
 
-    * **Note**: <br>
-        **Full video example** of the steps below for Linux (Ubuntu) [here](https://user-images.githubusercontent.com/17107540/187803236-9aef0c7f-50ec-4c60-8666-65dd5bb8ace8.mp4)
-
     1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
         and download the cards from the latest release.
         You should download the `{version}-jpmn_example_cards.apkg` file.
@@ -68,13 +65,15 @@ There are two ways of installing the card:
     4. Move the `.otf` files into the [media folder](faq.md#where-is-the-x-folder-in-anki)
         of your profile (`Anki2/PROFILENAME/collections.media`).
 
+    ![type:video](assets/anki/manual_import-0.9.1.1.mp4)
+
 
 
 ## Verifying the Note Works
 You should see a deck `JPMN-Examples` in your collection.
 View one of the cards and make sure the card looks similar to the one below:
 
-[[assets/eg_fushinnsha.png]]
+[![bro does this work](assets/eg_fushinnsha.png)](assets/eg_fushinnsha.png)
 
 Please check the following in particular:
 
@@ -107,7 +106,7 @@ To download all the required add-ons, copy and paste the following numbers into 
 2055492159 181103283
 ```
 
-[[assets/anki/addons_install.png]]
+![install Anki addons](assets/anki/addons_install.png)
 
 
 <!--
@@ -155,7 +154,7 @@ However, if you don't use this, the fields within the Anki field editor
 won't have certain stylizations that makes the field actually interpretable,
 so I *strongly* recommend using this.
 
-[[assets/css_injector.png]]
+![CSS Injector comparison](assets/css_injector.png)
 
 There are two ways of using css injector with this note type:
 
@@ -216,9 +215,10 @@ There are two ways of using css injector with this note type:
        into the css injector add-on directory
     4. Rename `_field.css` into `field.css`.
 
-    * **Note**: <br>
-      If the `_field.css` file ever updates, you will have to manually copy and rename the file again
-      into the correct position.
+    !!! note
+
+        If the `_field.css` file ever updates, you will have to manually copy and rename the file again
+        into the correct position.
 
 
 <br>
@@ -397,18 +397,18 @@ This section will go over the minimal Yomichan setup to work with this card type
 
 ## Preliminary Steps
 If you have used Yomichan before, please make a backup of your settings (just in case):
+
 * Navigate to Yomichan Settings.
 * Go to the `Backup` section
 * Select `Export Settings`
 
-[[assets/yomichan/import_settings.gif]]
+![how-to import Yomichan settings](assets/yomichan/import_settings.gif)
 
 
 ## Yomichan Fields
 To edit the fields that Yomichan will automatically fill out, do the following:
 
-* **Note**: <br>
-    **Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/188249030-b1bab33b-49d9-45b8-ba7b-78fbe39e5950.mp4).
+![type:video](assets/yomichan/yomichan_anki_format.mp4)
 
 1. Navigate to Yomichan Settings.
 1. Go to the `Anki` section.
@@ -417,7 +417,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 1. Copy and paste the following values into the fields
    (the custom markers won't be available in the dropdown arrow):
 
-??? quote "Click here to see the fields to copy/paste"
+??? quote "Click here to see the fields to copy and paste."
 
     | Anki Fields | Yomichan Format |
     |-------------|-----------------|
@@ -446,10 +446,10 @@ Yomichan supports user inserted template code that allows the automatic
 separation of bilingual and monolingual dictionary definitions, custom stylization, etc.
 This note type makes heavy use of these custom templates.
 
-* **Note**: <br>
-    **Full video example** of the steps below [here](https://user-images.githubusercontent.com/17107540/187789174-f7f71429-1990-49aa-b99a-0aa74e4ff12c.mp4).
+![type:video](assets/yomichan/import_yomichan_templates.mp4)
 
 To make the new markers usable, do the following:
+
 1. Navigate to Yomichan Settings.
 1. Make sure that advanced settings are turned on (bottom left corner).
 1. Go to the `Anki` section
@@ -464,28 +464,23 @@ add the following template code as follows:
 
 1. Copy and paste the code below to the **top** of the default Yomichan template code:
 
-   <details>
-   <summary><i>Click here to show the template code to copy.</i></summary>
+    ??? quote "Click here to show the template code to copy."
 
-{% filter indent(width=7) %}
-{{ TOP_YOMICHAN }}
-{% endfilter %}
-
-   </details>
-   <br>
+        ```handlebars
+        {% filter indent(width=8) -%}
+        {{ TOP_YOMICHAN }}
+        {% endfilter %}
+        ```
 
 2. Copy and paste the code below to the **bottom** of the default Yomichan template code:
 
-   <details>
-   <summary><i>Click here to show the template code to copy.</i></summary>
+    ??? quote "Click here to show the template code to copy."
 
-{% filter indent(width=7) %}
-{{ BOTTOM_YOMICHAN }}
-{% endfilter %}
-
-   </details>
-   <br>
-
+        ```handlebars
+        {% filter indent(width=8) -%}
+        {{ BOTTOM_YOMICHAN }}
+        {% endfilter %}
+        ```
 
 ## Make an example card!
 At this point, you should be able to make an example card with Yomichan!
@@ -494,7 +489,7 @@ Here's an excerpt of text you can test Yomichan on:
 
 「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
 
-[[assets/yomichan/add_card.gif]]
+![adding a card with Yomichan](assets/yomichan/add_card.gif)
 
 Obviously, just Yomichan alone doesn't fill every field.
 Notably, the picture and sentence audio is missing.
@@ -503,25 +498,26 @@ Outside of that, there are some final settings you can adjust within the Yomicha
 if the card doesn't look quite right.
 
 
-{%- raw %}
 ## Yomichan Templates Settings
 
-#### Monolingual Definition
+### Monolingual Definition
 
 If you want the first definition you see (the `PrimaryDefinition` field) to be monolingual,
 change the following line at the top of the templates code:
 
-```
+{% raw %}
+```handlebars
 {{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
 ```
 to
-```
+```handlebars
 {{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
 ```
+{% endraw %}
 
 
 
-#### Categorization of Dictionaries
+### Categorization of Dictionaries
 If your dictionaries are ending up in the wrong sections,
 then it is likely a problem with how the template code categorizes the dictionaries.
 If you made a card above, check that your dictionaries are in the expected places.
@@ -530,7 +526,7 @@ The foolproof way to check that your dictionaries are correctly categorized is w
 `{jpmn-test-dict-type}` (new as of 0.9.1.2) marker.
 Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
 
-[[assets/yomichan/test_dictionary_categorization.gif]]
+![checking dictionary categories](assets/yomichan/test_dictionary_categorization.gif)
 
 An example output of the above (on the word 結構) is the following:
 ```
@@ -572,7 +568,7 @@ use more monolingual dictionaries.
 To see how to edit the regex, go to [this section](setup.md#editing-the-dictionary-regex).
 
 
-#### Ignoring a Dictionary
+### Ignoring a Dictionary
 If you want to see the dictionary on Yomichan but not have it show on Anki,
 you can use the `ignored-dict-regex` option.
 
@@ -582,36 +578,32 @@ Conversely, if you want to not see the dictionary on Yomichan but want it to sho
 [see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki).
 
 
-#### Editing the dictionary regex
+### Editing the dictionary regex
 
 To modify a regex string:
 
 1. Determine the exact tag your dictionary has.
-   To see this, take a word that has a definition in the desired dictionary, and test
-   `{jpmn-test-dict-type}` like above.
-   The string inside the quotes 「」 is exactly the tag of the dictionary.
-
-   <!--
-   An easy way to see this is by getting a word that is defined in the dictionary and
-   exporting it into Anki.
-   Within Anki, the dictionary tag should appear in parenthesis before the definition.
-   -->
+    To see this, take a word that has a definition in the desired dictionary, and test
+    `{jpmn-test-dict-type}` like above.
+    The string inside the quotes 「」 is exactly the tag of the dictionary.
 
 2. Add the dictionary tag to the string, by replacing `ADD_x_DICTIONARIES_HERE`.
-   For example, if your bilingual dictionary tag is `Amazing Dictionary`, change
-   `ADD_BILINGUAL_DICTIONARIES_HERE` to
-   `Amazing Dictionary`.
+    For example, if your bilingual dictionary tag is `Amazing Dictionary`, change
+    `ADD_BILINGUAL_DICTIONARIES_HERE` to
+    `Amazing Dictionary`.
 
-   If you want to add more than one dictionary, they have to be joined with the `|` character.
-   For example, if you want to add the bilingual dictionaries
-   `Amazing Dictionary` and `Somewhat-Okay-Dictionary`, change
-   `ADD_BILINGUAL_DICTIONARIES_HERE` to
-   `Amazing Dictionary|Somewhat-Okay-Dictionary`.
+    If you want to add more than one dictionary, they have to be joined with the `|` character.
+    For example, if you want to add the bilingual dictionaries
+    `Amazing Dictionary` and `Somewhat-Okay-Dictionary`, change
+    `ADD_BILINGUAL_DICTIONARIES_HERE` to
+    `Amazing Dictionary|Somewhat-Okay-Dictionary`.
 
-   For completeness, here is the modified line for the second example:
-   ```
-   {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|Amazing Dictionary|Somewhat-Okay-Dictionary)(\[object Object\])?$ {{~/set~}}
-   ```
+    {% raw %}
+    For completeness, here is the modified line for the second example:
+    ```handlebars
+    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|Amazing Dictionary|Somewhat-Okay-Dictionary)(\[object Object\])?$ {{~/set~}}
+    ```
+    {% endraw %}
 
 
 <!--
@@ -622,7 +614,6 @@ For more information on the templates used here, including **customization and t
 see the templates section [here](yomichantemplates).
 -->
 
-{% endraw %}
 
 
 
@@ -648,6 +639,8 @@ see the templates section [here](yomichantemplates).
 
 
 
+---
+
 # Creating the Cards
 I use a texthooker setup, which is able to extract subtitles or text into the browser.
 Once the text is on the browser, you can use Yomichan to select the word and create the
@@ -656,16 +649,20 @@ Anki card (click on the green plus button).
 The classic texthooker setup works for most games, and any show with subtitle files.
 This texthooker process has already been explained in great detail by
 many other smart people in the following links:
+
 * [Texthooker basics](https://rentry.co/mining#browser)
 * [Texthooker basics & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
 
 The setup also works with video files if the video player supports automated copying of subtitles,
 and if you have the correct subtitle files.
+
 * MPV with either `mpvacious` or `Immersive` add-ons supports this workflow, as detailed in the next section.
 * Many anime subtitle files can be found under
 [kitsuneko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F).
 
 
+
+---
 
 # Automating Pictures and Sentence Audio
 If you've made it this far, then congratulations!
@@ -682,23 +679,28 @@ Of course, this list is incomplete, and there could be tools better suited for y
 
 
 [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious)
+
 * add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
 * Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
 
 [**Immersive**](https://github.com/Ben-Kerman/immersive)
+
 * A powerful alternative to the mpvacious add-on above, with certain different capabilities.
 * Can also be used to automatically extract sentence audio and pictures.
 
 [**asbplayer**](https://github.com/killergerbah/asbplayer)
+
 * Cross platform (chromium) browser video player. Personally tested.
 * This also has card image and audio exporting capabilities.
 * Works on video streaming sites as well.
 
 [**Animebook**](https://github.com/animebook/animebook.github.io)
+
 * Cross platform (chromium) browser video player.
 * This also has card image and audio exporting capabilities.
 
 [**ShareX**](https://getsharex.com/)
+
 * Windows media recorder which can both take screenshots and record audio. Personally tested.
 * This can be automated to add audio and pictures to the most recently added anki card
   by following the instructions
@@ -706,14 +708,17 @@ Of course, this list is incomplete, and there could be tools better suited for y
 * Useful for things that don't have an easy way of getting audio, such as visual novels.
 
 [**ames**](https://github.com/eshrh/ames)
+
 * ShareX alternative for Linux. Personally tested.
 * Primarily used to automate audio and picture extraction to the most recently added anki card.
 
 [**jidoujisho**](https://github.com/lrorpilla/jidoujisho)
+
 * Android reader and media player, which can also create Anki cards.
 * Note that this app does NOT use Yomichan, which means that certain fields may not be filled automatically
 
 [**mokuro**](https://github.com/kha-white/mokuro)
+
 * This is not something that can automatically add images or audio to your cards,
   BUT it allows you to use popup-dictionaries like Yomichan on manga (an actual game-changer).
 
@@ -750,10 +755,13 @@ TheMoeWay documents two setups for getting audio:
 -->
 
 
+---
+
 # Other
 
 ## Anki add-on(s)
 These add-on(s) assist in card creation, but are ultimately optional.
+
 * Paste Images As WebP [(link)](https://ankiweb.net/shared/info/1151815987)
 
 
@@ -767,6 +775,8 @@ If you want card types to go to a different deck by default, you can change it b
 →  `Options` (the first `Options` you see at the very top of the screen) <br>
 →  `Deck Override...`
 
+
+---
 
 # Conclusion
 If everything is setup correctly, then the difficult part is finally done!
