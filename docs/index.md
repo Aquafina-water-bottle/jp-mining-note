@@ -33,6 +33,7 @@ and css code:
 }
 ```
 
+<!-- https://squidfunk.github.io/mkdocs-material/reference/admonitions -->
 
 !!! note
 
@@ -48,8 +49,29 @@ and css code:
 
 
 
+## Various Options
+
 ??? info "Option 1: test"
 
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
     nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
     massa, nec semper lorem quam in massa.
+
+
+??? info "Option 2: testing"
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+
+
+
+```handlebars
+{{#*inline "selection-text"}}
+    {{~#if (op "!==" (getMedia "selectionText") "")~}}
+        {{~#getMedia "selectionText"}}{{/getMedia~}}
+    {{~else~}}
+        {{~> glossary ~}}
+    {{/if~}}
+{{/inline}}
+```
