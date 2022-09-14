@@ -88,15 +88,15 @@ testing jinja stuff:
 a?
 
 
+{#
 | Anki Fields | Yomichan Format |
 |-------------|-----------------|
 {% for f, v in FIELDS.items() -%}
 | {{ "*" if v["customize"] else "" }}{{ f }} { .smaller-table-row } | {{ "`" + v["setup"] + "` { .smaller-table-row }" if "setup" in v else "" }} |
 {% endfor %}
 
+#}
 guh
 
-
-{{ img("A", "B") }}
 
 

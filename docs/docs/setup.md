@@ -73,7 +73,7 @@ There are two ways of installing the card:
 You should see a deck `JPMN-Examples` in your collection.
 View one of the cards and make sure the card looks similar to the one below:
 
-[![bro does this work](assets/eg_fushinnsha.png)](assets/eg_fushinnsha.png)
+{{ img("Example card", "assets/eg_fushinnsha.png") }}
 
 Please check the following in particular:
 
@@ -106,7 +106,7 @@ To download all the required add-ons, copy and paste the following numbers into 
 2055492159 181103283
 ```
 
-![install Anki addons](assets/anki/addons_install.png)
+{{ img("install Anki addons", "assets/anki/addons_install.png") }}
 
 
 <!--
@@ -154,7 +154,7 @@ However, if you don't use this, the fields within the Anki field editor
 won't have certain stylizations that makes the field actually interpretable,
 so I *strongly* recommend using this.
 
-![CSS Injector comparison](assets/css_injector.png)
+{{ img("CSS Injector comparison", "assets/css_injector.png") }}
 
 There are two ways of using css injector with this note type:
 
@@ -402,7 +402,7 @@ If you have used Yomichan before, please make a backup of your settings (just in
 * Go to the `Backup` section
 * Select `Export Settings`
 
-![how-to import Yomichan settings](assets/yomichan/import_settings.gif)
+{{ img("how-to import Yomichan settings", "assets/yomichan/import_settings.gif") }}
 
 
 ## Yomichan Fields
@@ -489,7 +489,7 @@ Here's an excerpt of text you can test Yomichan on:
 
 「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
 
-![adding a card with Yomichan](assets/yomichan/add_card.gif)
+{{ img("adding a card with Yomichan", "assets/yomichan/add_card.gif") }}
 
 Obviously, just Yomichan alone doesn't fill every field.
 Notably, the picture and sentence audio is missing.
@@ -526,7 +526,7 @@ The foolproof way to check that your dictionaries are correctly categorized is w
 `{jpmn-test-dict-type}` (new as of 0.9.1.2) marker.
 Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
 
-![checking dictionary categories](assets/yomichan/test_dictionary_categorization.gif)
+{{ img("checking dictionary categories", "assets/yomichan/test_dictionary_categorization.gif") }}
 
 An example output of the above (on the word 結構) is the following:
 ```
