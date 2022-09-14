@@ -1,0 +1,1939 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the jp-mining-note project.">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.0">
+    
+    
+      
+        <title>Setup - jp-mining-note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2e8b5541.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prerequisites" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            jp-mining-note
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    jp-mining-note
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Setup
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-card" class="md-nav__link">
+    Installing the Card
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing the Card">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verifying-the-note-works" class="md-nav__link">
+    Verifying the Note Works
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anki-setup" class="md-nav__link">
+    Anki Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Anki Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conflicting-add-ons" class="md-nav__link">
+    Conflicting add-ons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-anki-add-ons" class="md-nav__link">
+    Required Anki add-ons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-add-ons" class="md-nav__link">
+    Optional Add-ons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-steps" class="md-nav__link">
+    Final Steps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-existing-notes" class="md-nav__link">
+    Transfer Existing Notes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-the-note" class="md-nav__link">
+    Updating the Note
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yomichan-setup" class="md-nav__link">
+    Yomichan Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Yomichan Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preliminary-steps" class="md-nav__link">
+    Preliminary Steps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yomichan-fields" class="md-nav__link">
+    Yomichan Fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yomichan-templates" class="md-nav__link">
+    Yomichan Templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-an-example-card" class="md-nav__link">
+    Make an example card!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yomichan-templates-settings" class="md-nav__link">
+    Yomichan Templates Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-yomichan-settings" class="md-nav__link">
+    Other Yomichan Settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-cards" class="md-nav__link">
+    Creating the Cards
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automating-pictures-and-sentence-audio" class="md-nav__link">
+    Automating Pictures and Sentence Audio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other" class="md-nav__link">
+    Other
+  </a>
+  
+    <nav class="md-nav" aria-label="Other">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anki-add-ons" class="md-nav__link">
+    Anki add-on(s)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separate-pitch-accent-deck" class="md-nav__link">
+    Separate Pitch Accent Deck
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-card" class="md-nav__link">
+    Installing the Card
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing the Card">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verifying-the-note-works" class="md-nav__link">
+    Verifying the Note Works
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anki-setup" class="md-nav__link">
+    Anki Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Anki Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conflicting-add-ons" class="md-nav__link">
+    Conflicting add-ons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-anki-add-ons" class="md-nav__link">
+    Required Anki add-ons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-add-ons" class="md-nav__link">
+    Optional Add-ons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-steps" class="md-nav__link">
+    Final Steps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfer-existing-notes" class="md-nav__link">
+    Transfer Existing Notes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-the-note" class="md-nav__link">
+    Updating the Note
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yomichan-setup" class="md-nav__link">
+    Yomichan Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Yomichan Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preliminary-steps" class="md-nav__link">
+    Preliminary Steps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yomichan-fields" class="md-nav__link">
+    Yomichan Fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yomichan-templates" class="md-nav__link">
+    Yomichan Templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-an-example-card" class="md-nav__link">
+    Make an example card!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yomichan-templates-settings" class="md-nav__link">
+    Yomichan Templates Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-yomichan-settings" class="md-nav__link">
+    Other Yomichan Settings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-cards" class="md-nav__link">
+    Creating the Cards
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automating-pictures-and-sentence-audio" class="md-nav__link">
+    Automating Pictures and Sentence Audio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other" class="md-nav__link">
+    Other
+  </a>
+  
+    <nav class="md-nav" aria-label="Other">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anki-add-ons" class="md-nav__link">
+    Anki add-on(s)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separate-pitch-accent-deck" class="md-nav__link">
+    Separate Pitch Accent Deck
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Setup</h1>
+
+<p>This entire section is dedicated to providing the minimal setup to properly create
+cards with this note type.
+Note that this setup is primarly PC based,
+and requires <strong>Anki</strong> and <strong>Yomichan</strong> for the main card creation process.</p>
+<hr />
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>It is highly recommend that you are using the latest Anki version
+(or as close as you can get to the latest Anki version), as the note is primarily tested
+and maintained on the latest versions of Anki.</p>
+<p>Worst case scenario, if any essential add-ons no longer work,
+you can downgrade back to your current version.</p>
+<p>Similarly, if you downloaded Yomichan from a file, I recommend updating that as well.
+(Most users should have installed it from their browser's extension page, in which case
+nothing has to be done).</p>
+<hr />
+<h2 id="installing-the-card">Installing the Card<a class="headerlink" href="#installing-the-card" title="Permanent link">&para;</a></h2>
+<p>There are two ways of installing the card:</p>
+<div class="admonition info">
+<p class="admonition-title">(Option 1) The Automatic Way</p>
+<p>If you know what <code>git</code> and <code>python</code> is, here's all you have to do:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git clone &quot;https://github.com/Aquafina-water-bottle/jp-mining-note.git&quot;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cd jp-mining-note
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a># Ensure you have Anki open, and with anki-connect running
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a># Also ensure that you have python 3.10+ installed.
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a># It *MAY* work with lower versions of python, but I make no such guarantee. ;)
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a># You may have to use `python3` instead of `python`.
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a># Additionally, on Windows machines, your file path should be `tools\install.py`
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>python tools/install.py
+</code></pre></div>
+<p>The above does the following:
+- Installs the latest version of the note
+- Installs the fonts required for the note</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">(Option 2) The Manual Way</p>
+<p>If the above made literally no sense to you,
+or you just want to install this normally,
+see below:</p>
+<ol>
+<li>Go to the <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/releases">releases page</a>
+    and download the cards from the latest release.
+    You should download the <code>{version}-jpmn_example_cards.apkg</code> file.</li>
+<li>After you download the cards, import them by navigating to Anki by doing the following:<ul>
+<li><code>File</code> (top left corner) →  <code>Import...</code></li>
+</ul>
+</li>
+<li>By default, the custom fonts do not come with the <code>.apkg</code> file.
+    To install these fonts, head over to this
+    repository's <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media">media folder</a>
+    and download the 4 <code>.otf</code> files.</li>
+<li>Move the <code>.otf</code> files into the <a href="faq.md#where-is-the-x-folder-in-anki">media folder</a>
+    of your profile (<code>Anki2/PROFILENAME/collections.media</code>).</li>
+</ol>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/anki/manual_import-0.9.1.1.mp4" type="video/mp4" /></video></div></p>
+</div>
+<h3 id="verifying-the-note-works">Verifying the Note Works<a class="headerlink" href="#verifying-the-note-works" title="Permanent link">&para;</a></h3>
+<p>You should see a deck <code>JPMN-Examples</code> in your collection.
+View one of the cards and make sure the card looks similar to the one below:</p>
+<p><a href="../assets/eg_fushinnsha.png"><img alt="Example card" src="../assets/eg_fushinnsha.png" /></a></p>
+<p>Please check the following in particular:</p>
+<ul>
+<li>The fonts should match very similarly with the above example.</li>
+<li>Notice how at the top left corner, the info circle (the "i" encased within the circle)
+  is the default grey color.
+  If this is red, that means something is wrong with the note's javascript.
+  Please see <a href="faq.md#the-info-circle-displays-an-error">this</a> section for basic troubleshooting.</li>
+<li>Clicking on the image to zoom should work out of the box.</li>
+</ul>
+<hr />
+<h2 id="anki-setup">Anki Setup<a class="headerlink" href="#anki-setup" title="Permanent link">&para;</a></h2>
+<p>For this card type to work, some Anki add-ons are required to connect to external sources and to auto-generate
+certain fields.</p>
+<p>There are also certain add-ons that will <strong>not</strong> be supported by this note type.
+Please disable them and restart Anki before continuing.</p>
+<h3 id="conflicting-add-ons">Conflicting add-ons<a class="headerlink" href="#conflicting-add-ons" title="Permanent link">&para;</a></h3>
+<ul>
+<li>None since I'm not aware of any currently. Let me know if you find one!</li>
+</ul>
+<h3 id="required-anki-add-ons">Required Anki add-ons<a class="headerlink" href="#required-anki-add-ons" title="Permanent link">&para;</a></h3>
+<p>To download all the required add-ons, copy and paste the following numbers into the Add-ons window.
+(<code>Tools</code> →  <code>Add-ons</code> →  <code>Get Add-ons...</code>)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>2055492159 181103283
+</code></pre></div></p>
+<p><a href="../assets/anki/addons_install.png"><img alt="install Anki addons" src="../assets/anki/addons_install.png" /></a></p>
+<!--
+* **Note**: <br>
+  You will have to restart Anki after downloading and after editing the configuration
+  file for the changes to take effect.
+-->
+
+<p>After installing the add-ons, you will have to change the configs of the add-ons
+to work with this note type.
+Continue reading to see the required config changes.</p>
+<p><br></p>
+<h4 id="anki-connect">Anki-Connect<a class="headerlink" href="#anki-connect" title="Permanent link">&para;</a></h4>
+<p><a href="https://ankiweb.net/shared/info/2055492159">(Official page)</a> Code: <code>2055492159</code> <br>
+Required for Yomichan and most other Anki-related automated tasks to work.
+I use the default config that comes with the add-on.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some older versions of Anki (2.1.49 and below) require a hack to the Anki-Connect
+config for the card to work.
+Add "null" to the <code>webCorsOriginList</code> list.
+An example of how the config should look is shown below:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;webCorsOriginList&quot;: [
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    &quot;http://localhost&quot;,
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    &quot;null&quot;
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>]
+</code></pre></div>
+<p>Of course, this <a href="https://w3c.github.io/webappsec-cors-for-developers/#avoid-returning-access-control-allow-origin-null">isn't very safe</a>
+and it is highly recommended that you upgrade Anki to avoid this problem.</p>
+</div>
+<p><br></p>
+<h4 id="css-injector">CSS Injector<a class="headerlink" href="#css-injector" title="Permanent link">&para;</a></h4>
+<p><a href="https://ankiweb.net/shared/info/181103283">(Official page)</a> Code: <code>181103283</code> <br>
+This add-on is not strictly necessary.
+However, if you don't use this, the fields within the Anki field editor
+won't have certain stylizations that makes the field actually interpretable,
+so I <em>strongly</em> recommend using this.</p>
+<p><a href="../assets/css_injector.png"><img alt="CSS Injector comparison" src="../assets/css_injector.png" /></a></p>
+<p>There are two ways of using css injector with this note type:</p>
+<div class="admonition info">
+<p class="admonition-title">(Option 1) Automatically updates with the card (recommended)</p>
+<p>As a preliminary step, you will have to remove the empty <code>field.css</code> file
+that comes with the add-on.
+That can be done through command line (below), or you can simply navigate to the
+<code>Anki2/addons21/181103283/user_files</code> folder
+(within the <a href="faq.md#where-is-the-x-folder-in-anki">addons folder</a>)
+and delete <code>field.css</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># windows command
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># be sure to change USERNAME to your computer username!
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>del &quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css&quot;
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># mac command
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>rm &quot;~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css&quot;
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a># linux command
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>rm &quot;~/.local/share/Anki2/addons21/181103283/user_files/field.css&quot;
+</code></pre></div>
+<p>For <strong>Windows</strong> users, run these two commands in command prompt (not PowerShell!) with elevated permissions.
+Additionally, be sure to change <code>USERNAME</code> to your computer username and <code>PROFILENAME</code> to your Anki profile.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mklink &quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css&quot; &quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css&quot;
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two <code>USERNAME</code>'s to replace, and one <code>PROFILENAME</code> to replace in the above command.
+Make sure to replace all the fields!</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you've never used command prompt before, check
+<a href="https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/">this</a>.</p>
+</div>
+<p>For <strong>Mac</strong> users, run the following command (be sure to change <code>PROFILENAME</code> to your Anki profile):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ln -s &quot;~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css&quot; &quot;~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css&quot;
+</code></pre></div></p>
+<p>For <strong>Linux</strong> users, run the following command (be sure to change <code>PROFILENAME</code> to your Anki profile):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ln -s &quot;~/.local/share/Anki2/PROFILENAME/collection.media/_field.css&quot; &quot;~/.local/share/Anki2/addons21/181103283/user_files/field.css&quot;
+</code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">(Option 2) Manually without respecting updates</p>
+<ol>
+<li>Navigate to css injector add-on directory (<code>Anki2/addons21/181103283/user_files</code>)</li>
+<li>Remove the existing <code>field.css</code> file</li>
+<li>Manually copy the <code>_field.css</code> file (found under your profile's <code>media</code> directory)
+   into the css injector add-on directory</li>
+<li>Rename <code>_field.css</code> into <code>field.css</code>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the <code>_field.css</code> file ever updates, you will have to manually copy and rename the file again
+into the correct position.</p>
+</div>
+</div>
+<p><br></p>
+<h3 id="optional-add-ons">Optional Add-ons<a class="headerlink" href="#optional-add-ons" title="Permanent link">&para;</a></h3>
+<p>These are a set of optional, but useful add-ons that can easily work with the card.</p>
+<p><br></p>
+<h4 id="ajt-furigana">AJT Furigana<a class="headerlink" href="#ajt-furigana" title="Permanent link">&para;</a></h4>
+<p><a href="https://ankiweb.net/shared/info/1344485230">(Official page)</a> Code: <code>1344485230</code> <br>
+Alternative and up-to-date version of JapaneseSupport.
+Automatically generates furigana upon Yomichan card creation.</p>
+<p>This add-on is optional, because the card will simply show the sentence without
+furigana if there is no furigana generated sentence.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Furigana generation is occasionally incorrect,
+so if you plan on using these regularly, you should double-check the readings
+to make sure they are correct.</p>
+</div>
+<h5 id="config-changes">Config Changes<a class="headerlink" href="#config-changes" title="Permanent link">&para;</a></h5>
+<p>To change the config of any Anki add-on, head over to
+<code>Tools</code> →  <code>Add-ons</code> →  (select the add-on) →  <code>Config</code>.</p>
+<p>The important things to change in the config are <code>generate_on_note_add</code>, <code>fields</code> and <code>note_types</code>.</p>
+<details class="quote">
+<summary>Click here to see the full AJT Furigana config</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nt">&quot;context_menu&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">        </span><span class="nt">&quot;generate_furigana&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="nt">&quot;generate_furigana_no_kanji&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="nt">&quot;to_hiragana&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="nt">&quot;to_katakana&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">            </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SentenceReading&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">            </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sentence&quot;</span><span class="w"></span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="p">],</span><span class="w"></span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="nt">&quot;furigana_suffix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot; (furigana)&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="nt">&quot;generate_on_note_add&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="nt">&quot;note_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">        </span><span class="s2">&quot;jp&quot;</span><span class="w"></span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="p">],</span><span class="w"></span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="nt">&quot;skip_numbers&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">    </span><span class="nt">&quot;skip_words&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="nt">&quot;toolbar&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">        </span><span class="nt">&quot;clean_furigana_button&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">            </span><span class="nt">&quot;enable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">            </span><span class="nt">&quot;shortcut&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alt+u&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">            </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;削&quot;</span><span class="w"></span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">        </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">        </span><span class="nt">&quot;furigana_button&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="w">            </span><span class="nt">&quot;enable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="w">            </span><span class="nt">&quot;shortcut&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alt+o&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="w">            </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;振&quot;</span><span class="w"></span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</details>
+<p>To explain the changes:</p>
+<ul>
+<li><code>generate_on_note_add</code> ensures that the pitch accent is added upon initial note creation.</li>
+<li>The change to <code>fields</code> changes the field names to match this note type.</li>
+<li>Similarily, the <code>note_types</code> changes makes the add-on work with this specific note type.</li>
+</ul>
+<p><br></p>
+<h4 id="ajt-pitch-accent">AJT Pitch Accent<a class="headerlink" href="#ajt-pitch-accent" title="Permanent link">&para;</a></h4>
+<p><a href="https://ankiweb.net/shared/info/1225470483">(Official page)</a> Code: <code>1225470483</code> <br>
+Automatically adds pitch accent info given the word.</p>
+<p>For the purposes of the card,
+the only purpose that this add-on serves is the following:
+- Adds devoiced and nasal information to the existing reading.
+- If your Yomichan pitch accent dictionaries did not contain any pitch accent info for the word
+  but the add-on does, then it will use the add-on data.</p>
+<!--
+* **Note**: <br>
+  Although I have a field for Yomichan to import the pitch accent graph (`PAGraphs`), I primarily use the
+  pitch accent info generated from this add-on because I personally find it easier to edit.
+  You can read more about editing pitch accent in the [usage page](usage.md#modifying-pitch-accent).
+-->
+
+<h5 id="config-changes_1">Config Changes<a class="headerlink" href="#config-changes_1" title="Permanent link">&para;</a></h5>
+<p>The important things to change in the config are <code>generate_on_note_add</code>,
+<code>destination_fields</code>, <code>source_fields</code> <code>note_types</code>, and <code>styles</code>.</p>
+<details class="quote">
+<summary>Click here to see the full AJT Pitch Accent config</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="nt">&quot;destination_fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">        </span><span class="s2">&quot;AJTWordPitch&quot;</span><span class="w"></span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p">],</span><span class="w"></span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="nt">&quot;generate_on_note_add&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="nt">&quot;kana_lookups&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="nt">&quot;lookup_shortcut&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ctrl+8&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="nt">&quot;note_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">        </span><span class="s2">&quot;jp&quot;</span><span class="w"></span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="p">],</span><span class="w"></span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="nt">&quot;regenerate_readings&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="nt">&quot;skip_words&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,です&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="nt">&quot;source_fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">        </span><span class="s2">&quot;Word&quot;</span><span class="w"></span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="p">],</span><span class="w"></span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">    </span><span class="nt">&quot;styles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">        </span><span class="nt">&quot;&amp;#42780;&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;span class=\&quot;downstep\&quot;&gt;&lt;span class=\&quot;downstep-inner\&quot;&gt;&amp;#42780;&lt;/span&gt;&lt;/span&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">        </span><span class="nt">&quot;class=\&quot;overline\&quot;&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;style=\&quot;text-decoration:overline;\&quot; class=\&quot;pitchoverline\&quot;&quot;</span><span class="w"></span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">    </span><span class="nt">&quot;use_hiragana&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">    </span><span class="nt">&quot;use_mecab&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</details>
+<p>To explain the changes:</p>
+<ul>
+<li><code>generate_on_note_add</code> and <code>note_types</code> are changed similarly in the previous section.</li>
+<li><code>destination_fields</code> and <code>source_fields</code> are changed similarily to <code>fields</code> in the previous section.</li>
+<li><code>styles</code> adds custom stylization that creates the pitch accent lines and downsteps as you see
+    in the example note.</li>
+</ul>
+<p><br></p>
+<h3 id="final-steps">Final Steps<a class="headerlink" href="#final-steps" title="Permanent link">&para;</a></h3>
+<p>After the above setup, <strong>make sure to restart Anki</strong> for the add-ons and config changes to take effect.
+If the css injector add-on is installed correctly, your Anki field editor should now have color!</p>
+<p>Additionally, now that Anki-Connect is installed, kanji hover should also be functioning.
+Hover over a kanji within the word reading to make sure that a popup appears.
+In particular, the 者 kanji in the example 偽者 and 不審者 cards should point to each other.</p>
+<hr />
+<h2 id="transfer-existing-notes">Transfer Existing Notes<a class="headerlink" href="#transfer-existing-notes" title="Permanent link">&para;</a></h2>
+<p>If you wish to transfer existing cards into this note type,
+please see <a href="importing.md">this page</a>.</p>
+<hr />
+<h2 id="updating-the-note">Updating the Note<a class="headerlink" href="#updating-the-note" title="Permanent link">&para;</a></h2>
+<p>If you wish to update the note, follow the steps in <a href="updating.md">this page</a>.</p>
+<p>Be assured that this note doesn't auto-update,
+and you have to manually update the note if you want it to update.</p>
+<hr />
+<h2 id="yomichan-setup">Yomichan Setup<a class="headerlink" href="#yomichan-setup" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/FooSoft/yomichan">Yomichan</a>
+is the main program that will create the cards. You can download Yomichan as a Firefox extension
+or under the Chrome web store.</p>
+<p>This section will go over the minimal Yomichan setup to work with this card type.</p>
+<p><strong>If you have never used Yomichan before</strong>, please see
+<a href="https://learnjapanese.moe/yomichan/">this page</a> first to get it working.</p>
+<h3 id="preliminary-steps">Preliminary Steps<a class="headerlink" href="#preliminary-steps" title="Permanent link">&para;</a></h3>
+<p>If you have used Yomichan before, please make a backup of your settings (just in case):</p>
+<ul>
+<li>Navigate to Yomichan Settings.</li>
+<li>Go to the <code>Backup</code> section</li>
+<li>Select <code>Export Settings</code></li>
+</ul>
+<p><a href="../assets/yomichan/import_settings.gif"><img alt="how-to import Yomichan settings" src="../assets/yomichan/import_settings.gif" /></a></p>
+<h3 id="yomichan-fields">Yomichan Fields<a class="headerlink" href="#yomichan-fields" title="Permanent link">&para;</a></h3>
+<p>To edit the fields that Yomichan will automatically fill out, do the following:</p>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/yomichan/yomichan_anki_format.mp4" type="video/mp4" /></video></div></p>
+<ol>
+<li>Navigate to Yomichan Settings.</li>
+<li>Go to the <code>Anki</code> section.</li>
+<li>Select <code>Anki card format...</code>.</li>
+<li>Set "Model" as <code>JP Mining Note</code>.</li>
+<li>Copy and paste the following values into the fields
+   (the custom markers won't be available in the dropdown arrow):</li>
+</ol>
+<details class="quote">
+<summary>Click here to see the fields to copy and paste.</summary>
+<table>
+<thead>
+<tr>
+<th>Anki Fields</th>
+<th>Yomichan Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="smaller-table-row">Key</td>
+<td class="smaller-table-row"><code>{expression}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">Word</td>
+<td class="smaller-table-row"><code>{expression}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">WordReading</td>
+<td class="smaller-table-row"><code>{furigana-plain}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PAOverride</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AJTWordPitch</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PrimaryDefinition</td>
+<td class="smaller-table-row"><code>{jpmn-primary-definition}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">Sentence</td>
+<td class="smaller-table-row"><code>{cloze-prefix}&lt;b&gt;{cloze-body}&lt;/b&gt;{cloze-suffix}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">SentenceReading</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AltDisplay</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AltDisplayPASentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AdditionalNotes</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*IsSentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*IsClickCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*IsHoverCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*IsTargetedSentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*PAShowInfo</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*PATestOnlyWord</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*PADoNotTest</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*PASeparateWordCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*PASeparateSentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">*SeparateClozeDeletionCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">Hint</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">HintNotHidden</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">Picture</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">WordAudio</td>
+<td class="smaller-table-row"><code>{audio}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">SentenceAudio</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PAGraphs</td>
+<td class="smaller-table-row"><code>{jpmn-pitch-accent-graphs}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PAPositions</td>
+<td class="smaller-table-row"><code>{jpmn-pitch-accent-positions}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">PASilence</td>
+<td class="smaller-table-row"><code>[sound:_silence.wav]</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">FrequenciesStylized</td>
+<td class="smaller-table-row"><code>{jpmn-frequencies}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">FrequencySort</td>
+<td class="smaller-table-row"><code>{jpmn-min-freq}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">SecondaryDefinition</td>
+<td class="smaller-table-row"><code>{jpmn-secondary-definition}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">ExtraDefinitions</td>
+<td class="smaller-table-row"><code>{jpmn-extra-definitions}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">UtilityDictionaries</td>
+<td class="smaller-table-row"><code>{jpmn-utility-dictionaries}</code></td>
+</tr>
+<tr>
+<td class="smaller-table-row">Comment</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>The above fields will create, by default,
+a basic <strong>vocab card</strong> in <strong>bilingual format</strong>,
+with all other definitions in collapsable fields.</p>
+<ul>
+<li><strong>Note</strong>: <br>
+  Anything field marked with <code>*</code> are binary fields, and
+  <strong>should be configured to each user's personal preferences.</strong>
+  To change the default value of any of the fields, simply fill
+  the field in within the aforementioned <code>Anki card format...</code> section.</li>
+</ul>
+<p>The custom markers like <code>{jpmn-primary-definition}</code> is not provided by Yomichan by default.
+See the section below to make these markers usable.</p>
+<h3 id="yomichan-templates">Yomichan Templates<a class="headerlink" href="#yomichan-templates" title="Permanent link">&para;</a></h3>
+<p>Yomichan supports user inserted template code that allows the automatic
+separation of bilingual and monolingual dictionary definitions, custom stylization, etc.
+This note type makes heavy use of these custom templates.</p>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/yomichan/import_yomichan_templates.mp4" type="video/mp4" /></video></div></p>
+<p>To make the new markers usable, do the following:</p>
+<ol>
+<li>Navigate to Yomichan Settings.</li>
+<li>Make sure that advanced settings are turned on (bottom left corner).</li>
+<li>Go to the <code>Anki</code> section</li>
+<li>Select <code>Configure Anki card templates...</code></li>
+<li>If you have existing template code already, I highly recommend
+   <strong>resetting the templates</strong> (bottom right corner, red button)
+   unless you know exactly what you are doing.</li>
+</ol>
+<p>After resetting the templates,
+<strong>without</strong> removing any of the existing template code,
+add the following template code as follows:</p>
+<ol>
+<li>
+<p>Copy and paste the code below to the <strong>top</strong> of the default Yomichan template code:</p>
+<details class="quote">
+<summary>Click here to show the template code to copy.</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">NOTE</span><span class="err">:</span> <span class="nv">this</span> <span class="nv">MUST</span> <span class="nv">be</span> <span class="nv">put</span> <span class="nv">at</span> <span class="nv">the</span> <span class="nv">very</span> <span class="nv">top</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">templates</span> <span class="nv">section</span><span class="err">!</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">REGEX</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">matches</span> <span class="nv">most</span> <span class="nv">JMdict</span> <span class="nv">dictionaries</span> <span class="nv">and</span> <span class="err">新和英</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;bilingual-dict-regex&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"> ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|ADD_BILINGUAL_DICTIONARIES_HERE)(\[object Object\])?$ </span><span class="cp">{{</span><span class="m m-Attribute">~/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;utility-dict-regex&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"> ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms|ADD_UTILITY_DICTIONARIES_HERE)(\[object Object\])?$ </span><span class="cp">{{</span><span class="m m-Attribute">~/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;ignored-dict-regex&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"> ^(ADD_IGNORED_DICTIONARIES_HERE)(\[object Object\])?$ </span><span class="cp">{{</span><span class="m m-Attribute">~/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">OPTIONS</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">valid</span> <span class="nv">values</span><span class="err">:</span> <span class="s2">&quot;bilingual&quot;</span><span class="err">,</span> <span class="s2">&quot;monolingual&quot;</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;opt-first-definition-type&quot;</span> <span class="s2">&quot;bilingual&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Copy and paste the code below to the <strong>bottom</strong> of the default Yomichan template code:</p>
+<details class="quote">
+<summary>Click here to show the template code to copy.</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">NOTE</span><span class="err">:</span> <span class="nv">this</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">put</span> <span class="nv">at</span> <span class="nv">the</span> <span class="nv">very</span> <span class="nv">bottom</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">templates</span> <span class="nv">section</span><span class="err">!</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="na">=================</span><span class="o">=</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>     <span class="nv">helper</span> <span class="nv">functions</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="na">=================</span><span class="o">=</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="cp">{{</span><span class="m m-Attribute">#*inline</span> <span class="s2">&quot;s&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">/inline</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">categorizes</span> <span class="nv">into</span> <span class="m">3</span> <span class="nv">types</span><span class="err">:</span> <span class="s2">&quot;bilingual&quot;</span><span class="err">,</span> <span class="s2">&quot;monolingual&quot;</span><span class="err">,</span> <span class="nv">or</span> <span class="s2">&quot;pitch-accent&quot;</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-get-dict-type&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="na">&quot;!=</span><span class="o">=</span><span class="s2">&quot; (regexMatch (get &quot;</span><span class="nv">ignored-dict-regex</span><span class="s2">&quot;) &quot;</span><span class="nv">gu</span><span class="s2">&quot; dictionaryName) &quot;&quot;)~}}</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="s2">        ignored</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="s2">    {{~else if (op &quot;</span><span class="na">!=</span><span class="o">=</span><span class="s2">&quot; (regexMatch (get &quot;</span><span class="nv">bilingual-dict-regex</span><span class="s2">&quot;) &quot;</span><span class="nv">gu</span><span class="s2">&quot; dictionaryName) &quot;&quot;)~}}</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="s2">        bilingual</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="s2">    {{~else if (op &quot;</span><span class="na">!=</span><span class="o">=</span><span class="s2">&quot; (regexMatch (get &quot;</span><span class="nv">utility-dict-regex</span><span class="s2">&quot;) &quot;</span><span class="nv">gu</span><span class="s2">&quot; dictionaryName) &quot;&quot;)~}}</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="s2">        utility</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="s2">    {{~else~}}</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="s2">        {{~! assumed that anything else is a monolingual dictionary ~}}</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="s2">        monolingual</span>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="s2">    {{~/if~}}</span>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="s2">{{~/inline~}}</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="s2">{{~! primary def: first monolingual (or first bilingual if no monolingual dicts found) ~}}</span>
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="s2">{{~#*inline &quot;</span><span class="nv">jpmn-get-primary-definition-dict</span><span class="s2">&quot;~}}</span>
+<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="s2">    {{~#scope~}}</span>
+<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>
+<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="s2">        {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">opt-first-definition-type</span><span class="s2">&quot;) &quot;</span><span class="nv">bilingual</span><span class="s2">&quot;)~}}</span>
+<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a><span class="s2">            {{~#set &quot;</span><span class="nv">first-definition-search-type-1</span><span class="s2">&quot; &quot;</span><span class="nv">bilingual</span><span class="s2">&quot;}}{{/set~}}</span>
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="s2">            {{~#set &quot;</span><span class="nv">first-definition-search-type-2</span><span class="s2">&quot; &quot;</span><span class="nv">monolingual</span><span class="s2">&quot;}}{{/set~}}</span>
+<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="s2">        {{~else~}}</span>
+<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a><span class="s2">            {{~#set &quot;</span><span class="nv">first-definition-search-type-1</span><span class="s2">&quot; &quot;</span><span class="nv">monolingual</span><span class="s2">&quot;}}{{/set~}}</span>
+<a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a><span class="s2">            {{~#set &quot;</span><span class="nv">first-definition-search-type-2</span><span class="s2">&quot; &quot;</span><span class="nv">bilingual</span><span class="s2">&quot;}}{{/set~}}</span>
+<a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a><span class="s2">        {{~/if~}}</span>
+<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>
+<a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a>
+<a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a><span class="s2">        {{~! first-dictionary === null &lt;=&gt; no valid dictionary was found ~}}</span>
+<a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a><span class="s2">        {{~#set &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot; null}}{{/set~}}</span>
+<a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a>
+<a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a><span class="s2">        {{~#each definition.definitions~}}</span>
+<a id="__codelineno-10-44" name="__codelineno-10-44" href="#__codelineno-10-44"></a>
+<a id="__codelineno-10-45" name="__codelineno-10-45" href="#__codelineno-10-45"></a><span class="s2">            {{~#set &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;}}{{~&gt; jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}</span>
+<a id="__codelineno-10-46" name="__codelineno-10-46" href="#__codelineno-10-46"></a><span class="s2">            {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;) (get &quot;</span><span class="nv">first-definition-search-type-1</span><span class="s2">&quot;))~}}</span>
+<a id="__codelineno-10-47" name="__codelineno-10-47" href="#__codelineno-10-47"></a><span class="s2">                {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; null (get &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot;))~}}</span>
+<a id="__codelineno-10-48" name="__codelineno-10-48" href="#__codelineno-10-48"></a><span class="s2">                    {{~#set &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot; dictionary~}}{{~/set~}}</span>
+<a id="__codelineno-10-49" name="__codelineno-10-49" href="#__codelineno-10-49"></a><span class="s2">                {{~/if~}}</span>
+<a id="__codelineno-10-50" name="__codelineno-10-50" href="#__codelineno-10-50"></a><span class="s2">            {{~/if~}}</span>
+<a id="__codelineno-10-51" name="__codelineno-10-51" href="#__codelineno-10-51"></a>
+<a id="__codelineno-10-52" name="__codelineno-10-52" href="#__codelineno-10-52"></a><span class="s2">        {{~/each~}}</span>
+<a id="__codelineno-10-53" name="__codelineno-10-53" href="#__codelineno-10-53"></a>
+<a id="__codelineno-10-54" name="__codelineno-10-54" href="#__codelineno-10-54"></a>
+<a id="__codelineno-10-55" name="__codelineno-10-55" href="#__codelineno-10-55"></a><span class="s2">        {{~! uses other dictionary type, last resort ~}}</span>
+<a id="__codelineno-10-56" name="__codelineno-10-56" href="#__codelineno-10-56"></a><span class="s2">        {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot;) null)~}}</span>
+<a id="__codelineno-10-57" name="__codelineno-10-57" href="#__codelineno-10-57"></a>
+<a id="__codelineno-10-58" name="__codelineno-10-58" href="#__codelineno-10-58"></a><span class="s2">            {{~#each definition.definitions~}}</span>
+<a id="__codelineno-10-59" name="__codelineno-10-59" href="#__codelineno-10-59"></a>
+<a id="__codelineno-10-60" name="__codelineno-10-60" href="#__codelineno-10-60"></a><span class="s2">                {{~#set &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;}}{{~&gt; jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}</span>
+<a id="__codelineno-10-61" name="__codelineno-10-61" href="#__codelineno-10-61"></a><span class="s2">                {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;) (get &quot;</span><span class="nv">first-definition-search-type-2</span><span class="s2">&quot;))~}}</span>
+<a id="__codelineno-10-62" name="__codelineno-10-62" href="#__codelineno-10-62"></a><span class="s2">                    {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; null (get &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot;))~}}</span>
+<a id="__codelineno-10-63" name="__codelineno-10-63" href="#__codelineno-10-63"></a><span class="s2">                        {{~#set &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot; dictionary~}}{{~/set~}}</span>
+<a id="__codelineno-10-64" name="__codelineno-10-64" href="#__codelineno-10-64"></a><span class="s2">                    {{~/if~}}</span>
+<a id="__codelineno-10-65" name="__codelineno-10-65" href="#__codelineno-10-65"></a><span class="s2">                {{~/if~}}</span>
+<a id="__codelineno-10-66" name="__codelineno-10-66" href="#__codelineno-10-66"></a>
+<a id="__codelineno-10-67" name="__codelineno-10-67" href="#__codelineno-10-67"></a><span class="s2">            {{~/each~}}</span>
+<a id="__codelineno-10-68" name="__codelineno-10-68" href="#__codelineno-10-68"></a>
+<a id="__codelineno-10-69" name="__codelineno-10-69" href="#__codelineno-10-69"></a><span class="s2">        {{~/if~}}</span>
+<a id="__codelineno-10-70" name="__codelineno-10-70" href="#__codelineno-10-70"></a>
+<a id="__codelineno-10-71" name="__codelineno-10-71" href="#__codelineno-10-71"></a><span class="s2">        {{~#get &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot;~}}{{~/get~}}</span>
+<a id="__codelineno-10-72" name="__codelineno-10-72" href="#__codelineno-10-72"></a>
+<a id="__codelineno-10-73" name="__codelineno-10-73" href="#__codelineno-10-73"></a><span class="s2">    {{~/scope~}}</span>
+<a id="__codelineno-10-74" name="__codelineno-10-74" href="#__codelineno-10-74"></a>
+<a id="__codelineno-10-75" name="__codelineno-10-75" href="#__codelineno-10-75"></a><span class="s2">{{~/inline~}}</span>
+<a id="__codelineno-10-76" name="__codelineno-10-76" href="#__codelineno-10-76"></a>
+<a id="__codelineno-10-77" name="__codelineno-10-77" href="#__codelineno-10-77"></a>
+<a id="__codelineno-10-78" name="__codelineno-10-78" href="#__codelineno-10-78"></a><span class="s2">{{~! custom glossary-single function for additional regex parsing per dictionary ~}}</span>
+<a id="__codelineno-10-79" name="__codelineno-10-79" href="#__codelineno-10-79"></a><span class="s2">{{~! OVERRIDES brief and noDictionaryTag ~}}</span>
+<a id="__codelineno-10-80" name="__codelineno-10-80" href="#__codelineno-10-80"></a><span class="s2">{{#*inline &quot;</span><span class="nv">jpmn-glossary-single</span><span class="s2">&quot;}}</span>
+<a id="__codelineno-10-81" name="__codelineno-10-81" href="#__codelineno-10-81"></a><span class="s2">    {{~#scope~}}</span>
+<a id="__codelineno-10-82" name="__codelineno-10-82" href="#__codelineno-10-82"></a><span class="s2">        {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; dictionary &quot;</span><span class="nv">NHK日本語発音アクセント新辞典</span><span class="s2">&quot;)~}}</span>
+<a id="__codelineno-10-83" name="__codelineno-10-83" href="#__codelineno-10-83"></a><span class="s2">            {{~#regexReplace &quot;</span><span class="err">&lt;</span><span class="nv">br</span><span class="err">&gt;</span> <span class="err">・</span><span class="s2">&quot; &quot;</span><span class="err">&lt;</span><span class="nv">br</span><span class="err">&gt;</span><span class="s2">&quot; &quot;</span><span class="nv">g</span><span class="s2">&quot;~}}</span>
+<a id="__codelineno-10-84" name="__codelineno-10-84" href="#__codelineno-10-84"></a><span class="s2">                {{~&gt; jpmn-glossary-single-override . ~}}</span>
+<a id="__codelineno-10-85" name="__codelineno-10-85" href="#__codelineno-10-85"></a><span class="s2">            {{~/regexReplace~}}</span>
+<a id="__codelineno-10-86" name="__codelineno-10-86" href="#__codelineno-10-86"></a><span class="s2">        {{~else~}}</span>
+<a id="__codelineno-10-87" name="__codelineno-10-87" href="#__codelineno-10-87"></a><span class="s2">            {{~&gt; jpmn-glossary-single-override . ~}}</span>
+<a id="__codelineno-10-88" name="__codelineno-10-88" href="#__codelineno-10-88"></a><span class="s2">        {{~/if~}}</span>
+<a id="__codelineno-10-89" name="__codelineno-10-89" href="#__codelineno-10-89"></a><span class="s2">    {{~/scope~}}</span>
+<a id="__codelineno-10-90" name="__codelineno-10-90" href="#__codelineno-10-90"></a><span class="s2">{{/inline}}</span>
+<a id="__codelineno-10-91" name="__codelineno-10-91" href="#__codelineno-10-91"></a>
+<a id="__codelineno-10-92" name="__codelineno-10-92" href="#__codelineno-10-92"></a>
+<a id="__codelineno-10-93" name="__codelineno-10-93" href="#__codelineno-10-93"></a><span class="s2">{{~! custom glossary-single function to add custom html around the dictionary and tags ~}}</span>
+<a id="__codelineno-10-94" name="__codelineno-10-94" href="#__codelineno-10-94"></a><span class="s2">{{#*inline &quot;</span><span class="nv">jpmn-glossary-single-override</span><span class="s2">&quot;}}</span>
+<a id="__codelineno-10-95" name="__codelineno-10-95" href="#__codelineno-10-95"></a>
+<a id="__codelineno-10-96" name="__codelineno-10-96" href="#__codelineno-10-96"></a><span class="s2">    {{~#scope~}}</span>
+<a id="__codelineno-10-97" name="__codelineno-10-97" href="#__codelineno-10-97"></a>
+<a id="__codelineno-10-98" name="__codelineno-10-98" href="#__codelineno-10-98"></a><span class="s2">        &lt;span class=&quot;</span><span class="nv">dict-group__tag-list</span><span class="s2">&quot;&gt; {{~s~}}</span>
+<a id="__codelineno-10-99" name="__codelineno-10-99" href="#__codelineno-10-99"></a>
+<a id="__codelineno-10-100" name="__codelineno-10-100" href="#__codelineno-10-100"></a><span class="s2">            {{~! only italics if jp-characters-regex finds no matches ~}}</span>
+<a id="__codelineno-10-101" name="__codelineno-10-101" href="#__codelineno-10-101"></a><span class="s2">            {{~#set &quot;</span><span class="nv">italics-start</span><span class="s2">&quot;}}{{/set~}}</span>
+<a id="__codelineno-10-102" name="__codelineno-10-102" href="#__codelineno-10-102"></a><span class="s2">            {{~#set &quot;</span><span class="nv">italics-end</span><span class="s2">&quot;}}{{/set~}}</span>
+<a id="__codelineno-10-103" name="__codelineno-10-103" href="#__codelineno-10-103"></a>
+<a id="__codelineno-10-104" name="__codelineno-10-104" href="#__codelineno-10-104"></a><span class="s2">            {{~#set &quot;</span><span class="nv">any</span><span class="s2">&quot; false}}{{/set~}}</span>
+<a id="__codelineno-10-105" name="__codelineno-10-105" href="#__codelineno-10-105"></a><span class="s2">            {{~#each definitionTags~}}</span>
+<a id="__codelineno-10-106" name="__codelineno-10-106" href="#__codelineno-10-106"></a>
+<a id="__codelineno-10-107" name="__codelineno-10-107" href="#__codelineno-10-107"></a><span class="s2">                &lt;span class=&quot;</span><span class="nv">dict-group__tag</span> <span class="nv">dict-group__tag--name</span><span class="s2">&quot;&gt; {{~s~}}</span>
+<a id="__codelineno-10-108" name="__codelineno-10-108" href="#__codelineno-10-108"></a><span class="s2">                    &lt;span class=&quot;</span><span class="nv">dict-group__tag-inner</span><span class="s2">&quot;&gt; {{~s~}}</span>
+<a id="__codelineno-10-109" name="__codelineno-10-109" href="#__codelineno-10-109"></a><span class="s2">                        {{~name~}}</span>
+<a id="__codelineno-10-110" name="__codelineno-10-110" href="#__codelineno-10-110"></a><span class="s2">                    &lt;/span&gt; {{~s~}}</span>
+<a id="__codelineno-10-111" name="__codelineno-10-111" href="#__codelineno-10-111"></a><span class="s2">                &lt;/span&gt; {{~s~}}</span>
+<a id="__codelineno-10-112" name="__codelineno-10-112" href="#__codelineno-10-112"></a>
+<a id="__codelineno-10-113" name="__codelineno-10-113" href="#__codelineno-10-113"></a><span class="s2">            {{~/each~}}</span>
+<a id="__codelineno-10-114" name="__codelineno-10-114" href="#__codelineno-10-114"></a><span class="s2">            {{~#unless noDictionaryTag~}}</span>
+<a id="__codelineno-10-115" name="__codelineno-10-115" href="#__codelineno-10-115"></a>
+<a id="__codelineno-10-116" name="__codelineno-10-116" href="#__codelineno-10-116"></a><span class="s2">                &lt;span class=&quot;</span><span class="nv">dict-group__tag</span> <span class="nv">dict-group__tag--dict</span><span class="s2">&quot;&gt; {{~s~}}</span>
+<a id="__codelineno-10-117" name="__codelineno-10-117" href="#__codelineno-10-117"></a><span class="s2">                    &lt;span class=&quot;</span><span class="nv">dict-group__tag-inner</span><span class="s2">&quot;&gt; {{~s~}}</span>
+<a id="__codelineno-10-118" name="__codelineno-10-118" href="#__codelineno-10-118"></a><span class="s2">                        {{~dictionary~}}</span>
+<a id="__codelineno-10-119" name="__codelineno-10-119" href="#__codelineno-10-119"></a><span class="s2">                    &lt;/span&gt; {{~s~}}</span>
+<a id="__codelineno-10-120" name="__codelineno-10-120" href="#__codelineno-10-120"></a><span class="s2">                &lt;/span&gt; {{~s~}}</span>
+<a id="__codelineno-10-121" name="__codelineno-10-121" href="#__codelineno-10-121"></a>
+<a id="__codelineno-10-122" name="__codelineno-10-122" href="#__codelineno-10-122"></a><span class="s2">            {{~/unless~}}</span>
+<a id="__codelineno-10-123" name="__codelineno-10-123" href="#__codelineno-10-123"></a><span class="s2">            {{~#if (get &quot;</span><span class="nv">any</span><span class="s2">&quot;)}}){{#get &quot;</span><span class="nv">italics-end</span><span class="s2">&quot;}}{{/get}} {{/if~}}</span>
+<a id="__codelineno-10-124" name="__codelineno-10-124" href="#__codelineno-10-124"></a>
+<a id="__codelineno-10-125" name="__codelineno-10-125" href="#__codelineno-10-125"></a><span class="s2">        &lt;/span&gt; {{~s~}}</span>
+<a id="__codelineno-10-126" name="__codelineno-10-126" href="#__codelineno-10-126"></a>
+<a id="__codelineno-10-127" name="__codelineno-10-127" href="#__codelineno-10-127"></a><span class="s2">        &lt;span class=&quot;</span><span class="nv">dict-group__glossary</span><span class="s2">&quot;&gt; {{~s~}}</span>
+<a id="__codelineno-10-128" name="__codelineno-10-128" href="#__codelineno-10-128"></a><span class="s2">            {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each~}}</span>
+<a id="__codelineno-10-129" name="__codelineno-10-129" href="#__codelineno-10-129"></a><span class="s2">        &lt;/span&gt; {{~s~}}</span>
+<a id="__codelineno-10-130" name="__codelineno-10-130" href="#__codelineno-10-130"></a>
+<a id="__codelineno-10-131" name="__codelineno-10-131" href="#__codelineno-10-131"></a><span class="s2">    {{~/scope~}}</span>
+<a id="__codelineno-10-132" name="__codelineno-10-132" href="#__codelineno-10-132"></a>
+<a id="__codelineno-10-133" name="__codelineno-10-133" href="#__codelineno-10-133"></a><span class="s2">    {{~#if only~}}({{#each only}}{{.}}{{#unless @last}}, {{/unless}}{{/each}} only) {{/if~}}</span>
+<a id="__codelineno-10-134" name="__codelineno-10-134" href="#__codelineno-10-134"></a><span class="s2">{{/inline}}</span>
+<a id="__codelineno-10-135" name="__codelineno-10-135" href="#__codelineno-10-135"></a>
+<a id="__codelineno-10-136" name="__codelineno-10-136" href="#__codelineno-10-136"></a>
+<a id="__codelineno-10-137" name="__codelineno-10-137" href="#__codelineno-10-137"></a><span class="s2">{{~!</span>
+<a id="__codelineno-10-138" name="__codelineno-10-138" href="#__codelineno-10-138"></a><span class="s2">    =============</span>
+<a id="__codelineno-10-139" name="__codelineno-10-139" href="#__codelineno-10-139"></a><span class="s2">     frequencies</span>
+<a id="__codelineno-10-140" name="__codelineno-10-140" href="#__codelineno-10-140"></a><span class="s2">    =============</span>
+<a id="__codelineno-10-141" name="__codelineno-10-141" href="#__codelineno-10-141"></a><span class="s2">~}}</span>
+<a id="__codelineno-10-142" name="__codelineno-10-142" href="#__codelineno-10-142"></a>
+<a id="__codelineno-10-143" name="__codelineno-10-143" href="#__codelineno-10-143"></a><span class="s2">{{#*inline &quot;</span><span class="nv">jpmn-frequencies</span><span class="s2">&quot;}}</span>
+<a id="__codelineno-10-144" name="__codelineno-10-144" href="#__codelineno-10-144"></a><span class="s2">    {{~#if (op &quot;</span><span class="err">&gt;</span><span class="s2">&quot; definition.frequencies.length 0)~}}</span>
+<a id="__codelineno-10-145" name="__codelineno-10-145" href="#__codelineno-10-145"></a><span class="s2">        &lt;div class=&quot;</span><span class="nv">frequencies</span><span class="s2">&quot;&gt;</span>
+<a id="__codelineno-10-146" name="__codelineno-10-146" href="#__codelineno-10-146"></a><span class="s2">        {{~#each definition.frequencies~}}</span>
+<a id="__codelineno-10-147" name="__codelineno-10-147" href="#__codelineno-10-147"></a><span class="s2">            &lt;div class=&quot;</span><span class="nv">frequencies__group</span><span class="s2">&quot; data-details=&quot;</span><span class="err">{{~</span><span class="nv">dictionary</span><span class="m">~</span><span class="cp">}}</span><span class="x">&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-148" name="__codelineno-10-148" href="#__codelineno-10-148"></a><span class="x">                &lt;div class=&quot;frequencies__number&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-149" name="__codelineno-10-149" href="#__codelineno-10-149"></a><span class="x">                    &lt;span class=&quot;frequencies__number-inner&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-150" name="__codelineno-10-150" href="#__codelineno-10-150"></a><span class="x">                        </span><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">removes</span> <span class="nv">the</span> <span class="s2">&quot;X&quot;</span> <span class="nv">in</span> <span class="nv">JPDB</span><span class="err">&#39;</span><span class="nv">s</span> <span class="nv">frequency</span> <span class="nv">and</span> <span class="nv">replaces</span> <span class="nv">it</span> <span class="nv">with</span> <span class="nv">a</span> <span class="nv">less</span> <span class="nv">assuming</span> <span class="nv">character</span>
+<a id="__codelineno-10-151" name="__codelineno-10-151" href="#__codelineno-10-151"></a>                            <span class="nv">(it</span> <span class="nv">interferes</span> <span class="nv">with</span> <span class="nv">the</span> <span class="nv">color</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">card</span><span class="err">,</span> <span class="nv">since</span> <span class="nv">you</span> <span class="nv">see</span> <span class="nv">red</span>
+<a id="__codelineno-10-152" name="__codelineno-10-152" href="#__codelineno-10-152"></a>                            <span class="nv">at</span> <span class="nv">the</span> <span class="nv">top</span> <span class="nv">corner</span> <span class="nv">which</span> <span class="nv">is</span> <span class="nv">somewhat</span> <span class="nv">distracting)</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-153" name="__codelineno-10-153" href="#__codelineno-10-153"></a><span class="x">                        </span><span class="cp">{{</span><span class="m m-Attribute">~#regexReplace</span> <span class="s2">&quot;❌&quot;</span> <span class="s2">&quot;✖&quot;</span> <span class="s2">&quot;g&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-154" name="__codelineno-10-154" href="#__codelineno-10-154"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~frequency~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-155" name="__codelineno-10-155" href="#__codelineno-10-155"></a><span class="x">                        </span><span class="cp">{{</span><span class="m m-Attribute">~/regexReplace~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-156" name="__codelineno-10-156" href="#__codelineno-10-156"></a><span class="x">                    &lt;/span&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-157" name="__codelineno-10-157" href="#__codelineno-10-157"></a><span class="x">                &lt;/div&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-158" name="__codelineno-10-158" href="#__codelineno-10-158"></a><span class="x">                &lt;div class=&quot;frequencies__dictionary&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-159" name="__codelineno-10-159" href="#__codelineno-10-159"></a><span class="x">                    &lt;span class=&quot;frequencies__dictionary-inner&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-160" name="__codelineno-10-160" href="#__codelineno-10-160"></a><span class="x">                        &lt;span class=&quot;frequencies__dictionary-inner2&quot;&gt;</span><span class="cp">{{</span><span class="m m-Attribute">~dictionary~</span><span class="cp">}}</span><span class="x">&lt;/span&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-161" name="__codelineno-10-161" href="#__codelineno-10-161"></a><span class="x">                    &lt;/span&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-162" name="__codelineno-10-162" href="#__codelineno-10-162"></a><span class="x">                &lt;/div&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-163" name="__codelineno-10-163" href="#__codelineno-10-163"></a><span class="x">            &lt;/div&gt;</span>
+<a id="__codelineno-10-164" name="__codelineno-10-164" href="#__codelineno-10-164"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-165" name="__codelineno-10-165" href="#__codelineno-10-165"></a><span class="x">        &lt;/div&gt;</span>
+<a id="__codelineno-10-166" name="__codelineno-10-166" href="#__codelineno-10-166"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-167" name="__codelineno-10-167" href="#__codelineno-10-167"></a><span class="cp">{{</span><span class="m m-Attribute">/inline</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-168" name="__codelineno-10-168" href="#__codelineno-10-168"></a>
+<a id="__codelineno-10-169" name="__codelineno-10-169" href="#__codelineno-10-169"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">taken</span> <span class="nv">from</span> <span class="nv">here</span><span class="err">:</span> <span class="nv">https</span><span class="err">:</span><span class="nv">//github.com/MarvNC/JP-Resources</span><span class="err">#</span><span class="nv">sorting-mined-anki-cards-by-frequency</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-170" name="__codelineno-10-170" href="#__codelineno-10-170"></a><span class="cp">{{</span><span class="m m-Attribute">#*inline</span> <span class="s2">&quot;jpmn-min-freq&quot;</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-171" name="__codelineno-10-171" href="#__codelineno-10-171"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-172" name="__codelineno-10-172" href="#__codelineno-10-172"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;min-freq&quot;</span> <span class="m">0</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-173" name="__codelineno-10-173" href="#__codelineno-10-173"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">#each</span> <span class="nv">definition.frequencies</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-174" name="__codelineno-10-174" href="#__codelineno-10-174"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="s2">&quot;||&quot;</span> <span class="nv">(op</span> <span class="na">&quot;==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">min-freq</span><span class="s2">&quot;) 0) (op &quot;</span><span class="err">&gt;</span><span class="s2">&quot; (op &quot;</span><span class="err">+</span><span class="s2">&quot; (get &quot;</span><span class="nv">min-freq</span><span class="s2">&quot;)) (op &quot;</span><span class="err">+</span><span class="s2">&quot; (regexMatch &quot;</span><span class="err">\</span><span class="nv">d</span><span class="s2">&quot; &quot;</span><span class="nv">g</span><span class="s2">&quot; this.frequency))))}}</span>
+<a id="__codelineno-10-175" name="__codelineno-10-175" href="#__codelineno-10-175"></a><span class="s2">                    {{~#set &quot;</span><span class="nv">min-freq</span><span class="s2">&quot; (op &quot;</span><span class="err">+</span><span class="s2">&quot; (regexMatch &quot;</span><span class="err">\</span><span class="nv">d</span><span class="s2">&quot; &quot;</span><span class="nv">g</span><span class="s2">&quot; this.frequency))}}{{/set~}}</span>
+<a id="__codelineno-10-176" name="__codelineno-10-176" href="#__codelineno-10-176"></a><span class="s2">                {{~/if~}}</span>
+<a id="__codelineno-10-177" name="__codelineno-10-177" href="#__codelineno-10-177"></a><span class="s2">            {{/each}}</span>
+<a id="__codelineno-10-178" name="__codelineno-10-178" href="#__codelineno-10-178"></a><span class="s2">        {{get &quot;</span><span class="nv">min-freq</span><span class="s2">&quot;}}</span>
+<a id="__codelineno-10-179" name="__codelineno-10-179" href="#__codelineno-10-179"></a><span class="s2">    {{~/scope~}}</span>
+<a id="__codelineno-10-180" name="__codelineno-10-180" href="#__codelineno-10-180"></a><span class="s2">{{/inline}}</span>
+<a id="__codelineno-10-181" name="__codelineno-10-181" href="#__codelineno-10-181"></a>
+<a id="__codelineno-10-182" name="__codelineno-10-182" href="#__codelineno-10-182"></a>
+<a id="__codelineno-10-183" name="__codelineno-10-183" href="#__codelineno-10-183"></a><span class="s2">{{~!</span>
+<a id="__codelineno-10-184" name="__codelineno-10-184" href="#__codelineno-10-184"></a><span class="s2">    ==============</span>
+<a id="__codelineno-10-185" name="__codelineno-10-185" href="#__codelineno-10-185"></a><span class="s2">     pitch accent</span>
+<a id="__codelineno-10-186" name="__codelineno-10-186" href="#__codelineno-10-186"></a><span class="s2">    ==============</span>
+<a id="__codelineno-10-187" name="__codelineno-10-187" href="#__codelineno-10-187"></a><span class="s2">~}}</span>
+<a id="__codelineno-10-188" name="__codelineno-10-188" href="#__codelineno-10-188"></a>
+<a id="__codelineno-10-189" name="__codelineno-10-189" href="#__codelineno-10-189"></a><span class="s2">{{#*inline &quot;</span><span class="nv">jpmn-pitch-accent-graphs</span><span class="s2">&quot;}}</span>
+<a id="__codelineno-10-190" name="__codelineno-10-190" href="#__codelineno-10-190"></a><span class="s2">    {{~#if (op &quot;</span><span class="err">&gt;</span><span class="s2">&quot; pitchCount 0)~}}</span>
+<a id="__codelineno-10-191" name="__codelineno-10-191" href="#__codelineno-10-191"></a><span class="s2">        {{~#each pitches~}}</span>
+<a id="__codelineno-10-192" name="__codelineno-10-192" href="#__codelineno-10-192"></a><span class="s2">            &lt;div class=&quot;</span><span class="nv">pa-graphs__group</span><span class="s2">&quot; data-details=&quot;</span><span class="err">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-193" name="__codelineno-10-193" href="#__codelineno-10-193"></a><span class="x">                &lt;div class=&quot;pa-graphs__dictionary&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-194" name="__codelineno-10-194" href="#__codelineno-10-194"></a><span class="x">                    &lt;div class=&quot;pa-graphs__dictionary-inner&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-195" name="__codelineno-10-195" href="#__codelineno-10-195"></a><span class="x">                        </span><span class="cp">{{</span><span class="m m-Attribute">~dictionary~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-196" name="__codelineno-10-196" href="#__codelineno-10-196"></a><span class="x">                    &lt;/div&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-197" name="__codelineno-10-197" href="#__codelineno-10-197"></a><span class="x">                &lt;/div&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-198" name="__codelineno-10-198" href="#__codelineno-10-198"></a><span class="x">                &lt;ol&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-199" name="__codelineno-10-199" href="#__codelineno-10-199"></a><span class="x">                    </span><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">pitches</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-200" name="__codelineno-10-200" href="#__codelineno-10-200"></a><span class="x">                        &lt;li&gt;</span>
+<a id="__codelineno-10-201" name="__codelineno-10-201" href="#__codelineno-10-201"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">pitch-accent-item-disambiguation</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-202" name="__codelineno-10-202" href="#__codelineno-10-202"></a>
+<a id="__codelineno-10-203" name="__codelineno-10-203" href="#__codelineno-10-203"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-204" name="__codelineno-10-204" href="#__codelineno-10-204"></a><span class="x">                                </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;any&quot;</span> <span class="nv">false</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-205" name="__codelineno-10-205" href="#__codelineno-10-205"></a><span class="x">                                </span><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">tags</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-206" name="__codelineno-10-206" href="#__codelineno-10-206"></a><span class="x">                                    </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(get</span> <span class="s2">&quot;any&quot;</span><span class="nv">)</span><span class="cp">}}</span><span class="x">, </span><span class="cp">{{</span><span class="nv">else</span><span class="cp">}}</span><span class="x">(</span><span class="cp">{{</span><span class="m m-Attribute">/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-207" name="__codelineno-10-207" href="#__codelineno-10-207"></a><span class="x">                                    </span><span class="cp">{{</span><span class="nv">name</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-208" name="__codelineno-10-208" href="#__codelineno-10-208"></a><span class="x">                                    </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;any&quot;</span> <span class="nv">true</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-209" name="__codelineno-10-209" href="#__codelineno-10-209"></a><span class="x">                                </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-210" name="__codelineno-10-210" href="#__codelineno-10-210"></a><span class="x">                                </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(get</span> <span class="s2">&quot;any&quot;</span><span class="nv">)</span><span class="cp">}}</span><span class="x">) </span><span class="cp">{{</span><span class="m m-Attribute">/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-211" name="__codelineno-10-211" href="#__codelineno-10-211"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-212" name="__codelineno-10-212" href="#__codelineno-10-212"></a>
+<a id="__codelineno-10-213" name="__codelineno-10-213" href="#__codelineno-10-213"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">pitch-accent-item</span> <span class="na">format</span><span class="o">=</span><span class="s2">&quot;graph&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-214" name="__codelineno-10-214" href="#__codelineno-10-214"></a><span class="x">                        &lt;/li&gt;</span>
+<a id="__codelineno-10-215" name="__codelineno-10-215" href="#__codelineno-10-215"></a><span class="x">                    </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-216" name="__codelineno-10-216" href="#__codelineno-10-216"></a><span class="x">                &lt;/ol&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-217" name="__codelineno-10-217" href="#__codelineno-10-217"></a><span class="x">            &lt;/div&gt;</span>
+<a id="__codelineno-10-218" name="__codelineno-10-218" href="#__codelineno-10-218"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-219" name="__codelineno-10-219" href="#__codelineno-10-219"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-220" name="__codelineno-10-220" href="#__codelineno-10-220"></a><span class="cp">{{</span><span class="m m-Attribute">/inline</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-221" name="__codelineno-10-221" href="#__codelineno-10-221"></a>
+<a id="__codelineno-10-222" name="__codelineno-10-222" href="#__codelineno-10-222"></a>
+<a id="__codelineno-10-223" name="__codelineno-10-223" href="#__codelineno-10-223"></a><span class="cp">{{</span><span class="m m-Attribute">#*inline</span> <span class="s2">&quot;jpmn-pitch-accent-positions&quot;</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-224" name="__codelineno-10-224" href="#__codelineno-10-224"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="s2">&quot;&gt;&quot;</span> <span class="nv">pitchCount</span> <span class="m">0</span><span class="nv">)</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-225" name="__codelineno-10-225" href="#__codelineno-10-225"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">pitches</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-226" name="__codelineno-10-226" href="#__codelineno-10-226"></a><span class="x">            &lt;div class=&quot;pa-positions__group&quot; data-details=&quot;</span><span class="cp">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-227" name="__codelineno-10-227" href="#__codelineno-10-227"></a><span class="x">                &lt;div class=&quot;pa-positions__dictionary&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-228" name="__codelineno-10-228" href="#__codelineno-10-228"></a><span class="x">                    &lt;div class=&quot;pa-positions__dictionary-inner&quot;&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-229" name="__codelineno-10-229" href="#__codelineno-10-229"></a><span class="x">                        </span><span class="cp">{{</span><span class="m m-Attribute">~dictionary~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-230" name="__codelineno-10-230" href="#__codelineno-10-230"></a><span class="x">                    &lt;/div&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-231" name="__codelineno-10-231" href="#__codelineno-10-231"></a><span class="x">                &lt;/div&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-232" name="__codelineno-10-232" href="#__codelineno-10-232"></a><span class="x">                &lt;ol&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-233" name="__codelineno-10-233" href="#__codelineno-10-233"></a><span class="x">                    </span><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">pitches</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-234" name="__codelineno-10-234" href="#__codelineno-10-234"></a><span class="x">                        &lt;li&gt;</span>
+<a id="__codelineno-10-235" name="__codelineno-10-235" href="#__codelineno-10-235"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">pitch-accent-item-disambiguation</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-236" name="__codelineno-10-236" href="#__codelineno-10-236"></a>
+<a id="__codelineno-10-237" name="__codelineno-10-237" href="#__codelineno-10-237"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-238" name="__codelineno-10-238" href="#__codelineno-10-238"></a><span class="x">                                </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;any&quot;</span> <span class="nv">false</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-239" name="__codelineno-10-239" href="#__codelineno-10-239"></a><span class="x">                                </span><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">tags</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-240" name="__codelineno-10-240" href="#__codelineno-10-240"></a><span class="x">                                    </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(get</span> <span class="s2">&quot;any&quot;</span><span class="nv">)</span><span class="cp">}}</span><span class="x">, </span><span class="cp">{{</span><span class="nv">else</span><span class="cp">}}</span><span class="x">(</span><span class="cp">{{</span><span class="m m-Attribute">/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-241" name="__codelineno-10-241" href="#__codelineno-10-241"></a><span class="x">                                    </span><span class="cp">{{</span><span class="nv">name</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-242" name="__codelineno-10-242" href="#__codelineno-10-242"></a><span class="x">                                    </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;any&quot;</span> <span class="nv">true</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-243" name="__codelineno-10-243" href="#__codelineno-10-243"></a><span class="x">                                </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-244" name="__codelineno-10-244" href="#__codelineno-10-244"></a><span class="x">                                </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(get</span> <span class="s2">&quot;any&quot;</span><span class="nv">)</span><span class="cp">}}</span><span class="x">) </span><span class="cp">{{</span><span class="m m-Attribute">/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-245" name="__codelineno-10-245" href="#__codelineno-10-245"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-246" name="__codelineno-10-246" href="#__codelineno-10-246"></a>
+<a id="__codelineno-10-247" name="__codelineno-10-247" href="#__codelineno-10-247"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">pitch-accent-item</span> <span class="na">format</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-248" name="__codelineno-10-248" href="#__codelineno-10-248"></a><span class="x">                        &lt;/li&gt;</span>
+<a id="__codelineno-10-249" name="__codelineno-10-249" href="#__codelineno-10-249"></a><span class="x">                    </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-250" name="__codelineno-10-250" href="#__codelineno-10-250"></a><span class="x">                &lt;/ol&gt; </span><span class="cp">{{</span><span class="m m-Attribute">~s~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-251" name="__codelineno-10-251" href="#__codelineno-10-251"></a><span class="x">            &lt;/div&gt;</span>
+<a id="__codelineno-10-252" name="__codelineno-10-252" href="#__codelineno-10-252"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-253" name="__codelineno-10-253" href="#__codelineno-10-253"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-254" name="__codelineno-10-254" href="#__codelineno-10-254"></a><span class="cp">{{</span><span class="m m-Attribute">/inline</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-255" name="__codelineno-10-255" href="#__codelineno-10-255"></a>
+<a id="__codelineno-10-256" name="__codelineno-10-256" href="#__codelineno-10-256"></a>
+<a id="__codelineno-10-257" name="__codelineno-10-257" href="#__codelineno-10-257"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span>
+<a id="__codelineno-10-258" name="__codelineno-10-258" href="#__codelineno-10-258"></a>    <span class="na">=============</span><span class="o">=</span>
+<a id="__codelineno-10-259" name="__codelineno-10-259" href="#__codelineno-10-259"></a>     <span class="nv">dictionaries</span>
+<a id="__codelineno-10-260" name="__codelineno-10-260" href="#__codelineno-10-260"></a>    <span class="na">=============</span><span class="o">=</span>
+<a id="__codelineno-10-261" name="__codelineno-10-261" href="#__codelineno-10-261"></a><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-262" name="__codelineno-10-262" href="#__codelineno-10-262"></a>
+<a id="__codelineno-10-263" name="__codelineno-10-263" href="#__codelineno-10-263"></a>
+<a id="__codelineno-10-264" name="__codelineno-10-264" href="#__codelineno-10-264"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">primary</span> <span class="nv">def</span><span class="err">:</span> <span class="nv">first</span> <span class="nv">monolingual</span> <span class="nv">(or</span> <span class="nv">first</span> <span class="nv">bilingual</span> <span class="nv">if</span> <span class="nv">no</span> <span class="nv">monolingual</span> <span class="nv">dicts</span> <span class="nv">found)</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-265" name="__codelineno-10-265" href="#__codelineno-10-265"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">does</span> <span class="nv">the</span> <span class="nv">reverse</span> <span class="nv">if</span> <span class="nv">opt-first-definition-type</span> <span class="nv">is</span> <span class="s2">&quot;bilingual&quot;</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-266" name="__codelineno-10-266" href="#__codelineno-10-266"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-primary-definition&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-267" name="__codelineno-10-267" href="#__codelineno-10-267"></a>
+<a id="__codelineno-10-268" name="__codelineno-10-268" href="#__codelineno-10-268"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-269" name="__codelineno-10-269" href="#__codelineno-10-269"></a>
+<a id="__codelineno-10-270" name="__codelineno-10-270" href="#__codelineno-10-270"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;primary-dictionary&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">jpmn-get-primary-definition-dict</span> <span class="err">.</span> <span class="m">~</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-271" name="__codelineno-10-271" href="#__codelineno-10-271"></a>
+<a id="__codelineno-10-272" name="__codelineno-10-272" href="#__codelineno-10-272"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="na">&quot;!=</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">primary-dictionary</span><span class="s2">&quot;) &quot;&quot;)~}}</span>
+<a id="__codelineno-10-273" name="__codelineno-10-273" href="#__codelineno-10-273"></a><span class="s2">            &lt;ol&gt;</span>
+<a id="__codelineno-10-274" name="__codelineno-10-274" href="#__codelineno-10-274"></a><span class="s2">            {{~#each definition.definitions~}}</span>
+<a id="__codelineno-10-275" name="__codelineno-10-275" href="#__codelineno-10-275"></a><span class="s2">                {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; dictionary (get &quot;</span><span class="nv">primary-dictionary</span><span class="s2">&quot;))~}}</span>
+<a id="__codelineno-10-276" name="__codelineno-10-276" href="#__codelineno-10-276"></a><span class="s2">                    &lt;li data-details=&quot;</span><span class="err">{{~</span><span class="nv">dictionary</span><span class="m">~</span><span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<a id="__codelineno-10-277" name="__codelineno-10-277" href="#__codelineno-10-277"></a><span class="x">                        </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">jpmn-glossary-single</span> <span class="err">.</span> <span class="na">brief</span><span class="o">=</span><span class="nv">../brief</span> <span class="na">noDictionaryTag</span><span class="o">=</span><span class="nv">../noDictionaryTag</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-278" name="__codelineno-10-278" href="#__codelineno-10-278"></a><span class="x">                    &lt;/li&gt;</span>
+<a id="__codelineno-10-279" name="__codelineno-10-279" href="#__codelineno-10-279"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-280" name="__codelineno-10-280" href="#__codelineno-10-280"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-281" name="__codelineno-10-281" href="#__codelineno-10-281"></a><span class="x">            &lt;/ol&gt;</span>
+<a id="__codelineno-10-282" name="__codelineno-10-282" href="#__codelineno-10-282"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-283" name="__codelineno-10-283" href="#__codelineno-10-283"></a>
+<a id="__codelineno-10-284" name="__codelineno-10-284" href="#__codelineno-10-284"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-285" name="__codelineno-10-285" href="#__codelineno-10-285"></a>
+<a id="__codelineno-10-286" name="__codelineno-10-286" href="#__codelineno-10-286"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-287" name="__codelineno-10-287" href="#__codelineno-10-287"></a>
+<a id="__codelineno-10-288" name="__codelineno-10-288" href="#__codelineno-10-288"></a>
+<a id="__codelineno-10-289" name="__codelineno-10-289" href="#__codelineno-10-289"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">extra</span> <span class="nv">def</span><span class="err">:</span> <span class="nv">bilingual</span> <span class="nv">defs</span> <span class="nv">(excluding</span> <span class="nv">primary</span> <span class="nv">def)</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-290" name="__codelineno-10-290" href="#__codelineno-10-290"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-secondary-definition&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-291" name="__codelineno-10-291" href="#__codelineno-10-291"></a>
+<a id="__codelineno-10-292" name="__codelineno-10-292" href="#__codelineno-10-292"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-293" name="__codelineno-10-293" href="#__codelineno-10-293"></a>
+<a id="__codelineno-10-294" name="__codelineno-10-294" href="#__codelineno-10-294"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;primary-dictionary&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">jpmn-get-primary-definition-dict</span> <span class="err">.</span> <span class="m">~</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-295" name="__codelineno-10-295" href="#__codelineno-10-295"></a>
+<a id="__codelineno-10-296" name="__codelineno-10-296" href="#__codelineno-10-296"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="na">&quot;!=</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">primary-dictionary</span><span class="s2">&quot;) &quot;&quot;)~}}</span>
+<a id="__codelineno-10-297" name="__codelineno-10-297" href="#__codelineno-10-297"></a>
+<a id="__codelineno-10-298" name="__codelineno-10-298" href="#__codelineno-10-298"></a><span class="s2">            {{~! looks to see if another dictionary exists ~}}</span>
+<a id="__codelineno-10-299" name="__codelineno-10-299" href="#__codelineno-10-299"></a><span class="s2">            {{~#set &quot;</span><span class="nv">valid-dict</span><span class="s2">&quot; false}}{{/set~}}</span>
+<a id="__codelineno-10-300" name="__codelineno-10-300" href="#__codelineno-10-300"></a>
+<a id="__codelineno-10-301" name="__codelineno-10-301" href="#__codelineno-10-301"></a><span class="s2">            {{~#each definition.definitions~}}</span>
+<a id="__codelineno-10-302" name="__codelineno-10-302" href="#__codelineno-10-302"></a><span class="s2">                {{~#set &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;}}{{~&gt; jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}</span>
+<a id="__codelineno-10-303" name="__codelineno-10-303" href="#__codelineno-10-303"></a><span class="s2">                {{~#if (op &quot;</span><span class="err">&amp;&amp;</span><span class="s2">&quot; (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;) &quot;</span><span class="nv">bilingual</span><span class="s2">&quot;) (op &quot;</span><span class="na">!=</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">primary-dictionary</span><span class="s2">&quot;) dictionary))~}}</span>
+<a id="__codelineno-10-304" name="__codelineno-10-304" href="#__codelineno-10-304"></a><span class="s2">                    {{~#set &quot;</span><span class="nv">valid-dict</span><span class="s2">&quot; true}}{{/set~}}</span>
+<a id="__codelineno-10-305" name="__codelineno-10-305" href="#__codelineno-10-305"></a><span class="s2">                {{~/if~}}</span>
+<a id="__codelineno-10-306" name="__codelineno-10-306" href="#__codelineno-10-306"></a><span class="s2">            {{~/each~}}</span>
+<a id="__codelineno-10-307" name="__codelineno-10-307" href="#__codelineno-10-307"></a>
+<a id="__codelineno-10-308" name="__codelineno-10-308" href="#__codelineno-10-308"></a><span class="s2">            {{~#if (get &quot;</span><span class="nv">valid-dict</span><span class="s2">&quot;) ~}}</span>
+<a id="__codelineno-10-309" name="__codelineno-10-309" href="#__codelineno-10-309"></a><span class="s2">                &lt;ol&gt;</span>
+<a id="__codelineno-10-310" name="__codelineno-10-310" href="#__codelineno-10-310"></a><span class="s2">                {{~#each definition.definitions~}}</span>
+<a id="__codelineno-10-311" name="__codelineno-10-311" href="#__codelineno-10-311"></a><span class="s2">                    {{~#set &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;}}{{~&gt; jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}</span>
+<a id="__codelineno-10-312" name="__codelineno-10-312" href="#__codelineno-10-312"></a><span class="s2">                    {{~#if (op &quot;</span><span class="err">&amp;&amp;</span><span class="s2">&quot; (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;) &quot;</span><span class="nv">bilingual</span><span class="s2">&quot;) (op &quot;</span><span class="na">!=</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">primary-dictionary</span><span class="s2">&quot;) dictionary))~}}</span>
+<a id="__codelineno-10-313" name="__codelineno-10-313" href="#__codelineno-10-313"></a>
+<a id="__codelineno-10-314" name="__codelineno-10-314" href="#__codelineno-10-314"></a><span class="s2">                        &lt;li data-details=&quot;</span><span class="err">{{~</span><span class="nv">dictionary</span><span class="m">~</span><span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<a id="__codelineno-10-315" name="__codelineno-10-315" href="#__codelineno-10-315"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">jpmn-glossary-single</span> <span class="err">.</span> <span class="na">brief</span><span class="o">=</span><span class="nv">../brief</span> <span class="na">noDictionaryTag</span><span class="o">=</span><span class="nv">../noDictionaryTag</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-316" name="__codelineno-10-316" href="#__codelineno-10-316"></a><span class="x">                        &lt;/li&gt;</span>
+<a id="__codelineno-10-317" name="__codelineno-10-317" href="#__codelineno-10-317"></a>
+<a id="__codelineno-10-318" name="__codelineno-10-318" href="#__codelineno-10-318"></a><span class="x">                    </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-319" name="__codelineno-10-319" href="#__codelineno-10-319"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-320" name="__codelineno-10-320" href="#__codelineno-10-320"></a><span class="x">                &lt;/ol&gt;</span>
+<a id="__codelineno-10-321" name="__codelineno-10-321" href="#__codelineno-10-321"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-322" name="__codelineno-10-322" href="#__codelineno-10-322"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-323" name="__codelineno-10-323" href="#__codelineno-10-323"></a>
+<a id="__codelineno-10-324" name="__codelineno-10-324" href="#__codelineno-10-324"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-325" name="__codelineno-10-325" href="#__codelineno-10-325"></a>
+<a id="__codelineno-10-326" name="__codelineno-10-326" href="#__codelineno-10-326"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-327" name="__codelineno-10-327" href="#__codelineno-10-327"></a>
+<a id="__codelineno-10-328" name="__codelineno-10-328" href="#__codelineno-10-328"></a>
+<a id="__codelineno-10-329" name="__codelineno-10-329" href="#__codelineno-10-329"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">extra</span> <span class="nv">def</span><span class="err">:</span> <span class="nv">monolingual</span> <span class="nv">defs</span> <span class="nv">(excluding</span> <span class="nv">primary</span> <span class="nv">def)</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-330" name="__codelineno-10-330" href="#__codelineno-10-330"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-extra-definitions&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-331" name="__codelineno-10-331" href="#__codelineno-10-331"></a>
+<a id="__codelineno-10-332" name="__codelineno-10-332" href="#__codelineno-10-332"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-333" name="__codelineno-10-333" href="#__codelineno-10-333"></a>
+<a id="__codelineno-10-334" name="__codelineno-10-334" href="#__codelineno-10-334"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;primary-dictionary&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">jpmn-get-primary-definition-dict</span> <span class="err">.</span> <span class="m">~</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-335" name="__codelineno-10-335" href="#__codelineno-10-335"></a>
+<a id="__codelineno-10-336" name="__codelineno-10-336" href="#__codelineno-10-336"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="na">&quot;!=</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">primary-dictionary</span><span class="s2">&quot;) &quot;&quot;)~}}</span>
+<a id="__codelineno-10-337" name="__codelineno-10-337" href="#__codelineno-10-337"></a>
+<a id="__codelineno-10-338" name="__codelineno-10-338" href="#__codelineno-10-338"></a><span class="s2">            {{~! looks to see if another dictionary exists ~}}</span>
+<a id="__codelineno-10-339" name="__codelineno-10-339" href="#__codelineno-10-339"></a><span class="s2">            {{~#set &quot;</span><span class="nv">valid-dict</span><span class="s2">&quot; false}}{{/set~}}</span>
+<a id="__codelineno-10-340" name="__codelineno-10-340" href="#__codelineno-10-340"></a>
+<a id="__codelineno-10-341" name="__codelineno-10-341" href="#__codelineno-10-341"></a><span class="s2">            {{~#each definition.definitions~}}</span>
+<a id="__codelineno-10-342" name="__codelineno-10-342" href="#__codelineno-10-342"></a><span class="s2">                {{~#set &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;}}{{~&gt; jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}</span>
+<a id="__codelineno-10-343" name="__codelineno-10-343" href="#__codelineno-10-343"></a><span class="s2">                {{~#if (op &quot;</span><span class="err">&amp;&amp;</span><span class="s2">&quot; (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;) &quot;</span><span class="nv">monolingual</span><span class="s2">&quot;) (op &quot;</span><span class="na">!=</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">primary-dictionary</span><span class="s2">&quot;) dictionary))~}}</span>
+<a id="__codelineno-10-344" name="__codelineno-10-344" href="#__codelineno-10-344"></a><span class="s2">                    {{~#set &quot;</span><span class="nv">valid-dict</span><span class="s2">&quot; true}}{{/set~}}</span>
+<a id="__codelineno-10-345" name="__codelineno-10-345" href="#__codelineno-10-345"></a><span class="s2">                {{~/if~}}</span>
+<a id="__codelineno-10-346" name="__codelineno-10-346" href="#__codelineno-10-346"></a><span class="s2">            {{~/each~}}</span>
+<a id="__codelineno-10-347" name="__codelineno-10-347" href="#__codelineno-10-347"></a>
+<a id="__codelineno-10-348" name="__codelineno-10-348" href="#__codelineno-10-348"></a><span class="s2">            {{~#if (get &quot;</span><span class="nv">valid-dict</span><span class="s2">&quot;) ~}}</span>
+<a id="__codelineno-10-349" name="__codelineno-10-349" href="#__codelineno-10-349"></a><span class="s2">                &lt;ol&gt;</span>
+<a id="__codelineno-10-350" name="__codelineno-10-350" href="#__codelineno-10-350"></a><span class="s2">                {{~#each definition.definitions~}}</span>
+<a id="__codelineno-10-351" name="__codelineno-10-351" href="#__codelineno-10-351"></a><span class="s2">                    {{~#set &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;}}{{~&gt; jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}</span>
+<a id="__codelineno-10-352" name="__codelineno-10-352" href="#__codelineno-10-352"></a><span class="s2">                    {{~#if (op &quot;</span><span class="err">&amp;&amp;</span><span class="s2">&quot; (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;) &quot;</span><span class="nv">monolingual</span><span class="s2">&quot;) (op &quot;</span><span class="na">!=</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">primary-dictionary</span><span class="s2">&quot;) dictionary))~}}</span>
+<a id="__codelineno-10-353" name="__codelineno-10-353" href="#__codelineno-10-353"></a><span class="s2">                        &lt;li data-details=&quot;</span><span class="err">{{~</span><span class="nv">dictionary</span><span class="m">~</span><span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<a id="__codelineno-10-354" name="__codelineno-10-354" href="#__codelineno-10-354"></a><span class="x">                            </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">jpmn-glossary-single</span> <span class="err">.</span> <span class="na">brief</span><span class="o">=</span><span class="nv">../brief</span> <span class="na">noDictionaryTag</span><span class="o">=</span><span class="nv">../noDictionaryTag</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-355" name="__codelineno-10-355" href="#__codelineno-10-355"></a><span class="x">                        &lt;/li&gt;</span>
+<a id="__codelineno-10-356" name="__codelineno-10-356" href="#__codelineno-10-356"></a><span class="x">                    </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-357" name="__codelineno-10-357" href="#__codelineno-10-357"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-358" name="__codelineno-10-358" href="#__codelineno-10-358"></a><span class="x">                &lt;/ol&gt;</span>
+<a id="__codelineno-10-359" name="__codelineno-10-359" href="#__codelineno-10-359"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-360" name="__codelineno-10-360" href="#__codelineno-10-360"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-361" name="__codelineno-10-361" href="#__codelineno-10-361"></a>
+<a id="__codelineno-10-362" name="__codelineno-10-362" href="#__codelineno-10-362"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-363" name="__codelineno-10-363" href="#__codelineno-10-363"></a>
+<a id="__codelineno-10-364" name="__codelineno-10-364" href="#__codelineno-10-364"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-365" name="__codelineno-10-365" href="#__codelineno-10-365"></a>
+<a id="__codelineno-10-366" name="__codelineno-10-366" href="#__codelineno-10-366"></a>
+<a id="__codelineno-10-367" name="__codelineno-10-367" href="#__codelineno-10-367"></a>
+<a id="__codelineno-10-368" name="__codelineno-10-368" href="#__codelineno-10-368"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">pitch</span> <span class="nv">accent</span> <span class="nv">info</span><span class="err">:</span> <span class="nv">all</span> <span class="nv">pitch</span> <span class="nv">accent</span> <span class="nv">info</span> <span class="nv">dictionaries</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-369" name="__codelineno-10-369" href="#__codelineno-10-369"></a>
+<a id="__codelineno-10-370" name="__codelineno-10-370" href="#__codelineno-10-370"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-utility-dictionaries&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-371" name="__codelineno-10-371" href="#__codelineno-10-371"></a>
+<a id="__codelineno-10-372" name="__codelineno-10-372" href="#__codelineno-10-372"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-373" name="__codelineno-10-373" href="#__codelineno-10-373"></a>
+<a id="__codelineno-10-374" name="__codelineno-10-374" href="#__codelineno-10-374"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">looks</span> <span class="nv">to</span> <span class="nv">see</span> <span class="nv">if</span> <span class="nv">another</span> <span class="nv">dictionary</span> <span class="nv">exists</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-375" name="__codelineno-10-375" href="#__codelineno-10-375"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;valid-dict&quot;</span> <span class="nv">false</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-376" name="__codelineno-10-376" href="#__codelineno-10-376"></a>
+<a id="__codelineno-10-377" name="__codelineno-10-377" href="#__codelineno-10-377"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-378" name="__codelineno-10-378" href="#__codelineno-10-378"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;test-dict-name&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">jpmn-get-dict-type</span> <span class="err">.</span> <span class="na">dictionaryName</span><span class="o">=</span><span class="nv">dictionary</span> <span class="m">~</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-379" name="__codelineno-10-379" href="#__codelineno-10-379"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="na">&quot;==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;) &quot;</span><span class="nv">utility</span><span class="s2">&quot;)~}}</span>
+<a id="__codelineno-10-380" name="__codelineno-10-380" href="#__codelineno-10-380"></a><span class="s2">                {{~#set &quot;</span><span class="nv">valid-dict</span><span class="s2">&quot; true}}{{/set~}}</span>
+<a id="__codelineno-10-381" name="__codelineno-10-381" href="#__codelineno-10-381"></a><span class="s2">            {{~/if~}}</span>
+<a id="__codelineno-10-382" name="__codelineno-10-382" href="#__codelineno-10-382"></a><span class="s2">        {{~/each~}}</span>
+<a id="__codelineno-10-383" name="__codelineno-10-383" href="#__codelineno-10-383"></a>
+<a id="__codelineno-10-384" name="__codelineno-10-384" href="#__codelineno-10-384"></a><span class="s2">        {{~#if (get &quot;</span><span class="nv">valid-dict</span><span class="s2">&quot;) ~}}</span>
+<a id="__codelineno-10-385" name="__codelineno-10-385" href="#__codelineno-10-385"></a><span class="s2">            &lt;ol&gt;</span>
+<a id="__codelineno-10-386" name="__codelineno-10-386" href="#__codelineno-10-386"></a><span class="s2">            {{~#each definition.definitions~}}</span>
+<a id="__codelineno-10-387" name="__codelineno-10-387" href="#__codelineno-10-387"></a><span class="s2">                {{~#set &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;}}{{~&gt; jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}</span>
+<a id="__codelineno-10-388" name="__codelineno-10-388" href="#__codelineno-10-388"></a><span class="s2">                {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">test-dict-name</span><span class="s2">&quot;) &quot;</span><span class="nv">utility</span><span class="s2">&quot;)~}}</span>
+<a id="__codelineno-10-389" name="__codelineno-10-389" href="#__codelineno-10-389"></a><span class="s2">                    &lt;li data-details=&quot;</span><span class="err">{{~</span><span class="nv">dictionary</span><span class="m">~</span><span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<a id="__codelineno-10-390" name="__codelineno-10-390" href="#__codelineno-10-390"></a><span class="x">                        </span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">jpmn-glossary-single</span> <span class="err">.</span> <span class="na">brief</span><span class="o">=</span><span class="nv">../brief</span> <span class="na">noDictionaryTag</span><span class="o">=</span><span class="nv">../noDictionaryTag</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-391" name="__codelineno-10-391" href="#__codelineno-10-391"></a><span class="x">                    &lt;/li&gt;</span>
+<a id="__codelineno-10-392" name="__codelineno-10-392" href="#__codelineno-10-392"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-393" name="__codelineno-10-393" href="#__codelineno-10-393"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-394" name="__codelineno-10-394" href="#__codelineno-10-394"></a><span class="x">            &lt;/ol&gt;</span>
+<a id="__codelineno-10-395" name="__codelineno-10-395" href="#__codelineno-10-395"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-396" name="__codelineno-10-396" href="#__codelineno-10-396"></a>
+<a id="__codelineno-10-397" name="__codelineno-10-397" href="#__codelineno-10-397"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-398" name="__codelineno-10-398" href="#__codelineno-10-398"></a>
+<a id="__codelineno-10-399" name="__codelineno-10-399" href="#__codelineno-10-399"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-400" name="__codelineno-10-400" href="#__codelineno-10-400"></a>
+<a id="__codelineno-10-401" name="__codelineno-10-401" href="#__codelineno-10-401"></a>
+<a id="__codelineno-10-402" name="__codelineno-10-402" href="#__codelineno-10-402"></a>
+<a id="__codelineno-10-403" name="__codelineno-10-403" href="#__codelineno-10-403"></a>
+<a id="__codelineno-10-404" name="__codelineno-10-404" href="#__codelineno-10-404"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">a</span> <span class="nv">test</span> <span class="nv">to</span> <span class="nv">check</span> <span class="nv">if</span> <span class="nv">your</span> <span class="nv">dictionaries</span> <span class="nv">are</span> <span class="nv">correctly</span> <span class="nv">classified</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-405" name="__codelineno-10-405" href="#__codelineno-10-405"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">Only</span> <span class="nv">meant</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">used</span> <span class="nv">for</span> <span class="nv">debugging</span> <span class="nv">purposes</span><span class="err">,</span> <span class="nv">not</span> <span class="nv">Anki</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-406" name="__codelineno-10-406" href="#__codelineno-10-406"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-test-dict-type&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-407" name="__codelineno-10-407" href="#__codelineno-10-407"></a><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-408" name="__codelineno-10-408" href="#__codelineno-10-408"></a><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-409" name="__codelineno-10-409" href="#__codelineno-10-409"></a><span class="x">「</span><span class="cp">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">」: </span><span class="cp">{{</span><span class="k">&gt;</span> <span class="nv">jpmn-get-dict-type</span> <span class="err">.</span> <span class="na">dictionaryName</span><span class="o">=</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-410" name="__codelineno-10-410" href="#__codelineno-10-410"></a><span class="cp">{{</span><span class="m m-Attribute">/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-411" name="__codelineno-10-411" href="#__codelineno-10-411"></a><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-10-412" name="__codelineno-10-412" href="#__codelineno-10-412"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div>
+</details>
+</li>
+</ol>
+<h3 id="make-an-example-card">Make an example card!<a class="headerlink" href="#make-an-example-card" title="Permanent link">&para;</a></h3>
+<p>At this point, you should be able to make an example card with Yomichan!</p>
+<p>Here's an excerpt of text you can test Yomichan on:</p>
+<p>「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」</p>
+<p><a href="../assets/yomichan/add_card.gif"><img alt="adding a card with Yomichan" src="../assets/yomichan/add_card.gif" /></a></p>
+<p>Obviously, just Yomichan alone doesn't fill every field.
+Notably, the picture and sentence audio is missing.</p>
+<p>Outside of that, there are some final settings you can adjust within the Yomichan templates
+if the card doesn't look quite right.</p>
+<h3 id="yomichan-templates-settings">Yomichan Templates Settings<a class="headerlink" href="#yomichan-templates-settings" title="Permanent link">&para;</a></h3>
+<h4 id="monolingual-definition">Monolingual Definition<a class="headerlink" href="#monolingual-definition" title="Permanent link">&para;</a></h4>
+<p>If you want the first definition you see (the <code>PrimaryDefinition</code> field) to be monolingual,
+change the following line at the top of the templates code:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;opt-first-definition-type&quot;</span> <span class="s2">&quot;bilingual&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div>
+to
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;opt-first-definition-type&quot;</span> <span class="s2">&quot;monolingual&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div></p>
+<h4 id="categorization-of-dictionaries">Categorization of Dictionaries<a class="headerlink" href="#categorization-of-dictionaries" title="Permanent link">&para;</a></h4>
+<p>If your dictionaries are ending up in the wrong sections,
+then it is likely a problem with how the template code categorizes the dictionaries.
+If you made a card above, check that your dictionaries are in the expected places.</p>
+<p>The foolproof way to check that your dictionaries are correctly categorized is with the
+<code>{jpmn-test-dict-type}</code> (new as of 0.9.1.2) marker.
+Under the Anki Templates code, replace <code>Card field</code> with <code>{jpmn-test-dict-type}</code> and press <code>Test</code>.</p>
+<p><a href="../assets/yomichan/test_dictionary_categorization.gif"><img alt="checking dictionary categories" src="../assets/yomichan/test_dictionary_categorization.gif" /></a></p>
+<p>An example output of the above (on the word 結構) is the following:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>「旺文社国語辞典 第十一版」: monolingual
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>「明鏡国語辞典 第二版」: monolingual
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>「ハイブリッド新辞林」: monolingual
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>「新明解国語辞典 第五版」: monolingual
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>「デジタル大辞泉」: monolingual
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>「NHK日本語発音アクセント新辞典」: utility
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>「JMDict Surface Forms」: utility
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>「JMdict (English)」: bilingual
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>「JMdict (English)」: bilingual
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>「JMdict (English)」: bilingual
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>「JMdict (English)」: bilingual
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>「JMdict (English)」: bilingual
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>「新和英」: bilingual
+</code></pre></div></p>
+<!--
+The template code **only works** if the bilingual dictionaries
+and utility dictionaries are explicitly specified in the templates.
+
+In other words, (as of writing this)
+if you use bilingual dictionaries that are not `JMdict` or `新和英`,
+or you use a Yomichan dictionary for pitch accent that isn't
+`NHK日本語発音アクセント新辞典`,
+then you will have to add your dictionary to the handlebars code.
+-->
+
+<p>If a dictionary is miscategorized,
+you will have to edit <code>bilingual-dict-regex</code> or <code>utility-dict-regex</code>
+at the top of the template code.
+Monolingual dictionaries are considered to be dictionaries that aren't either
+of the two above, so no handlebars code has to be changed if one were to
+use more monolingual dictionaries.</p>
+<p>To see how to edit the regex, go to <a href="./#editing-the-dictionary-regex">this section</a>.</p>
+<h4 id="ignoring-a-dictionary">Ignoring a Dictionary<a class="headerlink" href="#ignoring-a-dictionary" title="Permanent link">&para;</a></h4>
+<p>If you want to see the dictionary on Yomichan but not have it show on Anki,
+you can use the <code>ignored-dict-regex</code> option.</p>
+<p>To see how to edit the option, see <a href="./#editing-the-dictionary-regex">the section below</a>.</p>
+<p>Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
+<a href="jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki">see here</a>.</p>
+<h4 id="editing-the-dictionary-regex">Editing the dictionary regex<a class="headerlink" href="#editing-the-dictionary-regex" title="Permanent link">&para;</a></h4>
+<p>To modify a regex string:</p>
+<ol>
+<li>
+<p>Determine the exact tag your dictionary has.
+    To see this, take a word that has a definition in the desired dictionary, and test
+    <code>{jpmn-test-dict-type}</code> like above.
+    The string inside the quotes 「」 is exactly the tag of the dictionary.</p>
+</li>
+<li>
+<p>Add the dictionary tag to the string, by replacing <code>ADD_x_DICTIONARIES_HERE</code>.
+    For example, if your bilingual dictionary tag is <code>Amazing Dictionary</code>, change
+    <code>ADD_BILINGUAL_DICTIONARIES_HERE</code> to
+    <code>Amazing Dictionary</code>.</p>
+<p>If you want to add more than one dictionary, they have to be joined with the <code>|</code> character.
+For example, if you want to add the bilingual dictionaries
+<code>Amazing Dictionary</code> and <code>Somewhat-Okay-Dictionary</code>, change
+<code>ADD_BILINGUAL_DICTIONARIES_HERE</code> to
+<code>Amazing Dictionary|Somewhat-Okay-Dictionary</code>.</p>
+<p>For completeness, here is the modified line for the second example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;bilingual-dict-regex&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"> ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|Amazing Dictionary|Somewhat-Okay-Dictionary)(\[object Object\])?$ </span><span class="cp">{{</span><span class="m m-Attribute">~/set~</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div></p>
+</li>
+</ol>
+<!--
+Various other customizations can be easily done, such as:
+- Various styling to the frequency list and pitch accent graph entries
+- Specifying exactly which dictionaries are monolingual and bilingual
+For more information on the templates used here, including **customization and troubleshooting**,
+see the templates section [here](yomichantemplates).
+-->
+
+<h3 id="other-yomichan-settings">Other Yomichan Settings<a class="headerlink" href="#other-yomichan-settings" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Again, if you have never used Yomichan before, I recommend checking out
+  <a href="https://learnjapanese.moe/yomichan/">this page</a>.</li>
+</ul>
+<!--* The layout of Yomichan **changes the appearance of the exported card**.
+  To get exactly the same look as the sample images and cards type,
+  use "Compact glossaries" turned on and "Compact tags" turned off,
+  found under Yomichan settings →  "Popup Appearance".-->
+<ul>
+<li>If you are planning on using the JMDict dictionary,
+  I recommend downloading from the
+  <a href="https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project">official site</a>
+  and using <a href="https://github.com/FooSoft/yomichan-import">yomichan-import</a>
+  to get the latest jmdict version available.
+  This is because other sources could have older definitions,
+  which usually means less accurate definitions.</li>
+<li><a href="https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336">This</a>
+  link has further template code, which creates markers for individual dictionaries.
+  This has certain extended capabilities over my template code, such as removing the first line.</li>
+<li>Instructions on adding Forvo as an alternate audio source to Yomichan
+  can be found <a href="https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source">here</a></li>
+</ul>
+<hr />
+<h2 id="creating-the-cards">Creating the Cards<a class="headerlink" href="#creating-the-cards" title="Permanent link">&para;</a></h2>
+<p>I use a texthooker setup, which is able to extract subtitles or text into the browser.
+Once the text is on the browser, you can use Yomichan to select the word and create the
+Anki card (click on the green plus button).</p>
+<p>The classic texthooker setup works for most games, and any show with subtitle files.
+This texthooker process has already been explained in great detail by
+many other smart people in the following links:</p>
+<ul>
+<li><a href="https://rentry.co/mining#browser">Texthooker basics</a></li>
+<li><a href="https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese">Texthooker basics &amp; Visual Novels</a></li>
+</ul>
+<p>The setup also works with video files if the video player supports automated copying of subtitles,
+and if you have the correct subtitle files.</p>
+<ul>
+<li>MPV with either <code>mpvacious</code> or <code>Immersive</code> add-ons supports this workflow, as detailed in the next section.</li>
+<li>Many anime subtitle files can be found under
+<a href="https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F">kitsuneko</a>.</li>
+</ul>
+<hr />
+<h2 id="automating-pictures-and-sentence-audio">Automating Pictures and Sentence Audio<a class="headerlink" href="#automating-pictures-and-sentence-audio" title="Permanent link">&para;</a></h2>
+<p>If you've made it this far, then congratulations!
+Most fields of the cards have been automatically filled out, just from Yomichan alone!
+Yomichan is able to automatically generate everything <strong>EXCEPT</strong> the pictures and sentence audio
+from the media you are consuming.
+Fortunately, that can be automated as well.</p>
+<p>However, the tools to automate that will likely be slightly different for each individual
+user as it depends on what media they consume, operating system / device, etc.
+Instead of walking you through how to get these to work,
+I will instead provide a list of resources you can use.
+Of course, this list is incomplete, and there could be tools better suited for your workflow.</p>
+<p><a href="https://github.com/Ajatt-Tools/mpvacious"><strong>mpvacious</strong></a></p>
+<ul>
+<li>add-on for <a href="https://mpv.io/">MPV</a>, a cross platform media player. Personally tested.</li>
+<li>Given a subtitle file for a movie file, it can automatically add sentence audio and images with one <code>Ctrl+n</code> command.</li>
+</ul>
+<p><a href="https://github.com/Ben-Kerman/immersive"><strong>Immersive</strong></a></p>
+<ul>
+<li>A powerful alternative to the mpvacious add-on above, with certain different capabilities.</li>
+<li>Can also be used to automatically extract sentence audio and pictures.</li>
+</ul>
+<p><a href="https://github.com/killergerbah/asbplayer"><strong>asbplayer</strong></a></p>
+<ul>
+<li>Cross platform (chromium) browser video player. Personally tested.</li>
+<li>This also has card image and audio exporting capabilities.</li>
+<li>Works on video streaming sites as well.</li>
+</ul>
+<p><a href="https://github.com/animebook/animebook.github.io"><strong>Animebook</strong></a></p>
+<ul>
+<li>Cross platform (chromium) browser video player.</li>
+<li>This also has card image and audio exporting capabilities.</li>
+</ul>
+<p><a href="https://getsharex.com/"><strong>ShareX</strong></a></p>
+<ul>
+<li>Windows media recorder which can both take screenshots and record audio. Personally tested.</li>
+<li>This can be automated to add audio and pictures to the most recently added anki card
+  by following the instructions
+  <a href="https://rentry.co/mining#sharex">here</a>.</li>
+<li>Useful for things that don't have an easy way of getting audio, such as visual novels.</li>
+</ul>
+<p><a href="https://github.com/eshrh/ames"><strong>ames</strong></a></p>
+<ul>
+<li>ShareX alternative for Linux. Personally tested.</li>
+<li>Primarily used to automate audio and picture extraction to the most recently added anki card.</li>
+</ul>
+<p><a href="https://github.com/lrorpilla/jidoujisho"><strong>jidoujisho</strong></a></p>
+<ul>
+<li>Android reader and media player, which can also create Anki cards.</li>
+<li>Note that this app does NOT use Yomichan, which means that certain fields may not be filled automatically</li>
+</ul>
+<p><a href="https://github.com/kha-white/mokuro"><strong>mokuro</strong></a></p>
+<ul>
+<li>This is not something that can automatically add images or audio to your cards,
+  BUT it allows you to use popup-dictionaries like Yomichan on manga (an actual game-changer).</li>
+</ul>
+<!-- TODO move this somewhere else, or just straight up remove it :eyes:
+
+# Optional Yomichan & Anki Setup
+
+## Audio Sources
+TheMoeWay documents two setups for getting audio:
+* If you have 3.5gb of free space, you can use
+    [locally downloaded audio files](https://learnjapanese.moe/yomichan/#offline-audio-server).
+    This is useful in two ways:
+    * You are able to get word audio regardless of internet connection.
+    * Card creation is significantly faster (for me personally, it reduced card creation time from around 5 seconds to less than half a second.)
+
+  **Note:** that if you are using Linux,
+  unzip the files with the following command: `unzip -O shift-jis filename.zip`
+
+  TODO document alternative setup with sqlite
+
+  **Note:** There is an alternative setup for this with the files as described in The Moe Way discord server
+  [here](http://discordapp.com/channels/617136488840429598/778430038159655012/984607054616481832).
+  (TODO pastebin mirror)
+  The main difference is that this uses sqlite,
+  so the database is saved on the disk to prevent excessive memory caching
+  (each time anki loads, about 250MB of data has to be loaded into memory for the original add-on to work.)
+  * To use this, replace the python files with the ones linked above.
+  * This requires Anki 2.1.50 or greater.
+
+* [Forvo](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
+    as a backup audio source, in case previous sources do not have audio.
+
+-->
+
+<hr />
+<h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h2>
+<h3 id="anki-add-ons">Anki add-on(s)<a class="headerlink" href="#anki-add-ons" title="Permanent link">&para;</a></h3>
+<p>These add-on(s) assist in card creation, but are ultimately optional.</p>
+<ul>
+<li>Paste Images As WebP <a href="https://ankiweb.net/shared/info/1151815987">(link)</a></li>
+</ul>
+<h3 id="separate-pitch-accent-deck">Separate Pitch Accent Deck<a class="headerlink" href="#separate-pitch-accent-deck" title="Permanent link">&para;</a></h3>
+<p>If you want card types to go to a different deck by default, you can change it by doing the following:</p>
+<p><code>Browse</code> (top middle) <br>
+→  <code>Cards...</code> (around the middle of the screen, right above first field of the note. This is NOT the <code>Cards</code> dropdown menu at the top right corner) <br>
+→  <code>Card Type</code> dropdown (top of the screen) <br>
+→  (choose pitch accent card type) <br>
+→  <code>Options</code> (the first <code>Options</code> you see at the very top of the screen) <br>
+→  <code>Deck Override...</code></p>
+<hr />
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>If everything is setup correctly, then the difficult part is finally done!
+The cards can now be created at ease, and now all that's left is understanding how to
+use and edit the card itself.
+Head over to <a href="usage.md">Usage</a> to see exactly that.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../about/" class="md-footer__link md-footer__link--prev" aria-label="Previous: About" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              About
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "header.autohide", "navigation.sections"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.48f2be22.min.js"></script>
+      
+    
+  </body>
+</html>
