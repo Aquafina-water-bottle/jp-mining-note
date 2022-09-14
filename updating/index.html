@@ -15,7 +15,7 @@
     
     
       
-        <title>Updating the Note (TODO) - jp-mining-note</title>
+        <title>Updating (TODO) - jp-mining-note</title>
       
     
     
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Updating the Note (TODO)
+              Updating (TODO)
             
           </span>
         </div>
@@ -287,12 +287,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Updating the Note (TODO)
+          Updating (TODO)
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Updating the Note (TODO)
+        Updating (TODO)
       </a>
       
         
@@ -315,13 +315,6 @@
   
     <nav class="md-nav" aria-label="Updating the Card">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#preliminary-steps" class="md-nav__link">
-    Preliminary steps
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#python-script-method-recommended" class="md-nav__link">
@@ -462,13 +455,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#preliminary-steps" class="md-nav__link">
-    Preliminary steps
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#python-script-method-recommended" class="md-nav__link">
     Python Script Method (recommended)
   </a>
@@ -536,24 +522,28 @@
                   
 
 
-  <h1>Updating the Note (TODO)</h1>
+  <h1>Updating (TODO)</h1>
 
 <h2 id="updating-the-card">Updating the Card<a class="headerlink" href="#updating-the-card" title="Permanent link">&para;</a></h2>
 <p>This section is dedicated to explaining how to update the card itself.
 The supported and highly recommended way is by using a Python script.</p>
-<h3 id="preliminary-steps">Preliminary steps<a class="headerlink" href="#preliminary-steps" title="Permanent link">&para;</a></h3>
+<!--## Preliminary steps-->
+
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Updating your card will <strong>DELETE ANY CUSTOM CHANGES</strong> you might have made to the templates.</p>
+<p>Updating your card will <strong>DELETE ANY CHANGES</strong> you have made to the templates.</p>
 <p>Please make a <strong>complete backup</strong> of your collection
 (Main Window →  <code>File</code> (top left corner) →  <code>Export...</code> →  <code>Anki Collection Package</code>).</p>
 </div>
-<p>For this page, it is expected that you know how to do basic command line related tasks.
+<!--
+For this page, it is expected that you know how to do basic command line related tasks.
 However, if you're a Windows user, I provide more detailed instructions and external links
 on how to do basic command line related tasks, as well as explicitly reduce the number
 of command line instructions you have to run.
 With that being said, if you're a MacOS or Linux user, no special guidance will be given
-in this documentation.</p>
+in this documentation.
+-->
+
 <h3 id="python-script-method-recommended">Python Script Method (recommended)<a class="headerlink" href="#python-script-method-recommended" title="Permanent link">&para;</a></h3>
 <!--
 If you know what `python` and `git` is, please skip this section
@@ -572,15 +562,23 @@ and does not have the required API calls that the installation script
 will likely need (calls related to field editing).</p>
 <details class="info">
 <summary>Click here to see how to install the dev version of Anki-Connect.</summary>
-<h4 id="command-line-installation-anki-connect-dev">Command Line Installation (Anki-Connect-Dev)<a class="headerlink" href="#command-line-installation-anki-connect-dev" title="Permanent link">&para;</a></h4>
-<p>Note: this method <strong>only</strong> works on MacOS and Linux systems.
+<p>You can install Anki-Connect-Dev in one of two ways:</p>
+<details class="info">
+<summary>Command Line Installation (MacOS and Linux ONLY)</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git clone https://github.com/FooSoft/anki-connect.git
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cd anki-connect
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>./link.sh
 </code></pre></div>
-Be sure to see the <a href="updating#final-steps-anki-connect-dev">final steps</a> after installing.</p>
-<p><br></p>
-<h4 id="manual-installation-anki-connect-dev">Manual Installation (Anki-Connect-Dev)<a class="headerlink" href="#manual-installation-anki-connect-dev" title="Permanent link">&para;</a></h4>
+<p>After installing <code>AnkiConnectDev</code>:</p>
+<ol>
+<li>Disable the old Anki-Connect add-on.</li>
+<li>Restart Anki to apply the changes.</li>
+</ol>
+<p>To confirm you have the dev version installed, check your list of installed add-ons in Anki.
+You should be able to see <code>AnkiConnectDev</code> in the aforementioned list.</p>
+</details>
+<details class="info">
+<summary>Manual Installation</summary>
 <ol>
 <li>Download the zip of the
    <a href="https://github.com/FooSoft/anki-connect">Anki-Connect repository</a>, by
@@ -600,14 +598,14 @@ Be sure to see the <a href="updating#final-steps-anki-connect-dev">final steps</
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>       L edit.py
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>       ...
 </code></pre></div></p>
-<p>Be sure to see the <a href="updating#final-steps-anki-connect-dev">final steps</a> after installing.</p>
-<p><br></p>
-<h4 id="final-steps-anki-connect-dev">Final steps (Anki-Connect-Dev)<a class="headerlink" href="#final-steps-anki-connect-dev" title="Permanent link">&para;</a></h4>
-<p>After installing <code>AnkiConnectDev</code>:
-1. Disable the old Anki-Connect add-on.
-1. Restart Anki to apply the changes.</p>
+<p>After installing <code>AnkiConnectDev</code>:</p>
+<ol>
+<li>Disable the old Anki-Connect add-on.</li>
+<li>Restart Anki to apply the changes.</li>
+</ol>
 <p>To confirm you have the dev version installed, check your list of installed add-ons in Anki.
 You should be able to see <code>AnkiConnectDev</code> in the aforementioned list.</p>
+</details>
 </details>
 <h4 id="command-line">Command Line<a class="headerlink" href="#command-line" title="Permanent link">&para;</a></h4>
 <p>The cross-platform command line summary on how to update the note is shown below.
@@ -743,13 +741,15 @@ is a matching field in that other card.</p>
     →  (select <code>JP Mining Note (copy)</code>) <br>
     →  <code>Delete</code></li>
 </ol>
-<p><strong>Explanation</strong>: <br>
-Using the temporary copy of the updated card
+<div class="admonition info">
+<p class="admonition-title">Explanation</p>
+<p>Using the temporary copy of the updated card
 means that fields that remain unchanged between the old card and new card
 will be transferred automatically in the Yomichan Format.
 If you simply choose some random model like <code>Basic</code>,
 then almost none of the fields will be preserved, as the <code>Basic</code> card
 does not have any matching fields with the <code>JP Mining Note</code> model.</p>
+</div>
 <hr />
 <h2 id="updating-yomichan-templates">Updating Yomichan Templates<a class="headerlink" href="#updating-yomichan-templates" title="Permanent link">&para;</a></h2>
 <p>Like the above, you can simply follow the steps already specified in <a href="setup#yomichan-templates">setup</a>.
