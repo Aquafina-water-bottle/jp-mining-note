@@ -1,0 +1,44 @@
+# THANK YOU https://github.com/friedrich-de/AnimecardsWebsite
+# for putting the site on github so I can easily copy/paste settings
+
+site_name: jp-mining-note Documentation
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    scheme: slate
+    primary: black
+  #logo: assets/ideogram-cjk-variant.svg
+  #favicon: assets/smallmarisa.png
+  features:
+    - navigation.instant
+    - header.autohide
+    - navigation.sections
+
+plugins:
+  - mkdocs-video:
+      css_style:
+        width: "100%"
+        height: "100%"
+      is_video: True
+      video_autoplay: False
+
+nav:
+  - Home: index.md
+  - About: about.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
