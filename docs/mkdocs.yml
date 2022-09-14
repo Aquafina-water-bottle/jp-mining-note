@@ -1,1 +1,24 @@
 site_name: My Docs
+
+theme:
+  name: material
+  custom_dir: overrides
+  palette:
+    scheme: slate
+    primary: black
+  #logo: assets/ideogram-cjk-variant.svg
+  #favicon: assets/smallmarisa.png
+  features:
+    - navigation.instant
+    - header.autohide
+    - navigation.sections
+
+
+nav:
+    - Home: index.md
+    - About: about.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 3
