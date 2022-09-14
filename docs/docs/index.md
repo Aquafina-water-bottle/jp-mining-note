@@ -66,6 +66,7 @@ and css code:
 
 
 
+{% raw %}
 ```handlebars
 {{#*inline "selection-text"}}
     {{~#if (op "!==" (getMedia "selectionText") "")~}}
@@ -75,3 +76,23 @@ and css code:
     {{/if~}}
 {{/inline}}
 ```
+{% endraw %}
+
+
+testing jinja stuff:
+{% set x = [1, 2, 3] %}
+{% for y in x %}
+{{ y }} ?
+{% endfor %}
+
+a?
+
+
+| Anki Fields | Yomichan Format |
+|-------------|-----------------|
+{% for f, v in FIELDS.items() -%}
+| {{ "*" if v["customize"] else "" }}{{ f }} { .smaller-table-row } | {{ "`" + v["setup"] + "` { .smaller-table-row }" if "setup" in v else "" }} |
+{% endfor %}
+
+guh
+
