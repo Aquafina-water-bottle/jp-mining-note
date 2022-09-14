@@ -5,20 +5,23 @@ This section is dedicated to explaining how to update the card itself.
 The supported and highly recommended way is by using a Python script.
 
 
-## Preliminary steps
+<!--## Preliminary steps-->
+
 !!! warning
-    Updating your card will **DELETE ANY CUSTOM CHANGES** you might have made to the templates.
+    Updating your card will **DELETE ANY CHANGES** you have made to the templates.
 
     Please make a **complete backup** of your collection
     (Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
 
 
+<!--
 For this page, it is expected that you know how to do basic command line related tasks.
 However, if you're a Windows user, I provide more detailed instructions and external links
 on how to do basic command line related tasks, as well as explicitly reduce the number
 of command line instructions you have to run.
 With that being said, if you're a MacOS or Linux user, no special guidance will be given
 in this documentation.
+-->
 
 
 ## Python Script Method (recommended)
@@ -41,55 +44,58 @@ because the Anki web version of Anki-Connect is too old
 and does not have the required API calls that the installation script
 will likely need (calls related to field editing).
 
+{% set anki_connect_final_steps %}
+After installing `AnkiConnectDev`:
+
+1. Disable the old Anki-Connect add-on.
+1. Restart Anki to apply the changes.
+
+To confirm you have the dev version installed, check your list of installed add-ons in Anki.
+You should be able to see `AnkiConnectDev` in the aforementioned list.
+{% endset %}
+
+
+
 
 ??? info "Click here to see how to install the dev version of Anki-Connect."
 
-    ### Command Line Installation (Anki-Connect-Dev)
-    Note: this method **only** works on MacOS and Linux systems.
-    ```
-    git clone https://github.com/FooSoft/anki-connect.git
-    cd anki-connect
-    ./link.sh
-    ```
-    Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
+    You can install Anki-Connect-Dev in one of two ways:
 
-    <br>
+    ??? info "Command Line Installation (MacOS and Linux ONLY)"
 
-    ### Manual Installation (Anki-Connect-Dev)
-    1. Download the zip of the
-       [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
-       clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
-       After that, unzip the directory.
-    1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
-       in the [addons folder](faq#where-is-the-x-folder-in-anki).
-    1. Rename `plugin` to `AnkiConnectDev`.
-
-    In the end, the file structure should look something like below:
-    ```
-    Anki2
-     L addons21
-        L AnkiConnectDev
-           L __init__.py
-           L config.json
-           L config.md
-           L edit.py
-           ...
-    ```
-
-    Be sure to see the [final steps](updating#final-steps-anki-connect-dev) after installing.
-
-    <br>
-
-    ### Final steps (Anki-Connect-Dev)
-    After installing `AnkiConnectDev`:
-    1. Disable the old Anki-Connect add-on.
-    1. Restart Anki to apply the changes.
-
-    To confirm you have the dev version installed, check your list of installed add-ons in Anki.
-    You should be able to see `AnkiConnectDev` in the aforementioned list.
+        ```
+        git clone https://github.com/FooSoft/anki-connect.git
+        cd anki-connect
+        ./link.sh
+        ```
+        {% filter indent(8) -%}
+        {{ anki_connect_final_steps }}
+        {% endfilter %}
 
 
+    ??? info "Manual Installation"
+        1. Download the zip of the
+           [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
+           clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
+           After that, unzip the directory.
+        1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
+           in the [addons folder](faq#where-is-the-x-folder-in-anki).
+        1. Rename `plugin` to `AnkiConnectDev`.
 
+        In the end, the file structure should look something like below:
+        ```
+        Anki2
+         L addons21
+            L AnkiConnectDev
+               L __init__.py
+               L config.json
+               L config.md
+               L edit.py
+               ...
+        ```
+        {% filter indent(8) -%}
+        {{ anki_connect_final_steps }}
+        {% endfilter %}
 
 
 ### Command Line
@@ -235,13 +241,13 @@ Here is how I recommend transitioning as smoothly as possible:
     →  (select `JP Mining Note (copy)`) <br>
     →  `Delete`
 
-**Explanation**: <br>
-Using the temporary copy of the updated card
-means that fields that remain unchanged between the old card and new card
-will be transferred automatically in the Yomichan Format.
-If you simply choose some random model like `Basic`,
-then almost none of the fields will be preserved, as the `Basic` card
-does not have any matching fields with the `JP Mining Note` model.
+!!! info "Explanation"
+    Using the temporary copy of the updated card
+    means that fields that remain unchanged between the old card and new card
+    will be transferred automatically in the Yomichan Format.
+    If you simply choose some random model like `Basic`,
+    then almost none of the fields will be preserved, as the `Basic` card
+    does not have any matching fields with the `JP Mining Note` model.
 
 ---
 

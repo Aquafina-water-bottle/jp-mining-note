@@ -131,8 +131,12 @@ I use the default config that comes with the add-on.
 !!! note
 
     Some older versions of Anki (2.1.49 and below) require a hack to the Anki-Connect
-    config for the card to work.
-    Add "null" to the `webCorsOriginList` list.
+    config for certain features within the card to work.
+    In particular, Anki-Connect is used for the Kanji Hover feature and the
+    "Open Extra Info on New Card" feature.
+
+    To make those features work,
+    add `"null"` to the `webCorsOriginList` list in the Anki-Connect config file.
     An example of how the config should look is shown below:
 
     ```
@@ -159,67 +163,174 @@ so I *strongly* recommend using this.
 
 There are two ways of using css injector with this note type:
 
+
+
+{% set css_injector_preliminary %}
+As a preliminary step, you will have to remove the empty `field.css` file
+that comes with the add-on.
+That can be done through command line (below), or you can simply navigate to the
+`Anki2/addons21/181103283/user_files` folder
+(within the [addons folder](faq.md#where-is-the-x-folder-in-anki))
+and delete `field.css`.
+{% endset %}
+
+
+
+<!--
 !!! info "(Option 1) Automatically updates with the card (recommended)"
 
-    As a preliminary step, you will have to remove the empty `field.css` file
-    that comes with the add-on.
-    That can be done through command line (below), or you can simply navigate to the
-    `Anki2/addons21/181103283/user_files` folder
-    (within the [addons folder](faq.md#where-is-the-x-folder-in-anki))
-    and delete `field.css`.
+    ??? info "Steps for Windows users (click here)"
+        {% filter indent(8) -%}
+        {{ css_injector_preliminary }}
+        {% endfilter %}
 
-    ```
-    # windows command
-    # be sure to change USERNAME to your computer username!
-    del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+        ```
+        # be sure to change USERNAME to your computer username!
+        del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+        ```
 
-    # mac command
-    rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        Afterwards, run the following command in command prompt with elevated permissions:
+        ```
+        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+        ```
 
-    # linux command
-    rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-    ```
+        !!! note
+            Be sure to run the last command in command prompt, and not PowerShell.
+            If you've never used command prompt before, check
+            [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
 
-    For **Windows** users, run these two commands in command prompt (not PowerShell!) with elevated permissions.
-    Additionally, be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile.
-
-    ```
-    mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
-    ```
-    !!! note
-
-        There are two `USERNAME`'s to replace, and one `PROFILENAME` to replace in the above command.
-        Make sure to replace all the fields!
-
-    !!! note
-
-        If you've never used command prompt before, check
-        [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
+        !!! note
+            Be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile.
+            Additionally, there are **two** `USERNAME`'s to replace,
+            and **one** `PROFILENAME` to replace in the above command.
+            Make sure to replace all the fields!
 
 
-    For **Mac** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
-    ```
-    ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-    ```
+    ??? info "Steps for MacOS users (click here)"
+        {% filter indent(8) -%}
+        {{ css_injector_preliminary }}
+        {% endfilter %}
 
-    For **Linux** users, run the following command (be sure to change `PROFILENAME` to your Anki profile):
+        ```
+        rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        ```
 
-    ```
-    ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-    ```
+        Afterwards, run the following command:
+        ```
+        # be sure to change `PROFILENAME` to your Anki profile
+        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        ```
+
+    ??? info "Steps for Linux users (click here)"
+        {% filter indent(8) -%}
+        {{ css_injector_preliminary }}
+        {% endfilter %}
+
+        ```
+        rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+        ```
+
+        Afterwards, run the following command:
+        ```
+        # be sure to change `PROFILENAME` to your Anki profile
+        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+        ```
+
 
 !!! info "(Option 2) Manually without respecting updates"
 
-    1. Navigate to css injector add-on directory (`Anki2/addons21/181103283/user_files`)
+    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki)
+        (`Anki2/addons21/181103283/user_files`)
     2. Remove the existing `field.css` file
-    3. Manually copy the `_field.css` file (found under your profile's `media` directory)
-       into the css injector add-on directory
+    3. Copy the `_field.css` file
+        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki))
+        into the css injector add-on directory.
     4. Rename `_field.css` into `field.css`.
 
     !!! note
 
         If the `_field.css` file ever updates, you will have to manually copy and rename the file again
         into the correct position.
+-->
+
+#### (Option 1) Automatically updates with the card (recommended)
+
+??? info "Steps for Windows users (click here)"
+    {% filter indent(4) -%}
+    {{ css_injector_preliminary }}
+    {% endfilter %}
+
+    ```
+    # be sure to change USERNAME to your computer username!
+
+    del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+    ```
+
+    Afterwards, run the following command in command prompt with elevated permissions:
+    ```
+    # be sure to change USERNAME to your computer username and PROFILENAME to your Anki profile.
+    # There are **two** USERNAME's to replace, and **one** PROFILENAME to replace in the command below.
+    # Make sure to replace all the fields!
+
+    mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+    ```
+
+    !!! note
+        Be sure to run the last command in command prompt, and not PowerShell.
+        If you've never used command prompt before, see
+        [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
+
+
+??? info "Steps for MacOS users (click here)"
+    {% filter indent(4) -%}
+    {{ css_injector_preliminary }}
+    {% endfilter %}
+
+    ```
+    rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+    ```
+
+    Afterwards, run the following command:
+    ```
+    # be sure to change `PROFILENAME` to your Anki profile
+    ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+    ```
+
+??? info "Steps for Linux users (click here)"
+    {% filter indent(4) -%}
+    {{ css_injector_preliminary }}
+    {% endfilter %}
+
+    ```
+    rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+    ```
+
+    Afterwards, run the following command:
+    ```
+    # be sure to change `PROFILENAME` to your Anki profile
+    ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+    ```
+
+
+#### (Option 2) Manually without respecting updates
+
+??? info "Click here to see the steps."
+
+    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki)
+        (`Anki2/addons21/181103283/user_files`)
+    2. Remove the existing `field.css` file
+    3. Copy the `_field.css` file
+        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki))
+        into the css injector add-on directory.
+    4. Rename `_field.css` into `field.css`.
+
+    !!! note
+
+        If the `_field.css` file ever updates, you will have to manually copy and rename the file again
+        into the correct position.
+
+
+
 
 
 <br>
@@ -329,7 +440,7 @@ The important things to change in the config are `generate_on_note_add`,
         "destination_fields": [
             "AJTWordPitch"
         ],
-        "generate_on_note_add": true,
+        "generate_on_note_add": true, // (1)!
         "kana_lookups": true,
         "lookup_shortcut": "Ctrl+8",
         "note_types": [
@@ -340,7 +451,7 @@ The important things to change in the config are `generate_on_note_add`,
         "source_fields": [
             "Word"
         ],
-        "styles": {
+        "styles": { // (2)!
             "&#42780;": "<span class=\"downstep\"><span class=\"downstep-inner\">&#42780;</span></span>",
             "class=\"overline\"": "style=\"text-decoration:overline;\" class=\"pitchoverline\""
         },
@@ -349,12 +460,15 @@ The important things to change in the config are `generate_on_note_add`,
     }
     ```
 
-To explain the changes:
+    1.  We change `generate_on_note_add` and `note_types` for the exact same reasons as the
+        AJT Furigana Config section.
+        The `destination_fields` and `source_fields` options are changed similarily to the
+        `fields` option in the AJT Furigana Config section.
 
-- `generate_on_note_add` and `note_types` are changed similarly in the previous section.
-- `destination_fields` and `source_fields` are changed similarily to `fields` in the previous section.
-- `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
-    in the example note.
+    2. `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
+        in the example note.
+        Without this, the default styles will look like the word
+        you see in the official add-on page.
 
 <br>
 
