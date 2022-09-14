@@ -258,15 +258,15 @@ The important things to change in the config are `generate_on_note_add`, `fields
             "to_hiragana": true,
             "to_katakana": true
         },
-        "fields": [
+        "fields": [ // (1)!
             {
                 "destination": "SentenceReading",
                 "source": "Sentence"
             }
         ],
         "furigana_suffix": " (furigana)",
-        "generate_on_note_add": true,
-        "note_types": [
+        "generate_on_note_add": true, // (2)!
+        "note_types": [ // (3)!
             "jp"
         ],
         "skip_numbers": false,
@@ -286,11 +286,15 @@ The important things to change in the config are `generate_on_note_add`, `fields
     }
     ```
 
-To explain the changes:
+    1.  We change the field names to match this note type.
 
-- `generate_on_note_add` ensures that the pitch accent is added upon initial note creation.
-- The change to `fields` changes the field names to match this note type.
-- Similarily, the `note_types` changes makes the add-on work with this specific note type.
+    2.  This ensures that the pitch accent is added upon initial note creation.
+        Note that this is technically optional.
+        If you are likely to change the sentence after adding the note,
+        then it is possible to leave this as `false`,
+        and bulk add the furigana later.
+
+    3.  Similarly to the `fields` change, we change this to properly detect this note type.
 
 
 <br>

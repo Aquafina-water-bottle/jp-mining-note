@@ -2,3 +2,7 @@
 .md-typeset table:not([class]) td.smaller-table-row {
   padding: .4em 1.25em;
 }
+
+.md-main__inner.md-grid {
+  padding-bottom: 3em;
+}
