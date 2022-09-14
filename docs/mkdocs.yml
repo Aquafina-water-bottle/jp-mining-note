@@ -1,7 +1,8 @@
 # THANK YOU https://github.com/friedrich-de/AnimecardsWebsite
 # for putting the site on github so I can easily copy/paste settings
 
-site_name: jp-mining-note Documentation
+site_name: jp-mining-note
+site_description: Documentation for the jp-mining-note project.
 
 theme:
   name: material
@@ -24,14 +25,22 @@ plugins:
         height: "100%"
       is_video: True
       video_autoplay: False
+  - macros
 
 nav:
   - Home: index.md
   - About: about.md
+  - Setup: setup.md
+
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
+  - tables
+  - attr_list
   - toc:
       permalink: true
+      baselevel: 2
       toc_depth: 3
 
   - pymdownx.highlight:
