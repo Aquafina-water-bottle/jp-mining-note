@@ -6,6 +6,7 @@ and requires **Anki** and **Yomichan** for the main card creation process.
 
 ---
 
+
 # Prerequisites
 It is highly recommend that you are using the latest Anki version
 (or as close as you can get to the latest Anki version), as the note is primarily tested
@@ -26,35 +27,48 @@ nothing has to be done).
 There are two ways of installing the card:
 
 
-!!! info "(Option 1) The Automatic Way"
+??? info "Option 1: The Automatic Way (click here)"
 
     If you know what `git` and `python` is, here's all you have to do:
 
-    ```
-    git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
-    cd jp-mining-note
+    === "Windows"
 
-    # Ensure you have Anki open, and with anki-connect running
-    # Also ensure that you have python 3.10+ installed.
-    # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
+        ```
+        git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
+        cd jp-mining-note
 
-    # You may have to use `python3` instead of `python`.
-    # Additionally, on Windows machines, your file path should be `tools\install.py`
-    python tools/install.py
-    ```
+        # Ensure you have Anki open, and with anki-connect running
+        # Also ensure that you have python 3.10+ installed.
+        # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
+        python tools\install.py
+        ```
 
+    === "MacOS & Linux"
+
+        ```
+        git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
+        cd jp-mining-note
+
+        # Ensure you have Anki open, and with anki-connect running
+        # Also ensure that you have python 3.10+ installed.
+        # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
+
+        # You may have to use `python3` instead of `python`.
+        python tools/install.py
+        ```
 
     The above does the following:
 
     - Installs the latest version of the note
     - Installs the fonts required for the note
 
-
-!!! info "(Option 2) The Manual Way"
-
-    If the above made literally no sense to you,
+    If the above made no sense to you,
     or you just want to install this normally,
-    see below:
+    see the second option below.
+
+
+??? info "Option 2: The Manual Way (click here)"
+
 
     1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
         and download the cards from the latest release.
@@ -183,7 +197,7 @@ and delete `field.css`.
 <!--
 !!! info "(Option 1) Automatically updates with the card (recommended)"
 
-    ??? info "Steps for Windows users (click here)"
+    === "Windows"
         {% filter indent(8) -%}
         {{ css_injector_preliminary }}
         {% endfilter %}
@@ -210,7 +224,7 @@ and delete `field.css`.
             Make sure to replace all the fields!
 
 
-    ??? info "Steps for MacOS users (click here)"
+    === "MacOS"
         {% filter indent(8) -%}
         {{ css_injector_preliminary }}
         {% endfilter %}
@@ -225,7 +239,7 @@ and delete `field.css`.
         ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
         ```
 
-    ??? info "Steps for Linux users (click here)"
+    === "Linux"
         {% filter indent(8) -%}
         {{ css_injector_preliminary }}
         {% endfilter %}
@@ -257,68 +271,68 @@ and delete `field.css`.
         into the correct position.
 -->
 
-#### (Option 1) Automatically updates with the card (recommended)
+<!--#### (Option 1) Automatically updates with the card (recommended)-->
 
-??? info "Steps for Windows users (click here)"
-    {% filter indent(4) -%}
-    {{ css_injector_preliminary }}
-    {% endfilter %}
+??? info "Option 1: Automatically updates with the card (recommended)"
 
-    ```
-    # be sure to change USERNAME to your computer username!
+    === "Windows"
+        {% filter indent(8) -%}
+        {{ css_injector_preliminary }}
+        {% endfilter %}
 
-    del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
-    ```
+        ```
+        # be sure to change USERNAME to your computer username!
 
-    Afterwards, run the following command in command prompt with elevated permissions:
-    ```
-    # be sure to change USERNAME to your computer username and PROFILENAME to your Anki profile.
-    # There are **two** USERNAME's to replace, and **one** PROFILENAME to replace in the command below.
-    # Make sure to replace all the fields!
+        del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+        ```
 
-    mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
-    ```
+        Afterwards, run the following command in command prompt with elevated permissions:
+        ```
+        # be sure to change USERNAME to your computer username and PROFILENAME to your Anki profile.
+        # There are **two** USERNAME's to replace, and **one** PROFILENAME to replace in the command below.
+        # Make sure to replace all the fields!
 
-    !!! note
-        Be sure to run the last command in command prompt, and not PowerShell.
-        If you've never used command prompt before, see
-        [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
+        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+        ```
 
-
-??? info "Steps for MacOS users (click here)"
-    {% filter indent(4) -%}
-    {{ css_injector_preliminary }}
-    {% endfilter %}
-
-    ```
-    rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-    ```
-
-    Afterwards, run the following command:
-    ```
-    # be sure to change `PROFILENAME` to your Anki profile
-    ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-    ```
-
-??? info "Steps for Linux users (click here)"
-    {% filter indent(4) -%}
-    {{ css_injector_preliminary }}
-    {% endfilter %}
-
-    ```
-    rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-    ```
-
-    Afterwards, run the following command:
-    ```
-    # be sure to change `PROFILENAME` to your Anki profile
-    ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-    ```
+        !!! note
+            Be sure to run the last command in command prompt, and not PowerShell.
+            If you've never used command prompt before, see
+            [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
 
 
-#### (Option 2) Manually without respecting updates
+    === "MacOS"
+        {% filter indent(8) -%}
+        {{ css_injector_preliminary }}
+        {% endfilter %}
 
-??? info "Click here to see the steps."
+        ```
+        rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        ```
+
+        Afterwards, run the following command:
+        ```
+        # be sure to change `PROFILENAME` to your Anki profile
+        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        ```
+
+    === "Linux"
+        {% filter indent(8) -%}
+        {{ css_injector_preliminary }}
+        {% endfilter %}
+
+        ```
+        rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+        ```
+
+        Afterwards, run the following command:
+        ```
+        # be sure to change `PROFILENAME` to your Anki profile
+        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+        ```
+
+
+??? info "Option 2: Manually without respecting updates"
 
     1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki)
         (`Anki2/addons21/181103283/user_files`)

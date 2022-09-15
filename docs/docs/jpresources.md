@@ -77,7 +77,7 @@ To add custom CSS in Yomichan, do the following:
 
 {{ img("how to add custom css to Yomichan", "assets/yomichan/howto_css.gif") }}
 
-<br>
+---
 
 
 
@@ -101,7 +101,7 @@ you can use the following CSS:
     ```
     Unfortunately, the above doesn't seem to work on Linux (tested on Ubuntu / Xfce, Anki Qt6 2.1.54).
 
-<br>
+---
 
 
 ## Limiting the number of frequency lists
@@ -117,7 +117,7 @@ span.frequency-group-item:nth-child(n+3) {
 
 {{ img("limit frequencies demo", "assets/yomichan/limit_frequencies.gif") }}
 
-<br>
+---
 
 
 
@@ -149,7 +149,7 @@ to any dictionary you find to be of higher quality)
 {{ img("limit pitch accent dictionaries demo", "assets/yomichan/limit_pitch_accents.gif") }}
 
 
-<br>
+---
 
 
 
@@ -180,7 +180,7 @@ li.definition-item[data-dictionary='DICTIONARY'] {
 
 {{ img("hide dictionary in Yomichan", "assets/yomichan/hide_dictionary.gif") }}
 
-<br>
+---
 
 
 ## Hide bilingual definitions until hover
@@ -208,7 +208,7 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
 
 {{ img("hide bilingual dictionaries until hover", "assets/yomichan/bilingual_hover.gif") }}
 
-<br>
+---
 
 
 
@@ -282,7 +282,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 
 {{ img("how to edit yomichan templates", "assets/yomichan/howto_templates.gif") }}
 
-<br>
+---
 
 
 ## Grab only the first pitch accent dictionary
@@ -363,7 +363,7 @@ You can now use the following in Yomichan Fields:
 {% endraw %}
 
 
-<br>
+---
 
 
 
@@ -422,7 +422,7 @@ You can now use the following in Yomichan Fields:
         the desired region (say, with ctrl+b) instead of having to edit
         the raw HTML of the field (say, with ctrl+shift+x).
 
-<br>
+---
 
 
 
@@ -445,7 +445,7 @@ and uses the glossary by default if you don't have anything highlighted.
 !!! note
     Related [Github issue](https://github.com/FooSoft/yomichan/issues/2097).
 
-<br>
+---
 
 
 ## Further Reading
@@ -483,6 +483,8 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 - iirc grabs current window picture + deletes after (the only purpose of the f3 keybinds
   is to execute ankiconnect calls in powershell)
 
+---
+
 
 ## f1: screenshot and clipboard
 - adds the image to the note
@@ -491,15 +493,27 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 
 {{ sharex_display(sharex.screenshot_and_clipboard) }}
 
+---
+
+
+
 ## shift+f1: screenshot (only)
 - the above without clipboard (adds image and tag)
 
 {{ sharex_display(sharex.screenshot) }}
 
+---
+
+
+
 ## f2: audio
 - adds audio to anki
 
 {{ sharex_display(sharex.audio) }}
+
+---
+
+
 
 
 ## shift+f3: update sentence
@@ -509,12 +523,20 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 
 {{ sharex_display(sharex.update_sentence) }}
 
+---
+
+
+
 ## ctrl+f3 - copy from previous:
 - set additional notes and picture to previous card
 - also copy all tags
 - good for adding more than 1 sentence with the same text box
 
 {{ sharex_display(sharex.copy_from_previous) }}
+
+---
+
+
 
 ## ctrl+shift+f3: fix sentence and freq
 - update the previous note with the current's frequency, sentence & sentence reading

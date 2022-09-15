@@ -4,6 +4,9 @@
 site_name: jp-mining-note
 site_description: Documentation for the jp-mining-note project.
 
+repo_url: https://github.com/Aquafina-water-bottle/jp-mining-note
+repo_name: jp-mining-note
+
 theme:
   name: material
   custom_dir: docs/overrides
@@ -31,6 +34,10 @@ theme:
     - navigation.sections
     - content.code.annotate
 
+  icon:
+    repo: fontawesome/brands/github
+
+
 plugins:
   - search
   - mkdocs-video:
@@ -43,7 +50,6 @@ plugins:
 
 nav:
   - Home: index.md
-  - Preface: preface.md
   - Setup: setup.md
   - Usage: usage.md
   - Card Types: cardtypes.md
@@ -72,6 +78,11 @@ markdown_extensions:
 
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  #- pymdownx.superfences
 
   - md_in_html
+
+  #- pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+

@@ -2,7 +2,7 @@
 
 # Updating the Card
 This section is dedicated to explaining how to update the card itself.
-The supported and highly recommended way is by using a Python script.
+The main way to do this is by using a Python script.
 
 
 <!--## Preliminary steps-->
@@ -24,7 +24,7 @@ in this documentation.
 -->
 
 
-## Python Script Method (recommended)
+## Method 1: Python Script (recommended)
 
 <!--
 If you know what `python` and `git` is, please skip this section
@@ -44,36 +44,22 @@ because the Anki web version of Anki-Connect is too old
 and does not have the required API calls that the installation script
 will likely need (calls related to field editing).
 
-{% set anki_connect_final_steps %}
-After installing `AnkiConnectDev`:
-
-1. Disable the old Anki-Connect add-on.
-1. Restart Anki to apply the changes.
-
-To confirm you have the dev version installed, check your list of installed add-ons in Anki.
-You should be able to see `AnkiConnectDev` in the aforementioned list.
-{% endset %}
-
-
 
 
 ??? info "Click here to see how to install the dev version of Anki-Connect."
 
     You can install Anki-Connect-Dev in one of two ways:
 
-    ??? info "Command Line Installation (MacOS and Linux ONLY)"
+    === "Command Line Installation (MacOS and Linux ONLY)"
 
         ```
         git clone https://github.com/FooSoft/anki-connect.git
         cd anki-connect
         ./link.sh
         ```
-        {% filter indent(8) -%}
-        {{ anki_connect_final_steps }}
-        {% endfilter %}
 
 
-    ??? info "Manual Installation"
+    === "Manual Installation"
         1. Download the zip of the
            [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
            clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
@@ -93,55 +79,70 @@ You should be able to see `AnkiConnectDev` in the aforementioned list.
                L edit.py
                ...
         ```
-        {% filter indent(8) -%}
-        {{ anki_connect_final_steps }}
-        {% endfilter %}
 
+    After installing `AnkiConnectDev`:
 
-### Command Line
-The cross-platform command line summary on how to update the note is shown below.
-A more detailed set of instructions for Windows users can be
-found [here](updating#windows-instructions).
+    1. Disable the old Anki-Connect add-on.
+    1. Restart Anki to apply the changes.
 
-```
-# assuming you are at the root of the repo, i.e. after the following commands:
-#  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
-#  $ cd jp-mining-note
+    To confirm you have the dev version installed, check your list of installed add-ons in Anki.
+    You should be able to see `AnkiConnectDev` in the aforementioned list.
 
-# grabs the latest version of the master branch
-git pull origin/master
+### Running the Script
 
-cd ./tools
+After installing Anki-Connect-Dev, you can now run the python script:
 
-# Make sure you have Anki open and Anki-Connect installed!
-# Also ensure that your python version is 3.10.6 or higher.
-python3 ./install.py --update
-```
+=== "Command Line"
 
+    The cross platform command line summary is shown below.
 
-### Windows Instructions
-1. Install [Python](https://www.python.org/).
-    Any version above 3.10.6 should suffice.
+    A more user friendly set of instructions for Windows users
+    is also available on the second tab,
+    for people who have never used `python` or `git` before.
 
-    Make sure the box for "Add Python to PATH" is checked.
-    (This is a common error for people to make. Please pay attention to this step!)
-
-1. Get the latest version of the repository.
-    The easiest way to do this is by heading to the
-    [main repository](https://github.com/Aquafina-water-bottle/jp-mining-note),
-    click on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
-    After that, unzip the directory.
-
-1. Open command prompt, and cd (change directory) into `jp-mining-note/tools`.
-    If you don't know how to do that, see
-    [here](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/).
-
-1. With your current directory being the `tools` directory, run the following command:
     ```
+    # assuming you are at the root of the repo, i.e. after the following commands:
+    #  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
+    #  $ cd jp-mining-note
+
+    # grabs the latest version of the master branch
+    git pull origin/master
+
+    cd tools
+
+    # Make sure you have Anki open and Anki-Connect installed!
+    # Also ensure that your python version is 3.10.6 or higher.
+    # Note: Linux users may have to use `python3` instead of `python`.
     python install.py --update
     ```
-    Once you run the command, further instructions should be given to you through the command
-    line interface.
+
+=== "Windows"
+
+    This section explains how to run the script on Windows if you have never used
+    `python` or `git` before.
+
+    1. Install [Python](https://www.python.org/).
+        Any version above 3.10.6 should suffice.
+
+        Make sure the box for "Add Python to PATH" is checked.
+        (This is a common error for people to make. Please pay attention to this step!)
+
+    1. Get the latest version of the repository.
+        The easiest way to do this is by heading to the
+        [main repository](https://github.com/Aquafina-water-bottle/jp-mining-note),
+        click on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
+        After that, unzip the directory.
+
+    1. Open command prompt, and cd (change directory) into `jp-mining-note/tools`.
+        If you don't know how to do that, see
+        [here](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/).
+
+    1. With your current directory being the `tools` directory, run the following command:
+        ```
+        python install.py --update
+        ```
+        Once you run the command, further instructions should be given to you through the command
+        line interface.
 
 <!--
 #### Mac OS instructions
@@ -160,33 +161,37 @@ but you probably already knew that, didn't you? ;)
 -->
 
 
-## Manual Method
-To preface this section, this method is **not recommended**, and **very limited support** will
-be given if you attempt this method.
+## Method 2: Manually
 
-Sometimes, you may be able to update the card simply by re-installing the newer version of the
-`.apkg`.
-However, this has the main caveat where
-if any of the fields are added, renamed, repositioned or deleted between card versions,
-this will **not work** (and instead add a new version of `JP Mining Note`,
-e.g. named `JP Mining Note-b320fa`).
-Additionally, if you manually edited any of the fields, then this method will not work.
+!!! warning
+    This method is **not recommended**. Furthermore, **very limited support** will
+    be given if you attempt this method.
 
-To see if the fields have been changed, compare the
-first two numbers in the version you want to install
-to the first two numbers of the current card version. (TODO link FAQ)
-If the first two numbers match, then you are likely safe to manually update the card.
+??? info "Click here to see the steps on how to update the note manually."
 
-If they don't match, then you MAY be able to get away with installing it anyways and transferring
-the old note types to the new note type.
-For example, a possible way to update the note is:
+    Sometimes, you may be able to update the card simply by re-installing the newer version of the
+    `.apkg`.
+    However, this has the main caveat where
+    if any of the fields are added, renamed, repositioned or deleted between card versions,
+    this will **not work** (and instead add a new version of `JP Mining Note`,
+    e.g. named `JP Mining Note-b320fa`).
+    Additionally, if you manually edited any of the fields, then this method will not work.
 
-1. Install the new version of the note.
-1. Select all the cards you want to transfer to the version, and change note type.
-1. Remove the old note type.
-1. Rename the new note type to the old note type name (`JP Mining Note`).
-See the changelog to see how the fields have changed and how you have to map the old fields
-to the new fields.
+    To see if the fields have been changed, compare the
+    first two numbers in the version you want to install
+    to the first two numbers of the current card version. (TODO link FAQ)
+    If the first two numbers match, then you are likely safe to manually update the card.
+
+    If they don't match, then you MAY be able to get away with installing it anyways and transferring
+    the old note types to the new note type.
+    For example, a possible way to update the note is:
+
+    1. Install the new version of the note.
+    1. Select all the cards you want to transfer to the version, and change note type.
+    1. Remove the old note type.
+    1. Rename the new note type to the old note type name (`JP Mining Note`).
+    See the changelog to see how the fields have changed and how you have to map the old fields
+    to the new fields.
 
 
 ## Final Steps
