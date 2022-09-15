@@ -893,13 +893,6 @@ To fill a field automatically, see <a href="../faq/#how-do-i-change-the-default-
 <p>To "toggle" a binary field means to either fill the value if is not filled yet,
 or to remove the value if it is filled.
 In other words, it means to flip the value of the field between empty and filled.</p>
-<!--**Note vs Card** (Anki fundamentals):
-In a nutshell, a note is a collection of fillable fields.
-One note can create multiple cards, and cards are the actual things you see and study off of.
-See the official Anki documentation
-[here](https://docs.ankiweb.net/getting-started.html#key-concepts)
-for additional information.-->
-
 <p><strong>PA:</strong> Short for "Pitch Accent".</p>
 <hr />
 <h2 id="user-interface">User Interface<a class="headerlink" href="#user-interface" title="Permanent link">&para;</a></h2>
@@ -983,22 +976,8 @@ many ways to change this tested content.</p>
 <p>The default card type is a vocab card,
 where the tested content is simply the word.</p>
 <p><a href="../assets/nisemono_word.png"><img alt="vocab card example" src="../assets/nisemono_word.png" /></a></p>
-<!--
-<figure markdown>
-  [![vocab card example](assets/nisemono_word.png)](assets/nisemono_word.png)
-  <figcaption>A vocab card.</figcaption>
-</figure>
--->
-
 <p>To change the card to a sentence card, toggle the <code>IsSentenceCard</code> binary field.</p>
 <p><a href="../assets/nisemono_sentence.png"><img alt="sentence card example" src="../assets/nisemono_sentence.png" /></a></p>
-<!--
-<figure markdown>
-  [![sentence card example](assets/nisemono_sentence.png)](assets/nisemono_sentence.png)
-  <figcaption>A sentence card.</figcaption>
-</figure>
--->
-
 <p>There are many other card types that this note supports.
 To see the full list, see <a href="../cardtypes/">this section</a>.</p>
 <p><a href="../assets/card_types_1_pic.png"><img alt="card types compilation" src="../assets/card_types_1_pic.png" /></a></p>
@@ -1030,12 +1009,6 @@ to show something that differs from the <code>Word</code> field.</p>
 <p>On Hybrid Card types, the <code>AltDisplay</code> field only affects the sentence, and not
 the front displayed word.</p>
 </div>
-<!-- apparently this syntax isn't available in the wikis...
-> **Note** <br>
-> On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
-> the front displayed word.
- -->
-
 <h3 id="hints">Hints<a class="headerlink" href="#hints" title="Permanent link">&para;</a></h3>
 <p>Finally, you can include a customized hint to show at the front of the card, by using the <code>Hint</code> field.
 This will show as a collapsible field at the front of card.</p>
@@ -1151,12 +1124,6 @@ You should see a circle to the left of the word or sentence.</p>
 <p>This circle you see is called the "Pitch Accent Indicator", or "PA Indicator" for short.
 How this card indicates what pitch accent is tested is by the PA indicator's color.</p>
 <p><a href="../assets/pa_indicators.png"><img alt="pitch accent indicators" src="../assets/pa_indicators.png" /></a></p>
-<!--
-| [[assets/pa_indicator_circles.png]] |
-|:--:|
-| The possible circles to the left of the display. |
--->
-
 <p>Here are what the colors represent:</p>
 <ul>
 <li><strong>Green:</strong> The <em>entire sentence</em> is tested.</li>
@@ -1167,12 +1134,6 @@ How this card indicates what pitch accent is tested is by the PA indicator's col
 get a description of what is being tested.</p>
 <p>Alternatively, you can look at the top right of the screen and look at the value after the <code>/</code>.</p>
 <p><a href="../assets/pa_indicator_hover.gif"><img alt="pitch accent indicator hover demo" src="../assets/pa_indicator_hover.gif" /></a></p>
-<!--
-| [[assets/pa_indicator_hover.png]] |
-|:--:|
-| The PA indicator when the cursor hovers over it. |
--->
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If the tested content is a sentence (card), but you want to only test for word pitch accent,
@@ -1299,20 +1260,6 @@ To test yourself, you simply check if you can hear the correct word in the missi
 <p>To create a cloze deletion card, simply fill in the <code>SeparateClozeDeletionCard</code> field.
 The words that are hidden are exactly the words that are bolded in the <code>Sentence</code> (or <code>AltDisplay</code>) field.</p>
 <p><a href="../assets/cloze_deletion.png"><img alt="cloze deletion card" src="../assets/cloze_deletion.png" /></a></p>
-<!--
-# Miscellaneous Notes
-* The contents of `Comment` does not appear in any card.
-  You can use this to write down anything that you don't want to be shown in any card.
-* The `Positions` field is populated with the pitch accent positions
-  (indicates the mora of which the downstep happens).
-  Although filled, this is currently UNUSED, and can be safely removed without any adverse effects.
-* You might have noticed that there are multiple fields to display pitch accent.
-  The main field that is used is the `WordPitch` field,
-  because it is the easiest to edit.
-  The reason for the other fields (`Graph` and `Position`) is to confirm that the
-  pitch accent generated in `WordPitch` is "correct", in case of any doubts.
-
-  -->
 
 
 
