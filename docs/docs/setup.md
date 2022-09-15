@@ -126,12 +126,6 @@ To download all the required add-ons, copy and paste the following numbers into 
 {{ img("install Anki addons", "assets/anki/addons_install.png") }}
 
 
-<!--
-* **Note**: <br>
-  You will have to restart Anki after downloading and after editing the configuration
-  file for the changes to take effect.
--->
-
 After installing the add-ons, you will have to change the configs of the add-ons
 to work with this note type.
 Continue reading to see the required config changes.
@@ -193,85 +187,6 @@ and delete `field.css`.
 {% endset %}
 
 
-
-<!--
-!!! info "(Option 1) Automatically updates with the card (recommended)"
-
-    === "Windows"
-        {% filter indent(8) -%}
-        {{ css_injector_preliminary }}
-        {% endfilter %}
-
-        ```
-        # be sure to change USERNAME to your computer username!
-        del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
-        ```
-
-        Afterwards, run the following command in command prompt with elevated permissions:
-        ```
-        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
-        ```
-
-        !!! note
-            Be sure to run the last command in command prompt, and not PowerShell.
-            If you've never used command prompt before, check
-            [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
-
-        !!! note
-            Be sure to change `USERNAME` to your computer username and `PROFILENAME` to your Anki profile.
-            Additionally, there are **two** `USERNAME`'s to replace,
-            and **one** `PROFILENAME` to replace in the above command.
-            Make sure to replace all the fields!
-
-
-    === "MacOS"
-        {% filter indent(8) -%}
-        {{ css_injector_preliminary }}
-        {% endfilter %}
-
-        ```
-        rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-        ```
-
-        Afterwards, run the following command:
-        ```
-        # be sure to change `PROFILENAME` to your Anki profile
-        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-        ```
-
-    === "Linux"
-        {% filter indent(8) -%}
-        {{ css_injector_preliminary }}
-        {% endfilter %}
-
-        ```
-        rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-        ```
-
-        Afterwards, run the following command:
-        ```
-        # be sure to change `PROFILENAME` to your Anki profile
-        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-        ```
-
-
-!!! info "(Option 2) Manually without respecting updates"
-
-    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki)
-        (`Anki2/addons21/181103283/user_files`)
-    2. Remove the existing `field.css` file
-    3. Copy the `_field.css` file
-        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki))
-        into the css injector add-on directory.
-    4. Rename `_field.css` into `field.css`.
-
-    !!! note
-
-        If the `_field.css` file ever updates, you will have to manually copy and rename the file again
-        into the correct position.
--->
-
-<!--#### (Option 1) Automatically updates with the card (recommended)-->
 
 ??? info "Option 1: Automatically updates with the card (recommended)"
 
@@ -439,12 +354,6 @@ the only purpose that this add-on serves is the following:
 - If your Yomichan pitch accent dictionaries did not contain any pitch accent info for the word
   but the add-on does, then it will use the add-on data.
 
-<!--
-* **Note**: <br>
-  Although I have a field for Yomichan to import the pitch accent graph (`PAGraphs`), I primarily use the
-  pitch accent info generated from this add-on because I personally find it easier to edit.
-  You can read more about editing pitch accent in the [usage page](usage.md#modifying-pitch-accent).
--->
 
 #### Config Changes
 The important things to change in the config are `generate_on_note_add`,
@@ -567,11 +476,11 @@ The above fields will create, by default,
 a basic **vocab card** in **bilingual format**,
 with all other definitions in collapsable fields.
 
-* **Note**: <br>
-  Anything field marked with `*` are binary fields, and
-  **should be configured to each user's personal preferences.**
-  To change the default value of any of the fields, simply fill
-  the field in within the aforementioned `Anki card format...` section.
+!!! note
+    Anything field marked with `*` are binary fields, and
+    **should be configured to each user's personal preferences.**
+    To change the default value of any of the fields, simply fill
+    the field in within the aforementioned `Anki card format...` section.
 
 The custom markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
 See the section below to make these markers usable.
@@ -683,18 +592,6 @@ An example output of the above (on the word 結構) is the following:
 ```
 
 
-<!--
-The template code **only works** if the bilingual dictionaries
-and utility dictionaries are explicitly specified in the templates.
-
-In other words, (as of writing this)
-if you use bilingual dictionaries that are not `JMdict` or `新和英`,
-or you use a Yomichan dictionary for pitch accent that isn't
-`NHK日本語発音アクセント新辞典`,
-then you will have to add your dictionary to the handlebars code.
--->
-
-
 If a dictionary is miscategorized,
 you will have to edit `bilingual-dict-regex` or `utility-dict-regex`
 at the top of the template code.
@@ -743,16 +640,6 @@ To modify a regex string:
     {% endraw %}
 
 
-<!--
-Various other customizations can be easily done, such as:
-- Various styling to the frequency list and pitch accent graph entries
-- Specifying exactly which dictionaries are monolingual and bilingual
-For more information on the templates used here, including **customization and troubleshooting**,
-see the templates section [here](yomichantemplates).
--->
-
-
-
 
 ## Other Yomichan Settings
 * Again, if you have never used Yomichan before, I recommend checking out
@@ -760,7 +647,7 @@ see the templates section [here](yomichantemplates).
 <!--* The layout of Yomichan **changes the appearance of the exported card**.
   To get exactly the same look as the sample images and cards type,
   use "Compact glossaries" turned on and "Compact tags" turned off,
-  found under Yomichan settings →  "Popup Appearance".-->
+  found under Yomichan settings →  "Popup Appearance". TODO -->
 * If you are planning on using the JMDict dictionary,
   I recommend downloading from the
   [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
@@ -860,43 +747,11 @@ Of course, this list is incomplete, and there could be tools better suited for y
   BUT it allows you to use popup-dictionaries like Yomichan on manga (an actual game-changer).
 
 
-<!-- TODO move this somewhere else, or just straight up remove it :eyes:
-
-# Optional Yomichan & Anki Setup
-
-## Audio Sources
-TheMoeWay documents two setups for getting audio:
-* If you have 3.5gb of free space, you can use
-    [locally downloaded audio files](https://learnjapanese.moe/yomichan/#offline-audio-server).
-    This is useful in two ways:
-    * You are able to get word audio regardless of internet connection.
-    * Card creation is significantly faster (for me personally, it reduced card creation time from around 5 seconds to less than half a second.)
-
-  **Note:** that if you are using Linux,
-  unzip the files with the following command: `unzip -O shift-jis filename.zip`
-
-  TODO document alternative setup with sqlite
-
-  **Note:** There is an alternative setup for this with the files as described in The Moe Way discord server
-  [here](http://discordapp.com/channels/617136488840429598/778430038159655012/984607054616481832).
-  (TODO pastebin mirror)
-  The main difference is that this uses sqlite,
-  so the database is saved on the disk to prevent excessive memory caching
-  (each time anki loads, about 250MB of data has to be loaded into memory for the original add-on to work.)
-  * To use this, replace the python files with the ones linked above.
-  * This requires Anki 2.1.50 or greater.
-
-* [Forvo](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
-    as a backup audio source, in case previous sources do not have audio.
-
--->
-
-
 ---
 
 # Other
 
-## Anki add-on(s)
+## Additional Anki add-on(s)
 These add-on(s) assist in card creation, but are ultimately optional.
 
 * Paste Images As WebP [(link)](https://ankiweb.net/shared/info/1151815987)

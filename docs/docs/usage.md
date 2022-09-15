@@ -16,13 +16,6 @@ To "toggle" a binary field means to either fill the value if is not filled yet,
 or to remove the value if it is filled.
 In other words, it means to flip the value of the field between empty and filled.
 
-<!--**Note vs Card** (Anki fundamentals):
-In a nutshell, a note is a collection of fillable fields.
-One note can create multiple cards, and cards are the actual things you see and study off of.
-See the official Anki documentation
-[here](https://docs.ankiweb.net/getting-started.html#key-concepts)
-for additional information.-->
-
 **PA:** Short for "Pitch Accent".
 
 ---
@@ -147,23 +140,9 @@ where the tested content is simply the word.
 
 {{ img("vocab card example", "assets/nisemono_word.png") }}
 
-<!--
-<figure markdown>
-  {{ img("vocab card example", "assets/nisemono_word.png") }}
-  <figcaption>A vocab card.</figcaption>
-</figure>
--->
-
 To change the card to a sentence card, toggle the `IsSentenceCard` binary field.
 
 {{ img("sentence card example", "assets/nisemono_sentence.png") }}
-
-<!--
-<figure markdown>
-  {{ img("sentence card example", "assets/nisemono_sentence.png") }}
-  <figcaption>A sentence card.</figcaption>
-</figure>
--->
 
 There are many other card types that this note supports.
 To see the full list, see [this section](cardtypes.md).
@@ -211,12 +190,6 @@ For example, the card below has the following HTML:
     On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
     the front displayed word.
 
-
-<!-- apparently this syntax isn't available in the wikis...
-> **Note** <br>
-> On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
-> the front displayed word.
- -->
 
 
 ## Hints
@@ -366,12 +339,6 @@ How this card indicates what pitch accent is tested is by the PA indicator's col
 
 {{ img("pitch accent indicators", "assets/pa_indicators.png") }}
 
-<!--
-| [[assets/pa_indicator_circles.png]] |
-|:--:|
-| The possible circles to the left of the display. |
--->
-
 
 Here are what the colors represent:
 
@@ -385,12 +352,6 @@ get a description of what is being tested.
 Alternatively, you can look at the top right of the screen and look at the value after the `/`.
 
 {{ img("pitch accent indicator hover demo", "assets/pa_indicator_hover.gif") }}
-
-<!--
-| [[assets/pa_indicator_hover.png]] |
-|:--:|
-| The PA indicator when the cursor hovers over it. |
--->
 
 
 !!! note
@@ -512,18 +473,3 @@ The words that are hidden are exactly the words that are bolded in the `Sentence
 {{ img("cloze deletion card", "assets/cloze_deletion.png") }}
 
 
-
-<!--
-# Miscellaneous Notes
-* The contents of `Comment` does not appear in any card.
-  You can use this to write down anything that you don't want to be shown in any card.
-* The `Positions` field is populated with the pitch accent positions
-  (indicates the mora of which the downstep happens).
-  Although filled, this is currently UNUSED, and can be safely removed without any adverse effects.
-* You might have noticed that there are multiple fields to display pitch accent.
-  The main field that is used is the `WordPitch` field,
-  because it is the easiest to edit.
-  The reason for the other fields (`Graph` and `Position`) is to confirm that the
-  pitch accent generated in `WordPitch` is "correct", in case of any doubts.
-
-  -->

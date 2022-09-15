@@ -1,4 +1,4 @@
-Welcome to my hidden personal setup page!
+Welcome to my (hidden) personal setup page!
 This will contain condense, usually point form information on how to get my exact setup,
 and this section will be in continuous flux so long as I am learning japanese.
 

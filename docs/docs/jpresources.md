@@ -2,11 +2,6 @@
 {% from "macros.html" import sharex_display with context %}
 
 
-<!--
-This page was automatically generated from gen/_JPResources.md.
-If you are planning on editing this page, please edit the file above!
--->
-
 A collection of tips and tricks, primarily related to CSS and Yomichan templates.
 
 This page was inspired by [Marv's resources page](https://github.com/MarvNC/JP-Resources),
@@ -18,15 +13,11 @@ If you encounter any problems, have any questions, etc., feel free to contact
 me on discord `Aquafina water bottle#3026`,
 or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
 I exist on the [TheMoeWay](https://learnjapanese.moe/join/) and Refold (Japanese) servers.
-<!--
-If you want to fix some typos or make certain sections clearer,
-please see [this](TODO).
-I appreciate any help with maintaining this page!
--->
-
-
 
 <!--
+TODO for typos, link how to build docs
+
+
 For fixing typos and making things clearer, it would especially help if you
 fork [the main repository](https://github.com/Aquafina-water-bottle/jp-mining-note)
 (not the dedicated wiki repository!)
@@ -41,35 +32,14 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 
 
 
-<!--
-# Table of Contents
-* [CSS (Yomichan)](jpresources#css-yomichan)
-    * [How-To (add custom CSS In Yomichan)](jpresources#how-to-add-custom-css-in-yomichan)
-    * [Not selecting / copying furigana](jpresources#copying-the-word-without-copying-the-furigana)
-    * [Limiting the number of frequency lists](jpresources#limiting-the-number-of-frequency-lists)
-    * [Limiting the number of pitch accent dictionaries](jpresources#limiting-the-number-of-pitch-accent-dictionaries)
-    * [Hide the dictionary but allow it to be used by Anki](jpresources#hide-the-dictionary-but-allow-it-to-be-used-by-anki)
-    * [Hide bilingual dictionaries until hover](jpresources#hide-bilingual-definitions-until-hover)
-    * [Remove the "Add Reading" button](jpresources#remove-the-add-reading-button)
-* [CSS (General)](jpresources#css-general)
-    * [Ensuring 「」 properly quotes the text](jpresources#ensuring--properly-quotes-the-text)
-* [Yomichan Templates / Handlebars](jpresources#yomichan-templates--handlebars)
-    * How-To ([Fields](jpresources#how-to-edit-yomichan-fields) and
-          [Templates](jpresources#how-to-edit-yomichan-templates-handlebars))
-    * [Grab only the first pitch accent dictionary](jpresources#grab-only-the-first-pitch-accent-dictionary)
-    * [Automatically highlight the tested word within the sentence](jpresources#automatically-highlight-the-tested-word-within-the-sentence-upon-card-creation)
-    * [Export only the selected text (only if text is selected)](jpresources#export-only-the-selected-text-only-if-text-is-selected)
-    * [Further Reading](jpresources#further-reading)
-* [ShareX](jpresources#sharex) (TODO)
--->
-
-
 ---
 
 # CSS (Yomichan)
 
 ## How to Add Custom CSS In Yomichan
+
 To add custom CSS in Yomichan, do the following:
+
 1. Head over to Yomichan settings (Yomichan extension marker -> cogwheel)
 1. Go to `Appearance` →  `Configure custom CSS...`
 1. Add the CSS to the top section.
@@ -82,7 +52,7 @@ To add custom CSS in Yomichan, do the following:
 
 
 
-## Not selecting or copying furigana
+## Not selecting or copying furigana { .text-yellow }
 If you want to select / copy the main word within Yomichan without copying the furigana,
 you can use the following CSS:
 
@@ -104,7 +74,7 @@ you can use the following CSS:
 ---
 
 
-## Limiting the number of frequency lists
+## Limiting the number of frequency lists { .text-yellow }
 
 ```css
 /* Only shows the first 2 frequency lists */
@@ -121,7 +91,7 @@ span.frequency-group-item:nth-child(n+3) {
 
 
 
-## Limiting the number of pitch accent dictionaries
+## Limiting the number of pitch accent dictionaries { .text-yellow }
 
 
 The following CSS displays only the first 2 pitch accent dictionaries:
@@ -153,7 +123,7 @@ to any dictionary you find to be of higher quality)
 
 
 
-## Hide the dictionary, but allow it to be used by Anki
+## Hide the dictionary, but allow it to be used by Anki { .text-yellow }
 
 The default way to hide a dictionary is by disabling the dictionary
 under Yomichan's `Dictionaries` section.
@@ -183,7 +153,7 @@ li.definition-item[data-dictionary='DICTIONARY'] {
 ---
 
 
-## Hide bilingual definitions until hover
+## Hide bilingual definitions until hover { .text-yellow }
 
 Add the following CSS for the desired dictionaries (this has to be done for each individual dictionary):
 ```css
@@ -212,7 +182,7 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
 
 
 
-## Remove the "Add Reading" button
+## Remove the "Add Reading" button { .text-yellow }
 
 ```css
 button[title^="Add reading"] {
@@ -231,12 +201,7 @@ button[title^="Add reading"] {
 
 # CSS (General)
 
-## Ensuring 「」 properly quotes the text
-
-<!--![left quote comparisons](assets/other/left_quote.png){ align=right width="300" }-->
-<!--{{ img("left quote comparisons", "assets/other/left_quote.png") }}{ align=right width="300" }-->
-<!--[![alt text](file path)](file_path)-->
-<!--[![a](assets/other/left_quote.png){ align=right width="300" }](assets/other/left_quote.png)-->
+## Ensuring 「」 properly quotes the text { .text-yellow }
 
 {{ img("left quote comparisons", "assets/other/left_quote.png", 'align=right width="300"') }}
 
@@ -251,9 +216,6 @@ On the example to the right, the first quote is the standard display without any
 The second quote is with the aforementioned CSS.
 
 An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/14/).
-
-
-<!--{{ img("left quote comparisons", "assets/other/left_quote.png") }}{ align=left }-->
 
 ---
 
@@ -285,7 +247,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 ---
 
 
-## Grab only the first pitch accent dictionary
+## Grab only the first pitch accent dictionary { .text-yellow }
 
 {% raw %}
 Add the following template code to Yomichan templates:
@@ -367,7 +329,7 @@ You can now use the following in Yomichan Fields:
 
 
 
-## Automatically highlight the tested word within the sentence upon card creation
+## Automatically highlight the tested word within the sentence upon card creation { .text-yellow }
 
 !!! info "(Option 1) Bold only"
     **Yomichan Fields**:
@@ -426,7 +388,7 @@ You can now use the following in Yomichan Fields:
 
 
 
-## Export only the selected text (only if text is selected)
+## Export only the selected text (only if text is selected) { .text-yellow }
 
 Allows you to export only a section of a glossary by highlighting over it,
 and uses the glossary by default if you don't have anything highlighted.

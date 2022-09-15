@@ -9,7 +9,7 @@
 
 }
 
-.bold-yellow {
+[data-md-color-scheme="slate"] .text-yellow {
   color: var(--jpmn-yellow);
 }
 

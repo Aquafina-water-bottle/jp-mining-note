@@ -129,10 +129,9 @@ In Yomichan Format, you can simply toggle the field.
 Any new card that is created will now default to that default value.
 
 Of course, this will not affect existing cards.
-To change existing cards, I recommend using something to bulk-edit
-your cards.
-I recommend [This add-on](https://ankiweb.net/shared/info/291119185)
-to do just that.
+To change existing cards, I recommend bulk-editing your cards,
+say, with [this add-on](https://ankiweb.net/shared/info/291119185).
+
 
 (TODO write a way with python)
 
@@ -144,30 +143,6 @@ to do just that.
     and are fine with knowing that you may lose those changes
     if you update this note.
 
-
-<!--
-{% raw %}
-You have two main options:
-
-**Option A:** You can simply fill the field in Yomichan.
-When any new card is created, the option will be defaulted to true.
-
-If you have many existing cards that you want to change,
-this approach will then require batch changes to the cards.
-To do Anki batch editing, you can either use [plugins](a) or do python scripting.
-
-I personally use the latter, with some example scripts here (TODO).
-
-
-**Option B:** To completely change the default value without requiring to fill the field,
-you can rename the field to make more sense and swap all instances of `#` with `^`, and visa versa.
-For example, if your goal is to make the cards a sentence card by default,
-here are the following steps:
-* Rename the field `IsSentenceCard` →  `IsVocabCard`
-* Replace all instances of `{{#IsVocabCard}}` →  `{{^IsVocabCard}}`
-* Replace all instances of `{{^IsVocabCard}}` →  `{{#IsVocabCard}}`
-{% endraw %}
--->
 
 ---
 
@@ -202,39 +177,6 @@ because everyone has their own preferences on what card types they like.
 I recommend being open about it and experiment with them, to see which one you like.
 
 
-<!--
-See here (TODO link to card types page)
-Surprisingly, there's a lot of debate on this within the community.
-In short,
-[many](http://www.alljapaneseallthetime.com/blog/10000-sentences-why/)
-[people](https://refold.la/roadmap/stage-2/a/basic-sentence-mining#Mine-Sentences-Not-Words)
-prefer sentence cards, whereas
-[many](https://learnjapanese.moe/guide/#mining)
-[others](https://animecards.site/ankicards/#sentence-cards-vs-anime-cards)
-prefer vocab cards.
-Hell,
-[some people](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards)
-even use a funny combination of both.
-Instead of giving a direct answer,
-I would advise you to test all of them out to see which works best for you.
--->
-
-
-<!--
-I'm still not 100% sure what the best way to test pitch accent is,
-so this section is removed until then
-
-# How would I transition to test pitch accent with this note type?
-Note that this answer is my personal opinion on how this should be done.
-
-TODO
-* starting to test pitch accent? (what I recommend) create separate cards
-   * word -> word (and sentence if fully understood now)
-   * sentence -> word/sentence
-   * all future cards test word pitch accent
-
--->
-
 ---
 
 
@@ -254,6 +196,8 @@ For example:
 Vocab (info circle)
 JP Mining Note: Version (VERSION DISPLAYED HERE)
 ```
+
+TODO image
 
 
 
