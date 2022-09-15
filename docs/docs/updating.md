@@ -2,10 +2,6 @@
 
 # Updating the Card
 This section is dedicated to explaining how to update the card itself.
-The main way to do this is by using a Python script.
-
-
-<!--## Preliminary steps-->
 
 !!! warning
     Updating your card will **DELETE ANY CHANGES** you have made to the templates.
@@ -14,22 +10,8 @@ The main way to do this is by using a Python script.
     (Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
 
 
-<!--
-For this page, it is expected that you know how to do basic command line related tasks.
-However, if you're a Windows user, I provide more detailed instructions and external links
-on how to do basic command line related tasks, as well as explicitly reduce the number
-of command line instructions you have to run.
-With that being said, if you're a MacOS or Linux user, no special guidance will be given
-in this documentation.
--->
-
-
 ## Method 1: Python Script (recommended)
 
-<!--
-If you know what `python` and `git` is, please skip this section
-and go straight to the [summary section](updating#command-line-summary).
--->
 The recommended way to install the note is by using a python script.
 This will change the note in place, and gives you various options on how
 the note will be changed.
@@ -143,22 +125,6 @@ After installing Anki-Connect-Dev, you can now run the python script:
         ```
         Once you run the command, further instructions should be given to you through the command
         line interface.
-
-<!--
-#### Mac OS instructions
-Unfortunately, I'm not very familiar with Mac OS, and I don't have a computer with Mac OS
-to test this on.
-However, the [command line summary section](updating#command-line-summary)
-below should be the same regardless of operating system.
-
-Make sure you have `Python` and `git` installed!
-
-
-#### Linux instructions
-You won't be getting any detailed instructions outside of the
-[summary section](updating#command-line-summary) below,
-but you probably already knew that, didn't you? ;)
--->
 
 
 ## Method 2: Manually

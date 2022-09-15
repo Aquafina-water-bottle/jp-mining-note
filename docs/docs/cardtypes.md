@@ -1,14 +1,4 @@
 
-<!--
-
-**Summary:** <br>
-
-**How to test:** <br>
-
-**How to create:** <br>
-
--->
-
 Previously, this note type only had vocab and sentence cards.
 Although I was originally fine with this,
 I started to realize some issues with only having these two card types:
@@ -27,39 +17,6 @@ outside of the fundamental vocab and sentence cards.
 
 {{ img("", "assets/card_types_1_pic.png") }}
 
-
-<!--
-# Card types
-
-This entire section is dedicated to showcasing all the various card types
-that this note has to offer.
-
--->
-
-<!--
-## Common Features
-TODO REMOVE THIS SECTION
-
-Before going into the specific card types,
-this section will apply to all card types, and explain the features and reasoning behind them.
-
-- All card types have an optional **hint** field.
-    This hint field can contain anything you want, and can be used without failing the card.
-
-- All card types will have the sentence audio button at the front (if sentence audio is available.)
-    The purpose of this button is to check if the reading is correct after you guess the reading.
-    Unless the card type is a cloze-deletion card, you **MUST** test yourself on the normal
-    tested content of the card **BEFORE** pressing this button.
-    If you realize that you were wrong after hearing the sentence audio, you must still
-    mark the card as incorrect.
-
-- Vocab cards will also have a collapsable field to reveal the entire sentence.
-    Like the above, the purpose of this is to check the reading of the word after you guess it,
-    and you should only use this **AFTER** you test yourself fully on the word.
-
-- Pitch accent can also be tested for all of the note types.
-    This is explained in detail here (TODO).
--->
 
 ---
 
@@ -180,11 +137,6 @@ but you can use the sentence to guess the definition.
     * In other words, if you can only guess the definition by reading the sentence,
         then the card should still be passed.
 
-<!--
-Notice that this is different from the hover vocab card,
-because you are **not** allowed to see the sentence when guessing the reading.
--->
-
 **How to create:** <br>
 Fill the `IsClickCard` field.
 
@@ -267,34 +219,4 @@ The above example is a Hover TSC, with the last sentence was bolded.
 |                |                        |             | x           | Hover Vocab        |
 | x              |                        |             | x           | Hover Sentence     |
 
-<!--
-# Motivation behind each card type
-(TODO)
-
-## Vocab Card
-
-## Sentence Card
-
-## Hover Vocab Card
-
-## Click Vocab Card
-
-## Hover Sentence Card
-
-## Click Sentence Card
-
-## Targetted Sentence Card
-
-
-# Conclusion
-This note type has many available ways to test the unknown content.
-On the question of what card type you should use,
-ultimately, I have my own opinions, and
-[many](http://www.alljapaneseallthetime.com/blog/10000-sentences-why/)
-[others](https://refold.la/roadmap/stage-2/a/basic-sentence-mining#Mine-Sentences-Not-Words)
-[have](https://learnjapanese.moe/guide/#mining)
-[their](https://animecards.site/ankicards/#sentence-cards-vs-anime-cards)
-[own](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards).
-My personal recommendation is to **try all of them out** and see which works best for you.
--->
 
