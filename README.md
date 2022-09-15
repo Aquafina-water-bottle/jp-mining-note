@@ -71,7 +71,7 @@ Better support across systems and more features are planned for the future.
 * No support for mobile. (Support for Ankidroid is planned for the future, but with no ETA.)
 * No easy way to scale the card within the card itself.
 
-# Installation, Documentation and Everything Else:
+# Get Started
 See the documentation [here](https://aquafina-water-bottle.github.io/jp-mining-note/).
 
 # Other Info
