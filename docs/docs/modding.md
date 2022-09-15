@@ -175,6 +175,23 @@ TODO transfer yomichan templates section here
 
 
 
+
+
+# Building the Documentation
+
+- all documentation files are found under `(root)/docs`.
+
+```
+# assumes you are currently in a venv
+# i.e. you have done the above steps already for building the note
+pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin
+
+# preview the documentation
+mkdocs serve
+```
+
+
+
 # Contributing
 TODO separate page
 
