@@ -2,10 +2,10 @@
 This section is dedicated to explaining how you can change
 other Anki cards into this note format.
 
-**Note:** <br>
-If you are simply importing old JPMN notes, updating JPMN will
-update all the notes in place.
-To update JPMN, see [**this section**](updating).
+!!! note
+    If you are simply importing old JPMN notes, updating JPMN will
+    properly update all the notes in place.
+    See [this section](updating) instead.
 
 
 

@@ -1,6 +1,6 @@
 
-
 Welcome to jp-mining-note's documentation!
 
-Head over to the sidebar on the left to get started.
+See the [setup section](setup.md) to see how to install and create cards with this note type.
+
 
