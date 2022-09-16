@@ -273,3 +273,17 @@ li.definition-item[data-dictionary='新和英'] {
 {% endfor %}
 
 
+# Discord
+
+## Custom CSS
+```css
+:lang(ja), :lang(ja-JP) {
+    --font-primary: Whitney, "Noto Sans CJK JP", "Hiragino Sans", "ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+code {
+    font-family: Ubuntu Mono, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace !important;
+}
+```
+
+
