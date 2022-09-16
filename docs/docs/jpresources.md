@@ -199,7 +199,7 @@ button[title^="Add reading"] {
 
 
 
-# CSS (General)
+# CSS (Other)
 
 ## Ensuring 「」 properly quotes the text { .text-yellow }
 
@@ -216,6 +216,37 @@ On the example to the right, the first quote is the standard display without any
 The second quote is with the aforementioned CSS.
 
 An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bottle/5h8uxnko/14/).
+
+---
+
+
+## Changing the Japanese font on Discord { .text-yellow }
+
+!!! note
+    Discord's codebase is always subject to change, so this method
+    may not work in the future.
+
+1. Get [BetterDiscord](https://betterdiscord.app/) so you can use custom CSS.
+2. In Discord Settings -> `Custom CSS` section, add the following:
+    ```css
+    :lang(ja), :lang(ja-JP) {
+        --font-primary: Whitney,YOUR-PREFERRED-FONT,"Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    ```
+
+??? quote "Click here to see an example."
+    ```css
+    :lang(ja), :lang(ja-JP) {
+        --font-primary: Whitney, "Noto Sans CJK JP","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    ```
+
+??? quote "Click here to see Discord's default CSS."
+    ```
+    :lang(ja), :lang(ja-JP) {
+        --font-primary: Whitney,"Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    ```
 
 ---
 
