@@ -237,7 +237,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 ??? quote "Click here to see an example."
     ```css
     :lang(ja), :lang(ja-JP) {
-        --font-primary: Whitney, "Noto Sans CJK JP","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+        --font-primary: Whitney,"Noto Sans CJK JP","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
     }
     ```
 
