@@ -15,24 +15,54 @@
  # and any other combination with at least one #
  #}
 {% macro _any_of(args, text, comment) %}
-  {% for n in range(1, (2 ** (args|length))) %}
-    {% for i in range(args|length) -%}
-      {%- set mask = 1 | bitwise_shift_left(i) -%}
-      {%- if comment -%}///{%- endif -%}
-      {%- if mask | bitwise_and(n) -%}
-        {{ "{" }}{{ "{" }}{{ "#" }}{{args[i]}}{{ "}" }}{{ "}" }}
-      {%- else -%}
-        {{ "{" }}{{ "{" }}{{ "^" }}{{args[i]}}{{ "}" }}{{ "}" }}
-      {%- endif -%}
-    {%- endfor -%}
+  {#-
+    if any of the args are "always filled", then this entire section will
+    always show the text
+  -#}
+
+  {#- equivalent to if set.intersection(args, always_filled_fields) -#}
+  {%- set anyof = namespace() -%}
+  {%- set anyof.always_filled = False -%}
+  {%- for a in args -%}
+    {%- if a in COMPILE_OPTIONS("always-filled-fields").list() -%}
+      {%- set anyof.always_filled = True -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if anyof.always_filled -%}
 
     {{ text }}
 
-    {%- for name in args | reverse -%}
-      {%- if comment -%}///{%- endif -%}{{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
+  {%- else -%} {#- otherwise, do as normal -#}
+
+    {#- removes anything that is in never-filled -#}
+    {%- set anyof.filtered_args = [] -%}
+    {%- for a in args -%}
+      {%- if a not in COMPILE_OPTIONS("never-filled-fields").list() -%}
+        {%- do anyof.filtered_args.append(a) -%}
+      {%- endif -%}
     {%- endfor -%}
 
-  {%- endfor %}
+    {%- for n in range(1, (2 ** (anyof.filtered_args|length))) -%}
+      {%- for i in range(anyof.filtered_args|length) -%}
+        {%- set mask = 1 | bitwise_shift_left(i) -%}
+        {%- if comment -%}///{%- endif -%}
+        {%- if mask | bitwise_and(n) -%}
+          {{ "{" }}{{ "{" }}{{ "#" }}{{anyof.filtered_args[i]}}{{ "}" }}{{ "}" }}
+        {%- else -%}
+          {{ "{" }}{{ "{" }}{{ "^" }}{{anyof.filtered_args[i]}}{{ "}" }}{{ "}" }}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {{ text }}
+
+      {%- for name in anyof.filtered_args | reverse -%}
+        {%- if comment -%}///{%- endif -%}{{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
+      {%- endfor -%}
+
+    {%- endfor %}
+  {% endif %}
+
 {% endmacro %}
 
 {% macro any_of() -%}
@@ -54,9 +84,25 @@
  # meant to be used like '{{ any_of_str("A", "B") }}'
  #}
 {% macro any_of_str() %}
-  {%- for name in varargs -%}
-    {{ "{" }}{{ "{" }}{{ "#" }}{{name}}{{ "}" }}{{ "}" }}a{{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
+
+  {#- equivalent to if set.intersection(args, always_filled_fields) -#}
+  {%- set anyof = namespace() -%}
+  {%- set anyof.always_filled = False -%}
+  {%- for a in varargs -%}
+    {%- if a in COMPILE_OPTIONS("always-filled-fields").list() -%}
+      {%- set anyof.always_filled = True -%}
+    {%- endif -%}
   {%- endfor -%}
+
+  {%- if anyof.always_filled -%}
+    ALWAYS_FILLED
+  {%- else -%}
+    {%- for name in varargs -%}
+      {%- if name not in COMPILE_OPTIONS("never-filled-fields").list() -%}
+        {{ "{" }}{{ "{" }}{{ "#" }}{{name}}{{ "}" }}{{ "}" }}FILLED{{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
 {% endmacro %}
 
 
@@ -72,15 +118,42 @@
  #
  #}
 {% macro _none_of(args, text, comment) %}
-  {%- for name in args -%}
-    {%- if comment -%}///{%- endif -%}{{ "{" }}{{ "{" }}{{ "^" }}{{name}}{{ "}" }}{{ "}" }}
+  {#-
+    if any of the args are "never filled", then this entire section will
+    never show the text
+  -#}
+
+  {#- equivalent to if set.intersection(args, never_filled_fields) -#}
+  {%- set noneof = namespace() -%}
+  {%- set noneof.never_filled = False -%}
+  {%- for a in args -%}
+    {%- if a in COMPILE_OPTIONS("never-filled-fields").list() -%}
+      {%- set noneof.never_filled = True -%}
+    {%- endif -%}
   {%- endfor -%}
 
-  {{ text }}
+  {%- if not noneof.never_filled -%}
 
-  {%- for name in args | reverse -%}
-    {%- if comment -%}///{%- endif -%}{{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
-  {%- endfor -%}
+    {#- removes anything that is in always-filled -#}
+    {%- set noneof.filtered_args = [] -%}
+    {%- for a in args -%}
+      {%- if a not in COMPILE_OPTIONS("always-filled-fields").list() -%}
+        {%- do noneof.filtered_args.append(a) -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- for name in noneof.filtered_args -%}
+      {%- if comment -%}///{%- endif -%}{{ "{" }}{{ "{" }}{{ "^" }}{{name}}{{ "}" }}{{ "}" }}
+    {%- endfor -%}
+
+    {{ text }}
+
+    {%- for name in noneof.filtered_args | reverse -%}
+      {%- if comment -%}///{%- endif -%}{{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
+    {%- endfor -%}
+
+  {%- endif -%}
+
 {% endmacro %}
 
 {% macro none_of() -%}

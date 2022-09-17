@@ -15,11 +15,11 @@ CONFIG = {
     "compile-options": {
         "always-filled-fields": [],
 
-        "always-non-filled-fields": [],
+        "never-filled-fields": [],
 
         "enabled-modules": [
             "img-utils",
-            "sentences",
+            "sent-utils",
             "kanji-hover",
             "auto-pitch-accent",
         ],

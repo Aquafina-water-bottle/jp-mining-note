@@ -9,7 +9,7 @@
 
 import os
 
-# import json
+import json
 import shutil
 
 # import argparse
@@ -40,7 +40,7 @@ class GenerateType(Enum):
 class TextContainer:
     card_types = ["main", "pa_sent", "pa_word", "cloze_deletion"]
     sides = ["front", "back"]
-    enabled_modules: list | None = None # added in the future
+    enabled_modules: list | None = None # added in the main function of this script
 
     def __init__(self, module_name):
         self.module_name = module_name
@@ -130,11 +130,11 @@ class Generator:
             loader=FileSystemLoader(jinja_root_folder),
             autoescape=select_autoescape(),
             undefined=StrictUndefined,
+            extensions=["jinja2.ext.do"],
             # lstrip_blocks = True,
         )
 
         config = utils.get_config(args)
-        TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
 
         filters = {
             # https://eengstrom.github.io/musings/add-bitwise-operations-to-ansible-jinja2
@@ -154,8 +154,8 @@ class Generator:
         self.data = {
             # "ALWAYS_TRUE": optimize_opts("always-filled").list(),
             # "ALWAYS_FALSE": optimize_opts("never-filled").list(),
-            "ALWAYS_TRUE": [],
-            "ALWAYS_FALSE": [],
+            #"ALWAYS_TRUE": [],
+            #"ALWAYS_FALSE": [],
             # "NOTE_OPTS": config("note_opts", get_dict=True),
             "NOTE_OPTS_JSON": utils.get_note_opts(config),
             # json_output =
@@ -227,6 +227,8 @@ def main(args=None):
 
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "templates")
+
+    TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
 
     generator = Generator(
         templates_folder,

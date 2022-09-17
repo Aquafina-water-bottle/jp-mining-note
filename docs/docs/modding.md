@@ -15,6 +15,7 @@ TODO
 - Python 3.10.6 or higher
     - I recommend [pyenv](https://github.com/pyenv/pyenv) to upgrade your python version if you're running linux.
 - npm (only required for release builds / contributing)
+- dart sass (dart version is required to use the latest features of sass)
 - Anki 2.1.54 or higher
 - Anki-connect addon
 

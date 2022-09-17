@@ -122,18 +122,13 @@ function toggleDetailsTag(ele) {
 
 
 
-// shift to switch between sentence & word on click & hover cards
+// a general function to implement all keybinds necessary by the card.
 // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
 // because functions persist and cannot be easily removed within anki,
 // whereas .onkeyup = ... replaces the previous function with the current.
 document.onkeyup = (e => {
   let keys = null;
   let ele = null;
-
-  // tests for the existance of extraKeybindSettings
-  //if (typeof extraKeybindSettings !== 'undefined') {
-  //  extraKeybindSettings(e);
-  //}
 
   /// {% filter indent(width=2) %}
   /// {% block js_keybind_settings %}
@@ -146,18 +141,6 @@ document.onkeyup = (e => {
   /// {% endfilter %}
 
 
-
-
-  //if (e.getModifierState && e.getModifierState('CapsLock')) {
-  //  if ("CapsLock" === e.key) {
-  //    // either just enabled or disabled
-  //    LOGGER.removeWarn("caps");
-  //  } else {
-  //    LOGGER.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
-  //  }
-  //} else {
-  //  //_debug("Caps lock is not enabled");
-  //}
 
 
   if (e.getModifierState && e.getModifierState('CapsLock')) {
@@ -176,7 +159,6 @@ document.onkeyup = (e => {
 
 
   /// {% call IF("WordAudio") %}
-  //keys = settings.keybind("play-word-audio");
   keys = {{ utils.opt("keybinds", "play-word-audio") }};
 
   if (keys !== null && keys.includes(e.key)) {
@@ -264,20 +246,29 @@ document.onkeyup = (e => {
 })
 
 
-// sanity check
-if (typeof JPMNOpts === 'undefined') {
-  LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
+function main() {
+
+  // sanity check
+  if (typeof JPMNOpts === 'undefined') {
+    LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
+  }
+
+  /// {% filter indent(width=2) %}
+  /// {% block js_run %}
+  /// {% endblock %}
+  /// {% for m in modules %}
+  /// {% if m.js is defined %}
+  {{ m.js.run.get(note.card_type, note.side) }}
+  /// {% endif %}
+  /// {% endfor %}
+  /// {% endfilter %}
+
 }
 
-/// {% block js_run %}
-/// {% endblock %}
-/// {% for m in modules %}
-/// {% if m.js is defined %}
-{{ m.js.run.get(note.card_type, note.side) }}
-/// {% endif %}
-/// {% endfor %}
 
-//})();
+
+main();
+
 
 
 }());
