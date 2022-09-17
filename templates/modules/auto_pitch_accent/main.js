@@ -286,7 +286,7 @@ const JPMNAutoPA = (() => {
     // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
 
     let ajtWord = null;
-    if ({{ utils.opt("auto-select-pitch-accent", "search-for-ajt-word") }}) {
+    if ({{ utils.opt("modules", "auto-pitch-accent", "search-for-ajt-word") }}) {
       ajtWord = getAJTWord(readingKana);
     }
 
@@ -345,7 +345,7 @@ const JPMNAutoPA = (() => {
       logger.debug(`Using reading from WordReading field`);
 
       let normalizedReading = null;
-      switch ({{ utils.opt("auto-select-pitch-accent", "reading-display-mode") }}) {
+      switch ({{ utils.opt("modules", "auto-pitch-accent", "reading-display-mode") }}) {
         case 0:
           normalizedReading = readingKana;
           break;
@@ -359,7 +359,7 @@ const JPMNAutoPA = (() => {
           break;
 
         default:
-          throw 'Invalid option for auto-select-pitch-accent.reading-display-mode';
+          throw 'Invalid option for modules.auto-pitch-accent.reading-display-mode';
       }
 
       result = getMoras(normalizedReading);
@@ -477,7 +477,7 @@ const JPMNAutoPA = (() => {
 
 /// {% set run %}
 
-if ({{ utils.opt("auto-select-pitch-accent", "enabled") }}) {
+if ({{ utils.opt("modules", "auto-pitch-accent", "enabled") }}) {
   const auto_pa = new JPMNAutoPA();
   auto_pa.run();
 }
