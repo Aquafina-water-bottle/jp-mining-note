@@ -41,6 +41,7 @@ The following are examples breaking changes:
 - moved javascript modules to their own separate modules directory
   (and included them in the compile time options)
 - encapsulated all "run" code into main function
+- example module main.js
 
 #### Changed
 - cleaning up the code:
