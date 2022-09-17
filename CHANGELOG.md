@@ -44,21 +44,24 @@ The following are examples breaking changes:
 
 #### Changed
 - cleaning up the code:
+    - turned the logger definition a class, and changed the global logger object from `logger` to `LOGGER`
     - id `Display` -> `display`
     - replaced as many `let` statements with `const`
     - moved javascript code out into their own `modules` folder under `templates`
-    - (WIP) changed javascript modules to return classes, in the format of:
-      ```
-      const CLASS_NAME = (() => {
-        // private variables and functions
+    - changed javascript modules to return classes, in the format of:
+       ```
+       const CLASS_NAME = (() => {
+         // private variables and functions
 
-        class CLASS_NAME {
-          // public functions
-        }
+         class CLASS_NAME {
+           // public functions
+         }
 
-        return CLASS_NAME;
-      })();
-      ```
+         return CLASS_NAME;
+       })();
+       ```
+       - with their own individual logger objects
+    - moved paIndicator to a main card only variable
 
 #### Fixed
 - `replaceAll` -> `replace` with `g` flag, to support older versions of Anki (qt5)

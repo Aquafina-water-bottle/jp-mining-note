@@ -1,11 +1,11 @@
 /// {% set functions %}
-function hybridClick() {
-  // CURRENTLY DEPENDS ON THE SENTENCE MODULE TO WORK (due to note.colorQuotes)
-  let hSent = document.getElementById("hybrid-sentence");
-  let hWord = document.getElementById("hybrid-word");
-  let svgEle = document.getElementById("flag_box_svg");
-  let circ = document.getElementById("svg_circle");
 
+
+function hybridClick() {
+  const hSent = document.getElementById("hybrid-sentence");
+  const hWord = document.getElementById("hybrid-word");
+  const svgEle = document.getElementById("flag_box_svg");
+  const circ = document.getElementById("svg_circle");
 
   if (hSent.classList.contains("override-display-inline-block")) {
     // currently showing sentence, change to word
@@ -15,8 +15,9 @@ function hybridClick() {
       circ.setAttributeNS(null, "cx", "25");
       circ.setAttributeNS(null, "cy", "15");
     }
-    // re-adds if quote module enabled
-    if (svgEle !== null && note.colorQuotes) {
+
+    // re-adds if colored quotes exist
+    if (svgEle !== null && hSent.hasAttribute("data-color-quotes")) {
       svgEle.style.display = "initial";
     }
 
@@ -30,8 +31,9 @@ function hybridClick() {
         circ.setAttributeNS(null, "cy", "11");
       }
     }
-    // removes if quote module enabled
-    if (svgEle !== null && note.colorQuotes) {
+
+    // removes if colored quotes exist
+    if (svgEle !== null && hSent.hasAttribute("data-color-quotes")) {
       svgEle.style.display = "none";
     }
   }
@@ -67,9 +69,40 @@ if (keys !== null && keys.includes(e.key)) {
 
 
 /// {% set run %}
+
+// required for the sentence utils module
+/// {% call IF("PAShowInfo") %}
+var paIndicator = (function () {
+  let my = {};
+  my.type = null;
+  my.className = null;
+  my.tooltip = null;
+
+  if ('{{ utils.any_of_str("PADoNotTest", "PASeparateWordCard") }}') {
+    my.type = "none";
+  } else if ('{{ utils.any_of_str("PASeparateSentenceCard", "PATestOnlyWord") }}') {
+    my.type = "word";
+  } else if ('{{ utils.any_of_str("IsSentenceCard") }}') {
+    my.type = "sentence";
+  } else {
+    my.type = "word";
+  }
+
+  my.className = "pa-indicator-color--" + my.type;
+
+  if (my.type === "none") {
+    my.tooltip = "Do not test"
+  } else if (my.type == "word") {
+    my.tooltip = "Word"
+  } else { // sentence
+    my.tooltip = "Sentence"
+  }
+
+  return my;
+}());
+/// {% endcall %}
+
 {
-  //let isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
-  //processSentences(isAltDisplay);
 
   let d = document.getElementById("display");
   let circ = document.getElementById("svg_circle");
@@ -80,18 +113,11 @@ if (keys !== null && keys.includes(e.key)) {
   /// {% endcall %}
 
 
-
-  /// {% call IF("PAShowInfo") %}
   // different circle positions depending on whether it's a sentence or not.
   // More specifically, checks if the first character is "「",
   // and adjusts the position based on that
 
-  if ('{{ utils.any_of_str("IsSentenceCard", "IsTargetedSentenceCard") }}' &&
-      d.innerText.length > 0 && d.innerText[0] == "「") { // TODO: compatability with quote module
-    circ.setAttributeNS(null, "cx", "35");
-    circ.setAttributeNS(null, "cy", "11");
-  }
-
+  /// {% call IF("PAShowInfo") %}
   // ============================
   //  Word pitch indicator color
   // ============================

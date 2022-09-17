@@ -2,9 +2,9 @@
 /// {% set functions %}
 
 
-const JPMN_ImgUtils = (function () {
+const JPMNImgUtils = (() => {
 
-  let my = {};
+  const logger = new JPMNLogger("img-utils");
 
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById("bigimg");
@@ -103,6 +103,7 @@ const JPMN_ImgUtils = (function () {
       for (const atag of anchorTags) {
         const imgFileName = atag.getAttribute("href");
         if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
+          logger.debug(`Converting yomichan image ${imgFileName}...`);
           const fragment = createImgContainer(imgFileName);
           atag.parentNode.replaceChild(fragment, atag);
         }
@@ -112,6 +113,7 @@ const JPMN_ImgUtils = (function () {
       const imgTags = searchEle.getElementsByTagName("img");
       for (const imgEle of imgTags) {
         if (!imgEle.classList.contains("glossary__image-hover-media")) { // created by us
+          logger.debug(`Converting user-inserted image ${imgEle.src}...`);
           const fragment = createImgContainer(imgEle.src);
           imgEle.parentNode.replaceChild(fragment, imgEle);
         }
@@ -119,20 +121,23 @@ const JPMN_ImgUtils = (function () {
     }
   }
 
-  function run() {
-    editDisplayImage();
+  class JPMNImgUtils {
+    constructor() {}
 
-    // may have to disable this for template {edit:} functionality
-    if ({{ utils.opt("image-utilities", "stylize-images-in-glossary") }}) {
-      searchImages();
+    run() {
+      editDisplayImage();
+
+      // may have to disable this for template {edit:} functionality
+      if ({{ utils.opt("image-utilities", "stylize-images-in-glossary") }}) {
+        searchImages();
+      }
     }
   }
 
 
-  my.run = run;
-  return my;
+  return JPMNImgUtils;
 
-}());
+})();
 
 
 
@@ -144,7 +149,8 @@ const JPMN_ImgUtils = (function () {
 /// {% set run %}
 
 if ({{ utils.opt("image-utilities", "enabled") }}) {
-  JPMN_ImgUtils.run();
+  const img_utils = new JPMNImgUtils();
+  img_utils.run();
 }
 
 /// {% endset %}
