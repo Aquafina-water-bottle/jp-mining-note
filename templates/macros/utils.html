@@ -195,6 +195,7 @@
   {%- endautoescape -%}
 {%- endset -%}
 
+{# adds quotes (if sentence), always attempts to use altdisplay instead of name #}
 {% macro prioritize_alt_display(name, sentence=False) -%}
   {%- if sentence -%} {{quote_open}} {%- endif -%}
   {%- call IF("AltDisplay") %}{{ T("furigana:AltDisplay") }}{% endcall -%}

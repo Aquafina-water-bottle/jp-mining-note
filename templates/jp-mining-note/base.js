@@ -19,7 +19,6 @@
 // "global" variables within the hidden scope
 let note = (function () {
   let my = {};
-  my.colorQuotes = false;
   return my;
 }());
 
@@ -53,40 +52,6 @@ function _debug(message) {
     logger.info(message);
   }
 }
-
-
-
-// global variable to set the PA indicator color (as a css class)
-/// {% call IF("PAShowInfo") %}
-var paIndicator = (function () {
-  let my = {};
-  my.type = null;
-  my.className = null;
-  my.tooltip = null;
-
-  if ('{{ utils.any_of_str("PADoNotTest", "PASeparateWordCard") }}') {
-    my.type = "none";
-  } else if ('{{ utils.any_of_str("PASeparateSentenceCard", "PATestOnlyWord") }}') {
-    my.type = "word";
-  } else if ('{{ utils.any_of_str("IsSentenceCard") }}') {
-    my.type = "sentence";
-  } else {
-    my.type = "word";
-  }
-
-  my.className = "pa-indicator-color--" + my.type;
-
-  if (my.type === "none") {
-    my.tooltip = "Do not test"
-  } else if (my.type == "word") {
-    my.tooltip = "Word"
-  } else { // sentence
-    my.tooltip = "Sentence"
-  }
-
-  return my;
-}());
-/// {% endcall %} // PAShowInfo
 
 
 /// {% if note.card_type != "pa_word" %}

@@ -9,9 +9,10 @@
 // sets the pitch accent section to be whatever you specify it
 // by the pitch accent position number
 
-const JPMN_AutoPA = (function () {
+const JPMNAutoPA = (() => {
 
-  let my = {};
+
+  const logger = new JPMNLogger("auto-pitch-accent");
 
   const ele = document.getElementById("hidden_pa_positions");
   const eleAJT = document.getElementById("hidden_ajt_word_pitch");
@@ -209,7 +210,7 @@ const JPMN_AutoPA = (function () {
           }
 
           if (!found) {
-            _debug(`(JPMN_AutoPA) Cannot find replacement! ${first} ${second}`);
+            logger.debug(`Cannot find replacement! ${first} ${second}`);
           }
         }
       }
@@ -226,7 +227,7 @@ const JPMN_AutoPA = (function () {
     // (apart from <b>, which are ignored)
 
     if (eleAJT.innerHTML.length === 0) {
-      _debug(`(JPMN_AutoPA) AJT word: empty field`);
+      logger.debug(`AJT word: empty field`);
       return null;
     }
 
@@ -241,7 +242,7 @@ const JPMN_AutoPA = (function () {
     const idx = wordSearch.indexOf(normalizedReading)
 
     if (idx === -1) {
-      _debug(`(JPMN_AutoPA) AJT word: ${normalizedReading} not found among [${wordSearch.join(", ")}]`);
+      logger.debug(`AJT word: ${normalizedReading} not found among [${wordSearch.join(", ")}]`);
       return null;
     }
 
@@ -292,7 +293,7 @@ const JPMN_AutoPA = (function () {
     let result = [];
 
     if (ajtWord !== null) {
-      _debug("(JPMN_AutoPA) Using AJT Word");
+      logger.debug("Using AJT Word");
 
       // temp element to iterate through childnodes of ajt word
       const temp = document.createElement("div");
@@ -341,7 +342,7 @@ const JPMN_AutoPA = (function () {
       }
 
     } else {
-      _debug(`(JPMN_AutoPA) Using reading from WordReading field`);
+      logger.debug(`Using reading from WordReading field`);
 
       let normalizedReading = null;
       switch ({{ utils.opt("auto-select-pitch-accent", "reading-display-mode") }}) {
@@ -363,11 +364,11 @@ const JPMN_AutoPA = (function () {
 
       result = getMoras(normalizedReading);
 
-      _debug(`(JPMN_AutoPA) Moras: ${normalizedReading} -> ${result.join(", ")}`);
+      logger.debug(`Moras: ${normalizedReading} -> ${result.join(", ")}`);
     }
 
     if (result.length === 0) {
-      logger.warn("(JPMN_AutoPA) Reading has length of 0?");
+      logger.warn("Reading has length of 0?");
       return;
     }
 
@@ -428,7 +429,7 @@ const JPMN_AutoPA = (function () {
         eleDisp.innerHTML = eleAJT.innerHTML;
         posResult = [null, "AJT Pitch Accent"];
       } else {
-        _debug("(JPMN_AutoPA) Nothing found.");
+        logger.debug("Nothing found.");
         eleDisp.innerText = "(N/A)";
         return;
       }
@@ -436,7 +437,7 @@ const JPMN_AutoPA = (function () {
 
     const [pos, dictName] = posResult;
     const readingKana = getReadingKana();
-    _debug(`(JPMN_AutoPA) pos/dict/reading: ${pos} ${dictName} ${readingKana}`);
+    logger.debug(`pos/dict/reading: ${pos} ${dictName} ${readingKana}`);
 
     // if pos is null, then the display element has already been set
     if (pos === null) {
@@ -450,14 +451,23 @@ const JPMN_AutoPA = (function () {
     //  // TODO
     //}
 
-    //_debug(`(JPMN_AutoPA) result html: ${eleDisp.innerHTML}`);
+    //logger.debug(`result html: ${eleDisp.innerHTML}`);
 
   }
 
-  my.run = addPosition;
-  return my;
+  class JPMNAutoPA {
 
-}());
+    constructor() {}
+
+    run() {
+      addPosition();
+    }
+  }
+
+
+  return JPMNAutoPA;
+
+})();
 
 /// {% endset %}
 
@@ -468,7 +478,8 @@ const JPMN_AutoPA = (function () {
 /// {% set run %}
 
 if ({{ utils.opt("auto-select-pitch-accent", "enabled") }}) {
-  JPMN_AutoPA.run();
+  const auto_pa = new JPMNAutoPA();
+  auto_pa.run();
 }
 
 /// {% endset %}

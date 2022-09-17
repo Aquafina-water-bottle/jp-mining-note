@@ -30,15 +30,13 @@ var isNewCardCache = nullish(isNewCardCache, {});
 //  kanji hover
 // =============
 
-
-// element outside async function to prevent double-adding due to anki funkyness
-const wordReading = document.getElementById("dh_reading");
-let kanjiHoverEnabled = false;
-
-
 const JPMNKanjiHover = (() => {
 
-  let logger = new JPMNLogger("JPMN_Kanji");
+  const logger = new JPMNLogger("kanji-hover");
+
+  // element outside async function to prevent double-adding due to anki funkyness
+  const wordReading = document.getElementById("dh_reading");
+  let kanjiHoverEnabled = false;
 
   // multi query result, in the format of
   // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
@@ -364,10 +362,11 @@ const JPMNKanjiHover = (() => {
 
 // only continues if kanji-hover is actually enabled
 if ({{ utils.opt("kanji-hover", "enabled") }}) {
-  let kanji_hover = new JPMNKanjiHover()
+  const kanji_hover = new JPMNKanjiHover()
   if ({{ utils.opt("kanji-hover", "mode") }} === 0) {
     kanji_hover.run();
   } else { // === 1
+    const wordReading = document.getElementById("dh_reading");
     wordReading.onmouseover = function() {
       // replaces the function with a null function to avoid calling this function
       wordReading.onmouseover = function() {}

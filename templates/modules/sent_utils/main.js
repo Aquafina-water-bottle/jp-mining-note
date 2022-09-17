@@ -10,13 +10,12 @@
  * isAltDisplay=false
  */
 
-const JPMN_SentUtils = (function () {
+const JPMNSentUtils = (() => {
+  const logger = new JPMNLogger("sent-utils");
 
-  let my = {};
-
-  function processSentence(sentEle, isAltDisplay, isClozeDeletion) {
+  function processSentence(sentEle, isAltDisplay, isClozeDeletion, paIndicator) {
     if (typeof isAltDisplay === 'undefined') {
-      logger.warn("isAltDisplay is undefined");
+      LOGGER.warn("isAltDisplay is undefined");
       isAltDisplay = false;
     }
 
@@ -86,22 +85,41 @@ const JPMN_SentUtils = (function () {
     }
 
 
+    // data-color-quotes: INDICATOR if the sentence quotes are colored or not
+    // - attribute doesn't exist by default
+    // - if exists, then the quotes are colored
+    // - added in the sections below:
+
     /// {% if note.card_type == "pa_sent" %}
     if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-sent-pa-indicator-color-quotes") }}) {
       openQuoteEle.classList.add("pa-indicator-color--sentence");
       closeQuoteEle.classList.add("pa-indicator-color--sentence");
+
+      sentEle.setAttribute("data-color-quotes", "true");
     }
     /// {% endif %}
 
     /// {% if note.card_type == "main" %}
     /// {% call IF("PAShowInfo") %}
+
+    // moves pa-indicator position
+    if (!existingQuote && !autoQuote) {
+      const circ = document.getElementById("svg_circle");
+      if (circ !== null) {
+        circ.setAttributeNS(null, "cx", "35");
+        circ.setAttributeNS(null, "cy", "11");
+      }
+    }
+
     if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-indicator-color-quotes") }}) {
       // TODO change this to a data-color-quotes tag within html
       // so it is sentence-div dependent
-      note.colorQuotes = true;
+      sentEle.setAttribute("data-color-quotes", "true");
 
-      openQuoteEle.classList.add(paIndicator.className);
-      closeQuoteEle.classList.add(paIndicator.className);
+      if (paIndicator !== null) {
+        openQuoteEle.classList.add(paIndicator.className);
+        closeQuoteEle.classList.add(paIndicator.className);
+      }
 
       /// {% call IF("IsHoverCard") %}
       let elems = document.getElementsByClassName("expression__hybrid-wrapper");
@@ -132,42 +150,50 @@ const JPMN_SentUtils = (function () {
     /// {% endif %}
 
     sentEle.children[1].innerHTML = result;
+
   }
 
 
-  function processSentences(isAltDisplay, isClozeDeletion) {
-    if (!{{ utils.opt("sentence", "enabled") }}) {
-      return;
+  class JPMNSentUtils {
+    constructor(isAltDisplay, isClozeDeletion, paIndicator) {
+      this.isAltDisplay = isAltDisplay;
+      this.isClozeDeletion = nullish(isClozeDeletion, false);
+      this.paIndicator = nullish(paIndicator, null);
     }
 
-    let sentences = document.querySelectorAll(".expression--sentence")
+    run() {
+      let sentences = document.querySelectorAll(".expression--sentence")
 
-    if (sentences !== null) {
-      for (let sent of sentences) {
-        processSentence(sent, isAltDisplay, isClozeDeletion);
+      if (sentences !== null) {
+        for (let sent of sentences) {
+          processSentence(sent, this.isAltDisplay, this.isClozeDeletion, this.paIndicator);
+        }
       }
     }
   }
 
-  my.run = processSentences;
-  return my;
 
-}());
+  return JPMNSentUtils;
+
+})();
 
 
 /// {% endset %}
 
 
 /// {% set run_main %}
-{
+if ({{ utils.opt("sentence", "enabled") }}) {
+
   let isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
-  JPMN_SentUtils.run(isAltDisplay);
+  let sent_utils = new JPMNSentUtils(isAltDisplay, false, paIndicator);
+  sent_utils.run();
+
 }
 /// {% endset %}
 
 
 /// {% set run_pa_sent %}
-{
+if ({{ utils.opt("sentence", "enabled") }}) {
   let isAltDisplay = false;
   /* {% call IF('AltDisplayPASentenceCard') %} */
     isAltDisplay = true;
@@ -188,7 +214,9 @@ const JPMN_SentUtils = (function () {
     /* {% endcall %} */
   /* {% endcall %} */
 
-  JPMN_SentUtils.run(isAltDisplay);
+  let sent_utils = new JPMNSentUtils(isAltDisplay);
+  sent_utils.run();
+
 }
 /// {% endset %}
 
@@ -196,13 +224,15 @@ const JPMN_SentUtils = (function () {
 
 
 /// {% set run_cloze_deletion %}
-{
+if ({{ utils.opt("sentence", "enabled") }}) {
   let isAltDisplay = false;
   /* {% call IF('AltDisplay') %} */
     isAltDisplay = false;
   /* {% endcall %} */
 
-  JPMN_SentUtils.run(isAltDisplay, true);
+  let sent_utils = new JPMNSentUtils(isAltDisplay, true);
+  sent_utils.run();
+
 }
 /// {% endset %}
 
