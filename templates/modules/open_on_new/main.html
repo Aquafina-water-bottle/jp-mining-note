@@ -1,0 +1,28 @@
+{# idk #}
+
+
+{% import "modules/open_on_new/main.js" as js with context %}
+
+
+{# required boilerplate #}
+{% set open_on_new = namespace() %}
+{% set open_on_new.id = "open_on_new" %}
+
+{# interface for modules that change javascript #}
+{% set open_on_new.js = JavascriptContainer(open_on_new.id) %}
+{{ open_on_new.js.globals.set_all(js.globals) }}
+{{ open_on_new.js.functions.set_back(js.functions) }}
+{{ open_on_new.js.run.set_back(js.run) }}
+
+
+
+{# create any variable if necessary, with TextContainer #}
+{% set open_on_new.foo = TextContainer(open_on_new.id) %}
+
+{% set foo %}
+<div>open_on_new foo</div>
+{% endset %}
+
+{{ open_on_new.foo.set_back(foo) }}}
+
+{# then call with {{ open_on_new.foo.get() }} #}

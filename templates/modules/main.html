@@ -4,10 +4,12 @@
 {% from "modules/kanji_hover/main.html" import kanji_hover with context %}
 {% from "modules/auto_pitch_accent/main.html" import auto_pitch_accent with context %}
 {% from "modules/img_utils/main.html" import img_utils with context %}
+{% from "modules/open_on_new/main.html" import open_on_new with context %}
 
+{# ORDER MATTERS HERE! #}
 {# img_utils is ran after auto_pitch_accent to properly calculate the height of the left div #}
 {# {% set modules = [sentences, kanji_hover, auto_pitch_accent, img_utils] %} #}
-{% set modules = [sent_utils, kanji_hover, auto_pitch_accent, img_utils] %}
+{% set modules = [sent_utils, kanji_hover, auto_pitch_accent, img_utils, open_on_new] %}
 
 {% for m in modules %}
   {% set m.enabled = (m.id in COMPILE_OPTIONS("enabled-modules").list()) %}

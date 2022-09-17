@@ -22,7 +22,7 @@
 
 const JPMNExample = (() => {
 
-  const logger = new JPMNLogger("kanji-hover");
+  const logger = new JPMNLogger("example");
 
   // private functions and variables here
   // ...
