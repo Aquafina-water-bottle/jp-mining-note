@@ -35,6 +35,13 @@ The following are examples breaking changes:
 
 ## [0.10.1.0] - 2022-09-??
 
+#### Added
+- comment at the top of all cards with the compile-time options
+- re-implemented compile time options for always-filled and never-filled
+- moved javascript modules to their own separate modules directory
+  (and included them in the compile time options)
+- encapsulated all "run" code into main function
+
 #### Changed
 - cleaning up the code:
     - id `Display` -> `display`

@@ -1,9 +1,11 @@
 {# gamer #}
 
-{% from "macros/global.html" import T, IF, IFNOT, END with context %}
-{% import "macros/utils.html" as utils with context %}
+{%- from "macros/global.html" import T, IF, IFNOT, END with context -%}
+{%- import "macros/utils.html" as utils with context -%}
 
-{% import "jp-mining-note/common.html" as common with context %}
+{%- import "jp-mining-note/common.html" as common with context -%}
+
+{{ common.compile_options_comment }}
 
 
 {% call IF("FrequenciesStylized") %}

@@ -1,16 +1,16 @@
 {# syntax looks weird to not screw up vim syntax highlighting... #}
 
 
-{# {{#<name>}} #}
+{# {{<name>}} #}
 {% macro T(name) -%}
 {{ "{" }}{{ "{" }}{{ name }}{{ "}" }}{{ "}" }}
 {%- endmacro %}
 
-{# {{#<name>}} #}
+{# {{#<name>}} ... {{/<name>}} #}
 {% macro IF(name) -%}
 {%- if caller is defined -%}
-  {%- if name in ALWAYS_FALSE -%} {# nothing #}
-  {%- elif name in ALWAYS_TRUE -%}
+  {%- if name in COMPILE_OPTIONS("always-filled-fields").list() -%} {# nothing #}
+  {%- elif name in COMPILE_OPTIONS("never-filled-fields").list() -%}
   {{- caller() -}}
   {%- else -%}
   {{ "{" }}{{ "{" }}{{ "#" }}{{ name }}{{ "}" }}{{ "}" }}
@@ -22,11 +22,11 @@
 {%- endif -%}
 {%- endmacro %}
 
-{# {{^<name>}} #}
+{# {{^<name>}} ... {{/<name>}} #}
 {% macro IFNOT(name) -%}
 {%- if caller is defined -%}
-  {%- if name in ALWAYS_TRUE -%} {# nothing #}
-  {%- elif name in ALWAYS_FALSE -%}
+  {%- if name in COMPILE_OPTIONS("never-filled-fields").list() -%} {# nothing #}
+  {%- elif name in COMPILE_OPTIONS("always-filled-fields").list() -%}
   {{- caller() -}}
   {%- else -%}
   {{ "{" }}{{ "{" }}{{ "^" }}{{ name }}{{ "}" }}{{ "}" }}

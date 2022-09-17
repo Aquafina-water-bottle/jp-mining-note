@@ -9,3 +9,6 @@
 {# {% set modules = [sentences, kanji_hover, auto_pitch_accent, img_utils] %} #}
 {% set modules = [sent_utils, kanji_hover, auto_pitch_accent, img_utils] %}
 
+{% for m in modules %}
+  {% set m.enabled = (m.id in COMPILE_OPTIONS("enabled-modules").list()) %}
+{% endfor %}
