@@ -3,6 +3,7 @@ Config file used for both build.py and install.py
 """
 
 CONFIG = {
+    # you need dart-sass!
     "sass-path": "sass",
 
     "jp-mining-note": {
@@ -18,10 +19,11 @@ CONFIG = {
         "never-filled-fields": [],
 
         "enabled-modules": [
-            "img-utils",
+            "img-utils", # HIGHLY RECOMMENDED to have this enabled (if you want a nice looking card)
             "sent-utils",
             "kanji-hover",
             "auto-pitch-accent",
+            "open_on_new",
         ],
     },
 }

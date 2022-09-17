@@ -4,8 +4,6 @@
 
 
 
-
-
 /// {% for m in modules %}
 /// {% if m.js is defined %}
 {{ m.js.globals.get(note.card_type, note.side) }}

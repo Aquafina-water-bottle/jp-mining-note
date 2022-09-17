@@ -58,6 +58,23 @@
     "toggle-extra-info-display": ["["]
   },
 
+  // Opens the specified collapsable field if the card is new.
+  "modules": {
+    "open-on-new": {
+      "enabled": false,
+      "open-fields": [
+        // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
+        // indeed collapsed by default.
+
+        //"Primary Definition",
+        //"Secondary Definition",
+        // "Additional Notes",
+        //"Extra Definitions",
+        "Extra Info"
+      ]
+    }
+  },
+
   "sentence": {
     // Automatic processing to sentences
     "enabled": true,
@@ -165,10 +182,6 @@
   // Making this true keeps the indicator, but greys out the text to show that
   // it cannot be opened.
   "greyed-out-collapsable-fields-when-empty": false,
-
-  // Opens the "extra info" field if the card is new.
-  // Useful for checking pitch accent, etc.
-  "open-extra-info-when-new": false,
 
   // Warn if using the `Sentence` field instead of the `SentenceReading` field
   "no-sentence-reading-warn": false,

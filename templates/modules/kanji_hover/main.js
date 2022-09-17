@@ -10,12 +10,6 @@ var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
 //var kanjiHoverCache = kanjiHoverCache ?? {};
 var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
-// note that this cache will NOT respect card review undos,
-// but that should be a niche enough case to not warrent caching.
-// maps key -> bool
-//var isNewCardCache = isNewCardCache ?? {};
-var isNewCardCache = nullish(isNewCardCache, {});
-
 
 /// {% endset %}
 

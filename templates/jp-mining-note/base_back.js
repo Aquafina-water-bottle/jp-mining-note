@@ -4,77 +4,6 @@
 {{ super() }}
 
 
-// placed outside due to anki's async weirdness
-const extraInfoDetailsEle = document.getElementById("extra_info_details");
-
-async function openExtraInfoIfNew() {
-
-  // checks option first to see if it's enabled in the first place
-  if ( !{{ utils.opt("open-extra-info-when-new") }}) {
-    return;
-  }
-
-  // doesn't do anything if the element doesn't exist in the first place
-  if (extraInfoDetailsEle === null) {
-    return;
-  }
-
-  // cancels if not new
-  // refreshes on every new check, b/c one cannot assume that a card
-  // is no longer new once you see a new card
-  // (editing a new card will consistently refresh the currently new card)
-  const key = "{{ T('Key') }}";
-  if (key in isNewCardCache && !isNewCardCache[key]) {
-    _debug("(JPMN_ExtraInfo) Key in new card cache and is not new");
-    return;
-  }
-
-  // requires that any of PAGraphs and UtilityDictionaries be filled to even open extra info
-  if (!'{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
-    _debug("(JPMN_ExtraInfo) Neither PAGraphs nor UtilityDictionaries exists");
-    return;
-  }
-
-  _debug("(JPMN_ExtraInfo) Testing for new card...");
-
-  function constructFindCardAction(query) {
-    return {
-      "action": "findCards",
-      "params": {
-        "query": query,
-      }
-    }
-  }
-
-  // constructs the multi findCards request for ankiconnect
-  let actions = [];
-  const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
-  actions.push(constructFindCardAction(`"Key:${key}" "card:${cardTypeName}"`));
-  actions.push(constructFindCardAction(`is:new "Key:${key}" "card:${cardTypeName}"`));
-
-  const multi = await invoke("multi", {"actions": actions});
-  const cards = multi[0];
-
-  if (cards.length > 1) {
-    logger.warn("Duplicate key found.");
-    return;
-  }
-  if (cards.length == 0) {
-    logger.error("(JPMN_ExtraInfo) Cannot find its own card?");
-    return;
-  }
-
-  const isNew = (multi[1].length > 0);
-  isNewCardCache[key] = isNew;
-
-  if (isNew) {
-    _debug("(JPMN_ExtraInfo) Card is new, opening extra info...");
-    toggleDetailsTag(extraInfoDetailsEle);
-  } else {
-    _debug("(JPMN_ExtraInfo) Card is not new.");
-  }
-}
-
 
 
 
@@ -178,7 +107,7 @@ if ({{ utils.opt("no-sentence-reading-warn") }}) {
 
 
 // option taken care of in the function itself
-openExtraInfoIfNew();
+//openExtraInfoIfNew();
 
 
 // a bit of a hack...
