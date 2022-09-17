@@ -27,8 +27,8 @@ const JPMNSentUtils = (() => {
       result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
     }
 
-    if ((!isAltDisplay && {{ utils.opt("sentence", "remove-line-breaks") }})
-        || isAltDisplay && {{ utils.opt("sentence", "remove-line-breaks-on-altdisplay") }}) {
+    if ((!isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks") }})
+        || isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks-on-altdisplay") }}) {
       let noNewlines = result.replace(/<br>/g, "");
 
       result = noNewlines;
@@ -37,7 +37,7 @@ const JPMNSentUtils = (() => {
     // removes leading and trailing white space (equiv. of strip() in python)
     result = result.trim();
 
-    let validQuotes = {{ utils.opt("sentence", "quote-match-strings") }};
+    let validQuotes = {{ utils.opt("modules", "sent-utils", "quote-match-strings") }};
     let existingQuote = false;
 
     let openQuoteEle = sentEle.children[0];
@@ -60,16 +60,16 @@ const JPMNSentUtils = (() => {
     }
 
     let autoQuote = (
-      (!isAltDisplay && {{ utils.opt("sentence", "auto-quote-sentence") }})
-      || (isAltDisplay && {{ utils.opt("sentence", "auto-quote-alt-display-sentence") }})
+      (!isAltDisplay && {{ utils.opt("modules", "sent-utils", "auto-quote-sentence") }})
+      || (isAltDisplay && {{ utils.opt("modules", "sent-utils", "auto-quote-alt-display-sentence") }})
     );
     if (!existingQuote && autoQuote) {
       /// {% if note.card_type == "pa_sent" %}
-      openQuoteEle.innerText = {{ utils.opt("sentence", "pa-sent-auto-quote-open") }};
-      closeQuoteEle.innerText = {{ utils.opt("sentence", "pa-sent-auto-quote-close") }};
+      openQuoteEle.innerText = {{ utils.opt("modules", "sent-utils", "pa-sent-auto-quote-open") }};
+      closeQuoteEle.innerText = {{ utils.opt("modules", "sent-utils", "pa-sent-auto-quote-close") }};
       /// {% else %}
-      openQuoteEle.innerText = {{ utils.opt("sentence", "auto-quote-open") }};
-      closeQuoteEle.innerText = {{ utils.opt("sentence", "auto-quote-close") }};
+      openQuoteEle.innerText = {{ utils.opt("modules", "sent-utils", "auto-quote-open") }};
+      closeQuoteEle.innerText = {{ utils.opt("modules", "sent-utils", "auto-quote-close") }};
       /// {% endif %}
     }
 
@@ -91,7 +91,7 @@ const JPMNSentUtils = (() => {
     // - added in the sections below:
 
     /// {% if note.card_type == "pa_sent" %}
-    if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-sent-pa-indicator-color-quotes") }}) {
+    if ((existingQuote || autoQuote) && {{ utils.opt("modules", "sent-utils", "pa-sent-pa-indicator-color-quotes") }}) {
       openQuoteEle.classList.add("pa-indicator-color--sentence");
       closeQuoteEle.classList.add("pa-indicator-color--sentence");
 
@@ -111,7 +111,7 @@ const JPMNSentUtils = (() => {
       }
     }
 
-    if ((existingQuote || autoQuote) && {{ utils.opt("sentence", "pa-indicator-color-quotes") }}) {
+    if ((existingQuote || autoQuote) && {{ utils.opt("modules", "sent-utils", "pa-indicator-color-quotes") }}) {
       // TODO change this to a data-color-quotes tag within html
       // so it is sentence-div dependent
       sentEle.setAttribute("data-color-quotes", "true");
@@ -182,7 +182,7 @@ const JPMNSentUtils = (() => {
 
 
 /// {% set run_main %}
-if ({{ utils.opt("sentence", "enabled") }}) {
+if ({{ utils.opt("modules", "sent-utils", "enabled") }}) {
 
   let isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
   let sent_utils = new JPMNSentUtils(isAltDisplay, false, paIndicator);
@@ -193,7 +193,7 @@ if ({{ utils.opt("sentence", "enabled") }}) {
 
 
 /// {% set run_pa_sent %}
-if ({{ utils.opt("sentence", "enabled") }}) {
+if ({{ utils.opt("modules", "sent-utils", "enabled") }}) {
   let isAltDisplay = false;
   /* {% call IF('AltDisplayPASentenceCard') %} */
     isAltDisplay = true;
@@ -224,7 +224,7 @@ if ({{ utils.opt("sentence", "enabled") }}) {
 
 
 /// {% set run_cloze_deletion %}
-if ({{ utils.opt("sentence", "enabled") }}) {
+if ({{ utils.opt("modules", "sent-utils", "enabled") }}) {
   let isAltDisplay = false;
   /* {% call IF('AltDisplay') %} */
     isAltDisplay = false;

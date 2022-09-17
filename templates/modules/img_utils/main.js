@@ -128,7 +128,7 @@ const JPMNImgUtils = (() => {
       editDisplayImage();
 
       // may have to disable this for template {edit:} functionality
-      if ({{ utils.opt("image-utilities", "stylize-images-in-glossary") }}) {
+      if ({{ utils.opt("modules", "img-utils", "stylize-images-in-glossary") }}) {
         searchImages();
       }
     }
@@ -148,7 +148,7 @@ const JPMNImgUtils = (() => {
 
 /// {% set run %}
 
-if ({{ utils.opt("image-utilities", "enabled") }}) {
+if ({{ utils.opt("modules", "img-utils", "enabled") }}) {
   const img_utils = new JPMNImgUtils();
   img_utils.run();
 }

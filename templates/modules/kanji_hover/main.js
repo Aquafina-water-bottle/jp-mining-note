@@ -53,8 +53,8 @@ const JPMNKanjiHover = (() => {
         `(-"Key:{{ T('Key') }}" -"WordReading:{{ T('WordReading') }}"`
         + `Word:*${character}* "card:${cardTypeName}") `
       );
-      const nonNewQuery = baseQuery + {{ utils.opt("kanji-hover", "non-new-query") }};
-      const newQuery = baseQuery + {{ utils.opt("kanji-hover", "new-query") }};
+      const nonNewQuery = baseQuery + {{ utils.opt("modules", "kanji-hover", "non-new-query") }};
+      const newQuery = baseQuery + {{ utils.opt("modules", "kanji-hover", "new-query") }};
 
       actions.push(constructFindCardAction(nonNewQuery))
       actions.push(constructFindCardAction(newQuery))
@@ -64,9 +64,9 @@ const JPMNKanjiHover = (() => {
   }
 
   function filterCards(nonNewCardIds, newCardIds) {
-    const nonNewEarliest = {{ utils.opt("kanji-hover", "max-non-new-oldest") }};
-    const nonNewLatest = {{ utils.opt("kanji-hover", "max-non-new-latest") }};
-    const newLatest = {{ utils.opt("kanji-hover", "max-new-latest") }};
+    const nonNewEarliest = {{ utils.opt("modules", "kanji-hover", "max-non-new-oldest") }};
+    const nonNewLatest = {{ utils.opt("modules", "kanji-hover", "max-non-new-latest") }};
+    const newLatest = {{ utils.opt("modules", "kanji-hover", "max-new-latest") }};
 
     // non new: gets the earliest and latest
     let nonNewResultIds = []
@@ -355,9 +355,9 @@ const JPMNKanjiHover = (() => {
 /// {% set run %}
 
 // only continues if kanji-hover is actually enabled
-if ({{ utils.opt("kanji-hover", "enabled") }}) {
+if ({{ utils.opt("modules", "kanji-hover", "enabled") }}) {
   const kanji_hover = new JPMNKanjiHover()
-  if ({{ utils.opt("kanji-hover", "mode") }} === 0) {
+  if ({{ utils.opt("modules", "kanji-hover", "mode") }} === 0) {
     kanji_hover.run();
   } else { // === 1
     const wordReading = document.getElementById("dh_reading");
