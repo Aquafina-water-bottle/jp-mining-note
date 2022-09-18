@@ -34,12 +34,12 @@ anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict
   color: #8e8e8e;
 }
 
-anki-editable[field=WordPitch] b {
+anki-editable[field=AJTWordPitch] b {
   font-weight: normal;
   color: #808080;
   font-size: 15px;
 }
-anki-editable[field=WordPitch] b .pitchoverline:after {
+anki-editable[field=AJTWordPitch] b .pitchoverline:after {
   content: "";
   width: 100%;
   height: 1px;
@@ -49,7 +49,7 @@ anki-editable[field=WordPitch] b .pitchoverline:after {
   top: -1px;
   right: -1px;
 }
-anki-editable[field=WordPitch] b .downstep:before {
+anki-editable[field=AJTWordPitch] b .downstep:before {
   content: "";
   width: 1px;
   height: 25%;
@@ -60,13 +60,13 @@ anki-editable[field=WordPitch] b .downstep:before {
   top: -1px;
   left: 0px;
 }
-anki-editable[field=WordPitch] b .nopron {
+anki-editable[field=AJTWordPitch] b .nopron {
   filter: brightness(var(--pa-brightness-reduce));
 }
-anki-editable[field=WordPitch] b .nasal {
+anki-editable[field=AJTWordPitch] b .nasal {
   filter: brightness(var(--pa-brightness-reduce));
 }
-anki-editable[field=WordPitch] b .downstep {
+anki-editable[field=AJTWordPitch] b .downstep {
   filter: brightness(var(--pa-brightness-reduce));
 }
 
