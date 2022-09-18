@@ -49,6 +49,8 @@ plugins:
       is_video: True
       video_autoplay: False
   - macros
+  - git-revision-date-localized:
+      type: date
 
 nav:
   - Home: index.md
