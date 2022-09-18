@@ -87,7 +87,7 @@ know, so they are not greyed out.
 
 !!! note
     The number of results per category can be changed in the
-    [options file](runtime_options.md).
+    [options file](runtimeoptions.md).
 
 
 
@@ -108,7 +108,7 @@ Some assumptions are made about suspended cards.
 For example, suspended cards flagged as `green` are counted in the "non-new" cards category
 (known words), and suspended cards flagged as `red` are counted as words that you
 do not know AND will not study in the future (not shown in any category).
-This can be changed in the [options file](runtime_options.md).
+This can be changed in the [options file](runtimeoptions.md).
 
 
 ## Word Pitch
