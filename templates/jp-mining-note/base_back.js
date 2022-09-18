@@ -3,11 +3,6 @@
 /// {% block js_functions %}
 {{ super() }}
 
-
-
-
-
-
 // https://github.com/FooSoft/anki-connect#javascript
 function invoke(action, params={}) {
   let version = 6;
@@ -66,14 +61,6 @@ function convertHiraganaToKatakana(text) {
   return result;
 }
 
-
-
-
-
-
-
-
-
 /// {% endblock %}
 
 
@@ -87,21 +74,21 @@ function convertHiraganaToKatakana(text) {
 const tagsEle = document.getElementById("tags");
 const tags = tagsEle.innerHTML.split(" ");
 if (tags.includes("leech")) {
-  logger.leech();
+  LOGGER.leech();
 }
 
 
 // checks that both `IsHoverCard` and `IsClickCard` are both not activated
 /// {% call IF("IsHoverCard") %}
 /// {% call IF("IsClickCard") %}
-logger.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
+LOGGER.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
 /// {% endcall %}
 /// {% endcall %}
 
 
 /// {% call IFNOT("SentenceReading") %}
 if ({{ utils.opt("no-sentence-reading-warn") }}) {
-  logger.warn("`SentenceReading` is not filled out. Using `Sentence` field instead.");
+  LOGGER.warn("`SentenceReading` is not filled out. Using `Sentence` field instead.");
 }
 /// {% endcall %}
 

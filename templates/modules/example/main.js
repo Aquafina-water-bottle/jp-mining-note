@@ -14,11 +14,9 @@
 
 /// {% set functions %}
 
-// ================
-//  example module
-// ================
-
-
+// =========
+//  Example
+// =========
 
 const JPMNExample = (() => {
 

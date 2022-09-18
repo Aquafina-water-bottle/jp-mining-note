@@ -1,6 +1,9 @@
 
 /// {% set functions %}
 
+// =============
+//  Image Utils
+// =============
 
 const JPMNImgUtils = (() => {
 

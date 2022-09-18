@@ -1,14 +1,15 @@
 /// {% set functions %}
 
 
-/*
- * processes the sentence (if there is no altdisplay)
- * - removes newlines
- * - replaces bold with [...] if cloze deletion
- * - handles adding or replacing quotes if specified
- *
- * isAltDisplay=false
- */
+
+// ================
+//  Sentence Utils
+// ================
+//
+// processes the sentence
+// - removes newlines
+// - replaces bold with [...] if cloze deletion
+// - handles adding or replacing quotes if specified
 
 const JPMNSentUtils = (() => {
   const logger = new JPMNLogger("sent-utils");

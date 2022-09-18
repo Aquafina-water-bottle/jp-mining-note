@@ -21,7 +21,7 @@ var kanjiHoverCache = nullish(kanjiHoverCache, {});
 /// {% set functions %}
 
 // =============
-//  kanji hover
+//  Kanji Hover
 // =============
 
 const JPMNKanjiHover = (() => {

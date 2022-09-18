@@ -4,7 +4,6 @@
 // note that this cache will NOT respect card review undos,
 // but that should be a niche enough case to not warrent caching.
 // maps key -> bool
-//var isNewCardCache = isNewCardCache ?? {};
 var isNewCardCache = nullish(isNewCardCache, {});
 
 /// {% endset %}
@@ -17,10 +16,8 @@ var isNewCardCache = nullish(isNewCardCache, {});
 /// {% set functions %}
 
 // ===================
-//  open field on new
+//  Open Field on New
 // ===================
-
-
 
 const JPMNOpenOnNew = (() => {
 

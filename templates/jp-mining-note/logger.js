@@ -169,7 +169,7 @@ var JPMNLogger = (() => {
 var LOGGER = nullish(LOGGER, new JPMNLogger());
 
 /* TEMPORARY logger for legacy code to work */
-var logger = nullish(logger, new JPMNLogger("DEPRECATED"));
+//var logger = nullish(logger, new JPMNLogger("DEPRECATED"));
 
 
 // on any javascript error: log it
