@@ -55,7 +55,7 @@ plugins:
 nav:
   - Home: index.md
   - Getting Started:
-    - Philosophy: philosophy.md
+    - Preface: preface.md
     - Setup: setup.md
     - Transfer Existing Notes: importing.md
     - Updating JPMN: updating.md
