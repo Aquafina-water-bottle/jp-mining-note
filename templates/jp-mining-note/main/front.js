@@ -40,9 +40,6 @@ function toggleHighlightWord() {
   let paButton = document.getElementById("pa-button");
   let d = document.getElementById("display");
   if (paButton !== null) {
-    //paButton.oncontextmenu = oncontextmenu = (event) => {
-    //  event.preventDefault();
-    //};
     paButton.onclick = () => {
       if (paButton.innerText == "Show") {
         paButton.innerText = "Hide";
