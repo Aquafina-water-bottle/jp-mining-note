@@ -7,6 +7,7 @@ site_description: Documentation for the jp-mining-note project.
 repo_url: https://github.com/Aquafina-water-bottle/jp-mining-note
 repo_name: jp-mining-note
 edit_uri: edit/master/docs/docs/
+site_url: https://aquafina-water-bottle.github.io/jp-mining-note/
 
 theme:
   name: material
@@ -59,7 +60,7 @@ nav:
   - Reference:
     - Usage: usage.md
     - Card Types: cardtypes.md
-    - Runtime Options (TODO): runtime_options.md
+    - Runtime Options (TODO): runtimeoptions.md
     - "Modding & Dev Docs (TODO)": modding.md
   - Other:
     - FAQ: faq.md
