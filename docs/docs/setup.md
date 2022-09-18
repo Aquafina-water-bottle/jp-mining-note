@@ -156,7 +156,7 @@ I use the default config that comes with the add-on.
     and it is highly recommended that you upgrade Anki to avoid this problem.
 
     If you aren't interested in those features, you can skip this step and
-    disable them in the [runtime options](usage.md#runtime-options).
+    disable them in the [runtime options](runtimeoptions.md).
 
 <br>
 
