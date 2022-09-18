@@ -42,6 +42,7 @@ The following are examples breaking changes:
   (and included them in the compile time options)
 - encapsulated all "run" code into main function
 - example module main.js
+- generalized "open extra info on new" into its own module
 
 #### Changed
 - cleaning up the code:
