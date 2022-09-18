@@ -113,24 +113,19 @@ Please disable them and restart Anki before continuing.
 
 
 ## Conflicting add-ons
-- None since I'm not aware of any currently. Let me know if you find one!
+There are no conflicting add-ons, since I'm not aware of any currently.
+Let me know if you find one!
 
 
-## Required Anki add-ons
-To download all the required add-ons, copy and paste the following numbers into the Add-ons window.
+## Downloading add-ons
+To download an add-on, copy the add-on's code, and navigate to the following to paste the code:
 (`Tools` →  `Add-ons` →  `Get Add-ons...`)
-```
-2055492159 181103283
-```
 
 {{ img("install Anki addons", "assets/anki/addons_install.png") }}
 
-
-After installing the add-ons, you will have to change the configs of the add-ons
-to work with this note type.
-Continue reading to see the required config changes.
-
 <br>
+
+## Required Anki add-ons
 
 ### Anki-Connect
 
@@ -142,8 +137,8 @@ I use the default config that comes with the add-on.
 
     Some older versions of Anki (2.1.49 and below) require a hack to the Anki-Connect
     config for certain features within the card to work.
-    In particular, Anki-Connect is used for the Kanji Hover feature and the
-    "Open Extra Info on New Card" feature.
+    In particular, Anki-Connect is used for the "Kanji Hover" feature and the
+    "Open Fields on New Card" feature.
 
     To make those features work,
     add `"null"` to the `webCorsOriginList` list in the Anki-Connect config file.
@@ -159,17 +154,28 @@ I use the default config that comes with the add-on.
     Of course, this [isn't very safe](https://w3c.github.io/webappsec-cors-for-developers/#avoid-returning-access-control-allow-origin-null)
     and it is highly recommended that you upgrade Anki to avoid this problem.
 
-    If you don't care for those features, you can disable them in the
-    [runtime options](usage.md#runtime-options).
+    If you aren't interested in those features, you can skip this step and
+    disable them in the [runtime options](usage.md#runtime-options).
 
 <br>
 
+## Optional Add-ons
+These are a set of optional, but useful add-ons that can easily work with the card.
+If this is your first time here, I recommend skimming through the descriptions
+and choosing the add-ons that seem appealing for you.
+
+!!! note
+    Make sure to head over to the [final steps](setup.md#final-steps) section afterwards!
+
+
+<br>
+
+
 ### CSS Injector
 [(Official page)](https://ankiweb.net/shared/info/181103283) Code: `181103283` <br>
-This add-on is not strictly necessary.
-However, if you don't use this, the fields within the Anki field editor
-won't have certain stylizations that makes the field actually interpretable,
-so I *strongly* recommend using this.
+I *strongly* recommend using this, because
+if you don't use this, the fields within the Anki field editor
+won't have certain stylizations that makes the field actually interpretable.
 
 {{ img("CSS Injector comparison", "assets/css_injector.png") }}
 
@@ -201,7 +207,14 @@ and delete `field.css`.
         del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
         ```
 
-        Afterwards, run the following command in command prompt with elevated permissions:
+        Afterwards, open command prompt with elevated permissions.
+
+        !!! note
+            Be sure to open command prompt, and not PowerShell.
+            If you've never used command prompt before, see
+            [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
+
+        With command prompt opened, run the following command:
         ```
         # be sure to change USERNAME to your computer username and PROFILENAME to your Anki profile.
         # There are **two** USERNAME's to replace, and **one** PROFILENAME to replace in the command below.
@@ -209,12 +222,6 @@ and delete `field.css`.
 
         mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
         ```
-
-        !!! note
-            Be sure to run the last command in command prompt, and not PowerShell.
-            If you've never used command prompt before, see
-            [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
-
 
     === "MacOS"
         {% filter indent(8) -%}
@@ -262,16 +269,10 @@ and delete `field.css`.
         If the `_field.css` file ever updates, you will have to manually copy and rename the file again
         into the correct position.
 
-
-
-
-
 <br>
 
-## Optional Add-ons
-These are a set of optional, but useful add-ons that can easily work with the card.
 
-<br>
+
 
 ### AJT Furigana
 [(Official page)](https://ankiweb.net/shared/info/1344485230) Code: `1344485230` <br>
@@ -350,6 +351,7 @@ Automatically adds pitch accent info given the word.
 
 For the purposes of the card,
 the only purpose that this add-on serves is the following:
+
 - Adds devoiced and nasal information to the existing reading.
 - If your Yomichan pitch accent dictionaries did not contain any pitch accent info for the word
   but the add-on does, then it will use the add-on data.

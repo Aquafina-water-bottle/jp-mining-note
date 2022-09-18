@@ -77,10 +77,30 @@ python3 -m pytest ./tests
 
 
 # Modding the Note
-TODO
+- templates are auto-generated
+- modding the html directly will mean that you will lose your changes upon note update
+- recommended approach is to use modules/runtime options
 
+- modules:
+    - TODO basic explanation
+    - javascript-only modules do not require any edits to the raw html
+    - some modules may still have to edit the raw html -> cannot update the note
+        - edits are minimal so you should be able to re-add upon update
+    - uses runtime options
 
-## Modules
+- runtime options
+    - options in javascript
+    - can implement certain features only with runtime options and no modules
+    - 
+
+- what to use: modules / runtime options only
+    - whichever you think is simpler to implement and to maintain
+    - usually modules
+
+- if you think your changes will be useful for others, highly recommend contributing your work!
+    - especially since your changes will likely edit the raw html
+    - contributing to the project + enabling the features on your system should guarantee that
+      your additions aren't lost upon each update
 
 
 ## Themes

@@ -51,14 +51,19 @@ plugins:
 
 nav:
   - Home: index.md
-  - Setup: setup.md
-  - Usage: usage.md
-  - Card Types: cardtypes.md
-  - Transfer Existing Notes: importing.md
-  - Updating (TODO): updating.md
-  - "Modding & Dev Docs (TODO)": modding.md
-  - FAQ (TODO): faq.md
-  - Various Resources: jpresources.md
+  - Getting Started:
+    - Philosophy: philosophy.md
+    - Setup: setup.md
+    - Transfer Existing Notes: importing.md
+    - Updating JPMN: updating.md
+  - Reference:
+    - Usage: usage.md
+    - Card Types: cardtypes.md
+    - Runtime Options (TODO): runtime_options.md
+    - "Modding & Dev Docs (TODO)": modding.md
+  - Other:
+    - FAQ: faq.md
+    - Various Resources: jpresources.md
 
 extra_css:
   - stylesheets/extra.css
@@ -82,6 +87,8 @@ markdown_extensions:
   #- pymdownx.superfences
 
   - md_in_html
+
+  - footnotes
 
   #- pymdownx.superfences
   - pymdownx.tabbed:

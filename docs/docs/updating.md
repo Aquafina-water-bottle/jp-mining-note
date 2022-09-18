@@ -32,14 +32,6 @@ will likely need (calls related to field editing).
 
     You can install Anki-Connect-Dev in one of two ways:
 
-    === "Command Line Installation (MacOS and Linux ONLY)"
-
-        ```
-        git clone https://github.com/FooSoft/anki-connect.git
-        cd anki-connect
-        ./link.sh
-        ```
-
 
     === "Manual Installation"
         1. Download the zip of the
@@ -61,6 +53,15 @@ will likely need (calls related to field editing).
                L edit.py
                ...
         ```
+
+    === "Command Line Installation (MacOS and Linux ONLY)"
+
+        ```
+        git clone https://github.com/FooSoft/anki-connect.git
+        cd anki-connect
+        ./link.sh
+        ```
+
 
     After installing `AnkiConnectDev`:
 
