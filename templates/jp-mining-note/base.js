@@ -220,7 +220,8 @@ function main() {
     {{ m.js.run.get(note.card_type, note.side) }}
     {%- endfilter %}
   } catch (error) {
-    LOGGER.error(error);
+    LOGGER.errorStack("Error in module {{ m.id }}:");
+    LOGGER.errorStack(error.stack);
   }
 
 {% endif -%}

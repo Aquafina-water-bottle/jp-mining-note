@@ -49,9 +49,18 @@ var JPMNLogger = (() => {
       }
     }
 
+    errorStack(stack) {
+      let stackList = stack.split(" at ");
+      for (let i = 1; i < stackList.length; i++) {
+        stackList[i] = ">>> " + stackList[i];
+      }
+      this.error(stackList);
+    }
+
+
     assert(condition, message) {
       if (!condition) {
-        my.error("(assert) " + message);
+        this.error("(assert) " + message);
       }
     }
 
@@ -174,11 +183,7 @@ var LOGGER = nullish(LOGGER, new JPMNLogger());
 
 // on any javascript error: log it
 window.onerror = function(msg, url, lineNo, columnNo, error) {
-  let stackList = error.stack.split(" at ");
-  for (let i = 1; i < stackList.length; i++) {
-    stackList[i] = ">>> " + stackList[i];
-  }
-  LOGGER.error(stackList);
+  LOGGER.errorStack(error.stack);
 }
 
 // https://stackoverflow.com/a/55178672
