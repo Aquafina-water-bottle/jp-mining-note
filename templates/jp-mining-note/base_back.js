@@ -106,16 +106,6 @@ if ({{ utils.opt("no-sentence-reading-warn") }}) {
 /// {% endcall %}
 
 
-// option taken care of in the function itself
-//openExtraInfoIfNew();
-
-
-// a bit of a hack...
-// The only reason why the downstep arrow exists in the first place is to make the downstep
-// mark visible while editing the field in anki. Otherwise, there is no reason for it to exist.
-//let wp = document.getElementById("dh_word_pitch");
-//wp.innerHTML = wp.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
-
 // removes greyed out fields if they should be hidden
 if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
   const elems = document.getElementsByClassName("glossary-details--grey");
@@ -124,15 +114,5 @@ if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
   }
 }
 
-
-
-
-// remove all jmdict english dict tags
-//var glossaryEle = document.getElementById("primary_definition");
-//glossaryEle.innerHTML = glossaryEle.innerHTML.replace(/, JMdict \(English\)/g, "");
-
-
-
-//_debug(document.documentElement.innerHTML);
 
 /// {% endblock %}

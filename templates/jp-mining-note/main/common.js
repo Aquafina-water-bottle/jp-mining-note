@@ -44,7 +44,6 @@ function hybridClick() {
 
 /// {% set keybind_settings %}
 
-//keys = settings.keybind("toggle-hybrid-sentence");
 keys = {{ utils.opt("keybinds", "toggle-hybrid-sentence") }};
 if (keys !== null && keys.includes(e.key)) {
   let hSent = document.getElementById("hybrid-sentence");
@@ -54,7 +53,6 @@ if (keys !== null && keys.includes(e.key)) {
   }
 }
 
-//keys = settings.keybind("toggle-highlight-word");
 keys = {{ utils.opt("keybinds", "toggle-highlight-word") }};
 if (keys !== null && keys.includes(e.key)) {
   let paButton = document.getElementById("pa-button");
