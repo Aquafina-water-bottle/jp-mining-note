@@ -91,6 +91,7 @@ You should see a deck `JPMN-Examples` in your collection.
 View one of the cards and make sure the card looks similar to the one below:
 
 {{ img("Example card", "assets/eg_fushinnsha.png") }}
+<!-- TODO update this picture on first public release -->
 
 Please check the following in particular:
 
