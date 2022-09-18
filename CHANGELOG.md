@@ -63,6 +63,8 @@ The following are examples breaking changes:
        ```
        - with their own individual logger objects
     - moved paIndicator to a main card only variable
+    - added try/catches around each module's javascript "run" sections
+       - if one module breaks, the entire card doesn't break
 
 #### Fixed
 - `replaceAll` -> `replace` with `g` flag, to support older versions of Anki (qt5)

@@ -42,8 +42,6 @@ function getSetting(keys, defaultVal) {
 };
 
 
-{% if note.card_type != "pa_word" %}
-
 /*
  * Toggles the display of any given details tag
  */
@@ -54,8 +52,6 @@ function toggleDetailsTag(ele) {
     ele.setAttribute("open", "true");
   }
 }
-
-{% endif %}{# note.card_type != "pa_word" #}
 
 
 // START_BLOCK: js_functions
