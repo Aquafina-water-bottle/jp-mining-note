@@ -239,8 +239,9 @@ mkdocs serve
 !!! note
     - if not using requirements.txt / venv:
     ```
-    pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin
+    pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin mkdocs-git-revision-date-localized-plugin
     ```
+<!-- TODO update requirements.txt to include last git-revision requirement -->
 
 
 
