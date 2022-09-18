@@ -33,23 +33,22 @@ The following are examples breaking changes:
 -->
 
 
-## [0.10.1.0] - 2022-09-??
+## [0.10.1.0] - 2022-09-18
+Primarily a back-end only update.
 
 #### Added
-- comment at the top of all cards with the compile-time options
 - re-implemented compile time options for always-filled and never-filled
-- moved javascript modules to their own separate modules directory
-  (and included them in the compile time options)
-- encapsulated all "run" code into main function
-- example module main.js
-- generalized "open extra info on new" into its own module
+- comment at the top of all cards with the compile-time options
 
 #### Changed
 - cleaning up the code:
+    - moved javascript code out into their own `modules` folder under `templates`
+      (and included them in the compile time options)
+        - added example module main.js
+    - generalized "open extra info on new" into its own module
     - turned the logger definition a class, and changed the global logger object from `logger` to `LOGGER`
     - id `Display` -> `display`
     - replaced as many `let` statements with `const`
-    - moved javascript code out into their own `modules` folder under `templates`
     - changed javascript modules to return classes, in the format of:
        ```
        const CLASS_NAME = (() => {
@@ -66,6 +65,7 @@ The following are examples breaking changes:
     - moved paIndicator to a main card only variable
     - added try/catches around each module's javascript "run" sections
        - if one module breaks, the entire card doesn't break
+    - encapsulated all "run" code into main function
 
 #### Fixed
 - `replaceAll` -> `replace` with `g` flag, to support older versions of Anki (qt5)

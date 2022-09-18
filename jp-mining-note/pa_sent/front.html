@@ -1,156 +1,237 @@
 
 
-
-
-
-
 {{#PASeparateSentenceCard}}
 {{#SentenceAudio}}
 
+<!--
+WARNING: This template is auto-generated.
+Any changes to this template WILL BE LOST if you decide to update the card.
 
+JPMN-COMPILE-TIME-OPTIONS-JSON:
+{
+  "available-modules": {
+    "auto-pitch-accent": true,
+    "img-utils": true,
+    "kanji-hover": true,
+    "open_on_new": true,
+    "sent-utils": true
+  },
+  "available-themes": [],
+  "compile-options": {
+    "always-filled-fields": [],
+    "enabled-modules": [
+      "img-utils",
+      "sent-utils",
+      "kanji-hover",
+      "auto-pitch-accent",
+      "open_on_new"
+    ],
+    "never-filled-fields": []
+  }
+}
 
-
+-->
 
 
 
 <script>
 
-var logger = (function (my) {
-  let uniqueKeys = new Set();
 
-  let _appendMsg = function(message, groupEle, key=null) {
-    // I think this stops an infinite loop somewhere if you log a null for some reason...
-    if (message === null) {
-      message = "null";
+/* quick fix for legacy anki versions (replaces ?? operator) */
+function nullish(a, b) {
+  if ((typeof a === "undefined") || (a === null)) {
+    return b;
+  }
+  return a;
+}
+
+
+
+function getSetting(keys, defaultVal) {
+  if (typeof JPMNOpts === "undefined") {
+    return defaultVal;
+  }
+
+  let keyList = ["settings"].concat(keys);
+
+  let obj = JPMNOpts;
+  for (let key of keyList) {
+    if (!(key in obj)) {
+
+      // checks if we need to warn, manual search
+      if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
+        LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
+      }
+      return defaultVal;
+    }
+    obj = obj[key];
+  }
+  return obj;
+};
+
+
+var JPMNLogger = (() => {
+  class JPMNLogger {
+    constructor(name=null) {
+      this._name = name;
+      this._uniqueKeys = new Set();
     }
 
-    let msgEle = document.createElement('div');
-    msgEle.classList.add("info-circle__message")
-    if (key !== null) {
-      msgEle.setAttribute("data-key", key);
+
+    error(message) {
+      let groupEle = document.getElementById("info_circle_text_error");
+      this._appendMsg(message, groupEle);
+      let infoCirc = document.getElementById("info_circle");
+      if (!infoCirc.classList.contains("info-circle-error")) {
+        infoCirc.classList.add("info-circle-error")
+      }
     }
 
-    if (Array.isArray(message)) {
-      if (message.length > 0) {
-        msgEle.textContent = message[0];
+    errorStack(stack) {
+      let stackList = stack.split(" at ");
+      for (let i = 1; i < stackList.length; i++) {
+        stackList[i] = ">>> " + stackList[i];
+      }
+      this.error(stackList);
+    }
 
-        for (let line of message.slice(1)) {
-          let lineEle = document.createElement('div');
-          lineEle.textContent = line;
-          msgEle.appendChild(lineEle);
+
+    assert(condition, message) {
+      if (!condition) {
+        this.error("(assert) " + message);
+      }
+    }
+
+    removeWarn(key) {
+      // assumes that this is a unique warn message
+
+      if (!this._uniqueKeys.has(key)) {
+        return;
+      }
+
+      let groupEle = document.getElementById("info_circle_text_warning");
+      for (let e of groupEle.children) {
+        if (e.getAttribute("data-key") === key) {
+          groupEle.removeChild(e);
         }
       }
 
-    } else {
-      msgEle.textContent = message;
-    }
-    groupEle.appendChild(msgEle);
-  }
+      let infoCirc = document.getElementById("info_circle");
+      if (groupEle.children.length === 0 && infoCirc.classList.contains("info-circle-warning")) {
+        infoCirc.classList.remove("info-circle-warning")
+      }
 
-  my.error = function(message) {
-    let groupEle = document.getElementById("info_circle_text_error");
-    _appendMsg(message, groupEle);
-    let infoCirc = document.getElementById("info_circle");
-    if (!infoCirc.classList.contains("info-circle-error")) {
-      infoCirc.classList.add("info-circle-error")
-    }
-  }
-
-  my.assert = function(condition, message) {
-    if (!condition) {
-      my.error("(assert) " + message);
-    }
-  }
-
-  my.removeWarn = function(key) {
-    // assumes that this is a unique warn message
-
-    if (!uniqueKeys.has(key)) {
-      return;
+      this._uniqueKeys.delete(key);
     }
 
-    let groupEle = document.getElementById("info_circle_text_warning");
-    for (let e of groupEle.children) {
-      if (e.getAttribute("data-key") === key) {
-        groupEle.removeChild(e);
+    // key defaults to the message if unique is true and key is null
+    // key is ignored if unique == false
+    warn(message, unique=true, key=null) {
+
+      // skips any non-unique warns as defined by the key
+      if (unique) {
+        if (key === null) {
+          key = message;
+        }
+
+        if (this._uniqueKeys.has(key)) {
+          return;
+        }
+      }
+
+      let groupEle = document.getElementById("info_circle_text_warning");
+      this._appendMsg(message, groupEle, key);
+      let infoCirc = document.getElementById("info_circle");
+      if (!infoCirc.classList.contains("info-circle-warning")) {
+        infoCirc.classList.add("info-circle-warning")
+      }
+
+      if (key !== null) {
+        this._uniqueKeys.add(key);
+      }
+
+    }
+
+    info(message) {
+      let groupEle = document.getElementById("info_circle_text_info");
+      this._appendMsg(message, groupEle);
+    }
+
+    debug(message) {
+      if (getSetting(['debug',],false)) {
+        this.info(message);
       }
     }
 
-    let infoCirc = document.getElementById("info_circle");
-    if (groupEle.children.length === 0 && infoCirc.classList.contains("info-circle-warning")) {
-      infoCirc.classList.remove("info-circle-warning")
-    }
-
-    uniqueKeys.delete(key);
-  }
-
-  // key defaults to the message if unique is true and key is null
-  // key is ignored if unique == false
-  my.warn = function(message, unique=true, key=null) {
-
-    // skips any non-unique warns as defined by the key
-    if (unique) {
-      if (key === null) {
-        key = message;
-      }
-
-      if (uniqueKeys.has(key)) {
-        return;
+    leech() {
+      let groupEle = document.getElementById("info_circle_text_leech");
+      this._appendMsg("", groupEle);
+      let infoCirc = document.getElementById("info_circle");
+      if (!infoCirc.classList.contains("info-circle-leech")) {
+        infoCirc.classList.add("info-circle-leech")
       }
     }
 
-    let groupEle = document.getElementById("info_circle_text_warning");
-    _appendMsg(message, groupEle, key);
-    let infoCirc = document.getElementById("info_circle");
-    if (!infoCirc.classList.contains("info-circle-warning")) {
-      infoCirc.classList.add("info-circle-warning")
-    }
+    _appendMsg(message, groupEle, key=null) {
+      // I think this stops an infinite loop somewhere if you log a null for some reason...
+      if (message === null) {
+        message = "null";
+      }
 
-    if (key !== null) {
-      uniqueKeys.add(key);
+      if (this._name !== null) {
+        message = `(${this._name}) ${message}`
+      }
+
+      let msgEle = document.createElement('div');
+      msgEle.classList.add("info-circle__message")
+      if (key !== null) {
+        msgEle.setAttribute("data-key", key);
+      }
+
+      if (Array.isArray(message)) {
+        if (message.length > 0) {
+          msgEle.textContent = message[0];
+
+          for (let line of message.slice(1)) {
+            let lineEle = document.createElement('div');
+            lineEle.textContent = line;
+            msgEle.appendChild(lineEle);
+          }
+        }
+
+      } else {
+        msgEle.textContent = message;
+      }
+      groupEle.appendChild(msgEle);
     }
 
   }
 
-  my.info = function(message) {
-    let groupEle = document.getElementById("info_circle_text_info");
-    _appendMsg(message, groupEle);
-  }
+  return JPMNLogger;
+})();
 
 
-  my.leech = function() {
-    let groupEle = document.getElementById("info_circle_text_leech");
-    _appendMsg("", groupEle);
-    let infoCirc = document.getElementById("info_circle");
-    if (!infoCirc.classList.contains("info-circle-leech")) {
-      infoCirc.classList.add("info-circle-leech")
-    }
-  }
 
-  return my;
-}(logger || {}));
+/* global logger object for any javascript outside of modules that needs logging */
+var LOGGER = nullish(LOGGER, new JPMNLogger());
 
+/* TEMPORARY logger for legacy code to work */
+//var logger = nullish(logger, new JPMNLogger("DEPRECATED"));
 
 
 // on any javascript error: log it
 window.onerror = function(msg, url, lineNo, columnNo, error) {
-//window.onerror = function(msg) {
-  //logger.error("Javascript error: `" + msg + "`" + "\n" + error.stack);
-  let stackList = error.stack.split(" at ");
-  for (let i = 1; i < stackList.length; i++) {
-    stackList[i] = ">>> " + stackList[i];
-  }
-  logger.error(stackList);
+  LOGGER.errorStack(error.stack);
 }
 
 // https://stackoverflow.com/a/55178672
 window.onunhandledrejection = function(errorEvent) {
-  logger.error("Javascript handler error: `" + errorEvent.reason + "`");
+  LOGGER.error("Javascript handler error: `" + errorEvent.reason + "`");
 }
 
 
 function optionsNotFound() {
-  logger.warn("Options file not found. Did you place the options file in the media directory?");
+  LOGGER.warn("Options file not found. Did you place the options file in the media directory?");
 }
 
 
@@ -188,7 +269,7 @@ function optionsNotFound() {
         <div class="info-circle-text-info" id="info_circle_text_info">
           <div>
             Need help? View the
-            <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/wiki">documentation</a>.
+            <a href="https://aquafina-water-bottle.github.io/jp-mining-note/">documentation</a>.
           </div>
           <div>
             Have an issue?
@@ -205,7 +286,7 @@ function optionsNotFound() {
 
 
     
-  <div class="card-description-ver">JP Mining Note: Version 0.10.0.1</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.10.1.0</div>
 
 
     
@@ -222,7 +303,7 @@ function optionsNotFound() {
 
 <!-- option 1: AltDisplayPASentenceCard -->
 {{#AltDisplayPASentenceCard}}
-  <div class="expression expression--single expression--sentence" id="Display">
+  <div class="expression expression--single expression--sentence" id="display">
     <span class="sentence-quote sentence-quote--open">「</span><span>{{furigana:AltDisplayPASentenceCard}}</span><span class="sentence-quote sentence-quote--close">」</span>
   </div>
 {{/AltDisplayPASentenceCard}}
@@ -235,7 +316,7 @@ function optionsNotFound() {
           outer-display2
         {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}}
         "
-      style="display: inline-block;" id="Display">
+      style="display: inline-block;" id="display">
 
       <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
       <!-- if any of (click, hover, sentence, TSC) -->
@@ -252,7 +333,7 @@ function optionsNotFound() {
   {{/AltDisplay}}
 
   {{^AltDisplay}}
-    <div class="expression expression--single expression--sentence" id="Display">
+    <div class="expression expression--single expression--sentence" id="display">
       <span class="sentence-quote sentence-quote--open">「</span><span>{{Sentence}}</span><span class="sentence-quote sentence-quote--close">」</span>
     </div>
   {{/AltDisplay}}
@@ -294,17 +375,8 @@ function optionsNotFound() {
 
 
 
-/// 
 
-
-/* quick fix for legacy anki versions (replaces ?? operator) */
-function nullish(a, b) {
-  if ((typeof a === "undefined") || (a === null)) {
-    return b;
-  }
-  return a;
-}
-
+// GLOBALS: kanji-hover
 
 
 // global cache for an entire card's kanji hover html
@@ -316,18 +388,23 @@ var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
 //var kanjiHoverCache = kanjiHoverCache ?? {};
 var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
+
+/// 
+
+// GLOBALS: open_on_new
+
+
 // note that this cache will NOT respect card review undos,
 // but that should be a niche enough case to not warrent caching.
 // maps key -> bool
-//var isNewCardCache = isNewCardCache ?? {};
 var isNewCardCache = nullish(isNewCardCache, {});
 
+/// 
 (function () { // restricts ALL javascript to hidden scope
 
 // "global" variables within the hidden scope
 let note = (function () {
   let my = {};
-  my.colorQuotes = false;
   return my;
 }());
 
@@ -346,7 +423,7 @@ function getSetting(keys, defaultVal) {
 
       // checks if we need to warn, manual search
       if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
-        logger.warn("Option " + keys.join(".") + " is not defined in the options file.");
+        LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
       }
       return defaultVal;
     }
@@ -355,180 +432,6 @@ function getSetting(keys, defaultVal) {
   return obj;
 };
 
-
-function _debug(message) {
-  if (getSetting(['debug',],false)) {
-    logger.info(message);
-  }
-}
-
-
-
-// global variable to set the PA indicator color (as a css class)
-/// {{#PAShowInfo}}
-var paIndicator = (function () {
-  let my = {};
-  my.type = null;
-  my.className = null;
-  my.tooltip = null;
-
-  if ('{{#PADoNotTest}}a{{/PADoNotTest}}{{#PASeparateWordCard}}a{{/PASeparateWordCard}}') {
-    my.type = "none";
-  } else if ('{{#PASeparateSentenceCard}}a{{/PASeparateSentenceCard}}{{#PATestOnlyWord}}a{{/PATestOnlyWord}}') {
-    my.type = "word";
-  } else if ('{{#IsSentenceCard}}a{{/IsSentenceCard}}') {
-    my.type = "sentence";
-  } else {
-    my.type = "word";
-  }
-
-  my.className = "pa-indicator-color--" + my.type;
-
-  if (my.type === "none") {
-    my.tooltip = "Do not test"
-  } else if (my.type == "word") {
-    my.tooltip = "Word"
-  } else { // sentence
-    my.tooltip = "Sentence"
-  }
-
-  return my;
-}());
-/// {{/PAShowInfo}} // PAShowInfo
-
-
-/// 
-
-
-/*
- * processes the sentence (if there is no altdisplay)
- * - removes newlines
- * - replaces bold with [...] if cloze deletion
- * - handles adding or replacing quotes if specified
- *
- * isAltDisplay=false
- */
-function processSentence(sentEle, isAltDisplay, isClozeDeletion) {
-  if (!getSetting(['sentence','enabled',],true)) {
-    return;
-  }
-
-  if (typeof isAltDisplay === 'undefined') {
-    logger.warn("isAltDisplay is undefined");
-    isAltDisplay = false;
-  }
-
-  // removes linebreaks
-  let result = sentEle.children[1].innerHTML;
-
-  // cloze deletion replacing bold with [...]
-  if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
-    result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
-  }
-
-  if ((!isAltDisplay && getSetting(['sentence','remove-line-breaks',],false))
-      || isAltDisplay && getSetting(['sentence','remove-line-breaks-on-altdisplay',],false)) {
-    let noNewlines = result.replace(/<br>/g, "");
-
-    // automatically removes newlines and other html elements
-    // https://stackoverflow.com/a/54369605
-    //let charCount = [...sentEle.innerText.trim()].length;
-    //let maxCharCount = { utils.opt("sentence", "remove-line-breaks-until-char-count") }
-
-    //if ((maxCharCount === 0) || (charCount <= maxCharCount)) {
-    //  result = noNewlines;
-    //}
-
-    result = noNewlines;
-  }
-
-  // removes leading and trailing white space (equiv. of strip() in python)
-  result = result.trim();
-
-  // selects the smallest containing sentence
-
-  //if (!isAltDisplay && settings.sentence("select-smallest-sentence")) {
-  //  result = selectSentence(result);
-  //}
-
-  //if (settings.quote("enabled", true)) {
-  //  result = processQuote(sentEle, result, isAltDisplay);
-  //} else {
-  //  sentEle.innerHTML = result;
-  //}
-
-  //var processQuote = function(sentEle, sent, isAltDisplay) {
-  //let result = sent;
-
-  //let openQuote = null;
-  //let closeQuote = null;
-  //let validQuotes = settings.quote("quote-match-strings", [["「", "」"]])
-
-
-  // if existing quotes:
-  //     remove from sentence
-  //     add to quote spans
-  // if no existing quotes and if autoquote:
-  //     add autoquote open / close to quote spans (if different)
-  // if color quotes:
-  //     add color quote class to outer divs
-
-
-  let validQuotes = getSetting(['sentence','quote-match-strings',],[['「', '」'], ['『', '』']]);
-  let existingQuote = false;
-
-  let openQuoteEle = sentEle.children[0];
-  let closeQuoteEle = sentEle.children[2];
-
-  for (let quotePair of validQuotes) {
-    if ((result[0] === quotePair[0]) && (result[result.length-1] === quotePair[1])) {
-
-      // adds quote to surrounding divs
-      let openQuote = null;
-      let closeQuote = null;
-      [openQuote, closeQuote] = quotePair;
-      openQuoteEle.innerText = openQuote;
-      closeQuoteEle.innerText = closeQuote;
-
-      result = result.slice(1, -1);
-      existingQuote = true;
-      break;
-    }
-  }
-
-  let autoQuote = (
-    (!isAltDisplay && getSetting(['sentence','auto-quote-sentence',],true))
-    || (isAltDisplay && getSetting(['sentence','auto-quote-alt-display-sentence',],true))
-  );
-  if (!existingQuote && autoQuote) {
-    /// 
-    openQuoteEle.innerText = getSetting(['sentence','pa-sent-auto-quote-open',],'『');
-    closeQuoteEle.innerText = getSetting(['sentence','pa-sent-auto-quote-close',],'』');
-    /// 
-  }
-
-  // no quotes are added
-  if (!existingQuote && !autoQuote) {
-    // defaults to having quotes, in case javascript fails to load for some reason
-    openQuoteEle.innerText = "";
-    closeQuoteEle.innerText = "";
-
-    sentEle.style["text-indent"] = "0em";
-    sentEle.style["padding-left"] = "0em";
-  }
-
-
-  /// 
-  if ((existingQuote || autoQuote) && getSetting(['sentence','pa-sent-pa-indicator-color-quotes',],false)) {
-    openQuoteEle.classList.add("pa-indicator-color--sentence");
-    closeQuoteEle.classList.add("pa-indicator-color--sentence");
-  }
-  /// 
-
-  /// 
-
-  sentEle.children[1].innerHTML = result;
-}
 
 /*
  * Toggles the display of any given details tag
@@ -542,34 +445,160 @@ function toggleDetailsTag(ele) {
 }
 
 
-function processSentences(isAltDisplay, isClozeDeletion) {
-  let sentences = document.querySelectorAll(".expression--sentence")
+// START_BLOCK: js_functions
 
-  if (sentences !== null) {
-    for (let sent of sentences) {
-      processSentence(sent, isAltDisplay, isClozeDeletion);
+
+// END_BLOCK: js_functions
+
+
+
+
+
+
+
+// ================
+//  Sentence Utils
+// ================
+//
+// processes the sentence
+// - removes newlines
+// - replaces bold with [...] if cloze deletion
+// - handles adding or replacing quotes if specified
+
+const JPMNSentUtils = (() => {
+  const logger = new JPMNLogger("sent-utils");
+
+  function processSentence(sentEle, isAltDisplay, isClozeDeletion, paIndicator) {
+    if (typeof isAltDisplay === 'undefined') {
+      LOGGER.warn("isAltDisplay is undefined");
+      isAltDisplay = false;
+    }
+
+    // removes linebreaks
+    let result = sentEle.children[1].innerHTML;
+
+    // cloze deletion replacing bold with [...]
+    if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
+      result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
+    }
+
+    if ((!isAltDisplay && getSetting(['modules','sent-utils','remove-line-breaks',],false))
+        || isAltDisplay && getSetting(['modules','sent-utils','remove-line-breaks-on-altdisplay',],false)) {
+      let noNewlines = result.replace(/<br>/g, "");
+
+      result = noNewlines;
+    }
+
+    // removes leading and trailing white space (equiv. of strip() in python)
+    result = result.trim();
+
+    let validQuotes = getSetting(['modules','sent-utils','quote-match-strings',],[['「', '」'], ['『', '』']]);
+    let existingQuote = false;
+
+    let openQuoteEle = sentEle.children[0];
+    let closeQuoteEle = sentEle.children[2];
+
+    for (let quotePair of validQuotes) {
+      if ((result[0] === quotePair[0]) && (result[result.length-1] === quotePair[1])) {
+
+        // adds quote to surrounding divs
+        let openQuote = null;
+        let closeQuote = null;
+        [openQuote, closeQuote] = quotePair;
+        openQuoteEle.innerText = openQuote;
+        closeQuoteEle.innerText = closeQuote;
+
+        result = result.slice(1, -1);
+        existingQuote = true;
+        break;
+      }
+    }
+
+    let autoQuote = (
+      (!isAltDisplay && getSetting(['modules','sent-utils','auto-quote-sentence',],true))
+      || (isAltDisplay && getSetting(['modules','sent-utils','auto-quote-alt-display-sentence',],true))
+    );
+    if (!existingQuote && autoQuote) {
+      /// 
+      openQuoteEle.innerText = getSetting(['modules','sent-utils','pa-sent-auto-quote-open',],'『');
+      closeQuoteEle.innerText = getSetting(['modules','sent-utils','pa-sent-auto-quote-close',],'』');
+      /// 
+    }
+
+    // no quotes are added
+    if (!existingQuote && !autoQuote) {
+      // note that it defaults to having quotes + auto align without this module being ran
+      // hence why all these steps have to be done
+      openQuoteEle.innerText = "";
+      closeQuoteEle.innerText = "";
+
+      sentEle.style["text-indent"] = "0em";
+      sentEle.style["padding-left"] = "0em";
+    }
+
+
+    // data-color-quotes: INDICATOR if the sentence quotes are colored or not
+    // - attribute doesn't exist by default
+    // - if exists, then the quotes are colored
+    // - added in the sections below:
+
+    /// 
+    if ((existingQuote || autoQuote) && getSetting(['modules','sent-utils','pa-sent-pa-indicator-color-quotes',],false)) {
+      openQuoteEle.classList.add("pa-indicator-color--sentence");
+      closeQuoteEle.classList.add("pa-indicator-color--sentence");
+
+      sentEle.setAttribute("data-color-quotes", "true");
+    }
+    /// 
+
+    /// 
+
+    sentEle.children[1].innerHTML = result;
+
+  }
+
+
+  class JPMNSentUtils {
+    constructor(isAltDisplay, isClozeDeletion, paIndicator) {
+      this.isAltDisplay = isAltDisplay;
+      this.isClozeDeletion = nullish(isClozeDeletion, false);
+      this.paIndicator = nullish(paIndicator, null);
+    }
+
+    run() {
+      let sentences = document.querySelectorAll(".expression--sentence")
+
+      if (sentences !== null) {
+        for (let sent of sentences) {
+          processSentence(sent, this.isAltDisplay, this.isClozeDeletion, this.paIndicator);
+        }
+      }
     }
   }
-}
 
 
-///  /// note.card_type != "pa_word"
+  return JPMNSentUtils;
 
-
-
-/// 
-
-/// 
+})();
 
 
 /// 
-/// 
 
 
 
 
 
-// shift to switch between sentence & word on click & hover cards
+
+
+
+
+
+
+
+
+
+
+// a general function to implement all keybinds necessary by the card.
 // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
 // because functions persist and cannot be easily removed within anki,
 // whereas .onkeyup = ... replaces the previous function with the current.
@@ -577,53 +606,28 @@ document.onkeyup = (e => {
   let keys = null;
   let ele = null;
 
-  // tests for the existance of extraKeybindSettings
-  //if (typeof extraKeybindSettings !== 'undefined') {
-  //  extraKeybindSettings(e);
-  //}
+  // START_BLOCK: js_keybind_settings
 
-  /// 
-    /// 
-
-    /// 
+  // END_BLOCK: js_keybind_settings
 
 
-  /// 
-  /// 
-    /// 
-
-
-
-
-  //if (e.getModifierState && e.getModifierState('CapsLock')) {
-  //  if ("CapsLock" === e.key) {
-  //    // either just enabled or disabled
-  //    logger.removeWarn("caps");
-  //  } else {
-  //    logger.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
-  //  }
-  //} else {
-  //  //_debug("Caps lock is not enabled");
-  //}
 
 
   if (e.getModifierState && e.getModifierState('CapsLock')) {
     if (e.key === "CapsLock") {
       // either just enabled or disabled, not sure which one is which
       // it seems like normal browsers can't reach this point during (caps lock enabled -> caps lock disabled...)
-      logger.removeWarn("caps");
+      LOGGER.removeWarn("caps");
     } else if (!["Meta"].includes(e.key)) {
-      _debug(e.key);
-      logger.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
+      LOGGER.debug(e.key);
+      LOGGER.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
     }
   } else {
-    //_debug("Caps lock is not enabled");
-    logger.removeWarn("caps");
+    LOGGER.removeWarn("caps");
   }
 
 
   /// {{#WordAudio}}
-  //keys = settings.keybind("play-word-audio");
   keys = getSetting(['keybinds','play-word-audio',],['w']);
 
   if (keys !== null && keys.includes(e.key)) {
@@ -668,53 +672,61 @@ document.onkeyup = (e => {
 })
 
 
-// sanity check
-if (typeof JPMNOpts === 'undefined') {
-  logger.warn("JPMNOpts was not defined in the options file. Was there an error?");
+function main() {
+
+  // sanity check
+  if (typeof JPMNOpts === 'undefined') {
+    LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
+  }
+
+  // START_BLOCK: js_run
+
+  // END_BLOCK: js_run
+
+
+  try { // RUN: sent-utils
+    if (getSetting(['modules','sent-utils','enabled',],true)) {
+      let isAltDisplay = false;
+      /* {{#AltDisplayPASentenceCard}} */
+        isAltDisplay = true;
+      /* {{/AltDisplayPASentenceCard}} */
+
+      /* {{^AltDisplayPASentenceCard}} */
+        /* {{#AltDisplay}} */
+        isAltDisplay = (
+          /* {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}} */
+            false &&
+          /* {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}} */
+          true ? true : false
+        );
+        /* {{/AltDisplay}} */
+
+        /* {{^AltDisplay}} */
+          isAltDisplay = false;
+        /* {{/AltDisplay}} */
+      /* {{/AltDisplayPASentenceCard}} */
+
+      let sent_utils = new JPMNSentUtils(isAltDisplay);
+      sent_utils.run();
+
+    }
+    /// 
+  } catch (error) {
+    LOGGER.error("Error in module sent-utils:");
+    LOGGER.errorStack(error.stack);
+  }
+
 }
 
-/// 
-
-/// 
 
 
-{
-  let isAltDisplay = false;
-  /* {{#AltDisplayPASentenceCard}} */
-    isAltDisplay = true;
-  /* {{/AltDisplayPASentenceCard}} */
+main();
 
-  /* {{^AltDisplayPASentenceCard}} */
-    /* {{#AltDisplay}} */
-    isAltDisplay = (
-      /* {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}} */
-        false &&
-      /* {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}} */
-      true ? true : false
-    );
-    /* {{/AltDisplay}} */
-
-    /* {{^AltDisplay}} */
-      isAltDisplay = false;
-    /* {{/AltDisplay}} */
-  /* {{/AltDisplayPASentenceCard}} */
-
-  processSentences(isAltDisplay);
-}
-
-
-/// 
-/// 
-
-//})();
 
 
 }());
 
 </script>
-
-
-
 
 
 
