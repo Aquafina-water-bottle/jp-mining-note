@@ -451,8 +451,6 @@ const JPMNAutoPA = (() => {
     //  // TODO
     //}
 
-    //logger.debug(`result html: ${eleDisp.innerHTML}`);
-
   }
 
   class JPMNAutoPA {

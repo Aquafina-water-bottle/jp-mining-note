@@ -24,9 +24,10 @@ Everything here, including the documentation itself, is completely free and open
 licensed under [MIT](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/LICENSE).
 Rest easy knowing you will keep full ownership of your note, forever.
 
-## Modularized & Customizable
+## Modularized, Customizable & Extendable
 This project ships with built-in tools to easily disable/enable features,
 or even completely remove them from the base template via compile-time options.
+Additionally, there are many built-in ways to extend the note to suit your exact needs.
 
 
 
@@ -54,8 +55,8 @@ As of writing this,[^1] light mode is not yet supported.
 
 
 # Alternatives
-Of course, outside of this note type, you have access to many alternatives.
-The list below is not exhaustive of the all of the note types that exist out there.
+Of course, there are many alternatives to this note type.
+Below contains a non-exhaustive list of some of the note types that exist out there.
 Feel free to go digging!
 
 ## For Japanese Learning
