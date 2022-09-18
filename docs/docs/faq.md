@@ -199,6 +199,19 @@ JP Mining Note: Version (VERSION DISPLAYED HERE)
 
 TODO image
 
+---
+
+## Do you plan on supporting any other language other than Japanese?
+Unfortunately, other languages outside of Japanese will not be supported.
+
+The reason for this decision is best explained in the
+"When are you going to add support for $MYLANGUAGE?" question
+within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-questions):
+
+!!! quote
+    Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.
+
+
 
 
 

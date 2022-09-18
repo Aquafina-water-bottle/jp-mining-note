@@ -14,6 +14,11 @@ me on discord `Aquafina water bottle#3026`,
 or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
 I exist on the [TheMoeWay](https://learnjapanese.moe/join/) and Refold (Japanese) servers.
 
+
+!!! note
+    The table of contents to the left of this page is quite long!
+    Be sure to scroll through it to ensure you're not missing anything.
+
 <!--
 TODO for typos, link how to build docs
 
@@ -557,25 +562,9 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 ## Mining guides:
 
 * [Xelieu's mining guide](https://rentry.co/lazyXel) (Windows, Android)
-    * Document contains a custom anki note type (Anime Cards with more features)
 * [stegatxins0's mining guide](https://rentry.co/mining) (Windows, Kindle)
 * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (cross platform with ASBPlayer)
 * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)  (cross platform with ASBPlayer)
-    * Document contains a custom anki note type (Stylized Anime Card)
-
-
-## Various note types
-
-* [Example Anki note type (TSC)](https://ankiweb.net/shared/info/1557722832)
-    * My note type is a heavily modified (to the point of being completely rewritten)
-      version of this.
-* [More example note types](https://github.com/Ajatt-Tools/AnkiNoteTypes)
-* [Eminent note type](https://cademcniven.com/projects/notetype2/)
-    * Has some interesting ways to display pitch accent and show kanji info
-* [Elax's note type](https://cdn.discordapp.com/attachments/778430038159655012/847595626257842226/AnimeCards.apkg)
-    * Original message on TMW discord server [here](https://discord.com/channels/617136488840429598/778430038159655012/847595626220355584)
-    * Can switch between vocab / sentence / vocab audio / sentence audio
-
 
 ## Mikagu pitch accent alternatives
 - [migaku updated](https://github.com/MikeMoolenaar/Migaku-Japanese-Addon-Updated)
@@ -586,10 +575,6 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 
 
 ## How to Mokuro
-!!! note
-    I didn't write these guides at all, I just have this here to spam it to anyone who's struggling the
-    setup process of mokuro.
-
 - [main mokuro page](https://github.com/kha-white/mokuro)
 - [lazy guide (recommend)](https://rentry.co/lazyXel#manga-with-yomichan)
     - (windows users) make sure to check the "add python to path" on install
