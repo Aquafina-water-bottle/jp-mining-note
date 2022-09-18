@@ -1,14 +1,11 @@
-/// {% from "modules/main.html" import modules with context %}
+{% from "modules/main.html" import modules with context %}
 
-
-
-
-
-/// {% for m in modules %}
-/// {% if m.js is defined %}
+{%- for m in modules -%}
+{%- if m.js is defined and m.js.globals.get(note.card_type, note.side) %}
+// GLOBALS: {{ m.id }}
 {{ m.js.globals.get(note.card_type, note.side) }}
-/// {% endif %}
-/// {% endfor %}
+{% endif -%}
+{%- endfor -%}
 
 
 
@@ -45,15 +42,7 @@ function getSetting(keys, defaultVal) {
 };
 
 
-function _debug(message) {
-  if ({{ utils.opt("debug") }}) {
-    logger.info(message);
-  }
-}
-
-
-/// {% if note.card_type != "pa_word" %}
-
+{% if note.card_type != "pa_word" %}
 
 /*
  * Toggles the display of any given details tag
@@ -66,23 +55,20 @@ function toggleDetailsTag(ele) {
   }
 }
 
+{% endif %}{# note.card_type != "pa_word" #}
 
 
-/// {% endif %} /// note.card_type != "pa_word"
+// START_BLOCK: js_functions
+{% block js_functions %}
+{% endblock %}
+// END_BLOCK: js_functions
 
+{% for m in modules -%}
+{%- if m.js is defined %}
 
-
-/// {% block js_functions %}
-/// {% endblock %}
-
-/// {% for m in modules %}
-/// {% if m.js is defined %}
 {{ m.js.functions.get(note.card_type, note.side) }}
-/// {% endif %}
-/// {% endfor %}
-
-
-
+{% endif -%}
+{%- endfor %}
 
 
 // a general function to implement all keybinds necessary by the card.
@@ -93,17 +79,22 @@ document.onkeyup = (e => {
   let keys = null;
   let ele = null;
 
-  /// {% filter indent(width=2) %}
-  /// {% block js_keybind_settings %}
-  /// {% endblock %}
-  /// {% for m in modules %}
-  /// {% if m.js is defined %}
+  // START_BLOCK: js_keybind_settings
+{% filter indent(width=2) -%}
+{%- block js_keybind_settings -%}
+{%- endblock -%}
+{%- endfilter %}
+  // END_BLOCK: js_keybind_settings
+
+{% for m in modules -%}
+{%- if m.js is defined and m.js.keybinds.get(note.card_type, note.side) -%}
+{%- filter indent(width=2) %}
+  // KEYBINDS: {{ m.id }}
   {{ m.js.keybinds.get(note.card_type, note.side) }}
-  /// {% endif %}
-  /// {% endfor %}
-  /// {% endfilter %}
 
-
+{% endfilter %}
+{% endif -%}
+{%- endfor %}
 
 
   if (e.getModifierState && e.getModifierState('CapsLock')) {
@@ -112,11 +103,10 @@ document.onkeyup = (e => {
       // it seems like normal browsers can't reach this point during (caps lock enabled -> caps lock disabled...)
       LOGGER.removeWarn("caps");
     } else if (!["Meta"].includes(e.key)) {
-      _debug(e.key);
+      LOGGER.debug(e.key);
       LOGGER.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
     }
   } else {
-    //_debug("Caps lock is not enabled");
     LOGGER.removeWarn("caps");
   }
 
@@ -216,15 +206,25 @@ function main() {
     LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
   }
 
-  /// {% filter indent(width=2) %}
-  /// {% block js_run %}
-  /// {% endblock %}
-  /// {% for m in modules %}
-  /// {% if m.js is defined %}
-  {{ m.js.run.get(note.card_type, note.side) }}
-  /// {% endif %}
-  /// {% endfor %}
-  /// {% endfilter %}
+  // START_BLOCK: js_run
+{% filter indent(width=2) -%}
+{%- block js_run -%}
+{%- endblock -%}
+{%- endfilter %}
+  // END_BLOCK: js_run
+
+{% for m in modules -%}
+{%- if m.js is defined and m.js.run.get(note.card_type, note.side) %}
+  try { // RUN: {{ m.id }}
+    {%- filter indent(width=4) -%}
+    {{ m.js.run.get(note.card_type, note.side) }}
+    {%- endfilter %}
+  } catch (error) {
+    LOGGER.error(error);
+  }
+
+{% endif -%}
+{%- endfor -%}
 
 }
 

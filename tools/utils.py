@@ -265,7 +265,7 @@ def get_config_from_str(file_path: str):
 
 def get_note_opts(config, as_config=False):
 
-    opts_file = config("jp-mining-note", "opts-path").item()
+    opts_file = config("opts-path").item()
     root_folder = get_root_folder()
     opts_path = os.path.join(root_folder, "config", opts_file)
 

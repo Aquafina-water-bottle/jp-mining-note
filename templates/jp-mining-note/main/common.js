@@ -1,3 +1,4 @@
+
 /// {% set functions %}
 
 
@@ -69,6 +70,8 @@ if (keys !== null && keys.includes(e.key)) {
 /// {% set run %}
 
 // required for the sentence utils module
+var paIndicator;
+
 /// {% call IF("PAShowInfo") %}
 var paIndicator = (function () {
   let my = {};

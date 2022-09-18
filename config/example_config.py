@@ -6,12 +6,13 @@ CONFIG = {
     # you need dart-sass!
     "sass-path": "sass",
 
-    "jp-mining-note": {
+    # rooted under (root)/config
+    # I use `user_jpmn_opts.jsonc`
+    "opts-path": "jpmn_opts.jsonc",
 
-        # rooted under (root)/config
-        # I use `user_jpmn_opts.jsonc`
-        "opts-path": "jpmn_opts.jsonc",
-    },
+    # rooted under (root)
+    # ignores folder if it doesn't exist
+    "template-override-folder": "override",
 
     "compile-options": {
         "always-filled-fields": [],
