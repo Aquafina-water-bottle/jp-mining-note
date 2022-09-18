@@ -1,14 +1,20 @@
-{# man #}
+{% extends "jp-mining-note/base.html" %}
 
-{% from "macros/global.html" import T, IF, IFNOT, END with context %}
-{% import "macros/utils.html" as utils with context %}
+{% set note = namespace() %}
+{% set note.side = "front" %}
+{% set note.card_type = "cloze_deletion" %}
+{% set note.field_restrict = ["SeparateClozeDeletionCard", "SentenceAudio"] %}
 
+{% from "jp-mining-note/cloze_deletion/common.html" import card_type, front_display with context %}
 
-{% call IF('SeparateClozeDeletionCard') %}
-{% call IF('SentenceAudio') %}
+{% block card_type %}
+{{ super() }}
+{{ card_type }}
+{% endblock %}
 
-
-{% include "jp-mining-note/cloze_deletion/front_base.html" %}
+{% block card_html %}
+{{ super() }}
+{{ front_display }}
 
 <div>
 {% call IF("SentenceAudio") %}
@@ -16,7 +22,10 @@
 {% endcall %}
 </div>
 
+{% endblock %}
 
-{% endcall %}
-{% endcall %}
 
+{% block javascript %}
+{{ super() }}
+{% include "jp-mining-note/base.js" %}
+{% endblock %}

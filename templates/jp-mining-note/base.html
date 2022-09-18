@@ -5,7 +5,14 @@
 
 {%- import "jp-mining-note/common.html" as common with context -%}
 
+{%- if note.field_restrict is defined and note.field_restrict -%}
+{%- for x in note.field_restrict -%}
+{{ IF(x) }}
+{% endfor -%}
+{%- endif -%}
+
 {{ common.compile_options_comment }}
+
 
 <script>
 {% block top_javascript %}
@@ -42,5 +49,10 @@
 
 
 
+{% if note.field_restrict is defined and note.field_restrict -%}
+{%- for x in note.field_restrict | reverse -%}
+{{ END(x) }}
+{% endfor -%}
+{%- endif -%}
 
 
