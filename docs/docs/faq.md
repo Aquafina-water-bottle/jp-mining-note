@@ -13,17 +13,72 @@ See [here](usage#wait-i-dont-want-to-test-pitch-accent).
 -->
 
 
-# Troubleshooting
+# Errors
+These are various errors that can show up on the info circle at the top right.
+
+TODO image / gif
 
 ---
 
-## Where is the (X) folder in Anki?
-See the [official documentation](https://docs.ankiweb.net/files.html#file-locations)
-to find the `Anki2` folder.
 
-* Your **profile folder** is under `Anki2/PROFILE_NAME`.
-* Your **media folder** is under `Anki2/PROFILE_NAME/collections.media`.
-* Your **addons folder** is under `Anki2/addons21`.
+
+## Javascript handler error: \`failed to issue request\`
+This is an indication that Anki-Connect is failing.
+There are two main reasons that Anki-Connect can fail:
+
+1. Ensure that Anki-Connect is installed. If it is installed, be sure to restart Anki
+    to ensure the add-on is actually running.
+
+2. If you are using an older version of Anki (2.1.49 and below),
+    see the note in the Anki-Connect setup section
+    [here](setup.md#anki-connect).
+
+---
+
+
+## ReferenceError: EFDRC is not defined
+You are likely using an old version of this note type
+if you get this, as this error is ignored by default within the
+[options file](runtimeoptions.md).
+See the
+[example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
+(under `ignored-errors`) for more infomation on this error.
+
+---
+
+
+## General Error Troubleshooting
+
+If none of the above worked, the following will be some general troubleshooting tips
+that can help you figure out what the error is:
+
+1. Do you have a [conflicting addon](setup.md#conflicting-add-ons) installed?
+
+1. As a generalized version of the above,
+    try disabling all of your add-ons other than the mandatory ones listed in the setup page.
+    Note that you have to restart Anki after disabling the add-ons for the changes to take effect.
+
+    If it works after this step, please let me know which add-on(s) conflicts with this note type!
+    To do this, re-enable the add-ons one-by-one (remembering to restart Anki each time!).
+
+1. With all of your non-mandatory add-ons disabled, try to upgrade Anki to the latest version,
+    and see if the issue still persists.
+    If this works but an add-on you consider mandatory no longer works, please let me know!
+    (I won't be able to upgrade the add-on for you, but I can potentially point to alternatives
+    and/or add it to the documentation somewhere so others are aware of the issue.)
+
+<!--
+- TODO expand list in the future
+-->
+
+If you can't manage to fix it, please submit an issue!
+
+---
+
+
+
+
+# Troubleshooting
 
 ---
 
@@ -75,35 +130,6 @@ so the bug is here to stay until a better solution is found.
 - TODO
 - weird quirk with css injector
 - only solution I know of atm is to edit the raw html and move the `</b>` to the very end of the html
-
----
-
-
-## The info circle displays an error!
-
-The following will be some general troubleshooting tips that can help you figure out
-what the error is:
-
-1. Is AnkiConnect installed? If it isn't, please see [this](setup#required-anki-add-ons).
-
-2. Do you have a [conflicting addon](setup#conflicting-add-ons) installed?
-
-3. As a generalized version of the above,
-   try disabling all of your add-ons other than the mandatory ones listed in the setup page.
-   Note that you have to restart Anki after disabling the add-ons for the changes to take effect.
-
-   If it works after this step, please let me know which add-on(s) conflicts with this note type!
-   To do this, re-enable the add-ons one-by-one (remembering to restart Anki each time!).
-
-4. With all of your non-mandatory add-ons disabled, try to upgrade Anki to the latest version,
-   and see if the issue still persists.
-   If this works but an add-on you consider mandatory no longer works, please let me know!
-   (I won't be able to upgrade the add-on for you, but I can potentially point to alternatives
-    and/or add it to the documentation somewhere so others are aware of the issue.)
-
-- TODO expand list in the future
-
-If you can't manage to fix it, please submit an issue!
 
 ---
 
@@ -166,6 +192,19 @@ say, with [this add-on](https://ankiweb.net/shared/info/291119185).
 
 
 # Other Questions
+
+---
+
+
+
+## Where is the (X) folder in Anki?
+See the [official documentation](https://docs.ankiweb.net/files.html#file-locations)
+to find the `Anki2` folder.
+
+* Your **profile folder** is under `Anki2/PROFILE_NAME`.
+* Your **media folder** is under `Anki2/PROFILE_NAME/collections.media`.
+* Your **addons folder** is under `Anki2/addons21`.
+
 
 ---
 

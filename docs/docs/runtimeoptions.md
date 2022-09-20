@@ -8,6 +8,12 @@ and open the `_jpmn-options.js` file as a text file.
 TODO gif for windows (open as notepad)
 
 
+!!! note
+    If you are using an older version of JPMN, you can find the most recent
+    version of the options file
+    [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
+
+
 The contents of the file should look something like the following:
 ```
 var JPMNOpts = (function (my) {

@@ -57,12 +57,11 @@ Fill the `IsSentenceCard` field.
 A targetted sentence card is a special case of the sentence card.
 The sentence is shown at the front, but only the highlighted content (only the word by default)
 is tested.
+This allows you to have all the information and context of the sentence,
+but you don't have to waste your time testing other parts of the sentence.
 
 This card type was originally defined
 [here](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards).
-
-Note that this is really just a special case of the normal sentence card,
-where the highlighted content is only the tested word.
 
 **How to create:** <br>
 Fill the `IsTargetedSentenceCard` field.
@@ -79,6 +78,15 @@ sentence cards and vocab cards into one.
 They all have the distinct feature that the word is shown at the front,
 but the sentence can be shown through some natural means.
 
+The primary reason why this exists is to prevent
+context-based memories.
+For example, in a TSC or sentence card,
+you may only remember the tested word due to its surrounding context.
+
+
+!!! note
+    For all forms of hybrid cards, you can press "n" to toggle
+    whether the sentence is shown or not.
 
 
 ## Hover Vocab Card
@@ -105,9 +113,6 @@ This is also known as the [fallback card](https://tatsumoto.neocities.org/blog/d
 
 **How to create:** <br>
 Fill the `IsHoverCard` field.
-
-!!! note
-    For all forms of hover cards, you can press "shift" to toggle whether the sentence is shown or not.
 
 
 
@@ -216,7 +221,9 @@ The above example is a Hover TSC, with the last sentence was bolded.
 |                | x                      |             |             | TSC                |
 |                |                        | x           |             | Click Vocab        |
 | x              |                        | x           |             | Click Sentence     |
+|                | x                      | x           |             | Click TSC          |
 |                |                        |             | x           | Hover Vocab        |
 | x              |                        |             | x           | Hover Sentence     |
+|                | x                      |             | x           | Hover TSC          |
 
 

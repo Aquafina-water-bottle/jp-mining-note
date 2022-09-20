@@ -230,3 +230,10 @@ Again, please make sure you **reset the existing templates** (unless you know wh
 and again, please make a [backup](setup#preliminary-steps) of your Yomichan settings just in case.
 
 
+
+# Updating the Options File
+The options file is not updated by default, because default options are built-in
+within the note itself for each option.
+If you want to update this file, see the repository's
+[example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
+
