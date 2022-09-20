@@ -573,7 +573,7 @@
   
     <li class="md-nav__item">
       <a href="../faq/" class="md-nav__link">
-        FAQ
+        FAQ & Troubleshooting
       </a>
     </li>
   
@@ -762,11 +762,11 @@ Fill the <code>IsSentenceCard</code> field.</p>
 <p><a href="../assets/nisemono_tsc.png"><img alt="" src="../assets/nisemono_tsc.png" /></a></p>
 <p>A targetted sentence card is a special case of the sentence card.
 The sentence is shown at the front, but only the highlighted content (only the word by default)
-is tested.</p>
+is tested.
+This allows you to have all the information and context of the sentence,
+but you don't have to waste your time testing other parts of the sentence.</p>
 <p>This card type was originally defined
 <a href="https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards">here</a>.</p>
-<p>Note that this is really just a special case of the normal sentence card,
-where the highlighted content is only the tested word.</p>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsTargetedSentenceCard</code> field.</p>
 <hr />
@@ -775,6 +775,15 @@ Fill the <code>IsTargetedSentenceCard</code> field.</p>
 sentence cards and vocab cards into one.
 They all have the distinct feature that the word is shown at the front,
 but the sentence can be shown through some natural means.</p>
+<p>The primary reason why this exists is to prevent
+context-based memories.
+For example, in a TSC or sentence card,
+you may only remember the tested word due to its surrounding context.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For all forms of hybrid cards, you can press "n" to toggle
+whether the sentence is shown or not.</p>
+</div>
 <h3 id="hover-vocab-card">Hover Vocab Card<a class="headerlink" href="#hover-vocab-card" title="Permanent link">&para;</a></h3>
 <p><a href="../assets/nisemono_hover_word.gif"><img alt="" src="../assets/nisemono_hover_word.gif" /></a></p>
 <p>A hover vocab word shows the tested word at the front.
@@ -793,10 +802,6 @@ However, you are given the option to see the full sentence without failing the c
 </ol>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsHoverCard</code> field.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For all forms of hover cards, you can press "shift" to toggle whether the sentence is shown or not.</p>
-</div>
 <p><br></p>
 <h3 id="click-vocab-card">Click Vocab Card<a class="headerlink" href="#click-vocab-card" title="Permanent link">&para;</a></h3>
 <p><a href="../assets/nisemono_click_word.gif"><img alt="" src="../assets/nisemono_click_word.gif" /></a></p>
@@ -910,6 +915,13 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 </tr>
 <tr>
 <td align="center"></td>
+<td align="center">x</td>
+<td align="center">x</td>
+<td align="center"></td>
+<td>Click TSC</td>
+</tr>
+<tr>
+<td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">x</td>
@@ -922,6 +934,13 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 <td align="center">x</td>
 <td>Hover Sentence</td>
 </tr>
+<tr>
+<td align="center"></td>
+<td align="center">x</td>
+<td align="center"></td>
+<td align="center">x</td>
+<td>Hover TSC</td>
+</tr>
 </tbody>
 </table>
 
@@ -930,7 +949,7 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 15, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2022</span>
       
     
   </small>
