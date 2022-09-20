@@ -15,10 +15,6 @@ or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/iss
 I exist on the [TheMoeWay](https://learnjapanese.moe/join/) and Refold (Japanese) servers.
 
 
-!!! note
-    The table of contents to the left of this page is quite long!
-    Be sure to scroll through it to ensure you're not missing anything.
-
 <!--
 TODO for typos, link how to build docs
 

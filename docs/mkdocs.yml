@@ -31,7 +31,12 @@ theme:
   #logo: assets/ideogram-cjk-variant.svg
   #favicon: assets/smallmarisa.png
   features:
+    # single page application
     - navigation.instant
+
+    # table of contents automatically scrolls
+    - toc.follow
+
     - header.autohide
     - navigation.sections
     - content.code.annotate
@@ -93,6 +98,7 @@ markdown_extensions:
 
   - footnotes
 
+  # content tabs (left sidebar)
   #- pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true 
