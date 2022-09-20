@@ -107,6 +107,10 @@ Please check the following in particular:
   Please see [this](faq.md#errors) section for basic troubleshooting.
 - Clicking on the image to zoom should work out of the box.
   If you already have Anki-Connect installed, kanji hover should also work.
+- If the furigana on your card seems to appear higher above the kanji compared to the picture,
+  this is likely because you are using the older Qt5 version of Anki.
+  Unfortunately, as this seems like a quirk of Qt5, there does not seem to be a way to fix it
+  outside of upgrading Anki from a Qt5 version to a Qt6 version.
 
 
 ---
@@ -504,7 +508,7 @@ This section will go over the minimal Yomichan setup to work with this card type
     If you are planning on using the JMdict dictionary,
     the ones provided from most sources
     (TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
-    are all somewhat outdated, which usually means less accurate definitions.
+    are all somewhat outdated, which usually means less accurate definitions and less coverage.
 
     To get the most recent version of JMdict,
     download it from the
@@ -512,7 +516,7 @@ This section will go over the minimal Yomichan setup to work with this card type
     and using [yomichan-import](https://github.com/FooSoft/yomichan-import)
     to get the latest JMdict version available.
 
-    Otherwise, I provide a download link
+    If you don't want to compile it from source, I provide a download link
     [here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan),
     which should only be a few months stale at most.
 
