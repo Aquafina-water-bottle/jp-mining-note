@@ -50,6 +50,14 @@ var JPMNLogger = (() => {
     }
 
     errorStack(stack) {
+      let ignoredErrors = {{ utils.opt("ignored-errors") }};
+      for (substr of ignoredErrors) {
+        if (stack.includes(substr)) {
+          // ignores
+          return;
+        }
+      }
+
       let stackList = stack.split(" at ");
       for (let i = 1; i < stackList.length; i++) {
         stackList[i] = ">>> " + stackList[i];
@@ -105,7 +113,7 @@ var JPMNLogger = (() => {
       this._appendMsg(message, groupEle, key);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.add("info-circle-warning")
+        infoCirc.classList.add("info-circle-warning");
       }
 
       if (key !== null) {
@@ -130,7 +138,7 @@ var JPMNLogger = (() => {
       this._appendMsg("", groupEle);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-leech")) {
-        infoCirc.classList.add("info-circle-leech")
+        infoCirc.classList.add("info-circle-leech");
       }
     }
 
@@ -141,7 +149,7 @@ var JPMNLogger = (() => {
       }
 
       if (this._name !== null) {
-        message = `(${this._name}) ${message}`
+        message = `(${this._name}) ${message}`;
       }
 
       let msgEle = document.createElement('div');

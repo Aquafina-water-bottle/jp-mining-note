@@ -181,6 +181,17 @@
     }
   },
 
+  // Errors that contain the following the following strings will be ignored and not displayed.
+  "ignored-errors": [
+    // This error is caused by the "Edit Field During Review (Cloze)" add-on.
+    // However, this error only appears during the preview and edit cards template windows.
+    // This error does not appear to actually affect any of the internal javascript within the card,
+    // and is rather caused by the add-on itself.
+    // Due to the card's error catcher, this previously-silent error is now caught and shown
+    // in the card's error log, despite it not actually affecting anything.
+    // Therefore, this error can be safely ignored.
+    "ReferenceError: EFDRC is not defined."
+  ],
 
   // Overrides the play keybind button to show the sentence if the
   // card is a hybrid sentence AND the sentence is not currently being shown.
