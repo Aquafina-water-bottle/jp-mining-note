@@ -65,7 +65,7 @@ nav:
     - Runtime Options (TODO): runtimeoptions.md
     - "Modding & Dev Docs (TODO)": modding.md
   - Other:
-    - FAQ: faq.md
+    - "FAQ & Troubleshooting": faq.md
     - Various Resources: jpresources.md
 
 extra_css:

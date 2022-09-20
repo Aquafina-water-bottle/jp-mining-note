@@ -4,6 +4,11 @@ cards with this note type.
 Note that this setup is primarly PC based,
 and requires **Anki** and **Yomichan** for the main card creation process.
 
+
+!!! note
+    The documentation contains a search bar!
+    If you have a problem, you may find the solution by searching for it.
+
 ---
 
 
@@ -17,7 +22,7 @@ Additionally, it is recommeded to use the Qt6 version of Anki if possible.
     Worst case scenario, if any essential add-ons no longer work,
     you can always downgrade back to your current version.
 
-Similarly, if you downloaded Yomichan from a file, I recommend updating that as well.
+Similarly, if you downloaded Yomichan from a file, try updating that as well.
 (Most users should have installed it from their browser's extension page, in which case
 nothing has to be done).
 
@@ -99,26 +104,57 @@ Please check the following in particular:
 - Notice how at the top left corner, the info circle (the "i" encased within the circle)
   is the default grey color.
   If this is red, that means something is wrong with the note's javascript.
-  Please see [this](faq.md#the-info-circle-displays-an-error) section for basic troubleshooting.
+  Please see [this](faq.md#errors) section for basic troubleshooting.
 - Clicking on the image to zoom should work out of the box.
+  If you already have Anki-Connect installed, kanji hover should also work.
 
 
 ---
 
 # Anki Setup
-For this card type to work, some Anki add-ons are required to connect to external sources and to auto-generate
-certain fields.
 
+## Updating Anki
+If you are updating Anki from an older version, this section aims to give some
+general tips on updating Anki.
+If you aren't upgrading Anki from an older version, you can skip this section.
+
+### Official Documentation
+The official documentation on how to install and upgrade Anki is shown below:
+
+- [Windows](https://docs.ankiweb.net/platform/windows/installing.html)
+- [MacOS](https://docs.ankiweb.net/platform/mac/installing.html)
+- [Linux](https://docs.ankiweb.net/platform/linux/installing.html)
+
+Note that for all three, there are additional sections in the table of contents to the left
+that could be helpful.
+
+
+### Add-ons Breaking
+If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:
+
+- As a sanity check, click the `Check for Updates` button on Anki's `Addons` window.
+- Check that the add-on supports the current version of Anki in the official Ankiweb page.
+  If the page says that the current Anki version is supported,
+  try reinstalling it again from Ankiweb.
+  This is because occasionally, the `Check for Updates` button doesn't properly work.
+
+
+<br>
+
+## Anki Add-ons
+There are certain add-ons that must be installed for this note type to work.
+
+<!--
 There are also certain add-ons that will **not** be supported by this note type.
 Please disable them and restart Anki before continuing.
+-->
 
-
-## Conflicting add-ons
+### Conflicting Add-ons
 There are no conflicting add-ons, since I'm not aware of any currently.
 Let me know if you find one!
 
 
-## Downloading add-ons
+### Downloading Add-ons
 To download an add-on, copy the add-on's code, and navigate to the following to paste the code:
 (`Tools` →  `Add-ons` →  `Get Add-ons...`)
 
@@ -126,7 +162,7 @@ To download an add-on, copy the add-on's code, and navigate to the following to 
 
 <br>
 
-## Required Anki add-ons
+## Required Anki Add-ons
 
 ### Anki-Connect
 
@@ -134,9 +170,9 @@ To download an add-on, copy the add-on's code, and navigate to the following to 
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the add-on.
 
-!!! note
+!!! note "Note for Anki versions 2.1.49 and below"
 
-    Some older versions of Anki (2.1.49 and below) require a hack to the Anki-Connect
+    Anki versions 2.1.49 and below require a hack to the Anki-Connect
     config for certain features within the card to work.
     In particular, Anki-Connect is used for the "Kanji Hover" feature and the
     "Open Fields on New Card" feature.
@@ -288,6 +324,16 @@ furigana if there is no furigana generated sentence.
     Furigana generation is occasionally incorrect,
     so if you plan on using these regularly, you should double-check the readings
     to make sure they are correct.
+
+
+??? info "JapaneseSupport v.s. AJT Furigana"
+
+    If you use `JapaneseSupport`, bolded words and other styles within a field
+    are not transferred over from the original field to the reading field.
+    Additionally, `JapaneseSupport` does not have an option to automatically add
+    the reading upon card creation.
+    `AJT Furigana` supports both of those of those features.
+
 
 #### Config Changes
 To change the config of any Anki add-on, head over to
