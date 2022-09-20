@@ -138,6 +138,18 @@ If an add-on (that worked in a previous version of Anki) no longer works, you ha
   try reinstalling it again from Ankiweb.
   This is because occasionally, the `Check for Updates` button doesn't properly work.
 
+<br>
+
+## Dark Mode
+The recommended theme for this note is with Anki's dark mode.
+If you like how this documentation's dark theme looks, then you'll probably like the
+note's dark theme!
+
+To change Anki's theme, head over to:
+(`Tools` →  `Preferences` →  `Basic` →  `Theme (dropdown)` →  `Theme: Dark`)
+
+(TODO gif)
+
 
 <br>
 
