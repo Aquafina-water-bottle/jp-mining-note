@@ -499,6 +499,25 @@ This section will go over the minimal Yomichan setup to work with this card type
 **If you have never used Yomichan before**, please see
 [this page](https://learnjapanese.moe/yomichan/) first to get it working.
 
+!!! note
+
+    If you are planning on using the JMdict dictionary,
+    the ones provided from most sources
+    (TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
+    are all somewhat outdated, which usually means less accurate definitions.
+
+    To get the most recent version of JMdict,
+    download it from the
+    [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
+    and using [yomichan-import](https://github.com/FooSoft/yomichan-import)
+    to get the latest JMdict version available.
+
+    Otherwise, I provide a download link
+    [here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan),
+    which should only be a few months stale at most.
+
+<!-- TODO github actions to re-compile it daily -->
+
 
 ## Preliminary Steps
 If you have used Yomichan before, please make a backup of your settings (just in case):
@@ -699,27 +718,20 @@ To modify a regex string:
     {% endraw %}
 
 
-
+<!--
 ## Other Yomichan Settings
 * Again, if you have never used Yomichan before, I recommend checking out
   [this page](https://learnjapanese.moe/yomichan/).
-<!--* The layout of Yomichan **changes the appearance of the exported card**.
+* The layout of Yomichan **changes the appearance of the exported card**.
   To get exactly the same look as the sample images and cards type,
   use "Compact glossaries" turned on and "Compact tags" turned off,
-  found under Yomichan settings →  "Popup Appearance". TODO -->
-* If you are planning on using the JMDict dictionary,
-  I recommend downloading from the
-  [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
-  and using [yomichan-import](https://github.com/FooSoft/yomichan-import)
-  to get the latest jmdict version available.
-  This is because other sources could have older definitions,
-  which usually means less accurate definitions.
+  found under Yomichan settings →  "Popup Appearance". TODO 
 * [This](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
   link has further template code, which creates markers for individual dictionaries.
   This has certain extended capabilities over my template code, such as removing the first line.
 * Instructions on adding Forvo as an alternate audio source to Yomichan
   can be found [here](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
-
+-->
 
 
 ---
