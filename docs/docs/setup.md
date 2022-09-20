@@ -4,11 +4,6 @@ cards with this note type.
 Note that this setup is primarly PC based,
 and requires **Anki** and **Yomichan** for the main card creation process.
 
-
-!!! note
-    The documentation contains a search bar!
-    If you have a problem, you may find the solution by searching for it.
-
 ---
 
 
@@ -26,7 +21,12 @@ Similarly, if you downloaded Yomichan from a file, try updating that as well.
 (Most users should have installed it from their browser's extension page, in which case
 nothing has to be done).
 
+Finally, notice that this website contains a search bar!
+If you have a problem at any point, you may find the solution by searching for it.
+
 ---
+
+
 
 # Installing the Card
 There are two ways of installing the card:
@@ -142,11 +142,9 @@ If an add-on (that worked in a previous version of Anki) no longer works, you ha
 
 ## Dark Mode
 The recommended theme for this note is with Anki's dark mode.
-If you like how this documentation's dark theme looks, then you'll probably like the
-note's dark theme!
 
-To change Anki's theme, head over to:
-(`Tools` →  `Preferences` →  `Basic` →  `Theme (dropdown)` →  `Theme: Dark`)
+To change Anki's theme, head over to: <br>
+> `Tools` →  `Preferences` →  `Basic` →  `Theme (dropdown)` →  `Theme: Dark`
 
 (TODO gif)
 
@@ -167,8 +165,8 @@ Let me know if you find one!
 
 
 ### Downloading Add-ons
-To download an add-on, copy the add-on's code, and navigate to the following to paste the code:
-(`Tools` →  `Add-ons` →  `Get Add-ons...`)
+To download an add-on, copy the add-on's code, and navigate to the following to paste the code: <br>
+> `Tools` →  `Add-ons` →  `Get Add-ons...`
 
 {{ img("install Anki addons", "assets/anki/addons_install.png") }}
 

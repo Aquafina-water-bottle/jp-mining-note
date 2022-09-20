@@ -2,6 +2,36 @@
 Before committing and going through the setup process,
 it would be best to make sure that the note aligns with exactly what you want.
 
+
+# Supported Systems
+The most important step is to see if jp-mining-note (JPMN) works on your device.
+
+## Anki Desktop
+Primary support is given to the latest Anki versions (and Qt6).
+Limited support will be given for older versions of Anki.
+With that being said, JPMN should work for Anki versions 2.1.49+.
+
+## Mobile (AnkiDroid and AnkiMobile)
+As of writing this,[^1] mobile versions of Anki are not yet supported.
+
+There are plans of supporting AnkiDroid in the future.
+
+As I do not have an iPhone to test AnkiMobile,
+there are no plans to support AnkiMobile.
+
+## Anki Web
+There is no support for AnkiWeb,
+and there are no plans to support AnkiWeb.
+
+## Themes
+The main theme of this card is with Anki's default dark mode.
+As of writing this,[^1] light mode is not yet supported.
+
+[^1]: As of 2022/09/17.
+
+
+
+
 # Theme & Design Principles
 
 ## Made for Japanese Learning
@@ -30,28 +60,6 @@ or even completely remove them from the base template via compile-time options.
 Additionally, there are many built-in ways to extend the note to suit your exact needs.
 
 
-
-# Supported Systems
-## Anki Desktop
-Primary support is given to the latest Anki versions (and Qt6).
-Limited support will be given for older versions of Anki.
-
-## Mobile (AnkiDroid and AnkiMobile)
-As of writing this,[^1] mobile versions of Anki are not yet supported.
-
-There are plans of supporting AnkiDroid in the future.
-As I do not have an iPhone to test AnkiMobile,
-there are no plans to support AnkiMobile.
-
-## Anki Web
-There is no support for AnkiWeb,
-and there are no plans to support AnkiWeb.
-
-## Themes
-The main theme of this card is with Anki's default dark mode.
-As of writing this,[^1] light mode is not yet supported.
-
-[^1]: As of 2022/09/17.
 
 
 # Alternatives

@@ -54,8 +54,7 @@ that can help you figure out what the error is:
 
 1. Do you have a [conflicting addon](setup.md#conflicting-add-ons) installed?
 
-1. As a generalized version of the above,
-    try disabling all of your add-ons other than the mandatory ones listed in the setup page.
+1. Try disabling all of your add-ons other than the mandatory ones listed in the setup page.
     Note that you have to restart Anki after disabling the add-ons for the changes to take effect.
 
     If it works after this step, please let me know which add-on(s) conflicts with this note type!
