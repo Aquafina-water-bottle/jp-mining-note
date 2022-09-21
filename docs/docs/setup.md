@@ -782,6 +782,22 @@ Of course, this list is incomplete, and there could be tools better suited for y
 * add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
 * Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
 
+??? quote "Click here to see some basic config changes to get it working with JPMN."
+
+    ```
+    # Model names are listed in `Tools -> Manage note types` menu in Anki.
+    model_name=JP Mining Note
+
+    # Field names as they appear in the selected note type.
+    # If you set `audio_field` or `image_field` empty,
+    # the corresponding media file will not be created.
+    sentence_field=Sentence
+    #secondary_field=SentEng  # Not used by the note. This is ignored entirely.
+    audio_field=SentenceAudio
+    image_field=Picture
+    ```
+
+
 [**Immersive**](https://github.com/Ben-Kerman/immersive)
 
 * A powerful alternative to the mpvacious add-on above, with certain different capabilities.
