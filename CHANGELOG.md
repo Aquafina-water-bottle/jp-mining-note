@@ -36,6 +36,8 @@ The following are examples breaking changes:
 ## [0.10.1.1] - 2022-09-??
 #### Fixed
 - `_field.css` not being included on export
+- `EFDRC is not defined` error showing on the card
+    - Added `ignored-errors` in config to ignore this error
 
 
 
