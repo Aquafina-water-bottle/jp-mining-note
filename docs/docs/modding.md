@@ -88,15 +88,35 @@ source ./bin/activate
 pip3 install -r tools/requirements.txt
 ```
 
+Disabling the venv:
+```
+deactivate
+```
+
+Resetting the venv:
+```
+# run this only if you're already in a venv
+deactivate
+
+rm -r bin lib
+python3 -m venv .
+source ./bin/activate
+pip3 install -r tools/requirements.txt
+```
+
+
 !!! note
     The `master` branch is the bleeding edge version of the note.
-    If you want to build a stable version of the note, do the following:
+    If you want to build a more stable version of the note, do the following:
     ```
     git fetch
     git checkout tags/TAG_NAME
 
     # or if you want to create a new branch as well:
-    #git checkout tags/TAG_NAME -b BRANCH_NAME
+    git checkout tags/TAG_NAME -b BRANCH_NAME
+
+    # to return back to the master branch:
+    git checkout master
     ```
 
 
@@ -169,16 +189,17 @@ mkdocs serve
 After running `main.py` (or `make.py`), a new file `config/config.py` should appear.
 The main compile-time options can be found in this file.
 
+{% raw %}
 ## Always filled & Never filled fields
 You can set a field to act as if it has always been filled, or it has never been filled.
 This will remove the conditional Anki templates
 (`{{#FIELD}}` and `{{^FIELD}}` markers) for the specified fields.
-For example, if your config is:
+For example, if your `compile-options` is:
 
 ```
-    "always-filled-fields": ["A"],
-    "never-filled-fields": ["B"],
-    ...
+"always-filled-fields": ["A"],
+"never-filled-fields": ["B"],
+...
 ```
 
 and your card template is:
@@ -198,6 +219,7 @@ B is not filled
 {{#C}} C is filled {{/C}}
 {{^C}} C is not filled {{/C}}
 ```
+{% endraw %}
 
 ## Modules
 TODO: not fully implemented
