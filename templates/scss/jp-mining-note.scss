@@ -21,6 +21,8 @@
   --tooltip-max-width: 500px;
   --tooltip-font-size: 14px;
 
+  --zoom: 1;
+
   --yellow: #0060ff; /* not actually yellow ;) */
   --background-darken: rgba(0, 0, 0, 0.05);
   --card-description-color: #acacac;
@@ -95,6 +97,8 @@
   font-size: 30px;
   text-align: center;
   font-style: normal;
+
+  zoom: var(--zoom);
 }
 
 .card.night_mode {
@@ -911,6 +915,9 @@ ruby rt {
   overflow: auto; /* enable scroll if needed */
   background-color: rgb(0,0,0); /* fallback color */
   background-color: rgba(0,0,0,0.75); /* black w/ opacity */
+
+  /* resets zoom so the image maximizes properly */
+  zoom: calc(1/var(--zoom));
 }
 
 .modal {

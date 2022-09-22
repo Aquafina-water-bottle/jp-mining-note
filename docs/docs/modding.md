@@ -1,33 +1,83 @@
 
-NOTE: This document is primarily for developer use.
+<!--
 If you are looking to simply install the card, see the appropriate
 wiki page here (TODO link to setup).
-
+-->
 
 # Introduction
-TODO
+This page describes all the ways of modding your note,
+and goes into depth on the ways you can mod your note without losing your changes upon updates.
+
+
+!!! note
+
+    This document is primarily for developer use.
+    It is assumed that you have knowledge of basic command line.
+    The instructions listed below will be primarily Linux based as well.
+    Notes for other operating systems may be shown.
+
+
+# Modding: The Obvious Way
+Throughout the documentation and within the templates alone, you will likely
+see warning messages to not edit the templates directly unless you are willing
+to lose your changes when you update the note.
+
+The most obvious way to mod the note is directly in the pre-built template downloaded.
+If you are completely fine with losing your changes upon each update,
+and don't want to take advantages of certain tools that comes with this note
+(such as compile-time options),
+then you can simply edit the template and ignore the rest of this page.
+
+
+
+# Project Description
+The Anki card template is generated through `jinja` templates,
+which is a popular templating engine for `Python`.
+All of these templates are located under the `(root)/templates` folder.
+
+The Anki templates are generated through a combination of
+`sass` (for css) and `jinja` (for everything else)
+through the `tools/make.py` script.
+
+You must build the note to use compile-time options,
+as compile-time options are applied upon note building.
+
+
+<!--
+```
+templates
+ L jp-mining-note
+ L macros
+    - general macros used throughout the note generation template.
+ L modules
+    - primarily javascript
+    - used to separate collections of code that can be added / removed to the note at will.
+ L scss    # contains all the css generated
+```
+-->
+
 
 
 # Building
-TODO
 
 ## Prerequisites:
 - Python 3.10.6 or higher
-    - I recommend [pyenv](https://github.com/pyenv/pyenv) to upgrade your python version if you're running linux.
-- npm (only required for release builds / contributing)
+    - I recommend [pyenv](https://github.com/pyenv/pyenv) to upgrade your python version
+      if you're running linux. and have a lower version of Python.
 - dart sass (dart version is required to use the latest features of sass)
 - Anki 2.1.54 or higher
 - Anki-connect addon
 
-## Building & Installing
+## Initialization
 
-Note: you may have to use `python` instead of `python3`, and `pip` instead of `pip3`.
-
-Setting up the system:
 ```
-# initialization
 git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 cd jp-mining-note
+
+# alternatively, if you already have the repository on your system:
+#git pull origin/master
+
+# You may have to use `python` instead of `python3`, and `pip` instead of `pip3`.
 python3 -m venv .
 
 # POSIX (bash/zsh) only.
@@ -37,6 +87,18 @@ source ./bin/activate
 
 pip3 install -r tools/requirements.txt
 ```
+
+!!! note
+    The `master` branch is the bleeding edge version of the note.
+    If you want to build a stable version of the note, do the following:
+    ```
+    git fetch
+    git checkout tags/TAG_NAME
+
+    # or if you want to create a new branch as well:
+    #git checkout tags/TAG_NAME -b BRANCH_NAME
+    ```
+
 
 !!! note
 
@@ -53,7 +115,9 @@ pip3 install neovim anki aqt
 ```
 -->
 
-Building and installing:
+## Building and Installing
+
+
 ```
 cd tools
 
@@ -62,53 +126,141 @@ cd tools
 python3 ./main.py
 ```
 
-Compile time options:
-- after the first `./main.py`, a file `config/config.py` should exist
-- edit this to your preferences and re-run `./main.py`
+
+Running the ./main.py script is equivalent of running:
+```
+# builds the note into the ./build folder
+python3 make.py
+
+# installs the note from the ./build folder
+python3 install.py --from-build --update
+```
 
 
-Running tests:
+## Running Tests
 ```
 cd tools
 python3 -m pytest ./tests
 ```
 
+## Building the Documentation
+
+- all documentation files are found under `(root)/docs`.
+- if already done the above steps with the requirements.txt, all dependencies should already be installed
+- main files should be found under docs/docs/PAGE.md
+
+to preview the documentation:
+```
+mkdocs serve
+```
+
+
+!!! note
+    - if not using requirements.txt / venv:
+    ```
+    pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin mkdocs-git-revision-date-localized-plugin
+    ```
+<!-- TODO update requirements.txt to include last git-revision requirement -->
 
 
 
 # Modding the Note
-- templates are auto-generated
-- modding the html directly will mean that you will lose your changes upon note update
-- recommended approach is to use modules/runtime options
 
-- modules:
-    - TODO basic explanation
-    - javascript-only modules do not require any edits to the raw html
-    - some modules may still have to edit the raw html -> cannot update the note
-        - edits are minimal so you should be able to re-add upon update
-    - uses runtime options
+After running `main.py` (or `make.py`), a new file `config/config.py` should appear.
+The main compile-time options can be found in this file.
+
+## Always filled & Never filled fields
+You can set a field to act as if it has always been filled, or it has never been filled.
+This will remove the conditional Anki templates
+(`{{#FIELD}}` and `{{^FIELD}}` markers) for the specified fields.
+For example, if your config is:
+
+```
+    "always-filled-fields": ["A"],
+    "never-filled-fields": ["B"],
+    ...
+```
+
+and your card template is:
+```
+{{#A}} A is filled {{/A}}
+{{^A}} A is not filled {{/A}}
+{{#B}} B is filled {{/B}}
+{{^B}} B is not filled {{/B}}
+{{#C}} C is filled {{/C}}
+{{^C}} C is not filled {{/C}}
+```
+
+then upon card build, the resulting card template will be:
+```
+A is filled
+B is not filled
+{{#C}} C is filled {{/C}}
+{{^C}} C is not filled {{/C}}
+```
+
+## Modules
+TODO: not fully implemented
+
+- TODO basic explanation
+- primary use is for javascript
+- javascript-only modules do not require any edits to the raw html
+- some modules may still have to edit the raw html -> cannot update the note
+    - edits are minimal so you should be able to re-add upon update
+- uses runtime options
+
+## Extra Javascript
+TODO: not implemented
+
+- primarily for testing, not for production use
+- appends whatever javascript you want to the very end of the anonymous function
+
+## Custom CSS
+TODO: not implemented
+
+- allows for custom themes / minor user customizations
+- can override variables, etc.
+- simply appends the css at the very end of the existing css
+
+
+## Template Overrides
+TODO: not implemented
+
+- `overrides` folder
+- same format as existing `templates` folder
+
+
+## Make your changes shown!
+If you think your changes will be useful for others,
+I highly recommend contributing your work!
+
+TODO
+
+<!--
+- especially since your changes will likely edit the raw html
+- contributing to the project + enabling the features on your system should guarantee that
+  your additions aren't lost upon each update
+-->
+
+
+<!--
+# Modding the Note
 
 - runtime options
     - options in javascript
     - can implement certain features only with runtime options and no modules
-    - 
+    - TODO write this in a separate page
 
 - what to use: modules / runtime options only
     - whichever you think is simpler to implement and to maintain
     - usually modules
 
-- if you think your changes will be useful for others, highly recommend contributing your work!
-    - especially since your changes will likely edit the raw html
-    - contributing to the project + enabling the features on your system should guarantee that
-      your additions aren't lost upon each update
-
-
-## Themes
-- TODO not implemented yet
-
 
 ## Where to add your feature?
 - only care about this if you plan on contributing your feature btw
+-->
+
+
 
 
 ## Yomichan Templates CSS
@@ -222,26 +374,6 @@ TODO transfer yomichan templates section here
 
 
 
-
-
-# Building the Documentation
-
-- all documentation files are found under `(root)/docs`.
-- if already done the above steps with the requirements.txt, all dependencies should already be installed
-- main files should be found under docs/docs/PAGE.md
-
-to preview the documentation:
-```
-mkdocs serve
-```
-
-
-!!! note
-    - if not using requirements.txt / venv:
-    ```
-    pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin mkdocs-git-revision-date-localized-plugin
-    ```
-<!-- TODO update requirements.txt to include last git-revision requirement -->
 
 
 
