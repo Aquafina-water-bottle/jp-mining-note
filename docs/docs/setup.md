@@ -100,17 +100,17 @@ View one of the cards and make sure the card looks similar to the one below:
 
 Please check the following in particular:
 
-- The fonts should match very similarly with the above example.
-- Notice how at the top left corner, the info circle (the "i" encased within the circle)
-  is the default grey color.
-  If this is red, that means something is wrong with the note's javascript.
-  Please see [this](faq.md#errors) section for basic troubleshooting.
-- Clicking on the image to zoom should work out of the box.
-  If you already have Anki-Connect installed, kanji hover should also work.
-- If the furigana on your card seems to appear higher above the kanji compared to the picture,
-  this is likely because you are using the older Qt5 version of Anki.
-  Unfortunately, as this seems like a quirk of Qt5, there does not seem to be a way to fix it
-  outside of upgrading Anki from a Qt5 version to a Qt6 version.
+1. The fonts should match very similarly with the above example.
+1. Notice how at the top left corner, the info circle (the "i" encased within the circle)
+    is the default grey color.
+    If this is red, that means something is wrong with the note's javascript.
+    Please see [this](faq.md#errors) section for basic troubleshooting.
+1. Clicking on the image to zoom should work out of the box.
+    If you already have Anki-Connect installed, kanji hover should also work.
+1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
+    this is likely because you are using the older Qt5 version of Anki.
+    Unfortunately, as this seems like a quirk of Qt5, there does not seem to be a way to fix it
+    outside of upgrading Anki from a Qt5 version to a Qt6 version.
 
 
 ---
@@ -784,7 +784,7 @@ Of course, this list is incomplete, and there could be tools better suited for y
 
 ??? quote "Click here to see some basic config changes to get it working with JPMN."
 
-    ```
+    ```ini
     # Model names are listed in `Tools -> Manage note types` menu in Anki.
     model_name=JP Mining Note
 
