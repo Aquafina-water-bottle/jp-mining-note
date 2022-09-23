@@ -4,17 +4,15 @@
 {% set note.side = "front" %}
 {% set note.card_type = "main" %}
 
-{% from "jp-mining-note/main/common.html" import card_type, front_display with context %}
-
 {% block card_type %}
 {{ super() }}
-{{ card_type }}
+{% include "jp-mining-note/main/partials/card_type.html" %}
 {% endblock %}
 
 
 {% block card_html %}
 {{ super() }}
-{{ front_display }}
+{% include "jp-mining-note/main/partials/display/main.html" %}
 
 
 <!-- regular display -->
@@ -29,8 +27,8 @@
   {% call IF("IsSentenceCard") %}
   {% call utils.none_of("PADoNotTest", "PASeparateWordCard",
       "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard") %}
-
   {% call utils.any_of("PASeparateSentenceCard", "PATestOnlyWord") %}
+
     <button id="pa-button">Show</button>
 
   {% endcall %}
@@ -42,12 +40,12 @@
   -->
   {% call utils.none_of("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard") %}
     {% filter indent(width=4) %}
-    {{ common.full_sentence_front }}
+    {% include "jp-mining-note/partials/full_sentence_front.html" %}
     {% endfilter %}
   {% endcall %}
 
   {% filter indent(width=2) %}
-  {{ common.sentence_audio_no_autoplay }}
+  {% include "jp-mining-note/partials/sentence_audio_no_autoplay.html" %}
   {% endfilter %}
 
 {% endcall %} {# PAShowInfo #}
@@ -57,6 +55,6 @@
 
 {% block javascript %}
 {{ super() }}
-{% include "jp-mining-note/main/front.js" %}
+{% include "jp-mining-note/main/js/front.js" %}
 {% endblock %}
 

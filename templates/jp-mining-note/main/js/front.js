@@ -1,5 +1,5 @@
 /// {% extends "jp-mining-note/base.js" %}
-/// {% import "jp-mining-note/main/common.js" as js_common with context %}
+/// {% import "jp-mining-note/main/js/common.js" as js_common with context %}
 
 
 /// {% block js_functions %}

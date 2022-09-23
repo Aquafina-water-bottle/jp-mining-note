@@ -12,7 +12,7 @@ CONFIG = {
 
     # rooted under (root)
     # ignores folder if it doesn't exist
-    "template-override-folder": "override",
+    "templates-override-folder": "overrides",
 
     "compile-options": {
         "always-filled-fields": [],

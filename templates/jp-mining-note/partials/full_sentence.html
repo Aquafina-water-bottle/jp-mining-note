@@ -1,0 +1,13 @@
+{# impl #}
+<div class="center-box-1">
+  <div class="center-box-2">
+    <div class="full-sentence bold-yellow" id="full_sentence">
+      {% call IF("SentenceReading") %}
+        {{ T("furigana:SentenceReading") }}
+      {% endcall %}
+      {% call IFNOT("SentenceReading") %}
+        {{ T("Sentence") }}
+      {% endcall %}
+    </div>
+  </div>
+</div>

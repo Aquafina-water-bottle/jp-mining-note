@@ -1,16 +1,7 @@
-{# man #}
+{# impl #}
 
 {% from "macros/global.html" import T, IF, IFNOT, END with context %}
 {% import "macros/utils.html" as utils with context %}
-{% import "jp-mining-note/common.html" as common with context %}
-
-{% set card_type %}
-PA Word
-{% endset %}
-
-
-
-{% set front_display %}
 
 <!-- note that for the PA separate word card, the front is ALWAYS a word -->
 <!-- priority: AltDisplay -> Word -->
@@ -36,7 +27,5 @@ PA Word
   </div>
 </div>
 
-{{ common.hint }}
-
-{% endset %}
+{% include "jp-mining-note/partials/hint.html" %}
 

@@ -1,0 +1,8 @@
+{# impl #}
+<span id="pa-silence-audio" style="display:none">{{ T("PASilence") }}</span>
+
+{% call IF("SentenceAudio") %}
+  <span id="sentence-audio"> {{ T("SentenceAudio") }} </span>
+{% endcall %}
+
+{% include "jp-mining-note/partials/play_silence_only_js.html" %}

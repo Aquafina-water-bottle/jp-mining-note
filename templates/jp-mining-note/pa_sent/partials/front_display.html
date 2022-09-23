@@ -1,16 +1,7 @@
-{# man #}
+{# impl #}
 
 {% from "macros/global.html" import T, IF, IFNOT, END with context %}
 {% import "macros/utils.html" as utils with context %}
-{% import "jp-mining-note/common.html" as common with context %}
-
-{% set card_type %}
-PA Sentence
-{% endset %}
-
-
-
-{% set front_display %}
 
 <!-- note that for the PA separate sentence card, the front is ALWAYS a sentence -->
 <!-- priority: AltDisplayPASentenceCard -> AltDisplay -> Sentence -->
@@ -63,7 +54,4 @@ PA Sentence
 
 {% endcall %}
 
-{{ common.hint }}
-
-{% endset %}
-
+{% include "jp-mining-note/partials/hint.html" %}

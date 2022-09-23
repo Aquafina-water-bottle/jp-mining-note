@@ -1,16 +1,7 @@
-{# man #}
+{# impl #}
 
 {% from "macros/global.html" import T, IF, IFNOT, END with context %}
 {% import "macros/utils.html" as utils with context %}
-{% import "jp-mining-note/common.html" as common with context %}
-
-{% set card_type %}
-Cloze Deletion
-{% endset %}
-
-
-
-{% set front_display %}
 
 {% call IF('AltDisplay') %}
   <div class="expression expression--single expression--sentence bold-yellow" id="display">
@@ -28,7 +19,4 @@ Cloze Deletion
   </div>
 {% endcall %}
 
-{{ common.hint }}
-
-{% endset %}
-
+{% include "jp-mining-note/partials/hint.html" %}

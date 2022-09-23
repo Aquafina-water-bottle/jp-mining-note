@@ -124,10 +124,10 @@ class Generator:
     handles file generation with jinja2, sass, or just copying
     """
 
-    def __init__(self, jinja_root_folder: str, args, to_release=False):
-        self.jinja_root_folder = jinja_root_folder
+    def __init__(self, jinja_root_folders: list[str], args, to_release=False):
+        self.jinja_root_folders = jinja_root_folders
         self.env = Environment(
-            loader=FileSystemLoader(jinja_root_folder),
+            loader=FileSystemLoader(jinja_root_folders),
             autoescape=select_autoescape(),
             undefined=StrictUndefined,
             extensions=["jinja2.ext.do"],
@@ -227,11 +227,13 @@ def main(args=None):
 
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "templates")
+    overrides_folder = os.path.join(root_folder, config("templates-override-folder").item())
+    search_folders = [overrides_folder, templates_folder]
 
     TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
 
     generator = Generator(
-        templates_folder,
+        search_folders,
         args,
         to_release=args.to_release,
     )

@@ -476,7 +476,6 @@ ruby rt {
 }
 
 
-/* space at the top of the window on the front side */
 .expression {
 }
 
@@ -497,8 +496,8 @@ ruby rt {
 .expression--single {
   font-size: var(--sentence-font-size);
   font-family: notoserif;
-  line-height: 150%;
 }
+
 
 /* used when the front side display is a word and not a sentence (increase font size) */
 .expression--word {

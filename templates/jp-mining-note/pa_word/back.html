@@ -4,26 +4,26 @@
 {% set note.side = "back" %}
 {% set note.card_type = "pa_word" %}
 
-{% from "jp-mining-note/pa_word/common.html" import card_type, front_display with context %}
+{% from "jp-mining-note/macros.html" import def_header with context %}
 
 {% block card_type %}
 {{ super() }}
-{{ card_type }}
+{% include "jp-mining-note/pa_word/partials/card_type.html" %}
 {% endblock %}
 
 {% block card_html_top %}
 {{ super() }}
-{{ front_display }}
+{% include "jp-mining-note/pa_word/partials/front_display.html" %}
 {% endblock %}
 
 {% block card_html_bottom %}
 
-{{ common.def_header(border_class="dh-left--blue-border") }}
+{{ def_header(border_class="dh-left--blue-border") }}
 
 <div id="back_side" class="back-side">
 
-{{ common.full_sentence }}
-{{ common.all_definitions }}
+{% include "jp-mining-note/partials/full_sentence.html" %}
+{% include "jp-mining-note/partials/all_definitions.html" %}
 
 {% endblock %}
 

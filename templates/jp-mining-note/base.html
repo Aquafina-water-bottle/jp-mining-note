@@ -3,15 +3,13 @@
 {%- from "macros/global.html" import T, IF, IFNOT, END with context -%}
 {%- import "macros/utils.html" as utils with context -%}
 
-{%- import "jp-mining-note/common.html" as common with context -%}
-
 {%- if note.field_restrict is defined and note.field_restrict -%}
 {%- for x in note.field_restrict -%}
 {{ IF(x) }}
 {% endfor -%}
 {%- endif -%}
 
-{{ common.compile_options_comment }}
+{% include "jp-mining-note/partials/compile_options_comment.html" %}
 
 
 <script>
@@ -24,16 +22,16 @@
 
 
 <div class="card-description">
-  {% filter indent(width=2) %}
+{% filter indent(width=2) %}
 
   {% block card_type %}
   {% endblock %}
 
-  {{ common.info_circle }}
+  {% include "jp-mining-note/partials/info_circle.html" %}
 
-  {{ common.version }}
+  {% include "jp-mining-note/partials/version.html" %}
 
-  {% endfilter %}
+{% endfilter %}
 </div>
 
 

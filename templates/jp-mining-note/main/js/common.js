@@ -1,7 +1,6 @@
 
 /// {% set functions %}
 
-
 function hybridClick() {
   const hSent = document.getElementById("hybrid-sentence");
   const hWord = document.getElementById("hybrid-word");
