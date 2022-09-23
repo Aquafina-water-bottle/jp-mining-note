@@ -435,14 +435,14 @@ ruby rt {
   grid-column-gap: 5px;
   justify-items: center;
 
-  font-size: var(--sentence-font-size);
   font-family: notoserif;
-  line-height: 150%;
 }
 
 .pa-indicator {
   margin-left: auto;
   grid-column-start: 1;
+
+  font-size: var(--sentence-font-size);
 
   /*
    * so that the svg can be placed after the sentence (to remove upon hover)
@@ -513,7 +513,7 @@ ruby rt {
 
   text-indent: -1em;
   padding-left: 1em;
-  /*font-size: var(--sentence-font-size);*/
+  font-size: var(--sentence-font-size);
 }
 
 
