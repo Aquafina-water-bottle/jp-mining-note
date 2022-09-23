@@ -34,6 +34,17 @@ The following are examples breaking changes:
 
 
 ## [0.10.1.1] - 2022-09-??
+Again, primarily a back-end only update.
+
+#### Added
+- templates overrides folder option
+
+#### Changed
+- layout of templates: every variable in the `common.html` files were moved into
+  individual files: `partials/variable_name.html`
+    - allows users to override these partials easier (inspired by material mkdocs)
+- combined legacy display with regular display in main card type
+
 #### Fixed
 - `_field.css` not being included on export
 - `EFDRC is not defined` error showing on the card
