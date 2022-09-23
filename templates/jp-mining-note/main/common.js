@@ -6,7 +6,7 @@ function hybridClick() {
   const hSent = document.getElementById("hybrid-sentence");
   const hWord = document.getElementById("hybrid-word");
   const svgEle = document.getElementById("flag_box_svg");
-  const circ = document.getElementById("svg_circle");
+  const circ = document.getElementById("pa_indicator_circle");
 
   if (hSent.classList.contains("override-display-inline-block")) {
     // currently showing sentence, change to word
@@ -106,7 +106,7 @@ var paIndicator = (function () {
 {
 
   let d = document.getElementById("display");
-  let circ = document.getElementById("svg_circle");
+  let circ = document.getElementById("pa_indicator_circle");
   let svgTitle = document.getElementById("svg_title");
 
   /// {% call IF("IsClickCard") %}

@@ -105,7 +105,7 @@ const JPMNSentUtils = (() => {
 
     // moves pa-indicator position
     if (!existingQuote && !autoQuote) {
-      const circ = document.getElementById("svg_circle");
+      const circ = document.getElementById("pa_indicator_circle");
       if (circ !== null) {
         circ.setAttributeNS(null, "cx", "35");
         circ.setAttributeNS(null, "cy", "11");
