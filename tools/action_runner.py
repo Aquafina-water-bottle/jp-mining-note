@@ -27,54 +27,13 @@ TODO:
 
 from __future__ import annotations
 
-# import os
-# import re
-# import sys
 import copy
-from pprint import pprint
-
-# import aqt
-# from aqt.main import AnkiQt
-# from anki.collection import Collection
-# from anki.models import ModelManager, NotetypeId
-
 
 import utils
 from action import Action, UserAction, RenameField, MoveField, AddField, DeleteField
 from note_changes import NOTE_CHANGES, Version, NoteChange
 
-# import note_changes
 from typing import Any
-
-
-def add_args(parser):
-    group = parser.add_argument_group(title="actions")
-
-    # group.add_argument(
-    #    "--no-warn",
-    #    action="store_true",
-    #    help="does not warn when updating",
-    # )
-
-    # group.add_argument(
-    #    "--initialize",
-    #    action="store_true",
-    #    help="Adds `[sound:_silence.wav]` to the PASilence field of every card",
-    # )
-
-
-# def get_anki_path():
-#    home_path = os.path.expanduser("~")
-#    # windows
-#    if sys in {"win32", "cygwin"} and os.path.isdir(
-#        path := os.path.join(home_path, "AppData", "Roaming", "Anki2")
-#    ):
-#        return path
-#
-#    if sys in {"linux", "darwin"} and os.path.isdir(
-#        path := os.path.join(home_path, ".local", "share", "Anki2")
-#    ):
-#        return path
 
 
 class FieldEditSimulator:
@@ -91,13 +50,13 @@ class FieldEditSimulator:
         self.original_fields = original_fields
         self.simulated_fields = copy.deepcopy(self.original_fields)
 
-    def _rename_field(self, old_field_name, new_field_name):
+    def _rename_field(self, old_field_name: str, new_field_name: str):
         assert old_field_name in self.simulated_fields
 
         i = self.simulated_fields.index(old_field_name)
         self.simulated_fields[i] = new_field_name
 
-    def _move_field(self, field_name, index):
+    def _move_field(self, field_name: str, index: int):
         TEMP_FIELD = "TEMP_FIELD_NAME"
         assert field_name in self.simulated_fields
 
@@ -106,18 +65,18 @@ class FieldEditSimulator:
         i = self.simulated_fields.index(TEMP_FIELD)
         self.simulated_fields[i] = field_name
 
-    def _add_field(self, field_name, index):
+    def _add_field(self, field_name: str, index: int):
         if field_name not in self.simulated_fields:
             self.simulated_fields.append(field_name)
 
         if index != -1:
             self._move_field(field_name, index)
 
-    def _delete_field(self, field_name):
+    def _delete_field(self, field_name: str):
         assert field_name in self.simulated_fields
         self.simulated_fields.remove(field_name)
 
-    def simulate(self, actions, reset=True):
+    def simulate(self, actions: list[Action], reset: bool = True):
         # reset simulated fields
         if reset:
             self.simulated_fields = copy.deepcopy(self.original_fields)
@@ -137,13 +96,15 @@ class FieldEditSimulator:
 
 
 class Verifier:
-    def __init__(self, original_fields, new_fields, in_order=True):
+    def __init__(
+        self, original_fields: list[str], new_fields: list[str], in_order: bool = True
+    ):
         self.original_fields = original_fields
         self.new_fields = new_fields
         self.in_order = in_order
-        self.anki_fields = None
+        self.anki_fields: None | list[str] = None
 
-    def get_anki_fields(self):
+    def get_anki_fields(self) -> list[str]:
         if self.anki_fields is None:
             self.anki_fields = utils.invoke(
                 "modelFieldNames", modelName="JP Mining Note"
@@ -151,7 +112,7 @@ class Verifier:
 
         return self.anki_fields
 
-    def naive_diff_list(self, list1, list2, title1, title2):
+    def naive_diff_list(self, list1: list, list2: list, title1: str, title2: str):
         """
         called "naive diff" as it diffs naive-ly per line, without checking for groups of lines
         that are the same
@@ -174,20 +135,10 @@ class Verifier:
             print(">>> " if x != y else "    ", end="")
             print(str_format.format(x, y))
 
-    def naive_diff_set(self, set1, set2, title1, title2):
+    def naive_diff_set(self, set1: set, set2: set, title1: str, title2: str):
         if set1 != set2:
             print(f"Fields in {title1} that aren't in {title2}: {set1-set2}")
             print(f"Fields in {title2} that aren't in {title1}: {set2-set1}")
-
-    # def verify_in_order(self, a, b, ):
-
-    # def verify_no_order(self):
-
-    #    x = set(self.simulated_fields)
-    #    y = set(new_fields)
-    #    if x != y:
-    #        naive_diff(x, y, "Simulated", "Expected")
-    #        raise Exception("Fields are different")
 
     def verify_initial_fields(self):
         # makes sure that the anki fields are the same
@@ -220,7 +171,7 @@ class Verifier:
                     f"{original_fields - anki_fields} "
                 )
 
-    def verify_simulator(self, actions):
+    def verify_simulator(self, actions: list[Action]):
         # test simulator
         simulator = FieldEditSimulator(original_fields=self.original_fields)
         simulator.simulate(actions)
@@ -240,7 +191,7 @@ class Verifier:
 
         # simulator.verify(new_fields=new_fields)
 
-    def verify_api_reflect(self, actions):
+    def verify_api_reflect(self, actions: list[Action]):
         # test actions from ankiconnect
         ankiconnect_actions = set().union(
             *[action.ankiconnect_actions for action in actions]
@@ -260,7 +211,7 @@ class Verifier:
                 "Please update to the newest version of Anki-Connect."
             )
 
-    def verify(self, actions):
+    def verify(self, actions: list[Action]):
         """
         verifies that:
         - fields in anki are the same
@@ -315,12 +266,12 @@ class ActionRunner:
         """
 
         self.changes: list[NoteChange] = []
-        self.edits_cards = False
-        self.requires_user_action = False
+        self.edits_cards: bool = False
+        self.requires_user_action: bool = False
 
-        self.original_fields = None
-        self.new_fields = None
-        self.in_order = in_order
+        self.original_fields: None | list[str] = None
+        self.new_fields: None | list[str] = None
+        self.in_order: bool = in_order
         self.verifier: Verifier | None = None
 
         if current_ver == new_ver:
@@ -368,55 +319,10 @@ class ActionRunner:
                 if self.edits_cards and self.requires_user_action:
                     return  # saves some cycles
 
-    # def verify(self, original_fields, new_fields, in_order=True):
-
-    ## makes sure that the anki fields are the same
-    # field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
-
-    ## allows extra fields added by the user past the original fields
-    ## only done if order matters
-    # if in_order:
-    #    first_fields = field_names[: len(original_fields)]
-
-    #    if field_names != first_fields:
-    #        naive_diff(first_fields, original_fields, "Anki", "Expected (Before)")
-    #        raise Exception("Anki fields are different")
-
-    # else:
-    #    # allows fields in anki that are not in the expected beginning,
-    #    # BUT does not allow expected fields not in anki at the current moment
-    #    # (i.e. you can't delete fields)
-    #    pass
-
-    ## test simulator
-    # simulator = FieldEditSimulator(original_fields=original_fields)
-    # actions = sum((data.actions for data in self.changes), start=[])
-    # simulator.simulate(actions)
-    # simulator.verify(new_fields=new_fields)
-
-    ## test actions from ankiconnect
-    # ankiconnect_actions = set().union(
-    #    *[action.ankiconnect_actions for action in actions]
-    # )
-
-    # api_actions = utils.invoke(
-    #    "apiReflect", scopes=["actions"], actions=list(ankiconnect_actions)
-    # )["actions"]
-
-    # if len(ankiconnect_actions) != len(api_actions):
-    #    print("Anki-Connect is missing the following actions:")
-    #    for a in ankiconnect_actions:
-    #        if a not in api_actions:
-    #            print("    " + a)
-    #    raise Exception(
-    #        "Anki-Connect is missing actions. "
-    #        "Please update to the newest version of Anki-Connect."
-    #    )
-
     def clear(self):
         self.changes.clear()
 
-    def indent(self, desc, indent="    "):
+    def indent(self, desc: str, indent: str="    ") -> str:
         return indent + desc.replace("\n", "\n" + indent)
 
     def get_version_actions_desc(self, data: NoteChange) -> str:
@@ -518,8 +424,6 @@ class ActionRunner:
         return True
 
     def run(self):
-        # hack to ensure that updateNoteFields fields will work
-        # utils.invoke("guiBrowse", query="nid:1")
         for data in self.changes:
             for action in data.actions:
                 action.run()
@@ -527,86 +431,12 @@ class ActionRunner:
         if self.new_fields is not None and self.verifier is not None:
             self.verifier.verify_post()
 
-            ## makes sure that the anki fields are the same
-            # field_names = utils.invoke("modelFieldNames", modelName="JP Mining Note")
-            ## allows extra fields added by the user past the original fields
-            # first_fields = field_names[: len(self.new_fields)]
-
-            # if field_names != first_fields:
-            #    self.naive_diff_list(first_fields, self.new_fields, "Anki", "Expected (After)")
-            #    raise Exception("Anki fields are different")
-
     def post_message(self):
         if self.requires_user_action:
             print()
             print("Make sure you don't forget to do the following actions afterwards:")
             print(self.get_user_actions_desc())
 
-        # for action in self.actions:
-        #    print(f"Running action {action}...")
-        #    action.run()
-
-
-def main(args=None):
-    if args is None:
-        args = utils.get_args(utils.add_args, add_args)
-    config = utils.get_config(args)
-
-    # action_runner = ActionRunner()
-    # current_ver = Version.from_str(utils.get_version_from_anki())
-    ##new_ver = Version.from_str(utils.get_version())
-    # new_ver = Version(0, 9, 0, 0)
-    # action_runner.get_note_changes(current_ver, new_ver)
-    # print(action_runner.get_actions_desc())
-
-    # if action_runner.has_actions():
-    #    action_runner.run()
-
-    ## action_runner.get_note_changes(V"0.2.0.0", "0.9.0.0")
-
-    # v3 = Version(3, 3, 3, 3)
-    # v4 = Version(3, 3, 3, 3)
-    # v3.cmp(v4)
-    # print(v3 < v4)
-    # print(v3 > v4)
-    # print(v3 == v4)
-    # print(v3 != v4)
-
-    # runner = ActionRunner("temp", warn=not args.no_warn)
-
-    # note_name = config("notes", "jp-mining-note", "model-name").item()
-
-    # runner.run(note_name)
-
-    # from copy import deepcopy
-
-    # s = FieldEditSimulator(NOTE_CHANGES[-1].fields)
-    # f1 = deepcopy(s.simulated_fields)
-    # s._move_field("PAShowInfo", 15-1)
-    # f2 = deepcopy(s.simulated_fields)
-    # s._move_field("PASeparateWordCard", 19-1)
-    # f3 = deepcopy(s.simulated_fields)
-
-    # for (i, a, b, c) in zip(range(len(f1)), f1, f2, f3):
-    #    str_format = "{:<3} {:<25} {:<25} {:<25}"
-    #    print(str_format.format(i, a, b, c))
-
-    # return
-
-    s = FieldEditSimulator(NOTE_CHANGES[-1].fields)
-    actions = sum((data.actions for data in NOTE_CHANGES), start=[])
-    # print(actions)
-    s.simulate(actions)
-    s.verify(NOTE_CHANGES[0].fields)
-
-    # anki_home = '/home/austin/.local/share/Anki2/test3'
-    # WARNING: THIS IS THE MAIN DECK!!!
-    # BACKUP ANY COLLECTION BEFORE RUNNING THIS SCRIPT ON IT
-    # anki_home = "/home/austin/.local/share/Anki2/Japanese"
-    # anki_collection_path = os.path.join(anki_home, "collection.anki2")
-
-    # col = Collection(anki_collection_path, log=True)
-
 
 if __name__ == "__main__":
-    main()
+    pass

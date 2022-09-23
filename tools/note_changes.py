@@ -27,10 +27,6 @@ class Version:
         """
         assert isinstance(other, Version), other
 
-        # ver_tuple = lambda x: tuple(int(i) for i in x.split("."))
-
-        # ver1_tup = ver_tuple(ver1)
-        # ver2_tup = ver_tuple(ver2)
         for i, j in zip(self.ints, other.ints):
             if i < j:
                 return -1

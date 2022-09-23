@@ -6,9 +6,10 @@ updateModelTemplates
 
 import os
 import base64
+import argparse
 import datetime
-from dataclasses import dataclass
 
+from dataclasses import dataclass
 from typing import Any, Dict, List
 
 import utils
@@ -16,26 +17,10 @@ from utils import invoke
 
 import action_runner as ar
 
-# from note_changes import NoteChanges
 
-
-# NOTE_TYPES_DIR = "cards"
 FRONT_FILENAME = "front.html"
 BACK_FILENAME = "back.html"
-# CSS_FILEPATH = "cards/style.css"
 CSS_FILENAME = "style.css"
-
-# OPTIONS_FILENAME = "jp-mining-note-options.js"
-# FIELD_FILENAME = "field.css"
-
-# MODEL_NAME = "JP Mining Note"
-TEMPLATE_NAMES = {
-    "main": "Mining Card",
-    "pa_sent": "PA Sentence Card",
-    # "pa_word": "PA Word Card",
-    # "cloze_deletion": "Cloze Deletion Card",
-}
-
 TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
 
 
@@ -59,7 +44,7 @@ class MediaFile:
     contents: str
 
 
-def add_args(parser):
+def add_args(parser: argparse.ArgumentParser):
     group = parser.add_argument_group(title="install")
     group.add_argument("--install-options", action="store_true")
     group.add_argument(
@@ -68,9 +53,6 @@ def add_args(parser):
         action="store_true",
         help="updates the note instead of installing it",
     )
-    # group.add_argument("-o", "--install-options", action="store_true")
-    # group.add_argument("-m", "--install-media", action="store_true")
-    # group.add_argument("-a", "--install-all", action="store_true")
     group.add_argument(
         "--from-build",
         action="store_true",
@@ -108,49 +90,23 @@ def add_args(parser):
         help="does not check for order of fields when updating",
     )
 
-    # TODO implement
-    # force update version
-    # group.add_argument("--force", action="store_true")
 
-
-# def format_create_model(model: NoteType) -> Dict[str, Any]:
-#    return {
-#        "modelName": "newModelName",
-#        "inOrderFields": ["Field1", "Field2", "Field3"],
-#        "css": "Optional CSS with default to builtin css",
-#        "isCloze": False,
-#        "cardTemplates": [
-#            {
-#                "Name": "My Card 1",
-#                "Front": "Front html {{Field1}}",
-#                "Back": "Back html  {{Field2}}",
-#            }
-#        ],
-#    }
-
-
-# def to_base64_str(string: str) -> str:
-#    return base64.b64encode(bytes(string, "utf-8")).decode("utf-8")
-
-
-# class NoteReader:
 class NoteUpdater:
+    """
+    updates (and backs up, if specified) the existing templates and css of the note
+    """
+
     def __init__(
         self,
         input_folder: str,
         note_config: utils.Config,
         backup_folder: str | None = None,
     ):
-        # input folder is the folder above the "note" item
-
         self.input_folder = input_folder
         self.backup_folder = backup_folder
         self.note_config = note_config
-        # self.note_model_id = note_model_id
-        # self.templates = templates
 
     def read_css(self) -> str:
-        # with open(os.path.join(self.input_folder, CSS_FILENAME), encoding="utf8") as f:
         input_path = os.path.join(
             self.input_folder, str(self.note_config("id").item()), CSS_FILENAME
         )
@@ -160,13 +116,14 @@ class NoteUpdater:
     def backup(self):
         """
         backs up as the following:
-            - backup folder
-               L Note name in Anki (e.g. "JP Mining Note")
-                  L style.css
-                  L Template name in Anki (e.g. "Mining Card")
-                     L front.html
-                     L back.html
-                  ...
+
+        - backup folder
+           L Note name in Anki (e.g. "JP Mining Note")
+              L style.css
+              L Template name in Anki (e.g. "Mining Card")
+                 L front.html
+                 L back.html
+              ...
         """
         assert self.backup_folder is not None
         model_name = self.note_config("model-name").item()
@@ -193,8 +150,6 @@ class NoteUpdater:
         css_contents = invoke("modelStyling", modelName=model_name)["css"]
         folder = os.path.join(self.backup_folder, model_name)
         write_backup(folder, "style.css", css_contents)
-
-        # gets css
 
     def get_templates(self) -> List[CardTemplate]:
         """
@@ -225,13 +180,6 @@ class NoteUpdater:
             css=self.read_css(),
             templates=self.get_templates(),
         )
-
-    # def read_options_file() -> str:
-    #    with open(os.path.join("media", OPTIONS_FILENAME), encoding='utf8') as f:
-    #        return f.read()
-    #
-    # def read_options_media() -> MediaFile:
-    #    return MediaFile(name=OPTIONS_FILENAME, contents=to_base64_str(read_options_file()))
 
     # taken from https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/antp/updater.py
     def format_templates(self, model: NoteType) -> Dict[str, Any]:
@@ -274,27 +222,23 @@ def b64_encode(contents):
 
 
 class MediaInstaller:
+    """
+    updates (and backs up, if specified) arbitrary media files
+    """
+
     def __init__(self, input_folder: str, static_folder: str, backup_folder: str):
         self.input_folder = input_folder
         self.static_folder = static_folder
         self.backup_folder = backup_folder
-        # self.media_files = None:
 
     def get_media_file(self, file_name, static=False) -> MediaFile:
         input_folder = self.static_folder if static else self.input_folder
 
         with open(os.path.join(input_folder, file_name), mode="rb") as f:
             contents = f.read()
-        # print(contents)
         return MediaFile(
             name=file_name, contents=base64.b64encode(contents).decode("utf-8")
         )
-
-        # if binary:
-        # else:
-        #    with open(os.path.join(self.input_folder, file_name), encoding="utf8") as f:
-        #        contents = f.read()
-        #    return MediaFile(name=file_name, contents=to_base64_str(contents))
 
     def backup(self, file_name):
         # attempts to file from anki
@@ -306,21 +250,12 @@ class MediaInstaller:
 
         contents = base64.b64decode(contents_b64).decode("utf-8")
 
-        # TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
-        # backup_file = datetime.datetime.now().strftime(TIME_FORMAT) + "-" + file_name
         backup_file_path = os.path.join(self.backup_folder, file_name)
         print(f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ...")
 
         utils.gen_dirs(backup_file_path)
         with open(backup_file_path, mode="w") as f:
             f.write(contents)
-
-        # with open(os.path.join(self.input_folder, file_name), mode="rb") as f:
-        #    contents = f.read()
-        ## print(contents)
-        # return MediaFile(
-        #    name=file_name, contents=base64.b64encode(contents).decode("utf-8")
-        # )
 
     def format_media(self, media: MediaFile) -> Dict[str, Any]:
         return {
@@ -333,7 +268,6 @@ class MediaInstaller:
             print(f"Updated '{media.name}' media file successfully.")
 
     def media_exists(self, file_name: str):
-        # if self.media_files is None:
         return bool(invoke("getMediaFilesNames", pattern=file_name))
 
     def install_from_list(self, file_list, **kwargs):
@@ -349,7 +283,6 @@ class MediaInstaller:
             self.backup(file_name)
 
         media = self.get_media_file(file_name, static=static)
-        # return
         self.send_media(media)
 
 
@@ -359,7 +292,6 @@ def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
 
-    # config = utils.get_config(args)
     note_config = utils.get_note_config()
     model_name = note_config("model-name").item()
 
@@ -380,8 +312,8 @@ def main(args=None):
 
     is_installed = utils.note_is_installed(model_name)
     action_runner = None
-    if is_installed:
 
+    if is_installed:
         if not args.update:
             print(
                 f"{model_name} is already installed. Did you mean to update?\n"
@@ -389,7 +321,7 @@ def main(args=None):
             )
             return
 
-        # checks for note changes
+        # checks for note changes between versions
         if not args.ignore_note_changes:
             current_ver = ar.Version.from_str(utils.get_version_from_anki())
             new_ver = ar.Version.from_str(utils.get_version(args))
@@ -420,17 +352,10 @@ def main(args=None):
     else:
         print(f"Installing {model_name}...")
         version = utils.get_version(args)
-        # TODO note-independent file name
         install_path = os.path.join(
             root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg"
         )
         invoke("importPackage", path=install_path)
-
-        # backs up existing options if they exist
-        # this really shouldn't be necessary, as the options should be inside the package already
-        # media_installer.install_from_list(
-        #    note_config("media-install", "options").list(), static=False, backup=True
-        # )
 
     media_installer.install_from_list(
         note_config("media-install", "static").list(), static=True
@@ -446,11 +371,3 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
-
-    # tools_folder = os.path.dirname(os.path.abspath(__file__))
-    # root_folder = os.path.join(tools_folder, "..")
-
-    # media_folder = os.path.join("build", "media")
-    # media_installer = MediaInstaller(media_folder)
-
-    # media_installer.install("_jpmn-options.js", static=True)
