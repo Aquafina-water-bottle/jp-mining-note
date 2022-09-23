@@ -5,29 +5,18 @@
 
 """
 
-# from jinja2 import Template
-
 import os
-
-import json
 import shutil
-
-# import argparse
+import argparse
 from enum import Enum
-from dataclasses import dataclass
 
-# from dataclasses import dataclass
-
-from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined, pass_context
+from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
 import utils
 
-# OPTIONS_FILENAME = "_jpmn-options.js"
 
-
-def add_args(parser):
+def add_args(parser: argparse.ArgumentParser):
     group = parser.add_argument_group(title="make")
-    # group.add_argument("-p", "--enable-prettier", action="store_true", default=False)
     group.add_argument("--to-release", action="store_true", default=False)
 
 
@@ -40,15 +29,17 @@ class GenerateType(Enum):
 class TextContainer:
     card_types = ["main", "pa_sent", "pa_word", "cloze_deletion"]
     sides = ["front", "back"]
-    enabled_modules: list | None = None # added in the main function of this script
+    enabled_modules: list = []  # added in the main function of this script
 
-    def __init__(self, module_name):
+    def __init__(self, module_name: str):
         self.module_name = module_name
 
         # matx[side][card]
-        self.matx = [([""] * len(TextContainer.card_types)) for _ in TextContainer.sides]
+        self.matx = [
+            ([""] * len(TextContainer.card_types)) for _ in TextContainer.sides
+        ]
 
-    def _get_indices(self, card_type, side):
+    def _get_indices(self, card_type: str, side: str):
         assert card_type in TextContainer.card_types
         assert side in TextContainer.sides
 
@@ -57,43 +48,42 @@ class TextContainer:
 
         return (x, y)
 
-    def set(self, card_type, side, value):
+    def set(self, card_type: str, side: str, value: str):
         """
         sets specific (card_type, side) pair
         """
         x, y = self._get_indices(card_type, side)
         self.matx[x][y] = value
 
-    def set_all(self, value):
+    def set_all(self, value: str):
         for card_type in TextContainer.card_types:
             for side in TextContainer.sides:
                 x, y = self._get_indices(card_type, side)
                 self.matx[x][y] = value
 
-    def set_front(self, value):
+    def set_front(self, value: str):
         for card_type in TextContainer.card_types:
             x, y = self._get_indices(card_type, "front")
             self.matx[x][y] = value
 
-    def set_back(self, value):
+    def set_back(self, value: str):
         for card_type in TextContainer.card_types:
             x, y = self._get_indices(card_type, "back")
             self.matx[x][y] = value
 
-    def set_card_type(self, card_type, value):
+    def set_card_type(self, card_type: str, value: str):
         for side in TextContainer.sides:
             x, y = self._get_indices(card_type, side)
             self.matx[x][y] = value
 
-    def _get(self, card_type, side):
+    def _get(self, card_type: str, side: str) -> str:
         x, y = self._get_indices(card_type, side)
         return self.matx[x][y]
 
-    def get(self, card_type, side):
+    def get(self, card_type: str, side: str) -> str:
         if self.module_name in TextContainer.enabled_modules:
             return self._get(card_type, side)
         return ""
-
 
 
 class JavascriptContainer:
@@ -102,21 +92,6 @@ class JavascriptContainer:
         self.functions = TextContainer(module_name)
         self.keybinds = TextContainer(module_name)
         self.run = TextContainer(module_name)
-
-
-#class ModuleContainer:
-#    def __init__(self):
-#        self.modules = []
-#
-#    def add_modules(self, all_modules, enabled_modules):
-#        for m in all_modules:
-#            if m.id in enabled_modules:
-#                print("A", m)
-#                self.modules.append(m)
-#
-#    def __getattr__(self):
-#        pass
-
 
 
 class Generator:
@@ -131,7 +106,6 @@ class Generator:
             autoescape=select_autoescape(),
             undefined=StrictUndefined,
             extensions=["jinja2.ext.do"],
-            # lstrip_blocks = True,
         )
 
         config = utils.get_config(args)
@@ -152,30 +126,14 @@ class Generator:
         self.to_release = to_release
 
         self.data = {
-            # "ALWAYS_TRUE": optimize_opts("always-filled").list(),
-            # "ALWAYS_FALSE": optimize_opts("never-filled").list(),
-            #"ALWAYS_TRUE": [],
-            #"ALWAYS_FALSE": [],
-            # "NOTE_OPTS": config("note_opts", get_dict=True),
             "NOTE_OPTS_JSON": utils.get_note_opts(config),
-            # json_output =
             "VERSION": utils.get_version(args),
-            # "NOTE_OPTS": config("note-opts"),
             "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
             "NOTE_FILES": utils.get_note_config(),
             "COMPILE_OPTIONS": config("compile-options"),
-
             "JavascriptContainer": JavascriptContainer,
             "TextContainer": TextContainer,
-            #"ModuleContainer": ModuleContainer,
-            # "TEMPLATES": config("notes", "jp-mining-note", "templates"),
         }
-
-    @pass_context
-    def wtf(self, context, var):
-        #result = do_something(value)
-        return context.vars[var]
-
 
     def generate(
         self,
@@ -197,7 +155,6 @@ class Generator:
         if type == GenerateType.JINJA:
             template = self.env.get_template(input_file)
             result = template.render(self.data)
-            # output_file_path = os.path.join(self.root_folder, output_file)
 
             with open(output_file, "w") as file:
                 file.write(result)
@@ -215,7 +172,6 @@ class Generator:
             shutil.copy(output_file, release_output)
 
 
-# def main(root_folder: str = "templates", args=None):
 def main(args=None):
 
     if args is None:
@@ -227,7 +183,9 @@ def main(args=None):
 
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "templates")
-    overrides_folder = os.path.join(root_folder, config("templates-override-folder").item())
+    overrides_folder = os.path.join(
+        root_folder, config("templates-override-folder").item()
+    )
     search_folders = [overrides_folder, templates_folder]
 
     TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
@@ -294,8 +252,4 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-    # main(root_folder="templates")
     main()
-    #x = TextContainer()
-    #print(x.matx)
-

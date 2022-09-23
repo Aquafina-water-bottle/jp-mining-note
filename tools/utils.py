@@ -29,7 +29,7 @@ rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+)")
 cached_config = None
 
 
-def add_args(parser):
+def add_args(parser: argparse.ArgumentParser):
     group = parser.add_argument_group(title="common")
     group.add_argument("-c", "--config-file", type=str, default=None)
 
@@ -59,9 +59,6 @@ def add_args(parser):
 
 
 def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
-    # placed here because this function is called at the beginning of all the scripts
-    #assert_ankiconnect_running()
-
     parser = argparse.ArgumentParser()
     for add_args_func in args:
         add_args_func(parser)
@@ -69,25 +66,14 @@ def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Names
 
 
 class Config:
-    # def __init__(self, config_data: dict, description: str = ""):
-    def __init__(self, data, path: list[int | str] = []):
+    """
+    Wrapper around a dictionary object to pretty-print paths if they don't exist,
+    and to provide ease-of-access methods to access chains of key/value pairs
+    """
+
+    def __init__(self, data: Any, path: list[int | str] = []):
         self.data = data
-        # assert isinstance(self.data, dict)
-        # self.desc = description
         self.path = copy.deepcopy(path)
-
-    # def get_opt(self, *args):
-    #    current_dict = self.data
-    #    for key in args:
-    #        if not isinstance(self.data, dict):
-    #            raise RuntimeError(f"Argument {key} (from {args}) is not a dictionary")
-    #        if key not in self.data:
-    #            raise RuntimeError(f"Argument {key} (from {args}) not in config")
-    #        current_dict = current_dict[key]
-
-    #    if isinstance(current_dict, dict):
-    #        return Config(current_dict)
-    #    return current_dict
 
     def container(self) -> dict | list:
         assert isinstance(self.data, dict) or isinstance(self.data, list)
@@ -102,7 +88,6 @@ class Config:
         return self.data
 
     def item(self, javascript=False) -> Any:
-        # assert not (isinstance(self.data, dict) or isinstance(self.data, list))
         if not javascript:
             return self.data
         var = self.data
@@ -117,7 +102,6 @@ class Config:
         return var
 
     def key(self) -> int | str:
-        # assert not (isinstance(self.data, dict) or isinstance(self.data, list))
         return self.path[-1]
 
     def dict_values(self) -> Iterable[Config]:
@@ -166,35 +150,17 @@ class Config:
                 raise RuntimeError(f"Key '{key}' is not in {repr(current_config)}")
             result = current_config.data[key]
 
-            # if isinstance(result, dict):
-            #    current_config = Config(
-            #        #result, description=f"{current_config.desc}.{key}"
-            #        result, path=self.path + [key]
-            #    )
             current_config = Config(
-                # result, description=f"{current_config.desc}.{key}"
                 result,
                 path=current_config.path + [key],
             )
 
-            # elif i < len(keys) - 1:
-            #    # ensures that current_config is always a config object
-            #    raise RuntimeError(
-            #        f"Key '{keys[i+1]}' is not in the data value "
-            #        f"Config({current_config.path}.{key}). "
-            #        "Ensure your config matches the example config!"
-            #    )
-
-        # if isinstance(result, dict) and not get_dict:
-        #    return current_config
-        # return result
         return current_config
 
     def __repr__(self):
         return f"Config({'.'.join([str(x) for x in self.path])})"
 
 
-# TODO upgrade python to 3.10 so I can do str | Path
 # https://stackoverflow.com/a/41595552
 def import_source_file(fname: str, modname: str) -> "types.ModuleType":
     """
@@ -229,11 +195,11 @@ def import_source_file(fname: str, modname: str) -> "types.ModuleType":
 
 
 # taken from https://github.com/FooSoft/anki-connect#python
-def request(action, **params):
+def request(action: str, **params):
     return {"action": action, "params": params, "version": 6}
 
 
-def invoke(action, **params):
+def invoke(action: str, **params):
     requestJson = json.dumps(request(action, **params)).encode("utf-8")
     response = json.load(
         urllib.request.urlopen(
@@ -255,15 +221,13 @@ def get_config_from_str(file_path: str):
     module = import_source_file(file_path, "config")
     if module is None:
         raise Exception("Module is None and cannot be imported")
-    # config = getattr(module, "CONFIG", None)
-    # if config is None:
     if not hasattr(module, "CONFIG"):
         raise Exception("CONFIG variable is not defined in the config file")
 
     return module.CONFIG
 
 
-def get_note_opts(config, as_config=False):
+def get_note_opts(config: Config, as_config=False) -> Config | str:
 
     opts_file = config("opts-path").item()
     root_folder = get_root_folder()
@@ -323,7 +287,7 @@ def get_version_from_anki() -> str:
     return match.group(1)
 
 
-def get_config(args) -> Config:
+def get_config(args: argparse.Namespace) -> Config:
     """
     creates the config file from the example config if it doesn't exist
     """
@@ -360,18 +324,18 @@ def get_config(args) -> Config:
     return config
 
 
-def get_note_config():
+def get_note_config() -> Config:
     return Config(note_files.NOTE_DATA)
 
 
-def gen_dirs(file_path):
+def gen_dirs(file_path: str):
     """
     generates all directories for a file path if the directories don't exist
     """
     Path(file_path).parent.mkdir(parents=True, exist_ok=True)
 
 
-def get_root_folder():
+def get_root_folder() -> str:
     """
     grabs the repository root folder
     """
@@ -392,24 +356,5 @@ def assert_ankiconnect_running():
 
 
 if __name__ == "__main__":
-    # x = import_source_file(EXAMPLE_CONFIG_PATH, "config")
-    # print(x)
-    # print(getattr(x, "CONFIG", None))
-    # print(getattr(x, "not_a_variable", None))
-
-    args = get_args(add_args)
-    config = get_config(args)
-    # print(config("build_opts"))
-
-    # print(config("build-opts", "optimize-opts", "always-filled"))
-    # print(config("build-opts")("optimize-opts")("never-filled"))
-    # print(config("note-opts")("keybinds")("toggle-hybrid-sentence"))
-    # print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
-    # print(config("note-opts", "keybinds", "toggle-hybrid-sentence"))
-    # print(config("notes", "jp-mining-note", "media-build", 0))
-    # print(config("note_opts", "keybinds", "toggle-hybrid-sentence", "a", "b"))
-    # print(config("note_opts", "keybinds", "a"))
-
-    print(get_version_from_anki())
-
-    # print(x.CONFIG)
+    # write temporary tests here
+    pass

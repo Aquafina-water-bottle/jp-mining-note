@@ -18,7 +18,6 @@ class Action(ABC):
 
 @dataclass
 class UserAction(Action):
-    # edits_cards: bool = field(init=False)
     unique: bool = field(init=False)
 
     def run(self):
@@ -133,12 +132,6 @@ class DeleteField(Action):
             modelName="JP Mining Note",
             fieldName=self.field_name,
         )
-
-
-# @dataclass
-# class ConfigLayoutChange(GlobalAction):
-#    def __post_init__(self):
-#        self.description = f"Requires an update to the config file"
 
 
 @dataclass

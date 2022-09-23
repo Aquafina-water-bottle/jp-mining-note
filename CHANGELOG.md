@@ -33,8 +33,11 @@ The following are examples breaking changes:
 -->
 
 
-## [0.10.1.1] - 2022-09-??
+## [0.10.2.0] - 2022-09-??
 Again, primarily a back-end only update.
+
+#### TODO
+- css separation
 
 #### Added
 - templates overrides folder option
@@ -44,6 +47,7 @@ Again, primarily a back-end only update.
   individual files: `partials/variable_name.html`
     - allows users to override these partials easier (inspired by material mkdocs)
 - combined legacy display with regular display in main card type
+- cleaned up most of the python code (removed commented code, added type hinting, etc.)
 
 #### Fixed
 - `_field.css` not being included on export

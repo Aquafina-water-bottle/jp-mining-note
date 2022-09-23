@@ -1,15 +1,15 @@
-#import json
-#import urllib.request
+# import json
+# import urllib.request
 
 import argparse
 
 from utils import invoke
 
-#def request(action, **params):
+# def request(action, **params):
 #    return {"action": action, "params": params, "version": 6}
 #
 #
-#def invoke(action, **params):
+# def invoke(action, **params):
 #    requestJson = json.dumps(request(action, **params)).encode("utf-8")
 #    response = json.load(
 #        urllib.request.urlopen(
@@ -30,8 +30,6 @@ from utils import invoke
 # removes all no pitch accent data fields
 
 
-
-
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -44,8 +42,11 @@ def get_args():
     return parser.parse_args()
 
 
-# def batch_field(field_name: str, lmbda):
 def clear_pitch_accent_data():
+    """
+    removes all `No pitch accent data` fields
+    """
+
     notes = invoke(
         "findNotes", query=r'"note:JP Mining Note" "PAGraphs:*No pitch accent data*"'
     )
@@ -65,6 +66,10 @@ def clear_pitch_accent_data():
 
 
 def add_downstep_inner_span_tag():
+    """
+    adds the inner span tag to all pitch accents
+    """
+
     # notes = invoke("findNotes", query=r'"note:JP Mining Note" -WordPitch: added:3')
     notes = invoke("findNotes", query=r'"note:JP Mining Note" -WordPitch:')
     notes_info = invoke("notesInfo", notes=notes)
@@ -127,11 +132,12 @@ def add_downstep_inner_span_tag():
     notes = invoke("multi", actions=actions)
 
 
-# def batch_field(field_name: str, lmbda):
 def set_pasilence_field():
-    notes = invoke(
-        "findNotes", query=r'"note:JP Mining Note"'
-    )
+    """
+    sets the `PASilence` fifeld to `[sound:_silence.wav`]
+    """
+
+    notes = invoke("findNotes", query=r'"note:JP Mining Note"')
 
     # creates multi request
     actions = []
@@ -157,7 +163,10 @@ def rename_vn_freq():
     renames `VN Freq` -> `VN Freq Percent` in FrequenciesStylized
     """
 
-    notes = invoke("findNotes", query=r'"FrequenciesStylized:*>VN Freq<*" OR "FrequenciesStylized:*data-details=\"VN Freq\"*"')
+    notes = invoke(
+        "findNotes",
+        query=r'"FrequenciesStylized:*>VN Freq<*" OR "FrequenciesStylized:*data-details=\"VN Freq\"*"',
+    )
     notes_info = invoke("notesInfo", notes=notes)
 
     actions = []
@@ -184,36 +193,42 @@ def rename_vn_freq():
     notes = invoke("multi", actions=actions)
 
 
-def add_sort_freq():
+def add_sort_freq_legacy():
+    """
+    Batch adds sort frequencies based off of the legacy frequency html
+    """
+
     # pip3 install beautifulsoup4
     from bs4 import BeautifulSoup
 
     def parse_str(html_str, ignored):
-        soup = BeautifulSoup(html_str, 'html.parser')
+        soup = BeautifulSoup(html_str, "html.parser")
 
         assert soup.div is not None
 
         freqs = []
         for x in soup.div.children:
             if x["data-details"] not in ignored:
-                freq = int("".join(c for c in str(x.div.span.get_text()) if c.isdigit()))
+                freq = int(
+                    "".join(c for c in str(x.div.span.get_text()) if c.isdigit())
+                )
                 freqs.append(freq)
 
         if freqs:
             return min(freqs)
 
-        return None
-
+        #return None
+        return 0
 
     ignored = ["VN Freq Percent"]
 
-    notes = invoke("findNotes", query=r'-FrequenciesStylized:')
+    notes = invoke("findNotes", query=r"-FrequenciesStylized:")
     notes_info = invoke("notesInfo", notes=notes)
 
     actions = []
     for info in notes_info:
         field_val = info["fields"]["FrequenciesStylized"]["value"]
-        #print("parsing", info["fields"]["Key"]["value"])
+        # print("parsing", info["fields"]["Key"]["value"])
 
         min_freq = parse_str(field_val, ignored)
         if min_freq is not None:
@@ -231,16 +246,11 @@ def add_sort_freq():
 
             actions.append(action)
 
-    #print(actions)
+    # print(actions)
     notes = invoke("multi", actions=actions)
 
 
-
-
 def main():
-    # clear_pitch_accent_data()
-    # add_downstep_inner_span_tag()
-    #rename_silence_wav()
     args = get_args()
 
     if args.function:
@@ -248,7 +258,6 @@ def main():
         func = globals()[args.function]
         print(f"executing {args.function}")
         func()
-
 
     pass
 
