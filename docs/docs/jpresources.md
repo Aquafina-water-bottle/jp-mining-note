@@ -442,6 +442,47 @@ and uses the glossary by default if you don't have anything highlighted.
 ---
 
 
+## Grab only the first dictionary { .text-yellow }
+The following grabs the first dictionary,
+but with every definition within said dictionary.
+
+For further customization on how the first dictionary is selected
+(say, for automatic bilingual / monolingual separation),
+see the handlebars code used by JPMN [here](setup.md#yomichan-templates).
+
+```handlebars
+{{~#*inline "glossary-first"~}}
+
+    {{~#scope~}}
+
+        {{~#set "first-dictionary" null}}{{/set~}}
+
+        {{~#each definition.definitions~}}
+            {{~#if (op "===" null (get "first-dictionary"))~}}
+                {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+            {{~/if~}}
+        {{~/each~}}
+
+        {{~#if (op "!==" null (get "first-dictionary"))~}}
+            <div style="text-align: left;"><ol>
+            {{~#each definition.definitions~}}
+                {{~#if (op "===" dictionary (get "first-dictionary"))~}}
+                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                {{~/if~}}
+            {{~/each~}}
+            </ol></div>
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{~/inline~}}
+```
+
+
+
+---
+
+
 ## Further Reading
 The documentation I used:
 

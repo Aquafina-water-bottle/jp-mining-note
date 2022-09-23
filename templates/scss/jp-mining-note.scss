@@ -440,7 +440,7 @@ ruby rt {
   line-height: 150%;
 }
 
-.flag-box {
+.pa-indicator {
   margin-left: auto;
   grid-column-start: 1;
 
@@ -451,13 +451,13 @@ ruby rt {
   order: -1;
 }
 
-.flag-box__svg {
+.pa-indicator__svg {
   display: inline-block;
   vertical-align: middle;
   height: 1.5em;
 }
 
-.flag-box__circle {
+.pa-indicator__circle {
 }
 
 
@@ -534,7 +534,7 @@ ruby rt {
   justify-content: center;
 }
 
-.expression__hybrid-wrapper--hover-remove-flag:hover + .flag-box > .flag-box__svg {
+.expression__hybrid-wrapper--hover-remove-flag:hover + .pa-indicator > .pa-indicator__svg {
   display: none;
 }
 
