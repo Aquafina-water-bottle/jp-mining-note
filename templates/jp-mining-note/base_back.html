@@ -3,9 +3,9 @@
 {%- from "macros/global.html" import T, IF, IFNOT, END with context -%}
 {%- import "macros/utils.html" as utils with context -%}
 
-{%- import "jp-mining-note/common.html" as common with context -%}
+{%- from "jp-mining-note/macros.html" import def_header with context -%}
 
-{{ common.compile_options_comment }}
+{% include "jp-mining-note/partials/compile_options_comment.html" %}
 
 
 {% call IF("FrequenciesStylized") %}
@@ -40,33 +40,33 @@
 
 
 <div class="card-description">
-  {% filter indent(width=2) %}
+{% filter indent(width=2) %}
 
   {% block card_type %}
   {% endblock %}
 
-  {{ common.info_circle }}
+  {% include "jp-mining-note/partials/info_circle.html" %}
 
-  {{ common.version }}
+  {% include "jp-mining-note/partials/version.html" %}
 
-  {% endfilter %}
+{% endfilter %}
 </div>
 
 
 {% block card_html_top %}
 {% endblock %}
 
-{{ common.answer_border }}
+{% include "jp-mining-note/partials/answer_border.html" %}
 
 
 {% block card_html_bottom %}
 
-{{ common.def_header() }}
+{{ def_header() }}
 
 <div id="back_side" class="back-side">
 
-{{ common.full_sentence }}
-{{ common.all_definitions }}
+{% include "jp-mining-note/partials/full_sentence.html" %}
+{% include "jp-mining-note/partials/all_definitions.html" %}
 
 {% endblock %}
 

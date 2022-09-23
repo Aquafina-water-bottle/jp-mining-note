@@ -1,0 +1,25 @@
+{# impl #}
+<!-- fallback card card html
+  in css: default hybrid css, but with hover instead of click -->
+<div class="expression__hybrid-wrapper">
+  <div class="expression expression__hybrid expression__hybrid--hover" id="display">
+    <span class="expression--sentence expression__hybrid-sentence
+                 {% call IFNOT('IsSentenceCard') %} bold-yellow {% endcall %}
+                 {% call IF('IsTargetedSentenceCard') %} bold-yellow {% endcall %}
+                 "
+          id="hybrid-sentence">
+      {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
+    </span>
+    <span class="expression--word expression__hybrid-word
+        {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+        {% call IFNOT('IsTargetedSentenceCard') %}
+          {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-underline {% endcall %}
+          {% call IFNOT('IsSentenceCard') %} expression__hybrid-word--word-underline {% endcall %}
+        {% endcall %}
+        expression__hybrid-word--hover-indicator"
+        id="hybrid-word">
+      {{ T("Word") }}
+    </span>
+  </div>
+
+</div>

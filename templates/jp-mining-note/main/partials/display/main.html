@@ -1,0 +1,50 @@
+{# impl #}
+
+<!-- regular display -->
+<div class="expression expression-box">
+  {% call IF("IsHoverCard") %}
+    {% filter indent(4) %}
+    {% include "jp-mining-note/main/partials/display/hover.html" %}
+    {% endfilter %}
+  {% endcall %} {# IF IsHoverCard #}
+
+  {% call IFNOT("IsHoverCard") %}
+    {% call IF("IsClickCard") %}
+      {% filter indent(6) %}
+      {% include "jp-mining-note/main/partials/display/click.html" %}
+      {% endfilter %}
+    {% endcall %} {# IF IsClickCard #}
+
+    {% call IFNOT("IsClickCard") %}
+
+      {% call IF("IsTargetedSentenceCard") %}
+        {% filter indent(8) %}
+        {% include "jp-mining-note/main/partials/display/tsc.html" %}
+        {% endfilter %}
+      {% endcall %}
+
+      {% call IFNOT("IsTargetedSentenceCard") %}
+        {% call IF("IsSentenceCard") %}
+          {% filter indent(10) %}
+          {% include "jp-mining-note/main/partials/display/sentence.html" %}
+          {% endfilter %}
+        {% endcall %}
+
+        {% call IFNOT("IsSentenceCard") %}
+          {% filter indent(10) %}
+          {% include "jp-mining-note/main/partials/display/word.html" %}
+          {% endfilter %}
+        {% endcall %}
+      {% endcall %} {# ISNOT IsTargetedSentenceCard #}
+
+    {% endcall %} {# IFNOT IsClickCard #}
+
+  {% endcall %} {# IFNOT IsHoverCard #}
+
+  {% filter indent(2) %}
+  {% include "jp-mining-note/main/partials/display/pa_indicator.html" %}
+  {% endfilter %}
+
+</div> <!-- expression box -->
+
+{% include "jp-mining-note/partials/hint.html" %}

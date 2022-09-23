@@ -4,25 +4,25 @@
 {% set note.side = "back" %}
 {% set note.card_type = "cloze_deletion" %}
 
-{% from "jp-mining-note/cloze_deletion/common.html" import card_type, front_display with context %}
+{% from "jp-mining-note/macros.html" import def_header with context %}
 
 {% block card_type %}
 {{ super() }}
-{{ card_type }}
+{% include "jp-mining-note/cloze_deletion/partials/card_type.html" %}
 {% endblock %}
 
 {% block card_html_top %}
 {{ super() }}
-{{ front_display }}
+{% include "jp-mining-note/cloze_deletion/partials/front_display.html" %}
 {% endblock %}
 
 {% block card_html_bottom %}
 
-{{ common.def_header() }}
+{{ def_header() }}
 
 <div id="back_side" class="back-side">
 
-{{ common.full_sentence }}
+{% include "jp-mining-note/partials/full_sentence.html" %}
 
 <!-- hides primary definition since the definition is not important for this card -->
 {% call IF('PrimaryDefinition') %}
@@ -36,7 +36,7 @@
 </details>
 {% endcall %}
 
-{{ common.other_definitions }}
+{% include "jp-mining-note/partials/other_definitions.html" %}
 
 {% endblock %}
 

@@ -5,16 +5,14 @@
 {% set note.card_type = "cloze_deletion" %}
 {% set note.field_restrict = ["SeparateClozeDeletionCard", "SentenceAudio"] %}
 
-{% from "jp-mining-note/cloze_deletion/common.html" import card_type, front_display with context %}
-
 {% block card_type %}
 {{ super() }}
-{{ card_type }}
+{% include "jp-mining-note/cloze_deletion/partials/card_type.html" %}
 {% endblock %}
 
 {% block card_html %}
 {{ super() }}
-{{ front_display }}
+{% include "jp-mining-note/cloze_deletion/partials/front_display.html" %}
 
 <div>
 {% call IF("SentenceAudio") %}

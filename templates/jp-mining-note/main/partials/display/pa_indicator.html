@@ -1,0 +1,12 @@
+{# impl #}
+<!-- appears to the left -->
+<div class="pa-indicator">
+  {% call IF("PAShowInfo") %}
+  <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+    class="pa-indicator__svg" id="flag_box_svg">
+    <circle id="pa_indicator_circle" class="pa-indicator__circle" cx="25" cy="15" r="7">
+      <title id=svg_title></title>
+    </circle>
+  </svg>
+  {% endcall %} {# IF PAShowInfo #}
+</div>

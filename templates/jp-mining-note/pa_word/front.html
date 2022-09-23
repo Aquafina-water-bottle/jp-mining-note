@@ -7,16 +7,14 @@
 {% set note.card_type = "pa_word" %}
 {% set note.field_restrict = ["PASeparateWordCard"] %}
 
-{% from "jp-mining-note/pa_word/common.html" import card_type, front_display with context %}
-
 {% block card_type %}
 {{ super() }}
-{{ card_type }}
+{% include "jp-mining-note/pa_word/partials/card_type.html" %}
 {% endblock %}
 
 {% block card_html %}
 {{ super() }}
-{{ front_display }}
+{% include "jp-mining-note/pa_word/partials/front_display.html" %}
 {% endblock %}
 
 

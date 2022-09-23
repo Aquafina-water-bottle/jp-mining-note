@@ -1,0 +1,24 @@
+{# impl #}
+
+{%- import "modules/main.html" as modules with context -%}
+
+<!--
+WARNING: This template is auto-generated.
+Any changes to this template WILL BE LOST if you decide to update the card.
+
+{% set module_ids = {} -%}
+{%- for m in modules.modules -%}
+  {%- do module_ids.update({m.id: m.enabled}) -%}
+{%- endfor -%}
+
+{%- set card_json = {} -%}
+{#- equivalent of card_json[x] = y, but that statement isn't available in jinja2 -#}
+{#- https://stackoverflow.com/a/67989129 -#}
+{%- do card_json.update({"compile-options": COMPILE_OPTIONS.dict()}) -%}
+{%- do card_json.update({"available-modules": module_ids}) -%}
+{%- do card_json.update({"available-themes": []}) -%}
+
+JPMN-COMPILE-TIME-OPTIONS-JSON:
+{{ card_json | tojson(indent=2) }}
+
+-->

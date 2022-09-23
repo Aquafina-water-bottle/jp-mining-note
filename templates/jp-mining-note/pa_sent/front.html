@@ -7,16 +7,14 @@
 {% set note.card_type = "pa_sent" %}
 {% set note.field_restrict = ["PASeparateSentenceCard", "SentenceAudio"] %}
 
-{% from "jp-mining-note/pa_sent/common.html" import card_type, front_display with context %}
-
 {% block card_type %}
 {{ super() }}
-{{ card_type }}
+{% include "jp-mining-note/pa_sent/partials/card_type.html" %}
 {% endblock %}
 
 {% block card_html %}
 {{ super() }}
-{{ front_display }}
+{% include "jp-mining-note/pa_sent/partials/front_display.html" %}
 {% endblock %}
 
 
