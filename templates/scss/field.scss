@@ -1,2 +1,3 @@
-
-@use "default/field";
+{% for f in get_directories_with_file("field.scss") %}
+@use "{{f}}/field" as {{f}}_field;
+{% endfor %}
