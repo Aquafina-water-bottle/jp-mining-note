@@ -194,7 +194,7 @@ class Generator:
             else:
                 shutil.copy(input_file, output_file)
 
-        if self.to_release:
+        if self.to_release and release_output:
             utils.gen_dirs(release_output)
             shutil.copy(output_file, release_output)
 
@@ -275,11 +275,15 @@ def main(args=None):
             args.build_folder, file_config("output-file").item()
         )
 
+        release_output = ""
+        if file_config.get_item_if_exists("to-release", True):
+            release_output = os.path.join(root_folder, file_config("output-file").item())
+
         generator.generate(
             gen_type,
             input_file,
             output_file,
-            os.path.join(root_folder, file_config("output-file").item()),
+            release_output
         )
 
 

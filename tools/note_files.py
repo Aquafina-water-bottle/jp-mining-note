@@ -44,12 +44,14 @@ NOTE_DATA = {
             "input-file": "scss",
             "output-file": "tmp/scss",
             "type": "copy",
+            "to-release": False,
         },
 
         {
             "input-file": "scss/style.scss",
             "output-file": "tmp/scss/style.scss",
             "type": "jinja",
+            "to-release": False,
         },
         {
             "input-file": "tmp/scss/style.scss",
@@ -62,6 +64,7 @@ NOTE_DATA = {
             "input-file": "scss/field.scss",
             "output-file": "tmp/scss/field.scss",
             "type": "jinja",
+            "to-release": False,
         },
         {
             "input-file": "tmp/scss/field.scss",
