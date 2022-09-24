@@ -27,18 +27,75 @@ NOTE_DATA = {
             "name": "Cloze Deletion Card",
         },
     },
-    "media-build": [
+    "build": [
         # - read from (root)/templates
-        # - written to (root)/(build folder)/media
-        # - release mode copies to (root)/media
+        # - written to (root)/(build folder)
+        # - release mode copies to (root)
+        # - input-dir of "build" roots input dir to (root)/(build folder)
+        #   instead of the default (root)/templates
+
+        #{
+        #    "input-file": "scss/field.scss",
+        #    "output-file": "_field.css",
+        #    "type": "scss",
+        #},
+
         {
-            "input-file": "scss/field.scss",
-            "output-file": "_field.css",
-            "type": "scss",
+            "input-file": "scss",
+            "output-file": "tmp/scss",
+            "type": "copy",
+        },
+
+        {
+            "input-file": "scss/style.scss",
+            "output-file": "tmp/scss/style.scss",
+            "type": "jinja",
         },
         {
+            "input-file": "tmp/scss/style.scss",
+            "output-file": "jp-mining-note/style.css",
+            "type": "scss",
+            "input-dir": "build",
+        },
+
+        {
+            "input-file": "scss/field.scss",
+            "output-file": "tmp/scss/field.scss",
+            "type": "jinja",
+        },
+        {
+            "input-file": "tmp/scss/field.scss",
+            "output-file": "media/_field.css",
+            "type": "scss",
+            "input-dir": "build",
+        },
+
+        #{
+        #    "input-file": "scss/editor.scss",
+        #    "output-file": "tmp/scss/editor.scss",
+        #    "type": "jinja",
+        #    "input-dir": "build",
+        #},
+        #{
+        #    "input-file": "tmp/scss/editor.scss",
+        #    "output-file": "_editor.css",
+        #    "type": "scss",
+        #    "input-dir": "build",
+        #},
+
+        #{
+        #    "input-file": "field.scss",
+        #    "out-file": "_field.scss",
+        #    "type": "css",
+        #},
+        #{
+        #    "input-file": "editor.scss",
+        #    "out-file": "_editor.scss",
+        #    "type": "css",
+        #},
+        {
             "input-file": "jp-mining-note/_jpmn-options.js",
-            "output-file": "_jpmn-options.js",
+            "output-file": "media/_jpmn-options.js",
             "type": "jinja",
         },
     ],
