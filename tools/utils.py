@@ -87,6 +87,10 @@ class Config:
         assert isinstance(self.data, dict)
         return self.data
 
+    def get_item_if_exists(self, key, default) -> Any:
+        assert isinstance(self.data, dict)
+        return self.data.get(key, default)
+
     def item(self, javascript=False) -> Any:
         if not javascript:
             return self.data
@@ -217,7 +221,7 @@ def invoke(action: str, **params):
     return response["result"]
 
 
-def get_config_from_str(file_path: str):
+def get_config_from_str(file_path: str) -> dict[str, Any]:
     module = import_source_file(file_path, "config")
     if module is None:
         raise Exception("Module is None and cannot be imported")

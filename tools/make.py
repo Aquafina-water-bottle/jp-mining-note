@@ -9,10 +9,16 @@ import os
 import shutil
 import argparse
 from enum import Enum
+from distutils.dir_util import copy_tree
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
 
 import utils
+
+
+FRONT_FILENAME = "front.html"
+BACK_FILENAME = "back.html"
+CSS_FILENAME = "style.css"
 
 
 def add_args(parser: argparse.ArgumentParser):
@@ -22,8 +28,9 @@ def add_args(parser: argparse.ArgumentParser):
 
 class GenerateType(Enum):
     JINJA = 1
-    SASS = 2
+    SASS = 2  # only one pass with `sass`
     COPY = 3
+    CSS = 4  # two passes: first with jinja (to include css-folders), and the second with sass
 
 
 class TextContainer:
@@ -99,7 +106,7 @@ class Generator:
     handles file generation with jinja2, sass, or just copying
     """
 
-    def __init__(self, jinja_root_folders: list[str], args, to_release=False):
+    def __init__(self, jinja_root_folders: list[str], args, css_root, to_release=False):
         self.jinja_root_folders = jinja_root_folders
         self.env = Environment(
             loader=FileSystemLoader(jinja_root_folders),
@@ -125,15 +132,30 @@ class Generator:
         self.sass_path = config("sass-path").item()
         self.to_release = to_release
 
+        self.css_root = css_root
+        self.css_folders = config("css-folders").list()
+
         self.data = {
+            # helper methods
             "NOTE_OPTS_JSON": utils.get_note_opts(config),
             "VERSION": utils.get_version(args),
             "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
             "NOTE_FILES": utils.get_note_config(),
             "COMPILE_OPTIONS": config("compile-options"),
+            # helper methods
+            "get_directories_with_file": self.get_directories_with_file,
+            # helper classes
             "JavascriptContainer": JavascriptContainer,
             "TextContainer": TextContainer,
         }
+
+    def get_directories_with_file(self, file_name):
+        result = []
+        for f in self.css_folders:
+            path = os.path.join(self.css_root, f, file_name)
+            if os.path.isfile(path):
+                result.append(f)
+        return result
 
     def generate(
         self,
@@ -160,12 +182,17 @@ class Generator:
                 file.write(result)
 
         elif type == GenerateType.SASS:
-            error_code = os.system(f"{self.sass_path} {input_file} {output_file}")
+            command = f"{self.sass_path} {input_file} {output_file}"
+            error_code = os.system(command)
             if error_code != 0:
+                print(f"attempted sass command: `{command}`")
                 raise Exception(f"sass failed with error code {error_code}")
 
         elif type == GenerateType.COPY:
-            shutil.copy(input_file, output_file)
+            if os.path.isdir(input_file):
+                copy_tree(input_file, output_file)
+            else:
+                shutil.copy(input_file, output_file)
 
         if self.to_release:
             utils.gen_dirs(release_output)
@@ -187,12 +214,14 @@ def main(args=None):
         root_folder, config("templates-override-folder").item()
     )
     search_folders = [overrides_folder, templates_folder]
+    css_root = os.path.join(templates_folder, "scss")
 
     TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
 
     generator = Generator(
         search_folders,
         args,
+        css_root,
         to_release=args.to_release,
     )
 
@@ -215,12 +244,12 @@ def main(args=None):
             )
 
     # generates css file for each note
-    generator.generate(
-        GenerateType.SASS,
-        os.path.join(templates_folder, "scss", f"{note_model_id}.scss"),
-        os.path.join(args.build_folder, note_model_id, "style.css"),
-        os.path.join(root_folder, note_model_id, "style.css"),
-    )
+    #generator.generate(
+    #    GenerateType.SASS,
+    #    os.path.join(templates_folder, "scss", f"style.scss"),
+    #    os.path.join(args.build_folder, note_model_id, "style.css"),
+    #    os.path.join(root_folder, note_model_id, "style.css"),
+    #)
 
     type_map = {
         "scss": GenerateType.SASS,
@@ -228,11 +257,14 @@ def main(args=None):
         "copy": GenerateType.COPY,
     }
 
-    # generates each file in media-build
-    for file_config in note_config("media-build").list_items():
+    # generates each file in "build"
+    for file_config in note_config("build").list_items():
         gen_type = type_map[file_config("type").item()]
 
-        if gen_type == GenerateType.JINJA:
+        input_root = file_config.get_item_if_exists("input-dir", "")
+        if input_root == "build":
+            input_file = os.path.join(args.build_folder, file_config("input-file").item())
+        elif gen_type == GenerateType.JINJA:
             input_file = os.path.join(file_config("input-file").item())
         else:
             input_file = os.path.join(
@@ -240,14 +272,14 @@ def main(args=None):
             )
 
         output_file = os.path.join(
-            args.build_folder, "media", file_config("output-file").item()
+            args.build_folder, file_config("output-file").item()
         )
 
         generator.generate(
             gen_type,
             input_file,
             output_file,
-            os.path.join(root_folder, "media", file_config("output-file").item()),
+            os.path.join(root_folder, file_config("output-file").item()),
         )
 
 

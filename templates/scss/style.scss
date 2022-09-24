@@ -1,0 +1,4 @@
+
+{% for f in get_directories_with_file("style.scss") %}
+@use "{{f}}/style";
+{% endfor %}
