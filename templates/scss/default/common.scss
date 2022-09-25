@@ -1,4 +1,114 @@
 
+@mixin common_vars {
+  --pa-brightness-reduce: 60%;
+  --sentence-font-size: 52px;
+  --reading-font-size: 55px;
+  --full-sentence-font-size: 1.75rem;
+  --word-font-size: 80px;
+  --description-font-size: 20px;
+  --description-footer-font-size: 9px;
+
+  /* TODO dynamic solution */
+  --tooltip-max-width: 500px;
+  --tooltip-font-size: 14px;
+
+  --dark-mode-accent: #fffd9e;
+
+  --zoom: 1;
+
+
+  /* light mode specific */
+  --text-color:                 black;
+  --text-color--1:              hsla(0, 0%, 50%, 1);
+  --text-color--2:              hsla(0, 0%, 60%, 1);
+  --text-color--3:              hsla(0, 0%, 60%, 1);
+  --text-color--4:              hsla(0, 0%, 83%, 1);
+
+
+  --accent:                     rgba(64, 81, 181, 1);
+  --background-darken:          rgba(0, 0, 0, 0.05);
+  --tooltip-background-darken:  hsla(0, 0%, 100%, 0.98);;
+
+  --pa-overline-color:          var(--accent);
+  --pa-no-pron-color:           #2b94f7;
+  --pa-nasal-color:             #f12a2a;
+
+  --highlight-bold-shadow:      0px 0px 0.7em rgba(64, 81, 181, 0.25);
+  --highlight-bold-color:       var(--accent);
+
+
+  --info-circle-hover-color: #5f5f5f;
+
+  --info-circle-leech-color: #3983ff;
+  --info-circle-leech-hover-color: #609cff;
+  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+
+  --info-circle-warning-color: #ff8700;
+  --info-circle-warning-hover-color: #f2a753;
+  --info-circle-warning-text-color: #f9c24e;
+
+  --info-circle-error-color: #ff0200;
+  --info-circle-error-hover-color: #ff4d4c;
+  --info-circle-error-text-color: #fe7776;
+
+  --pa-indicator-sentence-color: #4cd200;
+  --pa-indicator-word-color: var(--accent);
+  --pa-indicator-none-color: #ec3a2d;
+
+  --hybrid-underline-color: black;
+
+  --image-hover-brightness: 85%;
+
+
+
+}
+
+@mixin night_mode_vars {
+  --text-color:                 white;
+  --text-color--1:              hsla(0, 0%, 67.5%, 1);
+  --text-color--2:              hsla(0, 0%, 67.5%, 1);
+  --text-color--3:              hsla(0, 0%, 50%, 1);
+  --text-color--4:              hsla(0, 0%, 34.5%, 1);
+
+
+  --accent:                     var(--dark-mode-accent);
+  --background-darken:          rgba(0, 0, 0, 0.12);
+  --tooltip-background-darken:  rgba(0, 0, 0, 0.9);
+
+  --pa-overline-color:          var(--accent);
+  --pa-no-pron-color:           #42a3ff;
+  --pa-nasal-color:             #f12a2a;
+
+  --highlight-bold-shadow:      initial;
+  --highlight-bold-color:       var(--accent);
+  --hybrid-word-highlight:      0px 0px 30px var(--accent);
+
+
+  --info-circle-hover-color: #bdbdbd;
+
+  --info-circle-leech-color: #ead623;
+  --info-circle-leech-hover-color: var(--accent);
+  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+
+  --info-circle-warning-color: #ff8d0d;
+  --info-circle-warning-hover-color: #f9c24e;
+  --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
+
+  --info-circle-error-color: #f53b39;
+  --info-circle-error-hover-color: #fe7776;
+  --info-circle-error-text-color: var(--info-circle-error-hover-color);
+
+  --pa-indicator-sentence-color: #62ff73;
+  --pa-indicator-word-color: #34dbef;
+  --pa-indicator-none-color: #ff6b66;
+
+  --hybrid-underline-color: white;
+
+  --image-hover-brightness: 80%;
+
+}
+
+
 @mixin common {
   /*
    * --------------------
@@ -25,14 +135,14 @@
 
   /* css classes used by the plugin */
   .downstep {
-    color: var(--yellow);
+    color: var(--pa-overline-color);
     position: relative;
   }
   .downstep:before {
     content: '';
     width: 2px;
     height: 18%;
-    background: var(--yellow);
+    background: var(--pa-overline-color);
     position: absolute;
     display: block;
     top: 0px;
@@ -42,14 +152,14 @@
 
   .pitchoverline {
     text-decoration: none !important;
-    text-decoration-color: var(--yellow) !important;
+    text-decoration-color: var(--pa-overline-color) !important;
     position: relative;
   }
   .pitchoverline:after {
     content: '';
     width: 100%;
     height: 2px;
-    background: var(--yellow);
+    background: var(--pa-overline-color);
     position: absolute;
     top: 0px;
     right: 0px;
@@ -57,13 +167,11 @@
 
 
 
-  .nopron,
-  .night_mode .nopron {
-    color: #42a3ff;
+  .nopron {
+    color: var(--pa-no-pron-color);
   }
-  .nasal,
-  .night_mode .nasal {
-    color: #f12a2a;
+  .nasal {
+    color: var(--pa-nasal-color);
   }
 
   .downstep .downstep-inner {
@@ -77,7 +185,7 @@
 
   b {
     font-weight: normal;
-    color: #808080;
+    filter: opacity(30%);
     font-size: 15px;
   }
 
@@ -85,8 +193,7 @@
     content: '';
     width: 100%;
     height: 1px;
-    background: var(--yellow);
-    filter: brightness(var(--pa-brightness-reduce));
+    background: var(--pa-overline-color);
     position: absolute;
     top: -1px;
     right: -1px;
@@ -96,7 +203,7 @@
     content: '';
     width: 1px;
     height: 25%;
-    background: var(--yellow);
+    background: var(--pa-overline-color);
     /*filter: brightness(var(--pa-brightness-reduce));*/
     position: absolute;
     display: block;
@@ -104,15 +211,11 @@
     left: 0px;
   }
 
-  b .nopron {
-    filter: brightness(var(--pa-brightness-reduce));
-  }
-  b .nasal {
-    filter: brightness(var(--pa-brightness-reduce));
-  }
-  b .downstep {
-    filter: brightness(var(--pa-brightness-reduce));
-  }
+}
 
+
+@mixin bold_highlight {
+  text-shadow:  var(--highlight-bold-shadow);
+  color:        var(--highlight-bold-color);
 }
 

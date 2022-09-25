@@ -1,0 +1,12 @@
+
+@use "common";
+
+:root {
+  @include common.common_vars;
+}
+
+.nightMode {
+  @include common.night_mode_vars;
+}
+
+

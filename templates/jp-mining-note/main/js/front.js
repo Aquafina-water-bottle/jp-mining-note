@@ -12,11 +12,11 @@ function toggleHighlightWord() {
 
   if (paButton.innerText == "Show") {
     paButton.innerText = "Hide";
-    d.classList.add("bold-yellow");
+    d.classList.add("highlight-bold");
   } else {
     paButton.innerText = "Show";
-    if (d.classList.contains("bold-yellow")) {
-      d.classList.remove("bold-yellow");
+    if (d.classList.contains("highlight-bold")) {
+      d.classList.remove("highlight-bold");
     }
   }
 }
@@ -43,11 +43,11 @@ function toggleHighlightWord() {
     paButton.onclick = () => {
       if (paButton.innerText == "Show") {
         paButton.innerText = "Hide";
-        d.classList.add("bold-yellow");
+        d.classList.add("highlight-bold");
       } else {
         paButton.innerText = "Show";
-        if (d.classList.contains("bold-yellow")) {
-          d.classList.remove("bold-yellow");
+        if (d.classList.contains("highlight-bold")) {
+          d.classList.remove("highlight-bold");
         }
       }
     }

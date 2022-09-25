@@ -73,29 +73,19 @@ NOTE_DATA = {
             "input-dir": "build",
         },
 
-        #{
-        #    "input-file": "scss/editor.scss",
-        #    "output-file": "tmp/scss/editor.scss",
-        #    "type": "jinja",
-        #    "input-dir": "build",
-        #},
-        #{
-        #    "input-file": "tmp/scss/editor.scss",
-        #    "output-file": "_editor.css",
-        #    "type": "scss",
-        #    "input-dir": "build",
-        #},
+        {
+            "input-file": "scss/editor.scss",
+            "output-file": "tmp/scss/editor.scss",
+            "type": "jinja",
+            "to-release": False,
+        },
+        {
+            "input-file": "tmp/scss/editor.scss",
+            "output-file": "media/_editor.css",
+            "type": "scss",
+            "input-dir": "build",
+        },
 
-        #{
-        #    "input-file": "field.scss",
-        #    "out-file": "_field.scss",
-        #    "type": "css",
-        #},
-        #{
-        #    "input-file": "editor.scss",
-        #    "out-file": "_editor.scss",
-        #    "type": "css",
-        #},
         {
             "input-file": "jp-mining-note/_jpmn-options.js",
             "output-file": "media/_jpmn-options.js",
@@ -113,6 +103,7 @@ NOTE_DATA = {
             "NotoSerifJP-Bold.otf",
         ],
         "dynamic": [
+            "_editor.css",
             "_field.css",
         ],
         "options": [

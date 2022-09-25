@@ -181,12 +181,8 @@ var JPMNLogger = (() => {
 })();
 
 
-
 /* global logger object for any javascript outside of modules that needs logging */
-var LOGGER = nullish(LOGGER, new JPMNLogger());
-
-/* TEMPORARY logger for legacy code to work */
-//var logger = nullish(logger, new JPMNLogger("DEPRECATED"));
+var LOGGER = new JPMNLogger();
 
 
 // on any javascript error: log it

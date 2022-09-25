@@ -4,7 +4,7 @@
 {% import "macros/utils.html" as utils with context %}
 
 {% call IF('AltDisplay') %}
-  <div class="expression expression--single expression--sentence bold-yellow" id="display">
+  <div class="expression expression--single expression--sentence highlight-bold" id="display">
     {{ utils.quote_open -}}
     {{ T('furigana:AltDisplay') }}
     {{- utils.quote_close }}
@@ -12,7 +12,7 @@
 {% endcall %}
 
 {% call IFNOT('AltDisplay') %}
-  <div class="expression expression--single expression--sentence bold-yellow" id="display">
+  <div class="expression expression--single expression--sentence highlight-bold" id="display">
     {{ utils.quote_open -}}
     {{ T('Sentence') }}
     {{- utils.quote_close }}
