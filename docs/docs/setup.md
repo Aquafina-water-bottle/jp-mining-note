@@ -95,8 +95,13 @@ There are two ways of installing the card:
 You should see a deck `JPMN-Examples` in your collection.
 View one of the cards and make sure the card looks similar to the one below:
 
-{{ img("Example card", "assets/eg_fushinnsha.png") }}
-<!-- TODO update this picture on first public release -->
+=== "Dark Theme"
+
+    {{ img("Example card", "assets/eg_fushinnsha.png") }}
+
+=== "Light Theme"
+
+    {{ img("Example light theme card", "assets/eg_fushinnsha_light.png") }}
 
 Please check the following in particular:
 
