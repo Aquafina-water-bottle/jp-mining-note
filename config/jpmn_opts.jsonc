@@ -153,7 +153,7 @@
       // This sets the downstep be right before the last mora, and colors the word
       // purple if color-tested-word is enabled.
       // Note that these values must be numbers and they CANNOT be strings.
-      "kifuku-override": [-1]
+      "kifuku-override": [-1],
 
       // Whether to color the tested word by pitch accent class or not.
       // Generally: 平板 is blue, 頭高 is red, 中高 is orange and 尾高 is green.
