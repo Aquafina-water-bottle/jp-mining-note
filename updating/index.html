@@ -514,6 +514,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../kanjihover/" class="md-nav__link">
+        Kanji Hover (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autopa/" class="md-nav__link">
+        Auto Pitch Accent (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../modding/" class="md-nav__link">
         Modding & Dev Docs (TODO)
       </a>
@@ -726,29 +754,33 @@ This will change the note in place, and gives you various options on how
 the note will be changed.
 Lastly, it will give you warnings on anything you have to change manually,
 such as Yomichan Templates.</p>
-<h4 id="anki-connect-dev-version">Anki-Connect: Dev Version<a class="headerlink" href="#anki-connect-dev-version" title="Permanent link">&para;</a></h4>
-<p>At the time of writing this (2022/09/07),
+<!-- It's updated now!!!
+
+### Anki-Connect: Dev Version
+At the time of writing this (2022/09/07),
 you will need the developer version of Anki-Connect,
 because the Anki web version of Anki-Connect is too old
 and does not have the required API calls that the installation script
-will likely need (calls related to field editing).</p>
-<details class="info">
-<summary>Click here to see how to install the dev version of Anki-Connect.</summary>
-<p>You can install Anki-Connect-Dev in one of two ways:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Manual Installation</label><label for="__tabbed_1_2">Command Line Installation (MacOS and Linux ONLY)</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<ol>
-<li>Download the zip of the
-   <a href="https://github.com/FooSoft/anki-connect">Anki-Connect repository</a>, by
-   clicking on the green <code>Code</code> dropdown, and then download the zip by the <code>Download Zip</code> button.
-   After that, unzip the directory.</li>
-<li>Copy the <code>plugin</code> folder (found inside <code>./anki-connect</code>), and paste
-   in the <a href="faq#where-is-the-x-folder-in-anki">addons folder</a>.</li>
-<li>Rename <code>plugin</code> to <code>AnkiConnectDev</code>.</li>
-</ol>
-<p>In the end, the file structure should look something like below:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Anki2
+will likely need (calls related to field editing).
+
+
+
+??? info "Click here to see how to install the dev version of Anki-Connect."
+
+    You can install Anki-Connect-Dev in one of two ways:
+
+
+    === "Manual Installation"
+        1. Download the zip of the
+           [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
+           clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
+           After that, unzip the directory.
+        1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
+           in the [addons folder](faq#where-is-the-x-folder-in-anki).
+        1. Rename `plugin` to `AnkiConnectDev`.
+
+        In the end, the file structure should look something like below:
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Anki2
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> L addons21
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    L AnkiConnectDev
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>       L __init__.py
@@ -756,27 +788,28 @@ will likely need (calls related to field editing).</p>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>       L config.md
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>       L edit.py
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>       ...
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git clone https://github.com/FooSoft/anki-connect.git
+</code></pre></div>
+
+    === "Command Line Installation (MacOS and Linux ONLY)"
+
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git clone https://github.com/FooSoft/anki-connect.git
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>cd anki-connect
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>./link.sh
 </code></pre></div>
-</div>
-</div>
-</div>
-<p>After installing <code>AnkiConnectDev</code>:</p>
-<ol>
-<li>Disable the old Anki-Connect add-on.</li>
-<li>Restart Anki to apply the changes.</li>
-</ol>
-<p>To confirm you have the dev version installed, check your list of installed add-ons in Anki.
-You should be able to see <code>AnkiConnectDev</code> in the aforementioned list.</p>
-</details>
+
+
+    After installing `AnkiConnectDev`:
+
+    1. Disable the old Anki-Connect add-on.
+    1. Restart Anki to apply the changes.
+
+    To confirm you have the dev version installed, check your list of installed add-ons in Anki.
+    You should be able to see `AnkiConnectDev` in the aforementioned list.
+-->
+
 <h4 id="running-the-script">Running the Script<a class="headerlink" href="#running-the-script" title="Permanent link">&para;</a></h4>
 <p>After installing Anki-Connect-Dev, you can now run the python script:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Command Line</label><label for="__tabbed_2_2">Windows</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Command Line</label><label for="__tabbed_1_2">Windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The cross platform command line summary is shown below.</p>
@@ -831,6 +864,47 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 </div>
 </div>
 </div>
+<h4 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h4>
+<p>This section will document common errors that occur when running the <code>/install.py</code> script.</p>
+<p>(TODO)</p>
+<h5 id="anki-connect-is-missing-actions">Anki-Connect is missing actions<a class="headerlink" href="#anki-connect-is-missing-actions" title="Permanent link">&para;</a></h5>
+<ul>
+<li>re-download anki-connect from ankiweb</li>
+</ul>
+<h5 id="anki-fields-are-different">Anki fields are different<a class="headerlink" href="#anki-fields-are-different" title="Permanent link">&para;</a></h5>
+<ul>
+<li>updating script is very picky about fields, including order</li>
+<li>
+<p>if added field(s):</p>
+<ul>
+<li>if field matches newly-added field<ul>
+<li>e.g. if your note doesn't have <code>PAPositions</code> but you added a field <code>Positions</code> that fulfills the same purpose, then rename <code>Positions</code> to <code>PAPositions</code></li>
+</ul>
+</li>
+<li>option 1: move fields under <code>Comment</code><ul>
+<li>all fields under <code>Comment</code> are ignored</li>
+</ul>
+</li>
+<li>option 2: use <code>--ignore-order</code> flag (i.e. <code>install.py --update --ignore-order</code></li>
+</ul>
+</li>
+<li>
+<p>if removed field:</p>
+<ul>
+<li>don't do this next time, re-add the field and update</li>
+<li>if you don't want to use the field, move field under <code>Comment</code> and run with <code>--ignore-order</code> flag</li>
+</ul>
+</li>
+</ul>
+<h5 id="simulated-fields-do-not-match-expected-fields">Simulated fields do not match expected fields<a class="headerlink" href="#simulated-fields-do-not-match-expected-fields" title="Permanent link">&para;</a></h5>
+<ul>
+<li>see above</li>
+</ul>
+<h5 id="expected-fields-do-not-appear-in-ankis-fields-list">Expected fields do not appear in Anki's fields list<a class="headerlink" href="#expected-fields-do-not-appear-in-ankis-fields-list" title="Permanent link">&para;</a></h5>
+<ul>
+<li>see above</li>
+</ul>
+<hr />
 <h3 id="method-2-manually">Method 2: Manually<a class="headerlink" href="#method-2-manually" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -862,6 +936,7 @@ See the changelog to see how the fields have changed and how you have to map the
 to the new fields.</li>
 </ol>
 </details>
+<hr />
 <h3 id="final-steps">Final Steps<a class="headerlink" href="#final-steps" title="Permanent link">&para;</a></h3>
 <p>There may be further steps outside of just updating the card,
 such as updating Yomichan's templates / format.
@@ -935,7 +1010,7 @@ If you want to update this file, see the repository's
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2022</span>
       
     
   </small>

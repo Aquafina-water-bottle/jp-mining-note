@@ -6,6 +6,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/autopa/</loc>
+         <lastmod>2022-09-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://aquafina-water-bottle.github.io/jp-mining-note/cardtypes/</loc>
          <lastmod>2022-09-25</lastmod>
          <changefreq>daily</changefreq>
@@ -22,6 +27,11 @@
     </url>
     <url>
          <loc>https://aquafina-water-bottle.github.io/jp-mining-note/jpresources/</loc>
+         <lastmod>2022-09-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/kanjihover/</loc>
          <lastmod>2022-09-25</lastmod>
          <changefreq>daily</changefreq>
     </url>

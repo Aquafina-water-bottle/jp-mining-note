@@ -616,6 +616,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../kanjihover/" class="md-nav__link">
+        Kanji Hover (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autopa/" class="md-nav__link">
+        Auto Pitch Accent (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../modding/" class="md-nav__link">
         Modding & Dev Docs (TODO)
       </a>
@@ -958,40 +986,20 @@ In other words, you can choose to ignore it.</p>
 (only on the back side) to indicate that it is a leech.</p>
 <!--(not to be confused with [Cade's kanji hover](https://cademcniven.com/projects/kanjihover/))-->
 <h3 id="kanji-hover">Kanji Hover<a class="headerlink" href="#kanji-hover" title="Permanent link">&para;</a></h3>
+<p><i><sup>Main page: <a href="../kanjihover/">Kanji Hover</a></sup></i></p>
 <p>Kanji hover shows you if you have seen the kanji in previous cards or not.
 By default, it searches for the kanji within the "Word" field,
 only for notes of the same type (JP Mining Note).</p>
 <p><a href="../assets/kanji_hover.gif"><img alt="kanji hover demo" src="../assets/kanji_hover.gif" /></a></p>
-<p>To explain exactly how the results are being shown,
-the words are searched and moved into 3 categories:</p>
-<ul>
-<li>The two oldest, not new cards (already reviewed before, in order of add date)</li>
-<li>The two latest, not new cards (the most recent two cards that you have reviewed, in order of add date)</li>
-<li>The two oldest, new cards (the first 2 new cards that you will see with the kanji)</li>
-</ul>
-<p>The last category (the new cards) are greyed out to show that you haven't reviewed
-the card yet (i.e. you may not know the word yet).
-Conversely, the first two categories (the non-new cards) represent words that you likely already
-know, so they are not greyed out.</p>
+<p>Notice how some results are greyed out.
+Those results are results from cards that have not been reviewed yet.
+Conversely, as non-greyed out results come from cards that you have already reviewed,
+they should represent words that you already know.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The number of results per category can be changed in the
-<a href="../runtimeoptions/">options file</a>.</p>
+<p>The maximum number of results, as well as the exact queries themselves,
+can be changed in the <a href="../runtimeoptions/">options file</a>.</p>
 </div>
-<h4 id="results-sorting">Results Sorting<a class="headerlink" href="#results-sorting" title="Permanent link">&para;</a></h4>
-<p>The above makes the assumption that you are reviewing in order of creation date,
-rather than the time of first review, to save resources.
-In other words, if you re-ordered your cards to be different from the add-date,
-then the kanji hover will not be able to recognize that.</p>
-<p>For people who review in order of frequency only, then the assumption above is completely broken.</p>
-<p>Unfortunately, there is currently no way to order the results by anything
-other than by the creation date.</p>
-<h4 id="suspended-cards">Suspended Cards<a class="headerlink" href="#suspended-cards" title="Permanent link">&para;</a></h4>
-<p>Some assumptions are made about suspended cards.
-For example, suspended cards flagged as <code>green</code> are counted in the "non-new" cards category
-(known words), and suspended cards flagged as <code>red</code> are counted as words that you
-do not know AND will not study in the future (not shown in any category).
-This can be changed in the <a href="../runtimeoptions/">options file</a>.</p>
 <h3 id="word-pitch">Word Pitch<a class="headerlink" href="#word-pitch" title="Permanent link">&para;</a></h3>
 <p>The colors and what the lines mean are all described in the
 official anki addon page as specified
@@ -1075,7 +1083,8 @@ outside of modifying pitch accent.</p>
 </ul>
 <p><a href="../assets/nisemono_modify_back_side.png"><img alt="" src="../assets/nisemono_modify_back_side.png" /></a></p>
 <h3 id="modifying-pitch-accent">Modifying Pitch Accent<a class="headerlink" href="#modifying-pitch-accent" title="Permanent link">&para;</a></h3>
-<p>TODO update</p>
+<p><i><sup>Main page: <a href="../autopa/">Auto Pitch Accent</a></sup></i></p>
+<p>TODO:</p>
 <ul>
 <li>primary field to edit is <code>PAOverride</code></li>
 <li>takes in the inputs:<ul>
@@ -1086,52 +1095,6 @@ outside of modifying pitch accent.</p>
 <li>for most people, the number will suffice</li>
 <li>TODO gif</li>
 </ul>
-<h4 id="auto-selected-pitch-accent">Auto Selected Pitch Accent<a class="headerlink" href="#auto-selected-pitch-accent" title="Permanent link">&para;</a></h4>
-<ul>
-<li>TODO details on exactly how the displayed pitch accent is displayed</li>
-</ul>
-<p>priority:</p>
-<ul>
-<li>PA Override number</li>
-<li>PA Override raw text</li>
-<li>PA Positions</li>
-<li>AJT Word Pitch</li>
-</ul>
-<p>if module disabled:</p>
-<ul>
-<li>only shows AJT Word Pitch</li>
-</ul>
-<p>reading:</p>
-<ul>
-<li>AJT word pitch by default</li>
-<li>can be changed to hiragana / katakana / katakana with long vowel marks</li>
-<li>ajt word pitch is katakana with long vowel marks (most of the time)<ul>
-<li>some words don't have long vowel marks (i.e. adjectives ending with 〜しい will be displayed as 〜シイ and not 〜シー)</li>
-</ul>
-</li>
-</ul>
-<h4 id="pitch-accent-styling-details">Pitch Accent Styling Details<a class="headerlink" href="#pitch-accent-styling-details" title="Permanent link">&para;</a></h4>
-<ul>
-<li>TODO outdated</li>
-<li>TODO only if you care about the exact text value</li>
-<li>TODO what bold does</li>
-</ul>
-<p>Editing the content in <code>WordPitch</code> requires some special attention.
-To preserve the style and get expected results, you must use <code>Ctrl + Shift + x</code> when editing the field,
-and edit the html tags directly. Use other cards as examples of what the html should look like.</p>
-<p>TODO more details + example (華)</p>
-<ul>
-<li>TODO replace with positions :eyes:</li>
-</ul>
-<p>example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
-</code></pre></div></p>
-<p>The <code>WordPitch</code> field may have more than one pitch accent for a given word.
-To choose which pitch accent is correct to the sentence,
-one can bold the unused pitch accents to grey them out.</p>
-<figure>
-<p><a href="../assets/bold_pa.png"><img alt="word pitch with bolded field to grey out" src="../assets/bold_pa.png" /></a></p>
-</figure>
 <hr />
 <h2 id="modifying-other-aspects-of-the-card">Modifying Other Aspects of the Card<a class="headerlink" href="#modifying-other-aspects-of-the-card" title="Permanent link">&para;</a></h2>
 <h3 id="key-field"><code>Key</code> field<a class="headerlink" href="#key-field" title="Permanent link">&para;</a></h3>
@@ -1260,7 +1223,7 @@ The words that are hidden are exactly the words that are bolded in the <code>Sen
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 18, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2022</span>
       
     
   </small>
