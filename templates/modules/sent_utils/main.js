@@ -20,23 +20,24 @@ const JPMNSentUtils = (() => {
       isAltDisplay = false;
     }
 
-    // removes linebreaks
+    // ASSUMPTION: all sentence elements are formatted as [quote, sentence, quote]
     let result = sentEle.children[1].innerHTML;
+
+    // removes leading and trailing white space (equiv. of strip() in python)
+    result = result.trim();
 
     // cloze deletion replacing bold with [...]
     if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
       result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
     }
 
+    // removes newlines
     if ((!isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks") }})
         || isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks-on-altdisplay") }}) {
       let noNewlines = result.replace(/<br>/g, "");
 
       result = noNewlines;
     }
-
-    // removes leading and trailing white space (equiv. of strip() in python)
-    result = result.trim();
 
     let validQuotes = {{ utils.opt("modules", "sent-utils", "quote-match-strings") }};
     let existingQuote = false;
