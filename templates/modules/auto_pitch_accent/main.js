@@ -448,7 +448,7 @@ const JPMNAutoPA = (() => {
           // - ASSUMPTION: we categorize 1 mora long words with a downstep as 尾高,
           //   e.g. 木 (き＼).
           // - NOTE: I asked whether 1 mora words with downsteps are 頭高・尾高
-          //   in TMW server and got this response (thanks :
+          //   in TMW server and got this response (thanks NotOrange#0654):
           //    > They are generally considered 尾高. I believe it to be because
           //    > the definition of 尾高 is when the drop is on a particle rather
           //    > than another mora of the same word. There are, however, good
