@@ -6,38 +6,6 @@
 
 @use "common";
 
-:root {
-  --yellow: #0060ff; /* not actually yellow ;) */
-}
-
-.nightMode {
-  --yellow: #fffd9e;
-}
-
-
-/* does this work? */
-
-//@font-face {
-//  font-family: notoserif;
-//  src: url("GenEiChikugoMin3-R.ttf");
-//}
-//
-//
-//anki-editable {
-//  font-family: notoserif;
-//}
-
-/* font sizes */
-//anki-editable {
-//  /* default font size */
-//  font-size: 20px;
-//}
-//
-//anki-editable[field="Key"],
-//anki-editable[field="Word"] {
-//  font-size: 40px;
-//}
-
 /* makes the primary definition bolded sections colored */
 anki-editable[field="PrimaryDefinition"] b,
 anki-editable[field="Sentence"] b,
@@ -45,19 +13,10 @@ anki-editable[field="SentenceReading"] b,
 anki-editable[field="AdditionalNotes"] b,
 anki-editable[field="AltDisplay"] b,
 anki-editable[field="AltDisplayPASentenceCard"] b
+anki-editable[field="SecondaryDefinition"] b
 {
-  color: var(--yellow);
-}
-
-/* Makes JMDict italic */
-anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list {
-  font-style: italic;
-}
-
-/* greys out dictionary entry for jmdict */
-anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
-  // TODO light mode
-  color: #8e8e8e;
+  text-shadow:  var(--highlight-bold-shadow);
+  color:        var(--highlight-bold-color);
 }
 
 
@@ -105,15 +64,6 @@ anki-editable[field="PAGraphs"] {
 
 .pa-graphs__dictionary-inner:after {
   content: ":";
-}
-
-.pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
-  color: var(--yellow);
-  font-weight: bold;
-}
-.pa-graphs__group[data-details="大辞泉"] .pa-graphs__dictionary {
-  color: var(--yellow);
-  font-weight: bold;
 }
 
 

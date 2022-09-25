@@ -197,10 +197,17 @@ document.onkeyup = (e => {
 
 function main() {
 
-  // sanity check
+  // sanity check: options
   if (typeof JPMNOpts === 'undefined') {
     LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
   }
+
+  // sanity check: checks that both `IsHoverCard` and `IsClickCard` are both not activated
+  /// {% call IF("IsHoverCard") %}
+  /// {% call IF("IsClickCard") %}
+  LOGGER.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
+  /// {% endcall %}
+  /// {% endcall %}
 
   // START_BLOCK: js_run
 {% filter indent(width=2) -%}

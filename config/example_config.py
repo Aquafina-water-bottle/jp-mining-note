@@ -16,9 +16,9 @@ CONFIG = {
 
     # Option to have custom CSS.
     # The last takes priorty over the first,
-    # i.e. the extra folder takes priority over default in `["default", "extra"]`.
-    # You likely don't want to remove "default" here.
-    "css-folders": ["default"],
+    # i.e. the "extra" folder takes priority over default in `["default", "extra"]`.
+    # Don't remove "default" unless you know what you're doing.
+    "css-folders": ["default", "dictionaries"],
 
     # Option to have custom javascript.
     "extra-javascript": [],
@@ -29,7 +29,10 @@ CONFIG = {
         "never-filled-fields": [],
 
         "enabled-modules": [
-            "img-utils", # HIGHLY RECOMMENDED to have this enabled (if you want a nice looking card)
+            # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
+            # (unless you are not using images in your cards of course)
+            "img-utils",
+
             "sent-utils",
             "kanji-hover",
             "auto-pitch-accent",

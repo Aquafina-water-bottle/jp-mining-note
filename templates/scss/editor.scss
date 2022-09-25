@@ -1,0 +1,3 @@
+{% for f in get_directories_with_file("editor.scss") %}
+@use "{{f}}/editor" as {{f}}_editor;
+{% endfor %}

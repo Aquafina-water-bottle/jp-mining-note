@@ -78,14 +78,6 @@ if (tags.includes("leech")) {
 }
 
 
-// checks that both `IsHoverCard` and `IsClickCard` are both not activated
-/// {% call IF("IsHoverCard") %}
-/// {% call IF("IsClickCard") %}
-LOGGER.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
-/// {% endcall %}
-/// {% endcall %}
-
-
 /// {% call IFNOT("SentenceReading") %}
 if ({{ utils.opt("no-sentence-reading-warn") }}) {
   LOGGER.warn("`SentenceReading` is not filled out. Using `Sentence` field instead.");

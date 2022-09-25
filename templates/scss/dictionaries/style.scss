@@ -1,0 +1,82 @@
+/*
+ * customization for specific dictionaries
+ */
+
+@use "../default/common" as common;
+
+/* Makes JMDict italic */
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
+  font-style: italic;
+}
+
+/* removes the dictionary entry for jmdict */
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
+  display: none;
+}
+
+
+
+
+/* frequency names */
+
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary:after {
+  content: "A&J";
+}
+
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary:after {
+  content: "VN";
+}
+
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__dictionary:after {
+  content: "VN%";
+}
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__number .frequencies__number-inner:after {
+  content: "%";
+}
+
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary:after {
+  content: "Inn.";
+}
+
+
+/* Custom highlights for NHK and 大辞泉 */
+
+.pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
+  @include common.bold_highlight;
+  font-weight:  bold;
+}
+.pa-graphs__group[data-details="大辞泉"] .pa-graphs__dictionary {
+  @include common.bold_highlight;
+  font-weight:  bold;
+}
+
+
+/*
+ * TODO orthography dictionary
+ *
+ * ★  Common
+ * ●  Valid
+ * ⛬  Outdated
+ * ⚠  Irregular
+ * 🠋  Rarely-used kanji form
+ *
+ */
+
+/* makes the symbols centered */
+[data-sc-ortho="table"] td {
+  text-align: center;
+}
+
+

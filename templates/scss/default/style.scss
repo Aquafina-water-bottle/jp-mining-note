@@ -6,50 +6,19 @@
 
 @use "common";
 
-:root {
-  --pa-brightness-reduce: 60%;
-  //--frequencies-padding: 5px;
-  //--frequencies-border: 5px;
-  --sentence-font-size: 52px;
-  --reading-font-size: 55px;
-  --full-sentence-font-size: 28px;
-  --word-font-size: 80px;
-  --description-font-size: 20px;
-  --description-footer-font-size: 9px;
-
-  /* TODO dynamic solution */
-  --tooltip-max-width: 500px;
-  --tooltip-font-size: 14px;
-
-  --zoom: 1;
-
-  --yellow: #0060ff; /* not actually yellow ;) */
-  --background-darken: rgba(0, 0, 0, 0.05);
-  --card-description-color: #acacac;
-  --glossary-grey: #acacac; // TODO light mode
-
-  --info-circle-hover-color: #5f5f5f;
-
-  --info-circle-leech-color: #3983ff;
-  --info-circle-leech-hover-color: #609cff;
-  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
-
-  --info-circle-warning-color: #ff8700;
-  --info-circle-warning-hover-color: #f2a753;
-  --info-circle-warning-text-color: #f9c24e;
-
-  --info-circle-error-color: #ff0200;
-  --info-circle-error-hover-color: #ff4d4c;
-  --info-circle-error-text-color: #fe7776;
-
-  --pa-indicator-sentence-color: #4cd200;
-  --pa-indicator-word-color: var(--yellow);
-  --pa-indicator-none-color: #ec3a2d;
-
-  --hybrid-underline-color: black;
-
-
+/* defines the REM value */
+html {
+  font-size: 16px;
 }
+
+:root {
+  @include common.common_vars;
+}
+
+.night_mode {
+  @include common.night_mode_vars;
+}
+
 
 /* override variables for mobile */
 .mobile {
@@ -63,40 +32,18 @@
   --tooltip-font-size: 11px;
 }
 
-.night_mode {
-  --yellow: #fffd9e;
-  --background-darken: rgba(0, 0, 0, 0.12);
-  --card-description-color: #585858;
-  --glossary-grey: #acacac; // TODO
-
-  --info-circle-hover-color: #bdbdbd;
-
-  --info-circle-leech-color: #ead623;
-  --info-circle-leech-hover-color: var(--yellow);
-  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
-
-  --info-circle-warning-color: #ff8d0d;
-  --info-circle-warning-hover-color: #f9c24e;
-  --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
-
-  --info-circle-error-color: #f53b39;
-  --info-circle-error-hover-color: #fe7776;
-  --info-circle-error-text-color: var(--info-circle-error-hover-color);
-
-  --pa-indicator-sentence-color: #62ff73;
-  --pa-indicator-word-color: #34dbef;
-  --pa-indicator-none-color: #ff6b66;
-
-  --hybrid-underline-color: white;
+:root {
 }
+
 
 
 .card {
   /*font-family: notoserif;*/
   font-family: notosans;
-  font-size: 30px;
   text-align: center;
   font-style: normal;
+
+  color: var(--text-color);
 
   zoom: var(--zoom);
 }
@@ -177,7 +124,6 @@ details > summary {
 
 @font-face {
   font-family: notosans;
-  //src: url('NotoSansCJK-Regular.ttc');
   src: url('NotoSansJP-Regular.otf');
 }
 @font-face {
@@ -187,8 +133,8 @@ details > summary {
 }
 
 
-.bold-yellow b {
-  color: var(--yellow);
+.highlight-bold b {
+  @include common.bold_highlight;
 }
 
 .override-display-none {
@@ -273,6 +219,8 @@ ruby rt {
  */
 
 .card-description {
+  --card-description-color: var(--text-color--4);
+
   font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
@@ -324,8 +272,8 @@ ruby rt {
   font-size: var(--tooltip-font-size);
   text-align: left;
 
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
+  background-color: var(--tooltip-background-darken);
+  color: var(--text-color);
   padding: 10px;
   border-radius: 6px;
 
@@ -352,12 +300,12 @@ ruby rt {
   position: absolute;
 
   /* position tooltip correctly */
-  left: -15px;
+  left: -16px;
   top: 11px;
 
   /* the arrow */
   border: 8px solid #000000;
-  border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
+  border-color: transparent var(--tooltip-background-darken) transparent transparent;
 
   z-index: 1;
 }
@@ -484,7 +432,7 @@ ruby rt {
 }
 
 .expression b {
-  /*color: var(--yellow);*/
+  /*color: var(--accent);*/
   font-weight: normal;
 }
 
@@ -565,16 +513,19 @@ ruby rt {
   line-height: 125%;
 }
 
-.expression__hybrid-word--click-indicator {
-}
 .expression__hybrid-word--hover-indicator {
-  border-bottom-color: var(--yellow);
+  border-bottom-style: dotted;
+}
+.expression__hybrid-word--click-indicator {
+  border-bottom-style: dashed;
 }
 
-.expression__hybrid-word--sentence-underline {
+.expression__hybrid-word--sentence-indicator {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
-.expression__hybrid-word--word-underline {
-  border-bottom-style: dashed;
+.expression__hybrid-word--word-indicator {
+  border-bottom-color: var(--text-color--3);
 }
 
 
@@ -652,6 +603,7 @@ ruby rt {
 /* no idea for a good name, so going to call it "def-header" == definition header */
 .def-header {
   display: flex;
+  font-size: 30px;
   justify-content: center;
   align-items: center;
   max-width: 820px;
@@ -660,7 +612,6 @@ ruby rt {
 
 .dh-left { /* left */
   background: var(--background-darken);
-  /*padding: 0.625em;*/
   padding: 0.52em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
@@ -685,25 +636,6 @@ ruby rt {
   margin-top: 15px;
   font-size: 23px;
   vertical-align: middle;
-}
-
-/* bigger word pitch for the pitch accent cards */
-.dh-left__word-pitch--big {
-  font-size: 30px;
-  margin-top: 8px;
-}
-
-.dh-left__word-pitch--big .downstep:before {
-  width: 3px;
-  height: 19%;
-  top: 0px;
-  left: -1px;
-}
-
-.dh-left__word-pitch--big .pitchoverline:after {
-  height: 3px;
-  top: 0px;
-  right: 0px;
 }
 
 
@@ -737,8 +669,7 @@ ruby rt {
 .kanji-hover-tooltip {
   display: inline-block;
   min-width: 100px;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
+  background-color: var(--tooltip-background-darken);
   padding: 8px 10px 8px 10px;
   border-radius: 6px;
 }
@@ -760,11 +691,11 @@ ruby rt {
 }
 
 .kanji-hover-tooltip b {
-  color: var(--yellow);
+  @include common.bold_highlight;
 }
 
 .kanji-hover-tooltip--new {
-  color: #acacac;
+  color: var(--text-color--1);
 }
 
 /*
@@ -795,7 +726,7 @@ ruby rt {
   top: -16px;
   /* the arrow */
   border: 8px solid #000000;
-  border-color: transparent transparent rgb(0, 0, 0) transparent;
+  border-color: transparent transparent var(--tooltip-background-darken) transparent;
   z-index: 1;
 }
 
@@ -882,11 +813,12 @@ ruby rt {
 /* moved the hover element to the div to prevent the size transform transition from showing */
 .dh-right__img-container {
   transition: 0.3s;
+  transition: 0.3s;
 }
 
 /* not applied to the image because of above comment (prevent showing the transition) */
 .dh-right__img-container:hover {
-  opacity: 0.7;
+  filter: brightness(var(--image-hover-brightness));
 }
 
 
@@ -909,11 +841,10 @@ ruby rt {
   z-index: 99; /* sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* full width */
-  height: 100%; /* full height */
+  width: 100%;
+  height: 100%;
   overflow: auto; /* enable scroll if needed */
-  background-color: rgb(0,0,0); /* fallback color */
-  background-color: rgba(0,0,0,0.75); /* black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.75);
 
   /* resets zoom so the image maximizes properly */
   zoom: calc(1/var(--zoom));
@@ -927,13 +858,11 @@ ruby rt {
 }
 
 /* Add Animation */
-.modal-img/*, #caption*/ {
+.modal-img {
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.25s ;
   animation-name: zoom;
   animation-duration: 0.25s;
-  /*max-width: initial;
-  max-height: initial;*/
 
   /* prevents the zoomed-in image from exceeding the screen size */
   max-width: 90%;
@@ -1029,13 +958,10 @@ ruby rt {
  */
 
 .full-sentence {
-  font-size: 28px;
+  font-size: var(--full-sentence-font-size);
   margin: 0 0 0.5em 0;
   font-family: notoserif;
 }
-/*.full-sentence b {
-  font-weight: normal;
-}*/
 
 .full-sentence ruby rt { opacity: 0; }
 .full-sentence:hover ruby rt { opacity: 1; }
@@ -1067,36 +993,11 @@ ruby rt {
 
 
 .glossary-details--grey {
-  color: var(--glossary-grey);
+  --glossary-grey-out:          var(--text-color--2);
+
+  color: var(--glossary-grey-out);
 }
 
-
-/*
- * For some reason, it appears that the furigana positioning is way too high when used in the glossary.
- * Athough I would like these settings to work globally, it would sacrifice some minor things
- * that <ruby> normally takes care of automatically, such as not having additional spacing on
- * the left/right of the kanjis when the furigana takes up more space than the allocated kanjis.
- *
- * tl;dr only affects glossary css as a quick fix, as the default <ruby> styles are usually preferable.
- */
-
-/* NO LONGER REQUIRED IN ANKI 2.1.53+ */
-/*
-.glossary-blockquote ruby {
-  display: inline-flex;
-  flex-direction: column-reverse;
-}
-.glossary-blockquote rt {
-  padding-top: 3px;
-  display: inline;
-  line-height: 1;
-}
-.glossary-blockquote rb {
-  display: inline;
-  line-height: 1;
-  text-align: center;
-}
-*/
 
 
 .glossary-blockquote--small {
@@ -1145,6 +1046,8 @@ ruby rt {
  * ------------------------------
  */
 .frequencies {
+  --card-description-color: var(--text-color--4);
+
   display: flex;
   float: right;
   font-family: notoserif;
@@ -1168,24 +1071,12 @@ ruby rt {
 }
 
 .frequencies__number-inner {
-  //border-radius: var(--frequencies-border) var(--frequencies-border) 0px 0px;
-  //padding: var(--frequencies-padding) var(--frequencies-padding) 3px var(--frequencies-padding);
 }
 
 .frequencies__dictionary {
   text-align: right;
   font-size: var(--description-footer-font-size);
-  //border-radius: 0px 0px var(--frequencies-border) var(--frequencies-border);
-  //padding: 0px var(--frequencies-padding) var(--frequencies-padding) var(--frequencies-padding);
 }
-
-/*.frequencies__dictionary-inner {
-}
-
-.frequencies__dictionary-inner2 {
-}*/
-
-
 
 /*
  * ---------------------
@@ -1209,84 +1100,5 @@ ruby rt {
 
 
 
-/*
- * ---------------
- *  customization
- * ---------------
- */
 
-/* frequency names */
-
-.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner {
-  display: none;
-}
-.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary:after {
-  content: "A&J";
-}
-
-.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner {
-  display: none;
-}
-.frequencies__group[data-details="VN Freq"] .frequencies__dictionary:after {
-  content: "VN";
-}
-
-.frequencies__group[data-details="VN Freq Percent"] .frequencies__dictionary .frequencies__dictionary-inner {
-  display: none;
-}
-.frequencies__group[data-details="VN Freq Percent"] .frequencies__dictionary:after {
-  content: "VN%";
-}
-.frequencies__group[data-details="VN Freq Percent"] .frequencies__number .frequencies__number-inner:after {
-  content: "%";
-}
-
-.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner {
-  display: none;
-}
-.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary:after {
-  content: "Inn.";
-}
-
-
-/* Custom highlights for NHK and 大辞泉 */
-
-.pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
-  color: var(--yellow);
-  font-weight: bold;
-}
-.pa-graphs__group[data-details="大辞泉"] .pa-graphs__dictionary {
-  color: var(--yellow);
-  font-weight: bold;
-}
-
-
-
-/* Makes JMDict italic */
-.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
-  font-style: italic;
-}
-
-/* removes the dictionary entry for jmdict */
-.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
-  display: none;
-}
-
-
-
-/*
- * TODO orthography dictionary
- *
- * ★  Common
- * ●  Valid
- * ⛬  Outdated
- * ⚠  Irregular
- * 🠋  Rarely-used kanji form
- *
- */
-
-/* makes the symbols centered */
-[data-sc-ortho="table"] td {
-  text-align: center;
-}
 

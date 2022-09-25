@@ -315,7 +315,7 @@ def get_config(args: argparse.Namespace) -> Config:
             file_path = example_config_path
             print(f"Building release: using the example config...")
 
-        elif not os.path.isfile(default_config_path):  # or args.override_config:
+        elif not os.path.isfile(default_config_path):
             print(f"Creating the config file under '{file_path}'...")
             if not os.path.isfile(EXAMPLE_CONFIG_PATH):
                 raise Exception("Example config file does not exist")
