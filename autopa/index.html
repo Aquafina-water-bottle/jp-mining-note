@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#auto-selected-pitch-accent" class="md-skip">
+        <a href="#how-pitch-accent-is-selected" class="md-skip">
           Skip to content
         </a>
       
@@ -460,8 +460,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#auto-selected-pitch-accent" class="md-nav__link">
-    Auto Selected Pitch Accent
+  <a href="#how-pitch-accent-is-selected" class="md-nav__link">
+    How Pitch Accent is Selected
+  </a>
+  
+    <nav class="md-nav" aria-label="How Pitch Accent is Selected">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-paoverride-number" class="md-nav__link">
+    (1) PAOverride number
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-paoverride-raw-text" class="md-nav__link">
+    (2) PAOverride raw text
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-papositions-field" class="md-nav__link">
+    (3) PAPositions field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ajtwordpitch-field" class="md-nav__link">
+    (4) AJTWordPitch field
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-reading-is-selected" class="md-nav__link">
+    How the Reading is Selected
   </a>
   
 </li>
@@ -470,6 +511,26 @@
   <a href="#colored-pitch-accent" class="md-nav__link">
     Colored Pitch Accent
   </a>
+  
+    <nav class="md-nav" aria-label="Colored Pitch Accent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#position-selection" class="md-nav__link">
+    Position Selection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#override-colors" class="md-nav__link">
+    Override Colors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -598,8 +659,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#auto-selected-pitch-accent" class="md-nav__link">
-    Auto Selected Pitch Accent
+  <a href="#how-pitch-accent-is-selected" class="md-nav__link">
+    How Pitch Accent is Selected
+  </a>
+  
+    <nav class="md-nav" aria-label="How Pitch Accent is Selected">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-paoverride-number" class="md-nav__link">
+    (1) PAOverride number
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-paoverride-raw-text" class="md-nav__link">
+    (2) PAOverride raw text
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-papositions-field" class="md-nav__link">
+    (3) PAPositions field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ajtwordpitch-field" class="md-nav__link">
+    (4) AJTWordPitch field
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-reading-is-selected" class="md-nav__link">
+    How the Reading is Selected
   </a>
   
 </li>
@@ -608,6 +710,26 @@
   <a href="#colored-pitch-accent" class="md-nav__link">
     Colored Pitch Accent
   </a>
+  
+    <nav class="md-nav" aria-label="Colored Pitch Accent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#position-selection" class="md-nav__link">
+    Position Selection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#override-colors" class="md-nav__link">
+    Override Colors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -646,36 +768,182 @@
 
   <h1>Auto Pitch Accent (TODO)</h1>
 
-<h2 id="auto-selected-pitch-accent">Auto Selected Pitch Accent<a class="headerlink" href="#auto-selected-pitch-accent" title="Permanent link">&para;</a></h2>
+<p>This page is dedicated to explaining the details of the <code>auto-pitch-accent</code> module.
+If you want a quick summary of how to set the the pitch accent in the card,
+see the <a href="../usage/#modifying-pitch-accent">usage page</a>.</p>
+<!--
+TODO link some videos / resources on what pitch accent even is
+-->
+
+<h2 id="how-pitch-accent-is-selected">How Pitch Accent is Selected<a class="headerlink" href="#how-pitch-accent-is-selected" title="Permanent link">&para;</a></h2>
+<p>Pitch accent is selected based on the following priority:</p>
+<h3 id="1-paoverride-number">(1) <code>PAOverride</code> number<a class="headerlink" href="#1-paoverride-number" title="Permanent link">&para;</a></h3>
 <ul>
-<li>TODO details on exactly how the displayed pitch accent is displayed</li>
+<li>format is any integer (i.e. <code>0</code>, <code>1</code>, <code>3</code>, etc.)<ul>
+<li>represents mora on which the downstep happens (<code>0</code> means no downstep / 平板)</li>
 </ul>
-<p>priority:</p>
-<ul>
-<li>PA Override number</li>
-<li>PA Override raw text</li>
-<li>PA Positions</li>
-<li>AJT Word Pitch</li>
+</li>
+<li><code>-1</code> sets the downstep to be right before the last mora<ul>
+<li>other negative numbers won't work (<code>-1</code> is a special number for the 起伏 pattern)</li>
 </ul>
-<p>if module disabled:</p>
-<ul>
-<li>only shows AJT Word Pitch</li>
+</li>
+<li>primary way to set/override the pitch accent</li>
 </ul>
-<p>reading:</p>
+<h3 id="2-paoverride-raw-text">(2) <code>PAOverride</code> raw text<a class="headerlink" href="#2-paoverride-raw-text" title="Permanent link">&para;</a></h3>
 <ul>
-<li>AJT word pitch by default</li>
-<li>can be changed to hiragana / katakana / katakana with long vowel marks</li>
-<li>ajt word pitch is katakana with long vowel marks (most of the time)<ul>
+<li>set to whatever you want to be displayed</li>
+<li>example is the 不審者 example card (TODO picture)</li>
+</ul>
+<h3 id="3-papositions-field">(3) <code>PAPositions</code> field<a class="headerlink" href="#3-papositions-field" title="Permanent link">&para;</a></h3>
+<ul>
+<li>first bolded text found this will be chosen</li>
+<li>otherwise first pitch in first dictionary is chosen</li>
+<li>this is usually the pitch that is shown on cards</li>
+</ul>
+<h3 id="4-ajtwordpitch-field">(4) <code>AJTWordPitch</code> field<a class="headerlink" href="#4-ajtwordpitch-field" title="Permanent link">&para;</a></h3>
+<ul>
+<li>occasionally, pitch accent info not found in your Yomichan dictionaries can show up
+  in the auto-generated <code>AJTWordPitch</code> field</li>
+<li>in this case, as there is no other option, <code>AJTWordPitch</code> field is used</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the module is disabled in <a href="../runtimeoptions/">options file</a>,
+the displayed pitch accent will be exactly what is shown in <code>AJTWordPitch</code> (or <code>PAOverride</code>).</p>
+</div>
+<h2 id="how-the-reading-is-selected">How the Reading is Selected<a class="headerlink" href="#how-the-reading-is-selected" title="Permanent link">&para;</a></h2>
+<ul>
+<li>AJT word pitch by default<ul>
+<li>can include devoiced and nasal info</li>
+<li>usually katakana with long vowel marks<ul>
 <li>some words don't have long vowel marks (i.e. adjectives ending with 〜しい will be displayed as 〜シイ and not 〜シー)</li>
 </ul>
 </li>
+<li>ajt word reading must match the reading found in <code>WordReading</code>, otherwise this field is ignored<ul>
+<li>some pre-processing is done to turn this reading into hiragana to be properly searched</li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Otherwise, the card uses the reading from <code>WordReading</code> in katakana.
+This reading can be changed to hiragana, katakana, or katakana with long vowel marks
+in <a href="../runtimeoptions/">options file</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;auto-pitch-accent&quot;: {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  // 0: hiragana
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  // 1: katakana
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  // 2: katakana with long vowel marks
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  &quot;reading-display-mode&quot;: 1,
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  ...
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>}
+</code></pre></div>
 <h2 id="colored-pitch-accent">Colored Pitch Accent<a class="headerlink" href="#colored-pitch-accent" title="Permanent link">&para;</a></h2>
-<ul>
-<li>TODO basic usage (options)</li>
-<li>TODO tags to override</li>
-<li>TODO does not automatically work with non-integer PAOverride value (use tags instead)</li>
-</ul>
+<p>The reading, word and pitch overline can be automatically colored
+in Migaku style colors.
+This automatic coloring behavior is <strong>disabled by default</strong>,
+and must be enabled in the <a href="../runtimeoptions/">options file</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;colored-pitch-accent&quot;: {
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &quot;enabled&quot;: true,
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  ...
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>}
+</code></pre></div>
+<p>A summary of the colors used is shown below:</p>
+<table>
+<thead>
+<tr>
+<th align="center">English</th>
+<th align="center">日本語</th>
+<th align="center">Example</th>
+<th align="center">Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">heiban</td>
+<td align="center">平板</td>
+<td align="center" class="pa-heiban">自然</td>
+<td align="center">しぜん￣</td>
+</tr>
+<tr>
+<td align="center">atamadaka</td>
+<td align="center">頭高</td>
+<td align="center" class="pa-atamadaka">人生</td>
+<td align="center">じ＼んせい</td>
+</tr>
+<tr>
+<td align="center">nakadaka</td>
+<td align="center">中高</td>
+<td align="center" class="pa-nakadaka">弱点</td>
+<td align="center">じゃくて＼ん</td>
+</tr>
+<tr>
+<td align="center">odaka</td>
+<td align="center">尾高</td>
+<td align="center" class="pa-odaka">道具</td>
+<td align="center">どうぐ＼</td>
+</tr>
+<tr>
+<td align="center">kifuku</td>
+<td align="center">起伏</td>
+<td align="center" class="pa-kifuku">驚く</td>
+<td align="center">おどろ＼く</td>
+</tr>
+</tbody>
+</table>
+<p>TODO gif (change 偽者 to 0, 1, 2, 4, -1)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The 起伏 pattern is not automatically detected.
+To use this color, you must manually set the <code>PAOverride</code> field to <code>-1</code>.</p>
+</div>
+<h3 id="position-selection">Position Selection<a class="headerlink" href="#position-selection" title="Permanent link">&para;</a></h3>
+<p>In most all cases, the position should be automatically found
+and the word can be colored.
+However, there are two cases where the position cannot be automatically calculated:</p>
+<ol>
+<li><code>PAPositions</code> is not filled, but <code>AJTWordPitch</code> is.</li>
+<li><code>PAOverride</code> is a non-integer value.</li>
+</ol>
+<h3 id="override-colors">Override Colors<a class="headerlink" href="#override-colors" title="Permanent link">&para;</a></h3>
+<p>To manually set the color, the main way (as described above) is by manually setting <code>PAOverride</code>
+to the correct number number.
+However, if you are using a non-integer value in <code>PAOverride</code> to override the entire display,
+you must add the correct tag to your note.</p>
+<p>The exact tags that can be used are shown in the
+<a href="./#colored-pitch-accent">summary table</a> above,
+under the English and 日本語 sections.
+For example, the tag can be <code>heiban</code>, <code>平板</code>, etc.</p>
+<!--
+| English     | 日本語 | Color              | Example             |
+|: --------- :|: ---- :|: ---------------- :|: ----------------- :|
+| `heiban`    | `平板` | ⬤  {.pa-heiban}    | 自然 (しぜん￣)     |
+| `atamadaka` | `頭高` | ⬤  {.pa-atamadaka} | 人生 (じ＼んせい)   |
+| `nakadaka`  | `中高` | ⬤  {.pa-nakadaka}  | 弱点 (じゃくて＼ん) |
+| `odaka`     | `尾高` | ⬤  {.pa-odaka}     | 心 (こころ＼)       |
+| `kifuku`    | `起伏` | ⬤  {.pa-kifuku}    | 驚く (おどろ＼く)   |
+
+| English     | 日本語 | Example              | Reading      |
+|: --------- :|: ---- :|: ------------------ :|: ---------- :|
+| `heiban`    | `平板` | 自然 {.pa-heiban}    | しぜん￣     |
+| `atamadaka` | `頭高` | 人生 {.pa-atamadaka} | じ＼んせい   |
+| `nakadaka`  | `中高` | 弱点 {.pa-nakadaka}  | じゃくて＼ん |
+| `odaka`     | `尾高` | 心   {.pa-odaka}     | こころ＼     |
+| `kifuku`    | `起伏` | 驚く {.pa-kifuku}    | おどろ＼く   |
+-->
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The tag <em>only</em> overrides the pitch accent color, and does not affect the pitch
+accent representation itself.</p>
+<p>This fact can be useful for certain exceptions,
+such as how 通る is [1] instead of [2].
+If you want to use the 起伏 pattern on 通る, you will have to set
+the <code>PAOverride</code> value to <code>1</code>, and then add the <code>起伏</code> tag.</p>
+<p>TODO image of above (without tag, with tag)</p>
+</div>
 <h2 id="pitch-accent-styling-details">Pitch Accent Styling Details<a class="headerlink" href="#pitch-accent-styling-details" title="Permanent link">&para;</a></h2>
 <ul>
 <li>TODO outdated</li>
@@ -690,7 +958,7 @@ and edit the html tags directly. Use other cards as examples of what the html sh
 <li>TODO replace with positions :eyes:</li>
 </ul>
 <p>example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
 </code></pre></div></p>
 <p>The <code>WordPitch</code> field may have more than one pitch accent for a given word.
 To choose which pitch accent is correct to the sentence,

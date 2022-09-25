@@ -1084,17 +1084,11 @@ outside of modifying pitch accent.</p>
 <p><a href="../assets/nisemono_modify_back_side.png"><img alt="" src="../assets/nisemono_modify_back_side.png" /></a></p>
 <h3 id="modifying-pitch-accent">Modifying Pitch Accent<a class="headerlink" href="#modifying-pitch-accent" title="Permanent link">&para;</a></h3>
 <p><i><sup>Main page: <a href="../autopa/">Auto Pitch Accent</a></sup></i></p>
-<p>TODO:</p>
-<ul>
-<li>primary field to edit is <code>PAOverride</code></li>
-<li>takes in the inputs:<ul>
-<li>number (position), or</li>
-<li>text: whatever you want it to show</li>
-</ul>
-</li>
-<li>for most people, the number will suffice</li>
-<li>TODO gif</li>
-</ul>
+<p>The displayed pitch accent is usually the first position found in <code>PAPositions</code>.
+However, you can override this automatically chosen position using the <code>PAOverride</code> field.</p>
+<p>TODO gif (change 偽者 to 0, 1, 2, 4)</p>
+<p>More information and customization, including automatically coloring the word
+with Migaku colors, can be found in the main page linked above.</p>
 <hr />
 <h2 id="modifying-other-aspects-of-the-card">Modifying Other Aspects of the Card<a class="headerlink" href="#modifying-other-aspects-of-the-card" title="Permanent link">&para;</a></h2>
 <h3 id="key-field"><code>Key</code> field<a class="headerlink" href="#key-field" title="Permanent link">&para;</a></h3>
@@ -1104,10 +1098,10 @@ but this field is specifically not used in the card template.
 This is to allow the user to modify the key if duplicates arise,
 while still being able to test the word.</p>
 <p>For example, if I were to test different usages of 上,
-I can change this key value to <code>上 (proposition)</code>, <code>上 (grammar)</code>,
+I can change this key value to <code>上 (preposition)</code>, <code>上 (grammar)</code>,
 etc. and add a new card.</p>
 <p>It is expected that this <code>Key</code> field is unique;
-a warning will appear on a card that has a duplicate key.</p>
+a warning will appear on cards that have a duplicate key.</p>
 <h3 id="comment-field"><code>Comment</code> field<a class="headerlink" href="#comment-field" title="Permanent link">&para;</a></h3>
 <p>Similarly to the <code>Key</code> field, this field will not be used in any card template.
 In other words, this is a place where you can write down notes without affecting the card itself.</p>
