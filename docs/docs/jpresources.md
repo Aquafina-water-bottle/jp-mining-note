@@ -450,6 +450,8 @@ For further customization on how the first dictionary is selected
 (say, for automatic bilingual / monolingual separation),
 see the handlebars code used by JPMN [here](setup.md#yomichan-templates).
 
+
+{% raw %}
 ```handlebars
 {{~#*inline "glossary-first"~}}
 
@@ -477,6 +479,7 @@ see the handlebars code used by JPMN [here](setup.md#yomichan-templates).
 
 {{~/inline~}}
 ```
+{% endraw %}
 
 
 
