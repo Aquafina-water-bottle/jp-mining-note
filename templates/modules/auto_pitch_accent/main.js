@@ -441,16 +441,25 @@ const JPMNAutoPA = (() => {
         if (pos === 0) {
           // 平板 (e.g. 自然 - しぜん￣)
           paintDisplay("heiban");
+        } else if (pos >= result.length) {
+          // it should never be greater than, but condition is here just in case of mis-input
+          // 尾高 (e.g. 頭 - あたま＼)
+
+          // ASSUMPTION: we categorize 1 mora long words with a downstep as 尾高,
+          // e.g. 木 (き＼).
+          // NOTE: I asked whether 1 mora words with downsteps are 頭高・尾高
+          // in TMW server and got this response:
+          // > They are generally considered 尾高. I believe it to be because
+          // > the definition of 尾高 is when the drop is on a particle rather
+          // > than another mora of the same word. There are, however, good
+          // > arguments for categorising them as 頭高 that I'm partial towards.
+          // > One being that it makes for far fewer exceptions regarding the
+          // > 平板-ifying effect の often has on 尾高 words that single-mora
+          // > words are regular exceptions to.
+          paintDisplay("odaka");
         } else if (pos === 1) {
           // 頭高 (e.g. 僕 - ぼ＼く)
-          // note that one mora words with a downstep (e.g. 木 - き＼)
-          // are considered 頭高 and not 尾高
           paintDisplay("atamadaka");
-        } else if (pos >= result.length) {
-          // it should never be greater than, but the condition is here
-          // just in case of mis-input
-          // 尾高 (e.g. 頭 - あたま＼)
-          paintDisplay("odaka");
         } else {
           // 中高 (e.g. 不審者 - ふし＼んしゃ)
           paintDisplay("nakadaka");
