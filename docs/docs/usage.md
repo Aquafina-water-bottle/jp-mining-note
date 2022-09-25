@@ -205,15 +205,13 @@ outside of modifying pitch accent.
 ## Modifying Pitch Accent
 <i><sup>Main page: [Auto Pitch Accent](autopa.md)</sup></i>
 
-TODO:
+The displayed pitch accent is usually the first position found in `PAPositions`.
+However, you can override this automatically chosen position using the `PAOverride` field.
 
-- primary field to edit is `PAOverride`
-- takes in the inputs:
-    - number (position), or
-    - text: whatever you want it to show
-- for most people, the number will suffice
-- TODO gif
+TODO gif (change 偽者 to 0, 1, 2, 4)
 
+More information and customization, including automatically coloring the word
+with Migaku colors, can be found in the main page linked above.
 
 
 ---
@@ -230,11 +228,11 @@ This is to allow the user to modify the key if duplicates arise,
 while still being able to test the word.
 
 For example, if I were to test different usages of 上,
-I can change this key value to `上 (proposition)`, `上 (grammar)`,
+I can change this key value to `上 (preposition)`, `上 (grammar)`,
 etc. and add a new card.
 
 It is expected that this `Key` field is unique;
-a warning will appear on a card that has a duplicate key.
+a warning will appear on cards that have a duplicate key.
 
 ## `Comment` field
 Similarly to the `Key` field, this field will not be used in any card template.

@@ -58,6 +58,7 @@
     "toggle-extra-info-display": ["["]
   },
 
+
   "modules": {
 
     // Automatic processing to sentences
@@ -116,7 +117,7 @@
       "mode": 1,
 
       // all queries will have the following at the beginning:
-      // (-"Key:{{ T('Key') }}" Word:*${character}* "card:${cardTypeName}")
+      // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}")
 
       // not new, or new and green
       // not flagged as red and suspended
@@ -143,28 +144,25 @@
       // 0: hiragana
       // 1: katakana
       // 2: katakana with long vowel marks
-      "reading-display-mode": 2,
+      "reading-display-mode": 1,
 
       // whether to search for the ajt word, given the field is filled out
       "search-for-ajt-word": true,
 
-
-      // Undulation/kifuku (起伏) override value(s), to set the pattern to kifuku.
+      // Undulation/kifuku (起伏) value, to set the pattern to kifuku
+      // (used in the PAOverride field).
       // This sets the downstep be right before the last mora, and colors the word
-      // purple if color-tested-word is enabled.
+      // purple if colored-pitch-accent is enabled.
       // Note that these values must be numbers and they CANNOT be strings.
       "kifuku-override": [-1],
 
       // Whether to color the tested word by pitch accent class or not.
       // Generally: 平板 is blue, 頭高 is red, 中高 is orange and 尾高 is green.
       // The exact colors can be changed in the css.
-      // NOTE: If you use a `PAOverride` value that isn't a number,
-      //     then the colored word cannot be shown, as the position cannot be inferred
-      //     from the overwritten value.
-      //     Instead, you can use a tag `heiban`, `atamadaka`, `nakadaka`, `odaka`, `kifuku`
-      //     or the japanese versions (`平板`, `頭高`, `中高`, `尾高` and `起伏` respectively)
-      //     to override the color.
-      "color-tested-word": {
+      // NOTE: There are certain cases where the position cannot be inferred.
+      //  See here for more details:
+      //  https://aquafina-water-bottle.github.io/jp-mining-note/autopa/#colored-pitch-accent
+      "colored-pitch-accent": {
         "enabled": false,
 
         // Word reading
@@ -180,7 +178,6 @@
         // Pitch accent overline
         "color-overline": true
       }
-
     },
 
 
@@ -214,6 +211,7 @@
       ]
     }
   },
+
 
   // Errors that contain the following the following strings will be ignored and not displayed.
   "ignored-errors": [
