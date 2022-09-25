@@ -19,6 +19,8 @@ Lastly, it will give you warnings on anything you have to change manually,
 such as Yomichan Templates.
 
 
+<!-- It's updated now!!!
+
 ### Anki-Connect: Dev Version
 At the time of writing this (2022/09/07),
 you will need the developer version of Anki-Connect,
@@ -70,6 +72,7 @@ will likely need (calls related to field editing).
 
     To confirm you have the dev version installed, check your list of installed add-ons in Anki.
     You should be able to see `AnkiConnectDev` in the aforementioned list.
+-->
 
 ### Running the Script
 
@@ -128,6 +131,36 @@ After installing Anki-Connect-Dev, you can now run the python script:
         line interface.
 
 
+### Common Errors
+This section will document common errors that occur when running the `/install.py` script.
+
+(TODO)
+
+#### `Anki-Connect is missing actions`
+- re-download anki-connect from ankiweb
+
+#### `Anki fields are different`
+- updating script is very picky about fields, including order
+- if added field(s):
+    - if field matches newly-added field
+        - e.g. if your note doesn't have `PAPositions` but you added a field `Positions` that fulfills the same purpose, then rename `Positions` to `PAPositions`
+    - option 1: move fields under `Comment`
+        - all fields under `Comment` are ignored
+    - option 2: use `--ignore-order` flag (i.e. `install.py --update --ignore-order`
+
+- if removed field:
+    - don't do this next time, re-add the field and update
+    - if you don't want to use the field, move field under `Comment` and run with `--ignore-order` flag
+
+#### `Simulated fields do not match expected fields`
+- see above
+
+#### `Expected fields do not appear in Anki's fields list`
+- see above
+
+
+
+
 ## Method 2: Manually
 
 !!! warning
@@ -159,7 +192,6 @@ After installing Anki-Connect-Dev, you can now run the python script:
     1. Rename the new note type to the old note type name (`JP Mining Note`).
     See the changelog to see how the fields have changed and how you have to map the old fields
     to the new fields.
-
 
 ## Final Steps
 There may be further steps outside of just updating the card,
