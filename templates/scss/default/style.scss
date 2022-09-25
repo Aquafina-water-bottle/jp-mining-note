@@ -660,11 +660,14 @@ ruby rt {
 .pa-word-highlight-atamadaka {
   color: var(--text-atamadaka);
 }
+.pa-word-highlight-nakadaka {
+  color: var(--text-nakadaka);
+}
 .pa-word-highlight-odaka {
   color: var(--text-odaka);
 }
-.pa-word-highlight-nakadaka {
-  color: var(--text-nakadaka);
+.pa-word-highlight-kifuku {
+  color: var(--text-kifuku);
 }
 
 .pa-sentence-highlight-heiban b {
@@ -673,11 +676,14 @@ ruby rt {
 .pa-sentence-highlight-atamadaka b {
   color: var(--text-atamadaka);
 }
+.pa-sentence-highlight-nakadaka b {
+  color: var(--text-nakadaka);
+}
 .pa-sentence-highlight-odaka b {
   color: var(--text-odaka);
 }
-.pa-sentence-highlight-nakadaka b {
-  color: var(--text-nakadaka);
+.pa-sentence-highlight-kifuku b {
+  color: var(--text-kifuku);
 }
 
 
