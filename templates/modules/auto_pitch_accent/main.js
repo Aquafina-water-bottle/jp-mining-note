@@ -439,7 +439,7 @@ const JPMNAutoPA = (() => {
       return;
     }
 
-    const kifukuList = {{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "kifuku-override") }};
+    const kifukuList = {{ utils.opt("modules", "auto-pitch-accent", "kifuku-override") }};
     if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "enabled") }}) {
       if (!hasPAColorTags()) {
         if (kifukuList.includes(pos)) {
