@@ -168,6 +168,8 @@ const JPMNAutoPA = (() => {
     // also removes all ꜜ (remember that we can search for downsteps from the now empty div)
 
     let result = eleAJT.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+    result = result.replace(/<b>/g, "");
+    result = result.replace(/<\/b>/g, "");
 
     // replaces all nasal entries
     if (result.includes("nasal")) {
@@ -233,6 +235,8 @@ const JPMNAutoPA = (() => {
 
     // normalizes the ajt search string
     const ajtHTML = normalizeAJTHTML();
+    // removes any bold in case it messes with the formatting
+    const resultSearchHTML = eleAJT.innerHTML.replace(/<b>/g, "").replace(/<\/b>/g, "");
 
     // temp used for innerText
     let temp = document.createElement("div");
@@ -247,14 +251,14 @@ const JPMNAutoPA = (() => {
     }
 
     if (wordSearch.length === 1) {
-      return eleAJT.innerHTML;
+      return resultSearchHTML;
     }
 
     // otherwise searches on the raw html
     let startIdx = 0;
     let endIdx = 0;
     let currentWord = 0;
-    for (const [i, c] of [...eleAJT.innerHTML].entries()) {
+    for (const [i, c] of [...resultSearchHTML].entries()) {
       if (c === "・") {
         currentWord += 1;
 
@@ -268,18 +272,78 @@ const JPMNAutoPA = (() => {
     }
 
     if (endIdx === 0) {
-      endIdx = eleAJT.innerHTML.length
+      endIdx = resultSearchHTML.length
     }
 
-    result = eleAJT.innerHTML.substring(startIdx, endIdx);
-
-    // removes any bold in case it messes with the formatting
-    result = result.replace(/<b>/g, "");
-    result = result.replace(/<\/b>/g, "");
+    result = resultSearchHTML.substring(startIdx, endIdx);
 
     return result;
   }
 
+  function hasPAColorTags() {
+    // applies color tags as well if they exist
+
+    const tagsEle = document.getElementById("tags");
+    const tags = tagsEle.innerText.split(" ");
+    const COLOR_TAGS = {
+      "平板": "heiban",
+      "heiban": "heiban",
+
+      "頭高": "atamadaka",
+      "atamadaka": "atamadaka",
+
+      "中高": "nakadaka",
+      "nakadaka": "nakadaka",
+
+      "尾高": "odaka",
+      "odaka": "odaka",
+    }
+
+    for (ct of Object.keys(COLOR_TAGS)) {
+      if (tags.includes(ct)) {
+        paintDisplay(COLOR_TAGS[ct]);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function paintDisplay(type) {
+    const wordClass = `pa-word-highlight-${type}`;
+    const sentClass = `pa-sentence-highlight-${type}`;
+
+    // adds to reading
+    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word-reading") }}) {
+      const readingEle = document.getElementById("dh_reading");
+      readingEle.classList.add(wordClass);
+    }
+
+    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word-display") }}) {
+      // adds to display sentence
+      // .highlight-bold is added to the query to ensure that we are not highlighting
+      // a sentence that wasn't highlighted already.
+      const sentences = document.querySelectorAll(".expression--sentence.highlight-bold")
+      if (sentences !== null) {
+        for (let sent of sentences) {
+          sent.classList.add(sentClass);
+        }
+      }
+
+      // adds to display word
+      const words = document.querySelectorAll(".expression--word")
+      if (words !== null) {
+        for (let word of words) {
+          word.classList.add(wordClass);
+        }
+      }
+    }
+
+    // changes pitch accent overline
+    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word-overline") }}) {
+      const wordPitchEle = document.getElementById("dh_word_pitch");
+      wordPitchEle.style.setProperty('--pa-overline-color', `var(--text-${type})`);
+    }
+  }
 
   function buildReadingSpan(pos, readingKana) {
     // creates the span to show the pitch accent overline
@@ -372,6 +436,27 @@ const JPMNAutoPA = (() => {
       return;
     }
 
+    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word") }}) {
+      if (!hasPAColorTags()) {
+        if (pos === 0) {
+          // 平板 (e.g. 自然 - しぜん￣)
+          paintDisplay("heiban");
+        } else if (pos >= result.length) {
+          // it should never be greater than, but condition is here just in case of mis-input
+          // 尾高 (e.g. 頭 - あたま＼)
+          paintDisplay("odaka");
+        } else if (pos === 1) {
+          // 頭高 (e.g. 僕 - ぼ＼く)
+          // the above takes care of the case where the word is 1 mora long
+          // but also has a downstep, i.e. 火
+          paintDisplay("atamadaka");
+        } else {
+          // 中高 (e.g. 不審者 - ふし＼んしゃ)
+          paintDisplay("nakadaka");
+        }
+      }
+    }
+
     // special case: 0 and length of moras === 1 (nothing needs to be done)
     if (pos === 0 && result.length === 1) {
       return readingKana;
@@ -410,7 +495,7 @@ const JPMNAutoPA = (() => {
     // first checks pa override
     let posResult = null;
     if (eleOverride.innerHTML.length !== 0) {
-      const digit = eleOverride.innerText.match(/\d+/)
+      const digit = eleOverride.innerText.match(/^\d+$/);
       if (digit !== null) {
         posResult = [Number(digit), "Override (Position)"];
       } else {
@@ -441,6 +526,9 @@ const JPMNAutoPA = (() => {
 
     // if pos is null, then the display element has already been set
     if (pos === null) {
+      if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word") }}) {
+        hasPAColorTags();
+      }
       return;
     }
 

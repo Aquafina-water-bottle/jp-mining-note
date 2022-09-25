@@ -654,6 +654,32 @@ ruby rt {
 }
 
 
+.pa-word-highlight-heiban {
+  color: var(--text-heiban);
+}
+.pa-word-highlight-atamadaka {
+  color: var(--text-atamadaka);
+}
+.pa-word-highlight-odaka {
+  color: var(--text-odaka);
+}
+.pa-word-highlight-nakadaka {
+  color: var(--text-nakadaka);
+}
+
+.pa-sentence-highlight-heiban b {
+  color: var(--text-heiban);
+}
+.pa-sentence-highlight-atamadaka b {
+  color: var(--text-atamadaka);
+}
+.pa-sentence-highlight-odaka b {
+  color: var(--text-odaka);
+}
+.pa-sentence-highlight-nakadaka b {
+  color: var(--text-nakadaka);
+}
+
 
 /*
  * kanji hover
@@ -675,6 +701,9 @@ ruby rt {
 }
 
 .kanji-hover-tooltip-wrapper {
+  /* overrides any existing pitch accent coloring, if it exists */
+  color: var(--text-color);
+
   font-size: 18px;
   font-family: notosans;
   text-align: left;
