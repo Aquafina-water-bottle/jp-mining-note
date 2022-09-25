@@ -36,11 +36,11 @@ The following are examples breaking changes:
 ## [0.10.2.0] - 2022-09-??
 Again, primarily a back-end only update.
 
-#### TODO
-- css separation
-
 #### Added
 - templates overrides folder option
+- formal ability to separate css: ("css-folders") option in config
+- full support for light mode
+- added automatic pitch accent coloring for the tested word (disabled by default)
 
 #### Changed
 - layout of templates: every variable in the `common.html` files were moved into
@@ -48,11 +48,16 @@ Again, primarily a back-end only update.
     - allows users to override these partials easier (inspired by material mkdocs)
 - combined legacy display with regular display in main card type
 - cleaned up most of the python code (removed commented code, added type hinting, etc.)
+- cleaned up scss a bit
+    - separated exact functionality from the name, i.e. `bold-yellow` -> `highlight-bold`
+- internal build system to work with custom css
+- separated other_definitions partial into each blockquote's partial
 
 #### Fixed
 - `_field.css` not being included on export
 - `EFDRC is not defined` error showing on the card
     - Added `ignored-errors` in config to ignore this error
+- bolded `AJTWordPitch` field not being parsed properly
 
 
 

@@ -24,8 +24,15 @@
   --text-color--3:              hsla(0, 0%, 60%, 1);
   --text-color--4:              hsla(0, 0%, 83%, 1);
 
+  /* idea and dark-mode colors taken from:
+   * https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/Recognition/back.html
+   */
+  --text-heiban:                #0a74d0; /* 平板, blue */
+  --text-atamadaka:             #d74343; /* 頭高, red */
+  --text-odaka:                 #009e1c; /* 尾高, green */
+  --text-nakadaka:              #e8701b; /* 中高, orange */
 
-  --accent:                     rgba(64, 81, 181, 1);
+  --accent:                     #4660f1;
   --background-darken:          rgba(0, 0, 0, 0.05);
   --tooltip-background-darken:  hsla(0, 0%, 100%, 0.98);;
 
@@ -33,7 +40,9 @@
   --pa-no-pron-color:           #2b94f7;
   --pa-nasal-color:             #f12a2a;
 
-  --highlight-bold-shadow:      0px 0px 0.7em rgba(64, 81, 181, 0.25);
+  // previously used to have a shadow as the color didn't stand out well enough
+  //--highlight-bold-shadow:      0px 0px 0.7em rgba(64, 81, 181, 0.25);
+  --highlight-bold-shadow:      initial;
   --highlight-bold-color:       var(--accent);
 
 
@@ -71,6 +80,10 @@
   --text-color--3:              hsla(0, 0%, 50%, 1);
   --text-color--4:              hsla(0, 0%, 34.5%, 1);
 
+  --text-heiban:                #59b2ff; /* 平板, blue */
+  --text-atamadaka:             #ff6666; /* 頭高, red */
+  --text-nakadaka:              #ff9b54; /* 中高, orange */
+  --text-odaka:                 #67e47d; /* 尾高, green */
 
   --accent:                     var(--dark-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.12);

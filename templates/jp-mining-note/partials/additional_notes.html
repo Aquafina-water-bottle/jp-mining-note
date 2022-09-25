@@ -1,0 +1,16 @@
+{# impl #}
+{% call IF("AdditionalNotes") %}
+  <details class="glossary-details glossary-details--small" id="additional_notes_details">
+    <summary>Additional Notes</summary>
+    <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
+      <div class="glossary-text glossary-text--additional-notes">
+        {{ T("AdditionalNotes") }}
+      </div>
+    </blockquote>
+  </details>
+{% endcall %}
+{% call IFNOT("AdditionalNotes") %}
+  <div class="glossary-details glossary-details--small glossary-details--grey">
+    Additional Notes
+  </div>
+{% endcall %}
