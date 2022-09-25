@@ -23,9 +23,17 @@ reading:
 
 
 # Colored Pitch Accent
-- TODO basic usage (options)
-- TODO tags to override
-- TODO does not automatically work with non-integer PAOverride value (use tags instead)
+- TODO basic usage and gif
+- disabled by default, must be enabled in the runtime options
+
+- requires there to be a position found in the first place
+    - i.e. overwritten position number, or PAPositions section
+    - some situations exist where the position cannot be supplied:
+        - if pitch data only exists in AJTWordPitch
+            - fix: override with number in PAPositions
+        - PAOverride non-integer value
+            - fix: tag to override
+
 
 
 # Pitch Accent Styling Details
