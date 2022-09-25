@@ -642,6 +642,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#grab-only-the-first-dictionary" class="md-nav__link">
+    Grab only the first dictionary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#further-reading" class="md-nav__link">
     Further Reading
   </a>
@@ -909,6 +916,13 @@
           <li class="md-nav__item">
   <a href="#export-only-the-selected-text-only-if-text-is-selected" class="md-nav__link">
     Export only the selected text (only if text is selected)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grab-only-the-first-dictionary" class="md-nav__link">
+    Grab only the first dictionary
   </a>
   
 </li>
@@ -1371,6 +1385,39 @@ and uses the glossary by default if you don't have anything highlighted.</p>
 <p>Related <a href="https://github.com/FooSoft/yomichan/issues/2097">Github issue</a>.</p>
 </div>
 <hr />
+<h3 class="text-yellow" id="grab-only-the-first-dictionary">Grab only the first dictionary<a class="headerlink" href="#grab-only-the-first-dictionary" title="Permanent link">&para;</a></h3>
+<p>The following grabs the first dictionary,
+but with every definition within said dictionary.</p>
+<p>For further customization on how the first dictionary is selected
+(say, for automatic bilingual / monolingual separation),
+see the handlebars code used by JPMN <a href="../setup/#yomichan-templates">here</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;glossary-first&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;first-dictionary&quot;</span> <span class="nv">null</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="na">&quot;==</span><span class="o">=</span><span class="s2">&quot; null (get &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot;))~}}</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="s2">                {{~#set &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot; dictionary~}}{{~/set~}}</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="s2">            {{~/if~}}</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="s2">        {{~/each~}}</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="s2">        {{~#if (op &quot;</span><span class="na">!=</span><span class="o">=</span><span class="s2">&quot; null (get &quot;</span><span class="nv">first-dictionary</span><span class="s2">&quot;))~}}</span>
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="s2">            &lt;div style=&quot;</span><span class="nv">text-align</span><span class="err">:</span> <span class="nv">left</span><span class="err">;</span><span class="s2">&quot;&gt;&lt;ol&gt;</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="s2">            {{~#each definition.definitions~}}</span>
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="s2">                {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; dictionary (get &quot;</span><span class="nv">first-dictionary</span><span class="err">&quot;</span><span class="nv">))</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="x">                    &lt;li&gt;</span><span class="cp">{{</span><span class="m m-Attribute">~&gt;</span> <span class="nv">glossary-single</span> <span class="err">.</span> <span class="na">brief</span><span class="o">=</span><span class="nv">../brief</span> <span class="na">noDictionaryTag</span><span class="o">=</span><span class="nv">../noDictionaryTag</span> <span class="m">~</span><span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a><span class="x">            &lt;/ol&gt;&lt;/div&gt;</span>
+<a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a>
+<a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a>
+<a id="__codelineno-24-25" name="__codelineno-24-25" href="#__codelineno-24-25"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+</code></pre></div>
+<hr />
 <h3 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h3>
 <p>The documentation I used:</p>
 <ul>
@@ -1415,7 +1462,7 @@ and uses the glossary by default if you don't have anything highlighted.</p>
 <li>adds a tag to the note (tag is exactly the window name of the current application)</li>
 <li>adds the clipboard to AdditionalNotes (I use this for copying/pasting context)</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $clipboard = (Get-Clipboard | where{$_ -ne \&quot;\&quot;}) -join \&quot;&lt;br&gt;\&quot;; $media_name = &#39;$input&#39; | Split-Path -leaf; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $curr_note_id = $sorted_list[0]; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ Picture = \&quot;&lt;img data-editor-shrink=`\&quot;true`\&quot; src=`\&quot;$media_name`\&quot;&gt;\&quot;; AdditionalNotes = $clipboard; } } } }; if ($media_name -match &#39;(?&lt;tag&gt;.+)_.*&#39;) { $tag = $matches[&#39;tag&#39;]; } Run-Json @{ action = &#39;addTags&#39;; version = 6; params = @{ notes = @($curr_note_id); tags = $tag; } };&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $clipboard = (Get-Clipboard | where{$_ -ne \&quot;\&quot;}) -join \&quot;&lt;br&gt;\&quot;; $media_name = &#39;$input&#39; | Split-Path -leaf; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $curr_note_id = $sorted_list[0]; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ Picture = \&quot;&lt;img data-editor-shrink=`\&quot;true`\&quot; src=`\&quot;$media_name`\&quot;&gt;\&quot;; AdditionalNotes = $clipboard; } } } }; if ($media_name -match &#39;(?&lt;tag&gt;.+)_.*&#39;) { $tag = $matches[&#39;tag&#39;]; } Run-Json @{ action = &#39;addTags&#39;; version = 6; params = @{ notes = @($curr_note_id); tags = $tag; } };&quot;
 </code></pre></div>
 <details class="quote">
 <summary>Click here to see the original code.</summary>
@@ -1483,7 +1530,7 @@ Run-Json @{
 <ul>
 <li>the above without clipboard (adds image and tag)</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $media_name = &#39;$input&#39; | Split-Path -leaf; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $curr_note_id = $sorted_list[0]; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ Picture = \&quot;&lt;img data-editor-shrink=`\&quot;true`\&quot; src=`\&quot;$media_name`\&quot;&gt;\&quot;; } } } }; if ($media_name -match &#39;(?&lt;tag&gt;.+)_.*&#39;) { $tag = $matches[&#39;tag&#39;] } Run-Json @{ action = &#39;addTags&#39;; version = 6; params = @{ notes = @($curr_note_id); tags = $tag; } };&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $media_name = &#39;$input&#39; | Split-Path -leaf; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $curr_note_id = $sorted_list[0]; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ Picture = \&quot;&lt;img data-editor-shrink=`\&quot;true`\&quot; src=`\&quot;$media_name`\&quot;&gt;\&quot;; } } } }; if ($media_name -match &#39;(?&lt;tag&gt;.+)_.*&#39;) { $tag = $matches[&#39;tag&#39;] } Run-Json @{ action = &#39;addTags&#39;; version = 6; params = @{ notes = @($curr_note_id); tags = $tag; } };&quot;
 </code></pre></div>
 <details class="quote">
 <summary>Click here to see the original code.</summary>
@@ -1548,7 +1595,7 @@ Run-Json @{
 <ul>
 <li>adds audio to anki</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $media_name = &#39;$input&#39; | Split-Path -leaf; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $curr_note_id = $sorted_list[0]; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ SentenceAudio = \&quot;[sound:$media_name]\&quot;; } } } };&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $media_name = &#39;$input&#39; | Split-Path -leaf; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $curr_note_id = $sorted_list[0]; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ SentenceAudio = \&quot;[sound:$media_name]\&quot;; } } } };&quot;
 </code></pre></div>
 <details class="quote">
 <summary>Click here to see the original code.</summary>
@@ -1602,7 +1649,7 @@ Run-Json @{
 <li>remove sentence reading</li>
 <li>good for when the sentence just doesn't match</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $clipboard = (Get-Clipboard | where{$_ -ne &#39;&#39;}) -join &#39;&#39;; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $curr_note_id = $sorted_list[0]; $curr_note_data = Run-Json @{ action = &#39;notesInfo&#39;; version = 6; params = @{ notes = @($curr_note_id); } }; $curr_note_sent = $curr_note_data.result.fields.Sentence.value; $result_sent = &#39;&#39;; if ($curr_note_sent -match &#39;&lt;b&gt;(?&lt;bolded&gt;.+)&lt;/b&gt;&#39;) { $bolded = $matches[&#39;bolded&#39;]; $result_sent = $clipboard.replace($bolded, \&quot;&lt;b&gt;$bolded&lt;/b&gt;\&quot;); } else { $result_sent = $clipboard; }; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ Sentence = $result_sent; SentenceReading = &#39;&#39;; } } } };&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $clipboard = (Get-Clipboard | where{$_ -ne &#39;&#39;}) -join &#39;&#39;; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $curr_note_id = $sorted_list[0]; $curr_note_data = Run-Json @{ action = &#39;notesInfo&#39;; version = 6; params = @{ notes = @($curr_note_id); } }; $curr_note_sent = $curr_note_data.result.fields.Sentence.value; $result_sent = &#39;&#39;; if ($curr_note_sent -match &#39;&lt;b&gt;(?&lt;bolded&gt;.+)&lt;/b&gt;&#39;) { $bolded = $matches[&#39;bolded&#39;]; $result_sent = $clipboard.replace($bolded, \&quot;&lt;b&gt;$bolded&lt;/b&gt;\&quot;); } else { $result_sent = $clipboard; }; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ Sentence = $result_sent; SentenceReading = &#39;&#39;; } } } };&quot;
 </code></pre></div>
 <details class="quote">
 <summary>Click here to see the original code.</summary>
@@ -1677,7 +1724,7 @@ Run-Json @{
 <li>also copy all tags</li>
 <li>good for adding more than 1 sentence with the same text box</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $prev_note_id = $sorted_list[1]; $curr_note_id = $sorted_list[0]; $prev_note_data = Run-Json @{ action = &#39;notesInfo&#39;; version = 6; params = @{ notes = @($prev_note_id); } }; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ Picture = $prev_note_data.result.fields.Picture.value; AdditionalNotes = $prev_note_data.result.fields.AdditionalNotes.value; } } } }; foreach ($tag in $prev_note_data.result.tags) { Run-Json @{ action = &#39;addTags&#39;; version = 6; params = @{ notes = @($curr_note_id); tags = $tag; } } };&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $prev_note_id = $sorted_list[1]; $curr_note_id = $sorted_list[0]; $prev_note_data = Run-Json @{ action = &#39;notesInfo&#39;; version = 6; params = @{ notes = @($prev_note_id); } }; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $curr_note_id; fields = @{ Picture = $prev_note_data.result.fields.Picture.value; AdditionalNotes = $prev_note_data.result.fields.AdditionalNotes.value; } } } }; foreach ($tag in $prev_note_data.result.tags) { Run-Json @{ action = &#39;addTags&#39;; version = 6; params = @{ notes = @($curr_note_id); tags = $tag; } } };&quot;
 </code></pre></div>
 <details class="quote">
 <summary>Click here to see the original code.</summary>
@@ -1751,7 +1798,7 @@ foreach ($tag in $prev_note_data.result.tags) {
 <li>remove current note !</li>
 <li>good for the orthographic dict!</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $prev_note_id = $sorted_list[1]; $curr_note_id = $sorted_list[0]; $curr_note_data = Run-Json @{ action = &#39;notesInfo&#39;; version = 6; params = @{ notes = @($curr_note_id); } }; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $prev_note_id; fields = @{ FrequenciesStylized = $curr_note_data.result.fields.FrequenciesStylized.value; Sentence = $curr_note_data.result.fields.Sentence.value; SentenceReading = $curr_note_data.result.fields.SentenceReading.value; } } } }; Run-Json @{ action = &#39;deleteNotes&#39;; version = 6; params = @{ notes = @($curr_note_id); } };&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>-NoProfile -Command &quot;function Run-Json { param( $json_map ); $json = $json_map | ConvertTo-Json -Depth 5; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType &#39;application/json; charset=UTF-8&#39; -Body $json; return $data; }; $added_notes = Run-Json @{ action = &#39;findNotes&#39;; version = 6; params = @{ query = &#39;added:1&#39;; } }; $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_}; $prev_note_id = $sorted_list[1]; $curr_note_id = $sorted_list[0]; $curr_note_data = Run-Json @{ action = &#39;notesInfo&#39;; version = 6; params = @{ notes = @($curr_note_id); } }; Run-Json @{ action = &#39;updateNoteFields&#39;; version = 6; params = @{ note = @{ id = $prev_note_id; fields = @{ FrequenciesStylized = $curr_note_data.result.fields.FrequenciesStylized.value; Sentence = $curr_note_data.result.fields.Sentence.value; SentenceReading = $curr_note_data.result.fields.SentenceReading.value; } } } }; Run-Json @{ action = &#39;deleteNotes&#39;; version = 6; params = @{ notes = @($curr_note_id); } };&quot;
 </code></pre></div>
 <details class="quote">
 <summary>Click here to see the original code.</summary>
@@ -1869,7 +1916,7 @@ Run-Json @{
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2022</span>
       
     
   </small>
