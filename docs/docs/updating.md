@@ -136,10 +136,10 @@ This section will document common errors that occur when running the `/install.p
 
 (TODO)
 
-#### `Anki-Connect is missing actions`
+#### Anki-Connect is missing actions
 - re-download anki-connect from ankiweb
 
-#### `Anki fields are different`
+#### Anki fields are different
 - updating script is very picky about fields, including order
 - if added field(s):
     - if field matches newly-added field
@@ -152,14 +152,14 @@ This section will document common errors that occur when running the `/install.p
     - don't do this next time, re-add the field and update
     - if you don't want to use the field, move field under `Comment` and run with `--ignore-order` flag
 
-#### `Simulated fields do not match expected fields`
+#### Simulated fields do not match expected fields
 - see above
 
-#### `Expected fields do not appear in Anki's fields list`
+#### Expected fields do not appear in Anki's fields list
 - see above
 
 
-
+---
 
 ## Method 2: Manually
 
@@ -192,6 +192,8 @@ This section will document common errors that occur when running the `/install.p
     1. Rename the new note type to the old note type name (`JP Mining Note`).
     See the changelog to see how the fields have changed and how you have to map the old fields
     to the new fields.
+
+---
 
 ## Final Steps
 There may be further steps outside of just updating the card,
