@@ -73,6 +73,9 @@ Fill the `IsTargetedSentenceCard` field.
 
 # Hybrid Cards
 
+TODO: update all the gifs and pictures of the hybrid cards
+
+
 Hybrid cards are a group of card types that attempt to combine the power of
 sentence cards and vocab cards into one.
 They all have the distinct feature that the word is shown at the front,

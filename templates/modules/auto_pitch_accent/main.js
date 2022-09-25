@@ -441,15 +441,16 @@ const JPMNAutoPA = (() => {
         if (pos === 0) {
           // 平板 (e.g. 自然 - しぜん￣)
           paintDisplay("heiban");
-        } else if (pos >= result.length) {
-          // it should never be greater than, but condition is here just in case of mis-input
-          // 尾高 (e.g. 頭 - あたま＼)
-          paintDisplay("odaka");
         } else if (pos === 1) {
           // 頭高 (e.g. 僕 - ぼ＼く)
-          // the above takes care of the case where the word is 1 mora long
-          // but also has a downstep, i.e. 火
+          // note that one mora words with a downstep (e.g. 木 - き＼)
+          // are considered 頭高 and not 尾高
           paintDisplay("atamadaka");
+        } else if (pos >= result.length) {
+          // it should never be greater than, but the condition is here
+          // just in case of mis-input
+          // 尾高 (e.g. 頭 - あたま＼)
+          paintDisplay("odaka");
         } else {
           // 中高 (e.g. 不審者 - ふし＼んしゃ)
           paintDisplay("nakadaka");
