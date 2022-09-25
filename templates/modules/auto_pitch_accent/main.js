@@ -297,6 +297,9 @@ const JPMNAutoPA = (() => {
 
       "尾高": "odaka",
       "odaka": "odaka",
+
+      "起伏": "kifuku",
+      "kifuku": "kifuku",
     }
 
     for (ct of Object.keys(COLOR_TAGS)) {
@@ -313,12 +316,12 @@ const JPMNAutoPA = (() => {
     const sentClass = `pa-sentence-highlight-${type}`;
 
     // adds to reading
-    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word-reading") }}) {
+    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "color-reading") }}) {
       const readingEle = document.getElementById("dh_reading");
       readingEle.classList.add(wordClass);
     }
 
-    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word-display") }}) {
+    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "color-display") }}) {
       // adds to display sentence
       // .highlight-bold is added to the query to ensure that we are not highlighting
       // a sentence that wasn't highlighted already.
@@ -339,7 +342,7 @@ const JPMNAutoPA = (() => {
     }
 
     // changes pitch accent overline
-    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word-overline") }}) {
+    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "color-overline") }}) {
       const wordPitchEle = document.getElementById("dh_word_pitch");
       wordPitchEle.style.setProperty('--pa-overline-color', `var(--text-${type})`);
     }
@@ -436,9 +439,13 @@ const JPMNAutoPA = (() => {
       return;
     }
 
-    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word") }}) {
+    const kifukuList = {{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "kifuku-override") }};
+    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "enabled") }}) {
       if (!hasPAColorTags()) {
-        if (pos === 0) {
+        if (kifukuList.includes(pos)) {
+          // 起伏 (undulation, usually reserved for い-adjs / non-する verbs)
+          paintDisplay("kifuku");
+        } else if (pos === 0) {
           // 平板 (e.g. 自然 - しぜん￣)
           paintDisplay("heiban");
         } else if (pos >= result.length) {
@@ -468,6 +475,7 @@ const JPMNAutoPA = (() => {
     }
 
     // special case: 0 and length of moras === 1 (nothing needs to be done)
+    // ASSUMPTION: the override kifuku value will NOT be 0 (you are insane if you do that)
     if (pos === 0 && result.length === 1) {
       return readingKana;
     }
@@ -476,17 +484,32 @@ const JPMNAutoPA = (() => {
     const stopOverline = `</span>`;
     const downstep = '<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';
 
-    if (pos === 0) {
+    if (kifukuList.includes(pos)) {
+      if (result.length < 2) {
+        logger.warn("Cannot apply 起伏 on word with less than 2 moras.");
+      } else if (result.length == 2) { // equivalent to pos == 1
+        result.splice(1, 0, stopOverline + downstep); // downstep after first mora
+        result.splice(0, 0, startOverline); // overline starting at the very beginning
+      } else { // equivalent to pos == #moras-1
+        result.splice(-1, 0, stopOverline + downstep); // insert right before last index
+        result.splice(1, 0, startOverline); // insert at index 1
+      }
+    } else if (pos === 0) {
       result.splice(1, 0, startOverline); // insert at index 1
       result.push(stopOverline)
     } else if (pos === 1) {
       // start overline starts at the very beginning
       result.splice(pos, 0, stopOverline + downstep);
       result.splice(0, 0, startOverline); // insert at the very beginning
+    } else if (pos < 0) {
+      logger.warn(`Pitch Accent position (${pos}) is negative.`);
     } else {
+      if (pos > result.length) {
+        logger.warn(`Pitch Accent position (${pos}) is greater than number of moras (${result.length}).`);
+      }
       // start overline starts over the 2nd mora
       result.splice(pos, 0, stopOverline + downstep);
-      result.splice(1, 0, startOverline); // insert at the very beginning
+      result.splice(1, 0, startOverline); // insert at index 1
     }
 
     result = result.join("");
@@ -505,7 +528,7 @@ const JPMNAutoPA = (() => {
     // first checks pa override
     let posResult = null;
     if (eleOverride.innerHTML.length !== 0) {
-      const digit = eleOverride.innerText.match(/^\d+$/);
+      const digit = eleOverride.innerText.match(/^[-]?\d+$/);
       if (digit !== null) {
         posResult = [Number(digit), "Override (Position)"];
       } else {
@@ -536,7 +559,7 @@ const JPMNAutoPA = (() => {
 
     // if pos is null, then the display element has already been set
     if (pos === null) {
-      if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word") }}) {
+      if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "enabled") }}) {
         hasPAColorTags();
       }
       return;

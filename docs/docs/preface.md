@@ -25,9 +25,9 @@ and there are no plans to support AnkiWeb.
 
 ## Themes
 The main theme of this card is with Anki's default dark mode.
-As of writing this,[^1] light mode is not yet supported.
+However, light mode is also supported.
 
-[^1]: As of 2022/09/17.
+[^1]: As of 2022/09/17.-->
 
 
 
@@ -49,15 +49,15 @@ Absolutely nothing else is required.
 This helps with ensuring the lifespan of the note,
 and to make the note more stable across various Anki versions.
 
-## Free & Open Source
-Everything here, including the documentation itself, is completely free and open source,
-licensed under [MIT](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/LICENSE).
-Rest easy knowing you will keep full ownership of your note, forever.
-
 ## Modularized, Customizable & Extendable
 This project ships with built-in tools to easily disable/enable features,
 or even completely remove them from the base template via compile-time options.
 Additionally, there are many built-in ways to extend the note to suit your exact needs.
+
+## Free & Open Source
+Everything here, including the documentation itself, is completely free and open source,
+licensed under [MIT](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/LICENSE).
+Rest easy knowing you will keep full ownership of your note, forever.
 
 
 
@@ -65,7 +65,10 @@ Additionally, there are many built-in ways to extend the note to suit your exact
 # Alternatives
 Of course, there are many alternatives to this note type.
 Below contains a non-exhaustive list of some of the note types that exist out there.
-Feel free to go digging!
+
+P.S. Feel free to let me know of any note types you find interesting
+(including your own note type, or modified versions of this note),
+and I will likely add it here!
 
 ??? info "Click here to see example note types (for Japanese learning)."
 

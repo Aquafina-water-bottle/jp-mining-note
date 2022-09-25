@@ -148,32 +148,39 @@
       // whether to search for the ajt word, given the field is filled out
       "search-for-ajt-word": true,
 
+
+      // Undulation/kifuku (起伏) override value(s), to set the pattern to kifuku.
+      // This sets the downstep be right before the last mora, and colors the word
+      // purple if color-tested-word is enabled.
+      // Note that these values must be numbers and they CANNOT be strings.
+      "kifuku-override": [-1]
+
       // Whether to color the tested word by pitch accent class or not.
       // Generally: 平板 is blue, 頭高 is red, 中高 is orange and 尾高 is green.
       // The exact colors can be changed in the css.
       // NOTE: If you use a `PAOverride` value that isn't a number,
       //     then the colored word cannot be shown, as the position cannot be inferred
       //     from the overwritten value.
-      //     Instead, you can use a tag `heiban`, `atamadaka`, `nakadaka`, or `odaka`
-      //     or the japanese versions (`平板`, `頭高`, `中高` and `尾高` respectively)
+      //     Instead, you can use a tag `heiban`, `atamadaka`, `nakadaka`, `odaka`, `kifuku`
+      //     or the japanese versions (`平板`, `頭高`, `中高`, `尾高` and `起伏` respectively)
       //     to override the color.
-      "color-tested-word": false,
+      "color-tested-word": {
+        "enabled": false,
 
-      // Sub-options depending on the above
-      // (i.e. these have no effect if `color-tested-word` is false.)
+        // Word reading
+        "color-reading": true,
 
-      // Word reading
-      "color-tested-word-reading": true,
+        // Tested content (word or sentence).
+        // NOTE: this preserves the semantics of whether the sentence
+        //     had a highlighted word in the first place. For example,
+        //     a sentence card will NOT have the word within the sentence colored,
+        //     but a TSC will have the word colored.
+        "color-display": true,
 
-      // Tested content (word or sentence).
-      // NOTE: this preserves the semantics of whether the sentence
-      //     had a highlighted word in the first place. For example,
-      //     a sentence card will NOT have the word within the sentence colored,
-      //     but a TSC will have the word colored.
-      "color-tested-word-display": true,
+        // Pitch accent overline
+        "color-overline": true
+      }
 
-      // Pitch accent overline
-      "color-tested-word-overline": true
     },
 
 
