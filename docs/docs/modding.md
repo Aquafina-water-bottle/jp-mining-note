@@ -73,14 +73,13 @@ templates
 ```
 git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 cd jp-mining-note
-
 # alternatively, if you already have the repository on your system:
-#git pull origin/master
+git pull origin/master
 
 # You may have to use `python` instead of `python3`, and `pip` instead of `pip3`.
 python3 -m venv .
 
-# POSIX (bash/zsh) only.
+# The following is for POSIX (bash/zsh) only.
 # See how to activate venv on your system in the official documentation:
 # https://docs.python.org/3/library/venv.html
 source ./bin/activate
@@ -176,7 +175,8 @@ mkdocs serve
 
 
 !!! note
-    - if not using requirements.txt / venv:
+    If you are not using requirements.txt and venv, you can install the
+    dependencies manually here:
     ```
     pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin mkdocs-git-revision-date-localized-plugin
     ```
@@ -222,8 +222,6 @@ B is not filled
 {% endraw %}
 
 ## Modules
-TODO: not fully implemented
-
 - TODO basic explanation
 - primary use is for javascript
 - javascript-only modules do not require any edits to the raw html
@@ -238,23 +236,22 @@ TODO: not implemented
 - appends whatever javascript you want to the very end of the anonymous function
 
 ## Custom CSS
-TODO: not implemented
-
 - allows for custom themes / minor user customizations
 - can override variables, etc.
 - simply appends the css at the very end of the existing css
-
+- make new folder under `scss` (e.g. `scss/extra`) and add to `css-folders` in config.py, e.g.
+    ```
+    "css-folders": ["default", "dictionaries", "extra"],
+    ```
 
 ## Template Overrides
-TODO: not implemented
-
-- `overrides` folder
+- `overrides` folder (or whatever folder you specify under `templates-override-folder` in config.py)
 - same format as existing `templates` folder
 
 
 ## Make your changes shown!
 If you think your changes will be useful for others,
-I highly recommend contributing your work!
+I highly recommend contributing your work to this project!
 
 TODO
 

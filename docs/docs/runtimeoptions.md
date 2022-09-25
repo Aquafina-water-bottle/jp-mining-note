@@ -38,14 +38,14 @@ TODO gif with screenkey
 # Modules
 Many javascript heavy code are separated into modules by default.
 These can be enabled and disabled at the user's will if the user
-wants to sacrifice functionality for a potentially faster card.
+wants to sacrifice functionality for a slightly faster card.
 
 Some examples include:
 
-- kanji hover
-- pitch accent selection.
-- sentence processing
-- image processing
+- [kanji-hover](kanjihover.md)
+- [auto-pitch-accent](autopa.md)
+- sent-utils (basic sentence processing)
+- img-utils (basic image processing)
 
 These modules likely also also have their own collection of settings
 to modify the behavior of said module.
@@ -56,6 +56,6 @@ TODO picture comparisons between word PA indicator in quotes / word PA with PA i
 # Greyed out fields
 TODO picture comparisons empty fields / empty fields but greyed out
 
-# Open Extra Info
+# Open Collapsed Field on New Cards
 TODO gif
 

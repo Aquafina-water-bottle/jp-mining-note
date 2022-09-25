@@ -13,7 +13,12 @@
     <div class="dh-left__reading" id="dh_reading"> {{ T("furigana:WordReading") }} </div>
 
     <div class="dh-left__word-pitch {{word_pitch_class}}" id="dh_word_pitch">
-      {{ T('AJTWordPitch') }}
+      {% call IF("PAOverride") %}
+        {{ T('PAOverride') }}
+      {% endcall %}
+      {% call IFNOT("PAOverride") %}
+        {{ T('AJTWordPitch') }}
+      {% endcall %}
     </div>
 
     <div class="dh-left__audio-buttons">

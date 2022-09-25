@@ -316,12 +316,12 @@ const JPMNAutoPA = (() => {
     const sentClass = `pa-sentence-highlight-${type}`;
 
     // adds to reading
-    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "color-reading") }}) {
+    if ({{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "color-reading") }}) {
       const readingEle = document.getElementById("dh_reading");
       readingEle.classList.add(wordClass);
     }
 
-    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "color-display") }}) {
+    if ({{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "color-display") }}) {
       // adds to display sentence
       // .highlight-bold is added to the query to ensure that we are not highlighting
       // a sentence that wasn't highlighted already.
@@ -342,10 +342,64 @@ const JPMNAutoPA = (() => {
     }
 
     // changes pitch accent overline
-    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "color-overline") }}) {
+    if ({{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "color-overline") }}) {
       const wordPitchEle = document.getElementById("dh_word_pitch");
       wordPitchEle.style.setProperty('--pa-overline-color', `var(--text-${type})`);
     }
+  }
+
+  function getMorasOfAJTWord(ajtWord) {
+
+    let result = [];
+
+    // temp element to iterate through childnodes of ajt word
+    const temp = document.createElement("div");
+
+    // temp element to store the flattened version of the ajt word div
+    // and for converting into a list of moras
+    const temp2 = document.createElement("div");
+    temp.innerHTML = ajtWord;
+
+    // removes pitch accent overline and downstep
+    for (const x of temp.childNodes) {
+      if (x.nodeName === "SPAN" && x.classList.contains("pitchoverline")) {
+        for (const child of x.childNodes) {
+          temp2.appendChild(child.cloneNode(true));
+        }
+      } else if (x.nodeName === "SPAN" && x.classList.contains("downstep")) {
+        // skips
+      } else {
+        temp2.appendChild(x.cloneNode(true));
+      }
+    }
+
+    // combines the devoiced character into one mora, if it can
+    // (e.g. 神出鬼没 (しんしゅつきぼつ) only has the 2nd (し) devoiced, instead of (しゅ)
+    // シ<span class="pitchoverline">ン<span class="nopron">シ</span>ュツキボツ</span>
+    if (ajtWord.includes("nopron")) {
+      // crazy regex replace
+      temp2.innerHTML = temp2.innerHTML.replace(
+        /<span class="nopron">(.)<\/span>([ュャョ])/g,
+        '<span class="nopron">$1$2<\/span>'
+      );
+    }
+
+    for (const x of temp2.childNodes) {
+      if (x.nodeName === "#text") {
+        const moras = getMoras(x.data);
+        result = result.concat(moras);
+      } else if (x.nodeName === "SPAN" && x.classList.contains("nasal")) {
+        // assumption: there already exists at least one element before
+        // (the nasal marker can't come by itself)
+        result[result.length-1] = result[result.length-1] + x.outerHTML;
+      } else {
+        // assumption: this is the nopron span
+        result.push(x.outerHTML);
+      }
+    }
+
+    return result;
+
   }
 
   function buildReadingSpan(pos, readingKana) {
@@ -361,53 +415,7 @@ const JPMNAutoPA = (() => {
 
     if (ajtWord !== null) {
       logger.debug("Using AJT Word");
-
-      // temp element to iterate through childnodes of ajt word
-      const temp = document.createElement("div");
-
-      // temp element to store the flattened version of the ajt word div
-      // and for converting into a list of moras
-      const temp2 = document.createElement("div");
-      temp.innerHTML = ajtWord;
-
-      // removes pitch accent overline and downstep
-      for (const x of temp.childNodes) {
-        if (x.nodeName === "SPAN" && x.classList.contains("pitchoverline")) {
-          for (const child of x.childNodes) {
-            temp2.appendChild(child.cloneNode(true));
-          }
-        } else if (x.nodeName === "SPAN" && x.classList.contains("downstep")) {
-          // skips
-        } else {
-          temp2.appendChild(x.cloneNode(true));
-        }
-      }
-
-      // combines the devoiced character into one mora, if it can
-      // (e.g. 神出鬼没 (しんしゅつきぼつ) only has the 2nd (し) devoiced, instead of (しゅ)
-      // シ<span class="pitchoverline">ン<span class="nopron">シ</span>ュツキボツ</span>
-      if (ajtWord.includes("nopron")) {
-        // crazy regex replace
-        temp2.innerHTML = temp2.innerHTML.replace(
-          /<span class="nopron">(.)<\/span>([ュャョ])/g,
-          '<span class="nopron">$1$2<\/span>'
-        );
-      }
-
-      for (const x of temp2.childNodes) {
-        if (x.nodeName === "#text") {
-          const moras = getMoras(x.data);
-          result = result.concat(moras);
-        } else if (x.nodeName === "SPAN" && x.classList.contains("nasal")) {
-          // assumption: there already exists at least one element before
-          // (the nasal marker can't come by itself)
-          result[result.length-1] = result[result.length-1] + x.outerHTML;
-        } else {
-          // assumption: this is the nopron span
-          result.push(x.outerHTML);
-        }
-      }
-
+      result = getMorasOfAJTWord(ajtWord);
     } else {
       logger.debug(`Using reading from WordReading field`);
 
@@ -440,7 +448,9 @@ const JPMNAutoPA = (() => {
     }
 
     const kifukuList = {{ utils.opt("modules", "auto-pitch-accent", "kifuku-override") }};
-    if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "enabled") }}) {
+
+    // attempts to color word
+    if ({{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "enabled") }}) {
       if (!hasPAColorTags()) {
         if (kifukuList.includes(pos)) {
           // 起伏 (undulation, usually reserved for い-adjs / non-する verbs)
@@ -559,7 +569,7 @@ const JPMNAutoPA = (() => {
 
     // if pos is null, then the display element has already been set
     if (pos === null) {
-      if ({{ utils.opt("modules", "auto-pitch-accent", "color-tested-word", "enabled") }}) {
+      if ({{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "enabled") }}) {
         hasPAColorTags();
       }
       return;
