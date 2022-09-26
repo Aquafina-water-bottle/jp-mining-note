@@ -415,7 +415,7 @@
   
     <li class="md-nav__item">
       <a href="../kanjihover/" class="md-nav__link">
-        Kanji Hover (TODO)
+        Kanji Hover
       </a>
     </li>
   
@@ -753,7 +753,7 @@
         
           <li class="md-nav__item">
   <a href="#mining-guides" class="md-nav__link">
-    Mining guides:
+    Mining guides
   </a>
   
 </li>
@@ -1032,7 +1032,7 @@
         
           <li class="md-nav__item">
   <a href="#mining-guides" class="md-nav__link">
-    Mining guides:
+    Mining guides
   </a>
   
 </li>
@@ -1265,6 +1265,13 @@ may not work in the future.</p>
 </details>
 <hr />
 <h2 id="yomichan-templates-handlebars">Yomichan Templates / Handlebars<a class="headerlink" href="#yomichan-templates-handlebars" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using the jp-mining-note template,
+most things here will likely not be useful for you 
+as the Yomichan templates that comes with the note
+already contains most of these features and more.</p>
+</div>
 <h3 id="how-to-edit-yomichan-fields">How to Edit Yomichan Fields<a class="headerlink" href="#how-to-edit-yomichan-fields" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Navigate to Yomichan Settings.</li>
@@ -1447,42 +1454,46 @@ see the handlebars code used by JPMN <a href="../setup/#yomichan-templates">here
 </code></pre></div>
 <hr />
 <h3 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h3>
-<p>The documentation I used:</p>
+<p>Official documentation om Yomichan's templates:</p>
 <ul>
 <li><a href="https://github.com/FooSoft/yomichan/blob/master/docs/templates.md">Yomichan template helper functions</a></li>
 <li><a href="https://github.com/FooSoft/yomichan/blob/master/docs/interfaces/dictionary-entry.ts">Yomichan template structure</a></li>
 </ul>
 <p>Example template code can be found here:</p>
 <ul>
-<li>Markers for individual dictionaries:
-  <a href="https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336">here</a></li>
 <li>
-<p>This has certain extended capabilities over my template code, such as removing the first line.</p>
+<p>Markers for individual dictionaries:
+    <a href="https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336">here</a></p>
+<ul>
+<li>This has certain extended capabilities over my template code, such as removing the first line.</li>
+</ul>
 </li>
 <li>
 <p>Template code for this note:
-  <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/top.txt">here</a> and
-  <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/bottom.txt">here</a></p>
+    <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/top.txt">here</a> and
+    <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/bottom.txt">here</a></p>
 </li>
 <li>
 <p>Old template code for this note (NO LONGER USED / MAINTAINED):
-  <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/old.txt">here</a></p>
+    <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/old.txt">here</a></p>
 </li>
 </ul>
 <hr />
 <h2 id="sharex">ShareX<a class="headerlink" href="#sharex" title="Permanent link">&para;</a></h2>
 <ul>
 <li>TODO make non-point form</li>
-<li>main steps from are https://rentry.co/mining
-  (webarchive link without pictures
-  <a href="https://web.archive.org/web/20220216001950/https://rentry.co/mining#sharex">here</a>)</li>
+<li>main steps from are <a href="https://rentry.co/mining">https://rentry.co/mining</a>
+    (webarchive link without pictures
+    <a href="https://web.archive.org/web/20220216001950/https://rentry.co/mining#sharex">here</a>)</li>
 <li>all powershell commands rewritten to be readable + work with jp-mining-note by default</li>
 <li>1 liners are generated from <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/wiki/gen/make.py">this file</a></li>
 </ul>
-<p>note that f3 keybinds do NOT record media, requires slightly different setup
-- TODO document
-- iirc grabs current window picture + deletes after (the only purpose of the f3 keybinds
-  is to execute ankiconnect calls in powershell)</p>
+<p>note that f3 keybinds do NOT record media, requires slightly different setup</p>
+<ul>
+<li>TODO document</li>
+<li>iirc grabs current window picture + deletes after (the only purpose of the f3 keybinds
+    is to execute ankiconnect calls in powershell)</li>
+</ul>
 <hr />
 <h3 id="f1-screenshot-and-clipboard">f1: screenshot and clipboard<a class="headerlink" href="#f1-screenshot-and-clipboard" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1901,22 +1912,23 @@ Run-Json @{
 <li><a href="https://learnjapanese.moe/yomichan/">TheMoeWay Yomichan setup</a></li>
 <li><a href="https://cademcniven.com/posts/20210410/">Cade's guide to optimizing Anki</a></li>
 </ul>
-<h3 id="mining-guides">Mining guides:<a class="headerlink" href="#mining-guides" title="Permanent link">&para;</a></h3>
+<h3 id="mining-guides">Mining guides<a class="headerlink" href="#mining-guides" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="https://rentry.co/lazyXel">Xelieu's mining guide</a> (Windows, Android)</li>
 <li><a href="https://rentry.co/mining">stegatxins0's mining guide</a> (Windows, Kindle)</li>
-<li><a href="https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub">Shiki's mining workflow</a> (cross platform with ASBPlayer)</li>
-<li><a href="https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub">Tigy01's mining workflow</a>  (cross platform with ASBPlayer)</li>
+<li><a href="https://animecards.site/">Anime Cards &amp; mining guides</a> (Multiple platforms)</li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub">Shiki's mining workflow</a> (cross platform with <code>asbplayer</code>)</li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub">Tigy01's mining workflow</a>  (cross platform with <code>asbplayer</code>)</li>
 </ul>
 <h3 id="mikagu-pitch-accent-alternatives">Mikagu pitch accent alternatives<a class="headerlink" href="#mikagu-pitch-accent-alternatives" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="https://github.com/MikeMoolenaar/Migaku-Japanese-Addon-Updated">migaku updated</a><ul>
-<li>fork of migaku to be updated for anki version 2.1.50+</li>
+<li>Fork of migaku to be updated for anki version 2.1.50+</li>
 </ul>
 </li>
 <li><a href="https://github.com/Ben-Kerman/anki-jrp">anki-jrp</a><ul>
-<li>completely stand-alone plugin from migaku with a completely different codebase</li>
-<li>only does one thing: adds pitch accent colors (along with furigana)</li>
+<li>Completely stand-alone plugin from migaku with a completely different codebase</li>
+<li>Only does one thing: adds pitch accent colors (along with furigana)</li>
 </ul>
 </li>
 </ul>
@@ -1944,7 +1956,7 @@ Run-Json @{
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
       
     
   </small>

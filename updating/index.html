@@ -369,6 +369,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#common-errors" class="md-nav__link">
+    Common Errors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#method-2-manually" class="md-nav__link">
     Method 2: Manually
   </a>
@@ -515,7 +522,7 @@
   
     <li class="md-nav__item">
       <a href="../kanjihover/" class="md-nav__link">
-        Kanji Hover (TODO)
+        Kanji Hover
       </a>
     </li>
   
@@ -655,6 +662,13 @@
           <li class="md-nav__item">
   <a href="#method-1-python-script-recommended" class="md-nav__link">
     Method 1: Python Script (recommended)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-errors" class="md-nav__link">
+    Common Errors
   </a>
   
 </li>
@@ -809,7 +823,6 @@ will likely need (calls related to field editing).
 -->
 
 <h4 id="running-the-script">Running the Script<a class="headerlink" href="#running-the-script" title="Permanent link">&para;</a></h4>
-<p>After installing Anki-Connect-Dev, you can now run the python script:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Command Line</label><label for="__tabbed_1_2">Windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -865,14 +878,21 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 </div>
 </div>
 </div>
-<h4 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h4>
+<h3 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h3>
 <p>This section will document common errors that occur when running the <code>/install.py</code> script.</p>
 <p>(TODO)</p>
-<h5 id="anki-connect-is-missing-actions">Anki-Connect is missing actions<a class="headerlink" href="#anki-connect-is-missing-actions" title="Permanent link">&para;</a></h5>
-<ul>
-<li>re-download anki-connect from ankiweb</li>
-</ul>
-<h5 id="anki-fields-are-different">Anki fields are different<a class="headerlink" href="#anki-fields-are-different" title="Permanent link">&para;</a></h5>
+<h4 id="anki-connect-is-missing-actions"><code>Anki-Connect is missing actions</code><a class="headerlink" href="#anki-connect-is-missing-actions" title="Permanent link">&para;</a></h4>
+<p>Anki-Connect is likely outdated.
+To fix this, remove and re-download Anki-Connect from the
+<a href="https://ankiweb.net/shared/info/2055492159">AnkiWeb page</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It seems that the <code>Check for Updates</code> occasionally fails to update the add-on,
+despite the fact that a newer version of the add-on exists.
+That is why I recommend re-downloading from the AnkiWeb page
+instead of using this feature.</p>
+</div>
+<h4 id="anki-fields-are-different">Anki fields are different<a class="headerlink" href="#anki-fields-are-different" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
 <p>updating script is very picky about fields, including order</p>
@@ -916,11 +936,11 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 <p>see the <a href="../modding/#field-editing">modding</a> page for more details.</p>
 </li>
 </ul>
-<h5 id="simulated-fields-do-not-match-expected-fields">Simulated fields do not match expected fields<a class="headerlink" href="#simulated-fields-do-not-match-expected-fields" title="Permanent link">&para;</a></h5>
+<h4 id="simulated-fields-do-not-match-expected-fields">Simulated fields do not match expected fields<a class="headerlink" href="#simulated-fields-do-not-match-expected-fields" title="Permanent link">&para;</a></h4>
 <ul>
 <li>see above</li>
 </ul>
-<h5 id="expected-fields-do-not-appear-in-ankis-fields-list">Expected fields do not appear in Anki's fields list<a class="headerlink" href="#expected-fields-do-not-appear-in-ankis-fields-list" title="Permanent link">&para;</a></h5>
+<h4 id="expected-fields-do-not-appear-in-ankis-fields-list">Expected fields do not appear in Anki's fields list<a class="headerlink" href="#expected-fields-do-not-appear-in-ankis-fields-list" title="Permanent link">&para;</a></h4>
 <ul>
 <li>see above</li>
 </ul>
