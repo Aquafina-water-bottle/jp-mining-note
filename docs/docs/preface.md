@@ -14,6 +14,8 @@ With that being said, JPMN should work for Anki versions 2.1.49+.
 ## Mobile (AnkiDroid and AnkiMobile)
 As of writing this,[^1] mobile versions of Anki are not yet supported.
 
+[^1]: As of 2022/09/25.
+
 There are plans of supporting AnkiDroid in the future.
 
 As I do not have an iPhone to test AnkiMobile,
@@ -24,10 +26,9 @@ There is no support for AnkiWeb,
 and there are no plans to support AnkiWeb.
 
 ## Themes
-The main theme of this card is with Anki's default dark mode.
-However, light mode is also supported.
+Both light mode and dark mode are supported.
+However, dark mode is recommended as the main theme of this note.
 
-[^1]: As of 2022/09/17.-->
 
 
 
@@ -46,11 +47,10 @@ not to have eye catching graphics.
 The only fundamental dependencies are `Yomichan` (to create the note) and the `Anki-Connect` add-on
 (to export the note from `Yomichan`, download the note, and for certain features to work within the note).
 Absolutely nothing else is required.
-This helps with ensuring the lifespan of the note,
-and to make the note more stable across various Anki versions.
+This helps with maintaining stability across various Anki versions.
 
 ## Modularized, Customizable & Extendable
-This project ships with built-in tools to easily disable/enable features,
+This project ships with [built-in tools](modding.md) to easily disable/enable features,
 or even completely remove them from the base template via compile-time options.
 Additionally, there are many built-in ways to extend the note to suit your exact needs.
 

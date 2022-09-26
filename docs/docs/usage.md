@@ -43,9 +43,9 @@ However, it also serves as a notification system to the user, when it has a colo
 ??? quote "Error"
 
     This should only appear when some javascript code fails.
-    In other words, this should **not** appear normally.
+    In other words, this should **not** appear under normal circumstances.
     If you get this without modifying the note in any way,
-    please report this as an issue!
+    please see [this section](faq.md#errors) for basic troubleshooting.
 
     {{ img("info circle error example", "assets/info_circle_error.gif") }}
 
@@ -61,7 +61,7 @@ However, it also serves as a notification system to the user, when it has a colo
 
     When the card is a leech, the circle is highlighted yellow (or blue in light mode)
     to indicate that it is a leech.
-    That this is only shown on the back side of the card.
+    This is only shown on the back side of the card.
 
     {{ img("info circle error example", "assets/info_circle_leech.gif") }}
 
@@ -72,6 +72,9 @@ However, it also serves as a notification system to the user, when it has a colo
 <i><sup>Main page: [Kanji Hover](kanjihover.md)</sup></i>
 
 Kanji hover shows you if you have seen the kanji in previous cards or not.
+This is useful if you want to check whether you have seen the reading
+in a previous card, to differentiate between similar kanjis, etc.
+
 By default, it searches for the kanji within the "Word" field,
 only for notes of the same type (JP Mining Note).
 

@@ -13,8 +13,9 @@ and goes into depth on the ways you can mod your note without losing your change
 
     This document is primarily for developer use.
     It is assumed that you have knowledge of basic command line.
+
     The instructions listed below will be primarily Linux based as well.
-    Notes for other operating systems may be shown.
+    Notes for other operating systems may be shown, but are not guaranteed.
 
 
 # Modding: The Obvious Way
@@ -64,14 +65,14 @@ templates
 - Python 3.10.6 or higher
     - I recommend [pyenv](https://github.com/pyenv/pyenv) to upgrade your python version
       if you're running linux. and have a lower version of Python.
-- [dart sass](https://sass-lang.com/dart-sass)
+- [sass](https://sass-lang.com/dart-sass) (dart implementation)
     - The dart implementation is required to use the latest features of sass.
 - Anki 2.1.54 or higher
 - Anki-connect addon
 
 ## Initialization
 
-```
+```bash
 git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 cd jp-mining-note
 # alternatively, if you already have the repository on your system:
@@ -89,12 +90,12 @@ pip3 install -r tools/requirements.txt
 ```
 
 Disabling the venv:
-```
+```bash
 deactivate
 ```
 
 Resetting the venv:
-```
+```bash
 # run this only if you're already in a venv
 deactivate
 
@@ -108,7 +109,7 @@ pip3 install -r tools/requirements.txt
 !!! note
     The `master` branch is the bleeding edge version of the note.
     If you want to build a more stable version of the note, do the following:
-    ```
+    ```bash
     git fetch
     git checkout tags/TAG_NAME
 
@@ -124,7 +125,7 @@ pip3 install -r tools/requirements.txt
 
     In case you don't want to use a `venv` (highly recommended that you use venv!!),
     you can install the following python packages:
-    ```
+    ```bash
     pip3 install JSON-minify jinja2 black pytest
     ```
 
@@ -138,7 +139,7 @@ pip3 install neovim anki aqt
 ## Building and Installing
 
 
-```
+```bash
 cd tools
 
 # Builds into a temporary folder and installs
@@ -148,7 +149,7 @@ python3 ./main.py
 
 
 Running the ./main.py script is equivalent of running:
-```
+```bash
 # builds the note into the ./build folder
 python3 make.py
 
@@ -158,7 +159,7 @@ python3 install.py --from-build --update
 
 
 ## Running Tests
-```
+```bash
 cd tools
 python3 -m pytest ./tests
 ```
@@ -170,7 +171,7 @@ python3 -m pytest ./tests
 - main files should be found under docs/docs/PAGE.md
 
 to preview the documentation:
-```
+```bash
 mkdocs serve
 ```
 
@@ -178,8 +179,9 @@ mkdocs serve
 !!! note
     If you are not using requirements.txt and venv, you can install the
     dependencies manually here:
-    ```
-    pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin mkdocs-git-revision-date-localized-plugin
+    ```bash
+    pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin \
+            mkdocs-git-revision-date-localized-plugin
     ```
 <!-- TODO update requirements.txt to include last git-revision requirement -->
 
@@ -452,11 +454,9 @@ TODO separate page
     - update documentation (see wiki/ folder)
 
 
-```
-
+```bash
 # Build for release, if you want to contribute to the project
 python3 ./make.py --release
-
 ```
 
 
