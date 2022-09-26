@@ -39,6 +39,21 @@ def get_args():
         default=None,
         help="executes a specific function defined in this file",
     )
+
+
+    parser.add_argument(
+        "--fill-field",
+        type=str,
+        help="fills a specific field of all JPMN notes with a value",
+    )
+
+    parser.add_argument(
+        "--empty-field",
+        type=str,
+        help="empties a specific field of all JPMN notes",
+    )
+
+
     return parser.parse_args()
 
 
@@ -134,7 +149,7 @@ def add_downstep_inner_span_tag():
 
 def set_pasilence_field():
     """
-    sets the `PASilence` fifeld to `[sound:_silence.wav`]
+    sets the `PASilence` field to `[sound:_silence.wav`]
     """
 
     notes = invoke("findNotes", query=r'"note:JP Mining Note"')
@@ -250,6 +265,53 @@ def add_sort_freq_legacy():
     notes = invoke("multi", actions=actions)
 
 
+def fill_field(field_name):
+
+    notes = invoke("findNotes", query=r'"note:JP Mining Note"')
+
+    # creates multi request
+    actions = []
+
+    for nid in notes:
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": nid,
+                    "fields": {field_name: "1"},
+                }
+            },
+        }
+
+        actions.append(action)
+
+    notes = invoke("multi", actions=actions)
+
+
+def empty_field(field_name):
+
+    notes = invoke("findNotes", query=r'"note:JP Mining Note"')
+
+    # creates multi request
+    actions = []
+
+    for nid in notes:
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": nid,
+                    "fields": {field_name: ""},
+                }
+            },
+        }
+
+        actions.append(action)
+
+    notes = invoke("multi", actions=actions)
+
+
+
 def main():
     args = get_args()
 
@@ -259,7 +321,11 @@ def main():
         print(f"executing {args.function}")
         func()
 
-    pass
+    elif args.fill_field:
+        fill_field(args.fill_field)
+
+    elif args.empty_field:
+        empty_field(args.empty_field)
 
 
 if __name__ == "__main__":

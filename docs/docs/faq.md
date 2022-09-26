@@ -1,22 +1,9 @@
-<!--
-TODO reword this maybe?
-
-Remember that all cards are fully customizable!
-You are absolutely free to tear the code apart and make these card formats your own.
--->
-
-
-
-<!--
-# How do I get rid of all of this pitch accent info?
-See [here](usage#wait-i-dont-want-to-test-pitch-accent).
--->
-
 
 # Errors
-These are various errors that can show up on the info circle at the top right.
+This section documents frequent errors that
+may show up on the info circle at the top right.
 
-TODO image / gif
+{{ img("info circle error example", "assets/info_circle_error.gif") }}
 
 ---
 
@@ -66,9 +53,6 @@ that can help you figure out what the error is:
     (I won't be able to upgrade the add-on for you, but I can potentially point to alternatives
     and/or add it to the documentation somewhere so others are aware of the issue.)
 
-<!--
-- TODO expand list in the future
--->
 
 If you can't manage to fix it, please submit an issue!
 
@@ -83,15 +67,34 @@ If you can't manage to fix it, please submit an issue!
 
 
 ## The sentence quotes are on completely different lines!
-<!--
 If your card looks like this:
---->
 
-(TODO)
+{{ img("quotes on different lines", "assets/quote_different_lines.png") }}
 
-- edit the underlying html (ctrl+shift+x) and remove the `<div>` and `</div>` tags.
-- happens if you copy/paste directly from certain pages (i.e. texthooker)
-- the sharex clipboard shortcut shouldn't have this problem because it uses `<br>` instead of `<div>`
+then your `Sentence` field is likely formatted internally similar to the following example:
+```html
+<div>そうデスサーヴァントの凸守を<b>差し置いて</b></div>
+<div>マスターと行動を共にするとは万死に値するデース</div>
+```
+
+To fix this, edit the `Sentence` [field html](faq.md#how-do-i-edit-the-fields-raw-html)
+to remove the `<div>` tags, and add `<br>` tags
+wherever a line break should appear.
+For example, the above should be changed into:
+```html
+そうデスサーヴァントの凸守を<b>差し置いて</b><br>
+マスターと行動を共にするとは万死に値するデース
+```
+
+!!! note
+
+    This happens if you copy/paste directly from certain pages into the sentence field,
+    such as some texthooker pages.
+    This can also happen if you copy/paste from a texthooker page to a different field,
+    say `AdditionalNotes`, and then copy a section of `AdditionalNotes` to `Sentence`.
+
+    Additionally, the sharex clipboard shortcut shouldn't have this problem because it
+    explicitly uses `<br>` instead of `<div>`
 
 ---
 
@@ -125,14 +128,6 @@ so the bug is here to stay until a better solution is found.
 ---
 
 
-## Pitch accent bold doesn't work on the last downstep
-- TODO
-- weird quirk with css injector
-- only solution I know of atm is to edit the raw html and move the `</b>` to the very end of the html
-
----
-
-
 
 # Card Editing
 
@@ -157,9 +152,24 @@ Of course, this will not affect existing cards.
 To change existing cards, I recommend bulk-editing your cards,
 say, with [this add-on](https://ankiweb.net/shared/info/291119185).
 
+!!! warning
+    As always, before mass editing your collection, please
+    [backup your Anki data](faq.md#how-do-i-backup-my-anki-data).
 
-(TODO write a way with python)
+Alternatively, you can use the following commands to bulk edit your cards
+in the current deck:
 
+```
+# assuming you are at the root of the repo,
+# i.e. after the `git clone ...` and `cd jp-mining-note`
+cd ./tools
+
+# sets all `IsSentenceCard` fields to be filled
+python3 batch.py --fill-field "IsSentenceCard"
+
+# empties all `IsSentenceCard` fields
+python3 batch.py --empty-field "IsSentenceCard"
+```
 
 !!! note
     You technically have a second option, and that is to change the code itself
@@ -185,7 +195,14 @@ say, with [this add-on](https://ankiweb.net/shared/info/291119185).
 
 
 ## How do I edit the field's raw HTML?
-- ctrl+shift+x
+Within the card browser,
+select a field to edit,
+and then type `ctrl+shift+x`.
+
+Alternatively, on newer versions of Anki, you can click on the top-right corner
+on the code button.
+
+{{ img("Anki edit html", "assets/anki/edit_html.gif") }}
 
 ---
 
@@ -204,8 +221,42 @@ to find the `Anki2` folder.
 * Your **media folder** is under `Anki2/PROFILE_NAME/collections.media`.
 * Your **addons folder** is under `Anki2/addons21`.
 
+---
+
+
+
+
+{{ img("anki export package", "assets/anki/media_export.png", 'align=right width="300"') }}
+## How do I backup my Anki data?
+
+The following makes a **complete backup** of your collection, including media.
+
+> Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`
+
+See the [official documentation](https://docs.ankiweb.net/backups.html)
+for more info.
+
+<br>
+
 
 ---
+
+
+
+## How do I backup Yomichan settings?
+
+1. Navigate to Yomichan Settings.
+1. Go to the `Backup` section
+1. Select `Export Settings`
+
+{{ img("how-to import Yomichan settings", "assets/yomichan/import_settings.gif") }}
+
+
+
+---
+
+
+
 
 ## What card type should I use?
 The short answer is: whichever one you want. :)
@@ -220,22 +271,25 @@ I recommend being open about it and experiment with them, to see which one you l
 
 
 ## What is the point of the `PASilence` field?
-It's a hack to not play audio even if you setup your Anki client to do so.
-See the `PASilence` field in the [field reference](usage#anki-field-reference) for more information.
+This is a hack to not play the sentence audio on the front side,
+even if you set-up your Anki client to do so.
+
+Removing this field will affect cards where you test pitch accent,
+i.e. with `PAShowInfo` filled.
+
 
 ---
 
 
 ## How do you see the currently installed version of this note?
-Preview any card. At the top left corner the version should be displayed.
-For example:
+Preview any card. At the top left corner, the version should be displayed.
 
-```
-Vocab (info circle)
-JP Mining Note: Version (VERSION DISPLAYED HERE)
-```
 
-TODO image
+<figure markdown>
+{{ img("version highlighted", "assets/version.png") }}
+</figure>
+
+
 
 ---
 

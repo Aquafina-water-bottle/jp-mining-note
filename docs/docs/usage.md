@@ -36,31 +36,34 @@ Additional information on some parts of the UI is stated below:
 ## Info Circle
 On hover, the info circle on the top left corner just shows some basic info.
 
-TODO gif
+{{ img("info circle example", "assets/info_circle.gif") }}
 
-However, it serves as a sort of notification system to the user, when it has a color.
+However, it also serves as a notification system to the user, when it has a color.
 
-### Error
-TODO gif
+??? quote "Error"
 
-This should only appear when some javascript code fails.
-In other words, this should **not** appear normally.
-If you get this without modifying the note in any way,
-please report this as an issue!
+    This should only appear when some javascript code fails.
+    In other words, this should **not** appear normally.
+    If you get this without modifying the note in any way,
+    please report this as an issue!
 
-### Warning
-TODO gif
+    {{ img("info circle error example", "assets/info_circle_error.gif") }}
 
-This serves to warn the user about something.
-It can appear without breaking the functionality of the card.
-In other words, you can choose to ignore it.
+??? quote "Warning"
 
-### Leech
+    This serves to warn the user about something.
+    It can appear without completely breaking the functionality of the card.
+    In other words, you can choose to ignore it.
 
-TODO gif
+    {{ img("info circle error example", "assets/info_circle_warning.gif") }}
 
-When the card is a leech, the circle is highlighted yellow
-(only on the back side) to indicate that it is a leech.
+??? quote "Leech"
+
+    When the card is a leech, the circle is highlighted yellow (or blue in light mode)
+    to indicate that it is a leech.
+    That this is only shown on the back side of the card.
+
+    {{ img("info circle error example", "assets/info_circle_leech.gif") }}
 
 
 
@@ -92,11 +95,14 @@ official anki addon page as specified
 
 
 ## Images
-TODO non bullet point
+Outside of the normal click to zoom image at the top right,
+any customy inserted images, including images inserted directly by Yomichan,
+will be converted to text which you have to hover over to reveal.
+Of course, this image can also be clicked on to zoom.
+See the video demo below to see exactly what happens.
 
-- click to zoom (the obvious feature)
-- yomichan inserted images + user inserted images get changed to be similar to how yomichan displays images
-- TODO gif
+![type:video](assets/img_utils.mp4)
+
 
 ---
 
@@ -208,7 +214,7 @@ outside of modifying pitch accent.
 The displayed pitch accent is usually the first position found in `PAPositions`.
 However, you can override this automatically chosen position using the `PAOverride` field.
 
-TODO gif (change 偽者 to 0, 1, 2, 4)
+![type:video](assets/pa_override.mp4)
 
 More information and customization, including automatically coloring the word
 with Migaku colors, can be found in the main page linked above.
@@ -250,8 +256,6 @@ By default, pitch accent is not tested.
 To test for pitch accent, fill the `PAShowInfo` field.
 You should see a circle to the left of the word or sentence.
 
-
-TODO annotated image for testing pitch accent
 
 
 ## Pitch Accent Indicator
