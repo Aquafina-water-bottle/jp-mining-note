@@ -26,15 +26,13 @@ in the Yomichan Templates section.
 
 
 # Prerequisites
-{{ img("anki export package", "assets/anki/media_export.png", 'align=right width="300"') }}
 
 Before doing anything that affects your Anki collection in a major way,
-please make a **complete backup** of your collection
-(Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
+please make a [complete backup](faq.md#how-do-i-backup-my-anki-data) of your collection.
 
 
 !!! note
-    Importing your previous notes shouldn't change your media files at all.
+    Transferring your previous notes shouldn't change your media files at all.
     However I recommend exporting **with media** just in case, so long as you have the disk space for it.
 
 
@@ -50,12 +48,19 @@ There are two ways you can do this:
 Anki provides a feature to switch between note types, without affecting scheduling information.
 To do this, follow the proceeding steps:
 
-1. Head to the Card Browser window (Main Window →  `Browse`)
-2. Select all the cards that you want to switch
-   - Tip: ctrl+a selects all cards in the browser.
+1. Head to the Card Browser window:
+
+    > Main Window →  `Browse`
+
+2. Select all the cards that you want to switch.
+
+    !!! note "Tip"
+        `ctrl+a` selects all cards in the browser.
+
 3. Right click the selection →  `Notes` →  `Change Note Type...`
 
-(TODO gif)
+![type:video](assets/anki/change_notetype.mp4)
+
 
 
 # Mapping Fields
@@ -63,25 +68,27 @@ Here is where I can't give specific advice, as every note is different.
 However, here are a few tips:
 
 - Your card likely doesn't have a separate `Key` and `Word` field,
-  and instead only contains one `Word` field.
-  To import this correctly into JPMN, make sure JPMN's `Key` and `Word` field are exactly
-  your old card's `Word` field.
+    and instead only contains one `Word` field.
+    To import this correctly into JPMN, make sure JPMN's `Key` and `Word` field are exactly
+    your old card's `Word` field.
 
 - `WordPitch` and `SentenceReading` can be left empty, as the AJT plugins
-  can batch generate both word pitches and sentence furigana.
+    can batch generate both word pitches and sentence furigana.
 
 - You may have some word pitch fields already in your card.
-  The only thing you should import is the pitch accent graphs,
-  into the `PAGraphs` field.
-  PA positions and PA text should be ignored.
+    Pitch accent graphs should be mapped to `PAGraphs`, and
+    pitch accent positions should be mapped to `PAPositions`.
 
 - You may have frequency list info already in your card.
-  As a quick warning, although you are free to import that info
-  it may not work as you would expect in the JPMN card.
-  Because there's no standard way to store this data, there is no convenience function
-  to convert it to the proper format.
+    Although you are free to import that info into `FrequenciesStylized`,
+    it will **likely not work as you would expect** in the JPMN card.
+    Because there's no standard way to store this data, there is no convenience function
+    to convert it to the proper format.
 
-- See the field reference (TODO link) for more information about other fields.
+- `FrequencySort` maps to the frequency value used to sort by frequency, similarly to
+  [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency).
+
+- If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 
 
 An example with [Anime cards](https://animecards.site/ankicards/) is shown below.
@@ -99,25 +106,39 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 
 
 # Batch Editing
-After switching your notes, you will have to do the following 3 things:
+After switching your notes, you will have to do the following 2 things:
 
-### (1) Batch generate pitch accents
+### (1) Batch generate pitch accents and sentence furigana
 
-1. Head to the Card Browser window.
+![type:video](assets/anki/batch_editing.mp4)
+
+
+1. Head to the Card Browser window:
+
+    > Main Window →  `Browse`
+
 2. Select all of your newly imported notes.
-    - Tip: the query `"note:JP Mining Note"` should reveal all of your newly imported notes.
-      Make sure you include the double quotes in the query search.
-3. Head over to `Edit` (top left corner) →  `Bulk-add pitch accents`.
 
-(TODO gif)
+    !!! note "Tip"
+        The following query should reveal all of your newly imported notes.
+        Make sure you include the double quotes in the query search.
+        ```
+        "note:JP Mining Note"
+        ```
+        Afterwards, you can do `ctrl+a` to select all of the resulting cards.
 
-### (2) Batch generate sentence furigana
+3. Head over to:
 
-1. Head to the Card Browser window.
-2. Select all of your newly imported notes.
-3. Head over to `Edit` (top left corner) →  `Bulk-add furigana`.
+    > `Edit` (top left corner) →  `Bulk-add pitch accents`.
 
-### (3) Batch set `PASilence` field
+4. Again, head over to:
+
+    > `Edit` (top left corner) →  `Bulk-add furigana`.
+
+
+
+
+### (2) Batch set `PASilence` field
 
 1. Head to the Card Browser window.
 2. Select all of your newly imported notes.

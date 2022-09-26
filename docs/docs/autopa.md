@@ -80,23 +80,22 @@ and must be enabled in the [options file](runtimeoptions.md):
   ...
 }
 ```
+![type:video](assets/pa_override_color.mp4)
 
-A summary of the colors used is shown below:
+!!! note
 
-| English   | 日本語 | Example              | Reading      |
+    The 起伏 pattern is not automatically detected.
+    To use this color, you must manually set the `PAOverride` field to `-1`.
+
+## Colored Pitch Accent Summary
+
+| Anki Tag  | 日本語 | Example              | Reading      |
 |: ------- :|: ---- :|: ------------------ :|: ---------- :|
 | heiban    | 平板   | 自然 {.pa-heiban}    | しぜん￣     |
 | atamadaka | 頭高   | 人生 {.pa-atamadaka} | じ＼んせい   |
 | nakadaka  | 中高   | 弱点 {.pa-nakadaka}  | じゃくて＼ん |
 | odaka     | 尾高   | 道具 {.pa-odaka}     | どうぐ＼     |
 | kifuku    | 起伏   | 驚く {.pa-kifuku}    | おどろ＼く   |
-
-TODO gif (change 偽者 to 0, 1, 2, 4, -1)
-
-!!! note
-
-    The 起伏 pattern is not automatically detected.
-    To use this color, you must manually set the `PAOverride` field to `-1`.
 
 
 ## Position Selection
@@ -115,28 +114,10 @@ However, if you are using a non-integer value in `PAOverride` to override the en
 you must add the correct tag to your note.
 
 The exact tags that can be used are shown in the
-[summary table](autopa.md#colored-pitch-accent) above,
-under the English and 日本語 sections.
+[summary table](autopa.md#colored-pitch-accent-summary) above,
+under the `Anki Tag` and 日本語 sections.
 For example, the tag can be `heiban`, `平板`, etc.
 
-
-<!--
-| English     | 日本語 | Color              | Example             |
-|: --------- :|: ---- :|: ---------------- :|: ----------------- :|
-| `heiban`    | `平板` | ⬤  {.pa-heiban}    | 自然 (しぜん￣)     |
-| `atamadaka` | `頭高` | ⬤  {.pa-atamadaka} | 人生 (じ＼んせい)   |
-| `nakadaka`  | `中高` | ⬤  {.pa-nakadaka}  | 弱点 (じゃくて＼ん) |
-| `odaka`     | `尾高` | ⬤  {.pa-odaka}     | 心 (こころ＼)       |
-| `kifuku`    | `起伏` | ⬤  {.pa-kifuku}    | 驚く (おどろ＼く)   |
-
-| English     | 日本語 | Example              | Reading      |
-|: --------- :|: ---- :|: ------------------ :|: ---------- :|
-| `heiban`    | `平板` | 自然 {.pa-heiban}    | しぜん￣     |
-| `atamadaka` | `頭高` | 人生 {.pa-atamadaka} | じ＼んせい   |
-| `nakadaka`  | `中高` | 弱点 {.pa-nakadaka}  | じゃくて＼ん |
-| `odaka`     | `尾高` | 心   {.pa-odaka}     | こころ＼     |
-| `kifuku`    | `起伏` | 驚く {.pa-kifuku}    | おどろ＼く   |
--->
 
 
 !!! note
@@ -183,4 +164,27 @@ one can bold the unused pitch accents to grey them out.
 <figure markdown>
 {{ img("word pitch with bolded field to grey out", "assets/bold_pa.png") }}
 </figure>
+
+
+
+## Bolding the last downstep
+
+{{ img("word pitch ", "assets/downstep_not_bolded.png", 'align=right width="300"') }}
+
+- TODO doesn't work by default with basic `ctrl+b` attempts
+- seems to be a weird quirk with css injector
+- only solution I know of atm is to edit the raw html and move the `</b>` to the very end of the html
+
+
+previous:
+```html
+<span style="text-decoration:overline;" class="pitchoverline">ナ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>サケ<b>・ナ<span style="text-decoration:overline;" class="pitchoverline">サケ</span></b><span class="downstep"><span class="downstep-inner">ꜜ</span></span>
+```
+
+after editing the raw html:
+```html
+<span style="text-decoration:overline;" class="pitchoverline">ナ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>サケ<b>・ナ<span style="text-decoration:overline;" class="pitchoverline">サケ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></b>
+```
+
+
 

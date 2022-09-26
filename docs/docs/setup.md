@@ -106,12 +106,21 @@ View one of the cards and make sure the card looks similar to the one below:
 Please check the following in particular:
 
 1. The fonts should match very similarly with the above example.
+
 1. Notice how at the top left corner, the info circle (the "i" encased within the circle)
     is the default grey color.
+
+    <figure markdown>
+    {{ img("test", "assets/info_circle.png") }}
+    </figure>
+
     If this is red, that means something is wrong with the note's javascript.
     Please see [this](faq.md#errors) section for basic troubleshooting.
+
+
 1. Clicking on the image to zoom should work out of the box.
     If you already have Anki-Connect installed, kanji hover should also work.
+
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
     this is likely because you are using the older Qt5 version of Anki.
     Unfortunately, as this seems like a quirk of Qt5, there does not seem to be a way to fix it
@@ -150,12 +159,14 @@ If an add-on (that worked in a previous version of Anki) no longer works, you ha
 <br>
 
 ## Dark Mode
-The recommended theme for this note is with Anki's dark mode.
+Although light mode is supported, the recommended theme for this note is dark mode.
 
-To change Anki's theme, head over to: <br>
-> `Tools` →  `Preferences` →  `Basic` →  `Theme (dropdown)` →  `Theme: Dark`
+The note automatically adjusts according to Anki's theme.
+To change Anki's theme, head over to:
+> `Tools` →  `Preferences` →  `Basic` →  `Theme (dropdown)`
 
-(TODO gif)
+
+{{ img("install Anki addons", "assets/anki/dark_mode.png") }}
 
 
 <br>
@@ -529,13 +540,9 @@ This section will go over the minimal Yomichan setup to work with this card type
 
 
 ## Preliminary Steps
-If you have used Yomichan before, please make a backup of your settings (just in case):
-
-* Navigate to Yomichan Settings.
-* Go to the `Backup` section
-* Select `Export Settings`
-
-{{ img("how-to import Yomichan settings", "assets/yomichan/import_settings.gif") }}
+If you have used Yomichan before, please make a
+[backup of your settings](faq.md#how-do-i-backup-yomichan-settings)
+(just in case).
 
 
 ## Yomichan Fields

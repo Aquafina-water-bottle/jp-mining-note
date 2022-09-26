@@ -51,7 +51,7 @@ var JPMNLogger = (() => {
 
     errorStack(stack) {
       let ignoredErrors = {{ utils.opt("ignored-errors") }};
-      for (substr of ignoredErrors) {
+      for (let substr of ignoredErrors) {
         if (stack.includes(substr)) {
           // ignores
           return;

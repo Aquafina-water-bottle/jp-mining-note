@@ -60,11 +60,12 @@ templates
 
 # Building
 
-## Prerequisites:
+## Prerequisites
 - Python 3.10.6 or higher
     - I recommend [pyenv](https://github.com/pyenv/pyenv) to upgrade your python version
       if you're running linux. and have a lower version of Python.
-- dart sass (dart version is required to use the latest features of sass)
+- [dart sass](https://sass-lang.com/dart-sass)
+    - The dart implementation is required to use the latest features of sass.
 - Anki 2.1.54 or higher
 - Anki-connect addon
 
@@ -184,13 +185,36 @@ mkdocs serve
 
 
 
+# Common Errors
+- TODO fill out as people start working with this note
+
+
+
 # Modding the Note
-
 After running `main.py` (or `make.py`), a new file `config/config.py` should appear.
-The main compile-time options can be found in this file.
+The compile-time options can be found in this file.
 
-{% raw %}
+
+## Field Editing
+This section describes import PSAs on what you should you if you want to
+edit the fields of the note (i.e. adding, removing, renaming, and moving).
+
+- if wanting to add field: recommend to add below `Comment` field to seemlessly update
+    - if field added above `Comment` and want to update, run `install.py` with `--ignore-order` flag
+- do not remove fields!
+    - even if compiling them out with always-filled/never-filled fields (below)
+    - to move out of you way, move them below `Comment` and run `install.py` with `--ignore-order` flag on further updates
+    - install script requires all expected fields to be present (you no longer cannot update if you remove a field)
+        - simply re-add the field if you removed it before
+    - is a design choice made by the updating script to make it easier to update the note
+    - this rule may be removed in the future, but it will be kept strict for now to make the dev's life easier
+
+- do not rename fields
+    - similarily to the above, so the updater knows what fields already exist
+
+
 ## Always filled & Never filled fields
+{% raw %}
 You can set a field to act as if it has always been filled, or it has never been filled.
 This will remove the conditional Anki templates
 (`{{#FIELD}}` and `{{^FIELD}}` markers) for the specified fields.
@@ -221,6 +245,7 @@ B is not filled
 ```
 {% endraw %}
 
+
 ## Modules
 - TODO basic explanation
 - primary use is for javascript
@@ -229,20 +254,36 @@ B is not filled
     - edits are minimal so you should be able to re-add upon update
 - uses runtime options
 
+
 ## Extra Javascript
 TODO: not implemented
 
 - primarily for testing, not for production use
 - appends whatever javascript you want to the very end of the anonymous function
 
+
 ## Custom CSS
-- allows for custom themes / minor user customizations
+- allows for custom themes / complete user customization
 - can override variables, etc.
 - simply appends the css at the very end of the existing css
+
+how-to:
+
 - make new folder under `scss` (e.g. `scss/extra`) and add to `css-folders` in config.py, e.g.
     ```
     "css-folders": ["default", "dictionaries", "extra"],
     ```
+- folder should be of the format:
+    ```
+    extra
+     L field.scss
+     L editor.scss
+     L style.scss
+    ```
+    - all files are optional: only create and use the ones you need
+
+
+
 
 ## Template Overrides
 - `overrides` folder (or whatever folder you specify under `templates-override-folder` in config.py)
@@ -407,7 +448,7 @@ TODO separate page
 
 - final steps:
     - use black to format all python files (TODO script)
-    - make sure tests run (maybe CI at some point, might be overkill atm though lmao)
+    - make sure tests run (maybe CI at some point)
     - update documentation (see wiki/ folder)
 
 

@@ -73,13 +73,12 @@ Fill the `IsTargetedSentenceCard` field.
 
 # Hybrid Cards
 
-TODO: update all the gifs and pictures of the hybrid cards
-
-
 Hybrid cards are a group of card types that attempt to combine the power of
 sentence cards and vocab cards into one.
 They all have the distinct feature that the word is shown at the front,
 but the sentence can be shown through some natural means.
+Additionally, all hybrid cards have some form of underline beneath
+the tested word, to differentiate it between a vocab card.
 
 The primary reason why this exists is to prevent
 context-based memories.
@@ -105,7 +104,7 @@ However, you are given the option to see the full sentence without failing the c
 
 This is also known as the [fallback card](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#fallback-cards).
 
-**Indicator:** Yellow & dashed underline under the word.
+**Indicator:** Grey & dotted underline under the word.
 
 **How to test:** <br>
 
@@ -133,7 +132,7 @@ This card acts as an intermediary between the hover vocab card and the vocab car
 You must guess the reading **BEFORE** revealing the sentence,
 but you can use the sentence to guess the definition.
 
-**Indicator:** White & dashed underline under the word.
+**Indicator:** Grey & dashed underline under the word.
 
 **How to test:** <br>
 
@@ -161,7 +160,7 @@ This acts similarly to the hover vocab card.
 However, the tested content is the entire sentence,
 so you must hover over the word to test the entire sentence.
 
-**Indicator:** Yellow & solid underline under the word.
+**Indicator:** Colored word & dotted underline under the word.
 
 **How to test:** <br>
 
@@ -184,7 +183,7 @@ This acts similar to the click vocab card.
 However, similarly to the hover sentence card, the tested content is the entire display,
 so you must click the word to test the entire display
 
-**Indicator:** White & solid underline under the word.
+**Indicator:** Colored word & dashed underline under the word.
 
 **How to test:** <br>
 

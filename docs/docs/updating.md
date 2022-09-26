@@ -19,8 +19,9 @@ Lastly, it will give you warnings on anything you have to change manually,
 such as Yomichan Templates.
 
 
-<!-- It's updated now!!!
+<!-- It's updated now!!! (writing as of 2022/09/25) -->
 
+<!--
 ### Anki-Connect: Dev Version
 At the time of writing this (2022/09/07),
 you will need the developer version of Anki-Connect,
@@ -41,7 +42,7 @@ will likely need (calls related to field editing).
            clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
            After that, unzip the directory.
         1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
-           in the [addons folder](faq#where-is-the-x-folder-in-anki).
+           in the [addons folder](faq.md#where-is-the-x-folder-in-anki).
         1. Rename `plugin` to `AnkiConnectDev`.
 
         In the end, the file structure should look something like below:
@@ -141,6 +142,7 @@ This section will document common errors that occur when running the `/install.p
 
 #### Anki fields are different
 - updating script is very picky about fields, including order
+
 - if added field(s):
     - if field matches newly-added field
         - e.g. if your note doesn't have `PAPositions` but you added a field `Positions` that fulfills the same purpose, then rename `Positions` to `PAPositions`
@@ -149,8 +151,18 @@ This section will document common errors that occur when running the `/install.p
     - option 2: use `--ignore-order` flag (i.e. `install.py --update --ignore-order`
 
 - if removed field:
-    - don't do this next time, re-add the field and update
+    - re-add the field
+    - don't do this next time
     - if you don't want to use the field, move field under `Comment` and run with `--ignore-order` flag
+
+- if renamed field:
+    - rename back to the original
+    - again with the above, don't do this next time
+
+- if fields are in the wrong order:
+    - either manually re-order it, or run with `--ignore-order`
+
+- see the [modding](modding.md#field-editing) page for more details.
 
 #### Simulated fields do not match expected fields
 - see above
@@ -179,7 +191,8 @@ This section will document common errors that occur when running the `/install.p
 
     To see if the fields have been changed, compare the
     first two numbers in the version you want to install
-    to the first two numbers of the current card version. (TODO link FAQ)
+    to the first two numbers of the current
+    [card version](faq.md/#how-do-you-see-the-currently-installed-version-of-this-note).
     If the first two numbers match, then you are likely safe to manually update the card.
 
     If they don't match, then you MAY be able to get away with installing it anyways and transferring
@@ -207,7 +220,7 @@ Further instructions on these are written below.
 # Updating Yomichan's Anki Card Format
 
 To update the Yomichan Format, the steps should be almost the same as the
-one specified already in the [setup](setup#yomichan-fields).
+one specified already in the [setup](setup.md#yomichan-fields).
 However, there are some differences that you should keep in mind.
 
 ## Refreshing the Fields
@@ -227,7 +240,8 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
 
 Here is how I recommend transitioning as smoothly as possible:
 
-1. As always, create a [backup](setup#preliminary-steps) of your Yomichan settings, just in case.
+1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings)
+    of your Yomichan settings, just in case.
 1. After running `install.py --update`, create a temporary copy of the note by: <br>
     `Tools` <br>
     →  `Manage Note Types` <br>
@@ -235,7 +249,7 @@ Here is how I recommend transitioning as smoothly as possible:
     →  (select `Clone: JP Mining Note`) <br>
     →  (name it to anything you want. For the following examples, it will be named `JP Mining Note (copy)`.) <br>
     →  `Ok`
-1. Head over to Anki Card Format [as before](setup#yomichan-fields).
+1. Head over to Anki Card Format [as before](setup.md#yomichan-fields).
 1. In the top right corner, change `Model` to `JP Mining Note (copy)`,
    and then change it back to `JP Mining Note`.
 1. Update the fields as specified.
@@ -259,9 +273,9 @@ Here is how I recommend transitioning as smoothly as possible:
 
 
 # Updating Yomichan Templates
-Like the above, you can simply follow the steps already specified in [setup](setup#yomichan-templates).
+Like the above, you can simply follow the steps already specified in [setup](setup.md#yomichan-templates).
 Again, please make sure you **reset the existing templates** (unless you know what you are doing),
-and again, please make a [backup](setup#preliminary-steps) of your Yomichan settings just in case.
+and again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings) of your Yomichan settings just in case.
 
 
 
