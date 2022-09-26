@@ -10,11 +10,14 @@ A field that checks whether it is filled or not with any value, say `1`.
 The default is implied by the name of the field, and a value of "true" means that the field is filled.
 For example, the `IsSentenceCard` field will turn the card into a sentence card if filled.
 If it is not filled, then the card will be a word card.
-To fill a field automatically, see [here](faq.md#how-do-i-change-the-default-value-of-a-binary-field).
+To fill a field automatically, see
+[here](faq.md#how-do-i-change-the-default-value-of-a-binary-field){:target="_blank"}.
 
+<!--
 To "toggle" a binary field means to either fill the value if is not filled yet,
 or to remove the value if it is filled.
 In other words, it means to flip the value of the field between empty and filled.
+-->
 
 **PA:** Short for "Pitch Accent".
 
@@ -45,7 +48,7 @@ However, it also serves as a notification system to the user, when it has a colo
     This should only appear when some javascript code fails.
     In other words, this should **not** appear under normal circumstances.
     If you get this without modifying the note in any way,
-    please see [this section](faq.md#errors) for basic troubleshooting.
+    please see [this section](faq.md#errors){:target="_blank"} for basic troubleshooting.
 
     {{ img("info circle error example", "assets/info_circle_error.gif") }}
 
@@ -88,7 +91,7 @@ they should represent words that you already know.
 
 !!! note
     The maximum number of results, as well as the exact queries themselves,
-    can be changed in the [options file](runtimeoptions.md).
+    can be changed in the [options file](runtimeoptions.md){:target="_blank"}.
 
 
 ## Word Pitch
@@ -123,7 +126,7 @@ where the tested content is simply the word.
 
 {{ img("vocab card example", "assets/nisemono_word.png") }}
 
-To change the card to a sentence card, toggle the `IsSentenceCard` binary field.
+To change the card to a sentence card, fill the `IsSentenceCard` binary field.
 
 {{ img("sentence card example", "assets/nisemono_sentence.png") }}
 

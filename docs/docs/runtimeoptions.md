@@ -1,16 +1,21 @@
 
 There are many options that can be set within the (javascript) runtime options file.
 To edit this, navigate to your profile's
-[media folder](faq.md#where-is-the-x-folder-in-anki)),
+[media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}),
 and open the `_jpmn-options.js` file as a text file.
 
+!!! note
 
-TODO gif for windows (open as notepad)
+    To open the file as a text file on Windows, right click the file and select `Edit`.
 
 
 !!! note
-    If you are using an older version of JPMN, you can find the most recent
-    version of the options file
+
+    The options file does not automatically update with each note update, as to not
+    override the user's configuration on each update, so the file must be manually updated.
+    If the options file isn't updated, then the note will simply use the default value for the option.
+
+    The most recent version of the options file can always be found
     [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
 
 
@@ -23,6 +28,8 @@ var JPMNOpts = (function (my) {
   return my;
 }(JPMNOpts || {}));
 ```
+
+
 
 I recommend going through this file and selecting the options that best fits your workflow.
 As each setting is already documented in the file,

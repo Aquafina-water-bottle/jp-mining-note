@@ -199,7 +199,7 @@ To fix this, remove and re-download Anki-Connect from the
     To see if the fields have been changed, compare the
     first two numbers in the version you want to install
     to the first two numbers of the current
-    [card version](faq.md/#how-do-you-see-the-currently-installed-version-of-this-note).
+    [card version](faq.md/#how-do-you-see-the-currently-installed-version-of-this-note){:target="_blank"}.
     If the first two numbers match, then you are likely safe to manually update the card.
 
     If they don't match, then you MAY be able to get away with installing it anyways and transferring
@@ -247,7 +247,7 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
 
 Here is how I recommend transitioning as smoothly as possible:
 
-1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings)
+1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
     of your Yomichan settings, just in case.
 1. After running `install.py --update`, create a temporary copy of the note by: <br>
     `Tools` <br>
@@ -256,7 +256,7 @@ Here is how I recommend transitioning as smoothly as possible:
     →  (select `Clone: JP Mining Note`) <br>
     →  (name it to anything you want. For the following examples, it will be named `JP Mining Note (copy)`.) <br>
     →  `Ok`
-1. Head over to Anki Card Format [as before](setup.md#yomichan-fields).
+1. Head over to Anki Card Format [as before](setup.md#yomichan-fields){:target="_blank"}.
 1. In the top right corner, change `Model` to `JP Mining Note (copy)`,
    and then change it back to `JP Mining Note`.
 1. Update the fields as specified.
@@ -280,9 +280,9 @@ Here is how I recommend transitioning as smoothly as possible:
 
 
 # Updating Yomichan Templates
-Like the above, you can simply follow the steps already specified in [setup](setup.md#yomichan-templates).
+Like the above, you can simply follow the steps already specified in [setup](setup.md#yomichan-templates){:target="_blank"}.
 Again, please make sure you **reset the existing templates** (unless you know what you are doing),
-and again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings) of your Yomichan settings just in case.
+and again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"} of your Yomichan settings just in case.
 
 
 
