@@ -23,42 +23,68 @@
 {{~/inline~}}
 
 
-{{~! primary def: first monolingual (or first bilingual if no monolingual dicts found) ~}}
-{{~#*inline "jpmn-get-primary-definition-dict"~}}
+
+{{~! returns "" if selection text is disabled, or if none existed in the first place ~}}
+{{~#*inline "_jpmn-selection-text"~}}
+    {{~#if (op "===" (get "opt-selection-text-enabled") true)~}}
+        {{~! removes leading and trailing whitespace ~}}
+        {{~#regexReplace "^\s+|\s+$" "" "g"~}}
+            {{~#getMedia "selectionText"}}{{/getMedia~}}
+        {{~/regexReplace~}}
+    {{~/if~}}
+{{~/inline~}}
+
+
+{{~!
+    if (selection-text-mode results in dictionary):
+        returns dictionary found
+    elif (selection-mode results in definition):
+        return null
+    else:
+        returns true first-dictionary
+        - first-dictionary is determined by `opt-first-definition-type`
+        - (opt-first-definition-type === bilingual) -> bilingual dictionaries are searched first
+        - (opt-first-definition-type === monolingual) -> monolingual dictionaries are searched first
+~}}
+{{~#*inline "_jpmn-get-primary-definition-dict"~}}
     {{~#scope~}}
 
+        {{~! first checks selection text ~}}
+        {{~#set "selection"}}{{~> _jpmn-selection-text ~}}{{/set~}}
+        {{~#if (op "!==" (get "selection") "")~}}
 
-        {{~#if (op "===" (get "opt-first-definition-type") "bilingual")~}}
-            {{~#set "first-definition-search-type-1" "bilingual"}}{{/set~}}
-            {{~#set "first-definition-search-type-2" "monolingual"}}{{/set~}}
-        {{~else~}}
-            {{~#set "first-definition-search-type-1" "monolingual"}}{{/set~}}
-            {{~#set "first-definition-search-type-2" "bilingual"}}{{/set~}}
-        {{~/if~}}
+            {{~#set "selection-is-dictionary" false}}{{/set~}}
 
-
-        {{~! first-dictionary === null <=> no valid dictionary was found ~}}
-        {{~#set "first-dictionary" null}}{{/set~}}
-
-        {{~#each definition.definitions~}}
-
-            {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-            {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-1"))~}}
-                {{~#if (op "===" null (get "first-dictionary"))~}}
-                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+            {{~#each definition.definitions~}}
+                {{~#if (op "===" (get "selection") dictionary)~}}
+                    {{~#set "selection-is-dictionary" true ~}}{{~/set~}}
                 {{~/if~}}
+            {{~/each~}}
+
+            {{~#if (op "===" (get "selection-is-dictionary") true)~}}
+                {{~get "selection"~}}
+            {{~else~}}
+                {{~! null ~}}
             {{~/if~}}
 
-        {{~/each~}}
+        {{~! no selection text ~}}
+        {{~else~}}
+            {{~#if (op "===" (get "opt-first-definition-type") "bilingual")~}}
+                {{~#set "first-definition-search-type-1" "bilingual"}}{{/set~}}
+                {{~#set "first-definition-search-type-2" "monolingual"}}{{/set~}}
+            {{~else~}}
+                {{~#set "first-definition-search-type-1" "monolingual"}}{{/set~}}
+                {{~#set "first-definition-search-type-2" "bilingual"}}{{/set~}}
+            {{~/if~}}
 
 
-        {{~! uses other dictionary type, last resort ~}}
-        {{~#if (op "===" (get "first-dictionary") null)~}}
+            {{~! first-dictionary === null <=> no valid dictionary was found ~}}
+            {{~#set "first-dictionary" null}}{{/set~}}
 
             {{~#each definition.definitions~}}
 
                 {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-                {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-2"))~}}
+                {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-1"))~}}
                     {{~#if (op "===" null (get "first-dictionary"))~}}
                         {{~#set "first-dictionary" dictionary~}}{{~/set~}}
                     {{~/if~}}
@@ -66,9 +92,26 @@
 
             {{~/each~}}
 
-        {{~/if~}}
 
-        {{~#get "first-dictionary"~}}{{~/get~}}
+            {{~! uses other dictionary type, last resort ~}}
+            {{~#if (op "===" (get "first-dictionary") null)~}}
+
+                {{~#each definition.definitions~}}
+
+                    {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+                    {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-2"))~}}
+                        {{~#if (op "===" null (get "first-dictionary"))~}}
+                            {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                        {{~/if~}}
+                    {{~/if~}}
+
+                {{~/each~}}
+
+            {{~/if~}}
+
+            {{~#get "first-dictionary"~}}{{~/get~}}
+
+        {{~/if~}}
 
     {{~/scope~}}
 
@@ -77,21 +120,21 @@
 
 {{~! custom glossary-single function for additional regex parsing per dictionary ~}}
 {{~! OVERRIDES brief and noDictionaryTag ~}}
-{{#*inline "jpmn-glossary-single"}}
+{{#*inline "_jpmn-glossary-single"}}
     {{~#scope~}}
         {{~#if (op "===" dictionary "NHK日本語発音アクセント新辞典")~}}
             {{~#regexReplace "<br> ・" "<br>" "g"~}}
-                {{~> jpmn-glossary-single-override . ~}}
+                {{~> _jpmn-glossary-single-override . ~}}
             {{~/regexReplace~}}
         {{~else~}}
-            {{~> jpmn-glossary-single-override . ~}}
+            {{~> _jpmn-glossary-single-override . ~}}
         {{~/if~}}
     {{~/scope~}}
 {{/inline}}
 
 
 {{~! custom glossary-single function to add custom html around the dictionary and tags ~}}
-{{#*inline "jpmn-glossary-single-override"}}
+{{#*inline "_jpmn-glossary-single-override"}}
 
     {{~#scope~}}
 
@@ -142,7 +185,6 @@
 
 {{#*inline "jpmn-frequencies"}}
     {{~#if (op ">" definition.frequencies.length 0)~}}
-        <div class="frequencies">
         {{~#each definition.frequencies~}}
             <div class="frequencies__group" data-details="{{~dictionary~}}"> {{~s~}}
                 <div class="frequencies__number"> {{~s~}}
@@ -157,25 +199,24 @@
                 </div> {{~s~}}
                 <div class="frequencies__dictionary"> {{~s~}}
                     <span class="frequencies__dictionary-inner"> {{~s~}}
-                        <span class="frequencies__dictionary-inner2">{{~dictionary~}}</span> {{~s~}}
+                        {{~dictionary~}}
                     </span> {{~s~}}
                 </div> {{~s~}}
             </div>
         {{~/each~}}
-        </div>
     {{~/if~}}
 {{/inline}}
 
 {{~! taken from here: https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency ~}}
-{{#*inline "jpmn-min-freq"}}
+{{~#*inline "jpmn-min-freq"~}}
     {{~#scope~}}
-        {{~#set "min-freq" 0}}{{/set~}}
-            {{#each definition.frequencies}}
+        {{~#set "min-freq" 0~}}{{~/set~}}
+            {{~#each definition.frequencies~}}
                 {{~#if (op "||" (op "===" (get "min-freq") 0) (op ">" (op "+" (get "min-freq")) (op "+" (regexMatch "\d" "g" this.frequency))))}}
                     {{~#set "min-freq" (op "+" (regexMatch "\d" "g" this.frequency))}}{{/set~}}
                 {{~/if~}}
-            {{/each}}
-        {{get "min-freq"}}
+            {{~/each~}}
+        {{~get "min-freq"~}}
     {{~/scope~}}
 {{/inline}}
 
@@ -267,14 +308,16 @@
 
     {{~#scope~}}
 
-        {{~#set "primary-dictionary"}}{{~> jpmn-get-primary-definition-dict . ~}}{{/set~}}
+        {{~#set "primary-dictionary"}}{{~> _jpmn-get-primary-definition-dict . ~}}{{/set~}}
 
-        {{~#if (op "!==" (get "primary-dictionary") "")~}}
+        {{~#if (op "===" (get "primary-dictionary") "")~}}
+            {{~> _jpmn-selection-text ~}}
+        {{~else~}}
             <ol>
             {{~#each definition.definitions~}}
                 {{~#if (op "===" dictionary (get "primary-dictionary"))~}}
                     <li data-details="{{~dictionary~}}">
-                        {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                        {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
                     </li>
                 {{~/if~}}
             {{~/each~}}
@@ -291,34 +334,31 @@
 
     {{~#scope~}}
 
-        {{~#set "primary-dictionary"}}{{~> jpmn-get-primary-definition-dict . ~}}{{/set~}}
+        {{~#set "primary-dictionary"}}{{~> _jpmn-get-primary-definition-dict . ~}}{{/set~}}
 
-        {{~#if (op "!==" (get "primary-dictionary") "")~}}
+        {{~! looks to see if another dictionary exists ~}}
+        {{~#set "valid-dict" false}}{{/set~}}
 
-            {{~! looks to see if another dictionary exists ~}}
-            {{~#set "valid-dict" false}}{{/set~}}
+        {{~#each definition.definitions~}}
+            {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+            {{~#if (op "&&" (op "===" (get "test-dict-name") "bilingual") (op "!==" (get "primary-dictionary") dictionary))~}}
+                {{~#set "valid-dict" true}}{{/set~}}
+            {{~/if~}}
+        {{~/each~}}
 
+        {{~#if (get "valid-dict") ~}}
+            <ol>
             {{~#each definition.definitions~}}
                 {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
                 {{~#if (op "&&" (op "===" (get "test-dict-name") "bilingual") (op "!==" (get "primary-dictionary") dictionary))~}}
-                    {{~#set "valid-dict" true}}{{/set~}}
+
+                    <li data-details="{{~dictionary~}}">
+                        {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                    </li>
+
                 {{~/if~}}
             {{~/each~}}
-
-            {{~#if (get "valid-dict") ~}}
-                <ol>
-                {{~#each definition.definitions~}}
-                    {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-                    {{~#if (op "&&" (op "===" (get "test-dict-name") "bilingual") (op "!==" (get "primary-dictionary") dictionary))~}}
-
-                        <li data-details="{{~dictionary~}}">
-                            {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
-                        </li>
-
-                    {{~/if~}}
-                {{~/each~}}
-                </ol>
-            {{~/if~}}
+            </ol>
         {{~/if~}}
 
     {{~/scope~}}
@@ -331,32 +371,29 @@
 
     {{~#scope~}}
 
-        {{~#set "primary-dictionary"}}{{~> jpmn-get-primary-definition-dict . ~}}{{/set~}}
+        {{~#set "primary-dictionary"}}{{~> _jpmn-get-primary-definition-dict . ~}}{{/set~}}
 
-        {{~#if (op "!==" (get "primary-dictionary") "")~}}
+        {{~! looks to see if another dictionary exists ~}}
+        {{~#set "valid-dict" false}}{{/set~}}
 
-            {{~! looks to see if another dictionary exists ~}}
-            {{~#set "valid-dict" false}}{{/set~}}
+        {{~#each definition.definitions~}}
+            {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+            {{~#if (op "&&" (op "===" (get "test-dict-name") "monolingual") (op "!==" (get "primary-dictionary") dictionary))~}}
+                {{~#set "valid-dict" true}}{{/set~}}
+            {{~/if~}}
+        {{~/each~}}
 
+        {{~#if (get "valid-dict") ~}}
+            <ol>
             {{~#each definition.definitions~}}
                 {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
                 {{~#if (op "&&" (op "===" (get "test-dict-name") "monolingual") (op "!==" (get "primary-dictionary") dictionary))~}}
-                    {{~#set "valid-dict" true}}{{/set~}}
+                    <li data-details="{{~dictionary~}}">
+                        {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                    </li>
                 {{~/if~}}
             {{~/each~}}
-
-            {{~#if (get "valid-dict") ~}}
-                <ol>
-                {{~#each definition.definitions~}}
-                    {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-                    {{~#if (op "&&" (op "===" (get "test-dict-name") "monolingual") (op "!==" (get "primary-dictionary") dictionary))~}}
-                        <li data-details="{{~dictionary~}}">
-                            {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
-                        </li>
-                    {{~/if~}}
-                {{~/each~}}
-                </ol>
-            {{~/if~}}
+            </ol>
         {{~/if~}}
 
     {{~/scope~}}
@@ -387,7 +424,7 @@
                 {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
                 {{~#if (op "===" (get "test-dict-name") "utility")~}}
                     <li data-details="{{~dictionary~}}">
-                        {{~> jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                        {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
                     </li>
                 {{~/if~}}
             {{~/each~}}

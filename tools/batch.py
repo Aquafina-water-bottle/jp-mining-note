@@ -3,6 +3,8 @@
 
 import argparse
 
+import re
+
 from utils import invoke
 
 # def request(action, **params):
@@ -29,6 +31,8 @@ from utils import invoke
 
 # removes all no pitch accent data fields
 
+rx_END_DIV = re.compile(r'</div>$')
+rx_FREQ_INNER2 = re.compile(r'<span class="frequencies__dictionary-inner2">(Anime &amp; Jdrama Freq:)</span>')
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -302,6 +306,42 @@ def empty_field(field_name):
                 "note": {
                     "id": nid,
                     "fields": {field_name: ""},
+                }
+            },
+        }
+
+        actions.append(action)
+
+    notes = invoke("multi", actions=actions)
+
+
+def _standardize_frequencies_styling(freq):
+    # updating legacy freq styling 0.10.1.0 -> 0.10.2.0:
+    # example of legacy freq styling (0.10.1.0):
+    # r"""<div class="frequencies"><div class="frequencies__group" data-details="Anime &amp; Jdrama Freq:"><div class="frequencies__number"><span class="frequencies__number-inner">6155</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">Anime &amp; Jdrama Freq:</span></span></div></div><div class="frequencies__group" data-details="Innocent Ranked"><div class="frequencies__number"><span class="frequencies__number-inner">3863</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">Innocent Ranked</span></span></div></div><div class="frequencies__group" data-details="JPDB"><div class="frequencies__number"><span class="frequencies__number-inner">8418</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">JPDB</span></span></div></div><div class="frequencies__group" data-details="JPDB"><div class="frequencies__number"><span class="frequencies__number-inner">37625㋕</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">JPDB</span></span></div></div><div class="frequencies__group" data-details="VN Freq Percent"><div class="frequencies__number"><span class="frequencies__number-inner">92.7</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">VN Freq Percent</span></span></div></div></div>"""
+
+    freq = freq.replace('<div class="frequencies">', "")
+    freq = rx_END_DIV.sub("", freq)
+    freq = rx_FREQ_INNER2.sub(r'\1', freq)
+    return freq
+
+
+def standardize_frequencies_styling():
+    query = r'"FrequenciesStylized:*<div class=\"frequencies\">*"'
+
+    notes = invoke("findNotes", query=query)
+    notes_info = invoke("notesInfo", notes=notes)
+
+    actions = []
+    for info in notes_info:
+        field_val = info["fields"]["FrequenciesStylized"]["value"]
+
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": info["noteId"],
+                    "fields": {"FrequenciesStylized": _standardize_frequencies_styling(field_val)},
                 }
             },
         }

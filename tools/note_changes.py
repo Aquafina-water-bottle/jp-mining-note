@@ -66,6 +66,61 @@ class NoteChange:
 
 NOTE_CHANGES = [
     NoteChange(
+        version=Version(0, 10, 2, 0),
+        actions=[
+            action.YomichanTemplatesChange(),
+            action.BatchUpdate(
+                batch_func=batch.standardize_frequencies_styling,
+                ankiconnect_actions={
+                    "findNotes",
+                    "notesInfo",
+                    "multi",
+                    "updateNoteFields",
+                },
+                description="Updates the FrequenciesStylized field to match the styling "
+                "of all the other stylized Yomichan fields (PAGraphs, PAPositions)",
+            ),
+        ],
+        fields=[
+            "Key",
+            "Word",
+            "WordReading",
+            "PAOverride",
+            "AJTWordPitch",
+            "PrimaryDefinition",
+            "Sentence",
+            "SentenceReading",
+            "AltDisplay",
+            "AltDisplayPASentenceCard",
+            "AdditionalNotes",
+            "IsSentenceCard",
+            "IsClickCard",
+            "IsHoverCard",
+            "IsTargetedSentenceCard",
+            "PAShowInfo",
+            "PATestOnlyWord",
+            "PADoNotTest",
+            "PASeparateWordCard",
+            "PASeparateSentenceCard",
+            "SeparateClozeDeletionCard",
+            "Hint",
+            "HintNotHidden",
+            "Picture",
+            "WordAudio",
+            "SentenceAudio",
+            "PAGraphs",
+            "PAPositions",
+            "PASilence",
+            "FrequenciesStylized",
+            "FrequencySort",
+            "SecondaryDefinition",
+            "ExtraDefinitions",
+            "UtilityDictionaries",
+            "Comment",
+        ],
+    ),
+
+    NoteChange(
         version=Version(0, 10, 0, 0),
         actions=[
             action.RenameField("WordPitch", "AJTWordPitch"),
