@@ -586,13 +586,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#pitch-accent-bold-doesnt-work-on-the-last-downstep" class="md-nav__link">
-    Pitch accent bold doesn't work on the last downstep
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -650,6 +643,20 @@
           <li class="md-nav__item">
   <a href="#where-is-the-x-folder-in-anki" class="md-nav__link">
     Where is the (X) folder in Anki?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-backup-my-anki-data" class="md-nav__link">
+    How do I backup my Anki data?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-backup-yomichan-settings" class="md-nav__link">
+    How do I backup Yomichan settings?
   </a>
   
 </li>
@@ -803,13 +810,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#pitch-accent-bold-doesnt-work-on-the-last-downstep" class="md-nav__link">
-    Pitch accent bold doesn't work on the last downstep
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -867,6 +867,20 @@
           <li class="md-nav__item">
   <a href="#where-is-the-x-folder-in-anki" class="md-nav__link">
     Where is the (X) folder in Anki?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-backup-my-anki-data" class="md-nav__link">
+    How do I backup my Anki data?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-backup-yomichan-settings" class="md-nav__link">
+    How do I backup Yomichan settings?
   </a>
   
 </li>
@@ -932,21 +946,10 @@
 
   <h1>FAQ & Troubleshooting</h1>
 
-<!--
-TODO reword this maybe?
-
-Remember that all cards are fully customizable!
-You are absolutely free to tear the code apart and make these card formats your own.
--->
-
-<!--
-# How do I get rid of all of this pitch accent info?
-See [here](usage#wait-i-dont-want-to-test-pitch-accent).
--->
-
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">&para;</a></h2>
-<p>These are various errors that can show up on the info circle at the top right.</p>
-<p>TODO image / gif</p>
+<p>This section documents frequent errors that
+may show up on the info circle at the top right.</p>
+<p><a href="../assets/info_circle_error.gif"><img alt="info circle error example" src="../assets/info_circle_error.gif" /></a></p>
 <hr />
 <h3 id="javascript-handler-error-failed-to-issue-request">Javascript handler error: `failed to issue request`<a class="headerlink" href="#javascript-handler-error-failed-to-issue-request" title="Permanent link">&para;</a></h3>
 <p>This is an indication that Anki-Connect is failing.
@@ -992,25 +995,33 @@ To do this, re-enable the add-ons one-by-one (remembering to restart Anki each t
     and/or add it to the documentation somewhere so others are aware of the issue.)</p>
 </li>
 </ol>
-<!--
-- TODO expand list in the future
--->
-
 <p>If you can't manage to fix it, please submit an issue!</p>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="the-sentence-quotes-are-on-completely-different-lines">The sentence quotes are on completely different lines!<a class="headerlink" href="#the-sentence-quotes-are-on-completely-different-lines" title="Permanent link">&para;</a></h3>
-<!--
-If your card looks like this:
---->
-
-<p>(TODO)</p>
-<ul>
-<li>edit the underlying html (ctrl+shift+x) and remove the <code>&lt;div&gt;</code> and <code>&lt;/div&gt;</code> tags.</li>
-<li>happens if you copy/paste directly from certain pages (i.e. texthooker)</li>
-<li>the sharex clipboard shortcut shouldn't have this problem because it uses <code>&lt;br&gt;</code> instead of <code>&lt;div&gt;</code></li>
-</ul>
+<p>If your card looks like this:</p>
+<p><a href="../assets/quote_different_lines.png"><img alt="quotes on different lines" src="../assets/quote_different_lines.png" /></a></p>
+<p>then your <code>Sentence</code> field is likely formatted internally similar to the following example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>マスターと行動を共にするとは万死に値するデース<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<p>To fix this, edit the <code>Sentence</code> <a href="./#how-do-i-edit-the-fields-raw-html">field html</a>
+to remove the <code>&lt;div&gt;</code> tags, and add <code>&lt;br&gt;</code> tags
+wherever a line break should appear.
+For example, the above should be changed into:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>マスターと行動を共にするとは万死に値するデース
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This happens if you copy/paste directly from certain pages into the sentence field,
+such as some texthooker pages.
+This can also happen if you copy/paste from a texthooker page to a different field,
+say <code>AdditionalNotes</code>, and then copy a section of <code>AdditionalNotes</code> to <code>Sentence</code>.</p>
+<p>Additionally, the sharex clipboard shortcut shouldn't have this problem because it
+explicitly uses <code>&lt;br&gt;</code> instead of <code>&lt;div&gt;</code></p>
+</div>
 <hr />
 <h3 id="the-showhide-button-doesnt-do-anything">The Show/Hide button doesn't do anything.<a class="headerlink" href="#the-showhide-button-doesnt-do-anything" title="Permanent link">&para;</a></h3>
 <p>The show/hide button requires that the displayed sentence has a bolded element.
@@ -1034,13 +1045,6 @@ so the bug is here to stay until a better solution is found.
 -->
 
 <hr />
-<h3 id="pitch-accent-bold-doesnt-work-on-the-last-downstep">Pitch accent bold doesn't work on the last downstep<a class="headerlink" href="#pitch-accent-bold-doesnt-work-on-the-last-downstep" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TODO</li>
-<li>weird quirk with css injector</li>
-<li>only solution I know of atm is to edit the raw html and move the <code>&lt;/b&gt;</code> to the very end of the html</li>
-</ul>
-<hr />
 <h2 id="card-editing">Card Editing<a class="headerlink" href="#card-editing" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="how-do-i-use-this-note-type-as-an-anime-card">How do I use this note type as an Anime Card?<a class="headerlink" href="#how-do-i-use-this-note-type-as-an-anime-card" title="Permanent link">&para;</a></h3>
@@ -1055,7 +1059,23 @@ Any new card that is created will now default to that default value.</p>
 <p>Of course, this will not affect existing cards.
 To change existing cards, I recommend bulk-editing your cards,
 say, with <a href="https://ankiweb.net/shared/info/291119185">this add-on</a>.</p>
-<p>(TODO write a way with python)</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As always, before mass editing your collection, please
+<a href="./#how-do-i-backup-my-anki-data">backup your Anki data</a>.</p>
+</div>
+<p>Alternatively, you can use the following commands to bulk edit your cards
+in the current deck:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># assuming you are at the root of the repo,
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>cd ./tools
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a># sets all `IsSentenceCard` fields to be filled
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python3 batch.py --fill-field &quot;IsSentenceCard&quot;
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a># empties all `IsSentenceCard` fields
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>python3 batch.py --empty-field &quot;IsSentenceCard&quot;
+</code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You technically have a second option, and that is to change the code itself
@@ -1076,9 +1096,12 @@ You will be shown a list of empty cards and be given the option to delete them.<
 </sup></p>
 <hr />
 <h3 id="how-do-i-edit-the-fields-raw-html">How do I edit the field's raw HTML?<a class="headerlink" href="#how-do-i-edit-the-fields-raw-html" title="Permanent link">&para;</a></h3>
-<ul>
-<li>ctrl+shift+x</li>
-</ul>
+<p>Within the card browser,
+select a field to edit,
+and then type <code>ctrl+shift+x</code>.</p>
+<p>Alternatively, on newer versions of Anki, you can click on the top-right corner
+on the code button.</p>
+<p><a href="../assets/anki/edit_html.gif"><img alt="Anki edit html" src="../assets/anki/edit_html.gif" /></a></p>
 <hr />
 <h2 id="other-questions">Other Questions<a class="headerlink" href="#other-questions" title="Permanent link">&para;</a></h2>
 <hr />
@@ -1091,6 +1114,24 @@ to find the <code>Anki2</code> folder.</p>
 <li>Your <strong>addons folder</strong> is under <code>Anki2/addons21</code>.</li>
 </ul>
 <hr />
+<p><a href="../assets/anki/media_export.png"><img align="right" alt="anki export package" src="../assets/anki/media_export.png" width="300" /> </a></p>
+<h3 id="how-do-i-backup-my-anki-data">How do I backup my Anki data?<a class="headerlink" href="#how-do-i-backup-my-anki-data" title="Permanent link">&para;</a></h3>
+<p>The following makes a <strong>complete backup</strong> of your collection, including media.</p>
+<blockquote>
+<p>Main Window →  <code>File</code> (top left corner) →  <code>Export...</code> →  <code>Anki Collection Package</code></p>
+</blockquote>
+<p>See the <a href="https://docs.ankiweb.net/backups.html">official documentation</a>
+for more info.</p>
+<p><br></p>
+<hr />
+<h3 id="how-do-i-backup-yomichan-settings">How do I backup Yomichan settings?<a class="headerlink" href="#how-do-i-backup-yomichan-settings" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Navigate to Yomichan Settings.</li>
+<li>Go to the <code>Backup</code> section</li>
+<li>Select <code>Export Settings</code></li>
+</ol>
+<p><a href="../assets/yomichan/import_settings.gif"><img alt="how-to import Yomichan settings" src="../assets/yomichan/import_settings.gif" /></a></p>
+<hr />
 <h3 id="what-card-type-should-i-use">What card type should I use?<a class="headerlink" href="#what-card-type-should-i-use" title="Permanent link">&para;</a></h3>
 <p>The short answer is: whichever one you want. :)</p>
 <p>The long answer is: whichever one you want,
@@ -1098,16 +1139,16 @@ because everyone has their own preferences on what card types they like.
 I recommend being open about it and experiment with them, to see which one you like.</p>
 <hr />
 <h3 id="what-is-the-point-of-the-pasilence-field">What is the point of the <code>PASilence</code> field?<a class="headerlink" href="#what-is-the-point-of-the-pasilence-field" title="Permanent link">&para;</a></h3>
-<p>It's a hack to not play audio even if you setup your Anki client to do so.
-See the <code>PASilence</code> field in the <a href="usage#anki-field-reference">field reference</a> for more information.</p>
+<p>This is a hack to not play the sentence audio on the front side,
+even if you set-up your Anki client to do so.</p>
+<p>Removing this field will affect cards where you test pitch accent,
+i.e. with <code>PAShowInfo</code> filled.</p>
 <hr />
 <h3 id="how-do-you-see-the-currently-installed-version-of-this-note">How do you see the currently installed version of this note?<a class="headerlink" href="#how-do-you-see-the-currently-installed-version-of-this-note" title="Permanent link">&para;</a></h3>
-<p>Preview any card. At the top left corner the version should be displayed.
-For example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Vocab (info circle)
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>JP Mining Note: Version (VERSION DISPLAYED HERE)
-</code></pre></div>
-<p>TODO image</p>
+<p>Preview any card. At the top left corner, the version should be displayed.</p>
+<figure>
+<p><a href="../assets/version.png"><img alt="version highlighted" src="../assets/version.png" /></a></p>
+</figure>
 <hr />
 <h3 id="do-you-plan-on-supporting-any-other-language-other-than-japanese">Do you plan on supporting any other language other than Japanese?<a class="headerlink" href="#do-you-plan-on-supporting-any-other-language-other-than-japanese" title="Permanent link">&para;</a></h3>
 <p>Unfortunately, other languages outside of Japanese will not be supported.</p>
@@ -1124,7 +1165,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
       
     
   </small>

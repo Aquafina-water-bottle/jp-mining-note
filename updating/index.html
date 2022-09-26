@@ -754,8 +754,9 @@ This will change the note in place, and gives you various options on how
 the note will be changed.
 Lastly, it will give you warnings on anything you have to change manually,
 such as Yomichan Templates.</p>
-<!-- It's updated now!!!
+<!-- It's updated now!!! (writing as of 2022/09/25) -->
 
+<!--
 ### Anki-Connect: Dev Version
 At the time of writing this (2022/09/07),
 you will need the developer version of Anki-Connect,
@@ -776,7 +777,7 @@ will likely need (calls related to field editing).
            clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
            After that, unzip the directory.
         1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
-           in the [addons folder](faq#where-is-the-x-folder-in-anki).
+           in the [addons folder](faq.md#where-is-the-x-folder-in-anki).
         1. Rename `plugin` to `AnkiConnectDev`.
 
         In the end, the file structure should look something like below:
@@ -873,7 +874,9 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 </ul>
 <h5 id="anki-fields-are-different">Anki fields are different<a class="headerlink" href="#anki-fields-are-different" title="Permanent link">&para;</a></h5>
 <ul>
-<li>updating script is very picky about fields, including order</li>
+<li>
+<p>updating script is very picky about fields, including order</p>
+</li>
 <li>
 <p>if added field(s):</p>
 <ul>
@@ -891,9 +894,26 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 <li>
 <p>if removed field:</p>
 <ul>
-<li>don't do this next time, re-add the field and update</li>
+<li>re-add the field</li>
+<li>don't do this next time</li>
 <li>if you don't want to use the field, move field under <code>Comment</code> and run with <code>--ignore-order</code> flag</li>
 </ul>
+</li>
+<li>
+<p>if renamed field:</p>
+<ul>
+<li>rename back to the original</li>
+<li>again with the above, don't do this next time</li>
+</ul>
+</li>
+<li>
+<p>if fields are in the wrong order:</p>
+<ul>
+<li>either manually re-order it, or run with <code>--ignore-order</code></li>
+</ul>
+</li>
+<li>
+<p>see the <a href="../modding/#field-editing">modding</a> page for more details.</p>
 </li>
 </ul>
 <h5 id="simulated-fields-do-not-match-expected-fields">Simulated fields do not match expected fields<a class="headerlink" href="#simulated-fields-do-not-match-expected-fields" title="Permanent link">&para;</a></h5>
@@ -922,7 +942,8 @@ e.g. named <code>JP Mining Note-b320fa</code>).
 Additionally, if you manually edited any of the fields, then this method will not work.</p>
 <p>To see if the fields have been changed, compare the
 first two numbers in the version you want to install
-to the first two numbers of the current card version. (TODO link FAQ)
+to the first two numbers of the current
+<a href="faq.md/#how-do-you-see-the-currently-installed-version-of-this-note">card version</a>.
 If the first two numbers match, then you are likely safe to manually update the card.</p>
 <p>If they don't match, then you MAY be able to get away with installing it anyways and transferring
 the old note types to the new note type.
@@ -944,7 +965,7 @@ Further instructions on these are written below.</p>
 <hr />
 <h2 id="updating-yomichans-anki-card-format">Updating Yomichan's Anki Card Format<a class="headerlink" href="#updating-yomichans-anki-card-format" title="Permanent link">&para;</a></h2>
 <p>To update the Yomichan Format, the steps should be almost the same as the
-one specified already in the <a href="setup#yomichan-fields">setup</a>.
+one specified already in the <a href="../setup/#yomichan-fields">setup</a>.
 However, there are some differences that you should keep in mind.</p>
 <h3 id="refreshing-the-fields">Refreshing the Fields<a class="headerlink" href="#refreshing-the-fields" title="Permanent link">&para;</a></h3>
 <p>The most important difference is that if a new field was added or a field has been renamed,
@@ -963,7 +984,8 @@ is a matching field in that other card.</p>
 </div>
 <p>Here is how I recommend transitioning as smoothly as possible:</p>
 <ol>
-<li>As always, create a <a href="setup#preliminary-steps">backup</a> of your Yomichan settings, just in case.</li>
+<li>As always, create a <a href="../faq/#how-do-i-backup-yomichan-settings">backup</a>
+    of your Yomichan settings, just in case.</li>
 <li>After running <code>install.py --update</code>, create a temporary copy of the note by: <br>
     <code>Tools</code> <br>
     →  <code>Manage Note Types</code> <br>
@@ -971,7 +993,7 @@ is a matching field in that other card.</p>
     →  (select <code>Clone: JP Mining Note</code>) <br>
     →  (name it to anything you want. For the following examples, it will be named <code>JP Mining Note (copy)</code>.) <br>
     →  <code>Ok</code></li>
-<li>Head over to Anki Card Format <a href="setup#yomichan-fields">as before</a>.</li>
+<li>Head over to Anki Card Format <a href="../setup/#yomichan-fields">as before</a>.</li>
 <li>In the top right corner, change <code>Model</code> to <code>JP Mining Note (copy)</code>,
    and then change it back to <code>JP Mining Note</code>.</li>
 <li>Update the fields as specified.<ul>
@@ -996,9 +1018,9 @@ does not have any matching fields with the <code>JP Mining Note</code> model.</p
 </div>
 <hr />
 <h2 id="updating-yomichan-templates">Updating Yomichan Templates<a class="headerlink" href="#updating-yomichan-templates" title="Permanent link">&para;</a></h2>
-<p>Like the above, you can simply follow the steps already specified in <a href="setup#yomichan-templates">setup</a>.
+<p>Like the above, you can simply follow the steps already specified in <a href="../setup/#yomichan-templates">setup</a>.
 Again, please make sure you <strong>reset the existing templates</strong> (unless you know what you are doing),
-and again, please make a <a href="setup#preliminary-steps">backup</a> of your Yomichan settings just in case.</p>
+and again, please make a <a href="../faq/#how-do-i-backup-yomichan-settings">backup</a> of your Yomichan settings just in case.</p>
 <h2 id="updating-the-options-file">Updating the Options File<a class="headerlink" href="#updating-the-options-file" title="Permanent link">&para;</a></h2>
 <p>The options file is not updated by default, because default options are built-in
 within the note itself for each option.
@@ -1010,7 +1032,7 @@ If you want to update this file, see the repository's
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
       
     
   </small>

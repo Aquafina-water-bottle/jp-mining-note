@@ -967,23 +967,30 @@ However, to dispell any mysteries, here is a fully annotated summary of the user
 <p>Additional information on some parts of the UI is stated below:</p>
 <h3 id="info-circle">Info Circle<a class="headerlink" href="#info-circle" title="Permanent link">&para;</a></h3>
 <p>On hover, the info circle on the top left corner just shows some basic info.</p>
-<p>TODO gif</p>
-<p>However, it serves as a sort of notification system to the user, when it has a color.</p>
-<h4 id="error">Error<a class="headerlink" href="#error" title="Permanent link">&para;</a></h4>
-<p>TODO gif</p>
+<p><a href="../assets/info_circle.gif"><img alt="info circle example" src="../assets/info_circle.gif" /></a></p>
+<p>However, it also serves as a notification system to the user, when it has a color.</p>
+<details class="quote">
+<summary>Error</summary>
 <p>This should only appear when some javascript code fails.
 In other words, this should <strong>not</strong> appear normally.
 If you get this without modifying the note in any way,
 please report this as an issue!</p>
-<h4 id="warning">Warning<a class="headerlink" href="#warning" title="Permanent link">&para;</a></h4>
-<p>TODO gif</p>
+<p><a href="../assets/info_circle_error.gif"><img alt="info circle error example" src="../assets/info_circle_error.gif" /></a></p>
+</details>
+<details class="quote">
+<summary>Warning</summary>
 <p>This serves to warn the user about something.
-It can appear without breaking the functionality of the card.
+It can appear without completely breaking the functionality of the card.
 In other words, you can choose to ignore it.</p>
-<h4 id="leech">Leech<a class="headerlink" href="#leech" title="Permanent link">&para;</a></h4>
-<p>TODO gif</p>
-<p>When the card is a leech, the circle is highlighted yellow
-(only on the back side) to indicate that it is a leech.</p>
+<p><a href="../assets/info_circle_warning.gif"><img alt="info circle error example" src="../assets/info_circle_warning.gif" /></a></p>
+</details>
+<details class="quote">
+<summary>Leech</summary>
+<p>When the card is a leech, the circle is highlighted yellow (or blue in light mode)
+to indicate that it is a leech.
+That this is only shown on the back side of the card.</p>
+<p><a href="../assets/info_circle_leech.gif"><img alt="info circle error example" src="../assets/info_circle_leech.gif" /></a></p>
+</details>
 <!--(not to be confused with [Cade's kanji hover](https://cademcniven.com/projects/kanjihover/))-->
 <h3 id="kanji-hover">Kanji Hover<a class="headerlink" href="#kanji-hover" title="Permanent link">&para;</a></h3>
 <p><i><sup>Main page: <a href="../kanjihover/">Kanji Hover</a></sup></i></p>
@@ -1005,12 +1012,12 @@ can be changed in the <a href="../runtimeoptions/">options file</a>.</p>
 official anki addon page as specified
 <a href="https://ankiweb.net/shared/info/1225470483">here</a>.</p>
 <h3 id="images">Images<a class="headerlink" href="#images" title="Permanent link">&para;</a></h3>
-<p>TODO non bullet point</p>
-<ul>
-<li>click to zoom (the obvious feature)</li>
-<li>yomichan inserted images + user inserted images get changed to be similar to how yomichan displays images</li>
-<li>TODO gif</li>
-</ul>
+<p>Outside of the normal click to zoom image at the top right,
+any customy inserted images, including images inserted directly by Yomichan,
+will be converted to text which you have to hover over to reveal.
+Of course, this image can also be clicked on to zoom.
+See the video demo below to see exactly what happens.</p>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/img_utils.mp4" type="video/mp4" /></video></div></p>
 <hr />
 <h2 id="modifying-the-front-side-tested-content">Modifying the Front Side (Tested Content)<a class="headerlink" href="#modifying-the-front-side-tested-content" title="Permanent link">&para;</a></h2>
 <p>The front side is exactly the content that we want to test ourselves on.
@@ -1086,7 +1093,7 @@ outside of modifying pitch accent.</p>
 <p><i><sup>Main page: <a href="../autopa/">Auto Pitch Accent</a></sup></i></p>
 <p>The displayed pitch accent is usually the first position found in <code>PAPositions</code>.
 However, you can override this automatically chosen position using the <code>PAOverride</code> field.</p>
-<p>TODO gif (change 偽者 to 0, 1, 2, 4)</p>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/pa_override.mp4" type="video/mp4" /></video></div></p>
 <p>More information and customization, including automatically coloring the word
 with Migaku colors, can be found in the main page linked above.</p>
 <hr />
@@ -1112,7 +1119,6 @@ you want to test yourself on.
 By default, pitch accent is not tested.</p>
 <p>To test for pitch accent, fill the <code>PAShowInfo</code> field.
 You should see a circle to the left of the word or sentence.</p>
-<p>TODO annotated image for testing pitch accent</p>
 <h3 id="pitch-accent-indicator">Pitch Accent Indicator<a class="headerlink" href="#pitch-accent-indicator" title="Permanent link">&para;</a></h3>
 <p>This circle you see is called the "Pitch Accent Indicator", or "PA Indicator" for short.
 How this card indicates what pitch accent is tested is by the PA indicator's color.</p>
@@ -1217,7 +1223,7 @@ The words that are hidden are exactly the words that are bolded in the <code>Sen
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
       
     
   </small>

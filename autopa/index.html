@@ -516,6 +516,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#colored-pitch-accent-summary" class="md-nav__link">
+    Colored Pitch Accent Summary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#position-selection" class="md-nav__link">
     Position Selection
   </a>
@@ -538,6 +545,19 @@
   <a href="#pitch-accent-styling-details" class="md-nav__link">
     Pitch Accent Styling Details
   </a>
+  
+    <nav class="md-nav" aria-label="Pitch Accent Styling Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolding-the-last-downstep" class="md-nav__link">
+    Bolding the last downstep
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -715,6 +735,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#colored-pitch-accent-summary" class="md-nav__link">
+    Colored Pitch Accent Summary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#position-selection" class="md-nav__link">
     Position Selection
   </a>
@@ -737,6 +764,19 @@
   <a href="#pitch-accent-styling-details" class="md-nav__link">
     Pitch Accent Styling Details
   </a>
+  
+    <nav class="md-nav" aria-label="Pitch Accent Styling Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bolding-the-last-downstep" class="md-nav__link">
+    Bolding the last downstep
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -844,17 +884,23 @@ in <a href="../runtimeoptions/">options file</a>:</p>
 in Migaku style colors.
 This automatic coloring behavior is <strong>disabled by default</strong>,
 and must be enabled in the <a href="../runtimeoptions/">options file</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;colored-pitch-accent&quot;: {
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;colored-pitch-accent&quot;: {
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &quot;enabled&quot;: true,
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  ...
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>}
 </code></pre></div>
-<p>A summary of the colors used is shown below:</p>
+<div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/pa_override_color.mp4" type="video/mp4" /></video></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The 起伏 pattern is not automatically detected.
+To use this color, you must manually set the <code>PAOverride</code> field to <code>-1</code>.</p>
+</div>
+<h3 id="colored-pitch-accent-summary">Colored Pitch Accent Summary<a class="headerlink" href="#colored-pitch-accent-summary" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th align="center">English</th>
+<th align="center">Anki Tag</th>
 <th align="center">日本語</th>
 <th align="center">Example</th>
 <th align="center">Reading</th>
@@ -893,12 +939,6 @@ and must be enabled in the <a href="../runtimeoptions/">options file</a>:</p>
 </tr>
 </tbody>
 </table>
-<p>TODO gif (change 偽者 to 0, 1, 2, 4, -1)</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The 起伏 pattern is not automatically detected.
-To use this color, you must manually set the <code>PAOverride</code> field to <code>-1</code>.</p>
-</div>
 <h3 id="position-selection">Position Selection<a class="headerlink" href="#position-selection" title="Permanent link">&para;</a></h3>
 <p>In most all cases, the position should be automatically found
 and the word can be colored.
@@ -913,27 +953,9 @@ to the correct number number.
 However, if you are using a non-integer value in <code>PAOverride</code> to override the entire display,
 you must add the correct tag to your note.</p>
 <p>The exact tags that can be used are shown in the
-<a href="./#colored-pitch-accent">summary table</a> above,
-under the English and 日本語 sections.
+<a href="./#colored-pitch-accent-summary">summary table</a> above,
+under the <code>Anki Tag</code> and 日本語 sections.
 For example, the tag can be <code>heiban</code>, <code>平板</code>, etc.</p>
-<!--
-| English     | 日本語 | Color              | Example             |
-|: --------- :|: ---- :|: ---------------- :|: ----------------- :|
-| `heiban`    | `平板` | ⬤  {.pa-heiban}    | 自然 (しぜん￣)     |
-| `atamadaka` | `頭高` | ⬤  {.pa-atamadaka} | 人生 (じ＼んせい)   |
-| `nakadaka`  | `中高` | ⬤  {.pa-nakadaka}  | 弱点 (じゃくて＼ん) |
-| `odaka`     | `尾高` | ⬤  {.pa-odaka}     | 心 (こころ＼)       |
-| `kifuku`    | `起伏` | ⬤  {.pa-kifuku}    | 驚く (おどろ＼く)   |
-
-| English     | 日本語 | Example              | Reading      |
-|: --------- :|: ---- :|: ------------------ :|: ---------- :|
-| `heiban`    | `平板` | 自然 {.pa-heiban}    | しぜん￣     |
-| `atamadaka` | `頭高` | 人生 {.pa-atamadaka} | じ＼んせい   |
-| `nakadaka`  | `中高` | 弱点 {.pa-nakadaka}  | じゃくて＼ん |
-| `odaka`     | `尾高` | 心   {.pa-odaka}     | こころ＼     |
-| `kifuku`    | `起伏` | 驚く {.pa-kifuku}    | おどろ＼く   |
--->
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The tag <em>only</em> overrides the pitch accent color, and does not affect the pitch
@@ -966,13 +988,26 @@ one can bold the unused pitch accents to grey them out.</p>
 <figure>
 <p><a href="../assets/bold_pa.png"><img alt="word pitch with bolded field to grey out" src="../assets/bold_pa.png" /></a></p>
 </figure>
+<h3 id="bolding-the-last-downstep">Bolding the last downstep<a class="headerlink" href="#bolding-the-last-downstep" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/downstep_not_bolded.png"><img align="right" alt="word pitch " src="../assets/downstep_not_bolded.png" width="300" /> </a></p>
+<ul>
+<li>TODO doesn't work by default with basic <code>ctrl+b</code> attempts</li>
+<li>seems to be a weird quirk with css injector</li>
+<li>only solution I know of atm is to edit the raw html and move the <code>&lt;/b&gt;</code> to the very end of the html</li>
+</ul>
+<p>previous:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ナ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>サケ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・ナ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>サケ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<p>after editing the raw html:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ナ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>サケ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・ナ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>サケ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+</code></pre></div></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
       
     
   </small>

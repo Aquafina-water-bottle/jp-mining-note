@@ -1083,17 +1083,28 @@ View one of the cards and make sure the card looks similar to the one below:</p>
 </div>
 <p>Please check the following in particular:</p>
 <ol>
-<li>The fonts should match very similarly with the above example.</li>
-<li>Notice how at the top left corner, the info circle (the "i" encased within the circle)
-    is the default grey color.
-    If this is red, that means something is wrong with the note's javascript.
-    Please see <a href="../faq/#errors">this</a> section for basic troubleshooting.</li>
-<li>Clicking on the image to zoom should work out of the box.
-    If you already have Anki-Connect installed, kanji hover should also work.</li>
-<li>If the furigana on your card seems to appear higher above the kanji compared to the picture,
+<li>
+<p>The fonts should match very similarly with the above example.</p>
+</li>
+<li>
+<p>Notice how at the top left corner, the info circle (the "i" encased within the circle)
+    is the default grey color.</p>
+<p><figure markdown>
+<a href="../assets/info_circle.png"><img alt="test" src="../assets/info_circle.png" /></a>
+</figure></p>
+<p>If this is red, that means something is wrong with the note's javascript.
+Please see <a href="../faq/#errors">this</a> section for basic troubleshooting.</p>
+</li>
+<li>
+<p>Clicking on the image to zoom should work out of the box.
+    If you already have Anki-Connect installed, kanji hover should also work.</p>
+</li>
+<li>
+<p>If the furigana on your card seems to appear higher above the kanji compared to the picture,
     this is likely because you are using the older Qt5 version of Anki.
     Unfortunately, as this seems like a quirk of Qt5, there does not seem to be a way to fix it
-    outside of upgrading Anki from a Qt5 version to a Qt6 version.</li>
+    outside of upgrading Anki from a Qt5 version to a Qt6 version.</p>
+</li>
 </ol>
 <hr />
 <h2 id="anki-setup">Anki Setup<a class="headerlink" href="#anki-setup" title="Permanent link">&para;</a></h2>
@@ -1121,12 +1132,13 @@ that could be helpful.</p>
 </ul>
 <p><br></p>
 <h3 id="dark-mode">Dark Mode<a class="headerlink" href="#dark-mode" title="Permanent link">&para;</a></h3>
-<p>The recommended theme for this note is with Anki's dark mode.</p>
-<p>To change Anki's theme, head over to: <br></p>
+<p>Although light mode is supported, the recommended theme for this note is dark mode.</p>
+<p>The note automatically adjusts according to Anki's theme.
+To change Anki's theme, head over to:</p>
 <blockquote>
-<p><code>Tools</code> →  <code>Preferences</code> →  <code>Basic</code> →  <code>Theme (dropdown)</code> →  <code>Theme: Dark</code></p>
+<p><code>Tools</code> →  <code>Preferences</code> →  <code>Basic</code> →  <code>Theme (dropdown)</code></p>
 </blockquote>
-<p>(TODO gif)</p>
+<p><a href="../assets/anki/dark_mode.png"><img alt="install Anki addons" src="../assets/anki/dark_mode.png" /></a></p>
 <p><br></p>
 <h3 id="anki-add-ons">Anki Add-ons<a class="headerlink" href="#anki-add-ons" title="Permanent link">&para;</a></h3>
 <p>There are certain add-ons that must be installed for this note type to work.</p>
@@ -1437,13 +1449,9 @@ which should only be a few months stale at most.</p>
 <!-- TODO github actions to re-compile it daily -->
 
 <h3 id="preliminary-steps">Preliminary Steps<a class="headerlink" href="#preliminary-steps" title="Permanent link">&para;</a></h3>
-<p>If you have used Yomichan before, please make a backup of your settings (just in case):</p>
-<ul>
-<li>Navigate to Yomichan Settings.</li>
-<li>Go to the <code>Backup</code> section</li>
-<li>Select <code>Export Settings</code></li>
-</ul>
-<p><a href="../assets/yomichan/import_settings.gif"><img alt="how-to import Yomichan settings" src="../assets/yomichan/import_settings.gif" /></a></p>
+<p>If you have used Yomichan before, please make a
+<a href="../faq/#how-do-i-backup-yomichan-settings">backup of your settings</a>
+(just in case).</p>
 <h3 id="yomichan-fields">Yomichan Fields<a class="headerlink" href="#yomichan-fields" title="Permanent link">&para;</a></h3>
 <p>To edit the fields that Yomichan will automatically fill out, do the following:</p>
 <p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/yomichan/yomichan_anki_format.mp4" type="video/mp4" /></video></div></p>
@@ -2286,7 +2294,7 @@ Head over to <a href="../usage/">Usage</a> to see exactly that.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
       
     
   </small>
