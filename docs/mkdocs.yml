@@ -68,7 +68,7 @@ nav:
     - Usage: usage.md
     - Card Types: cardtypes.md
     - Runtime Options (TODO): runtimeoptions.md
-    - Kanji Hover (TODO): kanjihover.md
+    - Kanji Hover: kanjihover.md
     - Auto Pitch Accent (TODO): autopa.md
     - "Modding & Dev Docs (TODO)": modding.md
   - Other:

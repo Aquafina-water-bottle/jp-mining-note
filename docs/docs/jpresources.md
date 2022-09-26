@@ -255,6 +255,12 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 
 # Yomichan Templates / Handlebars
 
+!!! note
+    If you are using the jp-mining-note template,
+    most things here will likely not be useful for you 
+    as the Yomichan templates that comes with the note
+    already contains most of these features and more.
+
 
 ## How to Edit Yomichan Fields
 1. Navigate to Yomichan Settings.
@@ -487,7 +493,7 @@ see the handlebars code used by JPMN [here](setup.md#yomichan-templates).
 
 
 ## Further Reading
-The documentation I used:
+Official documentation om Yomichan's templates:
 
 - [Yomichan template helper functions](https://github.com/FooSoft/yomichan/blob/master/docs/templates.md)
 - [Yomichan template structure](https://github.com/FooSoft/yomichan/blob/master/docs/interfaces/dictionary-entry.ts)
@@ -495,31 +501,32 @@ The documentation I used:
 Example template code can be found here:
 
 - Markers for individual dictionaries:
-  [here](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
-  - This has certain extended capabilities over my template code, such as removing the first line.
+    [here](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
+    - This has certain extended capabilities over my template code, such as removing the first line.
 
 - Template code for this note:
-  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/top.txt) and
-  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/bottom.txt)
+    [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/top.txt) and
+    [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/bottom.txt)
 
 - Old template code for this note (NO LONGER USED / MAINTAINED):
-  [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/old.txt)
+    [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/yomichan_templates/old.txt)
 
 ---
 
 
 # ShareX
 - TODO make non-point form
-- main steps from are https://rentry.co/mining
-  (webarchive link without pictures
-  [here](https://web.archive.org/web/20220216001950/https://rentry.co/mining#sharex))
+- main steps from are [https://rentry.co/mining](https://rentry.co/mining)
+    (webarchive link without pictures
+    [here](https://web.archive.org/web/20220216001950/https://rentry.co/mining#sharex))
 - all powershell commands rewritten to be readable + work with jp-mining-note by default
 - 1 liners are generated from [this file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/wiki/gen/make.py)
 
 note that f3 keybinds do NOT record media, requires slightly different setup
+
 - TODO document
 - iirc grabs current window picture + deletes after (the only purpose of the f3 keybinds
-  is to execute ankiconnect calls in powershell)
+    is to execute ankiconnect calls in powershell)
 
 ---
 
@@ -599,19 +606,20 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 * [Cade's guide to optimizing Anki](https://cademcniven.com/posts/20210410/)
 
 
-## Mining guides:
+## Mining guides
 
 * [Xelieu's mining guide](https://rentry.co/lazyXel) (Windows, Android)
 * [stegatxins0's mining guide](https://rentry.co/mining) (Windows, Kindle)
-* [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (cross platform with ASBPlayer)
-* [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)  (cross platform with ASBPlayer)
+* [Anime Cards & mining guides](https://animecards.site/) (Multiple platforms)
+* [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (cross platform with `asbplayer`)
+* [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)  (cross platform with `asbplayer`)
 
 ## Mikagu pitch accent alternatives
 - [migaku updated](https://github.com/MikeMoolenaar/Migaku-Japanese-Addon-Updated)
-    - fork of migaku to be updated for anki version 2.1.50+
+    - Fork of migaku to be updated for anki version 2.1.50+
 - [anki-jrp](https://github.com/Ben-Kerman/anki-jrp)
-    - completely stand-alone plugin from migaku with a completely different codebase
-    - only does one thing: adds pitch accent colors (along with furigana)
+    - Completely stand-alone plugin from migaku with a completely different codebase
+    - Only does one thing: adds pitch accent colors (along with furigana)
 
 
 ## How to Mokuro

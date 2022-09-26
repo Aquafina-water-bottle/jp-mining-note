@@ -38,19 +38,19 @@ There are two ways of installing the card:
 
     === "Windows"
 
-        ```
+        ```bat
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
         cd jp-mining-note
 
-        # Ensure you have Anki open, and with anki-connect running
-        # Also ensure that you have python 3.10+ installed.
-        # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
+        :: Ensure you have Anki open, and with anki-connect running
+        :: Also ensure that you have python 3.10+ installed.
+        :: It *MAY* work with lower versions of python, but I make no such guarantee. ;)
         python tools\install.py
         ```
 
     === "MacOS & Linux"
 
-        ```
+        ```bash
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
         cd jp-mining-note
 
@@ -107,19 +107,15 @@ Please check the following in particular:
 
 1. The fonts should match very similarly with the above example.
 
+    {{ img("test", "assets/info_circle.png", 'align=right') }}
+
 1. Notice how at the top left corner, the info circle (the "i" encased within the circle)
     is the default grey color.
 
-    <figure markdown>
-    {{ img("test", "assets/info_circle.png") }}
-    </figure>
-
-    If this is red, that means something is wrong with the note's javascript.
+    If this circle is red, that means something is wrong with the note's javascript.
     Please see [this](faq.md#errors) section for basic troubleshooting.
 
-
 1. Clicking on the image to zoom should work out of the box.
-    If you already have Anki-Connect installed, kanji hover should also work.
 
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
     this is likely because you are using the older Qt5 version of Anki.
@@ -151,9 +147,9 @@ that could be helpful.
 If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:
 
 - As a sanity check, click the `Check for Updates` button on Anki's `Addons` window.
-- Check that the add-on supports the current version of Anki in the official Ankiweb page.
+- Check that the add-on supports the current version of Anki in the official AnkiWeb page.
   If the page says that the current Anki version is supported,
-  try reinstalling it again from Ankiweb.
+  try reinstalling it again from AnkiWeb.
   This is because occasionally, the `Check for Updates` button doesn't properly work.
 
 <br>
@@ -251,12 +247,12 @@ There are two ways of using css injector with this note type:
 
 
 {% set css_injector_preliminary %}
-As a preliminary step, you will have to remove the empty `field.css` file
+As a preliminary step, you will have to remove the empty `field.css` and `editor.css` files
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
 `Anki2/addons21/181103283/user_files` folder
 (within the [addons folder](faq.md#where-is-the-x-folder-in-anki))
-and delete `field.css`.
+and delete both `css` files.
 {% endset %}
 
 
@@ -268,10 +264,11 @@ and delete `field.css`.
         {{ css_injector_preliminary }}
         {% endfilter %}
 
-        ```
-        # be sure to change USERNAME to your computer username!
+        ```bat
+        :: be sure to change USERNAME to your computer username!
 
         del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
+        del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css"
         ```
 
         Afterwards, open command prompt with elevated permissions.
@@ -282,12 +279,17 @@ and delete `field.css`.
             [this](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/).
 
         With command prompt opened, run the following command:
-        ```
-        # be sure to change USERNAME to your computer username and PROFILENAME to your Anki profile.
-        # There are **two** USERNAME's to replace, and **one** PROFILENAME to replace in the command below.
-        # Make sure to replace all the fields!
 
-        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+        ```bat
+        :: be sure to change USERNAME to your computer username and PROFILENAME to your Anki profile.
+        :: There are **two** USERNAME's to replace, and **one** PROFILENAME to replace in the command below.
+        :: Make sure to replace all the fields!
+
+        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" ^
+            "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+
+        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css" ^
+            "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css"
         ```
 
     === "MacOS"
@@ -295,14 +297,18 @@ and delete `field.css`.
         {{ css_injector_preliminary }}
         {% endfilter %}
 
-        ```
+        ```bash
         rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css"
         ```
 
         Afterwards, run the following command:
-        ```
+        ```bash
         # be sure to change `PROFILENAME` to your Anki profile
-        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" \
+            "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css" \
+            "~/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css"
         ```
 
     === "Linux"
@@ -310,14 +316,18 @@ and delete `field.css`.
         {{ css_injector_preliminary }}
         {% endfilter %}
 
-        ```
+        ```bash
         rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+        rm "~/.local/share/Anki2/addons21/181103283/user_files/editor.css"
         ```
 
         Afterwards, run the following command:
-        ```
+        ```bash
         # be sure to change `PROFILENAME` to your Anki profile
-        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" \
+            "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_editor.css" \
+            "~/.local/share/Anki2/addons21/181103283/user_files/editor.css"
         ```
 
 
@@ -759,10 +769,13 @@ Anki card (click on the green plus button).
 
 The classic texthooker setup works for most games, and any show with subtitle files.
 This texthooker process has already been explained in great detail by
-many other smart people in the following links:
+many smart people:
 
-* [Texthooker basics](https://rentry.co/mining#browser)
-* [Texthooker basics & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
+* [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser)
+* [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
+* [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
+* [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/#mining-from-visual-novels)
+* [exSTATic: Websocket-based texthooker page with automated stats collection](https://github.com/KamWithK/exSTATic/)
 
 The setup also works with video files if the video player supports automated copying of subtitles,
 and if you have the correct subtitle files.
@@ -833,6 +846,7 @@ Of course, this list is incomplete, and there could be tools better suited for y
   by following the instructions
   [here](https://rentry.co/mining#sharex).
 * Useful for things that don't have an easy way of getting audio, such as visual novels.
+* I have some custom scripts written for sharex [here](jpresources.md#sharex).
 
 [**ames**](https://github.com/eshrh/ames)
 
@@ -847,7 +861,10 @@ Of course, this list is incomplete, and there could be tools better suited for y
 [**mokuro**](https://github.com/kha-white/mokuro)
 
 * This is not something that can automatically add images or audio to your cards,
-  BUT it allows you to use popup-dictionaries like Yomichan on manga (an actual game-changer).
+  but it allows you to use popup-dictionaries like Yomichan on manga.
+  If you are on Android, this can be paired with
+  [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
+  to create Anki cards.
 
 
 ---

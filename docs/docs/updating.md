@@ -77,8 +77,6 @@ will likely need (calls related to field editing).
 
 ### Running the Script
 
-After installing Anki-Connect-Dev, you can now run the python script:
-
 === "Command Line"
 
     The cross platform command line summary is shown below.
@@ -132,15 +130,24 @@ After installing Anki-Connect-Dev, you can now run the python script:
         line interface.
 
 
-### Common Errors
+## Common Errors
 This section will document common errors that occur when running the `/install.py` script.
 
 (TODO)
 
-#### Anki-Connect is missing actions
-- re-download anki-connect from ankiweb
+### `Anki-Connect is missing actions`
+Anki-Connect is likely outdated.
+To fix this, remove and re-download Anki-Connect from the
+[AnkiWeb page](https://ankiweb.net/shared/info/2055492159).
 
-#### Anki fields are different
+!!! note
+    It seems that the `Check for Updates` occasionally fails to update the add-on,
+    despite the fact that a newer version of the add-on exists.
+    That is why I recommend re-downloading from the AnkiWeb page
+    instead of using this feature.
+
+
+### Anki fields are different
 - updating script is very picky about fields, including order
 
 - if added field(s):
@@ -164,10 +171,10 @@ This section will document common errors that occur when running the `/install.p
 
 - see the [modding](modding.md#field-editing) page for more details.
 
-#### Simulated fields do not match expected fields
+### Simulated fields do not match expected fields
 - see above
 
-#### Expected fields do not appear in Anki's fields list
+### Expected fields do not appear in Anki's fields list
 - see above
 
 

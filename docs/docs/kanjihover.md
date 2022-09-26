@@ -1,4 +1,4 @@
-TODO flesh out
+TODO add intro
 
 
 # Result Queries & Categorization
