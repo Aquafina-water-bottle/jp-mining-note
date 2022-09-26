@@ -28,7 +28,7 @@ in the Yomichan Templates section.
 # Prerequisites
 
 Before doing anything that affects your Anki collection in a major way,
-please make a [complete backup](faq.md#how-do-i-backup-my-anki-data) of your collection.
+please make a [complete backup](faq.md#how-do-i-backup-my-anki-data){:target="_blank"} of your collection.
 
 
 !!! note

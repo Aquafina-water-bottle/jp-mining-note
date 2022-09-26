@@ -75,16 +75,17 @@ There are two ways of installing the card:
 ??? info "Option 2: The Manual Way (click here)"
 
 
-    1. Go to the [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
+    1. Go to the
+        [releases page](https://github.com/Aquafina-water-bottle/jp-mining-note/releases)
         and download the cards from the latest release.
         You should download the `{version}-jpmn_example_cards.apkg` file.
     2. After you download the cards, import them by navigating to Anki by doing the following:
         - `File` (top left corner) →  `Import...`
     3. By default, the custom fonts do not come with the `.apkg` file.
-        To install these fonts, head over to this
-        repository's [media folder](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
+        To install these fonts, head over to this repository's
+        [media folder](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
         and download the 4 `.otf` files.
-    4. Move the `.otf` files into the [media folder](faq.md#where-is-the-x-folder-in-anki)
+    4. Move the `.otf` files into the [media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}
         of your profile (`Anki2/PROFILENAME/collections.media`).
 
     ![type:video](assets/anki/manual_import-0.9.1.1.mp4)
@@ -113,7 +114,7 @@ Please check the following in particular:
     is the default grey color.
 
     If this circle is red, that means something is wrong with the note's javascript.
-    Please see [this](faq.md#errors) section for basic troubleshooting.
+    Please see [this](faq.md#errors){:target="_blank"} section for basic troubleshooting.
 
 1. Clicking on the image to zoom should work out of the box.
 
@@ -192,7 +193,9 @@ To download an add-on, copy the add-on's code, and navigate to the following to 
 
 ### Anki-Connect
 
-[(Official page)](https://ankiweb.net/shared/info/2055492159) Code: `2055492159` <br>
+[(Official page)](https://ankiweb.net/shared/info/2055492159)
+Code: `2055492159`
+
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the add-on.
 
@@ -218,7 +221,7 @@ I use the default config that comes with the add-on.
     and it is highly recommended that you upgrade Anki to avoid this problem.
 
     If you aren't interested in those features, you can skip this step and
-    disable them in the [runtime options](runtimeoptions.md).
+    disable them in the [runtime options](runtimeoptions.md){:target="_blank"}.
 
 <br>
 
@@ -235,7 +238,9 @@ and choosing the add-ons that seem appealing for you.
 
 
 ### CSS Injector
-[(Official page)](https://ankiweb.net/shared/info/181103283) Code: `181103283` <br>
+[(Official page)](https://ankiweb.net/shared/info/181103283)
+Code: `181103283`
+
 I *strongly* recommend using this, because
 if you don't use this, the fields within the Anki field editor
 won't have certain stylizations that makes the field actually interpretable.
@@ -251,7 +256,7 @@ As a preliminary step, you will have to remove the empty `field.css` and `editor
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
 `Anki2/addons21/181103283/user_files` folder
-(within the [addons folder](faq.md#where-is-the-x-folder-in-anki))
+(within the [addons folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"})
 and delete both `css` files.
 {% endset %}
 
@@ -333,11 +338,11 @@ and delete both `css` files.
 
 ??? info "Option 2: Manually without respecting updates"
 
-    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki)
+    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}
         (`Anki2/addons21/181103283/user_files`)
     2. Remove the existing `field.css` file
     3. Copy the `_field.css` file
-        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki))
+        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki)){:target="_blank"}
         into the css injector add-on directory.
     4. Rename `_field.css` into `field.css`.
 
@@ -352,7 +357,9 @@ and delete both `css` files.
 
 
 ### AJT Furigana
-[(Official page)](https://ankiweb.net/shared/info/1344485230) Code: `1344485230` <br>
+[(Official page)](https://ankiweb.net/shared/info/1344485230)
+Code: `1344485230`
+
 Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon Yomichan card creation.
 
@@ -433,7 +440,9 @@ The important things to change in the config are `generate_on_note_add`, `fields
 <br>
 
 ### AJT Pitch Accent
-[(Official page)](https://ankiweb.net/shared/info/1225470483) Code: `1225470483` <br>
+[(Official page)](https://ankiweb.net/shared/info/1225470483)
+Code: `1225470483`
+
 Automatically adds pitch accent info given the word.
 
 For the purposes of the card,
@@ -504,14 +513,14 @@ In particular, the 者 kanji in the example 偽者 and 不審者 cards should po
 
 # Transfer Existing Notes
 If you wish to transfer existing cards into this note type,
-please see [this page](importing.md).
+please see [this page](importing.md){:target="_blank"}.
 
 ---
 
 
 
 # Updating the Note
-If you wish to update the note, follow the steps in [this page](updating.md).
+If you wish to update the note, follow the steps in [this page](updating.md){:target="_blank"}.
 
 Be assured that this note doesn't auto-update,
 and you have to manually update the note if you want it to update.
@@ -551,7 +560,7 @@ This section will go over the minimal Yomichan setup to work with this card type
 
 ## Preliminary Steps
 If you have used Yomichan before, please make a
-[backup of your settings](faq.md#how-do-i-backup-yomichan-settings)
+[backup of your settings](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
 (just in case).
 
 
@@ -713,7 +722,7 @@ you can use the `ignored-dict-regex` option.
 To see how to edit the option, see [the section below](setup.md#editing-the-dictionary-regex).
 
 Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
-[see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki).
+[see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki){:target="_blank"}.
 
 
 ### Editing the dictionary regex

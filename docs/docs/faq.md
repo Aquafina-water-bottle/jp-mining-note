@@ -28,7 +28,7 @@ You are likely using an old version of this note type
 if you get this, as this error is ignored by default within the
 [options file](runtimeoptions.md).
 See the
-[example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
+[example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js){:target="_blank"}
 (under `ignored-errors`) for more infomation on this error.
 
 ---
@@ -39,7 +39,7 @@ See the
 If none of the above worked, the following will be some general troubleshooting tips
 that can help you figure out what the error is:
 
-1. Do you have a [conflicting addon](setup.md#conflicting-add-ons) installed?
+1. Do you have a [conflicting addon](setup.md#conflicting-add-ons){:target="_blank"} installed?
 
 1. Try disabling all of your add-ons other than the mandatory ones listed in the setup page.
     Note that you have to restart Anki after disabling the add-ons for the changes to take effect.
@@ -86,7 +86,7 @@ For example, the above should be changed into:
 マスターと行動を共にするとは万死に値するデース
 ```
 
-!!! note
+!!! info
 
     This happens if you copy/paste directly from certain pages into the sentence field,
     such as some texthooker pages.
@@ -135,7 +135,7 @@ so the bug is here to stay until a better solution is found.
 
 
 ## How do I use this note type as an Anime Card?
-[Anime Cards](https://animecards.site/ankicards/#anime-cardsword-context-cards)
+[Anime Cards](https://animecards.site/ankicards/#anime-cardsword-context-cards){:target="_blank"}
 are simply regular vocab cards with a non-collapsable hint field.
 To use this as an Anime Card, follow the steps to make a vocab card ([here](cardtypes#vocab-card)),
 and use the `HintNotHidden` field for your hint.
@@ -150,7 +150,7 @@ Any new card that is created will now default to that default value.
 
 Of course, this will not affect existing cards.
 To change existing cards, I recommend bulk-editing your cards,
-say, with [this add-on](https://ankiweb.net/shared/info/291119185).
+say, with [this add-on](https://ankiweb.net/shared/info/291119185){:target="_blank"}.
 
 !!! warning
     As always, before mass editing your collection, please
@@ -188,7 +188,7 @@ python3 batch.py --empty-field "IsSentenceCard"
     You will be shown a list of empty cards and be given the option to delete them.
 
 <sup>Taken from the
-[official Anki documentation](https://docs.ankiweb.net/templates/generation.html#card-generation--deletion).
+[official Anki documentation](https://docs.ankiweb.net/templates/generation.html#card-generation--deletion){:target="_blank"}.
 </sup>
 
 ---
@@ -214,7 +214,7 @@ on the code button.
 
 
 ## Where is the (X) folder in Anki?
-See the [official documentation](https://docs.ankiweb.net/files.html#file-locations)
+See the [official documentation](https://docs.ankiweb.net/files.html#file-locations){:target="_blank"}
 to find the `Anki2` folder.
 
 * Your **profile folder** is under `Anki2/PROFILE_NAME`.
@@ -233,7 +233,7 @@ The following makes a **complete backup** of your collection, including media.
 
 > Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`
 
-See the [official documentation](https://docs.ankiweb.net/backups.html)
+See the [official documentation](https://docs.ankiweb.net/backups.html){:target="_blank"}
 for more info.
 
 <br>
@@ -298,7 +298,7 @@ Unfortunately, other languages outside of Japanese will not be supported.
 
 The reason for this decision is best explained in the
 "When are you going to add support for $MYLANGUAGE?" question
-within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-questions):
+within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-questions){:target="_blank"}:
 
 !!! quote
     Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.
