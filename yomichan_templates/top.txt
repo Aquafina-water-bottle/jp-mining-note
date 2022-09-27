@@ -14,7 +14,6 @@
 {{~! valid values: 0, 1, 2, 3
 disabled:
 - selection text is entirely ignored
-{{~#set "opt-selection-text-enabled" false}}{{/set~}}
 
 enabled:
     - Attempts to search for dictionary within the selected text
@@ -23,4 +22,9 @@ enabled:
         - The dictionary that the selected text will not be detected, so the same dictionary
           should appear in one of the SecondaryDefinition or ExtraDefinition fields.
 ~}}
-{{~#set "opt-selection-text-enabled" false}}{{/set~}}
+{{~#set "opt-selection-text-mode" 3}}{{/set~}}
+{{~#set "opt-selection-attempt-bold" true}}{{/set~}}
+
+
+
+
