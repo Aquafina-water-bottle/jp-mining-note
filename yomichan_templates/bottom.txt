@@ -26,13 +26,73 @@
 
 {{~! returns "" if selection text is disabled, or if none existed in the first place ~}}
 {{~#*inline "_jpmn-selection-text"~}}
-    {{~#if (op "===" (get "opt-selection-text-enabled") true)~}}
+    {{~! text-mode != "" and text-mode > 0 ~}}
+    {{~#if (op ">" (get "opt-selection-text-mode") 0)~}}
         {{~! removes leading and trailing whitespace ~}}
         {{~#regexReplace "^\s+|\s+$" "" "g"~}}
             {{~#getMedia "selectionText"}}{{/getMedia~}}
         {{~/regexReplace~}}
     {{~/if~}}
 {{~/inline~}}
+
+{{~! checks that the selection text is indeed a dictionary (returns the text if true, nothing if false) ~}}
+{{~#*inline "_jpmn-check-dictionary"~}}
+    {{~#scope~}}
+        {{~#set "selection-is-dictionary" false}}{{/set~}}
+
+        {{~#each definition.definitions~}}
+            {{~#if (op "===" (get "selection") dictionary)~}}
+                {{~#set "selection-is-dictionary" true ~}}{{~/set~}}
+            {{~/if~}}
+        {{~/each~}}
+
+        {{~#if (op "===" (get "selection-is-dictionary") true)~}}
+            {{~get "selection"~}}
+        {{~else~}}
+            {{~! null ~}}
+        {{~/if~}}
+    {{~/scope~}}
+{{~/inline~}}
+
+
+
+{{~! uses a space instead of " | " for separating, allows compatability with compact JMdict ~}}
+{{#*inline "_jpmn-glossary-single-search"}}
+
+    {{~#scope~}}
+        {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} {{/unless}}{{/each~}}
+    {{~/scope~}}
+
+{{/inline}}
+
+
+
+{{~! escape a regex string: https://stackoverflow.com/a/6969486~}}
+{{~! /[.*+?^${}()|[\]\\]/g, '\\$&' ~}}
+{{~! escapes the `regexString` regex to allow it to be used like a normal search in a string ~}}
+{{#*inline "_jpmn-escape-regex"}}
+    {{~#regexReplace "[.*+?^${}()|[\]\\]" "\$&" "g"~}}{{~regexString~}}{{~/regexReplace~}}
+{{/inline}}
+
+
+{{~#*inline "_jpmn-get-dict-if-glossary-selected"~}}
+    {{~#scope~}}
+        {{~#set "result-dictionary" null}}{{/set~}}
+        {{~#set "search-selection"}}{{~> _jpmn-escape-regex regexString=(get "selection") ~}}{{/set~}}
+
+        {{~#each definition.definitions~}}
+            {{~#set "search-def"}}{{~> _jpmn-glossary-single-search . brief=../brief noDictionaryTag=../noDictionaryTag ~}}{{/set~}}
+
+            {{~set "search-regex-match" (regexMatch (get "search-selection") "gu" (get "search-def"))}}
+            {{~#if (op "!==" (get "search-regex-match") "")~}}
+                {{~#set "result-dictionary" dictionary}}{{/set~}}
+            {{~/if~}}
+
+        {{~/each~}}
+        {{~get "result-dictionary" ~}}
+    {{~/scope~}}
+{{~/inline~}}
+
 
 
 {{~!
@@ -53,19 +113,27 @@
         {{~#set "selection"}}{{~> _jpmn-selection-text ~}}{{/set~}}
         {{~#if (op "!==" (get "selection") "")~}}
 
-            {{~#set "selection-is-dictionary" false}}{{/set~}}
+            {{~#set "result" ""}}{{/set~}}
 
-            {{~#each definition.definitions~}}
-                {{~#if (op "===" (get "selection") dictionary)~}}
-                    {{~#set "selection-is-dictionary" true ~}}{{~/set~}}
-                {{~/if~}}
-            {{~/each~}}
-
-            {{~#if (op "===" (get "selection-is-dictionary") true)~}}
-                {{~get "selection"~}}
-            {{~else~}}
-                {{~! null ~}}
+            {{~! naive dictionary search ~}}
+            {{~#if (op "&" (get "opt-selection-text-mode") 1)~}}
+                {{~#set "result"}}{{~> _jpmn-check-dictionary . ~}}{{/set~}}
             {{~/if~}}
+
+            {{~! iterates through each definition to see if the selected text matches ~}}
+            {{~#if
+                (op "&&" (op "===" (get "result") "")
+                    (op "&&"
+                        (op "&" (get "opt-selection-text-mode") 2)
+                        (op "===" (get "opt-selection-attempt-bold") true)
+                    )
+                )
+            ~}}
+                {{~#set "result"}}{{~> _jpmn-get-dict-if-glossary-selected ~}}{{/set~}}
+            {{~/if~}}
+
+            DICTIONARY: 「{{~get "result" ~}}」
+
 
         {{~! no selection text ~}}
         {{~else~}}

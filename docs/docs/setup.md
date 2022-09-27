@@ -753,6 +753,12 @@ To modify a regex string:
     {% endraw %}
 
 
+## Other Yomichan Settings
+If you want to follow my exact Yomichan popup appearance, set the following
+under (Yomichan settings) →  `Popup Appearance`:
+* set `Compact glossaries` to ON.
+* set `Compact tags` to OFF.
+
 <!--
 ## Other Yomichan Settings
 * Again, if you have never used Yomichan before, I recommend checking out
