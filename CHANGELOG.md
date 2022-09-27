@@ -58,6 +58,7 @@ Final major update before public beta!
 - internal build system to work with custom css
 - separated other_definitions partial into each blockquote's partial
 - handlebars `jpmn-get-dict-type` function: no longer requires `[object Object]` in the `X-dict-regex` options
+- changed `jpmn-frequencies` handlebars to match the other handlebars (removed outer class and inner2 class)
 
 #### Fixed
 - `_field.css` not being included on export
