@@ -67,6 +67,7 @@ nav:
   - Reference:
     - Usage: usage.md
     - Card Types: cardtypes.md
+    - Yomichan Template Options (TODO): yomichantemplates.md
     - Runtime Options (TODO): runtimeoptions.md
     - Kanji Hover: kanjihover.md
     - Auto Pitch Accent (TODO): autopa.md

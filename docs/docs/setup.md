@@ -675,89 +675,40 @@ to
 {% endraw %}
 
 
-
-### Categorization of Dictionaries
-If your dictionaries are ending up in the wrong sections,
-then it is likely a problem with how the template code categorizes the dictionaries.
-If you made a card above, check that your dictionaries are in the expected places.
-
-The foolproof way to check that your dictionaries are correctly categorized is with the
-`{jpmn-test-dict-type}` (new as of 0.9.1.2) marker.
-Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
-
-{{ img("checking dictionary categories", "assets/yomichan/test_dictionary_categorization.gif") }}
-
-An example output of the above (on the word 結構) is the following:
-```
-「旺文社国語辞典 第十一版」: monolingual
-「明鏡国語辞典 第二版」: monolingual
-「ハイブリッド新辞林」: monolingual
-「新明解国語辞典 第五版」: monolingual
-「デジタル大辞泉」: monolingual
-「NHK日本語発音アクセント新辞典」: utility
-「JMDict Surface Forms」: utility
-「JMdict (English)」: bilingual
-「JMdict (English)」: bilingual
-「JMdict (English)」: bilingual
-「JMdict (English)」: bilingual
-「JMdict (English)」: bilingual
-「新和英」: bilingual
-```
+!!! note
+    If you made a card above, please check that your dictionaries are in the expected places.
+    If your dictionaries are ending up in the wrong sections,
+    then it is likely a problem with how the template code categorizes the dictionaries.
+    See [here](yomichantemplates.md#categorization-of-dictionaries){:target="_blank"} for more info.
 
 
-If a dictionary is miscategorized,
-you will have to edit `bilingual-dict-regex` or `utility-dict-regex`
-at the top of the template code.
-Monolingual dictionaries are considered to be dictionaries that aren't either
-of the two above, so no handlebars code has to be changed if one were to
-use more monolingual dictionaries.
+### Highlighted Text as the Definition
 
-To see how to edit the regex, go to [this section](setup.md#editing-the-dictionary-regex).
+If you want to use the highlighted text instead of the definition,
+simply set `opt-selection-text-enabled` to `true`.
 
 
-### Ignoring a Dictionary
-If you want to see the dictionary on Yomichan but not have it show on Anki,
-you can use the `ignored-dict-regex` option.
+![type:video](assets/yomichan/selected_text.mp4)
 
-To see how to edit the option, see [the section below](setup.md#editing-the-dictionary-regex).
+!!! note
 
-Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
-[see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki){:target="_blank"}.
+    If you have nothing highlighted, then the first dictionary is chosen just like normal.
+
+See [here](yomichantemplates.md#highlighted-text){:target="_blank"} for more info.
 
 
-### Editing the dictionary regex
 
-To modify a regex string:
-
-1. Determine the exact tag your dictionary has.
-    To see this, take a word that has a definition in the desired dictionary, and test
-    `{jpmn-test-dict-type}` like above.
-    The string inside the quotes 「」 is exactly the tag of the dictionary.
-
-2. Add the dictionary tag to the string, by replacing `ADD_x_DICTIONARIES_HERE`.
-    For example, if your bilingual dictionary tag is `Amazing Dictionary`, change
-    `ADD_BILINGUAL_DICTIONARIES_HERE` to
-    `Amazing Dictionary`.
-
-    If you want to add more than one dictionary, they have to be joined with the `|` character.
-    For example, if you want to add the bilingual dictionaries
-    `Amazing Dictionary` and `Somewhat-Okay-Dictionary`, change
-    `ADD_BILINGUAL_DICTIONARIES_HERE` to
-    `Amazing Dictionary|Somewhat-Okay-Dictionary`.
-
-    {% raw %}
-    For completeness, here is the modified line for the second example:
-    ```handlebars
-    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|Amazing Dictionary|Somewhat-Okay-Dictionary)(\[object Object\])?$ {{~/set~}}
-    ```
-    {% endraw %}
 
 
 ## Other Yomichan Settings
 If you want to follow my exact Yomichan popup appearance, set the following
 under (Yomichan settings) →  `Popup Appearance`:
-* set `Compact glossaries` to ON.
-* set `Compact tags` to OFF.
+
+* Set `Compact glossaries` to ON.
+* Set `Compact tags` to OFF.
+
+There are also plenty of css customizations for Yomichan listed out
+in the [resources page](jpresources.md){:target="_blank"}.
 
 <!--
 ## Other Yomichan Settings
@@ -777,7 +728,7 @@ under (Yomichan settings) →  `Popup Appearance`:
 
 ---
 
-# Creating the Cards
+# Getting the Text to Create the Cards
 I use a texthooker setup, which is able to extract subtitles or text into the browser.
 Once the text is on the browser, you can use Yomichan to select the word and create the
 Anki card (click on the green plus button).
