@@ -11,20 +11,8 @@
 {{~! valid values: "bilingual", "monolingual" ~}}
 {{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
 
-{{~! valid values: 0, 1, 2, 3
-disabled:
-- selection text is entirely ignored
-
-enabled:
-    - Attempts to search for dictionary within the selected text
-    - If the selection is equal to the dictionary name -> uses that dictionary as the primary definition
-    - If a dictionary is not contained -> simply uses the selected text in place of the primary definition
-        - The dictionary that the selected text will not be detected, so the same dictionary
-          should appear in one of the SecondaryDefinition or ExtraDefinition fields.
-~}}
-{{~#set "opt-selection-text-mode" 3}}{{/set~}}
-{{~#set "opt-selection-attempt-bold" true}}{{/set~}}
-
-
-
-
+{{~! options related to selected text ~}}
+{{set "opt-selection-text-enabled"               false}}
+{{set "opt-selection-text-dictionary"            true}}
+{{set "opt-selection-text-glossary"              true}}
+{{set "opt-selection-text-glossary-attempt-bold" true}}
