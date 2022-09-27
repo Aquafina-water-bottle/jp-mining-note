@@ -34,13 +34,18 @@ The following are examples breaking changes:
 
 
 ## [0.10.2.0] - 2022-09-??
-Again, primarily a back-end only update.
+Final major update before public beta!
 
 #### Added
 - templates overrides folder option
 - formal ability to separate css: ("css-folders") option in config
 - full support for light mode
 - added automatic pitch accent coloring for the tested word (disabled by default)
+- `_editor.css` on build and export
+- handlebars support to selection-text:
+    - highlight a dictionary to override the PrimaryDefinition
+    - highlight a section of the definition to override the PrimaryDefinition + bold it
+        - if cannot find highlighted section, fallsback to normal selection-text
 
 #### Changed
 - layout of templates: every variable in the `common.html` files were moved into
@@ -52,6 +57,7 @@ Again, primarily a back-end only update.
     - separated exact functionality from the name, i.e. `bold-yellow` -> `highlight-bold`
 - internal build system to work with custom css
 - separated other_definitions partial into each blockquote's partial
+- handlebars `jpmn-get-dict-type` function: no longer requires `[object Object]` in the `X-dict-regex` options
 
 #### Fixed
 - `_field.css` not being included on export
