@@ -8,18 +8,34 @@
 
 {{#*inline "s"}}{{/inline}}
 
-{{~! categorizes into 3 types: "bilingual", "monolingual", or "pitch-accent" ~}}
+{{~! categorizes into 4 types: "ignored", "bilingual", "utility", or "monolingual" ~}}
 {{~#*inline "jpmn-get-dict-type"~}}
-    {{~#if (op "!==" (regexMatch (get "ignored-dict-regex") "gu" dictionaryName) "")~}}
-        ignored
-    {{~else if (op "!==" (regexMatch (get "bilingual-dict-regex") "gu" dictionaryName) "")~}}
-        bilingual
-    {{~else if (op "!==" (regexMatch (get "utility-dict-regex") "gu" dictionaryName) "")~}}
-        utility
-    {{~else~}}
-        {{~! assumed that anything else is a monolingual dictionary ~}}
-        monolingual
-    {{~/if~}}
+
+    {{~#scope~}}
+        {{~#set "rx-match-ignored" ~}}
+            {{~#regexMatch (get "ignored-dict-regex") "gu"~}}{{dictionaryName}}{{~/regexMatch~}}
+        {{/set~}}
+        {{~#set "rx-match-bilingual" ~}}
+            {{~#regexMatch (get "bilingual-dict-regex") "gu"~}}{{dictionaryName}}{{~/regexMatch~}}
+        {{/set~}}
+        {{~#set "rx-match-utility" ~}}
+            {{~#regexMatch (get "utility-dict-regex") "gu"~}}{{dictionaryName}}{{~/regexMatch~}}
+        {{/set~}}
+
+
+        {{~#if (op "!==" (get "rx-match-ignored") "")~}}
+            ignored
+        {{~else if (op "!==" (get "rx-match-bilingual") "")~}}
+            bilingual
+        {{~else if (op "!==" (get "rx-match-utility") "")~}}
+            utility
+        {{~else~}}
+            {{~! assumed that anything else is a monolingual dictionary ~}}
+            monolingual
+        {{~/if~}}
+
+    {{~/scope~}}
+
 {{~/inline~}}
 
 
@@ -155,6 +171,7 @@ is a part of a dictionary) ~}}
             return dictionary
         if (able to detect dictionary of which the selection-text is highlighting):
             return dictionary
+        return null
 ~}}
 {{~#*inline "_jpmn-check-dictionary-and-glossary"~}}
     {{~#scope~}}
@@ -182,6 +199,46 @@ is a part of a dictionary) ~}}
 
     {{~/scope~}}
 {{~/inline~}}
+
+
+{{~!
+    if (selection-text exists):
+        if (selection-text is exactly a dictionary):
+            return null
+        if (able to detect dictionary of which the selection-text is highlighting):
+            return "uses-glossary"
+        return null
+~}}
+{{~#*inline "_jpmn-selection-uses-glossary"~}}
+    {{~#scope~}}
+
+        {{~#set "result" ""}}{{/set~}}
+
+        {{~! checks if the selected text matches a dictionary ~}}
+        {{~#if (op "===" (get "opt-selection-text-dictionary") true)~}}
+            {{~#set "result"}}{{~> _jpmn-check-dictionary . ~}}{{/set~}}
+        {{~/if~}}
+
+        {{~! checks if the selected text matches a definition in a dictionary ~}}
+        {{~#if (op "!==" (get "result") "") ~}}
+            {{~! selection-text is a dictionary -> null ~}}
+        {{~else if
+            (op "&&"
+                (op "===" (get "opt-selection-text-glossary") true)
+                (op "===" (get "opt-selection-text-glossary-attempt-bold") true)
+            )
+        ~}}
+            {{~#set "result"}}{{~> _jpmn-get-dict-if-glossary-selected . ~}}{{/set~}}
+            {{~#if (op "!==" (get "result") "") ~}}
+                {{~! selection-text dict found -> "uses-glossary" ~}}
+                uses-glossary
+            {{~/if~}}
+        {{~/if~}}
+
+    {{~/scope~}}
+{{~/inline~}}
+
+
 
 
 {{~!
@@ -445,11 +502,12 @@ is a part of a dictionary) ~}}
             {{~> _jpmn-selection-text ~}}
         {{~else~}}
             {{~#set "selection"}}{{~> _jpmn-selection-text ~}}{{/set~}}
-            {{~#set "selection-text-dict"~}}
-                {{~> _jpmn-check-dictionary-and-glossary . ~}}
+            {{~#set "selection-uses-glossary"~}}
+                {{~> _jpmn-selection-uses-glossary . ~}}
             {{~/set~}}
 
-            {{~#if (op "!==" (get "selection-text-dict") "")~}}
+            {{~! not "" <=> is a filled string ~}}
+            {{~#if (op "!==" (get "selection-uses-glossary") "")~}}
 
                 {{~#set "search-selection"}}{{~> _jpmn-escape-regex regexString=(get "selection") ~}}{{/set~}}
                 {{~#set "search-selection-bold"}}<b>{{~ get "selection" ~}}</b>{{/set~}}
@@ -574,8 +632,6 @@ is a part of a dictionary) ~}}
     {{~/scope~}}
 
 {{~/inline~}}
-
-
 
 
 {{~! a test to check if your dictionaries are correctly classified. ~}}

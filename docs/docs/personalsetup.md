@@ -71,13 +71,19 @@ pa:
 
 {{~! REGEX ~}}
 {{~! matches most JMdict dictionaries and 新和英 ~}}
-{{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)(\[object Object\])?$ {{~/set~}}
-{{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms)(\[object Object\])?$ {{~/set~}}
-{{~#set "ignored-dict-regex"~}} ^(新和英.*)(\[object Object\])?$ {{~/set~}}
+{{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)$ {{~/set~}}
+{{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms)$ {{~/set~}}
+{{~#set "ignored-dict-regex"~}} ^(新和英.*)$ {{~/set~}}
 
 {{~! OPTIONS ~}}
 {{~! valid values: "bilingual", "monolingual" ~}}
 {{~#set "first-definition-type" "monolingual"}}{{/set~}}
+
+{{~! options related to selected text ~}}
+{{set "opt-selection-text-enabled"               true}}
+{{set "opt-selection-text-dictionary"            true}}
+{{set "opt-selection-text-glossary"              true}}
+{{set "opt-selection-text-glossary-attempt-bold" true}}
 ```
 {% endraw %}
 
