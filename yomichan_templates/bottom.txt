@@ -27,7 +27,7 @@
 {{~! returns "" if selection text is disabled, or if none existed in the first place ~}}
 {{~#*inline "_jpmn-selection-text"~}}
     {{~! text-mode != "" and text-mode > 0 ~}}
-    {{~#if (op ">" (get "opt-selection-text-mode") 0)~}}
+    {{~#if (op "===" (get "opt-selection-text-enabled") true)~}}
         {{~! removes leading and trailing whitespace ~}}
         {{~#regexReplace "^\s+|\s+$" "" "g"~}}
             {{~#getMedia "selectionText"}}{{/getMedia~}}
@@ -56,11 +56,12 @@
 
 
 
-{{~! uses a space instead of " | " for separating, allows compatability with compact JMdict ~}}
+{{~! gives the raw glossary as the search string (for searching to see if the selected text
+is a part of a dictionary) ~}}
 {{#*inline "_jpmn-glossary-single-search"}}
 
     {{~#scope~}}
-        {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} {{/unless}}{{/each~}}
+        {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each~}}
     {{~/scope~}}
 
 {{/inline}}
@@ -95,16 +96,106 @@
 
 
 
+
 {{~!
-    if (selection-text-mode results in dictionary):
-        returns dictionary found
-    elif (selection-mode results in definition):
+    searches dictionary, determined by `opt-first-definition-type`
+    - (opt-first-definition-type === bilingual) -> bilingual dictionaries are searched first
+    - (opt-first-definition-type === monolingual) -> monolingual dictionaries are searched first
+~}}
+{{~#*inline "_jpmn-search-primary-definition-dict"~}}
+    {{~#scope~}}
+        {{~#if (op "===" (get "opt-first-definition-type") "bilingual")~}}
+            {{~#set "first-definition-search-type-1" "bilingual"}}{{/set~}}
+            {{~#set "first-definition-search-type-2" "monolingual"}}{{/set~}}
+        {{~else~}}
+            {{~#set "first-definition-search-type-1" "monolingual"}}{{/set~}}
+            {{~#set "first-definition-search-type-2" "bilingual"}}{{/set~}}
+        {{~/if~}}
+
+
+        {{~! first-dictionary === null <=> no valid dictionary was found ~}}
+        {{~#set "first-dictionary" null}}{{/set~}}
+
+        {{~#each definition.definitions~}}
+
+            {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+            {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-1"))~}}
+                {{~#if (op "===" null (get "first-dictionary"))~}}
+                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                {{~/if~}}
+            {{~/if~}}
+
+        {{~/each~}}
+
+
+        {{~! uses other dictionary type, last resort ~}}
+        {{~#if (op "===" (get "first-dictionary") null)~}}
+
+            {{~#each definition.definitions~}}
+
+                {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
+                {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-2"))~}}
+                    {{~#if (op "===" null (get "first-dictionary"))~}}
+                        {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                    {{~/if~}}
+                {{~/if~}}
+
+            {{~/each~}}
+
+        {{~/if~}}
+
+        {{~#get "first-dictionary"~}}{{~/get~}}
+    {{~/scope~}}
+{{~/inline~}}
+
+
+{{~!
+    if (selection-text exists):
+        if (selection-text is exactly a dictionary):
+            return dictionary
+        if (able to detect dictionary of which the selection-text is highlighting):
+            return dictionary
+~}}
+{{~#*inline "_jpmn-check-dictionary-and-glossary"~}}
+    {{~#scope~}}
+
+        {{~#set "result" ""}}{{/set~}}
+
+        {{~! checks if the selected text matches a dictionary ~}}
+        {{~#if (op "===" (get "opt-selection-text-dictionary") true)~}}
+            {{~#set "result"}}{{~> _jpmn-check-dictionary . ~}}{{/set~}}
+        {{~/if~}}
+
+        {{~! checks if the selected text matches a definition in a dictionary ~}}
+        {{~#if
+            (op "&&" (op "===" (get "result") "")
+                (op "&&"
+                    (op "===" (get "opt-selection-text-glossary") true)
+                    (op "===" (get "opt-selection-text-glossary-attempt-bold") true)
+                )
+            )
+        ~}}
+            {{~#set "result"}}{{~> _jpmn-get-dict-if-glossary-selected . ~}}{{/set~}}
+        {{~/if~}}
+
+        {{~get "result" ~}}
+
+    {{~/scope~}}
+{{~/inline~}}
+
+
+{{~!
+    if (selection-text exists):
+        if (selection-text is exactly a dictionary):
+            return dictionary
+        if (able to detect dictionary of which the selection-text is highlighting):
+            return dictionary
+        if (selection-text-glossary is not enabled):
+            return first-dictionary (determined by `opt-first-definition-type`)
         return null
+
     else:
-        returns true first-dictionary
-        - first-dictionary is determined by `opt-first-definition-type`
-        - (opt-first-definition-type === bilingual) -> bilingual dictionaries are searched first
-        - (opt-first-definition-type === monolingual) -> monolingual dictionaries are searched first
+        return first-dictionary (determined by `opt-first-definition-type`)
 ~}}
 {{~#*inline "_jpmn-get-primary-definition-dict"~}}
     {{~#scope~}}
@@ -113,77 +204,49 @@
         {{~#set "selection"}}{{~> _jpmn-selection-text ~}}{{/set~}}
         {{~#if (op "!==" (get "selection") "")~}}
 
-            {{~#set "result" ""}}{{/set~}}
+            {{~#set "result"}}{{~> _jpmn-check-dictionary-and-glossary . ~}}{{/set~}}
 
-            {{~! naive dictionary search ~}}
-            {{~#if (op "&" (get "opt-selection-text-mode") 1)~}}
-                {{~#set "result"}}{{~> _jpmn-check-dictionary . ~}}{{/set~}}
-            {{~/if~}}
-
-            {{~! iterates through each definition to see if the selected text matches ~}}
+            {{~! doesn't return a dictionary if opt-selection-text-glossary is false b/c ~}}
             {{~#if
-                (op "&&" (op "===" (get "result") "")
-                    (op "&&"
-                        (op "&" (get "opt-selection-text-mode") 2)
-                        (op "===" (get "opt-selection-attempt-bold") true)
-                    )
+                (op "&&"
+                    (op "===" (get "result") "")
+                    (op "===" (get "opt-selection-text-glossary") false)
                 )
             ~}}
-                {{~#set "result"}}{{~> _jpmn-get-dict-if-glossary-selected ~}}{{/set~}}
+                {{~#set "result"}}{{~> _jpmn-search-primary-definition-dict . ~}}{{/set~}}
             {{~/if~}}
 
-            DICTIONARY: 「{{~get "result" ~}}」
-
+            {{~get "result" ~}}
 
         {{~! no selection text ~}}
         {{~else~}}
-            {{~#if (op "===" (get "opt-first-definition-type") "bilingual")~}}
-                {{~#set "first-definition-search-type-1" "bilingual"}}{{/set~}}
-                {{~#set "first-definition-search-type-2" "monolingual"}}{{/set~}}
-            {{~else~}}
-                {{~#set "first-definition-search-type-1" "monolingual"}}{{/set~}}
-                {{~#set "first-definition-search-type-2" "bilingual"}}{{/set~}}
-            {{~/if~}}
-
-
-            {{~! first-dictionary === null <=> no valid dictionary was found ~}}
-            {{~#set "first-dictionary" null}}{{/set~}}
-
-            {{~#each definition.definitions~}}
-
-                {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-                {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-1"))~}}
-                    {{~#if (op "===" null (get "first-dictionary"))~}}
-                        {{~#set "first-dictionary" dictionary~}}{{~/set~}}
-                    {{~/if~}}
-                {{~/if~}}
-
-            {{~/each~}}
-
-
-            {{~! uses other dictionary type, last resort ~}}
-            {{~#if (op "===" (get "first-dictionary") null)~}}
-
-                {{~#each definition.definitions~}}
-
-                    {{~#set "test-dict-name"}}{{~> jpmn-get-dict-type . dictionaryName=dictionary ~}}{{/set~}}
-                    {{~#if (op "===" (get "test-dict-name") (get "first-definition-search-type-2"))~}}
-                        {{~#if (op "===" null (get "first-dictionary"))~}}
-                            {{~#set "first-dictionary" dictionary~}}{{~/set~}}
-                        {{~/if~}}
-                    {{~/if~}}
-
-                {{~/each~}}
-
-            {{~/if~}}
-
-            {{~#get "first-dictionary"~}}{{~/get~}}
-
+            {{~> _jpmn-search-primary-definition-dict . ~}}
         {{~/if~}}
 
     {{~/scope~}}
 
 {{~/inline~}}
+
+
+{{~#*inline "_jpmn-get-primary-definition-value"~}}
+    {{~#scope~}}
+
+        <ol>
+        {{~#each definition.definitions~}}
+            {{~#if (op "===" dictionary (get "primary-dictionary"))~}}
+                <li data-details="{{~dictionary~}}">
+                    {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                </li>
+            {{~/if~}}
+        {{~/each~}}
+        </ol>
+
+    {{~/scope~}}
+
+{{~/inline~}}
+
+
+
 
 
 {{~! custom glossary-single function for additional regex parsing per dictionary ~}}
@@ -381,15 +444,24 @@
         {{~#if (op "===" (get "primary-dictionary") "")~}}
             {{~> _jpmn-selection-text ~}}
         {{~else~}}
-            <ol>
-            {{~#each definition.definitions~}}
-                {{~#if (op "===" dictionary (get "primary-dictionary"))~}}
-                    <li data-details="{{~dictionary~}}">
-                        {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
-                    </li>
-                {{~/if~}}
-            {{~/each~}}
-            </ol>
+            {{~#set "selection"}}{{~> _jpmn-selection-text ~}}{{/set~}}
+            {{~#set "selection-text-dict"~}}
+                {{~> _jpmn-check-dictionary-and-glossary . ~}}
+            {{~/set~}}
+
+            {{~#if (op "!==" (get "selection-text-dict") "")~}}
+
+                {{~#set "search-selection"}}{{~> _jpmn-escape-regex regexString=(get "selection") ~}}{{/set~}}
+                {{~#set "search-selection-bold"}}<b>{{~ get "selection" ~}}</b>{{/set~}}
+
+                {{~#regexReplace (get "search-selection") (get "search-selection-bold") "g"~}}
+                    {{~> _jpmn-get-primary-definition-value . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                {{~/regexReplace~}}
+
+            {{~else~}}
+                {{~> _jpmn-get-primary-definition-value . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+            {{~/if~}}
+
         {{~/if~}}
 
     {{~/scope~}}
