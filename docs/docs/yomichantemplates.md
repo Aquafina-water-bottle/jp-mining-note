@@ -85,19 +85,19 @@ To modify a regex string:
 
 
 
-# Highlighted Text
+# Selected Text
 
 TODO flesh out and layout info better
 
 
-## Highlighting a Dictionary
+## Overriding a Dictionary
 Highlighting a dictionary overrides the first definition you see with that dictionary.
 This is togglable by `opt-selection-text-dictionary`.
 
-## Highlighting the Definition
-If you highlight a portion of the definition, the template code will
-use the dictionary containing the highlighted definition,
-and bold the highlighted portion.
+## Overriding the Definition
+If you select a portion of the definition, the template code will
+use the dictionary containing the selected definition,
+and bold the selected portion.
 This is togglable by `opt-selection-text-glossary`.
 
 !!! note
@@ -107,10 +107,14 @@ This is togglable by `opt-selection-text-glossary`.
     using the highlighted text.
 
     This is most likely to fail if you select formatted parts of text,
-    such as line breaks, furigana, select more than one item in a list, etc.
+    such as (but not limited to):
+
+    - line breaks
+    - furigana
+    - across multiple items in a list (common with JMdict)
 
 
-If you do not want to import the entire dictionary, and prefer
+If you do not want to use the entire dictionary, and prefer
 that *only* the selected text is shown in the first definition,
 set `opt-selection-text-glossary-attempt-bold` to `false`.
 

@@ -19,29 +19,6 @@ let note = (function () {
 
 
 
-function getSetting(keys, defaultVal) {
-  if (typeof JPMNOpts === "undefined") {
-    return defaultVal;
-  }
-
-  let keyList = ["settings"].concat(keys);
-
-  let obj = JPMNOpts;
-  for (let key of keyList) {
-    if (!(key in obj)) {
-
-      // checks if we need to warn, manual search
-      if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
-        LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
-      }
-      return defaultVal;
-    }
-    obj = obj[key];
-  }
-  return obj;
-};
-
-
 /*
  * Toggles the display of any given details tag
  */
@@ -198,9 +175,11 @@ document.onkeyup = (e => {
 function main() {
 
   // sanity check: options
+  /// {% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
   if (typeof JPMNOpts === 'undefined') {
     LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
   }
+  /// {% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
 
   // sanity check: checks that both `IsHoverCard` and `IsClickCard` are both not activated
   /// {% call IF("IsHoverCard") %}

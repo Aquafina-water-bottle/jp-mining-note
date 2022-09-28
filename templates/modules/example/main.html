@@ -1,4 +1,4 @@
-{# idk #}
+{# example module #}
 
 
 {% import "modules/example/main.js" as js with context %}
@@ -11,20 +11,7 @@
 {# interface for modules that change javascript #}
 {% set MOD.js = JavascriptContainer(MOD.id) %}
 
+{# prints a "Hello world" on the front side of all cards #}
+{{ MOD.js.functions.set_front(js.functions) }}
+{{ MOD.js.run.set_front(js.run) }}
 
-
-{# create any variable if necessary, with TextContainer #}
-{% set MOD.foo = TextContainer(MOD.id) %}
-
-{% set foo %}
-<div>example foo</div>
-{% endset %}
-
-{{ MOD.foo.set_back(foo) }}}
-
-{# then call with:
-
-  {% from "modules/example/main.html" import MOD as example_module %}
-  {{ example_module.foo.get() }}
-
-#}

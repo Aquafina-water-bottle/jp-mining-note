@@ -28,7 +28,11 @@ CONFIG = {
     },
 
     "compile-options": {
+        # toggles whether keybinds can be used or not
         "keybinds-enabled": True,
+
+        # toggles whether the runtime options should be read from a file or not.
+        "hardcoded-runtime-options": False,
 
         "always-filled-fields": [],
 

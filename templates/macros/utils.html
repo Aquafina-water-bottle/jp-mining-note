@@ -166,11 +166,15 @@
 
 {% macro opt() -%}
   {%- autoescape false -%}
-  {{ "getSetting([" }}
-  {%- for name in varargs -%}
-    {{ "'" }}{{name}}{{ "'," }}
-  {%- endfor -%}
-  {{ "]," }}{{NOTE_OPTS(*varargs).item(javascript=True)}}{{ ")" }}
+    {%- if COMPILE_OPTIONS("hardcoded-runtime-options").item() -%}
+      ({{NOTE_OPTS(*varargs).item(javascript=True)}})
+    {%- else -%}
+      {{ "getSetting([" }}
+      {%- for name in varargs -%}
+        {{ "'" }}{{name}}{{ "'," }}
+      {%- endfor -%}
+      {{ "]," }}{{NOTE_OPTS(*varargs).item(javascript=True)}}{{ ")" }}
+    {%- endif -%}
   {%- endautoescape -%}
 {%- endmacro %}
 

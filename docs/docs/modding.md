@@ -6,7 +6,8 @@ wiki page here (TODO link to setup).
 
 # Introduction
 This page describes all the ways of modding your note,
-and goes into depth on the ways you can mod your note without losing your changes upon updates.
+and goes into depth on the ways you can mod your note
+**without losing your changes** between updates.
 
 
 !!! note
@@ -31,7 +32,7 @@ then you can simply edit the template and ignore the rest of this page.
 
 
 
-# Project Description
+# Technical Summary
 The Anki card template is generated through `jinja` templates,
 which is a popular templating engine for `Python`.
 All of these templates are located under the `(root)/templates` folder.
@@ -68,7 +69,8 @@ templates
 - [sass](https://sass-lang.com/dart-sass) (dart implementation)
     - The dart implementation is required to use the latest features of sass.
 - Anki 2.1.54 or higher
-- Anki-connect addon
+- Anki-Connect addon
+
 
 ## Initialization
 
@@ -107,6 +109,7 @@ pip3 install -r tools/requirements.txt
 
 
 !!! note
+
     The `master` branch is the bleeding edge version of the note.
     If you want to build a more stable version of the note, do the following:
     ```bash
@@ -183,6 +186,7 @@ mkdocs serve
     pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin \
             mkdocs-git-revision-date-localized-plugin
     ```
+
 <!-- TODO update requirements.txt to include last git-revision requirement -->
 
 
@@ -192,20 +196,19 @@ mkdocs serve
 
 
 
-# Modding the Note
+# Compile-Time Options
 After running `main.py` (or `make.py`), a new file `config/config.py` should appear.
 The compile-time options can be found in this file.
 
+An example set of compile-time options to create a more optimized vocab card is shown below.
 
-## QuickStart: Vocab Cards
-If you want to skip the details below and get the options to
-create an optimized vocab card, see the dropdown below.
-
-??? info "Vocab card compile-time options"
+??? quote "Vocab card compile-time options example"
 
     ```json
     "compile-options": {
         "keybinds-enabled": False,
+
+        "hardcoded-runtime-options": True,
 
         "always-filled-fields": [],
 
@@ -232,57 +235,155 @@ create an optimized vocab card, see the dropdown below.
 
 ## Always filled & Never filled fields
 {% raw %}
-You can set a field to act as if it has always been filled, or it has never been filled.
+You can set a field to act as if it has always been filled, or it has never been filled,
+using the `always-filled-fields` and `never-filled-fields` options.
 This will remove the conditional Anki templates
 (`{{#FIELD}}` and `{{^FIELD}}` markers) for the specified fields.
-For example, if your `compile-options` is:
-
-```
-"always-filled-fields": ["A"],
-"never-filled-fields": ["B"],
-...
-```
-
-and your card template is:
-```
-{{#A}} A is filled {{/A}}
-{{^A}} A is not filled {{/A}}
-{{#B}} B is filled {{/B}}
-{{^B}} B is not filled {{/B}}
-{{#C}} C is filled {{/C}}
-{{^C}} C is not filled {{/C}}
-```
-
-then upon card build, the resulting card template will be:
-```
-A is filled
-B is not filled
-{{#C}} C is filled {{/C}}
-{{^C}} C is not filled {{/C}}
-```
-{% endraw %}
 
 
-## Modules
+??? quote "Example"
+
+    If your `compile-options` is:
+
+    ```
+    "compile-options": {
+        ...
+        "always-filled-fields": ["A"],
+        "never-filled-fields": ["B"],
+        ...
+    }
+    ```
+
+    and your card template is:
+    ```
+    {{#A}} A is filled {{/A}}
+    {{^A}} A is not filled {{/A}}
+    {{#B}} B is filled {{/B}}
+    {{^B}} B is not filled {{/B}}
+    {{#C}} C is filled {{/C}}
+    {{^C}} C is not filled {{/C}}
+    ```
+
+    then upon card build, the resulting card template will be:
+    ```
+    A is filled
+    B is not filled
+    {{#C}} C is filled {{/C}}
+    {{^C}} C is not filled {{/C}}
+    ```
+    {% endraw %}
+
+
+This usually renders the actual field value useless. In other words, filling the field
+for a note will have no effect on the cards.
+
+
+!!! warning
+
+    Do not delete the field from the fields list!
+    See [here](modding.md#field-editing) for more details.
+
+
+
+
+## Custom Runtime Options
+- runtime options can be specified at build-time as well
+- recommend creating your own file (to avoid committing changes to the example runtime options)
+
+1. create the user runtime options file (e.g. `user_jpmn_opts.jsonc`)
+
+    ```bash
+    cd config
+    cp jpmn_opts.jsonc user_jpmn_opts.jsonc
+    ```
+
+2. under `config.py`:
+
+    ```
+    "opts-path": "user_jpmn_opts.jsonc",
+    ```
+
+3. (optional) have runtime options hard-coded to remove the file dependency
+
+    under `config.py`:
+    ```
+    ...
+    "compile-options": {
+        "hardcoded-runtime-options": True,
+    }
+    ```
+
+!!! note
+
+    flag `--install-options` should be used when running the installation script (unless hard-coded)
+
+
+
+
+
+
+# Modding the Note
+
+<!--
+## Extra Javascript & CSS
+- primarily for testing, not for production use
+- appends whatever javascript you want to the very end of the anonymous function
+-->
+
+
+
+## Custom HTML: Template Overrides
+- `overrides` folder (or whatever folder you specify under `templates-override-folder` in config.py)
+- same format as existing `templates` folder
+
+
+## Custom JS: Modules
 - TODO basic explanation
-- primary use is for javascript
+- primary use is for javascript (and currently only used for javascript)
 - javascript-only modules do not require any edits to the raw html
 - some modules may still have to edit the raw html -> cannot update the note
-    - edits are minimal so you should be able to re-add upon update
+    - recommend using template overrides
 - uses runtime options
 
 
-## Extra Javascript
-TODO: not implemented
+### Hello World Module
 
-- primarily for testing, not for production use
-- appends whatever javascript you want to the very end of the anonymous function
+To showcase a simple example,
+the following will enable a custom hello world module,
+which prints a "Hello world!" at the front of any card
+(as a warning in the info circle).
+
+`config.py`:
+```
+"compile-options": {
+    "allow-user-defined-modules": True,
+
+    "enabled-modules": [
+        ...
+
+        "example"
+    ]
+},
+```
+
+
+runtime options file (`jpmn_opts.jsonc`):
+```
+...
+"modules": {
+  ...
+  "example": {
+    "enabled": true
+  }
+}
+```
 
 
 ## Custom CSS
 - allows for custom themes / complete user customization
 - can override variables, etc.
 - simply appends the css at the very end of the existing css
+
 
 how-to:
 
@@ -301,24 +402,27 @@ how-to:
 
 
 
-## Template Overrides
-- `overrides` folder (or whatever folder you specify under `templates-override-folder` in config.py)
-- same format as existing `templates` folder
 
 
-
-## Field Editing
+# Field Editing
 This section describes import PSAs on what you should you if you want to
 edit the fields of the note (i.e. adding, removing, renaming, and moving).
-This is NOT in reference to the templates where the fields are used,
-but rather what fields exist, what the field names are, etc.
+
+Fields editing in this context refers to the fields that you can edit
+in the `Fields` (list) menu, found under (Main window) →  `Browse` →  `Fields...`.
 
 
-### Installer details
+<figure markdown>
+{{ img("anki field window", "assets/anki/fields_window.png") }}
+</figure>
+
+
+
+## Installer details
 - TODO look at updating section
 
 
-### Do not remove or rename fields
+## Do not remove or rename fields
 
 - do not remove fields!
     - even if compiling them out with always-filled/never-filled fields (below)
@@ -331,7 +435,7 @@ but rather what fields exist, what the field names are, etc.
 - do not rename fields
     - similarily to the above, so the updater knows what fields already exist
 
-### How to add & reorder fields
+## How to add & reorder fields
 - if wanting to add field: recommend to add below `Comment` field to seemlessly update
     - if field added above `Comment` and want to update, run `install.py` with `--ignore-order` flag
 
@@ -341,12 +445,6 @@ but rather what fields exist, what the field names are, etc.
 
 
 
-
-## Make your changes shown!
-If you think your changes will be useful for others,
-I highly recommend contributing your work to this project!
-
-TODO
 
 <!--
 - especially since your changes will likely edit the raw html
@@ -375,87 +473,10 @@ TODO
 
 
 
-## Yomichan Templates CSS
+# Other
 
 
-example generated html for frequencies:
-
-
-```html
-
-<div class="frequencies">
-  <div class="frequencies__group" data-details="Anime &amp; Jdrama Freq:">
-    <div class="frequencies__number"><span class="frequencies__number-inner">3128</span></div>
-    <div class="frequencies__dictionary">
-      <span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">Anime &amp; Jdrama Freq:</span></span>
-    </div>
-  </div>
-  <div class="frequencies__group" data-details="Innocent Ranked">
-    <div class="frequencies__number"><span class="frequencies__number-inner">6230</span></div>
-    <div class="frequencies__dictionary">
-      <span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">Innocent Ranked</span></span>
-    </div>
-  </div>
-  <!-- etc. -->
-</div>
-```
-
-
-example generated html for pitch accent positions:
-```html
-<!-- surrounded by <div class="pa-positions"> in Anki template -->
-
-<div class="pa-positions__group" data-details="NHK">
-  <div class="pa-positions__dictionary"><div class="pa-positions__dictionary-inner">NHK</div></div>
-  <ol>
-    <li>
-      <span style="display: inline;"><span>[</span><span>0</span><span>]</span></span>
-    </li>
-    <li>
-      <span style="display: inline;"><span>[</span><span>3</span><span>]</span></span>
-    </li>
-  </ol>
-</div>
-<div class="pa-positions__group" data-details="大辞泉">
-  <div class="pa-positions__dictionary"><div class="pa-positions__dictionary-inner">大辞泉</div></div>
-  <ol>
-    <li>
-      <span style="display: inline;"><span>[</span><span>0</span><span>]</span></span>
-    </li>
-  </ol>
-</div>
-<!-- etc. -->
-
-```
-
-
-example generated html for pitch accent graphs:
-```html
-<!-- surrounded by <div class="pa-graphs"> in Anki template -->
-
-<div class="pa-graphs__group" data-details="NHK">
-  <div class="pa-graphs__dictionary"><div class="pa-graphs__dictionary-inner">NHK</div></div>
-  <ol>
-    <li>
-      <svg> ... </svg> <!-- Yomichan's generated SVG -->
-    </li>
-  </ol>
-</div>
-<div class="pa-graphs__group" data-details="大辞泉">
-  <div class="pa-graphs__dictionary"><div class="pa-graphs__dictionary-inner">大辞泉</div></div>
-  <ol>
-    <li>
-      <svg> ... </svg> <!-- Yomichan's generated SVG -->
-    </li>
-  </ol>
-</div>
-<!-- etc... -->
-```
-
-
-## Tips and Tricks
-
-### Print statements
+## Javascript Print statements
 Anki doesn't come with a way to use `console.log()` normally, so I made one myself.
 
 ```javascript
@@ -481,15 +502,15 @@ in the javascript options.
 
 
 
-# Modding Yomichan Templates
-TODO transfer yomichan templates section here
+
+## Make your changes shown!
+If you think your changes will be useful for others,
+I highly recommend contributing your work to this project!
+
+TODO
 
 
-
-
-
-
-# Contributing
+## Contributing
 TODO separate page
 
 - before:

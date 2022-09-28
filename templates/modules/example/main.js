@@ -31,6 +31,7 @@ const JPMNExample = (() => {
     }
 
     run() {
+      logger.warn("Hello world!");
       // ...
     }
   }
