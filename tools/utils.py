@@ -53,8 +53,7 @@ def add_args(parser: argparse.ArgumentParser):
         "--dev-custom-version",
         type=str,
         default=None,
-        help="custom output version to be used instead of version.txt "
-        "(only use this if you know what you're doing)",
+        help="(dev option) custom output version to be used instead of version.txt"
     )
 
 
