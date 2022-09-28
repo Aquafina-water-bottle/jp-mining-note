@@ -400,6 +400,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../yomichantemplates/" class="md-nav__link">
+        Yomichan Template Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options (TODO)
       </a>
@@ -708,13 +722,19 @@ as points will be better explained.</p>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>{{~! REGEX ~}}
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>{{~! matches most JMdict dictionaries and 新和英 ~}}
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>{{~#set &quot;bilingual-dict-regex&quot;~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)(\[object Object\])?$ {{~/set~}}
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>{{~#set &quot;utility-dict-regex&quot;~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms)(\[object Object\])?$ {{~/set~}}
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>{{~#set &quot;ignored-dict-regex&quot;~}} ^(新和英.*)(\[object Object\])?$ {{~/set~}}
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>{{~#set &quot;bilingual-dict-regex&quot;~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)$ {{~/set~}}
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>{{~#set &quot;utility-dict-regex&quot;~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms)$ {{~/set~}}
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>{{~#set &quot;ignored-dict-regex&quot;~}} ^(新和英.*)$ {{~/set~}}
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>{{~! OPTIONS ~}}
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>{{~! valid values: &quot;bilingual&quot;, &quot;monolingual&quot; ~}}
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>{{~#set &quot;first-definition-type&quot; &quot;monolingual&quot;}}{{/set~}}
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>{{~#set &quot;opt-first-definition-type&quot; &quot;monolingual&quot;}}{{/set~}}
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>{{~! options related to selected text ~}}
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>{{set &quot;opt-selection-text-enabled&quot;               true}}
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>{{set &quot;opt-selection-text-dictionary&quot;            true}}
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>{{set &quot;opt-selection-text-glossary&quot;              true}}
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>{{set &quot;opt-selection-text-glossary-attempt-bold&quot; true}}
 </code></pre></div>
 <h3 id="monolingual-profile">monolingual profile<a class="headerlink" href="#monolingual-profile" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1046,7 +1066,7 @@ as points will be better explained.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 16, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 28, 2022</span>
       
     
   </small>

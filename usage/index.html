@@ -602,6 +602,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../yomichantemplates/" class="md-nav__link">
+        Yomichan Template Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options (TODO)
       </a>
@@ -953,14 +967,18 @@ A field that checks whether it is filled or not with any value, say <code>1</cod
 The default is implied by the name of the field, and a value of "true" means that the field is filled.
 For example, the <code>IsSentenceCard</code> field will turn the card into a sentence card if filled.
 If it is not filled, then the card will be a word card.
-To fill a field automatically, see <a href="../faq/#how-do-i-change-the-default-value-of-a-binary-field">here</a>.</p>
-<p>To "toggle" a binary field means to either fill the value if is not filled yet,
+To fill a field automatically, see
+<a href="../faq/#how-do-i-change-the-default-value-of-a-binary-field" target="_blank">here</a>.</p>
+<!--
+To "toggle" a binary field means to either fill the value if is not filled yet,
 or to remove the value if it is filled.
-In other words, it means to flip the value of the field between empty and filled.</p>
+In other words, it means to flip the value of the field between empty and filled.
+-->
+
 <p><strong>PA:</strong> Short for "Pitch Accent".</p>
 <hr />
 <h2 id="user-interface">User Interface<a class="headerlink" href="#user-interface" title="Permanent link">&para;</a></h2>
-<p>Most of the user interface is already shown off in the video demo in the README,
+<p>Most of the user interface is already shown off in the <a href="/#demos" target="_blank">first video demo</a>,
 and I would recommend watching it before continuing.
 However, to dispell any mysteries, here is a fully annotated summary of the user interface.</p>
 <p><a href="../assets/eg_fushinnsha_diagram.png"><img alt="UI annotated summary" src="../assets/eg_fushinnsha_diagram.png" /></a></p>
@@ -974,7 +992,7 @@ However, to dispell any mysteries, here is a fully annotated summary of the user
 <p>This should only appear when some javascript code fails.
 In other words, this should <strong>not</strong> appear under normal circumstances.
 If you get this without modifying the note in any way,
-please see <a href="../faq/#errors">this section</a> for basic troubleshooting.</p>
+please see <a href="../faq/#errors" target="_blank">this section</a> for basic troubleshooting.</p>
 <p><a href="../assets/info_circle_error.gif"><img alt="info circle error example" src="../assets/info_circle_error.gif" /></a></p>
 </details>
 <details class="quote">
@@ -1007,7 +1025,7 @@ they should represent words that you already know.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The maximum number of results, as well as the exact queries themselves,
-can be changed in the <a href="../runtimeoptions/">options file</a>.</p>
+can be changed in the <a href="../runtimeoptions/" target="_blank">options file</a>.</p>
 </div>
 <h3 id="word-pitch">Word Pitch<a class="headerlink" href="#word-pitch" title="Permanent link">&para;</a></h3>
 <p>The colors and what the lines mean are all described in the
@@ -1029,7 +1047,7 @@ many ways to change this tested content.</p>
 <p>The default card type is a vocab card,
 where the tested content is simply the word.</p>
 <p><a href="../assets/nisemono_word.png"><img alt="vocab card example" src="../assets/nisemono_word.png" /></a></p>
-<p>To change the card to a sentence card, toggle the <code>IsSentenceCard</code> binary field.</p>
+<p>To change the card to a sentence card, fill the <code>IsSentenceCard</code> binary field.</p>
 <p><a href="../assets/nisemono_sentence.png"><img alt="sentence card example" src="../assets/nisemono_sentence.png" /></a></p>
 <p>There are many other card types that this note supports.
 To see the full list, see <a href="../cardtypes/">this section</a>.</p>
@@ -1225,7 +1243,7 @@ The words that are hidden are exactly the words that are bolded in the <code>Sen
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 28, 2022</span>
       
     
   </small>
