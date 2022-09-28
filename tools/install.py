@@ -63,7 +63,7 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
-        "--ignore-note-changes",
+        "--dev-ignore-note-changes",
         action="store_true",
         help="(dev option) bypasses the note changes section",
     )
@@ -324,7 +324,7 @@ def main(args=None):
             return
 
         # checks for note changes between versions
-        if not args.ignore_note_changes:
+        if not args.dev_ignore_note_changes:
             current_ver = ar.Version.from_str(utils.get_version_from_anki())
             new_ver = ar.Version.from_str(utils.get_version(args))
             action_runner = ar.ActionRunner(
