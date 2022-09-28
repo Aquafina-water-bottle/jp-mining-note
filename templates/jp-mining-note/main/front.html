@@ -25,9 +25,9 @@
       - TSC and hybrid cards already shows the word
   -->
   {% call IF("IsSentenceCard") %}
-  {% call utils.none_of("PADoNotTest", "PASeparateWordCard",
+  {% call utils.if_none("PADoNotTest", "PASeparateWordCard",
       "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard") %}
-  {% call utils.any_of("PASeparateSentenceCard", "PATestOnlyWord") %}
+  {% call utils.if_any("PASeparateSentenceCard", "PATestOnlyWord") %}
 
     <button id="pa-button">Show</button>
 
@@ -38,7 +38,7 @@
   <!--
     if the display is a word: show sentence preview (spoilered)
   -->
-  {% call utils.none_of("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard") %}
+  {% call utils.if_none("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard") %}
     {% filter indent(width=4) %}
     {% include "jp-mining-note/partials/full_sentence_front.html" %}
     {% endfilter %}

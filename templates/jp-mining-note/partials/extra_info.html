@@ -1,7 +1,7 @@
 {# impl #}
 {# not sure if I can optimize this away easily... #}
 <div class="outer-display1
-    {% call utils.none_of('PAGraphs', 'UtilityDictionaries') %}
+    {% call utils.if_none('PAGraphs', 'UtilityDictionaries') %}
       outer-display2
     {% endcall %}"
   id="display">

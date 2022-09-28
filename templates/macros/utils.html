@@ -1,10 +1,8 @@
 {# syntax looks weird to not screw up vim syntax highlighting... #}
 {% from "macros/global.html" import T, IF, IFNOT, END with context %}
 
-{# TODO rename functions? any_of -> if_any, none_of -> if_none #}
-
 {#
- # >>> any_of("A", "B")
+ # >>> if_any("A", "B")
  #
  # expands to:
  #
@@ -14,7 +12,7 @@
  #
  # and any other combination with at least one #
  #}
-{% macro _any_of(args, text, comment) %}
+{% macro _if_any(args, text, comment) %}
   {#-
     if any of the args are "always filled", then this entire section will
     always show the text
@@ -65,12 +63,12 @@
 
 {% endmacro %}
 
-{% macro any_of() -%}
-{{ _any_of(args=varargs, text=caller(), comment=False) }}
+{% macro if_any() -%}
+{{ _if_any(args=varargs, text=caller(), comment=False) }}
 {%- endmacro %}
 
-{% macro any_of_js() -%}
-{{ _any_of(args=varargs, text=caller(), comment=True) }}
+{% macro if_any_js() -%}
+{{ _if_any(args=varargs, text=caller(), comment=True) }}
 {%- endmacro %}
 
 
@@ -108,7 +106,7 @@
 
 
 {#
- # >>> none_of("A", "B")
+ # >>> if_none("A", "B")
  #
  # expands to:
  #
@@ -117,27 +115,26 @@
  #     {/B} {/A}
  #
  #}
-{% macro _none_of(args, text, comment) %}
+{% macro _if_none(args, text, comment) %}
   {#-
     if any of the args are "never filled", then this entire section will
     never show the text
   -#}
 
-  {#- equivalent to if set.intersection(args, never_filled_fields) -#}
   {%- set noneof = namespace() -%}
-  {%- set noneof.never_filled = False -%}
+  {%- set noneof.always_filled = False -%}
   {%- for a in args -%}
-    {%- if a in COMPILE_OPTIONS("never-filled-fields").list() -%}
-      {%- set noneof.never_filled = True -%}
+    {%- if a in COMPILE_OPTIONS("always-filled-fields").list() -%}
+      {%- set noneof.always_filled = True -%}
     {%- endif -%}
   {%- endfor -%}
 
-  {%- if not noneof.never_filled -%}
+  {%- if not noneof.always_filled -%}
 
-    {#- removes anything that is in always-filled -#}
+    {#- removes anything that is in never-filled -#}
     {%- set noneof.filtered_args = [] -%}
     {%- for a in args -%}
-      {%- if a not in COMPILE_OPTIONS("always-filled-fields").list() -%}
+      {%- if a not in COMPILE_OPTIONS("never-filled-fields").list() -%}
         {%- do noneof.filtered_args.append(a) -%}
       {%- endif -%}
     {%- endfor -%}
@@ -156,12 +153,12 @@
 
 {% endmacro %}
 
-{% macro none_of() -%}
-{{ _none_of(args=varargs, text=caller(), comment=False) }}
+{% macro if_none() -%}
+{{ _if_none(args=varargs, text=caller(), comment=False) }}
 {%- endmacro %}
 
-{% macro none_of_js() -%}
-{{ _none_of(args=varargs, text=caller(), comment=True) }}
+{% macro if_none_js() -%}
+{{ _if_none(args=varargs, text=caller(), comment=True) }}
 {%- endmacro %}
 
 

@@ -73,6 +73,7 @@ Note: changing the layout of the changelog from this point forward.
 - removed attempts to remove newlines in various handlebars code within javascript
 - Added `NoteToUser` action class
 - Added tests to some macros and field simulator
+- renamed `any_of` -> `if_any` and `none_of` -> `if_none`
 
 - fixed `_standardize_frequencies_styling` not working on all `inner2` classes in `batch.py`
 - fixed `def_header` macro being defined twice for some reason

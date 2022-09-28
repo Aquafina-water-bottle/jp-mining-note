@@ -31,21 +31,21 @@
   /
 
   <!-- PADoNotTest or PASeparateWordCard == none -->
-  {% call utils.any_of("PADoNotTest", "PASeparateWordCard") %}
+  {% call utils.if_any("PADoNotTest", "PASeparateWordCard") %}
     None
   {% endcall %}
 
   <!-- neither PADoNotTest, PASeparateWordCard are filled -->
   <!-- we then test the PA somewhere -->
-  {% call utils.none_of("PADoNotTest", "PASeparateWordCard") %}
+  {% call utils.if_none("PADoNotTest", "PASeparateWordCard") %}
 
     <!-- PASeparateSentenceCard or PATestOnlyWord == word -->
-    {% call utils.any_of("PASeparateSentenceCard", "PATestOnlyWord") %}
+    {% call utils.if_any("PASeparateSentenceCard", "PATestOnlyWord") %}
       Word
     {% endcall %}
 
     <!-- if none of the above, then we test the default value -->
-    {% call utils.none_of("PASeparateSentenceCard", "PATestOnlyWord") %}
+    {% call utils.if_none("PASeparateSentenceCard", "PATestOnlyWord") %}
 
       <!-- note: default for TSC is test word, may change in the future... -->
       {% call IF("IsSentenceCard") %}

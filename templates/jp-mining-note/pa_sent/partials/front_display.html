@@ -19,7 +19,7 @@
   {% call IF('AltDisplay') %}
 
     <div class="outer-display1
-        {% call utils.none_of('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %}
+        {% call utils.if_none('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %}
           outer-display2
         {% endcall %}
         "

@@ -114,8 +114,7 @@ const JPMNSentUtils = (() => {
     }
 
     if ((existingQuote || autoQuote) && {{ utils.opt("modules", "sent-utils", "pa-indicator-color-quotes") }}) {
-      // TODO change this to a data-color-quotes tag within html
-      // so it is sentence-div dependent
+      // data-color-quotes tag within html is sentence-div dependent (preferable over a global state)
       sentEle.setAttribute("data-color-quotes", "true");
 
       if (paIndicator !== null) {
@@ -133,8 +132,8 @@ const JPMNSentUtils = (() => {
       // neither hover & click and is either one of TSC / sentence -> removes flag
       let svgEle = document.getElementById("flag_box_svg");
 
-      /// {% call utils.none_of_js("IsHoverCard", "IsClickCard") %}
-      /// {% call utils.any_of_js("IsTargetedSentenceCard", "IsSentenceCard") %}
+      /// {% call utils.if_none_js("IsHoverCard", "IsClickCard") %}
+      /// {% call utils.if_any_js("IsTargetedSentenceCard", "IsSentenceCard") %}
       svgEle.style.display = "none";
       /// {% endcall %}
       /// {% endcall %}
@@ -204,7 +203,7 @@ if ({{ utils.opt("modules", "sent-utils", "enabled") }}) {
   /* {% call IFNOT('AltDisplayPASentenceCard') %} */
     /* {% call IF('AltDisplay') %} */
     isAltDisplay = (
-      /* {% call utils.none_of('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %} */
+      /* {% call utils.if_none('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %} */
         false &&
       /* {% endcall %} */
       true ? true : false

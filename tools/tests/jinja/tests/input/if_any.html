@@ -1,0 +1,3 @@
+{# if_any #}
+{%- import "macros/utils.html" as utils with context -%}
+{% call utils.if_any("ExampleField", "ExampleField2") %}Hello{% endcall %}
