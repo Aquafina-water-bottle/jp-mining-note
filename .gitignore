@@ -364,3 +364,4 @@ backup/
 wiki/assets/old
 docs/site/
 docs/notes.txt
+tools/tests/jinja/tests/tmp/
