@@ -20,8 +20,12 @@ CONFIG = {
     # Don't remove "default" unless you know what you're doing.
     "css-folders": ["default", "dictionaries"],
 
-    # Option to have custom javascript.
-    "extra-javascript": [],
+    # Option to add custom javascript to all cards.
+    # The recommended way to add javascript to cards is by modules.
+    "extra-javascript": {
+        "folder": "overrides/js",
+        "files": []
+    },
 
     "compile-options": {
         "keybinds-enabled": True,
@@ -29,6 +33,10 @@ CONFIG = {
         "always-filled-fields": [],
 
         "never-filled-fields": [],
+
+        # Allows modules that didn't come with the note to be used.
+        # Additionally, allows custom re-ordering of modules.
+        "allow-user-defined-modules": False,
 
         "enabled-modules": [
             # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
@@ -38,7 +46,7 @@ CONFIG = {
             "sent-utils",
             "kanji-hover",
             "auto-pitch-accent",
-            "open_on_new",
+            "customize-open-fields",
         ],
     },
 }

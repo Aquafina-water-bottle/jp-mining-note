@@ -190,16 +190,26 @@
       // Replaces all images in the glossary (definition) sections
       // with an internal representation similar to how Yomichan displays images:
       // an `[Image]` text where you can see the image upon hover, and with click to zoom.
-      // You MAY have to disable this if you want to use the "Edit Field During Review" add-on
-      // (https://ankiweb.net/shared/info/1020366288).
       "stylize-images-in-glossary": true
     },
 
 
     // Opens the specified collapsable field if the card is new.
-    "open-on-new": {
+    "customize-open-fields": {
       "enabled": false,
-      "open-fields": [
+
+      "open": [
+        // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
+        // indeed collapsed by default.
+
+        //"Primary Definition",
+        //"Secondary Definition",
+        // "Additional Notes",
+        //"Extra Definitions",
+        //"Extra Info"
+      ],
+
+      "open-on-new": [
         // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
         // indeed collapsed by default.
 

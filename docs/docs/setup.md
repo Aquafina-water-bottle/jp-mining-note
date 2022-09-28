@@ -607,9 +607,9 @@ Yomichan supports user inserted template code that allows the automatic
 separation of bilingual and monolingual dictionary definitions, custom stylization, etc.
 This note type makes heavy use of these custom templates.
 
-![type:video](assets/yomichan/import_yomichan_templates.mp4)
-
 To make the new markers usable, do the following:
+
+![type:video](assets/yomichan/import_yomichan_templates.mp4)
 
 1. Navigate to Yomichan Settings.
 1. Make sure that advanced settings are turned on (bottom left corner).
@@ -659,7 +659,7 @@ Outside of that, there are some final settings you can adjust within the Yomicha
 if the card doesn't look quite right.
 
 
-## Yomichan Templates Settings
+## Yomichan Templates Options
 
 ### Monolingual Definition
 
@@ -678,13 +678,20 @@ to
 
 
 !!! note
-    On your first few cards, please check that your dictionaries are in the expected places.
+
+    If you are using monolingual dictionaries, on your first few cards,
+    please check that your dictionaries are in the expected places.
+    Extra bilingual definitions should be under `Secondary Definition`,
+    and extra monolingual definitions should be under `Extra Definitions`.
+
     If your dictionaries are ending up in the wrong sections,
     then it is likely a problem with how the template code categorizes the dictionaries.
     See [here](yomichantemplates.md#categorization-of-dictionaries){:target="_blank"} for more info.
 
 
 ### Highlighted Text as the Definition
+<i><sup>Main page: [Yomichan Template Options (Highlighted Text)](yomichantemplates.md#highlighted-text)</sup></i>
+
 
 If you want to use the highlighted text instead of the definition,
 simply set `opt-selection-text-enabled` to `true`.
@@ -695,8 +702,6 @@ simply set `opt-selection-text-enabled` to `true`.
 !!! note
 
     If you have nothing highlighted, then the first dictionary is chosen just like normal.
-
-See [here](yomichantemplates.md#highlighted-text){:target="_blank"} for more info.
 
 
 
