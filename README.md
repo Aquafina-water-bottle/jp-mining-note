@@ -42,7 +42,7 @@ Better support across systems and more features are planned for the future.
 -->
 <details>
 <summary><i>Fields (click here)</i></summary>
-<video src="https://user-images.githubusercontent.com/17107540/187738275-9aee333f-e5e7-46d4-8196-915ab22018ec.mp4"></video>
+<video src="https://user-images.githubusercontent.com/17107540/192704142-d8587e82-3c90-4754-a23d-7b7ffff9a164.mp4"></video>
 </details>
 
 
@@ -59,11 +59,12 @@ Card creation:
 4. Selected dictionary
 5. Selected text
 6. Sentence Card
+-->
 <details>
 <summary><i>Card Creation (click here)</i></summary>
-<video src="https://user-images.githubusercontent.com/17107540/187738275-9aee333f-e5e7-46d4-8196-915ab22018ec.mp4"></video>
+<video src="https://user-images.githubusercontent.com/17107540/192704164-dd075092-58da-4964-9ddf-d89627f60d3c.mp4"></video>
 </details>
--->
+
 
 # Known Limitations
 * No support for mobile. (Support for Ankidroid is planned for the future, but with no ETA.)
