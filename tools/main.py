@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 both generates files and updates anki card template
 

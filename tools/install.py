@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/antp/updater.py
 https://github.com/FooSoft/anki-connect#model-actions

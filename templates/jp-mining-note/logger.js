@@ -8,7 +8,7 @@ function nullish(a, b) {
 }
 
 
-
+/// {% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
 function getSetting(keys, defaultVal) {
   if (typeof JPMNOpts === "undefined") {
     return defaultVal;
@@ -30,6 +30,7 @@ function getSetting(keys, defaultVal) {
   }
   return obj;
 };
+/// {% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
 
 
 var JPMNLogger = (() => {

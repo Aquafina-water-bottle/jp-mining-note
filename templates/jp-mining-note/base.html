@@ -18,7 +18,9 @@
 {% endblock %}
 </script>
 
+{% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
 <script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
+{% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
 
 
 <div class="card-description">

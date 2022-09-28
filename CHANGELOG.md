@@ -48,6 +48,7 @@ Note: changing the layout of the changelog from this point forward.
     - highlight a section of the definition to override the PrimaryDefinition + bold it
         - if cannot find highlighted section, fallsback to normal selection-text
 - `keybinds-enabled` compile-time option
+- `hardcoded-runtime-options` compile-time option
 
 #### Fixes
 - `_field.css` not being included on export
@@ -57,8 +58,13 @@ Note: changing the layout of the changelog from this point forward.
 - fixed `always-filled-fields` and `never-filled-fields` not working properly with compile options
 
 #### Internal Changes
+
+- Added `NoteToUser` action class
+- Added tests to some macros and field simulator
 - added `_editor.css` on build and export
     - updated documentation
+
+- changed example module to print hello world
 - layout of templates: every variable in the `common.html` files were moved into
   individual files: `partials/variable_name.html`
     - allows users to override these partials easier (inspired by material mkdocs)
@@ -71,8 +77,6 @@ Note: changing the layout of the changelog from this point forward.
 - handlebars `jpmn-get-dict-type` function: no longer requires `[object Object]` in the `X-dict-regex` options
 - changed `jpmn-frequencies` handlebars to match the other handlebars (removed outer class and inner2 class)
 - removed attempts to remove newlines in various handlebars code within javascript
-- Added `NoteToUser` action class
-- Added tests to some macros and field simulator
 - renamed `any_of` -> `if_any` and `none_of` -> `if_none`
 
 - fixed `_standardize_frequencies_styling` not working on all `inner2` classes in `batch.py`

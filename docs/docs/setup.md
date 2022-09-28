@@ -662,6 +662,7 @@ if the card doesn't look quite right.
 ## Yomichan Templates Options
 
 ### Monolingual Definition
+<i><sup>Main page: [Yomichan Template Options (Categorization of Dictionaries)](yomichantemplates.md#categorization-of-dictionaries)</sup></i>
 
 If you want the first definition you see (the `PrimaryDefinition` field) to be monolingual,
 change the following line at the top of the templates code:
@@ -689,19 +690,30 @@ to
     See [here](yomichantemplates.md#categorization-of-dictionaries){:target="_blank"} for more info.
 
 
-### Highlighted Text as the Definition
-<i><sup>Main page: [Yomichan Template Options (Highlighted Text)](yomichantemplates.md#highlighted-text)</sup></i>
+### Selected Text as the Definition
+<i><sup>Main page: [Yomichan Template Options (Selected Text)](yomichantemplates.md#selected-text)</sup></i>
 
 
-If you want to use the highlighted text instead of the definition,
+If you want to select the text to use instead of the definition,
 simply set `opt-selection-text-enabled` to `true`.
+
+By default, this enable the following behavior:
+
+1. If nothing is selected, then the first dictionary is chosen just like normal.
+1. If a dictionary is selected, then that dictionary will replace the first definition.
+1. If a section of text is selected, then that dictionary will replace the first definition.
+    Additionally, that section of text will be highlighted (bolded).
+
+    !!! note
+        This does not always work, especially when used across text with formatting or newlines.
+        See [this](yomichantemplates.md#overriding-the-definition){:target="_blank"} for more details.
 
 
 ![type:video](assets/yomichan/selected_text.mp4)
 
 !!! note
 
-    If you have nothing highlighted, then the first dictionary is chosen just like normal.
+    If you have nothing highlighted, 
 
 
 
