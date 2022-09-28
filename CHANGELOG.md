@@ -47,6 +47,7 @@ Note: changing the layout of the changelog from this point forward.
     - highlight a dictionary to override the PrimaryDefinition
     - highlight a section of the definition to override the PrimaryDefinition + bold it
         - if cannot find highlighted section, fallsback to normal selection-text
+- `keybinds-enabled` compile-time option
 
 #### Fixes
 - `_field.css` not being included on export
@@ -54,13 +55,10 @@ Note: changing the layout of the changelog from this point forward.
     - Added `ignored-errors` in config to ignore this error
 - bolded `AJTWordPitch` field not being parsed properly
 - fixed `always-filled-fields` and `never-filled-fields` not working properly with compile optoins
-- fixed `_standardize_frequencies_styling` not working on all `inner2` classes in `batch.py`
-- fixed `def_header` macro being defined twice for some reason
-- field tests now properly runs (using `Verifier`)
 
 #### Internal Changes
 - added `_editor.css` on build and export
-    - and updated documentation
+    - updated documentation
 - layout of templates: every variable in the `common.html` files were moved into
   individual files: `partials/variable_name.html`
     - allows users to override these partials easier (inspired by material mkdocs)
@@ -75,6 +73,10 @@ Note: changing the layout of the changelog from this point forward.
 - removed attempts to remove newlines in various handlebars code within javascript
 - Added `NoteToUser` action class
 - Added tests to some macros and field simulator
+
+- fixed `_standardize_frequencies_styling` not working on all `inner2` classes in `batch.py`
+- fixed `def_header` macro being defined twice for some reason
+- field tests now properly runs (using `Verifier`)
 
 
 
