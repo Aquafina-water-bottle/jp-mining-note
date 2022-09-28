@@ -287,7 +287,8 @@ and delete both `css` files.
 
         ```bat
         :: be sure to change USERNAME to your computer username and PROFILENAME to your Anki profile.
-        :: There are **two** USERNAME's to replace, and **one** PROFILENAME to replace in the command below.
+        :: There are **two** USERNAME's to replace, and **one** PROFILENAME to replace
+        :: in the commands below.
         :: Make sure to replace all the fields!
 
         mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" ^
@@ -340,16 +341,17 @@ and delete both `css` files.
 
     1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}
         (`Anki2/addons21/181103283/user_files`)
-    2. Remove the existing `field.css` file
-    3. Copy the `_field.css` file
-        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki)){:target="_blank"}
+    2. Remove the existing `field.css` and `editor.css` files
+    3. Copy the `_field.css` file and `_editor.css` file
+        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"})
         into the css injector add-on directory.
-    4. Rename `_field.css` into `field.css`.
+    4. Rename `_field.css` to `field.css`.
+    4. Rename `_editor.css` to `editor.css`.
 
     !!! note
 
-        If the `_field.css` file ever updates, you will have to manually copy and rename the file again
-        into the correct position.
+        If either of the two css files ever update,
+        you will have to manually copy and rename the file again.
 
 <br>
 
@@ -642,7 +644,7 @@ add the following template code as follows:
         ```
 
 ## Make an example card!
-At this point, you should be able to make an example card with Yomichan!
+At this point, you should be able to make cards with Yomichan!
 
 Here's an excerpt of text you can test Yomichan on:
 
@@ -676,7 +678,7 @@ to
 
 
 !!! note
-    If you made a card above, please check that your dictionaries are in the expected places.
+    On your first few cards, please check that your dictionaries are in the expected places.
     If your dictionaries are ending up in the wrong sections,
     then it is likely a problem with how the template code categorizes the dictionaries.
     See [here](yomichantemplates.md#categorization-of-dictionaries){:target="_blank"} for more info.
@@ -708,7 +710,7 @@ under (Yomichan settings) →  `Popup Appearance`:
 * Set `Compact tags` to OFF.
 
 There are also plenty of css customizations for Yomichan listed out
-in the [resources page](jpresources.md){:target="_blank"}.
+in the [various resources page](jpresources.md){:target="_blank"}.
 
 <!--
 ## Other Yomichan Settings
@@ -737,10 +739,14 @@ The classic texthooker setup works for most games, and any show with subtitle fi
 This texthooker process has already been explained in great detail by
 many smart people:
 
+### Guides
 * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser)
 * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
 * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
 * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/#mining-from-visual-novels)
+
+### Texthooker pages
+* [Anacreon's Texthooker Page](https://anacreondjt.gitlab.io/docs/texthooker/)
 * [exSTATic: Websocket-based texthooker page with automated stats collection](https://github.com/KamWithK/exSTATic/)
 
 The setup also works with video files if the video player supports automated copying of subtitles,

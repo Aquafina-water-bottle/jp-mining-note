@@ -52,6 +52,8 @@ class FieldEditSimulator:
 
     def _rename_field(self, old_field_name: str, new_field_name: str):
         assert old_field_name in self.simulated_fields
+        if new_field_name in self.simulated_fields:
+            raise Exception(f"Cannot rename field {old_field_name} -> {new_field_name}: field already exists")
 
         i = self.simulated_fields.index(old_field_name)
         self.simulated_fields[i] = new_field_name

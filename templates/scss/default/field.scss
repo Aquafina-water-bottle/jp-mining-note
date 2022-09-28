@@ -27,13 +27,8 @@ anki-editable[field="AJTWordPitch"] {
 
 
 
-.frequencies {
+anki-editable[field="FrequenciesStylized"] {
   display: flex;
-}
-
-/* temporarily removing these for the mobile class since they clog up the space */
-.mobile .frequencies {
-  display: none;
 }
 
 .frequencies__group {

@@ -32,7 +32,7 @@ from utils import invoke
 # removes all no pitch accent data fields
 
 rx_END_DIV = re.compile(r'</div>$')
-rx_FREQ_INNER2 = re.compile(r'<span class="frequencies__dictionary-inner2">(Anime &amp; Jdrama Freq:)</span>')
+rx_FREQ_INNER2 = re.compile(r'<span class="frequencies__dictionary-inner2">(.*?)</span>')
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -215,6 +215,8 @@ def rename_vn_freq():
 def add_sort_freq_legacy():
     """
     Batch adds sort frequencies based off of the legacy frequency html
+
+    DO NOT USE THIS for any version of the card below 0.10.2.0.
     """
 
     # pip3 install beautifulsoup4
@@ -320,14 +322,17 @@ def _standardize_frequencies_styling(freq):
     # example of legacy freq styling (0.10.1.0):
     # r"""<div class="frequencies"><div class="frequencies__group" data-details="Anime &amp; Jdrama Freq:"><div class="frequencies__number"><span class="frequencies__number-inner">6155</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">Anime &amp; Jdrama Freq:</span></span></div></div><div class="frequencies__group" data-details="Innocent Ranked"><div class="frequencies__number"><span class="frequencies__number-inner">3863</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">Innocent Ranked</span></span></div></div><div class="frequencies__group" data-details="JPDB"><div class="frequencies__number"><span class="frequencies__number-inner">8418</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">JPDB</span></span></div></div><div class="frequencies__group" data-details="JPDB"><div class="frequencies__number"><span class="frequencies__number-inner">37625㋕</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">JPDB</span></span></div></div><div class="frequencies__group" data-details="VN Freq Percent"><div class="frequencies__number"><span class="frequencies__number-inner">92.7</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"><span class="frequencies__dictionary-inner2">VN Freq Percent</span></span></div></div></div>"""
 
-    freq = freq.replace('<div class="frequencies">', "")
-    freq = rx_END_DIV.sub("", freq)
-    freq = rx_FREQ_INNER2.sub(r'\1', freq)
+    DIV_FREQ = '<div class="frequencies">'
+    if DIV_FREQ in freq:
+        freq = freq.replace(DIV_FREQ, "")
+        freq = rx_END_DIV.sub("", freq)
+
+    freq = rx_FREQ_INNER2.sub(r'\1', freq, count=0)
     return freq
 
 
 def standardize_frequencies_styling():
-    query = r'"FrequenciesStylized:*<div class=\"frequencies\">*"'
+    query = r'"FrequenciesStylized:*<div class=\"frequencies\">*" OR "FrequenciesStylized:*<span class=\"frequencies__dictionary-inner2\">*"'
 
     notes = invoke("findNotes", query=query)
     notes_info = invoke("notesInfo", notes=notes)

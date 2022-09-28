@@ -106,7 +106,13 @@ class Generator:
     handles file generation with jinja2, sass, or just copying
     """
 
-    def __init__(self, jinja_root_folders: list[str], args, css_root, to_release=False):
+    def __init__(
+        self,
+        jinja_root_folders: list[str],
+        config: utils.Config,
+        css_root: str,
+        to_release: bool = False,
+    ):
         self.jinja_root_folders = jinja_root_folders
         self.env = Environment(
             loader=FileSystemLoader(jinja_root_folders),
@@ -114,8 +120,6 @@ class Generator:
             undefined=StrictUndefined,
             extensions=["jinja2.ext.do"],
         )
-
-        config = utils.get_config(args)
 
         filters = {
             # https://eengstrom.github.io/musings/add-bitwise-operations-to-ansible-jinja2
@@ -138,7 +142,6 @@ class Generator:
         self.data = {
             # helper methods
             "NOTE_OPTS_JSON": utils.get_note_opts(config),
-            "VERSION": utils.get_version(args),
             "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
             "NOTE_FILES": utils.get_note_config(),
             "COMPILE_OPTIONS": config("compile-options"),
@@ -149,7 +152,13 @@ class Generator:
             "TextContainer": TextContainer,
         }
 
+    def set_data(self, key, value):
+        self.data[key] = value
+
     def get_directories_with_file(self, file_name):
+        """
+        returns all x if `css_root/x/file_name` exists
+        """
         result = []
         for f in self.css_folders:
             path = os.path.join(self.css_root, f, file_name)
@@ -220,10 +229,11 @@ def main(args=None):
 
     generator = Generator(
         search_folders,
-        args,
+        config,
         css_root,
         to_release=args.to_release,
     )
+    generator.set_data("VERSION", utils.get_version(args))
 
     note_config = utils.get_note_config()
 
@@ -244,12 +254,12 @@ def main(args=None):
             )
 
     # generates css file for each note
-    #generator.generate(
+    # generator.generate(
     #    GenerateType.SASS,
     #    os.path.join(templates_folder, "scss", f"style.scss"),
     #    os.path.join(args.build_folder, note_model_id, "style.css"),
     #    os.path.join(root_folder, note_model_id, "style.css"),
-    #)
+    # )
 
     type_map = {
         "scss": GenerateType.SASS,
@@ -263,7 +273,9 @@ def main(args=None):
 
         input_root = file_config.get_item_if_exists("input-dir", "")
         if input_root == "build":
-            input_file = os.path.join(args.build_folder, file_config("input-file").item())
+            input_file = os.path.join(
+                args.build_folder, file_config("input-file").item()
+            )
         elif gen_type == GenerateType.JINJA:
             input_file = os.path.join(file_config("input-file").item())
         else:
@@ -271,20 +283,15 @@ def main(args=None):
                 templates_folder, file_config("input-file").item()
             )
 
-        output_file = os.path.join(
-            args.build_folder, file_config("output-file").item()
-        )
+        output_file = os.path.join(args.build_folder, file_config("output-file").item())
 
         release_output = ""
         if file_config.get_item_if_exists("to-release", True):
-            release_output = os.path.join(root_folder, file_config("output-file").item())
+            release_output = os.path.join(
+                root_folder, file_config("output-file").item()
+            )
 
-        generator.generate(
-            gen_type,
-            input_file,
-            output_file,
-            release_output
-        )
+        generator.generate(gen_type, input_file, output_file, release_output)
 
 
 if __name__ == "__main__":

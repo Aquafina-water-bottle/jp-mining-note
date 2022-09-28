@@ -202,6 +202,19 @@ class BatchUpdate(Action):
         self.batch_func()
 
 
+
+@dataclass
+class NoteToUser(UserAction):
+    description: str
+
+    def __post_init__(self):
+        self.edits_cards = False
+        self.unique = False
+        self.ankiconnect_actions = set()
+
+
+
+
 if __name__ == "__main__":
 
     def f():

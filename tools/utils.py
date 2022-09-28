@@ -221,7 +221,7 @@ def invoke(action: str, **params):
     return response["result"]
 
 
-def get_config_from_str(file_path: str) -> dict[str, Any]:
+def get_config_data_from_path(file_path: str) -> dict[str, Any]:
     module = import_source_file(file_path, "config")
     if module is None:
         raise Exception("Module is None and cannot be imported")
@@ -229,6 +229,12 @@ def get_config_from_str(file_path: str) -> dict[str, Any]:
         raise Exception("CONFIG variable is not defined in the config file")
 
     return module.CONFIG
+
+def get_config_from_path(file_path: str) -> Config:
+    config_data = get_config_data_from_path(file_path)
+
+    config = Config(config_data, path=["root"])
+    return config
 
 
 def get_note_opts(config: Config, as_config=False) -> Config | str:
@@ -321,11 +327,10 @@ def get_config(args: argparse.Namespace) -> Config:
                 raise Exception("Example config file does not exist")
             shutil.copy(example_config_path, default_config_path)
 
-    config_data = get_config_from_str(file_path)
-
-    config = Config(config_data, path=["root"])
+    config = get_config_from_path(file_path)
     cached_config = config
     return config
+
 
 
 def get_note_config() -> Config:

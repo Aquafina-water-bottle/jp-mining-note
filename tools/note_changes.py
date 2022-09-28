@@ -80,6 +80,10 @@ NOTE_CHANGES = [
                 description="Updates the FrequenciesStylized field to match the styling "
                 "of all the other stylized Yomichan fields (PAGraphs, PAPositions)",
             ),
+            action.NoteToUser(
+                description="If you are using CSS Injector, a new file `editor.css` must be added.\n"
+                "See: https://aquafina-water-bottle.github.io/jp-mining-note/setup/#css-injector"
+            ),
         ],
         fields=[
             "Key",
@@ -119,7 +123,6 @@ NOTE_CHANGES = [
             "Comment",
         ],
     ),
-
     NoteChange(
         version=Version(0, 10, 0, 0),
         actions=[

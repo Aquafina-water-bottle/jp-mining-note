@@ -7,7 +7,6 @@ anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list {
 
 /* greys out dictionary entry for jmdict */
 anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
-  // TODO light mode
   color: var(--text-color--3);
 }
 

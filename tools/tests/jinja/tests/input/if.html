@@ -1,0 +1,5 @@
+{# test_if #}
+{%- from "macros/global.html" import T, IF, IFNOT, END with context -%}
+{%- call IF("ExampleField") -%}
+  Hello
+{%- endcall -%}

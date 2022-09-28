@@ -38,35 +38,3 @@
 </div>
 
 {% endmacro %}
-{% macro def_header(border_class="", word_pitch_class="") %}
-
-<div class="def-header" id="def_header">
-
-  <!-- everything on the left side -->
-  {# border_class can be "dh-left--blue-border" #}
-  <div class="dh-left {{ border_class }}" id="dh_left">
-
-    <div class="dh-left__reading" id="dh_reading"> {{ T("furigana:WordReading") }} </div>
-
-    <div class="dh-left__word-pitch {{word_pitch_class}}" id="dh_word_pitch">
-      {{ T('AJTWordPitch') }}
-    </div>
-
-    <div class="dh-left__audio-buttons">
-      <span id="word-audio"> {{ T("WordAudio") }} </span>
-      <span id="sentence-audio"> {{ T("SentenceAudio") }} </span>
-    </div>
-
-  </div>
-
-  <!-- everything on the right side -->
-  {% call IF("Picture") %}
-  <div class="dh-right" id="dh_right">
-    <div class="dh-right__img-container" id="dh_img_container">{{ T("Picture") }}</div>
-  </div>
-  {% endcall %}
-
-</div>
-
-{% endmacro %}
-
