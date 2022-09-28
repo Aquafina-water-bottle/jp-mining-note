@@ -77,7 +77,7 @@ pa:
 
 {{~! OPTIONS ~}}
 {{~! valid values: "bilingual", "monolingual" ~}}
-{{~#set "first-definition-type" "monolingual"}}{{/set~}}
+{{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
 
 {{~! options related to selected text ~}}
 {{set "opt-selection-text-enabled"               true}}
