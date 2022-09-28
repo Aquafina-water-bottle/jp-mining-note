@@ -54,7 +54,7 @@ Note: changing the layout of the changelog from this point forward.
 - `EFDRC is not defined` error showing on the card
     - Added `ignored-errors` in config to ignore this error
 - bolded `AJTWordPitch` field not being parsed properly
-- fixed `always-filled-fields` and `never-filled-fields` not working properly with compile optoins
+- fixed `always-filled-fields` and `never-filled-fields` not working properly with compile options
 
 #### Internal Changes
 - added `_editor.css` on build and export
