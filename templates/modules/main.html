@@ -1,16 +1,39 @@
 {# idk #}
 
-{% from "modules/sent_utils/main.html" import sent_utils with context %}
-{% from "modules/kanji_hover/main.html" import kanji_hover with context %}
-{% from "modules/auto_pitch_accent/main.html" import auto_pitch_accent with context %}
-{% from "modules/img_utils/main.html" import img_utils with context %}
-{% from "modules/open_on_new/main.html" import open_on_new with context %}
+{% set modules = [] %}
 
-{# ORDER MATTERS HERE! #}
-{# img_utils is ran after auto_pitch_accent to properly calculate the height of the left div #}
-{# {% set modules = [sentences, kanji_hover, auto_pitch_accent, img_utils] %} #}
-{% set modules = [sent_utils, kanji_hover, auto_pitch_accent, img_utils, open_on_new] %}
+{% if COMPILE_OPTIONS("allow-user-defined-modules").item() %}
 
-{% for m in modules %}
-  {% set m.enabled = (m.id in COMPILE_OPTIONS("enabled-modules").list()) %}
-{% endfor %}
+  {% for mod_name in COMPILE_OPTIONS("enabled-modules").list() %}
+
+    {% set mod_path = ("modules/" + mod_name + "/main.html") %}
+    {% from mod_path import MOD as m with context %}
+    {% set m.enabled = True %}
+    {% do modules.append(m) %}
+
+  {% endfor %}
+
+{% else %}
+
+  {% from "modules/sent-utils/main.html" import MOD as sent_utils with context %}
+  {% from "modules/kanji-hover/main.html" import MOD as kanji_hover with context %}
+  {% from "modules/auto-pitch-accent/main.html" import MOD as auto_pitch_accent with context %}
+  {% from "modules/img-utils/main.html" import MOD as img_utils with context %}
+  {% from "modules/customize-open-fields/main.html" import MOD as customize_open_fields with context %}
+
+  {# ORDER MATTERS HERE! #}
+  {# img_utils is ran after auto_pitch_accent to properly calculate the height of the left div #}
+  {% do modules.append(sent_utils) %}
+  {% do modules.append(kanji_hover) %}
+  {% do modules.append(auto_pitch_accent) %}
+  {% do modules.append(img_utils) %}
+  {% do modules.append(customize_open_fields) %}
+
+  {% for m in modules %}
+    {% set m.enabled = (m.id in COMPILE_OPTIONS("enabled-modules").list()) %}
+  {% endfor %}
+
+{% endif %}
+
+
+

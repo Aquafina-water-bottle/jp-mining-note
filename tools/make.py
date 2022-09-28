@@ -145,6 +145,7 @@ class Generator:
             "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
             "NOTE_FILES": utils.get_note_config(),
             "COMPILE_OPTIONS": config("compile-options"),
+            "EXTRA_JAVASCRIPT": self.get_extra_javascript(config),
             # helper methods
             "get_directories_with_file": self.get_directories_with_file,
             # helper classes
@@ -154,6 +155,20 @@ class Generator:
 
     def set_data(self, key, value):
         self.data[key] = value
+
+    def get_extra_javascript(self, config):
+        root_folder = utils.get_root_folder()
+        extra_js_folder = config("extra-javascript", "folder").item()
+
+        result = []
+
+        for file_name in config("extra-javascript", "files").list():
+            file_path = os.path.join(root_folder, extra_js_folder, file_name)
+            with open(file_path) as file:
+                result.append(file.read())
+
+        return "\n".join(result)
+
 
     def get_directories_with_file(self, file_name):
         """

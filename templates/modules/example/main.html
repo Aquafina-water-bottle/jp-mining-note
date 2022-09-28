@@ -5,21 +5,26 @@
 
 
 {# required boilerplate #}
-{% set example = namespace() %}
-{% set example.id = "example" %}
+{% set MOD = namespace() %}
+{% set MOD.id = "example" %}
 
 {# interface for modules that change javascript #}
-{% set example.js = JavascriptContainer(example.id) %}
+{% set MOD.js = JavascriptContainer(MOD.id) %}
 
 
 
 {# create any variable if necessary, with TextContainer #}
-{% set example.foo = TextContainer(example.id) %}
+{% set MOD.foo = TextContainer(MOD.id) %}
 
 {% set foo %}
 <div>example foo</div>
 {% endset %}
 
-{{ example.foo.set_back(foo) }}}
+{{ MOD.foo.set_back(foo) }}}
 
-{# then call with {{ example.foo.get() }} #}
+{# then call with:
+
+  {% from "modules/example/main.html" import MOD as example_module %}
+  {{ example_module.foo.get() }}
+
+#}

@@ -1,0 +1,16 @@
+{# image utilities #}
+
+
+{% import "modules/img-utils/main.js" as js with context %}
+
+
+{% set MOD = namespace() %}
+{% set MOD.id = "img-utils" %}
+
+{% set MOD.js = JavascriptContainer(MOD.id) %}
+
+{{ MOD.js.functions.set_back(js.functions) }}
+{{ MOD.js.run.set_back(js.run) }}
+
+
+

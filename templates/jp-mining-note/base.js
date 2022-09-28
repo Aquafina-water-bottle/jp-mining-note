@@ -230,6 +230,18 @@ function main() {
 {% endif %}
 {% endfor %}
 
+{% if EXTRA_JAVASCRIPT %}
+  try { // RUN: Extra Javascript
+    {% filter indent(width=4) %}
+    {{ EXTRA_JAVASCRIPT }}
+    {% endfilter %}
+  } catch (error) {
+    LOGGER.error("Error in extra javascript:");
+    LOGGER.errorStack(error.stack);
+  }
+{% endif %}
+
+
 }
 
 

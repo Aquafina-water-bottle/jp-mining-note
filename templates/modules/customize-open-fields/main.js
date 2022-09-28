@@ -15,11 +15,11 @@ var isNewCardCache = nullish(isNewCardCache, {});
 
 /// {% set functions %}
 
-// ===================
-//  Open Field on New
-// ===================
+// =======================
+//  Configure Open Fields
+// =======================
 
-const JPMNOpenOnNew = (() => {
+const JPMNOpenFields = (() => {
 
   // placed outside due to anki's async weirdness
   const primaryDefinitionDetailsEle = document.getElementById("primary_definition_details");
@@ -36,8 +36,38 @@ const JPMNOpenOnNew = (() => {
     "Extra Info": extraInfoDetailsEle,
   }
 
-  const logger = new JPMNLogger("open-on-new");
+  const logger = new JPMNLogger("customize-open-fields");
   let openOnNewEnabled = false;
+
+  function openDetailsTag(ele) {
+    ele.setAttribute("open", "true");
+  }
+
+  function getFieldEles(fields) {
+    let fieldsEle = [];
+
+    // doesn't do anything if the element doesn't exist in the first place
+    for (f of fields) {
+      if (f in strToEle && strToEle[f] !== null) {
+        fieldsEle.push([f, strToEle[f]]);
+      } else {
+        logger.debug(`${f} field not found.`);
+      }
+    }
+
+    return fieldsEle;
+
+  }
+
+  function openAlways() {
+    const openFields = {{ utils.opt("modules", "customize-open-fields", "open") }};
+    let openFieldsEle = getFieldEles(openFields);
+
+    for ([f, ele] of openFieldsEle) {
+      logger.debug(`Opening ${f} field (always opened)...`);
+      openDetailsTag(ele);
+    }
+  }
 
   async function openOnNew() {
     if (openOnNewEnabled) {
@@ -46,19 +76,12 @@ const JPMNOpenOnNew = (() => {
     }
     openOnNewEnabled = true;
 
-    const openFields = {{ utils.opt("modules", "open-on-new", "open-fields") }};
-    let openFieldsEle = [];
+    const openFields = {{ utils.opt("modules", "customize-open-fields", "open-on-new") }};
+    let openFieldsEle = getFieldEles(openFields);
 
-    // doesn't do anything if the element doesn't exist in the first place
-    //if (extraInfoDetailsEle === null) {
-    //  return;
-    //}
-    for (f of openFields) {
-      if (f in strToEle && strToEle[f] !== null) {
-        openFieldsEle.push([f, strToEle[f]]);
-      } else {
-        logger.debug(`${f} field not found.`);
-      }
+    if (openFieldsEle.length === 0) {
+      logger.debug(`openFieldsEle contains 0 elements. Nothing to do.`);
+      return [];
     }
 
     if (openFieldsEle.length === 0) {
@@ -118,7 +141,7 @@ const JPMNOpenOnNew = (() => {
       logger.debug("Card is new, opening fields...");
       for ([f, ele] of openFieldsEle) {
         logger.debug(`Opening ${f} field...`);
-        toggleDetailsTag(ele);
+        openDetailsTag(ele);
       }
     } else {
       logger.debug("Card is not new.");
@@ -127,16 +150,17 @@ const JPMNOpenOnNew = (() => {
 
 
 
-  class JPMNOpenOnNew {
+  class JPMNOpenFields {
     constructor() { }
 
     async run() {
+      openAlways();
       openOnNew();
     }
   }
 
 
-  return JPMNOpenOnNew;
+  return JPMNOpenFields;
 
 })();
 
@@ -149,8 +173,8 @@ const JPMNOpenOnNew = (() => {
 
 /// {% set run %}
 
-if ({{ utils.opt("modules", "open-on-new", "enabled") }}) {
-  const open_on_new = new JPMNOpenOnNew()
+if ({{ utils.opt("modules", "customize-open-fields", "enabled") }}) {
+  const open_on_new = new JPMNOpenFields()
   open_on_new.run();
 }
 

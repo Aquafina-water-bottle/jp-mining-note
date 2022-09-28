@@ -6,6 +6,11 @@ Easily paired with most automatic card creation workflows,
 this aims to make your experience with Anki as smooth as possible.
 
 
+Note that this project is still in its early stages.
+Better support across systems and more features are planned for the future.
+
+
+# Demos
 
 <!--
 - hover over furigana
@@ -14,8 +19,10 @@ this aims to make your experience with Anki as smooth as possible.
 - collapsable fields
 - front/back
 -->
-https://user-images.githubusercontent.com/17107540/187550103-7e50c317-9074-4c7c-a499-fa4ddc89e419.mp4
-
+<details>
+<summary><i>GUI (click here)</i></summary>
+<video src="https://user-images.githubusercontent.com/17107540/187550103-7e50c317-9074-4c7c-a499-fa4ddc89e419.mp4"></video>
+</details>
 
 
 <!--
@@ -33,12 +40,30 @@ https://user-images.githubusercontent.com/17107540/187550103-7e50c317-9074-4c7c-
     - PATestOnlyWord
     - PADoNotTest
 -->
-https://user-images.githubusercontent.com/17107540/187738275-9aee333f-e5e7-46d4-8196-915ab22018ec.mp4
+<details>
+<summary><i>Fields (click here)</i></summary>
+<video src="https://user-images.githubusercontent.com/17107540/187738275-9aee333f-e5e7-46d4-8196-915ab22018ec.mp4"></video>
+</details>
 
 
-Note that this project is still in its early stages.
-Better support across systems and more features are planned for the future.
 
+<!--
+- temporarily un-hide bilingual definitions
+- temporarily disable the 2nd bilingual dictionary
+
+texthooker text:
+Card creation:
+1. Yomichan + mpvacious
+2. Yomichan only (no pictures and sentence audio)
+3. Bilingual Format
+4. Selected dictionary
+5. Selected text
+6. Sentence Card
+<details>
+<summary><i>Card Creation (click here)</i></summary>
+<video src="https://user-images.githubusercontent.com/17107540/187738275-9aee333f-e5e7-46d4-8196-915ab22018ec.mp4"></video>
+</details>
+-->
 
 # Known Limitations
 * No support for mobile. (Support for Ankidroid is planned for the future, but with no ETA.)
