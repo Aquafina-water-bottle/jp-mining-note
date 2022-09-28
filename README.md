@@ -5,6 +5,9 @@ designed to be visually appealing and simple to use without sacrificing function
 Easily paired with most automatic card creation workflows,
 this aims to make your experience with Anki as smooth as possible.
 
+<!-- clickable image -->
+[![Example Image](https://github.com/Aquafina-water-bottle/jp-mining-note/raw/master/docs/docs/assets/nisemono_readme.png)](https://github.com/Aquafina-water-bottle/jp-mining-note/raw/master/docs/docs/assets/nisemono_readme.png)
+
 
 Note that this project is still in its early stages.
 Better support across systems and more features are planned for the future.
