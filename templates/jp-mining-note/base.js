@@ -1,11 +1,11 @@
 {% from "modules/main.html" import modules with context %}
 
-{%- for m in modules -%}
-{%- if m.js is defined and m.js.globals.get(note.card_type, note.side) %}
+{% for m in modules %}
+{% if m.js is defined and m.js.globals.get(note.card_type, note.side) %}
 // GLOBALS: {{ m.id }}
 {{ m.js.globals.get(note.card_type, note.side) }}
-{% endif -%}
-{%- endfor -%}
+{% endif %}
+{% endfor %}
 
 
 
@@ -59,14 +59,15 @@ function toggleDetailsTag(ele) {
 {% endblock %}
 // END_BLOCK: js_functions
 
-{% for m in modules -%}
-{%- if m.js is defined %}
+{% for m in modules %}
+{% if m.js is defined %}
 
 {{ m.js.functions.get(note.card_type, note.side) }}
-{% endif -%}
-{%- endfor %}
+{% endif %}
+{% endfor %}
 
 
+{% if COMPILE_OPTIONS("keybinds-enabled").item() %}
 // a general function to implement all keybinds necessary by the card.
 // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
 // because functions persist and cannot be easily removed within anki,
@@ -76,21 +77,21 @@ document.onkeyup = (e => {
   let ele = null;
 
   // START_BLOCK: js_keybind_settings
-{% filter indent(width=2) -%}
-{%- block js_keybind_settings -%}
-{%- endblock -%}
-{%- endfilter %}
+{% filter indent(width=2) %}
+{% block js_keybind_settings %}
+{% endblock %}
+{% endfilter %}
   // END_BLOCK: js_keybind_settings
 
-{% for m in modules -%}
-{%- if m.js is defined and m.js.keybinds.get(note.card_type, note.side) -%}
-{%- filter indent(width=2) %}
+{% for m in modules %}
+{% if m.js is defined and m.js.keybinds.get(note.card_type, note.side) %}
+{% filter indent(width=2) %}
   // KEYBINDS: {{ m.id }}
   {{ m.js.keybinds.get(note.card_type, note.side) }}
 
 {% endfilter %}
-{% endif -%}
-{%- endfor %}
+{% endif %}
+{% endfor %}
 
 
   if (e.getModifierState && e.getModifierState('CapsLock')) {
@@ -129,8 +130,6 @@ document.onkeyup = (e => {
         && '{{ utils.any_of_str("IsHoverCard", "IsClickCard") }}'
         && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
         && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
-      // this somehow works even when hybridClick is undefined here, woah
-      // TODO clean this up lmao
       hybridClick();
     } else {
     /// {% endif %}
@@ -193,6 +192,7 @@ document.onkeyup = (e => {
   /// {% endif %} {# note.side == back #}
 
 })
+/// {% endif %} {# keybinds-enabled #}
 
 
 function main() {
@@ -210,25 +210,25 @@ function main() {
   /// {% endcall %}
 
   // START_BLOCK: js_run
-{% filter indent(width=2) -%}
-{%- block js_run -%}
-{%- endblock -%}
-{%- endfilter %}
+{% filter indent(width=2) %}
+{% block js_run %}
+{% endblock %}
+{% endfilter %}
   // END_BLOCK: js_run
 
-{% for m in modules -%}
-{%- if m.js is defined and m.js.run.get(note.card_type, note.side) %}
+{% for m in modules %}
+{% if m.js is defined and m.js.run.get(note.card_type, note.side) %}
   try { // RUN: {{ m.id }}
-    {%- filter indent(width=4) -%}
+    {% filter indent(width=4) %}
     {{ m.js.run.get(note.card_type, note.side) }}
-    {%- endfilter %}
+    {% endfilter %}
   } catch (error) {
     LOGGER.error("Error in module {{ m.id }}:");
     LOGGER.errorStack(error.stack);
   }
 
-{% endif -%}
-{%- endfor -%}
+{% endif %}
+{% endfor %}
 
 }
 

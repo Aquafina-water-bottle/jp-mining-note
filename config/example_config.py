@@ -24,6 +24,8 @@ CONFIG = {
     "extra-javascript": [],
 
     "compile-options": {
+        "keybinds-enabled": True,
+
         "always-filled-fields": [],
 
         "never-filled-fields": [],

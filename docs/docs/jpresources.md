@@ -10,7 +10,7 @@ I highly recommend checking it out!
 
 
 If you encounter any problems, have any questions, etc., feel free to contact
-me on discord `Aquafina water bottle#3026`,
+me on discord `@Aquafina water bottle#3026`,
 or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
 I exist on the [TheMoeWay](https://learnjapanese.moe/join/) and Refold (Japanese) servers.
 

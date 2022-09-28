@@ -104,24 +104,20 @@ var paIndicator = (function () {
 
 {
 
-  let d = document.getElementById("display");
-  let circ = document.getElementById("pa_indicator_circle");
-  let svgTitle = document.getElementById("svg_title");
-
   /// {% call IF("IsClickCard") %}
+  let d = document.getElementById("display");
   d.onclick = hybridClick;
   /// {% endcall %}
 
-
-  // different circle positions depending on whether it's a sentence or not.
-  // More specifically, checks if the first character is "「",
-  // and adjusts the position based on that
 
   /// {% call IF("PAShowInfo") %}
   // ============================
   //  Word pitch indicator color
   // ============================
   // done in javascript to simplify templating logic
+  let circ = document.getElementById("pa_indicator_circle");
+  let svgTitle = document.getElementById("svg_title");
+
   if (svgTitle !== null) {
     svgTitle.textContent = "PA: " + paIndicator.tooltip;
   }

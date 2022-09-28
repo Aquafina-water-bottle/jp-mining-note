@@ -197,22 +197,37 @@ After running `main.py` (or `make.py`), a new file `config/config.py` should app
 The compile-time options can be found in this file.
 
 
-## Field Editing
-This section describes import PSAs on what you should you if you want to
-edit the fields of the note (i.e. adding, removing, renaming, and moving).
+## QuickStart: Vocab Cards
+If you want to skip the details below and get the options to
+create an optimized vocab card, see the dropdown below.
 
-- if wanting to add field: recommend to add below `Comment` field to seemlessly update
-    - if field added above `Comment` and want to update, run `install.py` with `--ignore-order` flag
-- do not remove fields!
-    - even if compiling them out with always-filled/never-filled fields (below)
-    - to move out of you way, move them below `Comment` and run `install.py` with `--ignore-order` flag on further updates
-    - install script requires all expected fields to be present (you no longer cannot update if you remove a field)
-        - simply re-add the field if you removed it before
-    - is a design choice made by the updating script to make it easier to update the note
-    - this rule may be removed in the future, but it will be kept strict for now to make the dev's life easier
+??? info "Vocab card compile-time options"
 
-- do not rename fields
-    - similarily to the above, so the updater knows what fields already exist
+    ```json
+    "compile-options": {
+        "keybinds-enabled": False,
+
+        "always-filled-fields": [],
+
+        "never-filled-fields": [
+            "PAShowInfo", "PATestOnlyWord", "PADoNotTest",
+            "PASeparateWordCard", "PASeparateSentenceCard", "AltDisplayPASentenceCard",
+            "SeparateClozeDeletionCard",
+            "IsClickCard", "IsHoverCard", "IsSentenceCard", "IsTargetedSentenceCard",
+        ],
+
+        "enabled-modules": [
+            # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
+            # (unless you are not using images in your cards of course)
+            "img-utils",
+
+            #"sent-utils",
+            #"kanji-hover",
+            #"auto-pitch-accent",
+            #"open_on_new",
+        ],
+    }
+    ```
 
 
 ## Always filled & Never filled fields
@@ -286,10 +301,45 @@ how-to:
 
 
 
-
 ## Template Overrides
 - `overrides` folder (or whatever folder you specify under `templates-override-folder` in config.py)
 - same format as existing `templates` folder
+
+
+
+## Field Editing
+This section describes import PSAs on what you should you if you want to
+edit the fields of the note (i.e. adding, removing, renaming, and moving).
+This is NOT in reference to the templates where the fields are used,
+but rather what fields exist, what the field names are, etc.
+
+
+### Installer details
+- TODO look at updating section
+
+
+### Do not remove or rename fields
+
+- do not remove fields!
+    - even if compiling them out with always-filled/never-filled fields (below)
+    - to move out of you way, move them below `Comment` and run `install.py` with `--ignore-order` flag on further updates
+    - install script requires all expected fields to be present (you no longer cannot update if you remove a field)
+        - simply re-add the field if you removed it before
+    - is a design choice made by the updating script to make it easier to update the note
+    - this rule may be removed in the future, but it will be kept strict for now to make the dev's life easier
+
+- do not rename fields
+    - similarily to the above, so the updater knows what fields already exist
+
+### How to add & reorder fields
+- if wanting to add field: recommend to add below `Comment` field to seemlessly update
+    - if field added above `Comment` and want to update, run `install.py` with `--ignore-order` flag
+
+
+
+
+
+
 
 
 ## Make your changes shown!
@@ -443,15 +493,16 @@ TODO transfer yomichan templates section here
 TODO separate page
 
 - before:
-    - highly prefer if you contact me before-hand with the changes you want to make
+    - I'm relatively new to people contributing to my work, so I'm not sure how to format this section
+    - (As of writing this), I highly recommend you reach out before-hand so we can discuss the changes you want to make
 
 - during:
     - attempt to match style around the code
 
 - final steps:
     - use black to format all python files (TODO script)
-    - make sure tests run (maybe CI at some point)
-    - update documentation (see wiki/ folder)
+    - make sure tests run (maybe CI at some point?)
+    - update documentation (see docs/ folder) if necessary
 
 
 ```bash
