@@ -11,7 +11,7 @@ import argparse
 from enum import Enum
 from distutils.dir_util import copy_tree
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined
+from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined, TemplateNotFound
 
 import utils
 
@@ -36,7 +36,12 @@ class GenerateType(Enum):
 class TextContainer:
     card_types = ["main", "pa_sent", "pa_word", "cloze_deletion"]
     sides = ["front", "back"]
-    enabled_modules: list = []  # added in the main function of this script
+
+    # - class variable because TextContainer is always initialized in templates
+    # - prevents repeatedly having to set the variable to the same thing
+    #   on each initialization
+    # - var set in the main function of this script
+    enabled_modules: list = []
 
     def __init__(self, module_name: str):
         self.module_name = module_name
@@ -110,12 +115,12 @@ class Generator:
         self,
         jinja_root_folders: list[str],
         config: utils.Config,
-        css_root: str,
         to_release: bool = False,
     ):
         self.jinja_root_folders = jinja_root_folders
+        self.loader = FileSystemLoader(jinja_root_folders)
         self.env = Environment(
-            loader=FileSystemLoader(jinja_root_folders),
+            loader=self.loader,
             autoescape=select_autoescape(),
             undefined=StrictUndefined,
             extensions=["jinja2.ext.do"],
@@ -136,8 +141,7 @@ class Generator:
         self.sass_path = config("sass-path").item()
         self.to_release = to_release
 
-        self.css_root = css_root
-        self.css_folders = config("css-folders").list()
+        self.css_folders = config("compile-options", "css-folders").list()
 
         self.data = {
             # helper methods
@@ -145,7 +149,6 @@ class Generator:
             "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
             "NOTE_FILES": utils.get_note_config(),
             "COMPILE_OPTIONS": config("compile-options"),
-            "EXTRA_JAVASCRIPT": self.get_extra_javascript(config),
             # helper methods
             "get_directories_with_file": self.get_directories_with_file,
             # helper classes
@@ -156,29 +159,53 @@ class Generator:
     def set_data(self, key, value):
         self.data[key] = value
 
-    def get_extra_javascript(self, config):
-        root_folder = utils.get_root_folder()
-        extra_js_folder = config("extra-javascript", "folder").item()
-
-        result = []
-
-        for file_name in config("extra-javascript", "files").list():
-            file_path = os.path.join(root_folder, extra_js_folder, file_name)
-            with open(file_path) as file:
-                result.append(file.read())
-
-        return "\n".join(result)
-
 
     def get_directories_with_file(self, file_name):
         """
-        returns all x if `css_root/x/file_name` exists
+        returns all x if `scss/x/file_name` exists
+
+        TODO: a non-hacky approach to adding custom scss
+
+        preferable solution should have the following:
+        - uses scss, not css
+        - folders can be placed somewhere in the overrides folder
+            - and preferably the same spot, i.e. overrides/scss/{folder}/...
+
+        potential solutions:
+        1. paste rendered template directly into css code, then render with scss
+            - problem: potential un-wanted side-effects
+
+        2. directly copy/paste the found file into build/tmp/
+            - problem: does NOT take into account external files (i.e. common.scss)
+
+        3. copy templates/scss -> build/tmp, and then copy overrides/scss -> build/tmp
+            - should theoretically work, as it mimics the behavior of the existing loader
+            - problem: feels hacky, skipping over the loading system entirely
+            - currently the best solution I can think of
+
+        4. raw css
+            - problem: potentially unwanted side-effects if directly copy/paste
+            - could be an external file using <link>?
+                - won't work on fields and editor
+
         """
+        CSS_ROOT = os.path.join(utils.get_root_folder(), "templates", "scss")
+        #CSS_ROOT = "scss"
+
         result = []
         for f in self.css_folders:
-            path = os.path.join(self.css_root, f, file_name)
+            path = os.path.join(CSS_ROOT, f, file_name)
+
             if os.path.isfile(path):
                 result.append(f)
+
+            # valid code for testing via the loader
+            #try:
+            #    self.loader.get_source(self.env, path)
+            #    result.append(f)
+            #except TemplateNotFound as e:
+            #    pass
+
         return result
 
     def generate(
@@ -238,21 +265,19 @@ def main(args=None):
         root_folder, config("templates-override-folder").item()
     )
     search_folders = [overrides_folder, templates_folder]
-    css_root = os.path.join(templates_folder, "scss")
 
     TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
 
     generator = Generator(
         search_folders,
         config,
-        css_root,
         to_release=args.to_release,
     )
     generator.set_data("VERSION", utils.get_version(args))
 
     note_config = utils.get_note_config()
 
-    # generates for each template
+    # generates for each card type
     note_model_id = note_config("id").item()
     for card_model_id in note_config("templates").dict():
         for file_name in ("front.html", "back.html"):
@@ -267,14 +292,6 @@ def main(args=None):
                 output_file,
                 os.path.join(root_folder, note_model_id, card_model_id, file_name),
             )
-
-    # generates css file for each note
-    # generator.generate(
-    #    GenerateType.SASS,
-    #    os.path.join(templates_folder, "scss", f"style.scss"),
-    #    os.path.join(args.build_folder, note_model_id, "style.css"),
-    #    os.path.join(root_folder, note_model_id, "style.css"),
-    # )
 
     type_map = {
         "scss": GenerateType.SASS,

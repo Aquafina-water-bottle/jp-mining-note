@@ -1,39 +1,32 @@
 {# gathers all the modules together in one `modules` variable #}
 
 {% set modules = [] %}
+{% set _module_ids = [] %}
 
 {% if COMPILE_OPTIONS("allow-user-defined-modules").item() %}
 
-  {% for mod_name in COMPILE_OPTIONS("enabled-modules").list() %}
-
-    {% set mod_path = ("modules/" + mod_name + "/main.html") %}
-    {% from mod_path import MOD as m with context %}
-    {% set m.enabled = True %}
-    {% do modules.append(m) %}
-
-  {% endfor %}
+  {% set _module_ids = COMPILE_OPTIONS("enabled-modules").list() %}
 
 {% else %}
-
-  {% from "modules/sent-utils/main.html" import MOD as sent_utils with context %}
-  {% from "modules/kanji-hover/main.html" import MOD as kanji_hover with context %}
-  {% from "modules/auto-pitch-accent/main.html" import MOD as auto_pitch_accent with context %}
-  {% from "modules/img-utils/main.html" import MOD as img_utils with context %}
-  {% from "modules/customize-open-fields/main.html" import MOD as customize_open_fields with context %}
-
   {# ORDER MATTERS HERE! #}
   {# img_utils is ran after auto_pitch_accent to properly calculate the height of the left div #}
-  {% do modules.append(sent_utils) %}
-  {% do modules.append(kanji_hover) %}
-  {% do modules.append(auto_pitch_accent) %}
-  {% do modules.append(img_utils) %}
-  {% do modules.append(customize_open_fields) %}
+  {% set all_module_ids = ["sent-utils", "kanji-hover", "auto-pitch", "img-utils", "customize-open-fields"] %}
 
-  {% for m in modules %}
-    {% set m.enabled = (m.id in COMPILE_OPTIONS("enabled-modules").list()) %}
+  {% for mid in all_module_ids %}
+    {% if mid in COMPILE_OPTIONS("enabled-modules").list() %}
+      {% do _module_ids.append(mid) %}
+    {% endif %}
   {% endfor %}
 
 {% endif %}
+
+{% for mod_name in _module_ids %}
+
+  {% set mod_path = ("modules/" + mod_name + "/main.html") %}
+  {% from mod_path import MOD as m with context %}
+  {% do modules.append(m) %}
+
+{% endfor %}
 
 
 

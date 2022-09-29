@@ -27,6 +27,11 @@ NOTE_DATA = {
             "name": "Cloze Deletion Card",
         },
     },
+    #"scss-files": [
+    #    "style.scss"
+    #    "editor.scss"
+    #    "field.scss"
+    #],
     "build": [
         # - read from (root)/templates
         # - written to (root)/(build folder)

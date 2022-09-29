@@ -14,19 +14,6 @@ CONFIG = {
     # ignores folder if it doesn't exist
     "templates-override-folder": "overrides",
 
-    # Option to have custom CSS.
-    # The last takes priorty over the first,
-    # i.e. the "extra" folder takes priority over default in `["default", "extra"]`.
-    # Don't remove "default" unless you know what you're doing.
-    "css-folders": ["default", "dictionaries"],
-
-    # Option to add custom javascript to all cards.
-    # The recommended way to add javascript to cards is by modules.
-    "extra-javascript": {
-        "folder": "overrides/js",
-        "files": []
-    },
-
     "compile-options": {
         # toggles whether keybinds can be used or not
         "keybinds-enabled": True,
@@ -37,6 +24,15 @@ CONFIG = {
         "always-filled-fields": [],
 
         "never-filled-fields": [],
+
+
+        # Option to have custom CSS.
+        # The last takes priorty over the first,
+        # i.e. the "extra" folder takes priority over base in
+        #   `["base", "dictionaries" "extra"]`
+        # Don't remove "base" unless you know what you're doing.
+        "css-folders": ["base", "dictionaries"],
+
 
         # Allows modules that didn't come with the note to be used.
         # Additionally, allows custom re-ordering of modules.

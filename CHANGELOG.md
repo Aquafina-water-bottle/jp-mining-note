@@ -78,6 +78,8 @@ Note: changing the layout of the changelog from this point forward.
 - changed `jpmn-frequencies` handlebars to match the other handlebars (removed outer class and inner2 class)
 - removed attempts to remove newlines in various handlebars code within javascript
 - renamed `any_of` -> `if_any` and `none_of` -> `if_none`
+- changed compile options comment at the top to only include the compile-options section
+    - moved `css-folders` to be under `compile-options` in `config.py`
 
 - fixed `_standardize_frequencies_styling` not working on all `inner2` classes in `batch.py`
 - fixed `def_header` macro being defined twice for some reason

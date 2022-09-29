@@ -1109,17 +1109,19 @@ ruby rt {
 .frequencies__group {
   display: block;
   padding-left: 20px;
+  text-align: right;
 }
 
 .frequencies__number {
-  text-align: right;
 }
 
 .frequencies__number-inner {
 }
 
 .frequencies__dictionary {
-  text-align: right;
+  display: inline-block;
+  vertical-align: text-top;
+  background: #000000;
   font-size: var(--description-footer-font-size);
 }
 
