@@ -366,3 +366,5 @@ docs/site/
 docs/notes.txt
 tools/tests/jinja/tests/tmp/
 .python-version
+
+.ccls-cache/
