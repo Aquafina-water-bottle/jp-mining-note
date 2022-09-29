@@ -63,7 +63,7 @@ nav:
     - Preface: preface.md
     - Setup: setup.md
     - Transfer Existing Notes: importing.md
-    - Updating JPMN: updating.md
+    - Updating: updating.md
   - Reference:
     - Usage: usage.md
     - Card Types: cardtypes.md
@@ -71,7 +71,10 @@ nav:
     - Runtime Options (TODO): runtimeoptions.md
     - Kanji Hover: kanjihover.md
     - Auto Pitch Accent (TODO): autopa.md
-    - "Modding & Dev Docs (TODO)": modding.md
+  - Developer Documentation:
+    - Building (TODO): building.md
+    - Compile-Time Options (TODO): compileopts.md
+    - Modding (TODO): modding.md
   - Other:
     - "FAQ & Troubleshooting": faq.md
     - Various Resources: jpresources.md

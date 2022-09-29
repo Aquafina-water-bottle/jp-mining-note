@@ -10,16 +10,8 @@ and goes into depth on the ways you can mod your note
 **without losing your changes** between updates.
 
 
-!!! note
 
-    This document is primarily for developer use.
-    It is assumed that you have knowledge of basic command line.
-
-    The instructions listed below will be primarily Linux based as well.
-    Notes for other operating systems may be shown, but are not guaranteed.
-
-
-# Modding: The Obvious Way
+## Modding (The Obvious Way)
 Throughout the documentation and within the templates alone, you will likely
 see warning messages to not edit the templates directly unless you are willing
 to lose your changes when you update the note.
@@ -32,297 +24,21 @@ then you can simply edit the template and ignore the rest of this page.
 
 
 
-# Technical Summary
-The Anki card template is generated through `jinja` templates,
-which is a popular templating engine for `Python`.
-All of these templates are located under the `(root)/templates` folder.
+## Modding Overview
+To ensure that your changes aren't lost, new files
 
-The Anki templates are generated through a combination of
-`sass` (for css) and `jinja` (for everything else)
-through the `tools/make.py` script.
+TODO is this even necessary?
 
-You must build the note to use compile-time options,
-as compile-time options are applied upon note building.
 
+# Prerequisites
+You must be able to successfully build the template
+in order to start modding the note.
+See the [build page](building.md) for more details.
 
-<!--
-```
-templates
- L jp-mining-note
- L macros
-    - general macros used throughout the note generation template.
- L modules
-    - primarily javascript
-    - used to separate collections of code that can be added / removed to the note at will.
- L scss    # contains all the css generated
-```
--->
+Additionally, it is recommended that you go through the
+[compile-time options](compileopts.md) section in the build page after your first successful build,
+as it may contain what you are looking for.
 
-
-
-# Building
-
-## Prerequisites
-- Python 3.10.6 or higher
-    - I recommend [pyenv](https://github.com/pyenv/pyenv) to upgrade your python version
-      if you're running linux. and have a lower version of Python.
-- [sass](https://sass-lang.com/dart-sass) (dart implementation)
-    - The dart implementation is required to use the latest features of sass.
-- Anki 2.1.54 or higher
-- Anki-Connect addon
-
-
-## Initialization
-
-```bash
-git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
-cd jp-mining-note
-# alternatively, if you already have the repository on your system:
-git pull origin/master
-
-# You may have to use `python` instead of `python3`, and `pip` instead of `pip3`.
-python3 -m venv .
-
-# The following is for POSIX (bash/zsh) only.
-# See how to activate venv on your system in the official documentation:
-# https://docs.python.org/3/library/venv.html
-source ./bin/activate
-
-pip3 install -r tools/requirements.txt
-```
-
-Disabling the venv:
-```bash
-deactivate
-```
-
-Resetting the venv:
-```bash
-# run this only if you're already in a venv
-deactivate
-
-rm -r bin lib
-python3 -m venv .
-source ./bin/activate
-pip3 install -r tools/requirements.txt
-```
-
-
-!!! note
-
-    The `master` branch is the bleeding edge version of the note.
-    If you want to build a more stable version of the note, do the following:
-    ```bash
-    git fetch
-    git checkout tags/TAG_NAME
-
-    # or if you want to create a new branch as well:
-    git checkout tags/TAG_NAME -b BRANCH_NAME
-
-    # to return back to the master branch:
-    git checkout master
-    ```
-
-
-!!! note
-
-    In case you don't want to use a `venv` (highly recommended that you use venv!!),
-    you can install the following python packages:
-    ```bash
-    pip3 install JSON-minify jinja2 black pytest
-    ```
-
-<!--
-Additional packages I use for development on my local system are:
-```
-pip3 install neovim anki aqt
-```
--->
-
-## Building and Installing
-
-
-```bash
-cd tools
-
-# Builds into a temporary folder and installs
-# WARNING: completely overrides current note that is installed
-python3 ./main.py
-```
-
-
-Running the ./main.py script is equivalent of running:
-```bash
-# builds the note into the ./build folder
-python3 make.py
-
-# installs the note from the ./build folder
-python3 install.py --from-build --update
-```
-
-
-## Running Tests
-```bash
-cd tools
-python3 -m pytest ./tests
-```
-
-## Building the Documentation
-
-- all documentation files are found under `(root)/docs`.
-- if already done the above steps with the requirements.txt, all dependencies should already be installed
-- main files should be found under docs/docs/PAGE.md
-
-to preview the documentation:
-```bash
-mkdocs serve
-```
-
-
-!!! note
-    If you are not using requirements.txt and venv, you can install the
-    dependencies manually here:
-    ```bash
-    pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin \
-            mkdocs-git-revision-date-localized-plugin
-    ```
-
-<!-- TODO update requirements.txt to include last git-revision requirement -->
-
-
-
-# Common Errors
-- TODO fill out as people start working with this note
-
-
-
-# Compile-Time Options
-After running `main.py` (or `make.py`), a new file `config/config.py` should appear.
-The compile-time options can be found in this file.
-
-An example set of compile-time options to create a more optimized vocab card is shown below.
-
-??? quote "Vocab card compile-time options example"
-
-    ```json
-    "compile-options": {
-        "keybinds-enabled": False,
-
-        "hardcoded-runtime-options": True,
-
-        "always-filled-fields": [],
-
-        "never-filled-fields": [
-            "PAShowInfo", "PATestOnlyWord", "PADoNotTest",
-            "PASeparateWordCard", "PASeparateSentenceCard", "AltDisplayPASentenceCard",
-            "SeparateClozeDeletionCard",
-            "IsClickCard", "IsHoverCard", "IsSentenceCard", "IsTargetedSentenceCard",
-        ],
-
-        "enabled-modules": [
-            # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
-            # (unless you are not using images in your cards of course)
-            "img-utils",
-
-            #"sent-utils",
-            #"kanji-hover",
-            #"auto-pitch-accent",
-            #"open_on_new",
-        ],
-    }
-    ```
-
-
-## Always filled & Never filled fields
-{% raw %}
-You can set a field to act as if it has always been filled, or it has never been filled,
-using the `always-filled-fields` and `never-filled-fields` options.
-This will remove the conditional Anki templates
-(`{{#FIELD}}` and `{{^FIELD}}` markers) for the specified fields.
-
-
-??? quote "Example"
-
-    If your `compile-options` is:
-
-    ```
-    "compile-options": {
-        ...
-        "always-filled-fields": ["A"],
-        "never-filled-fields": ["B"],
-        ...
-    }
-    ```
-
-    and your card template is:
-    ```
-    {{#A}} A is filled {{/A}}
-    {{^A}} A is not filled {{/A}}
-    {{#B}} B is filled {{/B}}
-    {{^B}} B is not filled {{/B}}
-    {{#C}} C is filled {{/C}}
-    {{^C}} C is not filled {{/C}}
-    ```
-
-    then upon card build, the resulting card template will be:
-    ```
-    A is filled
-    B is not filled
-    {{#C}} C is filled {{/C}}
-    {{^C}} C is not filled {{/C}}
-    ```
-    {% endraw %}
-
-
-This usually renders the actual field value useless. In other words, filling the field
-for a note will have no effect on the cards.
-
-
-!!! warning
-
-    Do not delete the field from the fields list!
-    See [here](modding.md#field-editing) for more details.
-
-
-
-
-## Custom Runtime Options
-- runtime options can be specified at build-time as well
-- recommend creating your own file (to avoid committing changes to the example runtime options)
-
-1. create the user runtime options file (e.g. `user_jpmn_opts.jsonc`)
-
-    ```bash
-    cd config
-    cp jpmn_opts.jsonc user_jpmn_opts.jsonc
-    ```
-
-2. under `config.py`:
-
-    ```
-    "opts-path": "user_jpmn_opts.jsonc",
-    ```
-
-3. (optional) have runtime options hard-coded to remove the file dependency
-
-    under `config.py`:
-    ```
-    ...
-    "compile-options": {
-        "hardcoded-runtime-options": True,
-    }
-    ```
-
-!!! note
-
-    flag `--install-options` should be used when running the installation script (unless hard-coded)
-
-
-
-
-
-
-# Modding the Note
 
 <!--
 ## Extra Javascript & CSS
@@ -332,12 +48,70 @@ for a note will have no effect on the cards.
 
 
 
-## Custom HTML: Template Overrides
+# Custom HTML: Template Overrides
 - `overrides` folder (or whatever folder you specify under `templates-override-folder` in config.py)
 - same format as existing `templates` folder
 
 
-## Custom JS: Modules
+## Example: External links in "Extra Info"
+
+Let's say we want to rewrite the `Extra Info` section to have external links that search
+for the tested word.
+
+1. **Look for the partial** within the `src` folder. <br>
+    This leads us to the `src/jp-mining-note/partials/extra_info.html` file.
+
+2. **Override the partial**. <br>
+    Now that we know the location of the partial, we create the same file in `overrides`.
+    This new file should be of the path
+    `overrides/jp-mining-note/partials/extra_info.html`.
+
+3. **Write the code**. <br>
+    Using the partial under `src` as an example, the following code is
+    a modified version of the original HTML where we removed the dependency
+    on the `PAGraphs` and `UtilityDictionaries` fields.
+    Additionally, at the very bottom, a link to Jisho and Yourei is provided.
+
+    Copy and paste the code below to your newly created file
+    (`overrides/jp-mining-note/partials/extra_info.html`).
+
+    {% raw %}
+    ??? quote "Extra Info with External Links"
+        ```htmldjango
+        <details class="glossary-details glossary-details--small" id="extra_info_details">
+        <summary>Extra Info</summary>
+        <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
+          <div class="glossary-text glossary-text--extra-info">
+
+            {% call IF("PAGraphs") %}
+              <div class="pa-graphs">
+                {{ T("PAGraphs") }}
+              </div>
+            {% endcall %}
+
+            {% call IF("UtilityDictionaries") %}
+              <div class="utility-dicts">
+                {{ T("UtilityDictionaries") }}
+              </div>
+            {% endcall %}
+
+            <a href="https://jisho.org/search/{{ T('Word') }}">辞書</a
+            >・<a href="http://yourei.jp/{{ T('Word') }}">用例</a>
+
+          </div>
+        </blockquote>
+        </details>
+        ```
+    {% endraw %}
+
+4. **Rebuild and reinstall the template**. <br>
+    After rebuilding and reinstalling, your `Extra Info` section should now have two links
+    at the bottom.
+
+
+
+
+# Custom JS: Modules
 - TODO basic explanation
 - primary use is for javascript (and currently only used for javascript)
 - javascript-only modules do not require any edits to the raw html
@@ -346,12 +120,11 @@ for a note will have no effect on the cards.
 - uses runtime options
 
 
-### Hello World Module Example
+## Example: Hello World module
 
-To showcase a simple example,
-the following will enable a custom hello world module,
+The following will enable a the hello world module,
 which prints a "Hello world!" at the front of any card
-(as a warning in the info circle).
+(as a warning on the [info circle](usage.md#info-circle)).
 
 `config.py`:
 ```
@@ -378,13 +151,27 @@ runtime options file (`jpmn_opts.jsonc`):
 }
 ```
 
-### Defining your own modules
+## Defining your own modules
+
 - modules can be defined in the same style as the template overrides above
     - module files can even be completely overwritten if you define the same file
 - define modules in the overrides folder
 
+- quickstart: copy the `example` module into `overrides/modules`
+    - result should have the two files:
+        - `overrides/modules/example/main.html`
+        - `overrides/modules/example/main.js`
+    - all you have to do now is edit the `main.js` and `main.html` files to your liking
+    - these files will overwrite the previous example
 
-## Custom CSS
+- when renaming:
+    - do your best to keep the naming consistent with everything else
+    - make sure you enable them in the config and runtime options
+
+
+
+
+# Custom CSS
 - allows for custom themes / complete user customization
 - can override variables, etc.
 - simply appends the css at the very end of the existing css
@@ -481,7 +268,7 @@ in the `Fields` (list) menu, found under (Main window) →  `Browse` →  `Field
 # Other
 
 
-## Javascript Print statements
+## Javascript print statements
 Anki doesn't come with a way to use `console.log()` normally, so I made one myself.
 
 ```javascript
