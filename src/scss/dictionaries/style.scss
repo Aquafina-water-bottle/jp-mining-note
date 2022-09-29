@@ -2,7 +2,7 @@
  * customization for specific dictionaries
  */
 
-@use "../default/common" as common;
+@use "../base/common" as common;
 
 /* Makes JMDict italic */
 .glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {

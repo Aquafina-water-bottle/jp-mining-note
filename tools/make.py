@@ -189,7 +189,7 @@ class Generator:
                 - won't work on fields and editor
 
         """
-        CSS_ROOT = os.path.join(utils.get_root_folder(), "templates", "scss")
+        CSS_ROOT = os.path.join(utils.get_root_folder(), "src", "scss")
         #CSS_ROOT = "scss"
 
         result = []
@@ -260,7 +260,7 @@ def main(args=None):
     config = utils.get_config(args)
 
     root_folder = utils.get_root_folder()
-    templates_folder = os.path.join(root_folder, "templates")
+    templates_folder = os.path.join(root_folder, "src")
     overrides_folder = os.path.join(
         root_folder, config("templates-override-folder").item()
     )
