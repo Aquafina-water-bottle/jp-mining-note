@@ -324,8 +324,8 @@ class ActionRunner:
     def clear(self):
         self.changes.clear()
 
-    def indent(self, desc: str, indent: str="    ") -> str:
-        return indent + desc.replace("\n", "\n" + indent)
+    def indent(self, desc: str, indent: str="    ", start: str="  - ") -> str:
+        return start + desc.replace("\n", "\n" + indent)
 
     def get_version_actions_desc(self, data: NoteChange) -> str:
         """
@@ -441,4 +441,6 @@ class ActionRunner:
 
 
 if __name__ == "__main__":
+
     pass
+

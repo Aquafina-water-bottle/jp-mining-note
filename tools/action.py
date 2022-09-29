@@ -140,8 +140,8 @@ class DeleteField(Action):
 class YomichanTemplatesChange(UserAction):
     def __post_init__(self):
         self.description = (
-            "Update Yomichan's 'Anki Card Templates' section\n"
-            "    (see https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/updating#updating-yomichan-templates)"
+            "Update Yomichan's 'Anki Card Templates' section.\n"
+            "See: https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichan-templates"
         )
         self.edits_cards = False
         self.unique = True
@@ -157,8 +157,8 @@ class YomichanFormatChange(UserAction):
     def __post_init__(self):
         self.description = (
             "Update Yomichan's 'Anki Card format' section "
-            f"{self.field}: `{self.previous_value}` -> `{self.new_value}`\n"
-            "    (see https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/updating#updating-yomichans-anki-card-format)"
+            f"{self.field}: `{self.previous_value}` -> `{self.new_value}`.\n"
+            "See https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichans-anki-card-format"
         )
         self.edits_cards = False
         self.unique = False
@@ -171,8 +171,8 @@ class AJTPitchAccentConfigChange(UserAction):
 
     def __post_init__(self):
         self.description = (
-            f"Update the AJT Pitch Accent config: {self.additional_desc}\n"
-            "    (see https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/setup#ajt-pitch-accent)"
+            f"Update the AJT Pitch Accent config: {self.additional_desc}.\n"
+            "See https://aquafina-water-bottle.github.io/jp-mining-note/setup/#ajt-pitch-accent"
         )
         self.edits_cards = False
         self.unique = False
@@ -185,8 +185,8 @@ class AJTFuriganaconfigChange(UserAction):
 
     def __post_init__(self):
         self.description = (
-            f"Update to the AJT Furigana config: {self.additional_desc}\n"
-            "    (see https://github.com/Aquafina-water-bottle/jp-mining-note/wiki/setup#ajt-furigana)"
+            f"Update to the AJT Furigana config: {self.additional_desc}.\n"
+            "See https://aquafina-water-bottle.github.io/jp-mining-note/setup/#ajt-furigana."
         )
         self.edits_cards = False
         self.unique = False
