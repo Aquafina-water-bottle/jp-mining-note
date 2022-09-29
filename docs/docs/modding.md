@@ -346,7 +346,7 @@ for a note will have no effect on the cards.
 - uses runtime options
 
 
-### Hello World Module
+### Hello World Module Example
 
 To showcase a simple example,
 the following will enable a custom hello world module,
@@ -377,6 +377,11 @@ runtime options file (`jpmn_opts.jsonc`):
   }
 }
 ```
+
+### Defining your own modules
+- modules can be defined in the same style as the template overrides above
+    - module files can even be completely overwritten if you define the same file
+- define modules in the overrides folder
 
 
 ## Custom CSS
