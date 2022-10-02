@@ -358,7 +358,7 @@ in the `Fields` (list) menu, found under (Main window) →  `Browse` →  `Field
 
 
 ## Installer details
-- TODO look at updating section
+- TODO updating section -> re-state some stuff
 
 
 ## Do not remove or rename fields

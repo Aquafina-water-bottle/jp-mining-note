@@ -722,22 +722,6 @@ under (Yomichan settings) →  `Popup Appearance`:
 There are also plenty of css customizations for Yomichan listed out
 in the [various resources page](jpresources.md){:target="_blank"}.
 
-<!--
-## Other Yomichan Settings
-* Again, if you have never used Yomichan before, I recommend checking out
-  [this page](https://learnjapanese.moe/yomichan/).
-* The layout of Yomichan **changes the appearance of the exported card**.
-  To get exactly the same look as the sample images and cards type,
-  use "Compact glossaries" turned on and "Compact tags" turned off,
-  found under Yomichan settings →  "Popup Appearance". TODO 
-* [This](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
-  link has further template code, which creates markers for individual dictionaries.
-  This has certain extended capabilities over my template code, such as removing the first line.
-* Instructions on adding Forvo as an alternate audio source to Yomichan
-  can be found [here](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
--->
-
-
 ---
 
 # Getting the Text to Create the Cards

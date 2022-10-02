@@ -134,9 +134,7 @@ will likely need (calls related to field editing).
 ## Common Errors
 This section will document common errors that occur when running the `/install.py` script.
 
-(TODO)
-
-### `Anki-Connect is missing actions`
+### Anki-Connect is missing actions
 Anki-Connect is likely outdated.
 To fix this, remove and re-download Anki-Connect from the
 [AnkiWeb page](https://ankiweb.net/shared/info/2055492159).
@@ -171,29 +169,31 @@ To fix this, there are a few cases to go through.
 
     Alternatively, you can simply re-order the fields back to their original position.
 
-    (TODO) All new fields will be added to the very end of the field list (i.e. under `Comment`).
-    It is up to you to move the fields to the appropriate position.
+    !!! note
+        All new fields will be added to the very end of the field list (i.e. under `Comment`).
+        Additionally, any fields that were supposed to be repositioned will stay in place.
+        It is up to you to move the fields to the appropriate places.
 
 ??? info "New field(s) have been created."
 
-    You have two main options.
+    You have two options.
 
-    If you want to preserve your existing field list order, then you can run the script
-    with the `--ignore-order` flag, like above.
+    1. If you want to preserve your existing field list order, then you can run the script
+        with the `--ignore-order` flag, like above.
 
-    If you want to have the field list order match exactly with the current note,
-    then re-order all the new fields to be below the last `Comment` field.
-    Of course, this can be a temporary move; you can move the fields back to their previous positions
-    after the update.
+    2. If you want to have the field list order match exactly with the current note,
+        then re-order all the new fields to be below the last `Comment` field.
+        Of course, this can be a temporary move; you can move the fields back to their previous positions
+        after the update.
 
-    !!! note
-        On rare occasions, you might have added a field that serves the same purpose as a field that
-        will be created on update.
-        If so, rename your field to the field that will be added, and move the field under the
-        `Comment` field.
+        !!! note
+            On rare occasions, you might have added a field that serves the same purpose as a field that
+            will be created on update.
+            If so, rename your field to the field that will be added, and move the field under the
+            `Comment` field.
 
-        For example, if your note doesn't have `PAPositions` but you added a field `Positions`
-        that fulfills the same purpose, then rename `Positions` to `PAPositions`.
+            For example, if your note doesn't have `PAPositions` but you added a field `Positions`
+            that fulfills the same purpose, then rename `Positions` to `PAPositions`.
 
 
 ??? info "Field(s) were removed or renamed."
@@ -201,7 +201,7 @@ To fix this, there are a few cases to go through.
     Unfortunately, there is no way to ignore removed or renamed fields.
     If you removed a field, please re-add the field.
     Likewise, if you renamed a field, please rename it back to the original name.
-    See [here](modding.md#field-editing) for more info on why they cannot be ignored.
+    See [here](modding.md#field-editing){:target="_blank"} for more info on why they cannot be ignored.
 
 
 
@@ -275,6 +275,8 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
     is a matching field in that other card.
 
 Here is how I recommend transitioning as smoothly as possible:
+
+(TODO video)
 
 1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
     of your Yomichan settings, just in case.
