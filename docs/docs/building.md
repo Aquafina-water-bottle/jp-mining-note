@@ -25,7 +25,7 @@ The Anki templates are generated through a combination of
 through the `tools/make.py` script.
 
 You must build the note to use compile-time options,
-as compile-time options are applied upon note building.
+as by definition, compile-time options are applied when the note is built.
 
 
 !!! note

@@ -291,11 +291,8 @@ and delete both `css` files.
         :: in the commands below.
         :: Make sure to replace all the fields!
 
-        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" ^
-            "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
-
-        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css" ^
-            "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css"
+        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css"
         ```
 
     === "MacOS"
@@ -311,10 +308,8 @@ and delete both `css` files.
         Afterwards, run the following command:
         ```bash
         # be sure to change `PROFILENAME` to your Anki profile
-        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" \
-            "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css" \
-            "~/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css"
+        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
+        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css"
         ```
 
     === "Linux"
@@ -330,10 +325,8 @@ and delete both `css` files.
         Afterwards, run the following command:
         ```bash
         # be sure to change `PROFILENAME` to your Anki profile
-        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" \
-            "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_editor.css" \
-            "~/.local/share/Anki2/addons21/181103283/user_files/editor.css"
+        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
+        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_editor.css" "~/.local/share/Anki2/addons21/181103283/user_files/editor.css"
         ```
 
 

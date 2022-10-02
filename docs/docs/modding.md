@@ -48,12 +48,24 @@ as it may contain what you are looking for.
 
 
 
-# Custom HTML: Template Overrides
+# Custom Templates: Overrides
 - `overrides` folder (or whatever folder you specify under `templates-override-folder` in config.py)
-- same format as existing `templates` folder
+- same format as existing `src` folder
+- primarily to override html
+- see the [modules](modding.md#custom-js-modules) section on the recommended way to add custom javascript
+
+!!! note
+    - no guaranteed backwards compatability (especially while the note is still in beta)
+    - although you won't lose your changes upon update, your changes might also not work on the next update
+    - example: if the layout of the file changes at all, i.e. a css class gets renamed,
+        and you are still using the old class name after the update, it may not behave as expected
 
 
-## Example: External links in "Extra Info"
+## How-To (Overrides)
+
+TODO
+
+## Example (Add external links)
 
 Let's say we want to rewrite the `Extra Info` section to have external links that search
 for the tested word.
@@ -120,7 +132,10 @@ for the tested word.
 - uses runtime options
 
 
-## Example: Hello World module
+## Example (Hello World)
+
+It would be easiest to show an example first, before diving into the how-to.
+
 
 The following will enable a the hello world module,
 which prints a "Hello world!" at the front of any card
@@ -151,7 +166,7 @@ runtime options file (`jpmn_opts.jsonc`):
 }
 ```
 
-## Defining your own modules
+## How-To (Modules)
 
 - modules can be defined in the same style as the template overrides above
     - module files can even be completely overwritten if you define the same file
@@ -170,6 +185,94 @@ runtime options file (`jpmn_opts.jsonc`):
 
 
 
+## Why not just separate the code with files?
+
+**Short answer**: <br>
+In an attempt to keep the card as stable as possible between versions.
+
+**Long answer**: <br>
+Anki specifically states this in its
+[official documentation](https://docs.ankiweb.net/templates/styling.html?highlight=javascript#javascript):
+
+!!! quote
+    Javascript functionality is provided without any support or warranty
+
+Many javascript-related things seem to behave strangely in Anki, which prevents the ability
+to separate files easily.
+Here have been the solutions I have tried before moving to this approach:
+
+??? quote "Link an external script with the `<script>` tag"
+
+    There are two main problems with this approach:
+
+    1. On older Anki versions (2.1.49 and below), all `<script>` tags loads asynchronously
+        compared to each other.
+
+        This means if any file must be ran before a file is loaded, then the script would fail.
+
+        On versions 2.1.50 and above, it appears that Anki loads `<script>` tags synchronously.
+        However, there is no guarantee that this will be the case for the future.
+
+    2. Certain javascript in the main template has to be ran before loading in any file.
+
+        This requirement exists for this note type due to the runtime-options file exists.
+        The global `JPMNOpts` has to exist for any external files that uses runtime options to work.
+
+        This can be fixed by importing the options separately for each file, but that naturally
+        leads us to the examples shown in the following section.
+
+
+??? quote "Regular imports within Javascript"
+
+    All other examples of importing without a separate `<script src="...">`
+    requires asynchronous javascript features, which should be
+    [avoided](modding.md#avoid-asynchronous-javascript-features-in-anki)
+    as much as possible.
+
+    Examples:
+
+    ```html
+
+    <script>
+
+      // https://forums.ankiweb.net/t/linking-to-external-javascript/1713
+      var injectScript = (src) => {
+      return new Promise((resolve, reject) => { // a Promise is an asynchronous feature!
+          const script = document.createElement('script');
+          script.src = src;
+          script.async = true;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+      });
+
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
+      // this import function is an asynchronous function!
+
+      (async () => {
+        await import("/modules/my-module.js");
+        // ...
+      })();
+
+    </script>
+
+    <!-- type="module" forces this entire script to run asynchronously! -->
+    <script type="module">
+
+      // for the `import` statement to work, the script must be of type="module"
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+      import { export1 } from "module-name";
+
+    </script>
+    ```
+
+In conclusion, this is a design decision made after lots of trial and error when attempting
+to work with Anki's Javascript parser.
+
+I believe this is the best way to ensure that the note stays resilient across Anki updates,
+as the javascript itself has very few hacks to get it to behave well.
+
+
 
 # Custom CSS
 - allows for custom themes / complete user customization
@@ -177,22 +280,66 @@ runtime options file (`jpmn_opts.jsonc`):
 - simply appends the css at the very end of the existing css
 
 
-how-to:
+## How-To (Custom CSS)
 
-- make new folder under `scss` (e.g. `scss/extra`) and add to `css-folders` in config.py, e.g.
+- make new folder under `src/scss` (e.g. `extra`) and add to `css-folders` in config.py, e.g.
     ```
-    "css-folders": ["default", "dictionaries", "extra"],
+    "css-folders": ["base", "dictionaries", "extra"],
     ```
+
 - folder should be of the format:
     ```
-    extra
-     L field.scss
-     L editor.scss
-     L style.scss
+    src
+     L scss
+        L base
+           L ...
+        L dictionaries
+           L ...
+        L extra
+           L field.scss
+           L editor.scss
+           L style.scss
     ```
     - all files are optional: only create and use the ones you need
 
+!!! note
+    Unlike everything else here, custom CSS cannot be defined in the `overrides` folder.
+    I will be working on a way to define it in the `overrides` folder in the future.
 
+!!! note
+    Yes, this is the SCSS, not CSS. However, SCSS is almost a complete superset of CSS.
+    In other words, if you don't know any SCSS, you can write normal CSS
+    and have it behave completely the same.
+
+- many existing variables can be overwritten (see `templates/scss/base/common.scss`)
+
+
+
+
+## Example (Zoom)
+Let's say we want to increase the size of the card, without affecting any of Anki's GUI.
+
+1. Create a folder called `extra`, like above.
+
+1. Create a `style.scss` file under `extra`.
+
+1. Add the following code to the `field.scss` file:
+
+    ```
+    :root {
+      /* Times 1.1 of the original size.
+       * If you want to make the note smaller, use a value like 0.9.
+       */
+      --zoom: 1.1;
+    }
+    ```
+
+1. Under `config.py`, set the `css-folders` option:
+    ```
+    "css-folders": ["base", "dictionaries", "extra"],
+    ```
+
+1. Rebuild and reinstall the template.
 
 
 
@@ -294,6 +441,65 @@ in the javascript options.
 
 
 
+## Avoid asynchronous javascript features in Anki
+
+??? quote "Example Asynchronous Javascript"
+
+    ```html
+    <script>
+
+      // Example 1: normal asynchronous functions
+      async function runMeAsynchronously() {
+        // ...
+      }
+
+      // Example 2: promises
+      function giveMeAPromise() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("Success!");
+          }, 1000);
+        });
+      }
+
+      giveMeAPromise().then(() => {
+        LOGGER.warn("The promise is complete!", unique=false);
+      });
+
+    </script>
+
+    <!-- Example 3: anything wrapped in type="module" -->
+    <script type="module">
+      // everything here is run asynchronously
+      // ...
+    </script>
+    ```
+
+TODO reason:
+
+- functions can be executed multiple times
+- reproducible way: use example 2 on both the front/back side of the card, and switch sides quickly
+    - should be two warnings
+- but worst case is for cases which I don't know how to reproduce
+    - rarely, asynchronous functions run more than once
+    - including the async functions defined currently in modules like `kanji-hover`
+    - to cirumvent having their actions done twice, define the affected elements outside the asynchronous section
+        - the function still runs twice (so any side-effects of the function will still happen)
+        - however, other instances of the function should not work on the elements defined outside
+
+- avoiding asynchronous features makes things more predictable within anki
+
+??? quote "Example (safer) asynchronous javascript"
+
+    ```javascript
+    let ele = document.getElementById("example");
+    async function runMeAsynchronously() {
+      // ...
+      ele.innerText += "this should only appear once!";
+    }
+    ```
+
+
 
 ## Make your changes shown!
 If you think your changes will be useful for others,
@@ -341,10 +547,5 @@ TODO
     - how to reproduce the behavior & expected behavior
 - TODO issue.md template would be cool
 -->
-
-
-
-
-
 
 

@@ -134,6 +134,11 @@ for a note will have no effect on the cards.
 
 
 
+# Conclusion
+
+Although useful, compile-time options may not give you everything you want.
+See the [modding](modding.md) page to see how to make changes to your heart's content.
+
 
 
 
