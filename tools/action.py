@@ -14,7 +14,7 @@ class Action(ABC):
     edits_cards: bool = field(init=False)
     ankiconnect_actions: set[str] = field(init=False)
 
-    def run(self):
+    def run(self, **args):
         pass
 
 
@@ -22,7 +22,7 @@ class Action(ABC):
 class UserAction(Action):
     unique: bool = field(init=False)
 
-    def run(self):
+    def run(self, **args):
         pass
 
 
@@ -36,7 +36,7 @@ class SetField(Action):
         self.edits_cards = True
         self.ankiconnect_actions = {"findNotes", "updateNoteFields", "multi"}
 
-    def run(self):
+    def run(self, **args):
         notes = invoke("findNotes", query=r'"note:JP Mining Note"')
 
         # creates multi request
@@ -70,7 +70,7 @@ class RenameField(Action):
         )
         self.edits_cards = True
 
-    def run(self):
+    def run(self, **args):
         return invoke(
             "modelFieldRename",
             modelName="JP Mining Note",
@@ -89,33 +89,40 @@ class MoveField(Action):
         self.description = f"Moves the field `{self.field_name}` to index {self.index}"
         self.edits_cards = True
 
-    def run(self):
-        return invoke(
-            "modelFieldReposition",
-            modelName="JP Mining Note",
-            fieldName=self.field_name,
-            index=self.index,
-        )
+    def run(self, **args):
+        # if not in order: this should be completely ignored
+        if args.get("in_order", True):
+            return invoke(
+                "modelFieldReposition",
+                modelName="JP Mining Note",
+                fieldName=self.field_name,
+                index=self.index,
+            )
 
 
 @dataclass
 class AddField(Action):
     field_name: str
-    index: int  # -1 if doesn't exist
+    index: int
 
     def __post_init__(self):
-        self.ankiconnect_actions = {"modelFieldAdd"}
+        self.ankiconnect_actions = {"modelFieldAdd", "modelFieldNames"}
         self.description = (
             f"Creates the field `{self.field_name}` at index {self.index}"
         )
         self.edits_cards = True
 
-    def run(self):
+    def run(self, **args):
+        if args.get("in_order", True):
+            index = self.index
+        else:
+            index = len(invoke("modelFieldNames", modelName="JP Mining Note"))
+
         return invoke(
             "modelFieldAdd",
             modelName="JP Mining Note",
             fieldName=self.field_name,
-            index=self.index,
+            index=index,
         )
 
 
@@ -128,7 +135,7 @@ class DeleteField(Action):
         self.description = f"Deletes the field `{self.field_name}`"
         self.edits_cards = True
 
-    def run(self):
+    def run(self, **args):
         return invoke(
             "modelFieldRemove",
             modelName="JP Mining Note",
@@ -200,9 +207,8 @@ class BatchUpdate(Action):
     ankiconnect_actions: set[str]
     edits_cards = True
 
-    def run(self):
+    def run(self, **args):
         self.batch_func()
-
 
 
 @dataclass
@@ -213,8 +219,6 @@ class NoteToUser(UserAction):
         self.edits_cards = False
         self.unique = False
         self.ankiconnect_actions = set()
-
-
 
 
 if __name__ == "__main__":

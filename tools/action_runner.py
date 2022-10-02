@@ -35,6 +35,9 @@ from note_changes import NOTE_CHANGES, Version, NoteChange
 
 from typing import Any
 
+class FieldVerifierException(Exception):
+    pass
+
 
 class FieldEditSimulator:
     """
@@ -53,7 +56,7 @@ class FieldEditSimulator:
     def _rename_field(self, old_field_name: str, new_field_name: str):
         assert old_field_name in self.simulated_fields
         if new_field_name in self.simulated_fields:
-            raise Exception(f"Cannot rename field {old_field_name} -> {new_field_name}: field already exists")
+            raise FieldVerifierException(f"Cannot rename field {old_field_name} -> {new_field_name}: {new_field_name} field already exists")
 
         i = self.simulated_fields.index(old_field_name)
         self.simulated_fields[i] = new_field_name
@@ -158,7 +161,7 @@ class Verifier:
                     "Anki",
                     "Expected (Initial)",
                 )
-                raise Exception("Anki fields are different")
+                raise FieldVerifierException("Anki fields are different")
 
         else:
             # allows fields in anki that are not in the expected beginning,
@@ -168,7 +171,7 @@ class Verifier:
             original_fields = set(self.original_fields)
 
             if original_fields - anki_fields:
-                raise Exception(
+                raise FieldVerifierException(
                     "Expected fields do not appear in Anki's fields list: "
                     f"{original_fields - anki_fields} "
                 )
@@ -183,13 +186,13 @@ class Verifier:
                 self.naive_diff_list(
                     simulator.simulated_fields, self.new_fields, "Simulated", "Expected"
                 )
-                raise Exception("Simulated fields do not match expected fields")
+                raise FieldVerifierException("Simulated fields do not match expected fields")
         else:
             x = set(simulator.simulated_fields)
             y = set(self.new_fields)
             if x != y:
                 self.naive_diff_set(x, y, "Simulated", "Expected")
-                raise Exception("Simulated fields do not match expected fields")
+                raise FieldVerifierException("Simulated fields do not match expected fields")
 
         # simulator.verify(new_fields=new_fields)
 
@@ -237,7 +240,7 @@ class Verifier:
                 self.naive_diff_list(
                     first_anki_fields, self.new_fields, "Anki", "Expected (After)"
                 )
-                raise Exception("Anki fields are different")
+                raise FieldVerifierException("Anki fields are different")
         else:
 
             # allows fields in anki that are not in the expected beginning,
@@ -247,7 +250,7 @@ class Verifier:
             new_fields = set(self.new_fields)
 
             if new_fields - anki_fields:
-                raise Exception(
+                raise FieldVerifierException(
                     "Expected fields do not appear in Anki's fields list: "
                     f"{new_fields - anki_fields} "
                 )
@@ -275,6 +278,8 @@ class ActionRunner:
         self.new_fields: None | list[str] = None
         self.in_order: bool = in_order
         self.verifier: Verifier | None = None
+
+        self.action_args = {"in_order": in_order}
 
         if current_ver == new_ver:
             # nothing to do
@@ -428,7 +433,7 @@ class ActionRunner:
     def run(self):
         for data in self.changes:
             for action in data.actions:
-                action.run()
+                action.run(**self.action_args)
 
         if self.new_fields is not None and self.verifier is not None:
             self.verifier.verify_post()
