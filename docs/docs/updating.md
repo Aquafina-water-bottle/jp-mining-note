@@ -4,10 +4,11 @@
 This section is dedicated to explaining how to update the card itself.
 
 !!! warning
+
     Updating your card will **DELETE ANY CHANGES** you have made to the templates.
 
-    Please make a **complete backup** of your collection
-    (Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`).
+    Please make a [complete backup](faq.md#how-do-i-backup-my-anki-data)
+    of your collection before continuing to update your note.
 
 
 ## Method 1: Python Script (recommended)
@@ -147,35 +148,63 @@ To fix this, remove and re-download Anki-Connect from the
     instead of using this feature.
 
 
-### Anki fields are different
-- updating script is very picky about fields, including order
+### FieldVerifierException
 
-- if added field(s):
-    - if field matches newly-added field
-        - e.g. if your note doesn't have `PAPositions` but you added a field `Positions` that fulfills the same purpose, then rename `Positions` to `PAPositions`
-    - option 1: move fields under `Comment`
-        - all fields under `Comment` are ignored
-    - option 2: use `--ignore-order` flag (i.e. `install.py --update --ignore-order`
+{{ img("anki field window", "assets/anki/fields_window.png", 'align=right width="300"') }}
 
-- if removed field:
-    - re-add the field
-    - don't do this next time
-    - if you don't want to use the field, move field under `Comment` and run with `--ignore-order` flag
+This class of errors means that the field list was edited at some point
+after the installation or last update of JPMN.
+The field list can be accessed by navigating to the following:
 
-- if renamed field:
-    - rename back to the original
-    - again with the above, don't do this next time
+> (Main window) →  `Browse` →  `Fields...`.
 
-- if fields are in the wrong order:
-    - either manually re-order it, or run with `--ignore-order`
+The `install.py` is picky about fields and its order, and the script will automatically reject
+any note type with modifications to the field list.
 
-- see the [modding](modding.md#field-editing) page for more details.
+To fix this, there are a few cases to go through.
 
-### Simulated fields do not match expected fields
-- see above
+??? info "The field order has been changed."
 
-### Expected fields do not appear in Anki's fields list
-- see above
+    If the field order has been changed, and nothing else has been changed,
+    you should be able to preserve your existing field list order by running the installation script
+    with the `--ignore-order` flag (i.e. `python3 install.py --ignore-order`).
+
+    Alternatively, you can simply re-order the fields back to their original position.
+
+    (TODO) All new fields will be added to the very end of the field list (i.e. under `Comment`).
+    It is up to you to move the fields to the appropriate position.
+
+??? info "New field(s) have been created."
+
+    You have two main options.
+
+    If you want to preserve your existing field list order, then you can run the script
+    with the `--ignore-order` flag, like above.
+
+    If you want to have the field list order match exactly with the current note,
+    then re-order all the new fields to be below the last `Comment` field.
+    Of course, this can be a temporary move; you can move the fields back to their previous positions
+    after the update.
+
+    !!! note
+        On rare occasions, you might have added a field that serves the same purpose as a field that
+        will be created on update.
+        If so, rename your field to the field that will be added, and move the field under the
+        `Comment` field.
+
+        For example, if your note doesn't have `PAPositions` but you added a field `Positions`
+        that fulfills the same purpose, then rename `Positions` to `PAPositions`.
+
+
+??? info "Field(s) were removed or renamed."
+
+    Unfortunately, there is no way to ignore removed or renamed fields.
+    If you removed a field, please re-add the field.
+    Likewise, if you renamed a field, please rename it back to the original name.
+    See [here](modding.md#field-editing) for more info on why they cannot be ignored.
+
+
+
 
 
 ---

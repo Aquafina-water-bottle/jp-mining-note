@@ -39,7 +39,9 @@ See the
 If none of the above worked, the following will be some general troubleshooting tips
 that can help you figure out what the error is:
 
+<!-- Un-comment this when any conflicting add-ons are actually discovered
 1. Do you have a [conflicting addon](setup.md#conflicting-add-ons){:target="_blank"} installed?
+-->
 
 1. Try disabling all of your add-ons other than the mandatory ones listed in the setup page.
     Note that you have to restart Anki after disabling the add-ons for the changes to take effect.
