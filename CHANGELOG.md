@@ -33,7 +33,7 @@ The following are examples breaking changes:
 -->
 
 
-## [0.10.2.0] - 2022-09-??
+## [0.10.2.0] - 2022-10-??
 Final major update before public beta!
 
 Note: changing the layout of the changelog from this point forward.
@@ -80,6 +80,8 @@ Note: changing the layout of the changelog from this point forward.
 - renamed `any_of` -> `if_any` and `none_of` -> `if_none`
 - changed compile options comment at the top to only include the compile-options section
     - moved `css-folders` to be under `compile-options` in `config.py`
+- added try catch wrapper around errorStack to ensure the message gets called
+- `--ignore-order` flag now ignores the MoveField action, and always adds fields at the end of the list
 
 - fixed `_standardize_frequencies_styling` not working on all `inner2` classes in `batch.py`
 - fixed `def_header` macro being defined twice for some reason

@@ -51,19 +51,27 @@ var JPMNLogger = (() => {
     }
 
     errorStack(stack) {
-      let ignoredErrors = {{ utils.opt("ignored-errors") }};
-      for (let substr of ignoredErrors) {
-        if (stack.includes(substr)) {
-          // ignores
-          return;
+      try {
+        let ignoredErrors = {{ utils.opt("ignored-errors") }};
+        for (let substr of ignoredErrors) {
+          if (stack.includes(substr)) {
+            // ignores
+            return;
+          }
         }
+
+        let stackList = stack.split(" at ");
+        for (let i = 1; i < stackList.length; i++) {
+          stackList[i] = ">>> " + stackList[i];
+        }
+        this.error(stackList);
+      } catch (e) {
+        // in case the above fails for some reason
+        // better to throw an error that is not as prettily formatted
+        // than to essentially have it go missing
+        this.error(stack);
       }
 
-      let stackList = stack.split(" at ");
-      for (let i = 1; i < stackList.length; i++) {
-        stackList[i] = ">>> " + stackList[i];
-      }
-      this.error(stackList);
     }
 
 
