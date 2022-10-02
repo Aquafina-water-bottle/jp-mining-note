@@ -56,7 +56,8 @@ that can help you figure out what the error is:
     and/or add it to the documentation somewhere so others are aware of the issue.)
 
 
-If you can't manage to fix it, please submit an issue!
+If you can't manage to fix it, please reach out to me on [Discord](faq.md#discord-contact-info),
+or submit an issue!
 
 ---
 
@@ -88,15 +89,15 @@ For example, the above should be changed into:
 マスターと行動を共にするとは万死に値するデース
 ```
 
-!!! info
+!!! info "Why this can happen"
 
     This happens if you copy/paste directly from certain pages into the sentence field,
     such as some texthooker pages.
     This can also happen if you copy/paste from a texthooker page to a different field,
     say `AdditionalNotes`, and then copy a section of `AdditionalNotes` to `Sentence`.
 
-    Additionally, the sharex clipboard shortcut shouldn't have this problem because it
-    explicitly uses `<br>` instead of `<div>`
+    The [updating sentence with clipboard hotkey](jpresources.md#update-sentence-with-clipboard)
+    shouldn't have this problem because it explicitly uses `<br>` instead of `<div>`
 
 ---
 
@@ -305,6 +306,11 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
 !!! quote
     Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.
 
+
+## Discord Contact Info
+Username: `Aquafina water bottle#3026`
+
+Servers: [TheMoeWay](https://learnjapanese.moe/join/) and Refold (Japanese) servers.
 
 
 

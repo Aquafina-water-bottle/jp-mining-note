@@ -7,6 +7,7 @@ and open the `_jpmn-options.js` file as a text file.
 !!! note
 
     To open the file as a text file on Windows, right click the file and select `Edit`.
+    Do not double-click the file.
 
 
 !!! note

@@ -10,7 +10,7 @@ I highly recommend checking it out!
 
 
 If you encounter any problems, have any questions, etc., feel free to contact
-me on discord `@Aquafina water bottle#3026`,
+me on discord `Aquafina water bottle#3026`,
 or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
 I exist on the [TheMoeWay](https://learnjapanese.moe/join/) and Refold (Japanese) servers.
 
@@ -37,7 +37,7 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 
 # CSS (Yomichan)
 
-## How to Add Custom CSS In Yomichan
+## How-To: Add Custom CSS In Yomichan
 
 To add custom CSS in Yomichan, do the following:
 
@@ -262,7 +262,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     already contains most of these features and more.
 
 
-## How to Edit Yomichan Fields
+## How-To: Edit Yomichan Fields
 1. Navigate to Yomichan Settings.
 1. Go to the `Anki` section.
 1. Select `Anki card format...`.
@@ -274,7 +274,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 
 <br>
 
-## How to Edit Yomichan Templates (Handlebars)
+## How-To: Edit Yomichan Templates (Handlebars)
 1. Navigate to Yomichan Settings.
 1. Make sure that advanced settings are turned on (bottom left corner).
 1. Go to the `Anki` section
@@ -514,27 +514,48 @@ Example template code can be found here:
 ---
 
 
-# ShareX
-- TODO make non-point form
-- main steps from are [https://rentry.co/mining](https://rentry.co/mining)
-    (webarchive link without pictures
-    [here](https://web.archive.org/web/20220216001950/https://rentry.co/mining#sharex))
-- all powershell commands rewritten to be readable + work with jp-mining-note by default
-- 1 liners are generated from [this file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/wiki/gen/make.py)
+# ShareX Commands
+Many people have already documented how to setup your ShareX to work with Anki, such as:
 
-note that f3 keybinds do NOT record media, requires slightly different setup
+* [stegatxins0](https://rentry.co/mining#sharex) (recommended)
+* [Anime Cards](https://animecards.site/media/#setting-up-sharex)
 
+Instead of repeating the steps they already showed,
+I present alternative and additional ShareX commnds for stegatxins0's guide
+(the long command to paste within the `Actions` section).
+
+The following commands have the following advantages / changes:
+
+- They have been all rewritten to work with jp-mining-note by default
+- The source code is readable and presented below the one-liner
+- The one-liners can be re-compiled from the source code at your own discretion
+  (by [building the documentation](building.md#building-the-documentation))
+
+<!--
 - TODO document
 - iirc grabs current window picture + deletes after (the only purpose of the f3 keybinds
     is to execute ankiconnect calls in powershell)
+-->
 
 ---
 
 
-## f1: screenshot and clipboard
-- adds the image to the note
-- adds a tag to the note (tag is exactly the window name of the current application)
-- adds the clipboard to AdditionalNotes (I use this for copying/pasting context)
+## Screenshot and Clipboard Hotkey { .text-yellow }
+
+
+### Features
+
+- Adds the selected image to the note. This image is automatically shrunk within the field viewer only.
+    Otherwise, the screens
+- Adds a tag to the note. The tag is exactly the window name of the current application.
+- Sets the `AdditionalNotes` to the current clipboard. I use this for copying/pasting context
+
+### How-To
+
+Follow the steps for setting up the
+[screenshot hotkey](https://rentry.co/mining#hotkey-for-screenshot),
+and use this command in place of step 8's `argument`.
+
 
 {{ sharex_display(sharex.screenshot_and_clipboard) }}
 
@@ -542,8 +563,9 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 
 
 
-## shift+f1: screenshot (only)
-- the above without clipboard (adds image and tag)
+## Screenshot (only) Hotkey { .text-yellow }
+
+This is the same as the above, but without setting the `AdditionalNotes` field to the current clipboard.
 
 {{ sharex_display(sharex.screenshot) }}
 
@@ -551,8 +573,15 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 
 
 
-## f2: audio
-- adds audio to anki
+## Audio Hotkey { .text-yellow }
+
+This command works *exactly the same* as stegatxins0's version,
+except rewritten in a more readable format.
+If you already have the audio hotkey setup, there is no reason to change the old command.
+
+To use this, follow the steps for setting up the
+[audio hotkey](https://rentry.co/mining#hotkey-for-audio),
+and use this script in place of step 14's `Argument`.
 
 {{ sharex_display(sharex.audio) }}
 
@@ -561,35 +590,146 @@ note that f3 keybinds do NOT record media, requires slightly different setup
 
 
 
-## shift+f3: update sentence
-- update the sentence without losing the bold (python script + clipboard)
-- remove sentence reading
-- good for when the sentence just doesn't match
+# Arbitrary Scripts
+
+The following scripts are written in two formats:
+one that works automatically with your usual `ShareX` setup,
+and one in Python for cross-platform portability.
+
+## How-To: Running with ShareX
+TODO
+
+## How-To: Running with Python
+TODO
+
+
+<!-- shift + f3 -->
+## Update Sentence with Clipboard { .text-yellow }
+This script updates the sentence with the clipboard, preserves the bolded word,
+and removes the `SentenceReading` field.
+
+!!! note
+    After running this script, you must manually generate the `SentenceReading` field
+    if you want the furigana reading.
+    Of course, this can be done in bulk at any point,
+    as shown [here](importing.md#1-batch-generate-pitch-accents-and-sentence-furigana).
+
+This script is useful when Yomichan's parsed sentence does not match the recorded audio.
+This is also useful for when Yomichan's word parser doesn't match the word itself (steps shown below).
+
+??? info "How-To: Fix incorrectly-bolded words *(click here)*"
+
+    For example, the target word 希望 in the sentence 「入部希望なんですけど…」
+    will be parsed by Yomichan as the following:
+    ```
+    入部<b>希望な</b>んですけど…
+    ```
+
+    To add the above sentence in the 2nd example while preserving the bolded word,
+    do NOT add the word within the sentence.
+    Instead, add the header word itself within the popup dictionary,
+    and then run this script.
+
+    TODO screenshot
+
+
+??? info "How the bolded word is preserved *(click here)*"
+
+    The bolded word is preserved if the exact content within the bolded word is found within the clipboard,
+    which should be almost always the case.
+
+    For example, assume the added sentence is the following:
+    ```html
+    さては<b>偽者</b>だな！
+    ```
+
+    As long as the clipboard contains the word 「偽者」, then the bold is preserved.
+    For example, the following clipboard contents will preserve the bold:
+    ```
+    かわいげのある女じゃない。さては偽者だな！
+    ```
+
+### ShareX Command
 
 {{ sharex_display(sharex.update_sentence) }}
 
+### Python Command
+
+TODO
+
+---
+
+
+<!-- ??? -->
+## Update AdditionalNotes with Clipboard { .text-yellow }
+This script does the exact same thing as the above script, but with `AdditionalNotes` instead.
+
+### ShareX Command
+
+{{ sharex_display(sharex.update_additional_notes) }}
+
+### Python Command
+
+TODO
+
+
 ---
 
 
 
-## ctrl+f3 - copy from previous:
-- set additional notes and picture to previous card
-- also copy all tags
-- good for adding more than 1 sentence with the same text box
+<!-- ctrl + f3 -->
+## Copy from Previous Card { .text-yellow }
+
+This script does the following:
+
+- Set the `AdditionalNotes` and `Picture` field of the current card to the previous card's fields.
+- Copies all the tags of the previous card.
+
+This is useful for when you are adding more than one sentence with the same text box
+of a visual novel, as it prevents you from having to run the screenshot hotkey.
+
+### ShareX Command
 
 {{ sharex_display(sharex.copy_from_previous) }}
 
+### Python Command
+
+TODO
+
 ---
 
 
 
-## ctrl+shift+f3: fix sentence and freq
-- update the previous note with the current's frequency, sentence & sentence reading
-- remove current note !
-- good for the orthographic dict!
+<!-- ctrl + shift + f3 -->
+## Orthographic Variants: Fix Sentence and Frequency { .text-yellow }
+
+This script does the following:
+
+- Sets the previous note's fields with the current card's fields:
+    - `FrequencyStylized`
+    - `Sentence`
+    - `SentenceReading`
+- Deletes the current note
+
+This is useful for when you want to add the the word within the
+[Orthographic Variants](https://github.com/FooSoft/yomichan/issues/2183) dictionary.
+The Orthographics Variants dictionary is extremely useful for monolingual definitions,
+as explained in the above link:
+
+!!! quote
+    This is useful for when you search for a word like 思うツボ, but your favorite dictionaries only contain entries for 思う壺.
+
+In practice, I've personally found numerous examples of this in everyday media,
+so this has helped me immensely.
+
+
+### ShareX Command
 
 {{ sharex_display(sharex.fix_sent_and_freq) }}
 
+### Python Command
+
+TODO
 
 ---
 
