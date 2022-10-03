@@ -202,6 +202,7 @@ FIELDS = {
     "Comment": {
         "auto_fill": False,
         "customize": False,
+        "personal_setup": "DICTIONARY:「{_jpmn-get-primary-definition-dict}」<br>SELECTION:「{_jpmn-selection-text}」"
     },
 
 }
