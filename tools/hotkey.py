@@ -47,9 +47,10 @@ def _field_value(data, field_name):
     return data[0]["fields"][field_name]["value"]
 
 
-def _update_field(format_field_params: Callable[[str], dict[str, Any]]):
+def _update_field_clipboard(format_field_params: Callable[[str], dict[str, Any]]):
     # $clipboard = (Get-Clipboard | where{$_ -ne ''}) -join '';
-    clipboard = pyperclip.paste()
+    clipboard = pyperclip.paste().strip()
+    clipboard = clipboard.replace("\n", "<br>") # formatted for html
 
     curr_note_id = _get_sorted_list()[0]
 
@@ -108,11 +109,11 @@ def _update_field(format_field_params: Callable[[str], dict[str, Any]]):
 
 
 def update_sentence():
-    return _update_field(lambda x: {"Sentence": x, "SentenceReading": ""})
+    return _update_field_clipboard(lambda x: {"Sentence": x, "SentenceReading": ""})
 
 
 def update_additional_notes():
-    return _update_field(lambda x: {"AdditionalNotes": x})
+    return _update_field_clipboard(lambda x: {"AdditionalNotes": x})
 
 
 def copy_from_previous():
