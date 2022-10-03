@@ -1,9 +1,8 @@
 # import json
 # import urllib.request
 
-import argparse
-
 import re
+import argparse
 
 from utils import invoke
 
