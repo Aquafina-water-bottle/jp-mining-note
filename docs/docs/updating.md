@@ -249,6 +249,8 @@ There may be further steps outside of just updating the card,
 such as updating Yomichan's templates / format.
 Further instructions on these are written below.
 
+Finally, if new fields were added, you likely have to change the font and font sizes of said fields.
+
 ---
 
 
