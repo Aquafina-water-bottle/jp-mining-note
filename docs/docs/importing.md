@@ -93,7 +93,7 @@ However, here are a few tips:
 
 An example with [Anime cards](https://animecards.site/ankicards/) is shown below.
 
-??? quote "Click here to see the example for Anime Cards."
+??? example "Click here to see the example for Anime Cards."
 
     | Anki Fields | Yomichan Format |
     |-------------|-----------------|

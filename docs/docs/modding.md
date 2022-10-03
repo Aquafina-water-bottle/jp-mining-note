@@ -88,7 +88,7 @@ for the tested word.
     (`overrides/jp-mining-note/partials/extra_info.html`).
 
     {% raw %}
-    ??? quote "Extra Info with External Links"
+    ??? example "Extra Info with External Links"
         ```htmldjango
         <details class="glossary-details glossary-details--small" id="extra_info_details">
         <summary>Extra Info</summary>
@@ -201,7 +201,7 @@ Many javascript-related things seem to behave strangely in Anki, which prevents 
 to separate files easily.
 Here have been the solutions I have tried before moving to this approach:
 
-??? quote "Link an external script with the `<script>` tag"
+??? example "Link an external script with the `<script>` tag"
 
     There are two main problems with this approach:
 
@@ -222,7 +222,7 @@ Here have been the solutions I have tried before moving to this approach:
         leads us to the examples shown in the following section.
 
 
-??? quote "Regular imports within Javascript"
+??? example "Regular imports within Javascript"
 
     All other examples of importing without a separate `<script src="...">`
     requires asynchronous javascript features, which should be
@@ -443,7 +443,7 @@ in the javascript options.
 
 ## Avoid asynchronous javascript features in Anki
 
-??? quote "Example Asynchronous Javascript"
+??? example "Example Asynchronous Javascript"
 
     ```html
     <script>
@@ -489,7 +489,7 @@ TODO reason:
 
 - avoiding asynchronous features makes things more predictable within anki
 
-??? quote "Example (safer) asynchronous javascript"
+??? example "Example (safer) asynchronous javascript"
 
     ```javascript
     let ele = document.getElementById("example");

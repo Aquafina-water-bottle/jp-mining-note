@@ -43,7 +43,7 @@ On hover, the info circle on the top left corner just shows some basic info.
 
 However, it also serves as a notification system to the user, when it has a color.
 
-??? quote "Error"
+??? example "Error"
 
     This should only appear when some javascript code fails.
     In other words, this should **not** appear under normal circumstances.
@@ -52,7 +52,7 @@ However, it also serves as a notification system to the user, when it has a colo
 
     {{ img("info circle error example", "assets/info_circle_error.gif") }}
 
-??? quote "Warning"
+??? example "Warning"
 
     This serves to warn the user about something.
     It can appear without completely breaking the functionality of the card.
@@ -60,7 +60,7 @@ However, it also serves as a notification system to the user, when it has a colo
 
     {{ img("info circle error example", "assets/info_circle_warning.gif") }}
 
-??? quote "Leech"
+??? example "Leech"
 
     When the card is a leech, the circle is highlighted yellow (or blue in light mode)
     to indicate that it is a leech.

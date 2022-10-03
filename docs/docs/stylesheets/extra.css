@@ -129,17 +129,18 @@
 
 
 /* Admonition flavor */
-[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.quote, .cite) {
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.quote, .cite, .example) {
   border-color: rgb(75, 82, 85);
 }
 
 /* Admonition flavor title */
-[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite) > :is(.admonition-title, summary) {
+[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite, .example) > :is(.admonition-title, summary) {
+  background-color: hsla(0,0%,62%,.1);
   /*background-color: rgba(79, 85, 89, 0.1);*/
 }
 
 /* Admonition icon */
-[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite) > :is(.admonition-title, summary)::before {
+[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite, .example) > :is(.admonition-title, summary)::before {
  /* background-color: rgb(171, 163, 152);*/
  /* background-color: #b8b8b8;*/
   background-color: #c0b7ab;

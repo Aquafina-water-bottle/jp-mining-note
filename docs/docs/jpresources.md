@@ -141,7 +141,7 @@ li.definition-item[data-dictionary='DICTIONARY'] {
 }
 ```
 
-??? quote "Click here to see an example."
+??? example "Click here to see an example."
 
     ```css
     li.definition-item[data-dictionary='JMdict (English)'] {
@@ -167,7 +167,7 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
 ```
 
 
-??? quote "Click here to see an example."
+??? example "Click here to see an example."
     ```css
     li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
       opacity: 0;
@@ -235,14 +235,14 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     }
     ```
 
-??? quote "Click here to see an example."
+??? example "Click here to see an example."
     ```css
     :lang(ja), :lang(ja-JP) {
         --font-primary: Whitney,"Noto Sans CJK JP","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
     }
     ```
 
-??? quote "Click here to see Discord's default CSS."
+??? example "Click here to see Discord's default CSS."
     ```css
     :lang(ja), :lang(ja-JP) {
         --font-primary: Whitney,"Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -330,7 +330,7 @@ You can now use the following in Yomichan Fields:
 <!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
 
 {% raw %}
-??? quote "Click here to see a modified version for Anime Cards."
+??? example "Click here to see a modified version for Anime Cards."
 
     ```handlebars
     {{#*inline "pitch-accent-list-single-dict"}}
@@ -649,10 +649,15 @@ you can simply run a python script with command line.
 python3 /path/to/jp-mining-note/tools/hotkey.py -f FUNCTION_NAME
 ```
 
-Example:
-```bash
-python3 /path/to/jp-mining-note/tools/hotkey.py -f update_sentence
-```
+??? example "Examples *(click here)*"
+
+    ```bash
+    # default
+    python3 /path/to/jp-mining-note/tools/hotkey.py -f update_sentence
+
+    # opens card browser automatically
+    python3 /path/to/jp-mining-note/tools/hotkey.py -f update_sentence --enable-gui-browse
+    ```
 
 If you want to use these as keybinds, I will leave it up to you to determine
 how to do that (as there are too many different setups and systems that people can use).
@@ -699,6 +704,14 @@ However, some tips for ShareX and AutoKey are given below.
         ```py
         import hotkey
         hotkey.update_sentence()
+        ```
+
+        Example with GUI:
+        ```py
+        import hotkey
+        hotkey._browse_anki("nid:1")
+        note_id = hotkey.update_sentence()
+        hotkey._browse_anki(f"nid:{note_id}")
         ```
 
 ---
@@ -812,7 +825,7 @@ where dictionaries only contain entries for more kanjified words.
 In practice, I've personally found numerous examples of this in everyday media,
 so this has helped me immensely.
 
-??? quote "Examples (to test the dictionary on)"
+??? example "Examples (to test the dictionary on)"
 
     1. 「スペルド族への恐怖は恐らくこの世界に<b class="text-yellow">根づいている</b>んだろう」 (see 根付く)
     1. 「ルーはたくさんあるので、今<b class="text-yellow">お代わり</b>をお持ちしますね」 (see 御代わり)
