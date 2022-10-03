@@ -2,7 +2,7 @@
 {% from "macros.html" import sharex_display with context %}
 
 
-A collection of tips and tricks, primarily related to CSS and Yomichan templates.
+A collection of tips and tricks, primarily related to CSS, Yomichan templates, and ShareX.
 
 This page was inspired by [Marv's resources page](https://github.com/MarvNC/JP-Resources),
 which has a bunch of different but equally awesome resources.
@@ -520,8 +520,8 @@ Many people have already documented how to setup your ShareX to work with Anki, 
 * [stegatxins0](https://rentry.co/mining#sharex) (recommended)
 * [Anime Cards](https://animecards.site/media/#setting-up-sharex)
 
-Instead of repeating the steps they already showed,
-I present alternative and additional ShareX commnds for stegatxins0's guide
+Instead of re-telling the steps they have already showed,
+I present alternative and additional ShareX commands for stegatxins0's guide
 (the long command to paste within the `Actions` section).
 
 The following commands have the following advantages / changes:
