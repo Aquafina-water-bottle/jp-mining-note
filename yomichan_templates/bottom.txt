@@ -101,7 +101,10 @@ is a part of a dictionary) ~}}
             {{~#set "search-def"}}{{~> _jpmn-glossary-single-search . brief=../brief noDictionaryTag=../noDictionaryTag ~}}{{/set~}}
 
             {{~set "search-regex-match" (regexMatch (get "search-selection") "gu" (get "search-def"))}}
-            {{~#if (op "!==" (get "search-regex-match") "")~}}
+            {{~#if (op "&&"
+                (op "===" (get "result-dictionary") null)
+                (op "!==" (get "search-regex-match") "")
+            )~}}
                 {{~#set "result-dictionary" dictionary}}{{/set~}}
             {{~/if~}}
 
