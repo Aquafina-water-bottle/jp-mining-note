@@ -422,8 +422,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#updating-the-options-file" class="md-nav__link">
-    Updating the Options File
+  <a href="#updating-the-runtime-options-file" class="md-nav__link">
+    Updating the Runtime Options File
   </a>
   
 </li>
@@ -798,8 +798,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#updating-the-options-file" class="md-nav__link">
-    Updating the Options File
+  <a href="#updating-the-runtime-options-file" class="md-nav__link">
+    Updating the Runtime Options File
   </a>
   
 </li>
@@ -900,6 +900,17 @@ will likely need (calls related to field editing).
     You should be able to see `AnkiConnectDev` in the aforementioned list.
 -->
 
+<h4 id="preliminary-steps">Preliminary steps<a class="headerlink" href="#preliminary-steps" title="Permanent link">&para;</a></h4>
+<p>Ensure that your note is named exactly <code>JP Mining Note</code>.
+To do this, head over to:</p>
+<blockquote>
+<p>(Main Window) →  <code>Tools</code> →  <code>Manage Note Types</code>.</p>
+</blockquote>
+<p>If your note is named differently, please rename it to <code>JP Mining Note</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can always change the name back after updating.</p>
+</div>
 <h4 id="running-the-script">Running the Script<a class="headerlink" href="#running-the-script" title="Permanent link">&para;</a></h4>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Command Line</label><label for="__tabbed_1_2">Windows</label></div>
 <div class="tabbed-content">
@@ -908,18 +919,18 @@ will likely need (calls related to field editing).
 <p>A more user friendly set of instructions for Windows users
 is also available on the second tab,
 for people who have never used <code>python</code> or <code>git</code> before.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># assuming you are at the root of the repo, i.e. after the following commands:
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>#  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>#  $ cd jp-mining-note
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># assuming you are at the root of the repo, i.e. after the following commands:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">#  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">#  $ cd jp-mining-note</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a># grabs the latest version of the master branch
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># grabs the latest version of the master branch</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>git pull origin/master
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>cd tools
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">cd</span> tools
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a># Make sure you have Anki open and Anki-Connect installed!
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a># Also ensure that your python version is 3.10.6 or higher.
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a># Note: Linux users may have to use `python3` instead of `python`.
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Make sure you have Anki open and Anki-Connect installed!</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># Also ensure that your python version is 3.10.6 or higher.</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1"># Note: Linux users may have to use `python3` instead of `python`.</span>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>python install.py --update
 </code></pre></div>
 </div>
@@ -1124,8 +1135,8 @@ does not have any matching fields with the <code>JP Mining Note</code> model.</p
 <p>Like the above, you can simply follow the steps already specified in <a href="../setup/#yomichan-templates" target="_blank">setup</a>.
 Again, please make sure you <strong>reset the existing templates</strong> (unless you know what you are doing),
 and again, please make a <a href="../faq/#how-do-i-backup-yomichan-settings" target="_blank">backup</a> of your Yomichan settings just in case.</p>
-<h2 id="updating-the-options-file">Updating the Options File<a class="headerlink" href="#updating-the-options-file" title="Permanent link">&para;</a></h2>
-<p>The options file is not updated by default, because default options are built-in
+<h2 id="updating-the-runtime-options-file">Updating the Runtime Options File<a class="headerlink" href="#updating-the-runtime-options-file" title="Permanent link">&para;</a></h2>
+<p>The <a href="../runtimeoptions/">runtime options file</a> is not updated by default, because default options are built-in
 within the note itself for each option.
 If you want to update this file, see the repository's
 <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js">example options file</a>.</p>
