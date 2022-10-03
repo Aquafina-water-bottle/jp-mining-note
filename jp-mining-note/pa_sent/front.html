@@ -2,36 +2,36 @@
 
 {{#PASeparateSentenceCard}}
 {{#SentenceAudio}}
-
 <!--
 WARNING: This template is auto-generated.
 Any changes to this template WILL BE LOST if you decide to update the card.
+See https://aquafina-water-bottle.github.io/jp-mining-note/modding/
+if you want to modify the card templates and css without losing your changes
+upon updates.
 
 JPMN-COMPILE-TIME-OPTIONS-JSON:
 {
-  "available-modules": {
-    "auto-pitch-accent": true,
-    "img-utils": true,
-    "kanji-hover": true,
-    "open_on_new": true,
-    "sent-utils": true
-  },
-  "available-themes": [],
   "compile-options": {
+    "allow-user-defined-modules": false,
     "always-filled-fields": [],
+    "css-folders": [
+      "base",
+      "dictionaries"
+    ],
     "enabled-modules": [
       "img-utils",
       "sent-utils",
       "kanji-hover",
       "auto-pitch-accent",
-      "open_on_new"
+      "customize-open-fields"
     ],
+    "hardcoded-runtime-options": false,
+    "keybinds-enabled": true,
     "never-filled-fields": []
   }
 }
 
 -->
-
 
 
 <script>
@@ -46,7 +46,7 @@ function nullish(a, b) {
 }
 
 
-
+/// 
 function getSetting(keys, defaultVal) {
   if (typeof JPMNOpts === "undefined") {
     return defaultVal;
@@ -68,6 +68,7 @@ function getSetting(keys, defaultVal) {
   }
   return obj;
 };
+///  
 
 
 var JPMNLogger = (() => {
@@ -88,11 +89,27 @@ var JPMNLogger = (() => {
     }
 
     errorStack(stack) {
-      let stackList = stack.split(" at ");
-      for (let i = 1; i < stackList.length; i++) {
-        stackList[i] = ">>> " + stackList[i];
+      try {
+        let ignoredErrors = getSetting(['ignored-errors',],['ReferenceError: EFDRC is not defined.']);
+        for (let substr of ignoredErrors) {
+          if (stack.includes(substr)) {
+            // ignores
+            return;
+          }
+        }
+
+        let stackList = stack.split(" at ");
+        for (let i = 1; i < stackList.length; i++) {
+          stackList[i] = ">>> " + stackList[i];
+        }
+        this.error(stackList);
+      } catch (e) {
+        // in case the above fails for some reason
+        // better to throw an error that is not as prettily formatted
+        // than to essentially have it go missing
+        this.error(stack);
       }
-      this.error(stackList);
+
     }
 
 
@@ -143,7 +160,7 @@ var JPMNLogger = (() => {
       this._appendMsg(message, groupEle, key);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.add("info-circle-warning")
+        infoCirc.classList.add("info-circle-warning");
       }
 
       if (key !== null) {
@@ -168,7 +185,7 @@ var JPMNLogger = (() => {
       this._appendMsg("", groupEle);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-leech")) {
-        infoCirc.classList.add("info-circle-leech")
+        infoCirc.classList.add("info-circle-leech");
       }
     }
 
@@ -179,7 +196,7 @@ var JPMNLogger = (() => {
       }
 
       if (this._name !== null) {
-        message = `(${this._name}) ${message}`
+        message = `(${this._name}) ${message}`;
       }
 
       let msgEle = document.createElement('div');
@@ -211,12 +228,8 @@ var JPMNLogger = (() => {
 })();
 
 
-
 /* global logger object for any javascript outside of modules that needs logging */
-var LOGGER = nullish(LOGGER, new JPMNLogger());
-
-/* TEMPORARY logger for legacy code to work */
-//var logger = nullish(logger, new JPMNLogger("DEPRECATED"));
+var LOGGER = new JPMNLogger();
 
 
 // on any javascript error: log it
@@ -238,18 +251,18 @@ function optionsNotFound() {
 
 </script>
 
+
 <script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
+ 
 
 
 <div class="card-description">
-  
+
 
     
 
     
-
   PA Sentence
-
 
 
     
@@ -284,13 +297,15 @@ function optionsNotFound() {
     </span>
   </span>
 
-
     
-  <div class="card-description-ver">JP Mining Note: Version 0.10.1.0</div>
+  <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
+  <div class="card-description-ver">JP Mining Note: Version 0.10.2.0</div>
 
 
-    
 </div>
+
+
+
 
 
 
@@ -342,11 +357,10 @@ function optionsNotFound() {
 {{/AltDisplayPASentenceCard}}
 
 
-
 {{#HintNotHidden}}
   <div class="center-box-1 hint">
     <div class="center-box-2">
-      <div class="bold-yellow">{{HintNotHidden}}</div>
+      <div class="highlight-bold">{{HintNotHidden}}</div>
     </div>
   </div>
 {{/HintNotHidden}}
@@ -358,7 +372,7 @@ function optionsNotFound() {
     <summary>Hint</summary>
     <div class="center-box-1">
       <div class="center-box-2">
-        <div class="bold-yellow">{{Hint}}</div>
+        <div class="highlight-bold">{{Hint}}</div>
       </div>
     </div>
   </details>
@@ -367,11 +381,12 @@ function optionsNotFound() {
 
 
 
-
-
-
-
 <script>
+
+
+
+
+
 
 
 
@@ -391,7 +406,13 @@ var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 /// 
 
-// GLOBALS: open_on_new
+
+
+
+
+
+
+// GLOBALS: customize-open-fields
 
 
 // note that this cache will NOT respect card review undos,
@@ -400,6 +421,11 @@ var kanjiHoverCache = nullish(kanjiHoverCache, {});
 var isNewCardCache = nullish(isNewCardCache, {});
 
 /// 
+
+
+
+
+
 (function () { // restricts ALL javascript to hidden scope
 
 // "global" variables within the hidden scope
@@ -408,29 +434,6 @@ let note = (function () {
   return my;
 }());
 
-
-
-function getSetting(keys, defaultVal) {
-  if (typeof JPMNOpts === "undefined") {
-    return defaultVal;
-  }
-
-  let keyList = ["settings"].concat(keys);
-
-  let obj = JPMNOpts;
-  for (let key of keyList) {
-    if (!(key in obj)) {
-
-      // checks if we need to warn, manual search
-      if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
-        LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
-      }
-      return defaultVal;
-    }
-    obj = obj[key];
-  }
-  return obj;
-};
 
 
 /*
@@ -456,6 +459,7 @@ function toggleDetailsTag(ele) {
 
 
 
+
 // ================
 //  Sentence Utils
 // ================
@@ -474,23 +478,24 @@ const JPMNSentUtils = (() => {
       isAltDisplay = false;
     }
 
-    // removes linebreaks
+    // ASSUMPTION: all sentence elements are formatted as [quote, sentence, quote]
     let result = sentEle.children[1].innerHTML;
+
+    // removes leading and trailing white space (equiv. of strip() in python)
+    result = result.trim();
 
     // cloze deletion replacing bold with [...]
     if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
       result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
     }
 
+    // removes newlines
     if ((!isAltDisplay && getSetting(['modules','sent-utils','remove-line-breaks',],false))
         || isAltDisplay && getSetting(['modules','sent-utils','remove-line-breaks-on-altdisplay',],false)) {
       let noNewlines = result.replace(/<br>/g, "");
 
       result = noNewlines;
     }
-
-    // removes leading and trailing white space (equiv. of strip() in python)
-    result = result.trim();
 
     let validQuotes = getSetting(['modules','sent-utils','quote-match-strings',],[['「', '」'], ['『', '』']]);
     let existingQuote = false;
@@ -598,6 +603,16 @@ const JPMNSentUtils = (() => {
 
 
 
+
+
+
+
+
+
+
+
+
+
 // a general function to implement all keybinds necessary by the card.
 // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
 // because functions persist and cannot be easily removed within anki,
@@ -608,7 +623,20 @@ document.onkeyup = (e => {
 
   // START_BLOCK: js_keybind_settings
 
+
+
+
   // END_BLOCK: js_keybind_settings
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -670,21 +698,37 @@ document.onkeyup = (e => {
   ///  
 
 })
+///  
 
 
 function main() {
 
-  // sanity check
+  // sanity check: options
+  /// 
   if (typeof JPMNOpts === 'undefined') {
     LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
   }
+  ///  
+
+  // sanity check: checks that both `IsHoverCard` and `IsClickCard` are both not activated
+  /// {{#IsHoverCard}}
+  /// {{#IsClickCard}}
+  LOGGER.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
+  /// {{/IsClickCard}}
+  /// {{/IsHoverCard}}
 
   // START_BLOCK: js_run
+
+
+
 
   // END_BLOCK: js_run
 
 
+
   try { // RUN: sent-utils
+    
+        
     if (getSetting(['modules','sent-utils','enabled',],true)) {
       let isAltDisplay = false;
       /* {{#AltDisplayPASentenceCard}} */
@@ -711,10 +755,22 @@ function main() {
 
     }
     /// 
+        
   } catch (error) {
     LOGGER.error("Error in module sent-utils:");
     LOGGER.errorStack(error.stack);
   }
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

@@ -33,7 +33,7 @@ The following are examples breaking changes:
 -->
 
 
-## [0.10.2.0] - 2022-10-??
+## [0.10.2.0] - 2022-10-02
 Final major update before public beta!
 
 Note: changing the layout of the changelog from this point forward.

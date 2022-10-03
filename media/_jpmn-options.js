@@ -61,6 +61,7 @@ var JPMNOpts = (function (my) {
         "toggle-extra-info-display": ["["]
       },
 
+
       "modules": {
 
         // Automatic processing to sentences
@@ -119,7 +120,7 @@ var JPMNOpts = (function (my) {
           "mode": 1,
 
           // all queries will have the following at the beginning:
-          // (-"Key:{{ T('Key') }}" Word:*${character}* "card:${cardTypeName}")
+          // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}")
 
           // not new, or new and green
           // not flagged as red and suspended
@@ -146,10 +147,40 @@ var JPMNOpts = (function (my) {
           // 0: hiragana
           // 1: katakana
           // 2: katakana with long vowel marks
-          "reading-display-mode": 2,
+          "reading-display-mode": 1,
 
           // whether to search for the ajt word, given the field is filled out
-          "search-for-ajt-word": true
+          "search-for-ajt-word": true,
+
+          // Undulation/kifuku (起伏) value, to set the pattern to kifuku
+          // (used in the PAOverride field).
+          // This sets the downstep be right before the last mora, and colors the word
+          // purple if colored-pitch-accent is enabled.
+          // Note that these values must be numbers and they CANNOT be strings.
+          "kifuku-override": [-1],
+
+          // Whether to color the tested word by pitch accent class or not.
+          // Generally: 平板 is blue, 頭高 is red, 中高 is orange and 尾高 is green.
+          // The exact colors can be changed in the css.
+          // NOTE: There are certain cases where the position cannot be inferred.
+          //  See here for more details:
+          //  https://aquafina-water-bottle.github.io/jp-mining-note/autopa/#colored-pitch-accent
+          "colored-pitch-accent": {
+            "enabled": false,
+
+            // Word reading
+            "color-reading": true,
+
+            // Tested content (word or sentence).
+            // NOTE: this preserves the semantics of whether the sentence
+            //     had a highlighted word in the first place. For example,
+            //     a sentence card will NOT have the word within the sentence colored,
+            //     but a TSC will have the word colored.
+            "color-display": true,
+
+            // Pitch accent overline
+            "color-overline": true
+          }
         },
 
 
@@ -162,16 +193,26 @@ var JPMNOpts = (function (my) {
           // Replaces all images in the glossary (definition) sections
           // with an internal representation similar to how Yomichan displays images:
           // an `[Image]` text where you can see the image upon hover, and with click to zoom.
-          // You MAY have to disable this if you want to use the "Edit Field During Review" add-on
-          // (https://ankiweb.net/shared/info/1020366288).
           "stylize-images-in-glossary": true
         },
 
 
         // Opens the specified collapsable field if the card is new.
-        "open-on-new": {
+        "customize-open-fields": {
           "enabled": false,
-          "open-fields": [
+
+          "open": [
+            // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
+            // indeed collapsed by default.
+
+            //"Primary Definition",
+            //"Secondary Definition",
+            // "Additional Notes",
+            //"Extra Definitions",
+            //"Extra Info"
+          ],
+
+          "open-on-new": [
             // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
             // indeed collapsed by default.
 
@@ -184,6 +225,18 @@ var JPMNOpts = (function (my) {
         }
       },
 
+
+      // Errors that contain the following the following strings will be ignored and not displayed.
+      "ignored-errors": [
+        // This error is caused by the "Edit Field During Review (Cloze)" add-on.
+        // However, this error only appears during the preview and edit cards template windows.
+        // This error does not appear to actually affect any of the internal javascript within the card,
+        // and is rather caused by the add-on itself.
+        // Due to the card's error catcher, this previously-silent error is now caught and shown
+        // in the card's error log, despite it not actually affecting anything.
+        // Therefore, this error can be safely ignored.
+        "ReferenceError: EFDRC is not defined."
+      ],
 
       // Overrides the play keybind button to show the sentence if the
       // card is a hybrid sentence AND the sentence is not currently being shown.

@@ -1,33 +1,33 @@
-
 <!--
 WARNING: This template is auto-generated.
 Any changes to this template WILL BE LOST if you decide to update the card.
+See https://aquafina-water-bottle.github.io/jp-mining-note/modding/
+if you want to modify the card templates and css without losing your changes
+upon updates.
 
 JPMN-COMPILE-TIME-OPTIONS-JSON:
 {
-  "available-modules": {
-    "auto-pitch-accent": true,
-    "img-utils": true,
-    "kanji-hover": true,
-    "open_on_new": true,
-    "sent-utils": true
-  },
-  "available-themes": [],
   "compile-options": {
+    "allow-user-defined-modules": false,
     "always-filled-fields": [],
+    "css-folders": [
+      "base",
+      "dictionaries"
+    ],
     "enabled-modules": [
       "img-utils",
       "sent-utils",
       "kanji-hover",
       "auto-pitch-accent",
-      "open_on_new"
+      "customize-open-fields"
     ],
+    "hardcoded-runtime-options": false,
+    "keybinds-enabled": true,
     "never-filled-fields": []
   }
 }
 
 -->
-
 
 
 <script>
@@ -42,7 +42,7 @@ function nullish(a, b) {
 }
 
 
-
+/// 
 function getSetting(keys, defaultVal) {
   if (typeof JPMNOpts === "undefined") {
     return defaultVal;
@@ -64,6 +64,7 @@ function getSetting(keys, defaultVal) {
   }
   return obj;
 };
+///  
 
 
 var JPMNLogger = (() => {
@@ -84,11 +85,27 @@ var JPMNLogger = (() => {
     }
 
     errorStack(stack) {
-      let stackList = stack.split(" at ");
-      for (let i = 1; i < stackList.length; i++) {
-        stackList[i] = ">>> " + stackList[i];
+      try {
+        let ignoredErrors = getSetting(['ignored-errors',],['ReferenceError: EFDRC is not defined.']);
+        for (let substr of ignoredErrors) {
+          if (stack.includes(substr)) {
+            // ignores
+            return;
+          }
+        }
+
+        let stackList = stack.split(" at ");
+        for (let i = 1; i < stackList.length; i++) {
+          stackList[i] = ">>> " + stackList[i];
+        }
+        this.error(stackList);
+      } catch (e) {
+        // in case the above fails for some reason
+        // better to throw an error that is not as prettily formatted
+        // than to essentially have it go missing
+        this.error(stack);
       }
-      this.error(stackList);
+
     }
 
 
@@ -139,7 +156,7 @@ var JPMNLogger = (() => {
       this._appendMsg(message, groupEle, key);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.add("info-circle-warning")
+        infoCirc.classList.add("info-circle-warning");
       }
 
       if (key !== null) {
@@ -164,7 +181,7 @@ var JPMNLogger = (() => {
       this._appendMsg("", groupEle);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-leech")) {
-        infoCirc.classList.add("info-circle-leech")
+        infoCirc.classList.add("info-circle-leech");
       }
     }
 
@@ -175,7 +192,7 @@ var JPMNLogger = (() => {
       }
 
       if (this._name !== null) {
-        message = `(${this._name}) ${message}`
+        message = `(${this._name}) ${message}`;
       }
 
       let msgEle = document.createElement('div');
@@ -207,12 +224,8 @@ var JPMNLogger = (() => {
 })();
 
 
-
 /* global logger object for any javascript outside of modules that needs logging */
-var LOGGER = nullish(LOGGER, new JPMNLogger());
-
-/* TEMPORARY logger for legacy code to work */
-//var logger = nullish(logger, new JPMNLogger("DEPRECATED"));
+var LOGGER = new JPMNLogger();
 
 
 // on any javascript error: log it
@@ -234,11 +247,13 @@ function optionsNotFound() {
 
 </script>
 
+
 <script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
+ 
 
 
 <div class="card-description">
-  
+
 
     
 
@@ -322,7 +337,6 @@ function optionsNotFound() {
 
 
 
-
     
   <span class="info-circle" id="info_circle">
     <span class="info-circle-svg-wrapper">
@@ -355,12 +369,11 @@ function optionsNotFound() {
     </span>
   </span>
 
-
     
-  <div class="card-description-ver">JP Mining Note: Version 0.10.1.0</div>
+  <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
+  <div class="card-description-ver">JP Mining Note: Version 0.10.2.0</div>
 
 
-    
 </div>
 
 
@@ -369,85 +382,95 @@ function optionsNotFound() {
 
 
 
-<!-- legacy display -->
-{{^PAShowInfo}}
-
-  <!-- priority is on the alternate display sentence -->
-
+<div class="expression expression-box">
   {{#IsHoverCard}}
+    
+        
     <!-- fallback card card html
       in css: default hybrid css, but with hover instead of click -->
     <div class="expression__hybrid-wrapper">
-      <div class="expression expression--single expression__hybrid expression__hybrid--hover" id="display">
-        <span class="expression--sentence expression__hybrid-sentence expression
-                   {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                   {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
-                   "
+      <div class="expression expression__hybrid expression__hybrid--hover" id="display">
+        <span class="expression--sentence expression__hybrid-sentence
+                     {{^IsSentenceCard}} highlight-bold {{/IsSentenceCard}}
+                     {{#IsTargetedSentenceCard}} highlight-bold {{/IsTargetedSentenceCard}}
+                     "
               id="hybrid-sentence">
           <span class="sentence-quote sentence-quote--open">「</span><span>{{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}</span><span class="sentence-quote sentence-quote--close">」</span>
         </span>
         <span class="expression--word expression__hybrid-word
-            {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
+            {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-indicator {{/IsTargetedSentenceCard}}
             {{^IsTargetedSentenceCard}}
-              {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-              {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
+              {{#IsSentenceCard}} expression__hybrid-word--sentence-indicator {{/IsSentenceCard}}
+              {{^IsSentenceCard}} expression__hybrid-word--word-indicator {{/IsSentenceCard}}
             {{/IsTargetedSentenceCard}}
             expression__hybrid-word--hover-indicator"
             id="hybrid-word">
           {{Word}}
         </span>
       </div>
+
     </div>
+        
   {{/IsHoverCard}} 
 
   {{^IsHoverCard}}
-
     {{#IsClickCard}}
+      
+            
       <!-- hybrid (sentence or word) card html
         in css: default hybrid css, with click -->
       <div class="expression__hybrid-wrapper">
-        <div class="expression expression--single expression__hybrid expression__hybrid--click" id="display">
+        <div class="expression expression__hybrid expression__hybrid--click" id="display">
           <span class="expression--sentence expression__hybrid-sentence
-                    {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                    {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
+                    {{^IsSentenceCard}} highlight-bold {{/IsSentenceCard}}
+                    {{#IsTargetedSentenceCard}} highlight-bold {{/IsTargetedSentenceCard}}
                     "
                 id="hybrid-sentence">
             <span class="sentence-quote sentence-quote--open">「</span><span>{{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}</span><span class="sentence-quote sentence-quote--close">」</span>
           </span>
           <span class="expression--word expression__hybrid-word
-                {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-                {{^IsTargetedSentenceCard}}
-                  {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                  {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-                {{/IsTargetedSentenceCard}}
+              {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-indicator {{/IsTargetedSentenceCard}}
+              {{^IsTargetedSentenceCard}}
+                {{#IsSentenceCard}} expression__hybrid-word--sentence-indicator {{/IsSentenceCard}}
+                {{^IsSentenceCard}} expression__hybrid-word--word-indicator {{/IsSentenceCard}}
+              {{/IsTargetedSentenceCard}}
               expression__hybrid-word--click-indicator"
               id="hybrid-word">
             {{Word}}
           </span>
         </div>
       </div>
+            
     {{/IsClickCard}} 
-
 
     {{^IsClickCard}}
 
       {{#IsTargetedSentenceCard}}
-        <div class="expression expression--sentence expression--single bold-yellow" id="display">
+        
+                
+        <div class="expression expression--sentence highlight-bold" id="display">
           <span class="sentence-quote sentence-quote--open">「</span><span>{{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}</span><span class="sentence-quote sentence-quote--close">」</span>
         </div>
+                
       {{/IsTargetedSentenceCard}}
 
       {{^IsTargetedSentenceCard}}
         {{#IsSentenceCard}}
-          <div class="expression expression--sentence expression--single" id="display">
+          
+                    
+          <div class="expression expression--sentence" id="display">
             <span class="sentence-quote sentence-quote--open">「</span><span>{{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}</span><span class="sentence-quote sentence-quote--close">」</span>
           </div>
+                    
         {{/IsSentenceCard}}
 
         {{^IsSentenceCard}}
-          <div class="expression expression--word expression--single" id="display">
+          
+                    
+          <div class="expression expression--word" id="display">
             {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Word}}{{/AltDisplay}}
           </div>
+                    
         {{/IsSentenceCard}}
       {{/IsTargetedSentenceCard}} 
 
@@ -455,119 +478,28 @@ function optionsNotFound() {
 
   {{/IsHoverCard}} 
 
-{{/PAShowInfo}} 
+  
+    
+  <!-- appears to the left -->
+  <div class="pa-indicator">
+    {{#PAShowInfo}}
+    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+      class="pa-indicator__svg" id="flag_box_svg">
+      <circle id="pa_indicator_circle" class="pa-indicator__circle" cx="25" cy="15" r="7">
+        <title id=svg_title></title>
+      </circle>
+    </svg>
+    {{/PAShowInfo}} 
+  </div>
+    
 
-
-<!-- regular display -->
-{{#PAShowInfo}}
-  <div class="expression expression-box">
-
-    <!-- priority is on the alternate display sentence -->
-
-
-    {{#IsHoverCard}}
-      <!-- fallback card card html
-        in css: default hybrid css, but with hover instead of click -->
-      <div class="expression__hybrid-wrapper">
-        <div class="expression expression__hybrid expression__hybrid--hover" id="display">
-          <span class="expression--sentence expression__hybrid-sentence
-                       {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                       {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
-                       "
-                id="hybrid-sentence">
-            <span class="sentence-quote sentence-quote--open">「</span><span>{{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}</span><span class="sentence-quote sentence-quote--close">」</span>
-          </span>
-          <span class="expression--word expression__hybrid-word
-              {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-              {{^IsTargetedSentenceCard}}
-                {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-              {{/IsTargetedSentenceCard}}
-              expression__hybrid-word--hover-indicator"
-              id="hybrid-word">
-            {{Word}}
-          </span>
-        </div>
-
-      </div>
-
-    {{/IsHoverCard}} 
-
-    {{^IsHoverCard}}
-
-      {{#IsClickCard}}
-        <!-- hybrid (sentence or word) card html
-          in css: default hybrid css, with click -->
-        <div class="expression__hybrid-wrapper">
-          <div class="expression expression__hybrid expression__hybrid--click" id="display">
-            <span class="expression--sentence expression__hybrid-sentence
-                      {{^IsSentenceCard}} bold-yellow {{/IsSentenceCard}}
-                      {{#IsTargetedSentenceCard}} bold-yellow {{/IsTargetedSentenceCard}}
-                      "
-                  id="hybrid-sentence">
-              <span class="sentence-quote sentence-quote--open">「</span><span>{{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}</span><span class="sentence-quote sentence-quote--close">」</span>
-            </span>
-            <span class="expression--word expression__hybrid-word
-                {{#IsTargetedSentenceCard}} expression__hybrid-word--sentence-underline {{/IsTargetedSentenceCard}}
-                {{^IsTargetedSentenceCard}}
-                  {{#IsSentenceCard}} expression__hybrid-word--sentence-underline {{/IsSentenceCard}}
-                  {{^IsSentenceCard}} expression__hybrid-word--word-underline {{/IsSentenceCard}}
-                {{/IsTargetedSentenceCard}}
-                expression__hybrid-word--click-indicator"
-                id="hybrid-word">
-              {{Word}}
-            </span>
-          </div>
-        </div>
-      {{/IsClickCard}} 
-
-      {{^IsClickCard}}
-
-        {{#IsTargetedSentenceCard}}
-          <div class="expression expression--sentence bold-yellow" id="display">
-            <span class="sentence-quote sentence-quote--open">「</span><span>{{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}</span><span class="sentence-quote sentence-quote--close">」</span>
-          </div>
-        {{/IsTargetedSentenceCard}}
-
-        {{^IsTargetedSentenceCard}}
-          {{#IsSentenceCard}}
-            <div class="expression expression--sentence" id="display">
-              <span class="sentence-quote sentence-quote--open">「</span><span>{{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Sentence}}{{/AltDisplay}}</span><span class="sentence-quote sentence-quote--close">」</span>
-            </div>
-          {{/IsSentenceCard}}
-
-          {{^IsSentenceCard}}
-            <div class="expression expression--word" id="display">
-              {{#AltDisplay}}{{furigana:AltDisplay}}{{/AltDisplay}}{{^AltDisplay}}{{Word}}{{/AltDisplay}}
-            </div>
-          {{/IsSentenceCard}}
-        {{/IsTargetedSentenceCard}} 
-
-      {{/IsClickCard}} 
-
-    {{/IsHoverCard}} 
-
-
-    <!-- appears to the left -->
-    <div class="flag-box">
-      <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-        class="flag-box__svg" id="flag_box_svg">
-        <circle id="svg_circle" class="flag-box__circle" cx="25" cy="15" r="7">
-          <title id=svg_title></title>
-        </circle>
-      </svg>
-    </div>
-
-  </div> <!-- expression box -->
-
-{{/PAShowInfo}} 
-
+</div> <!-- expression box -->
 
 
 {{#HintNotHidden}}
   <div class="center-box-1 hint">
     <div class="center-box-2">
-      <div class="bold-yellow">{{HintNotHidden}}</div>
+      <div class="highlight-bold">{{HintNotHidden}}</div>
     </div>
   </div>
 {{/HintNotHidden}}
@@ -579,15 +511,11 @@ function optionsNotFound() {
     <summary>Hint</summary>
     <div class="center-box-1">
       <div class="center-box-2">
-        <div class="bold-yellow">{{Hint}}</div>
+        <div class="highlight-bold">{{Hint}}</div>
       </div>
     </div>
   </details>
 {{/Hint}}
-
-
-
-
 
 
 <!-- regular display -->
@@ -601,14 +529,16 @@ function optionsNotFound() {
   -->
   {{#IsSentenceCard}}
   {{^PADoNotTest}}{{^PASeparateWordCard}}{{^IsTargetedSentenceCard}}{{^IsClickCard}}{{^IsHoverCard}}
-
   {{#PASeparateSentenceCard}}{{^PATestOnlyWord}}
+
     <button id="pa-button">Show</button>
 
   {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}{{^PASeparateSentenceCard}}{{#PATestOnlyWord}}
+
     <button id="pa-button">Show</button>
 
   {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}{{#PASeparateSentenceCard}}{{#PATestOnlyWord}}
+
     <button id="pa-button">Show</button>
 
   {{/PATestOnlyWord}}{{/PASeparateSentenceCard}}
@@ -628,25 +558,22 @@ function optionsNotFound() {
       <summary>Full Sentence</summary>
       <div class="center-box-1">
         <div class="center-box-2">
-          <div class="full-sentence bold-yellow" id="full_sentence_front">
+          <div class="full-sentence highlight-bold" id="full_sentence_front">
             {{furigana:SentenceReading}}
           </div>
         </div>
       </div>
     </details>
-
         
   {{/IsTargetedSentenceCard}}{{/IsClickCard}}{{/IsHoverCard}}{{/IsSentenceCard}}
 
   
     
-
   <span id="pa-silence-audio" style="display:none">{{PASilence}}</span>
 
   {{#SentenceAudio}}
     <span id="sentence-audio"> {{SentenceAudio}} </span>
   {{/SentenceAudio}}
-
 
 
   <script>
@@ -658,10 +585,6 @@ function optionsNotFound() {
       elem.click();
     }
   </script>
-
-
-
-
     
 
 {{/PAShowInfo}} 
@@ -675,6 +598,11 @@ function optionsNotFound() {
 
 
 /// 
+
+
+
+
+
 // GLOBALS: kanji-hover
 
 
@@ -690,7 +618,13 @@ var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 /// 
 
-// GLOBALS: open_on_new
+
+
+
+
+
+
+// GLOBALS: customize-open-fields
 
 
 // note that this cache will NOT respect card review undos,
@@ -699,6 +633,11 @@ var kanjiHoverCache = nullish(kanjiHoverCache, {});
 var isNewCardCache = nullish(isNewCardCache, {});
 
 /// 
+
+
+
+
+
 (function () { // restricts ALL javascript to hidden scope
 
 // "global" variables within the hidden scope
@@ -707,29 +646,6 @@ let note = (function () {
   return my;
 }());
 
-
-
-function getSetting(keys, defaultVal) {
-  if (typeof JPMNOpts === "undefined") {
-    return defaultVal;
-  }
-
-  let keyList = ["settings"].concat(keys);
-
-  let obj = JPMNOpts;
-  for (let key of keyList) {
-    if (!(key in obj)) {
-
-      // checks if we need to warn, manual search
-      if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
-        LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
-      }
-      return defaultVal;
-    }
-    obj = obj[key];
-  }
-  return obj;
-};
 
 
 /*
@@ -750,12 +666,11 @@ function toggleDetailsTag(ele) {
 
 
 
-
 function hybridClick() {
   const hSent = document.getElementById("hybrid-sentence");
   const hWord = document.getElementById("hybrid-word");
   const svgEle = document.getElementById("flag_box_svg");
-  const circ = document.getElementById("svg_circle");
+  const circ = document.getElementById("pa_indicator_circle");
 
   if (hSent.classList.contains("override-display-inline-block")) {
     // currently showing sentence, change to word
@@ -797,17 +712,18 @@ function toggleHighlightWord() {
 
   if (paButton.innerText == "Show") {
     paButton.innerText = "Hide";
-    d.classList.add("bold-yellow");
+    d.classList.add("highlight-bold");
   } else {
     paButton.innerText = "Show";
-    if (d.classList.contains("bold-yellow")) {
-      d.classList.remove("bold-yellow");
+    if (d.classList.contains("highlight-bold")) {
+      d.classList.remove("highlight-bold");
     }
   }
 }
 
 /// 
 // END_BLOCK: js_functions
+
 
 
 
@@ -833,23 +749,24 @@ const JPMNSentUtils = (() => {
       isAltDisplay = false;
     }
 
-    // removes linebreaks
+    // ASSUMPTION: all sentence elements are formatted as [quote, sentence, quote]
     let result = sentEle.children[1].innerHTML;
+
+    // removes leading and trailing white space (equiv. of strip() in python)
+    result = result.trim();
 
     // cloze deletion replacing bold with [...]
     if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
       result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
     }
 
+    // removes newlines
     if ((!isAltDisplay && getSetting(['modules','sent-utils','remove-line-breaks',],false))
         || isAltDisplay && getSetting(['modules','sent-utils','remove-line-breaks-on-altdisplay',],false)) {
       let noNewlines = result.replace(/<br>/g, "");
 
       result = noNewlines;
     }
-
-    // removes leading and trailing white space (equiv. of strip() in python)
-    result = result.trim();
 
     let validQuotes = getSetting(['modules','sent-utils','quote-match-strings',],[['「', '」'], ['『', '』']]);
     let existingQuote = false;
@@ -908,7 +825,7 @@ const JPMNSentUtils = (() => {
 
     // moves pa-indicator position
     if (!existingQuote && !autoQuote) {
-      const circ = document.getElementById("svg_circle");
+      const circ = document.getElementById("pa_indicator_circle");
       if (circ !== null) {
         circ.setAttributeNS(null, "cx", "35");
         circ.setAttributeNS(null, "cy", "11");
@@ -916,8 +833,7 @@ const JPMNSentUtils = (() => {
     }
 
     if ((existingQuote || autoQuote) && getSetting(['modules','sent-utils','pa-indicator-color-quotes',],false)) {
-      // TODO change this to a data-color-quotes tag within html
-      // so it is sentence-div dependent
+      // data-color-quotes tag within html is sentence-div dependent (preferable over a global state)
       sentEle.setAttribute("data-color-quotes", "true");
 
       if (paIndicator !== null) {
@@ -1001,6 +917,16 @@ const JPMNSentUtils = (() => {
 
 
 
+
+
+
+
+
+
+
+
+
+
 // a general function to implement all keybinds necessary by the card.
 // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
 // because functions persist and cannot be easily removed within anki,
@@ -1010,6 +936,8 @@ document.onkeyup = (e => {
   let ele = null;
 
   // START_BLOCK: js_keybind_settings
+
+
 
 
 
@@ -1033,7 +961,18 @@ document.onkeyup = (e => {
 
   /// 
   /// 
+
   // END_BLOCK: js_keybind_settings
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1074,8 +1013,6 @@ document.onkeyup = (e => {
         && '{{#IsHoverCard}}FILLED{{/IsHoverCard}}{{#IsClickCard}}FILLED{{/IsClickCard}}'
         && '{{#IsTargetedSentenceCard}}FILLED{{/IsTargetedSentenceCard}}{{#IsSentenceCard}}FILLED{{/IsSentenceCard}}'
         && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
-      // this somehow works even when hybridClick is undefined here, woah
-      // TODO clean this up lmao
       hybridClick();
     } else {
     /// 
@@ -1106,16 +1043,28 @@ document.onkeyup = (e => {
   ///  
 
 })
+///  
 
 
 function main() {
 
-  // sanity check
+  // sanity check: options
+  /// 
   if (typeof JPMNOpts === 'undefined') {
     LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
   }
+  ///  
+
+  // sanity check: checks that both `IsHoverCard` and `IsClickCard` are both not activated
+  /// {{#IsHoverCard}}
+  /// {{#IsClickCard}}
+  LOGGER.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
+  /// {{/IsClickCard}}
+  /// {{/IsHoverCard}}
 
   // START_BLOCK: js_run
+
+
 
 
 
@@ -1157,24 +1106,20 @@ function main() {
 
   {
 
-    let d = document.getElementById("display");
-    let circ = document.getElementById("svg_circle");
-    let svgTitle = document.getElementById("svg_title");
-
     /// {{#IsClickCard}}
+    let d = document.getElementById("display");
     d.onclick = hybridClick;
     /// {{/IsClickCard}}
 
-
-    // different circle positions depending on whether it's a sentence or not.
-    // More specifically, checks if the first character is "「",
-    // and adjusts the position based on that
 
     /// {{#PAShowInfo}}
     // ============================
     //  Word pitch indicator color
     // ============================
     // done in javascript to simplify templating logic
+    let circ = document.getElementById("pa_indicator_circle");
+    let svgTitle = document.getElementById("svg_title");
+
     if (svgTitle !== null) {
       svgTitle.textContent = "PA: " + paIndicator.tooltip;
     }
@@ -1192,11 +1137,11 @@ function main() {
       paButton.onclick = () => {
         if (paButton.innerText == "Show") {
           paButton.innerText = "Hide";
-          d.classList.add("bold-yellow");
+          d.classList.add("highlight-bold");
         } else {
           paButton.innerText = "Show";
-          if (d.classList.contains("bold-yellow")) {
-            d.classList.remove("bold-yellow");
+          if (d.classList.contains("highlight-bold")) {
+            d.classList.remove("highlight-bold");
           }
         }
       }
@@ -1205,10 +1150,14 @@ function main() {
   /// {{/PAShowInfo}}
 
   /// 
+
   // END_BLOCK: js_run
 
 
+
   try { // RUN: sent-utils
+    
+        
     if (getSetting(['modules','sent-utils','enabled',],true)) {
 
       let isAltDisplay = !!'{{#AltDisplay}}FILLED{{/AltDisplay}}';
@@ -1217,10 +1166,22 @@ function main() {
 
     }
     /// 
+        
   } catch (error) {
     LOGGER.error("Error in module sent-utils:");
     LOGGER.errorStack(error.stack);
   }
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
