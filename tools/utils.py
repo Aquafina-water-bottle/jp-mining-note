@@ -26,6 +26,7 @@ DEFAULT_CONFIG_PATH = "config/config.py"
 rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+)")
 
 
+
 cached_config = None
 
 
