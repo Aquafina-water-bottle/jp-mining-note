@@ -10,6 +10,7 @@ import os
 import base64
 import argparse
 import datetime
+import traceback
 
 from dataclasses import dataclass
 from typing import Any, Dict, List
@@ -112,7 +113,7 @@ class NoteUpdater:
         input_path = os.path.join(
             self.input_folder, str(self.note_config("id").item()), CSS_FILENAME
         )
-        with open(input_path, encoding="utf8") as f:
+        with open(input_path, encoding="utf-8") as f:
             return f.read()
 
     def backup(self):
@@ -137,7 +138,7 @@ class NoteUpdater:
         def write_backup(folder, file_name, contents):
             path = os.path.join(folder, file_name)
             utils.gen_dirs(path)
-            with open(path, "w") as f:
+            with open(path, "w", encoding="utf-8") as f:
                 f.write(contents)
 
         templates = invoke("modelTemplates", modelName=model_name)
@@ -165,9 +166,9 @@ class NoteUpdater:
                 self.input_folder, str(self.note_config("id").item()), template_id
             )
 
-            with open(os.path.join(dir_path, FRONT_FILENAME), encoding="utf8") as front:
+            with open(os.path.join(dir_path, FRONT_FILENAME), encoding="utf-8") as front:
                 front_contents = front.read()
-            with open(os.path.join(dir_path, BACK_FILENAME), encoding="utf8") as back:
+            with open(os.path.join(dir_path, BACK_FILENAME), encoding="utf-8") as back:
                 back_contents = back.read()
 
             templates.append(CardTemplate(template_name, front_contents, back_contents))
@@ -256,7 +257,7 @@ class MediaInstaller:
         print(f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ...")
 
         utils.gen_dirs(backup_file_path)
-        with open(backup_file_path, mode="w") as f:
+        with open(backup_file_path, mode="w", encoding="utf-8") as f:
             f.write(contents)
 
     def format_media(self, media: MediaFile) -> Dict[str, Any]:
@@ -340,9 +341,14 @@ def main(args=None):
                 # incompatable with the previous model (will raise an error after installing)
                 action_runner.run()
 
-        if backup:
-            print(f"Backing up {model_name}...")
-            note_updater.backup()
+        try:
+            if backup:
+                print(f"Backing up {model_name}...")
+                note_updater.backup()
+        except Exception as e:
+            traceback.print_exception(e)
+            print("Cannot backup note, skipping error...")
+
 
         print(f"Updating {model_name}...")
         note_updater.update()

@@ -319,8 +319,8 @@ and again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings){:tar
 
 
 
-# Updating the Options File
-The options file is not updated by default, because default options are built-in
+# Updating the Runtime Options File
+The [runtime options file](runtimeoptions.md) is not updated by default, because default options are built-in
 within the note itself for each option.
 If you want to update this file, see the repository's
 [example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
