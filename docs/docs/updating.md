@@ -76,6 +76,18 @@ will likely need (calls related to field editing).
     You should be able to see `AnkiConnectDev` in the aforementioned list.
 -->
 
+### Preliminary steps
+Ensure that your note is named exactly `JP Mining Note`.
+To do this, head over to:
+
+> (Main Window) →  `Tools` →  `Manage Note Types`.
+
+If your note is named differently, please rename it to `JP Mining Note`.
+
+!!! note
+    You can always change the name back after updating.
+
+
 ### Running the Script
 
 === "Command Line"
@@ -86,7 +98,7 @@ will likely need (calls related to field editing).
     is also available on the second tab,
     for people who have never used `python` or `git` before.
 
-    ```
+    ```bash
     # assuming you are at the root of the repo, i.e. after the following commands:
     #  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
     #  $ cd jp-mining-note
@@ -124,7 +136,7 @@ will likely need (calls related to field editing).
         [here](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/).
 
     1. With your current directory being the `tools` directory, run the following command:
-        ```
+        ```bash
         python install.py --update
         ```
         Once you run the command, further instructions should be given to you through the command
