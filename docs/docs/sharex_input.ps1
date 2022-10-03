@@ -24,8 +24,6 @@ function Run-Json {
 function Anki-Browse {
     param( $query );
 
-    # if you don't want anki to open the browser, replace the body
-    # of this function with `return;` and re-compile.
     Run-Json @{
         action = 'guiBrowse';
         version = 6;

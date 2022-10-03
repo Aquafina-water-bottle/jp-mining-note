@@ -369,21 +369,21 @@ You can now use the following in Yomichan Fields:
 
 ## Automatically highlight the tested word within the sentence upon card creation { .text-yellow }
 
-!!! info "(Option 1) Bold only"
+??? info "Option 1: Bold only"
     **Yomichan Fields**:
     ```
     {cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
     ```
 
 
-!!! info "(Option 2) Bold + Styling"
+??? info "Option 2: Bold + Styling (recommended)"
 
     **Yomichan Fields**:
     ```
     {cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
     ```
 
-    **Anki Note CSS**:
+    **Anki Note CSS** (the `Styling` page under the editing card templates page):
     ```css
     b {
         color: #fffd9e; /* bright yellow */
@@ -401,7 +401,7 @@ You can now use the following in Yomichan Fields:
     }
     ```
 
-!!! info "(Option 3) Custom div"
+??? info "Option 3: Custom div"
 
     **Yomichan Fields**:
     ```
@@ -590,32 +590,136 @@ and use this script in place of step 14's `Argument`.
 
 
 
-# Arbitrary Scripts
+# Anki Scripts
 
-The following scripts are written in two formats:
+These are a set of scripts that may help you to prevent doing repetitive actions when
+adding notes.
+
+These scripts are written in two formats:
 one that works automatically with your usual `ShareX` setup,
 and one in Python for cross-platform portability.
 
+!!! warning
+
+    Do NOT view the card in the card browser when running any script,
+    because if you do, the affected fields may not update.
+    Close the card browser before running the scripts.
+
+    However, you do not need to worry about this
+    if you are running the python script with the `--enable-gui-browse` flag.
+
 ## How-To: Running with ShareX
-TODO
+
+!!! warning
+
+    Depending on the popularity of these scripts, the ShareX versions may be deprecated
+    in the future in favor of the easier to use/write/maintain Python versions.
+    The only downside of using the Python script is that the user must have Python installed.
+
+
+### Steps
+TODO pictures
+TODO not point form
+
+`Hotkey Settings` →  `Task`:
+
+- `Task`: Capture Active Window
+- `Override After Capture Tasks`: (Checked)
+- `After Capture`: Save Image to File, Perform Actions, Delete Locally
+
+`Hotkey Settings` →  `Actions`:
+
+- `Override Actions`: (Checked)
+- Action List:
+    - uncheck all existing actions
+    - add a new action:
+        - File Path: `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`
+        - Argument: (the large one-liner under `Sharex Command`)
+
+
+### Explanation
+- ShareX is primarily meant to be used as a screenshotting / screen recording program, so a file must be captured and saved at some point
+- The above settings saves the image file, runs the script, and then immediately deletes the file afterwards
 
 ## How-To: Running with Python
-TODO
+If you don't want to use ShareX, or you are not using Windows,
+you can simply run a python script with command line.
+
+```bash
+python3 /path/to/jp-mining-note/tools/hotkey.py -f FUNCTION_NAME
+```
+
+Example:
+```bash
+python3 /path/to/jp-mining-note/tools/hotkey.py -f update_sentence
+```
+
+If you want to use these as keybinds, I will leave it up to you to determine
+how to do that (as there are too many different setups and systems that people can use).
+However, some tips for ShareX and AutoKey are given below.
+
+!!! note
+    Your python version should be 3.8 or higher.
+    It may work for lower python versions, but I make no guarantee.
+
+
+??? info "Instructions for running Python scripts in ShareX"
+
+    If you want, you can even use the Python scripts with ShareX, so long as you have Python installed.
+    The only differences between the usual ShareX setup (shown [above](jpresources.md#how-to-running-with-sharex))
+    and the Python setup are the following:
+
+    - The command should be the `DRIVE:\PATH\TO\python.exe` (instead of the path to `powershell.exe`).
+    - The argument should be `DRIVE:\PATH\TO\jp-mining-note\tools\hotkey.py -f FUNCTION_NAME`
+        (instead of the large one-liner.)
+
+    The only reason why you should do this is if you want to edit the Python scripts themselves
+    instead of the powershell scripts.
+
+??? info "Instructions for AutoKey (Not AutoHotKey)"
+
+    If you are using [AutoKey](https://github.com/autokey/autokey) for Linux, it should be possible to do the following instead:
+
+    1. Go to: <br>
+        `Settings` <br>
+        →  `Configure AutoKey` <br>
+        →  `Script Engine` <br>
+        →  `User Module file` <br>
+        →  (add the `jp-mining-note/tools` directory)
+
+    2. Create a `script` type hotkey,
+
+    3. Within the script, run any function thusly:
+        ```py
+        import hotkey
+        hotkey.FUNCTION_NAME()
+        ```
+
+        Example:
+        ```py
+        import hotkey
+        hotkey.update_sentence()
+        ```
+
+---
+
 
 
 <!-- shift + f3 -->
 ## Update Sentence with Clipboard { .text-yellow }
-This script updates the sentence with the clipboard, preserves the bolded word,
-and removes the `SentenceReading` field.
+> *Function Name*: `update_sentence`
+
+This script updates the sentence with the current clipboard (while preserving the bolded word),
+and removes the `SentenceReading` field (of the newest note added).
+
+This script is useful when Yomichan's parsed sentence does not match the recorded audio.
+This is also useful for when Yomichan's word parser doesn't match the word itself (steps shown below).
 
 !!! note
     After running this script, you must manually generate the `SentenceReading` field
     if you want the furigana reading.
     Of course, this can be done in bulk at any point,
     as shown [here](importing.md#1-batch-generate-pitch-accents-and-sentence-furigana).
-
-This script is useful when Yomichan's parsed sentence does not match the recorded audio.
-This is also useful for when Yomichan's word parser doesn't match the word itself (steps shown below).
 
 ??? info "How-To: Fix incorrectly-bolded words *(click here)*"
 
@@ -648,30 +752,18 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
     ```
     かわいげのある女じゃない。さては偽者だな！
     ```
-
-### ShareX Command
-
 {{ sharex_display(sharex.update_sentence) }}
-
-### Python Command
-
-TODO
 
 ---
 
 
-<!-- ??? -->
 ## Update AdditionalNotes with Clipboard { .text-yellow }
-This script does the exact same thing as the above script, but with `AdditionalNotes` instead.
+> *Function Name*: `update_additional_notes`
 
-### ShareX Command
+This script does the exact same thing as the above script, but with
+`AdditionalNotes` instead of `Sentence`.
 
 {{ sharex_display(sharex.update_additional_notes) }}
-
-### Python Command
-
-TODO
-
 
 ---
 
@@ -679,22 +771,22 @@ TODO
 
 <!-- ctrl + f3 -->
 ## Copy from Previous Card { .text-yellow }
+> *Function Name*: `copy_from_previous`
 
 This script does the following:
 
-- Set the `AdditionalNotes` and `Picture` field of the current card to the previous card's fields.
+- Set the `AdditionalNotes` and `Picture` field of the newest card to the previous (second-newest) card's fields.
 - Copies all the tags of the previous card.
 
 This is useful for when you are adding more than one sentence with the same text box
 of a visual novel, as it prevents you from having to run the screenshot hotkey.
 
-### ShareX Command
+### How to use
+1. Create a card from the first unknown word in the text box.
+1. Create a card from the second unknown word in the text box.
+1. Run this script.
 
 {{ sharex_display(sharex.copy_from_previous) }}
-
-### Python Command
-
-TODO
 
 ---
 
@@ -702,34 +794,41 @@ TODO
 
 <!-- ctrl + shift + f3 -->
 ## Orthographic Variants: Fix Sentence and Frequency { .text-yellow }
+> *Function Name*: `fix_sent_and_freq`
 
 This script does the following:
 
-- Sets the previous note's fields with the current card's fields:
+- Sets the previous note's fields to the newest note's fields:
     - `FrequencyStylized`
     - `Sentence`
     - `SentenceReading`
-- Deletes the current note
+- Deletes the newest note
 
 This is useful for when you want to add the the word within the
 [Orthographic Variants](https://github.com/FooSoft/yomichan/issues/2183) dictionary.
 The Orthographics Variants dictionary is extremely useful for monolingual definitions,
-as explained in the above link:
-
-!!! quote
-    This is useful for when you search for a word like 思うツボ, but your favorite dictionaries only contain entries for 思う壺.
+where dictionaries only contain entries for more kanjified words.
 
 In practice, I've personally found numerous examples of this in everyday media,
 so this has helped me immensely.
 
+??? quote "Examples (to test the dictionary on)"
 
-### ShareX Command
+    1. 「スペルド族への恐怖は恐らくこの世界に<b class="text-yellow">根づいている</b>んだろう」 (see 根付く)
+    1. 「ルーはたくさんあるので、今<b class="text-yellow">お代わり</b>をお持ちしますね」 (see 御代わり)
+
+    It is assumed that you have
+    [multiple popups enabled](https://learnjapanese.moe/monolingual/#optimizing-yomichan-settings)
+    for monolingual definitions, so you can easily look up the word in the
+    Orthographic Forms dictionary.
+
+### How to use
+1. Create a card from the word in the Orthographic Variants dictionary.
+1. Create a card from the word in original sentence.
+1. Run this script.
+
 
 {{ sharex_display(sharex.fix_sent_and_freq) }}
-
-### Python Command
-
-TODO
 
 ---
 
