@@ -323,7 +323,7 @@
   
     <li class="md-nav__item">
       <a href="../updating/" class="md-nav__link">
-        Updating JPMN
+        Updating
       </a>
     </li>
   
@@ -459,23 +459,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#highlighted-text" class="md-nav__link">
-    Highlighted Text
+  <a href="#selected-text" class="md-nav__link">
+    Selected Text
   </a>
   
-    <nav class="md-nav" aria-label="Highlighted Text">
+    <nav class="md-nav" aria-label="Selected Text">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlighting-a-dictionary" class="md-nav__link">
-    Highlighting a Dictionary
+  <a href="#overriding-a-dictionary" class="md-nav__link">
+    Overriding a Dictionary
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#highlighting-the-definition" class="md-nav__link">
-    Highlighting the Definition
+  <a href="#overriding-the-definition" class="md-nav__link">
+    Overriding the Definition
   </a>
   
 </li>
@@ -543,20 +543,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modding/" class="md-nav__link">
-        Modding & Dev Docs (TODO)
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -582,12 +568,90 @@
       
       
         <label class="md-nav__link" for="__nav_4">
+          Developer Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/" class="md-nav__link">
+        Building (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compileopts/" class="md-nav__link">
+        Compile-Time Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
           Other
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Other" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
@@ -679,23 +743,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#highlighted-text" class="md-nav__link">
-    Highlighted Text
+  <a href="#selected-text" class="md-nav__link">
+    Selected Text
   </a>
   
-    <nav class="md-nav" aria-label="Highlighted Text">
+    <nav class="md-nav" aria-label="Selected Text">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlighting-a-dictionary" class="md-nav__link">
-    Highlighting a Dictionary
+  <a href="#overriding-a-dictionary" class="md-nav__link">
+    Overriding a Dictionary
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#highlighting-the-definition" class="md-nav__link">
-    Highlighting the Definition
+  <a href="#overriding-the-definition" class="md-nav__link">
+    Overriding the Definition
   </a>
   
 </li>
@@ -802,15 +866,15 @@ For example, if you want to add the bilingual dictionaries
 </li>
 </ol>
 <hr />
-<h2 id="highlighted-text">Highlighted Text<a class="headerlink" href="#highlighted-text" title="Permanent link">&para;</a></h2>
+<h2 id="selected-text">Selected Text<a class="headerlink" href="#selected-text" title="Permanent link">&para;</a></h2>
 <p>TODO flesh out and layout info better</p>
-<h3 id="highlighting-a-dictionary">Highlighting a Dictionary<a class="headerlink" href="#highlighting-a-dictionary" title="Permanent link">&para;</a></h3>
+<h3 id="overriding-a-dictionary">Overriding a Dictionary<a class="headerlink" href="#overriding-a-dictionary" title="Permanent link">&para;</a></h3>
 <p>Highlighting a dictionary overrides the first definition you see with that dictionary.
 This is togglable by <code>opt-selection-text-dictionary</code>.</p>
-<h3 id="highlighting-the-definition">Highlighting the Definition<a class="headerlink" href="#highlighting-the-definition" title="Permanent link">&para;</a></h3>
-<p>If you highlight a portion of the definition, the template code will
-use the dictionary containing the highlighted definition,
-and bold the highlighted portion.
+<h3 id="overriding-the-definition">Overriding the Definition<a class="headerlink" href="#overriding-the-definition" title="Permanent link">&para;</a></h3>
+<p>If you select a portion of the definition, the template code will
+use the dictionary containing the selected definition,
+and bold the selected portion.
 This is togglable by <code>opt-selection-text-glossary</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -818,9 +882,14 @@ This is togglable by <code>opt-selection-text-glossary</code>.</p>
 detected from the custom template code, then it will fallback to simply
 using the highlighted text.</p>
 <p>This is most likely to fail if you select formatted parts of text,
-such as line breaks, furigana, select more than one item in a list, etc.</p>
+such as (but not limited to):</p>
+<ul>
+<li>line breaks</li>
+<li>furigana</li>
+<li>across multiple items in a list (common with JMdict)</li>
+</ul>
 </div>
-<p>If you do not want to import the entire dictionary, and prefer
+<p>If you do not want to use the entire dictionary, and prefer
 that <em>only</em> the selected text is shown in the first definition,
 set <code>opt-selection-text-glossary-attempt-bold</code> to <code>false</code>.</p>
 <p>TODO gif</p>
@@ -858,7 +927,7 @@ set <code>opt-selection-text-glossary-attempt-bold</code> to <code>false</code>.
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 27, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 28, 2022</span>
       
     
   </small>

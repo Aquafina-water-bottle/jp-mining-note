@@ -1,14 +1,19 @@
+{# macros.html #}
 {% import "sharex_input.ps1" as sharex %}
 
 {% macro sharex_display(text) %}
 
 {%- set text = sharex.COMMON_FRONT + text -%}
 
-```
-{% autoescape false -%}
-{{ sharex_arg(text) }}
-{%- endautoescape %}
-```
+
+??? quote "ShareX Command *(click here)*"
+
+    ```
+    {% autoescape false -%}
+    {{ sharex_arg(text) }}
+    {%- endautoescape %}
+    ```
+
 {#
 
 temp field
@@ -20,7 +25,7 @@ temp field
 
 #}
 
-??? quote "Click here to see the original code."
+??? quote "Original ShareX Code *(click here)*"
 
     {% autoescape false -%}
     {% filter indent(8) %}

@@ -24,8 +24,6 @@ function Run-Json {
 function Anki-Browse {
     param( $query );
 
-    # if you don't want anki to open the browser, replace the body
-    # of this function with `return;` and re-compile.
     Run-Json @{
         action = 'guiBrowse';
         version = 6;
@@ -267,6 +265,69 @@ Run-Json @{
             fields = @{
                 Sentence = $result_sent;
                 SentenceReading = '';
+            }
+        }
+    }
+};
+
+{% endset %}
+
+
+
+
+
+
+# =========================
+#  update additional notes
+# =========================
+
+{% set update_additional_notes %}
+
+
+$clipboard = (Get-Clipboard | where{$_ -ne ''}) -join '';
+
+$added_notes = Run-Json @{
+    action = 'findNotes';
+    version = 6;
+    params = @{
+        query = 'added:1';
+    }
+};
+
+$sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_};
+
+$curr_note_id = $sorted_list[0];
+
+$curr_note_data = Run-Json @{
+    action = 'notesInfo';
+    version = 6;
+    params = @{
+        notes = @($curr_note_id);
+    }
+};
+
+$curr_note_sent = $curr_note_data.result.fields.Sentence.value;
+$result_sent = '';
+
+if ($curr_note_sent -match '<b>(?<bolded>.+)</b>') {
+    $bolded = $matches['bolded'];
+    # may not replace anything
+    $result_sent = $clipboard.replace($bolded, "<b>$bolded</b>");
+} else {
+    # default
+    $result_sent = $clipboard;
+};
+
+
+# updates current card with result_sent
+Run-Json @{
+    action = 'updateNoteFields';
+    version = 6;
+    params = @{
+        note = @{
+            id = $curr_note_id;
+            fields = @{
+                AdditionalNotes = $result_sent;
             }
         }
     }

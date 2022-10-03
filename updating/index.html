@@ -17,7 +17,7 @@
     
     
       
-        <title>Updating JPMN - jp-mining-note</title>
+        <title>Updating - jp-mining-note</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Updating JPMN
+              Updating
             
           </span>
         </div>
@@ -332,12 +332,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Updating JPMN
+          Updating
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Updating JPMN
+        Updating
       </a>
       
         
@@ -557,20 +557,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modding/" class="md-nav__link">
-        Modding & Dev Docs (TODO)
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -596,12 +582,90 @@
       
       
         <label class="md-nav__link" for="__nav_4">
+          Developer Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/" class="md-nav__link">
+        Building (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compileopts/" class="md-nav__link">
+        Compile-Time Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
           Other
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Other" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
@@ -766,15 +830,15 @@
   </a>
 
 
-  <h1>Updating JPMN</h1>
+  <h1>Updating</h1>
 
 <h2 id="updating-the-card">Updating the Card<a class="headerlink" href="#updating-the-card" title="Permanent link">&para;</a></h2>
 <p>This section is dedicated to explaining how to update the card itself.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Updating your card will <strong>DELETE ANY CHANGES</strong> you have made to the templates.</p>
-<p>Please make a <strong>complete backup</strong> of your collection
-(Main Window →  <code>File</code> (top left corner) →  <code>Export...</code> →  <code>Anki Collection Package</code>).</p>
+<p>Please make a <a href="../faq/#how-do-i-backup-my-anki-data">complete backup</a>
+of your collection before continuing to update your note.</p>
 </div>
 <h3 id="method-1-python-script-recommended">Method 1: Python Script (recommended)<a class="headerlink" href="#method-1-python-script-recommended" title="Permanent link">&para;</a></h3>
 <p>The recommended way to install the note is by using a python script.
@@ -894,8 +958,7 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 </div>
 <h3 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h3>
 <p>This section will document common errors that occur when running the <code>/install.py</code> script.</p>
-<p>(TODO)</p>
-<h4 id="anki-connect-is-missing-actions"><code>Anki-Connect is missing actions</code><a class="headerlink" href="#anki-connect-is-missing-actions" title="Permanent link">&para;</a></h4>
+<h4 id="anki-connect-is-missing-actions">Anki-Connect is missing actions<a class="headerlink" href="#anki-connect-is-missing-actions" title="Permanent link">&para;</a></h4>
 <p>Anki-Connect is likely outdated.
 To fix this, remove and re-download Anki-Connect from the
 <a href="https://ankiweb.net/shared/info/2055492159">AnkiWeb page</a>.</p>
@@ -906,58 +969,62 @@ despite the fact that a newer version of the add-on exists.
 That is why I recommend re-downloading from the AnkiWeb page
 instead of using this feature.</p>
 </div>
-<h4 id="anki-fields-are-different">Anki fields are different<a class="headerlink" href="#anki-fields-are-different" title="Permanent link">&para;</a></h4>
-<ul>
+<h4 id="fieldverifierexception">FieldVerifierException<a class="headerlink" href="#fieldverifierexception" title="Permanent link">&para;</a></h4>
+<p><a href="../assets/anki/fields_window.png"><img align="right" alt="anki field window" src="../assets/anki/fields_window.png" width="300" /> </a></p>
+<p>This class of errors means that the field list was edited at some point
+after the installation or last update of JPMN.
+The field list can be accessed by navigating to the following:</p>
+<blockquote>
+<p>(Main window) →  <code>Browse</code> →  <code>Fields...</code>.</p>
+</blockquote>
+<p>The <code>install.py</code> is picky about fields and its order, and the script will automatically reject
+any note type with modifications to the field list.</p>
+<p>To fix this, there are a few cases to go through.</p>
+<details class="info">
+<summary>The field order has been changed.</summary>
+<p>If the field order has been changed, and nothing else has been changed,
+you should be able to preserve your existing field list order by running the installation script
+with the <code>--ignore-order</code> flag (i.e. <code>python3 install.py --ignore-order</code>).</p>
+<p>Alternatively, you can simply re-order the fields back to their original position.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All new fields will be added to the very end of the field list (i.e. under <code>Comment</code>).
+Additionally, any fields that were supposed to be repositioned will stay in place.
+It is up to you to move the fields to the appropriate places.</p>
+</div>
+</details>
+<details class="info">
+<summary>New field(s) have been created.</summary>
+<p>You have two options.</p>
+<ol>
 <li>
-<p>updating script is very picky about fields, including order</p>
-</li>
-<li>
-<p>if added field(s):</p>
-<ul>
-<li>if field matches newly-added field<ul>
-<li>e.g. if your note doesn't have <code>PAPositions</code> but you added a field <code>Positions</code> that fulfills the same purpose, then rename <code>Positions</code> to <code>PAPositions</code></li>
-</ul>
-</li>
-<li>option 1: move fields under <code>Comment</code><ul>
-<li>all fields under <code>Comment</code> are ignored</li>
-</ul>
-</li>
-<li>option 2: use <code>--ignore-order</code> flag (i.e. <code>install.py --update --ignore-order</code></li>
-</ul>
-</li>
-<li>
-<p>if removed field:</p>
-<ul>
-<li>re-add the field</li>
-<li>don't do this next time</li>
-<li>if you don't want to use the field, move field under <code>Comment</code> and run with <code>--ignore-order</code> flag</li>
-</ul>
-</li>
-<li>
-<p>if renamed field:</p>
-<ul>
-<li>rename back to the original</li>
-<li>again with the above, don't do this next time</li>
-</ul>
+<p>If you want to preserve your existing field list order, then you can run the script
+    with the <code>--ignore-order</code> flag, like above.</p>
 </li>
 <li>
-<p>if fields are in the wrong order:</p>
-<ul>
-<li>either manually re-order it, or run with <code>--ignore-order</code></li>
-</ul>
+<p>If you want to have the field list order match exactly with the current note,
+    then re-order all the new fields to be below the last <code>Comment</code> field.
+    Of course, this can be a temporary move; you can move the fields back to their previous positions
+    after the update.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On rare occasions, you might have added a field that serves the same purpose as a field that
+will be created on update.
+If so, rename your field to the field that will be added, and move the field under the
+<code>Comment</code> field.</p>
+<p>For example, if your note doesn't have <code>PAPositions</code> but you added a field <code>Positions</code>
+that fulfills the same purpose, then rename <code>Positions</code> to <code>PAPositions</code>.</p>
+</div>
 </li>
-<li>
-<p>see the <a href="../modding/#field-editing">modding</a> page for more details.</p>
-</li>
-</ul>
-<h4 id="simulated-fields-do-not-match-expected-fields">Simulated fields do not match expected fields<a class="headerlink" href="#simulated-fields-do-not-match-expected-fields" title="Permanent link">&para;</a></h4>
-<ul>
-<li>see above</li>
-</ul>
-<h4 id="expected-fields-do-not-appear-in-ankis-fields-list">Expected fields do not appear in Anki's fields list<a class="headerlink" href="#expected-fields-do-not-appear-in-ankis-fields-list" title="Permanent link">&para;</a></h4>
-<ul>
-<li>see above</li>
-</ul>
+</ol>
+</details>
+<details class="info">
+<summary>Field(s) were removed or renamed.</summary>
+<p>Unfortunately, there is no way to ignore removed or renamed fields.
+If you removed a field, please re-add the field.
+Likewise, if you renamed a field, please rename it back to the original name.
+See <a href="../modding/#field-editing" target="_blank">here</a> for more info on why they cannot be ignored.</p>
+</details>
 <hr />
 <h3 id="method-2-manually">Method 2: Manually<a class="headerlink" href="#method-2-manually" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
@@ -1017,6 +1084,7 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
 is a matching field in that other card.</p>
 </div>
 <p>Here is how I recommend transitioning as smoothly as possible:</p>
+<p>(TODO video)</p>
 <ol>
 <li>As always, create a <a href="../faq/#how-do-i-backup-yomichan-settings" target="_blank">backup</a>
     of your Yomichan settings, just in case.</li>
@@ -1066,7 +1134,7 @@ If you want to update this file, see the repository's
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 2, 2022</span>
       
     
   </small>

@@ -323,7 +323,7 @@
   
     <li class="md-nav__item">
       <a href="../updating/" class="md-nav__link">
-        Updating JPMN
+        Updating
       </a>
     </li>
   
@@ -450,6 +450,70 @@
 
             
           
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Developer Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/" class="md-nav__link">
+        Building (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compileopts/" class="md-nav__link">
+        Compile-Time Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
             
               
   
@@ -457,7 +521,7 @@
   
     <li class="md-nav__item">
       <a href="../modding/" class="md-nav__link">
-        Modding & Dev Docs (TODO)
+        Modding (TODO)
       </a>
     </li>
   
@@ -485,18 +549,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_5">
           Other
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Other" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
@@ -699,6 +763,13 @@
           <li class="md-nav__item">
   <a href="#do-you-plan-on-supporting-any-other-language-other-than-japanese" class="md-nav__link">
     Do you plan on supporting any other language other than Japanese?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discord-contact-info" class="md-nav__link">
+    Discord Contact Info
   </a>
   
 </li>
@@ -927,6 +998,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#discord-contact-info" class="md-nav__link">
+    Discord Contact Info
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -991,10 +1069,11 @@ See the
 <h3 id="general-error-troubleshooting">General Error Troubleshooting<a class="headerlink" href="#general-error-troubleshooting" title="Permanent link">&para;</a></h3>
 <p>If none of the above worked, the following will be some general troubleshooting tips
 that can help you figure out what the error is:</p>
+<!-- Un-comment this when any conflicting add-ons are actually discovered
+1. Do you have a [conflicting addon](setup.md#conflicting-add-ons){:target="_blank"} installed?
+-->
+
 <ol>
-<li>
-<p>Do you have a <a href="../setup/#conflicting-add-ons" target="_blank">conflicting addon</a> installed?</p>
-</li>
 <li>
 <p>Try disabling all of your add-ons other than the mandatory ones listed in the setup page.
     Note that you have to restart Anki after disabling the add-ons for the changes to take effect.</p>
@@ -1009,7 +1088,8 @@ To do this, re-enable the add-ons one-by-one (remembering to restart Anki each t
     and/or add it to the documentation somewhere so others are aware of the issue.)</p>
 </li>
 </ol>
-<p>If you can't manage to fix it, please submit an issue!</p>
+<p>If you can't manage to fix it, please reach out to me on <a href="./#discord-contact-info">Discord</a>,
+or submit an issue!</p>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <hr />
@@ -1028,13 +1108,13 @@ For example, the above should be changed into:
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>マスターと行動を共にするとは万死に値するデース
 </code></pre></div></p>
 <div class="admonition info">
-<p class="admonition-title">Info</p>
+<p class="admonition-title">Why this can happen</p>
 <p>This happens if you copy/paste directly from certain pages into the sentence field,
 such as some texthooker pages.
 This can also happen if you copy/paste from a texthooker page to a different field,
 say <code>AdditionalNotes</code>, and then copy a section of <code>AdditionalNotes</code> to <code>Sentence</code>.</p>
-<p>Additionally, the sharex clipboard shortcut shouldn't have this problem because it
-explicitly uses <code>&lt;br&gt;</code> instead of <code>&lt;div&gt;</code></p>
+<p>The <a href="../jpresources/#update-sentence-with-clipboard">updating sentence with clipboard hotkey</a>
+shouldn't have this problem because it explicitly uses <code>&lt;br&gt;</code> instead of <code>&lt;div&gt;</code></p>
 </div>
 <hr />
 <h3 id="the-showhide-button-doesnt-do-anything">The Show/Hide button doesn't do anything.<a class="headerlink" href="#the-showhide-button-doesnt-do-anything" title="Permanent link">&para;</a></h3>
@@ -1173,13 +1253,16 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
 <p class="admonition-title">Quote</p>
 <p>Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.</p>
 </div>
+<h3 id="discord-contact-info">Discord Contact Info<a class="headerlink" href="#discord-contact-info" title="Permanent link">&para;</a></h3>
+<p>Username: <code>Aquafina water bottle#3026</code></p>
+<p>Servers: <a href="https://learnjapanese.moe/join/">TheMoeWay</a> and Refold (Japanese) servers.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 26, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 2, 2022</span>
       
     
   </small>

@@ -554,7 +554,7 @@
   
     <li class="md-nav__item">
       <a href="../updating/" class="md-nav__link">
-        Updating JPMN
+        Updating
       </a>
     </li>
   
@@ -681,20 +681,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modding/" class="md-nav__link">
-        Modding & Dev Docs (TODO)
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -720,12 +706,90 @@
       
       
         <label class="md-nav__link" for="__nav_4">
+          Developer Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/" class="md-nav__link">
+        Building (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compileopts/" class="md-nav__link">
+        Compile-Time Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
           Other
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Other" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
@@ -1255,11 +1319,8 @@ If you've never used command prompt before, see
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">:</span><span class="c1">: in the commands below.</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">:</span><span class="c1">: Make sure to replace all the fields!</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">mklink</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css&quot;</span> <span class="se">^</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="se"> </span>   <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css&quot;</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">mklink</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css&quot;</span> <span class="se">^</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="se"> </span>   <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css&quot;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">mklink</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css&quot;</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css&quot;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">mklink</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css&quot;</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css&quot;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -1274,10 +1335,8 @@ and delete both <code>css</code> files.</p>
 </code></pre></div>
 <p>Afterwards, run the following command:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># be sure to change `PROFILENAME` to your Anki profile</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ln -s <span class="s2">&quot;~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css&quot;</span> <span class="se">\</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="s2">&quot;~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css&quot;</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>ln -s <span class="s2">&quot;~/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css&quot;</span> <span class="se">\</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="s2">&quot;~/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css&quot;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ln -s <span class="s2">&quot;~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css&quot;</span> <span class="s2">&quot;~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ln -s <span class="s2">&quot;~/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css&quot;</span> <span class="s2">&quot;~/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css&quot;</span>
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
@@ -1292,10 +1351,8 @@ and delete both <code>css</code> files.</p>
 </code></pre></div>
 <p>Afterwards, run the following command:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># be sure to change `PROFILENAME` to your Anki profile</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ln -s <span class="s2">&quot;~/.local/share/Anki2/PROFILENAME/collection.media/_field.css&quot;</span> <span class="se">\</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="s2">&quot;~/.local/share/Anki2/addons21/181103283/user_files/field.css&quot;</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>ln -s <span class="s2">&quot;~/.local/share/Anki2/PROFILENAME/collection.media/_editor.css&quot;</span> <span class="se">\</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="s2">&quot;~/.local/share/Anki2/addons21/181103283/user_files/editor.css&quot;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ln -s <span class="s2">&quot;~/.local/share/Anki2/PROFILENAME/collection.media/_field.css&quot;</span> <span class="s2">&quot;~/.local/share/Anki2/addons21/181103283/user_files/field.css&quot;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>ln -s <span class="s2">&quot;~/.local/share/Anki2/PROFILENAME/collection.media/_editor.css&quot;</span> <span class="s2">&quot;~/.local/share/Anki2/addons21/181103283/user_files/editor.css&quot;</span>
 </code></pre></div></p>
 </div>
 </div>
@@ -2381,6 +2438,7 @@ Notably, the picture and sentence audio is missing.</p>
 if the card doesn't look quite right.</p>
 <h3 id="yomichan-templates-options">Yomichan Templates Options<a class="headerlink" href="#yomichan-templates-options" title="Permanent link">&para;</a></h3>
 <h4 id="monolingual-definition">Monolingual Definition<a class="headerlink" href="#monolingual-definition" title="Permanent link">&para;</a></h4>
+<p><i><sup>Main page: <a href="../yomichantemplates/#categorization-of-dictionaries">Yomichan Template Options (Categorization of Dictionaries)</a></sup></i></p>
 <p>If you want the first definition you see (the <code>PrimaryDefinition</code> field) to be monolingual,
 change the following line at the top of the templates code:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;opt-first-definition-type&quot;</span> <span class="s2">&quot;bilingual&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
@@ -2398,14 +2456,28 @@ and extra monolingual definitions should be under <code>Extra Definitions</code>
 then it is likely a problem with how the template code categorizes the dictionaries.
 See <a href="../yomichantemplates/#categorization-of-dictionaries" target="_blank">here</a> for more info.</p>
 </div>
-<h4 id="highlighted-text-as-the-definition">Highlighted Text as the Definition<a class="headerlink" href="#highlighted-text-as-the-definition" title="Permanent link">&para;</a></h4>
-<p><i><sup>Main page: <a href="../yomichantemplates/#highlighted-text">Yomichan Template Options (Highlighted Text)</a></sup></i></p>
-<p>If you want to use the highlighted text instead of the definition,
+<h4 id="selected-text-as-the-definition">Selected Text as the Definition<a class="headerlink" href="#selected-text-as-the-definition" title="Permanent link">&para;</a></h4>
+<p><i><sup>Main page: <a href="../yomichantemplates/#selected-text">Yomichan Template Options (Selected Text)</a></sup></i></p>
+<p>If you want to select the text to use instead of the definition,
 simply set <code>opt-selection-text-enabled</code> to <code>true</code>.</p>
+<p>By default, this enable the following behavior:</p>
+<ol>
+<li>If nothing is selected, then the first dictionary is chosen just like normal.</li>
+<li>If a dictionary is selected, then that dictionary will replace the first definition.</li>
+<li>
+<p>If a section of text is selected, then that dictionary will replace the first definition.
+    Additionally, that section of text will be highlighted (bolded).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This does not always work, especially when used across text with formatting or newlines.
+See <a href="../yomichantemplates/#overriding-the-definition" target="_blank">this</a> for more details.</p>
+</div>
+</li>
+</ol>
 <p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/yomichan/selected_text.mp4" type="video/mp4" /></video></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you have nothing highlighted, then the first dictionary is chosen just like normal.</p>
+<p>If you have nothing highlighted, </p>
 </div>
 <h3 id="other-yomichan-settings">Other Yomichan Settings<a class="headerlink" href="#other-yomichan-settings" title="Permanent link">&para;</a></h3>
 <p>If you want to follow my exact Yomichan popup appearance, set the following
@@ -2416,21 +2488,6 @@ under (Yomichan settings) →  <code>Popup Appearance</code>:</p>
 </ul>
 <p>There are also plenty of css customizations for Yomichan listed out
 in the <a href="../jpresources/" target="_blank">various resources page</a>.</p>
-<!--
-## Other Yomichan Settings
-* Again, if you have never used Yomichan before, I recommend checking out
-  [this page](https://learnjapanese.moe/yomichan/).
-* The layout of Yomichan **changes the appearance of the exported card**.
-  To get exactly the same look as the sample images and cards type,
-  use "Compact glossaries" turned on and "Compact tags" turned off,
-  found under Yomichan settings →  "Popup Appearance". TODO 
-* [This](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
-  link has further template code, which creates markers for individual dictionaries.
-  This has certain extended capabilities over my template code, such as removing the first line.
-* Instructions on adding Forvo as an alternate audio source to Yomichan
-  can be found [here](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
--->
-
 <hr />
 <h2 id="getting-the-text-to-create-the-cards">Getting the Text to Create the Cards<a class="headerlink" href="#getting-the-text-to-create-the-cards" title="Permanent link">&para;</a></h2>
 <p>I use a texthooker setup, which is able to extract subtitles or text into the browser.
@@ -2559,7 +2616,7 @@ Head over to <a href="../usage/">Usage</a> to see exactly that.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 28, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 2, 2022</span>
       
     
   </small>
