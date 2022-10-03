@@ -1,38 +1,111 @@
 @charset "UTF-8";
 /*
+ * WARNING: This css is auto-generated.
+ * Any changes to this css WILL BE LOST if you decide to update the card.
+ *
+ * See https://aquafina-water-bottle.github.io/jp-mining-note/modding/
+ * if you want to modify the card templates and css without losing your changes
+ * upon updates.
+ */
+/*
  *  ============
  *   GLOBAL CSS
  *  ============
  */
+/* defines the REM value */
+html {
+  font-size: 16px;
+}
+
 :root {
   --pa-brightness-reduce: 60%;
   --sentence-font-size: 52px;
   --reading-font-size: 55px;
-  --full-sentence-font-size: 28px;
+  --full-sentence-font-size: 1.75rem;
   --word-font-size: 80px;
   --description-font-size: 20px;
   --description-footer-font-size: 9px;
   /* TODO dynamic solution */
   --tooltip-max-width: 500px;
   --tooltip-font-size: 14px;
-  --yellow: #0060ff; /* not actually yellow ;) */
+  --dark-mode-accent: #fffd9e;
+  --zoom: 1;
+  /* light mode specific */
+  --text-color: black;
+  --text-color--1: hsla(0, 0%, 50%, 1);
+  --text-color--2: hsla(0, 0%, 60%, 1);
+  --text-color--3: hsla(0, 0%, 60%, 1);
+  --text-color--4: hsla(0, 0%, 83%, 1);
+  /* idea taken from:
+   * https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/Recognition/back.html
+   */
+  --text-heiban: #0a74d0; /* 平板, blue */
+  --text-atamadaka: #d74343; /* 頭高, red */
+  --text-nakadaka: #e8701b; /* 中高, orange */
+  --text-odaka: #009e1c; /* 尾高, green */
+  --text-kifuku: #7e53c4; /* 起伏, purple */
+  --accent: #4660f1;
   --background-darken: rgba(0, 0, 0, 0.05);
-  --card-description-color: #acacac;
-  --glossary-grey: #acacac;
+  --tooltip-background-darken: hsla(0, 0%, 100%, 0.98);
+  --pa-overline-color: var(--accent);
+  --pa-no-pron-color: #2b94f7;
+  --pa-nasal-color: #f12a2a;
+  --highlight-bold-shadow: initial;
+  --highlight-bold-color: var(--accent);
   --info-circle-hover-color: #5f5f5f;
+  /* slightly different shade of blue */
   --info-circle-leech-color: #3983ff;
   --info-circle-leech-hover-color: #609cff;
-  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+  --info-circle-leech-text-color: var(--info-circle-leech-color);
   --info-circle-warning-color: #ff8700;
-  --info-circle-warning-hover-color: #f2a753;
-  --info-circle-warning-text-color: #f9c24e;
-  --info-circle-error-color: #ff0200;
-  --info-circle-error-hover-color: #ff4d4c;
-  --info-circle-error-text-color: #fe7776;
+  --info-circle-warning-hover-color: #ffb341;
+  --info-circle-warning-text-color: var(--info-circle-warning-color);
+  --info-circle-error-color: #f05c59;
+  --info-circle-error-hover-color: #ff8381;
+  --info-circle-error-text-color: var(--info-circle-error-color);
   --pa-indicator-sentence-color: #4cd200;
-  --pa-indicator-word-color: var(--yellow);
+  --pa-indicator-word-color: var(--accent);
   --pa-indicator-none-color: #ec3a2d;
   --hybrid-underline-color: black;
+  --image-hover-brightness: 85%;
+}
+
+.night_mode {
+  --text-color: white;
+  --text-color--1: hsla(0, 0%, 67.5%, 1);
+  --text-color--2: hsla(0, 0%, 67.5%, 1);
+  --text-color--3: hsla(0, 0%, 50%, 1);
+  --text-color--4: hsla(0, 0%, 34.5%, 1);
+  --text-heiban: #59b2ff; /* 平板, blue */
+  --text-atamadaka: #ff6666; /* 頭高, red */
+  --text-nakadaka: #ff9b54; /* 中高, orange */
+  --text-odaka: #67e47d; /* 尾高, green */
+  --text-kifuku: #af85f4; /* 起伏, purple */
+  --accent: var(--dark-mode-accent);
+  --background-darken: rgba(0, 0, 0, 0.12);
+  --tooltip-background-darken: rgba(0, 0, 0, 0.9);
+  --pa-overline-color: var(--accent);
+  --pa-no-pron-color: #42a3ff;
+  --pa-nasal-color: #f12a2a;
+  --highlight-bold-shadow: initial;
+  --highlight-bold-color: var(--accent);
+  --hybrid-word-highlight: 0px 0px 30px var(--accent);
+  --info-circle-hover-color: #bdbdbd;
+  /* slightly different shade of yellow */
+  --info-circle-leech-color: #ead623;
+  --info-circle-leech-hover-color: var(--accent);
+  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+  --info-circle-warning-color: #ff8d0d;
+  --info-circle-warning-hover-color: #f9c24e;
+  --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
+  --info-circle-error-color: #f53b39;
+  --info-circle-error-hover-color: #fe7776;
+  --info-circle-error-text-color: var(--info-circle-error-hover-color);
+  --pa-indicator-sentence-color: #62ff73;
+  --pa-indicator-word-color: #34dbef;
+  --pa-indicator-none-color: #ff6b66;
+  --hybrid-underline-color: white;
+  --image-hover-brightness: 80%;
 }
 
 /* override variables for mobile */
@@ -46,33 +119,13 @@
   --tooltip-font-size: 11px;
 }
 
-.night_mode {
-  --yellow: #fffd9e;
-  --background-darken: rgba(0, 0, 0, 0.12);
-  --card-description-color: #585858;
-  --glossary-grey: #acacac;
-  --info-circle-hover-color: #bdbdbd;
-  --info-circle-leech-color: #ead623;
-  --info-circle-leech-hover-color: var(--yellow);
-  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
-  --info-circle-warning-color: #ff8d0d;
-  --info-circle-warning-hover-color: #f9c24e;
-  --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
-  --info-circle-error-color: #f53b39;
-  --info-circle-error-hover-color: #fe7776;
-  --info-circle-error-text-color: var(--info-circle-error-hover-color);
-  --pa-indicator-sentence-color: #62ff73;
-  --pa-indicator-word-color: #34dbef;
-  --pa-indicator-none-color: #ff6b66;
-  --hybrid-underline-color: white;
-}
-
 .card {
   /*font-family: notoserif;*/
   font-family: notosans;
-  font-size: 30px;
   text-align: center;
   font-style: normal;
+  color: var(--text-color);
+  zoom: var(--zoom);
 }
 
 .card.night_mode {
@@ -149,8 +202,9 @@ details > summary {
   src: url("NotoSansJP-Bold.otf");
   font-weight: bold;
 }
-.bold-yellow b {
-  color: var(--yellow);
+.highlight-bold b {
+  text-shadow: var(--highlight-bold-shadow);
+  color: var(--highlight-bold-color);
 }
 
 .override-display-none {
@@ -206,8 +260,8 @@ details > summary {
 }
 
 /*
- * makes ruby text unselectable (and hence uncopyable) (TODO: javascript option)
- * TODO: this doesn't actually seem to work in my anki version...
+ * makes ruby text unselectable (and hence uncopyable)
+ * TODO: this doesn't actually seem to work in: (Linux (Ubuntu) / Anki 2.1.54 Qt6)
  * - it makes the text unselectable, but the goal was to make the text also uncopyable
  * - however, the text remains copyable for some reason in anki
  * - text is not copyable in modern browsers like firefox
@@ -226,6 +280,7 @@ ruby rt {
  *  ================
  */
 .card-description {
+  --card-description-color: var(--text-color--4);
   font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
@@ -271,8 +326,8 @@ ruby rt {
   font-family: notosans;
   font-size: var(--tooltip-font-size);
   text-align: left;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
+  background-color: var(--tooltip-background-darken);
+  color: var(--text-color);
   padding: 10px;
   border-radius: 6px;
   position: absolute;
@@ -295,11 +350,11 @@ ruby rt {
   content: "";
   position: absolute;
   /* position tooltip correctly */
-  left: -15px;
+  left: -16px;
   top: 11px;
   /* the arrow */
   border: 8px solid #000000;
-  border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
+  border-color: transparent var(--tooltip-background-darken) transparent transparent;
   z-index: 1;
 }
 
@@ -370,14 +425,13 @@ ruby rt {
   grid-template-columns: 1fr auto 1fr;
   grid-column-gap: 5px;
   justify-items: center;
-  font-size: var(--sentence-font-size);
   font-family: notoserif;
-  line-height: 150%;
 }
 
-.flag-box {
+.pa-indicator {
   margin-left: auto;
   grid-column-start: 1;
+  font-size: var(--sentence-font-size);
   /*
    * so that the svg can be placed after the sentence (to remove upon hover)
    * while appearing to be before the sentence
@@ -385,7 +439,7 @@ ruby rt {
   order: -1;
 }
 
-.flag-box__svg {
+.pa-indicator__svg {
   display: inline-block;
   vertical-align: middle;
   height: 1.5em;
@@ -407,13 +461,12 @@ ruby rt {
   color: var(--pa-indicator-none-color);
 }
 
-/* space at the top of the window on the front side */
 .mobile .expression {
   border-top: 30px;
 }
 
 .expression b {
-  /*color: var(--yellow);*/
+  /*color: var(--accent);*/
   font-weight: normal;
 }
 
@@ -429,7 +482,6 @@ ruby rt {
 .expression--single {
   font-size: var(--sentence-font-size);
   font-family: notoserif;
-  line-height: 150%;
 }
 
 /* used when the front side display is a word and not a sentence (increase font size) */
@@ -443,7 +495,7 @@ ruby rt {
   text-align: left;
   text-indent: -1em;
   padding-left: 1em;
-  /*font-size: var(--sentence-font-size);*/
+  font-size: var(--sentence-font-size);
 }
 
 .hint {
@@ -460,7 +512,7 @@ ruby rt {
   justify-content: center;
 }
 
-.expression__hybrid-wrapper--hover-remove-flag:hover + .flag-box > .flag-box__svg {
+.expression__hybrid-wrapper--hover-remove-flag:hover + .pa-indicator > .pa-indicator__svg {
   display: none;
 }
 
@@ -490,11 +542,20 @@ ruby rt {
 }
 
 .expression__hybrid-word--hover-indicator {
-  border-bottom-color: var(--yellow);
+  border-bottom-style: dotted;
 }
 
-.expression__hybrid-word--word-underline {
+.expression__hybrid-word--click-indicator {
   border-bottom-style: dashed;
+}
+
+.expression__hybrid-word--sentence-indicator {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.expression__hybrid-word--word-indicator {
+  border-bottom-color: var(--text-color--3);
 }
 
 .expression__hybrid-sentence {
@@ -558,7 +619,7 @@ ruby rt {
  */
 /* css classes used by the plugin */
 .downstep {
-  color: var(--yellow);
+  color: var(--pa-overline-color);
   position: relative;
 }
 
@@ -566,7 +627,7 @@ ruby rt {
   content: "";
   width: 2px;
   height: 18%;
-  background: var(--yellow);
+  background: var(--pa-overline-color);
   position: absolute;
   display: block;
   top: 0px;
@@ -575,7 +636,7 @@ ruby rt {
 
 .pitchoverline {
   text-decoration: none !important;
-  text-decoration-color: var(--yellow) !important;
+  text-decoration-color: var(--pa-overline-color) !important;
   position: relative;
 }
 
@@ -583,20 +644,18 @@ ruby rt {
   content: "";
   width: 100%;
   height: 2px;
-  background: var(--yellow);
+  background: var(--pa-overline-color);
   position: absolute;
   top: 0px;
   right: 0px;
 }
 
-.nopron,
-.night_mode .nopron {
-  color: #42a3ff;
+.nopron {
+  color: var(--pa-no-pron-color);
 }
 
-.nasal,
-.night_mode .nasal {
-  color: #f12a2a;
+.nasal {
+  color: var(--pa-nasal-color);
 }
 
 .downstep .downstep-inner {
@@ -612,6 +671,7 @@ ruby rt {
 /* no idea for a good name, so going to call it "def-header" == definition header */
 .def-header {
   display: flex;
+  font-size: 30px;
   justify-content: center;
   align-items: center;
   max-width: 820px;
@@ -620,7 +680,6 @@ ruby rt {
 
 .dh-left { /* left */
   background: var(--background-darken);
-  /*padding: 0.625em;*/
   padding: 0.52em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
@@ -646,25 +705,6 @@ ruby rt {
   vertical-align: middle;
 }
 
-/* bigger word pitch for the pitch accent cards */
-.dh-left__word-pitch--big {
-  font-size: 30px;
-  margin-top: 8px;
-}
-
-.dh-left__word-pitch--big .downstep:before {
-  width: 3px;
-  height: 19%;
-  top: 0px;
-  left: -1px;
-}
-
-.dh-left__word-pitch--big .pitchoverline:after {
-  height: 3px;
-  top: 0px;
-  right: 0px;
-}
-
 /*
  * -----------------------------------------
  *  Def Header Left - Word PA bold override
@@ -675,15 +715,14 @@ ruby rt {
  */
 .dh-left__word-pitch b {
   font-weight: normal;
-  color: #808080;
+  filter: opacity(30%);
   font-size: 15px;
 }
 .dh-left__word-pitch b .pitchoverline:after {
   content: "";
   width: 100%;
   height: 1px;
-  background: var(--yellow);
-  filter: brightness(var(--pa-brightness-reduce));
+  background: var(--pa-overline-color);
   position: absolute;
   top: -1px;
   right: -1px;
@@ -692,21 +731,52 @@ ruby rt {
   content: "";
   width: 1px;
   height: 25%;
-  background: var(--yellow);
+  background: var(--pa-overline-color);
   /*filter: brightness(var(--pa-brightness-reduce));*/
   position: absolute;
   display: block;
   top: -1px;
   left: 0px;
 }
-.dh-left__word-pitch b .nopron {
-  filter: brightness(var(--pa-brightness-reduce));
+
+.pa-word-highlight-heiban {
+  color: var(--text-heiban);
 }
-.dh-left__word-pitch b .nasal {
-  filter: brightness(var(--pa-brightness-reduce));
+
+.pa-word-highlight-atamadaka {
+  color: var(--text-atamadaka);
 }
-.dh-left__word-pitch b .downstep {
-  filter: brightness(var(--pa-brightness-reduce));
+
+.pa-word-highlight-nakadaka {
+  color: var(--text-nakadaka);
+}
+
+.pa-word-highlight-odaka {
+  color: var(--text-odaka);
+}
+
+.pa-word-highlight-kifuku {
+  color: var(--text-kifuku);
+}
+
+.pa-sentence-highlight-heiban b {
+  color: var(--text-heiban);
+}
+
+.pa-sentence-highlight-atamadaka b {
+  color: var(--text-atamadaka);
+}
+
+.pa-sentence-highlight-nakadaka b {
+  color: var(--text-nakadaka);
+}
+
+.pa-sentence-highlight-odaka b {
+  color: var(--text-odaka);
+}
+
+.pa-sentence-highlight-kifuku b {
+  color: var(--text-kifuku);
 }
 
 /*
@@ -720,13 +790,14 @@ ruby rt {
 .kanji-hover-tooltip {
   display: inline-block;
   min-width: 100px;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
+  background-color: var(--tooltip-background-darken);
   padding: 8px 10px 8px 10px;
   border-radius: 6px;
 }
 
 .kanji-hover-tooltip-wrapper {
+  /* overrides any existing pitch accent coloring, if it exists */
+  color: var(--text-color);
   font-size: 18px;
   font-family: notosans;
   text-align: left;
@@ -743,11 +814,12 @@ ruby rt {
 }
 
 .kanji-hover-tooltip b {
-  color: var(--yellow);
+  text-shadow: var(--highlight-bold-shadow);
+  color: var(--highlight-bold-color);
 }
 
 .kanji-hover-tooltip--new {
-  color: #acacac;
+  color: var(--text-color--1);
 }
 
 /*
@@ -776,7 +848,7 @@ ruby rt {
   top: -16px;
   /* the arrow */
   border: 8px solid #000000;
-  border-color: transparent transparent rgb(0, 0, 0) transparent;
+  border-color: transparent transparent var(--tooltip-background-darken) transparent;
   z-index: 1;
 }
 
@@ -845,11 +917,12 @@ ruby rt {
 /* moved the hover element to the div to prevent the size transform transition from showing */
 .dh-right__img-container {
   transition: 0.3s;
+  transition: 0.3s;
 }
 
 /* not applied to the image because of above comment (prevent showing the transition) */
 .dh-right__img-container:hover {
-  opacity: 0.7;
+  filter: brightness(var(--image-hover-brightness));
 }
 
 /*
@@ -863,11 +936,12 @@ ruby rt {
   z-index: 99; /* sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* full width */
-  height: 100%; /* full height */
+  width: 100%;
+  height: 100%;
   overflow: auto; /* enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* fallback color */
-  background-color: rgba(0, 0, 0, 0.75); /* black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.75);
+  /* resets zoom so the image maximizes properly */
+  zoom: calc(1 / var(--zoom));
 }
 
 .modal {
@@ -883,8 +957,6 @@ ruby rt {
   -webkit-animation-duration: 0.25s;
   animation-name: zoom;
   animation-duration: 0.25s;
-  /*max-width: initial;
-  max-height: initial;*/
   /* prevents the zoomed-in image from exceeding the screen size */
   max-width: 90%;
   max-height: 90%;
@@ -967,14 +1039,11 @@ ruby rt {
  * ---------------
  */
 .full-sentence {
-  font-size: 28px;
+  font-size: var(--full-sentence-font-size);
   margin: 0 0 0.5em 0;
   font-family: notoserif;
 }
 
-/*.full-sentence b {
-  font-weight: normal;
-}*/
 .full-sentence ruby rt {
   opacity: 0;
 }
@@ -1007,34 +1076,10 @@ ruby rt {
 }
 
 .glossary-details--grey {
-  color: var(--glossary-grey);
+  --glossary-grey-out: var(--text-color--2);
+  color: var(--glossary-grey-out);
 }
 
-/*
- * For some reason, it appears that the furigana positioning is way too high when used in the glossary.
- * Athough I would like these settings to work globally, it would sacrifice some minor things
- * that <ruby> normally takes care of automatically, such as not having additional spacing on
- * the left/right of the kanjis when the furigana takes up more space than the allocated kanjis.
- *
- * tl;dr only affects glossary css as a quick fix, as the default <ruby> styles are usually preferable.
- */
-/* NO LONGER REQUIRED IN ANKI 2.1.53+ */
-/*
-.glossary-blockquote ruby {
-  display: inline-flex;
-  flex-direction: column-reverse;
-}
-.glossary-blockquote rt {
-  padding-top: 3px;
-  display: inline;
-  line-height: 1;
-}
-.glossary-blockquote rb {
-  display: inline;
-  line-height: 1;
-  text-align: center;
-}
-*/
 .glossary-blockquote--small {
   font-size: 15px;
 }
@@ -1075,6 +1120,7 @@ ruby rt {
  * ------------------------------
  */
 .frequencies {
+  --card-description-color: var(--text-color--4);
   display: flex;
   float: right;
   font-family: notoserif;
@@ -1091,22 +1137,13 @@ ruby rt {
 .frequencies__group {
   display: block;
   padding-left: 20px;
-}
-
-.frequencies__number {
   text-align: right;
 }
 
 .frequencies__dictionary {
-  text-align: right;
   font-size: var(--description-footer-font-size);
 }
 
-/*.frequencies__dictionary-inner {
-}
-
-.frequencies__dictionary-inner2 {
-}*/
 /*
  * ---------------------
  *  pitch accent graphs
@@ -1127,10 +1164,18 @@ ruby rt {
 }
 
 /*
- * ---------------
- *  customization
- * ---------------
+ * customization for specific dictionaries
  */
+/* Makes JMDict italic */
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
+  font-style: italic;
+}
+
+/* removes the dictionary entry for jmdict */
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
+  display: none;
+}
+
 /* frequency names */
 .frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner {
   display: none;
@@ -1170,23 +1215,15 @@ ruby rt {
 
 /* Custom highlights for NHK and 大辞泉 */
 .pa-graphs__group[data-details=NHK] .pa-graphs__dictionary {
-  color: var(--yellow);
+  text-shadow: var(--highlight-bold-shadow);
+  color: var(--highlight-bold-color);
   font-weight: bold;
 }
 
 .pa-graphs__group[data-details=大辞泉] .pa-graphs__dictionary {
-  color: var(--yellow);
+  text-shadow: var(--highlight-bold-shadow);
+  color: var(--highlight-bold-color);
   font-weight: bold;
-}
-
-/* Makes JMDict italic */
-.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
-  font-style: italic;
-}
-
-/* removes the dictionary entry for jmdict */
-.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
-  display: none;
 }
 
 /*

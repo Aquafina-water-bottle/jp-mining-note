@@ -10,7 +10,7 @@
 {% else %}
   {# ORDER MATTERS HERE! #}
   {# img_utils is ran after auto_pitch_accent to properly calculate the height of the left div #}
-  {% set all_module_ids = ["sent-utils", "kanji-hover", "auto-pitch", "img-utils", "customize-open-fields"] %}
+  {% set all_module_ids = ["sent-utils", "kanji-hover", "auto-pitch-accent", "img-utils", "customize-open-fields"] %}
 
   {% for mid in all_module_ids %}
     {% if mid in COMPILE_OPTIONS("enabled-modules").list() %}

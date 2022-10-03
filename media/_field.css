@@ -1,50 +1,26 @@
 @charset "UTF-8";
-/* TODO use @import in the main css (or <link>) with this file
- *
- * ln -s ~/.local/share/Anki2/Japanese/collection.media/field.css ~/.local/share/Anki2/addons21/181103283/user_files/field.css
- *
- */
-:root {
-  --yellow: #0060ff; /* not actually yellow ;) */
-}
-
-.nightMode {
-  --yellow: #fffd9e;
-}
-
-/* does this work? */
-/* font sizes */
 /* makes the primary definition bolded sections colored */
 anki-editable[field=PrimaryDefinition] b,
 anki-editable[field=Sentence] b,
 anki-editable[field=SentenceReading] b,
 anki-editable[field=AdditionalNotes] b,
 anki-editable[field=AltDisplay] b,
-anki-editable[field=AltDisplayPASentenceCard] b {
-  color: var(--yellow);
-}
-
-/* Makes JMDict italic */
-anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list {
-  font-style: italic;
-}
-
-/* greys out dictionary entry for jmdict */
-anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
-  color: #8e8e8e;
+anki-editable[field=AltDisplayPASentenceCard] b,
+anki-editable[field=SecondaryDefinition] b {
+  text-shadow: var(--highlight-bold-shadow);
+  color: var(--highlight-bold-color);
 }
 
 anki-editable[field=AJTWordPitch] b {
   font-weight: normal;
-  color: #808080;
+  filter: opacity(30%);
   font-size: 15px;
 }
 anki-editable[field=AJTWordPitch] b .pitchoverline:after {
   content: "";
   width: 100%;
   height: 1px;
-  background: var(--yellow);
-  filter: brightness(var(--pa-brightness-reduce));
+  background: var(--pa-overline-color);
   position: absolute;
   top: -1px;
   right: -1px;
@@ -53,30 +29,16 @@ anki-editable[field=AJTWordPitch] b .downstep:before {
   content: "";
   width: 1px;
   height: 25%;
-  background: var(--yellow);
+  background: var(--pa-overline-color);
   /*filter: brightness(var(--pa-brightness-reduce));*/
   position: absolute;
   display: block;
   top: -1px;
   left: 0px;
 }
-anki-editable[field=AJTWordPitch] b .nopron {
-  filter: brightness(var(--pa-brightness-reduce));
-}
-anki-editable[field=AJTWordPitch] b .nasal {
-  filter: brightness(var(--pa-brightness-reduce));
-}
-anki-editable[field=AJTWordPitch] b .downstep {
-  filter: brightness(var(--pa-brightness-reduce));
-}
 
-.frequencies {
+anki-editable[field=FrequenciesStylized] {
   display: flex;
-}
-
-/* temporarily removing these for the mobile class since they clog up the space */
-.mobile .frequencies {
-  display: none;
 }
 
 .frequencies__group {
@@ -101,16 +63,6 @@ anki-editable[field=PAGraphs] {
 
 .pa-graphs__dictionary-inner:after {
   content: ":";
-}
-
-.pa-graphs__group[data-details=NHK] .pa-graphs__dictionary {
-  color: var(--yellow);
-  font-weight: bold;
-}
-
-.pa-graphs__group[data-details=大辞泉] .pa-graphs__dictionary {
-  color: var(--yellow);
-  font-weight: bold;
 }
 
 anki-editable[field=PAPositions] {
@@ -147,7 +99,7 @@ anki-editable[field=PAPositions] {
  */
 /* css classes used by the plugin */
 .downstep {
-  color: var(--yellow);
+  color: var(--pa-overline-color);
   position: relative;
 }
 
@@ -155,7 +107,7 @@ anki-editable[field=PAPositions] {
   content: "";
   width: 2px;
   height: 18%;
-  background: var(--yellow);
+  background: var(--pa-overline-color);
   position: absolute;
   display: block;
   top: 0px;
@@ -164,7 +116,7 @@ anki-editable[field=PAPositions] {
 
 .pitchoverline {
   text-decoration: none !important;
-  text-decoration-color: var(--yellow) !important;
+  text-decoration-color: var(--pa-overline-color) !important;
   position: relative;
 }
 
@@ -172,24 +124,44 @@ anki-editable[field=PAPositions] {
   content: "";
   width: 100%;
   height: 2px;
-  background: var(--yellow);
+  background: var(--pa-overline-color);
   position: absolute;
   top: 0px;
   right: 0px;
 }
 
-.nopron,
-.night_mode .nopron {
-  color: #42a3ff;
+.nopron {
+  color: var(--pa-no-pron-color);
 }
 
-.nasal,
-.night_mode .nasal {
-  color: #f12a2a;
+.nasal {
+  color: var(--pa-nasal-color);
 }
 
 .downstep .downstep-inner {
   display: none;
+}
+
+/* Makes JMDict italic */
+anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list {
+  font-style: italic;
+}
+
+/* greys out dictionary entry for jmdict */
+anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
+  color: var(--text-color--3);
+}
+
+.pa-graphs__group[data-details=NHK] .pa-graphs__dictionary {
+  text-shadow: var(--highlight-bold-shadow);
+  color: var(--highlight-bold-color);
+  font-weight: bold;
+}
+
+.pa-graphs__group[data-details=大辞泉] .pa-graphs__dictionary {
+  text-shadow: var(--highlight-bold-shadow);
+  color: var(--highlight-bold-color);
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=_field.css.map */
