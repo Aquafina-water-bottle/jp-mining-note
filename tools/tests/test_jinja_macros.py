@@ -11,7 +11,7 @@ import shutil
 def gen():
 
     root_folder = utils.get_root_folder()
-    templates_folder = os.path.join(root_folder, "templates")
+    templates_folder = os.path.join(root_folder, "src")
     tests_folder = os.path.join(root_folder, "tools", "tests", "jinja")
     config_path = os.path.join(root_folder, "config", "example_config.py")
     search_folders = [tests_folder, templates_folder]
@@ -22,7 +22,6 @@ def gen():
     generator = Generator(
         search_folders,
         config,
-        css_root,
         to_release=False,
     )
 

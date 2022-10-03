@@ -44,7 +44,7 @@ def sim():
 class TestFieldEditSimulator:
 
     def test_rename_to_existing_field(self, sim):
-        with pytest.raises(Exception, match="Cannot rename field A -> C: field already exists"):
+        with pytest.raises(Exception, match="Cannot rename field A -> C: C field already exists"):
             sim._rename_field("A", "C")
 
     def test_rename(self, sim):
