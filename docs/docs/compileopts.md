@@ -17,7 +17,7 @@ and then re-build the note.
 ## Optimized Vocab Card Example
 An example set of compile-time options to create a more optimized vocab card is shown below.
 
-??? quote "Vocab card compile-time options example"
+??? example "Vocab card compile-time options example"
 
     ```json
     "compile-options": {
@@ -56,7 +56,7 @@ This will remove the conditional Anki templates
 (`{{#FIELD}}` and `{{^FIELD}}` markers) for the specified fields.
 
 
-??? quote "Example"
+??? example
 
     If your `compile-options` is:
 
