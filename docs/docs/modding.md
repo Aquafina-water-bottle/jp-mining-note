@@ -25,10 +25,27 @@ then you can simply edit the template and ignore the rest of this page.
 
 
 ## Modding Overview
-To ensure that your changes aren't lost, new files
+To ensure that your changes aren't lost, the recommended way to make changes
+to the existing templates is to add new files, rather than editing existing ones.
+This allows you to continuously update with the note, while having your
+custom files stay in place.
 
-TODO is this even necessary?
+!!! warning
 
+    There is no guaranteed backwards compatability for anything mentioned here
+    (especially while the note is still in beta).
+    Although you won't lose your changes upon update,
+    your changes might also not work on the next update.
+    For example, if the file that you are overriding gets renamed, you will have to rename the file
+    to match the newly renamed file.
+
+    I will try my best to keep things backwards compatable,
+    but given the current state of the note (particularily the CSS),
+    it might not be possible to do most of the time.
+    When this note comes out of beta, backward-incompatable changes should be
+    harshly reduced.
+
+---
 
 # Prerequisites
 You must be able to successfully build the template
@@ -40,30 +57,29 @@ Additionally, it is recommended that you go through the
 as it may contain what you are looking for.
 
 
-<!--
-## Extra Javascript & CSS
-- primarily for testing, not for production use
-- appends whatever javascript you want to the very end of the anonymous function
--->
-
-
+---
 
 # Custom Templates: Overrides
-- `overrides` folder (or whatever folder you specify under `templates-override-folder` in config.py)
-- same format as existing `src` folder
-- primarily to override html
-- see the [modules](modding.md#custom-js-modules) section on the recommended way to add custom javascript
+An easy way to override and extend parts of the card templates is by using an
+`overrides` folder.
+This folder (specified under `config.py` under the `templates-override-folder` option)
+allows you to override any file under the `src` folder (outside of `scss` files).
+
+Primarily, this allows you to override sections of template code found under
+`src/jp-mining-note`, such as `src/jp-mining-note/partials/hint.html`.
 
 !!! note
-    - no guaranteed backwards compatability (especially while the note is still in beta)
-    - although you won't lose your changes upon update, your changes might also not work on the next update
-    - example: if the layout of the file changes at all, i.e. a css class gets renamed,
-        and you are still using the old class name after the update, it may not behave as expected
+    Overrides are primarily for extending the HTML aspect of the templates.
 
+    If you are instead looking to modify javascript, see
+    [here](modding.md#custom-js-modules).
+    Likewise, for CSS modifications, see
+    [here](modding.md#custom-css).
 
-## How-To (Overrides)
+The structure of the `overrides` folder must match the structure in the `src` folder.
+For example, if you want to override the hint file (`src/jp-mining-note/partials/hint.html`),
+the new file must be created under `overrides/jp-mining-note/partials/hint.html`
 
-TODO
 
 ## Example (Add external links)
 
@@ -88,7 +104,7 @@ for the tested word.
     (`overrides/jp-mining-note/partials/extra_info.html`).
 
     {% raw %}
-    ??? example "Extra Info with External Links"
+    ??? examplecode "Extra Info with External Links"
         ```htmldjango
         <details class="glossary-details glossary-details--small" id="extra_info_details">
         <summary>Extra Info</summary>
@@ -120,69 +136,148 @@ for the tested word.
     After rebuilding and reinstalling, your `Extra Info` section should now have two links
     at the bottom.
 
+---
 
 
 
 # Custom JS: Modules
-- TODO basic explanation
-- primary use is for javascript (and currently only used for javascript)
-- javascript-only modules do not require any edits to the raw html
-- some modules may still have to edit the raw html -> cannot update the note
-    - recommend using template overrides
-- uses runtime options
+Modules (not to be confused with regular
+[javascript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules))
+is a hybrid template/javascript system that allows code separation
+at the file level, but allows the javascript to be compiled into each template,
+rather than separate files.
+
+The biggest advantage of this over a monolithic system is that individual modules
+can be enabled, disabled, created, and modified at ease,
+all without editing the source files.
 
 
 ## Example (Hello World)
-
-It would be easiest to show an example first, before diving into the how-to.
-
 
 The following will enable a the hello world module,
 which prints a "Hello world!" at the front of any card
 (as a warning on the [info circle](usage.md#info-circle)).
 
-`config.py`:
-```
-"compile-options": {
-    "allow-user-defined-modules": True,
 
-    "enabled-modules": [
+1. Under `config/config.py`, add `"example"` to `enabled-modules`.
+
+    ```
+    "compile-options": {
+        "allow-user-defined-modules": True,
+
+        "enabled-modules": [
+            ...
+            "customize-open-fields",  # Make sure a comma is here!
+            "example"
+        ]
+    },
+    ```
+
+2. Under `config/jpmn_opts.jsonc` (or more preferably, your own options file specified
+    under `opts-path` in `config.py`),
+    add the following:
+
+    ```
+    "modules": {
+      "customize-open-fields": {
         ...
+      },  // Make sure there is a comma here!
 
-        "example"
-    ]
-},
-```
+      "example": {
+        "enabled": true
+      }
+    }
+    ```
+
+3. Rebuild the note, and preview any card.
+    The front side of any card should have a "Hello world!" warning,
+    while the back side should remain normal.
 
 
-runtime options file (`jpmn_opts.jsonc`):
-```
-...
-"modules": {
-  ...
-  "example": {
-    "enabled": true
-  }
-}
-```
+## Quickstart
+If you want to get to inserting your own javascript
+as soon as possible, do the following:
 
-## How-To (Modules)
+1. Follow the steps of the example above, and make sure the example module is working.
+2. Copy the `example` module into `overrides/modules`.
 
-- modules can be defined in the same style as the template overrides above
-    - module files can even be completely overwritten if you define the same file
-- define modules in the overrides folder
+    This should result in the following file structure:
+    ```
+    overrides
+     L modules
+        L example
+           L main.html
+           L main.js
+    ```
 
-- quickstart: copy the `example` module into `overrides/modules`
-    - result should have the two files:
-        - `overrides/modules/example/main.html`
-        - `overrides/modules/example/main.js`
-    - all you have to do now is edit the `main.js` and `main.html` files to your liking
-    - these files will overwrite the previous example
+From here, all you have to do is edit the `main.js` and `main.html` to your liking.
 
-- when renaming:
-    - do your best to keep the naming consistent with everything else
-    - make sure you enable them in the config and runtime options
+!!! note
 
+    The `js` module is of type `JavascriptContainer`, which is defined under
+    `tools/make.py`.
+    This interface allows you to define javascript within certain parts of a card,
+    and restrict it to a certain subset of templates (sides and card types).
+    Please see [the aformentioned file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/tools/make.py)
+    to view the existing interface.
+    Likewise, see the [base javascript file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/src/jp-mining-note/base.js)
+    (`src/jp-mining-note/base.js`)
+    to view how the interface is used.
+
+If you want more detailed explanations on what has been happening up
+until this point, continue reading below.
+
+
+## Enabling & Disabling Modules
+Modules can be easily enabled and disabled
+by modifying the `enabled-modules` option under `config/config.py`.
+Comment out any existing module, or add any modules you want to the list.
+
+Additionally, if you are using modules outside the default modules that come
+enabled with the note (including the `example` module),
+the `allow-user-defined-modules` option should be set to `True`.
+
+
+## Modding Existing Modules
+
+Modules can be defined in the same style as the
+[template overrides](modding.md#custom-templates-overrides) above.
+This means that if you want to edit a module, you can simply
+override the module files themselves by copying the module folder into
+`overrides/modules` folder.
+
+For example, if you want to override the `auto-pitch-accent` module,
+copy the `auto-pitch-accent` folder into `overrides/module/auto-pitch-accent`.
+
+!!! note
+    In the quickstart, we did exactly this with the `example` module.
+    Since the example module is completely overwritten by the user,
+    the previous example module code is completely ignored.
+
+## Creating More Modules
+The easiest way to create a new module is by copying the `example` folder,
+and renaming it to something different.
+This folder should be placed under `overrides/modules` under most cases.
+However, if you are looking to contribute to the project,
+place this under `src/modules` instead.
+
+
+Certain parts of the code should be renamed as well to avoid conflicts with the existing
+`example` module, including the `MOD.id`, import path, `JPMNLogger` constructor,
+and runtime option call (`utils.opt`).
+
+Of course, make sure all the renames are consistent.
+For example, all of the following should be the same:
+
+- `MOD.id`
+- module folder name
+- `JPMNLogger` constructor argument
+
+Afterwards, make sure to add the module id to `enabled-modules`, and
+ensure that `allow-user-defined-modules` is set to `True`.
+
+If everything is done correctly,
+the note should include your custom module after the next build!
 
 
 ## Why not just separate the code with files?
@@ -195,7 +290,7 @@ Anki specifically states this in its
 [official documentation](https://docs.ankiweb.net/templates/styling.html?highlight=javascript#javascript):
 
 !!! quote
-    Javascript functionality is provided without any support or warranty
+    Javascript functionality is provided without any support or warranty.
 
 Many javascript-related things seem to behave strangely in Anki, which prevents the ability
 to separate files easily.
@@ -272,75 +367,105 @@ to work with Anki's Javascript parser.
 I believe this is the best way to ensure that the note stays resilient across Anki updates,
 as the javascript itself has very few hacks to get it to behave well.
 
+---
 
 
 # Custom CSS
-- allows for custom themes / complete user customization
-- can override variables, etc.
-- simply appends the css at the very end of the existing css
+
+!!! warning
+
+    Since this note is still in beta, the CSS in particular is subject to heavy change.
+    This is because when mobile support is being worked on,
+    the CSS will likely heavily change to support mobile.
+
+    If you are planning on changing the CSS,
+    be vigilant with potential changes in future updates!
 
 
-## How-To (Custom CSS)
+If you want to extend the CSS, do the following:
 
-- make new folder under `src/scss` (e.g. `extra`) and add to `css-folders` in config.py, e.g.
+1. Make a new folder under `src/scss` (for example, `extra`).
+
+    !!! note
+        Unlike everything else here, custom CSS cannot be defined in the `overrides` folder,
+        due to a complication in the current build system.
+        I will be working on a way to define this in the `overrides` folder in the future.
+
+2. Add the folder to the end of `css-folders` in `config.py`.
+    This should result in the following:
     ```
     "css-folders": ["base", "dictionaries", "extra"],
     ```
+3. Under the `extra` folder, use the following files to override the correct css:
+    - `style.scss`: The main css for the card templates.
+    - `field.scss`: The css used by [CSS injector](setup.md#css-injector)
+        to customize individual fields.
+    - `editor.scss`: The css used by CSS injector to customize the editor around the fields.
 
-- folder should be of the format:
-    ```
-    src
-     L scss
-        L base
-           L ...
-        L dictionaries
-           L ...
-        L extra
-           L field.scss
-           L editor.scss
-           L style.scss
-    ```
-    - all files are optional: only create and use the ones you need
+    All of the files are optional. This means you do not need to create all three files
+    for the folder to be valid.
+
+The resulting folder should be of the format:
+```
+src
+ L scss
+    L base
+       L ...
+    L dictionaries
+       L ...
+    L extra
+       L field.scss
+       L editor.scss
+       L style.scss
+```
+
+<!--
+Many existing variables already exist (see `templates/scss/base/common.scss`),
+and can be overwritten easily.
+
+For example, any variable within the `style.scss` file can be replaced by putting
+the following under `extra/style.scss`:
+```
+:root {
+    --variable: 5px;
+}
+```
+-->
 
 !!! note
-    Unlike everything else here, custom CSS cannot be defined in the `overrides` folder.
-    I will be working on a way to define it in the `overrides` folder in the future.
 
-!!! note
-    Yes, this is the SCSS, not CSS. However, SCSS is almost a complete superset of CSS.
+    You might have noticed that this is the SCSS, not CSS.
+    However, SCSS is complete superset of CSS
+    (with some small exceptions).
     In other words, if you don't know any SCSS, you can write normal CSS
     and have it behave completely the same.
-
-- many existing variables can be overwritten (see `templates/scss/base/common.scss`)
 
 
 
 
 ## Example (Zoom)
-Let's say we want to increase the size of the card, without affecting any of Anki's GUI.
+Let's say we want to increase (or decrease) the size of the card,
+without affecting any of Anki's GUI.
 
-1. Create a folder called `extra`, like above.
+1. Create a folder called `extra`, like above,
+    and include the folder under `css-folders` like above
 
 1. Create a `style.scss` file under `extra`.
 
-1. Add the following code to the `field.scss` file:
+1. Add the following code to the `style.scss` file:
 
     ```
     :root {
       /* Times 1.1 of the original size.
-       * If you want to make the note smaller, use a value like 0.9.
+       * If you want to make the note smaller, use a value below 1, like 0.9.
        */
       --zoom: 1.1;
     }
     ```
 
-1. Under `config.py`, set the `css-folders` option:
-    ```
-    "css-folders": ["base", "dictionaries", "extra"],
-    ```
-
 1. Rebuild and reinstall the template.
 
+---
 
 
 # Field Editing
@@ -410,6 +535,7 @@ in the `Fields` (list) menu, found under (Main window) →  `Browse` →  `Field
 -->
 
 
+---
 
 
 # Other
@@ -443,7 +569,7 @@ in the javascript options.
 
 ## Avoid asynchronous javascript features in Anki
 
-??? example "Example Asynchronous Javascript"
+??? examplecode "Example Asynchronous Javascript"
 
     ```html
     <script>
@@ -489,7 +615,7 @@ TODO reason:
 
 - avoiding asynchronous features makes things more predictable within anki
 
-??? example "Example (safer) asynchronous javascript"
+??? examplecode "Example (safer) asynchronous javascript"
 
     ```javascript
     let ele = document.getElementById("example");

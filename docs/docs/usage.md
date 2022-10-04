@@ -102,7 +102,7 @@ official anki addon page as specified
 
 ## Images
 Outside of the normal click to zoom image at the top right,
-any customy inserted images, including images inserted directly by Yomichan,
+any customly inserted images, including images inserted directly by Yomichan,
 will be converted to text which you have to hover over to reveal.
 Of course, this image can also be clicked on to zoom.
 See the video demo below to see exactly what happens.

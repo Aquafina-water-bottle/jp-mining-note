@@ -51,6 +51,9 @@ as by definition, compile-time options are applied when the note is built.
 
 ## Initialization
 
+The following creates a custom python environment with `venv`,
+so that packages aren't installed into your global python environment.
+
 ```bash
 git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 cd jp-mining-note
@@ -68,26 +71,50 @@ source ./bin/activate
 pip3 install -r tools/requirements.txt
 ```
 
-Disabling the venv:
-```bash
-deactivate
-```
+Some additional options with `venv` are shown below.
 
-Resetting the venv:
-```bash
-# run this only if you're already in a venv
-deactivate
+??? examplecode "Disabling the venv"
+    ```bash
+    deactivate
+    ```
 
-rm -r bin lib
-python3 -m venv .
-source ./bin/activate
-pip3 install -r tools/requirements.txt
-```
+??? examplecode "Resetting the venv"
+
+    ```bash
+    # run this only if you're already in a venv
+    deactivate
+
+    rm -r bin lib
+    python3 -m venv .
+    source ./bin/activate
+    pip3 install -r tools/requirements.txt
+    ```
+
+??? examplecode "Don't want to use venv?"
+
+    It is **highly recommended that you use venv**, or something else that isolates
+    the python environment.
+
+    However, in case you don't want to use `venv`,
+    you can manually install the dependencies
+    (including dependencies for building documentation):
+    ```bash
+    pip3 install \
+            JSON-minify jinja2 black pytest \
+            mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin \
+            mkdocs-git-revision-date-localized-plugin
+    ```
+
+<!--
+# personal setup
+pip3 install neovim anki aqt
+-->
 
 
 !!! note
 
     The `master` branch is the bleeding edge version of the note.
+
     If you want to build a more stable version of the note, do the following:
     ```bash
     git fetch
@@ -100,25 +127,9 @@ pip3 install -r tools/requirements.txt
     git checkout master
     ```
 
-
-!!! note
-
-    It is highly recommended that you use venv, or something else that isolates
-    the python environment.
-    However, in case you don't want to use `venv`, you can manually install the dependencies:
-    ```bash
-    pip3 install JSON-minify jinja2 black pytest
-    ```
-
-<!--
-Additional packages I use for development on my local system are:
-```
-pip3 install neovim anki aqt
-```
--->
-
 ## Building and Installing
 
+After setting up the `venv`, you are ready to build and install the note.
 
 ```bash
 cd tools
@@ -128,10 +139,8 @@ cd tools
 python3 ./main.py
 ```
 
-
 !!! note
-
-    Running the ./main.py script is equivalent of running:
+    Running the `main.py` script is equivalent of running:
     ```bash
     # builds the note into the ./build folder
     python3 make.py
@@ -141,6 +150,8 @@ python3 ./main.py
     ```
 
 
+Additional things you can do with the project are shown below.
+
 ## Running Tests
 ```bash
 cd tools
@@ -149,30 +160,33 @@ python3 -m pytest ./tests
 
 ## Building the Documentation
 
-- all documentation files are found under `(root)/docs`.
-- if already done the above steps with the requirements.txt, all dependencies should already be installed
-- main files should be found under docs/docs/PAGE.md
-
-to preview the documentation:
+To "build" the documentation, all you have to do is the following:
 ```bash
+cd docs
 mkdocs serve
 ```
 
+This will allow you to preview at this website:
+http://127.0.0.1:8000/jp-mining-note/
 
-!!! note
-    If you are not using requirements.txt and venv, you can install the
-    dependencies manually here:
-    ```bash
-    pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin \
-            mkdocs-git-revision-date-localized-plugin
-    ```
+If you are looking to edit the documentation, all related files should be found
+under this `docs` folder.
+The main markdown files are found under:
+```
+(root)
+  L docs
+     L docs
+        L index.md # the home page
+        L preface.md
+        L setup.md
+        L ...
+```
 
-<!-- TODO update requirements.txt to include last git-revision requirement -->
 
 
 
 # Common Errors
-- TODO fill out as people start working with this note
+TODO fill out as people start working with this note
 
 
 

@@ -6,12 +6,15 @@ CONFIG = {
     # you need dart-sass!
     "sass-path": "sass",
 
-    # rooted under (root)/config
-    # I use `user_jpmn_opts.jsonc`
+    # A custom options file specified by the user.
+    # To use this, copy the existing `config/jpmn_opts.jsonc` into
+    #  a different file, say, `config/user_jpmn_opts.jsonc`,
+    #  and then set the value to "user_jpmn_opts.jsonc".
+    # Rooted under (root)/config.
     "opts-path": "jpmn_opts.jsonc",
 
-    # rooted under (root)
-    # ignores folder if it doesn't exist
+    # Rooted under (root)
+    # Ignores folder if it doesn't exist.
     "templates-override-folder": "overrides",
 
     "compile-options": {
@@ -36,6 +39,10 @@ CONFIG = {
 
         # Allows modules that didn't come with the note to be used.
         # Additionally, allows custom re-ordering of modules.
+        # WARNING: if you are using other people's modules,
+        #  make sure you only run modules from people you trust!
+        # WARNING: You now have the ability to reorder the module execution.
+        #  Do not re-order the default modules, unless you know what you are doing!
         "allow-user-defined-modules": False,
 
         "enabled-modules": [

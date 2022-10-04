@@ -17,7 +17,7 @@ and then re-build the note.
 ## Optimized Vocab Card Example
 An example set of compile-time options to create a more optimized vocab card is shown below.
 
-??? example "Vocab card compile-time options example"
+??? examplecode "Vocab card compile-time options example"
 
     ```json
     "compile-options": {
@@ -128,15 +128,18 @@ for a note will have no effect on the cards.
     }
     ```
 
-!!! note
+4. install the note as normal
 
-    flag `--install-options` should be used when running the installation script (unless hard-coded)
+    !!! note
+
+        flag `--install-options` should be used when running the installation script (unless hard-coded)
 
 
 
 # Conclusion
 
-Although useful, compile-time options may not give you everything you want.
+Although compile-time options are useful for various simple tasks,
+they may not give you everything you want.
 See the [modding](modding.md) page to see how to make changes to your heart's content.
 
 

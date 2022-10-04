@@ -68,6 +68,9 @@ class TextContainer:
         self.matx[x][y] = value
 
     def set_all(self, value: str):
+        """
+        sets for every card type and side
+        """
         for card_type in TextContainer.card_types:
             for side in TextContainer.sides:
                 x, y = self._get_indices(card_type, side)
@@ -100,9 +103,22 @@ class TextContainer:
 
 class JavascriptContainer:
     def __init__(self, module_name):
+        # Global variables, usually only used for cache.
+        # It is extremely unlikely that you will use this.
+        # Instead, please favor the `functions` variable.
         self.globals = TextContainer(module_name)
+
+        # A place to define global classes and functions.
+        # This is where the bulk of the existing code is,
+        # as most existing code is wrapped as a self-contained module that returns a class.
         self.functions = TextContainer(module_name)
+
+        # A place to define keybinds.
+        # The variable `e` is the event that you should read.
         self.keybinds = TextContainer(module_name)
+
+        # Equivalent to the main function of the module.
+        # Put any code you want to run upon template load here.
         self.run = TextContainer(module_name)
 
 

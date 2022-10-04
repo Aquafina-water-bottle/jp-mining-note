@@ -383,7 +383,7 @@ To change the config of any Anki add-on, head over to
 
 The important things to change in the config are `generate_on_note_add`, `fields` and `note_types`.
 
-??? example "Click here to see the full AJT Furigana config"
+??? examplecode "Click here to see the full AJT Furigana config"
 
     ```json
     {
@@ -453,7 +453,7 @@ The important things to change in the config are `generate_on_note_add`,
 `destination_fields`, `source_fields` `note_types`, and `styles`.
 
 
-??? example "Click here to see the full AJT Pitch Accent config"
+??? examplecode "Click here to see the full AJT Pitch Accent config"
 
     ```json
     {
@@ -571,6 +571,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 1. Copy and paste the following values into the fields
    (the custom markers won't be available in the dropdown arrow):
 
+
 ??? example "Click here to see the fields to copy and paste."
 
     | Anki Fields | Yomichan Format |
@@ -578,6 +579,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
     {% for f, v in FIELDS.items() -%}
     | {{ "*" if v["customize"] else "" }}{{ f }} { .smaller-table-row } | {{ "`" + v["setup"] + "` { .smaller-table-row }" if "setup" in v else "" }} |
     {% endfor %}
+
 
 
 The above fields will create, by default,
@@ -618,7 +620,7 @@ add the following template code as follows:
 
 1. Copy and paste the code below to the **top** of the default Yomichan template code:
 
-    ??? example "Click here to show the template code to copy."
+    ??? examplecode "Click here to show the template code to copy."
 
         ```handlebars
         {% filter indent(width=8) -%}
@@ -628,7 +630,7 @@ add the following template code as follows:
 
 2. Copy and paste the code below to the **bottom** of the default Yomichan template code:
 
-    ??? example "Click here to show the template code to copy."
+    ??? examplecode "Click here to show the template code to copy."
 
         ```handlebars
         {% filter indent(width=8) -%}
@@ -704,12 +706,6 @@ By default, this enable the following behavior:
 
 ![type:video](assets/yomichan/selected_text.mp4)
 
-!!! note
-
-    If you have nothing highlighted, 
-
-
-
 
 
 ## Other Yomichan Settings
@@ -773,7 +769,7 @@ Of course, this list is incomplete, and there could be tools better suited for y
 * add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
 * Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
 
-??? example "Click here to see some basic config changes to get it working with JPMN."
+??? examplecode "Click here to see some basic config changes to get it working with JPMN."
 
     ```ini
     # Model names are listed in `Tools -> Manage note types` menu in Anki.
