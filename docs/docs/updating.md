@@ -19,6 +19,23 @@ the note will be changed.
 Lastly, it will give you warnings on anything you have to change manually,
 such as Yomichan Templates.
 
+??? question "Why can't I just copy/paste the templates, or just re-install the .apkg file to update the note?"
+
+    It's not uncommon for updates to contain many changes outside of just the templates
+    alone. For example, required Yomichan settings, add-on config changes,
+    or sometimes even the data within the note fields must be changed.
+    Additionally, the field list is changed somewhat frequently.
+
+    Although settings outside of Anki cannot be changed automatically,
+    almost all settings within Anki are automatically updated
+    with the python script.
+    Additionally, the python script will give you plenty of instructions on
+    exactly how to update any Yomichan setting or add-on config change.
+
+    Finally, installing the .apkg file when the field list is in any way different
+    will actually create a new version of the note
+    instead of replacing the old note, which may prove to be an even bigger hassle.
+
 
 <!-- It's updated now!!! (writing as of 2022/09/25) -->
 
@@ -83,6 +100,8 @@ To do this, head over to:
 > (Main Window) →  `Tools` →  `Manage Note Types`.
 
 If your note is named differently, please rename it to `JP Mining Note`.
+If you have two different versions (for example: `JP Mining Note` and `JP Mining Note-f263ae`),
+then 
 
 !!! note
     You can always change the name back after updating.

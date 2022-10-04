@@ -113,6 +113,28 @@
 
 /* Note */
 /* Admonition flavor */
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.question, .help, .faq) {
+  border-color: rgb(75, 165, 17);
+}
+
+/* Admonition flavor title */
+[data-md-color-scheme="slate"] .md-typeset :is(.question, .help, .faq) > :is(.admonition-title, summary) {
+  background-color: rgba(80, 177, 18, 0.1);
+}
+
+/* Admonition icon */
+[data-md-color-scheme="slate"] .md-typeset :is(.question, .help, .faq) > :is(.admonition-title, summary)::before {
+  background-color: rgb(124, 234, 54);
+}
+[data-md-color-scheme="slate"] .md-typeset :is(.question, .help, .faq) > :is(.admonition-title, summary)::before {
+  background-color: rgb(124, 234, 54);
+}
+
+
+
+
+/* Question */
+/* Admonition flavor */
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.note) {
   border-color: rgb(0, 59, 158);
 }
@@ -126,6 +148,8 @@
 [data-md-color-scheme="slate"] .md-typeset :is(.note) > :is(.admonition-title, summary)::before {
   background-color: rgb(73, 165, 255);
 }
+
+
 
 
 

@@ -149,6 +149,17 @@ python3 ./main.py
     python3 install.py --from-build --update
     ```
 
+!!! note
+    If you are attempting to (build and) install the bleeding edge version of the note
+    on an Anki profile that does NOT already have the note installed,
+    you have to run the installation script twice.
+    For example:
+
+    ```
+    python3 main.py
+    python3 install.py --from-build --update
+    ```
+
 
 Additional things you can do with the project are shown below.
 
@@ -186,7 +197,7 @@ The main markdown files are found under:
 
 
 # Common Errors
-TODO fill out as people start working with this note
+(TODO) Fill this out as people start working with this note
 
 
 

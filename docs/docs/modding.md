@@ -1,9 +1,4 @@
 
-<!--
-If you are looking to simply install the card, see the appropriate
-wiki page here (TODO link to setup).
--->
-
 # Introduction
 This page describes all the ways of modding your note,
 and goes into depth on the ways you can mod your note
@@ -505,36 +500,6 @@ in the `Fields` (list) menu, found under (Main window) →  `Browse` →  `Field
 
 
 
-
-
-
-
-
-<!--
-- especially since your changes will likely edit the raw html
-- contributing to the project + enabling the features on your system should guarantee that
-  your additions aren't lost upon each update
--->
-
-
-<!--
-# Modding the Note
-
-- runtime options
-    - options in javascript
-    - can implement certain features only with runtime options and no modules
-    - TODO write this in a separate page
-
-- what to use: modules / runtime options only
-    - whichever you think is simpler to implement and to maintain
-    - usually modules
-
-
-## Where to add your feature?
-- only care about this if you plan on contributing your feature btw
--->
-
-
 ---
 
 
@@ -625,53 +590,5 @@ TODO reason:
     }
     ```
 
-
-
-## Make your changes shown!
-If you think your changes will be useful for others,
-I highly recommend contributing your work to this project!
-
-TODO
-
-
-## Contributing
-TODO separate page
-
-- before:
-    - I'm relatively new to people contributing to my work, so I'm not sure how to format this section
-    - (As of writing this), I highly recommend you reach out before-hand so we can discuss the changes you want to make
-
-- during:
-    - attempt to match style around the code
-
-- final steps:
-    - use black to format all python files (TODO script)
-    - make sure tests run (maybe CI at some point?)
-    - update documentation (see docs/ folder) if necessary
-
-
-```bash
-# Build for release, if you want to contribute to the project
-python3 ./make.py --release
-```
-
-
-
-
-<!--
-# Making an Issue
-TODO
-
-- prefer chats over issues (a lot easier / faster to get things done)
-
-- if only specific cards OR modified version of note, please export + send
-    - when in doubt, send it regardless ;)
-- provide as much details as you can, including:
-    - anki version
-    - operating system
-    - screenshots, if applicable
-    - how to reproduce the behavior & expected behavior
-- TODO issue.md template would be cool
--->
 
 
