@@ -33,6 +33,13 @@ The following are examples breaking changes:
 -->
 
 
+## [0.10.2.1] - 2022-10-??
+
+#### Fixes
+- Fixed a bug in the Yomichan templates that grabs the last found definition instead of the first
+- Added a hack to ensure that triple-click no longer copies extra text in the texthooker page
+
+
 ## [0.10.2.0] - 2022-10-02
 Final major update before public beta!
 

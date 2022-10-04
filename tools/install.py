@@ -339,14 +339,15 @@ def main(args=None):
                 # must run before the note templates gets updated, in case
                 # the new templates use different fields / is otherwise somehow
                 # incompatable with the previous model (will raise an error after installing)
+                print("Running actions. This may take a while...")
                 action_runner.run()
 
         try:
             if backup:
                 print(f"Backing up {model_name}...")
                 note_updater.backup()
-        except Exception as e:
-            traceback.print_exception(e)
+        except Exception:
+            traceback.print_exc()
             print("Cannot backup note, skipping error...")
 
 

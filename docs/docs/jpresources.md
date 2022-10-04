@@ -524,18 +524,12 @@ Instead of re-telling the steps they have already showed,
 I present alternative and additional ShareX commands for stegatxins0's guide
 (the long command to paste within the `Actions` section).
 
-The following commands have the following advantages / changes:
+The following commands have the following changes:
 
-- They have been all rewritten to work with jp-mining-note by default
-- The source code is readable and presented below the one-liner
+- They have been all rewritten to work with jp-mining-note by default.
+- The source code is presented in human-readable format right below the one-liner.
 - The one-liners can be re-compiled from the source code at your own discretion
-  (by [building the documentation](building.md#building-the-documentation))
-
-<!--
-- TODO document
-- iirc grabs current window picture + deletes after (the only purpose of the f3 keybinds
-    is to execute ankiconnect calls in powershell)
--->
+  (by [building the documentation](building.md#building-the-documentation)).
 
 ---
 
@@ -744,10 +738,13 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
 
     To add the above sentence in the 2nd example while preserving the bolded word,
     do NOT add the word within the sentence.
-    Instead, add the header word itself within the popup dictionary,
-    and then run this script.
+    Instead, do the following:
 
-    TODO screenshot
+    1. Add the header word itself within the popup dictionary
+    2. Copy the desired sentence.
+    3. Run this script.
+
+    {{ img("Add the definition from the popup dictionary", "assets/other/incorrect_bold.png") }}
 
 
 ??? info "How the bolded word is preserved *(click here)*"

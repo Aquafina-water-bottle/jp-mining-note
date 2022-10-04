@@ -102,37 +102,42 @@ for a note will have no effect on the cards.
 
 
 # Custom Runtime Options
-- runtime options can be specified at build-time as well
-- recommend creating your own file (to avoid committing changes to the example runtime options)
+The runtime options file (default: `config/jpmn_opts.jsonc`)
+can be specified at build time.
+It is highly recommended that you create your own runtime options file,
+so you can edit the options at build time.
 
-1. create the user runtime options file (e.g. `user_jpmn_opts.jsonc`)
+Here is how you can create and use a custom runtime options file:
+
+1. Create the local runtime options file (e.g. `user_jpmn_opts.jsonc`)
 
     ```bash
     cd config
     cp jpmn_opts.jsonc user_jpmn_opts.jsonc
     ```
 
-2. under `config.py`:
+2. Change `opts-path` under `config/config.py`:
 
     ```
     "opts-path": "user_jpmn_opts.jsonc",
     ```
 
-3. (optional) have runtime options hard-coded to remove the file dependency
-
-    under `config.py`:
+3. (optional) Make the runtime options hard-coded to remove the file dependency
+    during runtime, by changing the following setting in `config/config.py`:
     ```
-    ...
     "compile-options": {
         "hardcoded-runtime-options": True,
     }
     ```
 
-4. install the note as normal
+4. Build and install the note as normal.
 
     !!! note
 
-        flag `--install-options` should be used when running the installation script (unless hard-coded)
+        If you are not using hard-coded runtime options
+        and you have edited the contents of the local runtime options file,
+        please run the installation script with `--install-options`
+        to replace the existing options file in Anki's media folder.
 
 
 

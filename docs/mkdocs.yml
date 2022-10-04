@@ -72,8 +72,8 @@ nav:
     - Kanji Hover: kanjihover.md
     - Auto Pitch Accent (TODO): autopa.md
   - Developer Documentation:
-    - Building (TODO): building.md
-    - Compile-Time Options (TODO): compileopts.md
+    - Building: building.md
+    - Compile-Time Options: compileopts.md
     - Modding (TODO): modding.md
   - Other:
     - "FAQ & Troubleshooting": faq.md
