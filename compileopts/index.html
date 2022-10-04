@@ -17,7 +17,7 @@
     
     
       
-        <title>Compile-Time Options (TODO) - jp-mining-note</title>
+        <title>Compile-Time Options - jp-mining-note</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Compile-Time Options (TODO)
+              Compile-Time Options
             
           </span>
         </div>
@@ -495,7 +495,7 @@
   
     <li class="md-nav__item">
       <a href="../building/" class="md-nav__link">
-        Building (TODO)
+        Building
       </a>
     </li>
   
@@ -516,12 +516,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Compile-Time Options (TODO)
+          Compile-Time Options
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Compile-Time Options (TODO)
+        Compile-Time Options
       </a>
       
         
@@ -762,7 +762,7 @@
   </a>
 
 
-  <h1>Compile-Time Options (TODO)</h1>
+  <h1>Compile-Time Options</h1>
 
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>After <a href="../building/">building the note</a>,
@@ -845,39 +845,42 @@ for a note will have no effect on the cards.</p>
 See <a href="../modding/#field-editing">here</a> for more details.</p>
 </div>
 <h2 id="custom-runtime-options">Custom Runtime Options<a class="headerlink" href="#custom-runtime-options" title="Permanent link">&para;</a></h2>
-<ul>
-<li>runtime options can be specified at build-time as well</li>
+<p>The runtime options file (default: <code>config/jpmn_opts.jsonc</code>)
+can be specified at build time.
+It is highly recommended that you create your own runtime options file,
+so you can edit the options at build time.</p>
+<p>Here is how you can create and use a custom runtime options file:</p>
+<ol>
 <li>
-<p>recommend creating your own file (to avoid committing changes to the example runtime options)</p>
-</li>
-<li>
-<p>create the user runtime options file (e.g. <code>user_jpmn_opts.jsonc</code>)</p>
+<p>Create the local runtime options file (e.g. <code>user_jpmn_opts.jsonc</code>)</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span> config
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>cp jpmn_opts.jsonc user_jpmn_opts.jsonc
 </code></pre></div>
 </li>
 <li>
-<p>under <code>config.py</code>:</p>
+<p>Change <code>opts-path</code> under <code>config/config.py</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;opts-path&quot;: &quot;user_jpmn_opts.jsonc&quot;,
 </code></pre></div>
 </li>
 <li>
-<p>(optional) have runtime options hard-coded to remove the file dependency</p>
-<p>under <code>config.py</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>...
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>&quot;compile-options&quot;: {
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    &quot;hardcoded-runtime-options&quot;: True,
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>}
+<p>(optional) Make the runtime options hard-coded to remove the file dependency
+    during runtime, by changing the following setting in <code>config/config.py</code>:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&quot;compile-options&quot;: {
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    &quot;hardcoded-runtime-options&quot;: True,
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>}
 </code></pre></div></p>
 </li>
 <li>
-<p>install the note as normal</p>
+<p>Build and install the note as normal.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>flag <code>--install-options</code> should be used when running the installation script (unless hard-coded)</p>
+<p>If you are not using hard-coded runtime options
+and you have edited the contents of the local runtime options file,
+please run the installation script with <code>--install-options</code>
+to replace the existing options file in Anki's media folder.</p>
 </div>
 </li>
-</ul>
+</ol>
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>Although compile-time options are useful for various simple tasks,
 they may not give you everything you want.

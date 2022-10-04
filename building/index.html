@@ -17,7 +17,7 @@
     
     
       
-        <title>Building (TODO) - jp-mining-note</title>
+        <title>Building - jp-mining-note</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Building (TODO)
+              Building
             
           </span>
         </div>
@@ -502,12 +502,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Building (TODO)
+          Building
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Building (TODO)
+        Building
       </a>
       
         
@@ -608,7 +608,7 @@
   
     <li class="md-nav__item">
       <a href="../compileopts/" class="md-nav__link">
-        Compile-Time Options (TODO)
+        Compile-Time Options
       </a>
     </li>
   
@@ -818,7 +818,7 @@
   </a>
 
 
-  <h1>Building (TODO)</h1>
+  <h1>Building</h1>
 
 <!--
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>templates
@@ -947,31 +947,43 @@ pip3 install neovim anki aqt
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>python3 install.py --from-build --update
 </code></pre></div></p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are attempting to (build and) install the bleeding edge version of the note
+on an Anki profile that does NOT already have the note installed,
+you have to run the installation script twice.
+For example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python3 main.py
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3 install.py --from-build --update
+</code></pre></div>
+</div>
 <p>Additional things you can do with the project are shown below.</p>
 <h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span> tools
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3 -m pytest ./tests
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span> tools
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>python3 -m pytest ./tests
 </code></pre></div>
 <h3 id="building-the-documentation">Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permanent link">&para;</a></h3>
 <p>To "build" the documentation, all you have to do is the following:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span> docs
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>mkdocs serve
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span> docs
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># you should now be in (root)/docs, where the mkdocs.yml is.</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>mkdocs serve
 </code></pre></div></p>
-<p>This will allow you to preview at this website:
-http://127.0.0.1:8000/jp-mining-note/</p>
+<p>This will allow you to preview the website (usually at <code>http://127.0.0.1:8000/jp-mining-note/</code>).</p>
 <p>If you are looking to edit the documentation, all related files should be found
 under this <code>docs</code> folder.
-The main markdown files are found under:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>(root)
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  L docs
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>     L docs
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        L index.md # the home page
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        L preface.md
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        L setup.md
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        L ...
+The important markdown files are found under:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>(root)
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  L docs
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>     L docs
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        L index.md # the home page
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        L preface.md
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        L setup.md
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        L ...
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>     L mkdocs.yml
 </code></pre></div></p>
 <h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
-<p>TODO fill out as people start working with this note</p>
+<p>(TODO) Fill this out as people start working with this note</p>
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>After your first successful build, you can now use compile-time options!
 See <a href="../compileopts/">this page</a> for more info.</p>

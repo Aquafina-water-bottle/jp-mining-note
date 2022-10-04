@@ -600,7 +600,7 @@
   
     <li class="md-nav__item">
       <a href="../building/" class="md-nav__link">
-        Building (TODO)
+        Building
       </a>
     </li>
   
@@ -614,7 +614,7 @@
   
     <li class="md-nav__item">
       <a href="../compileopts/" class="md-nav__link">
-        Compile-Time Options (TODO)
+        Compile-Time Options
       </a>
     </li>
   
@@ -846,6 +846,21 @@ This will change the note in place, and gives you various options on how
 the note will be changed.
 Lastly, it will give you warnings on anything you have to change manually,
 such as Yomichan Templates.</p>
+<details class="question">
+<summary>Why can't I just copy/paste the templates, or just re-install the .apkg file to update the note?</summary>
+<p>It's not uncommon for updates to contain many changes outside of just the templates
+alone. For example, required Yomichan settings, add-on config changes,
+or sometimes even the data within the note fields must be changed.
+Additionally, the field list is changed somewhat frequently.</p>
+<p>Although settings outside of Anki cannot be changed automatically,
+almost all settings within Anki are automatically updated
+with the python script.
+Additionally, the python script will give you plenty of instructions on
+exactly how to update any Yomichan setting or add-on config change.</p>
+<p>Finally, installing the .apkg file when the field list is in any way different
+will actually create a new version of the note
+instead of replacing the old note, which may prove to be an even bigger hassle.</p>
+</details>
 <!-- It's updated now!!! (writing as of 2022/09/25) -->
 
 <!--
@@ -906,7 +921,9 @@ To do this, head over to:</p>
 <blockquote>
 <p>(Main Window) →  <code>Tools</code> →  <code>Manage Note Types</code>.</p>
 </blockquote>
-<p>If your note is named differently, please rename it to <code>JP Mining Note</code>.</p>
+<p>If your note is named differently, please rename it to <code>JP Mining Note</code>.
+If you have two different versions (for example: <code>JP Mining Note</code> and <code>JP Mining Note-f263ae</code>),
+then </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can always change the name back after updating.</p>
@@ -1146,7 +1163,7 @@ If you want to update this file, see the repository's
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 3, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 4, 2022</span>
       
     
   </small>
