@@ -174,15 +174,17 @@ python3 -m pytest ./tests
 To "build" the documentation, all you have to do is the following:
 ```bash
 cd docs
+
+# you should now be in (root)/docs, where the mkdocs.yml is.
 mkdocs serve
 ```
 
-This will allow you to preview at this website:
-http://127.0.0.1:8000/jp-mining-note/
+This will allow you to preview the website (usually at `http://127.0.0.1:8000/jp-mining-note/`).
+
 
 If you are looking to edit the documentation, all related files should be found
 under this `docs` folder.
-The main markdown files are found under:
+The important markdown files are found under:
 ```
 (root)
   L docs
@@ -191,6 +193,7 @@ The main markdown files are found under:
         L preface.md
         L setup.md
         L ...
+     L mkdocs.yml
 ```
 
 
