@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/modding/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.1">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.2e8b5541.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
@@ -594,13 +594,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-to-overrides" class="md-nav__link">
-    How-To (Overrides)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#example-add-external-links" class="md-nav__link">
     Example (Add external links)
   </a>
@@ -628,8 +621,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-to-modules" class="md-nav__link">
-    How-To (Modules)
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-disabling-modules" class="md-nav__link">
+    Enabling &amp; Disabling Modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modding-existing-modules" class="md-nav__link">
+    Modding Existing Modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-more-modules" class="md-nav__link">
+    Creating More Modules
   </a>
   
 </li>
@@ -653,13 +667,6 @@
   
     <nav class="md-nav" aria-label="Custom CSS">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-to-custom-css" class="md-nav__link">
-    How-To (Custom CSS)
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#example-zoom" class="md-nav__link">
@@ -894,13 +901,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-to-overrides" class="md-nav__link">
-    How-To (Overrides)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#example-add-external-links" class="md-nav__link">
     Example (Add external links)
   </a>
@@ -928,8 +928,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-to-modules" class="md-nav__link">
-    How-To (Modules)
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-disabling-modules" class="md-nav__link">
+    Enabling &amp; Disabling Modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modding-existing-modules" class="md-nav__link">
+    Modding Existing Modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-more-modules" class="md-nav__link">
+    Creating More Modules
   </a>
   
 </li>
@@ -953,13 +974,6 @@
   
     <nav class="md-nav" aria-label="Custom CSS">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-to-custom-css" class="md-nav__link">
-    How-To (Custom CSS)
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#example-zoom" class="md-nav__link">
@@ -1095,8 +1109,25 @@ and don't want to take advantages of certain tools that comes with this note
 (such as compile-time options),
 then you can simply edit the template and ignore the rest of this page.</p>
 <h3 id="modding-overview">Modding Overview<a class="headerlink" href="#modding-overview" title="Permanent link">&para;</a></h3>
-<p>To ensure that your changes aren't lost, new files</p>
-<p>TODO is this even necessary?</p>
+<p>To ensure that your changes aren't lost, the recommended way to make changes
+to the existing templates is to add new files, rather than editing existing ones.
+This allows you to continuously update with the note, while having your
+custom files stay in place.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There is no guaranteed backwards compatability for anything mentioned here
+(especially while the note is still in beta).
+Although you won't lose your changes upon update,
+your changes might also not work on the next update.
+For example, if the file that you are overriding gets renamed, you will have to rename the file
+to match the newly renamed file.</p>
+<p>I will try my best to keep things backwards compatable,
+but given the current state of the note (particularily the CSS),
+it might not be possible to do most of the time.
+When this note comes out of beta, backward-incompatable changes should be
+harshly reduced.</p>
+</div>
+<hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>You must be able to successfully build the template
 in order to start modding the note.
@@ -1104,30 +1135,25 @@ See the <a href="../building/">build page</a> for more details.</p>
 <p>Additionally, it is recommended that you go through the
 <a href="../compileopts/">compile-time options</a> section in the build page after your first successful build,
 as it may contain what you are looking for.</p>
-<!--
-## Extra Javascript & CSS
-- primarily for testing, not for production use
-- appends whatever javascript you want to the very end of the anonymous function
--->
-
+<hr />
 <h2 id="custom-templates-overrides">Custom Templates: Overrides<a class="headerlink" href="#custom-templates-overrides" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>overrides</code> folder (or whatever folder you specify under <code>templates-override-folder</code> in config.py)</li>
-<li>same format as existing <code>src</code> folder</li>
-<li>primarily to override html</li>
-<li>see the <a href="./#custom-js-modules">modules</a> section on the recommended way to add custom javascript</li>
-</ul>
+<p>An easy way to override and extend parts of the card templates is by using an
+<code>overrides</code> folder.
+This folder (specified under <code>config.py</code> under the <code>templates-override-folder</code> option)
+allows you to override any file under the <code>src</code> folder (outside of <code>scss</code> files).</p>
+<p>Primarily, this allows you to override sections of template code found under
+<code>src/jp-mining-note</code>, such as <code>src/jp-mining-note/partials/hint.html</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<ul>
-<li>no guaranteed backwards compatability (especially while the note is still in beta)</li>
-<li>although you won't lose your changes upon update, your changes might also not work on the next update</li>
-<li>example: if the layout of the file changes at all, i.e. a css class gets renamed,
-    and you are still using the old class name after the update, it may not behave as expected</li>
-</ul>
+<p>Overrides are primarily for extending the HTML aspect of the templates.</p>
+<p>If you are instead looking to modify javascript, see
+<a href="./#custom-js-modules">here</a>.
+Likewise, for CSS modifications, see
+<a href="./#custom-css">here</a>.</p>
 </div>
-<h3 id="how-to-overrides">How-To (Overrides)<a class="headerlink" href="#how-to-overrides" title="Permanent link">&para;</a></h3>
-<p>TODO</p>
+<p>The structure of the <code>overrides</code> folder must match the structure in the <code>src</code> folder.
+For example, if you want to override the hint file (<code>src/jp-mining-note/partials/hint.html</code>),
+the new file must be created under <code>overrides/jp-mining-note/partials/hint.html</code></p>
 <h3 id="example-add-external-links">Example (Add external links)<a class="headerlink" href="#example-add-external-links" title="Permanent link">&para;</a></h3>
 <p>Let's say we want to rewrite the <code>Extra Info</code> section to have external links that search
 for the tested word.</p>
@@ -1150,7 +1176,7 @@ for the tested word.</p>
     Additionally, at the very bottom, a link to Jisho and Yourei is provided.</p>
 <p>Copy and paste the code below to your newly created file
 (<code>overrides/jp-mining-note/partials/extra_info.html</code>).</p>
-<details class="quote">
+<details class="examplecode">
 <summary>Extra Info with External Links</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">details</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;glossary-details glossary-details--small&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;extra_info_details&quot;</span><span class="p">&gt;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">summary</span><span class="p">&gt;</span>Extra Info<span class="p">&lt;/</span><span class="nt">summary</span><span class="p">&gt;</span>
@@ -1184,71 +1210,127 @@ for the tested word.</p>
     at the bottom.</p>
 </li>
 </ol>
+<hr />
 <h2 id="custom-js-modules">Custom JS: Modules<a class="headerlink" href="#custom-js-modules" title="Permanent link">&para;</a></h2>
-<ul>
-<li>TODO basic explanation</li>
-<li>primary use is for javascript (and currently only used for javascript)</li>
-<li>javascript-only modules do not require any edits to the raw html</li>
-<li>some modules may still have to edit the raw html -&gt; cannot update the note<ul>
-<li>recommend using template overrides</li>
-</ul>
-</li>
-<li>uses runtime options</li>
-</ul>
+<p>Modules (not to be confused with regular
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">javascript modules</a>)
+is a hybrid template/javascript system that allows code separation
+at the file level, but allows the javascript to be compiled into each template,
+rather than separate files.</p>
+<p>The biggest advantage of this over a monolithic system is that individual modules
+can be enabled, disabled, created, and modified at ease,
+all without editing the source files.</p>
 <h3 id="example-hello-world">Example (Hello World)<a class="headerlink" href="#example-hello-world" title="Permanent link">&para;</a></h3>
-<p>It would be easiest to show an example first, before diving into the how-to.</p>
 <p>The following will enable a the hello world module,
 which prints a "Hello world!" at the front of any card
 (as a warning on the <a href="../usage/#info-circle">info circle</a>).</p>
-<p><code>config.py</code>:
+<ol>
+<li>
+<p>Under <code>config/config.py</code>, add <code>"example"</code> to <code>enabled-modules</code>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;compile-options&quot;: {
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    &quot;allow-user-defined-modules&quot;: True,
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    &quot;enabled-modules&quot;: [
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        ...
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        &quot;customize-open-fields&quot;,  # Make sure a comma is here!
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        &quot;example&quot;
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    ]
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>},
+</code></pre></div>
+</li>
+<li>
+<p>Under <code>config/jpmn_opts.jsonc</code> (or more preferably, your own options file specified
+    under <code>opts-path</code> in <code>config.py</code>),
+    add the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;modules&quot;: {
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;customize-open-fields&quot;: {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    ...
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  },  // Make sure there is a comma here!
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  &quot;example&quot;: {
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    &quot;enabled&quot;: true
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  }
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>}
+</code></pre></div>
+</li>
+<li>
+<p>Rebuild the note, and preview any card.
+    The front side of any card should have a "Hello world!" warning,
+    while the back side should remain normal.</p>
+</li>
+</ol>
+<h3 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h3>
+<p>If you want to get to inserting your own javascript
+as soon as possible, do the following:</p>
+<ol>
+<li>Follow the steps of the example above, and make sure the example module is working.</li>
+<li>
+<p>Copy the <code>example</code> module into <code>overrides/modules</code>.</p>
+<p>This should result in the following file structure:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>overrides
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a> L modules
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    L example
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>       L main.html
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>       L main.js
 </code></pre></div></p>
-<p>runtime options file (<code>jpmn_opts.jsonc</code>):
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>...
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>&quot;modules&quot;: {
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  ...
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  &quot;example&quot;: {
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    &quot;enabled&quot;: true
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  }
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>}
-</code></pre></div></p>
-<h3 id="how-to-modules">How-To (Modules)<a class="headerlink" href="#how-to-modules" title="Permanent link">&para;</a></h3>
+</li>
+</ol>
+<p>From here, all you have to do is edit the <code>main.js</code> and <code>main.html</code> to your liking.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>js</code> module is of type <code>JavascriptContainer</code>, which is defined under
+<code>tools/make.py</code>.
+This interface allows you to define javascript within certain parts of a card,
+and restrict it to a certain subset of templates (sides and card types).
+Please see <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/tools/make.py">the aformentioned file</a>
+to view the existing interface.
+Likewise, see the <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/src/jp-mining-note/base.js">base javascript file</a>
+(<code>src/jp-mining-note/base.js</code>)
+to view how the interface is used.</p>
+</div>
+<p>If you want more detailed explanations on what has been happening up
+until this point, continue reading below.</p>
+<h3 id="enabling-disabling-modules">Enabling &amp; Disabling Modules<a class="headerlink" href="#enabling-disabling-modules" title="Permanent link">&para;</a></h3>
+<p>Modules can be easily enabled and disabled
+by modifying the <code>enabled-modules</code> option under <code>config/config.py</code>.
+Comment out any existing module, or add any modules you want to the list.</p>
+<p>Additionally, if you are using modules outside the default modules that come
+enabled with the note (including the <code>example</code> module),
+the <code>allow-user-defined-modules</code> option should be set to <code>True</code>.</p>
+<h3 id="modding-existing-modules">Modding Existing Modules<a class="headerlink" href="#modding-existing-modules" title="Permanent link">&para;</a></h3>
+<p>Modules can be defined in the same style as the
+<a href="./#custom-templates-overrides">template overrides</a> above.
+This means that if you want to edit a module, you can simply
+override the module files themselves by copying the module folder into
+<code>overrides/modules</code> folder.</p>
+<p>For example, if you want to override the <code>auto-pitch-accent</code> module,
+copy the <code>auto-pitch-accent</code> folder into <code>overrides/module/auto-pitch-accent</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the quickstart, we did exactly this with the <code>example</code> module.
+Since the example module is completely overwritten by the user,
+the previous example module code is completely ignored.</p>
+</div>
+<h3 id="creating-more-modules">Creating More Modules<a class="headerlink" href="#creating-more-modules" title="Permanent link">&para;</a></h3>
+<p>The easiest way to create a new module is by copying the <code>example</code> folder,
+and renaming it to something different.
+This folder should be placed under <code>overrides/modules</code> under most cases.
+However, if you are looking to contribute to the project,
+place this under <code>src/modules</code> instead.</p>
+<p>Certain parts of the code should be renamed as well to avoid conflicts with the existing
+<code>example</code> module, including the <code>MOD.id</code>, import path, <code>JPMNLogger</code> constructor,
+and runtime option call (<code>utils.opt</code>).</p>
+<p>Of course, make sure all the renames are consistent.
+For example, all of the following should be the same:</p>
 <ul>
-<li>modules can be defined in the same style as the template overrides above<ul>
-<li>module files can even be completely overwritten if you define the same file</li>
+<li><code>MOD.id</code></li>
+<li>module folder name</li>
+<li><code>JPMNLogger</code> constructor argument</li>
 </ul>
-</li>
-<li>
-<p>define modules in the overrides folder</p>
-</li>
-<li>
-<p>quickstart: copy the <code>example</code> module into <code>overrides/modules</code></p>
-<ul>
-<li>result should have the two files:<ul>
-<li><code>overrides/modules/example/main.html</code></li>
-<li><code>overrides/modules/example/main.js</code></li>
-</ul>
-</li>
-<li>all you have to do now is edit the <code>main.js</code> and <code>main.html</code> files to your liking</li>
-<li>these files will overwrite the previous example</li>
-</ul>
-</li>
-<li>
-<p>when renaming:</p>
-<ul>
-<li>do your best to keep the naming consistent with everything else</li>
-<li>make sure you enable them in the config and runtime options</li>
-</ul>
-</li>
-</ul>
+<p>Afterwards, make sure to add the module id to <code>enabled-modules</code>, and
+ensure that <code>allow-user-defined-modules</code> is set to <code>True</code>.</p>
+<p>If everything is done correctly,
+the note should include your custom module after the next build!</p>
 <h3 id="why-not-just-separate-the-code-with-files">Why not just separate the code with files?<a class="headerlink" href="#why-not-just-separate-the-code-with-files" title="Permanent link">&para;</a></h3>
 <p><strong>Short answer</strong>: <br>
 In an attempt to keep the card as stable as possible between versions.</p>
@@ -1257,12 +1339,12 @@ Anki specifically states this in its
 <a href="https://docs.ankiweb.net/templates/styling.html?highlight=javascript#javascript">official documentation</a>:</p>
 <div class="admonition quote">
 <p class="admonition-title">Quote</p>
-<p>Javascript functionality is provided without any support or warranty</p>
+<p>Javascript functionality is provided without any support or warranty.</p>
 </div>
 <p>Many javascript-related things seem to behave strangely in Anki, which prevents the ability
 to separate files easily.
 Here have been the solutions I have tried before moving to this approach:</p>
-<details class="quote">
+<details class="example">
 <summary>Link an external script with the <code>&lt;script&gt;</code> tag</summary>
 <p>There are two main problems with this approach:</p>
 <ol>
@@ -1282,123 +1364,147 @@ leads us to the examples shown in the following section.</p>
 </li>
 </ol>
 </details>
-<details class="quote">
+<details class="example">
 <summary>Regular imports within Javascript</summary>
 <p>All other examples of importing without a separate <code>&lt;script src="..."&gt;</code>
 requires asynchronous javascript features, which should be
 <a href="./#avoid-asynchronous-javascript-features-in-anki">avoided</a>
 as much as possible.</p>
 <p>Examples:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="c1">// https://forums.ankiweb.net/t/linking-to-external-javascript/1713</span><span class="w"></span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">injectScript</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// a Promise is an asynchronous feature!</span><span class="w"></span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">src</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="k">async</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">resolve</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reject</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="p">});</span><span class="w"></span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span><span class="c1">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import</span><span class="w"></span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="c1">// this import function is an asynchronous function!</span><span class="w"></span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">  </span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">&quot;/modules/my-module.js&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">  </span><span class="p">})();</span><span class="w"></span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="cm">&lt;!-- type=&quot;module&quot; forces this entire script to run asynchronously! --&gt;</span>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">  </span><span class="c1">// for the `import` statement to work, the script must be of type=&quot;module&quot;</span><span class="w"></span>
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">  </span><span class="c1">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import</span><span class="w"></span>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">  </span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">export1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;module-name&quot;</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>
-<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="c1">// https://forums.ankiweb.net/t/linking-to-external-javascript/1713</span><span class="w"></span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">injectScript</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// a Promise is an asynchronous feature!</span><span class="w"></span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">src</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="k">async</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">resolve</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reject</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span><span class="p">});</span><span class="w"></span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span><span class="c1">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import</span><span class="w"></span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">  </span><span class="c1">// this import function is an asynchronous function!</span><span class="w"></span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">&quot;/modules/my-module.js&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">  </span><span class="p">})();</span><span class="w"></span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="cm">&lt;!-- type=&quot;module&quot; forces this entire script to run asynchronously! --&gt;</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">  </span><span class="c1">// for the `import` statement to work, the script must be of type=&quot;module&quot;</span><span class="w"></span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">  </span><span class="c1">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import</span><span class="w"></span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">  </span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">export1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;module-name&quot;</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </code></pre></div>
 </details>
 <p>In conclusion, this is a design decision made after lots of trial and error when attempting
 to work with Anki's Javascript parser.</p>
 <p>I believe this is the best way to ensure that the note stays resilient across Anki updates,
 as the javascript itself has very few hacks to get it to behave well.</p>
+<hr />
 <h2 id="custom-css">Custom CSS<a class="headerlink" href="#custom-css" title="Permanent link">&para;</a></h2>
-<ul>
-<li>allows for custom themes / complete user customization</li>
-<li>can override variables, etc.</li>
-<li>simply appends the css at the very end of the existing css</li>
-</ul>
-<h3 id="how-to-custom-css">How-To (Custom CSS)<a class="headerlink" href="#how-to-custom-css" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p>make new folder under <code>src/scss</code> (e.g. <code>extra</code>) and add to <code>css-folders</code> in config.py, e.g.
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;css-folders&quot;: [&quot;base&quot;, &quot;dictionaries&quot;, &quot;extra&quot;],
-</code></pre></div></p>
-</li>
-<li>
-<p>folder should be of the format:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>src
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a> L scss
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    L base
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>       L ...
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    L dictionaries
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>       L ...
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    L extra
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>       L field.scss
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>       L editor.scss
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>       L style.scss
-</code></pre></div></p>
-<ul>
-<li>all files are optional: only create and use the ones you need</li>
-</ul>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Unlike everything else here, custom CSS cannot be defined in the <code>overrides</code> folder.
-I will be working on a way to define it in the <code>overrides</code> folder in the future.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Since this note is still in beta, the CSS in particular is subject to heavy change.
+This is because when mobile support is being worked on,
+the CSS will likely heavily change to support mobile.</p>
+<p>If you are planning on changing the CSS,
+be vigilant with potential changes in future updates!</p>
 </div>
+<p>If you want to extend the CSS, do the following:</p>
+<ol>
+<li>
+<p>Make a new folder under <code>src/scss</code> (for example, <code>extra</code>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Yes, this is the SCSS, not CSS. However, SCSS is almost a complete superset of CSS.
+<p>Unlike everything else here, custom CSS cannot be defined in the <code>overrides</code> folder,
+due to a complication in the current build system.
+I will be working on a way to define this in the <code>overrides</code> folder in the future.</p>
+</div>
+</li>
+<li>
+<p>Add the folder to the end of <code>css-folders</code> in <code>config.py</code>.
+    This should result in the following:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;css-folders&quot;: [&quot;base&quot;, &quot;dictionaries&quot;, &quot;extra&quot;],
+</code></pre></div></p>
+</li>
+<li>
+<p>Under the <code>extra</code> folder, use the following files to override the correct css:</p>
+<ul>
+<li><code>style.scss</code>: The main css for the card templates.</li>
+<li><code>field.scss</code>: The css used by <a href="../setup/#css-injector">CSS injector</a>
+    to customize individual fields.</li>
+<li><code>editor.scss</code>: The css used by CSS injector to customize the editor around the fields.</li>
+</ul>
+<p>All of the files are optional. This means you do not need to create all three files
+for the folder to be valid.</p>
+</li>
+</ol>
+<p>The resulting folder should be of the format:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>src
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a> L scss
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    L base
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>       L ...
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    L dictionaries
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>       L ...
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    L extra
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>       L field.scss
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>       L editor.scss
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>       L style.scss
+</code></pre></div></p>
+<!--
+Many existing variables already exist (see `templates/scss/base/common.scss`),
+and can be overwritten easily.
+
+For example, any variable within the `style.scss` file can be replaced by putting
+the following under `extra/style.scss`:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>:root {
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    --variable: 5px;
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>}
+</code></pre></div>
+-->
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You might have noticed that this is the SCSS, not CSS.
+However, SCSS is complete superset of CSS
+(with some small exceptions).
 In other words, if you don't know any SCSS, you can write normal CSS
 and have it behave completely the same.</p>
 </div>
-<ul>
-<li>many existing variables can be overwritten (see <code>templates/scss/base/common.scss</code>)</li>
-</ul>
 <h3 id="example-zoom">Example (Zoom)<a class="headerlink" href="#example-zoom" title="Permanent link">&para;</a></h3>
-<p>Let's say we want to increase the size of the card, without affecting any of Anki's GUI.</p>
+<p>Let's say we want to increase (or decrease) the size of the card,
+without affecting any of Anki's GUI.</p>
 <ol>
 <li>
-<p>Create a folder called <code>extra</code>, like above.</p>
+<p>Create a folder called <code>extra</code>, like above,
+    and include the folder under <code>css-folders</code> like above</p>
 </li>
 <li>
 <p>Create a <code>style.scss</code> file under <code>extra</code>.</p>
 </li>
 <li>
-<p>Add the following code to the <code>field.scss</code> file:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>:root {
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  /* Times 1.1 of the original size.
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>   * If you want to make the note smaller, use a value like 0.9.
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>   */
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  --zoom: 1.1;
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>}
+<p>Add the following code to the <code>style.scss</code> file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>:root {
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  /* Times 1.1 of the original size.
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>   * If you want to make the note smaller, use a value below 1, like 0.9.
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>   */
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  --zoom: 1.1;
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>}
 </code></pre></div>
-</li>
-<li>
-<p>Under <code>config.py</code>, set the <code>css-folders</code> option:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&quot;css-folders&quot;: [&quot;base&quot;, &quot;dictionaries&quot;, &quot;extra&quot;],
-</code></pre></div></p>
 </li>
 <li>
 <p>Rebuild and reinstall the template.</p>
 </li>
 </ol>
+<hr />
 <h2 id="field-editing">Field Editing<a class="headerlink" href="#field-editing" title="Permanent link">&para;</a></h2>
 <p>This section describes import PSAs on what you should you if you want to
 edit the fields of the note (i.e. adding, removing, renaming, and moving).</p>
@@ -1463,56 +1569,57 @@ in the <code>Fields</code> (list) menu, found under (Main window) →  <code>Bro
 - only care about this if you plan on contributing your feature btw
 -->
 
+<hr />
 <h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h2>
 <h3 id="javascript-print-statements">Javascript print statements<a class="headerlink" href="#javascript-print-statements" title="Permanent link">&para;</a></h3>
 <p>Anki doesn't come with a way to use <code>console.log()</code> normally, so I made one myself.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// global logger</span><span class="w"></span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1">// module-specific logger</span><span class="w"></span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">JPMNLogger</span><span class="p">(</span><span class="s2">&quot;module-name&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// global logger</span><span class="w"></span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1">// module-specific logger</span><span class="w"></span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">JPMNLogger</span><span class="p">(</span><span class="s2">&quot;module-name&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <p>The above functions prints a message of the given log level to the info circle.
 To see the message, hover over the info circle.</p>
 <p>To use the <code>debug</code> function, make sure that the <code>debug</code> option is set to <code>true</code>
 in the javascript options.</p>
 <h3 id="avoid-asynchronous-javascript-features-in-anki">Avoid asynchronous javascript features in Anki<a class="headerlink" href="#avoid-asynchronous-javascript-features-in-anki" title="Permanent link">&para;</a></h3>
-<details class="quote">
+<details class="examplecode">
 <summary>Example Asynchronous Javascript</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="c1">// Example 1: normal asynchronous functions</span><span class="w"></span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runMeAsynchronously</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="c1">// Example 2: promises</span><span class="w"></span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">giveMeAPromise</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">      </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">        </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;Success!&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="p">});</span><span class="w"></span>
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">  </span><span class="nx">giveMeAPromise</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;The promise is complete!&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">unique</span><span class="o">=</span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">  </span><span class="p">});</span><span class="w"></span>
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>
-<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>
-<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="cm">&lt;!-- Example 3: anything wrapped in type=&quot;module&quot; --&gt;</span>
-<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
-<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">  </span><span class="c1">// everything here is run asynchronously</span><span class="w"></span>
-<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="c1">// Example 1: normal asynchronous functions</span><span class="w"></span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runMeAsynchronously</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="c1">// Example 2: promises</span><span class="w"></span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">giveMeAPromise</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">      </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">        </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;Success!&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">    </span><span class="p">});</span><span class="w"></span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">  </span><span class="nx">giveMeAPromise</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">    </span><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;The promise is complete!&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">unique</span><span class="o">=</span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">  </span><span class="p">});</span><span class="w"></span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="cm">&lt;!-- Example 3: anything wrapped in type=&quot;module&quot; --&gt;</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">  </span><span class="c1">// everything here is run asynchronously</span><span class="w"></span>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </code></pre></div>
 </details>
 <p>TODO reason:</p>
@@ -1538,13 +1645,13 @@ in the javascript options.</p>
 <p>avoiding asynchronous features makes things more predictable within anki</p>
 </li>
 </ul>
-<details class="quote">
+<details class="examplecode">
 <summary>Example (safer) asynchronous javascript</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">let</span><span class="w"> </span><span class="nx">ele</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;example&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runMeAsynchronously</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nx">ele</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;this should only appear once!&quot;</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">let</span><span class="w"> </span><span class="nx">ele</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;example&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runMeAsynchronously</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nx">ele</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;this should only appear once!&quot;</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </details>
 <h3 id="make-your-changes-shown">Make your changes shown!<a class="headerlink" href="#make-your-changes-shown" title="Permanent link">&para;</a></h3>
@@ -1576,8 +1683,8 @@ I highly recommend contributing your work to this project!</p>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Build for release, if you want to contribute to the project</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python3 ./make.py --release
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Build for release, if you want to contribute to the project</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>python3 ./make.py --release
 </code></pre></div>
 <!--
 # Making an Issue
@@ -1600,7 +1707,7 @@ TODO
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 2, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 4, 2022</span>
       
     
   </small>
@@ -1625,10 +1732,10 @@ TODO
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d691e9de.min.js"></script>
+      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
       
     
   </body>

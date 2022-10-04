@@ -71,7 +71,6 @@
 }
 
 
-
 .pa-heiban {
   color: var(--text-heiban);
 }
@@ -92,9 +91,11 @@
 /* taken from scss: https://github.com/squidfunk/mkdocs-material/blob/master/src/assets/stylesheets/main/extensions/markdown/_admonition.scss */
 /* colors taken from the rendering provided by dark-reader */
 
+/* Info / TODO */
 /* Admonition flavor */
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.info, .todo) {
-  border-color: rgb(0, 166, 191);
+  /*border-color: rgb(0, 166, 191);*/
+  border-color: #218da3;
 }
 
 /* Admonition flavor title */
@@ -110,6 +111,7 @@
 
 
 
+/* Note */
 /* Admonition flavor */
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.note) {
   border-color: rgb(0, 59, 158);
@@ -127,20 +129,71 @@
 
 
 
-
+/* Quote / Example (light mode) */
 /* Admonition flavor */
-[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.quote, .cite) {
+.md-typeset :is(.admonition, details):is(.example, .examplecode) {
+  border-color: #9e9e9e;
+}
+
+/* Admonition flavor title */
+.md-typeset :is(.example, .examplecode) > :is(.admonition-title, summary) {
+  background-color: hsla(0,0%,62%,.1);
+}
+
+/* Admonition icon */
+.md-typeset :is(.example, .examplecode) > :is(.admonition-title, summary)::before,
+.md-typeset :is(.example, .examplecode) > :is(.admonition-title, summary)::after {
+  background-color: #9e9e9e;
+}
+
+
+
+/* Quote / Example */
+/* Admonition flavor */
+[data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.quote, .cite, .example, .examplecode) {
   border-color: rgb(75, 82, 85);
 }
 
 /* Admonition flavor title */
-[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite) > :is(.admonition-title, summary) {
+[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite, .example, .examplecode) > :is(.admonition-title, summary) {
+  background-color: hsla(0,0%,62%,.1);
   /*background-color: rgba(79, 85, 89, 0.1);*/
 }
 
 /* Admonition icon */
-[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite) > :is(.admonition-title, summary)::before {
+[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite, .example, .examplecode) > :is(.admonition-title, summary)::before {
  /* background-color: rgb(171, 163, 152);*/
  /* background-color: #b8b8b8;*/
   background-color: #c0b7ab;
 }
+[data-md-color-scheme="slate"] .md-typeset :is(.quote, .cite, .example, .examplecode) > :is(.admonition-title, summary)::after {
+  background-color: #c0b7ab;
+}
+
+.md-typeset .examplecode > summary::before {
+  -webkit-mask-image: var(--md-admonition-icon--examplecode);
+          mask-image: var(--md-admonition-icon--examplecode);
+}
+
+
+
+
+
+
+
+
+
+
+/* material/format-list-numbered.svg */
+:root {
+  --md-admonition-icon--example: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 13v-2h14v2H7m0 6v-2h14v2H7M7 7V5h14v2H7M3 8V5H2V4h2v4H3m-1 9v-1h3v4H2v-1h2v-.5H3v-1h1V17H2m2.25-7a.75.75 0 0 1 .75.75c0 .2-.08.39-.21.52L3.12 13H5v1H2v-.92L4 11H2v-1h2.25Z"/></svg>');
+
+/* fontawesome/code.svg */
+  --md-admonition-icon--examplecode: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3l89.3 89.4-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>');
+
+
+/* material/pencil.svg */
+  --md-admonition-icon--note: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>');
+}
+
+

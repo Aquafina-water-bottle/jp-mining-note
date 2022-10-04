@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/building/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.1">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.2e8b5541.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
@@ -863,6 +863,8 @@ Notes for other operating systems may be shown, but are not guaranteed.</p>
 <li>Anki-Connect addon</li>
 </ul>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
+<p>The following creates a custom python environment with <code>venv</code>,
+so that packages aren't installed into your global python environment.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span> jp-mining-note
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># alternatively, if you already have the repository on your system:</span>
@@ -878,10 +880,14 @@ Notes for other operating systems may be shown, but are not guaranteed.</p>
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>pip3 install -r tools/requirements.txt
 </code></pre></div>
-<p>Disabling the venv:
+<p>Some additional options with <code>venv</code> are shown below.</p>
+<details class="examplecode">
+<summary>Disabling the venv</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>deactivate
-</code></pre></div></p>
-<p>Resetting the venv:
+</code></pre></div>
+</details>
+<details class="examplecode">
+<summary>Resetting the venv</summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># run this only if you&#39;re already in a venv</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>deactivate
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
@@ -889,79 +895,83 @@ Notes for other operating systems may be shown, but are not guaranteed.</p>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python3 -m venv .
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nb">source</span> ./bin/activate
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>pip3 install -r tools/requirements.txt
-</code></pre></div></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code>master</code> branch is the bleeding edge version of the note.
-If you want to build a more stable version of the note, do the following:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git fetch
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git checkout tags/TAG_NAME
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># or if you want to create a new branch as well:</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>git checkout tags/TAG_NAME -b BRANCH_NAME
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># to return back to the master branch, after you&#39;re done building:</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>git checkout master
-</code></pre></div></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It is highly recommended that you use venv, or something else that isolates
-the python environment.
-However, in case you don't want to use <code>venv</code>, you can manually install the dependencies:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip3 install JSON-minify jinja2 black pytest
-</code></pre></div></p>
-</div>
-<!--
-Additional packages I use for development on my local system are:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip3 install neovim anki aqt
 </code></pre></div>
+</details>
+<details class="examplecode">
+<summary>Don't want to use venv?</summary>
+<p>It is <strong>highly recommended that you use venv</strong>, or something else that isolates
+the python environment.</p>
+<p>However, in case you don't want to use <code>venv</code>,
+you can manually install the dependencies
+(including dependencies for building documentation):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip3 install <span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>        JSON-minify jinja2 black pytest <span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin <span class="se">\</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        mkdocs-git-revision-date-localized-plugin
+</code></pre></div></p>
+</details>
+<!--
+# personal setup
+pip3 install neovim anki aqt
 -->
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>master</code> branch is the bleeding edge version of the note.</p>
+<p>If you want to build a more stable version of the note, do the following:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git fetch
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git checkout tags/TAG_NAME
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># or if you want to create a new branch as well:</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>git checkout tags/TAG_NAME -b BRANCH_NAME
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># to return back to the master branch, after you&#39;re done building:</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>git checkout master
+</code></pre></div></p>
+</div>
 <h3 id="building-and-installing">Building and Installing<a class="headerlink" href="#building-and-installing" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span> tools
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Builds into a temporary folder and installs</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># WARNING: completely overrides current note that is installed</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>python3 ./main.py
+<p>After setting up the <code>venv</code>, you are ready to build and install the note.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span> tools
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Builds into a temporary folder and installs</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># WARNING: completely overrides current note that is installed</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>python3 ./main.py
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Running the ./main.py script is equivalent of running:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># builds the note into the ./build folder</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3 make.py
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># installs the note from the ./build folder</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>python3 install.py --from-build --update
+<p>Running the <code>main.py</code> script is equivalent of running:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># builds the note into the ./build folder</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python3 make.py
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># installs the note from the ./build folder</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>python3 install.py --from-build --update
 </code></pre></div></p>
 </div>
+<p>Additional things you can do with the project are shown below.</p>
 <h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span> tools
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>python3 -m pytest ./tests
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span> tools
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3 -m pytest ./tests
 </code></pre></div>
 <h3 id="building-the-documentation">Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permanent link">&para;</a></h3>
-<ul>
-<li>all documentation files are found under <code>(root)/docs</code>.</li>
-<li>if already done the above steps with the requirements.txt, all dependencies should already be installed</li>
-<li>main files should be found under docs/docs/PAGE.md</li>
-</ul>
-<p>to preview the documentation:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>mkdocs serve
+<p>To "build" the documentation, all you have to do is the following:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span> docs
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>mkdocs serve
 </code></pre></div></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are not using requirements.txt and venv, you can install the
-dependencies manually here:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip3 install mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin <span class="se">\</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>        mkdocs-git-revision-date-localized-plugin
+<p>This will allow you to preview at this website:
+http://127.0.0.1:8000/jp-mining-note/</p>
+<p>If you are looking to edit the documentation, all related files should be found
+under this <code>docs</code> folder.
+The main markdown files are found under:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>(root)
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  L docs
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>     L docs
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        L index.md # the home page
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        L preface.md
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        L setup.md
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        L ...
 </code></pre></div></p>
-</div>
-<!-- TODO update requirements.txt to include last git-revision requirement -->
-
 <h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
-<ul>
-<li>TODO fill out as people start working with this note</li>
-</ul>
+<p>TODO fill out as people start working with this note</p>
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>After your first successful build, you can now use compile-time options!
 See <a href="../compileopts/">this page</a> for more info.</p>
@@ -971,7 +981,7 @@ See <a href="../compileopts/">this page</a> for more info.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 2, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 4, 2022</span>
       
     
   </small>
@@ -996,10 +1006,10 @@ See <a href="../compileopts/">this page</a> for more info.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d691e9de.min.js"></script>
+      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
       
     
   </body>
