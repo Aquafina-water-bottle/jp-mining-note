@@ -14,6 +14,14 @@
   color: var(--jpmn-yellow);
 }
 
+
+.jp-quote-text {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+
+
 /* https://github.com/squidfunk/mkdocs-material/blob/master/src/assets/stylesheets/palette/_scheme.scss */
 [data-md-color-scheme="slate"] {
   --md-hue: 240;
@@ -111,7 +119,7 @@
 
 
 
-/* Note */
+/* Question */
 /* Admonition flavor */
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.question, .help, .faq) {
   border-color: rgb(75, 165, 17);
@@ -133,7 +141,7 @@
 
 
 
-/* Question */
+/* Note */
 /* Admonition flavor */
 [data-md-color-scheme="slate"] .md-typeset :is(.admonition, details):is(.note) {
   border-color: rgb(0, 59, 158);

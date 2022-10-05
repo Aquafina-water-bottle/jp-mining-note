@@ -17,7 +17,7 @@
     
     
       
-        <title>Modding (TODO) - jp-mining-note</title>
+        <title>Modding - jp-mining-note</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Modding (TODO)
+              Modding
             
           </span>
         </div>
@@ -429,7 +429,7 @@
   
     <li class="md-nav__item">
       <a href="../kanjihover/" class="md-nav__link">
-        Kanji Hover
+        Kanji Hover (TODO)
       </a>
     </li>
   
@@ -530,12 +530,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Modding (TODO)
+          Modding
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Modding (TODO)
+        Modding
       </a>
       
         
@@ -681,11 +681,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#field-editing" class="md-nav__link">
-    Field Editing
+  <a href="#field-list-editing" class="md-nav__link">
+    Field List Editing
   </a>
   
-    <nav class="md-nav" aria-label="Field Editing">
+    <nav class="md-nav" aria-label="Field List Editing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -696,8 +696,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#do-not-remove-or-rename-fields" class="md-nav__link">
-    Do not remove or rename fields
+  <a href="#do-not-remove-fields" class="md-nav__link">
+    Do not remove fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-not-rename-fields" class="md-nav__link">
+    Do not rename fields
   </a>
   
 </li>
@@ -974,11 +981,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#field-editing" class="md-nav__link">
-    Field Editing
+  <a href="#field-list-editing" class="md-nav__link">
+    Field List Editing
   </a>
   
-    <nav class="md-nav" aria-label="Field Editing">
+    <nav class="md-nav" aria-label="Field List Editing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -989,8 +996,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#do-not-remove-or-rename-fields" class="md-nav__link">
-    Do not remove or rename fields
+  <a href="#do-not-remove-fields" class="md-nav__link">
+    Do not remove fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-not-rename-fields" class="md-nav__link">
+    Do not rename fields
   </a>
   
 </li>
@@ -1060,7 +1074,7 @@
   </a>
 
 
-  <h1>Modding (TODO)</h1>
+  <h1>Modding</h1>
 
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>This page describes all the ways of modding your note,
@@ -1472,7 +1486,7 @@ without affecting any of Anki's GUI.</p>
 </li>
 </ol>
 <hr />
-<h2 id="field-editing">Field Editing<a class="headerlink" href="#field-editing" title="Permanent link">&para;</a></h2>
+<h2 id="field-list-editing">Field List Editing<a class="headerlink" href="#field-list-editing" title="Permanent link">&para;</a></h2>
 <p>This section describes import PSAs on what you should you if you want to
 edit the fields of the note (i.e. adding, removing, renaming, and moving).</p>
 <p>Fields editing in this context refers to the fields that you can edit
@@ -1480,39 +1494,52 @@ in the <code>Fields</code> (list) menu, found under (Main window) →  <code>Bro
 <figure>
 <p><a href="../assets/anki/fields_window.png"><img alt="anki field window" src="../assets/anki/fields_window.png" /></a></p>
 </figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you never plan on updating the note, you can safely modify the field list
+to your heart's content, and ignore the rest of this section.</p>
+</div>
 <h3 id="installer-details">Installer details<a class="headerlink" href="#installer-details" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TODO updating section -&gt; re-state some stuff</li>
-</ul>
-<h3 id="do-not-remove-or-rename-fields">Do not remove or rename fields<a class="headerlink" href="#do-not-remove-or-rename-fields" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p>do not remove fields!</p>
-<ul>
-<li>even if compiling them out with always-filled/never-filled fields (below)</li>
-<li>to move out of you way, move them below <code>Comment</code> and run <code>install.py</code> with <code>--ignore-order</code> flag on further updates</li>
-<li>install script requires all expected fields to be present (you no longer cannot update if you remove a field)<ul>
-<li>simply re-add the field if you removed it before</li>
-</ul>
-</li>
-<li>is a design choice made by the updating script to make it easier to update the note</li>
-<li>this rule may be removed in the future, but it will be kept strict for now to make the dev's life easier</li>
-</ul>
-</li>
-<li>
-<p>do not rename fields</p>
-<ul>
-<li>similarily to the above, so the updater knows what fields already exist</li>
-</ul>
-</li>
-</ul>
+<p>The installer, when detecting a higher version, attempts to find and apply any
+changes to the field list when necessary.
+These changes are specified under <code>tools/note_changes.py</code>.</p>
+<p>By default, the installer expects the field list to be completely
+un-changed after installation, and does many checks to verify this before and after installation.</p>
+<h3 id="do-not-remove-fields">Do not remove fields<a class="headerlink" href="#do-not-remove-fields" title="Permanent link">&para;</a></h3>
+<p>One of the checks that the installer does is to ensure that all fields are present.
+This is a design choice to remove as many assumptions as possible,
+so that it is easier for the installer to update the note.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This design choice may be changed in the future, but will likely remain until
+the end of the beta release.</p>
+</div>
+<p>If you want to remove a field, the best alternative is to do the following:</p>
+<ol>
+<li>Move the field below the <code>Comment</code> field, so the field is out of your way.</li>
+<li>Whenever you decide to update the note to a new version,
+    run the installation script with the <code>--ignore-order</code> flag.</li>
+</ol>
+<h3 id="do-not-rename-fields">Do not rename fields<a class="headerlink" href="#do-not-rename-fields" title="Permanent link">&para;</a></h3>
+<p>There is currently no way to let the installer know that you renamed a field.
+Therefore, you should not rename fields at all, as this will cause the initial field
+list check to fail.</p>
+<p>If you are completely insistent on renaming a field, you must change all templates
+that uses the field to match your preferred field name.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Similarily to the above, this may be changed in the future, but will likely remain until
+the end of the beta release.</p>
+</div>
 <h3 id="how-to-add-reorder-fields">How to add &amp; reorder fields<a class="headerlink" href="#how-to-add-reorder-fields" title="Permanent link">&para;</a></h3>
-<ul>
-<li>if wanting to add field: recommend to add below <code>Comment</code> field to seemlessly update<ul>
-<li>if field added above <code>Comment</code> and want to update, run <code>install.py</code> with <code>--ignore-order</code> flag</li>
-</ul>
-</li>
-</ul>
+<p>If you want to add a field while preserving the existing field order upon updates,
+add the field under the <code>Comment</code> field.
+This is because the installer only checks the subset of fields above the <code>Comment</code> field,
+when verifying correctness.</p>
+<p>If you don't care about preserving field order,
+you can simply add the field anywhere you want,
+and then run the installation script with <code>--ignore-order</code>
+whenever you want to update the note to a new version.</p>
 <hr />
 <h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h2>
 <h3 id="javascript-print-statements">Javascript print statements<a class="headerlink" href="#javascript-print-statements" title="Permanent link">&para;</a></h3>
@@ -1604,7 +1631,7 @@ in the javascript options.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 4, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 5, 2022</span>
       
     
   </small>
