@@ -36,8 +36,11 @@ from note_changes import NOTE_CHANGES, Version, NoteChange
 
 from typing import Any
 
+
 class FieldVerifierException(Exception):
-    pass
+    def __init__(self, message):
+        docs_link = " -- See https://aquafina-water-bottle.github.io/jp-mining-note/updating/#fieldverifierexception"
+        super().__init__(message + docs_link)
 
 
 class FieldEditSimulator:
@@ -57,7 +60,9 @@ class FieldEditSimulator:
     def _rename_field(self, old_field_name: str, new_field_name: str):
         assert old_field_name in self.simulated_fields
         if new_field_name in self.simulated_fields:
-            raise FieldVerifierException(f"Cannot rename field {old_field_name} -> {new_field_name}: {new_field_name} field already exists")
+            raise FieldVerifierException(
+                f"Cannot rename field {old_field_name} -> {new_field_name}: {new_field_name} field already exists"
+            )
 
         i = self.simulated_fields.index(old_field_name)
         self.simulated_fields[i] = new_field_name
@@ -187,13 +192,17 @@ class Verifier:
                 self.naive_diff_list(
                     simulator.simulated_fields, self.new_fields, "Simulated", "Expected"
                 )
-                raise FieldVerifierException("Simulated fields do not match expected fields")
+                raise FieldVerifierException(
+                    "Simulated fields do not match expected fields"
+                )
         else:
             x = set(simulator.simulated_fields)
             y = set(self.new_fields)
             if x != y:
                 self.naive_diff_set(x, y, "Simulated", "Expected")
-                raise FieldVerifierException("Simulated fields do not match expected fields")
+                raise FieldVerifierException(
+                    "Simulated fields do not match expected fields"
+                )
 
         # simulator.verify(new_fields=new_fields)
 
@@ -330,7 +339,7 @@ class ActionRunner:
     def clear(self):
         self.changes.clear()
 
-    def indent(self, desc: str, indent: str="    ", start: str="  - ") -> str:
+    def indent(self, desc: str, indent: str = "    ", start: str = "  - ") -> str:
         return start + desc.replace("\n", "\n" + indent)
 
     def get_version_actions_desc(self, data: NoteChange) -> str:
@@ -443,7 +452,6 @@ class ActionRunner:
                 traceback.print_exc()
                 print("Post-field check failed, skipping error...")
 
-
     def post_message(self):
         if self.requires_user_action:
             print()
@@ -454,4 +462,3 @@ class ActionRunner:
 if __name__ == "__main__":
 
     pass
-

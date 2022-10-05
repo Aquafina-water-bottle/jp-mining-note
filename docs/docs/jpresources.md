@@ -824,8 +824,14 @@ so this has helped me immensely.
 
 ??? example "Examples (to test the dictionary on)"
 
-    1. 「スペルド族への恐怖は恐らくこの世界に<b class="text-yellow">根づいている</b>んだろう」 (see 根付く)
-    1. 「ルーはたくさんあるので、今<b class="text-yellow">お代わり</b>をお持ちしますね」 (see 御代わり)
+    「スペルド族への恐怖は恐らくこの世界に<b class="text-yellow">根づいている</b>んだろう」
+    { .jp-quote-text }
+
+    「ルーはたくさんあるので、今<b class="text-yellow">お代わり</b>をお持ちしますね」
+    { .jp-quote-text }
+
+    「ただ、一つだけ<b class="text-yellow">釘をささせて</b>もらうけど…貴方がこれから何をするにしても、仕事は今まで通りこなしてもらうわよ？」
+    { .jp-quote-text }
 
     It is assumed that you have
     [multiple popups enabled](https://learnjapanese.moe/monolingual/#optimizing-yomichan-settings)

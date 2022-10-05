@@ -552,7 +552,6 @@ This section will go over the minimal Yomichan setup to work with this card type
 
 <!-- TODO github actions to re-compile it daily -->
 
-
 ## Preliminary Steps
 If you have used Yomichan before, please make a
 [backup of your settings](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
@@ -594,6 +593,8 @@ with all other definitions in collapsable fields.
 
 The custom markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
 See the section below to make these markers usable.
+
+<br>
 
 
 
@@ -641,10 +642,19 @@ add the following template code as follows:
 ## Make an example card!
 At this point, you should be able to make cards with Yomichan!
 
-Here's an excerpt of text you can test Yomichan on:
+??? example "Click here to show some example Japanese sentences."
 
-「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
-{ .jp-quote-text }
+    「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
+    { .jp-quote-text }
+
+    「なによぅ…甲斐甲斐しく会いに来た女に対して、最初に言うセリフがそれ？」
+    { .jp-quote-text }
+
+    「あの時逃げ出した私の罰…あの時の汚辱は今ここで、全部そそいでやるんだ…」
+    { .jp-quote-text }
+
+    「貴方なんなんです？なにか、妙に銃口慣れしていますね…若者特有の空威張りという訳でもなさそうですし…」
+    { .jp-quote-text }
 
 {{ img("adding a card with Yomichan", "assets/yomichan/add_card.gif") }}
 
@@ -653,6 +663,8 @@ Notably, the picture and sentence audio is missing.
 
 Outside of that, there are some final settings you can adjust within the Yomichan templates
 if the card doesn't look quite right.
+
+<br>
 
 
 ## Yomichan Templates Options
@@ -693,6 +705,8 @@ to
 If you want to select the text to use instead of the definition,
 simply set `opt-selection-text-enabled` to `true`.
 
+![type:video](assets/yomichan/selected_text.mp4)
+
 By default, this enable the following behavior:
 
 1. If nothing is selected, then the first dictionary is chosen just like normal.
@@ -700,12 +714,15 @@ By default, this enable the following behavior:
 1. If a section of text is selected, then that dictionary will replace the first definition.
     Additionally, that section of text will be highlighted (bolded).
 
-    !!! note
-        This does not always work, especially when used across text with formatting or newlines.
-        See [this](yomichantemplates.md#overriding-the-definition){:target="_blank"} for more details.
+!!! note
+    Selecting parts of a definition to bold the text does not always work,
+    especially when used across text with formatting or newlines.
+    See [this](yomichantemplates.md#overriding-the-definition){:target="_blank"} for more details.
 
+    With this being said, selecting the dictionary should always work.
 
-![type:video](assets/yomichan/selected_text.mp4)
+<br>
+
 
 
 
@@ -797,24 +814,25 @@ Of course, this list is incomplete, and there could be tools better suited for y
 * This also has card image and audio exporting capabilities.
 * Works on video streaming sites as well.
 
-[**Animebook**](https://github.com/animebook/animebook.github.io)
-
-* Cross platform (chromium) browser video player.
-* This also has card image and audio exporting capabilities.
-
 [**ShareX**](https://getsharex.com/)
 
 * Windows media recorder which can both take screenshots and record audio. Personally tested.
 * This can be automated to add audio and pictures to the most recently added anki card
-  by following the instructions
-  [here](https://rentry.co/mining#sharex).
+    by following the instructions
+    [here](https://rentry.co/mining#sharex).
 * Useful for things that don't have an easy way of getting audio, such as visual novels.
-* I have some custom scripts written for sharex [here](jpresources.md#sharex).
+* I have some custom scripts written for ShareX [here](jpresources.md#sharex-commands),
+    that work by default with this note.
 
 [**ames**](https://github.com/eshrh/ames)
 
 * ShareX alternative for Linux. Personally tested.
 * Primarily used to automate audio and picture extraction to the most recently added anki card.
+
+[**Animebook**](https://github.com/animebook/animebook.github.io)
+
+* Cross platform (chromium) browser video player.
+* This also has card image and audio exporting capabilities.
 
 [**jidoujisho**](https://github.com/lrorpilla/jidoujisho)
 
