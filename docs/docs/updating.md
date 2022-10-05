@@ -187,8 +187,8 @@ The field list can be accessed by navigating to the following:
 
 > (Main window) →  `Browse` →  `Fields...`.
 
-The `install.py` is picky about fields and its order, and the script will automatically reject
-any note type with modifications to the field list.
+The `install.py` is picky about fields and its order, and the script will reject
+any note type with modifications to the field list (by default).
 
 To fix this, there are a few cases to go through.
 
@@ -201,13 +201,14 @@ To fix this, there are a few cases to go through.
     Alternatively, you can simply re-order the fields back to their original position.
 
     !!! note
-        All new fields will be added to the very end of the field list (i.e. under `Comment`).
+        If you use `--ignore-order`, all new fields will be added to the very end
+        of the field list (i.e. under `Comment`).
         Additionally, any fields that were supposed to be repositioned will stay in place.
         It is up to you to move the fields to the appropriate places.
 
 ??? info "New field(s) have been created."
 
-    You have two options.
+    You have two options. Neither of these will delete your existing field(s).
 
     1. If you want to preserve your existing field list order, then you can run the script
         with the `--ignore-order` flag, like above.
@@ -352,10 +353,16 @@ and again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings){:tar
 
 
 # Updating the Runtime Options File
-The [runtime options file](runtimeoptions.md) is not updated by default, because default options are built-in
-within the note itself for each option.
-If you want to update this file, see the repository's
-[example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
+The [runtime options file](runtimeoptions.md) does not automatically update with each note update,
+as to not override the user's configuration on each update.
+If the options file isn't updated, then the note will simply use the default value for the option.
+
+However, if certain runtime options no longer work, you may have to update this file,
+as it is possible for the configuration file layout to have changed between versions.
+The most recent version of the options file can always be found
+[here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
+if you want to update it.
+
 
 
 # Final Steps
@@ -366,7 +373,7 @@ Please do the following checks to make sure everything properly works:
 1. Preview an existing card, to ensure that nothing looks odd.
 2. Create a new card and make sure nothing looks odd.
 
-    ??? example "Example excerpts of text to test card creation on"
+    ??? example "Example Japanese sentences to test card creation"
 
         「我ながら馬鹿馬鹿しいことを思いついたものだと嘆息しつつも、私は静かにベッドに近付く」
         { .jp-quote-text }

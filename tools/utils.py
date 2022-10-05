@@ -51,7 +51,17 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
-        "--dev-custom-version",
+        "--dev-input-version",
+        type=str,
+        default=None,
+        help="(dev option) custom input version to be used instead of the current version in the "
+        "existing Anki note"
+        #help="Installs an older version of the card. "
+        #"This option only works on first install, and not when updating the note.",
+    )
+
+    group.add_argument(
+        "--dev-output-version",
         type=str,
         default=None,
         help="(dev option) custom output version to be used instead of version.txt"
@@ -260,8 +270,8 @@ def get_version(args) -> str:
     gets version of the jp mining note within the repo
     """
 
-    if args.dev_custom_version is not None:
-        return args.dev_custom_version
+    if args.dev_output_version is not None:
+        return args.dev_output_version
 
     root_folder = get_root_folder()
     with open(os.path.join(root_folder, "version.txt")) as f:
@@ -275,10 +285,13 @@ def note_is_installed(note_name) -> bool:
     return note_name in result
 
 
-def get_version_from_anki() -> str:
+def get_version_from_anki(args) -> str:
     """
     gets version of the jp mining note from the installed note in anki
     """
+
+    if args.dev_input_version is not None:
+        return args.dev_input_version
 
     nf_config = get_note_config()
 

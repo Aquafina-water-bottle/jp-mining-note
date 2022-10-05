@@ -70,14 +70,6 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
-        "--from-version",
-        type=str,
-        default=None,
-        help="Installs an older version of the card. "
-        "This option only works on first install, and not when updating the note.",
-    )
-
-    group.add_argument(
         "--no-backup",
         type=str,
         default=None,
@@ -90,7 +82,8 @@ def add_args(parser: argparse.ArgumentParser):
     group.add_argument(
         "--ignore-order",
         action="store_true",
-        help="does not check for order of fields when updating",
+        help="Ignores the order of the fields list when updating. Adds the field to the end of the "
+        "field list rather than in its designated spot. Ignores all MoveField actions.",
     )
 
 
@@ -326,7 +319,7 @@ def main(args=None):
 
         # checks for note changes between versions
         if not args.dev_ignore_note_changes:
-            current_ver = ar.Version.from_str(utils.get_version_from_anki())
+            current_ver = ar.Version.from_str(utils.get_version_from_anki(args))
             new_ver = ar.Version.from_str(utils.get_version(args))
             action_runner = ar.ActionRunner(
                 current_ver, new_ver, in_order=(not args.ignore_order)

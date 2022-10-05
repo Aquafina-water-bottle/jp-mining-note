@@ -4,21 +4,14 @@ To edit this, navigate to your profile's
 [media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}),
 and open the `_jpmn-options.js` file as a text file.
 
+
+TODO add demo for windows to opening the file & editing
+
+
 !!! note
 
     To open the file as a text file on Windows, right click the file and select `Edit`.
     Do not double-click the file.
-
-
-!!! note
-
-    The options file does not automatically update with each note update, as to not
-    override the user's configuration on each update, so the file must be manually updated.
-    If the options file isn't updated, then the note will simply use the default value for the option.
-
-    The most recent version of the options file can always be found
-    [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
-
 
 The contents of the file should look something like the following:
 ```
