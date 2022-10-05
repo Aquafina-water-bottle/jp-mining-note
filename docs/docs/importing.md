@@ -72,7 +72,7 @@ However, here are a few tips:
     To import this correctly into JPMN, make sure JPMN's `Key` and `Word` field are exactly
     your old card's `Word` field.
 
-- `WordPitch` and `SentenceReading` can be left empty, as the AJT plugins
+- `AJTWordPitch` and `SentenceReading` can be left empty, as the AJT plugins
     can batch generate both word pitches and sentence furigana.
 
 - You may have some word pitch fields already in your card.

@@ -28,6 +28,7 @@ TODO:
 from __future__ import annotations
 
 import copy
+import traceback
 
 import utils
 from action import Action, UserAction, RenameField, MoveField, AddField, DeleteField
@@ -340,7 +341,7 @@ class ActionRunner:
         desc_list = []
 
         version = data.version
-        desc_list.append(f"Changes from version {version}:")
+        desc_list.append(f"Changes from {version}:")
 
         for action in data.actions:
             if not isinstance(action, UserAction):
@@ -401,7 +402,8 @@ class ActionRunner:
                 "running this, just in case!\n"
                 "Please also ensure that Anki is open, but the card browser is not open.\n"
                 "\n"
-                "There are also required user actions that this script cannot perform.\n"
+                "There are also required user actions that this script cannot perform,\n"
+                "shown above. Please perform these actions after running this script.\n"
                 "\n"
                 "If you have made a backup, please type 'yes' to confirm, or anything else to abort: "
             )
@@ -417,8 +419,7 @@ class ActionRunner:
         elif not self.edits_cards and self.requires_user_action:
             x = input(
                 "WARNING: There are required user actions that must be done by the user.\n"
-                "Please update each section specified above after this note is done updating.\n"
-                "Please also ensure that Anki is open, but the card browser is not open.\n"
+                "Please perform these actions after running this script.\n"
                 "\n"
                 "Type 'yes' to acknowledge, or anything else to abort: "
             )
@@ -436,7 +437,12 @@ class ActionRunner:
                 action.run(**self.action_args)
 
         if self.new_fields is not None and self.verifier is not None:
-            self.verifier.verify_post()
+            try:
+                self.verifier.verify_post()
+            except Exception:
+                traceback.print_exc()
+                print("Post-field check failed, skipping error...")
+
 
     def post_message(self):
         if self.requires_user_action:

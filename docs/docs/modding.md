@@ -463,7 +463,7 @@ without affecting any of Anki's GUI.
 ---
 
 
-# Field Editing
+# Field List Editing
 This section describes import PSAs on what you should you if you want to
 edit the fields of the note (i.e. adding, removing, renaming, and moving).
 
@@ -475,29 +475,61 @@ in the `Fields` (list) menu, found under (Main window) →  `Browse` →  `Field
 {{ img("anki field window", "assets/anki/fields_window.png") }}
 </figure>
 
+!!! note
+    If you never plan on updating the note, you can safely modify the field list
+    to your heart's content, and ignore the rest of this section.
+
 
 
 ## Installer details
-- TODO updating section -> re-state some stuff
+The installer, when detecting a higher version, attempts to find and apply any
+changes to the field list when necessary.
+These changes are specified under `tools/note_changes.py`.
+
+By default, the installer expects the field list to be completely
+un-changed after installation, and does many checks to verify this before and after installation.
 
 
-## Do not remove or rename fields
+## Do not remove fields
+One of the checks that the installer does is to ensure that all fields are present.
+This is a design choice to remove as many assumptions as possible,
+so that it is easier for the installer to update the note.
 
-- do not remove fields!
-    - even if compiling them out with always-filled/never-filled fields (below)
-    - to move out of you way, move them below `Comment` and run `install.py` with `--ignore-order` flag on further updates
-    - install script requires all expected fields to be present (you no longer cannot update if you remove a field)
-        - simply re-add the field if you removed it before
-    - is a design choice made by the updating script to make it easier to update the note
-    - this rule may be removed in the future, but it will be kept strict for now to make the dev's life easier
+!!! note
+    This design choice may be changed in the future, but will likely remain until
+    the end of the beta release.
 
-- do not rename fields
-    - similarily to the above, so the updater knows what fields already exist
+If you want to remove a field, the best alternative is to do the following:
+
+1. Move the field below the `Comment` field, so the field is out of your way.
+2. Whenever you decide to update the note to a new version,
+    run the installation script with the `--ignore-order` flag.
+
+
+## Do not rename fields
+There is currently no way to let the installer know that you renamed a field.
+Therefore, you should not rename fields at all, as this will cause the initial field
+list check to fail.
+
+If you are completely insistent on renaming a field, you must change all templates
+that uses the field to match your preferred field name.
+
+
+!!! note
+    Similarily to the above, this may be changed in the future, but will likely remain until
+    the end of the beta release.
+
 
 ## How to add & reorder fields
-- if wanting to add field: recommend to add below `Comment` field to seemlessly update
-    - if field added above `Comment` and want to update, run `install.py` with `--ignore-order` flag
+If you want to add a field while preserving the existing field order upon updates,
+add the field under the `Comment` field.
+This is because the installer only checks the subset of fields above the `Comment` field,
+when verifying correctness.
 
+If you don't care about preserving field order,
+you can simply add the field anywhere you want,
+and then run the installation script with `--ignore-order`
+whenever you want to update the note to a new version.
 
 
 ---

@@ -207,7 +207,7 @@ button[title^="Add reading"] {
 {{ img("left quote comparisons", "assets/other/left_quote.png", 'align=right width="300"') }}
 
 ```css
-.text {
+.jp-quote-text {
   text-indent: -1em;
   padding-left: 1em;
 }
@@ -454,7 +454,7 @@ but with every definition within said dictionary.
 
 For further customization on how the first dictionary is selected
 (say, for automatic bilingual / monolingual separation),
-see the handlebars code used by JPMN [here](setup.md#yomichan-templates).
+see the handlebars code used by jp-mining-note [here](setup.md#yomichan-templates).
 
 
 {% raw %}
