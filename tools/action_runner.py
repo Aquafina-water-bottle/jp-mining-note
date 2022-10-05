@@ -39,7 +39,7 @@ from typing import Any
 
 class FieldVerifierException(Exception):
     def __init__(self, message):
-        docs_link = " -- See https://aquafina-water-bottle.github.io/jp-mining-note/updating/#fieldverifierexception"
+        docs_link = "\n - Did you mean to run this with '--ignore-order'?\n - For more info, see here: https://aquafina-water-bottle.github.io/jp-mining-note/updating/#fieldverifierexception"
         super().__init__(message + docs_link)
 
 
