@@ -232,7 +232,7 @@ To fix this, there are a few cases to go through.
     Unfortunately, there is no way to ignore removed or renamed fields.
     If you removed a field, please re-add the field.
     Likewise, if you renamed a field, please rename it back to the original name.
-    See [here](modding.md#field-editing){:target="_blank"} for more info on why they cannot be ignored.
+    See [here](modding.md#field-list-editing){:target="_blank"} for more info on why they cannot be ignored.
 
 
 
@@ -275,12 +275,13 @@ To fix this, there are a few cases to go through.
 
 ---
 
-## Final Steps
+## Further Steps
 There may be further steps outside of just updating the card,
 such as updating Yomichan's templates / format.
 Further instructions on these are written below.
 
-Finally, if new fields were added, you likely have to change the font and font sizes of said fields.
+
+Afterwards, please see the [final steps](updating.md#final-steps) section.
 
 ---
 
@@ -355,4 +356,43 @@ The [runtime options file](runtimeoptions.md) is not updated by default, because
 within the note itself for each option.
 If you want to update this file, see the repository's
 [example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
+
+
+# Final Steps
+
+By now, you should be done updating the note!
+Please do the following checks to make sure everything properly works:
+
+1. Preview an existing card, to ensure that nothing looks odd.
+2. Create a new card and make sure nothing looks odd.
+
+    ??? example "Example excerpts of text to test card creation on"
+
+        「我ながら馬鹿馬鹿しいことを思いついたものだと嘆息しつつも、私は静かにベッドに近付く」
+        { .jp-quote-text }
+
+        「ジェラートを買うお金がないとは！給料日まで収入の当てもなし、自炊するしかありませんね」
+        { .jp-quote-text }
+
+        「これが少年誌だったら順位上がってるぞ。そしてトーナメント編でアニメ化決定だ」
+        { .jp-quote-text }
+
+        「あの時は、インターネット上で色んな質問ができるサイトに投稿したら、親切な人が商品名と売っている場所を教えてくれたんです」
+        { .jp-quote-text }
+
+        「第二次世界大戦における連合国軍の重要拠点です…」
+        { .jp-quote-text }
+
+
+
+<!--
+- If new fields were added, you likely have to change the font and font sizes of said fields.
+- If you have renamed the note to update, you can now rename it back.
+-->
+
+
+
+
+
+
 

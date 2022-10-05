@@ -644,6 +644,7 @@ At this point, you should be able to make cards with Yomichan!
 Here's an excerpt of text you can test Yomichan on:
 
 「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
+{ .jp-quote-text }
 
 {{ img("adding a card with Yomichan", "assets/yomichan/add_card.gif") }}
 

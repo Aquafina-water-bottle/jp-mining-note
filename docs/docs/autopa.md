@@ -142,7 +142,7 @@ For example, the tag can be `heiban`, `平板`, etc.
 - TODO what bold does
 
 
-Editing the content in `WordPitch` requires some special attention.
+Editing the content in `AJTWordPitch` requires some special attention.
 To preserve the style and get expected results, you must use `Ctrl + Shift + x` when editing the field,
 and edit the html tags directly. Use other cards as examples of what the html should look like.
 
@@ -156,7 +156,7 @@ example of something that has all possible formats (bold, overline, downstep, na
 ```
 
 
-The `WordPitch` field may have more than one pitch accent for a given word.
+The `AJTWordPitch` field may have more than one pitch accent for a given word.
 To choose which pitch accent is correct to the sentence,
 one can bold the unused pitch accents to grey them out.
 

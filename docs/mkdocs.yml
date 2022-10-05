@@ -69,12 +69,12 @@ nav:
     - Card Types: cardtypes.md
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Runtime Options (TODO): runtimeoptions.md
-    - Kanji Hover: kanjihover.md
+    - Kanji Hover (TODO): kanjihover.md
     - Auto Pitch Accent (TODO): autopa.md
   - Developer Documentation:
     - Building: building.md
     - Compile-Time Options: compileopts.md
-    - Modding (TODO): modding.md
+    - Modding: modding.md
   - Other:
     - "FAQ & Troubleshooting": faq.md
     - Various Resources: jpresources.md
