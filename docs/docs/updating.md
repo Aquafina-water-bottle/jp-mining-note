@@ -311,7 +311,9 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
 
 Here is how I recommend transitioning as smoothly as possible:
 
-(TODO video)
+![type:video](assets/yomichan/updating_yomichan_fields.mp4)
+
+
 
 1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
     of your Yomichan settings, just in case.
@@ -319,19 +321,21 @@ Here is how I recommend transitioning as smoothly as possible:
     `Tools` <br>
     →  `Manage Note Types` <br>
     →  `Add` <br>
-    →  (select `Clone: JP Mining Note`) <br>
-    →  (name it to anything you want. For the following examples, it will be named `JP Mining Note (copy)`.) <br>
-    →  `Ok`
+    →  Select `Clone: JP Mining Note` →  `Ok` <br>
+    →  Name the note anything you want (the following examples will use `JP Mining Note copy`)  →  `Ok`<br>
+    →  `Close`
+1. If you are currently viewing Yomichan Settings, please refresh the page.
 1. Head over to Anki Card Format [as before](setup.md#yomichan-fields){:target="_blank"}.
-1. In the top right corner, change `Model` to `JP Mining Note (copy)`,
-   and then change it back to `JP Mining Note`.
+1. In the top right corner, change `Model` to `JP Mining Note copy`,
+    and then change it back to `JP Mining Note`.
 1. Update the fields as specified.
     - It will be both specified in the text you see when running `install.py --update`.
-    - However, you should also simply compare the table on the setup page to your filled out fields.
+    - However, you should also simply compare the table on the
+        [setup page](setup.md#yomichan-fields){:target="_blank"} to your filled out fields.
 1. Remove the temporary note: <br>
     `Tools` <br>
     →  `Manage Note Types` <br>
-    →  (select `JP Mining Note (copy)`) <br>
+    →  (select `JP Mining Note copy`) <br>
     →  `Delete`
 
 !!! info "Explanation"
