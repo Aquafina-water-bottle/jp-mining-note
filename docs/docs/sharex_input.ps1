@@ -284,7 +284,7 @@ Run-Json @{
 {% set update_additional_notes %}
 
 
-$clipboard = (Get-Clipboard | where{$_ -ne ''}) -join '';
+$clipboard = (Get-Clipboard | where{$_ -ne ""}) -join "<br>";
 
 $added_notes = Run-Json @{
     action = 'findNotes';

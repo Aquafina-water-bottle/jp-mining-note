@@ -46,7 +46,10 @@ To add custom CSS in Yomichan, do the following:
 1. Add the CSS to the top section.
 1. Close the window.
 
-{{ img("how to add custom css to Yomichan", "assets/yomichan/howto_css.gif") }}
+??? example "Demo *(click here)*"
+
+    {{ img("how to add custom css to Yomichan", "assets/yomichan/howto_css.gif") }}
+
 
 ---
 
@@ -86,7 +89,9 @@ span.frequency-group-item:nth-child(n+3) {
 <sup>(Thanks Marv#5144 for the CSS)</sup>
 <!-- http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464 -->
 
-{{ img("limit frequencies demo", "assets/yomichan/limit_frequencies.gif") }}
+??? example "Demo *(click here)*"
+
+    {{ img("limit frequencies demo", "assets/yomichan/limit_frequencies.gif") }}
 
 ---
 
@@ -117,7 +122,9 @@ to any dictionary you find to be of higher quality)
 }
 ```
 
-{{ img("limit pitch accent dictionaries demo", "assets/yomichan/limit_pitch_accents.gif") }}
+??? example "Demo *(click here)*"
+
+    {{ img("limit pitch accent dictionaries demo", "assets/yomichan/limit_pitch_accents.gif") }}
 
 
 ---
@@ -141,7 +148,7 @@ li.definition-item[data-dictionary='DICTIONARY'] {
 }
 ```
 
-??? example "Click here to see an example."
+??? examplecode "Example CSS for JMdict *(click here)*"
 
     ```css
     li.definition-item[data-dictionary='JMdict (English)'] {
@@ -149,7 +156,9 @@ li.definition-item[data-dictionary='DICTIONARY'] {
     }
     ```
 
-{{ img("hide dictionary in Yomichan", "assets/yomichan/hide_dictionary.gif") }}
+??? example "Demo *(click here)*"
+
+    {{ img("hide dictionary in Yomichan", "assets/yomichan/hide_dictionary.gif") }}
 
 ---
 
@@ -167,7 +176,7 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
 ```
 
 
-??? example "Click here to see an example."
+??? examplecode "Example CSS for JMdict *(click here)*"
     ```css
     li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
       opacity: 0;
@@ -177,13 +186,17 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
     }
     ```
 
-{{ img("hide bilingual dictionaries until hover", "assets/yomichan/bilingual_hover.gif") }}
+??? example "Demo *(click here)*"
+
+    {{ img("hide bilingual dictionaries until hover", "assets/yomichan/bilingual_hover.gif") }}
 
 ---
 
 
 
 ## Remove the "Add Reading" button { .text-yellow }
+
+This removes the small green button to add the reading.
 
 ```css
 button[title^="Add reading"] {
@@ -235,14 +248,14 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     }
     ```
 
-??? example "Click here to see an example."
+??? examplecode "Example CSS for Noto Sans *(click here)*"
     ```css
     :lang(ja), :lang(ja-JP) {
         --font-primary: Whitney,"Noto Sans CJK JP","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
     }
     ```
 
-??? example "Click here to see Discord's default CSS."
+??? examplecode "Discord's default CSS *(click here)*"
     ```css
     :lang(ja), :lang(ja-JP) {
         --font-primary: Whitney,"Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -267,12 +280,14 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 1. Go to the `Anki` section.
 1. Select `Anki card format...`.
 
-{{ img("how to edit yomichan fields", "assets/yomichan/howto_format.gif") }}
-<sup> Note that the above showcases option 2 of
-[this example](jpresources.md#automatically-highlight-the-tested-word-within-the-sentence-upon-card-creation).
-</sup>
+??? example "Demo *(click here)*"
 
-<br>
+    {{ img("how to edit yomichan fields", "assets/yomichan/howto_format.gif") }}
+
+    The above showcases option 2 of
+    [this example](jpresources.md#automatically-highlight-the-tested-word-within-the-sentence-upon-card-creation).
+
+---
 
 ## How-To: Edit Yomichan Templates (Handlebars)
 1. Navigate to Yomichan Settings.
@@ -280,57 +295,54 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 1. Go to the `Anki` section
 1. Select `Configure Anki card templates...`
 
-{{ img("how to edit yomichan templates", "assets/yomichan/howto_templates.gif") }}
+??? example "Demo *(click here)*"
+
+    {{ img("how to edit yomichan templates", "assets/yomichan/howto_templates.gif") }}
 
 ---
 
 
 ## Grab only the first pitch accent dictionary { .text-yellow }
 
-{% raw %}
-Add the following template code to Yomichan templates:
-```handlebars
-{{#*inline "pitch-accent-list-single-dict"}}
-    {{~#if (op ">" pitchCount 1)~}}<ol>{{~/if~}}
-    {{~#eachUpTo pitches 1~}}
-        {{~#each pitches~}}
-            {{~#if (op ">" ../../pitchCount 1)~}}<li>{{~/if~}}
-                {{~> pitch-accent-item-disambiguation~}}
-                {{~> pitch-accent-item format=../../format~}}
-            {{~#if (op ">" ../../pitchCount 1)~}}</li>{{~/if~}}
-        {{~/each~}}
-    {{~else~}}
-        No pitch accent data
-    {{~/eachUpTo~}}
-{{/inline}}
+Adds the following Yomichan Fields:
 
-{{#*inline "pitch-accents-single-dict"}}
-    {{~> pitch-accent-list-single-dict format='text'~}}
-{{/inline}}
+- `{pitch-accents-single-dict}`: Pitch accent in text (downstep) format
+- `{pitch-accent-graphs-single-dict}`: Pitch accent in svg graph format
+- `{pitch-accent-positions-single-dict}`: Pitch accent in positions (number) format
 
-{{#*inline "pitch-accent-graphs-single-dict"}}
-    {{~> pitch-accent-list-single-dict format='graph'~}}
-{{/inline}}
-
-{{#*inline "pitch-accent-positions-single-dict"}}
-    {{~> pitch-accent-list-single-dict format='position'~}}
-{{/inline}}
-```
-{% endraw %}
-
-
-You can now use the following in Yomichan Fields:
-```
-{pitch-accents-single-dict}
-{pitch-accent-graphs-single-dict}
-{pitch-accent-positions-single-dict}
-```
-
-
-<!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
 
 {% raw %}
-??? example "Click here to see a modified version for Anime Cards."
+
+??? examplecode "Template code *(click here)*"
+    ```handlebars
+    {{#*inline "pitch-accent-list-single-dict"}}
+        {{~#if (op ">" pitchCount 1)~}}<ol>{{~/if~}}
+        {{~#eachUpTo pitches 1~}}
+            {{~#each pitches~}}
+                {{~#if (op ">" ../../pitchCount 1)~}}<li>{{~/if~}}
+                    {{~> pitch-accent-item-disambiguation~}}
+                    {{~> pitch-accent-item format=../../format~}}
+                {{~#if (op ">" ../../pitchCount 1)~}}</li>{{~/if~}}
+            {{~/each~}}
+        {{~else~}}
+            No pitch accent data
+        {{~/eachUpTo~}}
+    {{/inline}}
+
+    {{#*inline "pitch-accents-single-dict"}}
+        {{~> pitch-accent-list-single-dict format='text'~}}
+    {{/inline}}
+
+    {{#*inline "pitch-accent-graphs-single-dict"}}
+        {{~> pitch-accent-list-single-dict format='graph'~}}
+    {{/inline}}
+
+    {{#*inline "pitch-accent-positions-single-dict"}}
+        {{~> pitch-accent-list-single-dict format='position'~}}
+    {{/inline}}
+    ```
+
+??? examplecode "Modified version of the above for Anime Cards *(click here)*"
 
     ```handlebars
     {{#*inline "pitch-accent-list-single-dict"}}
@@ -359,9 +371,86 @@ You can now use the following in Yomichan Fields:
     {{/inline}}
     ```
 
-    <sup>(Thanks An#7416 for the template code)</sup>
+    <!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
+    Thanks An#7416 for the template code.
+
 {% endraw %}
 
+
+---
+
+
+
+## Export only the selected text (only if text is selected) { .text-yellow }
+
+> Adds: `{selection-text-or-glossary}`
+
+Allows you to export only a section of a glossary by highlighting over it,
+and uses the glossary by default if you don't have anything highlighted.
+
+??? examplecode "Template code *(click here)*"
+
+    {% raw %}
+    ```handlebars
+    {{#*inline "selection-text-or-glossary"}}
+        {{~#if (op "!==" (getMedia "selectionText") "")~}}
+            {{~#getMedia "selectionText"}}{{/getMedia~}}
+        {{~else~}}
+            {{~> glossary ~}}
+        {{/if~}}
+    {{/inline}}
+    ```
+    {% endraw %}
+
+!!! note
+    Related [Github issue](https://github.com/FooSoft/yomichan/issues/2097).
+
+---
+
+
+## Grab only the first dictionary { .text-yellow }
+
+> Adds: `{first-dictionary}`
+
+The following grabs the first dictionary
+(including every definition within said dictionary).
+
+For further customization on how the first dictionary is selected
+(say, for automatic bilingual / monolingual separation),
+see the handlebars code used by jp-mining-note [here](setup.md#yomichan-templates).
+
+
+??? examplecode "Template code *(click here)*"
+
+    {% raw %}
+    ```handlebars
+    {{~#*inline "glossary-first"~}}
+
+        {{~#scope~}}
+
+            {{~#set "first-dictionary" null}}{{/set~}}
+
+            {{~#each definition.definitions~}}
+                {{~#if (op "===" null (get "first-dictionary"))~}}
+                    {{~#set "first-dictionary" dictionary~}}{{~/set~}}
+                {{~/if~}}
+            {{~/each~}}
+
+            {{~#if (op "!==" null (get "first-dictionary"))~}}
+                <div style="text-align: left;"><ol>
+                {{~#each definition.definitions~}}
+                    {{~#if (op "===" dictionary (get "first-dictionary"))~}}
+                        <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
+                    {{~/if~}}
+                {{~/each~}}
+                </ol></div>
+            {{~/if~}}
+
+        {{~/scope~}}
+
+    {{~/inline~}}
+    ```
+    {% endraw %}
 
 ---
 
@@ -426,71 +515,6 @@ You can now use the following in Yomichan Fields:
 
 
 
-## Export only the selected text (only if text is selected) { .text-yellow }
-
-Allows you to export only a section of a glossary by highlighting over it,
-and uses the glossary by default if you don't have anything highlighted.
-{% raw %}
-```
-{{#*inline "selection-text"}}
-    {{~#if (op "!==" (getMedia "selectionText") "")~}}
-        {{~#getMedia "selectionText"}}{{/getMedia~}}
-    {{~else~}}
-        {{~> glossary ~}}
-    {{/if~}}
-{{/inline}}
-```
-{% endraw %}
-
-!!! note
-    Related [Github issue](https://github.com/FooSoft/yomichan/issues/2097).
-
----
-
-
-## Grab only the first dictionary { .text-yellow }
-The following grabs the first dictionary,
-but with every definition within said dictionary.
-
-For further customization on how the first dictionary is selected
-(say, for automatic bilingual / monolingual separation),
-see the handlebars code used by jp-mining-note [here](setup.md#yomichan-templates).
-
-
-{% raw %}
-```handlebars
-{{~#*inline "glossary-first"~}}
-
-    {{~#scope~}}
-
-        {{~#set "first-dictionary" null}}{{/set~}}
-
-        {{~#each definition.definitions~}}
-            {{~#if (op "===" null (get "first-dictionary"))~}}
-                {{~#set "first-dictionary" dictionary~}}{{~/set~}}
-            {{~/if~}}
-        {{~/each~}}
-
-        {{~#if (op "!==" null (get "first-dictionary"))~}}
-            <div style="text-align: left;"><ol>
-            {{~#each definition.definitions~}}
-                {{~#if (op "===" dictionary (get "first-dictionary"))~}}
-                    <li>{{~> glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}</li>
-                {{~/if~}}
-            {{~/each~}}
-            </ol></div>
-        {{~/if~}}
-
-    {{~/scope~}}
-
-{{~/inline~}}
-```
-{% endraw %}
-
-
-
----
-
 
 ## Further Reading
 Official documentation om Yomichan's templates:
@@ -514,22 +538,27 @@ Example template code can be found here:
 ---
 
 
-# ShareX Commands
+# ShareX Scripts
 Many people have already documented how to setup your ShareX to work with Anki, such as:
 
 * [stegatxins0](https://rentry.co/mining#sharex) (recommended)
 * [Anime Cards](https://animecards.site/media/#setting-up-sharex)
 
 Instead of re-telling the steps they have already showed,
-I present alternative and additional ShareX commands for stegatxins0's guide
-(the long command to paste within the `Actions` section).
+I present **alternative ShareX scripts**
+(the long one-liner to paste within the `Actions` argument section)
+for stegatxins0's guide.
 
-The following commands have the following changes:
+The following scripts have the following changes:
 
-- They have been all rewritten to work with jp-mining-note by default.
-- The source code is presented in human-readable format right below the one-liner.
+- They all with jp-mining-note by default.
+- They have been rewritten so it can be presented in human-readable format
+    right below the one-liner.
 - The one-liners can be re-compiled from the source code at your own discretion
-  (by [building the documentation](building.md#building-the-documentation)).
+    (by [building the documentation](building.md#building-the-documentation)).
+    All the powershell source code can be found
+    [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/docs/docs/sharex_input.ps1).
+
 
 ---
 
@@ -539,16 +568,17 @@ The following commands have the following changes:
 
 ### Features
 
-- Adds the selected image to the note. This image is automatically shrunk within the field viewer only.
-    Otherwise, the screens
+- Adds the selected image to the note. This image is automatically shrunk
+    (within the field viewer only, if you are using Anki versions 2.1.50+).
 - Adds a tag to the note. The tag is exactly the window name of the current application.
 - Sets the `AdditionalNotes` to the current clipboard. I use this for copying/pasting context
+    (the lines surrounding the sentence).
 
 ### How-To
 
 Follow the steps for setting up the
 [screenshot hotkey](https://rentry.co/mining#hotkey-for-screenshot),
-and use this command in place of step 8's `argument`.
+and use this script in place of step 8's `argument`.
 
 
 {{ sharex_display(sharex.screenshot_and_clipboard) }}
@@ -569,9 +599,9 @@ This is the same as the above, but without setting the `AdditionalNotes` field t
 
 ## Audio Hotkey { .text-yellow }
 
-This command works *exactly the same* as stegatxins0's version,
+This script works *exactly the same* as stegatxins0's version,
 except rewritten in a more readable format.
-If you already have the audio hotkey setup, there is no reason to change the old command.
+If you already have the audio hotkey setup, there is no reason to change the old script.
 
 To use this, follow the steps for setting up the
 [audio hotkey](https://rentry.co/mining#hotkey-for-audio),
@@ -589,6 +619,9 @@ and use this script in place of step 14's `Argument`.
 These are a set of scripts that may help you to prevent doing repetitive actions when
 adding notes.
 
+Unlike the above, these scripts are not meant to be used with audio or picture files.
+Rather, they are stand-alone scripts that modify the most recent cards added.
+
 These scripts are written in two formats:
 one that works automatically with your usual `ShareX` setup,
 and one in Python for cross-platform portability.
@@ -602,7 +635,15 @@ and one in Python for cross-platform portability.
     However, you do not need to worry about this
     if you are running the python script with the `--enable-gui-browse` flag.
 
+
+---
+
+
 ## How-To: Running with ShareX
+
+As shown above, ShareX has the ability to run custom user scripts.
+However, for ShareX to only run the script and do nothing else,
+the hotkey must be configured with steps shown below.
 
 !!! warning
 
@@ -612,34 +653,63 @@ and one in Python for cross-platform portability.
 
 
 ### Steps
-TODO pictures
-TODO not point form
 
-`Hotkey Settings` →  `Task`:
+(TODO video)
 
-- `Task`: Capture Active Window
-- `Override After Capture Tasks`: (Checked)
-- `After Capture`: Save Image to File, Perform Actions, Delete Locally
+{% set checked_checkbox = '<input type="checkbox" disabled="disabled" checked />' %}
 
-`Hotkey Settings` →  `Actions`:
-
-- `Override Actions`: (Checked)
-- Action List:
-    - uncheck all existing actions
-    - add a new action:
+1. Under the main window, go to `Hotkey Settings`, and add a new hotkey.
+2. Click on the settings icon (of the newly added hotkey).
+3. In the `Task` tab (to the left):
+    - Set: `Task` to `Screen capture` →  `Capture active window`
+    - Check `Override After Capture Tasks` ({{ checked_checkbox }})
+    - Under `After Capture`, un-check everything, and check the following:
+        - `Save Image to File`
+        - `Perform Actions`
+        - `Delete Locally`
+4. In the `Actions` tab (to the left):
+    - Check `Override Actions` ({{ checked_checkbox }})
+    - Uncheck all existing actions.
+    - Add a new action by clicking on `Add`.
+    - Set the following values of the action:
         - File Path: `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`
-        - Argument: (the large one-liner under `Sharex Command`)
+        - Argument: (the text in `Sharex Script` for the script you want to run)
 
 
-### Explanation
-- ShareX is primarily meant to be used as a screenshotting / screen recording program, so a file must be captured and saved at some point
-- The above settings saves the image file, runs the script, and then immediately deletes the file afterwards
+!!! note
+    If you are adding multiple scripts with ShareX, instead of re-doing all of the
+    steps above, you can instead duplicate the keybind,
+    and simply set the `Argument` of the action to a different script.
+
+
+??? info "Explanation"
+
+    The reason that the `After Capture` settings include `Save Image to File`
+    and `Delete Locally` is because without those settings, the `Perform Actions`
+    section doesn't appear to run.
+    Fortunately, the combination of `Save Image to File`
+    and `Delete Locally` means the hotkey does the following:
+
+    - Saves the image file
+    - Runs the custom script
+    - Deletes the image file
+
+    In other words, the image file is only temporarily created,
+    and then deleted immediately after running the script.
+    This effectively means that ShareX is only running the script
+    whenever the keybind is used.
+
+---
+
+
 
 ## How-To: Running with Python
 If you don't want to use ShareX, or you are not using Windows,
 you can simply run a python script with command line.
 
 ```bash
+# Your python version should be 3.8 or higher.
+# It may work for lower python versions, but I make no guarantee.
 python3 /path/to/jp-mining-note/tools/hotkey.py -f FUNCTION_NAME
 ```
 
@@ -654,26 +724,20 @@ python3 /path/to/jp-mining-note/tools/hotkey.py -f FUNCTION_NAME
     ```
 
 If you want to use these as keybinds, I will leave it up to you to determine
-how to do that (as there are too many different setups and systems that people can use).
+how to do that (as there are too many different setups and programs that people can use to create keybinds).
 However, some tips for ShareX and AutoKey are given below.
-
-!!! note
-    Your python version should be 3.8 or higher.
-    It may work for lower python versions, but I make no guarantee.
 
 
 ??? info "Instructions for running Python scripts in ShareX"
 
     If you want, you can even use the Python scripts with ShareX, so long as you have Python installed.
-    The only differences between the usual ShareX setup (shown [above](jpresources.md#how-to-running-with-sharex))
-    and the Python setup are the following:
+    To use Python with ShareX, follow all the steps
+    (shown [above](jpresources.md#how-to-running-with-sharex)),
+    until you set the action values.
 
     - The command should be the `DRIVE:\PATH\TO\python.exe` (instead of the path to `powershell.exe`).
     - The argument should be `DRIVE:\PATH\TO\jp-mining-note\tools\hotkey.py -f FUNCTION_NAME`
         (instead of the large one-liner.)
-
-    The only reason why you should do this is if you want to edit the Python scripts themselves
-    instead of the powershell scripts.
 
 ??? info "Instructions for AutoKey (Not AutoHotKey)"
 
@@ -772,6 +836,10 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
 
 This script does the exact same thing as the above script, but with
 `AdditionalNotes` instead of `Sentence`.
+The tested word, if found, is also automatically highlighted.
+
+This is useful to copy/paste context for the sentence (the surrounding lines
+around the sentence).
 
 {{ sharex_display(sharex.update_additional_notes) }}
 
