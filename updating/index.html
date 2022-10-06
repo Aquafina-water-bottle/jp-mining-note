@@ -1019,8 +1019,8 @@ The field list can be accessed by navigating to the following:</p>
 <blockquote>
 <p>(Main window) →  <code>Browse</code> →  <code>Fields...</code>.</p>
 </blockquote>
-<p>The <code>install.py</code> is picky about fields and its order, and the script will automatically reject
-any note type with modifications to the field list.</p>
+<p>The <code>install.py</code> is picky about fields and its order, and the script will reject
+any note type with modifications to the field list (by default).</p>
 <p>To fix this, there are a few cases to go through.</p>
 <details class="info">
 <summary>The field order has been changed.</summary>
@@ -1030,14 +1030,15 @@ with the <code>--ignore-order</code> flag (i.e. <code>python3 install.py --ignor
 <p>Alternatively, you can simply re-order the fields back to their original position.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All new fields will be added to the very end of the field list (i.e. under <code>Comment</code>).
+<p>If you use <code>--ignore-order</code>, all new fields will be added to the very end
+of the field list (i.e. under <code>Comment</code>).
 Additionally, any fields that were supposed to be repositioned will stay in place.
 It is up to you to move the fields to the appropriate places.</p>
 </div>
 </details>
 <details class="info">
 <summary>New field(s) have been created.</summary>
-<p>You have two options.</p>
+<p>You have two options. Neither of these will delete your existing field(s).</p>
 <ol>
 <li>
 <p>If you want to preserve your existing field list order, then you can run the script
@@ -1127,7 +1128,7 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
 is a matching field in that other card.</p>
 </div>
 <p>Here is how I recommend transitioning as smoothly as possible:</p>
-<p>(TODO video)</p>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/yomichan/updating_yomichan_fields.mp4" type="video/mp4" /></video></div></p>
 <ol>
 <li>As always, create a <a href="../faq/#how-do-i-backup-yomichan-settings" target="_blank">backup</a>
     of your Yomichan settings, just in case.</li>
@@ -1135,21 +1136,23 @@ is a matching field in that other card.</p>
     <code>Tools</code> <br>
     →  <code>Manage Note Types</code> <br>
     →  <code>Add</code> <br>
-    →  (select <code>Clone: JP Mining Note</code>) <br>
-    →  (name it to anything you want. For the following examples, it will be named <code>JP Mining Note (copy)</code>.) <br>
-    →  <code>Ok</code></li>
+    →  Select <code>Clone: JP Mining Note</code> →  <code>Ok</code> <br>
+    →  Name the note anything you want (the following examples will use <code>JP Mining Note copy</code>)  →  <code>Ok</code><br>
+    →  <code>Close</code></li>
+<li>If you are currently viewing Yomichan Settings, please refresh the page.</li>
 <li>Head over to Anki Card Format <a href="../setup/#yomichan-fields" target="_blank">as before</a>.</li>
-<li>In the top right corner, change <code>Model</code> to <code>JP Mining Note (copy)</code>,
-   and then change it back to <code>JP Mining Note</code>.</li>
+<li>In the top right corner, change <code>Model</code> to <code>JP Mining Note copy</code>,
+    and then change it back to <code>JP Mining Note</code>.</li>
 <li>Update the fields as specified.<ul>
 <li>It will be both specified in the text you see when running <code>install.py --update</code>.</li>
-<li>However, you should also simply compare the table on the setup page to your filled out fields.</li>
+<li>However, you should also simply compare the table on the
+    <a href="../setup/#yomichan-fields" target="_blank">setup page</a> to your filled out fields.</li>
 </ul>
 </li>
 <li>Remove the temporary note: <br>
     <code>Tools</code> <br>
     →  <code>Manage Note Types</code> <br>
-    →  (select <code>JP Mining Note (copy)</code>) <br>
+    →  (select <code>JP Mining Note copy</code>) <br>
     →  <code>Delete</code></li>
 </ol>
 <div class="admonition info">
@@ -1167,10 +1170,14 @@ does not have any matching fields with the <code>JP Mining Note</code> model.</p
 Again, please make sure you <strong>reset the existing templates</strong> (unless you know what you are doing),
 and again, please make a <a href="../faq/#how-do-i-backup-yomichan-settings" target="_blank">backup</a> of your Yomichan settings just in case.</p>
 <h2 id="updating-the-runtime-options-file">Updating the Runtime Options File<a class="headerlink" href="#updating-the-runtime-options-file" title="Permanent link">&para;</a></h2>
-<p>The <a href="../runtimeoptions/">runtime options file</a> is not updated by default, because default options are built-in
-within the note itself for each option.
-If you want to update this file, see the repository's
-<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js">example options file</a>.</p>
+<p>The <a href="../runtimeoptions/">runtime options file</a> does not automatically update with each note update,
+as to not override the user's configuration on each update.
+If the options file isn't updated, then the note will simply use the default value for the option.</p>
+<p>However, if certain runtime options no longer work, you may have to update this file,
+as it is possible for the configuration file layout to have changed between versions.
+The most recent version of the options file can always be found
+<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js">here</a>.
+if you want to update it.</p>
 <h2 id="final-steps">Final Steps<a class="headerlink" href="#final-steps" title="Permanent link">&para;</a></h2>
 <p>By now, you should be done updating the note!
 Please do the following checks to make sure everything properly works:</p>
@@ -1179,7 +1186,7 @@ Please do the following checks to make sure everything properly works:</p>
 <li>
 <p>Create a new card and make sure nothing looks odd.</p>
 <details class="example">
-<summary>Example excerpts of text to test card creation on</summary>
+<summary>Example Japanese sentences to test card creation</summary>
 <p class="jp-quote-text">「我ながら馬鹿馬鹿しいことを思いついたものだと嘆息しつつも、私は静かにベッドに近付く」</p>
 <p class="jp-quote-text">「ジェラートを買うお金がないとは！給料日まで収入の当てもなし、自炊するしかありませんね」</p>
 <p class="jp-quote-text">「これが少年誌だったら順位上がってるぞ。そしてトーナメント編でアニメ化決定だ」</p>
@@ -1198,7 +1205,7 @@ Please do the following checks to make sure everything properly works:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 5, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 6, 2022</span>
       
     
   </small>

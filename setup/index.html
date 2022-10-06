@@ -1730,6 +1730,7 @@ the field in within the aforementioned <code>Anki card format...</code> section.
 </div>
 <p>The custom markers like <code>{jpmn-primary-definition}</code> is not provided by Yomichan by default.
 See the section below to make these markers usable.</p>
+<p><br></p>
 <h3 id="yomichan-templates">Yomichan Templates<a class="headerlink" href="#yomichan-templates" title="Permanent link">&para;</a></h3>
 <p>Yomichan supports user inserted template code that allows the automatic
 separation of bilingual and monolingual dictionary definitions, custom stylization, etc.
@@ -2432,13 +2433,19 @@ add the following template code as follows:</p>
 </ol>
 <h3 id="make-an-example-card">Make an example card!<a class="headerlink" href="#make-an-example-card" title="Permanent link">&para;</a></h3>
 <p>At this point, you should be able to make cards with Yomichan!</p>
-<p>Here's an excerpt of text you can test Yomichan on:</p>
+<details class="example">
+<summary>Click here to show some example Japanese sentences.</summary>
 <p class="jp-quote-text">「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」</p>
+<p class="jp-quote-text">「なによぅ…甲斐甲斐しく会いに来た女に対して、最初に言うセリフがそれ？」</p>
+<p class="jp-quote-text">「あの時逃げ出した私の罰…あの時の汚辱は今ここで、全部そそいでやるんだ…」</p>
+<p class="jp-quote-text">「貴方なんなんです？なにか、妙に銃口慣れしていますね…若者特有の空威張りという訳でもなさそうですし…」</p>
+</details>
 <p><a href="../assets/yomichan/add_card.gif"><img alt="adding a card with Yomichan" src="../assets/yomichan/add_card.gif" /></a></p>
 <p>Obviously, just Yomichan alone doesn't fill every field.
 Notably, the picture and sentence audio is missing.</p>
 <p>Outside of that, there are some final settings you can adjust within the Yomichan templates
 if the card doesn't look quite right.</p>
+<p><br></p>
 <h3 id="yomichan-templates-options">Yomichan Templates Options<a class="headerlink" href="#yomichan-templates-options" title="Permanent link">&para;</a></h3>
 <h4 id="monolingual-definition">Monolingual Definition<a class="headerlink" href="#monolingual-definition" title="Permanent link">&para;</a></h4>
 <p><i><sup>Main page: <a href="../yomichantemplates/#categorization-of-dictionaries">Yomichan Template Options (Categorization of Dictionaries)</a></sup></i></p>
@@ -2463,21 +2470,22 @@ See <a href="../yomichantemplates/#categorization-of-dictionaries" target="_blan
 <p><i><sup>Main page: <a href="../yomichantemplates/#selected-text">Yomichan Template Options (Selected Text)</a></sup></i></p>
 <p>If you want to select the text to use instead of the definition,
 simply set <code>opt-selection-text-enabled</code> to <code>true</code>.</p>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/yomichan/selected_text.mp4" type="video/mp4" /></video></div></p>
 <p>By default, this enable the following behavior:</p>
 <ol>
 <li>If nothing is selected, then the first dictionary is chosen just like normal.</li>
 <li>If a dictionary is selected, then that dictionary will replace the first definition.</li>
-<li>
-<p>If a section of text is selected, then that dictionary will replace the first definition.
-    Additionally, that section of text will be highlighted (bolded).</p>
+<li>If a section of text is selected, then that dictionary will replace the first definition.
+    Additionally, that section of text will be highlighted (bolded).</li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This does not always work, especially when used across text with formatting or newlines.
+<p>Selecting parts of a definition to bold the text does not always work,
+especially when used across text with formatting or newlines.
 See <a href="../yomichantemplates/#overriding-the-definition" target="_blank">this</a> for more details.</p>
+<p>With this being said, selecting the dictionary should always work.</p>
 </div>
-</li>
-</ol>
-<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/yomichan/selected_text.mp4" type="video/mp4" /></video></div></p>
+<p><br></p>
 <h3 id="other-yomichan-settings">Other Yomichan Settings<a class="headerlink" href="#other-yomichan-settings" title="Permanent link">&para;</a></h3>
 <p>If you want to follow my exact Yomichan popup appearance, set the following
 under (Yomichan settings) →  <code>Popup Appearance</code>:</p>
@@ -2556,24 +2564,25 @@ Of course, this list is incomplete, and there could be tools better suited for y
 <li>This also has card image and audio exporting capabilities.</li>
 <li>Works on video streaming sites as well.</li>
 </ul>
-<p><a href="https://github.com/animebook/animebook.github.io"><strong>Animebook</strong></a></p>
-<ul>
-<li>Cross platform (chromium) browser video player.</li>
-<li>This also has card image and audio exporting capabilities.</li>
-</ul>
 <p><a href="https://getsharex.com/"><strong>ShareX</strong></a></p>
 <ul>
 <li>Windows media recorder which can both take screenshots and record audio. Personally tested.</li>
 <li>This can be automated to add audio and pictures to the most recently added anki card
-  by following the instructions
-  <a href="https://rentry.co/mining#sharex">here</a>.</li>
+    by following the instructions
+    <a href="https://rentry.co/mining#sharex">here</a>.</li>
 <li>Useful for things that don't have an easy way of getting audio, such as visual novels.</li>
-<li>I have some custom scripts written for sharex <a href="../jpresources/#sharex">here</a>.</li>
+<li>I have some custom scripts written for ShareX <a href="../jpresources/#sharex-commands">here</a>,
+    that work by default with this note.</li>
 </ul>
 <p><a href="https://github.com/eshrh/ames"><strong>ames</strong></a></p>
 <ul>
 <li>ShareX alternative for Linux. Personally tested.</li>
 <li>Primarily used to automate audio and picture extraction to the most recently added anki card.</li>
+</ul>
+<p><a href="https://github.com/animebook/animebook.github.io"><strong>Animebook</strong></a></p>
+<ul>
+<li>Cross platform (chromium) browser video player.</li>
+<li>This also has card image and audio exporting capabilities.</li>
 </ul>
 <p><a href="https://github.com/lrorpilla/jidoujisho"><strong>jidoujisho</strong></a></p>
 <ul>

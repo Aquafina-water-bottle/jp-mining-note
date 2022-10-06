@@ -18,6 +18,7 @@
 .jp-quote-text {
   text-indent: -1em;
   padding-left: 1em;
+  font-size: 0.8rem;
 }
 
 
@@ -63,11 +64,24 @@
   --md-accent-fg-color:              var(--jpmn-yellow) !important;
 }
 
+/*
 [data-md-color-scheme="slate"] .md-annotation__index {
-  /*--md-accent-fg-color:              #6db9e7 !important;*/
-  /*--md-accent-fg-color:              var(--jpmn-yellow) !important;*/
   --md-accent-fg-color:              #d9d786 !important;
 }
+
+.md-annotation__index {
+  color: #000000 !important;
+}
+
+.md-annotation__index::after {
+  background-color: red;
+}
+
+:where(:focus-within, :hover) > .md-annotation__index::after {
+  background-color: blue;
+}*/
+
+
 
 
 .md-typeset table:not([class]) td.smaller-table-row {
