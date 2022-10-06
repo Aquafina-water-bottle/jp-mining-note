@@ -1330,13 +1330,15 @@ under Yomichan's <code>Dictionaries</code> section.
 However, if you disable the dictionary, you cannot export it into Anki,
 which is a problem if you are using a bilingual profile but you want to export
 monolingual definitions.</p>
-<p><strong>Steps</strong>:
-1. Ensure that the dictionary is enabled in your Yomichan profile.
-1. Add the following CSS for the desired dictionaries (this has to be done for each individual dictionary):
+<p><strong>Steps</strong>:</p>
+<ol>
+<li>Ensure that the dictionary is enabled in your Yomichan profile.</li>
+<li>Add the following CSS for the desired dictionaries (this has to be done for each individual dictionary):</li>
+</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">li</span><span class="p">.</span><span class="nc">definition-item</span><span class="o">[</span><span class="nt">data-dictionary</span><span class="o">=</span><span class="s1">&#39;DICTIONARY&#39;</span><span class="o">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span><span class="w"></span>
-</code></pre></div></p>
+</code></pre></div>
 <details class="examplecode">
 <summary>Example CSS for JMdict <em>(click here)</em></summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">li</span><span class="p">.</span><span class="nc">definition-item</span><span class="o">[</span><span class="nt">data-dictionary</span><span class="o">=</span><span class="s1">&#39;JMdict (English)&#39;</span><span class="o">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1379,11 +1381,13 @@ monolingual definitions.</p>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<figure>
-<p><a href="../assets/yomichan/hide_add_reading.png"><img alt="remove add reading button" src="../assets/yomichan/hide_add_reading.png" /></a>
-  </p>
-<figcaption>Left: without CSS. Right: with CSS.</figcaption>
-</figure>
+<details class="example">
+<summary>Demo <em>(click here)</em></summary>
+<p><figure markdown>
+  <a href="../assets/yomichan/hide_add_reading.png"><img alt="remove add reading button" src="../assets/yomichan/hide_add_reading.png" /></a>
+  <figcaption>Left: without CSS. Right: with CSS.</figcaption>
+</figure></p>
+</details>
 <hr />
 <h2 id="css-other">CSS (Other)<a class="headerlink" href="#css-other" title="Permanent link">&para;</a></h2>
 <h3 class="text-yellow" id="ensuring-properly-quotes-the-text">Ensuring 「」 properly quotes the text<a class="headerlink" href="#ensuring-properly-quotes-the-text" title="Permanent link">&para;</a></h3>
@@ -2047,19 +2051,41 @@ as shown <a href="../importing/#1-batch-generate-pitch-accents-and-sentence-furi
 </div>
 <details class="info">
 <summary>How-To: Fix incorrectly-bolded words <em>(click here)</em></summary>
-<p>For example, the target word 希望 in the sentence 「入部希望なんですけど…」
+<p>As an example, The target word 希望 in the sentence 「入部希望なんですけど…」
 will be parsed by Yomichan as the following:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>入部&lt;b&gt;希望な&lt;/b&gt;んですけど…
 </code></pre></div></p>
-<p>To add the above sentence in the 2nd example while preserving the bolded word,
+<p>Within the original popup, you can add two versions of the word by default:</p>
+<ol>
+<li>The one with JMdict only.
+    Adding this word will add the sentence with incorrect bolding.</li>
+<li>The one with everything else other than JMdict.
+    Adding this word will have the correct bold, but will be missing some definitions.</li>
+</ol>
+<p>To add the above sentence that solves both problems (no weird bold, and contains all definitions),
 do NOT add the word within the sentence.
 Instead, do the following:</p>
 <ol>
-<li>Add the header word itself within the popup dictionary</li>
-<li>Copy the desired sentence.</li>
-<li>Run this script.</li>
-</ol>
+<li>
+<p>Highlight over the header word itself (or the word in the orthographic forms dictionary),
+    and add that word instead.</p>
+<details class="example">
+<summary>Demo <em>(click here)</em></summary>
 <p><a href="../assets/other/incorrect_bold.png"><img alt="Add the definition from the popup dictionary" src="../assets/other/incorrect_bold.png" /></a></p>
+</details>
+</li>
+<li>
+<p>Copy the desired sentence.</p>
+</li>
+<li>
+<p>Run this script.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is assumed that you have
+<a href="https://learnjapanese.moe/monolingual/#optimizing-yomichan-settings">multiple popups enabled</a>.</p>
+</div>
 </details>
 <details class="info">
 <summary>How the bolded word is preserved <em>(click here)</em></summary>
