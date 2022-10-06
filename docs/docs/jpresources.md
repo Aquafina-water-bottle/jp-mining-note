@@ -140,8 +140,10 @@ which is a problem if you are using a bilingual profile but you want to export
 monolingual definitions.
 
 **Steps**:
+
 1. Ensure that the dictionary is enabled in your Yomichan profile.
 1. Add the following CSS for the desired dictionaries (this has to be done for each individual dictionary):
+
 ```css
 li.definition-item[data-dictionary='DICTIONARY'] {
   display: none;
@@ -204,10 +206,12 @@ button[title^="Add reading"] {
 }
 ```
 
-<figure markdown>
-  {{ img("remove add reading button", "assets/yomichan/hide_add_reading.png") }}
-  <figcaption>Left: without CSS. Right: with CSS.</figcaption>
-</figure>
+??? example "Demo *(click here)*"
+
+    <figure markdown>
+      {{ img("remove add reading button", "assets/yomichan/hide_add_reading.png") }}
+      <figcaption>Left: without CSS. Right: with CSS.</figcaption>
+    </figure>
 
 ---
 
@@ -794,21 +798,36 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
 
 ??? info "How-To: Fix incorrectly-bolded words *(click here)*"
 
-    For example, the target word 希望 in the sentence 「入部希望なんですけど…」
+    As an example, The target word 希望 in the sentence 「入部希望なんですけど…」
     will be parsed by Yomichan as the following:
     ```
     入部<b>希望な</b>んですけど…
     ```
 
-    To add the above sentence in the 2nd example while preserving the bolded word,
+    Within the original popup, you can add two versions of the word by default:
+
+    1. The one with JMdict only.
+        Adding this word will add the sentence with incorrect bolding.
+    2. The one with everything else other than JMdict.
+        Adding this word will have the correct bold, but will be missing some definitions.
+
+    To add the above sentence that solves both problems (no weird bold, and contains all definitions),
     do NOT add the word within the sentence.
     Instead, do the following:
 
-    1. Add the header word itself within the popup dictionary
+    1. Highlight over the header word itself (or the word in the orthographic forms dictionary),
+        and add that word instead.
+
+        ??? example "Demo *(click here)*"
+            {{ img("Add the definition from the popup dictionary", "assets/other/incorrect_bold.png") }}
+
     2. Copy the desired sentence.
+
     3. Run this script.
 
-    {{ img("Add the definition from the popup dictionary", "assets/other/incorrect_bold.png") }}
+    !!! note
+        It is assumed that you have
+        [multiple popups enabled](https://learnjapanese.moe/monolingual/#optimizing-yomichan-settings).
 
 
 ??? info "How the bolded word is preserved *(click here)*"
