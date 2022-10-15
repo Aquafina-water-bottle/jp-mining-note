@@ -617,13 +617,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#referenceerror-efdrc-is-not-defined" class="md-nav__link">
-    ReferenceError: EFDRC is not defined
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#general-error-troubleshooting" class="md-nav__link">
     General Error Troubleshooting
   </a>
@@ -848,13 +841,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#referenceerror-efdrc-is-not-defined" class="md-nav__link">
-    ReferenceError: EFDRC is not defined
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#general-error-troubleshooting" class="md-nav__link">
     General Error Troubleshooting
   </a>
@@ -1058,14 +1044,19 @@ There are two main reasons that Anki-Connect can fail:</p>
 </li>
 </ol>
 <hr />
-<h3 id="referenceerror-efdrc-is-not-defined">ReferenceError: EFDRC is not defined<a class="headerlink" href="#referenceerror-efdrc-is-not-defined" title="Permanent link">&para;</a></h3>
-<p>You are likely using an old version of this note type
+<!--
+## ReferenceError: EFDRC is not defined
+You are likely using an old version of this note type
 if you get this, as this error is ignored by default within the
-<a href="../runtimeoptions/">options file</a>.
+[options file](runtimeoptions.md).
 See the
-<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js" target="_blank">example options file</a>
-(under <code>ignored-errors</code>) for more infomation on this error.</p>
-<hr />
+[example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js){:target="_blank"}
+(under `ignored-errors`) for more infomation on this error.
+
+---
+
+-->
+
 <h3 id="general-error-troubleshooting">General Error Troubleshooting<a class="headerlink" href="#general-error-troubleshooting" title="Permanent link">&para;</a></h3>
 <p>If none of the above worked, the following will be some general troubleshooting tips
 that can help you figure out what the error is:</p>
@@ -1114,7 +1105,7 @@ such as some texthooker pages.
 This can also happen if you copy/paste from a texthooker page to a different field,
 say <code>AdditionalNotes</code>, and then copy a section of <code>AdditionalNotes</code> to <code>Sentence</code>.</p>
 <p>The <a href="../jpresources/#update-sentence-with-clipboard">updating sentence with clipboard hotkey</a>
-shouldn't have this problem because it explicitly uses <code>&lt;br&gt;</code> instead of <code>&lt;div&gt;</code></p>
+shouldn't have this problem, as <code>&lt;div&gt;</code> tags are not present by default.</p>
 </div>
 <hr />
 <h3 id="the-showhide-button-doesnt-do-anything">The Show/Hide button doesn't do anything.<a class="headerlink" href="#the-showhide-button-doesnt-do-anything" title="Permanent link">&para;</a></h3>
@@ -1128,7 +1119,7 @@ and then the back of the card, in sequence.
 To fix it so you only hear the audio displayed in the back of the card,
 go to:</p>
 <p><code>Decks</code> (main anki browser) <br>
-→  The gear beside your deck <br>
+→  Deck settings (the gear beside your deck) <br>
 →  <code>Options</code> <br>
 →  <code>Audio</code> section <br>
 →  Toggle <code>Skip question when replaying answer</code></p>
@@ -1262,7 +1253,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 2, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2022</span>
       
     
   </small>

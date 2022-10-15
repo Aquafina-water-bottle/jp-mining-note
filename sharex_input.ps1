@@ -134,6 +134,24 @@ $sorted_list = $added_notes.result | Sort-Object -Descending {[Long]$_};
 $curr_note_id = $sorted_list[0];
 
 
+# attempts to bold the found word within the clipboard
+$curr_note_data = Run-Json @{
+    action = 'notesInfo';
+    version = 6;
+    params = @{
+        notes = @($curr_note_id);
+    }
+};
+$curr_note_sent = $curr_note_data.result.fields.Sentence.value;
+$result_clipboard = $clipboard;
+if ($curr_note_sent -match '<b>(?<bolded>.+)</b>') {
+    $bolded = $matches['bolded'];
+    # may not replace anything
+    $result_clipboard = $clipboard.replace($bolded, "<b>$bolded</b>");
+};
+
+
+
 Run-Json @{
     action = 'updateNoteFields';
     version = 6;
@@ -142,7 +160,7 @@ Run-Json @{
             id = $curr_note_id;
             fields = @{
                 Picture = "<img data-editor-shrink=`"true`" src=`"$media_name`">";
-                AdditionalNotes = $clipboard;
+                AdditionalNotes = $result_clipboard;
             }
         }
     }
