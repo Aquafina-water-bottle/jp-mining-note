@@ -73,7 +73,6 @@ you can use the following CSS:
       user-select: none;
     }
     ```
-    Unfortunately, the above doesn't seem to work on Linux (tested on Ubuntu / Xfce, Anki Qt6 2.1.54).
 
 ---
 

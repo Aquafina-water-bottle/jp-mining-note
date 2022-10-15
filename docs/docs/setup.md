@@ -782,39 +782,40 @@ I will instead provide a list of resources you can use.
 Of course, this list is incomplete, and there could be tools better suited for your workflow.
 
 
-[**mpvacious**](https://github.com/Ajatt-Tools/mpvacious)
+## [mpvacious](https://github.com/Ajatt-Tools/mpvacious)
 
-* add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
+* Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
 * Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
 
-??? examplecode "Click here to see some basic config changes to get it working with JPMN."
+    ??? examplecode "Click here to see some basic config changes to get it working with JPMN."
 
-    ```ini
-    # Model names are listed in `Tools -> Manage note types` menu in Anki.
-    model_name=JP Mining Note
+        ```ini
+        # Model names are listed in `Tools -> Manage note types` menu in Anki.
+        model_name=JP Mining Note
 
-    # Field names as they appear in the selected note type.
-    # If you set `audio_field` or `image_field` empty,
-    # the corresponding media file will not be created.
-    sentence_field=Sentence
-    #secondary_field=SentEng  # Not used by the note. This is ignored entirely.
-    audio_field=SentenceAudio
-    image_field=Picture
-    ```
+        # Field names as they appear in the selected note type.
+        # If you set `audio_field` or `image_field` empty,
+        # the corresponding media file will not be created.
+        sentence_field=Sentence
+        #secondary_field=SentEng  # Not used by the note. This is ignored entirely.
+        audio_field=SentenceAudio
+        image_field=Picture
+        ```
 
 
-[**Immersive**](https://github.com/Ben-Kerman/immersive)
+## [Immersive](https://github.com/Ben-Kerman/immersive)
 
 * A powerful alternative to the mpvacious add-on above, with certain different capabilities.
 * Can also be used to automatically extract sentence audio and pictures.
+* Potentially dated: last commit as of writing (2022/10/13) was done in 2022/01/27.
 
-[**asbplayer**](https://github.com/killergerbah/asbplayer)
+## [asbplayer](https://github.com/killergerbah/asbplayer)
 
 * Cross platform (chromium) browser video player. Personally tested.
 * This also has card image and audio exporting capabilities.
 * Works on video streaming sites as well.
 
-[**ShareX**](https://getsharex.com/)
+## [ShareX](https://getsharex.com/)
 
 * Windows media recorder which can both take screenshots and record audio. Personally tested.
 * This can be automated to add audio and pictures to the most recently added anki card
@@ -824,22 +825,22 @@ Of course, this list is incomplete, and there could be tools better suited for y
 * I have some custom scripts written for ShareX [here](jpresources.md#sharex-commands),
     that work by default with this note.
 
-[**ames**](https://github.com/eshrh/ames)
+## [ames](https://github.com/eshrh/ames)
 
 * ShareX alternative for Linux. Personally tested.
 * Primarily used to automate audio and picture extraction to the most recently added anki card.
 
-[**Animebook**](https://github.com/animebook/animebook.github.io)
+## [Animebook](https://github.com/animebook/animebook.github.io)
 
 * Cross platform (chromium) browser video player.
 * This also has card image and audio exporting capabilities.
 
-[**jidoujisho**](https://github.com/lrorpilla/jidoujisho)
+## [jidoujisho](https://github.com/lrorpilla/jidoujisho)
 
 * Android reader and media player, which can also create Anki cards.
 * Note that this app does NOT use Yomichan, which means that certain fields may not be filled automatically
 
-[**mokuro**](https://github.com/kha-white/mokuro)
+## [mokuro](https://github.com/kha-white/mokuro)
 
 * This is not something that can automatically add images or audio to your cards,
   but it allows you to use popup-dictionaries like Yomichan on manga.

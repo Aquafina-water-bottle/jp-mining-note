@@ -27,11 +27,13 @@ temp field
 
 ??? example "Original ShareX Code *(click here)*"
 
-    {% autoescape false -%}
-    {% filter indent(8) %}
-    {{ text }}
-    {%- endfilter -%}
-    {%- endautoescape %}
+{% autoescape false -%}
+{% filter indent(4) %}
+```ps1
+{{ text }}
+```
+{%- endfilter -%}
+{%- endautoescape %}
 
 {% endmacro %}
 
