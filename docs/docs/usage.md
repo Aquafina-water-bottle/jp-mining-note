@@ -70,7 +70,6 @@ However, it also serves as a notification system to the user, when it has a colo
 
 
 
-<!--(not to be confused with [Cade's kanji hover](https://cademcniven.com/projects/kanjihover/))-->
 ## Kanji Hover
 <i><sup>Main page: [Kanji Hover](kanjihover.md)</sup></i>
 

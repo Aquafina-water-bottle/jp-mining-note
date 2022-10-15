@@ -57,3 +57,28 @@ This can be changed in the [options file](runtimeoptions.md){:target="_blank"}:
 ```
 
 
+# Related Programs
+
+[**Cade's Kanji Hover**](https://cademcniven.com/projects/kanjihover/)
+
+- Hover over a kanji to see its readings, meanings (english), and other info.
+- This does not show example words from other cards.
+- My implmentation of kanji hover was heavily inspired by this.
+
+
+[**Hanzi Web for Anki**](https://github.com/elizagamedev/anki-hanziweb)
+
+- The end result of this is to this note's implementation of kanji-hover,
+    in the sense that it is used to see kanjis that have been used in other notes.
+    However, it differs primarily in the fact that all the information must be
+    mass-generated. This indeed has several advantages, such as being able to
+    use the infomation on Android, where Anki-Connect isn't full supported.
+
+
+!!! warning
+    None of the above will work with jp-mining-note by default.
+    In fact, it's almost guaranteed that Cade's Kanji Hover will conflict with
+    this note's kanji hover ability.
+
+
+

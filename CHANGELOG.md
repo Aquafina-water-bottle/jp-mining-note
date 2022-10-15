@@ -33,11 +33,19 @@ The following are examples breaking changes:
 -->
 
 
-## [0.10.2.1] - 2022-10-??
+## [0.10.2.1] - 2022-10-15
+
+#### Features
+- ShareX image + clipboard hotkey now attempts to highlight the tested word within the clipboard
 
 #### Fixes
+- (hotkey.py) Updating the sentence from the clipboard no longer produces newlines
 - Fixed a bug in the Yomichan templates that grabs the last found definition instead of the first
 - Added a hack to ensure that triple-click no longer copies extra text in the texthooker page
+- Example config now has modules ordered in the correct position
+
+#### Internal Changes
+- Source powershell code in jpresources is now syntax highlighted
 
 
 ## [0.10.2.0] - 2022-10-02

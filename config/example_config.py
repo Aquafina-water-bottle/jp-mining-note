@@ -46,13 +46,14 @@ CONFIG = {
         "allow-user-defined-modules": False,
 
         "enabled-modules": [
+            "sent-utils",
+            "kanji-hover",
+            "auto-pitch-accent",
+
             # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
             # (unless you are not using images in your cards of course)
             "img-utils",
 
-            "sent-utils",
-            "kanji-hover",
-            "auto-pitch-accent",
             "customize-open-fields",
         ],
     },
