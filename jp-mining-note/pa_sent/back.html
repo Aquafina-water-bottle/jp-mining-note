@@ -15,10 +15,10 @@ JPMN-COMPILE-TIME-OPTIONS-JSON:
       "dictionaries"
     ],
     "enabled-modules": [
-      "img-utils",
       "sent-utils",
       "kanji-hover",
       "auto-pitch-accent",
+      "img-utils",
       "customize-open-fields"
     ],
     "hardcoded-runtime-options": false,
@@ -319,7 +319,7 @@ function optionsNotFound() {
 
     
   <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
-  <div class="card-description-ver">JP Mining Note: Version 0.10.2.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.10.2.1</div>
 
 
 </div>
@@ -464,6 +464,15 @@ function optionsNotFound() {
 <blockquote class="glossary-blockquote highlight-bold" id="primary_definition">
   <div class="glossary-text glossary-text--primary-definition">
     {{furigana:PrimaryDefinition}}
+    <div style="font-size: 0px"><br></div>
+    <!-- The above is a hack to allow a user to triple-click the definition
+      without selecting everything below the line.
+      This seems to ONLY affect the texthooker page;
+      regular copy/pastes through everything I tried
+      (pyperclip, text editor paste, pasting into Anki, etc)
+      does not suffer from this problem.
+      I figure that adding this shouldn't affect anything
+    -->
   </div>
 </blockquote>
 
@@ -474,6 +483,15 @@ function optionsNotFound() {
     <blockquote class="glossary-blockquote highlight-bold">
       <div class="glossary-text glossary-text--secondary-definition">
         {{SecondaryDefinition}}
+        <div style="font-size: 0px"><br></div>
+        <!-- The above is a hack to allow a user to triple-click the definition
+          without selecting everything below the line.
+          This seems to ONLY affect the texthooker page;
+          regular copy/pastes through everything I tried
+          (pyperclip, text editor paste, pasting into Anki, etc)
+          does not suffer from this problem.
+          I figure that adding this shouldn't affect anything
+        -->
       </div>
     </blockquote>
   </details>
@@ -490,6 +508,15 @@ function optionsNotFound() {
     <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
       <div class="glossary-text glossary-text--additional-notes">
         {{AdditionalNotes}}
+        <div style="font-size: 0px"><br></div>
+        <!-- The above is a hack to allow a user to triple-click the definition
+          without selecting everything below the line.
+          This seems to ONLY affect the texthooker page;
+          regular copy/pastes through everything I tried
+          (pyperclip, text editor paste, pasting into Anki, etc)
+          does not suffer from this problem.
+          I figure that adding this shouldn't affect anything
+        -->
       </div>
     </blockquote>
   </details>
@@ -506,6 +533,15 @@ function optionsNotFound() {
     <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
       <div class="glossary-text glossary-text--extra-definitions">
         {{ExtraDefinitions}}
+        <div style="font-size: 0px"><br></div>
+        <!-- The above is a hack to allow a user to triple-click the definition
+          without selecting everything below the line.
+          This seems to ONLY affect the texthooker page;
+          regular copy/pastes through everything I tried
+          (pyperclip, text editor paste, pasting into Anki, etc)
+          does not suffer from this problem.
+          I figure that adding this shouldn't affect anything
+        -->
       </div>
     </blockquote>
   </details>
