@@ -261,9 +261,9 @@ details > summary {
 
 /*
  * makes ruby text unselectable (and hence uncopyable)
- * TODO: this doesn't actually seem to work in: (Linux (Ubuntu) / Anki 2.1.54 Qt6)
  * - it makes the text unselectable, but the goal was to make the text also uncopyable
  * - however, the text remains copyable for some reason in anki
+ *   WHEN this is combined with the clipboard inserter plugin
  * - text is not copyable in modern browsers like firefox
  */
 ruby rt {

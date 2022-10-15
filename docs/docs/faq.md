@@ -23,6 +23,7 @@ There are two main reasons that Anki-Connect can fail:
 ---
 
 
+<!--
 ## ReferenceError: EFDRC is not defined
 You are likely using an old version of this note type
 if you get this, as this error is ignored by default within the
@@ -33,6 +34,7 @@ See the
 
 ---
 
+-->
 
 ## General Error Troubleshooting
 
@@ -97,7 +99,7 @@ For example, the above should be changed into:
     say `AdditionalNotes`, and then copy a section of `AdditionalNotes` to `Sentence`.
 
     The [updating sentence with clipboard hotkey](jpresources.md#update-sentence-with-clipboard)
-    shouldn't have this problem because it explicitly uses `<br>` instead of `<div>`
+    shouldn't have this problem, as `<div>` tags are not present by default.
 
 ---
 
@@ -117,7 +119,7 @@ To fix it so you only hear the audio displayed in the back of the card,
 go to:
 
 `Decks` (main anki browser) <br>
-→  The gear beside your deck <br>
+→  Deck settings (the gear beside your deck) <br>
 →  `Options` <br>
 →  `Audio` section <br>
 →  Toggle `Skip question when replaying answer`

@@ -74,6 +74,8 @@ Card creation:
 
 # Get Started
 See the documentation [here](https://aquafina-water-bottle.github.io/jp-mining-note/).
+Additionally, see the FAQ and troubleshooting section
+[here](https://aquafina-water-bottle.github.io/jp-mining-note/faq/).
 
 # Other Info
 Tested on Anki 2.1.54 (Qt6), Linux (Ubuntu) & Windows.
