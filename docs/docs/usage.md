@@ -26,7 +26,7 @@ In other words, it means to flip the value of the field between empty and filled
 
 
 # User Interface
-Most of the user interface is already shown off in the [first video demo](/#demos){:target="_blank"},
+Most of the user interface is already shown off in the [GUI demo](/jp-mining-note/#demos){:target="_blank"},
 and I would recommend watching it before continuing.
 However, to dispell any mysteries, here is a fully annotated summary of the user interface.
 
