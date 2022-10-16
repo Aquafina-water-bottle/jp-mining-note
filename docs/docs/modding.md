@@ -442,7 +442,7 @@ the following under `extra/style.scss`:
 Let's say we want to increase (or decrease) the size of the card,
 without affecting any of Anki's GUI.
 
-1. Create a folder called `extra`, like above,
+1. Create a folder called `extra` like above,
     and include the folder under `css-folders` like above.
 
 1. Add the following code to the `extra/style.scss` file (create the file if it doesn't exist):
@@ -462,7 +462,7 @@ without affecting any of Anki's GUI.
 ## Example (Limiting number of dictionaries)
 This allows you to limit the number of displayed dictionaries shown in "Extra Definitions".
 
-1. Create a folder called `extra`, like above,
+1. Create a folder called `extra` [like above](modding.md#custom-css),
     and include the folder under `css-folders` like above.
 
 1. Under `extra/style.scss`, add the following code:
@@ -488,7 +488,33 @@ This allows you to limit the number of displayed dictionaries shown in "Extra De
 1. Rebuild and reinstall the template.
 
 
-## Example (Zoom)
+## Example (Limiting number of frequencies)
+This allows you to limit the number of frequencies shown at the top right corner.
+
+1. Create a folder called `extra` [like above](modding.md#custom-css),
+    and include the folder under `css-folders` like above.
+
+1. Under `extra/style.scss`, add the following code:
+
+    ```css
+    /* max 5 frequencies shown */
+    .frequencies div.frequencies__group:nth-child(n+6) {
+      display: none;
+    }
+    ```
+
+2. (Optional) Under `extra/field.scss`, add the following code:
+
+    ```css
+    /* max 5 frequencies shown */
+    anki-editable[field="FrequenciesStylized"] div.frequencies__group:nth-child(n+6) {
+      color: var(--text-color--3);
+    }
+    ```
+    This will grey out the frequencies past the 5th frequency in the editor.
+
+
+1. Rebuild and reinstall the template.
 
 ---
 
