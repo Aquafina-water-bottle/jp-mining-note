@@ -114,7 +114,7 @@ Please check the following in particular:
     is the default grey color.
 
     If this circle is red, that means something is wrong with the note's javascript.
-    Please see [this](faq.md#errors){:target="_blank"} section for basic troubleshooting.
+    Please see [this](faq.md#errors-warnings){:target="_blank"} section for basic troubleshooting.
 
 1. Clicking on the image to zoom should work out of the box.
 

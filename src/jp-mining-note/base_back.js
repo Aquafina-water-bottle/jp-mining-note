@@ -8,7 +8,7 @@ function invoke(action, params={}) {
   let version = 6;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('error', () => reject('failed to issue request'));
+    xhr.addEventListener('error', () => reject('AnkiConnect failed to issue request.'));
     xhr.addEventListener('load', () => {
       try {
         const response = JSON.parse(xhr.responseText);

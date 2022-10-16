@@ -1,5 +1,5 @@
 
-# Errors
+# Errors & Warnings
 This section documents frequent errors that
 may show up on the info circle at the top right.
 
@@ -9,7 +9,7 @@ may show up on the info circle at the top right.
 
 
 
-## Javascript handler error: \`failed to issue request\`
+## (Error) AnkiConnect failed to issue request.
 This is an indication that Anki-Connect is failing.
 There are two main reasons that Anki-Connect can fail:
 
@@ -19,6 +19,46 @@ There are two main reasons that Anki-Connect can fail:
 2. If you are using an older version of Anki (2.1.49 and below),
     see the note in the Anki-Connect setup section
     [here](setup.md#anki-connect).
+
+---
+
+
+
+## (Warning) JPMNOpts was not defined in the options file. Was there an error?
+
+If you see this as an isolated warning without any other errors,
+it is very likely that you are using Anki version 2.1.49 or below.
+Please check your Anki version to confirm this:
+
+> Main Window →  `Help` →  `About...`
+
+If your Anki version is indeed 2.1.49 or below, then this should only appear on the front side of your first card of the session.
+To check, try flipping the card and back. This warning should dissappear once you do.
+
+The only side effect of this is that the user-defined runtime options will not be used for the front side of the first card,
+and the defaults will be used instead.
+
+There are two ways to fix this:
+
+1. [Update Anki](setup.md#updating-anki) to a higher version.
+1. Compile the card with [hard-coded defaults](compileopts.md#custom-runtime-options).
+
+??? info "Why this happens *(click here)*"
+
+    The `<script ... src="_jpmn-options.js">` tag seems to runs asynchronously on 2.1.49 and below,
+    meaning that the order of when this is ran is not constant compared to the main javascript block.
+    With that being said, the exact tag seems to run synchronously on 2.1.50 and above,
+    so it is guaranteed to run before the main javascript block on these versions.
+
+    With my current knowledge, the only way to guarantee the order of this import is asynchronous functions,
+    or some other asynchronous features.
+    For example, a simple `await import(...)` should work.
+    However, asynchronous features have been avoided throughout the development of this,
+    as it currently seems to
+    [behave unpredictably](https://aquafina-water-bottle.github.io/jp-mining-note/modding/#avoid-asynchronous-javascript-features-in-anki)
+    within Anki.
+
+
 
 ---
 
@@ -35,6 +75,9 @@ See the
 ---
 
 -->
+
+## JPMNOpts was not defined in the options file. Was there an error?
+
 
 ## General Error Troubleshooting
 
@@ -91,7 +134,7 @@ For example, the above should be changed into:
 マスターと行動を共にするとは万死に値するデース
 ```
 
-!!! info "Why this can happen"
+??? info "Why this can happen *(click here)*"
 
     This happens if you copy/paste directly from certain pages into the sentence field,
     such as some texthooker pages.

@@ -443,13 +443,11 @@ Let's say we want to increase (or decrease) the size of the card,
 without affecting any of Anki's GUI.
 
 1. Create a folder called `extra`, like above,
-    and include the folder under `css-folders` like above
+    and include the folder under `css-folders` like above.
 
-1. Create a `style.scss` file under `extra`.
+1. Add the following code to the `extra/style.scss` file (create the file if it doesn't exist):
 
-1. Add the following code to the `style.scss` file:
-
-    ```
+    ```css
     :root {
       /* Times 1.1 of the original size.
        * If you want to make the note smaller, use a value below 1, like 0.9.
@@ -459,6 +457,38 @@ without affecting any of Anki's GUI.
     ```
 
 1. Rebuild and reinstall the template.
+
+
+## Example (Limiting number of dictionaries)
+This allows you to limit the number of displayed dictionaries shown in "Extra Definitions".
+
+1. Create a folder called `extra`, like above,
+    and include the folder under `css-folders` like above.
+
+1. Under `extra/style.scss`, add the following code:
+
+    ```css
+    /* max 4 definitions shown */
+    .glossary-text--extra-definitions ol li:nth-child(n+5) {
+      display: none;
+    }
+    ```
+
+2. (Optional) Under `extra/field.scss`, add the following code:
+
+    ```css
+    /* max 4 definitions shown */
+    anki-editable[field="ExtraDefinitions"] ol li:nth-child(n+5) {
+      color: var(--text-color--3);
+    }
+    ```
+    This will grey out the definitions past the 4th definition in the editor.
+
+
+1. Rebuild and reinstall the template.
+
+
+## Example (Zoom)
 
 ---
 
