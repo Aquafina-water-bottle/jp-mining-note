@@ -76,8 +76,6 @@ See the
 
 -->
 
-## JPMNOpts was not defined in the options file. Was there an error?
-
 
 ## General Error Troubleshooting
 

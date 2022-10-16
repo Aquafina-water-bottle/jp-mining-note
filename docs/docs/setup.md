@@ -113,7 +113,7 @@ Please check the following in particular:
 1. Notice how at the top left corner, the info circle (the "i" encased within the circle)
     is the default grey color.
 
-    If this circle is red, that means something is wrong with the note's javascript.
+    If this circle is red or orange, there could be something wrong with the template.
     Please see [this](faq.md#errors-warnings){:target="_blank"} section for basic troubleshooting.
 
 1. Clicking on the image to zoom should work out of the box.
