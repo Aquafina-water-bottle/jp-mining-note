@@ -675,6 +675,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example-limiting-number-of-dictionaries" class="md-nav__link">
+    Example (Limiting number of dictionaries)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-zoom_1" class="md-nav__link">
+    Example (Zoom)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -970,6 +984,20 @@
         
           <li class="md-nav__item">
   <a href="#example-zoom" class="md-nav__link">
+    Example (Zoom)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-limiting-number-of-dictionaries" class="md-nav__link">
+    Example (Limiting number of dictionaries)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-zoom_1" class="md-nav__link">
     Example (Zoom)
   </a>
   
@@ -1466,25 +1494,51 @@ without affecting any of Anki's GUI.</p>
 <ol>
 <li>
 <p>Create a folder called <code>extra</code>, like above,
-    and include the folder under <code>css-folders</code> like above</p>
+    and include the folder under <code>css-folders</code> like above.</p>
 </li>
 <li>
-<p>Create a <code>style.scss</code> file under <code>extra</code>.</p>
-</li>
-<li>
-<p>Add the following code to the <code>style.scss</code> file:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>:root {
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  /* Times 1.1 of the original size.
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>   * If you want to make the note smaller, use a value below 1, like 0.9.
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>   */
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  --zoom: 1.1;
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>}
+<p>Add the following code to the <code>extra/style.scss</code> file (create the file if it doesn't exist):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">:</span><span class="nd">root</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="c">/* Times 1.1 of the original size.</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c">   * If you want to make the note smaller, use a value below 1, like 0.9.</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c">   */</span><span class="w"></span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nv">--zoom</span><span class="p">:</span><span class="w"> </span><span class="mf">1.1</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </li>
 <li>
 <p>Rebuild and reinstall the template.</p>
 </li>
 </ol>
+<h3 id="example-limiting-number-of-dictionaries">Example (Limiting number of dictionaries)<a class="headerlink" href="#example-limiting-number-of-dictionaries" title="Permanent link">&para;</a></h3>
+<p>This allows you to limit the number of displayed dictionaries shown in "Extra Definitions".</p>
+<ol>
+<li>
+<p>Create a folder called <code>extra</code>, like above,
+    and include the folder under <code>css-folders</code> like above.</p>
+</li>
+<li>
+<p>Under <code>extra/style.scss</code>, add the following code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c">/* max 4 definitions shown */</span><span class="w"></span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="p">.</span><span class="nc">glossary-text--extra-definitions</span><span class="w"> </span><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">n</span><span class="o">+</span><span class="nt">5</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+<li>
+<p>(Optional) Under <code>extra/field.scss</code>, add the following code:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c">/* max 4 definitions shown */</span><span class="w"></span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">anki-editable</span><span class="o">[</span><span class="nt">field</span><span class="o">=</span><span class="s2">&quot;ExtraDefinitions&quot;</span><span class="o">]</span><span class="w"> </span><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">n</span><span class="o">+</span><span class="nt">5</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-color--3</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+This will grey out the definitions past the 4th definition in the editor.</p>
+</li>
+<li>
+<p>Rebuild and reinstall the template.</p>
+</li>
+</ol>
+<h3 id="example-zoom_1">Example (Zoom)<a class="headerlink" href="#example-zoom_1" title="Permanent link">&para;</a></h3>
 <hr />
 <h2 id="field-list-editing">Field List Editing<a class="headerlink" href="#field-list-editing" title="Permanent link">&para;</a></h2>
 <p>This section describes import PSAs on what you should you if you want to
@@ -1544,18 +1598,18 @@ whenever you want to update the note to a new version.</p>
 <h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h2>
 <h3 id="javascript-print-statements">Javascript print statements<a class="headerlink" href="#javascript-print-statements" title="Permanent link">&para;</a></h3>
 <p>Anki doesn't come with a way to use <code>console.log()</code> normally, so I made one myself.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// global logger</span><span class="w"></span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1">// module-specific logger</span><span class="w"></span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">JPMNLogger</span><span class="p">(</span><span class="s2">&quot;module-name&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">// global logger</span><span class="w"></span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1">// module-specific logger</span><span class="w"></span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">JPMNLogger</span><span class="p">(</span><span class="s2">&quot;module-name&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="nx">logger</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <p>The above functions prints a message of the given log level to the info circle.
 To see the message, hover over the info circle.</p>
@@ -1564,33 +1618,33 @@ in the javascript options.</p>
 <h3 id="avoid-asynchronous-javascript-features-in-anki">Avoid asynchronous javascript features in Anki<a class="headerlink" href="#avoid-asynchronous-javascript-features-in-anki" title="Permanent link">&para;</a></h3>
 <details class="examplecode">
 <summary>Example Asynchronous Javascript</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="c1">// Example 1: normal asynchronous functions</span><span class="w"></span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runMeAsynchronously</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="c1">// Example 2: promises</span><span class="w"></span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">giveMeAPromise</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">      </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">        </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;Success!&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">    </span><span class="p">});</span><span class="w"></span>
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
-<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">  </span><span class="nx">giveMeAPromise</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">    </span><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;The promise is complete!&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">unique</span><span class="o">=</span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">  </span><span class="p">});</span><span class="w"></span>
-<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>
-<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>
-<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="cm">&lt;!-- Example 3: anything wrapped in type=&quot;module&quot; --&gt;</span>
-<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
-<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">  </span><span class="c1">// everything here is run asynchronously</span><span class="w"></span>
-<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="c1">// Example 1: normal asynchronous functions</span><span class="w"></span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runMeAsynchronously</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">  </span><span class="c1">// Example 2: promises</span><span class="w"></span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">giveMeAPromise</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">      </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">        </span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;Success!&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="p">});</span><span class="w"></span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">  </span><span class="nx">giveMeAPromise</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">    </span><span class="nx">LOGGER</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;The promise is complete!&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">unique</span><span class="o">=</span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">  </span><span class="p">});</span><span class="w"></span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="cm">&lt;!-- Example 3: anything wrapped in type=&quot;module&quot; --&gt;</span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="w">  </span><span class="c1">// everything here is run asynchronously</span><span class="w"></span>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </code></pre></div>
 </details>
 <p>TODO reason:</p>
@@ -1618,11 +1672,11 @@ in the javascript options.</p>
 </ul>
 <details class="examplecode">
 <summary>Example (safer) asynchronous javascript</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">let</span><span class="w"> </span><span class="nx">ele</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;example&quot;</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runMeAsynchronously</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nx">ele</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;this should only appear once!&quot;</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">let</span><span class="w"> </span><span class="nx">ele</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;example&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runMeAsynchronously</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nx">ele</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;this should only appear once!&quot;</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </details>
 

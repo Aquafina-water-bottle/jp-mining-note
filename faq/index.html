@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#errors" class="md-skip">
+        <a href="#errors-warnings" class="md-skip">
           Skip to content
         </a>
       
@@ -602,16 +602,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#errors" class="md-nav__link">
-    Errors
+  <a href="#errors-warnings" class="md-nav__link">
+    Errors &amp; Warnings
   </a>
   
-    <nav class="md-nav" aria-label="Errors">
+    <nav class="md-nav" aria-label="Errors &amp; Warnings">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#javascript-handler-error-failed-to-issue-request" class="md-nav__link">
-    Javascript handler error: `failed to issue request`
+  <a href="#error-ankiconnect-failed-to-issue-request" class="md-nav__link">
+    (Error) AnkiConnect failed to issue request.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error" class="md-nav__link">
+    (Warning) JPMNOpts was not defined in the options file. Was there an error?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jpmnopts-was-not-defined-in-the-options-file-was-there-an-error" class="md-nav__link">
+    JPMNOpts was not defined in the options file. Was there an error?
   </a>
   
 </li>
@@ -826,16 +840,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#errors" class="md-nav__link">
-    Errors
+  <a href="#errors-warnings" class="md-nav__link">
+    Errors &amp; Warnings
   </a>
   
-    <nav class="md-nav" aria-label="Errors">
+    <nav class="md-nav" aria-label="Errors &amp; Warnings">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#javascript-handler-error-failed-to-issue-request" class="md-nav__link">
-    Javascript handler error: `failed to issue request`
+  <a href="#error-ankiconnect-failed-to-issue-request" class="md-nav__link">
+    (Error) AnkiConnect failed to issue request.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error" class="md-nav__link">
+    (Warning) JPMNOpts was not defined in the options file. Was there an error?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jpmnopts-was-not-defined-in-the-options-file-was-there-an-error" class="md-nav__link">
+    JPMNOpts was not defined in the options file. Was there an error?
   </a>
   
 </li>
@@ -1024,12 +1052,12 @@
 
   <h1>FAQ & Troubleshooting</h1>
 
-<h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">&para;</a></h2>
+<h2 id="errors-warnings">Errors &amp; Warnings<a class="headerlink" href="#errors-warnings" title="Permanent link">&para;</a></h2>
 <p>This section documents frequent errors that
 may show up on the info circle at the top right.</p>
 <p><a href="../assets/info_circle_error.gif"><img alt="info circle error example" src="../assets/info_circle_error.gif" /></a></p>
 <hr />
-<h3 id="javascript-handler-error-failed-to-issue-request">Javascript handler error: `failed to issue request`<a class="headerlink" href="#javascript-handler-error-failed-to-issue-request" title="Permanent link">&para;</a></h3>
+<h3 id="error-ankiconnect-failed-to-issue-request">(Error) AnkiConnect failed to issue request.<a class="headerlink" href="#error-ankiconnect-failed-to-issue-request" title="Permanent link">&para;</a></h3>
 <p>This is an indication that Anki-Connect is failing.
 There are two main reasons that Anki-Connect can fail:</p>
 <ol>
@@ -1044,6 +1072,34 @@ There are two main reasons that Anki-Connect can fail:</p>
 </li>
 </ol>
 <hr />
+<h3 id="warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">(Warning) JPMNOpts was not defined in the options file. Was there an error?<a class="headerlink" href="#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error" title="Permanent link">&para;</a></h3>
+<p>If you see this as an isolated warning without any other errors,
+it is very likely that you are using Anki version 2.1.49 or below.
+Please check your anki version to confirm this.</p>
+<p>If your Anki version is indeed 2.1.49 or below, then this should only appear on the front side of your first card of the session.
+To check, try flipping the card and back. This warning should dissappear once you do.
+The only side effect of this is that the user-defined runtime options will not be read for the front side of the first card,
+and the defaults will be used instead.</p>
+<p>There are two ways to fix this:</p>
+<ol>
+<li><a href="../setup/#updating-anki">Update Anki</a> to a higher version.</li>
+<li>Compile the card with <a href="../compileopts/#custom-runtime-options">hard-coded defaults</a>.</li>
+</ol>
+<details class="info">
+<summary>Why this happens <em>(click here)</em></summary>
+<p>The <code>&lt;script ... src="_jpmn-options.js"&gt;</code> tag seems to runs asynchronously on 2.1.49 and below,
+meaning that the order of when this is ran is not constant compared to the main javascript block.
+With that being said, the exact tag seems to run synchronously on 2.1.50 and above,
+so it is guaranteed to run before the main javascript block on these versions.</p>
+<p>With my current knowledge, the only way to guarantee the order of this import is asynchronous functions,
+or some other asynchronous features.
+For example, a simple <code>await import(...)</code> should work.
+However, asynchronous features have been avoided throughout the development of this,
+as it currently seems to
+<a href="https://aquafina-water-bottle.github.io/jp-mining-note/modding/#avoid-asynchronous-javascript-features-in-anki">behave unpredictably</a>
+within Anki.</p>
+</details>
+<hr />
 <!--
 ## ReferenceError: EFDRC is not defined
 You are likely using an old version of this note type
@@ -1057,6 +1113,7 @@ See the
 
 -->
 
+<h3 id="jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">JPMNOpts was not defined in the options file. Was there an error?<a class="headerlink" href="#jpmnopts-was-not-defined-in-the-options-file-was-there-an-error" title="Permanent link">&para;</a></h3>
 <h3 id="general-error-troubleshooting">General Error Troubleshooting<a class="headerlink" href="#general-error-troubleshooting" title="Permanent link">&para;</a></h3>
 <p>If none of the above worked, the following will be some general troubleshooting tips
 that can help you figure out what the error is:</p>
@@ -1098,15 +1155,15 @@ For example, the above should be changed into:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>マスターと行動を共にするとは万死に値するデース
 </code></pre></div></p>
-<div class="admonition info">
-<p class="admonition-title">Why this can happen</p>
+<details class="info">
+<summary>Why this can happen <em>(click here)</em></summary>
 <p>This happens if you copy/paste directly from certain pages into the sentence field,
 such as some texthooker pages.
 This can also happen if you copy/paste from a texthooker page to a different field,
 say <code>AdditionalNotes</code>, and then copy a section of <code>AdditionalNotes</code> to <code>Sentence</code>.</p>
 <p>The <a href="../jpresources/#update-sentence-with-clipboard">updating sentence with clipboard hotkey</a>
 shouldn't have this problem, as <code>&lt;div&gt;</code> tags are not present by default.</p>
-</div>
+</details>
 <hr />
 <h3 id="the-showhide-button-doesnt-do-anything">The Show/Hide button doesn't do anything.<a class="headerlink" href="#the-showhide-button-doesnt-do-anything" title="Permanent link">&para;</a></h3>
 <p>The show/hide button requires that the displayed sentence has a bolded element.

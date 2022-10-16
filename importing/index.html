@@ -1057,15 +1057,10 @@ Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.
 <li>Select all of your newly imported notes.</li>
 </ol>
 <p>The following step differs if you are using <code>python</code> or the Batch Note Editing Add-on.</p>
-<p>If you are using <code>python</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># assuming you are at the root of the repo,
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>cd ./tools
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a># make sure you have Anki open and Anki-Connect installed!
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>python3 ./batch.py -f &quot;set_pasilence_field&quot;
-</code></pre></div></p>
-<p>Otherwise, if you are using the add-on, follow the instructions in the videos</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Batch Editing Add-On</label><label for="__tabbed_1_2">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Within Anki, do the following:</p>
 <ul>
 <li>Head over to <code>Edit</code> (top left corner) →  <code>Batch Edit...</code>.</li>
 <li>Set the content to be <code>[sound:_silence.wav]</code>.</li>
@@ -1074,6 +1069,18 @@ Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.
 </ul>
 <p>See the official add-on video <a href="https://youtu.be/iCZzcSnAeH4?t=31">here</a>
 for an example of how to do this.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># assuming you are at the root of the repo,
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>cd ./tools
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a># make sure you have Anki open and Anki-Connect installed!
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>python3 ./batch.py -f &quot;set_pasilence_field&quot;
+</code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="final-notes">Final Notes<a class="headerlink" href="#final-notes" title="Permanent link">&para;</a></h2>
 <p>Auto-generating frequency info (with the correct css, html, etc.) doesn't seem trivial,
 and I currently provide no way of doing that
@@ -1085,7 +1092,7 @@ If you know of a way or would like to help me out with doing this, please let me
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 5, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 16, 2022</span>
       
     
   </small>
