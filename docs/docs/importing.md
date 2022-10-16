@@ -145,25 +145,29 @@ After switching your notes, you will have to do the following 2 things:
 
 The following step differs if you are using `python` or the Batch Note Editing Add-on.
 
-If you are using `python`:
-```
-# assuming you are at the root of the repo,
-# i.e. after the `git clone ...` and `cd jp-mining-note`
-cd ./tools
 
-# make sure you have Anki open and Anki-Connect installed!
-python3 ./batch.py -f "set_pasilence_field"
-```
+=== "Batch Editing Add-On"
 
-Otherwise, if you are using the add-on, follow the instructions in the videos
+    Within Anki, do the following:
 
-- Head over to `Edit` (top left corner) →  `Batch Edit...`.
-- Set the content to be `[sound:_silence.wav]`.
-- Set the field to be `PASilence`.
-- Click on **Replace**.
+    - Head over to `Edit` (top left corner) →  `Batch Edit...`.
+    - Set the content to be `[sound:_silence.wav]`.
+    - Set the field to be `PASilence`.
+    - Click on **Replace**.
 
-See the official add-on video [here](https://youtu.be/iCZzcSnAeH4?t=31)
-for an example of how to do this.
+    See the official add-on video [here](https://youtu.be/iCZzcSnAeH4?t=31)
+    for an example of how to do this.
+
+
+=== "Python"
+    ```
+    # assuming you are at the root of the repo,
+    # i.e. after the `git clone ...` and `cd jp-mining-note`
+    cd ./tools
+
+    # make sure you have Anki open and Anki-Connect installed!
+    python3 ./batch.py -f "set_pasilence_field"
+    ```
 
 
 # Final Notes

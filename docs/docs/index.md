@@ -19,3 +19,6 @@ or head over to the table of contents to the left of this page.
 ??? example "Card Creation *(click here)*"
 
     ![type:video](https://user-images.githubusercontent.com/17107540/192704164-dd075092-58da-4964-9ddf-d89627f60d3c.mp4)
+
+<br>
+P.S. There's a bulb at the top if you toggle this website between light and dark theme.

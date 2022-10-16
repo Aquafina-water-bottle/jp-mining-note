@@ -33,6 +33,12 @@ The following are examples breaking changes:
 -->
 
 
+## [0.10.2.2] - 2022-10-??
+
+#### Fixes
+- Fixed a bug with one-mora 平板 words not showing the proper reading within the pitch accent field
+
+
 ## [0.10.2.1] - 2022-10-15
 
 #### Features
