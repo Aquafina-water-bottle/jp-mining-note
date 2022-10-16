@@ -368,3 +368,4 @@ tools/tests/jinja/tests/tmp/
 .python-version
 
 .ccls-cache/
+src/scss/aquafina_extra/

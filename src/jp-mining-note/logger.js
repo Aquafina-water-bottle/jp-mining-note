@@ -41,9 +41,9 @@ var JPMNLogger = (() => {
     }
 
 
-    error(message) {
+    error(message, isHtml=false) {
       let groupEle = document.getElementById("info_circle_text_error");
-      this._appendMsg(message, groupEle);
+      this._appendMsg(message, groupEle, isHtml);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-error")) {
         infoCirc.classList.add("info-circle-error")
@@ -105,7 +105,9 @@ var JPMNLogger = (() => {
 
     // key defaults to the message if unique is true and key is null
     // key is ignored if unique == false
-    warn(message, unique=true, key=null) {
+    // TODO extend functionality of uniqueness to other logger functions
+    // TODO change to args struct
+    warn(message, isHtml=false, unique=false, key=null) {
 
       // skips any non-unique warns as defined by the key
       if (unique) {
@@ -119,7 +121,7 @@ var JPMNLogger = (() => {
       }
 
       let groupEle = document.getElementById("info_circle_text_warning");
-      this._appendMsg(message, groupEle, key);
+      this._appendMsg(message, groupEle, isHtml, key);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-warning")) {
         infoCirc.classList.add("info-circle-warning");
@@ -151,7 +153,7 @@ var JPMNLogger = (() => {
       }
     }
 
-    _appendMsg(message, groupEle, key=null) {
+    _appendMsg(message, groupEle, isHtml=false, key=null) {
       // I think this stops an infinite loop somewhere if you log a null for some reason...
       if (message === null) {
         message = "null";
@@ -179,7 +181,11 @@ var JPMNLogger = (() => {
         }
 
       } else {
-        msgEle.textContent = message;
+        if (isHtml) {
+          msgEle.innerHTML = message;
+        } else {
+          msgEle.textContent = message;
+        }
       }
       groupEle.appendChild(msgEle);
     }
@@ -201,7 +207,12 @@ window.onerror = function(msg, url, lineNo, columnNo, error) {
 
 // https://stackoverflow.com/a/55178672
 window.onunhandledrejection = function(errorEvent) {
-  LOGGER.error("Javascript handler error: `" + errorEvent.reason + "`");
+  if (errorEvent.reason === "AnkiConnect failed to issue request.") {
+    let reason = errorEvent.reason + ' Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.';
+    LOGGER.error("Javascript handler error: " + reason, isHtml=true);
+  } else {
+    LOGGER.error("Javascript handler error: " + errorEvent.reason);
+  }
 }
 
 

@@ -35,8 +35,14 @@ The following are examples breaking changes:
 
 ## [0.10.2.2] - 2022-10-??
 
+#### Features
+- Added some documentation links to common errors / warnings that can appear
+
 #### Fixes
 - Fixed a bug with one-mora 平板 words not showing the proper reading within the pitch accent field
+
+#### Internal Changes
+- Added an `isHtml` function param to `logger.warn` and `logger.error`
 
 
 ## [0.10.2.1] - 2022-10-15

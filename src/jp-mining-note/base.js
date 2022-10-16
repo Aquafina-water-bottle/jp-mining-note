@@ -177,7 +177,8 @@ function main() {
   // sanity check: options
   /// {% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
   if (typeof JPMNOpts === 'undefined') {
-    LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
+    LOGGER.warn('JPMNOpts was not defined in the options file. Was there an error? ' +
+      'Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">here</a> for basic troubleshooting.', isHtml=true);
   }
   /// {% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
 

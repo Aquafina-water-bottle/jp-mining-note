@@ -126,7 +126,7 @@ const JPMNOpenFields = (() => {
     const cards = multi[0];
 
     if (cards.length > 1) {
-      logger.warn("Duplicate key found.");
+      logger.warn("Duplicate key found.", isHtml=false, unique=true);
       return;
     }
     if (cards.length == 0) {
