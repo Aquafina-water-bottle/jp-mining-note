@@ -98,6 +98,11 @@ and I will likely add it here!
           [here](https://discord.com/channels/617136488840429598/778430038159655012/847595626220355584)
         - Can switch between vocab / sentence / vocab audio / sentence audio
 
+    - [Timm's Anki Template](https://cdn.discordapp.com/attachments/778430038159655012/937090193356361728/Timm_template.apkg) ([demo](https://cdn.discordapp.com/attachments/617136489482027059/937078469064548372/unknown.png))
+        - Original message on TMW server
+          [here](https://discord.com/channels/617136488840429598/778430038159655012/937090192546865282)
+        - Vocab card template
+
     - [Tigy01's note type](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)
         - Vocab card template
 

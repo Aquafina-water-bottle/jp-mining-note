@@ -412,6 +412,7 @@ const JPMNAutoPA = (() => {
     }
 
     let result = [];
+    let normalizedReading = null;
 
     if (ajtWord !== null) {
       logger.debug("Using AJT Word");
@@ -419,7 +420,6 @@ const JPMNAutoPA = (() => {
     } else {
       logger.debug(`Using reading from WordReading field`);
 
-      let normalizedReading = null;
       switch ({{ utils.opt("modules", "auto-pitch-accent", "reading-display-mode") }}) {
         case 0:
           normalizedReading = readingKana;
@@ -487,7 +487,7 @@ const JPMNAutoPA = (() => {
     // special case: 0 and length of moras === 1 (nothing needs to be done)
     // ASSUMPTION: the override kifuku value will NOT be 0 (you are insane if you do that)
     if (pos === 0 && result.length === 1) {
-      return readingKana;
+      return normalizedReading;
     }
 
     const startOverline = '<span class="pitchoverline">';
