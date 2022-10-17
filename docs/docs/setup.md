@@ -533,24 +533,6 @@ This section will go over the minimal Yomichan setup to work with this card type
 **If you have never used Yomichan before**, please see
 [this page](https://learnjapanese.moe/yomichan/) first to get it working.
 
-!!! note
-
-    If you are planning on using the JMdict dictionary,
-    the ones provided from most sources
-    (TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
-    are all somewhat outdated, which usually means less accurate definitions and less coverage.
-
-    To get the most recent version of JMdict,
-    download it from the
-    [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
-    and using [yomichan-import](https://github.com/FooSoft/yomichan-import)
-    to get the latest JMdict version available.
-
-    If you don't want to compile it from source, I provide a download link
-    [here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan),
-    which should only be a few months stale at most.
-
-<!-- TODO github actions to re-compile it daily -->
 
 ## Preliminary Steps
 If you have used Yomichan before, please make a
@@ -727,6 +709,8 @@ By default, this enable the following behavior:
 
 
 ## Other Yomichan Settings
+
+### Appearance
 If you want to follow my exact Yomichan popup appearance, set the following
 under (Yomichan settings) →  `Popup Appearance`:
 
@@ -735,6 +719,37 @@ under (Yomichan settings) →  `Popup Appearance`:
 
 There are also plenty of css customizations for Yomichan listed out
 in the [various resources page](jpresources.md){:target="_blank"}.
+
+### JMdict
+If you are planning on using the JMdict dictionary,
+the ones provided from most sources
+(TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
+are all somewhat outdated, which usually means less accurate definitions and less coverage.
+
+To get the most recent version of JMdict,
+download it from the
+[official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
+and using [yomichan-import](https://github.com/FooSoft/yomichan-import)
+to get the latest JMdict version available.
+
+If you don't want to compile it from source, I provide a download link
+[here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan),
+which should only be a few months stale at most.
+
+<!-- TODO github actions to re-compile it daily -->
+
+
+### JMdict Surface Forms
+[(Link)](https://github.com/FooSoft/yomichan/issues/2183)
+
+This is a dictionary placed in the `UtilityDictionaries` field by default.
+Although I don't use it when studying Anki, it helps to use this when creating Anki notes
+for monolingual definitions.
+See [this section](jpresources.md#orthographic-variants-fix-sentence-and-frequency){:target="_blank"}
+for more information.
+
+
+
 
 ---
 
@@ -852,6 +867,7 @@ Of course, this list is incomplete, and there could be tools better suited for y
 ---
 
 # Other
+
 
 ## Additional Anki add-on(s)
 These add-on(s) assist in card creation, but are ultimately optional.

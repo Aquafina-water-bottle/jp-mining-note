@@ -21,4 +21,4 @@ or head over to the table of contents to the left of this page.
     ![type:video](https://user-images.githubusercontent.com/17107540/192704164-dd075092-58da-4964-9ddf-d89627f60d3c.mp4)
 
 <br>
-P.S. There is a bulb icon at the top if you want to toggle the website between light and dark theme.
+P.S. There is a bulb icon at the top if you want to toggle the website between light and dark mode.
