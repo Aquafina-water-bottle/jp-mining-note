@@ -33,16 +33,19 @@ The following are examples breaking changes:
 -->
 
 
-## [0.10.2.2] - 2022-10-??
+## [0.10.3.0] - 2022-10-??
 
 #### Features
 - Added some documentation links to common errors / warnings that can appear
+- External links compile options
 
 #### Fixes
 - Fixed a bug with one-mora 平板 words not showing the proper reading within the pitch accent field
+- Fixed a bug with the orthographic dictionary css not actually working in Anki
 
 #### Internal Changes
 - Added an `isHtml` function param to `logger.warn` and `logger.error`
+- Changed the `modules` from a list to dictionary (in order to make it easier to check if the module is enabled or not)
 
 
 ## [0.10.2.1] - 2022-10-15

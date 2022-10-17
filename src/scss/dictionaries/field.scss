@@ -21,3 +21,7 @@ anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict
   font-weight:  bold;
 }
 
+anki-editable[field="UtilityDictionaries"] ol li[data-details="シン・漢字遣い参考"] td {
+  text-align: center;
+  line-height: 150%
+}

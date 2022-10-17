@@ -1,6 +1,6 @@
 {% from "modules/main.html" import modules with context %}
 
-{% for m in modules %}
+{% for m in modules.values() %}
 {% if m.js is defined and m.js.globals.get(note.card_type, note.side) %}
 // GLOBALS: {{ m.id }}
 {{ m.js.globals.get(note.card_type, note.side) }}
@@ -36,7 +36,7 @@ function toggleDetailsTag(ele) {
 {% endblock %}
 // END_BLOCK: js_functions
 
-{% for m in modules %}
+{% for m in modules.values() %}
 {% if m.js is defined %}
 
 {{ m.js.functions.get(note.card_type, note.side) }}
@@ -60,7 +60,7 @@ document.onkeyup = (e => {
 {% endfilter %}
   // END_BLOCK: js_keybind_settings
 
-{% for m in modules %}
+{% for m in modules.values() %}
 {% if m.js is defined and m.js.keybinds.get(note.card_type, note.side) %}
 {% filter indent(width=2) %}
   // KEYBINDS: {{ m.id }}
@@ -196,7 +196,7 @@ function main() {
 {% endfilter %}
   // END_BLOCK: js_run
 
-{% for m in modules %}
+{% for m in modules.values() %}
 {% if m.js is defined and m.js.run.get(note.card_type, note.side) %}
   try { // RUN: {{ m.id }}
     {% filter indent(width=4) %}
