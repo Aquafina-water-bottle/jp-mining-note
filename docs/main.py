@@ -298,4 +298,11 @@ def define_env(env):
         return f"[![{alt_text}]({file_path})]({file_path})"
 
 
+    @env.macro
+    def link(url):
+        # [url](url)
+        return f"[{url}]({url})"
+
+
+
 
