@@ -99,12 +99,6 @@ const JPMNOpenFields = (() => {
       return;
     }
 
-    // requires that any of PAGraphs and UtilityDictionaries be filled to even open extra info
-    if (!'{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
-      logger.debug("Neither PAGraphs nor UtilityDictionaries exists");
-      return;
-    }
-
     logger.debug("Testing for new card...");
 
     function constructFindCardAction(query) {

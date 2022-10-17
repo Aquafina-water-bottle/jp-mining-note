@@ -37,11 +37,12 @@ The following are examples breaking changes:
 
 #### Features
 - Added some documentation links to common errors / warnings that can appear
-- External links compile options
+- Added compile options to specify external links
 
 #### Fixes
 - Fixed a bug with one-mora 平板 words not showing the proper reading within the pitch accent field
-- Fixed a bug with the orthographic dictionary css not actually working in Anki
+- Added support to the old orthographic dictionary name for proper table alignment
+- `customize-open-fields` module now works even if neither `PAGraphs` and `UtilityDictionaries` are present
 
 #### Internal Changes
 - Added an `isHtml` function param to `logger.warn` and `logger.error`
