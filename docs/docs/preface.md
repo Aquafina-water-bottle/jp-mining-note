@@ -61,60 +61,10 @@ Rest easy knowing you will keep full ownership of your note, forever.
 
 
 
-
 # Alternatives
-Of course, there are many alternatives to this note type.
-Below contains a non-exhaustive list of some of the note types that exist out there.
-
-P.S. Feel free to let me know of any note types you find interesting
-(including your own note type, or modified versions of this note),
-and I will likely add it here!
-
-??? info "Click here to see example note types (for Japanese learning)."
-
-    - [Anime Cards](https://animecards.site/ankicards/#anime-cardsword-context-cards)
-      ([download](https://ankiweb.net/shared/info/151553357))
-        - Vocab card template
-    - [Lazy Guide's Modified Anime Card](https://rentry.co/lazyXel#anki)
-    - [Xeliu's Modified Anime Card](https://rentry.co/mining#anki-settings) ([demo](https://i.imgur.com/3y3fGET.jpeg))
-
-    - [Targeted sentence cards](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards)
-      ([download](https://ankiweb.net/shared/info/1557722832))
-        - My note type is a heavily modified (to the point of it being completely rewritten)
-          version of this.
-    - [AJATT-Tool's AnkiNoteTypes](https://github.com/Ajatt-Tools/AnkiNoteTypes)
-        - A collection of user-created notes, most of which are based off of the above Targeted Sentence Cards
-
-    - [Eminent Note Type](https://cademcniven.com/projects/notetype2/)
-        - Has some interesting ways to display pitch accent and show kanji info
-
-    - [Elax's note type](https://cdn.discordapp.com/attachments/778430038159655012/847595626257842226/AnimeCards.apkg)
-      (demo
-      [1](https://cdn.discordapp.com/attachments/778430038159655012/847595710199365642/anki_pn02gFA4g4.png),
-      [2](https://cdn.discordapp.com/attachments/778430038159655012/847595755799838720/anki_WomdVVaIPj.png),
-      [3](https://cdn.discordapp.com/attachments/778430038159655012/847595806805852180/anki_GdOvg6u5Qv.png),
-      [4](https://cdn.discordapp.com/attachments/778430038159655012/847595848086716506/anki_YEvyqLJeF2.png))
-        - Original message on TMW discord server
-          [here](https://discord.com/channels/617136488840429598/778430038159655012/847595626220355584)
-        - Can switch between vocab / sentence / vocab audio / sentence audio
-
-    - [Timm's Anki Template](https://cdn.discordapp.com/attachments/778430038159655012/937090193356361728/Timm_template.apkg) ([demo](https://cdn.discordapp.com/attachments/617136489482027059/937078469064548372/unknown.png))
-        - Original message on TMW server
-          [here](https://discord.com/channels/617136488840429598/778430038159655012/937090192546865282)
-        - Vocab card template
-
-    - [Tigy01's note type](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)
-        - Vocab card template
-
-    - [MonnieBiloney's note types](https://docs.google.com/document/d/1MxoRIO88KlJlGttnXNVkDVoHfZUtJqwOT_arRSS5F7Y/edit)
-
-??? info "Click here to see example note types (outside of Japanese learning)."
-
-    - [Prettify](https://github.com/pranavdeshai/anki-prettify)
-        - "Collection of customizable Anki flashcard templates with modern and clean themes."
-    - [Modern Card Themes](https://github.com/b3nj5m1n/moderncardthemes)
-    - [Anki Cards Templates SuperList](https://github.com/Troyciv/anki-templates-superlist)
-    - [Raagaception's 12STD CBSE Deck (Science stream, PCM)](https://github.com/Raagaception/raagaception-12STD-CBSE-deck)
+There are many, many Anki templates out there in the wild.
+[This page](alternatives.md)
+is my attempt to assemble together some of the the popular and/or interesting card templates.
 
 
 # Setup

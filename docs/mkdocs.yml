@@ -61,6 +61,7 @@ nav:
   - Home: index.md
   - Getting Started:
     - Preface: preface.md
+    - Alternatives: alternatives.md
     - Setup: setup.md
     - Transfer Existing Notes: importing.md
     - Updating: updating.md
