@@ -1,6 +1,6 @@
 {# gathers all the modules together in one `modules` variable #}
 
-{% set modules = [] %}
+{% set modules = {}%}
 {% set _module_ids = [] %}
 
 {% if COMPILE_OPTIONS("allow-user-defined-modules").item() %}
@@ -24,7 +24,7 @@
 
   {% set mod_path = ("modules/" + mod_name + "/main.html") %}
   {% from mod_path import MOD as m with context %}
-  {% do modules.append(m) %}
+  {% do modules.update({mod_name: m}) %}
 
 {% endfor %}
 

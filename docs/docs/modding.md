@@ -78,6 +78,13 @@ the new file must be created under `overrides/jp-mining-note/partials/hint.html`
 
 ## Example (Add external links)
 
+
+!!! warning
+    The following will be deprecated starting from Version 0.10.3.0.
+    Version 0.10.3.0 will allow the user to customize
+    external links in the compile options (`config.py`).
+
+
 Let's say we want to rewrite the `Extra Info` section to have external links that search
 for the tested word.
 

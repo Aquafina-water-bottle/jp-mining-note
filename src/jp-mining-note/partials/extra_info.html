@@ -1,16 +1,11 @@
-{# impl #}
-{# not sure if I can optimize this away easily... #}
-<div class="outer-display1
-    {% call utils.if_none('PAGraphs', 'UtilityDictionaries') %}
-      outer-display2
-    {% endcall %}"
-  id="display">
+<details class="glossary-details glossary-details--small" id="extra_info_details">
+<summary>Extra Info</summary>
+<blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
+  <div class="glossary-text glossary-text--extra-info">
 
-  <!-- only showed if outer-display2 doesn't exist -->
-  <details class="glossary-details glossary-details--small inner-display1" id="extra_info_details">
-    <summary>Extra Info</summary>
-    <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
-      <div class="glossary-text glossary-text--extra-info">
+    {% call utils.if_any("PAGraphs", "UtilityDictionaries") %}
+
+      <div class="glossary-text--extra-info-main-content">
 
         {% call IF("PAGraphs") %}
           <div class="pa-graphs">
@@ -25,12 +20,24 @@
         {% endcall %}
 
       </div>
-    </blockquote>
-  </details>
 
-  <!-- only showed if outer-display2 exists -->
-  <div class="glossary-details glossary-details--small glossary-details--grey inner-display2">
-    Extra Info
+    {% endcall %}
+
+    {% if COMPILE_OPTIONS("external-links").item() %}
+      <div class="glossary__external-links">
+        <div class="glossary__external-links--title">External Links</div>
+        <ul class="glossary__external-links--list">
+
+          {% for name, link in COMPILE_OPTIONS("external-links").dict().items() %}
+            <li>
+              <a href="{{ link}} ">{{ name }}</a>
+            </li>
+          {% endfor %}
+
+        </ul>
+      </div>
+    {% endif %}
+
   </div>
-
-</div>
+</blockquote>
+</details>

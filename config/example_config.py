@@ -24,8 +24,44 @@ CONFIG = {
         # toggles whether the runtime options should be read from a file or not.
         "hardcoded-runtime-options": False,
 
-        "always-filled-fields": [],
 
+        # Adds an external links section to the "Extra Info" field.
+        "external-links": {
+            # Thanks to Timm#3250 and his Anki template for the following list of websites:
+            # - 伏せ字
+            # - 日本語俗語辞書
+            # - 広辞苑無料検索
+            # - コトバンク
+
+            "jisho.org": "https://jisho.org/search/{{Word}}",
+
+            "jpdb.io": "https://jpdb.io/search?q={{Word}}",
+
+            # 用例
+            "yourei.jp":
+                "http://yourei.jp/{{Word}}",
+
+            # 伏せ字
+            #"fuseji.net":
+            #    "http://fuseji.net/{{Word}}",
+
+            # 日本語俗語辞書
+            #"zokugo-dict.com":
+            #    "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{Word}}",
+
+            # 広辞苑無料検索
+            #"sakura-paris.org/dict":
+            #    "https://sakura-paris.org/dict/%E5%BA%83%E8%BE%9E%E8%8B%91/prefix/{{Word}}",
+
+            # コトバンク
+            #"kotobank.jp":
+            #    "https://kotobank.jp/gs/?q={{Word}}",
+        },
+
+
+        # forces the behavior of the cards to act
+        # as if the field is filled or not filled
+        "always-filled-fields": [],
         "never-filled-fields": [],
 
 

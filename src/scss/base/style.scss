@@ -1084,6 +1084,36 @@ ruby rt {
 
 
 
+/*
+ * styles for the external links
+ *
+ * TODO: support for mobile (thinner screens likely require the external links to all
+ * be in one column rather than two
+ */
+
+.glossary-text--extra-info {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+
+.glossary__external-links {
+  text-align: left;
+  padding-right: 8px;
+}
+
+.glossary__external-links--title {
+  font-size: 18px;
+}
+
+.glossary__external-links--list {
+  font-size: 14px;
+}
+
+.glossary__external-links--list li {
+}
+
+
+
 
 /*
  * ------------------------------
