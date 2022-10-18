@@ -1,3 +1,5 @@
+{% include "jp-mining-note/partials/anki_persistence.js" %}
+
 {% from "modules/main.html" import modules with context %}
 
 {% for m in modules.values() %}
