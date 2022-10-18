@@ -31,56 +31,56 @@ CONFIG = {
                 "icon-type": "image",
                 "icon-image-light": "_icon_jpdb_lightmode.png",
                 "icon-image-dark":  "_icon_jpdb_darkmode.png",
-                "url": "http://yourei.jp/{{Word}}",
+                "url": "https://jpdb.io/search?q={{text:Word}}",
             },
 
             "jisho.org": {
                 "icon-type": "image",
                 "icon-image-light": "_icon_jisho_lightmode.png",
                 "icon-image-dark":  "_icon_jisho_darkmode.png",
-                "url": "https://jpdb.io/search?q={{Word}}",
+                "url": "https://jisho.org/search/{{Word}}",
             },
 
             "image_search": {
                 "icon-type": "image",
                 "icon-image-light": "_icon_image_black.svg",
                 "icon-image-dark":  "_icon_image_white.svg",
-                "url": "https://www.google.co.jp/search?q={{Word}}&tbm=isch",
+                "url": "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
                 "hover-display": "google.co.jp (Image search)",
             },
 
             #"yourei.jp": {
             #    "icon-type": "text",
             #    "icon-text": "用",
-            #    "url": "http://yourei.jp/{{Word}}",
+            #    "url": "http://yourei.jp/{{text:Word}}",
             #    #"hover-display": "用例",
             #},
 
             #"fuseji.net": {
             #    "icon-type": "text",
             #    "icon-text": "伏",
-            #    "url": "http://fuseji.net/{{Word}}",
+            #    "url": "http://fuseji.net/{{text:Word}}",
             #    #"hover-display": "伏せ字",
             #},
 
             #"zokugo-dict.com": {
             #    "icon-type": "text",
             #    "icon-text": "俗",
-            #    "url": "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{Word}}",
+            #    "url": "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{text:Word}}",
             #    #"hover-display": "日本語俗語辞書",
             #},
 
             #"sakura-paris.org/dict": {
             #    "icon-type": "text",
             #    "icon-text": "広辞苑",
-            #    "url": "https://sakura-paris.org/dict/%E5%BA%83%E8%BE%9E%E8%8B%91/prefix/{{Word}}",
+            #    "url": "https://sakura-paris.org/dict/%E5%BA%83%E8%BE%9E%E8%8B%91/prefix/{{text:Word}}",
             #    #"hover-display": "広辞苑無料検索",
             #},
 
             #"kotobank.jp": {
             #    "icon-type": "text",
             #    "icon-text": "コ",
-            #    "url": "https://kotobank.jp/gs/?q={{Word}}",
+            #    "url": "https://kotobank.jp/gs/?q={{text:Word}}",
             #    #"hover-display": "コトバンク",
             #},
         },
