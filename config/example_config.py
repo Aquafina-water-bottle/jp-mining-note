@@ -27,35 +27,62 @@ CONFIG = {
 
         # Adds an external links section to the "Extra Info" field.
         "external-links": {
-            # Thanks to Timm#3250 and his Anki template for the following list of websites:
-            # - 伏せ字
-            # - 日本語俗語辞書
-            # - 広辞苑無料検索
-            # - コトバンク
+            "jpdb.io": {
+                "icon-type": "image",
+                "icon-image-light": "_icon_jpdb_lightmode.png",
+                "icon-image-dark":  "_icon_jpdb_darkmode.png",
+                "url": "http://yourei.jp/{{Word}}",
+            },
 
-            "jisho.org": "https://jisho.org/search/{{Word}}",
+            "jisho.org": {
+                "icon-type": "image",
+                "icon-image-light": "_icon_jisho_lightmode.png",
+                "icon-image-dark":  "_icon_jisho_darkmode.png",
+                "url": "https://jpdb.io/search?q={{Word}}",
+            },
 
-            "jpdb.io": "https://jpdb.io/search?q={{Word}}",
+            "image_search": {
+                "icon-type": "image",
+                "icon-image-light": "_icon_image_black.svg",
+                "icon-image-dark":  "_icon_image_white.svg",
+                "url": "https://www.google.co.jp/search?q={{Word}}&tbm=isch",
+                "hover-display": "google.co.jp (Image search)",
+            },
 
-            # 用例
-            "yourei.jp":
-                "http://yourei.jp/{{Word}}",
+            #"yourei.jp": {
+            #    "icon-type": "text",
+            #    "icon-text": "用",
+            #    "url": "http://yourei.jp/{{Word}}",
+            #    #"hover-display": "用例",
+            #},
 
-            # 伏せ字
-            #"fuseji.net":
-            #    "http://fuseji.net/{{Word}}",
+            #"fuseji.net": {
+            #    "icon-type": "text",
+            #    "icon-text": "伏",
+            #    "url": "http://fuseji.net/{{Word}}",
+            #    #"hover-display": "伏せ字",
+            #},
 
-            # 日本語俗語辞書
-            #"zokugo-dict.com":
-            #    "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{Word}}",
+            #"zokugo-dict.com": {
+            #    "icon-type": "text",
+            #    "icon-text": "俗",
+            #    "url": "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{Word}}",
+            #    #"hover-display": "日本語俗語辞書",
+            #},
 
-            # 広辞苑無料検索
-            #"sakura-paris.org/dict":
-            #    "https://sakura-paris.org/dict/%E5%BA%83%E8%BE%9E%E8%8B%91/prefix/{{Word}}",
+            #"sakura-paris.org/dict": {
+            #    "icon-type": "text",
+            #    "icon-text": "広辞苑",
+            #    "url": "https://sakura-paris.org/dict/%E5%BA%83%E8%BE%9E%E8%8B%91/prefix/{{Word}}",
+            #    #"hover-display": "広辞苑無料検索",
+            #},
 
-            # コトバンク
-            #"kotobank.jp":
-            #    "https://kotobank.jp/gs/?q={{Word}}",
+            #"kotobank.jp": {
+            #    "icon-type": "text",
+            #    "icon-text": "コ",
+            #    "url": "https://kotobank.jp/gs/?q={{Word}}",
+            #    #"hover-display": "コトバンク",
+            #},
         },
 
 

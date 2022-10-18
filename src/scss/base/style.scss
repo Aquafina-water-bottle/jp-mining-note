@@ -120,6 +120,26 @@ details > summary {
   text-align: left;
 }
 
+:root {
+  --show-toggle-light: inline-block;
+  --show-toggle-dark: none;
+}
+
+.night_mode {
+  --show-toggle-light: none;
+  --show-toggle-dark: inline-block;
+}
+
+.show-on-light-mode-only {
+  display: var(--show-toggle-light);
+}
+
+.show-on-dark-mode-only {
+  display: var(--show-toggle-dark);
+}
+
+
+
 @font-face {
   font-family: notoserif;
   src: url("NotoSerifJP-Regular.otf");
@@ -1096,21 +1116,44 @@ ruby rt {
   grid-template-columns: 1fr max-content;
 }
 
+
+
 .glossary__external-links {
-  text-align: left;
-  padding-right: 8px;
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: var(--external-links-gap);
+  max-width: calc(var(--external-links-icon-size) * var(--external-links-max-icons-per-row) + (var(--external-links-max-icons-per-row) - 1) * var(--external-links-gap));
 }
 
-.glossary__external-links--title {
-  font-size: 18px;
+.glossary__external-links--full-row {
+  max-width: 100%;
 }
 
-.glossary__external-links--list {
-  font-size: 14px;
+.glossary__external-links a {
+  text-align: center;
+  vertical-align: middle;
+
+  min-width: var(--external-links-icon-size);
+  height: var(--external-links-icon-size);
+  line-height: var(--external-links-icon-size);
+  font-size: var(--external-links-icon-font-size);
+
+  color: var(--text-color);
 }
 
-.glossary__external-links--list li {
+.glossary__external-links img {
+  width: var(--external-links-icon-size);
+  height: var(--external-links-icon-size);
 }
+
+
+.glossary__external-links a:not(:hover) {
+  filter: opacity(0.5)
+}
+
 
 
 

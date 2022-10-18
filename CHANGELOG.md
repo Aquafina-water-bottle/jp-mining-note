@@ -37,7 +37,7 @@ The following are examples breaking changes:
 
 #### Features
 - Added some documentation links to common errors / warnings that can appear
-- Added compile options to specify external links
+- Added compile options to specify external links as icons or text
 
 #### Fixes
 - Fixed a bug with one-mora 平板 words not showing the proper reading within the pitch accent field

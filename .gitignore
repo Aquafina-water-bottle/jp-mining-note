@@ -158,7 +158,7 @@ cython_debug/
 
 ### Vim ###
 # Swap
-[._]*.s[a-v][a-z]
+[._]*.s[a-v][a-fh-z]
 !*.svg  # comment out if you don't need vector files
 [._]*.sw[a-p]
 [._]s[a-rt-v][a-z]

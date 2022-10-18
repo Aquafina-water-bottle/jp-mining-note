@@ -106,6 +106,14 @@ NOTE_DATA = {
             "NotoSansJP-Bold.otf",
             "NotoSerifJP-Regular.otf",
             "NotoSerifJP-Bold.otf",
+
+            # TODO install folder
+            "_icon_jpdb_darkmode.png",
+            "_icon_jpdb_lightmode.png",
+            "_icon_jisho_darkmode.png",
+            "_icon_jisho_lightmode.png",
+            "_icon_image_black.svg",
+            "_icon_image_white.svg",
         ],
         "dynamic": [
             "_editor.css",
