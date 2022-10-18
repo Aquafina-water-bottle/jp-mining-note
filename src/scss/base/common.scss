@@ -17,6 +17,13 @@
   --zoom: 1;
 
 
+  /* external links */
+  --external-links-icon-size: 20px;
+  --external-links-icon-font-size: 16px;
+  --external-links-gap: 2px;
+  --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
+
+
   /* light mode specific */
   --text-color:                 black;
   --text-color--1:              hsla(0, 0%, 50%, 1);
@@ -69,9 +76,6 @@
   --hybrid-underline-color: black;
 
   --image-hover-brightness: 85%;
-
-
-
 }
 
 @mixin night_mode_vars {
@@ -122,7 +126,6 @@
   --hybrid-underline-color: white;
 
   --image-hover-brightness: 80%;
-
 }
 
 

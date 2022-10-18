@@ -13,6 +13,16 @@ and I will very likely add it here!
 ??? example "Example image"
     {{ img("", "https://animecards.site/images/animecardsample.jpg") }}
 
+
+<!--
+If you're previewing this, make sure to change the preview site:
+
+    http://127.0.0.1:8000/setup/  ->  http://localhost:8000/setup/
+
+see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
+-->
+
+
 # Lazy Guide's Modified Anime Card
 <sup>
 [Website & download](https://rentry.co/lazyXel#anki)

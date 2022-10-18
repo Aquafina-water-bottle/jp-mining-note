@@ -1,3 +1,4 @@
+{# extra info #}
 
 {% if not COMPILE_OPTIONS("external-links").item() %}
 <div class="outer-display1
@@ -32,6 +33,7 @@
 
         {% endcall %}
 
+        {#
         {% if COMPILE_OPTIONS("external-links").item() %}
           <div class="glossary__external-links">
             <div class="glossary__external-links--title">External Links</div>
@@ -46,6 +48,70 @@
             </ul>
           </div>
         {% endif %}
+        #}
+
+        {% call utils.if_any('PAGraphs', 'UtilityDictionaries') %}
+        <div class="glossary__external-links">
+        {% endcall %}
+        {# if nothing is being shown in extra definitions, then the full row is used to show external links #}
+        {% call utils.if_none('PAGraphs', 'UtilityDictionaries') %}
+        <div class="glossary__external-links glossary__external-links--full-row">
+        {% endcall %}
+
+          {% for id, val in COMPILE_OPTIONS("external-links").dict().items() %}
+
+            {% set hover_value = val["hover-display"] if "hover-display" in val else id %}
+            <a data-details="{{ id }}" href="{{ val["url"] }}" title="{{ hover_value }}">
+
+            {% if val["icon-type"] == "image" %}
+              <img data-do-not-convert="do-not-convert"
+                   class="show-on-light-mode-only"
+                   src="{{ val["icon-image-light"] }}">
+              <img data-do-not-convert="do-not-convert"
+                   class="show-on-dark-mode-only"
+                   src="{{ val["icon-image-dark"] }}">
+            {% else %}
+              {# assumed == text #}
+              {{ val["icon-text"] }}
+            {% endif %}
+
+            </a>
+
+          {% endfor %}
+
+          {#
+          <a data-details="jpdb.io" href="https://jpdb.io/search?q={{ T('Word') }}" title="jpdb.io">
+              <img data-do-not-convert="do-not-convert"
+                   class="show-on-light-mode-only"
+                   src="_icon_jpdb_lightmode.png">
+              <img data-do-not-convert="do-not-convert"
+                   class="show-on-dark-mode-only"
+                   src="_icon_jpdb_darkmode.png">
+          </a>
+
+          <a data-details="jisho" href="https://jpdb.io/search?q={{ T('Word') }}" title="jisho.org">
+              <img data-do-not-convert="do-not-convert"
+                   class="show-on-light-mode-only"
+                   src="_icon_jisho_lightmode.png">
+              <img data-do-not-convert="do-not-convert"
+                   class="show-on-dark-mode-only"
+                   src="_icon_jisho_darkmode.png">
+          </a>
+
+          <a data-details="jpdb.io" href="https://jpdb.io/search?q={{ T('Word') }}" title="jpdb.io">
+              例
+          </a>
+
+          <a data-details="jpdb.io" href="https://jpdb.io/search?q={{ T('Word') }}" title="jpdb.io">
+              萌え
+          </a>
+
+          <a data-details="jpdb.io" href="https://jpdb.io/search?q={{ T('Word') }}" title="jpdb.io">
+              H
+          </a>
+          #}
+
+        </div>
 
       </div>
     </blockquote>

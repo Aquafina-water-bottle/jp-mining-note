@@ -115,7 +115,9 @@ const JPMNImgUtils = (() => {
       // looks for user inserted images
       const imgTags = searchEle.getElementsByTagName("img");
       for (const imgEle of imgTags) {
-        if (!imgEle.classList.contains("glossary__image-hover-media")) { // created by us
+        if (!imgEle.classList.contains("glossary__image-hover-media") &&
+            !(imgEle.getAttribute("data-do-not-convert"))
+        ) { // created by us
           logger.debug(`Converting user-inserted image ${imgEle.src}...`);
           const fragment = createImgContainer(imgEle.src);
           imgEle.parentNode.replaceChild(fragment, imgEle);
