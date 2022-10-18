@@ -190,7 +190,20 @@
       // Replaces all images in the glossary (definition) sections
       // with an internal representation similar to how Yomichan displays images:
       // an `[Image]` text where you can see the image upon hover, and with click to zoom.
-      "stylize-images-in-glossary": true
+      "stylize-images-in-glossary": true,
+
+      "nsfw-toggle": {
+        "enabled": true,
+
+        // what tags can be used to toggle the card between nsfw / not nsfw
+        // case sensitive
+        "tags": ["NSFW", "nsfw", "-NSFW"],
+
+        // sets whether nsfw images are blurred by default or not
+        "default-blur": true,
+        "default-blur-mobile": true
+      }
+
     },
 
 
