@@ -1671,23 +1671,6 @@ or under the Chrome web store.</p>
 <p>This section will go over the minimal Yomichan setup to work with this card type.</p>
 <p><strong>If you have never used Yomichan before</strong>, please see
 <a href="https://learnjapanese.moe/yomichan/">this page</a> first to get it working.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are planning on using the JMdict dictionary,
-the ones provided from most sources
-(TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
-are all somewhat outdated, which usually means less accurate definitions and less coverage.</p>
-<p>To get the most recent version of JMdict,
-download it from the
-<a href="https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project">official site</a>
-and using <a href="https://github.com/FooSoft/yomichan-import">yomichan-import</a>
-to get the latest JMdict version available.</p>
-<p>If you don't want to compile it from source, I provide a download link
-<a href="https://github.com/Aquafina-water-bottle/jmdict-english-yomichan">here</a>,
-which should only be a few months stale at most.</p>
-</div>
-<!-- TODO github actions to re-compile it daily -->
-
 <h3 id="preliminary-steps">Preliminary Steps<a class="headerlink" href="#preliminary-steps" title="Permanent link">&para;</a></h3>
 <p>If you have used Yomichan before, please make a
 <a href="../faq/#how-do-i-backup-yomichan-settings" target="_blank">backup of your settings</a>
@@ -2625,6 +2608,7 @@ See <a href="../yomichantemplates/#overriding-the-definition" target="_blank">th
 </div>
 <p><br></p>
 <h3 id="other-yomichan-settings">Other Yomichan Settings<a class="headerlink" href="#other-yomichan-settings" title="Permanent link">&para;</a></h3>
+<h4 id="appearance">Appearance<a class="headerlink" href="#appearance" title="Permanent link">&para;</a></h4>
 <p>If you want to follow my exact Yomichan popup appearance, set the following
 under (Yomichan settings) →  <code>Popup Appearance</code>:</p>
 <ul>
@@ -2633,6 +2617,28 @@ under (Yomichan settings) →  <code>Popup Appearance</code>:</p>
 </ul>
 <p>There are also plenty of css customizations for Yomichan listed out
 in the <a href="../jpresources/" target="_blank">various resources page</a>.</p>
+<h4 id="jmdict">JMdict<a class="headerlink" href="#jmdict" title="Permanent link">&para;</a></h4>
+<p>If you are planning on using the JMdict dictionary,
+the ones provided from most sources
+(TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
+are all somewhat outdated, which usually means less accurate definitions and less coverage.</p>
+<p>To get the most recent version of JMdict,
+download it from the
+<a href="https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project">official site</a>
+and using <a href="https://github.com/FooSoft/yomichan-import">yomichan-import</a>
+to get the latest JMdict version available.</p>
+<p>If you don't want to compile it from source, I provide a download link
+<a href="https://github.com/Aquafina-water-bottle/jmdict-english-yomichan">here</a>,
+which should only be a few months stale at most.</p>
+<!-- TODO github actions to re-compile it daily -->
+
+<h4 id="jmdict-surface-forms">JMdict Surface Forms<a class="headerlink" href="#jmdict-surface-forms" title="Permanent link">&para;</a></h4>
+<p><a href="https://github.com/FooSoft/yomichan/issues/2183">(Link)</a></p>
+<p>This is a dictionary placed in the <code>UtilityDictionaries</code> field by default.
+Although I don't use it when studying Anki, it helps to use this when creating Anki notes
+for monolingual definitions.
+See <a href="../jpresources/#orthographic-variants-fix-sentence-and-frequency" target="_blank">this section</a>
+for more information.</p>
 <hr />
 <h2 id="getting-the-text-to-create-the-cards">Getting the Text to Create the Cards<a class="headerlink" href="#getting-the-text-to-create-the-cards" title="Permanent link">&para;</a></h2>
 <p>I use a texthooker setup, which is able to extract subtitles or text into the browser.
@@ -2765,7 +2771,7 @@ Head over to <a href="../usage/">Usage</a> to see exactly that.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 16, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 17, 2022</span>
       
     
   </small>
