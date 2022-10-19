@@ -361,29 +361,21 @@ Automatically generates furigana upon Yomichan card creation.
 This add-on is optional, because the card will simply show the sentence without
 furigana if there is no furigana generated sentence.
 
-!!! note
-
-    Furigana generation is occasionally incorrect,
-    so if you plan on using these regularly, you should double-check the readings
-    to make sure they are correct.
-
-
-??? info "JapaneseSupport v.s. AJT Furigana"
-
-    If you use `JapaneseSupport`, bolded words and other styles within a field
-    are not transferred over from the original field to the reading field.
-    Additionally, `JapaneseSupport` does not have an option to automatically add
-    the reading upon card creation.
-    `AJT Furigana` supports both of those of those features.
-
-
 #### Config Changes
-To change the config of any Anki add-on, head over to
-`Tools` →  `Add-ons` →  (select the add-on) →  `Config`.
 
-The important things to change in the config are `generate_on_note_add`, `fields` and `note_types`.
+The config of the add-on must be changed to work with this note.
+
+To change the config of any Anki add-on, head over to:
+
+> `Tools` →  `Add-ons` →  (select the add-on) →  `Config`.
 
 ??? examplecode "Click here to see the full AJT Furigana config"
+
+    The important things to change in the config are:
+
+    * `generate_on_note_add`
+    * `fields`
+    * `note_types`
 
     ```json
     {
@@ -432,6 +424,22 @@ The important things to change in the config are `generate_on_note_add`, `fields
     3.  Similarly to the `fields` change, we change this to properly detect this note type.
 
 
+
+#### Additional Info
+Furigana generation is occasionally incorrect,
+so if you plan on using furigana regularly, you should double-check the readings
+to make sure they are correct.
+
+??? info "JapaneseSupport v.s. AJT Furigana"
+
+    If you use `JapaneseSupport`, bolded words and other styles within a field
+    are not transferred over from the original field to the reading field.
+    Additionally, `JapaneseSupport` does not have an option to automatically add
+    the reading upon card creation.
+    `AJT Furigana` supports both of those of those features.
+
+
+
 <br>
 
 ### AJT Pitch Accent
@@ -449,11 +457,19 @@ the only purpose that this add-on serves is the following:
 
 
 #### Config Changes
-The important things to change in the config are `generate_on_note_add`,
-`destination_fields`, `source_fields` `note_types`, and `styles`.
+Like with AJT Furigana, the config of the add-on must be changed to work with this note.
 
 
 ??? examplecode "Click here to see the full AJT Pitch Accent config"
+
+    The important things to change in the config are:
+
+    * `generate_on_note_add`
+    * `destination_fields`
+    * `source_fields`
+    * `note_types`
+    * `styles`
+
 
     ```json
     {
@@ -762,15 +778,94 @@ The classic texthooker setup works for most games, and any show with subtitle fi
 This texthooker process has already been explained in great detail by
 many smart people:
 
-### Guides
+## Guides
 * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser)
 * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
 * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
 * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/#mining-from-visual-novels)
 
-### Texthooker pages
-* [Anacreon's Texthooker Page](https://anacreondjt.gitlab.io/docs/texthooker/)
-* [exSTATic: Websocket-based texthooker page with automated stats collection](https://github.com/KamWithK/exSTATic/)
+## Texthookers
+* [Textractor](https://github.com/Artikash/Textractor)
+* [agent](https://github.com/0xDC00/agent)
+
+## Texthookers (video-based content)
+* [mpvacious](https://github.com/Ajatt-Tools/mpvacious)
+* [Immersive](https://github.com/Ben-Kerman/immersive)
+* [asbplayer](https://github.com/killergerbah/asbplayer)
+    * Built-in texthooker page
+* [Animebook](https://github.com/animebook/animebook.github.io)
+    * Built-in texthooker page
+
+## Texthooker pages (clipboard based)
+Most setups documented are for clipboard based texthooker pages.
+
+* [Anacreon's Texthooker Page](https://anacreondjt.gitlab.io/docs/texthooker/) (recommended)
+* [TMW's Texthooker Page](https://learnjapanese.moe/texthooker.html)
+
+## Texthooker pages (Websocket based)
+When you use websocket-based texthookers, ensure that the program you use to grab
+the text also uses websockets.
+For example, if you want to use Textractor, use
+[this](https://github.com/sadolit/textractor-websocket)
+extension.
+
+* [exSTATic](https://github.com/KamWithK/exSTATic/)
+    * Used for automatic stats collection
+
+* Patch for existing clipboard-based texthookers
+    * Download your favorite texthooker page into a raw html file.
+    * Copy/paste the code below into the raw html file.
+    * If you are currently viewing the page, refresh.
+
+    ??? examplecode "Click here to reveal the patch"
+        ```javascript
+        <script>
+          let socket = null;
+          let wsStatusElem = null;
+
+          const createStatusElem = () => {
+            wsStatusElem = document.createElement("span")
+            let node = document.getElementById('menu').firstChild
+            wsStatusElem.setAttribute("class", "menuitem")
+            wsStatusElem.addEventListener('click', (e) => {
+              if(wsStatusElem.innerText == "Reconnect") {
+                connect()
+              }
+            })
+            node.insertBefore(wsStatusElem, node.firstChild)
+          }
+
+          const updateStatus = (connected) => {
+            if(wsStatusElem === null) { createStatusElem() }
+            wsStatusElem.innerText = connected ? "Connected" : "Reconnect"
+            wsStatusElem.style.cssText = "margin-right: 1.5em; display: inline-block;"
+            wsStatusElem.style.cssText += connected ? "color:rgb(24, 255, 24);" : "color:rgb(255, 24, 24);"
+          }
+
+          const connect = () => {
+            socket = new WebSocket("ws://localhost:6677/")
+            socket.onopen = (e) => { updateStatus(true) }
+            socket.onclose = (e) => { updateStatus(false) }
+            socket.onerror = (e) => { updateStatus(false); console.log(`[error] ${e.message}`) }
+            socket.onmessage = (e) => {
+              let container = document.getElementById('textlog')
+              let textNode = document.createElement("p")
+              textNode.innerText = e.data
+              document.body.insertBefore(textNode, null)
+            }
+          }
+          connect()
+        </script>
+        ```
+        <sup>
+        ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on [TMW server](https://learnjapanese.moe/join/). Thanks Zetta#3033 for the code.)
+        </sup>
+
+    !!! note
+        This was written for Anacreon's texthooker page.
+        However, it will likely work for most other texthooker pages.
+
+* [exSTATic](https://github.com/KamWithK/exSTATic/)
 
 The setup also works with video files if the video player supports automated copying of subtitles,
 and if you have the correct subtitle files.
@@ -822,33 +917,45 @@ Of course, this list is incomplete, and there could be tools better suited for y
 
 * A powerful alternative to the mpvacious add-on above, with certain different capabilities.
 * Can also be used to automatically extract sentence audio and pictures.
-* Potentially dated: last commit as of writing (2022/10/13) was done in 2022/01/27.
+
+!!! warning
+    This is potentially outdated and/or abandoned.
+    The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
 
 ## [asbplayer](https://github.com/killergerbah/asbplayer)
 
 * Cross platform (chromium) browser video player. Personally tested.
 * This also has card image and audio exporting capabilities.
 * Works on video streaming sites as well.
+* Guides that use asbplayer:
+    * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub)
+    * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)
 
 ## [ShareX](https://getsharex.com/)
 
 * Windows media recorder which can both take screenshots and record audio. Personally tested.
-* This can be automated to add audio and pictures to the most recently added anki card
-    by following the instructions
-    [here](https://rentry.co/mining#sharex).
 * Useful for things that don't have an easy way of getting audio, such as visual novels.
-* I have some custom scripts written for ShareX [here](jpresources.md#sharex-commands),
-    that work by default with this note.
+* Guides on connecting ShareX with your mining setup:
+    * [stegatxins0's mining guide: ShareX](https://rentry.co/mining#sharex) (recommended)
+        * The scripts written [here](jpresources.md#sharex-scripts)
+            works by default with this note.
+            These scripts are meant used with stegatxins0's setup.
+    * [Xeliu's mining guide: ShareX](https://rentry.co/lazyXel#sharex)
+        * ShareX setup is based off of stegatxins0's setup
+    * [Anime Cards: Handling Media](https://animecards.site/media/)
+        * Not recommended: introduces additional steps compared to the above two guides
 
 ## [ames](https://github.com/eshrh/ames)
 
 * ShareX alternative for Linux. Personally tested.
-* Primarily used to automate audio and picture extraction to the most recently added anki card.
+* Primarily used to automate audio and picture extraction to the most recently added Anki card.
 
 ## [Animebook](https://github.com/animebook/animebook.github.io)
 
 * Cross platform (chromium) browser video player.
 * This also has card image and audio exporting capabilities.
+* Guides that use Animebook:
+    * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/)
 
 ## [jidoujisho](https://github.com/lrorpilla/jidoujisho)
 
@@ -862,6 +969,15 @@ Of course, this list is incomplete, and there could be tools better suited for y
   If you are on Android, this can be paired with
   [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
   to create Anki cards.
+* Guides on mokuro:
+    - [Lazy guide (recommended)](https://rentry.co/lazyXel#manga-with-yomichan)
+        - (For Windows users) Make sure to check the "Add Python to Path" on install.
+        - If you are using online processing (google colab), be sure that you are
+          [using the gpu](https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm)
+          to speed up the process.
+    - [Josuke's mokuro setup guide](https://docs.google.com/document/d/1ddUINNHZoln6wXGAiGiVpZb4QPtonEy-jgrT1zQbXow/edit?usp=sharing)
+        <!-- credit: Josuke#7212 / 190480221135306752, from the Refold JP server -->
+        - This doesn't include how to process online, compared to the one above
 
 
 ---

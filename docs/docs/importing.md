@@ -79,14 +79,20 @@ However, here are a few tips:
     Pitch accent graphs should be mapped to `PAGraphs`, and
     pitch accent positions should be mapped to `PAPositions`.
 
-- You may have frequency list info already in your card.
-    Although you are free to import that info into `FrequenciesStylized`,
-    it will **likely not work as you would expect** in the JPMN card.
-    Because there's no standard way to store this data, there is no convenience function
-    to convert it to the proper format.
+- `FrequencySort` maps to the frequency value used to sort by frequency, which works exactly
+    the same as Marv's frequency sorted field in
+    [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency).
+    page.
 
-- `FrequencySort` maps to the frequency value used to sort by frequency, similarly to
-  [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency).
+- `FrequenciesStylized` is a field that holds information for multiple frequency lists.
+    If your card already has a field that contains that information
+    (say, with the built-in `{frequencies}` marker that comes with Yomichan),
+    please be aware that mapping this to `FrequenciesStylized`
+    will **likely not work as you would expect**.
+    This is because `FrequenciesStylized` uses a custom set of handlebars to
+    store the frequency info in a way that css styles can be easily applied without javascript.
+
+    There is currently no convenience function to convert it to the proper format.
 
 - If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 

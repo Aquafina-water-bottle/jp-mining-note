@@ -69,6 +69,14 @@ However, it also serves as a notification system to the user, when it has a colo
     {{ img("info circle error example", "assets/info_circle_leech.gif") }}
 
 
+### Locking the Info Circle
+
+{{ feature_version("0.10.3.0") }}
+
+You can click on the info circle to lock the tooltip in place.
+This may be useful for copying/pasting errors and other debugging purposes.
+
+
 
 ## Kanji Hover
 <i><sup>Main page: [Kanji Hover](kanjihover.md)</sup></i>
@@ -249,6 +257,11 @@ a warning will appear on cards that have a duplicate key.
 Similarly to the `Key` field, this field will not be used in any card template.
 In other words, this is a place where you can write down notes without affecting the card itself.
 
+## `Picture` field
+As an aside, you can put text in this field instead of a picture, and it should still work.
+This is useful if you forgot to add the picture, or just don't want to add the picture
+in the first place.
+
 ---
 
 
@@ -336,13 +349,132 @@ in the PA sentence card.
 
 
 # Cloze Deletion Cards
-Cloze deletion cards are simply a fancy way of saying "fill-in-the-blank cards".
-To test yourself, you simply check if you can hear the correct word in the missing sections.
+In other words, "fill-in-the-blank cards". This allows you to create cards
+that tests word audio or sentence audio.
 
 To create a cloze deletion card, simply fill in the `SeparateClozeDeletionCard` field.
 The words that are hidden are exactly the words that are bolded in the `Sentence` (or `AltDisplay`) field.
 
+To create a sentence audio card, copy/paste the sentence into `AltDisplay`, and bold the entire `AltDisplay` field (say, with `ctrl+a` and `ctrl+b`).
+There's currently no shortcut to creating a sentence audio card.
+
+TODO: IsSentenceCard -> tests entire sentence, not filled -> currently as is
 
 {{ img("cloze deletion card", "assets/cloze_deletion.png") }}
 
+
+
+# Anki Card Blur
+{{ feature_version("0.10.3.0") }}
+
+This allows you to blur the images of specific cards.
+This entire feature is disabled by default. In other words, you will not see
+any icons or markers as shown in this section, unless explicitly enabled in the runtime options.
+
+TODO setting
+
+<figure markdown>
+
+  TODO gif demo of local state (hover over image -> click on eye)
+
+</figure>
+
+
+
+To mark a card as NSFW, add any of the following tags to the card:
+
+> `nsfw`・`NSFW`・`-NSFW`
+
+
+
+
+!!! note
+    Recall that you can use custom text in the `Picture` field instead of having an actual picture.
+    This is useful if you simply don't want to save a particular image.
+
+There are some details to note:
+
+- The eyeball to toggle the blur between an image will not be shown unless the card is marked as NSFW
+    (or the review session state is "Always Blurred". More info in the section below.)
+- Clicking on the blurred image will do nothing; you must click on the eye to un-blur the image.
+    A smaller area to click makes accidental reveals less common.
+- After revealing the image, you can click on the image to zoom, as normal.
+    You cannot click on a blurred image to zoom.
+- Most things can be changed in the runtime options,
+    including what tags can be used, the default initial state on PC/mobile, etc.
+
+
+## Change Review Session State
+The above demo shows how you can un-blur an image temporarily.
+In other words, if you see that card again during the same review session,
+the image will be blurred again.
+
+
+The state of this can be changed for a review session.
+To do this, hover over the info circle, and click on the eyeball to the top right to toggle between states.
+This state will be maintained for the entire review session, but will be lost on the next session.
+
+The choices below show the available states. States cycle from left to right.
+
+=== "Only Blurred if Marked (default)"
+
+    | Not Marked | Marked (with `NSFW` tag) |
+    |:-:|:-:|
+    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | ![](assets/anki_blur/marked_blurred.png) |
+
+=== "Always Blurred"
+
+    | Not Marked | Marked (with `NSFW` tag) |
+    |:-:|:-:|
+    | ![](assets/anki_blur/unmarked_blurred.png) | ![](assets/anki_blur/marked_blurred.png) |
+
+=== "Always Revealed"
+
+    | Not Marked | Marked (with `NSFW` tag) |
+    |:-:|:-:|
+    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | {{ img("", "assets/anki_blur/marked_revealed.png") }} |
+
+
+<!--
+??? example "Image is marked (with NSFW tag)"
+
+    === "Always Revealed"
+
+        img("", "assets/anki_blur/marked_revealed.png")
+
+    === "Only Blurred if Marked (default)"
+
+        img("", "assets/anki_blur/marked_blurred.png")
+
+    === "Always Blurred"
+
+        img("", "assets/anki_blur/marked_blurred.png")
+
+??? example "Image is not marked"
+
+    === "Always Revealed"
+
+        img("", "assets/anki_blur/unmarked_revealed.png")
+
+    === "Only Blurred if Marked (default)"
+
+        img("", "assets/anki_blur/unmarked_revealed.png")
+
+    === "Always Blurred"
+
+        img("", "assets/anki_blur/unmarked_blurred.png")
+-->
+
+TODO gif demo (image marked as NSFW - use 風潮 example)
+
+TODO gif demo (image not marked as NSFW - use 不審者 example)
+
+
+
+
+
+!!! note
+    This was heavily inspired by
+    [Marv's implementation](https://github.com/MarvNC/JP-Resources#anki-card-blur)
+    of the same feature.
 

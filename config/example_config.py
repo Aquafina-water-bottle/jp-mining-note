@@ -27,6 +27,10 @@ CONFIG = {
 
         # Adds an external links section to the "Extra Info" field.
         "external-links": {
+            # Example external link that uses an image: one for light mode, and one for dark mode
+            # If you want to use one image for both themes, just use the same file twice.
+            # NOTE: If you are using custom images, remember to copy/paste them into your media folder
+            #  for them to show!
             "jpdb.io": {
                 "icon-type": "image",
                 "icon-image-light": "_icon_jpdb_lightmode.png",
@@ -49,6 +53,8 @@ CONFIG = {
                 "hover-display": "google.co.jp (Image search)",
             },
 
+            # Example external link that uses text instead of an image.
+            # Notice that that icon-type is "text" instead of "image".
             #"yourei.jp": {
             #    "icon-type": "text",
             #    "icon-text": "用",

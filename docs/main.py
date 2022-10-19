@@ -45,6 +45,7 @@ FIELDS = {
         "auto_fill": True,
         "customize": False,
         "setup": "{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}",
+        "anime_cards_import": "Sentence",
     },
 
     "SentenceReading": {
@@ -141,7 +142,7 @@ FIELDS = {
         "auto_fill": True,
         "customize": False,
         "setup": "{audio}",
-        "anime_cards_import": "WordAudio",
+        "anime_cards_import": "Audio",
     },
 
     "SentenceAudio": {
@@ -214,6 +215,64 @@ rx_TRAILING_WHITESPACE = re.compile(r"\n\s*")
 rx_SKIP_NEWLINE = re.compile(r"\s*`\s*\n")
 
 
+
+
+# copy/paste from tools/note_changes.py
+class Version:
+    # ints: tuple[int, int, int, int]
+
+    def __init__(self, *args):
+        assert len(args) == 4
+        self.ints = tuple(args)
+
+    @classmethod
+    def from_str(cls, str_ver):
+        assert str_ver.count(".") == 3
+        assert str_ver.replace(".", "").isdigit()
+        ints = tuple(int(i) for i in str_ver.split("."))
+        return cls(*ints)
+
+    def cmp(self, other):
+        """
+        returns:
+        -1 if self < other
+        1  if self > other
+        0  if self == other
+        """
+        assert isinstance(other, Version), other
+
+        for i, j in zip(self.ints, other.ints):
+            if i < j:
+                return -1
+            if i > j:
+                return 1
+
+        return 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+
+    def __lt__(self, other):
+        return self.cmp(other) == -1
+
+    def __le__(self, other):
+        return self < other or self == other
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def __gt__(self, other):
+        return not (self <= other)
+
+    def __ge__(self, other):
+        return not (self < other)
+
+    def __repr__(self):
+        return f"Version({', '.join(str(x) for x in self.ints)})"
+
+
+
+
 def define_env(env):
     "Hook function"
 
@@ -232,10 +291,14 @@ def define_env(env):
     ) as f:
         bottom = f.read()
 
+    with open("../version.txt") as f:
+        version = f.read().strip()
+
     data = {
         "FIELDS": FIELDS,
         "TOP_YOMICHAN": top,
         "BOTTOM_YOMICHAN": bottom,
+        "VERSION": version,
     }
 
     for k, v in data.items():
@@ -302,6 +365,21 @@ def define_env(env):
     def link(url):
         # [url](url)
         return f"[{url}]({url})"
+
+    @env.macro
+    def feature_version(feature_version_str: str):
+        with open("../version.txt") as f:
+            current_version_str = f.read().strip()
+
+        feature_ver = Version.from_str(feature_version_str)
+        current_ver = Version.from_str(current_version_str)
+        if feature_ver > current_ver:
+            return f"""!!! warning
+    New as of version `{feature_version_str}` (currently unreleased or in [bleeding edge](building.md#building))
+"""
+
+        return f"""<sup>New in version `{feature_version_str}` (latest version: `{current_version_str}`)</sup>"""
+
 
 
 

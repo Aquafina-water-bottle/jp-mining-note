@@ -7,21 +7,28 @@ it would be best to make sure that the note aligns with exactly what you want.
 The most important step is to see if jp-mining-note (JPMN) works on your device.
 
 ## Anki Desktop
-Primary support is given to the latest Anki versions (and Qt6).
+Primary support is given to the latest Anki versions (2.1.54+ & Qt6).
 Limited support will be given for older versions of Anki.
 With that being said, JPMN should work for Anki versions 2.1.49+.
 
 ## Mobile (AnkiDroid and AnkiMobile)
-As of writing this,[^1] mobile versions of Anki are not yet supported.
+As of writing this,[^1] mobile versions of Anki are **not yet supported**.
 
 [^1]: As of 2022/09/25.
 
-There are plans of supporting AnkiDroid in the future.
+There are plans of supporting AnkiDroid and AnkiMobile in the future.
 
-As I do not have an iPhone to test AnkiMobile,
-there are no plans to support AnkiMobile.
+<!--
+TODO uncomment this when mobile is officially supported
 
-## Anki Web
+!!! warning
+    AnkiMobile will likely have more bugs compared to AnkiDroid,
+    as I do not have an iPhone to test AnkiMobile.
+    Please report any issue you find!
+
+-->
+
+## AnkiWeb
 There is no support for AnkiWeb,
 and there are no plans to support AnkiWeb.
 
@@ -63,7 +70,7 @@ Rest easy knowing you will keep full ownership of your note, forever.
 
 # Alternatives
 There are many, many Anki templates out there in the wild.
-[This page](alternatives.md)
+[The following page](alternatives.md)
 is my attempt to assemble together some of the the popular and/or interesting card templates.
 
 
