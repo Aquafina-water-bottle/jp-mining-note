@@ -140,6 +140,21 @@ Here is how you can create and use a custom runtime options file:
         to replace the existing options file in Anki's media folder.
 
 
+# Custom External Links
+{{ feature_version("0.10.3.0") }}
+
+Custom external links can be specified under the `external-links` section.
+
+Creating external links is self explanatory and is explained further in the config file.
+Additionally, some commented-out examples are provided within the file.
+
+If you want to remove all external links, do the following:
+```
+"external-links": {},
+```
+
+
+
 
 # Conclusion
 

@@ -394,25 +394,23 @@ const JPMNImgUtils = (() => {
       const dhImgContainer = document.getElementById("dh_img_container");
       const imgList = dhImgContainer.getElementsByTagName("img");
 
-      if (imgList) {
-        const imgList = dhImgContainer.getElementsByTagName("img");
-        if (imgList.length) {
-          if (imgList.length >= 2) {
-            logger.warn("There are more than 2 images?");
-          }
-
-          // module-global variable
-          image = imgList[0];
-
-          image.classList.add("dh-right__img");
-          image.style.maxHeight = heightLeft + "px"; // restricts max height here too
-
-          useModalAndBlur();
+      if (imgList && imgList.length) {
+        if (imgList.length >= 2) {
+          logger.warn("There are more than 2 images?");
         }
+
+        // module-global variable
+        image = imgList[0];
+
+        image.classList.add("dh-right__img");
+        image.style.maxHeight = heightLeft + "px"; // restricts max height here too
+
+        useModalAndBlur();
 
       } else { // otherwise we hope that there are 0 images here
         // support for no images here: remove the fade-in / fade-out on text
-        dhImgContainer.classList.remove("dh-right__img-container--transition");
+        logger.debug("No images found. Removing clickable class...");
+        dhImgContainer.classList.remove(imgClickClassName);
       }
     }
 
