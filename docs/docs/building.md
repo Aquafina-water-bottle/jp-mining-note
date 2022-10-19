@@ -45,7 +45,7 @@ as by definition, compile-time options are applied when the note is built.
       if you're running linux. and have a lower version of Python.
 - [sass](https://sass-lang.com/dart-sass) (dart implementation)
     - The dart implementation is required to use the latest features of sass.
-- Anki 2.1.54 or higher
+- Anki 2.1.49 or higher (2.1.54+ is highly recommended)
 - Anki-Connect addon
 
 

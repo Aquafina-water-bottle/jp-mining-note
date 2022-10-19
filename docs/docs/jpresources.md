@@ -265,6 +265,11 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     }
     ```
 
+!!! note
+    If you are using the browser version of Discord, you can also change the font with the
+    [Stylus extension](https://github.com/openstyles/stylus).
+    I personally don't use this, so I'll leave it to the user to figure out the settings. ;)
+
 ---
 
 
