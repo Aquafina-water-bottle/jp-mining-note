@@ -12,14 +12,189 @@ const JPMNImgUtils = (() => {
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById("bigimg");
 
+  const imgEye = document.getElementById("img_svg_eye"); // null on the front
+  const imgEyePathEle = imgEye === null ? null : imgEye.children[0];
+  const dhImgContainer = document.getElementById("dh_img_container");
+  const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
+
+  const imgClickClassName = "dh-right__img-container--clickable";
+  const showEyeClassName = "dh-right__show-eye";
+  const nsfwBlurInitClassName = "nsfw-blur-init";
+  const nsfwBlurClassName = "nsfw-blur";
+  const nsfwNoBlurClassName = "nsfw-no-blur";
+
   const EYE_PATH_RAW = "M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z";
   const EYE_OFF_PATH_RAW = "M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z";
 
-  const SHOULD_BLUR_KEY = "jpmn-nsfw-should-blur";
+  const TOGGLE_STATE_INDEX_KEY = "jpmn-nsfw-toggle-state-index";
 
+  const TOGGLE_STATE_DISABLED = -1;
+  const TOGGLE_STATE_ALWAYS_SHOWN = 0;
+  const TOGGLE_STATE_ONLY_BLUR_NSFW = 1;
+  const TOGGLE_STATE_ALWAYS_BLURRED = 2;
 
   // card side state for image eye
   let imgCurrentlyBlurred = false;
+  let toggleStates = [];
+
+  // main image
+  let image = null;
+
+
+  // helper function: removes the class from the classlist if it exist
+  const removeIfExists = function(ele, name) {
+    if (ele.classList.contains(name)) {
+      ele.classList.remove(name);
+    }
+  }
+
+  // gets the function to activate the modal with the img
+  const getActivateModalFunc = function() {
+    return function() {
+      modal.style.display = "block";
+      modalImg.src = image.src;
+    }
+  }
+
+  // sets the image to be blurred
+  const setImgBlur = function(init=false) {
+    logger.debug("Setting image blur...", 2)
+
+    removeIfExists(dhImgContainer, imgClickClassName);
+    removeIfExists(dhImgBlur, nsfwNoBlurClassName);
+
+    if (init) {
+      dhImgBlur.classList.add(nsfwBlurInitClassName);
+    } else {
+      dhImgBlur.classList.add(nsfwBlurClassName);
+    }
+
+    if (image !== null) {
+      image.onclick = null;
+    }
+    imgEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
+
+    imgCurrentlyBlurred = true;
+  }
+
+  // doesn't require the image to be currently blurred for this function to be ran
+  const removeImgBlur = function() {
+    logger.debug("Removing image blur...", 2)
+
+    dhImgContainer.classList.add(imgClickClassName);
+
+    removeIfExists(dhImgBlur, nsfwBlurClassName);
+    removeIfExists(dhImgBlur, nsfwBlurInitClassName);
+    dhImgBlur.classList.add(nsfwNoBlurClassName);
+
+    if (image !== null) {
+      const activateModalFunc = getActivateModalFunc()
+      image.onclick = activateModalFunc;
+    }
+    imgEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
+
+    imgCurrentlyBlurred = false;
+  }
+
+  // sets display state of settings eye
+  function setDisplayState(state, settingsEye, displayPopup=true) {
+    let settingsEyePathEle = settingsEye.children[0];
+    let settingsEyeTitleEle = settingsEye.children[1];
+    const alwaysBlurredClass = "info-circle-text-settings__svg--red";
+    const settingsDisabledClass = "info-circle-text-settings__svg--disabled";
+
+    switch (state) {
+      case TOGGLE_STATE_DISABLED:
+        settingsEyeTitleEle.textContent = "Persistence is not available. This option cannot be set.";
+        settingsEyePathEle.classList.add(settingsDisabledClass);
+
+        if (getShouldBlurNSFWDefault()) {
+          settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
+        } else {
+          settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
+        }
+        break;
+
+      case TOGGLE_STATE_ALWAYS_SHOWN:
+        // never blurs
+        settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
+        settingsEyeTitleEle.textContent = "NSFW images are not blurred by default. Click to toggle.";
+
+        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+
+        if (displayPopup) {
+          popupMenuMessage("No images will be blurred.");
+        }
+        break;
+
+      case TOGGLE_STATE_ONLY_BLUR_NSFW:
+        // should blur on nsfw images
+        settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
+        settingsEyeTitleEle.textContent = "NSFW images are blurred by default. Click to toggle.";
+        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+
+        if (displayPopup) {
+          popupMenuMessage("NSFW images will be blurred.");
+        }
+        break;
+
+      case TOGGLE_STATE_ALWAYS_BLURRED:
+        // always blurs on nsfw images
+        settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
+        settingsEyePathEle.classList.add(alwaysBlurredClass);
+        settingsEyeTitleEle.textContent = "All images are blurred. Click to toggle.";
+
+        if (displayPopup) {
+          popupMenuMessage("All images will be blurred.");
+        }
+        break;
+    }
+  }
+
+  function setImageBlurToState(toggleState, init=false) {
+    if (imgEye == null) {
+      return;
+    }
+
+    logger.debug(`Setting blur state to '${toggleState}' ...`, 2);
+    switch (toggleState) {
+      case 0: // ??? -> never blurred
+        removeImgBlur();
+        if (!cardHasNSFWTag()) {
+          // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
+          removeIfExists(dhImgBlur, showEyeClassName);
+        }
+        break;
+
+      case 1: // ??? -> blur only if nsfw
+        if (!cardHasNSFWTag()) {
+
+          // can reach here on init as well
+          removeImgBlur();
+
+          if (imgCurrentlyBlurred) {
+            // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
+            removeIfExists(dhImgBlur, showEyeClassName);
+          }
+
+        } else if (!imgCurrentlyBlurred && cardHasNSFWTag()) {
+          setImgBlur(init);
+        }
+
+        break;
+
+      case 2: // ??? -> always blurred
+        setImgBlur(init);
+        if (!cardHasNSFWTag()) {
+          dhImgBlur.classList.add(showEyeClassName);
+        }
+        break;
+
+      default:
+        logger.warning(`Invalid NSFW state: ${toggleState}`);
+    }
+  }
+
 
   function initPersistence() {
     let settingsEye = generateEyeSettingSVG();
@@ -32,14 +207,12 @@ const JPMNImgUtils = (() => {
     }
 
     // inits persistence key
-    const shouldBlurImgDefault = getShouldBlurNSFWDefault();
     const infoCircleSettings = document.getElementById("info_circle_text_settings");
 
-
     if (Persistence.isAvailable()) {
-      if (Persistence.getItem(SHOULD_BLUR_KEY) === null) {
-        logger.debug(`First review, setting Persistence to ${shouldBlurImgDefault}`);
-        Persistence.setItem(SHOULD_BLUR_KEY, shouldBlurImgDefault);
+      if (Persistence.getItem(TOGGLE_STATE_INDEX_KEY) === null) {
+        logger.debug(`First review, setting Persistence to ${0}`);
+        Persistence.setItem(TOGGLE_STATE_INDEX_KEY, 0);
       } else {
         logger.debug("Persistence is available. Not the first review, so nothing has to be done.");
       }
@@ -49,62 +222,24 @@ const JPMNImgUtils = (() => {
 
     // visual interface for whether images should be blurred or not
     infoCircleSettings.appendChild(settingsEye);
-    let settingsEyePathEle = settingsEye.children[0];
-    let settingsEyeTitleEle = settingsEye.children[1];
-
-    const setShouldBlur = function(setKey) {
-      // ASSUMPTION: Persistence shouldn't throw an error when not available
-      // i.e. not available -> no effect
-      if (setKey) {
-        Persistence.setItem(SHOULD_BLUR_KEY, true);
-        logger.debug(`Setting Persistence -> true: ${Persistence.getItem(SHOULD_BLUR_KEY)}`)
-      }
-
-      settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
-      settingsEyeTitleEle.textContent = "NSFW images are blurred by default. Click to toggle.";
-    }
-
-    const setShouldNotBlur = function(setKey) {
-      if (setKey) {
-        Persistence.setItem(SHOULD_BLUR_KEY, false);
-        logger.debug(`Setting Persistence -> false: ${Persistence.getItem(SHOULD_BLUR_KEY)}`)
-      }
-
-      settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
-      settingsEyeTitleEle.textContent = "NSFW images are not blurred by default. Click to toggle.";
-    }
 
     if (Persistence.isAvailable()) {
+
       // allows the usage of the global option
       settingsEye.onclick = function() {
-        let shouldBlurState = Persistence.getItem(SHOULD_BLUR_KEY);
-        let imgEye = document.getElementById("img_svg_eye");
-
-        // TODO: maybe use the actual function instead of having to toggle?
-        if (shouldBlurState) {
-          setShouldNotBlur(true);
-          if (imgEye !== null && imgCurrentlyBlurred) {
-            imgEye.onclick() // toggle
-          }
-        } else {
-          setShouldBlur(true);
-          if (imgEye !== null && !imgCurrentlyBlurred && hasNsfwTag()) {
-            imgEye.onclick() // toggle
-          }
-        }
+        setNextNSFWToggleState();
+        let toggleState = getCurrentNSFWToggleState();
+        setImageBlurToState(toggleState)
+        setDisplayState(toggleState, settingsEye);
       }
 
-      // to display properly
-      if (Persistence.getItem(SHOULD_BLUR_KEY)) {
-        setShouldBlur(false);
-      } else {
-        setShouldNotBlur(false);
-      }
+      // to display properly on the settings eye
+      logger.debug(`Setting NSFW toggle state to '${getCurrentNSFWToggleState()}'...`);
+      setDisplayState(getCurrentNSFWToggleState(), settingsEye, false);
+
     } else {
-      settingsEyeTitleEle.textContent = "Persistence is not available. This option cannot be set.";
-      settingsEye.classList.add("info-circle-text-settings--disabled");
+      setDisplayState(TOGGLE_STATE_DISABLED, settingsEye, false);
     }
-
   }
 
 
@@ -153,47 +288,7 @@ const JPMNImgUtils = (() => {
     return x.children[0];
   }
 
-  function generateImageFunctionsNSFW(img, activateModalFunc) {
-    const imgEye = document.getElementById("img_svg_eye");
-    const imgEyePathEle = imgEye.children[0];
-    const dhImgContainer = document.getElementById("dh_img_container");
-    const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
-
-    const imgClickClassName = "dh-right__img-container--clickable";
-    const showEyeClassName = "dh-right__show-eye";
-    const nsfwBlurClassName = "nsfw-blur";
-    const nsfwNoBlurClassName = "nsfw-no-blur";
-
-    // helper function: removes the class from the classlist if it exist
-    const removeIfExists = function(ele, name) {
-      if (ele.classList.contains(name)) {
-        ele.classList.remove(name);
-      }
-    }
-
-    // toggles blur of image
-    const setImgBlur = function() {
-      logger.debug("Setting image blur...")
-
-      removeIfExists(dhImgContainer, imgClickClassName);
-
-      removeIfExists(dhImgBlur, nsfwNoBlurClassName);
-      dhImgBlur.classList.add(nsfwBlurClassName);
-
-      img.onclick = null;
-      imgEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
-    }
-    const removeImgBlur = function() {
-      logger.debug("Removing image blur...")
-
-      dhImgContainer.classList.add(imgClickClassName);
-
-      removeIfExists(dhImgBlur, nsfwBlurClassName);
-      dhImgBlur.classList.add(nsfwNoBlurClassName);
-
-      img.onclick = activateModalFunc;
-      imgEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
-    }
+  function useNSFWToggle() {
 
     imgEye.onclick = function() {
       if (imgCurrentlyBlurred) { // should be blurred -> not blurred
@@ -201,10 +296,9 @@ const JPMNImgUtils = (() => {
       } else { // not blurred -> should be blurred
         setImgBlur();
       }
-      imgCurrentlyBlurred = !imgCurrentlyBlurred; // toggle
     }
 
-    const imgIsNsfw = hasNsfwTag();
+    const imgIsNsfw = cardHasNSFWTag();
     const shouldBlurImgDefault = getShouldBlurNSFWDefault();
     logger.debug(`imgIsNsfw: ${imgIsNsfw}, shouldBlurImgDefault: ${shouldBlurImgDefault}`);
 
@@ -212,50 +306,65 @@ const JPMNImgUtils = (() => {
       dhImgBlur.classList.add(showEyeClassName);
     }
 
-    let shouldBlurImg;
-    if (Persistence.isAvailable()) {
-      const shouldBlurPersistentState = Persistence.getItem(SHOULD_BLUR_KEY);
-      logger.debug(`Should blur value from Persistence: ${shouldBlurPersistentState}`);
-      shouldBlurImg = imgIsNsfw && shouldBlurPersistentState;
-    } else {
-      logger.debug("Persistence not available! Falling back to default value...");
-      shouldBlurImg = imgIsNsfw && shouldBlurImgDefault;
-    }
-
-    if (shouldBlurImg) {
-      logger.debug("Blurring image...");
-      imgCurrentlyBlurred = true;
-      setImgBlur();
-    } else {
-      logger.debug("Not blurring image...");
-      removeImgBlur();
-    }
-
+    let toggleState = getCurrentNSFWToggleState();
+    setImageBlurToState(toggleState, /*init=*/true);
   }
 
 
-  function generateImageFunctions(img) {
-    const activateModalFunc = function() {
-      modal.style.display = "block";
-      modalImg.src = img.src;
-    }
+  function useModalAndBlur() {
 
     if ({{ utils.opt("modules", "img-utils", "nsfw-toggle", "enabled") }}) {
-      generateImageFunctionsNSFW(img, activateModalFunc);
+      useNSFWToggle();
     } else {
-      img.onclick = activateModalFunc;
+      image.onclick = getActivateModalFunc();
     }
   }
+
+  function setToggleStatesIfEmpty() {
+    // toggleStates is module-global
+    if (toggleStates.length === 0) {
+      let onMobile = document.documentElement.classList.contains('mobile');
+      if (onMobile) {
+        toggleStates = {{ utils.opt("modules", "img-utils", "nsfw-toggle", "toggle-states-mobile") }};
+      }
+      toggleStates = {{ utils.opt("modules", "img-utils", "nsfw-toggle", "toggle-states-pc") }};
+    }
+  }
+
+  function getDefaultNSFWToggleState() {
+    setToggleStatesIfEmpty();
+    return toggleStates[0];
+  }
+
+  function getCurrentNSFWToggleState() {
+    setToggleStatesIfEmpty();
+    if (Persistence.isAvailable()) {
+      const currentStateIndex = Persistence.getItem(TOGGLE_STATE_INDEX_KEY);
+      const currentState = toggleStates[currentStateIndex]
+      logger.debug(`Persistence[${currentStateIndex}] returns ${currentState}`, 1);
+      return currentState;
+    }
+    logger.debug("Persistence not available! Falling back to default value...", 2);
+    return toggleStates[0];
+  }
+
+  function setNextNSFWToggleState() {
+    setToggleStatesIfEmpty();
+
+    let currentStateIndex = Persistence.getItem(TOGGLE_STATE_INDEX_KEY);
+    let nextStateIndex = (currentStateIndex + 1) % toggleStates.length;
+    logger.debug(`Setting Persistence: ${nextStateIndex}`, 2)
+    Persistence.setItem(TOGGLE_STATE_INDEX_KEY, nextStateIndex);
+
+    return toggleStates[nextStateIndex];
+  }
+
 
   function getShouldBlurNSFWDefault() {
-    let onMobile = document.documentElement.classList.contains('mobile');
-    if (onMobile) {
-      return {{ utils.opt("modules", "img-utils", "nsfw-toggle", "default-blur-mobile") }};
-    }
-    return {{ utils.opt("modules", "img-utils", "nsfw-toggle", "default-blur") }};
+    return (getDefaultNSFWToggleState() >= 1);
   }
 
-  function hasNsfwTag() {
+  function cardHasNSFWTag() {
     const tags = document.getElementById("tags").innerText.split(" ");
     const nsfwTags = {{ utils.opt("modules", "img-utils", "nsfw-toggle", "tags") }};
 
@@ -291,17 +400,14 @@ const JPMNImgUtils = (() => {
           if (imgList.length >= 2) {
             logger.warn("There are more than 2 images?");
           }
-          const img = imgList[0];
 
-          img.classList.add("dh-right__img");
-          img.style.maxHeight = heightLeft + "px"; // restricts max height here too
+          // module-global variable
+          image = imgList[0];
 
-          generateImageFunctions(img);
+          image.classList.add("dh-right__img");
+          image.style.maxHeight = heightLeft + "px"; // restricts max height here too
 
-          //img.onclick = function() {
-          //  modal.style.display = "block";
-          //  modalImg.src = this.src;
-          //}
+          useModalAndBlur();
         }
 
       } else { // otherwise we hope that there are 0 images here
@@ -361,7 +467,6 @@ const JPMNImgUtils = (() => {
     run() {
       editDisplayImage();
 
-      // may have to disable this for template {edit:} functionality
       if ({{ utils.opt("modules", "img-utils", "stylize-images-in-glossary") }}) {
         searchImages();
       }
@@ -393,7 +498,7 @@ if ({{ utils.opt("modules", "img-utils", "enabled") }}) {
 /// {% set run_front %}
 
 if ({{ utils.opt("modules", "img-utils", "enabled") }} && {{ utils.opt("modules", "img-utils", "nsfw-toggle", "enabled") }}) {
-  // calls constructor
+  // ran just to call constructor
   const img_utils = new JPMNImgUtils();
 }
 

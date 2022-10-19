@@ -138,8 +138,11 @@ var JPMNLogger = (() => {
       this._appendMsg(message, groupEle);
     }
 
-    debug(message) {
-      if ({{ utils.opt("debug") }}) {
+    // higher the level -> more severe
+    // i.e. lower levels == more messages
+    // currently goes from 0 - 5:
+    debug(message, level=3) {
+      if (level >= {{ utils.opt("debug-level") }}) {
         this.info(message);
       }
     }

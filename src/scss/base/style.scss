@@ -109,6 +109,10 @@ details > summary {
 }
 */
 
+details > summary {
+  user-select: none;
+}
+
 /* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
 /* wrap elements in two divs: center-box-1 and center-box-2 */
 .center-box-1 {
@@ -277,10 +281,18 @@ ruby rt {
   fill: var(--card-description-color);
 }
 
-.info-circle:hover > .info-circle-svg-wrapper path {
-  fill: var(--info-circle-hover-color);
+
+// I can't believe this syntax works. sass is amazing
+.info-circle:hover,
+.info-circle--frozen {
+  > .info-circle-svg-wrapper path {
+    fill: var(--info-circle-hover-color);
+  }
 }
 
+.info-circle-svg-wrapper:active svg {
+  filter: brightness(var(--icon-click-brightness));
+}
 
 .info-circle-text-wrapper {
   width: var(--tooltip-max-width);
@@ -314,8 +326,11 @@ ruby rt {
   margin-left: 16px;
 }
 
-.info-circle-svg-wrapper:hover + .info-circle-text-wrapper > .info-circle-text {
-  visibility: visible;
+.info-circle-svg-wrapper:hover,
+.info-circle--frozen > .info-circle-svg-wrapper {
+  + .info-circle-text-wrapper > .info-circle-text {
+    visibility: visible;
+  }
 }
 
 /* prevents the tooltip text from disappearing on hover */
@@ -340,7 +355,8 @@ ruby rt {
   z-index: 1;
 }
 
-.info-circle-svg-wrapper:hover:after {
+.info-circle-svg-wrapper:hover:after,
+.info-circle---frozen > .info-circle-svg-wrapper:hover:after {
   visibility: visible;
 }
 
@@ -359,10 +375,11 @@ ruby rt {
   fill: var(--info-circle-leech-color);
 }
 
-.info-circle-leech:hover > .info-circle-svg-wrapper path {
-  fill: var(--info-circle-leech-hover-color);
+.info-circle-leech:hover, .info-circle-leech.info-circle---frozen {
+  > .info-circle-svg-wrapper path {
+    fill: var(--info-circle-leech-hover-color);
+  }
 }
-
 
 
 /* warning text */
@@ -379,8 +396,10 @@ ruby rt {
   fill: var(--info-circle-warning-color);
 }
 
-.info-circle-warning:hover > .info-circle-svg-wrapper path {
-  fill: var(--info-circle-warning-hover-color);
+.info-circle-warning:hover, .info-circle-svg-wrapper--frozen {
+  > .info-circle-svg-wrapper path {
+    fill: var(--info-circle-warning-hover-color);
+  }
 }
 
 
@@ -398,16 +417,32 @@ ruby rt {
   fill: var(--info-circle-error-color);
 }
 
-.info-circle-error:hover > .info-circle-svg-wrapper path {
-  fill: var(--info-circle-error-hover-color);
+.info-circle-error:hover, .info-circle-svg-wrapper--frozen {
+  > .info-circle-svg-wrapper path {
+    fill: var(--info-circle-error-hover-color);
+  }
 }
 
 .info-circle-text-settings {
   line-height: 0%;
 }
 
+.info-circle-text-settings-border {
+  border-bottom: 1px solid var(--text-color--4);
+  margin-top: -6px;
+  margin-bottom: 4px;
+  line-height: 0px;
+  width: 100%;
+  display: none;
+}
+
+/* shows the border if settings aren't empty */
+.info-circle-text-settings:not(:empty) + .info-circle-text-settings-border {
+  display: block;
+}
+
 .info-circle-text-settings:not(:empty) {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .info-circle-text-settings svg {
@@ -415,12 +450,22 @@ ruby rt {
   height: var(--info-circle-settings-svg-size);
 }
 
-.info-circle-text-settings svg:not(.info-circle-text-settings--disabled) {
+.info-circle-text-settings svg:active {
+  // doesn't look very good tbh
+  // not sure what a good indicator for click is
+  //filter: brightness(var(--icon-click-brightness));
+}
+
+.info-circle-text-settings svg {
   cursor: pointer;
   fill: var(--text-color);
 }
 
-.info-circle-text-settings--disabled {
+.info-circle-text-settings__svg--red {
+  fill: var(--info-circle-error-text-color);
+}
+
+.info-circle-text-settings__svg--disabled {
   cursor: default;
   fill: var(--text-color--4);
 }
@@ -606,6 +651,70 @@ ruby rt {
 
 
 
+.popup-menu {
+  position: fixed;
+
+  /* bless flex boxes */
+  display: flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+  flex-direction: column;
+  row-gap: 3px;
+
+  bottom: 30px;
+  right: 30px;
+}
+
+.popup-menu--animate {
+  display: flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+
+  z-index: 1;
+
+  min-width: 250px;
+  min-height: 65px;
+  text-align: center;
+
+  border-radius: 4px;
+  background-color: var(--tooltip-background-darken);
+
+  animation-name: popup-menu-in, popup-menu-stay, popup-menu-fade;
+  animation-delay: 0s, 0.6s, 3.6s;
+  animation-duration: 0.6s, 3s, 0.75s;
+  opacity: 0;
+}
+
+
+
+@keyframes popup-menu-in {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popup-menu-stay {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes popup-menu-fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 
 
@@ -862,6 +971,8 @@ ruby rt {
   max-width: 400px;
   max-height: 210px;
   position: relative;
+
+  user-select: none;
 }
 
 /* TODO put the image at the top right corner always for mobile */
@@ -955,8 +1066,13 @@ ruby rt {
 }
 
 
+/* no transition so it doesn't flash the user when flipping the card */
+.nsfw-blur-init {
+  filter: blur(30px);
+}
 .nsfw-blur {
   filter: blur(30px);
+  transition: filter 0.2s;
 }
 .nsfw-no-blur {
   transition: filter 0.2s;

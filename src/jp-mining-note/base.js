@@ -32,6 +32,39 @@ function toggleDetailsTag(ele) {
   }
 }
 
+function popupMenuMessage(message) {
+  let popupMenu = document.getElementById("popup_menu");
+
+  // creates message
+  const popupMessageDiv = document.createElement("div");
+  popupMessageDiv.innerText = message;
+  popupMessageDiv.classList.add("popup-menu--animate");
+
+  popupMenu.appendChild(popupMessageDiv);
+
+  // kills the popup after the animations play
+  setTimeout(() => {
+    popupMenu.removeChild(popupMessageDiv);
+    LOGGER.debug(`Removed popup: "${message}"`, 2);
+  }, 1000*(0.6+3+0.75))
+}
+
+// a bit of name gore
+// clicks on the info circle to freeze the popup (good for debugging and all)
+function clickInfoCircleToFreeze() {
+  let infoCirc = document.getElementById("info_circle");
+  let infoCircWrapper = document.getElementById("info_circle_wrapper");
+  const frozenClass = "info-circle--frozen";
+  infoCircWrapper.onclick = function() {
+    if (infoCirc.classList.contains(frozenClass)) {
+      infoCirc.classList.remove(frozenClass);
+    } else {
+      infoCirc.classList.add(frozenClass);
+    }
+  }
+}
+
+
 
 // START_BLOCK: js_functions
 {% block js_functions %}
@@ -190,6 +223,8 @@ function main() {
   LOGGER.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
   /// {% endcall %}
   /// {% endcall %}
+
+  clickInfoCircleToFreeze();
 
   // START_BLOCK: js_run
 {% filter indent(width=2) %}

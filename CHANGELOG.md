@@ -39,6 +39,8 @@ The following are examples breaking changes:
 - Added some documentation links to common errors / warnings that can appear
 - Added compile options to specify external links as icons or text
 - Added nsfw toggle to img-utils module
+    - clickable inputs: info circle eye, image eye
+- Clicking on the info circle now freezes the tooltip window
 
 #### Fixes
 - Fixed a bug with one-mora 平板 words not showing the proper reading within the pitch accent field
@@ -48,6 +50,8 @@ The following are examples breaking changes:
 #### Internal Changes
 - Added an `isHtml` function param to `logger.warn` and `logger.error`
 - Changed the `modules` from a list to dictionary (in order to make it easier to check if the module is enabled or not)
+- Added a popup menu function (not very flexible currently, as it will not scale well with large messages)
+- Added debugging levels from 0-5 (default is 3)
 
 
 ## [0.10.2.1] - 2022-10-15
