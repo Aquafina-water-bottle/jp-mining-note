@@ -82,4 +82,11 @@ div.glossary-text--extra-info ol {
   }
 }
 
+/* this says that the external link should take up 2 icon slots instead of 1 */
+.glossary__external-links a[data-details="sakura-paris.org/dict"] {
+  width: common.maxWidthForXIcons(2);
+}
+
+
+
 

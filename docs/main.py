@@ -370,7 +370,7 @@ def define_env(env):
     def feature_version(feature_version_str: str, unreleased=False):
         if unreleased:
             return f"""!!! warning
-    New as of version `{feature_version_str}` (currently unreleased)
+    New as of version `{feature_version_str}` (currently unreleased, and cannot be used)
 """
 
         with open("../version.txt") as f:
@@ -379,8 +379,11 @@ def define_env(env):
         feature_ver = Version.from_str(feature_version_str)
         current_ver = Version.from_str(current_version_str)
         if feature_ver > current_ver:
-            return f"""!!! warning
-    New as of version `{feature_version_str}` (currently [bleeding edge](building.md)""" + '{:target="_blank"})\n'
+            return "!!! warning\n" \
+                f"    New as of version `{feature_version_str}`. " \
+                "This version is currently [bleeding edge](building.md)" \
+                '{:target="_blank"}' \
+                ", so this feature cannot be used unless you compile the templates from the master branch."
 
 
         return f"""<sup>New in version `{feature_version_str}` (latest version: `{current_version_str}`)</sup>"""
