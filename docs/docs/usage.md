@@ -288,8 +288,13 @@ This behavior is **disabled by default**. In other words, you will not be able t
 images unless the following setting is explicitly enabled
 in the [runtime options file](runtimeoptions.md){:target="_blank"}:
 
-```
-TODO setting
+```json
+"img-utils": {
+  "nsfw-toggle": {
+    "enabled": "true",
+    // ...
+  }
+}
 ```
 
 <figure markdown>

@@ -74,11 +74,10 @@ in Migaku style colors.
 This automatic coloring behavior is **disabled by default**,
 and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
 
-```
+```json
 "colored-pitch-accent": {
   "enabled": true,
-
-  ...
+  // ...
 }
 ```
 

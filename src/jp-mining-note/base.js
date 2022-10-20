@@ -49,21 +49,6 @@ function popupMenuMessage(message) {
   }, 1000*(0.6+3+0.75))
 }
 
-// a bit of name gore
-// clicks on the info circle to freeze the popup (good for debugging and all)
-function clickInfoCircleToFreeze() {
-  let infoCirc = document.getElementById("info_circle");
-  let infoCircWrapper = document.getElementById("info_circle_wrapper");
-  const frozenClass = "info-circle--frozen";
-  infoCircWrapper.onclick = function() {
-    if (infoCirc.classList.contains(frozenClass)) {
-      infoCirc.classList.remove(frozenClass);
-    } else {
-      infoCirc.classList.add(frozenClass);
-    }
-  }
-}
-
 
 
 // START_BLOCK: js_functions
@@ -224,7 +209,24 @@ function main() {
   /// {% endcall %}
   /// {% endcall %}
 
-  clickInfoCircleToFreeze();
+  // clicks on the info circle to freeze the popup (good for debugging and all)
+  if ({{ utils.opt("info-circle-togglable-lock") }}) {
+    let infoCirc = document.getElementById("info_circle");
+    let infoCircWrapper = document.getElementById("info_circle_wrapper");
+    const frozenClass = "info-circle--frozen";
+
+    infoCircWrapper.onclick = function() {
+      if (infoCirc.classList.contains(frozenClass)) {
+        infoCirc.classList.remove(frozenClass);
+        popupMenuMessage("Info circle tooltip unlocked.");
+      } else {
+        infoCirc.classList.add(frozenClass);
+        popupMenuMessage("Info circle tooltip locked.");
+      }
+    }
+  }
+
+
 
   // START_BLOCK: js_run
 {% filter indent(width=2) %}

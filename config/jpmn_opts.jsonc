@@ -193,6 +193,8 @@
       "stylize-images-in-glossary": true,
 
       "nsfw-toggle": {
+        // allows the user to mark any card as NSFW, and adds various
+        // GUI elements to faciliate just that.
         "enabled": false,
 
         // what tags can be used to toggle the card between nsfw / not nsfw
@@ -277,8 +279,11 @@
   // Warn if using the `Sentence` field instead of the `SentenceReading` field
   "no-sentence-reading-warn": false,
 
+  // Whether the user can lock the tooltip by clicking on the info-circle or not
+  "info-circle-togglable-lock": true,
+
   // (Developer option) Used to show debug messages when debugging the card.
-  // Use the `_debug()` function in javascript to write debug messages.
+  // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.
   // Set to any number higher than 5 to disable.
   // 0 produces the most debug messages, 5 produces the least debug messages.
   "debug-level": 6
