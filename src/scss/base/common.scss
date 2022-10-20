@@ -242,3 +242,8 @@
   color:        var(--highlight-bold-color);
 }
 
+
+@function maxWidthForXIcons($n) {
+  @return calc(var(--external-links-icon-size) * $n + ($n - 1) * var(--external-links-gap));
+}
+

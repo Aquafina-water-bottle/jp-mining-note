@@ -1317,7 +1317,8 @@ ruby rt {
   flex-wrap: wrap;
   flex-direction: row;
   gap: var(--external-links-gap);
-  max-width: calc(var(--external-links-icon-size) * var(--external-links-max-icons-per-row) + (var(--external-links-max-icons-per-row) - 1) * var(--external-links-gap));
+  //max-width: calc(var(--external-links-icon-size) * var(--external-links-max-icons-per-row) + (var(--external-links-max-icons-per-row) - 1) * var(--external-links-gap));
+  max-width: common.maxWidthForXIcons(var(--external-links-max-icons-per-row));
 }
 
 .glossary__external-links--full-row {
