@@ -873,9 +873,12 @@ However, here are a few tips:</p>
 </li>
 <li>
 <p><code>FrequencySort</code> maps to the frequency value used to sort by frequency, which works exactly
-    the same as Marv's frequency sorted field in
-    <a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a>.
+    the same as Marv's <code>Frequency</code> field as documented in
+    <a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a>
     page.</p>
+</li>
+<li>
+<p>If you have a field that stores the source of the media, you can likely map that to <code>AdditionalNotes</code>.</p>
 </li>
 <li>
 <p><code>FrequenciesStylized</code> is a field that holds information for multiple frequency lists.
@@ -886,9 +889,6 @@ However, here are a few tips:</p>
     This is because <code>FrequenciesStylized</code> uses a custom set of handlebars to
     store the frequency info in a way that css styles can be easily applied without javascript.</p>
 <p>There is currently no convenience function to convert it to the proper format.</p>
-</li>
-<li>
-<p>If you have a field that stores the source of the media, you can likely map that to <code>AdditionalNotes</code>.</p>
 </li>
 </ul>
 <p>An example with <a href="https://animecards.site/ankicards/">Anime cards</a> is shown below.</p>
@@ -1125,7 +1125,7 @@ If you know of a way or would like to help me out with doing this, please let me
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 19, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2022</span>
       
     
   </small>
