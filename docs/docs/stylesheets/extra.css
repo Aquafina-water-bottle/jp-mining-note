@@ -59,6 +59,11 @@
   --md-accent-fg-color:              #1390dd;
 }
 
+/* Hover over page source button */
+[data-md-color-scheme="slate"] .md-content__button.md-icon {
+  --md-accent-fg-color:              var(--jpmn-yellow) !important;
+}
+
 /* yellow perma-link buttons */
 [data-md-color-scheme="slate"] .headerlink {
   --md-accent-fg-color:              var(--jpmn-yellow) !important;
