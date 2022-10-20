@@ -24,8 +24,12 @@ The Anki templates are generated through a combination of
 `sass` (for css) and `jinja` (for everything else),
 through the `tools/make.py` script.
 
-You must build the note to use compile-time options,
-as by definition, compile-time options are applied when the note is built.
+You **must build the note to use compile-time options**.
+
+Additionally, if you want to use bleeding edge features
+(the absolute latest features, which are potentially riddled with bugs),
+you must build and install the note from the `master` branch.
+More info about this is shown later.
 
 
 !!! note

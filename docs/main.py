@@ -367,7 +367,12 @@ def define_env(env):
         return f"[{url}]({url})"
 
     @env.macro
-    def feature_version(feature_version_str: str):
+    def feature_version(feature_version_str: str, unreleased=False):
+        if unreleased:
+            return f"""!!! warning
+    New as of version `{feature_version_str}` (currently unreleased)
+"""
+
         with open("../version.txt") as f:
             current_version_str = f.read().strip()
 
@@ -375,8 +380,8 @@ def define_env(env):
         current_ver = Version.from_str(current_version_str)
         if feature_ver > current_ver:
             return f"""!!! warning
-    New as of version `{feature_version_str}` (currently unreleased or in [bleeding edge](building.md#building))
-"""
+    New as of version `{feature_version_str}` (currently [bleeding edge](building.md)""" + '{:target="_blank"})\n'
+
 
         return f"""<sup>New in version `{feature_version_str}` (latest version: `{current_version_str}`)</sup>"""
 
