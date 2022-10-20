@@ -712,6 +712,16 @@ the hotkey must be configured with steps shown below.
 
 
 ## How-To: Running with Python
+
+
+!!! warning
+    If you use the Python script as is within the repository without copying it to
+    a different directory, this script will be updated every time you update the repository.
+
+    It's always good practice to not blindly run people's code on your computer.
+    Make sure you [trust the code](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/tools/hotkey.py), and double check after update!
+
+
 If you don't want to use ShareX, or you are not using Windows,
 you can simply run a python script with command line.
 
@@ -779,7 +789,6 @@ However, some tips for ShareX and AutoKey are given below.
         note_id = hotkey.update_sentence()
         hotkey._browse_anki(f"nid:{note_id}")
         ```
-
 ---
 
 

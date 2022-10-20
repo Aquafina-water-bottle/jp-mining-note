@@ -80,9 +80,11 @@ However, here are a few tips:
     pitch accent positions should be mapped to `PAPositions`.
 
 - `FrequencySort` maps to the frequency value used to sort by frequency, which works exactly
-    the same as Marv's frequency sorted field in
-    [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency).
+    the same as Marv's `Frequency` field as documented in
+    [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency)
     page.
+
+- If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 
 - `FrequenciesStylized` is a field that holds information for multiple frequency lists.
     If your card already has a field that contains that information
@@ -93,8 +95,6 @@ However, here are a few tips:
     store the frequency info in a way that css styles can be easily applied without javascript.
 
     There is currently no convenience function to convert it to the proper format.
-
-- If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 
 
 An example with [Anime cards](https://animecards.site/ankicards/) is shown below.
