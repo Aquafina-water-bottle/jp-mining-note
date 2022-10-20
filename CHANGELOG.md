@@ -41,6 +41,7 @@ The following are examples breaking changes:
 - Added nsfw toggle to img-utils module
     - clickable inputs: info circle eye, image eye
 - Clicking on the info circle now freezes the tooltip window
+    - Togglable with the `info-circle-togglable-lock` option, enabled by default
 
 #### Fixes
 - Fixed a bug with one-mora 平板 words not showing the proper reading within the pitch accent field
