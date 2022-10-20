@@ -309,7 +309,21 @@
   
     <li class="md-nav__item">
       <a href="../setup/" class="md-nav__link">
-        Setup
+        Setup: Anki & Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupeverythingelse/" class="md-nav__link">
+        Setup: Everything Else
       </a>
     </li>
   
@@ -1130,37 +1144,56 @@ However, to dispell any mysteries, here is a fully annotated summary of the user
 <p><a href="../assets/eg_fushinnsha_diagram.png"><img alt="UI annotated summary" src="../assets/eg_fushinnsha_diagram.png" /></a></p>
 <p>Additional information on some parts of the UI is stated below:</p>
 <h3 id="info-circle">Info Circle<a class="headerlink" href="#info-circle" title="Permanent link">&para;</a></h3>
-<p>On hover, the info circle on the top left corner just shows some basic info.</p>
-<p><a href="../assets/info_circle.gif"><img alt="info circle example" src="../assets/info_circle.gif" /></a></p>
-<p>However, it also serves as a notification system to the user, when it has a color.</p>
-<details class="example">
-<summary>Error</summary>
-<p>This should only appear when some javascript code fails.
-In other words, this should <strong>not</strong> appear under normal circumstances.
-If you get this without modifying the note in any way,
-please see <a href="../faq/#errors" target="_blank">this section</a> for basic troubleshooting.</p>
-<p><a href="../assets/info_circle_error.gif"><img alt="info circle error example" src="../assets/info_circle_error.gif" /></a></p>
-</details>
-<details class="example">
-<summary>Warning</summary>
-<p>This serves to warn the user about something.
-It can appear without completely breaking the functionality of the card.
-In other words, you can choose to ignore it.</p>
-<p><a href="../assets/info_circle_warning.gif"><img alt="info circle error example" src="../assets/info_circle_warning.gif" /></a></p>
-</details>
-<details class="example">
-<summary>Leech</summary>
-<p>When the card is a leech, the circle is highlighted yellow (or blue in light mode)
-to indicate that it is a leech.
-This is only shown on the back side of the card.</p>
-<p><a href="../assets/info_circle_leech.gif"><img alt="info circle error example" src="../assets/info_circle_leech.gif" /></a></p>
-</details>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Default</label><label for="__tabbed_1_2">Error</label><label for="__tabbed_1_3">Warning</label><label for="__tabbed_1_4">Leech</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/info_circle.gif"><img alt="info circle example" src="../assets/info_circle.gif" /></a>
+  <figcaption>
+    On hover, the info circle on the top left corner just shows some basic info.
+    However, it also serves as a notification system to the user, when it has a color.
+  </figcaption>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/info_circle_error.gif"><img alt="info circle error example" src="../assets/info_circle_error.gif" /></a>
+  <figcaption>
+    This should only appear when some javascript code fails.
+    In other words, this should <strong>not</strong> appear under normal circumstances.
+    If you get this without modifying the note in any way,
+    please see <a href="../faq/#errors" target="_blank">this section</a> for basic troubleshooting.
+  </figcaption>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/info_circle_warning.gif"><img alt="info circle error example" src="../assets/info_circle_warning.gif" /></a>
+  <figcaption>
+    This serves to warn the user about something.
+    It can appear without completely breaking the functionality of the card.
+    In other words, you can choose to ignore it.
+  </figcaption>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/info_circle_leech.gif"><img alt="info circle error example" src="../assets/info_circle_leech.gif" /></a>
+  <figcaption>
+    When the card is a leech, the circle is highlighted yellow (or blue in light mode)
+    to indicate that it is a leech.
+    This is only shown on the back side of the card.
+  </figcaption>
+</figure></p>
+</div>
+</div>
+</div>
 <h4 id="locking-the-info-circle">Locking the Info Circle<a class="headerlink" href="#locking-the-info-circle" title="Permanent link">&para;</a></h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>New as of version <code>0.10.3.0</code> (currently <a href="../building/" target="_blank">bleeding edge</a>)</p>
 </div>
-<p>You can click on the info circle to lock the tooltip in place.
+<p>You can toggle (click on) the info circle to lock the tooltip in place.
 This may be useful for copying/pasting errors and other debugging purposes.</p>
 <h3 id="kanji-hover">Kanji Hover<a class="headerlink" href="#kanji-hover" title="Permanent link">&para;</a></h3>
 <p><i><sup>Main page: <a href="../kanjihover/">Kanji Hover</a></sup></i></p>
@@ -1196,24 +1229,45 @@ See the video demo below to see exactly what happens.</p>
 Naturally, since we can test ourselves on many aspects of the word, there are
 many ways to change this tested content.</p>
 <h3 id="card-types">Card types<a class="headerlink" href="#card-types" title="Permanent link">&para;</a></h3>
+<p><i><sup>Full list: <a href="../cardtypes/">Card Types</a></sup></i></p>
 <p>The default card type is a vocab card,
 where the tested content is simply the word.</p>
-<p><a href="../assets/nisemono_word.png"><img alt="vocab card example" src="../assets/nisemono_word.png" /></a></p>
 <p>To change the card to a sentence card, fill the <code>IsSentenceCard</code> binary field.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Vocab card</label><label for="__tabbed_2_2">Sentence card</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="../assets/nisemono_word.png"><img alt="vocab card example" src="../assets/nisemono_word.png" /></a></p>
+</div>
+<div class="tabbed-block">
 <p><a href="../assets/nisemono_sentence.png"><img alt="sentence card example" src="../assets/nisemono_sentence.png" /></a></p>
-<p>There are many other card types that this note supports.
-To see the full list, see <a href="../cardtypes/">this section</a>.</p>
-<p><a href="../assets/card_types_1_pic.png"><img alt="card types compilation" src="../assets/card_types_1_pic.png" /></a></p>
+</div>
+</div>
+</div>
 <h3 id="changing-the-displayed-content">Changing the Displayed Content<a class="headerlink" href="#changing-the-displayed-content" title="Permanent link">&para;</a></h3>
 <p>Vocab cards show the <code>Word</code> field and sentence cards show the <code>Sentence</code> fields by default.
 However, you can modify what is exactly shown in the front by using the <code>AltDisplay</code> field.</p>
-<p>For example, the previous sentence card looks a little ugly,
-because the sentence splits off at a strange point.
-In the <code>AltDisplay</code> field, we add a newline at a sensible place (after the period)
-to get the following:</p>
-<p><a href="../assets/nisemono_altdisplay_newline.png"><img alt="altdisplay with newline" src="../assets/nisemono_altdisplay_newline.png" /></a></p>
-<p>Another example is shown below, when we want to only test the last sentence:</p>
-<p><a href="../assets/nisemono_altdisplay_last_sent.png"><img alt="altdisplay with only last sentence" src="../assets/nisemono_altdisplay_last_sent.png" /></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Newline</label><label for="__tabbed_3_2">Last sentence only</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/nisemono_altdisplay_newline.png"><img alt="altdisplay with newline" src="../assets/nisemono_altdisplay_newline.png" /></a>
+  <figcaption>
+    The previous sentence card looks a little ugly,
+    because the sentence splits off at a strange point.
+    To fix this, we add a newline at a sensible place (after the period) in the <code>AltDisplay</code> field.
+  </figcaption>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/nisemono_altdisplay_last_sent.png"><img alt="altdisplay with only last sentence" src="../assets/nisemono_altdisplay_last_sent.png" /></a>
+  <figcaption>
+    Alternatively, we can simply test the last sentence, by removing the first sentence.
+  </figcaption>
+</figure></p>
+</div>
+</div>
+</div>
 <p>One nice feature is that the <code>AltDisplay</code> has hoverable furigana text enabled by default.
 In other words, you can use furigana in the field.
 I personally use this to insert furigana for certain names, since I'm usually not
@@ -1235,9 +1289,17 @@ the front displayed word.</p>
 <h3 id="hints">Hints<a class="headerlink" href="#hints" title="Permanent link">&para;</a></h3>
 <p>Finally, you can include a customized hint to show at the front of the card, by using the <code>Hint</code> field.
 This will show as a collapsible field at the front of card.</p>
-<p><a href="../assets/hint.gif"><img alt="hint field demo" src="../assets/hint.gif" /></a></p>
 <p>If you do not want the hint to be hidden by default, you can use the <code>HintNotHidden</code> field instead.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Hint</label><label for="__tabbed_4_2">HintNotHidden</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="../assets/hint.gif"><img alt="hint field demo" src="../assets/hint.gif" /></a></p>
+</div>
+<div class="tabbed-block">
 <p><a href="../assets/hint_not_hidden.png"><img alt="HintNotHidden field demo" src="../assets/hint_not_hidden.png" /></a></p>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="modifying-the-back-side">Modifying the Back Side<a class="headerlink" href="#modifying-the-back-side" title="Permanent link">&para;</a></h2>
 <p>Not much has to be said about modifying the back side of the card,
@@ -1321,7 +1383,7 @@ To do this, hover over the info circle, and click on the eyeball to the top righ
 This state will be maintained for the entire review session, but will be lost on the next session.</p>
 <p>The tabs below show the available states.
 By default, states cycle from left to right.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Only Blur if NSFW</label><label for="__tabbed_1_2">Always Blurred</label><label for="__tabbed_1_3">Always Revealed</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Only Blur if NSFW</label><label for="__tabbed_5_2">Always Blurred</label><label for="__tabbed_5_3">Always Revealed</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -1375,7 +1437,7 @@ By default, states cycle from left to right.</p>
 </div>
 <details class="example">
 <summary>Demos <em>(click here)</em></summary>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Regular, unmarked card</label><label for="__tabbed_2_2">Card marked as NSFW</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Regular, unmarked card</label><label for="__tabbed_6_2">Card marked as NSFW</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../assets/anki_blur/example_session_toggle_unmarked.gif"><img alt="" src="../assets/anki_blur/example_session_toggle_unmarked.gif" /></a></p>
@@ -1384,6 +1446,10 @@ By default, states cycle from left to right.</p>
 <p><a href="../assets/anki_blur/example_session_toggle_marked.gif"><img alt="" src="../assets/anki_blur/example_session_toggle_marked.gif" /></a></p>
 </div>
 </div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Both examples have the info circle toggled (clicked), so the tooltip persists.</p>
 </div>
 </details>
 <h3 id="additional-details">Additional Details<a class="headerlink" href="#additional-details" title="Permanent link">&para;</a></h3>
@@ -1396,13 +1462,10 @@ By default, states cycle from left to right.</p>
     You cannot click on a blurred image to zoom.</li>
 <li>Most things can be changed in the runtime options,
     including what tags can be used, the default initial state on PC/mobile, etc.</li>
+<li>This was heavily inspired by
+    <a href="https://github.com/MarvNC/JP-Resources#anki-card-blur">Marv's implementation</a>
+    of the same feature.</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This was heavily inspired by
-<a href="https://github.com/MarvNC/JP-Resources#anki-card-blur">Marv's implementation</a>
-of the same feature.</p>
-</div>
 <h2 id="testing-pitch-accent">Testing Pitch Accent<a class="headerlink" href="#testing-pitch-accent" title="Permanent link">&para;</a></h2>
 <p>This note type provides many options to target exactly what parts of pitch accent
 you want to test yourself on.
