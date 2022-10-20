@@ -541,6 +541,40 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#picture-field" class="md-nav__link">
+    Picture field
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-blur" class="md-nav__link">
+    Image Blur
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Blur">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-review-session-state" class="md-nav__link">
+    Change Review Session State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-details" class="md-nav__link">
+    Additional Details
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -962,6 +996,40 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#picture-field" class="md-nav__link">
+    Picture field
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-blur" class="md-nav__link">
+    Image Blur
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Blur">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-review-session-state" class="md-nav__link">
+    Change Review Session State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-details" class="md-nav__link">
+    Additional Details
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1087,6 +1155,13 @@ to indicate that it is a leech.
 This is only shown on the back side of the card.</p>
 <p><a href="../assets/info_circle_leech.gif"><img alt="info circle error example" src="../assets/info_circle_leech.gif" /></a></p>
 </details>
+<h4 id="locking-the-info-circle">Locking the Info Circle<a class="headerlink" href="#locking-the-info-circle" title="Permanent link">&para;</a></h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.10.3.0</code> (currently <a href="../building/" target="_blank">bleeding edge</a>)</p>
+</div>
+<p>You can click on the info circle to lock the tooltip in place.
+This may be useful for copying/pasting errors and other debugging purposes.</p>
 <h3 id="kanji-hover">Kanji Hover<a class="headerlink" href="#kanji-hover" title="Permanent link">&para;</a></h3>
 <p><i><sup>Main page: <a href="../kanjihover/">Kanji Hover</a></sup></i></p>
 <p>Kanji hover shows you if you have seen the kanji in previous cards or not.
@@ -1209,7 +1284,125 @@ a warning will appear on cards that have a duplicate key.</p>
 <h3 id="comment-field"><code>Comment</code> field<a class="headerlink" href="#comment-field" title="Permanent link">&para;</a></h3>
 <p>Similarly to the <code>Key</code> field, this field will not be used in any card template.
 In other words, this is a place where you can write down notes without affecting the card itself.</p>
+<h3 id="picture-field"><code>Picture</code> field<a class="headerlink" href="#picture-field" title="Permanent link">&para;</a></h3>
+<p>As an aside, you can put text in this field instead of a picture, and it should still work.
+This is useful if you forgot to add the picture, or just don't want to add the picture
+in the first place.</p>
 <hr />
+<h2 id="image-blur">Image Blur<a class="headerlink" href="#image-blur" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.10.3.0</code> (currently <a href="../building/" target="_blank">bleeding edge</a>)</p>
+</div>
+<p>This allows you to blur the images of cards marked with a NSFW tag.</p>
+<p>This behavior is <strong>disabled by default</strong>. In other words, you will not be able to blur
+images unless the following setting is explicitly enabled
+in the <a href="../runtimeoptions/" target="_blank">runtime options file</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TODO setting
+</code></pre></div>
+<figure>
+<p><a href="../assets/anki_blur/example.gif"><img alt="example toggle blur gif" src="../assets/anki_blur/example.gif" /></a></p>
+</figure>
+<p>To mark a card as NSFW, add any of the following tags to the card:</p>
+<blockquote>
+<p><code>nsfw</code>・<code>NSFW</code>・<code>-NSFW</code></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Recall that you can use custom text in the <code>Picture</code> field instead of having an actual picture.
+This is useful if you simply don't want to save a particular image.</p>
+</div>
+<h3 id="change-review-session-state">Change Review Session State<a class="headerlink" href="#change-review-session-state" title="Permanent link">&para;</a></h3>
+<p>The above demo shows how you can un-blur an image temporarily.
+In other words, if you see that card again during the same review session,
+the image will be blurred again.</p>
+<p>The state of this can be changed for a review session.
+To do this, hover over the info circle, and click on the eyeball to the top right to toggle between states.
+This state will be maintained for the entire review session, but will be lost on the next session.</p>
+<p>The tabs below show the available states.
+By default, states cycle from left to right.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Only Blur if NSFW</label><label for="__tabbed_1_2">Always Blurred</label><label for="__tabbed_1_3">Always Revealed</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th align="center">Not Marked</th>
+<th align="center">Marked (with <code>NSFW</code> tag)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="../assets/anki_blur/unmarked_revealed.png"><img alt="" src="../assets/anki_blur/unmarked_revealed.png" /></a></td>
+<td align="center"><img alt="" src="../assets/anki_blur/marked_blurred.png" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th align="center">Not Marked</th>
+<th align="center">Marked (with <code>NSFW</code> tag)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="" src="../assets/anki_blur/unmarked_blurred.png" /></td>
+<td align="center"><img alt="" src="../assets/anki_blur/marked_blurred.png" /></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th align="center">Not Marked</th>
+<th align="center">Marked (with <code>NSFW</code> tag)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a href="../assets/anki_blur/unmarked_revealed.png"><img alt="" src="../assets/anki_blur/unmarked_revealed.png" /></a></td>
+<td align="center"><a href="../assets/anki_blur/marked_revealed.png"><img alt="" src="../assets/anki_blur/marked_revealed.png" /></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<details class="example">
+<summary>Demos <em>(click here)</em></summary>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Regular, unmarked card</label><label for="__tabbed_2_2">Card marked as NSFW</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="../assets/anki_blur/example_session_toggle_unmarked.gif"><img alt="" src="../assets/anki_blur/example_session_toggle_unmarked.gif" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/anki_blur/example_session_toggle_marked.gif"><img alt="" src="../assets/anki_blur/example_session_toggle_marked.gif" /></a></p>
+</div>
+</div>
+</div>
+</details>
+<h3 id="additional-details">Additional Details<a class="headerlink" href="#additional-details" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The eyeball to toggle the blur between an image will not be shown unless the card is marked as NSFW
+    (or the review session state is "Always Blurred").</li>
+<li>Clicking on the blurred image will do nothing; you must click on the eye to un-blur the image.
+    Forcing the user to click in a smaller area makes accidental reveals less common.</li>
+<li>After revealing the image, you can click on the image to zoom, as normal.
+    You cannot click on a blurred image to zoom.</li>
+<li>Most things can be changed in the runtime options,
+    including what tags can be used, the default initial state on PC/mobile, etc.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This was heavily inspired by
+<a href="https://github.com/MarvNC/JP-Resources#anki-card-blur">Marv's implementation</a>
+of the same feature.</p>
+</div>
 <h2 id="testing-pitch-accent">Testing Pitch Accent<a class="headerlink" href="#testing-pitch-accent" title="Permanent link">&para;</a></h2>
 <p>This note type provides many options to target exactly what parts of pitch accent
 you want to test yourself on.
@@ -1309,10 +1502,13 @@ It works similarly to <code>AltDisplay</code>, and takes priority over <code>Alt
 in the PA sentence card.</p>
 <hr />
 <h2 id="cloze-deletion-cards">Cloze Deletion Cards<a class="headerlink" href="#cloze-deletion-cards" title="Permanent link">&para;</a></h2>
-<p>Cloze deletion cards are simply a fancy way of saying "fill-in-the-blank cards".
-To test yourself, you simply check if you can hear the correct word in the missing sections.</p>
+<p>In other words, "fill-in-the-blank cards". This allows you to create cards
+that tests word audio or sentence audio.</p>
 <p>To create a cloze deletion card, simply fill in the <code>SeparateClozeDeletionCard</code> field.
 The words that are hidden are exactly the words that are bolded in the <code>Sentence</code> (or <code>AltDisplay</code>) field.</p>
+<p>To create a sentence audio card, copy/paste the sentence into <code>AltDisplay</code>, and bold the entire <code>AltDisplay</code> field (say, with <code>ctrl+a</code> and <code>ctrl+b</code>).
+There's currently no shortcut to creating a sentence audio card.</p>
+<p>TODO: IsSentenceCard -&gt; tests entire sentence, not filled -&gt; currently as is</p>
 <p><a href="../assets/cloze_deletion.png"><img alt="cloze deletion card" src="../assets/cloze_deletion.png" /></a></p>
 
   <hr>
@@ -1320,7 +1516,7 @@ The words that are hidden are exactly the words that are bolded in the <code>Sen
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2022</span>
       
     
   </small>

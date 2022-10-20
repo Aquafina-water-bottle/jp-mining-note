@@ -853,8 +853,11 @@ All of these templates are located under the <code>(root)/src</code> folder.</p>
 <p>The Anki templates are generated through a combination of
 <code>sass</code> (for css) and <code>jinja</code> (for everything else),
 through the <code>tools/make.py</code> script.</p>
-<p>You must build the note to use compile-time options,
-as by definition, compile-time options are applied when the note is built.</p>
+<p>You <strong>must build the note to use compile-time options</strong>.</p>
+<p>Additionally, if you want to use bleeding edge features
+(the absolute latest features, which are potentially riddled with bugs),
+you must build and install the note from the <code>master</code> branch.
+More info about this is shown later.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The instructions listed below will be primarily Linux based.
@@ -1007,7 +1010,7 @@ See <a href="../compileopts/">this page</a> for more info.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 19, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2022</span>
       
     
   </small>

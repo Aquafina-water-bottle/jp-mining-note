@@ -858,15 +858,20 @@ However, here are a few tips:</p>
     pitch accent positions should be mapped to <code>PAPositions</code>.</p>
 </li>
 <li>
-<p>You may have frequency list info already in your card.
-    Although you are free to import that info into <code>FrequenciesStylized</code>,
-    it will <strong>likely not work as you would expect</strong> in the JPMN card.
-    Because there's no standard way to store this data, there is no convenience function
-    to convert it to the proper format.</p>
+<p><code>FrequencySort</code> maps to the frequency value used to sort by frequency, which works exactly
+    the same as Marv's frequency sorted field in
+    <a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a>.
+    page.</p>
 </li>
 <li>
-<p><code>FrequencySort</code> maps to the frequency value used to sort by frequency, similarly to
-  <a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a>.</p>
+<p><code>FrequenciesStylized</code> is a field that holds information for multiple frequency lists.
+    If your card already has a field that contains that information
+    (say, with the built-in <code>{frequencies}</code> marker that comes with Yomichan),
+    please be aware that mapping this to <code>FrequenciesStylized</code>
+    will <strong>likely not work as you would expect</strong>.
+    This is because <code>FrequenciesStylized</code> uses a custom set of handlebars to
+    store the frequency info in a way that css styles can be easily applied without javascript.</p>
+<p>There is currently no convenience function to convert it to the proper format.</p>
 </li>
 <li>
 <p>If you have a field that stores the source of the media, you can likely map that to <code>AdditionalNotes</code>.</p>
@@ -909,7 +914,7 @@ However, here are a few tips:</p>
 </tr>
 <tr>
 <td class="smaller-table-row">Sentence</td>
-<td></td>
+<td class="smaller-table-row">Sentence</td>
 </tr>
 <tr>
 <td class="smaller-table-row">SentenceReading</td>
@@ -981,7 +986,7 @@ However, here are a few tips:</p>
 </tr>
 <tr>
 <td class="smaller-table-row">WordAudio</td>
-<td class="smaller-table-row">WordAudio</td>
+<td class="smaller-table-row">Audio</td>
 </tr>
 <tr>
 <td class="smaller-table-row">SentenceAudio</td>
@@ -1106,7 +1111,7 @@ If you know of a way or would like to help me out with doing this, please let me
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 16, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 19, 2022</span>
       
     
   </small>

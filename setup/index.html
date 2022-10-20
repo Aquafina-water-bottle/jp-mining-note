@@ -495,6 +495,47 @@
     Getting the Text to Create the Cards
   </a>
   
+    <nav class="md-nav" aria-label="Getting the Text to Create the Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guides" class="md-nav__link">
+    Guides
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthookers" class="md-nav__link">
+    Texthookers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthookers-video-based-content" class="md-nav__link">
+    Texthookers (video-based content)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthooker-pages-clipboard-based" class="md-nav__link">
+    Texthooker pages (clipboard based)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthooker-pages-websocket-based" class="md-nav__link">
+    Texthooker pages (Websocket based)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1085,6 +1126,47 @@
     Getting the Text to Create the Cards
   </a>
   
+    <nav class="md-nav" aria-label="Getting the Text to Create the Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guides" class="md-nav__link">
+    Guides
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthookers" class="md-nav__link">
+    Texthookers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthookers-video-based-content" class="md-nav__link">
+    Texthookers (video-based content)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthooker-pages-clipboard-based" class="md-nav__link">
+    Texthooker pages (clipboard based)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthooker-pages-websocket-based" class="md-nav__link">
+    Texthooker pages (Websocket based)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1522,26 +1604,20 @@ Code: <code>1344485230</code></p>
 Automatically generates furigana upon Yomichan card creation.</p>
 <p>This add-on is optional, because the card will simply show the sentence without
 furigana if there is no furigana generated sentence.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Furigana generation is occasionally incorrect,
-so if you plan on using these regularly, you should double-check the readings
-to make sure they are correct.</p>
-</div>
-<details class="info">
-<summary>JapaneseSupport v.s. AJT Furigana</summary>
-<p>If you use <code>JapaneseSupport</code>, bolded words and other styles within a field
-are not transferred over from the original field to the reading field.
-Additionally, <code>JapaneseSupport</code> does not have an option to automatically add
-the reading upon card creation.
-<code>AJT Furigana</code> supports both of those of those features.</p>
-</details>
 <h5 id="config-changes">Config Changes<a class="headerlink" href="#config-changes" title="Permanent link">&para;</a></h5>
-<p>To change the config of any Anki add-on, head over to
-<code>Tools</code> →  <code>Add-ons</code> →  (select the add-on) →  <code>Config</code>.</p>
-<p>The important things to change in the config are <code>generate_on_note_add</code>, <code>fields</code> and <code>note_types</code>.</p>
+<p>The config of the add-on must be changed to work with this note.</p>
+<p>To change the config of any Anki add-on, head over to:</p>
+<blockquote>
+<p><code>Tools</code> →  <code>Add-ons</code> →  (select the add-on) →  <code>Config</code>.</p>
+</blockquote>
 <details class="examplecode">
 <summary>Click here to see the full AJT Furigana config</summary>
+<p>The important things to change in the config are:</p>
+<ul>
+<li><code>generate_on_note_add</code></li>
+<li><code>fields</code></li>
+<li><code>note_types</code></li>
+</ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nt">&quot;context_menu&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">        </span><span class="nt">&quot;generate_furigana&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
@@ -1592,6 +1668,18 @@ the reading upon card creation.
 </li>
 </ol>
 </details>
+<h5 id="additional-info">Additional Info<a class="headerlink" href="#additional-info" title="Permanent link">&para;</a></h5>
+<p>Furigana generation is occasionally incorrect,
+so if you plan on using furigana regularly, you should double-check the readings
+to make sure they are correct.</p>
+<details class="info">
+<summary>JapaneseSupport v.s. AJT Furigana</summary>
+<p>If you use <code>JapaneseSupport</code>, bolded words and other styles within a field
+are not transferred over from the original field to the reading field.
+Additionally, <code>JapaneseSupport</code> does not have an option to automatically add
+the reading upon card creation.
+<code>AJT Furigana</code> supports both of those of those features.</p>
+</details>
 <p><br></p>
 <h4 id="ajt-pitch-accent">AJT Pitch Accent<a class="headerlink" href="#ajt-pitch-accent" title="Permanent link">&para;</a></h4>
 <p><a href="https://ankiweb.net/shared/info/1225470483">(Official page)</a>
@@ -1605,10 +1693,17 @@ the only purpose that this add-on serves is the following:</p>
   but the add-on does, then it will use the add-on data.</li>
 </ul>
 <h5 id="config-changes_1">Config Changes<a class="headerlink" href="#config-changes_1" title="Permanent link">&para;</a></h5>
-<p>The important things to change in the config are <code>generate_on_note_add</code>,
-<code>destination_fields</code>, <code>source_fields</code> <code>note_types</code>, and <code>styles</code>.</p>
+<p>Like with AJT Furigana, the config of the add-on must be changed to work with this note.</p>
 <details class="examplecode">
 <summary>Click here to see the full AJT Pitch Accent config</summary>
+<p>The important things to change in the config are:</p>
+<ul>
+<li><code>generate_on_note_add</code></li>
+<li><code>destination_fields</code></li>
+<li><code>source_fields</code></li>
+<li><code>note_types</code></li>
+<li><code>styles</code></li>
+</ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nt">&quot;destination_fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">        </span><span class="s2">&quot;AJTWordPitch&quot;</span><span class="w"></span>
@@ -2647,17 +2742,110 @@ Anki card (click on the green plus button).</p>
 <p>The classic texthooker setup works for most games, and any show with subtitle files.
 This texthooker process has already been explained in great detail by
 many smart people:</p>
-<h4 id="guides">Guides<a class="headerlink" href="#guides" title="Permanent link">&para;</a></h4>
+<h3 id="guides">Guides<a class="headerlink" href="#guides" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="https://rentry.co/mining#browser">stegatxins0's mining guide: Texthooker</a></li>
 <li><a href="https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese">TMW: Texthooker &amp; Visual Novels</a></li>
 <li><a href="https://rentry.co/lazyXel#clipboard-inserter">Lazy Guide: Texthooker</a></li>
 <li><a href="https://animecards.site/visualnovels/#mining-from-visual-novels">Anime Cards: Texthooker &amp; Visual Novels</a></li>
 </ul>
-<h4 id="texthooker-pages">Texthooker pages<a class="headerlink" href="#texthooker-pages" title="Permanent link">&para;</a></h4>
+<h3 id="texthookers">Texthookers<a class="headerlink" href="#texthookers" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://anacreondjt.gitlab.io/docs/texthooker/">Anacreon's Texthooker Page</a></li>
-<li><a href="https://github.com/KamWithK/exSTATic/">exSTATic: Websocket-based texthooker page with automated stats collection</a></li>
+<li><a href="https://github.com/Artikash/Textractor">Textractor</a></li>
+<li><a href="https://github.com/0xDC00/agent">agent</a></li>
+</ul>
+<h3 id="texthookers-video-based-content">Texthookers (video-based content)<a class="headerlink" href="#texthookers-video-based-content" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://github.com/Ajatt-Tools/mpvacious">mpvacious</a></li>
+<li><a href="https://github.com/Ben-Kerman/immersive">Immersive</a></li>
+<li><a href="https://github.com/killergerbah/asbplayer">asbplayer</a><ul>
+<li>Built-in texthooker page</li>
+</ul>
+</li>
+<li><a href="https://github.com/animebook/animebook.github.io">Animebook</a><ul>
+<li>Built-in texthooker page</li>
+</ul>
+</li>
+</ul>
+<h3 id="texthooker-pages-clipboard-based">Texthooker pages (clipboard based)<a class="headerlink" href="#texthooker-pages-clipboard-based" title="Permanent link">&para;</a></h3>
+<p>Most setups documented are for clipboard based texthooker pages.</p>
+<ul>
+<li><a href="https://anacreondjt.gitlab.io/docs/texthooker/">Anacreon's Texthooker Page</a> (recommended)</li>
+<li><a href="https://learnjapanese.moe/texthooker.html">TMW's Texthooker Page</a></li>
+</ul>
+<h3 id="texthooker-pages-websocket-based">Texthooker pages (Websocket based)<a class="headerlink" href="#texthooker-pages-websocket-based" title="Permanent link">&para;</a></h3>
+<p>When you use websocket-based texthookers, ensure that the program you use to grab
+the text also uses websockets.
+For example, if you want to use Textractor, use
+<a href="https://github.com/sadolit/textractor-websocket">this</a>
+extension.</p>
+<ul>
+<li>
+<p><a href="https://github.com/KamWithK/exSTATic/">exSTATic</a></p>
+<ul>
+<li>Used for automatic stats collection</li>
+</ul>
+</li>
+<li>
+<p>Patch for existing clipboard-based texthookers</p>
+<ul>
+<li>Download your favorite texthooker page into a raw html file.</li>
+<li>Copy/paste the code below into the raw html file.</li>
+<li>If you are currently viewing the page, refresh.</li>
+</ul>
+<details class="examplecode">
+<summary>Click here to reveal the patch</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="w"></span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">wsStatusElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">createStatusElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;menu&#39;</span><span class="p">).</span><span class="nx">firstChild</span><span class="w"></span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;menuitem&quot;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;Reconnect&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">        </span><span class="nx">connect</span><span class="p">()</span><span class="w"></span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">      </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">    </span><span class="p">})</span><span class="w"></span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span><span class="nx">node</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">wsStatusElem</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">updateStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">connected</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="nx">wsStatusElem</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createStatusElem</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">connected</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;Connected&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Reconnect&quot;</span><span class="w"></span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;margin-right: 1.5em; display: inline-block;&quot;</span><span class="w"></span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">connected</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;color:rgb(24, 255, 24);&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;color:rgb(255, 24, 24);&quot;</span><span class="w"></span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">connect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">    </span><span class="nx">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://localhost:6677/&quot;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="w">    </span><span class="nx">socket</span><span class="p">.</span><span class="nx">onopen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">updateStatus</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="w">    </span><span class="nx">socket</span><span class="p">.</span><span class="nx">onclose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">updateStatus</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="w">    </span><span class="nx">socket</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">updateStatus</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[error] </span><span class="si">${</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="w">    </span><span class="nx">socket</span><span class="p">.</span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">container</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textlog&#39;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">textNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="w">      </span><span class="nx">textNode</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="w"></span>
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">textNode</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a><span class="w">  </span><span class="nx">connect</span><span class="p">()</span><span class="w"></span>
+<a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a><span class="o">&lt;</span><span class="err">/script&gt;</span><span class="w"></span>
+</code></pre></div>
+<sup>
+(<a href="https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452">Original discord message</a>, on <a href="https://learnjapanese.moe/join/">TMW server</a>. Thanks Zetta#3033 for the code.)
+</sup></p>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This was written for Anacreon's texthooker page.
+However, it will likely work for most other texthooker pages.</p>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/KamWithK/exSTATic/">exSTATic</a></p>
+</li>
 </ul>
 <p>The setup also works with video files if the video player supports automated copying of subtitles,
 and if you have the correct subtitle files.</p>
@@ -2685,16 +2873,16 @@ Of course, this list is incomplete, and there could be tools better suited for y
 <p>Given a subtitle file for a movie file, it can automatically add sentence audio and images with one <code>Ctrl+n</code> command.</p>
 <details class="examplecode">
 <summary>Click here to see some basic config changes to get it working with JPMN.</summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Model names are listed in `Tools -&gt; Manage note types` menu in Anki.</span><span class="w"></span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="na">model_name</span><span class="o">=</span><span class="s">JP Mining Note</span><span class="w"></span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Field names as they appear in the selected note type.</span><span class="w"></span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># If you set `audio_field` or `image_field` empty,</span><span class="w"></span>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># the corresponding media file will not be created.</span><span class="w"></span>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="na">sentence_field</span><span class="o">=</span><span class="s">Sentence</span><span class="w"></span>
-<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="c1">#secondary_field=SentEng  # Not used by the note. This is ignored entirely.</span><span class="w"></span>
-<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="na">audio_field</span><span class="o">=</span><span class="s">SentenceAudio</span><span class="w"></span>
-<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="na">image_field</span><span class="o">=</span><span class="s">Picture</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Model names are listed in `Tools -&gt; Manage note types` menu in Anki.</span><span class="w"></span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="na">model_name</span><span class="o">=</span><span class="s">JP Mining Note</span><span class="w"></span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Field names as they appear in the selected note type.</span><span class="w"></span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># If you set `audio_field` or `image_field` empty,</span><span class="w"></span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="c1"># the corresponding media file will not be created.</span><span class="w"></span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="na">sentence_field</span><span class="o">=</span><span class="s">Sentence</span><span class="w"></span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="c1">#secondary_field=SentEng  # Not used by the note. This is ignored entirely.</span><span class="w"></span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="na">audio_field</span><span class="o">=</span><span class="s">SentenceAudio</span><span class="w"></span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="na">image_field</span><span class="o">=</span><span class="s">Picture</span><span class="w"></span>
 </code></pre></div>
 </details>
 </li>
@@ -2703,33 +2891,58 @@ Of course, this list is incomplete, and there could be tools better suited for y
 <ul>
 <li>A powerful alternative to the mpvacious add-on above, with certain different capabilities.</li>
 <li>Can also be used to automatically extract sentence audio and pictures.</li>
-<li>Potentially dated: last commit as of writing (2022/10/13) was done in 2022/01/27.</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is potentially outdated and/or abandoned.
+The most recent commit as of writing (2022/10/19) was done in 2022/01/27.</p>
+</div>
 <h3 id="asbplayer"><a href="https://github.com/killergerbah/asbplayer">asbplayer</a><a class="headerlink" href="#asbplayer" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Cross platform (chromium) browser video player. Personally tested.</li>
 <li>This also has card image and audio exporting capabilities.</li>
 <li>Works on video streaming sites as well.</li>
+<li>Guides that use asbplayer:<ul>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub">Shiki's mining workflow</a></li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub">Tigy01's mining workflow</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="sharex"><a href="https://getsharex.com/">ShareX</a><a class="headerlink" href="#sharex" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Windows media recorder which can both take screenshots and record audio. Personally tested.</li>
-<li>This can be automated to add audio and pictures to the most recently added anki card
-    by following the instructions
-    <a href="https://rentry.co/mining#sharex">here</a>.</li>
 <li>Useful for things that don't have an easy way of getting audio, such as visual novels.</li>
-<li>I have some custom scripts written for ShareX <a href="../jpresources/#sharex-commands">here</a>,
-    that work by default with this note.</li>
+<li>Guides on connecting ShareX with your mining setup:<ul>
+<li><a href="https://rentry.co/mining#sharex">stegatxins0's mining guide: ShareX</a> (recommended)<ul>
+<li>The scripts written <a href="../jpresources/#sharex-scripts">here</a>
+    works by default with this note.
+    These scripts are meant used with stegatxins0's setup.</li>
+</ul>
+</li>
+<li><a href="https://rentry.co/lazyXel#sharex">Xeliu's mining guide: ShareX</a><ul>
+<li>ShareX setup is based off of stegatxins0's setup</li>
+</ul>
+</li>
+<li><a href="https://animecards.site/media/">Anime Cards: Handling Media</a><ul>
+<li>Not recommended: introduces additional steps compared to the above two guides</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="ames"><a href="https://github.com/eshrh/ames">ames</a><a class="headerlink" href="#ames" title="Permanent link">&para;</a></h3>
 <ul>
 <li>ShareX alternative for Linux. Personally tested.</li>
-<li>Primarily used to automate audio and picture extraction to the most recently added anki card.</li>
+<li>Primarily used to automate audio and picture extraction to the most recently added Anki card.</li>
 </ul>
 <h3 id="animebook"><a href="https://github.com/animebook/animebook.github.io">Animebook</a><a class="headerlink" href="#animebook" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Cross platform (chromium) browser video player.</li>
 <li>This also has card image and audio exporting capabilities.</li>
+<li>Guides that use Animebook:<ul>
+<li><a href="https://cademcniven.com/posts/20210703/">Cade's sentence mining guide</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="jidoujisho"><a href="https://github.com/lrorpilla/jidoujisho">jidoujisho</a><a class="headerlink" href="#jidoujisho" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2743,6 +2956,21 @@ Of course, this list is incomplete, and there could be tools better suited for y
   If you are on Android, this can be paired with
   <a href="https://github.com/KamWithK/AnkiconnectAndroid">Anki Connect for Android</a>
   to create Anki cards.</li>
+<li>Guides on mokuro:<ul>
+<li><a href="https://rentry.co/lazyXel#manga-with-yomichan">Lazy guide (recommended)</a><ul>
+<li>(For Windows users) Make sure to check the "Add Python to Path" on install.</li>
+<li>If you are using online processing (google colab), be sure that you are
+  <a href="https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm">using the gpu</a>
+  to speed up the process.</li>
+</ul>
+</li>
+<li><a href="https://docs.google.com/document/d/1ddUINNHZoln6wXGAiGiVpZb4QPtonEy-jgrT1zQbXow/edit?usp=sharing">Josuke's mokuro setup guide</a>
+    <!-- credit: Josuke#7212 / 190480221135306752, from the Refold JP server --><ul>
+<li>This doesn't include how to process online, compared to the one above</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <hr />
 <h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h2>
@@ -2771,7 +2999,7 @@ Head over to <a href="../usage/">Usage</a> to see exactly that.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 17, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 19, 2022</span>
       
     
   </small>
