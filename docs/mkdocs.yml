@@ -62,7 +62,8 @@ nav:
   - Getting Started:
     - Preface: preface.md
     - Alternatives: alternatives.md
-    - Setup: setup.md
+    - "Setup: Anki & Yomichan": setup.md
+    - "Setup: Everything Else": setupeverythingelse.md
     - Transfer Existing Notes: importing.md
     - Updating: updating.md
   - Reference:

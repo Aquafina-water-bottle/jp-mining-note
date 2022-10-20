@@ -37,43 +37,55 @@ However, to dispell any mysteries, here is a fully annotated summary of the user
 Additional information on some parts of the UI is stated below:
 
 ## Info Circle
-On hover, the info circle on the top left corner just shows some basic info.
 
-{{ img("info circle example", "assets/info_circle.gif") }}
+=== "Default"
+    <figure markdown>
+      {{ img("info circle example", "assets/info_circle.gif") }}
+      <figcaption>
+        On hover, the info circle on the top left corner just shows some basic info.
+        However, it also serves as a notification system to the user, when it has a color.
+      </figcaption>
+    </figure>
 
-However, it also serves as a notification system to the user, when it has a color.
+=== "Error"
+    <figure markdown>
+      {{ img("info circle error example", "assets/info_circle_error.gif") }}
+      <figcaption>
+        This should only appear when some javascript code fails.
+        In other words, this should **not** appear under normal circumstances.
+        If you get this without modifying the note in any way,
+        please see [this section](faq.md#errors){:target="_blank"} for basic troubleshooting.
+      </figcaption>
+    </figure>
 
-??? example "Error"
+=== "Warning"
+    <figure markdown>
+      {{ img("info circle error example", "assets/info_circle_warning.gif") }}
+      <figcaption>
+        This serves to warn the user about something.
+        It can appear without completely breaking the functionality of the card.
+        In other words, you can choose to ignore it.
+      </figcaption>
+    </figure>
 
-    This should only appear when some javascript code fails.
-    In other words, this should **not** appear under normal circumstances.
-    If you get this without modifying the note in any way,
-    please see [this section](faq.md#errors){:target="_blank"} for basic troubleshooting.
+=== "Leech"
+    <figure markdown>
+      {{ img("info circle error example", "assets/info_circle_leech.gif") }}
+      <figcaption>
+        When the card is a leech, the circle is highlighted yellow (or blue in light mode)
+        to indicate that it is a leech.
+        This is only shown on the back side of the card.
+      </figcaption>
+    </figure>
 
-    {{ img("info circle error example", "assets/info_circle_error.gif") }}
 
-??? example "Warning"
-
-    This serves to warn the user about something.
-    It can appear without completely breaking the functionality of the card.
-    In other words, you can choose to ignore it.
-
-    {{ img("info circle error example", "assets/info_circle_warning.gif") }}
-
-??? example "Leech"
-
-    When the card is a leech, the circle is highlighted yellow (or blue in light mode)
-    to indicate that it is a leech.
-    This is only shown on the back side of the card.
-
-    {{ img("info circle error example", "assets/info_circle_leech.gif") }}
 
 
 ### Locking the Info Circle
 
 {{ feature_version("0.10.3.0") }}
 
-You can click on the info circle to lock the tooltip in place.
+You can toggle (click on) the info circle to lock the tooltip in place.
 This may be useful for copying/pasting errors and other debugging purposes.
 
 
@@ -128,38 +140,40 @@ many ways to change this tested content.
 
 
 ## Card types
+<i><sup>Full list: [Card Types](cardtypes.md)</sup></i>
+
 The default card type is a vocab card,
 where the tested content is simply the word.
 
-{{ img("vocab card example", "assets/nisemono_word.png") }}
-
 To change the card to a sentence card, fill the `IsSentenceCard` binary field.
 
-{{ img("sentence card example", "assets/nisemono_sentence.png") }}
-
-There are many other card types that this note supports.
-To see the full list, see [this section](cardtypes.md).
-
-{{ img("card types compilation", "assets/card_types_1_pic.png") }}
+=== "Vocab card"
+    {{ img("vocab card example", "assets/nisemono_word.png") }}
+=== "Sentence card"
+    {{ img("sentence card example", "assets/nisemono_sentence.png") }}
 
 
 ## Changing the Displayed Content
 Vocab cards show the `Word` field and sentence cards show the `Sentence` fields by default.
 However, you can modify what is exactly shown in the front by using the `AltDisplay` field.
 
-For example, the previous sentence card looks a little ugly,
-because the sentence splits off at a strange point.
-In the `AltDisplay` field, we add a newline at a sensible place (after the period)
-to get the following:
+=== "Newline"
+    <figure markdown>
+      {{ img("altdisplay with newline", "assets/nisemono_altdisplay_newline.png") }}
+      <figcaption>
+        The previous sentence card looks a little ugly,
+        because the sentence splits off at a strange point.
+        To fix this, we add a newline at a sensible place (after the period) in the `AltDisplay` field.
+      </figcaption>
+    </figure>
 
-{{ img("altdisplay with newline", "assets/nisemono_altdisplay_newline.png") }}
-
-
-Another example is shown below, when we want to only test the last sentence:
-
-{{ img("altdisplay with only last sentence", "assets/nisemono_altdisplay_last_sent.png") }}
-
-
+=== "Last sentence only"
+    <figure markdown>
+      {{ img("altdisplay with only last sentence", "assets/nisemono_altdisplay_last_sent.png") }}
+      <figcaption>
+        Alternatively, we can simply test the last sentence, by removing the first sentence.
+      </figcaption>
+    </figure>
 
 
 One nice feature is that the `AltDisplay` has hoverable furigana text enabled by default.
@@ -189,13 +203,12 @@ For example, the card below has the following HTML:
 Finally, you can include a customized hint to show at the front of the card, by using the `Hint` field.
 This will show as a collapsible field at the front of card.
 
-{{ img("hint field demo", "assets/hint.gif") }}
-
-
-
 If you do not want the hint to be hidden by default, you can use the `HintNotHidden` field instead.
 
-{{ img("HintNotHidden field demo", "assets/hint_not_hidden.png") }}
+=== "Hint"
+    {{ img("hint field demo", "assets/hint.gif") }}
+=== "HintNotHidden"
+    {{ img("HintNotHidden field demo", "assets/hint_not_hidden.png") }}
 
 ---
 
@@ -338,6 +351,9 @@ By default, states cycle from left to right.
     === "Card marked as NSFW"
         {{ img("", "assets/anki_blur/example_session_toggle_marked.gif") }}
 
+    !!! note
+        Both examples have the info circle toggled (clicked), so the tooltip persists.
+
 
 ## Additional Details
 
@@ -349,11 +365,7 @@ By default, states cycle from left to right.
     You cannot click on a blurred image to zoom.
 - Most things can be changed in the runtime options,
     including what tags can be used, the default initial state on PC/mobile, etc.
-
-
-
-!!! note
-    This was heavily inspired by
+- This was heavily inspired by
     [Marv's implementation](https://github.com/MarvNC/JP-Resources#anki-card-blur)
     of the same feature.
 
