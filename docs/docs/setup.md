@@ -1,8 +1,21 @@
 
-This entire section is dedicated to providing the minimal setup to properly create
-cards with this note type.
-Note that this setup is primarly PC based,
-and requires **Anki** and **Yomichan** for the main card creation process.
+A full sentence mining workflow requires two main parts:
+
+1. Text to make the cards from.
+1. The card exporter, to create cards from the text.
+    * And optionally, the image and sentence audio from the media (if the media has either).
+
+This page is dedicated to providing the
+<span class="text-yellow">**minimal setup**</span>
+to create cards with this note type (part two),
+on PC.
+
+Part one (getting the text)
+and the optional part of part two (getting the image and sentence audio)
+are not documented on this page;
+they instead documented under the [Setup: Everything Else](setupeverythingelse.md)
+page.
+
 
 ---
 
@@ -719,14 +732,15 @@ By default, this enable the following behavior:
 
     With this being said, selecting the dictionary should always work.
 
-<br>
+---
 
 
 
 
-## Other Yomichan Settings
 
-### Appearance
+# Other
+
+## Yomichan Appearance
 If you want to follow my exact Yomichan popup appearance, set the following
 under (Yomichan settings) →  `Popup Appearance`:
 
@@ -736,7 +750,7 @@ under (Yomichan settings) →  `Popup Appearance`:
 There are also plenty of css customizations for Yomichan listed out
 in the [various resources page](jpresources.md){:target="_blank"}.
 
-### JMdict
+## JMdict
 If you are planning on using the JMdict dictionary,
 the ones provided from most sources
 (TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
@@ -755,7 +769,7 @@ which should only be a few months stale at most.
 <!-- TODO github actions to re-compile it daily -->
 
 
-### JMdict Surface Forms
+## JMdict Surface Forms
 [(Link)](https://github.com/FooSoft/yomichan/issues/2183)
 
 This is a dictionary placed in the `UtilityDictionaries` field by default.
@@ -763,226 +777,6 @@ Although I don't use it when studying Anki, it helps to use this when creating A
 for monolingual definitions.
 See [this section](jpresources.md#orthographic-variants-fix-sentence-and-frequency){:target="_blank"}
 for more information.
-
-
-
-
----
-
-# Getting the Text to Create the Cards
-I use a texthooker setup, which is able to extract subtitles or text into the browser.
-Once the text is on the browser, you can use Yomichan to select the word and create the
-Anki card (click on the green plus button).
-
-The classic texthooker setup works for most games, and any show with subtitle files.
-This texthooker process has already been explained in great detail by
-many smart people:
-
-## Guides
-* [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser)
-* [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
-* [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
-* [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/#mining-from-visual-novels)
-
-## Texthookers
-* [Textractor](https://github.com/Artikash/Textractor)
-* [agent](https://github.com/0xDC00/agent)
-
-## Texthookers (video-based content)
-* [mpvacious](https://github.com/Ajatt-Tools/mpvacious)
-* [Immersive](https://github.com/Ben-Kerman/immersive)
-* [asbplayer](https://github.com/killergerbah/asbplayer)
-    * Built-in texthooker page
-* [Animebook](https://github.com/animebook/animebook.github.io)
-    * Built-in texthooker page
-
-## Texthooker pages (clipboard based)
-Most setups documented are for clipboard based texthooker pages.
-
-* [Anacreon's Texthooker Page](https://anacreondjt.gitlab.io/docs/texthooker/) (recommended)
-* [TMW's Texthooker Page](https://learnjapanese.moe/texthooker.html)
-
-## Texthooker pages (Websocket based)
-When you use websocket-based texthookers, ensure that the program you use to grab
-the text also uses websockets.
-For example, if you want to use Textractor, use
-[this](https://github.com/sadolit/textractor-websocket)
-extension.
-
-* [exSTATic](https://github.com/KamWithK/exSTATic/)
-    * Used for automatic stats collection
-
-* Patch for existing clipboard-based texthookers
-    * Download your favorite texthooker page into a raw html file.
-    * Copy/paste the code below into the raw html file.
-    * If you are currently viewing the page, refresh.
-
-    ??? examplecode "Click here to reveal the patch"
-        ```javascript
-        <script>
-          let socket = null;
-          let wsStatusElem = null;
-
-          const createStatusElem = () => {
-            wsStatusElem = document.createElement("span")
-            let node = document.getElementById('menu').firstChild
-            wsStatusElem.setAttribute("class", "menuitem")
-            wsStatusElem.addEventListener('click', (e) => {
-              if(wsStatusElem.innerText == "Reconnect") {
-                connect()
-              }
-            })
-            node.insertBefore(wsStatusElem, node.firstChild)
-          }
-
-          const updateStatus = (connected) => {
-            if(wsStatusElem === null) { createStatusElem() }
-            wsStatusElem.innerText = connected ? "Connected" : "Reconnect"
-            wsStatusElem.style.cssText = "margin-right: 1.5em; display: inline-block;"
-            wsStatusElem.style.cssText += connected ? "color:rgb(24, 255, 24);" : "color:rgb(255, 24, 24);"
-          }
-
-          const connect = () => {
-            socket = new WebSocket("ws://localhost:6677/")
-            socket.onopen = (e) => { updateStatus(true) }
-            socket.onclose = (e) => { updateStatus(false) }
-            socket.onerror = (e) => { updateStatus(false); console.log(`[error] ${e.message}`) }
-            socket.onmessage = (e) => {
-              let container = document.getElementById('textlog')
-              let textNode = document.createElement("p")
-              textNode.innerText = e.data
-              document.body.insertBefore(textNode, null)
-            }
-          }
-          connect()
-        </script>
-        ```
-        <sup>
-        ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on [TMW server](https://learnjapanese.moe/join/). Thanks Zetta#3033 for the code.)
-        </sup>
-
-    !!! note
-        This was written for Anacreon's texthooker page.
-        However, it will likely work for most other texthooker pages.
-
-* [exSTATic](https://github.com/KamWithK/exSTATic/)
-
-The setup also works with video files if the video player supports automated copying of subtitles,
-and if you have the correct subtitle files.
-
-* MPV with either `mpvacious` or `Immersive` add-ons supports this workflow, as detailed in the next section.
-* Many anime subtitle files can be found under
-[kitsuneko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F).
-
-
-
----
-
-# Automating Pictures and Sentence Audio
-If you've made it this far, then congratulations!
-Most fields of the cards have been automatically filled out, just from Yomichan alone!
-Yomichan is able to automatically generate everything **EXCEPT** the pictures and sentence audio
-from the media you are consuming.
-Fortunately, that can be automated as well.
-
-However, the tools to automate that will likely be slightly different for each individual
-user as it depends on what media they consume, operating system / device, etc.
-Instead of walking you through how to get these to work,
-I will instead provide a list of resources you can use.
-Of course, this list is incomplete, and there could be tools better suited for your workflow.
-
-
-## [mpvacious](https://github.com/Ajatt-Tools/mpvacious)
-
-* Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
-* Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
-
-    ??? examplecode "Click here to see some basic config changes to get it working with JPMN."
-
-        ```ini
-        # Model names are listed in `Tools -> Manage note types` menu in Anki.
-        model_name=JP Mining Note
-
-        # Field names as they appear in the selected note type.
-        # If you set `audio_field` or `image_field` empty,
-        # the corresponding media file will not be created.
-        sentence_field=Sentence
-        #secondary_field=SentEng  # Not used by the note. This is ignored entirely.
-        audio_field=SentenceAudio
-        image_field=Picture
-        ```
-
-
-## [Immersive](https://github.com/Ben-Kerman/immersive)
-
-* A powerful alternative to the mpvacious add-on above, with certain different capabilities.
-* Can also be used to automatically extract sentence audio and pictures.
-
-!!! warning
-    This is potentially outdated and/or abandoned.
-    The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
-
-## [asbplayer](https://github.com/killergerbah/asbplayer)
-
-* Cross platform (chromium) browser video player. Personally tested.
-* This also has card image and audio exporting capabilities.
-* Works on video streaming sites as well.
-* Guides that use asbplayer:
-    * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub)
-    * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)
-
-## [ShareX](https://getsharex.com/)
-
-* Windows media recorder which can both take screenshots and record audio. Personally tested.
-* Useful for things that don't have an easy way of getting audio, such as visual novels.
-* Guides on connecting ShareX with your mining setup:
-    * [stegatxins0's mining guide: ShareX](https://rentry.co/mining#sharex) (recommended)
-        * The scripts written [here](jpresources.md#sharex-scripts)
-            works by default with this note.
-            These scripts are meant used with stegatxins0's setup.
-    * [Xeliu's mining guide: ShareX](https://rentry.co/lazyXel#sharex)
-        * ShareX setup is based off of stegatxins0's setup
-    * [Anime Cards: Handling Media](https://animecards.site/media/)
-        * Not recommended: introduces additional steps compared to the above two guides
-
-## [ames](https://github.com/eshrh/ames)
-
-* ShareX alternative for Linux. Personally tested.
-* Primarily used to automate audio and picture extraction to the most recently added Anki card.
-
-## [Animebook](https://github.com/animebook/animebook.github.io)
-
-* Cross platform (chromium) browser video player.
-* This also has card image and audio exporting capabilities.
-* Guides that use Animebook:
-    * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/)
-
-## [jidoujisho](https://github.com/lrorpilla/jidoujisho)
-
-* Android reader and media player, which can also create Anki cards.
-* Note that this app does NOT use Yomichan, which means that certain fields may not be filled automatically
-
-## [mokuro](https://github.com/kha-white/mokuro)
-
-* This is not something that can automatically add images or audio to your cards,
-  but it allows you to use popup-dictionaries like Yomichan on manga.
-  If you are on Android, this can be paired with
-  [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
-  to create Anki cards.
-* Guides on mokuro:
-    - [Lazy guide (recommended)](https://rentry.co/lazyXel#manga-with-yomichan)
-        - (For Windows users) Make sure to check the "Add Python to Path" on install.
-        - If you are using online processing (google colab), be sure that you are
-          [using the gpu](https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm)
-          to speed up the process.
-    - [Josuke's mokuro setup guide](https://docs.google.com/document/d/1ddUINNHZoln6wXGAiGiVpZb4QPtonEy-jgrT1zQbXow/edit?usp=sharing)
-        <!-- credit: Josuke#7212 / 190480221135306752, from the Refold JP server -->
-        - This doesn't include how to process online, compared to the one above
-
-
----
-
-# Other
 
 
 ## Additional Anki add-on(s)
@@ -994,21 +788,40 @@ These add-on(s) assist in card creation, but are ultimately optional.
 ## Separate Pitch Accent Deck
 If you want card types to go to a different deck by default, you can change it by doing the following:
 
-`Browse` (top middle) <br>
-→  `Cards...` (around the middle of the screen, right above first field of the note. This is NOT the `Cards` dropdown menu at the top right corner) <br>
-→  `Card Type` dropdown (top of the screen) <br>
-→  (choose pitch accent card type) <br>
-→  `Options` (the first `Options` you see at the very top of the screen) <br>
-→  `Deck Override...`
+??? example "Click here to reveal instructions"
 
+    `Browse` (top middle) <br>
+    →  `Cards...` (around the middle of the screen, right above first field of the note. This is NOT the `Cards` dropdown menu at the top right corner) <br>
+    →  `Card Type` dropdown (top of the screen) <br>
+    →  (choose pitch accent card type) <br>
+    →  `Options` (the first `Options` you see at the very top of the screen) <br>
+    →  `Deck Override...`
 
 ---
 
-# Conclusion
-If everything is setup correctly, then the difficult part is finally done!
-The cards can now be created at ease, and now all that's left is understanding how to
-use and edit the card itself.
+
+
+# Enjoy your new one-click cards!
+
+If you've made it this far, then congratulations!
+Most fields of the cards have been automatically filled out, just from Yomichan alone!
+
+If you already have a sentence mining workflow set up,
+outside of some potentially minor tweaks to your current workflow (i.e. to match the field names),
+**you are now finished**!
+All that's left is understanding how to use and edit the card itself.
 Head over to [Usage](usage.md) to see exactly that.
 
+
+
+# Wait! I don't have a workflow setup yet!
+
+If you're new to sentence mining, there are likely some things things
+that you would like to set up. These include:
+
+1. Getting the actual text to use Yomichan on.
+1. Getting the pictures and/or sentence audio from the media into the card.
+
+Head over to the [Setup: Everything Else](setupeverythingelse.md) page to see exactly that.
 
 

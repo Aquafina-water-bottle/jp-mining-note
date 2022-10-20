@@ -1,4 +1,5 @@
-Below contains a non-exhaustive list of some of the note types that exist out there.
+This page is dedicated to recording a (non-exhaustive) list of various note types,
+that isn't [JPMN](/jp-mining-note/).
 
 P.S. Feel free to let me know of any note types you find interesting
 (including your own note type, or modified versions of this note),

@@ -946,24 +946,8 @@ so this has helped me immensely.
 
 # Other Random Resources
 
-* [Animecards Yomichan setup](https://animecards.site/yomichansetup/)
-    * [Their Anki note type](https://ankiweb.net/shared/info/151553357)
-* [TheMoeWay Yomichan setup](https://learnjapanese.moe/yomichan/)
-* [Cade's guide to optimizing Anki](https://cademcniven.com/posts/20210410/)
-
-
-## Mining guides
 !!! note
-    See [here](setup.md#automating-pictures-and-sentence-audio)
-    for a quick summary of programs you can use
-    to introduce images and sentence audio to your Anki cards.
-
-* [Xelieu's mining guide](https://rentry.co/lazyXel) (Windows, Android)
-* [stegatxins0's mining guide](https://rentry.co/mining) (Windows, Kindle)
-* [Anime Cards & mining guides](https://animecards.site/) (Multiple platforms)
-* [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (cross platform with `asbplayer`)
-* [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)  (cross platform with `asbplayer`)
-* [Cade's mining guide](https://cademcniven.com/posts/20210703/) (cross platform with `Animebook`)
+    Most things here have been moved to the [Setup: Everything Else](setupeverythingelse.md) page
 
 ## Mikagu pitch accent alternatives
 - [migaku updated](https://github.com/MikeMoolenaar/Migaku-Japanese-Addon-Updated)
@@ -971,17 +955,6 @@ so this has helped me immensely.
 - [anki-jrp](https://github.com/Ben-Kerman/anki-jrp)
     - Completely stand-alone plugin from migaku with a completely different codebase
     - Only does one thing: adds pitch accent colors (along with furigana)
-
-## How to Mokuro
-- [main mokuro page](https://github.com/kha-white/mokuro)
-- [lazy guide (recommend)](https://rentry.co/lazyXel#manga-with-yomichan)
-    - (windows users) make sure to check the "add python to path" on install
-    - make sure online processing (google colab) is
-      [using the gpu](https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm)
-      to speed up the process
-<!-- credit: Josuke#7212 / 190480221135306752 -->
-- [basic setup guide](https://docs.google.com/document/d/1ddUINNHZoln6wXGAiGiVpZb4QPtonEy-jgrT1zQbXow/edit?usp=sharing)
-    - doesn't include how to process online, compared to the one above
 
 
 
