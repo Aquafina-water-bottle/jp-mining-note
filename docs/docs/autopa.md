@@ -70,6 +70,7 @@ in [options file](runtimeoptions.md){:target="_blank"}:
 
 The reading, word and pitch overline can be automatically colored
 in Migaku style colors.
+
 This automatic coloring behavior is **disabled by default**,
 and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
 
@@ -80,6 +81,7 @@ and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
   ...
 }
 ```
+
 ![type:video](assets/pa_override_color.mp4)
 
 !!! note

@@ -266,6 +266,100 @@ in the first place.
 
 
 
+# Image Blur
+{{ feature_version("0.10.3.0") }}
+
+This allows you to blur the images of cards marked with a NSFW tag.
+
+This behavior is **disabled by default**. In other words, you will not be able to blur
+images unless the following setting is explicitly enabled
+in the [runtime options file](runtimeoptions.md){:target="_blank"}:
+
+```
+TODO setting
+```
+
+<figure markdown>
+  {{ img("example toggle blur gif", "assets/anki_blur/example.gif") }}
+</figure>
+
+
+
+To mark a card as NSFW, add any of the following tags to the card:
+
+> `nsfw`・`NSFW`・`-NSFW`
+
+
+
+
+!!! note
+    Recall that you can use custom text in the `Picture` field instead of having an actual picture.
+    This is useful if you simply don't want to save a particular image.
+
+
+## Change Review Session State
+The above demo shows how you can un-blur an image temporarily.
+In other words, if you see that card again during the same review session,
+the image will be blurred again.
+
+
+The state of this can be changed for a review session.
+To do this, hover over the info circle, and click on the eyeball to the top right to toggle between states.
+This state will be maintained for the entire review session, but will be lost on the next session.
+
+The tabs below show the available states.
+By default, states cycle from left to right.
+
+
+=== "Only Blur if NSFW"
+
+    | Not Marked | Marked (with `NSFW` tag) |
+    |:-:|:-:|
+    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | ![](assets/anki_blur/marked_blurred.png) |
+
+=== "Always Blurred"
+
+    | Not Marked | Marked (with `NSFW` tag) |
+    |:-:|:-:|
+    | ![](assets/anki_blur/unmarked_blurred.png) | ![](assets/anki_blur/marked_blurred.png) |
+
+=== "Always Revealed"
+
+    | Not Marked | Marked (with `NSFW` tag) |
+    |:-:|:-:|
+    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | {{ img("", "assets/anki_blur/marked_revealed.png") }} |
+
+
+??? example "Demos *(click here)*"
+
+    === "Regular, unmarked card"
+        {{ img("", "assets/anki_blur/example_session_toggle_unmarked.gif") }}
+
+    === "Card marked as NSFW"
+        {{ img("", "assets/anki_blur/example_session_toggle_marked.gif") }}
+
+
+## Additional Details
+
+- The eyeball to toggle the blur between an image will not be shown unless the card is marked as NSFW
+    (or the review session state is "Always Blurred").
+- Clicking on the blurred image will do nothing; you must click on the eye to un-blur the image.
+    Forcing the user to click in a smaller area makes accidental reveals less common.
+- After revealing the image, you can click on the image to zoom, as normal.
+    You cannot click on a blurred image to zoom.
+- Most things can be changed in the runtime options,
+    including what tags can be used, the default initial state on PC/mobile, etc.
+
+
+
+!!! note
+    This was heavily inspired by
+    [Marv's implementation](https://github.com/MarvNC/JP-Resources#anki-card-blur)
+    of the same feature.
+
+
+
+
 # Testing Pitch Accent
 This note type provides many options to target exactly what parts of pitch accent
 you want to test yourself on.
@@ -361,120 +455,4 @@ There's currently no shortcut to creating a sentence audio card.
 TODO: IsSentenceCard -> tests entire sentence, not filled -> currently as is
 
 {{ img("cloze deletion card", "assets/cloze_deletion.png") }}
-
-
-
-# Anki Card Blur
-{{ feature_version("0.10.3.0") }}
-
-This allows you to blur the images of specific cards.
-This entire feature is disabled by default. In other words, you will not see
-any icons or markers as shown in this section, unless explicitly enabled in the runtime options.
-
-TODO setting
-
-<figure markdown>
-
-  TODO gif demo of local state (hover over image -> click on eye)
-
-</figure>
-
-
-
-To mark a card as NSFW, add any of the following tags to the card:
-
-> `nsfw`・`NSFW`・`-NSFW`
-
-
-
-
-!!! note
-    Recall that you can use custom text in the `Picture` field instead of having an actual picture.
-    This is useful if you simply don't want to save a particular image.
-
-There are some details to note:
-
-- The eyeball to toggle the blur between an image will not be shown unless the card is marked as NSFW
-    (or the review session state is "Always Blurred". More info in the section below.)
-- Clicking on the blurred image will do nothing; you must click on the eye to un-blur the image.
-    A smaller area to click makes accidental reveals less common.
-- After revealing the image, you can click on the image to zoom, as normal.
-    You cannot click on a blurred image to zoom.
-- Most things can be changed in the runtime options,
-    including what tags can be used, the default initial state on PC/mobile, etc.
-
-
-## Change Review Session State
-The above demo shows how you can un-blur an image temporarily.
-In other words, if you see that card again during the same review session,
-the image will be blurred again.
-
-
-The state of this can be changed for a review session.
-To do this, hover over the info circle, and click on the eyeball to the top right to toggle between states.
-This state will be maintained for the entire review session, but will be lost on the next session.
-
-The choices below show the available states. States cycle from left to right.
-
-=== "Only Blurred if Marked (default)"
-
-    | Not Marked | Marked (with `NSFW` tag) |
-    |:-:|:-:|
-    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | ![](assets/anki_blur/marked_blurred.png) |
-
-=== "Always Blurred"
-
-    | Not Marked | Marked (with `NSFW` tag) |
-    |:-:|:-:|
-    | ![](assets/anki_blur/unmarked_blurred.png) | ![](assets/anki_blur/marked_blurred.png) |
-
-=== "Always Revealed"
-
-    | Not Marked | Marked (with `NSFW` tag) |
-    |:-:|:-:|
-    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | {{ img("", "assets/anki_blur/marked_revealed.png") }} |
-
-
-<!--
-??? example "Image is marked (with NSFW tag)"
-
-    === "Always Revealed"
-
-        img("", "assets/anki_blur/marked_revealed.png")
-
-    === "Only Blurred if Marked (default)"
-
-        img("", "assets/anki_blur/marked_blurred.png")
-
-    === "Always Blurred"
-
-        img("", "assets/anki_blur/marked_blurred.png")
-
-??? example "Image is not marked"
-
-    === "Always Revealed"
-
-        img("", "assets/anki_blur/unmarked_revealed.png")
-
-    === "Only Blurred if Marked (default)"
-
-        img("", "assets/anki_blur/unmarked_revealed.png")
-
-    === "Always Blurred"
-
-        img("", "assets/anki_blur/unmarked_blurred.png")
--->
-
-TODO gif demo (image marked as NSFW - use 風潮 example)
-
-TODO gif demo (image not marked as NSFW - use 不審者 example)
-
-
-
-
-
-!!! note
-    This was heavily inspired by
-    [Marv's implementation](https://github.com/MarvNC/JP-Resources#anki-card-blur)
-    of the same feature.
 
