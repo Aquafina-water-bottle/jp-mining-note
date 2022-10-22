@@ -20,8 +20,9 @@
   /* external links */
   --external-links-icon-size: 20px;
   --external-links-icon-font-size: 14px;
-  --external-links-gap: 2px;
+  --external-links-gap: 3px;
   --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
+  --external-links-box-shadow: 1px 1px 2px;
 
   --info-circle-settings-svg-size: 16px;
 
@@ -53,6 +54,8 @@
   //--highlight-bold-shadow:      0px 0px 0.7em rgba(64, 81, 181, 0.25);
   --highlight-bold-shadow:      initial;
   --highlight-bold-color:       var(--accent);
+
+  --external-links-box-shadow-color: #464646;
 
 
   --info-circle-hover-color: #5f5f5f;
@@ -103,7 +106,8 @@
 
   --highlight-bold-shadow:      initial;
   --highlight-bold-color:       var(--accent);
-  --hybrid-word-highlight:      0px 0px 30px var(--accent);
+
+  --external-links-box-shadow-color: #000000;
 
 
   --info-circle-hover-color: #bdbdbd;
