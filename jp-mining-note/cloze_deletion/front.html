@@ -23,6 +23,27 @@ JPMN-COMPILE-TIME-OPTIONS-JSON:
       "img-utils",
       "customize-open-fields"
     ],
+    "external-links": {
+      "image_search": {
+        "hover-display": "google.co.jp (Image search)",
+        "icon-image-dark": "_icon_image_white.svg",
+        "icon-image-light": "_icon_image_black.svg",
+        "icon-type": "image",
+        "url": "https://www.google.co.jp/search?q={{text:Word}}\u0026tbm=isch"
+      },
+      "jisho.org": {
+        "icon-image-dark": "_icon_jisho_darkmode.png",
+        "icon-image-light": "_icon_jisho_lightmode.png",
+        "icon-type": "image",
+        "url": "https://jisho.org/search/{{Word}}"
+      },
+      "jpdb.io": {
+        "icon-image-dark": "_icon_jpdb_darkmode.png",
+        "icon-image-light": "_icon_jpdb_lightmode.png",
+        "icon-type": "image",
+        "url": "https://jpdb.io/search?q={{text:Word}}"
+      }
+    },
     "hardcoded-runtime-options": false,
     "keybinds-enabled": true,
     "never-filled-fields": []
@@ -77,9 +98,9 @@ var JPMNLogger = (() => {
     }
 
 
-    error(message) {
+    error(message, isHtml=false) {
       let groupEle = document.getElementById("info_circle_text_error");
-      this._appendMsg(message, groupEle);
+      this._appendMsg(message, groupEle, isHtml);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-error")) {
         infoCirc.classList.add("info-circle-error")
@@ -141,7 +162,9 @@ var JPMNLogger = (() => {
 
     // key defaults to the message if unique is true and key is null
     // key is ignored if unique == false
-    warn(message, unique=true, key=null) {
+    // TODO extend functionality of uniqueness to other logger functions
+    // TODO change to args struct
+    warn(message, isHtml=false, unique=false, key=null) {
 
       // skips any non-unique warns as defined by the key
       if (unique) {
@@ -155,7 +178,7 @@ var JPMNLogger = (() => {
       }
 
       let groupEle = document.getElementById("info_circle_text_warning");
-      this._appendMsg(message, groupEle, key);
+      this._appendMsg(message, groupEle, isHtml, key);
       let infoCirc = document.getElementById("info_circle");
       if (!infoCirc.classList.contains("info-circle-warning")) {
         infoCirc.classList.add("info-circle-warning");
@@ -172,8 +195,11 @@ var JPMNLogger = (() => {
       this._appendMsg(message, groupEle);
     }
 
-    debug(message) {
-      if (getSetting(['debug',],false)) {
+    // higher the level -> more severe
+    // i.e. lower levels == more messages
+    // currently goes from 0 - 5:
+    debug(message, level=3) {
+      if (level >= getSetting(['debug-level',],6)) {
         this.info(message);
       }
     }
@@ -187,7 +213,7 @@ var JPMNLogger = (() => {
       }
     }
 
-    _appendMsg(message, groupEle, key=null) {
+    _appendMsg(message, groupEle, isHtml=false, key=null) {
       // I think this stops an infinite loop somewhere if you log a null for some reason...
       if (message === null) {
         message = "null";
@@ -215,7 +241,11 @@ var JPMNLogger = (() => {
         }
 
       } else {
-        msgEle.textContent = message;
+        if (isHtml) {
+          msgEle.innerHTML = message;
+        } else {
+          msgEle.textContent = message;
+        }
       }
       groupEle.appendChild(msgEle);
     }
@@ -237,7 +267,12 @@ window.onerror = function(msg, url, lineNo, columnNo, error) {
 
 // https://stackoverflow.com/a/55178672
 window.onunhandledrejection = function(errorEvent) {
-  LOGGER.error("Javascript handler error: `" + errorEvent.reason + "`");
+  if (errorEvent.reason === "AnkiConnect failed to issue request.") {
+    let reason = errorEvent.reason + ' Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.';
+    LOGGER.error("Javascript handler error: " + reason, isHtml=true);
+  } else {
+    LOGGER.error("Javascript handler error: " + errorEvent.reason);
+  }
 }
 
 
@@ -265,8 +300,8 @@ function optionsNotFound() {
 
     
   <span class="info-circle" id="info_circle">
-    <span class="info-circle-svg-wrapper">
-      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="bi bi-info-circle" viewBox="0 0 16 16">
+    <span class="info-circle-svg-wrapper", id="info_circle_wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="info-circle-svg" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
       </svg>
@@ -274,9 +309,13 @@ function optionsNotFound() {
 
     <span class="info-circle-text-wrapper">
       <span class="info-circle-text" id="info_circle_text">
+        <div class="info-circle-text-settings" id="info_circle_text_settings"></div>
+        <div class="info-circle-text-settings-border"></div>
+
         <div class="info-circle-text-error" id="info_circle_text_error"></div>
         <div class="info-circle-text-warning" id="info_circle_text_warning"></div>
         <div class="info-circle-text-leech" id="info_circle_text_leech"></div>
+
         <div class="info-circle-text-info" id="info_circle_text_info">
           <div>
             Need help? View the
@@ -291,13 +330,14 @@ function optionsNotFound() {
             <a href="https://github.com/Aquafina-water-bottle/jp-mining-note">source code</a>.
           </div>
         </div>
+
       </span>
     </span>
   </span>
 
     
   <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
-  <div class="card-description-ver">JP Mining Note: Version 0.10.2.1</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.10.3.0</div>
 
 
 </div>
@@ -353,11 +393,17 @@ function optionsNotFound() {
 
 
 
-
+<div class="popup-menu" id="popup_menu"></div>
 
 <script>
 
 
+
+// v1.0.0 - https://github.com/SimonLammer/anki-persistence/blob/cd2ca88e019dc3b8f32dad623932c1eabdba7e21/script.js
+if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki-persistence/",_defaultKey="_default";if(window.Persistence_sessionStorage=function(){var e=!1;try{"object"==typeof window.sessionStorage&&(e=!0,this.clear=function(){for(var e=0;e<sessionStorage.length;e++){var t=sessionStorage.key(e);0==t.indexOf(_persistenceKey)&&(sessionStorage.removeItem(t),e--)}},this.setItem=function(e,t){null==t&&(t=e,e=_defaultKey),sessionStorage.setItem(_persistenceKey+e,JSON.stringify(t))},this.getItem=function(e){return null==e&&(e=_defaultKey),JSON.parse(sessionStorage.getItem(_persistenceKey+e))},this.removeItem=function(e){null==e&&(e=_defaultKey),sessionStorage.removeItem(_persistenceKey+e)})}catch(e){}this.isAvailable=function(){return e}},window.Persistence_windowKey=function(e){var t=window[e],n=!1;"object"==typeof t&&(n=!0,this.clear=function(){t[_persistenceKey]={}},this.setItem=function(e,n){null==n&&(n=e,e=_defaultKey),t[_persistenceKey][e]=n},this.getItem=function(e){return null==e&&(e=_defaultKey),null==t[_persistenceKey][e]?null:t[_persistenceKey][e]},this.removeItem=function(e){null==e&&(e=_defaultKey),delete t[_persistenceKey][e]},null==t[_persistenceKey]&&this.clear()),this.isAvailable=function(){return n}},window.Persistence=new Persistence_sessionStorage,Persistence.isAvailable()||(window.Persistence=new Persistence_windowKey("py")),!Persistence.isAvailable()){var titleStartIndex=window.location.toString().indexOf("title"),titleContentIndex=window.location.toString().indexOf("main",titleStartIndex);titleStartIndex>0&&titleContentIndex>0&&titleContentIndex-titleStartIndex<10&&(window.Persistence=new Persistence_windowKey("qt"))}}
+
+// for testing purposes
+//Persistence.isAvailable = function() {return false;}
 
 
 
@@ -420,6 +466,24 @@ function toggleDetailsTag(ele) {
     ele.setAttribute("open", "true");
   }
 }
+
+function popupMenuMessage(message) {
+  let popupMenu = document.getElementById("popup_menu");
+
+  // creates message
+  const popupMessageDiv = document.createElement("div");
+  popupMessageDiv.innerText = message;
+  popupMessageDiv.classList.add("popup-menu--animate");
+
+  popupMenu.appendChild(popupMessageDiv);
+
+  // kills the popup after the animations play
+  setTimeout(() => {
+    popupMenu.removeChild(popupMessageDiv);
+    LOGGER.debug(`Removed popup: "${message}"`, 2);
+  }, 1000*(0.6+3+0.75))
+}
+
 
 
 // START_BLOCK: js_functions
@@ -571,6 +635,485 @@ const JPMNSentUtils = (() => {
 
 
 
+// =============
+//  Image Utils
+// =============
+
+const JPMNImgUtils = (() => {
+
+  const logger = new JPMNLogger("img-utils");
+
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById("bigimg");
+
+  const imgEye = document.getElementById("img_svg_eye"); // null on the front
+  const imgEyePathEle = imgEye === null ? null : imgEye.children[0];
+  const dhImgContainer = document.getElementById("dh_img_container");
+  const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
+
+  const imgClickClassName = "dh-right__img-container--clickable";
+  const showEyeClassName = "dh-right__show-eye";
+  const nsfwBlurInitClassName = "nsfw-blur-init";
+  const nsfwBlurClassName = "nsfw-blur";
+  const nsfwNoBlurClassName = "nsfw-no-blur";
+
+  const EYE_PATH_RAW = "M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z";
+  const EYE_OFF_PATH_RAW = "M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z";
+
+  const TOGGLE_STATE_INDEX_KEY = "jpmn-nsfw-toggle-state-index";
+
+  const TOGGLE_STATE_DISABLED = -1;
+  const TOGGLE_STATE_ALWAYS_SHOWN = 0;
+  const TOGGLE_STATE_ONLY_BLUR_NSFW = 1;
+  const TOGGLE_STATE_ALWAYS_BLURRED = 2;
+
+  // card side state for image eye
+  let imgCurrentlyBlurred = false;
+  let toggleStates = [];
+
+  // main image
+  let image = null;
+
+
+  // helper function: removes the class from the classlist if it exist
+  const removeIfExists = function(ele, name) {
+    if (ele.classList.contains(name)) {
+      ele.classList.remove(name);
+    }
+  }
+
+  // gets the function to activate the modal with the img
+  const getActivateModalFunc = function() {
+    return function() {
+      modal.style.display = "block";
+      modalImg.src = image.src;
+    }
+  }
+
+  // sets the image to be blurred
+  const setImgBlur = function(init=false) {
+    logger.debug("Setting image blur...", 2)
+
+    removeIfExists(dhImgContainer, imgClickClassName);
+    removeIfExists(dhImgBlur, nsfwNoBlurClassName);
+
+    if (init) {
+      dhImgBlur.classList.add(nsfwBlurInitClassName);
+    } else {
+      dhImgBlur.classList.add(nsfwBlurClassName);
+    }
+
+    if (image !== null) {
+      image.onclick = null;
+    }
+    imgEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
+
+    imgCurrentlyBlurred = true;
+  }
+
+  // doesn't require the image to be currently blurred for this function to be ran
+  const removeImgBlur = function() {
+    logger.debug("Removing image blur...", 2)
+
+    dhImgContainer.classList.add(imgClickClassName);
+
+    removeIfExists(dhImgBlur, nsfwBlurClassName);
+    removeIfExists(dhImgBlur, nsfwBlurInitClassName);
+    dhImgBlur.classList.add(nsfwNoBlurClassName);
+
+    if (image !== null) {
+      const activateModalFunc = getActivateModalFunc()
+      image.onclick = activateModalFunc;
+    }
+    imgEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
+
+    imgCurrentlyBlurred = false;
+  }
+
+  // sets display state of settings eye
+  function setDisplayState(state, settingsEye, displayPopup=true) {
+    let settingsEyePathEle = settingsEye.children[0];
+    let settingsEyeTitleEle = settingsEye.children[1];
+    const alwaysBlurredClass = "info-circle-text-settings__svg--red";
+    const settingsDisabledClass = "info-circle-text-settings__svg--disabled";
+
+    switch (state) {
+      case TOGGLE_STATE_DISABLED:
+        settingsEyeTitleEle.textContent = "Persistence is not available. This option cannot be set.";
+        settingsEyePathEle.classList.add(settingsDisabledClass);
+
+        if (getShouldBlurNSFWDefault()) {
+          settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
+        } else {
+          settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
+        }
+        break;
+
+      case TOGGLE_STATE_ALWAYS_SHOWN:
+        // never blurs
+        settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
+        settingsEyeTitleEle.textContent = "NSFW images are not blurred by default. Click to toggle.";
+
+        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+
+        if (displayPopup) {
+          popupMenuMessage("No images will be blurred.");
+        }
+        break;
+
+      case TOGGLE_STATE_ONLY_BLUR_NSFW:
+        // should blur on nsfw images
+        settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
+        settingsEyeTitleEle.textContent = "NSFW images are blurred by default. Click to toggle.";
+        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+
+        if (displayPopup) {
+          popupMenuMessage("NSFW images will be blurred.");
+        }
+        break;
+
+      case TOGGLE_STATE_ALWAYS_BLURRED:
+        // always blurs on nsfw images
+        settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
+        settingsEyePathEle.classList.add(alwaysBlurredClass);
+        settingsEyeTitleEle.textContent = "All images are blurred. Click to toggle.";
+
+        if (displayPopup) {
+          popupMenuMessage("All images will be blurred.");
+        }
+        break;
+    }
+  }
+
+  function setImageBlurToState(toggleState, init=false) {
+    if (imgEye == null) {
+      return;
+    }
+
+    logger.debug(`Setting blur state to '${toggleState}' ...`, 2);
+    switch (toggleState) {
+      case 0: // ??? -> never blurred
+        removeImgBlur();
+        if (!cardHasNSFWTag()) {
+          // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
+          removeIfExists(dhImgBlur, showEyeClassName);
+        }
+        break;
+
+      case 1: // ??? -> blur only if nsfw
+        if (!cardHasNSFWTag()) {
+
+          // can reach here on init as well
+          removeImgBlur();
+
+          if (imgCurrentlyBlurred) {
+            // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
+            removeIfExists(dhImgBlur, showEyeClassName);
+          }
+
+        } else if (!imgCurrentlyBlurred && cardHasNSFWTag()) {
+          setImgBlur(init);
+        }
+
+        break;
+
+      case 2: // ??? -> always blurred
+        setImgBlur(init);
+        if (!cardHasNSFWTag()) {
+          dhImgBlur.classList.add(showEyeClassName);
+        }
+        break;
+
+      default:
+        logger.warning(`Invalid NSFW state: ${toggleState}`);
+    }
+  }
+
+
+  function initPersistence() {
+    let settingsEye = generateEyeSettingSVG();
+
+    if (!getSetting(['modules','img-utils','nsfw-toggle','enabled',],false)) {
+      // persistence only needs to be initialized if nsfw toggle is enabled
+      return;
+    } else {
+      logger.debug("NSFW toggle enabled");
+    }
+
+    // inits persistence key
+    const infoCircleSettings = document.getElementById("info_circle_text_settings");
+
+    if (Persistence.isAvailable()) {
+      if (Persistence.getItem(TOGGLE_STATE_INDEX_KEY) === null) {
+        logger.debug(`First review, setting Persistence to ${0}`);
+        Persistence.setItem(TOGGLE_STATE_INDEX_KEY, 0);
+      } else {
+        logger.debug("Persistence is available. Not the first review, so nothing has to be done.");
+      }
+    } else {
+      logger.debug("Persistence is not available! Unable to init Persistence");
+    }
+
+    // visual interface for whether images should be blurred or not
+    infoCircleSettings.appendChild(settingsEye);
+
+    if (Persistence.isAvailable()) {
+
+      // allows the usage of the global option
+      settingsEye.onclick = function() {
+        setNextNSFWToggleState();
+        let toggleState = getCurrentNSFWToggleState();
+        setImageBlurToState(toggleState)
+        setDisplayState(toggleState, settingsEye);
+      }
+
+      // to display properly on the settings eye
+      logger.debug(`Setting NSFW toggle state to '${getCurrentNSFWToggleState()}'...`);
+      setDisplayState(getCurrentNSFWToggleState(), settingsEye, false);
+
+    } else {
+      setDisplayState(TOGGLE_STATE_DISABLED, settingsEye, false);
+    }
+  }
+
+
+  // creates a custom image container to hold yomichan images
+  function createImgContainer(imgName) {
+    // creating this programmically:
+    // <span class="glossary__image-container">
+    //   <a class="glossary__image-hover-text" href='javascript:;'</a>
+    //   <img class="glossary__image-hover-media" src="${imgName}">
+    // </span>
+
+    const defSpan = document.createElement('span');
+    defSpan.classList.add("glossary__image-container");
+
+    const defAnc = document.createElement('a');
+    defAnc.classList.add("glossary__image-hover-text");
+    defAnc.href = "javascript:;";
+    defAnc.textContent = "[Image]";
+
+    const defImg = document.createElement('img');
+    defImg.classList.add("glossary__image-hover-media");
+    defImg.src = imgName;
+
+    defImg.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = this.src;
+    }
+
+    defAnc.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = defImg.src;
+    }
+
+    defSpan.appendChild(defAnc);
+    defSpan.appendChild(defImg);
+
+    return defSpan;
+  }
+
+  function generateEyeSettingSVG() {
+    // a bit of a hacky way to do it without dealing with a bunch of raw js
+    const svgStr = '<svg id="settings_nsfw_toggle_eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/><title>Toggle blur</title></svg>';
+
+    const x = document.createElement("span");
+    x.innerHTML = svgStr;
+    return x.children[0];
+  }
+
+  function useNSFWToggle() {
+
+    imgEye.onclick = function() {
+      if (imgCurrentlyBlurred) { // should be blurred -> not blurred
+        removeImgBlur();
+      } else { // not blurred -> should be blurred
+        setImgBlur();
+      }
+    }
+
+    const imgIsNsfw = cardHasNSFWTag();
+    const shouldBlurImgDefault = getShouldBlurNSFWDefault();
+    logger.debug(`imgIsNsfw: ${imgIsNsfw}, shouldBlurImgDefault: ${shouldBlurImgDefault}`);
+
+    if (imgIsNsfw) {
+      dhImgBlur.classList.add(showEyeClassName);
+    }
+
+    let toggleState = getCurrentNSFWToggleState();
+    setImageBlurToState(toggleState, /*init=*/true);
+  }
+
+
+  function useModalAndBlur() {
+
+    if (getSetting(['modules','img-utils','nsfw-toggle','enabled',],false)) {
+      useNSFWToggle();
+    } else {
+      image.onclick = getActivateModalFunc();
+    }
+  }
+
+  function setToggleStatesIfEmpty() {
+    // toggleStates is module-global
+    if (toggleStates.length === 0) {
+      let onMobile = document.documentElement.classList.contains('mobile');
+      if (onMobile) {
+        toggleStates = getSetting(['modules','img-utils','nsfw-toggle','toggle-states-mobile',],[1, 2, 0]);
+      }
+      toggleStates = getSetting(['modules','img-utils','nsfw-toggle','toggle-states-pc',],[1, 2, 0]);
+    }
+  }
+
+  function getDefaultNSFWToggleState() {
+    setToggleStatesIfEmpty();
+    return toggleStates[0];
+  }
+
+  function getCurrentNSFWToggleState() {
+    setToggleStatesIfEmpty();
+    if (Persistence.isAvailable()) {
+      const currentStateIndex = Persistence.getItem(TOGGLE_STATE_INDEX_KEY);
+      const currentState = toggleStates[currentStateIndex]
+      logger.debug(`Persistence[${currentStateIndex}] returns ${currentState}`, 1);
+      return currentState;
+    }
+    logger.debug("Persistence not available! Falling back to default value...", 2);
+    return toggleStates[0];
+  }
+
+  function setNextNSFWToggleState() {
+    setToggleStatesIfEmpty();
+
+    let currentStateIndex = Persistence.getItem(TOGGLE_STATE_INDEX_KEY);
+    let nextStateIndex = (currentStateIndex + 1) % toggleStates.length;
+    logger.debug(`Setting Persistence: ${nextStateIndex}`, 2)
+    Persistence.setItem(TOGGLE_STATE_INDEX_KEY, nextStateIndex);
+
+    return toggleStates[nextStateIndex];
+  }
+
+
+  function getShouldBlurNSFWDefault() {
+    return (getDefaultNSFWToggleState() >= 1);
+  }
+
+  function cardHasNSFWTag() {
+    const tags = document.getElementById("tags").innerText.split(" ");
+    const nsfwTags = getSetting(['modules','img-utils','nsfw-toggle','tags',],['NSFW', 'nsfw', '-NSFW']);
+
+    for (nsfwTag of nsfwTags) {
+      if (tags.includes(nsfwTag)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  function editDisplayImage() {
+    // edits the display image width/height
+    // makes the display image clickable to zoom
+    // makes the modal clickable to un-zoom
+
+    // restricting the max height of image to the definition box
+    const dhLeft = document.getElementById("dh_left");
+    const dhRight = document.getElementById("dh_right");
+    const heightLeft = dhLeft.offsetHeight;
+
+    if (dhRight) {
+      dhRight.style.maxHeight = heightLeft + "px";
+
+      // setting up the modal styles and clicking
+      const dhImgContainer = document.getElementById("dh_img_container");
+      const imgList = dhImgContainer.getElementsByTagName("img");
+
+      if (imgList && imgList.length) {
+        if (imgList.length >= 2) {
+          logger.warn("There are more than 2 images?");
+        }
+
+        // module-global variable
+        image = imgList[0];
+
+        image.classList.add("dh-right__img");
+        image.style.maxHeight = heightLeft + "px"; // restricts max height here too
+
+        useModalAndBlur();
+
+      } else { // otherwise we hope that there are 0 images here
+        // support for no images here: remove the fade-in / fade-out on text
+        logger.debug("No images found. Removing clickable class...");
+        dhImgContainer.classList.remove(imgClickClassName);
+      }
+    }
+
+
+    // close the modal upon click
+    modal.onclick = function() {
+      bigimg.classList.add("modal-img__zoom-out");
+      modal.classList.add("modal-img__zoom-out");
+      setTimeout(function() {
+        modal.style.display = "none";
+        bigimg.className = "modal-img";
+        modal.className = "modal";
+      }, 200);
+    }
+
+  }
+
+  function searchImages() {
+
+    // goes through each blockquote and searches for yomichan inserted images
+    const imageSearchElements = document.getElementsByTagName("blockquote");
+    for (const searchEle of imageSearchElements) {
+      const anchorTags = searchEle.getElementsByTagName("a");
+      for (const atag of anchorTags) {
+        const imgFileName = atag.getAttribute("href");
+        if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
+          logger.debug(`Converting yomichan image ${imgFileName}...`);
+          const fragment = createImgContainer(imgFileName);
+          atag.parentNode.replaceChild(fragment, atag);
+        }
+      }
+
+      // looks for user inserted images
+      const imgTags = searchEle.getElementsByTagName("img");
+      for (const imgEle of imgTags) {
+        if (!imgEle.classList.contains("glossary__image-hover-media") &&
+            !(imgEle.getAttribute("data-do-not-convert"))
+        ) { // created by us
+          logger.debug(`Converting user-inserted image ${imgEle.src}...`);
+          const fragment = createImgContainer(imgEle.src);
+          imgEle.parentNode.replaceChild(fragment, imgEle);
+        }
+      }
+    }
+  }
+
+  class JPMNImgUtils {
+    constructor() {
+      initPersistence()
+    }
+
+    run() {
+      editDisplayImage();
+
+      if (getSetting(['modules','img-utils','stylize-images-in-glossary',],true)) {
+        searchImages();
+      }
+    }
+  }
+
+
+  return JPMNImgUtils;
+
+})();
+
+
+
+/// 
+
 
 
 
@@ -673,7 +1216,8 @@ function main() {
   // sanity check: options
   /// 
   if (typeof JPMNOpts === 'undefined') {
-    LOGGER.warn("JPMNOpts was not defined in the options file. Was there an error?");
+    LOGGER.warn('JPMNOpts was not defined in the options file. Was there an error? ' +
+      'Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">here</a> for basic troubleshooting.', isHtml=true);
   }
   ///  
 
@@ -683,6 +1227,25 @@ function main() {
   LOGGER.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
   /// {{/IsClickCard}}
   /// {{/IsHoverCard}}
+
+  // clicks on the info circle to freeze the popup (good for debugging and all)
+  if (getSetting(['info-circle-togglable-lock',],true)) {
+    let infoCirc = document.getElementById("info_circle");
+    let infoCircWrapper = document.getElementById("info_circle_wrapper");
+    const frozenClass = "info-circle--frozen";
+
+    infoCircWrapper.onclick = function() {
+      if (infoCirc.classList.contains(frozenClass)) {
+        infoCirc.classList.remove(frozenClass);
+        popupMenuMessage("Info circle tooltip unlocked.");
+      } else {
+        infoCirc.classList.add(frozenClass);
+        popupMenuMessage("Info circle tooltip locked.");
+      }
+    }
+  }
+
+
 
   // START_BLOCK: js_run
 
@@ -720,6 +1283,23 @@ function main() {
 
 
 
+  try { // RUN: img-utils
+    
+        
+
+    if (getSetting(['modules','img-utils','enabled',],true) && getSetting(['modules','img-utils','nsfw-toggle','enabled',],false)) {
+      // ran just to call constructor
+      const img_utils = new JPMNImgUtils();
+    }
+
+    /// 
+        
+  } catch (error) {
+    LOGGER.error("Error in module img-utils:");
+    LOGGER.errorStack(error.stack);
+  }
+
+
 
 
 
@@ -735,6 +1315,7 @@ main();
 }());
 
 </script>
+
 
 
 

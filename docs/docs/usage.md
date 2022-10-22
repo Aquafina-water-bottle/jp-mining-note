@@ -322,7 +322,7 @@ the image will be blurred again.
 
 
 The state of this can be changed for a review session.
-To do this, hover over the info circle, and click on the eyeball to the top right to toggle between states.
+To do this, hover over the info circle, and click on the eyeball to the top left to toggle between states.
 This state will be maintained for the entire review session, but will be lost on the next session.
 
 The tabs below show the available states.

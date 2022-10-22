@@ -193,7 +193,38 @@ var JPMNOpts = (function (my) {
           // Replaces all images in the glossary (definition) sections
           // with an internal representation similar to how Yomichan displays images:
           // an `[Image]` text where you can see the image upon hover, and with click to zoom.
-          "stylize-images-in-glossary": true
+          "stylize-images-in-glossary": true,
+
+          "nsfw-toggle": {
+            // allows the user to mark any card as NSFW, and adds various
+            // GUI elements to faciliate just that.
+            "enabled": false,
+
+            // what tags can be used to toggle the card between nsfw / not nsfw
+            // case sensitive
+            "tags": ["NSFW", "nsfw", "-NSFW"],
+
+            // Sets whether nsfw images are blurred by default or not.
+            //
+            // Available states:
+            //  0: all images will not be blurred (even if marked as NSFW)
+            //  1: only images marked as NSFW will be blurred by default
+            //  2: all images will be blurred regardless of whether it is marked as NSFW or not
+            //
+            // The first number of the list is the default state. The states cycle from left -> right
+            // For example, if the list was [1, 2, 0], it would start at state 1, and clicking on the
+            // settings eye will set it to state 2, state 0, state 1, state 2.
+            //
+            // Note: It is expected that there is at least one state in the list.
+
+            // default for non-mobile devices (usually PC)
+            //"toggle-states-pc": [1, 0],
+            "toggle-states-pc": [1, 2, 0],
+
+            // default for mobile devices
+            "toggle-states-mobile": [1, 2, 0]
+          }
+
         },
 
 
@@ -207,7 +238,7 @@ var JPMNOpts = (function (my) {
 
             //"Primary Definition",
             //"Secondary Definition",
-            // "Additional Notes",
+            //"Additional Notes",
             //"Extra Definitions",
             //"Extra Info"
           ],
@@ -218,7 +249,7 @@ var JPMNOpts = (function (my) {
 
             //"Primary Definition",
             //"Secondary Definition",
-            // "Additional Notes",
+            //"Additional Notes",
             //"Extra Definitions",
             "Extra Info"
           ]
@@ -251,9 +282,14 @@ var JPMNOpts = (function (my) {
       // Warn if using the `Sentence` field instead of the `SentenceReading` field
       "no-sentence-reading-warn": false,
 
+      // Whether the user can lock the tooltip by clicking on the info-circle or not
+      "info-circle-togglable-lock": true,
+
       // (Developer option) Used to show debug messages when debugging the card.
-      // Use the `_debug()` function in javascript to write debug messages.
-      "debug": false
+      // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.
+      // Set to any number higher than 5 to disable.
+      // 0 produces the most debug messages, 5 produces the least debug messages.
+      "debug-level": 6
     }
 
   return my;
