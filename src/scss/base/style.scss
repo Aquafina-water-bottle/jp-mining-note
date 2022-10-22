@@ -1335,9 +1335,12 @@ ruby rt {
   font-size: var(--external-links-icon-font-size);
 
   color: var(--text-color);
+
+  box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
 }
 
 .glossary__external-links img {
+  background: transparent;
   width: var(--external-links-icon-size);
   height: var(--external-links-icon-size);
 }

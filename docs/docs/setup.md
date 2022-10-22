@@ -45,7 +45,7 @@ If you have a problem at any point, you may find the solution by searching for i
 There are two ways of installing the card:
 
 
-??? info "Option 1: The Automatic Way (click here)"
+??? info "Option 1: The Automatic Way *(click here)*"
 
     If you know what `git` and `python` is, here's all you have to do:
 
@@ -77,7 +77,7 @@ There are two ways of installing the card:
 
     The above does the following:
 
-    - Installs the latest version of the note
+    - Installs the latest stable version of the note
     - Installs the fonts required for the note
 
     If the above made no sense to you,
@@ -85,7 +85,7 @@ There are two ways of installing the card:
     see the second option below.
 
 
-??? info "Option 2: The Manual Way (click here)"
+??? info "Option 2: The Manual Way *(click here)*"
 
 
     1. Go to the
@@ -119,17 +119,23 @@ View one of the cards and make sure the card looks similar to the one below:
 
 Please check the following in particular:
 
-1. The fonts should match very similarly with the above example.
+1. The fonts should match with the above example.
+
+    If the fonts don't match, the note was likely installed with "Option 2: The Manual Way".
+    Please verify you manually installed the fonts and placed them in the correct folder
+    (see steps 3 and 4).
 
     {{ img("test", "assets/info_circle.png", 'align=right') }}
 
 1. Notice how at the top left corner, the info circle (the "i" encased within the circle)
     is the default grey color.
 
-    If this circle is red or orange, there could be something wrong with the template.
+    If this circle is red or orange, there is likely something wrong with the template.
     Please see [this](faq.md#errors-warnings){:target="_blank"} section for basic troubleshooting.
 
 1. Clicking on the image to zoom should work out of the box.
+    Kanji hover may not work yet. If it doesn't work,
+    read the Anki-Connect setup instructions below.
 
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
     this is likely because you are using the older Qt5 version of Anki.
@@ -146,27 +152,30 @@ If you are updating Anki from an older version, this section aims to give some
 general tips on updating Anki.
 If you aren't upgrading Anki from an older version, you can skip this section.
 
-### Official Documentation
-The official documentation on how to install and upgrade Anki is shown below:
+??? example "Tips on Updating Anki *(click here)*"
 
-- [Windows](https://docs.ankiweb.net/platform/windows/installing.html)
-- [MacOS](https://docs.ankiweb.net/platform/mac/installing.html)
-- [Linux](https://docs.ankiweb.net/platform/linux/installing.html)
+    <h4>Official Documentation</h4>
 
-Note that for all three, there are additional sections in the table of contents to the left
-that could be helpful.
+    The official documentation on how to install and upgrade Anki is shown below:
+
+    > [Windows](https://docs.ankiweb.net/platform/windows/installing.html)・[MacOS](https://docs.ankiweb.net/platform/mac/installing.html)・[Linux](https://docs.ankiweb.net/platform/linux/installing.html)
+
+    Note that for all three, there are additional sections in the table of contents to the left
+    that could be helpful.
 
 
-### Add-ons Breaking
-If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:
+    <h4>Add-ons Breaking</h4>
 
-- As a sanity check, click the `Check for Updates` button on Anki's `Addons` window.
-- Check that the add-on supports the current version of Anki in the official AnkiWeb page.
-  If the page says that the current Anki version is supported,
-  try reinstalling it again from AnkiWeb.
-  This is because occasionally, the `Check for Updates` button doesn't properly work.
+    If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:
 
-<br>
+    - As a sanity check, click the `Check for Updates` button on Anki's `Addons` window.
+    - Check that the add-on supports the current version of Anki in the official AnkiWeb page.
+        If the page says that the current Anki version is supported,
+        try reinstalling it again from AnkiWeb.
+
+        Occasionally, the `Check for Updates` button doesn't properly work,
+        so this method ensures that your addon is actually updated.
+
 
 ## Dark Mode
 Although light mode is supported, the recommended theme for this note is dark mode.
@@ -372,7 +381,7 @@ Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon Yomichan card creation.
 
 This add-on is optional, because the card will simply show the sentence without
-furigana if there is no furigana generated sentence.
+furigana (on hover) if there is no furigana generated sentence.
 
 #### Config Changes
 

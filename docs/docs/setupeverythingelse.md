@@ -18,6 +18,10 @@ If you are looking to setup jp-mining-note, see [this](setup.md) page instead.
     Instead, I would recommend that you contact the creators of the guides / programs,
     or the communities surrounding said guides / programs.
 
+    Additionally, the guides listed here do not use JPMN, and instead link
+    to other note types.
+    This shouldn't be an issue as long as you change appropriate the field names.
+
 
 # Getting the Text to Create the Cards
 
@@ -152,8 +156,9 @@ extension.
 
 
 
-## Text from manga
-* [mokuro](https://github.com/kha-white/mokuro)
+## Text from manga (Mokuro)
+[mokuro](https://github.com/kha-white/mokuro) pre-processes manga, so you don't have to run
+any OCR program afterwards.
 
 **Guides:**
 
@@ -167,9 +172,34 @@ extension.
         on the Refold (JP) Discord server
     - This doesn't include instructions on how to process online (whereas the Lazy guide does)
 - If you are on Android, this can be paired with
-  [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
-  to create Anki cards.
+    [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
+    to create Anki cards.
 
+If any error occurs, check the following:
+
+- Check your Python version (`python --version`, or `python3 --version`).
+    Python 3.10 is [not supported yet](https://github.com/kha-white/mokuro#installation).
+
+    If your Python version is too old, I recommend using [pyenv](https://github.com/pyenv/pyenv),
+    especially for Linux users. Linux users can use the
+    [automatic installer](https://github.com/pyenv/pyenv#automatic-installer).
+
+- Make sure your directory is a string and not a number. For example, `mokuro ./01` on unix, and `mokuro .\01` on Windows.
+
+
+## Text from local files (EPUBs, HTMLZ, PDF)
+As long as you're not using a scan (image-based), the text should already be available.
+The following are ways to view these files in a browser to Yomichan:
+
+* [ッツ Ebook Reader](https://ttu-ebook.web.app/) (EPUBs, HTMLZ)
+* [Mozilla's PDF Viewer](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
+
+**Guides:**
+
+- Like with Mokuro,
+    if you are on Android, this can be paired with
+    [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
+    to create Anki cards.
 
 
 
