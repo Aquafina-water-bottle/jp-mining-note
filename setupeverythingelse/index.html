@@ -390,8 +390,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#text-from-manga" class="md-nav__link">
-    Text from manga
+  <a href="#text-from-manga-mokuro" class="md-nav__link">
+    Text from manga (Mokuro)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-from-local-files-epubs-htmlz-pdf" class="md-nav__link">
+    Text from local files (EPUBs, HTMLZ, PDF)
   </a>
   
 </li>
@@ -829,8 +836,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#text-from-manga" class="md-nav__link">
-    Text from manga
+  <a href="#text-from-manga-mokuro" class="md-nav__link">
+    Text from manga (Mokuro)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-from-local-files-epubs-htmlz-pdf" class="md-nav__link">
+    Text from local files (EPUBs, HTMLZ, PDF)
   </a>
   
 </li>
@@ -946,6 +960,9 @@ will be linked.</p>
 I unfortunately will not be able to provide very detailed support.</p>
 <p>Instead, I would recommend that you contact the creators of the guides / programs,
 or the communities surrounding said guides / programs.</p>
+<p>Additionally, the guides listed here do not use JPMN, and instead link
+to other note types.
+This shouldn't be an issue as long as you change appropriate the field names.</p>
 </div>
 <h2 id="getting-the-text-to-create-the-cards">Getting the Text to Create the Cards<a class="headerlink" href="#getting-the-text-to-create-the-cards" title="Permanent link">&para;</a></h2>
 <p>I use a texthooker setup, which is able to extract subtitles or text into the browser.
@@ -1081,10 +1098,9 @@ However, it will likely work for most other texthooker pages.</p>
 </ul>
 </li>
 </ul>
-<h3 id="text-from-manga">Text from manga<a class="headerlink" href="#text-from-manga" title="Permanent link">&para;</a></h3>
-<ul>
-<li><a href="https://github.com/kha-white/mokuro">mokuro</a></li>
-</ul>
+<h3 id="text-from-manga-mokuro">Text from manga (Mokuro)<a class="headerlink" href="#text-from-manga-mokuro" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/kha-white/mokuro">mokuro</a> pre-processes manga, so you don't have to run
+any OCR program afterwards.</p>
 <p><strong>Guides:</strong></p>
 <ul>
 <li><a href="https://rentry.co/lazyXel#manga-with-yomichan">Lazy guide (recommended)</a><ul>
@@ -1101,8 +1117,35 @@ However, it will likely work for most other texthooker pages.</p>
 </ul>
 </li>
 <li>If you are on Android, this can be paired with
-  <a href="https://github.com/KamWithK/AnkiconnectAndroid">Anki Connect for Android</a>
-  to create Anki cards.</li>
+    <a href="https://github.com/KamWithK/AnkiconnectAndroid">Anki Connect for Android</a>
+    to create Anki cards.</li>
+</ul>
+<p>If any error occurs, check the following:</p>
+<ul>
+<li>
+<p>Check your Python version (<code>python --version</code>, or <code>python3 --version</code>).
+    Python 3.10 is <a href="https://github.com/kha-white/mokuro#installation">not supported yet</a>.</p>
+<p>If your Python version is too old, I recommend using <a href="https://github.com/pyenv/pyenv">pyenv</a>,
+especially for Linux users. Linux users can use the
+<a href="https://github.com/pyenv/pyenv#automatic-installer">automatic installer</a>.</p>
+</li>
+<li>
+<p>Make sure your directory is a string and not a number. For example, <code>mokuro ./01</code> on unix, and <code>mokuro .\01</code> on Windows.</p>
+</li>
+</ul>
+<h3 id="text-from-local-files-epubs-htmlz-pdf">Text from local files (EPUBs, HTMLZ, PDF)<a class="headerlink" href="#text-from-local-files-epubs-htmlz-pdf" title="Permanent link">&para;</a></h3>
+<p>As long as you're not using a scan (image-based), the text should already be available.
+The following are ways to view these files in a browser to Yomichan:</p>
+<ul>
+<li><a href="https://ttu-ebook.web.app/">ッツ Ebook Reader</a> (EPUBs, HTMLZ)</li>
+<li><a href="https://mozilla.github.io/pdf.js/web/viewer.html">Mozilla's PDF Viewer</a> (PDF)</li>
+</ul>
+<p><strong>Guides:</strong></p>
+<ul>
+<li>Like with Mokuro,
+    if you are on Android, this can be paired with
+    <a href="https://github.com/KamWithK/AnkiconnectAndroid">Anki Connect for Android</a>
+    to create Anki cards.</li>
 </ul>
 <hr />
 <h2 id="automating-pictures-and-sentence-audio">Automating Pictures and Sentence Audio<a class="headerlink" href="#automating-pictures-and-sentence-audio" title="Permanent link">&para;</a></h2>
@@ -1197,7 +1240,7 @@ The most recent commit as of writing (2022/10/19) was done in 2022/01/27.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2022</span>
       
     
   </small>

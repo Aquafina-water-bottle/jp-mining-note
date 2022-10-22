@@ -1159,7 +1159,7 @@ If you have a problem at any point, you may find the solution by searching for i
 <h2 id="installing-the-card">Installing the Card<a class="headerlink" href="#installing-the-card" title="Permanent link">&para;</a></h2>
 <p>There are two ways of installing the card:</p>
 <details class="info">
-<summary>Option 1: The Automatic Way (click here)</summary>
+<summary>Option 1: The Automatic Way <em>(click here)</em></summary>
 <p>If you know what <code>git</code> and <code>python</code> is, here's all you have to do:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows</label><label for="__tabbed_1_2">MacOS &amp; Linux</label></div>
 <div class="tabbed-content">
@@ -1189,7 +1189,7 @@ If you have a problem at any point, you may find the solution by searching for i
 </div>
 <p>The above does the following:</p>
 <ul>
-<li>Installs the latest version of the note</li>
+<li>Installs the latest stable version of the note</li>
 <li>Installs the fonts required for the note</li>
 </ul>
 <p>If the above made no sense to you,
@@ -1197,7 +1197,7 @@ or you just want to install this normally,
 see the second option below.</p>
 </details>
 <details class="info">
-<summary>Option 2: The Manual Way (click here)</summary>
+<summary>Option 2: The Manual Way <em>(click here)</em></summary>
 <ol>
 <li>Go to the
     <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/releases">releases page</a>
@@ -1232,17 +1232,22 @@ View one of the cards and make sure the card looks similar to the one below:</p>
 <p>Please check the following in particular:</p>
 <ol>
 <li>
-<p>The fonts should match very similarly with the above example.</p>
+<p>The fonts should match with the above example.</p>
+<p>If the fonts don't match, the note was likely installed with "Option 2: The Manual Way".
+Please verify you manually installed the fonts and placed them in the correct folder
+(see steps 3 and 4).</p>
 <p><a href="../assets/info_circle.png"><img align="right" alt="test" src="../assets/info_circle.png" /> </a></p>
 </li>
 <li>
 <p>Notice how at the top left corner, the info circle (the "i" encased within the circle)
     is the default grey color.</p>
-<p>If this circle is red or orange, there could be something wrong with the template.
+<p>If this circle is red or orange, there is likely something wrong with the template.
 Please see <a href="../faq/#errors-warnings" target="_blank">this</a> section for basic troubleshooting.</p>
 </li>
 <li>
-<p>Clicking on the image to zoom should work out of the box.</p>
+<p>Clicking on the image to zoom should work out of the box.
+    Kanji hover may not work yet. If it doesn't work,
+    read the Anki-Connect setup instructions below.</p>
 </li>
 <li>
 <p>If the furigana on your card seems to appear higher above the kanji compared to the picture,
@@ -1257,25 +1262,28 @@ Please see <a href="../faq/#errors-warnings" target="_blank">this</a> section fo
 <p>If you are updating Anki from an older version, this section aims to give some
 general tips on updating Anki.
 If you aren't upgrading Anki from an older version, you can skip this section.</p>
-<h4 id="official-documentation">Official Documentation<a class="headerlink" href="#official-documentation" title="Permanent link">&para;</a></h4>
+<details class="example">
+<summary>Tips on Updating Anki <em>(click here)</em></summary>
+<p><h4>Official Documentation</h4></p>
 <p>The official documentation on how to install and upgrade Anki is shown below:</p>
-<ul>
-<li><a href="https://docs.ankiweb.net/platform/windows/installing.html">Windows</a></li>
-<li><a href="https://docs.ankiweb.net/platform/mac/installing.html">MacOS</a></li>
-<li><a href="https://docs.ankiweb.net/platform/linux/installing.html">Linux</a></li>
-</ul>
+<blockquote>
+<p><a href="https://docs.ankiweb.net/platform/windows/installing.html">Windows</a>・<a href="https://docs.ankiweb.net/platform/mac/installing.html">MacOS</a>・<a href="https://docs.ankiweb.net/platform/linux/installing.html">Linux</a></p>
+</blockquote>
 <p>Note that for all three, there are additional sections in the table of contents to the left
 that could be helpful.</p>
-<h4 id="add-ons-breaking">Add-ons Breaking<a class="headerlink" href="#add-ons-breaking" title="Permanent link">&para;</a></h4>
+<p><h4>Add-ons Breaking</h4></p>
 <p>If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:</p>
 <ul>
 <li>As a sanity check, click the <code>Check for Updates</code> button on Anki's <code>Addons</code> window.</li>
-<li>Check that the add-on supports the current version of Anki in the official AnkiWeb page.
-  If the page says that the current Anki version is supported,
-  try reinstalling it again from AnkiWeb.
-  This is because occasionally, the <code>Check for Updates</code> button doesn't properly work.</li>
+<li>
+<p>Check that the add-on supports the current version of Anki in the official AnkiWeb page.
+    If the page says that the current Anki version is supported,
+    try reinstalling it again from AnkiWeb.</p>
+<p>Occasionally, the <code>Check for Updates</code> button doesn't properly work,
+so this method ensures that your addon is actually updated.</p>
+</li>
 </ul>
-<p><br></p>
+</details>
 <h3 id="dark-mode">Dark Mode<a class="headerlink" href="#dark-mode" title="Permanent link">&para;</a></h3>
 <p>Although light mode is supported, the recommended theme for this note is dark mode.</p>
 <p>The note automatically adjusts according to Anki's theme.
@@ -1438,7 +1446,7 @@ Code: <code>1344485230</code></p>
 <p>Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon Yomichan card creation.</p>
 <p>This add-on is optional, because the card will simply show the sentence without
-furigana if there is no furigana generated sentence.</p>
+furigana (on hover) if there is no furigana generated sentence.</p>
 <h5 id="config-changes">Config Changes<a class="headerlink" href="#config-changes" title="Permanent link">&para;</a></h5>
 <p>The config of the add-on must be changed to work with this note.</p>
 <p>To change the config of any Anki add-on, head over to:</p>
@@ -2608,7 +2616,7 @@ that you would like to set up. These include:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 22, 2022</span>
       
     
   </small>
