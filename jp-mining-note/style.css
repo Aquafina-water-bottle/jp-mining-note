@@ -30,6 +30,13 @@ html {
   --tooltip-font-size: 14px;
   --dark-mode-accent: #fffd9e;
   --zoom: 1;
+  /* external links */
+  --external-links-icon-size: 20px;
+  --external-links-icon-font-size: 14px;
+  --external-links-gap: 3px;
+  --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
+  --external-links-box-shadow: 1px 1px 2px;
+  --info-circle-settings-svg-size: 16px;
   /* light mode specific */
   --text-color: black;
   --text-color--1: hsla(0, 0%, 50%, 1);
@@ -52,6 +59,7 @@ html {
   --pa-nasal-color: #f12a2a;
   --highlight-bold-shadow: initial;
   --highlight-bold-color: var(--accent);
+  --external-links-box-shadow-color: #464646;
   --info-circle-hover-color: #5f5f5f;
   /* slightly different shade of blue */
   --info-circle-leech-color: #3983ff;
@@ -68,6 +76,7 @@ html {
   --pa-indicator-none-color: #ec3a2d;
   --hybrid-underline-color: black;
   --image-hover-brightness: 85%;
+  --icon-click-brightness: 85%;
 }
 
 .night_mode {
@@ -89,7 +98,7 @@ html {
   --pa-nasal-color: #f12a2a;
   --highlight-bold-shadow: initial;
   --highlight-bold-color: var(--accent);
-  --hybrid-word-highlight: 0px 0px 30px var(--accent);
+  --external-links-box-shadow-color: #000000;
   --info-circle-hover-color: #bdbdbd;
   /* slightly different shade of yellow */
   --info-circle-leech-color: #ead623;
@@ -106,6 +115,7 @@ html {
   --pa-indicator-none-color: #ff6b66;
   --hybrid-underline-color: white;
   --image-hover-brightness: 80%;
+  --icon-click-brightness: 80%;
 }
 
 /* override variables for mobile */
@@ -173,6 +183,10 @@ details > summary {
   padding-right: 20px;
 }
 */
+details > summary {
+  user-select: none;
+}
+
 /* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
 /* wrap elements in two divs: center-box-1 and center-box-2 */
 .center-box-1 {
@@ -182,6 +196,24 @@ details > summary {
 .center-box-2 {
   display: inline-block;
   text-align: left;
+}
+
+:root {
+  --show-toggle-light: inline-block;
+  --show-toggle-dark: none;
+}
+
+.night_mode {
+  --show-toggle-light: none;
+  --show-toggle-dark: inline-block;
+}
+
+.show-on-light-mode-only {
+  display: var(--show-toggle-light);
+}
+
+.show-on-dark-mode-only {
+  display: var(--show-toggle-dark);
 }
 
 @font-face {
@@ -302,12 +334,17 @@ ruby rt {
   display: inline-block;
 }
 
-.info-circle path {
+.info-circle > .info-circle-svg-wrapper path {
   fill: var(--card-description-color);
 }
 
-.info-circle:hover path {
+.info-circle:hover > .info-circle-svg-wrapper path,
+.info-circle--frozen > .info-circle-svg-wrapper path {
   fill: var(--info-circle-hover-color);
+}
+
+.info-circle-svg-wrapper:active svg {
+  filter: brightness(var(--icon-click-brightness));
 }
 
 .info-circle-text-wrapper {
@@ -336,7 +373,8 @@ ruby rt {
   margin-left: 16px;
 }
 
-.info-circle-svg-wrapper:hover + .info-circle-text-wrapper > .info-circle-text {
+.info-circle-svg-wrapper:hover + .info-circle-text-wrapper > .info-circle-text,
+.info-circle--frozen > .info-circle-svg-wrapper + .info-circle-text-wrapper > .info-circle-text {
   visibility: visible;
 }
 
@@ -358,7 +396,8 @@ ruby rt {
   z-index: 1;
 }
 
-.info-circle-svg-wrapper:hover:after {
+.info-circle-svg-wrapper:hover:after,
+.info-circle---frozen > .info-circle-svg-wrapper:hover:after {
   visibility: visible;
 }
 
@@ -373,11 +412,11 @@ ruby rt {
   color: var(--info-circle-leech-text-color);
 }
 
-.info-circle-leech path {
+.info-circle-leech > .info-circle-svg-wrapper path {
   fill: var(--info-circle-leech-color);
 }
 
-.info-circle-leech:hover path {
+.info-circle-leech:hover > .info-circle-svg-wrapper path, .info-circle-leech.info-circle---frozen > .info-circle-svg-wrapper path {
   fill: var(--info-circle-leech-hover-color);
 }
 
@@ -392,11 +431,11 @@ ruby rt {
   color: var(--info-circle-warning-text-color);
 }
 
-.info-circle-warning path {
+.info-circle-warning > .info-circle-svg-wrapper path {
   fill: var(--info-circle-warning-color);
 }
 
-.info-circle-warning:hover path {
+.info-circle-warning:hover > .info-circle-svg-wrapper path, .info-circle-svg-wrapper--frozen > .info-circle-svg-wrapper path {
   fill: var(--info-circle-warning-hover-color);
 }
 
@@ -411,12 +450,53 @@ ruby rt {
   color: var(--info-circle-error-text-color);
 }
 
-.info-circle-error path {
+.info-circle-error > .info-circle-svg-wrapper path {
   fill: var(--info-circle-error-color);
 }
 
-.info-circle-error:hover path {
+.info-circle-error:hover > .info-circle-svg-wrapper path, .info-circle-svg-wrapper--frozen > .info-circle-svg-wrapper path {
   fill: var(--info-circle-error-hover-color);
+}
+
+.info-circle-text-settings {
+  line-height: 0%;
+}
+
+.info-circle-text-settings-border {
+  border-bottom: 1px solid var(--text-color--4);
+  margin-top: -6px;
+  margin-bottom: 4px;
+  line-height: 0px;
+  width: 100%;
+  display: none;
+}
+
+/* shows the border if settings aren't empty */
+.info-circle-text-settings:not(:empty) + .info-circle-text-settings-border {
+  display: block;
+}
+
+.info-circle-text-settings:not(:empty) {
+  margin-bottom: 10px;
+}
+
+.info-circle-text-settings svg {
+  width: var(--info-circle-settings-svg-size);
+  height: var(--info-circle-settings-svg-size);
+}
+
+.info-circle-text-settings svg {
+  cursor: pointer;
+  fill: var(--text-color);
+}
+
+.info-circle-text-settings__svg--red {
+  fill: var(--info-circle-error-text-color);
+}
+
+.info-circle-text-settings__svg--disabled {
+  cursor: default;
+  fill: var(--text-color--4);
 }
 
 /* https://stackoverflow.com/a/38948646 (ver 5) */
@@ -573,6 +653,59 @@ ruby rt {
 /*
  * formats the open quote to be to the left of the entire text box
  */
+.popup-menu {
+  position: fixed;
+  /* bless flex boxes */
+  display: flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+  flex-direction: column;
+  row-gap: 3px;
+  bottom: 30px;
+  right: 30px;
+}
+
+.popup-menu--animate {
+  display: flex;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+  z-index: 1;
+  min-width: 250px;
+  min-height: 65px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: var(--tooltip-background-darken);
+  animation-name: popup-menu-in, popup-menu-stay, popup-menu-fade;
+  animation-delay: 0s, 0.6s, 3.6s;
+  animation-duration: 0.6s, 3s, 0.75s;
+  opacity: 0;
+}
+
+@keyframes popup-menu-in {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes popup-menu-stay {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes popup-menu-fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 /*
  *  ===============
  *   BACK SIDE CSS
@@ -885,6 +1018,7 @@ ruby rt {
   padding-left: 35px;
   max-width: 400px;
   max-height: 210px;
+  position: relative;
 }
 
 /* TODO put the image at the top right corner always for mobile */
@@ -900,12 +1034,12 @@ ruby rt {
 
 .dh-right__img {
   border-radius: 5px;
-  cursor: pointer;
   display: block;
-  min-width: 200px;
+  min-width: 5px; /* for super skinny images? */
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
+  user-select: none;
 }
 
 .mobile .dh-right__img {
@@ -914,15 +1048,69 @@ ruby rt {
   min-height: 0px;
 }
 
+.dh-right__img-container-stop-blur-edges {
+  /* removes blur overflow */
+  overflow: hidden;
+  border-radius: 5px;
+}
+
 /* moved the hover element to the div to prevent the size transform transition from showing */
-.dh-right__img-container {
-  transition: 0.3s;
-  transition: 0.3s;
+.dh-right__img-container--clickable {
+  cursor: pointer;
+  transition: filter 0.3s;
 }
 
 /* not applied to the image because of above comment (prevent showing the transition) */
-.dh-right__img-container:hover {
+.dh-right__img-container--clickable:hover {
   filter: brightness(var(--image-hover-brightness));
+}
+
+.dh-right__svg-eye {
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  right: 8px;
+  top: -10px;
+  /* animation for eye dropping down */
+  transition: transform 0.1s ease-out, opacity 0.06s ease-out;
+  opacity: 0;
+  stroke: none;
+  fill: hsl(0deg, 0%, 90%);
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.4));
+  /* disables display without nsfw class */
+  display: none;
+}
+
+/* enables display when nsfw class exists */
+.dh-right__show-eye + .dh-right__svg-eye {
+  display: inline-block;
+}
+
+/* makes eye white on hover */
+.dh-right__svg-eye:hover {
+  cursor: pointer;
+  fill: white;
+}
+
+/* show eye on hover of image (or eye) */
+.dh-right__show-eye:hover + .dh-right__svg-eye, .dh-right__svg-eye:hover {
+  transform: translateY(15px);
+  opacity: 1;
+  transition: transform 0.15s ease-out, opacity 0.1s ease-out;
+}
+
+/* no transition so it doesn't flash the user when flipping the card */
+.nsfw-blur-init {
+  filter: blur(30px);
+}
+
+.nsfw-blur {
+  filter: blur(30px);
+  transition: filter 0.2s;
+}
+
+.nsfw-no-blur {
+  transition: filter 0.2s;
 }
 
 /*
@@ -1115,6 +1303,52 @@ ruby rt {
 }
 
 /*
+ * styles for the external links
+ *
+ * TODO: support for mobile (thinner screens likely require the external links to all
+ * be in one column rather than two
+ */
+.glossary-text--extra-info {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+}
+
+.glossary__external-links {
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: var(--external-links-gap);
+  max-width: calc(var(--external-links-icon-size) * var(--external-links-max-icons-per-row) + (var(--external-links-max-icons-per-row) - 1) * var(--external-links-gap));
+}
+
+.glossary__external-links--full-row {
+  max-width: 100%;
+}
+
+.glossary__external-links a {
+  text-align: center;
+  vertical-align: middle;
+  min-width: var(--external-links-icon-size);
+  height: var(--external-links-icon-size);
+  line-height: var(--external-links-icon-size);
+  font-size: var(--external-links-icon-font-size);
+  color: var(--text-color);
+  box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
+}
+
+.glossary__external-links img {
+  background: transparent;
+  width: var(--external-links-icon-size);
+  height: var(--external-links-icon-size);
+}
+
+.glossary__external-links a:not(:hover) {
+  filter: opacity(0.5);
+}
+
+/*
  * ------------------------------
  *  Frequencies at the top-right
  * ------------------------------
@@ -1237,8 +1471,14 @@ ruby rt {
  *
  */
 /* makes the symbols centered */
-[data-sc-ortho=table] td {
+div.glossary-text--extra-info ol li[data-details=シン・漢字遣い参考] td, div.glossary-text--extra-info ol [data-sc-ortho=table] td {
   text-align: center;
+  line-height: 150%;
+}
+
+/* this says that the external link should take up 2 icon slots instead of 1 */
+.glossary__external-links a[data-details="sakura-paris.org/dict"] {
+  width: calc(var(--external-links-icon-size) * 2 + 1 * var(--external-links-gap));
 }
 
 /*# sourceMappingURL=style.css.map */

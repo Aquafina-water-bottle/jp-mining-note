@@ -12,6 +12,13 @@
   --tooltip-font-size: 14px;
   --dark-mode-accent: #fffd9e;
   --zoom: 1;
+  /* external links */
+  --external-links-icon-size: 20px;
+  --external-links-icon-font-size: 14px;
+  --external-links-gap: 3px;
+  --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
+  --external-links-box-shadow: 1px 1px 2px;
+  --info-circle-settings-svg-size: 16px;
   /* light mode specific */
   --text-color: black;
   --text-color--1: hsla(0, 0%, 50%, 1);
@@ -34,6 +41,7 @@
   --pa-nasal-color: #f12a2a;
   --highlight-bold-shadow: initial;
   --highlight-bold-color: var(--accent);
+  --external-links-box-shadow-color: #464646;
   --info-circle-hover-color: #5f5f5f;
   /* slightly different shade of blue */
   --info-circle-leech-color: #3983ff;
@@ -50,6 +58,7 @@
   --pa-indicator-none-color: #ec3a2d;
   --hybrid-underline-color: black;
   --image-hover-brightness: 85%;
+  --icon-click-brightness: 85%;
 }
 
 .nightMode {
@@ -71,7 +80,7 @@
   --pa-nasal-color: #f12a2a;
   --highlight-bold-shadow: initial;
   --highlight-bold-color: var(--accent);
-  --hybrid-word-highlight: 0px 0px 30px var(--accent);
+  --external-links-box-shadow-color: #000000;
   --info-circle-hover-color: #bdbdbd;
   /* slightly different shade of yellow */
   --info-circle-leech-color: #ead623;
@@ -88,6 +97,7 @@
   --pa-indicator-none-color: #ff6b66;
   --hybrid-underline-color: white;
   --image-hover-brightness: 80%;
+  --icon-click-brightness: 80%;
 }
 
 /*# sourceMappingURL=_editor.css.map */

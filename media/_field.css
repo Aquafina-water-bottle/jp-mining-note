@@ -164,4 +164,9 @@ anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict
   font-weight: bold;
 }
 
+anki-editable[field=UtilityDictionaries] ol li[data-details=シン・漢字遣い参考] td, anki-editable[field=UtilityDictionaries] ol [data-sc-ortho=table] td {
+  text-align: center;
+  line-height: 150%;
+}
+
 /*# sourceMappingURL=_field.css.map */

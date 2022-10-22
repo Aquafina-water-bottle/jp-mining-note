@@ -386,7 +386,7 @@ def define_env(env):
                 ", so this feature cannot be used unless you compile the templates from the master branch."
 
 
-        return f"""<sup>New in version `{feature_version_str}` (latest version: `{current_version_str}`)</sup>"""
+        return f"""<sup><i>New in version `{feature_version_str}` (latest version: `{current_version_str}`)</i></sup>"""
 
 
 
