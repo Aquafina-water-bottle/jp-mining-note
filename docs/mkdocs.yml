@@ -62,13 +62,13 @@ nav:
   - Getting Started:
     - Preface: preface.md
     - Alternatives: alternatives.md
-    - "Setup: Anki & Yomichan ★": setup.md
+    - "Setup: Anki & Yomichan": setup.md
     - "Setup: Everything Else": setupeverythingelse.md
     - Transfer Existing Notes: importing.md
     - Updating: updating.md
   - Reference:
-    - "User Interface ★": ui.md
-    - "Usage ★": usage.md
+    - User Interface: ui.md
+    - Usage: usage.md
     - Card Types: cardtypes.md
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Runtime Options (TODO): runtimeoptions.md
