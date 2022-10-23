@@ -27,7 +27,8 @@ in the Yomichan Templates section.
 
 # Prerequisites
 
-Before doing anything that affects your Anki collection in a major way (such as this),
+Before doing anything that affects your Anki collection in a major way
+(for example, basically everything on this page),
 please make a [complete backup](faq.md#how-do-i-backup-my-anki-data){:target="_blank"} of your collection.
 
 
@@ -86,21 +87,6 @@ However, here are a few tips:
 
 1. If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 
-{# an html comment creates some weird spacing for some reason
-1. If your reading field is only in kana, it is usually safe to map this to both
-    `WordReading` and `WordReadingFurigana`.
-    However, if your reading field contains kanji, ONLY map the field to `WordReading`.
-    When in doubt, don't map anything to `WordReadingFurigana`, and use
-    the [script below](importing.md#3-optional-batch-set-wordreadingfurigana-field)
-    to fill it out after importing the note.
-
-    Beware that if your reading field is only in kana, kanji-hover will only display
-    the kana and not the kanji + furigana.
-    Unfortunately, to the best of my knowledge,
-    there is no trivial way to change a kana-only reading field
-    to a kanji + furigana reading field.
-#}
-
 1. `FrequenciesStylized` is a field that holds information for multiple frequency lists.
     If your card already has a field that contains that information
     (say, with the built-in `{frequencies}` marker that comes with Yomichan),
@@ -114,7 +100,7 @@ However, here are a few tips:
 
 An example with [Anime cards](https://animecards.site/ankicards/) is shown below.
 
-??? example "Click here to see the example for Anime Cards."
+??? example "Example for Anime Cards *(click here)*"
 
     | Anki Fields | Yomichan Format |
     |-------------|-----------------|
@@ -136,17 +122,21 @@ then it will be incompatable with JPMN by default.
 
 To see what the formatting of the sentence is,
 [view the raw HTML]()
-of the sentence field.
+of the `Sentence` field.
 
-- If the tested content is highlighted with `<b>`, then you can skip this step.
-- If the tested content not highlighted in any way, there is unfortunately no easy
+- If the tested content is highlighted with `<b>`, then it is already formatted correctly.
+    You can skip this step.
+- If the tested content is not highlighted in any way, there is unfortunately no easy
     way to add highlighting to existing sentences.
     As there is nothing to do, you can skip this step.
-- Finally, If the tested content is highlighted with something that isn't `<b>`,
+- Finally, if the tested content is highlighted with something that isn't `<b>`,
     then **continue with the following instructions** to change it.
 
 
 ??? example "Instructions to port formatted sentences *(click here)*"
+
+    !!! note
+        You may want to make another backup before doing the following, just in case.
 
     1. **Determine how the sentence is formatted.**
 
@@ -154,6 +144,11 @@ of the sentence field.
         is highlighted by a `<span>` with a custom color.
         ```html
         視認する時間も、言葉を交わす<span style="color: #ffc2c7">猶予</span>も、背中を見せて走り出す機会さえなかった。
+        ```
+
+        The above is created from the following Yomichan fields:
+        ```
+        {cloze-prefix}<span style="color: #ffc2c7">{cloze-body}</span>{cloze-suffix}
         ```
 
     2. **Testing the Conversion.**
@@ -173,6 +168,9 @@ of the sentence field.
         Set the `Find` field to something that can find your highlighted content.
         We will use the above as an example.
 
+        It is extremely likely that you will have to change the `Find:` field
+        according to your note's sentence format.
+
         | Field name | Value |
         |:-|:-|
         | **Find:** | `<span style="color: #ffc2c7">(?P<t>.*?)</span>` |
@@ -186,11 +184,15 @@ of the sentence field.
 
     4. **Verify.**
 
-        Preview the card.
+        Press Ok, and then preview the card.
 
-        If it is yellow (or blue on light mode), then it it was successful!
+        If the highlight is yellow (or blue on light mode), then it it was successful!
         Repeat steps 2 and 3, except select all of the affected notes instead of just one.
 
+        If it was not successful, you likely have to adjust the `Find` field.
+        See
+        [here](https://docs.ankiweb.net/searching.html?highlight=regex#regular-expressions)
+        to see Anki's official documentation on regex.
 
 
 ## (2) Batch generate pitch accents and sentence furigana
@@ -219,7 +221,6 @@ of the sentence field.
 4. Again, head over to:
 
     > `Edit` (top left corner) →  `Bulk-add furigana`.
-
 
 
 
@@ -254,8 +255,58 @@ The following step differs if you are using `python` or the Batch Note Editing A
     python3 ./batch.py -f "set_pasilence_field"
     ```
 
+
+## (4) (Optional) Formatting WordReading
+
+Your `WordReading` field is likely formatted in one of three ways:
+
+1. Kanji with furigana in brackets (Yomichan: `{furigana-plain}`).
+
+    Example: 成[な]り 立[た]つ
+
+1. Kanji with ruby text (Yomichan: `{furigana}`).
+
+    Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
+
+1. Kana only (Yomichan: `{reading}`).
+
+    Example: なりたつ
+
+If your `WordReading` is formatted in either of the first two ways, you can skip this step.
+
+However, if your old cards only had a kana reading, then it might be nice
+to have the `WordReading` as the kanji word with furigana.
+If this is desirable, see the instructions below.
+
+??? example "Converting kana readings to furigana readings *(click here)*"
+
+    The solution provided below is imperfect, but passable.
+    This will format all of the `WordReading` fields to be `Word[WordReading]`,
+    which means kana will repeated.
+    For example, a card with `Word` as 成り立つ, and `WordReading` as なりたつ,
+    will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby>
+
+    To do this, you will have to run a Python script from the repository.
+    For Windows users, see the first 3 steps for the Windows instructions
+    [here](updating.md#running-the-script){:target="_blank"}
+    if you haven't use Python before.
+
+    Afterwards, [create a backup](faq.md#how-do-i-backup-my-anki-data) and run the following:
+    ```bash
+    python batch.py -f quick_fix_convert_kana_only_reading_all_notes
+    ```
+
+    The above will affect **ALL** notes.
+    If you instead want to affect certain notes, add the `kanaonlyreading`
+    tag to all affected notes, and then run:
+    ```bash
+    python batch.py -f quick_fix_convert_kana_only_reading_with_tag
+    ```
+
+
+
 <!--
-### (3) (Optional) Batch set `WordReadingFurigana` field
+### (5) (Optional) Batch set `WordReadingFurigana` field
 
 The following automatically fills out the `WordReadingFurigana` field.
 
@@ -263,8 +314,19 @@ Filling out the `WordReadingFurigana` field will enable the usage of
 the [Same Reading Indicator](ui.md#same-reading-indicator)
 on existing cards.
 
-Unfortunately, the Batch Editing Add-on cannot be used for this.
-It must be done with Python.
+To do this, like with the above step, you will have to run a Python script.
+Again, for Windows users, see the first 3 steps for the Windows instructions
+[here](updating.md#running-the-script){:target="_blank"}
+if you haven't use Python before.
+
+The following script assumes that your `WordReading` field
+is formatted as the first way (成[な]り 立[た]つ) on step 4.
+This will not work if the `WordReading` field field is formatted
+like the second
+(<ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ)
+or third way
+(なりたつ).
+
 
 ```
 # assuming you are at the root of the repo,

@@ -403,8 +403,7 @@ def fill_word_reading_hiragana_field():
 
 
 
-def quick_fix_convert_kana_only_reading():
-    query = r'"note:JP Mining Note" tag:nokanjireading'
+def _quick_fix_convert_kana_only_reading(query):
     print("Querying notes...")
     notes = invoke("findNotes", query=query)
     print("Getting notes info...")
@@ -432,6 +431,15 @@ def quick_fix_convert_kana_only_reading():
 
     print("Updating notes...")
     notes = invoke("multi", actions=actions)
+
+
+def quick_fix_convert_kana_only_reading():
+    query = r'"note:JP Mining Note" tag:kanaonlyreading'
+    _quick_fix_convert_kana_only_reading(query)
+
+def quick_fix_convert_kana_only_reading_all_notes():
+    query = r'"note:JP Mining Note"'
+    _quick_fix_convert_kana_only_reading(query)
 
 
 

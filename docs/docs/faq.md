@@ -279,6 +279,10 @@ The following makes a **complete backup** of your collection, including media.
 
 > Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`
 
+The following makes a temporary backup of your collection, not including media
+
+> Main Window →  `File` (top left corner) →  `Create Backup`
+
 See the [official documentation](https://docs.ankiweb.net/backups.html){:target="_blank"}
 for more info.
 
