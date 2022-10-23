@@ -80,7 +80,7 @@ nav:
     - Modding: modding.md
   - Other:
     - "FAQ & Troubleshooting": faq.md
-    - Various Resources: jpresources.md
+    - JP Resources: jpresources.md
 
 extra_css:
   - stylesheets/extra.css

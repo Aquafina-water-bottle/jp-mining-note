@@ -94,7 +94,7 @@ they should represent words that you already know.
 ---
 
 # Same Reading Indicator
-{{ feature_version("0.11.0.0", unreleased=True) }}
+{{ feature_version("0.11.0.0") }}
 
 When a word with the same reading has been detected,
 an indicator will be shown.
@@ -103,8 +103,8 @@ After the first review, the indicator will be the same color as the info circle.
 
 TODO gif
 
-For simplicity, this check ignores pitch accent.
-As an example, if you have the cards 自身・自信,
+The query ignores pitch accent.
+For example, if you have the cards 自身 and 自信,
 the indicator will still be shown and point to each other.
 
 ---

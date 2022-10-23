@@ -226,6 +226,8 @@ The following are ways to view these files in a browser to Yomichan:
 * Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
 * You can now [extract the video clip itself](https://github.com/Ajatt-Tools/mpvacious/pull/78)
     instead of the picture. However, this note does not support video clips yet.
+* You will have to change the [configuration](https://github.com/Ajatt-Tools/mpvacious#configuration)
+    in order for mpvacious to work with JPMN.
 
     ??? examplecode "Click here to see some basic config changes to get it working with JPMN."
 
