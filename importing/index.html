@@ -400,6 +400,40 @@
     Batch Editing
   </a>
   
+    <nav class="md-nav" aria-label="Batch Editing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-porting-formatted-sentence-fields" class="md-nav__link">
+    (1) Porting formatted Sentence fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-batch-generate-pitch-accents-and-sentence-furigana" class="md-nav__link">
+    (2) Batch generate pitch accents and sentence furigana
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-batch-set-pasilence-field" class="md-nav__link">
+    (3) Batch set PASilence field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-optional-formatting-wordreading" class="md-nav__link">
+    (4) (Optional) Formatting WordReading
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -771,6 +805,40 @@
     Batch Editing
   </a>
   
+    <nav class="md-nav" aria-label="Batch Editing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-porting-formatted-sentence-fields" class="md-nav__link">
+    (1) Porting formatted Sentence fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-batch-generate-pitch-accents-and-sentence-furigana" class="md-nav__link">
+    (2) Batch generate pitch accents and sentence furigana
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-batch-set-pasilence-field" class="md-nav__link">
+    (3) Batch set PASilence field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-optional-formatting-wordreading" class="md-nav__link">
+    (4) (Optional) Formatting WordReading
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -830,7 +898,8 @@ The biggest example is frequency list information,
 as it requires special HTML + css formatting that can only be specified
 in the Yomichan Templates section.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>Before doing anything that affects your Anki collection in a major way (such as this),
+<p>Before doing anything that affects your Anki collection in a major way
+(for example, basically everything on this page),
 please make a <a href="../faq/#how-do-i-backup-my-anki-data" target="_blank">complete backup</a> of your collection.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -869,7 +938,7 @@ To do this, follow the proceeding steps:</p>
 <h2 id="mapping-fields">Mapping Fields<a class="headerlink" href="#mapping-fields" title="Permanent link">&para;</a></h2>
 <p>Here is where I can't give specific advice, as every note is different.
 However, here are a few tips:</p>
-<ul>
+<ol>
 <li>
 <p>Your card likely doesn't have a separate <code>Key</code> and <code>Word</code> field,
     and instead only contains one <code>Word</code> field.
@@ -904,10 +973,10 @@ However, here are a few tips:</p>
     store the frequency info in a way that css styles can be easily applied without javascript.</p>
 <p>There is currently no convenience function to convert it to the proper format.</p>
 </li>
-</ul>
+</ol>
 <p>An example with <a href="https://animecards.site/ankicards/">Anime cards</a> is shown below.</p>
 <details class="example">
-<summary>Click here to see the example for Anime Cards.</summary>
+<summary>Example for Anime Cards <em>(click here)</em></summary>
 <table>
 <thead>
 <tr>
@@ -1065,7 +1134,101 @@ However, here are a few tips:</p>
 </details>
 <h2 id="batch-editing">Batch Editing<a class="headerlink" href="#batch-editing" title="Permanent link">&para;</a></h2>
 <p>After switching your notes, you will have to do the following few steps:</p>
-<h4 id="1-batch-generate-pitch-accents-and-sentence-furigana">(1) Batch generate pitch accents and sentence furigana<a class="headerlink" href="#1-batch-generate-pitch-accents-and-sentence-furigana" title="Permanent link">&para;</a></h4>
+<h3 id="1-porting-formatted-sentence-fields">(1) Porting formatted Sentence fields<a class="headerlink" href="#1-porting-formatted-sentence-fields" title="Permanent link">&para;</a></h3>
+<p>If your sentence fields have been highlighted in a way that isn't using <code>&lt;b&gt;</code>,
+then it will be incompatable with JPMN by default.</p>
+<p>To see what the formatting of the sentence is,
+<a href="">view the raw HTML</a>
+of the <code>Sentence</code> field.</p>
+<ul>
+<li>If the tested content is highlighted with <code>&lt;b&gt;</code>, then it is already formatted correctly.
+    You can skip this step.</li>
+<li>If the tested content is not highlighted in any way, there is unfortunately no easy
+    way to add highlighting to existing sentences.
+    As there is nothing to do, you can skip this step.</li>
+<li>Finally, if the tested content is highlighted with something that isn't <code>&lt;b&gt;</code>,
+    then <strong>continue with the following instructions</strong> to change it.</li>
+</ul>
+<details class="example">
+<summary>Instructions to port formatted sentences <em>(click here)</em></summary>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may want to make another backup before doing the following, just in case.</p>
+</div>
+<ol>
+<li>
+<p><strong>Determine how the sentence is formatted.</strong></p>
+<p>For this example, we will be assuming that the highlightted word
+is highlighted by a <code>&lt;span&gt;</code> with a custom color.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>視認する時間も、言葉を交わす<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: #ffc2c7&quot;</span><span class="p">&gt;</span>猶予<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>も、背中を見せて走り出す機会さえなかった。
+</code></pre></div></p>
+<p>The above is created from the following Yomichan fields:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{cloze-prefix}&lt;span style=&quot;color: #ffc2c7&quot;&gt;{cloze-body}&lt;/span&gt;{cloze-suffix}
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Testing the Conversion.</strong></p>
+<p>In the Anki card viewer, select only one of your old notes.</p>
+<p>Afterwards, right click the selection, and head over to:</p>
+<blockquote>
+<p><code>Notes</code> →  <code>Find and Replace...</code></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Setting the fields.</strong></p>
+<p>Set the <code>Find</code> field to something that can find your highlighted content.
+We will use the above as an example.</p>
+<p>It is extremely likely that you will have to change the <code>Find:</code> field
+according to your note's sentence format.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Field name</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>Find:</strong></td>
+<td align="left"><code>&lt;span style="color: #ffc2c7"&gt;(?P&lt;t&gt;.*?)&lt;/span&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Replace With:</strong></td>
+<td align="left"><code>&lt;b&gt;$t&lt;/b&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><strong>In</strong></td>
+<td align="left"><code>Sentence</code></td>
+</tr>
+<tr>
+<td align="left">Selected notes only</td>
+<td align="left">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+</tr>
+<tr>
+<td align="left">Ignore case</td>
+<td align="left">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+</tr>
+<tr>
+<td align="left">Treat input as a<br>regular expression</td>
+<td align="left">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+</tr>
+</tbody>
+</table>
+<p><a href="../assets/anki/fix_formatted_sentences.png"><img alt="The above table in Anki" src="../assets/anki/fix_formatted_sentences.png" /></a></p>
+</li>
+<li>
+<p><strong>Verify.</strong></p>
+<p>Press Ok, and then preview the card.</p>
+<p>If the highlight is yellow (or blue on light mode), then it it was successful!
+Repeat steps 2 and 3, except select all of the affected notes instead of just one.</p>
+<p>If it was not successful, you likely have to adjust the <code>Find</code> field.
+See
+<a href="https://docs.ankiweb.net/searching.html?highlight=regex#regular-expressions">here</a>
+to see Anki's official documentation on regex.</p>
+</li>
+</ol>
+</details>
+<h3 id="2-batch-generate-pitch-accents-and-sentence-furigana">(2) Batch generate pitch accents and sentence furigana<a class="headerlink" href="#2-batch-generate-pitch-accents-and-sentence-furigana" title="Permanent link">&para;</a></h3>
 <p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/anki/batch_editing.mp4" type="video/mp4" /></video></div></p>
 <ol>
 <li>
@@ -1080,7 +1243,7 @@ However, here are a few tips:</p>
 <p class="admonition-title">Tip</p>
 <p>The following query should reveal all of your newly imported notes.
 Make sure you include the double quotes in the query search.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;note:JP Mining Note&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;note:JP Mining Note&quot;
 </code></pre></div>
 Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.</p>
 </div>
@@ -1098,7 +1261,7 @@ Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.
 </blockquote>
 </li>
 </ol>
-<h4 id="2-batch-set-pasilence-field">(2) Batch set <code>PASilence</code> field<a class="headerlink" href="#2-batch-set-pasilence-field" title="Permanent link">&para;</a></h4>
+<h3 id="3-batch-set-pasilence-field">(3) Batch set <code>PASilence</code> field<a class="headerlink" href="#3-batch-set-pasilence-field" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Head to the Card Browser window.</li>
 <li>Select all of your newly imported notes.</li>
@@ -1118,18 +1281,58 @@ Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.
 for an example of how to do this.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># assuming you are at the root of the repo,
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>cd ./tools
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a># make sure you have Anki open and Anki-Connect installed!
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>python3 ./batch.py -f &quot;set_pasilence_field&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># assuming you are at the root of the repo,
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>cd ./tools
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># make sure you have Anki open and Anki-Connect installed!
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>python3 ./batch.py -f &quot;set_pasilence_field&quot;
 </code></pre></div>
 </div>
 </div>
 </div>
+<h3 id="4-optional-formatting-wordreading">(4) (Optional) Formatting WordReading<a class="headerlink" href="#4-optional-formatting-wordreading" title="Permanent link">&para;</a></h3>
+<p>Your <code>WordReading</code> field is likely formatted in one of three ways:</p>
+<ol>
+<li>
+<p>Kanji with furigana in brackets (Yomichan: <code>{furigana-plain}</code>).</p>
+<p>Example: 成[な]り 立[た]つ</p>
+</li>
+<li>
+<p>Kanji with ruby text (Yomichan: <code>{furigana}</code>).</p>
+<p>Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ</p>
+</li>
+<li>
+<p>Kana only (Yomichan: <code>{reading}</code>).</p>
+<p>Example: なりたつ</p>
+</li>
+</ol>
+<p>If your <code>WordReading</code> is formatted in either of the first two ways, you can skip this step.</p>
+<p>However, if your old cards only had a kana reading, then it might be nice
+to have the <code>WordReading</code> as the kanji word with furigana.
+If this is desirable, see the instructions below.</p>
+<details class="example">
+<summary>Converting kana readings to furigana readings <em>(click here)</em></summary>
+<p>The solution provided below is imperfect, but passable.
+This will format all of the <code>WordReading</code> fields to be <code>Word[WordReading]</code>,
+which means kana will repeated.
+For example, a card with <code>Word</code> as 成り立つ, and <code>WordReading</code> as なりたつ,
+will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby></p>
+<p>To do this, you will have to run a Python script from the repository.
+For Windows users, see the first 3 steps for the Windows instructions
+<a href="../updating/#running-the-script" target="_blank">here</a>
+if you haven't use Python before.</p>
+<p>Afterwards, <a href="../faq/#how-do-i-backup-my-anki-data">create a backup</a> and run the following:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python batch.py -f quick_fix_convert_kana_only_reading_all_notes
+</code></pre></div></p>
+<p>The above will affect <strong>ALL</strong> notes.
+If you instead want to affect certain notes, add the <code>kanaonlyreading</code>
+tag to all affected notes, and then run:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python batch.py -f quick_fix_convert_kana_only_reading_with_tag
+</code></pre></div></p>
+</details>
 <!--
-### (3) (Optional) Batch set `WordReadingFurigana` field
+### (5) (Optional) Batch set `WordReadingFurigana` field
 
 The following automatically fills out the `WordReadingFurigana` field.
 
@@ -1137,17 +1340,28 @@ Filling out the `WordReadingFurigana` field will enable the usage of
 the [Same Reading Indicator](ui.md#same-reading-indicator)
 on existing cards.
 
-Unfortunately, the Batch Editing Add-on cannot be used for this.
-It must be done with Python.
+To do this, like with the above step, you will have to run a Python script.
+Again, for Windows users, see the first 3 steps for the Windows instructions
+[here](updating.md#running-the-script){:target="_blank"}
+if you haven't use Python before.
 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># assuming you are at the root of the repo,
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>cd ./tools
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>pip3 install jaconv
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a># make sure you have Anki open and Anki-Connect installed!
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>python3 ./batch.py -f &quot;fill_word_reading_hiragana_field&quot;
+The following script assumes that your `WordReading` field
+is formatted as the first way (成[な]り 立[た]つ) on step 4.
+This will not work if the `WordReading` field field is formatted
+like the second
+(<ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ)
+or third way
+(なりたつ).
+
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># assuming you are at the root of the repo,
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>cd ./tools
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>pip3 install jaconv
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a># make sure you have Anki open and Anki-Connect installed!
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>python3 ./batch.py -f &quot;fill_word_reading_hiragana_field&quot;
 </code></pre></div>
 -->
 
