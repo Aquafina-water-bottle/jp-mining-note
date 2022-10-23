@@ -242,6 +242,25 @@ The following are ways to view these files in a browser to Yomichan:
         image_field=Picture
         ```
 
+        You may want to increase the picture quality, as it's extremely low by default.
+        I personally use the following:
+
+        ```ini
+        # Quality of produced image files. 0 = lowest, 100=highest.
+        #snapshot_quality=15
+        snapshot_quality=50
+
+        # Image dimensions
+        # If either (but not both) of the width or height parameters is -2,
+        # the value will be calculated preserving the aspect-ratio.
+        #snapshot_width=-2
+        #snapshot_height=200
+        snapshot_width=800
+        snapshot_height=-2
+        ```
+
+        Be sure to restart MPV after changing the config to apply the changes.
+
 ## [Immersive](https://github.com/Ben-Kerman/immersive)
 
 * A powerful alternative to the mpvacious add-on above, with certain different capabilities.
