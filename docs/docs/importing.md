@@ -37,12 +37,14 @@ please make a [complete backup](faq.md#how-do-i-backup-my-anki-data){:target="_b
     However I recommend exporting **with media** just in case, so long as you have the disk space for it.
 
 
+<!--
 As explained further below, you will likely need to batch edit your newly imported notes.
 There are two ways you can do this:
 
 1. If you have `python`, then you're already set.
 2. Otherwise, you require a batch editing add-on. I recommend
     [this one](https://ankiweb.net/shared/info/291119185).
+-->
 
 
 # Anki
@@ -168,19 +170,23 @@ of the `Sentence` field.
         Set the `Find` field to something that can find your highlighted content.
         We will use the above as an example.
 
-        It is extremely likely that you will have to change the `Find:` field
+        It is extremely likely that you will have to change the `Find` field
         according to your note's sentence format.
 
         | Field name | Value |
         |:-|:-|
-        | **Find:** | `<span style="color: #ffc2c7">(?P<t>.*?)</span>` |
-        | **Replace With:** | `<b>$t</b>` |
-        | **In** | `Sentence` |
-        | Selected notes only | Checked ({{ checked_checkbox }}) |
-        | Ignore case | Unchecked ({{ unchecked_checkbox }}) |
-        | Treat input as a<br>regular expression | Checked ({{ checked_checkbox }}) |
+        | **Find:** { .smaller-table-row } | `<span style="color: #ffc2c7">(?P<t>.*?)</span>` { .smaller-table-row } |
+        | **Replace With:** { .smaller-table-row } | `<b>$t</b>` { .smaller-table-row } |
+        | **In:** { .smaller-table-row } | `Sentence` { .smaller-table-row } |
+        | Selected notes only { .smaller-table-row } | Checked ({{ checked_checkbox }}) { .smaller-table-row } |
+        | Ignore case { .smaller-table-row } | Unchecked ({{ unchecked_checkbox }}) { .smaller-table-row } |
+        | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ checked_checkbox }}) { .smaller-table-row } |
 
-        {{ img("The above table in Anki", "assets/anki/fix_formatted_sentences.png") }}
+        ??? example "Example image *(click here)*"
+
+            <figure markdown>
+            {{ img("The above table in Anki", "assets/anki/fix_formatted_sentences.png") }}
+            </figure>
 
     4. **Verify.**
 
@@ -226,8 +232,35 @@ of the `Sentence` field.
 
 ## (3) Batch set `PASilence` field
 
+This will ensure all `PASilence` are filled correctly.
+
 1. Head to the Card Browser window.
-2. Select all of your newly imported notes.
+1. Right click a card, and then head to:
+
+    > `Notes` →  `Find and Replace...`
+
+1. Set the fields to the following:
+
+    | Field name | Value |
+    |:-|:-|
+    | **Find:** { .smaller-table-row } | `.*`  { .smaller-table-row } |
+    | **Replace With:** { .smaller-table-row } | `[sound:_silence.wav]` { .smaller-table-row } |
+    | **In:** { .smaller-table-row } | `PASilence` (IMPORTANT!!! Don't forget to set this field) { .smaller-table-row } |
+    | Selected notes only { .smaller-table-row } | Unchecked ({{ unchecked_checkbox }}) { .smaller-table-row } |
+    | Ignore case { .smaller-table-row } | Unchecked ({{ unchecked_checkbox }}) { .smaller-table-row } |
+    | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ checked_checkbox }}) { .smaller-table-row } |
+
+    ??? example "Example image *(click here)*"
+        <figure markdown>
+        {{ img("The above table in Anki", "assets/anki/bulk_add_silencewav.png") }}
+        </figure>
+
+
+<!--
+_
+-->
+
+<!--
 
 The following step differs if you are using `python` or the Batch Note Editing Add-on.
 
@@ -254,6 +287,7 @@ The following step differs if you are using `python` or the Batch Note Editing A
     # make sure you have Anki open and Anki-Connect installed!
     python3 ./batch.py -f "set_pasilence_field"
     ```
+-->
 
 
 ## (4) (Optional) Formatting WordReading
