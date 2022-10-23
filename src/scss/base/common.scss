@@ -115,9 +115,9 @@
   --info-circle-hover-color: #bdbdbd;
 
   /* slightly different shade of yellow */
-  --info-circle-leech-color: #ead623;
-  --info-circle-leech-hover-color: var(--accent);
-  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+  --info-circle-leech-color: var(--accent);
+  --info-circle-leech-hover-color: #e5e386;
+  --info-circle-leech-text-color: var(--info-circle-leech-color);
 
   --info-circle-warning-color: #ff8d0d;
   --info-circle-warning-hover-color: #f9c24e;

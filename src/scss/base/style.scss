@@ -288,7 +288,7 @@ ruby rt {
   }
 }
 
-.info-circle-svg-wrapper:active svg {
+.info-circle-svg-wrapper--togglable:active svg {
   filter: brightness(var(--icon-click-brightness));
 }
 
@@ -318,7 +318,7 @@ ruby rt {
   border-radius: 6px;
 
   position: absolute;
-  z-index: 1;
+  z-index: 2;
 
   top: -10px;
   margin-left: 16px;
@@ -807,6 +807,11 @@ ruby rt {
 .dh-left__same-reading-indicator-main-word {
   //font-size: 24px;
   color: var(--accent);
+  font-weight: bold;
+}
+
+.dh-left__same-reading-indicator .hover-wrapper {
+  user-select: none;
 }
 
 .dh-left__same-reading-indicator .info-circle-svg path {
@@ -815,15 +820,17 @@ ruby rt {
 .dh-left__same-reading-indicator:hover .info-circle-svg path {
   fill: var(--info-circle-hover-color);
 }
+
 .dh-left__same-reading-indicator--new .info-circle-svg path {
   fill: var(--accent);
-  filter: opacity(0.8);
 }
 .dh-left__same-reading-indicator--new:hover .info-circle-svg path {
-  fill: var(--accent);
-  filter: opacity(1);
+  fill: var(--info-circle-leech-hover-color);
 }
 
+.dh-left__same-reading-indicator.dh-left__same-reading-indicator--togglable:active .info-circle-svg path {
+  filter: brightness(var(--icon-click-brightness));
+}
 
 
 
@@ -895,6 +902,8 @@ ruby rt {
 
 /* Tooltip text */
 .hover-text {
+
+  user-select: none;
 }
 
 .hover-text--same-reading {
@@ -952,7 +961,8 @@ ruby rt {
   margin-top: 10px;
 }
 
-.hover-text:hover + .hover-tooltip-wrapper {
+.hover-text:hover + .hover-tooltip-wrapper,
+.hover-text.hover-text--frozen + .hover-tooltip-wrapper {
   display: inline-block;
 }
 /* prevents the tooltip text from disappearing on hover */

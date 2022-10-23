@@ -67,27 +67,27 @@ To do this, follow the proceeding steps:
 Here is where I can't give specific advice, as every note is different.
 However, here are a few tips:
 
-- Your card likely doesn't have a separate `Key` and `Word` field,
+1. Your card likely doesn't have a separate `Key` and `Word` field,
     and instead only contains one `Word` field.
     To import this correctly into JPMN, make sure JPMN's `Key` and `Word` field are exactly
     your old card's `Word` field.
 
-- `AJTWordPitch` and `SentenceReading` can be left empty, as the AJT plugins
+1. `AJTWordPitch` and `SentenceReading` can be left empty, as the AJT plugins
     can batch generate both word pitches and sentence furigana.
 
-- You may have some word pitch fields already in your card.
+1. You may have some word pitch fields already in your card.
     Pitch accent graphs should be mapped to `PAGraphs`, and
     pitch accent positions should be mapped to `PAPositions`.
 
-- `FrequencySort` maps to the frequency value used to sort by frequency, which works exactly
+1. `FrequencySort` maps to the frequency value used to sort by frequency, which works exactly
     the same as Marv's `Frequency` field as documented in
     [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency)
     page.
 
-- If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
+1. If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 
 {# an html comment creates some weird spacing for some reason
-- If your reading field is only in kana, it is usually safe to map this to both
+1. If your reading field is only in kana, it is usually safe to map this to both
     `WordReading` and `WordReadingFurigana`.
     However, if your reading field contains kanji, ONLY map the field to `WordReading`.
     When in doubt, don't map anything to `WordReadingFurigana`, and use
@@ -101,7 +101,7 @@ However, here are a few tips:
     to a kanji + furigana reading field.
 #}
 
-- `FrequenciesStylized` is a field that holds information for multiple frequency lists.
+1. `FrequenciesStylized` is a field that holds information for multiple frequency lists.
     If your card already has a field that contains that information
     (say, with the built-in `{frequencies}` marker that comes with Yomichan),
     please be aware that mapping this to `FrequenciesStylized`
@@ -129,7 +129,71 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 # Batch Editing
 After switching your notes, you will have to do the following few steps:
 
-### (1) Batch generate pitch accents and sentence furigana
+## (1) Porting formatted Sentence fields
+
+If your sentence fields have been highlighted in a way that isn't using `<b>`,
+then it will be incompatable with JPMN by default.
+
+To see what the formatting of the sentence is,
+[view the raw HTML]()
+of the sentence field.
+
+- If the tested content is highlighted with `<b>`, then you can skip this step.
+- If the tested content not highlighted in any way, there is unfortunately no easy
+    way to add highlighting to existing sentences.
+    As there is nothing to do, you can skip this step.
+- Finally, If the tested content is highlighted with something that isn't `<b>`,
+    then **continue with the following instructions** to change it.
+
+
+??? example "Instructions to port formatted sentences *(click here)*"
+
+    1. **Determine how the sentence is formatted.**
+
+        For this example, we will be assuming that the highlightted word
+        is highlighted by a `<span>` with a custom color.
+        ```html
+        視認する時間も、言葉を交わす<span style="color: #ffc2c7">猶予</span>も、背中を見せて走り出す機会さえなかった。
+        ```
+
+    2. **Testing the Conversion.**
+
+        In the Anki card viewer, select only one of your old notes.
+
+        Afterwards, right click the selection, and head over to:
+
+        > `Notes` →  `Find and Replace...`
+
+
+    {% set checked_checkbox = '<input type="checkbox" disabled="disabled" checked />' %}
+    {% set unchecked_checkbox = '<input type="checkbox" disabled="disabled" />' %}
+
+    3. **Setting the fields.**
+
+        Set the `Find` field to something that can find your highlighted content.
+        We will use the above as an example.
+
+        | Field name | Value |
+        |:-|:-|
+        | **Find:** | `<span style="color: #ffc2c7">(?P<t>.*?)</span>` |
+        | **Replace With:** | `<b>$t</b>` |
+        | **In** | `Sentence` |
+        | Selected notes only | Checked ({{ checked_checkbox }}) |
+        | Ignore case | Unchecked ({{ unchecked_checkbox }}) |
+        | Treat input as a<br>regular expression | Checked ({{ checked_checkbox }}) |
+
+        {{ img("The above table in Anki", "assets/anki/fix_formatted_sentences.png") }}
+
+    4. **Verify.**
+
+        Preview the card.
+
+        If it is yellow (or blue on light mode), then it it was successful!
+        Repeat steps 2 and 3, except select all of the affected notes instead of just one.
+
+
+
+## (2) Batch generate pitch accents and sentence furigana
 
 ![type:video](assets/anki/batch_editing.mp4)
 
@@ -159,7 +223,7 @@ After switching your notes, you will have to do the following few steps:
 
 
 
-### (2) Batch set `PASilence` field
+## (3) Batch set `PASilence` field
 
 1. Head to the Card Browser window.
 2. Select all of your newly imported notes.
@@ -213,7 +277,6 @@ pip3 install jaconv
 python3 ./batch.py -f "fill_word_reading_hiragana_field"
 ```
 -->
-
 
 
 # Final Notes

@@ -192,7 +192,7 @@
       // an `[Image]` text where you can see the image upon hover, and with click to zoom.
       "stylize-images-in-glossary": true,
 
-      "nsfw-toggle": {
+      "image-blur": {
         // allows the user to mark any card as NSFW, and adds various
         // GUI elements to faciliate just that.
         "enabled": false,
@@ -225,10 +225,11 @@
     },
 
 
-    // Opens the specified collapsable field if the card is new.
+    // Options to set a collapsable field to be open or not
     "customize-open-fields": {
       "enabled": false,
 
+      // Force a field to be always open
       "open": [
         // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
         // indeed collapsed by default.
@@ -240,6 +241,7 @@
         //"Extra Info"
       ],
 
+      // Opens the specified collapsable field if the card is new.
       "open-on-new": [
         // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
         // indeed collapsed by default.
@@ -248,7 +250,7 @@
         //"Secondary Definition",
         //"Additional Notes",
         //"Extra Definitions",
-        "Extra Info"
+        //"Extra Info"
       ]
     },
 

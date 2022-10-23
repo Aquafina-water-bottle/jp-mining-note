@@ -189,6 +189,10 @@ To change Anki's theme, head over to:
 
 {{ img("install Anki addons", "assets/anki/dark_mode.png") }}
 
+!!! note
+    The note's theme currently cannot be forced to be a particular
+    theme without changing Anki's settings.
+
 
 <br>
 

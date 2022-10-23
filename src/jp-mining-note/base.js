@@ -32,12 +32,16 @@ function toggleDetailsTag(ele) {
   }
 }
 
-function popupMenuMessage(message) {
+function popupMenuMessage(message, isHTML=false) {
   let popupMenu = document.getElementById("popup_menu");
 
   // creates message
   const popupMessageDiv = document.createElement("div");
-  popupMessageDiv.innerText = message;
+  if (isHTML) {
+    popupMessageDiv.innerHTML = message;
+  } else {
+    popupMessageDiv.innerText = message;
+  }
   popupMessageDiv.classList.add("popup-menu--animate");
 
   popupMenu.appendChild(popupMessageDiv);
@@ -210,21 +214,42 @@ function main() {
   /// {% endcall %}
   /// {% endcall %}
 
+  
   // clicks on the info circle to freeze the popup (good for debugging and all)
   if ({{ utils.opt("info-circle-togglable-lock") }}) {
+
+    function addLockFunc(clickEle, circEle, displayName, frozenClassName, togglableClassName) {
+      if (clickEle === null || circEle === null) {
+        return;
+      }
+
+      clickEle.classList.add(togglableClassName);
+      clickEle.onclick = function() {
+        if (circEle.classList.contains(frozenClassName)) {
+          circEle.classList.remove(frozenClassName);
+          popupMenuMessage(`${displayName} unlocked.`, true);
+        } else {
+          circEle.classList.add(frozenClassName);
+          popupMenuMessage(`${displayName} locked.`, true);
+        }
+      }
+
+    }
+
+    // main info circle
     let infoCirc = document.getElementById("info_circle");
     let infoCircWrapper = document.getElementById("info_circle_wrapper");
-    const frozenClass = "info-circle--frozen";
+    const infoCircFrozen = "info-circle--frozen";
+    const infoCircTogglable = "info-circle-svg-wrapper--togglable";
+    addLockFunc(infoCircWrapper, infoCirc, "Info circle tooltip", infoCircFrozen, infoCircTogglable);
 
-    infoCircWrapper.onclick = function() {
-      if (infoCirc.classList.contains(frozenClass)) {
-        infoCirc.classList.remove(frozenClass);
-        popupMenuMessage("Info circle tooltip unlocked.");
-      } else {
-        infoCirc.classList.add(frozenClass);
-        popupMenuMessage("Info circle tooltip locked.");
-      }
-    }
+    let sameReadingIndicator = document.getElementById("same_reading_indicator");
+    let sameReadingCirc = document.getElementById("same_reading_hover_circle");
+    const sameReadingCircFrozen = "hover-text--frozen";
+    const sameReadingCircTogglable = "dh-left__same-reading-indicator--togglable";
+    addLockFunc(sameReadingIndicator, sameReadingCirc, "Same-Reading indicator<br>",
+        sameReadingCircFrozen, sameReadingCircTogglable);
+
   }
 
 

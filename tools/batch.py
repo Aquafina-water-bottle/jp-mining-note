@@ -402,6 +402,41 @@ def fill_word_reading_hiragana_field():
 
 
 
+
+def quick_fix_convert_kana_only_reading():
+    query = r'"note:JP Mining Note" tag:nokanjireading'
+    print("Querying notes...")
+    notes = invoke("findNotes", query=query)
+    print("Getting notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print("Converting WordReading -> Word[WordReading]")
+    actions = []
+    for info in notes_info:
+        word_field = info["fields"]["Word"]["value"]
+        word_reading_field = info["fields"]["WordReading"]["value"]
+        result = f"{word_field}[{word_reading_field}]"
+
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": info["noteId"],
+                    "fields": {"WordReading": result},
+                }
+            },
+        }
+
+        actions.append(action)
+        print(result)
+
+    print("Updating notes...")
+    notes = invoke("multi", actions=actions)
+
+
+
+
+
 def main():
     args = get_args()
 

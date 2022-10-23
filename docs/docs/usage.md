@@ -112,13 +112,16 @@ outside of modifying pitch accent.
 
 * The `PrimaryDefinition` field contains the main content, and should be the main field to edit
     if one wants to put down more notes about the card.
-    I personally use this to write down grammar point explanations, sentence pitch accent info, etc.
-    on top of the defintions.
 
 * The `AdditionalNotes` field is useful if you want to put down even more notes,
     but keep it in a collapsible field to reduce vertical space.
-    I personally use it to write down the context of the scene,
-    and other notes that aren't completely crutial to understanding the tested content.
+
+    Here are some ways you can use this field:
+
+    * Recording the source of the media
+    * Notes on the scene's context
+    * The text surrounding the sentence
+    * In general, any info that is not crutial to understanding the tested content
 
 * Bolding anything in these sections will highlight the word in a light yellow tint,
     to make the bold stand out more.

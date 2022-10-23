@@ -84,6 +84,12 @@ NOTE_CHANGES = [
                 "$ cd tools\n"
                 "$ python3 batch.py -f fill_word_reading_hiragana_field"
             ),
+            action.NoteToUser(
+                description="If you are using the image-blur function, the option name was changed\n"
+                "from `nsfw-toggle` to `image-blur`. Please change it in your runtime options\n"
+                "to continue using it.\n"
+                "Example file: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
+            ),
         ],
         fields=[
             "Key",

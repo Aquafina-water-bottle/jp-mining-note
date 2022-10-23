@@ -217,12 +217,12 @@ To mark a card as NSFW, add any of the following tags to the card:
 
 ## Change Review Session State
 The above demo shows how you can un-blur an image temporarily.
-In other words, if you see that card again during the same review session,
+This means that if you see that card again during the same review session,
 the image will be blurred again.
 
-
-The state of this can be changed for a review session.
-To do this, hover over the info circle, and click on the eyeball to the top left to toggle between states.
+This state can be changed for a review session.
+To toggle between review-session states, hover over the info circle,
+and click on the eyeball to the top left.
 This state will be maintained for the entire review session, but will be lost on the next session.
 
 The tabs below show the available states.
