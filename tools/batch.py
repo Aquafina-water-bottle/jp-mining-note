@@ -433,7 +433,7 @@ def _quick_fix_convert_kana_only_reading(query):
     notes = invoke("multi", actions=actions)
 
 
-def quick_fix_convert_kana_only_reading():
+def quick_fix_convert_kana_only_reading_with_tag():
     query = r'"note:JP Mining Note" tag:kanaonlyreading'
     _quick_fix_convert_kana_only_reading(query)
 
