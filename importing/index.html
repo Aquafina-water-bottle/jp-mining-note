@@ -906,13 +906,15 @@ please make a <a href="../faq/#how-do-i-backup-my-anki-data" target="_blank">com
 <p>Transferring your previous notes shouldn't change your media files at all.
 However I recommend exporting <strong>with media</strong> just in case, so long as you have the disk space for it.</p>
 </div>
-<p>As explained further below, you will likely need to batch edit your newly imported notes.
-There are two ways you can do this:</p>
-<ol>
-<li>If you have <code>python</code>, then you're already set.</li>
-<li>Otherwise, you require a batch editing add-on. I recommend
-    <a href="https://ankiweb.net/shared/info/291119185">this one</a>.</li>
-</ol>
+<!--
+As explained further below, you will likely need to batch edit your newly imported notes.
+There are two ways you can do this:
+
+1. If you have `python`, then you're already set.
+2. Otherwise, you require a batch editing add-on. I recommend
+    [this one](https://ankiweb.net/shared/info/291119185).
+-->
+
 <h2 id="anki">Anki<a class="headerlink" href="#anki" title="Permanent link">&para;</a></h2>
 <p>Anki provides a feature to switch between note types, without affecting scheduling information.
 To do this, follow the proceeding steps:</p>
@@ -1178,7 +1180,7 @@ is highlighted by a <code>&lt;span&gt;</code> with a custom color.
 <p><strong>Setting the fields.</strong></p>
 <p>Set the <code>Find</code> field to something that can find your highlighted content.
 We will use the above as an example.</p>
-<p>It is extremely likely that you will have to change the <code>Find:</code> field
+<p>It is extremely likely that you will have to change the <code>Find</code> field
 according to your note's sentence format.</p>
 <table>
 <thead>
@@ -1189,32 +1191,37 @@ according to your note's sentence format.</p>
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong>Find:</strong></td>
-<td align="left"><code>&lt;span style="color: #ffc2c7"&gt;(?P&lt;t&gt;.*?)&lt;/span&gt;</code></td>
+<td align="left" class="smaller-table-row"><strong>Find:</strong></td>
+<td align="left" class="smaller-table-row"><code>&lt;span style="color: #ffc2c7"&gt;(?P&lt;t&gt;.*?)&lt;/span&gt;</code></td>
 </tr>
 <tr>
-<td align="left"><strong>Replace With:</strong></td>
-<td align="left"><code>&lt;b&gt;$t&lt;/b&gt;</code></td>
+<td align="left" class="smaller-table-row"><strong>Replace With:</strong></td>
+<td align="left" class="smaller-table-row"><code>&lt;b&gt;$t&lt;/b&gt;</code></td>
 </tr>
 <tr>
-<td align="left"><strong>In</strong></td>
-<td align="left"><code>Sentence</code></td>
+<td align="left" class="smaller-table-row"><strong>In:</strong></td>
+<td align="left" class="smaller-table-row"><code>Sentence</code></td>
 </tr>
 <tr>
-<td align="left">Selected notes only</td>
-<td align="left">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+<td align="left" class="smaller-table-row">Selected notes only</td>
+<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
 </tr>
 <tr>
-<td align="left">Ignore case</td>
-<td align="left">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+<td align="left" class="smaller-table-row">Ignore case</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
 </tr>
 <tr>
-<td align="left">Treat input as a<br>regular expression</td>
-<td align="left">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+<td align="left" class="smaller-table-row">Treat input as a<br>regular expression</td>
+<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
 </tr>
 </tbody>
 </table>
-<p><a href="../assets/anki/fix_formatted_sentences.png"><img alt="The above table in Anki" src="../assets/anki/fix_formatted_sentences.png" /></a></p>
+<details class="example">
+<summary>Example image <em>(click here)</em></summary>
+<p><figure markdown>
+<a href="../assets/anki/fix_formatted_sentences.png"><img alt="The above table in Anki" src="../assets/anki/fix_formatted_sentences.png" /></a>
+</figure></p>
+</details>
 </li>
 <li>
 <p><strong>Verify.</strong></p>
@@ -1262,35 +1269,91 @@ Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.
 </li>
 </ol>
 <h3 id="3-batch-set-pasilence-field">(3) Batch set <code>PASilence</code> field<a class="headerlink" href="#3-batch-set-pasilence-field" title="Permanent link">&para;</a></h3>
+<p>This will ensure all <code>PASilence</code> are filled correctly.</p>
 <ol>
 <li>Head to the Card Browser window.</li>
-<li>Select all of your newly imported notes.</li>
+<li>
+<p>Right click a card, and then head to:</p>
+<blockquote>
+<p><code>Notes</code> →  <code>Find and Replace...</code></p>
+</blockquote>
+</li>
+<li>
+<p>Set the fields to the following:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Field name</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" class="smaller-table-row"><strong>Find:</strong></td>
+<td align="left" class="smaller-table-row"><code>.*</code></td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row"><strong>Replace With:</strong></td>
+<td align="left" class="smaller-table-row"><code>[sound:_silence.wav]</code></td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row"><strong>In:</strong></td>
+<td align="left" class="smaller-table-row"><code>PASilence</code> (IMPORTANT!!! Don't forget to set this field)</td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row">Selected notes only</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row">Ignore case</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row">Treat input as a<br>regular expression</td>
+<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+</tr>
+</tbody>
+</table>
+<details class="example">
+<summary>Example image <em>(click here)</em></summary>
+<p><figure markdown>
+<a href="../assets/anki/bulk_add_silencewav.png"><img alt="The above table in Anki" src="../assets/anki/bulk_add_silencewav.png" /></a>
+</figure></p>
+</details>
+</li>
 </ol>
-<p>The following step differs if you are using <code>python</code> or the Batch Note Editing Add-on.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Batch Editing Add-On</label><label for="__tabbed_1_2">Python</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>Within Anki, do the following:</p>
-<ul>
-<li>Head over to <code>Edit</code> (top left corner) →  <code>Batch Edit...</code>.</li>
-<li>Set the content to be <code>[sound:_silence.wav]</code>.</li>
-<li>Set the field to be <code>PASilence</code>.</li>
-<li>Click on <strong>Replace</strong>.</li>
-</ul>
-<p>See the official add-on video <a href="https://youtu.be/iCZzcSnAeH4?t=31">here</a>
-for an example of how to do this.</p>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># assuming you are at the root of the repo,
+<!--
+_
+-->
+
+<!--
+
+The following step differs if you are using `python` or the Batch Note Editing Add-on.
+
+
+=== "Batch Editing Add-On"
+
+    Within Anki, do the following:
+
+    - Head over to `Edit` (top left corner) →  `Batch Edit...`.
+    - Set the content to be `[sound:_silence.wav]`.
+    - Set the field to be `PASilence`.
+    - Click on **Replace**.
+
+    See the official add-on video [here](https://youtu.be/iCZzcSnAeH4?t=31)
+    for an example of how to do this.
+
+
+=== "Python"
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># assuming you are at the root of the repo,
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>cd ./tools
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># make sure you have Anki open and Anki-Connect installed!
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>python3 ./batch.py -f &quot;set_pasilence_field&quot;
 </code></pre></div>
-</div>
-</div>
-</div>
+-->
+
 <h3 id="4-optional-formatting-wordreading">(4) (Optional) Formatting WordReading<a class="headerlink" href="#4-optional-formatting-wordreading" title="Permanent link">&para;</a></h3>
 <p>Your <code>WordReading</code> field is likely formatted in one of three ways:</p>
 <ol>
