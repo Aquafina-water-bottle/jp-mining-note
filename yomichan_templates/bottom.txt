@@ -637,6 +637,20 @@ is a part of a dictionary) ~}}
 {{~/inline~}}
 
 
+
+{{~#*inline "jpmn-word-reading-hiragana"~}}
+    {{~#set "word-reading" ~}}{{> reading}}{{/set~}}
+
+    {{~#if (op "" (get "word-reading")) ~}}
+        {{~#set "word-reading" ~}}{{> expression}}{{/set~}}
+    {{~/if~}}
+
+    {{#hiragana (get "word-reading") keepProlongedSoundMarks=false}}{{/hiragana}}
+{{~/inline~}}
+
+
+
+
 {{~! a test to check if your dictionaries are correctly classified. ~}}
 {{~! Only meant to be used for debugging purposes, not Anki. ~}}
 {{~#*inline "jpmn-test-dict-type"~}}

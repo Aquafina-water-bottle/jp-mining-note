@@ -170,6 +170,13 @@ FIELDS = {
         "setup": "[sound:_silence.wav]",
     },
 
+    # TODO un-comment for 0.11.0.0
+    #"WordReadingHiragana": {
+    #    "auto_fill": True,
+    #    "customize": False,
+    #    "setup": "{jpmn-word-reading-hiragana}",
+    #},
+
     "FrequenciesStylized": {
         "auto_fill": True,
         "customize": False,

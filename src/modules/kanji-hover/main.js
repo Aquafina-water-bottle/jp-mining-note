@@ -63,30 +63,30 @@ const JPMNKanjiHover = (() => {
     return await invoke("multi", {"actions": actions})
   }
 
-  function filterCards(nonNewCardIds, newCardIds) {
-    const nonNewEarliest = {{ utils.opt("modules", "kanji-hover", "max-non-new-oldest") }};
-    const nonNewLatest = {{ utils.opt("modules", "kanji-hover", "max-non-new-latest") }};
-    const newLatest = {{ utils.opt("modules", "kanji-hover", "max-new-latest") }};
+  //function filterCards(nonNewCardIds, newCardIds) {
+  //  const nonNewEarliest = {{ utils.opt("modules", "kanji-hover", "max-non-new-oldest") }};
+  //  const nonNewLatest = {{ utils.opt("modules", "kanji-hover", "max-non-new-latest") }};
+  //  const newLatest = {{ utils.opt("modules", "kanji-hover", "max-new-latest") }};
 
-    // non new: gets the earliest and latest
-    let nonNewResultIds = []
-    if (nonNewCardIds.length > nonNewEarliest + nonNewLatest) {
-      nonNewResultIds = [
-        ...nonNewCardIds.slice(0, nonNewEarliest), // earliest
-        ...nonNewCardIds.slice(-nonNewLatest, nonNewCardIds.length), // latest
-      ];
-    } else {
-      nonNewResultIds = [...nonNewCardIds];
-    }
+  //  // non new: gets the earliest and latest
+  //  let nonNewResultIds = []
+  //  if (nonNewCardIds.length > nonNewEarliest + nonNewLatest) {
+  //    nonNewResultIds = [
+  //      ...nonNewCardIds.slice(0, nonNewEarliest), // earliest
+  //      ...nonNewCardIds.slice(-nonNewLatest, nonNewCardIds.length), // latest
+  //    ];
+  //  } else {
+  //    nonNewResultIds = [...nonNewCardIds];
+  //  }
 
-    let newResultIds = newCardIds.slice(0, newLatest);
+  //  let newResultIds = newCardIds.slice(0, newLatest);
 
-    return [nonNewResultIds, newResultIds];
-  }
+  //  return [nonNewResultIds, newResultIds];
+  //}
 
 
 
-  async function getCardsInfo(queryResults) {
+  async function getCardsInfo(queryResults, ankiConnectHelper) {
     function constructCardsInfoAction(idList) {
       return {
         "action": "cardsInfo",
@@ -104,15 +104,23 @@ const JPMNKanjiHover = (() => {
       // sorting to card creation date
       const nonNewCardIds = queryResults[i*2].sort();
       const newCardIds = queryResults[i*2 + 1].sort();
-      const [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
+
+      const maxNonNewOldest = {{ utils.opt("modules", "kanji-hover", "max-non-new-oldest") }};
+      const maxNonNewLatest = {{ utils.opt("modules", "kanji-hover", "max-non-new-latest") }};
+      const maxNewLatest = {{ utils.opt("modules", "kanji-hover", "max-new-latest") }};
+
+      const [nonNewResultIds, newResultIds] = ankiConnectHelper.filterCards(
+        nonNewCardIds, newCardIds,
+        maxNonNewOldest, maxNonNewLatest, maxNewLatest
+      );
 
       // creates a multi request of the following format:
       // [cardInfo (nonNewCardIds, kanji 1), cardInfo (newCardIds, kanji 1), etc.]
-      actions.push(constructCardsInfoAction(nonNewResultIds))
-      actions.push(constructCardsInfoAction(newResultIds))
+      actions.push(constructCardsInfoAction(nonNewResultIds));
+      actions.push(constructCardsInfoAction(newResultIds));
     }
 
-    return await invoke("multi", {"actions": actions})
+    return await invoke("multi", {"actions": actions});
   }
 
 
@@ -133,7 +141,6 @@ const JPMNKanjiHover = (() => {
     const kanjiHoverWrapper = document.createElement('span');
     kanjiHoverWrapper.classList.add("kanji-hover-wrapper");
 
-
     const kanjiSpan = document.createElement('span');
     kanjiSpan.classList.add("kanji-hover-text");
     kanjiSpan.innerText = character;
@@ -148,7 +155,7 @@ const JPMNKanjiHover = (() => {
 
 
     for (const card of nonNewCardInfo) {
-      const cardDiv = tooltipBuilder.buildCardDiv(character, card);
+      const cardDiv = tooltipBuilder.buildCardDiv(card, character);
       if (count >= 1) {
         cardDiv.classList.add("kanji-hover-tooltip--not-first");
       }
@@ -158,7 +165,7 @@ const JPMNKanjiHover = (() => {
     }
 
     for (const card of newCardInfo) {
-      const cardDiv = tooltipBuilder.buildCardDiv(character, card, isNew=true);
+      const cardDiv = tooltipBuilder.buildCardDiv(card, character, isNew=true);
       if (count >= 1) {
         cardDiv.classList.add("kanji-hover-tooltip--not-first");
       }
@@ -200,7 +207,7 @@ const JPMNKanjiHover = (() => {
   // some code shamelessly stolen from cade's kanji hover:
   // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
 
-  async function kanjiHover(tooltipBuilder) {
+  async function kanjiHover(tooltipBuilder, ankiConnectHelper) {
 
     if (kanjiHoverEnabled) {
       logger.debug("Kanji hover is already enabled");
@@ -243,7 +250,7 @@ const JPMNKanjiHover = (() => {
     // only calls the api on the needed kanjis
     const kanjiArr = [...kanjiSet];
     const queryResults = await cardQueries(kanjiArr);
-    const cardsInfo = await getCardsInfo(queryResults);
+    const cardsInfo = await getCardsInfo(queryResults, ankiConnectHelper);
 
     logger.debug(`New kanjis: [${kanjiArr.join(", ")}]`)
 
@@ -277,10 +284,11 @@ const JPMNKanjiHover = (() => {
   class JPMNKanjiHover {
     constructor() {
       this.tooltipBuilder = new JPMNTooltipBuilder();
+      this.ankiConnectHelper = new JPMNAnkiConnectActions();
     }
 
     async run() {
-      kanjiHover(this.tooltipBuilder);
+      kanjiHover(this.tooltipBuilder, this.ankiConnectHelper);
     }
   }
 
@@ -300,15 +308,15 @@ const JPMNKanjiHover = (() => {
 
 // only continues if kanji-hover is actually enabled
 if ({{ utils.opt("modules", "kanji-hover", "enabled") }}) {
-  const kanji_hover = new JPMNKanjiHover()
+  const kanjiHover = new JPMNKanjiHover()
   if ({{ utils.opt("modules", "kanji-hover", "mode") }} === 0) {
-    kanji_hover.run();
+    kanjiHover.run();
   } else { // === 1
     const wordReading = document.getElementById("dh_reading");
     wordReading.onmouseover = function() {
       // replaces the function with a null function to avoid calling this function
       wordReading.onmouseover = function() {}
-      kanji_hover.run();
+      kanjiHover.run();
     }
   }
 }

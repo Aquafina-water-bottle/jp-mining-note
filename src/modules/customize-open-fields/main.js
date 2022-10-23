@@ -1,13 +1,4 @@
 
-/// {% set globals %}
-
-// note that this cache will NOT respect card review undos,
-// but that should be a niche enough case to not warrent caching.
-// maps key -> bool
-var isNewCardCache = nullish(isNewCardCache, {});
-
-/// {% endset %}
-
 
 
 
@@ -69,7 +60,7 @@ const JPMNOpenFields = (() => {
     }
   }
 
-  async function openOnNew() {
+  async function openOnNew(ankiconnectHelper) {
     if (openOnNewEnabled) {
       logger.debug("Open On New is already enabled");
       return;
@@ -89,47 +80,7 @@ const JPMNOpenFields = (() => {
       return;
     }
 
-    // cancels if not new
-    // refreshes on every new check, b/c one cannot assume that a card
-    // is no longer new once you see a new card
-    // (editing a new card will consistently refresh the currently new card)
-    const key = "{{ T('Key') }}";
-    if (key in isNewCardCache && !isNewCardCache[key]) {
-      logger.debug("Key in new card cache and is not new.");
-      return;
-    }
-
-    logger.debug("Testing for new card...");
-
-    function constructFindCardAction(query) {
-      return {
-        "action": "findCards",
-        "params": {
-          "query": query,
-        }
-      }
-    }
-
-    // constructs the multi findCards request for ankiconnect
-    let actions = [];
-    const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
-    actions.push(constructFindCardAction(`"Key:${key}" "card:${cardTypeName}"`));
-    actions.push(constructFindCardAction(`is:new "Key:${key}" "card:${cardTypeName}"`));
-
-    const multi = await invoke("multi", {"actions": actions});
-    const cards = multi[0];
-
-    if (cards.length > 1) {
-      logger.warn("Duplicate key found.", isHtml=false, unique=true);
-      return;
-    }
-    if (cards.length == 0) {
-      logger.error("Cannot find its own card?");
-      return;
-    }
-
-    const isNew = (multi[1].length > 0);
-    isNewCardCache[key] = isNew;
+    const isNew = await ankiconnectHelper.cardIsNew();
 
     if (isNew) {
       logger.debug("Card is new, opening fields...");
@@ -145,11 +96,13 @@ const JPMNOpenFields = (() => {
 
 
   class JPMNOpenFields {
-    constructor() { }
+    constructor() {
+      this.ankiconnectHelper = new JPMNAnkiConnectActions();
+    }
 
     async run() {
       openAlways();
-      openOnNew();
+      openOnNew(this.ankiconnectHelper);
     }
   }
 

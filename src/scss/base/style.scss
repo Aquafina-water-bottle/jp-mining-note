@@ -774,6 +774,7 @@ ruby rt {
   padding: 0.52em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
+  position: relative;
 }
 
 /* PA cards only */
@@ -795,6 +796,14 @@ ruby rt {
   margin-top: 15px;
   font-size: 23px;
   vertical-align: middle;
+}
+
+.dh-left__same-reading-indicator {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 15px;
+  display: none; /* so it's not shown and doesn't affect the card without javascript */
 }
 
 

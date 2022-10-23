@@ -10,6 +10,17 @@
   {# border_class can be "dh-left--blue-border" #}
   <div class="dh-left {{ border_class }}" id="dh_left">
 
+    <div class="dh-left__same-reading-indicator" id="same_reading_indicator">
+      <span class="kanji-hover-wrapper">
+{% filter indent(6) %}
+{% include "jp-mining-note/partials/info_circle_svg.html" %}
+{% endfilter %}
+        <span class="kanji-hover-tooltip-wrapper">
+          <span class="kanji-hover-tooltip" id="same_reading_indicator_tooltip"> ... </span>
+        </span>
+      </span>
+    </div>
+
     <div class="dh-left__reading" id="dh_reading"> {{ T("furigana:WordReading") }} </div>
 
     <div class="dh-left__word-pitch {{word_pitch_class}}" id="dh_word_pitch">

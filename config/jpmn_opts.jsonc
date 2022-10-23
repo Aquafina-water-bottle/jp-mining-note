@@ -250,7 +250,13 @@
         //"Extra Definitions",
         "Extra Info"
       ]
+    },
+
+    // Shows an indicator if the reading (WordReadingHiragana field) is the same as another card
+    "same-reading-indicator": {
+      "enabled": true
     }
+
   },
 
 

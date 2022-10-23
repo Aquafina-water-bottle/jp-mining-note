@@ -32,6 +32,7 @@ from utils import invoke
 
 rx_END_DIV = re.compile(r'</div>$')
 rx_FREQ_INNER2 = re.compile(r'<span class="frequencies__dictionary-inner2">(.*?)</span>')
+rx_FURIGANA = re.compile(r" ?([^ >]+?)\[(.+?)\]");
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -351,6 +352,47 @@ def standardize_frequencies_styling():
         }
 
         actions.append(action)
+
+    notes = invoke("multi", actions=actions)
+
+
+def _get_kana_from_plain_reading(plain_reading):
+    result = plain_reading.replace("&nbsp;", " ")
+    result = rx_FURIGANA.sub(r'\2', result, count=0)
+    result = result.strip()
+
+    return result
+
+
+def fill_word_reading_hiragana_field():
+    #print(_get_kana_from_plain_reading("成[な]り 立[た]つ"))
+
+    import jaconv
+
+    query = r'"note:JP Mining Note" -WordReading:'
+    notes = invoke("findNotes", query=query)
+    notes_info = invoke("notesInfo", notes=notes)
+
+    actions = []
+    for info in notes_info:
+        field_val = info["fields"]["WordReading"]["value"]
+        reading = _get_kana_from_plain_reading(field_val)
+        # standardizes all katakana -> hiragana
+        # NOTE: doesn't convert long katakana marks unfortunately
+        hiragana = jaconv.kata2hira(reading)
+
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": info["noteId"],
+                    "fields": {"WordReadingHiragana": hiragana},
+                }
+            },
+        }
+
+        actions.append(action)
+        print(field_val, hiragana)
 
     notes = invoke("multi", actions=actions)
 

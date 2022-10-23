@@ -124,6 +124,7 @@ CONFIG = {
             "img-utils",
 
             "customize-open-fields",
+            "same-reading-indicator",
         ],
     },
 }

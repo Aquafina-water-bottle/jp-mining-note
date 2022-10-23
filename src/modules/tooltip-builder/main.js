@@ -8,16 +8,17 @@
 const JPMNTooltipBuilder = (() => {
   // taken directly from anki's implementation of { {furigana:...} }
   // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-  function buildWordDiv(character, wordReading) {
+  function buildWordDiv(wordReading, character) {
 
     const wordDiv = document.createElement('div');
     const re = / ?([^ >]+?)\[(.+?)\]/g
 
-    //let wordReadingRuby = wordReading.replaceAll("&nbsp;", " ");
     let wordReadingRuby = wordReading.replace(/&nbsp;/g, " ");
     wordReadingRuby = wordReadingRuby.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
-    //wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
-    wordReadingRuby = wordReadingRuby.replace(new RegExp(character, "g"), `<b>${character}</b>`);
+
+    if (character !== null) {
+      wordReadingRuby = wordReadingRuby.replace(new RegExp(character, "g"), `<b>${character}</b>`);
+    }
 
     wordDiv.innerHTML = wordReadingRuby;
     return wordDiv;
@@ -49,9 +50,9 @@ const JPMNTooltipBuilder = (() => {
     return sentenceDiv;
   }
 
-  function _buildCardDiv(character, card, isNew=false) {
+  function _buildCardDiv(card, character, isNew=false) {
     const cardDiv = document.createElement('div');
-    const wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
+    const wordDiv = buildWordDiv(card["fields"]["WordReading"]["value"], character);
     const sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
 
     cardDiv.appendChild(wordDiv);
@@ -67,8 +68,8 @@ const JPMNTooltipBuilder = (() => {
   class JPMNTooltipBuilder {
     constructor() {}
 
-    buildCardDiv(character, card, isNew=false) {
-      return _buildCardDiv(character, card, isNew);
+    buildCardDiv(card, character, isNew=false) {
+      return _buildCardDiv(card, character, isNew);
     }
   }
 

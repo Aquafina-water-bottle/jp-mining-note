@@ -1,0 +1,17 @@
+{# same reading module: adds indicator when the reading is the same #}
+
+
+{% import "modules/same-reading-indicator/main.js" as js with context %}
+
+
+{# required boilerplate #}
+{% set MOD = namespace() %}
+{% set MOD.id = "same-reading-indicator" %}
+{% set MOD.dependencies = ["anki-connect-actions", "tooltip-builder"] %}
+
+{# interface for modules that change javascript #}
+{% set MOD.js = JavascriptContainer(MOD.id) %}
+{{ MOD.js.globals.set_all(js.globals) }}
+{{ MOD.js.functions.set_back(js.functions) }}
+{{ MOD.js.run.set_back(js.run) }}
+
