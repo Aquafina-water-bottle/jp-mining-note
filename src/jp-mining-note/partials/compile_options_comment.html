@@ -9,7 +9,12 @@ See https://aquafina-water-bottle.github.io/jp-mining-note/modding/
 if you want to modify the card templates and css without losing your changes
 upon updates.
 
-{% set card_json = {"compile-options": COMPILE_OPTIONS.dict()} -%}
+{# list() isn't available? #}
+{%- set _enabled_modules = [] -%}
+{%- for m in modules.modules.keys() -%}
+  {%- do _enabled_modules.append(m) -%}
+{%- endfor -%}
+{%- set card_json = {"compile-options": COMPILE_OPTIONS.dict(), "modules-used": _enabled_modules} -%}
 
 JPMN-COMPILE-TIME-OPTIONS-JSON:
 {{ card_json | tojson(indent=2) }}

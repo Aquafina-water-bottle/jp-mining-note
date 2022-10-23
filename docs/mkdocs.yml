@@ -62,12 +62,13 @@ nav:
   - Getting Started:
     - Preface: preface.md
     - Alternatives: alternatives.md
-    - "Setup: Anki & Yomichan": setup.md
+    - "Setup: Anki & Yomichan ★": setup.md
     - "Setup: Everything Else": setupeverythingelse.md
     - Transfer Existing Notes: importing.md
     - Updating: updating.md
   - Reference:
-    - Usage: usage.md
+    - "User Interface ★": ui.md
+    - "Usage ★": usage.md
     - Card Types: cardtypes.md
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Runtime Options (TODO): runtimeoptions.md
@@ -105,6 +106,8 @@ markdown_extensions:
   - md_in_html
 
   - footnotes
+
+  - pymdownx.tasklist
 
   # content tabs (left sidebar)
   #- pymdownx.superfences

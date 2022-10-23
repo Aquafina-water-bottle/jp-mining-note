@@ -1,11 +1,11 @@
 {# gathers all the modules together in one `modules` variable #}
 
-{% set modules = {}%}
+{% set modules = {} %}
 {% set _module_ids = [] %}
 
 {% if COMPILE_OPTIONS("allow-user-defined-modules").item() %}
 
-  {% set _module_ids = COMPILE_OPTIONS("enabled-modules").list() %}
+  {% do _module_ids.extend(COMPILE_OPTIONS("enabled-modules").list()) %}
 
 {% else %}
   {# ORDER MATTERS HERE! #}
@@ -19,6 +19,36 @@
   {% endfor %}
 
 {% endif %}
+
+
+
+{# searches for dependencies (this is just a basic DFS) #}
+{% macro _visit_node(node, visited_cache) %}
+  {% if node not in visited_cache %}
+    {% do visited_cache.append(node) %}
+    {% set mod_path = ("modules/" + node + "/main.html") %}
+    {% from mod_path import MOD as m with context %}
+    {% if m.dependencies is defined %}
+      {% for dep in m.dependencies %}
+        {{ _visit_node(dep, visited_cache) }}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endmacro %}
+
+{% macro _update_module_ids_with_deps() %}
+
+  {% set _visited_cache = [] %} {# shallow copy #}
+  {% for mid in _module_ids %}
+    {{ _visit_node(mid, _visited_cache) }}
+  {% endfor %}
+  {{ _module_ids.clear() }}
+  {{ _module_ids.extend(_visited_cache) }}
+
+{% endmacro %}
+
+{{ _update_module_ids_with_deps() }}
+
 
 {% for mod_name in _module_ids %}
 

@@ -1,4 +1,6 @@
 
+# Overview
+
 A full sentence mining workflow requires two main parts:
 
 1. Text to make the cards from.
@@ -24,7 +26,7 @@ page.
 It is highly recommend that you are using the latest Anki version
 (or as close as you can get to the latest Anki version), as the note is primarily tested
 and maintained on the latest versions of Anki.
-Additionally, it is recommeded to use the Qt6 version of Anki if possible.
+Additionally, it is recommended to use the Qt6 version of Anki if possible.
 
 !!! note
     Worst case scenario, if any essential add-ons no longer work,
@@ -35,7 +37,7 @@ Similarly, if you downloaded Yomichan from a file, try updating that as well.
 nothing has to be done).
 
 Finally, notice that this website contains a search bar!
-If you have a problem at any point, you may find the solution by searching for it.
+If you have a problem at any point, you might find the solution by searching for it.
 
 ---
 
@@ -213,10 +215,9 @@ To download an add-on, copy the add-on's code, and navigate to the following to 
 
 ## Required Anki Add-ons
 
-### Anki-Connect
+### [Anki-Connect](https://ankiweb.net/shared/info/2055492159)
 
-[(Official page)](https://ankiweb.net/shared/info/2055492159)
-Code: `2055492159`
+> Code: `2055492159`
 
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the add-on.
@@ -259,9 +260,9 @@ and choosing the add-ons that seem appealing for you.
 <br>
 
 
-### CSS Injector
-[(Official page)](https://ankiweb.net/shared/info/181103283)
-Code: `181103283`
+### [CSS Injector](https://ankiweb.net/shared/info/181103283)
+
+> Code: `181103283`
 
 I *strongly* recommend using this, because
 if you don't use this, the fields within the Anki field editor
@@ -373,9 +374,9 @@ and delete both `css` files.
 
 
 
-### AJT Furigana
-[(Official page)](https://ankiweb.net/shared/info/1344485230)
-Code: `1344485230`
+### [AJT Furigana](https://ankiweb.net/shared/info/1344485230)
+
+> Code: `1344485230`
 
 Alternative and up-to-date version of JapaneseSupport.
 Automatically generates furigana upon Yomichan card creation.
@@ -454,19 +455,19 @@ to make sure they are correct.
 
 ??? info "JapaneseSupport v.s. AJT Furigana"
 
-    If you use `JapaneseSupport`, bolded words and other styles within a field
+    If you use [JapaneseSupport](https://ankiweb.net/shared/info/3918629684), bolded words and other styles within a field
     are not transferred over from the original field to the reading field.
-    Additionally, `JapaneseSupport` does not have an option to automatically add
+    Additionally, JapaneseSupport does not have an option to automatically add
     the reading upon card creation.
-    `AJT Furigana` supports both of those of those features.
+    AJT Furigana supports both of those of those features.
 
 
 
 <br>
 
-### AJT Pitch Accent
-[(Official page)](https://ankiweb.net/shared/info/1225470483)
-Code: `1225470483`
+### [AJT Pitch Accent](https://ankiweb.net/shared/info/1225470483)
+
+> Code: `1225470483`
 
 Automatically adds pitch accent info given the word.
 
@@ -819,7 +820,7 @@ If you already have a sentence mining workflow set up,
 outside of some potentially minor tweaks to your current workflow (i.e. to match the field names),
 **you are now finished**!
 All that's left is understanding how to use and edit the card itself.
-Head over to [Usage](usage.md) to see exactly that.
+See the [User Interface](ui.md) and [Usage](usage.md) pages to see exactly that.
 
 
 

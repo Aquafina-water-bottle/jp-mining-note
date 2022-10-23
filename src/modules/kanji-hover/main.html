@@ -8,6 +8,8 @@
 {% set MOD.id = "kanji-hover" %}
 
 {% set MOD.js = JavascriptContainer(MOD.id) %}
+{% set MOD.dependencies = ["tooltip-builder"] %}
+
 
 {{ MOD.js.globals.set_all(js.globals) }}
 {{ MOD.js.functions.set_back(js.functions) }}

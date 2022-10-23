@@ -116,65 +116,7 @@ const JPMNKanjiHover = (() => {
   }
 
 
-  // taken directly from anki's implementation of { {furigana:...} }
-  // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-  function buildWordDiv(character, wordReading) {
-
-    const wordDiv = document.createElement('div');
-    const re = / ?([^ >]+?)\[(.+?)\]/g
-
-    //let wordReadingRuby = wordReading.replaceAll("&nbsp;", " ");
-    let wordReadingRuby = wordReading.replace(/&nbsp;/g, " ");
-    wordReadingRuby = wordReadingRuby.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
-    //wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
-    wordReadingRuby = wordReadingRuby.replace(new RegExp(character, "g"), `<b>${character}</b>`);
-
-    wordDiv.innerHTML = wordReadingRuby;
-    return wordDiv;
-  }
-
-  function buildSentDiv(sentence) {
-    const sentenceSpan = document.createElement('span');
-
-    let resultSent = sentence;
-    //resultSent = resultSent.replaceAll("<b>", "");
-    //resultSent = resultSent.replaceAll("</b>", "");
-    resultSent = resultSent.replace(/<b>/g, "");
-    resultSent = resultSent.replace(/<\/b>/g, "");
-    sentenceSpan.innerHTML = resultSent;
-
-    const openQuote = document.createElement('span');
-    openQuote.innerText = "「";
-    const closeQuote = document.createElement('span');
-    closeQuote.innerText = "」";
-
-
-    const sentenceDiv = document.createElement('div');
-    sentenceDiv.classList.add("left-align-quote");
-
-    sentenceDiv.appendChild(openQuote);
-    sentenceDiv.appendChild(sentenceSpan);
-    sentenceDiv.appendChild(closeQuote);
-
-    return sentenceDiv;
-  }
-
-  function buildCardDiv(character, card, isNew=false) {
-    const cardDiv = document.createElement('div');
-    const wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
-    const sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
-
-    cardDiv.appendChild(wordDiv);
-    cardDiv.appendChild(sentenceDiv);
-
-    if (isNew) {
-      cardDiv.classList.add("kanji-hover-tooltip--new");
-    }
-
-    return cardDiv;
-  }
-
-  function buildString(character, nonNewCardInfo, newCardInfo) {
+  function buildString(character, nonNewCardInfo, newCardInfo, tooltipBuilder) {
 
     /*
      * <span class="kanji-hover-wrapper">
@@ -206,7 +148,7 @@ const JPMNKanjiHover = (() => {
 
 
     for (const card of nonNewCardInfo) {
-      const cardDiv = buildCardDiv(character, card);
+      const cardDiv = tooltipBuilder.buildCardDiv(character, card);
       if (count >= 1) {
         cardDiv.classList.add("kanji-hover-tooltip--not-first");
       }
@@ -216,7 +158,7 @@ const JPMNKanjiHover = (() => {
     }
 
     for (const card of newCardInfo) {
-      const cardDiv = buildCardDiv(character, card, isNew=true);
+      const cardDiv = tooltipBuilder.buildCardDiv(character, card, isNew=true);
       if (count >= 1) {
         cardDiv.classList.add("kanji-hover-tooltip--not-first");
       }
@@ -258,7 +200,7 @@ const JPMNKanjiHover = (() => {
   // some code shamelessly stolen from cade's kanji hover:
   // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
 
-  async function kanjiHover() {
+  async function kanjiHover(tooltipBuilder) {
 
     if (kanjiHoverEnabled) {
       logger.debug("Kanji hover is already enabled");
@@ -310,7 +252,7 @@ const JPMNKanjiHover = (() => {
       let newCardInfo = cardsInfo[i*2 + 1];
 
       // attempts to insert string
-      kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo);
+      kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo, tooltipBuilder);
       wordReadings[character] = getWordReadings(nonNewCardInfo, newCardInfo);
     }
 
@@ -333,10 +275,12 @@ const JPMNKanjiHover = (() => {
 
 
   class JPMNKanjiHover {
-    constructor() {}
+    constructor() {
+      this.tooltipBuilder = new JPMNTooltipBuilder();
+    }
 
     async run() {
-      kanjiHover();
+      kanjiHover(this.tooltipBuilder);
     }
   }
 

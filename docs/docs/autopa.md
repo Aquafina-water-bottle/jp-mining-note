@@ -69,17 +69,24 @@ in [options file](runtimeoptions.md){:target="_blank"}:
 # Colored Pitch Accent
 
 The reading, word and pitch overline can be automatically colored
-in Migaku style colors.
+in Migaku style colors, according to the pitch accent.
 
 This automatic coloring behavior is **disabled by default**,
 and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
 
-```json
-"colored-pitch-accent": {
-  "enabled": true,
-  // ...
-}
-```
+??? examplecode "Enabling colored pitch accent *(click here)*"
+    ```json
+    "auto-pitch-accent": {
+      "enabled": true, // (1)!
+      "colored-pitch-accent": {
+        "enabled": true,
+        // ...
+      }
+      // ...
+    }
+    ```
+
+    1.  The `auto-pitch-accent` module must be enabled to use colored pitch accent.
 
 ![type:video](assets/pa_override_color.mp4)
 

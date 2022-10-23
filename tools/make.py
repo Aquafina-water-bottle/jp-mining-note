@@ -41,7 +41,7 @@ class TextContainer:
     # - prevents repeatedly having to set the variable to the same thing
     #   on each initialization
     # - var set in the main function of this script
-    enabled_modules: list = []
+    #enabled_modules: list = []
 
     def __init__(self, module_name: str):
         self.module_name = module_name
@@ -95,8 +95,11 @@ class TextContainer:
         x, y = self._get_indices(card_type, side)
         return self.matx[x][y]
 
-    def get(self, card_type: str, side: str) -> str:
-        if self.module_name in TextContainer.enabled_modules:
+    def get(self, card_type: str, side: str, enabled_modules: list[str]) -> str:
+        #if self.module_name in TextContainer.enabled_modules:
+        #    return self._get(card_type, side)
+        #return ""
+        if self.module_name in enabled_modules:
             return self._get(card_type, side)
         return ""
 
@@ -170,6 +173,7 @@ class Generator:
             # helper classes
             "JavascriptContainer": JavascriptContainer,
             "TextContainer": TextContainer,
+            "_print": print,
         }
 
     def set_data(self, key, value):
@@ -282,7 +286,7 @@ def main(args=None):
     )
     search_folders = [overrides_folder, templates_folder]
 
-    TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
+    #TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
 
     generator = Generator(
         search_folders,

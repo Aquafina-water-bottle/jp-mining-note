@@ -20,20 +20,19 @@ by simply installing a new version of the .apkg package,
 and must use `./install.py --update`.
 
 
-<!--
-Following semantic versioning, the 2nd number is bumped when any
-BREAKING changes occur.
 
-"Breaking" in this case, is defined when someone has to perform any action
-outside of running `./install.py --update` for the card to work properly.
+## [0.11.0.0] - 2022-10-??
+#### Breaking Changes
+- Added field: `WordReadingHiragana`
 
-The following are examples breaking changes:
-- Changes to anki plugin configs
-- Changes to yomichan templates / format
--->
+#### Features
+- TODO
+
+#### Internal Changes
+- Added a simple dependencies system for modules, so functions can be shared easier between modules
 
 
-## [0.10.3.0] - 2022-10-??
+## [0.10.3.0] - 2022-10-21
 
 #### Features
 - Added some documentation links to common errors / warnings that can appear

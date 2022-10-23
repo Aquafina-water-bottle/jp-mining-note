@@ -36,15 +36,18 @@ The classic texthooker setup works for most games, and any show with subtitle fi
 These pages display the hooked content.
 Most setups documented are for clipboard based texthooker pages.
 
-* [Anacreon's Texthooker Page](https://anacreondjt.gitlab.io/docs/texthooker/) (recommended)
-* [TMW's Texthooker Page](https://learnjapanese.moe/texthooker.html)
+??? example "Resources *(click here)*"
+    * [Anacreon's Texthooker Page](https://anacreondjt.gitlab.io/docs/texthooker/) (recommended)
+    * [TMW's Texthooker Page](https://learnjapanese.moe/texthooker.html)
 
-**Guides:**
+??? example "Guides *(click here)*"
+    * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) (recommended)
+    * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
+    * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
+    * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/)
 
-* [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) (recommended)
-* [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
-* [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
-* [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/)
+
+---
 
 
 ## Texthooker pages (Websocket based)
@@ -58,148 +61,158 @@ For example, if you want to use Textractor, use
 [this](https://github.com/sadolit/textractor-websocket)
 extension.
 
-### [exSTATic](https://github.com/KamWithK/exSTATic/)
-* Custom texthooker page, automatically collects stats for viewing
+??? example "Resources *(click here)*"
 
-### Patch Instructions for existing clipboard-based texthookers
+    ### [exSTATic](https://github.com/KamWithK/exSTATic/)
+    * Custom texthooker page, automatically collects stats for viewing
 
-1. Download your favorite texthooker page into a raw html file.
-1. Copy/paste the code below into the raw html file.
-1. If you are currently viewing the page, refresh.
+    ### Patch Instructions for existing clipboard-based texthookers
 
-??? examplecode "Click here to reveal the patch"
-    ```javascript
-    <script>
-      let socket = null;
-      let wsStatusElem = null;
+    1. Download your favorite texthooker page into a raw html file.
+    1. Copy/paste the code below into the raw html file.
+    1. If you are currently viewing the page, refresh.
 
-      const createStatusElem = () => {
-        wsStatusElem = document.createElement("span")
-        let node = document.getElementById('menu').firstChild
-        wsStatusElem.setAttribute("class", "menuitem")
-        wsStatusElem.addEventListener('click', (e) => {
-          if(wsStatusElem.innerText == "Reconnect") {
-            connect()
+    ??? examplecode "Click here to reveal the patch"
+        ```javascript
+        <script>
+          let socket = null;
+          let wsStatusElem = null;
+
+          const createStatusElem = () => {
+            wsStatusElem = document.createElement("span")
+            let node = document.getElementById('menu').firstChild
+            wsStatusElem.setAttribute("class", "menuitem")
+            wsStatusElem.addEventListener('click', (e) => {
+              if(wsStatusElem.innerText == "Reconnect") {
+                connect()
+              }
+            })
+            node.insertBefore(wsStatusElem, node.firstChild)
           }
-        })
-        node.insertBefore(wsStatusElem, node.firstChild)
-      }
 
-      const updateStatus = (connected) => {
-        if(wsStatusElem === null) { createStatusElem() }
-        wsStatusElem.innerText = connected ? "Connected" : "Reconnect"
-        wsStatusElem.style.cssText = "margin-right: 1.5em; display: inline-block;"
-        wsStatusElem.style.cssText += connected ? "color:rgb(24, 255, 24);" : "color:rgb(255, 24, 24);"
-      }
+          const updateStatus = (connected) => {
+            if(wsStatusElem === null) { createStatusElem() }
+            wsStatusElem.innerText = connected ? "Connected" : "Reconnect"
+            wsStatusElem.style.cssText = "margin-right: 1.5em; display: inline-block;"
+            wsStatusElem.style.cssText += connected ? "color:rgb(24, 255, 24);" : "color:rgb(255, 24, 24);"
+          }
 
-      const connect = () => {
-        socket = new WebSocket("ws://localhost:6677/")
-        socket.onopen = (e) => { updateStatus(true) }
-        socket.onclose = (e) => { updateStatus(false) }
-        socket.onerror = (e) => { updateStatus(false); console.log(`[error] ${e.message}`) }
-        socket.onmessage = (e) => {
-          let container = document.getElementById('textlog')
-          let textNode = document.createElement("p")
-          textNode.innerText = e.data
-          document.body.insertBefore(textNode, null)
-        }
-      }
-      connect()
-    </script>
-    ```
-    <sup>
-    ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on [TMW server](https://learnjapanese.moe/join/). Thanks Zetta#3033 for the code.)
-    </sup>
+          const connect = () => {
+            socket = new WebSocket("ws://localhost:6677/")
+            socket.onopen = (e) => { updateStatus(true) }
+            socket.onclose = (e) => { updateStatus(false) }
+            socket.onerror = (e) => { updateStatus(false); console.log(`[error] ${e.message}`) }
+            socket.onmessage = (e) => {
+              let container = document.getElementById('textlog')
+              let textNode = document.createElement("p")
+              textNode.innerText = e.data
+              document.body.insertBefore(textNode, null)
+            }
+          }
+          connect()
+        </script>
+        ```
+        <sup>
+        ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on [TMW server](https://learnjapanese.moe/join/). Thanks Zetta#3033 for the code.)
+        </sup>
 
-!!! note
-    This was written for Anacreon's texthooker page.
-    However, it will likely work for most other texthooker pages.
+    !!! note
+        This patch was written for Anacreon's texthooker page.
+        However, it will likely work for most other texthooker pages.
 
+
+---
 
 
 ## Text from game-like content
-* [Textractor](https://github.com/Artikash/Textractor) (recommended)
-* [agent](https://github.com/0xDC00/agent)
-    * This is a good fallback for when Textractor doesn't work
+The following are primarily for text-heavy games, such as visual novels.
 
-**Guides:**
+??? example "Resources *(click here)*"
+    * [Textractor](https://github.com/Artikash/Textractor) (recommended)
+    * [agent](https://github.com/0xDC00/agent)
+        * This is a good fallback for when Textractor doesn't work
 
-* [TMW: Installing Visual Novels](https://learnjapanese.moe/vn-setup/)
-* [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
-* [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/) (slightly outdated compared to others)
-* [Lazy Guide: Playing Visual Novels on Mobile](https://rentry.co/lazyXel#play-visual-novel-anywhere-with-yomichan-and-mining)
-* [Playing Emulated DS, 3DS, PSP and Gameboy Advanced games on Android devices](https://docs.google.com/document/d/1iUfG_omRDaC3huup_XuAg1ztt2VSkezI2kL-O-Pf3-4/edit?usp=sharing)
-    * Contact info: `OrangeLightX#2907` <!-- 1011824983351250965 -->
-        on the Refold (JP) Discord server or [TMW server](https://learnjapanese.moe/join/)
+??? example "Guides *(click here)*"
+    * [TMW: Installing Visual Novels](https://learnjapanese.moe/vn-setup/)
+    * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
+    * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/) (slightly outdated compared to others)
+    * [Lazy Guide: Playing Visual Novels on Mobile](https://rentry.co/lazyXel#play-visual-novel-anywhere-with-yomichan-and-mining)
+    * [Playing Emulated DS, 3DS, PSP and Gameboy Advanced games on Android devices](https://docs.google.com/document/d/1iUfG_omRDaC3huup_XuAg1ztt2VSkezI2kL-O-Pf3-4/edit?usp=sharing)
+        * Contact info: `OrangeLightX#2907` <!-- 1011824983351250965 -->
+            on the Refold (JP) Discord server or [TMW server](https://learnjapanese.moe/join/)
 
 
 
-## Text from videos
-* [mpvacious](https://github.com/Ajatt-Tools/mpvacious) (recommended if you are using MPV)
-* [Immersive](https://github.com/Ben-Kerman/immersive)
-* [asbplayer](https://github.com/killergerbah/asbplayer) (Built-in texthooker page)
-* [Animebook](https://github.com/animebook/animebook.github.io) (Built-in texthooker page)
-* All of the above require subtitle files to function. Most anime subtitle files can be found under
-    [kitsuneko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F).
+## Text from video content
+Video content includes streamed content (Youtube, Netflix, etc.) and locally downloaded files.
 
-**Guides:**
+??? example "Resources *(click here)*"
+    * [mpvacious](https://github.com/Ajatt-Tools/mpvacious) (recommended if you are using MPV)
+    * [Immersive](https://github.com/Ben-Kerman/immersive)
+    * [asbplayer](https://github.com/killergerbah/asbplayer) (Built-in texthooker page)
+    * [Animebook](https://github.com/animebook/animebook.github.io) (Built-in texthooker page)
+    * All of the above require subtitle files to function. Most anime subtitle files can be found under
+        [kitsuneko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F).
 
-* [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (asbplayer)
-    * Contact info: `boundary-of-emptiness#3065` <!-- 152563705345867778 -->
-        on the Refold (JP) Discord server
-* [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub) (asbplayer)
-    * Contact info: `Tigy01#1231` <!-- 451194927515172864 -->
-        on the Refold (JP) Discord server
-* [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/) (animebook)
-    * Contact info: `eminent#8189` <!-- 126903585152827392 -->
-        on [Perdition's server](https://discord.gg/uK4HeGN) or [TMW server](https://learnjapanese.moe/join/))
+??? example "Guides *(click here)*"
+    * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (asbplayer)
+        * Contact info: `boundary-of-emptiness#3065` <!-- 152563705345867778 -->
+            on the Refold (JP) Discord server
+    * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub) (asbplayer)
+        * Contact info: `Tigy01#1231` <!-- 451194927515172864 -->
+            on the Refold (JP) Discord server
+    * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/) (animebook)
+        * Contact info: `eminent#8189` <!-- 126903585152827392 -->
+            on [Perdition's server](https://discord.gg/uK4HeGN) or [TMW server](https://learnjapanese.moe/join/))
 
+---
 
 
 ## Text from manga (Mokuro)
 [mokuro](https://github.com/kha-white/mokuro) pre-processes manga, so you don't have to run
 any OCR program afterwards.
 
-**Guides:**
+??? example "Guides *(click here)*"
+    - [Lazy guide (recommended)](https://rentry.co/lazyXel#manga-with-yomichan)
+        - (For Windows users) Make sure to check the "Add Python to Path" on install.
+        - If you are using online processing (google colab), be sure that you are
+          [using the gpu](https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm)
+          to speed up the process.
+    - [Josuke's mokuro setup guide](https://docs.google.com/document/d/1ddUINNHZoln6wXGAiGiVpZb4QPtonEy-jgrT1zQbXow/edit?usp=sharing)
+        - Contact info: `Josuke#7212` <!-- 190480221135306752 -->
+            on the Refold (JP) Discord server
+        - This doesn't include instructions on how to process online (whereas the Lazy guide does)
+    - If you are on Android, this can be paired with
+        [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
+        to create Anki cards.
 
-- [Lazy guide (recommended)](https://rentry.co/lazyXel#manga-with-yomichan)
-    - (For Windows users) Make sure to check the "Add Python to Path" on install.
-    - If you are using online processing (google colab), be sure that you are
-      [using the gpu](https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm)
-      to speed up the process.
-- [Josuke's mokuro setup guide](https://docs.google.com/document/d/1ddUINNHZoln6wXGAiGiVpZb4QPtonEy-jgrT1zQbXow/edit?usp=sharing)
-    - Contact info: `Josuke#7212` <!-- 190480221135306752 -->
-        on the Refold (JP) Discord server
-    - This doesn't include instructions on how to process online (whereas the Lazy guide does)
-- If you are on Android, this can be paired with
-    [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
-    to create Anki cards.
+    If any error occurs, check the following:
 
-If any error occurs, check the following:
+    - Check your Python version (`python --version`, or `python3 --version`).
+        Python 3.10 is [not supported yet](https://github.com/kha-white/mokuro#installation).
 
-- Check your Python version (`python --version`, or `python3 --version`).
-    Python 3.10 is [not supported yet](https://github.com/kha-white/mokuro#installation).
+        If your Python version is too old, I recommend using [pyenv](https://github.com/pyenv/pyenv),
+        especially for Linux users. Linux users can use the
+        [automatic installer](https://github.com/pyenv/pyenv#automatic-installer).
 
-    If your Python version is too old, I recommend using [pyenv](https://github.com/pyenv/pyenv),
-    especially for Linux users. Linux users can use the
-    [automatic installer](https://github.com/pyenv/pyenv#automatic-installer).
+    - Make sure your directory is a string and not a number. For example, `mokuro ./01` on unix, and `mokuro .\01` on Windows.
 
-- Make sure your directory is a string and not a number. For example, `mokuro ./01` on unix, and `mokuro .\01` on Windows.
+---
 
 
 ## Text from local files (EPUBs, HTMLZ, PDF)
 As long as you're not using a scan (image-based), the text should already be available.
 The following are ways to view these files in a browser to Yomichan:
 
-* [ッツ Ebook Reader](https://ttu-ebook.web.app/) (EPUBs, HTMLZ)
-* [Mozilla's PDF Viewer](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
+??? example "Resources *(click here)*"
+    * [ッツ Ebook Reader](https://ttu-ebook.web.app/) (EPUBs, HTMLZ)
+    * [Mozilla's PDF Viewer](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
 
-**Guides:**
-
-- Like with Mokuro,
-    if you are on Android, this can be paired with
-    [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
-    to create Anki cards.
+??? example "Guides *(click here)*"
+    - Like with Mokuro,
+        if you are on Android, this can be paired with
+        [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
+        to create Anki cards.
 
 
 
@@ -212,7 +225,7 @@ The following are ways to view these files in a browser to Yomichan:
 * Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
 * Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
 * You can now [extract the video clip itself](https://github.com/Ajatt-Tools/mpvacious/pull/78)
-    instead of the picture.
+    instead of the picture. However, this note does not support video clips yet.
 
     ??? examplecode "Click here to see some basic config changes to get it working with JPMN."
 
@@ -228,7 +241,6 @@ The following are ways to view these files in a browser to Yomichan:
         audio_field=SentenceAudio
         image_field=Picture
         ```
-
 
 ## [Immersive](https://github.com/Ben-Kerman/immersive)
 
@@ -278,6 +290,4 @@ The following are ways to view these files in a browser to Yomichan:
 
 * Android e-book reader and media player, which can also create Anki cards (among many, many other things).
 * Note that this app does NOT use Yomichan, which means that certain fields may not be filled automatically.
-
-
 

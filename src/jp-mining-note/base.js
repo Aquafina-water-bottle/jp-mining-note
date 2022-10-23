@@ -3,9 +3,9 @@
 {% from "modules/main.html" import modules with context %}
 
 {% for m in modules.values() %}
-{% if m.js is defined and m.js.globals.get(note.card_type, note.side) %}
+{% if m.js is defined and m.js.globals.get(note.card_type, note.side, modules.keys()) %}
 // GLOBALS: {{ m.id }}
-{{ m.js.globals.get(note.card_type, note.side) }}
+{{ m.js.globals.get(note.card_type, note.side, modules.keys()) }}
 {% endif %}
 {% endfor %}
 
@@ -56,10 +56,11 @@ function popupMenuMessage(message) {
 {% endblock %}
 // END_BLOCK: js_functions
 
-{% for m in modules.values() %}
+{% for mid, m in modules.items() %}
 {% if m.js is defined %}
 
-{{ m.js.functions.get(note.card_type, note.side) }}
+{{ m.js.functions.get(note.card_type, note.side, modules.keys()) }}
+
 {% endif %}
 {% endfor %}
 
@@ -81,10 +82,10 @@ document.onkeyup = (e => {
   // END_BLOCK: js_keybind_settings
 
 {% for m in modules.values() %}
-{% if m.js is defined and m.js.keybinds.get(note.card_type, note.side) %}
+{% if m.js is defined and m.js.keybinds.get(note.card_type, note.side, modules.keys()) %}
 {% filter indent(width=2) %}
   // KEYBINDS: {{ m.id }}
-  {{ m.js.keybinds.get(note.card_type, note.side) }}
+  {{ m.js.keybinds.get(note.card_type, note.side, modules.keys()) }}
 
 {% endfilter %}
 {% endif %}
@@ -236,10 +237,10 @@ function main() {
   // END_BLOCK: js_run
 
 {% for m in modules.values() %}
-{% if m.js is defined and m.js.run.get(note.card_type, note.side) %}
+{% if m.js is defined and m.js.run.get(note.card_type, note.side, modules.keys()) %}
   try { // RUN: {{ m.id }}
     {% filter indent(width=4) %}
-    {{ m.js.run.get(note.card_type, note.side) }}
+    {{ m.js.run.get(note.card_type, note.side, modules.keys()) }}
     {% endfilter %}
   } catch (error) {
     LOGGER.error("Error in module {{ m.id }}:");

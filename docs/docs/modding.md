@@ -158,7 +158,7 @@ all without editing the source files.
 
 The following will enable a the hello world module,
 which prints a "Hello world!" at the front of any card
-(as a warning on the [info circle](usage.md#info-circle)).
+(as a warning on the [info circle](ui.md#info-circle)).
 
 
 1. Under `config/config.py`, add `"example"` to `enabled-modules`.
