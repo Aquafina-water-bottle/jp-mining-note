@@ -370,9 +370,12 @@ def fill_word_reading_hiragana_field():
     import jaconv
 
     query = r'"note:JP Mining Note" -WordReading:'
+    print("Querying notes...")
     notes = invoke("findNotes", query=query)
+    print("Getting notes info...")
     notes_info = invoke("notesInfo", notes=notes)
 
+    print("Converting kanji reading -> hiragana reading...")
     actions = []
     for info in notes_info:
         field_val = info["fields"]["WordReading"]["value"]
@@ -392,8 +395,9 @@ def fill_word_reading_hiragana_field():
         }
 
         actions.append(action)
-        print(field_val, hiragana)
+        #print(field_val, hiragana)
 
+    print("Updating notes...")
     notes = invoke("multi", actions=actions)
 
 

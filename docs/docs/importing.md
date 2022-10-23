@@ -27,7 +27,7 @@ in the Yomichan Templates section.
 
 # Prerequisites
 
-Before doing anything that affects your Anki collection in a major way,
+Before doing anything that affects your Anki collection in a major way (such as this),
 please make a [complete backup](faq.md#how-do-i-backup-my-anki-data){:target="_blank"} of your collection.
 
 
@@ -86,6 +86,21 @@ However, here are a few tips:
 
 - If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 
+{# an html comment creates some weird spacing for some reason
+- If your reading field is only in kana, it is usually safe to map this to both
+    `WordReading` and `WordReadingFurigana`.
+    However, if your reading field contains kanji, ONLY map the field to `WordReading`.
+    When in doubt, don't map anything to `WordReadingFurigana`, and use
+    the [script below](importing.md#3-optional-batch-set-wordreadingfurigana-field)
+    to fill it out after importing the note.
+
+    Beware that if your reading field is only in kana, kanji-hover will only display
+    the kana and not the kanji + furigana.
+    Unfortunately, to the best of my knowledge,
+    there is no trivial way to change a kana-only reading field
+    to a kanji + furigana reading field.
+#}
+
 - `FrequenciesStylized` is a field that holds information for multiple frequency lists.
     If your card already has a field that contains that information
     (say, with the built-in `{frequencies}` marker that comes with Yomichan),
@@ -112,7 +127,7 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 
 
 # Batch Editing
-After switching your notes, you will have to do the following 2 things:
+After switching your notes, you will have to do the following few steps:
 
 ### (1) Batch generate pitch accents and sentence furigana
 
@@ -174,6 +189,31 @@ The following step differs if you are using `python` or the Batch Note Editing A
     # make sure you have Anki open and Anki-Connect installed!
     python3 ./batch.py -f "set_pasilence_field"
     ```
+
+<!--
+### (3) (Optional) Batch set `WordReadingFurigana` field
+
+The following automatically fills out the `WordReadingFurigana` field.
+
+Filling out the `WordReadingFurigana` field will enable the usage of
+the [Same Reading Indicator](ui.md#same-reading-indicator)
+on existing cards.
+
+Unfortunately, the Batch Editing Add-on cannot be used for this.
+It must be done with Python.
+
+```
+# assuming you are at the root of the repo,
+# i.e. after the `git clone ...` and `cd jp-mining-note`
+cd ./tools
+
+pip3 install jaconv
+
+# make sure you have Anki open and Anki-Connect installed!
+python3 ./batch.py -f "fill_word_reading_hiragana_field"
+```
+-->
+
 
 
 # Final Notes

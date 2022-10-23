@@ -20,7 +20,7 @@ If you are looking to setup jp-mining-note, see [this](setup.md) page instead.
 
     Additionally, the guides listed here do not use JPMN, and instead link
     to other note types.
-    This shouldn't be an issue as long as you change appropriate the field names.
+    This shouldn't be an issue as long as you change the appropriate the field names.
 
 
 # Getting the Text to Create the Cards

@@ -127,10 +127,10 @@ const JPMNKanjiHover = (() => {
   function buildString(character, nonNewCardInfo, newCardInfo, tooltipBuilder) {
 
     /*
-     * <span class="kanji-hover-wrapper">
-     *   <span class="kanji-hover-text"> (kanji) </span>
-     *   <span class="kanji-hover-tooltip-wrapper">
-     *     <span class="kanji-hover-tooltip"> ... </span>
+     * <span class="hover-wrapper">
+     *   <span class="hover-text"> (kanji) </span>
+     *   <span class="hover-tooltip-wrapper">
+     *     <span class="hover-tooltip"> ... </span>
      *   </span>
      * </span>
      *
@@ -139,17 +139,17 @@ const JPMNKanjiHover = (() => {
     // wrapper element that isn't used, to get the inner html
 
     const kanjiHoverWrapper = document.createElement('span');
-    kanjiHoverWrapper.classList.add("kanji-hover-wrapper");
+    kanjiHoverWrapper.classList.add("hover-wrapper");
 
     const kanjiSpan = document.createElement('span');
-    kanjiSpan.classList.add("kanji-hover-text");
+    kanjiSpan.classList.add("hover-text");
     kanjiSpan.innerText = character;
 
     tooltipWrapperSpan = document.createElement('span');
-    tooltipWrapperSpan.classList.add("kanji-hover-tooltip-wrapper");
+    tooltipWrapperSpan.classList.add("hover-tooltip-wrapper");
 
     tooltipSpan = document.createElement('span');
-    tooltipSpan.classList.add("kanji-hover-tooltip");
+    tooltipSpan.classList.add("hover-tooltip");
 
     let count = 0;
 
@@ -157,7 +157,7 @@ const JPMNKanjiHover = (() => {
     for (const card of nonNewCardInfo) {
       const cardDiv = tooltipBuilder.buildCardDiv(card, character);
       if (count >= 1) {
-        cardDiv.classList.add("kanji-hover-tooltip--not-first");
+        cardDiv.classList.add("hover-tooltip--not-first");
       }
       count++;
 
@@ -167,7 +167,7 @@ const JPMNKanjiHover = (() => {
     for (const card of newCardInfo) {
       const cardDiv = tooltipBuilder.buildCardDiv(card, character, isNew=true);
       if (count >= 1) {
-        cardDiv.classList.add("kanji-hover-tooltip--not-first");
+        cardDiv.classList.add("hover-tooltip--not-first");
       }
       count++;
 

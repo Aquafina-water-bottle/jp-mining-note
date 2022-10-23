@@ -67,6 +67,65 @@ class NoteChange:
 
 
 NOTE_CHANGES = [
+
+    NoteChange(
+        version=Version(0, 11, 0, 0),
+        actions=[
+            action.AddField("WordReadingHiragana", 30 - 1),
+            action.YomichanTemplatesChange(),
+            action.YomichanFormatChange(
+                "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
+            ),
+            action.NoteToUser(
+                description="The batch function `fill_word_reading_hiragana_field` is not ran by default\n"
+                "because it requires `jaconv` to work. If you want to fill the\n"
+                "WordReadingHiragana field for all cards, please do the following:\n"
+                "$ pip3 install jaconv\n"
+                "$ cd tools\n"
+                "$ python3 batch.py -f fill_word_reading_hiragana_field"
+            ),
+        ],
+        fields=[
+            "Key",
+            "Word",
+            "WordReading",
+            "PAOverride",
+            "AJTWordPitch",
+            "PrimaryDefinition",
+            "Sentence",
+            "SentenceReading",
+            "AltDisplay",
+            "AltDisplayPASentenceCard",
+            "AdditionalNotes",
+            "IsSentenceCard",
+            "IsClickCard",
+            "IsHoverCard",
+            "IsTargetedSentenceCard",
+            "PAShowInfo",
+            "PATestOnlyWord",
+            "PADoNotTest",
+            "PASeparateWordCard",
+            "PASeparateSentenceCard",
+            "SeparateClozeDeletionCard",
+            "Hint",
+            "HintNotHidden",
+            "Picture",
+            "WordAudio",
+            "SentenceAudio",
+            "PAGraphs",
+            "PAPositions",
+            "PASilence",
+            "WordReadingHiragana",
+            "FrequenciesStylized",
+            "FrequencySort",
+            "SecondaryDefinition",
+            "ExtraDefinitions",
+            "UtilityDictionaries",
+            "Comment",
+        ],
+    ),
+
+
     NoteChange(
         version=Version(0, 10, 2, 0),
         actions=[
@@ -125,6 +184,7 @@ NOTE_CHANGES = [
             "Comment",
         ],
     ),
+
     NoteChange(
         version=Version(0, 10, 0, 0),
         actions=[
@@ -175,6 +235,7 @@ NOTE_CHANGES = [
             "Comment",
         ],
     ),
+
     NoteChange(
         version=Version(0, 9, 1, 0),
         actions=[
@@ -221,6 +282,7 @@ NOTE_CHANGES = [
             "Comment",
         ],
     ),
+
     NoteChange(
         version=Version(0, 9, 0, 0),
         actions=[
@@ -279,6 +341,7 @@ NOTE_CHANGES = [
             "Comment",
         ],
     ),
+
     NoteChange(
         version=Version(0, 0, 0, 0),
         actions=[],

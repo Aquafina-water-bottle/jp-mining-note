@@ -80,6 +80,7 @@ const JPMNAnkiConnectActions = (() => {
 
     async query(queryStr, cache=true) {
       if (cache && queryStr in cardQueryCache) {
+        logger.debug(`Using cached query result for ${queryStr}`, 2);
         return cardQueryCache[queryStr];
       }
 
@@ -102,6 +103,7 @@ const JPMNAnkiConnectActions = (() => {
       if (cache) {
         for (const [i, cid] of cardIds.entries()) {
           if (cid in cardsInfoCache) {
+            logger.debug(`Using cached cardsInfo result for ${cid}`, 2);
             result.push(cardsInfoCache[cid]);
           } else {
             result.push(0);
@@ -192,7 +194,7 @@ const JPMNAnkiConnectActions = (() => {
         logger.debug("Key in new card cache and is not new.");
         return false;
       }
-      logger.debug("Testing for new card...");
+      logger.debug("Testing for new card...", 2);
 
       // constructs the multi findCards request for ankiconnect
       let actions = [];

@@ -253,8 +253,6 @@ ruby rt {
  */
 
 .card-description {
-  --card-description-color: var(--text-color--4);
-
   font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
@@ -800,11 +798,33 @@ ruby rt {
 
 .dh-left__same-reading-indicator {
   position: absolute;
-  right: 10px;
+  left: 10px;
   top: 10px;
   font-size: 15px;
   display: none; /* so it's not shown and doesn't affect the card without javascript */
 }
+
+.dh-left__same-reading-indicator-main-word {
+  //font-size: 24px;
+  color: var(--accent);
+}
+
+.dh-left__same-reading-indicator .info-circle-svg path {
+  fill: var(--card-description-color);
+}
+.dh-left__same-reading-indicator:hover .info-circle-svg path {
+  fill: var(--info-circle-hover-color);
+}
+.dh-left__same-reading-indicator--new .info-circle-svg path {
+  fill: var(--accent);
+  filter: opacity(0.8);
+}
+.dh-left__same-reading-indicator--new:hover .info-circle-svg path {
+  fill: var(--accent);
+  filter: opacity(1);
+}
+
+
 
 
 
@@ -855,18 +875,35 @@ ruby rt {
 }
 
 
+
+/*
+ * <span class="hover-wrapper">
+ *   <span class="hover-text"> (kanji) </span>
+ *   <span class="hover-tooltip-wrapper">
+ *     <span class="hover-tooltip"> ... </span>
+ *   </span>
+ * </span>
+ */
+
+
 /*
  * kanji hover
  */
-.kanji-hover-wrapper {
+.hover-wrapper {
   position: relative;
 }
 
 /* Tooltip text */
-.kanji-hover-text {
+.hover-text {
 }
 
-.kanji-hover-tooltip {
+.hover-text--same-reading {
+  width: 120%;
+  display: inline-block;
+  text-align: left;
+}
+
+.hover-tooltip {
   display: inline-block;
   min-width: 100px;
   background-color: var(--tooltip-background-darken);
@@ -874,7 +911,7 @@ ruby rt {
   border-radius: 6px;
 }
 
-.kanji-hover-tooltip-wrapper {
+.hover-tooltip-wrapper {
   /* overrides any existing pitch accent coloring, if it exists */
   color: var(--text-color);
 
@@ -893,11 +930,17 @@ ruby rt {
   white-space: normal;
 }
 
-.kanji-hover-tooltip b {
+.hover-tooltip-wrapper--same-reading {
+  top: -15px;
+  left: 29px;
+}
+
+
+.hover-tooltip b {
   @include common.bold_highlight;
 }
 
-.kanji-hover-tooltip--new {
+.hover-tooltip--new {
   color: var(--text-color--1);
 }
 
@@ -905,15 +948,15 @@ ruby rt {
  * "gap" class to be inserted to elements after the first one,
  * since flex can't be used
  */
-.kanji-hover-tooltip--not-first {
+.hover-tooltip--not-first {
   margin-top: 10px;
 }
 
-.kanji-hover-text:hover + .kanji-hover-tooltip-wrapper {
+.hover-text:hover + .hover-tooltip-wrapper {
   display: inline-block;
 }
 /* prevents the tooltip text from disappearing on hover */
-.kanji-hover-tooltip-wrapper:hover {
+.hover-tooltip-wrapper:hover {
   display: inline-block;
 }
 
@@ -921,7 +964,7 @@ ruby rt {
 
 
 /* arrow */
-.kanji-hover-tooltip:after {
+.hover-tooltip:after {
   content: "";
   position: absolute;
   /* position tooltip correctly */
@@ -931,6 +974,15 @@ ruby rt {
   border: 8px solid #000000;
   border-color: transparent transparent var(--tooltip-background-darken) transparent;
   z-index: 1;
+}
+
+/* arrow */
+.hover-tooltip--same-reading:after {
+  /* position tooltip correctly */
+  left: -16px;
+  top: 11px;
+  /* the arrow */
+  border-color: transparent var(--tooltip-background-darken) transparent transparent;
 }
 
 
