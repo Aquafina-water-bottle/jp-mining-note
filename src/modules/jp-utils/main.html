@@ -1,11 +1,11 @@
-{# tooltip module #}
-{% import "modules/tooltip-builder/main.js" as js with context %}
+{# jp utils module #}
+
+{% import "modules/jp-utils/main.js" as js with context %}
 
 
 {# required boilerplate #}
 {% set MOD = namespace() %}
-{% set MOD.id = "tooltip-builder" %}
-{% set MOD.dependencies = [] %}
+{% set MOD.id = "jp-utils" %}
 
 {# interface for modules that change javascript #}
 {% set MOD.js = JavascriptContainer(MOD.id) %}

@@ -2,65 +2,6 @@
 
 /// {% block js_functions %}
 {{ super() }}
-
-// https://github.com/FooSoft/anki-connect#javascript
-function invoke(action, params={}) {
-  let version = 6;
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('error', () => reject('AnkiConnect failed to issue request.'));
-    xhr.addEventListener('load', () => {
-      try {
-        const response = JSON.parse(xhr.responseText);
-        if (Object.getOwnPropertyNames(response).length != 2) {
-          throw 'response has an unexpected number of fields';
-        }
-        if (!response.hasOwnProperty('error')) {
-          throw 'response is missing required error field';
-        }
-        if (!response.hasOwnProperty('result')) {
-          throw 'response is missing required result field';
-        }
-        if (response.error) {
-          throw response.error;
-        }
-        resolve(response.result);
-      } catch (e) {
-        reject(e);
-      }
-    });
-
-    xhr.open('POST', 'http://127.0.0.1:8765');
-    xhr.send(JSON.stringify({action, version, params}));
-  });
-}
-
-
-
-const HIRAGANA_CONVERSION_RANGE = [0x3041, 0x3096];
-const KATAKANA_CONVERSION_RANGE = [0x30a1, 0x30f6];
-const KATAKANA_RANGE = [0x30a0, 0x30ff];
-
-// copied/pasted directly from yomichan
-// https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
-// I have no idea what is going on tbh but it seems to work
-function isCodePointInRange(codePoint, [min, max]) {
-  return (codePoint >= min && codePoint <= max);
-}
-
-function convertHiraganaToKatakana(text) {
-  let result = '';
-  const offset = (KATAKANA_CONVERSION_RANGE[0] - HIRAGANA_CONVERSION_RANGE[0]);
-  for (let char of text) {
-    const codePoint = char.codePointAt(0);
-    if (isCodePointInRange(codePoint, HIRAGANA_CONVERSION_RANGE)) {
-      char = String.fromCodePoint(codePoint + offset);
-    }
-    result += char;
-  }
-  return result;
-}
-
 /// {% endblock %}
 
 

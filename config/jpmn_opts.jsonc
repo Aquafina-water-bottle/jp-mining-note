@@ -116,6 +116,8 @@
       // 1: loads only upon hover, has a small delay upon first hovering over a word
       "mode": 1,
 
+      "display-pitch-accent": false,
+
       // all queries will have the following at the beginning:
       // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}")
 
@@ -256,7 +258,23 @@
 
     // Shows an indicator if the reading (WordReadingHiragana field) is the same as another card
     "same-reading-indicator": {
-      "enabled": true
+      "enabled": true,
+
+      "display-pitch-accent": true,
+
+      // not new, or new and green
+      // not flagged as red and suspended
+      "non-new-query": "(-is:new OR (is:new flag:3)) -(is:suspended flag:1)",
+
+      // new
+      // not suspended, and neither flagged as red or green
+      "new-query": "is:new -(is:suspended (flag:1 OR flag:3))",
+
+      // maximum number of words per category
+      "max-non-new-oldest": 2,
+      "max-non-new-latest": 2,
+      "max-new-latest": 2
+
     }
 
   },

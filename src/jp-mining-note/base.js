@@ -243,12 +243,13 @@ function main() {
     const infoCircTogglable = "info-circle-svg-wrapper--togglable";
     addLockFunc(infoCircWrapper, infoCirc, "Info circle tooltip", infoCircFrozen, infoCircTogglable);
 
-    let sameReadingIndicator = document.getElementById("same_reading_indicator");
-    let sameReadingCirc = document.getElementById("same_reading_hover_circle");
-    const sameReadingCircFrozen = "hover-text--frozen";
-    const sameReadingCircTogglable = "dh-left__same-reading-indicator--togglable";
-    addLockFunc(sameReadingIndicator, sameReadingCirc, "Same-Reading indicator<br>",
-        sameReadingCircFrozen, sameReadingCircTogglable);
+    // TODO maybe fix later, so clicking on the pop-up won't also toggle it
+    //let sameReadingIndicator = document.getElementById("same_reading_indicator");
+    //let sameReadingCirc = document.getElementById("same_reading_hover_circle");
+    //const sameReadingCircFrozen = "hover-text--frozen";
+    //const sameReadingCircTogglable = "dh-left__same-reading-indicator--togglable";
+    //addLockFunc(sameReadingIndicator, sameReadingCirc, "Same-Reading indicator<br>",
+    //    sameReadingCircFrozen, sameReadingCircTogglable);
 
   }
 

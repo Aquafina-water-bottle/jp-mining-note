@@ -26,10 +26,18 @@ and must use `./install.py --update`.
 - Added field: `WordReadingHiragana`
 
 #### Features
-- TODO
+- Added same word reading indicator
+- Added functionality to show pitch accent on tooltips (same-word-indicator and kanji-hover)
+    - Disabled for kanji-hover and enabled on same-word-indicator by default
+- Renamed `nsfw-toggle` -> `image-blur`
 
 #### Internal Changes
 - Added a simple dependencies system for modules, so functions can be shared easier between modules
+- Refactored AutoPA & KanjiHover classes to have most functions to be in the returned class itself
+- Moved out multiple functions into a bunch of smaller sub-modules:
+    - `jp-utils`: functions for dealing with the Japanese language itself (e.g. hiragana -> katakana)
+    - `tooltip-builder`: creates tooltips for kanji-hover and same-reading-indicator
+    - `anki-connect-actions`: helper module to use anki-connect
 
 
 ## [0.10.3.0] - 2022-10-21

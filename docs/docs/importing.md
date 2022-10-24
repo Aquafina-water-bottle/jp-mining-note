@@ -255,7 +255,6 @@ This will ensure all `PASilence` are filled correctly.
         {{ img("The above table in Anki", "assets/anki/bulk_add_silencewav.png") }}
         </figure>
 
-
 <!--
 _
 -->

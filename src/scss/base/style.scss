@@ -804,13 +804,13 @@ ruby rt {
   display: none; /* so it's not shown and doesn't affect the card without javascript */
 }
 
-.dh-left__same-reading-indicator-main-word {
+.dh-left__same-reading-indicator-main-word .hover-tooltip__word-div {
   //font-size: 24px;
   color: var(--accent);
   font-weight: bold;
 }
 
-.dh-left__same-reading-indicator .hover-wrapper {
+.dh-left__same-reading-indicator .hover-wrapper .hover-text {
   user-select: none;
 }
 
@@ -902,14 +902,14 @@ ruby rt {
 
 /* Tooltip text */
 .hover-text {
-
-  user-select: none;
 }
 
 .hover-text--same-reading {
   width: 120%;
   display: inline-block;
   text-align: left;
+
+  user-select: none;
 }
 
 .hover-tooltip {
@@ -918,6 +918,50 @@ ruby rt {
   background-color: var(--tooltip-background-darken);
   padding: 8px 10px 8px 10px;
   border-radius: 6px;
+}
+
+.hover-tooltip .hover-tooltip__pitch-accent {
+  @include common.bold-pitch;
+
+  b {
+    color: var(--text-color--1);
+  }
+
+  /* cancels out extra colors */
+  .pitchoverline:after, b .pitchoverline:after {
+    background: var(--text-color--1);
+  }
+  .downstep:before, b .downstep:before {
+    background: var(--text-color--1);
+  }
+
+  .nopron {
+    color: var(--text-color);
+  }
+  .nasal {
+    display: none;
+  }
+
+}
+
+.hover-tooltip--new .hover-tooltip__pitch-accent {
+
+  .pitchoverline:after {
+    filter: opacity(70%);
+  }
+
+  .downstep:before {
+    filter: opacity(70%);
+  }
+}
+
+
+
+.hover-tooltip__pitch-accent:before {
+  content: "　";
+}
+.hover-tooltip__pitch-accent:after {
+  content: "";
 }
 
 .hover-tooltip-wrapper {

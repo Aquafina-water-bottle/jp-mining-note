@@ -22,10 +22,16 @@ const JPMNSameReadingIndicator = (() => {
   const indicatorDiv = document.getElementById("same_reading_indicator");
   const indicatorTooltipDiv = document.getElementById("same_reading_indicator_tooltip");
 
+  const localPositionsEle = document.getElementById("hidden_pa_positions");
+  const localAjtEle = document.getElementById("hidden_ajt_word_pitch");
+  const localOverrideEle = document.getElementById("hidden_pa_override");
+  const localReadingEle = document.getElementById("hidden_word_reading");
+
   class JPMNSameReadingIndicator {
     constructor() {
+      const displayPitchAccent = {{ utils.opt("modules", "same-reading-indicator", "display-pitch-accent") }}
       this.ankiConnectHelper = new JPMNAnkiConnectActions();
-      this.tooltipBuilder = new JPMNTooltipBuilder();
+      this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent);
     }
 
     buildString(nonNewCardInfo, newCardInfo) {
@@ -33,7 +39,14 @@ const JPMNSameReadingIndicator = (() => {
       let tooltipSpan = document.createElement('span');
 
       const currentCardDiv = document.createElement('div');
-      const currentWordDiv = this.tooltipBuilder.buildWordDiv("{{ T('WordReading') }}", null);
+
+      const currentWordDiv = this.tooltipBuilder.buildWordDiv(
+        localReadingEle.innerHTML,
+        localPositionsEle,
+        localAjtEle,
+        localOverrideEle,
+        null
+      );
       currentCardDiv.appendChild(currentWordDiv);
       currentCardDiv.classList.add(mainWordClass);
       tooltipSpan.appendChild(currentCardDiv);
@@ -103,14 +116,19 @@ const JPMNSameReadingIndicator = (() => {
     }
 
     async run() {
-      const queryNonNew = `-is:new -"Key:${key}" WordReadingHiragana:{{ T('WordReadingHiragana') }}`;
-      const queryNew = `is:new -"Key:${key}" WordReadingHiragana:{{ T('WordReadingHiragana') }}`;
+      let baseQuery = `-"Key:{{ T('Key') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
+      const nonNewQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "non-new-query") }};
+      const newQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "new-query") }};
+
+      const queryNonNew = `(${baseQuery}) ${nonNewQueryPartial}`;
+      const queryNew = `(${baseQuery}) ${newQueryPartial}`;
+
       let cardIdsNonNew = await this.ankiConnectHelper.query(queryNonNew);
       let cardIdsNew = await this.ankiConnectHelper.query(queryNew);
 
-      const maxNonNewOldest = 2;
-      const maxNonNewLatest = 1;
-      const maxNewLatest = 2;
+      const maxNonNewOldest = {{ utils.opt("modules", "kanji-hover", "max-non-new-oldest") }};
+      const maxNonNewLatest = {{ utils.opt("modules", "kanji-hover", "max-non-new-latest") }};
+      const maxNewLatest = {{ utils.opt("modules", "kanji-hover", "max-new-latest") }};
 
       let [cardIdsNonNewFiltered, cardIdsNewFiltered] = this.ankiConnectHelper.filterCards(
           cardIdsNonNew, cardIdsNew,

@@ -45,6 +45,38 @@ const JPMNAnkiConnectActions = (() => {
   class JPMNAnkiConnectActions {
     constructor() { }
 
+    // https://github.com/FooSoft/anki-connect#javascript
+    invoke(action, params={}) {
+      let version = 6;
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('error', () => reject('AnkiConnect failed to issue request.'));
+        xhr.addEventListener('load', () => {
+          try {
+            const response = JSON.parse(xhr.responseText);
+            if (Object.getOwnPropertyNames(response).length != 2) {
+              throw 'response has an unexpected number of fields';
+            }
+            if (!response.hasOwnProperty('error')) {
+              throw 'response is missing required error field';
+            }
+            if (!response.hasOwnProperty('result')) {
+              throw 'response is missing required result field';
+            }
+            if (response.error) {
+              throw response.error;
+            }
+            resolve(response.result);
+          } catch (e) {
+            reject(e);
+          }
+        });
+
+        xhr.open('POST', 'http://127.0.0.1:8765');
+        xhr.send(JSON.stringify({action, version, params}));
+      });
+    }
+
 
     filterCards(nonNewCardIds, newCardIds, maxNonNewOldest, maxNonNewLatest, maxNewLatest) {
       const max = maxNonNewOldest + maxNonNewLatest + maxNewLatest;
@@ -84,7 +116,7 @@ const JPMNAnkiConnectActions = (() => {
         return cardQueryCache[queryStr];
       }
 
-      let cardIds = await invoke("findCards", {"query": queryStr});
+      let cardIds = await this.invoke("findCards", {"query": queryStr});
       cardQueryCache[queryStr] = Array.from(cardIds); // shallow copy
       return cardIds;
 
@@ -116,7 +148,7 @@ const JPMNAnkiConnectActions = (() => {
       }
 
       if (searchCards.length > 0) {
-        const cardsInfo = await invoke("cardsInfo", {"cards": searchCards});
+        const cardsInfo = await this.invoke("cardsInfo", {"cards": searchCards});
         if (!cache) {
           return cardsInfo;
         }
@@ -202,7 +234,7 @@ const JPMNAnkiConnectActions = (() => {
       actions.push(constructFindCardAction(`"Key:${key}" "card:${cardTypeName}"`));
       actions.push(constructFindCardAction(`is:new "Key:${key}" "card:${cardTypeName}"`));
 
-      const multi = await invoke("multi", {"actions": actions});
+      const multi = await this.invoke("multi", {"actions": actions});
       const cards = multi[0];
 
       if (cards.length > 1) {

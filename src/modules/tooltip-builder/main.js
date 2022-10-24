@@ -6,14 +6,20 @@
 
 // A required internal class used by other modules. Not used directly.
 const JPMNTooltipBuilder = (() => {
+
+  const logger = new JPMNLogger("tooltip-builder");
+
   class JPMNTooltipBuilder {
-    constructor() {}
+    constructor(displayPA=true) {
+      this.autoPA = typeof JPMNAutoPA !== "undefined" ? new JPMNAutoPA(/*attemptColor=*/false, /*logLevelDecrease=*/1) : null;
+      this.displayPA = displayPA;
+    }
 
-    // taken directly from anki's implementation of { {furigana:...} }
-    // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-    buildWordDiv(wordReading, character) {
+    _buildWordDiv(wordReading, character) {
 
-      const wordDiv = document.createElement('div');
+      const wordDivWrapper = document.createElement('div');
+
+      const wordEle = document.createElement('span');
       const re = / ?([^ >]+?)\[(.+?)\]/g
 
       let wordReadingRuby = wordReading.replace(/&nbsp;/g, " ");
@@ -23,7 +29,28 @@ const JPMNTooltipBuilder = (() => {
         wordReadingRuby = wordReadingRuby.replace(new RegExp(character, "g"), `<b>${character}</b>`);
       }
 
-      wordDiv.innerHTML = wordReadingRuby;
+      wordEle.innerHTML = wordReadingRuby;
+      wordEle.classList.add("hover-tooltip__word-div");
+
+      wordDivWrapper.appendChild(wordEle);
+
+      return wordDivWrapper;
+    }
+
+    // taken directly from anki's implementation of { {furigana:...} }
+    // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
+    buildWordDiv(wordReading, positionsHTML, ajtHTML, paOverrideHTML, character) {
+
+      const wordDiv = this._buildWordDiv(wordReading, character);
+
+      if (this.displayPA && this.autoPA) {
+        const displayEle = document.createElement("span");
+        displayEle.classList.add("hover-tooltip__pitch-accent");
+        this.autoPA.addPosition(positionsHTML, ajtHTML, paOverrideHTML, wordReading, displayEle)
+
+        wordDiv.appendChild(displayEle)
+      }
+
       return wordDiv;
     }
 
@@ -55,7 +82,14 @@ const JPMNTooltipBuilder = (() => {
 
     buildCardDiv(card, character, isNew=false) {
       const cardDiv = document.createElement('div');
-      const wordDiv = this.buildWordDiv(card["fields"]["WordReading"]["value"], character);
+
+      const wordDiv = this.buildWordDiv(
+        card["fields"]["WordReading"]["value"],
+        card["fields"]["PAPositions"]["value"],
+        card["fields"]["AJTWordPitch"]["value"],
+        card["fields"]["PAOverride"]["value"],
+        character);
+
       const sentenceDiv = this.buildSentDiv(card["fields"]["Sentence"]["value"]);
 
       cardDiv.appendChild(wordDiv);
