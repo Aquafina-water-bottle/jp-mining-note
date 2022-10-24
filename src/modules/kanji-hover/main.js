@@ -41,7 +41,8 @@ const JPMNKanjiHover = (() => {
   class JPMNKanjiHover {
     constructor() {
       const displayPitchAccent = {{ utils.opt("modules", "kanji-hover", "display-pitch-accent") }}
-      this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent);
+      const displayPitchAccentHover = {{ utils.opt("modules", "kanji-hover", "display-pitch-accent-hover-only") }}
+      this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent, displayPitchAccentHover);
       this.ankiConnectHelper = new JPMNAnkiConnectActions();
     }
 

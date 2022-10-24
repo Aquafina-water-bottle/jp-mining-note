@@ -30,8 +30,9 @@ const JPMNSameReadingIndicator = (() => {
   class JPMNSameReadingIndicator {
     constructor() {
       const displayPitchAccent = {{ utils.opt("modules", "same-reading-indicator", "display-pitch-accent") }}
+      const displayPitchAccentHover = {{ utils.opt("modules", "same-reading-indicator", "display-pitch-accent-hover-only") }}
       this.ankiConnectHelper = new JPMNAnkiConnectActions();
-      this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent);
+      this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent, displayPitchAccentHover);
     }
 
     buildString(nonNewCardInfo, newCardInfo) {

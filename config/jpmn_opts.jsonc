@@ -118,6 +118,8 @@
 
       "display-pitch-accent": false,
 
+      "display-pitch-accent-hover-only": true,
+
       // all queries will have the following at the beginning:
       // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}")
 
@@ -261,6 +263,8 @@
       "enabled": true,
 
       "display-pitch-accent": true,
+
+      "display-pitch-accent-hover-only": true,
 
       // not new, or new and green
       // not flagged as red and suspended

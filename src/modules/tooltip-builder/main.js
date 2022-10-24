@@ -10,9 +10,10 @@ const JPMNTooltipBuilder = (() => {
   const logger = new JPMNLogger("tooltip-builder");
 
   class JPMNTooltipBuilder {
-    constructor(displayPA=true) {
+    constructor(displayPA=true, displayPAOnHover=true) {
       this.autoPA = typeof JPMNAutoPA !== "undefined" ? new JPMNAutoPA(/*attemptColor=*/false, /*logLevelDecrease=*/1) : null;
       this.displayPA = displayPA;
+      this.displayPAOnHover = displayPAOnHover;
     }
 
     _buildWordDiv(wordReading, character) {
@@ -31,6 +32,9 @@ const JPMNTooltipBuilder = (() => {
 
       wordEle.innerHTML = wordReadingRuby;
       wordEle.classList.add("hover-tooltip__word-div");
+      if (this.displayPAOnHover) {
+        wordEle.classList.add("hover-tooltip__word-div--hover");
+      }
 
       wordDivWrapper.appendChild(wordEle);
 

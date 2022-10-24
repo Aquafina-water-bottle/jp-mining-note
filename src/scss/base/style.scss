@@ -944,6 +944,16 @@ ruby rt {
 
 }
 
+
+.hover-tooltip__word-div--hover + .hover-tooltip__pitch-accent {
+  visibility: hidden;
+}
+.hover-tooltip__word-div--hover:hover + .hover-tooltip__pitch-accent,
+.hover-tooltip__pitch-accent:hover {
+  visibility: visible;
+}
+
+
 .hover-tooltip--new .hover-tooltip__pitch-accent {
 
   .pitchoverline:after {
