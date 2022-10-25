@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/kanjihover/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/tooltipresults/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
     
     
       
-        <title>Kanji Hover (TODO) - jp-mining-note</title>
+        <title>Tooltip Results (TODO) - jp-mining-note</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#result-queries-categorization" class="md-skip">
+        <a href="#details" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Kanji Hover (TODO)
+              Tooltip Results (TODO)
             
           </span>
         </div>
@@ -416,8 +416,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/" class="md-nav__link">
-        Usage
+      <a href="../fieldref/" class="md-nav__link">
+        Field Reference
       </a>
     </li>
   
@@ -480,12 +480,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Kanji Hover (TODO)
+          Tooltip Results (TODO)
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Kanji Hover (TODO)
+        Tooltip Results (TODO)
       </a>
       
         
@@ -500,6 +500,13 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    Details
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#result-queries-categorization" class="md-nav__link">
@@ -518,13 +525,6 @@
         <li class="md-nav__item">
   <a href="#suspended-cards" class="md-nav__link">
     Suspended Cards
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-programs" class="md-nav__link">
-    Related Programs
   </a>
   
 </li>
@@ -725,6 +725,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#details" class="md-nav__link">
+    Details
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#result-queries-categorization" class="md-nav__link">
     Result Queries &amp; Categorization
   </a>
@@ -741,13 +748,6 @@
         <li class="md-nav__item">
   <a href="#suspended-cards" class="md-nav__link">
     Suspended Cards
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-programs" class="md-nav__link">
-    Related Programs
   </a>
   
 </li>
@@ -770,7 +770,7 @@
   
   
   <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/kanjihover.md"
+    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/tooltipresults.md"
     title="View source of this page"
     class="md-content__button md-icon"
   >
@@ -778,9 +778,18 @@
   </a>
 
 
-  <h1>Kanji Hover (TODO)</h1>
+  <h1>Tooltip Results (TODO)</h1>
 
 <p>TODO add intro</p>
+<ul>
+<li>for kanji hover and same reading indicator</li>
+<li>TODO generalize this page to not only be for kanji hover</li>
+</ul>
+<h2 id="details">Details<a class="headerlink" href="#details" title="Permanent link">&para;</a></h2>
+<ul>
+<li>pitch accents should be exactly the same pitch accents as shown on the specified card</li>
+<li>pitch accents are stripped of extra information (nasal and devoiced)</li>
+</ul>
 <h2 id="result-queries-categorization">Result Queries &amp; Categorization<a class="headerlink" href="#result-queries-categorization" title="Permanent link">&para;</a></h2>
 <p>The exact results shown through Kanji Hover is not completely trivial,
 so this process is explained below.</p>
@@ -821,34 +830,13 @@ This can be changed in the <a href="../runtimeoptions/" target="_blank">options 
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  &quot;new-query&quot;: ...
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>}
 </code></pre></div>
-<h2 id="related-programs">Related Programs<a class="headerlink" href="#related-programs" title="Permanent link">&para;</a></h2>
-<p><a href="https://cademcniven.com/projects/kanjihover/"><strong>Cade's Kanji Hover</strong></a></p>
-<ul>
-<li>Hover over a kanji to see its readings, meanings (english), and other info.</li>
-<li>This does not show example words from other cards.</li>
-<li>My implmentation of kanji hover was heavily inspired by this.</li>
-</ul>
-<p><a href="https://github.com/elizagamedev/anki-hanziweb"><strong>Hanzi Web for Anki</strong></a></p>
-<ul>
-<li>The end result of this is to this note's implementation of kanji-hover,
-    in the sense that it is used to see kanjis that have been used in other notes.
-    However, it differs primarily in the fact that all the information must be
-    mass-generated. This indeed has several advantages, such as being able to
-    use the infomation on Android, where Anki-Connect isn't full supported.</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>None of the above will work with jp-mining-note by default.
-In fact, it's almost guaranteed that Cade's Kanji Hover will conflict with
-this note's kanji hover ability.</p>
-</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2022</span>
       
     
   </small>

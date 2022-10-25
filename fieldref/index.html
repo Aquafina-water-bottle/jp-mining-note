@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/usage/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/fieldref/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
     
     
       
-        <title>Usage - jp-mining-note</title>
+        <title>Field Reference - jp-mining-note</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage
+              Field Reference
             
           </span>
         </div>
@@ -424,12 +424,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Usage
+          Field Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Usage
+        Field Reference
       </a>
       
         
@@ -448,6 +448,13 @@
         <li class="md-nav__item">
   <a href="#definitions" class="md-nav__link">
     Definitions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-jump" class="md-nav__link">
+    Quick Jump
   </a>
   
 </li>
@@ -537,6 +544,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sorting-by-frequency" class="md-nav__link">
+    Sorting by Frequency
+  </a>
   
 </li>
       
@@ -638,8 +652,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../kanjihover/" class="md-nav__link">
-        Kanji Hover (TODO)
+      <a href="../tooltipresults/" class="md-nav__link">
+        Tooltip Results (TODO)
       </a>
     </li>
   
@@ -840,6 +854,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#quick-jump" class="md-nav__link">
+    Quick Jump
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#modifying-the-front-side-tested-content" class="md-nav__link">
     Modifying the Front Side (Tested Content)
   </a>
@@ -928,6 +949,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sorting-by-frequency" class="md-nav__link">
+    Sorting by Frequency
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#testing-pitch-accent" class="md-nav__link">
     Testing Pitch Accent
   </a>
@@ -986,7 +1014,7 @@
   
   
   <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/usage.md"
+    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/fieldref.md"
     title="View source of this page"
     class="md-content__button md-icon"
   >
@@ -994,10 +1022,10 @@
   </a>
 
 
-  <h1>Usage</h1>
+  <h1>Field Reference</h1>
 
 <p>This entire section is dedicated showing
-how to use the fields and card options to change the card to your liking.</p>
+how to edit the note fields to change the card to your liking.</p>
 <h2 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h2>
 <p><strong>Binary Field:</strong>
 A field that checks whether it is filled or not with any value, say <code>1</code>.
@@ -1013,6 +1041,242 @@ In other words, it means to flip the value of the field between empty and filled
 -->
 
 <p><strong>PA:</strong> Short for "Pitch Accent".</p>
+<hr />
+<h2 id="quick-jump">Quick Jump<a class="headerlink" href="#quick-jump" title="Permanent link">&para;</a></h2>
+<p>The table below provides quick links to most of the fields found with the card,
+as well as some general info on each field.
+Fields without links are assumed to be either obvious (and do not require documentation),
+or not meant to be edited.</p>
+<details class="example">
+<summary>Click here to reveal the field list</summary>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>Auto-filled</code> represents fields that should be automatically filled out from Yomichan
+and Anki add-ons.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Auto-Filled</th>
+<th align="center">Binary Field</th>
+<th align="center">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#key-field">Key</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Word</td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">WordReading</td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../autopa/#how-pitch-accent-is-selected">PAOverride</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../setup/#ajt-pitch-accent">AJTWordPitch</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#modifying-the-back-side">PrimaryDefinition</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Sentence</td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../setup/#ajt-furigana">SentenceReading</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#changing-the-displayed-content">AltDisplay</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#modifying-pitch-accent-sentence-cards">AltDisplayPASentenceCard</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#modifying-the-back-side">AdditionalNotes</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../cardtypes/#sentence-card">IsSentenceCard</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../cardtypes/#hybrid-cards">IsClickCard</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../cardtypes/#hybrid-cards">IsHoverCard</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../cardtypes/#targetted-sentence-card-tsc">IsTargetedSentenceCard</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#testing-pitch-accent">PAShowInfo</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#selecting-the-pitch-accent">PATestOnlyWord</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#selecting-the-pitch-accent">PADoNotTest</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#selecting-the-pitch-accent">PASeparateWordCard</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#selecting-the-pitch-accent">PASeparateSentenceCard</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#cloze-deletion-cards">SeparateClozeDeletionCard</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#hints">Hint</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#hints">HintNotHidden</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./">Picture</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">WordAudio</td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">SentenceAudio</td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">PAGraphs</td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row">Do not edit this field.</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../autopa/#how-pitch-accent-is-selected">PAPositions</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row">Do not edit this field.</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../faq/#what-is-the-point-of-the-pasilence-field">PASilence</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row">Do not edit this field.</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">FrequenciesStylized</td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row">Do not edit this field.</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#sorting-by-frequency">FrequencySort</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../yomichantemplates/#expected-dictionary-placement">SecondaryDefinition</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../yomichantemplates/#expected-dictionary-placement">ExtraDefinitions</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="../yomichantemplates/#expected-dictionary-placement">UtilityDictionaries</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" checked /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><a href="./#comment-field">Comment</a></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center" class="smaller-table-row"><input type="checkbox" disabled="disabled" /></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</details>
 <hr />
 <h2 id="modifying-the-front-side-tested-content">Modifying the Front Side (Tested Content)<a class="headerlink" href="#modifying-the-front-side-tested-content" title="Permanent link">&para;</a></h2>
 <p>The front side is exactly the content that we want to test ourselves on.
@@ -1144,6 +1408,13 @@ In other words, this is a place where you can write down notes without affecting
 This is useful if you forgot to add the picture, or just don't want to add the picture
 in the first place.</p>
 <hr />
+<h2 id="sorting-by-frequency">Sorting by Frequency<a class="headerlink" href="#sorting-by-frequency" title="Permanent link">&para;</a></h2>
+<p>By default, this note type comes with a <code>FrequencySort</code> field,
+which is the equivalent of Marv's <code>Frequency</code> field in
+<a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a> guide.
+Visit the aformentioned link (and scroll down to <code>Usage</code>)
+to see how to sort and review your cards by frequency.</p>
+<hr />
 <h2 id="testing-pitch-accent">Testing Pitch Accent<a class="headerlink" href="#testing-pitch-accent" title="Permanent link">&para;</a></h2>
 <p>This note type provides many options to target exactly what parts of pitch accent
 you want to test yourself on.
@@ -1257,7 +1528,7 @@ There's currently no shortcut to creating a sentence audio card.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2022</span>
       
     
   </small>

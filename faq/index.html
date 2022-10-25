@@ -414,8 +414,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/" class="md-nav__link">
-        Usage
+      <a href="../fieldref/" class="md-nav__link">
+        Field Reference
       </a>
     </li>
   
@@ -470,8 +470,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../kanjihover/" class="md-nav__link">
-        Kanji Hover (TODO)
+      <a href="../tooltipresults/" class="md-nav__link">
+        Tooltip Results (TODO)
       </a>
     </li>
   
@@ -1316,9 +1316,13 @@ I recommend being open about it and experiment with them, to see which one you l
 <hr />
 <h3 id="what-is-the-point-of-the-pasilence-field">What is the point of the <code>PASilence</code> field?<a class="headerlink" href="#what-is-the-point-of-the-pasilence-field" title="Permanent link">&para;</a></h3>
 <p>This is a hack to not play the sentence audio on the front side,
-even if you set-up your Anki client to do so.</p>
-<p>Removing this field will affect cards where you test pitch accent,
-i.e. with <code>PAShowInfo</code> filled.</p>
+even if you set-up your Anki client to do so.
+With this field filled correctly, the play sentence audio button will appear at the front,
+and will not be autoplayed.</p>
+<p>Leaving this field empty will affect cards where you test pitch accent,
+i.e. with <code>PAShowInfo</code> filled.
+In particular, this will cause Anki to autoplay the sentence audio on
+the front side of cards that test pitch accent, which is undesirable.</p>
 <hr />
 <h3 id="how-do-you-see-the-currently-installed-version-of-this-note">How do you see the currently installed version of this note?<a class="headerlink" href="#how-do-you-see-the-currently-installed-version-of-this-note" title="Permanent link">&para;</a></h3>
 <p>Preview any card. At the top left corner, the version should be displayed.</p>
@@ -1344,7 +1348,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2022</span>
       
     
   </small>

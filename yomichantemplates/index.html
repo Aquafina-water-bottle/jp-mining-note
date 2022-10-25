@@ -416,8 +416,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../usage/" class="md-nav__link">
-        Usage
+      <a href="../fieldref/" class="md-nav__link">
+        Field Reference
       </a>
     </li>
   
@@ -480,6 +480,20 @@
   
     <nav class="md-nav" aria-label="Categorization of Dictionaries">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-dictionary-placement" class="md-nav__link">
+    Expected Dictionary Placement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-categories" class="md-nav__link">
+    Verifying Categories
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#ignoring-a-dictionary" class="md-nav__link">
@@ -563,8 +577,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../kanjihover/" class="md-nav__link">
-        Kanji Hover (TODO)
+      <a href="../tooltipresults/" class="md-nav__link">
+        Tooltip Results (TODO)
       </a>
     </li>
   
@@ -766,6 +780,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#expected-dictionary-placement" class="md-nav__link">
+    Expected Dictionary Placement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-categories" class="md-nav__link">
+    Verifying Categories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ignoring-a-dictionary" class="md-nav__link">
     Ignoring a Dictionary
   </a>
@@ -851,7 +879,42 @@ and how to customize it even further.</p>
 <h2 id="categorization-of-dictionaries">Categorization of Dictionaries<a class="headerlink" href="#categorization-of-dictionaries" title="Permanent link">&para;</a></h2>
 <p>This section deals with how the custom Yomichan Templates categorizes dictionaries,
 and how to properly customize them for your setup.</p>
-<p>To check that your dictionaries are correctly categorized is with the
+<h3 id="expected-dictionary-placement">Expected Dictionary Placement<a class="headerlink" href="#expected-dictionary-placement" title="Permanent link">&para;</a></h3>
+<p>Dictionaries from Yomichan are sorted in to the following fields:</p>
+<ul>
+<li>
+<p><code>PrimaryDefinition</code>:
+    A dictionary specified by the user. Bilingual by default.</p>
+<p>This can be changed in many different ways.
+See <a href="../setup/#yomichan-templates-options">here</a>
+for a summary of these methods.</p>
+</li>
+<li>
+<p><code>SecondaryDefinition</code>:
+    All bilingual dictionaries outside of the one in <code>PrimaryDefinition</code></p>
+</li>
+<li>
+<p><code>ExtraDefinitions</code>:
+    All monolingual dictionaries outside of the one in <code>PrimaryDefinition</code></p>
+</li>
+<li>
+<p><code>UtilityDictionaries</code>:
+    All traditionally-formatted dictionaries that
+    do not belong in any of the above categories
+    (in other words, does not provide the meaning of the word).</p>
+<p>An example is the
+<a href="https://github.com/FooSoft/yomichan/issues/2183">JMdict Surface Forms</a> dictionary</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This does not include pitch accent dictionaries, frequency lists, or kanji dictionaries,
+as these are not traditionally-formatted dictionaries.</p>
+</div>
+</li>
+</ul>
+<p>The way that the dictionaries are sorted into the appropriate fields is by assigning
+a category to each individual dictionary.</p>
+<h3 id="verifying-categories">Verifying Categories<a class="headerlink" href="#verifying-categories" title="Permanent link">&para;</a></h3>
+<p>You can check that your dictionaries are correctly categorized with the
 <code>{jpmn-test-dict-type}</code> marker.
 Under the Anki Templates code, replace <code>Card field</code> with <code>{jpmn-test-dict-type}</code> and press <code>Test</code>.</p>
 <p><a href="../assets/yomichan/test_dictionary_categorization.gif"><img alt="checking dictionary categories" src="../assets/yomichan/test_dictionary_categorization.gif" /></a></p>
@@ -969,7 +1032,7 @@ set <code>opt-selection-text-glossary-attempt-bold</code> to <code>false</code>.
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 28, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2022</span>
       
     
   </small>
