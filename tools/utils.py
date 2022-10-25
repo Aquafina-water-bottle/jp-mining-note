@@ -113,6 +113,8 @@ class Config:
             return "null"
         elif isinstance(var, str):
             return f"'{var}'"
+        elif isinstance(var, dict):
+            return json.dumps(var)
         return var
 
     def key(self) -> int | str:

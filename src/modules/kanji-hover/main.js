@@ -148,7 +148,7 @@ const JPMNKanjiHover = (() => {
           baseQuery += ` -"WordReading:{{ T('WordReading') }}"`;
         }
         baseQuery = "(" + baseQuery + ")";
-        logger.debug(baseQuery);
+        logger.debug(`query: ${baseQuery}`, 1);
 
 
         const nonNewQuery = baseQuery + {{ utils.opt("modules", "kanji-hover", "non-new-query") }};

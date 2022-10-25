@@ -376,6 +376,19 @@ const JPMNImgUtils = (() => {
     return false;
   }
 
+  function cardContainsAllTags(tagList) {
+    const tags = document.getElementById("tags").innerText.split(" ");
+
+    let count = 0;
+    for (t of tagList) {
+      if (tags.includes(t)) {
+        count += 1;
+      }
+    }
+
+    return (count === tagList.length);
+  }
+
 
   function editDisplayImage() {
     // edits the display image width/height
@@ -387,11 +400,32 @@ const JPMNImgUtils = (() => {
     const dhRight = document.getElementById("dh_right");
     const heightLeft = dhLeft.offsetHeight;
 
-    if (dhRight) {
+    const dhImgContainer = document.getElementById("dh_img_container");
+    let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
+
+    // attempts to add image according to the tag
+    const addTagsInfo = {{ utils.opt("modules", "img-utils", "add-image-if-contains-tags") }};
+    if (!somethingDisplayed && addTagsInfo) {
+      for (const info of addTagsInfo) {
+        const tags = info["tags"];
+        const fileName = info["file-name"];
+
+        if (cardContainsAllTags(tags)) {
+          const newImg = document.createElement('img');
+          newImg.src = fileName;
+          dhImgContainer.appendChild(newImg);
+          dhRight.classList.add("dh-right--contains-image");
+          somethingDisplayed = true;
+
+          break;
+        }
+      }
+    }
+
+    if (somethingDisplayed) {
       dhRight.style.maxHeight = heightLeft + "px";
 
       // setting up the modal styles and clicking
-      const dhImgContainer = document.getElementById("dh_img_container");
       const imgList = dhImgContainer.getElementsByTagName("img");
 
       if (imgList && imgList.length) {
@@ -413,7 +447,6 @@ const JPMNImgUtils = (() => {
         dhImgContainer.classList.remove(imgClickClassName);
       }
     }
-
 
     // close the modal upon click
     modal.onclick = function() {

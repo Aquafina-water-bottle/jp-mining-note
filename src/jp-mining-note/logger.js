@@ -7,11 +7,41 @@ function nullish(a, b) {
   return a;
 }
 
+function isMobile() {
+  return document.documentElement.classList.contains('mobile');
+}
+
+function parseSetting(obj, keys) {
+  // checks for an object with "type"
+  // https://stackoverflow.com/a/8511350
+  if (
+    typeof obj === 'object' &&
+    !Array.isArray(obj) &&
+    obj !== null &&
+    "type" in obj
+  ) {
+    if (obj.type === "pc-mobile") {
+      if (isMobile()) {
+        LOGGER.debug(`${keys.join(".")} (mobile) -> ${obj["mobile"]}`, 0);
+        return obj["mobile"];
+      } else {
+        LOGGER.debug(`${keys.join(".")} (pc) -> ${obj["pc"]}`, 0);
+        return obj["pc"];
+      }
+    } else {
+      LOGGER.warn(`Unknown type ${obj.type} for Option ${keys.join(".")}. Using the entire object instead...`);
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
 
 /// {% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
 function getSetting(keys, defaultVal) {
   if (typeof JPMNOpts === "undefined") {
-    return defaultVal;
+    return parseSetting(defaultVal, keys);
   }
 
   let keyList = ["settings"].concat(keys);
@@ -24,11 +54,12 @@ function getSetting(keys, defaultVal) {
       if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
         LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
       }
-      return defaultVal;
+      return parseSetting(defaultVal, keys);
     }
     obj = obj[key];
   }
-  return obj;
+
+  return parseSetting(obj, keys);
 };
 /// {% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
 

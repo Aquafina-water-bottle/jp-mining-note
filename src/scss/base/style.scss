@@ -1112,10 +1112,14 @@ ruby rt {
 
 .dh-right {
   font-size: 40px;
-  padding-left: 35px;
   max-width: 400px;
   max-height: 210px;
   position: relative;
+}
+
+
+.dh-right--contains-image {
+  padding-left: 35px;
 }
 
 /* TODO put the image at the top right corner always for mobile */

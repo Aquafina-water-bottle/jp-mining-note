@@ -34,6 +34,9 @@ and must use `./install.py --update`.
     - Added logic to overflow between categories (e.g. 6 new & 0 old will now show 6 new instead of 2 new)
     - Added option to ignore the same word reading as the current word
 - Renamed `nsfw-toggle` -> `image-blur`
+- Added option to specify an image if the card has a specific tag, if the `Picture` field itself is not filled
+- Added way to specify different values for mobile and PC within the runtime options
+
 
 #### Internal Changes
 - Added a simple dependencies system for modules, so functions can be shared easier between modules
@@ -42,6 +45,7 @@ and must use `./install.py --update`.
     - `jp-utils`: functions for dealing with the Japanese language itself (e.g. hiragana -> katakana)
     - `tooltip-builder`: creates tooltips for kanji-hover and same-reading-indicator
     - `anki-connect-actions`: helper module to use anki-connect
+- Fixed a bug with item(javascript=True) when it returns a dictionary (now parses into json)
 
 
 ## [0.10.3.0] - 2022-10-21

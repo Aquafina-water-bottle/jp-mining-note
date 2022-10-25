@@ -100,9 +100,11 @@ const JPMNOpenFields = (() => {
       this.ankiconnectHelper = new JPMNAnkiConnectActions();
     }
 
-    async run() {
+    run() {
       openAlways();
-      openOnNew(this.ankiconnectHelper);
+      if ({{ utils.opt("modules", "customize-open-fields", "open-on-new-enabled") }}) {
+        openOnNew(this.ankiconnectHelper);
+      }
     }
   }
 

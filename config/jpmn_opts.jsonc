@@ -66,17 +66,27 @@
       "enabled": true,
 
       // Removes all line breaks on the regular sentence (if AltDisplay is not filled)
-      // TODO mobile true, desktop false
-      "remove-line-breaks": false,
+      "remove-line-breaks": {
+        "type": "pc-mobile",
+        "pc": false,
+        "mobile": true
+      },
 
       // Removes all line breaks on the AltDisplay sentence
-      // TODO mobile true, desktop false
-      "remove-line-breaks-on-altdisplay": false,
+      "remove-line-breaks-on-altdisplay": {
+        "type": "pc-mobile",
+        "pc": false,
+        "mobile": true
+      },
 
       // colors the quotes instead of showing a pitch accent indicator
       // if this is enabled
-      // TODO mobile true, desktop false
       "pa-indicator-color-quotes": false,
+      "remove-line-breaks-on-altdisplay": {
+        "type": "pc-mobile",
+        "pc": false,
+        "mobile": true
+      },
 
       // automatically colors the quote with the sentence pa indicator color,
       // on PA sentence cards
@@ -110,7 +120,11 @@
     // Hover over a kanji in the word reading to see if it has been used
     // in previous cards or not.
     "kanji-hover": {
-      "enabled": true,
+      "enabled": {
+        "type": "pc-mobile",
+        "pc": true,
+        "mobile": false
+      },
 
       // 0: loads every time, slower to reveal the back side of the card
       // 1: loads only upon hover, has a small delay upon first hovering over a word
@@ -201,6 +215,22 @@
       // an `[Image]` text where you can see the image upon hover, and with click to zoom.
       "stylize-images-in-glossary": true,
 
+      // Sets the image to the specified file if it contains the specified tags.
+      // This may be useful for people who primarily make cards from novels,
+      // and want to add the cover of the book to all of their notes.
+      // This is a fall-back option that is used when the `Picture` field is empty.
+      // NOTE: Remember to add the file to the media folder in order for this to work!
+      "add-image-if-contains-tags": {
+        //{
+        //  "tags": ["something"],
+        //  "file-name": "_something.png"
+        //},
+        //{
+        //  "tags": ["something", "something2"],
+        //  "file-name": "_contains_both_tags.png"
+        //}
+      },
+
       "image-blur": {
         // allows the user to mark any card as NSFW, and adds various
         // GUI elements to faciliate just that.
@@ -251,6 +281,12 @@
       ],
 
       // Opens the specified collapsable field if the card is new.
+      "open-on-new-enabled": {
+        "type": "pc-mobile",
+        "pc": true,
+        "mobile": false
+      },
+
       "open-on-new": [
         // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
         // indeed collapsed by default.
@@ -265,7 +301,11 @@
 
     // Shows an indicator if the reading (WordReadingHiragana field) is the same as another card
     "same-reading-indicator": {
-      "enabled": true,
+      "enabled": {
+        "type": "pc-mobile",
+        "pc": true,
+        "mobile": false
+      },
 
       // The delay (in milliseconds) of which this module is loaded.
       // - 1 second is 1000ms
@@ -327,7 +367,11 @@
   "no-sentence-reading-warn": false,
 
   // Whether the user can lock the tooltip by clicking on the info-circle or not
-  "info-circle-togglable-lock": true,
+  "info-circle-togglable-lock": {
+    "type": "pc-mobile",
+    "pc": true,
+    "mobile": false
+  },
 
   // (Developer option) Used to show debug messages when debugging the card.
   // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.
