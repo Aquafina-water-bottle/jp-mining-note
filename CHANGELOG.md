@@ -27,8 +27,12 @@ and must use `./install.py --update`.
 
 #### Features
 - Added same word reading indicator
-- Added functionality to show pitch accent on tooltips (same-word-indicator and kanji-hover)
-    - Disabled for kanji-hover and enabled on same-word-indicator by default
+- Improved tooltips (same-reading-indicator and kanji-hover):
+    - Added pitch accent on tooltips
+        - Enabled for both kanji-hover and same-word-indicator by default
+        - Requires hover over the word for kanji-hover by default
+    - Added logic to overflow between categories (e.g. 6 new & 0 old will now show 6 new instead of 2 new)
+    - Added option to ignore the same word reading as the current word
 - Renamed `nsfw-toggle` -> `image-blur`
 
 #### Internal Changes

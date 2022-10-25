@@ -161,10 +161,6 @@ of the `Sentence` field.
 
         > `Notes` →  `Find and Replace...`
 
-
-    {% set checked_checkbox = '<input type="checkbox" disabled="disabled" checked />' %}
-    {% set unchecked_checkbox = '<input type="checkbox" disabled="disabled" />' %}
-
     3. **Setting the fields.**
 
         Set the `Find` field to something that can find your highlighted content.
@@ -178,9 +174,9 @@ of the `Sentence` field.
         | **Find:** { .smaller-table-row } | `<span style="color: #ffc2c7">(?P<t>.*?)</span>` { .smaller-table-row } |
         | **Replace With:** { .smaller-table-row } | `<b>$t</b>` { .smaller-table-row } |
         | **In:** { .smaller-table-row } | `Sentence` { .smaller-table-row } |
-        | Selected notes only { .smaller-table-row } | Checked ({{ checked_checkbox }}) { .smaller-table-row } |
-        | Ignore case { .smaller-table-row } | Unchecked ({{ unchecked_checkbox }}) { .smaller-table-row } |
-        | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ checked_checkbox }}) { .smaller-table-row } |
+        | Selected notes only { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
+        | Ignore case { .smaller-table-row } | Unchecked ({{ UNCHECKED_CHECKBOX }}) { .smaller-table-row } |
+        | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
 
         ??? example "Example image *(click here)*"
 
@@ -233,6 +229,7 @@ of the `Sentence` field.
 ## (3) Batch set `PASilence` field
 
 This will ensure all `PASilence` are filled correctly.
+See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
 
 1. Head to the Card Browser window.
 1. Right click a card, and then head to:
@@ -246,9 +243,9 @@ This will ensure all `PASilence` are filled correctly.
     | **Find:** { .smaller-table-row } | `.*`  { .smaller-table-row } |
     | **Replace With:** { .smaller-table-row } | `[sound:_silence.wav]` { .smaller-table-row } |
     | **In:** { .smaller-table-row } | `PASilence` (IMPORTANT!!! Don't forget to set this field) { .smaller-table-row } |
-    | Selected notes only { .smaller-table-row } | Unchecked ({{ unchecked_checkbox }}) { .smaller-table-row } |
-    | Ignore case { .smaller-table-row } | Unchecked ({{ unchecked_checkbox }}) { .smaller-table-row } |
-    | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ checked_checkbox }}) { .smaller-table-row } |
+    | Selected notes only { .smaller-table-row } | Unchecked ({{ UNCHECKED_CHECKBOX }}) { .smaller-table-row } |
+    | Ignore case { .smaller-table-row } | Unchecked ({{ UNCHECKED_CHECKBOX }}) { .smaller-table-row } |
+    | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
 
     ??? example "Example image *(click here)*"
         <figure markdown>

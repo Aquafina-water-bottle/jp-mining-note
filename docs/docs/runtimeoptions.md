@@ -43,7 +43,7 @@ wants to sacrifice functionality for a slightly faster card.
 
 Some examples include:
 
-- [kanji-hover](kanjihover.md)
+- kanji-hover
 - [auto-pitch-accent](autopa.md)
 - sent-utils (basic sentence processing)
 - img-utils (basic image processing)

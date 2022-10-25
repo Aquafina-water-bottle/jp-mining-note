@@ -923,8 +923,9 @@ ruby rt {
 .hover-tooltip .hover-tooltip__pitch-accent {
   @include common.bold-pitch;
 
+  /* cancels out bolded colors */
   b {
-    color: var(--text-color--1);
+    color: var(--text-color);
   }
 
   /* cancels out extra colors */
@@ -938,12 +939,25 @@ ruby rt {
   .nopron {
     color: var(--text-color);
   }
+
   .nasal {
     display: none;
   }
 
 }
 
+
+.hover-tooltip b {
+  @include common.bold_highlight;
+}
+
+.hover-tooltip--new {
+  color: var(--text-color--1);
+
+  .hover-tooltip__pitch-accent .nopron {
+    color: var(--text-color--1);
+  }
+}
 
 .hover-tooltip__word-div--hover + .hover-tooltip__pitch-accent {
   visibility: hidden;
@@ -999,14 +1013,6 @@ ruby rt {
 }
 
 
-.hover-tooltip b {
-  @include common.bold_highlight;
-}
-
-.hover-tooltip--new {
-  color: var(--text-color--1);
-}
-
 /*
  * "gap" class to be inserted to elements after the first one,
  * since flex can't be used
@@ -1039,6 +1045,20 @@ ruby rt {
   border-color: transparent transparent var(--tooltip-background-darken) transparent;
   z-index: 1;
 }
+
+
+.hover-tooltip--kanji-hover:before {
+  content: "";
+  width: 40px;
+  position: absolute;
+  /* position tooltip correctly */
+  left: 0px;
+  top: -16px;
+  /* the arrow */
+  border: 8px solid transparent;
+  z-index: 1;
+}
+
 
 /* arrow */
 .hover-tooltip--same-reading:after {

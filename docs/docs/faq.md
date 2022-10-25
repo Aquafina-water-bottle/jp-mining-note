@@ -323,9 +323,13 @@ I recommend being open about it and experiment with them, to see which one you l
 ## What is the point of the `PASilence` field?
 This is a hack to not play the sentence audio on the front side,
 even if you set-up your Anki client to do so.
+With this field filled correctly, the play sentence audio button will appear at the front,
+and will not be autoplayed.
 
-Removing this field will affect cards where you test pitch accent,
+Leaving this field empty will affect cards where you test pitch accent,
 i.e. with `PAShowInfo` filled.
+In particular, this will cause Anki to autoplay the sentence audio on
+the front side of cards that test pitch accent, which is undesirable.
 
 
 ---

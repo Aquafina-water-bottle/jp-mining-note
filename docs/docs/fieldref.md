@@ -1,6 +1,6 @@
 
 This entire section is dedicated showing
-how to use the fields and card options to change the card to your liking.
+how to edit the note fields to change the card to your liking.
 
 
 # Definitions
@@ -21,6 +21,27 @@ In other words, it means to flip the value of the field between empty and filled
 **PA:** Short for "Pitch Accent".
 
 ---
+
+
+# Quick Jump
+
+The table below provides quick links to most of the fields found with the card,
+as well as some general info on each field.
+Fields without links are assumed to be either obvious (and do not require documentation),
+or not meant to be edited.
+
+
+??? example "Click here to reveal the field list"
+
+    !!! note
+        `Auto-filled` represents fields that should be automatically filled out from Yomichan
+        and Anki add-ons.
+
+
+    {{ field_quick_jump_table() | indent(4)}}
+
+---
+
 
 
 
@@ -175,6 +196,18 @@ in the first place.
 
 
 
+# Sorting by Frequency
+
+By default, this note type comes with a `FrequencySort` field,
+which is the equivalent of Marv's `Frequency` field in
+[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
+Visit the aformentioned link (and scroll down to `Usage`)
+to see how to sort and review your cards by frequency.
+
+---
+
+
+
 
 
 # Testing Pitch Accent
@@ -272,4 +305,6 @@ There's currently no shortcut to creating a sentence audio card.
 TODO: IsSentenceCard -> tests entire sentence, not filled -> currently as is
 
 {{ img("cloze deletion card", "assets/cloze_deletion.png") }}
+
+
 

@@ -68,11 +68,11 @@ nav:
     - Updating: updating.md
   - Reference:
     - User Interface: ui.md
-    - Usage: usage.md
+    - Field Reference: fieldref.md
     - Card Types: cardtypes.md
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Runtime Options (TODO): runtimeoptions.md
-    - Kanji Hover (TODO): kanjihover.md
+    - Tooltip Results (TODO): tooltipresults.md
     - Auto Pitch Accent (TODO): autopa.md
   - Developer Documentation:
     - Building: building.md

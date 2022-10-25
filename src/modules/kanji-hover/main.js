@@ -87,6 +87,7 @@ const JPMNKanjiHover = (() => {
 
       const tooltipSpan = document.createElement('span');
       tooltipSpan.classList.add("hover-tooltip");
+      tooltipSpan.classList.add("hover-tooltip--kanji-hover");
 
       let count = 0;
 
@@ -114,7 +115,7 @@ const JPMNKanjiHover = (() => {
 
       // 0 length checks
       if (nonNewCardInfo.length + newCardInfo.length == 0) {
-        tooltipSpan.innerText = "No other kanjis found.";
+        tooltipSpan.innerText = "Kanji not found.";
       }
 
       tooltipWrapperSpan.appendChild(tooltipSpan)
@@ -142,10 +143,14 @@ const JPMNKanjiHover = (() => {
       // constructs the multi findCards request for ankiconnect
       let actions = [];
       for (const character of kanjiArr) {
-        const baseQuery = (
-          `(-"Key:{{ T('Key') }}" -"WordReading:{{ T('WordReading') }}"`
-          + `Word:*${character}* "card:${cardTypeName}") `
-        );
+        let baseQuery = `-"Key:{{ T('Key') }}" Word:*${character}* "card:${cardTypeName}"`;
+        if (!{{ utils.opt("modules", "kanji-hover", "show-same-word-reading") }}) {
+          baseQuery += ` -"WordReading:{{ T('WordReading') }}"`;
+        }
+        baseQuery = "(" + baseQuery + ")";
+        logger.debug(baseQuery);
+
+
         const nonNewQuery = baseQuery + {{ utils.opt("modules", "kanji-hover", "non-new-query") }};
         const newQuery = baseQuery + {{ utils.opt("modules", "kanji-hover", "new-query") }};
 

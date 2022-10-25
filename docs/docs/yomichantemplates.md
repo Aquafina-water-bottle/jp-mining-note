@@ -7,7 +7,43 @@ and how to customize it even further.
 This section deals with how the custom Yomichan Templates categorizes dictionaries,
 and how to properly customize them for your setup.
 
-To check that your dictionaries are correctly categorized is with the
+
+## Expected Dictionary Placement
+Dictionaries from Yomichan are sorted in to the following fields:
+
+* `PrimaryDefinition`:
+    A dictionary specified by the user. Bilingual by default.
+
+    This can be changed in many different ways.
+    See [here](setup.md#yomichan-templates-options)
+    for a summary of these methods.
+
+* `SecondaryDefinition`:
+    All bilingual dictionaries outside of the one in `PrimaryDefinition`
+
+* `ExtraDefinitions`:
+    All monolingual dictionaries outside of the one in `PrimaryDefinition`
+
+* `UtilityDictionaries`:
+    All traditionally-formatted dictionaries that
+    do not belong in any of the above categories
+    (in other words, does not provide the meaning of the word).
+
+    An example is the
+    [JMdict Surface Forms](https://github.com/FooSoft/yomichan/issues/2183) dictionary
+
+    !!! note
+        This does not include pitch accent dictionaries, frequency lists, or kanji dictionaries,
+        as these are not traditionally-formatted dictionaries.
+
+
+The way that the dictionaries are sorted into the appropriate fields is by assigning
+a category to each individual dictionary.
+
+
+## Verifying Categories
+
+You can check that your dictionaries are correctly categorized with the
 `{jpmn-test-dict-type}` marker.
 Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
 

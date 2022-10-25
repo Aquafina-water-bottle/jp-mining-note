@@ -25,6 +25,12 @@ CONFIG = {
         "hardcoded-runtime-options": False,
 
 
+        # forces the behavior of the cards to act
+        # as if the field is filled or not filled
+        "always-filled-fields": [],
+        "never-filled-fields": [],
+
+
         # Adds an external links section to the "Extra Info" field.
         "external-links": {
             # Example external link that uses an image: one for light mode, and one for dark mode
@@ -90,12 +96,6 @@ CONFIG = {
             #    #"hover-display": "コトバンク",
             #},
         },
-
-
-        # forces the behavior of the cards to act
-        # as if the field is filled or not filled
-        "always-filled-fields": [],
-        "never-filled-fields": [],
 
 
         # Option to have custom CSS.

@@ -5,8 +5,8 @@ common user interface.
 # Summary
 Most of the user interface is already shown off in the [GUI demo](/jp-mining-note/#demos){:target="_blank"},
 and I would recommend watching it before continuing.
-However, to dispell any mysteries, here is a fully annotated summary of the user interface.
 
+However, to dispell any mysteries, here is a fully annotated summary of the user interface.
 
 {{ img("UI annotated summary", "assets/eg_fushinnsha_diagram.png") }}
 
@@ -70,14 +70,12 @@ This may be useful for copying/pasting errors and other debugging purposes.
 
 
 # Kanji Hover
-<i><sup>Main page: [Kanji Hover](kanjihover.md)</sup></i>
-
 Kanji hover shows you if you have seen the kanji in previous cards or not.
 This is useful if you want to check whether you have seen the reading
 in a previous card, to differentiate between similar kanjis, etc.
 
 By default, it searches for the kanji within the "Word" field,
-only for notes of the same type (JP Mining Note).
+within "JP Mining Note" types.
 
 {{ img("kanji hover demo", "assets/kanji_hover.gif") }}
 
@@ -86,26 +84,58 @@ Those results are results from cards that have not been reviewed yet.
 Conversely, as non-greyed out results come from cards that you have already reviewed,
 they should represent words that you already know.
 
+Also notice that pitch accents are also shown when you hover over a particular word.
+{{ bleeding_edge_only("0.11.0.0")}}
 
-!!! note
-    The maximum number of results, as well as the exact queries themselves,
-    can be changed in the [options file](runtimeoptions.md){:target="_blank"}.
+See [here](tooltipresults.md) for information on how the examples are chosen,
+and how to customize it.
+
+??? example "Related Programs *(click here)*"
+
+    [**Cade's Kanji Hover**](https://cademcniven.com/projects/kanjihover/)
+
+    - Hover over a kanji to see its readings, meanings (english), and other info.
+    - This does not show example words from other cards.
+    - My implmentation of kanji hover was heavily inspired by this.
+
+
+    [**Hanzi Web for Anki**](https://github.com/elizagamedev/anki-hanziweb)
+
+    - The end result of this is to this note's implementation of kanji-hover,
+        in the sense that it is used to see kanjis that have been used in other notes.
+        However, it differs primarily in the fact that all the information must be
+        mass-generated. This indeed has several advantages, such as being able to
+        use the infomation on Android, where Anki-Connect isn't full supported.
+
+
+    !!! warning
+        None of the above will work with jp-mining-note by default.
+        In fact, it's almost guaranteed that Cade's Kanji Hover will conflict with
+        this note's kanji hover ability.
+
+
+
 
 ---
 
 # Same Reading Indicator
 {{ feature_version("0.11.0.0") }}
 
-When a word with the same reading has been detected,
+When there are multiple words with the same reading in your Anki collection,
 an indicator will be shown.
 This indicator will be yellow (or blue on light mode) for new cards only.
 After the first review, the indicator will be the same color as the info circle.
 
-TODO gif
+{{ img("same reading indicator eg", "assets/same_reading_indicator.gif") }}
 
-The query ignores pitch accent.
+As you can see from the above, the query ignores pitch accent.
 For example, if you have the cards 自身 and 自信,
 the indicator will still be shown and point to each other.
+
+Results are greyed out if they are from new cards, like for Kanji Hover.
+
+See [here](tooltipresults.md) for information on how the examples are chosen,
+and how to customize it.
 
 ---
 
@@ -277,9 +307,8 @@ By default, states cycle from left to right.
 ---
 
 
-
 # Conclusion
 Outside of the user interface, the note has plenty of fields you can use
-to further modify the card. Head over to the [Usage](usage.md) page to see just that.
+to further modify the card. Head over to the [Field Reference](fieldref.md) page to see just that.
 
 

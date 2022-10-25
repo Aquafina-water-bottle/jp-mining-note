@@ -664,19 +664,17 @@ the hotkey must be configured with steps shown below.
 
 (TODO video)
 
-{% set checked_checkbox = '<input type="checkbox" disabled="disabled" checked />' %}
-
 1. Under the main window, go to `Hotkey Settings`, and add a new hotkey.
 2. Click on the settings icon (of the newly added hotkey).
 3. In the `Task` tab (to the left):
     - Set: `Task` to `Screen capture` →  `Capture active window`
-    - Check `Override After Capture Tasks` ({{ checked_checkbox }})
+    - Check `Override After Capture Tasks` ({{ CHECKED_CHECKBOX }})
     - Under `After Capture`, un-check everything, and check the following:
         - `Save Image to File`
         - `Perform Actions`
         - `Delete Locally`
 4. In the `Actions` tab (to the left):
-    - Check `Override Actions` ({{ checked_checkbox }})
+    - Check `Override Actions` ({{ CHECKED_CHECKBOX }})
     - Uncheck all existing actions.
     - Add a new action by clicking on `Add`.
     - Set the following values of the action:

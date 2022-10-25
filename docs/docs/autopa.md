@@ -2,7 +2,7 @@
 
 This page is dedicated to explaining the details of the `auto-pitch-accent` module.
 If you want a quick summary of how to set the the pitch accent in the card,
-see the [usage page](usage.md#modifying-pitch-accent).
+see the [usage page](fieldref.md#modifying-pitch-accent).
 
 
 <!--

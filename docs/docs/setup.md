@@ -601,7 +601,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
     | Anki Fields | Yomichan Format |
     |-------------|-----------------|
     {% for f, v in FIELDS.items() -%}
-    | {{ "*" if v["customize"] else "" }}{{ f }} { .smaller-table-row } | {{ "`" + v["setup"] + "` { .smaller-table-row }" if "setup" in v else "" }} |
+    | {{ "*" if v["binary_field"] else "" }}{{ f }} { .smaller-table-row } | {{ "`" + v["setup"] + "` { .smaller-table-row }" if "setup" in v else "" }} |
     {% endfor %}
 
 
@@ -821,10 +821,11 @@ If you've made it this far, then congratulations!
 Most fields of the cards have been automatically filled out, just from Yomichan alone!
 
 If you already have a sentence mining workflow set up,
-outside of some potentially minor tweaks to your current workflow (i.e. to match the field names),
+outside of some potentially minor tweaks to your current workflow
+(i.e. to match the field names, for exporting sentence audio and pictures),
 **you are now finished**!
 All that's left is understanding how to use and edit the card itself.
-See the [User Interface](ui.md) and [Usage](usage.md) pages to see exactly that.
+See the [User Interface](ui.md) and [Field Reference](fieldref.md) pages to see exactly that.
 
 
 

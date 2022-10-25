@@ -121,15 +121,23 @@ const JPMNSameReadingIndicator = (() => {
       const nonNewQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "non-new-query") }};
       const newQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "new-query") }};
 
+      if (!{{ utils.opt("modules", "same-reading-indicator", "show-same-word-reading") }}) {
+        baseQuery += ` -"WordReading:{{ T('WordReading') }}"`;
+      }
+
+      baseQuery = "(" + baseQuery + ")";
+
       const queryNonNew = `(${baseQuery}) ${nonNewQueryPartial}`;
       const queryNew = `(${baseQuery}) ${newQueryPartial}`;
 
       let cardIdsNonNew = await this.ankiConnectHelper.query(queryNonNew);
       let cardIdsNew = await this.ankiConnectHelper.query(queryNew);
+      cardIdsNonNew.sort();
+      cardIdsNew.sort();
 
-      const maxNonNewOldest = {{ utils.opt("modules", "kanji-hover", "max-non-new-oldest") }};
-      const maxNonNewLatest = {{ utils.opt("modules", "kanji-hover", "max-non-new-latest") }};
-      const maxNewLatest = {{ utils.opt("modules", "kanji-hover", "max-new-latest") }};
+      const maxNonNewOldest = {{ utils.opt("modules", "same-reading-indicator", "max-non-new-oldest") }};
+      const maxNonNewLatest = {{ utils.opt("modules", "same-reading-indicator", "max-non-new-latest") }};
+      const maxNewLatest = {{ utils.opt("modules", "same-reading-indicator", "max-new-latest") }};
 
       let [cardIdsNonNewFiltered, cardIdsNewFiltered] = this.ankiConnectHelper.filterCards(
           cardIdsNonNew, cardIdsNew,
@@ -154,7 +162,8 @@ const JPMNSameReadingIndicator = (() => {
 // only continues if kanji-hover is actually enabled
 if ({{ utils.opt("modules", "same-reading-indicator", "enabled") }}) {
   const sameReading = new JPMNSameReadingIndicator();
-  sameReading.runAfterDelay(50);
+  const delay = {{ utils.opt("modules", "same-reading-indicator", "load-delay") }};
+  sameReading.runAfterDelay(delay);
 }
 
 /// {% endset %}
