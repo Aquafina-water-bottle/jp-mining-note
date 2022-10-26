@@ -437,8 +437,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#final-notes" class="md-nav__link">
-    Final Notes
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
   </a>
   
 </li>
@@ -842,8 +842,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#final-notes" class="md-nav__link">
-    Final Notes
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
   </a>
   
 </li>
@@ -966,14 +966,8 @@ However, here are a few tips:</p>
 <p>If you have a field that stores the source of the media, you can likely map that to <code>AdditionalNotes</code>.</p>
 </li>
 <li>
-<p><code>FrequenciesStylized</code> is a field that holds information for multiple frequency lists.
-    If your card already has a field that contains that information
-    (say, with the built-in <code>{frequencies}</code> marker that comes with Yomichan),
-    please be aware that mapping this to <code>FrequenciesStylized</code>
-    will <strong>likely not work as you would expect</strong>.
-    This is because <code>FrequenciesStylized</code> uses a custom set of handlebars to
-    store the frequency info in a way that css styles can be easily applied without javascript.</p>
-<p>There is currently no convenience function to convert it to the proper format.</p>
+<p>I recommend not setting <code>FrequenciesStylized</code> to anything, even if you have a field for
+    frequency lists<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 </li>
 </ol>
 <p>An example with <a href="https://animecards.site/ankicards/">Anime cards</a> is shown below.</p>
@@ -1429,18 +1423,36 @@ or third way
 </code></pre></div>
 -->
 
-<h2 id="final-notes">Final Notes<a class="headerlink" href="#final-notes" title="Permanent link">&para;</a></h2>
-<p>Auto-generating frequency info (with the correct css, html, etc.) doesn't seem trivial,
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>If everything went smoothly,
+then you have <strong>successfully transferred your notes</strong> to the JPMN template.
+Enjoy reviewing your old cards with a new template!</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><code>FrequenciesStylized</code> uses a custom set of handlebars to
+store the frequency info in a way that css styles can be easily applied without javascript.
+This differs heavily from the <code>{frequencies}</code> marker provided by Yomichan.
+Mapping an existing field that stores frequencies using <code>{frequencies}</code>
+to <code>FrequenciesStylized</code>
+will result in <strong>incorrect display of data</strong>.</p>
+<p>There is currently no convenience function to convert it to the proper format.</p>
+<p>Additionally, auto-generating frequency info (with the correct css, html, etc.)
+from arbitrary frequency lists does not seem trivial,
 and I currently provide no way of doing that
 (primarily because I'm not sure how to do it in the first place).
-If you know of a way or would like to help me out with doing this, please let me know!</p>
+If you know of a way or would like to help me out with doing this, please let me know!&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 26, 2022</span>
       
     
   </small>

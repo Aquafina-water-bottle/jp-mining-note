@@ -994,11 +994,12 @@ in a previous card, to differentiate between similar kanjis, etc.</p>
 <p>By default, it searches for the kanji within the "Word" field,
 within "JP Mining Note" types.</p>
 <p><a href="../assets/kanji_hover.gif"><img alt="kanji hover demo" src="../assets/kanji_hover.gif" /></a></p>
-<p>Notice how some results are greyed out.
-Those results are results from cards that have not been reviewed yet.
+<p>You may have noticed that some results are greyed out.
+These represent words from cards that have not been reviewed yet.
 Conversely, as non-greyed out results come from cards that you have already reviewed,
 they should represent words that you already know.</p>
-<p>Also notice that pitch accents are also shown when you hover over a particular word.
+<p>Additionally, pitch accents are also shown when you hover over a particular word
+within the tooltip.
 (Only available on the <a href="../building/">bleeding edge release</a>)</p>
 <p>See <a href="../tooltipresults/">here</a> for information on how the examples are chosen,
 and how to customize it.</p>
@@ -1037,16 +1038,36 @@ This indicator will be yellow (or blue on light mode) for new cards only.
 After the first review, the indicator will be the same color as the info circle.</p>
 <p><a href="../assets/same_reading_indicator.gif"><img alt="same reading indicator eg" src="../assets/same_reading_indicator.gif" /></a></p>
 <p>As you can see from the above, the query ignores pitch accent.
-For example, if you have the cards 自身 and 自信,
-the indicator will still be shown and point to each other.</p>
-<p>Results are greyed out if they are from new cards, like for Kanji Hover.</p>
+The word 自身 is still shown, despite having a different pitch accent
+compared to 地震.</p>
+<p>Results are greyed out if the word is from a new card, just like for Kanji Hover.</p>
 <p>See <a href="../tooltipresults/">here</a> for information on how the examples are chosen,
 and how to customize it.</p>
 <hr />
 <h2 id="word-pitch">Word Pitch<a class="headerlink" href="#word-pitch" title="Permanent link">&para;</a></h2>
-<p>The colors and what the lines mean are all described in the
-official anki addon page as specified
-<a href="https://ankiweb.net/shared/info/1225470483">here</a>.</p>
+<p>Here is a (slightly modified) excerpt taken from the
+<a href="https://ankiweb.net/shared/info/1225470483">AJT Pitch Accent add-on page</a>
+that explains the notation well:</p>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>For more information on the Japanese pitch accent, I would like to refer you to
+<a href="http://en.wikipedia.org/wiki/Japanese_pitch_accent">this wikipedia article</a>.
+In short, the following notations can be found:</p>
+<ul>
+<li><strong>Overline</strong>: Indicates "High" pitch (see "Binary pitch" in Wikipedia article).</li>
+<li><strong>Overline downstep</strong>: usually means stressing the mora/syllable before.</li>
+<li>
+<p><strong>Red circle mark</strong>: Nasal pronunciation.</p>
+<p>For example, げ would be a nasal け,
+and would represented as け<span class="nasal">°</span>.</p>
+</li>
+<li>
+<p><strong>Blue color</strong>: barely pronounced at all.</p>
+<p>For example, <span class="nopron">ヒ</span> would be closer to h than hi. <br>
+Likewise, <span class="nopron">ク</span> would be more like a k than ku.</p>
+</li>
+</ul>
+</div>
 <h3 id="colored-pitch-accent">Colored Pitch Accent<a class="headerlink" href="#colored-pitch-accent" title="Permanent link">&para;</a></h3>
 <p><i><sup>Main page: <a href="../autopa/#colored-pitch-accent">Auto Pitch Accent (Colored Pitch Accent)</a></sup></i></p>
 <p>Pitch accent can already be set very easily by writing the position in <code>PAOverride</code>.
@@ -1229,7 +1250,7 @@ to further modify the card. Head over to the <a href="../fieldref/">Field Refere
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 26, 2022</span>
       
     
   </small>

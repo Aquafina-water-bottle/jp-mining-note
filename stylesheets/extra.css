@@ -8,6 +8,9 @@
 
   --jpmn-yellow: hsla(59, 100%, 81%, 1);
 
+  --pa-no-pron-color: #2b94f7;
+  --pa-nasal-color: #f12a2a;
+
 }
 
 [data-md-color-scheme="slate"] .text-yellow {
@@ -50,6 +53,9 @@
   --text-nakadaka:              #ff9b54; /* 中高, orange */
   --text-odaka:                 #67e47d; /* 尾高, green */
   --text-kifuku:                #af85f4; /* 起伏, purple */
+
+  --pa-no-pron-color: #42a3ff;
+  --pa-nasal-color: #f12a2a;
 
 }
 
@@ -113,6 +119,15 @@
 .pa-kifuku {
   color: var(--text-kifuku);
 }
+
+.nopron {
+  color: var(--pa-no-pron-color);
+}
+
+.nasal {
+  color: var(--pa-nasal-color);
+}
+
 
 
 /* taken from scss: https://github.com/squidfunk/mkdocs-material/blob/master/src/assets/stylesheets/main/extensions/markdown/_admonition.scss */
