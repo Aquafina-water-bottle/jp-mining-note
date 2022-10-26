@@ -7,6 +7,8 @@ TODO add intro
 # Details
 - pitch accents should be exactly the same pitch accents as shown on the specified card
 - pitch accents are stripped of extra information (nasal and devoiced)
+    - all the extra color was very distracting, and stole the attention away from the important part
+        (the example words found)
 
 
 # Result Queries & Categorization

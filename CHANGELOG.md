@@ -37,7 +37,7 @@ and must use `./install.py --update`.
 - Added option to specify an image if the card has a specific tag, if the `Picture` field itself is not filled
 - Added way to specify different values for mobile and PC within the runtime options
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
-- Added more options to the info circle, to allow it to function better on mobile
+- Added more runtime options to the info circle, to allow it to function better on mobile
 
 
 #### Internal Changes

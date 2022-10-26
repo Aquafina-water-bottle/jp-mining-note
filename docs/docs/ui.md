@@ -79,12 +79,13 @@ within "JP Mining Note" types.
 
 {{ img("kanji hover demo", "assets/kanji_hover.gif") }}
 
-Notice how some results are greyed out.
-Those results are results from cards that have not been reviewed yet.
+You may have noticed that some results are greyed out.
+These represent words from cards that have not been reviewed yet.
 Conversely, as non-greyed out results come from cards that you have already reviewed,
 they should represent words that you already know.
 
-Also notice that pitch accents are also shown when you hover over a particular word.
+Additionally, pitch accents are also shown when you hover over a particular word
+within the tooltip.
 {{ bleeding_edge_only("0.11.0.0")}}
 
 See [here](tooltipresults.md) for information on how the examples are chosen,

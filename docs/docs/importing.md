@@ -89,15 +89,26 @@ However, here are a few tips:
 
 1. If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 
-1. `FrequenciesStylized` is a field that holds information for multiple frequency lists.
-    If your card already has a field that contains that information
-    (say, with the built-in `{frequencies}` marker that comes with Yomichan),
-    please be aware that mapping this to `FrequenciesStylized`
-    will **likely not work as you would expect**.
-    This is because `FrequenciesStylized` uses a custom set of handlebars to
+1. I recommend not setting `FrequenciesStylized` to anything, even if you have a field for
+    frequency lists[^1].
+
+
+[^1]: `FrequenciesStylized` uses a custom set of handlebars to
     store the frequency info in a way that css styles can be easily applied without javascript.
+    This differs heavily from the `{frequencies}` marker provided by Yomichan.
+    Mapping an existing field that stores frequencies using `{frequencies}`
+    to `FrequenciesStylized`
+    will result in **incorrect display of data**.
 
     There is currently no convenience function to convert it to the proper format.
+
+    Additionally, auto-generating frequency info (with the correct css, html, etc.)
+    from arbitrary frequency lists does not seem trivial,
+    and I currently provide no way of doing that
+    (primarily because I'm not sure how to do it in the first place).
+    If you know of a way or would like to help me out with doing this, please let me know!
+
+
 
 
 An example with [Anime cards](https://animecards.site/ankicards/) is shown below.
@@ -371,10 +382,11 @@ python3 ./batch.py -f "fill_word_reading_hiragana_field"
 -->
 
 
-# Final Notes
-Auto-generating frequency info (with the correct css, html, etc.) doesn't seem trivial,
-and I currently provide no way of doing that
-(primarily because I'm not sure how to do it in the first place).
-If you know of a way or would like to help me out with doing this, please let me know!
+# Conclusion
+If everything went smoothly,
+then you have **successfully transferred your notes** to the JPMN template.
+Enjoy reviewing your old cards with a new template!
+
+
 
 
