@@ -324,7 +324,7 @@ ruby rt {
   margin-left: 16px;
 }
 
-.info-circle-svg-wrapper:hover,
+.info-circle-svg-wrapper--hoverable:hover,
 .info-circle--frozen > .info-circle-svg-wrapper {
   + .info-circle-text-wrapper > .info-circle-text {
     visibility: visible;

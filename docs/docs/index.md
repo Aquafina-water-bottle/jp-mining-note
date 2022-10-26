@@ -7,6 +7,18 @@ or head over to the table of contents to the left of this page.
 
 # Demos
 
+??? example "Example Images *(click here)*"
+
+    === "Front | Dark"
+        {{ img("", "assets/fushinnsha/dark_front.png") }}
+    === "Back | Dark"
+        {{ img("", "assets/fushinnsha/dark_back.png") }}
+    === "Front | Light"
+        {{ img("", "assets/fushinnsha/light_front.png") }}
+    === "Back | Light"
+        {{ img("", "assets/fushinnsha/light_back.png") }}
+
+
 ??? example "GUI *(click here)*"
 
     ![type:video](https://user-images.githubusercontent.com/17107540/187550103-7e50c317-9074-4c7c-a499-fa4ddc89e419.mp4)

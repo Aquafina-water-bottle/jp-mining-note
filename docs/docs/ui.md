@@ -129,10 +129,10 @@ After the first review, the indicator will be the same color as the info circle.
 {{ img("same reading indicator eg", "assets/same_reading_indicator.gif") }}
 
 As you can see from the above, the query ignores pitch accent.
-For example, if you have the cards 自身 and 自信,
-the indicator will still be shown and point to each other.
+The word 自身 is still shown, despite having a different pitch accent
+compared to 地震.
 
-Results are greyed out if they are from new cards, like for Kanji Hover.
+Results are greyed out if the word is from a new card, just like for Kanji Hover.
 
 See [here](tooltipresults.md) for information on how the examples are chosen,
 and how to customize it.
@@ -140,9 +140,29 @@ and how to customize it.
 ---
 
 # Word Pitch
-The colors and what the lines mean are all described in the
-official anki addon page as specified
-[here](https://ankiweb.net/shared/info/1225470483).
+
+Here is a (slightly modified) excerpt taken from the
+[AJT Pitch Accent add-on page](https://ankiweb.net/shared/info/1225470483)
+that explains the notation well:
+
+!!! quote
+    For more information on the Japanese pitch accent, I would like to refer you to
+    [this wikipedia article](http://en.wikipedia.org/wiki/Japanese_pitch_accent).
+    In short, the following notations can be found:
+
+    - **Overline**: Indicates "High" pitch (see "Binary pitch" in Wikipedia article).
+    - **Overline downstep**: usually means stressing the mora/syllable before.
+    - **Red circle mark**: Nasal pronunciation.
+
+        For example, げ would be a nasal け,
+        and would represented as け<span class="nasal">°</span>.
+
+    - **Blue color**: barely pronounced at all.
+
+        For example, <span class="nopron">ヒ</span> would be closer to h than hi. <br>
+        Likewise, <span class="nopron">ク</span> would be more like a k than ku.
+
+
 
 ## Colored Pitch Accent
 <i><sup>Main page: [Auto Pitch Accent (Colored Pitch Accent)](autopa.md#colored-pitch-accent)</sup></i>

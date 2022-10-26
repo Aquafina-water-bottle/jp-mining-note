@@ -33,9 +33,11 @@ and must use `./install.py --update`.
         - Requires hover over the word for kanji-hover by default
     - Added logic to overflow between categories (e.g. 6 new & 0 old will now show 6 new instead of 2 new)
     - Added option to ignore the same word reading as the current word
-- Renamed `nsfw-toggle` -> `image-blur`
+- Renamed `nsfw-toggle` -> `image-blur` in the config
 - Added option to specify an image if the card has a specific tag, if the `Picture` field itself is not filled
 - Added way to specify different values for mobile and PC within the runtime options
+- Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
+- Added more options to the info circle, to allow it to function better on mobile
 
 
 #### Internal Changes

@@ -113,11 +113,11 @@ View one of the cards and make sure the card looks similar to the one below:
 
 === "Dark Theme"
 
-    {{ img("Example card", "assets/eg_fushinnsha.png") }}
+    {{ img("Example card", "assets/fushinnsha/dark_back.png") }}
 
 === "Light Theme"
 
-    {{ img("Example light theme card", "assets/eg_fushinnsha_light.png") }}
+    {{ img("Example card", "assets/fushinnsha/light_back.png") }}
 
 Please check the following in particular:
 

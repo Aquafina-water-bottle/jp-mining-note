@@ -251,10 +251,9 @@
         // For example, if the list was [1, 2, 0], it would start at state 1, and clicking on the
         // settings eye will set it to state 2, state 0, state 1, state 2.
         //
-        // Note: It is expected that there is at least one state in the list.
 
         // default for non-mobile devices (usually PC)
-        //"toggle-states-pc": [1, 0],
+        //"toggle-states-pc": [0, 1, 2], // defaults to never blurred
         "toggle-states-pc": [1, 2, 0],
 
         // default for mobile devices
@@ -367,7 +366,17 @@
   "no-sentence-reading-warn": false,
 
   // Whether the user can lock the tooltip by clicking on the info-circle or not
-  "info-circle-togglable-lock": {
+  "info-circle-togglable-lock": true,
+
+  // Whether the popup shows when toggled
+  "info-circle-togglable-lock-show-popup": {
+    "type": "pc-mobile",
+    "pc": true,
+    "mobile": false
+  },
+
+  // Whether the info circle is hoverable (to show tooltip)
+  "info-circle-hoverable": {
     "type": "pc-mobile",
     "pc": true,
     "mobile": false

@@ -55,4 +55,13 @@ function toggleHighlightWord() {
 }
 /// {% endcall %}
 
+
+{ // auto-plays silence
+  let elem = document.querySelector("#pa-silence-audio .soundLink, #pa-silence-audio .replaybutton");
+  if (elem) {
+    elem.click();
+  }
+}
+
+
 /// {% endblock %}

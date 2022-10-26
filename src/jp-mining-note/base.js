@@ -214,11 +214,13 @@ function main() {
   /// {% endcall %}
   /// {% endcall %}
 
-  
+
   // clicks on the info circle to freeze the popup (good for debugging and all)
   if ({{ utils.opt("info-circle-togglable-lock") }}) {
 
-    function addLockFunc(clickEle, circEle, displayName, frozenClassName, togglableClassName) {
+    const showPopup = {{ utils.opt("info-circle-togglable-lock-show-popup") }};
+
+    function addLockFunc(clickEle, circEle, displayName, frozenClassName, togglableClassName, showPopup) {
       if (clickEle === null || circEle === null) {
         return;
       }
@@ -227,10 +229,14 @@ function main() {
       clickEle.onclick = function() {
         if (circEle.classList.contains(frozenClassName)) {
           circEle.classList.remove(frozenClassName);
-          popupMenuMessage(`${displayName} unlocked.`, true);
+          if (showPopup) {
+            popupMenuMessage(`${displayName} unlocked.`, true);
+          }
         } else {
           circEle.classList.add(frozenClassName);
-          popupMenuMessage(`${displayName} locked.`, true);
+          if (showPopup) {
+            popupMenuMessage(`${displayName} locked.`, true);
+          }
         }
       }
 
@@ -241,7 +247,7 @@ function main() {
     let infoCircWrapper = document.getElementById("info_circle_wrapper");
     const infoCircFrozen = "info-circle--frozen";
     const infoCircTogglable = "info-circle-svg-wrapper--togglable";
-    addLockFunc(infoCircWrapper, infoCirc, "Info circle tooltip", infoCircFrozen, infoCircTogglable);
+    addLockFunc(infoCircWrapper, infoCirc, "Info circle tooltip", infoCircFrozen, infoCircTogglable, showPopup);
 
     // TODO maybe fix later, so clicking on the pop-up won't also toggle it
     //let sameReadingIndicator = document.getElementById("same_reading_indicator");
@@ -253,6 +259,10 @@ function main() {
 
   }
 
+  if (!{{ utils.opt("info-circle-hoverable") }}) {
+    let infoCircWrapper = document.getElementById("info_circle_wrapper");
+    infoCircWrapper.classList.remove("info-circle-svg-wrapper--hoverable");
+  }
 
 
   // START_BLOCK: js_run
