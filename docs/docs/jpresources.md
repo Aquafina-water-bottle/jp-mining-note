@@ -80,7 +80,7 @@ a working internet connection.
         (which is still about 99% coverage, from personal experence).
         To increase audio coverage,
         it would be ideal to also include an extra
-        [Forvo audio source](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
+        [Forvo audio source](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source).
 
 
 
@@ -105,7 +105,7 @@ a working internet connection.
             The memory-based version must regenerated its cache
             **every time you re-open Anki**.
             This indeed has noticable effects;
-            The cache is only regenerated when audio is fetched,
+            the cache is only regenerated when audio is fetched,
             so the first card added after every Anki restart will take noticably longer than normal.
 
         - The memory-based version hogs about ~250MB of memory,
@@ -150,7 +150,7 @@ a working internet connection.
 
     Click `Add`, and set the source to be `Add Custom URL (JSON)`.
 
-    Set the url to be:
+    Set the `URL` field to:
     ```
     http://localhost:5050/?sources=jpod,jpod_alternate,nhk16&term={term}&reading={reading}
     ```
