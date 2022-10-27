@@ -240,6 +240,29 @@ ruby rt {
 }
 
 
+/*
+ * For some reason, it appears that the furigana positioning is way too high on certain platforms.
+ * Athough I would like these settings to work globally, it would sacrifice some minor things
+ * that <ruby> normally takes care of automatically, such as not having additional spacing on
+ * the left/right of the kanjis when the furigana takes up more space than the allocated kanjis.
+ *
+ * For now, it will be an option.
+ */
+.fix-ruby-positioning ruby {
+  display: inline-flex;
+  flex-direction: column-reverse;
+}
+.fix-ruby-positioning rt {
+  padding-top: 3px;
+  display: inline;
+  line-height: 1;
+}
+.fix-ruby-positioning rb {
+  display: inline;
+  line-height: 1;
+  text-align: center;
+}
+
 
 .hidden {
   display: none;
@@ -405,6 +428,15 @@ ruby rt {
 .info-circle-text-error:not(:empty) {
   margin-bottom: 10px;
 }
+
+.info-circle-text-error {
+  /* stolen from discord's inspect element css */
+  font-family: Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace;
+
+  /* breaks the word at the end of the line regardless of whitespace */
+  word-break: break-all;
+}
+
 .info-circle-text-error .info-circle__message:before {
   content: "ERROR: ";
   font-weight: bold;

@@ -27,17 +27,27 @@ and must use `./install.py --update`.
 
 #### Features
 - Added same word reading indicator
+- Added fix ruby positioning module
 - Improved tooltips (same-reading-indicator and kanji-hover):
     - Added pitch accent on tooltips
         - Enabled for both kanji-hover and same-word-indicator by default
         - Requires hover over the word for kanji-hover by default
     - Added logic to overflow between categories (e.g. 6 new & 0 old will now show 6 new instead of 2 new)
     - Added option to ignore the same word reading as the current word
-- Renamed `nsfw-toggle` -> `image-blur` in the config
-- Added option to specify an image if the card has a specific tag, if the `Picture` field itself is not filled
-- Added way to specify different values for mobile and PC within the runtime options
+- Runtime options:
+    - Added way to specify different values for mobile and PC
+    - Renamed `nsfw-toggle` -> `image-blur`
+    - Added:
+        - `modules.img-utils.add-image-if-contains-tags`
+        - `modules.sent-utils.remove-final-period`
+        - `modules.customize-open-fields.open-on-new-enabled`
+        - `info-circle-togglable-lock-show-popup`
+        - `info-circle-hoverable`
+- Changed error messages to be displayed in standard monospace font, for better readability
+
+
+#### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
-- Added more runtime options to the info circle, to allow it to function better on mobile
 
 
 #### Internal Changes

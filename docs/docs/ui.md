@@ -124,6 +124,13 @@ and how to customize it.
 
 When there are multiple words with the same reading in your Anki collection,
 an indicator will be shown.
+
+This is a handy tool to help the user differentiate between words with the same readings.
+One practical use case is verifying if your card is not a duplicate version of a previous card.
+For example, if you have two cards 言いふらす and 言い触らす,
+the indicator will show that both words exists, so you can safely suspend one of the cards.
+
+
 This indicator will be yellow (or blue on light mode) for new cards only.
 After the first review, the indicator will be the same color as the info circle.
 

@@ -35,6 +35,139 @@ I exist on the TheMoeWay and Refold (Japanese) servers.
 
 ---
 
+
+# Local Audio Server for Yomichan
+
+This is a completely optional setup for people who want to be
+able to create Anki cards nearly instanteously, and without
+a working internet connection.
+
+!!! note
+    This is an updated version of
+    [TMW's guide](https://learnjapanese.moe/yomichan/#offline-audio-server).
+    As of writing this,[^1] the above guide has plenty of dead links,
+    so the setup instructions no longer work.
+
+[^1]:  2022/10/27
+
+
+??? info "Advantages and Disadvantages of using this setup *(click here)*"
+
+    **Advantages:**
+
+    1. Most audio is gotten in **less than a second**. Without the local audio server,
+        fetching the audio can take anywhere from three seconds to a full minute
+        (on particularily bad days).
+
+        Most of the delay from Yomichan when creating cards is from fetching the audio.
+        In other words, getting the audio is the main bottleneck of when creating Anki cards.
+        Using this add-on removes this bottleneck, and allows you to make cards **nearly instaneously**.
+
+    1. If you do not have internet access, you can still add audio to your cards.
+
+    **Disadvantages:**
+
+    1. This setup requires a little over **3GB of free space**.
+
+    1. This setup is only available for PC. Although there have been talks to port this to Android,
+        this is not currently feasable because most users do not want to waste
+        3GB of space on their phone.
+
+        Of course, if you're interested in porting this to work with Android, you are always free
+        to contribute to [AnkiConnectAndroid](https://github.com/KamWithK/AnkiconnectAndroid)!
+
+    1. It only has the coverage of jpod and nhk16
+        (which is still about 99% coverage, from personal experence).
+        To increase audio coverage,
+        it would be ideal to also include an extra
+        [Forvo audio source](https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source)
+
+
+
+1.  Download one of the following two plugins:
+
+    - **Option 1**: [SQL-based](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan/blob/master/local_audio/sql/localaudio_2022_06_09_sqlite.ankiaddon?raw=true) (highly recommended)
+    - **Option 2**: [Memory-based](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan/blob/master/local_audio/07/localaudio_v07.ankiaddon?raw=true)
+
+    ??? info "Comparing Memory-based VS SQL-based versions *(click here)*"
+        The SQL-based version stores the map in a local database file on your computer.
+        This version queries this database when fetching the audio.
+
+        The memory-based version generates and caches the map in memory.
+        This is the original version of the add-on.
+        The SQL-based version is a patch on-top of this version.
+
+        Advantages and disadvantages of each version:
+
+        - The SQL database only has to be generated once, as this database is
+            stored on the disk.
+
+            The memory-based version must regenerated its cache
+            **every time you re-open Anki**.
+            This indeed has noticable effects;
+            The cache is only regenerated when audio is fetched,
+            so the first card added after every Anki restart will take noticably longer than normal.
+
+        - The memory-based version hogs about ~250MB of memory,
+            which is a problem on slow computers.
+            The SQL-based version does not hog memory.
+
+        - The memory-based version is slightly faster than the SQL-based version.
+
+1. Install the add-on by heading over to:
+
+    > `Tools` →  `Add-ons` →  `Install from file...`
+
+1. Download all the required audio files.
+    They can be found at this [torrent link](https://nyaa.si/view/1544279).
+
+    ??? example "Magnet link *(click here)*"
+        ```
+        magnet:?xt=urn:btih:71a2b5107e90f69e0c4cb19187d6a1e2f7b3404f&dn=local_audio.7z&tr=http%3a%2f%2fanidex.moe%3a6969%2fannounce&tr=http%3a%2f%2fnyaa.tracker.wf%3a7777%2fannounce&tr=udp%3a%2f%2ftracker.coppersurfer.tk%3a6969%2fannounce&tr=udp%3a%2f%2fexodus.desync.com%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce&tr=udp%3a%2f%2fopen.stealth.si%3a80%2fannounce&tr=udp%3a%2f%2ftracker.leechers-paradise.org%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.tiny-vps.com%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.torrent.eu.org%3a451&tr=udp%3a%2f%2ftracker.moeking.me%3a6969%2fannounce
+        ```
+
+1. Place the audio files under `addons21\955441350\user_files`.
+
+    ??? example "Expected file structure *(click here)*"
+        ```
+        user_files
+        ├── jpod_alternate_files
+        │   └── よむ - 読む.mp3
+        │   └── ...
+        ├── jpod_files
+        │   └── よむ - 読む.mp3
+        │   └── ...
+        └── nhk16_files
+            ├── audio
+            │   └── 20170616125910.aac
+            │   └── ...
+            └── entries.json
+        ```
+
+1. In Yomichan Settings, go to:
+
+    > `Audio` →  `Configure audio playback sources`.
+
+    Click `Add`, and set the source to be `Add Custom URL (JSON)`.
+
+    Set the url to be:
+    ```
+    http://localhost:5050/?sources=jpod,jpod_alternate,nhk16&term={term}&reading={reading}
+    ```
+
+    The sources can be rearranged to give priority to a different source
+    For example, if you want nhk16 to have the highest priority, use `sources=nhk16,jpod,jpod_alternate`.
+
+1. (If you are using the SQL-based version)
+    Generate the SQL database by scanning any word (e.g. 読む),
+    and then play the audio.
+
+    Expect this to take a while.
+
+
+---
+
+
 # CSS (Yomichan)
 
 ## How-To: Add Custom CSS In Yomichan

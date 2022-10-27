@@ -79,14 +79,12 @@
         "mobile": true
       },
 
+      // removes the 「。」 character if it is the last character of the sentence
+      "remove-final-period": true,
+
       // colors the quotes instead of showing a pitch accent indicator
       // if this is enabled
       "pa-indicator-color-quotes": false,
-      "remove-line-breaks-on-altdisplay": {
-        "type": "pc-mobile",
-        "pc": false,
-        "mobile": true
-      },
 
       // automatically colors the quote with the sentence pa indicator color,
       // on PA sentence cards
@@ -220,7 +218,7 @@
       // and want to add the cover of the book to all of their notes.
       // This is a fall-back option that is used when the `Picture` field is empty.
       // NOTE: Remember to add the file to the media folder in order for this to work!
-      "add-image-if-contains-tags": {
+      "add-image-if-contains-tags": [
         //{
         //  "tags": ["something"],
         //  "file-name": "_something.png"
@@ -229,7 +227,7 @@
         //  "tags": ["something", "something2"],
         //  "file-name": "_contains_both_tags.png"
         //}
-      },
+      ],
 
       "image-blur": {
         // allows the user to mark any card as NSFW, and adds various
@@ -335,6 +333,19 @@
       "max-non-new-latest": 2,
       "max-new-latest": 2
 
+    },
+
+    // Quick-fixes the ruby text positioning by moving it closer to the word,
+    // at the cost of taking up extra space to the left/right if necessary
+    // (more so than the normal <ruby> rendering.
+    // This is useful if your Anki version is 2.1.49 or below,
+    // and/or if you are using AnkiMobile.
+    "fix-ruby-positioning": {
+      "enabled": {
+        "type": "pc-mobile",
+        "pc": false,
+        "mobile": false
+      }
     }
 
   },

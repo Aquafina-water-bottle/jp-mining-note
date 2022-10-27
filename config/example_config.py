@@ -125,6 +125,7 @@ CONFIG = {
 
             "customize-open-fields",
             "same-reading-indicator",
+            "fix-ruby-positioning",
         ],
     },
 }
