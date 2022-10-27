@@ -1291,8 +1291,9 @@ a working internet connection.</p>
 <p class="admonition-title">Note</p>
 <p>This is an updated version of
 <a href="https://learnjapanese.moe/yomichan/#offline-audio-server">TMW's guide</a>.
-As of writing this,<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> the above guide has plenty of dead links,
-so the setup instructions no longer work.</p>
+As of writing this,<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> TMW's guide has plenty of dead links.
+This guide attempts to fix that and provide more information &amp; alternatives
+on exactly what is happening.</p>
 </div>
 <details class="info">
 <summary>Advantages and Disadvantages of using this setup <em>(click here)</em></summary>
@@ -1327,7 +1328,7 @@ to contribute to <a href="https://github.com/KamWithK/AnkiconnectAndroid">AnkiCo
     (which is still about 99% coverage, from personal experence).
     To increase audio coverage,
     it would be ideal to also include an extra
-    <a href="https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source">Forvo audio source</a></p>
+    <a href="https://learnjapanese.moe/yomichan/#bonus-adding-forvo-extra-audio-source">Forvo audio source</a>.</p>
 </li>
 </ol>
 </details>
@@ -1353,7 +1354,7 @@ The SQL-based version is a patch on-top of this version.</p>
 <p>The memory-based version must regenerated its cache
 <strong>every time you re-open Anki</strong>.
 This indeed has noticable effects;
-The cache is only regenerated when audio is fetched,
+the cache is only regenerated when audio is fetched,
 so the first card added after every Anki restart will take noticably longer than normal.</p>
 </li>
 <li>
@@ -1407,7 +1408,7 @@ so the first card added after every Anki restart will take noticably longer than
 <p><code>Audio</code> →  <code>Configure audio playback sources</code>.</p>
 </blockquote>
 <p>Click <code>Add</code>, and set the source to be <code>Add Custom URL (JSON)</code>.</p>
-<p>Set the url to be:
+<p>Set the <code>URL</code> field to:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>http://localhost:5050/?sources=jpod,jpod_alternate,nhk16&amp;term={term}&amp;reading={reading}
 </code></pre></div></p>
 <p>The sources can be rearranged to give priority to a different source
