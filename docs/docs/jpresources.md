@@ -45,8 +45,9 @@ a working internet connection.
 !!! note
     This is an updated version of
     [TMW's guide](https://learnjapanese.moe/yomichan/#offline-audio-server).
-    As of writing this,[^1] the above guide has plenty of dead links,
-    so the setup instructions no longer work.
+    As of writing this,[^1] TMW's guide has plenty of dead links.
+    This guide attempts to fix that and provide more information & alternatives
+    on exactly what is happening.
 
 [^1]:  2022/10/27
 
