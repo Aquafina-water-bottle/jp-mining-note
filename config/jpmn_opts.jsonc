@@ -80,7 +80,7 @@
       },
 
       // removes the 「。」 character if it is the last character of the sentence
-      "remove-final-period": true,
+      "remove-final-period": false,
 
       // colors the quotes instead of showing a pitch accent indicator
       // if this is enabled

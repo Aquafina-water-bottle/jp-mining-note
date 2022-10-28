@@ -45,12 +45,7 @@ a working internet connection.
 !!! note
     This is an updated version of
     [TMW's guide](https://learnjapanese.moe/yomichan/#offline-audio-server).
-    As of writing this,[^1] TMW's guide has plenty of dead links.
-    This guide attempts to fix that and provide more information & alternatives
-    on exactly what is happening.
-
-[^1]:  2022/10/27
-
+    Much of the info was taken from the above link.
 
 ??? info "Advantages and Disadvantages of using this setup *(click here)*"
 
@@ -62,7 +57,7 @@ a working internet connection.
 
         Most of the delay from Yomichan when creating cards is from fetching the audio.
         In other words, getting the audio is the main bottleneck of when creating Anki cards.
-        Using this add-on removes this bottleneck, and allows you to make cards **nearly instaneously**.
+        This setup removes this bottleneck, and allows you to make cards **nearly instaneously**.
 
     1. If you do not have internet access, you can still add audio to your cards.
 
@@ -85,7 +80,7 @@ a working internet connection.
 
 
 
-1.  Download one of the following two plugins:
+1.  There are two main versions of the add-on. Download one of the two.
 
     - **Option 1**: [SQL-based](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan/blob/master/local_audio/sql/localaudio_2022_06_09_sqlite.ankiaddon?raw=true) (highly recommended)
     - **Option 2**: [Memory-based](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan/blob/master/local_audio/07/localaudio_v07.ankiaddon?raw=true)
@@ -117,7 +112,7 @@ a working internet connection.
 
 1. Install the add-on by heading over to:
 
-    > `Tools` →  `Add-ons` →  `Install from file...`
+    > (Anki) →  `Tools` →  `Add-ons` →  `Install from file...`
 
 1. Download all the required audio files.
     They can be found at this [torrent link](https://nyaa.si/view/1544279).
@@ -127,7 +122,9 @@ a working internet connection.
         magnet:?xt=urn:btih:71a2b5107e90f69e0c4cb19187d6a1e2f7b3404f&dn=local_audio.7z&tr=http%3a%2f%2fanidex.moe%3a6969%2fannounce&tr=http%3a%2f%2fnyaa.tracker.wf%3a7777%2fannounce&tr=udp%3a%2f%2ftracker.coppersurfer.tk%3a6969%2fannounce&tr=udp%3a%2f%2fexodus.desync.com%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce&tr=udp%3a%2f%2fopen.stealth.si%3a80%2fannounce&tr=udp%3a%2f%2ftracker.leechers-paradise.org%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.tiny-vps.com%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.torrent.eu.org%3a451&tr=udp%3a%2f%2ftracker.moeking.me%3a6969%2fannounce
         ```
 
-1. Place the audio files under `addons21\955441350\user_files`.
+1. Place the audio files under `Anki2/addons21/955441350/user_files`.
+    See [Anki's documentation](https://docs.ankiweb.net/files.html#file-locations)
+    on instructions to find your `Anki2` folder.
 
     ??? example "Expected file structure *(click here)*"
         ```
@@ -160,10 +157,36 @@ a working internet connection.
     For example, if you want nhk16 to have the highest priority, use `sources=nhk16,jpod,jpod_alternate`.
 
 1. (If you are using the SQL-based version)
+
     Generate the SQL database by scanning any word (e.g. 読む),
     and then play the audio.
 
     Expect this to take a while.
+
+??? quote "Original message & setup instructions *(click here)*"
+
+    Zetta — 16/02/2022 <br>
+    Yomichan Local Audio Server Anki Plugin V0.1 (probably buggy) This plugin acts similar to the Forvo Audio Server plugin but runs off the downloaded JapanesePod audio files. The purpose is to provide offline access and faster look ups for audio that exists in the dump.
+
+    Any audio files with the format of `<reading> - <term>.mp3` under the plugins `user_files` directory will be used. Folder structure under `user_files` doesn’t matter. For example `よむ - 読む.mp3` it will try to match the yomichan entry to both reading and term and show up as `Local (Exact)` Failing that, it will just use `reading` and show up as `Local (Reading)` in the yomichan audio dropdown.
+
+    How to use:
+
+    1. Install the attached addon like any other local addon.
+    1. Restart Anki
+    1. Allow network connections (required since this is a local server)
+    1. In yomichan settings, go to Audio > Configure Audio Playback Sources > Custom Audio Source
+    1. Select Type as JSON and set URL to `http://localhost:5050/?term={term}&reading={reading}`
+    1. Download the JapansePod Audio dump from here https://discord.com/channels/617136488840429598/778430038159655012/943679275884740608 and unzip all archives it in your Anki2 folder under `addons21/955441350/user_files`
+    1. (You may need to Restart Anki again if it doesn’t start working.)
+
+    Bugfix for multiple files named the same in different directories under user_files. https://discord.com/channels/617136488840429598/778430038159655012/943876430746513429 <br>
+    Credit: Much of the code was ripped from https://github.com/jamesnicolas/yomichan-forvo-server
+
+    <sup>
+    ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/943743205931900928), on [TMW server](https://learnjapanese.moe/join/))
+    </sup>
+
 
 
 ---

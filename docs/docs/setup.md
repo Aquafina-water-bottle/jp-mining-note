@@ -773,7 +773,8 @@ are all somewhat outdated, which usually means less accurate definitions and les
 To get the most recent version of JMdict,
 download it from the
 [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
-and using [yomichan-import](https://github.com/FooSoft/yomichan-import)
+(download `JMdict_e.gz`)
+and use [yomichan-import](https://github.com/FooSoft/yomichan-import)
 to get the latest JMdict version available.
 
 If you don't want to compile it from source, I provide a download link
@@ -784,7 +785,7 @@ which should only be a few months stale at most.
 
 
 ## JMdict Surface Forms
-[(Link)](https://github.com/FooSoft/yomichan/issues/2183)
+[(Download Link)](https://github.com/FooSoft/yomichan/issues/2183)
 
 This is a dictionary placed in the `UtilityDictionaries` field by default.
 Although I don't use it when studying Anki, it helps to use this when creating Anki notes
@@ -793,10 +794,17 @@ See [this section](jpresources.md#orthographic-variants-fix-sentence-and-frequen
 for more information.
 
 
+## Local Audio Server for Yomichan
+See
+[here](jpresources.md#local-audio-server-for-yomichan)
+if you want to be able to create Anki cards nearly instanteously, and without
+a working internet connection.
+
+
 ## Additional Anki add-on(s)
 These add-on(s) assist in card creation, but are ultimately optional.
 
-* Paste Images As WebP [(link)](https://ankiweb.net/shared/info/1151815987)
+* [Paste Images As WebP](https://ankiweb.net/shared/info/1151815987)
 
 
 ## Separate Pitch Accent Deck

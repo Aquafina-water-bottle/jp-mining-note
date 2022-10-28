@@ -32,6 +32,9 @@ CONFIG = {
 
 
         # Adds an external links section to the "Extra Info" field.
+        # DuckDuckGo bang links are provided as a slightly more future-proof
+        # alternative to raw links, as DDG bangs can be updated by the community
+        # if/when old links break.
         "external-links": {
             # Example external link that uses an image: one for light mode, and one for dark mode
             # If you want to use one image for both themes, just use the same file twice.
@@ -49,6 +52,7 @@ CONFIG = {
                 "icon-image-light": "_icon_jisho_lightmode.png",
                 "icon-image-dark":  "_icon_jisho_darkmode.png",
                 "url": "https://jisho.org/search/{{Word}}",
+                #"url": "https://duckduckgo.com/?t=ffab&q=%21jisho+{{Word}}",
             },
 
             "image_search": {
@@ -56,6 +60,9 @@ CONFIG = {
                 "icon-image-light": "_icon_image_black.svg",
                 "icon-image-dark":  "_icon_image_white.svg",
                 "url": "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
+                # regular search on google.com
+                #"url": "https://www.google.com/search?q={{text:Word}}&tbm=isch",
+                #"url": "https://duckduckgo.com/?t=ffab&q=%21gi+{{Word}}",
                 "hover-display": "google.co.jp (Image search)",
             },
 
@@ -65,6 +72,7 @@ CONFIG = {
             #    "icon-type": "text",
             #    "icon-text": "用",
             #    "url": "http://yourei.jp/{{text:Word}}",
+            #    #"url": "https://duckduckgo.com/?t=ffab&q=%21yourei+{{Word}}",
             #    #"hover-display": "用例",
             #},
 
@@ -93,6 +101,7 @@ CONFIG = {
             #    "icon-type": "text",
             #    "icon-text": "コ",
             #    "url": "https://kotobank.jp/gs/?q={{text:Word}}",
+            #    #"url": "https://duckduckgo.com/?t=ffab&q=%21kotobank+{{Word}}",
             #    #"hover-display": "コトバンク",
             #},
         },
