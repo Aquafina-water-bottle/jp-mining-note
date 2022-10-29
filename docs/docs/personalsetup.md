@@ -384,3 +384,16 @@ code {
 ```
 
 
+
+# Mobile Changes
+- the following are notes of what to change for mobile support
+- nothing is set in stone, etc. etc. things are likely not even implemented yet
+
+
+
+
+
+
+
+
+

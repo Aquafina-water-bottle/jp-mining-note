@@ -1290,16 +1290,12 @@ ruby rt {
 }
 
 .modal {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.25s ;
   animation-name: zoom;
   animation-duration: 0.25s;
 }
 
 /* Add Animation */
 .modal-img {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.25s ;
   animation-name: zoom;
   animation-duration: 0.25s;
 
@@ -1325,22 +1321,6 @@ ruby rt {
 }
 
 
-@-webkit-keyframes zoom {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-
-  0.001% {
-    display: block;
-    opacity: 0;
-  }
-
-  100% {
-    display: block;
-    opacity: 100;
-  }
-}
 @keyframes zoom {
   0% {
     display: none;
@@ -1355,21 +1335,6 @@ ruby rt {
   100% {
     display: block;
     opacity: 100;
-  }
-}
-
-@-webkit-keyframes zoom-out {
-  0% {
-    display: block;
-    opacity: 100;
-  }
-  99.999% {
-    display: block;
-    opacity: 0;
-  }
-  100% {
-    display: none;
-    opacity: 0;
   }
 }
 
@@ -1502,8 +1467,10 @@ ruby rt {
   max-width: common.maxWidthForXIcons(var(--external-links-max-icons-per-row));
 }
 
+/* external links are moved to the left if field is completely empty */
 .glossary__external-links--full-row {
   max-width: 100%;
+  justify-content: flex-start;
 }
 
 .glossary__external-links a {

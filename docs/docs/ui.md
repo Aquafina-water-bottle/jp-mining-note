@@ -14,6 +14,26 @@ Additional information on some parts of the UI is stated below.
 
 ---
 
+# Keybinds
+This note ships with some keybinds to do basic actions.
+
+| Keybind | What it does |
+|:-:|-|
+| `p` { .smaller-table-row } | Play sentence audio                  { .smaller-table-row } |
+| `w` { .smaller-table-row } | Play word audio                      { .smaller-table-row } |
+| `8` { .smaller-table-row } | Toggles `Secondary Definition` field { .smaller-table-row } |
+| `9` { .smaller-table-row } | Toggles `Additional Notes` field     { .smaller-table-row } |
+| `0` { .smaller-table-row } | Toggles `Extra Definitions` field    { .smaller-table-row } |
+| `[` { .smaller-table-row } | Toggles `Extra Info` field           { .smaller-table-row } |
+
+
+See the [runtime options](runtimeoptions.md){:target="_blank"}
+if you would like to edit / disable any keybind,
+and/or to view the full list of keybinds.
+
+---
+
+
 # Info Circle
 
 === "Default"
@@ -132,7 +152,7 @@ the indicator will show that both words exists, so you can safely suspend one of
 
 
 This indicator will be yellow (or blue on light mode) for new cards only.
-After the first review, the indicator will be the same color as the info circle.
+After the first review, the indicator will be the same color as the default info circle (grey).
 
 {{ img("same reading indicator eg", "assets/same_reading_indicator.gif") }}
 
@@ -203,9 +223,18 @@ and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
 ---
 
 
-# Images in Definition Fields
-Outside of the normal click to zoom image at the top right,
-any customly inserted images, including images inserted directly by Yomichan,
+# Images
+
+(TODO)
+
+- as shown in demo, image can be clicked on to zoom
+- image display automatically adjusts for any aspect ratio
+- recommended asepct ratios are 16:9 to 1:1
+- TODO example images for various aspect ratios, including edge cases
+
+
+## Images in Definition Fields
+Any customly inserted images, including images inserted directly by Yomichan,
 will be converted to text which you have to hover over to reveal.
 Of course, this image can also be clicked on to zoom.
 See the video demo below to see exactly what happens.
@@ -232,7 +261,7 @@ See the video demo below to see exactly what happens.
     ```
 
 
-# Image Blur
+## Image Blur
 {{ feature_version("0.10.3.0") }}
 
 This allows you to blur the images of cards marked with a NSFW tag.
@@ -273,7 +302,7 @@ To mark a card as NSFW, add any of the following tags to the card:
     This is useful if you simply don't want to save a particular image.
 
 
-## Change Review Session State
+### Change Review Session State
 The above demo shows how you can un-blur an image temporarily.
 This means that if you see that card again during the same review session,
 the image will be blurred again.
@@ -318,7 +347,7 @@ By default, states cycle from left to right.
         Both examples have the info circle toggled (clicked), so the tooltip persists.
 
 
-## Additional Details
+### Additional Details
 
 - The eyeball to toggle the blur between an image will not be shown unless the card is marked as NSFW
     (or the review session state is "Always Blurred").

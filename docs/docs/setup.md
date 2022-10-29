@@ -746,6 +746,28 @@ By default, this enable the following behavior:
 
     With this being said, selecting the dictionary should always work.
 
+
+## Android Setup
+
+!!! warning
+    Actually using JPMN on mobile devices (e.g. for reviewing), is currently not supported.
+    This simply shows how to make the cards on Android.
+
+If you wish to add cards on Android, use
+[AnkiconnectAndroid](https://github.com/KamWithK/AnkiconnectAndroid)
+and follow the instructions on the AnkiconnectAndroid's README page.
+
+In addition to the above instructions, you may have to disable duplicate checks
+in order for the application to work.
+
+There is currently no way to automatically add an image (e.g. a screenshot) automatically.
+Images must be added manually within `AnkiDroid`.
+
+
+!!! info "Tip"
+
+    The runtime options supports []()
+
 ---
 
 

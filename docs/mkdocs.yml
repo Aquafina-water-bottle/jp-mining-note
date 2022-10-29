@@ -70,8 +70,8 @@ nav:
     - User Interface: ui.md
     - Field Reference: fieldref.md
     - Card Types: cardtypes.md
-    - Yomichan Template Options (TODO): yomichantemplates.md
     - Runtime Options (TODO): runtimeoptions.md
+    - Yomichan Template Options (TODO): yomichantemplates.md
     - Tooltip Results (TODO): tooltipresults.md
     - Auto Pitch Accent (TODO): autopa.md
   - Developer Documentation:

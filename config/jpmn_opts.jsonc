@@ -219,10 +219,14 @@
       // This is a fall-back option that is used when the `Picture` field is empty.
       // NOTE: Remember to add the file to the media folder in order for this to work!
       "add-image-if-contains-tags": [
+        // This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
         //{
-        //  "tags": ["something"],
-        //  "file-name": "_something.png"
+        //  "tags": ["sample_tag"],
+        //  "file-name": "_sample_image.png"
         //},
+
+        // This adds the image `_contains_both_tags.png` if the card has both tags
+        // `something` and `something2`.
         //{
         //  "tags": ["something", "something2"],
         //  "file-name": "_contains_both_tags.png"
@@ -280,10 +284,11 @@
       // Opens the specified collapsable field if the card is new.
       "open-on-new-enabled": {
         "type": "pc-mobile",
-        "pc": true,
+        "pc": false,
         "mobile": false
       },
 
+      // Ensure that `open-on-new-enabled` is true, for this to work.
       "open-on-new": [
         // `Primary Definition` only affects cloze-deletion cards, as the primary definition field there is
         // indeed collapsed by default.
@@ -338,8 +343,10 @@
     // Quick-fixes the ruby text positioning by moving it closer to the word,
     // at the cost of taking up extra space to the left/right if necessary
     // (more so than the normal <ruby> rendering.
-    // This is useful if your Anki version is 2.1.49 or below,
-    // and/or if you are using AnkiMobile.
+    //
+    // IMPORTANT:
+    //     This module does NOT need to be enabled on Anki versions using Qt6.
+    //     This should only be enabled for Anki versions using Qt5, and AnkiMobile.
     "fix-ruby-positioning": {
       "enabled": {
         "type": "pc-mobile",
