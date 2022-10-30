@@ -194,8 +194,6 @@ in the first place.
 ---
 
 
-
-
 # Sorting by Frequency
 
 By default, this note type comes with a `FrequencySort` field,
@@ -287,6 +285,19 @@ The field `AltDisplayPASentenceCard` exists to customize the display of the
 PA sentence card, if it exists.
 It works similarly to `AltDisplay`, and takes priority over `AltDisplay`
 in the PA sentence card.
+
+
+
+## Colored Quotes Instead of PA Indicator
+(TODO)
+
+
+Runtime Options:
+
+> `modules` →  `sent-utils` →  `pa-indicator-color-quotes`
+
+TODO picture comparisons between word PA indicator in quotes / word PA with PA indicator
+
 
 ---
 

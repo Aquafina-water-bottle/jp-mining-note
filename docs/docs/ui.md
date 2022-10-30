@@ -219,52 +219,15 @@ and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
 ![type:video](assets/pa_override_color.mp4)
 
 
-
----
-
-
-# Images
-
-(TODO)
-
-- as shown in demo, image can be clicked on to zoom
-- image display automatically adjusts for any aspect ratio
-- recommended asepct ratios are 16:9 to 1:1
-- TODO example images for various aspect ratios, including edge cases
-
-
-## Images in Definition Fields
-Any customly inserted images, including images inserted directly by Yomichan,
-will be converted to text which you have to hover over to reveal.
-Of course, this image can also be clicked on to zoom.
-See the video demo below to see exactly what happens.
-
-![type:video](assets/img_utils.mp4)
-
-??? info "How to disable *(click here)*"
-    This image conversion can be globally disabled
-    in the [runtime options file](runtimeoptions.md){:target="_blank"}:
-
-    ```json
-    "img-utils": {
-      "stylize-images-in-glossary": false,
-      // ...
-    }
-    ```
-    Additionally, if you want to only disable this for some particular images,
-    [edit the HTML](faq.md#how-do-i-edit-the-fields-raw-html){:target="_blank"}
-    of the desired field, and add `data-do-not-convert="true"`.
-
-    An example is shown below:
-    ```
-    <img src="your_image.png" data-do-not-convert="true">
-    ```
-
-
 ## Image Blur
+
+<i><sup>Main page: [Images (Image Blur)](images.md#image-blur)</sup></i>
+
 {{ feature_version("0.10.3.0") }}
 
-This allows you to blur the images of cards marked with a NSFW tag.
+If a card is marked with one of the tags below, the image is automatically blurred.
+
+> `nsfw`・`NSFW`・`-NSFW`
 
 This behavior is **disabled by default**. In other words, you will not be able to blur
 images unless the following setting is explicitly enabled
@@ -288,80 +251,77 @@ in the [runtime options file](runtimeoptions.md){:target="_blank"}:
   {{ img("example toggle blur gif", "assets/anki_blur/example.gif") }}
 </figure>
 
-
-
-To mark a card as NSFW, add any of the following tags to the card:
-
-> `nsfw`・`NSFW`・`-NSFW`
-
-
-
-
-!!! note
-    Recall that you can use custom text in the `Picture` field instead of having an actual picture.
-    This is useful if you simply don't want to save a particular image.
-
-
-### Change Review Session State
-The above demo shows how you can un-blur an image temporarily.
-This means that if you see that card again during the same review session,
-the image will be blurred again.
-
-This state can be changed for a review session.
-To toggle between review-session states, hover over the info circle,
-and click on the eyeball to the top left.
-This state will be maintained for the entire review session, but will be lost on the next session.
-
-The tabs below show the available states.
-By default, states cycle from left to right.
-
-
-=== "Only Blur if NSFW"
-
-    | Not Marked | Marked (with `NSFW` tag) |
-    |:-:|:-:|
-    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | ![](assets/anki_blur/marked_blurred.png) |
-
-=== "Always Blurred"
-
-    | Not Marked | Marked (with `NSFW` tag) |
-    |:-:|:-:|
-    | ![](assets/anki_blur/unmarked_blurred.png) | ![](assets/anki_blur/marked_blurred.png) |
-
-=== "Always Revealed"
-
-    | Not Marked | Marked (with `NSFW` tag) |
-    |:-:|:-:|
-    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | {{ img("", "assets/anki_blur/marked_revealed.png") }} |
-
-
-??? example "Demos *(click here)*"
-
-    === "Regular, unmarked card"
-        {{ img("", "assets/anki_blur/example_session_toggle_unmarked.gif") }}
-
-    === "Card marked as NSFW"
-        {{ img("", "assets/anki_blur/example_session_toggle_marked.gif") }}
-
-    !!! note
-        Both examples have the info circle toggled (clicked), so the tooltip persists.
-
-
-### Additional Details
-
-- The eyeball to toggle the blur between an image will not be shown unless the card is marked as NSFW
-    (or the review session state is "Always Blurred").
-- Clicking on the blurred image will do nothing; you must click on the eye to un-blur the image.
-    Forcing the user to click in a smaller area makes accidental reveals less common.
-- After revealing the image, you can click on the image to zoom, as normal.
-    You cannot click on a blurred image to zoom.
-- Most things can be changed in the runtime options,
-    including what tags can be used, the default initial state on PC/mobile, etc.
-- This was heavily inspired by
-    [Marv's implementation](https://github.com/MarvNC/JP-Resources#anki-card-blur)
-    of the same feature.
-
 ---
+
+
+
+# Options
+
+(TODO)
+
+
+## Fix Ruby Positioning (For Legacy Anki Versions)
+{{ feature_version("0.11.0.0") }}
+
+(TODO)
+
+Runtime Options:
+
+> `fix-ruby-positioning`
+
+
+TODO show comparison pictures between the two in various situations
+(think image-blur side-by-side picture comparisons)
+
+<br>
+
+
+## Automatically Open Collapsed Fields
+
+- TODO rename `fields` -> `sections` or something
+
+(TODO)
+
+Runtime Options:
+
+> `modules` →  `customize-open-fields`
+
+
+TODO gif
+
+```
+"customize-open-fields": {
+  "enabled": false,
+
+  // Force a field to be always open
+  "open": [
+    "Secondary Definition"
+  ],
+
+  // Opens the specified collapsable field if the card is new.
+  "open-on-new-enabled": {
+    "type": "pc-mobile",
+    "pc": true,
+    "mobile": false
+  },
+
+  "open-on-new": [
+    "Extra Info"
+  ]
+}
+```
+
+
+## Greyed Out Fields
+
+Runtime Options:
+
+> `greyed-out-collapsable-fields-when-empty`
+
+TODO picture comparisons empty fields / empty fields but greyed out
+
+
+
 
 
 # Conclusion

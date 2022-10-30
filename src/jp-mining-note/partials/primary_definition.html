@@ -1,14 +1,42 @@
 {# impl #}
-<blockquote class="glossary-blockquote highlight-bold" id="primary_definition">
 
-  <!-- pictures not turned into text -->
-  {% call IF("PrimaryDefinitionPicture") %}
-    <div class="glossary-primary-definition-picture" id="primary_definition_picture">
+{% set _use_external_links = COMPILE_OPTIONS("external-links").item() and COMPILE_OPTIONS("external-links-position").item() == "Primary Definition" %}
+
+<blockquote class="glossary-blockquote
+    highlight-bold
+    glossary-blockquote--picture-below
+    glossary-blockquote--primary-definition
+    " id="primary_definition">
+
+
+
+  {% if _use_external_links %}
+    <div class="glossary__external-links glossary__external-links--float" id="external_links_primary_def_float">
+      {% include "jp-mining-note/partials/external_links.html" %}
+    </div>
+  {% endif %}
+
+  {#
+  the bottom section of text with whitespace:
+
+  <div class="glossary-primary-definition-right glossary-primary-definition-right--float" id="primary_definition_picture">
+    {% if _use_external_links %}
+      <div class="glossary__external-links">
+        {% include "jp-mining-note/partials/external_links.html" %}
+      </div>
+    {% endif %}
+    <div class="glossary-primary-definition-right-img">
       {{ T("PrimaryDefinitionPicture") }}
     </div>
-  {% endcall %}
+  </div>
+  #}
 
-  <div class="glossary-text glossary-text--primary-definition">
+
+  <!-- pictures not turned into text -->
+  <div class="glossary-primary-definition-right glossary-primary-definition-right--float" id="primary_definition_picture">{% if _use_external_links %}<div class="glossary__external-links">{% include "jp-mining-note/partials/external_links.html" %}</div>{% endif %}<div class="glossary-primary-definition-right-img">{{ T("PrimaryDefinitionPicture") }}</div></div>
+
+
+  <div class="glossary-text glossary-text--primary-definition" id="primary_definition_text">
     {{ T("furigana:PrimaryDefinition") }}
     <div style="font-size: 0px"><br></div>
     <!-- The above is a hack to allow a user to triple-click the definition
@@ -19,6 +47,12 @@
       does not suffer from this problem.
       I figure that adding this shouldn't affect anything
     -->
+  </div>
+
+  <div class="glossary-primary-definition-right glossary-primary-definition-right--bottom" id="primary_definition_picture_bottom">
+    <div class="glossary-primary-definition-right-img">
+      {{ T("PrimaryDefinitionPicture") }}
+    </div>
   </div>
 
 </blockquote>

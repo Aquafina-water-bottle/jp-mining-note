@@ -38,7 +38,31 @@ TODO add demo for windows to opening the file & editing
 
 
 
----
+# Notation
+TODO
+
+- arrow indicates `{}` or `[]`
+- option paths should ALWAYS be found in the example config file TODO link
+- if you can't find the option in your file, ensure your options file is updated with the example config file
+
+
+example:
+
+> `modules` →  `img-utils` →  `add-image-if-contains-tags`
+
+is placed under:
+
+```
+{
+  "modules": [
+    "img-utils": {
+      "add-image-if-contains-tags": ...
+    }
+  ]
+}
+```
+
+
 
 
 # Special Option Values
@@ -88,6 +112,7 @@ This is formatted as the following:
 ---
 
 
+<!--
 # Options
 
 I highly recommend going through this file and selecting the options that best fits your workflow.
@@ -104,6 +129,7 @@ TODO flesh out below
     This is an internal design choice to allow separation of code easier.
     More information on modules can be found [here](modding.md#custom-js-modules).
 
+-->
 
 <!--
 ## Modules
@@ -123,104 +149,11 @@ to modify the behavior of said module.
 -->
 
 
-## Greyed out fields
-
-> `greyed-out-collapsable-fields-when-empty`
-
-??? example "Example (TODO) *(click here)*"
-
-    TODO picture comparisons empty fields / empty fields but greyed out
-
-<br>
-
-
-
-## Automatically Open Collapsed Fields
-
-> `modules` →  `customize-open-fields`
-
-??? example "Example (TODO) *(click here)*"
-
-    TODO gif
-
-    ```
-    "customize-open-fields": {
-      "enabled": false,
-
-      // Force a field to be always open
-      "open": [
-        "Secondary Definition"
-      ],
-
-      // Opens the specified collapsable field if the card is new.
-      "open-on-new-enabled": {
-        "type": "pc-mobile",
-        "pc": true,
-        "mobile": false
-      },
-
-      "open-on-new": [
-        "Extra Info"
-      ]
-    }
-    ```
-
-<br>
-
-
-
-
-
-
-
-## Add Image on Specific Tags
-{{ feature_version("0.11.0.0") }}
-
-> `modules` →  `img-utils` →  `add-image-if-contains-tags`
-
-
-??? example "Example (TODO) *(click here)*"
-
-    ```
-    "add-image-if-contains-tags": [
-      {
-        "tags": ["青春ブタ野郎・LN1"],
-        "file-name": "_青春ブタ野郎-LN1.png"
-      }
-    ],
-    ```
-
-    TODO example gif
-
-<br>
-
-
-
-## Fix Ruby Positioning (on Legacy Anki Versions)
-{{ feature_version("0.11.0.0") }}
-
-> `fix-ruby-positioning`
-
-??? example "Example (TODO) *(click here)*"
-
-    TODO show comparison pictures between the two in various situations
-    (think image-blur side-by-side picture comparisons)
-
-<br>
-
-
-
-
-## Colored Quotes Instead of PA Indicator
-> `modules` →  `sent-utils` →  `pa-indicator-color-quotes`
-
-TODO picture comparisons between word PA indicator in quotes / word PA with PA indicator
-
----
-
-
 
 # Troubleshooting
+
+TODO record specific errors
+
 If you have any error, or an option is simply not working, please check the following:
 
 1. There are commas and double-quotes in the correct places.

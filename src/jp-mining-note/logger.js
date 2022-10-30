@@ -243,7 +243,7 @@ window.onerror = function(msg, url, lineNo, columnNo, error) {
 window.onunhandledrejection = function(errorEvent) {
   if (errorEvent.reason === "AnkiConnect failed to issue request.") {
     let reason = errorEvent.reason + ' Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.';
-    LOGGER.error("Javascript handler error: " + reason, isHtml=true);
+    LOGGER.error("Javascript handler error: " + reason, /*isHtml=*/true);
   } else {
     LOGGER.error("Javascript handler error: " + errorEvent.reason);
   }

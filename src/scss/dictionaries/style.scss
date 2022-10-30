@@ -75,11 +75,9 @@
  */
 
 /* makes the symbols centered */
-div.glossary-text ol {
-  li[data-details="シン・漢字遣い参考"] td, [data-sc-ortho="table"] td {
-    text-align: center;
-    line-height: 150%
-  }
+li[data-details="シン・漢字遣い参考"] td, [data-sc-ortho="table"] td {
+  text-align: center;
+  line-height: 150%
 }
 
 /* this says that the external link should take up 2 icon slots instead of 1 */

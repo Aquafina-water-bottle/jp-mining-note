@@ -258,6 +258,7 @@ const JPMNImgUtils = (() => {
     defAnc.classList.add("glossary__image-hover-text");
     defAnc.href = "javascript:;";
     defAnc.textContent = "[Image]";
+    defAnc.setAttribute("data-suppress-link-hover", "true");
 
     const defImg = document.createElement('img');
     defImg.classList.add("glossary__image-hover-media");
@@ -364,8 +365,12 @@ const JPMNImgUtils = (() => {
     return (getDefaultNSFWToggleState() >= 1);
   }
 
+  function getTags() {
+    return document.getElementById("tags").innerText.split(" ");
+  }
+
   function cardHasNSFWTag() {
-    const tags = document.getElementById("tags").innerText.split(" ");
+    const tags = getTags();
     const nsfwTags = {{ utils.opt("modules", "img-utils", "image-blur", "tags") }};
 
     for (nsfwTag of nsfwTags) {
@@ -463,19 +468,6 @@ const JPMNImgUtils = (() => {
 
   function searchImages() {
 
-    // looks for the PrimaryDefinitionPicture if it exists
-    /// {% call IF("PrimaryDefinitionPicture") %}
-    const primaryDefPicEle = document.getElementById("primary_definition_picture")
-    if (primaryDefPicEle !== null) {
-      for (const imgEle of primaryDefPicEle.getElementsByTagName("img")) {
-        if (imgEle !== null) {
-          imgEle.onclick = getActivateModalFunc(imgEle);
-          imgEle.classList.add(imgClickClassName);
-        }
-      }
-    }
-    /// {% endcall %}
-
     // goes through each blockquote and searches for yomichan inserted images
     //const imageSearchElements = document.getElementsByTagName("blockquote");
     const imageSearchElements = document.querySelectorAll("blockquote.glossary-blockquote .glossary-text");
@@ -502,6 +494,49 @@ const JPMNImgUtils = (() => {
         }
       }
     }
+
+
+    // looks for the PrimaryDefinitionPicture if it exists
+    // placed after image searches to allow main definition to be properly resized first
+    const primaryDefPicEle = document.getElementById("primary_definition_picture")
+    const primaryDefPicBottomEle = document.getElementById("primary_definition_picture_bottom")
+    for (const picEle of [primaryDefPicEle, primaryDefPicBottomEle]) {
+      if (picEle === null) {
+        continue;
+      }
+      const imgs = picEle.getElementsByTagName("img");
+      for (const imgEle of imgs) {
+        if (imgEle !== null) {
+          imgEle.onclick = getActivateModalFunc(imgEle);
+          imgEle.classList.add(imgClickClassName);
+        }
+      }
+    }
+
+    if (primaryDefPicEle !== null) {
+      const tags = getTags();
+      const primaryDefBlockquote = document.getElementById("primary_definition");
+      const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
+      const primaryDefText = document.getElementById("primary_definition_text");
+      const lenience = window.getComputedStyle(document.documentElement).getPropertyValue(
+          "--primary-def-picture-auto-position-lenience");
+
+      // compares height of definition text and image
+      const textHeight = primaryDefText.offsetHeight*lenience;
+      const picHeight = primaryDefPicBottomEle.offsetHeight + (primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight);
+      const shouldFloat = textHeight > picHeight;
+      logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
+
+      if (tags.includes("img-bottom")) {
+        // nothing
+      } else if (tags.includes("img-right") || shouldFloat) {
+        removeIfExists(primaryDefBlockquote, "glossary-blockquote--picture-below");
+      }
+
+    }
+
+
+
   }
 
   class JPMNImgUtils {

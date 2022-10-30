@@ -159,7 +159,7 @@ FIELDS = {
     "Picture": {
         "auto_fill": True,
         "binary_field": False,
-        "reference": "fieldref.md#",
+        "reference": "images.md",
         "anime_cards_import": "Picture",
     },
 

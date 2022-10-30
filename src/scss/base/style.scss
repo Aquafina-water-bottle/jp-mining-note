@@ -42,10 +42,6 @@ html {
   --tooltip-font-size: 11px;
 }
 
-:root {
-}
-
-
 
 .card {
   /*font-family: notoserif;*/
@@ -58,9 +54,13 @@ html {
   zoom: var(--zoom);
 }
 
-.card.night_mode {
+/* fixing colors on mobile */
+.mobile .card.night_mode {
  color: white;
  background-color: #2f2f31;
+ a {
+   color: #77ccff;
+ }
 }
 
 /* can't figure out how to customize the replay button on mobile... */
@@ -87,6 +87,16 @@ ol, ul {
 /* makes the background of the top row of tables slightly lighter */
 th {
   background: rgba(255, 255, 255, 0.09);
+}
+
+/* link colors change upon hover */
+
+a:not([data-suppress-link-hover="true"]) {
+  transition: color 0.2s;
+}
+
+a:not([data-suppress-link-hover="true"]):hover {
+  color: var(--text-color-link-hover);
 }
 
 /*
@@ -1397,15 +1407,77 @@ ruby rt {
   margin: 0.5em 0 0 0;
 }
 
-.glossary-primary-definition-picture {
+.glossary-primary-definition-right {
   float: right;
-  padding-left: 10px;
+  display: none;
+  padding-left: 5px;
+  padding-top: 3px;
+  text-align: right;
 
   img {
-    max-width: 200px;
-    max-height: 200px;
+    border-radius: 3px;
+    max-width: var(--primary-def-picture-max-width);
+    max-height: var(--primary-def-picture-max-height);
   }
 }
+
+.glossary-primary-definition-right:not(:empty) {
+  display: block;
+}
+
+
+.glossary-blockquote--picture-below {
+}
+
+.glossary-blockquote--primary-definition {
+  .glossary__external-links--float {
+    display: none;
+  }
+  .glossary-primary-definition-right--bottom {
+    display: none;
+  }
+}
+
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-below {
+  .glossary-primary-definition-right--bottom {
+    display: block;
+  }
+
+  .glossary__external-links--float {
+    display: flex;
+  }
+
+  .glossary-primary-definition-right--float {
+    display: none;
+  }
+
+}
+
+/* aligns boxes within float to right */
+.glossary-primary-definition-right--float {
+  display: block;
+}
+.glossary-primary-definition-right--float .glossary__external-links {
+  margin-left: auto;
+}
+
+/* padding between external links & picture if it exists */
+.glossary-primary-definition-right--float .glossary__external-links + .glossary-primary-definition-right-img {
+  padding-top: 5px;
+}
+
+.glossary-blockquote--picture-below .glossary-primary-definition-right {
+  float: none;
+  padding-top: 10px;
+  padding-left: 0px;
+}
+
+.glossary-primary-definition-right-img {
+  display: flex; /* for some reason, this removes additional padding at the bottom */
+  gap: 5px;
+}
+
+
 
 
 .glossary-details--grey {
@@ -1463,8 +1535,8 @@ ruby rt {
  */
 
 .glossary-text--extra-info {
-  display: grid;
-  grid-template-columns: 1fr max-content;
+  //display: grid;
+  //grid-template-columns: 1fr max-content;
 }
 
 
@@ -1480,11 +1552,16 @@ ruby rt {
   max-width: common.maxWidthForXIcons(var(--external-links-max-icons-per-row));
 }
 
-/* external links are moved to the left if field is completely empty */
-.glossary__external-links--full-row {
-  max-width: 100%;
-  justify-content: flex-start;
+.glossary__external-links--float {
+  float: right;
+  padding-left: 5px;
 }
+
+/* external links are moved to the left if field is completely empty */
+//.glossary__external-links--full-row {
+//  max-width: 100%;
+//  justify-content: flex-start;
+//}
 
 .glossary__external-links a {
   text-align: center;

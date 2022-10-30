@@ -26,12 +26,19 @@
 
   --info-circle-settings-svg-size: 16px;
 
+  /* PrimaryDefinitionPicture fields */
+  --primary-def-picture-max-width: 300px;
+  --primary-def-picture-max-height: 150px;
+  --primary-def-picture-auto-position-lenience: 1.5;
+
   /* light mode specific */
   --text-color:                 black;
   --text-color--1:              hsla(0, 0%, 50%, 1);
   --text-color--2:              hsla(0, 0%, 60%, 1);
   --text-color--3:              hsla(0, 0%, 60%, 1);
   --text-color--4:              hsla(0, 0%, 83%, 1);
+
+  --text-color-link-hover:      #4646ff;
 
   /* idea taken from:
    * https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/Recognition/back.html
@@ -90,6 +97,8 @@
   --text-color--2:              hsla(0, 0%, 67.5%, 1);
   --text-color--3:              hsla(0, 0%, 50%, 1);
   --text-color--4:              hsla(0, 0%, 34.5%, 1);
+
+  --text-color-link-hover:      #1390dd;
 
   --text-heiban:                #59b2ff; /* 平板, blue */
   --text-atamadaka:             #ff6666; /* 頭高, red */

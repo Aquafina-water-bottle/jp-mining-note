@@ -21,7 +21,7 @@ and must use `./install.py --update`.
 
 
 
-## [0.11.0.0] - 2022-10-??
+## [0.11.0.0] - 2022-11-??
 #### Breaking Changes
 - Added field: `WordReadingHiragana`
 - Added field: `PrimaryDefinitionPicture`
@@ -30,6 +30,7 @@ and must use `./install.py --update`.
 - Added same word reading indicator
 - Added the `PrimaryDefinitionPicture` field
     - Specifies a picture that is always shown to the right of the primary definition
+    - Can be technically anything else though, like a table, text, etc.
 - Added fix ruby positioning module
 - Improved tooltips (same-reading-indicator and kanji-hover):
     - Added pitch accent on tooltips
@@ -47,10 +48,11 @@ and must use `./install.py --update`.
         - `info-circle-togglable-lock-show-popup`
         - `info-circle-hoverable`
 - Changed error messages to be displayed in standard monospace font, for better readability
-
+- Added compile-options to allow external links to be in the `PrimaryDefinition` field
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
+
 
 
 #### Internal Changes
@@ -61,6 +63,7 @@ and must use `./install.py --update`.
     - `tooltip-builder`: creates tooltips for kanji-hover and same-reading-indicator
     - `anki-connect-actions`: helper module to use anki-connect
 - Fixed a bug with item(javascript=True) when it returns a dictionary (now parses into json)
+- Added color change when highlighting over URLs
 
 
 ## [0.10.3.0] - 2022-10-21

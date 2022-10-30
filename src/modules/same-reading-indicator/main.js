@@ -117,7 +117,9 @@ const JPMNSameReadingIndicator = (() => {
     }
 
     async run() {
-      let baseQuery = `-"Key:{{ T('Key') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
+      const cardTypeName = 'Mining Card';
+
+      let baseQuery = `-"Key:{{ T('Key') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}" "card:${cardTypeName}"`;
       const nonNewQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "non-new-query") }};
       const newQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "new-query") }};
 

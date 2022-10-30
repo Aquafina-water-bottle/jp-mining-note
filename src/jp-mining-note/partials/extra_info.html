@@ -1,6 +1,8 @@
 {# extra info #}
 
-{% if not COMPILE_OPTIONS("external-links").item() %}
+{% set _use_external_links = COMPILE_OPTIONS("external-links").item() and COMPILE_OPTIONS("external-links-position").item() == "Extra Info" %}
+{% if not _use_external_links %}
+<!-- no external links, or external links but not shown here -->
 <div class="outer-display1
     {% call utils.if_none('PAGraphs', 'UtilityDictionaries') %}
       outer-display2
@@ -13,6 +15,16 @@
     <summary>Extra Info</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
       <div class="glossary-text glossary-text--extra-info">
+
+        {% if _use_external_links %}
+          <div class="glossary__external-links glossary__external-links--float">
+
+            {% include "jp-mining-note/partials/external_links.html" %}
+
+          </div>
+        {% endif %}
+
+
         {% call utils.if_any("PAGraphs", "UtilityDictionaries") %}
 
           <div class="glossary-text--extra-info-main-content">
@@ -33,42 +45,11 @@
 
         {% endcall %}
 
-        <div class="
-          glossary__external-links
-          {# if nothing is being shown in extra definitions, then the full row is used to show external links #}
-          {% call utils.if_none('PAGraphs', 'UtilityDictionaries') %}
-          glossary__external-links--full-row
-          {% endcall %}
-          ">
-
-          {% for id, val in COMPILE_OPTIONS("external-links").dict().items() %}
-
-            {% set hover_value = val["hover-display"] if "hover-display" in val else id %}
-            <a data-details="{{ id }}" href="{{ val["url"] }}" title="{{ hover_value }}">
-
-            {% if val["icon-type"] == "image" %}
-              <img data-do-not-convert="do-not-convert"
-                   class="show-on-light-mode-only"
-                   src="{{ val["icon-image-light"] }}">
-              <img data-do-not-convert="do-not-convert"
-                   class="show-on-dark-mode-only"
-                   src="{{ val["icon-image-dark"] }}">
-            {% else %}
-              {# assumed == text #}
-              {{ val["icon-text"] }}
-            {% endif %}
-
-            </a>
-
-          {% endfor %}
-
-        </div>
-
       </div>
     </blockquote>
   </details>
 
-{% if not COMPILE_OPTIONS("external-links").item() %}
+{% if not _use_external_links %}
 
   <!-- only showed if outer-display2 exists -->
   <div class="glossary-details glossary-details--small glossary-details--grey inner-display2">

@@ -31,6 +31,11 @@ CONFIG = {
         "never-filled-fields": [],
 
 
+        # Where the external links are placed
+        # Available options: "Extra Info", "Primary Definition"
+        "external-links-position": "Extra Info",
+        #"external-links-position": "Primary Definition",
+
         # Adds an external links section to the "Extra Info" field.
         # DuckDuckGo bang links are provided as a slightly more future-proof
         # alternative to raw links, as DDG bangs can be updated by the community

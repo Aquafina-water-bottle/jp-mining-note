@@ -238,7 +238,7 @@ const JPMNAnkiConnectActions = (() => {
       const cards = multi[0];
 
       if (cards.length > 1) {
-        logger.warn("Duplicate key found.", isHtml=false, unique=true);
+        logger.warn("Duplicate key found.", /*isHtml=*/false, /*unique=*/true);
         return false;
       }
       if (cards.length == 0) {
