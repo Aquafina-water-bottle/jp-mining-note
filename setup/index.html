@@ -485,6 +485,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#android-setup" class="md-nav__link">
+    Android Setup
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -515,6 +522,13 @@
           <li class="md-nav__item">
   <a href="#jmdict-surface-forms" class="md-nav__link">
     JMdict Surface Forms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-audio-server-for-yomichan" class="md-nav__link">
+    Local Audio Server for Yomichan
   </a>
   
 </li>
@@ -687,8 +701,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
+      <a href="../images/" class="md-nav__link">
+        Images
       </a>
     </li>
   
@@ -703,6 +717,20 @@
     <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yomichantemplates/" class="md-nav__link">
+        Yomichan Template Options (TODO)
       </a>
     </li>
   
@@ -1055,6 +1083,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#android-setup" class="md-nav__link">
+    Android Setup
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1085,6 +1120,13 @@
           <li class="md-nav__item">
   <a href="#jmdict-surface-forms" class="md-nav__link">
     JMdict Surface Forms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-audio-server-for-yomichan" class="md-nav__link">
+    Local Audio Server for Yomichan
   </a>
   
 </li>
@@ -2596,6 +2638,23 @@ especially when used across text with formatting or newlines.
 See <a href="../yomichantemplates/#overriding-the-definition" target="_blank">this</a> for more details.</p>
 <p>With this being said, selecting the dictionary should always work.</p>
 </div>
+<h3 id="android-setup">Android Setup<a class="headerlink" href="#android-setup" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Actually using JPMN on mobile devices (e.g. for reviewing), is currently not supported.
+This simply shows how to make the cards on Android.</p>
+</div>
+<p>If you wish to add cards on Android, use
+<a href="https://github.com/KamWithK/AnkiconnectAndroid">AnkiconnectAndroid</a>
+and follow the instructions on the AnkiconnectAndroid's README page.</p>
+<p>In addition to the above instructions, you may have to disable duplicate checks
+in order for the application to work.</p>
+<p>There is currently no way to automatically add an image (e.g. a screenshot) automatically.
+Images must be added manually within <code>AnkiDroid</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Tip</p>
+<p>The runtime options supports <a href=""></a></p>
+</div>
 <hr />
 <h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h2>
 <h3 id="yomichan-appearance">Yomichan Appearance<a class="headerlink" href="#yomichan-appearance" title="Permanent link">&para;</a></h3>
@@ -2615,7 +2674,8 @@ are all somewhat outdated, which usually means less accurate definitions and les
 <p>To get the most recent version of JMdict,
 download it from the
 <a href="https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project">official site</a>
-and using <a href="https://github.com/FooSoft/yomichan-import">yomichan-import</a>
+(download <code>JMdict_e.gz</code>)
+and use <a href="https://github.com/FooSoft/yomichan-import">yomichan-import</a>
 to get the latest JMdict version available.</p>
 <p>If you don't want to compile it from source, I provide a download link
 <a href="https://github.com/Aquafina-water-bottle/jmdict-english-yomichan">here</a>,
@@ -2623,16 +2683,21 @@ which should only be a few months stale at most.</p>
 <!-- TODO github actions to re-compile it daily -->
 
 <h3 id="jmdict-surface-forms">JMdict Surface Forms<a class="headerlink" href="#jmdict-surface-forms" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/FooSoft/yomichan/issues/2183">(Link)</a></p>
+<p><a href="https://github.com/FooSoft/yomichan/issues/2183">(Download Link)</a></p>
 <p>This is a dictionary placed in the <code>UtilityDictionaries</code> field by default.
 Although I don't use it when studying Anki, it helps to use this when creating Anki notes
 for monolingual definitions.
 See <a href="../jpresources/#orthographic-variants-fix-sentence-and-frequency" target="_blank">this section</a>
 for more information.</p>
+<h3 id="local-audio-server-for-yomichan">Local Audio Server for Yomichan<a class="headerlink" href="#local-audio-server-for-yomichan" title="Permanent link">&para;</a></h3>
+<p>See
+<a href="../jpresources/#local-audio-server-for-yomichan">here</a>
+if you want to be able to create Anki cards nearly instanteously, and without
+a working internet connection.</p>
 <h3 id="additional-anki-add-ons">Additional Anki add-on(s)<a class="headerlink" href="#additional-anki-add-ons" title="Permanent link">&para;</a></h3>
 <p>These add-on(s) assist in card creation, but are ultimately optional.</p>
 <ul>
-<li>Paste Images As WebP <a href="https://ankiweb.net/shared/info/1151815987">(link)</a></li>
+<li><a href="https://ankiweb.net/shared/info/1151815987">Paste Images As WebP</a></li>
 </ul>
 <h3 id="separate-pitch-accent-deck">Separate Pitch Accent Deck<a class="headerlink" href="#separate-pitch-accent-deck" title="Permanent link">&para;</a></h3>
 <p>If you want card types to go to a different deck by default, you can change it by doing the following:</p>
@@ -2669,7 +2734,7 @@ that you would like to set up. These include:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 26, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 29, 2022</span>
       
     
   </small>

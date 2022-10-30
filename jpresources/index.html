@@ -442,8 +442,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
+      <a href="../images/" class="md-nav__link">
+        Images
       </a>
     </li>
   
@@ -458,6 +458,20 @@
     <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yomichantemplates/" class="md-nav__link">
+        Yomichan Template Options (TODO)
       </a>
     </li>
   
@@ -1291,9 +1305,7 @@ a working internet connection.</p>
 <p class="admonition-title">Note</p>
 <p>This is an updated version of
 <a href="https://learnjapanese.moe/yomichan/#offline-audio-server">TMW's guide</a>.
-As of writing this,<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> TMW's guide has plenty of dead links.
-This guide attempts to fix that and provide more information &amp; alternatives
-on exactly what is happening.</p>
+Much of the info was taken from the above link.</p>
 </div>
 <details class="info">
 <summary>Advantages and Disadvantages of using this setup <em>(click here)</em></summary>
@@ -1305,7 +1317,7 @@ on exactly what is happening.</p>
     (on particularily bad days).</p>
 <p>Most of the delay from Yomichan when creating cards is from fetching the audio.
 In other words, getting the audio is the main bottleneck of when creating Anki cards.
-Using this add-on removes this bottleneck, and allows you to make cards <strong>nearly instaneously</strong>.</p>
+This setup removes this bottleneck, and allows you to make cards <strong>nearly instaneously</strong>.</p>
 </li>
 <li>
 <p>If you do not have internet access, you can still add audio to your cards.</p>
@@ -1334,7 +1346,7 @@ to contribute to <a href="https://github.com/KamWithK/AnkiconnectAndroid">AnkiCo
 </details>
 <ol>
 <li>
-<p>Download one of the following two plugins:</p>
+<p>There are two main versions of the add-on. Download one of the two.</p>
 <ul>
 <li><strong>Option 1</strong>: <a href="https://github.com/Aquafina-water-bottle/jmdict-english-yomichan/blob/master/local_audio/sql/localaudio_2022_06_09_sqlite.ankiaddon?raw=true">SQL-based</a> (highly recommended)</li>
 <li><strong>Option 2</strong>: <a href="https://github.com/Aquafina-water-bottle/jmdict-english-yomichan/blob/master/local_audio/07/localaudio_v07.ankiaddon?raw=true">Memory-based</a></li>
@@ -1371,7 +1383,7 @@ so the first card added after every Anki restart will take noticably longer than
 <li>
 <p>Install the add-on by heading over to:</p>
 <blockquote>
-<p><code>Tools</code> →  <code>Add-ons</code> →  <code>Install from file...</code></p>
+<p>(Anki) →  <code>Tools</code> →  <code>Add-ons</code> →  <code>Install from file...</code></p>
 </blockquote>
 </li>
 <li>
@@ -1384,7 +1396,9 @@ so the first card added after every Anki restart will take noticably longer than
 </details>
 </li>
 <li>
-<p>Place the audio files under <code>addons21\955441350\user_files</code>.</p>
+<p>Place the audio files under <code>Anki2/addons21/955441350/user_files</code>.
+    See <a href="https://docs.ankiweb.net/files.html#file-locations">Anki's documentation</a>
+    on instructions to find your <code>Anki2</code> folder.</p>
 <details class="example">
 <summary>Expected file structure <em>(click here)</em></summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>user_files
@@ -1415,12 +1429,33 @@ so the first card added after every Anki restart will take noticably longer than
 For example, if you want nhk16 to have the highest priority, use <code>sources=nhk16,jpod,jpod_alternate</code>.</p>
 </li>
 <li>
-<p>(If you are using the SQL-based version)
-    Generate the SQL database by scanning any word (e.g. 読む),
-    and then play the audio.</p>
+<p>(If you are using the SQL-based version)</p>
+<p>Generate the SQL database by scanning any word (e.g. 読む),
+and then play the audio.</p>
 <p>Expect this to take a while.</p>
 </li>
 </ol>
+<details class="quote">
+<summary>Original message &amp; setup instructions <em>(click here)</em></summary>
+<p>Zetta — 16/02/2022 <br>
+Yomichan Local Audio Server Anki Plugin V0.1 (probably buggy) This plugin acts similar to the Forvo Audio Server plugin but runs off the downloaded JapanesePod audio files. The purpose is to provide offline access and faster look ups for audio that exists in the dump.</p>
+<p>Any audio files with the format of <code>&lt;reading&gt; - &lt;term&gt;.mp3</code> under the plugins <code>user_files</code> directory will be used. Folder structure under <code>user_files</code> doesn’t matter. For example <code>よむ - 読む.mp3</code> it will try to match the yomichan entry to both reading and term and show up as <code>Local (Exact)</code> Failing that, it will just use <code>reading</code> and show up as <code>Local (Reading)</code> in the yomichan audio dropdown.</p>
+<p>How to use:</p>
+<ol>
+<li>Install the attached addon like any other local addon.</li>
+<li>Restart Anki</li>
+<li>Allow network connections (required since this is a local server)</li>
+<li>In yomichan settings, go to Audio &gt; Configure Audio Playback Sources &gt; Custom Audio Source</li>
+<li>Select Type as JSON and set URL to <code>http://localhost:5050/?term={term}&amp;reading={reading}</code></li>
+<li>Download the JapansePod Audio dump from here https://discord.com/channels/617136488840429598/778430038159655012/943679275884740608 and unzip all archives it in your Anki2 folder under <code>addons21/955441350/user_files</code></li>
+<li>(You may need to Restart Anki again if it doesn’t start working.)</li>
+</ol>
+<p>Bugfix for multiple files named the same in different directories under user_files. https://discord.com/channels/617136488840429598/778430038159655012/943876430746513429 <br>
+Credit: Much of the code was ripped from https://github.com/jamesnicolas/yomichan-forvo-server</p>
+<p><sup>
+(<a href="https://discord.com/channels/617136488840429598/778430038159655012/943743205931900928">Original discord message</a>, on <a href="https://learnjapanese.moe/join/">TMW server</a>)
+</sup></p>
+</details>
 <hr />
 <h2 id="css-yomichan">CSS (Yomichan)<a class="headerlink" href="#css-yomichan" title="Permanent link">&para;</a></h2>
 <h3 id="how-to-add-custom-css-in-yomichan">How-To: Add Custom CSS In Yomichan<a class="headerlink" href="#how-to-add-custom-css-in-yomichan" title="Permanent link">&para;</a></h3>
@@ -2678,21 +2713,13 @@ Orthographic Forms dictionary.</p>
 </ul>
 </li>
 </ul>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>2022/10/27&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 28, 2022</span>
       
     
   </small>
