@@ -32,9 +32,9 @@ CONFIG = {
 
 
         # Where the external links are placed
-        # Available options: "Extra Info", "Primary Definition"
-        "external-links-position": "Extra Info",
-        #"external-links-position": "Primary Definition",
+        # Available options: "Primary Definition", "Extra Info"
+        "external-links-position": "Primary Definition",
+        #"external-links-position": "Extra Info",
 
         # Adds an external links section to the "Extra Info" field.
         # DuckDuckGo bang links are provided as a slightly more future-proof

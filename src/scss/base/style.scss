@@ -1575,6 +1575,9 @@ ruby rt {
   color: var(--text-color);
 
   box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
+  border-radius: 2px;
+
+  //transition: filter 0.2s;
 }
 
 .glossary__external-links img {
@@ -1585,7 +1588,7 @@ ruby rt {
 
 
 .glossary__external-links a:not(:hover) {
-  filter: opacity(0.5)
+  filter: opacity(0.5) grayscale(0.5);
 }
 
 
