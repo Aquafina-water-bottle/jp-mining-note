@@ -216,16 +216,18 @@ The above example is a Hover TSC, with the last sentence was bolded.
 
 # Card Creation Summary
 
-| IsSentenceCard | IsTargetedSentenceCard | IsClickCard | IsHoverCard | Result (Card Type) |
-|:--------------:|:----------------------:|:-----------:|:-----------:|--------------------|
-|                |                        |             |             | Vocab Card         |
-| x              |                        |             |             | Sentence Card      |
-|                | x                      |             |             | TSC                |
-|                |                        | x           |             | Click Vocab        |
-| x              |                        | x           |             | Click Sentence     |
-|                | x                      | x           |             | Click TSC          |
-|                |                        |             | x           | Hover Vocab        |
-| x              |                        |             | x           | Hover Sentence     |
-|                | x                      |             | x           | Hover TSC          |
+{% set xmark = "🗸  { .smaller-table-row }" %}
+
+| IsSentenceCard | IsTargetedSentenceCard | IsClickCard | IsHoverCard | Result (Card Type)                    |
+|:--------------:|:----------------------:|:-----------:|:-----------:|---------------------------------------|
+|                |                        |             |             | Vocab Card     { .smaller-table-row } |
+| {{ xmark }}    |                        |             |             | Sentence Card  { .smaller-table-row } |
+|                | {{ xmark }}            |             |             | TSC            { .smaller-table-row } |
+|                |                        | {{ xmark }} |             | Click Vocab    { .smaller-table-row } |
+| {{ xmark }}    |                        | {{ xmark }} |             | Click Sentence { .smaller-table-row } |
+|                | {{ xmark }}            | {{ xmark }} |             | Click TSC      { .smaller-table-row } |
+|                |                        |             | {{ xmark }} | Hover Vocab    { .smaller-table-row } |
+| {{ xmark }}    |                        |             | {{ xmark }} | Hover Sentence { .smaller-table-row } |
+|                | {{ xmark }}            |             | {{ xmark }} | Hover TSC      { .smaller-table-row } |
 
 

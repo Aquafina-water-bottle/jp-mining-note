@@ -24,9 +24,12 @@ and must use `./install.py --update`.
 ## [0.11.0.0] - 2022-10-??
 #### Breaking Changes
 - Added field: `WordReadingHiragana`
+- Added field: `PrimaryDefinitionPicture`
 
 #### Features
 - Added same word reading indicator
+- Added the `PrimaryDefinitionPicture` field
+    - Specifies a picture that is always shown to the right of the primary definition
 - Added fix ruby positioning module
 - Improved tooltips (same-reading-indicator and kanji-hover):
     - Added pitch accent on tooltips

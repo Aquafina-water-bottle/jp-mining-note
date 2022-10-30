@@ -1383,6 +1383,9 @@ ruby rt {
   border-left: 5px solid #ccc;
   margin: 0 5px;
   padding: 0.5em 10px;
+
+  /* so pictures can be encased properly */
+  overflow: hidden;
 }
 
 .glossary-blockquote p {
@@ -1392,6 +1395,16 @@ ruby rt {
 .glossary-details {
   font-size: 18px;
   margin: 0.5em 0 0 0;
+}
+
+.glossary-primary-definition-picture {
+  float: right;
+  padding-left: 10px;
+
+  img {
+    max-width: 200px;
+    max-height: 200px;
+  }
 }
 
 

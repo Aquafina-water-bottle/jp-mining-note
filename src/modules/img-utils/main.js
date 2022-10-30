@@ -37,7 +37,7 @@ const JPMNImgUtils = (() => {
   let imgCurrentlyBlurred = false;
   let toggleStates = [];
 
-  // main image
+  // main image, global variable
   let image = null;
 
 
@@ -49,7 +49,7 @@ const JPMNImgUtils = (() => {
   }
 
   // gets the function to activate the modal with the img
-  const getActivateModalFunc = function() {
+  const getActivateModalFunc = function(image) {
     return function() {
       modal.style.display = "block";
       modalImg.src = image.src;
@@ -88,7 +88,7 @@ const JPMNImgUtils = (() => {
     dhImgBlur.classList.add(nsfwNoBlurClassName);
 
     if (image !== null) {
-      const activateModalFunc = getActivateModalFunc()
+      const activateModalFunc = getActivateModalFunc(image);
       image.onclick = activateModalFunc;
     }
     imgEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
@@ -316,7 +316,7 @@ const JPMNImgUtils = (() => {
     if ({{ utils.opt("modules", "img-utils", "image-blur", "enabled") }}) {
       useNSFWToggle();
     } else {
-      image.onclick = getActivateModalFunc();
+      image.onclick = getActivateModalFunc(image);
     }
   }
 
@@ -463,8 +463,22 @@ const JPMNImgUtils = (() => {
 
   function searchImages() {
 
+    // looks for the PrimaryDefinitionPicture if it exists
+    /// {% call IF("PrimaryDefinitionPicture") %}
+    const primaryDefPicEle = document.getElementById("primary_definition_picture")
+    if (primaryDefPicEle !== null) {
+      for (const imgEle of primaryDefPicEle.getElementsByTagName("img")) {
+        if (imgEle !== null) {
+          imgEle.onclick = getActivateModalFunc(imgEle);
+          imgEle.classList.add(imgClickClassName);
+        }
+      }
+    }
+    /// {% endcall %}
+
     // goes through each blockquote and searches for yomichan inserted images
-    const imageSearchElements = document.getElementsByTagName("blockquote");
+    //const imageSearchElements = document.getElementsByTagName("blockquote");
+    const imageSearchElements = document.querySelectorAll("blockquote.glossary-blockquote .glossary-text");
     for (const searchEle of imageSearchElements) {
       const anchorTags = searchEle.getElementsByTagName("a");
       for (const atag of anchorTags) {

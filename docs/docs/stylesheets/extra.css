@@ -236,6 +236,7 @@
   background-color: #c0b7ab;
 }
 
+.md-typeset .examplecode > .admonition-title::before,
 .md-typeset .examplecode > summary::before {
   -webkit-mask-image: var(--md-admonition-icon--examplecode);
           mask-image: var(--md-admonition-icon--examplecode);

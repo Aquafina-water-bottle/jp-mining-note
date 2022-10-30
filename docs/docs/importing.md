@@ -137,75 +137,98 @@ To see what the formatting of the sentence is,
 [view the raw HTML]()
 of the `Sentence` field.
 
-- If the tested content is highlighted with `<b>`, then it is already formatted correctly.
-    You can skip this step.
-- If the tested content is not highlighted in any way, there is unfortunately no easy
+Sentences are usually formatted in one of three ways, as shown below:
+
+=== "(1) Highlighted with `<b>`"
+    If the tested content is highlighted with `<b>`, then it is already formatted correctly.
+    You can **skip this step**.
+
+    **Example:**
+    ```html
+    今日も、なんか、昼<b>爆睡</b>してしまったんので…
+    ```
+
+
+=== "(2) Nothing is highlighted"
+    If the tested content is not highlighted in any way, there is unfortunately no easy
     way to add highlighting to existing sentences.
-    As there is nothing to do, you can skip this step.
-- Finally, if the tested content is highlighted with something that isn't `<b>`,
+    As there is nothing to do, you can **skip this step**.
+
+    **Example:**
+    ```
+    今日も、なんか、昼爆睡してしまったんので…
+    ```
+
+
+=== "(3) Highlighted, but not with `<b>`"
+    If the tested content is highlighted with something that isn't `<b>`,
     then **continue with the following instructions** to change it.
 
+    **Example:**
+    ```html
+    今日も、なんか、昼<span style="color: #ffc2c7">爆睡</span>してしまったんので…
+    ```
 
-??? example "Instructions to port formatted sentences *(click here)*"
+    ??? example "Instructions to port formatted sentences *(click here)*"
 
-    !!! note
-        You may want to make another backup before doing the following, just in case.
+        !!! note
+            You may want to make another backup before doing the following, just in case.
 
-    1. **Determine how the sentence is formatted.**
+        1. **Determine how the sentence is formatted.**
 
-        For this example, we will be assuming that the highlightted word
-        is highlighted by a `<span>` with a custom color.
-        ```html
-        視認する時間も、言葉を交わす<span style="color: #ffc2c7">猶予</span>も、背中を見せて走り出す機会さえなかった。
-        ```
+            We will be using the above for this example.
+            This example highlights the word using a `<span>` with a custom color.
+            ```html
+            今日も、なんか、昼<span style="color: #ffc2c7">爆睡</span>してしまったんので…
+            ```
 
-        The above is created from the following Yomichan fields:
-        ```
-        {cloze-prefix}<span style="color: #ffc2c7">{cloze-body}</span>{cloze-suffix}
-        ```
+            The above is created from the following Yomichan fields:
+            ```
+            {cloze-prefix}<span style="color: #ffc2c7">{cloze-body}</span>{cloze-suffix}
+            ```
 
-    2. **Testing the Conversion.**
+        2. **Testing the Conversion.**
 
-        In the Anki card viewer, select only one of your old notes.
+            In the Anki card viewer, select only one of your old notes.
 
-        Afterwards, right click the selection, and head over to:
+            Afterwards, right click the selection, and head over to:
 
-        > `Notes` →  `Find and Replace...`
+            > `Notes` →  `Find and Replace...`
 
-    3. **Setting the fields.**
+        3. **Setting the fields.**
 
-        Set the `Find` field to something that can find your highlighted content.
-        We will use the above as an example.
+            Set the `Find` field to something that can find your highlighted content.
+            We will use the above as an example.
 
-        It is extremely likely that you will have to change the `Find` field
-        according to your note's sentence format.
+            It is extremely likely that you will have to change the `Find` field
+            according to your note's sentence format.
 
-        | Field name | Value |
-        |:-|:-|
-        | **Find:** { .smaller-table-row } | `<span style="color: #ffc2c7">(?P<t>.*?)</span>` { .smaller-table-row } |
-        | **Replace With:** { .smaller-table-row } | `<b>$t</b>` { .smaller-table-row } |
-        | **In:** { .smaller-table-row } | `Sentence` { .smaller-table-row } |
-        | Selected notes only { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
-        | Ignore case { .smaller-table-row } | Unchecked ({{ UNCHECKED_CHECKBOX }}) { .smaller-table-row } |
-        | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
+            | Field name | Value |
+            |:-|:-|
+            | **Find:** { .smaller-table-row } | `<span style="color: #ffc2c7">(?P<t>.*?)</span>` { .smaller-table-row } |
+            | **Replace With:** { .smaller-table-row } | `<b>$t</b>` { .smaller-table-row } |
+            | **In:** { .smaller-table-row } | `Sentence` { .smaller-table-row } |
+            | Selected notes only { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
+            | Ignore case { .smaller-table-row } | Unchecked ({{ UNCHECKED_CHECKBOX }}) { .smaller-table-row } |
+            | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
 
-        ??? example "Example image *(click here)*"
+            ??? example "Example image *(click here)*"
 
-            <figure markdown>
-            {{ img("The above table in Anki", "assets/anki/fix_formatted_sentences.png") }}
-            </figure>
+                <figure markdown>
+                {{ img("The above table in Anki", "assets/anki/fix_formatted_sentences.png") }}
+                </figure>
 
-    4. **Verify.**
+        4. **Verify.**
 
-        Press Ok, and then preview the card.
+            Press Ok, and then preview the card.
 
-        If the highlight is yellow (or blue on light mode), then it it was successful!
-        Repeat steps 2 and 3, except select all of the affected notes instead of just one.
+            If the highlight is yellow (or blue on light mode), then it it was successful!
+            Repeat steps 2 and 3, except select all of the affected notes instead of just one.
 
-        If it was not successful, you likely have to adjust the `Find` field.
-        See
-        [here](https://docs.ankiweb.net/searching.html?highlight=regex#regular-expressions)
-        to see Anki's official documentation on regex.
+            If it was not successful, you likely have to adjust the `Find` field.
+            See
+            [here](https://docs.ankiweb.net/searching.html?highlight=regex#regular-expressions)
+            to see Anki's official documentation on regex.
 
 
 ## (2) Batch generate pitch accents and sentence furigana

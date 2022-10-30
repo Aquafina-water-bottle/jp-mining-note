@@ -1,5 +1,13 @@
 {# impl #}
 <blockquote class="glossary-blockquote highlight-bold" id="primary_definition">
+
+  <!-- pictures not turned into text -->
+  {% call IF("PrimaryDefinitionPicture") %}
+    <div class="glossary-primary-definition-picture" id="primary_definition_picture">
+      {{ T("PrimaryDefinitionPicture") }}
+    </div>
+  {% endcall %}
+
   <div class="glossary-text glossary-text--primary-definition">
     {{ T("furigana:PrimaryDefinition") }}
     <div style="font-size: 0px"><br></div>
@@ -12,4 +20,5 @@
       I figure that adding this shouldn't affect anything
     -->
   </div>
+
 </blockquote>

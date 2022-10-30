@@ -324,12 +324,12 @@ Here is how I recommend transitioning as smoothly as possible:
     →  Select `Clone: JP Mining Note` →  `Ok` <br>
     →  Name the note anything you want (the following examples will use `JP Mining Note copy`)  →  `Ok`<br>
     →  `Close`
-1. If you are currently viewing Yomichan Settings, please refresh the page.
 1. Head over to Anki Card Format [as before](setup.md#yomichan-fields){:target="_blank"}.
 1. In the top right corner, change `Model` to `JP Mining Note copy`,
     and then change it back to `JP Mining Note`.
+    (If you don't see `JP Mining Note copy`, please refresh the page.)
 1. Update the fields as specified.
-    - It will be both specified in the text you see when running `install.py --update`.
+    - It should be specified in the text you see when running `install.py --update`.
     - However, you should also simply compare the table on the
         [setup page](setup.md#yomichan-fields){:target="_blank"} to your filled out fields.
 1. Remove the temporary note: <br>

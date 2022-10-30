@@ -72,6 +72,7 @@ NOTE_CHANGES = [
         version=Version(0, 11, 0, 0),
         actions=[
             action.AddField("WordReadingHiragana", 30 - 1),
+            action.AddField("PrimaryDefinitionPicture", 25 - 1),
             action.YomichanTemplatesChange(),
             action.YomichanFormatChange(
                 "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
@@ -88,7 +89,7 @@ NOTE_CHANGES = [
                 description="If you are using the image-blur function, the option name was changed\n"
                 "from `nsfw-toggle` to `image-blur`. Please change it in your runtime options\n"
                 "to continue using it.\n"
-                "Example file: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
+                "Example: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
             ),
         ],
         fields=[
@@ -116,6 +117,7 @@ NOTE_CHANGES = [
             "Hint",
             "HintNotHidden",
             "Picture",
+            "PrimaryDefinitionPicture",
             "WordAudio",
             "SentenceAudio",
             "PAGraphs",
