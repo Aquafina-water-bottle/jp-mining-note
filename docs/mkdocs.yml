@@ -69,15 +69,14 @@ nav:
   - Reference:
     - User Interface: ui.md
     - Field Reference: fieldref.md
-    - Card Types: cardtypes.md
     - Images: images.md
-    - Runtime Options (TODO): runtimeoptions.md
+    - Card Options (TODO): options.md
+    - Card Types: cardtypes.md
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Tooltip Results (TODO): tooltipresults.md
     - Auto Pitch Accent (TODO): autopa.md
   - Developer Documentation:
     - Building: building.md
-    - Compile-Time Options: compileopts.md
     - Modding: modding.md
   - Other:
     - "FAQ & Troubleshooting": faq.md

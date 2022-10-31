@@ -36,7 +36,7 @@ Pitch accent is selected based on the following priority:
 - in this case, as there is no other option, `AJTWordPitch` field is used
 
 !!! note
-    If the module is disabled in [options file](runtimeoptions.md){:target="_blank"},
+    If the module is disabled in {{ RTO_FILE }},
     the displayed pitch accent will be exactly what is shown in `AJTWordPitch` (or `PAOverride`).
 
 # How the Reading is Selected
@@ -50,7 +50,7 @@ Pitch accent is selected based on the following priority:
 
 Otherwise, the card uses the reading from `WordReading` in katakana.
 This reading can be changed to hiragana, katakana, or katakana with long vowel marks
-in [options file](runtimeoptions.md){:target="_blank"}:
+in {{ RTO_FILE }}:
 
 ```
 "auto-pitch-accent": {
@@ -72,7 +72,7 @@ The reading, word and pitch overline can be automatically colored
 in Migaku style colors, according to the pitch accent.
 
 This automatic coloring behavior is **disabled by default**,
-and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
+and must be enabled in the {{ RTO_FILE }}:
 
 ??? examplecode "Enabling colored pitch accent *(click here)*"
     ```json

@@ -369,16 +369,22 @@ const JPMNImgUtils = (() => {
     return document.getElementById("tags").innerText.split(" ");
   }
 
-  function cardHasNSFWTag() {
-    const tags = getTags();
-    const nsfwTags = {{ utils.opt("modules", "img-utils", "image-blur", "tags") }};
-
-    for (nsfwTag of nsfwTags) {
-      if (tags.includes(nsfwTag)) {
+  // checks if A is a subset of B
+  // in other words, if any item in A is in B
+  function checkArrayIsSubset(A, B) {
+    for (item of A) {
+      if (B.includes(item)) {
         return true;
       }
     }
     return false;
+  }
+
+  function cardHasNSFWTag() {
+    const tags = getTags();
+    const nsfwTags = {{ utils.opt("modules", "img-utils", "image-blur", "tags") }};
+
+    return checkArrayIsSubset(nsfwTags, tags);
   }
 
   function cardContainsAllTags(tagList) {
@@ -513,28 +519,49 @@ const JPMNImgUtils = (() => {
       }
     }
 
-    if (primaryDefPicEle !== null) {
-      const tags = getTags();
-      const primaryDefBlockquote = document.getElementById("primary_definition");
+    const tags = getTags();
+    const primaryDefBlockquote = document.getElementById("primary_definition");
+
+    const posOpt = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position") }};
+    const tagsBottom = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-bottom") }};
+    const tagsRight = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-right") }};
+
+    let posResult = "auto";
+
+    if (checkArrayIsSubset(tagsBottom, tags)) { // priority on tag
+      posResult = "bottom";
+    } else if (checkArrayIsSubset(tagsRight, tags)) {
+      posResult = "right";
+    } else if (posOpt === "bottom") { // lower priority on posOpt
+      posResult = "bottom";
+    } else if (posOpt === "right") {
+      posResult = "right";
+    } else if (posOpt === "auto") {
+      posResult = "auto";
+    } else {
+      logger.warn(`Invalid option value for 'primary-definition-picture-position': ${posOpt}. Defaulting to auto.`);
+      posResult = "auto";
+    }
+
+    if (posResult === "auto") {
+      // compares height of definition text and image
       const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
       const primaryDefText = document.getElementById("primary_definition_text");
-      const lenience = window.getComputedStyle(document.documentElement).getPropertyValue(
-          "--primary-def-picture-auto-position-lenience");
+      const lenience = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position-lenience") }};
 
-      // compares height of definition text and image
-      const textHeight = primaryDefText.offsetHeight*lenience;
-      const picHeight = primaryDefPicBottomEle.offsetHeight + (primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight);
+      const textHeight = primaryDefText.offsetHeight * lenience;
+      const picHeight = primaryDefPicEle.offsetHeight + (primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight);
       const shouldFloat = textHeight > picHeight;
       logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
 
-      if (tags.includes("img-bottom")) {
-        // nothing
-      } else if (tags.includes("img-right") || shouldFloat) {
-        removeIfExists(primaryDefBlockquote, "glossary-blockquote--picture-below");
-      }
-
+      posResult = shouldFloat ? "right" : "bottom";
     }
+    logger.debug(`PrimaryDefinitionPicture position: ${posResult}`);
 
+    // nothing has to be done for "right" as that is the default
+    if (posResult === "bottom") {
+      primaryDefBlockquote.classList.add("glossary-blockquote--picture-below");
+    }
 
 
   }

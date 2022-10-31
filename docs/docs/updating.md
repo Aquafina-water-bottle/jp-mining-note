@@ -357,7 +357,7 @@ and again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings){:tar
 
 
 # Updating the Runtime Options File
-The [runtime options file](runtimeoptions.md) does not automatically update with each note update,
+The {{ RTO_FILE }} does not automatically update with each note update,
 as to not override the user's configuration on each update.
 If the options file isn't updated, then the note will simply use the default value for the option.
 

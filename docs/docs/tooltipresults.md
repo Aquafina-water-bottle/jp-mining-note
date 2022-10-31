@@ -27,7 +27,7 @@ Conversely, the first two categories (the non-new cards) represent words that yo
 know, so they are not greyed out.
 
 The exact numbers shown in each category can be changed in the
-[options file](runtimeoptions.md){:target="_blank"}:
+{{ RTO_FILE}}:
 
 ```
 "kanji-hover": {
@@ -57,7 +57,7 @@ Some assumptions are made about suspended cards.
 For example, suspended cards flagged as `green` are counted in the "non-new" cards category
 (known words), and suspended cards flagged as `red` are counted as words that you
 do not know AND will not study in the future (not shown in any category).
-This can be changed in the [options file](runtimeoptions.md){:target="_blank"}:
+This can be changed in the {{ RTO_FILE}}:
 
 ```
 "kanji-hover": {

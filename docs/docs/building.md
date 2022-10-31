@@ -204,13 +204,7 @@ The important markdown files are found under:
 
 
 # Common Errors
+
 (TODO) Fill this out as people start working with this note
-
-
-
-# Conclusion
-After your first successful build, you can now use compile-time options!
-See [this page](compileopts.md) for more info.
-
 
 

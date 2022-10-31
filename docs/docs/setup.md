@@ -248,7 +248,7 @@ I use the default config that comes with the add-on.
     and it is highly recommended that you upgrade Anki to avoid this problem.
 
     If you aren't interested in those features, you can skip this step and
-    disable them in the [runtime options](runtimeoptions.md){:target="_blank"}.
+    disable them in the {{ RTO_FILE }}.
 
 <br>
 
@@ -766,7 +766,10 @@ Images must be added manually within `AnkiDroid`.
 
 !!! info "Tip"
 
-    The runtime options supports []()
+    Although screenshots cannot be added automatically,
+    the runtime options supports automatically adding images
+    based off of tags. See [here](images.md#automatically-add-images-using-tags)
+    for more info.
 
 ---
 
@@ -777,9 +780,9 @@ Images must be added manually within `AnkiDroid`.
 # Other
 
 ## Yomichan Appearance
-If you want to follow my exact Yomichan popup appearance, set the following
-under (Yomichan settings) →  `Popup Appearance`:
+If you want to follow my exact Yomichan popup appearance:
 
+* Go to (Yomichan settings) →  `Popup Appearance`.
 * Set `Compact glossaries` to ON.
 * Set `Compact tags` to OFF.
 
@@ -819,8 +822,10 @@ for more information.
 ## Local Audio Server for Yomichan
 See
 [here](jpresources.md#local-audio-server-for-yomichan)
-if you want to be able to create Anki cards nearly instanteously, and without
-a working internet connection.
+if you want to be able to create Anki cards nearly instanteously,
+and fetch audio without a working internet connection.
+
+I personally recommend using this setup if you can.
 
 
 ## Additional Anki add-on(s)

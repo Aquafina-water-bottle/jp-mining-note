@@ -353,6 +353,10 @@ def define_env(env):
 
         "CHECKED_CHECKBOX": CHECKED_CHECKBOX,
         "UNCHECKED_CHECKBOX": UNCHECKED_CHECKBOX,
+
+        # runtime options file
+        "RTO_FILE": '[runtime options](options.md#accessing-runtime-options-options){:target="_blank"}',
+        "CTO_FILE": '[compile-time options](options.md#accessing-compile-time-options){:target="_blank"}',
     }
 
     for k, v in data.items():
@@ -438,7 +442,7 @@ def define_env(env):
     def feature_version(feature_version_str: str, unreleased=False):
         if unreleased:
             return f"""!!! warning
-    New as of version `{feature_version_str}` (currently unreleased, and cannot be used)
+    New as of version `{feature_version_str}` (currently unreleased, and **cannot be used**)
 """
 
         with open("../version.txt") as f:
@@ -451,7 +455,7 @@ def define_env(env):
                 f"    New as of version `{feature_version_str}`. " \
                 "This version is currently [bleeding edge](building.md)" \
                 '{:target="_blank"}' \
-                ", so this feature cannot be used unless you compile the templates from the master branch."
+                ", so this feature **cannot be used** unless you compile the templates from the master branch."
 
 
         return f"""<sup><i>New in version `{feature_version_str}` (latest version: `{current_version_str}`)</i></sup>"""

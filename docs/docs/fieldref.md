@@ -294,7 +294,13 @@ in the PA sentence card.
 
 Runtime Options:
 
-> `modules` →  `sent-utils` →  `pa-indicator-color-quotes`
+```
+"modules": {
+  "sent-utils": {
+    "pa-indicator-color-quotes": ...
+  }
+}
+```
 
 TODO picture comparisons between word PA indicator in quotes / word PA with PA indicator
 

@@ -1,17 +1,34 @@
 
 
-(TODO)
-
 
 # Main Image
+The main image (shown to the right of the word reading)
+is exactly the contents of the `Picture` field.
+As you likely already know, this image can be clicked to zoom in.
 
-- as shown in demo, image can be clicked on to zoom
-- image display automatically adjusts for any aspect ratio
-- recommended aspect ratios are 16:9 to 1:1
-- TODO example images for various aspect ratios, including edge cases
+<!--TODO gif-->
 
-- possible to put text in `Picture` field
-- TODO screenshot
+
+This display of the picture automatically adjusts for any aspect ratio.
+For the best looking cards, it is recommended that you use images with
+aspect ratios between 16:9 (landscape) to 1:1 (square).
+
+
+<!--TODO screenshots-->
+
+
+!!! note
+    Instead of a picture, it is possible to use text within the `Picture` field.
+    This is useful if you forgot to add the picture
+    (or didn't want to add it in the first place),
+    and would like to describe the scene in words.
+
+    Do not use more than one picture, or combine pictures and text within the `Picture` field.
+    If you have an image and would like to add text,
+    add the text in the `PrimaryDefinition` or `AdditionalNotes` field.
+    If you want to add more than one image, add the remaining images under
+    `PrimaryDefinitionPicture` or `PrimaryDefinition`.
+
 
 
 ## Automatically Add Images Using Tags
@@ -20,14 +37,23 @@
 
 One can automatically add a specific image if a card contains
 a specific tag.
-This is particularily useful for linear novels.
-One can save an image of the cover, and add
+
+This is particularily useful for cards made from written media, such as books.
+One can save an image of the cover (in the media folder), and add
 the appropriate tag to all of the cards
 to automatically set the image to the cover of the book.
 
-This is specified under the [runtime options file](runtimeoptions.md){:target="_blank"}:
+This is specified under the {{ RTO_FILE }}:
 
-> `modules` →  `img-utils` →  `add-image-if-contains-tags`
+```
+"modules": {
+  "img-utils": {
+    "add-image-if-contains-tags": [
+        ...
+    ]
+  }
+}
+```
 
 Example:
 
@@ -56,57 +82,95 @@ See the video demo below to see exactly what happens.
 ![type:video](assets/img_utils.mp4)
 
 ## How to Disable Collapsed Images
-This image conversion can be globally disabled
-in the [runtime options file](runtimeoptions.md){:target="_blank"}:
 
-```json
-"img-utils": {
-  "stylize-images-in-glossary": false,
-  // ...
-}
-```
-Additionally, if you want to only disable this for some particular images,
-[edit the HTML](faq.md#how-do-i-edit-the-fields-raw-html){:target="_blank"}
-of the desired field, and add `data-do-not-convert="true"`.
+There are three ways of disabling collapsed images.
 
-An example is shown below:
-```
-<img src="your_image.png" data-do-not-convert="true">
-```
+1. Place your images in the `PrimaryDefinitionPicture` field, as shown in the [section below](images.md#the-primarydefinitionpicture-field).
+
+1. To disable this for only specific images,
+    [edit the HTML](faq.md#how-do-i-edit-the-fields-raw-html){:target="_blank"}
+    of the desired field, and add `data-do-not-convert="true"`.
+
+    An example is shown below:
+    ```html
+    <img src="your_image.png" data-do-not-convert="true">
+    ```
+
+1. Disable it globally in the {{ RTO_FILE }}:
+
+    ```json
+    "img-utils": {
+      "stylize-images-in-glossary": false,
+      // ...
+    }
+    ```
+
 
 # The `PrimaryDefinitionPicture` Field
 {{ feature_version("0.11.0.0") }}
 
-(TODO)
+This field can be used to place images in the Primary Definition section without collapsing the image.
+Large images are automatically resized to fit the area.
 
-- shows image in the Primary Definition section
-- main utility: it is not automatically collapsed
-    - use this field when adding images related to the definition
-    - i.e. when you would like to add an image for physical objects like "frog" or "chair"
+This is useful if one wants to put images in place of, or to suppliment definitions.
+For example, using images for words such as "frog" or "chair" is much easier to understand
+compared to using the monolingual definition.
 
-(TODO image)
+=== "Right of the definition (Default)"
+    <figure markdown>
+      {{ img("Primary Definition Picture (right)", "assets/primarydefinitionpicture_right.png") }}
+      <figcaption>
+        Usually, the image is placed to the right (like on Wikipedia).
+      </figcaption>
+    </figure>
 
-## Positioning
-- by default, is shown below text
-- if there is too much text, automatically adjusts itself to be shown to the right (like wikipedia)
-- can force to be placed in one direction: `img-right` and `img-bottom`
 
-(TODO images)
+=== "Below the definition"
+    <figure markdown>
+      {{ img("Primary Definition Picture (bottom)", "assets/primarydefinitionpicture_bottom.png") }}
+      <figcaption>
+        If there is too little text, the image is automatically positioned below the text.
+        This will happen if there are only one or two lines of text for the definition.
+      </figcaption>
+    </figure>
 
+
+!!! note
+    Although not recommended, the `PrimaryDefinitionPicture`
+    does not need to contain pictures.
+    For example, one can add text, tables, or links to the field.
+
+
+## Force Positioning
+
+The automatic repositioning as described above is not perfect.
+Fortunately, there are ways to force the position of this image.
+The `img-right` tag forces the image to be to the right,
+whereas the `img-buttom` forces the image to be below the text.
+
+Additionally, the positioning mode can be set in the {{ RTO_FILE }}:
+```
+"modules": {
+  "img-utils": {
+    // "auto", "right", or "bottom"
+    "primary-definition-picture-position": ...
+  }
+}
+```
 
 
 
 # Image Blur
 {{ feature_version("0.10.3.0") }}
 
-Images on cards can be automatically blurred by marked with a NSFW tag.
+Images on cards can be automatically blurred by marking it with a NSFW tag.
 To mark a card as NSFW, add any of the following tags to the card:
 
 > `nsfw`・`NSFW`・`-NSFW`
 
 This behavior is **disabled by default**. In other words, you will not be able to blur
 images unless the following setting is explicitly enabled
-in the [runtime options file](runtimeoptions.md){:target="_blank"}:
+in the {{ RTO_FILE }}:
 
 ??? examplecode "Enabling image blur *(click here)*"
     ```json

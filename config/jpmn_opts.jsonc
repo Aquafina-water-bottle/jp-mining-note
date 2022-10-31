@@ -213,12 +213,32 @@
       // an `[Image]` text where you can see the image upon hover, and with click to zoom.
       "stylize-images-in-glossary": true,
 
+      "primary-definition-picture": {
+        // Where to place the `PrimaryDefinitionPicture` field contents
+        //  within the primary definition section.
+        // Valid options (case sensitive): "auto", "bottom", "right"
+        "position": "auto",
+
+        // A constant that allows the picture to be placed to the right even if
+        // the text height is X times smaller than the picture.
+        // For example, a value of 1 will only allow the picture to be placed to the right
+        // if the text height is equal or greater than the height of the picture.
+        "position-lenience": 2,
+
+        // Tags to override auto positioning
+        // Case sensitive
+        "tags-bottom": ["img-bottom", "jpmn-img-buttom"],
+        "tags-right": ["img-right", "jpmn-img-right"]
+      },
+
       // Sets the image to the specified file if it contains the specified tags.
       // This may be useful for people who primarily make cards from novels,
       // and want to add the cover of the book to all of their notes.
       // This is a fall-back option that is used when the `Picture` field is empty.
       // NOTE: Remember to add the file to the media folder in order for this to work!
       "add-image-if-contains-tags": [
+        // EXAMPLES:
+
         // This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
         //{
         //  "tags": ["sample_tag"],

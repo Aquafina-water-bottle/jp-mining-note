@@ -30,7 +30,6 @@ CONFIG = {
         "always-filled-fields": [],
         "never-filled-fields": [],
 
-
         # Where the external links are placed
         # Available options: "Primary Definition", "Extra Info"
         #"external-links-position": "Primary Definition",

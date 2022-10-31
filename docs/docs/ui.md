@@ -27,7 +27,7 @@ This note ships with some keybinds to do basic actions.
 | `[` { .smaller-table-row } | Toggles `Extra Info` field           { .smaller-table-row } |
 
 
-See the [runtime options](runtimeoptions.md){:target="_blank"}
+See the {{ RTO_FILE }}
 if you would like to edit / disable any keybind,
 and/or to view the full list of keybinds.
 
@@ -200,7 +200,7 @@ Moreover, the reading, word and pitch overline can be automatically colored
 in Migaku style colors according to the main pitch accent groups.
 
 This automatic coloring behavior is **disabled by default**,
-and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
+and must be enabled in the {{ RTO_FILE }}:
 
 ??? examplecode "Enabling colored pitch accent *(click here)*"
     ```json
@@ -218,40 +218,101 @@ and must be enabled in the [options file](runtimeoptions.md){:target="_blank"}:
 
 ![type:video](assets/pa_override_color.mp4)
 
+---
 
-## Image Blur
+# Images
 
-<i><sup>Main page: [Images (Image Blur)](images.md#image-blur)</sup></i>
+This note type allows you to do many things to images,
+including blurring images, specifying default images, and
+automatically formatting pictures within the definition.
 
+See [this page](images.md) for more information on images.
+
+---
+
+
+
+# External Links
 {{ feature_version("0.10.3.0") }}
 
-If a card is marked with one of the tags below, the image is automatically blurred.
+External links are shown as icons in the `Extra Info` collapsable field by default.
+Clicking on them will send you to the specified web page.
 
-> `nsfw`・`NSFW`・`-NSFW`
+TODO gif demo with hover
 
-This behavior is **disabled by default**. In other words, you will not be able to blur
-images unless the following setting is explicitly enabled
-in the [runtime options file](runtimeoptions.md){:target="_blank"}:
+## External Links in Primary Definition
+{{ feature_version("0.11.0.0") }}
+
+If you wish to have the external links to be on the primary definition section,
+set `external-links-position` to `"Primary Definition"`.
+in the {{ CTO_FILE }}.
+
+TODO image
 
 
-??? examplecode "Enabling image blur *(click here)*"
-    ```json
-    "img-utils": {
-      "enabled": true, // (1)!
-      "nsfw-toggle": {
-        "enabled": true,
-        // ...
-      }
+## Custom External Links
+Custom external links can be specified under the `external-links` section
+in the {{ CTO_FILE }}.
+
+Creating external links is self explanatory and is explained further in the config file.
+Additionally, some commented-out examples are provided within the file.
+
+!!! note
+    If you want to remove all external links, set `external-links` to `{}`.
+    For example:
+    ```
+    "external-links": {},
+    ```
+
+## Icons With Multiple Text Characters
+
+When using text instead of a picture, it is recommended that you use single characters
+(e.g. one kanji) to represent the icon.
+
+However, in the cases where you want to use more characters,
+the default CSS rules causes the icon will use the minimum amount of space,
+which may mis-aligned the surrounding icons.
+
+??? example "Instructions on how to to adjust these icons *(click here)*"
+
+    Using the [custom SCSS](modding.md#custom-css), you can specify
+    the amount of space it takes (in terms of number of icons):
+
+    ```scss
+    @use "../base/common" as common;
+
+    .glossary__external-links a[data-details="DICTIONARY_ID"] { // (1)!
+      width: common.maxWidthForXIcons(2);
     }
     ```
 
-    1.  The `img-utils` module must be enabled to use the image blur feature.
+    {% raw %}
+    1.  The DICTIONARY_ID are the key values of `external-links`.
+        For example, the id of the `jpdb.io` entry below is exactly `jpdb.io`.
+        ```json
+        "jpdb.io": {
+            "icon-type": "image",
+            "icon-image-light": "_icon_jpdb_lightmode.png",
+            "icon-image-dark":  "_icon_jpdb_darkmode.png",
+            "url": "https://jpdb.io/search?q={{text:Word}}"
+        }
+        ```
+    {% endraw %}
 
-<figure markdown>
-  {{ img("example toggle blur gif", "assets/anki_blur/example.gif") }}
-</figure>
+
+    !!! warning
+        This SCSS code is **NOT CSS**.
+        This cannot be added directly to the template's style sheet in Anki.
+        Please see the link above to see how to use custom SCSS.
+
+    An example of this can be found in `src/scss/dictionaries/style.scss`
 
 ---
+
+
+
+
+
 
 
 
@@ -267,7 +328,9 @@ in the [runtime options file](runtimeoptions.md){:target="_blank"}:
 
 Runtime Options:
 
-> `fix-ruby-positioning`
+```
+"fix-ruby-positioning": ...
+```
 
 
 TODO show comparison pictures between the two in various situations
@@ -284,7 +347,14 @@ TODO show comparison pictures between the two in various situations
 
 Runtime Options:
 
-> `modules` →  `customize-open-fields`
+
+```
+"modules": {
+  "customize-open-fields": {
+    ...
+  }
+}
+```
 
 
 TODO gif
@@ -314,11 +384,18 @@ TODO gif
 
 ## Greyed Out Fields
 
-Runtime Options:
+Collapsable fields that usually aren't shown can be greyed out instead of completely disappearing.
 
-> `greyed-out-collapsable-fields-when-empty`
+This is configurable in the {{ RTO_FILE }}:
+```
+"greyed-out-collapsable-fields-when-empty": ...
+```
 
-TODO picture comparisons empty fields / empty fields but greyed out
+=== "Greyed Out"
+    {{ img("", "assets/fushinnsha/greyed_out_fields_grey.png") }}
+
+=== "Not Shown (default)"
+    {{ img("", "assets/fushinnsha/greyed_out_fields_hidden.png") }}
 
 
 

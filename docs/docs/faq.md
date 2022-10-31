@@ -41,7 +41,7 @@ and the defaults will be used instead.
 There are two ways to fix this:
 
 1. [Update Anki](setup.md#updating-anki) to a higher version.
-1. Compile the card with [hard-coded defaults](compileopts.md#custom-runtime-options).
+1. Compile the card with [hard-coded defaults](modding.md#custom-runtime-options).
 
 ??? info "Why this happens *(click here)*"
 

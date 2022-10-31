@@ -47,9 +47,51 @@ You must be able to successfully build the template
 in order to start modding the note.
 See the [build page](building.md) for more details.
 
-Additionally, it is recommended that you go through the
-[compile-time options](compileopts.md) section in the build page after your first successful build,
-as it may contain what you are looking for.
+
+
+---
+
+# Custom Runtime Options
+The runtime options file (default: `config/jpmn_opts.jsonc`)
+can be specified at build time.
+
+If you are working with modding the note,
+it is recommended that you create your own runtime options file,
+so you can edit the options at build time,
+while ensuring your runtime options file is up to date.
+
+Here is how you can create and use a custom runtime options file:
+
+1. Create the local runtime options file (e.g. `user_jpmn_opts.jsonc`)
+
+    ```bash
+    cd config
+    cp jpmn_opts.jsonc user_jpmn_opts.jsonc
+    ```
+
+2. Change `opts-path` under `config/config.py`:
+
+    ```
+    "opts-path": "user_jpmn_opts.jsonc",
+    ```
+
+3. (optional) Make the runtime options hard-coded to remove the file dependency
+    during runtime, by changing the following setting in `config/config.py`:
+    ```
+    "compile-options": {
+        "hardcoded-runtime-options": True,
+    }
+    ```
+
+4. Build and install the note as normal.
+
+    !!! note
+
+        If you are not using hard-coded runtime options
+        and you have edited the contents of the local runtime options file,
+        please run the installation script with `--install-options`
+        to replace the existing options file in Anki's media folder.
+
 
 
 ---
