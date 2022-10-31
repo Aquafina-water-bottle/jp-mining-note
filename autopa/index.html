@@ -430,20 +430,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../images/" class="md-nav__link">
         Images
       </a>
@@ -458,8 +444,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../runtimeoptions/" class="md-nav__link">
-        Runtime Options (TODO)
+      <a href="../options/" class="md-nav__link">
+        Card Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
       </a>
     </li>
   
@@ -684,20 +684,6 @@
     <li class="md-nav__item">
       <a href="../building/" class="md-nav__link">
         Building
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../compileopts/" class="md-nav__link">
-        Compile-Time Options
       </a>
     </li>
   
@@ -982,7 +968,7 @@ TODO link some videos / resources on what pitch accent even is
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the module is disabled in <a href="../runtimeoptions/" target="_blank">options file</a>,
+<p>If the module is disabled in <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>,
 the displayed pitch accent will be exactly what is shown in <code>AJTWordPitch</code> (or <code>PAOverride</code>).</p>
 </div>
 <h2 id="how-the-reading-is-selected">How the Reading is Selected<a class="headerlink" href="#how-the-reading-is-selected" title="Permanent link">&para;</a></h2>
@@ -1002,7 +988,7 @@ the displayed pitch accent will be exactly what is shown in <code>AJTWordPitch</
 </ul>
 <p>Otherwise, the card uses the reading from <code>WordReading</code> in katakana.
 This reading can be changed to hiragana, katakana, or katakana with long vowel marks
-in <a href="../runtimeoptions/" target="_blank">options file</a>:</p>
+in <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;auto-pitch-accent&quot;: {
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  // 0: hiragana
@@ -1017,7 +1003,7 @@ in <a href="../runtimeoptions/" target="_blank">options file</a>:</p>
 <p>The reading, word and pitch overline can be automatically colored
 in Migaku style colors, according to the pitch accent.</p>
 <p>This automatic coloring behavior is <strong>disabled by default</strong>,
-and must be enabled in the <a href="../runtimeoptions/" target="_blank">options file</a>:</p>
+and must be enabled in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
 <details class="examplecode">
 <summary>Enabling colored pitch accent <em>(click here)</em></summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;auto-pitch-accent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1150,7 +1136,7 @@ one can bold the unused pitch accents to grey them out.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
       
     
   </small>

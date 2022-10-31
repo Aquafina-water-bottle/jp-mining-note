@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/runtimeoptions/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/options/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
     
     
       
-        <title>Runtime Options (TODO) - jp-mining-note</title>
+        <title>Card Options (TODO) - jp-mining-note</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#runtime-options" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Runtime Options (TODO)
+              Card Options (TODO)
             
           </span>
         </div>
@@ -430,20 +430,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../images/" class="md-nav__link">
         Images
       </a>
@@ -466,12 +452,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Runtime Options (TODO)
+          Card Options (TODO)
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Runtime Options (TODO)
+        Card Options (TODO)
       </a>
       
         
@@ -488,16 +474,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
+  <a href="#runtime-options" class="md-nav__link">
+    Runtime Options
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Runtime Options">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accessing-the-options" class="md-nav__link">
-    Accessing the Options
+  <a href="#accessing-runtime-options" class="md-nav__link">
+    Accessing Runtime Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-option-values" class="md-nav__link">
+    Special Option Values
   </a>
   
 </li>
@@ -508,23 +501,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#notation" class="md-nav__link">
-    Notation
+  <a href="#compile-time-options" class="md-nav__link">
+    Compile-Time Options
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#special-option-values" class="md-nav__link">
-    Special Option Values
-  </a>
-  
-    <nav class="md-nav" aria-label="Special Option Values">
+    <nav class="md-nav" aria-label="Compile-Time Options">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pc-mobile-type" class="md-nav__link">
-    pc-mobile Type
+  <a href="#accessing-compile-time-options" class="md-nav__link">
+    Accessing Compile-Time Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#always-filled-never-filled-fields" class="md-nav__link">
+    Always filled &amp; Never filled fields
   </a>
   
 </li>
@@ -545,6 +538,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
     </li>
   
 
@@ -636,20 +643,6 @@
     <li class="md-nav__item">
       <a href="../building/" class="md-nav__link">
         Building
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../compileopts/" class="md-nav__link">
-        Compile-Time Options
       </a>
     </li>
   
@@ -765,16 +758,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
+  <a href="#runtime-options" class="md-nav__link">
+    Runtime Options
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
+    <nav class="md-nav" aria-label="Runtime Options">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accessing-the-options" class="md-nav__link">
-    Accessing the Options
+  <a href="#accessing-runtime-options" class="md-nav__link">
+    Accessing Runtime Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#special-option-values" class="md-nav__link">
+    Special Option Values
   </a>
   
 </li>
@@ -785,23 +785,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#notation" class="md-nav__link">
-    Notation
+  <a href="#compile-time-options" class="md-nav__link">
+    Compile-Time Options
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#special-option-values" class="md-nav__link">
-    Special Option Values
-  </a>
-  
-    <nav class="md-nav" aria-label="Special Option Values">
+    <nav class="md-nav" aria-label="Compile-Time Options">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pc-mobile-type" class="md-nav__link">
-    pc-mobile Type
+  <a href="#accessing-compile-time-options" class="md-nav__link">
+    Accessing Compile-Time Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#always-filled-never-filled-fields" class="md-nav__link">
+    Always filled &amp; Never filled fields
   </a>
   
 </li>
@@ -836,7 +836,7 @@
   
   
   <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/runtimeoptions.md"
+    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/options.md"
     title="View source of this page"
     class="md-content__button md-icon"
   >
@@ -844,22 +844,22 @@
   </a>
 
 
-  <h1>Runtime Options (TODO)</h1>
+  <h1>Card Options (TODO)</h1>
 
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>Throughout the documentation, you will likely run across the term "runtime options" mentioned,
+<p>Throughout the documentation, you will likely run across the term
+"runtime options" and "compile-time" options,
 and be linked to this exact page.</p>
 <p>Binary fields are options that can be set per card.
-However, runtime options are options that are applied globally
+However, runtime options and compile-time options are card options that are applied globally
 to every JPMN card.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is called "runtime options" to differentiate between
-<a href="../building/#technical-summary">compile-time options</a>,
-which are also options that are applied globally.</p>
-</div>
-<h3 id="accessing-the-options">Accessing the Options<a class="headerlink" href="#accessing-the-options" title="Permanent link">&para;</a></h3>
-<p>To access the options, navigate to your profile's
+<p>The difference between runtime options and compile-time options is that
+compile-time options require you to <a href="../building/">build the note</a> on your machine
+to use.
+Runtime options can be accessed and changed without having to build the note.</p>
+<hr />
+<h2 id="runtime-options">Runtime Options<a class="headerlink" href="#runtime-options" title="Permanent link">&para;</a></h2>
+<h3 id="accessing-runtime-options">Accessing Runtime Options<a class="headerlink" href="#accessing-runtime-options" title="Permanent link">&para;</a></h3>
+<p>To access the runtime options, navigate to your profile's
 <a href="../faq/#where-is-the-x-folder-in-anki" target="_blank">media folder</a>,
 and open the <code>_jpmn-options.js</code> file as a text file.</p>
 <p>The contents of the file should look something like the following:
@@ -876,18 +876,21 @@ and open the <code>_jpmn-options.js</code> file as a text file.</p>
 Do not double-click the file.</p>
 </div>
 <p>TODO add demo for windows to opening the file &amp; editing</p>
-<h2 id="notation">Notation<a class="headerlink" href="#notation" title="Permanent link">&para;</a></h2>
-<p>TODO</p>
-<ul>
-<li>arrow indicates <code>{}</code> or <code>[]</code></li>
-<li>option paths should ALWAYS be found in the example config file TODO link</li>
-<li>if you can't find the option in your file, ensure your options file is updated with the example config file</li>
-</ul>
-<p>example:</p>
-<blockquote>
-<p><code>modules</code> →  <code>img-utils</code> →  <code>add-image-if-contains-tags</code></p>
-</blockquote>
-<p>is placed under:</p>
+<!--
+# Notation
+TODO
+
+- arrow indicates `{}` or `[]`
+- option paths should ALWAYS be found in the example config file TODO link
+- if you can't find the option in your file, ensure your options file is updated with the example config file
+
+
+example:
+
+> `modules` →  `img-utils` →  `add-image-if-contains-tags`
+
+is placed under:
+
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &quot;modules&quot;: [
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    &quot;img-utils&quot;: {
@@ -896,19 +899,29 @@ Do not double-click the file.</p>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  ]
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>}
 </code></pre></div>
-<h2 id="special-option-values">Special Option Values<a class="headerlink" href="#special-option-values" title="Permanent link">&para;</a></h2>
+-->
+
+<!--
+Compile time options will be differentiated by using a `(C)` at the front.
+
+TODO only use this notation if necessary...
+
+> (C) `modules` →  `img-utils` →  `add-image-if-contains-tags`
+-->
+
+<h3 id="special-option-values">Special Option Values<a class="headerlink" href="#special-option-values" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature cannot be used unless you compile the templates from the master branch.</p>
+<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
 </div>
-<p>All options can take special values, which are always formatted as the following:</p>
+<p>All runtime options can take special values, which are always formatted as the following:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IDENTIFIER_STRING&quot;</span><span class="p">,</span><span class="w"></span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="c1">// other options ...</span><span class="w"></span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">},</span><span class="w"></span>
 </code></pre></div>
 <p>Currently, the only type that exists is <code>pc-mobile</code>.</p>
-<h3 id="pc-mobile-type"><code>pc-mobile</code> Type<a class="headerlink" href="#pc-mobile-type" title="Permanent link">&para;</a></h3>
+<h4 id="pc-mobile-type"><code>pc-mobile</code> Type<a class="headerlink" href="#pc-mobile-type" title="Permanent link">&para;</a></h4>
 <p>The <code>pc-mobile</code> type allows you to specify different values depending if
 you are using Anki on a mobile device, or PC (non-mobile).</p>
 <p>This is formatted as the following:</p>
@@ -966,34 +979,123 @@ These modules likely also also have their own collection of settings
 to modify the behavior of said module.
 -->
 
+<h2 id="compile-time-options">Compile-Time Options<a class="headerlink" href="#compile-time-options" title="Permanent link">&para;</a></h2>
+<h3 id="accessing-compile-time-options">Accessing Compile-Time Options<a class="headerlink" href="#accessing-compile-time-options" title="Permanent link">&para;</a></h3>
+<p>To access the compile-time options, <a href="../building/">build the note</a>.</p>
+<p>After building the note, a new file <code>config/config.py</code> should appear.
+The compile-time options can be found in this file.</p>
+<p>To use these compile-time options, edit the <code>config.py</code> file,
+and then re-build the note.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not edit the <code>config/example_config.py</code> file.
+The example config file can be updated at any time,
+so if you update the example config through git,
+it may result in unnecessary merge conflicts.</p>
+</div>
+<h3 id="always-filled-never-filled-fields">Always filled &amp; Never filled fields<a class="headerlink" href="#always-filled-never-filled-fields" title="Permanent link">&para;</a></h3>
+<p>Using compile-time options,
+one can set a field to act as if it has always been filled, or it has never been filled,
+using the <code>always-filled-fields</code> and <code>never-filled-fields</code> options.
+This will remove the conditional Anki templates
+(<code>{{#FIELD}}</code> and <code>{{^FIELD}}</code> markers) for the specified fields.</p>
+<details class="example">
+<summary>Example</summary>
+<p>If your <code>compile-options</code> is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;compile-options&quot;: {
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    ...
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    &quot;always-filled-fields&quot;: [&quot;A&quot;],
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    &quot;never-filled-fields&quot;: [&quot;B&quot;],
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    ...
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>}
+</code></pre></div>
+<p>and your card template is:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>{{#A}} A is filled {{/A}}
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>{{^A}} A is not filled {{/A}}
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>{{#B}} B is filled {{/B}}
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>{{^B}} B is not filled {{/B}}
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>{{#C}} C is filled {{/C}}
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>{{^C}} C is not filled {{/C}}
+</code></pre></div></p>
+<p>then upon card build, the resulting card template will be:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>A is filled
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>B is not filled
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>{{#C}} C is filled {{/C}}
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>{{^C}} C is not filled {{/C}}
+</code></pre></div></p>
+</details>
+<p>This usually renders the actual field value useless. In other words, filling the field
+for a note will have no effect on the cards.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not delete the field from the fields list!
+See <a href="../modding/#field-editing">here</a> for more details.</p>
+</div>
+<h4 id="optimized-vocab-card-example">Optimized Vocab Card Example<a class="headerlink" href="#optimized-vocab-card-example" title="Permanent link">&para;</a></h4>
+<p>An example set of compile-time options to create a more optimized vocab card is shown below.</p>
+<details class="examplecode">
+<summary>Vocab card compile-time options example</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">&quot;compile-options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="nt">&quot;keybinds-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">False</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="nt">&quot;hardcoded-runtime-options&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="nt">&quot;always-filled-fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="nt">&quot;never-filled-fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">        </span><span class="s2">&quot;PAShowInfo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;PATestOnlyWord&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;PADoNotTest&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">        </span><span class="s2">&quot;PASeparateWordCard&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;PASeparateSentenceCard&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;AltDisplayPASentenceCard&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">        </span><span class="s2">&quot;SeparateClozeDeletionCard&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">        </span><span class="s2">&quot;IsClickCard&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;IsHoverCard&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;IsSentenceCard&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;IsTargetedSentenceCard&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="p">],</span><span class="w"></span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="nt">&quot;enabled-modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="err">HIGHLY</span><span class="w"> </span><span class="err">RECOMMENDED</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">have</span><span class="w"> </span><span class="kc">t</span><span class="err">his</span><span class="w"> </span><span class="err">e</span><span class="kc">na</span><span class="err">bled</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">wa</span><span class="kc">nt</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="kc">n</span><span class="err">ice</span><span class="w"> </span><span class="err">looki</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">card</span><span class="w"></span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="err">(u</span><span class="kc">nless</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="kc">n</span><span class="err">o</span><span class="kc">t</span><span class="w"> </span><span class="err">usi</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">images</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">cards</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">course)</span><span class="w"></span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">        </span><span class="s2">&quot;img-utils&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">        </span><span class="err">#</span><span class="s2">&quot;sent-utils&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">        </span><span class="err">#</span><span class="s2">&quot;kanji-hover&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">        </span><span class="err">#</span><span class="s2">&quot;auto-pitch-accent&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="w">        </span><span class="err">#</span><span class="s2">&quot;open_on_new&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="w">    </span><span class="p">],</span><span class="w"></span>
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</details>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>TODO record specific errors</p>
 <p>If you have any error, or an option is simply not working, please check the following:</p>
 <ol>
 <li>
-<p>There are commas and double-quotes in the correct places.</p>
+<p>There are commas and double-quotes in the <a href="https://www.json.org/json-en.html">correct places</a>.</p>
 <details class="examplecode">
 <summary>Example <em>(click here)</em></summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;add-image-if-contains-tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sample_tag&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_sample_image.png&quot;</span><span class="w"></span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;something&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;something2&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_contains_both_tags.png&quot;</span><span class="w"></span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1">// ...</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">&quot;add-image-if-contains-tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sample_tag&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_sample_image.png&quot;</span><span class="w"></span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;something&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;something2&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_contains_both_tags.png&quot;</span><span class="w"></span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="c1">// ...</span><span class="w"></span>
 </code></pre></div>
 </details>
 </li>
 <li>
-<p>If an option is not working,
+<p>If a runtime option is not working,
     ensure that the
-    <a href="../updating/#updating-the-runtime-options-file">options file is updated</a>.
-    The option may have been renamed.</p>
+    <a href="../updating/#updating-the-runtime-options-file">runtime options file is updated</a>.
+    The option may have been renamed or repositioned.</p>
+</li>
+<li>
+<p>Similarily, if an error is saying that an option doesn't exist, ensure
+    that the <a href="../updating/#updating-the-runtime-options-file">runtime options file is updated</a>.</p>
+<p>If you are getting this error while compiling, also ensure that the
+<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/config/example_config.py">compile-time options file is updated</a>.</p>
 </li>
 </ol>
 
@@ -1002,7 +1104,7 @@ to modify the behavior of said module.
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 30, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
       
     
   </small>

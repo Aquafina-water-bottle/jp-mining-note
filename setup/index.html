@@ -687,20 +687,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../images/" class="md-nav__link">
         Images
       </a>
@@ -715,8 +701,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../runtimeoptions/" class="md-nav__link">
-        Runtime Options (TODO)
+      <a href="../options/" class="md-nav__link">
+        Card Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
       </a>
     </li>
   
@@ -809,20 +809,6 @@
     <li class="md-nav__item">
       <a href="../building/" class="md-nav__link">
         Building
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../compileopts/" class="md-nav__link">
-        Compile-Time Options
       </a>
     </li>
   
@@ -1410,7 +1396,7 @@ An example of how the config should look is shown below:</p>
 <p>Of course, this <a href="https://w3c.github.io/webappsec-cors-for-developers/#avoid-returning-access-control-allow-origin-null">isn't very safe</a>
 and it is highly recommended that you upgrade Anki to avoid this problem.</p>
 <p>If you aren't interested in those features, you can skip this step and
-disable them in the <a href="../runtimeoptions/" target="_blank">runtime options</a>.</p>
+disable them in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>.</p>
 </div>
 <p><br></p>
 <h3 id="optional-add-ons">Optional Add-ons<a class="headerlink" href="#optional-add-ons" title="Permanent link">&para;</a></h3>
@@ -2653,14 +2639,17 @@ in order for the application to work.</p>
 Images must be added manually within <code>AnkiDroid</code>.</p>
 <div class="admonition info">
 <p class="admonition-title">Tip</p>
-<p>The runtime options supports <a href=""></a></p>
+<p>Although screenshots cannot be added automatically,
+the runtime options supports automatically adding images
+based off of tags. See <a href="../images/#automatically-add-images-using-tags">here</a>
+for more info.</p>
 </div>
 <hr />
 <h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h2>
 <h3 id="yomichan-appearance">Yomichan Appearance<a class="headerlink" href="#yomichan-appearance" title="Permanent link">&para;</a></h3>
-<p>If you want to follow my exact Yomichan popup appearance, set the following
-under (Yomichan settings) →  <code>Popup Appearance</code>:</p>
+<p>If you want to follow my exact Yomichan popup appearance:</p>
 <ul>
+<li>Go to (Yomichan settings) →  <code>Popup Appearance</code>.</li>
 <li>Set <code>Compact glossaries</code> to ON.</li>
 <li>Set <code>Compact tags</code> to OFF.</li>
 </ul>
@@ -2692,8 +2681,9 @@ for more information.</p>
 <h3 id="local-audio-server-for-yomichan">Local Audio Server for Yomichan<a class="headerlink" href="#local-audio-server-for-yomichan" title="Permanent link">&para;</a></h3>
 <p>See
 <a href="../jpresources/#local-audio-server-for-yomichan">here</a>
-if you want to be able to create Anki cards nearly instanteously, and without
-a working internet connection.</p>
+if you want to be able to create Anki cards nearly instanteously,
+and fetch audio without a working internet connection.</p>
+<p>I personally recommend using this setup if you can.</p>
 <h3 id="additional-anki-add-ons">Additional Anki add-on(s)<a class="headerlink" href="#additional-anki-add-ons" title="Permanent link">&para;</a></h3>
 <p>These add-on(s) assist in card creation, but are ultimately optional.</p>
 <ul>
@@ -2734,7 +2724,7 @@ that you would like to set up. These include:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 29, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
       
     
   </small>

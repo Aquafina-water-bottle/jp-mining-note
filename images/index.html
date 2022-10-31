@@ -428,20 +428,6 @@
               
   
   
-  
-    <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
     
   
   
@@ -522,8 +508,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#positioning" class="md-nav__link">
-    Positioning
+  <a href="#force-positioning" class="md-nav__link">
+    Force Positioning
   </a>
   
 </li>
@@ -575,8 +561,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../runtimeoptions/" class="md-nav__link">
-        Runtime Options (TODO)
+      <a href="../options/" class="md-nav__link">
+        Card Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
       </a>
     </li>
   
@@ -669,20 +669,6 @@
     <li class="md-nav__item">
       <a href="../building/" class="md-nav__link">
         Building
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../compileopts/" class="md-nav__link">
-        Compile-Time Options
       </a>
     </li>
   
@@ -846,8 +832,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#positioning" class="md-nav__link">
-    Positioning
+  <a href="#force-positioning" class="md-nav__link">
+    Force Positioning
   </a>
   
 </li>
@@ -912,42 +898,56 @@
 
   <h1>Images</h1>
 
-<p>(TODO)</p>
 <h2 id="main-image">Main Image<a class="headerlink" href="#main-image" title="Permanent link">&para;</a></h2>
-<ul>
-<li>as shown in demo, image can be clicked on to zoom</li>
-<li>image display automatically adjusts for any aspect ratio</li>
-<li>recommended aspect ratios are 16:9 to 1:1</li>
-<li>
-<p>TODO example images for various aspect ratios, including edge cases</p>
-</li>
-<li>
-<p>possible to put text in <code>Picture</code> field</p>
-</li>
-<li>TODO screenshot</li>
-</ul>
+<p>The main image (shown to the right of the word reading)
+is exactly the contents of the <code>Picture</code> field.
+As you likely already know, this image can be clicked to zoom in.</p>
+<!--TODO gif-->
+
+<p>This display of the picture automatically adjusts for any aspect ratio.
+For the best looking cards, it is recommended that you use images with
+aspect ratios between 16:9 (landscape) to 1:1 (square).</p>
+<!--TODO screenshots-->
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Instead of a picture, it is possible to use text within the <code>Picture</code> field.
+This is useful if you forgot to add the picture
+(or didn't want to add it in the first place),
+and would like to describe the scene in words.</p>
+<p>Do not use more than one picture, or combine pictures and text within the <code>Picture</code> field.
+If you have an image and would like to add text,
+add the text in the <code>PrimaryDefinition</code> or <code>AdditionalNotes</code> field.
+If you want to add more than one image, add the remaining images under
+<code>PrimaryDefinitionPicture</code> or <code>PrimaryDefinition</code>.</p>
+</div>
 <h3 id="automatically-add-images-using-tags">Automatically Add Images Using Tags<a class="headerlink" href="#automatically-add-images-using-tags" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature cannot be used unless you compile the templates from the master branch.</p>
+<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
 </div>
 <p>One can automatically add a specific image if a card contains
-a specific tag.
-This is particularily useful for linear novels.
-One can save an image of the cover, and add
+a specific tag.</p>
+<p>This is particularily useful for cards made from written media, such as books.
+One can save an image of the cover (in the media folder), and add
 the appropriate tag to all of the cards
 to automatically set the image to the cover of the book.</p>
-<p>This is specified under the <a href="../runtimeoptions/" target="_blank">runtime options file</a>:</p>
-<blockquote>
-<p><code>modules</code> →  <code>img-utils</code> →  <code>add-image-if-contains-tags</code></p>
-</blockquote>
+<p>This is specified under the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;modules&quot;: {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  &quot;img-utils&quot;: {
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    &quot;add-image-if-contains-tags&quot;: [
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        ...
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    ]
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  }
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>}
+</code></pre></div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;add-image-if-contains-tags&quot;: [
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  {
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    &quot;tags&quot;: [&quot;青春ブタ野郎・LN1&quot;],
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    &quot;file-name&quot;: &quot;_青春ブタ野郎-LN1.png&quot;
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  }
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>],
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;add-image-if-contains-tags&quot;: [
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  {
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    &quot;tags&quot;: [&quot;青春ブタ野郎・LN1&quot;],
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    &quot;file-name&quot;: &quot;_青春ブタ野郎-LN1.png&quot;
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  }
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>],
 </code></pre></div>
 <p>TODO example gif</p>
 <h2 id="collapsed-images">Collapsed Images<a class="headerlink" href="#collapsed-images" title="Permanent link">&para;</a></h2>
@@ -957,60 +957,97 @@ Of course, this image can also be clicked on to zoom.
 See the video demo below to see exactly what happens.</p>
 <p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/img_utils.mp4" type="video/mp4" /></video></div></p>
 <h3 id="how-to-disable-collapsed-images">How to Disable Collapsed Images<a class="headerlink" href="#how-to-disable-collapsed-images" title="Permanent link">&para;</a></h3>
-<p>This image conversion can be globally disabled
-in the <a href="../runtimeoptions/" target="_blank">runtime options file</a>:</p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;stylize-images-in-glossary&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span><span class="w"></span>
-</code></pre></div>
-Additionally, if you want to only disable this for some particular images,
-<a href="../faq/#how-do-i-edit-the-fields-raw-html" target="_blank">edit the HTML</a>
-of the desired field, and add <code>data-do-not-convert="true"</code>.</p>
+<p>There are three ways of disabling collapsed images.</p>
+<ol>
+<li>
+<p>Place your images in the <code>PrimaryDefinitionPicture</code> field, as shown in the <a href="./#the-primarydefinitionpicture-field">section below</a>.</p>
+</li>
+<li>
+<p>To disable this for only specific images,
+    <a href="../faq/#how-do-i-edit-the-fields-raw-html" target="_blank">edit the HTML</a>
+    of the desired field, and add <code>data-do-not-convert="true"</code>.</p>
 <p>An example is shown below:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&lt;img src=&quot;your_image.png&quot; data-do-not-convert=&quot;true&quot;&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;your_image.png&quot;</span> <span class="na">data-do-not-convert</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="p">&gt;</span>
 </code></pre></div></p>
+</li>
+<li>
+<p>Disable it globally in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;stylize-images-in-glossary&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+</ol>
 <h2 id="the-primarydefinitionpicture-field">The <code>PrimaryDefinitionPicture</code> Field<a class="headerlink" href="#the-primarydefinitionpicture-field" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature cannot be used unless you compile the templates from the master branch.</p>
+<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
 </div>
-<p>(TODO)</p>
-<ul>
-<li>shows image in the Primary Definition section</li>
-<li>main utility: it is not automatically collapsed<ul>
-<li>use this field when adding images related to the definition</li>
-<li>i.e. when you would like to add an image for physical objects like "frog" or "chair"</li>
-</ul>
-</li>
-</ul>
-<p>(TODO image)</p>
-<h3 id="positioning">Positioning<a class="headerlink" href="#positioning" title="Permanent link">&para;</a></h3>
-<ul>
-<li>by default, is shown below text</li>
-<li>if there is too much text, automatically adjusts itself to be shown to the right (like wikipedia)</li>
-<li>can force to be placed in one direction: <code>img-right</code> and <code>img-bottom</code></li>
-</ul>
-<p>(TODO images)</p>
+<p>This field can be used to place images in the Primary Definition section without collapsing the image.
+Large images are automatically resized to fit the area.</p>
+<p>This is useful if one wants to put images in place of, or to suppliment definitions.
+For example, using images for words such as "frog" or "chair" is much easier to understand
+compared to using the monolingual definition.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Right of the definition (Default)</label><label for="__tabbed_1_2">Below the definition</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/primarydefinitionpicture_right.png"><img alt="Primary Definition Picture (right)" src="../assets/primarydefinitionpicture_right.png" /></a>
+  <figcaption>
+    Usually, the image is placed to the right (like on Wikipedia).
+  </figcaption>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/primarydefinitionpicture_bottom.png"><img alt="Primary Definition Picture (bottom)" src="../assets/primarydefinitionpicture_bottom.png" /></a>
+  <figcaption>
+    If there is too little text, the image is automatically positioned below the text.
+    This will happen if there are only one or two lines of text for the definition.
+  </figcaption>
+</figure></p>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although not recommended, the <code>PrimaryDefinitionPicture</code>
+does not need to contain pictures.
+For example, one can add text, tables, or links to the field.</p>
+</div>
+<h3 id="force-positioning">Force Positioning<a class="headerlink" href="#force-positioning" title="Permanent link">&para;</a></h3>
+<p>The automatic repositioning as described above is not perfect.
+Fortunately, there are ways to force the position of this image.
+The <code>img-right</code> tag forces the image to be to the right,
+whereas the <code>img-buttom</code> forces the image to be below the text.</p>
+<p>Additionally, the positioning mode can be set in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;modules&quot;: {
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;img-utils&quot;: {
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    // &quot;auto&quot;, &quot;right&quot;, or &quot;bottom&quot;
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    &quot;primary-definition-picture-position&quot;: ...
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  }
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>}
+</code></pre></div></p>
 <h2 id="image-blur">Image Blur<a class="headerlink" href="#image-blur" title="Permanent link">&para;</a></h2>
 <p><sup><i>New in version <code>0.10.3.0</code> (latest version: <code>0.10.3.0</code>)</i></sup></p>
-<p>Images on cards can be automatically blurred by marked with a NSFW tag.
+<p>Images on cards can be automatically blurred by marking it with a NSFW tag.
 To mark a card as NSFW, add any of the following tags to the card:</p>
 <blockquote>
 <p><code>nsfw</code>・<code>NSFW</code>・<code>-NSFW</code></p>
 </blockquote>
 <p>This behavior is <strong>disabled by default</strong>. In other words, you will not be able to blur
 images unless the following setting is explicitly enabled
-in the <a href="../runtimeoptions/" target="_blank">runtime options file</a>:</p>
+in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
 <details class="examplecode">
 <summary>Enabling image blur <em>(click here)</em></summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// (1)!</span><span class="w"></span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;nsfw-toggle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// (1)!</span><span class="w"></span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;nsfw-toggle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <ol>
 <li>The <code>img-utils</code> module must be enabled to use the image blur feature.</li>
@@ -1034,7 +1071,7 @@ and click on the eyeball to the top left.
 This state will be maintained for the entire review session, but will be lost on the next session.</p>
 <p>The tabs below show the available states.
 By default, states cycle from left to right.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Only Blur if NSFW</label><label for="__tabbed_1_2">Always Blurred</label><label for="__tabbed_1_3">Always Revealed</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Only Blur if NSFW</label><label for="__tabbed_2_2">Always Blurred</label><label for="__tabbed_2_3">Always Revealed</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -1088,7 +1125,7 @@ By default, states cycle from left to right.</p>
 </div>
 <details class="example">
 <summary>Demos <em>(click here)</em></summary>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Regular, unmarked card</label><label for="__tabbed_2_2">Card marked as NSFW</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Regular, unmarked card</label><label for="__tabbed_3_2">Card marked as NSFW</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../assets/anki_blur/example_session_toggle_unmarked.gif"><img alt="" src="../assets/anki_blur/example_session_toggle_unmarked.gif" /></a></p>
@@ -1123,7 +1160,7 @@ By default, states cycle from left to right.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 30, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
       
     
   </small>

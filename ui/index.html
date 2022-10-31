@@ -494,9 +494,43 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#images" class="md-nav__link">
+    Images
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-links" class="md-nav__link">
+    External Links
+  </a>
+  
+    <nav class="md-nav" aria-label="External Links">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#image-blur" class="md-nav__link">
-    Image Blur
+  <a href="#external-links-in-primary-definition" class="md-nav__link">
+    External Links in Primary Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-external-links" class="md-nav__link">
+    Custom External Links
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icons-with-multiple-text-characters" class="md-nav__link">
+    Icons With Multiple Text Characters
   </a>
   
 </li>
@@ -576,20 +610,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../images/" class="md-nav__link">
         Images
       </a>
@@ -604,8 +624,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../runtimeoptions/" class="md-nav__link">
-        Runtime Options (TODO)
+      <a href="../options/" class="md-nav__link">
+        Card Options (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
       </a>
     </li>
   
@@ -698,20 +732,6 @@
     <li class="md-nav__item">
       <a href="../building/" class="md-nav__link">
         Building
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../compileopts/" class="md-nav__link">
-        Compile-Time Options
       </a>
     </li>
   
@@ -889,9 +909,43 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#images" class="md-nav__link">
+    Images
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-links" class="md-nav__link">
+    External Links
+  </a>
+  
+    <nav class="md-nav" aria-label="External Links">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#image-blur" class="md-nav__link">
-    Image Blur
+  <a href="#external-links-in-primary-definition" class="md-nav__link">
+    External Links in Primary Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-external-links" class="md-nav__link">
+    Custom External Links
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icons-with-multiple-text-characters" class="md-nav__link">
+    Icons With Multiple Text Characters
   </a>
   
 </li>
@@ -1015,7 +1069,7 @@ and I would recommend watching it before continuing.</p>
 </tr>
 </tbody>
 </table>
-<p>See the <a href="../runtimeoptions/" target="_blank">runtime options</a>
+<p>See the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>
 if you would like to edit / disable any keybind,
 and/or to view the full list of keybinds.</p>
 <hr />
@@ -1112,7 +1166,7 @@ this note's kanji hover ability.</p>
 <h2 id="same-reading-indicator">Same Reading Indicator<a class="headerlink" href="#same-reading-indicator" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature cannot be used unless you compile the templates from the master branch.</p>
+<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
 </div>
 <p>When there are multiple words with the same reading in your Anki collection,
 an indicator will be shown.</p>
@@ -1160,7 +1214,7 @@ Likewise, <span class="nopron">ク</span> would be more like a k than ku.</p>
 Moreover, the reading, word and pitch overline can be automatically colored
 in Migaku style colors according to the main pitch accent groups.</p>
 <p>This automatic coloring behavior is <strong>disabled by default</strong>,
-and must be enabled in the <a href="../runtimeoptions/" target="_blank">options file</a>:</p>
+and must be enabled in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
 <details class="examplecode">
 <summary>Enabling colored pitch accent <em>(click here)</em></summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&quot;auto-pitch-accent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1177,46 +1231,86 @@ and must be enabled in the <a href="../runtimeoptions/" target="_blank">options 
 </ol>
 </details>
 <p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/pa_override_color.mp4" type="video/mp4" /></video></div></p>
-<h3 id="image-blur">Image Blur<a class="headerlink" href="#image-blur" title="Permanent link">&para;</a></h3>
-<p><i><sup>Main page: <a href="../images/#image-blur">Images (Image Blur)</a></sup></i></p>
+<hr />
+<h2 id="images">Images<a class="headerlink" href="#images" title="Permanent link">&para;</a></h2>
+<p>This note type allows you to do many things to images,
+including blurring images, specifying default images, and
+automatically formatting pictures within the definition.</p>
+<p>See <a href="../images/">this page</a> for more information on images.</p>
+<hr />
+<h2 id="external-links">External Links<a class="headerlink" href="#external-links" title="Permanent link">&para;</a></h2>
 <p><sup><i>New in version <code>0.10.3.0</code> (latest version: <code>0.10.3.0</code>)</i></sup></p>
-<p>If a card is marked with one of the tags below, the image is automatically blurred.</p>
-<blockquote>
-<p><code>nsfw</code>・<code>NSFW</code>・<code>-NSFW</code></p>
-</blockquote>
-<p>This behavior is <strong>disabled by default</strong>. In other words, you will not be able to blur
-images unless the following setting is explicitly enabled
-in the <a href="../runtimeoptions/" target="_blank">runtime options file</a>:</p>
-<details class="examplecode">
-<summary>Enabling image blur <em>(click here)</em></summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// (1)!</span><span class="w"></span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;nsfw-toggle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span><span class="w"></span>
+<p>External links are shown as icons in the <code>Extra Info</code> collapsable field by default.
+Clicking on them will send you to the specified web page.</p>
+<p>TODO gif demo with hover</p>
+<h3 id="external-links-in-primary-definition">External Links in Primary Definition<a class="headerlink" href="#external-links-in-primary-definition" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
+</div>
+<p>If you wish to have the external links to be on the primary definition section,
+set <code>external-links-position</code> to <code>"Primary Definition"</code>.
+in the <a href="../options/#accessing-compile-time-options" target="_blank">compile-time options</a>.</p>
+<p>TODO image</p>
+<h3 id="custom-external-links">Custom External Links<a class="headerlink" href="#custom-external-links" title="Permanent link">&para;</a></h3>
+<p>Custom external links can be specified under the <code>external-links</code> section
+in the <a href="../options/#accessing-compile-time-options" target="_blank">compile-time options</a>.</p>
+<p>Creating external links is self explanatory and is explained further in the config file.
+Additionally, some commented-out examples are provided within the file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to remove all external links, set <code>external-links</code> to <code>{}</code>.
+For example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;external-links&quot;: {},
+</code></pre></div></p>
+</div>
+<h3 id="icons-with-multiple-text-characters">Icons With Multiple Text Characters<a class="headerlink" href="#icons-with-multiple-text-characters" title="Permanent link">&para;</a></h3>
+<p>When using text instead of a picture, it is recommended that you use single characters
+(e.g. one kanji) to represent the icon.</p>
+<p>However, in the cases where you want to use more characters,
+the default CSS rules causes the icon will use the minimum amount of space,
+which may mis-aligned the surrounding icons.</p>
+<details class="example">
+<summary>Instructions on how to to adjust these icons <em>(click here)</em></summary>
+<p>Using the <a href="../modding/#custom-css">custom SCSS</a>, you can specify
+the amount of space it takes (in terms of number of icons):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">@use</span><span class="w"> </span><span class="s2">&quot;../base/common&quot;</span><span class="w"> </span><span class="nt">as</span><span class="w"> </span><span class="nt">common</span><span class="o">;</span><span class="w"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nc">.glossary__external-links</span><span class="w"> </span><span class="nt">a</span><span class="o">[</span><span class="nt">data-details</span><span class="o">=</span><span class="s2">&quot;DICTIONARY_ID&quot;</span><span class="o">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (1)!</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">width</span><span class="nd">:</span><span class="w"> </span><span class="nt">common</span><span class="nc">.maxWidthForXIcons</span><span class="o">(</span><span class="nt">2</span><span class="o">);</span><span class="w"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <ol>
-<li>The <code>img-utils</code> module must be enabled to use the image blur feature.</li>
+<li>The DICTIONARY_ID are the key values of <code>external-links</code>.
+    For example, the id of the <code>jpdb.io</code> entry below is exactly <code>jpdb.io</code>.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;jpdb.io&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="nt">&quot;icon-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">&quot;icon-image-light&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_icon_jpdb_lightmode.png&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">&quot;icon-image-dark&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;_icon_jpdb_darkmode.png&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://jpdb.io/search?q={{text:Word}}&quot;</span><span class="w"></span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div></li>
 </ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This SCSS code is <strong>NOT CSS</strong>.
+This cannot be added directly to the template's style sheet in Anki.
+Please see the link above to see how to use custom SCSS.</p>
+</div>
+<p>An example of this can be found in <code>src/scss/dictionaries/style.scss</code></p>
 </details>
-<figure>
-<p><a href="../assets/anki_blur/example.gif"><img alt="example toggle blur gif" src="../assets/anki_blur/example.gif" /></a></p>
-</figure>
 <hr />
 <h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
 <p>(TODO)</p>
 <h3 id="fix-ruby-positioning-for-legacy-anki-versions">Fix Ruby Positioning (For Legacy Anki Versions)<a class="headerlink" href="#fix-ruby-positioning-for-legacy-anki-versions" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature cannot be used unless you compile the templates from the master branch.</p>
+<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
 </div>
 <p>(TODO)</p>
 <p>Runtime Options:</p>
-<blockquote>
-<p><code>fix-ruby-positioning</code></p>
-</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;fix-ruby-positioning&quot;: ...
+</code></pre></div>
 <p>TODO show comparison pictures between the two in various situations
 (think image-blur side-by-side picture comparisons)</p>
 <p><br></p>
@@ -1226,36 +1320,48 @@ in the <a href="../runtimeoptions/" target="_blank">runtime options file</a>:</p
 </ul>
 <p>(TODO)</p>
 <p>Runtime Options:</p>
-<blockquote>
-<p><code>modules</code> →  <code>customize-open-fields</code></p>
-</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;modules&quot;: {
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  &quot;customize-open-fields&quot;: {
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    ...
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  }
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>}
+</code></pre></div>
 <p>TODO gif</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;customize-open-fields&quot;: {
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;enabled&quot;: false,
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  // Force a field to be always open
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  &quot;open&quot;: [
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    &quot;Secondary Definition&quot;
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  ],
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  // Opens the specified collapsable field if the card is new.
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  &quot;open-on-new-enabled&quot;: {
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    &quot;type&quot;: &quot;pc-mobile&quot;,
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    &quot;pc&quot;: true,
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    &quot;mobile&quot;: false
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  },
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>  &quot;open-on-new&quot;: [
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    &quot;Extra Info&quot;
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  ]
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&quot;customize-open-fields&quot;: {
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;enabled&quot;: false,
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  // Force a field to be always open
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  &quot;open&quot;: [
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    &quot;Secondary Definition&quot;
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  ],
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  // Opens the specified collapsable field if the card is new.
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  &quot;open-on-new-enabled&quot;: {
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    &quot;type&quot;: &quot;pc-mobile&quot;,
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    &quot;pc&quot;: true,
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    &quot;mobile&quot;: false
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>  },
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>  &quot;open-on-new&quot;: [
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    &quot;Extra Info&quot;
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>  ]
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>}
 </code></pre></div>
 <h3 id="greyed-out-fields">Greyed Out Fields<a class="headerlink" href="#greyed-out-fields" title="Permanent link">&para;</a></h3>
-<p>Runtime Options:</p>
-<blockquote>
-<p><code>greyed-out-collapsable-fields-when-empty</code></p>
-</blockquote>
-<p>TODO picture comparisons empty fields / empty fields but greyed out</p>
+<p>Collapsable fields that usually aren't shown can be greyed out instead of completely disappearing.</p>
+<p>This is configurable in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&quot;greyed-out-collapsable-fields-when-empty&quot;: ...
+</code></pre></div></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Greyed Out</label><label for="__tabbed_2_2">Not Shown (default)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="../assets/fushinnsha/greyed_out_fields_grey.png"><img alt="" src="../assets/fushinnsha/greyed_out_fields_grey.png" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/fushinnsha/greyed_out_fields_hidden.png"><img alt="" src="../assets/fushinnsha/greyed_out_fields_hidden.png" /></a></p>
+</div>
+</div>
+</div>
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>Outside of the user interface, the note has plenty of fields you can use
 to further modify the card. Head over to the <a href="../fieldref/">Field Reference</a> page to see just that.</p>
@@ -1265,7 +1371,7 @@ to further modify the card. Head over to the <a href="../fieldref/">Field Refere
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 30, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
       
     
   </small>
