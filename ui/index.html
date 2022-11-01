@@ -541,11 +541,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    Options
+  <a href="#ui-runtime-options" class="md-nav__link">
+    UI Runtime Options
   </a>
   
-    <nav class="md-nav" aria-label="Options">
+    <nav class="md-nav" aria-label="UI Runtime Options">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -563,8 +563,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#greyed-out-fields" class="md-nav__link">
-    Greyed Out Fields
+  <a href="#greyed-out-empty-fields" class="md-nav__link">
+    Greyed Out Empty Fields
   </a>
   
 </li>
@@ -956,11 +956,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    Options
+  <a href="#ui-runtime-options" class="md-nav__link">
+    UI Runtime Options
   </a>
   
-    <nav class="md-nav" aria-label="Options">
+    <nav class="md-nav" aria-label="UI Runtime Options">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -978,8 +978,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#greyed-out-fields" class="md-nav__link">
-    Greyed Out Fields
+  <a href="#greyed-out-empty-fields" class="md-nav__link">
+    Greyed Out Empty Fields
   </a>
   
 </li>
@@ -1241,8 +1241,8 @@ automatically formatting pictures within the definition.</p>
 <h2 id="external-links">External Links<a class="headerlink" href="#external-links" title="Permanent link">&para;</a></h2>
 <p><sup><i>New in version <code>0.10.3.0</code> (latest version: <code>0.10.3.0</code>)</i></sup></p>
 <p>External links are shown as icons in the <code>Extra Info</code> collapsable field by default.
-Clicking on them will send you to the specified web page.</p>
-<p>TODO gif demo with hover</p>
+Hovering over them will show the url, and clicking on them will send you to the specified url,</p>
+<p><a href="../assets/external_links.gif"><img alt="" src="../assets/external_links.gif" /></a></p>
 <h3 id="external-links-in-primary-definition">External Links in Primary Definition<a class="headerlink" href="#external-links-in-primary-definition" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1300,33 +1300,61 @@ Please see the link above to see how to use custom SCSS.</p>
 <p>An example of this can be found in <code>src/scss/dictionaries/style.scss</code></p>
 </details>
 <hr />
-<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
-<p>(TODO)</p>
+<h2 id="ui-runtime-options">UI Runtime Options<a class="headerlink" href="#ui-runtime-options" title="Permanent link">&para;</a></h2>
+<p>Various <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a> affect the user interface.
+Some are documented below.</p>
 <h3 id="fix-ruby-positioning-for-legacy-anki-versions">Fix Ruby Positioning (For Legacy Anki Versions)<a class="headerlink" href="#fix-ruby-positioning-for-legacy-anki-versions" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
 </div>
-<p>(TODO)</p>
-<p>Runtime Options:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;fix-ruby-positioning&quot;: ...
+<p>If the furigana appears higher than normal on your card,
+the following runtime option serves as a quick fix to lower the furigana:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;fix-ruby-positioning&quot;: ...
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>}
 </code></pre></div>
-<p>TODO show comparison pictures between the two in various situations
-(think image-blur side-by-side picture comparisons)</p>
+<p>See the pictures below to compare between furigana positions.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Higher than Normal</label><label for="__tabbed_2_2">Quick Fix</label><label for="__tabbed_2_3">Normal</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="../assets/furigana/qt5.png"><img alt="" src="../assets/furigana/qt5.png" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/furigana/quickfix.png"><img alt="" src="../assets/furigana/quickfix.png" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/furigana/normal.png"><img alt="" src="../assets/furigana/normal.png" /></a></p>
+</div>
+</div>
+</div>
+<h4 id="why-this-happens">Why this happens<a class="headerlink" href="#why-this-happens" title="Permanent link">&para;</a></h4>
+<p>There are a few reasons why this can happen:</p>
+<ol>
+<li>Your Anki version is 2.1.49 or below.</li>
+<li>Your Anki version is 2.1.50 and above, but using the older Qt5 version.</li>
+<li>You are using AnkiMobile.</li>
+</ol>
+<p>If you have this issue with the desktop version of Anki,
+it is recommended that you update a version with Qt6 support.
+This will allow the furigana to behave as expected.</p>
+<p>If you are unable to do that for any reason, or you are using AnkiMobile,
+this option serves as a quick <em>but imperfect</em> fix to make the furigana lower.
+This fix is imperfect because it adds even more spacing to the left and right than normal
+if the furigana text is too long.</p>
 <p><br></p>
 <h3 id="automatically-open-collapsed-fields">Automatically Open Collapsed Fields<a class="headerlink" href="#automatically-open-collapsed-fields" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TODO rename <code>fields</code> -&gt; <code>sections</code> or something</li>
-</ul>
-<p>(TODO)</p>
-<p>Runtime Options:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;modules&quot;: {
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  &quot;customize-open-fields&quot;: {
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    ...
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  }
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>}
+<p>Collapsed fields can automatically be opened rather than closed.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>{
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  &quot;modules&quot;: {
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    &quot;customize-open-fields&quot;: {
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>      ...
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    }
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  }
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>}
 </code></pre></div>
-<p>TODO gif</p>
+<details class="example">
+<summary>Example <em>(click here)</em></summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&quot;customize-open-fields&quot;: {
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;enabled&quot;: false,
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
@@ -1347,12 +1375,28 @@ Please see the link above to see how to use custom SCSS.</p>
 <a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>  ]
 <a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>}
 </code></pre></div>
-<h3 id="greyed-out-fields">Greyed Out Fields<a class="headerlink" href="#greyed-out-fields" title="Permanent link">&para;</a></h3>
-<p>Collapsable fields that usually aren't shown can be greyed out instead of completely disappearing.</p>
-<p>This is configurable in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&quot;greyed-out-collapsable-fields-when-empty&quot;: ...
+</details>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Default</label><label for="__tabbed_3_2">Using example config (new card)</label><label for="__tabbed_3_3">Using example config (non-new card)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="../assets/open_fields/closed.png"><img alt="" src="../assets/open_fields/closed.png" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/open_fields/open.png"><img alt="" src="../assets/open_fields/open.png" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/open_fields/partially_open.png"><img alt="" src="../assets/open_fields/partially_open.png" /></a></p>
+</div>
+</div>
+</div>
+<h3 id="greyed-out-empty-fields">Greyed Out Empty Fields<a class="headerlink" href="#greyed-out-empty-fields" title="Permanent link">&para;</a></h3>
+<p>Collapsable fields that are empty are usually not shown at all.
+This runtime option allows them to be shown (but greyed out) when empty.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>{
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  &quot;greyed-out-collapsable-fields-when-empty&quot;: ...
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>}
 </code></pre></div></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Greyed Out</label><label for="__tabbed_2_2">Not Shown (default)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Empty fields greyed out</label><label for="__tabbed_4_2">Empty fields not shown (default)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="../assets/fushinnsha/greyed_out_fields_grey.png"><img alt="" src="../assets/fushinnsha/greyed_out_fields_grey.png" /></a></p>
@@ -1371,7 +1415,7 @@ to further modify the card. Head over to the <a href="../fieldref/">Field Refere
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2022</span>
       
     
   </small>
