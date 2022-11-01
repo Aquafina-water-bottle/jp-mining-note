@@ -42,6 +42,15 @@ If you have a problem at any point, you might find the solution by searching for
 ---
 
 
+# Installing Anki
+
+Download Anki [here](https://apps.ankiweb.net/) if you haven't already.
+
+If you have never used Anki before, I recommend reading through
+[Tatsumoto's blog on setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html).
+
+---
+
 
 # Installing the Card
 There are two ways of installing the card:
@@ -140,9 +149,7 @@ Please check the following in particular:
     read the Anki-Connect setup instructions below.
 
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
-    this is likely because you are using the older Qt5 version of Anki.
-    Unfortunately, as this seems like a quirk of Qt5, there does not seem to be a way to fix it
-    outside of upgrading Anki from a Qt5 version to a Qt6 version.
+    see the [Fix Ruby Positioning](ui.md#fix-ruby-positioning-for-legacy-anki-versions) option.
 
 
 ---
@@ -828,10 +835,58 @@ and fetch audio without a working internet connection.
 I personally recommend using this setup if you can.
 
 
-## Additional Anki add-on(s)
-These add-on(s) assist in card creation, but are ultimately optional.
+## Various Anki Resources
+This documentation is primarily focused on how to use this note,
+rather than Anki itself, so little will be written about the details of Anki here.
 
-* [Paste Images As WebP](https://ankiweb.net/shared/info/1151815987)
+Here is a small list of resources on setting up and using Anki itself:
+
+* [Cade's blog: Optimizing Anki for Language Learning](https://cademcniven.com/posts/20210410/) (recommended)
+* [Tatsumoto's blog: Setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html)
+* [Lazy Guide: Anki](https://rentry.co/lazyXel#anki)
+    * Showcases an example note type, addons used and tips
+* [Refold's Recommended Anki Setup](https://refold.la/roadmap/stage-1/a/anki-setup)
+
+
+## Other Anki Add-ons
+
+If you're interested in copying my setup, I provide the list of addons I personally use here.
+I also provide a small list of other popular add-ons that I don't use, but may be useful for you.
+
+??? example "List of Add-ons I use *(click here)*"
+
+    **Documented above** (I use all required and optional addons for the note type):
+
+    * [Anki-Connect](https://ankiweb.net/shared/info/2055492159)
+    * [CSS Injector](https://ankiweb.net/shared/info/181103283)
+    * [AJT Furigana](https://ankiweb.net/shared/info/1344485230)
+    * [AJT Pitch Accent](https://ankiweb.net/shared/info/1225470483)
+
+    **Algorithm Changing:**
+
+    * [Straight Reward](https://ankiweb.net/shared/info/957961234)
+
+    **Stats:**
+
+    * [Learning Step and Review Interval Retention](https://ankiweb.net/shared/info/1949865265)
+    * [True Retention by Card Maturity Simplfied](https://ankiweb.net/shared/info/1779060522)
+    * [Kanji Grid](https://ankiweb.net/shared/info/909972618)
+
+    **Usability:**
+
+    * [Adjust Sound Volume](https://ankiweb.net/shared/info/2123044452)
+        * Used to normalize volume automatically (so adjusting the volume of recorded files is not necessary)
+    * [Advanced Browser](https://ankiweb.net/shared/info/874215009)
+        * Used for [sorting notes by frequency](fieldref.md#sorting-by-frequency)
+    * [AJT Flexible Grading]()
+        * Has the ability to change the buttons to pass/fail
+    * [Paste Images As WebP](https://ankiweb.net/shared/info/1151815987)
+
+
+??? example "Popular Add-ons that I don't use *(click here)*"
+    * [AJT Mortician](https://ankiweb.net/shared/info/1255924302)
+    * [Edit Field During Review Cloze](https://ankiweb.net/shared/info/385888438)
+    * [Review Heatmap](https://ankiweb.net/shared/info/1771074083)
 
 
 ## Separate Pitch Accent Deck

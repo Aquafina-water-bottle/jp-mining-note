@@ -236,9 +236,9 @@ See [this page](images.md) for more information on images.
 {{ feature_version("0.10.3.0") }}
 
 External links are shown as icons in the `Extra Info` collapsable field by default.
-Clicking on them will send you to the specified web page.
+Hovering over them will show the url, and clicking on them will send you to the specified url,
 
-TODO gif demo with hover
+{{ img("", "assets/external_links.gif") }}
 
 ## External Links in Primary Definition
 {{ feature_version("0.11.0.0") }}
@@ -316,85 +316,121 @@ which may mis-aligned the surrounding icons.
 
 
 
-# Options
+# UI Runtime Options
 
-(TODO)
+Various {{ RTO_FILE }} affect the user interface.
+Some are documented below.
 
 
 ## Fix Ruby Positioning (For Legacy Anki Versions)
 {{ feature_version("0.11.0.0") }}
 
-(TODO)
-
-Runtime Options:
+If the furigana appears higher than normal on your card,
+the following runtime option serves as a quick fix to lower the furigana:
 
 ```
-"fix-ruby-positioning": ...
+{
+  "fix-ruby-positioning": ...
+}
 ```
 
+See the pictures below to compare between furigana positions.
 
-TODO show comparison pictures between the two in various situations
-(think image-blur side-by-side picture comparisons)
+=== "Higher than Normal"
+    {{ img("", "assets/furigana/qt5.png") }}
+
+=== "Quick Fix"
+    {{ img("", "assets/furigana/quickfix.png") }}
+
+=== "Normal"
+    {{ img("", "assets/furigana/normal.png") }}
+
+
+### Why this happens
+
+There are a few reasons why this can happen:
+
+1. Your Anki version is 2.1.49 or below.
+1. Your Anki version is 2.1.50 and above, but using the older Qt5 version.
+1. You are using AnkiMobile.
+
+If you have this issue with the desktop version of Anki,
+it is recommended that you update a version with Qt6 support.
+This will allow the furigana to behave as expected.
+
+If you are unable to do that for any reason, or you are using AnkiMobile,
+this option serves as a quick *but imperfect* fix to make the furigana lower.
+This fix is imperfect because it adds even more spacing to the left and right than normal
+if the furigana text is too long.
+
+
+
+
 
 <br>
 
 
 ## Automatically Open Collapsed Fields
 
-- TODO rename `fields` -> `sections` or something
-
-(TODO)
-
-Runtime Options:
-
+Collapsed fields can automatically be opened rather than closed.
 
 ```
-"modules": {
-  "customize-open-fields": {
-    ...
+{
+  "modules": {
+    "customize-open-fields": {
+      ...
+    }
   }
 }
 ```
 
+??? example "Example *(click here)*"
+    ```
+    "customize-open-fields": {
+      "enabled": false,
 
-TODO gif
+      // Force a field to be always open
+      "open": [
+        "Secondary Definition"
+      ],
 
+      // Opens the specified collapsable field if the card is new.
+      "open-on-new-enabled": {
+        "type": "pc-mobile",
+        "pc": true,
+        "mobile": false
+      },
+
+      "open-on-new": [
+        "Extra Info"
+      ]
+    }
+    ```
+
+=== "Default"
+    {{ img("", "assets/open_fields/closed.png") }}
+
+=== "Using example config (new card)"
+    {{ img("", "assets/open_fields/open.png") }}
+
+=== "Using example config (non-new card)"
+    {{ img("", "assets/open_fields/partially_open.png") }}
+
+
+## Greyed Out Empty Fields
+
+Collapsable fields that are empty are usually not shown at all.
+This runtime option allows them to be shown (but greyed out) when empty.
 ```
-"customize-open-fields": {
-  "enabled": false,
-
-  // Force a field to be always open
-  "open": [
-    "Secondary Definition"
-  ],
-
-  // Opens the specified collapsable field if the card is new.
-  "open-on-new-enabled": {
-    "type": "pc-mobile",
-    "pc": true,
-    "mobile": false
-  },
-
-  "open-on-new": [
-    "Extra Info"
-  ]
+{
+  "greyed-out-collapsable-fields-when-empty": ...
 }
 ```
 
-
-## Greyed Out Fields
-
-Collapsable fields that usually aren't shown can be greyed out instead of completely disappearing.
-
-This is configurable in the {{ RTO_FILE }}:
-```
-"greyed-out-collapsable-fields-when-empty": ...
-```
-
-=== "Greyed Out"
+=== "Empty fields greyed out"
     {{ img("", "assets/fushinnsha/greyed_out_fields_grey.png") }}
 
-=== "Not Shown (default)"
+=== "Empty fields not shown (default)"
     {{ img("", "assets/fushinnsha/greyed_out_fields_hidden.png") }}
 
 

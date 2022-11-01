@@ -261,7 +261,12 @@ The following are ways to view these files in a browser to Yomichan:
         snapshot_height=-2
         ```
 
-        Be sure to restart MPV after changing the config to apply the changes.
+    !!! info
+        When creating the config file, ensure that the config file is placed in the correct folder.
+        This `script-opts` folder does not exist by default.
+        You will likely have to create the folder.
+
+        Additionally, be sure to restart MPV after changing the config to apply the changes.
 
 ## [Immersive](https://github.com/Ben-Kerman/immersive)
 

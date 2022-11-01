@@ -19,21 +19,12 @@ Limited support will be given for older versions of Anki.
 With that being said, JPMN should work for Anki versions 2.1.49+.
 
 ## Mobile (AnkiDroid and AnkiMobile)
-As of writing this,[^1] mobile versions of Anki are **not yet supported**.
+Mobile support is slowly being worked on,[^1]
+but the note (on mobile) is currently not stable.
+**Do not use this note** if you must use Anki on mobile.
 
-[^1]: As of 2022/09/25.
-
-There are plans of supporting AnkiDroid and AnkiMobile in the future.
-
-<!--
-TODO uncomment this when mobile is officially supported
-
-!!! warning
-    AnkiMobile will likely have more bugs compared to AnkiDroid,
-    as I do not have an iPhone to test AnkiMobile.
-    Please report any issue you find!
-
--->
+[^1]:
+    Written as of 2022/10/31.
 
 ## AnkiWeb
 There is no support for AnkiWeb,

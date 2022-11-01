@@ -113,9 +113,13 @@ This is formatted as the following:
 ```
 
 ??? examplecode "Example (TODO) *(click here)*"
-    The following specifies something to be enabled only on PC.
 
-    This returns `true` for PC, and `false` for mobile.
+    Take a sample key-value pair:
+    ```json
+    "enabled": true,
+    ```
+
+    The value can be changed to be `true` for PC, and `false` for mobile.
 
     ```json
     "enabled": {

@@ -774,8 +774,8 @@ ruby rt {
  */
 .back-side {
   max-width: 850px;
-  margin: 20px auto 20px auto;
-  padding: 0 20px 0 20px;
+  margin: 20px auto auto auto;
+  padding: 0px;
 }
 
 .answer-border {
@@ -1462,7 +1462,7 @@ ruby rt {
 }
 
 /* padding between external links & picture if it exists */
-.glossary-primary-definition-right--float .glossary__external-links + .glossary-primary-definition-right-img {
+.glossary-primary-definition-right--float .glossary__external-links + .glossary-primary-definition-right-img:not(:empty) {
   padding-top: 5px;
 }
 
