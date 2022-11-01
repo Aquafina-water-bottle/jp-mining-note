@@ -70,7 +70,7 @@ nav:
     - User Interface: ui.md
     - Field Reference: fieldref.md
     - Images: images.md
-    - Card Options (TODO): options.md
+    - Card Options: options.md
     - Card Types: cardtypes.md
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Tooltip Results (TODO): tooltipresults.md

@@ -167,7 +167,7 @@
 {% macro opt() -%}
   {%- autoescape false -%}
     {%- if COMPILE_OPTIONS("hardcoded-runtime-options").item() -%}
-      ({{NOTE_OPTS(*varargs).item(javascript=True)}})
+      (parseSetting({{NOTE_OPTS(*varargs).item(javascript=True)}}, "{{NOTE_OPTS(*varargs).get_path()}}"))
     {%- else -%}
       {{ "getSetting([" }}
       {%- for name in varargs -%}

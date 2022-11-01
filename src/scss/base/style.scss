@@ -79,7 +79,7 @@ a.replay-button svg circle { fill: #FFFAF0; }*/
 /* makes lists tolerable to look at */
 ol, ul {
   margin-top: 0px;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.15em;
   padding-left: 1.5em;
 }
 
@@ -92,7 +92,7 @@ th {
 /* link colors change upon hover */
 
 a:not([data-suppress-link-hover="true"]) {
-  transition: color 0.2s;
+  transition: color 0.15s;
 }
 
 a:not([data-suppress-link-hover="true"]):hover {
@@ -1411,7 +1411,7 @@ ruby rt {
   float: right;
   display: none;
   padding-left: 5px;
-  padding-top: 3px;
+  /*padding-top: 3px;*/
   text-align: right;
 
   img {
@@ -1468,8 +1468,11 @@ ruby rt {
 
 .glossary-blockquote--picture-below .glossary-primary-definition-right {
   float: none;
-  padding-top: 10px;
   padding-left: 0px;
+}
+
+.glossary-blockquote--picture-below .glossary-primary-definition-right.glossary-primary-definition-right--above-text {
+  padding-top: 10px;
 }
 
 .glossary-primary-definition-right-img {

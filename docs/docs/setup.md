@@ -44,10 +44,12 @@ If you have a problem at any point, you might find the solution by searching for
 
 # Installing Anki
 
-Download Anki [here](https://apps.ankiweb.net/) if you haven't already.
+Download Anki from [the official website](https://apps.ankiweb.net/) if you haven't already.
 
 If you have never used Anki before, I recommend reading through
-[Tatsumoto's blog on setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html).
+[Tatsumoto's blog on setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html)
+to get the appropriate settings.
+This blog also has additional guidance instructions for Linux systems.
 
 ---
 
@@ -839,7 +841,7 @@ I personally recommend using this setup if you can.
 This documentation is primarily focused on how to use this note,
 rather than Anki itself, so little will be written about the details of Anki here.
 
-Here is a small list of resources on setting up and using Anki itself:
+Instead, here is a small list of resources on setting up and using Anki itself:
 
 * [Cade's blog: Optimizing Anki for Language Learning](https://cademcniven.com/posts/20210410/) (recommended)
 * [Tatsumoto's blog: Setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html)

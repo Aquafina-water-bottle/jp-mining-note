@@ -420,10 +420,13 @@ def define_env(env):
 
 
     @env.macro
-    def link(url):
+    def link(url_str):
         # [url](url)
-        return f"[{url}]({url})"
+        return f"[{url_str}]({url_str})"
 
+    @env.macro
+    def url(url_str):
+        return link(url_str)
 
     @env.macro
     def bleeding_edge_only(feature_version_str: str):

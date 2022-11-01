@@ -39,7 +39,7 @@ const JPMNSentUtils = (() => {
 
     // removes the final period if exists
     if ({{ utils.opt("modules", "sent-utils", "remove-final-period") }}) {
-      result = result.replace(/。$/, "");
+      result = result.replace(/[｡。．\.]$/, "");
     }
 
     let validQuotes = {{ utils.opt("modules", "sent-utils", "quote-match-strings") }};

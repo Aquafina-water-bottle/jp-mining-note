@@ -162,7 +162,8 @@ const JPMNSameReadingIndicator = (() => {
 /// {% set run %}
 
 // only continues if kanji-hover is actually enabled
-if ({{ utils.opt("modules", "same-reading-indicator", "enabled") }}) {
+if ({{ utils.opt("modules", "same-reading-indicator", "enabled") }}
+    && {{ utils.opt("enable-ankiconnect-features") }}) {
   const sameReading = new JPMNSameReadingIndicator();
   const delay = {{ utils.opt("modules", "same-reading-indicator", "load-delay") }};
   sameReading.runAfterDelay(delay);

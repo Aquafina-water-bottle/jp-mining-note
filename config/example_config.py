@@ -133,8 +133,10 @@ CONFIG = {
             "auto-pitch-accent",
 
             # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
-            # (unless you are not using images in your cards of course)
+            # (unless you are not using images in your cards whatsoever.)
+            # If you do not want to use `img-utils`, at least use `img-utils-minimal`.
             "img-utils",
+            #"img-utils-minimal",
 
             "customize-open-fields",
             "same-reading-indicator",

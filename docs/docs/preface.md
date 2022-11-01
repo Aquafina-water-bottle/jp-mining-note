@@ -21,7 +21,9 @@ With that being said, JPMN should work for Anki versions 2.1.49+.
 ## Mobile (AnkiDroid and AnkiMobile)
 Mobile support is slowly being worked on,[^1]
 but the note (on mobile) is currently not stable.
-**Do not use this note** if you must use Anki on mobile.
+Do not expect the note to work on mobile.
+Thus, **do not use this note** if you must use Anki on mobile.
+
 
 [^1]:
     Written as of 2022/10/31.
@@ -55,9 +57,9 @@ Absolutely nothing else is required.
 This helps with maintaining stability across various Anki versions.
 
 ## Modularized, Customizable & Extendable
-This project ships with [built-in tools](modding.md) to easily disable/enable features,
+This project ships with [built-in tools](options.md) to easily disable/enable features,
 or even completely remove them from the base template via compile-time options.
-Additionally, there are many built-in ways to extend the note to suit your exact needs.
+Additionally, there are [many built-in ways](modding.md) to extend the note to suit your exact needs.
 
 ## Free & Open Source
 Everything here, including the documentation itself, is completely free and open source,

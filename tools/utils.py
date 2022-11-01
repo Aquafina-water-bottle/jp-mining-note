@@ -173,8 +173,11 @@ class Config:
 
         return current_config
 
+    def get_path(self):
+        return '.'.join([str(x) for x in self.path])
+
     def __repr__(self):
-        return f"Config({'.'.join([str(x) for x in self.path])})"
+        return f"Config({self.get_path()})"
 
 
 # https://stackoverflow.com/a/41595552

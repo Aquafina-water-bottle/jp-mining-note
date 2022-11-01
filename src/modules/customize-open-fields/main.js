@@ -102,7 +102,8 @@ const JPMNOpenFields = (() => {
 
     run() {
       openAlways();
-      if ({{ utils.opt("modules", "customize-open-fields", "open-on-new-enabled") }}) {
+      if ({{ utils.opt("modules", "customize-open-fields", "open-on-new-enabled") }}
+          && {{ utils.opt("enable-ankiconnect-features") }}) {
         openOnNew(this.ankiconnectHelper);
       }
     }

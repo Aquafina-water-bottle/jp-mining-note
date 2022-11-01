@@ -11,6 +11,14 @@ function isMobile() {
   return document.documentElement.classList.contains('mobile');
 }
 
+function getKeyPath(keys) {
+  if (typeof keys === "string") {
+    return keys;
+  }
+  return keys.join(".");
+}
+
+// keys can be a string, or array of strings
 function parseSetting(obj, keys) {
   // checks for an object with "type"
   // https://stackoverflow.com/a/8511350
@@ -22,14 +30,14 @@ function parseSetting(obj, keys) {
   ) {
     if (obj.type === "pc-mobile") {
       if (isMobile()) {
-        LOGGER.debug(`${keys.join(".")} (mobile) -> ${obj["mobile"]}`, 0);
+        LOGGER.debug(`${getKeyPath(keys)} (mobile) -> ${obj["mobile"]}`, 0);
         return obj["mobile"];
       } else {
-        LOGGER.debug(`${keys.join(".")} (pc) -> ${obj["pc"]}`, 0);
+        LOGGER.debug(`${getKeyPath(keys)} (pc) -> ${obj["pc"]}`, 0);
         return obj["pc"];
       }
     } else {
-      LOGGER.warn(`Unknown type ${obj.type} for Option ${keys.join(".")}. Using the entire object instead...`);
+      LOGGER.warn(`Unknown type ${obj.type} for Option ${getKeyPath(keys)}. Using the entire object instead...`);
       return obj;
     }
   }

@@ -292,7 +292,9 @@ const JPMNKanjiHover = (() => {
 /// {% set run %}
 
 // only continues if kanji-hover is actually enabled
-if ({{ utils.opt("modules", "kanji-hover", "enabled") }}) {
+if ({{ utils.opt("modules", "kanji-hover", "enabled") }}
+    && {{ utils.opt("enable-ankiconnect-features") }}) {
+
   const kanjiHover = new JPMNKanjiHover()
   if ({{ utils.opt("modules", "kanji-hover", "mode") }} === 0) {
     kanjiHover.run();

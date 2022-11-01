@@ -48,6 +48,7 @@ and must use `./install.py --update`.
         - `info-circle-togglable-lock-show-popup`
         - `info-circle-hoverable`
 - Changed error messages to be displayed in standard monospace font, for better readability
+- Added `img-utils-minimal` as a counterpart to `img-utils`.
 - Added compile-options to allow external links to be in the `PrimaryDefinition` field
 
 #### Fixes

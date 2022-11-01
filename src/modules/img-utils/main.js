@@ -595,8 +595,8 @@ const JPMNImgUtils = (() => {
 /// {% set run %}
 
 if ({{ utils.opt("modules", "img-utils", "enabled") }}) {
-  const img_utils = new JPMNImgUtils();
-  img_utils.run();
+  const imgUtils = new JPMNImgUtils();
+  imgUtils.run();
 }
 
 /// {% endset %}
@@ -606,7 +606,7 @@ if ({{ utils.opt("modules", "img-utils", "enabled") }}) {
 
 if ({{ utils.opt("modules", "img-utils", "enabled") }} && {{ utils.opt("modules", "img-utils", "image-blur", "enabled") }}) {
   // ran just to call constructor
-  const img_utils = new JPMNImgUtils();
+  const imgUtils = new JPMNImgUtils();
 }
 
 /// {% endset %}

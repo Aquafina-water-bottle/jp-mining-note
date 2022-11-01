@@ -118,11 +118,7 @@
     // Hover over a kanji in the word reading to see if it has been used
     // in previous cards or not.
     "kanji-hover": {
-      "enabled": {
-        "type": "pc-mobile",
-        "pc": true,
-        "mobile": false
-      },
+      "enabled": true,
 
       // 0: loads every time, slower to reveal the back side of the card
       // 1: loads only upon hover, has a small delay upon first hovering over a word
@@ -302,11 +298,7 @@
       ],
 
       // Opens the specified collapsable field if the card is new.
-      "open-on-new-enabled": {
-        "type": "pc-mobile",
-        "pc": false,
-        "mobile": false
-      },
+      "open-on-new-enabled": true,
 
       // Ensure that `open-on-new-enabled` is true, for this to work.
       "open-on-new": [
@@ -323,11 +315,7 @@
 
     // Shows an indicator if the reading (WordReadingHiragana field) is the same as another card
     "same-reading-indicator": {
-      "enabled": {
-        "type": "pc-mobile",
-        "pc": true,
-        "mobile": false
-      },
+      "enabled": true,
 
       // The delay (in milliseconds) of which this module is loaded.
       // - 1 second is 1000ms
@@ -415,6 +403,15 @@
 
   // Whether the info circle is hoverable (to show tooltip)
   "info-circle-hoverable": {
+    "type": "pc-mobile",
+    "pc": true,
+    "mobile": false
+  },
+
+  // Whether Anki-Aonnect features are enabled or disabled
+  // Anki-Connect features are disabled on mobile because
+  // the full Anki-Connect add-on is PC only, and cannot be downloaded on mobile.
+  "enable-ankiconnect-features": {
     "type": "pc-mobile",
     "pc": true,
     "mobile": false

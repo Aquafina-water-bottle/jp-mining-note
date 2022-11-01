@@ -238,16 +238,17 @@ See [this page](images.md) for more information on images.
 External links are shown as icons in the `Extra Info` collapsable field by default.
 Hovering over them will show the url, and clicking on them will send you to the specified url,
 
-{{ img("", "assets/external_links.gif") }}
+{{ img("external links demo", "assets/external_links.gif") }}
 
 ## External Links in Primary Definition
 {{ feature_version("0.11.0.0") }}
 
 If you wish to have the external links to be on the primary definition section,
-set `external-links-position` to `"Primary Definition"`.
+set `external-links-position` to `"Primary Definition"`
 in the {{ CTO_FILE }}.
 
-TODO image
+??? example "Example image *(click here)*"
+    {{ img("external links in primary definition", "assets/external_links_primary_def.png") }}
 
 
 ## Custom External Links
@@ -372,7 +373,8 @@ if the furigana text is too long.
 
 ## Automatically Open Collapsed Fields
 
-Collapsed fields can automatically be opened rather than closed.
+Collapsed fields are collapsed by default.
+These fields can be set to be automatically opened.
 
 ```
 {
@@ -384,7 +386,7 @@ Collapsed fields can automatically be opened rather than closed.
 }
 ```
 
-??? example "Example *(click here)*"
+??? example "Example Config *(click here)*"
     ```
     "customize-open-fields": {
       "enabled": false,

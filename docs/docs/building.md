@@ -122,10 +122,10 @@ pip3 install neovim anki aqt
     If you want to build a more stable version of the note, do the following:
     ```bash
     git fetch
-    git checkout tags/TAG_NAME
+    git checkout tags/VERSION
 
     # or if you want to create a new branch as well:
-    git checkout tags/TAG_NAME -b BRANCH_NAME
+    git checkout tags/VERSION -b BRANCH_NAME
 
     # to return back to the master branch, after you're done building:
     git checkout master

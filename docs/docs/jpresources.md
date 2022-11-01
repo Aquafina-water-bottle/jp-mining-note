@@ -177,11 +177,11 @@ a working internet connection.
     1. Allow network connections (required since this is a local server)
     1. In yomichan settings, go to Audio > Configure Audio Playback Sources > Custom Audio Source
     1. Select Type as JSON and set URL to `http://localhost:5050/?term={term}&reading={reading}`
-    1. Download the JapansePod Audio dump from here https://discord.com/channels/617136488840429598/778430038159655012/943679275884740608 and unzip all archives it in your Anki2 folder under `addons21/955441350/user_files`
+    1. Download the JapansePod Audio dump from here {{ url("https://discord.com/channels/617136488840429598/778430038159655012/943679275884740608") }} and unzip all archives it in your Anki2 folder under `addons21/955441350/user_files`
     1. (You may need to Restart Anki again if it doesn’t start working.)
 
-    Bugfix for multiple files named the same in different directories under user_files. https://discord.com/channels/617136488840429598/778430038159655012/943876430746513429 <br>
-    Credit: Much of the code was ripped from https://github.com/jamesnicolas/yomichan-forvo-server
+    Bugfix for multiple files named the same in different directories under user_files. {{ url("https://discord.com/channels/617136488840429598/778430038159655012/943876430746513429") }} <br>
+    Credit: Much of the code was ripped from {{ url("https://github.com/jamesnicolas/yomichan-forvo-server") }}
 
     <sup>
     ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/943743205931900928), on [TMW server](https://learnjapanese.moe/join/))

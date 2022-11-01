@@ -7,8 +7,6 @@
     glossary-blockquote--primary-definition
     " id="primary_definition">
 
-
-
   {% if _use_external_links %}
     <div class="glossary__external-links glossary__external-links--float" id="external_links_primary_def_float">
       {% include "jp-mining-note/partials/external_links.html" %}
@@ -48,7 +46,11 @@
     -->
   </div>
 
-  <div class="glossary-primary-definition-right glossary-primary-definition-right--bottom" id="primary_definition_picture_bottom">
+  <!-- placed outside of glossary-text so it doesn't get converted automatically -->
+  <div class="glossary-primary-definition-right
+        glossary-primary-definition-right--bottom
+        {% call IF("PrimaryDefinition") %}glossary-primary-definition-right--above-text{% endcall %}
+        " id="primary_definition_picture_bottom">
     <div class="glossary-primary-definition-right-img">
       {{ T("PrimaryDefinitionPicture") }}
     </div>
