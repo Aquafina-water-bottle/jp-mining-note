@@ -25,6 +25,7 @@ const JPMNSameReadingIndicator = (() => {
   const localPositionsEle = document.getElementById("hidden_pa_positions");
   const localAjtEle = document.getElementById("hidden_ajt_word_pitch");
   const localOverrideEle = document.getElementById("hidden_pa_override");
+  const localOverrideTextEle = document.getElementById("hidden_pa_override_text");
   const localReadingEle = document.getElementById("hidden_word_reading");
 
   class JPMNSameReadingIndicator {
@@ -46,6 +47,7 @@ const JPMNSameReadingIndicator = (() => {
         localPositionsEle,
         localAjtEle,
         localOverrideEle,
+        localOverrideTextEle,
         null
       );
       currentCardDiv.appendChild(currentWordDiv);

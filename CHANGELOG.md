@@ -23,8 +23,7 @@ and must use `./install.py --update`.
 
 ## [0.11.0.0] - 2022-11-??
 #### Breaking Changes
-- Added field: `WordReadingHiragana`
-- Added field: `PrimaryDefinitionPicture`
+- Added fields: `PAOverrideText`, `PrimaryDefinitionPicture`, `WordReadingHiragana`
 
 #### Features
 - Added same word reading indicator
@@ -50,6 +49,9 @@ and must use `./install.py --update`.
 - Changed error messages to be displayed in standard monospace font, for better readability
 - Added `img-utils-minimal` as a counterpart to `img-utils`.
 - Added compile-options to allow external links to be in the `PrimaryDefinition` field
+- Revamped `auto-pitch-accent` module:
+    - Added support for various formats in `PAOverride` (csv numbers, and text with downsteps)
+    - Added source on hover support (hover over the pitch accent to see where the pitch was gotten from)
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type

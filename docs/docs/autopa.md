@@ -39,7 +39,91 @@ Pitch accent is selected based on the following priority:
     If the module is disabled in {{ RTO_FILE }},
     the displayed pitch accent will be exactly what is shown in `AJTWordPitch` (or `PAOverride`).
 
+??? example "(TODO) How pitch accent is selected for version 0.11.0.0"
+
+    1. `PAOverrideText`
+        - anything
+
+    1. `PAOverride` integer(s)
+        - any integer in csv format
+        - can be bolded to grey out others
+        - bold currently cannot be across numbers
+        - examples:
+            - `1`
+            - `1, 2`
+            - `-1, 2`
+            - `0,1,2,3`
+            - `0,1,<b>2</b>,3`
+        - non-examples:
+            - `0,<b>1,2</b>,3`
+            - `0,<b>1,</b>2,3`
+            - `0,a`
+
+    1. `PAOverride` text
+        - accepts anything WITHOUT formatting (no bold, etc)
+        - downsteps are marked with 「＼」
+        - (optional) 平板 words can be markd with 「￣」at the very end
+        - words are separated with 「・」 or 「、」
+        - examples:
+            - ちゅうが＼くせい・ちゅうがく＼せい
+            - どく＼、くらう、さら
+            - ジ＼ンセイ
+            - ぞうき＼ん
+            - ねる
+            - ねる￣
+
+    1. `PAOverride`: anything else
+        - if it doesn't fit any of the above (text with formatting), it is shown as is without changes
+            - acts exactly like `PAOverrideText`
+
+    1. `PAPositions`
+
+    1. `AJTWordPitch`
+
+??? example "(TODO) How pitch accent is selected for version 0.11.0.0, when module is disabled"
+
+    1. `PAOverrideText`
+    1. `PAOverride`
+    1. `AJTWordPitch`
+
+    all of the fields will be shown as is without formatting
+    (since no javascript is available to format it)
+
+
+
+## Showing Multiple Pitch Accents
+{{ feature_version("0.11.0.0") }}
+
+Sometimes, pitch accent dictionaries show multiple pitch accents for a word.
+By default, the first pitch accent in the list is shown, and the rest is ignored.
+
+If you want to show all of the pitch accents in the first dictionary,
+change the following in the {{ RTO_FILE }}:
+
+```
+{
+  "modules": {
+    "auto-pitch-accent": {
+      // default: true
+      "only-display-main-entry": false,
+    }
+  }
+}
+```
+
+
+TODO image comparisons:
+- true
+- false
+- true + bold
+- false + bold
+
+
+
 # How the Reading is Selected
+
+(TODO)
+
 - AJT word pitch by default
     - can include devoiced and nasal info
     - usually katakana with long vowel marks
@@ -53,17 +137,17 @@ This reading can be changed to hiragana, katakana, or katakana with long vowel m
 in {{ RTO_FILE }}:
 
 ```
-"auto-pitch-accent": {
-
-  // 0: hiragana
-  // 1: katakana
-  // 2: katakana with long vowel marks
-  "reading-display-mode": 1,
-
-  ...
+{
+  "modules": {
+    "auto-pitch-accent": {
+      // 0: hiragana
+      // 1: katakana
+      // 2: katakana with long vowel marks
+      "reading-display-mode": 1,
+    }
+  }
 }
 ```
-
 
 
 # Colored Pitch Accent
@@ -113,6 +197,7 @@ However, there are two cases where the position cannot be automatically calculat
 
 1. `PAPositions` is not filled, but `AJTWordPitch` is.
 2. `PAOverride` is a non-integer value.
+
 
 
 ## Override Colors

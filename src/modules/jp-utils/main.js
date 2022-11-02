@@ -12,6 +12,7 @@ const JPMNJPUtils = (() => {
       this.HIRAGANA_CONVERSION_RANGE = [0x3041, 0x3096];
       this.KATAKANA_CONVERSION_RANGE = [0x30a1, 0x30f6];
       this.KATAKANA_RANGE = [0x30a0, 0x30ff];
+      this.SMALL_KANA_SET = new Set(Array.from('ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ'));
 
       this.LONG_VOWEL_MARKER_TO_VOWEL = {
         "アナタサカワラヤマハャパバダザガ": "ア",
@@ -51,32 +52,23 @@ const JPMNJPUtils = (() => {
     }
 
 
-    getMoras(readingKana) {
-      // creates div
-      const ignoredKana = "ょゅゃョュャ";
-      const len = [...readingKana].length;
 
-      // I think the plural of mora is mora, but oh well
-      let moras = [];
-
-      let currentPos = 0;
-      while (currentPos < len) {
-        // checks next kana to see if it's a combined mora (i.e. きょ)
-        // ignoredKana.includes(...) <=> ... in ignoredKana
-        if (currentPos !== (len-1) && ignoredKana.includes(readingKana[currentPos+1])) {
-          moras.push(readingKana.substring(currentPos, currentPos+2));
-          currentPos++;
+    // shamelessly stolen from Yomichan (getKanaMorae)
+    // https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
+    getMorae(text) {
+      const morae = [];
+      let i;
+      for (const c of text) {
+        if (this.SMALL_KANA_SET.has(c) && (i = morae.length) > 0) {
+          morae[i - 1] += c;
         } else {
-          moras.push(readingKana[currentPos])
+          morae.push(c);
         }
-        currentPos++;
       }
-
-      return moras;
+      return morae;
     }
 
-
-    // copied/pasted directly from yomichan
+    // shamelessly stolen from Yomichan
     // https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
     // I have no idea what is going on tbh but it seems to work
     isCodePointInRange(codePoint, [min, max]) {

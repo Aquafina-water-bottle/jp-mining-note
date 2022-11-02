@@ -166,6 +166,12 @@
       // whether to search for the ajt word, given the field is filled out
       "search-for-ajt-word": true,
 
+      // When set to true, only displays the first entry within the first dictionary.
+      // - The main entry can be overwritten by bolding an entry in `PAPositions`.
+      // When set to false, all pitch accents within the first dictionary is shown.
+      // - Bolding an entry will grey out other entries.
+      "only-display-main-entry": true,
+
       // Undulation/kifuku (起伏) value, to set the pattern to kifuku
       // (used in the PAOverride field).
       // This sets the downstep be right before the last mora, and colors the word

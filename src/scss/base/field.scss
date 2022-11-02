@@ -7,14 +7,18 @@ anki-editable[field="SentenceReading"] b,
 anki-editable[field="AdditionalNotes"] b,
 anki-editable[field="AltDisplay"] b,
 anki-editable[field="AltDisplayPASentenceCard"] b,
-anki-editable[field="SecondaryDefinition"] b
+anki-editable[field="SecondaryDefinition"] b,
+anki-editable[field="PAPositions"] b,
+anki-editable[field="PAOverride"] b
 {
   text-shadow:  var(--highlight-bold-shadow);
   color:        var(--highlight-bold-color);
 }
 
 
-anki-editable[field="AJTWordPitch"] {
+anki-editable[field="AJTWordPitch"],
+anki-editable[field="PAOverrideText"]
+{
   @include common.bold-pitch;
 }
 

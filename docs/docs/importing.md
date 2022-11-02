@@ -70,17 +70,24 @@ To do this, follow the proceeding steps:
 Here is where I can't give specific advice, as every note is different.
 However, here are a few tips:
 
-1. Your card likely doesn't have a separate `Key` and `Word` field,
+1. Map `Word` to `Key` and `Word`.
+
+    Your card likely doesn't have a separate `Key` and `Word` field,
     and instead only contains one `Word` field.
     To import this correctly into JPMN, make sure JPMN's `Key` and `Word` field are exactly
     your old card's `Word` field.
 
-1. `AJTWordPitch` and `SentenceReading` can be left empty, as the AJT plugins
+1. Leave `AJTWordPitch` and `SentenceReading` empty.
+
+    These fields can be empty as the AJT plugins
     can batch generate both word pitches and sentence furigana.
 
 1. You may have some word pitch fields already in your card.
     Pitch accent graphs should be mapped to `PAGraphs`, and
     pitch accent positions should be mapped to `PAPositions`.
+
+    Note that if you plan to use [colored pitch accent](autopa.md#colored-pitch-accent)
+    on old cards, you must have a pitch accent positions field.[^2]
 
 1. `FrequencySort` maps to the frequency value used to sort by frequency, which works exactly
     the same as Marv's `Frequency` field as documented in
@@ -89,7 +96,7 @@ However, here are a few tips:
 
 1. If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
 
-1. I recommend not setting `FrequenciesStylized` to anything, even if you have a field for
+1. I recommend **not** setting `FrequenciesStylized` to anything, even if you have a field for
     frequency lists[^1].
 
 
@@ -109,13 +116,21 @@ However, here are a few tips:
     If you know of a way or would like to help me out with doing this, please let me know!
 
 
+[^2]: The current implementation of colored pitch accent cannot detect the pitch accent position
+    from the svg graph, nor from the automatically generated pitch accent from `AJT Pitch Accent`.
+    If you do not have a pitch accent positions field,
+    the only way to have colored pitch accent on old cards
+    is by manually setting the position for all affected cards.
+
+    Of course, any new cards should have automatically generated pitch accent positions,
+    so long as you have a Yomichan pitch accent dictionary installed.
 
 
 An example with [Anime cards](https://animecards.site/ankicards/) is shown below.
 
 ??? example "Example for Anime Cards *(click here)*"
 
-    | Anki Fields | Yomichan Format |
+    | jp-mining-note Fields | Anime Cards Fields |
     |-------------|-----------------|
     {% for f, v in FIELDS.items() -%}
     | {{ f }} { .smaller-table-row } | {{ v["anime_cards_import"] + " { .smaller-table-row }" if "anime_cards_import" in v else "" }} |

@@ -43,14 +43,14 @@ const JPMNTooltipBuilder = (() => {
 
     // taken directly from anki's implementation of { {furigana:...} }
     // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-    buildWordDiv(wordReading, positionsHTML, ajtHTML, paOverrideHTML, character) {
+    buildWordDiv(wordReading, positionsHTML, ajtHTML, paOverrideHTML, paOverrideTextHTML, character) {
 
       const wordDiv = this._buildWordDiv(wordReading, character);
 
       if (this.displayPA && this.autoPA) {
         const displayEle = document.createElement("span");
         displayEle.classList.add("hover-tooltip__pitch-accent");
-        this.autoPA.addPosition(positionsHTML, ajtHTML, paOverrideHTML, wordReading, displayEle)
+        this.autoPA.addPosition(positionsHTML, ajtHTML, paOverrideHTML, paOverrideTextHTML, wordReading, displayEle)
 
         wordDiv.appendChild(displayEle)
       }
@@ -92,6 +92,7 @@ const JPMNTooltipBuilder = (() => {
         card["fields"]["PAPositions"]["value"],
         card["fields"]["AJTWordPitch"]["value"],
         card["fields"]["PAOverride"]["value"],
+        card["fields"]["PAOverrideText"]["value"],
         character);
 
       const sentenceDiv = this.buildSentDiv(card["fields"]["Sentence"]["value"]);
