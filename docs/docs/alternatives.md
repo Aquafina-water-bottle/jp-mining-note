@@ -263,6 +263,18 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 - Some require a Patreon subscription to access
 
 
+# Kanken deck
+<sup>
+[Website & download](https://ankiweb.net/shared/info/759825185)
+</sup>
+
+??? example "Example image"
+    {{ img("", "assets/other/kanken_deck_eg.png") }}
+
+- *The definitive deck* to use for learning how to write kanji
+- Not a note type used for mining
+
+
 # Various note types for non-Japanese learning purposes
 - [Prettify](https://github.com/pranavdeshai/anki-prettify)
 - [Modern Card Themes](https://github.com/b3nj5m1n/moderncardthemes)

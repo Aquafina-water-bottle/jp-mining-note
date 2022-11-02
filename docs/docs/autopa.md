@@ -113,6 +113,7 @@ change the following in the {{ RTO_FILE }}:
 
 
 TODO image comparisons:
+
 - true
 - false
 - true + bold
