@@ -1,15 +1,324 @@
 
 
-This page is dedicated to explaining the details of the `auto-pitch-accent` module.
-If you want a quick summary of how to set the the pitch accent in the card,
-see the [usage page](fieldref.md#modifying-pitch-accent).
+
+# Introduction
+
+The displayed pitch accent is usually the first position found in `PAPositions`.
+However, you can override this automatically chosen position using the `PAOverride` field.
+
+![type:video](assets/pa_override.mp4)
+
+The demo above covers the most basic usage of `PAOverride`,
+which should suffice for most people.
+
+The rest of the page covers the details on exactly how `PAOverride` works,
+and all the ways to customize how the pitch accent is displayed
+
+!!! note
+    Don't know what pitch accent is?
+    See [here](ui.md#pitch-accent) for a very brief summary.
+
+
+
+# Colored Pitch Accent
+
+The reading, word and pitch overline can be automatically colored
+in Migaku style colors, according to the pitch accent.
+
+This automatic coloring behavior is **disabled by default**,
+and must be enabled in the {{ RTO_FILE }}:
+
+??? examplecode "Enabling colored pitch accent *(click here)*"
+    ```json
+    "auto-pitch-accent": {
+      "enabled": true, // (1)!
+      "colored-pitch-accent": {
+        "enabled": true,
+        // ...
+      }
+      // ...
+    }
+    ```
+
+    1.  The `auto-pitch-accent` module must be enabled to use colored pitch accent.
+
+![type:video](assets/pa_override_color.mp4)
+
+!!! note
+
+    The 起伏 pattern is not automatically detected.
+    To use this color, you must manually set the `PAOverride` field to `-1`.
+
+## Colored Pitch Accent Summary
+
+| Anki Tag  | 日本語 | Example              | Reading      |
+|: ------- :|: ---- :|: ------------------ :|: ---------- :|
+| heiban    | 平板   | 自然 {.pa-heiban}    | しぜん￣     |
+| atamadaka | 頭高   | 人生 {.pa-atamadaka} | じ＼んせい   |
+| nakadaka  | 中高   | 弱点 {.pa-nakadaka}  | じゃくて＼ん |
+| odaka     | 尾高   | 道具 {.pa-odaka}     | どうぐ＼     |
+| kifuku    | 起伏   | 驚く {.pa-kifuku}    | おどろ＼く   |
+
+
+## Position Selection
+In most all cases, the position should be automatically found
+and the word can be colored.
+However, there are two cases where the position cannot be automatically calculated:
+
+TODO rewrite with new `PAOverride`
+
+1. `PAPositions` is not filled, but `AJTWordPitch` is.
+2. `PAOverride` is a non-integer value.
+
+
+
+## Override Pitch Accent Group
+To manually set the pitch accent group, the main way (as described above) is by manually setting `PAOverride`
+to the correct number number.
+However, if you are using a non-integer value in `PAOverride` to override the entire display,
+you must add the correct tag to your note, to add the correct color.
+
+TODO rewrite with new `PAOverride`
+
+
+The exact tags that can be used are shown in the
+[summary table](autopa.md#colored-pitch-accent-summary) above,
+under the `Anki Tag` and 日本語 sections.
+For example, the tag can be `heiban`, `平板`, etc.
+
+
+
+!!! note
+
+    The tag *only* overrides the pitch accent color, and does not affect the pitch
+    accent representation itself.
+
+    This fact can be useful for certain exceptions,
+    such as how 通る is [1] instead of [2].
+    If you want to use the 起伏 pattern on 通る, you will have to set
+    the `PAOverride` value to `1`, and then add the `起伏` tag.
+
+    TODO image of above (without tag, with tag)
+
+
+
+
+
+
+
+
+# How Pitch Accent is Selected
+
+Pitch accent is selected based on the following priority:
+
+1. [PAOverrideText](autopa.md#1-paoverridetext)
+1. [PAOverride](autopa.md#2-paoverride)
+1. [PAPositions](autopa.md#3-papositions)
+1. [AJTWordPitch](autopa.md#4-ajtwordpitch)
+
+The first field that is non-empty will be the field that is used to display the pitch accent.
+
+!!! note 
+    When the `auto-pitch-accent` module is disabled,
+    the priority changes to the following:
+
+    1. `PAOverrideText`
+    1. `PAOverride`
+    1. `AJTWordPitch`
+
+    Of course, as the module is disabled, `PAOverride` will not be parsed in any way.
+    More info on this on the [`PAOverride` field](autopa.md#paoverride-field) section below.
+
+
+# (1) PAOverrideText
+{{ feature_version("0.11.0.0") }}
+
+If the `PAOverrideText` field is filled, then this field is displayed exactly as is,
+without any changes or parsing.
+
+(TODO example images collapsed section)
+
+
+# (2) PAOverride
+The `PAOverride` allows for two formats: positions and text format.
+
+
+## PAOverride: Positions Format
+
+When the `PAOverride` field contains any number, that number will be considered
+as the downstep position, and be rendered as such.
+The number `-1` represents the 起伏 pattern, and can be used to set the
+downstep to be after the second last mora.
+
+**Examples** (on the 偽者 card):
+
+| PAOverride | Result | Notes |
+|-|-|-|
+| `0`            | TODO | |
+| `1`            | TODO | |
+| `-1`           | TODO | 起伏 pattern |
+
+
+### Multiple Numbers
+{{ feature_version("0.11.0.0") }}
+
+Multiple numbers can be used, as long as they are separated by commas.
+This is useful on certain words with devoiced mora, where the pitch accent
+can be multiple positions with little real distinction.
+
+Additionally, individual numbers can be bolded to grey out the other positions.
+This is useful to highlight the correct pitch accent among all possiblities.
+
+**Examples** (on the 偽者 card):
+
+| PAOverride | Result | Notes |
+|-|-|-|
+| `0,1,3`        | TODO | |
+| `0 , 1,3`      | TODO | The parser ignores all whitespace. |
+| `0,<b>1</b>,3` | TODO | |
+
+
+!!! info "Restrictions on bolded numbers"
+    Multiple numbers cannot be bolded together.
+    If you want to bold multiple numbers, they have to be bolded individually.
+    Additionally, commas cannot be bolded.
+
+    For example, `0,<b>1</b>,<b>2</b>,3` is valid,
+    but `0,<b>1,2</b>,3` and `0,<b>1,</b>2,3` are invalid.
+
+
+
+## PAOverride: Text Format
+{{ feature_version("0.11.0.0") }}
+
+!!! note
+    The following section requires you to type certain special characters.
+    You can type these characters on any standard IME.
+
+    | Characters | Result |
+    |:-:|:-:|
+    | `\`           { .smaller-table-row } | ＼ { .smaller-table-row } |
+    | `うえ` (`ue`) { .smaller-table-row } | ￣ { .smaller-table-row } |
+    | `,`           { .smaller-table-row } | 、 { .smaller-table-row } |
+    | `/`           { .smaller-table-row } | ・ { .smaller-table-row } |
+
+
+If no number is found within the `PAOverride` field, the contents
+will be parsed using this format.
+
+To define any pitch accent in text format, use 「＼」 to specify downstep.
+For example, 人生 should be written as 「じ＼んせい」.
+
+For words with no downstep (平板型), the 「￣」 character must be placed
+at the end of the word.
+For example, 身長 should be written as 「しんちょう￣」.
+
+!!! note
+    The restriction that 平板 words require the ￣ symbol at the end can be removed
+    using the following {{ RTO }}:
+
+    ```
+    TODO
+    ```
+
+    This would allow any words without any downstep marker to be rendered as 平板.
+    Using the above example, one can instead type 身長 as 「しんちょう」.
+
+
+Using this text format will ignore the original reading of the tested word,
+allowing you to write the pitch accent of any word you want.
+
+**Examples**:
+
+| PAOverride | Result |
+|-|-|
+| じ＼んせい    | TODO |
+| いきお＼い    | TODO |
+| どうぐ＼      | TODO |
+| しんちょう￣  | TODO |
+
+
+### Multiple Words
+Multiple words can be defined, as long as they are separated with either the
+「・」 or 「、」 characters.
+
+This is particularly useful on expressions with multiple words, such as 「毒を食らわば皿」.
+
+
+**Examples**:
+
+| PAOverride | Result |
+|-|-|
+| どく＼、くらう￣、さら￣    | TODO |
+| ちゅうが＼くせい・ちゅうがく＼せい  | TODO |
+
+
+!!! note
+    This renderer will not accept any field with formatting.
+    This means that bold, italics, overlines, etc. cannot be present in the field.
+    For example, the input `<b>にせもの</b>` will be rejected.
+
+
+## PAOverride: Raw Text
+As a last case resort, if the input of this field cannot be parsed as either of the two,
+the exact contents of `PAOverride` will be displayed.
+This will behave exactly the same as `PAOverrideText`.
+
+
+# (3) PAPositions
+
+This field is automatically filled out as long as Yomichan has pitch accent dictionaries,
+and the tested word is covered in said dictionary.
+
+By default, the first pitch of the first dictionary is shown.
+
+TODO image + example field
+
+
+## Show All Possibilities in Dictionary
+{{ feature_version("0.11.0.0") }}
+
+Sometimes, pitch accent dictionaries show multiple pitch accents for a word.
+However, only the first pitch accent is shown by default.
+
+If you want to show all of the pitch accents in the first dictionary,
+use the following {{ RTO }}:
+
+```
+{
+  "modules": {
+    "auto-pitch-accent": {
+      // default: true
+      "only-display-main-entry": false,
+    }
+  }
+}
+```
+
+If you want to select the correct pitch accent, bold that position.
+
+TODO image comparisons:
+
+- true
+- false
+- true + bold
+- false + bold
+
+!!! note
+    This option only works on cards formatted with JPMN's `{jpmn-pitch-accent-positions}` marker.
+    This means this option will not work on old cards that were imported to the `JPMN` format.
+
+
+# (4) AJTWordPitch
+If you have the optional [AJT Pitch Accent](setup.md#ajt-pitch-accent)
+add-on installed and correctly configured,
+then this field is automatically generated on all cards.
+
+This is used as a fallback option, in case your installed pitch accent dictionaries
+does not cover the tested content, but this add-on does.
 
 
 <!--
-TODO link some videos / resources on what pitch accent even is
--->
-
-
 # How Pitch Accent is Selected
 
 Pitch accent is selected based on the following priority:
@@ -90,34 +399,10 @@ Pitch accent is selected based on the following priority:
     (since no javascript is available to format it)
 
 
-
 ## Showing Multiple Pitch Accents
-{{ feature_version("0.11.0.0") }}
 
-Sometimes, pitch accent dictionaries show multiple pitch accents for a word.
-By default, the first pitch accent in the list is shown, and the rest is ignored.
+-->
 
-If you want to show all of the pitch accents in the first dictionary,
-change the following in the {{ RTO_FILE }}:
-
-```
-{
-  "modules": {
-    "auto-pitch-accent": {
-      // default: true
-      "only-display-main-entry": false,
-    }
-  }
-}
-```
-
-
-TODO image comparisons:
-
-- true
-- false
-- true + bold
-- false + bold
 
 
 
@@ -149,83 +434,6 @@ in {{ RTO_FILE }}:
   }
 }
 ```
-
-
-# Colored Pitch Accent
-
-The reading, word and pitch overline can be automatically colored
-in Migaku style colors, according to the pitch accent.
-
-This automatic coloring behavior is **disabled by default**,
-and must be enabled in the {{ RTO_FILE }}:
-
-??? examplecode "Enabling colored pitch accent *(click here)*"
-    ```json
-    "auto-pitch-accent": {
-      "enabled": true, // (1)!
-      "colored-pitch-accent": {
-        "enabled": true,
-        // ...
-      }
-      // ...
-    }
-    ```
-
-    1.  The `auto-pitch-accent` module must be enabled to use colored pitch accent.
-
-![type:video](assets/pa_override_color.mp4)
-
-!!! note
-
-    The 起伏 pattern is not automatically detected.
-    To use this color, you must manually set the `PAOverride` field to `-1`.
-
-## Colored Pitch Accent Summary
-
-| Anki Tag  | 日本語 | Example              | Reading      |
-|: ------- :|: ---- :|: ------------------ :|: ---------- :|
-| heiban    | 平板   | 自然 {.pa-heiban}    | しぜん￣     |
-| atamadaka | 頭高   | 人生 {.pa-atamadaka} | じ＼んせい   |
-| nakadaka  | 中高   | 弱点 {.pa-nakadaka}  | じゃくて＼ん |
-| odaka     | 尾高   | 道具 {.pa-odaka}     | どうぐ＼     |
-| kifuku    | 起伏   | 驚く {.pa-kifuku}    | おどろ＼く   |
-
-
-## Position Selection
-In most all cases, the position should be automatically found
-and the word can be colored.
-However, there are two cases where the position cannot be automatically calculated:
-
-1. `PAPositions` is not filled, but `AJTWordPitch` is.
-2. `PAOverride` is a non-integer value.
-
-
-
-## Override Colors
-To manually set the color, the main way (as described above) is by manually setting `PAOverride`
-to the correct number number.
-However, if you are using a non-integer value in `PAOverride` to override the entire display,
-you must add the correct tag to your note.
-
-The exact tags that can be used are shown in the
-[summary table](autopa.md#colored-pitch-accent-summary) above,
-under the `Anki Tag` and 日本語 sections.
-For example, the tag can be `heiban`, `平板`, etc.
-
-
-
-!!! note
-
-    The tag *only* overrides the pitch accent color, and does not affect the pitch
-    accent representation itself.
-
-    This fact can be useful for certain exceptions,
-    such as how 通る is [1] instead of [2].
-    If you want to use the 起伏 pattern on 通る, you will have to set
-    the `PAOverride` value to `1`, and then add the `起伏` tag.
-
-    TODO image of above (without tag, with tag)
-
 
 
 

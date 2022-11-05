@@ -52,7 +52,7 @@ not to have eye catching graphics.
 
 ## Minimal Dependencies
 The only fundamental dependencies are `Yomichan` (to create the note) and the `Anki-Connect` add-on
-(to export the note from `Yomichan`, download the note, and for certain features to work within the note).
+(to export the note from `Yomichan`, update the note, and for certain features to work within the note).
 Absolutely nothing else is required.
 This helps with maintaining stability across various Anki versions.
 

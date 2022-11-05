@@ -64,6 +64,7 @@ const JPMNAutoPA = (() => {
       this.bolded = bolded;
       this.mainPos = mainPos;
       this.readingMora = [];
+      this.separator = null;
     }
 
     toString() {
@@ -145,7 +146,7 @@ const JPMNAutoPA = (() => {
       // a sentence that wasn't highlighted already.
       const sentences = document.querySelectorAll(".expression--sentence.highlight-bold")
       if (sentences !== null) {
-        for (let sent of sentences) {
+        for (const sent of sentences) {
           sent.classList.add(sentClass);
         }
       }
@@ -153,7 +154,7 @@ const JPMNAutoPA = (() => {
       // adds to display word
       const words = document.querySelectorAll(".expression--word")
       if (words !== null) {
-        for (let word of words) {
+        for (const word of words) {
           word.classList.add(wordClass);
         }
       }
@@ -283,10 +284,10 @@ const JPMNAutoPA = (() => {
         searchChildren = groupDiv.children[1].children;
       }
 
-      if ({{ utils.opt("modules", "auto-pitch-accent", "only-display-main-entry") }}) {
-        result.posDataList = [this.calcMainPosFromChildren(searchChildren)];
-      } else {
+      if ({{ utils.opt("modules", "auto-pitch-accent", "pa-positions", "display-entire-dictionary") }}) {
         result.posDataList = this.calcPositionsFromChildren(searchChildren);
+      } else {
+        result.posDataList = [this.calcMainPosFromChildren(searchChildren)];
       }
       return result;
     }
@@ -421,7 +422,7 @@ const JPMNAutoPA = (() => {
       if (ajtWord.includes("nopron")) {
         // crazy regex replace
         temp2.innerHTML = temp2.innerHTML.replace(
-          /<span class="nopron">(.)<\/span>([ュャョ])/g,
+          /<span class="nopron">(.)<\/span>([ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ])/g,
           '<span class="nopron">$1$2<\/span>'
         );
       }
@@ -564,52 +565,60 @@ const JPMNAutoPA = (() => {
 
       } else if (this.overrideEle.innerText === this.overrideEle.innerHTML) {
 
-        const separators = ["・", "、"];
-        const downsteps = ["＼"];
-        const heiban = ["￣"];
+        const separators = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "separators") }};
+        const downsteps = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "downstep-markers") }};
+        const heiban = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "heiban-markers") }};
 
         const separatorsRegex = RegExp("[" + separators.join("") + "]", "g");
-        //const downstepsRegex = RegExp("[" + downsteps.join("") + "]", "g");
-        //const heibanRegex = RegExp("[" + heiban.join("") + "]", "g");
 
         // attempts to separate "・"
 
         // Bolded text and main pos (colored pitch accent) is not supported in this format.
         // Therefore, we use the text instead of the HTML
         let strList = searchText.split(separatorsRegex);
-        for (const word of strList) {
+        let foundSeparators = searchText.match(separatorsRegex);
+
+        for (const [i, word] of strList.entries()) {
           // moras here are only used for calculating the position of the downstep
           let moras = this.jpUtils.getMorae(word);
           logger.debug(`${word} -> ${moras}`, this.debugLvl);
 
-          // checks for occurances of downstep ＼
+          // checks for where downstep (＼) exists
           let pos = null;
-
-          let i = 0;
-          while (i < moras.length) {
-            const mora = moras[i];
+          let j = 0;
+          while (j < moras.length) {
+            const mora = moras[j];
             if (downsteps.includes(mora)) {
               if (pos !== null) {
                 logger.warn(`More than one downstep marker used in ${word}`);
+              } else {
+                pos = j;
               }
-              pos = i;
-              moras.splice(i, 1); // removes the element from the moras list
+              moras.splice(j, 1); // removes the element from the moras list
             } else {
-              i++;
+              j++;
             }
           }
 
           if (heiban.includes(moras[moras.length-1])) {
             moras.splice(moras.length-1, 1);
 
-            if (pos !== null) {
+            if (pos === null) {
+              pos = 0;
+            } else {
               logger.warn(`Cannot use both downstep and heiban markers in ${word}`);
+              continue;
             }
           }
 
           // no downstep found: 平板 (0)
           if (pos === null) {
-            pos = 0;
+            if ({{ utils.opt("modules", "auto-pitch-accent", "pa-override", "heiban-marker-required") }}) {
+              logger.warn(`Heiban marker not found in ${word}`);
+              continue;
+            } else {
+              pos = 0;
+            }
           }
 
           // calculates the display moras
@@ -620,10 +629,16 @@ const JPMNAutoPA = (() => {
 
           let posData = new PosData(pos);
           posData.readingMora = displayMoras;
+          if (foundSeparators !== null && i < foundSeparators.length) {
+            posData.separator = foundSeparators[i];
+          }
+
           result.push(posData);
         }
       } else {
-        logger.warn(`Invalid PA format: ${this.overrideEle.innerText}`);
+        if ({{ utils.opt("modules", "auto-pitch-accent", "pa-override", "warn-on-invalid-format") }}) {
+          logger.warn(`Invalid PA format: ${this.overrideEle.innerText}`);
+        }
       }
 
       return result;
@@ -681,6 +696,8 @@ const JPMNAutoPA = (() => {
         return;
       }
 
+      const kifukuList = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "kifuku-override") }};
+
       // colors it with the first valid pitch found
       if (kifukuList.includes(posData.pos)) {
         // 起伏 (undulation, usually reserved for い-adjs / non-する verbs)
@@ -727,26 +744,30 @@ const JPMNAutoPA = (() => {
       // all connectors around bolded spans will be bolded themselves
       let connectors = [];
 
-
       // builds standard connectors
-      const connector = "、";
-      for (let i = 0; i < dispPosData.posDataList.length-1; i++) {
-        connectors.push(connector);
-      }
-
-      if (hasBoldedPos) {
-        const boldedConnector = `<b>${connector}</b>`;
-        for (let i = 0; i < dispPosData.posDataList.length-1; i++) {
-          const previous = dispPosData.posDataList[i];
-          const after = dispPosData.posDataList[i+1];
-          if (!previous.bolded || !after.bolded) { // neither are bolded -> bold will be added to both
-            connectors[i] = boldedConnector;
+      const baseConnector = {{ utils.opt("modules", "auto-pitch-accent", "pa-positions", "default-connector") }};
+      for (const [i, posData] of dispPosData.posDataList.entries()) {
+        if (i < dispPosData.posDataList.length-1) {
+          if (posData.separator === null) {
+            connectors.push(baseConnector);
+          } else {
+            connectors.push(posData.separator);
           }
         }
       }
 
-      for (let i = 0; i < dispPosData.posDataList.length; i++) {
-        const posData = dispPosData.posDataList[i];
+      if (hasBoldedPos) {
+        //const boldedConnector = `<b>${connector}</b>`;
+        for (let i = 0; i < dispPosData.posDataList.length-1; i++) {
+          const previous = dispPosData.posDataList[i];
+          const after = dispPosData.posDataList[i+1];
+          if (!previous.bolded || !after.bolded) { // neither are bolded -> bold will be added to both
+            connectors[i] = `<b>${connectors[i]}</b>`;
+          }
+        }
+      }
+
+      for (const [i, posData] of dispPosData.posDataList.entries()) {
 
         // uses the reading for the normal word instead of any special reading
         if (posData.readingMora.length === 0) {
@@ -785,7 +806,7 @@ const JPMNAutoPA = (() => {
         return;
       }
 
-      const kifukuList = {{ utils.opt("modules", "auto-pitch-accent", "kifuku-override") }};
+      const kifukuList = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "kifuku-override") }};
 
       if (this.attemptColor && posData.mainPos) {
         this.paintDisplayWithPosData(posData);
@@ -794,7 +815,7 @@ const JPMNAutoPA = (() => {
       // special case: 0 and length of moras === 1 (nothing needs to be done)
       // ASSUMPTION: the override kifuku value will NOT be 0 (you are insane if you do that)
       if (pos === 0 && result.length === 1) {
-        return normalizedReading;
+        return result[0];
       }
 
       const startOverline = '<span class="pitchoverline">';
@@ -873,6 +894,10 @@ const JPMNAutoPA = (() => {
           // this is to maintain backwards compatability
           dispPosData.posHTML = this.overrideEle.innerHTML;
           dispPosData.dict = "Pitch Accent Override (Raw Text)";
+
+          if ({{ utils.opt("modules", "auto-pitch-accent", "pa-override", "warn-on-invalid-format") }}) {
+            logger.warn(`Cannot parse PAOverride "${this.overrideEle.innerText}". Using raw text...`);
+          }
         }
 
       } else {

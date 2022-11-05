@@ -52,7 +52,7 @@ and/or to view the full list of keybinds.
         This should only appear when some javascript code fails.
         In other words, this should **not** appear under normal circumstances.
         If you get this without modifying the note in any way,
-        please see [this section](faq.md#errors){:target="_blank"} for basic troubleshooting.
+        please see [this section](faq.md#errors-warnings){:target="_blank"} for basic troubleshooting.
       </figcaption>
     </figure>
 

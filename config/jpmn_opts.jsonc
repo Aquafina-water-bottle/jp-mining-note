@@ -166,18 +166,51 @@
       // whether to search for the ajt word, given the field is filled out
       "search-for-ajt-word": true,
 
-      // When set to true, only displays the first entry within the first dictionary.
-      // - The main entry can be overwritten by bolding an entry in `PAPositions`.
-      // When set to false, all pitch accents within the first dictionary is shown.
-      // - Bolding an entry will grey out other entries.
-      "only-display-main-entry": true,
+      "pa-positions": {
 
-      // Undulation/kifuku (起伏) value, to set the pattern to kifuku
-      // (used in the PAOverride field).
-      // This sets the downstep be right before the last mora, and colors the word
-      // purple if colored-pitch-accent is enabled.
-      // Note that these values must be numbers and they CANNOT be strings.
-      "kifuku-override": [-1],
+        // When set to false, only displays the first entry within the first dictionary.
+        // - The main entry can be overwritten by bolding an entry in `PAPositions`.
+        // When set to true, all pitch accents within the first dictionary is shown.
+        // - Bolding an entry will grey out other entries.
+        "display-entire-dictionary": false,
+
+        // the character that connects pitch accents when the above option
+        // `display-entire-dictionary` is set to true (and can then show a list of pitch accents)
+        "default-connector": "・",
+
+        // TODO
+        // Given that `display-entire-dictionary` is true and multiple results are shown,
+        // this determines whether the first pitch is set to the "main position".
+        // The main position determines the color of the pitch accent, if `colored-pitch-accent` is enabled.
+        "set-first-pitch-as-main": false
+      },
+
+      // various options for the formatting of the `PAOverride` field
+      "pa-override": {
+
+        "separators": ["・", "、"],
+        "downstep-markers": ["＼"],
+        "heiban-markers": ["￣"],
+
+        // shows a warning when PAOverride has an incorrect format
+        "warn-on-invalid-format": true,
+
+        // TODO
+        // If PAOverride is using the text format + there are multiple entries,
+        // whether the first entry is set as the main pitch or not.
+        // The main position determines the color of the pitch accent, if `colored-pitch-accent` is enabled.
+        "text-format-set-first-pitch-as-main": false,
+
+        // whether the heiban marker is required to specify heiban words
+        "heiban-marker-required": true,
+
+        // Undulation/kifuku (起伏) value, to set the pattern to kifuku
+        // (used in the PAOverride field).
+        // This sets the downstep be right before the last mora, and colors the word
+        // purple if colored-pitch-accent is enabled.
+        // Note that these values must be numbers and they CANNOT be strings.
+        "kifuku-override": [-1]
+      },
 
       // Whether to color the tested word by pitch accent class or not.
       // Generally: 平板 is blue, 頭高 is red, 中高 is orange and 尾高 is green.
@@ -367,6 +400,10 @@
         "pc": false,
         "mobile": false
       }
+    },
+
+    "context-utils": {
+      "enabled": true
     }
 
   },

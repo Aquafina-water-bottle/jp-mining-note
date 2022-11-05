@@ -26,14 +26,14 @@ and must use `./install.py --update`.
 - Added fields: `PAOverrideText`, `PrimaryDefinitionPicture`, `WordReadingHiragana`
 
 #### Features
-- Added same word reading indicator
+- Added same word reading indicator (`same-reading-indicator` module)
 - Added the `PrimaryDefinitionPicture` field
     - Specifies a picture that is always shown to the right of the primary definition
     - Can be technically anything else though, like a table, text, etc.
-- Added fix ruby positioning module
-- Improved tooltips (same-reading-indicator and kanji-hover):
+- Added a way to fix ruby positioning for legacy Anki versions (`fix-ruby-positioning` module)
+- Improved tooltips (affects `same-reading-indicator` and `kanji-hover`):
     - Added pitch accent on tooltips
-        - Enabled for both kanji-hover and same-word-indicator by default
+        - Enabled for both `kanji-hover` and `same-word-indicator` by default
         - Requires hover over the word for kanji-hover by default
     - Added logic to overflow between categories (e.g. 6 new & 0 old will now show 6 new instead of 2 new)
     - Added option to ignore the same word reading as the current word
@@ -47,7 +47,7 @@ and must use `./install.py --update`.
         - `info-circle-togglable-lock-show-popup`
         - `info-circle-hoverable`
 - Changed error messages to be displayed in standard monospace font, for better readability
-- Added `img-utils-minimal` as a counterpart to `img-utils`.
+- Added `img-utils-minimal` as a counterpart to `img-utils` for people who want a lighter card
 - Added compile-options to allow external links to be in the `PrimaryDefinition` field
 - Revamped `auto-pitch-accent` module:
     - Added support for various formats in `PAOverride` (csv numbers, and text with downsteps)
@@ -55,8 +55,6 @@ and must use `./install.py --update`.
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
-
-
 
 #### Internal Changes
 - Added a simple dependencies system for modules, so functions can be shared easier between modules

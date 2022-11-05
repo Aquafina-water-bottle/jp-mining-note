@@ -266,12 +266,7 @@ An example set of compile-time options to create a more optimized vocab card is 
         "enabled-modules": [
             # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
             # (unless you are not using images in your cards of course)
-            "img-utils",
-
-            #"sent-utils",
-            #"kanji-hover",
-            #"auto-pitch-accent",
-            #"open_on_new",
+            "img-utils-minimal",
         ],
     }
     ```

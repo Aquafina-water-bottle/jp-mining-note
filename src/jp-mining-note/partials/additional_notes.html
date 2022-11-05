@@ -1,6 +1,12 @@
 {# impl #}
-{% call IF("AdditionalNotes") %}
-  <details class="glossary-details glossary-details--small" id="additional_notes_details">
+<div class="outer-display1
+    {% call utils.if_none('AdditionalNotes', 'Context') %}
+      outer-display2
+    {% endcall %}"
+  >
+
+  <!-- only showed if outer-display2 doesn't exist -->
+  <details class="glossary-details glossary-details--small inner-display1" id="additional_notes_details">
     <summary>Additional Notes</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
       <div class="glossary-text glossary-text--additional-notes">
@@ -15,11 +21,15 @@
           I figure that adding this shouldn't affect anything
         -->
       </div>
+      <div class="glossary-text glossary-text--context" id="glossary_text_context">
+        {{ T("Context") }}
+        <div style="font-size: 0px"><br></div>
+      </div>
     </blockquote>
   </details>
-{% endcall %}
-{% call IFNOT("AdditionalNotes") %}
-  <div class="glossary-details glossary-details--small glossary-details--grey">
+
+  <!-- only showed if outer-display2 exists -->
+  <div class="glossary-details glossary-details--small glossary-details--grey inner-display2">
     Additional Notes
   </div>
-{% endcall %}
+</div>

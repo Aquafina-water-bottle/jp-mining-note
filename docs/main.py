@@ -356,7 +356,11 @@ def define_env(env):
 
         # runtime options file
         "RTO_FILE": '[runtime options](options.md#accessing-runtime-options-options){:target="_blank"}',
+        "RTOs": '[runtime options](options.md#accessing-runtime-options-options){:target="_blank"}',
+        "RTO": '[runtime option](options.md#accessing-runtime-options-options){:target="_blank"}',
         "CTO_FILE": '[compile-time options](options.md#accessing-compile-time-options){:target="_blank"}',
+        "CTOs": '[compile-time options](options.md#accessing-compile-time-options){:target="_blank"}',
+        "CTO": '[compile-time option](options.md#accessing-compile-time-options){:target="_blank"}',
     }
 
     for k, v in data.items():

@@ -128,9 +128,6 @@ If you do not want the hint to be hidden by default, you can use the `HintNotHid
 
 
 # Modifying the Back Side
-Not much has to be said about modifying the back side of the card,
-outside of modifying pitch accent.
-
 * The `PrimaryDefinition` field contains the main content, and should be the main field to edit
     if one wants to put down more notes about the card.
 
@@ -150,13 +147,19 @@ outside of modifying pitch accent.
 {{ img("", "assets/nisemono_modify_back_side.png") }}
 
 
+## Modifying Images and Pitch Accent
+As there are plenty of ways to modify images and pitch accent,
+they are discussed in their respective pages:
+
+* [Images](images.md)
+* [Pitch Accent](autopa.md)
+
+
+
+
 ## Modifying Pitch Accent
 <i><sup>Main page: [Auto Pitch Accent](autopa.md)</sup></i>
 
-The displayed pitch accent is usually the first position found in `PAPositions`.
-However, you can override this automatically chosen position using the `PAOverride` field.
-
-![type:video](assets/pa_override.mp4)
 
 More information and customization, including automatically coloring the word
 with Migaku colors, can be found in the main page linked above.
