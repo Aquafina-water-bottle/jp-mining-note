@@ -1,3 +1,7 @@
+---
+hide:
+  - footer
+---
 
 Welcome to jp-mining-note's documentation!
 
