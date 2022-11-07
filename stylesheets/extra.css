@@ -44,7 +44,6 @@
 
   --md-primary-fg-color:             var(--jpmn-yellow);
   --md-typeset-a-color:              var(--md-primary-fg-color) !important;
-
   --md-accent-fg-color:              var(--jpmn-yellow);
 
   /* example colors */
@@ -68,6 +67,10 @@
 /* Hover over page source button */
 [data-md-color-scheme="slate"] .md-content__button.md-icon {
   --md-accent-fg-color:              var(--jpmn-yellow) !important;
+}
+
+[data-md-color-scheme="slate"] .md-button {
+  --md-primary-fg-color:             #6db9e7;
 }
 
 /* yellow perma-link buttons */
