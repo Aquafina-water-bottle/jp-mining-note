@@ -78,6 +78,12 @@
   --md-accent-fg-color:              var(--jpmn-yellow) !important;
 }
 
+
+
+[data-md-color-scheme="slate"] .md-footer {
+  --md-footer-bg-color: #000000;
+}
+
 /*
 [data-md-color-scheme="slate"] .md-annotation__index {
   --md-accent-fg-color:              #d9d786 !important;
