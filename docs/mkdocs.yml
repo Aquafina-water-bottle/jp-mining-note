@@ -66,8 +66,6 @@ nav:
     - Getting Started:
       - Preface: preface.md
       - Alternatives: alternatives.md
-    - Other:
-      - JP Resources: jpresources.md
   - Setup:
     - "Setup: Installing": setup.md
     - "Setup: Anki": setupanki.md
@@ -89,6 +87,7 @@ nav:
       - Building: building.md
       - Modding: modding.md
   - "FAQ & Troubleshooting": faq.md
+  - JP Resources: jpresources.md
 
 extra_css:
   - stylesheets/extra.css

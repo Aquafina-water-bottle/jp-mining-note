@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+---
+
+
 {% import "sharex_input.ps1" as sharex %}
 {% from "macros.html" import sharex_display with context %}
 
@@ -375,9 +381,9 @@ button[title^="Add reading"] {
 
 # CSS (Other)
 
-## Ensuring 「」 properly quotes the text { .text-yellow }
-
 {{ img("left quote comparisons", "assets/other/left_quote.png", 'align=right width="300"') }}
+
+## Ensuring 「」 properly quotes the text { .text-yellow }
 
 ```css
 .jp-quote-text {
