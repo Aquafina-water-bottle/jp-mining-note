@@ -79,10 +79,17 @@
 }
 
 
+/* the one place where I care about light mode colors being bad */
+.md-footer {
+  --md-footer-bg-color: hsla(0,0%,0%,.10);
+  --md-footer-fg-color: #000000;
+}
 
 [data-md-color-scheme="slate"] .md-footer {
   --md-footer-bg-color: #000000;
+  --md-footer-fg-color: #FFFFFF;
 }
+
 
 /*
 [data-md-color-scheme="slate"] .md-annotation__index {
