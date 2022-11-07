@@ -37,9 +37,11 @@ theme:
     # table of contents automatically scrolls
     - toc.follow
 
+    # hides the header when you scroll down long enough
     - header.autohide
 
     - navigation.tabs
+    #- navigation.tabs.sticky
     - navigation.sections
 
     - content.code.annotate
