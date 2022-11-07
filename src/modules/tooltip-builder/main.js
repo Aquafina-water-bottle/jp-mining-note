@@ -11,12 +11,14 @@ const JPMNTooltipBuilder = (() => {
 
   class JPMNTooltipBuilder {
     constructor(displayPA=true, displayPAOnHover=true) {
-      this.autoPA = typeof JPMNAutoPA !== "undefined" ? new JPMNAutoPA(/*attemptColor=*/false, /*logLevelDecrease=*/1) : null;
+      this.autoPA = typeof JPMNAutoPA !== "undefined" ? new JPMNAutoPA(/*attemptColor=*/false, /*logLevelDecrease=*/1, /*showTitle=*/false) : null;
       this.displayPA = displayPA;
       this.displayPAOnHover = displayPAOnHover;
+
+      this.ankiConnectHelper = new JPMNAnkiConnectActions();
     }
 
-    _buildWordDiv(wordReading, character) {
+    _buildWordDiv(wordReading, character, cardId=null) {
 
       const wordDivWrapper = document.createElement('div');
 
@@ -35,17 +37,20 @@ const JPMNTooltipBuilder = (() => {
       if (this.displayPAOnHover) {
         wordEle.classList.add("hover-tooltip__word-div--hover");
       }
-
       wordDivWrapper.appendChild(wordEle);
+
+      if (cardId !== null) {
+        wordEle.setAttribute("data-cid", cardId);
+      }
 
       return wordDivWrapper;
     }
 
     // taken directly from anki's implementation of { {furigana:...} }
     // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-    buildWordDiv(wordReading, positionsHTML, ajtHTML, paOverrideHTML, paOverrideTextHTML, character) {
+    buildWordDiv(wordReading, positionsHTML, ajtHTML, paOverrideHTML, paOverrideTextHTML, character, cardId=null) {
 
-      const wordDiv = this._buildWordDiv(wordReading, character);
+      const wordDiv = this._buildWordDiv(wordReading, character, cardId);
 
       if (this.displayPA && this.autoPA) {
         const displayEle = document.createElement("span");
@@ -93,7 +98,7 @@ const JPMNTooltipBuilder = (() => {
         card["fields"]["AJTWordPitch"]["value"],
         card["fields"]["PAOverride"]["value"],
         card["fields"]["PAOverrideText"]["value"],
-        character);
+        character, card["cardId"]);
 
       const sentenceDiv = this.buildSentDiv(card["fields"]["Sentence"]["value"]);
 
@@ -107,10 +112,27 @@ const JPMNTooltipBuilder = (() => {
       return cardDiv;
     }
 
+    addBrowseOnClick(query) {
+      for (let ele of document.querySelectorAll(query)) {
+        let cid = ele.getAttribute("data-cid");
+        if (cid !== null) {
+          ele.onclick = () => {
+            //logger.warn(cid);
+            this.ankiConnectHelper.invoke("guiBrowse", {"query": `cid:${cid}`})
+          }
+          //ele.setAttribute("title", `Open this card in Anki`);
+          ele.classList.add("hover-tooltip__word-div--clickable");
+        }
+      }
+    }
+
+
     //buildCardDiv(card, character, isNew=false) {
     //  return _buildCardDiv(card, character, isNew);
     //}
   }
+
+
 
 
   return JPMNTooltipBuilder;

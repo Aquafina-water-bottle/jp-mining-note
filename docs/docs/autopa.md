@@ -310,7 +310,7 @@ TODO image comparisons:
 
 
 # (4) AJTWordPitch
-If you have the optional [AJT Pitch Accent](setup.md#ajt-pitch-accent)
+If you have the optional [AJT Pitch Accent](setupanki.md#ajt-pitch-accent)
 add-on installed and correctly configured,
 then this field is automatically generated on all cards.
 

@@ -124,14 +124,24 @@
       // 1: loads only upon hover, has a small delay upon first hovering over a word
       "mode": 1,
 
+      // The delay (in milliseconds) of which this module is loaded.
+      //
+      // NOTE: A delay with mode == 1 means that the hover function is added after that delay.
+      //     There will be no delay after hovering.
+      "load-delay": 300,
+
       // Displays the pitch accent to the right of the word
       "display-pitch-accent": true,
 
       // Only displays the pitch accent if the word is hovered over
       "display-pitch-accent-hover-only": true,
 
-      // Shows other cards with the same `WordReading` field as the current card
+      // (Legacy option) Shows other cards with the same `WordReading` field as the current card.
+      // Best to be left as false since the duplicate word indicator exists.
       "show-same-word-reading": false,
+
+      // If set to true, words are able to be clicked to browse within the Anki browser
+      "click-word-to-browse": false,
 
       // all queries will have the following at the beginning:
       // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}")
@@ -369,8 +379,8 @@
       // Only displays the pitch accent if the word is hovered over
       "display-pitch-accent-hover-only": false,
 
-      // Shows other cards with the same `WordReading` field as the current card
-      "show-same-word-reading": false,
+      // if set to true, words are able to be clicked to browse within the Anki browser
+      "click-word-to-browse": true,
 
       // not new, or new and green
       // not flagged as red and suspended

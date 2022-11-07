@@ -1,9 +1,17 @@
+---
+hide:
+  - navigation
+---
+
+
 
 # Errors & Warnings
 This section documents frequent errors that
 may show up on the info circle at the top right.
 
+<figure markdown>
 {{ img("info circle error example", "assets/info_circle_error.gif") }}
+</figure>
 
 ---
 
@@ -18,7 +26,7 @@ There are two main reasons that Anki-Connect can fail:
 
 2. If you are using an older version of Anki (2.1.49 and below),
     see the note in the Anki-Connect setup section
-    [here](setup.md#anki-connect).
+    [here](setupanki.md#anki-connect).
 
 ---
 
@@ -40,7 +48,7 @@ and the defaults will be used instead.
 
 There are two ways to fix this:
 
-1. [Update Anki](setup.md#updating-anki) to a higher version.
+1. [Update Anki](setupanki.md#updating-anki) to a higher version.
 1. Compile the card with [hard-coded defaults](modding.md#custom-runtime-options).
 
 ??? info "Why this happens *(click here)*"

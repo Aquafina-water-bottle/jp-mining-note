@@ -15,7 +15,7 @@ Dictionaries from Yomichan are sorted in to the following fields:
     A dictionary specified by the user. Bilingual by default.
 
     This can be changed in many different ways.
-    See [here](setup.md#yomichan-templates-options)
+    See [here](setupyomichan.md#yomichan-templates-options)
     for a summary of these methods.
 
 * `SecondaryDefinition`:
@@ -74,14 +74,14 @@ Monolingual dictionaries are considered to be dictionaries that aren't either
 of the two above, so no handlebars code has to be changed if one were to
 use more monolingual dictionaries.
 
-To see how to edit the regex, go to [this section](setup.md#editing-the-dictionary-regex).
+To see how to edit the regex, go to [this section](yomichantemplates.md#editing-the-dictionary-regex).
 
 
 ## Ignoring a Dictionary
 If you want to see the dictionary on Yomichan but not have it show on Anki,
 you can use the `ignored-dict-regex` option.
 
-To see how to edit the option, see [the section below](setup.md#editing-the-dictionary-regex).
+To see how to edit the option, see [the section below](yomichantemplates.md#editing-the-dictionary-regex).
 
 Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
 [see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki){:target="_blank"}.

@@ -582,7 +582,7 @@ The following grabs the first dictionary
 
 For further customization on how the first dictionary is selected
 (say, for automatic bilingual / monolingual separation),
-see the handlebars code used by jp-mining-note [here](setup.md#yomichan-templates).
+see the handlebars code used by jp-mining-note [here](setupyomichan.md#yomichan-templates).
 
 
 ??? examplecode "Template code *(click here)*"

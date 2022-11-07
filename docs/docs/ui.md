@@ -139,26 +139,37 @@ and how to customize it.
 
 ---
 
-# Same Reading Indicator
+# Similar Words Indicators
 {{ feature_version("0.11.0.0") }}
 
-When there are multiple words with the same reading in your Anki collection,
-an indicator will be shown.
+Indicators will be shown to the top-left of the reading when similar words in your deck are found.
+The indicators are as follows:
 
-This is a handy tool to help the user differentiate between words with the same readings.
-One practical use case is verifying if your card is not a duplicate version of a previous card.
-For example, if you have two cards 言いふらす and 言い触らす,
-the indicator will show that both words exists, so you can safely suspend one of the cards.
+- 同 (short for 同じ) indicates that the card is a duplicate.
+- 読 (short for 読み方) indicates that there are other card(s) with the same reading (ignoring pitch accent).
+- 漢 (short for 漢字) indicates that there are other card(s) with the same kanji, but different reading.
 
 
-This indicator will be yellow (or blue on light mode) for new cards only.
-After the first review, the indicator will be the same color as the default info circle (grey).
+TODO change demo
 
 {{ img("same reading indicator eg", "assets/same_reading_indicator.gif") }}
 
 As you can see from the above, the query ignores pitch accent.
 The word 自身 is still shown, despite having a different pitch accent
 compared to 地震.
+
+
+<!--
+This is a handy tool to help the user differentiate between words with the same readings.
+One practical use case is verifying if your card is not a duplicate version of a previous card.
+For example, if you have two cards 言いふらす and 言い触らす,
+the indicator will show that both words exists, so you can safely suspend one of the cards.
+-->
+
+!!! note
+    This indicator will be yellow (or blue on light mode) for new cards only.
+    After the first review, the indicator will be the same color as the default info circle (grey).
+
 
 Results are greyed out if the word is from a new card, just like for Kanji Hover.
 

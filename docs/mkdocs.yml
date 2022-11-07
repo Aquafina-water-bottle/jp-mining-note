@@ -38,7 +38,10 @@ theme:
     - toc.follow
 
     - header.autohide
+
+    - navigation.tabs
     - navigation.sections
+
     - content.code.annotate
 
   icon:
@@ -58,12 +61,19 @@ plugins:
       type: date
 
 nav:
-  - Home: index.md
-  - Getting Started:
-    - Preface: preface.md
-    - Alternatives: alternatives.md
-    - "Setup: Anki & Yomichan": setup.md
+  - Home:
+    - Home: index.md
+    - Getting Started:
+      - Preface: preface.md
+      - Alternatives: alternatives.md
+    - Other:
+      - JP Resources: jpresources.md
+  - Setup:
+    - "Setup: Installing": setup.md
+    - "Setup: Anki": setupanki.md
+    - "Setup: Yomichan": setupyomichan.md
     - "Setup: Everything Else": setupeverythingelse.md
+    - "Setup: Other": setupother.md
     - Transfer Existing Notes: importing.md
     - Updating: updating.md
   - Reference:
@@ -75,12 +85,10 @@ nav:
     - Card Types: cardtypes.md
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Tooltip Results (TODO): tooltipresults.md
-  - Developer Documentation:
-    - Building: building.md
-    - Modding: modding.md
-  - Other:
-    - "FAQ & Troubleshooting": faq.md
-    - JP Resources: jpresources.md
+    - Developer Documentation:
+      - Building: building.md
+      - Modding: modding.md
+  - "FAQ & Troubleshooting": faq.md
 
 extra_css:
   - stylesheets/extra.css

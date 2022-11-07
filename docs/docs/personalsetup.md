@@ -241,6 +241,12 @@ div#dictionary-entries > div.entry:nth-child(n + 2) .kanji-glyph-data > tbody > 
     li.definition-item[data-dictionary='毎日のんびり日本語教師'] {
       display: none;
     }
+    li.definition-item[data-dictionary='学研 四字熟語辞典'] {
+      display: none;
+    }
+    li.definition-item[data-dictionary='新明解四字熟語辞典'] {
+      display: none;
+    }
 
 
     /* only shows the first 2 pitch dictionaries */
@@ -292,6 +298,13 @@ div#dictionary-entries > div.entry:nth-child(n + 2) .kanji-glyph-data > tbody > 
     li.definition-item[data-dictionary='実用日本語表現辞典'] {
       display: none;
     }
+    li.definition-item[data-dictionary='学研 四字熟語辞典'] {
+      display: none;
+    }
+    li.definition-item[data-dictionary='新明解四字熟語辞典'] {
+      display: none;
+    }
+
     li.definition-item[data-dictionary='JMdict (English)'] {
       display: none;
     }
@@ -314,6 +327,9 @@ div#dictionary-entries > div.entry:nth-child(n + 2) .kanji-glyph-data > tbody > 
     - [ ] 新明解国語辞典 第五版 rev.Shinmeikai5
     - [ ] デジタル大辞泉 rev.daijisen_20210506;2021-07-27
     - [x] 実用日本語表現辞典 rev.jitsuyou1
+    - [x] 毎日のんびり日本語教師 rev.nihongo_no_sensei_v_1.03 ;2022-04-30;embedded urls, p of speech indicators(N5-N0)
+
+    - [x] 新明解四字熟語辞典 rev.shinmeikai_yojijukugo;2021-07-12
     - [x] 毎日のんびり日本語教師 rev.nihongo_no_sensei_v_1.03 ;2022-04-30;embedded urls, p of speech indicators(N5-N0)
     - [ ] NHK日本語発音アクセント新辞典 rev.1.0-->
     - [x] JMDict Surface Forms rev.JMdict 2022-07-19

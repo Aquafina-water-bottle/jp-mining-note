@@ -817,6 +817,15 @@ ruby rt {
   position: relative;
 }
 
+/* Adds padding to right/left to prevent word from overlapping indicators.
+ * This is an extreme edge case. This shouldn't ever be visible
+ * unless you have a duplicate of a very long word.
+ */
+.dh-left--with-similar-word-indicators {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
 /* PA cards only */
 .dh-left--blue-border { /* left */
   border-style: solid;
@@ -836,43 +845,60 @@ ruby rt {
   margin-top: 15px;
   font-size: 23px;
   vertical-align: middle;
+  display: inline-block; /* so space isn't taken up to the left/right, visible when hovering to see dictionary */
 }
 
-.dh-left__same-reading-indicator {
+.dh-left__similar-words-indicators {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   left: 10px;
   top: 10px;
   font-size: 15px;
+  line-height: 16px;
+}
+
+.dh-left__similar-words-indicator {
   display: none; /* so it's not shown and doesn't affect the card without javascript */
 }
 
-.dh-left__same-reading-indicator-main-word .hover-tooltip__word-div {
+.dh-left__similar-words-indicators .hover-tooltip-wrapper {
+  line-height: initial;
+}
+
+.dh-left__similar-words-indicators-main-word .hover-tooltip__word-div {
   //font-size: 24px;
   color: var(--accent);
   font-weight: bold;
 }
 
-.dh-left__same-reading-indicator .hover-wrapper .hover-text {
+.dh-left__similar-words-indicators .hover-wrapper .hover-text {
   user-select: none;
 }
 
-.dh-left__same-reading-indicator .info-circle-svg path {
-  fill: var(--card-description-color);
+.dh-left__similar-words-indicator {
+  color: var(--text-color--3);
+  //padding: 2px;
+  //box-shadow: 1px 1px 2px var(--similar-words-box-shadow-color);
+  //background: #2d2d2f
+  //background: rgba(0, 0, 0, 0.2);
+  //border-radius: 3px;
 }
-.dh-left__same-reading-indicator:hover .info-circle-svg path {
-  fill: var(--info-circle-hover-color);
-}
-
-.dh-left__same-reading-indicator--new .info-circle-svg path {
-  fill: var(--accent);
-}
-.dh-left__same-reading-indicator--new:hover .info-circle-svg path {
-  fill: var(--info-circle-leech-hover-color);
+.dh-left__similar-words-indicator:hover {
+  color: var(--info-circle-hover-color);
 }
 
-.dh-left__same-reading-indicator.dh-left__same-reading-indicator--togglable:active .info-circle-svg path {
-  filter: brightness(var(--icon-click-brightness));
+.dh-left__similar-words-indicator--new {
+  color: var(--accent);
 }
+.dh-left__similar-words-indicator--new:hover {
+  color: var(--info-circle-leech-hover-color);
+}
+
+//.dh-left__similar-words-indicator.dh-left__similar-words-indicators--togglable:active .info-circle-svg path {
+//  filter: brightness(var(--icon-click-brightness));
+//}
 
 
 
@@ -946,7 +972,7 @@ ruby rt {
 .hover-text {
 }
 
-.hover-text--same-reading {
+.hover-text--similar-words-indicator {
   width: 120%;
   display: inline-block;
   text-align: left;
@@ -1001,6 +1027,10 @@ ruby rt {
   }
 }
 
+.hover-tooltip__word-div--clickable {
+  cursor: pointer;
+}
+
 .hover-tooltip__word-div--hover + .hover-tooltip__pitch-accent {
   visibility: hidden;
 }
@@ -1049,7 +1079,7 @@ ruby rt {
   white-space: normal;
 }
 
-.hover-tooltip-wrapper--same-reading {
+.hover-tooltip-wrapper--similar-words-indicator {
   top: -15px;
   left: 29px;
 }
@@ -1103,7 +1133,7 @@ ruby rt {
 
 
 /* arrow */
-.hover-tooltip--same-reading:after {
+.hover-tooltip--similar-words-indicator:after {
   /* position tooltip correctly */
   left: -16px;
   top: 11px;

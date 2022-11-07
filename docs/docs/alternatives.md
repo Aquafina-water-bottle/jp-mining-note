@@ -6,6 +6,8 @@ P.S. Feel free to let me know of any note types you find interesting
 and I will very likely add it here!
 (Brownie points if you make a pull request for it too!)
 
+---
+
 # Anime Cards
 <sup>
 [Official project website](https://animecards.site/ankicards/#anime-cardsword-context-cards)・[Download](https://ankiweb.net/shared/info/151553357)
@@ -22,6 +24,8 @@ If you're previewing this, make sure to change the preview site:
 
 see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 -->
+
+---
 
 
 # Lazy Guide's Modified Anime Card
@@ -48,6 +52,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     === "Light"
         {{ img("", "https://imgur.com/BvxcdzI.jpg") }}
 
+---
+
 # stegatxins0's Modified Anime Card
 <sup>
 [Website & download](https://rentry.co/mining#anki-settings)
@@ -55,6 +61,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ??? example "Example image"
     {{ img("", "assets/other/stegatxins0_eg.png") }}
+
+---
 
 
 # Tatsumoto's TSC
@@ -69,6 +77,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     {{ img("", "https://user-images.githubusercontent.com/69171671/100900075-5fc15800-34ba-11eb-9a23-bcfa5e01e35c.png") }}
 
 
+---
+
 # AJATT-Tool's AnkiNoteTypes
 <sup>
 [Website](https://github.com/Ajatt-Tools/AnkiNoteTypes)
@@ -77,6 +87,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 - A collection of user-created notes
 - Most are based off of the above TSC template
 
+
+---
 
 # Eminent Note Type
 <sup>
@@ -89,6 +101,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     === "Back"
         {{ img("", "https://cademcniven.com/images/card_back-9gMDHBDdD3-1350w.avif") }}
 
+
+---
 
 # Elax's Note Type
 <sup>
@@ -119,6 +133,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     </sup>
 
 
+
+---
 
 # Timm's Anki Template
 
@@ -206,6 +222,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     </sup>
 
 
+---
+
 
 # Tigy01's Note Type
 <sup>
@@ -220,6 +238,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     === "Back"
         {{ img("", "https://cdn.discordapp.com/attachments/1001191401830223882/1001302878473949304/Untitled_2.png") }}
 
+
+---
 
 # Stazor's Note Type
 <sup>
@@ -254,6 +274,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     ([Original discord message](https://discord.com/channels/730440689099210786/755067984833151136/1023266287884980244), on [Perdition's server](https://discord.gg/uK4HeGN))
     </sup>
 
+---
+
 
 # MoonieBiloney's Note Types
 <sup>
@@ -261,6 +283,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 </sup>
 
 - Some require a Patreon subscription to access
+
+---
 
 
 # Kanken deck
@@ -274,10 +298,20 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 - *The definitive deck* to use for learning how to write kanji
 - Not a note type used for mining
 
+---
+
 
 # Various note types for non-Japanese learning purposes
 - [Prettify](https://github.com/pranavdeshai/anki-prettify)
 - [Modern Card Themes](https://github.com/b3nj5m1n/moderncardthemes)
 - [Anki Cards Templates SuperList](https://github.com/Troyciv/anki-templates-superlist)
 - [Raagaception's 12STD CBSE Deck (Science stream, PCM)](https://github.com/Raagaception/raagaception-12STD-CBSE-deck)
+
+
+
+---
+
+# Looking for jp-mining-note?
+
+[Click here to set it up!](setup.md){ .md-button }
 

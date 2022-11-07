@@ -446,7 +446,7 @@ If you want to extend the CSS, do the following:
     ```
 3. Under the `extra` folder, use the following files to override the correct css:
     - `style.scss`: The main css for the card templates.
-    - `field.scss`: The css used by [CSS injector](setup.md#css-injector)
+    - `field.scss`: The css used by [CSS injector](setupanki.md#css-injector)
         to customize individual fields.
     - `editor.scss`: The css used by CSS injector to customize the editor around the fields.
 

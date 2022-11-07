@@ -170,13 +170,14 @@ const JPMNAutoPA = (() => {
   class JPMNAutoPA {
 
 
-    constructor(attemptColor=true, logLevelDecrease=0) {
+    constructor(attemptColor=true, logLevelDecrease=0, showTitle=true) {
       // attempts to color according to pitch accent groups
       this.attemptColor = (attemptColor &&
           {{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "enabled") }});
 
       this.jpUtils = new JPMNJPUtils();
       this.logLvl = 3 - logLevelDecrease;
+      this.showTitle = showTitle;
     }
 
 
@@ -581,7 +582,7 @@ const JPMNAutoPA = (() => {
         for (const [i, word] of strList.entries()) {
           // moras here are only used for calculating the position of the downstep
           let moras = this.jpUtils.getMorae(word);
-          logger.debug(`${word} -> ${moras}`, this.debugLvl);
+          logger.debug(`${word} -> ${moras}`, this.logLvl);
 
           // checks for where downstep (＼) exists
           let pos = null;
@@ -796,7 +797,7 @@ const JPMNAutoPA = (() => {
      * - addBold adds the <b></b> tags around the span, which greys out the span
      */
     buildWordReading(posData, addBold=false) {
-      logger.debug(posData, this.debugLvl);
+      logger.debug(posData, this.logLvl);
 
       const pos = posData.pos;
       let result = Array.from(posData.readingMora); // shallow copy
@@ -935,8 +936,10 @@ const JPMNAutoPA = (() => {
         displayEle.innerHTML = readingHTML;
       }
 
-      displayEle.setAttribute("title", dispPosData.dict);
-      logger.debug(dispPosData.dict, this.debugLvl);
+      if (this.showTitle) {
+        displayEle.setAttribute("title", dispPosData.dict);
+      }
+      logger.debug(dispPosData.dict, this.logLvl);
     }
   }
 

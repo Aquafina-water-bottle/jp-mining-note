@@ -2,6 +2,8 @@
 Before committing and going through the setup process,
 it would be best to make sure that the note aligns with exactly what you want.
 
+---
+
 
 # Supported Systems
 The most important step is to see if jp-mining-note (JPMN) works on your device.
@@ -37,6 +39,8 @@ Both light mode and dark mode are supported.
 However, dark mode is recommended as the main theme of this note.
 
 
+---
+
 
 
 
@@ -67,6 +71,8 @@ licensed under [MIT](https://github.com/Aquafina-water-bottle/jp-mining-note/blo
 Rest easy knowing you will keep full ownership of your note, forever.
 
 
+---
+
 
 # Alternatives
 There are many, many Anki templates out there in the wild.
@@ -74,6 +80,10 @@ There are many, many Anki templates out there in the wild.
 is my attempt to assemble together some of the the popular and/or interesting card templates.
 
 
+---
+
 # Setup
-Excited to take this note on a whirl? See the [setup](setup.md) page to see just that!
+Excited to take this note on a whirl?
+
+[Click here to set it up!](setup.md){ .md-button }
 

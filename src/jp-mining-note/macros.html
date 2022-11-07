@@ -10,17 +10,50 @@
   {# border_class can be "dh-left--blue-border" #}
   <div class="dh-left {{ border_class }}" id="dh_left">
 
-    <span class="dh-left__same-reading-indicator" id="same_reading_indicator">
-      <span class="hover-wrapper">
-        <span class="hover-text hover-text--same-reading" id="same_reading_hover_circle">
-{% filter indent(6) %}
-{% include "jp-mining-note/partials/info_circle_svg.html" %}
-{% endfilter %}
+    <span class="dh-left__similar-words-indicators" id="similar_words_indicators">
+
+      <span class="
+          dh-left__similar-words-indicator
+          dh-left__same-word-indicator
+          hover-wrapper
+          " id="same_word_indicator">
+        <span class="hover-text hover-text--similar-words-indicator">
+          <!--Ｓ--> <!-- (Same) Word -->
+          同 <!-- 同じ -->
         </span>
-        <span class="hover-tooltip-wrapper hover-tooltip-wrapper--same-reading">
-          <span class="hover-tooltip hover-tooltip--same-reading" id="same_reading_indicator_tooltip"> ... </span>
+        <span class="hover-tooltip-wrapper hover-tooltip-wrapper--similar-words-indicator">
+          <span class="hover-tooltip hover-tooltip--similar-words-indicator" id="same_word_indicator_tooltip"> ... </span>
         </span>
       </span>
+
+      <span class="
+          dh-left__similar-words-indicator
+          dh-left__same-kanji-indicator
+          hover-wrapper
+          " id="same_kanji_indicator">
+        <span class="hover-text hover-text--similar-words-indicator">
+          <!--Ｋ--> <!-- Kanji -->
+          漢 <!-- 漢字 -->
+        </span>
+        <span class="hover-tooltip-wrapper hover-tooltip-wrapper--similar-words-indicator">
+          <span class="hover-tooltip hover-tooltip--similar-words-indicator" id="same_kanji_indicator_tooltip"> ... </span>
+        </span>
+      </span>
+
+      <span class="
+          dh-left__similar-words-indicator
+          dh-left__same-reading-indicator
+          hover-wrapper
+          " id="same_reading_indicator">
+        <span class="hover-text hover-text--similar-words-indicator">
+          <!--Ｒ--> <!-- Reading -->
+          読 <!-- 読み方 -->
+        </span>
+        <span class="hover-tooltip-wrapper hover-tooltip-wrapper--similar-words-indicator">
+          <span class="hover-tooltip hover-tooltip--similar-words-indicator" id="same_reading_indicator_tooltip"> ... </span>
+        </span>
+      </span>
+
     </span>
 
     <div class="dh-left__reading" id="dh_reading"> {{ T("furigana:WordReading") }} </div>

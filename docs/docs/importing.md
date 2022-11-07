@@ -8,7 +8,6 @@ other Anki cards into this note format.
     See [this section](updating) instead.
 
 
-
 # Introduction
 Unfortunately, there are so many card formats out there that
 it would be impossible to cover how to import from every format
@@ -23,6 +22,8 @@ functionality after importing the notes.
 The biggest example is frequency list information,
 as it requires special HTML + css formatting that can only be specified
 in the Yomichan Templates section.
+
+---
 
 
 # Prerequisites
@@ -46,6 +47,8 @@ There are two ways you can do this:
     [this one](https://ankiweb.net/shared/info/291119185).
 -->
 
+---
+
 
 # Anki
 Anki provides a feature to switch between note types, without affecting scheduling information.
@@ -63,6 +66,8 @@ To do this, follow the proceeding steps:
 3. Right click the selection →  `Notes` →  `Change Note Type...`
 
 ![type:video](assets/anki/change_notetype.mp4)
+
+---
 
 
 
@@ -138,6 +143,8 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 
     !!! note
         Anything not specified should be set to `(Nothing)`
+
+---
 
 
 # Batch Editing
@@ -245,6 +252,8 @@ Sentences are usually formatted in one of three ways, as shown below:
             [here](https://docs.ankiweb.net/searching.html?highlight=regex#regular-expressions)
             to see Anki's official documentation on regex.
 
+<br>
+
 
 ## (2) Batch generate pitch accents and sentence furigana
 
@@ -273,6 +282,8 @@ Sentences are usually formatted in one of three ways, as shown below:
 
     > `Edit` (top left corner) →  `Bulk-add furigana`.
 
+
+<br>
 
 
 ## (3) Batch set `PASilence` field
@@ -333,6 +344,8 @@ The following step differs if you are using `python` or the Batch Note Editing A
     python3 ./batch.py -f "set_pasilence_field"
     ```
 -->
+
+<br>
 
 
 ## (4) (Optional) Formatting WordReading
@@ -418,6 +431,8 @@ pip3 install jaconv
 python3 ./batch.py -f "fill_word_reading_hiragana_field"
 ```
 -->
+
+---
 
 
 # Conclusion

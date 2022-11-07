@@ -10,8 +10,9 @@ This section is dedicated to explaining how to update the card itself.
     Please make a [complete backup](faq.md#how-do-i-backup-my-anki-data)
     of your collection before continuing to update your note.
 
+---
 
-## Method 1: Python Script (recommended)
+# Updating: Via Python Script
 
 The recommended way to install the note is by using a python script.
 This will change the note in place, and gives you various options on how
@@ -93,21 +94,26 @@ will likely need (calls related to field editing).
     You should be able to see `AnkiConnectDev` in the aforementioned list.
 -->
 
-### Preliminary steps
+<br>
+
+## Preliminary steps
 Ensure that your note is named exactly `JP Mining Note`.
 To do this, head over to:
 
 > (Main Window) →  `Tools` →  `Manage Note Types`.
 
 If your note is named differently, please rename it to `JP Mining Note`.
+<!--
 If you have two different versions (for example: `JP Mining Note` and `JP Mining Note-f263ae`),
-then 
+then please 
+-->
 
 !!! note
     You can always change the name back after updating.
 
+<br>
 
-### Running the Script
+## Running the Script
 
 === "Command Line"
 
@@ -161,11 +167,14 @@ then
         Once you run the command, further instructions should be given to you through the command
         line interface.
 
+---
 
-## Common Errors
+# Common Errors
 This section will document common errors that occur when running the `/install.py` script.
 
-### Anki-Connect is missing actions
+<br>
+
+## Anki-Connect is missing actions
 Anki-Connect is likely outdated.
 To fix this, remove and re-download Anki-Connect from the
 [AnkiWeb page](https://ankiweb.net/shared/info/2055492159).
@@ -177,7 +186,9 @@ To fix this, remove and re-download Anki-Connect from the
     instead of using this feature.
 
 
-### FieldVerifierException
+<br>
+
+## FieldVerifierException
 
 {{ img("anki field window", "assets/anki/fields_window.png", 'align=right width="300"') }}
 
@@ -241,10 +252,10 @@ To fix this, there are a few cases to go through.
 
 ---
 
-## Method 2: Manually
+# Updating: Manually
 
 !!! warning
-    This method is **not recommended**. Furthermore, **very limited support** will
+    This method is **not recommended whatsoever**. Furthermore, **very limited support** will
     be given if you attempt this method.
 
 ??? info "Click here to see the steps on how to update the note manually."
@@ -276,7 +287,7 @@ To fix this, there are a few cases to go through.
 
 ---
 
-## Further Steps
+# After Updating the Card
 There may be further steps outside of just updating the card,
 such as updating Yomichan's templates / format.
 Further instructions on these are written below.
@@ -291,17 +302,15 @@ Afterwards, please see the [final steps](updating.md#final-steps) section.
 # Updating Yomichan's Anki Card Format
 
 To update the Yomichan Format, the steps should be almost the same as the
-one specified already in the [setup](setup.md#yomichan-fields).
-However, there are some differences that you should keep in mind.
-
-## Refreshing the Fields
+one specified already in the [setup](setupyomichan.md#yomichan-fields).
 The most important difference is that if a new field was added or a field has been renamed,
 then **the field will not show up automatically in Yomichan**.
+
+<!--
 The only way to refresh the fields as of writing this (2022/09/06)
 is to change the `Model` at the top right hand corner to something else,
 and then switching back to `JP Mining Note`.
 
-<!--
 Hopefully in the future, there will be a `refresh` button in Yomichan itself to avoid all this trouble.
 -->
 
@@ -309,11 +318,11 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
     Doing the above WILL clear all the fields that you previously had, unless there
     is a matching field in that other card.
 
-Here is how I recommend transitioning as smoothly as possible:
 
-![type:video](assets/yomichan/updating_yomichan_fields.mp4)
+## Refreshing Yomichan Fields
 
-
+??? example "Video Demo *(click here)*"
+    ![type:video](assets/yomichan/updating_yomichan_fields.mp4)
 
 1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
     of your Yomichan settings, just in case.
@@ -324,14 +333,15 @@ Here is how I recommend transitioning as smoothly as possible:
     →  Select `Clone: JP Mining Note` →  `Ok` <br>
     →  Name the note anything you want (the following examples will use `JP Mining Note copy`)  →  `Ok`<br>
     →  `Close`
-1. Head over to Anki Card Format [as before](setup.md#yomichan-fields){:target="_blank"}.
+1. If you are currently viewing Yomichan Settings, please refresh the page.
+1. Head over to Anki Card Format [as before](setupyomichan.md#yomichan-fields){:target="_blank"}.
 1. In the top right corner, change `Model` to `JP Mining Note copy`,
     and then change it back to `JP Mining Note`.
     (If you don't see `JP Mining Note copy`, please refresh the page.)
 1. Update the fields as specified.
     - It should be specified in the text you see when running `install.py --update`.
     - However, you should also simply compare the table on the
-        [setup page](setup.md#yomichan-fields){:target="_blank"} to your filled out fields.
+        [setup page](setupyomichan.md#yomichan-fields){:target="_blank"} to your filled out fields.
 1. Remove the temporary note: <br>
     `Tools` <br>
     →  `Manage Note Types` <br>
@@ -350,11 +360,12 @@ Here is how I recommend transitioning as smoothly as possible:
 
 
 # Updating Yomichan Templates
-Like the above, you can simply follow the steps already specified in [setup](setup.md#yomichan-templates){:target="_blank"}.
+Like the above, you can simply follow the steps already specified in [setup](setupyomichan.md#yomichan-templates){:target="_blank"}.
 Again, please make sure you **reset the existing templates** (unless you know what you are doing),
 and again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"} of your Yomichan settings just in case.
 
 
+---
 
 # Updating the Runtime Options File
 The {{ RTO_FILE }} does not automatically update with each note update,
@@ -368,6 +379,7 @@ The most recent version of the options file can always be found
 if you want to update it.
 
 
+---
 
 # Final Steps
 

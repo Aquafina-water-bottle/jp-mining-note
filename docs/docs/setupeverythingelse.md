@@ -22,6 +22,7 @@ If you are looking to setup jp-mining-note, see [this](setup.md) page instead.
     to other note types.
     This shouldn't be an issue as long as you change the appropriate the field names.
 
+---
 
 # Getting the Text to Create the Cards
 
@@ -141,6 +142,7 @@ The following are primarily for text-heavy games, such as visual novels.
         * Contact info: `OrangeLightX#2907` <!-- 1011824983351250965 -->
             on the Refold (JP) Discord server or [TMW server](https://learnjapanese.moe/join/)
 
+---
 
 
 ## Text from video content
@@ -268,6 +270,8 @@ The following are ways to view these files in a browser to Yomichan:
 
         Additionally, be sure to restart MPV after changing the config to apply the changes.
 
+---
+
 ## [Immersive](https://github.com/Ben-Kerman/immersive)
 
 * A powerful alternative to the mpvacious add-on above, with certain different capabilities.
@@ -277,6 +281,8 @@ The following are ways to view these files in a browser to Yomichan:
     This is potentially outdated and/or abandoned.
     The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
 
+---
+
 ## [asbplayer](https://github.com/killergerbah/asbplayer)
 
 * Cross platform (chromium) browser video player. Personally tested.
@@ -285,6 +291,8 @@ The following are ways to view these files in a browser to Yomichan:
 * Guides that use asbplayer:
     * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub)
     * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)
+
+---
 
 ## [ShareX](https://getsharex.com/)
 
@@ -300,10 +308,14 @@ The following are ways to view these files in a browser to Yomichan:
     * [Anime Cards: Handling Media](https://animecards.site/media/)
         * Not recommended: introduces additional steps compared to the above two guides
 
+---
+
 ## [ames](https://github.com/eshrh/ames)
 
 * ShareX alternative for Linux. Personally tested.
 * Primarily used to automate audio and picture extraction to the most recently added Anki card.
+
+---
 
 ## [Animebook](https://github.com/animebook/animebook.github.io)
 
@@ -311,6 +323,8 @@ The following are ways to view these files in a browser to Yomichan:
 * This also has card image and audio exporting capabilities.
 * Guides that use Animebook:
     * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/)
+
+---
 
 ## [jidoujisho](https://github.com/lrorpilla/jidoujisho)
 

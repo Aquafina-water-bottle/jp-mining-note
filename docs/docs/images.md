@@ -29,9 +29,10 @@ aspect ratios between 16:9 (landscape) to 1:1 (square).
     If you want to add more than one image, add the remaining images under
     `PrimaryDefinitionPicture` or `PrimaryDefinition`.
 
+---
 
 
-## Automatically Add Images Using Tags
+# Automatically Add Images Using Tags
 
 {{ feature_version("0.11.0.0") }}
 
@@ -68,6 +69,7 @@ Example:
 
 TODO example gif
 
+---
 
 
 
@@ -105,6 +107,8 @@ There are three ways of disabling collapsed images.
     }
     ```
 
+---
+
 
 # The `PrimaryDefinitionPicture` Field
 {{ feature_version("0.11.0.0") }}
@@ -118,8 +122,9 @@ compared to using the monolingual definition.
 
 === "Right of the definition (Default)"
     <figure markdown>
-      {{ img("Primary Definition Picture (right)", "assets/primarydefinitionpicture_right.png") }}
+      {{ img("Primary Definition Picture (right)", "assets/primarydefinitionpicture/right_of_def.png") }}
       <figcaption>
+        <span style="font-style: normal">(突っ伏す)</span>
         Usually, the image is placed to the right (like on Wikipedia).
       </figcaption>
     </figure>
@@ -127,10 +132,20 @@ compared to using the monolingual definition.
 
 === "Below the definition"
     <figure markdown>
-      {{ img("Primary Definition Picture (bottom)", "assets/primarydefinitionpicture_bottom.png") }}
+      {{ img("Primary Definition Picture (bottom)", "assets/primarydefinitionpicture/below_def.png") }}
       <figcaption>
+        <span style="font-style: normal">(雑巾)</span>
         If there is too little text, the image is automatically positioned below the text.
         This will happen if there are only one or two lines of text for the definition.
+      </figcaption>
+    </figure>
+
+=== "No Definition"
+    <figure markdown>
+      {{ img("Primary Definition Picture (no definition)", "assets/primarydefinitionpicture/no_def.png") }}
+      <figcaption>
+        <span style="font-style: normal">(天麩羅)</span>
+        Naturally, the picture appears to the left if there is no definition.
       </figcaption>
     </figure>
 
@@ -158,6 +173,7 @@ Additionally, the positioning mode can be set in the {{ RTO_FILE }}:
 }
 ```
 
+---
 
 
 # Image Blur

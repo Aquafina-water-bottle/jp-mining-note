@@ -26,7 +26,8 @@ and must use `./install.py --update`.
 - Added fields: `PAOverrideText`, `PrimaryDefinitionPicture`, `WordReadingHiragana`
 
 #### Features
-- Added same word reading indicator (`same-reading-indicator` module)
+- Added similar words indicators (`same-reading-indicator` module)
+    - Indicators are shown for: same kanji, same reading, duplicates
 - Added the `PrimaryDefinitionPicture` field
     - Specifies a picture that is always shown to the right of the primary definition
     - Can be technically anything else though, like a table, text, etc.
@@ -37,6 +38,7 @@ and must use `./install.py --update`.
         - Requires hover over the word for kanji-hover by default
     - Added logic to overflow between categories (e.g. 6 new & 0 old will now show 6 new instead of 2 new)
     - Added option to ignore the same word reading as the current word
+    - Added ability to click on words in a tooltip to view it within Anki
 - Runtime options:
     - Added way to specify different values for mobile and PC
     - Renamed `nsfw-toggle` -> `image-blur`
@@ -52,6 +54,7 @@ and must use `./install.py --update`.
 - Revamped `auto-pitch-accent` module:
     - Added support for various formats in `PAOverride` (csv numbers, and text with downsteps)
     - Added source on hover support (hover over the pitch accent to see where the pitch was gotten from)
+- Revamped the documentation layout quite a bit, to now include tabs in the header
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
@@ -65,6 +68,7 @@ and must use `./install.py --update`.
     - `anki-connect-actions`: helper module to use anki-connect
 - Fixed a bug with item(javascript=True) when it returns a dictionary (now parses into json)
 - Added color change when highlighting over URLs
+- `kanji-hover` card cache is now cached in as an element instead of strings to improve performance
 
 
 ## [0.10.3.0] - 2022-10-21

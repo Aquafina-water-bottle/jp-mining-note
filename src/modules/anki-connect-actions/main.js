@@ -43,7 +43,12 @@ const JPMNAnkiConnectActions = (() => {
 
 
   class JPMNAnkiConnectActions {
-    constructor() { }
+    constructor() {
+      // this cache is destroyed on each card side
+      // but the cache allows the same result to be used if the function is called multiple times
+      // on one side
+      this.isNewCardLocalCache = {};
+    }
 
     // https://github.com/FooSoft/anki-connect#javascript
     invoke(action, params={}) {
@@ -226,6 +231,9 @@ const JPMNAnkiConnectActions = (() => {
         logger.debug("Key in new card cache and is not new.");
         return false;
       }
+      if (key in this.isNewCardLocalCache) {
+        return this.isNewCardLocalCache[key];
+      }
       logger.debug("Testing for new card...", 2);
 
       // constructs the multi findCards request for ankiconnect
@@ -248,6 +256,7 @@ const JPMNAnkiConnectActions = (() => {
 
       const isNew = (multi[1].length > 0);
       isNewCardCache[key] = isNew;
+      this.isNewCardLocalCache[key] = isNew;
 
       return isNew;
     }

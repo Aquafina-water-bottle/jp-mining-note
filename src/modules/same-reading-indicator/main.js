@@ -1,6 +1,7 @@
 /// {% set globals %}
 
-var sameReadingCardCache = nullish(sameReadingCardCache, {});
+//var sameReadingCardCache = nullish(sameReadingCardCache, {});
+var similarWordsCardCache = nullish(similarWordsCardCache, {});
 
 /// {% endset %}
 
@@ -15,18 +16,70 @@ const JPMNSameReadingIndicator = (() => {
   const logger = new JPMNLogger("same-reading-indicator");
   const key = "{{ T('Key') }}";
 
-  const indicatorNewClass = "dh-left__same-reading-indicator--new";
-  const mainWordClass = "dh-left__same-reading-indicator-main-word";
+  const indicatorNewClass = "dh-left__similar-words-indicator--new";
+  const mainWordClass = "dh-left__similar-words-indicators-main-word";
+  const addPaddingClass = "dh-left--with-similar-word-indicators";
 
+  const queryWordDiv = `.dh-left__similar-words-indicators .hover-tooltip__word-div`;
 
-  const indicatorDiv = document.getElementById("same_reading_indicator");
-  const indicatorTooltipDiv = document.getElementById("same_reading_indicator_tooltip");
+  const cardTypeName = 'Mining Card';
+  const baseQuery = `-"Key:{{ T('Key') }}" "card:${cardTypeName}"`;
+  const baseWordQuery = `"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
+  const baseKanjiQuery = `"Word:{{ T('Word') }}" -"WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
+  const baseReadingQuery = `-"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
+  const nonNewQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "non-new-query") }};
+  const newQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "new-query") }};
+
+  //const indicatorDiv = document.getElementById("same_reading_indicator");
+  //const indicatorTooltipDiv = document.getElementById("same_reading_indicator_tooltip");
+  const dhLeftEle = document.getElementById("dh_left");
 
   const localPositionsEle = document.getElementById("hidden_pa_positions");
   const localAjtEle = document.getElementById("hidden_ajt_word_pitch");
   const localOverrideEle = document.getElementById("hidden_pa_override");
   const localOverrideTextEle = document.getElementById("hidden_pa_override_text");
   const localReadingEle = document.getElementById("hidden_word_reading");
+
+  class IndicatorInfo {
+    constructor(baseIndicatorQuery, indicatorDiv, indicatorTooltipDiv, label) {
+      this.newQuery = `(${baseQuery} ${baseIndicatorQuery}) ${newQueryPartial}`;
+      this.nonNewQuery = `(${baseQuery} ${baseIndicatorQuery}) ${nonNewQueryPartial}`;
+      this.indicatorDiv = indicatorDiv;
+      this.indicatorTooltipDiv = indicatorTooltipDiv;
+      this.label = label;
+    }
+  }
+
+  class IndicatorCache {
+    constructor() {
+      this.word = ""
+      this.kanji = ""
+      this.reading = ""
+    }
+  }
+
+  const wordIndicatorInfo = new IndicatorInfo(
+    baseWordQuery,
+    document.getElementById("same_word_indicator"),
+    document.getElementById("same_word_indicator_tooltip"),
+    "word",
+  )
+
+  const kanjiIndicatorInfo = new IndicatorInfo(
+    baseKanjiQuery,
+    document.getElementById("same_kanji_indicator"),
+    document.getElementById("same_kanji_indicator_tooltip"),
+    "kanji",
+  )
+
+  const readingIndicatorInfo = new IndicatorInfo(
+    baseReadingQuery,
+    document.getElementById("same_reading_indicator"),
+    document.getElementById("same_reading_indicator_tooltip"),
+    "reading",
+  )
+
+  const indicatorsArray = [wordIndicatorInfo, kanjiIndicatorInfo, readingIndicatorInfo];
 
   class JPMNSameReadingIndicator {
     constructor() {
@@ -72,30 +125,38 @@ const JPMNSameReadingIndicator = (() => {
 
     }
 
-    async displayIndicatorIfExists(nonNewCardIds, newCardIds) {
+    addBrowseOnClick() {
+      if ({{ utils.opt("modules", "same-reading-indicator", "click-word-to-browse") }}) {
+        this.tooltipBuilder.addBrowseOnClick(queryWordDiv);
+      }
+    }
+
+    async displayIndicatorIfExists(nonNewCardIds, newCardIds, indicatorInfo) {
       if (nonNewCardIds.length === 0 && newCardIds.length === 0) {
         return;
       }
-      logger.debug("Same reading found. Creating indicator...")
+      logger.debug(`Same ${indicatorInfo.label} found. Creating indicator...`)
 
       const nonNewCardInfo = await this.ankiConnectHelper.cardsInfo(nonNewCardIds);
       const newCardInfo = await this.ankiConnectHelper.cardsInfo(newCardIds);
       const indicatorStr = this.buildString(nonNewCardInfo, newCardInfo);
 
-      sameReadingCardCache[key] = indicatorStr;
+      //sameReadingCardCache[key] = indicatorStr;
+      similarWordsCardCache[key][indicatorInfo.label] = indicatorStr;
 
-      this.displayIndicator(indicatorStr);
+      return this.displayIndicator(indicatorStr, indicatorInfo);
     }
 
-    async displayIndicator(indicatorStr) {
+    async displayIndicator(indicatorStr, indicatorInfo) {
 
       const isNew = await this.ankiConnectHelper.cardIsNew();
-      indicatorTooltipDiv.innerHTML = indicatorStr;
+      indicatorInfo.indicatorTooltipDiv.innerHTML = indicatorStr;
       if (isNew) {
-        indicatorDiv.classList.add(indicatorNewClass);
+        indicatorInfo.indicatorDiv.classList.add(indicatorNewClass);
       }
-      indicatorDiv.style.display = "inline-block"; // doesn't matter because position is absolute
+      indicatorInfo.indicatorDiv.style.display = "inline-block"; // doesn't matter because position is absolute
 
+      dhLeftEle.classList.toggle("dh-left--with-similar-word-indicators", true);
     }
 
     runAfterDelay(delay) {
@@ -105,10 +166,25 @@ const JPMNSameReadingIndicator = (() => {
       }
       enabled = true;
 
-      if (key in sameReadingCardCache) {
+      if (key in similarWordsCardCache) {
         logger.debug("Card was cached");
-        const indicatorStr = sameReadingCardCache[key];
-        this.displayIndicator(indicatorStr);
+        const indicatorCache = similarWordsCardCache[key];
+
+        let promises = []
+
+        for (let i = 0; i < indicatorsArray.length; i++) {
+          const indicatorInfo = indicatorsArray[i];
+          const indicatorStr = indicatorCache[indicatorInfo.label];
+          if (indicatorStr.length !== 0) {
+            promises.push(this.displayIndicator(indicatorStr, indicatorInfo));
+            //this.displayIndicator(indicatorStr, indicatorInfo);
+          }
+        }
+
+        Promise.all(promises).then((values) => {
+          this.addBrowseOnClick();
+        });
+
       } else if (delay === 0) {
         this.run();
       } else {
@@ -116,26 +192,22 @@ const JPMNSameReadingIndicator = (() => {
           this.run();
         }, delay);
       }
+
+      //if (delay === 0) {
+      //  this.run();
+      //} else {
+      //  setTimeout(() => {
+      //    this.run();
+      //  }, delay);
+      //}
+
     }
 
-    async run() {
-      const cardTypeName = 'Mining Card';
 
-      let baseQuery = `-"Key:{{ T('Key') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}" "card:${cardTypeName}"`;
-      const nonNewQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "non-new-query") }};
-      const newQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "new-query") }};
+    async runOnIndicator(indicatorInfo) {
 
-      if (!{{ utils.opt("modules", "same-reading-indicator", "show-same-word-reading") }}) {
-        baseQuery += ` -"WordReading:{{ T('WordReading') }}"`;
-      }
-
-      baseQuery = "(" + baseQuery + ")";
-
-      const queryNonNew = `(${baseQuery}) ${nonNewQueryPartial}`;
-      const queryNew = `(${baseQuery}) ${newQueryPartial}`;
-
-      let cardIdsNonNew = await this.ankiConnectHelper.query(queryNonNew);
-      let cardIdsNew = await this.ankiConnectHelper.query(queryNew);
+      let cardIdsNonNew = await this.ankiConnectHelper.query(indicatorInfo.nonNewQuery);
+      let cardIdsNew = await this.ankiConnectHelper.query(indicatorInfo.newQuery);
       cardIdsNonNew.sort();
       cardIdsNew.sort();
 
@@ -148,8 +220,21 @@ const JPMNSameReadingIndicator = (() => {
           maxNonNewOldest, maxNonNewLatest, maxNewLatest
       );
 
-      this.displayIndicatorIfExists(cardIdsNonNewFiltered, cardIdsNewFiltered);
+      if (!(key in similarWordsCardCache)) {
+        similarWordsCardCache[key] = new IndicatorCache();
+      }
+      return this.displayIndicatorIfExists(cardIdsNonNewFiltered, cardIdsNewFiltered, indicatorInfo);
+    }
 
+    async run() {
+      let promises = []
+      for (const indicatorInfo of indicatorsArray) {
+        promises.push(this.runOnIndicator(indicatorInfo));
+      }
+
+      Promise.all(promises).then((values) => {
+        this.addBrowseOnClick();
+      });
     }
   }
 

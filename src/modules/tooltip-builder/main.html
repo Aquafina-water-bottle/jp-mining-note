@@ -5,7 +5,7 @@
 {# required boilerplate #}
 {% set MOD = namespace() %}
 {% set MOD.id = "tooltip-builder" %}
-{% set MOD.dependencies = [] %}
+{% set MOD.dependencies = ["anki-connect-actions"] %}
 
 {# interface for modules that change javascript #}
 {% set MOD.js = JavascriptContainer(MOD.id) %}

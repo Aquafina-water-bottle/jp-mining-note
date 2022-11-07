@@ -29,8 +29,12 @@ const JPMNKanjiHover = (() => {
   const logger = new JPMNLogger("kanji-hover");
 
   // element outside async function to prevent double-adding due to anki funkyness
-  const wordReading = document.getElementById("dh_reading");
+  let wordReading = document.getElementById("dh_reading");
   let kanjiHoverEnabled = false;
+
+  // realistically, key should be good enough since we assume that key has no duplicates
+  // however, just in case, wordreading is added
+  const cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
 
 
   // kanji hover
@@ -58,6 +62,12 @@ const JPMNKanjiHover = (() => {
       }
 
       return wordsArr;
+    }
+
+    addBrowseOnClick() {
+      if ({{ utils.opt("modules", "kanji-hover", "click-word-to-browse") }}) {
+        this.tooltipBuilder.addBrowseOnClick(`.dh-left__reading .hover-tooltip__word-div`);
+      }
     }
 
 
@@ -122,7 +132,9 @@ const JPMNKanjiHover = (() => {
       kanjiHoverWrapper.appendChild(kanjiSpan);
       kanjiHoverWrapper.appendChild(tooltipWrapperSpan);
 
-      return kanjiHoverWrapper.outerHTML;
+      //logger.error(kanjiHoverWrapper.outerHTML);
+      //return kanjiHoverWrapper.outerHTML;
+      return kanjiHoverWrapper;
     }
 
 
@@ -200,24 +212,7 @@ const JPMNKanjiHover = (() => {
       return await this.ankiConnectHelper.invoke("multi", {"actions": actions});
     }
 
-
-
     async run() {
-
-      if (kanjiHoverEnabled) {
-        logger.debug("Kanji hover is already enabled");
-        return;
-      }
-      kanjiHoverEnabled = true;
-
-      // realistically, key should be good enough since we assume that key has no duplicates
-      // however, just in case, wordreading is added
-      const cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
-      if (cacheKey in kanjiHoverCardCache) {
-        logger.debug("Card was cached")
-        wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
-        return;
-      }
 
       const readingHTML = wordReading.innerHTML;
 
@@ -261,22 +256,75 @@ const JPMNKanjiHover = (() => {
       const re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
       const resultHTML = readingHTML.replace(re, function (matched) {
         //return kanjiDict[matched] ?? matched;
-        return nullish(kanjiDict[matched], matched);
+        //return nullish(kanjiDict[matched], matched);
+        return `<span data-kanji-hover="${matched}">${matched}</span>`
       });
 
       wordReading.innerHTML = resultHTML;
 
+      for (let kanji of Object.keys(kanjiDict)) {
+        for (let ele of document.querySelectorAll(`.dh-left__reading [data-kanji-hover="${kanji}"]`)) {
+          ele.innerText = "";
+          ele.appendChild(kanjiDict[kanji]);
+        }
+      }
+
       // caches card
-      kanjiHoverCardCache[cacheKey] = resultHTML;
+      let cloneElement = wordReading.cloneNode(true)
+      cloneElement.removeAttribute("id");
+      kanjiHoverCardCache[cacheKey] = cloneElement;
 
       for (const character of kanjiArr) {
         kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
       }
 
+      this.addBrowseOnClick();
+    }
+
+    runMode() {
+      const mode = {{ utils.opt("modules", "kanji-hover", "mode") }};
+      if (mode === 0) {
+        this.run();
+      } else { // === 1
+        const wordReading = document.getElementById("dh_reading");
+        wordReading.onmouseover = (() => {
+          // replaces the function with a null function to avoid calling this function
+          wordReading.onmouseover = function() {}
+          this.run();
+        });
+      }
+    }
+
+
+    runAfterDelay() {
+
+      if (kanjiHoverEnabled) {
+        logger.debug("Kanji hover is already enabled");
+        return;
+      }
+      kanjiHoverEnabled = true;
+
+      if (cacheKey in kanjiHoverCardCache) {
+        logger.debug("Card was cached")
+        let cachedEle = kanjiHoverCardCache[cacheKey].cloneNode(true);
+        cachedEle.setAttribute("id", "dh_reading");
+        wordReading.parentNode.replaceChild(cachedEle, wordReading);
+        this.addBrowseOnClick();
+        return;
+      }
+
+      let delay = {{ utils.opt("modules", "kanji-hover", "load-delay") }};
+      if (delay === 0) {
+        this.runMode();
+      } else {
+        setTimeout(() => {
+          this.runMode();
+        }, delay);
+      }
+
     }
 
   }
-
 
   return JPMNKanjiHover;
 
@@ -295,17 +343,9 @@ const JPMNKanjiHover = (() => {
 if ({{ utils.opt("modules", "kanji-hover", "enabled") }}
     && {{ utils.opt("enable-ankiconnect-features") }}) {
 
-  const kanjiHover = new JPMNKanjiHover()
-  if ({{ utils.opt("modules", "kanji-hover", "mode") }} === 0) {
-    kanjiHover.run();
-  } else { // === 1
-    const wordReading = document.getElementById("dh_reading");
-    wordReading.onmouseover = function() {
-      // replaces the function with a null function to avoid calling this function
-      wordReading.onmouseover = function() {}
-      kanjiHover.run();
-    }
-  }
+  const kanjiHover = new JPMNKanjiHover();
+  kanjiHover.runAfterDelay();
+
 }
 
 /// {% endset %}
