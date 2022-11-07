@@ -308,10 +308,3 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 - [Raagaception's 12STD CBSE Deck (Science stream, PCM)](https://github.com/Raagaception/raagaception-12STD-CBSE-deck)
 
 
-
----
-
-# Looking for jp-mining-note?
-
-[Click here to set it up!](setup.md){ .md-button }
-

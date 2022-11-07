@@ -156,7 +156,7 @@ If your sentence fields have been highlighted in a way that isn't using `<b>`,
 then it will be incompatable with JPMN by default.
 
 To see what the formatting of the sentence is,
-[view the raw HTML]()
+[view the raw HTML](faq.md#how-do-i-edit-the-fields-raw-html){:target="_blank"}
 of the `Sentence` field.
 
 Sentences are usually formatted in one of three ways, as shown below:
