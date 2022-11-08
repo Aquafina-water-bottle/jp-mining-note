@@ -207,7 +207,7 @@ FIELDS = {
     #"WordReadingHiragana": {
     #    "auto_fill": True,
     #    "binary_field": False,
-    #    "reference": "ui.md#same-reading-indicator",
+    #    "reference": "ui.md#word-indicators",
     #    "setup": "{jpmn-word-reading-hiragana}",
     #},
 

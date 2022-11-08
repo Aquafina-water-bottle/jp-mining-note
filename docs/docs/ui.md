@@ -139,7 +139,7 @@ and how to customize it.
 
 ---
 
-# Similar Words Indicators
+# Word Indicators
 {{ feature_version("0.11.0.0") }}
 
 Indicators will be shown to the top-left of the reading when similar words in your deck are found.
@@ -148,7 +148,6 @@ The indicators are as follows:
 - 同 (short for 同じ) indicates that the card is a duplicate.
 - 読 (short for 読み方) indicates that there are other card(s) with the same reading (ignoring pitch accent).
 - 漢 (short for 漢字) indicates that there are other card(s) with the same kanji, but different reading.
-
 
 TODO change demo
 
@@ -196,7 +195,7 @@ that explains the notation well:
         For example, げ would be a nasal け,
         and would represented as け<span class="nasal">°</span>.
 
-    - **Blue color**: barely pronounced at all.
+    - **Blue color**: Devoiced mora (barely pronounced at all).
 
         For example, <span class="nopron">ヒ</span> would be closer to h than hi. <br>
         Likewise, <span class="nopron">ク</span> would be more like a k than ku.

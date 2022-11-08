@@ -41,13 +41,6 @@ const JPMNImgUtils = (() => {
   let image = null;
 
 
-  // helper function: removes the class from the classlist if it exist
-  const removeIfExists = function(ele, name) {
-    if (ele.classList.contains(name)) {
-      ele.classList.remove(name);
-    }
-  }
-
   // gets the function to activate the modal with the img
   const getActivateModalFunc = function(image) {
     return function() {
@@ -60,13 +53,13 @@ const JPMNImgUtils = (() => {
   const setImgBlur = function(init=false) {
     logger.debug("Setting image blur...", 2)
 
-    removeIfExists(dhImgContainer, imgClickClassName);
-    removeIfExists(dhImgBlur, nsfwNoBlurClassName);
+    dhImgContainer.classList.toggle(imgClickClassName, false);
+    dhImgBlur.classList.toggle(nsfwNoBlurClassName, false);
 
     if (init) {
-      dhImgBlur.classList.add(nsfwBlurInitClassName);
+      dhImgBlur.classList.toggle(nsfwBlurInitClassName, true);
     } else {
-      dhImgBlur.classList.add(nsfwBlurClassName);
+      dhImgBlur.classList.toggle(nsfwBlurClassName, true);
     }
 
     if (image !== null) {
@@ -83,8 +76,8 @@ const JPMNImgUtils = (() => {
 
     dhImgContainer.classList.add(imgClickClassName);
 
-    removeIfExists(dhImgBlur, nsfwBlurClassName);
-    removeIfExists(dhImgBlur, nsfwBlurInitClassName);
+    dhImgBlur.classList.toggle(nsfwBlurClassName, false);
+    dhImgBlur.classList.toggle(nsfwBlurInitClassName, false);
     dhImgBlur.classList.add(nsfwNoBlurClassName);
 
     if (image !== null) {
@@ -120,7 +113,7 @@ const JPMNImgUtils = (() => {
         settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
         settingsEyeTitleEle.textContent = "NSFW images are not blurred by default. Click to toggle.";
 
-        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+        settingsEyePathEle.classList.toggle(alwaysBlurredClass, false);
 
         if (displayPopup) {
           popupMenuMessage("No images will be blurred.");
@@ -131,7 +124,7 @@ const JPMNImgUtils = (() => {
         // should blur on nsfw images
         settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
         settingsEyeTitleEle.textContent = "NSFW images are blurred by default. Click to toggle.";
-        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+        settingsEyePathEle.classList.toggle(alwaysBlurredClass, false);
 
         if (displayPopup) {
           popupMenuMessage("NSFW images will be blurred.");
@@ -162,7 +155,7 @@ const JPMNImgUtils = (() => {
         removeImgBlur();
         if (!cardHasNSFWTag()) {
           // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
-          removeIfExists(dhImgBlur, showEyeClassName);
+          dhImgBlur.classList.toggle(showEyeClassName, false);
         }
         break;
 
@@ -171,11 +164,6 @@ const JPMNImgUtils = (() => {
 
           // can reach here on init as well
           removeImgBlur();
-
-          if (imgCurrentlyBlurred) {
-            // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
-            removeIfExists(dhImgBlur, showEyeClassName);
-          }
 
         } else if (!imgCurrentlyBlurred && cardHasNSFWTag()) {
           setImgBlur(init);
@@ -186,7 +174,7 @@ const JPMNImgUtils = (() => {
       case 2: // ??? -> always blurred
         setImgBlur(init);
         if (!cardHasNSFWTag()) {
-          dhImgBlur.classList.add(showEyeClassName);
+          dhImgBlur.classList.toggle(showEyeClassName, true);
         }
         break;
 
@@ -244,7 +232,7 @@ const JPMNImgUtils = (() => {
 
 
   // creates a custom image container to hold yomichan images
-  function createImgContainer(imgName) {
+  function createImgContainer(imgName, shouldBlur) {
     // creating this programmically:
     // <span class="glossary__image-container">
     //   <a class="glossary__image-hover-text" href='javascript:;'</a>
@@ -304,7 +292,7 @@ const JPMNImgUtils = (() => {
     logger.debug(`imgIsNsfw: ${imgIsNsfw}, shouldBlurImgDefault: ${shouldBlurImgDefault}`);
 
     if (imgIsNsfw) {
-      dhImgBlur.classList.add(showEyeClassName);
+      dhImgBlur.classList.toggle(showEyeClassName, true);
     }
 
     let toggleState = getCurrentNSFWToggleState();
@@ -495,7 +483,8 @@ const JPMNImgUtils = (() => {
             !(imgEle.getAttribute("data-do-not-convert"))
         ) { // created by us
           logger.debug(`Converting user-inserted image ${imgEle.src}...`);
-          const fragment = createImgContainer(imgEle.src);
+          const shouldBlur = !!imgEle.getAttribute("data-blur-image"); // double ! casts to bool
+          const fragment = createImgContainer(imgEle.src, shouldBlur);
           imgEle.parentNode.replaceChild(fragment, imgEle);
         }
       }

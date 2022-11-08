@@ -139,7 +139,7 @@ CONFIG = {
             #"img-utils-minimal",
 
             "customize-open-fields",
-            "same-reading-indicator",
+            "word-indicators",
             "fix-ruby-positioning",
             "context-utils",
         ],

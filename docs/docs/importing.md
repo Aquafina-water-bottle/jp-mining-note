@@ -403,7 +403,7 @@ If this is desirable, see the instructions below.
 The following automatically fills out the `WordReadingFurigana` field.
 
 Filling out the `WordReadingFurigana` field will enable the usage of
-the [Same Reading Indicator](ui.md#same-reading-indicator)
+the [Same Reading Indicator](ui.md#word-indicators)
 on existing cards.
 
 To do this, like with the above step, you will have to run a Python script.

@@ -253,7 +253,7 @@ function main() {
     //let sameReadingIndicator = document.getElementById("same_reading_indicator");
     //let sameReadingCirc = document.getElementById("same_reading_hover_circle");
     //const sameReadingCircFrozen = "hover-text--frozen";
-    //const sameReadingCircTogglable = "dh-left__same-reading-indicator--togglable";
+    //const sameReadingCircTogglable = "dh-left__word-indicators--togglable";
     //addLockFunc(sameReadingIndicator, sameReadingCirc, "Same-Reading indicator<br>",
     //    sameReadingCircFrozen, sameReadingCircTogglable);
 

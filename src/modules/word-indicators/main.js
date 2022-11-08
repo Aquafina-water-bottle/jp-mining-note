@@ -13,7 +13,7 @@ const JPMNSameReadingIndicator = (() => {
 
   let enabled = false;
 
-  const logger = new JPMNLogger("same-reading-indicator");
+  const logger = new JPMNLogger("word-indicators");
   const key = "{{ T('Key') }}";
 
   const indicatorNewClass = "dh-left__similar-words-indicator--new";
@@ -27,8 +27,8 @@ const JPMNSameReadingIndicator = (() => {
   const baseWordQuery = `"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
   const baseKanjiQuery = `"Word:{{ T('Word') }}" -"WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
   const baseReadingQuery = `-"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
-  const nonNewQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "non-new-query") }};
-  const newQueryPartial = {{ utils.opt("modules", "same-reading-indicator", "new-query") }};
+  const nonNewQueryPartial = {{ utils.opt("modules", "word-indicators", "non-new-query") }};
+  const newQueryPartial = {{ utils.opt("modules", "word-indicators", "new-query") }};
 
   //const indicatorDiv = document.getElementById("same_reading_indicator");
   //const indicatorTooltipDiv = document.getElementById("same_reading_indicator_tooltip");
@@ -83,8 +83,8 @@ const JPMNSameReadingIndicator = (() => {
 
   class JPMNSameReadingIndicator {
     constructor() {
-      const displayPitchAccent = {{ utils.opt("modules", "same-reading-indicator", "display-pitch-accent") }}
-      const displayPitchAccentHover = {{ utils.opt("modules", "same-reading-indicator", "display-pitch-accent-hover-only") }}
+      const displayPitchAccent = {{ utils.opt("modules", "word-indicators", "display-pitch-accent") }}
+      const displayPitchAccentHover = {{ utils.opt("modules", "word-indicators", "display-pitch-accent-hover-only") }}
       this.ankiConnectHelper = new JPMNAnkiConnectActions();
       this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent, displayPitchAccentHover);
     }
@@ -126,7 +126,7 @@ const JPMNSameReadingIndicator = (() => {
     }
 
     addBrowseOnClick() {
-      if ({{ utils.opt("modules", "same-reading-indicator", "click-word-to-browse") }}) {
+      if ({{ utils.opt("modules", "word-indicators", "click-word-to-browse") }}) {
         this.tooltipBuilder.addBrowseOnClick(queryWordDiv);
       }
     }
@@ -211,9 +211,9 @@ const JPMNSameReadingIndicator = (() => {
       cardIdsNonNew.sort();
       cardIdsNew.sort();
 
-      const maxNonNewOldest = {{ utils.opt("modules", "same-reading-indicator", "max-non-new-oldest") }};
-      const maxNonNewLatest = {{ utils.opt("modules", "same-reading-indicator", "max-non-new-latest") }};
-      const maxNewLatest = {{ utils.opt("modules", "same-reading-indicator", "max-new-latest") }};
+      const maxNonNewOldest = {{ utils.opt("modules", "word-indicators", "max-non-new-oldest") }};
+      const maxNonNewLatest = {{ utils.opt("modules", "word-indicators", "max-non-new-latest") }};
+      const maxNewLatest = {{ utils.opt("modules", "word-indicators", "max-new-latest") }};
 
       let [cardIdsNonNewFiltered, cardIdsNewFiltered] = this.ankiConnectHelper.filterCards(
           cardIdsNonNew, cardIdsNew,
@@ -249,10 +249,10 @@ const JPMNSameReadingIndicator = (() => {
 /// {% set run %}
 
 // only continues if kanji-hover is actually enabled
-if ({{ utils.opt("modules", "same-reading-indicator", "enabled") }}
+if ({{ utils.opt("modules", "word-indicators", "enabled") }}
     && {{ utils.opt("enable-ankiconnect-features") }}) {
   const sameReading = new JPMNSameReadingIndicator();
-  const delay = {{ utils.opt("modules", "same-reading-indicator", "load-delay") }};
+  const delay = {{ utils.opt("modules", "word-indicators", "load-delay") }};
   sameReading.runAfterDelay(delay);
 }
 

@@ -26,13 +26,13 @@ and must use `./install.py --update`.
 - Added fields: `PAOverrideText`, `PrimaryDefinitionPicture`, `WordReadingHiragana`
 
 #### Features
-- Added similar words indicators (`same-reading-indicator` module)
+- Added similar words indicators (`word-indicators` module)
     - Indicators are shown for: same kanji, same reading, duplicates
 - Added the `PrimaryDefinitionPicture` field
     - Specifies a picture that is always shown to the right of the primary definition
     - Can be technically anything else though, like a table, text, etc.
 - Added a way to fix ruby positioning for legacy Anki versions (`fix-ruby-positioning` module)
-- Improved tooltips (affects `same-reading-indicator` and `kanji-hover`):
+- Improved tooltips (affects `word-indicators` and `kanji-hover`):
     - Added pitch accent on tooltips
         - Enabled for both `kanji-hover` and `same-word-indicator` by default
         - Requires hover over the word for kanji-hover by default
@@ -64,7 +64,7 @@ and must use `./install.py --update`.
 - Refactored AutoPA & KanjiHover classes to have most functions to be in the returned class itself
 - Moved out multiple functions into a bunch of smaller sub-modules:
     - `jp-utils`: functions for dealing with the Japanese language itself (e.g. hiragana -> katakana)
-    - `tooltip-builder`: creates tooltips for kanji-hover and same-reading-indicator
+    - `tooltip-builder`: creates tooltips for kanji-hover and word-indicators
     - `anki-connect-actions`: helper module to use anki-connect
 - Fixed a bug with item(javascript=True) when it returns a dictionary (now parses into json)
 - Added color change when highlighting over URLs
