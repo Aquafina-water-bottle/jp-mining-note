@@ -292,11 +292,11 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 [Website & download](https://ankiweb.net/shared/info/759825185)
 </sup>
 
-??? example "Example image"
-    {{ img("", "assets/other/kanken_deck_eg.png") }}
-
 - *The definitive deck* to use for learning how to write kanji
 - Not a note type used for mining
+
+??? example "Example image"
+    {{ img("", "assets/other/kanken_deck_eg.png") }}
 
 ---
 

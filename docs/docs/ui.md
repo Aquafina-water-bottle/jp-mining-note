@@ -1,4 +1,4 @@
-This entire section is dedicated to showcasing various aspects of the
+This page is dedicated to showcasing various aspects of the
 common user interface.
 
 
@@ -177,66 +177,21 @@ and how to customize it.
 
 ---
 
-# Word Pitch
+# Images
 
-Here is a (slightly modified) excerpt taken from the
-[AJT Pitch Accent add-on page](https://ankiweb.net/shared/info/1225470483)
-that explains the notation well:
+See the [Images](images.md) page for information on the following:
 
-!!! quote
-    For more information on the Japanese pitch accent, I would like to refer you to
-    [this wikipedia article](http://en.wikipedia.org/wiki/Japanese_pitch_accent).
-    In short, the following notations can be found:
-
-    - **Overline**: Indicates "High" pitch (see "Binary pitch" in Wikipedia article).
-    - **Overline downstep**: usually means stressing the mora/syllable before.
-    - **Red circle mark**: Nasal pronunciation.
-
-        For example, げ would be a nasal け,
-        and would represented as け<span class="nasal">°</span>.
-
-    - **Blue color**: Devoiced mora (barely pronounced at all).
-
-        For example, <span class="nopron">ヒ</span> would be closer to h than hi. <br>
-        Likewise, <span class="nopron">ク</span> would be more like a k than ku.
-
-
-
-## Colored Pitch Accent
-<i><sup>Main page: [Auto Pitch Accent (Colored Pitch Accent)](autopa.md#colored-pitch-accent)</sup></i>
-
-Pitch accent can already be set very easily by writing the position in `PAOverride`.
-Moreover, the reading, word and pitch overline can be automatically colored
-in Migaku style colors according to the main pitch accent groups.
-
-This automatic coloring behavior is **disabled by default**,
-and must be enabled in the {{ RTO_FILE }}:
-
-??? examplecode "Enabling colored pitch accent *(click here)*"
-    ```json
-    "auto-pitch-accent": {
-      "enabled": true, // (1)!
-      "colored-pitch-accent": {
-        "enabled": true,
-        // ...
-      }
-      // ...
-    }
-    ```
-
-    1.  The `auto-pitch-accent` module must be enabled to use colored pitch accent.
-
-![type:video](assets/pa_override_color.mp4)
+* Blurring images
+* Specifying default images
+* Automatically formatting pictures within the definition
 
 ---
 
-# Images
+# Pitch Accent
+See the [Pitch Accent](autopa.md) page for information on the following:
 
-This note type allows you to do many things to images,
-including blurring images, specifying default images, and
-automatically formatting pictures within the definition.
-
-See [this page](images.md) for more information on images.
+* Pitch accent notation
+* Automatic pitch accent coloring
 
 ---
 

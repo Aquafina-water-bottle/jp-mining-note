@@ -1,5 +1,5 @@
 
-This entire section is dedicated showing
+This page is dedicated showing
 how to edit the note fields to change the card to your liking.
 
 
@@ -153,17 +153,6 @@ they are discussed in their respective pages:
 
 * [Images](images.md)
 * [Pitch Accent](autopa.md)
-
-
-
-
-## Modifying Pitch Accent
-<i><sup>Main page: [Auto Pitch Accent](autopa.md)</sup></i>
-
-
-More information and customization, including automatically coloring the word
-with Migaku colors, can be found in the main page linked above.
-
 
 ---
 

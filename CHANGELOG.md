@@ -55,6 +55,7 @@ and must use `./install.py --update`.
     - Added support for various formats in `PAOverride` (csv numbers, and text with downsteps)
     - Added source on hover support (hover over the pitch accent to see where the pitch was gotten from)
 - Revamped the documentation layout quite a bit, to now include tabs in the header
+- Added the `jpmn-sentence-bolded-furigana-plain` header to yomichan templates
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type

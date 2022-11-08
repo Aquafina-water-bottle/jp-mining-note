@@ -638,6 +638,12 @@ is a part of a dictionary) ~}}
 
 
 
+{{~!
+    =======
+     other
+    =======
+~}}
+
 {{~#*inline "jpmn-word-reading-hiragana"~}}
     {{~#set "word-reading" ~}}{{> reading}}{{/set~}}
 
@@ -647,7 +653,6 @@ is a part of a dictionary) ~}}
 
     {{#hiragana (get "word-reading") keepProlongedSoundMarks=false}}{{/hiragana}}
 {{~/inline~}}
-
 
 
 

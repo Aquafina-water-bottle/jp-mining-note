@@ -1,7 +1,36 @@
 
+This page is dedicated to showcasing
+how pitch accent is displayed,
+and various ways to edit said display.
 
 
-# Introduction
+# What Is Pitch Accent?
+
+Here is a (slightly modified) excerpt taken from the
+[AJT Pitch Accent add-on page](https://ankiweb.net/shared/info/1225470483)
+that explains the notation well:
+
+!!! quote
+    For more information on the Japanese pitch accent, I would like to refer you to
+    [this wikipedia article](http://en.wikipedia.org/wiki/Japanese_pitch_accent).
+    In short, the following notations can be found:
+
+    - **Overline**: Indicates "High" pitch (see "Binary pitch" in Wikipedia article).
+    - **Overline downstep**: usually means stressing the mora/syllable before.
+    - **Red circle mark**: Nasal pronunciation.
+
+        For example, げ would be a nasal け,
+        and would represented as け<span class="nasal">°</span>.
+
+    - **Blue color**: Devoiced mora (barely pronounced at all).
+
+        For example, <span class="nopron">ヒ</span> would be closer to h than hi. <br>
+        Likewise, <span class="nopron">ク</span> would be more like a k than ku.
+
+---
+
+
+# Specifying Pitch Accent
 
 The displayed pitch accent is usually the first position found in `PAPositions`.
 However, you can override this automatically chosen position using the `PAOverride` field.
@@ -12,13 +41,10 @@ The demo above covers the most basic usage of `PAOverride`,
 which should suffice for most people.
 
 The rest of the page covers the details on exactly how `PAOverride` works,
-and all the ways to customize how the pitch accent is displayed
-
-!!! note
-    Don't know what pitch accent is?
-    See [here](ui.md#pitch-accent) for a very brief summary.
+and all the ways to customize how the pitch accent is displayed.
 
 
+---
 
 # Colored Pitch Accent
 
@@ -49,7 +75,9 @@ and must be enabled in the {{ RTO_FILE }}:
     The 起伏 pattern is not automatically detected.
     To use this color, you must manually set the `PAOverride` field to `-1`.
 
-## Colored Pitch Accent Summary
+<br>
+
+## Pitch Accent Groups
 
 | Anki Tag  | 日本語 | Example              | Reading      |
 |: ------- :|: ---- :|: ------------------ :|: ---------- :|
@@ -59,6 +87,8 @@ and must be enabled in the {{ RTO_FILE }}:
 | odaka     | 尾高   | 道具 {.pa-odaka}     | どうぐ＼     |
 | kifuku    | 起伏   | 驚く {.pa-kifuku}    | おどろ＼く   |
 
+
+<br>
 
 ## Position Selection
 In most all cases, the position should be automatically found
@@ -70,6 +100,8 @@ TODO rewrite with new `PAOverride`
 1. `PAPositions` is not filled, but `AJTWordPitch` is.
 2. `PAOverride` is a non-integer value.
 
+
+<br>
 
 
 ## Override Pitch Accent Group
@@ -100,7 +132,7 @@ For example, the tag can be `heiban`, `平板`, etc.
 
     TODO image of above (without tag, with tag)
 
-
+---
 
 
 
@@ -130,6 +162,8 @@ The first field that is non-empty will be the field that is used to display the 
     More info on this on the [`PAOverride` field](autopa.md#paoverride-field) section below.
 
 
+---
+
 # (1) PAOverrideText
 {{ feature_version("0.11.0.0") }}
 
@@ -139,11 +173,42 @@ without any changes or parsing.
 (TODO example images collapsed section)
 
 
+---
+
 # (2) PAOverride
-The `PAOverride` allows for two formats: positions and text format.
+The `PAOverride` allows for two primary formats: positions and text format.
+If the field contents cannot be parsed in either of these formats,
+then the field is displayed without any special formatting.
+This will act just like `PAOverrideText`.
 
 
-## PAOverride: Positions Format
+<!--
+For a quick summary of how you can use this field, 
+see wha
+
+??? example "Example Summary"
+    test
+
+    | PAOverride | Result |
+    |-|-|
+    | (blank with no default)            | TODO |
+    | `0`                                | TODO |
+    | `1`                                | TODO |
+    | `-1`                               | TODO |
+    | `0,1,3`                            | TODO |
+    | `0,<b>1</b>,3`                     | TODO |
+    | じ＼んせい                         | TODO |
+    | いきお＼い                         | TODO |
+    | どうぐ＼                           | TODO |
+    | しんちょう￣                       | TODO |
+    | どく＼、くらう￣、さら￣           | TODO |
+    | ちゅうが＼くせい・ちゅうがく＼せい | TODO |
+-->
+
+<br>
+
+
+## (2.1) PAOverride: Positions Format
 
 When the `PAOverride` field contains any number, that number will be considered
 as the downstep position, and be rendered as such.
@@ -156,7 +221,8 @@ downstep to be after the second last mora.
 |-|-|-|
 | `0`            | TODO | |
 | `1`            | TODO | |
-| `-1`           | TODO | 起伏 pattern |
+| `-1`           | TODO | 起伏 |
+
 
 
 ### Multiple Numbers
@@ -178,7 +244,7 @@ This is useful to highlight the correct pitch accent among all possiblities.
 | `0,<b>1</b>,3` | TODO | |
 
 
-!!! info "Restrictions on bolded numbers"
+!!! note "Restrictions on bolded numbers"
     Multiple numbers cannot be bolded together.
     If you want to bold multiple numbers, they have to be bolded individually.
     Additionally, commas cannot be bolded.
@@ -187,12 +253,15 @@ This is useful to highlight the correct pitch accent among all possiblities.
     but `0,<b>1,2</b>,3` and `0,<b>1,</b>2,3` are invalid.
 
 
+<br>
 
-## PAOverride: Text Format
+
+## (2.2) PAOverride: Text Format
 {{ feature_version("0.11.0.0") }}
 
-!!! note
-    The following section requires you to type certain special characters.
+??? info "How To Type Special Characters *(click here)*"
+
+    This section requires you to type certain special characters.
     You can type these characters on any standard IME.
 
     | Characters | Result |
@@ -201,6 +270,7 @@ This is useful to highlight the correct pitch accent among all possiblities.
     | `うえ` (`ue`) { .smaller-table-row } | ￣ { .smaller-table-row } |
     | `,`           { .smaller-table-row } | 、 { .smaller-table-row } |
     | `/`           { .smaller-table-row } | ・ { .smaller-table-row } |
+
 
 
 If no number is found within the `PAOverride` field, the contents
@@ -258,12 +328,16 @@ This is particularly useful on expressions with multiple words, such as 「毒�
     This means that bold, italics, overlines, etc. cannot be present in the field.
     For example, the input `<b>にせもの</b>` will be rejected.
 
+<br>
 
-## PAOverride: Raw Text
+## (2.3) PAOverride: Raw Text
 As a last case resort, if the input of this field cannot be parsed as either of the two,
 the exact contents of `PAOverride` will be displayed.
 This will behave exactly the same as `PAOverrideText`.
 
+
+
+---
 
 # (3) PAPositions
 
@@ -274,6 +348,8 @@ By default, the first pitch of the first dictionary is shown.
 
 TODO image + example field
 
+
+<br>
 
 ## Show All Possibilities in Dictionary
 {{ feature_version("0.11.0.0") }}
@@ -308,6 +384,8 @@ TODO image comparisons:
     This option only works on cards formatted with JPMN's `{jpmn-pitch-accent-positions}` marker.
     This means this option will not work on old cards that were imported to the `JPMN` format.
 
+---
+
 
 # (4) AJTWordPitch
 If you have the optional [AJT Pitch Accent](setupanki.md#ajt-pitch-accent)
@@ -316,6 +394,9 @@ then this field is automatically generated on all cards.
 
 This is used as a fallback option, in case your installed pitch accent dictionaries
 does not cover the tested content, but this add-on does.
+
+
+---
 
 
 <!--
@@ -435,6 +516,8 @@ in {{ RTO_FILE }}:
 }
 ```
 
+
+---
 
 
 # Pitch Accent Styling Details

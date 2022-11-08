@@ -61,8 +61,8 @@ Absolutely nothing else is required.
 This helps with maintaining stability across various Anki versions.
 
 ## Modularized, Customizable & Extendable
-This project ships with [built-in tools](options.md) to easily disable/enable features,
-or even completely remove them from the base template via compile-time options.
+This project ships with [built-in tools](runtimeoptions.md) to easily disable/enable features,
+or even completely remove them from the base template via [compile-time options](compiletimeoptions.md).
 Additionally, there are [many built-in ways](modding.md) to extend the note to suit your exact needs.
 
 ## Free & Open Source

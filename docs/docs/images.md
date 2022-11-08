@@ -1,4 +1,7 @@
 
+This page is dedicated to showcasing
+how images can be displayed and interacted with.
+
 
 
 # Main Image

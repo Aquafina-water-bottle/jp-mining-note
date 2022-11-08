@@ -6,7 +6,7 @@ hide:
 
 
 
-# Errors & Warnings
+# Errors & Warnings { .text-yellow }
 This section documents frequent errors that
 may show up on the info circle at the top right.
 
@@ -72,20 +72,6 @@ There are two ways to fix this:
 ---
 
 
-<!--
-## ReferenceError: EFDRC is not defined
-You are likely using an old version of this note type
-if you get this, as this error is ignored by default within the
-[options file](runtimeoptions.md).
-See the
-[example options file](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js){:target="_blank"}
-(under `ignored-errors`) for more infomation on this error.
-
----
-
--->
-
-
 ## General Error Troubleshooting
 
 If none of the above worked, the following will be some general troubleshooting tips
@@ -116,7 +102,7 @@ or submit an issue!
 
 
 
-# Troubleshooting
+# Troubleshooting { .text-yellow }
 
 ---
 
@@ -184,7 +170,7 @@ so the bug is here to stay until a better solution is found.
 
 
 
-# Card Editing
+# Card Editing { .text-yellow }
 
 ---
 
@@ -262,7 +248,7 @@ on the code button.
 ---
 
 
-# Other Questions
+# Other Questions { .text-yellow }
 
 ---
 
@@ -367,7 +353,7 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
     Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.
 
 
-# Discord Contact Info
+# Discord Contact Info { .text-yellow }
 Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
 
 Servers: [TheMoeWay](https://learnjapanese.moe/join/) and Refold (JP) server.

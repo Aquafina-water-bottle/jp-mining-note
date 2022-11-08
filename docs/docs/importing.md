@@ -1,4 +1,6 @@
 
+# Overview
+
 This section is dedicated to explaining how you can change
 other Anki cards into this note format.
 
@@ -7,6 +9,7 @@ other Anki cards into this note format.
     properly update all the notes in place.
     See [this section](updating) instead.
 
+---
 
 # Introduction
 Unfortunately, there are so many card formats out there that

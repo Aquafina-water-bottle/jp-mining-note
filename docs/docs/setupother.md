@@ -1,8 +1,11 @@
 
-This page contains all setup steps that are purely optional.
+# Overview
+
+This page contains all setup steps that are purely optional, as well as random miscellaneous info.
 It is expected that you have [Anki](setupanki.md) and [Yomichan](setupyomichan.md)
 already setup, and the note is already working.
 
+---
 
 # Yomichan Appearance
 If you want to follow my exact Yomichan popup appearance:
@@ -12,7 +15,7 @@ If you want to follow my exact Yomichan popup appearance:
 * Set `Compact tags` to OFF.
 
 There are also plenty of css customizations for Yomichan listed out
-in the [various resources page](jpresources.md){:target="_blank"}.
+in the [JP Resources page](jpresources.md){:target="_blank"}.
 
 ---
 
@@ -106,7 +109,7 @@ I also provide a small list of other popular add-ons that I don't use, but may b
         * Used to normalize volume automatically (so adjusting the volume of recorded files is not necessary)
     * [Advanced Browser](https://ankiweb.net/shared/info/874215009)
         * Used for [sorting notes by frequency](fieldref.md#sorting-by-frequency)
-    * [AJT Flexible Grading]()
+    * [AJT Flexible Grading](https://ankiweb.net/shared/info/1715096333)
         * Has the ability to change the buttons to pass/fail
     * [Paste Images As WebP](https://ankiweb.net/shared/info/1151815987)
 

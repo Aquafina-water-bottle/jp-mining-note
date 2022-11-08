@@ -1,7 +1,7 @@
 
-
-# Updating the Card
-This section is dedicated to explaining how to update the card itself.
+# Overview
+This page is dedicated to explaining how to update JPMN,
+as well as provide basic support for required steps outside of Anki.
 
 !!! warning
 
