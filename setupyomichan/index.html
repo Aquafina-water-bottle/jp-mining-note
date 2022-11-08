@@ -762,8 +762,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../options/" class="md-nav__link">
-        Card Options
+      <a href="../runtimeoptions/" class="md-nav__link">
+        Runtime Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compiletimeoptions/" class="md-nav__link">
+        Compile-Time Options
       </a>
     </li>
   
@@ -823,18 +837,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_9">
+        <label class="md-nav__link" for="__nav_3_10">
           Developer Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_9">
+        <label class="md-nav__title" for="__nav_3_10">
           <span class="md-nav__icon md-icon"></span>
           Developer Documentation
         </label>
@@ -1927,28 +1941,33 @@ add the following template code as follows:</p>
 <a id="__codelineno-1-638" name="__codelineno-1-638" href="#__codelineno-1-638"></a>
 <a id="__codelineno-1-639" name="__codelineno-1-639" href="#__codelineno-1-639"></a>
 <a id="__codelineno-1-640" name="__codelineno-1-640" href="#__codelineno-1-640"></a>
-<a id="__codelineno-1-641" name="__codelineno-1-641" href="#__codelineno-1-641"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-word-reading-hiragana&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-642" name="__codelineno-1-642" href="#__codelineno-1-642"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;word-reading&quot;</span> <span class="m">~</span><span class="cp">}}{{</span><span class="k">&gt;</span> <span class="nv">reading</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-643" name="__codelineno-1-643" href="#__codelineno-1-643"></a>
-<a id="__codelineno-1-644" name="__codelineno-1-644" href="#__codelineno-1-644"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="s2">&quot;&quot;</span> <span class="nv">(get</span> <span class="s2">&quot;word-reading&quot;</span><span class="nv">))</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-645" name="__codelineno-1-645" href="#__codelineno-1-645"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;word-reading&quot;</span> <span class="m">~</span><span class="cp">}}{{</span><span class="k">&gt;</span> <span class="nv">expression</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-646" name="__codelineno-1-646" href="#__codelineno-1-646"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-647" name="__codelineno-1-647" href="#__codelineno-1-647"></a>
-<a id="__codelineno-1-648" name="__codelineno-1-648" href="#__codelineno-1-648"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">#hiragana</span> <span class="nv">(get</span> <span class="s2">&quot;word-reading&quot;</span><span class="nv">)</span> <span class="na">keepProlongedSoundMarks</span><span class="o">=</span><span class="nv">false</span><span class="cp">}}{{</span><span class="m m-Attribute">/hiragana</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-649" name="__codelineno-1-649" href="#__codelineno-1-649"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-650" name="__codelineno-1-650" href="#__codelineno-1-650"></a>
-<a id="__codelineno-1-651" name="__codelineno-1-651" href="#__codelineno-1-651"></a>
-<a id="__codelineno-1-652" name="__codelineno-1-652" href="#__codelineno-1-652"></a>
+<a id="__codelineno-1-641" name="__codelineno-1-641" href="#__codelineno-1-641"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span>
+<a id="__codelineno-1-642" name="__codelineno-1-642" href="#__codelineno-1-642"></a>    <span class="na">======</span><span class="o">=</span>
+<a id="__codelineno-1-643" name="__codelineno-1-643" href="#__codelineno-1-643"></a>     <span class="nv">other</span>
+<a id="__codelineno-1-644" name="__codelineno-1-644" href="#__codelineno-1-644"></a>    <span class="na">======</span><span class="o">=</span>
+<a id="__codelineno-1-645" name="__codelineno-1-645" href="#__codelineno-1-645"></a><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-646" name="__codelineno-1-646" href="#__codelineno-1-646"></a>
+<a id="__codelineno-1-647" name="__codelineno-1-647" href="#__codelineno-1-647"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-word-reading-hiragana&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-648" name="__codelineno-1-648" href="#__codelineno-1-648"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;word-reading&quot;</span> <span class="m">~</span><span class="cp">}}{{</span><span class="k">&gt;</span> <span class="nv">reading</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-649" name="__codelineno-1-649" href="#__codelineno-1-649"></a>
+<a id="__codelineno-1-650" name="__codelineno-1-650" href="#__codelineno-1-650"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(op</span> <span class="s2">&quot;&quot;</span> <span class="nv">(get</span> <span class="s2">&quot;word-reading&quot;</span><span class="nv">))</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-651" name="__codelineno-1-651" href="#__codelineno-1-651"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;word-reading&quot;</span> <span class="m">~</span><span class="cp">}}{{</span><span class="k">&gt;</span> <span class="nv">expression</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-652" name="__codelineno-1-652" href="#__codelineno-1-652"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
 <a id="__codelineno-1-653" name="__codelineno-1-653" href="#__codelineno-1-653"></a>
-<a id="__codelineno-1-654" name="__codelineno-1-654" href="#__codelineno-1-654"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">a</span> <span class="nv">test</span> <span class="nv">to</span> <span class="nv">check</span> <span class="nv">if</span> <span class="nv">your</span> <span class="nv">dictionaries</span> <span class="nv">are</span> <span class="nv">correctly</span> <span class="nv">classified</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-655" name="__codelineno-1-655" href="#__codelineno-1-655"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">Only</span> <span class="nv">meant</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">used</span> <span class="nv">for</span> <span class="nv">debugging</span> <span class="nv">purposes</span><span class="err">,</span> <span class="nv">not</span> <span class="nv">Anki</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-656" name="__codelineno-1-656" href="#__codelineno-1-656"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-test-dict-type&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-657" name="__codelineno-1-657" href="#__codelineno-1-657"></a><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-658" name="__codelineno-1-658" href="#__codelineno-1-658"></a><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-659" name="__codelineno-1-659" href="#__codelineno-1-659"></a><span class="x">「</span><span class="cp">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">」: </span><span class="cp">{{</span><span class="k">&gt;</span> <span class="nv">jpmn-get-dict-type</span> <span class="err">.</span> <span class="na">dictionaryName</span><span class="o">=</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-660" name="__codelineno-1-660" href="#__codelineno-1-660"></a><span class="cp">{{</span><span class="m m-Attribute">/each~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-661" name="__codelineno-1-661" href="#__codelineno-1-661"></a><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-662" name="__codelineno-1-662" href="#__codelineno-1-662"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-654" name="__codelineno-1-654" href="#__codelineno-1-654"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">#hiragana</span> <span class="nv">(get</span> <span class="s2">&quot;word-reading&quot;</span><span class="nv">)</span> <span class="na">keepProlongedSoundMarks</span><span class="o">=</span><span class="nv">false</span><span class="cp">}}{{</span><span class="m m-Attribute">/hiragana</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-655" name="__codelineno-1-655" href="#__codelineno-1-655"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-656" name="__codelineno-1-656" href="#__codelineno-1-656"></a>
+<a id="__codelineno-1-657" name="__codelineno-1-657" href="#__codelineno-1-657"></a>
+<a id="__codelineno-1-658" name="__codelineno-1-658" href="#__codelineno-1-658"></a>
+<a id="__codelineno-1-659" name="__codelineno-1-659" href="#__codelineno-1-659"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">a</span> <span class="nv">test</span> <span class="nv">to</span> <span class="nv">check</span> <span class="nv">if</span> <span class="nv">your</span> <span class="nv">dictionaries</span> <span class="nv">are</span> <span class="nv">correctly</span> <span class="nv">classified</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-660" name="__codelineno-1-660" href="#__codelineno-1-660"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">Only</span> <span class="nv">meant</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">used</span> <span class="nv">for</span> <span class="nv">debugging</span> <span class="nv">purposes</span><span class="err">,</span> <span class="nv">not</span> <span class="nv">Anki</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-661" name="__codelineno-1-661" href="#__codelineno-1-661"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-test-dict-type&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-662" name="__codelineno-1-662" href="#__codelineno-1-662"></a><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-663" name="__codelineno-1-663" href="#__codelineno-1-663"></a><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-664" name="__codelineno-1-664" href="#__codelineno-1-664"></a><span class="x">「</span><span class="cp">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">」: </span><span class="cp">{{</span><span class="k">&gt;</span> <span class="nv">jpmn-get-dict-type</span> <span class="err">.</span> <span class="na">dictionaryName</span><span class="o">=</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-665" name="__codelineno-1-665" href="#__codelineno-1-665"></a><span class="cp">{{</span><span class="m m-Attribute">/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-666" name="__codelineno-1-666" href="#__codelineno-1-666"></a><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-667" name="__codelineno-1-667" href="#__codelineno-1-667"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
 </code></pre></div>
 </details>
 </li>

@@ -760,8 +760,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../options/" class="md-nav__link">
-        Card Options
+      <a href="../runtimeoptions/" class="md-nav__link">
+        Runtime Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compiletimeoptions/" class="md-nav__link">
+        Compile-Time Options
       </a>
     </li>
   
@@ -821,18 +835,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_9">
+        <label class="md-nav__link" for="__nav_3_10">
           Developer Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_9">
+        <label class="md-nav__title" for="__nav_3_10">
           <span class="md-nav__icon md-icon"></span>
           Developer Documentation
         </label>
@@ -1042,6 +1056,8 @@
 
   <h1>Images</h1>
 
+<p>This page is dedicated to showcasing
+how images can be displayed and interacted with.</p>
 <h2 id="main-image">Main Image<a class="headerlink" href="#main-image" title="Permanent link">&para;</a></h2>
 <p>The main image (shown to the right of the word reading)
 is exactly the contents of the <code>Picture</code> field.
@@ -1077,7 +1093,7 @@ a specific tag.</p>
 One can save an image of the cover (in the media folder), and add
 the appropriate tag to all of the cards
 to automatically set the image to the cover of the book.</p>
-<p>This is specified under the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
+<p>This is specified under the <a href="../runtimeoptions/" target="_blank">runtime options</a>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;modules&quot;: {
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  &quot;img-utils&quot;: {
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    &quot;add-image-if-contains-tags&quot;: [
@@ -1117,7 +1133,7 @@ See the video demo below to see exactly what happens.</p>
 </code></pre></div></p>
 </li>
 <li>
-<p>Disable it globally in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
+<p>Disable it globally in the <a href="../runtimeoptions/" target="_blank">runtime options</a>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;stylize-images-in-glossary&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="c1">// ...</span><span class="w"></span>
@@ -1179,7 +1195,7 @@ For example, one can add text, tables, or links to the field.</p>
 Fortunately, there are ways to force the position of this image.
 The <code>img-right</code> tag forces the image to be to the right,
 whereas the <code>img-buttom</code> forces the image to be below the text.</p>
-<p>Additionally, the positioning mode can be set in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:
+<p>Additionally, the positioning mode can be set in the <a href="../runtimeoptions/" target="_blank">runtime options</a>:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;modules&quot;: {
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;img-utils&quot;: {
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    // &quot;auto&quot;, &quot;right&quot;, or &quot;bottom&quot;
@@ -1197,7 +1213,7 @@ To mark a card as NSFW, add any of the following tags to the card:</p>
 </blockquote>
 <p>This behavior is <strong>disabled by default</strong>. In other words, you will not be able to blur
 images unless the following setting is explicitly enabled
-in the <a href="../options/#accessing-runtime-options-options" target="_blank">runtime options</a>:</p>
+in the <a href="../runtimeoptions/" target="_blank">runtime options</a>:</p>
 <details class="examplecode">
 <summary>Enabling image blur <em>(click here)</em></summary>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -1319,7 +1335,7 @@ By default, states cycle from left to right.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 8, 2022</span>
       
     
   </small>
