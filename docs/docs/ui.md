@@ -241,7 +241,7 @@ which may mis-aligned the surrounding icons.
 
 ??? example "Instructions on how to to adjust these icons *(click here)*"
 
-    Using the [custom SCSS](modding.md#custom-css), you can specify
+    Using the [custom SCSS](customcss.md), you can specify
     the amount of space it takes (in terms of number of icons):
 
     ```scss

@@ -65,13 +65,7 @@ const JPMNTooltipBuilder = (() => {
 
     buildSentDiv(sentence) {
       const sentenceSpan = document.createElement('span');
-
-      let resultSent = sentence;
-      //resultSent = resultSent.replaceAll("<b>", "");
-      //resultSent = resultSent.replaceAll("</b>", "");
-      resultSent = resultSent.replace(/<b>/g, "");
-      resultSent = resultSent.replace(/<\/b>/g, "");
-      sentenceSpan.innerHTML = resultSent;
+      sentenceSpan.innerHTML = sentence;
 
       const openQuote = document.createElement('span');
       openQuote.innerText = "「";
@@ -80,6 +74,7 @@ const JPMNTooltipBuilder = (() => {
 
 
       const sentenceDiv = document.createElement('div');
+      sentenceDiv.classList.add("hover-tooltip__sent-div");
       sentenceDiv.classList.add("left-align-quote");
 
       sentenceDiv.appendChild(openQuote);

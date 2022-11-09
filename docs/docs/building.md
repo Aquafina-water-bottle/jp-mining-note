@@ -39,6 +39,7 @@ More info about this is shown later.
 
     It is also assumed that you have knowledge of basic command line.
 
+---
 
 
 # Building
@@ -52,6 +53,8 @@ More info about this is shown later.
 - Anki 2.1.49 or higher (2.1.54+ is highly recommended)
 - Anki-Connect addon
 
+
+<br>
 
 ## Initialization
 
@@ -131,6 +134,8 @@ pip3 install neovim anki aqt
     git checkout master
     ```
 
+<br>
+
 ## Building and Installing
 
 After setting up the `venv`, you are ready to build and install the note.
@@ -167,11 +172,15 @@ python3 ./main.py
 
 Additional things you can do with the project are shown below.
 
+<br>
+
 ## Running Tests
 ```bash
 cd tools
 python3 -m pytest ./tests
 ```
+
+<br>
 
 ## Building the Documentation
 
@@ -200,7 +209,7 @@ The important markdown files are found under:
      L mkdocs.yml
 ```
 
-
+---
 
 
 # Common Errors

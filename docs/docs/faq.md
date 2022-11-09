@@ -50,7 +50,7 @@ and the defaults will be used instead.
 There are two ways to fix this:
 
 1. [Update Anki](setupanki.md#updating-anki) to a higher version.
-1. Compile the card with [hard-coded defaults](modding.md#custom-runtime-options).
+1. Compile the card with [hard-coded defaults](moddingtips.md#custom-runtime-options).
 
 ??? info "Why this happens *(click here)*"
 
@@ -64,7 +64,7 @@ There are two ways to fix this:
     For example, a simple `await import(...)` should work.
     However, asynchronous features have been avoided throughout the development of this,
     as it currently seems to
-    [behave unpredictably](https://aquafina-water-bottle.github.io/jp-mining-note/modding/#avoid-asynchronous-javascript-features-in-anki)
+    [behave unpredictably](moddingtips.md#avoid-asynchronous-javascript-features-in-anki)
     within Anki.
 
 
@@ -176,10 +176,18 @@ so the bug is here to stay until a better solution is found.
 
 
 ## How do I use this note type as an Anime Card?
+An anime card is a vocab card with a picture and native audio, which
+is the default setup for this card.
+
+If you want to add hints that aren't collapsed by default,
+use the `HintNotHidden` field.
+
+<!--
 [Anime Cards](https://animecards.site/ankicards/#anime-cardsword-context-cards){:target="_blank"}
 are simply regular vocab cards with a non-collapsable hint field.
 To use this as an Anime Card, follow the steps to make a vocab card ([here](cardtypes#vocab-card)),
 and use the `HintNotHidden` field for your hint.
+-->
 
 ---
 
@@ -356,7 +364,7 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
 # Discord Contact Info { .text-yellow }
 Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
 
-Servers: [TheMoeWay](https://learnjapanese.moe/join/) and Refold (JP) server.
+Servers: [TheMoeWay]({{THEMOEWAY_LINK}}) and Refold (JP) server.
 
 
 

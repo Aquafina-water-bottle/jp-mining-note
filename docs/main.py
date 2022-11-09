@@ -361,6 +361,12 @@ def define_env(env):
         "CTO_FILE": '[compile-time options](compiletimeoptions.md){:target="_blank"}',
         "CTOs": '[compile-time options](compiletimeoptions.md){:target="_blank"}',
         "CTO": '[compile-time option](compiletimeoptions.md){:target="_blank"}',
+
+        "TMW_SERVER": '[TMW server](https://learnjapanese.moe/join/)',
+        "THEMOEWAY_LINK": 'https://learnjapanese.moe/join/',
+
+        "PERDITION_SERVER": "[Perdition's server](https://discord.gg/uK4HeGN)",
+        "PERDITION_LINK": "https://discord.gg/uK4HeGN",
     }
 
     for k, v in data.items():

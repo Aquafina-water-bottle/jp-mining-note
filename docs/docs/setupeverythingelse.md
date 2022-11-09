@@ -116,7 +116,7 @@ extension.
         </script>
         ```
         <sup>
-        ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on [TMW server](https://learnjapanese.moe/join/). Thanks Zetta#3033 for the code.)
+        ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on {{ TMW_SERVER }}. Thanks Zetta#3033 for the code.)
         </sup>
 
     !!! note
@@ -142,7 +142,7 @@ The following are primarily for text-heavy games, such as visual novels.
     * [Lazy Guide: Playing Visual Novels on Mobile](https://rentry.co/lazyXel#play-visual-novel-anywhere-with-yomichan-and-mining)
     * [Playing Emulated DS, 3DS, PSP and Gameboy Advanced games on Android devices](https://docs.google.com/document/d/1iUfG_omRDaC3huup_XuAg1ztt2VSkezI2kL-O-Pf3-4/edit?usp=sharing)
         * Contact info: `OrangeLightX#2907` <!-- 1011824983351250965 -->
-            on the Refold (JP) Discord server or [TMW server](https://learnjapanese.moe/join/)
+            on the Refold (JP) Discord server or {{ TMW_SERVER }}
 
 ---
 
@@ -167,7 +167,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
             on the Refold (JP) Discord server
     * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/) (animebook)
         * Contact info: `eminent#8189` <!-- 126903585152827392 -->
-            on [Perdition's server](https://discord.gg/uK4HeGN) or [TMW server](https://learnjapanese.moe/join/))
+            on {{ PERDITION_SERVER }} or {{ TMW_SERVER }}
 
 ---
 

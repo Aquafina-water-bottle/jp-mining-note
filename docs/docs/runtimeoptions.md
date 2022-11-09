@@ -184,7 +184,7 @@ TODO flesh out below
 !!! note
     You may have noticed that most options are separated into groups within something called `modules`.
     This is an internal design choice to allow separation of code easier.
-    More information on modules can be found [here](modding.md#custom-js-modules).
+    More information on modules can be found [here](modules.md).
 
 -->
 

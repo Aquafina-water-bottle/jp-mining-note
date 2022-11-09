@@ -141,7 +141,6 @@ CONFIG = {
             "customize-open-fields",
             "word-indicators",
             "fix-ruby-positioning",
-            "context-utils",
         ],
     },
 }

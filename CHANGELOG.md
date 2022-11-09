@@ -56,6 +56,7 @@ and must use `./install.py --update`.
     - Added source on hover support (hover over the pitch accent to see where the pitch was gotten from)
 - Revamped the documentation layout quite a bit, to now include tabs in the header
 - Added the `jpmn-sentence-bolded-furigana-plain` header to yomichan templates
+- Added the `dict-group__glossary--first-line` to the templates to allow the removal of the first line with css
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
@@ -70,6 +71,8 @@ and must use `./install.py --update`.
 - Fixed a bug with item(javascript=True) when it returns a dictionary (now parses into json)
 - Added color change when highlighting over URLs
 - `kanji-hover` card cache is now cached in as an element instead of strings to improve performance
+- Changed the implementation of the tooltip builder to use `hover-tooltip__sent-div` to remove the bold for a sentence instead of a regex replace (lol)
+    - This allows custom CSS to re-bold the highlighted word in the sentence again
 
 
 ## [0.10.3.0] - 2022-10-21

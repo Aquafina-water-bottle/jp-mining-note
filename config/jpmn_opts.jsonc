@@ -127,7 +127,8 @@
       // The delay (in milliseconds) of which this module is loaded.
       //
       // NOTE: A delay with mode == 1 means that the hover function is added after that delay.
-      //     There will be no delay after hovering.
+      //     There will be no additional delay after hovering (some delay will still exist
+      //     due to querying AnkiConnect for information)
       "load-delay": 300,
 
       // Displays the pitch accent to the right of the word
@@ -141,7 +142,7 @@
       "show-same-word-reading": false,
 
       // If set to true, words are able to be clicked to browse within the Anki browser
-      "click-word-to-browse": false,
+      "click-word-to-browse": true,
 
       // all queries will have the following at the beginning:
       // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}")

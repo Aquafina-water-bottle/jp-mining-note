@@ -6,6 +6,7 @@
 {{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms|ADD_UTILITY_DICTIONARIES_HERE)$ {{~/set~}}
 {{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTIONARIES_HERE)$ {{~/set~}}
 
+
 {{~! OPTIONS ~}}
 
 {{~! valid values: "bilingual", "monolingual" ~}}

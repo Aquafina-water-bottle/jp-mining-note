@@ -78,14 +78,14 @@ for a note will have no effect on the cards.
 !!! warning
 
     Do not delete the field from the fields list!
-    See [here](modding.md#field-editing) for more details.
+    See [here](moddingtips.md#field-editing) for more details.
 
 ---
 
 # Optimized Vocab Card Example
 An example set of compile-time options to create a more optimized vocab card is shown below.
 
-??? examplecode "Vocab card compile-time options example"
+!!! examplecode "Vocab card compile-time options example"
 
     ```json
     "compile-options": {

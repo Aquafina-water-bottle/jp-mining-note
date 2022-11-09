@@ -1015,7 +1015,7 @@ ruby rt {
 }
 
 
-.hover-tooltip b {
+.hover-tooltip .hover-tooltip__word-div b {
   @include common.bold_highlight;
 }
 
@@ -1025,6 +1025,10 @@ ruby rt {
   .hover-tooltip__pitch-accent .nopron {
     color: var(--text-color--1);
   }
+}
+
+.hover-tooltip .hover-tooltip__sent-div b {
+  font-weight: normal;
 }
 
 .hover-tooltip__word-div--clickable {

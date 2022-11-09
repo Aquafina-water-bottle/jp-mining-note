@@ -87,8 +87,12 @@ nav:
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Tooltip Results (TODO): tooltipresults.md
     - Developer Documentation:
+      - Modding Overview: modding.md
       - Building: building.md
-      - Modding: modding.md
+      - Custom HTML (Overrides): overrides.md
+      - Custom JS (Modules): modules.md
+      - Custom CSS: customcss.md
+      - "Tips & Tricks": moddingtips.md
   - "FAQ & Troubleshooting": faq.md
   - JP Resources: jpresources.md
 

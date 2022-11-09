@@ -129,7 +129,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     You can change between vocab card, sentence card, vocab audio card, and sentence audio card. 
 
     <sup>
-    ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/847595626220355584), on [TMW server](https://learnjapanese.moe/join/))
+    ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/847595626220355584), on {{ TMW_SERVER }})
     </sup>
 
 
@@ -218,7 +218,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
     <sup>
-    ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/937090192546865282), on [TMW server](https://learnjapanese.moe/join/))
+    ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/937090192546865282), on {{ TMW_SERVER }})
     </sup>
 
 
@@ -243,8 +243,10 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 # Stazor's Note Type
 <sup>
-[Download](https://www.mediafire.com/file/pgs2ho8xsj3kem7/Japanese_Sentence_Mining.apkg/file)
+[Download](https://www.mediafire.com/file/evn6ilmf9jr4zm5/Japanese_Sentence_Mining.zip/file)・[Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/1039955616287965235) (on {{ TMW_SERVER }})
 </sup>
+
+* The download link contains a `readme.txt` that has instructions on how to setup the fields & basic info on the card
 
 ??? example "Example images"
     === "Front"
@@ -257,24 +259,6 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
         {{ img("", "https://cdn.discordapp.com/attachments/755067984833151136/1023266290971975752/unknown.png") }}
 
 
-??? quote "Description from the author"
-
-    Features:
-
-    - Cute Font, nsfw Blur for VN (if tags has NSFW)
-    - Has similar setup from eminent's note type 2.3 {{ link("https://cademcniven.com/projects/notetype2/") }}
-        - `wordDictionaryForm` > `Vocab`
-        - `reading` > `VocabReading`
-        - `definition` > `Glossary` (Hidden by Default) and `Glossary Monolingual`
-        - `wordAudio` > `Audio`
-    - Target field is used to highlight the same word found on the card
-    - You can remove `#main_image` styling from the css if you don't want the dotted line marker for nsfw blurring, more in depth explanation of how the scripts work {{ link("https://github.com/MarvNC/JP-Resources#sharex-hotkey-for-nsfw-cards") }}
-
-    <sup>
-    ([Original discord message](https://discord.com/channels/730440689099210786/755067984833151136/1023266287884980244), on [Perdition's server](https://discord.gg/uK4HeGN))
-    </sup>
-
----
 
 
 # MoonieBiloney's Note Types

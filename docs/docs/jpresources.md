@@ -19,7 +19,7 @@ I highly recommend checking it out!
 If you encounter any problems, have any questions, etc., feel free to contact
 me on discord `Aquafina water bottle#3026`,
 or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
-I exist on the [TheMoeWay](https://learnjapanese.moe/join/) and Refold (Japanese) servers.
+I exist on the [TheMoeWay]({{THEMOEWAY_LINK}}) and Refold (Japanese) servers.
 
 
 <!--
@@ -191,7 +191,7 @@ a working internet connection.
     Credit: Much of the code was ripped from {{ url("https://github.com/jamesnicolas/yomichan-forvo-server") }}
 
     <sup>
-    ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/943743205931900928), on [TMW server](https://learnjapanese.moe/join/))
+    ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/943743205931900928), on {{ TMW_SERVER }}
     </sup>
 
 
@@ -723,7 +723,7 @@ for stegatxins0's guide.
 
 The following scripts have the following changes:
 
-- They all with jp-mining-note by default.
+- They all work with jp-mining-note by default.
 - They have been rewritten so it can be presented in human-readable format
     right below the one-liner.
 - The one-liners can be re-compiled from the source code at your own discretion

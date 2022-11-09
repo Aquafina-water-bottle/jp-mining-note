@@ -244,7 +244,7 @@ To fix this, there are a few cases to go through.
     Unfortunately, there is no way to ignore removed or renamed fields.
     If you removed a field, please re-add the field.
     Likewise, if you renamed a field, please rename it back to the original name.
-    See [here](modding.md#field-list-editing){:target="_blank"} for more info on why they cannot be ignored.
+    See [here](moddingtips.md#field-list-editing){:target="_blank"} for more info on why they cannot be ignored.
 
 
 
