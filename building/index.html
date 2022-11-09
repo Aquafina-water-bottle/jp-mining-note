@@ -747,6 +747,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -855,8 +869,50 @@
   
   
     <li class="md-nav__item">
-      <a href="../modding/" class="md-nav__link">
-        Modding
+      <a href="../overrides/" class="md-nav__link">
+        Custom HTML (Overrides)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        Custom JS (Modules)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customcss/" class="md-nav__link">
+        Custom CSS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../moddingtips/" class="md-nav__link">
+        Tips & Tricks
       </a>
     </li>
   
@@ -1050,6 +1106,7 @@ More info about this is shown later.</p>
 Notes for other operating systems may be shown, but are not guaranteed.</p>
 <p>It is also assumed that you have knowledge of basic command line.</p>
 </div>
+<hr />
 <h2 id="building">Building<a class="headerlink" href="#building" title="Permanent link">&para;</a></h2>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1065,6 +1122,7 @@ Notes for other operating systems may be shown, but are not guaranteed.</p>
 <li>Anki 2.1.49 or higher (2.1.54+ is highly recommended)</li>
 <li>Anki-Connect addon</li>
 </ul>
+<p><br></p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
 <p>The following creates a custom python environment with <code>venv</code>,
 so that packages aren't installed into your global python environment.</p>
@@ -1132,6 +1190,7 @@ pip3 install neovim anki aqt
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>git checkout master
 </code></pre></div></p>
 </div>
+<p><br></p>
 <h3 id="building-and-installing">Building and Installing<a class="headerlink" href="#building-and-installing" title="Permanent link">&para;</a></h3>
 <p>After setting up the <code>venv</code>, you are ready to build and install the note.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span> tools
@@ -1161,10 +1220,12 @@ For example:</p>
 </code></pre></div>
 </div>
 <p>Additional things you can do with the project are shown below.</p>
+<p><br></p>
 <h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span> tools
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>python3 -m pytest ./tests
 </code></pre></div>
+<p><br></p>
 <h3 id="building-the-documentation">Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permanent link">&para;</a></h3>
 <p>To "build" the documentation, all you have to do is the following:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span> docs
@@ -1185,6 +1246,7 @@ The important markdown files are found under:
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        L ...
 <a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>     L mkdocs.yml
 </code></pre></div></p>
+<hr />
 <h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
 <p>(TODO) Fill this out as people start working with this note</p>
 
@@ -1193,7 +1255,7 @@ The important markdown files are found under:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 1, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2022</span>
       
     
   </small>
@@ -1228,9 +1290,9 @@ The important markdown files are found under:
       
         
         <a
-          href="../tooltipresults/"
+          href="../modding/"
           class="md-footer__link md-footer__link--prev"
-          aria-label="Previous: Tooltip Results (TODO)"
+          aria-label="Previous: Modding Overview"
           rel="prev"
         >
           <div class="md-footer__button md-icon">
@@ -1241,7 +1303,7 @@ The important markdown files are found under:
               <span class="md-footer__direction">
                 Previous
               </span>
-              Tooltip Results (TODO)
+              Modding Overview
             </div>
           </div>
         </a>
@@ -1251,9 +1313,9 @@ The important markdown files are found under:
       
         
         <a
-          href="../modding/"
+          href="../overrides/"
           class="md-footer__link md-footer__link--next"
-          aria-label="Next: Modding"
+          aria-label="Next: Custom HTML (Overrides)"
           rel="next"
         >
           <div class="md-footer__title">
@@ -1261,7 +1323,7 @@ The important markdown files are found under:
               <span class="md-footer__direction">
                 Next
               </span>
-              Modding
+              Custom HTML (Overrides)
             </div>
           </div>
           <div class="md-footer__button md-icon">

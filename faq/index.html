@@ -747,6 +747,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../building/" class="md-nav__link">
         Building
       </a>
@@ -761,8 +775,50 @@
   
   
     <li class="md-nav__item">
-      <a href="../modding/" class="md-nav__link">
-        Modding
+      <a href="../overrides/" class="md-nav__link">
+        Custom HTML (Overrides)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        Custom JS (Modules)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customcss/" class="md-nav__link">
+        Custom CSS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../moddingtips/" class="md-nav__link">
+        Tips & Tricks
       </a>
     </li>
   
@@ -1288,7 +1344,7 @@ and the defaults will be used instead.</p>
 <p>There are two ways to fix this:</p>
 <ol>
 <li><a href="../setupanki/#updating-anki">Update Anki</a> to a higher version.</li>
-<li>Compile the card with <a href="../modding/#custom-runtime-options">hard-coded defaults</a>.</li>
+<li>Compile the card with <a href="../moddingtips/#custom-runtime-options">hard-coded defaults</a>.</li>
 </ol>
 <details class="info">
 <summary>Why this happens <em>(click here)</em></summary>
@@ -1301,7 +1357,7 @@ or some other asynchronous features.
 For example, a simple <code>await import(...)</code> should work.
 However, asynchronous features have been avoided throughout the development of this,
 as it currently seems to
-<a href="https://aquafina-water-bottle.github.io/jp-mining-note/modding/#avoid-asynchronous-javascript-features-in-anki">behave unpredictably</a>
+<a href="../moddingtips/#avoid-asynchronous-javascript-features-in-anki">behave unpredictably</a>
 within Anki.</p>
 </details>
 <hr />
@@ -1381,10 +1437,17 @@ so the bug is here to stay until a better solution is found.
 <h2 class="text-yellow" id="card-editing">Card Editing<a class="headerlink" href="#card-editing" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="how-do-i-use-this-note-type-as-an-anime-card">How do I use this note type as an Anime Card?<a class="headerlink" href="#how-do-i-use-this-note-type-as-an-anime-card" title="Permanent link">&para;</a></h3>
-<p><a href="https://animecards.site/ankicards/#anime-cardsword-context-cards" target="_blank">Anime Cards</a>
+<p>An anime card is a vocab card with a picture and native audio, which
+is the default setup for this card.</p>
+<p>If you want to add hints that aren't collapsed by default,
+use the <code>HintNotHidden</code> field.</p>
+<!--
+[Anime Cards](https://animecards.site/ankicards/#anime-cardsword-context-cards){:target="_blank"}
 are simply regular vocab cards with a non-collapsable hint field.
-To use this as an Anime Card, follow the steps to make a vocab card (<a href="cardtypes#vocab-card">here</a>),
-and use the <code>HintNotHidden</code> field for your hint.</p>
+To use this as an Anime Card, follow the steps to make a vocab card ([here](cardtypes#vocab-card)),
+and use the `HintNotHidden` field for your hint.
+-->
+
 <hr />
 <h3 id="how-do-i-change-the-default-value-of-a-binary-field">How do I change the default value of a binary field?<a class="headerlink" href="#how-do-i-change-the-default-value-of-a-binary-field" title="Permanent link">&para;</a></h3>
 <p>In Yomichan Format, you can simply toggle the field.
@@ -1509,7 +1572,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 8, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2022</span>
       
     
   </small>
@@ -1548,9 +1611,9 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
       
         
         <a
-          href="../modding/"
+          href="../moddingtips/"
           class="md-footer__link md-footer__link--prev"
-          aria-label="Previous: Modding"
+          aria-label="Previous: Tips &amp; Tricks"
           rel="prev"
         >
           <div class="md-footer__button md-icon">
@@ -1561,7 +1624,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
               <span class="md-footer__direction">
                 Previous
               </span>
-              Modding
+              Tips & Tricks
             </div>
           </div>
         </a>

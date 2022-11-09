@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/runtimeoptions/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/modules/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
     
     
       
-        <title>Runtime Options - jp-mining-note</title>
+        <title>Custom JS (Modules) - jp-mining-note</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#accessing-editing" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Runtime Options
+              Custom JS (Modules)
             
           </span>
         </div>
@@ -647,75 +647,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Runtime Options
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#accessing-editing" class="md-nav__link">
-    Accessing &amp; Editing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#special-option-values" class="md-nav__link">
-    Special Option Values
-  </a>
-  
-    <nav class="md-nav" aria-label="Special Option Values">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pc-mobile-type" class="md-nav__link">
-    pc-mobile Type
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    Troubleshooting
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -781,14 +717,16 @@
               
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" checked>
       
       
       
@@ -851,11 +789,90 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../modules/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Custom JS (Modules)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Custom JS (Modules)
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-hello-world" class="md-nav__link">
+    Example (Hello World)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-disabling-modules" class="md-nav__link">
+    Enabling &amp; Disabling Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modding-existing-modules" class="md-nav__link">
+    Modding Existing Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-more-modules" class="md-nav__link">
+    Creating More Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-not-just-separate-the-code-with-files" class="md-nav__link">
+    Why not just separate the code with files?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -957,35 +974,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#accessing-editing" class="md-nav__link">
-    Accessing &amp; Editing
+  <a href="#overview" class="md-nav__link">
+    Overview
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#special-option-values" class="md-nav__link">
-    Special Option Values
+  <a href="#example-hello-world" class="md-nav__link">
+    Example (Hello World)
   </a>
-  
-    <nav class="md-nav" aria-label="Special Option Values">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pc-mobile-type" class="md-nav__link">
-    pc-mobile Type
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    Troubleshooting
+  <a href="#quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-disabling-modules" class="md-nav__link">
+    Enabling &amp; Disabling Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modding-existing-modules" class="md-nav__link">
+    Modding Existing Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-more-modules" class="md-nav__link">
+    Creating More Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-not-just-separate-the-code-with-files" class="md-nav__link">
+    Why not just separate the code with files?
   </a>
   
 </li>
@@ -1008,7 +1040,7 @@
   
   
   <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/runtimeoptions.md"
+    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/modules.md"
     title="View source of this page"
     class="md-content__button md-icon"
   >
@@ -1016,174 +1048,211 @@
   </a>
 
 
-  <h1>Runtime Options</h1>
+  <h1>Custom JS (Modules)</h1>
 
-<p>Runtime options are card options that are applied globally to all JPMN cards.
-This differs from binary fields,
-as binary options are options that only affects the one note.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Modules (not to be confused with regular
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">javascript modules</a>)
+is a hybrid template/javascript system that allows code separation
+at the file level, but allows the javascript to be compiled into each template,
+rather than separate files.</p>
+<p>The biggest advantage of this over a monolithic system is that individual modules
+can be enabled, disabled, created, and modified at ease,
+all without editing the source files.</p>
 <hr />
-<h2 id="accessing-editing">Accessing &amp; Editing<a class="headerlink" href="#accessing-editing" title="Permanent link">&para;</a></h2>
-<p>To access the runtime options, navigate to your profile's
-<a href="../faq/#where-is-the-x-folder-in-anki" target="_blank">media folder</a>,
-and open the <code>_jpmn-options.js</code> file as a text file.</p>
-<p>The contents of the file should look something like the following:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">var</span><span class="w"> </span><span class="nx">JPMNOpts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">my</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nx">my</span><span class="p">.</span><span class="nx">settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// ... (a bunch of settings)</span><span class="w"></span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">my</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}(</span><span class="nx">JPMNOpts</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}));</span><span class="w"></span>
-</code></pre></div></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To open the file as a text file on Windows, right click the file and select <code>Edit</code>.
-Do not double-click the file.</p>
-</div>
-<p>TODO add demo for windows to opening the file &amp; editing</p>
-<hr />
-<h2 id="special-option-values">Special Option Values<a class="headerlink" href="#special-option-values" title="Permanent link">&para;</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
-</div>
-<p>All runtime options can take special values, which are always formatted as the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IDENTIFIER_STRING&quot;</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="c1">// other options ...</span><span class="w"></span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">},</span><span class="w"></span>
-</code></pre></div>
-<p>Currently, the only type that exists is <code>pc-mobile</code>.</p>
-<p><br></p>
-<h3 id="pc-mobile-type"><code>pc-mobile</code> Type<a class="headerlink" href="#pc-mobile-type" title="Permanent link">&para;</a></h3>
-<p>The <code>pc-mobile</code> type allows you to specify different values depending if
-you are using Anki on a mobile device, or PC (non-mobile).</p>
-<p>This is formatted as the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pc-mobile&quot;</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_FOR_PC</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_FOR_MOBILE</span><span class="w"></span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">},</span><span class="w"></span>
-</code></pre></div>
-<details class="examplecode">
-<summary>Example (TODO) <em>(click here)</em></summary>
-<p>Take a sample key-value pair:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-</code></pre></div></p>
-<p>The value can be changed to be <code>true</code> for PC, and <code>false</code> for mobile.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pc-mobile&quot;</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">},</span><span class="w"></span>
-</code></pre></div>
-</details>
-<hr />
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p>TODO record specific errors</p>
-<p>If you have any error, or an option is simply not working, please check the following:</p>
+<h2 id="example-hello-world">Example (Hello World)<a class="headerlink" href="#example-hello-world" title="Permanent link">&para;</a></h2>
+<p>The following will enable a the hello world module,
+which prints a "Hello world!" at the front of any card
+(as a warning on the <a href="../ui/#info-circle">info circle</a>).</p>
 <ol>
 <li>
-<p>There are commas and double-quotes in the <a href="https://www.json.org/json-en.html">correct places</a>.</p>
-<details class="examplecode">
-<summary>Example <em>(click here)</em></summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;add-image-if-contains-tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sample_tag&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_sample_image.png&quot;</span><span class="w"></span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;something&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;something2&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_contains_both_tags.png&quot;</span><span class="w"></span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1">// ...</span><span class="w"></span>
+<p>Under <code>config/config.py</code>, add <code>"example"</code> to <code>enabled-modules</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;compile-options&quot;: {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    &quot;allow-user-defined-modules&quot;: True,
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    &quot;enabled-modules&quot;: [
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        ...
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        &quot;customize-open-fields&quot;,  # Make sure a comma is here!
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        &quot;example&quot;
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    ]
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>},
 </code></pre></div>
-</details>
 </li>
 <li>
-<p>If a runtime option is not working,
-    ensure that the
-    <a href="../updating/#updating-the-runtime-options-file">runtime options file is updated</a>.
-    The option may have been renamed or repositioned.</p>
+<p>Under <code>config/jpmn_opts.jsonc</code> (or more preferably, your own options file specified
+    under <code>opts-path</code> in <code>config.py</code>),
+    add the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;modules&quot;: {
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &quot;customize-open-fields&quot;: {
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    ...
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  },  // Make sure there is a comma here!
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  &quot;example&quot;: {
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    &quot;enabled&quot;: true
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  }
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>}
+</code></pre></div>
 </li>
 <li>
-<p>If an error is saying that an option doesn't exist, just like for the above, ensure
-    that the <a href="../updating/#updating-the-runtime-options-file">runtime options file is updated</a>.</p>
-<!--
-If you are getting this error while compiling, also ensure that the
-<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/config/example_config.py">compile-time options file is updated</a>.
--->
+<p>Rebuild the note, and preview any card.
+    The front side of any card should have a "Hello world!" warning,
+    while the back side should remain normal.</p>
 </li>
 </ol>
-<!--
-# Notation
-TODO
-
-- arrow indicates `{}` or `[]`
-- option paths should ALWAYS be found in the example config file TODO link
-- if you can't find the option in your file, ensure your options file is updated with the example config file
-
-
-example:
-
-> `modules` →  `img-utils` →  `add-image-if-contains-tags`
-
-is placed under:
-
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>{
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;modules&quot;: [
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    &quot;img-utils&quot;: {
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>      &quot;add-image-if-contains-tags&quot;: ...
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    }
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  ]
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>}
+<hr />
+<h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
+<p>If you want to get to inserting your own javascript
+as soon as possible, do the following:</p>
+<ol>
+<li>Follow the steps of the example above, and make sure the example module is working.</li>
+<li>
+<p>Copy the <code>example</code> module into <code>overrides/modules</code>.</p>
+<p>This should result in the following file structure:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>overrides
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a> L modules
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    L example
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>       L main.html
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>       L main.js
+</code></pre></div></p>
+</li>
+</ol>
+<p>From here, all you have to do is edit the <code>main.js</code> and <code>main.html</code> to your liking.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>js</code> module is of type <code>JavascriptContainer</code>, which is defined under
+<code>tools/make.py</code>.
+This interface allows you to define javascript within certain parts of a card,
+and restrict it to a certain subset of templates (sides and card types).
+Please see <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/tools/make.py">the aformentioned file</a>
+to view the existing interface.
+Likewise, see the <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/src/jp-mining-note/base.js">base javascript file</a>
+(<code>src/jp-mining-note/base.js</code>)
+to view how the interface is used.</p>
+</div>
+<p>If you want more detailed explanations on what has been happening up
+until this point, continue reading below.</p>
+<hr />
+<h2 id="enabling-disabling-modules">Enabling &amp; Disabling Modules<a class="headerlink" href="#enabling-disabling-modules" title="Permanent link">&para;</a></h2>
+<p>Modules can be easily enabled and disabled
+by modifying the <code>enabled-modules</code> option under <code>config/config.py</code>.
+Comment out any existing module, or add any modules you want to the list.</p>
+<p>Additionally, if you are using modules outside the default modules that come
+enabled with the note (including the <code>example</code> module),
+the <code>allow-user-defined-modules</code> option should be set to <code>True</code>.</p>
+<hr />
+<h2 id="modding-existing-modules">Modding Existing Modules<a class="headerlink" href="#modding-existing-modules" title="Permanent link">&para;</a></h2>
+<p>Modules can be defined in the same style as the
+<a href="../overrides/">template overrides</a> above.
+This means that if you want to edit a module, you can simply
+override the module files themselves by copying the module folder into
+<code>overrides/modules</code> folder.</p>
+<p>For example, if you want to override the <code>auto-pitch-accent</code> module,
+copy the <code>auto-pitch-accent</code> folder into <code>overrides/module/auto-pitch-accent</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the quickstart, we did exactly this with the <code>example</code> module.
+Since the example module is completely overwritten by the user,
+the previous example module code is completely ignored.</p>
+</div>
+<hr />
+<h2 id="creating-more-modules">Creating More Modules<a class="headerlink" href="#creating-more-modules" title="Permanent link">&para;</a></h2>
+<p>The easiest way to create a new module is by copying the <code>example</code> folder,
+and renaming it to something different.
+This folder should be placed under <code>overrides/modules</code> under most cases.
+However, if you are looking to contribute to the project,
+place this under <code>src/modules</code> instead.</p>
+<p>Certain parts of the code should be renamed as well to avoid conflicts with the existing
+<code>example</code> module, including the <code>MOD.id</code>, import path, <code>JPMNLogger</code> constructor,
+and runtime option call (<code>utils.opt</code>).</p>
+<p>Of course, make sure all the renames are consistent.
+For example, all of the following should be the same:</p>
+<ul>
+<li><code>MOD.id</code></li>
+<li>module folder name</li>
+<li><code>JPMNLogger</code> constructor argument</li>
+</ul>
+<p>Afterwards, make sure to add the module id to <code>enabled-modules</code>, and
+ensure that <code>allow-user-defined-modules</code> is set to <code>True</code>.</p>
+<p>If everything is done correctly,
+the note should include your custom module after the next build!</p>
+<hr />
+<h2 id="why-not-just-separate-the-code-with-files">Why not just separate the code with files?<a class="headerlink" href="#why-not-just-separate-the-code-with-files" title="Permanent link">&para;</a></h2>
+<p><strong>Short answer</strong>: <br>
+In an attempt to keep the card as stable as possible between versions.</p>
+<p><strong>Long answer</strong>: <br>
+Anki specifically states this in its
+<a href="https://docs.ankiweb.net/templates/styling.html?highlight=javascript#javascript">official documentation</a>:</p>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>Javascript functionality is provided without any support or warranty.</p>
+</div>
+<p>Many javascript-related things seem to behave strangely in Anki, which prevents the ability
+to separate files easily.
+Here have been the solutions I have tried before moving to this approach:</p>
+<details class="example">
+<summary>Link an external script with the <code>&lt;script&gt;</code> tag</summary>
+<p>There are two main problems with this approach:</p>
+<ol>
+<li>
+<p>On older Anki versions (2.1.49 and below), all <code>&lt;script&gt;</code> tags loads asynchronously
+    compared to each other.</p>
+<p>This means if any file must be ran before a file is loaded, then the script would fail.</p>
+<p>On versions 2.1.50 and above, it appears that Anki loads <code>&lt;script&gt;</code> tags synchronously.
+However, there is no guarantee that this will be the case for the future.</p>
+</li>
+<li>
+<p>Certain javascript in the main template has to be ran before loading in any file.</p>
+<p>This requirement exists for this note type due to the runtime-options file exists.
+The global <code>JPMNOpts</code> has to exist for any external files that uses runtime options to work.</p>
+<p>This can be fixed by importing the options separately for each file, but that naturally
+leads us to the examples shown in the following section.</p>
+</li>
+</ol>
+</details>
+<details class="example">
+<summary>Regular imports within Javascript</summary>
+<p>All other examples of importing without a separate <code>&lt;script src="..."&gt;</code>
+requires asynchronous javascript features, which should be
+<a href="../moddingtips/#avoid-asynchronous-javascript-features-in-anki">avoided</a>
+as much as possible.</p>
+<p>Examples:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="c1">// https://forums.ankiweb.net/t/linking-to-external-javascript/1713</span><span class="w"></span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">injectScript</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// a Promise is an asynchronous feature!</span><span class="w"></span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">src</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="k">async</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">resolve</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">      </span><span class="nx">script</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reject</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="p">});</span><span class="w"></span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span><span class="c1">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import</span><span class="w"></span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="c1">// this import function is an asynchronous function!</span><span class="w"></span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">  </span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s2">&quot;/modules/my-module.js&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">  </span><span class="p">})();</span><span class="w"></span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="cm">&lt;!-- type=&quot;module&quot; forces this entire script to run asynchronously! --&gt;</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">  </span><span class="c1">// for the `import` statement to work, the script must be of type=&quot;module&quot;</span><span class="w"></span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">  </span><span class="c1">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import</span><span class="w"></span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">  </span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">export1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;module-name&quot;</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </code></pre></div>
--->
-
-<!--
-Compile time options will be differentiated by using a `(C)` at the front.
-
-TODO only use this notation if necessary...
-
-> (C) `modules` →  `img-utils` →  `add-image-if-contains-tags`
--->
-
-<!--
-# Options
-
-I highly recommend going through this file and selecting the options that best fits your workflow.
-As each setting is already documented in the file,
-**the settings will not be documented here**.
-Instead, a small number of hand selected settings will be showcased below,
-to give you a taste of what is available.
-
-TODO flesh out below
-
-
-!!! note
-    You may have noticed that most options are separated into groups within something called `modules`.
-    This is an internal design choice to allow separation of code easier.
-    More information on modules can be found [here](modules.md).
-
--->
-
-<!--
-## Modules
-Many javascript heavy code are separated into modules by default.
-These can be enabled and disabled at the user's will if the user
-wants to sacrifice functionality for a slightly faster card.
-
-Some examples include:
-
-- kanji-hover
-- [auto-pitch-accent](autopa.md)
-- sent-utils (basic sentence processing)
-- img-utils (basic image processing)
-
-These modules likely also also have their own collection of settings
-to modify the behavior of said module.
--->
+</details>
+<p>In conclusion, this is a design decision made after lots of trial and error when attempting
+to work with Anki's Javascript parser.</p>
+<p>I believe this is the best way to ensure that the note stays resilient across Anki updates,
+as the javascript itself has very few hacks to get it to behave well.</p>
 
   <hr>
 <div class="md-source-file">
@@ -1225,9 +1294,9 @@ to modify the behavior of said module.
       
         
         <a
-          href="../autopa/"
+          href="../overrides/"
           class="md-footer__link md-footer__link--prev"
-          aria-label="Previous: Pitch Accent (TODO)"
+          aria-label="Previous: Custom HTML (Overrides)"
           rel="prev"
         >
           <div class="md-footer__button md-icon">
@@ -1238,7 +1307,7 @@ to modify the behavior of said module.
               <span class="md-footer__direction">
                 Previous
               </span>
-              Pitch Accent (TODO)
+              Custom HTML (Overrides)
             </div>
           </div>
         </a>
@@ -1248,9 +1317,9 @@ to modify the behavior of said module.
       
         
         <a
-          href="../compiletimeoptions/"
+          href="../customcss/"
           class="md-footer__link md-footer__link--next"
-          aria-label="Next: Compile-Time Options"
+          aria-label="Next: Custom CSS"
           rel="next"
         >
           <div class="md-footer__title">
@@ -1258,7 +1327,7 @@ to modify the behavior of said module.
               <span class="md-footer__direction">
                 Next
               </span>
-              Compile-Time Options
+              Custom CSS
             </div>
           </div>
           <div class="md-footer__button md-icon">
