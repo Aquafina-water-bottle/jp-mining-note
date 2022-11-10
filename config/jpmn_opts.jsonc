@@ -80,7 +80,8 @@
       },
 
       // removes the 「。」 character if it is the last character of the sentence
-      "remove-final-period": false,
+      "remove-final-period": true,
+      "remove-final-period-on-altdisplay": false,
 
       // colors the quotes instead of showing a pitch accent indicator
       // if this is enabled
@@ -185,11 +186,10 @@
         // `display-entire-dictionary` is set to true (and can then show a list of pitch accents)
         "default-connector": "・",
 
-        // TODO
         // Given that `display-entire-dictionary` is true and multiple results are shown,
         // this determines whether the first pitch is set to the "main position".
         // The main position determines the color of the pitch accent, if `colored-pitch-accent` is enabled.
-        "set-first-pitch-as-main": false
+        "set-first-pitch-as-main": true
       },
 
       // various options for the formatting of the `PAOverride` field
@@ -202,7 +202,6 @@
         // shows a warning when PAOverride has an incorrect format
         "warn-on-invalid-format": true,
 
-        // TODO
         // If PAOverride is using the text format + there are multiple entries,
         // whether the first entry is set as the main pitch or not.
         // The main position determines the color of the pitch accent, if `colored-pitch-accent` is enabled.

@@ -44,9 +44,11 @@ and must use `./install.py --update`.
     - Added:
         - `modules.img-utils.add-image-if-contains-tags`
         - `modules.sent-utils.remove-final-period`
+        - `modules.sent-utils.remove-final-period-on-altdisplay`
         - `modules.customize-open-fields.open-on-new-enabled`
         - `info-circle-togglable-lock-show-popup`
         - `info-circle-hoverable`
+        - `enable-ankiconnect-features`
 - Changed error messages to be displayed in standard monospace font, for better readability
 - Added `img-utils-minimal` as a counterpart to `img-utils` for people who want a lighter card
 - Added compile-options to allow external links to be in the `PrimaryDefinition` field

@@ -28,7 +28,7 @@ const JPMNCheckDuplicateKey = (() => {
         return;
       }
 
-      const keyText = key.replace('"', '\\"');
+      const keyText = key.replace(/"/g, '\\"');
       const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
       const noteName = '{{ NOTE_FILES("model-name").item() }}';
 
@@ -66,7 +66,11 @@ const JPMNCheckDuplicateKey = (() => {
 if ({{ utils.opt("modules", "check-duplicate-key", "enabled") }}
     && {{ utils.opt("enable-ankiconnect-features") }}) {
   let checkDupeKey = new JPMNCheckDuplicateKey();
-  checkDupeKey.run();
+  let delay = 1000;
+
+  setTimeout(() => {
+    checkDupeKey.run();
+  }, delay);
 }
 
 /// {% endset %}

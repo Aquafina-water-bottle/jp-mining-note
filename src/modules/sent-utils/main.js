@@ -38,7 +38,8 @@ const JPMNSentUtils = (() => {
     }
 
     // removes the final period if exists
-    if ({{ utils.opt("modules", "sent-utils", "remove-final-period") }}) {
+    if (({{ utils.opt("modules", "sent-utils", "remove-final-period") }} && !isAltDisplay)
+      || ({{ utils.opt("modules", "sent-utils", "remove-final-period-on-altdisplay") }} && isAltDisplay)) {
       result = result.replace(/[｡。．\.]$/, "");
     }
 

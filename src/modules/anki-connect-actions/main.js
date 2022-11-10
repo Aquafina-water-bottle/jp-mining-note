@@ -242,8 +242,8 @@ const JPMNAnkiConnectActions = (() => {
 
       let cachable = true;
 
-      let keyText = key.replace('"', '\\"');
-      let sentenceSearch = sentence.replace('"', '\\"');
+      let keyText = key.replace(/"/g, '\\"');
+      let sentenceSearch = sentence.replace(/"/g, '\\"');
 
       // query with sentence and key
       let query = `"Key:${keyText}" "Sentence:${sentenceSearch}" "card:${cardTypeName}" "note:${noteName}"`;

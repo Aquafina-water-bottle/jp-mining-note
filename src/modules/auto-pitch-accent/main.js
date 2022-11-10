@@ -218,7 +218,12 @@ const JPMNAutoPA = (() => {
         result.push(posData);
       }
 
-      if (!foundBold && result.length > 0) {
+      // bolds first entry if if:
+      // - bold not found
+      // - only one entry found
+      // - if two entries found and option allows it
+      const setFirstPitchMain = {{ utils.opt("modules", "auto-pitch-accent", "pa-positions", "set-first-pitch-as-main") }};
+      if (!foundBold && ((result.length > 1 && setFirstPitchMain) || (result.length === 1))) {
         result[0].mainPos = true;
       }
 
@@ -579,6 +584,8 @@ const JPMNAutoPA = (() => {
         let strList = searchText.split(separatorsRegex);
         let foundSeparators = searchText.match(separatorsRegex);
 
+        const setFirstPitchMain = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "text-format-set-first-pitch-as-main") }};
+
         for (const [i, word] of strList.entries()) {
           // moras here are only used for calculating the position of the downstep
           let moras = this.jpUtils.getMorae(word);
@@ -632,6 +639,10 @@ const JPMNAutoPA = (() => {
           posData.readingMora = displayMoras;
           if (foundSeparators !== null && i < foundSeparators.length) {
             posData.separator = foundSeparators[i];
+          }
+
+          if (result.length === 0 && setFirstPitchMain) {
+            posData.mainPos = true;
           }
 
           result.push(posData);
