@@ -141,6 +141,7 @@ CONFIG = {
             "customize-open-fields",
             "word-indicators",
             "fix-ruby-positioning",
+            "check-duplicate-key",
         ],
     },
 }

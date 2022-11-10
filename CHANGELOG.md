@@ -37,7 +37,6 @@ and must use `./install.py --update`.
         - Enabled for both `kanji-hover` and `same-word-indicator` by default
         - Requires you to hover over the word/sentence for kanji-hover by default
     - Added logic to overflow between categories (e.g. 6 new & 0 old will now show 6 new instead of 2 new)
-    - Added option to ignore the same word reading as the current word
     - Added ability to click on words in a tooltip to view it within Anki
 - Runtime options:
     - Added way to specify different values for mobile and PC
@@ -85,13 +84,14 @@ and must use `./install.py --update`.
       for instructions on how to update Anki Card Format.
 - The batch function `fill_word_reading_hiragana_field` is not ran by default
     because it requires `jaconv` to work. If you want to fill the
-    WordReadingHiragana field for all cards, please do the following:
+    WordReadingHiragana field for all cards (to make the new `word-indicators` module work),
+    please do the following:
     ```
     $ pip3 install jaconv
     $ cd tools
     $ python3 batch.py -f fill_word_reading_hiragana_field
     ```
-- If you are using the image-blur function, the option name was changed
+- If you are using the nsfw-toggle function, the option name was changed
   from `nsfw-toggle` to `image-blur`. Please change it in your runtime options
   to continue using it.
   [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)

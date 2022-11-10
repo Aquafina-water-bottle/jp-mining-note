@@ -81,13 +81,14 @@ NOTE_CHANGES = [
             action.NoteToUser(
                 description="The batch function `fill_word_reading_hiragana_field` is not ran by default\n"
                 "because it requires `jaconv` to work. If you want to fill the\n"
-                "WordReadingHiragana field for all cards, please do the following:\n"
+                "WordReadingHiragana field for all cards (to make the new `word-indicators` module work),\n"
+                "please do the following:\n"
                 "$ pip3 install jaconv\n"
                 "$ cd tools\n"
                 "$ python3 batch.py -f fill_word_reading_hiragana_field"
             ),
             action.NoteToUser(
-                description="If you are using the image-blur function, the option name was changed\n"
+                description="If you are using the nsfw-toggle function, the option name was changed\n"
                 "from `nsfw-toggle` to `image-blur`. Please change it in your runtime options\n"
                 "to continue using it.\n"
                 "See: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
