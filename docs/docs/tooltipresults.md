@@ -38,6 +38,11 @@ The exact numbers shown in each category can be changed in the
 ```
 
 
+TODO: add this to each query to hide results from cards that are due today
+```
+-(prop:due=0 -rated:1)
+```
+
 
 # Results Sorting
 The above makes the assumption that you are reviewing in order of creation date,

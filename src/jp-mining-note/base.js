@@ -75,6 +75,8 @@ function popupMenuMessage(message, isHTML=false) {
 // because functions persist and cannot be easily removed within anki,
 // whereas .onkeyup = ... replaces the previous function with the current.
 document.onkeyup = (e => {
+  LOGGER.debug(`KeyboardEvent: code=${e.code}`, 0);
+
   let keys = null;
   let ele = null;
 
@@ -95,25 +97,10 @@ document.onkeyup = (e => {
 {% endif %}
 {% endfor %}
 
-
-  if (e.getModifierState && e.getModifierState('CapsLock')) {
-    if (e.key === "CapsLock") {
-      // either just enabled or disabled, not sure which one is which
-      // it seems like normal browsers can't reach this point during (caps lock enabled -> caps lock disabled...)
-      LOGGER.removeWarn("caps");
-    } else if (!["Meta"].includes(e.key)) {
-      LOGGER.debug(e.key);
-      LOGGER.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
-    }
-  } else {
-    LOGGER.removeWarn("caps");
-  }
-
-
   /// {% call IF("WordAudio") %}
   keys = {{ utils.opt("keybinds", "play-word-audio") }};
 
-  if (keys !== null && keys.includes(e.key)) {
+  if (keys !== null && keys.includes(e.code)) {
     ele = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
     if (ele) {
       ele.click();
@@ -123,7 +110,7 @@ document.onkeyup = (e => {
 
   /// {% call IF("SentenceAudio") %}
   keys = {{ utils.opt("keybinds", "play-sentence-audio") }};
-  if (keys !== null && keys.includes(e.key)) {
+  if (keys !== null && keys.includes(e.code)) {
 
     let hSent = document.getElementById("hybrid-sentence");
 
@@ -147,14 +134,14 @@ document.onkeyup = (e => {
 
   keys = {{ utils.opt("keybinds", "toggle-front-full-sentence-display") }};
   ele = document.getElementById("full_sentence_front_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
 
   /// {% call IF("Hint") %}
   keys = {{ utils.opt("keybinds", "toggle-hint-display") }};
   ele = document.getElementById("hint_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {% endcall %}
@@ -163,7 +150,7 @@ document.onkeyup = (e => {
   /// {% call IF("SecondaryDefinition") %}
   keys = {{ utils.opt("keybinds", "toggle-secondary-definitions-display") }};
   ele = document.getElementById("secondary_definition_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {% endcall %}
@@ -171,7 +158,7 @@ document.onkeyup = (e => {
   /// {% call IF("AdditionalNotes") %}
   keys = {{ utils.opt("keybinds", "toggle-additional-notes-display") }};
   ele = document.getElementById("additional_notes_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {% endcall %}
@@ -179,7 +166,7 @@ document.onkeyup = (e => {
   /// {% call IF("ExtraDefinitions") %}
   keys = {{ utils.opt("keybinds", "toggle-extra-definitions-display") }};
   ele = document.getElementById("extra_definitions_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {% endcall %}
@@ -187,7 +174,7 @@ document.onkeyup = (e => {
   if ('{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
     keys = {{ utils.opt("keybinds", "toggle-extra-info-display") }};
     ele = document.getElementById("extra_info_details");
-    if (keys !== null && ele && keys.includes(e.key)) {
+    if (keys !== null && ele && keys.includes(e.code)) {
       toggleDetailsTag(ele)
     }
   }

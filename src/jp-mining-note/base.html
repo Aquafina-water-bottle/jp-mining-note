@@ -22,6 +22,12 @@
 <script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
 {% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
 
+<div class="hidden">
+  <div id="hidden_key">{{ T('Key') }}</div>
+  <div id="hidden_sentence">{{ T('Sentence') }}</div>
+</div>
+
+
 
 <div class="card-description">
 {% filter indent(width=2) %}

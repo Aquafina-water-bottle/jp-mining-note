@@ -72,7 +72,8 @@ NOTE_CHANGES = [
         version=Version(0, 11, 0, 0),
         actions=[
             action.AddField("WordReadingHiragana", 30 - 1),
-            action.AddField("PrimaryDefinitionPicture", 25 - 1),
+            action.AddField("PrimaryDefinitionPicture", 7 - 1),
+            action.AddField("PAOverrideText", 5 - 1),
             action.YomichanTemplatesChange(),
             action.YomichanFormatChange(
                 "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
@@ -89,7 +90,14 @@ NOTE_CHANGES = [
                 description="If you are using the image-blur function, the option name was changed\n"
                 "from `nsfw-toggle` to `image-blur`. Please change it in your runtime options\n"
                 "to continue using it.\n"
-                "Example: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
+                "See: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
+            ),
+            action.NoteToUser(
+                description="The way keybinds are specified has been changed (to allow keys to still function\n"
+                "as expected even with CapsLock enabled.)\n"
+                "Keybinds will no longer work until you update the runtime options.\n"
+                "For example, update `n` to `KeyN`.\n"
+                "See: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
             ),
         ],
         fields=[
@@ -97,8 +105,10 @@ NOTE_CHANGES = [
             "Word",
             "WordReading",
             "PAOverride",
+            "PAOverrideText",
             "AJTWordPitch",
             "PrimaryDefinition",
+            "PrimaryDefinitionPicture",
             "Sentence",
             "SentenceReading",
             "AltDisplay",
@@ -117,7 +127,6 @@ NOTE_CHANGES = [
             "Hint",
             "HintNotHidden",
             "Picture",
-            "PrimaryDefinitionPicture",
             "WordAudio",
             "SentenceAudio",
             "PAGraphs",

@@ -37,7 +37,6 @@ or not meant to be edited.
         `Auto-filled` represents fields that should be automatically filled out from Yomichan
         and Anki add-ons.
 
-
     {{ field_quick_jump_table() | indent(4)}}
 
 ---
@@ -53,7 +52,7 @@ many ways to change this tested content.
 
 
 ## Card types
-<i><sup>Full list: [Card Types](cardtypes.md)</sup></i>
+<i><sup>Main Page: [Card Types](cardtypes.md)</sup></i>
 
 The default card type is a vocab card,
 where the tested content is simply the word.
@@ -66,7 +65,7 @@ To change the card to a sentence card, fill the `IsSentenceCard` binary field.
     {{ img("sentence card example", "assets/nisemono_sentence.png") }}
 
 
-## Changing the Displayed Content
+## AltDisplay: Changing the Displayed Content
 Vocab cards show the `Word` field and sentence cards show the `Sentence` fields by default.
 However, you can modify what is exactly shown in the front by using the `AltDisplay` field.
 
@@ -89,6 +88,9 @@ However, you can modify what is exactly shown in the front by using the `AltDisp
     </figure>
 
 
+
+### AltDisplay: Furigana
+
 One nice feature is that the `AltDisplay` has hoverable furigana text enabled by default.
 In other words, you can use furigana in the field.
 I personally use this to insert furigana for certain names, since I'm usually not
@@ -101,14 +103,26 @@ For example, the card below has the following HTML:
 
 {{ img("altdisplay with furigana", "assets/altdisplay_furigana.gif") }}
 
+<br>
 
-!!! note
-    If you are using a vocab card, you can use `AltDisplay`
+
+### AltDisplay: Final Notes
+
+* The example with adding a newline to `AltDisplay` is somewhat contrived.
+    More realistically, you would want to add the newline to the `Sentence` field.
+
+    If you are using [AJT Furigana](setupanki.md#ajt-furigana),
+    I recommend deleting the text within the `SentenceReading` field
+    before editing the `Sentence` field, so the furigana can be automatically
+    generated with the newly formatted `Sentence` field.
+
+* If you are using a vocab card, you can use `AltDisplay`
     to show something that differs from the `Word` field.
 
-!!! note
-    On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
+* On Hybrid Card types, the `AltDisplay` field only affects the sentence, and not
     the front displayed word.
+
+<br>
 
 
 
@@ -128,23 +142,39 @@ If you do not want the hint to be hidden by default, you can use the `HintNotHid
 
 
 # Modifying the Back Side
-* The `PrimaryDefinition` field contains the main content, and should be the main field to edit
-    if one wants to put down more notes about the card.
 
-* The `AdditionalNotes` field is useful if you want to put down even more notes,
-    but keep it in a collapsible field to reduce vertical space.
+The main two fields that one can add text to is
+`PrimaryDefinition` and `AdditionalNotes`.
+Bolding anything in these sections will highlight the word in a light yellow tint,
+to make the bold stand out more.
 
-    Here are some ways you can use this field:
+??? example "Example Bold *(click here)*"
+    {{ img("", "assets/nisemono_modify_back_side.png") }}
 
-    * Recording the source of the media
-    * Notes on the scene's context
-    * The text surrounding the sentence
-    * In general, any info that is not crutial to understanding the tested content
+<br>
 
-* Bolding anything in these sections will highlight the word in a light yellow tint,
-    to make the bold stand out more.
 
-{{ img("", "assets/nisemono_modify_back_side.png") }}
+## `PrimaryDefinition` field
+The `PrimaryDefinition` field contains the main content, and should be the main field to edit
+if one wants to put down more notes about the card.
+
+<br>
+
+
+## `AdditionalNotes` field
+The `AdditionalNotes` field is useful if you want to write down even more notes,
+but keep it in a collapsible field to reduce vertical space.
+
+Here are some ways you can use this field:
+
+* Recording the source where the scene came from
+* Adding custom notes on the scene's context
+* Recording the sentences surrounding the mined sentence
+
+In general, this field should be used for any info that is not crutial
+to understanding the tested content.
+
+<br>
 
 
 ## Modifying Images and Pitch Accent
@@ -153,46 +183,6 @@ they are discussed in their respective pages:
 
 * [Images](images.md)
 * [Pitch Accent](autopa.md)
-
----
-
-
-
-# Modifying Other Aspects of the Card
-
-## `Key` field
-This contains the tested word.
-In other words, this contains the exact same content as the field below,
-but this field is specifically not used in the card template.
-This is to allow the user to modify the key if duplicates arise,
-while still being able to test the word.
-
-For example, if I were to test different usages of 上,
-I can change this key value to `上 (preposition)`, `上 (grammar)`,
-etc. and add a new card.
-
-It is expected that this `Key` field is unique;
-a warning will appear on cards that have a duplicate key.
-
-## `Comment` field
-Similarly to the `Key` field, this field will not be used in any card template.
-In other words, this is a place where you can write down notes without affecting the card itself.
-
-## `Picture` field
-As an aside, you can put text in this field instead of a picture, and it should still work.
-This is useful if you forgot to add the picture, or just don't want to add the picture
-in the first place.
-
----
-
-
-# Sorting by Frequency
-
-By default, this note type comes with a `FrequencySort` field,
-which is the equivalent of Marv's `Frequency` field in
-[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
-Visit the aformentioned link (and scroll down to `Usage`)
-to see how to sort and review your cards by frequency.
 
 ---
 
@@ -301,9 +291,53 @@ TODO picture comparisons between word PA indicator in quotes / word PA with PA i
 
 
 
-# Cloze Deletion Cards
-In other words, "fill-in-the-blank cards". This allows you to create cards
-that tests word audio or sentence audio.
+
+# Other Fields
+
+## `Key` field
+This contains the tested word.
+In other words, this contains the exact same content as the field below,
+but this field is specifically not used in the card template.
+This is to allow the user to modify the key if duplicates arise,
+while still being able to test the word.
+
+For example, if I were to test different usages of 上,
+I can change this key value to `上 (preposition)`, `上 (grammar)`,
+etc. and add a new card.
+
+It is expected that this `Key` field is unique;
+a warning will appear on cards that have a duplicate key.
+
+
+<br>
+
+## `Comment` field
+Similarly to the `Key` field, this field will not be used in any card template.
+In other words, this is a place where you can write down notes without affecting the card itself.
+
+<!--
+## `Picture` field
+As an aside, you can put text in this field instead of a picture, and it should still work.
+This is useful if you forgot to add the picture, or just don't want to add the picture
+in the first place.
+-->
+
+<br>
+
+## `FrequencySort` field
+
+By default, this note type comes with a `FrequencySort` field,
+which is the equivalent of Marv's `Frequency` field in
+[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
+Visit the aformentioned link (and scroll down to `Usage`)
+to see how to sort and review your cards by frequency.
+
+
+<br>
+
+## Cloze Deletion Cards
+Cloze Deletion cards are, simply put, "fill-in-the-blank cards".
+This allows you to create cards that tests word audio or sentence audio.
 
 To create a cloze deletion card, simply fill in the `SeparateClozeDeletionCard` field.
 The words that are hidden are exactly the words that are bolded in the `Sentence` (or `AltDisplay`) field.

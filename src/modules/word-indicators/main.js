@@ -14,7 +14,7 @@ const JPMNSameReadingIndicator = (() => {
   let enabled = false;
 
   const logger = new JPMNLogger("word-indicators");
-  const key = "{{ T('Key') }}";
+  const key = document.getElementById("hidden_key").innerHTML;
 
   const indicatorNewClass = "dh-left__similar-words-indicator--new";
   const mainWordClass = "dh-left__similar-words-indicators-main-word";
@@ -23,7 +23,8 @@ const JPMNSameReadingIndicator = (() => {
   const queryWordDiv = `.dh-left__similar-words-indicators .hover-tooltip__word-div`;
 
   const cardTypeName = 'Mining Card';
-  const baseQuery = `-"Key:{{ T('Key') }}" "card:${cardTypeName}"`;
+  const noteName = '{{ NOTE_FILES("model-name").item() }}';
+  const baseQuery = `"card:${cardTypeName}" "note:${noteName}"`;
   const baseWordQuery = `"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
   const baseKanjiQuery = `"Word:{{ T('Word') }}" -"WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
   const baseReadingQuery = `-"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
@@ -42,8 +43,8 @@ const JPMNSameReadingIndicator = (() => {
 
   class IndicatorInfo {
     constructor(baseIndicatorQuery, indicatorDiv, indicatorTooltipDiv, label) {
-      this.newQuery = `(${baseQuery} ${baseIndicatorQuery}) ${newQueryPartial}`;
-      this.nonNewQuery = `(${baseQuery} ${baseIndicatorQuery}) ${nonNewQueryPartial}`;
+      this.newQuery = `(${baseQuery} ${baseIndicatorQuery}) (${newQueryPartial})`;
+      this.nonNewQuery = `(${baseQuery} ${baseIndicatorQuery}) (${nonNewQueryPartial})`;
       this.indicatorDiv = indicatorDiv;
       this.indicatorTooltipDiv = indicatorTooltipDiv;
       this.label = label;
@@ -206,8 +207,13 @@ const JPMNSameReadingIndicator = (() => {
 
     async runOnIndicator(indicatorInfo) {
 
-      let cardIdsNonNew = await this.ankiConnectHelper.query(indicatorInfo.nonNewQuery);
-      let cardIdsNew = await this.ankiConnectHelper.query(indicatorInfo.newQuery);
+      let cid = await this.ankiConnectHelper.getDisplayedCardId();
+
+      let nonNewQuery = `-cid:${cid} ${indicatorInfo.nonNewQuery}`;
+      let newQuery = `-cid:${cid} ${indicatorInfo.newQuery}`;
+
+      let cardIdsNonNew = await this.ankiConnectHelper.query(nonNewQuery);
+      let cardIdsNew = await this.ankiConnectHelper.query(newQuery);
       cardIdsNonNew.sort();
       cardIdsNew.sort();
 

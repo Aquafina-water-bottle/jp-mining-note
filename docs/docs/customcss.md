@@ -29,7 +29,9 @@ This page focuses on the recommended second way of modding the note.
 
 If you want to extend the CSS, do the following:
 
-1. Make a new folder under `src/scss` (for example, `extra`).
+1. [Build the note](building.md) if you haven't already, and ensure everything works.
+
+1. Make a new folder under `(project root)/src/scss` (for example, `src/scss/extra`).
 
     !!! note
         Unlike [regular overrides](overrides.md) and [modules](modules.md),
@@ -37,12 +39,12 @@ If you want to extend the CSS, do the following:
         due to a complication in the current build system.
         I will be working on a way to define this in the `overrides` folder in the future.
 
-2. Add the folder to the end of `css-folders` in `config.py`.
+1. Add the folder to the end of `css-folders` in `config.py`.
     This should result in the following:
     ```
     "css-folders": ["base", "dictionaries", "extra"],
     ```
-3. Under the `extra` folder, use the following files to override the correct css:
+1. Under the `extra` folder, use the following files to override the correct css:
     - `style.scss`: The main css for the card templates.
     - `field.scss`: The css used by [CSS injector](setupanki.md#css-injector)
         to customize individual fields.
@@ -65,7 +67,7 @@ If you want to extend the CSS, do the following:
            L style.scss
     ```
 
-4. Rebuild and reinstall the template.
+1. Rebuild and reinstall the template.
     The css should be automatically applied to the note.
 
 
@@ -330,7 +332,7 @@ The following CSS completely nukes the numbers regardless of how many items ther
 {{ feature_version("0.11.0.0") }}
 
 The word within the sentences are not highlighted by default.
-This causes said words to be highlighted.
+This allows said words to be highlighted.
 
 1. Under `extra/style.scss`, add the following code:
 

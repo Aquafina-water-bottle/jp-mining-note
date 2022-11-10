@@ -1019,11 +1019,24 @@ ruby rt {
   @include common.bold_highlight;
 }
 
-.hover-tooltip--new {
+/* greys out the card if new (not reviewed yet) */
+.hover-tooltip__card--new {
   color: var(--text-color--1);
 
-  .hover-tooltip__pitch-accent .nopron {
-    color: var(--text-color--1);
+  .hover-tooltip__pitch-accent {
+
+    .pitchoverline:after {
+      filter: opacity(70%);
+    }
+
+    .downstep:before {
+      filter: opacity(70%);
+    }
+
+    .nopron {
+      color: var(--text-color--1);
+    }
+
   }
 }
 
@@ -1035,33 +1048,17 @@ ruby rt {
   cursor: pointer;
 }
 
-.hover-tooltip__word-div--hover + .hover-tooltip__pitch-accent {
+/* requires the user to hover over the card div to see the pitch accent */
+.hover-tooltip__card-div--hover .hover-tooltip__pitch-accent {
   visibility: hidden;
 }
-.hover-tooltip__word-div--hover:hover + .hover-tooltip__pitch-accent,
-.hover-tooltip__pitch-accent:hover {
+.hover-tooltip__card-div--hover:hover .hover-tooltip__pitch-accent {
   visibility: visible;
 }
 
 
-.hover-tooltip--new .hover-tooltip__pitch-accent {
-
-  .pitchoverline:after {
-    filter: opacity(70%);
-  }
-
-  .downstep:before {
-    filter: opacity(70%);
-  }
-}
-
-
-
 .hover-tooltip__pitch-accent:before {
   content: "　";
-}
-.hover-tooltip__pitch-accent:after {
-  content: "";
 }
 
 .hover-tooltip-wrapper {

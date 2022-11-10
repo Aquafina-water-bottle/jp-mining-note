@@ -31,31 +31,31 @@
     // Keybind to toggle between showing the sentence and word on click and hover cards.
     // Equivalent to either clicking on the sentence/word on a click card,
     // or hovering over the word on a hover card.
-    "toggle-hybrid-sentence": ["n"],
+    "toggle-hybrid-sentence": ["KeyN"],
 
     // Keybind to toggle between showing the tested word in a raw sentence card.
     // Equivalent to clicking on the "show" button.
     // This is the same as the above because both should never happen at the same time.
-    "toggle-highlight-word": ["n"],
+    "toggle-highlight-word": ["KeyN"],
 
     // Keybind to toggle a vocab card's full sentence display (front side).
     // Techinically can be Shift / n as it doesn't interfere with the other two above.
-    "toggle-front-full-sentence-display": ["'"],
+    "toggle-front-full-sentence-display": ["Quote"],
 
-    "play-sentence-audio": ["p"],
+    "play-sentence-audio": ["KeyP"],
 
-    "play-word-audio": ["w"],
+    "play-word-audio": ["KeyW"],
 
     // Equivalent to toggling the hint show/hide
-    "toggle-hint-display": ["."],
+    "toggle-hint-display": ["Period"],
 
-    "toggle-secondary-definitions-display": ["8"],
+    "toggle-secondary-definitions-display": ["Digit8"],
 
-    "toggle-additional-notes-display": ["9"],
+    "toggle-additional-notes-display": ["Digit9"],
 
-    "toggle-extra-definitions-display": ["0"],
+    "toggle-extra-definitions-display": ["Digit0"],
 
-    "toggle-extra-info-display": ["["]
+    "toggle-extra-info-display": ["BracketLeft"]
   },
 
 
@@ -137,15 +137,11 @@
       // Only displays the pitch accent if the word is hovered over
       "display-pitch-accent-hover-only": true,
 
-      // (Legacy option) Shows other cards with the same `WordReading` field as the current card.
-      // Best to be left as false since the duplicate word indicator exists.
-      "show-same-word-reading": false,
-
       // If set to true, words are able to be clicked to browse within the Anki browser
       "click-word-to-browse": true,
 
       // all queries will have the following at the beginning:
-      // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}")
+      // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}" "-WordReading:{{WordReading}}")
 
       // not new, or new and green
       // not flagged as red and suspended
@@ -413,9 +409,10 @@
       }
     },
 
-    "context-utils": {
+    "check-duplicate-key": {
       "enabled": true
     }
+
 
   },
 

@@ -34,9 +34,6 @@ const JPMNTooltipBuilder = (() => {
 
       wordEle.innerHTML = wordReadingRuby;
       wordEle.classList.add("hover-tooltip__word-div");
-      if (this.displayPAOnHover) {
-        wordEle.classList.add("hover-tooltip__word-div--hover");
-      }
       wordDivWrapper.appendChild(wordEle);
 
       if (cardId !== null) {
@@ -100,9 +97,14 @@ const JPMNTooltipBuilder = (() => {
       cardDiv.appendChild(wordDiv);
       cardDiv.appendChild(sentenceDiv);
 
+      cardDiv.classList.add("hover-tooltip__card");
       if (isNew) {
-        cardDiv.classList.add("hover-tooltip--new");
+        cardDiv.classList.add("hover-tooltip__card--new");
       }
+      if (this.displayPAOnHover) {
+        cardDiv.classList.add("hover-tooltip__card-div--hover");
+      }
+
 
       return cardDiv;
     }

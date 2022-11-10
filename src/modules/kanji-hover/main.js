@@ -34,6 +34,8 @@ const JPMNKanjiHover = (() => {
 
   // realistically, key should be good enough since we assume that key has no duplicates
   // however, just in case, wordreading is added
+  // note that even if the key is a duplicate, if the wordreading is literally the same,
+  // then it should get the exact same result regardless, so this key is still valid
   const cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
 
 
@@ -155,16 +157,13 @@ const JPMNKanjiHover = (() => {
       // constructs the multi findCards request for ankiconnect
       let actions = [];
       for (const character of kanjiArr) {
-        let baseQuery = `-"Key:{{ T('Key') }}" Word:*${character}* "card:${cardTypeName}"`;
-        if (!{{ utils.opt("modules", "kanji-hover", "show-same-word-reading") }}) {
-          baseQuery += ` -"WordReading:{{ T('WordReading') }}"`;
-        }
-        baseQuery = "(" + baseQuery + ")";
+        let baseQuery = `(-"Key:{{ T('Key') }}" Word:*${character}* "card:${cardTypeName}" -"WordReading:{{ T('WordReading') }}") `;
         logger.debug(`query: ${baseQuery}`, 1);
-
 
         const nonNewQuery = baseQuery + {{ utils.opt("modules", "kanji-hover", "non-new-query") }};
         const newQuery = baseQuery + {{ utils.opt("modules", "kanji-hover", "new-query") }};
+        logger.debug(`nonNewQuery: ${nonNewQuery}`, 1);
+        logger.debug(`newquery: ${newQuery}`, 1);
 
         actions.push(constructFindCardAction(nonNewQuery))
         actions.push(constructFindCardAction(newQuery))
@@ -286,7 +285,6 @@ const JPMNKanjiHover = (() => {
       if (mode === 0) {
         this.run();
       } else { // === 1
-        const wordReading = document.getElementById("dh_reading");
         wordReading.onmouseover = (() => {
           // replaces the function with a null function to avoid calling this function
           wordReading.onmouseover = function() {}

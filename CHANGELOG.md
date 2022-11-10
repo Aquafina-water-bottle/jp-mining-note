@@ -35,7 +35,7 @@ and must use `./install.py --update`.
 - Improved tooltips (affects `word-indicators` and `kanji-hover`):
     - Added pitch accent on tooltips
         - Enabled for both `kanji-hover` and `same-word-indicator` by default
-        - Requires hover over the word for kanji-hover by default
+        - Requires you to hover over the word/sentence for kanji-hover by default
     - Added logic to overflow between categories (e.g. 6 new & 0 old will now show 6 new instead of 2 new)
     - Added option to ignore the same word reading as the current word
     - Added ability to click on words in a tooltip to view it within Anki
@@ -60,6 +60,7 @@ and must use `./install.py --update`.
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
+- Fixed keybinds not working on capslock / capital letters
 
 #### Internal Changes
 - Added a simple dependencies system for modules, so functions can be shared easier between modules
@@ -68,11 +69,38 @@ and must use `./install.py --update`.
     - `jp-utils`: functions for dealing with the Japanese language itself (e.g. hiragana -> katakana)
     - `tooltip-builder`: creates tooltips for kanji-hover and word-indicators
     - `anki-connect-actions`: helper module to use anki-connect
+    - `check-duplicate-key`: checks whether the key is a duplicate (moved from the `cardIsNew` function)
 - Fixed a bug with item(javascript=True) when it returns a dictionary (now parses into json)
 - Added color change when highlighting over URLs
 - `kanji-hover` card cache is now cached in as an element instead of strings to improve performance
 - Changed the implementation of the tooltip builder to use `hover-tooltip__sent-div` to remove the bold for a sentence instead of a regex replace (lol)
     - This allows custom CSS to re-bold the highlighted word in the sentence again
+
+#### Update Notes
+- Update Yomichan's 'Anki Card Templates' section.
+    - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichan-templates)
+      for instructions on how to update Anki Card Templates.
+- Update Yomichan's 'Anki Card format' section WordReadingHiragana: `(empty)` -> `{jpmn-word-reading-hiragana}`.
+    - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichans-anki-card-format)
+      for instructions on how to update Anki Card Format.
+- The batch function `fill_word_reading_hiragana_field` is not ran by default
+    because it requires `jaconv` to work. If you want to fill the
+    WordReadingHiragana field for all cards, please do the following:
+    ```
+    $ pip3 install jaconv
+    $ cd tools
+    $ python3 batch.py -f fill_word_reading_hiragana_field
+    ```
+- If you are using the image-blur function, the option name was changed
+  from `nsfw-toggle` to `image-blur`. Please change it in your runtime options
+  to continue using it.
+  [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
+- The way keybinds are specified has been changed (to allow keys to still function as expected
+  even with CapsLock enabled.)
+  Keybinds will no longer work until you update the runtime options values.
+  For example, update `n` to `KeyN`.
+  [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
+
 
 
 ## [0.10.3.0] - 2022-10-21

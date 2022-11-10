@@ -3,7 +3,7 @@
 
 // note that this cache will NOT respect card review undos,
 // but that should be a niche enough case to not warrent caching.
-// maps key -> bool
+// maps cacheKey -> bool
 var isNewCardCache = nullish(isNewCardCache, {});
 
 // maps card_id -> (card info retrieved by Anki-Connect)
@@ -11,6 +11,9 @@ var cardsInfoCache = nullish(cardsInfoCache, {});
 
 // maps query_str -> [card ids]
 var cardQueryCache = nullish(cardQueryCache, {});
+
+// maps key.sentence -> card id
+var cardIdCache = nullish(cardIdCache, {});
 
 /// {% endset %}
 
@@ -40,6 +43,9 @@ const JPMNAnkiConnectActions = (() => {
     }
   }
 
+  const key = document.getElementById("hidden_key").innerHTML;
+  const sentence = document.getElementById("hidden_sentence").innerHTML;
+  const cacheKey = `${key}.${sentence}`;
 
 
   class JPMNAnkiConnectActions {
@@ -47,7 +53,7 @@ const JPMNAnkiConnectActions = (() => {
       // this cache is destroyed on each card side
       // but the cache allows the same result to be used if the function is called multiple times
       // on one side
-      this.isNewCardLocalCache = {};
+      this.isNewCardLocalCache = null;
     }
 
     // https://github.com/FooSoft/anki-connect#javascript
@@ -92,10 +98,12 @@ const JPMNAnkiConnectActions = (() => {
       // adjusts for when there can be other cards that can fit the space
       // for example, 6 old & 0 new, or 0 old & 6 new
       if (newCardIds.length < maxNewLatest) {
-        maxNonNewOldest += (maxNewLatest - newCardIds.length);
+        let diff = (maxNewLatest - newCardIds.length);
+        maxNonNewOldest += (diff/2);
+        maxNonNewLatest += (diff/2 + diff%2);
       }
       if (nonNewCardIds.length < (maxNonNewOldest + maxNonNewLatest)) {
-        maxNonNewLatest += ((maxNonNewOldest + maxNonNewLatest) - nonNewCardIds.length);
+        maxNewLatest += ((maxNonNewOldest + maxNonNewLatest) - nonNewCardIds.length);
       }
 
       // non new: gets the earliest and latest
@@ -122,7 +130,9 @@ const JPMNAnkiConnectActions = (() => {
       }
 
       let cardIds = await this.invoke("findCards", {"query": queryStr});
-      cardQueryCache[queryStr] = Array.from(cardIds); // shallow copy
+      if (cache) {
+        cardQueryCache[queryStr] = Array.from(cardIds); // shallow copy
+      }
       return cardIds;
 
     }
@@ -174,94 +184,111 @@ const JPMNAnkiConnectActions = (() => {
       return await this.cardsInfo(cardIds, cacheCardInfo);
     }
 
-    //async queryAndCardInfo(query, cacheQuery=true, cacheCardInfo=true) {
-    //  let cardIds = await this.query(query);
-    //  if (cacheQuery && query in cardQueryCache) {
-    //    cardIds = cacheQuery[query];
-    //  } else {
-    //    cardIds = await invoke("findCards", {"query": query});
-    //  }
-
-    //  if (cardIds.length === 0) {
-    //    return [];
-    //  }
-
-    //  let result = [];
-    //  let searchCards = [];
-    //  let mustSearchMap = {};
-
-    //  if (cacheCardInfo) {
-    //    for (const [i, cid] of cardIds.entries()) {
-    //      if (cid in cardsInfoCache) {
-    //        result.push(cardsInfoCache[cid]);
-    //      } else {
-    //        result.push(0);
-    //        searchCards.push(cid);
-    //        mustSearchMap[cid] = i;
-    //      }
-    //    }
-    //  } else {
-    //    searchCards = cardIds;
-    //  }
-
-    //  if (searchCards.length > 0) {
-    //    const cardsInfo = await invoke("cardsInfo", {"cards": searchCards});
-    //    if (!cacheCardInfo) {
-    //      return cardsInfo;
-    //    }
-
-    //    // uses cache
-    //    for (const [i, cid] of searchCards.entries()) {
-    //      const j = mustSearchMap[cid]
-    //      result[j] = cardsInfo[i];
-    //    }
-    //  }
-
-    //  return result;
-
-    //}
-
     async cardIsNew() {
 
       // refreshes on every new check, b/c one cannot assume that a card
-      // is no longer new once you see a new card (for example, editing a new card
-      //   will consistently refresh the currently new card)
-      const key = "{{ T('Key') }}";
-      if (key in isNewCardCache && !isNewCardCache[key]) {
+      if (cacheKey in isNewCardCache && !isNewCardCache[cacheKey]) {
         logger.debug("Key in new card cache and is not new.");
         return false;
       }
-      if (key in this.isNewCardLocalCache) {
-        return this.isNewCardLocalCache[key];
+
+      if (this.isNewCardLocalCache !== null) {
+        return this.isNewCardLocalCache;
       }
       logger.debug("Testing for new card...", 2);
 
-      // constructs the multi findCards request for ankiconnect
-      let actions = [];
+      const cid = await this.getDisplayedCardId();
       const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
-      actions.push(constructFindCardAction(`"Key:${key}" "card:${cardTypeName}"`));
-      actions.push(constructFindCardAction(`is:new "Key:${key}" "card:${cardTypeName}"`));
-
-      const multi = await this.invoke("multi", {"actions": actions});
-      const cards = multi[0];
-
-      if (cards.length > 1) {
-        logger.warn("Duplicate key found.", /*isHtml=*/false, /*unique=*/true);
+      if (cid === 0) {
         return false;
       }
-      if (cards.length == 0) {
-        logger.error("Cannot find its own card?");
-        return false;
-      }
+      const query = `is:new cid:${cid} "card:${cardTypeName}"`
+      const result = this.query(query, /*cache=*/false);
+      const isNew = (result.length > 0);
 
-      const isNew = (multi[1].length > 0);
-      isNewCardCache[key] = isNew;
-      this.isNewCardLocalCache[key] = isNew;
+      isNewCardCache[cacheKey] = isNew;
+      this.isNewCardLocalCache = isNew;
 
       return isNew;
     }
-  }
 
+    /*
+     * Attempts to get the displayed card using the combination of the key and sentence.
+     *
+     * This function makes no assumption that the Key field is unique,
+     * and was in fact made specifically to get the card even if the Key field is not unique.
+     *
+     * Returns 0 if cannot find the displayed card
+     */
+    async _getDisplayedCardId() {
+      //let currentCard = null;
+      //let validErrMsg = "Gui review is not currently active.";
+
+      //try {
+      //  currentCard = await this.invoke("guiCurrentCard");
+      //} catch (error) {
+      //  // the error is apparently a string?
+      //  if (error !== validErrMsg) {
+      //    throw error;
+      //  }
+      //}
+
+      //if (currentCard !== null) {
+      //  return currentCard.cardId;
+      //}
+
+      const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
+      const noteName = '{{ NOTE_FILES("model-name").item() }}';
+
+      let cachable = true;
+
+      let keyText = key.replace('"', '\\"');
+      let sentenceSearch = sentence.replace('"', '\\"');
+
+      // query with sentence and key
+      let query = `"Key:${keyText}" "Sentence:${sentenceSearch}" "card:${cardTypeName}" "note:${noteName}"`;
+      let result = await this.query(query);
+
+      if (result.length >= 1) {
+        if (result.length >= 2) {
+          logger.warn("Found multiple cards with the same Key and Sentence."); // why
+          cachable = false;
+        }
+        return [result[0], cachable];
+      }
+      cachable = false;
+
+      // last try query (why would this not work)
+      query = `"Key:${keyText}" "card:${cardTypeName}" "note:${noteName}"`;
+      result = await this.query(query);
+
+      if (result.length >= 1) {
+        if (result.length >= 2) {
+          logger.warn("Found multiple cards with the same Key.");
+        }
+        return [result[0], cachable];
+      }
+
+      // result.length === 0
+      logger.warn("Cannot get displayed card ID.");
+      return [0, cachable];
+
+    }
+
+    async getDisplayedCardId() {
+      if (cacheKey in cardIdCache) {
+        return cardIdCache[cacheKey];
+      }
+
+      const [cid, cachable] = await this._getDisplayedCardId();
+      if (cachable) {
+        cardIdCache[cacheKey] = cid;
+      }
+      return cid;
+    }
+
+
+  }
 
   return JPMNAnkiConnectActions;
 
