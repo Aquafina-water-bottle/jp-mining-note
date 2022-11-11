@@ -510,6 +510,130 @@ const JPMNAutoPA = (() => {
       return result;
     }
 
+    parseIntegerList() {
+      // attempts to get a CSV of digit
+      // this makes many assumptions about the format:
+      // - csv
+      // - spaces removed doesn't affect html
+      // - if bold: per element and not across elements
+
+      let result = []
+      let foundBold = false;
+
+      let searchHTML = this.overrideEle.innerHTML.replace(/\s+/g, "")
+      const posStrList = searchHTML.split(",");
+
+      for (const pos of posStrList) {
+        if (pos.includes("<b>")) {
+          let integer = pos.match(/[-]?\d+/);
+          let posData = new PosData(Number(integer), true)
+          if (!foundBold) {
+            foundBold = true;
+            posData.mainPos = true;
+          }
+          result.push(posData);
+
+        } else {
+          let posData = new PosData(Number(pos))
+          result.push(posData);
+        }
+      }
+
+      if (!foundBold) {
+        result[0].mainPos = true;
+      }
+
+      return result;
+    }
+
+
+    parseTextFormat() {
+      let result = []
+
+      const separators = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "separators") }};
+      const downsteps = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "downstep-markers") }};
+      const heiban = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "heiban-markers") }};
+
+      const separatorsRegex = RegExp("[" + separators.join("") + "]", "g");
+
+      // attempts to separate "・"
+      // Bolded text and main pos (colored pitch accent) is not supported in this format.
+      // Therefore, we use the text instead of the HTML
+      let searchText = this.overrideEle.innerText.replace(/\s+/g, "")
+      let strList = searchText.split(separatorsRegex);
+      let foundSeparators = searchText.match(separatorsRegex);
+
+      for (const [i, word] of strList.entries()) {
+        // moras here are only used for calculating the position of the downstep
+        let moras = this.jpUtils.getMorae(word);
+        logger.debug(`${word} -> ${moras}`, this.logLvl);
+
+        // checks for where downstep (＼) exists
+        let pos = null;
+        let j = 0;
+        while (j < moras.length) {
+          const mora = moras[j];
+          if (downsteps.includes(mora)) {
+            if (pos !== null) {
+              if ({{ utils.opt("modules", "auto-pitch-accent", "pa-override", "warn-on-invalid-format") }}) {
+                logger.warn(`More than one downstep marker used in ${word}`);
+              }
+            } else {
+              pos = j;
+            }
+            moras.splice(j, 1); // removes the element from the moras list
+          } else {
+            j++;
+          }
+        }
+
+        if (heiban.includes(moras[moras.length-1])) {
+          moras.splice(moras.length-1, 1);
+
+          if (pos === null) {
+            pos = 0;
+          } else {
+            if ({{ utils.opt("modules", "auto-pitch-accent", "pa-override", "warn-on-invalid-format") }}) {
+              logger.warn(`Cannot use both downstep and heiban markers in ${word}`);
+            }
+            continue;
+          }
+        }
+
+        // no downstep found: 平板 (0)
+        if (pos === null) {
+          if ({{ utils.opt("modules", "auto-pitch-accent", "pa-override", "heiban-marker-required") }}) {
+            logger.warn(`Heiban marker not found in ${word}`);
+            continue;
+          } else {
+            pos = 0;
+          }
+        }
+
+        // calculates the display moras
+        // differs from the above moras because by removing the downstep marker and
+        // heiban marker, this allows the reading to be searchable within the
+        // AJT word pitch
+        const displayMoras = this.normalizeReadingGetMoras(moras.join(""));
+
+        let posData = new PosData(pos);
+        posData.readingMora = displayMoras;
+        if (foundSeparators !== null && i < foundSeparators.length) {
+          posData.separator = foundSeparators[i];
+        }
+
+        result.push(posData);
+      }
+
+      const setFirstPitchMain = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "text-format-set-first-pitch-as-main") }};
+      if (result.length === 1 || (result.length > 1 && setFirstPitchMain)) {
+        result[0].mainPos = true;
+      }
+
+      return result;
+
+    }
+
     /*
      * supported formats:
      * - csv integers
@@ -532,121 +656,15 @@ const JPMNAutoPA = (() => {
      * returns list of positions, or empty list if nothing found
      */
     calcPosDataListFromOverride() {
-      let result = []
-      let foundBold = false;
 
       // removes whitespace
-      let searchText = this.overrideEle.innerText.replace(/\s+/g, "")
-
+      let result = []
       const firstInteger = this.overrideEle.innerText.match(/^[-]?\d+/);
+
       if (firstInteger !== null) {
-        // attempts to get a CSV of digit
-        // this makes many assumptions about the format:
-        // - csv
-        // - spaces removed doesn't affect html
-        // - if bold: per element and not across elements
-
-        let searchHTML = this.overrideEle.innerHTML.replace(/\s+/g, "")
-        const posStrList = searchHTML.split(",");
-
-        for (const pos of posStrList) {
-          if (pos.includes("<b>")) {
-            let integer = pos.match(/[-]?\d+/);
-            let posData = new PosData(Number(integer), true)
-            if (!foundBold) {
-              foundBold = true;
-              posData.mainPos = true;
-            }
-            result.push(posData);
-
-          } else {
-            let posData = new PosData(Number(pos))
-            result.push(posData);
-          }
-        }
-
-        if (!foundBold) {
-          result[0].mainPos = true;
-        }
-
+        result = this.parseIntegerList();
       } else if (this.overrideEle.innerText === this.overrideEle.innerHTML) {
-
-        const separators = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "separators") }};
-        const downsteps = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "downstep-markers") }};
-        const heiban = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "heiban-markers") }};
-
-        const separatorsRegex = RegExp("[" + separators.join("") + "]", "g");
-
-        // attempts to separate "・"
-
-        // Bolded text and main pos (colored pitch accent) is not supported in this format.
-        // Therefore, we use the text instead of the HTML
-        let strList = searchText.split(separatorsRegex);
-        let foundSeparators = searchText.match(separatorsRegex);
-
-        const setFirstPitchMain = {{ utils.opt("modules", "auto-pitch-accent", "pa-override", "text-format-set-first-pitch-as-main") }};
-
-        for (const [i, word] of strList.entries()) {
-          // moras here are only used for calculating the position of the downstep
-          let moras = this.jpUtils.getMorae(word);
-          logger.debug(`${word} -> ${moras}`, this.logLvl);
-
-          // checks for where downstep (＼) exists
-          let pos = null;
-          let j = 0;
-          while (j < moras.length) {
-            const mora = moras[j];
-            if (downsteps.includes(mora)) {
-              if (pos !== null) {
-                logger.warn(`More than one downstep marker used in ${word}`);
-              } else {
-                pos = j;
-              }
-              moras.splice(j, 1); // removes the element from the moras list
-            } else {
-              j++;
-            }
-          }
-
-          if (heiban.includes(moras[moras.length-1])) {
-            moras.splice(moras.length-1, 1);
-
-            if (pos === null) {
-              pos = 0;
-            } else {
-              logger.warn(`Cannot use both downstep and heiban markers in ${word}`);
-              continue;
-            }
-          }
-
-          // no downstep found: 平板 (0)
-          if (pos === null) {
-            if ({{ utils.opt("modules", "auto-pitch-accent", "pa-override", "heiban-marker-required") }}) {
-              logger.warn(`Heiban marker not found in ${word}`);
-              continue;
-            } else {
-              pos = 0;
-            }
-          }
-
-          // calculates the display moras
-          // differs from the above moras because by removing the downstep marker and
-          // heiban marker, this allows the reading to be searchable within the
-          // AJT word pitch
-          const displayMoras = this.normalizeReadingGetMoras(moras.join(""));
-
-          let posData = new PosData(pos);
-          posData.readingMora = displayMoras;
-          if (foundSeparators !== null && i < foundSeparators.length) {
-            posData.separator = foundSeparators[i];
-          }
-
-          if (result.length === 0 && setFirstPitchMain) {
-            posData.mainPos = true;
-          }
-
-          result.push(posData);
-        }
+        result = this.parseTextFormat();
       } else {
         if ({{ utils.opt("modules", "auto-pitch-accent", "pa-override", "warn-on-invalid-format") }}) {
           logger.warn(`Invalid PA format: ${this.overrideEle.innerText}`);

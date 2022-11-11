@@ -140,6 +140,7 @@ CONFIG = {
 
             "customize-open-fields",
             "word-indicators",
+            "info-circle-utils",
             "fix-ruby-positioning",
             "check-duplicate-key",
         ],

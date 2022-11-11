@@ -26,12 +26,19 @@ and must use `./install.py --update`.
 - Added fields: `PAOverrideText`, `PrimaryDefinitionPicture`, `WordReadingHiragana`
 
 #### Features
-- Added similar words indicators (`word-indicators` module)
-    - Indicators are shown for: same kanji, same reading, duplicates
+- Modules:
+    - Added similar words indicators (`word-indicators` module)
+        - Indicators are shown for: same kanji, same reading, duplicates
+    - Moved `info-circle-togglable-lock` to the `info-circle-utils` module
+        - Added various mobile-related support to the info circle
+    - Added `img-utils-minimal` as a counterpart to `img-utils` for people who want a lighter card
+    - Revamped `auto-pitch-accent` module:
+        - Added support for various formats in `PAOverride` (csv numbers, and text with downsteps)
+        - Added source on hover support (hover over the pitch accent to see where the pitch was gotten from)
+    - Added a way to fix ruby positioning for legacy Anki versions (`fix-ruby-positioning` module)
 - Added the `PrimaryDefinitionPicture` field
     - Specifies a picture that is always shown to the right of the primary definition
     - Can be technically anything else though, like a table, text, etc.
-- Added a way to fix ruby positioning for legacy Anki versions (`fix-ruby-positioning` module)
 - Improved tooltips (affects `word-indicators` and `kanji-hover`):
     - Added pitch accent on tooltips
         - Enabled for both `kanji-hover` and `same-word-indicator` by default
@@ -46,15 +53,9 @@ and must use `./install.py --update`.
         - `modules.sent-utils.remove-final-period`
         - `modules.sent-utils.remove-final-period-on-altdisplay`
         - `modules.customize-open-fields.open-on-new-enabled`
-        - `info-circle-togglable-lock-show-popup`
-        - `info-circle-hoverable`
         - `enable-ankiconnect-features`
 - Changed error messages to be displayed in standard monospace font, for better readability
-- Added `img-utils-minimal` as a counterpart to `img-utils` for people who want a lighter card
 - Added compile-options to allow external links to be in the `PrimaryDefinition` field
-- Revamped `auto-pitch-accent` module:
-    - Added support for various formats in `PAOverride` (csv numbers, and text with downsteps)
-    - Added source on hover support (hover over the pitch accent to see where the pitch was gotten from)
 - Revamped the documentation layout quite a bit, to now include tabs in the header
 - Added the `jpmn-sentence-bolded-furigana-plain` header to yomichan templates
 - Added the `dict-group__glossary--first-line` to the templates to allow the removal of the first line with css

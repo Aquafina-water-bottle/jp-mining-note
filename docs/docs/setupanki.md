@@ -2,9 +2,14 @@
 # Updating Anki
 
 It is highly recommended that you are using the latest Anki version
-(or as close as you can get to the latest Anki version), as the note is primarily tested
-and maintained on the latest versions of Anki.
-Additionally, it is recommended to use the Qt6 version of Anki if possible.
+(or as close as you can get to the latest Anki version).
+This includes using the Qt6 version instead of Qt5 if possible.
+
+Using the latest version of Anki is recommended for the following reasons:
+
+* The note is primarily tested and maintained on the latest versions of Anki.
+* There are a few minor but known bugs that this note type has with older Anki versions.
+    These bugs do not exist in newer Anki versions.
 
 Worst case scenario, if any essential add-ons no longer work,
 **you can always downgrade back** to your current version.
@@ -427,7 +432,7 @@ and you have to manually update the note if you want it to update.
 
 # Setting up Yomichan
 
-Of course, you can have a beautiful template, but what's the point of it
+Of course, you can have an Anki template, but what's the point of it
 if you can't make cards with it?
 
 We will use Yomichan to create these cards.

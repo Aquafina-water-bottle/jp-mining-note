@@ -202,56 +202,6 @@ function main() {
   /// {% endcall %}
 
 
-  // clicks on the info circle to freeze the popup (good for debugging and all)
-  if ({{ utils.opt("info-circle-togglable-lock") }}) {
-
-    const showPopup = {{ utils.opt("info-circle-togglable-lock-show-popup") }};
-
-    function addLockFunc(clickEle, circEle, displayName, frozenClassName, togglableClassName, showPopup) {
-      if (clickEle === null || circEle === null) {
-        return;
-      }
-
-      clickEle.classList.add(togglableClassName);
-      clickEle.onclick = function() {
-        if (circEle.classList.contains(frozenClassName)) {
-          circEle.classList.remove(frozenClassName);
-          if (showPopup) {
-            popupMenuMessage(`${displayName} unlocked.`, true);
-          }
-        } else {
-          circEle.classList.add(frozenClassName);
-          if (showPopup) {
-            popupMenuMessage(`${displayName} locked.`, true);
-          }
-        }
-      }
-
-    }
-
-    // main info circle
-    let infoCirc = document.getElementById("info_circle");
-    let infoCircWrapper = document.getElementById("info_circle_wrapper");
-    const infoCircFrozen = "info-circle--frozen";
-    const infoCircTogglable = "info-circle-svg-wrapper--togglable";
-    addLockFunc(infoCircWrapper, infoCirc, "Info circle tooltip", infoCircFrozen, infoCircTogglable, showPopup);
-
-    // TODO maybe fix later, so clicking on the pop-up won't also toggle it
-    //let sameReadingIndicator = document.getElementById("same_reading_indicator");
-    //let sameReadingCirc = document.getElementById("same_reading_hover_circle");
-    //const sameReadingCircFrozen = "hover-text--frozen";
-    //const sameReadingCircTogglable = "dh-left__word-indicators--togglable";
-    //addLockFunc(sameReadingIndicator, sameReadingCirc, "Same-Reading indicator<br>",
-    //    sameReadingCircFrozen, sameReadingCircTogglable);
-
-  }
-
-  if (!{{ utils.opt("info-circle-hoverable") }}) {
-    let infoCircWrapper = document.getElementById("info_circle_wrapper");
-    infoCircWrapper.classList.remove("info-circle-svg-wrapper--hoverable");
-  }
-
-
   // START_BLOCK: js_run
 {% filter indent(width=2) %}
 {% block js_run %}

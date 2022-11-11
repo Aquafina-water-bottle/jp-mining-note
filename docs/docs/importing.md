@@ -371,7 +371,8 @@ If your `WordReading` is formatted in either of the first two ways, you can skip
 
 However, if your old cards only had a kana reading, then it might be nice
 to have the `WordReading` as the kanji word with furigana.
-If this is desirable, see the instructions below.
+You likely want the kanji word with the furigana, so the kanjis actually show
+in the kanji hover tooltip.
 
 ??? example "Converting kana readings to furigana readings *(click here)*"
 

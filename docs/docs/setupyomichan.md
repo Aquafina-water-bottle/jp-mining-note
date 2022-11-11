@@ -54,8 +54,13 @@ with all other definitions in collapsable fields.
 !!! note
     Anything field marked with `*` are binary fields, and
     **should be configured to each user's personal preferences.**
+
     To change the default value of any of the fields, simply fill
     the field in within the aforementioned `Anki card format...` section.
+
+    For example, if you want the card to be a sentence card by default,
+    fill the `IsSentenceCard` field here.
+
 
 The custom markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
 See the section below to make these markers usable.
@@ -227,7 +232,41 @@ Images must be added manually within `AnkiDroid`.
 If you've made it this far, then congratulations!
 Most fields of the cards have been automatically filled out, just from Yomichan alone!
 
-If you already have a sentence mining workflow set up,
+This concludes the setup process for creating cards with Yomichan.
+
+From here, you likely fall under one of the two categories below:
+
+
+<br>
+
+## I'm new to sentence mining.
+If you're new to sentence mining, there are likely some things things
+that you would like to set up. These include:
+
+1. Getting the actual text to use Yomichan on.
+1. Getting the pictures and/or sentence audio from the media into the card.
+
+Head over to the [Setup: Everything Else](setupeverythingelse.md) page to see exactly that.
+
+<br>
+
+
+## I already have a sentence mining workflow.
+If you have a workflow already setup,
+you may have to do some minor tweaks to your current workflow
+to match the new field names.
+For example, the exporting sentence audio and picture fields may be different
+compared to your previous card.
+
+Other than that, you are completely finished with the setup process!
+
+!!! note
+    See [Setup: Everything Else (Notes on Various Programs)](setupeverythingelse.md#notes-on-various-programs)
+    for specific tips on a select few programs.
+
+
+<!--
+If you already have a
 you may have to do some minor tweaks to your current workflow,
 to match the field names, for exporting sentence audio and pictures.
 However, outside of that, **you are now finished**{ .text-yellow }!
@@ -253,7 +292,7 @@ that you would like to set up. These include:
 
 Head over to the [Setup: Everything Else](setupeverythingelse.md) page to see exactly that.
 
-
+-->
 
 
 

@@ -187,10 +187,20 @@ TODO reason:
     - should be two warnings
 - but worst case is for cases which I don't know how to reproduce
     - rarely, asynchronous functions run more than once
+        - it seems like anki randomly loads the page twice, causing all asynchronous functions to also run twice
     - including the async functions defined currently in modules like `kanji-hover`
     - to cirumvent having their actions done twice, define the affected elements outside the asynchronous section
         - the function still runs twice (so any side-effects of the function will still happen)
         - however, other instances of the function should not work on the elements defined outside
+- additionally, many modules require things to be loaded before the card is shown
+    - Anki displays the page only when all of the synchronous javascript is ran
+    - If these become asynchronous, the user will be able to see split-second changes to the layout as the javascript is running
+    - Two solutions to this:
+        - (1) To only show the page when specific asynchronous functions are complete, the entire page must be hidden,
+            with say, a `hidden` class on the `<body>` element
+        - Problem: if the main javascript fails, then you will get a blank page!
+            - making this approach very risky
+        - (2) Avoid asynchronous functions alltogether
 
 - avoiding asynchronous features makes things more predictable within anki
 

@@ -665,6 +665,45 @@ is a part of a dictionary) ~}}
 
 
 
+{{~!
+thanks to:
+- https://github.com/FooSoft/yomichan/issues/1952#issuecomment-922671489 for the base code
+- DaNautics#8833 for finding the above + removing the span classes
+~}}
+{{#*inline "jpmn-sentence-bolded-furigana-plain"}}
+    {{~#if definition.cloze~}}
+
+        {{~#regexReplace "(<span class=\"term\">)|(</span>)" "" "g"~}}
+        {{~#regexReplace "<ruby>(.+?)<rt>(.+?)</rt></ruby>" " $1[$2]" "g"~}}
+
+            {{~#if (hasMedia "textFurigana" definition.cloze.prefix)~}}
+                {{~#getMedia "textFurigana" definition.cloze.prefix escape=false}}{{/getMedia~}}
+            {{~else~}}
+                {{~definition.cloze.prefix~}}
+            {{~/if~}}
+
+            <b>
+            {{~#if (hasMedia "textFurigana" definition.cloze.body)~}}
+                {{~#getMedia "textFurigana" definition.cloze.body escape=false}}{{/getMedia~}}
+            {{~else~}}
+                {{~definition.cloze.body~}}
+            {{~/if~}}
+            </b>
+
+            {{~#if (hasMedia "textFurigana" definition.cloze.suffix)~}}
+                {{~#getMedia "textFurigana" definition.cloze.suffix escape=false}}{{/getMedia~}}
+            {{~else~}}
+                {{~definition.cloze.suffix~}}
+            {{~/if~}}
+
+        {{~/regexReplace~}}
+        {{~/regexReplace~}}
+
+    {{~/if~}}
+{{/inline}}
+
+
+
 {{~! a test to check if your dictionaries are correctly classified. ~}}
 {{~! Only meant to be used for debugging purposes, not Anki. ~}}
 {{~#*inline "jpmn-test-dict-type"~}}

@@ -81,9 +81,9 @@ nav:
     - Field Reference: fieldref.md
     - Images: images.md
     - Pitch Accent (TODO): autopa.md
+    - Card Types: cardtypes.md
     - Runtime Options: runtimeoptions.md
     - Compile-Time Options: compiletimeoptions.md
-    - Card Types: cardtypes.md
     - Yomichan Template Options (TODO): yomichantemplates.md
     - Tooltip Results (TODO): tooltipresults.md
     - Developer Documentation:

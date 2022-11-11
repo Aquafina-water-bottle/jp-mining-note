@@ -108,9 +108,12 @@ I also provide a small list of other popular add-ons that I don't use, but may b
     * [Adjust Sound Volume](https://ankiweb.net/shared/info/2123044452)
         * Used to normalize volume automatically (so adjusting the volume of recorded files is not necessary)
     * [Advanced Browser](https://ankiweb.net/shared/info/874215009)
-        * Used for [sorting notes by frequency](fieldref.md#sorting-by-frequency)
+        * Used for [sorting notes by frequency](fieldref.md#frequencysort-field)
     * [AJT Flexible Grading](https://ankiweb.net/shared/info/1715096333)
-        * Has the ability to change the buttons to pass/fail
+        * I use this to change Anki to pass/fail
+        * If you are using Anki dark mode, I recommend these colors (change in the config):
+            * Again: `#ff8c74`
+            * Good: `#9cff98`
     * [Paste Images As WebP](https://ankiweb.net/shared/info/1151815987)
 
 

@@ -133,8 +133,9 @@ Please check the following in particular:
     Please see [this](faq.md#errors-warnings){:target="_blank"} section for basic troubleshooting.
 
 1. Clicking on the image to zoom should work out of the box.
+
     Kanji hover may not work yet. If it doesn't work,
-    read the Anki-Connect setup instructions below.
+    read the Anki-Connect setup instructions on the next page.
 
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
     see the [Fix Ruby Positioning](ui.md#fix-ruby-positioning-for-legacy-anki-versions) option.

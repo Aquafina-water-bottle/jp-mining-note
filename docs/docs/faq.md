@@ -174,6 +174,122 @@ so the bug is here to stay until a better solution is found.
 
 ---
 
+## How do I set the default card type?
+In [Yomichan's Anki Card Format](setupyomichan.md#yomichan-fields),
+you can simply fill the field.
+
+For example, if you want to set the default card type to be a sentence card,
+fill the `IsSentenceCard` field there.
+
+---
+
+## How do I automatically change the value of a binary field on multiple existing cards?
+
+You have three main options:
+
+!!! warning
+    As always, before mass editing your collection, please
+    [backup your Anki data](faq.md#how-do-i-backup-my-anki-data).
+
+
+1. [Batch Editing Addon](https://ankiweb.net/shared/info/291119185){:target="_blank"}
+
+2. Python script:
+
+    ```
+    # assuming you are at the root of the repo,
+    # i.e. after the `git clone ...` and `cd jp-mining-note`
+    cd ./tools
+
+    # sets all `IsSentenceCard` fields to be filled
+    python3 batch.py --fill-field "IsSentenceCard"
+
+    # empties all `IsSentenceCard` fields
+    python3 batch.py --empty-field "IsSentenceCard"
+    ```
+
+3. Regex Search (TODO)
+
+---
+
+## How do I disable furigana on card generation?
+
+1. In [Yomichan's Anki Card Format](setupyomichan.md#yomichan-fields),
+    ensure that the `SentenceReading` field is empty.
+
+1. If you are using the AJT Furigana addon, edit the config and set `generate_on_note_add` to `false`.
+    Afterwards, restart Anki.
+
+---
+
+## How do I bulk generate furigana?
+
+1. Head to the Card Browser window:
+
+    > Main Window →  `Browse`
+
+1. Select all notes without furigana, with the following search:
+    ```
+    "note:JP Mining Note" SentenceReading:
+    ```
+
+1. Head over to:
+
+    > `Edit` (top left corner) →  `Bulk-add furigana`.
+
+
+---
+
+## How do I bulk generate pitch accents?
+
+!!! note
+    This will only batch generate the `AJTWordPitch` field.
+    Pitch accent graphs and positions cannot be automatically generated.
+    This is important to note if you are using colored pitch accent.
+    If `PAPositions` is not filled, then the card cannot be automatically colored.
+
+1. Head to the Card Browser window:
+
+    > Main Window →  `Browse`
+
+1. Select all notes with an empty `AJTWordPitch` field, with the following search:
+    ```
+    "note:JP Mining Note" AJTWordPitch:
+    ```
+
+1. Head over to:
+
+    > `Edit` (top left corner) →  `Bulk-add pitch accents`.
+
+There may be some cards that still have an empty `AJTWordPitch` field.
+This is simply because the plugin did not have a pitch for that word.
+
+---
+
+## How do I remove an empty card without deleting the entire note?
+!!! quote
+    To remove the empty cards, go to `Tools` →  `Empty Cards` in the main window.
+    You will be shown a list of empty cards and be given the option to delete them.
+
+    <sup>Taken from the
+    [official Anki documentation](https://docs.ankiweb.net/templates/generation.html#card-generation--deletion){:target="_blank"}.
+    </sup>
+
+---
+
+
+## How do I edit the field's raw HTML?
+Within the card browser,
+select a field to edit,
+and then type `ctrl+shift+x`.
+
+Alternatively, on newer versions of Anki, you can click on the top-right corner
+on the code button.
+
+{{ img("Anki edit html", "assets/anki/edit_html.gif") }}
+
+---
+
 
 ## How do I use this note type as an Anime Card?
 An anime card is a vocab card with a picture and native audio, which
@@ -192,68 +308,6 @@ and use the `HintNotHidden` field for your hint.
 ---
 
 
-
-## How do I change the default value of a binary field?
-In Yomichan Format, you can simply toggle the field.
-Any new card that is created will now default to that default value.
-
-Of course, this will not affect existing cards.
-To change existing cards, I recommend bulk-editing your cards,
-say, with [this add-on](https://ankiweb.net/shared/info/291119185){:target="_blank"}.
-
-!!! warning
-    As always, before mass editing your collection, please
-    [backup your Anki data](faq.md#how-do-i-backup-my-anki-data).
-
-Alternatively, you can use the following commands to bulk edit your cards
-in the current deck:
-
-```
-# assuming you are at the root of the repo,
-# i.e. after the `git clone ...` and `cd jp-mining-note`
-cd ./tools
-
-# sets all `IsSentenceCard` fields to be filled
-python3 batch.py --fill-field "IsSentenceCard"
-
-# empties all `IsSentenceCard` fields
-python3 batch.py --empty-field "IsSentenceCard"
-```
-
-!!! note
-    You technically have a second option, and that is to change the code itself
-    (i.e. flip `#` with `^` for the desired field).
-    However, you should only do this if you know what you are doing,
-    and are fine with knowing that you may lose those changes
-    if you update this note.
-
-
----
-
-
-## How do I remove an empty card without deleting the entire note?
-!!! quote
-    To remove the empty cards, go to `Tools` →  `Empty Cards` in the main window.
-    You will be shown a list of empty cards and be given the option to delete them.
-
-<sup>Taken from the
-[official Anki documentation](https://docs.ankiweb.net/templates/generation.html#card-generation--deletion){:target="_blank"}.
-</sup>
-
----
-
-
-## How do I edit the field's raw HTML?
-Within the card browser,
-select a field to edit,
-and then type `ctrl+shift+x`.
-
-Alternatively, on newer versions of Anki, you can click on the top-right corner
-on the code button.
-
-{{ img("Anki edit html", "assets/anki/edit_html.gif") }}
-
----
 
 
 # Other Questions { .text-yellow }

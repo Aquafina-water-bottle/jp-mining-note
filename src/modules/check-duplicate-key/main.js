@@ -13,6 +13,7 @@ var uniqueKeysCache = nullish(uniqueKeysCache, []);
 
 const JPMNCheckDuplicateKey = (() => {
   const logger = new JPMNLogger("check-duplicate-keys");
+  const key = document.getElementById("hidden_key").innerHTML;
 
   class JPMNCheckDuplicateKey {
     constructor() {
@@ -20,8 +21,6 @@ const JPMNCheckDuplicateKey = (() => {
     }
 
     async run() {
-
-      const key = document.getElementById("hidden_key").innerHTML;
 
       if (uniqueKeysCache.includes(key)) {
         logger.debug("Key is unique (cached result).")

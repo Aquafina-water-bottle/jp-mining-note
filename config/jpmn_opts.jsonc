@@ -393,6 +393,34 @@
 
     },
 
+
+    // Allows extra features of the info-circle to be used
+    "info-circle-utils": {
+      // Ihe info circle will always be shown regardless.
+      // Enabling this module just allows the use of extra features.
+      "enabled": true,
+
+      // Whether the user can lock the tooltip by clicking on the info-circle or not
+      "togglable-lock": {
+        "enabled": true,
+
+        // Whether the popup shows when toggled
+        "show-popup": {
+          "type": "pc-mobile",
+          "pc": true,
+          "mobile": false
+        }
+      },
+
+      // Whether the info circle is hoverable (to show tooltip)
+      "is-hoverable": {
+        "type": "pc-mobile",
+        "pc": true,
+        "mobile": false
+      }
+    },
+
+
     // Quick-fixes the ruby text positioning by moving it closer to the word,
     // at the cost of taking up extra space to the left/right if necessary
     // (more so than the normal <ruby> rendering.
@@ -440,23 +468,6 @@
 
   // Warn if using the `Sentence` field instead of the `SentenceReading` field
   "no-sentence-reading-warn": false,
-
-  // Whether the user can lock the tooltip by clicking on the info-circle or not
-  "info-circle-togglable-lock": true,
-
-  // Whether the popup shows when toggled
-  "info-circle-togglable-lock-show-popup": {
-    "type": "pc-mobile",
-    "pc": true,
-    "mobile": false
-  },
-
-  // Whether the info circle is hoverable (to show tooltip)
-  "info-circle-hoverable": {
-    "type": "pc-mobile",
-    "pc": true,
-    "mobile": false
-  },
 
   // Whether Anki-Aonnect features are enabled or disabled
   // Anki-Connect features are disabled on mobile because

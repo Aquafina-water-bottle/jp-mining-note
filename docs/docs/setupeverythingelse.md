@@ -12,17 +12,24 @@ will be linked.
 
 If you are looking to setup jp-mining-note, see [this](setup.md) page instead.
 
-!!! warning
+!!! note
+    If you already have a sentence mining workflow, you can likely
+    skip to [this section](#notes-on-various-programs).
 
-    If you are having troubles with any of the guides or programs below,
-    I unfortunately will not be able to provide very detailed support.
+---
 
-    Instead, I would recommend that you contact the creators of the guides / programs,
-    or the communities surrounding said guides / programs.
+## Troubleshooting & Support
 
-    Additionally, the guides listed here do not use JPMN, and instead link
-    to other note types.
-    This shouldn't be an issue as long as you change the appropriate the field names.
+If you are having troubles with any of the guides or programs below,
+I unfortunately **will not** be able to provide very detailed support.
+
+Instead, I would recommend that you contact the creators of the guides / programs,
+or the communities surrounding said guides / programs.
+
+Additionally, the guides listed here do not use JPMN, and instead link
+to other note types.
+This shouldn't be an issue as long as you change the appropriate the field names.
+
 
 ---
 
@@ -64,12 +71,15 @@ For example, if you want to use Textractor, use
 [this](https://github.com/sadolit/textractor-websocket)
 extension.
 
-??? example "Resources *(click here)*"
+??? example "exSTATic"
 
-    ### [exSTATic](https://github.com/KamWithK/exSTATic/)
+    [**exSTATic**](https://github.com/KamWithK/exSTATic/)
+
     * Custom texthooker page, automatically collects stats for viewing
 
-    ### Patch Instructions for existing clipboard-based texthookers
+??? example "Custom Patch"
+
+    Patch Instructions for existing clipboard-based texthookers.
 
     1. Download your favorite texthooker page into a raw html file.
     1. Copy/paste the code below into the raw html file.
@@ -127,7 +137,7 @@ extension.
 ---
 
 
-## Text from game-like content
+# Game-Like Content: Getting Text
 The following are primarily for text-heavy games, such as visual novels.
 
 ??? example "Resources *(click here)*"
@@ -143,20 +153,39 @@ The following are primarily for text-heavy games, such as visual novels.
     * [Playing Emulated DS, 3DS, PSP and Gameboy Advanced games on Android devices](https://docs.google.com/document/d/1iUfG_omRDaC3huup_XuAg1ztt2VSkezI2kL-O-Pf3-4/edit?usp=sharing)
         * Contact info: `OrangeLightX#2907` <!-- 1011824983351250965 -->
             on the Refold (JP) Discord server or {{ TMW_SERVER }}
+    * See [this section](setupeverythingelse.md#getting-images-sentence-audio-manually)
+        to get sentence audio and images
 
 ---
 
 
-## Text from video content
+# Video Content: Getting Text, Sentence Audio, Picture
 Video content includes streamed content (Youtube, Netflix, etc.) and locally downloaded files.
 
 ??? example "Resources *(click here)*"
-    * [mpvacious](https://github.com/Ajatt-Tools/mpvacious) (recommended if you are using MPV)
-    * [Immersive](https://github.com/Ben-Kerman/immersive)
-    * [asbplayer](https://github.com/killergerbah/asbplayer) (Built-in texthooker page)
-    * [Animebook](https://github.com/animebook/animebook.github.io) (Built-in texthooker page)
+    * [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious) (recommended if you are using MPV)
+        * Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
+        * Basically universal codec support.
+    * [**asbplayer**](https://github.com/killergerbah/asbplayer)
+        * Cross platform (chromium) browser video player. Personally tested.
+        * Codec support is based on the browser used.
+        * Works on video streaming sites as well.
+    * [**Animebook**](https://github.com/animebook/animebook.github.io)
+        * Cross platform (chromium) browser video player.
+        * Codec support is based on the browser used.
     * All of the above require subtitle files to function. Most anime subtitle files can be found under
         [kitsuneko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F).
+
+    **Other:**
+
+    * [jidoujisho](https://github.com/lrorpilla/jidoujisho)
+        * Android e-book reader and media player. Advertises itself as an all-in-one app.
+        * See [this note on jidoujisho](#jidoujisho).
+    * [Immersive](https://github.com/Ben-Kerman/immersive)
+        * Add-on for MPV. Alternative to mpvacious.
+        * WARNING: This is potentially outdated and/or abandoned.
+            The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
+            This is listed here for completeness only.
 
 ??? example "Guides *(click here)*"
     * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (asbplayer)
@@ -172,11 +201,14 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
 ---
 
 
-## Text from manga (Mokuro)
-[mokuro](https://github.com/kha-white/mokuro) pre-processes manga, so you don't have to run
-any OCR program afterwards.
+# Manga: Getting Text
 
-??? example "Guides *(click here)*"
+??? example "mokuro (recommended)"
+    [**mokuro**](https://github.com/kha-white/mokuro) pre-processes manga, so you don't have to run
+    any OCR program afterwards.
+
+    **Guides:**
+
     - [Lazy guide (recommended)](https://rentry.co/lazyXel#manga-with-yomichan)
         - (For Windows users) Make sure to check the "Add Python to Path" on install.
         - If you are using online processing (google colab), be sure that you are
@@ -196,21 +228,40 @@ any OCR program afterwards.
         Python 3.10 is [not supported yet](https://github.com/kha-white/mokuro#installation).
 
         If your Python version is too old, I recommend using [pyenv](https://github.com/pyenv/pyenv),
-        especially for Linux users. Linux users can use the
+        for Linux users. Linux users can use the
         [automatic installer](https://github.com/pyenv/pyenv#automatic-installer).
+        For Windows users, it should be sufficient to uninstall `mokuro`, install a newer version of Python,
+        and then re-install mokuro with the newer version.
 
     - Make sure your directory is a string and not a number. For example, `mokuro ./01` on unix, and `mokuro .\01` on Windows.
+
+??? example "Manga OCR"
+    [**Manga OCR**](https://github.com/kha-white/manga-ocr) allows you to automatically OCR any image.
+    As the name suggests, this works best on manga.
+
+    **Guides:**
+
+    - [Lazy guide (Windows)](https://rentry.co/lazyXel#manga-ocr)
+
+
 
 ---
 
 
-## Text from local files (EPUBs, HTMLZ, PDF)
+# Books (EPUBs, HTMLZ, PDF)
 As long as you're not using a scan (image-based), the text should already be available.
-The following are ways to view these files in a browser to Yomichan:
+Below will list a few ways to view these files in a browser to Yomichan.
 
 ??? example "Resources *(click here)*"
-    * [ッツ Ebook Reader](https://ttu-ebook.web.app/) (EPUBs, HTMLZ)
+    * [ッツ Ebook Reader](https://ttu-ebook.web.app/) (EPUBs, HTMLZ) (recommended)
     * [Mozilla's PDF Viewer](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
+
+    **Other:**
+
+    * [jidoujisho](https://github.com/lrorpilla/jidoujisho)
+        * Android e-book reader and media player. Advertises itself as an all-in-one app.
+        * Uses [ッツ Ebook Reader](https://ttu-ebook.web.app/) as its backend.
+        * See [this note on jidoujisho](#jidoujisho).
 
 ??? example "Guides *(click here)*"
     - Like with Mokuro,
@@ -218,18 +269,48 @@ The following are ways to view these files in a browser to Yomichan:
         [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
         to create Anki cards.
 
+---
+
+# Getting Images & Sentence Audio Manually
+Sometimes, there is no easy way to get the image and sentence audio other than with a screen recorder.
+The primary example for this is game-like content.
+
+Here are the two popular approaches to automatically adding the image and sentence audio:
+
+??? example "ShareX (Windows)"
+
+    [**ShareX**](https://getsharex.com/)
+
+    <!--
+    * Windows media recorder which can both take screenshots and record audio. Personally tested.
+    * Useful for things that don't have an easy way of getting audio, such as visual novels.
+    -->
+
+    **Guides:**
+
+    * [stegatxins0's mining guide: ShareX](https://rentry.co/mining#sharex) (recommended)
+        * The scripts written [here](jpresources.md#sharex-scripts)
+            works by default with this note.
+            These scripts are meant used with stegatxins0's setup.
+    * [Xeliu's mining guide: ShareX](https://rentry.co/lazyXel#sharex)
+        * ShareX setup is based off of stegatxins0's setup
+    * [Anime Cards: Handling Media](https://animecards.site/media/)
+        * Not recommended: introduces additional steps compared to the above two guides
+
+??? example "ames (Linux)"
+
+    [**ames**](https://github.com/eshrh/ames)
+
+    * ShareX alternative for Linux. Personally tested.
+    * Primarily used to automate audio and picture extraction to the most recently added Anki card.
 
 
 ---
 
-# Automating Pictures and Sentence Audio
+# Notes on Various Programs
 
 ## [mpvacious](https://github.com/Ajatt-Tools/mpvacious)
 
-* Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
-* Given a subtitle file for a movie file, it can automatically add sentence audio and images with one `Ctrl+n` command.
-* You can now [extract the video clip itself](https://github.com/Ajatt-Tools/mpvacious/pull/78)
-    instead of the picture. However, this note does not support video clips yet.
 * You will have to change the [configuration](https://github.com/Ajatt-Tools/mpvacious#configuration)
     in order for mpvacious to work with JPMN.
 
@@ -272,64 +353,65 @@ The following are ways to view these files in a browser to Yomichan:
 
         Additionally, be sure to restart MPV after changing the config to apply the changes.
 
----
+* The `SentenceReading` field may differ from the `Sentence` field,
+    if you export multiple lines of a subtitle in one card.
+    Because of this, you will likely want to
+    [disable automatic furigana generation on card add](faq.md#how-do-i-disable-furigana-on-card-generation).
 
-## [Immersive](https://github.com/Ben-Kerman/immersive)
+    If you still want furigana on your cards,
+    [bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
 
-* A powerful alternative to the mpvacious add-on above, with certain different capabilities.
-* Can also be used to automatically extract sentence audio and pictures.
-
-!!! warning
-    This is potentially outdated and/or abandoned.
-    The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
+* This addon has capabilities to
+    [extract the video clip itself](https://github.com/Ajatt-Tools/mpvacious/pull/78)
+    instead of the picture.
+    However, this note does not support video clips yet.
 
 ---
 
 ## [asbplayer](https://github.com/killergerbah/asbplayer)
 
-* Cross platform (chromium) browser video player. Personally tested.
-* This also has card image and audio exporting capabilities.
-* Works on video streaming sites as well.
-* Guides that use asbplayer:
-    * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub)
-    * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)
+There are a few common issues that asbplayer users have, when creating cards with JPMN.
 
----
+1. **The `Sentence` field has extra info.**
 
-## [ShareX](https://getsharex.com/)
+    This is because asbplayer requires you to use its internal `Sentence` field
+    instead of Yomichan's automatically generated sentence.
 
-* Windows media recorder which can both take screenshots and record audio. Personally tested.
-* Useful for things that don't have an easy way of getting audio, such as visual novels.
-* Guides on connecting ShareX with your mining setup:
-    * [stegatxins0's mining guide: ShareX](https://rentry.co/mining#sharex) (recommended)
-        * The scripts written [here](jpresources.md#sharex-scripts)
-            works by default with this note.
-            These scripts are meant used with stegatxins0's setup.
-    * [Xeliu's mining guide: ShareX](https://rentry.co/lazyXel#sharex)
-        * ShareX setup is based off of stegatxins0's setup
-    * [Anime Cards: Handling Media](https://animecards.site/media/)
-        * Not recommended: introduces additional steps compared to the above two guides
+    However, using this will naturally lead you to the second problem:
 
----
+1. **The word in the `Sentence` field is not bolded.**
 
-## [ames](https://github.com/eshrh/ames)
+    asbplayer's generated sentence does NOT preserve the bold in the `Sentence` field.
+    Unfortunately, there is no easy way to fix this.
+    Your options include:
 
-* ShareX alternative for Linux. Personally tested.
-* Primarily used to automate audio and picture extraction to the most recently added Anki card.
+    1. Manually bolding the word in Anki.
+    1. Updating the sentence with [this script](jpresources.md#update-sentence-with-clipboard)
+        (instead of using asbplayer's sentence field).
 
----
+1. **The `SentenceReading` differs from the `Sentence` field, or has extra text.**
 
-## [Animebook](https://github.com/animebook/animebook.github.io)
+    This relates to the first problem: Yomichan's automatically generated sentence
+    differs from asbplayer's sentence field.
 
-* Cross platform (chromium) browser video player.
-* This also has card image and audio exporting capabilities.
-* Guides that use Animebook:
-    * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/)
+    To fix this,
+    [disable automatic furigana generation on card add](faq.md#how-do-i-disable-furigana-on-card-generation).
+
+    If you still want furigana on your cards,
+    [bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
+
 
 ---
 
 ## [jidoujisho](https://github.com/lrorpilla/jidoujisho)
 
-* Android e-book reader and media player, which can also create Anki cards (among many, many other things).
-* Note that this app does NOT use Yomichan, which means that certain fields may not be filled automatically.
+I'm not very sure how the Anki card generation works for this app,
+since this app does not use Yomichan.
+
+The custom handlebars used by JPMN does a lot of heavy lifting
+and has plenty of customizations specifically to work JPMN.
+Unfortunately, this handlebars is not very portable between programs.
+
+If you want to use this app, I leave it to the reader to figure out the specifics
+of creating the cards.
 

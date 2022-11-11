@@ -969,7 +969,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
     After running this script, you must manually generate the `SentenceReading` field
     if you want the furigana reading.
     Of course, this can be done in bulk at any point,
-    as shown [here](importing.md#1-batch-generate-pitch-accents-and-sentence-furigana).
+    as shown [here](faq.md#how-do-i-bulk-generate-furigana).
 
 ??? info "How-To: Fix incorrectly-bolded words *(click here)*"
 
