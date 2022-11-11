@@ -649,6 +649,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options
       </a>
@@ -665,20 +679,6 @@
     <li class="md-nav__item">
       <a href="../compiletimeoptions/" class="md-nav__link">
         Compile-Time Options
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
       </a>
     </li>
   
@@ -1230,14 +1230,32 @@ in the javascript options.</p>
 <li>should be two warnings</li>
 </ul>
 </li>
-<li>
-<p>but worst case is for cases which I don't know how to reproduce</p>
-<ul>
-<li>rarely, asynchronous functions run more than once</li>
+<li>but worst case is for cases which I don't know how to reproduce<ul>
+<li>rarely, asynchronous functions run more than once<ul>
+<li>it seems like anki randomly loads the page twice, causing all asynchronous functions to also run twice</li>
+</ul>
+</li>
 <li>including the async functions defined currently in modules like <code>kanji-hover</code></li>
 <li>to cirumvent having their actions done twice, define the affected elements outside the asynchronous section<ul>
 <li>the function still runs twice (so any side-effects of the function will still happen)</li>
 <li>however, other instances of the function should not work on the elements defined outside</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>additionally, many modules require things to be loaded before the card is shown</p>
+<ul>
+<li>Anki displays the page only when all of the synchronous javascript is ran</li>
+<li>If these become asynchronous, the user will be able to see split-second changes to the layout as the javascript is running</li>
+<li>Two solutions to this:<ul>
+<li>(1) To only show the page when specific asynchronous functions are complete, the entire page must be hidden,
+    with say, a <code>hidden</code> class on the <code>&lt;body&gt;</code> element</li>
+<li>Problem: if the main javascript fails, then you will get a blank page!<ul>
+<li>making this approach very risky</li>
+</ul>
+</li>
+<li>(2) Avoid asynchronous functions alltogether</li>
 </ul>
 </li>
 </ul>
@@ -1261,7 +1279,7 @@ in the javascript options.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 11, 2022</span>
       
     
   </small>

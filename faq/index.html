@@ -649,6 +649,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options
       </a>
@@ -665,20 +679,6 @@
     <li class="md-nav__item">
       <a href="../compiletimeoptions/" class="md-nav__link">
         Compile-Time Options
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
       </a>
     </li>
   
@@ -952,15 +952,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-do-i-use-this-note-type-as-an-anime-card" class="md-nav__link">
-    How do I use this note type as an Anime Card?
+  <a href="#how-do-i-set-the-default-card-type" class="md-nav__link">
+    How do I set the default card type?
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-do-i-change-the-default-value-of-a-binary-field" class="md-nav__link">
-    How do I change the default value of a binary field?
+  <a href="#how-do-i-automatically-change-the-value-of-a-binary-field-on-multiple-existing-cards" class="md-nav__link">
+    How do I automatically change the value of a binary field on multiple existing cards?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-disable-furigana-on-card-generation" class="md-nav__link">
+    How do I disable furigana on card generation?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-bulk-generate-furigana" class="md-nav__link">
+    How do I bulk generate furigana?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-bulk-generate-pitch-accents" class="md-nav__link">
+    How do I bulk generate pitch accents?
   </a>
   
 </li>
@@ -975,6 +996,13 @@
           <li class="md-nav__item">
   <a href="#how-do-i-edit-the-fields-raw-html" class="md-nav__link">
     How do I edit the field's raw HTML?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-use-this-note-type-as-an-anime-card" class="md-nav__link">
+    How do I use this note type as an Anime Card?
   </a>
   
 </li>
@@ -1179,15 +1207,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-do-i-use-this-note-type-as-an-anime-card" class="md-nav__link">
-    How do I use this note type as an Anime Card?
+  <a href="#how-do-i-set-the-default-card-type" class="md-nav__link">
+    How do I set the default card type?
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-do-i-change-the-default-value-of-a-binary-field" class="md-nav__link">
-    How do I change the default value of a binary field?
+  <a href="#how-do-i-automatically-change-the-value-of-a-binary-field-on-multiple-existing-cards" class="md-nav__link">
+    How do I automatically change the value of a binary field on multiple existing cards?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-disable-furigana-on-card-generation" class="md-nav__link">
+    How do I disable furigana on card generation?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-bulk-generate-furigana" class="md-nav__link">
+    How do I bulk generate furigana?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-bulk-generate-pitch-accents" class="md-nav__link">
+    How do I bulk generate pitch accents?
   </a>
   
 </li>
@@ -1202,6 +1251,13 @@
           <li class="md-nav__item">
   <a href="#how-do-i-edit-the-fields-raw-html" class="md-nav__link">
     How do I edit the field's raw HTML?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-use-this-note-type-as-an-anime-card" class="md-nav__link">
+    How do I use this note type as an Anime Card?
   </a>
   
 </li>
@@ -1436,6 +1492,122 @@ so the bug is here to stay until a better solution is found.
 <hr />
 <h2 class="text-yellow" id="card-editing">Card Editing<a class="headerlink" href="#card-editing" title="Permanent link">&para;</a></h2>
 <hr />
+<h3 id="how-do-i-set-the-default-card-type">How do I set the default card type?<a class="headerlink" href="#how-do-i-set-the-default-card-type" title="Permanent link">&para;</a></h3>
+<p>In <a href="../setupyomichan/#yomichan-fields">Yomichan's Anki Card Format</a>,
+you can simply fill the field.</p>
+<p>For example, if you want to set the default card type to be a sentence card,
+fill the <code>IsSentenceCard</code> field there.</p>
+<hr />
+<h3 id="how-do-i-automatically-change-the-value-of-a-binary-field-on-multiple-existing-cards">How do I automatically change the value of a binary field on multiple existing cards?<a class="headerlink" href="#how-do-i-automatically-change-the-value-of-a-binary-field-on-multiple-existing-cards" title="Permanent link">&para;</a></h3>
+<p>You have three main options:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As always, before mass editing your collection, please
+<a href="./#how-do-i-backup-my-anki-data">backup your Anki data</a>.</p>
+</div>
+<ol>
+<li>
+<p><a href="https://ankiweb.net/shared/info/291119185" target="_blank">Batch Editing Addon</a></p>
+</li>
+<li>
+<p>Python script:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># assuming you are at the root of the repo,
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>cd ./tools
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a># sets all `IsSentenceCard` fields to be filled
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python3 batch.py --fill-field &quot;IsSentenceCard&quot;
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a># empties all `IsSentenceCard` fields
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>python3 batch.py --empty-field &quot;IsSentenceCard&quot;
+</code></pre></div>
+</li>
+<li>
+<p>Regex Search (TODO)</p>
+</li>
+</ol>
+<hr />
+<h3 id="how-do-i-disable-furigana-on-card-generation">How do I disable furigana on card generation?<a class="headerlink" href="#how-do-i-disable-furigana-on-card-generation" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>In <a href="../setupyomichan/#yomichan-fields">Yomichan's Anki Card Format</a>,
+    ensure that the <code>SentenceReading</code> field is empty.</p>
+</li>
+<li>
+<p>If you are using the AJT Furigana addon, edit the config and set <code>generate_on_note_add</code> to <code>false</code>.
+    Afterwards, restart Anki.</p>
+</li>
+</ol>
+<hr />
+<h3 id="how-do-i-bulk-generate-furigana">How do I bulk generate furigana?<a class="headerlink" href="#how-do-i-bulk-generate-furigana" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Head to the Card Browser window:</p>
+<blockquote>
+<p>Main Window →  <code>Browse</code></p>
+</blockquote>
+</li>
+<li>
+<p>Select all notes without furigana, with the following search:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&quot;note:JP Mining Note&quot; SentenceReading:
+</code></pre></div></p>
+</li>
+<li>
+<p>Head over to:</p>
+<blockquote>
+<p><code>Edit</code> (top left corner) →  <code>Bulk-add furigana</code>.</p>
+</blockquote>
+</li>
+</ol>
+<hr />
+<h3 id="how-do-i-bulk-generate-pitch-accents">How do I bulk generate pitch accents?<a class="headerlink" href="#how-do-i-bulk-generate-pitch-accents" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will only batch generate the <code>AJTWordPitch</code> field.
+Pitch accent graphs and positions cannot be automatically generated.
+This is important to note if you are using colored pitch accent.
+If <code>PAPositions</code> is not filled, then the card cannot be automatically colored.</p>
+</div>
+<ol>
+<li>
+<p>Head to the Card Browser window:</p>
+<blockquote>
+<p>Main Window →  <code>Browse</code></p>
+</blockquote>
+</li>
+<li>
+<p>Select all notes with an empty <code>AJTWordPitch</code> field, with the following search:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;note:JP Mining Note&quot; AJTWordPitch:
+</code></pre></div></p>
+</li>
+<li>
+<p>Head over to:</p>
+<blockquote>
+<p><code>Edit</code> (top left corner) →  <code>Bulk-add pitch accents</code>.</p>
+</blockquote>
+</li>
+</ol>
+<p>There may be some cards that still have an empty <code>AJTWordPitch</code> field.
+This is simply because the plugin did not have a pitch for that word.</p>
+<hr />
+<h3 id="how-do-i-remove-an-empty-card-without-deleting-the-entire-note">How do I remove an empty card without deleting the entire note?<a class="headerlink" href="#how-do-i-remove-an-empty-card-without-deleting-the-entire-note" title="Permanent link">&para;</a></h3>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>To remove the empty cards, go to <code>Tools</code> →  <code>Empty Cards</code> in the main window.
+You will be shown a list of empty cards and be given the option to delete them.</p>
+<p><sup>Taken from the
+<a href="https://docs.ankiweb.net/templates/generation.html#card-generation--deletion" target="_blank">official Anki documentation</a>.
+</sup></p>
+</div>
+<hr />
+<h3 id="how-do-i-edit-the-fields-raw-html">How do I edit the field's raw HTML?<a class="headerlink" href="#how-do-i-edit-the-fields-raw-html" title="Permanent link">&para;</a></h3>
+<p>Within the card browser,
+select a field to edit,
+and then type <code>ctrl+shift+x</code>.</p>
+<p>Alternatively, on newer versions of Anki, you can click on the top-right corner
+on the code button.</p>
+<p><a href="../assets/anki/edit_html.gif"><img alt="Anki edit html" src="../assets/anki/edit_html.gif" /></a></p>
+<hr />
 <h3 id="how-do-i-use-this-note-type-as-an-anime-card">How do I use this note type as an Anime Card?<a class="headerlink" href="#how-do-i-use-this-note-type-as-an-anime-card" title="Permanent link">&para;</a></h3>
 <p>An anime card is a vocab card with a picture and native audio, which
 is the default setup for this card.</p>
@@ -1448,56 +1620,6 @@ To use this as an Anime Card, follow the steps to make a vocab card ([here](card
 and use the `HintNotHidden` field for your hint.
 -->
 
-<hr />
-<h3 id="how-do-i-change-the-default-value-of-a-binary-field">How do I change the default value of a binary field?<a class="headerlink" href="#how-do-i-change-the-default-value-of-a-binary-field" title="Permanent link">&para;</a></h3>
-<p>In Yomichan Format, you can simply toggle the field.
-Any new card that is created will now default to that default value.</p>
-<p>Of course, this will not affect existing cards.
-To change existing cards, I recommend bulk-editing your cards,
-say, with <a href="https://ankiweb.net/shared/info/291119185" target="_blank">this add-on</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>As always, before mass editing your collection, please
-<a href="./#how-do-i-backup-my-anki-data">backup your Anki data</a>.</p>
-</div>
-<p>Alternatively, you can use the following commands to bulk edit your cards
-in the current deck:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># assuming you are at the root of the repo,
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>cd ./tools
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a># sets all `IsSentenceCard` fields to be filled
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python3 batch.py --fill-field &quot;IsSentenceCard&quot;
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a># empties all `IsSentenceCard` fields
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>python3 batch.py --empty-field &quot;IsSentenceCard&quot;
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You technically have a second option, and that is to change the code itself
-(i.e. flip <code>#</code> with <code>^</code> for the desired field).
-However, you should only do this if you know what you are doing,
-and are fine with knowing that you may lose those changes
-if you update this note.</p>
-</div>
-<hr />
-<h3 id="how-do-i-remove-an-empty-card-without-deleting-the-entire-note">How do I remove an empty card without deleting the entire note?<a class="headerlink" href="#how-do-i-remove-an-empty-card-without-deleting-the-entire-note" title="Permanent link">&para;</a></h3>
-<div class="admonition quote">
-<p class="admonition-title">Quote</p>
-<p>To remove the empty cards, go to <code>Tools</code> →  <code>Empty Cards</code> in the main window.
-You will be shown a list of empty cards and be given the option to delete them.</p>
-</div>
-<p><sup>Taken from the
-<a href="https://docs.ankiweb.net/templates/generation.html#card-generation--deletion" target="_blank">official Anki documentation</a>.
-</sup></p>
-<hr />
-<h3 id="how-do-i-edit-the-fields-raw-html">How do I edit the field's raw HTML?<a class="headerlink" href="#how-do-i-edit-the-fields-raw-html" title="Permanent link">&para;</a></h3>
-<p>Within the card browser,
-select a field to edit,
-and then type <code>ctrl+shift+x</code>.</p>
-<p>Alternatively, on newer versions of Anki, you can click on the top-right corner
-on the code button.</p>
-<p><a href="../assets/anki/edit_html.gif"><img alt="Anki edit html" src="../assets/anki/edit_html.gif" /></a></p>
 <hr />
 <h2 class="text-yellow" id="other-questions">Other Questions<a class="headerlink" href="#other-questions" title="Permanent link">&para;</a></h2>
 <hr />
@@ -1572,7 +1694,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 11, 2022</span>
       
     
   </small>

@@ -592,12 +592,25 @@
     Enjoy your new one-click cards!
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wait-i-dont-have-a-workflow-setup-yet" class="md-nav__link">
-    Wait! I don't have a workflow setup yet!
+    <nav class="md-nav" aria-label="Enjoy your new one-click cards!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#im-new-to-sentence-mining" class="md-nav__link">
+    I'm new to sentence mining.
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-already-have-a-sentence-mining-workflow" class="md-nav__link">
+    I already have a sentence mining workflow.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -762,6 +775,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options
       </a>
@@ -778,20 +805,6 @@
     <li class="md-nav__item">
       <a href="../compiletimeoptions/" class="md-nav__link">
         Compile-Time Options
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
       </a>
     </li>
   
@@ -1079,12 +1092,25 @@
     Enjoy your new one-click cards!
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wait-i-dont-have-a-workflow-setup-yet" class="md-nav__link">
-    Wait! I don't have a workflow setup yet!
+    <nav class="md-nav" aria-label="Enjoy your new one-click cards!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#im-new-to-sentence-mining" class="md-nav__link">
+    I'm new to sentence mining.
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-already-have-a-sentence-mining-workflow" class="md-nav__link">
+    I already have a sentence mining workflow.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1302,9 +1328,11 @@ with all other definitions in collapsable fields.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Anything field marked with <code>*</code> are binary fields, and
-<strong>should be configured to each user's personal preferences.</strong>
-To change the default value of any of the fields, simply fill
+<strong>should be configured to each user's personal preferences.</strong></p>
+<p>To change the default value of any of the fields, simply fill
 the field in within the aforementioned <code>Anki card format...</code> section.</p>
+<p>For example, if you want the card to be a sentence card by default,
+fill the <code>IsSentenceCard</code> field here.</p>
 </div>
 <p>The custom markers like <code>{jpmn-primary-definition}</code> is not provided by Yomichan by default.
 See the section below to make these markers usable.</p>
@@ -2025,15 +2053,54 @@ add the following template code as follows:</p>
 <a id="__codelineno-1-665" name="__codelineno-1-665" href="#__codelineno-1-665"></a>
 <a id="__codelineno-1-666" name="__codelineno-1-666" href="#__codelineno-1-666"></a>
 <a id="__codelineno-1-667" name="__codelineno-1-667" href="#__codelineno-1-667"></a>
-<a id="__codelineno-1-668" name="__codelineno-1-668" href="#__codelineno-1-668"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">a</span> <span class="nv">test</span> <span class="nv">to</span> <span class="nv">check</span> <span class="nv">if</span> <span class="nv">your</span> <span class="nv">dictionaries</span> <span class="nv">are</span> <span class="nv">correctly</span> <span class="nv">classified</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-669" name="__codelineno-1-669" href="#__codelineno-1-669"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">Only</span> <span class="nv">meant</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">used</span> <span class="nv">for</span> <span class="nv">debugging</span> <span class="nv">purposes</span><span class="err">,</span> <span class="nv">not</span> <span class="nv">Anki</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-670" name="__codelineno-1-670" href="#__codelineno-1-670"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-test-dict-type&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-671" name="__codelineno-1-671" href="#__codelineno-1-671"></a><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-672" name="__codelineno-1-672" href="#__codelineno-1-672"></a><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-673" name="__codelineno-1-673" href="#__codelineno-1-673"></a><span class="x">「</span><span class="cp">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">」: </span><span class="cp">{{</span><span class="k">&gt;</span> <span class="nv">jpmn-get-dict-type</span> <span class="err">.</span> <span class="na">dictionaryName</span><span class="o">=</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-674" name="__codelineno-1-674" href="#__codelineno-1-674"></a><span class="cp">{{</span><span class="m m-Attribute">/each~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-675" name="__codelineno-1-675" href="#__codelineno-1-675"></a><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-676" name="__codelineno-1-676" href="#__codelineno-1-676"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-668" name="__codelineno-1-668" href="#__codelineno-1-668"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span>
+<a id="__codelineno-1-669" name="__codelineno-1-669" href="#__codelineno-1-669"></a><span class="nv">thanks</span> <span class="nv">to</span><span class="err">:</span>
+<a id="__codelineno-1-670" name="__codelineno-1-670" href="#__codelineno-1-670"></a><span class="err">-</span> <span class="nv">https</span><span class="err">:</span><span class="nv">//github.com/FooSoft/yomichan/issues/1952</span><span class="err">#</span><span class="nv">issuecomment-922671489</span> <span class="nv">for</span> <span class="nv">the</span> <span class="nv">base</span> <span class="nv">code</span>
+<a id="__codelineno-1-671" name="__codelineno-1-671" href="#__codelineno-1-671"></a><span class="err">-</span> <span class="nv">DaNautics</span><span class="err">#</span><span class="m">8833</span> <span class="nv">for</span> <span class="nv">finding</span> <span class="nv">the</span> <span class="nv">above</span> <span class="err">+</span> <span class="nv">removing</span> <span class="nv">the</span> <span class="nv">span</span> <span class="nv">classes</span>
+<a id="__codelineno-1-672" name="__codelineno-1-672" href="#__codelineno-1-672"></a><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-673" name="__codelineno-1-673" href="#__codelineno-1-673"></a><span class="cp">{{</span><span class="m m-Attribute">#*inline</span> <span class="s2">&quot;jpmn-sentence-bolded-furigana-plain&quot;</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-674" name="__codelineno-1-674" href="#__codelineno-1-674"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">definition.cloze</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-675" name="__codelineno-1-675" href="#__codelineno-1-675"></a>
+<a id="__codelineno-1-676" name="__codelineno-1-676" href="#__codelineno-1-676"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#regexReplace</span> <span class="s2">&quot;(&lt;span class=\&quot;term\&quot;&gt;)|(&lt;/span&gt;)&quot;</span> <span class="s2">&quot;&quot;</span> <span class="s2">&quot;g&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-677" name="__codelineno-1-677" href="#__codelineno-1-677"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~#regexReplace</span> <span class="s2">&quot;&lt;ruby&gt;(.+?)&lt;rt&gt;(.+?)&lt;/rt&gt;&lt;/ruby&gt;&quot;</span> <span class="s2">&quot; $1[$2]&quot;</span> <span class="s2">&quot;g&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-678" name="__codelineno-1-678" href="#__codelineno-1-678"></a>
+<a id="__codelineno-1-679" name="__codelineno-1-679" href="#__codelineno-1-679"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(hasMedia</span> <span class="s2">&quot;textFurigana&quot;</span> <span class="nv">definition.cloze.prefix)</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-680" name="__codelineno-1-680" href="#__codelineno-1-680"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~#getMedia</span> <span class="s2">&quot;textFurigana&quot;</span> <span class="nv">definition.cloze.prefix</span> <span class="na">escape</span><span class="o">=</span><span class="nv">false</span><span class="cp">}}{{</span><span class="m m-Attribute">/getMedia~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-681" name="__codelineno-1-681" href="#__codelineno-1-681"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~else~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-682" name="__codelineno-1-682" href="#__codelineno-1-682"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~definition.cloze.prefix~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-683" name="__codelineno-1-683" href="#__codelineno-1-683"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-684" name="__codelineno-1-684" href="#__codelineno-1-684"></a>
+<a id="__codelineno-1-685" name="__codelineno-1-685" href="#__codelineno-1-685"></a><span class="x">            &lt;b&gt;</span>
+<a id="__codelineno-1-686" name="__codelineno-1-686" href="#__codelineno-1-686"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(hasMedia</span> <span class="s2">&quot;textFurigana&quot;</span> <span class="nv">definition.cloze.body)</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-687" name="__codelineno-1-687" href="#__codelineno-1-687"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~#getMedia</span> <span class="s2">&quot;textFurigana&quot;</span> <span class="nv">definition.cloze.body</span> <span class="na">escape</span><span class="o">=</span><span class="nv">false</span><span class="cp">}}{{</span><span class="m m-Attribute">/getMedia~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-688" name="__codelineno-1-688" href="#__codelineno-1-688"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~else~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-689" name="__codelineno-1-689" href="#__codelineno-1-689"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~definition.cloze.body~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-690" name="__codelineno-1-690" href="#__codelineno-1-690"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-691" name="__codelineno-1-691" href="#__codelineno-1-691"></a><span class="x">            &lt;/b&gt;</span>
+<a id="__codelineno-1-692" name="__codelineno-1-692" href="#__codelineno-1-692"></a>
+<a id="__codelineno-1-693" name="__codelineno-1-693" href="#__codelineno-1-693"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~#if</span> <span class="nv">(hasMedia</span> <span class="s2">&quot;textFurigana&quot;</span> <span class="nv">definition.cloze.suffix)</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-694" name="__codelineno-1-694" href="#__codelineno-1-694"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~#getMedia</span> <span class="s2">&quot;textFurigana&quot;</span> <span class="nv">definition.cloze.suffix</span> <span class="na">escape</span><span class="o">=</span><span class="nv">false</span><span class="cp">}}{{</span><span class="m m-Attribute">/getMedia~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-695" name="__codelineno-1-695" href="#__codelineno-1-695"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~else~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-696" name="__codelineno-1-696" href="#__codelineno-1-696"></a><span class="x">                </span><span class="cp">{{</span><span class="m m-Attribute">~definition.cloze.suffix~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-697" name="__codelineno-1-697" href="#__codelineno-1-697"></a><span class="x">            </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-698" name="__codelineno-1-698" href="#__codelineno-1-698"></a>
+<a id="__codelineno-1-699" name="__codelineno-1-699" href="#__codelineno-1-699"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/regexReplace~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-700" name="__codelineno-1-700" href="#__codelineno-1-700"></a><span class="x">        </span><span class="cp">{{</span><span class="m m-Attribute">~/regexReplace~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-701" name="__codelineno-1-701" href="#__codelineno-1-701"></a>
+<a id="__codelineno-1-702" name="__codelineno-1-702" href="#__codelineno-1-702"></a><span class="x">    </span><span class="cp">{{</span><span class="m m-Attribute">~/if~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-703" name="__codelineno-1-703" href="#__codelineno-1-703"></a><span class="cp">{{</span><span class="m m-Attribute">/inline</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-704" name="__codelineno-1-704" href="#__codelineno-1-704"></a>
+<a id="__codelineno-1-705" name="__codelineno-1-705" href="#__codelineno-1-705"></a>
+<a id="__codelineno-1-706" name="__codelineno-1-706" href="#__codelineno-1-706"></a>
+<a id="__codelineno-1-707" name="__codelineno-1-707" href="#__codelineno-1-707"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">a</span> <span class="nv">test</span> <span class="nv">to</span> <span class="nv">check</span> <span class="nv">if</span> <span class="nv">your</span> <span class="nv">dictionaries</span> <span class="nv">are</span> <span class="nv">correctly</span> <span class="nv">classified</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-708" name="__codelineno-1-708" href="#__codelineno-1-708"></a><span class="cp">{{</span><span class="m m-Attribute">~!</span> <span class="nv">Only</span> <span class="nv">meant</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">used</span> <span class="nv">for</span> <span class="nv">debugging</span> <span class="nv">purposes</span><span class="err">,</span> <span class="nv">not</span> <span class="nv">Anki</span><span class="err">.</span> <span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-709" name="__codelineno-1-709" href="#__codelineno-1-709"></a><span class="cp">{{</span><span class="m m-Attribute">~#*inline</span> <span class="s2">&quot;jpmn-test-dict-type&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-710" name="__codelineno-1-710" href="#__codelineno-1-710"></a><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-711" name="__codelineno-1-711" href="#__codelineno-1-711"></a><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-712" name="__codelineno-1-712" href="#__codelineno-1-712"></a><span class="x">「</span><span class="cp">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">」: </span><span class="cp">{{</span><span class="k">&gt;</span> <span class="nv">jpmn-get-dict-type</span> <span class="err">.</span> <span class="na">dictionaryName</span><span class="o">=</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-713" name="__codelineno-1-713" href="#__codelineno-1-713"></a><span class="cp">{{</span><span class="m m-Attribute">/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-714" name="__codelineno-1-714" href="#__codelineno-1-714"></a><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-715" name="__codelineno-1-715" href="#__codelineno-1-715"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
 </code></pre></div>
 </details>
 </li>
@@ -2119,20 +2186,10 @@ for more info.</p>
 <h2 id="enjoy-your-new-one-click-cards">Enjoy your new one-click cards!<a class="headerlink" href="#enjoy-your-new-one-click-cards" title="Permanent link">&para;</a></h2>
 <p>If you've made it this far, then congratulations!
 Most fields of the cards have been automatically filled out, just from Yomichan alone!</p>
-<p>If you already have a sentence mining workflow set up,
-you may have to do some minor tweaks to your current workflow,
-to match the field names, for exporting sentence audio and pictures.
-However, outside of that, <strong class="text-yellow">you are now finished</strong>!</p>
-<p>From here, there are a few of pages of interest.</p>
-<ul>
-<li>Up until now, this has documented the bare minimum setup to create Anki cards.
-    For purely optional but potentially useful setup tips, see <a href="../setupother/">Setup: Other</a>.</li>
-<li>You can now create and use jp-mining-note!
-    See the <a href="../ui/">Reference</a>
-    to see all the different ways you can use and personalize the card.</li>
-</ul>
-<hr />
-<h2 id="wait-i-dont-have-a-workflow-setup-yet">Wait! I don't have a workflow setup yet!<a class="headerlink" href="#wait-i-dont-have-a-workflow-setup-yet" title="Permanent link">&para;</a></h2>
+<p>This concludes the setup process for creating cards with Yomichan.</p>
+<p>From here, you likely fall under one of the two categories below:</p>
+<p><br></p>
+<h3 id="im-new-to-sentence-mining">I'm new to sentence mining.<a class="headerlink" href="#im-new-to-sentence-mining" title="Permanent link">&para;</a></h3>
 <p>If you're new to sentence mining, there are likely some things things
 that you would like to set up. These include:</p>
 <ol>
@@ -2140,13 +2197,54 @@ that you would like to set up. These include:</p>
 <li>Getting the pictures and/or sentence audio from the media into the card.</li>
 </ol>
 <p>Head over to the <a href="../setupeverythingelse/">Setup: Everything Else</a> page to see exactly that.</p>
+<p><br></p>
+<h3 id="i-already-have-a-sentence-mining-workflow">I already have a sentence mining workflow.<a class="headerlink" href="#i-already-have-a-sentence-mining-workflow" title="Permanent link">&para;</a></h3>
+<p>If you have a workflow already setup,
+you may have to do some minor tweaks to your current workflow
+to match the new field names.
+For example, the exporting sentence audio and picture fields may be different
+compared to your previous card.</p>
+<p>Other than that, you are completely finished with the setup process!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a href="../setupeverythingelse/#notes-on-various-programs">Setup: Everything Else (Notes on Various Programs)</a>
+for specific tips on a select few programs.</p>
+</div>
+<!--
+If you already have a
+you may have to do some minor tweaks to your current workflow,
+to match the field names, for exporting sentence audio and pictures.
+However, outside of that, **you are now finished**{ .text-yellow }!
+
+From here, there are a few of pages of interest.
+
+- Up until now, this has documented the bare minimum setup to create Anki cards.
+    For purely optional but potentially useful setup tips, see [Setup: Other](setupother.md).
+- You can now create and use jp-mining-note!
+    See the [Reference](ui.md)
+    to see all the different ways you can use and personalize the card.
+
+
+---
+
+# Wait! I don't have a workflow setup yet!
+
+If you're new to sentence mining, there are likely some things things
+that you would like to set up. These include:
+
+1. Getting the actual text to use Yomichan on.
+1. Getting the pictures and/or sentence audio from the media into the card.
+
+Head over to the [Setup: Everything Else](setupeverythingelse.md) page to see exactly that.
+
+-->
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 11, 2022</span>
       
     
   </small>

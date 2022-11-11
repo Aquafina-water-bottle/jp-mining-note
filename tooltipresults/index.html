@@ -649,6 +649,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options
       </a>
@@ -665,20 +679,6 @@
     <li class="md-nav__item">
       <a href="../compiletimeoptions/" class="md-nav__link">
         Compile-Time Options
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
       </a>
     </li>
   
@@ -1041,6 +1041,9 @@ know, so they are not greyed out.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  &quot;max-new-latest&quot;: ...
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>}
 </code></pre></div>
+<p>TODO: add this to each query to hide results from cards that are due today
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-(prop:due=0 -rated:1)
+</code></pre></div></p>
 <h2 id="results-sorting">Results Sorting<a class="headerlink" href="#results-sorting" title="Permanent link">&para;</a></h2>
 <p>The above makes the assumption that you are reviewing in order of creation date,
 rather than the time of first review, to save resources.
@@ -1055,10 +1058,10 @@ For example, suspended cards flagged as <code>green</code> are counted in the "n
 (known words), and suspended cards flagged as <code>red</code> are counted as words that you
 do not know AND will not study in the future (not shown in any category).
 This can be changed in the <a href="../runtimeoptions/" target="_blank">runtime options</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;kanji-hover&quot;: {
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &quot;non-new-query&quot;: ...
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  &quot;new-query&quot;: ...
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;kanji-hover&quot;: {
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;non-new-query&quot;: ...
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  &quot;new-query&quot;: ...
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>}
 </code></pre></div>
 
   <hr>
@@ -1066,7 +1069,7 @@ This can be changed in the <a href="../runtimeoptions/" target="_blank">runtime 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 31, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 10, 2022</span>
       
     
   </small>
