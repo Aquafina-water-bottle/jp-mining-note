@@ -388,8 +388,9 @@ There are a few common issues that asbplayer users have, when creating cards wit
     1. Manually bolding the word in Anki.
     1. Updating the sentence with [this script](jpresources.md#update-sentence-with-clipboard)
         (instead of using asbplayer's sentence field).
+        This script must be ran after each card add.
     1. Using a different program altogether,
-        such as [mpvacious](https://github.com/Ajatt-Tools/mpvacious)
+        such as [mpvacious](https://github.com/Ajatt-Tools/mpvacious).
 
 1. **The `SentenceReading` differs from the `Sentence` field, or has extra text.**
 

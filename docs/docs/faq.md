@@ -332,11 +332,11 @@ to find the `Anki2` folder.
 {{ img("anki export package", "assets/anki/media_export.png", 'align=right width="300"') }}
 ## How do I backup my Anki data?
 
-The following makes a **complete backup** of your collection, including media.
+The following makes a **complete backup** of your collection, including media:
 
 > Main Window →  `File` (top left corner) →  `Export...` →  `Anki Collection Package`
 
-The following makes a temporary backup of your collection, not including media
+The following makes a temporary backup of your collection, not including media:
 
 > Main Window →  `File` (top left corner) →  `Create Backup`
 

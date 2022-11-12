@@ -13,6 +13,7 @@
 
 (function () { // restricts ALL javascript to hidden scope
 
+
 // "global" variables within the hidden scope
 let note = (function () {
   let my = {};
@@ -67,6 +68,8 @@ function popupMenuMessage(message, isHTML=false) {
 
 {% endif %}
 {% endfor %}
+
+
 
 
 {% if COMPILE_OPTIONS("keybinds-enabled").item() %}
@@ -184,7 +187,15 @@ document.onkeyup = (e => {
 /// {% endif %} {# keybinds-enabled #}
 
 
+
+
+
 function main() {
+  {% if "time-performance" in modules.keys() %}
+  TIME_PERFORMANCE.start("main");
+  {% endif %}
+
+
 
   // sanity check: options
   /// {% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
@@ -209,12 +220,23 @@ function main() {
 {% endfilter %}
   // END_BLOCK: js_run
 
+
 {% for m in modules.values() %}
 {% if m.js is defined and m.js.run.get(note.card_type, note.side, modules.keys()) %}
   try { // RUN: {{ m.id }}
+
+    {% if "time-performance" in modules.keys() %}
+    TIME_PERFORMANCE.start("{{ m.id }}");
+    {% endif %}
+
     {% filter indent(width=4) %}
     {{ m.js.run.get(note.card_type, note.side, modules.keys()) }}
     {% endfilter %}
+
+    {% if "time-performance" in modules.keys() %}
+    TIME_PERFORMANCE.stop("{{ m.id }}");
+    {% endif %}
+
   } catch (error) {
     LOGGER.error("Error in module {{ m.id }}:");
     LOGGER.errorStack(error.stack);
@@ -223,8 +245,18 @@ function main() {
 {% endif %}
 {% endfor %}
 
+  {% if "time-performance" in modules.keys() %}
+  TIME_PERFORMANCE.stop("main");
+
+  TIME_PERFORMANCE.dump();
+  {% endif %}
+
 }
 
+
+{% if "time-performance" in modules.keys() %}
+TIME_PERFORMANCE.stop("functions");
+{% endif %}
 
 
 main();

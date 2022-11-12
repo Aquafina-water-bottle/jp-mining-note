@@ -203,8 +203,9 @@ const JPMNAnkiConnectActions = (() => {
         return false;
       }
       const query = `is:new cid:${cid} "card:${cardTypeName}"`
-      const result = this.query(query, /*cache=*/false);
+      const result = await this.query(query, /*cache=*/false);
       const isNew = (result.length > 0);
+      logger.debug(`is new: query: ${query}, result: ${result}, isNew: ${isNew}`, 1);
 
       isNewCardCache[cacheKey] = isNew;
       this.isNewCardLocalCache = isNew;

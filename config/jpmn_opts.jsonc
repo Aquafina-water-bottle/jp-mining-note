@@ -61,6 +61,17 @@
 
   "modules": {
 
+    // "enabled" is not featured here, as it is enabled/disabled via compile time options only.
+    "time-performance": {
+      "debug-level": 4,
+      "precision": 3,
+
+      "display-full": true,
+
+      // options: "mostRecent" or "currentSideAvg"
+      "sort-func": "currentSideAvg"
+    },
+
     // Automatic processing to sentences
     "sent-utils": {
       "enabled": true,
@@ -477,6 +488,10 @@
     "pc": true,
     "mobile": false
   },
+
+  // The debug level for debug messages on how long modules and various parts of javascript take to run.
+  // Performance logging is compiled out by default.
+  "log-performance-debug-level": 4,
 
   // (Developer option) Used to show debug messages when debugging the card.
   // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.

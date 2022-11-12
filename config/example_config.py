@@ -24,7 +24,6 @@ CONFIG = {
         # toggles whether the runtime options should be read from a file or not.
         "hardcoded-runtime-options": False,
 
-
         # forces the behavior of the cards to act
         # as if the field is filled or not filled
         "always-filled-fields": [],
@@ -128,6 +127,8 @@ CONFIG = {
         "allow-user-defined-modules": False,
 
         "enabled-modules": [
+            # This is a debugging tool, so this is disabled by default.
+            #"time-performance",
             "sent-utils",
             "kanji-hover",
             "auto-pitch-accent",

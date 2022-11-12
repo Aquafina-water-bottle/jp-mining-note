@@ -12,6 +12,8 @@ const JPMNImgUtils = (() => {
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById("bigimg");
 
+  const dhLeft = document.getElementById("dh_left");
+  const dhRight = document.getElementById("dh_right");
   const imgEye = document.getElementById("img_svg_eye"); // null on the front
   const imgEyePathEle = imgEye === null ? null : imgEye.children[0];
   const dhImgContainer = document.getElementById("dh_img_container");
@@ -395,11 +397,11 @@ const JPMNImgUtils = (() => {
     // makes the modal clickable to un-zoom
 
     // restricting the max height of image to the definition box
-    const dhLeft = document.getElementById("dh_left");
-    const dhRight = document.getElementById("dh_right");
+    // TODO this one line of code seems to reflow the document, causing noticeable delay in the js
+    // https://stackoverflow.com/questions/45960181/what-is-the-fastest-way-to-get-height-width-of-unstyled-element-in-javascript
+    // https://stackoverflow.com/questions/19815810/avoiding-html-document-reflows/19816067#19816067
     const heightLeft = dhLeft.offsetHeight;
 
-    const dhImgContainer = document.getElementById("dh_img_container");
     let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
 
     // attempts to add image according to the tag

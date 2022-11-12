@@ -36,6 +36,7 @@ and must use `./install.py --update`.
         - Added support for various formats in `PAOverride` (csv numbers, and text with downsteps)
         - Added source on hover support (hover over the pitch accent to see where the pitch was gotten from)
     - Added a way to fix ruby positioning for legacy Anki versions (`fix-ruby-positioning` module)
+    - Added way to time the performance of the javascript (`time-performance` module)
 - Added the `PrimaryDefinitionPicture` field
     - Specifies a picture that is always shown to the right of the primary definition
     - Can be technically anything else though, like a table, text, etc.
