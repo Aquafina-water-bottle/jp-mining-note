@@ -2,7 +2,7 @@
 <!-- hybrid (sentence or word) card html
   in css: default hybrid css, with click -->
 <div class="expression__hybrid-wrapper">
-  <div class="expression expression__hybrid expression__hybrid--click" id="display">
+  <div class="expression expression__hybrid expression__hybrid--click expression__hybrid--click-hover-effect" id="display">
     <span class="expression--sentence expression__hybrid-sentence
               {% call IFNOT('IsSentenceCard') %} highlight-bold {% endcall %}
               {% call IF('IsTargetedSentenceCard') %} highlight-bold {% endcall %}

@@ -91,6 +91,14 @@ const JPMNSentUtils = (() => {
       sentEle.style["padding-left"] = "0em";
     }
 
+    // removes the hover effect for mobile displays only
+    ///
+    /// {% call IF("IsClickCard") %}
+    if (isMobile()) {
+      document.getElementById("display").classList.toggle(
+        "expression__hybrid--click-hover-effect", false);
+    }
+    /// {% endcall %}
 
     // data-color-quotes: INDICATOR if the sentence quotes are colored or not
     // - attribute doesn't exist by default

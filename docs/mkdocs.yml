@@ -89,9 +89,9 @@ nav:
     - Developer Documentation:
       - Modding Overview: modding.md
       - Building: building.md
+      - Custom CSS: customcss.md
       - Custom HTML (Overrides): overrides.md
       - Custom JS (Modules): modules.md
-      - Custom CSS: customcss.md
       - "Tips & Tricks": moddingtips.md
   - "FAQ & Troubleshooting": faq.md
   - JP Resources: jpresources.md

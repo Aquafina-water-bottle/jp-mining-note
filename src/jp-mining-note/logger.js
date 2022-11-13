@@ -18,7 +18,9 @@ function getKeyPath(keys) {
   return keys.join(".");
 }
 
+// placed outside as a global variable
 var VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+
 // keys can be a string, or array of strings
 function parseSetting(obj, keys) {
   // checks for an object with "type"
@@ -90,9 +92,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_error");
       this._appendMsg(message, groupEle, isHtml);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-error")) {
-        infoCirc.classList.add("info-circle-error")
-      }
+      infoCirc.classList.toggle("info-circle-error", true)
     }
 
     errorStack(stack) {
@@ -141,8 +141,8 @@ var JPMNLogger = (() => {
       }
 
       let infoCirc = document.getElementById("info_circle");
-      if (groupEle.children.length === 0 && infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.remove("info-circle-warning")
+      if (groupEle.children.length === 0) {
+        infoCirc.classList.toggle("info-circle-warning", false)
       }
 
       this._uniqueKeys.delete(key);
@@ -168,9 +168,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_warning");
       this._appendMsg(message, groupEle, isHtml, key);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.add("info-circle-warning");
-      }
+      infoCirc.classList.toggle("info-circle-warning", true);
 
       if (key !== null) {
         this._uniqueKeys.add(key);
@@ -196,9 +194,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_leech");
       this._appendMsg("", groupEle);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-leech")) {
-        infoCirc.classList.add("info-circle-leech");
-      }
+      infoCirc.classList.toggle("info-circle-leech", true);
     }
 
     _appendMsg(message, groupEle, isHtml=false, key=null) {

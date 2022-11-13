@@ -304,8 +304,7 @@ ruby rt {
 }
 
 
-// I can't believe this syntax works. sass is amazing
-.info-circle:hover,
+.info-circle--hover-color:hover,
 .info-circle--frozen {
   > .info-circle-svg-wrapper path {
     fill: var(--info-circle-hover-color);
@@ -397,7 +396,7 @@ ruby rt {
   fill: var(--info-circle-leech-color);
 }
 
-.info-circle-leech:hover, .info-circle-leech.info-circle---frozen {
+.info-circle--hover-color.info-circle-leech:hover, .info-circle-leech.info-circle---frozen {
   > .info-circle-svg-wrapper path {
     fill: var(--info-circle-leech-hover-color);
   }
@@ -418,7 +417,7 @@ ruby rt {
   fill: var(--info-circle-warning-color);
 }
 
-.info-circle-warning:hover, .info-circle-svg-wrapper--frozen {
+.info-circle--hover-color.info-circle-warning:hover, .info-circle-svg-wrapper--frozen {
   > .info-circle-svg-wrapper path {
     fill: var(--info-circle-warning-hover-color);
   }
@@ -448,7 +447,7 @@ ruby rt {
   fill: var(--info-circle-error-color);
 }
 
-.info-circle-error:hover, .info-circle-svg-wrapper--frozen {
+.info-circle--hover-color.info-circle-error:hover, .info-circle-svg-wrapper--frozen {
   > .info-circle-svg-wrapper path {
     fill: var(--info-circle-error-hover-color);
   }
@@ -622,14 +621,14 @@ ruby rt {
 .expression__hybrid--hover {
 }
 
-/* used to specify that clicking toggles between word/sentence */
 .expression__hybrid--click {
+}
+
+.expression__hybrid--click-hover-effect {
   /* transition for opacity */
   transition: 0.3s;
 }
-
-/* not applied to the image because of above comment (prevent showing the transition) */
-.expression__hybrid--click:hover {
+.expression__hybrid--click-hover-effect:hover {
   opacity: 0.85;
   cursor: pointer;
 }
@@ -768,7 +767,7 @@ ruby rt {
  */
 .back-side {
   max-width: common.$max-width-backside;
-  margin: 20px auto auto auto;
+  margin: auto;
   padding: 0px;
 }
 
@@ -1170,11 +1169,11 @@ ruby rt {
 }
 
 /* experimental mobile class */
-.dh-left__audio-buttons--around-word {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-}
+//.dh-left__audio-buttons--around-word {
+//  position: absolute;
+//  bottom: 10px;
+//  left: 10px;
+//}
 
 
 
@@ -1398,7 +1397,7 @@ ruby rt {
 
 .full-sentence {
   font-size: var(--full-sentence-font-size);
-  margin: 0 0 0.5em 0;
+  margin: 0.3em 0 0.3em 0;
   font-family: notoserif;
 }
 
@@ -1544,8 +1543,10 @@ ruby rt {
 
 .glossary__image-hover-media {
   cursor: pointer;
-  max-height: 500px;
-  max-width:  100px;
+  /* !important is added for ankidroid */
+  /* see: https://docs.ankiweb.net/templates/styling.html#image-resizing */
+  max-height: 500px !important;;
+  max-width:  100px !important;;
 }
 
 /* so the image doesn't disappear once you move your mouse away from the text */
@@ -1601,7 +1602,8 @@ ruby rt {
   line-height: var(--external-links-icon-size);
   font-size: var(--external-links-icon-font-size);
 
-  color: var(--text-color);
+  color: var(--text-color) !important; /* !important for ankidroid */
+  text-decoration: none !important; /* !important for ankidroid */
 
   box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
   border-radius: 2px;
@@ -1674,6 +1676,38 @@ ruby rt {
 .pa-graphs__none {
   display: none;
 }
+
+
+
+/*
+ * ================
+ *  mobile support
+ * ================
+ */
+
+// stolen from Anki's scss
+.android .replaybutton span {
+  text-decoration: none;
+  display: inline-flex;
+  vertical-align: middle;
+  //margin: 3px;
+  //border: 0px solid red;
+
+  svg {
+    width: 40px;
+    height: 40px;
+
+    circle {
+        fill: #fff;
+        stroke: #414141;
+    }
+
+    path {
+        fill: #414141;
+    }
+  }
+}
+
 
 @media (max-width: common.$bp-display-sentence-shrink) {
   :root {
@@ -1765,6 +1799,7 @@ ruby rt {
 
 @media (max-width: common.$bp-combine-picture) {
   :root {
+    --sentence-font-size: #{common.px2rem(30px)};
     --full-sentence-font-size: #{common.px2rem(20px)};
   }
 
@@ -1775,6 +1810,10 @@ ruby rt {
   .card-description {
     margin-top: 10px;
     margin-left: 10px;
+  }
+
+  .mobile .card-description {
+    margin-left: 0px;
   }
 
   .card-description__card-type, .card-description-ver {
@@ -1804,8 +1843,7 @@ ruby rt {
   }
 
 
-
-  .back-side {
+  .full-sentence {
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -1822,10 +1860,42 @@ ruby rt {
     }
   }
 
+  .dh-right__svg-eye {
+    display: none !important;
+  }
+
+  .android .dh-left {
+    padding-left:   8px;
+    padding-right:  8px;
+    padding-bottom: 8px;
+  }
+
   .dh-left__audio-buttons {
     padding-top: 10px;
     //text-align: left;
   }
+
+  //.android .dh-left__audio-buttons {
+  //  padding-top: 14px;
+  //  //text-align: left;
+  //}
+
+  //.android {
+  //  --gamer: 30px;
+  //  .dh-left__audio-buttons {
+  //    //line-height: var(--gamer);
+  //    font-size: var(--gamer)
+  //  }
+
+  //  .replaybutton {
+  //    height: var(--gamer);
+  //    width: var(--gamer);
+
+  //    border-radius: 50%;
+  //    border: solid 1px red;
+  //  }
+  //}
+
 
   // moves play buttons to left ONLY if picture field exists
   .dh-left__audio-buttons--left {
@@ -1834,15 +1904,14 @@ ruby rt {
 
   // removes scrollbar
   // https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
-  .card {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
-  }
-  .card::-webkit-scrollbar {
-    display: none;  /* Safari and Chrome */
-  }
+  //.card {
+  //  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  //  scrollbar-width: none;  /* Firefox */
+  //}
+  //.card::-webkit-scrollbar {
+  //  display: none;  /* Safari and Chrome */
+  //}
 }
-
 
 
 

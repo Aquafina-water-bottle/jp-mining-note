@@ -368,7 +368,26 @@ Here are the two popular approaches to automatically adding the image and senten
 
 ---
 
-## [asbplayer](https://github.com/killergerbah/asbplayer)
+# [asbplayer](https://github.com/killergerbah/asbplayer)
+
+* To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
+    I recommend filling out the following fields as follows:
+
+    ??? example "asbplayer Fields *(click here)*"
+        | asbplayer field | JPMN field |
+        |:-:|:-:|
+        | Sentence Field   { .smaller-table-row} | `Sentence`        { .smaller-table-row} |
+        | Definition Field { .smaller-table-row} | |
+        | Word Field       { .smaller-table-row} | |
+        | Audio Field      { .smaller-table-row} | `SentenceAudio`   { .smaller-table-row} |
+        | Image Field      { .smaller-table-row} | `Picture`         { .smaller-table-row} |
+        | Source Field     { .smaller-table-row} | `AdditionalNotes` { .smaller-table-row} |
+        | URL Field        { .smaller-table-row} | `AdditionalNotes` { .smaller-table-row} |
+
+        !!! note
+            Chances are that you are using subtitles. However, if you are not using subtitles,
+            it is fine to keep the Sentence Field empty.
+
 
 There are a few common issues that asbplayer users have, when creating cards with JPMN.
 

@@ -3,12 +3,32 @@
 # Overview
 
 If you have already read the [Modding Overview](modding.md) page,
-you should already know that there are two ways of modding the note.
+you should already know that there are two ways of modding the note:
 
-1. You can directly edit the CSS files, but lose all the changes on the next update
+1. You can directly edit the CSS files, but lose all the changes you made when you update.
 1. (Recommended) Add new files to add to the existing CSS, as to not lose changes between updates.
 
-This page focuses on the recommended second way of modding the note.
+For completeness, the first method is mentioned below.
+However, the rest of page will focus on the recommended second way of modding the note.
+
+??? example "How to directly edit the CSS *(click here)*"
+
+    * Any time `style.scss` is mentioned, edit the styles sheet in the Anki template.
+        This can be accessed by:
+
+        > (Main window) →  `Browse` →  `Cards...` (middle of the screen) →  `Styling` (top left)
+
+    * Any time `fields.scss` is mentioned, edit the `fields.css` file under the
+        [addons folder](faq.md#where-is-the-x-folder-in-anki):
+        ```
+        Anki2/addons21/181103283/user_files/field.css
+        ```
+
+    * Any time `editor.scss` is mentioned, edit the `editor.css` file under the
+        addons folder:
+        ```
+        Anki2/addons21/181103283/user_files/editor.css
+        ```
 
 
 !!! warning

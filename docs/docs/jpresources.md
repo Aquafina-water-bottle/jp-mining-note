@@ -540,6 +540,81 @@ see the handlebars code used by jp-mining-note [here](setupyomichan.md#yomichan-
 
 
 
+## Plain-Style Sentence Furigana { .text-yellow }
+
+> Adds: `{sentence-bolded-furigana-plain}`
+
+This does the following:
+
+- Generates plain style furigana on the sentence (e.g. 「 日本語[にほんご]」
+- Bolds the added word
+
+
+{% raw %}
+To use this in Anki, add `furigana:` in front of the field within the template code.
+For example, if your field is `SentenceReading`, use `{{furigana:SentenceReading}}`.
+
+??? examplecode "Template code *(click here)*"
+    ```handlebars
+    {{#*inline "sentence-bolded-furigana-plain"}}
+        {{~#if definition.cloze~}}
+
+            {{~#regexReplace "(<span class=\"term\">)|(</span>)" "" "g"~}}
+            {{~#regexReplace "<ruby>(.+?)<rt>(.+?)</rt></ruby>" " $1[$2]" "g"~}}
+
+                {{~#if (hasMedia "textFurigana" definition.cloze.prefix)~}}
+                    {{~#getMedia "textFurigana" definition.cloze.prefix escape=false}}{{/getMedia~}}
+                {{~else~}}
+                    {{~definition.cloze.prefix~}}
+                {{~/if~}}
+
+                <b>
+                {{~#if (hasMedia "textFurigana" definition.cloze.body)~}}
+                    {{~#getMedia "textFurigana" definition.cloze.body escape=false}}{{/getMedia~}}
+                {{~else~}}
+                    {{~definition.cloze.body~}}
+                {{~/if~}}
+                </b>
+
+                {{~#if (hasMedia "textFurigana" definition.cloze.suffix)~}}
+                    {{~#getMedia "textFurigana" definition.cloze.suffix escape=false}}{{/getMedia~}}
+                {{~else~}}
+                    {{~definition.cloze.suffix~}}
+                {{~/if~}}
+
+            {{~/regexReplace~}}
+            {{~/regexReplace~}}
+
+        {{~/if~}}
+    {{/inline}}
+    ```
+
+    <sup>
+    Thanks to [Skillesss](https://github.com/FooSoft/yomichan/issues/1952#issuecomment-922671489):
+    for the base code and DaNautics#8833 for finding the above + removing the span classes
+    </sup>
+
+{% endraw %}
+
+??? example "Comparisons to alternatives *(click here)*"
+
+    - [AJT Furigana](https://ankiweb.net/shared/info/1344485230) can auto-generate furigana on card add
+        and can add furigana to any text within a field even after a card add.
+        However, generating furigana cannot be done within this addon on Android,
+        as this is a PC add-on.
+
+        Nonetheless, I recommend keeping AJT Furigana so furigana can be generated even after editing
+        the sentence field.
+
+    - The `{furigana}` marker provided by default in Yomichan does not generate plain style furigana,
+        which makes editing furigana more difficult in Anki.
+
+
+
+
+---
+
+
 
 ## Further Reading
 Official documentation om Yomichan's templates:

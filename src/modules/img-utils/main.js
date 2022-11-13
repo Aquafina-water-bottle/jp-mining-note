@@ -32,7 +32,7 @@ const JPMNImgUtils = (() => {
   //const tags = tagsEle === null ? [] : tagsEle.innerText.split(" ");
   //const tags = [];
 
-  const onMobile = document.documentElement.classList.contains('mobile');
+  //const onMobile = document.documentElement.classList.contains('mobile');
   const ADJUST_HEIGHT = (VW > 850);
   const POS_RESULT = getPrimaryDefPicturePosition();
 
@@ -281,9 +281,12 @@ const JPMNImgUtils = (() => {
       modalImg.src = this.src;
     }
 
-    defAnc.onclick = function() {
-      modal.style.display = "block";
-      modalImg.src = defImg.src;
+    // prevents clicking on the image link to zoom (on mobile)
+    if (!isMobile()) {
+      defAnc.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = defImg.src;
+      }
     }
 
     defSpan.appendChild(defAnc);
@@ -337,7 +340,7 @@ const JPMNImgUtils = (() => {
     // toggleStates is module-global
     // TODO change this option to use the {"type": "pc-mobile"}
     if (toggleStates.length === 0) {
-      if (onMobile) {
+      if (isMobile()) {
         toggleStates = {{ utils.opt("modules", "img-utils", "image-blur", "toggle-states-mobile") }};
       }
       toggleStates = {{ utils.opt("modules", "img-utils", "image-blur", "toggle-states-pc") }};

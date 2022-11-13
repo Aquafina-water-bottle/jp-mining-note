@@ -129,7 +129,7 @@ Please check the following in particular:
 1. Notice how at the top left corner, the info circle (the "i" encased within the circle)
     is the default grey color.
 
-    If this circle is red or orange, there is likely something wrong with the template.
+    If this circle is red or orange, there may be something wrong with the template.
     Please see [this](faq.md#errors-warnings){:target="_blank"} section for basic troubleshooting.
 
 1. Clicking on the image to zoom should work out of the box.
