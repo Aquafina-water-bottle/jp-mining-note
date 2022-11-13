@@ -48,6 +48,7 @@ and must use `./install.py --update`.
     - Added ability to click on words in a tooltip to view it within Anki
 - Runtime options:
     - Added way to specify different values for mobile and PC
+    - Combined `toggle-states-pc` and `toggle-states-mobile` -> `toggle-states`
     - Renamed `nsfw-toggle` -> `image-blur`
     - Added:
         - `modules.img-utils.add-image-if-contains-tags`
