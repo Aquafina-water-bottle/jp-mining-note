@@ -18,6 +18,7 @@ function getKeyPath(keys) {
   return keys.join(".");
 }
 
+var VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 // keys can be a string, or array of strings
 function parseSetting(obj, keys) {
   // checks for an object with "type"
@@ -30,12 +31,17 @@ function parseSetting(obj, keys) {
   ) {
     if (obj.type === "pc-mobile") {
       if (isMobile()) {
-        LOGGER.debug(`${getKeyPath(keys)} (mobile) -> ${obj["mobile"]}`, 0);
         return obj["mobile"];
       } else {
-        LOGGER.debug(`${getKeyPath(keys)} (pc) -> ${obj["pc"]}`, 0);
         return obj["pc"];
       }
+    } else if (obj.type === "viewport-width-is") {
+      if (VW > obj["value"]) {
+        return obj["greater"];
+      } else {
+        return obj["lesser"];
+      }
+
     } else {
       LOGGER.warn(`Unknown type ${obj.type} for Option ${getKeyPath(keys)}. Using the entire object instead...`);
       return obj;

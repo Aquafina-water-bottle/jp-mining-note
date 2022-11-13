@@ -1,16 +1,48 @@
 
+$bp-display-sentence-shrink: 1600px;
+$bp-display-sentence-remove-newlines: 1300px;
+$max-width-backside: 850px;
+$bp-combine-picture: 620px;
+//$bp-adjust-play-buttons: 400px;
+
+@use "sass:math";
+
+
+/* stolen from mkdocs material */
+@function px2rem($size, $base: 16px) {
+  @if unit($size) == px {
+    @if unit($base) == px {
+      @return math.div($size, $base) * 1rem;
+    } @else {
+      @error "Invalid base: #{$base} - unit must be 'px'";
+    }
+  } @else {
+    @error "Invalid size: #{$size} - unit must be 'px'";
+  }
+}
+
+
 @mixin common_vars {
+
   --pa-brightness-reduce: 60%;
-  --sentence-font-size: 52px;
-  --reading-font-size: 55px;
-  --full-sentence-font-size: 1.75rem;
-  --word-font-size: 80px;
-  --description-font-size: 20px;
-  --description-footer-font-size: 9px;
+  --word-font-size: #{px2rem(80px)};
+  --sentence-font-size: #{px2rem(52px)};
+  --pa-indicator-word-font-size: #{px2rem(52px)};
+  --pa-indicator-sent-font-size: #{px2rem(45px)};
+
+  --description-font-size: #{px2rem(20px)};
+  --description-footer-font-size: #{px2rem(9px)};
+
+  --reading-font-size: #{px2rem(55px)};
+  --reading-pitch-font-size: #{px2rem(23px)};
+  --full-sentence-font-size: #{px2rem(28px)};
+
+  --glossary-font-size: #{px2rem(18px)};
+  --glossary-font-size--smaller: #{px2rem(15px)};
 
   /* TODO dynamic solution */
   --tooltip-max-width: 600px;
-  --tooltip-font-size: 14px;
+  --tooltip-font-size: #{px2rem(14px)};
 
   --dark-mode-accent: #fffd9e;
 

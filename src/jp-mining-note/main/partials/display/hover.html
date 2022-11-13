@@ -1,7 +1,7 @@
 {# impl #}
 <!-- fallback card card html
   in css: default hybrid css, but with hover instead of click -->
-<div class="expression__hybrid-wrapper">
+<div class="expression__hybrid-wrapper expression__hybrid-wrapper--hover">
   <div class="expression expression__hybrid expression__hybrid--hover" id="display">
     <span class="expression--sentence expression__hybrid-sentence
                  {% call IFNOT('IsSentenceCard') %} highlight-bold {% endcall %}

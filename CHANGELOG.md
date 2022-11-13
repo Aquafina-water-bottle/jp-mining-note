@@ -78,6 +78,10 @@ and must use `./install.py --update`.
 - `kanji-hover` card cache is now cached in as an element instead of strings to improve performance
 - Changed the implementation of the tooltip builder to use `hover-tooltip__sent-div` to remove the bold for a sentence instead of a regex replace (lol)
     - This allows custom CSS to re-bold the highlighted word in the sentence again
+- Added some basic support to mobile (media queries on various screen widths)
+    - Mobile is still not officially supported (not all desired features are implemented yet)
+- Made the `img-utils` module a bit faster by grouping together the .offsetHeight calls + only calling them if necessary
+    - Prevents unnecessary reflows
 
 #### Update Notes
 - Update Yomichan's 'Anki Card Templates' section.

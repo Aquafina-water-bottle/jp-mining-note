@@ -775,6 +775,7 @@ const JPMNAutoPA = (() => {
 
       // builds standard connectors
       const baseConnector = {{ utils.opt("modules", "auto-pitch-accent", "pa-positions", "default-connector") }};
+
       for (const [i, posData] of dispPosData.posDataList.entries()) {
         if (i < dispPosData.posDataList.length-1) {
           if (posData.separator === null) {
@@ -957,9 +958,6 @@ const JPMNAutoPA = (() => {
 
       } else {
         // positions have been found!
-        //const readingKana = this.getReadingKana();
-        //let result = this.normalizeReadingGetMoras(readingKana);
-        //const readingSpanHTML = this.buildReadingSpan(dispPosData, readingKana);
         const readingHTML = this.buildReading(dispPosData);
         displayEle.innerHTML = readingHTML;
       }

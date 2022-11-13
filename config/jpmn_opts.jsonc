@@ -78,19 +78,26 @@
     "sent-utils": {
       "enabled": true,
 
-      // Removes all line breaks on the regular sentence (if AltDisplay is not filled)
-      "remove-line-breaks": {
-        "type": "pc-mobile",
-        "pc": false,
-        "mobile": true
-      },
+      // TODO make this an option somewhere again
+      // current implementation:
+      // - no regard with whether AltDisplay is being used
+      // - purely CSS
 
-      // Removes all line breaks on the AltDisplay sentence
-      "remove-line-breaks-on-altdisplay": {
-        "type": "pc-mobile",
-        "pc": false,
-        "mobile": true
-      },
+      //// Removes all line breaks on the regular sentence (if AltDisplay is not filled)
+      //"remove-line-breaks": {
+      //  "type": "viewport-width-is",
+      //  "value": 1300,
+      //  "greater": false,
+      //  "lesser": true
+      //},
+
+      //// Removes all line breaks on the AltDisplay sentence
+      //"remove-line-breaks-on-altdisplay": {
+      //  "type": "viewport-width-is",
+      //  "value": 1300,
+      //  "greater": false,
+      //  "lesser": true
+      //},
 
       // removes the 「。」 character if it is the last character of the sentence
       "remove-final-period": true,
@@ -98,11 +105,21 @@
 
       // colors the quotes instead of showing a pitch accent indicator
       // if this is enabled
-      "pa-indicator-color-quotes": false,
+      "pa-indicator-color-quotes": {
+        "type": "viewport-width-is",
+        "value": 1300,
+        "greater": false,
+        "lesser": true
+      },
 
       // automatically colors the quote with the sentence pa indicator color,
       // on PA sentence cards
-      "pa-sent-pa-indicator-color-quotes": false,
+      "pa-sent-pa-indicator-color-quotes": {
+        "type": "viewport-width-is",
+        "value": 1300,
+        "greater": false,
+        "lesser": true
+      },
 
       // automatically adds quotes to the sentence (if not alt display)
       "auto-quote-sentence": true,

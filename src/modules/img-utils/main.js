@@ -13,6 +13,7 @@ const JPMNImgUtils = (() => {
   const modalImg = document.getElementById("bigimg");
 
   const dhLeft = document.getElementById("dh_left");
+  const dhLeftAudioBtns = document.getElementById("dh_left_audio_buttons");
   const primaryDefText = document.getElementById("primary_definition_text");
   const primaryDefPicEle = document.getElementById("primary_definition_picture")
   const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
@@ -32,7 +33,14 @@ const JPMNImgUtils = (() => {
   //const tags = [];
 
   const onMobile = document.documentElement.classList.contains('mobile');
-  const ADJUST_HEIGHT = !onMobile;
+  const ADJUST_HEIGHT = (VW > 850);
+  const POS_RESULT = getPrimaryDefPicturePosition();
+
+  // TODO?
+  //const MOBILE_ATTEMPT_PLACE_AROUND = false;
+  // https://stackoverflow.com/questions/1248081/how-to-get-the-browser-viewport-dimensions
+  //const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+
   const imgClickClassName = "dh-right__img-container--clickable";
   const showEyeClassName = "dh-right__show-eye";
   const nsfwBlurInitClassName = "nsfw-blur-init";
@@ -327,6 +335,7 @@ const JPMNImgUtils = (() => {
 
   function setToggleStatesIfEmpty() {
     // toggleStates is module-global
+    // TODO change this option to use the {"type": "pc-mobile"}
     if (toggleStates.length === 0) {
       if (onMobile) {
         toggleStates = {{ utils.opt("modules", "img-utils", "image-blur", "toggle-states-mobile") }};
@@ -403,6 +412,32 @@ const JPMNImgUtils = (() => {
     return (count === tagList.length);
   }
 
+  function getPrimaryDefPicturePosition() {
+    let posResult = "auto";
+
+    const posOpt = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position") }};
+    const tagsBottom = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-bottom") }};
+    const tagsRight = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-right") }};
+
+    if (checkArrayIsSubset(tagsBottom, TAGS_LIST)) { // priority on tag
+      posResult = "bottom";
+    } else if (checkArrayIsSubset(tagsRight, TAGS_LIST)) {
+      posResult = "right";
+    } else if (posOpt === "bottom") { // lower priority on posOpt
+      posResult = "bottom";
+    } else if (posOpt === "right") {
+      posResult = "right";
+    } else if (posOpt === "auto") {
+      posResult = "auto";
+    } else {
+      logger.warn(`Invalid option value for 'primary-definition-picture-position': ${posOpt}. Defaulting to auto.`);
+      posResult = "auto";
+    }
+
+    return posResult;
+
+  }
+
 
   function editDisplayImage() {
     // edits the display image width/height
@@ -423,10 +458,14 @@ const JPMNImgUtils = (() => {
     // Even if the code could be placed at the top, it still seems to cause a reflow,
     // so nothing has changed...
 
-    HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
-    TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
-    PIC_HEIGHT = primaryDefPicEle === null ? 0 : primaryDefPicEle.offsetHeight;
-    FLOAT_PIC_HEIGHT = primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight;
+
+    if (ADJUST_HEIGHT || POS_RESULT === "auto") {
+      HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
+      TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
+      PIC_HEIGHT = primaryDefPicEle === null ? 0 : primaryDefPicEle.offsetHeight;
+      FLOAT_PIC_HEIGHT = primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight;
+    }
+
 
     let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
 
@@ -442,6 +481,7 @@ const JPMNImgUtils = (() => {
           newImg.src = fileName;
           dhImgContainer.appendChild(newImg);
           dhRight.classList.add("dh-right--contains-image");
+          dhLeftAudioBtns.classList.add("dh-left__audio-buttons--left");
           somethingDisplayed = true;
 
           break;
@@ -543,26 +583,7 @@ const JPMNImgUtils = (() => {
     //const tags = getTags();
     const primaryDefBlockquote = document.getElementById("primary_definition");
 
-    const posOpt = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position") }};
-    const tagsBottom = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-bottom") }};
-    const tagsRight = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-right") }};
-
-    let posResult = "auto";
-
-    if (checkArrayIsSubset(tagsBottom, TAGS_LIST)) { // priority on tag
-      posResult = "bottom";
-    } else if (checkArrayIsSubset(tagsRight, TAGS_LIST)) {
-      posResult = "right";
-    } else if (posOpt === "bottom") { // lower priority on posOpt
-      posResult = "bottom";
-    } else if (posOpt === "right") {
-      posResult = "right";
-    } else if (posOpt === "auto") {
-      posResult = "auto";
-    } else {
-      logger.warn(`Invalid option value for 'primary-definition-picture-position': ${posOpt}. Defaulting to auto.`);
-      posResult = "auto";
-    }
+    let posResult = POS_RESULT;
 
     if (posResult === "auto") {
       // compares height of definition text and image

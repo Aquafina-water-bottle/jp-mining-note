@@ -29,13 +29,14 @@ const JPMNSentUtils = (() => {
       result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
     }
 
-    // removes newlines
-    if ((!isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks") }})
-        || isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks-on-altdisplay") }}) {
-      let noNewlines = result.replace(/<br>/g, "");
-
-      result = noNewlines;
-    }
+    // removes newlines{#
+    //if ((!isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks") }})
+    //    || isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks-on-altdisplay") }}) {
+    //  //let noNewlines = result.replace(/<br>/g, "");
+    //  //result = noNewlines;
+    //  sentEle.classList.add("disable-newlines")
+    //}
+    //#}
 
     // removes the final period if exists
     if (({{ utils.opt("modules", "sent-utils", "remove-final-period") }} && !isAltDisplay)
@@ -109,13 +110,13 @@ const JPMNSentUtils = (() => {
     /// {% call IF("PAShowInfo") %}
 
     // moves pa-indicator position
-    if (!existingQuote && !autoQuote) {
-      const circ = document.getElementById("pa_indicator_circle");
-      if (circ !== null) {
-        circ.setAttributeNS(null, "cx", "35");
-        circ.setAttributeNS(null, "cy", "11");
-      }
-    }
+    //if (!existingQuote && !autoQuote) {
+    //  const circ = document.getElementById("pa_indicator_circle");
+    //  if (circ !== null) {
+    //    circ.setAttributeNS(null, "cx", "35");
+    //    circ.setAttributeNS(null, "cy", "11");
+    //  }
+    //}
 
     if ((existingQuote || autoQuote) && {{ utils.opt("modules", "sent-utils", "pa-indicator-color-quotes") }}) {
       // data-color-quotes tag within html is sentence-div dependent (preferable over a global state)
@@ -161,6 +162,9 @@ const JPMNSentUtils = (() => {
 
   class JPMNSentUtils {
     constructor(isAltDisplay, isClozeDeletion, paIndicator) {
+      // TODO change isAltDisplay and isCloseDeletion to be set as an attribute
+      // somewhere in the HTML rather than javascript
+
       this.isAltDisplay = isAltDisplay;
       this.isClozeDeletion = nullish(isClozeDeletion, false);
       this.paIndicator = nullish(paIndicator, null);
