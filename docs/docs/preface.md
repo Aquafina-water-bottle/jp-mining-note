@@ -22,9 +22,9 @@ With that being said, JPMN should work for Anki versions 2.1.49+.
 
 ## Mobile (AnkiDroid and AnkiMobile)
 Mobile support is slowly being worked on,[^1]
-but the note (on mobile) is currently not stable.
+but JPMN (on mobile) is currently not stable.
 Do not expect the note to work on mobile.
-Thus, **do not use this note** if you must use Anki on mobile.
+Therefore, **do not use this note** if you must use Anki on mobile.
 
 
 [^1]:

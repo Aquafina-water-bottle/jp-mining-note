@@ -13,12 +13,26 @@ const JPMNImgUtils = (() => {
   const modalImg = document.getElementById("bigimg");
 
   const dhLeft = document.getElementById("dh_left");
+  const primaryDefText = document.getElementById("primary_definition_text");
+  const primaryDefPicEle = document.getElementById("primary_definition_picture")
+  const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
+  let HEIGHT_LEFT = 0;
+  let TEXT_HEIGHT = 0
+  let PIC_HEIGHT = 0
+  let FLOAT_PIC_HEIGHT = 0
+
+
   const dhRight = document.getElementById("dh_right");
   const imgEye = document.getElementById("img_svg_eye"); // null on the front
   const imgEyePathEle = imgEye === null ? null : imgEye.children[0];
   const dhImgContainer = document.getElementById("dh_img_container");
   const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
+  //const tagsEle = document.getElementById("tags")
+  //const tags = tagsEle === null ? [] : tagsEle.innerText.split(" ");
+  //const tags = [];
 
+  const onMobile = document.documentElement.classList.contains('mobile');
+  const ADJUST_HEIGHT = !onMobile;
   const imgClickClassName = "dh-right__img-container--clickable";
   const showEyeClassName = "dh-right__show-eye";
   const nsfwBlurInitClassName = "nsfw-blur-init";
@@ -314,7 +328,6 @@ const JPMNImgUtils = (() => {
   function setToggleStatesIfEmpty() {
     // toggleStates is module-global
     if (toggleStates.length === 0) {
-      let onMobile = document.documentElement.classList.contains('mobile');
       if (onMobile) {
         toggleStates = {{ utils.opt("modules", "img-utils", "image-blur", "toggle-states-mobile") }};
       }
@@ -355,9 +368,9 @@ const JPMNImgUtils = (() => {
     return (getDefaultNSFWToggleState() >= 1);
   }
 
-  function getTags() {
-    return document.getElementById("tags").innerText.split(" ");
-  }
+  //function getTags() {
+  //  return document.getElementById("tags").innerText.split(" ");
+  //}
 
   // checks if A is a subset of B
   // in other words, if any item in A is in B
@@ -371,18 +384,18 @@ const JPMNImgUtils = (() => {
   }
 
   function cardHasNSFWTag() {
-    const tags = getTags();
+    //const tags = getTags();
     const nsfwTags = {{ utils.opt("modules", "img-utils", "image-blur", "tags") }};
 
-    return checkArrayIsSubset(nsfwTags, tags);
+    return checkArrayIsSubset(nsfwTags, TAGS_LIST);
   }
 
   function cardContainsAllTags(tagList) {
-    const tags = document.getElementById("tags").innerText.split(" ");
+    //const tags = document.getElementById("tags").innerText.split(" ");
 
     let count = 0;
     for (t of tagList) {
-      if (tags.includes(t)) {
+      if (TAGS_LIST.includes(t)) {
         count += 1;
       }
     }
@@ -400,7 +413,20 @@ const JPMNImgUtils = (() => {
     // TODO this one line of code seems to reflow the document, causing noticeable delay in the js
     // https://stackoverflow.com/questions/45960181/what-is-the-fastest-way-to-get-height-width-of-unstyled-element-in-javascript
     // https://stackoverflow.com/questions/19815810/avoiding-html-document-reflows/19816067#19816067
-    const heightLeft = dhLeft.offsetHeight;
+
+    // this appears to be the main bottleneck in performance for some awful reason
+    // and it seems virtually impossible to remove it...
+    // the best I can do is group all the calls together so only the first .offsetHeight read
+    // slows the program down.
+    // This code also CANNOT be placed at the top where global variables are defined,
+    // because the height is dependent on the height of the resulting pitch accent.
+    // Even if the code could be placed at the top, it still seems to cause a reflow,
+    // so nothing has changed...
+
+    HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
+    TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
+    PIC_HEIGHT = primaryDefPicEle === null ? 0 : primaryDefPicEle.offsetHeight;
+    FLOAT_PIC_HEIGHT = primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight;
 
     let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
 
@@ -424,7 +450,9 @@ const JPMNImgUtils = (() => {
     }
 
     if (somethingDisplayed) {
-      dhRight.style.maxHeight = heightLeft + "px";
+      if (ADJUST_HEIGHT) {
+        dhRight.style.maxHeight = HEIGHT_LEFT + "px";
+      }
 
       // setting up the modal styles and clicking
       const imgList = dhImgContainer.getElementsByTagName("img");
@@ -438,7 +466,9 @@ const JPMNImgUtils = (() => {
         image = imgList[0];
 
         image.classList.add("dh-right__img");
-        image.style.maxHeight = heightLeft + "px"; // restricts max height here too
+        if (ADJUST_HEIGHT) {
+          image.style.maxHeight = HEIGHT_LEFT + "px"; // restricts max height here too
+        }
 
         useModalAndBlur();
 
@@ -510,7 +540,7 @@ const JPMNImgUtils = (() => {
       }
     }
 
-    const tags = getTags();
+    //const tags = getTags();
     const primaryDefBlockquote = document.getElementById("primary_definition");
 
     const posOpt = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position") }};
@@ -519,9 +549,9 @@ const JPMNImgUtils = (() => {
 
     let posResult = "auto";
 
-    if (checkArrayIsSubset(tagsBottom, tags)) { // priority on tag
+    if (checkArrayIsSubset(tagsBottom, TAGS_LIST)) { // priority on tag
       posResult = "bottom";
-    } else if (checkArrayIsSubset(tagsRight, tags)) {
+    } else if (checkArrayIsSubset(tagsRight, TAGS_LIST)) {
       posResult = "right";
     } else if (posOpt === "bottom") { // lower priority on posOpt
       posResult = "bottom";
@@ -536,12 +566,12 @@ const JPMNImgUtils = (() => {
 
     if (posResult === "auto") {
       // compares height of definition text and image
-      const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
-      const primaryDefText = document.getElementById("primary_definition_text");
+      //const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
+      //const primaryDefText = document.getElementById("primary_definition_text");
       const lenience = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position-lenience") }};
 
-      const textHeight = primaryDefText.offsetHeight * lenience;
-      const picHeight = primaryDefPicEle.offsetHeight + (primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight);
+      const textHeight = TEXT_HEIGHT * lenience;
+      const picHeight = PIC_HEIGHT + FLOAT_PIC_HEIGHT;
       const shouldFloat = textHeight > picHeight;
       logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
 

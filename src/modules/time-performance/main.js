@@ -45,13 +45,6 @@ const JPMNTimePerformance = (() => {
 
     start(id) {
       this.startTime[id] = performance.now()
-    }
-
-    stop(id) {
-      const stopTime = performance.now()
-      const timeTook = stopTime - this.startTime[id]
-
-      let result = null;
 
       if (!(id in timePerformanceCache)) {
         timePerformanceCache[id] = {
@@ -62,6 +55,13 @@ const JPMNTimePerformance = (() => {
           nBack: 0,
         }
       }
+    }
+
+    stop(id, printResult=false) {
+      const stopTime = performance.now()
+      const timeTook = stopTime - this.startTime[id]
+
+      let result = null;
 
       result = timePerformanceCache[id];
       result.mostRecent = timeTook,
@@ -74,11 +74,22 @@ const JPMNTimePerformance = (() => {
       result.timeAvgBack += (timeTook - result.timeAvgBack) / (result.nBack + 1);
       result.nBack += 1;
       /// {% endif %}
+
+      if (printResult) {
+        this.print(id);
+      }
     }
 
+    reset(id) {
+      delete timePerformanceCache[id];
+    }
 
     print(id) {
       let result = timePerformanceCache[id]
+
+      if (result.nFront === 0 && result.nBack === 0) {
+        return; // nothing to print
+      }
 
       let msg = ""
 

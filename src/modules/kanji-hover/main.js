@@ -212,6 +212,10 @@ const JPMNKanjiHover = (() => {
     }
 
     async run() {
+      {% if "time-performance" in modules.keys() %}
+      let tpID = "async kanji-hover";
+      TIME_PERFORMANCE.start(tpID);
+      {% endif %}
 
       const readingHTML = wordReading.innerHTML;
 
@@ -278,6 +282,11 @@ const JPMNKanjiHover = (() => {
       }
 
       this.addBrowseOnClick();
+
+      {% if "time-performance" in modules.keys() %}
+      TIME_PERFORMANCE.stop(tpID, true);
+      TIME_PERFORMANCE.reset(tpID);
+      {% endif %}
     }
 
     runMode() {

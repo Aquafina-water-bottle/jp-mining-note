@@ -11,7 +11,15 @@
 
 
 
+
 (function () { // restricts ALL javascript to hidden scope
+
+{% if "time-performance" in modules.keys() %}
+{{ modules["time-performance"].functions_manual }}
+{% endif %}
+
+
+const TAGS_LIST = "{{ T('Tags') }}".split(" ");
 
 
 // "global" variables within the hidden scope
@@ -195,6 +203,9 @@ function main() {
   TIME_PERFORMANCE.start("main");
   {% endif %}
 
+  {% if "time-performance" in modules.keys() %}
+  TIME_PERFORMANCE.start("main_top");
+  {% endif %}
 
 
   // sanity check: options
@@ -220,13 +231,20 @@ function main() {
 {% endfilter %}
   // END_BLOCK: js_run
 
+  {% if "time-performance" in modules.keys() %}
+  TIME_PERFORMANCE.stop("main_top");
+  {% endif %}
+
+
 
 {% for m in modules.values() %}
 {% if m.js is defined and m.js.run.get(note.card_type, note.side, modules.keys()) %}
   try { // RUN: {{ m.id }}
 
     {% if "time-performance" in modules.keys() %}
-    TIME_PERFORMANCE.start("{{ m.id }}");
+    if ({{ utils.opt("modules", "time-performance", "time-modules") }}) {
+      TIME_PERFORMANCE.start("{{ m.id }}");
+    }
     {% endif %}
 
     {% filter indent(width=4) %}
@@ -234,7 +252,9 @@ function main() {
     {% endfilter %}
 
     {% if "time-performance" in modules.keys() %}
-    TIME_PERFORMANCE.stop("{{ m.id }}");
+    if ({{ utils.opt("modules", "time-performance", "time-modules") }}) {
+      TIME_PERFORMANCE.stop("{{ m.id }}");
+    }
     {% endif %}
 
   } catch (error) {

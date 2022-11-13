@@ -61,6 +61,12 @@ const JPMNOpenFields = (() => {
   }
 
   async function openOnNew(ankiconnectHelper) {
+
+    {% if "time-performance" in modules.keys() %}
+    let tpID = "async customize-open-fields";
+    TIME_PERFORMANCE.start(tpID);
+    {% endif %}
+
     if (openOnNewEnabled) {
       logger.debug("Open On New is already enabled");
       return;
@@ -91,6 +97,12 @@ const JPMNOpenFields = (() => {
     } else {
       logger.debug("Card is not new.");
     }
+
+    {% if "time-performance" in modules.keys() %}
+    TIME_PERFORMANCE.stop(tpID, true);
+    TIME_PERFORMANCE.reset(tpID);
+    {% endif %}
+
   }
 
 

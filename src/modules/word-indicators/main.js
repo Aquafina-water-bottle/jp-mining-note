@@ -207,10 +207,11 @@ const JPMNSameReadingIndicator = (() => {
 
     async runOnIndicator(indicatorInfo) {
 
-      let cid = await this.ankiConnectHelper.getDisplayedCardId();
+      //let cid = await this.ankiConnectHelper.getDisplayedCardId();
+      let keySentQuery = this.ankiConnectHelper.getKeySentQuery();
 
-      let nonNewQuery = `-cid:${cid} ${indicatorInfo.nonNewQuery}`;
-      let newQuery = `-cid:${cid} ${indicatorInfo.newQuery}`;
+      let nonNewQuery = `-(${keySentQuery}) ${indicatorInfo.nonNewQuery}`;
+      let newQuery = `-(${keySentQuery}) ${indicatorInfo.newQuery}`;
 
       let cardIdsNonNew = await this.ankiConnectHelper.query(nonNewQuery);
       let cardIdsNew = await this.ankiConnectHelper.query(newQuery);
@@ -233,14 +234,39 @@ const JPMNSameReadingIndicator = (() => {
     }
 
     async run() {
-      let promises = []
+
+      {% if "time-performance" in modules.keys() %}
+      let tpID = "async word-indicators";
+      TIME_PERFORMANCE.start(tpID);
+      {% endif %}
+
+      //let promises = []
+      //for (const indicatorInfo of indicatorsArray) {
+      //  promises.push(this.runOnIndicator(indicatorInfo));
+      //}
+
+      //Promise.all(promises).then((values) => {
+      //  this.addBrowseOnClick();
+
+      //  {% if "time-performance" in modules.keys() %}
+      //  TIME_PERFORMANCE.stop(tpID, true);
+      //  TIME_PERFORMANCE.reset(tpID);
+      //  {% endif %}
+
+      //});
+
+      // this runs in the same time as the above...
       for (const indicatorInfo of indicatorsArray) {
-        promises.push(this.runOnIndicator(indicatorInfo));
+        await this.runOnIndicator(indicatorInfo);
       }
 
-      Promise.all(promises).then((values) => {
-        this.addBrowseOnClick();
-      });
+      this.addBrowseOnClick();
+
+      {% if "time-performance" in modules.keys() %}
+      TIME_PERFORMANCE.stop(tpID, true);
+      TIME_PERFORMANCE.reset(tpID);
+      {% endif %}
+
     }
   }
 

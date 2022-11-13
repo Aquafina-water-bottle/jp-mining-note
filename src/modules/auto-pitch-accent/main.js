@@ -102,8 +102,8 @@ const JPMNAutoPA = (() => {
   function applyPAColorTags() {
     // applies color tags as well if they exist
 
-    const tagsEle = document.getElementById("tags");
-    const tags = tagsEle.innerText.split(" ");
+    //const tagsEle = document.getElementById("tags");
+    //const tags = tagsEle.innerText.split(" ");
     const COLOR_TAGS = {
       "平板": "heiban",
       "heiban": "heiban",
@@ -122,7 +122,7 @@ const JPMNAutoPA = (() => {
     }
 
     for (ct of Object.keys(COLOR_TAGS)) {
-      if (tags.includes(ct)) {
+      if (TAGS_LIST.includes(ct)) {
         paintDisplay(COLOR_TAGS[ct]);
         return true;
       }
@@ -168,7 +168,6 @@ const JPMNAutoPA = (() => {
   }
 
   class JPMNAutoPA {
-
 
     constructor(attemptColor=true, logLevelDecrease=0, showTitle=true) {
       // attempts to color according to pitch accent groups

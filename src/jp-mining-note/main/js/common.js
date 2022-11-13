@@ -2,6 +2,7 @@
 /// {% set functions %}
 
 function hybridClick() {
+  TIME_PERFORMANCE.start("hybridClick")
   const hSent = document.getElementById("hybrid-sentence");
   const hWord = document.getElementById("hybrid-word");
   const svgEle = document.getElementById("flag_box_svg");
@@ -26,7 +27,8 @@ function hybridClick() {
     hWord.classList.add("override-display-none");
     hSent.classList.add("override-display-inline-block");
     if (circ !== null) { // sentence
-      if (hSent.innerText.length > 0 && hSent.innerText[0] === "「") {
+      //if (hSent.innerText.length > 0 && hSent.innerText[0] === "「") {
+      if (hSent.children.length >= 1 && hSent.children[0].innerHTML.includes("「")) {
         circ.setAttributeNS(null, "cx", "35");
         circ.setAttributeNS(null, "cy", "11");
       }
@@ -37,36 +39,10 @@ function hybridClick() {
       svgEle.style.display = "none";
     }
   }
+
+  TIME_PERFORMANCE.stop("hybridClick")
 }
 
-/// {% endset %}
-
-
-/// {% set keybind_settings %}
-
-keys = {{ utils.opt("keybinds", "toggle-hybrid-sentence") }};
-if (keys !== null && keys.includes(e.code)) {
-  let hSent = document.getElementById("hybrid-sentence");
-  let hWord = document.getElementById("hybrid-word");
-  if (hSent !== null && hWord !== null) {
-    hybridClick();
-  }
-}
-
-keys = {{ utils.opt("keybinds", "toggle-highlight-word") }};
-if (keys !== null && keys.includes(e.code)) {
-  let paButton = document.getElementById("pa-button");
-  if (paButton !== null) {
-    toggleHighlightWord();
-  }
-}
-
-/// {% endset %}
-
-
-
-
-/// {% set run %}
 
 // required for the sentence utils module
 var paIndicator;
@@ -102,6 +78,35 @@ var paIndicator = (function () {
 }());
 /// {% endcall %}
 
+
+/// {% endset %}
+
+
+/// {% set keybind_settings %}
+
+keys = {{ utils.opt("keybinds", "toggle-hybrid-sentence") }};
+if (keys !== null && keys.includes(e.code)) {
+  let hSent = document.getElementById("hybrid-sentence");
+  let hWord = document.getElementById("hybrid-word");
+  if (hSent !== null && hWord !== null) {
+    hybridClick();
+  }
+}
+
+keys = {{ utils.opt("keybinds", "toggle-highlight-word") }};
+if (keys !== null && keys.includes(e.code)) {
+  let paButton = document.getElementById("pa-button");
+  if (paButton !== null) {
+    toggleHighlightWord();
+  }
+}
+
+/// {% endset %}
+
+
+
+
+/// {% set run %}
 {
 
   /// {% call IF("IsClickCard") %}

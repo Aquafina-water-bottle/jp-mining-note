@@ -12,9 +12,7 @@
 {{ super() }}
 
 // checks leech
-const tagsEle = document.getElementById("tags");
-const tags = tagsEle.innerHTML.split(" ");
-if (tags.includes("leech")) {
+if (TAGS_LIST.includes("leech")) {
   LOGGER.leech();
 }
 

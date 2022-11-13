@@ -197,12 +197,13 @@ const JPMNAnkiConnectActions = (() => {
       }
       logger.debug("Testing for new card...", 2);
 
-      const cid = await this.getDisplayedCardId();
       const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
-      if (cid === 0) {
-        return false;
-      }
-      const query = `is:new cid:${cid} "card:${cardTypeName}"`
+      //const cid = await this.getDisplayedCardId();
+      //if (cid === 0) {
+      //  return false;
+      //}
+      //const query = `is:new cid:${cid} "card:${cardTypeName}"`
+      const query = `is:new ${this.getKeySentQuery()} "card:${cardTypeName}"`
       const result = await this.query(query, /*cache=*/false);
       const isNew = (result.length > 0);
       logger.debug(`is new: query: ${query}, result: ${result}, isNew: ${isNew}`, 1);
@@ -211,6 +212,13 @@ const JPMNAnkiConnectActions = (() => {
       this.isNewCardLocalCache = isNew;
 
       return isNew;
+    }
+
+    getKeySentQuery() {
+      let keyText = key.replace(/"/g, '\\"');
+      let sentenceSearch = sentence.replace(/"/g, '\\"');
+      let query = `"Key:${keyText}" "Sentence:${sentenceSearch}"`
+      return query;
     }
 
     /*

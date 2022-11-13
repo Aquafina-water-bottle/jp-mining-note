@@ -66,6 +66,8 @@
       "debug-level": 4,
       "precision": 3,
 
+      "time-modules": true,
+
       "display-full": true,
 
       // options: "mostRecent" or "currentSideAvg"
