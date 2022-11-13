@@ -340,10 +340,7 @@ const JPMNImgUtils = (() => {
     // toggleStates is module-global
     // TODO change this option to use the {"type": "pc-mobile"}
     if (toggleStates.length === 0) {
-      if (isMobile()) {
-        toggleStates = {{ utils.opt("modules", "img-utils", "image-blur", "toggle-states-mobile") }};
-      }
-      toggleStates = {{ utils.opt("modules", "img-utils", "image-blur", "toggle-states-pc") }};
+      toggleStates = {{ utils.opt("modules", "img-utils", "image-blur", "toggle-states") }};
     }
   }
 
