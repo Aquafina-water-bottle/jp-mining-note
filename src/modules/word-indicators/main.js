@@ -24,7 +24,7 @@ const JPMNSameReadingIndicator = (() => {
 
   const cardTypeName = 'Mining Card';
   const noteName = '{{ NOTE_FILES("model-name").item() }}';
-  const baseQuery = `"card:${cardTypeName}" "note:${noteName}"`;
+  const baseQuery = `"card:${cardTypeName}" "note:${noteName}" -WordReadingHiragana:`;
   const baseWordQuery = `"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
   const baseKanjiQuery = `"Word:{{ T('Word') }}" -"WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
   const baseReadingQuery = `-"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
