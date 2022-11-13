@@ -224,6 +224,23 @@ function main() {
   /// {% endcall %}
 
 
+  // Stylizes the play button for ankidroid
+  if (isMobile()) {
+    const betterPlayBtn = `<svg class="android-play-button-svg" viewBox="0 0 64 64" version="1.1"> <circle cx="32" cy="32" r="29"></circle> <path d="M56.502,32.301l-37.502,20.101l0.329,-40.804l37.173,20.703Z"></path> </svg>`
+
+    function generateSVG() {
+      const x = document.createElement("span");
+      x.innerHTML = betterPlayBtn;
+      return x.children[0];
+    }
+
+    const eles = document.querySelectorAll(".android .replaybutton svg");
+    for (const ele of eles) {
+      ele.parentNode.replaceChild(generateSVG(), ele);
+    }
+  }
+
+
   // START_BLOCK: js_run
 {% filter indent(width=2) %}
 {% block js_run %}
