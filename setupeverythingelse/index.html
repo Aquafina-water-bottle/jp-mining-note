@@ -629,12 +629,18 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#asbplayer" class="md-nav__link">
     asbplayer
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="asbplayer">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#jidoujisho" class="md-nav__link">
@@ -921,6 +927,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../customcss/" class="md-nav__link">
+        Custom CSS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../overrides/" class="md-nav__link">
         Custom HTML (Overrides)
       </a>
@@ -937,20 +957,6 @@
     <li class="md-nav__item">
       <a href="../modules/" class="md-nav__link">
         Custom JS (Modules)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../customcss/" class="md-nav__link">
-        Custom CSS
       </a>
     </li>
   
@@ -1135,12 +1141,18 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#asbplayer" class="md-nav__link">
     asbplayer
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="asbplayer">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#jidoujisho" class="md-nav__link">
@@ -1573,7 +1585,59 @@ You will likely have to create the folder.</p>
 </li>
 </ul>
 <hr />
-<h3 id="asbplayer"><a href="https://github.com/killergerbah/asbplayer">asbplayer</a><a class="headerlink" href="#asbplayer" title="Permanent link">&para;</a></h3>
+<h2 id="asbplayer"><a href="https://github.com/killergerbah/asbplayer">asbplayer</a><a class="headerlink" href="#asbplayer" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
+    I recommend filling out the following fields as follows:</p>
+<details class="example">
+<summary>asbplayer Fields <em>(click here)</em></summary>
+<table>
+<thead>
+<tr>
+<th align="center">asbplayer field</th>
+<th align="center">JPMN field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" class="smaller-table-row">Sentence Field</td>
+<td align="center" class="smaller-table-row"><code>Sentence</code></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Definition Field</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Word Field</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Audio Field</td>
+<td align="center" class="smaller-table-row"><code>SentenceAudio</code></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Image Field</td>
+<td align="center" class="smaller-table-row"><code>Picture</code></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Source Field</td>
+<td align="center" class="smaller-table-row"><code>AdditionalNotes</code></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">URL Field</td>
+<td align="center" class="smaller-table-row"><code>AdditionalNotes</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Chances are that you are using subtitles. However, if you are not using subtitles,
+it is fine to keep the Sentence Field empty.</p>
+</div>
+</details>
+</li>
+</ul>
 <p>There are a few common issues that asbplayer users have, when creating cards with JPMN.</p>
 <ol>
 <li>
@@ -1590,9 +1654,10 @@ Your options include:</p>
 <ol>
 <li>Manually bolding the word in Anki.</li>
 <li>Updating the sentence with <a href="../jpresources/#update-sentence-with-clipboard">this script</a>
-    (instead of using asbplayer's sentence field).</li>
+    (instead of using asbplayer's sentence field).
+    This script must be ran after each card add.</li>
 <li>Using a different program altogether,
-    such as <a href="https://github.com/Ajatt-Tools/mpvacious">mpvacious</a></li>
+    such as <a href="https://github.com/Ajatt-Tools/mpvacious">mpvacious</a>.</li>
 </ol>
 </li>
 <li>
@@ -1620,7 +1685,7 @@ of creating the cards.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 12, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 13, 2022</span>
       
     
   </small>
