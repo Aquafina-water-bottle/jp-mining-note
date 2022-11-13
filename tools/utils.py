@@ -341,7 +341,7 @@ def get_config(args: argparse.Namespace) -> Config:
 
         elif not os.path.isfile(default_config_path):
             print(f"Creating the config file under '{file_path}'...")
-            if not os.path.isfile(EXAMPLE_CONFIG_PATH):
+            if not os.path.isfile(example_config_path):
                 raise Exception("Example config file does not exist")
             shutil.copy(example_config_path, default_config_path)
 
