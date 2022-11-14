@@ -91,6 +91,10 @@ const JPMNTimePerformance = (() => {
         return; // nothing to print
       }
 
+      if (typeof result === "undefined") {
+        logger.debug(`${id} is undefined`);
+      }
+
       let msg = ""
 
       if (displayFull) {

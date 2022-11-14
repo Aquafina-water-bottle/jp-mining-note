@@ -499,7 +499,7 @@
   // Warn if using the `Sentence` field instead of the `SentenceReading` field
   "no-sentence-reading-warn": false,
 
-  // Whether Anki-Aonnect features are enabled or disabled
+  // Whether Anki-Connect features are enabled or disabled
   // Anki-Connect features are disabled on mobile because
   // the full Anki-Connect add-on is PC only, and cannot be downloaded on mobile.
   "enable-ankiconnect-features": {

@@ -50,6 +50,7 @@ and must use `./install.py --update`.
     - Added way to specify different values for mobile and PC
     - Combined `toggle-states-pc` and `toggle-states-mobile` -> `toggle-states`
     - Renamed `nsfw-toggle` -> `image-blur`
+    - Added a new type of `viewport-width-is`
     - Added:
         - `modules.img-utils.add-image-if-contains-tags`
         - `modules.sent-utils.remove-final-period`

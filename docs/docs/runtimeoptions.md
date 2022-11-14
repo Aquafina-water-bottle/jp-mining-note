@@ -45,7 +45,20 @@ All runtime options can take special values, which are always formatted as the f
 },
 ```
 
-Currently, the only type that exists is `pc-mobile`.
+For example, take any key-value pair, such as:
+```json
+"enabled": true,
+```
+
+This can be changed to:
+```json
+"enabled": {
+  "type": "..."
+  // other options...
+},
+```
+
+
 
 
 <br>
@@ -65,7 +78,7 @@ This is formatted as the following:
 },
 ```
 
-??? examplecode "Example (TODO) *(click here)*"
+??? examplecode "Example *(click here)*"
 
     Take a sample key-value pair:
     ```json
@@ -79,6 +92,42 @@ This is formatted as the following:
       "type": "pc-mobile",
       "pc": true,
       "mobile": false
+    },
+    ```
+
+<br>
+
+## `viewport-width-is` Type
+
+The `viewport-width-is` type allows you to specify different values depending
+on the screen width.
+Note that the viewport width is read for each card flip.
+This means that viewport width changes after resizing a window will not be detected,
+and will only be updated when you flip the side or go to a new card.
+
+
+This is formatted as the following:
+
+```json
+{
+  "type": "viewport-width-is",
+  "value": AN_INTEGER, // measured in pixels
+  "greater": VALUE_FOR_GREATER, // the value used if the current width is greater than "value"
+  "lesser": VALUE_FOR_LESSER // the value used if the current width is lesser than (or equal to) "value"
+},
+```
+
+??? examplecode "Example *(click here)*"
+
+    This will enable `pa-indicator-color-quotes`
+    on screens that have a viewport width of 1300 pixels or less.
+
+    ```json
+    "pa-indicator-color-quotes": {
+      "type": "viewport-width-is",
+      "value": 1300,
+      "greater": false,
+      "lesser": true
     },
     ```
 

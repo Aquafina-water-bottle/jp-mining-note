@@ -32,7 +32,7 @@ const JPMNCheckDuplicateKey = (() => {
       const noteName = '{{ NOTE_FILES("model-name").item() }}';
 
       const query = `"Key:${keyText}" "card:${cardTypeName}" "note:${noteName}"`;
-      const result = await this.ankiConnectHelper.query(query);
+      const result = await this.ankiConnectHelper.query(query, /*cache=*/false);
 
       if (result.length === 0) {
         logger.warn("Cannot find own card?")
