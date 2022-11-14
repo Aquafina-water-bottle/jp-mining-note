@@ -17,7 +17,7 @@
     
     
       
-        <title>Pitch Accent (TODO) - jp-mining-note</title>
+        <title>Pitch Accent - jp-mining-note</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Pitch Accent (TODO)
+              Pitch Accent
             
           </span>
         </div>
@@ -643,12 +643,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Pitch Accent (TODO)
+          Pitch Accent
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Pitch Accent (TODO)
+        Pitch Accent
       </a>
       
         
@@ -694,8 +694,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#position-selection" class="md-nav__link">
-    Position Selection
+  <a href="#when-pitch-is-not-automatically-colored" class="md-nav__link">
+    When Pitch Is Not Automatically Colored
   </a>
   
 </li>
@@ -792,25 +792,32 @@
     How the Reading is Selected
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pitch-accent-styling-details" class="md-nav__link">
-    Pitch Accent Styling Details
-  </a>
-  
-    <nav class="md-nav" aria-label="Pitch Accent Styling Details">
+    <nav class="md-nav" aria-label="How the Reading is Selected">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bolding-the-last-downstep" class="md-nav__link">
-    Bolding the last downstep
+  <a href="#reading-ajtwordpitch" class="md-nav__link">
+    Reading: AJTWordPitch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-wordreading" class="md-nav__link">
+    Reading: WordReading
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pitch-accent-styling-details" class="md-nav__link">
+    Pitch Accent Styling Details
+  </a>
   
 </li>
       
@@ -1102,8 +1109,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#position-selection" class="md-nav__link">
-    Position Selection
+  <a href="#when-pitch-is-not-automatically-colored" class="md-nav__link">
+    When Pitch Is Not Automatically Colored
   </a>
   
 </li>
@@ -1200,25 +1207,32 @@
     How the Reading is Selected
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pitch-accent-styling-details" class="md-nav__link">
-    Pitch Accent Styling Details
-  </a>
-  
-    <nav class="md-nav" aria-label="Pitch Accent Styling Details">
+    <nav class="md-nav" aria-label="How the Reading is Selected">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bolding-the-last-downstep" class="md-nav__link">
-    Bolding the last downstep
+  <a href="#reading-ajtwordpitch" class="md-nav__link">
+    Reading: AJTWordPitch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-wordreading" class="md-nav__link">
+    Reading: WordReading
   </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pitch-accent-styling-details" class="md-nav__link">
+    Pitch Accent Styling Details
+  </a>
   
 </li>
       
@@ -1248,7 +1262,7 @@
   </a>
 
 
-  <h1>Pitch Accent (TODO)</h1>
+  <h1>Pitch Accent</h1>
 
 <p>This page is dedicated to showcasing
 how pitch accent is displayed,
@@ -1358,22 +1372,24 @@ To use this color, you must manually set the <code>PAOverride</code> field to <c
 </tbody>
 </table>
 <p><br></p>
-<h3 id="position-selection">Position Selection<a class="headerlink" href="#position-selection" title="Permanent link">&para;</a></h3>
-<p>In most all cases, the position should be automatically found
-and the word can be colored.
-However, there are two cases where the position cannot be automatically calculated:</p>
-<p>TODO rewrite with new <code>PAOverride</code></p>
+<h3 id="when-pitch-is-not-automatically-colored">When Pitch Is Not Automatically Colored<a class="headerlink" href="#when-pitch-is-not-automatically-colored" title="Permanent link">&para;</a></h3>
+<p>Pitch accent coloring requires a numeric position value somewhere within the card.
+This is usually found in one of two places:</p>
+<ul>
+<li><code>PAPositions</code></li>
+<li><code>PAOverride</code></li>
+</ul>
+<p>Usually, <code>PAPositions</code> is automatically filled.</p>
+<p>In the cases where pitch accent coloring does not work as expected, your two main options are:</p>
 <ol>
-<li><code>PAPositions</code> is not filled, but <code>AJTWordPitch</code> is.</li>
-<li><code>PAOverride</code> is a non-integer value.</li>
+<li>Using <code>PAOverride</code> with <a href="./#specifying-pitch-accent">a number</a> (recommended).</li>
+<li>Force the pitch accent group with tags (see below).</li>
 </ol>
 <p><br></p>
 <h3 id="override-pitch-accent-group">Override Pitch Accent Group<a class="headerlink" href="#override-pitch-accent-group" title="Permanent link">&para;</a></h3>
-<p>To manually set the pitch accent group, the main way (as described above) is by manually setting <code>PAOverride</code>
-to the correct number number.
-However, if you are using a non-integer value in <code>PAOverride</code> to override the entire display,
-you must add the correct tag to your note, to add the correct color.</p>
-<p>TODO rewrite with new <code>PAOverride</code></p>
+<p>In some extremely rare cases, you must set manually set the pitch accent group,
+if the available options do not work.
+To do this, add the appropriate tag to the card.</p>
 <p>The exact tags that can be used are shown in the
 <a href="./#colored-pitch-accent-summary">summary table</a> above,
 under the <code>Anki Tag</code> and 日本語 sections.
@@ -1417,37 +1433,21 @@ More info on this on the <a href="./#paoverride-field"><code>PAOverride</code> f
 <p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
 </div>
 <p>If the <code>PAOverrideText</code> field is filled, then this field is displayed exactly as is,
-without any changes or parsing.</p>
-<p>(TODO example images collapsed section)</p>
+without any changes or parsing.
+This provides the most flexibility, but the least ease of usage.</p>
+<figure>
+<p><a href="../assets/pa/helloworld.png"><img alt="hello world as PA" src="../assets/pa/helloworld.png" /></a>
+  </p>
+<figcaption>
+    PAOverrideText with: "Hello world!"
+  </figcaption>
+</figure>
 <hr />
 <h2 id="2-paoverride">(2) PAOverride<a class="headerlink" href="#2-paoverride" title="Permanent link">&para;</a></h2>
 <p>The <code>PAOverride</code> allows for two primary formats: positions and text format.
 If the field contents cannot be parsed in either of these formats,
 then the field is displayed without any special formatting.
 This will act just like <code>PAOverrideText</code>.</p>
-<!--
-For a quick summary of how you can use this field, 
-see wha
-
-??? example "Example Summary"
-    test
-
-    | PAOverride | Result |
-    |-|-|
-    | (blank with no default)            | TODO |
-    | `0`                                | TODO |
-    | `1`                                | TODO |
-    | `-1`                               | TODO |
-    | `0,1,3`                            | TODO |
-    | `0,<b>1</b>,3`                     | TODO |
-    | じ＼んせい                         | TODO |
-    | いきお＼い                         | TODO |
-    | どうぐ＼                           | TODO |
-    | しんちょう￣                       | TODO |
-    | どく＼、くらう￣、さら￣           | TODO |
-    | ちゅうが＼くせい・ちゅうがく＼せい | TODO |
--->
-
 <p><br></p>
 <h3 id="21-paoverride-positions-format">(2.1) PAOverride: Positions Format<a class="headerlink" href="#21-paoverride-positions-format" title="Permanent link">&para;</a></h3>
 <p>When the <code>PAOverride</code> field contains any number, that number will be considered
@@ -1466,17 +1466,17 @@ downstep to be after the second last mora.</p>
 <tbody>
 <tr>
 <td><code>0</code></td>
-<td>TODO</td>
+<td><span class="pitchaccent">ニ<span class="pitchoverline">セモノ</span></span></td>
 <td></td>
 </tr>
 <tr>
 <td><code>1</code></td>
-<td>TODO</td>
+<td><span class="pitchaccent"><span class="pitchoverline">ニ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セモノ</span></td>
 <td></td>
 </tr>
 <tr>
 <td><code>-1</code></td>
-<td>TODO</td>
+<td><span class="pitchaccent">ニ<span class="pitchoverline">セモ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>ノ</span></td>
 <td>起伏</td>
 </tr>
 </tbody>
@@ -1502,18 +1502,18 @@ This is useful to highlight the correct pitch accent among all possiblities.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>0,1,3</code></td>
-<td>TODO</td>
+<td><code>0,2,4</code></td>
+<td><span class="pitchaccent">ニ<span class="pitchoverline">セモノ</span>・ニ<span class="pitchoverline">セ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>モノ・ニ<span class="pitchoverline">セモノ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></span></td>
 <td></td>
 </tr>
 <tr>
-<td><code>0 , 1,3</code></td>
-<td>TODO</td>
+<td><code>0 ,2, 4</code></td>
+<td><span class="pitchaccent">ニ<span class="pitchoverline">セモノ</span>・ニ<span class="pitchoverline">セ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>モノ・ニ<span class="pitchoverline">セモノ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></span></td>
 <td>The parser ignores all whitespace.</td>
 </tr>
 <tr>
-<td><code>0,&lt;b&gt;1&lt;/b&gt;,3</code></td>
-<td>TODO</td>
+<td><code>&lt;b&gt;0&lt;/b&gt;,2,4</code></td>
+<td><span class="pitchaccent">ニ<span class="pitchoverline">セモノ</span><b>・</b><b>ニ<span class="pitchoverline">セ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>モノ</b><b>・</b><b>ニ<span class="pitchoverline">セモノ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></b></span></td>
 <td></td>
 </tr>
 </tbody>
@@ -1570,17 +1570,29 @@ For example, 人生 should be written as 「じ＼んせい」.</p>
 <p>For words with no downstep (平板型), the 「￣」 character must be placed
 at the end of the word.
 For example, 身長 should be written as 「しんちょう￣」.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<details class="info">
+<summary>Removing the required ￣ symbol <em>(click here)</em></summary>
 <p>The restriction that 平板 words require the ￣ symbol at the end can be removed
 using the following <a href="../runtimeoptions/" target="_blank">runtime option</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>TODO
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;auto-pitch-accent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="nt">&quot;pa-override&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="c1">// set to false (default: true)</span><span class="w"></span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="nt">&quot;heiban-marker-required&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>This would allow any words without any downstep marker to be rendered as 平板.
 Using the above example, one can instead type 身長 as 「しんちょう」.</p>
-</div>
-<p>Using this text format will ignore the original reading of the tested word,
-allowing you to write the pitch accent of any word you want.</p>
+</details>
+<!--
+Using this text format will ignore the original reading of the tested word,
+allowing you to write the pitch accent of any word you want.
+-->
+
 <p><strong>Examples</strong>:</p>
 <table>
 <thead>
@@ -1592,26 +1604,26 @@ allowing you to write the pitch accent of any word you want.</p>
 <tbody>
 <tr>
 <td>じ＼んせい</td>
-<td>TODO</td>
+<td><span class="pitchaccent"><span class="pitchoverline">ジ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>ンセイ</span></td>
 </tr>
 <tr>
 <td>いきお＼い</td>
-<td>TODO</td>
+<td><span class="pitchaccent">イ<span class="pitchoverline">キオ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>イ</span></td>
 </tr>
 <tr>
 <td>どうぐ＼</td>
-<td>TODO</td>
+<td><span class="pitchaccent">ド<span class="pitchoverline">ウグ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></span></td>
 </tr>
 <tr>
 <td>しんちょう￣</td>
-<td>TODO</td>
+<td><span class="pitchaccent">シ<span class="pitchoverline">ンチョウ</span></span></td>
 </tr>
 </tbody>
 </table>
 <h4 id="multiple-words">Multiple Words<a class="headerlink" href="#multiple-words" title="Permanent link">&para;</a></h4>
 <p>Multiple words can be defined, as long as they are separated with either the
 「・」 or 「、」 characters.</p>
-<p>This is particularly useful on expressions with multiple words, such as 「毒を食らわば皿」.</p>
+<p>This is particularly useful on expressions with multiple words, such as 「毒を食らわば皿まで」.</p>
 <p><strong>Examples</strong>:</p>
 <table>
 <thead>
@@ -1623,11 +1635,11 @@ allowing you to write the pitch accent of any word you want.</p>
 <tbody>
 <tr>
 <td>どく＼、くらう￣、さら￣</td>
-<td>TODO</td>
+<td><span class="pitchaccent">ド<span class="pitchoverline">ク</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>、ク<span class="pitchoverline">ラウ</span>、サ<span class="pitchoverline">ラ</span></span></td>
 </tr>
 <tr>
-<td>ちゅうが＼くせい・ちゅうがく＼せい</td>
-<td>TODO</td>
+<td>ち＼か・ちか＼</td>
+<td><span class="pitchaccent"><span class="pitchoverline">チ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>カ・チ<span class="pitchoverline">カ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></span></td>
 </tr>
 </tbody>
 </table>
@@ -1658,14 +1670,14 @@ and the tested word is covered in said dictionary.</p>
 However, only the first pitch accent is shown by default.</p>
 <p>If you want to show all of the pitch accents in the first dictionary,
 use the following <a href="../runtimeoptions/" target="_blank">runtime option</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>{
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;modules&quot;: {
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    &quot;auto-pitch-accent&quot;: {
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>      // default: true
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>      &quot;only-display-main-entry&quot;: false,
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    }
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  }
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;auto-pitch-accent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="c1">// default: true</span><span class="w"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;only-display-main-entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>If you want to select the correct pitch accent, bold that position.</p>
 <p>TODO image comparisons:</p>
@@ -1688,164 +1700,81 @@ then this field is automatically generated on all cards.</p>
 <p>This is used as a fallback option, in case your installed pitch accent dictionaries
 does not cover the tested content, but this add-on does.</p>
 <hr />
-<!--
-# How Pitch Accent is Selected
-
-Pitch accent is selected based on the following priority:
-
-## (1) `PAOverride` number
-- format is any integer (i.e. `0`, `1`, `3`, etc.)
-    - represents mora on which the downstep happens (`0` means no downstep / 平板)
-- `-1` sets the downstep to be right before the last mora
-    - other negative numbers won't work (`-1` is a special number for the 起伏 pattern)
-- primary way to set/override the pitch accent
-
-## (2) `PAOverride` raw text
-- set to whatever you want to be displayed
-- example is the 不審者 example card (TODO picture)
-
-## (3) `PAPositions` field
-- first bolded text found this will be chosen
-- otherwise first pitch in first dictionary is chosen
-- this is usually the pitch that is shown on cards
-
-## (4) `AJTWordPitch` field
-- occasionally, pitch accent info not found in your Yomichan dictionaries can show up
-  in the auto-generated `AJTWordPitch` field
-- in this case, as there is no other option, `AJTWordPitch` field is used
-
-!!! note
-    If the module is disabled in [runtime options](runtimeoptions.md){:target="_blank"},
-    the displayed pitch accent will be exactly what is shown in `AJTWordPitch` (or `PAOverride`).
-
-??? example "(TODO) How pitch accent is selected for version 0.11.0.0"
-
-    1. `PAOverrideText`
-        - anything
-
-    1. `PAOverride` integer(s)
-        - any integer in csv format
-        - can be bolded to grey out others
-        - bold currently cannot be across numbers
-        - examples:
-            - `1`
-            - `1, 2`
-            - `-1, 2`
-            - `0,1,2,3`
-            - `0,1,<b>2</b>,3`
-        - non-examples:
-            - `0,<b>1,2</b>,3`
-            - `0,<b>1,</b>2,3`
-            - `0,a`
-
-    1. `PAOverride` text
-        - accepts anything WITHOUT formatting (no bold, etc)
-        - downsteps are marked with 「＼」
-        - (optional) 平板 words can be markd with 「￣」at the very end
-        - words are separated with 「・」 or 「、」
-        - examples:
-            - ちゅうが＼くせい・ちゅうがく＼せい
-            - どく＼、くらう、さら
-            - ジ＼ンセイ
-            - ぞうき＼ん
-            - ねる
-            - ねる￣
-
-    1. `PAOverride`: anything else
-        - if it doesn't fit any of the above (text with formatting), it is shown as is without changes
-            - acts exactly like `PAOverrideText`
-
-    1. `PAPositions`
-
-    1. `AJTWordPitch`
-
-??? example "(TODO) How pitch accent is selected for version 0.11.0.0, when module is disabled"
-
-    1. `PAOverrideText`
-    1. `PAOverride`
-    1. `AJTWordPitch`
-
-    all of the fields will be shown as is without formatting
-    (since no javascript is available to format it)
-
-
-## Showing Multiple Pitch Accents
-
--->
-
 <h2 id="how-the-reading-is-selected">How the Reading is Selected<a class="headerlink" href="#how-the-reading-is-selected" title="Permanent link">&para;</a></h2>
-<p>(TODO)</p>
+<p>By default, the word reading is selected based on the following priority:</p>
+<ol>
+<li><code>AJTWordPitch</code></li>
+<li><code>WordReading</code></li>
+</ol>
+<p><br></p>
+<h3 id="reading-ajtwordpitch">Reading: AJTWordPitch<a class="headerlink" href="#reading-ajtwordpitch" title="Permanent link">&para;</a></h3>
+<p>Usually, the reading is selected from <code>AJTWordPitch</code>.
+This has a few features over the raw word reading:</p>
 <ul>
-<li>AJT word pitch by default<ul>
-<li>can include devoiced and nasal info</li>
-<li>usually katakana with long vowel marks<ul>
-<li>some words don't have long vowel marks (i.e. adjectives ending with 〜しい will be displayed as 〜シイ and not 〜シー)</li>
+<li><code>AJTWordPitch</code> usually includes devoiced and nasal info, whereas <code>WordReading</code> does not.</li>
+<li>Readings are katakana by default.</li>
 </ul>
-</li>
-<li>ajt word reading must match the reading found in <code>WordReading</code>, otherwise this field is ignored<ul>
-<li>some pre-processing is done to turn this reading into hiragana to be properly searched</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Otherwise, the card uses the reading from <code>WordReading</code> in katakana.
-This reading can be changed to hiragana, katakana, or katakana with long vowel marks
-in <a href="../runtimeoptions/" target="_blank">runtime options</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  &quot;modules&quot;: {
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    &quot;auto-pitch-accent&quot;: {
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>      // 0: hiragana
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>      // 1: katakana
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>      // 2: katakana with long vowel marks
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>      &quot;reading-display-mode&quot;: 1,
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    }
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  }
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>}
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you do not want the reading in <code>AJTWordPitch</code> to be used,
+change the following <a href="../runtimeoptions/" target="_blank">runtime option</a> to <code>false</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">&quot;auto-pitch-accent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="c1">// set to false (default: true)</span><span class="w"></span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">&quot;search-for-ajt-word&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</div>
+<p><br></p>
+<h3 id="reading-wordreading">Reading: WordReading<a class="headerlink" href="#reading-wordreading" title="Permanent link">&para;</a></h3>
+<p>If the word cannot be found under <code>AJTWordPitch</code>, then the default reading
+in <code>WordReading</code> is used, and displayed in katakana.</p>
+<p>Unlike <code>AJTWordPitch</code>, this reading can be changed to hiragana, katakana,
+or katakana with long vowel marks in the <a href="../runtimeoptions/" target="_blank">runtime options</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">&quot;auto-pitch-accent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="c1">// 0: hiragana</span><span class="w"></span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="c1">// 1: katakana</span><span class="w"></span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="c1">// 2: katakana with long vowel marks</span><span class="w"></span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="nt">&quot;reading-display-mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <hr />
 <h2 id="pitch-accent-styling-details">Pitch Accent Styling Details<a class="headerlink" href="#pitch-accent-styling-details" title="Permanent link">&para;</a></h2>
+<p>This covers some details if you are directly using <code>PAOverrideText</code>,
+and want to have a similar format to the generated pitch accent.
+You very likely won't be doing this.</p>
 <ul>
-<li>TODO outdated</li>
-<li>TODO only if you care about the exact text value</li>
-<li>TODO what bold does</li>
-</ul>
-<p>Editing the content in <code>AJTWordPitch</code> requires some special attention.
-To preserve the style and get expected results, you must use <code>Ctrl + Shift + x</code> when editing the field,
-and edit the html tags directly. Use other cards as examples of what the html should look like.</p>
-<p>TODO more details + example (華)</p>
-<ul>
-<li>TODO replace with positions :eyes:</li>
-</ul>
-<p>example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+<li>
+<p>The generated style is exactly the generated style of the AJTWordPitch field.
+    To display the style properly, copy and edit the HTML tags directly.</p>
+</li>
+<li>
+<p>If you want to grey out other words, you will have to use the bold <code>&lt;b&gt;</code> tag.
+    However, you must wrap <strong>the greyed out words</strong> with the <code>&lt;b&gt;</code> tag.</p>
+<p>This is the opposite of what would expect from everything
+in this page, but the behavior is this way due to restrictions in the current
+CSS specification.</p>
+</li>
+<li>
+<p>Example with all possible styles:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・チュ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ーカ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nasal&quot;</span><span class="p">&gt;</span>°<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nopron&quot;</span><span class="p">&gt;</span>ク<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>セイ<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
 </code></pre></div></p>
-<p>The <code>AJTWordPitch</code> field may have more than one pitch accent for a given word.
-To choose which pitch accent is correct to the sentence,
-one can bold the unused pitch accents to grey them out.</p>
-<figure>
-<p><a href="../assets/bold_pa.png"><img alt="word pitch with bolded field to grey out" src="../assets/bold_pa.png" /></a></p>
-</figure>
-<h3 id="bolding-the-last-downstep">Bolding the last downstep<a class="headerlink" href="#bolding-the-last-downstep" title="Permanent link">&para;</a></h3>
-<p><a href="../assets/downstep_not_bolded.png"><img align="right" alt="word pitch " src="../assets/downstep_not_bolded.png" width="300" /> </a></p>
-<ul>
-<li>TODO doesn't work by default with basic <code>ctrl+b</code> attempts</li>
-<li>seems to be a weird quirk with css injector</li>
-<li>only solution I know of atm is to edit the raw html and move the <code>&lt;/b&gt;</code> to the very end of the html</li>
+</li>
 </ul>
-<p>previous:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ナ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>サケ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・ナ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>サケ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</code></pre></div></p>
-<p>after editing the raw html:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>ナ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>サケ<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>・ナ<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-decoration:overline;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pitchoverline&quot;</span><span class="p">&gt;</span>サケ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;downstep-inner&quot;</span><span class="p">&gt;</span>ꜜ<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
-</code></pre></div></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 8, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 14, 2022</span>
       
     
   </small>
