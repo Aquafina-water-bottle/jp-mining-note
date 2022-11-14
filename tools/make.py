@@ -246,10 +246,11 @@ class Generator:
         utils.gen_dirs(output_file)
 
         if type == GenerateType.JINJA:
-            template = self.env.get_template(input_file)
+            # the .replace() is a hack for the build to work on windows?
+            template = self.env.get_template(input_file.replace("\\", "/"))
             result = template.render(self.data)
 
-            with open(output_file, "w") as file:
+            with open(output_file, "w", encoding="utf-8") as file:
                 file.write(result)
 
         elif type == GenerateType.SASS:

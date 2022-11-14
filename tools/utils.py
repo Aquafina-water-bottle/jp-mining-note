@@ -258,7 +258,7 @@ def get_note_opts(config: Config, as_config=False) -> Config | str:
     root_folder = get_root_folder()
     opts_path = os.path.join(root_folder, "config", opts_file)
 
-    with open(opts_path) as f:
+    with open(opts_path, encoding="utf-8") as f:
         contents = f.read()
 
     if as_config:
