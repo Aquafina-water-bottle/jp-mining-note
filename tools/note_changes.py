@@ -100,6 +100,10 @@ NOTE_CHANGES = [
                 "For example, update `n` to `KeyN`.\n"
                 "See: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
             ),
+            action.NoteToUser(
+                description="If you have been using text under `PAOverride`, please move the text\n"
+                "to `PAOverrideText`. `PAOverride` fields with numbers can remain."
+            ),
         ],
         fields=[
             "Key",

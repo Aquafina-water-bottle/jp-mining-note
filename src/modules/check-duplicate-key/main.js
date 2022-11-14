@@ -27,7 +27,7 @@ const JPMNCheckDuplicateKey = (() => {
         return;
       }
 
-      const keyText = key.replace(/"/g, '\\"');
+      const keyText = this.ankiConnectHelper.escapeStr(key);
       const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
       const noteName = '{{ NOTE_FILES("model-name").item() }}';
 

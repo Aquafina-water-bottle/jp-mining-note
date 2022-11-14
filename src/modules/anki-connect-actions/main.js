@@ -43,9 +43,9 @@ const JPMNAnkiConnectActions = (() => {
     }
   }
 
-  const key = document.getElementById("hidden_key").innerHTML;
-  const sentence = document.getElementById("hidden_sentence").innerHTML;
-  const cacheKey = `${key}.${sentence}`;
+  const keyHTML = document.getElementById("hidden_key").innerHTML;
+  const sentenceHTML = document.getElementById("hidden_sentence").innerHTML;
+  const cacheKey = `${keyHTML}.${sentenceHTML}`;
 
 
   class JPMNAnkiConnectActions {
@@ -120,6 +120,12 @@ const JPMNAnkiConnectActions = (() => {
       let newResultIds = newCardIds.slice(0, maxNewLatest);
 
       return [nonNewResultIds, newResultIds];
+    }
+
+
+    /* Escapes the string to be used in Anki-Connect queries */
+    escapeStr(s) {
+      return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
     }
 
 
@@ -215,8 +221,8 @@ const JPMNAnkiConnectActions = (() => {
     }
 
     getKeySentQuery() {
-      let keyText = key.replace(/"/g, '\\"');
-      let sentenceSearch = sentence.replace(/"/g, '\\"');
+      let keyText = this.escapeStr(keyHTML);
+      let sentenceSearch = this.escapeStr(sentenceHTML);
       let query = `"Key:${keyText}" "Sentence:${sentenceSearch}"`
       return query;
     }
@@ -251,8 +257,8 @@ const JPMNAnkiConnectActions = (() => {
 
       let cachable = true;
 
-      let keyText = key.replace(/"/g, '\\"');
-      let sentenceSearch = sentence.replace(/"/g, '\\"');
+      let keyText = this.escapeStr(keyHTML);
+      let sentenceSearch = this.escapeStr(sentenceHTML);
 
       // query with sentence and key
       let query = `"Key:${keyText}" "Sentence:${sentenceSearch}" "card:${cardTypeName}" "note:${noteName}"`;

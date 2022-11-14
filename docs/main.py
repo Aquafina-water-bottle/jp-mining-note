@@ -34,18 +34,32 @@ FIELDS = {
         "reference": "autopa.md#how-pitch-accent-is-selected",
     },
 
+    "PAOverrideText": {
+        "auto_fill": False,
+        "binary_field": False,
+        "reference": "autopa.md#1-paoverridetext",
+    },
+
     "AJTWordPitch": {
         "auto_fill": True,
         "binary_field": False,
-        "reference": "setup.md#ajt-pitch-accent",
+        "reference": "autopa.md#2-paoverride",
     },
 
     "PrimaryDefinition": {
         "auto_fill": True,
         "binary_field": False,
-        "reference": "fieldref.md#modifying-the-back-side",
+        "reference": "images.md#main-image",
         "setup": "{jpmn-primary-definition}",
         "anime_cards_import": "Glossary",
+    },
+
+    "PrimaryDefinitionPicture": {
+        "auto_fill": False,
+        "binary_field": False,
+        "reference": "images.md#the-primarydefinitionpicture-field",
+        "setup": "",
+        "anime_cards_import": "",
     },
 
     "Sentence": {
@@ -203,13 +217,12 @@ FIELDS = {
         "setup": "[sound:_silence.wav]",
     },
 
-    # TODO un-comment for 0.11.0.0
-    #"WordReadingHiragana": {
-    #    "auto_fill": True,
-    #    "binary_field": False,
-    #    "reference": "ui.md#word-indicators",
-    #    "setup": "{jpmn-word-reading-hiragana}",
-    #},
+    "WordReadingHiragana": {
+        "auto_fill": True,
+        "binary_field": False,
+        "reference": "ui.md#word-indicators",
+        "setup": "{jpmn-word-reading-hiragana}",
+    },
 
     "FrequenciesStylized": {
         "auto_fill": True,
@@ -222,7 +235,7 @@ FIELDS = {
     "FrequencySort": {
         "auto_fill": True,
         "binary_field": False,
-        "reference": "fieldref.md#sorting-by-frequency",
+        "reference": "fieldref.md#frequencysort-field",
         "setup": "{jpmn-min-freq}",
     },
 

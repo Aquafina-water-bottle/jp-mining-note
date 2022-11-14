@@ -3,11 +3,9 @@
 
 // global cache for an entire card's kanji hover html
 // maps key.word_reading -> html string
-//var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
 var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
 
 // maps kanji -> [{set of used words}, html string]
-//var kanjiHoverCache = kanjiHoverCache ?? {};
 var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 
@@ -36,13 +34,9 @@ const JPMNKanjiHover = (() => {
   // however, just in case, wordreading is added
   // note that even if the key is a duplicate, if the wordreading is literally the same,
   // then it should get the exact same result regardless, so this key is still valid
-  const cacheKey = "{{ T('Key') }}.{{ T('WordReading') }}"
-
-
-  // kanji hover
-  // some code shamelessly stolen from cade's kanji hover:
-  // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
-
+  const keyHTML = document.getElementById("hidden_key").innerHTML;
+  const wordReadingHTML = document.getElementById("hidden_word_reading").innerHTML;
+  const cacheKey = `${keyHTML}.${wordReadingHTML}`
 
   class JPMNKanjiHover {
     constructor() {
@@ -134,8 +128,6 @@ const JPMNKanjiHover = (() => {
       kanjiHoverWrapper.appendChild(kanjiSpan);
       kanjiHoverWrapper.appendChild(tooltipWrapperSpan);
 
-      //logger.error(kanjiHoverWrapper.outerHTML);
-      //return kanjiHoverWrapper.outerHTML;
       return kanjiHoverWrapper;
     }
 
@@ -157,7 +149,12 @@ const JPMNKanjiHover = (() => {
       // constructs the multi findCards request for ankiconnect
       let actions = [];
       for (const character of kanjiArr) {
-        let baseQuery = `(-"Key:{{ T('Key') }}" Word:*${character}* "card:${cardTypeName}" -"WordReading:{{ T('WordReading') }}") `;
+
+        const keyEsc = this.ankiConnectHelper.escapeStr(keyHTML);
+        const wordReadingEsc = this.ankiConnectHelper.escapeStr(wordReadingHTML);
+
+        let baseQuery = `(-"Key:${keyEsc}" Word:*${character}* "card:${cardTypeName}" -"WordReading:${wordReadingEsc}") `;
+
         logger.debug(`query: ${baseQuery}`, 1);
 
         const nonNewQuery = baseQuery + {{ utils.opt("modules", "kanji-hover", "non-new-query") }};
@@ -221,6 +218,8 @@ const JPMNKanjiHover = (() => {
 
       // uses cache if it already exists
       let kanjiSet = new Set() // set of kanjis that requires api calls
+      // regex shamelessly stolen from cade's kanji hover:
+      // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
       const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
       const matches = readingHTML.matchAll(regex);
       for (const match of matches) {
@@ -233,7 +232,7 @@ const JPMNKanjiHover = (() => {
       // attempts to fill out the kanji dict with cached entries
       for (let kanji of [...kanjiSet]) {
         // also checks that the current word is not used
-        if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{ T('WordReading') }}"))) {
+        if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes(wordReadingHTML))) {
           logger.debug(`Using cached kanji ${kanji}`)
           kanjiDict[kanji] = kanjiHoverCache[kanji][1];
           kanjiSet.delete(kanji);
@@ -258,8 +257,6 @@ const JPMNKanjiHover = (() => {
 
       const re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
       const resultHTML = readingHTML.replace(re, function (matched) {
-        //return kanjiDict[matched] ?? matched;
-        //return nullish(kanjiDict[matched], matched);
         return `<span data-kanji-hover="${matched}">${matched}</span>`
       });
 
@@ -268,7 +265,8 @@ const JPMNKanjiHover = (() => {
       for (let kanji of Object.keys(kanjiDict)) {
         for (let ele of document.querySelectorAll(`.dh-left__reading [data-kanji-hover="${kanji}"]`)) {
           ele.innerText = "";
-          ele.appendChild(kanjiDict[kanji]);
+          // cloneNode(true) in case of duplicate kanjis
+          ele.appendChild(kanjiDict[kanji].cloneNode(true));
         }
       }
 

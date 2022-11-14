@@ -24,15 +24,9 @@ const JPMNSameReadingIndicator = (() => {
 
   const cardTypeName = 'Mining Card';
   const noteName = '{{ NOTE_FILES("model-name").item() }}';
-  const baseQuery = `"card:${cardTypeName}" "note:${noteName}" -WordReadingHiragana:`;
-  const baseWordQuery = `"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
-  const baseKanjiQuery = `"Word:{{ T('Word') }}" -"WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
-  const baseReadingQuery = `-"Word:{{ T('Word') }}" "WordReadingHiragana:{{ T('WordReadingHiragana') }}"`;
-  const nonNewQueryPartial = {{ utils.opt("modules", "word-indicators", "non-new-query") }};
-  const newQueryPartial = {{ utils.opt("modules", "word-indicators", "new-query") }};
+  const wordHTML = document.getElementById("hidden_word").innerHTML;
+  const wrhHTML = document.getElementById("hidden_word_reading_hiragana").innerHTML;
 
-  //const indicatorDiv = document.getElementById("same_reading_indicator");
-  //const indicatorTooltipDiv = document.getElementById("same_reading_indicator_tooltip");
   const dhLeftEle = document.getElementById("dh_left");
 
   const localPositionsEle = document.getElementById("hidden_pa_positions");
@@ -40,6 +34,11 @@ const JPMNSameReadingIndicator = (() => {
   const localOverrideEle = document.getElementById("hidden_pa_override");
   const localOverrideTextEle = document.getElementById("hidden_pa_override_text");
   const localReadingEle = document.getElementById("hidden_word_reading");
+
+
+  const baseQuery = `"card:${cardTypeName}" "note:${noteName}" -WordReadingHiragana:`;
+  const nonNewQueryPartial = {{ utils.opt("modules", "word-indicators", "non-new-query") }};
+  const newQueryPartial = {{ utils.opt("modules", "word-indicators", "new-query") }};
 
   class IndicatorInfo {
     constructor(baseIndicatorQuery, indicatorDiv, indicatorTooltipDiv, label) {
@@ -59,35 +58,43 @@ const JPMNSameReadingIndicator = (() => {
     }
   }
 
-  const wordIndicatorInfo = new IndicatorInfo(
-    baseWordQuery,
-    document.getElementById("same_word_indicator"),
-    document.getElementById("same_word_indicator_tooltip"),
-    "word",
-  )
-
-  const kanjiIndicatorInfo = new IndicatorInfo(
-    baseKanjiQuery,
-    document.getElementById("same_kanji_indicator"),
-    document.getElementById("same_kanji_indicator_tooltip"),
-    "kanji",
-  )
-
-  const readingIndicatorInfo = new IndicatorInfo(
-    baseReadingQuery,
-    document.getElementById("same_reading_indicator"),
-    document.getElementById("same_reading_indicator_tooltip"),
-    "reading",
-  )
-
-  const indicatorsArray = [wordIndicatorInfo, kanjiIndicatorInfo, readingIndicatorInfo];
-
   class JPMNSameReadingIndicator {
     constructor() {
       const displayPitchAccent = {{ utils.opt("modules", "word-indicators", "display-pitch-accent") }}
       const displayPitchAccentHover = {{ utils.opt("modules", "word-indicators", "display-pitch-accent-hover-only") }}
       this.ankiConnectHelper = new JPMNAnkiConnectActions();
       this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent, displayPitchAccentHover);
+
+      const wordText = this.ankiConnectHelper.escapeStr(wordHTML);
+      const wrhText = this.ankiConnectHelper.escapeStr(wrhHTML);
+
+      const baseWordQuery =     `"Word:${wordText}" "WordReadingHiragana:${wrhText}"`;
+      const baseKanjiQuery =    `"Word:${wordText}" -"WordReadingHiragana:${wrhText}"`;
+      const baseReadingQuery = `-"Word:${wordText}"  "WordReadingHiragana:${wrhText}"`;
+
+      const wordIndicatorInfo = new IndicatorInfo(
+        baseWordQuery,
+        document.getElementById("same_word_indicator"),
+        document.getElementById("same_word_indicator_tooltip"),
+        "word",
+      )
+
+      const kanjiIndicatorInfo = new IndicatorInfo(
+        baseKanjiQuery,
+        document.getElementById("same_kanji_indicator"),
+        document.getElementById("same_kanji_indicator_tooltip"),
+        "kanji",
+      )
+
+      const readingIndicatorInfo = new IndicatorInfo(
+        baseReadingQuery,
+        document.getElementById("same_reading_indicator"),
+        document.getElementById("same_reading_indicator_tooltip"),
+        "reading",
+      )
+
+      this.indicatorsArray = [wordIndicatorInfo, kanjiIndicatorInfo, readingIndicatorInfo];
+
     }
 
     buildString(nonNewCardInfo, newCardInfo) {
@@ -173,8 +180,8 @@ const JPMNSameReadingIndicator = (() => {
 
         let promises = []
 
-        for (let i = 0; i < indicatorsArray.length; i++) {
-          const indicatorInfo = indicatorsArray[i];
+        for (let i = 0; i < this.indicatorsArray.length; i++) {
+          const indicatorInfo = this.indicatorsArray[i];
           const indicatorStr = indicatorCache[indicatorInfo.label];
           if (indicatorStr.length !== 0) {
             promises.push(this.displayIndicator(indicatorStr, indicatorInfo));
@@ -206,8 +213,6 @@ const JPMNSameReadingIndicator = (() => {
 
 
     async runOnIndicator(indicatorInfo) {
-
-      //let cid = await this.ankiConnectHelper.getDisplayedCardId();
       let keySentQuery = this.ankiConnectHelper.getKeySentQuery();
 
       let nonNewQuery = `-(${keySentQuery}) ${indicatorInfo.nonNewQuery}`;
@@ -240,23 +245,7 @@ const JPMNSameReadingIndicator = (() => {
       TIME_PERFORMANCE.start(tpID);
       {% endif %}
 
-      //let promises = []
-      //for (const indicatorInfo of indicatorsArray) {
-      //  promises.push(this.runOnIndicator(indicatorInfo));
-      //}
-
-      //Promise.all(promises).then((values) => {
-      //  this.addBrowseOnClick();
-
-      //  {% if "time-performance" in modules.keys() %}
-      //  TIME_PERFORMANCE.stop(tpID, true);
-      //  TIME_PERFORMANCE.reset(tpID);
-      //  {% endif %}
-
-      //});
-
-      // this runs in the same time as the above...
-      for (const indicatorInfo of indicatorsArray) {
+      for (const indicatorInfo of this.indicatorsArray) {
         await this.runOnIndicator(indicatorInfo);
       }
 
