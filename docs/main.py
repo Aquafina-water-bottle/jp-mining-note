@@ -15,7 +15,6 @@ FIELDS = {
     "Word": {
         "auto_fill": True,
         "binary_field": False,
-        #"reference": "cardtypes.md#vocab-card",
         "setup": "{expression}",
         "anime_cards_import": "front",
     },
@@ -23,7 +22,6 @@ FIELDS = {
     "WordReading": {
         "auto_fill": True,
         "binary_field": False,
-        #"reference": "fieldref.md#",
         "setup": "{furigana-plain}",
         "anime_cards_import": "Reading",
     },
@@ -37,13 +35,14 @@ FIELDS = {
     "PAOverrideText": {
         "auto_fill": False,
         "binary_field": False,
-        "reference": "autopa.md#1-paoverridetext",
+        "reference": "autopa.md#how-pitch-accent-is-selected",
+        "version": "0.11.0.0",
     },
 
     "AJTWordPitch": {
         "auto_fill": True,
         "binary_field": False,
-        "reference": "autopa.md#2-paoverride",
+        "reference": "autopa.md#how-pitch-accent-is-selected",
     },
 
     "PrimaryDefinition": {
@@ -58,14 +57,12 @@ FIELDS = {
         "auto_fill": False,
         "binary_field": False,
         "reference": "images.md#the-primarydefinitionpicture-field",
-        "setup": "",
-        "anime_cards_import": "",
+        "version": "0.11.0.0",
     },
 
     "Sentence": {
         "auto_fill": True,
         "binary_field": False,
-        #"reference": "fieldref.md#card-types",
         "setup": "{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}",
         "anime_cards_import": "Sentence",
     },
@@ -180,7 +177,6 @@ FIELDS = {
     "WordAudio": {
         "auto_fill": True,
         "binary_field": False,
-        #"reference": "fieldref.md#",
         "setup": "{audio}",
         "anime_cards_import": "Audio",
     },
@@ -188,14 +184,12 @@ FIELDS = {
     "SentenceAudio": {
         "auto_fill": True,
         "binary_field": False,
-        #"reference": "fieldref.md#",
         "anime_cards_import": "SentenceAudio",
     },
 
     "PAGraphs": {
         "auto_fill": True,
         "binary_field": False,
-        #"reference": "fieldref.md#",
         "setup": "{jpmn-pitch-accent-graphs}",
         "notes": "Do not edit this field.",
         "anime_cards_import": "Graph",
@@ -222,12 +216,12 @@ FIELDS = {
         "binary_field": False,
         "reference": "ui.md#word-indicators",
         "setup": "{jpmn-word-reading-hiragana}",
+        "version": "0.11.0.0",
     },
 
     "FrequenciesStylized": {
         "auto_fill": True,
         "binary_field": False,
-        #"reference": "fieldref.md#",
         "notes": "Do not edit this field.",
         "setup": "{jpmn-frequencies}",
     },
@@ -343,6 +337,10 @@ def define_env(env):
     top = ""
     bottom = ""
 
+    with open("../version.txt") as f:
+        CURRENT_VERSION_STR = f.read().strip()
+
+
     with open(
         os.path.join("..", "yomichan_templates", "top.txt")
     ) as f:
@@ -453,15 +451,12 @@ def define_env(env):
 
     @env.macro
     def bleeding_edge_only(feature_version_str: str):
-        with open("../version.txt") as f:
-            current_version_str = f.read().strip()
-
         feature_ver = Version.from_str(feature_version_str)
-        current_ver = Version.from_str(current_version_str)
+        current_ver = Version.from_str(CURRENT_VERSION_STR)
 
         template = "(Only available on the [bleeding edge release](building.md))"
         if feature_ver > current_ver:
-            return template.format(feature_version_str, current_version_str)
+            return template.format(feature_version_str, CURRENT_VERSION_STR)
         return ""
 
     @env.macro
@@ -471,11 +466,8 @@ def define_env(env):
     New as of version `{feature_version_str}` (currently unreleased, and **cannot be used**)
 """
 
-        with open("../version.txt") as f:
-            current_version_str = f.read().strip()
-
         feature_ver = Version.from_str(feature_version_str)
-        current_ver = Version.from_str(current_version_str)
+        current_ver = Version.from_str(CURRENT_VERSION_STR)
         if feature_ver > current_ver:
             return "!!! warning\n" \
                 f"    New as of version `{feature_version_str}`. " \
@@ -484,7 +476,7 @@ def define_env(env):
                 ", so this feature **cannot be used** unless you compile the templates from the master branch."
 
 
-        return f"""<sup><i>New in version `{feature_version_str}` (latest version: `{current_version_str}`)</i></sup>"""
+        return f"""<sup><i>New in version `{feature_version_str}` (latest version: `{CURRENT_VERSION_STR}`)</i></sup>"""
 
     @env.macro
     def _ceil(x):
@@ -545,6 +537,75 @@ def define_env(env):
 
             rows.append("|" + "|".join(elements) + "|")
 
+
+        return "\n".join(rows)
+
+
+    @env.macro
+    def yomichan_fields_table():
+        rows = []
+
+        # top row
+        rows.append("| Anki Fields | Yomichan Format | Notes |")
+
+        # sep row
+        rows.append("|-|-|-|")
+
+        current_ver = Version.from_str(CURRENT_VERSION_STR)
+
+        for k, v in FIELDS.items():
+
+            anki_field = ("*" if v["binary_field"] else "") + k
+            yomichan_format = ""
+            if "setup" in v:
+                yomichan_format = f"`{v['setup']}`"
+            notes = ""
+
+            if "version" in v:
+                ver = v["version"]
+                feature_ver = Version.from_str(ver)
+                if feature_ver > current_ver:
+                    #anki_field = f'~~{anki_field}~~'
+                    #yomichan_format = f'~~{yomichan_format}~~' if yomichan_format else ""
+                    #notes = f"New in version `{ver}` (currently not available)"
+                    continue # skips the element altogether
+
+                notes = f"New in version `{ver}`"
+
+            elements = [anki_field, yomichan_format, notes]
+            elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
+            rows.append("|" + "|".join(elements) + "|")
+
+        return "\n".join(rows)
+
+
+    @env.macro
+    def anime_cards_table():
+        rows = []
+
+        # top row
+        rows.append("| jp-mining-note fields | Anime Cards Fields |")
+
+        # sep row
+        rows.append("|-|-|")
+
+        current_ver = Version.from_str(CURRENT_VERSION_STR)
+
+        for k, v in FIELDS.items():
+
+            # skips the element altogether if not in current version
+            if "version" in v:
+                ver = v["version"]
+                feature_ver = Version.from_str(ver)
+                if feature_ver > current_ver:
+                    continue
+
+            jpmn_field = k
+            ac_field = v.get("anime_cards_import", "") # anime card field
+
+            elements = [jpmn_field, ac_field]
+            elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
+            rows.append("|" + "|".join(elements) + "|")
 
         return "\n".join(rows)
 

@@ -112,7 +112,6 @@ and must use `./install.py --update`.
   [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
 
 
-
 ## [0.10.3.0] - 2022-10-21
 
 #### Features

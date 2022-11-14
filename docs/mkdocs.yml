@@ -123,6 +123,9 @@ markdown_extensions:
 
   - pymdownx.tasklist
 
+  # allows strikethrough
+  - pymdownx.tilde
+
   # content tabs (left sidebar)
   #- pymdownx.superfences
   - pymdownx.tabbed:

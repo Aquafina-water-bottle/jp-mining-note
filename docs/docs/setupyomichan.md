@@ -39,12 +39,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 
 ??? example "Click here to see the fields to copy and paste."
 
-    | Anki Fields | Yomichan Format |
-    |-------------|-----------------|
-    {% for f, v in FIELDS.items() -%}
-    | {{ "*" if v["binary_field"] else "" }}{{ f }} { .smaller-table-row } | {{ "`" + v["setup"] + "` { .smaller-table-row }" if "setup" in v else "" }} |
-    {% endfor %}
-
+    {{ yomichan_fields_table() | indent(4) }}
 
 
 The above fields will create, by default,

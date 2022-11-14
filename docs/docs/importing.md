@@ -7,7 +7,7 @@ other Anki cards into this note format.
 !!! note
     If you are simply importing old JPMN notes, updating JPMN will
     properly update all the notes in place.
-    See [this section](updating) instead.
+    See [this section](updating.md) instead.
 
 ---
 
@@ -138,11 +138,7 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 
 ??? example "Example for Anime Cards *(click here)*"
 
-    | jp-mining-note Fields | Anime Cards Fields |
-    |-------------|-----------------|
-    {% for f, v in FIELDS.items() -%}
-    | {{ f }} { .smaller-table-row } | {{ v["anime_cards_import"] + " { .smaller-table-row }" if "anime_cards_import" in v else "" }} |
-    {% endfor %}
+    {{ anime_cards_table() | indent(4) }}
 
     !!! note
         Anything not specified should be set to `(Nothing)`

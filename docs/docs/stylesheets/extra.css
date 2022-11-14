@@ -113,6 +113,7 @@
 
 .md-typeset table:not([class]) td.smaller-table-row {
   padding: .4em 1.25em;
+  vertical-align: middle;
 }
 
 .md-main__inner.md-grid {
