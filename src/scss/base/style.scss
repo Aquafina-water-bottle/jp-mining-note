@@ -998,13 +998,14 @@ ruby rt {
     background: var(--text-color--1);
   }
 
-  .nopron {
-    color: var(--text-color);
-  }
+  // TODO figure out how to remove the .nasal class without changing the reading
+  //.nopron {
+  //  color: var(--text-color);
+  //}
 
-  .nasal {
-    display: none;
-  }
+  //.nasal {
+  //  display: none;
+  //}
 
 }
 
@@ -1027,9 +1028,14 @@ ruby rt {
       filter: opacity(70%);
     }
 
-    .nopron {
-      color: var(--text-color--1);
+    .nopron, .nasal {
+      filter: opacity(70%);
     }
+
+    // TODO figure out how to remove the .nasal class without changing the reading
+    //.nopron {
+    //  color: var(--text-color--1);
+    //}
 
   }
 }
