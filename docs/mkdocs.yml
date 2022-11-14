@@ -80,7 +80,7 @@ nav:
     - User Interface: ui.md
     - Field Reference: fieldref.md
     - Images: images.md
-    - Pitch Accent (TODO): autopa.md
+    - Pitch Accent: autopa.md
     - Card Types: cardtypes.md
     - Runtime Options: runtimeoptions.md
     - Compile-Time Options: compiletimeoptions.md

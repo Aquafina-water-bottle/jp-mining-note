@@ -90,27 +90,27 @@ and must be enabled in the {{ RTO_FILE }}:
 
 <br>
 
-## Position Selection
-In most all cases, the position should be automatically found
-and the word can be colored.
-However, there are two cases where the position cannot be automatically calculated:
+## When Pitch Is Not Automatically Colored
+Pitch accent coloring requires a numeric position value somewhere within the card.
+This is usually found in one of two places:
 
-TODO rewrite with new `PAOverride`
+* `PAPositions`
+* `PAOverride`
 
-1. `PAPositions` is not filled, but `AJTWordPitch` is.
-2. `PAOverride` is a non-integer value.
+Usually, `PAPositions` is automatically filled.
 
+In the cases where pitch accent coloring does not work as expected, your two main options are:
+
+1. Using `PAOverride` with [a number](autopa.md#specifying-pitch-accent) (recommended).
+2. Force the pitch accent group with tags (see below).
 
 <br>
 
 
 ## Override Pitch Accent Group
-To manually set the pitch accent group, the main way (as described above) is by manually setting `PAOverride`
-to the correct number number.
-However, if you are using a non-integer value in `PAOverride` to override the entire display,
-you must add the correct tag to your note, to add the correct color.
-
-TODO rewrite with new `PAOverride`
+In some extremely rare cases, you must set manually set the pitch accent group,
+if the available options do not work.
+To do this, add the appropriate tag to the card.
 
 
 The exact tags that can be used are shown in the
@@ -169,8 +169,14 @@ The first field that is non-empty will be the field that is used to display the 
 
 If the `PAOverrideText` field is filled, then this field is displayed exactly as is,
 without any changes or parsing.
+This provides the most flexibility, but the least ease of usage.
 
-(TODO example images collapsed section)
+<figure markdown>
+  {{ img("hello world as PA", "assets/pa/helloworld.png") }}
+  <figcaption>
+    PAOverrideText with: "Hello world!"
+  </figcaption>
+</figure>
 
 
 ---
@@ -181,29 +187,6 @@ If the field contents cannot be parsed in either of these formats,
 then the field is displayed without any special formatting.
 This will act just like `PAOverrideText`.
 
-
-<!--
-For a quick summary of how you can use this field, 
-see wha
-
-??? example "Example Summary"
-    test
-
-    | PAOverride | Result |
-    |-|-|
-    | (blank with no default)            | TODO |
-    | `0`                                | TODO |
-    | `1`                                | TODO |
-    | `-1`                               | TODO |
-    | `0,1,3`                            | TODO |
-    | `0,<b>1</b>,3`                     | TODO |
-    | じ＼んせい                         | TODO |
-    | いきお＼い                         | TODO |
-    | どうぐ＼                           | TODO |
-    | しんちょう￣                       | TODO |
-    | どく＼、くらう￣、さら￣           | TODO |
-    | ちゅうが＼くせい・ちゅうがく＼せい | TODO |
--->
 
 <br>
 
@@ -219,9 +202,9 @@ downstep to be after the second last mora.
 
 | PAOverride | Result | Notes |
 |-|-|-|
-| `0`            | TODO | |
-| `1`            | TODO | |
-| `-1`           | TODO | 起伏 |
+| `0`            | <span class="pitchaccent">ニ<span class="pitchoverline">セモノ</span></span> | |
+| `1`            | <span class="pitchaccent"><span class="pitchoverline">ニ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セモノ</span> | |
+| `-1`           | <span class="pitchaccent">ニ<span class="pitchoverline">セモ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>ノ</span> | 起伏 |
 
 
 
@@ -239,9 +222,9 @@ This is useful to highlight the correct pitch accent among all possiblities.
 
 | PAOverride | Result | Notes |
 |-|-|-|
-| `0,1,3`        | TODO | |
-| `0 , 1,3`      | TODO | The parser ignores all whitespace. |
-| `0,<b>1</b>,3` | TODO | |
+| `0,2,4`        | <span class="pitchaccent">ニ<span class="pitchoverline">セモノ</span>・ニ<span class="pitchoverline">セ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>モノ・ニ<span class="pitchoverline">セモノ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></span> | |
+| `0 ,2, 4`      | <span class="pitchaccent">ニ<span class="pitchoverline">セモノ</span>・ニ<span class="pitchoverline">セ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>モノ・ニ<span class="pitchoverline">セモノ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></span> | The parser ignores all whitespace. |
+| `<b>0</b>,2,4` | <span class="pitchaccent">ニ<span class="pitchoverline">セモノ</span><b>・</b><b>ニ<span class="pitchoverline">セ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>モノ</b><b>・</b><b>ニ<span class="pitchoverline">セモノ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></b></span> | |
 
 
 !!! note "Restrictions on bolded numbers"
@@ -283,44 +266,58 @@ For words with no downstep (平板型), the 「￣」 character must be placed
 at the end of the word.
 For example, 身長 should be written as 「しんちょう￣」.
 
-!!! note
+??? info "Removing the required ￣ symbol *(click here)*"
     The restriction that 平板 words require the ￣ symbol at the end can be removed
     using the following {{ RTO }}:
 
-    ```
-    TODO
+    ```json
+    {
+      "modules": {
+        "auto-pitch-accent": {
+          "pa-override": {
+            // set to false (default: true)
+            "heiban-marker-required": false,
+          }
+        }
+      }
+    }
     ```
 
     This would allow any words without any downstep marker to be rendered as 平板.
     Using the above example, one can instead type 身長 as 「しんちょう」.
 
 
+<!--
 Using this text format will ignore the original reading of the tested word,
 allowing you to write the pitch accent of any word you want.
+-->
+
 
 **Examples**:
 
 | PAOverride | Result |
 |-|-|
-| じ＼んせい    | TODO |
-| いきお＼い    | TODO |
-| どうぐ＼      | TODO |
-| しんちょう￣  | TODO |
+| じ＼んせい    | <span class="pitchaccent"><span class="pitchoverline">ジ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>ンセイ</span> |
+| いきお＼い    | <span class="pitchaccent">イ<span class="pitchoverline">キオ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>イ</span> |
+| どうぐ＼      | <span class="pitchaccent">ド<span class="pitchoverline">ウグ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></span> |
+| しんちょう￣  | <span class="pitchaccent">シ<span class="pitchoverline">ンチョウ</span></span> |
+
+
 
 
 ### Multiple Words
 Multiple words can be defined, as long as they are separated with either the
 「・」 or 「、」 characters.
 
-This is particularly useful on expressions with multiple words, such as 「毒を食らわば皿」.
+This is particularly useful on expressions with multiple words, such as 「毒を食らわば皿まで」.
 
 
 **Examples**:
 
 | PAOverride | Result |
 |-|-|
-| どく＼、くらう￣、さら￣    | TODO |
-| ちゅうが＼くせい・ちゅうがく＼せい  | TODO |
+| どく＼、くらう￣、さら￣    | <span class="pitchaccent">ド<span class="pitchoverline">ク</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>、ク<span class="pitchoverline">ラウ</span>、サ<span class="pitchoverline">ラ</span></span> |
+| ち＼か・ちか＼  | <span class="pitchaccent"><span class="pitchoverline">チ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>カ・チ<span class="pitchoverline">カ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></span> |
 
 
 !!! note
@@ -360,7 +357,7 @@ However, only the first pitch accent is shown by default.
 If you want to show all of the pitch accents in the first dictionary,
 use the following {{ RTO }}:
 
-```
+```json
 {
   "modules": {
     "auto-pitch-accent": {
@@ -399,111 +396,50 @@ does not cover the tested content, but this add-on does.
 ---
 
 
-<!--
-# How Pitch Accent is Selected
-
-Pitch accent is selected based on the following priority:
-
-## (1) `PAOverride` number
-- format is any integer (i.e. `0`, `1`, `3`, etc.)
-    - represents mora on which the downstep happens (`0` means no downstep / 平板)
-- `-1` sets the downstep to be right before the last mora
-    - other negative numbers won't work (`-1` is a special number for the 起伏 pattern)
-- primary way to set/override the pitch accent
-
-## (2) `PAOverride` raw text
-- set to whatever you want to be displayed
-- example is the 不審者 example card (TODO picture)
-
-## (3) `PAPositions` field
-- first bolded text found this will be chosen
-- otherwise first pitch in first dictionary is chosen
-- this is usually the pitch that is shown on cards
-
-## (4) `AJTWordPitch` field
-- occasionally, pitch accent info not found in your Yomichan dictionaries can show up
-  in the auto-generated `AJTWordPitch` field
-- in this case, as there is no other option, `AJTWordPitch` field is used
-
-!!! note
-    If the module is disabled in {{ RTO_FILE }},
-    the displayed pitch accent will be exactly what is shown in `AJTWordPitch` (or `PAOverride`).
-
-??? example "(TODO) How pitch accent is selected for version 0.11.0.0"
-
-    1. `PAOverrideText`
-        - anything
-
-    1. `PAOverride` integer(s)
-        - any integer in csv format
-        - can be bolded to grey out others
-        - bold currently cannot be across numbers
-        - examples:
-            - `1`
-            - `1, 2`
-            - `-1, 2`
-            - `0,1,2,3`
-            - `0,1,<b>2</b>,3`
-        - non-examples:
-            - `0,<b>1,2</b>,3`
-            - `0,<b>1,</b>2,3`
-            - `0,a`
-
-    1. `PAOverride` text
-        - accepts anything WITHOUT formatting (no bold, etc)
-        - downsteps are marked with 「＼」
-        - (optional) 平板 words can be markd with 「￣」at the very end
-        - words are separated with 「・」 or 「、」
-        - examples:
-            - ちゅうが＼くせい・ちゅうがく＼せい
-            - どく＼、くらう、さら
-            - ジ＼ンセイ
-            - ぞうき＼ん
-            - ねる
-            - ねる￣
-
-    1. `PAOverride`: anything else
-        - if it doesn't fit any of the above (text with formatting), it is shown as is without changes
-            - acts exactly like `PAOverrideText`
-
-    1. `PAPositions`
-
-    1. `AJTWordPitch`
-
-??? example "(TODO) How pitch accent is selected for version 0.11.0.0, when module is disabled"
-
-    1. `PAOverrideText`
-    1. `PAOverride`
-    1. `AJTWordPitch`
-
-    all of the fields will be shown as is without formatting
-    (since no javascript is available to format it)
-
-
-## Showing Multiple Pitch Accents
-
--->
-
-
-
 
 # How the Reading is Selected
 
-(TODO)
+By default, the word reading is selected based on the following priority:
 
-- AJT word pitch by default
-    - can include devoiced and nasal info
-    - usually katakana with long vowel marks
-        - some words don't have long vowel marks (i.e. adjectives ending with 〜しい will be displayed as 〜シイ and not 〜シー)
-    - ajt word reading must match the reading found in `WordReading`, otherwise this field is ignored
-        - some pre-processing is done to turn this reading into hiragana to be properly searched
+1. `AJTWordPitch`
+1. `WordReading`
 
 
-Otherwise, the card uses the reading from `WordReading` in katakana.
-This reading can be changed to hiragana, katakana, or katakana with long vowel marks
-in {{ RTO_FILE }}:
+<br>
 
-```
+## Reading: AJTWordPitch
+Usually, the reading is selected from `AJTWordPitch`.
+This has a few features over the raw word reading:
+
+* `AJTWordPitch` usually includes devoiced and nasal info, whereas `WordReading` does not.
+* Readings are katakana by default.
+
+!!! note
+    If you do not want the reading in `AJTWordPitch` to be used,
+    change the following {{ RTO }} to `false`:
+
+    ```json
+    {
+      "modules": {
+        "auto-pitch-accent": {
+          // set to false (default: true)
+          "search-for-ajt-word": false,
+        }
+      }
+    }
+    ```
+
+
+<br>
+
+## Reading: WordReading
+If the word cannot be found under `AJTWordPitch`, then the default reading
+in `WordReading` is used, and displayed in katakana.
+
+Unlike `AJTWordPitch`, this reading can be changed to hiragana, katakana,
+or katakana with long vowel marks in the {{ RTO_FILE }}:
+
+```json
 {
   "modules": {
     "auto-pitch-accent": {
@@ -522,54 +458,23 @@ in {{ RTO_FILE }}:
 
 # Pitch Accent Styling Details
 
-- TODO outdated
-- TODO only if you care about the exact text value
-- TODO what bold does
+This covers some details if you are directly using `PAOverrideText`,
+and want to have a similar format to the generated pitch accent.
+You very likely won't be doing this.
 
+* The generated style is exactly the generated style of the AJTWordPitch field.
+    To display the style properly, copy and edit the HTML tags directly.
 
-Editing the content in `AJTWordPitch` requires some special attention.
-To preserve the style and get expected results, you must use `Ctrl + Shift + x` when editing the field,
-and edit the html tags directly. Use other cards as examples of what the html should look like.
+* If you want to grey out other words, you will have to use the bold `<b>` tag.
+    However, you must wrap **the greyed out words** with the `<b>` tag.
 
-TODO more details + example (華)
+    This is the opposite of what would expect from everything
+    in this page, but the behavior is this way due to restrictions in the current
+    CSS specification.
 
-- TODO replace with positions :eyes:
-
-example of something that has all possible formats (bold, overline, downstep, nasal, devoiced)
-```html
-チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span><span class="nopron">ク</span>セイ<b>・チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span><span class="nopron">ク</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セイ</b>
-```
-
-
-The `AJTWordPitch` field may have more than one pitch accent for a given word.
-To choose which pitch accent is correct to the sentence,
-one can bold the unused pitch accents to grey them out.
-
-
-<figure markdown>
-{{ img("word pitch with bolded field to grey out", "assets/bold_pa.png") }}
-</figure>
-
-
-
-## Bolding the last downstep
-
-{{ img("word pitch ", "assets/downstep_not_bolded.png", 'align=right width="300"') }}
-
-- TODO doesn't work by default with basic `ctrl+b` attempts
-- seems to be a weird quirk with css injector
-- only solution I know of atm is to edit the raw html and move the `</b>` to the very end of the html
-
-
-previous:
-```html
-<span style="text-decoration:overline;" class="pitchoverline">ナ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>サケ<b>・ナ<span style="text-decoration:overline;" class="pitchoverline">サケ</span></b><span class="downstep"><span class="downstep-inner">ꜜ</span></span>
-```
-
-after editing the raw html:
-```html
-<span style="text-decoration:overline;" class="pitchoverline">ナ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>サケ<b>・ナ<span style="text-decoration:overline;" class="pitchoverline">サケ</span><span class="downstep"><span class="downstep-inner">ꜜ</span></span></b>
-```
-
+* Example with all possible styles:
+    ```html
+    チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span><span class="nopron">ク</span>セイ<b>・チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span><span class="nopron">ク</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セイ</b>
+    ```
 
 

@@ -7,9 +7,11 @@
   --text-kifuku:                #7e53c4; /* 起伏, purple */
 
   --jpmn-yellow: hsla(59, 100%, 81%, 1);
+  --accent:                     #4660f1;
 
-  --pa-no-pron-color: #2b94f7;
-  --pa-nasal-color: #f12a2a;
+  --pa-overline-color:          #4660f1;
+  --pa-no-pron-color:           #2b94f7;
+  --pa-nasal-color:             #f12a2a;
 
 }
 
@@ -53,8 +55,9 @@
   --text-odaka:                 #67e47d; /* 尾高, green */
   --text-kifuku:                #af85f4; /* 起伏, purple */
 
-  --pa-no-pron-color: #42a3ff;
-  --pa-nasal-color: #f12a2a;
+  --pa-overline-color:          var(--jpmn-yellow);
+  --pa-no-pron-color:           #42a3ff;
+  --pa-nasal-color:             #f12a2a;
 
 }
 
@@ -137,13 +140,90 @@
   color: var(--text-kifuku);
 }
 
+
+/*
+ * -------------------
+ *  Word pitch accent
+ * -------------------
+ */
+
+/* css classes used by the plugin */
+.downstep {
+  color: var(--pa-overline-color);
+  position: relative;
+}
+.downstep:before {
+  content: '';
+  width: 1px;
+  height: 30%;
+  background: var(--pa-overline-color);
+  position: absolute;
+  display: block;
+  top: -2px;
+  left: 0px;
+}
+
+
+.pitchoverline {
+  text-decoration: none !important;
+  text-decoration-color: var(--pa-overline-color) !important;
+  position: relative;
+}
+.pitchoverline:after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: var(--pa-overline-color);
+  position: absolute;
+  top: -2px;
+  right: 0px;
+}
+
+
+
 .nopron {
   color: var(--pa-no-pron-color);
 }
-
 .nasal {
   color: var(--pa-nasal-color);
 }
+
+.downstep .downstep-inner {
+  display: none;
+}
+
+
+.pitchaccent b {
+  font-weight: normal;
+  filter: opacity(30%);
+  font-size: 0.8em;
+}
+
+.pitchaccent b .pitchoverline:after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: var(--pa-overline-color);
+  position: absolute;
+  top: -1px;
+  right: -1px;
+}
+
+.pitchaccent b .downstep:before {
+  content: '';
+  width: 1px;
+  height: 25%;
+  background: var(--pa-overline-color);
+  /*filter: brightness(var(--pa-brightness-reduce));*/
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: 0px;
+}
+
+
+
+
 
 
 
