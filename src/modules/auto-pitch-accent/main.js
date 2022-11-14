@@ -169,7 +169,7 @@ const JPMNAutoPA = (() => {
 
   class JPMNAutoPA {
 
-    constructor(attemptColor=true, logLevelDecrease=0, showTitle=true) {
+    constructor(attemptColor=true, logLevelDecrease=0, showTitle=true, removeNasal=false) {
       // attempts to color according to pitch accent groups
       this.attemptColor = (attemptColor &&
           {{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "enabled") }});
@@ -177,6 +177,7 @@ const JPMNAutoPA = (() => {
       this.jpUtils = new JPMNJPUtils();
       this.logLvl = 3 - logLevelDecrease;
       this.showTitle = showTitle;
+      this.removeNasal = removeNasal;
     }
 
 
@@ -336,6 +337,23 @@ const JPMNAutoPA = (() => {
     }
 
 
+    removeNasalStr(string) {
+      if (string.includes("nasal")) {
+
+        const unmarked = "カキクケコ";
+        const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
+
+        // 5 is length of unmarked and marked
+        for (let i = 0; i < 5; i++) {
+          string = string.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
+        }
+      }
+
+      logger.assert(!string.includes("nasal"));
+      return string;
+    }
+
+
     normalizeAJTHTML() {
       // replaces all long katakana markers with the respective normal katakana symbol
       // also removes all ꜜ (remember that we can search for downsteps from the now empty div)
@@ -344,17 +362,18 @@ const JPMNAutoPA = (() => {
       result = result.replace(/<b>/g, "");
       result = result.replace(/<\/b>/g, "");
 
-      // replaces all nasal entries
-      if (result.includes("nasal")) {
-        const unmarked = "カキクケコ";
-        const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
+      result = this.removeNasalStr(result);
 
-        // 5 is length of unmarked and marked
-        for (let i = 0; i < 5; i++) {
-          result = result.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
-        }
-      }
-      logger.assert(!result.includes("nasal"));
+      // replaces all nasal entries
+      //if (result.includes("nasal")) {
+      //  const unmarked = "カキクケコ";
+      //  const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
+
+      //  // 5 is length of unmarked and marked
+      //  for (let i = 0; i < 5; i++) {
+      //    result = result.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
+      //  }
+      //}
 
       result = [...result];
 
@@ -479,32 +498,37 @@ const JPMNAutoPA = (() => {
         return null;
       }
 
-      if (wordSearch.length === 1) {
-        return resultSearchHTML;
-      }
+      let result = null;
+      if (wordSearch.length == 1) {
+        result = resultSearchHTML;
+      } else {
+        // otherwise searches on the raw html
+        let startIdx = 0;
+        let endIdx = 0;
+        let currentWord = 0;
+        for (const [i, c] of [...resultSearchHTML].entries()) {
+          if (c === "・") {
+            currentWord += 1;
 
-      // otherwise searches on the raw html
-      let startIdx = 0;
-      let endIdx = 0;
-      let currentWord = 0;
-      for (const [i, c] of [...resultSearchHTML].entries()) {
-        if (c === "・") {
-          currentWord += 1;
-
-          if (currentWord === idx) {
-            startIdx = i+1;
-          } else if (currentWord === idx+1) {
-            endIdx = i;
-            break
+            if (currentWord === idx) {
+              startIdx = i+1;
+            } else if (currentWord === idx+1) {
+              endIdx = i;
+              break
+            }
           }
         }
+
+        if (endIdx === 0) {
+          endIdx = resultSearchHTML.length
+        }
+
+        result = resultSearchHTML.substring(startIdx, endIdx);
       }
 
-      if (endIdx === 0) {
-        endIdx = resultSearchHTML.length
+      if (this.removeNasal) {
+        result = this.removeNasalStr(result);
       }
-
-      let result = resultSearchHTML.substring(startIdx, endIdx);
 
       return result;
     }
@@ -940,6 +964,9 @@ const JPMNAutoPA = (() => {
         // last resort: AJT pitch accent
         if (this.ajtEle.innerHTML.length !== 0) {
           dispPosData.posHTML = this.ajtEle.innerHTML;
+          if (this.removeNasal) {
+            dispPosData.posHTML = this.removeNasalStr(dispPosData.posHTML);
+          }
           dispPosData.dict = "AJT Pitch Accent"
         } else {
           logger.debug("Nothing found.", this.logLvl);

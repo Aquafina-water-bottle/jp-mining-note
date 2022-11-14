@@ -11,7 +11,13 @@ const JPMNTooltipBuilder = (() => {
 
   class JPMNTooltipBuilder {
     constructor(displayPA=true, displayPAOnHover=true) {
-      this.autoPA = typeof JPMNAutoPA !== "undefined" ? new JPMNAutoPA(/*attemptColor=*/false, /*logLevelDecrease=*/1, /*showTitle=*/false) : null;
+      this.autoPA = typeof JPMNAutoPA !== "undefined" ? new JPMNAutoPA(
+        /*attemptColor=*/false,
+        /*logLevelDecrease=*/1,
+        /*showTitle=*/false,
+        /*removeNasal=*/true
+      ) : null;
+
       this.displayPA = displayPA;
       this.displayPAOnHover = displayPAOnHover;
 

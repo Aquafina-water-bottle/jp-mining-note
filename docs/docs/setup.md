@@ -37,9 +37,9 @@ This blog also has additional guidance instructions for Linux systems.
 
 ---
 
-
 # Installing jp-mining-note
 There are two ways of installing the note:
+
 
 
 ??? info "Option 1: The Automatic Way *(click here)*"
