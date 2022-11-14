@@ -364,17 +364,6 @@ const JPMNAutoPA = (() => {
 
       result = this.removeNasalStr(result);
 
-      // replaces all nasal entries
-      //if (result.includes("nasal")) {
-      //  const unmarked = "カキクケコ";
-      //  const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
-
-      //  // 5 is length of unmarked and marked
-      //  for (let i = 0; i < 5; i++) {
-      //    result = result.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
-      //  }
-      //}
-
       result = [...result];
 
 
