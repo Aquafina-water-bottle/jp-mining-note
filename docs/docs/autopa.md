@@ -114,7 +114,7 @@ To do this, add the appropriate tag to the card.
 
 
 The exact tags that can be used are shown in the
-[summary table](autopa.md#colored-pitch-accent-summary) above,
+[summary table](autopa.md#pitch-accent-groups) above,
 under the `Anki Tag` and 日本語 sections.
 For example, the tag can be `heiban`, `平板`, etc.
 

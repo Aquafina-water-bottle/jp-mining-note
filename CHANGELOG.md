@@ -66,6 +66,10 @@ and must use `./install.py --update`.
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
 - Fixed keybinds not working on capslock / capital letters
+- Made strings in queries escaped by default
+- Fixed mora with the nasal marker not showing properly on tooltips
+- Fixed `make.py` not working on windows (encoding errors, template files not found)
+- Fixed AJT Word readings not being properly found on words split with "、"
 
 #### Internal Changes
 - Added a simple dependencies system for modules, so functions can be shared easier between modules

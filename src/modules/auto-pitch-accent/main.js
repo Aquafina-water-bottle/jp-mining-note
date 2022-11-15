@@ -479,8 +479,8 @@ const JPMNAutoPA = (() => {
       let temp = document.createElement("div");
       temp.innerHTML = ajtHTML;
       const searchString = temp.innerText;
-      const wordSearch = searchString.split("・");
-      const idx = wordSearch.indexOf(normalizedReading)
+      const wordSearch = searchString.split(/[・、]/g);
+      const idx = wordSearch.indexOf(normalizedReading);
 
       if (idx === -1) {
         logger.debug(`AJT word: ${normalizedReading} not found among [${wordSearch.join(", ")}]`, this.logLvl);
@@ -496,7 +496,7 @@ const JPMNAutoPA = (() => {
         let endIdx = 0;
         let currentWord = 0;
         for (const [i, c] of [...resultSearchHTML].entries()) {
-          if (c === "・") {
+          if (c === "・" || c === "、") {
             currentWord += 1;
 
             if (currentWord === idx) {
