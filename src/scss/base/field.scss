@@ -11,8 +11,7 @@ anki-editable[field="SecondaryDefinition"] b,
 anki-editable[field="PAPositions"] b,
 anki-editable[field="PAOverride"] b
 {
-  text-shadow:  var(--highlight-bold-shadow);
-  color:        var(--highlight-bold-color);
+  @include common.bold_highlight
 }
 
 

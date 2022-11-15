@@ -186,7 +186,8 @@ var JPMNLogger = (() => {
     // currently goes from 0 - 5:
     debug(message, level=3) {
       if (level >= {{ utils.opt("debug-level") }}) {
-        this.info(message);
+        let groupEle = document.getElementById("info_circle_text_debug");
+        this._appendMsg(message, groupEle);
       }
     }
 

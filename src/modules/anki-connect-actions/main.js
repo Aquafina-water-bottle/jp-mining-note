@@ -130,6 +130,7 @@ const JPMNAnkiConnectActions = (() => {
 
 
     async query(queryStr, cache=true) {
+      logger.debug("Attempting query: `" + queryStr + "`", 1);
       if (cache && queryStr in cardQueryCache) {
         logger.debug(`Using cached query result for ${queryStr}`, 2);
         return cardQueryCache[queryStr];

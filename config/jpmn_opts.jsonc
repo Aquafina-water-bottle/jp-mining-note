@@ -174,9 +174,9 @@
       // all queries will have the following at the beginning:
       // (-"Key:{{Key}}" Word:*${character}* "card:${cardTypeName}" "-WordReading:{{WordReading}}")
 
-      // not new, or new and green
+      // not new, or new + green + suspended
       // not flagged as red and suspended
-      "non-new-query": "(-is:new OR (is:new flag:3)) -(is:suspended flag:1)",
+      "non-new-query": "(-is:new OR (is:suspended is:new flag:3)) -(is:suspended flag:1)",
 
       // new
       // not suspended, and neither flagged as red or green
@@ -408,9 +408,9 @@
       // if set to true, words are able to be clicked to browse within the Anki browser
       "click-word-to-browse": true,
 
-      // not new, or new and green
+      // not new, or new + green + suspended
       // not flagged as red and suspended
-      "non-new-query": "(-is:new OR (is:new flag:3)) -(is:suspended flag:1)",
+      "non-new-query": "(-is:new OR (is:suspended is:new flag:3)) -(is:suspended flag:1)",
 
       // new
       // not suspended, and neither flagged as red or green

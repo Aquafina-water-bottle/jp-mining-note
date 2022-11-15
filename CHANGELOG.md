@@ -70,6 +70,7 @@ and must use `./install.py --update`.
 - Fixed mora with the nasal marker not showing properly on tooltips
 - Fixed `make.py` not working on windows (encoding errors, template files not found)
 - Fixed AJT Word readings not being properly found on words split with "、"
+- Removed `--highlight-bold-shadow` (variable is no longer added automatically in the fields with css injector)
 
 #### Internal Changes
 - Added a simple dependencies system for modules, so functions can be shared easier between modules
@@ -88,6 +89,7 @@ and must use `./install.py --update`.
     - Mobile is still not officially supported (not all desired features are implemented yet)
 - Made the `img-utils` module a bit faster by grouping together the .offsetHeight calls + only calling them if necessary
     - Prevents unnecessary reflows
+- Added a debug div within the info circle to display monospaced debug messages
 
 #### Update Notes
 - Update Yomichan's 'Anki Card Templates' section.

@@ -402,6 +402,14 @@ ruby rt {
   }
 }
 
+/* debug text */
+.info-circle-text-debug {
+  font-family: common.$monospace-fonts;
+}
+.info-circle-text-debug:not(:empty) {
+  margin-top: 10px;
+}
+
 
 /* warning text */
 .info-circle-text-warning:not(:empty) {
@@ -430,8 +438,7 @@ ruby rt {
 }
 
 .info-circle-text-error {
-  /* stolen from discord's inspect element css */
-  font-family: Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace;
+  font-family: common.$monospace-fonts;
 
   /* breaks the word at the end of the line regardless of whitespace */
   word-break: break-all;
