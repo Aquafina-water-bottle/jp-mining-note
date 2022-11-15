@@ -35,6 +35,15 @@ const JPMNSameReadingIndicator = (() => {
   const localOverrideTextEle = document.getElementById("hidden_pa_override_text");
   const localReadingEle = document.getElementById("hidden_word_reading");
 
+  const indicatorSame   = document.getElementById("same_word_indicator");
+  const indicatorSameTT = document.getElementById("same_word_indicator_tooltip");
+
+  const indicatorKanji   = document.getElementById("same_kanji_indicator");
+  const indicatorKanjiTT = document.getElementById("same_kanji_indicator_tooltip");
+
+  const indicatorReading   = document.getElementById("same_reading_indicator");
+  const indicatorReadingTT = document.getElementById("same_reading_indicator_tooltip");
+
 
   const baseQuery = `"card:${cardTypeName}" "note:${noteName}" -WordReadingHiragana:`;
   const nonNewQueryPartial = {{ utils.opt("modules", "word-indicators", "non-new-query") }};
@@ -74,22 +83,22 @@ const JPMNSameReadingIndicator = (() => {
 
       const wordIndicatorInfo = new IndicatorInfo(
         baseWordQuery,
-        document.getElementById("same_word_indicator"),
-        document.getElementById("same_word_indicator_tooltip"),
+        indicatorSame,
+        indicatorSameTT,
         "word",
       )
 
       const kanjiIndicatorInfo = new IndicatorInfo(
         baseKanjiQuery,
-        document.getElementById("same_kanji_indicator"),
-        document.getElementById("same_kanji_indicator_tooltip"),
+        indicatorKanji,
+        indicatorKanjiTT,
         "kanji",
       )
 
       const readingIndicatorInfo = new IndicatorInfo(
         baseReadingQuery,
-        document.getElementById("same_reading_indicator"),
-        document.getElementById("same_reading_indicator_tooltip"),
+        indicatorReading,
+        indicatorReadingTT,
         "reading",
       )
 

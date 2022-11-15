@@ -329,7 +329,7 @@ const JPMNAutoPA = (() => {
       }
 
       let result = new DispPosData();
-      let posData = new PosData(Number(digit))
+      let posData = new PosData(Number(digit));
       posData.mainPos = true;
       result.posDataList.push(posData)
       result.dict = "PAPositions";
@@ -538,7 +538,7 @@ const JPMNAutoPA = (() => {
       for (const pos of posStrList) {
         if (pos.includes("<b>")) {
           let integer = pos.match(/[-]?\d+/);
-          let posData = new PosData(Number(integer), true)
+          let posData = new PosData(Number(integer), true);
           if (!foundBold) {
             foundBold = true;
             posData.mainPos = true;
@@ -546,12 +546,15 @@ const JPMNAutoPA = (() => {
           result.push(posData);
 
         } else {
-          let posData = new PosData(Number(pos))
-          result.push(posData);
+          let posNumber = Number(pos)
+          if (!Number.isNaN(posNumber)) {
+            let posData = new PosData(Number(pos));
+            result.push(posData);
+          }
         }
       }
 
-      if (!foundBold) {
+      if (!foundBold && result.length > 0) {
         result[0].mainPos = true;
       }
 
@@ -578,7 +581,6 @@ const JPMNAutoPA = (() => {
       for (const [i, word] of strList.entries()) {
         // moras here are only used for calculating the position of the downstep
         let moras = this.jpUtils.getMorae(word);
-        logger.debug(`${word} -> ${moras}`, this.logLvl);
 
         // checks for where downstep (＼) exists
         let pos = null;
