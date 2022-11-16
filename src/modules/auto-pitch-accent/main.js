@@ -958,11 +958,11 @@ const JPMNAutoPA = (() => {
           if (this.removeNasal) {
             dispPosData.posHTML = this.removeNasalStr(dispPosData.posHTML);
           }
-          dispPosData.dict = "AJT Pitch Accent"
+          dispPosData.dict = "AJT Pitch Accent";
         } else {
           logger.debug("Nothing found.", this.logLvl);
-          dispPosData.posHTML = "(N/A)"
-          dispPosData.dict = "N/A"
+          dispPosData.posHTML = "{{ COMPILE_OPTIONS('empty-pitch-accent-display-string').item() }}";
+          dispPosData.dict = "N/A";
         }
       }
 
@@ -1007,7 +1007,7 @@ if ({{ utils.opt("modules", "auto-pitch-accent", "enabled") }}) {
   const overrideEle = document.getElementById("hidden_pa_override");
   const overrideTextEle = document.getElementById("hidden_pa_override_text");
   const readingEle = document.getElementById("hidden_word_reading");
-  const displayEle = document.getElementById("dh_word_pitch");
+  const displayEle = document.getElementById("dh_word_pitch_text");
 
   const autoPA = new JPMNAutoPA();
   autoPA.addPosition(positionsEle, ajtEle, overrideEle, overrideTextEle, readingEle, displayEle);

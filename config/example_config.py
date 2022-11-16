@@ -145,5 +145,10 @@ CONFIG = {
             "fix-ruby-positioning",
             "check-duplicate-key",
         ],
+
+
+        # To remove the "(N/A)" display, set this to an empty string
+        #"empty-pitch-accent-display-string": "",
+        "empty-pitch-accent-display-string": "(N/A)",
     },
 }

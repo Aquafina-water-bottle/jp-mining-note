@@ -139,6 +139,7 @@ For example, the above should be changed into:
 
 ---
 
+<!-- TODO same for TSC, if asked enough -->
 
 ## The Show/Hide button doesn't do anything.
 The show/hide button requires that the displayed sentence has a bolded element.
@@ -165,6 +166,21 @@ This is a bug related to the above.
 Unfortunately, I can't find another way to selectively suppress audio from playing,
 so the bug is here to stay until a better solution is found.
 -->
+
+---
+
+## The `Tools` →  `Check Media` interface removes the font files.
+This is a known bug, and unfortunately, this bug will **not be fixed**.
+
+If you want to use this tool, temporarily move the fonts outside of the media folder.
+If you accidentally removed the fonts,
+[redownload the fonts](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
+and re-add them into the [media folder](faq.md#where-is-the-x-folder-in-anki) of your profile.
+
+This will not be fixed because to make debugging easier for the developer.
+When a user is asked to export a card, the exported file will not contain the font files,
+meaning that the result `.apkg` file will be about 1MB instead of some 20MB,
+allowing it to be shared easily on a place like Discord.
 
 ---
 
