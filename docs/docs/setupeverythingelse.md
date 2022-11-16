@@ -368,7 +368,7 @@ Here are the two popular approaches to automatically adding the image and senten
 
 ---
 
-# [asbplayer](https://github.com/killergerbah/asbplayer)
+## [asbplayer](https://github.com/killergerbah/asbplayer)
 
 * To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
     I recommend filling out the following fields as follows:

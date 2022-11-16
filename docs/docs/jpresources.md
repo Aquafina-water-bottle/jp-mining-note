@@ -536,6 +536,9 @@ see the handlebars code used by jp-mining-note [here](setupyomichan.md#yomichan-
         the desired region (say, with ctrl+b) instead of having to edit
         the raw HTML of the field (say, with ctrl+shift+x).
 
+See also: [How to automatically highlight the targetted word within the sentence
+    *for already existing cards*](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence).
+
 ---
 
 
