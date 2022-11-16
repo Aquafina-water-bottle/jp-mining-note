@@ -72,6 +72,11 @@ and must use `./install.py --update`.
 - Fixed AJT Word readings not being properly found on words split with "、"
 - Removed `--highlight-bold-shadow` (variable is no longer added automatically in the fields with css injector)
 
+#### Fixes (for new updates)
+- Fixed number parser not handling non-integer values properly
+- Properly handles undefined timer result
+- Fixed balancing operation of tooltip filter cards (now uses integer div instead of float div)
+
 #### Internal Changes
 - Added a simple dependencies system for modules, so functions can be shared easier between modules
 - Refactored AutoPA & KanjiHover classes to have most functions to be in the returned class itself

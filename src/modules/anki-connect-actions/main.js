@@ -99,8 +99,8 @@ const JPMNAnkiConnectActions = (() => {
       // for example, 6 old & 0 new, or 0 old & 6 new
       if (newCardIds.length < maxNewLatest) {
         let diff = (maxNewLatest - newCardIds.length);
-        maxNonNewOldest += (diff/2);
-        maxNonNewLatest += (diff/2 + diff%2);
+        maxNonNewOldest += Math.floor(diff/2);
+        maxNonNewLatest += Math.floor(diff/2) + diff%2;
       }
       if (nonNewCardIds.length < (maxNonNewOldest + maxNonNewLatest)) {
         maxNewLatest += ((maxNonNewOldest + maxNonNewLatest) - nonNewCardIds.length);
@@ -118,6 +118,7 @@ const JPMNAnkiConnectActions = (() => {
       }
 
       let newResultIds = newCardIds.slice(0, maxNewLatest);
+      logger.debug(`(${maxNonNewOldest}, ${maxNonNewLatest}, ${maxNewLatest}) -> (${nonNewResultIds.length}, ${newResultIds.length})`, 2);
 
       return [nonNewResultIds, newResultIds];
     }

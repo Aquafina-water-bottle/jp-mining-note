@@ -62,8 +62,11 @@ const JPMNTimePerformance = (() => {
       const timeTook = stopTime - this.startTime[id]
 
       let result = null;
-
       result = timePerformanceCache[id];
+      if (typeof result === "undefined") {
+        logger.debug(`${id} is undefined`);
+        return;
+      }
       result.mostRecent = timeTook,
 
       /// {% if (note.side == "front") %}
