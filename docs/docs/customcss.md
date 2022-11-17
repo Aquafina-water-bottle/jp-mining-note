@@ -184,7 +184,7 @@ This allows you to limit the number of frequencies shown at the top right corner
 
 ---
 
-# Hiding The First Line of a Definition
+# Hiding the first line of a definition
 
 The first line of the definition has various elements that can be hidden with CSS.
 
@@ -230,7 +230,7 @@ The first line of the definition has various elements that can be hidden with CS
 ---
 
 
-## Hiding The Text After The Dictionary
+## Hiding the text after the dictionary
 {{ feature_version("0.11.0.0") }}
 
 This removes the text content to the right of the the dictionary tag.
@@ -258,7 +258,7 @@ This removes the text content to the right of the the dictionary tag.
 
 
 
-## Hiding Dictionary Tags
+## Hiding dictionary tags
 This will allow you hide arbitrary dictionary tags.
 
 1. Under `extra/style.scss`, add the following code:
@@ -279,7 +279,7 @@ This will allow you hide arbitrary dictionary tags.
 
 ---
 
-## Fully Hiding The First Line
+## Fully hiding the first line
 {{ feature_version("0.11.0.0") }}
 
 The above two can be combined to completely hide the first line.
@@ -327,7 +327,7 @@ The above two can be combined to completely hide the first line.
 
 
 
-# Removing the Numbers on the Primary Definition
+# Removing the numbers on the primary definition
 
 Currently, I am not aware of an easy way to only remove the numbers if there is only one
 item (and having them remain for multple definitions) with only CSS.
@@ -348,7 +348,7 @@ The following CSS completely nukes the numbers regardless of how many items ther
 
 ---
 
-# Highlight the Word within the Tooltips
+# Highlight the word within the tooltips
 {{ feature_version("0.11.0.0") }}
 
 The word within the sentences are not highlighted by default.
@@ -363,6 +363,20 @@ This allows said words to be highlighted.
     }
     ```
 
+
+# Remove the "(N/A)" on words with no pitch accents
+{{ feature_version("0.11.0.0") }}
+
+If the word has no pitch accent, the pitch accent is usually displayed as `(N/A)`.
+This indicator can be removed with the following CSS:
+
+1. Under `extra/style.scss`, add the following code:
+
+    ```css
+    .dh-left__word-pitch-text:empty:before {
+      content: ""
+    }
+    ```
 
 
 
