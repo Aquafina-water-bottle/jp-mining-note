@@ -916,6 +916,10 @@ ruby rt {
   @include common.bold-pitch;
 }
 
+.dh-left__word-pitch-text:empty:before {
+  content: "(N/A)"
+}
+
 
 .pa-word-highlight-heiban {
   color: var(--text-heiban);

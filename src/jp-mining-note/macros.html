@@ -63,8 +63,24 @@
       so this should be all ignored. -->
     <div class="dh-left__word-pitch {{word_pitch_class}}" id="dh_word_pitch">
 
+      <!--
+        {% call IF("PAOverrideText") %}
+          {{ T("PAOverrideText") }}
+        {% endcall %}
+        {% call IFNOT("PAOverrideText") %}
+          {% call IF("PAOverride") %}
+            {{ T("PAOverride") }}
+          {% endcall %}
+          {% call IFNOT("PAOverride") %}
+            {% call IF("AJTWordPitch") %}
+              {{ T("AJTWordPitch") }}
+            {% endcall %}
+          {% endcall %}
+        {% endcall %}
+      -->
+
       <!-- wrapped around to prevent title from appearing to the sides -->
-      <span id="dh_word_pitch_text"
+      <span class="dh-left__word-pitch-text" id="dh_word_pitch_text"
           {% call IF("PAOverrideText") %}
             title="PAOverrideText (no js)"
           {% endcall %}
@@ -81,26 +97,7 @@
               {% endcall %}
             {% endcall %}
           {% endcall %}
-          >
-
-        {% call IF("PAOverrideText") %}
-          {{ T("PAOverrideText") }}
-        {% endcall %}
-        {% call IFNOT("PAOverrideText") %}
-          {% call IF("PAOverride") %}
-            {{ T("PAOverride") }}
-          {% endcall %}
-          {% call IFNOT("PAOverride") %}
-            {% call IF("AJTWordPitch") %}
-              {{ T("AJTWordPitch") }}
-            {% endcall %}
-            {% call IFNOT("AJTWordPitch") %}
-              {{ COMPILE_OPTIONS('empty-pitch-accent-display-string').item() }}
-            {% endcall %}
-          {% endcall %}
-        {% endcall %}
-
-      </span>
+          >{% call IF("PAOverrideText") %}{{ T("PAOverrideText") }}{% endcall %}{% call IFNOT("PAOverrideText") %}{% call IF("PAOverride") %}{{ T("PAOverride") }}{% endcall %}{% call IFNOT("PAOverride") %}{% call IF("AJTWordPitch") %}{{ T("AJTWordPitch") }}{% endcall %}{% endcall %}{% endcall %}</span>
 
     </div>
 

@@ -961,7 +961,7 @@ const JPMNAutoPA = (() => {
           dispPosData.dict = "AJT Pitch Accent";
         } else {
           logger.debug("Nothing found.", this.logLvl);
-          dispPosData.posHTML = "{{ COMPILE_OPTIONS('empty-pitch-accent-display-string').item() }}";
+          dispPosData.posHTML = "";
           dispPosData.dict = "N/A";
         }
       }
