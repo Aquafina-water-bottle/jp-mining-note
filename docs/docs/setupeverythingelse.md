@@ -62,27 +62,27 @@ Most setups documented are for clipboard based texthooker pages.
 
 ## Texthooker pages (Websocket based)
 Websocket based texthookers are generally faster, more reliable, and do not flood your clipboard.
-However, it's not as popular as the clipboard based methods,
-so there is usually less support.
+However, there is usually less support and requires more specialized coordination between programs.
 
-When you use websocket-based texthooker pages, ensure that the program you use to grab
-the text also uses websockets.
-For example, if you want to use Textractor, use
-[this](https://github.com/sadolit/textractor-websocket)
-extension.
+Both of the options below are intended to be used with
+[Textractor](https://github.com/Artikash/Textractor).
 
 ??? example "exSTATic"
 
     [**exSTATic**](https://github.com/KamWithK/exSTATic/)
 
-    * Custom texthooker page, automatically collects stats for viewing
+    * Its primary use is for automatic stats collection. Integrates seamlessly with many workflows.
+    * Uses a custom texthooker page, which connects with Textractor with its own custom extension.
+    * A video installation guide is available on the project's README page.
 
 ??? example "Custom Patch"
 
     Patch Instructions for existing clipboard-based texthookers.
+    This patch is primarily intended to be used in conjunction with
+    [this Textractor extension](https://github.com/sadolit/textractor-websocket).
 
     1. Download your favorite texthooker page into a raw html file.
-    1. Copy/paste the code below into the raw html file.
+    1. Copy/paste the code below to the very end of the raw html file.
     1. If you are currently viewing the page, refresh.
 
     ??? examplecode "Click here to reveal the patch"
@@ -303,6 +303,19 @@ Here are the two popular approaches to automatically adding the image and senten
 
     * ShareX alternative for Linux. Personally tested.
     * Primarily used to automate audio and picture extraction to the most recently added Anki card.
+
+
+---
+
+# Resource Lists
+Other websites have significantly larger resource lists that may prove useful for you.
+
+??? example "Resource Lists *(click here)*"
+    * [TMW](https://learnjapanese.moe/resources/)
+    * [Tatsumoto](https://tatsumoto.neocities.org/blog/resources.html)
+    * [itazuraneko](https://itazuraneko.neocities.org/library/librarymain.html)
+    * [Refold (JP)](https://docs.google.com/document/d/1tQmoGwCJQqmjdmaQdigAG0Ph1ODSMsGhsD7qOhlUuc0/) ([Mirror](https://refold.link/japanese))
+    * [Refold (General)](https://docs.google.com/document/d/1z_5VbwqKjuyaDH8l6BqhAPJdHWAfypz-3V7pHsWHr6A/) ([Mirror](https://refold.link/Tech_and_Tools))
 
 
 ---

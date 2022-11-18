@@ -97,22 +97,13 @@ and must use `./install.py --update`.
     - Prevents unnecessary reflows
 - Added a debug div within the info circle to display monospaced debug messages
 
-#### Update Notes
+#### Update Notes (0.11.0.0)
 - Update Yomichan's 'Anki Card Templates' section.
     - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichan-templates)
       for instructions on how to update Anki Card Templates.
 - Update Yomichan's 'Anki Card format' section WordReadingHiragana: `(empty)` -> `{jpmn-word-reading-hiragana}`.
     - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichans-anki-card-format)
       for instructions on how to update Anki Card Format.
-- The batch function `fill_word_reading_hiragana_field` is not ran by default
-    because it requires `jaconv` to work. If you want to fill the
-    WordReadingHiragana field for all cards (to make the new `word-indicators` module work),
-    please do the following:
-    ```
-    $ pip3 install jaconv
-    $ cd tools
-    $ python3 batch.py -f fill_word_reading_hiragana_field
-    ```
 - If you are using the nsfw-toggle function, the option name was changed
   from `nsfw-toggle` to `image-blur`. Please change it in your runtime options
   to continue using it.

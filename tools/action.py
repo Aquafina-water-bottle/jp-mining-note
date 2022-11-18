@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import traceback
 from abc import ABC
 from dataclasses import dataclass, field
-import batch
 from typing import Callable
 
 from utils import invoke
@@ -206,9 +206,17 @@ class BatchUpdate(Action):
     description: str
     ankiconnect_actions: set[str]
     edits_cards = True
+    fail_on_error = False
 
     def run(self, **args):
-        self.batch_func()
+        if self.fail_on_error:
+            self.batch_func()
+        else:
+            try:
+                self.batch_func()
+            except Exception:
+                traceback.print_exc()
+                print("Batch update failed. Please report this to the developer! Skipping error...")
 
 
 @dataclass

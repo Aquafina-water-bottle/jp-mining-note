@@ -33,6 +33,7 @@ from utils import invoke
 rx_END_DIV = re.compile(r'</div>$')
 rx_FREQ_INNER2 = re.compile(r'<span class="frequencies__dictionary-inner2">(.*?)</span>')
 rx_FURIGANA = re.compile(r" ?([^ >]+?)\[(.+?)\]");
+rx_INTEGER_ONLY = re.compile(r'^-?\d+$')
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -363,11 +364,42 @@ def _get_kana_from_plain_reading(plain_reading):
 
     return result
 
+def _kata2hira(text: str, ignore: str = "") -> str:
+    # taken directly from jaconv's source code
+    # separate function instead of using `jaconv` for the sake of fewer dependencies
+    # for end users
+    # NOTE: doesn't convert long katakana marks unfortunately
+
+    def _to_dict(_from, _to):
+        return dict(zip(_from, _to))
+    def _to_ord_list(chars):
+        return list(map(ord, chars))
+
+    HIRAGANA = list('ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず'
+                    'せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ'
+                    'ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ'
+                    'をんーゎゐゑゕゖゔゝゞ・「」。、')
+    FULL_KANA = list('ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ'
+                     'ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ'
+                     'ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ'
+                     'ヽヾ・「」。、')
+    FULL_KANA_ORD = _to_ord_list(FULL_KANA)
+    K2H_TABLE = _to_dict(FULL_KANA_ORD, HIRAGANA)
+
+    def _exclude_ignorechar(ignore, conv_map):
+        for character in map(ord, ignore):
+            conv_map[character] = character
+        return conv_map
+
+    def _convert(text, conv_map):
+        return text.translate(conv_map)
+
+    _conv_map = _exclude_ignorechar(ignore, K2H_TABLE.copy())
+    return _convert(text, _conv_map)
+
 
 def fill_word_reading_hiragana_field():
     #print(_get_kana_from_plain_reading("成[な]り 立[た]つ"))
-
-    import jaconv
 
     query = r'"note:JP Mining Note" -WordReading:'
     print("Querying notes...")
@@ -381,8 +413,7 @@ def fill_word_reading_hiragana_field():
         field_val = info["fields"]["WordReading"]["value"]
         reading = _get_kana_from_plain_reading(field_val)
         # standardizes all katakana -> hiragana
-        # NOTE: doesn't convert long katakana marks unfortunately
-        hiragana = jaconv.kata2hira(reading)
+        hiragana = _kata2hira(reading)
 
         action = {
             "action": "updateNoteFields",
@@ -443,6 +474,44 @@ def quick_fix_convert_kana_only_reading_all_notes():
 
 
 
+def separate_pa_override_field():
+    # if the PAOverride field is exactly a digit, then keep in PAOverride.
+    # Otherwise, move to PAOverrideText
+
+    query = r'"note:JP Mining Note" -PAOverride:'
+    print("Querying notes...")
+    notes = invoke("findNotes", query=query)
+    print("Getting notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print("Separating PAOverride field...")
+    actions = []
+    for info in notes_info:
+        field_val = info["fields"]["PAOverride"]["value"]
+
+        if not rx_INTEGER_ONLY.match(field_val.strip()):
+
+            action = {
+                "action": "updateNoteFields",
+                "params": {
+                    "note": {
+                        "id": info["noteId"],
+                        "fields": {
+                            "PAOverride": "",
+                            "PAOverrideText": field_val
+                        },
+                    }
+                },
+            }
+
+            actions.append(action)
+            #print(info["fields"]["Key"]["value"], field_val)
+
+    print("Updating notes...")
+    notes = invoke("multi", actions=actions)
+
+
+
 
 
 def main():
@@ -463,3 +532,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

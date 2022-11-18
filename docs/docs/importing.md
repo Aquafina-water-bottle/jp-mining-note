@@ -149,7 +149,7 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 # Batch Editing
 After switching your notes, you will have to do the following few steps:
 
-## (1) Porting formatted Sentence fields
+## (1) Correctly Formatting `Sentence` Field
 
 If your sentence fields have been highlighted in a way that isn't using `<b>`,
 then it will be incompatable with JPMN by default.
@@ -162,7 +162,7 @@ Sentences are usually formatted in one of three ways, as shown below:
 
 === "(1) Highlighted with `<b>`"
     If the tested content is highlighted with `<b>`, then it is already formatted correctly.
-    You can **skip this step**.
+    **You can skip this step**.
 
     **Example:**
     ```html
@@ -173,7 +173,7 @@ Sentences are usually formatted in one of three ways, as shown below:
 === "(2) Nothing is highlighted"
     If the tested content is not highlighted in any way, there is unfortunately no easy
     way to add highlighting to existing sentences.
-    As there is nothing to do, you can **skip this step**.
+    **As there is nothing to do, you can skip this step**.
 
     **Example:**
     ```
@@ -224,14 +224,11 @@ Sentences are usually formatted in one of three ways, as shown below:
             It is extremely likely that you will have to change the `Find` field
             according to your note's sentence format.
 
-            | Field name | Value |
-            |:-|:-|
-            | **Find:** { .smaller-table-row } | `<span style="color: #ffc2c7">(?P<t>.*?)</span>` { .smaller-table-row } |
-            | **Replace With:** { .smaller-table-row } | `<b>$t</b>` { .smaller-table-row } |
-            | **In:** { .smaller-table-row } | `Sentence` { .smaller-table-row } |
-            | Selected notes only { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
-            | Ignore case { .smaller-table-row } | Unchecked ({{ UNCHECKED_CHECKBOX }}) { .smaller-table-row } |
-            | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
+            {{ gen_regex_table(RegexTableArgs(
+                    '`<span style="color: #ffc2c7">(?P<t>.*?)</span>`',
+                    "`<b>$t</b>`",
+                    "`Sentence`",
+                )) | indent(12) }}
 
             ??? example "Example image *(click here)*"
 
@@ -285,7 +282,7 @@ Sentences are usually formatted in one of three ways, as shown below:
 <br>
 
 
-## (3) Batch set `PASilence` field
+## (3) Batch Set `PASilence` Field
 
 This will ensure all `PASilence` are filled correctly.
 See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
@@ -297,14 +294,12 @@ See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what t
 
 1. Set the fields to the following:
 
-    | Field name | Value |
-    |:-|:-|
-    | **Find:** { .smaller-table-row } | `.*`  { .smaller-table-row } |
-    | **Replace With:** { .smaller-table-row } | `[sound:_silence.wav]` { .smaller-table-row } |
-    | **In:** { .smaller-table-row } | `PASilence` (IMPORTANT!!! Don't forget to set this field) { .smaller-table-row } |
-    | Selected notes only { .smaller-table-row } | Unchecked ({{ UNCHECKED_CHECKBOX }}) { .smaller-table-row } |
-    | Ignore case { .smaller-table-row } | Unchecked ({{ UNCHECKED_CHECKBOX }}) { .smaller-table-row } |
-    | Treat input as a<br>regular expression { .smaller-table-row } | Checked ({{ CHECKED_CHECKBOX }}) { .smaller-table-row } |
+    {{ gen_regex_table(RegexTableArgs(
+            "`.*`",
+            "`[sound:_silence.wav]`",
+            "`PASilence` <sup>(IMPORTANT! Do not forget this field!)</sup>",
+            selected_notes_only=False,
+        )) | indent(4) }}
 
     ??? example "Example image *(click here)*"
         <figure markdown>
@@ -347,63 +342,94 @@ The following step differs if you are using `python` or the Batch Note Editing A
 <br>
 
 
-## (4) (Optional) Formatting WordReading
+## (4) Correctly Formatting `WordReading` Field
 
 Your `WordReading` field is likely formatted in one of three ways:
 
-1. Kanji with furigana in brackets (Yomichan: `{furigana-plain}`).
 
-    Example: 成[な]り 立[た]つ
+=== "Furigana (plain)"
+    This is generated with the `{furigana-plain}` marker.
 
-1. Kanji with ruby text (Yomichan: `{furigana}`).
+    > Example: 成[な]り 立[た]つ
 
-    Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
+    If your `WordReading` field is formatted this way, then the `WordReading` field
+    is already formatted correctly. **You can skip this step**.
 
-1. Kana only (Yomichan: `{reading}`).
+=== "Furigana"
+    This is generated with the `{furigana}` marker.
 
-    Example: なりたつ
+    > Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
+    > (HTML: `<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ`)
 
-If your `WordReading` is formatted in either of the first two ways, you can skip this step.
+    If your `WordReading` field is formatted this way,
+    it would be ideal to convert this into plain furigana
+    so the note can properly parse the field.
 
-However, if your old cards only had a kana reading, then it might be nice
-to have the `WordReading` as the kanji word with furigana.
-You likely want the kanji word with the furigana, so the kanjis actually show
-in the kanji hover tooltip.
+    ??? example "Instructions for converting furigana into plain furigana *(click here)*"
 
-??? example "Converting kana readings to furigana readings *(click here)*"
+        1. Head to the Card Browser window.
+        1. Right click a card, and then head to:
 
-    The solution provided below is imperfect, but passable.
-    This will format all of the `WordReading` fields to be `Word[WordReading]`,
-    which means kana will repeated.
-    For example, a card with `Word` as 成り立つ, and `WordReading` as なりたつ,
-    will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby>
+            > `Notes` →  `Find and Replace...`
 
-    To do this, you will have to run a Python script from the repository.
-    For Windows users, see the first 3 steps for the Windows instructions
-    [here](updating.md#running-the-script){:target="_blank"}
-    if you haven't use Python before.
+        1. Set the fields to the following:
 
-    Afterwards, [create a backup](faq.md#how-do-i-backup-my-anki-data) and run the following:
-    ```bash
-    python batch.py -f quick_fix_convert_kana_only_reading_all_notes
-    ```
-
-    The above will affect **ALL** notes.
-    If you instead want to affect certain notes, add the `kanaonlyreading`
-    tag to all affected notes, and then run:
-    ```bash
-    python batch.py -f quick_fix_convert_kana_only_reading_with_tag
-    ```
+            {{ gen_regex_table(RegexTableArgs(
+                    "`<ruby>(<rb>)?(?P<kanji>.*?)(</rb>)?<rt>(?P<furigana>.*?)</rt></ruby>`",
+                    "<code>&nbsp;$kanji[$furigana]</code> <sup>(Keep the whitespace at the beginning!)</sup>",
+                    "`WordReading`",
+                    selected_notes_only=False,
+                )) | indent(12) }}
 
 
+=== "Kana only"
+    This is generated with the `{reading}` marker.
+
+    > Example: なりたつ
+
+    This means that your old cards only have a kana reading.
+    It would be ideal to have the `WordReading` as the kanji word with furigana.
+    You likely want the kanji word with the furigana, so the kanjis actually show
+    in the proper places.
+    Some examples include the kanji hover tooltip as well as
+    to the left of the picture field.
+
+    ??? example "Converting kana readings to furigana readings *(click here)*"
+
+        The solution provided below is imperfect, but passable.
+        This will format all of the `WordReading` fields to be `Word[WordReading]`,
+        which means kana will repeated.
+        For example, a card with `Word` as 成り立つ, and `WordReading` as なりたつ,
+        will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby>
+
+        To do this, you will have to run a Python script from the repository.
+        For Windows users, see the first 3 steps for the Windows instructions
+        [here](updating.md#running-the-script){:target="_blank"}
+        if you haven't use Python before.
+
+        Afterwards, [create a backup](faq.md#how-do-i-backup-my-anki-data) and run the following:
+        ```bash
+        python batch.py -f quick_fix_convert_kana_only_reading_all_notes
+        ```
+
+        The above will affect **ALL** notes.
+        If you instead want to affect certain notes, add the `kanaonlyreading`
+        tag to all affected notes, and then run:
+        ```bash
+        python batch.py -f quick_fix_convert_kana_only_reading_with_tag
+        ```
 
 <!--
-### (5) (Optional) Batch set `WordReadingFurigana` field
+<br>
+
+
+## (5) (Optional) Batch set `WordReadingFurigana` Field
+{{ feature_version("0.11.0.0") }}
 
 The following automatically fills out the `WordReadingFurigana` field.
 
-Filling out the `WordReadingFurigana` field will enable the usage of
-the [Same Reading Indicator](ui.md#word-indicators)
+Filling out the `WordReadingFurigana` field is optional but recommended.
+This will enable the usage of [Word Indicators](ui.md#word-indicators)
 on existing cards.
 
 To do this, like with the above step, you will have to run a Python script.
@@ -411,21 +437,15 @@ Again, for Windows users, see the first 3 steps for the Windows instructions
 [here](updating.md#running-the-script){:target="_blank"}
 if you haven't use Python before.
 
-The following script assumes that your `WordReading` field
-is formatted as the first way (成[な]り 立[た]つ) on step 4.
-This will not work if the `WordReading` field field is formatted
-like the second
-(<ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ)
-or third way
-(なりたつ).
+The following script assumes that Step 4 is done
+(meaning your `WordReading` field is formatted as plain furigana).
+Do not run this script if you have not successfully completed Step 4.
 
 
 ```
 # assuming you are at the root of the repo,
 # i.e. after the `git clone ...` and `cd jp-mining-note`
 cd ./tools
-
-pip3 install jaconv
 
 # make sure you have Anki open and Anki-Connect installed!
 python3 ./batch.py -f "fill_word_reading_hiragana_field"

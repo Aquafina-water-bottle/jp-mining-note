@@ -90,7 +90,9 @@ There are two ways of installing the note:
         and download the cards from the latest release.
         You should download the `{version}-jpmn_example_cards.apkg` file.
     2. After you download the cards, import them by navigating to Anki by doing the following:
-        - `File` (top left corner) →  `Import...`
+
+        > `File` (top left corner) →  `Import...`
+
     3. By default, the custom fonts do not come with the `.apkg` file.
         To install these fonts, head over to this repository's
         [media folder](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
@@ -120,7 +122,8 @@ Please check the following in particular:
 
 1. The fonts should match with the above example.
 
-    If the fonts don't match, the note was likely installed with "Option 2: The Manual Way".
+    If the fonts don't match, try restarting Anki.
+    If the fonts still don't match, the note was likely installed with "Option 2: The Manual Way".
     Please verify you manually installed the fonts and placed them in the correct folder
     (see steps 3 and 4).
 

@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import os
 import re
 
@@ -11,40 +12,34 @@ FIELDS = {
         "setup": "{expression}",
         "anime_cards_import": "front",
     },
-
     "Word": {
         "auto_fill": True,
         "binary_field": False,
         "setup": "{expression}",
         "anime_cards_import": "front",
     },
-
     "WordReading": {
         "auto_fill": True,
         "binary_field": False,
         "setup": "{furigana-plain}",
         "anime_cards_import": "Reading",
     },
-
     "PAOverride": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "autopa.md#how-pitch-accent-is-selected",
     },
-
     "PAOverrideText": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "autopa.md#how-pitch-accent-is-selected",
         "version": "0.11.0.0",
     },
-
     "AJTWordPitch": {
         "auto_fill": True,
         "binary_field": False,
         "reference": "autopa.md#how-pitch-accent-is-selected",
     },
-
     "PrimaryDefinition": {
         "auto_fill": True,
         "binary_field": False,
@@ -52,141 +47,119 @@ FIELDS = {
         "setup": "{jpmn-primary-definition}",
         "anime_cards_import": "Glossary",
     },
-
     "PrimaryDefinitionPicture": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "images.md#the-primarydefinitionpicture-field",
         "version": "0.11.0.0",
     },
-
     "Sentence": {
         "auto_fill": True,
         "binary_field": False,
         "setup": "{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}",
         "anime_cards_import": "Sentence",
     },
-
     "SentenceReading": {
         "auto_fill": True,
         "binary_field": False,
         "reference": "setup.md#ajt-furigana",
     },
-
     "AltDisplay": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "fieldref.md#changing-the-displayed-content",
     },
-
     "AltDisplayPASentenceCard": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "fieldref.md#modifying-pitch-accent-sentence-cards",
     },
-
     "AdditionalNotes": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "fieldref.md#modifying-the-back-side",
     },
-
     "IsSentenceCard": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "cardtypes.md#sentence-card",
     },
-
     "IsClickCard": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "cardtypes.md#hybrid-cards",
         "personal_setup": "1",
     },
-
     "IsHoverCard": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "cardtypes.md#hybrid-cards",
     },
-
     "IsTargetedSentenceCard": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "cardtypes.md#targetted-sentence-card-tsc",
     },
-
     "PAShowInfo": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "fieldref.md#testing-pitch-accent",
         "personal_setup": "1",
     },
-
     "PATestOnlyWord": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "fieldref.md#selecting-the-pitch-accent",
         "personal_setup": "1",
     },
-
     "PADoNotTest": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "fieldref.md#selecting-the-pitch-accent",
     },
-
     "PASeparateWordCard": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "fieldref.md#selecting-the-pitch-accent",
     },
-
     "PASeparateSentenceCard": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "fieldref.md#selecting-the-pitch-accent",
     },
-
     "SeparateClozeDeletionCard": {
         "auto_fill": False,
         "binary_field": True,
         "reference": "fieldref.md#cloze-deletion-cards",
     },
-
     "Hint": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "fieldref.md#hints",
     },
-
     "HintNotHidden": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "fieldref.md#hints",
         "anime_cards_import": "Hint",
     },
-
     "Picture": {
         "auto_fill": True,
         "binary_field": False,
         "reference": "images.md",
         "anime_cards_import": "Picture",
     },
-
     "WordAudio": {
         "auto_fill": True,
         "binary_field": False,
         "setup": "{audio}",
         "anime_cards_import": "Audio",
     },
-
     "SentenceAudio": {
         "auto_fill": True,
         "binary_field": False,
         "anime_cards_import": "SentenceAudio",
     },
-
     "PAGraphs": {
         "auto_fill": True,
         "binary_field": False,
@@ -194,7 +167,6 @@ FIELDS = {
         "notes": "Do not edit this field.",
         "anime_cards_import": "Graph",
     },
-
     "PAPositions": {
         "auto_fill": True,
         "binary_field": False,
@@ -202,7 +174,6 @@ FIELDS = {
         "notes": "Do not edit this field.",
         "setup": "{jpmn-pitch-accent-positions}",
     },
-
     "PASilence": {
         "auto_fill": True,
         "binary_field": False,
@@ -210,7 +181,6 @@ FIELDS = {
         "notes": "Do not edit this field.",
         "setup": "[sound:_silence.wav]",
     },
-
     "WordReadingHiragana": {
         "auto_fill": True,
         "binary_field": False,
@@ -218,49 +188,42 @@ FIELDS = {
         "setup": "{jpmn-word-reading-hiragana}",
         "version": "0.11.0.0",
     },
-
     "FrequenciesStylized": {
         "auto_fill": True,
         "binary_field": False,
         "notes": "Do not edit this field.",
         "setup": "{jpmn-frequencies}",
     },
-
     "FrequencySort": {
         "auto_fill": True,
         "binary_field": False,
         "reference": "fieldref.md#frequencysort-field",
         "setup": "{jpmn-min-freq}",
     },
-
     "SecondaryDefinition": {
         "auto_fill": True,
         "binary_field": False,
         "reference": "yomichantemplates.md#expected-dictionary-placement",
         "setup": "{jpmn-secondary-definition}",
     },
-
     "ExtraDefinitions": {
         "auto_fill": True,
         "binary_field": False,
         "reference": "yomichantemplates.md#expected-dictionary-placement",
         "setup": "{jpmn-extra-definitions}",
     },
-
     "UtilityDictionaries": {
         "auto_fill": True,
         "binary_field": False,
         "reference": "yomichantemplates.md#expected-dictionary-placement",
         "setup": "{jpmn-utility-dictionaries}",
     },
-
     "Comment": {
         "auto_fill": False,
         "binary_field": False,
         "reference": "fieldref.md#comment-field",
-        "personal_setup": "DICTIONARY:「{_jpmn-get-primary-definition-dict}」<br>SELECTION:「{_jpmn-selection-text}」"
+        "personal_setup": "DICTIONARY:「{_jpmn-get-primary-definition-dict}」<br>SELECTION:「{_jpmn-selection-text}」",
     },
-
 }
 
 
@@ -273,6 +236,27 @@ rx_SKIP_NEWLINE = re.compile(r"\s*`\s*\n")
 CHECKED_CHECKBOX = '<input type="checkbox" disabled="disabled" checked />'
 UNCHECKED_CHECKBOX = '<input type="checkbox" disabled="disabled" />'
 
+
+REGEX_TABLE_TEMPLATE = """
+| Field name | Value |
+|:-|:-|
+| **Find:** { .smaller-table-row } | %s  { .smaller-table-row } |
+| **Replace With:** { .smaller-table-row } | %s { .smaller-table-row } |
+| **In:** { .smaller-table-row } | %s { .smaller-table-row } |
+| Selected notes only { .smaller-table-row } | %s { .smaller-table-row } |
+| Ignore case { .smaller-table-row } | %s { .smaller-table-row } |
+| Treat input as a<br>regular expression { .smaller-table-row } | %s { .smaller-table-row } |
+"""
+
+
+@dataclass
+class RegexTableArgs:
+    find: str
+    replace: str
+    field: str
+    selected_notes_only: bool = True
+    ignore_case: bool = False
+    input_is_regex: bool = True
 
 
 # copy/paste from tools/note_changes.py
@@ -329,8 +313,6 @@ class Version:
         return f"Version({', '.join(str(x) for x in self.ints)})"
 
 
-
-
 def define_env(env):
     "Hook function"
 
@@ -340,17 +322,10 @@ def define_env(env):
     with open("../version.txt") as f:
         CURRENT_VERSION_STR = f.read().strip()
 
-
-    with open(
-        os.path.join("..", "yomichan_templates", "top.txt")
-    ) as f:
+    with open(os.path.join("..", "yomichan_templates", "top.txt")) as f:
         top = f.read()
 
-    with open(
-        os.path.join(
-            "..", "yomichan_templates", "bottom.txt"
-        )
-    ) as f:
+    with open(os.path.join("..", "yomichan_templates", "bottom.txt")) as f:
         bottom = f.read()
 
     with open("../version.txt") as f:
@@ -361,10 +336,9 @@ def define_env(env):
         "TOP_YOMICHAN": top,
         "BOTTOM_YOMICHAN": bottom,
         "VERSION": version,
-
         "CHECKED_CHECKBOX": CHECKED_CHECKBOX,
         "UNCHECKED_CHECKBOX": UNCHECKED_CHECKBOX,
-
+        "RegexTableArgs": RegexTableArgs,
         # runtime options file
         "RTO_FILE": '[runtime options](runtimeoptions.md){:target="_blank"}',
         "RTOs": '[runtime options](runtimeoptions.md){:target="_blank"}',
@@ -372,17 +346,14 @@ def define_env(env):
         "CTO_FILE": '[compile-time options](compiletimeoptions.md){:target="_blank"}',
         "CTOs": '[compile-time options](compiletimeoptions.md){:target="_blank"}',
         "CTO": '[compile-time option](compiletimeoptions.md){:target="_blank"}',
-
-        "TMW_SERVER": '[TMW server](https://learnjapanese.moe/join/)',
-        "THEMOEWAY_LINK": 'https://learnjapanese.moe/join/',
-
+        "TMW_SERVER": "[TMW server](https://learnjapanese.moe/join/)",
+        "THEMOEWAY_LINK": "https://learnjapanese.moe/join/",
         "PERDITION_SERVER": "[Perdition's server](https://discord.gg/uK4HeGN)",
         "PERDITION_LINK": "https://discord.gg/uK4HeGN",
     }
 
     for k, v in data.items():
         env.variables[k] = v
-
 
     @env.macro
     def sharex_post(sharex_code):
@@ -435,10 +406,19 @@ def define_env(env):
         # ![alt text](file path)
         # [![alt text](file path)](file_path)
         if options:
-            return "[![" + alt_text + "](" + file_path + "){ " + options + " } ](" + file_path + ")"
+            return (
+                "[!["
+                + alt_text
+                + "]("
+                + file_path
+                + "){ "
+                + options
+                + " } ]("
+                + file_path
+                + ")"
+            )
 
         return f"[![{alt_text}]({file_path})]({file_path})"
-
 
     @env.macro
     def link(url_str):
@@ -469,12 +449,13 @@ def define_env(env):
         feature_ver = Version.from_str(feature_version_str)
         current_ver = Version.from_str(CURRENT_VERSION_STR)
         if feature_ver > current_ver:
-            return "!!! warning\n" \
-                f"    New as of version `{feature_version_str}`. " \
-                "This version is currently [bleeding edge](building.md)" \
-                '{:target="_blank"}' \
+            return (
+                "!!! warning\n"
+                f"    New as of version `{feature_version_str}`. "
+                "This version is currently [bleeding edge](building.md)"
+                '{:target="_blank"}'
                 ", so this feature **cannot be used** unless you compile the templates from the master branch."
-
+            )
 
         return f"""<sup><i>New in version `{feature_version_str}` (latest version: `{CURRENT_VERSION_STR}`)</i></sup>"""
 
@@ -482,8 +463,8 @@ def define_env(env):
     def _ceil(x):
         return math.ceil(x)
 
-    #@env.macro
-    #def field_quick_jump_table_cols(num_columns: int):
+    # @env.macro
+    # def field_quick_jump_table_cols(num_columns: int):
 
     #    rows = []
 
@@ -527,7 +508,7 @@ def define_env(env):
         rows.append("|:-:|:-:|:-:|:-:|")
 
         for k, v in FIELDS.items():
-            field = f"[{k}]({v['reference']})" if 'reference' in v else k
+            field = f"[{k}]({v['reference']})" if "reference" in v else k
             auto_filled = CHECKED_CHECKBOX if v["auto_fill"] else UNCHECKED_CHECKBOX
             binary_field = CHECKED_CHECKBOX if v["binary_field"] else UNCHECKED_CHECKBOX
             notes = v.get("notes", "")
@@ -537,9 +518,7 @@ def define_env(env):
 
             rows.append("|" + "|".join(elements) + "|")
 
-
         return "\n".join(rows)
-
 
     @env.macro
     def yomichan_fields_table():
@@ -565,10 +544,10 @@ def define_env(env):
                 ver = v["version"]
                 feature_ver = Version.from_str(ver)
                 if feature_ver > current_ver:
-                    #anki_field = f'~~{anki_field}~~'
-                    #yomichan_format = f'~~{yomichan_format}~~' if yomichan_format else ""
-                    #notes = f"New in version `{ver}` (currently not available)"
-                    continue # skips the element altogether
+                    # anki_field = f'~~{anki_field}~~'
+                    # yomichan_format = f'~~{yomichan_format}~~' if yomichan_format else ""
+                    # notes = f"New in version `{ver}` (currently not available)"
+                    continue  # skips the element altogether
 
                 notes = f"New in version `{ver}`"
 
@@ -577,7 +556,6 @@ def define_env(env):
             rows.append("|" + "|".join(elements) + "|")
 
         return "\n".join(rows)
-
 
     @env.macro
     def anime_cards_table():
@@ -601,13 +579,33 @@ def define_env(env):
                     continue
 
             jpmn_field = k
-            ac_field = v.get("anime_cards_import", "") # anime card field
+            ac_field = v.get("anime_cards_import", "")  # anime card field
 
             elements = [jpmn_field, ac_field]
             elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
             rows.append("|" + "|".join(elements) + "|")
 
         return "\n".join(rows)
+
+    @env.macro
+    def gen_regex_table(args: RegexTableArgs):
+        get_checked = (
+            lambda x: f"Checked ({CHECKED_CHECKBOX})"
+            if x
+            else f"Unchecked ({UNCHECKED_CHECKBOX})"
+        )
+
+        format_args = (
+            args.find,
+            args.replace,
+            args.field,
+            get_checked(args.selected_notes_only),
+            get_checked(args.ignore_case),
+            get_checked(args.input_is_regex),
+        )
+
+        return REGEX_TABLE_TEMPLATE % format_args
+
 
 
 

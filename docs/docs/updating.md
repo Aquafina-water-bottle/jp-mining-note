@@ -145,7 +145,7 @@ then please
     `python` or `git` before.
 
     1. Install [Python](https://www.python.org/).
-        Any version above 3.10.6 should suffice.
+        Any version above 3.10.6 should suffice, but I recommend using the latest stable version.
 
         Make sure the box for "Add Python to PATH" is checked.
         (This is a common error for people to make. Please pay attention to this step!)

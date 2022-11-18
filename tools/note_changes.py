@@ -74,18 +74,30 @@ NOTE_CHANGES = [
             action.AddField("WordReadingHiragana", 30 - 1),
             action.AddField("PrimaryDefinitionPicture", 7 - 1),
             action.AddField("PAOverrideText", 5 - 1),
+            action.BatchUpdate(
+                batch_func=batch.fill_word_reading_hiragana_field,
+                ankiconnect_actions={
+                    "findNotes",
+                    "notesInfo",
+                    "multi",
+                    "updateNoteFields",
+                },
+                description="Automatically fills the `WordReadingHiragana` field",
+            ),
+            action.BatchUpdate(
+                batch_func=batch.separate_pa_override_field,
+                ankiconnect_actions={
+                    "findNotes",
+                    "notesInfo",
+                    "multi",
+                    "updateNoteFields",
+                },
+                description="Separates the `PAOverride` field to `PAOverride` and `PAOverrideText` "
+                "as appropriate",
+            ),
             action.YomichanTemplatesChange(),
             action.YomichanFormatChange(
                 "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
-            ),
-            action.NoteToUser(
-                description="The batch function `fill_word_reading_hiragana_field` is not ran by default\n"
-                "because it requires `jaconv` to work. If you want to fill the\n"
-                "WordReadingHiragana field for all cards (to make the new `word-indicators` module work),\n"
-                "please do the following:\n"
-                "$ pip3 install jaconv\n"
-                "$ cd tools\n"
-                "$ python3 batch.py -f fill_word_reading_hiragana_field"
             ),
             action.NoteToUser(
                 description="If you are using the nsfw-toggle function, the option name was changed\n"
