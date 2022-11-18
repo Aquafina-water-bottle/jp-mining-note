@@ -143,20 +143,17 @@ After setting up the `venv`, you are ready to build and install the note.
 ```bash
 cd tools
 
-# Builds into a temporary folder and installs
+# builds the note into the ./build folder
+python3 make.py
+
+# installs the note from the ./build folder
 # WARNING: completely overrides current note that is installed
-python3 ./main.py
+python3 install.py --from-build --update
 ```
 
 !!! note
-    Running the `main.py` script is equivalent of running:
-    ```bash
-    # builds the note into the ./build folder
-    python3 make.py
+    Running the `main.py` script is exactly equivalent of running the above two commands.
 
-    # installs the note from the ./build folder
-    python3 install.py --from-build --update
-    ```
 
 !!! note
     If you are attempting to (build and) install the bleeding edge version of the note
@@ -165,7 +162,8 @@ python3 ./main.py
     For example:
 
     ```
-    python3 main.py
+    python3 make.py
+    python3 install.py --from-build --update
     python3 install.py --from-build --update
     ```
 
