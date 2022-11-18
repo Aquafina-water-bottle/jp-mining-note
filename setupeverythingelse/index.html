@@ -615,6 +615,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#resource-lists" class="md-nav__link">
+    Resource Lists
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notes-on-various-programs" class="md-nav__link">
     Notes on Various Programs
   </a>
@@ -1121,6 +1128,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#resource-lists" class="md-nav__link">
+    Resource Lists
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notes-on-various-programs" class="md-nav__link">
     Notes on Various Programs
   </a>
@@ -1235,26 +1249,26 @@ Most setups documented are for clipboard based texthooker pages.</p>
 <hr />
 <h3 id="texthooker-pages-websocket-based">Texthooker pages (Websocket based)<a class="headerlink" href="#texthooker-pages-websocket-based" title="Permanent link">&para;</a></h3>
 <p>Websocket based texthookers are generally faster, more reliable, and do not flood your clipboard.
-However, it's not as popular as the clipboard based methods,
-so there is usually less support.</p>
-<p>When you use websocket-based texthooker pages, ensure that the program you use to grab
-the text also uses websockets.
-For example, if you want to use Textractor, use
-<a href="https://github.com/sadolit/textractor-websocket">this</a>
-extension.</p>
+However, there is usually less support and requires more specialized coordination between programs.</p>
+<p>Both of the options below are intended to be used with
+<a href="https://github.com/Artikash/Textractor">Textractor</a>.</p>
 <details class="example">
 <summary>exSTATic</summary>
 <p><a href="https://github.com/KamWithK/exSTATic/"><strong>exSTATic</strong></a></p>
 <ul>
-<li>Custom texthooker page, automatically collects stats for viewing</li>
+<li>Its primary use is for automatic stats collection. Integrates seamlessly with many workflows.</li>
+<li>Uses a custom texthooker page, which connects with Textractor with its own custom extension.</li>
+<li>A video installation guide is available on the project's README page.</li>
 </ul>
 </details>
 <details class="example">
 <summary>Custom Patch</summary>
-<p>Patch Instructions for existing clipboard-based texthookers.</p>
+<p>Patch Instructions for existing clipboard-based texthookers.
+This patch is primarily intended to be used in conjunction with
+<a href="https://github.com/sadolit/textractor-websocket">this Textractor extension</a>.</p>
 <ol>
 <li>Download your favorite texthooker page into a raw html file.</li>
-<li>Copy/paste the code below into the raw html file.</li>
+<li>Copy/paste the code below to the very end of the raw html file.</li>
 <li>If you are currently viewing the page, refresh.</li>
 </ol>
 <details class="examplecode">
@@ -1515,6 +1529,19 @@ The primary example for this is game-like content.</p>
 </ul>
 </details>
 <hr />
+<h2 id="resource-lists">Resource Lists<a class="headerlink" href="#resource-lists" title="Permanent link">&para;</a></h2>
+<p>Other websites have significantly larger resource lists that may prove useful for you.</p>
+<details class="example">
+<summary>Resource Lists <em>(click here)</em></summary>
+<ul>
+<li><a href="https://learnjapanese.moe/resources/">TMW</a></li>
+<li><a href="https://tatsumoto.neocities.org/blog/resources.html">Tatsumoto</a></li>
+<li><a href="https://itazuraneko.neocities.org/library/librarymain.html">itazuraneko</a></li>
+<li><a href="https://docs.google.com/document/d/1tQmoGwCJQqmjdmaQdigAG0Ph1ODSMsGhsD7qOhlUuc0/">Refold (JP)</a> (<a href="https://refold.link/japanese">Mirror</a>)</li>
+<li><a href="https://docs.google.com/document/d/1z_5VbwqKjuyaDH8l6BqhAPJdHWAfypz-3V7pHsWHr6A/">Refold (General)</a> (<a href="https://refold.link/Tech_and_Tools">Mirror</a>)</li>
+</ul>
+</details>
+<hr />
 <h2 id="notes-on-various-programs">Notes on Various Programs<a class="headerlink" href="#notes-on-various-programs" title="Permanent link">&para;</a></h2>
 <h3 id="mpvacious"><a href="https://github.com/Ajatt-Tools/mpvacious">mpvacious</a><a class="headerlink" href="#mpvacious" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1673,7 +1700,7 @@ of creating the cards.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 18, 2022</span>
       
     
   </small>

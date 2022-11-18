@@ -938,6 +938,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#the-tools-check-media-interface-removes-the-font-files" class="md-nav__link">
+    The Tools →  Check Media interface removes the font files.
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1189,6 +1196,13 @@
           <li class="md-nav__item">
   <a href="#the-replay-audio-button-plays-the-sentence-word-and-then-sentence" class="md-nav__link">
     The replay audio button plays the sentence, word, and then sentence.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tools-check-media-interface-removes-the-font-files" class="md-nav__link">
+    The Tools →  Check Media interface removes the font files.
   </a>
   
 </li>
@@ -1468,6 +1482,8 @@ say <code>AdditionalNotes</code>, and then copy a section of <code>AdditionalNot
 shouldn't have this problem, as <code>&lt;div&gt;</code> tags are not present by default.</p>
 </details>
 <hr />
+<!-- TODO same for TSC, if asked enough -->
+
 <h3 id="the-showhide-button-doesnt-do-anything">The Show/Hide button doesn't do anything.<a class="headerlink" href="#the-showhide-button-doesnt-do-anything" title="Permanent link">&para;</a></h3>
 <p>The show/hide button requires that the displayed sentence has a bolded element.
 For example, this means if the currently displayed sentence comes from the <code>AltDisplay</code>
@@ -1489,6 +1505,17 @@ Unfortunately, I can't find another way to selectively suppress audio from playi
 so the bug is here to stay until a better solution is found.
 -->
 
+<hr />
+<h3 id="the-tools-check-media-interface-removes-the-font-files">The <code>Tools</code> →  <code>Check Media</code> interface removes the font files.<a class="headerlink" href="#the-tools-check-media-interface-removes-the-font-files" title="Permanent link">&para;</a></h3>
+<p>This is a known bug, and unfortunately, this bug will <strong>not be fixed</strong>.</p>
+<p>If you want to use this tool, temporarily move the fonts outside of the media folder.
+If you accidentally removed the fonts,
+<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media">redownload the fonts</a>
+and re-add them into the <a href="./#where-is-the-x-folder-in-anki">media folder</a> of your profile.</p>
+<p>This will not be fixed because to make debugging easier for the developer.
+When a user is asked to export a card, the exported file will not contain the font files,
+meaning that the result <code>.apkg</code> file will be about 1MB instead of some 20MB,
+allowing it to be shared easily on a place like Discord.</p>
 <hr />
 <h2 class="text-yellow" id="card-editing">Card Editing<a class="headerlink" href="#card-editing" title="Permanent link">&para;</a></h2>
 <hr />
@@ -1694,7 +1721,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 12, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2022</span>
       
     
   </small>

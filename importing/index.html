@@ -604,8 +604,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-porting-formatted-sentence-fields" class="md-nav__link">
-    (1) Porting formatted Sentence fields
+  <a href="#1-correctly-formatting-sentence-field" class="md-nav__link">
+    (1) Correctly Formatting Sentence Field
   </a>
   
 </li>
@@ -619,14 +619,14 @@
         
           <li class="md-nav__item">
   <a href="#3-batch-set-pasilence-field" class="md-nav__link">
-    (3) Batch set PASilence field
+    (3) Batch Set PASilence Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-optional-formatting-wordreading" class="md-nav__link">
-    (4) (Optional) Formatting WordReading
+  <a href="#4-correctly-formatting-wordreading-field" class="md-nav__link">
+    (4) Correctly Formatting WordReading Field
   </a>
   
 </li>
@@ -1049,8 +1049,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-porting-formatted-sentence-fields" class="md-nav__link">
-    (1) Porting formatted Sentence fields
+  <a href="#1-correctly-formatting-sentence-field" class="md-nav__link">
+    (1) Correctly Formatting Sentence Field
   </a>
   
 </li>
@@ -1064,14 +1064,14 @@
         
           <li class="md-nav__item">
   <a href="#3-batch-set-pasilence-field" class="md-nav__link">
-    (3) Batch set PASilence field
+    (3) Batch Set PASilence Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-optional-formatting-wordreading" class="md-nav__link">
-    (4) (Optional) Formatting WordReading
+  <a href="#4-correctly-formatting-wordreading-field" class="md-nav__link">
+    (4) Correctly Formatting WordReading Field
   </a>
   
 </li>
@@ -1380,7 +1380,7 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <hr />
 <h2 id="batch-editing">Batch Editing<a class="headerlink" href="#batch-editing" title="Permanent link">&para;</a></h2>
 <p>After switching your notes, you will have to do the following few steps:</p>
-<h3 id="1-porting-formatted-sentence-fields">(1) Porting formatted Sentence fields<a class="headerlink" href="#1-porting-formatted-sentence-fields" title="Permanent link">&para;</a></h3>
+<h3 id="1-correctly-formatting-sentence-field">(1) Correctly Formatting <code>Sentence</code> Field<a class="headerlink" href="#1-correctly-formatting-sentence-field" title="Permanent link">&para;</a></h3>
 <p>If your sentence fields have been highlighted in a way that isn't using <code>&lt;b&gt;</code>,
 then it will be incompatable with JPMN by default.</p>
 <p>To see what the formatting of the sentence is,
@@ -1391,7 +1391,7 @@ of the <code>Sentence</code> field.</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If the tested content is highlighted with <code>&lt;b&gt;</code>, then it is already formatted correctly.
-You can <strong>skip this step</strong>.</p>
+<strong>You can skip this step</strong>.</p>
 <p><strong>Example:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>今日も、なんか、昼<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>爆睡<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>してしまったんので…
 </code></pre></div></p>
@@ -1399,7 +1399,7 @@ You can <strong>skip this step</strong>.</p>
 <div class="tabbed-block">
 <p>If the tested content is not highlighted in any way, there is unfortunately no easy
 way to add highlighting to existing sentences.
-As there is nothing to do, you can <strong>skip this step</strong>.</p>
+<strong>As there is nothing to do, you can skip this step</strong>.</p>
 <p><strong>Example:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>今日も、なんか、昼爆睡してしまったんので…
 </code></pre></div></p>
@@ -1532,7 +1532,7 @@ Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.
 </li>
 </ol>
 <p><br></p>
-<h3 id="3-batch-set-pasilence-field">(3) Batch set <code>PASilence</code> field<a class="headerlink" href="#3-batch-set-pasilence-field" title="Permanent link">&para;</a></h3>
+<h3 id="3-batch-set-pasilence-field">(3) Batch Set <code>PASilence</code> Field<a class="headerlink" href="#3-batch-set-pasilence-field" title="Permanent link">&para;</a></h3>
 <p>This will ensure all <code>PASilence</code> are filled correctly.
 See <a href="../faq/#what-is-the-point-of-the-pasilence-field">here</a> to understand what this field does.</p>
 <ol>
@@ -1563,7 +1563,7 @@ See <a href="../faq/#what-is-the-point-of-the-pasilence-field">here</a> to under
 </tr>
 <tr>
 <td align="left" class="smaller-table-row"><strong>In:</strong></td>
-<td align="left" class="smaller-table-row"><code>PASilence</code> (IMPORTANT!!! Don't forget to set this field)</td>
+<td align="left" class="smaller-table-row"><code>PASilence</code> <sup>(IMPORTANT! Do not forget this field!)</sup></td>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Selected notes only</td>
@@ -1620,27 +1620,88 @@ The following step differs if you are using `python` or the Batch Note Editing A
 -->
 
 <p><br></p>
-<h3 id="4-optional-formatting-wordreading">(4) (Optional) Formatting WordReading<a class="headerlink" href="#4-optional-formatting-wordreading" title="Permanent link">&para;</a></h3>
+<h3 id="4-correctly-formatting-wordreading-field">(4) Correctly Formatting <code>WordReading</code> Field<a class="headerlink" href="#4-correctly-formatting-wordreading-field" title="Permanent link">&para;</a></h3>
 <p>Your <code>WordReading</code> field is likely formatted in one of three ways:</p>
-<ol>
-<li>
-<p>Kanji with furigana in brackets (Yomichan: <code>{furigana-plain}</code>).</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Furigana (plain)</label><label for="__tabbed_2_2">Furigana</label><label for="__tabbed_2_3">Kana only</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>This is generated with the <code>{furigana-plain}</code> marker.</p>
+<blockquote>
 <p>Example: 成[な]り 立[た]つ</p>
+</blockquote>
+<p>If your <code>WordReading</code> field is formatted this way, then the <code>WordReading</code> field
+is already formatted correctly. <strong>You can skip this step</strong>.</p>
+</div>
+<div class="tabbed-block">
+<p>This is generated with the <code>{furigana}</code> marker.</p>
+<blockquote>
+<p>Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
+(HTML: <code>&lt;ruby&gt;成&lt;rt&gt;な&lt;/rt&gt;&lt;/ruby&gt;り&lt;ruby&gt;立&lt;rt&gt;た&lt;/rt&gt;&lt;/ruby&gt;つ</code>)</p>
+</blockquote>
+<p>If your <code>WordReading</code> field is formatted this way,
+it would be ideal to convert this into plain furigana
+so the note can properly parse the field.</p>
+<details class="example">
+<summary>Instructions for converting furigana into plain furigana <em>(click here)</em></summary>
+<ol>
+<li>Head to the Card Browser window.</li>
+<li>
+<p>Right click a card, and then head to:</p>
+<blockquote>
+<p><code>Notes</code> →  <code>Find and Replace...</code></p>
+</blockquote>
 </li>
 <li>
-<p>Kanji with ruby text (Yomichan: <code>{furigana}</code>).</p>
-<p>Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ</p>
-</li>
-<li>
-<p>Kana only (Yomichan: <code>{reading}</code>).</p>
-<p>Example: なりたつ</p>
+<p>Set the fields to the following:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Field name</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" class="smaller-table-row"><strong>Find:</strong></td>
+<td align="left" class="smaller-table-row"><code>&lt;ruby&gt;(&lt;rb&gt;)?(?P&lt;kanji&gt;.*?)(&lt;/rb&gt;)?&lt;rt&gt;(?P&lt;furigana&gt;.*?)&lt;/rt&gt;&lt;/ruby&gt;</code></td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row"><strong>Replace With:</strong></td>
+<td align="left" class="smaller-table-row"><code>&nbsp;$kanji[$furigana]</code> <sup>(Keep the whitespace at the beginning!)</sup></td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row"><strong>In:</strong></td>
+<td align="left" class="smaller-table-row"><code>WordReading</code></td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row">Selected notes only</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row">Ignore case</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+</tr>
+<tr>
+<td align="left" class="smaller-table-row">Treat input as a<br>regular expression</td>
+<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+</tr>
+</tbody>
+</table>
 </li>
 </ol>
-<p>If your <code>WordReading</code> is formatted in either of the first two ways, you can skip this step.</p>
-<p>However, if your old cards only had a kana reading, then it might be nice
-to have the <code>WordReading</code> as the kanji word with furigana.
+</details>
+</div>
+<div class="tabbed-block">
+<p>This is generated with the <code>{reading}</code> marker.</p>
+<blockquote>
+<p>Example: なりたつ</p>
+</blockquote>
+<p>This means that your old cards only have a kana reading.
+It would be ideal to have the <code>WordReading</code> as the kanji word with furigana.
 You likely want the kanji word with the furigana, so the kanjis actually show
-in the kanji hover tooltip.</p>
+in the proper places.
+Some examples include the kanji hover tooltip as well as
+to the left of the picture field.</p>
 <details class="example">
 <summary>Converting kana readings to furigana readings <em>(click here)</em></summary>
 <p>The solution provided below is imperfect, but passable.
@@ -1661,13 +1722,21 @@ tag to all affected notes, and then run:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python batch.py -f quick_fix_convert_kana_only_reading_with_tag
 </code></pre></div></p>
 </details>
+</div>
+</div>
+</div>
 <!--
-### (5) (Optional) Batch set `WordReadingFurigana` field
+<br>
+
+
+## (5) (Optional) Batch set `WordReadingFurigana` Field
+!!! warning
+    New as of version `0.11.0.0`. This version is currently [bleeding edge](building.md){:target="_blank"}, so this feature **cannot be used** unless you compile the templates from the master branch.
 
 The following automatically fills out the `WordReadingFurigana` field.
 
-Filling out the `WordReadingFurigana` field will enable the usage of
-the [Same Reading Indicator](ui.md#word-indicators)
+Filling out the `WordReadingFurigana` field is optional but recommended.
+This will enable the usage of [Word Indicators](ui.md#word-indicators)
 on existing cards.
 
 To do this, like with the above step, you will have to run a Python script.
@@ -1675,23 +1744,17 @@ Again, for Windows users, see the first 3 steps for the Windows instructions
 [here](updating.md#running-the-script){:target="_blank"}
 if you haven't use Python before.
 
-The following script assumes that your `WordReading` field
-is formatted as the first way (成[な]り 立[た]つ) on step 4.
-This will not work if the `WordReading` field field is formatted
-like the second
-(<ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ)
-or third way
-(なりたつ).
+The following script assumes that Step 4 is done
+(meaning your `WordReading` field is formatted as plain furigana).
+Do not run this script if you have not successfully completed Step 4.
 
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># assuming you are at the root of the repo,
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>cd ./tools
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>pip3 install jaconv
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a># make sure you have Anki open and Anki-Connect installed!
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>python3 ./batch.py -f &quot;fill_word_reading_hiragana_field&quot;
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a># make sure you have Anki open and Anki-Connect installed!
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>python3 ./batch.py -f &quot;fill_word_reading_hiragana_field&quot;
 </code></pre></div>
 -->
 
@@ -1734,7 +1797,7 @@ so long as you have a Yomichan pitch accent dictionary installed.&#160;<a class=
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 14, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 18, 2022</span>
       
     
   </small>
