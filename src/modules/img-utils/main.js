@@ -28,12 +28,10 @@ const JPMNImgUtils = (() => {
   const imgEyePathEle = imgEye === null ? null : imgEye.children[0];
   const dhImgContainer = document.getElementById("dh_img_container");
   const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
-  //const tagsEle = document.getElementById("tags")
-  //const tags = tagsEle === null ? [] : tagsEle.innerText.split(" ");
-  //const tags = [];
 
-  //const onMobile = document.documentElement.classList.contains('mobile');
-  const ADJUST_HEIGHT = (VW > 850);
+
+  // adjusts height even if it's tablet mode because the picture can be tall and skinny
+  const ADJUST_HEIGHT = (VW > 620);
   const POS_RESULT = getPrimaryDefPicturePosition();
 
   // TODO?
