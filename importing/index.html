@@ -631,6 +631,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#5-optional-batch-set-wordreadingfurigana-field" class="md-nav__link">
+    (5) (Optional) Batch set WordReadingFurigana Field
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1072,6 +1079,13 @@
           <li class="md-nav__item">
   <a href="#4-correctly-formatting-wordreading-field" class="md-nav__link">
     (4) Correctly Formatting WordReading Field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-optional-batch-set-wordreadingfurigana-field" class="md-nav__link">
+    (5) (Optional) Batch set WordReadingFurigana Field
   </a>
   
 </li>
@@ -1737,29 +1751,20 @@ tag to all affected notes, and then run:
 </div>
 </div>
 </div>
-<!--
-<br>
-
-
-## (5) (Optional) Batch set `WordReadingFurigana` Field
-<sup><i>New in version `0.11.0.0` (latest version: `0.11.0.0`)</i></sup>
-
-The following automatically fills out the `WordReadingFurigana` field.
-
-Filling out the `WordReadingFurigana` field is optional but recommended.
-This will enable the usage of [Word Indicators](ui.md#word-indicators)
-on existing cards.
-
-To do this, like with the above step, you will have to run a Python script.
+<p><br></p>
+<h3 id="5-optional-batch-set-wordreadingfurigana-field">(5) (Optional) Batch set <code>WordReadingFurigana</code> Field<a class="headerlink" href="#5-optional-batch-set-wordreadingfurigana-field" title="Permanent link">&para;</a></h3>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.0</code>)</i></sup></p>
+<p>The following automatically fills out the <code>WordReadingFurigana</code> field.</p>
+<p>Filling out the <code>WordReadingFurigana</code> field is optional but highly recommended.
+This will enable the usage of <a href="../ui/#word-indicators">Word Indicators</a>
+on existing cards.</p>
+<p>To do this, like with the above step, you will have to run a Python script.
 Again, for Windows users, see the first 3 steps for the Windows instructions
-[here](updating.md#running-the-script){:target="_blank"}
-if you haven't use Python before.
-
-The following script assumes that Step 4 is done
-(meaning your `WordReading` field is formatted as plain furigana).
-Do not run this script if you have not successfully completed Step 4.
-
-
+<a href="../updating/#running-the-script" target="_blank">here</a>
+if you haven't use Python before.</p>
+<p>The following script assumes that Step 4 is done
+(which means your <code>WordReading</code> field is formatted as plain furigana).
+Do not run this script if you have not successfully completed Step 4.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># assuming you are at the root of the repo,
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>cd ./tools
@@ -1767,8 +1772,6 @@ Do not run this script if you have not successfully completed Step 4.
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a># make sure you have Anki open and Anki-Connect installed!
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>python3 ./batch.py -f &quot;fill_word_reading_hiragana_field&quot;
 </code></pre></div>
--->
-
 <hr />
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>If everything went smoothly,
@@ -1808,7 +1811,7 @@ so long as you have a Yomichan pitch accent dictionary installed.&#160;<a class=
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 18, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 19, 2022</span>
       
     
   </small>
