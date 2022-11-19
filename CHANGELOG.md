@@ -21,7 +21,7 @@ and must use `./install.py --update`.
 
 
 
-## [0.11.0.0] - 2022-11-??
+## [0.11.0.0] - 2022-11-19
 #### Breaking Changes
 - Added fields: `PAOverrideText`, `PrimaryDefinitionPicture`, `WordReadingHiragana`
 
