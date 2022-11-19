@@ -144,10 +144,10 @@ then please
     This section explains how to run the script on Windows if you have never used
     `python` or `git` before.
 
-    1. Install [Python](https://www.python.org/).
-        Any version above 3.10.6 should suffice, but I recommend using the latest stable version.
+    1. Install [Python](https://www.python.org/) version 3.10.6 or above, if you haven't already.
+        I recommend using the latest stable version if you have not downloaded Python before.
 
-        Make sure the box for "Add Python to PATH" is checked.
+        Additionally, make sure the box for "Add Python to PATH" is checked.
         (This is a common error for people to make. Please pay attention to this step!)
 
     1. Get the latest version of the repository.
@@ -170,7 +170,7 @@ then please
 ---
 
 # Common Errors
-This section will document common errors that occur when running the `/install.py` script.
+This section will document common errors that occur when running the `install.py` script.
 
 <br>
 
@@ -198,8 +198,8 @@ The field list can be accessed by navigating to the following:
 
 > (Main window) →  `Browse` →  `Fields...`.
 
-The `install.py` is picky about fields and its order, and the script will reject
-any note type with modifications to the field list (by default).
+The `install.py` is picky about fields and its order, and by default, the script will reject
+any note type with modifications to the field list.
 
 To fix this, there are a few cases to go through.
 
@@ -361,8 +361,14 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
 
 # Updating Yomichan Templates
 Like the above, you can simply follow the steps already specified in [setup](setupyomichan.md#yomichan-templates){:target="_blank"}.
-Again, please make sure you **reset the existing templates** (unless you know what you are doing),
-and again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"} of your Yomichan settings just in case.
+
+Again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
+of your Yomichan settings just in case,
+and again, please make sure you **reset the existing templates** (unless you know what you are doing).
+
+Note that your Yomichan template options will be reset if you follow all the steps.
+I recommend temporarily saving a copy of the Yomichan templates so you can easily
+reset your Yomichan template options after updating.
 
 
 ---

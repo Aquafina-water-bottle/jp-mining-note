@@ -65,6 +65,8 @@ This can be changed to:
 
 ## `pc-mobile` Type
 
+{{ feature_version("0.11.0.0") }}
+
 The `pc-mobile` type allows you to specify different values depending if
 you are using Anki on a mobile device, or PC (non-mobile).
 
@@ -98,6 +100,8 @@ This is formatted as the following:
 <br>
 
 ## `viewport-width-is` Type
+
+{{ feature_version("0.11.0.0") }}
 
 The `viewport-width-is` type allows you to specify different values depending
 on the screen width.

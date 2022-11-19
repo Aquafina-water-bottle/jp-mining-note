@@ -110,8 +110,8 @@ NOTE_CHANGES = [
                 "as expected even with CapsLock enabled.)\n"
                 "Keybinds will no longer work until you update the runtime options.\n"
                 "For example, update `n` to `KeyN`.\n"
-                "See: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js"
             ),
+            action.NoteToUser("Update Notes Permalink: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/CHANGELOG.md#update-notes-01100"),
         ],
         fields=[
             "Key",
