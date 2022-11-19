@@ -12,6 +12,7 @@ JPMN-COMPILE-TIME-OPTIONS-JSON:
     "always-filled-fields": [],
     "css-folders": [
       "base",
+      "responsive",
       "dictionaries"
     ],
     "enabled-modules": [
@@ -19,7 +20,11 @@ JPMN-COMPILE-TIME-OPTIONS-JSON:
       "kanji-hover",
       "auto-pitch-accent",
       "img-utils",
-      "customize-open-fields"
+      "customize-open-fields",
+      "word-indicators",
+      "info-circle-utils",
+      "fix-ruby-positioning",
+      "check-duplicate-key"
     ],
     "external-links": {
       "image_search": {
@@ -42,10 +47,25 @@ JPMN-COMPILE-TIME-OPTIONS-JSON:
         "url": "https://jpdb.io/search?q={{text:Word}}"
       }
     },
+    "external-links-position": "Extra Info",
     "hardcoded-runtime-options": false,
     "keybinds-enabled": true,
     "never-filled-fields": []
-  }
+  },
+  "modules-used": [
+    "sent-utils",
+    "kanji-hover",
+    "tooltip-builder",
+    "anki-connect-actions",
+    "auto-pitch-accent",
+    "jp-utils",
+    "img-utils",
+    "customize-open-fields",
+    "word-indicators",
+    "info-circle-utils",
+    "fix-ruby-positioning",
+    "check-duplicate-key"
+  ]
 }
 
 -->
@@ -70,11 +90,57 @@ function nullish(a, b) {
   return a;
 }
 
+function isMobile() {
+  return document.documentElement.classList.contains('mobile');
+}
+
+function getKeyPath(keys) {
+  if (typeof keys === "string") {
+    return keys;
+  }
+  return keys.join(".");
+}
+
+// placed outside as a global variable
+var VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+
+// keys can be a string, or array of strings
+function parseSetting(obj, keys) {
+  // checks for an object with "type"
+  // https://stackoverflow.com/a/8511350
+  if (
+    typeof obj === 'object' &&
+    !Array.isArray(obj) &&
+    obj !== null &&
+    "type" in obj
+  ) {
+    if (obj.type === "pc-mobile") {
+      if (isMobile()) {
+        return obj["mobile"];
+      } else {
+        return obj["pc"];
+      }
+    } else if (obj.type === "viewport-width-is") {
+      if (VW > obj["value"]) {
+        return obj["greater"];
+      } else {
+        return obj["lesser"];
+      }
+
+    } else {
+      LOGGER.warn(`Unknown type ${obj.type} for Option ${getKeyPath(keys)}. Using the entire object instead...`);
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
 
 /// 
 function getSetting(keys, defaultVal) {
   if (typeof JPMNOpts === "undefined") {
-    return defaultVal;
+    return parseSetting(defaultVal, keys);
   }
 
   let keyList = ["settings"].concat(keys);
@@ -87,11 +153,12 @@ function getSetting(keys, defaultVal) {
       if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
         LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
       }
-      return defaultVal;
+      return parseSetting(defaultVal, keys);
     }
     obj = obj[key];
   }
-  return obj;
+
+  return parseSetting(obj, keys);
 };
 ///  
 
@@ -108,9 +175,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_error");
       this._appendMsg(message, groupEle, isHtml);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-error")) {
-        infoCirc.classList.add("info-circle-error")
-      }
+      infoCirc.classList.toggle("info-circle-error", true)
     }
 
     errorStack(stack) {
@@ -159,8 +224,8 @@ var JPMNLogger = (() => {
       }
 
       let infoCirc = document.getElementById("info_circle");
-      if (groupEle.children.length === 0 && infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.remove("info-circle-warning")
+      if (groupEle.children.length === 0) {
+        infoCirc.classList.toggle("info-circle-warning", false)
       }
 
       this._uniqueKeys.delete(key);
@@ -186,9 +251,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_warning");
       this._appendMsg(message, groupEle, isHtml, key);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.add("info-circle-warning");
-      }
+      infoCirc.classList.toggle("info-circle-warning", true);
 
       if (key !== null) {
         this._uniqueKeys.add(key);
@@ -206,7 +269,8 @@ var JPMNLogger = (() => {
     // currently goes from 0 - 5:
     debug(message, level=3) {
       if (level >= getSetting(['debug-level',],6)) {
-        this.info(message);
+        let groupEle = document.getElementById("info_circle_text_debug");
+        this._appendMsg(message, groupEle);
       }
     }
 
@@ -214,9 +278,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_leech");
       this._appendMsg("", groupEle);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-leech")) {
-        infoCirc.classList.add("info-circle-leech");
-      }
+      infoCirc.classList.toggle("info-circle-leech", true);
     }
 
     _appendMsg(message, groupEle, isHtml=false, key=null) {
@@ -275,7 +337,7 @@ window.onerror = function(msg, url, lineNo, columnNo, error) {
 window.onunhandledrejection = function(errorEvent) {
   if (errorEvent.reason === "AnkiConnect failed to issue request.") {
     let reason = errorEvent.reason + ' Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.';
-    LOGGER.error("Javascript handler error: " + reason, isHtml=true);
+    LOGGER.error("Javascript handler error: " + reason, /*isHtml=*/true);
   } else {
     LOGGER.error("Javascript handler error: " + errorEvent.reason);
   }
@@ -298,11 +360,15 @@ function optionsNotFound() {
      in order to prevent escaping errors (e.g. if the field contains a `"`)
 -->
 <div class="hidden">
+  <div id="hidden_key">{{Key}}</div>
   <div id="hidden_pa_positions">{{PAPositions}}</div>
+  <div id="hidden_word">{{Word}}</div>
   <div id="hidden_word_reading">{{WordReading}}</div>
+  <div id="hidden_word_reading_hiragana">{{WordReadingHiragana}}</div>
   <div id="hidden_ajt_word_pitch">{{AJTWordPitch}}</div>
   <div id="hidden_pa_override">{{PAOverride}}</div>
-  <div id="tags">{{Tags}}</div>
+  <div id="hidden_pa_override_text">{{PAOverrideText}}</div>
+  <div id="hidden_sentence">{{Sentence}}</div>
 
   <!-- THIS IS A HACK to ensure the "_field.css" and "_editor.css" file is included upon Anki export -->
   <img src="_field.css">
@@ -314,6 +380,7 @@ function optionsNotFound() {
 <div class="card-description">
 
 
+    <span class="card-description__card-type">
     
 
     
@@ -395,17 +462,22 @@ function optionsNotFound() {
   {{/PAShowInfo}} 
 
 
+    </span>
 
     
-  <span class="info-circle" id="info_circle">
-    <span class="info-circle-svg-wrapper", id="info_circle_wrapper">
+  <span class="info-circle info-circle--hover-color" id="info_circle">
+    <span class="info-circle-svg-wrapper info-circle-svg-wrapper--hoverable", id="info_circle_wrapper">
+
+
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="info-circle-svg" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
       </svg>
+
+
     </span>
 
-    <span class="info-circle-text-wrapper">
+    <span class="info-circle-text-wrapper" id="info_circle_text_wrapper">
       <span class="info-circle-text" id="info_circle_text">
         <div class="info-circle-text-settings" id="info_circle_text_settings"></div>
         <div class="info-circle-text-settings-border"></div>
@@ -429,13 +501,16 @@ function optionsNotFound() {
           </div>
         </div>
 
+        <div class="info-circle-text-debug" id="info_circle_text_debug"></div>
+
       </span>
+
     </span>
   </span>
 
     
   <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
-  <div class="card-description-ver">JP Mining Note: Version 0.10.3.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.11.0.0</div>
 
 
 </div>
@@ -452,7 +527,7 @@ function optionsNotFound() {
         
     <!-- fallback card card html
       in css: default hybrid css, but with hover instead of click -->
-    <div class="expression__hybrid-wrapper">
+    <div class="expression__hybrid-wrapper expression__hybrid-wrapper--hover">
       <div class="expression expression__hybrid expression__hybrid--hover" id="display">
         <span class="expression--sentence expression__hybrid-sentence
                      {{^IsSentenceCard}} highlight-bold {{/IsSentenceCard}}
@@ -484,7 +559,7 @@ function optionsNotFound() {
       <!-- hybrid (sentence or word) card html
         in css: default hybrid css, with click -->
       <div class="expression__hybrid-wrapper">
-        <div class="expression expression__hybrid expression__hybrid--click" id="display">
+        <div class="expression expression__hybrid expression__hybrid--click expression__hybrid--click-hover-effect" id="display">
           <span class="expression--sentence expression__hybrid-sentence
                     {{^IsSentenceCard}} highlight-bold {{/IsSentenceCard}}
                     {{#IsTargetedSentenceCard}} highlight-bold {{/IsTargetedSentenceCard}}
@@ -545,7 +620,7 @@ function optionsNotFound() {
   
     
   <!-- appears to the left -->
-  <div class="pa-indicator">
+  <div class="pa-indicator" id="pa_indicator">
     {{#PAShowInfo}}
     <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
       class="pa-indicator__svg" id="flag_box_svg">
@@ -599,18 +674,99 @@ function optionsNotFound() {
   
   <div class="dh-left " id="dh_left">
 
+    <span class="dh-left__similar-words-indicators" id="similar_words_indicators">
+
+      <span class="
+          dh-left__similar-words-indicator
+          dh-left__same-word-indicator
+          hover-wrapper
+          " id="same_word_indicator">
+        <span class="hover-text hover-text--similar-words-indicator">
+          <!--Ｓ--> <!-- (Same) Word -->
+          同 <!-- 同じ -->
+        </span>
+        <span class="hover-tooltip-wrapper hover-tooltip-wrapper--similar-words-indicator">
+          <span class="hover-tooltip hover-tooltip--similar-words-indicator" id="same_word_indicator_tooltip"> ... </span>
+        </span>
+      </span>
+
+      <span class="
+          dh-left__similar-words-indicator
+          dh-left__same-kanji-indicator
+          hover-wrapper
+          " id="same_kanji_indicator">
+        <span class="hover-text hover-text--similar-words-indicator">
+          <!--Ｋ--> <!-- Kanji -->
+          漢 <!-- 漢字 -->
+        </span>
+        <span class="hover-tooltip-wrapper hover-tooltip-wrapper--similar-words-indicator">
+          <span class="hover-tooltip hover-tooltip--similar-words-indicator" id="same_kanji_indicator_tooltip"> ... </span>
+        </span>
+      </span>
+
+      <span class="
+          dh-left__similar-words-indicator
+          dh-left__word-indicators
+          hover-wrapper
+          " id="same_reading_indicator">
+        <span class="hover-text hover-text--similar-words-indicator">
+          <!--Ｒ--> <!-- Reading -->
+          読 <!-- 読み方 -->
+        </span>
+        <span class="hover-tooltip-wrapper hover-tooltip-wrapper--similar-words-indicator">
+          <span class="hover-tooltip hover-tooltip--similar-words-indicator" id="same_reading_indicator_tooltip"> ... </span>
+        </span>
+      </span>
+
+    </span>
+
     <div class="dh-left__reading" id="dh_reading"> {{furigana:WordReading}} </div>
 
+    <!-- defaults if the auto-pitch-accent module is disabled.
+      The field content ALWAYS gets overwritten with the module enabled,
+      so this should be all ignored. -->
     <div class="dh-left__word-pitch " id="dh_word_pitch">
-      {{#PAOverride}}
-        {{PAOverride}}
-      {{/PAOverride}}
-      {{^PAOverride}}
-        {{AJTWordPitch}}
-      {{/PAOverride}}
+
+      <!--
+        {{#PAOverrideText}}
+          {{PAOverrideText}}
+        {{/PAOverrideText}}
+        {{^PAOverrideText}}
+          {{#PAOverride}}
+            {{PAOverride}}
+          {{/PAOverride}}
+          {{^PAOverride}}
+            {{#AJTWordPitch}}
+              {{AJTWordPitch}}
+            {{/AJTWordPitch}}
+          {{/PAOverride}}
+        {{/PAOverrideText}}
+      -->
+
+      <!-- wrapped around to prevent title from appearing to the sides -->
+      <span class="dh-left__word-pitch-text" id="dh_word_pitch_text"
+          {{#PAOverrideText}}
+            title="PAOverrideText (no js)"
+          {{/PAOverrideText}}
+          {{^PAOverrideText}}
+            {{#PAOverride}}
+              title="PAOverride (no js)"
+            {{/PAOverride}}
+            {{^PAOverride}}
+              {{#AJTWordPitch}}
+                title="AJTWordPitch (no js)"
+              {{/AJTWordPitch}}
+              {{^AJTWordPitch}}
+                title="(N/A) (no js)"
+              {{/AJTWordPitch}}
+            {{/PAOverride}}
+          {{/PAOverrideText}}
+          >{{#PAOverrideText}}{{PAOverrideText}}{{/PAOverrideText}}{{^PAOverrideText}}{{#PAOverride}}{{PAOverride}}{{/PAOverride}}{{^PAOverride}}{{#AJTWordPitch}}{{AJTWordPitch}}{{/AJTWordPitch}}{{/PAOverride}}{{/PAOverrideText}}</span>
+
     </div>
 
-    <div class="dh-left__audio-buttons">
+    <div class="dh-left__audio-buttons {{#Picture}} dh-left__audio-buttons--left {{/Picture}}"
+        id="dh_left_audio_buttons">
       <span id="word-audio"> {{WordAudio}} </span>
       <span id="sentence-audio"> {{SentenceAudio}} </span>
     </div>
@@ -623,8 +779,7 @@ function optionsNotFound() {
     - nsfw-blur: `transition filter (of --clickable)` will affect the blur -> not blurred state
       - we don't want that
   -->
-  {{#Picture}}
-  <div class="dh-right" id="dh_right">
+  <div class="dh-right {{#Picture}} dh-right--contains-image {{/Picture}}" id="dh_right">
     <div class="dh-right__img-container-stop-blur-edges">
       <div class="dh-right__img-container-nsfw-blur" id="dh_img_container_nsfw_blur">
         <div class="dh-right__img-container dh-right__img-container--clickable" id="dh_img_container">{{Picture}}</div>
@@ -632,7 +787,6 @@ function optionsNotFound() {
       <svg class="dh-right__svg-eye" id="img_svg_eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/><title>Toggle blur temporarily</title></svg>
     </div>
   </div>
-  {{/Picture}}
 
 </div>
 
@@ -655,8 +809,24 @@ function optionsNotFound() {
 </div>
 
 
-<blockquote class="glossary-blockquote highlight-bold" id="primary_definition">
-  <div class="glossary-text glossary-text--primary-definition">
+
+
+
+<blockquote class="glossary-blockquote
+    highlight-bold
+    glossary-blockquote--primary-definition
+    " id="primary_definition">
+
+  
+
+  
+
+
+  <!-- pictures not turned into text -->
+  <div class="glossary-primary-definition-right glossary-primary-definition-right--float" id="primary_definition_picture"><div class="glossary-primary-definition-right-img">{{PrimaryDefinitionPicture}}</div></div>
+
+
+  <div class="glossary-text glossary-text--primary-definition" id="primary_definition_text">
     {{furigana:PrimaryDefinition}}
     <div style="font-size: 0px"><br></div>
     <!-- The above is a hack to allow a user to triple-click the definition
@@ -668,6 +838,17 @@ function optionsNotFound() {
       I figure that adding this shouldn't affect anything
     -->
   </div>
+
+  <!-- placed outside of glossary-text so it doesn't get converted automatically -->
+  <div class="glossary-primary-definition-right
+        glossary-primary-definition-right--bottom
+        {{#PrimaryDefinition}}glossary-primary-definition-right--above-text{{/PrimaryDefinition}}
+        " id="primary_definition_picture_bottom">
+    <div class="glossary-primary-definition-right-img">
+      {{PrimaryDefinitionPicture}}
+    </div>
+  </div>
+
 </blockquote>
 
 
@@ -749,11 +930,73 @@ function optionsNotFound() {
 
 
 
+
   <!-- only showed if outer-display2 doesn't exist -->
   <details class="glossary-details glossary-details--small inner-display1" id="extra_info_details">
     <summary>Extra Info</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
       <div class="glossary-text glossary-text--extra-info">
+
+        
+          <div class="glossary__external-links glossary__external-links--float">
+
+            
+
+
+
+  
+  <a data-details="jpdb.io" data-suppress-link-hover="true" href="https://jpdb.io/search?q={{text:Word}}" title="jpdb.io">
+
+  
+    <img data-do-not-convert="do-not-convert"
+         class="show-on-light-mode-only"
+         src="_icon_jpdb_lightmode.png">
+    <img data-do-not-convert="do-not-convert"
+         class="show-on-dark-mode-only"
+         src="_icon_jpdb_darkmode.png">
+  
+
+  </a>
+
+
+
+  
+  <a data-details="jisho.org" data-suppress-link-hover="true" href="https://jisho.org/search/{{Word}}" title="jisho.org">
+
+  
+    <img data-do-not-convert="do-not-convert"
+         class="show-on-light-mode-only"
+         src="_icon_jisho_lightmode.png">
+    <img data-do-not-convert="do-not-convert"
+         class="show-on-dark-mode-only"
+         src="_icon_jisho_darkmode.png">
+  
+
+  </a>
+
+
+
+  
+  <a data-details="image_search" data-suppress-link-hover="true" href="https://www.google.co.jp/search?q={{text:Word}}&amp;tbm=isch" title="google.co.jp (Image search)">
+
+  
+    <img data-do-not-convert="do-not-convert"
+         class="show-on-light-mode-only"
+         src="_icon_image_black.svg">
+    <img data-do-not-convert="do-not-convert"
+         class="show-on-dark-mode-only"
+         src="_icon_image_white.svg">
+  
+
+  </a>
+
+
+
+
+          </div>
+        
+
+
         {{#PAGraphs}}{{^UtilityDictionaries}}
 
           <div class="glossary-text--extra-info-main-content">
@@ -812,77 +1055,6 @@ function optionsNotFound() {
   
 
 
-
-        
-
-        {{#PAGraphs}}{{^UtilityDictionaries}}
-        <div class="glossary__external-links">
-        {{/UtilityDictionaries}}{{/PAGraphs}}{{^PAGraphs}}{{#UtilityDictionaries}}
-        <div class="glossary__external-links">
-        {{/UtilityDictionaries}}{{/PAGraphs}}{{#PAGraphs}}{{#UtilityDictionaries}}
-        <div class="glossary__external-links">
-        {{/UtilityDictionaries}}{{/PAGraphs}}
-  
-
-
-        
-        {{^PAGraphs}}{{^UtilityDictionaries}}
-        <div class="glossary__external-links glossary__external-links--full-row">
-        {{/UtilityDictionaries}}{{/PAGraphs}}
-
-          
-
-            
-            <a data-details="jpdb.io" href="https://jpdb.io/search?q={{text:Word}}" title="jpdb.io">
-
-            
-              <img data-do-not-convert="do-not-convert"
-                   class="show-on-light-mode-only"
-                   src="_icon_jpdb_lightmode.png">
-              <img data-do-not-convert="do-not-convert"
-                   class="show-on-dark-mode-only"
-                   src="_icon_jpdb_darkmode.png">
-            
-
-            </a>
-
-          
-
-            
-            <a data-details="jisho.org" href="https://jisho.org/search/{{Word}}" title="jisho.org">
-
-            
-              <img data-do-not-convert="do-not-convert"
-                   class="show-on-light-mode-only"
-                   src="_icon_jisho_lightmode.png">
-              <img data-do-not-convert="do-not-convert"
-                   class="show-on-dark-mode-only"
-                   src="_icon_jisho_darkmode.png">
-            
-
-            </a>
-
-          
-
-            
-            <a data-details="image_search" href="https://www.google.co.jp/search?q={{text:Word}}&amp;tbm=isch" title="google.co.jp (Image search)">
-
-            
-              <img data-do-not-convert="do-not-convert"
-                   class="show-on-light-mode-only"
-                   src="_icon_image_black.svg">
-              <img data-do-not-convert="do-not-convert"
-                   class="show-on-dark-mode-only"
-                   src="_icon_image_white.svg">
-            
-
-            </a>
-
-          
-
-          
-
-        </div>
 
       </div>
     </blockquote>
@@ -933,11 +1105,9 @@ if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki
 
 // global cache for an entire card's kanji hover html
 // maps key.word_reading -> html string
-//var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
 var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
 
 // maps kanji -> [{set of used words}, html string]
-//var kanjiHoverCache = kanjiHoverCache ?? {};
 var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 
@@ -947,15 +1117,22 @@ var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 
 
-
-
-// GLOBALS: customize-open-fields
+// GLOBALS: anki-connect-actions
 
 
 // note that this cache will NOT respect card review undos,
 // but that should be a niche enough case to not warrent caching.
-// maps key -> bool
+// maps cacheKey -> bool
 var isNewCardCache = nullish(isNewCardCache, {});
+
+// maps card_id -> (card info retrieved by Anki-Connect)
+var cardsInfoCache = nullish(cardsInfoCache, {});
+
+// maps query_str -> [card ids]
+var cardQueryCache = nullish(cardQueryCache, {});
+
+// maps key.sentence -> card id
+var cardIdCache = nullish(cardIdCache, {});
 
 /// 
 
@@ -963,7 +1140,47 @@ var isNewCardCache = nullish(isNewCardCache, {});
 
 
 
+
+
+
+
+
+
+// GLOBALS: word-indicators
+
+
+//var sameReadingCardCache = nullish(sameReadingCardCache, {});
+var similarWordsCardCache = nullish(similarWordsCardCache, {});
+
+/// 
+
+
+
+
+
+
+
+// GLOBALS: check-duplicate-key
+
+
+
+// contains all unique keys
+var uniqueKeysCache = nullish(uniqueKeysCache, []);
+
+/// 
+
+
+
+
+
+
 (function () { // restricts ALL javascript to hidden scope
+
+
+
+
+const TAGS_LIST = "{{Tags}}".split(" ");
+
 
 // "global" variables within the hidden scope
 let note = (function () {
@@ -984,12 +1201,16 @@ function toggleDetailsTag(ele) {
   }
 }
 
-function popupMenuMessage(message) {
+function popupMenuMessage(message, isHTML=false) {
   let popupMenu = document.getElementById("popup_menu");
 
   // creates message
   const popupMessageDiv = document.createElement("div");
-  popupMessageDiv.innerText = message;
+  if (isHTML) {
+    popupMessageDiv.innerHTML = message;
+  } else {
+    popupMessageDiv.innerText = message;
+  }
   popupMessageDiv.classList.add("popup-menu--animate");
 
   popupMenu.appendChild(popupMessageDiv);
@@ -1008,82 +1229,26 @@ function popupMenuMessage(message) {
 
 
 
-
-// https://github.com/FooSoft/anki-connect#javascript
-function invoke(action, params={}) {
-  let version = 6;
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('error', () => reject('AnkiConnect failed to issue request.'));
-    xhr.addEventListener('load', () => {
-      try {
-        const response = JSON.parse(xhr.responseText);
-        if (Object.getOwnPropertyNames(response).length != 2) {
-          throw 'response has an unexpected number of fields';
-        }
-        if (!response.hasOwnProperty('error')) {
-          throw 'response is missing required error field';
-        }
-        if (!response.hasOwnProperty('result')) {
-          throw 'response is missing required result field';
-        }
-        if (response.error) {
-          throw response.error;
-        }
-        resolve(response.result);
-      } catch (e) {
-        reject(e);
-      }
-    });
-
-    xhr.open('POST', 'http://127.0.0.1:8765');
-    xhr.send(JSON.stringify({action, version, params}));
-  });
-}
-
-
-
-const HIRAGANA_CONVERSION_RANGE = [0x3041, 0x3096];
-const KATAKANA_CONVERSION_RANGE = [0x30a1, 0x30f6];
-const KATAKANA_RANGE = [0x30a0, 0x30ff];
-
-// copied/pasted directly from yomichan
-// https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
-// I have no idea what is going on tbh but it seems to work
-function isCodePointInRange(codePoint, [min, max]) {
-  return (codePoint >= min && codePoint <= max);
-}
-
-function convertHiraganaToKatakana(text) {
-  let result = '';
-  const offset = (KATAKANA_CONVERSION_RANGE[0] - HIRAGANA_CONVERSION_RANGE[0]);
-  for (let char of text) {
-    const codePoint = char.codePointAt(0);
-    if (isCodePointInRange(codePoint, HIRAGANA_CONVERSION_RANGE)) {
-      char = String.fromCodePoint(codePoint + offset);
-    }
-    result += char;
-  }
-  return result;
-}
-
 /// 
 
 
 function hybridClick() {
+  TIME_PERFORMANCE.start("hybridClick")
   const hSent = document.getElementById("hybrid-sentence");
   const hWord = document.getElementById("hybrid-word");
   const svgEle = document.getElementById("flag_box_svg");
-  const circ = document.getElementById("pa_indicator_circle");
+  const paInd = document.getElementById("pa_indicator");
+  //const circ = document.getElementById("pa_indicator_circle");
 
   if (hSent.classList.contains("override-display-inline-block")) {
     // currently showing sentence, change to word
-    hWord.classList.remove("override-display-none");
-    hSent.classList.remove("override-display-inline-block");
-    if (circ !== null) {
-      circ.setAttributeNS(null, "cx", "25");
-      circ.setAttributeNS(null, "cy", "15");
-    }
+    hWord.classList.toggle("override-display-none", false);
+    hSent.classList.toggle("override-display-inline-block", false);
+    paInd.classList.toggle("pa-indicator--sentence", false)
+    //if (circ !== null) {
+    //  circ.setAttributeNS(null, "cx", "25");
+    //  circ.setAttributeNS(null, "cy", "15");
+    //}
 
     // re-adds if colored quotes exist
     if (svgEle !== null && hSent.hasAttribute("data-color-quotes")) {
@@ -1092,27 +1257,65 @@ function hybridClick() {
 
   } else {
     // currently showing word, change to sentence
-    hWord.classList.add("override-display-none");
-    hSent.classList.add("override-display-inline-block");
-    if (circ !== null) { // sentence
-      if (hSent.innerText.length > 0 && hSent.innerText[0] === "「") {
-        circ.setAttributeNS(null, "cx", "35");
-        circ.setAttributeNS(null, "cy", "11");
-      }
-    }
+    hWord.classList.toggle("override-display-none", true);
+    hSent.classList.toggle("override-display-inline-block", true);
+    paInd.classList.toggle("pa-indicator--sentence", true)
+    //if (circ !== null) { // sentence
+    //  //if (hSent.innerText.length > 0 && hSent.innerText[0] === "「") {
+    //  if (hSent.children.length >= 1 && hSent.children[0].innerHTML.includes("「")) {
+    //    circ.setAttributeNS(null, "cx", "35");
+    //    circ.setAttributeNS(null, "cy", "11");
+    //  }
+    //}
 
     // removes if colored quotes exist
     if (svgEle !== null && hSent.hasAttribute("data-color-quotes")) {
       svgEle.style.display = "none";
     }
   }
+
+  TIME_PERFORMANCE.stop("hybridClick")
 }
+
+
+// required for the sentence utils module
+var paIndicator;
+
+/// {{#PAShowInfo}}
+var paIndicator = (function () {
+  let my = {};
+  my.type = null;
+  my.className = null;
+  my.tooltip = null;
+
+  if ('{{#PADoNotTest}}FILLED{{/PADoNotTest}}{{#PASeparateWordCard}}FILLED{{/PASeparateWordCard}}') {
+    my.type = "none";
+  } else if ('{{#PASeparateSentenceCard}}FILLED{{/PASeparateSentenceCard}}{{#PATestOnlyWord}}FILLED{{/PATestOnlyWord}}') {
+    my.type = "word";
+  } else if ('{{#IsSentenceCard}}FILLED{{/IsSentenceCard}}') {
+    my.type = "sentence";
+  } else {
+    my.type = "word";
+  }
+
+  my.className = "pa-indicator-color--" + my.type;
+
+  if (my.type === "none") {
+    my.tooltip = "Do not test"
+  } else if (my.type == "word") {
+    my.tooltip = "Word"
+  } else { // sentence
+    my.tooltip = "Sentence"
+  }
+
+  return my;
+}());
+/// {{/PAShowInfo}}
+
 
 /// 
 /// 
 // END_BLOCK: js_functions
-
-
 
 
 
@@ -1149,11 +1352,11 @@ const JPMNSentUtils = (() => {
     }
 
     // removes newlines
-    if ((!isAltDisplay && getSetting(['modules','sent-utils','remove-line-breaks',],false))
-        || isAltDisplay && getSetting(['modules','sent-utils','remove-line-breaks-on-altdisplay',],false)) {
-      let noNewlines = result.replace(/<br>/g, "");
 
-      result = noNewlines;
+    // removes the final period if exists
+    if ((getSetting(['modules','sent-utils','remove-final-period',],true) && !isAltDisplay)
+      || (getSetting(['modules','sent-utils','remove-final-period-on-altdisplay',],false) && isAltDisplay)) {
+      result = result.replace(/[｡。．\.]$/, "");
     }
 
     let validQuotes = getSetting(['modules','sent-utils','quote-match-strings',],[['「', '」'], ['『', '』']]);
@@ -1200,6 +1403,14 @@ const JPMNSentUtils = (() => {
       sentEle.style["padding-left"] = "0em";
     }
 
+    // removes the hover effect for mobile displays only
+    ///
+    /// {{#IsClickCard}}
+    if (isMobile()) {
+      document.getElementById("display").classList.toggle(
+        "expression__hybrid--click-hover-effect", false);
+    }
+    /// {{/IsClickCard}}
 
     // data-color-quotes: INDICATOR if the sentence quotes are colored or not
     // - attribute doesn't exist by default
@@ -1212,15 +1423,15 @@ const JPMNSentUtils = (() => {
     /// {{#PAShowInfo}}
 
     // moves pa-indicator position
-    if (!existingQuote && !autoQuote) {
-      const circ = document.getElementById("pa_indicator_circle");
-      if (circ !== null) {
-        circ.setAttributeNS(null, "cx", "35");
-        circ.setAttributeNS(null, "cy", "11");
-      }
-    }
+    //if (!existingQuote && !autoQuote) {
+    //  const circ = document.getElementById("pa_indicator_circle");
+    //  if (circ !== null) {
+    //    circ.setAttributeNS(null, "cx", "35");
+    //    circ.setAttributeNS(null, "cy", "11");
+    //  }
+    //}
 
-    if ((existingQuote || autoQuote) && getSetting(['modules','sent-utils','pa-indicator-color-quotes',],false)) {
+    if ((existingQuote || autoQuote) && getSetting(['modules','sent-utils','pa-indicator-color-quotes',],{"type": "viewport-width-is", "value": 1300, "greater": false, "lesser": true})) {
       // data-color-quotes tag within html is sentence-div dependent (preferable over a global state)
       sentEle.setAttribute("data-color-quotes", "true");
 
@@ -1271,6 +1482,9 @@ const JPMNSentUtils = (() => {
 
   class JPMNSentUtils {
     constructor(isAltDisplay, isClozeDeletion, paIndicator) {
+      // TODO change isAltDisplay and isCloseDeletion to be set as an attribute
+      // somewhere in the HTML rather than javascript
+
       this.isAltDisplay = isAltDisplay;
       this.isClozeDeletion = nullish(isClozeDeletion, false);
       this.paIndicator = nullish(paIndicator, null);
@@ -1300,6 +1514,7 @@ const JPMNSentUtils = (() => {
 
 
 
+
 // =============
 //  Kanji Hover
 // =============
@@ -1309,323 +1524,762 @@ const JPMNKanjiHover = (() => {
   const logger = new JPMNLogger("kanji-hover");
 
   // element outside async function to prevent double-adding due to anki funkyness
-  const wordReading = document.getElementById("dh_reading");
+  let wordReading = document.getElementById("dh_reading");
   let kanjiHoverEnabled = false;
 
-  // multi query result, in the format of
-  // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
-  async function cardQueries(kanjiArr) {
-    const cardTypeName = 'Mining Card';
-
-    function constructFindCardAction(query) {
-      return {
-        "action": "findCards",
-        "params": {
-          "query": query,
-        }
-      }
-    }
-
-    // constructs the multi findCards request for ankiconnect
-    let actions = [];
-    for (const character of kanjiArr) {
-      const baseQuery = (
-        `(-"Key:{{Key}}" -"WordReading:{{WordReading}}"`
-        + `Word:*${character}* "card:${cardTypeName}") `
-      );
-      const nonNewQuery = baseQuery + getSetting(['modules','kanji-hover','non-new-query',],'(-is:new OR (is:new flag:3)) -(is:suspended flag:1)');
-      const newQuery = baseQuery + getSetting(['modules','kanji-hover','new-query',],'is:new -(is:suspended (flag:1 OR flag:3))');
-
-      actions.push(constructFindCardAction(nonNewQuery))
-      actions.push(constructFindCardAction(newQuery))
-    }
-
-    return await invoke("multi", {"actions": actions})
-  }
-
-  function filterCards(nonNewCardIds, newCardIds) {
-    const nonNewEarliest = getSetting(['modules','kanji-hover','max-non-new-oldest',],2);
-    const nonNewLatest = getSetting(['modules','kanji-hover','max-non-new-latest',],2);
-    const newLatest = getSetting(['modules','kanji-hover','max-new-latest',],2);
-
-    // non new: gets the earliest and latest
-    let nonNewResultIds = []
-    if (nonNewCardIds.length > nonNewEarliest + nonNewLatest) {
-      nonNewResultIds = [
-        ...nonNewCardIds.slice(0, nonNewEarliest), // earliest
-        ...nonNewCardIds.slice(-nonNewLatest, nonNewCardIds.length), // latest
-      ];
-    } else {
-      nonNewResultIds = [...nonNewCardIds];
-    }
-
-    let newResultIds = newCardIds.slice(0, newLatest);
-
-    return [nonNewResultIds, newResultIds];
-  }
-
-
-
-  async function getCardsInfo(queryResults) {
-    function constructCardsInfoAction(idList) {
-      return {
-        "action": "cardsInfo",
-        "params": {
-          "cards": idList,
-        }
-      }
-    }
-
-    let actions = [];
-    logger.assert(queryResults.length % 2 == 0, "query results not even");
-
-    for (let i = 0; i < queryResults.length/2; i++) {
-      // ids are equivalent to creation dates, so sorting ids is equivalent to
-      // sorting to card creation date
-      const nonNewCardIds = queryResults[i*2].sort();
-      const newCardIds = queryResults[i*2 + 1].sort();
-      const [nonNewResultIds, newResultIds] = filterCards(nonNewCardIds, newCardIds)
-
-      // creates a multi request of the following format:
-      // [cardInfo (nonNewCardIds, kanji 1), cardInfo (newCardIds, kanji 1), etc.]
-      actions.push(constructCardsInfoAction(nonNewResultIds))
-      actions.push(constructCardsInfoAction(newResultIds))
-    }
-
-    return await invoke("multi", {"actions": actions})
-  }
-
-
-  // taken directly from anki's implementation of { {furigana:...} }
-  // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-  function buildWordDiv(character, wordReading) {
-
-    const wordDiv = document.createElement('div');
-    const re = / ?([^ >]+?)\[(.+?)\]/g
-
-    //let wordReadingRuby = wordReading.replaceAll("&nbsp;", " ");
-    let wordReadingRuby = wordReading.replace(/&nbsp;/g, " ");
-    wordReadingRuby = wordReadingRuby.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
-    //wordReadingRuby = wordReadingRuby.replaceAll(character, `<b>${character}</b>`);
-    wordReadingRuby = wordReadingRuby.replace(new RegExp(character, "g"), `<b>${character}</b>`);
-
-    wordDiv.innerHTML = wordReadingRuby;
-    return wordDiv;
-  }
-
-  function buildSentDiv(sentence) {
-    const sentenceSpan = document.createElement('span');
-
-    let resultSent = sentence;
-    //resultSent = resultSent.replaceAll("<b>", "");
-    //resultSent = resultSent.replaceAll("</b>", "");
-    resultSent = resultSent.replace(/<b>/g, "");
-    resultSent = resultSent.replace(/<\/b>/g, "");
-    sentenceSpan.innerHTML = resultSent;
-
-    const openQuote = document.createElement('span');
-    openQuote.innerText = "「";
-    const closeQuote = document.createElement('span');
-    closeQuote.innerText = "」";
-
-
-    const sentenceDiv = document.createElement('div');
-    sentenceDiv.classList.add("left-align-quote");
-
-    sentenceDiv.appendChild(openQuote);
-    sentenceDiv.appendChild(sentenceSpan);
-    sentenceDiv.appendChild(closeQuote);
-
-    return sentenceDiv;
-  }
-
-  function buildCardDiv(character, card, isNew=false) {
-    const cardDiv = document.createElement('div');
-    const wordDiv = buildWordDiv(character, card["fields"]["WordReading"]["value"]);
-    const sentenceDiv = buildSentDiv(card["fields"]["Sentence"]["value"]);
-
-    cardDiv.appendChild(wordDiv);
-    cardDiv.appendChild(sentenceDiv);
-
-    if (isNew) {
-      cardDiv.classList.add("kanji-hover-tooltip--new");
-    }
-
-    return cardDiv;
-  }
-
-  function buildString(character, nonNewCardInfo, newCardInfo) {
-
-    /*
-     * <span class="kanji-hover-wrapper">
-     *   <span class="kanji-hover-text"> (kanji) </span>
-     *   <span class="kanji-hover-tooltip-wrapper">
-     *     <span class="kanji-hover-tooltip"> ... </span>
-     *   </span>
-     * </span>
-     *
-     */
-
-    // wrapper element that isn't used, to get the inner html
-
-    const kanjiHoverWrapper = document.createElement('span');
-    kanjiHoverWrapper.classList.add("kanji-hover-wrapper");
-
-
-    const kanjiSpan = document.createElement('span');
-    kanjiSpan.classList.add("kanji-hover-text");
-    kanjiSpan.innerText = character;
-
-    tooltipWrapperSpan = document.createElement('span');
-    tooltipWrapperSpan.classList.add("kanji-hover-tooltip-wrapper");
-
-    tooltipSpan = document.createElement('span');
-    tooltipSpan.classList.add("kanji-hover-tooltip");
-
-    let count = 0;
-
-
-    for (const card of nonNewCardInfo) {
-      const cardDiv = buildCardDiv(character, card);
-      if (count >= 1) {
-        cardDiv.classList.add("kanji-hover-tooltip--not-first");
-      }
-      count++;
-
-      tooltipSpan.appendChild(cardDiv);
-    }
-
-    for (const card of newCardInfo) {
-      const cardDiv = buildCardDiv(character, card, isNew=true);
-      if (count >= 1) {
-        cardDiv.classList.add("kanji-hover-tooltip--not-first");
-      }
-      count++;
-
-      tooltipSpan.appendChild(cardDiv);
-    }
-
-
-    // 0 length checks
-    if (nonNewCardInfo.length + newCardInfo.length == 0) {
-      tooltipSpan.innerText = "No other kanjis found.";
-    }
-
-    tooltipWrapperSpan.appendChild(tooltipSpan)
-    kanjiHoverWrapper.appendChild(kanjiSpan);
-    kanjiHoverWrapper.appendChild(tooltipWrapperSpan);
-
-    return kanjiHoverWrapper.outerHTML;
-  }
-
-
-  function getWordReadings(nonNewCardInfo, newCardInfo) {
-    let wordsArr = []
-
-    for (const card of nonNewCardInfo) {
-      wordsArr.push(card["fields"]["WordReading"]["value"])
-    }
-    for (const card of newCardInfo) {
-      wordsArr.push(card["fields"]["WordReading"]["value"])
-    }
-
-    return wordsArr;
-  }
-
-
-
-  // kanji hover
-  // some code shamelessly stolen from cade's kanji hover:
-  // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
-
-  async function kanjiHover() {
-
-    if (kanjiHoverEnabled) {
-      logger.debug("Kanji hover is already enabled");
-      return;
-    }
-    kanjiHoverEnabled = true;
-
-    // realistically, key should be good enough since we assume that key has no duplicates
-    // however, just in case, wordreading is added
-    const cacheKey = "{{Key}}.{{WordReading}}"
-    if (cacheKey in kanjiHoverCardCache) {
-      logger.debug("Card was cached")
-      wordReading.innerHTML = kanjiHoverCardCache[cacheKey];
-      return;
-    }
-
-    const readingHTML = wordReading.innerHTML;
-
-    // uses cache if it already exists
-    let kanjiSet = new Set() // set of kanjis that requires api calls
-    const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
-    const matches = readingHTML.matchAll(regex);
-    for (const match of matches) {
-      kanjiSet.add(...match);
-    }
-
-    let kanjiDict = {};
-    let wordReadings = {}; // used only for the cache
-
-    // attempts to fill out the kanji dict with cached entries
-    for (let kanji of [...kanjiSet]) {
-      // also checks that the current word is not used
-      if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes("{{WordReading}}"))) {
-        logger.debug(`Using cached kanji ${kanji}`)
-        kanjiDict[kanji] = kanjiHoverCache[kanji][1];
-        kanjiSet.delete(kanji);
-      }
-    }
-
-    // only calls the api on the needed kanjis
-    const kanjiArr = [...kanjiSet];
-    const queryResults = await cardQueries(kanjiArr);
-    const cardsInfo = await getCardsInfo(queryResults);
-
-    logger.debug(`New kanjis: [${kanjiArr.join(", ")}]`)
-
-    for (const [i, character] of kanjiArr.entries()) {
-      let nonNewCardInfo = cardsInfo[i*2];
-      let newCardInfo = cardsInfo[i*2 + 1];
-
-      // attempts to insert string
-      kanjiDict[character] = buildString(character, nonNewCardInfo, newCardInfo);
-      wordReadings[character] = getWordReadings(nonNewCardInfo, newCardInfo);
-    }
-
-    const re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
-    const resultHTML = readingHTML.replace(re, function (matched) {
-      //return kanjiDict[matched] ?? matched;
-      return nullish(kanjiDict[matched], matched);
-    });
-
-    wordReading.innerHTML = resultHTML;
-
-    // caches card
-    kanjiHoverCardCache[cacheKey] = resultHTML;
-
-    for (const character of kanjiArr) {
-      kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
-    }
-
-  }
-
+  // realistically, key should be good enough since we assume that key has no duplicates
+  // however, just in case, wordreading is added
+  // note that even if the key is a duplicate, if the wordreading is literally the same,
+  // then it should get the exact same result regardless, so this key is still valid
+  const keyHTML = document.getElementById("hidden_key").innerHTML;
+  const wordReadingHTML = document.getElementById("hidden_word_reading").innerHTML;
+  const cacheKey = `${keyHTML}.${wordReadingHTML}`
 
   class JPMNKanjiHover {
-    constructor() {}
+    constructor() {
+      const displayPitchAccent = getSetting(['modules','kanji-hover','display-pitch-accent',],true)
+      const displayPitchAccentHover = getSetting(['modules','kanji-hover','display-pitch-accent-hover-only',],true)
+      this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent, displayPitchAccentHover);
+      this.ankiConnectHelper = new JPMNAnkiConnectActions();
+    }
+
+
+    getWordReadings(nonNewCardInfo, newCardInfo) {
+      let wordsArr = []
+
+      for (const card of nonNewCardInfo) {
+        wordsArr.push(card["fields"]["WordReading"]["value"])
+      }
+      for (const card of newCardInfo) {
+        wordsArr.push(card["fields"]["WordReading"]["value"])
+      }
+
+      return wordsArr;
+    }
+
+    addBrowseOnClick() {
+      if (getSetting(['modules','kanji-hover','click-word-to-browse',],true)) {
+        this.tooltipBuilder.addBrowseOnClick(`.dh-left__reading .hover-tooltip__word-div`);
+      }
+    }
+
+
+    buildString(character, nonNewCardInfo, newCardInfo) {
+
+      /*
+       * <span class="hover-wrapper">
+       *   <span class="hover-text"> (kanji) </span>
+       *   <span class="hover-tooltip-wrapper">
+       *     <span class="hover-tooltip"> ... </span>
+       *   </span>
+       * </span>
+       *
+       */
+
+      // wrapper element that isn't used, to get the inner html
+
+      const kanjiHoverWrapper = document.createElement('span');
+      kanjiHoverWrapper.classList.add("hover-wrapper");
+
+      const kanjiSpan = document.createElement('span');
+      kanjiSpan.classList.add("hover-text");
+      kanjiSpan.innerText = character;
+
+      const tooltipWrapperSpan = document.createElement('span');
+      tooltipWrapperSpan.classList.add("hover-tooltip-wrapper");
+
+      const tooltipSpan = document.createElement('span');
+      tooltipSpan.classList.add("hover-tooltip");
+      tooltipSpan.classList.add("hover-tooltip--kanji-hover");
+
+      let count = 0;
+
+
+      for (const card of nonNewCardInfo) {
+        const cardDiv = this.tooltipBuilder.buildCardDiv(card, character);
+        if (count >= 1) {
+          cardDiv.classList.add("hover-tooltip--not-first");
+        }
+        count++;
+
+        tooltipSpan.appendChild(cardDiv);
+      }
+
+      for (const card of newCardInfo) {
+        const cardDiv = this.tooltipBuilder.buildCardDiv(card, character, /*isNew=*/true);
+        if (count >= 1) {
+          cardDiv.classList.add("hover-tooltip--not-first");
+        }
+        count++;
+
+        tooltipSpan.appendChild(cardDiv);
+      }
+
+
+      // 0 length checks
+      if (nonNewCardInfo.length + newCardInfo.length == 0) {
+        tooltipSpan.innerText = "Kanji not found.";
+      }
+
+      tooltipWrapperSpan.appendChild(tooltipSpan)
+      kanjiHoverWrapper.appendChild(kanjiSpan);
+      kanjiHoverWrapper.appendChild(tooltipWrapperSpan);
+
+      return kanjiHoverWrapper;
+    }
+
+
+    // multi query result, in the format of
+    // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
+    async cardQueries(kanjiArr) {
+      const cardTypeName = 'Mining Card';
+
+      function constructFindCardAction(query) {
+        return {
+          "action": "findCards",
+          "params": {
+            "query": query,
+          }
+        }
+      }
+
+      // constructs the multi findCards request for ankiconnect
+      let actions = [];
+      for (const character of kanjiArr) {
+
+        const keyEsc = this.ankiConnectHelper.escapeStr(keyHTML);
+        const wordReadingEsc = this.ankiConnectHelper.escapeStr(wordReadingHTML);
+
+        let baseQuery = `(-"Key:${keyEsc}" Word:*${character}* "card:${cardTypeName}" -"WordReading:${wordReadingEsc}") `;
+
+        logger.debug(`query: ${baseQuery}`, 1);
+
+        const nonNewQuery = baseQuery + getSetting(['modules','kanji-hover','non-new-query',],'(-is:new OR (is:suspended is:new flag:3)) -(is:suspended flag:1)');
+        const newQuery = baseQuery + getSetting(['modules','kanji-hover','new-query',],'is:new -(is:suspended (flag:1 OR flag:3))');
+        logger.debug(`nonNewQuery: ${nonNewQuery}`, 1);
+        logger.debug(`newquery: ${newQuery}`, 1);
+
+        actions.push(constructFindCardAction(nonNewQuery))
+        actions.push(constructFindCardAction(newQuery))
+      }
+
+      return await this.ankiConnectHelper.invoke("multi", {"actions": actions})
+    }
+
+
+
+    async getCardsInfo(queryResults) {
+      function constructCardsInfoAction(idList) {
+        return {
+          "action": "cardsInfo",
+          "params": {
+            "cards": idList,
+          }
+        }
+      }
+
+      let actions = [];
+      logger.assert(queryResults.length % 2 == 0, "query results not even");
+
+      for (let i = 0; i < queryResults.length/2; i++) {
+        // ids are equivalent to creation dates, so sorting ids is equivalent to
+        // sorting to card creation date
+        const nonNewCardIds = queryResults[i*2].sort();
+        const newCardIds = queryResults[i*2 + 1].sort();
+
+        const maxNonNewOldest = getSetting(['modules','kanji-hover','max-non-new-oldest',],2);
+        const maxNonNewLatest = getSetting(['modules','kanji-hover','max-non-new-latest',],2);
+        const maxNewLatest = getSetting(['modules','kanji-hover','max-new-latest',],2);
+
+        const [nonNewResultIds, newResultIds] = this.ankiConnectHelper.filterCards(
+          nonNewCardIds, newCardIds,
+          maxNonNewOldest, maxNonNewLatest, maxNewLatest
+        );
+
+        // creates a multi request of the following format:
+        // [cardInfo (nonNewCardIds, kanji 1), cardInfo (newCardIds, kanji 1), etc.]
+        actions.push(constructCardsInfoAction(nonNewResultIds));
+        actions.push(constructCardsInfoAction(newResultIds));
+      }
+
+      return await this.ankiConnectHelper.invoke("multi", {"actions": actions});
+    }
 
     async run() {
-      kanjiHover();
-    }
-  }
+      
 
+      const readingHTML = wordReading.innerHTML;
+
+      // uses cache if it already exists
+      let kanjiSet = new Set() // set of kanjis that requires api calls
+      // regex shamelessly stolen from cade's kanji hover:
+      // https://github.com/cademcniven/Kanji-Hover/blob/main/_kanjiHover.js
+      const regex = /([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g;
+      const matches = readingHTML.matchAll(regex);
+      for (const match of matches) {
+        kanjiSet.add(...match);
+      }
+
+      let kanjiDict = {};
+      let wordReadings = {}; // used only for the cache
+
+      // attempts to fill out the kanji dict with cached entries
+      for (let kanji of [...kanjiSet]) {
+        // also checks that the current word is not used
+        if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes(wordReadingHTML))) {
+          logger.debug(`Using cached kanji ${kanji}`)
+          kanjiDict[kanji] = kanjiHoverCache[kanji][1];
+          kanjiSet.delete(kanji);
+        }
+      }
+
+      // only calls the api on the needed kanjis
+      const kanjiArr = [...kanjiSet];
+      const queryResults = await this.cardQueries(kanjiArr);
+      const cardsInfo = await this.getCardsInfo(queryResults);
+
+      logger.debug(`New kanjis: [${kanjiArr.join(", ")}]`)
+
+      for (const [i, character] of kanjiArr.entries()) {
+        let nonNewCardInfo = cardsInfo[i*2];
+        let newCardInfo = cardsInfo[i*2 + 1];
+
+        // attempts to insert string
+        kanjiDict[character] = this.buildString(character, nonNewCardInfo, newCardInfo);
+        wordReadings[character] = this.getWordReadings(nonNewCardInfo, newCardInfo);
+      }
+
+      const re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
+      const resultHTML = readingHTML.replace(re, function (matched) {
+        return `<span data-kanji-hover="${matched}">${matched}</span>`
+      });
+
+      wordReading.innerHTML = resultHTML;
+
+      for (let kanji of Object.keys(kanjiDict)) {
+        for (let ele of document.querySelectorAll(`.dh-left__reading [data-kanji-hover="${kanji}"]`)) {
+          ele.innerText = "";
+          // cloneNode(true) in case of duplicate kanjis
+          ele.appendChild(kanjiDict[kanji].cloneNode(true));
+        }
+      }
+
+      // caches card
+      let cloneElement = wordReading.cloneNode(true)
+      cloneElement.removeAttribute("id");
+      kanjiHoverCardCache[cacheKey] = cloneElement;
+
+      for (const character of kanjiArr) {
+        kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
+      }
+
+      this.addBrowseOnClick();
+
+      
+    }
+
+    runMode() {
+      const mode = getSetting(['modules','kanji-hover','mode',],1);
+      if (mode === 0) {
+        this.run();
+      } else { // === 1
+        wordReading.onmouseover = (() => {
+          // replaces the function with a null function to avoid calling this function
+          wordReading.onmouseover = function() {}
+          this.run();
+        });
+      }
+    }
+
+
+    runAfterDelay() {
+
+      if (kanjiHoverEnabled) {
+        logger.debug("Kanji hover is already enabled");
+        return;
+      }
+      kanjiHoverEnabled = true;
+
+      if (cacheKey in kanjiHoverCardCache) {
+        logger.debug("Card was cached")
+        let cachedEle = kanjiHoverCardCache[cacheKey].cloneNode(true);
+        cachedEle.setAttribute("id", "dh_reading");
+        wordReading.parentNode.replaceChild(cachedEle, wordReading);
+        this.addBrowseOnClick();
+        return;
+      }
+
+      let delay = getSetting(['modules','kanji-hover','load-delay',],300);
+      if (delay === 0) {
+        this.runMode();
+      } else {
+        setTimeout(() => {
+          this.runMode();
+        }, delay);
+      }
+
+    }
+
+  }
 
   return JPMNKanjiHover;
 
 })();
 
 /// 
+
+
+
+
+
+
+
+// =================
+//  Tooltip Builder
+// =================
+
+// A required internal class used by other modules. Not used directly.
+const JPMNTooltipBuilder = (() => {
+
+  const logger = new JPMNLogger("tooltip-builder");
+
+  class JPMNTooltipBuilder {
+    constructor(displayPA=true, displayPAOnHover=true) {
+      this.autoPA = typeof JPMNAutoPA !== "undefined" ? new JPMNAutoPA(
+        /*attemptColor=*/false,
+        /*logLevelDecrease=*/1,
+        /*showTitle=*/false,
+        /*removeNasal=*/true
+      ) : null;
+
+      this.displayPA = displayPA;
+      this.displayPAOnHover = displayPAOnHover;
+
+      this.ankiConnectHelper = new JPMNAnkiConnectActions();
+    }
+
+    _buildWordDiv(wordReading, character, cardId=null) {
+
+      const wordDivWrapper = document.createElement('div');
+
+      const wordEle = document.createElement('span');
+      const re = / ?([^ >]+?)\[(.+?)\]/g
+
+      let wordReadingRuby = wordReading.replace(/&nbsp;/g, " ");
+      wordReadingRuby = wordReadingRuby.replace(re, "<ruby><rb>$1</rb><rt>$2</rt></ruby>");
+
+      if (character !== null) {
+        wordReadingRuby = wordReadingRuby.replace(new RegExp(character, "g"), `<b>${character}</b>`);
+      }
+
+      wordEle.innerHTML = wordReadingRuby;
+      wordEle.classList.add("hover-tooltip__word-div");
+      wordDivWrapper.appendChild(wordEle);
+
+      if (cardId !== null) {
+        wordEle.setAttribute("data-cid", cardId);
+      }
+
+      return wordDivWrapper;
+    }
+
+    // taken directly from anki's implementation of { {furigana:...} }
+    // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
+    buildWordDiv(wordReading, positionsHTML, ajtHTML, paOverrideHTML, paOverrideTextHTML, character, cardId=null) {
+
+      const wordDiv = this._buildWordDiv(wordReading, character, cardId);
+
+      if (this.displayPA && this.autoPA) {
+        const displayEle = document.createElement("span");
+        displayEle.classList.add("hover-tooltip__pitch-accent");
+        this.autoPA.addPosition(positionsHTML, ajtHTML, paOverrideHTML, paOverrideTextHTML, wordReading, displayEle)
+
+        wordDiv.appendChild(displayEle)
+      }
+
+      return wordDiv;
+    }
+
+    buildSentDiv(sentence) {
+      const sentenceDiv = document.createElement('div');
+      sentenceDiv.classList.add("hover-tooltip__sent-div");
+      sentenceDiv.classList.add("left-align-quote");
+
+      // in case the sentence is empty for some reason
+      if (sentence.length === 0) {
+        return sentenceDiv;
+      }
+
+      const sentenceSpan = document.createElement('span');
+      sentenceSpan.innerHTML = sentence;
+
+      const openQuote = document.createElement('span');
+      openQuote.innerText = "「";
+      const closeQuote = document.createElement('span');
+      closeQuote.innerText = "」";
+
+      sentenceDiv.appendChild(openQuote);
+      sentenceDiv.appendChild(sentenceSpan);
+      sentenceDiv.appendChild(closeQuote);
+
+      return sentenceDiv;
+    }
+
+    buildCardDiv(card, character, isNew=false) {
+      const cardDiv = document.createElement('div');
+
+      const wordDiv = this.buildWordDiv(
+        card["fields"]["WordReading"]["value"],
+        card["fields"]["PAPositions"]["value"],
+        card["fields"]["AJTWordPitch"]["value"],
+        card["fields"]["PAOverride"]["value"],
+        card["fields"]["PAOverrideText"]["value"],
+        character, card["cardId"]);
+
+      const sentenceDiv = this.buildSentDiv(card["fields"]["Sentence"]["value"]);
+
+      cardDiv.appendChild(wordDiv);
+      cardDiv.appendChild(sentenceDiv);
+
+      cardDiv.classList.add("hover-tooltip__card");
+      if (isNew) {
+        cardDiv.classList.add("hover-tooltip__card--new");
+      }
+      if (this.displayPAOnHover) {
+        cardDiv.classList.add("hover-tooltip__card-div--hover");
+      }
+
+
+      return cardDiv;
+    }
+
+    addBrowseOnClick(query) {
+      for (let ele of document.querySelectorAll(query)) {
+        let cid = ele.getAttribute("data-cid");
+        if (cid !== null) {
+          ele.onclick = () => {
+            //logger.warn(cid);
+            this.ankiConnectHelper.invoke("guiBrowse", {"query": `cid:${cid}`})
+          }
+          //ele.setAttribute("title", `Open this card in Anki`);
+          ele.classList.add("hover-tooltip__word-div--clickable");
+        }
+      }
+    }
+
+
+    //buildCardDiv(card, character, isNew=false) {
+    //  return _buildCardDiv(card, character, isNew);
+    //}
+  }
+
+
+
+
+  return JPMNTooltipBuilder;
+
+})();
+
+/// 
+
+
+
+
+
+
+
+const JPMNAnkiConnectActions = (() => {
+
+  const logger = new JPMNLogger("anki-connect-actions");
+
+  function constructFindCardAction(query) {
+    return {
+      "action": "findCards",
+      "params": {
+        "query": query,
+      }
+    }
+  }
+
+  function constructCardsInfoAction(idList) {
+    return {
+      "action": "cardsInfo",
+      "params": {
+        "cards": idList,
+      }
+    }
+  }
+
+  const keyHTML = document.getElementById("hidden_key").innerHTML;
+  const sentenceHTML = document.getElementById("hidden_sentence").innerHTML;
+  const cacheKey = `${keyHTML}.${sentenceHTML}`;
+
+
+  class JPMNAnkiConnectActions {
+    constructor() {
+      // this cache is destroyed on each card side
+      // but the cache allows the same result to be used if the function is called multiple times
+      // on one side
+      this.isNewCardLocalCache = null;
+    }
+
+    // https://github.com/FooSoft/anki-connect#javascript
+    invoke(action, params={}) {
+      let version = 6;
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('error', () => reject('AnkiConnect failed to issue request.'));
+        xhr.addEventListener('load', () => {
+          try {
+            const response = JSON.parse(xhr.responseText);
+            if (Object.getOwnPropertyNames(response).length != 2) {
+              throw 'response has an unexpected number of fields';
+            }
+            if (!response.hasOwnProperty('error')) {
+              throw 'response is missing required error field';
+            }
+            if (!response.hasOwnProperty('result')) {
+              throw 'response is missing required result field';
+            }
+            if (response.error) {
+              throw response.error;
+            }
+            resolve(response.result);
+          } catch (e) {
+            reject(e);
+          }
+        });
+
+        xhr.open('POST', 'http://127.0.0.1:8765');
+        xhr.send(JSON.stringify({action, version, params}));
+      });
+    }
+
+
+    filterCards(nonNewCardIds, newCardIds, maxNonNewOldest, maxNonNewLatest, maxNewLatest) {
+      const max = maxNonNewOldest + maxNonNewLatest + maxNewLatest;
+      if (nonNewCardIds.length + newCardIds.length <= max) {
+        return [nonNewCardIds, newCardIds];
+      }
+
+      // adjusts for when there can be other cards that can fit the space
+      // for example, 6 old & 0 new, or 0 old & 6 new
+      if (newCardIds.length < maxNewLatest) {
+        let diff = (maxNewLatest - newCardIds.length);
+        maxNonNewOldest += Math.floor(diff/2);
+        maxNonNewLatest += Math.floor(diff/2) + diff%2;
+      }
+      if (nonNewCardIds.length < (maxNonNewOldest + maxNonNewLatest)) {
+        maxNewLatest += ((maxNonNewOldest + maxNonNewLatest) - nonNewCardIds.length);
+      }
+
+      // non new: gets the earliest and latest
+      let nonNewResultIds = []
+      if (nonNewCardIds.length > maxNonNewOldest + maxNonNewLatest) {
+        nonNewResultIds = [
+          ...nonNewCardIds.slice(0, maxNonNewOldest), // earliest
+          ...nonNewCardIds.slice(-maxNonNewLatest, nonNewCardIds.length), // latest
+        ];
+      } else {
+        nonNewResultIds = [...nonNewCardIds];
+      }
+
+      let newResultIds = newCardIds.slice(0, maxNewLatest);
+      logger.debug(`(${maxNonNewOldest}, ${maxNonNewLatest}, ${maxNewLatest}) -> (${nonNewResultIds.length}, ${newResultIds.length})`, 2);
+
+      return [nonNewResultIds, newResultIds];
+    }
+
+
+    /* Escapes the string to be used in Anki-Connect queries */
+    escapeStr(s) {
+      return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    }
+
+
+    async query(queryStr, cache=true) {
+      logger.debug("Attempting query: `" + queryStr + "`", 1);
+      if (cache && queryStr in cardQueryCache) {
+        logger.debug(`Using cached query result for ${queryStr}`, 2);
+        return cardQueryCache[queryStr];
+      }
+
+      let cardIds = await this.invoke("findCards", {"query": queryStr});
+      if (cache) {
+        cardQueryCache[queryStr] = Array.from(cardIds); // shallow copy
+      }
+      return cardIds;
+
+    }
+
+
+    async cardsInfo(cardIds, cache=true) {
+      if (cardIds.length === 0) {
+        return cardIds;
+      }
+
+      let result = [];
+      let searchCards = [];
+      let mustSearchMap = {};
+
+      if (cache) {
+        for (const [i, cid] of cardIds.entries()) {
+          if (cid in cardsInfoCache) {
+            logger.debug(`Using cached cardsInfo result for ${cid}`, 2);
+            result.push(cardsInfoCache[cid]);
+          } else {
+            result.push(0);
+            searchCards.push(cid);
+            mustSearchMap[cid] = i;
+          }
+        }
+      } else {
+        searchCards = cardIds;
+      }
+
+      if (searchCards.length > 0) {
+        const cardsInfo = await this.invoke("cardsInfo", {"cards": searchCards});
+        if (!cache) {
+          return cardsInfo;
+        }
+
+        // uses cache
+        for (const [i, cid] of searchCards.entries()) {
+          const j = mustSearchMap[cid];
+          result[j] = cardsInfo[i];
+          cardsInfoCache[cid] = cardsInfo[i];
+        }
+      }
+
+      return result;
+    }
+
+    async queryAndCardsInfo(queryStr, cacheQuery=true, cacheCardInfo=true) {
+      let cardIds = await this.query(queryStr, cacheQuery);
+      return await this.cardsInfo(cardIds, cacheCardInfo);
+    }
+
+    async cardIsNew() {
+
+      // refreshes on every new check, b/c one cannot assume that a card
+      if (cacheKey in isNewCardCache && !isNewCardCache[cacheKey]) {
+        logger.debug("Key in new card cache and is not new.");
+        return false;
+      }
+
+      if (this.isNewCardLocalCache !== null) {
+        return this.isNewCardLocalCache;
+      }
+      logger.debug("Testing for new card...", 2);
+
+      const cardTypeName = 'Mining Card';
+      //const cid = await this.getDisplayedCardId();
+      //if (cid === 0) {
+      //  return false;
+      //}
+      //const query = `is:new cid:${cid} "card:${cardTypeName}"`
+      const query = `is:new ${this.getKeySentQuery()} "card:${cardTypeName}"`
+      const result = await this.query(query, /*cache=*/false);
+      const isNew = (result.length > 0);
+      logger.debug(`is new: query: ${query}, result: ${result}, isNew: ${isNew}`, 1);
+
+      isNewCardCache[cacheKey] = isNew;
+      this.isNewCardLocalCache = isNew;
+
+      return isNew;
+    }
+
+    getKeySentQuery() {
+      let keyText = this.escapeStr(keyHTML);
+      let sentenceSearch = this.escapeStr(sentenceHTML);
+      let query = `"Key:${keyText}" "Sentence:${sentenceSearch}"`
+      return query;
+    }
+
+    /*
+     * Attempts to get the displayed card using the combination of the key and sentence.
+     *
+     * This function makes no assumption that the Key field is unique,
+     * and was in fact made specifically to get the card even if the Key field is not unique.
+     *
+     * Returns 0 if cannot find the displayed card
+     */
+    async _getDisplayedCardId() {
+      //let currentCard = null;
+      //let validErrMsg = "Gui review is not currently active.";
+
+      //try {
+      //  currentCard = await this.invoke("guiCurrentCard");
+      //} catch (error) {
+      //  // the error is apparently a string?
+      //  if (error !== validErrMsg) {
+      //    throw error;
+      //  }
+      //}
+
+      //if (currentCard !== null) {
+      //  return currentCard.cardId;
+      //}
+
+      const cardTypeName = 'Mining Card';
+      const noteName = 'JP Mining Note';
+
+      let cachable = true;
+
+      let keyText = this.escapeStr(keyHTML);
+      let sentenceSearch = this.escapeStr(sentenceHTML);
+
+      // query with sentence and key
+      let query = `"Key:${keyText}" "Sentence:${sentenceSearch}" "card:${cardTypeName}" "note:${noteName}"`;
+      let result = await this.query(query);
+
+      if (result.length >= 1) {
+        if (result.length >= 2) {
+          logger.warn("Found multiple cards with the same Key and Sentence."); // why
+          cachable = false;
+        }
+        return [result[0], cachable];
+      }
+      cachable = false;
+
+      // last try query (why would this not work)
+      query = `"Key:${keyText}" "card:${cardTypeName}" "note:${noteName}"`;
+      result = await this.query(query);
+
+      if (result.length >= 1) {
+        if (result.length >= 2) {
+          logger.warn("Found multiple cards with the same Key.");
+        }
+        return [result[0], cachable];
+      }
+
+      // result.length === 0
+      logger.warn("Cannot get displayed card ID.");
+      return [0, cachable];
+
+    }
+
+    async getDisplayedCardId() {
+      if (cacheKey in cardIdCache) {
+        return cardIdCache[cacheKey];
+      }
+
+      const [cid, cachable] = await this._getDisplayedCardId();
+      if (cachable) {
+        cardIdCache[cacheKey] = cid;
+      }
+      return cid;
+    }
+
+
+  }
+
+  return JPMNAnkiConnectActions;
+
+})();
+
+/// 
+
 
 
 
@@ -1640,280 +2294,99 @@ const JPMNKanjiHover = (() => {
 
 const JPMNAutoPA = (() => {
 
+  class DispPosData {
+    constructor() {
+      this.posHTML = null;
+      //this.posList = null;
+      //this.posData = null;
+      this.posDataList = [];
+      this.dict = null;
+      this.readingMora = [];
+    }
+
+    hasData() {
+      //return (this.posHTML !== null) || (this.posList !== null);
+      return (this.posHTML !== null) || (this.posDataList.length > 0);
+    }
+
+    toString() {
+      return `DispPosData(dict="${this.dict}", posHTML="${this.posHTML}", posDataList=${this.posDataList})`;
+    }
+
+    // searches for first bolded
+    // if no bolded -> returns first item
+    getFirstPos() {
+      if (this.posDataList.length === 0) {
+        return null;
+      }
+
+      for (const posData of this.posDataList) {
+        if (posData.bolded) {
+          return posData;
+        }
+      }
+
+      return this.posDataList[0];
+    }
+
+    hasBoldedPos() {
+      for (const posData of this.posDataList) {
+        if (posData.bolded) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+  }
+
+
+  class PosData {
+    constructor(pos, bolded=false, mainPos=false) {
+      this.pos = pos;
+      this.bolded = bolded;
+      this.mainPos = mainPos;
+      this.readingMora = [];
+      this.separator = null;
+    }
+
+    toString() {
+      let data = ""
+      if (this.bolded) {
+        data += "*";
+      }
+      data += this.pos;
+      if (this.readingMora.length) {
+        data += ` | ${this.readingMora}`;
+      }
+      return `PosData(${data})`;
+    }
+  }
 
   const logger = new JPMNLogger("auto-pitch-accent");
 
-  const ele = document.getElementById("hidden_pa_positions");
-  const eleAJT = document.getElementById("hidden_ajt_word_pitch");
-  const eleOverride = document.getElementById("hidden_pa_override");
-  const eleDisp = document.getElementById("dh_word_pitch");
+  //const ele = document.getElementById("hidden_pa_positions");
+  //const eleAJT = document.getElementById("hidden_ajt_word_pitch");
+  //const eleOverride = document.getElementById("hidden_pa_override");
+  //const eleDisp = document.getElementById("dh_word_pitch");
 
-  // returns null if cannot find anything
-  // otherwise, returns (position (int), dict_name (str))
-  // dict_name can be null
-  function getPosition() {
-    let digit = null;
 
-    if (ele === null) {
-      return null;
+  function createDivIfStr(x) { /* just as a wrapper function */
+    if (typeof x === 'string' || x instanceof String) {
+      let ele = document.createElement('div');
+      ele.innerHTML = x;
+      return ele;
     }
-
-    // first checks pa override
-    digit = eleOverride.innerText.match(/\d+/)
-    if (digit !== null) {
-      return [Number(digit), "override"];
-    }
-
-    let searchHTML = null;
-    let dictName = null;
-    if ((ele.children.length > 0)
-        && (ele.children[0] !== null)
-        && (ele.children[0].nodeName === "DIV")
-        && (ele.children[0].classList.contains("pa-positions__group"))
-    ) {
-      // stylized by jpmn standards, walks through
-
-      // <div class="pa-positions__group" data-details="NHK">
-      //   <div class="pa-positions__dictionary"><div class="pa-positions__dictionary-inner">NHK</div></div>
-      //   <ol>
-      //     <li>
-      //       <span style="display: inline;"><span>[</span><span>1</span><span>]</span></span>
-      //     </li>
-      //   </ol>
-      // </div>
-      // ...
-
-      dictName = ele.children[0].getAttribute("data-details");
-
-      // searches for a bolded element
-      let first = true;
-      let found = false;
-      for (const groupDiv of ele.children) {
-        for (const liEle of groupDiv.children[1].children) {
-          if (first) {
-            first = false;
-            searchHTML = liEle.innerHTML;
-          }
-          if (liEle.innerHTML.includes("<b>")) {
-            searchHTML = liEle.innerHTML;
-            dictName = groupDiv.getAttribute("data-details") + " (bold)";
-            found = true;
-            break;
-          }
-        }
-
-        if (found) {
-          break;
-        }
-      }
-
-    } else {
-      // just search for any digit in the element
-      searchHTML = ele.innerHTML;
-    }
-
-    digit = searchHTML.match(/\d+/);
-    if (digit === null) {
-      return null;
-    }
-
-    return [Number(digit), dictName];
-  }
-
-  // taken directly from anki's implementation of { {kana:...} }
-  // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
-  function getReadingKana() {
-    const readingStr = document.getElementById("hidden_word_reading").innerHTML;
-
-    const re = / ?([^ >]+?)\[(.+?)\]/g
-
-    //let result = readingStr.replaceAll("&nbsp;", " ");
-    let result = readingStr.replace(/&nbsp;/g, " ");
-    result = readingStr.replace(re, "$2");
-
-    return result;
-  }
-
-  const EXTENDED_VOWELS = {
-    "ア": "ナタサカワラヤマハャパバダザガ",
-    "イ": "ニチシキリミヒピビヂジギ" + "ネテセケレメヘペベデゼゲ",
-    "ウ": "ヌツスクルユムフュプブヅズグ" + "ノトソコヲロヨモホョポボドゾゴ",
-    "エ": "ネテセケレメヘペベデゼゲ",
-    "オ": "ノトソコヲロヨモホョポボドゾゴ",
-  };
-
-  // function name gore :sob:
-  function convertHiraganaToKatakanaWithLongVowelMarks(reading) {
-    // converts to katakana and changes vowels to extended vowel form
-    const katakana = convertHiraganaToKatakana(reading);
-    let result = [...katakana];
-
-    for (let i = 1; i < result.length; i++) {
-      if (result[i] in EXTENDED_VOWELS && EXTENDED_VOWELS[result[i]].includes(result[i-1])) {
-        result[i] = "ー";
-      }
-    }
-
-    return result.join("");
+    return x;
   }
 
 
-  function getMoras(readingKana) {
-    // creates div
-    const ignoredKana = "ょゅゃョュャ";
-    const len = [...readingKana].length;
 
-    // I think the plural of mora is mora, but oh well
-    let moras = [];
-
-    let currentPos = 0;
-    while (currentPos < len) {
-      // checks next kana to see if it's a combined mora (i.e. きょ)
-      // ignoredKana.includes(...) <=> ... in ignoredKana
-      if (currentPos !== (len-1) && ignoredKana.includes(readingKana[currentPos+1])) {
-        moras.push(readingKana.substring(currentPos, currentPos+2));
-        currentPos++;
-      } else {
-        moras.push(readingKana[currentPos])
-      }
-      currentPos++;
-    }
-
-    return moras;
-  }
-
-
-  const LONG_VOWEL_MARKER_TO_VOWEL = {
-    "アナタサカワラヤマハャパバダザガ": "ア",
-    "イニチシキリミヒピビヂジギ":       "イ",
-    "ウヌツスクルユムフュプブヅズグ":   "ウ",
-    "エネテセケレメヘペベデゼゲ":       "イ", // "エ",
-    "ノトソコヲロヨモホョポボドゾゴ":   "ウ", // "オ",
-    "オ": "オ", // "オ",
-  }
-
-  function normalizeAJTHTML() {
-    // replaces all long katakana markers with the respective normal katakana symbol
-    // also removes all ꜜ (remember that we can search for downsteps from the now empty div)
-
-    let result = eleAJT.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
-    result = result.replace(/<b>/g, "");
-    result = result.replace(/<\/b>/g, "");
-
-    // replaces all nasal entries
-    if (result.includes("nasal")) {
-      const unmarked = "カキクケコ";
-      const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
-
-      // 5 is length of unmarked and marked
-      for (let i = 0; i < 5; i++) {
-        result = result.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
-      }
-    }
-    logger.assert(!result.includes("nasal"));
-
-    result = [...result];
-
-
-    let first = null;
-    let second = null;
-
-    for (const [i, c] of result.entries()) {
-      if (isCodePointInRange(c.codePointAt(0), KATAKANA_RANGE)) {
-        if (first === null) {
-          first = c;
-        } else if (second === null) {
-          second = c;
-        } else {
-          // pushes back
-          first = second;
-          second = c;
-        }
-
-        if (first !== null && second !== null && second === "ー") {
-          let found = false;
-          for (const [searchStr, vowel] of Object.entries(LONG_VOWEL_MARKER_TO_VOWEL)) {
-            if (searchStr.includes(first)) {
-              result[i] = vowel;
-              found = true;
-              break;
-            }
-          }
-
-          if (!found) {
-            logger.debug(`Cannot find replacement! ${first} ${second}`);
-          }
-        }
-      }
-    }
-
-    return result.join("");
-  }
-
-
-  function getAJTWord(hiraganaReading) {
-    const normalizedReading = convertHiraganaToKatakana(hiraganaReading);
-    // grabs the raw html split between the ・ characters
-    // ASSUMPTION: no html element is split between the ・ characters
-    // (apart from <b>, which are ignored)
-
-    if (eleAJT.innerHTML.length === 0) {
-      logger.debug(`AJT word: empty field`);
-      return null;
-    }
-
-    // normalizes the ajt search string
-    const ajtHTML = normalizeAJTHTML();
-    // removes any bold in case it messes with the formatting
-    const resultSearchHTML = eleAJT.innerHTML.replace(/<b>/g, "").replace(/<\/b>/g, "");
-
-    // temp used for innerText
-    let temp = document.createElement("div");
-    temp.innerHTML = ajtHTML;
-    const searchString = temp.innerText;
-    const wordSearch = searchString.split("・");
-    const idx = wordSearch.indexOf(normalizedReading)
-
-    if (idx === -1) {
-      logger.debug(`AJT word: ${normalizedReading} not found among [${wordSearch.join(", ")}]`);
-      return null;
-    }
-
-    if (wordSearch.length === 1) {
-      return resultSearchHTML;
-    }
-
-    // otherwise searches on the raw html
-    let startIdx = 0;
-    let endIdx = 0;
-    let currentWord = 0;
-    for (const [i, c] of [...resultSearchHTML].entries()) {
-      if (c === "・") {
-        currentWord += 1;
-
-        if (currentWord === idx) {
-          startIdx = i+1;
-        } else if (currentWord === idx+1) {
-          endIdx = i;
-          break
-        }
-      }
-    }
-
-    if (endIdx === 0) {
-      endIdx = resultSearchHTML.length
-    }
-
-    result = resultSearchHTML.substring(startIdx, endIdx);
-
-    return result;
-  }
-
-  function hasPAColorTags() {
+  function applyPAColorTags() {
     // applies color tags as well if they exist
 
-    const tagsEle = document.getElementById("tags");
-    const tags = tagsEle.innerText.split(" ");
+    //const tagsEle = document.getElementById("tags");
+    //const tags = tagsEle.innerText.split(" ");
     const COLOR_TAGS = {
       "平板": "heiban",
       "heiban": "heiban",
@@ -1932,7 +2405,7 @@ const JPMNAutoPA = (() => {
     }
 
     for (ct of Object.keys(COLOR_TAGS)) {
-      if (tags.includes(ct)) {
+      if (TAGS_LIST.includes(ct)) {
         paintDisplay(COLOR_TAGS[ct]);
         return true;
       }
@@ -1956,7 +2429,7 @@ const JPMNAutoPA = (() => {
       // a sentence that wasn't highlighted already.
       const sentences = document.querySelectorAll(".expression--sentence.highlight-bold")
       if (sentences !== null) {
-        for (let sent of sentences) {
+        for (const sent of sentences) {
           sent.classList.add(sentClass);
         }
       }
@@ -1964,7 +2437,7 @@ const JPMNAutoPA = (() => {
       // adds to display word
       const words = document.querySelectorAll(".expression--word")
       if (words !== null) {
-        for (let word of words) {
+        for (const word of words) {
           word.classList.add(wordClass);
         }
       }
@@ -1977,248 +2450,823 @@ const JPMNAutoPA = (() => {
     }
   }
 
-  function getMorasOfAJTWord(ajtWord) {
+  class JPMNAutoPA {
 
-    let result = [];
+    constructor(attemptColor=true, logLevelDecrease=0, showTitle=true, removeNasal=false) {
+      // attempts to color according to pitch accent groups
+      this.attemptColor = (attemptColor &&
+          getSetting(['modules','auto-pitch-accent','colored-pitch-accent','enabled',],false));
 
-    // temp element to iterate through childnodes of ajt word
-    const temp = document.createElement("div");
+      this.jpUtils = new JPMNJPUtils();
+      this.logLvl = 3 - logLevelDecrease;
+      this.showTitle = showTitle;
+      this.removeNasal = removeNasal;
+    }
 
-    // temp element to store the flattened version of the ajt word div
-    // and for converting into a list of moras
-    const temp2 = document.createElement("div");
-    temp.innerHTML = ajtWord;
 
-    // removes pitch accent overline and downstep
-    for (const x of temp.childNodes) {
-      if (x.nodeName === "SPAN" && x.classList.contains("pitchoverline")) {
-        for (const child of x.childNodes) {
-          temp2.appendChild(child.cloneNode(true));
+    // taken directly from anki's implementation of { {kana:...} }
+    // https://github.com/ankitects/anki/blob/main/rslib/src/template_filters.rs
+    getReadingKana() {
+      const readingStr = this.readingEle.innerHTML;
+
+      const re = / ?([^ >]+?)\[(.+?)\]/g
+
+      //let result = readingStr.replaceAll("&nbsp;", " ");
+      let result = readingStr.replace(/&nbsp;/g, " ");
+      result = readingStr.replace(re, "$2");
+
+      return result;
+    }
+
+    /* takes a list of children, separates positions into bolded and unbolded */
+    calcPositionsFromChildren(searchChildren) {
+      let result = [];
+      let foundBold = false;
+
+      for (const c of searchChildren) {
+        let digit = c.innerHTML.match(/\d+/);
+        if (digit === null) {
+          logger.debug(`Skipping invalid value? ${c.innerHTML}`, this.logLvl);
+          continue;
         }
-      } else if (x.nodeName === "SPAN" && x.classList.contains("downstep")) {
-        // skips
-      } else {
-        temp2.appendChild(x.cloneNode(true));
+
+        let bolded = c.innerHTML.includes("<b>");
+        let posData = new PosData(Number(digit), bolded);
+
+        if (bolded && !foundBold) {
+          posData.mainPos = true;
+          foundBold = true;
+        }
+
+        result.push(posData);
       }
-    }
 
-    // combines the devoiced character into one mora, if it can
-    // (e.g. 神出鬼没 (しんしゅつきぼつ) only has the 2nd (し) devoiced, instead of (しゅ)
-    // シ<span class="pitchoverline">ン<span class="nopron">シ</span>ュツキボツ</span>
-    if (ajtWord.includes("nopron")) {
-      // crazy regex replace
-      temp2.innerHTML = temp2.innerHTML.replace(
-        /<span class="nopron">(.)<\/span>([ュャョ])/g,
-        '<span class="nopron">$1$2<\/span>'
-      );
-    }
-
-    for (const x of temp2.childNodes) {
-      if (x.nodeName === "#text") {
-        const moras = getMoras(x.data);
-        result = result.concat(moras);
-      } else if (x.nodeName === "SPAN" && x.classList.contains("nasal")) {
-        // assumption: there already exists at least one element before
-        // (the nasal marker can't come by itself)
-        result[result.length-1] = result[result.length-1] + x.outerHTML;
-      } else {
-        // assumption: this is the nopron span
-        result.push(x.outerHTML);
+      // bolds first entry if if:
+      // - bold not found
+      // - only one entry found
+      // - if two entries found and option allows it
+      const setFirstPitchMain = getSetting(['modules','auto-pitch-accent','pa-positions','set-first-pitch-as-main',],true);
+      if (!foundBold && ((result.length > 1 && setFirstPitchMain) || (result.length === 1))) {
+        result[0].mainPos = true;
       }
+
+      return result;
     }
 
-    return result;
+    /* takes a list of children, attempts to find first bolded, if not found: use first item */
+    calcMainPosFromChildren(searchChildren) {
+      let firstDigit = null;
 
-  }
+      for (const c of searchChildren) {
+        let digit = c.innerHTML.match(/\d+/);
+        if (digit === null) {
+          logger.debug(`Skipping invalid value? ${c.innerHTML}`, this.logLvl);
+          continue;
+        }
 
-  function buildReadingSpan(pos, readingKana) {
-    // creates the span to show the pitch accent overline
-    // (and attempts to get any existing nasal / devoiced things from the AJT pitch accent plugin)
+        if (firstDigit === null) {
+          firstDigit = Number(digit);
+        }
 
-    let ajtWord = null;
-    if (getSetting(['modules','auto-pitch-accent','search-for-ajt-word',],true)) {
-      ajtWord = getAJTWord(readingKana);
+        if (c.innerHTML.includes("<b>")) {
+          return new PosData(Number(digit), true, true);
+        }
+      }
+
+      return new PosData(firstDigit, false, true);
     }
 
-    let result = [];
-    let normalizedReading = null;
+    calcDispPosDataFromJPMNPositions() {
+      // stylized by jpmn standards, walks through
 
-    if (ajtWord !== null) {
-      logger.debug("Using AJT Word");
-      result = getMorasOfAJTWord(ajtWord);
-    } else {
-      logger.debug(`Using reading from WordReading field`);
+      // <div class="pa-positions__group" data-details="NHK"> <!-- === groupDiv -->
+      //   <div class="pa-positions__dictionary"><div class="pa-positions__dictionary-inner">NHK</div></div>
+      //   <ol> <!-- === groupDiv.children[1] -->
+      //     <li>
+      //       <span style="display: inline;"><span>[</span><span>1</span><span>]</span></span>
+      //     </li>
+      //   </ol>
+      // </div>
+      // ...
 
+      let result = new DispPosData();
+      let searchChildren = null;
+
+      // searches for a bolded element
+      for (const groupDiv of this.positionsEle.children) {
+        for (const liEle of groupDiv.children[1].children) {
+          if (liEle.innerHTML.includes("<b>")) {
+            searchChildren = groupDiv.children[1].children;
+            result.dict = groupDiv.getAttribute("data-details");
+            break;
+          }
+        }
+
+        if (searchChildren !== null) {
+          break;
+        }
+      }
+
+      if (searchChildren === null) {
+        const groupDiv = this.positionsEle.children[0];
+        result.dict = groupDiv.getAttribute("data-details");
+        searchChildren = groupDiv.children[1].children;
+      }
+
+      if (getSetting(['modules','auto-pitch-accent','pa-positions','display-entire-dictionary',],false)) {
+        result.posDataList = this.calcPositionsFromChildren(searchChildren);
+      } else {
+        result.posDataList = [this.calcMainPosFromChildren(searchChildren)];
+      }
+      return result;
+    }
+
+
+    /*
+     * calculates display data from the PAPositions field
+     *
+     * - iterates through all lists to find the first list with bold
+     * - if nothing bolded, picks first list found
+     *
+     * - returns first pitch accent, or entire list (depending on the RTO)
+     */
+    calcDispPosDataFromPositions() {
+      // ensures the field is usable
+      if (this.positionsEle === null || this.positionsEle.innerHTML.length === 0
+          || this.positionsEle.children.length === 0) {
+        return new DispPosData();
+      }
+
+      if ((this.positionsEle.children[0] !== null)
+          && (this.positionsEle.children[0].nodeName === "DIV")
+          && (this.positionsEle.children[0].classList.contains("pa-positions__group"))
+      ) {
+        return this.calcDispPosDataFromJPMNPositions();
+      }
+
+      // just search for any digit in the element
+      let searchHTML = this.positionsEle.innerHTML;
+      let digit = searchHTML.match(/\d+/);
+      if (digit === null) {
+        return new DispPosData();
+      }
+
+      let result = new DispPosData();
+      let posData = new PosData(Number(digit));
+      posData.mainPos = true;
+      result.posDataList.push(posData)
+      result.dict = "PAPositions";
+      return result;
+    }
+
+
+    removeNasalStr(string) {
+      if (string.includes("nasal")) {
+
+        const unmarked = "カキクケコ";
+        const marked = "ガギグゲゴ"; // I actually don't know what the two ticks are called
+
+        // 5 is length of unmarked and marked
+        for (let i = 0; i < 5; i++) {
+          string = string.replace(new RegExp(`${unmarked[i]}<span class="nasal">°</span>`, "g"), marked[i]);
+        }
+      }
+
+      logger.assert(!string.includes("nasal"));
+      return string;
+    }
+
+
+    normalizeAJTHTML() {
+      // replaces all long katakana markers with the respective normal katakana symbol
+      // also removes all ꜜ (remember that we can search for downsteps from the now empty div)
+
+      let result = this.ajtEle.innerHTML.replace(/&#42780/g, "").replace(/ꜜ/g, "");
+      result = result.replace(/<b>/g, "");
+      result = result.replace(/<\/b>/g, "");
+
+      result = this.removeNasalStr(result);
+
+      result = [...result];
+
+
+      let first = null;
+      let second = null;
+
+      for (const [i, c] of result.entries()) {
+        if (this.jpUtils.isCodePointInRange(c.codePointAt(0), this.jpUtils.KATAKANA_RANGE)) {
+          if (first === null) {
+            first = c;
+          } else if (second === null) {
+            second = c;
+          } else {
+            // pushes back
+            first = second;
+            second = c;
+          }
+
+          if (first !== null && second !== null && second === "ー") {
+            let found = false;
+            for (const [searchStr, vowel] of Object.entries(this.jpUtils.LONG_VOWEL_MARKER_TO_VOWEL)) {
+              if (searchStr.includes(first)) {
+                result[i] = vowel;
+                found = true;
+                break;
+              }
+            }
+
+            if (!found) {
+              logger.debug(`Cannot find replacement! ${first} ${second}`, this.logLvl);
+            }
+          }
+        }
+      }
+
+      return result.join("");
+    }
+
+
+
+    getMoraeOfAJTWord(ajtWord) {
+
+      let result = [];
+
+      // temp element to iterate through childnodes of ajt word
+      const temp = document.createElement("div");
+
+      // temp element to store the flattened version of the ajt word div
+      // and for converting into a list of moras
+      const temp2 = document.createElement("div");
+      temp.innerHTML = ajtWord;
+
+      // removes pitch accent overline and downstep
+      for (const x of temp.childNodes) {
+        if (x.nodeName === "SPAN" && x.classList.contains("pitchoverline")) {
+          for (const child of x.childNodes) {
+            temp2.appendChild(child.cloneNode(true));
+          }
+        } else if (x.nodeName === "SPAN" && x.classList.contains("downstep")) {
+          // skips
+        } else {
+          temp2.appendChild(x.cloneNode(true));
+        }
+      }
+
+      // combines the devoiced character into one mora, if it can
+      // (e.g. 神出鬼没 (しんしゅつきぼつ) only has the 2nd (し) devoiced, instead of (しゅ)
+      // シ<span class="pitchoverline">ン<span class="nopron">シ</span>ュツキボツ</span>
+      if (ajtWord.includes("nopron")) {
+        // crazy regex replace
+        temp2.innerHTML = temp2.innerHTML.replace(
+          /<span class="nopron">(.)<\/span>([ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ])/g,
+          '<span class="nopron">$1$2<\/span>'
+        );
+      }
+
+      for (const x of temp2.childNodes) {
+        if (x.nodeName === "#text") {
+          const moras = this.jpUtils.getMorae(x.data);
+          result = result.concat(moras);
+        } else if (x.nodeName === "SPAN" && x.classList.contains("nasal")) {
+          // assumption: there already exists at least one element before
+          // (the nasal marker can't come by itself)
+          result[result.length-1] = result[result.length-1] + x.outerHTML;
+        } else {
+          // assumption: this is the nopron span
+          result.push(x.outerHTML);
+        }
+      }
+
+      return result;
+
+    }
+
+
+    getAJTWord(hiraganaReading) {
+      const normalizedReading = this.jpUtils.convertHiraganaToKatakana(hiraganaReading);
+      // grabs the raw html split between the ・ characters
+      // ASSUMPTION: no html element is split between the ・ characters
+      // (apart from <b>, which are ignored)
+
+      if (this.ajtEle.innerHTML.length === 0) {
+        logger.debug(`AJT word: empty field`, this.logLvl);
+        return null;
+      }
+
+      // normalizes the ajt search string
+      const ajtHTML = this.normalizeAJTHTML();
+      // removes any bold in case it messes with the formatting
+      const resultSearchHTML = this.ajtEle.innerHTML.replace(/<b>/g, "").replace(/<\/b>/g, "");
+
+      // temp used for innerText
+      let temp = document.createElement("div");
+      temp.innerHTML = ajtHTML;
+      const searchString = temp.innerText;
+      const wordSearch = searchString.split(/[・、]/g);
+      const idx = wordSearch.indexOf(normalizedReading);
+
+      if (idx === -1) {
+        logger.debug(`AJT word: ${normalizedReading} not found among [${wordSearch.join(", ")}]`, this.logLvl);
+        return null;
+      }
+
+      let result = null;
+      if (wordSearch.length == 1) {
+        result = resultSearchHTML;
+      } else {
+        // otherwise searches on the raw html
+        let startIdx = 0;
+        let endIdx = 0;
+        let currentWord = 0;
+        for (const [i, c] of [...resultSearchHTML].entries()) {
+          if (c === "・" || c === "、") {
+            currentWord += 1;
+
+            if (currentWord === idx) {
+              startIdx = i+1;
+            } else if (currentWord === idx+1) {
+              endIdx = i;
+              break
+            }
+          }
+        }
+
+        if (endIdx === 0) {
+          endIdx = resultSearchHTML.length
+        }
+
+        result = resultSearchHTML.substring(startIdx, endIdx);
+      }
+
+      if (this.removeNasal) {
+        result = this.removeNasalStr(result);
+      }
+
+      return result;
+    }
+
+    parseIntegerList() {
+      // attempts to get a CSV of digit
+      // this makes many assumptions about the format:
+      // - csv
+      // - spaces removed doesn't affect html
+      // - if bold: per element and not across elements
+
+      let result = []
+      let foundBold = false;
+
+      let searchHTML = this.overrideEle.innerHTML.replace(/\s+/g, "")
+      const posStrList = searchHTML.split(",");
+
+      for (const pos of posStrList) {
+        if (pos.includes("<b>")) {
+          let integer = pos.match(/[-]?\d+/);
+          let posData = new PosData(Number(integer), true);
+          if (!foundBold) {
+            foundBold = true;
+            posData.mainPos = true;
+          }
+          result.push(posData);
+
+        } else {
+          let posNumber = Number(pos)
+          if (!Number.isNaN(posNumber)) {
+            let posData = new PosData(Number(pos));
+            result.push(posData);
+          }
+        }
+      }
+
+      if (!foundBold && result.length > 0) {
+        result[0].mainPos = true;
+      }
+
+      return result;
+    }
+
+
+    parseTextFormat() {
+      let result = []
+
+      const separators = getSetting(['modules','auto-pitch-accent','pa-override','separators',],['・', '、']);
+      const downsteps = getSetting(['modules','auto-pitch-accent','pa-override','downstep-markers',],['＼']);
+      const heiban = getSetting(['modules','auto-pitch-accent','pa-override','heiban-markers',],['￣']);
+
+      const separatorsRegex = RegExp("[" + separators.join("") + "]", "g");
+
+      // attempts to separate "・"
+      // Bolded text and main pos (colored pitch accent) is not supported in this format.
+      // Therefore, we use the text instead of the HTML
+      let searchText = this.overrideEle.innerText.replace(/\s+/g, "")
+      let strList = searchText.split(separatorsRegex);
+      let foundSeparators = searchText.match(separatorsRegex);
+
+      for (const [i, word] of strList.entries()) {
+        // moras here are only used for calculating the position of the downstep
+        let moras = this.jpUtils.getMorae(word);
+
+        // checks for where downstep (＼) exists
+        let pos = null;
+        let j = 0;
+        while (j < moras.length) {
+          const mora = moras[j];
+          if (downsteps.includes(mora)) {
+            if (pos !== null) {
+              if (getSetting(['modules','auto-pitch-accent','pa-override','warn-on-invalid-format',],true)) {
+                logger.warn(`More than one downstep marker used in ${word}`);
+              }
+            } else {
+              pos = j;
+            }
+            moras.splice(j, 1); // removes the element from the moras list
+          } else {
+            j++;
+          }
+        }
+
+        if (heiban.includes(moras[moras.length-1])) {
+          moras.splice(moras.length-1, 1);
+
+          if (pos === null) {
+            pos = 0;
+          } else {
+            if (getSetting(['modules','auto-pitch-accent','pa-override','warn-on-invalid-format',],true)) {
+              logger.warn(`Cannot use both downstep and heiban markers in ${word}`);
+            }
+            continue;
+          }
+        }
+
+        // no downstep found: 平板 (0)
+        if (pos === null) {
+          if (getSetting(['modules','auto-pitch-accent','pa-override','heiban-marker-required',],true)) {
+            logger.warn(`Heiban marker not found in ${word}`);
+            continue;
+          } else {
+            pos = 0;
+          }
+        }
+
+        // calculates the display moras
+        // differs from the above moras because by removing the downstep marker and
+        // heiban marker, this allows the reading to be searchable within the
+        // AJT word pitch
+        const displayMoras = this.normalizeReadingGetMoras(moras.join(""));
+
+        let posData = new PosData(pos);
+        posData.readingMora = displayMoras;
+        if (foundSeparators !== null && i < foundSeparators.length) {
+          posData.separator = foundSeparators[i];
+        }
+
+        result.push(posData);
+      }
+
+      const setFirstPitchMain = getSetting(['modules','auto-pitch-accent','pa-override','text-format-set-first-pitch-as-main',],false);
+      if (result.length === 1 || (result.length > 1 && setFirstPitchMain)) {
+        result[0].mainPos = true;
+      }
+
+      return result;
+
+    }
+
+    /*
+     * supported formats:
+     * - csv integers
+     * - text separated with "・" and downstep marked with ＼
+     * - integers allow bolded characters, text does not
+     *    - what the bold does is notably different from the edge case of AJT Word pitch
+     * - for simplicity, formats cannot be mixed in one field!
+     *    - number detected -> attempt to parse as csv numbers
+     *    - number not detected -> attempt to parse as text with "・" and "＼"
+     *
+     * examples:
+     *     1
+     *     -1
+     *     1, 3, 4, 5
+     *     1,<b>3</b>, 4,5
+     *     じ＼んせい
+     *     ここ＼ろ・こころ＼
+     *     <b>ここ＼ろ</b>・こころ＼
+     *
+     * returns list of positions, or empty list if nothing found
+     */
+    calcPosDataListFromOverride() {
+
+      // removes whitespace
+      let result = []
+      const firstInteger = this.overrideEle.innerText.match(/^[-]?\d+/);
+
+      if (firstInteger !== null) {
+        result = this.parseIntegerList();
+      } else if (this.overrideEle.innerText === this.overrideEle.innerHTML) {
+        result = this.parseTextFormat();
+      } else {
+        if (getSetting(['modules','auto-pitch-accent','pa-override','warn-on-invalid-format',],true)) {
+          logger.warn(`Invalid PA format: ${this.overrideEle.innerText}`);
+        }
+      }
+
+      return result;
+
+    }
+
+    // returns [normalized reading, uses ajt word]
+    getNormalizeReading(readingKana) {
+      if (getSetting(['modules','auto-pitch-accent','search-for-ajt-word',],true)) {
+        let ajtWord = this.getAJTWord(readingKana);
+        if (ajtWord !== null) {
+          return [ajtWord, true];
+        }
+      }
+
+      let normalizedReading = null;
       switch (getSetting(['modules','auto-pitch-accent','reading-display-mode',],1)) {
         case 0:
           normalizedReading = readingKana;
           break;
 
         case 1:
-          normalizedReading = convertHiraganaToKatakana(readingKana);
+          normalizedReading = this.jpUtils.convertHiraganaToKatakana(readingKana);
           break;
 
         case 2:
-          normalizedReading = convertHiraganaToKatakanaWithLongVowelMarks(readingKana);
+          normalizedReading = this.jpUtils.convertHiraganaToKatakanaWithLongVowelMarks(readingKana);
           break;
 
         default:
           throw 'Invalid option for modules.auto-pitch-accent.reading-display-mode';
       }
 
-      result = getMoras(normalizedReading);
+      return [normalizedReading, false]
 
-      logger.debug(`Moras: ${normalizedReading} -> ${result.join(", ")}`);
     }
 
-    if (result.length === 0) {
-      logger.warn("Reading has length of 0?");
-      return;
-    }
+    normalizeReadingGetMoras(readingKana) {
 
-    const kifukuList = getSetting(['modules','auto-pitch-accent','kifuku-override',],[-1]);
-
-    // attempts to color word
-    if (getSetting(['modules','auto-pitch-accent','colored-pitch-accent','enabled',],false)) {
-      if (!hasPAColorTags()) {
-        if (kifukuList.includes(pos)) {
-          // 起伏 (undulation, usually reserved for い-adjs / non-する verbs)
-          paintDisplay("kifuku");
-        } else if (pos === 0) {
-          // 平板 (e.g. 自然 - しぜん￣)
-          paintDisplay("heiban");
-        } else if (pos >= result.length) {
-          // 尾高 (e.g. 頭 - あたま＼)
-          // - pos should never be strictly greater than length of moras,
-          //   but the condition is here just in case of mis-input.
-          // - ASSUMPTION: we categorize 1 mora long words with a downstep as 尾高,
-          //   e.g. 木 (き＼).
-          // - NOTE: I asked whether 1 mora words with downsteps are 頭高・尾高
-          //   in TMW server and got this response (thanks NotOrange#0654):
-          //    > They are generally considered 尾高. I believe it to be because
-          //    > the definition of 尾高 is when the drop is on a particle rather
-          //    > than another mora of the same word. There are, however, good
-          //    > arguments for categorising them as 頭高 that I'm partial towards.
-          //    > One being that it makes for far fewer exceptions regarding the
-          //    > 平板-ifying effect の often has on 尾高 words that single-mora
-          //    > words are regular exceptions to.
-          paintDisplay("odaka");
-        } else if (pos === 1) {
-          // 頭高 (e.g. 僕 - ぼ＼く)
-          paintDisplay("atamadaka");
-        } else {
-          // 中高 (e.g. 不審者 - ふし＼んしゃ)
-          paintDisplay("nakadaka");
-        }
+      const [normalizedReading, isAJTWord] = this.getNormalizeReading(readingKana);
+      if (isAJTWord) {
+        logger.debug("Using AJT Word", this.logLvl);
+        return this.getMoraeOfAJTWord(normalizedReading);
       }
+
+      logger.debug(`Using reading from WordReading field`, this.logLvl);
+      let result = this.jpUtils.getMorae(normalizedReading);
+      logger.debug(`Moras: ${normalizedReading} -> ${result.join(", ")}`, this.logLvl);
+
+      return result;
     }
 
-    // special case: 0 and length of moras === 1 (nothing needs to be done)
-    // ASSUMPTION: the override kifuku value will NOT be 0 (you are insane if you do that)
-    if (pos === 0 && result.length === 1) {
-      return normalizedReading;
-    }
-
-    const startOverline = '<span class="pitchoverline">';
-    const stopOverline = `</span>`;
-    const downstep = '<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';
-
-    if (kifukuList.includes(pos)) {
-      if (result.length < 2) {
-        logger.warn("Cannot apply 起伏 on word with less than 2 moras.");
-      } else if (result.length == 2) { // equivalent to pos == 1
-        result.splice(1, 0, stopOverline + downstep); // downstep after first mora
-        result.splice(0, 0, startOverline); // overline starting at the very beginning
-      } else { // equivalent to pos == #moras-1
-        result.splice(-1, 0, stopOverline + downstep); // insert right before last index
-        result.splice(1, 0, startOverline); // insert at index 1
-      }
-    } else if (pos === 0) {
-      result.splice(1, 0, startOverline); // insert at index 1
-      result.push(stopOverline)
-    } else if (pos === 1) {
-      // start overline starts at the very beginning
-      result.splice(pos, 0, stopOverline + downstep);
-      result.splice(0, 0, startOverline); // insert at the very beginning
-    } else if (pos < 0) {
-      logger.warn(`Pitch Accent position (${pos}) is negative.`);
-    } else {
-      if (pos > result.length) {
-        logger.warn(`Pitch Accent position (${pos}) is greater than number of moras (${result.length}).`);
-      }
-      // start overline starts over the 2nd mora
-      result.splice(pos, 0, stopOverline + downstep);
-      result.splice(1, 0, startOverline); // insert at index 1
-    }
-
-    result = result.join("");
-    return result;
-
-  }
-
-  // main function
-  function addPosition() {
-    // priority:
-    // - PA Override number
-    // - PA Override raw text
-    // - PA Positions
-    // - AJT Word Pitch
-
-    // first checks pa override
-    let posResult = null;
-    if (eleOverride.innerHTML.length !== 0) {
-      const digit = eleOverride.innerText.match(/^[-]?\d+$/);
-      if (digit !== null) {
-        posResult = [Number(digit), "Override (Position)"];
-      } else {
-        eleDisp.innerHTML = eleOverride.innerHTML;
-        posResult = [null, "Override (Text)"];
-      }
-    } else {
-      // if no PA override, checks PAPositions field
-      posResult = getPosition();
-    }
-
-    // if no PAPositions or PA Override, then check AJTWordPitch
-    if (posResult === null) {
-      // last resort: AJT pitch accent
-      if (eleAJT.innerHTML.length !== 0) {
-        eleDisp.innerHTML = eleAJT.innerHTML;
-        posResult = [null, "AJT Pitch Accent"];
-      } else {
-        logger.debug("Nothing found.");
-        eleDisp.innerText = "(N/A)";
+    paintDisplayWithPosData(posData) {
+      if (applyPAColorTags()) {
         return;
       }
-    }
 
-    const [pos, dictName] = posResult;
-    const readingKana = getReadingKana();
-    logger.debug(`pos/dict/reading: ${pos} ${dictName} ${readingKana}`);
+      const kifukuList = getSetting(['modules','auto-pitch-accent','pa-override','kifuku-override',],[-1]);
 
-    // if pos is null, then the display element has already been set
-    if (pos === null) {
-      if (getSetting(['modules','auto-pitch-accent','colored-pitch-accent','enabled',],false)) {
-        hasPAColorTags();
+      // colors it with the first valid pitch found
+      if (kifukuList.includes(posData.pos)) {
+        // 起伏 (undulation, usually reserved for い-adjs / non-する verbs)
+        paintDisplay("kifuku");
+      } else if (posData.pos === 0) {
+        // 平板 (e.g. 自然 - しぜん￣)
+        paintDisplay("heiban");
+      } else if (posData.pos >= posData.readingMora.length) {
+        // 尾高 (e.g. 頭 - あたま＼)
+        // - pos should never be strictly greater than length of moras,
+        //   but the condition is here just in case of mis-input.
+        // - ASSUMPTION: we categorize 1 mora long words with a downstep as 尾高,
+        //   e.g. 木 (き＼).
+        // - NOTE: I asked whether 1 mora words with downsteps are 頭高・尾高
+        //   in TMW server and got this response (thanks NotOrange#0654):
+        //    > They are generally considered 尾高. I believe it to be because
+        //    > the definition of 尾高 is when the drop is on a particle rather
+        //    > than another mora of the same word. There are, however, good
+        //    > arguments for categorising them as 頭高 that I'm partial towards.
+        //    > One being that it makes for far fewer exceptions regarding the
+        //    > 平板-ifying effect の often has on 尾高 words that single-mora
+        //    > words are regular exceptions to.
+        paintDisplay("odaka");
+      } else if (posData.pos === 1) {
+        // 頭高 (e.g. 僕 - ぼ＼く)
+        paintDisplay("atamadaka");
+      } else {
+        // 中高 (e.g. 不審者 - ふし＼んしゃ)
+        paintDisplay("nakadaka");
       }
-      return;
+
     }
 
-    const readingSpanHTML = buildReadingSpan(pos, readingKana);
-    eleDisp.innerHTML = readingSpanHTML;
 
-    //if (dictName !== null) {
-    //  // TODO
-    //}
+    /* builds pitch accent span, may contain multiple pitches */
+    buildReading(dispPosData) {
+      let result = [];
 
-  }
+      // cache
+      let moras = null;
+      let hasBoldedPos = dispPosData.hasBoldedPos();
 
-  class JPMNAutoPA {
+      // calculates connectors if bolded
+      // all connectors around bolded spans will be bolded themselves
+      let connectors = [];
 
-    constructor() {}
+      // builds standard connectors
+      const baseConnector = getSetting(['modules','auto-pitch-accent','pa-positions','default-connector',],'・');
 
-    run() {
-      addPosition();
+      for (const [i, posData] of dispPosData.posDataList.entries()) {
+        if (i < dispPosData.posDataList.length-1) {
+          if (posData.separator === null) {
+            connectors.push(baseConnector);
+          } else {
+            connectors.push(posData.separator);
+          }
+        }
+      }
+
+      if (hasBoldedPos) {
+        //const boldedConnector = `<b>${connector}</b>`;
+        for (let i = 0; i < dispPosData.posDataList.length-1; i++) {
+          const previous = dispPosData.posDataList[i];
+          const after = dispPosData.posDataList[i+1];
+          if (!previous.bolded || !after.bolded) { // neither are bolded -> bold will be added to both
+            connectors[i] = `<b>${connectors[i]}</b>`;
+          }
+        }
+      }
+
+      for (const [i, posData] of dispPosData.posDataList.entries()) {
+
+        // uses the reading for the normal word instead of any special reading
+        if (posData.readingMora.length === 0) {
+          // generates cached moras
+          if (moras === null) {
+            const readingKana = this.getReadingKana();
+            moras = this.normalizeReadingGetMoras(readingKana);
+          }
+          posData.readingMora = Array.from(moras); // shallow copy
+        }
+
+        let wordReading = this.buildWordReading(posData, hasBoldedPos && !posData.bolded);
+        result.push(wordReading);
+        if (i < connectors.length) {
+          result.push(connectors[i]);
+        }
+      }
+
+      return result.join("");
+
+    }
+
+
+    /*
+     * - creates the span to show the pitch accent overline
+     * - addBold adds the <b></b> tags around the span, which greys out the span
+     */
+    buildWordReading(posData, addBold=false) {
+      logger.debug(posData, this.logLvl);
+
+      const pos = posData.pos;
+      let result = Array.from(posData.readingMora); // shallow copy
+
+      if (result.length === 0) {
+        logger.warn("Reading has 0 mora?");
+        return;
+      }
+
+      const kifukuList = getSetting(['modules','auto-pitch-accent','pa-override','kifuku-override',],[-1]);
+
+      if (this.attemptColor && posData.mainPos) {
+        this.paintDisplayWithPosData(posData);
+      }
+
+      // special case: 0 and length of moras === 1 (nothing needs to be done)
+      // ASSUMPTION: the override kifuku value will NOT be 0 (you are insane if you do that)
+      if (pos === 0 && result.length === 1) {
+        return result[0];
+      }
+
+      const startOverline = '<span class="pitchoverline">';
+      const stopOverline = `</span>`;
+      const downstep = '<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';
+
+      if (kifukuList.includes(pos)) {
+        if (result.length < 2) {
+          logger.warn("Cannot apply 起伏 on word with less than 2 moras.");
+        } else if (result.length == 2) { // equivalent to pos == 1
+          result.splice(1, 0, stopOverline + downstep); // downstep after first mora
+          result.splice(0, 0, startOverline); // overline starting at the very beginning
+        } else { // equivalent to pos == #moras-1
+          result.splice(-1, 0, stopOverline + downstep); // insert right before last index
+          result.splice(1, 0, startOverline); // insert at index 1
+        }
+      } else if (pos === 0) {
+        result.splice(1, 0, startOverline); // insert at index 1
+        result.push(stopOverline)
+      } else if (pos === 1) {
+        // start overline starts at the very beginning
+        result.splice(pos, 0, stopOverline + downstep);
+        result.splice(0, 0, startOverline); // insert at the very beginning
+      } else if (pos < 0) {
+        logger.warn(`Pitch Accent position (${pos}) is negative.`);
+      } else {
+        if (pos > result.length) {
+          logger.warn(`Pitch Accent position (${pos}) is greater than number of moras (${result.length}).`);
+        }
+        // start overline starts over the 2nd mora
+        result.splice(pos, 0, stopOverline + downstep);
+        result.splice(1, 0, startOverline); // insert at index 1
+      }
+
+      let resultHTML = result.join("");
+      if (addBold) {
+        resultHTML = `<b>${resultHTML}</b>`;
+      }
+      return resultHTML;
+    }
+
+
+
+    // main function
+    addPosition(positionsEle, ajtEle, overrideEle, overrideTextEle, readingEle, displayEle) {
+      // priority:
+      // - PA Override number
+      // - PA Override raw text
+      // - PA Positions
+      // - AJT Word Pitch
+      //
+
+      this.positionsEle = createDivIfStr(positionsEle);
+      this.ajtEle = createDivIfStr(ajtEle);
+      this.overrideEle = createDivIfStr(overrideEle);
+      this.overrideTextEle = createDivIfStr(overrideTextEle);
+      this.readingEle = createDivIfStr(readingEle);
+      this.displayEle = createDivIfStr(displayEle);
+
+      let posResult = null;
+      let dispPosData = new DispPosData();
+
+      // first checks PAOverrideText
+      if (this.overrideTextEle.innerHTML.length !== 0) {
+        dispPosData.posHTML = this.overrideTextEle.innerHTML;
+        dispPosData.dict = "Pitch Accent Override Text";
+
+      // then checks PAOverride
+      } else if (this.overrideEle.innerHTML.length !== 0) {
+        let posDataList = this.calcPosDataListFromOverride();
+        if (posDataList.length > 0) {
+          dispPosData.posDataList = posDataList;
+          dispPosData.dict = "Pitch Accent Override";
+        } else {
+          // uses whatever is in PAOverride as is without changes
+          // this is to maintain backwards compatability
+          dispPosData.posHTML = this.overrideEle.innerHTML;
+          dispPosData.dict = "Pitch Accent Override (Raw Text)";
+
+          if (getSetting(['modules','auto-pitch-accent','pa-override','warn-on-invalid-format',],true)) {
+            logger.warn(`Cannot parse PAOverride "${this.overrideEle.innerText}". Using raw text...`);
+          }
+        }
+
+      } else {
+        // if still nothing, then check PAPositions field
+        dispPosData = this.calcDispPosDataFromPositions();
+      }
+
+      // if still nothing from PAOverrideText, PAOverride, or PAPositions
+      if (!dispPosData.hasData()) {
+        // last resort: AJT pitch accent
+        if (this.ajtEle.innerHTML.length !== 0) {
+          dispPosData.posHTML = this.ajtEle.innerHTML;
+          if (this.removeNasal) {
+            dispPosData.posHTML = this.removeNasalStr(dispPosData.posHTML);
+          }
+          dispPosData.dict = "AJT Pitch Accent";
+        } else {
+          logger.debug("Nothing found.", this.logLvl);
+          dispPosData.posHTML = "";
+          dispPosData.dict = "N/A";
+        }
+      }
+
+      if (dispPosData.posHTML !== null) {
+        // ASSUMPTION: posHTML is filled <=> no numbers to use
+        displayEle.innerHTML = dispPosData.posHTML;
+
+        if (getSetting(['modules','auto-pitch-accent','colored-pitch-accent','enabled',],false)) {
+          applyPAColorTags();
+        }
+
+      } else {
+        // positions have been found!
+        const readingHTML = this.buildReading(dispPosData);
+        displayEle.innerHTML = readingHTML;
+      }
+
+      if (this.showTitle) {
+        displayEle.setAttribute("title", dispPosData.dict);
+      }
+      logger.debug(dispPosData.dict, this.logLvl);
     }
   }
 
@@ -2228,6 +3276,111 @@ const JPMNAutoPA = (() => {
 })();
 
 /// 
+
+
+
+
+
+
+
+/// 
+
+const JPMNJPUtils = (() => {
+
+  const logger = new JPMNLogger("jp-utils");
+
+  class JPMNJPUtils {
+    constructor() {
+
+      this.HIRAGANA_CONVERSION_RANGE = [0x3041, 0x3096];
+      this.KATAKANA_CONVERSION_RANGE = [0x30a1, 0x30f6];
+      this.KATAKANA_RANGE = [0x30a0, 0x30ff];
+      this.SMALL_KANA_SET = new Set(Array.from('ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ'));
+
+      this.LONG_VOWEL_MARKER_TO_VOWEL = {
+        "アナタサカワラヤマハャパバダザガ": "ア",
+        "イニチシキリミヒピビヂジギ":       "イ",
+        "ウヌツスクルユムフュプブヅズグ":   "ウ",
+        "エネテセケレメヘペベデゼゲ":       "イ", // "エ",
+        "ノトソコヲロヨモホョポボドゾゴ":   "ウ", // "オ",
+        "オ": "オ", // "オ",
+      }
+
+      this.EXTENDED_VOWELS = {
+        "ア": "ナタサカワラヤマハャパバダザガ",
+        "イ": "ニチシキリミヒピビヂジギ" + "ネテセケレメヘペベデゼゲ",
+        "ウ": "ヌツスクルユムフュプブヅズグ" + "ノトソコヲロヨモホョポボドゾゴ",
+        "エ": "ネテセケレメヘペベデゼゲ",
+        "オ": "ノトソコヲロヨモホョポボドゾゴ",
+      };
+
+
+
+
+    }
+
+    // function name gore :sob:
+    convertHiraganaToKatakanaWithLongVowelMarks(reading) {
+      // converts to katakana and changes vowels to extended vowel form
+      const katakana = this.convertHiraganaToKatakana(reading);
+      let result = [...katakana];
+
+      for (let i = 1; i < result.length; i++) {
+        if (result[i] in this.EXTENDED_VOWELS && this.EXTENDED_VOWELS[result[i]].includes(result[i-1])) {
+          result[i] = "ー";
+        }
+      }
+
+      return result.join("");
+    }
+
+
+
+    // shamelessly stolen from Yomichan (getKanaMorae)
+    // https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
+    getMorae(text) {
+      const morae = [];
+      let i;
+      for (const c of text) {
+        if (this.SMALL_KANA_SET.has(c) && (i = morae.length) > 0) {
+          morae[i - 1] += c;
+        } else {
+          morae.push(c);
+        }
+      }
+      return morae;
+    }
+
+    // shamelessly stolen from Yomichan
+    // https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
+    // I have no idea what is going on tbh but it seems to work
+    isCodePointInRange(codePoint, [min, max]) {
+      return (codePoint >= min && codePoint <= max);
+    }
+
+    convertHiraganaToKatakana(text) {
+      let result = '';
+      const offset = (this.KATAKANA_CONVERSION_RANGE[0] - this.HIRAGANA_CONVERSION_RANGE[0]);
+      for (let char of text) {
+        const codePoint = char.codePointAt(0);
+        if (this.isCodePointInRange(codePoint, this.HIRAGANA_CONVERSION_RANGE)) {
+          char = String.fromCodePoint(codePoint + offset);
+        }
+        result += char;
+      }
+      return result;
+    }
+
+
+
+  }
+
+  return JPMNJPUtils;
+
+})();
+
+/// 
+
 
 
 
@@ -2245,10 +3398,32 @@ const JPMNImgUtils = (() => {
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById("bigimg");
 
+  const dhLeft = document.getElementById("dh_left");
+  const dhLeftAudioBtns = document.getElementById("dh_left_audio_buttons");
+  const primaryDefText = document.getElementById("primary_definition_text");
+  const primaryDefPicEle = document.getElementById("primary_definition_picture")
+  const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
+  let HEIGHT_LEFT = 0;
+  let TEXT_HEIGHT = 0
+  let PIC_HEIGHT = 0
+  let FLOAT_PIC_HEIGHT = 0
+
+
+  const dhRight = document.getElementById("dh_right");
   const imgEye = document.getElementById("img_svg_eye"); // null on the front
   const imgEyePathEle = imgEye === null ? null : imgEye.children[0];
   const dhImgContainer = document.getElementById("dh_img_container");
   const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
+
+
+  // adjusts height even if it's tablet mode because the picture can be tall and skinny
+  const ADJUST_HEIGHT = (VW > 620);
+  const POS_RESULT = getPrimaryDefPicturePosition();
+
+  // TODO?
+  //const MOBILE_ATTEMPT_PLACE_AROUND = false;
+  // https://stackoverflow.com/questions/1248081/how-to-get-the-browser-viewport-dimensions
+  //const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 
   const imgClickClassName = "dh-right__img-container--clickable";
   const showEyeClassName = "dh-right__show-eye";
@@ -2259,7 +3434,7 @@ const JPMNImgUtils = (() => {
   const EYE_PATH_RAW = "M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z";
   const EYE_OFF_PATH_RAW = "M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z";
 
-  const TOGGLE_STATE_INDEX_KEY = "jpmn-nsfw-toggle-state-index";
+  const TOGGLE_STATE_INDEX_KEY = "jpmn-image-blur-state-index";
 
   const TOGGLE_STATE_DISABLED = -1;
   const TOGGLE_STATE_ALWAYS_SHOWN = 0;
@@ -2270,19 +3445,12 @@ const JPMNImgUtils = (() => {
   let imgCurrentlyBlurred = false;
   let toggleStates = [];
 
-  // main image
+  // main image, global variable
   let image = null;
 
 
-  // helper function: removes the class from the classlist if it exist
-  const removeIfExists = function(ele, name) {
-    if (ele.classList.contains(name)) {
-      ele.classList.remove(name);
-    }
-  }
-
   // gets the function to activate the modal with the img
-  const getActivateModalFunc = function() {
+  const getActivateModalFunc = function(image) {
     return function() {
       modal.style.display = "block";
       modalImg.src = image.src;
@@ -2293,13 +3461,13 @@ const JPMNImgUtils = (() => {
   const setImgBlur = function(init=false) {
     logger.debug("Setting image blur...", 2)
 
-    removeIfExists(dhImgContainer, imgClickClassName);
-    removeIfExists(dhImgBlur, nsfwNoBlurClassName);
+    dhImgContainer.classList.toggle(imgClickClassName, false);
+    dhImgBlur.classList.toggle(nsfwNoBlurClassName, false);
 
     if (init) {
-      dhImgBlur.classList.add(nsfwBlurInitClassName);
+      dhImgBlur.classList.toggle(nsfwBlurInitClassName, true);
     } else {
-      dhImgBlur.classList.add(nsfwBlurClassName);
+      dhImgBlur.classList.toggle(nsfwBlurClassName, true);
     }
 
     if (image !== null) {
@@ -2316,12 +3484,12 @@ const JPMNImgUtils = (() => {
 
     dhImgContainer.classList.add(imgClickClassName);
 
-    removeIfExists(dhImgBlur, nsfwBlurClassName);
-    removeIfExists(dhImgBlur, nsfwBlurInitClassName);
+    dhImgBlur.classList.toggle(nsfwBlurClassName, false);
+    dhImgBlur.classList.toggle(nsfwBlurInitClassName, false);
     dhImgBlur.classList.add(nsfwNoBlurClassName);
 
     if (image !== null) {
-      const activateModalFunc = getActivateModalFunc()
+      const activateModalFunc = getActivateModalFunc(image);
       image.onclick = activateModalFunc;
     }
     imgEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
@@ -2353,7 +3521,7 @@ const JPMNImgUtils = (() => {
         settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
         settingsEyeTitleEle.textContent = "NSFW images are not blurred by default. Click to toggle.";
 
-        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+        settingsEyePathEle.classList.toggle(alwaysBlurredClass, false);
 
         if (displayPopup) {
           popupMenuMessage("No images will be blurred.");
@@ -2364,7 +3532,7 @@ const JPMNImgUtils = (() => {
         // should blur on nsfw images
         settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
         settingsEyeTitleEle.textContent = "NSFW images are blurred by default. Click to toggle.";
-        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+        settingsEyePathEle.classList.toggle(alwaysBlurredClass, false);
 
         if (displayPopup) {
           popupMenuMessage("NSFW images will be blurred.");
@@ -2395,7 +3563,7 @@ const JPMNImgUtils = (() => {
         removeImgBlur();
         if (!cardHasNSFWTag()) {
           // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
-          removeIfExists(dhImgBlur, showEyeClassName);
+          dhImgBlur.classList.toggle(showEyeClassName, false);
         }
         break;
 
@@ -2404,11 +3572,6 @@ const JPMNImgUtils = (() => {
 
           // can reach here on init as well
           removeImgBlur();
-
-          if (imgCurrentlyBlurred) {
-            // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
-            removeIfExists(dhImgBlur, showEyeClassName);
-          }
 
         } else if (!imgCurrentlyBlurred && cardHasNSFWTag()) {
           setImgBlur(init);
@@ -2419,7 +3582,7 @@ const JPMNImgUtils = (() => {
       case 2: // ??? -> always blurred
         setImgBlur(init);
         if (!cardHasNSFWTag()) {
-          dhImgBlur.classList.add(showEyeClassName);
+          dhImgBlur.classList.toggle(showEyeClassName, true);
         }
         break;
 
@@ -2432,7 +3595,7 @@ const JPMNImgUtils = (() => {
   function initPersistence() {
     let settingsEye = generateEyeSettingSVG();
 
-    if (!getSetting(['modules','img-utils','nsfw-toggle','enabled',],false)) {
+    if (!getSetting(['modules','img-utils','image-blur','enabled',],false)) {
       // persistence only needs to be initialized if nsfw toggle is enabled
       return;
     } else {
@@ -2477,7 +3640,7 @@ const JPMNImgUtils = (() => {
 
 
   // creates a custom image container to hold yomichan images
-  function createImgContainer(imgName) {
+  function createImgContainer(imgName, shouldBlur) {
     // creating this programmically:
     // <span class="glossary__image-container">
     //   <a class="glossary__image-hover-text" href='javascript:;'</a>
@@ -2491,6 +3654,7 @@ const JPMNImgUtils = (() => {
     defAnc.classList.add("glossary__image-hover-text");
     defAnc.href = "javascript:;";
     defAnc.textContent = "[Image]";
+    defAnc.setAttribute("data-suppress-link-hover", "true");
 
     const defImg = document.createElement('img');
     defImg.classList.add("glossary__image-hover-media");
@@ -2501,9 +3665,12 @@ const JPMNImgUtils = (() => {
       modalImg.src = this.src;
     }
 
-    defAnc.onclick = function() {
-      modal.style.display = "block";
-      modalImg.src = defImg.src;
+    // prevents clicking on the image link to zoom (on mobile)
+    if (!isMobile()) {
+      defAnc.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = defImg.src;
+      }
     }
 
     defSpan.appendChild(defAnc);
@@ -2536,7 +3703,7 @@ const JPMNImgUtils = (() => {
     logger.debug(`imgIsNsfw: ${imgIsNsfw}, shouldBlurImgDefault: ${shouldBlurImgDefault}`);
 
     if (imgIsNsfw) {
-      dhImgBlur.classList.add(showEyeClassName);
+      dhImgBlur.classList.toggle(showEyeClassName, true);
     }
 
     let toggleState = getCurrentNSFWToggleState();
@@ -2546,21 +3713,18 @@ const JPMNImgUtils = (() => {
 
   function useModalAndBlur() {
 
-    if (getSetting(['modules','img-utils','nsfw-toggle','enabled',],false)) {
+    if (getSetting(['modules','img-utils','image-blur','enabled',],false)) {
       useNSFWToggle();
     } else {
-      image.onclick = getActivateModalFunc();
+      image.onclick = getActivateModalFunc(image);
     }
   }
 
   function setToggleStatesIfEmpty() {
     // toggleStates is module-global
+    // TODO change this option to use the {"type": "pc-mobile"}
     if (toggleStates.length === 0) {
-      let onMobile = document.documentElement.classList.contains('mobile');
-      if (onMobile) {
-        toggleStates = getSetting(['modules','img-utils','nsfw-toggle','toggle-states-mobile',],[1, 2, 0]);
-      }
-      toggleStates = getSetting(['modules','img-utils','nsfw-toggle','toggle-states-pc',],[1, 2, 0]);
+      toggleStates = getSetting(['modules','img-utils','image-blur','toggle-states',],{"type": "pc-mobile", "pc": [1, 2, 0], "mobile": [1, 2, 0]});
     }
   }
 
@@ -2597,16 +3761,65 @@ const JPMNImgUtils = (() => {
     return (getDefaultNSFWToggleState() >= 1);
   }
 
-  function cardHasNSFWTag() {
-    const tags = document.getElementById("tags").innerText.split(" ");
-    const nsfwTags = getSetting(['modules','img-utils','nsfw-toggle','tags',],['NSFW', 'nsfw', '-NSFW']);
+  //function getTags() {
+  //  return document.getElementById("tags").innerText.split(" ");
+  //}
 
-    for (nsfwTag of nsfwTags) {
-      if (tags.includes(nsfwTag)) {
+  // checks if A is a subset of B
+  // in other words, if any item in A is in B
+  function checkArrayIsSubset(A, B) {
+    for (item of A) {
+      if (B.includes(item)) {
         return true;
       }
     }
     return false;
+  }
+
+  function cardHasNSFWTag() {
+    //const tags = getTags();
+    const nsfwTags = getSetting(['modules','img-utils','image-blur','tags',],['NSFW', 'nsfw', '-NSFW']);
+
+    return checkArrayIsSubset(nsfwTags, TAGS_LIST);
+  }
+
+  function cardContainsAllTags(tagList) {
+    //const tags = document.getElementById("tags").innerText.split(" ");
+
+    let count = 0;
+    for (t of tagList) {
+      if (TAGS_LIST.includes(t)) {
+        count += 1;
+      }
+    }
+
+    return (count === tagList.length);
+  }
+
+  function getPrimaryDefPicturePosition() {
+    let posResult = "auto";
+
+    const posOpt = getSetting(['modules','img-utils','primary-definition-picture','position',],'auto');
+    const tagsBottom = getSetting(['modules','img-utils','primary-definition-picture','tags-bottom',],['img-bottom', 'jpmn-img-buttom']);
+    const tagsRight = getSetting(['modules','img-utils','primary-definition-picture','tags-right',],['img-right', 'jpmn-img-right']);
+
+    if (checkArrayIsSubset(tagsBottom, TAGS_LIST)) { // priority on tag
+      posResult = "bottom";
+    } else if (checkArrayIsSubset(tagsRight, TAGS_LIST)) {
+      posResult = "right";
+    } else if (posOpt === "bottom") { // lower priority on posOpt
+      posResult = "bottom";
+    } else if (posOpt === "right") {
+      posResult = "right";
+    } else if (posOpt === "auto") {
+      posResult = "auto";
+    } else {
+      logger.warn(`Invalid option value for 'primary-definition-picture-position': ${posOpt}. Defaulting to auto.`);
+      posResult = "auto";
+    }
+
+    return posResult;
+
   }
 
 
@@ -2616,15 +3829,56 @@ const JPMNImgUtils = (() => {
     // makes the modal clickable to un-zoom
 
     // restricting the max height of image to the definition box
-    const dhLeft = document.getElementById("dh_left");
-    const dhRight = document.getElementById("dh_right");
-    const heightLeft = dhLeft.offsetHeight;
+    // TODO this one line of code seems to reflow the document, causing noticeable delay in the js
+    // https://stackoverflow.com/questions/45960181/what-is-the-fastest-way-to-get-height-width-of-unstyled-element-in-javascript
+    // https://stackoverflow.com/questions/19815810/avoiding-html-document-reflows/19816067#19816067
 
-    if (dhRight) {
-      dhRight.style.maxHeight = heightLeft + "px";
+    // this appears to be the main bottleneck in performance for some awful reason
+    // and it seems virtually impossible to remove it...
+    // the best I can do is group all the calls together so only the first .offsetHeight read
+    // slows the program down.
+    // This code also CANNOT be placed at the top where global variables are defined,
+    // because the height is dependent on the height of the resulting pitch accent.
+    // Even if the code could be placed at the top, it still seems to cause a reflow,
+    // so nothing has changed...
+
+
+    if (ADJUST_HEIGHT || POS_RESULT === "auto") {
+      HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
+      TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
+      PIC_HEIGHT = primaryDefPicEle === null ? 0 : primaryDefPicEle.offsetHeight;
+      FLOAT_PIC_HEIGHT = primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight;
+    }
+
+
+    let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
+
+    // attempts to add image according to the tag
+    const addTagsInfo = getSetting(['modules','img-utils','add-image-if-contains-tags',],[]);
+    if (!somethingDisplayed && addTagsInfo) {
+      for (const info of addTagsInfo) {
+        const tags = info["tags"];
+        const fileName = info["file-name"];
+
+        if (cardContainsAllTags(tags)) {
+          const newImg = document.createElement('img');
+          newImg.src = fileName;
+          dhImgContainer.appendChild(newImg);
+          dhRight.classList.add("dh-right--contains-image");
+          dhLeftAudioBtns.classList.add("dh-left__audio-buttons--left");
+          somethingDisplayed = true;
+
+          break;
+        }
+      }
+    }
+
+    if (somethingDisplayed) {
+      if (ADJUST_HEIGHT) {
+        dhRight.style.maxHeight = HEIGHT_LEFT + "px";
+      }
 
       // setting up the modal styles and clicking
-      const dhImgContainer = document.getElementById("dh_img_container");
       const imgList = dhImgContainer.getElementsByTagName("img");
 
       if (imgList && imgList.length) {
@@ -2636,7 +3890,9 @@ const JPMNImgUtils = (() => {
         image = imgList[0];
 
         image.classList.add("dh-right__img");
-        image.style.maxHeight = heightLeft + "px"; // restricts max height here too
+        if (ADJUST_HEIGHT) {
+          image.style.maxHeight = HEIGHT_LEFT + "px"; // restricts max height here too
+        }
 
         useModalAndBlur();
 
@@ -2646,7 +3902,6 @@ const JPMNImgUtils = (() => {
         dhImgContainer.classList.remove(imgClickClassName);
       }
     }
-
 
     // close the modal upon click
     modal.onclick = function() {
@@ -2664,7 +3919,8 @@ const JPMNImgUtils = (() => {
   function searchImages() {
 
     // goes through each blockquote and searches for yomichan inserted images
-    const imageSearchElements = document.getElementsByTagName("blockquote");
+    //const imageSearchElements = document.getElementsByTagName("blockquote");
+    const imageSearchElements = document.querySelectorAll("blockquote.glossary-blockquote .glossary-text");
     for (const searchEle of imageSearchElements) {
       const anchorTags = searchEle.getElementsByTagName("a");
       for (const atag of anchorTags) {
@@ -2683,11 +3939,57 @@ const JPMNImgUtils = (() => {
             !(imgEle.getAttribute("data-do-not-convert"))
         ) { // created by us
           logger.debug(`Converting user-inserted image ${imgEle.src}...`);
-          const fragment = createImgContainer(imgEle.src);
+          const shouldBlur = !!imgEle.getAttribute("data-blur-image"); // double ! casts to bool
+          const fragment = createImgContainer(imgEle.src, shouldBlur);
           imgEle.parentNode.replaceChild(fragment, imgEle);
         }
       }
     }
+
+
+    // looks for the PrimaryDefinitionPicture if it exists
+    // placed after image searches to allow main definition to be properly resized first
+    const primaryDefPicEle = document.getElementById("primary_definition_picture")
+    const primaryDefPicBottomEle = document.getElementById("primary_definition_picture_bottom")
+    for (const picEle of [primaryDefPicEle, primaryDefPicBottomEle]) {
+      if (picEle === null) {
+        continue;
+      }
+      const imgs = picEle.getElementsByTagName("img");
+      for (const imgEle of imgs) {
+        if (imgEle !== null) {
+          imgEle.onclick = getActivateModalFunc(imgEle);
+          imgEle.classList.add(imgClickClassName);
+        }
+      }
+    }
+
+    //const tags = getTags();
+    const primaryDefBlockquote = document.getElementById("primary_definition");
+
+    let posResult = POS_RESULT;
+
+    if (posResult === "auto") {
+      // compares height of definition text and image
+      //const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
+      //const primaryDefText = document.getElementById("primary_definition_text");
+      const lenience = getSetting(['modules','img-utils','primary-definition-picture','position-lenience',],2);
+
+      const textHeight = TEXT_HEIGHT * lenience;
+      const picHeight = PIC_HEIGHT + FLOAT_PIC_HEIGHT;
+      const shouldFloat = textHeight > picHeight;
+      logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
+
+      posResult = shouldFloat ? "right" : "bottom";
+    }
+    logger.debug(`PrimaryDefinitionPicture position: ${posResult}`);
+
+    // nothing has to be done for "right" as that is the default
+    if (posResult === "bottom") {
+      primaryDefBlockquote.classList.add("glossary-blockquote--picture-below");
+    }
+
+
   }
 
   class JPMNImgUtils {
@@ -2712,6 +4014,7 @@ const JPMNImgUtils = (() => {
 
 
 /// 
+
 
 
 
@@ -2772,14 +4075,17 @@ const JPMNOpenFields = (() => {
     }
   }
 
-  async function openOnNew() {
+  async function openOnNew(ankiconnectHelper) {
+
+    
+
     if (openOnNewEnabled) {
       logger.debug("Open On New is already enabled");
       return;
     }
     openOnNewEnabled = true;
 
-    const openFields = getSetting(['modules','customize-open-fields','open-on-new',],['Extra Info']);
+    const openFields = getSetting(['modules','customize-open-fields','open-on-new',],[]);
     let openFieldsEle = getFieldEles(openFields);
 
     if (openFieldsEle.length === 0) {
@@ -2792,47 +4098,7 @@ const JPMNOpenFields = (() => {
       return;
     }
 
-    // cancels if not new
-    // refreshes on every new check, b/c one cannot assume that a card
-    // is no longer new once you see a new card
-    // (editing a new card will consistently refresh the currently new card)
-    const key = "{{Key}}";
-    if (key in isNewCardCache && !isNewCardCache[key]) {
-      logger.debug("Key in new card cache and is not new.");
-      return;
-    }
-
-    logger.debug("Testing for new card...");
-
-    function constructFindCardAction(query) {
-      return {
-        "action": "findCards",
-        "params": {
-          "query": query,
-        }
-      }
-    }
-
-    // constructs the multi findCards request for ankiconnect
-    let actions = [];
-    const cardTypeName = 'Mining Card';
-    actions.push(constructFindCardAction(`"Key:${key}" "card:${cardTypeName}"`));
-    actions.push(constructFindCardAction(`is:new "Key:${key}" "card:${cardTypeName}"`));
-
-    const multi = await invoke("multi", {"actions": actions});
-    const cards = multi[0];
-
-    if (cards.length > 1) {
-      logger.warn("Duplicate key found.", isHtml=false, unique=true);
-      return;
-    }
-    if (cards.length == 0) {
-      logger.error("Cannot find its own card?");
-      return;
-    }
-
-    const isNew = (multi[1].length > 0);
-    isNewCardCache[key] = isNew;
+    const isNew = await ankiconnectHelper.cardIsNew();
 
     if (isNew) {
       logger.debug("Card is new, opening fields...");
@@ -2843,16 +4109,24 @@ const JPMNOpenFields = (() => {
     } else {
       logger.debug("Card is not new.");
     }
+
+    
+
   }
 
 
 
   class JPMNOpenFields {
-    constructor() { }
+    constructor() {
+      this.ankiconnectHelper = new JPMNAnkiConnectActions();
+    }
 
-    async run() {
+    run() {
       openAlways();
-      openOnNew();
+      if (getSetting(['modules','customize-open-fields','open-on-new-enabled',],true)
+          && getSetting(['enable-ankiconnect-features',],{"type": "pc-mobile", "pc": true, "mobile": false})) {
+        openOnNew(this.ankiconnectHelper);
+      }
     }
   }
 
@@ -2867,11 +4141,434 @@ const JPMNOpenFields = (() => {
 
 
 
+
+
+/// 
+
+const JPMNSameReadingIndicator = (() => {
+
+  let enabled = false;
+
+  const logger = new JPMNLogger("word-indicators");
+  const key = document.getElementById("hidden_key").innerHTML;
+
+  const indicatorNewClass = "dh-left__similar-words-indicator--new";
+  const mainWordClass = "dh-left__similar-words-indicators-main-word";
+  const addPaddingClass = "dh-left--with-similar-word-indicators";
+
+  const queryWordDiv = `.dh-left__similar-words-indicators .hover-tooltip__word-div`;
+
+  const cardTypeName = 'Mining Card';
+  const noteName = 'JP Mining Note';
+  const wordHTML = document.getElementById("hidden_word").innerHTML;
+  const wrhHTML = document.getElementById("hidden_word_reading_hiragana").innerHTML;
+
+  const dhLeftEle = document.getElementById("dh_left");
+
+  const localPositionsEle = document.getElementById("hidden_pa_positions");
+  const localAjtEle = document.getElementById("hidden_ajt_word_pitch");
+  const localOverrideEle = document.getElementById("hidden_pa_override");
+  const localOverrideTextEle = document.getElementById("hidden_pa_override_text");
+  const localReadingEle = document.getElementById("hidden_word_reading");
+
+  const indicatorSame   = document.getElementById("same_word_indicator");
+  const indicatorSameTT = document.getElementById("same_word_indicator_tooltip");
+
+  const indicatorKanji   = document.getElementById("same_kanji_indicator");
+  const indicatorKanjiTT = document.getElementById("same_kanji_indicator_tooltip");
+
+  const indicatorReading   = document.getElementById("same_reading_indicator");
+  const indicatorReadingTT = document.getElementById("same_reading_indicator_tooltip");
+
+
+  const baseQuery = `"card:${cardTypeName}" "note:${noteName}" -WordReadingHiragana:`;
+  const nonNewQueryPartial = getSetting(['modules','word-indicators','non-new-query',],'(-is:new OR (is:suspended is:new flag:3)) -(is:suspended flag:1)');
+  const newQueryPartial = getSetting(['modules','word-indicators','new-query',],'is:new -(is:suspended (flag:1 OR flag:3))');
+
+  class IndicatorInfo {
+    constructor(baseIndicatorQuery, indicatorDiv, indicatorTooltipDiv, label) {
+      this.newQuery = `(${baseQuery} ${baseIndicatorQuery}) (${newQueryPartial})`;
+      this.nonNewQuery = `(${baseQuery} ${baseIndicatorQuery}) (${nonNewQueryPartial})`;
+      this.indicatorDiv = indicatorDiv;
+      this.indicatorTooltipDiv = indicatorTooltipDiv;
+      this.label = label;
+    }
+  }
+
+  class IndicatorCache {
+    constructor() {
+      this.word = ""
+      this.kanji = ""
+      this.reading = ""
+    }
+  }
+
+  class JPMNSameReadingIndicator {
+    constructor() {
+      const displayPitchAccent = getSetting(['modules','word-indicators','display-pitch-accent',],true)
+      const displayPitchAccentHover = getSetting(['modules','word-indicators','display-pitch-accent-hover-only',],false)
+      this.ankiConnectHelper = new JPMNAnkiConnectActions();
+      this.tooltipBuilder = new JPMNTooltipBuilder(displayPitchAccent, displayPitchAccentHover);
+
+      const wordText = this.ankiConnectHelper.escapeStr(wordHTML);
+      const wrhText = this.ankiConnectHelper.escapeStr(wrhHTML);
+
+      const baseWordQuery =     `"Word:${wordText}" "WordReadingHiragana:${wrhText}"`;
+      const baseKanjiQuery =    `"Word:${wordText}" -"WordReadingHiragana:${wrhText}"`;
+      const baseReadingQuery = `-"Word:${wordText}"  "WordReadingHiragana:${wrhText}"`;
+
+      const wordIndicatorInfo = new IndicatorInfo(
+        baseWordQuery,
+        indicatorSame,
+        indicatorSameTT,
+        "word",
+      )
+
+      const kanjiIndicatorInfo = new IndicatorInfo(
+        baseKanjiQuery,
+        indicatorKanji,
+        indicatorKanjiTT,
+        "kanji",
+      )
+
+      const readingIndicatorInfo = new IndicatorInfo(
+        baseReadingQuery,
+        indicatorReading,
+        indicatorReadingTT,
+        "reading",
+      )
+
+      this.indicatorsArray = [wordIndicatorInfo, kanjiIndicatorInfo, readingIndicatorInfo];
+
+    }
+
+    buildString(nonNewCardInfo, newCardInfo) {
+
+      let tooltipSpan = document.createElement('span');
+
+      const currentCardDiv = document.createElement('div');
+
+      const currentWordDiv = this.tooltipBuilder.buildWordDiv(
+        localReadingEle.innerHTML,
+        localPositionsEle,
+        localAjtEle,
+        localOverrideEle,
+        localOverrideTextEle,
+        null
+      );
+      currentCardDiv.appendChild(currentWordDiv);
+      currentCardDiv.classList.add(mainWordClass);
+      tooltipSpan.appendChild(currentCardDiv);
+
+      for (const card of nonNewCardInfo) {
+        const cardDiv = this.tooltipBuilder.buildCardDiv(card, null);
+        cardDiv.classList.add("hover-tooltip--not-first");
+
+        tooltipSpan.appendChild(cardDiv);
+      }
+
+      for (const card of newCardInfo) {
+        const cardDiv = this.tooltipBuilder.buildCardDiv(card, null, true);
+        cardDiv.classList.add("hover-tooltip--not-first");
+
+        tooltipSpan.appendChild(cardDiv);
+      }
+
+      return tooltipSpan.innerHTML;
+
+    }
+
+    addBrowseOnClick() {
+      if (getSetting(['modules','word-indicators','click-word-to-browse',],true)) {
+        this.tooltipBuilder.addBrowseOnClick(queryWordDiv);
+      }
+    }
+
+    async displayIndicatorIfExists(nonNewCardIds, newCardIds, indicatorInfo) {
+      if (nonNewCardIds.length === 0 && newCardIds.length === 0) {
+        return;
+      }
+      logger.debug(`Same ${indicatorInfo.label} found. Creating indicator...`)
+
+      const nonNewCardInfo = await this.ankiConnectHelper.cardsInfo(nonNewCardIds);
+      const newCardInfo = await this.ankiConnectHelper.cardsInfo(newCardIds);
+      const indicatorStr = this.buildString(nonNewCardInfo, newCardInfo);
+
+      //sameReadingCardCache[key] = indicatorStr;
+      similarWordsCardCache[key][indicatorInfo.label] = indicatorStr;
+
+      return this.displayIndicator(indicatorStr, indicatorInfo);
+    }
+
+    async displayIndicator(indicatorStr, indicatorInfo) {
+
+      const isNew = await this.ankiConnectHelper.cardIsNew();
+      indicatorInfo.indicatorTooltipDiv.innerHTML = indicatorStr;
+      if (isNew) {
+        indicatorInfo.indicatorDiv.classList.add(indicatorNewClass);
+      }
+      indicatorInfo.indicatorDiv.style.display = "inline-block"; // doesn't matter because position is absolute
+
+      dhLeftEle.classList.toggle("dh-left--with-similar-word-indicators", true);
+    }
+
+    runAfterDelay(delay) {
+      if (enabled) {
+        logger.debug("Already enabled");
+        return;
+      }
+      enabled = true;
+
+      if (key in similarWordsCardCache) {
+        logger.debug("Card was cached");
+        const indicatorCache = similarWordsCardCache[key];
+
+        let promises = []
+
+        for (let i = 0; i < this.indicatorsArray.length; i++) {
+          const indicatorInfo = this.indicatorsArray[i];
+          const indicatorStr = indicatorCache[indicatorInfo.label];
+          if (indicatorStr.length !== 0) {
+            promises.push(this.displayIndicator(indicatorStr, indicatorInfo));
+            //this.displayIndicator(indicatorStr, indicatorInfo);
+          }
+        }
+
+        Promise.all(promises).then((values) => {
+          this.addBrowseOnClick();
+        });
+
+      } else if (delay === 0) {
+        this.run();
+      } else {
+        setTimeout(() => {
+          this.run();
+        }, delay);
+      }
+
+      //if (delay === 0) {
+      //  this.run();
+      //} else {
+      //  setTimeout(() => {
+      //    this.run();
+      //  }, delay);
+      //}
+
+    }
+
+
+    async runOnIndicator(indicatorInfo) {
+      let keySentQuery = this.ankiConnectHelper.getKeySentQuery();
+
+      let nonNewQuery = `-(${keySentQuery}) ${indicatorInfo.nonNewQuery}`;
+      let newQuery = `-(${keySentQuery}) ${indicatorInfo.newQuery}`;
+
+      let cardIdsNonNew = await this.ankiConnectHelper.query(nonNewQuery);
+      let cardIdsNew = await this.ankiConnectHelper.query(newQuery);
+      cardIdsNonNew.sort();
+      cardIdsNew.sort();
+
+      const maxNonNewOldest = getSetting(['modules','word-indicators','max-non-new-oldest',],2);
+      const maxNonNewLatest = getSetting(['modules','word-indicators','max-non-new-latest',],2);
+      const maxNewLatest = getSetting(['modules','word-indicators','max-new-latest',],2);
+
+      let [cardIdsNonNewFiltered, cardIdsNewFiltered] = this.ankiConnectHelper.filterCards(
+          cardIdsNonNew, cardIdsNew,
+          maxNonNewOldest, maxNonNewLatest, maxNewLatest
+      );
+
+      if (!(key in similarWordsCardCache)) {
+        similarWordsCardCache[key] = new IndicatorCache();
+      }
+      return this.displayIndicatorIfExists(cardIdsNonNewFiltered, cardIdsNewFiltered, indicatorInfo);
+    }
+
+    async run() {
+
+      
+
+      for (const indicatorInfo of this.indicatorsArray) {
+        await this.runOnIndicator(indicatorInfo);
+      }
+
+      this.addBrowseOnClick();
+
+      
+
+    }
+  }
+
+  return JPMNSameReadingIndicator;
+
+})();
+
+/// 
+
+
+
+
+
+
+
+// ===================
+//  Info Circle Utils
+// ===================
+
+const JPMNInfoCircleUtils = (() => {
+
+  const logger = new JPMNLogger("info-circle-utils");
+
+  // private functions and variables here
+  // ...
+
+  class JPMNInfoCircleUtils {
+    constructor() { }
+
+    run() {
+
+      let infoCirc = document.getElementById("info_circle");
+      let infoCircWrapper = document.getElementById("info_circle_wrapper");
+
+      // clicks on the info circle to freeze the popup (good for debugging and all)
+      if (getSetting(['modules','info-circle-utils','togglable-lock','enabled',],true)) {
+
+        const showPopup = getSetting(['modules','info-circle-utils','togglable-lock','show-popup',],{"type": "pc-mobile", "pc": true, "mobile": false});
+
+        //function addLockFunc(clickEle, circEle, displayName, frozenClassName, togglableClassName, showPopup) {
+        //  if (clickEle === null || circEle === null) {
+        //    return;
+        //  }
+
+        //  clickEle.classList.add(togglableClassName);
+        //  clickEle.onclick = function() {
+        //    if (circEle.classList.contains(frozenClassName)) {
+        //      circEle.classList.remove(frozenClassName);
+        //      if (showPopup) {
+        //        popupMenuMessage(`${displayName} unlocked.`, true);
+        //      }
+        //    } else {
+        //      circEle.classList.add(frozenClassName);
+        //      if (showPopup) {
+        //        popupMenuMessage(`${displayName} locked.`, true);
+        //      }
+        //    }
+        //  }
+
+        //}
+
+        // main info circle
+        const infoCircFrozen = "info-circle--frozen";
+        const infoCircTogglable = "info-circle-svg-wrapper--togglable";
+        //addLockFunc(infoCircWrapper, infoCirc, "Info circle tooltip", infoCircFrozen, infoCircTogglable, showPopup);
+
+        //if (infoCircWrapper === null || infoCirc === null) {
+        //  return;
+        //}
+
+        if (!isMobile()) {
+          infoCircWrapper.classList.toggle(infoCircTogglable, true);
+        }
+
+        infoCircWrapper.onclick = function() {
+          if (infoCirc.classList.contains(infoCircFrozen)) {
+            infoCirc.classList.remove(infoCircFrozen);
+            if (showPopup) {
+              popupMenuMessage(`Info circle tooltip unlocked.`, true);
+            }
+          } else {
+            infoCirc.classList.add(infoCircFrozen);
+            if (showPopup) {
+              popupMenuMessage(`Info circle tooltip locked.`, true);
+            }
+          }
+        }
+      }
+
+      if (!getSetting(['modules','info-circle-utils','is-hoverable',],{"type": "pc-mobile", "pc": true, "mobile": false})) {
+        infoCircWrapper.classList.toggle("info-circle-svg-wrapper--hoverable", false);
+        infoCirc.classList.toggle("info-circle--hover-color", false);
+      }
+
+    }
+  }
+
+
+  return JPMNInfoCircleUtils;
+
+})();
+
+/// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const JPMNCheckDuplicateKey = (() => {
+  const logger = new JPMNLogger("check-duplicate-keys");
+  const key = document.getElementById("hidden_key").innerHTML;
+
+  class JPMNCheckDuplicateKey {
+    constructor() {
+      this.ankiConnectHelper = new JPMNAnkiConnectActions();
+    }
+
+    async run() {
+
+      if (uniqueKeysCache.includes(key)) {
+        logger.debug("Key is unique (cached result).")
+        return;
+      }
+
+      const keyText = this.ankiConnectHelper.escapeStr(key);
+      const cardTypeName = 'Mining Card';
+      const noteName = 'JP Mining Note';
+
+      const query = `"Key:${keyText}" "card:${cardTypeName}" "note:${noteName}"`;
+      const result = await this.ankiConnectHelper.query(query, /*cache=*/false);
+
+      if (result.length === 0) {
+        logger.warn("Cannot find own card?")
+      } else if (result.length === 1) {
+        uniqueKeysCache.push(key);
+        logger.debug("Key is unique.")
+      } else if (result.length === 2) {
+        logger.warn("Duplicate key found. Please change the Key field value.")
+      }
+
+
+    }
+  }
+
+  return JPMNCheckDuplicateKey;
+
+})();
+
+
+/// 
+
+
+
+
+
+
+
+
 // a general function to implement all keybinds necessary by the card.
 // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
 // because functions persist and cannot be easily removed within anki,
 // whereas .onkeyup = ... replaces the previous function with the current.
 document.onkeyup = (e => {
+  LOGGER.debug(`KeyboardEvent: code=${e.code}`, 0);
+
   let keys = null;
   let ele = null;
 
@@ -2882,8 +4579,8 @@ document.onkeyup = (e => {
 
 
 
-  keys = getSetting(['keybinds','toggle-hybrid-sentence',],['n']);
-  if (keys !== null && keys.includes(e.key)) {
+  keys = getSetting(['keybinds','toggle-hybrid-sentence',],['KeyN']);
+  if (keys !== null && keys.includes(e.code)) {
     let hSent = document.getElementById("hybrid-sentence");
     let hWord = document.getElementById("hybrid-word");
     if (hSent !== null && hWord !== null) {
@@ -2891,8 +4588,8 @@ document.onkeyup = (e => {
     }
   }
 
-  keys = getSetting(['keybinds','toggle-highlight-word',],['n']);
-  if (keys !== null && keys.includes(e.key)) {
+  keys = getSetting(['keybinds','toggle-highlight-word',],['KeyN']);
+  if (keys !== null && keys.includes(e.code)) {
     let paButton = document.getElementById("pa-button");
     if (paButton !== null) {
       toggleHighlightWord();
@@ -2917,24 +4614,23 @@ document.onkeyup = (e => {
 
 
 
-  if (e.getModifierState && e.getModifierState('CapsLock')) {
-    if (e.key === "CapsLock") {
-      // either just enabled or disabled, not sure which one is which
-      // it seems like normal browsers can't reach this point during (caps lock enabled -> caps lock disabled...)
-      LOGGER.removeWarn("caps");
-    } else if (!["Meta"].includes(e.key)) {
-      LOGGER.debug(e.key);
-      LOGGER.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
-    }
-  } else {
-    LOGGER.removeWarn("caps");
-  }
+
+
+
+
+
+
+
+
+
+
+
 
 
   /// {{#WordAudio}}
-  keys = getSetting(['keybinds','play-word-audio',],['w']);
+  keys = getSetting(['keybinds','play-word-audio',],['KeyW']);
 
-  if (keys !== null && keys.includes(e.key)) {
+  if (keys !== null && keys.includes(e.code)) {
     ele = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
     if (ele) {
       ele.click();
@@ -2943,8 +4639,8 @@ document.onkeyup = (e => {
   /// {{/WordAudio}}
 
   /// {{#SentenceAudio}}
-  keys = getSetting(['keybinds','play-sentence-audio',],['p']);
-  if (keys !== null && keys.includes(e.key)) {
+  keys = getSetting(['keybinds','play-sentence-audio',],['KeyP']);
+  if (keys !== null && keys.includes(e.code)) {
 
     let hSent = document.getElementById("hybrid-sentence");
 
@@ -2957,49 +4653,49 @@ document.onkeyup = (e => {
   }
   /// {{/SentenceAudio}}
 
-  keys = getSetting(['keybinds','toggle-front-full-sentence-display',],["'"]);
+  keys = getSetting(['keybinds','toggle-front-full-sentence-display',],['Quote']);
   ele = document.getElementById("full_sentence_front_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
 
   /// {{#Hint}}
-  keys = getSetting(['keybinds','toggle-hint-display',],['.']);
+  keys = getSetting(['keybinds','toggle-hint-display',],['Period']);
   ele = document.getElementById("hint_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {{/Hint}}
 
   /// 
   /// {{#SecondaryDefinition}}
-  keys = getSetting(['keybinds','toggle-secondary-definitions-display',],['8']);
+  keys = getSetting(['keybinds','toggle-secondary-definitions-display',],['Digit8']);
   ele = document.getElementById("secondary_definition_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {{/SecondaryDefinition}}
 
   /// {{#AdditionalNotes}}
-  keys = getSetting(['keybinds','toggle-additional-notes-display',],['9']);
+  keys = getSetting(['keybinds','toggle-additional-notes-display',],['Digit9']);
   ele = document.getElementById("additional_notes_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {{/AdditionalNotes}}
 
   /// {{#ExtraDefinitions}}
-  keys = getSetting(['keybinds','toggle-extra-definitions-display',],['0']);
+  keys = getSetting(['keybinds','toggle-extra-definitions-display',],['Digit0']);
   ele = document.getElementById("extra_definitions_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {{/ExtraDefinitions}}
 
   if ('{{#PAGraphs}}FILLED{{/PAGraphs}}{{#UtilityDictionaries}}FILLED{{/UtilityDictionaries}}') {
-    keys = getSetting(['keybinds','toggle-extra-info-display',],['[']);
+    keys = getSetting(['keybinds','toggle-extra-info-display',],['BracketLeft']);
     ele = document.getElementById("extra_info_details");
-    if (keys !== null && ele && keys.includes(e.key)) {
+    if (keys !== null && ele && keys.includes(e.code)) {
       toggleDetailsTag(ele)
     }
   }
@@ -3009,7 +4705,14 @@ document.onkeyup = (e => {
 ///  
 
 
+
+
+
 function main() {
+  
+
+  
+
 
   // sanity check: options
   /// 
@@ -3026,23 +4729,22 @@ function main() {
   /// {{/IsClickCard}}
   /// {{/IsHoverCard}}
 
-  // clicks on the info circle to freeze the popup (good for debugging and all)
-  if (getSetting(['info-circle-togglable-lock',],true)) {
-    let infoCirc = document.getElementById("info_circle");
-    let infoCircWrapper = document.getElementById("info_circle_wrapper");
-    const frozenClass = "info-circle--frozen";
 
-    infoCircWrapper.onclick = function() {
-      if (infoCirc.classList.contains(frozenClass)) {
-        infoCirc.classList.remove(frozenClass);
-        popupMenuMessage("Info circle tooltip unlocked.");
-      } else {
-        infoCirc.classList.add(frozenClass);
-        popupMenuMessage("Info circle tooltip locked.");
-      }
+  // Stylizes the play button for ankidroid
+  if (isMobile()) {
+    const betterPlayBtn = `<svg class="android-play-button-svg" viewBox="0 0 64 64" version="1.1"> <circle cx="32" cy="32" r="29"></circle> <path d="M56.502,32.301l-37.502,20.101l0.329,-40.804l37.173,20.703Z"></path> </svg>`
+
+    function generateSVG() {
+      const x = document.createElement("span");
+      x.innerHTML = betterPlayBtn;
+      return x.children[0];
+    }
+
+    const eles = document.querySelectorAll(".android .replaybutton svg");
+    for (const ele of eles) {
+      ele.parentNode.replaceChild(generateSVG(), ele);
     }
   }
-
 
 
   // START_BLOCK: js_run
@@ -3053,9 +4755,7 @@ function main() {
 
 
   // checks leech
-  const tagsEle = document.getElementById("tags");
-  const tags = tagsEle.innerHTML.split(" ");
-  if (tags.includes("leech")) {
+  if (TAGS_LIST.includes("leech")) {
     LOGGER.leech();
   }
 
@@ -3077,41 +4777,6 @@ function main() {
 
 
   /// 
-
-
-  // required for the sentence utils module
-  var paIndicator;
-
-  /// {{#PAShowInfo}}
-  var paIndicator = (function () {
-    let my = {};
-    my.type = null;
-    my.className = null;
-    my.tooltip = null;
-
-    if ('{{#PADoNotTest}}FILLED{{/PADoNotTest}}{{#PASeparateWordCard}}FILLED{{/PASeparateWordCard}}') {
-      my.type = "none";
-    } else if ('{{#PASeparateSentenceCard}}FILLED{{/PASeparateSentenceCard}}{{#PATestOnlyWord}}FILLED{{/PATestOnlyWord}}') {
-      my.type = "word";
-    } else if ('{{#IsSentenceCard}}FILLED{{/IsSentenceCard}}') {
-      my.type = "sentence";
-    } else {
-      my.type = "word";
-    }
-
-    my.className = "pa-indicator-color--" + my.type;
-
-    if (my.type === "none") {
-      my.tooltip = "Do not test"
-    } else if (my.type == "word") {
-      my.tooltip = "Word"
-    } else { // sentence
-      my.tooltip = "Sentence"
-    }
-
-    return my;
-  }());
-  /// {{/PAShowInfo}}
 
   {
 
@@ -3147,9 +4812,16 @@ function main() {
 
   // END_BLOCK: js_run
 
+  
+
+
+
 
 
   try { // RUN: sent-utils
+
+    
+
     
         
     if (getSetting(['modules','sent-utils','enabled',],true)) {
@@ -3161,6 +4833,9 @@ function main() {
     }
     /// 
         
+
+    
+
   } catch (error) {
     LOGGER.error("Error in module sent-utils:");
     LOGGER.errorStack(error.stack);
@@ -3170,26 +4845,26 @@ function main() {
 
 
   try { // RUN: kanji-hover
+
+    
+
     
         
 
     // only continues if kanji-hover is actually enabled
-    if (getSetting(['modules','kanji-hover','enabled',],true)) {
-      const kanji_hover = new JPMNKanjiHover()
-      if (getSetting(['modules','kanji-hover','mode',],1) === 0) {
-        kanji_hover.run();
-      } else { // === 1
-        const wordReading = document.getElementById("dh_reading");
-        wordReading.onmouseover = function() {
-          // replaces the function with a null function to avoid calling this function
-          wordReading.onmouseover = function() {}
-          kanji_hover.run();
-        }
-      }
+    if (getSetting(['modules','kanji-hover','enabled',],true)
+        && getSetting(['enable-ankiconnect-features',],{"type": "pc-mobile", "pc": true, "mobile": false})) {
+
+      const kanjiHover = new JPMNKanjiHover();
+      kanjiHover.runAfterDelay();
+
     }
 
     /// 
         
+
+    
+
   } catch (error) {
     LOGGER.error("Error in module kanji-hover:");
     LOGGER.errorStack(error.stack);
@@ -3198,17 +4873,35 @@ function main() {
 
 
 
+
+
+
+
   try { // RUN: auto-pitch-accent
+
+    
+
     
         
 
     if (getSetting(['modules','auto-pitch-accent','enabled',],true)) {
-      const auto_pa = new JPMNAutoPA();
-      auto_pa.run();
+
+      const positionsEle = document.getElementById("hidden_pa_positions");
+      const ajtEle = document.getElementById("hidden_ajt_word_pitch");
+      const overrideEle = document.getElementById("hidden_pa_override");
+      const overrideTextEle = document.getElementById("hidden_pa_override_text");
+      const readingEle = document.getElementById("hidden_word_reading");
+      const displayEle = document.getElementById("dh_word_pitch_text");
+
+      const autoPA = new JPMNAutoPA();
+      autoPA.addPosition(positionsEle, ajtEle, overrideEle, overrideTextEle, readingEle, displayEle);
     }
 
     /// 
         
+
+    
+
   } catch (error) {
     LOGGER.error("Error in module auto-pitch-accent:");
     LOGGER.errorStack(error.stack);
@@ -3217,17 +4910,25 @@ function main() {
 
 
 
+
+
   try { // RUN: img-utils
+
+    
+
     
         
 
     if (getSetting(['modules','img-utils','enabled',],true)) {
-      const img_utils = new JPMNImgUtils();
-      img_utils.run();
+      const imgUtils = new JPMNImgUtils();
+      imgUtils.run();
     }
 
     /// 
         
+
+    
+
   } catch (error) {
     LOGGER.error("Error in module img-utils:");
     LOGGER.errorStack(error.stack);
@@ -3237,6 +4938,9 @@ function main() {
 
 
   try { // RUN: customize-open-fields
+
+    
+
     
         
 
@@ -3247,6 +4951,9 @@ function main() {
 
     /// 
         
+
+    
+
   } catch (error) {
     LOGGER.error("Error in module customize-open-fields:");
     LOGGER.errorStack(error.stack);
@@ -3255,7 +4962,132 @@ function main() {
 
 
 
+  try { // RUN: word-indicators
+
+    
+
+    
+        
+
+    // only continues if kanji-hover is actually enabled
+    if (getSetting(['modules','word-indicators','enabled',],true)
+        && getSetting(['enable-ankiconnect-features',],{"type": "pc-mobile", "pc": true, "mobile": false})) {
+      const sameReading = new JPMNSameReadingIndicator();
+      const delay = getSetting(['modules','word-indicators','load-delay',],50);
+      sameReading.runAfterDelay(delay);
+    }
+
+    /// 
+        
+
+    
+
+  } catch (error) {
+    LOGGER.error("Error in module word-indicators:");
+    LOGGER.errorStack(error.stack);
+  }
+
+
+
+
+  try { // RUN: info-circle-utils
+
+    
+
+    
+        
+
+    if (getSetting(['modules','info-circle-utils','enabled',],true)) {
+      const infoCircleUtils = new JPMNInfoCircleUtils()
+      infoCircleUtils.run();
+    }
+
+    /// 
+        
+
+    
+
+  } catch (error) {
+    LOGGER.error("Error in module info-circle-utils:");
+    LOGGER.errorStack(error.stack);
+  }
+
+
+
+
+  try { // RUN: fix-ruby-positioning
+
+    
+
+    
+        
+
+    if (getSetting(['modules','fix-ruby-positioning','enabled',],{"type": "pc-mobile", "pc": false, "mobile": false})) {
+      // module not big enough to require a class
+
+      const className = "fix-ruby-positioning";
+      const defHeader = document.getElementById("def_header");
+      if (defHeader !== null) {
+        defHeader.classList.add(className);
+      }
+
+      const expressions = document.querySelectorAll(".expression");
+      if (expressions !== null) {
+        for (const e of expressions) {
+          e.classList.add(className);
+        }
+      }
+
+    }
+
+    /// 
+        
+
+    
+
+  } catch (error) {
+    LOGGER.error("Error in module fix-ruby-positioning:");
+    LOGGER.errorStack(error.stack);
+  }
+
+
+
+
+  try { // RUN: check-duplicate-key
+
+    
+
+    
+        
+
+    if (getSetting(['modules','check-duplicate-key','enabled',],true)
+        && getSetting(['enable-ankiconnect-features',],{"type": "pc-mobile", "pc": true, "mobile": false})) {
+      let checkDupeKey = new JPMNCheckDuplicateKey();
+      let delay = 1000;
+
+      setTimeout(() => {
+        checkDupeKey.run();
+      }, delay);
+    }
+
+    /// 
+        
+
+    
+
+  } catch (error) {
+    LOGGER.error("Error in module check-duplicate-key:");
+    LOGGER.errorStack(error.stack);
+  }
+
+
+
+
+  
+
 }
+
+
 
 
 

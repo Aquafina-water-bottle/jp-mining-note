@@ -15,6 +15,7 @@ JPMN-COMPILE-TIME-OPTIONS-JSON:
     "always-filled-fields": [],
     "css-folders": [
       "base",
+      "responsive",
       "dictionaries"
     ],
     "enabled-modules": [
@@ -22,7 +23,11 @@ JPMN-COMPILE-TIME-OPTIONS-JSON:
       "kanji-hover",
       "auto-pitch-accent",
       "img-utils",
-      "customize-open-fields"
+      "customize-open-fields",
+      "word-indicators",
+      "info-circle-utils",
+      "fix-ruby-positioning",
+      "check-duplicate-key"
     ],
     "external-links": {
       "image_search": {
@@ -45,10 +50,25 @@ JPMN-COMPILE-TIME-OPTIONS-JSON:
         "url": "https://jpdb.io/search?q={{text:Word}}"
       }
     },
+    "external-links-position": "Extra Info",
     "hardcoded-runtime-options": false,
     "keybinds-enabled": true,
     "never-filled-fields": []
-  }
+  },
+  "modules-used": [
+    "sent-utils",
+    "kanji-hover",
+    "tooltip-builder",
+    "anki-connect-actions",
+    "auto-pitch-accent",
+    "jp-utils",
+    "img-utils",
+    "customize-open-fields",
+    "word-indicators",
+    "info-circle-utils",
+    "fix-ruby-positioning",
+    "check-duplicate-key"
+  ]
 }
 
 -->
@@ -65,11 +85,57 @@ function nullish(a, b) {
   return a;
 }
 
+function isMobile() {
+  return document.documentElement.classList.contains('mobile');
+}
+
+function getKeyPath(keys) {
+  if (typeof keys === "string") {
+    return keys;
+  }
+  return keys.join(".");
+}
+
+// placed outside as a global variable
+var VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+
+// keys can be a string, or array of strings
+function parseSetting(obj, keys) {
+  // checks for an object with "type"
+  // https://stackoverflow.com/a/8511350
+  if (
+    typeof obj === 'object' &&
+    !Array.isArray(obj) &&
+    obj !== null &&
+    "type" in obj
+  ) {
+    if (obj.type === "pc-mobile") {
+      if (isMobile()) {
+        return obj["mobile"];
+      } else {
+        return obj["pc"];
+      }
+    } else if (obj.type === "viewport-width-is") {
+      if (VW > obj["value"]) {
+        return obj["greater"];
+      } else {
+        return obj["lesser"];
+      }
+
+    } else {
+      LOGGER.warn(`Unknown type ${obj.type} for Option ${getKeyPath(keys)}. Using the entire object instead...`);
+      return obj;
+    }
+  }
+
+  return obj;
+}
+
 
 /// 
 function getSetting(keys, defaultVal) {
   if (typeof JPMNOpts === "undefined") {
-    return defaultVal;
+    return parseSetting(defaultVal, keys);
   }
 
   let keyList = ["settings"].concat(keys);
@@ -82,11 +148,12 @@ function getSetting(keys, defaultVal) {
       if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
         LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
       }
-      return defaultVal;
+      return parseSetting(defaultVal, keys);
     }
     obj = obj[key];
   }
-  return obj;
+
+  return parseSetting(obj, keys);
 };
 ///  
 
@@ -103,9 +170,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_error");
       this._appendMsg(message, groupEle, isHtml);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-error")) {
-        infoCirc.classList.add("info-circle-error")
-      }
+      infoCirc.classList.toggle("info-circle-error", true)
     }
 
     errorStack(stack) {
@@ -154,8 +219,8 @@ var JPMNLogger = (() => {
       }
 
       let infoCirc = document.getElementById("info_circle");
-      if (groupEle.children.length === 0 && infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.remove("info-circle-warning")
+      if (groupEle.children.length === 0) {
+        infoCirc.classList.toggle("info-circle-warning", false)
       }
 
       this._uniqueKeys.delete(key);
@@ -181,9 +246,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_warning");
       this._appendMsg(message, groupEle, isHtml, key);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-warning")) {
-        infoCirc.classList.add("info-circle-warning");
-      }
+      infoCirc.classList.toggle("info-circle-warning", true);
 
       if (key !== null) {
         this._uniqueKeys.add(key);
@@ -201,7 +264,8 @@ var JPMNLogger = (() => {
     // currently goes from 0 - 5:
     debug(message, level=3) {
       if (level >= getSetting(['debug-level',],6)) {
-        this.info(message);
+        let groupEle = document.getElementById("info_circle_text_debug");
+        this._appendMsg(message, groupEle);
       }
     }
 
@@ -209,9 +273,7 @@ var JPMNLogger = (() => {
       let groupEle = document.getElementById("info_circle_text_leech");
       this._appendMsg("", groupEle);
       let infoCirc = document.getElementById("info_circle");
-      if (!infoCirc.classList.contains("info-circle-leech")) {
-        infoCirc.classList.add("info-circle-leech");
-      }
+      infoCirc.classList.toggle("info-circle-leech", true);
     }
 
     _appendMsg(message, groupEle, isHtml=false, key=null) {
@@ -270,7 +332,7 @@ window.onerror = function(msg, url, lineNo, columnNo, error) {
 window.onunhandledrejection = function(errorEvent) {
   if (errorEvent.reason === "AnkiConnect failed to issue request.") {
     let reason = errorEvent.reason + ' Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.';
-    LOGGER.error("Javascript handler error: " + reason, isHtml=true);
+    LOGGER.error("Javascript handler error: " + reason, /*isHtml=*/true);
   } else {
     LOGGER.error("Javascript handler error: " + errorEvent.reason);
   }
@@ -289,26 +351,39 @@ function optionsNotFound() {
 <script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
  
 
+<div class="hidden">
+  <div id="hidden_key">{{Key}}</div>
+  <div id="hidden_word_reading">{{WordReading}}</div>
+  <div id="hidden_sentence">{{Sentence}}</div>
+</div>
+
+
 
 <div class="card-description">
 
 
+    <span class="card-description__card-type">
     
 
     
   PA Word
 
+    </span>
 
     
-  <span class="info-circle" id="info_circle">
-    <span class="info-circle-svg-wrapper", id="info_circle_wrapper">
+  <span class="info-circle info-circle--hover-color" id="info_circle">
+    <span class="info-circle-svg-wrapper info-circle-svg-wrapper--hoverable", id="info_circle_wrapper">
+
+
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="info-circle-svg" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
       </svg>
+
+
     </span>
 
-    <span class="info-circle-text-wrapper">
+    <span class="info-circle-text-wrapper" id="info_circle_text_wrapper">
       <span class="info-circle-text" id="info_circle_text">
         <div class="info-circle-text-settings" id="info_circle_text_settings"></div>
         <div class="info-circle-text-settings-border"></div>
@@ -332,13 +407,16 @@ function optionsNotFound() {
           </div>
         </div>
 
+        <div class="info-circle-text-debug" id="info_circle_text_debug"></div>
+
       </span>
+
     </span>
   </span>
 
     
   <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
-  <div class="card-description-ver">JP Mining Note: Version 0.10.3.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.11.0.0</div>
 
 
 </div>
@@ -423,11 +501,9 @@ if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki
 
 // global cache for an entire card's kanji hover html
 // maps key.word_reading -> html string
-//var kanjiHoverCardCache = kanjiHoverCardCache ?? {};
 var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
 
 // maps kanji -> [{set of used words}, html string]
-//var kanjiHoverCache = kanjiHoverCache ?? {};
 var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 
@@ -437,15 +513,22 @@ var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 
 
-
-
-// GLOBALS: customize-open-fields
+// GLOBALS: anki-connect-actions
 
 
 // note that this cache will NOT respect card review undos,
 // but that should be a niche enough case to not warrent caching.
-// maps key -> bool
+// maps cacheKey -> bool
 var isNewCardCache = nullish(isNewCardCache, {});
+
+// maps card_id -> (card info retrieved by Anki-Connect)
+var cardsInfoCache = nullish(cardsInfoCache, {});
+
+// maps query_str -> [card ids]
+var cardQueryCache = nullish(cardQueryCache, {});
+
+// maps key.sentence -> card id
+var cardIdCache = nullish(cardIdCache, {});
 
 /// 
 
@@ -453,7 +536,47 @@ var isNewCardCache = nullish(isNewCardCache, {});
 
 
 
+
+
+
+
+
+
+// GLOBALS: word-indicators
+
+
+//var sameReadingCardCache = nullish(sameReadingCardCache, {});
+var similarWordsCardCache = nullish(similarWordsCardCache, {});
+
+/// 
+
+
+
+
+
+
+
+// GLOBALS: check-duplicate-key
+
+
+
+// contains all unique keys
+var uniqueKeysCache = nullish(uniqueKeysCache, []);
+
+/// 
+
+
+
+
+
+
 (function () { // restricts ALL javascript to hidden scope
+
+
+
+
+const TAGS_LIST = "{{Tags}}".split(" ");
+
 
 // "global" variables within the hidden scope
 let note = (function () {
@@ -474,12 +597,16 @@ function toggleDetailsTag(ele) {
   }
 }
 
-function popupMenuMessage(message) {
+function popupMenuMessage(message, isHTML=false) {
   let popupMenu = document.getElementById("popup_menu");
 
   // creates message
   const popupMessageDiv = document.createElement("div");
-  popupMessageDiv.innerText = message;
+  if (isHTML) {
+    popupMessageDiv.innerHTML = message;
+  } else {
+    popupMessageDiv.innerText = message;
+  }
   popupMessageDiv.classList.add("popup-menu--animate");
 
   popupMenu.appendChild(popupMessageDiv);
@@ -518,6 +645,27 @@ function popupMenuMessage(message) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // =============
 //  Image Utils
 // =============
@@ -529,10 +677,32 @@ const JPMNImgUtils = (() => {
   const modal = document.getElementById('modal');
   const modalImg = document.getElementById("bigimg");
 
+  const dhLeft = document.getElementById("dh_left");
+  const dhLeftAudioBtns = document.getElementById("dh_left_audio_buttons");
+  const primaryDefText = document.getElementById("primary_definition_text");
+  const primaryDefPicEle = document.getElementById("primary_definition_picture")
+  const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
+  let HEIGHT_LEFT = 0;
+  let TEXT_HEIGHT = 0
+  let PIC_HEIGHT = 0
+  let FLOAT_PIC_HEIGHT = 0
+
+
+  const dhRight = document.getElementById("dh_right");
   const imgEye = document.getElementById("img_svg_eye"); // null on the front
   const imgEyePathEle = imgEye === null ? null : imgEye.children[0];
   const dhImgContainer = document.getElementById("dh_img_container");
   const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
+
+
+  // adjusts height even if it's tablet mode because the picture can be tall and skinny
+  const ADJUST_HEIGHT = (VW > 620);
+  const POS_RESULT = getPrimaryDefPicturePosition();
+
+  // TODO?
+  //const MOBILE_ATTEMPT_PLACE_AROUND = false;
+  // https://stackoverflow.com/questions/1248081/how-to-get-the-browser-viewport-dimensions
+  //const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 
   const imgClickClassName = "dh-right__img-container--clickable";
   const showEyeClassName = "dh-right__show-eye";
@@ -543,7 +713,7 @@ const JPMNImgUtils = (() => {
   const EYE_PATH_RAW = "M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z";
   const EYE_OFF_PATH_RAW = "M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z";
 
-  const TOGGLE_STATE_INDEX_KEY = "jpmn-nsfw-toggle-state-index";
+  const TOGGLE_STATE_INDEX_KEY = "jpmn-image-blur-state-index";
 
   const TOGGLE_STATE_DISABLED = -1;
   const TOGGLE_STATE_ALWAYS_SHOWN = 0;
@@ -554,19 +724,12 @@ const JPMNImgUtils = (() => {
   let imgCurrentlyBlurred = false;
   let toggleStates = [];
 
-  // main image
+  // main image, global variable
   let image = null;
 
 
-  // helper function: removes the class from the classlist if it exist
-  const removeIfExists = function(ele, name) {
-    if (ele.classList.contains(name)) {
-      ele.classList.remove(name);
-    }
-  }
-
   // gets the function to activate the modal with the img
-  const getActivateModalFunc = function() {
+  const getActivateModalFunc = function(image) {
     return function() {
       modal.style.display = "block";
       modalImg.src = image.src;
@@ -577,13 +740,13 @@ const JPMNImgUtils = (() => {
   const setImgBlur = function(init=false) {
     logger.debug("Setting image blur...", 2)
 
-    removeIfExists(dhImgContainer, imgClickClassName);
-    removeIfExists(dhImgBlur, nsfwNoBlurClassName);
+    dhImgContainer.classList.toggle(imgClickClassName, false);
+    dhImgBlur.classList.toggle(nsfwNoBlurClassName, false);
 
     if (init) {
-      dhImgBlur.classList.add(nsfwBlurInitClassName);
+      dhImgBlur.classList.toggle(nsfwBlurInitClassName, true);
     } else {
-      dhImgBlur.classList.add(nsfwBlurClassName);
+      dhImgBlur.classList.toggle(nsfwBlurClassName, true);
     }
 
     if (image !== null) {
@@ -600,12 +763,12 @@ const JPMNImgUtils = (() => {
 
     dhImgContainer.classList.add(imgClickClassName);
 
-    removeIfExists(dhImgBlur, nsfwBlurClassName);
-    removeIfExists(dhImgBlur, nsfwBlurInitClassName);
+    dhImgBlur.classList.toggle(nsfwBlurClassName, false);
+    dhImgBlur.classList.toggle(nsfwBlurInitClassName, false);
     dhImgBlur.classList.add(nsfwNoBlurClassName);
 
     if (image !== null) {
-      const activateModalFunc = getActivateModalFunc()
+      const activateModalFunc = getActivateModalFunc(image);
       image.onclick = activateModalFunc;
     }
     imgEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
@@ -637,7 +800,7 @@ const JPMNImgUtils = (() => {
         settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
         settingsEyeTitleEle.textContent = "NSFW images are not blurred by default. Click to toggle.";
 
-        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+        settingsEyePathEle.classList.toggle(alwaysBlurredClass, false);
 
         if (displayPopup) {
           popupMenuMessage("No images will be blurred.");
@@ -648,7 +811,7 @@ const JPMNImgUtils = (() => {
         // should blur on nsfw images
         settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
         settingsEyeTitleEle.textContent = "NSFW images are blurred by default. Click to toggle.";
-        removeIfExists(settingsEyePathEle, alwaysBlurredClass);
+        settingsEyePathEle.classList.toggle(alwaysBlurredClass, false);
 
         if (displayPopup) {
           popupMenuMessage("NSFW images will be blurred.");
@@ -679,7 +842,7 @@ const JPMNImgUtils = (() => {
         removeImgBlur();
         if (!cardHasNSFWTag()) {
           // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
-          removeIfExists(dhImgBlur, showEyeClassName);
+          dhImgBlur.classList.toggle(showEyeClassName, false);
         }
         break;
 
@@ -688,11 +851,6 @@ const JPMNImgUtils = (() => {
 
           // can reach here on init as well
           removeImgBlur();
-
-          if (imgCurrentlyBlurred) {
-            // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
-            removeIfExists(dhImgBlur, showEyeClassName);
-          }
 
         } else if (!imgCurrentlyBlurred && cardHasNSFWTag()) {
           setImgBlur(init);
@@ -703,7 +861,7 @@ const JPMNImgUtils = (() => {
       case 2: // ??? -> always blurred
         setImgBlur(init);
         if (!cardHasNSFWTag()) {
-          dhImgBlur.classList.add(showEyeClassName);
+          dhImgBlur.classList.toggle(showEyeClassName, true);
         }
         break;
 
@@ -716,7 +874,7 @@ const JPMNImgUtils = (() => {
   function initPersistence() {
     let settingsEye = generateEyeSettingSVG();
 
-    if (!getSetting(['modules','img-utils','nsfw-toggle','enabled',],false)) {
+    if (!getSetting(['modules','img-utils','image-blur','enabled',],false)) {
       // persistence only needs to be initialized if nsfw toggle is enabled
       return;
     } else {
@@ -761,7 +919,7 @@ const JPMNImgUtils = (() => {
 
 
   // creates a custom image container to hold yomichan images
-  function createImgContainer(imgName) {
+  function createImgContainer(imgName, shouldBlur) {
     // creating this programmically:
     // <span class="glossary__image-container">
     //   <a class="glossary__image-hover-text" href='javascript:;'</a>
@@ -775,6 +933,7 @@ const JPMNImgUtils = (() => {
     defAnc.classList.add("glossary__image-hover-text");
     defAnc.href = "javascript:;";
     defAnc.textContent = "[Image]";
+    defAnc.setAttribute("data-suppress-link-hover", "true");
 
     const defImg = document.createElement('img');
     defImg.classList.add("glossary__image-hover-media");
@@ -785,9 +944,12 @@ const JPMNImgUtils = (() => {
       modalImg.src = this.src;
     }
 
-    defAnc.onclick = function() {
-      modal.style.display = "block";
-      modalImg.src = defImg.src;
+    // prevents clicking on the image link to zoom (on mobile)
+    if (!isMobile()) {
+      defAnc.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = defImg.src;
+      }
     }
 
     defSpan.appendChild(defAnc);
@@ -820,7 +982,7 @@ const JPMNImgUtils = (() => {
     logger.debug(`imgIsNsfw: ${imgIsNsfw}, shouldBlurImgDefault: ${shouldBlurImgDefault}`);
 
     if (imgIsNsfw) {
-      dhImgBlur.classList.add(showEyeClassName);
+      dhImgBlur.classList.toggle(showEyeClassName, true);
     }
 
     let toggleState = getCurrentNSFWToggleState();
@@ -830,21 +992,18 @@ const JPMNImgUtils = (() => {
 
   function useModalAndBlur() {
 
-    if (getSetting(['modules','img-utils','nsfw-toggle','enabled',],false)) {
+    if (getSetting(['modules','img-utils','image-blur','enabled',],false)) {
       useNSFWToggle();
     } else {
-      image.onclick = getActivateModalFunc();
+      image.onclick = getActivateModalFunc(image);
     }
   }
 
   function setToggleStatesIfEmpty() {
     // toggleStates is module-global
+    // TODO change this option to use the {"type": "pc-mobile"}
     if (toggleStates.length === 0) {
-      let onMobile = document.documentElement.classList.contains('mobile');
-      if (onMobile) {
-        toggleStates = getSetting(['modules','img-utils','nsfw-toggle','toggle-states-mobile',],[1, 2, 0]);
-      }
-      toggleStates = getSetting(['modules','img-utils','nsfw-toggle','toggle-states-pc',],[1, 2, 0]);
+      toggleStates = getSetting(['modules','img-utils','image-blur','toggle-states',],{"type": "pc-mobile", "pc": [1, 2, 0], "mobile": [1, 2, 0]});
     }
   }
 
@@ -881,16 +1040,65 @@ const JPMNImgUtils = (() => {
     return (getDefaultNSFWToggleState() >= 1);
   }
 
-  function cardHasNSFWTag() {
-    const tags = document.getElementById("tags").innerText.split(" ");
-    const nsfwTags = getSetting(['modules','img-utils','nsfw-toggle','tags',],['NSFW', 'nsfw', '-NSFW']);
+  //function getTags() {
+  //  return document.getElementById("tags").innerText.split(" ");
+  //}
 
-    for (nsfwTag of nsfwTags) {
-      if (tags.includes(nsfwTag)) {
+  // checks if A is a subset of B
+  // in other words, if any item in A is in B
+  function checkArrayIsSubset(A, B) {
+    for (item of A) {
+      if (B.includes(item)) {
         return true;
       }
     }
     return false;
+  }
+
+  function cardHasNSFWTag() {
+    //const tags = getTags();
+    const nsfwTags = getSetting(['modules','img-utils','image-blur','tags',],['NSFW', 'nsfw', '-NSFW']);
+
+    return checkArrayIsSubset(nsfwTags, TAGS_LIST);
+  }
+
+  function cardContainsAllTags(tagList) {
+    //const tags = document.getElementById("tags").innerText.split(" ");
+
+    let count = 0;
+    for (t of tagList) {
+      if (TAGS_LIST.includes(t)) {
+        count += 1;
+      }
+    }
+
+    return (count === tagList.length);
+  }
+
+  function getPrimaryDefPicturePosition() {
+    let posResult = "auto";
+
+    const posOpt = getSetting(['modules','img-utils','primary-definition-picture','position',],'auto');
+    const tagsBottom = getSetting(['modules','img-utils','primary-definition-picture','tags-bottom',],['img-bottom', 'jpmn-img-buttom']);
+    const tagsRight = getSetting(['modules','img-utils','primary-definition-picture','tags-right',],['img-right', 'jpmn-img-right']);
+
+    if (checkArrayIsSubset(tagsBottom, TAGS_LIST)) { // priority on tag
+      posResult = "bottom";
+    } else if (checkArrayIsSubset(tagsRight, TAGS_LIST)) {
+      posResult = "right";
+    } else if (posOpt === "bottom") { // lower priority on posOpt
+      posResult = "bottom";
+    } else if (posOpt === "right") {
+      posResult = "right";
+    } else if (posOpt === "auto") {
+      posResult = "auto";
+    } else {
+      logger.warn(`Invalid option value for 'primary-definition-picture-position': ${posOpt}. Defaulting to auto.`);
+      posResult = "auto";
+    }
+
+    return posResult;
+
   }
 
 
@@ -900,15 +1108,56 @@ const JPMNImgUtils = (() => {
     // makes the modal clickable to un-zoom
 
     // restricting the max height of image to the definition box
-    const dhLeft = document.getElementById("dh_left");
-    const dhRight = document.getElementById("dh_right");
-    const heightLeft = dhLeft.offsetHeight;
+    // TODO this one line of code seems to reflow the document, causing noticeable delay in the js
+    // https://stackoverflow.com/questions/45960181/what-is-the-fastest-way-to-get-height-width-of-unstyled-element-in-javascript
+    // https://stackoverflow.com/questions/19815810/avoiding-html-document-reflows/19816067#19816067
 
-    if (dhRight) {
-      dhRight.style.maxHeight = heightLeft + "px";
+    // this appears to be the main bottleneck in performance for some awful reason
+    // and it seems virtually impossible to remove it...
+    // the best I can do is group all the calls together so only the first .offsetHeight read
+    // slows the program down.
+    // This code also CANNOT be placed at the top where global variables are defined,
+    // because the height is dependent on the height of the resulting pitch accent.
+    // Even if the code could be placed at the top, it still seems to cause a reflow,
+    // so nothing has changed...
+
+
+    if (ADJUST_HEIGHT || POS_RESULT === "auto") {
+      HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
+      TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
+      PIC_HEIGHT = primaryDefPicEle === null ? 0 : primaryDefPicEle.offsetHeight;
+      FLOAT_PIC_HEIGHT = primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight;
+    }
+
+
+    let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
+
+    // attempts to add image according to the tag
+    const addTagsInfo = getSetting(['modules','img-utils','add-image-if-contains-tags',],[]);
+    if (!somethingDisplayed && addTagsInfo) {
+      for (const info of addTagsInfo) {
+        const tags = info["tags"];
+        const fileName = info["file-name"];
+
+        if (cardContainsAllTags(tags)) {
+          const newImg = document.createElement('img');
+          newImg.src = fileName;
+          dhImgContainer.appendChild(newImg);
+          dhRight.classList.add("dh-right--contains-image");
+          dhLeftAudioBtns.classList.add("dh-left__audio-buttons--left");
+          somethingDisplayed = true;
+
+          break;
+        }
+      }
+    }
+
+    if (somethingDisplayed) {
+      if (ADJUST_HEIGHT) {
+        dhRight.style.maxHeight = HEIGHT_LEFT + "px";
+      }
 
       // setting up the modal styles and clicking
-      const dhImgContainer = document.getElementById("dh_img_container");
       const imgList = dhImgContainer.getElementsByTagName("img");
 
       if (imgList && imgList.length) {
@@ -920,7 +1169,9 @@ const JPMNImgUtils = (() => {
         image = imgList[0];
 
         image.classList.add("dh-right__img");
-        image.style.maxHeight = heightLeft + "px"; // restricts max height here too
+        if (ADJUST_HEIGHT) {
+          image.style.maxHeight = HEIGHT_LEFT + "px"; // restricts max height here too
+        }
 
         useModalAndBlur();
 
@@ -930,7 +1181,6 @@ const JPMNImgUtils = (() => {
         dhImgContainer.classList.remove(imgClickClassName);
       }
     }
-
 
     // close the modal upon click
     modal.onclick = function() {
@@ -948,7 +1198,8 @@ const JPMNImgUtils = (() => {
   function searchImages() {
 
     // goes through each blockquote and searches for yomichan inserted images
-    const imageSearchElements = document.getElementsByTagName("blockquote");
+    //const imageSearchElements = document.getElementsByTagName("blockquote");
+    const imageSearchElements = document.querySelectorAll("blockquote.glossary-blockquote .glossary-text");
     for (const searchEle of imageSearchElements) {
       const anchorTags = searchEle.getElementsByTagName("a");
       for (const atag of anchorTags) {
@@ -967,11 +1218,57 @@ const JPMNImgUtils = (() => {
             !(imgEle.getAttribute("data-do-not-convert"))
         ) { // created by us
           logger.debug(`Converting user-inserted image ${imgEle.src}...`);
-          const fragment = createImgContainer(imgEle.src);
+          const shouldBlur = !!imgEle.getAttribute("data-blur-image"); // double ! casts to bool
+          const fragment = createImgContainer(imgEle.src, shouldBlur);
           imgEle.parentNode.replaceChild(fragment, imgEle);
         }
       }
     }
+
+
+    // looks for the PrimaryDefinitionPicture if it exists
+    // placed after image searches to allow main definition to be properly resized first
+    const primaryDefPicEle = document.getElementById("primary_definition_picture")
+    const primaryDefPicBottomEle = document.getElementById("primary_definition_picture_bottom")
+    for (const picEle of [primaryDefPicEle, primaryDefPicBottomEle]) {
+      if (picEle === null) {
+        continue;
+      }
+      const imgs = picEle.getElementsByTagName("img");
+      for (const imgEle of imgs) {
+        if (imgEle !== null) {
+          imgEle.onclick = getActivateModalFunc(imgEle);
+          imgEle.classList.add(imgClickClassName);
+        }
+      }
+    }
+
+    //const tags = getTags();
+    const primaryDefBlockquote = document.getElementById("primary_definition");
+
+    let posResult = POS_RESULT;
+
+    if (posResult === "auto") {
+      // compares height of definition text and image
+      //const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
+      //const primaryDefText = document.getElementById("primary_definition_text");
+      const lenience = getSetting(['modules','img-utils','primary-definition-picture','position-lenience',],2);
+
+      const textHeight = TEXT_HEIGHT * lenience;
+      const picHeight = PIC_HEIGHT + FLOAT_PIC_HEIGHT;
+      const shouldFloat = textHeight > picHeight;
+      logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
+
+      posResult = shouldFloat ? "right" : "bottom";
+    }
+    logger.debug(`PrimaryDefinitionPicture position: ${posResult}`);
+
+    // nothing has to be done for "right" as that is the default
+    if (posResult === "bottom") {
+      primaryDefBlockquote.classList.add("glossary-blockquote--picture-below");
+    }
+
+
   }
 
   class JPMNImgUtils {
@@ -1006,11 +1303,130 @@ const JPMNImgUtils = (() => {
 
 
 
+
+
+
+
+
+
+
+
+
+// ===================
+//  Info Circle Utils
+// ===================
+
+const JPMNInfoCircleUtils = (() => {
+
+  const logger = new JPMNLogger("info-circle-utils");
+
+  // private functions and variables here
+  // ...
+
+  class JPMNInfoCircleUtils {
+    constructor() { }
+
+    run() {
+
+      let infoCirc = document.getElementById("info_circle");
+      let infoCircWrapper = document.getElementById("info_circle_wrapper");
+
+      // clicks on the info circle to freeze the popup (good for debugging and all)
+      if (getSetting(['modules','info-circle-utils','togglable-lock','enabled',],true)) {
+
+        const showPopup = getSetting(['modules','info-circle-utils','togglable-lock','show-popup',],{"type": "pc-mobile", "pc": true, "mobile": false});
+
+        //function addLockFunc(clickEle, circEle, displayName, frozenClassName, togglableClassName, showPopup) {
+        //  if (clickEle === null || circEle === null) {
+        //    return;
+        //  }
+
+        //  clickEle.classList.add(togglableClassName);
+        //  clickEle.onclick = function() {
+        //    if (circEle.classList.contains(frozenClassName)) {
+        //      circEle.classList.remove(frozenClassName);
+        //      if (showPopup) {
+        //        popupMenuMessage(`${displayName} unlocked.`, true);
+        //      }
+        //    } else {
+        //      circEle.classList.add(frozenClassName);
+        //      if (showPopup) {
+        //        popupMenuMessage(`${displayName} locked.`, true);
+        //      }
+        //    }
+        //  }
+
+        //}
+
+        // main info circle
+        const infoCircFrozen = "info-circle--frozen";
+        const infoCircTogglable = "info-circle-svg-wrapper--togglable";
+        //addLockFunc(infoCircWrapper, infoCirc, "Info circle tooltip", infoCircFrozen, infoCircTogglable, showPopup);
+
+        //if (infoCircWrapper === null || infoCirc === null) {
+        //  return;
+        //}
+
+        if (!isMobile()) {
+          infoCircWrapper.classList.toggle(infoCircTogglable, true);
+        }
+
+        infoCircWrapper.onclick = function() {
+          if (infoCirc.classList.contains(infoCircFrozen)) {
+            infoCirc.classList.remove(infoCircFrozen);
+            if (showPopup) {
+              popupMenuMessage(`Info circle tooltip unlocked.`, true);
+            }
+          } else {
+            infoCirc.classList.add(infoCircFrozen);
+            if (showPopup) {
+              popupMenuMessage(`Info circle tooltip locked.`, true);
+            }
+          }
+        }
+      }
+
+      if (!getSetting(['modules','info-circle-utils','is-hoverable',],{"type": "pc-mobile", "pc": true, "mobile": false})) {
+        infoCircWrapper.classList.toggle("info-circle-svg-wrapper--hoverable", false);
+        infoCirc.classList.toggle("info-circle--hover-color", false);
+      }
+
+    }
+  }
+
+
+  return JPMNInfoCircleUtils;
+
+})();
+
+/// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // a general function to implement all keybinds necessary by the card.
 // NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
 // because functions persist and cannot be easily removed within anki,
 // whereas .onkeyup = ... replaces the previous function with the current.
 document.onkeyup = (e => {
+  LOGGER.debug(`KeyboardEvent: code=${e.code}`, 0);
+
   let keys = null;
   let ele = null;
 
@@ -1034,24 +1450,23 @@ document.onkeyup = (e => {
 
 
 
-  if (e.getModifierState && e.getModifierState('CapsLock')) {
-    if (e.key === "CapsLock") {
-      // either just enabled or disabled, not sure which one is which
-      // it seems like normal browsers can't reach this point during (caps lock enabled -> caps lock disabled...)
-      LOGGER.removeWarn("caps");
-    } else if (!["Meta"].includes(e.key)) {
-      LOGGER.debug(e.key);
-      LOGGER.warn("Caps lock is enabled. Keybinds may not work as expected.", true, "caps")
-    }
-  } else {
-    LOGGER.removeWarn("caps");
-  }
+
+
+
+
+
+
+
+
+
+
+
 
 
   /// {{#WordAudio}}
-  keys = getSetting(['keybinds','play-word-audio',],['w']);
+  keys = getSetting(['keybinds','play-word-audio',],['KeyW']);
 
-  if (keys !== null && keys.includes(e.key)) {
+  if (keys !== null && keys.includes(e.code)) {
     ele = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
     if (ele) {
       ele.click();
@@ -1060,8 +1475,8 @@ document.onkeyup = (e => {
   /// {{/WordAudio}}
 
   /// {{#SentenceAudio}}
-  keys = getSetting(['keybinds','play-sentence-audio',],['p']);
-  if (keys !== null && keys.includes(e.key)) {
+  keys = getSetting(['keybinds','play-sentence-audio',],['KeyP']);
+  if (keys !== null && keys.includes(e.code)) {
 
     let hSent = document.getElementById("hybrid-sentence");
 
@@ -1074,16 +1489,16 @@ document.onkeyup = (e => {
   }
   /// {{/SentenceAudio}}
 
-  keys = getSetting(['keybinds','toggle-front-full-sentence-display',],["'"]);
+  keys = getSetting(['keybinds','toggle-front-full-sentence-display',],['Quote']);
   ele = document.getElementById("full_sentence_front_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
 
   /// {{#Hint}}
-  keys = getSetting(['keybinds','toggle-hint-display',],['.']);
+  keys = getSetting(['keybinds','toggle-hint-display',],['Period']);
   ele = document.getElementById("hint_details");
-  if (keys !== null && ele && keys.includes(e.key)) {
+  if (keys !== null && ele && keys.includes(e.code)) {
     toggleDetailsTag(ele)
   }
   /// {{/Hint}}
@@ -1094,7 +1509,14 @@ document.onkeyup = (e => {
 ///  
 
 
+
+
+
 function main() {
+  
+
+  
+
 
   // sanity check: options
   /// 
@@ -1111,23 +1533,22 @@ function main() {
   /// {{/IsClickCard}}
   /// {{/IsHoverCard}}
 
-  // clicks on the info circle to freeze the popup (good for debugging and all)
-  if (getSetting(['info-circle-togglable-lock',],true)) {
-    let infoCirc = document.getElementById("info_circle");
-    let infoCircWrapper = document.getElementById("info_circle_wrapper");
-    const frozenClass = "info-circle--frozen";
 
-    infoCircWrapper.onclick = function() {
-      if (infoCirc.classList.contains(frozenClass)) {
-        infoCirc.classList.remove(frozenClass);
-        popupMenuMessage("Info circle tooltip unlocked.");
-      } else {
-        infoCirc.classList.add(frozenClass);
-        popupMenuMessage("Info circle tooltip locked.");
-      }
+  // Stylizes the play button for ankidroid
+  if (isMobile()) {
+    const betterPlayBtn = `<svg class="android-play-button-svg" viewBox="0 0 64 64" version="1.1"> <circle cx="32" cy="32" r="29"></circle> <path d="M56.502,32.301l-37.502,20.101l0.329,-40.804l37.173,20.703Z"></path> </svg>`
+
+    function generateSVG() {
+      const x = document.createElement("span");
+      x.innerHTML = betterPlayBtn;
+      return x.children[0];
+    }
+
+    const eles = document.querySelectorAll(".android .replaybutton svg");
+    for (const ele of eles) {
+      ele.parentNode.replaceChild(generateSVG(), ele);
     }
   }
-
 
 
   // START_BLOCK: js_run
@@ -1136,6 +1557,16 @@ function main() {
 
 
   // END_BLOCK: js_run
+
+  
+
+
+
+
+
+
+
+
 
 
 
@@ -1146,16 +1577,22 @@ function main() {
 
 
   try { // RUN: img-utils
+
+    
+
     
         
 
-    if (getSetting(['modules','img-utils','enabled',],true) && getSetting(['modules','img-utils','nsfw-toggle','enabled',],false)) {
+    if (getSetting(['modules','img-utils','enabled',],true) && getSetting(['modules','img-utils','image-blur','enabled',],false)) {
       // ran just to call constructor
-      const img_utils = new JPMNImgUtils();
+      const imgUtils = new JPMNImgUtils();
     }
 
     /// 
         
+
+    
+
   } catch (error) {
     LOGGER.error("Error in module img-utils:");
     LOGGER.errorStack(error.stack);
@@ -1166,7 +1603,78 @@ function main() {
 
 
 
+
+
+  try { // RUN: info-circle-utils
+
+    
+
+    
+        
+
+    if (getSetting(['modules','info-circle-utils','enabled',],true)) {
+      const infoCircleUtils = new JPMNInfoCircleUtils()
+      infoCircleUtils.run();
+    }
+
+    /// 
+        
+
+    
+
+  } catch (error) {
+    LOGGER.error("Error in module info-circle-utils:");
+    LOGGER.errorStack(error.stack);
+  }
+
+
+
+
+  try { // RUN: fix-ruby-positioning
+
+    
+
+    
+        
+
+    if (getSetting(['modules','fix-ruby-positioning','enabled',],{"type": "pc-mobile", "pc": false, "mobile": false})) {
+      // module not big enough to require a class
+
+      const className = "fix-ruby-positioning";
+      const defHeader = document.getElementById("def_header");
+      if (defHeader !== null) {
+        defHeader.classList.add(className);
+      }
+
+      const expressions = document.querySelectorAll(".expression");
+      if (expressions !== null) {
+        for (const e of expressions) {
+          e.classList.add(className);
+        }
+      }
+
+    }
+
+    /// 
+        
+
+    
+
+  } catch (error) {
+    LOGGER.error("Error in module fix-ruby-positioning:");
+    LOGGER.errorStack(error.stack);
+  }
+
+
+
+
+
+
+  
+
 }
+
+
 
 
 

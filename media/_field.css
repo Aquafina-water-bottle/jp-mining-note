@@ -1,4 +1,6 @@
 @charset "UTF-8";
+/* stolen from mkdocs material */
+/* stolen from discord's inspect element css */
 /* makes the primary definition bolded sections colored */
 anki-editable[field=PrimaryDefinition] b,
 anki-editable[field=Sentence] b,
@@ -6,17 +8,20 @@ anki-editable[field=SentenceReading] b,
 anki-editable[field=AdditionalNotes] b,
 anki-editable[field=AltDisplay] b,
 anki-editable[field=AltDisplayPASentenceCard] b,
-anki-editable[field=SecondaryDefinition] b {
-  text-shadow: var(--highlight-bold-shadow);
+anki-editable[field=SecondaryDefinition] b,
+anki-editable[field=PAPositions] b,
+anki-editable[field=PAOverride] b {
   color: var(--highlight-bold-color);
 }
 
-anki-editable[field=AJTWordPitch] b {
+anki-editable[field=AJTWordPitch] b,
+anki-editable[field=PAOverrideText] b {
   font-weight: normal;
   filter: opacity(30%);
   font-size: 15px;
 }
-anki-editable[field=AJTWordPitch] b .pitchoverline:after {
+anki-editable[field=AJTWordPitch] b .pitchoverline:after,
+anki-editable[field=PAOverrideText] b .pitchoverline:after {
   content: "";
   width: 100%;
   height: 1px;
@@ -25,7 +30,8 @@ anki-editable[field=AJTWordPitch] b .pitchoverline:after {
   top: -1px;
   right: -1px;
 }
-anki-editable[field=AJTWordPitch] b .downstep:before {
+anki-editable[field=AJTWordPitch] b .downstep:before,
+anki-editable[field=PAOverrideText] b .downstep:before {
   content: "";
   width: 1px;
   height: 25%;
@@ -153,13 +159,11 @@ anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict
 }
 
 .pa-graphs__group[data-details=NHK] .pa-graphs__dictionary {
-  text-shadow: var(--highlight-bold-shadow);
   color: var(--highlight-bold-color);
   font-weight: bold;
 }
 
 .pa-graphs__group[data-details=大辞泉] .pa-graphs__dictionary {
-  text-shadow: var(--highlight-bold-shadow);
   color: var(--highlight-bold-color);
   font-weight: bold;
 }

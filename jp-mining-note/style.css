@@ -1,4 +1,6 @@
 @charset "UTF-8";
+/* stolen from mkdocs material */
+/* stolen from discord's inspect element css */
 /*
  * WARNING: This css is auto-generated.
  * Any changes to this css WILL BE LOST if you decide to update the card.
@@ -19,15 +21,20 @@ html {
 
 :root {
   --pa-brightness-reduce: 60%;
-  --sentence-font-size: 52px;
-  --reading-font-size: 55px;
+  --word-font-size: 5rem;
+  --sentence-font-size: 3.25rem;
+  --pa-indicator-word-font-size: 3.25rem;
+  --pa-indicator-sent-font-size: 2.8125rem;
+  --description-font-size: 1.25rem;
+  --description-footer-font-size: 0.5625rem;
+  --reading-font-size: 3.4375rem;
+  --reading-pitch-font-size: 1.4375rem;
   --full-sentence-font-size: 1.75rem;
-  --word-font-size: 80px;
-  --description-font-size: 20px;
-  --description-footer-font-size: 9px;
+  --glossary-font-size: 1.125rem;
+  --glossary-font-size--smaller: 0.9375rem;
   /* TODO dynamic solution */
-  --tooltip-max-width: 500px;
-  --tooltip-font-size: 14px;
+  --tooltip-max-width: 600px;
+  --tooltip-font-size: 0.875rem;
   --dark-mode-accent: #fffd9e;
   --zoom: 1;
   /* external links */
@@ -37,12 +44,16 @@ html {
   --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
   --external-links-box-shadow: 1px 1px 2px;
   --info-circle-settings-svg-size: 16px;
+  /* PrimaryDefinitionPicture fields */
+  --primary-def-picture-max-width: 300px;
+  --primary-def-picture-max-height: 150px;
   /* light mode specific */
   --text-color: black;
   --text-color--1: hsla(0, 0%, 50%, 1);
   --text-color--2: hsla(0, 0%, 60%, 1);
   --text-color--3: hsla(0, 0%, 60%, 1);
   --text-color--4: hsla(0, 0%, 83%, 1);
+  --text-color-link-hover: #4646ff;
   /* idea taken from:
    * https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/Recognition/back.html
    */
@@ -57,13 +68,14 @@ html {
   --pa-overline-color: var(--accent);
   --pa-no-pron-color: #2b94f7;
   --pa-nasal-color: #f12a2a;
-  --highlight-bold-shadow: initial;
   --highlight-bold-color: var(--accent);
   --external-links-box-shadow-color: #464646;
+  --similar-words-box-shadow-color: #464646;
+  --card-description-color: var(--text-color--4);
   --info-circle-hover-color: #5f5f5f;
   /* slightly different shade of blue */
   --info-circle-leech-color: #3983ff;
-  --info-circle-leech-hover-color: #609cff;
+  --info-circle-leech-hover-color: #6679de;
   --info-circle-leech-text-color: var(--info-circle-leech-color);
   --info-circle-warning-color: #ff8700;
   --info-circle-warning-hover-color: #ffb341;
@@ -85,6 +97,7 @@ html {
   --text-color--2: hsla(0, 0%, 67.5%, 1);
   --text-color--3: hsla(0, 0%, 50%, 1);
   --text-color--4: hsla(0, 0%, 34.5%, 1);
+  --text-color-link-hover: #1390dd;
   --text-heiban: #59b2ff; /* 平板, blue */
   --text-atamadaka: #ff6666; /* 頭高, red */
   --text-nakadaka: #ff9b54; /* 中高, orange */
@@ -96,14 +109,15 @@ html {
   --pa-overline-color: var(--accent);
   --pa-no-pron-color: #42a3ff;
   --pa-nasal-color: #f12a2a;
-  --highlight-bold-shadow: initial;
   --highlight-bold-color: var(--accent);
   --external-links-box-shadow-color: #000000;
+  --similar-words-box-shadow-color: #000000;
+  --card-description-color: var(--text-color--4);
   --info-circle-hover-color: #bdbdbd;
   /* slightly different shade of yellow */
-  --info-circle-leech-color: #ead623;
-  --info-circle-leech-hover-color: var(--accent);
-  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+  --info-circle-leech-color: var(--accent);
+  --info-circle-leech-hover-color: #e5e386;
+  --info-circle-leech-text-color: var(--info-circle-leech-color);
   --info-circle-warning-color: #ff8d0d;
   --info-circle-warning-hover-color: #f9c24e;
   --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
@@ -118,17 +132,6 @@ html {
   --icon-click-brightness: 80%;
 }
 
-/* override variables for mobile */
-.mobile {
-  --word-font-size: 50px;
-  --sentence-font-size: 30px;
-  --description-font-size: 15px;
-  /*--description-footer-font-size: 7px;*/
-  /* TODO more portable solution */
-  --tooltip-max-width: 200px;
-  --tooltip-font-size: 11px;
-}
-
 .card {
   /*font-family: notoserif;*/
   font-family: notosans;
@@ -138,9 +141,13 @@ html {
   zoom: var(--zoom);
 }
 
-.card.night_mode {
+/* fixing colors on mobile */
+.mobile .card.night_mode {
   color: white;
   background-color: #2f2f31;
+}
+.mobile .card.night_mode a {
+  color: #77ccff;
 }
 
 /* can't figure out how to customize the replay button on mobile... */
@@ -156,13 +163,22 @@ a.replay-button svg circle { fill: #FFFAF0; }*/
 /* makes lists tolerable to look at */
 ol, ul {
   margin-top: 0px;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.15em;
   padding-left: 1.5em;
 }
 
 /* makes the background of the top row of tables slightly lighter */
 th {
   background: rgba(255, 255, 255, 0.09);
+}
+
+/* link colors change upon hover */
+a:not([data-suppress-link-hover=true]) {
+  transition: color 0.15s;
+}
+
+a:not([data-suppress-link-hover=true]):hover {
+  color: var(--text-color-link-hover);
 }
 
 /*
@@ -235,7 +251,6 @@ details > summary {
   font-weight: bold;
 }
 .highlight-bold b {
-  text-shadow: var(--highlight-bold-shadow);
   color: var(--highlight-bold-color);
 }
 
@@ -245,6 +260,11 @@ details > summary {
 
 .override-display-inline-block {
   display: inline-block !important;
+}
+
+/* disables all <br> elements */
+.disable-newlines br {
+  display: none;
 }
 
 /*
@@ -302,6 +322,31 @@ ruby rt {
   user-select: none;
 }
 
+/*
+ * For some reason, it appears that the furigana positioning is way too high on certain platforms.
+ * Athough I would like these settings to work globally, it would sacrifice some minor things
+ * that <ruby> normally takes care of automatically, such as not having additional spacing on
+ * the left/right of the kanjis when the furigana takes up more space than the allocated kanjis.
+ *
+ * For now, it will be an option.
+ */
+.fix-ruby-positioning ruby {
+  display: inline-flex;
+  flex-direction: column-reverse;
+}
+
+.fix-ruby-positioning rt {
+  padding-top: 3px;
+  display: inline;
+  line-height: 1;
+}
+
+.fix-ruby-positioning rb {
+  display: inline;
+  line-height: 1;
+  text-align: center;
+}
+
 .hidden {
   display: none;
 }
@@ -312,7 +357,6 @@ ruby rt {
  *  ================
  */
 .card-description {
-  --card-description-color: var(--text-color--4);
   font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
@@ -322,10 +366,6 @@ ruby rt {
 
 .card-description-ver {
   font-size: var(--description-footer-font-size);
-}
-
-.mobile .card-description-ver {
-  padding-bottom: 30px;
 }
 
 /* info circle & tooltip */
@@ -338,12 +378,12 @@ ruby rt {
   fill: var(--card-description-color);
 }
 
-.info-circle:hover > .info-circle-svg-wrapper path,
+.info-circle--hover-color:hover > .info-circle-svg-wrapper path,
 .info-circle--frozen > .info-circle-svg-wrapper path {
   fill: var(--info-circle-hover-color);
 }
 
-.info-circle-svg-wrapper:active svg {
+.info-circle-svg-wrapper--togglable:active svg {
   filter: brightness(var(--icon-click-brightness));
 }
 
@@ -368,12 +408,12 @@ ruby rt {
   padding: 10px;
   border-radius: 6px;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: -10px;
   margin-left: 16px;
 }
 
-.info-circle-svg-wrapper:hover + .info-circle-text-wrapper > .info-circle-text,
+.info-circle-svg-wrapper--hoverable:hover + .info-circle-text-wrapper > .info-circle-text,
 .info-circle--frozen > .info-circle-svg-wrapper + .info-circle-text-wrapper > .info-circle-text {
   visibility: visible;
 }
@@ -416,8 +456,17 @@ ruby rt {
   fill: var(--info-circle-leech-color);
 }
 
-.info-circle-leech:hover > .info-circle-svg-wrapper path, .info-circle-leech.info-circle---frozen > .info-circle-svg-wrapper path {
+.info-circle--hover-color.info-circle-leech:hover > .info-circle-svg-wrapper path, .info-circle-leech.info-circle---frozen > .info-circle-svg-wrapper path {
   fill: var(--info-circle-leech-hover-color);
+}
+
+/* debug text */
+.info-circle-text-debug {
+  font-family: Consolas, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Monaco, Courier New, Courier, monospace;
+}
+
+.info-circle-text-debug:not(:empty) {
+  margin-top: 10px;
 }
 
 /* warning text */
@@ -435,13 +484,19 @@ ruby rt {
   fill: var(--info-circle-warning-color);
 }
 
-.info-circle-warning:hover > .info-circle-svg-wrapper path, .info-circle-svg-wrapper--frozen > .info-circle-svg-wrapper path {
+.info-circle--hover-color.info-circle-warning:hover > .info-circle-svg-wrapper path, .info-circle-svg-wrapper--frozen > .info-circle-svg-wrapper path {
   fill: var(--info-circle-warning-hover-color);
 }
 
 /* error text */
 .info-circle-text-error:not(:empty) {
   margin-bottom: 10px;
+}
+
+.info-circle-text-error {
+  font-family: Consolas, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Monaco, Courier New, Courier, monospace;
+  /* breaks the word at the end of the line regardless of whitespace */
+  word-break: break-all;
 }
 
 .info-circle-text-error .info-circle__message:before {
@@ -454,7 +509,7 @@ ruby rt {
   fill: var(--info-circle-error-color);
 }
 
-.info-circle-error:hover > .info-circle-svg-wrapper path, .info-circle-svg-wrapper--frozen > .info-circle-svg-wrapper path {
+.info-circle--hover-color.info-circle-error:hover > .info-circle-svg-wrapper path, .info-circle-svg-wrapper--frozen > .info-circle-svg-wrapper path {
   fill: var(--info-circle-error-hover-color);
 }
 
@@ -511,7 +566,7 @@ ruby rt {
 .pa-indicator {
   margin-left: auto;
   grid-column-start: 1;
-  font-size: var(--sentence-font-size);
+  font-size: var(--pa-indicator-word-font-size);
   /*
    * so that the svg can be placed after the sentence (to remove upon hover)
    * while appearing to be before the sentence
@@ -539,10 +594,6 @@ ruby rt {
 .pa-indicator-color--none {
   fill: var(--pa-indicator-none-color);
   color: var(--pa-indicator-none-color);
-}
-
-.mobile .expression {
-  border-top: 30px;
 }
 
 .expression b {
@@ -592,6 +643,10 @@ ruby rt {
   justify-content: center;
 }
 
+.expression__hybrid-wrapper--hover:hover + .pa-indicator, .pa-indicator--sentence {
+  font-size: var(--pa-indicator-sent-font-size);
+}
+
 .expression__hybrid-wrapper--hover-remove-flag:hover + .pa-indicator > .pa-indicator__svg {
   display: none;
 }
@@ -602,13 +657,12 @@ ruby rt {
 }
 
 /* used to specify that hovering toggles between word/sentence */
-/* used to specify that clicking toggles between word/sentence */
-.expression__hybrid--click {
+.expression__hybrid--click-hover-effect {
+  /* transition for opacity */
   transition: 0.3s;
 }
 
-/* not applied to the image because of above comment (prevent showing the transition) */
-.expression__hybrid--click:hover {
+.expression__hybrid--click-hover-effect:hover {
   opacity: 0.85;
   cursor: pointer;
 }
@@ -717,8 +771,8 @@ ruby rt {
  */
 .back-side {
   max-width: 850px;
-  margin: 20px auto 20px auto;
-  padding: 0 20px 0 20px;
+  margin: auto;
+  padding: 0px;
 }
 
 .answer-border {
@@ -809,6 +863,7 @@ ruby rt {
   align-items: center;
   max-width: 820px;
   margin: auto;
+  position: relative;
 }
 
 .dh-left { /* left */
@@ -816,6 +871,15 @@ ruby rt {
   padding: 0.52em;
   border-radius: 5px;
   flex: 1; /* takes up all available space */
+}
+
+/* Adds padding to right/left to prevent word from overlapping indicators.
+ * This is an extreme edge case. This shouldn't ever be visible
+ * unless you have a duplicate of a very long word.
+ */
+.dh-left--with-similar-word-indicators {
+  padding-left: 35px;
+  padding-right: 35px;
 }
 
 /* PA cards only */
@@ -829,13 +893,57 @@ ruby rt {
 .dh-left__reading {
   font-size: var(--reading-font-size);
   font-family: notoserif;
-  white-space: nowrap; /* so the reading can expand into the image */
+  white-space: nowrap; /* so the reading can expand ouside of the max width */
 }
 
 .dh-left__word-pitch {
   margin-top: 15px;
-  font-size: 23px;
+  font-size: var(--reading-pitch-font-size);
   vertical-align: middle;
+}
+
+.dh-left__similar-words-indicators {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  left: 10px;
+  top: 10px;
+  font-size: 15px;
+  line-height: 16px;
+}
+
+.dh-left__similar-words-indicator {
+  display: none; /* so it's not shown and doesn't affect the card without javascript */
+}
+
+.dh-left__similar-words-indicators .hover-tooltip-wrapper {
+  line-height: initial;
+}
+
+.dh-left__similar-words-indicators-main-word .hover-tooltip__word-div {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.dh-left__similar-words-indicators .hover-wrapper .hover-text {
+  user-select: none;
+}
+
+.dh-left__similar-words-indicator {
+  color: var(--text-color--3);
+}
+
+.dh-left__similar-words-indicator:hover {
+  color: var(--info-circle-hover-color);
+}
+
+.dh-left__similar-words-indicator--new {
+  color: var(--accent);
+}
+
+.dh-left__similar-words-indicator--new:hover {
+  color: var(--info-circle-leech-hover-color);
 }
 
 /*
@@ -870,6 +978,10 @@ ruby rt {
   display: block;
   top: -1px;
   left: 0px;
+}
+
+.dh-left__word-pitch-text:empty:before {
+  content: "(N/A)";
 }
 
 .pa-word-highlight-heiban {
@@ -913,14 +1025,29 @@ ruby rt {
 }
 
 /*
+ * <span class="hover-wrapper">
+ *   <span class="hover-text"> (kanji) </span>
+ *   <span class="hover-tooltip-wrapper">
+ *     <span class="hover-tooltip"> ... </span>
+ *   </span>
+ * </span>
+ */
+/*
  * kanji hover
  */
-.kanji-hover-wrapper {
+.hover-wrapper {
   position: relative;
 }
 
 /* Tooltip text */
-.kanji-hover-tooltip {
+.hover-text--similar-words-indicator {
+  width: 120%;
+  display: inline-block;
+  text-align: left;
+  user-select: none;
+}
+
+.hover-tooltip {
   display: inline-block;
   min-width: 100px;
   background-color: var(--tooltip-background-darken);
@@ -928,7 +1055,88 @@ ruby rt {
   border-radius: 6px;
 }
 
-.kanji-hover-tooltip-wrapper {
+.hover-tooltip .hover-tooltip__pitch-accent {
+  /* cancels out bolded colors */
+  /* cancels out extra colors */
+}
+.hover-tooltip .hover-tooltip__pitch-accent b {
+  font-weight: normal;
+  filter: opacity(30%);
+  font-size: 15px;
+}
+.hover-tooltip .hover-tooltip__pitch-accent b .pitchoverline:after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: var(--pa-overline-color);
+  position: absolute;
+  top: -1px;
+  right: -1px;
+}
+.hover-tooltip .hover-tooltip__pitch-accent b .downstep:before {
+  content: "";
+  width: 1px;
+  height: 25%;
+  background: var(--pa-overline-color);
+  /*filter: brightness(var(--pa-brightness-reduce));*/
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: 0px;
+}
+.hover-tooltip .hover-tooltip__pitch-accent b {
+  color: var(--text-color);
+}
+.hover-tooltip .hover-tooltip__pitch-accent .pitchoverline:after, .hover-tooltip .hover-tooltip__pitch-accent b .pitchoverline:after {
+  background: var(--text-color--1);
+}
+.hover-tooltip .hover-tooltip__pitch-accent .downstep:before, .hover-tooltip .hover-tooltip__pitch-accent b .downstep:before {
+  background: var(--text-color--1);
+}
+.hover-tooltip .hover-tooltip__pitch-accent .nopron {
+  color: var(--text-color);
+}
+
+.hover-tooltip .hover-tooltip__word-div b {
+  color: var(--highlight-bold-color);
+}
+
+/* greys out the card if new (not reviewed yet) */
+.hover-tooltip__card--new {
+  color: var(--text-color--1);
+}
+.hover-tooltip__card--new .hover-tooltip__pitch-accent .pitchoverline:after {
+  filter: opacity(70%);
+}
+.hover-tooltip__card--new .hover-tooltip__pitch-accent .downstep:before {
+  filter: opacity(70%);
+}
+.hover-tooltip__card--new .hover-tooltip__pitch-accent .nopron {
+  color: var(--text-color--1);
+}
+
+.hover-tooltip .hover-tooltip__sent-div b {
+  font-weight: normal;
+}
+
+.hover-tooltip__word-div--clickable {
+  cursor: pointer;
+}
+
+/* requires the user to hover over the card div to see the pitch accent */
+.hover-tooltip__card-div--hover .hover-tooltip__pitch-accent {
+  visibility: hidden;
+}
+
+.hover-tooltip__card-div--hover:hover .hover-tooltip__pitch-accent {
+  visibility: visible;
+}
+
+.hover-tooltip__pitch-accent:before {
+  content: "　";
+}
+
+.hover-tooltip-wrapper {
   /* overrides any existing pitch accent coloring, if it exists */
   color: var(--text-color);
   font-size: 18px;
@@ -946,34 +1154,31 @@ ruby rt {
   white-space: normal;
 }
 
-.kanji-hover-tooltip b {
-  text-shadow: var(--highlight-bold-shadow);
-  color: var(--highlight-bold-color);
-}
-
-.kanji-hover-tooltip--new {
-  color: var(--text-color--1);
+.hover-tooltip-wrapper--similar-words-indicator {
+  top: -15px;
+  left: 29px;
 }
 
 /*
  * "gap" class to be inserted to elements after the first one,
  * since flex can't be used
  */
-.kanji-hover-tooltip--not-first {
+.hover-tooltip--not-first {
   margin-top: 10px;
 }
 
-.kanji-hover-text:hover + .kanji-hover-tooltip-wrapper {
+.hover-text:hover + .hover-tooltip-wrapper,
+.hover-text.hover-text--frozen + .hover-tooltip-wrapper {
   display: inline-block;
 }
 
 /* prevents the tooltip text from disappearing on hover */
-.kanji-hover-tooltip-wrapper:hover {
+.hover-tooltip-wrapper:hover {
   display: inline-block;
 }
 
 /* arrow */
-.kanji-hover-tooltip:after {
+.hover-tooltip:after {
   content: "";
   position: absolute;
   /* position tooltip correctly */
@@ -983,6 +1188,27 @@ ruby rt {
   border: 8px solid #000000;
   border-color: transparent transparent var(--tooltip-background-darken) transparent;
   z-index: 1;
+}
+
+.hover-tooltip--kanji-hover:before {
+  content: "";
+  width: 40px;
+  position: absolute;
+  /* position tooltip correctly */
+  left: 0px;
+  top: -16px;
+  /* the arrow */
+  border: 8px solid transparent;
+  z-index: 1;
+}
+
+/* arrow */
+.hover-tooltip--similar-words-indicator:after {
+  /* position tooltip correctly */
+  left: -16px;
+  top: 11px;
+  /* the arrow */
+  border-color: transparent var(--tooltip-background-darken) transparent transparent;
 }
 
 /*
@@ -1008,6 +1234,7 @@ ruby rt {
   vertical-align: middle;
 }
 
+/* experimental mobile class */
 /*
  * ------------------
  *  Def Header Right
@@ -1015,21 +1242,12 @@ ruby rt {
  */
 .dh-right {
   font-size: 40px;
-  padding-left: 35px;
   max-width: 400px;
   max-height: 210px;
-  position: relative;
 }
 
-/* TODO put the image at the top right corner always for mobile */
-.mobile .dh-right {
-  padding-left: 0px;
-  max-height: 60px !important;
-  min-width: 0px;
-  min-height: 0px;
-  position: fixed;
-  top: 15px;
-  right: 15px;
+.dh-right--contains-image {
+  padding-left: 35px;
 }
 
 .dh-right__img {
@@ -1042,10 +1260,12 @@ ruby rt {
   user-select: none;
 }
 
-.mobile .dh-right__img {
-  max-height: 60px !important;
-  min-width: 0px;
-  min-height: 0px;
+/* experimental mobile class */
+.dh-right--around-word {
+  max-height: 50px !important;
+}
+.dh-right--around-word .dh-right__img {
+  max-height: 50px !important;
 }
 
 .dh-right__img-container-stop-blur-edges {
@@ -1133,16 +1353,12 @@ ruby rt {
 }
 
 .modal {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.25s;
   animation-name: zoom;
   animation-duration: 0.25s;
 }
 
 /* Add Animation */
 .modal-img {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.25s;
   animation-name: zoom;
   animation-duration: 0.25s;
   /* prevents the zoomed-in image from exceeding the screen size */
@@ -1165,20 +1381,6 @@ ruby rt {
   animation-duration: 0.25s;
 }
 
-@-webkit-keyframes zoom {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-  0.001% {
-    display: block;
-    opacity: 0;
-  }
-  100% {
-    display: block;
-    opacity: 100;
-  }
-}
 @keyframes zoom {
   0% {
     display: none;
@@ -1191,20 +1393,6 @@ ruby rt {
   100% {
     display: block;
     opacity: 100;
-  }
-}
-@-webkit-keyframes zoom-out {
-  0% {
-    display: block;
-    opacity: 100;
-  }
-  99.999% {
-    display: block;
-    opacity: 0;
-  }
-  100% {
-    display: none;
-    opacity: 0;
   }
 }
 @keyframes zoom-out {
@@ -1228,7 +1416,7 @@ ruby rt {
  */
 .full-sentence {
   font-size: var(--full-sentence-font-size);
-  margin: 0 0 0.5em 0;
+  margin: 0.3em 0 0.3em 0;
   font-family: notoserif;
 }
 
@@ -1248,10 +1436,12 @@ ruby rt {
 .glossary-blockquote {
   text-align: left;
   background: var(--background-darken);
-  font-size: 18px;
+  font-size: var(--glossary-font-size);
   border-left: 5px solid #ccc;
   margin: 0 5px;
   padding: 0.5em 10px;
+  /* so pictures can be encased properly */
+  overflow: hidden;
 }
 
 .glossary-blockquote p {
@@ -1259,8 +1449,70 @@ ruby rt {
 }
 
 .glossary-details {
-  font-size: 18px;
+  font-size: var(--glossary-font-size);
   margin: 0.5em 0 0 0;
+}
+
+.glossary-primary-definition-right {
+  float: right;
+  display: none;
+  padding-left: 5px;
+  /*padding-top: 3px;*/
+  text-align: right;
+}
+.glossary-primary-definition-right img {
+  border-radius: 3px;
+  max-width: var(--primary-def-picture-max-width);
+  max-height: var(--primary-def-picture-max-height);
+}
+
+.glossary-primary-definition-right:not(:empty) {
+  display: block;
+}
+
+.glossary-blockquote--primary-definition .glossary__external-links--float {
+  display: none;
+}
+.glossary-blockquote--primary-definition .glossary-primary-definition-right--bottom {
+  display: none;
+}
+
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary-primary-definition-right--bottom {
+  display: block;
+}
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary__external-links--float {
+  display: flex;
+}
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary-primary-definition-right--float {
+  display: none;
+}
+
+/* aligns boxes within float to right */
+.glossary-primary-definition-right--float {
+  display: block;
+}
+
+.glossary-primary-definition-right--float .glossary__external-links {
+  margin-left: auto;
+}
+
+/* padding between external links & picture if it exists */
+.glossary-primary-definition-right--float .glossary__external-links + .glossary-primary-definition-right-img:not(:empty) {
+  padding-top: 5px;
+}
+
+.glossary-blockquote--picture-below .glossary-primary-definition-right {
+  float: none;
+  padding-left: 0px;
+}
+
+.glossary-blockquote--picture-below .glossary-primary-definition-right.glossary-primary-definition-right--above-text {
+  padding-top: 10px;
+}
+
+.glossary-primary-definition-right-img {
+  display: flex; /* for some reason, this removes additional padding at the bottom */
+  gap: 5px;
 }
 
 .glossary-details--grey {
@@ -1269,11 +1521,11 @@ ruby rt {
 }
 
 .glossary-blockquote--small {
-  font-size: 15px;
+  font-size: var(--glossary-font-size--smaller);
 }
 
 .glossary-details--small {
-  font-size: 15px;
+  font-size: var(--glossary-font-size--smaller);
 }
 
 /* styles to all images within any definition blockquote */
@@ -1292,8 +1544,10 @@ ruby rt {
 
 .glossary__image-hover-media {
   cursor: pointer;
-  max-height: 500px;
-  max-width: 100px;
+  /* !important is added for ankidroid */
+  /* see: https://docs.ankiweb.net/templates/styling.html#image-resizing */
+  max-height: 500px !important;
+  max-width: 100px !important;
 }
 
 /* so the image doesn't disappear once you move your mouse away from the text */
@@ -1308,11 +1562,6 @@ ruby rt {
  * TODO: support for mobile (thinner screens likely require the external links to all
  * be in one column rather than two
  */
-.glossary-text--extra-info {
-  display: grid;
-  grid-template-columns: 1fr max-content;
-}
-
 .glossary__external-links {
   display: flex;
   align-content: flex-start;
@@ -1323,10 +1572,12 @@ ruby rt {
   max-width: calc(var(--external-links-icon-size) * var(--external-links-max-icons-per-row) + (var(--external-links-max-icons-per-row) - 1) * var(--external-links-gap));
 }
 
-.glossary__external-links--full-row {
-  max-width: 100%;
+.glossary__external-links--float {
+  float: right;
+  padding-left: 5px;
 }
 
+/* external links are moved to the left if field is completely empty */
 .glossary__external-links a {
   text-align: center;
   vertical-align: middle;
@@ -1334,8 +1585,10 @@ ruby rt {
   height: var(--external-links-icon-size);
   line-height: var(--external-links-icon-size);
   font-size: var(--external-links-icon-font-size);
-  color: var(--text-color);
+  color: var(--text-color) !important; /* !important for ankidroid */
+  text-decoration: none !important; /* !important for ankidroid */
   box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
+  border-radius: 2px;
 }
 
 .glossary__external-links img {
@@ -1345,7 +1598,7 @@ ruby rt {
 }
 
 .glossary__external-links a:not(:hover) {
-  filter: opacity(0.5);
+  filter: opacity(0.5) grayscale(0.5);
 }
 
 /*
@@ -1361,11 +1614,6 @@ ruby rt {
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
-}
-
-/* temporarily removing these for the mobile class since they clog up the space */
-.mobile .frequencies {
-  display: none;
 }
 
 .frequencies__group {
@@ -1386,7 +1634,7 @@ ruby rt {
 .pa-graphs {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 5px 30px;
 }
 
 .pa-graphs__dictionary-inner:after {
@@ -1397,6 +1645,150 @@ ruby rt {
   display: none;
 }
 
+/*
+ * ================
+ *  mobile support
+ * ================
+ */
+.android .replaybutton span {
+  text-decoration: none;
+  display: inline-flex;
+  vertical-align: middle;
+}
+.android .replaybutton span svg {
+  width: 40px;
+  height: 40px;
+}
+.android .replaybutton span svg circle {
+  fill: #fff;
+  stroke: #414141;
+}
+.android .replaybutton span svg path {
+  fill: #414141;
+}
+
+@media (max-width: 1600px) {
+  :root {
+    --sentence-font-size: 2.625rem;
+    --pa-indicator-sent-font-size: 2.1875rem;
+  }
+}
+@media (max-width: 1300px) {
+  .expression br {
+    display: none;
+  }
+}
+@media (max-width: 850px) {
+  :root {
+    --word-font-size: 3.4375rem;
+    --sentence-font-size: 2.1875rem;
+    --pa-indicator-word-font-size: 2.1875rem;
+    --pa-indicator-sent-font-size: 1.8125rem;
+    --description-font-size: 1.125rem;
+    --description-footer-font-size: 0.5rem;
+    --reading-font-size: 2.75rem;
+    --reading-pitch-font-size: 1.125rem;
+    --full-sentence-font-size: 1.5rem;
+    --glossary-font-size: 0.9375rem;
+    --glossary-font-size--smaller: 0.8125rem;
+    /* PrimaryDefinitionPicture fields */
+    --primary-def-picture-max-width: 200px;
+    --primary-def-picture-max-height: 100px;
+    /* TODO more portable solution */
+    --tooltip-max-width: 350px;
+    --tooltip-font-size: 0.75rem;
+  }
+  .expression {
+    border-top: 30px;
+  }
+  .info-circle svg {
+    /* TODO variable */
+    width: 13px;
+  }
+  .dh-left__reading {
+    white-space: initial; /* in case the word is too long */
+  }
+  .dh-left__word-pitch {
+    margin-top: 0px;
+  }
+  .dh-right {
+    max-width: 215px !important;
+    padding-left: 20px;
+  }
+  .dh-right .dh-right__img {
+    max-width: 215px !important;
+  }
+  .def-header {
+    align-items: flex-start;
+  }
+  .full-sentence br {
+    display: none;
+  }
+}
+@media (max-width: 620px) {
+  :root {
+    --sentence-font-size: 1.875rem;
+    --full-sentence-font-size: 1.25rem;
+  }
+  .card {
+    margin: 5px;
+  }
+  .card-description {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  .mobile .card-description {
+    margin-left: 0px;
+  }
+  .card-description__card-type, .card-description-ver {
+    display: none;
+  }
+  .info-circle svg {
+    /* TODO variable */
+    width: 15px;
+  }
+  /* temporarily removing these for the mobile class since they clog up the space */
+  .frequencies {
+    display: none;
+  }
+  .pa-indicator {
+    /* same size as info circle */
+    font-size: var(--pa-indicator-word-font-size) !important;
+  }
+  .pa-indicator__svg {
+    position: absolute;
+    top: 1px;
+    left: 30px;
+  }
+  .full-sentence {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .dh-right {
+    position: absolute;
+    max-height: 60px !important;
+    bottom: 10px;
+    right: 10px;
+    padding-left: 0px;
+  }
+  .dh-right .dh-right__img {
+    max-height: 60px !important;
+  }
+  .dh-right__svg-eye {
+    display: none !important;
+  }
+  .android .dh-left {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+  }
+  .dh-left__audio-buttons {
+    padding-top: 10px;
+  }
+  .dh-left__audio-buttons--left {
+    text-align: left;
+  }
+}
 /*
  * customization for specific dictionaries
  */
@@ -1449,13 +1841,11 @@ ruby rt {
 
 /* Custom highlights for NHK and 大辞泉 */
 .pa-graphs__group[data-details=NHK] .pa-graphs__dictionary {
-  text-shadow: var(--highlight-bold-shadow);
   color: var(--highlight-bold-color);
   font-weight: bold;
 }
 
 .pa-graphs__group[data-details=大辞泉] .pa-graphs__dictionary {
-  text-shadow: var(--highlight-bold-shadow);
   color: var(--highlight-bold-color);
   font-weight: bold;
 }
@@ -1471,7 +1861,7 @@ ruby rt {
  *
  */
 /* makes the symbols centered */
-div.glossary-text--extra-info ol li[data-details=シン・漢字遣い参考] td, div.glossary-text--extra-info ol [data-sc-ortho=table] td {
+li[data-details=シン・漢字遣い参考] td, [data-sc-ortho=table] td {
   text-align: center;
   line-height: 150%;
 }

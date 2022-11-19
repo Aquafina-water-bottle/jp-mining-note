@@ -1,15 +1,22 @@
 @charset "UTF-8";
+/* stolen from mkdocs material */
+/* stolen from discord's inspect element css */
 :root {
   --pa-brightness-reduce: 60%;
-  --sentence-font-size: 52px;
-  --reading-font-size: 55px;
+  --word-font-size: 5rem;
+  --sentence-font-size: 3.25rem;
+  --pa-indicator-word-font-size: 3.25rem;
+  --pa-indicator-sent-font-size: 2.8125rem;
+  --description-font-size: 1.25rem;
+  --description-footer-font-size: 0.5625rem;
+  --reading-font-size: 3.4375rem;
+  --reading-pitch-font-size: 1.4375rem;
   --full-sentence-font-size: 1.75rem;
-  --word-font-size: 80px;
-  --description-font-size: 20px;
-  --description-footer-font-size: 9px;
+  --glossary-font-size: 1.125rem;
+  --glossary-font-size--smaller: 0.9375rem;
   /* TODO dynamic solution */
-  --tooltip-max-width: 500px;
-  --tooltip-font-size: 14px;
+  --tooltip-max-width: 600px;
+  --tooltip-font-size: 0.875rem;
   --dark-mode-accent: #fffd9e;
   --zoom: 1;
   /* external links */
@@ -19,12 +26,16 @@
   --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
   --external-links-box-shadow: 1px 1px 2px;
   --info-circle-settings-svg-size: 16px;
+  /* PrimaryDefinitionPicture fields */
+  --primary-def-picture-max-width: 300px;
+  --primary-def-picture-max-height: 150px;
   /* light mode specific */
   --text-color: black;
   --text-color--1: hsla(0, 0%, 50%, 1);
   --text-color--2: hsla(0, 0%, 60%, 1);
   --text-color--3: hsla(0, 0%, 60%, 1);
   --text-color--4: hsla(0, 0%, 83%, 1);
+  --text-color-link-hover: #4646ff;
   /* idea taken from:
    * https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/Recognition/back.html
    */
@@ -39,13 +50,14 @@
   --pa-overline-color: var(--accent);
   --pa-no-pron-color: #2b94f7;
   --pa-nasal-color: #f12a2a;
-  --highlight-bold-shadow: initial;
   --highlight-bold-color: var(--accent);
   --external-links-box-shadow-color: #464646;
+  --similar-words-box-shadow-color: #464646;
+  --card-description-color: var(--text-color--4);
   --info-circle-hover-color: #5f5f5f;
   /* slightly different shade of blue */
   --info-circle-leech-color: #3983ff;
-  --info-circle-leech-hover-color: #609cff;
+  --info-circle-leech-hover-color: #6679de;
   --info-circle-leech-text-color: var(--info-circle-leech-color);
   --info-circle-warning-color: #ff8700;
   --info-circle-warning-hover-color: #ffb341;
@@ -67,6 +79,7 @@
   --text-color--2: hsla(0, 0%, 67.5%, 1);
   --text-color--3: hsla(0, 0%, 50%, 1);
   --text-color--4: hsla(0, 0%, 34.5%, 1);
+  --text-color-link-hover: #1390dd;
   --text-heiban: #59b2ff; /* 平板, blue */
   --text-atamadaka: #ff6666; /* 頭高, red */
   --text-nakadaka: #ff9b54; /* 中高, orange */
@@ -78,14 +91,15 @@
   --pa-overline-color: var(--accent);
   --pa-no-pron-color: #42a3ff;
   --pa-nasal-color: #f12a2a;
-  --highlight-bold-shadow: initial;
   --highlight-bold-color: var(--accent);
   --external-links-box-shadow-color: #000000;
+  --similar-words-box-shadow-color: #000000;
+  --card-description-color: var(--text-color--4);
   --info-circle-hover-color: #bdbdbd;
   /* slightly different shade of yellow */
-  --info-circle-leech-color: #ead623;
-  --info-circle-leech-hover-color: var(--accent);
-  --info-circle-leech-text-color: var(--info-circle-leech-hover-color);
+  --info-circle-leech-color: var(--accent);
+  --info-circle-leech-hover-color: #e5e386;
+  --info-circle-leech-text-color: var(--info-circle-leech-color);
   --info-circle-warning-color: #ff8d0d;
   --info-circle-warning-hover-color: #f9c24e;
   --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
