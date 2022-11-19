@@ -113,9 +113,9 @@ CONFIG = {
         # Option to have custom CSS.
         # The last takes priorty over the first,
         # i.e. the "extra" folder takes priority over base in
-        #   `["base", "dictionaries" "extra"]`
+        #   `["base", "responsive", "dictionaries" "extra"]`
         # Don't remove "base" unless you know what you're doing.
-        "css-folders": ["base", "dictionaries"],
+        "css-folders": ["base", "responsive", "dictionaries"],
 
 
         # Allows modules that didn't come with the note to be used.

@@ -276,13 +276,38 @@ which may mis-aligned the surrounding icons.
 ---
 
 
+<!--
+# Sentences
+
+## Removing Sentence Quotes
+The sentence display has quotes surrounding the sentence by default, to provide
+an easy indicator to differentiate between a sentence and vocab card.
+
+If you want to remove the quotes, you can set the following {{ RTO }} to `false`:
+
+```
+{
+  "modules": {
+    "sent-utils": {
+      // automatically adds quotes to the sentence (if not alt display)
+      "auto-quote-sentence": false,
+
+      // automatically adds quotes to the sentence (if alt display)
+      "auto-quote-alt-display-sentence": false,
+    }
+  }
+}
+```
+
+-->
 
 
 
 
 
 
-# UI Runtime Options
+
+# Various UI Runtime Options
 
 Various {{ RTO_FILE }} affect the user interface.
 Some are documented below.
@@ -394,12 +419,11 @@ This runtime option allows them to be shown (but greyed out) when empty.
 }
 ```
 
-=== "Empty fields greyed out"
-    {{ img("", "assets/fushinnsha/greyed_out_fields_grey.png") }}
+=== "Empty fields greyed out (`true`)"
+    {{ img("", "assets/greyed_out_fields/grey.png") }}
 
-=== "Empty fields not shown (default)"
-    {{ img("", "assets/fushinnsha/greyed_out_fields_hidden.png") }}
-
+=== "Empty fields not shown (`false`, default)"
+    {{ img("", "assets/greyed_out_fields/hidden.png") }}
 
 
 
