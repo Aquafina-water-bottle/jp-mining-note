@@ -62,7 +62,6 @@ and must use `./install.py --update`.
 - Revamped the documentation layout quite a bit, to now include tabs in the header
 - Added the `jpmn-sentence-bolded-furigana-plain` header to yomichan templates
 - Added the `dict-group__glossary--first-line` to the templates to allow the removal of the first line with css
-- Added `empty-pitch-accent-display-string` compile-time option to be able to remove the "(N/A)" display
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
@@ -96,6 +95,7 @@ and must use `./install.py --update`.
 - Made the `img-utils` module a bit faster by grouping together the .offsetHeight calls + only calling them if necessary
     - Prevents unnecessary reflows
 - Added a debug div within the info circle to display monospaced debug messages
+- Added additional css to be able to remove the "(N/A)" display
 
 #### Update Notes (0.11.0.0)
 - Update Yomichan's 'Anki Card Templates' section.
