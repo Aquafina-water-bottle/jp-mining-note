@@ -419,7 +419,6 @@ Your `WordReading` field is likely formatted in one of three ways:
         python batch.py -f quick_fix_convert_kana_only_reading_with_tag
         ```
 
-<!--
 <br>
 
 
@@ -428,7 +427,7 @@ Your `WordReading` field is likely formatted in one of three ways:
 
 The following automatically fills out the `WordReadingFurigana` field.
 
-Filling out the `WordReadingFurigana` field is optional but recommended.
+Filling out the `WordReadingFurigana` field is optional but highly recommended.
 This will enable the usage of [Word Indicators](ui.md#word-indicators)
 on existing cards.
 
@@ -438,7 +437,7 @@ Again, for Windows users, see the first 3 steps for the Windows instructions
 if you haven't use Python before.
 
 The following script assumes that Step 4 is done
-(meaning your `WordReading` field is formatted as plain furigana).
+(which means your `WordReading` field is formatted as plain furigana).
 Do not run this script if you have not successfully completed Step 4.
 
 
@@ -450,7 +449,6 @@ cd ./tools
 # make sure you have Anki open and Anki-Connect installed!
 python3 ./batch.py -f "fill_word_reading_hiragana_field"
 ```
--->
 
 ---
 

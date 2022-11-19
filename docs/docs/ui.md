@@ -149,8 +149,6 @@ The indicators are as follows:
 - 読 (short for 読み方) indicates that there are other card(s) with the same reading (ignoring pitch accent).
 - 漢 (short for 漢字) indicates that there are other card(s) with the same kanji, but different reading.
 
-TODO change demo
-
 {{ img("same reading indicator eg", "assets/same_reading_indicator.gif") }}
 
 As you can see from the above, the query ignores pitch accent.
