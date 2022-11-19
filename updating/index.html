@@ -1313,9 +1313,9 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 <code>python</code> or <code>git</code> before.</p>
 <ol>
 <li>
-<p>Install <a href="https://www.python.org/">Python</a>.
-    Any version above 3.10.6 should suffice, but I recommend using the latest stable version.</p>
-<p>Make sure the box for "Add Python to PATH" is checked.
+<p>Install <a href="https://www.python.org/">Python</a> version 3.10.6 or above, if you haven't already.
+    I recommend using the latest stable version if you have not downloaded Python before.</p>
+<p>Additionally, make sure the box for "Add Python to PATH" is checked.
 (This is a common error for people to make. Please pay attention to this step!)</p>
 </li>
 <li>
@@ -1343,7 +1343,7 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 </div>
 <hr />
 <h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
-<p>This section will document common errors that occur when running the <code>/install.py</code> script.</p>
+<p>This section will document common errors that occur when running the <code>install.py</code> script.</p>
 <p><br></p>
 <h3 id="anki-connect-is-missing-actions">Anki-Connect is missing actions<a class="headerlink" href="#anki-connect-is-missing-actions" title="Permanent link">&para;</a></h3>
 <p>Anki-Connect is likely outdated.
@@ -1365,8 +1365,8 @@ The field list can be accessed by navigating to the following:</p>
 <blockquote>
 <p>(Main window) →  <code>Browse</code> →  <code>Fields...</code>.</p>
 </blockquote>
-<p>The <code>install.py</code> is picky about fields and its order, and the script will reject
-any note type with modifications to the field list (by default).</p>
+<p>The <code>install.py</code> is picky about fields and its order, and by default, the script will reject
+any note type with modifications to the field list.</p>
 <p>To fix this, there are a few cases to go through.</p>
 <details class="info">
 <summary>The field order has been changed.</summary>
@@ -1515,9 +1515,13 @@ does not have any matching fields with the <code>JP Mining Note</code> model.</p
 </div>
 <hr />
 <h2 id="updating-yomichan-templates">Updating Yomichan Templates<a class="headerlink" href="#updating-yomichan-templates" title="Permanent link">&para;</a></h2>
-<p>Like the above, you can simply follow the steps already specified in <a href="../setupyomichan/#yomichan-templates" target="_blank">setup</a>.
-Again, please make sure you <strong>reset the existing templates</strong> (unless you know what you are doing),
-and again, please make a <a href="../faq/#how-do-i-backup-yomichan-settings" target="_blank">backup</a> of your Yomichan settings just in case.</p>
+<p>Like the above, you can simply follow the steps already specified in <a href="../setupyomichan/#yomichan-templates" target="_blank">setup</a>.</p>
+<p>Again, please make a <a href="../faq/#how-do-i-backup-yomichan-settings" target="_blank">backup</a>
+of your Yomichan settings just in case,
+and again, please make sure you <strong>reset the existing templates</strong> (unless you know what you are doing).</p>
+<p>Note that your Yomichan template options will be reset if you follow all the steps.
+I recommend temporarily saving a copy of the Yomichan templates so you can easily
+reset your Yomichan template options after updating.</p>
 <hr />
 <h2 id="updating-the-runtime-options-file">Updating the Runtime Options File<a class="headerlink" href="#updating-the-runtime-options-file" title="Permanent link">&para;</a></h2>
 <p>The <a href="../runtimeoptions/" target="_blank">runtime options</a> does not automatically update with each note update,
@@ -1556,7 +1560,7 @@ Please do the following checks to make sure everything properly works:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 18, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 19, 2022</span>
       
     
   </small>

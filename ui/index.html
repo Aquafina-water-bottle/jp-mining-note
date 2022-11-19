@@ -719,11 +719,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ui-runtime-options" class="md-nav__link">
-    UI Runtime Options
+  <a href="#various-ui-runtime-options" class="md-nav__link">
+    Various UI Runtime Options
   </a>
   
-    <nav class="md-nav" aria-label="UI Runtime Options">
+    <nav class="md-nav" aria-label="Various UI Runtime Options">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1156,11 +1156,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ui-runtime-options" class="md-nav__link">
-    UI Runtime Options
+  <a href="#various-ui-runtime-options" class="md-nav__link">
+    Various UI Runtime Options
   </a>
   
-    <nav class="md-nav" aria-label="UI Runtime Options">
+    <nav class="md-nav" aria-label="Various UI Runtime Options">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1319,7 +1319,7 @@ and/or to view the full list of keybinds.</p>
 </div>
 </div>
 <h3 id="locking-the-info-circle">Locking the Info Circle<a class="headerlink" href="#locking-the-info-circle" title="Permanent link">&para;</a></h3>
-<p><sup><i>New in version <code>0.10.3.0</code> (latest version: <code>0.10.3.0</code>)</i></sup></p>
+<p><sup><i>New in version <code>0.10.3.0</code> (latest version: <code>0.11.0.0</code>)</i></sup></p>
 <p>You can toggle (click on) the info circle to lock the tooltip in place.
 This may be useful for copying/pasting errors and other debugging purposes.</p>
 <hr />
@@ -1335,8 +1335,7 @@ These represent words from cards that have not been reviewed yet.
 Conversely, as non-greyed out results come from cards that you have already reviewed,
 they should represent words that you already know.</p>
 <p>Additionally, pitch accents are also shown when you hover over a particular word
-within the tooltip.
-(Only available on the <a href="../building/">bleeding edge release</a>)</p>
+within the tooltip.</p>
 <p>See <a href="../tooltipresults/">here</a> for information on how the examples are chosen,
 and how to customize it.</p>
 <details class="example">
@@ -1364,10 +1363,7 @@ this note's kanji hover ability.</p>
 </details>
 <hr />
 <h2 id="word-indicators">Word Indicators<a class="headerlink" href="#word-indicators" title="Permanent link">&para;</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
-</div>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.0</code>)</i></sup></p>
 <p>Indicators will be shown to the top-left of the reading when similar words in your deck are found.
 The indicators are as follows:</p>
 <ul>
@@ -1412,15 +1408,12 @@ and how to customize it.</p>
 </ul>
 <hr />
 <h2 id="external-links">External Links<a class="headerlink" href="#external-links" title="Permanent link">&para;</a></h2>
-<p><sup><i>New in version <code>0.10.3.0</code> (latest version: <code>0.10.3.0</code>)</i></sup></p>
+<p><sup><i>New in version <code>0.10.3.0</code> (latest version: <code>0.11.0.0</code>)</i></sup></p>
 <p>External links are shown as icons in the <code>Extra Info</code> collapsable field by default.
 Hovering over them will show the url, and clicking on them will send you to the specified url,</p>
 <p><a href="../assets/external_links.gif"><img alt="external links demo" src="../assets/external_links.gif" /></a></p>
 <h3 id="external-links-in-primary-definition">External Links in Primary Definition<a class="headerlink" href="#external-links-in-primary-definition" title="Permanent link">&para;</a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
-</div>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.0</code>)</i></sup></p>
 <p>If you wish to have the external links to be on the primary definition section,
 set <code>external-links-position</code> to <code>"Primary Definition"</code>
 in the <a href="../compiletimeoptions/" target="_blank">compile-time options</a>.</p>
@@ -1476,19 +1469,40 @@ Please see the link above to see how to use custom SCSS.</p>
 <p>An example of this can be found in <code>src/scss/dictionaries/style.scss</code></p>
 </details>
 <hr />
-<h2 id="ui-runtime-options">UI Runtime Options<a class="headerlink" href="#ui-runtime-options" title="Permanent link">&para;</a></h2>
+<!--
+# Sentences
+
+## Removing Sentence Quotes
+The sentence display has quotes surrounding the sentence by default, to provide
+an easy indicator to differentiate between a sentence and vocab card.
+
+If you want to remove the quotes, you can set the following [runtime option](runtimeoptions.md){:target="_blank"} to `false`:
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  &quot;modules&quot;: {
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    &quot;sent-utils&quot;: {
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>      // automatically adds quotes to the sentence (if not alt display)
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>      &quot;auto-quote-sentence&quot;: false,
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>      // automatically adds quotes to the sentence (if alt display)
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>      &quot;auto-quote-alt-display-sentence&quot;: false,
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    }
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  }
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>}
+</code></pre></div>
+
+-->
+
+<h2 id="various-ui-runtime-options">Various UI Runtime Options<a class="headerlink" href="#various-ui-runtime-options" title="Permanent link">&para;</a></h2>
 <p>Various <a href="../runtimeoptions/" target="_blank">runtime options</a> affect the user interface.
 Some are documented below.</p>
 <h3 id="fix-ruby-positioning-for-legacy-anki-versions">Fix Ruby Positioning (For Legacy Anki Versions)<a class="headerlink" href="#fix-ruby-positioning-for-legacy-anki-versions" title="Permanent link">&para;</a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
-</div>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.0</code>)</i></sup></p>
 <p>If the furigana appears higher than normal on your card,
 the following runtime option serves as a quick fix to lower the furigana:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  &quot;fix-ruby-positioning&quot;: ...
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;fix-ruby-positioning&quot;: ...
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>}
 </code></pre></div>
 <p>See the pictures below to compare between furigana positions.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Higher than Normal</label><label for="__tabbed_2_2">Quick Fix</label><label for="__tabbed_2_3">Normal</label></div>
@@ -1522,35 +1536,35 @@ if the furigana text is too long.</p>
 <h3 id="automatically-open-collapsed-fields">Automatically Open Collapsed Fields<a class="headerlink" href="#automatically-open-collapsed-fields" title="Permanent link">&para;</a></h3>
 <p>Collapsed fields are collapsed by default.
 These fields can be set to be automatically opened.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;modules&quot;: {
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    &quot;customize-open-fields&quot;: {
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>      ...
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    }
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  }
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>{
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  &quot;modules&quot;: {
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    &quot;customize-open-fields&quot;: {
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>      ...
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    }
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  }
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>}
 </code></pre></div>
 <details class="example">
 <summary>Example Config <em>(click here)</em></summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;customize-open-fields&quot;: {
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  &quot;enabled&quot;: false,
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  // Force a field to be always open
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  &quot;open&quot;: [
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    &quot;Secondary Definition&quot;
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  ],
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  // Opens the specified collapsable field if the card is new.
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  &quot;open-on-new-enabled&quot;: {
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    &quot;type&quot;: &quot;pc-mobile&quot;,
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    &quot;pc&quot;: true,
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    &quot;mobile&quot;: false
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>  },
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>  &quot;open-on-new&quot;: [
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    &quot;Extra Info&quot;
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>  ]
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&quot;customize-open-fields&quot;: {
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;enabled&quot;: false,
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  // Force a field to be always open
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  &quot;open&quot;: [
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    &quot;Secondary Definition&quot;
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  ],
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  // Opens the specified collapsable field if the card is new.
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  &quot;open-on-new-enabled&quot;: {
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    &quot;type&quot;: &quot;pc-mobile&quot;,
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    &quot;pc&quot;: true,
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    &quot;mobile&quot;: false
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>  },
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>  &quot;open-on-new&quot;: [
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    &quot;Extra Info&quot;
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>  ]
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>}
 </code></pre></div>
 </details>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Default</label><label for="__tabbed_3_2">Using example config (new card)</label><label for="__tabbed_3_3">Using example config (non-new card)</label></div>
@@ -1569,17 +1583,17 @@ These fields can be set to be automatically opened.</p>
 <h3 id="greyed-out-empty-fields">Greyed Out Empty Fields<a class="headerlink" href="#greyed-out-empty-fields" title="Permanent link">&para;</a></h3>
 <p>Collapsable fields that are empty are usually not shown at all.
 This runtime option allows them to be shown (but greyed out) when empty.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>{
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;greyed-out-collapsable-fields-when-empty&quot;: ...
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>{
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  &quot;greyed-out-collapsable-fields-when-empty&quot;: ...
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>}
 </code></pre></div></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Empty fields greyed out</label><label for="__tabbed_4_2">Empty fields not shown (default)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Empty fields greyed out (<code>true</code>)</label><label for="__tabbed_4_2">Empty fields not shown (<code>false</code>, default)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/fushinnsha/greyed_out_fields_grey.png"><img alt="" src="../assets/fushinnsha/greyed_out_fields_grey.png" /></a></p>
+<p><a href="../assets/greyed_out_fields/grey.png"><img alt="" src="../assets/greyed_out_fields/grey.png" /></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/fushinnsha/greyed_out_fields_hidden.png"><img alt="" src="../assets/fushinnsha/greyed_out_fields_hidden.png" /></a></p>
+<p><a href="../assets/greyed_out_fields/hidden.png"><img alt="" src="../assets/greyed_out_fields/hidden.png" /></a></p>
 </div>
 </div>
 </div>
@@ -1592,7 +1606,7 @@ to further modify the card. Head over to the <a href="../fieldref/">Field Refere
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 19, 2022</span>
       
     
   </small>
