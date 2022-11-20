@@ -62,6 +62,7 @@ and must use `./install.py --update`.
 - Revamped the documentation layout quite a bit, to now include tabs in the header
 - Added the `jpmn-sentence-bolded-furigana-plain` header to yomichan templates
 - Added the `dict-group__glossary--first-line` to the templates to allow the removal of the first line with css
+- Ignore errors from batch functions by default
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type
