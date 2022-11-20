@@ -146,5 +146,16 @@ CONFIG = {
             "check-duplicate-key",
         ],
 
+        # This is a hack to allow the user to triple-click the definition and copy
+        # without selecting everything below the line.
+        # - This seems to ONLY affect the texthooker page;
+        #   regular copy/pastes through everything I tried
+        #   (pyperclip, text editor paste, pasting into Anki, etc)
+        #   does not suffer from this problem.
+        # - This hack is NO LONGER NEEDED with the newer clipboard inserter plugin found here:
+        #   https://github.com/laplus-sadness/lap-clipboard-inserter
+        #     - This option is enabled by default just in case, as it doesn't seem to cause any problems.
+        "clipboard-inserter-0px-hack-enabled": True,
+
     },
 }

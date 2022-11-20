@@ -35,15 +35,9 @@
 
   <div class="glossary-text glossary-text--primary-definition" id="primary_definition_text">
     {{ T("furigana:PrimaryDefinition") }}
-    <div style="font-size: 0px"><br></div>
-    <!-- The above is a hack to allow a user to triple-click the definition
-      without selecting everything below the line.
-      This seems to ONLY affect the texthooker page;
-      regular copy/pastes through everything I tried
-      (pyperclip, text editor paste, pasting into Anki, etc)
-      does not suffer from this problem.
-      I figure that adding this shouldn't affect anything
-    -->
+    {% filter indent(4) %}
+    {% include "jp-mining-note/partials/0pxdiv.html" %}
+    {% endfilter %}
   </div>
 
   <!-- placed outside of glossary-text so it doesn't get converted automatically -->

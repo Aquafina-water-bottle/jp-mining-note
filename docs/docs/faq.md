@@ -278,7 +278,7 @@ You have three main options:
     > `Edit` (top left corner) →  `Bulk-add pitch accents`.
 
 There may be some cards that still have an empty `AJTWordPitch` field.
-This is simply because the plugin did not have a pitch for that word.
+This is simply because the add-on did not contain the pitch data for those words.
 
 ---
 
@@ -287,8 +287,8 @@ This is simply because the plugin did not have a pitch for that word.
     To remove the empty cards, go to `Tools` →  `Empty Cards` in the main window.
     You will be shown a list of empty cards and be given the option to delete them.
 
-    <sup>Taken from the
-    [official Anki documentation](https://docs.ankiweb.net/templates/generation.html#card-generation--deletion){:target="_blank"}.
+    <sup>
+    Taken directly from [Anki's official documentation](https://docs.ankiweb.net/files.html#file-locations).
     </sup>
 
 ---
@@ -333,8 +333,39 @@ and use the `HintNotHidden` field for your hint.
 
 
 ## Where is the (X) folder in Anki?
-See the [official documentation](https://docs.ankiweb.net/files.html#file-locations){:target="_blank"}
-to find the `Anki2` folder.
+
+You must first locate the `Anki2` folder.
+The location of this folder is different for each operating system.
+
+!!! quote
+
+    === "Windows"
+
+        On **Windows**, the latest Anki versions store your Anki files in your
+        appdata folder. You can access it by opening the file manager, and
+        typing `%APPDATA%\Anki2` in the location field. Older versions of Anki
+        stored your Anki files in a folder called `Anki` in your `Documents`
+        folder.
+
+    === "Mac"
+
+        On **Mac** computers, recent Anki versions store all their files in the
+        `~/Library/Application Support/Anki2` folder. The Library folder is
+        hidden by default, but can be revealed in Finder by holding down the
+        option key while clicking on the Go menu. If you're on an older Anki
+        version, your Anki files will be in your `Documents/Anki` folder.
+
+    === "Linux"
+
+        On **Linux**, recent Anki versions store your data in
+        `~/.local/share/Anki2`, or `$XDG_DATA_HOME/Anki2` if you have set a
+        custom data path. Older versions of Anki stored your files in
+        `~/Documents/Anki` or `~/Anki`.
+
+    <sup>
+    Taken directly from [Anki's official documentation](https://docs.ankiweb.net/files.html#file-locations).
+    </sup>
+
 
 * Your **profile folder** is under `Anki2/PROFILE_NAME`.
 * Your **media folder** is under `Anki2/PROFILE_NAME/collections.media`.
@@ -356,7 +387,7 @@ The following makes a temporary backup of your collection, not including media:
 
 > Main Window →  `File` (top left corner) →  `Create Backup`
 
-See the [official documentation](https://docs.ankiweb.net/backups.html){:target="_blank"}
+See [Anki's official documentation](https://docs.ankiweb.net/backups.html){:target="_blank"}
 for more info.
 
 <br>

@@ -5,15 +5,9 @@
     <blockquote class="glossary-blockquote highlight-bold">
       <div class="glossary-text glossary-text--secondary-definition">
         {{ T("SecondaryDefinition") }}
-        <div style="font-size: 0px"><br></div>
-        <!-- The above is a hack to allow a user to triple-click the definition
-          without selecting everything below the line.
-          This seems to ONLY affect the texthooker page;
-          regular copy/pastes through everything I tried
-          (pyperclip, text editor paste, pasting into Anki, etc)
-          does not suffer from this problem.
-          I figure that adding this shouldn't affect anything
-        -->
+        {% filter indent(8) %}
+        {% include "jp-mining-note/partials/0pxdiv.html" %}
+        {% endfilter %}
       </div>
     </blockquote>
   </details>

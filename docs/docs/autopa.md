@@ -159,7 +159,7 @@ The first field that is non-empty will be the field that is used to display the 
     1. `AJTWordPitch`
 
     Of course, as the module is disabled, `PAOverride` will not be parsed in any way.
-    More info on this on the [`PAOverride` field](autopa.md#paoverride-field) section below.
+    More info on this can be found in the [PAOverride field](#2-paoverride) section below.
 
 
 ---
