@@ -46,7 +46,7 @@
   {% call IFNOT('AltDisplay') %}
     <div class="expression expression--single expression--sentence" id="display">
       {{ utils.quote_open -}}
-      {{ T('Sentence') }}
+      {{ utils.expression_inner_div('Sentence') }}
       {{- utils.quote_close }}
     </div>
   {% endcall %}

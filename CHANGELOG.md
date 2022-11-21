@@ -31,16 +31,19 @@ and must use `./install.py --update`.
 - Added `auto-highlight-word` module, to automatically highlight the word if the word isn't highlighted
     - Works on both the display sentence and furigana sentence
 - Re-added way to specify whether newlines are removed or not, using css
+- Separated `stylize-images-in-glossary` option into `stylize-images-in-glossary` and `primary-definition-picture`
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
+- Fixed ruby sentence regex not working on non-rubified sentences
 
 #### Internal Changes
 - Re-ordered `sent-utils` to be under `img-utils` because that seems to speed up performance for some reason
 - Changed `isAltDisplay` and `isClozeDeletion` to be specified in css instead of javascript
+- Cleaned up css for full-sentence
 
 
 

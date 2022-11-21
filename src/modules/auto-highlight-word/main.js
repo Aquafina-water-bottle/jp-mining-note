@@ -115,7 +115,11 @@ const JPMNAutoHighlightWord = (() => {
         }
       }
 
-      let replace = "(" + replaceResult.join("") + ")"; // brackets around everything to use $1
+      // searches for:
+      // - the ruby reading
+      // - or regular result (valid if SentenceReading is not filled)
+      // brackets around everything to use $1
+      let replace = `((${replaceResult.join("")})|(${longestSubstr}))`;
       let replaceRegex = new RegExp(replace, 'g');
       let matchResult = sentenceRuby.match(replaceRegex);
 
@@ -124,9 +128,9 @@ const JPMNAutoHighlightWord = (() => {
         `<b>$1</b>`
       );
 
-      logger.debug(replace, 1);
-      logger.debug(sentenceRuby, 1);
-      logger.debug(result, 1);
+      logger.debug(replace, 2);
+      logger.debug(sentenceRuby, 2);
+      logger.debug(result, 2);
 
       return [result, matchResult];
 

@@ -562,6 +562,14 @@ const JPMNImgUtils = (() => {
         }
       }
     }
+  }
+
+  function setDefPicPosition() {
+    // if the field is empty, nothing has to be done
+    if (!"{{ utils.any_of_str('PrimaryDefinitionPicture') }}") {
+      logger.debug("PrimaryDefinitionPicture is empty. Nothing has to be done.");
+      return;
+    }
 
 
     // looks for the PrimaryDefinitionPicture if it exists
@@ -610,7 +618,6 @@ const JPMNImgUtils = (() => {
         //     place to left
         // else:
         //     placed to right
-        //primaryDefBlockquote.classList.add("glossary-primary-definition--auto-no-lenience");
         removeNoLenienceCls = false;
       }
     }
@@ -641,6 +648,10 @@ const JPMNImgUtils = (() => {
 
       if ({{ utils.opt("modules", "img-utils", "stylize-images-in-glossary") }}) {
         searchImages();
+      }
+
+      if ({{ utils.opt("modules", "img-utils", "primary-definition-picture", "enabled") }}) {
+        setDefPicPosition();
       }
     }
   }

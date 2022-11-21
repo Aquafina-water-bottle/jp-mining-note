@@ -299,6 +299,11 @@
       "stylize-images-in-glossary": true,
 
       "primary-definition-picture": {
+
+        // Whether the field is parsed with any javascript at all.
+        // The default position will be auto-bottom.
+        "enabled": true,
+
         // Where to place the `PrimaryDefinitionPicture` field contents
         //  within the primary definition section.
         // Valid options (case sensitive): "auto-bottom", "auto-top", "bottom", "right", "top"

@@ -1409,10 +1409,20 @@ ruby rt {
  * ---------------
  */
 
+
+/* wrapper to center properly */
+.full-sentence-center {
+  display: flex;
+}
+
 .full-sentence {
   font-size: var(--full-sentence-font-size);
   margin: 0.3em 0 0.3em 0;
   font-family: notoserif;
+
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }
 
 .full-sentence ruby rt { opacity: 0; }
