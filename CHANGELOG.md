@@ -20,6 +20,11 @@ by simply installing a new version of the .apkg package,
 and must use `./install.py --update`.
 
 
+## [0.11.0.1] - 2022-11-20
+
+#### Fixes
+- Fixed `TIME_PERFORMANCE` not defined for click cards
+
 
 ## [0.11.1.0] - 2022-11-??
 #### Features
@@ -78,6 +83,7 @@ and must use `./install.py --update`.
 - Revamped the documentation layout quite a bit, to now include tabs in the header
 - Added the `jpmn-sentence-bolded-furigana-plain` header to yomichan templates
 - Added the `dict-group__glossary--first-line` to the templates to allow the removal of the first line with css
+- Ignore errors from batch functions by default
 
 #### Fixes
 - Fixed a bug on AnkiDroid where all javascript fails on the front side of the main card type

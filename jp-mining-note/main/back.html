@@ -510,7 +510,7 @@ function optionsNotFound() {
 
     
   <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
-  <div class="card-description-ver">JP Mining Note: Version 0.11.0.0</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.11.0.1</div>
 
 
 </div>
@@ -1233,7 +1233,8 @@ function popupMenuMessage(message, isHTML=false) {
 
 
 function hybridClick() {
-  TIME_PERFORMANCE.start("hybridClick")
+  
+
   const hSent = document.getElementById("hybrid-sentence");
   const hWord = document.getElementById("hybrid-word");
   const svgEle = document.getElementById("flag_box_svg");
@@ -1274,7 +1275,7 @@ function hybridClick() {
     }
   }
 
-  TIME_PERFORMANCE.stop("hybridClick")
+  
 }
 
 

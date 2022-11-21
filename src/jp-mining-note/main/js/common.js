@@ -1,8 +1,12 @@
+{% from "modules/main.html" import modules with context %}
 
 /// {% set functions %}
 
 function hybridClick() {
-  TIME_PERFORMANCE.start("hybridClick")
+  {% if "time-performance" in modules.keys() %}
+  TIME_PERFORMANCE.start("hybridClick");
+  {% endif %}
+
   const hSent = document.getElementById("hybrid-sentence");
   const hWord = document.getElementById("hybrid-word");
   const svgEle = document.getElementById("flag_box_svg");
@@ -43,7 +47,9 @@ function hybridClick() {
     }
   }
 
-  TIME_PERFORMANCE.stop("hybridClick")
+  {% if "time-performance" in modules.keys() %}
+  TIME_PERFORMANCE.stop("hybridClick");
+  {% endif %}
 }
 
 
