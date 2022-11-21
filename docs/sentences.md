@@ -1,12 +1,11 @@
 UNUSED DOCUMENT FOR NOW
 
-# Overview
-There are a few options that affect the sentences for this note.
+# Definitions
+We will use the following terms to differentiate between the different sentences present in this note:
 
-We will use the term "display sentence" to refer to the sentence(s)
-shown at the front side of the card,
-and "full sentence" to refer to the sentence(s)
-shown at the back with furigana.
+* "Display sentence" refer to the sentence(s) shown at the front side of the card.
+    Most topics on this page will be relating to the display sentence.
+* "Full sentence" to refer to the sentence(s) shown at the back with furigana.
 
 
 TODO image
@@ -14,13 +13,13 @@ TODO image
 
 ---
 
-# Various Sentence Cards
+# Sentence Cards
 
 <i><sup>Main Page: [Card Types](cardtypes.md)</sup></i>
 
 === "Vocab card"
     <figure markdown>
-    {{ img("vocab card example", "assets/nisemono_word.png") }}
+    {{ img("vocab card example", "assets/nisemono_word_blank.png") }}
       <figcaption>
         The default card type is a vocab card,
         where the tested content is simply the word.
@@ -29,7 +28,7 @@ TODO image
 
 === "Sentence card"
     <figure markdown>
-    {{ img("sentence card example", "assets/nisemono_sentence.png") }}
+    {{ img("sentence card example", "assets/nisemono_sentence_blank.png") }}
       <figcaption>
         To change the card to a sentence card, fill the `IsSentenceCard` binary field.
       </figcaption>

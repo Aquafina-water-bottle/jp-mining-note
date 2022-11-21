@@ -78,7 +78,7 @@ const JPMNSentUtils = (() => {
       }
 
       // ASSUMPTION: all sentence elements are formatted as [quote, sentence, quote]
-      let result = sentEle.children[1].innerHTML;
+      let result = sentEle.children[1].children[0].innerHTML;
 
       // removes leading and trailing white space (equiv. of strip() in python)
       result = result.trim();
@@ -225,7 +225,7 @@ const JPMNSentUtils = (() => {
       /// {% endcall %}
       /// {% endif %}
 
-      sentEle.children[1].innerHTML = result;
+      sentEle.children[1].children[0].innerHTML = result;
 
     }
 

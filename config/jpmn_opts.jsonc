@@ -90,27 +90,6 @@
     "sent-utils": {
       "enabled": true,
 
-      // TODO make this an option somewhere again
-      // current implementation:
-      // - no regard with whether AltDisplay is being used
-      // - purely CSS
-
-      //// Removes all line breaks on the regular sentence (if AltDisplay is not filled)
-      //"remove-line-breaks": {
-      //  "type": "viewport-width-is",
-      //  "value": 1300,
-      //  "greater": false,
-      //  "lesser": true
-      //},
-
-      //// Removes all line breaks on the AltDisplay sentence
-      //"remove-line-breaks-on-altdisplay": {
-      //  "type": "viewport-width-is",
-      //  "value": 1300,
-      //  "greater": false,
-      //  "lesser": true
-      //},
-
       // removes the 「。」 character (and other periods) if it is the last character of the sentence
       "remove-final-period": true,
       "remove-final-period-on-altdisplay": false,

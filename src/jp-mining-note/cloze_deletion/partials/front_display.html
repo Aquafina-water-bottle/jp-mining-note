@@ -3,20 +3,8 @@
 {% from "macros/global.html" import T, IF, IFNOT, END with context %}
 {% import "macros/utils.html" as utils with context %}
 
-{% call IF('AltDisplay') %}
-  <div class="expression expression--single expression--sentence highlight-bold" id="display">
-    {{ utils.quote_open -}}
-    {{ T('furigana:AltDisplay') }}
-    {{- utils.quote_close }}
-  </div>
-{% endcall %}
-
-{% call IFNOT('AltDisplay') %}
-  <div class="expression expression--single expression--sentence highlight-bold" id="display">
-    {{ utils.quote_open -}}
-    {{ T('Sentence') }}
-    {{- utils.quote_close }}
-  </div>
-{% endcall %}
+<div class="expression expression--single expression--sentence highlight-bold" id="display">
+  {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
+</div>
 
 {% include "jp-mining-note/partials/hint.html" %}

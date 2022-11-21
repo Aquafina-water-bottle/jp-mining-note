@@ -30,6 +30,7 @@ and must use `./install.py --update`.
 - Added `jpmn-filled-if-word-is-hiragana` marker
 - Added `auto-highlight-word` module, to automatically highlight the word if the word isn't highlighted
     - Works on both the display sentence and furigana sentence
+- Re-added way to specify whether newlines are removed or not, using css
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
@@ -40,7 +41,7 @@ and must use `./install.py --update`.
 ## [0.11.0.1] - 2022-11-20
 
 #### Fixes
-- Fixed `TIME_PERFORMANCE` not defined for click cards
+- Fixed `TIME_PERFORMANCE` not defined error for click cards
 
 
 

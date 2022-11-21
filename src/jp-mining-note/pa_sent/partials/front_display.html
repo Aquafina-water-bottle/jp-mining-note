@@ -10,7 +10,7 @@
 {% call IF('AltDisplayPASentenceCard') %}
   <div class="expression expression--single expression--sentence" id="display">
     {{ utils.quote_open -}}
-    {{ T('furigana:AltDisplayPASentenceCard') }}
+    {{ utils.expression_inner_div_altdisplay('furigana:AltDisplayPASentenceCard') }}
     {{- utils.quote_close }}
   </div>
 {% endcall%}
@@ -29,14 +29,14 @@
       <!-- if any of (click, hover, sentence, TSC) -->
       <div class="expression expression--single expression--sentence inner-display1">
         {{ utils.quote_open -}}
-        {{ T('furigana:AltDisplay') }}
+        {{ utils.expression_inner_div_altdisplay('furigana:AltDisplayPASentenceCard') }}
         {{- utils.quote_close }}
       </div>
 
       <!-- if none of (click, hover, sentence, TSC) -->
       <div class="expression expression--single expression--sentence inner-display2">
         {{ utils.quote_open -}}
-        {{ T('Sentence') }}
+        {{ utils.expression_inner_div('Sentence') }}
         {{- utils.quote_close }}
       </div>
     </div>

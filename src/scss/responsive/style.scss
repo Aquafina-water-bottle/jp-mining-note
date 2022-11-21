@@ -39,7 +39,8 @@
 
 
 @media (max-width: common.$bp-display-sentence-remove-newlines) {
-  .expression br {
+  /* removes newlines */
+  .expression .expression-inner br {
     display: none;
   }
 }
@@ -82,6 +83,11 @@
     //right: 10px;
     //top: 0px;
     //height: 95%;
+  }
+
+  /* removes newlines on all */
+  .expression .expression-inner br {
+    display: none;
   }
 
   .info-circle svg {
