@@ -31,7 +31,7 @@ and must use `./install.py --update`.
 - Added `auto-highlight-word` module, to automatically highlight the word if the word isn't highlighted
     - Works on both the display sentence and furigana sentence
 - Re-added way to specify whether newlines are removed or not, using css
-- Separated `stylize-images-in-glossary` option into `stylize-images-in-glossary` and `primary-definition-picture`
+- Separated `stylize-images-in-glossary` option into `stylize-images-in-glossary` and `primary-definition-picture.enabled`
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
