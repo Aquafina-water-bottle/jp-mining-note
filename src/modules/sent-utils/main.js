@@ -33,42 +33,56 @@ const JPMNSentUtils = (() => {
 
     }
 
-    logOnBold(result, word, replace=null) {
+    logOnBold(result, word, location, replace=null) {
       if (replace === null) {
         replace = word;
       }
 
       if (result.match(/<(b)>/)) {  // was able to bold something
-        const msg = `Automatically highlighted word: ${replace}.`
+        const msg = `Automatically highlighted word in ${location}: ${replace}.`
         if ({{ utils.opt("modules", "sent-utils", "auto-highlight-word", "warn-on-auto-highlight") }}) {
           logger.warn(msg);
         } else {
           logger.debug(msg);
         }
       } else {
+        const msg = `Could not highlight word in ${location}: ${word}.`
         if ({{ utils.opt("modules", "sent-utils", "auto-highlight-word", "warn-if-auto-highlight-fails") }}) {
-          logger.warn(`Could not highlight word: ${word}.`);
+          logger.warn(msg);
         } else {
-          logger.debug(`Could not highlight word: ${word}.`);
+          logger.debug(msg);
         }
       }
     }
 
-    highlightWord(sentence) {
-      let word = document.getElementById("hidden_word").innerHTML;
-      let wordReadingKana = document.getElementById("hidden_word_reading_kana").innerHTML;
-      let wordReadingHiragana = document.getElementById("hidden_word_reading_hiragana").innerHTML;
+    highlightWord(sentence, location) {
+      if (
+        ({{ utils.opt("modules", "sent-utils", "auto-highlight-word", "enabled") }})
+        && !sentence.match(/<(b)>/)
+        && this.autoHighlight !== null)
+      {
 
-      let [result, replace] = this.autoHighlight.highlightWord(
-        sentence, word, wordReadingKana, wordReadingHiragana
-      );
-      if (replace.length) {
-        this.autoReplaces.push(replace);
+        logger.debug("Attempting to highlight word...");
+        this.attemptedHighlight = true;
+
+        let word = document.getElementById("hidden_word").innerHTML;
+        let wordReadingKana = document.getElementById("hidden_word_reading_kana").innerHTML;
+        let wordReadingHiragana = document.getElementById("hidden_word_reading_hiragana").innerHTML;
+
+        let [result, replace] = this.autoHighlight.highlightWord(
+          sentence, word, wordReadingKana, wordReadingHiragana
+        );
+        if (replace.length) {
+          this.autoReplaces.push(replace);
+        }
+
+        this.logOnBold(result, word, location, replace);
+
+        return result;
+      } else {
+        logger.debug("Not attempting to highlight word.");
+        return sentence;
       }
-
-      this.logOnBold(result, word, replace);
-
-      return result;
     }
 
     processSentence(sentEle, isAltDisplay, isClozeDeletion, paIndicator) {
@@ -88,15 +102,6 @@ const JPMNSentUtils = (() => {
         result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
       }
 
-      // removes newlines{#
-      //if ((!isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks") }})
-      //    || isAltDisplay && {{ utils.opt("modules", "sent-utils", "remove-line-breaks-on-altdisplay") }}) {
-      //  //let noNewlines = result.replace(/<br>/g, "");
-      //  //result = noNewlines;
-      //  sentEle.classList.add("disable-newlines")
-      //}
-      //#}
-
       // removes the final period if exists
       if (({{ utils.opt("modules", "sent-utils", "remove-final-period") }} && !isAltDisplay)
         || ({{ utils.opt("modules", "sent-utils", "remove-final-period-on-altdisplay") }} && isAltDisplay)) {
@@ -104,15 +109,7 @@ const JPMNSentUtils = (() => {
       }
 
       // automatically highlights the word if no bold was found
-      if (
-        ({{ utils.opt("modules", "sent-utils", "auto-highlight-word", "enabled") }})
-        && !result.match(/<(b)>/)
-        && this.autoHighlight !== null)
-      {
-        logger.debug("Attempting to highlight word...");
-        result = this.highlightWord(result);
-        this.attemptedHighlight = true;
-      }
+      result = this.highlightWord(result, "display-sentence");
 
       let validQuotes = {{ utils.opt("modules", "sent-utils", "quote-match-strings") }};
       let existingQuote = false;
@@ -238,32 +235,19 @@ const JPMNSentUtils = (() => {
       let fullSent = fullSentEle.innerHTML;
 
       if (!fullSent.match(/<(b)>/)) {
-
-        if (
-          !this.attemptedHighlight
-          && ({{ utils.opt("modules", "sent-utils", "auto-highlight-word", "enabled") }})
-          && this.autoHighlight !== null)
-        {
+        if (!this.attemptedHighlight) {
           // generates the highlighted word result
-          logger.debug("Attempting to highlight word...");
           let sentHTML = document.getElementById("hidden_sentence").innerHTML;
-          this.highlightWord(sentHTML);
+          this.highlightWord(sentHTML, "full-sentence");
           this.attemptedHighlight = true;
         }
 
         if (this.autoReplaces.length > 0) {  // attempt to bold
-
-          const result = this.autoHighlight.highlightWordRuby(fullSent, Array.from(this.autoReplaces));
-
+          const [result, matchResult] = this.autoHighlight.highlightWordRuby(fullSent, this.autoReplaces);
           let word = document.getElementById("hidden_word").innerHTML;
-          this.logOnBold(result, word);
-
           fullSentEle.innerHTML = result;
-
         }
-
       }
-
     }
 
 

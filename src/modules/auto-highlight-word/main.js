@@ -73,7 +73,7 @@ const JPMNAutoHighlightWord = (() => {
 
     /* attempts to highlight the word given the rubyfied sentence */
     highlightWordRuby(sentenceRuby, foundReplaces) {
-      let longestSubstr = foundReplaces
+      let longestSubstr = Array.from(foundReplaces)
         .reduce((a, b) => (a.length > b.length ? a : b));
 
       // ruby format example:
@@ -112,10 +112,12 @@ const JPMNAutoHighlightWord = (() => {
         }
       }
 
+      let replace = "(" + replaceResult.join("") + ")"; // brackets around everything to use $1
+      let replaceRegex = new RegExp(replace, 'g');
+      let matchResult = sentenceRuby.match(replaceRegex);
 
-      let replace = "(" + replaceResult.join("") + ")";
       let result = sentenceRuby.replace(
-        new RegExp(replace, 'g'),
+        replaceRegex,
         `<b>$1</b>`
       );
 
@@ -123,11 +125,9 @@ const JPMNAutoHighlightWord = (() => {
       logger.debug(sentenceRuby, 1);
       logger.debug(result, 1);
 
-
-      return result;
+      return [result, matchResult];
 
     }
-
   }
 
   return JPMNAutoHighlightWord;
