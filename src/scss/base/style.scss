@@ -1659,6 +1659,20 @@ ruby rt {
 
 
 
+/* contains the frequencies, and version for mobile */
+.card-description-right {
+  --card-description-color: var(--text-color--4);
+  color: var(--card-description-color);
+
+  float: right;
+  font-family: notoserif;
+
+  /* hides on non-mobile */
+  .card-description-ver {
+    display: none;
+  }
+}
+
 
 
 /*
@@ -1667,12 +1681,8 @@ ruby rt {
  * ------------------------------
  */
 .frequencies {
-  --card-description-color: var(--text-color--4);
-
   display: flex;
-  float: right;
   font-family: notoserif;
-  color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
 }

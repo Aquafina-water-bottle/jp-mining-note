@@ -152,9 +152,21 @@
     width: 15px;
   }
 
-  /* temporarily removing these for the mobile class since they clog up the space */
-  .frequencies {
-    display: none;
+  .card-description-right {
+    margin-right: 10px;
+
+    /* temporarily removing these for the mobile class since they clog up the space */
+    .frequencies {
+      display: none;
+    }
+
+    .card-description-ver {
+      display: block;
+    }
+  }
+
+  .mobile .card-description-right {
+    margin-right: 0px;
   }
 
 

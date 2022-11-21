@@ -467,13 +467,17 @@ the front side of cards that test pitch accent, which is undesirable.
 ---
 
 
-## How do you see the currently installed version of this note?
-Preview any card. At the top left corner, the version should be displayed.
+## How do I see the currently installed version of this note?
 
+Preview any card. The version should be displayed at the top left corner.
+
+For mobile, the version be shown at the top right corner.
+Note that this is only displayed on versions `0.11.1.0` and above.
 
 <figure markdown>
-{{ img("version highlighted", "assets/version.png") }}
+{{ img("version location", "assets/version/pc_and_mobile.png") }}
 </figure>
+
 
 
 

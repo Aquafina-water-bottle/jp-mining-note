@@ -271,7 +271,7 @@ To fix this, there are a few cases to go through.
     To see if the fields have been changed, compare the
     first two numbers in the version you want to install
     to the first two numbers of the current
-    [card version](faq.md/#how-do-you-see-the-currently-installed-version-of-this-note){:target="_blank"}.
+    [card version](faq.md#how-do-i-see-the-currently-installed-version-of-this-note){:target="_blank"}.
     If the first two numbers match, then you are likely safe to manually update the card.
 
     If they don't match, then you MAY be able to get away with installing it anyways and transferring
