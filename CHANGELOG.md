@@ -20,6 +20,11 @@ by simply installing a new version of the .apkg package,
 and must use `./install.py --update`.
 
 
+## [0.11.0.1] - 2022-11-20
+
+#### Fixes
+- Fixed `TIME_PERFORMANCE` not defined for click cards
+
 
 ## [0.11.0.0] - 2022-11-19
 #### Breaking Changes
