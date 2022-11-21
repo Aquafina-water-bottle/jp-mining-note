@@ -28,7 +28,7 @@ You **must build the note to use compile-time options**.
 
 Additionally, if you want to use bleeding edge features
 (the absolute latest features, which are potentially riddled with bugs),
-you must build and install the note from the `master` branch.
+you must build and install the note from the `dev` branch.
 More info about this is shown later.
 
 
@@ -62,8 +62,10 @@ The following creates a custom python environment with `venv`,
 so that packages aren't installed into your global python environment.
 
 ```bash
+# on fresh installs
 git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 cd jp-mining-note
+
 # alternatively, if you already have the repository on your system:
 git pull origin/master
 
@@ -120,18 +122,18 @@ pip3 install neovim anki aqt
 
 !!! note
 
-    The `master` branch is the bleeding edge version of the note.
+    The `master` branch is the stable version of the note.
 
-    If you want to build a more stable version of the note, do the following:
+    If you want to build the bleeding edge version of the note,
+    use the `dev` branch. For example, do the following:
     ```bash
+    deactivate # if you are currently in a venv
+
     git fetch
-    git checkout tags/VERSION
+    git checkout dev
 
-    # or if you want to create a new branch as well:
-    git checkout tags/VERSION -b BRANCH_NAME
-
-    # to return back to the master branch, after you're done building:
-    git checkout master
+    python3 -m venv .
+    source ./bin/activate
     ```
 
 <br>
@@ -147,7 +149,8 @@ cd tools
 python3 make.py
 
 # installs the note from the ./build folder
-# WARNING: completely overrides current note that is installed
+# WARNING: completely overrides current note that is installed!
+# Please make a backup of your collection before doing this!
 python3 install.py --from-build --update
 ```
 
