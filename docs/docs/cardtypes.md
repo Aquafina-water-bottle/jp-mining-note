@@ -19,6 +19,7 @@ outside of the fundamental vocab and sentence cards.
 {{ img("", "assets/card_types_1_pic.png") }}
 
 
+
 ---
 
 
@@ -87,10 +88,15 @@ For example, in a TSC or sentence card,
 you may only remember the tested word due to its surrounding context.
 
 
-!!! note
-    For all forms of hybrid cards, you can press "n" to toggle
-    whether the sentence is shown or not.
+!!! note "Notes"
+    * For all forms of hybrid cards, you can press "n" to toggle
+        whether the sentence is shown or not.
 
+    * The "How to test" sections are simply recommended ways of testing,
+        and are by no means the required way of testing yourself.
+        Feel free to test yourself differently depending on whatever you think works the best.
+
+<br>
 
 ## Hover Vocab Card
 

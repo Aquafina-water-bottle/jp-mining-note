@@ -24,7 +24,8 @@ With that being said, JPMN should work for Anki versions 2.1.49+.
 Mobile support is slowly being worked on,[^1]
 but JPMN (on mobile) is currently not stable.
 Do not expect the note to work on mobile.
-Therefore, **do not use this note** if you must use Anki on mobile.
+Therefore, if you *absolutely must* use Anki on mobile,
+I recommend **not using this note**.
 
 
 [^1]:
@@ -38,6 +39,10 @@ and there are no plans to support AnkiWeb.
 Both light mode and dark mode are supported.
 However, dark mode is recommended as the main theme of this note.
 
+## Updating
+If you ever wish to update the note, this can only be done on PC,
+and cannot be done on mobile.
+The note does not auto-update; you must manually update the note.
 
 ---
 

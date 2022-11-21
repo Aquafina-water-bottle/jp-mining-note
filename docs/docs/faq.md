@@ -407,9 +407,6 @@ The following makes a temporary backup of your collection, not including media:
 See [Anki's official documentation](https://docs.ankiweb.net/backups.html){:target="_blank"}
 for more info.
 
-<br>
-
-
 ---
 
 
@@ -422,10 +419,24 @@ for more info.
 
 {{ img("how-to import Yomichan settings", "assets/yomichan/import_settings.gif") }}
 
-
-
 ---
 
+
+
+
+## How do I export notes?
+
+1. Navigate to the Card Browser, by doing the following:
+
+    > Main Window →  `Browse`
+
+1. Select a note. Hold down `ctrl` to select multiple individual notes.
+
+1. Right click the selected notes, and navigate to:
+
+    > `Notes` →  `Export Notes...`
+
+---
 
 
 
