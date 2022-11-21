@@ -309,16 +309,21 @@ const JPMNAutoPA = (() => {
      */
     calcDispPosDataFromPositions() {
       // ensures the field is usable
-      if (this.positionsEle === null || this.positionsEle.innerHTML.length === 0
-          || this.positionsEle.children.length === 0) {
+      if (this.positionsEle === null || this.positionsEle.innerHTML.length === 0) {
         return new DispPosData();
       }
 
-      if ((this.positionsEle.children[0] !== null)
-          && (this.positionsEle.children[0].nodeName === "DIV")
-          && (this.positionsEle.children[0].classList.contains("pa-positions__group"))
-      ) {
-        return this.calcDispPosDataFromJPMNPositions();
+      try {
+        if ((this.positionsEle.children.length > 0)
+            && (this.positionsEle.children[0] !== null)
+            && (this.positionsEle.children[0].nodeName === "DIV")
+            && (this.positionsEle.children[0].classList.contains("pa-positions__group"))
+        ) {
+          return this.calcDispPosDataFromJPMNPositions();
+        }
+      } catch (error) {
+        // ignore error for now
+        logger.debug("Error in calcDispPosDataFromPositions -> calcDispPosDataFromJPMNPositions");
       }
 
       // just search for any digit in the element
