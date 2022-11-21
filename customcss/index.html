@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#how-to-add-custom-css" class="md-skip">
           Skip to content
         </a>
       
@@ -807,13 +807,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#how-to-add-custom-css" class="md-nav__link">
     How To Add Custom CSS
   </a>
@@ -892,6 +885,13 @@
         <li class="md-nav__item">
   <a href="#remove-the-na-on-words-with-no-pitch-accents" class="md-nav__link">
     Remove the "(N/A)" on words with no pitch accents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keeping-and-removing-newlines" class="md-nav__link">
+    Keeping and Removing Newlines
   </a>
   
 </li>
@@ -1015,13 +1015,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#how-to-add-custom-css" class="md-nav__link">
     How To Add Custom CSS
   </a>
@@ -1104,6 +1097,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#keeping-and-removing-newlines" class="md-nav__link">
+    Keeping and Removing Newlines
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1132,15 +1132,24 @@
 
   <h1>Custom CSS</h1>
 
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Since this note is still in beta, the CSS itself,
+including the class names and structure of the HTML,
+is subject to heavy change.
+This is because when mobile support is being worked on,
+the CSS will likely heavily change to support mobile.</p>
+<p>If you are planning on changing the CSS,
+be vigilant with potential changes in future updates!</p>
+</div>
+<hr />
+<h2 id="how-to-add-custom-css">How To Add Custom CSS<a class="headerlink" href="#how-to-add-custom-css" title="Permanent link">&para;</a></h2>
 <p>If you have already read the <a href="../modding/">Modding Overview</a> page,
 you should already know that there are two ways of modding the note:</p>
 <ol>
 <li>You can directly edit the CSS files, but lose all the changes you made when you update.</li>
 <li>(Recommended) Add new files to add to the existing CSS, as to not lose changes between updates.</li>
 </ol>
-<p>For completeness, the first method is mentioned below.
-However, the rest of page will focus on the recommended second way of modding the note.</p>
 <details class="example">
 <summary>How to directly edit the CSS <em>(click here)</em></summary>
 <ul>
@@ -1165,19 +1174,8 @@ However, the rest of page will focus on the recommended second way of modding th
 </li>
 </ul>
 </details>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Since this note is still in beta, the CSS itself,
-including the class names and structure of the HTML,
-is subject to heavy change.
-This is because when mobile support is being worked on,
-the CSS will likely heavily change to support mobile.</p>
-<p>If you are planning on changing the CSS,
-be vigilant with potential changes in future updates!</p>
-</div>
-<hr />
-<h2 id="how-to-add-custom-css">How To Add Custom CSS<a class="headerlink" href="#how-to-add-custom-css" title="Permanent link">&para;</a></h2>
-<p>If you want to extend the CSS, do the following:</p>
+<details class="example">
+<summary>(Recommended) How to extend the CSS <em>(click here)</em></summary>
 <ol>
 <li>
 <p><a href="../building/">Build the note</a> if you haven't already, and ensure everything works.</p>
@@ -1199,13 +1197,13 @@ I will be working on a way to define this in the <code>overrides</code> folder i
 </code></pre></div></p>
 </li>
 <li>
-<p>Under the <code>extra</code> folder, use the following files to override the correct css:</p>
 <ul>
 <li><code>style.scss</code>: The main css for the card templates.</li>
 <li><code>field.scss</code>: The css used by <a href="../setupanki/#css-injector">CSS injector</a>
     to customize individual fields.</li>
 <li><code>editor.scss</code>: The css used by CSS injector to customize the editor around the fields.</li>
 </ul>
+<p>Under the <code>extra</code> folder, use the following files to override the correct css:</p>
 <p>All of the files are optional. This means you do not need to create all three files
 for the folder to be valid.</p>
 <p>The resulting folder should be of the format:
@@ -1226,6 +1224,15 @@ for the folder to be valid.</p>
     The css should be automatically applied to the note.</p>
 </li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You might have noticed that this is the SCSS, not CSS.
+However, SCSS is complete superset of CSS
+(with some small exceptions).
+In other words, if you don't know any SCSS, you can write normal CSS
+and have it behave completely the same.</p>
+</div>
+</details>
 <!--
 Many existing variables already exist (see `templates/scss/base/common.scss`),
 and can be overwritten easily.
@@ -1238,18 +1245,12 @@ the following under `extra/style.scss`:
 </code></pre></div>
 -->
 
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You might have noticed that this is the SCSS, not CSS.
-However, SCSS is complete superset of CSS
-(with some small exceptions).
-In other words, if you don't know any SCSS, you can write normal CSS
-and have it behave completely the same.</p>
-</div>
 <hr />
 <h2 id="adjusting-zoom">Adjusting Zoom<a class="headerlink" href="#adjusting-zoom" title="Permanent link">&para;</a></h2>
 <p>This allows you to increase (or decrease) the size of the card,
 without affecting any of Anki's GUI.</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1262,9 +1263,12 @@ without affecting any of Anki's GUI.</p>
 </code></pre></div>
 </li>
 </ol>
+</div>
 <hr />
 <h2 id="limiting-number-of-dictionaries">Limiting number of dictionaries<a class="headerlink" href="#limiting-number-of-dictionaries" title="Permanent link">&para;</a></h2>
 <p>This allows you to limit the number of displayed dictionaries shown in "Extra Definitions".</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1284,9 +1288,12 @@ without affecting any of Anki's GUI.</p>
 This will grey out the definitions past the 4th definition in the editor.</p>
 </li>
 </ol>
+</div>
 <hr />
 <h2 id="limiting-number-of-frequencies">Limiting number of frequencies<a class="headerlink" href="#limiting-number-of-frequencies" title="Permanent link">&para;</a></h2>
 <p>This allows you to limit the number of frequencies shown at the top right corner.</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1306,6 +1313,7 @@ This will grey out the definitions past the 4th definition in the editor.</p>
 This will grey out the frequencies past the 5th frequency in the editor.</p>
 </li>
 </ol>
+</div>
 <hr />
 <h2 id="hiding-the-first-line-of-a-definition">Hiding the first line of a definition<a class="headerlink" href="#hiding-the-first-line-of-a-definition" title="Permanent link">&para;</a></h2>
 <p>The first line of the definition has various elements that can be hidden with CSS.</p>
@@ -1352,8 +1360,10 @@ This will grey out the frequencies past the 5th frequency in the editor.</p>
 </div>
 <hr />
 <h3 id="hiding-the-text-after-the-dictionary">Hiding the text after the dictionary<a class="headerlink" href="#hiding-the-text-after-the-dictionary" title="Permanent link">&para;</a></h3>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.1</code>)</i></sup></p>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
 <p>This removes the text content to the right of the the dictionary tag.</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1372,9 +1382,12 @@ This will grey out the frequencies past the 5th frequency in the editor.</p>
 </code></pre></div>
 </li>
 </ol>
+</div>
 <hr />
 <h3 id="hiding-dictionary-tags">Hiding dictionary tags<a class="headerlink" href="#hiding-dictionary-tags" title="Permanent link">&para;</a></h3>
 <p>This will allow you hide arbitrary dictionary tags.</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:
@@ -1393,10 +1406,13 @@ This will grey out the frequencies past the 5th frequency in the editor.</p>
 </code></pre></div></p>
 </li>
 </ol>
+</div>
 <hr />
 <h3 id="fully-hiding-the-first-line">Fully hiding the first line<a class="headerlink" href="#fully-hiding-the-first-line" title="Permanent link">&para;</a></h3>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.1</code>)</i></sup></p>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
 <p>The above two can be combined to completely hide the first line.</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1422,8 +1438,7 @@ This will grey out the frequencies past the 5th frequency in the editor.</p>
 <p class="admonition-title">Note</p>
 <p>The above examples are scss, and not css.
 If you are using css, do not flatten the classes after the first line.</p>
-<details class="examplecode">
-<summary>Example Raw CSS <em>(click here)</em></summary>
+<p>Example Raw CSS:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">.</span><span class="nc">glossary-text</span><span class="w"> </span><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="o">[</span><span class="nt">data-details</span><span class="o">=</span><span class="s2">&quot;明鏡国語辞典 第二版&quot;</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">dict-group__tag-list</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="p">}</span><span class="w"></span>
@@ -1434,13 +1449,15 @@ If you are using css, do not flatten the classes after the first line.</p>
 <a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
 <a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
-</details>
+</div>
 </div>
 <hr />
 <h2 id="removing-the-numbers-on-the-primary-definition">Removing the numbers on the primary definition<a class="headerlink" href="#removing-the-numbers-on-the-primary-definition" title="Permanent link">&para;</a></h2>
 <p>Currently, I am not aware of an easy way to only remove the numbers if there is only one
 item (and having them remain for multple definitions) with only CSS.</p>
 <p>The following CSS completely nukes the numbers regardless of how many items there are in the list.</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1451,11 +1468,14 @@ item (and having them remain for multple definitions) with only CSS.</p>
 </code></pre></div>
 </li>
 </ol>
+</div>
 <hr />
 <h2 id="highlight-the-word-within-the-tooltips">Highlight the word within the tooltips<a class="headerlink" href="#highlight-the-word-within-the-tooltips" title="Permanent link">&para;</a></h2>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.1</code>)</i></sup></p>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
 <p>The word within the sentences are not highlighted by default.
 This allows said words to be highlighted.</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1466,10 +1486,14 @@ This allows said words to be highlighted.</p>
 </code></pre></div>
 </li>
 </ol>
+</div>
+<hr />
 <h2 id="remove-the-na-on-words-with-no-pitch-accents">Remove the "(N/A)" on words with no pitch accents<a class="headerlink" href="#remove-the-na-on-words-with-no-pitch-accents" title="Permanent link">&para;</a></h2>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.1</code>)</i></sup></p>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
 <p>If the word has no pitch accent, the pitch accent is usually displayed as <code>(N/A)</code>.
 This indicator can be removed with the following CSS:</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1479,23 +1503,83 @@ This indicator can be removed with the following CSS:</p>
 </code></pre></div>
 </li>
 </ol>
+</div>
+<hr />
+<h2 id="keeping-and-removing-newlines">Keeping and Removing Newlines<a class="headerlink" href="#keeping-and-removing-newlines" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
+</div>
+<p>You can add newlines to the <code>Sentence</code> field to make the full sentence
+field have cleaner line breaks.
+If you do this, you will need to regenerate the <code>SentenceReading</code>
+field if you are using furigana.</p>
+<p>However, these newlines are automatically removed from the display sentence
+if the width of the screen is determined to be too small.
+To override this option, you can do the following:</p>
+<div class="admonition example">
+<p class="admonition-title">Instructions</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Keep all newlines</label><label for="__tabbed_2_2">Remove all newlines</label><label for="__tabbed_2_3">Remove all newlines when AltDisplay is not used</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li>
+<p>Under <code>extra/style.scss</code>, add the following code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<ol>
+<li>
+<p>Under <code>extra/style.scss</code>, add the following code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>This only removes newlines when the <code>AltDisplay</code> (or <code>AltDisplayPASentenceCard</code>)
+field is not being used as the display sentence.</p>
+<ol>
+<li>
+<p>Under <code>extra/style.scss</code>, add the following code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">expression-inner--altdisplay</span><span class="o">)</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
 <!--
 # Hiding Several Dictionary Tags
 Alternatively, you can hide all dictionaries that are not
 a specific dictionary:
 
 1. Under `extra/style.scss`, add the following code:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c">/* hide dictionaries other than &quot;JMdict (English)&quot; */</span><span class="w"></span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">data-details</span><span class="o">=</span><span class="s2">&quot;JMdict (English)&quot;</span><span class="o">])</span><span class="w"> </span><span class="p">.</span><span class="nc">dict-group__tag-list</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="p">}</span><span class="w"></span>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c">/* hide dictionaries other than &quot;JMdict (English)&quot; */</span><span class="w"></span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">data-details</span><span class="o">=</span><span class="s2">&quot;JMdict (English)&quot;</span><span class="o">])</span><span class="w"> </span><span class="p">.</span><span class="nc">dict-group__tag-list</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 2. (Optional) Under `extra/field.scss`, add the following code:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c">/* greys out all dictionaries that aren&#39;t JMdict (English) */</span><span class="w"></span>
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nt">anki-editable</span><span class="w"> </span><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">data-details</span><span class="o">=</span><span class="s2">&quot;JMdict (English)&quot;</span><span class="o">])</span><span class="w"> </span><span class="p">.</span><span class="nc">dict-group__tag-list</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-color--3</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="p">}</span><span class="w"></span>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c">/* greys out all dictionaries that aren&#39;t JMdict (English) */</span><span class="w"></span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nt">anki-editable</span><span class="w"> </span><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">data-details</span><span class="o">=</span><span class="s2">&quot;JMdict (English)&quot;</span><span class="o">])</span><span class="w"> </span><span class="p">.</span><span class="nc">dict-group__tag-list</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-color--3</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 -->
 
@@ -1504,7 +1588,7 @@ a specific dictionary:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 17, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2022</span>
       
     
   </small>
