@@ -129,9 +129,6 @@ CONFIG = {
         "enabled-modules": [
             # This is a debugging tool, so this is disabled by default.
             #"time-performance",
-            "sent-utils",
-            "auto-highlight-word",
-            "kanji-hover",
             "auto-pitch-accent",
 
             # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
@@ -139,6 +136,10 @@ CONFIG = {
             # If you do not want to use `img-utils`, at least use `img-utils-minimal`.
             "img-utils",
             #"img-utils-minimal",
+
+            "sent-utils",
+            "auto-highlight-word",
+            "kanji-hover",
 
             "customize-open-fields",
             "word-indicators",

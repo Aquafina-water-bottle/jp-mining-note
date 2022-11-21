@@ -15,12 +15,10 @@ const JPMNSentUtils = (() => {
 
 
   class JPMNSentUtils {
-    constructor(isAltDisplay, isClozeDeletion, paIndicator) {
+    constructor(paIndicator) {
       // TODO change isAltDisplay and isCloseDeletion to be set as an attribute
       // somewhere in the HTML rather than javascript
 
-      this.isAltDisplay = isAltDisplay;
-      this.isClozeDeletion = nullish(isClozeDeletion, false);
       this.paIndicator = nullish(paIndicator, null);
 
       this.autoHighlight = (
@@ -62,7 +60,7 @@ const JPMNSentUtils = (() => {
         && this.autoHighlight !== null)
       {
 
-        logger.debug("Attempting to highlight word...");
+        logger.debug(`Attempting to highlight word in ${location}...`);
         this.attemptedHighlight = true;
 
         let word = document.getElementById("hidden_word").innerHTML;
@@ -80,19 +78,17 @@ const JPMNSentUtils = (() => {
 
         return result;
       } else {
-        logger.debug("Not attempting to highlight word.");
+        logger.debug(`Not attempting to highlight word in ${location}.`);
         return sentence;
       }
     }
 
-    processSentence(sentEle, isAltDisplay, isClozeDeletion, paIndicator) {
-      if (typeof isAltDisplay === 'undefined') {
-        LOGGER.warn("isAltDisplay is undefined");
-        isAltDisplay = false;
-      }
+    processSentence(sentEle, paIndicator) {
 
       // ASSUMPTION: all sentence elements are formatted as [quote, sentence, quote]
       let result = sentEle.children[1].children[0].innerHTML;
+      let isAltDisplay = sentEle.children[1].children[0].classList.contains("expression-inner--altdisplay");
+      let isClozeDeletion = sentEle.children[1].children[0].classList.contains("expression-inner--cloze-deletion");
 
       // removes leading and trailing white space (equiv. of strip() in python)
       result = result.trim();
@@ -245,6 +241,7 @@ const JPMNSentUtils = (() => {
         if (this.autoReplaces.length > 0) {  // attempt to bold
           const [result, matchResult] = this.autoHighlight.highlightWordRuby(fullSent, this.autoReplaces);
           let word = document.getElementById("hidden_word").innerHTML;
+          this.logOnBold(result, word, "full-sentence", matchResult)
           fullSentEle.innerHTML = result;
         }
       }
@@ -256,7 +253,7 @@ const JPMNSentUtils = (() => {
 
       if (sentences !== null) {
         for (let sent of sentences) {
-          this.processSentence(sent, this.isAltDisplay, this.isClozeDeletion, this.paIndicator);
+          this.processSentence(sent, this.paIndicator);
         }
       }
 
@@ -275,58 +272,17 @@ const JPMNSentUtils = (() => {
 
 /// {% set run_main %}
 if ({{ utils.opt("modules", "sent-utils", "enabled") }}) {
-
-  let isAltDisplay = !!'{{ utils.any_of_str("AltDisplay") }}';
-  let sent_utils = new JPMNSentUtils(isAltDisplay, false, paIndicator);
+  let sent_utils = new JPMNSentUtils(paIndicator);
   sent_utils.run();
-
 }
 /// {% endset %}
 
 
-/// {% set run_pa_sent %}
+/// {% set run %}
 if ({{ utils.opt("modules", "sent-utils", "enabled") }}) {
-  let isAltDisplay = false;
-  /* {% call IF('AltDisplayPASentenceCard') %} */
-    isAltDisplay = true;
-  /* {% endcall %} */
-
-  /* {% call IFNOT('AltDisplayPASentenceCard') %} */
-    /* {% call IF('AltDisplay') %} */
-    isAltDisplay = (
-      /* {% call utils.if_none('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %} */
-        false &&
-      /* {% endcall %} */
-      true ? true : false
-    );
-    /* {% endcall %} */
-
-    /* {% call IFNOT('AltDisplay') %} */
-      isAltDisplay = false;
-    /* {% endcall %} */
-  /* {% endcall %} */
-
-  let sent_utils = new JPMNSentUtils(isAltDisplay);
+  let sent_utils = new JPMNSentUtils();
   sent_utils.run();
-
 }
 /// {% endset %}
-
-
-
-
-/// {% set run_cloze_deletion %}
-if ({{ utils.opt("modules", "sent-utils", "enabled") }}) {
-  let isAltDisplay = false;
-  /* {% call IF('AltDisplay') %} */
-    isAltDisplay = false;
-  /* {% endcall %} */
-
-  let sent_utils = new JPMNSentUtils(isAltDisplay, true);
-  sent_utils.run();
-
-}
-/// {% endset %}
-
 
 

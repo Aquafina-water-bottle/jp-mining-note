@@ -4,7 +4,17 @@
 {% import "macros/utils.html" as utils with context %}
 
 <div class="expression expression--single expression--sentence highlight-bold" id="display">
-  {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
+  {{ utils.quote_open -}}
+  {%- call IF("AltDisplay") %}{{ utils.expression_inner_div_extra(
+    "furigana:AltDisplay",
+    "expression-inner--altdisplay expression-inner--cloze-deletion") }}
+  {%- endcall -%}
+  {%- call IFNOT("AltDisplay") -%}
+    {{ utils.expression_inner_div_extra(
+      "Sentence",
+      "expression-inner--cloze-deletion") }}
+  {%- endcall -%}
+  {{- utils.quote_close }}
 </div>
 
 {% include "jp-mining-note/partials/hint.html" %}

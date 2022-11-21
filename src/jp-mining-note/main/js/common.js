@@ -11,17 +11,12 @@ function hybridClick() {
   const hWord = document.getElementById("hybrid-word");
   const svgEle = document.getElementById("flag_box_svg");
   const paInd = document.getElementById("pa_indicator");
-  //const circ = document.getElementById("pa_indicator_circle");
 
   if (hSent.classList.contains("override-display-inline-block")) {
     // currently showing sentence, change to word
     hWord.classList.toggle("override-display-none", false);
     hSent.classList.toggle("override-display-inline-block", false);
     paInd.classList.toggle("pa-indicator--sentence", false)
-    //if (circ !== null) {
-    //  circ.setAttributeNS(null, "cx", "25");
-    //  circ.setAttributeNS(null, "cy", "15");
-    //}
 
     // re-adds if colored quotes exist
     if (svgEle !== null && hSent.hasAttribute("data-color-quotes")) {
@@ -33,13 +28,6 @@ function hybridClick() {
     hWord.classList.toggle("override-display-none", true);
     hSent.classList.toggle("override-display-inline-block", true);
     paInd.classList.toggle("pa-indicator--sentence", true)
-    //if (circ !== null) { // sentence
-    //  //if (hSent.innerText.length > 0 && hSent.innerText[0] === "「") {
-    //  if (hSent.children.length >= 1 && hSent.children[0].innerHTML.includes("「")) {
-    //    circ.setAttributeNS(null, "cx", "35");
-    //    circ.setAttributeNS(null, "cy", "11");
-    //  }
-    //}
 
     // removes if colored quotes exist
     if (svgEle !== null && hSent.hasAttribute("data-color-quotes")) {

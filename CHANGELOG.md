@@ -35,6 +35,12 @@ and must use `./install.py --update`.
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
 
+#### Fixes (for new updates)
+- Fixed ruby sentence regex selecting too much when auto-highlighting a word
+
+#### Internal Changes
+- Re-ordered `sent-utils` to be under `img-utils` because that seems to speed up performance for some reason
+- Changed `isAltDisplay` and `isClozeDeletion` to be specified in css instead of javascript
 
 
 

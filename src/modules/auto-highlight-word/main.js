@@ -79,8 +79,11 @@ const JPMNAutoHighlightWord = (() => {
       // ruby format example:
       // <ruby><rb>端</rb><rt>はじ</rt></ruby>
       let replaceResult = [];
-      let beforeKanjiRegex = "(<ruby>(<rb>)?)"
-      let afterKanjiRegex = "(.*?(</rt></ruby>))"
+      let beforeKanjiRegex = "(<ruby>(<rb>)?)";
+      // \u3040-\u30ff should specify hiragana + katakana
+      // this assumes that all kanjis have readings, which may be incorrect wrong
+      let afterKanjiRegex = "((</rb><rt>[\u3040-\u30ff]*?)(</rt></ruby>))";
+      let betweenKanjiRegex = `(${beforeKanjiRegex}${afterKanjiRegex})?`;
 
       for (let i = 0; i < longestSubstr.length-1; i++) {
         const previous = longestSubstr[i];
@@ -98,7 +101,7 @@ const JPMNAutoHighlightWord = (() => {
         } else if (!this._isKana(previous) && this._isKana(after)) { // non-kana + kana
           replaceResult.push(afterKanjiRegex);
         } else if (!this._isKana(previous) && !this._isKana(after)) { // kana + kana
-          replaceResult.push(afterKanjiRegex + beforeKanjiRegex);
+          replaceResult.push(betweenKanjiRegex);
         }
       }
 

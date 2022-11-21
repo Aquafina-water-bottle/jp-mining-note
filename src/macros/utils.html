@@ -198,21 +198,19 @@
 
 
 {% macro expression_inner_div(field_name) -%}
-  {%- autoescape false -%}
   <span class="expression-inner">{{ T(field_name) }}</span>
-  {%- endautoescape -%}
+{%- endmacro %}
+
+{% macro expression_inner_div_extra(field_name, extra_classes) -%}
+  <span class="expression-inner {{ extra_classes }}">{{ T(field_name) }}</span>
 {%- endmacro %}
 
 {% macro expression_inner_div_altdisplay(field_name) -%}
-  {%- autoescape false -%}
-  <span class="expression-inner expression-inner--altdisplay">{{ T(field_name) }}</span>
-  {%- endautoescape -%}
+  {{ expression_inner_div_extra(field_name, "expression-inner--altdisplay") }}
 {%- endmacro %}
 
 {% set furigana_alt_display -%}
-  {%- autoescape false -%}
   {{ expression_inner_div_altdisplay('furigana:AltDisplay') }}
-  {%- endautoescape -%}
 {%- endset -%}
 
 {# adds quotes (if sentence), always attempts to use altdisplay instead of name #}
