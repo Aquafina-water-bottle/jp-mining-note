@@ -21,6 +21,22 @@ and must use `./install.py --update`.
 
 
 
+## [0.11.1.0] - 2022-11-??
+#### Features
+- Primary definition picture rework:
+    - Cleaned up css and made css a lot more readable
+    - Added more runtime options
+    - Picture can now be positioned above the definition
+    - Option to not use lenience value for a faster card
+- Added `jpmn-filled-if-word-is-hiragana` marker
+- Added `auto-highlight-word` module, to automatically highlight the word if the word isn't highlighted
+    - Works on both the display sentence and furigana sentence
+
+#### Fixes
+- Fixed img blur eye not being on the image for wider images
+
+
+
 ## [0.11.0.0] - 2022-11-19
 #### Breaking Changes
 - Added fields: `PAOverrideText`, `PrimaryDefinitionPicture`, `WordReadingHiragana`

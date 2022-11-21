@@ -11,6 +11,7 @@ const JPMNJPUtils = (() => {
 
       this.HIRAGANA_CONVERSION_RANGE = [0x3041, 0x3096];
       this.KATAKANA_CONVERSION_RANGE = [0x30a1, 0x30f6];
+      this.HIRAGANA_RANGE = [0x3040, 0x309f];
       this.KATAKANA_RANGE = [0x30a0, 0x30ff];
       this.SMALL_KANA_SET = new Set(Array.from('ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ'));
 
@@ -30,11 +31,8 @@ const JPMNJPUtils = (() => {
         "エ": "ネテセケレメヘペベデゼゲ",
         "オ": "ノトソコヲロヨモホョポボドゾゴ",
       };
-
-
-
-
     }
+
 
     // function name gore :sob:
     convertHiraganaToKatakanaWithLongVowelMarks(reading) {
@@ -50,7 +48,6 @@ const JPMNJPUtils = (() => {
 
       return result.join("");
     }
-
 
 
     // shamelessly stolen from Yomichan (getKanaMorae)
@@ -87,8 +84,6 @@ const JPMNJPUtils = (() => {
       }
       return result;
     }
-
-
 
   }
 

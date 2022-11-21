@@ -130,6 +130,7 @@ CONFIG = {
             # This is a debugging tool, so this is disabled by default.
             #"time-performance",
             "sent-utils",
+            "auto-highlight-word",
             "kanji-hover",
             "auto-pitch-accent",
 
@@ -145,6 +146,13 @@ CONFIG = {
             "fix-ruby-positioning",
             "check-duplicate-key",
         ],
+
+        "breakpoints": {
+            "display-sentence-shrink": 1600,
+            "display-sentence-remove-newlines": 1300,
+            "max-width-backside": 850,
+            "combine-picture": 620,
+        },
 
         # This is a hack to allow the user to triple-click the definition and copy
         # without selecting everything below the line.

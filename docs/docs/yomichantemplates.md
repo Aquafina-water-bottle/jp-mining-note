@@ -188,3 +188,23 @@ TODO gif
 - `opt-selection-text-glossary` must be true for this option to have any effect
 
 
+
+---
+
+# Other Customizations
+
+{{ feature_version("0.11.1.0") }}
+
+`jpmn-filled-if-word-is-hiragana`
+
+- use this marker in any field to fill it if the term is hiragana only
+- for example, under Yomichan's "Anki card format", set `IsTargetedSentenceCard` to `{jpmn-filled-if-word-is-hiragana}` if you want the card type to be a TSC for hiragana only terms
+- behavior:
+    - empty for words such as: トイレ、成り立つ、ブツブツ
+    - filled for words such as: ぶつぶつ、ぽつり
+- inspired by [Marv's hint sentence for kana cards](https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards)
+
+
+
+
+

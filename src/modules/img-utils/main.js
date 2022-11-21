@@ -14,13 +14,14 @@ const JPMNImgUtils = (() => {
 
   const dhLeft = document.getElementById("dh_left");
   const dhLeftAudioBtns = document.getElementById("dh_left_audio_buttons");
+  const primaryDefBlockquote = document.getElementById("primary_definition");
   const primaryDefText = document.getElementById("primary_definition_text");
-  const primaryDefPicEle = document.getElementById("primary_definition_picture")
+  const primaryDefRight = document.getElementById("primary_definition_right")
+  const primaryDefLeft = document.getElementById("primary_definition_left")
   const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
   let HEIGHT_LEFT = 0;
   let TEXT_HEIGHT = 0
   let PIC_HEIGHT = 0
-  let FLOAT_PIC_HEIGHT = 0
 
 
   const dhRight = document.getElementById("dh_right");
@@ -29,10 +30,14 @@ const JPMNImgUtils = (() => {
   const dhImgContainer = document.getElementById("dh_img_container");
   const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
 
+  const VALID_POS_OPTS = ["bottom", "top", "right", "auto-bottom", "auto-top"];
+  const VALID_AUTO_POS_OPTS = ["auto-bottom", "auto-top"];
 
   // adjusts height even if it's tablet mode because the picture can be tall and skinny
-  const ADJUST_HEIGHT = (VW > 620);
+  const ADJUST_HEIGHT = (VW > {{ COMPILE_OPTIONS("breakpoints", "combine-picture").item() }});
   const POS_RESULT = getPrimaryDefPicturePosition();
+  const USE_LENIENCE = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "auto-use-lenience") }};
+  const CALC_DEF_PIC_HEIGHT = (VALID_AUTO_POS_OPTS.includes(POS_RESULT) && USE_LENIENCE)
 
   // TODO?
   //const MOBILE_ATTEMPT_PLACE_AROUND = false;
@@ -411,25 +416,24 @@ const JPMNImgUtils = (() => {
   }
 
   function getPrimaryDefPicturePosition() {
-    let posResult = "auto";
+    let posResult = null;
 
     const posOpt = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position") }};
     const tagsBottom = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-bottom") }};
+    const tagsTop = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-top") }};
     const tagsRight = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "tags-right") }};
 
     if (checkArrayIsSubset(tagsBottom, TAGS_LIST)) { // priority on tag
       posResult = "bottom";
     } else if (checkArrayIsSubset(tagsRight, TAGS_LIST)) {
       posResult = "right";
-    } else if (posOpt === "bottom") { // lower priority on posOpt
-      posResult = "bottom";
-    } else if (posOpt === "right") {
-      posResult = "right";
-    } else if (posOpt === "auto") {
-      posResult = "auto";
+    } else if (checkArrayIsSubset(tagsTop, TAGS_LIST)) {
+      posResult = "top";
+    } else if (VALID_POS_OPTS.includes(posOpt)) { // lower priority on default position
+      posResult = posOpt;
     } else {
-      logger.warn(`Invalid option value for 'primary-definition-picture-position': ${posOpt}. Defaulting to auto.`);
-      posResult = "auto";
+      logger.warn(`Invalid option value for 'modules.img-utils.primary-definition-picture.position': ${posOpt}. Defaulting to auto-bottom.`);
+      posResult = "auto-bottom";
     }
 
     return posResult;
@@ -457,11 +461,10 @@ const JPMNImgUtils = (() => {
     // so nothing has changed...
 
 
-    if (ADJUST_HEIGHT || POS_RESULT === "auto") {
+    if (ADJUST_HEIGHT || CALC_DEF_PIC_HEIGHT) {
       HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
       TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
-      PIC_HEIGHT = primaryDefPicEle === null ? 0 : primaryDefPicEle.offsetHeight;
-      FLOAT_PIC_HEIGHT = primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight;
+      PIC_HEIGHT = primaryDefRight === null ? 0 : primaryDefRight.offsetHeight;
     }
 
 
@@ -563,9 +566,7 @@ const JPMNImgUtils = (() => {
 
     // looks for the PrimaryDefinitionPicture if it exists
     // placed after image searches to allow main definition to be properly resized first
-    const primaryDefPicEle = document.getElementById("primary_definition_picture")
-    const primaryDefPicBottomEle = document.getElementById("primary_definition_picture_bottom")
-    for (const picEle of [primaryDefPicEle, primaryDefPicBottomEle]) {
+    for (const picEle of [primaryDefRight, primaryDefLeft]) {
       if (picEle === null) {
         continue;
       }
@@ -578,29 +579,53 @@ const JPMNImgUtils = (() => {
       }
     }
 
-    //const tags = getTags();
-    const primaryDefBlockquote = document.getElementById("primary_definition");
-
     let posResult = POS_RESULT;
 
-    if (posResult === "auto") {
+    let removeNoLenienceCls = true;
+
+    if (VALID_AUTO_POS_OPTS.includes(posResult)) {
       // compares height of definition text and image
-      //const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
-      //const primaryDefText = document.getElementById("primary_definition_text");
-      const lenience = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position-lenience") }};
+      let shouldFloat = null;
 
-      const textHeight = TEXT_HEIGHT * lenience;
-      const picHeight = PIC_HEIGHT + FLOAT_PIC_HEIGHT;
-      const shouldFloat = textHeight > picHeight;
-      logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
+      if (USE_LENIENCE) {
+        const lenience = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position-lenience") }};
 
-      posResult = shouldFloat ? "right" : "bottom";
+        // comparison is still valid even if both textHeight and picHeight are 0
+        // (picHeight is 0 if no text because without javascript, auto-no-lenience class is enabled)
+        const textHeight = TEXT_HEIGHT * lenience;
+        const picHeight = PIC_HEIGHT;
+        shouldFloat = textHeight > picHeight;
+        logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
+
+        if (posResult === "auto-bottom") {
+          posResult = shouldFloat ? "right" : "bottom";
+        } else {
+          posResult = shouldFloat ? "right" : "top";
+        }
+
+      } else {
+        // simply adds the appropriate class
+        // not using lenience means that:
+        // if the definition is empty:
+        //     place to left
+        // else:
+        //     placed to right
+        //primaryDefBlockquote.classList.add("glossary-primary-definition--auto-no-lenience");
+        removeNoLenienceCls = false;
+      }
     }
+
+    if (removeNoLenienceCls) {
+      primaryDefBlockquote.classList.toggle("glossary-primary-definition--auto-no-lenience", false);
+    }
+
     logger.debug(`PrimaryDefinitionPicture position: ${posResult}`);
 
     // nothing has to be done for "right" as that is the default
     if (posResult === "bottom") {
       primaryDefBlockquote.classList.add("glossary-blockquote--picture-below");
+    } else if (posResult === "top") {
+      primaryDefBlockquote.classList.add("glossary-blockquote--picture-above");
     }
 
 

@@ -704,6 +704,20 @@ thanks to:
 
 
 
+{{#*inline "jpmn-filled-if-word-is-hiragana"}}
+    {{~#scope~}}
+        {{~#set "expression" ~}}{{> expression}}{{/set~}}
+        {{~#set "reading" ~}}{{> reading}}{{/set~}}
+        {{~#set "expression-hiragana" ~}}{{> jpmn-word-reading-hiragana}}{{/set~}}
+
+        {{~#if (op "&&" (op "===" (get "expression") (get "reading")) (op "===" (get "expression") (get "expression-hiragana")))~}}
+            1
+        {{~/if~}}
+    {{~/scope~}}
+{{/inline}}
+
+
+
 {{~! a test to check if your dictionaries are correctly classified. ~}}
 {{~! Only meant to be used for debugging purposes, not Anki. ~}}
 {{~#*inline "jpmn-test-dict-type"~}}
@@ -713,3 +727,4 @@ thanks to:
 {{/each~}}
 {{~/scope~}}
 {{~/inline~}}
+

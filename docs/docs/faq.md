@@ -106,45 +106,30 @@ or submit an issue!
 
 ---
 
+## The word is incorrectly highlighted / not highlighted at all.
 
-## The sentence quotes are on completely different lines!
-If your card looks like this:
+The word is usually highlighted by default, but the word may not be highlighted for the following reasons:
 
-{{ img("quotes on different lines", "assets/quote_different_lines.png") }}
+- The sentence field got updated by an external program.
+    A notable example is [asbplayer](setupeverythingelse.md#asbplayer).
+- The card was imported from an older deck that did not highlight the tested word.
 
-then your `Sentence` field is likely formatted internally similar to the following example:
-```html
-<div>そうデスサーヴァントの凸守を<b>差し置いて</b></div>
-<div>マスターと行動を共にするとは万死に値するデース</div>
-```
+As of version `0.11.1.0`, the card will automatically attempt to highlight the word
+if the word was not highlighted in the first place.
+However, this highlight may yield incorrect results.
+*This is expected behavior*, and you are expected to manually bold the sentence
+if the highlight is incorrect.
 
-To fix this, edit the `Sentence` [field html](faq.md#how-do-i-edit-the-fields-raw-html)
-to remove the `<div>` tags, and add `<br>` tags
-wherever a line break should appear.
-For example, the above should be changed into:
-```html
-そうデスサーヴァントの凸守を<b>差し置いて</b><br>
-マスターと行動を共にするとは万死に値するデース
-```
-
-??? info "Why this can happen *(click here)*"
-
-    This happens if you copy/paste directly from certain pages into the sentence field,
-    such as some texthooker pages.
-    This can also happen if you copy/paste from a texthooker page to a different field,
-    say `AdditionalNotes`, and then copy a section of `AdditionalNotes` to `Sentence`.
-
-    The [updating sentence with clipboard hotkey](jpresources.md#update-sentence-with-clipboard)
-    shouldn't have this problem, as `<div>` tags are not present by default.
+See [here](ui.md#automatic-word-highlighting) for more info.
 
 ---
-
-<!-- TODO same for TSC, if asked enough -->
 
 ## The Show/Hide button doesn't do anything.
 The show/hide button requires that the displayed sentence has a bolded element.
 For example, this means if the currently displayed sentence comes from the `AltDisplay`
 field and nothing in that field is bolded, then the show/hide button will do nothing.
+
+This potentially relates to the issue above.
 
 ---
 
@@ -184,6 +169,38 @@ allowing it to be shared easily on a place like Discord.
 
 ---
 
+
+## The sentence quotes are on completely different lines!
+If your card looks like this:
+
+{{ img("quotes on different lines", "assets/quote_different_lines.png") }}
+
+then your `Sentence` field is likely formatted internally similar to the following example:
+```html
+<div>そうデスサーヴァントの凸守を<b>差し置いて</b></div>
+<div>マスターと行動を共にするとは万死に値するデース</div>
+```
+
+To fix this, edit the `Sentence` [field html](faq.md#how-do-i-edit-the-fields-raw-html)
+to remove the `<div>` tags, and add `<br>` tags
+wherever a line break should appear.
+For example, the above should be changed into:
+```html
+そうデスサーヴァントの凸守を<b>差し置いて</b><br>
+マスターと行動を共にするとは万死に値するデース
+```
+
+??? info "Why this can happen *(click here)*"
+
+    This happens if you copy/paste directly from certain pages into the sentence field,
+    such as some texthooker pages.
+    This can also happen if you copy/paste from a texthooker page to a different field,
+    say `AdditionalNotes`, and then copy a section of `AdditionalNotes` to `Sentence`.
+
+    The [updating sentence with clipboard hotkey](jpresources.md#update-sentence-with-clipboard)
+    shouldn't have this problem, as `<div>` tags are not present by default.
+
+---
 
 
 # Card Editing { .text-yellow }
@@ -465,7 +482,10 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
 # Discord Contact Info { .text-yellow }
 Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
 
-Servers: [TheMoeWay]({{THEMOEWAY_LINK}}) and Refold (JP) server.
+Servers:
+
+* [TheMoeWay]({{THEMOEWAY_LINK}}) (I recommend using the `jp-mining-note` thread in the `#resources-sharing` channel)
+* Refold (JP) server  (I recommend using the `jp-mining-note` thread in the `#sentence-mining-workflows` channel)
 
 
 

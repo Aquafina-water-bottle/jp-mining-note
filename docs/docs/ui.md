@@ -199,7 +199,8 @@ See the [Pitch Accent](autopa.md) page for information on the following:
 {{ feature_version("0.10.3.0") }}
 
 External links are shown as icons in the `Extra Info` collapsable field by default.
-Hovering over them will show the url, and clicking on them will send you to the specified url,
+By default, hovering over them will show the url.
+Click on the desired icon to visit to the desired site.
 
 {{ img("external links demo", "assets/external_links.gif") }}
 
@@ -274,35 +275,35 @@ which may mis-aligned the surrounding icons.
 ---
 
 
-<!--
-# Sentences
 
-## Removing Sentence Quotes
-The sentence display has quotes surrounding the sentence by default, to provide
-an easy indicator to differentiate between a sentence and vocab card.
+# Automatic Word Highlighting
 
-If you want to remove the quotes, you can set the following {{ RTO }} to `false`:
+{{ feature_version("0.11.1.0") }}
 
-```
-{
-  "modules": {
-    "sent-utils": {
-      // automatically adds quotes to the sentence (if not alt display)
-      "auto-quote-sentence": false,
+Usually, the word within the sentence is already bolded by Yomichan.
+However, there are some cases where the word within the sentence may not be bold,
+such as when external programs update the `Sentence` field.
 
-      // automatically adds quotes to the sentence (if alt display)
-      "auto-quote-alt-display-sentence": false,
-    }
-  }
-}
-```
+By default, the note attempts to highlight the word within the sentence.
 
--->
+With that being said, it is not uncommon that the automatic highlighting
+fails to highlight the full word.
+For example, verb and i-adj. conjugations are not highlighted whatsoever.
+In order to keep the javascript lightweight, any improper highlighting
+*is considered as expected behavior*, and will not be changed or fixed.
+I recommend manually bolding the word if the word is incorrectly highlighted.
+
+!!! example "Examples"
+    * TODO
 
 
+!!! note
+    Much of the base code was taken from
+    [Marv's implementation](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence)
+    of the same thing.
 
 
-
+---
 
 
 # Various UI Runtime Options

@@ -165,6 +165,23 @@ const JPMNAutoPA = (() => {
       const wordPitchEle = document.getElementById("dh_word_pitch");
       wordPitchEle.style.setProperty('--pa-overline-color', `var(--text-${type})`);
     }
+
+    if ({{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "color-full-sentence") }}) {
+      const fullSentEle = document.getElementById("full_sentence");
+      fullSentEle.classList.add(sentClass);
+    }
+
+    if ({{ utils.opt("modules", "auto-pitch-accent", "colored-pitch-accent", "color-definitions") }}) {
+      const defs = document.querySelectorAll(".glossary-text")
+      if (defs !== null) {
+        for (const def of defs) {
+          //def.classList.add(sentClass);
+          // uses setProperty instead to deal with custom dictionary bold / highlights
+          def.style.setProperty('--highlight-bold-color', `var(--text-${type})`);
+        }
+      }
+    }
+
   }
 
   class JPMNAutoPA {

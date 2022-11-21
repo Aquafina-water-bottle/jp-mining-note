@@ -61,15 +61,27 @@
 
   "modules": {
 
-    // "enabled" is not featured here, as it is enabled/disabled via compile time options only.
+    // The "enabled" optoin is not featured here,
+    // as it is enabled/disabled via compile time options only.
+    // This module is completely compiled out by default.
     "time-performance": {
+
+      // The debug level for debug messages on how long modules
+      // and various parts of javascript take to run.
       "debug-level": 4,
+
+      // The decimal-place precision used when storing the results.
       "precision": 3,
 
+      // Whether to time modules or not
       "time-modules": true,
 
+      // Display mode:
+      // - If display-full is true, shows all times (recent, average on back, average on front)
+      // - If display-full is false, shows depending on `sort-func`
       "display-full": true,
 
+      // Sorts the results from largest to smallest
       // options: "mostRecent" or "currentSideAvg"
       "sort-func": "currentSideAvg"
     },
@@ -99,9 +111,26 @@
       //  "lesser": true
       //},
 
-      // removes the 「。」 character if it is the last character of the sentence
+      // removes the 「。」 character (and other periods) if it is the last character of the sentence
       "remove-final-period": true,
       "remove-final-period-on-altdisplay": false,
+
+      // Attempts to automatically highlight the word in the sentence if nothing is highlighted.
+      // - This usually isn't needed because Yomichan should already generate the card with
+      //   the word highlighted. However, there are some cases where the word isn't highlighted,
+      //   such as old cards, or when you automatically update the sentence with certain programs.
+      // - This isn't perfect, but it works well enough for a surprising number of cases.
+      //   In general, do not rely on this completely working.
+      // - This will not attempt to highlight conjugations of adjectives or verbs.
+      //   If an adjective or verb is conjugated, this will likely highlight its stem.
+      // Base code taken from:
+      // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
+      "auto-sentence-highlight": {
+        "enabled": true,
+
+        "warn-on-auto-highlight": false,
+        "warn-if-auto-highlight-fails": true
+      },
 
       // colors the quotes instead of showing a pitch accent indicator
       // if this is enabled
@@ -268,7 +297,13 @@
         "color-display": true,
 
         // Pitch accent overline
-        "color-overline": true
+        "color-overline": true,
+
+        // Full sentence
+        "color-full-sentence": false,
+
+        // All definitions
+        "color-definitions": false
       }
     },
 
@@ -287,19 +322,38 @@
       "primary-definition-picture": {
         // Where to place the `PrimaryDefinitionPicture` field contents
         //  within the primary definition section.
-        // Valid options (case sensitive): "auto", "bottom", "right"
-        "position": "auto",
+        // Valid options (case sensitive): "auto-bottom", "auto-top", "bottom", "right", "top"
+        "position": "auto-bottom",
+
+        // If the position is either "auto-top" or "auto-bottom", this option specifies
+        // whether to use the `position-lenience` variable below to calculate
+        // where the image is positioned.
+        // - Using lenience will cause a document reflow which will cause lag
+        //   (but currently, img-utils always reflows a document on non-mobile devices anyways,
+        //   so this does not have any real effect on performance )
+        // - If lenience is not used, `auto-bottom` and `auto-top` will behave exactly the same.
+        "auto-use-lenience": {
+          "type": "pc-mobile",
+          "pc": true,
+          "mobile": false
+        },
 
         // A constant that allows the picture to be placed to the right even if
         // the text height is X times smaller than the picture.
         // For example, a value of 1 will only allow the picture to be placed to the right
         // if the text height is equal or greater than the height of the picture.
+        //
+        // NOTE:
+        //     If you want the picture to always be placed to the right if there is text,
+        //     it is best to set `auto-use-lenience` to `false` and `position` to any `auto-X`
+        //     option (say, `auto-top`).
         "position-lenience": 2,
 
         // Tags to override auto positioning
         // Case sensitive
-        "tags-bottom": ["img-bottom", "jpmn-img-buttom"],
-        "tags-right": ["img-right", "jpmn-img-right"]
+        "tags-bottom": ["img-bottom"],
+        "tags-top": ["img-top"],
+        "tags-right": ["img-right"]
       },
 
       // Sets the image to the specified file if it contains the specified tags.
@@ -507,10 +561,6 @@
     "pc": true,
     "mobile": false
   },
-
-  // The debug level for debug messages on how long modules and various parts of javascript take to run.
-  // Performance logging is compiled out by default.
-  "log-performance-debug-level": 4,
 
   // (Developer option) Used to show debug messages when debugging the card.
   // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.

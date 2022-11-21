@@ -51,11 +51,11 @@ Fill the `IsSentenceCard` field.
 
 
 
-# Targetted Sentence Card (TSC)
+# Targeted Sentence Card (TSC)
 
 {{ img("", "assets/nisemono_tsc.png") }}
 
-A targetted sentence card is a special case of the sentence card.
+A targeted sentence card is a special case of the sentence card.
 The sentence is shown at the front, but only the highlighted content (only the word by default)
 is tested.
 This allows you to have all the information and context of the sentence,

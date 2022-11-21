@@ -45,7 +45,7 @@
 }
 
 
-@media (max-width: common.$max-width-backside) {
+@media (max-width: common.$bp-max-width-backside) {
 
   :root {
     --word-font-size: #{common.px2rem(55px)};

@@ -5,49 +5,41 @@
 <blockquote class="glossary-blockquote
     highlight-bold
     glossary-blockquote--primary-definition
+    glossary-primary-definition--auto-no-lenience
+    {% call IFNOT('PrimaryDefinition') %} glossary-primary-definition--no-definition {% endcall %}
     " id="primary_definition">
 
-  {% if _use_external_links %}
-    <div class="glossary__external-links glossary__external-links--float" id="external_links_primary_def_float">
-      {% include "jp-mining-note/partials/external_links.html" %}
-    </div>
-  {% endif %}
 
-  {#
-  the bottom section of text with whitespace:
-
-  <div class="glossary-primary-definition-right glossary-primary-definition-right--float" id="primary_definition_picture">
+  <div class="glossary-primary-definition__right
+      {% if not _use_external_links %} glossary-primary-definition__right--completely-hide {% endif %}
+      " id="primary_definition_right">
     {% if _use_external_links %}
       <div class="glossary__external-links">
         {% include "jp-mining-note/partials/external_links.html" %}
       </div>
     {% endif %}
-    <div class="glossary-primary-definition-right-img">
+    <div class="glossary-primary-definition__img">
       {{ T("PrimaryDefinitionPicture") }}
     </div>
   </div>
-  #}
 
 
-  <!-- pictures not turned into text -->
-  <div class="glossary-primary-definition-right glossary-primary-definition-right--float" id="primary_definition_picture">{% if _use_external_links %}<div class="glossary__external-links">{% include "jp-mining-note/partials/external_links.html" %}</div>{% endif %}<div class="glossary-primary-definition-right-img">{{ T("PrimaryDefinitionPicture") }}</div></div>
+  <div class="glossary-primary-definition__wrapper" id="primary_definition_wrapper">
 
-
-  <div class="glossary-text glossary-text--primary-definition" id="primary_definition_text">
-    {{ T("furigana:PrimaryDefinition") }}
-    {% filter indent(4) %}
-    {% include "jp-mining-note/partials/0pxdiv.html" %}
-    {% endfilter %}
-  </div>
-
-  <!-- placed outside of glossary-text so it doesn't get converted automatically -->
-  <div class="glossary-primary-definition-right
-        glossary-primary-definition-right--bottom
-        {% call IF("PrimaryDefinition") %}glossary-primary-definition-right--above-text{% endcall %}
-        " id="primary_definition_picture_bottom">
-    <div class="glossary-primary-definition-right-img">
-      {{ T("PrimaryDefinitionPicture") }}
+    <div class="glossary-text glossary-text--primary-definition" id="primary_definition_text">
+      {{ T("furigana:PrimaryDefinition") }}
+      {% filter indent(4) %}
+      {% include "jp-mining-note/partials/0pxdiv.html" %}
+      {% endfilter %}
     </div>
+
+    <!-- placed outside of glossary-text so it doesn't get converted automatically -->
+    <div class="glossary-primary-definition__left" id="primary_definition_left">
+      <div class="glossary-primary-definition__img">
+        {{ T("PrimaryDefinitionPicture") }}
+      </div>
+    </div>
+
   </div>
 
 </blockquote>

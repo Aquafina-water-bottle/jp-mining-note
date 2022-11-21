@@ -773,7 +773,7 @@ ruby rt {
  * - only applied after the main definition header
  */
 .back-side {
-  max-width: common.$max-width-backside;
+  max-width: common.$bp-max-width-backside;
   margin: auto;
   padding: 0px;
 }
@@ -1202,7 +1202,7 @@ ruby rt {
   font-size: 40px;
   max-width: 400px;
   max-height: 210px;
-  //position: relative;
+  position: relative;
 }
 
 
@@ -1446,12 +1446,10 @@ ruby rt {
   margin: 0.5em 0 0 0;
 }
 
-.glossary-primary-definition-right {
-  float: right;
-  display: none;
-  padding-left: 5px;
-  /*padding-top: 3px;*/
-  text-align: right;
+
+.glossary-primary-definition__img {
+  display: flex; /* for some reason, this removes additional padding at the bottom */
+  gap: 5px; /* gap between multiple images */
 
   img {
     border-radius: 3px;
@@ -1460,63 +1458,82 @@ ruby rt {
   }
 }
 
-.glossary-primary-definition-right:not(:empty) {
-  display: block;
+.glossary-primary-definition__right {
+  /* padding between external links & picture if it exists */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  float: right;
+  padding-left: 10px; /* so text doesn't go too close to the image */
+  text-align: right;
+
+  /* aligns boxes within float to right */
+  .glossary__external-links, .glossary-primary-definition__img {
+    margin-left: auto;
+  }
 }
 
 
-.glossary-blockquote--picture-below {
+.glossary-primary-definition__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+/* default: show to */
 .glossary-blockquote--primary-definition {
-  .glossary__external-links--float {
-    display: none;
+  .glossary-primary-definition__right {
   }
-  .glossary-primary-definition-right--bottom {
+
+  .glossary-primary-definition__left {
     display: none;
   }
 }
 
-.glossary-blockquote--primary-definition.glossary-blockquote--picture-below {
-  .glossary-primary-definition-right--bottom {
+
+/*
+ * hides the right, shows the left if has either (javascript added) classes:
+ * - glossary-blockquote--picture-below
+ * - glossary-blockquote--picture-above
+ */
+
+/*
+ * Purpose of glossary-primary-definition--auto-no-lenience classes:
+ *
+ * if the definition is empty:
+ *     place to left
+ * else:
+ *     placed to right
+ */
+
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-below,
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-above,
+.glossary-primary-definition--auto-no-lenience.glossary-primary-definition--no-definition {
+
+  .glossary-primary-definition__right .glossary-primary-definition__img {
+    display: none;
+  }
+
+  .glossary-primary-definition__right--completely-hide {
+    /* hides the right completely if no external links */
+    display: none;
+  }
+
+  .glossary-primary-definition__left {
     display: block;
   }
+}
 
-  .glossary__external-links--float {
-    display: flex;
+.glossary-primary-definition--no-definition .glossary-text {
+  display: none;
+}
+
+/* flips the position of picture and glossary (so now picture is on top) */
+.glossary-blockquote--picture-above {
+  .glossary-primary-definition__wrapper {
+    flex-direction: column-reverse;
   }
-
-  .glossary-primary-definition-right--float {
-    display: none;
-  }
-
-}
-
-/* aligns boxes within float to right */
-.glossary-primary-definition-right--float {
-  display: block;
-}
-.glossary-primary-definition-right--float .glossary__external-links {
-  margin-left: auto;
-}
-
-/* padding between external links & picture if it exists */
-.glossary-primary-definition-right--float .glossary__external-links + .glossary-primary-definition-right-img:not(:empty) {
-  padding-top: 5px;
-}
-
-.glossary-blockquote--picture-below .glossary-primary-definition-right {
-  float: none;
-  padding-left: 0px;
-}
-
-.glossary-blockquote--picture-below .glossary-primary-definition-right.glossary-primary-definition-right--above-text {
-  padding-top: 10px;
-}
-
-.glossary-primary-definition-right-img {
-  display: flex; /* for some reason, this removes additional padding at the bottom */
-  gap: 5px;
 }
 
 
@@ -1592,20 +1609,14 @@ ruby rt {
   flex-wrap: wrap;
   flex-direction: row;
   gap: var(--external-links-gap);
-  //max-width: calc(var(--external-links-icon-size) * var(--external-links-max-icons-per-row) + (var(--external-links-max-icons-per-row) - 1) * var(--external-links-gap));
   max-width: common.maxWidthForXIcons(var(--external-links-max-icons-per-row));
 }
 
+/* used in extra info section */
 .glossary__external-links--float {
   float: right;
   padding-left: 5px;
 }
-
-/* external links are moved to the left if field is completely empty */
-//.glossary__external-links--full-row {
-//  max-width: 100%;
-//  justify-content: flex-start;
-//}
 
 .glossary__external-links a {
   text-align: center;

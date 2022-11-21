@@ -7,7 +7,7 @@ if ({{ utils.opt("modules", "img-utils", "enabled") }}) {
   const dhImgContainer = document.getElementById("dh_img_container");
   let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
 
-  const ADJUST_HEIGHT = (VW > 850);
+  const ADJUST_HEIGHT = (VW > {{ COMPILE_OPTIONS("breakpoints", "combine-picture").item() }});
   let HEIGHT_LEFT = 0;
 
   if (somethingDisplayed) {
