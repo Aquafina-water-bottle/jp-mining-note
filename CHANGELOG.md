@@ -47,8 +47,13 @@ and must use `./install.py --update`.
 
 
 
-## [0.11.0.1] - 2022-11-20
+## [0.11.0.2] - 2022-11-21
+#### Fixes
+- Fixed `PAPositions` field erroring if edited with the standard templates
+- Fixed `PAPositions` field not being properly parsed if it is just text (e.g. `[0]`)
 
+
+## [0.11.0.1] - 2022-11-20
 #### Fixes
 - Fixed `TIME_PERFORMANCE` not defined error for click cards
 
