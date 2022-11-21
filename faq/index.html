@@ -918,8 +918,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-sentence-quotes-are-on-completely-different-lines" class="md-nav__link">
-    The sentence quotes are on completely different lines!
+  <a href="#the-word-is-incorrectly-highlighted-not-highlighted-at-all" class="md-nav__link">
+    The word is incorrectly highlighted / not highlighted at all.
   </a>
   
 </li>
@@ -941,6 +941,13 @@
           <li class="md-nav__item">
   <a href="#the-tools-check-media-interface-removes-the-font-files" class="md-nav__link">
     The Tools →  Check Media interface removes the font files.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sentence-quotes-are-on-completely-different-lines" class="md-nav__link">
+    The sentence quotes are on completely different lines!
   </a>
   
 </li>
@@ -1180,8 +1187,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-sentence-quotes-are-on-completely-different-lines" class="md-nav__link">
-    The sentence quotes are on completely different lines!
+  <a href="#the-word-is-incorrectly-highlighted-not-highlighted-at-all" class="md-nav__link">
+    The word is incorrectly highlighted / not highlighted at all.
   </a>
   
 </li>
@@ -1203,6 +1210,13 @@
           <li class="md-nav__item">
   <a href="#the-tools-check-media-interface-removes-the-font-files" class="md-nav__link">
     The Tools →  Check Media interface removes the font files.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sentence-quotes-are-on-completely-different-lines" class="md-nav__link">
+    The sentence quotes are on completely different lines!
   </a>
   
 </li>
@@ -1458,36 +1472,25 @@ or submit an issue!</p>
 <hr />
 <h2 class="text-yellow" id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <hr />
-<h3 id="the-sentence-quotes-are-on-completely-different-lines">The sentence quotes are on completely different lines!<a class="headerlink" href="#the-sentence-quotes-are-on-completely-different-lines" title="Permanent link">&para;</a></h3>
-<p>If your card looks like this:</p>
-<p><a href="../assets/quote_different_lines.png"><img alt="quotes on different lines" src="../assets/quote_different_lines.png" /></a></p>
-<p>then your <code>Sentence</code> field is likely formatted internally similar to the following example:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>マスターと行動を共にするとは万死に値するデース<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div></p>
-<p>To fix this, edit the <code>Sentence</code> <a href="./#how-do-i-edit-the-fields-raw-html">field html</a>
-to remove the <code>&lt;div&gt;</code> tags, and add <code>&lt;br&gt;</code> tags
-wherever a line break should appear.
-For example, the above should be changed into:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>マスターと行動を共にするとは万死に値するデース
-</code></pre></div></p>
-<details class="info">
-<summary>Why this can happen <em>(click here)</em></summary>
-<p>This happens if you copy/paste directly from certain pages into the sentence field,
-such as some texthooker pages.
-This can also happen if you copy/paste from a texthooker page to a different field,
-say <code>AdditionalNotes</code>, and then copy a section of <code>AdditionalNotes</code> to <code>Sentence</code>.</p>
-<p>The <a href="../jpresources/#update-sentence-with-clipboard">updating sentence with clipboard hotkey</a>
-shouldn't have this problem, as <code>&lt;div&gt;</code> tags are not present by default.</p>
-</details>
+<h3 id="the-word-is-incorrectly-highlighted-not-highlighted-at-all">The word is incorrectly highlighted / not highlighted at all.<a class="headerlink" href="#the-word-is-incorrectly-highlighted-not-highlighted-at-all" title="Permanent link">&para;</a></h3>
+<p>The word is usually highlighted by default, but the word may not be highlighted for the following reasons:</p>
+<ul>
+<li>The sentence field got updated by an external program.
+    A notable example is <a href="../setupeverythingelse/#asbplayer">asbplayer</a>.</li>
+<li>The card was imported from an older deck that did not highlight the tested word.</li>
+</ul>
+<p>As of version <code>0.11.1.0</code>, the card will automatically attempt to highlight the word
+if the word was not highlighted in the first place.
+However, this highlight may yield incorrect results.
+<em>This is expected behavior</em>, and you are expected to manually bold the sentence
+if the highlight is incorrect.</p>
+<p>See <a href="../ui/#automatic-word-highlighting">here</a> for more info.</p>
 <hr />
-<!-- TODO same for TSC, if asked enough -->
-
 <h3 id="the-showhide-button-doesnt-do-anything">The Show/Hide button doesn't do anything.<a class="headerlink" href="#the-showhide-button-doesnt-do-anything" title="Permanent link">&para;</a></h3>
 <p>The show/hide button requires that the displayed sentence has a bolded element.
 For example, this means if the currently displayed sentence comes from the <code>AltDisplay</code>
 field and nothing in that field is bolded, then the show/hide button will do nothing.</p>
+<p>This potentially relates to the issue above.</p>
 <hr />
 <h3 id="the-replay-audio-button-plays-the-sentence-word-and-then-sentence">The replay audio button plays the sentence, word, and then sentence.<a class="headerlink" href="#the-replay-audio-button-plays-the-sentence-word-and-then-sentence" title="Permanent link">&para;</a></h3>
 <p>This is playing the audio from the front of the card,
@@ -1516,6 +1519,30 @@ and re-add them into the <a href="./#where-is-the-x-folder-in-anki">media folder
 When a user is asked to export a card, the exported file will not contain the font files,
 meaning that the result <code>.apkg</code> file will be about 1MB instead of some 20MB,
 allowing it to be shared easily on a place like Discord.</p>
+<hr />
+<h3 id="the-sentence-quotes-are-on-completely-different-lines">The sentence quotes are on completely different lines!<a class="headerlink" href="#the-sentence-quotes-are-on-completely-different-lines" title="Permanent link">&para;</a></h3>
+<p>If your card looks like this:</p>
+<p><a href="../assets/quote_different_lines.png"><img alt="quotes on different lines" src="../assets/quote_different_lines.png" /></a></p>
+<p>then your <code>Sentence</code> field is likely formatted internally similar to the following example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>マスターと行動を共にするとは万死に値するデース<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<p>To fix this, edit the <code>Sentence</code> <a href="./#how-do-i-edit-the-fields-raw-html">field html</a>
+to remove the <code>&lt;div&gt;</code> tags, and add <code>&lt;br&gt;</code> tags
+wherever a line break should appear.
+For example, the above should be changed into:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>マスターと行動を共にするとは万死に値するデース
+</code></pre></div></p>
+<details class="info">
+<summary>Why this can happen <em>(click here)</em></summary>
+<p>This happens if you copy/paste directly from certain pages into the sentence field,
+such as some texthooker pages.
+This can also happen if you copy/paste from a texthooker page to a different field,
+say <code>AdditionalNotes</code>, and then copy a section of <code>AdditionalNotes</code> to <code>Sentence</code>.</p>
+<p>The <a href="../jpresources/#update-sentence-with-clipboard">updating sentence with clipboard hotkey</a>
+shouldn't have this problem, as <code>&lt;div&gt;</code> tags are not present by default.</p>
+</details>
 <hr />
 <h2 class="text-yellow" id="card-editing">Card Editing<a class="headerlink" href="#card-editing" title="Permanent link">&para;</a></h2>
 <hr />
@@ -1615,15 +1642,15 @@ If <code>PAPositions</code> is not filled, then the card cannot be automatically
 </li>
 </ol>
 <p>There may be some cards that still have an empty <code>AJTWordPitch</code> field.
-This is simply because the plugin did not have a pitch for that word.</p>
+This is simply because the add-on did not contain the pitch data for those words.</p>
 <hr />
 <h3 id="how-do-i-remove-an-empty-card-without-deleting-the-entire-note">How do I remove an empty card without deleting the entire note?<a class="headerlink" href="#how-do-i-remove-an-empty-card-without-deleting-the-entire-note" title="Permanent link">&para;</a></h3>
 <div class="admonition quote">
 <p class="admonition-title">Quote</p>
 <p>To remove the empty cards, go to <code>Tools</code> →  <code>Empty Cards</code> in the main window.
 You will be shown a list of empty cards and be given the option to delete them.</p>
-<p><sup>Taken from the
-<a href="https://docs.ankiweb.net/templates/generation.html#card-generation--deletion" target="_blank">official Anki documentation</a>.
+<p><sup>
+Taken directly from <a href="https://docs.ankiweb.net/files.html#file-locations">Anki's official documentation</a>.
 </sup></p>
 </div>
 <hr />
@@ -1651,8 +1678,38 @@ and use the `HintNotHidden` field for your hint.
 <h2 class="text-yellow" id="other-questions">Other Questions<a class="headerlink" href="#other-questions" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="where-is-the-x-folder-in-anki">Where is the (X) folder in Anki?<a class="headerlink" href="#where-is-the-x-folder-in-anki" title="Permanent link">&para;</a></h3>
-<p>See the <a href="https://docs.ankiweb.net/files.html#file-locations" target="_blank">official documentation</a>
-to find the <code>Anki2</code> folder.</p>
+<p>You must first locate the <code>Anki2</code> folder.
+The location of this folder is different for each operating system.</p>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows</label><label for="__tabbed_1_2">Mac</label><label for="__tabbed_1_3">Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>On <strong>Windows</strong>, the latest Anki versions store your Anki files in your
+appdata folder. You can access it by opening the file manager, and
+typing <code>%APPDATA%\Anki2</code> in the location field. Older versions of Anki
+stored your Anki files in a folder called <code>Anki</code> in your <code>Documents</code>
+folder.</p>
+</div>
+<div class="tabbed-block">
+<p>On <strong>Mac</strong> computers, recent Anki versions store all their files in the
+<code>~/Library/Application Support/Anki2</code> folder. The Library folder is
+hidden by default, but can be revealed in Finder by holding down the
+option key while clicking on the Go menu. If you're on an older Anki
+version, your Anki files will be in your <code>Documents/Anki</code> folder.</p>
+</div>
+<div class="tabbed-block">
+<p>On <strong>Linux</strong>, recent Anki versions store your data in
+<code>~/.local/share/Anki2</code>, or <code>$XDG_DATA_HOME/Anki2</code> if you have set a
+custom data path. Older versions of Anki stored your files in
+<code>~/Documents/Anki</code> or <code>~/Anki</code>.</p>
+</div>
+</div>
+</div>
+<p><sup>
+Taken directly from <a href="https://docs.ankiweb.net/files.html#file-locations">Anki's official documentation</a>.
+</sup></p>
+</div>
 <ul>
 <li>Your <strong>profile folder</strong> is under <code>Anki2/PROFILE_NAME</code>.</li>
 <li>Your <strong>media folder</strong> is under <code>Anki2/PROFILE_NAME/collections.media</code>.</li>
@@ -1669,7 +1726,7 @@ to find the <code>Anki2</code> folder.</p>
 <blockquote>
 <p>Main Window →  <code>File</code> (top left corner) →  <code>Create Backup</code></p>
 </blockquote>
-<p>See the <a href="https://docs.ankiweb.net/backups.html" target="_blank">official documentation</a>
+<p>See <a href="https://docs.ankiweb.net/backups.html" target="_blank">Anki's official documentation</a>
 for more info.</p>
 <p><br></p>
 <hr />
@@ -1714,14 +1771,18 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
 </div>
 <h2 class="text-yellow" id="discord-contact-info">Discord Contact Info<a class="headerlink" href="#discord-contact-info" title="Permanent link">&para;</a></h2>
 <p>Username: <code>Aquafina water bottle#3026</code> (user id: <code>244677612272746496</code>)</p>
-<p>Servers: <a href="https://learnjapanese.moe/join/">TheMoeWay</a> and Refold (JP) server.</p>
+<p>Servers:</p>
+<ul>
+<li><a href="https://learnjapanese.moe/join/">TheMoeWay</a> (I recommend using the <code>jp-mining-note</code> thread in the <code>#resources-sharing</code> channel)</li>
+<li>Refold (JP) server  (I recommend using the <code>jp-mining-note</code> thread in the <code>#sentence-mining-workflows</code> channel)</li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 16, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2022</span>
       
     
   </small>

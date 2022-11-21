@@ -795,6 +795,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#other-customizations" class="md-nav__link">
+    Other Customizations
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1072,6 +1079,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#other-customizations" class="md-nav__link">
+    Other Customizations
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1252,13 +1266,30 @@ set <code>opt-selection-text-glossary-attempt-bold</code> to <code>false</code>.
 <li>if could not be detected, falls back to the normal selected text</li>
 <li><code>opt-selection-text-glossary</code> must be true for this option to have any effect</li>
 </ul>
+<hr />
+<h2 id="other-customizations">Other Customizations<a class="headerlink" href="#other-customizations" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
+</div>
+<p><code>jpmn-filled-if-word-is-hiragana</code></p>
+<ul>
+<li>use this marker in any field to fill it if the term is hiragana only</li>
+<li>for example, under Yomichan's "Anki card format", set <code>IsTargetedSentenceCard</code> to <code>{jpmn-filled-if-word-is-hiragana}</code> if you want the card type to be a TSC for hiragana only terms</li>
+<li>behavior:<ul>
+<li>empty for words such as: トイレ、成り立つ、ブツブツ</li>
+<li>filled for words such as: ぶつぶつ、ぽつり</li>
+</ul>
+</li>
+<li>inspired by <a href="https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards">Marv's hint sentence for kana cards</a></li>
+</ul>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2022</span>
       
     
   </small>
