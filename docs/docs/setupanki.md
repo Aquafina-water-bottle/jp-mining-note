@@ -340,12 +340,12 @@ to make sure they are correct.
 
 Automatically adds pitch accent info given the word.
 
-For the purposes of the card,
-the only purpose that this add-on serves is the following:
+For the purposes of the card, this add-on serves does the following:
 
-- Adds devoiced and nasal information to the existing reading.
+- Adds devoiced and nasal information to the existing reading, if the data is available.
 - If your Yomichan pitch accent dictionaries did not contain any pitch accent info for the word
-  but the add-on does, then it will use the add-on data.
+    but the add-on does, then it will use the add-on data.
+    This will likely happen for expressions containing more than one word.
 
 
 ### Config Changes

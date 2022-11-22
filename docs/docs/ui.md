@@ -282,7 +282,8 @@ which may mis-aligned the surrounding icons.
 
 Usually, the word within the sentence is already bolded by Yomichan.
 However, there are some cases where the word within the sentence may not be bold,
-such as when external programs update the `Sentence` field.
+such as when external programs update the `Sentence` field, or if you are using
+imported cards.
 
 By default, the note attempts to highlight the word within the sentence.
 
@@ -321,7 +322,7 @@ Some are documented below.
 If the furigana appears higher than normal on your card,
 the following {{ RTO }} serves as a quick fix to lower the furigana:
 
-```
+```json
 {
   "fix-ruby-positioning": ...
 }
@@ -369,7 +370,7 @@ Collapsed fields are collapsed by default.
 These fields can be set to be automatically opened
 under the following {{ RTO }}:
 
-```
+```json
 {
   "modules": {
     "customize-open-fields": {
@@ -380,7 +381,7 @@ under the following {{ RTO }}:
 ```
 
 ??? example "Example Config *(click here)*"
-    ```
+    ```json
     "customize-open-fields": {
       "enabled": false,
 
@@ -416,7 +417,7 @@ under the following {{ RTO }}:
 
 Collapsable fields that are empty are usually not shown at all.
 This {{ RTO }} allows them to be shown (but greyed out) when empty.
-```
+```json
 {
   "greyed-out-collapsable-fields-when-empty": ...
 }

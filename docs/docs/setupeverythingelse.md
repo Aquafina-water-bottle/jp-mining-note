@@ -414,8 +414,13 @@ There are a few common issues that asbplayer users have, when creating cards wit
 1. **The word in the `Sentence` field is not bolded.**
 
     asbplayer's generated sentence does NOT preserve the bold in the `Sentence` field.
-    Unfortunately, there is no easy way to fix this.
-    Your options include:
+
+    The note comes with a feature to
+    [automatically highlight the word](ui.md#automatic-word-highlighting)
+    within the sentence.
+    However, this is an imperfect solution,
+    and there is currently no easy way to add accurate highlighting to existing sentences.
+    To guarantee accurate word highlights, your options include:
 
     1. Manually bolding the word in Anki.
     1. Updating the sentence with [this script](jpresources.md#update-sentence-with-clipboard)

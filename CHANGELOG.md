@@ -44,6 +44,9 @@ and must use `./install.py --update`.
 - Re-ordered `sent-utils` to be under `img-utils` because that seems to speed up performance for some reason
 - Changed `isAltDisplay` and `isClozeDeletion` to be specified in css instead of javascript
 - Cleaned up css for full-sentence
+- Added a github issue template
+- Changed images in documentation a bit to make them more clean
+- Made importing.md docs section a bit clearer
 
 
 
