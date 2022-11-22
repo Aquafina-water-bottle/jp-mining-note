@@ -36,7 +36,7 @@ const JPMNImgUtils = (() => {
   // adjusts height even if it's tablet mode because the picture can be tall and skinny
   const ADJUST_HEIGHT = (VW > {{ COMPILE_OPTIONS("breakpoints", "combine-picture").item() }});
   const POS_RESULT = getPrimaryDefPicturePosition();
-  const USE_LENIENCE = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "auto-use-lenience") }};
+  const USE_LENIENCE = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "use-lenience") }};
   const CALC_DEF_PIC_HEIGHT = (VALID_AUTO_POS_OPTS.includes(POS_RESULT) && USE_LENIENCE)
 
   // TODO?

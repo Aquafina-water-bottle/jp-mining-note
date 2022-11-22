@@ -330,7 +330,7 @@
         //   This will cause the picture to be placed to the right if there is ANY text,
         //   and placed to the left if there is no text.
         //   This is equivalent to setting `position-lenience` to a very large number.
-        "auto-use-lenience": {
+        "use-lenience": {
           "type": "pc-mobile",
           "pc": true,
           "mobile": false

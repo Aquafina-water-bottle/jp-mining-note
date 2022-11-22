@@ -61,78 +61,88 @@ Most setups documented are for clipboard based texthooker pages.
 
 
 ## Texthooker pages (Websocket based)
-Websocket based texthookers are generally faster, more reliable, and do not flood your clipboard.
+Websocket based texthookers are better in almost every aspect:
+
+* They are generally faster and more reliable.
+* They do not flood your clipboard.
+* They do not require an extension that constantly polls the clipboard.
+
 However, there is usually less support and requires more specialized coordination between programs.
 
-Both of the options below are intended to be used with
+All of the options below are intended to be used with
 [Textractor](https://github.com/Artikash/Textractor).
+I'm currently unaware of a websocket-based setup that works with video content.
 
-??? example "exSTATic"
+??? example "Resources *(click here)*"
 
-    [**exSTATic**](https://github.com/KamWithK/exSTATic/)
+    * [**exSTATic**](https://github.com/KamWithK/exSTATic/)
 
-    * Its primary use is for automatic stats collection. Integrates seamlessly with many workflows.
-    * Uses a custom texthooker page, which connects with Textractor with its own custom extension.
-    * A video installation guide is available on the project's README page.
+        * Its primary use is for automatic stats collection. Integrates seamlessly with many workflows.
+        * Uses a custom texthooker page, which connects with Textractor with its own custom extension.
+        * A video installation guide is available on the project's README page.
 
-??? example "Custom Patch"
 
-    Patch Instructions for existing clipboard-based texthookers.
-    This patch is primarily intended to be used in conjunction with
-    [this Textractor extension](https://github.com/sadolit/textractor-websocket).
+    * **Zetta's Custom Patch**
 
-    1. Download your favorite texthooker page into a raw html file.
-    1. Copy/paste the code below to the very end of the raw html file.
-    1. If you are currently viewing the page, refresh.
+        * Patch Instructions for existing clipboard-based texthookers.
+        * This patch is intended to be used in conjunction with
+            [this Textractor extension](https://github.com/sadolit/textractor-websocket).
+        * This patch was written for Anacreon's texthooker page.
+            However, it will likely work for most other texthooker pages.
 
-    ??? examplecode "Click here to reveal the patch"
-        ```javascript
-        <script>
-          let socket = null;
-          let wsStatusElem = null;
+        ??? examplecode "Instructions to use the patch *(click here)*"
 
-          const createStatusElem = () => {
-            wsStatusElem = document.createElement("span")
-            let node = document.getElementById('menu').firstChild
-            wsStatusElem.setAttribute("class", "menuitem")
-            wsStatusElem.addEventListener('click', (e) => {
-              if(wsStatusElem.innerText == "Reconnect") {
-                connect()
+            1. Download your favorite texthooker page into a raw html file.
+            1. Copy/paste the code below to the very end of the raw html file.
+            1. If you are currently viewing the page, refresh.
+
+            ```javascript
+            <script>
+              let socket = null;
+              let wsStatusElem = null;
+
+              const createStatusElem = () => {
+                wsStatusElem = document.createElement("span")
+                let node = document.getElementById('menu').firstChild
+                wsStatusElem.setAttribute("class", "menuitem")
+                wsStatusElem.addEventListener('click', (e) => {
+                  if(wsStatusElem.innerText == "Reconnect") {
+                    connect()
+                  }
+                })
+                node.insertBefore(wsStatusElem, node.firstChild)
               }
-            })
-            node.insertBefore(wsStatusElem, node.firstChild)
-          }
 
-          const updateStatus = (connected) => {
-            if(wsStatusElem === null) { createStatusElem() }
-            wsStatusElem.innerText = connected ? "Connected" : "Reconnect"
-            wsStatusElem.style.cssText = "margin-right: 1.5em; display: inline-block;"
-            wsStatusElem.style.cssText += connected ? "color:rgb(24, 255, 24);" : "color:rgb(255, 24, 24);"
-          }
+              const updateStatus = (connected) => {
+                if(wsStatusElem === null) { createStatusElem() }
+                wsStatusElem.innerText = connected ? "Connected" : "Reconnect"
+                wsStatusElem.style.cssText = "margin-right: 1.5em; display: inline-block;"
+                wsStatusElem.style.cssText += connected ? "color:rgb(24, 255, 24);" : "color:rgb(255, 24, 24);"
+              }
 
-          const connect = () => {
-            socket = new WebSocket("ws://localhost:6677/")
-            socket.onopen = (e) => { updateStatus(true) }
-            socket.onclose = (e) => { updateStatus(false) }
-            socket.onerror = (e) => { updateStatus(false); console.log(`[error] ${e.message}`) }
-            socket.onmessage = (e) => {
-              let container = document.getElementById('textlog')
-              let textNode = document.createElement("p")
-              textNode.innerText = e.data
-              document.body.insertBefore(textNode, null)
-            }
-          }
-          connect()
-        </script>
-        ```
-        <sup>
-        ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on {{ TMW_SERVER }}. Thanks Zetta#3033 for the code.)
-        </sup>
+              const connect = () => {
+                socket = new WebSocket("ws://localhost:6677/")
+                socket.onopen = (e) => { updateStatus(true) }
+                socket.onclose = (e) => { updateStatus(false) }
+                socket.onerror = (e) => { updateStatus(false); console.log(`[error] ${e.message}`) }
+                socket.onmessage = (e) => {
+                  let container = document.getElementById('textlog')
+                  let textNode = document.createElement("p")
+                  textNode.innerText = e.data
+                  document.body.insertBefore(textNode, null)
+                }
+              }
+              connect()
+            </script>
+            ```
+            <sup>
+            ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on {{ TMW_SERVER }}. Thanks Zetta#3033 for the code.)
+            </sup>
 
-    !!! note
-        This patch was written for Anacreon's texthooker page.
-        However, it will likely work for most other texthooker pages.
 
+    * [**Marv's Websocket Userscript**](https://github.com/MarvNC/texthooker-websocket)
+        * A more featureful version of the above.
+        * Also written for Anacreon's texthooker page.
 
 ---
 

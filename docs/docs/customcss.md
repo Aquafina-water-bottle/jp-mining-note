@@ -433,7 +433,7 @@ the furigana on the kanjis within hover.
 
     1. Under `extra/style.scss`, add the following code:
 
-        ```
+        ```css
         .dh-left__reading ruby rt {
           display: none;
         }
