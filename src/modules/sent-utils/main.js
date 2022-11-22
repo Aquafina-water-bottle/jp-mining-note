@@ -83,6 +83,21 @@ const JPMNSentUtils = (() => {
       }
     }
 
+    /*
+     * returns the quotes if found, otherwise returns an empty array
+     */
+    getQuotes(sentence) {
+      let validQuotes = {{ utils.opt("modules", "sent-utils", "quote-match-strings") }};
+
+      for (let quotePair of validQuotes) {
+        if ((sentence[0] === quotePair[0]) && (sentence[sentence.length-1] === quotePair[1])) {
+          return Array.from(quotePair);
+        }
+      }
+
+      return [];
+    }
+
     processSentence(sentEle, paIndicator) {
 
       // ASSUMPTION: all sentence elements are formatted as [quote, sentence, quote]
@@ -113,20 +128,15 @@ const JPMNSentUtils = (() => {
       let openQuoteEle = sentEle.children[0];
       let closeQuoteEle = sentEle.children[2];
 
-      for (let quotePair of validQuotes) {
-        if ((result[0] === quotePair[0]) && (result[result.length-1] === quotePair[1])) {
+      let quotePair = this.getQuotes(result);
+      if (quotePair.length) {
 
-          // adds quote to surrounding divs
-          let openQuote = null;
-          let closeQuote = null;
-          [openQuote, closeQuote] = quotePair;
-          openQuoteEle.innerText = openQuote;
-          closeQuoteEle.innerText = closeQuote;
+        let [openQuote, closeQuote] = quotePair;
+        openQuoteEle.innerText = openQuote;
+        closeQuoteEle.innerText = closeQuote;
 
-          result = result.slice(1, -1);
-          existingQuote = true;
-          break;
-        }
+        result = result.slice(1, -1);
+        existingQuote = true;
       }
 
       let autoQuote = (
@@ -211,7 +221,9 @@ const JPMNSentUtils = (() => {
         // ASSUMPTION: hybridClick() is called BEFORE this section
         /// {% if note.side == "back" %}
         /// {% call IF("IsClickCard") %}
-        svgEle.style.display = "none";
+        if ({{ utils.opt("click-card-sentence-reveal-on-back-side") }}) {
+          svgEle.style.display = "none";
+        }
         /// {% endcall %}
         /// {% endif %}
       }
@@ -245,19 +257,30 @@ const JPMNSentUtils = (() => {
           fullSentEle.innerHTML = result;
         }
       }
+
+      // checks for quotes
+      let quotePair = this.getQuotes(fullSentEle.innerHTML.trim());
+      if (quotePair.length) {
+        fullSentEle.classList.toggle("left-align-quote", true);
+      }
     }
 
 
     run() {
-      let sentences = document.querySelectorAll(".expression--sentence")
 
-      if (sentences !== null) {
-        for (let sent of sentences) {
-          this.processSentence(sent, this.paIndicator);
+      if ({{ utils.opt("modules", "sent-utils", "enable-display-sentence-processing") }}) {
+        let sentences = document.querySelectorAll(".expression--sentence")
+
+        if (sentences !== null) {
+          for (let sent of sentences) {
+            this.processSentence(sent, this.paIndicator);
+          }
         }
       }
 
-      this.processFullSentence();
+      if ({{ utils.opt("modules", "sent-utils", "enable-full-sentence-processing") }}) {
+        this.processFullSentence();
+      }
     }
   }
 

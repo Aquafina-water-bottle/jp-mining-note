@@ -1459,13 +1459,25 @@ ruby rt {
 
 .glossary-primary-definition__img {
   display: flex; /* for some reason, this removes additional padding at the bottom */
-  gap: 5px; /* gap between multiple images */
+  gap: var(--primary-def-picture-gap); /* gap between multiple images */
 
   img {
-    border-radius: 3px;
+    border-radius: var(--primary-def-border-radius);
     max-width: var(--primary-def-picture-max-width);
     max-height: var(--primary-def-picture-max-height);
   }
+}
+
+/* increases the max width and height of the image when the definition is empty */
+.glossary-primary-definition--no-definition .glossary-primary-definition__img {
+  gap: calc(var(--primary-def-picture-gap) * var(--primary-def-picture-scale-no-def));
+
+  img {
+    border-radius: calc(var(--primary-def-border-radius) * var(--primary-def-picture-scale-no-def));
+    max-width: calc(var(--primary-def-picture-max-width) * var(--primary-def-picture-scale-no-def));
+    max-height: calc(var(--primary-def-picture-max-height) * var(--primary-def-picture-scale-no-def));
+  }
+
 }
 
 .glossary-primary-definition__right {

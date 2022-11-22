@@ -20,7 +20,9 @@
 
 // make sure the sentence is already 'clicked'
 /// {% call IF("IsClickCard") %}
-hybridClick()
+if ({{ utils.opt("click-card-sentence-reveal-on-back-side") }}) {
+  hybridClick()
+}
 /// {% endcall %}
 
 /// {% endblock %}

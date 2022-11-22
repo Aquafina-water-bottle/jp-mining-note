@@ -1,0 +1,16 @@
+{# keybinds module #}
+
+
+{% import "modules/keybinds/main.js" as js with context %}
+
+
+{# required boilerplate #}
+{% set MOD = namespace() %}
+{% set MOD.id = "keybinds" %}
+
+{# interface for modules that change javascript #}
+{% set MOD.js = JavascriptContainer(MOD.id) %}
+
+{# prints a "Hello world" on the front side of all cards #}
+{% set MOD.functions_manual = js.functions %}
+

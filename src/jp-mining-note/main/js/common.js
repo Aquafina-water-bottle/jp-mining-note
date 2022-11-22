@@ -41,6 +41,27 @@ function hybridClick() {
 }
 
 
+function sentenceKeybinds(e) {
+  if (KEYBINDS.hasKey(e, {{ utils.opt("keybinds", "toggle-hybrid-sentence") }})) {
+    let hSent = document.getElementById("hybrid-sentence");
+    let hWord = document.getElementById("hybrid-word");
+    if (hSent !== null && hWord !== null) {
+      hybridClick();
+    }
+  }
+
+  if (KEYBINDS.hasKey(e, {{ utils.opt("keybinds", "toggle-highlight-word") }})) {
+    let paButton = document.getElementById("pa-button");
+    if (paButton !== null) {
+      toggleHighlightWord();
+    }
+  }
+}
+
+KEYBINDS.addFunc("sentenceKeybinds", sentenceKeybinds);
+
+
+
 // required for the sentence utils module
 var paIndicator;
 

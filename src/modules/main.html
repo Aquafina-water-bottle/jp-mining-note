@@ -9,9 +9,12 @@
 
 {% else %}
   {# ORDER MATTERS HERE! #}
-  {# img_utils is ran after auto_pitch_accent to properly calculate the height of the left div #}
+
+  {# img-utils is ran after auto-pitch-accent to properly calculate the height of the left div #}
+  {# time-performance absolutely must be first to spawn the TIME_PERFORMANCE variable #}
   {% set all_module_ids = [
     "time-performance",
+    "keybinds",
 
     "auto-pitch-accent",
     "img-utils-minimal",
@@ -19,10 +22,11 @@
 
     "sent-utils",
     "auto-highlight-word",
-    "kanji-hover",
 
+    "kanji-hover",
     "customize-open-fields",
     "word-indicators",
+
     "info-circle-utils",
     "fix-ruby-positioning",
     "check-duplicate-key"]

@@ -116,10 +116,6 @@ class JavascriptContainer:
         # as most existing code is wrapped as a self-contained module that returns a class.
         self.functions = TextContainer(module_name)
 
-        # A place to define keybinds.
-        # The variable `e` is the event that you should read.
-        self.keybinds = TextContainer(module_name)
-
         # Equivalent to the main function of the module.
         # Put any code you want to run upon template load here.
         self.run = TextContainer(module_name)

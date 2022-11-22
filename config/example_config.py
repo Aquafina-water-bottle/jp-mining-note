@@ -18,9 +18,6 @@ CONFIG = {
     "templates-override-folder": "overrides",
 
     "compile-options": {
-        # toggles whether keybinds can be used or not
-        "keybinds-enabled": True,
-
         # toggles whether the runtime options should be read from a file or not.
         "hardcoded-runtime-options": False,
 
@@ -54,8 +51,8 @@ CONFIG = {
                 "icon-type": "image",
                 "icon-image-light": "_icon_jisho_lightmode.png",
                 "icon-image-dark":  "_icon_jisho_darkmode.png",
-                "url": "https://jisho.org/search/{{Word}}",
-                #"url": "https://duckduckgo.com/?t=ffab&q=%21jisho+{{Word}}",
+                "url": "https://jisho.org/search/{{text:Word}}",
+                #"url": "https://duckduckgo.com/?t=ffab&q=%21jisho+{{text:Word}}",
             },
 
             "image_search": {
@@ -65,7 +62,7 @@ CONFIG = {
                 "url": "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
                 # regular search on google.com
                 #"url": "https://www.google.com/search?q={{text:Word}}&tbm=isch",
-                #"url": "https://duckduckgo.com/?t=ffab&q=%21gi+{{Word}}",
+                #"url": "https://duckduckgo.com/?t=ffab&q=%21gi+{{text:Word}}",
                 "hover-display": "google.co.jp (Image search)",
             },
 
@@ -75,7 +72,7 @@ CONFIG = {
             #    "icon-type": "text",
             #    "icon-text": "用",
             #    "url": "http://yourei.jp/{{text:Word}}",
-            #    #"url": "https://duckduckgo.com/?t=ffab&q=%21yourei+{{Word}}",
+            #    #"url": "https://duckduckgo.com/?t=ffab&q=%21yourei+{{text:Word}}",
             #    #"hover-display": "用例",
             #},
 
@@ -104,7 +101,7 @@ CONFIG = {
             #    "icon-type": "text",
             #    "icon-text": "コ",
             #    "url": "https://kotobank.jp/gs/?q={{text:Word}}",
-            #    #"url": "https://duckduckgo.com/?t=ffab&q=%21kotobank+{{Word}}",
+            #    #"url": "https://duckduckgo.com/?t=ffab&q=%21kotobank+{{text:Word}}",
             #    #"hover-display": "コトバンク",
             #},
         },
@@ -129,6 +126,10 @@ CONFIG = {
         "enabled-modules": [
             # This is a debugging tool, so this is disabled by default.
             #"time-performance",
+
+            # toggles whether keybinds can be used or not
+            "keybinds",
+
             "auto-pitch-accent",
 
             # HIGHLY RECOMMENDED to have this enabled if you want a nice looking card
@@ -139,10 +140,11 @@ CONFIG = {
 
             "sent-utils",
             "auto-highlight-word",
-            "kanji-hover",
 
             "customize-open-fields",
+            "kanji-hover",
             "word-indicators",
+
             "info-circle-utils",
             "fix-ruby-positioning",
             "check-duplicate-key",
