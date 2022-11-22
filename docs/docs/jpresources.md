@@ -1017,13 +1017,13 @@ so this has helped me immensely.
 
 ??? example "Examples (to test the dictionary on)"
 
-    「スペルド族への恐怖は恐らくこの世界に<b class="text-yellow">根づいている</b>んだろう」
+    「スペルド族への恐怖は恐らくこの世界に<b class="jpmn-highlight">根づいている</b>んだろう」
     { .jp-quote-text }
 
-    「ルーはたくさんあるので、今<b class="text-yellow">お代わり</b>をお持ちしますね」
+    「ルーはたくさんあるので、今<b class="jpmn-highlight">お代わり</b>をお持ちしますね」
     { .jp-quote-text }
 
-    「ただ、一つだけ<b class="text-yellow">釘をささせて</b>もらうけど…貴方がこれから何をするにしても、仕事は今まで通りこなしてもらうわよ？」
+    「ただ、一つだけ<b class="jpmn-highlight">釘をささせて</b>もらうけど…貴方がこれから何をするにしても、仕事は今まで通りこなしてもらうわよ？」
     { .jp-quote-text }
 
     It is assumed that you have

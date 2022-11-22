@@ -89,7 +89,7 @@ you may only remember the tested word due to its surrounding context.
 
 
 !!! note "Notes"
-    * For all forms of hybrid cards, you can press "n" to toggle
+    * For all forms of hybrid cards, you can press `n` to toggle
         whether the sentence is shown or not.
 
     * The "How to test" sections are simply recommended ways of testing,

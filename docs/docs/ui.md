@@ -293,8 +293,11 @@ In order to keep the javascript lightweight, any improper highlighting
 *is considered as expected behavior*, and will not be changed or fixed.
 I recommend manually bolding the word if the word is incorrectly highlighted.
 
-!!! example "Examples"
-    * TODO
+??? example "Examples *(click here)*"
+    Any text in red is not highlighted automatically.
+    They are considered as examples of when automatic highlighting doesn't work.
+
+    {% filter indent(4) %}{{ gen_auto_word_highlight_table() }}{% endfilter %}
 
 
 !!! note
