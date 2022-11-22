@@ -343,8 +343,6 @@ and the tested word is covered in said dictionary.
 
 By default, the first pitch of the first dictionary is shown.
 
-TODO image + example field
-
 
 <br>
 
@@ -354,28 +352,43 @@ TODO image + example field
 Sometimes, pitch accent dictionaries show multiple pitch accents for a word.
 However, only the first pitch accent is shown by default.
 
-If you want to show all of the pitch accents in the first dictionary,
+=== "One entry (default)"
+    {{ img("", "assets/papositions/one_unbolded.png") }}
+
+=== "All entries"
+    {{ img("", "assets/papositions/multiple_unbolded.png") }}
+
+=== "One entry + bold"
+    {{ img("", "assets/papositions/one_bolded.png") }}
+
+=== "All entries + bold"
+    {{ img("", "assets/papositions/multiple_bolded.png") }}
+
+
+If you want to show all of the pitch accent entries (in the first dictionary),
 use the following {{ RTO }}:
 
 ```json
 {
   "modules": {
     "auto-pitch-accent": {
-      // default: true
-      "only-display-main-entry": false,
+      "pa-positions": {
+        // default: true
+        "display-entire-dictionary": false
+      }
     }
   }
 }
 ```
 
-If you want to select the correct pitch accent, bold that position.
+If you want to select the correct pitch accent, bold that position in `PAPositions`
+(or simply use `PAOverride` as described [above](#21-paoverride-positions-format))
 
-TODO image comparisons:
+<!--
+As an example, the word below has two pitch accents specified
+under PAPositions: [0] and [3].
+-->
 
-- true
-- false
-- true + bold
-- false + bold
 
 !!! note
     This option only works on cards formatted with JPMN's `{jpmn-pitch-accent-positions}` marker.
@@ -399,6 +412,7 @@ does not cover the tested content, but this add-on does.
 
 # How the Reading is Selected
 
+The reading consists of the actual kana that is shown on the card.
 By default, the word reading is selected based on the following priority:
 
 1. `AJTWordPitch`
@@ -412,7 +426,7 @@ Usually, the reading is selected from `AJTWordPitch`.
 This has a few features over the raw word reading:
 
 * `AJTWordPitch` usually includes devoiced and nasal info, whereas `WordReading` does not.
-* Readings are katakana by default.
+* Readings are katakana, and cannot be changed to hiragana.
 
 !!! note
     If you do not want the reading in `AJTWordPitch` to be used,
