@@ -31,13 +31,6 @@ page.
 Download and install Anki from [the official website](https://apps.ankiweb.net/) if you haven't already.
 I recommend downloading the latest version.
 
-If you have never used Anki before, I recommend reading through
-[Tatsumoto's blog: Setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html)
-to understand how Anki works and get the appropriate settings.
-
-That article showcases only one way of setting up Anki.
-Feel free to view some other examples [here](setupother.md#various-anki-resources){:target="_blank"}.
-
 ---
 
 # Installing jp-mining-note

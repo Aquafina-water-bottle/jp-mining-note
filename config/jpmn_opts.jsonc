@@ -1,4 +1,5 @@
 {
+
   // RESERVED KEYS (by anki):
   // - e (edit)
   // - r (replay)
@@ -44,7 +45,6 @@
     "toggle-highlight-word": ["KeyN"],
 
     // Keybind to toggle a vocab card's full sentence display (front side).
-    // Techinically can be Shift / n as it doesn't interfere with the other two above.
     "toggle-front-full-sentence-display": ["Quote"],
 
     "play-sentence-audio": ["KeyP"],
@@ -66,7 +66,7 @@
 
   "modules": {
 
-    // The "enabled" optoin is not featured here,
+    // The "enabled" option is not featured here,
     // as it is enabled/disabled via compile time options only.
     // This module is completely compiled out by default.
     "time-performance": {
@@ -94,6 +94,12 @@
     // Automatic processing to sentences
     "sent-utils": {
       "enabled": true,
+
+      // Which sections of the module are enabled
+      // Display sentence is the sentence(s) on the front side
+      "enable-display-sentence-processing": true,
+      // Full sentence is the sentence(s) on the back side, above the definition
+      "enable-full-sentence-processing": true,
 
       // removes the 「。」 character (and other periods) if it is the last character of the sentence
       "remove-final-period": true,
@@ -319,8 +325,11 @@
         // where the image is positioned.
         // - Using lenience will cause a document reflow which will cause lag
         //   (but currently, img-utils always reflows a document on non-mobile devices anyways,
-        //   so this does not have any real effect on performance )
+        //   so this does not have any real effect on performance.)
         // - If lenience is not used, `auto-bottom` and `auto-top` will behave exactly the same.
+        //   This will cause the picture to be placed to the right if there is ANY text,
+        //   and placed to the left if there is no text.
+        //   This is equivalent to setting `position-lenience` to a very large number.
         "auto-use-lenience": {
           "type": "pc-mobile",
           "pc": true,
@@ -331,6 +340,8 @@
         // the text height is X times smaller than the picture.
         // For example, a value of 1 will only allow the picture to be placed to the right
         // if the text height is equal or greater than the height of the picture.
+        // The exact formula used is the following:
+        //     positionToRight = (TEXT_HEIGHT * lenience) > PIC_HEIGHT
         //
         // NOTE:
         //     If you want the picture to always be placed to the right if there is text,
@@ -533,6 +544,10 @@
   // card is a hybrid sentence AND the sentence is not currently being shown.
   // Only affects the front side.
   "hybrid-sentence-open-on-play-sentence": true,
+
+  // Automatically reveals the sentence on the back side of all click cards.
+  // This helps differentiate it from the hover card on flip.
+  "click-card-sentence-reveal-on-back-side": true,
 
   // By default, the indicator for collapsable fields are completely removed.
   // Making this true keeps the indicator, but greys out the text to show that

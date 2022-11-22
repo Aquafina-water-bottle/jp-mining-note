@@ -18,6 +18,10 @@
 {{ modules["time-performance"].functions_manual }}
 {% endif %}
 
+{% if "keybinds" in modules.keys() %}
+{{ modules["keybinds"].functions_manual }}
+{% endif %}
+
 
 const TAGS_LIST = "{{ T('Tags') }}".split(" ");
 
@@ -30,16 +34,6 @@ let note = (function () {
 
 
 
-/*
- * Toggles the display of any given details tag
- */
-function toggleDetailsTag(ele) {
-  if (ele.hasAttribute('open')) {
-    ele.removeAttribute('open');
-  } else {
-    ele.setAttribute("open", "true");
-  }
-}
 
 function popupMenuMessage(message, isHTML=false) {
   let popupMenu = document.getElementById("popup_menu");
@@ -79,120 +73,6 @@ function popupMenuMessage(message, isHTML=false) {
 
 
 
-
-{% if COMPILE_OPTIONS("keybinds-enabled").item() %}
-// a general function to implement all keybinds necessary by the card.
-// NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
-// because functions persist and cannot be easily removed within anki,
-// whereas .onkeyup = ... replaces the previous function with the current.
-document.onkeyup = (e => {
-  LOGGER.debug(`KeyboardEvent: code=${e.code}`, 0);
-
-  let keys = null;
-  let ele = null;
-
-  // START_BLOCK: js_keybind_settings
-{% filter indent(width=2) %}
-{% block js_keybind_settings %}
-{% endblock %}
-{% endfilter %}
-  // END_BLOCK: js_keybind_settings
-
-{% for m in modules.values() %}
-{% if m.js is defined and m.js.keybinds.get(note.card_type, note.side, modules.keys()) %}
-{% filter indent(width=2) %}
-  // KEYBINDS: {{ m.id }}
-  {{ m.js.keybinds.get(note.card_type, note.side, modules.keys()) }}
-
-{% endfilter %}
-{% endif %}
-{% endfor %}
-
-  /// {% call IF("WordAudio") %}
-  keys = {{ utils.opt("keybinds", "play-word-audio") }};
-
-  if (keys !== null && keys.includes(e.code)) {
-    ele = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
-    if (ele) {
-      ele.click();
-    }
-  }
-  /// {% endcall %}
-
-  /// {% call IF("SentenceAudio") %}
-  keys = {{ utils.opt("keybinds", "play-sentence-audio") }};
-  if (keys !== null && keys.includes(e.code)) {
-
-    let hSent = document.getElementById("hybrid-sentence");
-
-    /// {% if note.card_type == "main" and note.side == "front" %}
-    if ({{ utils.opt("hybrid-sentence-open-on-play-sentence") }}
-        && '{{ utils.any_of_str("IsHoverCard", "IsClickCard") }}'
-        && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
-        && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
-      hybridClick();
-    } else {
-    /// {% endif %}
-      ele = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
-      if (ele) {
-        ele.click();
-      }
-    /// {% if note.card_type == "main" and note.side == "front" %}
-    }
-    /// {% endif %}
-  }
-  /// {% endcall %}
-
-  keys = {{ utils.opt("keybinds", "toggle-front-full-sentence-display") }};
-  ele = document.getElementById("full_sentence_front_details");
-  if (keys !== null && ele && keys.includes(e.code)) {
-    toggleDetailsTag(ele)
-  }
-
-  /// {% call IF("Hint") %}
-  keys = {{ utils.opt("keybinds", "toggle-hint-display") }};
-  ele = document.getElementById("hint_details");
-  if (keys !== null && ele && keys.includes(e.code)) {
-    toggleDetailsTag(ele)
-  }
-  /// {% endcall %}
-
-  /// {% if note.side == "back" %}
-  /// {% call IF("SecondaryDefinition") %}
-  keys = {{ utils.opt("keybinds", "toggle-secondary-definitions-display") }};
-  ele = document.getElementById("secondary_definition_details");
-  if (keys !== null && ele && keys.includes(e.code)) {
-    toggleDetailsTag(ele)
-  }
-  /// {% endcall %}
-
-  /// {% call IF("AdditionalNotes") %}
-  keys = {{ utils.opt("keybinds", "toggle-additional-notes-display") }};
-  ele = document.getElementById("additional_notes_details");
-  if (keys !== null && ele && keys.includes(e.code)) {
-    toggleDetailsTag(ele)
-  }
-  /// {% endcall %}
-
-  /// {% call IF("ExtraDefinitions") %}
-  keys = {{ utils.opt("keybinds", "toggle-extra-definitions-display") }};
-  ele = document.getElementById("extra_definitions_details");
-  if (keys !== null && ele && keys.includes(e.code)) {
-    toggleDetailsTag(ele)
-  }
-  /// {% endcall %}
-
-  if ('{{ utils.any_of_str("PAGraphs", "UtilityDictionaries") }}') {
-    keys = {{ utils.opt("keybinds", "toggle-extra-info-display") }};
-    ele = document.getElementById("extra_info_details");
-    if (keys !== null && ele && keys.includes(e.code)) {
-      toggleDetailsTag(ele)
-    }
-  }
-  /// {% endif %} {# note.side == back #}
-
-})
-/// {% endif %} {# keybinds-enabled #}
 
 
 

@@ -30,11 +30,16 @@ and must use `./install.py --update`.
 - Added `jpmn-filled-if-word-is-hiragana` marker
 - Added `auto-highlight-word` module, to automatically highlight the word if the word isn't highlighted
     - Works on both the display sentence and furigana sentence
+    - Thanks to [Marv](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence) for the idea and base implementation
 - Re-added way to specify whether newlines are removed or not, using css
 - Separated `stylize-images-in-glossary` option into `stylize-images-in-glossary` and `primary-definition-picture.enabled`
+- Added option to toggle whether click cards reveal the sentences on the back side of cards or not (`click-card-sentence-reveal-on-back-side`)
+- `sent-utils` now searches the full sentence to adjust if quoted
+- Increased the size of the PrimaryDefinitionPicture img by default if there is no text in PrimaryDefinition
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
+- Made all example urls use {{text:Word} instead of just {{Word}}
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
@@ -46,7 +51,13 @@ and must use `./install.py --update`.
 - Cleaned up css for full-sentence
 - Added a github issue template
 - Changed images in documentation a bit to make them more clean
-- Made importing.md docs section a bit clearer
+    - Decrease backround brightness & saturation
+    - Added shadows behind highlighted boxes
+    - Replaces pictures that previously had red arrows
+- Made `importing.md` docs section a bit clearer
+- Moved keybinds into its own module, similar to `time-performance`
+    - now has a much better interface
+- Added the `keybinds` module (to replace the existing keybinds section under `base.js`)
 
 
 

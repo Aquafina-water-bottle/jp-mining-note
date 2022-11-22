@@ -143,12 +143,25 @@ compared to using the monolingual definition.
       </figcaption>
     </figure>
 
+=== "Above the definition"
+    <figure markdown>
+      {{ img("Primary Definition Picture (above)", "assets/primarydefinitionpicture/above_def.png") }}
+      <figcaption>
+        <span style="font-style: normal">(雑巾)</span>
+        If there is too little text and the correct {{ RTOs }} are set,
+        the image is automatically positioned below the text.
+        See [this section](#changing-automatic-positioning-behavior) for more info.
+      </figcaption>
+    </figure>
+
+
 === "No Definition"
     <figure markdown>
       {{ img("Primary Definition Picture (no definition)", "assets/primarydefinitionpicture/no_def.png") }}
       <figcaption>
-        <span style="font-style: normal">(天麩羅)</span>
+        <span style="font-style: normal">(雑巾)</span>
         Naturally, the picture appears to the left if there is no definition.
+        The size of the picture will be slightly increased.
       </figcaption>
     </figure>
 
@@ -158,23 +171,79 @@ compared to using the monolingual definition.
     does not need to contain pictures.
     For example, one can add text, tables, or links to the field.
 
+<br>
+
+## Changing Automatic Positioning Behavior
+{{ feature_version("0.11.1.0") }}
+
+There are a few {{ RTOs }} that affect where the picture is positioned.
+
+* **`position` option**:
+    ```json
+    "modules": {
+      "img-utils": {
+        "primary-definition-picture": {
+          // Valid options (case sensitive): "auto-bottom", "auto-top", "bottom", "right", "top"
+          "position": "auto-bottom",
+        }
+      }
+    }
+    ```
+    The options `bottom`, `right`, and `top` force the image to always be placed
+    below, to the right, and above the definition, respectively.
+
+    `auto-bottom` is the default behavior, and will automatically position the picture
+    below the definition if there is too little text.
+    `auto-top` does the opposite: the picture will be positioned above the definition
+    if there is too little text.
+    Both `auto-bottom` and `auto-top` will position the picture to the right if there
+    is sufficient amounts of text.
+
+* **`position-lenience` option**:
+    ```json
+    "modules": {
+      "img-utils": {
+        "primary-definition-picture": {
+          // Any integer
+          "position-lenience": ...
+        }
+      }
+    }
+    ```
+    This is a constant that allows the picture to be placed to the right even if
+    the text height is <i>positionLenience</i> times smaller than the picture.
+
+    The exact formula used is the following:
+    ```
+    positionToRight = (textHeight * positionLenience) > picHeight
+    ```
+
+* **`auto-use-lenience` option**:
+    ```json
+    "modules": {
+      "img-utils": {
+        "primary-definition-picture": {
+          // Valid options: true, false
+          "auto-use-lenience": ...
+        }
+      }
+    }
+    ```
+    Setting this to false is equivalent of setting the `position-lenience` to a very large number.
+    This will cause the picture to be placed to the right if there is ANY text,
+    and placed to the left if there is no text.
+
+
 
 ## Force Positioning
 
 The automatic repositioning as described above is not perfect.
-Fortunately, there are ways to force the position of this image.
-The `img-right` tag forces the image to be to the right,
-whereas the `img-buttom` forces the image to be below the text.
+Fortunately, there are ways to force the position of this image,
+by adding any of the following tags to the card:
 
-Additionally, the positioning mode can be set in the {{ RTO_FILE }}:
-```
-"modules": {
-  "img-utils": {
-    // "auto", "right", or "bottom"
-    "primary-definition-picture-position": ...
-  }
-}
-```
+* `img-right` forces the image to be to the right.
+* `img-bottom` forces the image to be below the text.
+* `img-top` forces the image to be above the text.
 
 ---
 

@@ -114,7 +114,7 @@ This allows you to increase (or decrease) the size of the card,
 without affecting any of Anki's GUI.
 
 
-!!! example "Instructions"
+??? example "Instructions *(click here)*"
     1. Under `extra/style.scss`, add the following code:
 
         ```css
@@ -133,7 +133,7 @@ without affecting any of Anki's GUI.
 This allows you to limit the number of displayed dictionaries shown in "Extra Definitions".
 
 
-!!! example "Instructions"
+??? example "Instructions *(click here)*"
     1. Under `extra/style.scss`, add the following code:
 
         ```css
@@ -159,7 +159,7 @@ This allows you to limit the number of displayed dictionaries shown in "Extra De
 # Limiting number of frequencies
 This allows you to limit the number of frequencies shown at the top right corner.
 
-!!! example "Instructions"
+??? example "Instructions *(click here)*"
     1. Under `extra/style.scss`, add the following code:
 
         ```css
@@ -187,144 +187,123 @@ This allows you to limit the number of frequencies shown at the top right corner
 
 The first line of the definition has various elements that can be hidden with CSS.
 
-=== "Nothing Hidden (Default)"
+=== "Nothing hidden (default)"
     <figure markdown>
       {{ img("", "assets/first_line_css/full.png") }}
-      <figcaption>
-        Nothing is hidden. This is the default behavior.
-      </figcaption>
     </figure>
 
-=== "Hide Extra Text"
+    * Nothing is hidden. This is the default behavior.
+
+
+
+=== "Hide extra text"
     <figure markdown>
       {{ img("", "assets/first_line_css/dict_tag_only.png") }}
-      <figcaption>
-        [(CSS)](customcss.md#hiding-the-text-after-the-dictionary)
-        This hides all the text to the right of the dictionary tag.
-      </figcaption>
     </figure>
 
-=== "Hide Dictionary Tag"
+    * This hides all the text to the right of the dictionary tag.
+
+    ??? example "CSS to hide extra text *(click here)*"
+
+        1. Under `extra/style.scss`, add the following code:
+
+            ```css
+            /* hide the text after the 「旺文社国語辞典 第十一版」 dictionary tag */
+            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
+              display: none;
+            }
+            ```
+
+        2. (Optional) Under `extra/field.scss`, add the following code:
+
+            ```css
+            /* greys out the text after the 「旺文社国語辞典 第十一版」 dictionary tag */
+            anki-editable ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
+              color: var(--text-color--3);
+            }
+            ```
+
+=== "Hide dictionary tag"
     <figure markdown>
       {{ img("", "assets/first_line_css/right_text_only.png") }}
-      <figcaption>
-        [(CSS)](customcss.md#hiding-dictionary-tags)
-        Removes only the dictionary tag.
-        It doesn't look very good on most dictionaries.
-      </figcaption>
     </figure>
 
-=== "Hide Entire First Line"
+    * Removes only the dictionary tag.
+        This doesn't look very good on most dictionaries.
+
+    ??? example "CSS to hide dictionary tag(s) *(click here)*"
+        {{ feature_version("0.11.0.0") }}
+
+        1. Under `extra/style.scss`, add the following code:
+            ```css
+            /* hide the 「旺文社国語辞典 第十一版」 dictionary */
+            ol li[data-details="旺文社国語辞典 第十一版"] .dict-group__tag-list {
+              display: none;
+            }
+            ```
+
+        2. (Optional) Under `extra/field.scss`, add the following code:
+            ```css
+            /* greys out the 「旺文社国語辞典 第十一版」 dictionary */
+            anki-editable ol li[data-details="旺文社国語辞典 第十一版"] .dict-group__tag-list {
+              color: var(--text-color--3);
+            }
+            ```
+
+=== "Hide entire first line"
     <figure markdown>
       {{ img("", "assets/first_line_css/first_line_hidden.png") }}
-      <figcaption>
-        [(CSS)](customcss.md#fully-hiding-the-first-line)
-        Hides the entire first line, removing both the dictionary tag
-        and the text to the right of the dictionary tag.
-      </figcaption>
     </figure>
 
+    * Hides the entire first line.
+        This is a combination of the last two,
+        meaning it hides the dictionary tag and the text to the right.
+
+    ??? example "CSS to hide the entire first line *(click here)*"
+        {{ feature_version("0.11.0.0") }}
+
+        1. Under `extra/style.scss`, add the following code:
+
+            ```css
+            /* hide the first line for the 「旺文社国語辞典 第十一版」 dictionary */
+            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] {
+              .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
+                display: none;
+              }
+            }
+
+            ```
+
+        2. (Optional) Under `extra/field.scss`, add the following code:
+
+            ```css
+            anki-editable ol li[data-details="明鏡国語辞典 第二版"] {
+              .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
+                display: none;
+              }
+            }
+            ```
+
+        !!! note
+            The above examples are scss, and not css.
+            If you are using css, do not flatten the classes after the first line.
+
+            Example Raw CSS:
+
+            ```css
+            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__tag-list {
+              display: none;
+            }
+            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
+              display: none;
+            }
+            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line-break {
+              display: none;
+            }
+            ```
 
 
----
 
-
-## Hiding the text after the dictionary
-{{ feature_version("0.11.0.0") }}
-
-This removes the text content to the right of the the dictionary tag.
-
-!!! example "Instructions"
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        /* hide the text after the 「旺文社国語辞典 第十一版」 dictionary tag */
-        .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
-          display: none;
-        }
-        ```
-
-    2. (Optional) Under `extra/field.scss`, add the following code:
-
-        ```css
-        /* greys out the text after the 「旺文社国語辞典 第十一版」 dictionary tag */
-        anki-editable ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
-          color: var(--text-color--3);
-        }
-        ```
-
----
-
-
-
-## Hiding dictionary tags
-This will allow you hide arbitrary dictionary tags.
-
-!!! example "Instructions"
-    1. Under `extra/style.scss`, add the following code:
-        ```css
-        /* hide the 「旺文社国語辞典 第十一版」 dictionary */
-        ol li[data-details="旺文社国語辞典 第十一版"] .dict-group__tag-list {
-          display: none;
-        }
-        ```
-
-    2. (Optional) Under `extra/field.scss`, add the following code:
-        ```css
-        /* greys out the 「旺文社国語辞典 第十一版」 dictionary */
-        anki-editable ol li[data-details="旺文社国語辞典 第十一版"] .dict-group__tag-list {
-          color: var(--text-color--3);
-        }
-        ```
-
----
-
-## Fully hiding the first line
-{{ feature_version("0.11.0.0") }}
-
-The above two can be combined to completely hide the first line.
-
-!!! example "Instructions"
-
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        /* hide the first line for the 「旺文社国語辞典 第十一版」 dictionary */
-        .glossary-text ol li[data-details="明鏡国語辞典 第二版"] {
-          .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
-            display: none;
-          }
-        }
-
-        ```
-
-    2. (Optional) Under `extra/field.scss`, add the following code:
-
-        ```css
-        anki-editable ol li[data-details="明鏡国語辞典 第二版"] {
-          .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
-            display: none;
-          }
-        }
-        ```
-
-    !!! note
-        The above examples are scss, and not css.
-        If you are using css, do not flatten the classes after the first line.
-
-        Example Raw CSS:
-
-        ```css
-        .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__tag-list {
-          display: none;
-        }
-        .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
-          display: none;
-        }
-        .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line-break {
-          display: none;
-        }
-        ```
 
 ---
 
@@ -338,7 +317,7 @@ item (and having them remain for multple definitions) with only CSS.
 The following CSS completely nukes the numbers regardless of how many items there are in the list.
 
 
-!!! example "Instructions"
+??? example "Instructions *(click here)*"
 
     1. Under `extra/style.scss`, add the following code:
 
@@ -359,7 +338,7 @@ The following CSS completely nukes the numbers regardless of how many items ther
 The word within the sentences are not highlighted by default.
 This allows said words to be highlighted.
 
-!!! example "Instructions"
+??? example "Instructions *(click here)*"
 
     1. Under `extra/style.scss`, add the following code:
 
@@ -379,7 +358,7 @@ This allows said words to be highlighted.
 If the word has no pitch accent, the pitch accent is usually displayed as `(N/A)`.
 This indicator can be removed with the following CSS:
 
-!!! example "Instructions"
+??? example "Instructions *(click here)*"
 
     1. Under `extra/style.scss`, add the following code:
 
@@ -389,8 +368,10 @@ This indicator can be removed with the following CSS:
         }
         ```
 
-
 ---
+
+
+
 
 # Keeping and Removing Newlines
 {{ feature_version("0.11.1.0") }}
@@ -404,7 +385,7 @@ However, these newlines are automatically removed from the display sentence
 if the width of the screen is determined to be too small.
 To override this option, you can do the following:
 
-!!! example "Instructions"
+??? example "Instructions *(click here)*"
 
     === "Keep all newlines"
 
@@ -443,6 +424,23 @@ To override this option, you can do the following:
             }
             ```
 
+# Removing the furigana on the word reading
+
+The following removes the furigana on the word reading, while keeping
+the furigana on the kanjis within hover.
+
+??? example "Instructions *(click here)*"
+
+    1. Under `extra/style.scss`, add the following code:
+
+        ```
+        .dh-left__reading ruby rt {
+          display: none;
+        }
+        .hover-tooltip__word-div ruby rt {
+          display: block;
+        }
+        ```
 
 
 
