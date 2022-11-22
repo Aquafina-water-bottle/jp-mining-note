@@ -1,7 +1,8 @@
 
 # Updating Anki
 
-It is highly recommended that you are using the latest Anki version
+It is highly recommended that you are using the latest
+[Anki version](faq.md#how-do-i-see-the-version-of-anki)
 (or as close as you can get to the latest Anki version).
 This includes using the Qt6 version instead of Qt5 if possible.
 

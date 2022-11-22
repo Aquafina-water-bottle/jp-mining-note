@@ -316,7 +316,7 @@ Some are documented below.
 {{ feature_version("0.11.0.0") }}
 
 If the furigana appears higher than normal on your card,
-the following runtime option serves as a quick fix to lower the furigana:
+the following {{ RTO }} serves as a quick fix to lower the furigana:
 
 ```
 {
@@ -363,7 +363,8 @@ if the furigana text is too long.
 ## Automatically Open Collapsed Fields
 
 Collapsed fields are collapsed by default.
-These fields can be set to be automatically opened.
+These fields can be set to be automatically opened
+under the following {{ RTO }}:
 
 ```
 {
@@ -411,7 +412,7 @@ These fields can be set to be automatically opened.
 ## Greyed Out Empty Fields
 
 Collapsable fields that are empty are usually not shown at all.
-This runtime option allows them to be shown (but greyed out) when empty.
+This {{ RTO }} allows them to be shown (but greyed out) when empty.
 ```
 {
   "greyed-out-collapsable-fields-when-empty": ...

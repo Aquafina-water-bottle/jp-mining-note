@@ -95,7 +95,7 @@ that can help you figure out what the error is:
 
 
 If you can't manage to fix it, please reach out to me on [Discord](faq.md#discord-contact-info),
-or submit an issue!
+or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues)!
 
 ---
 
@@ -440,6 +440,39 @@ for more info.
 
 
 
+
+
+## How do I see the version of jp-mining-note?
+
+Preview any card. The version should be displayed at the top left corner.
+
+For mobile, the version be shown at the top right corner.
+Note that this is only displayed on versions `0.11.1.0` and above.
+
+<figure markdown>
+{{ img("version location", "assets/version/pc_and_mobile.png") }}
+</figure>
+
+---
+
+
+
+## How do I see the version of Anki?
+
+Navigate to:
+
+> `Help` →  `About`
+
+<figure markdown>
+{{ img("version location", "assets/anki/version.png") }}
+</figure>
+
+---
+
+
+
+
+
 ## What card type should I use?
 The short answer is: whichever one you want. :)
 
@@ -463,25 +496,10 @@ i.e. with `PAShowInfo` filled.
 In particular, this will cause Anki to autoplay the sentence audio on
 the front side of cards that test pitch accent, which is undesirable.
 
-
 ---
 
 
-## How do I see the currently installed version of this note?
 
-Preview any card. The version should be displayed at the top left corner.
-
-For mobile, the version be shown at the top right corner.
-Note that this is only displayed on versions `0.11.1.0` and above.
-
-<figure markdown>
-{{ img("version location", "assets/version/pc_and_mobile.png") }}
-</figure>
-
-
-
-
----
 
 ## Do you plan on supporting any other language other than Japanese?
 Unfortunately, other languages outside of Japanese will not be supported.

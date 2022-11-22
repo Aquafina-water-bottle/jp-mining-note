@@ -76,6 +76,10 @@ Instead, here is a small list of resources on setting up and using Anki itself:
     * Showcases an example note type, addons used and tips
 * [Refold's Recommended Anki Setup](https://refold.la/roadmap/stage-1/a/anki-setup)
 
+Note that every website here has different recommendations.
+You will likely have to play with the settings and actually use Anki for an extended period of time
+to find the most optimal setup for yourself.
+
 ---
 
 
