@@ -7,7 +7,8 @@ assignees: ''
 
 ---
 
-> **Note**: I highly recommend contacting me on [Discord](https://aquafina-water-bottle.github.io/jp-mining-note/faq/#discord-contact-info) if possible instead of using this issue tracker. This would help to greatly speed up communication.
+> **Note**:
+> I highly recommend contacting me on [Discord](https://aquafina-water-bottle.github.io/jp-mining-note/faq/#discord-contact-info) if possible, instead of using this issue tracker. This would help to greatly speed up communication time.
 
 **Describe the bug**
 A clear and concise description of what the bug is.
