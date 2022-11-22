@@ -49,7 +49,7 @@ to automatically set the image to the cover of the book.
 
 This is specified under the {{ RTO_FILE }}:
 
-```
+```json
 "modules": {
   "img-utils": {
     "add-image-if-contains-tags": [
@@ -61,7 +61,7 @@ This is specified under the {{ RTO_FILE }}:
 
 Example:
 
-```
+```json
 "add-image-if-contains-tags": [
   {
     "tags": ["青春ブタ野郎・LN1"],
@@ -148,9 +148,8 @@ compared to using the monolingual definition.
       {{ img("Primary Definition Picture (above)", "assets/primarydefinitionpicture/above_def.png") }}
       <figcaption>
         <span style="font-style: normal">(雑巾)</span>
-        If there is too little text and the correct {{ RTOs }} are set,
-        the image is automatically positioned below the text.
-        See [this section](#changing-automatic-positioning-behavior) for more info.
+        If there is too little text and the [correct options](#changing-automatic-positioning-behavior)
+        are set, the image is automatically positioned above the text.
       </figcaption>
     </figure>
 
@@ -161,7 +160,7 @@ compared to using the monolingual definition.
       <figcaption>
         <span style="font-style: normal">(雑巾)</span>
         Naturally, the picture appears to the left if there is no definition.
-        The size of the picture will be slightly increased.
+        As of version `0.11.1.0`, the size of the picture will also be slightly increased.
       </figcaption>
     </figure>
 
@@ -218,13 +217,13 @@ There are a few {{ RTOs }} that affect where the picture is positioned.
     positionToRight = (textHeight * positionLenience) > picHeight
     ```
 
-* **`auto-use-lenience` option**:
+* **`use-lenience` option**:
     ```json
     "modules": {
       "img-utils": {
         "primary-definition-picture": {
           // Valid options: true, false
-          "auto-use-lenience": ...
+          "use-lenience": ...
         }
       }
     }
@@ -237,7 +236,7 @@ There are a few {{ RTOs }} that affect where the picture is positioned.
 
 ## Force Positioning
 
-The automatic repositioning as described above is not perfect.
+The automatic repositioning as described above may not be perfect.
 Fortunately, there are ways to force the position of this image,
 by adding any of the following tags to the card:
 
