@@ -102,7 +102,7 @@ However, here are a few tips:
     [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency)
     page.
 
-1. If you have a field that stores the source of the media, you can likely map that to `AdditionalNotes`.
+1. If you have a field that stores the source of the media, I recommend mapping that to `AdditionalNotes`.
 
 1. I recommend **not** setting `FrequenciesStylized` to anything, even if you have a field for
     frequency lists[^1].
@@ -171,8 +171,12 @@ Sentences are usually formatted in one of three ways, as shown below:
 
 
 === "(2) Nothing is highlighted"
-    If the tested content is not highlighted in any way, there is unfortunately no easy
-    way to add highlighting to existing sentences.
+    The note comes with a feature to
+    [automatically highlight the word](ui.md#automatic-word-highlighting)
+    within the sentence.
+    However, this is an imperfect solution,
+    and there is currently no easy way to add accurate highlighting to existing sentences.
+
     **As there is nothing to do, you can skip this step**.
 
     **Example:**
@@ -286,50 +290,31 @@ Sentences are usually formatted in one of three ways, as shown below:
 
 This will ensure all `PASilence` are filled correctly.
 See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
+This can be done within Anki itself, or with Python.
 
-1. Head to the Card Browser window.
-1. Right click a card, and then head to:
+=== "Within Anki"
 
-    > `Notes` →  `Find and Replace...`
+    1. Head to the Card Browser window.
+    1. Right click a card, and then head to:
 
-1. Set the fields to the following:
+        > `Notes` →  `Find and Replace...`
 
-    {{ gen_regex_table(RegexTableArgs(
-            "`.*`",
-            "`[sound:_silence.wav]`",
-            "`PASilence` <sup>(IMPORTANT! Do not forget this field!)</sup>",
-            selected_notes_only=False,
-        )) | indent(4) }}
+    1. Set the fields to the following:
 
-    ??? example "Example image *(click here)*"
-        <figure markdown>
-        {{ img("The above table in Anki", "assets/anki/bulk_add_silencewav.png") }}
-        </figure>
+        {{ gen_regex_table(RegexTableArgs(
+                "`.*`",
+                "`[sound:_silence.wav]`",
+                "`PASilence` <sup>(IMPORTANT! Do not forget this field!)</sup>",
+                selected_notes_only=False,
+            )) | indent(8) }}
 
-<!--
-_
--->
+        ??? example "Example image *(click here)*"
+            <figure markdown>
+            {{ img("The above table in Anki", "assets/anki/bulk_add_silencewav.png") }}
+            </figure>
 
-<!--
-
-The following step differs if you are using `python` or the Batch Note Editing Add-on.
-
-
-=== "Batch Editing Add-On"
-
-    Within Anki, do the following:
-
-    - Head over to `Edit` (top left corner) →  `Batch Edit...`.
-    - Set the content to be `[sound:_silence.wav]`.
-    - Set the field to be `PASilence`.
-    - Click on **Replace**.
-
-    See the official add-on video [here](https://youtu.be/iCZzcSnAeH4?t=31)
-    for an example of how to do this.
-
-
-=== "Python"
-    ```
+=== "With Python"
+    ```bash
     # assuming you are at the root of the repo,
     # i.e. after the `git clone ...` and `cd jp-mining-note`
     cd ./tools
@@ -337,7 +322,7 @@ The following step differs if you are using `python` or the Batch Note Editing A
     # make sure you have Anki open and Anki-Connect installed!
     python3 ./batch.py -f "set_pasilence_field"
     ```
--->
+
 
 <br>
 
@@ -394,7 +379,7 @@ Your `WordReading` field is likely formatted in one of three ways:
     Some examples include the kanji hover tooltip as well as
     to the left of the picture field.
 
-    ??? example "Converting kana readings to furigana readings *(click here)*"
+    ??? example "Instructions for converting kana readings into (plain) furigana *(click here)*"
 
         The solution provided below is imperfect, but passable.
         This will format all of the `WordReading` fields to be `Word[WordReading]`,
@@ -408,16 +393,33 @@ Your `WordReading` field is likely formatted in one of three ways:
         if you haven't use Python before.
 
         Afterwards, [create a backup](faq.md#how-do-i-backup-my-anki-data) and run the following:
-        ```bash
-        python batch.py -f quick_fix_convert_kana_only_reading_all_notes
-        ```
+
+        === "Windows"
+            ```bat
+            :: assuming you are in jp-mining-note/tools
+            :: make sure you have Anki open and Anki-Connect installed!
+            python batch.py -f "quick_fix_convert_kana_only_reading_all_notes"
+            ```
+        === "MacOS & Linux"
+            ```bash
+            # assuming you are in jp-mining-note/tools
+            # make sure you have Anki open and Anki-Connect installed!
+            python3 batch.py -f "quick_fix_convert_kana_only_reading_all_notes"
+            ```
 
         The above will affect **ALL** notes.
         If you instead want to affect certain notes, add the `kanaonlyreading`
         tag to all affected notes, and then run:
-        ```bash
-        python batch.py -f quick_fix_convert_kana_only_reading_with_tag
-        ```
+
+
+        === "Windows"
+            ```bat
+            python batch.py -f "quick_fix_convert_kana_only_reading_with_tag"
+            ```
+        === "MacOS & Linux"
+            ```bash
+            python3 batch.py -f "quick_fix_convert_kana_only_reading_with_tag"
+            ```
 
 <br>
 
@@ -431,24 +433,29 @@ Filling out the `WordReadingFurigana` field is optional but highly recommended.
 This will enable the usage of [Word Indicators](ui.md#word-indicators)
 on existing cards.
 
-To do this, like with the above step, you will have to run a Python script.
-Again, for Windows users, see the first 3 steps for the Windows instructions
-[here](updating.md#running-the-script){:target="_blank"}
-if you haven't use Python before.
+To do this, you will have to run a Python script.
+Again, for Windows users, if you have not used Python before,
+see the first 3 steps for the "Windows" instructions
+[here](updating.md#running-the-script){:target="_blank"}.
 
 The following script assumes that Step 4 is done
 (which means your `WordReading` field is formatted as plain furigana).
 Do not run this script if you have not successfully completed Step 4.
 
 
-```
-# assuming you are at the root of the repo,
-# i.e. after the `git clone ...` and `cd jp-mining-note`
-cd ./tools
+=== "Windows"
+    ```bat
+    :: assuming you are in jp-mining-note/tools
+    :: make sure you have Anki open and Anki-Connect installed!
+    python batch.py -f "fill_word_reading_hiragana_field"
+    ```
 
-# make sure you have Anki open and Anki-Connect installed!
-python3 ./batch.py -f "fill_word_reading_hiragana_field"
-```
+=== "MacOS & Linux"
+    ```bash
+    # assuming you are in jp-mining-note/tools
+    # make sure you have Anki open and Anki-Connect installed!
+    python3 batch.py -f "fill_word_reading_hiragana_field"
+    ```
 
 ---
 
