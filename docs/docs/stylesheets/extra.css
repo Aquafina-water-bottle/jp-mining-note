@@ -20,6 +20,31 @@
 }
 
 
+
+.jpmn-highlight {
+  color: var(--accent);
+}
+
+[data-md-color-scheme="slate"] .jpmn-highlight {
+  color: var(--jpmn-yellow);
+}
+
+.highlight-bold b {
+  color: var(--accent);
+}
+
+.highlight-bold b.error {
+  color: #f23632;
+}
+
+[data-md-color-scheme="slate"] .highlight-bold b {
+  color: var(--jpmn-yellow);
+}
+[data-md-color-scheme="slate"] .highlight-bold b.error {
+  color: #fe7776;
+}
+
+
 .jp-quote-text {
   text-indent: -1em;
   padding-left: 1em;

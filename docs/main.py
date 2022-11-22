@@ -606,7 +606,55 @@ def define_env(env):
 
         return REGEX_TABLE_TEMPLATE % format_args
 
+    @env.macro
+    def gen_auto_word_highlight_table():
+        data = [
+            {
+                "word": "<ruby><rb>投稿</rb><rt>とうこう</rt></ruby>",
+                "result": "あの時は、インターネット上で色んな質問ができるサイトに<b>投稿</b>したら、親切な人が商品名と売っている場所を教えてくれたんです",
+            },
+            {
+                "word": "<ruby><rb>一先</rb><rt>ひとま</rt></ruby>ず",
+                "result": "ふー…これで<b>ひとまず</b>は大丈夫そうね…",
+            },
+            {
+                "word": "<ruby><rb>獣</rb><rt>けだもの</rt></ruby>",
+                "result": "その場合…『嫌っ！この<b>ケダモノ</b>！』と暴れた方が、風見さんはお好みでしょうか？",
+            },
+            {
+                "word": "<ruby><rb>甲斐甲斐</rb><rt>かいがい</rt></ruby>しい",
+                "result": 'なによぅ…<b>甲斐甲斐し</b><b class="error">く</b>会いに来た女に対して、最初に言うセリフがそれ？',
+            },
+            {
+                "word": "<ruby><rb>山</rb><rt>やま</rt></ruby>ごもり",
+                "result": "では、わたしも今から<b>山ごもり</b>の修行を始めます",
+            },
+            {
+                "word": "<ruby><rb>山籠</rb><rt>やまごも</rt></ruby>り",
+                "result": 'では、わたしも今から<b>山</b><b class="error">ごもり</b>の修行を始めます',
+            },
+            {
+                "word": "<ruby><rb>抜</rb><rt>ぬ</rt></ruby>きん<ruby><rb>出</rb><rt>ぬ</rt></ruby>る",
+                "result": '“すごい”ですから、良くも悪くも、<b>抜きん出</b><b class="error">ている</b>という意味にはなると思います',
+            },
 
+        ]
+
+        rows = []
+        rows.append("| WordReading | Sentence Result |")
+        rows.append("|:-:|-|")
+
+        for x in data:
+            word = x["word"] + " {.smaller-table-row}"
+            #sent = "「" + x["sent"] + "」 {.jp-quote-text .smaller-table-row}"
+            result = "「" + x["result"] + "」 {.highlight-bold .jp-quote-text .smaller-table-row}"
+            notes = x["notes"] + " {.smaller-table-row}" if "notes" in x else ""
+
+            #row = "|".join([word, sent, result])
+            row = "|".join([word, result])
+            rows.append(row)
+
+        return "\n".join(rows)
 
 
 

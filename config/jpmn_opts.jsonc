@@ -27,6 +27,11 @@
   // FREE KEYS:
   // - (left)  q w g z x c
   // - (right) p n 8 9 0 , . ; ' [ ]
+  //
+  // If you want to customize the keybinds, you must find the exact key code
+  // that corresponds to your key. To do so, set "debug-level" to 0, press the
+  // desired key(s), and look at the bottom of the debug log (under the info
+  // circle) within the note. You may need to scroll down.
   "keybinds": {
     // Keybind to toggle between showing the sentence and word on click and hover cards.
     // Equivalent to either clicking on the sentence/word on a click card,
