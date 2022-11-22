@@ -1227,7 +1227,7 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
     page.</p>
 </li>
 <li>
-<p>If you have a field that stores the source of the media, you can likely map that to <code>AdditionalNotes</code>.</p>
+<p>If you have a field that stores the source of the media, I recommend mapping that to <code>AdditionalNotes</code>.</p>
 </li>
 <li>
 <p>I recommend <strong>not</strong> setting <code>FrequenciesStylized</code> to anything, even if you have a field for
@@ -1424,9 +1424,12 @@ of the <code>Sentence</code> field.</p>
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
-<p>If the tested content is not highlighted in any way, there is unfortunately no easy
-way to add highlighting to existing sentences.
-<strong>As there is nothing to do, you can skip this step</strong>.</p>
+<p>The note comes with a feature to
+<a href="../ui/#automatic-word-highlighting">automatically highlight the word</a>
+within the sentence.
+However, this is an imperfect solution,
+and there is currently no easy way to add accurate highlighting to existing sentences.</p>
+<p><strong>As there is nothing to do, you can skip this step</strong>.</p>
 <p><strong>Example:</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>今日も、なんか、昼爆睡してしまったんので…
 </code></pre></div></p>
@@ -1561,7 +1564,11 @@ Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.
 <p><br></p>
 <h3 id="3-batch-set-pasilence-field">(3) Batch Set <code>PASilence</code> Field<a class="headerlink" href="#3-batch-set-pasilence-field" title="Permanent link">&para;</a></h3>
 <p>This will ensure all <code>PASilence</code> are filled correctly.
-See <a href="../faq/#what-is-the-point-of-the-pasilence-field">here</a> to understand what this field does.</p>
+See <a href="../faq/#what-is-the-point-of-the-pasilence-field">here</a> to understand what this field does.
+This can be done within Anki itself, or with Python.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Within Anki</label><label for="__tabbed_2_2">With Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <ol>
 <li>Head to the Card Browser window.</li>
 <li>
@@ -1614,42 +1621,22 @@ See <a href="../faq/#what-is-the-point-of-the-pasilence-field">here</a> to under
 </details>
 </li>
 </ol>
-<!--
-_
--->
-
-<!--
-
-The following step differs if you are using `python` or the Batch Note Editing Add-on.
-
-
-=== "Batch Editing Add-On"
-
-    Within Anki, do the following:
-
-    - Head over to `Edit` (top left corner) →  `Batch Edit...`.
-    - Set the content to be `[sound:_silence.wav]`.
-    - Set the field to be `PASilence`.
-    - Click on **Replace**.
-
-    See the official add-on video [here](https://youtu.be/iCZzcSnAeH4?t=31)
-    for an example of how to do this.
-
-
-=== "Python"
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># assuming you are at the root of the repo,
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>cd ./tools
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># assuming you are at the root of the repo,</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># i.e. after the `git clone ...` and `cd jp-mining-note`</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">cd</span> ./tools
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a># make sure you have Anki open and Anki-Connect installed!
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>python3 ./batch.py -f &quot;set_pasilence_field&quot;
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># make sure you have Anki open and Anki-Connect installed!</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>python3 ./batch.py -f <span class="s2">&quot;set_pasilence_field&quot;</span>
 </code></pre></div>
--->
-
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="4-correctly-formatting-wordreading-field">(4) Correctly Formatting <code>WordReading</code> Field<a class="headerlink" href="#4-correctly-formatting-wordreading-field" title="Permanent link">&para;</a></h3>
 <p>Your <code>WordReading</code> field is likely formatted in one of three ways:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Furigana (plain)</label><label for="__tabbed_2_2">Furigana</label><label for="__tabbed_2_3">Kana only</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Furigana (plain)</label><label for="__tabbed_3_2">Furigana</label><label for="__tabbed_3_3">Kana only</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This is generated with the <code>{furigana-plain}</code> marker.</p>
@@ -1730,7 +1717,7 @@ in the proper places.
 Some examples include the kanji hover tooltip as well as
 to the left of the picture field.</p>
 <details class="example">
-<summary>Converting kana readings to furigana readings <em>(click here)</em></summary>
+<summary>Instructions for converting kana readings into (plain) furigana <em>(click here)</em></summary>
 <p>The solution provided below is imperfect, but passable.
 This will format all of the <code>WordReading</code> fields to be <code>Word[WordReading]</code>,
 which means kana will repeated.
@@ -1740,14 +1727,38 @@ will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby></p>
 For Windows users, see the first 3 steps for the Windows instructions
 <a href="../updating/#running-the-script" target="_blank">here</a>
 if you haven't use Python before.</p>
-<p>Afterwards, <a href="../faq/#how-do-i-backup-my-anki-data">create a backup</a> and run the following:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python batch.py -f quick_fix_convert_kana_only_reading_all_notes
-</code></pre></div></p>
+<p>Afterwards, <a href="../faq/#how-do-i-backup-my-anki-data">create a backup</a> and run the following:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Windows</label><label for="__tabbed_4_2">MacOS &amp; Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">:</span><span class="c1">: assuming you are in jp-mining-note/tools</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">:</span><span class="c1">: make sure you have Anki open and Anki-Connect installed!</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>python batch.py -f <span class="s2">&quot;quick_fix_convert_kana_only_reading_all_notes&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># assuming you are in jp-mining-note/tools</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># make sure you have Anki open and Anki-Connect installed!</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>python3 batch.py -f <span class="s2">&quot;quick_fix_convert_kana_only_reading_all_notes&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 <p>The above will affect <strong>ALL</strong> notes.
 If you instead want to affect certain notes, add the <code>kanaonlyreading</code>
-tag to all affected notes, and then run:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python batch.py -f quick_fix_convert_kana_only_reading_with_tag
-</code></pre></div></p>
+tag to all affected notes, and then run:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Windows</label><label for="__tabbed_5_2">MacOS &amp; Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python batch.py -f <span class="s2">&quot;quick_fix_convert_kana_only_reading_with_tag&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python3 batch.py -f <span class="s2">&quot;quick_fix_convert_kana_only_reading_with_tag&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 </details>
 </div>
 </div>
@@ -1759,20 +1770,29 @@ tag to all affected notes, and then run:
 <p>Filling out the <code>WordReadingFurigana</code> field is optional but highly recommended.
 This will enable the usage of <a href="../ui/#word-indicators">Word Indicators</a>
 on existing cards.</p>
-<p>To do this, like with the above step, you will have to run a Python script.
-Again, for Windows users, see the first 3 steps for the Windows instructions
-<a href="../updating/#running-the-script" target="_blank">here</a>
-if you haven't use Python before.</p>
+<p>To do this, you will have to run a Python script.
+Again, for Windows users, if you have not used Python before,
+see the first 3 steps for the "Windows" instructions
+<a href="../updating/#running-the-script" target="_blank">here</a>.</p>
 <p>The following script assumes that Step 4 is done
 (which means your <code>WordReading</code> field is formatted as plain furigana).
 Do not run this script if you have not successfully completed Step 4.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># assuming you are at the root of the repo,
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>cd ./tools
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a># make sure you have Anki open and Anki-Connect installed!
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>python3 ./batch.py -f &quot;fill_word_reading_hiragana_field&quot;
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Windows</label><label for="__tabbed_6_2">MacOS &amp; Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">:</span><span class="c1">: assuming you are in jp-mining-note/tools</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p">:</span><span class="c1">: make sure you have Anki open and Anki-Connect installed!</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>python batch.py -f <span class="s2">&quot;fill_word_reading_hiragana_field&quot;</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># assuming you are in jp-mining-note/tools</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># make sure you have Anki open and Anki-Connect installed!</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>python3 batch.py -f <span class="s2">&quot;fill_word_reading_hiragana_field&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>If everything went smoothly,
@@ -1812,7 +1832,7 @@ so long as you have a Yomichan pitch accent dictionary installed.&#160;<a class=
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 19, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2022</span>
       
     
   </small>

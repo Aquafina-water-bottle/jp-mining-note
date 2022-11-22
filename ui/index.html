@@ -1491,7 +1491,8 @@ Please see the link above to see how to use custom SCSS.</p>
 </div>
 <p>Usually, the word within the sentence is already bolded by Yomichan.
 However, there are some cases where the word within the sentence may not be bold,
-such as when external programs update the <code>Sentence</code> field.</p>
+such as when external programs update the <code>Sentence</code> field, or if you are using
+imported cards.</p>
 <p>By default, the note attempts to highlight the word within the sentence.</p>
 <p>With that being said, it is not uncommon that the automatic highlighting
 fails to highlight the full word.
@@ -1499,12 +1500,49 @@ For example, verb and i-adj. conjugations are not highlighted whatsoever.
 In order to keep the javascript lightweight, any improper highlighting
 <em>is considered as expected behavior</em>, and will not be changed or fixed.
 I recommend manually bolding the word if the word is incorrectly highlighted.</p>
-<div class="admonition example">
-<p class="admonition-title">Examples</p>
-<ul>
-<li>TODO</li>
-</ul>
-</div>
+<details class="example">
+<summary>Examples <em>(click here)</em></summary>
+<p>Any text in red is not highlighted automatically.
+They are considered as examples of when automatic highlighting doesn't work.</p>
+<table>
+<thead>
+<tr>
+<th align="center">WordReading</th>
+<th>Sentence Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" class="smaller-table-row"><ruby><rb>投稿</rb><rt>とうこう</rt></ruby></td>
+<td class="highlight-bold jp-quote-text smaller-table-row">「あの時は、インターネット上で色んな質問ができるサイトに<b>投稿</b>したら、親切な人が商品名と売っている場所を教えてくれたんです」</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><ruby><rb>一先</rb><rt>ひとま</rt></ruby>ず</td>
+<td class="highlight-bold jp-quote-text smaller-table-row">「ふー…これで<b>ひとまず</b>は大丈夫そうね…」</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><ruby><rb>獣</rb><rt>けだもの</rt></ruby></td>
+<td class="highlight-bold jp-quote-text smaller-table-row">「その場合…『嫌っ！この<b>ケダモノ</b>！』と暴れた方が、風見さんはお好みでしょうか？」</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><ruby><rb>甲斐甲斐</rb><rt>かいがい</rt></ruby>しい</td>
+<td class="highlight-bold jp-quote-text smaller-table-row">「なによぅ…<b>甲斐甲斐し</b><b class="error">く</b>会いに来た女に対して、最初に言うセリフがそれ？」</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><ruby><rb>山</rb><rt>やま</rt></ruby>ごもり</td>
+<td class="highlight-bold jp-quote-text smaller-table-row">「では、わたしも今から<b>山ごもり</b>の修行を始めます」</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><ruby><rb>山籠</rb><rt>やまごも</rt></ruby>り</td>
+<td class="highlight-bold jp-quote-text smaller-table-row">「では、わたしも今から<b>山</b><b class="error">ごもり</b>の修行を始めます」</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row"><ruby><rb>抜</rb><rt>ぬ</rt></ruby>きん<ruby><rb>出</rb><rt>ぬ</rt></ruby>る</td>
+<td class="highlight-bold jp-quote-text smaller-table-row">「“すごい”ですから、良くも悪くも、<b>抜きん出</b><b class="error">ている</b>という意味にはなると思います」</td>
+</tr>
+</tbody>
+</table>
+</details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Much of the base code was taken from
@@ -1519,9 +1557,9 @@ Some are documented below.</p>
 <p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
 <p>If the furigana appears higher than normal on your card,
 the following <a href="../runtimeoptions/" target="_blank">runtime option</a> serves as a quick fix to lower the furigana:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  &quot;fix-ruby-positioning&quot;: ...
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;fix-ruby-positioning&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="w"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>See the pictures below to compare between furigana positions.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Higher than Normal</label><label for="__tabbed_2_2">Quick Fix</label><label for="__tabbed_2_3">Normal</label></div>
@@ -1556,35 +1594,35 @@ if the furigana text is too long.</p>
 <p>Collapsed fields are collapsed by default.
 These fields can be set to be automatically opened
 under the following <a href="../runtimeoptions/" target="_blank">runtime option</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;modules&quot;: {
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    &quot;customize-open-fields&quot;: {
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>      ...
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    }
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  }
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">&quot;customize-open-fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="err">...</span><span class="w"></span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <details class="example">
 <summary>Example Config <em>(click here)</em></summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;customize-open-fields&quot;: {
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  &quot;enabled&quot;: false,
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;customize-open-fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  // Force a field to be always open
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  &quot;open&quot;: [
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    &quot;Secondary Definition&quot;
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  ],
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="c1">// Force a field to be always open</span><span class="w"></span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">&quot;open&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="s2">&quot;Secondary Definition&quot;</span><span class="w"></span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="p">],</span><span class="w"></span>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  // Opens the specified collapsable field if the card is new.
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  &quot;open-on-new-enabled&quot;: {
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    &quot;type&quot;: &quot;pc-mobile&quot;,
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    &quot;pc&quot;: true,
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    &quot;mobile&quot;: false
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>  },
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="c1">// Opens the specified collapsable field if the card is new.</span><span class="w"></span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="nt">&quot;open-on-new-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pc-mobile&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="nt">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="p">},</span><span class="w"></span>
 <a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>  &quot;open-on-new&quot;: [
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    &quot;Extra Info&quot;
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>  ]
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>}
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">  </span><span class="nt">&quot;open-on-new&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="s2">&quot;Extra Info&quot;</span><span class="w"></span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">  </span><span class="p">]</span><span class="w"></span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </details>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Default</label><label for="__tabbed_3_2">Using example config (new card)</label><label for="__tabbed_3_3">Using example config (non-new card)</label></div>
@@ -1603,9 +1641,9 @@ under the following <a href="../runtimeoptions/" target="_blank">runtime option<
 <h3 id="greyed-out-empty-fields">Greyed Out Empty Fields<a class="headerlink" href="#greyed-out-empty-fields" title="Permanent link">&para;</a></h3>
 <p>Collapsable fields that are empty are usually not shown at all.
 This <a href="../runtimeoptions/" target="_blank">runtime option</a> allows them to be shown (but greyed out) when empty.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>{
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;greyed-out-collapsable-fields-when-empty&quot;: ...
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;greyed-out-collapsable-fields-when-empty&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="w"></span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Empty fields greyed out (<code>true</code>)</label><label for="__tabbed_4_2">Empty fields not shown (<code>false</code>, default)</label></div>
 <div class="tabbed-content">
