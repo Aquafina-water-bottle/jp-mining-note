@@ -1,7 +1,13 @@
-<!-- Removes the edit button and replaces it with a view button -->
+{# Removes the edit button and replaces it with a view button #}
 {% if page.edit_url %}
+{#
+  master branch:
   {% set edit = "https://github.com/Aquafina-water-bottle/jp-mining-note/edit" %}
   {% set view = "https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note" %}
+  dev branch:
+#}
+  {% set edit = "https://github.com/Aquafina-water-bottle/jp-mining-note/edit/master" %}
+  {% set view = "https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev" %}
   <a
     href="{{ page.edit_url | replace(edit, view) }}"
     title="View source of this page"

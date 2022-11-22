@@ -1249,12 +1249,13 @@
               <article class="md-content__inner md-typeset">
                 
                   
-<!-- Removes the edit button and replaces it with a view button -->
+
+
 
   
   
   <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/master/docs/docs/autopa.md"
+    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/docs/docs/autopa.md"
     title="View source of this page"
     class="md-content__button md-icon"
   >
@@ -1650,31 +1651,47 @@ This will behave exactly the same as <code>PAOverrideText</code>.</p>
 <p>This field is automatically filled out as long as Yomichan has pitch accent dictionaries,
 and the tested word is covered in said dictionary.</p>
 <p>By default, the first pitch of the first dictionary is shown.</p>
-<p>TODO image + example field</p>
 <p><br></p>
 <h3 id="show-all-possibilities-in-dictionary">Show All Possibilities in Dictionary<a class="headerlink" href="#show-all-possibilities-in-dictionary" title="Permanent link">&para;</a></h3>
 <p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
 <p>Sometimes, pitch accent dictionaries show multiple pitch accents for a word.
 However, only the first pitch accent is shown by default.</p>
-<p>If you want to show all of the pitch accents in the first dictionary,
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">One entry (default)</label><label for="__tabbed_1_2">All entries</label><label for="__tabbed_1_3">One entry + bold</label><label for="__tabbed_1_4">All entries + bold</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="../assets/papositions/one_unbolded.png"><img alt="" src="../assets/papositions/one_unbolded.png" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/papositions/multiple_unbolded.png"><img alt="" src="../assets/papositions/multiple_unbolded.png" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/papositions/one_bolded.png"><img alt="" src="../assets/papositions/one_bolded.png" /></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="../assets/papositions/multiple_bolded.png"><img alt="" src="../assets/papositions/multiple_bolded.png" /></a></p>
+</div>
+</div>
+</div>
+<p>If you want to show all of the pitch accent entries (in the first dictionary),
 use the following <a href="../runtimeoptions/" target="_blank">runtime option</a>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;auto-pitch-accent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="c1">// default: true</span><span class="w"></span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;only-display-main-entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">&quot;pa-positions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="c1">// default: true</span><span class="w"></span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="nt">&quot;display-entire-dictionary&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<p>If you want to select the correct pitch accent, bold that position.</p>
-<p>TODO image comparisons:</p>
-<ul>
-<li>true</li>
-<li>false</li>
-<li>true + bold</li>
-<li>false + bold</li>
-</ul>
+<p>If you want to select the correct pitch accent, bold that position in <code>PAPositions</code>
+(or simply use <code>PAOverride</code> as described <a href="#21-paoverride-positions-format">above</a>)</p>
+<!--
+As an example, the word below has two pitch accents specified
+under PAPositions: [0] and [3].
+-->
+
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This option only works on cards formatted with JPMN's <code>{jpmn-pitch-accent-positions}</code> marker.
@@ -1689,7 +1706,8 @@ then this field is automatically generated on all cards.</p>
 does not cover the tested content, but this add-on does.</p>
 <hr />
 <h2 id="how-the-reading-is-selected">How the Reading is Selected<a class="headerlink" href="#how-the-reading-is-selected" title="Permanent link">&para;</a></h2>
-<p>By default, the word reading is selected based on the following priority:</p>
+<p>The reading consists of the actual kana that is shown on the card.
+By default, the word reading is selected based on the following priority:</p>
 <ol>
 <li><code>AJTWordPitch</code></li>
 <li><code>WordReading</code></li>
@@ -1700,7 +1718,7 @@ does not cover the tested content, but this add-on does.</p>
 This has a few features over the raw word reading:</p>
 <ul>
 <li><code>AJTWordPitch</code> usually includes devoiced and nasal info, whereas <code>WordReading</code> does not.</li>
-<li>Readings are katakana by default.</li>
+<li>Readings are katakana, and cannot be changed to hiragana.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1762,7 +1780,7 @@ CSS specification.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2022</span>
       
     
   </small>
