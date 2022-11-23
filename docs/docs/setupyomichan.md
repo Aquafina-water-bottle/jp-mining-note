@@ -261,35 +261,6 @@ From here, you likely fall under one of the two categories below:
         for specific tips on a select few programs.
 
 
-<!--
-If you already have a
-you may have to do some minor tweaks to your current workflow,
-to match the field names, for exporting sentence audio and pictures.
-However, outside of that, **you are now finished**{ .text-yellow }!
-
-From here, there are a few of pages of interest.
-
-- Up until now, this has documented the bare minimum setup to create Anki cards.
-    For purely optional but potentially useful setup tips, see [Setup: Other](setupother.md).
-- You can now create and use jp-mining-note!
-    See the [Reference](ui.md)
-    to see all the different ways you can use and personalize the card.
-
-
----
-
-# Wait! I don't have a workflow setup yet!
-
-If you're new to sentence mining, there are likely some things things
-that you would like to set up. These include:
-
-1. Getting the actual text to use Yomichan on.
-1. Getting the pictures and/or sentence audio from the media into the card.
-
-Head over to the [Setup: Everything Else](setupeverythingelse.md) page to see exactly that.
-
--->
-
 
 
 

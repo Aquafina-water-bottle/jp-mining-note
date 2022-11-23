@@ -1,9 +1,12 @@
 
 This page showcases many examples on how you can customize the user interface to your liking.
-If you want to change something for a card-per-card basis,
-see the [Field Reference](fieldref.md) page.
+As there are many examples that you likely won't use,
+I recommend quickly scanning through this page to see if there is anything you would like
+your note to do.
 
-These customizations make heavy use of {{ RTOs }} and {{ C_CSS }}.
+!!! note
+    * If you want to change something for a card-per-card basis, see the [Field Reference](fieldref.md) page.
+    * These customizations make heavy use of {{ RTOs }} and {{ C_CSS }}.
 
 ---
 

@@ -22,22 +22,6 @@ or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/iss
 I exist on the [TheMoeWay]({{THEMOEWAY_LINK}}) and Refold (Japanese) servers.
 
 
-<!--
-TODO for typos, link how to build docs
-
-
-For fixing typos and making things clearer, it would especially help if you
-fork [the main repository](https://github.com/Aquafina-water-bottle/jp-mining-note)
-(not the dedicated wiki repository!)
-and make a pull request!
-(Edit the `wiki/gen/_JPResources.md`
-file [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/wiki/gen/_JPResources.md).)
-
-Otherwise, if you encounter any problems, feel free to contact
-me on discord `Aquafina water bottle#3026`, or submit an issue.
-I exist on the TheMoeWay and Refold (Japanese) servers.
--->
-
 
 
 ---
@@ -102,8 +86,8 @@ span.frequency-group-item:nth-child(n+3) {
   display: none;
 }
 ```
-<sup>(Thanks Marv#5144 for the CSS)</sup>
-<!-- http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464 -->
+<sup>(Thanks Marv#5144 for the CSS.
+[Original message](http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464) on {{ TMW_SERVER }})</sup>
 
 ??? example "Demo *(click here)*"
 
@@ -395,11 +379,15 @@ Adds the following Yomichan Fields:
         {{#regexReplace "<(.|\n)*?>" ""}}{{~> pitch-accent-list-single-dict format='position'~}}{{/regexReplace}}
     {{/inline}}
     ```
-
-    <!-- https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130 -->
-    Thanks An#7416 for the template code.
-
 {% endraw %}
+
+    <sup>
+    (Thanks An#7416 for the template code.
+    [Original message](https://discord.com/channels/617136488840429598/617228895573377054/998678002256855130)
+    on {{ TMW_SERVER }}).
+    </sup>
+
+
 
 
 ---

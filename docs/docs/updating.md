@@ -38,62 +38,6 @@ such as Yomichan Templates.
     instead of replacing the old note, which may prove to be an even bigger hassle.
 
 
-<!-- It's updated now!!! (writing as of 2022/09/25) -->
-
-<!--
-### Anki-Connect: Dev Version
-At the time of writing this (2022/09/07),
-you will need the developer version of Anki-Connect,
-because the Anki web version of Anki-Connect is too old
-and does not have the required API calls that the installation script
-will likely need (calls related to field editing).
-
-
-
-??? info "Click here to see how to install the dev version of Anki-Connect."
-
-    You can install Anki-Connect-Dev in one of two ways:
-
-
-    === "Manual Installation"
-        1. Download the zip of the
-           [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
-           clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
-           After that, unzip the directory.
-        1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
-           in the [addons folder](faq.md#where-is-the-x-folder-in-anki).
-        1. Rename `plugin` to `AnkiConnectDev`.
-
-        In the end, the file structure should look something like below:
-        ```
-        Anki2
-         L addons21
-            L AnkiConnectDev
-               L __init__.py
-               L config.json
-               L config.md
-               L edit.py
-               ...
-        ```
-
-    === "Command Line Installation (MacOS and Linux ONLY)"
-
-        ```
-        git clone https://github.com/FooSoft/anki-connect.git
-        cd anki-connect
-        ./link.sh
-        ```
-
-
-    After installing `AnkiConnectDev`:
-
-    1. Disable the old Anki-Connect add-on.
-    1. Restart Anki to apply the changes.
-
-    To confirm you have the dev version installed, check your list of installed add-ons in Anki.
-    You should be able to see `AnkiConnectDev` in the aforementioned list.
--->
-
 <br>
 
 ## Preliminary steps
@@ -103,10 +47,6 @@ To do this, head over to:
 > (Main Window) →  `Tools` →  `Manage Note Types`.
 
 If your note is named differently, please rename it to `JP Mining Note`.
-<!--
-If you have two different versions (for example: `JP Mining Note` and `JP Mining Note-f263ae`),
-then please 
--->
 
 !!! note
     You can always change the name back after updating.
@@ -308,13 +248,6 @@ one specified already in the [setup](setupyomichan.md#yomichan-fields).
 The most important difference is that if a new field was added or a field has been renamed,
 then **the field will not show up automatically in Yomichan**.
 
-<!--
-The only way to refresh the fields as of writing this (2022/09/06)
-is to change the `Model` at the top right hand corner to something else,
-and then switching back to `JP Mining Note`.
-
-Hopefully in the future, there will be a `refresh` button in Yomichan itself to avoid all this trouble.
--->
 
 !!! warning
     Doing the above WILL clear all the fields that you previously had, unless there
@@ -413,17 +346,5 @@ Please do the following checks to make sure everything properly works:
 
         「第二次世界大戦における連合国軍の重要拠点です…」
         { .jp-quote-text }
-
-
-
-<!--
-- If new fields were added, you likely have to change the font and font sizes of said fields.
-- If you have renamed the note to update, you can now rename it back.
--->
-
-
-
-
-
 
 

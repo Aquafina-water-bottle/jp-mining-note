@@ -1,18 +1,5 @@
 
 
-<!--
-```
-templates
- L jp-mining-note
- L macros
-    - general macros used throughout the note generation template.
- L modules
-    - primarily javascript
-    - used to separate collections of code that can be added / removed to the note at will.
- L scss    # contains all the css generated
-```
--->
-
 
 
 # Technical Summary

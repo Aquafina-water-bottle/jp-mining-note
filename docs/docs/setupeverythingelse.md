@@ -291,10 +291,7 @@ Here are the two popular approaches to automatically adding the image and senten
 
     [**ShareX**](https://getsharex.com/)
 
-    <!--
     * Windows media recorder which can both take screenshots and record audio. Personally tested.
-    * Useful for things that don't have an easy way of getting audio, such as visual novels.
-    -->
 
     **Guides:**
 

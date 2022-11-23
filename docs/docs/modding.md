@@ -1,13 +1,4 @@
 
-<!--
-# Introduction
-This page describes all the ways of modding your note,
-and goes into depth on the ways you can mod your note
-**without losing your changes** between updates.
-
--->
-
-
 # Modding (The Obvious Way)
 Throughout the documentation and within the templates alone, you will likely
 see warning messages to not edit the templates directly unless you are willing
