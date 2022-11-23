@@ -158,7 +158,9 @@ then please
 
     1. Open command prompt, and cd (change directory) into `jp-mining-note/tools`.
         If you don't know how to do that, see
-        [here](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/).
+        [this](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/)
+        or
+        [this](https://www.itechtics.com/open-command-window-folder/#using-cmd-command-in-file-explorer-to-open-command-prompt-window).
 
     1. With your current directory being the `tools` directory, run the following command:
         ```bash
