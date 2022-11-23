@@ -41,15 +41,6 @@ please make a [complete backup](faq.md#how-do-i-backup-my-anki-data){:target="_b
     However I recommend exporting **with media** just in case, so long as you have the disk space for it.
 
 
-<!--
-As explained further below, you will likely need to batch edit your newly imported notes.
-There are two ways you can do this:
-
-1. If you have `python`, then you're already set.
-2. Otherwise, you require a batch editing add-on. I recommend
-    [this one](https://ankiweb.net/shared/info/291119185).
--->
-
 ---
 
 

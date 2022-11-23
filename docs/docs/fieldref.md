@@ -1,8 +1,10 @@
 
-This page is dedicated showing
-how to edit the note fields to change the card to your liking.
-If you want to edit the user interface for all cards,
-see the [UI Customization](uicustomization.md) page.
+This page is dedicated showing how to edit the note fields to change the card to your liking.
+
+
+!!! note
+    If you want to edit the user interface for all cards,
+    see the [UI Customization](uicustomization.md) page.
 
 
 # Definitions
@@ -14,11 +16,6 @@ If it is not filled, then the card will be a word card.
 To fill a field automatically, see
 [here](faq.md#how-do-i-change-the-default-value-of-a-binary-field){:target="_blank"}.
 
-<!--
-To "toggle" a binary field means to either fill the value if is not filled yet,
-or to remove the value if it is filled.
-In other words, it means to flip the value of the field between empty and filled.
--->
 
 **PA:** Short for "Pitch Accent".
 
@@ -316,13 +313,6 @@ a warning will appear on cards that have a duplicate key.
 Similarly to the `Key` field, this field will not be used in any card template.
 In other words, this is a place where you can write down notes without affecting the card itself.
 
-<!--
-## `Picture` field
-As an aside, you can put text in this field instead of a picture, and it should still work.
-This is useful if you forgot to add the picture, or just don't want to add the picture
-in the first place.
--->
-
 <br>
 
 ## `FrequencySort` field
@@ -346,10 +336,6 @@ The words that are hidden are exactly the words that are bolded in the `Sentence
 To create a sentence audio card, copy/paste the sentence into `AltDisplay`, and bold the entire `AltDisplay` field (say, with `ctrl+a` and `ctrl+b`).
 There's currently no shortcut to creating a sentence audio card.
 
-<!--
-NOT DOING as IsSentenceCard affects main card as well
-TODO: IsSentenceCard -> tests entire sentence, not filled -> currently as is
--->
 
 {{ img("cloze deletion card", "assets/fieldref/cloze_deletion.png") }}
 

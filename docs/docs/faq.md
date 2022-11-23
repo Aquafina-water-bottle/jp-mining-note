@@ -146,11 +146,6 @@ go to:
 →  `Audio` section <br>
 →  Toggle `Skip question when replaying answer`
 
-<!--
-This is a bug related to the above.
-Unfortunately, I can't find another way to selectively suppress audio from playing,
-so the bug is here to stay until a better solution is found.
--->
 
 ---
 
@@ -325,18 +320,12 @@ on the code button.
 
 
 ## How do I use this note type as an Anime Card?
-An anime card is a vocab card with a picture and native audio, which
+An anime card is a vocab card with a picture and (native) sentence audio, which
 is the default setup for this card.
 
 If you want to add hints that aren't collapsed by default,
 use the `HintNotHidden` field.
 
-<!--
-[Anime Cards](https://animecards.site/ankicards/#anime-cardsword-context-cards){:target="_blank"}
-are simply regular vocab cards with a non-collapsable hint field.
-To use this as an Anime Card, follow the steps to make a vocab card ([here](cardtypes#vocab-card)),
-and use the `HintNotHidden` field for your hint.
--->
 
 ---
 

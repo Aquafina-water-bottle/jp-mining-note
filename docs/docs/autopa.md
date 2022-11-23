@@ -287,11 +287,6 @@ For example, 身長 should be written as 「しんちょう￣」.
     Using the above example, one can instead type 身長 as 「しんちょう」.
 
 
-<!--
-Using this text format will ignore the original reading of the tested word,
-allowing you to write the pitch accent of any word you want.
--->
-
 
 **Examples**:
 
@@ -383,11 +378,6 @@ use the following {{ RTO }}:
 
 If you want to select the correct pitch accent, bold that position in `PAPositions`
 (or simply use `PAOverride` as described [above](#21-paoverride-positions-format))
-
-<!--
-As an example, the word below has two pitch accents specified
-under PAPositions: [0] and [3].
--->
 
 
 !!! note

@@ -146,7 +146,7 @@ Indicators will be shown to the top-left of the reading when similar words in yo
 The indicators are as follows:
 
 - 同 (short for 同じ) indicates that the card is a duplicate.
-- 読 (short for 読み方) indicates that there are other card(s) with the same reading (ignoring pitch accent).
+- 読 (short for 読み方) indicates that there are other card(s) with the same reading (ignoring pitch accent). I consider this the most useful of the three.
 - 漢 (short for 漢字) indicates that there are other card(s) with the same kanji, but different reading.
 
 {{ img("same reading indicator eg", "assets/ui/same_reading_indicator.gif") }}
@@ -155,13 +155,6 @@ As you can see from the above, the query ignores pitch accent.
 The word 自身 is still shown, despite having a different pitch accent
 compared to 地震.
 
-
-<!--
-This is a handy tool to help the user differentiate between words with the same readings.
-One practical use case is verifying if your card is not a duplicate version of a previous card.
-For example, if you have two cards 言いふらす and 言い触らす,
-the indicator will show that both words exists, so you can safely suspend one of the cards.
--->
 
 !!! note
     This indicator will be yellow (or blue on light mode) for new cards only.

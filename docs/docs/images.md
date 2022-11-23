@@ -9,7 +9,7 @@ The main image (shown to the right of the word reading)
 is exactly the contents of the `Picture` field.
 As you likely already know, this image can be clicked to zoom in.
 
-<!--TODO gif-->
+(TODO gif)
 
 
 This display of the picture automatically adjusts for any aspect ratio.
@@ -17,7 +17,7 @@ For the best looking cards, it is recommended that you use images with
 aspect ratios between 16:9 (landscape) to 1:1 (square).
 
 
-<!--TODO screenshots-->
+(TODO screenshots)
 
 
 !!! note
