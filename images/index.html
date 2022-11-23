@@ -607,6 +607,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../uicustomization/" class="md-nav__link">
+        UI Customization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../fieldref/" class="md-nav__link">
         Field Reference
       </a>
@@ -691,6 +705,13 @@
   
     <nav class="md-nav" aria-label="The PrimaryDefinitionPicture Field">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changing-automatic-positioning-behavior" class="md-nav__link">
+    Changing Automatic Positioning Behavior
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#force-positioning" class="md-nav__link">
@@ -835,18 +856,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_11" type="checkbox" id="__nav_3_11" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_10">
+        <label class="md-nav__link" for="__nav_3_11">
           Developer Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_10">
+        <label class="md-nav__title" for="__nav_3_11">
           <span class="md-nav__icon md-icon"></span>
           Developer Documentation
         </label>
@@ -1046,6 +1067,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#changing-automatic-positioning-behavior" class="md-nav__link">
+    Changing Automatic Positioning Behavior
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#force-positioning" class="md-nav__link">
     Force Positioning
   </a>
@@ -1148,21 +1176,21 @@ One can save an image of the cover (in the media folder), and add
 the appropriate tag to all of the cards
 to automatically set the image to the cover of the book.</p>
 <p>This is specified under the <a href="../runtimeoptions/" target="_blank">runtime options</a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;modules&quot;: {
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  &quot;img-utils&quot;: {
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    &quot;add-image-if-contains-tags&quot;: [
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        ...
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    ]
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  }
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;add-image-if-contains-tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="err">...</span><span class="w"></span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="p">]</span><span class="w"></span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;add-image-if-contains-tags&quot;: [
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  {
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    &quot;tags&quot;: [&quot;青春ブタ野郎・LN1&quot;],
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    &quot;file-name&quot;: &quot;_青春ブタ野郎-LN1.png&quot;
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  }
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>],
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;add-image-if-contains-tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;青春ブタ野郎・LN1&quot;</span><span class="p">],</span><span class="w"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_青春ブタ野郎-LN1.png&quot;</span><span class="w"></span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">],</span><span class="w"></span>
 </code></pre></div>
 <p>TODO example gif</p>
 <hr />
@@ -1171,7 +1199,7 @@ to automatically set the image to the cover of the book.</p>
 will be converted to text which you have to hover over to reveal.
 Of course, this image can also be clicked on to zoom.
 See the video demo below to see exactly what happens.</p>
-<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/img_utils.mp4" type="video/mp4" /></video></div></p>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/images/collapsed_images.mp4" type="video/mp4" /></video></div></p>
 <h3 id="how-to-disable-collapsed-images">How to Disable Collapsed Images<a class="headerlink" href="#how-to-disable-collapsed-images" title="Permanent link">&para;</a></h3>
 <p>There are three ways of disabling collapsed images.</p>
 <ol>
@@ -1203,11 +1231,11 @@ Large images are automatically resized to fit the area.</p>
 <p>This is useful if one wants to put images in place of, or to suppliment definitions.
 For example, using images for words such as "frog" or "chair" is much easier to understand
 compared to using the monolingual definition.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Right of the definition (Default)</label><label for="__tabbed_1_2">Below the definition</label><label for="__tabbed_1_3">No Definition</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Right of the definition (Default)</label><label for="__tabbed_1_2">Below the definition</label><label for="__tabbed_1_3">Above the definition</label><label for="__tabbed_1_4">No Definition</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><figure markdown>
-  <a href="../assets/primarydefinitionpicture/right_of_def.png"><img alt="Primary Definition Picture (right)" src="../assets/primarydefinitionpicture/right_of_def.png" /></a>
+  <a href="../assets/images/primarydefinitionpicture/right_of_def.png"><img alt="Primary Definition Picture (right)" src="../assets/images/primarydefinitionpicture/right_of_def.png" /></a>
   <figcaption>
     <span style="font-style: normal">(突っ伏す)</span>
     Usually, the image is placed to the right (like on Wikipedia).
@@ -1216,7 +1244,7 @@ compared to using the monolingual definition.</p>
 </div>
 <div class="tabbed-block">
 <p><figure markdown>
-  <a href="../assets/primarydefinitionpicture/below_def.png"><img alt="Primary Definition Picture (bottom)" src="../assets/primarydefinitionpicture/below_def.png" /></a>
+  <a href="../assets/images/primarydefinitionpicture/below_def.png"><img alt="Primary Definition Picture (bottom)" src="../assets/images/primarydefinitionpicture/below_def.png" /></a>
   <figcaption>
     <span style="font-style: normal">(雑巾)</span>
     If there is too little text, the image is automatically positioned below the text.
@@ -1226,10 +1254,21 @@ compared to using the monolingual definition.</p>
 </div>
 <div class="tabbed-block">
 <p><figure markdown>
-  <a href="../assets/primarydefinitionpicture/no_def.png"><img alt="Primary Definition Picture (no definition)" src="../assets/primarydefinitionpicture/no_def.png" /></a>
+  <a href="../assets/images/primarydefinitionpicture/above_def.png"><img alt="Primary Definition Picture (above)" src="../assets/images/primarydefinitionpicture/above_def.png" /></a>
   <figcaption>
-    <span style="font-style: normal">(天麩羅)</span>
+    <span style="font-style: normal">(雑巾)</span>
+    If there is too little text and the <a href="#changing-automatic-positioning-behavior">correct options</a>
+    are set, the image is automatically positioned above the text.
+  </figcaption>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><figure markdown>
+  <a href="../assets/images/primarydefinitionpicture/no_def.png"><img alt="Primary Definition Picture (no definition)" src="../assets/images/primarydefinitionpicture/no_def.png" /></a>
+  <figcaption>
+    <span style="font-style: normal">(雑巾)</span>
     Naturally, the picture appears to the left if there is no definition.
+    As of version <code>0.11.1.0</code>, the size of the picture will also be slightly increased.
   </figcaption>
 </figure></p>
 </div>
@@ -1241,19 +1280,76 @@ compared to using the monolingual definition.</p>
 does not need to contain pictures.
 For example, one can add text, tables, or links to the field.</p>
 </div>
-<h3 id="force-positioning">Force Positioning<a class="headerlink" href="#force-positioning" title="Permanent link">&para;</a></h3>
-<p>The automatic repositioning as described above is not perfect.
-Fortunately, there are ways to force the position of this image.
-The <code>img-right</code> tag forces the image to be to the right,
-whereas the <code>img-buttom</code> forces the image to be below the text.</p>
-<p>Additionally, the positioning mode can be set in the <a href="../runtimeoptions/" target="_blank">runtime options</a>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;modules&quot;: {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;img-utils&quot;: {
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    // &quot;auto&quot;, &quot;right&quot;, or &quot;bottom&quot;
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    &quot;primary-definition-picture-position&quot;: ...
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  }
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>}
+<p><br></p>
+<h3 id="changing-automatic-positioning-behavior">Changing Automatic Positioning Behavior<a class="headerlink" href="#changing-automatic-positioning-behavior" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
+</div>
+<p>There are a few <a href="../runtimeoptions/" target="_blank">runtime options</a> that affect where the picture is positioned.</p>
+<ul>
+<li>
+<p><strong><code>position</code> option</strong>:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">&quot;primary-definition-picture&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="c1">// Valid options (case sensitive): &quot;auto-bottom&quot;, &quot;auto-top&quot;, &quot;bottom&quot;, &quot;right&quot;, &quot;top&quot;</span><span class="w"></span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="nt">&quot;position&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auto-bottom&quot;</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+    The options <code>bottom</code>, <code>right</code>, and <code>top</code> force the image to always be placed
+    below, to the right, and above the definition, respectively.</p>
+<p><code>auto-bottom</code> is the default behavior, and will automatically position the picture
+below the definition if there is too little text.
+<code>auto-top</code> does the opposite: the picture will be positioned above the definition
+if there is too little text.
+Both <code>auto-bottom</code> and <code>auto-top</code> will position the picture to the right if there
+is sufficient amounts of text.</p>
+</li>
+<li>
+<p><strong><code>position-lenience</code> option</strong>:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;primary-definition-picture&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">      </span><span class="c1">// Any integer</span><span class="w"></span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">      </span><span class="nt">&quot;position-lenience&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="w"></span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+    This is a constant that allows the picture to be placed to the right even if
+    the text height is <i>positionLenience</i> times smaller than the picture.</p>
+<p>The exact formula used is the following:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>positionToRight = (textHeight * positionLenience) &gt; picHeight
 </code></pre></div></p>
+</li>
+<li>
+<p><strong><code>use-lenience</code> option</strong>:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&quot;primary-definition-picture&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">      </span><span class="c1">// Valid options: true, false</span><span class="w"></span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">      </span><span class="nt">&quot;use-lenience&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="w"></span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+    Setting this to false is equivalent of setting the <code>position-lenience</code> to a very large number.
+    This will cause the picture to be placed to the right if there is ANY text,
+    and placed to the left if there is no text.</p>
+</li>
+</ul>
+<h3 id="force-positioning">Force Positioning<a class="headerlink" href="#force-positioning" title="Permanent link">&para;</a></h3>
+<p>The automatic repositioning as described above may not be perfect.
+Fortunately, there are ways to force the position of this image,
+by adding any of the following tags to the card:</p>
+<ul>
+<li><code>img-right</code> forces the image to be to the right.</li>
+<li><code>img-bottom</code> forces the image to be below the text.</li>
+<li><code>img-top</code> forces the image to be above the text.</li>
+</ul>
 <hr />
 <h2 id="image-blur">Image Blur<a class="headerlink" href="#image-blur" title="Permanent link">&para;</a></h2>
 <p><sup><i>New in version <code>0.10.3.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
@@ -1267,20 +1363,20 @@ images unless the following setting is explicitly enabled
 in the <a href="../runtimeoptions/" target="_blank">runtime options</a>:</p>
 <details class="examplecode">
 <summary>Enabling image blur <em>(click here)</em></summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// (1)!</span><span class="w"></span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;nsfw-toggle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">&quot;img-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// (1)!</span><span class="w"></span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;nsfw-toggle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <ol>
 <li>The <code>img-utils</code> module must be enabled to use the image blur feature.</li>
 </ol>
 </details>
 <figure>
-<p><a href="../assets/anki_blur/example.gif"><img alt="example toggle blur gif" src="../assets/anki_blur/example.gif" /></a></p>
+<p><a href="../assets/images/anki_blur/example.gif"><img alt="example toggle blur gif" src="../assets/images/anki_blur/example.gif" /></a></p>
 </figure>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1309,8 +1405,8 @@ By default, states cycle from left to right.</p>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="../assets/anki_blur/unmarked_revealed.png"><img alt="" src="../assets/anki_blur/unmarked_revealed.png" /></a></td>
-<td align="center"><img alt="" src="../assets/anki_blur/marked_blurred.png" /></td>
+<td align="center"><a href="../assets/images/anki_blur/unmarked_revealed.png"><img alt="" src="../assets/images/anki_blur/unmarked_revealed.png" /></a></td>
+<td align="center"><img alt="" src="../assets/images/anki_blur/marked_blurred.png" /></td>
 </tr>
 </tbody>
 </table>
@@ -1325,8 +1421,8 @@ By default, states cycle from left to right.</p>
 </thead>
 <tbody>
 <tr>
-<td align="center"><img alt="" src="../assets/anki_blur/unmarked_blurred.png" /></td>
-<td align="center"><img alt="" src="../assets/anki_blur/marked_blurred.png" /></td>
+<td align="center"><img alt="" src="../assets/images/anki_blur/unmarked_blurred.png" /></td>
+<td align="center"><img alt="" src="../assets/images/anki_blur/marked_blurred.png" /></td>
 </tr>
 </tbody>
 </table>
@@ -1341,8 +1437,8 @@ By default, states cycle from left to right.</p>
 </thead>
 <tbody>
 <tr>
-<td align="center"><a href="../assets/anki_blur/unmarked_revealed.png"><img alt="" src="../assets/anki_blur/unmarked_revealed.png" /></a></td>
-<td align="center"><a href="../assets/anki_blur/marked_revealed.png"><img alt="" src="../assets/anki_blur/marked_revealed.png" /></a></td>
+<td align="center"><a href="../assets/images/anki_blur/unmarked_revealed.png"><img alt="" src="../assets/images/anki_blur/unmarked_revealed.png" /></a></td>
+<td align="center"><a href="../assets/images/anki_blur/marked_revealed.png"><img alt="" src="../assets/images/anki_blur/marked_revealed.png" /></a></td>
 </tr>
 </tbody>
 </table>
@@ -1354,10 +1450,10 @@ By default, states cycle from left to right.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Regular, unmarked card</label><label for="__tabbed_3_2">Card marked as NSFW</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/anki_blur/example_session_toggle_unmarked.gif"><img alt="" src="../assets/anki_blur/example_session_toggle_unmarked.gif" /></a></p>
+<p><a href="../assets/images/anki_blur/example_session_toggle_unmarked.gif"><img alt="" src="../assets/images/anki_blur/example_session_toggle_unmarked.gif" /></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/anki_blur/example_session_toggle_marked.gif"><img alt="" src="../assets/anki_blur/example_session_toggle_marked.gif" /></a></p>
+<p><a href="../assets/images/anki_blur/example_session_toggle_marked.gif"><img alt="" src="../assets/images/anki_blur/example_session_toggle_marked.gif" /></a></p>
 </div>
 </div>
 </div>
@@ -1386,7 +1482,7 @@ By default, states cycle from left to right.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 8, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
       
     
   </small>

@@ -607,6 +607,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../uicustomization/" class="md-nav__link">
+        UI Customization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../fieldref/" class="md-nav__link">
         Field Reference
       </a>
@@ -837,18 +851,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_11" type="checkbox" id="__nav_3_11" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_10">
+        <label class="md-nav__link" for="__nav_3_11">
           Developer Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_10">
+        <label class="md-nav__title" for="__nav_3_11">
           <span class="md-nav__icon md-icon"></span>
           Developer Documentation
         </label>
@@ -1131,10 +1145,10 @@ of the sentence that I wanted to test.
 This lead to many sentence cards, which naturally meant that Anki sessions lasted longer.</p>
 <p>I attempted to tackle these exact issues by introducing new card types
 outside of the fundamental vocab and sentence cards.</p>
-<p><a href="../assets/card_types_1_pic.png"><img alt="" src="../assets/card_types_1_pic.png" /></a></p>
+<p><a href="../assets/cardtypes/all_card_types.png"><img alt="" src="../assets/cardtypes/all_card_types.png" /></a></p>
 <hr />
 <h2 id="vocab-card">Vocab Card<a class="headerlink" href="#vocab-card" title="Permanent link">&para;</a></h2>
-<p><a href="../assets/nisemono_word_blank.png"><img alt="" src="../assets/nisemono_word_blank.png" /></a></p>
+<p><a href="../assets/cardtypes/word.png"><img alt="" src="../assets/cardtypes/word.png" /></a></p>
 <p>A vocab card simply shows the target word at the front.
 You test yourself on the reading and definition of the word.</p>
 <p><strong>How to create:</strong> <br>
@@ -1142,14 +1156,14 @@ This is the default card type.
 Nothing has to be done for the card to be a vocab card.</p>
 <hr />
 <h2 id="sentence-card">Sentence Card<a class="headerlink" href="#sentence-card" title="Permanent link">&para;</a></h2>
-<p><a href="../assets/nisemono_sentence_blank.png"><img alt="" src="../assets/nisemono_sentence_blank.png" /></a></p>
+<p><a href="../assets/cardtypes/sentence.png"><img alt="" src="../assets/cardtypes/sentence.png" /></a></p>
 <p>A sentence card simply shows the entire sentence at the front.
 You test yourself on the reading and meaning of the entire sentence.</p>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsSentenceCard</code> field.</p>
 <hr />
 <h2 id="targeted-sentence-card-tsc">Targeted Sentence Card (TSC)<a class="headerlink" href="#targeted-sentence-card-tsc" title="Permanent link">&para;</a></h2>
-<p><a href="../assets/nisemono_tsc.png"><img alt="" src="../assets/nisemono_tsc.png" /></a></p>
+<p><a href="../assets/cardtypes/tsc.png"><img alt="" src="../assets/cardtypes/tsc.png" /></a></p>
 <p>A targeted sentence card is a special case of the sentence card.
 The sentence is shown at the front, but only the highlighted content (only the word by default)
 is tested.
@@ -1187,7 +1201,7 @@ you may only remember the tested word due to its surrounding context.</p>
 </div>
 <p><br></p>
 <h3 id="hover-vocab-card">Hover Vocab Card<a class="headerlink" href="#hover-vocab-card" title="Permanent link">&para;</a></h3>
-<p><a href="../assets/nisemono_hover_word.gif"><img alt="" src="../assets/nisemono_hover_word.gif" /></a></p>
+<p><a href="../assets/cardtypes/hover_word.gif"><img alt="" src="../assets/cardtypes/hover_word.gif" /></a></p>
 <p>A hover vocab word shows the tested word at the front.
 When you hover over the word,
 you can see the full sentence, with the tested word highlighted.</p>
@@ -1206,7 +1220,7 @@ However, you are given the option to see the full sentence without failing the c
 Fill the <code>IsHoverCard</code> field.</p>
 <p><br></p>
 <h3 id="click-vocab-card">Click Vocab Card<a class="headerlink" href="#click-vocab-card" title="Permanent link">&para;</a></h3>
-<p><a href="../assets/nisemono_click_word.gif"><img alt="" src="../assets/nisemono_click_word.gif" /></a></p>
+<p><a href="../assets/cardtypes/click_word.gif"><img alt="" src="../assets/cardtypes/click_word.gif" /></a></p>
 <p>A click vocab word shows the tested word at the front.
 When you click on the word, you can see the full sentence,
 with the tested word highlighted.</p>
@@ -1230,7 +1244,7 @@ but you can use the sentence to guess the definition.</p>
 Fill the <code>IsClickCard</code> field.</p>
 <p><br></p>
 <h3 id="hover-sentence-card">Hover Sentence Card<a class="headerlink" href="#hover-sentence-card" title="Permanent link">&para;</a></h3>
-<p><a href="../assets/nisemono_hover_sentence.gif"><img alt="" src="../assets/nisemono_hover_sentence.gif" /></a></p>
+<p><a href="../assets/cardtypes/hover_sentence.gif"><img alt="" src="../assets/cardtypes/hover_sentence.gif" /></a></p>
 <p>This acts similarly to the hover vocab card.
 However, the tested content is the entire sentence,
 so you must hover over the word to test the entire sentence.</p>
@@ -1245,7 +1259,7 @@ so you must hover over the word to test the entire sentence.</p>
 Fill the <code>IsHoverCard</code> and <code>IsSentenceCard</code> fields.</p>
 <p><br></p>
 <h3 id="click-sentence-card">Click Sentence Card<a class="headerlink" href="#click-sentence-card" title="Permanent link">&para;</a></h3>
-<p><a href="../assets/nisemono_click_sentence.gif"><img alt="" src="../assets/nisemono_click_sentence.gif" /></a></p>
+<p><a href="../assets/cardtypes/click_sentence.gif"><img alt="" src="../assets/cardtypes/click_sentence.gif" /></a></p>
 <p>This acts similar to the click vocab card.
 However, similarly to the hover sentence card, the tested content is the entire display,
 so you must click the word to test the entire display</p>
@@ -1262,7 +1276,7 @@ so you must click the word to test the entire display</p>
 Fill the <code>IsClickCard</code> and <code>IsSentenceCard</code> fields.</p>
 <p><br></p>
 <h3 id="hybrid-tsc">Hybrid TSC<a class="headerlink" href="#hybrid-tsc" title="Permanent link">&para;</a></h3>
-<p><a href="../assets/nisemono_hover_tsc.gif"><img alt="" src="../assets/nisemono_hover_tsc.gif" /></a></p>
+<p><a href="../assets/cardtypes/hover_tsc.gif"><img alt="" src="../assets/cardtypes/hover_tsc.gif" /></a></p>
 <p>Similarly to the normal TSC, if you want to use the hover sentence card or click sentence card
 to only test a specific portion of the sentence, you can bold the desired
 selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
@@ -1351,7 +1365,7 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 22, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
       
     
   </small>

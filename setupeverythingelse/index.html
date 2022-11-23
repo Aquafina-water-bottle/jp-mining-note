@@ -760,6 +760,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../uicustomization/" class="md-nav__link">
+        UI Customization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../fieldref/" class="md-nav__link">
         Field Reference
       </a>
@@ -877,18 +891,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_11" type="checkbox" id="__nav_3_11" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_10">
+        <label class="md-nav__link" for="__nav_3_11">
           Developer Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_10">
+        <label class="md-nav__title" for="__nav_3_11">
           <span class="md-nav__icon md-icon"></span>
           Developer Documentation
         </label>
@@ -1249,31 +1263,43 @@ Most setups documented are for clipboard based texthooker pages.</p>
 </details>
 <hr />
 <h3 id="texthooker-pages-websocket-based">Texthooker pages (Websocket based)<a class="headerlink" href="#texthooker-pages-websocket-based" title="Permanent link">&para;</a></h3>
-<p>Websocket based texthookers are generally faster, more reliable, and do not flood your clipboard.
-However, there is usually less support and requires more specialized coordination between programs.</p>
-<p>Both of the options below are intended to be used with
-<a href="https://github.com/Artikash/Textractor">Textractor</a>.</p>
+<p>Websocket based texthookers are better in almost every aspect:</p>
+<ul>
+<li>They are generally faster and more reliable.</li>
+<li>They do not flood your clipboard.</li>
+<li>They do not require an extension that constantly polls the clipboard.</li>
+</ul>
+<p>However, there is usually less support and requires more specialized coordination between programs.</p>
+<p>All of the options below are intended to be used with
+<a href="https://github.com/Artikash/Textractor">Textractor</a>.
+I'm currently unaware of a websocket-based setup that works with video content.</p>
 <details class="example">
-<summary>exSTATic</summary>
+<summary>Resources <em>(click here)</em></summary>
+<ul>
+<li>
 <p><a href="https://github.com/KamWithK/exSTATic/"><strong>exSTATic</strong></a></p>
 <ul>
 <li>Its primary use is for automatic stats collection. Integrates seamlessly with many workflows.</li>
 <li>Uses a custom texthooker page, which connects with Textractor with its own custom extension.</li>
 <li>A video installation guide is available on the project's README page.</li>
 </ul>
-</details>
-<details class="example">
-<summary>Custom Patch</summary>
-<p>Patch Instructions for existing clipboard-based texthookers.
-This patch is primarily intended to be used in conjunction with
-<a href="https://github.com/sadolit/textractor-websocket">this Textractor extension</a>.</p>
+</li>
+<li>
+<p><strong>Zetta's Custom Patch</strong></p>
+<ul>
+<li>Patch Instructions for existing clipboard-based texthookers.</li>
+<li>This patch is intended to be used in conjunction with
+    <a href="https://github.com/sadolit/textractor-websocket">this Textractor extension</a>.</li>
+<li>This patch was written for Anacreon's texthooker page.
+    However, it will likely work for most other texthooker pages.</li>
+</ul>
+<details class="examplecode">
+<summary>Instructions to use the patch <em>(click here)</em></summary>
 <ol>
 <li>Download your favorite texthooker page into a raw html file.</li>
 <li>Copy/paste the code below to the very end of the raw html file.</li>
 <li>If you are currently viewing the page, refresh.</li>
 </ol>
-<details class="examplecode">
-<summary>Click here to reveal the patch</summary>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="w"></span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">wsStatusElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
@@ -1316,11 +1342,15 @@ This patch is primarily intended to be used in conjunction with
 (<a href="https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452">Original discord message</a>, on <a href="https://learnjapanese.moe/join/">TMW server</a>. Thanks Zetta#3033 for the code.)
 </sup></p>
 </details>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This patch was written for Anacreon's texthooker page.
-However, it will likely work for most other texthooker pages.</p>
-</div>
+</li>
+<li>
+<p><a href="https://github.com/MarvNC/texthooker-websocket"><strong>Marv's Websocket Userscript</strong></a></p>
+<ul>
+<li>A more featureful version of the above.</li>
+<li>Also written for Anacreon's texthooker page.</li>
+</ul>
+</li>
+</ul>
 </details>
 <hr />
 <h2 id="game-like-content-getting-text">Game-Like Content: Getting Text<a class="headerlink" href="#game-like-content-getting-text" title="Permanent link">&para;</a></h2>
