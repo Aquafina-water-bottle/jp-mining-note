@@ -1,6 +1,8 @@
 
 This page is dedicated showing
 how to edit the note fields to change the card to your liking.
+If you want to edit the user interface for all cards,
+see the [UI Customization](uicustomization.md) page.
 
 
 # Definitions
@@ -60,9 +62,9 @@ where the tested content is simply the word.
 To change the card to a sentence card, fill the `IsSentenceCard` binary field.
 
 === "Vocab card"
-    {{ img("vocab card example", "assets/nisemono_word.png") }}
+    {{ img("vocab card example", "assets/fieldref/word.png") }}
 === "Sentence card"
-    {{ img("sentence card example", "assets/nisemono_sentence.png") }}
+    {{ img("sentence card example", "assets/fieldref/sentence.png") }}
 
 
 ## AltDisplay: Changing the Displayed Content
@@ -71,7 +73,7 @@ However, you can modify what is exactly shown in the front by using the `AltDisp
 
 === "Newline"
     <figure markdown>
-      {{ img("altdisplay with newline", "assets/nisemono_altdisplay_newline.png") }}
+      {{ img("altdisplay with newline", "assets/fieldref/altdisplay_newline.png") }}
       <figcaption>
         The previous sentence card looks a little ugly,
         because the sentence splits off at a strange point.
@@ -81,7 +83,7 @@ However, you can modify what is exactly shown in the front by using the `AltDisp
 
 === "Last sentence only"
     <figure markdown>
-      {{ img("altdisplay with only last sentence", "assets/nisemono_altdisplay_last_sent.png") }}
+      {{ img("altdisplay with only last sentence", "assets/fieldref/altdisplay_last_sent.png") }}
       <figcaption>
         Alternatively, we can simply test the last sentence, by removing the first sentence.
       </figcaption>
@@ -101,7 +103,7 @@ For example, the card below has the following HTML:
 上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの
 ```
 
-{{ img("altdisplay with furigana", "assets/altdisplay_furigana.gif") }}
+{{ img("altdisplay with furigana", "assets/fieldref/altdisplay_furigana.gif") }}
 
 <br>
 
@@ -133,9 +135,9 @@ This will show as a collapsible field at the front of card.
 If you do not want the hint to be hidden by default, you can use the `HintNotHidden` field instead.
 
 === "Hint"
-    {{ img("hint field demo", "assets/hint.gif") }}
+    {{ img("hint field demo", "assets/fieldref/hint.gif") }}
 === "HintNotHidden"
-    {{ img("HintNotHidden field demo", "assets/hint_not_hidden.png") }}
+    {{ img("HintNotHidden field demo", "assets/fieldref/hint_not_hidden.png") }}
 
 ---
 
@@ -148,8 +150,7 @@ The main two fields that one can add text to is
 Bolding anything in these sections will highlight the word in a light yellow tint,
 to make the bold stand out more.
 
-??? example "Example Bold *(click here)*"
-    {{ img("", "assets/nisemono_modify_back_side.png") }}
+{{ img("", "assets/fieldref/bold.png") }}
 
 <br>
 
@@ -205,7 +206,7 @@ This circle you see is called the "Pitch Accent Indicator", or "PA Indicator" fo
 How this card indicates what pitch accent is tested is by the PA indicator's color.
 
 
-{{ img("pitch accent indicators", "assets/pa_indicators.png") }}
+{{ img("pitch accent indicators", "assets/fieldref/pa_indicators.png") }}
 
 
 Here are what the colors represent:
@@ -219,7 +220,7 @@ get a description of what is being tested.
 
 Alternatively, you can look at the top right of the screen and look at the value after the `/`.
 
-{{ img("pitch accent indicator hover demo", "assets/pa_indicator_hover.gif") }}
+{{ img("pitch accent indicator hover demo", "assets/fieldref/pa_indicator_hover.gif") }}
 
 
 !!! note
@@ -229,7 +230,7 @@ Alternatively, you can look at the top right of the screen and look at the value
     The content that is highlighted is exactly what is bolded in the `Sentence`
     (or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
 
-    {{ img("show word button demo", "assets/show_word_button.gif") }}
+    {{ img("show word button demo", "assets/fieldref/show_word_button.gif") }}
 
 
 ## Selecting the Pitch Accent
@@ -345,9 +346,12 @@ The words that are hidden are exactly the words that are bolded in the `Sentence
 To create a sentence audio card, copy/paste the sentence into `AltDisplay`, and bold the entire `AltDisplay` field (say, with `ctrl+a` and `ctrl+b`).
 There's currently no shortcut to creating a sentence audio card.
 
+<!--
+NOT DOING as IsSentenceCard affects main card as well
 TODO: IsSentenceCard -> tests entire sentence, not filled -> currently as is
+-->
 
-{{ img("cloze deletion card", "assets/cloze_deletion.png") }}
+{{ img("cloze deletion card", "assets/fieldref/cloze_deletion.png") }}
 
 
 

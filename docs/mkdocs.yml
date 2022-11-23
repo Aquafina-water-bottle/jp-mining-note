@@ -78,6 +78,7 @@ nav:
     - Updating: updating.md
   - Reference:
     - User Interface: ui.md
+    - UI Customization: uicustomization.md
     - Field Reference: fieldref.md
     - Images: images.md
     - Pitch Accent: autopa.md

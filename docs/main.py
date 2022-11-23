@@ -343,6 +343,8 @@ def define_env(env):
         "RTO_FILE": '[runtime options](runtimeoptions.md){:target="_blank"}',
         "RTOs": '[runtime options](runtimeoptions.md){:target="_blank"}',
         "RTO": '[runtime option](runtimeoptions.md){:target="_blank"}',
+        "C_CSS": '[custom CSS](customcss.md){:target="_blank"}',
+        "CSS": '[CSS](customcss.md){:target="_blank"}',
         "CTO_FILE": '[compile-time options](compiletimeoptions.md){:target="_blank"}',
         "CTOs": '[compile-time options](compiletimeoptions.md){:target="_blank"}',
         "CTO": '[compile-time option](compiletimeoptions.md){:target="_blank"}',

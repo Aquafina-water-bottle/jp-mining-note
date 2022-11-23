@@ -324,7 +324,7 @@ Hopefully in the future, there will be a `refresh` button in Yomichan itself to 
 ## Refreshing Yomichan Fields
 
 ??? example "Video Demo *(click here)*"
-    ![type:video](assets/yomichan/updating_yomichan_fields.mp4)
+    ![type:video](assets/updating/updating_yomichan_fields.mp4)
 
 1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
     of your Yomichan settings, just in case.

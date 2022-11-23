@@ -60,7 +60,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 </sup>
 
 ??? example "Example image"
-    {{ img("", "assets/other/stegatxins0_eg.png") }}
+    {{ img("", "assets/alternatives/stegatxins0_eg.png") }}
 
 ---
 
@@ -276,11 +276,11 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 [Website & download](https://ankiweb.net/shared/info/759825185)
 </sup>
 
-- *The definitive deck* to use for learning how to write kanji
+- The *definitive deck* to use for learning how to write kanji
 - Not a note type used for mining
 
 ??? example "Example image"
-    {{ img("", "assets/other/kanken_deck_eg.png") }}
+    {{ img("", "assets/alternatives/kanken_deck_eg.png") }}
 
 ---
 

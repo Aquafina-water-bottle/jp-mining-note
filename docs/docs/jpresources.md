@@ -65,7 +65,7 @@ To add custom CSS in Yomichan, do the following:
 
 ??? example "Demo *(click here)*"
 
-    {{ img("how to add custom css to Yomichan", "assets/yomichan/howto_css.gif") }}
+    {{ img("how to add custom css to Yomichan", "assets/jpresources/yomichan/howto_css.gif") }}
 
 
 ---
@@ -107,7 +107,7 @@ span.frequency-group-item:nth-child(n+3) {
 
 ??? example "Demo *(click here)*"
 
-    {{ img("limit frequencies demo", "assets/yomichan/limit_frequencies.gif") }}
+    {{ img("limit frequencies demo", "assets/jpresources/yomichan/limit_frequencies.gif") }}
 
 ---
 
@@ -140,7 +140,7 @@ to any dictionary you find to be of higher quality)
 
 ??? example "Demo *(click here)*"
 
-    {{ img("limit pitch accent dictionaries demo", "assets/yomichan/limit_pitch_accents.gif") }}
+    {{ img("limit pitch accent dictionaries demo", "assets/jpresources/yomichan/limit_pitch_accents.gif") }}
 
 
 ---
@@ -176,7 +176,7 @@ li.definition-item[data-dictionary='DICTIONARY'] {
 
 ??? example "Demo *(click here)*"
 
-    {{ img("hide dictionary in Yomichan", "assets/yomichan/hide_dictionary.gif") }}
+    {{ img("hide dictionary in Yomichan", "assets/jpresources/yomichan/hide_dictionary.gif") }}
 
 ---
 
@@ -206,7 +206,7 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
 
 ??? example "Demo *(click here)*"
 
-    {{ img("hide bilingual dictionaries until hover", "assets/yomichan/bilingual_hover.gif") }}
+    {{ img("hide bilingual dictionaries until hover", "assets/jpresources/yomichan/bilingual_hover.gif") }}
 
 ---
 
@@ -225,7 +225,7 @@ button[title^="Add reading"] {
 ??? example "Demo *(click here)*"
 
     <figure markdown>
-      {{ img("remove add reading button", "assets/yomichan/hide_add_reading.png") }}
+      {{ img("remove add reading button", "assets/jpresources/yomichan/hide_add_reading.png") }}
       <figcaption>Left: without CSS. Right: with CSS.</figcaption>
     </figure>
 
@@ -235,7 +235,7 @@ button[title^="Add reading"] {
 
 # CSS (Other)
 
-{{ img("left quote comparisons", "assets/other/left_quote.png", 'align=right width="300"') }}
+{{ img("left quote comparisons", "assets/jpresources/left_quote.png", 'align=right width="300"') }}
 
 ## Ensuring 「」 properly quotes the text { .text-yellow }
 
@@ -307,7 +307,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 
 ??? example "Demo *(click here)*"
 
-    {{ img("how to edit yomichan fields", "assets/yomichan/howto_format.gif") }}
+    {{ img("how to edit yomichan fields", "assets/jpresources/yomichan/howto_format.gif") }}
 
     The above showcases option 2 of
     [this example](jpresources.md#automatically-highlight-the-tested-word-within-the-sentence-upon-card-creation).
@@ -322,7 +322,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 
 ??? example "Demo *(click here)*"
 
-    {{ img("how to edit yomichan templates", "assets/yomichan/howto_templates.gif") }}
+    {{ img("how to edit yomichan templates", "assets/jpresources/yomichan/howto_templates.gif") }}
 
 ---
 
@@ -925,7 +925,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
         and add that word instead.
 
         ??? example "Demo *(click here)*"
-            {{ img("Add the definition from the popup dictionary", "assets/other/incorrect_bold.png") }}
+            {{ img("Add the definition from the popup dictionary", "assets/jpresources/incorrect_bold.png") }}
 
     2. Copy the desired sentence.
 
