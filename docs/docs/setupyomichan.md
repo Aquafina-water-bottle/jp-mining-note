@@ -27,7 +27,7 @@ nothing has to be done.
 # Yomichan Fields
 To edit the fields that Yomichan will automatically fill out, do the following:
 
-![type:video](assets/yomichan/yomichan_anki_format.mp4)
+![type:video](assets/setupyomichan/yomichan_anki_format.mp4)
 
 1. Navigate to Yomichan Settings.
 1. Go to the `Anki` section.
@@ -71,7 +71,7 @@ This note type makes heavy use of these custom templates.
 
 To make the new markers usable, do the following:
 
-![type:video](assets/yomichan/import_yomichan_templates.mp4)
+![type:video](assets/setupyomichan/import_yomichan_templates.mp4)
 
 1. Navigate to Yomichan Settings.
 1. Make sure that advanced settings are turned on (bottom left corner).
@@ -124,7 +124,7 @@ At this point, you should be able to make cards with Yomichan!
     「貴方なんなんです？なにか、妙に銃口慣れしていますね…若者特有の空威張りという訳でもなさそうですし…」
     { .jp-quote-text }
 
-{{ img("adding a card with Yomichan", "assets/yomichan/add_card.gif") }}
+{{ img("adding a card with Yomichan", "assets/setupyomichan/add_card.gif") }}
 
 Obviously, just Yomichan alone doesn't fill every field.
 Notably, the picture and sentence audio is missing.
@@ -176,7 +176,7 @@ to
 If you want to select the text to use instead of the definition,
 simply set `opt-selection-text-enabled` to `true`.
 
-![type:video](assets/yomichan/selected_text.mp4)
+![type:video](assets/setupyomichan/selected_text.mp4)
 
 By default, this enable the following behavior:
 
@@ -204,12 +204,15 @@ By default, this enable the following behavior:
 If you wish to add cards on Android, use
 [AnkiconnectAndroid](https://github.com/KamWithK/AnkiconnectAndroid)
 and follow the instructions on the AnkiconnectAndroid's README page.
+After getting Yomichan working,
+you should be able to simply export a copy of Yomichan settings from your PC
+and import those on Android.
 
 In addition to the above instructions, you may have to disable duplicate checks
 in order for the application to work.
 
 There is currently no way to automatically add an image (e.g. a screenshot) automatically.
-Images must be added manually within `AnkiDroid`.
+Images must be added manually within AnkiDroid.
 
 
 !!! info "Tip"

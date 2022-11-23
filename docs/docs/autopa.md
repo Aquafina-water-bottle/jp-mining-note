@@ -35,7 +35,7 @@ that explains the notation well:
 The displayed pitch accent is usually the first position found in `PAPositions`.
 However, you can override this automatically chosen position using the `PAOverride` field.
 
-![type:video](assets/pa_override.mp4)
+![type:video](assets/autopa/pa_override.mp4)
 
 The demo above covers the most basic usage of `PAOverride`,
 which should suffice for most people.
@@ -68,7 +68,7 @@ and must be enabled in the {{ RTO_FILE }}:
 
     1.  The `auto-pitch-accent` module must be enabled to use colored pitch accent.
 
-![type:video](assets/pa_override_color.mp4)
+![type:video](assets/autopa/pa_override_color.mp4)
 
 !!! note
 
@@ -172,7 +172,7 @@ without any changes or parsing.
 This provides the most flexibility, but the least ease of usage.
 
 <figure markdown>
-  {{ img("hello world as PA", "assets/pa/helloworld.png") }}
+  {{ img("hello world as PA", "assets/autopa/helloworld.png") }}
   <figcaption>
     PAOverrideText with: "Hello world!"
   </figcaption>
@@ -353,16 +353,16 @@ Sometimes, pitch accent dictionaries show multiple pitch accents for a word.
 However, only the first pitch accent is shown by default.
 
 === "One entry (default)"
-    {{ img("", "assets/papositions/one_unbolded.png") }}
+    {{ img("", "assets/autopa/papositions/one_unbolded.png") }}
 
 === "All entries"
-    {{ img("", "assets/papositions/multiple_unbolded.png") }}
+    {{ img("", "assets/autopa/papositions/multiple_unbolded.png") }}
 
 === "One entry + bold"
-    {{ img("", "assets/papositions/one_bolded.png") }}
+    {{ img("", "assets/autopa/papositions/one_bolded.png") }}
 
 === "All entries + bold"
-    {{ img("", "assets/papositions/multiple_bolded.png") }}
+    {{ img("", "assets/autopa/papositions/multiple_bolded.png") }}
 
 
 If you want to show all of the pitch accent entries (in the first dictionary),
@@ -457,9 +457,9 @@ or katakana with long vowel marks in the {{ RTO_FILE }}:
 {
   "modules": {
     "auto-pitch-accent": {
-      // 0: hiragana
-      // 1: katakana
-      // 2: katakana with long vowel marks
+      // 0: whatever is shown in WordReading (usually hiragana, but can sometimes be katakana)
+      // 1: force katakana
+      // 2: force katakana with long vowel marks
       "reading-display-mode": 1,
     }
   }

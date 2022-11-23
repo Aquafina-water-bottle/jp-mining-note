@@ -65,7 +65,7 @@ To change Anki's theme, head over to:
 > `Tools` →  `Preferences` →  `Basic` →  `Theme (dropdown)`
 
 
-{{ img("install Anki addons", "assets/anki/dark_mode.png") }}
+{{ img("install Anki addons", "assets/setupanki/dark_mode.png") }}
 
 !!! note
     The note's theme currently cannot be forced to be a particular
@@ -90,7 +90,7 @@ Let me know if you find one!
 To download an add-on, copy the add-on's code, and navigate to the following to paste the code: <br>
 > `Tools` →  `Add-ons` →  `Get Add-ons...`
 
-{{ img("install Anki addons", "assets/anki/addons_install.png") }}
+{{ img("install Anki addons", "assets/setupanki/addons_install.png") }}
 
 ---
 
@@ -149,7 +149,7 @@ I *strongly* recommend using this, because
 if you don't use this, the fields within the Anki field editor
 won't have certain stylizations that makes the field actually interpretable.
 
-{{ img("CSS Injector comparison", "assets/css_injector.png") }}
+{{ img("CSS Injector comparison", "assets/setupanki/css_injector.png") }}
 
 There are two ways of using css injector with this note type:
 

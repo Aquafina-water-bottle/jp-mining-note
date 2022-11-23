@@ -11,7 +11,7 @@ This section documents frequent errors that
 may show up on the info circle at the top right.
 
 <figure markdown>
-{{ img("info circle error example", "assets/info_circle_error.gif") }}
+{{ img("info circle error example", "assets/info_circle/error.gif") }}
 </figure>
 
 ---
@@ -173,7 +173,7 @@ allowing it to be shared easily on a place like Discord.
 ## The sentence quotes are on completely different lines!
 If your card looks like this:
 
-{{ img("quotes on different lines", "assets/quote_different_lines.png") }}
+{{ img("quotes on different lines", "assets/faq/quote_different_lines.png") }}
 
 then your `Sentence` field is likely formatted internally similar to the following example:
 ```html
@@ -319,7 +319,7 @@ and then type `ctrl+shift+x`.
 Alternatively, on newer versions of Anki, you can click on the top-right corner
 on the code button.
 
-{{ img("Anki edit html", "assets/anki/edit_html.gif") }}
+{{ img("Anki edit html", "assets/faq/edit_html.gif") }}
 
 ---
 
@@ -393,7 +393,7 @@ The location of this folder is different for each operating system.
 
 
 
-{{ img("anki export package", "assets/anki/media_export.png", 'align=right width="300"') }}
+{{ img("anki export package", "assets/faq/media_export.png", 'align=right width="300"') }}
 ## How do I backup my Anki data?
 
 The following makes a **complete backup** of your collection, including media:
@@ -417,7 +417,7 @@ for more info.
 1. Go to the `Backup` section
 1. Select `Export Settings`
 
-{{ img("how-to import Yomichan settings", "assets/yomichan/import_settings.gif") }}
+{{ img("how-to import Yomichan settings", "assets/faq/yomichan_import_settings.gif") }}
 
 ---
 
@@ -450,7 +450,7 @@ For mobile, the version be shown at the top right corner.
 Note that this is only displayed on versions `0.11.1.0` and above.
 
 <figure markdown>
-{{ img("version location", "assets/version/pc_and_mobile.png") }}
+{{ img("version location", "assets/faq/jpmn_version.png") }}
 </figure>
 
 ---
@@ -464,7 +464,7 @@ Navigate to:
 > `Help` →  `About`
 
 <figure markdown>
-{{ img("version location", "assets/anki/version.png") }}
+{{ img("version location", "assets/faq/anki_version.png") }}
 </figure>
 
 ---

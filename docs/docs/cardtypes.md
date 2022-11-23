@@ -16,7 +16,7 @@ I attempted to tackle these exact issues by introducing new card types
 outside of the fundamental vocab and sentence cards.
 
 
-{{ img("", "assets/card_types_1_pic.png") }}
+{{ img("", "assets/cardtypes/all_card_types.png") }}
 
 
 
@@ -25,7 +25,7 @@ outside of the fundamental vocab and sentence cards.
 
 # Vocab Card
 
-{{ img("", "assets/nisemono_word_blank.png") }}
+{{ img("", "assets/cardtypes/word.png") }}
 
 A vocab card simply shows the target word at the front.
 You test yourself on the reading and definition of the word.
@@ -40,7 +40,7 @@ Nothing has to be done for the card to be a vocab card.
 
 # Sentence Card
 
-{{ img("", "assets/nisemono_sentence_blank.png") }}
+{{ img("", "assets/cardtypes/sentence.png") }}
 
 A sentence card simply shows the entire sentence at the front.
 You test yourself on the reading and meaning of the entire sentence.
@@ -54,7 +54,7 @@ Fill the `IsSentenceCard` field.
 
 # Targeted Sentence Card (TSC)
 
-{{ img("", "assets/nisemono_tsc.png") }}
+{{ img("", "assets/cardtypes/tsc.png") }}
 
 A targeted sentence card is a special case of the sentence card.
 The sentence is shown at the front, but only the highlighted content (only the word by default)
@@ -100,7 +100,7 @@ you may only remember the tested word due to its surrounding context.
 
 ## Hover Vocab Card
 
-{{ img("", "assets/nisemono_hover_word.gif") }}
+{{ img("", "assets/cardtypes/hover_word.gif") }}
 
 A hover vocab word shows the tested word at the front.
 When you hover over the word,
@@ -129,7 +129,7 @@ Fill the `IsHoverCard` field.
 
 ## Click Vocab Card
 
-{{ img("", "assets/nisemono_click_word.gif") }}
+{{ img("", "assets/cardtypes/click_word.gif") }}
 
 A click vocab word shows the tested word at the front.
 When you click on the word, you can see the full sentence,
@@ -161,7 +161,7 @@ Fill the `IsClickCard` field.
 
 ## Hover Sentence Card
 
-{{ img("", "assets/nisemono_hover_sentence.gif") }}
+{{ img("", "assets/cardtypes/hover_sentence.gif") }}
 
 This acts similarly to the hover vocab card.
 However, the tested content is the entire sentence,
@@ -184,7 +184,7 @@ Fill the `IsHoverCard` and `IsSentenceCard` fields.
 
 ## Click Sentence Card
 
-{{ img("", "assets/nisemono_click_sentence.gif") }}
+{{ img("", "assets/cardtypes/click_sentence.gif") }}
 
 This acts similar to the click vocab card.
 However, similarly to the hover sentence card, the tested content is the entire display,
@@ -208,7 +208,7 @@ Fill the `IsClickCard` and `IsSentenceCard` fields.
 
 ## Hybrid TSC
 
-{{ img("", "assets/nisemono_hover_tsc.gif") }}
+{{ img("", "assets/cardtypes/hover_tsc.gif") }}
 
 Similarly to the normal TSC, if you want to use the hover sentence card or click sentence card
 to only test a specific portion of the sentence, you can bold the desired

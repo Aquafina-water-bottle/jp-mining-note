@@ -47,7 +47,7 @@ You can check that your dictionaries are correctly categorized with the
 `{jpmn-test-dict-type}` marker.
 Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
 
-{{ img("checking dictionary categories", "assets/yomichan/test_dictionary_categorization.gif") }}
+{{ img("checking dictionary categories", "assets/yomichantemplates/test_dictionary_categorization.gif") }}
 
 An example output of the above (on the word 結構) is the following:
 ```

@@ -84,7 +84,7 @@ will be converted to text which you have to hover over to reveal.
 Of course, this image can also be clicked on to zoom.
 See the video demo below to see exactly what happens.
 
-![type:video](assets/img_utils.mp4)
+![type:video](assets/images/collapsed_images.mp4)
 
 ## How to Disable Collapsed Images
 
@@ -125,7 +125,7 @@ compared to using the monolingual definition.
 
 === "Right of the definition (Default)"
     <figure markdown>
-      {{ img("Primary Definition Picture (right)", "assets/primarydefinitionpicture/right_of_def.png") }}
+      {{ img("Primary Definition Picture (right)", "assets/images/primarydefinitionpicture/right_of_def.png") }}
       <figcaption>
         <span style="font-style: normal">(突っ伏す)</span>
         Usually, the image is placed to the right (like on Wikipedia).
@@ -135,7 +135,7 @@ compared to using the monolingual definition.
 
 === "Below the definition"
     <figure markdown>
-      {{ img("Primary Definition Picture (bottom)", "assets/primarydefinitionpicture/below_def.png") }}
+      {{ img("Primary Definition Picture (bottom)", "assets/images/primarydefinitionpicture/below_def.png") }}
       <figcaption>
         <span style="font-style: normal">(雑巾)</span>
         If there is too little text, the image is automatically positioned below the text.
@@ -145,7 +145,7 @@ compared to using the monolingual definition.
 
 === "Above the definition"
     <figure markdown>
-      {{ img("Primary Definition Picture (above)", "assets/primarydefinitionpicture/above_def.png") }}
+      {{ img("Primary Definition Picture (above)", "assets/images/primarydefinitionpicture/above_def.png") }}
       <figcaption>
         <span style="font-style: normal">(雑巾)</span>
         If there is too little text and the [correct options](#changing-automatic-positioning-behavior)
@@ -156,7 +156,7 @@ compared to using the monolingual definition.
 
 === "No Definition"
     <figure markdown>
-      {{ img("Primary Definition Picture (no definition)", "assets/primarydefinitionpicture/no_def.png") }}
+      {{ img("Primary Definition Picture (no definition)", "assets/images/primarydefinitionpicture/no_def.png") }}
       <figcaption>
         <span style="font-style: normal">(雑巾)</span>
         Naturally, the picture appears to the left if there is no definition.
@@ -273,7 +273,7 @@ in the {{ RTO_FILE }}:
     1.  The `img-utils` module must be enabled to use the image blur feature.
 
 <figure markdown>
-  {{ img("example toggle blur gif", "assets/anki_blur/example.gif") }}
+  {{ img("example toggle blur gif", "assets/images/anki_blur/example.gif") }}
 </figure>
 
 
@@ -301,28 +301,28 @@ By default, states cycle from left to right.
 
     | Not Marked | Marked (with `NSFW` tag) |
     |:-:|:-:|
-    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | ![](assets/anki_blur/marked_blurred.png) |
+    | {{ img("", "assets/images/anki_blur/unmarked_revealed.png") }} | ![](assets/images/anki_blur/marked_blurred.png) |
 
 === "Always Blurred"
 
     | Not Marked | Marked (with `NSFW` tag) |
     |:-:|:-:|
-    | ![](assets/anki_blur/unmarked_blurred.png) | ![](assets/anki_blur/marked_blurred.png) |
+    | ![](assets/images/anki_blur/unmarked_blurred.png) | ![](assets/images/anki_blur/marked_blurred.png) |
 
 === "Always Revealed"
 
     | Not Marked | Marked (with `NSFW` tag) |
     |:-:|:-:|
-    | {{ img("", "assets/anki_blur/unmarked_revealed.png") }} | {{ img("", "assets/anki_blur/marked_revealed.png") }} |
+    | {{ img("", "assets/images/anki_blur/unmarked_revealed.png") }} | {{ img("", "assets/images/anki_blur/marked_revealed.png") }} |
 
 
 ??? example "Demos *(click here)*"
 
     === "Regular, unmarked card"
-        {{ img("", "assets/anki_blur/example_session_toggle_unmarked.gif") }}
+        {{ img("", "assets/images/anki_blur/example_session_toggle_unmarked.gif") }}
 
     === "Card marked as NSFW"
-        {{ img("", "assets/anki_blur/example_session_toggle_marked.gif") }}
+        {{ img("", "assets/images/anki_blur/example_session_toggle_marked.gif") }}
 
     !!! note
         Both examples have the info circle toggled (clicked), so the tooltip persists.

@@ -68,7 +68,7 @@ To do this, follow the proceeding steps:
 
 3. Right click the selection →  `Notes` →  `Change Note Type...`
 
-![type:video](assets/anki/change_notetype.mp4)
+![type:video](assets/importing/change_notetype.mp4)
 
 ---
 
@@ -237,7 +237,7 @@ Sentences are usually formatted in one of three ways, as shown below:
             ??? example "Example image *(click here)*"
 
                 <figure markdown>
-                {{ img("The above table in Anki", "assets/anki/fix_formatted_sentences.png") }}
+                {{ img("The above table in Anki", "assets/importing/fix_formatted_sentences.png") }}
                 </figure>
 
         4. **Verify.**
@@ -257,7 +257,7 @@ Sentences are usually formatted in one of three ways, as shown below:
 
 ## (2) Batch generate pitch accents and sentence furigana
 
-![type:video](assets/anki/batch_editing.mp4)
+![type:video](assets/importing/batch_editing.mp4)
 
 
 1. Head to the Card Browser window:
@@ -310,7 +310,7 @@ This can be done within Anki itself, or with Python.
 
         ??? example "Example image *(click here)*"
             <figure markdown>
-            {{ img("The above table in Anki", "assets/anki/bulk_add_silencewav.png") }}
+            {{ img("The above table in Anki", "assets/importing/bulk_add_silencewav.png") }}
             </figure>
 
 === "With Python"

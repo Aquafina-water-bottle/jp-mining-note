@@ -96,7 +96,7 @@ There are two ways of installing the note:
     4. Move the `.otf` files into the [media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}
         of your profile (`Anki2/PROFILENAME/collections.media`).
 
-    ![type:video](assets/anki/manual_import-0.9.1.1.mp4)
+    ![type:video](assets/setup/manual_import-0.9.1.1.mp4)
 
 
 ---
@@ -123,7 +123,7 @@ Please check the following in particular:
     Please verify you manually installed the fonts and placed them in the correct folder
     (see steps 3 and 4).
 
-    {{ img("test", "assets/info_circle.png", 'align=right') }}
+    {{ img("normal info circle example", "assets/info_circle/normal_example.png", 'align=right') }}
 
 1. Notice how at the top left corner, the info circle (the "i" encased within the circle)
     is the default grey color.
@@ -137,7 +137,7 @@ Please check the following in particular:
     read the Anki-Connect setup instructions on the next page.
 
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
-    see the [Fix Ruby Positioning](ui.md#fix-ruby-positioning-for-legacy-anki-versions) option.
+    see the [Fix Ruby Positioning](uicustomization.md#fix-ruby-positioning-for-legacy-anki-versions) option.
 
 
 ---
