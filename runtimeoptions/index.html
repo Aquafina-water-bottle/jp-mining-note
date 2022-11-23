@@ -1173,87 +1173,15 @@ on screens that have a viewport width of 1300 pixels or less.</p>
 <li>
 <p>If an error is saying that an option doesn't exist, just like for the above, ensure
     that the <a href="../updating/#updating-the-runtime-options-file">runtime options file is updated</a>.</p>
-<!--
-If you are getting this error while compiling, also ensure that the
-<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/config/example_config.py">compile-time options file is updated</a>.
--->
 </li>
 </ol>
-<!--
-# Notation
-TODO
-
-- arrow indicates `{}` or `[]`
-- option paths should ALWAYS be found in the example config file TODO link
-- if you can't find the option in your file, ensure your options file is updated with the example config file
-
-
-example:
-
-> `modules` →  `img-utils` →  `add-image-if-contains-tags`
-
-is placed under:
-
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>{
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  &quot;modules&quot;: [
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    &quot;img-utils&quot;: {
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>      &quot;add-image-if-contains-tags&quot;: ...
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    }
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>  ]
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>}
-</code></pre></div>
--->
-
-<!--
-Compile time options will be differentiated by using a `(C)` at the front.
-
-TODO only use this notation if necessary...
-
-> (C) `modules` →  `img-utils` →  `add-image-if-contains-tags`
--->
-
-<!--
-# Options
-
-I highly recommend going through this file and selecting the options that best fits your workflow.
-As each setting is already documented in the file,
-**the settings will not be documented here**.
-Instead, a small number of hand selected settings will be showcased below,
-to give you a taste of what is available.
-
-TODO flesh out below
-
-
-!!! note
-    You may have noticed that most options are separated into groups within something called `modules`.
-    This is an internal design choice to allow separation of code easier.
-    More information on modules can be found [here](modules.md).
-
--->
-
-<!--
-## Modules
-Many javascript heavy code are separated into modules by default.
-These can be enabled and disabled at the user's will if the user
-wants to sacrifice functionality for a slightly faster card.
-
-Some examples include:
-
-- kanji-hover
-- [auto-pitch-accent](autopa.md)
-- sent-utils (basic sentence processing)
-- img-utils (basic image processing)
-
-These modules likely also also have their own collection of settings
-to modify the behavior of said module.
--->
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 19, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
       
     
   </small>

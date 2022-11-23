@@ -1228,60 +1228,6 @@ exactly how to update any Yomichan setting or add-on config change.</p>
 will actually create a new version of the note
 instead of replacing the old note, which may prove to be an even bigger hassle.</p>
 </details>
-<!-- It's updated now!!! (writing as of 2022/09/25) -->
-
-<!--
-### Anki-Connect: Dev Version
-At the time of writing this (2022/09/07),
-you will need the developer version of Anki-Connect,
-because the Anki web version of Anki-Connect is too old
-and does not have the required API calls that the installation script
-will likely need (calls related to field editing).
-
-
-
-??? info "Click here to see how to install the dev version of Anki-Connect."
-
-    You can install Anki-Connect-Dev in one of two ways:
-
-
-    === "Manual Installation"
-        1. Download the zip of the
-           [Anki-Connect repository](https://github.com/FooSoft/anki-connect), by
-           clicking on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
-           After that, unzip the directory.
-        1. Copy the `plugin` folder (found inside `./anki-connect`), and paste
-           in the [addons folder](faq.md#where-is-the-x-folder-in-anki).
-        1. Rename `plugin` to `AnkiConnectDev`.
-
-        In the end, the file structure should look something like below:
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Anki2
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> L addons21
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    L AnkiConnectDev
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>       L __init__.py
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>       L config.json
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>       L config.md
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>       L edit.py
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>       ...
-</code></pre></div>
-
-    === "Command Line Installation (MacOS and Linux ONLY)"
-
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git clone https://github.com/FooSoft/anki-connect.git
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>cd anki-connect
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>./link.sh
-</code></pre></div>
-
-
-    After installing `AnkiConnectDev`:
-
-    1. Disable the old Anki-Connect add-on.
-    1. Restart Anki to apply the changes.
-
-    To confirm you have the dev version installed, check your list of installed add-ons in Anki.
-    You should be able to see `AnkiConnectDev` in the aforementioned list.
--->
-
 <p><br></p>
 <h3 id="preliminary-steps">Preliminary steps<a class="headerlink" href="#preliminary-steps" title="Permanent link">&para;</a></h3>
 <p>Ensure that your note is named exactly <code>JP Mining Note</code>.
@@ -1290,11 +1236,6 @@ To do this, head over to:</p>
 <p>(Main Window) →  <code>Tools</code> →  <code>Manage Note Types</code>.</p>
 </blockquote>
 <p>If your note is named differently, please rename it to <code>JP Mining Note</code>.</p>
-<!--
-If you have two different versions (for example: `JP Mining Note` and `JP Mining Note-f263ae`),
-then please 
--->
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can always change the name back after updating.</p>
@@ -1308,19 +1249,19 @@ then please
 <p>A more user friendly set of instructions for Windows users
 is also available on the second tab,
 for people who have never used <code>python</code> or <code>git</code> before.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># assuming you are at the root of the repo, i.e. after the following commands:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">#  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">#  $ cd jp-mining-note</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># grabs the latest version of the master branch</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>git pull origin/master
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">cd</span> tools
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Make sure you have Anki open and Anki-Connect installed!</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># Also ensure that your python version is 3.10.6 or higher.</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1"># Note: Linux users may have to use `python3` instead of `python`.</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>python install.py --update
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># assuming you are at the root of the repo, i.e. after the following commands:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">#  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">#  $ cd jp-mining-note</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># grabs the latest version of the master branch</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>git pull origin/master
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">cd</span> tools
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Make sure you have Anki open and Anki-Connect installed!</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Also ensure that your python version is 3.10.6 or higher.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># Note: Linux users may have to use `python3` instead of `python`.</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>python install.py --update
 </code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -1349,7 +1290,7 @@ for people who have never used <code>python</code> or <code>git</code> before.</
 </li>
 <li>
 <p>With your current directory being the <code>tools</code> directory, run the following command:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python install.py --update
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python install.py --update
 </code></pre></div>
     Once you run the command, further instructions should be given to you through the command
     line interface.</p>
@@ -1476,14 +1417,6 @@ Further instructions on these are written below.</p>
 one specified already in the <a href="../setupyomichan/#yomichan-fields">setup</a>.
 The most important difference is that if a new field was added or a field has been renamed,
 then <strong>the field will not show up automatically in Yomichan</strong>.</p>
-<!--
-The only way to refresh the fields as of writing this (2022/09/06)
-is to change the `Model` at the top right hand corner to something else,
-and then switching back to `JP Mining Note`.
-
-Hopefully in the future, there will be a `refresh` button in Yomichan itself to avoid all this trouble.
--->
-
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Doing the above WILL clear all the fields that you previously had, unless there
@@ -1567,10 +1500,6 @@ Please do the following checks to make sure everything properly works:</p>
 </details>
 </li>
 </ol>
-<!--
-- If new fields were added, you likely have to change the font and font sizes of said fields.
-- If you have renamed the note to update, you can now rename it back.
--->
 
   <hr>
 <div class="md-source-file">

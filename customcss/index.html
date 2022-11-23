@@ -1015,8 +1015,9 @@ you should already know that there are two ways of modding the note:</p>
 <p>This is the plug-and-play solution and requires no additional setup.</p>
 </li>
 <li>
-<p><em>(Recommended)</em> Add new files to add to the existing CSS, as to not lose changes between updates.</p>
-<p>Unfortunately, this requires additional setup, and will likely take some time to get working.</p>
+<p><em>(Recommended)</em> Create new CSS files, which are built with the note to extend the current CSS.
+    This allows you to <strong>not lose changes</strong> between updates.</p>
+<p>Unfortunately, this <strong>requires additional setup</strong>, and will likely take some time to get working.</p>
 </li>
 </ol>
 <details class="info">
@@ -1051,41 +1052,35 @@ you should already know that there are two ways of modding the note:</p>
 </li>
 <li>
 <p>Make a new folder under <code>(project root)/src/scss</code> (for example, <code>src/scss/extra</code>).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Unlike <a href="../overrides/">regular overrides</a> and <a href="../modules/">modules</a>,
-custom CSS cannot be defined in the <code>overrides</code> folder,
-due to a complication in the current build system.
-I will be working on a way to define this in the <code>overrides</code> folder in the future.</p>
-</div>
 </li>
 <li>
 <p>Add the folder to the end of <code>css-folders</code> in <code>config.py</code>.
     This should result in the following:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;css-folders&quot;: [&quot;base&quot;, &quot;dictionaries&quot;, &quot;extra&quot;],
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;css-folders&quot;: [&quot;base&quot;, &quot;responsive&quot;, &quot;dictionaries&quot;, &quot;extra&quot;],
 </code></pre></div></p>
 </li>
 <li>
-<ul>
-<li><code>style.scss</code>: The main css for the card templates.</li>
-<li><code>field.scss</code>: The css used by <a href="../setupanki/#css-injector">CSS injector</a>
-    to customize individual fields.</li>
-<li><code>editor.scss</code>: The css used by CSS injector to customize the editor around the fields.</li>
-</ul>
 <p>Under the <code>extra</code> folder, use the following files to override the correct css:</p>
+<ul>
+<li><code>style.scss</code>: The main CSS for the card templates.</li>
+<li><code>field.scss</code>: The CSS used by <a href="../setupanki/#css-injector">CSS injector</a>
+    to customize individual fields.</li>
+<li><code>editor.scss</code>: The CSS used by CSS injector to customize the editor around the fields.</li>
+</ul>
 <p>All of the files are optional. This means you do not need to create all three files
 for the folder to be valid.</p>
 <p>The resulting folder should be of the format:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>src
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a> L scss
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    L base
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>       L ...
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    L dictionaries
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>       L ...
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    L extra
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>       L field.scss
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>       L editor.scss
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>       L style.scss
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>(project root)
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  L src
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>     L scss
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        L base
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>           L ...
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        L dictionaries
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>           L ...
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        L extra
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>           L field.scss
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>           L editor.scss
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>           L style.scss
 </code></pre></div></p>
 </li>
 <li>
@@ -1102,41 +1097,15 @@ In other words, if you don't know any SCSS, you can write normal CSS
 and have it behave completely the same.</p>
 </div>
 </details>
-<!--
-Many existing variables already exist (see `templates/scss/base/common.scss`),
-and can be overwritten easily.
-
-For example, any variable within the `style.scss` file can be replaced by putting
-the following under `extra/style.scss`:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>:root {
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    --variable: 5px;
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>}
-</code></pre></div>
--->
-
-<hr />
-<!--
-# Hiding Several Dictionary Tags
-Alternatively, you can hide all dictionaries that are not
-a specific dictionary:
-
-1. Under `extra/style.scss`, add the following code:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c">/* hide dictionaries other than &quot;JMdict (English)&quot; */</span><span class="w"></span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">data-details</span><span class="o">=</span><span class="s2">&quot;JMdict (English)&quot;</span><span class="o">])</span><span class="w"> </span><span class="p">.</span><span class="nc">dict-group__tag-list</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span><span class="w"></span>
-</code></pre></div>
-
-2. (Optional) Under `extra/field.scss`, add the following code:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c">/* greys out all dictionaries that aren&#39;t JMdict (English) */</span><span class="w"></span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">anki-editable</span><span class="w"> </span><span class="nt">ol</span><span class="w"> </span><span class="nt">li</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">data-details</span><span class="o">=</span><span class="s2">&quot;JMdict (English)&quot;</span><span class="o">])</span><span class="w"> </span><span class="p">.</span><span class="nc">dict-group__tag-list</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--text-color--3</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span><span class="w"></span>
-</code></pre></div>
--->
-
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>See the <a href="../uicustomization/">UI Customization</a> page for many examples on how CSS can be used.</p>
+<!--
+!!! note
+    Unlike [regular overrides](overrides.md) and [modules](modules.md),
+    custom CSS cannot be defined in the `overrides` folder,
+    due to a complication in the current build system.
+    I will be working on a way to define this in the `overrides` folder in the future.
+-->
 
   <hr>
 <div class="md-source-file">

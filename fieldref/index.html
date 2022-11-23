@@ -1293,10 +1293,12 @@
 
   <h1>Field Reference</h1>
 
-<p>This page is dedicated showing
-how to edit the note fields to change the card to your liking.
-If you want to edit the user interface for all cards,
+<p>This page is dedicated showing how to edit the note fields to change the card to your liking.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to edit the user interface for all cards,
 see the <a href="../uicustomization/">UI Customization</a> page.</p>
+</div>
 <h2 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h2>
 <p><strong>Binary Field:</strong>
 A field that checks whether it is filled or not with any value, say <code>1</code>.
@@ -1305,12 +1307,6 @@ For example, the <code>IsSentenceCard</code> field will turn the card into a sen
 If it is not filled, then the card will be a word card.
 To fill a field automatically, see
 <a href="../faq/#how-do-i-change-the-default-value-of-a-binary-field" target="_blank">here</a>.</p>
-<!--
-To "toggle" a binary field means to either fill the value if is not filled yet,
-or to remove the value if it is filled.
-In other words, it means to flip the value of the field between empty and filled.
--->
-
 <p><strong>PA:</strong> Short for "Pitch Accent".</p>
 <hr />
 <h2 id="quick-jump">Quick Jump<a class="headerlink" href="#quick-jump" title="Permanent link">&para;</a></h2>
@@ -1811,13 +1807,6 @@ a warning will appear on cards that have a duplicate key.</p>
 <h3 id="comment-field"><code>Comment</code> field<a class="headerlink" href="#comment-field" title="Permanent link">&para;</a></h3>
 <p>Similarly to the <code>Key</code> field, this field will not be used in any card template.
 In other words, this is a place where you can write down notes without affecting the card itself.</p>
-<!--
-## `Picture` field
-As an aside, you can put text in this field instead of a picture, and it should still work.
-This is useful if you forgot to add the picture, or just don't want to add the picture
-in the first place.
--->
-
 <p><br></p>
 <h3 id="frequencysort-field"><code>FrequencySort</code> field<a class="headerlink" href="#frequencysort-field" title="Permanent link">&para;</a></h3>
 <p>By default, this note type comes with a <code>FrequencySort</code> field,
@@ -1833,11 +1822,6 @@ This allows you to create cards that tests word audio or sentence audio.</p>
 The words that are hidden are exactly the words that are bolded in the <code>Sentence</code> (or <code>AltDisplay</code>) field.</p>
 <p>To create a sentence audio card, copy/paste the sentence into <code>AltDisplay</code>, and bold the entire <code>AltDisplay</code> field (say, with <code>ctrl+a</code> and <code>ctrl+b</code>).
 There's currently no shortcut to creating a sentence audio card.</p>
-<!--
-NOT DOING as IsSentenceCard affects main card as well
-TODO: IsSentenceCard -> tests entire sentence, not filled -> currently as is
--->
-
 <p><a href="../assets/fieldref/cloze_deletion.png"><img alt="cloze deletion card" src="../assets/fieldref/cloze_deletion.png" /></a></p>
 
   <hr>
