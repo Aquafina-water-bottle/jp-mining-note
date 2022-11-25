@@ -91,6 +91,10 @@
       "sort-func": "currentSideAvg"
     },
 
+    "cache": {
+      "clear-cache-button": false
+    },
+
     // Automatic processing to sentences
     "sent-utils": {
       "enabled": true,

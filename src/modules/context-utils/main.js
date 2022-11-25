@@ -1,15 +1,4 @@
 
-/// {% set globals %}
-
-// insert globals that will transfer between cards here (but also can disappear at any point)
-// this section is best used for temporary caches
-// ...
-
-/// {% endset %}
-
-
-
-
 
 
 /// {% set functions %}
@@ -17,6 +6,7 @@
 // ===============
 //  Context Utils
 // ===============
+// UNUSED MODULE! Shouldn't be compiled into any card.
 
 const JPMNContextUtils = (() => {
 

@@ -108,7 +108,7 @@ within "JP Mining Note" types.
     they should represent words that you already know.
 
 * Pitch accents are shown when you hover over a particular word
-    within the tooltip.
+    within the tooltip. You can change this to always be shown in the {{ RTOs }}.
 
 * You can click on the word to open the specified card within Anki's card browser.
 
@@ -177,7 +177,7 @@ and how to customize it.
 
 ---
 
-# Images
+# Images & Pitch Accent
 
 See the [Images](images.md) page for information on the following:
 
@@ -185,14 +185,11 @@ See the [Images](images.md) page for information on the following:
 * Specifying default images
 * Automatically formatting pictures within the definition
 
----
-
-# Pitch Accent
 See the [Pitch Accent](autopa.md) page for information on the following:
 
 * Pitch accent notation
 * Automatic pitch accent coloring
-* How to override the pitch accent of the word
+* How to override the pitch accent of any word
 
 ---
 

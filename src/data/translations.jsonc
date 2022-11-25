@@ -19,6 +19,9 @@
     "pa-indicator-word": "Word",
     "pa-indicator-sentence": "Sentence",
 
+    "card-type-open-bracket": " (",
+    "card-type-close-bracket": ") ",
+    "card-type-separator": " / ",
     "card-type-main-hover": "Hover",
     "card-type-main-click": "Click",
     "card-type-main-sentence": "Sentence",
@@ -41,17 +44,20 @@
     "extra-definitions": "余計な定義",
     "extra-info": "余計な情報",
 
-    "show-word-button": "見る",
+    "show-word-button": "表す",
     "hide-word-button": "隠す",
     "full-sentence": "全ての文",
     "hint": "ヒント",
-    "kanji-not-found": "漢字は見つかれません",
+    "kanji-not-found": "漢字は見つかれません｡",
 
     "pa-indicator-prefix": "ピーチ：",
     "pa-indicator-do-not-test": "採点しないでください", // slightly different meaning but it works
     "pa-indicator-word": "単語",
     "pa-indicator-sentence": "文",
 
+    "card-type-open-bracket": " (",
+    "card-type-close-bracket": ")",
+    "card-type-separator": "・",
     "card-type-main-hover": "かざす",
     "card-type-main-click": "クリック",
     "card-type-main-sentence": "文",
@@ -61,6 +67,6 @@
 
     "card-type-pa-sentence": "ピッチ（文）",
     "card-type-pa-word": "ピッチ（単語）",
-    "card-type-cloze-deletion": "穴埋め問題"
+    "card-type-cloze-deletion": "穴埋め問題" // took this from the translated anki documentation
   }
 }

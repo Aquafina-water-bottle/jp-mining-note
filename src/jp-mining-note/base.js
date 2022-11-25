@@ -17,16 +17,16 @@
 
 (function () { // restricts ALL javascript to hidden scope
 
+{% if "cache" in modules.keys() %}
+{{ modules["cache"].functions_manual }}
+{% endif %}
+
 {% if "time-performance" in modules.keys() %}
 {{ modules["time-performance"].functions_manual }}
 {% endif %}
 
 {% if "keybinds" in modules.keys() %}
 {{ modules["keybinds"].functions_manual }}
-{% endif %}
-
-{% if "cache" in modules.keys() %}
-{{ modules["cache"].functions_manual }}
 {% endif %}
 
 

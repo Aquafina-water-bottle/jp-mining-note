@@ -47,6 +47,13 @@ These pages display the hooked content.
 Most setups documented are for clipboard based texthooker pages.
 
 ??? example "Resources *(click here)*"
+    * [Original Clipboard Inserter](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
+        * [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
+            as of Firefox version 107.0. Use the extension below if you are using Firefox.
+    * [Lap Clipboard Inserter](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
+        * Updated version of the above.
+        * Works on Firefox, but Chrome (manifest 3) support is currently not supported.
+            Use the extension above if you are using a chromium based browser.
     * [Anacreon's Texthooker Page](https://anacreondjt.gitlab.io/docs/texthooker/) (recommended)
     * [TMW's Texthooker Page](https://learnjapanese.moe/texthooker.html)
 

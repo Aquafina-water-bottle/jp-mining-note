@@ -5,6 +5,11 @@
 //  Kanji Hover
 // =============
 
+
+// Cache used:
+// kanjiHoverCardCache: card -> generated WordReading with kanji hover elements
+// kanjiHoverCache: kanji -> [word readings used, hover element for that kanji]
+
 const JPMNKanjiHover = (() => {
 
   const logger = new JPMNLogger("kanji-hover");

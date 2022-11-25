@@ -1,25 +1,15 @@
 
-/// {% set globals %}
-
-// note that this cache will NOT respect card review undos,
-// but that should be a niche enough case to not warrent caching.
-// maps cacheKey -> bool
-var isNewCardCache = nullish(isNewCardCache, {});
-
-// maps card_id -> (card info retrieved by Anki-Connect)
-var cardsInfoCache = nullish(cardsInfoCache, {});
-
-// maps query_str -> [card ids]
-var cardQueryCache = nullish(cardQueryCache, {});
-
-// maps key.sentence -> card id
-var cardIdCache = nullish(cardIdCache, {});
-
-/// {% endset %}
-
-
 
 /// {% set functions %}
+
+// note that this will NOT respect card review undos,
+// but that should be a niche enough case to not warrent caching.
+
+// Cache used:
+// isNewCardCache: cacheKey -> bool
+// cardsInfoCache: cacheKey -> (card info retrieved by Anki-Connect)
+// cardIdCache: cacheKey -> card id
+// cardQueryCache: query -> [card ids]
 
 const JPMNAnkiConnectActions = (() => {
 
@@ -130,16 +120,16 @@ const JPMNAnkiConnectActions = (() => {
     }
 
 
-    async query(queryStr, cache=true) {
+    async query(queryStr, cache=false) {
       logger.debug("Attempting query: `" + queryStr + "`", 1);
-      if (cache && queryStr in cardQueryCache) {
+      if (cache && CACHE.has("cardQueryCache", queryStr)) {
         logger.debug(`Using cached query result for ${queryStr}`, 2);
-        return cardQueryCache[queryStr];
+        return CACHE.get("cardQueryCache", queryStr)
       }
 
       let cardIds = await this.invoke("findCards", {"query": queryStr});
       if (cache) {
-        cardQueryCache[queryStr] = Array.from(cardIds); // shallow copy
+        CACHE.set("cardQueryCache", queryStr, Array.from(cardIds)); // shallow copy
       }
       return cardIds;
 
@@ -157,9 +147,10 @@ const JPMNAnkiConnectActions = (() => {
 
       if (cache) {
         for (const [i, cid] of cardIds.entries()) {
-          if (cid in cardsInfoCache) {
+          //if (cid in cardsInfoCache) {
+          if (CACHE.has("cardsInfoCache", cid)) {
             logger.debug(`Using cached cardsInfo result for ${cid}`, 2);
-            result.push(cardsInfoCache[cid]);
+            result.push(CACHE.get("cardsInfoCache", cid));
           } else {
             result.push(0);
             searchCards.push(cid);
@@ -180,7 +171,7 @@ const JPMNAnkiConnectActions = (() => {
         for (const [i, cid] of searchCards.entries()) {
           const j = mustSearchMap[cid];
           result[j] = cardsInfo[i];
-          cardsInfoCache[cid] = cardsInfo[i];
+          CACHE.set("cardsInfoCache", cid, cardsInfo[i]);
         }
       }
 
@@ -195,7 +186,7 @@ const JPMNAnkiConnectActions = (() => {
     async cardIsNew() {
 
       // refreshes on every new check, b/c one cannot assume that a card
-      if (cacheKey in isNewCardCache && !isNewCardCache[cacheKey]) {
+      if (CACHE.has("isNewCardCache", cacheKey) && CACHE.get("isNewCardCache", cacheKey)) {
         logger.debug("Key in new card cache and is not new.");
         return false;
       }
@@ -206,17 +197,12 @@ const JPMNAnkiConnectActions = (() => {
       logger.debug("Testing for new card...", 2);
 
       const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
-      //const cid = await this.getDisplayedCardId();
-      //if (cid === 0) {
-      //  return false;
-      //}
-      //const query = `is:new cid:${cid} "card:${cardTypeName}"`
       const query = `is:new ${this.getKeySentQuery()} "card:${cardTypeName}"`
       const result = await this.query(query, /*cache=*/false);
       const isNew = (result.length > 0);
       logger.debug(`is new: query: ${query}, result: ${result}, isNew: ${isNew}`, 1);
 
-      isNewCardCache[cacheKey] = isNew;
+      CACHE.get("isNewCardCache", cacheKey, isNew);
       this.isNewCardLocalCache = isNew;
 
       return isNew;
@@ -238,22 +224,6 @@ const JPMNAnkiConnectActions = (() => {
      * Returns 0 if cannot find the displayed card
      */
     async _getDisplayedCardId() {
-      //let currentCard = null;
-      //let validErrMsg = "Gui review is not currently active.";
-
-      //try {
-      //  currentCard = await this.invoke("guiCurrentCard");
-      //} catch (error) {
-      //  // the error is apparently a string?
-      //  if (error !== validErrMsg) {
-      //    throw error;
-      //  }
-      //}
-
-      //if (currentCard !== null) {
-      //  return currentCard.cardId;
-      //}
-
       const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
       const noteName = '{{ NOTE_FILES("model-name").item() }}';
 
@@ -264,7 +234,7 @@ const JPMNAnkiConnectActions = (() => {
 
       // query with sentence and key
       let query = `"Key:${keyText}" "Sentence:${sentenceSearch}" "card:${cardTypeName}" "note:${noteName}"`;
-      let result = await this.query(query);
+      let result = await this.query(query, /*cache=*/true);
 
       if (result.length >= 1) {
         if (result.length >= 2) {
@@ -277,7 +247,7 @@ const JPMNAnkiConnectActions = (() => {
 
       // last try query (why would this not work)
       query = `"Key:${keyText}" "card:${cardTypeName}" "note:${noteName}"`;
-      result = await this.query(query);
+      result = await this.query(query, /*cache=*/true);
 
       if (result.length >= 1) {
         if (result.length >= 2) {
@@ -293,13 +263,13 @@ const JPMNAnkiConnectActions = (() => {
     }
 
     async getDisplayedCardId() {
-      if (cacheKey in cardIdCache) {
-        return cardIdCache[cacheKey];
+      if (CACHE.has("cardIdCache", cacheKey)) {
+        return CACHE.get("cardIdCache", cacheKey);
       }
 
       const [cid, cachable] = await this._getDisplayedCardId();
       if (cachable) {
-        cardIdCache[cacheKey] = cid;
+        CACHE.set("cardIdCache", cacheKey, cid);
       }
       return cid;
     }

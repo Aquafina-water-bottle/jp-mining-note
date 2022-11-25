@@ -11,7 +11,6 @@
 
 {# interface for modules that change javascript #}
 {% set MOD.js = JavascriptContainer(MOD.id) %}
-{{ MOD.js.globals.set_all(js.globals) }}
 {{ MOD.js.functions.set_back(js.functions) }}
 {{ MOD.js.run.set_back(js.run) }}
 
