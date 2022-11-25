@@ -7,17 +7,21 @@
 {{ js_common.functions }}
 
 function toggleHighlightWord() {
+  const SENTENCE_SHOWN_ATTRIBUTE = "data-sentence-shown";
+
   let paButton = document.getElementById("pa-button");
   let d = document.getElementById("display");
 
-  if (paButton.innerText == "Show") {
-    paButton.innerText = "Hide";
-    d.classList.add("highlight-bold");
+  if (paButton.hasAttribute(SENTENCE_SHOWN_ATTRIBUTE)) {
+    // (currently) shown -> hide
+    paButton.removeAttribute(SENTENCE_SHOWN_ATTRIBUTE);
+    paButton.innerText = "{{ TRANSLATOR.get('show-word-button') }}";
+    d.classList.remove("highlight-bold", false);
   } else {
-    paButton.innerText = "Show";
-    if (d.classList.contains("highlight-bold")) {
-      d.classList.remove("highlight-bold");
-    }
+    // (currently) hidden -> show
+    paButton.setAttribute(SENTENCE_SHOWN_ATTRIBUTE, "true");
+    paButton.innerText = "{{ TRANSLATOR.get('hide-word-button') }}";
+    d.classList.toggle("highlight-bold", true);
   }
 }
 
@@ -38,19 +42,8 @@ function toggleHighlightWord() {
 /// {% call IF("PAShowInfo") %}
 {
   let paButton = document.getElementById("pa-button");
-  let d = document.getElementById("display");
   if (paButton !== null) {
-    paButton.onclick = () => {
-      if (paButton.innerText == "Show") {
-        paButton.innerText = "Hide";
-        d.classList.add("highlight-bold");
-      } else {
-        paButton.innerText = "Show";
-        if (d.classList.contains("highlight-bold")) {
-          d.classList.remove("highlight-bold");
-        }
-      }
-    }
+    paButton.onclick = toggleHighlightWord;
   }
 }
 /// {% endcall %}

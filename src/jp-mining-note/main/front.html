@@ -29,7 +29,7 @@
       "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard") %}
   {% call utils.if_any("PASeparateSentenceCard", "PATestOnlyWord") %}
 
-    <button id="pa-button">Show</button>
+    <button id="pa-button">{{ TRANSLATOR.get("show-word-button") }}</button>
 
   {% endcall %}
   {% endcall %}

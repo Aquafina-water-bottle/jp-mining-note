@@ -1,7 +1,7 @@
 {# impl #}
 {% call IF("SecondaryDefinition") %}
   <details class="glossary-details" id="secondary_definition_details">
-    <summary>Secondary Definition</summary>
+    <summary>{{ TRANSLATOR.get('secondary-definition') }}</summary>
     <blockquote class="glossary-blockquote highlight-bold">
       <div class="glossary-text glossary-text--secondary-definition">
         {{ T("SecondaryDefinition") }}
@@ -14,6 +14,6 @@
 {% endcall %}
 {% call IFNOT("SecondaryDefinition") %}
   <div class="glossary-details glossary-details--grey">
-    Secondary Definition
+    {{ TRANSLATOR.get('secondary-definition') }}
   </div>
 {% endcall %}

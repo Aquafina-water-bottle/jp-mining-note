@@ -204,9 +204,8 @@ By default, this enable the following behavior:
 If you wish to add cards on Android, use
 [AnkiconnectAndroid](https://github.com/KamWithK/AnkiconnectAndroid)
 and follow the instructions on the AnkiconnectAndroid's README page.
-After getting Yomichan working,
-you should be able to simply export a copy of Yomichan settings from your PC
-and import those on Android.
+It might help to export a copy of Yomichan settings from your PC and import said settings on Android,
+instead of re-doing all of the steps on this page on Android.
 
 In addition to the above instructions, you may have to disable duplicate checks
 in order for the application to work.

@@ -36,6 +36,7 @@ and must use `./install.py --update`.
 - Added option to toggle whether click cards reveal the sentences on the back side of cards or not (`click-card-sentence-reveal-on-back-side`)
 - `sent-utils` now searches the full sentence to adjust if quoted
 - Increased the size of the PrimaryDefinitionPicture img by default if there is no text in PrimaryDefinition
+- Added way to translate the card (and added English and Japanese as pre-supported options)
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
@@ -58,6 +59,8 @@ and must use `./install.py --update`.
 - Moved keybinds into its own module, similar to `time-performance`
     - now has a much better interface
 - Added the `keybinds` module (to replace the existing keybinds section under `base.js`)
+- Added the `cache` module (to replace global variables) (STILL WIP)
+- Updated Persistence from v1.0.0 -> v1.1.8
 
 
 

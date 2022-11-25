@@ -1,21 +1,4 @@
 
-/// {% set globals %}
-
-// global cache for an entire card's kanji hover html
-// maps key.word_reading -> html string
-var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
-
-// maps kanji -> [{set of used words}, html string]
-var kanjiHoverCache = nullish(kanjiHoverCache, {});
-
-
-/// {% endset %}
-
-
-
-
-
-
 /// {% set functions %}
 
 // =============
@@ -121,7 +104,7 @@ const JPMNKanjiHover = (() => {
 
       // 0 length checks
       if (nonNewCardInfo.length + newCardInfo.length == 0) {
-        tooltipSpan.innerText = "Kanji not found.";
+        tooltipSpan.innerText = "{{ TRANSLATOR.get('kanji-not-found') }}";
       }
 
       tooltipWrapperSpan.appendChild(tooltipSpan)
@@ -232,10 +215,15 @@ const JPMNKanjiHover = (() => {
       // attempts to fill out the kanji dict with cached entries
       for (let kanji of [...kanjiSet]) {
         // also checks that the current word is not used
-        if ((kanji in kanjiHoverCache) && !(kanjiHoverCache[kanji][0].includes(wordReadingHTML))) {
-          logger.debug(`Using cached kanji ${kanji}`)
-          kanjiDict[kanji] = kanjiHoverCache[kanji][1];
-          kanjiSet.delete(kanji);
+        if (CACHE.has("kanjiHoverCache", kanji)) {
+          let [wordReadings, hoverEle] = CACHE.get("kanjiHoverCache", kanji);
+          logger.debug(`${kanji} wordReadings: ${wordReadings}`, 1);
+
+          if (!wordReadings.includes(wordReadingHTML)) {
+            logger.debug(`Using cached kanji ${kanji}`)
+            kanjiDict[kanji] = hoverEle;
+            kanjiSet.delete(kanji);
+          }
         }
       }
 
@@ -273,10 +261,10 @@ const JPMNKanjiHover = (() => {
       // caches card
       let cloneElement = wordReading.cloneNode(true)
       cloneElement.removeAttribute("id");
-      kanjiHoverCardCache[cacheKey] = cloneElement;
+      CACHE.set("kanjiHoverCardCache", cacheKey, cloneElement);
 
       for (const character of kanjiArr) {
-        kanjiHoverCache[character] = [wordReadings[character], kanjiDict[character]];
+        CACHE.set("kanjiHoverCache", character, [wordReadings[character], kanjiDict[character]]);
       }
 
       this.addBrowseOnClick();
@@ -309,9 +297,9 @@ const JPMNKanjiHover = (() => {
       }
       kanjiHoverEnabled = true;
 
-      if (cacheKey in kanjiHoverCardCache) {
+      if (CACHE.has("kanjiHoverCardCache", cacheKey)) {
         logger.debug("Card was cached")
-        let cachedEle = kanjiHoverCardCache[cacheKey].cloneNode(true);
+        let cachedEle = CACHE.get("kanjiHoverCardCache", cacheKey);
         cachedEle.setAttribute("id", "dh_reading");
         wordReading.parentNode.replaceChild(cachedEle, wordReading);
         this.addBrowseOnClick();

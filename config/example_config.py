@@ -17,6 +17,8 @@ CONFIG = {
     # Ignores folder if it doesn't exist.
     "templates-override-folder": "overrides",
 
+    "translation-file": "config/translations.jsonc",
+
     "compile-options": {
         # toggles whether the runtime options should be read from a file or not.
         "hardcoded-runtime-options": False,
@@ -167,6 +169,15 @@ CONFIG = {
         #   https://github.com/laplus-sadness/lap-clipboard-inserter
         #     - This option is enabled by default just in case, as it doesn't seem to cause any problems.
         "clipboard-inserter-0px-hack-enabled": True,
+
+
+        # Allows the user to customize the displayed words on the card,
+        # while specifying fallback languages if the language doesn't have the key/pair value.
+        # Currently, the following languages are supported:
+        # - "en": English
+        # - "jp": Japanese
+        "display-languages": ["en"],
+        #"display-languages": ["jp", "en"],
 
     },
 }

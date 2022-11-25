@@ -99,14 +99,19 @@ within "JP Mining Note" types.
 
 {{ img("kanji hover demo", "assets/ui/kanji_hover.gif") }}
 
-You may have noticed that some results are greyed out.
-These represent words from cards that have not been reviewed yet.
-Conversely, as non-greyed out results come from cards that you have already reviewed,
-they should represent words that you already know.
 
-Additionally, pitch accents are also shown when you hover over a particular word
-within the tooltip.
-{{ bleeding_edge_only("0.11.0.0")}}
+**Various Details:**
+
+* You may have noticed that some results are greyed out.
+    These represent words from cards that have not been reviewed yet.
+    Conversely, as non-greyed out results come from cards that you have already reviewed,
+    they should represent words that you already know.
+
+* Pitch accents are shown when you hover over a particular word
+    within the tooltip.
+
+* You can click on the word to open the specified card within Anki's card browser.
+
 
 See [here](tooltipresults.md) for information on how the examples are chosen,
 and how to customize it.
@@ -160,8 +165,12 @@ compared to 地震.
     This indicator will be yellow (or blue on light mode) for new cards only.
     After the first review, the indicator will be the same color as the default info circle (grey).
 
+The tooltip behaves very similarly properties to Kanji hover's tooltip:
 
-Results are greyed out if the word is from a new card, just like for Kanji Hover.
+* New cards are greyed out.
+* You can click on words to open them in Anki's card browser.
+* Pitch accent is shown without requiring the user to hover over the word by default.
+    This is different from Kanji hover's tooltip.
 
 See [here](tooltipresults.md) for information on how the examples are chosen,
 and how to customize it.

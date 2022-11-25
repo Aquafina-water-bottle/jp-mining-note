@@ -566,6 +566,10 @@
     "mobile": false
   },
 
+  // meant to be used with the following addon:
+  // https://github.com/hikaru-y/anki21-addon-ankiwebview-inspector
+  "debug-to-console": false,
+
   // (Developer option) Used to show debug messages when debugging the card.
   // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.
   // Set to any number higher than 5 to disable.

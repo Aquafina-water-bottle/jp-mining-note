@@ -431,6 +431,20 @@ This {{ CSS }} allows you to limit the number of frequencies shown at the top ri
 
 
 
+# Changing the display language
+{{ feature_version("0.11.1.0") }}
+
+By default, the display language is in English.
+Currently, Japanese and English are supported as display languages.
+
+To change the display language, use the following {{ CTO }}:
+```
+"display-languages": ["jp", "en"],
+```
+
+---
+
+
 
 
 

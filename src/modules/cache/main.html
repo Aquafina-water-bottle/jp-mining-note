@@ -1,14 +1,16 @@
-{# keybinds module #}
+{# cache module #}
 
 
-{% import "modules/keybinds/main.js" as js with context %}
+{% import "modules/cache/main.js" as js with context %}
 
 
 {# required boilerplate #}
 {% set MOD = namespace() %}
-{% set MOD.id = "keybinds" %}
+{% set MOD.id = "cache" %}
+{% set MOD.use_persistence = True %}
 
 {# interface for modules that change javascript #}
 {% set MOD.js = JavascriptContainer(MOD.id) %}
+{{ MOD.js.globals.set_all(js.globals) }}
 {% set MOD.functions_manual = js.functions %}
 
