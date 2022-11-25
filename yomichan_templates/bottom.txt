@@ -716,6 +716,15 @@ thanks to:
     {{~/scope~}}
 {{/inline}}
 
+{{#*inline "jpmn-filled-if-word-is-not-hiragana"}}
+    {{~#scope~}}
+        {{~#set "filled" ~}}{{> jpmn-filled-if-word-is-hiragana}}{{/set~}}
+        {{~#if (op "===" (get "filled") "")~}}
+            1
+        {{~/if~}}
+    {{~/scope~}}
+{{/inline}}
+
 
 
 {{~! a test to check if your dictionaries are correctly classified. ~}}

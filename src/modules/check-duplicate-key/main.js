@@ -1,12 +1,4 @@
 
-/// {% set globals %}
-
-
-// contains all unique keys
-var uniqueKeysCache = nullish(uniqueKeysCache, []);
-
-/// {% endset %}
-
 
 /// {% set functions %}
 
@@ -22,7 +14,8 @@ const JPMNCheckDuplicateKey = (() => {
 
     async run() {
 
-      if (uniqueKeysCache.includes(key)) {
+      //if (uniqueKeysCache.includes(key)) {
+      if (CACHE.has("uniqueKeysCache", key)) {
         logger.debug("Key is unique (cached result).")
         return;
       }
@@ -37,7 +30,7 @@ const JPMNCheckDuplicateKey = (() => {
       if (result.length === 0) {
         logger.warn("Cannot find own card?")
       } else if (result.length === 1) {
-        uniqueKeysCache.push(key);
+        CACHE.set("uniqueKeysCache", key, true);
         logger.debug("Key is unique.")
       } else if (result.length === 2) {
         logger.warn("Duplicate key found. Please change the Key field value.")

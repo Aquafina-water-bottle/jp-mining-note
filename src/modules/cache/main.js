@@ -22,8 +22,37 @@ const JPMNCache = (() => {
 
   const logger = new JPMNLogger("cache");
 
+  function generateClearCacheSVG() {
+    const svgStr = '<svg id="settings_clear_cache" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9M7 6h10v13H7V6m2 2v9h2V8H9m4 0v9h2V8h-2Z"/><title>Clear the cache</title></svg>';
+
+    const x = document.createElement("span");
+    x.innerHTML = svgStr;
+    return x.children[0];
+  }
+
+
   class JPMNCache {
-    constructor() { }
+    constructor() {
+      if ({{ utils.opt("modules", "cache", "clear-cache-button") }}) {
+        this._addClearCacheSetting();
+      }
+    }
+
+    _addClearCacheSetting() {
+      const infoCircleSettings = document.getElementById("info_circle_text_settings");
+
+      // visual interface to clear the cache
+      let settingsClearCache = generateClearCacheSVG();
+      infoCircleSettings.appendChild(settingsClearCache);
+
+      settingsClearCache.onclick = function() {
+        if (typeof CACHE !== "undefined") {
+          CACHE.clear();
+          popupMenuMessage("Cache has been cleared.");
+        }
+      }
+
+    }
 
     _keyName(dictKey, key) {
       // somewhat ensures a unique name to the Persistence key,
@@ -61,6 +90,14 @@ const JPMNCache = (() => {
         delete _JPMN_CACHE_GLOBAL[key];
       }
     }
+
+    remove(dictKey, key) {
+      const persistKey = this._keyName(dictKey, key);
+
+      logger.debug(`Removing key: ${persistKey}...`, 0);
+      delete _JPMN_CACHE_GLOBAL[persistKey];
+    }
+
   }
 
   return JPMNCache;

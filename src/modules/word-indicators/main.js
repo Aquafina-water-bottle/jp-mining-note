@@ -1,10 +1,3 @@
-/// {% set globals %}
-
-//var sameReadingCardCache = nullish(sameReadingCardCache, {});
-var similarWordsCardCache = nullish(similarWordsCardCache, {});
-
-/// {% endset %}
-
 /// {% set functions %}
 
 /// {# {% include "jp-mining-note/partials/info_circle_svg.html" %} #}
@@ -159,7 +152,8 @@ const JPMNSameReadingIndicator = (() => {
       const indicatorStr = this.buildString(nonNewCardInfo, newCardInfo);
 
       //sameReadingCardCache[key] = indicatorStr;
-      similarWordsCardCache[key][indicatorInfo.label] = indicatorStr;
+      //similarWordsCardCache[key][indicatorInfo.label] = indicatorStr;
+      CACHE.get("similarWordsCardCache", key)[indicatorInfo.label] = indicatorStr;
 
       return this.displayIndicator(indicatorStr, indicatorInfo);
     }
@@ -183,9 +177,10 @@ const JPMNSameReadingIndicator = (() => {
       }
       enabled = true;
 
-      if (key in similarWordsCardCache) {
+      //if (key in similarWordsCardCache) {
+      if (CACHE.has("similarWordsCardCache", key)) {
         logger.debug("Card was cached");
-        const indicatorCache = similarWordsCardCache[key];
+        const indicatorCache = CACHE.get("similarWordsCardCache", key);
 
         let promises = []
 
@@ -227,8 +222,8 @@ const JPMNSameReadingIndicator = (() => {
       let nonNewQuery = `-(${keySentQuery}) ${indicatorInfo.nonNewQuery}`;
       let newQuery = `-(${keySentQuery}) ${indicatorInfo.newQuery}`;
 
-      let cardIdsNonNew = await this.ankiConnectHelper.query(nonNewQuery);
-      let cardIdsNew = await this.ankiConnectHelper.query(newQuery);
+      let cardIdsNonNew = await this.ankiConnectHelper.query(nonNewQuery, /*cache=*/true);
+      let cardIdsNew = await this.ankiConnectHelper.query(newQuery, /*cache=*/true);
       cardIdsNonNew.sort();
       cardIdsNew.sort();
 
@@ -241,8 +236,8 @@ const JPMNSameReadingIndicator = (() => {
           maxNonNewOldest, maxNonNewLatest, maxNewLatest
       );
 
-      if (!(key in similarWordsCardCache)) {
-        similarWordsCardCache[key] = new IndicatorCache();
+      if (!CACHE.has("similarWordsCardCache", key)) {
+        CACHE.set("similarWordsCardCache", key, new IndicatorCache());
       }
       return this.displayIndicatorIfExists(cardIdsNonNewFiltered, cardIdsNewFiltered, indicatorInfo);
     }

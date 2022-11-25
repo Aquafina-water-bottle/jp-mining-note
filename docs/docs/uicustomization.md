@@ -79,6 +79,7 @@ The first line of the definition has various elements that can be hidden with {{
     * This hides all the text to the right of the dictionary tag.
 
     ??? example "CSS to hide extra text *(click here)*"
+        {{ feature_version("0.11.0.0") }}
 
         1. Under `extra/style.scss`, add the following code:
 
@@ -107,8 +108,6 @@ The first line of the definition has various elements that can be hidden with {{
         This doesn't look very good on most dictionaries.
 
     ??? example "CSS to hide dictionary tag(s) *(click here)*"
-        {{ feature_version("0.11.0.0") }}
-
         1. Under `extra/style.scss`, add the following code:
             ```css
             /* hide the 「旺文社国語辞典 第十一版」 dictionary */

@@ -17,7 +17,7 @@ CONFIG = {
     # Ignores folder if it doesn't exist.
     "templates-override-folder": "overrides",
 
-    "translation-file": "config/translations.jsonc",
+    "translation-file": "src/data/translations.jsonc",
 
     "compile-options": {
         # toggles whether the runtime options should be read from a file or not.

@@ -8,10 +8,17 @@ if ({{ utils.opt("modules", "fix-ruby-positioning", "enabled") }}) {
   // module not big enough to require a class
 
   const className = "fix-ruby-positioning";
-  const defHeader = document.getElementById("def_header");
-  if (defHeader !== null) {
-    defHeader.classList.add(className);
+
+  function addClassToEle(id) {
+    const ele = document.getElementById(id);
+    if (ele !== null) {
+      ele.classList.toggle(className, true);
+    }
   }
+
+  addClassToEle("def_header");
+  addClassToEle("full_sentence");
+  addClassToEle("full_sentence_front");
 
   const expressions = document.querySelectorAll(".expression");
   if (expressions !== null) {

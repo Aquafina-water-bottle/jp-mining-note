@@ -59,8 +59,9 @@ and must use `./install.py --update`.
 - Moved keybinds into its own module, similar to `time-performance`
     - now has a much better interface
 - Added the `keybinds` module (to replace the existing keybinds section under `base.js`)
-- Added the `cache` module (to replace global variables) (STILL WIP)
+- Added the `cache` module (to replace global variables)
 - Updated Persistence from v1.0.0 -> v1.1.8
+- Updated documentation on yomichan templates (no longer in TODO state)
 
 
 
