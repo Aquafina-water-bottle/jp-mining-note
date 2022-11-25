@@ -85,11 +85,11 @@ var paIndicator = (function () {
   my.className = "pa-indicator-color--" + my.type;
 
   if (my.type === "none") {
-    my.tooltip = "Do not test"
+    my.tooltip = "{{ TRANSLATOR.get('pa-indicator-do-not-test') }}"
   } else if (my.type == "word") {
-    my.tooltip = "Word"
+    my.tooltip = "{{ TRANSLATOR.get('pa-indicator-word') }}"
   } else { // sentence
-    my.tooltip = "Sentence"
+    my.tooltip = "{{ TRANSLATOR.get('pa-indicator-sentence') }}"
   }
 
   return my;
@@ -142,7 +142,7 @@ if (keys !== null && keys.includes(e.code)) {
   let svgTitle = document.getElementById("svg_title");
 
   if (svgTitle !== null) {
-    svgTitle.textContent = "PA: " + paIndicator.tooltip;
+    svgTitle.textContent = "{{ TRANSLATOR.get('pa-indicator-prefix') }}" + paIndicator.tooltip;
   }
 
   circ.classList.add(paIndicator.className);

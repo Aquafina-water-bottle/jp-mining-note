@@ -1,6 +1,9 @@
-{% include "jp-mining-note/partials/anki_persistence.js" %}
+{% from "modules/main.html" import modules, USE_PERSISTENCE with context %}
 
-{% from "modules/main.html" import modules with context %}
+{% if USE_PERSISTENCE %}
+{% include "jp-mining-note/partials/anki_persistence.js" %}
+{% endif %}
+
 
 {% for m in modules.values() %}
 {% if m.js is defined and m.js.globals.get(note.card_type, note.side, modules.keys()) %}
@@ -20,6 +23,10 @@
 
 {% if "keybinds" in modules.keys() %}
 {{ modules["keybinds"].functions_manual }}
+{% endif %}
+
+{% if "cache" in modules.keys() %}
+{{ modules["cache"].functions_manual }}
 {% endif %}
 
 

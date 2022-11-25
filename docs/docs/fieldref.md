@@ -324,9 +324,9 @@ Visit the aformentioned link (and scroll down to `Usage`)
 to see how to sort and review your cards by frequency.
 
 
-<br>
+---
 
-## Cloze Deletion Cards
+# Cloze Deletion Cards
 Cloze Deletion cards are, simply put, "fill-in-the-blank cards".
 This allows you to create cards that tests word audio or sentence audio.
 

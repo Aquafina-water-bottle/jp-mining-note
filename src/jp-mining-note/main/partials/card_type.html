@@ -1,26 +1,40 @@
 {# impl #}
 
 {% call IF("IsHoverCard") %}
-  Hover ({% call IF("IsSentenceCard") %}Sentence{% endcall %}{% call IFNOT("IsSentenceCard") %}Word{% endcall %})
+  {{ TRANSLATOR.get('card-type-main-hover') }} (
+  {%- call IF("IsSentenceCard") -%}
+    {{ TRANSLATOR.get('card-type-main-sentence') }}
+  {%- endcall -%}
+  {%- call IFNOT("IsSentenceCard") -%}
+    {{ TRANSLATOR.get('card-type-main-word') }}
+  {%- endcall -%}
+  )
 {% endcall %}
 
 
 {% call IFNOT("IsHoverCard") %}
 
   {% call IF("IsClickCard") %}
-    Click ({% call IF("IsSentenceCard") %}Sentence{% endcall %}{% call IFNOT("IsSentenceCard") %}Word{% endcall %})
+    {{ TRANSLATOR.get('card-type-main-click') }} (
+    {%- call IF("IsSentenceCard") -%}
+      {{ TRANSLATOR.get('card-type-main-sentence') }}
+    {%- endcall -%}
+    {%- call IFNOT("IsSentenceCard") -%}
+      {{ TRANSLATOR.get('card-type-main-word') }}
+    {%- endcall -%}
+    )
   {% endcall %}
 
   {% call IFNOT("IsClickCard") %}
     {% call IF("IsTargetedSentenceCard") %}
-      TSC
+      {{ TRANSLATOR.get('card-type-main-tsc') }}
     {% endcall %}
     {% call IFNOT("IsTargetedSentenceCard") %}
       {% call IF("IsSentenceCard") %}
-        Sentence
+        {{ TRANSLATOR.get('card-type-main-sentence') }}
       {% endcall %}
       {% call IFNOT("IsSentenceCard") %}
-        Word
+        {{ TRANSLATOR.get('card-type-main-word') }}
       {% endcall %}
     {% endcall %}  {# NOT IsTargetedSentenceCard #}
   {% endcall %}  {# NOT IsClickCard #}
@@ -32,7 +46,7 @@
 
   <!-- PADoNotTest or PASeparateWordCard == none -->
   {% call utils.if_any("PADoNotTest", "PASeparateWordCard") %}
-    None
+    {{ TRANSLATOR.get('card-type-main-pitch-none') }}
   {% endcall %}
 
   <!-- neither PADoNotTest, PASeparateWordCard are filled -->
@@ -41,7 +55,7 @@
 
     <!-- PASeparateSentenceCard or PATestOnlyWord == word -->
     {% call utils.if_any("PASeparateSentenceCard", "PATestOnlyWord") %}
-      Word
+      {{ TRANSLATOR.get('card-type-main-word') }}
     {% endcall %}
 
     <!-- if none of the above, then we test the default value -->
@@ -49,10 +63,10 @@
 
       <!-- note: default for TSC is test word, may change in the future... -->
       {% call IF("IsSentenceCard") %}
-        Sentence
+        {{ TRANSLATOR.get('card-type-main-sentence') }}
       {% endcall %}
       {% call IFNOT("IsSentenceCard") %}
-        Word
+        {{ TRANSLATOR.get('card-type-main-word') }}
       {% endcall %}
 
     {% endcall %}

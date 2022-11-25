@@ -8,6 +8,7 @@
 {% set MOD.id = "img-utils" %}
 
 {% set MOD.js = JavascriptContainer(MOD.id) %}
+{% set MOD.use_persistence = True %}
 
 {{ MOD.js.functions.set_all(js.functions) }}
 {{ MOD.js.run.set_back(js.run) }}

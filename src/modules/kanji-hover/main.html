@@ -8,9 +8,8 @@
 {% set MOD.id = "kanji-hover" %}
 
 {% set MOD.js = JavascriptContainer(MOD.id) %}
-{% set MOD.dependencies = ["tooltip-builder", "anki-connect-actions"] %}
+{% set MOD.dependencies = ["cache", "tooltip-builder", "anki-connect-actions"] %}
 
-{{ MOD.js.globals.set_all(js.globals) }}
 {{ MOD.js.functions.set_back(js.functions) }}
 {{ MOD.js.run.set_back(js.run) }}
 

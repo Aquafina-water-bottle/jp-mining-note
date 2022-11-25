@@ -1,5 +1,16 @@
 {# gathers all the modules together in one `modules` variable #}
 
+{#
+
+Required data members of MOD:
+- MOD.id
+
+Optional data members of MOD:
+- MOD.js
+- MOD.dependencies
+
+#}
+
 {% set modules = {} %}
 {% set _module_ids = [] %}
 
@@ -15,6 +26,7 @@
   {% set all_module_ids = [
     "time-performance",
     "keybinds",
+    "cache",
 
     "auto-pitch-accent",
     "img-utils-minimal",
@@ -77,6 +89,18 @@
   {% do modules.update({mod_name: m}) %}
 
 {% endfor %}
+
+
+{# _up_ns == use_persistence namespace #}
+{% set _up_ns = namespace() %}
+{% set _up_ns.use_persistence = False %}
+{% for m in modules.values() %}
+{% if m.use_persistence is defined and m.use_persistence %}
+{% set _up_ns.use_persistence = True %}
+{% endif %}
+{% endfor %}
+
+{% set USE_PERSISTENCE = _up_ns.use_persistence %}
 
 
 

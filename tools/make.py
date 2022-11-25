@@ -12,6 +12,8 @@ from enum import Enum
 from distutils.dir_util import copy_tree
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined, TemplateNotFound
+from json_minify import json_minify
+import json
 
 import utils
 
@@ -121,6 +123,20 @@ class JavascriptContainer:
         self.run = TextContainer(module_name)
 
 
+class Translator:
+
+    def __init__(self, languages: list[str], translations: dict[str, dict[str, str]]):
+        self.languages = languages
+        self.translations = translations
+
+    def get(self, key) -> str:
+        for lang in self.languages:
+            if lang in self.translations and key in self.translations[lang]:
+                return self.translations[lang][key]
+
+        raise Exception(f"Cannot find translation for {key}.")
+
+
 class Generator:
     """
     handles file generation with jinja2, sass, or just copying
@@ -158,12 +174,23 @@ class Generator:
 
         self.css_folders = config("compile-options", "css-folders").list()
 
+        root_folder = utils.get_root_folder()
+        translation_file_path = os.path.join(root_folder, config("translation-file").item())
+
+        with open(translation_file_path, encoding="utf-8") as f:
+            translations = json.loads(json_minify(f.read()))
+
+        languages = config("compile-options", "display-languages").list()
+        translator = Translator(languages, translations)
+
         self.data = {
             # helper methods
             "NOTE_OPTS_JSON": utils.get_note_opts(config),
             "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
             "NOTE_FILES": utils.get_note_config(),
             "COMPILE_OPTIONS": config("compile-options"),
+            "TRANSLATOR": translator,
+
             # helper methods
             "get_directories_with_file": self.get_directories_with_file,
             # helper classes

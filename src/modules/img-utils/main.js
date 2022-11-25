@@ -272,7 +272,7 @@ const JPMNImgUtils = (() => {
     const defAnc = document.createElement('a');
     defAnc.classList.add("glossary__image-hover-text");
     defAnc.href = "javascript:;";
-    defAnc.textContent = "[Image]";
+    defAnc.textContent = "{{ TRANSLATOR.get('image-hover-text') }}";
     defAnc.setAttribute("data-suppress-link-hover", "true");
 
     const defImg = document.createElement('img');
