@@ -213,18 +213,19 @@ Additional markers can be used under the
 [Yomichan Fields](setupyomichan.md#yomichan-fields)
 to further customize what happens during card creation time.
 
+<br>
 
 ## Custom card types on hiragana-only cards
 {{ feature_version("0.11.1.0") }}
 
-> `{jpmn-filled-if-word-is-hiragana}`・`{jpmn-filled-if-word-is-not-hiragana}`
+> Markers: `{jpmn-filled-if-word-is-hiragana}`・`{jpmn-filled-if-word-is-not-hiragana}`
 
 If the word is purely comprised of hiragana,
 you can create different card types by default using these markers.
 
 For example, let's say you want the default card to be a vocab card,
 but want hiragana terms to be [TSCs](cardtypes.md#targeted-sentence-card-tsc).
-To do this, follow the steps below:
+To do exactly that, do the following:
 
 * Navigate to Yomichan settings, and then to `Anki` →  `Configure Anki card format...`.
 * Set `IsTargetedSentenceCard` to `{jpmn-filled-if-word-is-hiragana}`.
@@ -243,9 +244,10 @@ To do this, follow the steps below:
     This was inspired by
     [Marv's hint sentence for kana cards](https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards).
 
+<br>
 
 ## Automatic furigana without AJT Furigana
-> `{jpmn-sentence-bolded-furigana-plain}`
+> Marker: `{jpmn-sentence-bolded-furigana-plain}`
 
 This automatically uses Yomichan's internal furigana generator to
 add furigana to your sentence. Use this under `SentenceReading`.

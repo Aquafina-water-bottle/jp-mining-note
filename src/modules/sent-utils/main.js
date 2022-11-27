@@ -281,6 +281,13 @@ const JPMNSentUtils = (() => {
       if ({{ utils.opt("modules", "sent-utils", "enable-full-sentence-processing") }}) {
         this.processFullSentence();
       }
+
+      if ({{ utils.opt("modules", "sent-utils", "always-hide-full-sentence-front") }}) {
+        const frontSent = document.getElementById("full_sentence_front_details");
+        if (frontSent !== null) {
+          frontSent.classList.toggle("hidden", true);
+        }
+      }
     }
   }
 

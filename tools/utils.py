@@ -373,6 +373,20 @@ def get_root_folder() -> str:
     return root_folder
 
 
+def javascript_format(data):
+    if data is True:
+        return "true"
+    elif data is False:
+        return "false"
+    elif data is None:
+        return "null"
+    elif isinstance(data, str):
+        return '"' + data.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    elif isinstance(data, dict):
+        return json.dumps(data)
+    return data
+
+
 def assert_ankiconnect_running():
     try:
         invoke("version")

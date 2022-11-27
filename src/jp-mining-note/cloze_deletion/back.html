@@ -24,13 +24,33 @@
 
 {% include "jp-mining-note/partials/full_sentence.html" %}
 
+
+
 <!-- hides primary definition since the definition is not important for this card -->
-{% call IF('PrimaryDefinition') %}
-  <details class="glossary-details" id="primary_definition_details">
+{% set _use_external_links = COMPILE_OPTIONS("external-links").item() and COMPILE_OPTIONS("external-links-position").item() == "Primary Definition" %}
+
+{% if not _use_external_links %}
+<div class="outer-display1
+    {% call utils.if_none('PrimaryDefinition', 'PrimaryDefinitionPicture') %}
+      outer-display2
+    {% endcall %}"
+   >
+{% endif %}
+
+  <details class="glossary-details" id="primary_definition_details inner-display1">
     <summary>{{ TRANSLATOR.get('primary-definition') }}</summary>
     {% include "jp-mining-note/partials/primary_definition.html" %}
-</details>
-{% endcall %}
+  </details>
+
+  <div class="glossary-details glossary-details--grey inner-display2">
+    {{ TRANSLATOR.get('primary-definition') }}
+  </div>
+
+{% if not _use_external_links %}
+</div>
+{% endif %}
+
+
 
 {% include "jp-mining-note/partials/other_definitions.html" %}
 

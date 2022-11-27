@@ -88,7 +88,7 @@ FIELDS = {
         "auto_fill": False,
         "binary_field": True,
         "reference": "cardtypes.md#hybrid-cards",
-        "personal_setup": "1",
+        "personal_setup": "{jpmn-filled-if-word-is-not-hiragana}",
     },
     "IsHoverCard": {
         "auto_fill": False,
@@ -99,6 +99,7 @@ FIELDS = {
         "auto_fill": False,
         "binary_field": True,
         "reference": "cardtypes.md#targetted-sentence-card-tsc",
+        "personal_setup": "{jpmn-filled-if-word-is-hiragana}",
     },
     "PAShowInfo": {
         "auto_fill": False,
@@ -456,7 +457,7 @@ def define_env(env):
                 f"    New as of version `{feature_version_str}`. "
                 "This version is currently [bleeding edge](building.md)"
                 '{:target="_blank"}'
-                ", so this feature **cannot be used** unless you compile the templates from the master branch."
+                ", so this feature **cannot be used** unless you compile the templates from the dev branch."
             )
 
         return f"""<sup><i>New in version `{feature_version_str}` (latest version: `{CURRENT_VERSION_STR}`)</i></sup>"""

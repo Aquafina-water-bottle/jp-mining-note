@@ -120,11 +120,15 @@ I also provide a small list of other popular add-ons that I don't use, but may b
             * Good: `#9cff98`
     * [Paste Images As WebP](https://ankiweb.net/shared/info/1151815987)
 
+    **Other:**
+    * [AnkiWebView Inspector](https://ankiweb.net/shared/info/31746032)
 
-??? example "Popular Add-ons that I don't use *(click here)*"
+
+??? example "Useful Add-ons that I don't use *(click here)*"
     * [AJT Mortician](https://ankiweb.net/shared/info/1255924302)
     * [Edit Field During Review Cloze](https://ankiweb.net/shared/info/385888438)
     * [Review Heatmap](https://ankiweb.net/shared/info/1771074083)
+    * [Generate Batch Audio](https://ankiweb.net/shared/info/1156270186)
 
 ---
 

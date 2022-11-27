@@ -1,69 +1,5 @@
 {
 
-  // RESERVED KEYS (by anki):
-  // - e (edit)
-  // - r (replay)
-  // - t (stats)
-  // - y (sync)
-  // - i (card info)
-  // - o (options)
-  // - a (add)
-  // - s (idk exactly what this does tbh)
-  // - d (deck)
-  // - f (filtered deck options)
-  // - v (play recorded voice)
-  // - b (browse)
-  // - m (menu)
-  // - 1, 2, 3, 4 (again, hard, good, easy)
-  // - 5 (pause audio)
-  // - 6 (audio -5s)
-  // - 7 (audio +5s)
-  // - space (good)
-  // - enter (good)
-  //
-  // RESERVED KEYS (by AJT Flexible grading):
-  // - u (undo)
-  // - h, j, k, l: hard / again / good / easy
-  //
-  // FREE KEYS:
-  // - (left)  q w g z x c
-  // - (right) p n 8 9 0 , . ; ' [ ]
-  //
-  // If you want to customize the keybinds, you must find the exact key code
-  // that corresponds to your key. To do so, set "debug-level" to 0, press the
-  // desired key(s), and look at the bottom of the debug log (under the info
-  // circle) within the note. You may need to scroll down.
-  "keybinds": {
-    // Keybind to toggle between showing the sentence and word on click and hover cards.
-    // Equivalent to either clicking on the sentence/word on a click card,
-    // or hovering over the word on a hover card.
-    "toggle-hybrid-sentence": ["KeyN"],
-
-    // Keybind to toggle between showing the tested word in a raw sentence card.
-    // Equivalent to clicking on the "show" button.
-    // This is the same as the above because both should never happen at the same time.
-    "toggle-highlight-word": ["KeyN"],
-
-    // Keybind to toggle a vocab card's full sentence display (front side).
-    "toggle-front-full-sentence-display": ["Quote"],
-
-    "play-sentence-audio": ["KeyP"],
-
-    "play-word-audio": ["KeyW"],
-
-    // Equivalent to toggling the hint show/hide
-    "toggle-hint-display": ["Period"],
-
-    "toggle-secondary-definitions-display": ["Digit8"],
-
-    "toggle-additional-notes-display": ["Digit9"],
-
-    "toggle-extra-definitions-display": ["Digit0"],
-
-    "toggle-extra-info-display": ["BracketLeft"]
-  },
-
-
   "modules": {
 
     // The "enabled" option is not featured here,
@@ -73,27 +9,94 @@
 
       // The debug level for debug messages on how long modules
       // and various parts of javascript take to run.
-      "debug-level": 4,
+      "debug-level": "{{ modules.time-performance.debug-level }}",
 
       // The decimal-place precision used when storing the results.
-      "precision": 3,
+      "precision": "{{ modules.time-performance.precision }}",
 
       // Whether to time modules or not
-      "time-modules": true,
+      "time-modules": "{{ modules.time-performance.time-modules }}",
 
       // Display mode:
       // - If display-full is true, shows all times (recent, average on back, average on front)
       // - If display-full is false, shows depending on `sort-func`
-      "display-full": true,
+      "display-full": "{{ modules.time-performance.display-full }}",
 
       // Sorts the results from largest to smallest
       // options: "mostRecent" or "currentSideAvg"
-      "sort-func": "currentSideAvg"
+      "sort-func": "{{ modules.time-performance.sort-func }}"
     },
 
     "cache": {
       "clear-cache-button": false
     },
+
+    // RESERVED KEYS (by anki):
+    // - e (edit)
+    // - r (replay)
+    // - t (stats)
+    // - y (sync)
+    // - i (card info)
+    // - o (options)
+    // - a (add)
+    // - s (idk exactly what this does tbh)
+    // - d (deck)
+    // - f (filtered deck options)
+    // - v (play recorded voice)
+    // - b (browse)
+    // - m (menu)
+    // - 1, 2, 3, 4 (again, hard, good, easy)
+    // - 5 (pause audio)
+    // - 6 (audio -5s)
+    // - 7 (audio +5s)
+    // - space (good)
+    // - enter (good)
+    //
+    // RESERVED KEYS (by AJT Flexible grading):
+    // - u (undo)
+    // - h, j, k, l: hard / again / good / easy
+    //
+    // FREE KEYS:
+    // - (left)  q w g z x c
+    // - (right) p n 8 9 0 , . ; ' [ ]
+    //
+    // If you want to customize the keybinds, you must find the exact key code
+    // that corresponds to your key. To do so, set "debug-level" to 0, press the
+    // desired key(s), and look at the bottom of the debug log (under the info
+    // circle) within the note. You may need to scroll down.
+    "keybinds": {
+      // Keybind to toggle between showing the sentence and word on click and hover cards.
+      // Equivalent to either clicking on the sentence/word on a click card,
+      // or hovering over the word on a hover card.
+      "toggle-hybrid-sentence": ["KeyN"],
+
+      // Keybind to toggle between showing the tested word in a raw sentence card.
+      // Equivalent to clicking on the "show" button.
+      // This is the same as the above because both should never happen at the same time.
+      "toggle-highlight-word": ["KeyN"],
+
+      // Keybind to toggle a vocab card's full sentence display (front side).
+      "toggle-front-full-sentence-display": ["Quote"],
+
+      "play-sentence-audio": ["KeyP"],
+
+      "play-word-audio": ["KeyW"],
+
+      // Equivalent to toggling the hint show/hide
+      "toggle-hint-display": ["Period"],
+
+      "toggle-secondary-definitions-display": ["Digit8"],
+
+      "toggle-additional-notes-display": ["Digit9"],
+
+      "toggle-extra-definitions-display": ["Digit0"],
+
+      "toggle-extra-info-display": ["BracketLeft"]
+    },
+
+
+
+
 
     // Automatic processing to sentences
     "sent-utils": {
@@ -512,11 +515,6 @@
       }
     },
 
-    "freq-utils": {
-      "enabled": true,
-      // maximum number of frequency list entries shown until it gets moved to the dropdown window
-      "max": 4
-    },
 
     // Quick-fixes the ruby text positioning by moving it closer to the word,
     // at the cost of taking up extra space to the left/right if necessary

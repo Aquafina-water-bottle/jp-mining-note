@@ -2,9 +2,8 @@
  * WARNING: This css is auto-generated.
  * Any changes to this css WILL BE LOST if you decide to update the card.
  *
- * See https://aquafina-water-bottle.github.io/jp-mining-note/modding/
- * if you want to modify the card templates and css without losing your changes
- * upon updates.
+ * See https://aquafina-water-bottle.github.io/jp-mining-note/customcss/
+ * if you want to modify the css without losing your changes upon updates.
  */
 
 
@@ -462,6 +461,8 @@ ruby rt {
 
 .info-circle-text-settings {
   line-height: 0%;
+  display: flex;
+  gap: 5px;
 }
 
 .info-circle-text-settings-border {
@@ -1093,7 +1094,6 @@ ruby rt {
   left: 29px;
 }
 
-
 /*
  * "gap" class to be inserted to elements after the first one,
  * since flex can't be used
@@ -1694,14 +1694,19 @@ ruby rt {
  */
 .frequencies {
   display: flex;
+  gap: 10px;
   font-family: notoserif;
   font-size: var(--description-font-size);
   line-height: 85%;
 }
 
+.frequencies-display {
+  display: flex;
+  gap: 20px;
+}
+
 .frequencies__group {
   display: block;
-  padding-left: 20px;
   text-align: right;
 }
 
@@ -1714,6 +1719,41 @@ ruby rt {
 .frequencies__dictionary {
   font-size: var(--description-footer-font-size);
 }
+
+.frequencies-overflow {
+  fill: var(--card-description-color);
+}
+
+
+.hover-tooltip-wrapper--frequencies-overflow {
+  left: -372px;
+  top: 27px;
+  width: 400px;
+  text-align: right;
+}
+
+.hover-tooltip--frequencies-overflow {
+  display: inline-flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 5px;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.hover-tooltip--frequencies-overflow:after {
+  content: "";
+  /* position tooltip correctly */
+  left: 371px;
+  top: -16px;
+  /* the arrow */
+  z-index: 1;
+  border: 8px solid transparent;
+  border-color:  transparent transparent  var(--tooltip-background-darken) transparent;
+}
+
+
+
 
 /*
  * ---------------------

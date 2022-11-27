@@ -85,7 +85,7 @@ nav:
     - Card Types: cardtypes.md
     - Runtime Options: runtimeoptions.md
     - Compile-Time Options: compiletimeoptions.md
-    - Yomichan Templates: yomichantemplates.md
+    - Yomichan Template Options: yomichantemplates.md
     - Tooltip Results (TODO): tooltipresults.md
     - Developer Documentation:
       - Modding Overview: modding.md

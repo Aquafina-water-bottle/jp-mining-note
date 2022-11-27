@@ -191,7 +191,7 @@ they are discussed in their respective pages:
 # Testing Pitch Accent
 This note type provides many options to target exactly what parts of pitch accent
 you want to test yourself on.
-By default, pitch accent is not tested.
+By default, no special indicator is shown on whether pitch accent is tested or not.
 
 To test for pitch accent, fill the `PAShowInfo` field.
 You should see a circle to the left of the word or sentence.
@@ -228,6 +228,12 @@ Alternatively, you can look at the top right of the screen and look at the value
     (or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
 
     {{ img("show word button demo", "assets/fieldref/show_word_button.gif") }}
+
+
+!!! note
+    If your card is a vocab card, then full sentence is shown as a collapsed field by default.
+    This is only here to check your hearing with your guessed pitch accent, when used
+    in conjunction with the sentence play button.
 
 
 ## Selecting the Pitch Accent

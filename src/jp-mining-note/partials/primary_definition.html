@@ -7,6 +7,11 @@
     glossary-blockquote--primary-definition
     glossary-primary-definition--auto-no-lenience
     {% call IFNOT('PrimaryDefinition') %} glossary-primary-definition--no-definition {% endcall %}
+    {% if not _use_external_links %}
+      {% call utils.if_none('PrimaryDefinition', 'PrimaryDefinitionPicture') %}
+        hidden
+      {% endcall %}
+    {% endif %}
     " id="primary_definition">
 
 

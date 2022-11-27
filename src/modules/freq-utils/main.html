@@ -1,16 +1,15 @@
-{# check duplicate key module #}
+{# freq-utils module #}
 
 
-{% import "modules/check-duplicate-key/main.js" as js with context %}
+{% import "modules/freq-utils/main.js" as js with context %}
 
 
 {# required boilerplate #}
 {% set MOD = namespace() %}
-{% set MOD.id = "check-duplicate-key" %}
+{% set MOD.id = "freq-utils" %}
 
 {# interface for modules that change javascript #}
 {% set MOD.js = JavascriptContainer(MOD.id) %}
-{% set MOD.dependencies = ["cache", "anki-connect-actions"] %}
 
 {# prints a "Hello world" on the front side of all cards #}
 {{ MOD.js.functions.set_back(js.functions) }}

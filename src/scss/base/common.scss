@@ -9,7 +9,7 @@ $bp-combine-picture: 620px;
 @use "sass:math";
 
 
-/* stolen from mkdocs material */
+// stolen from mkdocs material
 @function px2rem($size, $base: 16px) {
   @if unit($size) == px {
     @if unit($base) == px {
@@ -48,6 +48,12 @@ $bp-combine-picture: 620px;
   --dark-mode-accent: #fffd9e;
 
   --zoom: 1;
+
+  --pa-overline-height-above-text: 0px;
+  --pa-overline-downstep-padding: 3px;
+  --pa-overline-thickness: 2px;
+  --pa-overline-downstep-height: 0.4em;
+  --pa-overline-downstep-left-offset: 1px;
 
 
   /* external links */
@@ -212,16 +218,17 @@ $bp-combine-picture: 620px;
   .downstep {
     color: var(--pa-overline-color);
     position: relative;
+    margin-right: var(--pa-overline-downstep-padding);
   }
   .downstep:before {
-    content: '';
-    width: 2px;
-    height: 18%;
+    content: "";
+    width: var(--pa-overline-thickness);
+    height: var(--pa-overline-downstep-height);
     background: var(--pa-overline-color);
     position: absolute;
     display: block;
-    top: 0px;
-    left: 0px;
+    top: var(--pa-overline-height-above-text);
+    left: var(--pa-overline-downstep-left-offset);
   }
 
 
@@ -232,12 +239,14 @@ $bp-combine-picture: 620px;
   }
   .pitchoverline:after {
     content: '';
-    width: 100%;
-    height: 2px;
+    // the subtraction is so the two rectangles don't overlap
+    // (causes a visible chagnge in brightness when bolded / opacity filter is applied)
+    width: calc(100% + var(--pa-overline-downstep-padding) - var(--pa-overline-thickness));
+    height: var(--pa-overline-thickness);
     background: var(--pa-overline-color);
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: var(--pa-overline-height-above-text);
+    left: 0px;
   }
 
 
@@ -259,39 +268,21 @@ $bp-combine-picture: 620px;
 @mixin bold-pitch {
 
   b {
+    --pa-overline-height-above-text: -1px;
+    --pa-overline-downstep-padding: 2px;
+    --pa-overline-thickness: 1px;
+    --pa-overline-downstep-left-offset: 1px;
+
     font-weight: normal;
     filter: opacity(30%);
     font-size: 15px;
-  }
-
-  b .pitchoverline:after {
-    content: '';
-    width: 100%;
-    height: 1px;
-    background: var(--pa-overline-color);
-    position: absolute;
-    top: -1px;
-    right: -1px;
-  }
-
-  b .downstep:before {
-    content: '';
-    width: 1px;
-    height: 25%;
-    background: var(--pa-overline-color);
-    /*filter: brightness(var(--pa-brightness-reduce));*/
-    position: absolute;
-    display: block;
-    top: -1px;
-    left: 0px;
   }
 
 }
 
 
 @mixin bold_highlight {
-  //text-shadow:  var(--highlight-bold-shadow);
-  color:        var(--highlight-bold-color);
+  color: var(--highlight-bold-color);
 }
 
 
@@ -299,6 +290,6 @@ $bp-combine-picture: 620px;
   @return calc(var(--external-links-icon-size) * $n + ($n - 1) * var(--external-links-gap));
 }
 
-/* stolen from discord's inspect element css */
+// stolen from discord's inspect element css
 $monospace-fonts: Consolas,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Monaco,Courier New,Courier,monospace;
 
