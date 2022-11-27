@@ -63,7 +63,7 @@
       so this should be all ignored. -->
     <div class="dh-left__word-pitch {{word_pitch_class}}" id="dh_word_pitch">
 
-      <!--
+      {# below with whitespace
         {% call IF("PAOverrideText") %}
           {{ T("PAOverrideText") }}
         {% endcall %}
@@ -77,7 +77,7 @@
             {% endcall %}
           {% endcall %}
         {% endcall %}
-      -->
+      #}
 
       <!-- wrapped around to prevent title from appearing to the sides -->
       <span class="dh-left__word-pitch-text" id="dh_word_pitch_text"

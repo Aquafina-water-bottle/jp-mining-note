@@ -1,6 +1,6 @@
 # jp-mining-note
 
-**jp-mining-note** (JPMN) is an Anki card template for studying Japanese,
+**jp-mining-note** (JPMN) is a highly customizable Anki card template for studying Japanese,
 designed to be visually appealing and simple to use without sacrificing functionality.
 Easily paired with most automatic card creation workflows,
 this aims to make your experience with Anki as smooth as possible.

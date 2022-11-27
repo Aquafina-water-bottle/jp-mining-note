@@ -1,6 +1,24 @@
-<div class="frequencies">
-  {% call IF("FrequenciesStylized") %}
-    {{ T("FrequenciesStylized") }}
-  {% endcall %}
+<div class="frequencies" id="frequencies">
+
+  <div class="frequencies-display" id="frequencies_display">
+    {% call IF("FrequenciesStylized") %}
+      {{ T("FrequenciesStylized") }}
+    {% endcall %}
+  </div>
+
+  <span class="
+      hover-wrapper
+      frequencies-overflow
+      hidden
+      " id="frequencies_overflow">
+    <span class="hover-text">
+      {% include "jp-mining-note/partials/dropdown_arrow_svg.html" %}
+    </span>
+    <span class="hover-tooltip-wrapper hover-tooltip-wrapper--frequencies-overflow">
+      <span class="hover-tooltip hover-tooltip--frequencies-overflow"
+          id="frequencies_overflow_tooltip"></span>
+    </span>
+  </span>
+
 </div>
 

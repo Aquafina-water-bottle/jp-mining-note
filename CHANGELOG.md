@@ -34,9 +34,15 @@ and must use `./install.py --update`.
 - Re-added way to specify whether newlines are removed or not, using css
 - Separated `stylize-images-in-glossary` option into `stylize-images-in-glossary` and `primary-definition-picture.enabled`
 - Added option to toggle whether click cards reveal the sentences on the back side of cards or not (`click-card-sentence-reveal-on-back-side`)
-- `sent-utils` now searches the full sentence to adjust if quoted
+- `sent-utils` now searches the full sentence to adjust if quoted. Sentences in kanji hover and word indicators are not covered yet.
 - Increased the size of the PrimaryDefinitionPicture img by default if there is no text in PrimaryDefinition
 - Added way to translate the card (and added English and Japanese as pre-supported options)
+- Tweaked the pitch accent display so the downstep is a bit more obvious
+- Added support to remove the primary definition blockquote if nothing is there
+- Added spacing between options in the info circle
+- Added clear cache option in info circle options (disabled by default)
+- Added a dropdown feature for frequencies when there are too many frequencies (max 4 by default)
+- (WIP, NOT WORKING YET) Added a way to automatically update the `_jpmn_options.js` file and `config/user_jpmn_opts.json` file using the regular `install.py` script
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
@@ -45,6 +51,7 @@ and must use `./install.py --update`.
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
 - Fixed ruby sentence regex not working on non-rubified sentences
+- Fixed some modules not properly containing the cache dependency
 
 #### Internal Changes
 - Re-ordered `sent-utils` to be under `img-utils` because that seems to speed up performance for some reason

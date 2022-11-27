@@ -143,11 +143,12 @@ CONFIG = {
             "sent-utils",
             "auto-highlight-word",
 
-            "customize-open-fields",
             "kanji-hover",
+            "customize-open-fields",
             "word-indicators",
 
             "info-circle-utils",
+            "freq-utils",
             "fix-ruby-positioning",
             "check-duplicate-key",
         ],

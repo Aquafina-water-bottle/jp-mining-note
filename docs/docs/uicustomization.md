@@ -436,10 +436,15 @@ This {{ CSS }} allows you to limit the number of frequencies shown at the top ri
 By default, the display language is in English.
 Currently, Japanese and English are supported as display languages.
 
-To change the display language, use the following {{ CTO }}:
+To change the display language (say, to Japanese), use the following {{ CTO }}:
 ```
 "display-languages": ["jp", "en"],
 ```
+
+!!! note
+    Currently, only some text is supported.
+    This means that various tooltips on hover, warning messages, etc.
+    will still be in English.
 
 ---
 
@@ -450,8 +455,8 @@ To change the display language, use the following {{ CTO }}:
 # Highlight the word within the tooltips
 {{ feature_version("0.11.0.0") }}
 
-The word within the sentences are not highlighted by default.
-This {{ CSS }} allows said words to be highlighted.
+Within the tooltips, the word is not highlighted by default.
+This {{ CSS }} allows the words to be highlighted within the sentence.
 
 
 === "Highlighted"

@@ -139,6 +139,10 @@ Please check the following in particular:
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
     see the [Fix Ruby Positioning](uicustomization.md#fix-ruby-positioning-for-legacy-anki-versions) option.
 
+1. If the frequency list on the top right appears to be squished (with no spacing between the elements)
+    see the FAQ on
+    [fixing the frequency list display](faq.md#the-frequency-list-display-looks-squished).
+
 
 ---
 

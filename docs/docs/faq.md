@@ -124,6 +124,31 @@ See [here](ui.md#automatic-word-highlighting) for more info.
 
 ---
 
+
+
+## The frequency list display looks squished.
+
+{{ img("anki export package", "assets/faq/frequency_comparison.png", 'align=right') }}
+
+This is because you are using Anki version 2.1.49 or below.
+There are two main ways of fixing this:
+
+1. Update to a higher version of Anki (recommended).
+1. Add the following {{ CSS }}:
+    ```css
+    .frequencies__group {
+      margin-left: 20px;
+    }
+
+    .frequencies-overflow {
+      margin-left: 10px;
+    }
+    ```
+
+---
+
+
+
 ## The Show/Hide button doesn't do anything.
 The show/hide button requires that the displayed sentence has a bolded element.
 For example, this means if the currently displayed sentence comes from the `AltDisplay`
@@ -436,7 +461,7 @@ for more info.
 Preview any card. The version should be displayed at the top left corner.
 
 For mobile, the version be shown at the top right corner.
-Note that this is only displayed on versions `0.11.1.0` and above.
+Note that this is only displayed on mobile for versions `0.11.1.0` and above.
 
 <figure markdown>
 {{ img("version location", "assets/faq/jpmn_version.png") }}
