@@ -247,6 +247,8 @@ To do exactly that, do the following:
 <br>
 
 ## Automatic furigana without AJT Furigana
+{{ feature_version("0.11.0.0") }}
+
 > Marker: `{jpmn-sentence-bolded-furigana-plain}`
 
 This automatically uses Yomichan's internal furigana generator to
