@@ -29,7 +29,7 @@ page.
 # Installing Anki
 
 Download and install Anki from [the official website](https://apps.ankiweb.net/) if you haven't already.
-I recommend downloading the latest version.
+I recommend downloading the latest version, to avoid having to do extra steps during the setup.
 
 ---
 
