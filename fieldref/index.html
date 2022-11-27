@@ -802,15 +802,15 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cloze-deletion-cards" class="md-nav__link">
     Cloze Deletion Cards
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -900,7 +900,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
+        Yomichan Template Options
       </a>
     </li>
   
@@ -1252,15 +1252,15 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cloze-deletion-cards" class="md-nav__link">
     Cloze Deletion Cards
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1686,7 +1686,7 @@ they are discussed in their respective pages:</p>
 <h2 id="testing-pitch-accent">Testing Pitch Accent<a class="headerlink" href="#testing-pitch-accent" title="Permanent link">&para;</a></h2>
 <p>This note type provides many options to target exactly what parts of pitch accent
 you want to test yourself on.
-By default, pitch accent is not tested.</p>
+By default, no special indicator is shown on whether pitch accent is tested or not.</p>
 <p>To test for pitch accent, fill the <code>PAShowInfo</code> field.
 You should see a circle to the left of the word or sentence.</p>
 <h3 id="pitch-accent-indicator">Pitch Accent Indicator<a class="headerlink" href="#pitch-accent-indicator" title="Permanent link">&para;</a></h3>
@@ -1711,6 +1711,12 @@ To see the word that is tested, there is a button to toggle whether the word is 
 The content that is highlighted is exactly what is bolded in the <code>Sentence</code>
 (or <code>AltDisplay</code> / <code>AltDisplayPASentenceCard</code>) field, which is the added word by default.</p>
 <p><a href="../assets/fieldref/show_word_button.gif"><img alt="show word button demo" src="../assets/fieldref/show_word_button.gif" /></a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your card is a vocab card, then full sentence is shown as a collapsed field by default.
+This is only here to check your hearing with your guessed pitch accent, when used
+in conjunction with the sentence play button.</p>
 </div>
 <h3 id="selecting-the-pitch-accent">Selecting the Pitch Accent<a class="headerlink" href="#selecting-the-pitch-accent" title="Permanent link">&para;</a></h3>
 <p>The following shows how to fill in the proper fields to test pitch accent:</p>
@@ -1814,8 +1820,8 @@ which is the equivalent of Marv's <code>Frequency</code> field in
 <a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a> guide.
 Visit the aformentioned link (and scroll down to <code>Usage</code>)
 to see how to sort and review your cards by frequency.</p>
-<p><br></p>
-<h3 id="cloze-deletion-cards">Cloze Deletion Cards<a class="headerlink" href="#cloze-deletion-cards" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="cloze-deletion-cards">Cloze Deletion Cards<a class="headerlink" href="#cloze-deletion-cards" title="Permanent link">&para;</a></h2>
 <p>Cloze Deletion cards are, simply put, "fill-in-the-blank cards".
 This allows you to create cards that tests word audio or sentence audio.</p>
 <p>To create a cloze deletion card, simply fill in the <code>SeparateClozeDeletionCard</code> field.
@@ -1829,7 +1835,7 @@ There's currently no shortcut to creating a sentence audio card.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 27, 2022</span>
       
     
   </small>

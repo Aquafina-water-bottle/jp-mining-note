@@ -733,6 +733,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#changing-the-display-language" class="md-nav__link">
+    Changing the display language
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#highlight-the-word-within-the-tooltips" class="md-nav__link">
     Highlight the word within the tooltips
   </a>
@@ -867,7 +874,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
+        Yomichan Template Options
       </a>
     </li>
   
@@ -1164,6 +1171,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#changing-the-display-language" class="md-nav__link">
+    Changing the display language
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#highlight-the-word-within-the-tooltips" class="md-nav__link">
     Highlight the word within the tooltips
   </a>
@@ -1298,6 +1312,7 @@ if the furigana text is too long.</p>
 </ul>
 <details class="example">
 <summary>CSS to hide extra text <em>(click here)</em></summary>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
@@ -1328,7 +1343,6 @@ if the furigana text is too long.</p>
 </ul>
 <details class="example">
 <summary>CSS to hide dictionary tag(s) <em>(click here)</em></summary>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:
@@ -1615,11 +1629,43 @@ This will grey out the frequencies past the 5th frequency in the editor.</p>
 </li>
 </ol>
 </details>
+<details class="example">
+<summary>TODO: ONLY VERSION <code>0.11.1.0</code> and over, NOT RELEASED YET</summary>
+<p>By default, a maximum of 4 frequencies are shown.
+Any more frequency list entries will appear in a dropdown arrow
+to the right of the frequencies.</p>
+<p>You can edit the following <a href="../runtimeoptions/" target="_blank">runtime option</a> to adjust this number:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">&quot;modules&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="nt">&quot;freq-utils&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">      </span><span class="nt">&quot;max&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div></p>
+</details>
+<hr />
+<h2 id="changing-the-display-language">Changing the display language<a class="headerlink" href="#changing-the-display-language" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<p>By default, the display language is in English.
+Currently, Japanese and English are supported as display languages.</p>
+<p>To change the display language (say, to Japanese), use the following <a href="../compiletimeoptions/" target="_blank">compile-time option</a>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>&quot;display-languages&quot;: [&quot;jp&quot;, &quot;en&quot;],
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, only some text is supported.
+This means that various tooltips on hover, warning messages, etc.
+will still be in English.</p>
+</div>
 <hr />
 <h2 id="highlight-the-word-within-the-tooltips">Highlight the word within the tooltips<a class="headerlink" href="#highlight-the-word-within-the-tooltips" title="Permanent link">&para;</a></h2>
 <p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.2</code>)</i></sup></p>
-<p>The word within the sentences are not highlighted by default.
-This <a href="../customcss/" target="_blank">CSS</a> allows said words to be highlighted.</p>
+<p>Within the tooltips, the word is not highlighted by default.
+This <a href="../customcss/" target="_blank">CSS</a> allows the words to be highlighted within the sentence.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Highlighted</label><label for="__tabbed_5_2">Not Highlighted (default)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1635,10 +1681,10 @@ This <a href="../customcss/" target="_blank">CSS</a> allows said words to be hig
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">.</span><span class="nc">hover-tooltip</span><span class="w"> </span><span class="p">.</span><span class="nc">hover-tooltip__sent-div</span><span class="w"> </span><span class="nt">b</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--accent</span><span class="p">);</span><span class="w"></span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">.</span><span class="nc">hover-tooltip</span><span class="w"> </span><span class="p">.</span><span class="nc">hover-tooltip__sent-div</span><span class="w"> </span><span class="nt">b</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--accent</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </li>
 </ol>
@@ -1653,9 +1699,9 @@ This indicator can be removed with the following <a href="../customcss/" target=
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">.</span><span class="nc">dh-left__word-pitch-text</span><span class="p">:</span><span class="nd">empty</span><span class="p">:</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">.</span><span class="nc">dh-left__word-pitch-text</span><span class="p">:</span><span class="nd">empty</span><span class="p">:</span><span class="nd">before</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="k">content</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </li>
 </ol>
@@ -1664,7 +1710,7 @@ This indicator can be removed with the following <a href="../customcss/" target=
 <h2 id="keeping-and-removing-newlines-within-the-display-sentence">Keeping and removing newlines within the display sentence<a class="headerlink" href="#keeping-and-removing-newlines-within-the-display-sentence" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
+<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
 </div>
 <p>You can add newlines to the <code>Sentence</code> field to make the full sentence
 field have cleaner line breaks.
@@ -1681,9 +1727,9 @@ To override this option, you can use the following <a href="../customcss/" targe
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </li>
 </ol>
@@ -1692,9 +1738,9 @@ To override this option, you can use the following <a href="../customcss/" targe
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </li>
 </ol>
@@ -1705,13 +1751,13 @@ field is not being used as the display sentence.</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
-<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">expression-inner--altdisplay</span><span class="o">)</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="p">.</span><span class="nc">expression</span><span class="w"> </span><span class="p">.</span><span class="nc">expression-inner</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">expression-inner--altdisplay</span><span class="o">)</span><span class="w"> </span><span class="nt">br</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </li>
 </ol>
@@ -1728,12 +1774,12 @@ the furigana on the kanjis within hover.</p>
 <ol>
 <li>
 <p>Under <code>extra/style.scss</code>, add the following code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">.</span><span class="nc">dh-left__reading</span><span class="w"> </span><span class="nt">ruby</span><span class="w"> </span><span class="nt">rt</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="p">.</span><span class="nc">hover-tooltip__word-div</span><span class="w"> </span><span class="nt">ruby</span><span class="w"> </span><span class="nt">rt</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="p">.</span><span class="nc">dh-left__reading</span><span class="w"> </span><span class="nt">ruby</span><span class="w"> </span><span class="nt">rt</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="p">.</span><span class="nc">hover-tooltip__word-div</span><span class="w"> </span><span class="nt">ruby</span><span class="w"> </span><span class="nt">rt</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 </li>
 </ol>
@@ -1748,7 +1794,7 @@ to further modify the card. Head over to the <a href="../fieldref/">Field Refere
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 27, 2022</span>
       
     
   </small>

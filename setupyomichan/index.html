@@ -812,7 +812,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
+        Yomichan Template Options
       </a>
     </li>
   
@@ -2130,17 +2130,26 @@ add the following template code as follows:</p>
 <a id="__codelineno-1-716" name="__codelineno-1-716" href="#__codelineno-1-716"></a><span class="s2">    {{~/scope~}}</span>
 <a id="__codelineno-1-717" name="__codelineno-1-717" href="#__codelineno-1-717"></a><span class="s2">{{/inline}}</span>
 <a id="__codelineno-1-718" name="__codelineno-1-718" href="#__codelineno-1-718"></a>
-<a id="__codelineno-1-719" name="__codelineno-1-719" href="#__codelineno-1-719"></a>
-<a id="__codelineno-1-720" name="__codelineno-1-720" href="#__codelineno-1-720"></a>
-<a id="__codelineno-1-721" name="__codelineno-1-721" href="#__codelineno-1-721"></a><span class="s2">{{~! a test to check if your dictionaries are correctly classified. ~}}</span>
-<a id="__codelineno-1-722" name="__codelineno-1-722" href="#__codelineno-1-722"></a><span class="s2">{{~! Only meant to be used for debugging purposes, not Anki. ~}}</span>
-<a id="__codelineno-1-723" name="__codelineno-1-723" href="#__codelineno-1-723"></a><span class="s2">{{~#*inline &quot;</span><span class="nv">jpmn-test-dict-type</span><span class="err">&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-724" name="__codelineno-1-724" href="#__codelineno-1-724"></a><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-725" name="__codelineno-1-725" href="#__codelineno-1-725"></a><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-726" name="__codelineno-1-726" href="#__codelineno-1-726"></a><span class="x">「</span><span class="cp">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">」: </span><span class="cp">{{</span><span class="k">&gt;</span> <span class="nv">jpmn-get-dict-type</span> <span class="err">.</span> <span class="na">dictionaryName</span><span class="o">=</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-727" name="__codelineno-1-727" href="#__codelineno-1-727"></a><span class="cp">{{</span><span class="m m-Attribute">/each~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-728" name="__codelineno-1-728" href="#__codelineno-1-728"></a><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
-<a id="__codelineno-1-729" name="__codelineno-1-729" href="#__codelineno-1-729"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-719" name="__codelineno-1-719" href="#__codelineno-1-719"></a><span class="s2">{{#*inline &quot;</span><span class="nv">jpmn-filled-if-word-is-not-hiragana</span><span class="s2">&quot;}}</span>
+<a id="__codelineno-1-720" name="__codelineno-1-720" href="#__codelineno-1-720"></a><span class="s2">    {{~#scope~}}</span>
+<a id="__codelineno-1-721" name="__codelineno-1-721" href="#__codelineno-1-721"></a><span class="s2">        {{~#set &quot;</span><span class="nv">filled</span><span class="s2">&quot; ~}}{{&gt; jpmn-filled-if-word-is-hiragana}}{{/set~}}</span>
+<a id="__codelineno-1-722" name="__codelineno-1-722" href="#__codelineno-1-722"></a><span class="s2">        {{~#if (op &quot;</span><span class="na">==</span><span class="o">=</span><span class="s2">&quot; (get &quot;</span><span class="nv">filled</span><span class="s2">&quot;) &quot;&quot;)~}}</span>
+<a id="__codelineno-1-723" name="__codelineno-1-723" href="#__codelineno-1-723"></a><span class="s2">            1</span>
+<a id="__codelineno-1-724" name="__codelineno-1-724" href="#__codelineno-1-724"></a><span class="s2">        {{~/if~}}</span>
+<a id="__codelineno-1-725" name="__codelineno-1-725" href="#__codelineno-1-725"></a><span class="s2">    {{~/scope~}}</span>
+<a id="__codelineno-1-726" name="__codelineno-1-726" href="#__codelineno-1-726"></a><span class="s2">{{/inline}}</span>
+<a id="__codelineno-1-727" name="__codelineno-1-727" href="#__codelineno-1-727"></a>
+<a id="__codelineno-1-728" name="__codelineno-1-728" href="#__codelineno-1-728"></a>
+<a id="__codelineno-1-729" name="__codelineno-1-729" href="#__codelineno-1-729"></a>
+<a id="__codelineno-1-730" name="__codelineno-1-730" href="#__codelineno-1-730"></a><span class="s2">{{~! a test to check if your dictionaries are correctly classified. ~}}</span>
+<a id="__codelineno-1-731" name="__codelineno-1-731" href="#__codelineno-1-731"></a><span class="s2">{{~! Only meant to be used for debugging purposes, not Anki. ~}}</span>
+<a id="__codelineno-1-732" name="__codelineno-1-732" href="#__codelineno-1-732"></a><span class="s2">{{~#*inline &quot;</span><span class="nv">jpmn-test-dict-type</span><span class="err">&quot;</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-733" name="__codelineno-1-733" href="#__codelineno-1-733"></a><span class="cp">{{</span><span class="m m-Attribute">~#scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-734" name="__codelineno-1-734" href="#__codelineno-1-734"></a><span class="cp">{{</span><span class="m m-Attribute">~#each</span> <span class="nv">definition.definitions</span><span class="m">~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-735" name="__codelineno-1-735" href="#__codelineno-1-735"></a><span class="x">「</span><span class="cp">{{</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x">」: </span><span class="cp">{{</span><span class="k">&gt;</span> <span class="nv">jpmn-get-dict-type</span> <span class="err">.</span> <span class="na">dictionaryName</span><span class="o">=</span><span class="nv">dictionary</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-736" name="__codelineno-1-736" href="#__codelineno-1-736"></a><span class="cp">{{</span><span class="m m-Attribute">/each~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-737" name="__codelineno-1-737" href="#__codelineno-1-737"></a><span class="cp">{{</span><span class="m m-Attribute">~/scope~</span><span class="cp">}}</span><span class="x"></span>
+<a id="__codelineno-1-738" name="__codelineno-1-738" href="#__codelineno-1-738"></a><span class="cp">{{</span><span class="m m-Attribute">~/inline~</span><span class="cp">}}</span><span class="x"></span>
 </code></pre></div>
 </details>
 </li>
@@ -2211,9 +2220,8 @@ This simply shows how to make the cards on Android.</p>
 <p>If you wish to add cards on Android, use
 <a href="https://github.com/KamWithK/AnkiconnectAndroid">AnkiconnectAndroid</a>
 and follow the instructions on the AnkiconnectAndroid's README page.
-After getting Yomichan working,
-you should be able to simply export a copy of Yomichan settings from your PC
-and import those on Android.</p>
+It might help to export a copy of Yomichan settings from your PC and import said settings on Android,
+instead of re-doing all of the steps on Android.</p>
 <p>In addition to the above instructions, you may have to disable duplicate checks
 in order for the application to work.</p>
 <p>There is currently no way to automatically add an image (e.g. a screenshot) automatically.
@@ -2263,7 +2271,7 @@ for specific tips on a select few programs.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 25, 2022</span>
       
     
   </small>

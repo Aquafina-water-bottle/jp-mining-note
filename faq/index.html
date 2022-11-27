@@ -706,7 +706,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
+        Yomichan Template Options
       </a>
     </li>
   
@@ -934,6 +934,13 @@
           <li class="md-nav__item">
   <a href="#the-word-is-incorrectly-highlighted-not-highlighted-at-all" class="md-nav__link">
     The word is incorrectly highlighted / not highlighted at all.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-frequency-list-display-looks-squished" class="md-nav__link">
+    The frequency list display looks squished.
   </a>
   
 </li>
@@ -1217,6 +1224,13 @@
           <li class="md-nav__item">
   <a href="#the-word-is-incorrectly-highlighted-not-highlighted-at-all" class="md-nav__link">
     The word is incorrectly highlighted / not highlighted at all.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-frequency-list-display-looks-squished" class="md-nav__link">
+    The frequency list display looks squished.
   </a>
   
 </li>
@@ -1529,6 +1543,23 @@ However, this highlight may yield incorrect results.
 if the highlight is incorrect.</p>
 <p>See <a href="../ui/#automatic-word-highlighting">here</a> for more info.</p>
 <hr />
+<h3 id="the-frequency-list-display-looks-squished">The frequency list display looks squished.<a class="headerlink" href="#the-frequency-list-display-looks-squished" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/faq/frequency_comparison.png"><img align="right" alt="anki export package" src="../assets/faq/frequency_comparison.png" /> </a></p>
+<p>This is because you are using Anki version 2.1.49 or below.
+There are two main ways of fixing this:</p>
+<ol>
+<li>Update to a higher version of Anki (recommended).</li>
+<li>Add the following <a href="../customcss/" target="_blank">CSS</a>:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">.</span><span class="nc">frequencies__group</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="k">margin-left</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">.</span><span class="nc">frequencies-overflow</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">margin-left</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div></li>
+</ol>
+<hr />
 <h3 id="the-showhide-button-doesnt-do-anything">The Show/Hide button doesn't do anything.<a class="headerlink" href="#the-showhide-button-doesnt-do-anything" title="Permanent link">&para;</a></h3>
 <p>The show/hide button requires that the displayed sentence has a bolded element.
 For example, this means if the currently displayed sentence comes from the <code>AltDisplay</code>
@@ -1561,15 +1592,15 @@ allowing it to be shared easily on a place like Discord.</p>
 <p>If your card looks like this:</p>
 <p><a href="../assets/faq/quote_different_lines.png"><img alt="quotes on different lines" src="../assets/faq/quote_different_lines.png" /></a></p>
 <p>then your <code>Sentence</code> field is likely formatted internally similar to the following example:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>マスターと行動を共にするとは万死に値するデース<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>マスターと行動を共にするとは万死に値するデース<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </code></pre></div></p>
 <p>To fix this, edit the <code>Sentence</code> <a href="./#how-do-i-edit-the-fields-raw-html">field html</a>
 to remove the <code>&lt;div&gt;</code> tags, and add <code>&lt;br&gt;</code> tags
 wherever a line break should appear.
 For example, the above should be changed into:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>マスターと行動を共にするとは万死に値するデース
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>そうデスサーヴァントの凸守を<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>差し置いて<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>マスターと行動を共にするとは万死に値するデース
 </code></pre></div></p>
 <details class="info">
 <summary>Why this can happen <em>(click here)</em></summary>
@@ -1602,15 +1633,15 @@ fill the <code>IsSentenceCard</code> field there.</p>
 </li>
 <li>
 <p>Python script:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># assuming you are at the root of the repo,
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>cd ./tools
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a># sets all `IsSentenceCard` fields to be filled
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python3 batch.py --fill-field &quot;IsSentenceCard&quot;
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a># empties all `IsSentenceCard` fields
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>python3 batch.py --empty-field &quot;IsSentenceCard&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># assuming you are at the root of the repo,
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># i.e. after the `git clone ...` and `cd jp-mining-note`
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>cd ./tools
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># sets all `IsSentenceCard` fields to be filled
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>python3 batch.py --fill-field &quot;IsSentenceCard&quot;
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a># empties all `IsSentenceCard` fields
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>python3 batch.py --empty-field &quot;IsSentenceCard&quot;
 </code></pre></div>
 </li>
 <li>
@@ -1640,7 +1671,7 @@ fill the <code>IsSentenceCard</code> field there.</p>
 </li>
 <li>
 <p>Select all notes without furigana, with the following search:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&quot;note:JP Mining Note&quot; SentenceReading:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;note:JP Mining Note&quot; SentenceReading:
 </code></pre></div></p>
 </li>
 <li>
@@ -1668,7 +1699,7 @@ If <code>PAPositions</code> is not filled, then the card cannot be automatically
 </li>
 <li>
 <p>Select all notes with an empty <code>AJTWordPitch</code> field, with the following search:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;note:JP Mining Note&quot; AJTWordPitch:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;note:JP Mining Note&quot; AJTWordPitch:
 </code></pre></div></p>
 </li>
 <li>
@@ -1789,7 +1820,7 @@ for more info.</p>
 <h3 id="how-do-i-see-the-version-of-jp-mining-note">How do I see the version of jp-mining-note?<a class="headerlink" href="#how-do-i-see-the-version-of-jp-mining-note" title="Permanent link">&para;</a></h3>
 <p>Preview any card. The version should be displayed at the top left corner.</p>
 <p>For mobile, the version be shown at the top right corner.
-Note that this is only displayed on versions <code>0.11.1.0</code> and above.</p>
+Note that this is only displayed on mobile for versions <code>0.11.1.0</code> and above.</p>
 <figure>
 <p><a href="../assets/faq/jpmn_version.png"><img alt="version location" src="../assets/faq/jpmn_version.png" /></a></p>
 </figure>
@@ -1841,7 +1872,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 27, 2022</span>
       
     
   </small>

@@ -671,15 +671,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#images" class="md-nav__link">
-    Images
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pitch-accent" class="md-nav__link">
-    Pitch Accent
+  <a href="#images-pitch-accent" class="md-nav__link">
+    Images &amp; Pitch Accent
   </a>
   
 </li>
@@ -819,7 +812,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
+        Yomichan Template Options
       </a>
     </li>
   
@@ -1068,15 +1061,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#images" class="md-nav__link">
-    Images
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pitch-accent" class="md-nav__link">
-    Pitch Accent
+  <a href="#images-pitch-accent" class="md-nav__link">
+    Images &amp; Pitch Accent
   </a>
   
 </li>
@@ -1237,12 +1223,22 @@ in a previous card, to differentiate between similar kanjis, etc.</p>
 <p>By default, it searches for the kanji within the "Word" field,
 within "JP Mining Note" types.</p>
 <p><a href="../assets/ui/kanji_hover.gif"><img alt="kanji hover demo" src="../assets/ui/kanji_hover.gif" /></a></p>
+<p><strong>Various Details:</strong></p>
+<ul>
+<li>
 <p>You may have noticed that some results are greyed out.
-These represent words from cards that have not been reviewed yet.
-Conversely, as non-greyed out results come from cards that you have already reviewed,
-they should represent words that you already know.</p>
-<p>Additionally, pitch accents are also shown when you hover over a particular word
-within the tooltip.</p>
+    These represent words from cards that have not been reviewed yet.
+    Conversely, as non-greyed out results come from cards that you have already reviewed,
+    they should represent words that you already know.</p>
+</li>
+<li>
+<p>Pitch accents are shown when you hover over a particular word
+    within the tooltip. You can change this to always be shown in the <a href="../runtimeoptions/" target="_blank">runtime options</a>.</p>
+</li>
+<li>
+<p>You can click on the word to open the specified card within Anki's card browser.</p>
+</li>
+</ul>
 <p>See <a href="../tooltipresults/">here</a> for information on how the examples are chosen,
 and how to customize it.</p>
 <details class="example">
@@ -1287,24 +1283,28 @@ compared to 地震.</p>
 <p>This indicator will be yellow (or blue on light mode) for new cards only.
 After the first review, the indicator will be the same color as the default info circle (grey).</p>
 </div>
-<p>Results are greyed out if the word is from a new card, just like for Kanji Hover.</p>
+<p>The tooltip behaves very similarly properties to Kanji hover's tooltip:</p>
+<ul>
+<li>New cards are greyed out.</li>
+<li>You can click on words to open them in Anki's card browser.</li>
+<li>Pitch accent is shown without requiring the user to hover over the word by default.
+    This is different from Kanji hover's tooltip.</li>
+</ul>
 <p>See <a href="../tooltipresults/">here</a> for information on how the examples are chosen,
 and how to customize it.</p>
 <hr />
-<h2 id="images">Images<a class="headerlink" href="#images" title="Permanent link">&para;</a></h2>
+<h2 id="images-pitch-accent">Images &amp; Pitch Accent<a class="headerlink" href="#images-pitch-accent" title="Permanent link">&para;</a></h2>
 <p>See the <a href="../images/">Images</a> page for information on the following:</p>
 <ul>
 <li>Blurring images</li>
 <li>Specifying default images</li>
 <li>Automatically formatting pictures within the definition</li>
 </ul>
-<hr />
-<h2 id="pitch-accent">Pitch Accent<a class="headerlink" href="#pitch-accent" title="Permanent link">&para;</a></h2>
 <p>See the <a href="../autopa/">Pitch Accent</a> page for information on the following:</p>
 <ul>
 <li>Pitch accent notation</li>
 <li>Automatic pitch accent coloring</li>
-<li>How to override the pitch accent of the word</li>
+<li>How to override the pitch accent of any word</li>
 </ul>
 <hr />
 <h2 id="external-links">External Links<a class="headerlink" href="#external-links" title="Permanent link">&para;</a></h2>
@@ -1318,7 +1318,7 @@ Click on the desired icon to visit to the desired site.</p>
 <h2 id="automatic-word-highlighting">Automatic Word Highlighting<a class="headerlink" href="#automatic-word-highlighting" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
+<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
 </div>
 <p>Usually, the word within the sentence is already bolded by Yomichan.
 However, there are some cases where the word within the sentence may not be bold,
@@ -1391,7 +1391,7 @@ Head over to the <a href="../uicustomization/">UI Customization</a> page to see 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 25, 2022</span>
       
     
   </small>

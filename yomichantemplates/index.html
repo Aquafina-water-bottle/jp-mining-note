@@ -17,7 +17,7 @@
     
     
       
-        <title>Yomichan Template Options (TODO) - jp-mining-note</title>
+        <title>Yomichan Template Options - jp-mining-note</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Yomichan Template Options (TODO)
+              Yomichan Template Options
             
           </span>
         </div>
@@ -713,12 +713,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Yomichan Template Options (TODO)
+          Yomichan Template Options
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Yomichan Template Options (TODO)
+        Yomichan Template Options
       </a>
       
         
@@ -784,6 +784,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#enabling-selected-text" class="md-nav__link">
+    Enabling Selected Text
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#overriding-a-dictionary" class="md-nav__link">
     Overriding a Dictionary
   </a>
@@ -797,22 +804,35 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    Options
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-customizations" class="md-nav__link">
-    Other Customizations
+  <a href="#custom-markers" class="md-nav__link">
+    Custom Markers
   </a>
+  
+    <nav class="md-nav" aria-label="Custom Markers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-card-types-on-hiragana-only-cards" class="md-nav__link">
+    Custom card types on hiragana-only cards
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-furigana-without-ajt-furigana" class="md-nav__link">
+    Automatic furigana without AJT Furigana
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1068,6 +1088,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#enabling-selected-text" class="md-nav__link">
+    Enabling Selected Text
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#overriding-a-dictionary" class="md-nav__link">
     Overriding a Dictionary
   </a>
@@ -1081,22 +1108,35 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    Options
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-customizations" class="md-nav__link">
-    Other Customizations
+  <a href="#custom-markers" class="md-nav__link">
+    Custom Markers
   </a>
+  
+    <nav class="md-nav" aria-label="Custom Markers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-card-types-on-hiragana-only-cards" class="md-nav__link">
+    Custom card types on hiragana-only cards
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-furigana-without-ajt-furigana" class="md-nav__link">
+    Automatic furigana without AJT Furigana
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1127,13 +1167,15 @@
   </a>
 
 
-  <h1>Yomichan Template Options (TODO)</h1>
+  <h1>Yomichan Template Options</h1>
 
 <p>This page contains extra info on how the custom Yomichan Templates works,
 and how to customize it even further.</p>
+<hr />
 <h2 id="categorization-of-dictionaries">Categorization of Dictionaries<a class="headerlink" href="#categorization-of-dictionaries" title="Permanent link">&para;</a></h2>
 <p>This section deals with how the custom Yomichan Templates categorizes dictionaries,
 and how to properly customize them for your setup.</p>
+<p><br></p>
 <h3 id="expected-dictionary-placement">Expected Dictionary Placement<a class="headerlink" href="#expected-dictionary-placement" title="Permanent link">&para;</a></h3>
 <p>Dictionaries from Yomichan are sorted in to the following fields:</p>
 <ul>
@@ -1168,6 +1210,7 @@ as these are not traditionally-formatted dictionaries.</p>
 </ul>
 <p>The way that the dictionaries are sorted into the appropriate fields is by assigning
 a category to each individual dictionary.</p>
+<p><br></p>
 <h3 id="verifying-categories">Verifying Categories<a class="headerlink" href="#verifying-categories" title="Permanent link">&para;</a></h3>
 <p>You can check that your dictionaries are correctly categorized with the
 <code>{jpmn-test-dict-type}</code> marker.
@@ -1195,12 +1238,14 @@ Monolingual dictionaries are considered to be dictionaries that aren't either
 of the two above, so no handlebars code has to be changed if one were to
 use more monolingual dictionaries.</p>
 <p>To see how to edit the regex, go to <a href="./#editing-the-dictionary-regex">this section</a>.</p>
+<p><br></p>
 <h3 id="ignoring-a-dictionary">Ignoring a Dictionary<a class="headerlink" href="#ignoring-a-dictionary" title="Permanent link">&para;</a></h3>
 <p>If you want to see the dictionary on Yomichan but not have it show on Anki,
 you can use the <code>ignored-dict-regex</code> option.</p>
 <p>To see how to edit the option, see <a href="./#editing-the-dictionary-regex">the section below</a>.</p>
 <p>Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
 <a href="../jpresources/#hide-the-dictionary-but-allow-it-to-be-used-by-anki" target="_blank">see here</a>.</p>
+<p><br></p>
 <h3 id="editing-the-dictionary-regex">Editing the dictionary regex<a class="headerlink" href="#editing-the-dictionary-regex" title="Permanent link">&para;</a></h3>
 <p>To modify a regex string:</p>
 <ol>
@@ -1227,20 +1272,42 @@ For example, if you want to add the bilingual dictionaries
 </ol>
 <hr />
 <h2 id="selected-text">Selected Text<a class="headerlink" href="#selected-text" title="Permanent link">&para;</a></h2>
-<p>TODO flesh out and layout info better</p>
+<p>By default, selecting (highlighting) the text <strong>will do nothing</strong>,
+to prevent any unexpected errors from happening.
+However, the user can set some options to allow selecting text to override the
+automatic dictionary selection behavior.</p>
+<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/setupyomichan/selected_text.mp4" type="video/mp4" /></video></div></p>
+<h3 id="enabling-selected-text">Enabling Selected Text<a class="headerlink" href="#enabling-selected-text" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>opt-selection-text-enabled</code></p>
+</blockquote>
+<p>Under the template options, set <code>opt-selection-text-enabled</code> to <code>true</code>.
+This allows you to do various things by selecting the text, as shown below.</p>
+<p><br></p>
 <h3 id="overriding-a-dictionary">Overriding a Dictionary<a class="headerlink" href="#overriding-a-dictionary" title="Permanent link">&para;</a></h3>
-<p>Highlighting a dictionary overrides the first definition you see with that dictionary.
-This is togglable by <code>opt-selection-text-dictionary</code>.</p>
+<blockquote>
+<p><code>opt-selection-text-dictionary</code></p>
+</blockquote>
+<p>By enabling this option, you can highlight over any dictionary tag
+to overrides the first definition you see with that dictionary.
+This is enabled by default.</p>
+<p><br></p>
 <h3 id="overriding-the-definition">Overriding the Definition<a class="headerlink" href="#overriding-the-definition" title="Permanent link">&para;</a></h3>
-<p>If you select a portion of the definition, the template code will
-use the dictionary containing the selected definition,
-and bold the selected portion.
-This is togglable by <code>opt-selection-text-glossary</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is not guaranteed to work: if the highlighted text could not be automatically
+<blockquote>
+<p><code>opt-selection-text-glossary</code></p>
+</blockquote>
+<p>By enabling this option, you can select a portion of the definition to automatically bold.
+The dictionary containing the bolded selection will be used as the primary definition
+(first definition shown).
+This is enabled by default.</p>
+<p>If you do not want to use the entire dictionary, and prefer
+that <em>only</em> the selected text is shown in the first definition,
+set <code>opt-selection-text-glossary-attempt-bold</code> to <code>false</code>.</p>
+<details class="info">
+<summary>Where automatic bolding can fail <em>(click here)</em></summary>
+<p>Automatic bolding may not always work: if the highlighted text could not be automatically
 detected from the custom template code, then it will fallback to simply
-using the highlighted text.</p>
+using the highlighted text (as if you used the <code>{selection-text}</code> marker).</p>
 <p>This is most likely to fail if you select formatted parts of text,
 such as (but not limited to):</p>
 <ul>
@@ -1248,63 +1315,139 @@ such as (but not limited to):</p>
 <li>furigana</li>
 <li>across multiple items in a list (common with JMdict)</li>
 </ul>
-</div>
-<p>If you do not want to use the entire dictionary, and prefer
-that <em>only</em> the selected text is shown in the first definition,
-set <code>opt-selection-text-glossary-attempt-bold</code> to <code>false</code>.</p>
-<p>TODO gif</p>
-<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<p><code>opt-selection-text-enabled</code></p>
-<ul>
-<li>disabled -&gt; selection text is ignored</li>
-<li>enabled -&gt; selection text (if exists) is processed according to the options below:</li>
-</ul>
-<p><code>opt-selection-text-dictionary</code></p>
-<ul>
-<li>if the selected text is a dictionary, then replaces the PrimaryDefinition with said dictionary</li>
-</ul>
-<p><code>opt-selection-text-glossary</code></p>
-<ul>
-<li>replaces the PrimaryDefinition with the selected text</li>
-<li>the dictionary that the selected text will not be detected, so the same dictionary
-  should appear in one of the SecondaryDefinition or ExtraDefinition fields.</li>
-<li>if both <code>opt-selection-text-dictionary</code> and <code>opt-selection-text-glossary</code> are enabled,
-  the <code>opt-selection-text-dictionary</code> option takes priority over <code>opt-selection-text-glossary</code>,
-  i.e. the dictionary is searched first, then if not found the selected text is used</li>
-</ul>
-<p><code>opt-selection-text-glossary-attempt-bold</code></p>
-<ul>
-<li>attempts to replace the PrimaryDefinition field with the full glossary value, with
-  only the selected section highlighted</li>
-<li>do NOT rely on this working all the time: many factors can make it not work
-  (especially if the highlighted text contains custom formatting or newlines)</li>
-<li>if could not be detected, falls back to the normal selected text</li>
-<li><code>opt-selection-text-glossary</code> must be true for this option to have any effect</li>
-</ul>
+</details>
+<details class="info">
+<summary>Where dictionary selection can fail <em>(click here)</em></summary>
+<p>This may occasionally select the wrong dictionary,
+but this only happens if the selected text also appears in a dictionary above the selected text.</p>
+<p>For example, suppose you have two bilingual dictionaries. and for the word タコ,
+you highlight the word "octopus" and create the card.
+Both bilingual dictionaries will list "octopus", so even if you highlight the word "octopus"
+in the second bilingual dictionary, only the first bilingual dictionary will be chosen.</p>
+<p>This is usually not a problem even if the same text appears in a dictionary above
+because it's the same definition regardless.
+Additionally, monolingual dictionaries almost never have the exact same definition for the same word.
+However, if you still want a specific dictionary, highlight the dictionary tag
+<a href="#overriding-a-dictionary">as shown above</a>.</p>
+</details>
 <hr />
-<h2 id="other-customizations">Other Customizations<a class="headerlink" href="#other-customizations" title="Permanent link">&para;</a></h2>
+<h2 id="custom-markers">Custom Markers<a class="headerlink" href="#custom-markers" title="Permanent link">&para;</a></h2>
+<p>Additional markers can be used under the
+<a href="../setupyomichan/#yomichan-fields">Yomichan Fields</a>
+to further customize what happens during card creation time.</p>
+<p><br></p>
+<h3 id="custom-card-types-on-hiragana-only-cards">Custom card types on hiragana-only cards<a class="headerlink" href="#custom-card-types-on-hiragana-only-cards" title="Permanent link">&para;</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the master branch.</p>
+<p>New as of version <code>0.11.1.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
 </div>
-<p><code>jpmn-filled-if-word-is-hiragana</code></p>
+<blockquote>
+<p>Markers: <code>{jpmn-filled-if-word-is-hiragana}</code>・<code>{jpmn-filled-if-word-is-not-hiragana}</code></p>
+</blockquote>
+<p>If the word is purely comprised of hiragana,
+you can create different card types by default using these markers.</p>
+<p>For example, let's say you want the default card to be a vocab card,
+but want hiragana terms to be <a href="../cardtypes/#targeted-sentence-card-tsc">TSCs</a>.
+To do exactly that, do the following:</p>
 <ul>
-<li>use this marker in any field to fill it if the term is hiragana only</li>
-<li>for example, under Yomichan's "Anki card format", set <code>IsTargetedSentenceCard</code> to <code>{jpmn-filled-if-word-is-hiragana}</code> if you want the card type to be a TSC for hiragana only terms</li>
-<li>behavior:<ul>
-<li>empty for words such as: トイレ、成り立つ、ブツブツ</li>
-<li>filled for words such as: ぶつぶつ、ぽつり</li>
+<li>Navigate to Yomichan settings, and then to <code>Anki</code> →  <code>Configure Anki card format...</code>.</li>
+<li>Set <code>IsTargetedSentenceCard</code> to <code>{jpmn-filled-if-word-is-hiragana}</code>.</li>
 </ul>
-</li>
-<li>inspired by <a href="https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards">Marv's hint sentence for kana cards</a></li>
+<details class="example">
+<summary>Example behavior <em>(click here)</em></summary>
+<table>
+<thead>
+<tr>
+<th align="center">Example word</th>
+<th align="center"><code>{jpmn-filled-if-word-is-hiragana}</code></th>
+<th align="center"><code>{jpmn-filled-if-word-is-not-hiragana}</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ふらっと</td>
+<td align="center">1</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">トイレ</td>
+<td align="center"></td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">成り立つ</td>
+<td align="center"></td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">ぶつぶつ</td>
+<td align="center">1</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">ブツブツ</td>
+<td align="center"></td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This was inspired by
+<a href="https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards">Marv's hint sentence for kana cards</a>.</p>
+</div>
+<p><br></p>
+<h3 id="automatic-furigana-without-ajt-furigana">Automatic furigana without AJT Furigana<a class="headerlink" href="#automatic-furigana-without-ajt-furigana" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Marker: <code>{jpmn-sentence-bolded-furigana-plain}</code></p>
+</blockquote>
+<p>This automatically uses Yomichan's internal furigana generator to
+add furigana to your sentence. Use this under <code>SentenceReading</code>.</p>
+<p>This is useful if:</p>
+<ul>
+<li>You are not using <a href="../setupanki/#ajt-furigana">AJT Furigana</a>, or</li>
+<li>You are using a device that doesn't have AJT Furigana installed (say, a phone),
+    and you do not want to bulk generate furigana after each session.</li>
 </ul>
+<!--
+## Options
+
+`opt-selection-text-enabled`
+
+- disabled -> selection text is ignored
+- enabled -> selection text (if exists) is processed according to the options below:
+
+`opt-selection-text-dictionary`
+
+- if the selected text is a dictionary, then replaces the PrimaryDefinition with said dictionary
+
+`opt-selection-text-glossary`
+
+- replaces the PrimaryDefinition with the selected text
+- the dictionary that the selected text will not be detected, so the same dictionary
+  should appear in one of the SecondaryDefinition or ExtraDefinition fields.
+- if both `opt-selection-text-dictionary` and `opt-selection-text-glossary` are enabled,
+  the `opt-selection-text-dictionary` option takes priority over `opt-selection-text-glossary`,
+  i.e. the dictionary is searched first, then if not found the selected text is used
+
+`opt-selection-text-glossary-attempt-bold`
+
+- attempts to replace the PrimaryDefinition field with the full glossary value, with
+  only the selected section highlighted
+- do NOT rely on this working all the time: many factors can make it not work
+  (especially if the highlighted text contains custom formatting or newlines)
+- if could not be detected, falls back to the normal selected text
+- `opt-selection-text-glossary` must be true for this option to have any effect
+
+-->
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 27, 2022</span>
       
     
   </small>
