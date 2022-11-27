@@ -426,6 +426,24 @@ This {{ CSS }} allows you to limit the number of frequencies shown at the top ri
         ```
         This will grey out the frequencies past the 5th frequency in the editor.
 
+
+??? example "TODO: ONLY VERSION `0.11.1.0` and over, NOT RELEASED YET"
+    By default, a maximum of 4 frequencies are shown.
+    Any more frequency list entries will appear in a dropdown arrow
+    to the right of the frequencies.
+
+    You can edit the following {{ RTO }} to adjust this number:
+    ```json
+    {
+      "modules": {
+        "freq-utils": {
+          "max": 4
+        }
+      }
+    }
+    ```
+
+
 ---
 
 
