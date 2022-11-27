@@ -351,9 +351,9 @@
 
         // Tags to override auto positioning
         // Case sensitive
-        "tags-bottom": ["img-bottom"],
-        "tags-top": ["img-top"],
-        "tags-right": ["img-right"]
+        "tags-bottom": ["img-bottom", "jpmn-img-buttom"],
+        "tags-top": ["img-top", "jpmn-img-top"],
+        "tags-right": ["img-right", "jpmn-img-right"]
       },
 
       // Sets the image to the specified file if it contains the specified tags.
