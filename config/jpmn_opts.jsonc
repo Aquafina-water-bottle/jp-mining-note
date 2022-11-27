@@ -114,15 +114,7 @@
       "remove-final-period-on-altdisplay": false,
 
       // Attempts to automatically highlight the word in the sentence if nothing is highlighted.
-      // - This usually isn't needed because Yomichan should already generate the card with
-      //   the word highlighted. However, there are some cases where the word isn't highlighted,
-      //   such as old cards, or when you automatically update the sentence with certain programs.
-      // - This isn't perfect, but it works well enough for a surprising number of cases.
-      //   In general, do not rely on this completely working.
-      // - This will not attempt to highlight conjugations of adjectives or verbs.
-      //   If an adjective or verb is conjugated, this will likely highlight its stem.
-      // Base code taken from:
-      // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
+      // https://aquafina-water-bottle.github.io/jp-mining-note/ui/#automatic-word-highlighting
       "auto-highlight-word": {
         "enabled": true,
 

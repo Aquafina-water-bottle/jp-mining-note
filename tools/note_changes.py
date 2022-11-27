@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+import jpmnopts_updater as opts
 import batch
 
 import action
@@ -64,9 +65,62 @@ class NoteChange:
     version: Version
     actions: list[action.Action]
     fields: list[str]
+    option_actions: list[opts.OptAction] = field(init=False)
 
 
 NOTE_CHANGES = [
+
+    NoteChange(
+        version=Version(0, 11, 1, 0),
+        actions=[
+            action.YomichanTemplatesChange(),
+            action.NoteToUser(
+                description="If you are using Anki version 2.1.49 or below, please see the link below:\n"
+                "https://aquafina-water-bottle.github.io/jp-mining-note/faq/#the-frequency-list-display-looks-squished"
+            ),
+        ],
+        fields=[
+            "Key",
+            "Word",
+            "WordReading",
+            "PAOverride",
+            "PAOverrideText",
+            "AJTWordPitch",
+            "PrimaryDefinition",
+            "PrimaryDefinitionPicture",
+            "Sentence",
+            "SentenceReading",
+            "AltDisplay",
+            "AltDisplayPASentenceCard",
+            "AdditionalNotes",
+            "IsSentenceCard",
+            "IsClickCard",
+            "IsHoverCard",
+            "IsTargetedSentenceCard",
+            "PAShowInfo",
+            "PATestOnlyWord",
+            "PADoNotTest",
+            "PASeparateWordCard",
+            "PASeparateSentenceCard",
+            "SeparateClozeDeletionCard",
+            "Hint",
+            "HintNotHidden",
+            "Picture",
+            "WordAudio",
+            "SentenceAudio",
+            "PAGraphs",
+            "PAPositions",
+            "PASilence",
+            "WordReadingHiragana",
+            "FrequenciesStylized",
+            "FrequencySort",
+            "SecondaryDefinition",
+            "ExtraDefinitions",
+            "UtilityDictionaries",
+            "Comment",
+        ],
+    ),
+
 
     NoteChange(
         version=Version(0, 11, 0, 0),
