@@ -123,7 +123,7 @@
       //   If an adjective or verb is conjugated, this will likely highlight its stem.
       // Base code taken from:
       // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
-      "auto-sentence-highlight": {
+      "auto-highlight-word": {
         "enabled": true,
 
         "warn-on-auto-highlight": false,
