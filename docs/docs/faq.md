@@ -134,7 +134,7 @@ This is because you are using Anki version 2.1.49 or below.
 There are two main ways of fixing this:
 
 1. Update to a higher version of Anki (recommended).
-1. Add the following {{ CSS }}:
+1. If you do not wish to update Anki, add the following {{ CSS }}:
     ```css
     .frequencies__group {
       margin-left: 20px;

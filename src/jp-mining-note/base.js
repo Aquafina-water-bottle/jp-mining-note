@@ -30,7 +30,13 @@
 {% endif %}
 
 
-const TAGS_LIST = "{{ T('Tags') }}".split(" ");
+const TAGS_LIST = (() => {
+  let tagsList = "{{ T('Tags') }}".split(" ");
+  if (tagsList.length === 1 && tagsList[0] === "") {
+    return []
+  }
+  return tagsList;
+})();
 
 
 // "global" variables within the hidden scope
