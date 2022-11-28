@@ -155,6 +155,12 @@ to
 {% endraw %}
 
 
+Additionally, a common thing that people want to do with monolingual dictionaries is to remove the first line
+of the definition, because it may contain extra info that the user does not want.
+See [here](uicustomization.md#hiding-the-first-line-of-a-definition){:target="_blank"}
+to do exactly that.
+
+
 !!! note
 
     If you are using monolingual dictionaries, on your first few cards,
@@ -165,6 +171,7 @@ to
     If your dictionaries are ending up in the wrong sections,
     then it is likely a problem with how the template code categorizes the dictionaries.
     See [here](yomichantemplates.md#categorization-of-dictionaries){:target="_blank"} for more info.
+
 
 <br>
 
