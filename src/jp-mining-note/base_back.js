@@ -18,9 +18,11 @@ if (TAGS_LIST.includes("leech")) {
 
 
 /// {% call IFNOT("SentenceReading") %}
+/// {% call IF("Sentence") %}
 if ({{ utils.opt("no-sentence-reading-warn") }}) {
   LOGGER.warn("`SentenceReading` is not filled out. Using `Sentence` field instead.");
 }
+/// {% endcall %}
 /// {% endcall %}
 
 

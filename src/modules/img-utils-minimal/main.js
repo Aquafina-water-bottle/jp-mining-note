@@ -6,7 +6,7 @@ if ({{ utils.opt("modules", "img-utils", "enabled") }}) {
   // restricting the max height of image to the definition box
   const dhImgContainer = document.getElementById("dh_img_container");
   const READ_DHLEFT_HEIGHT = ((VW > {{ COMPILE_OPTIONS("breakpoints", "combine-picture").item() }})
-      && ({{ utils.opt("modules", "img-utils", "resize-height-mode") }} === "same-height"));
+      && ({{ utils.opt("modules", "img-utils", "resize-height-mode") }} === "auto-height"));
   const newHeight = {{ utils.opt("modules", "img-utils", "resize-height-fixed-value") }};
 
   function adjustHeight(ele) {

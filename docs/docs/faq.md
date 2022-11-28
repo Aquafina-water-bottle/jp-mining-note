@@ -224,7 +224,7 @@ remove certain features of the note.
     }
     ```
 
-    1. Set this to anything OTHER THAN "same-height". This may affect the display image
+    1. Set this to anything OTHER THAN "auto-height". This may affect the display image
         size in an undesireably way, because the height of the
         display image will no longer be automatically adjusted.
     2. Set this to false.
