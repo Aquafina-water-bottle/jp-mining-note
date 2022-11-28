@@ -56,9 +56,12 @@ if the furigana text is too long.
 
 
 
-{% set css_oubunsha -%}
-The following CSS only affects only the dictionary with the tag 「旺文社国語辞典 第十一版」. To use this on more than one dictionary, copy/paste the CSS multiple times, and replace the dictionary tag.
-{% endset %}
+{% macro oubunsha_msg(css) -%}
+The following {{ css }} only affects only the dictionary with the tag 「旺文社国語辞典 第十一版」. To use this on more than one dictionary, copy/paste the {{ css }} multiple times, and replace the dictionary tag.
+{% endmacro %}
+
+{% set css_oubunsha -%}{{ oubunsha_msg("CSS") }}{% endset %}
+{% set scss_oubunsha -%}{{ oubunsha_msg("SCSS") }}{% endset %}
 
 
 # Hiding the first line of a definition
@@ -182,7 +185,7 @@ The first line of the definition has various elements that can be hidden with {{
     ??? example "CSS to hide the entire first line *(click here)*"
         {{ feature_version("0.11.0.0") }}
 
-        {{ css_oubunsha }}
+        {{ scss_oubunsha }}
 
         1. Under `extra/style.scss`, add the following code:
 
@@ -207,8 +210,8 @@ The first line of the definition has various elements that can be hidden with {{
             ```
 
         !!! note
-            The above examples are scss, and not css.
-            If you are using css, do not flatten the classes after the first line.
+            The above examples are SCSS, and not CSS.
+            If you are using CSS, do not flatten the classes after the first line.
 
             Example Raw CSS:
 

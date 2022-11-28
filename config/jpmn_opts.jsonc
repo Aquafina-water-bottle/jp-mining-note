@@ -304,6 +304,14 @@
       // and makes things look infinitely better
       "enabled": true,
 
+      // how the image is resized on the default breakpoint (medium sized screens)
+      // options:
+      // - "same-height" (same height as the reading section to the left of the image)
+      // - "none" (not resized at all)
+      // - "fixed" (uses value in resize-fixed-value)
+      "resize-height-mode": "same-height",
+      "resize-height-fixed-value": 210, // only used if the above is "fixed"
+
       // Replaces all images in the glossary (definition) sections
       // with an internal representation similar to how Yomichan displays images:
       // an `[Image]` text where you can see the image upon hover, and with click to zoom.

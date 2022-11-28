@@ -190,6 +190,81 @@ allowing it to be shared easily on a place like Discord.
 ---
 
 
+## This card template loads slower than other card templates.
+
+Usually, this is not very noticeable on faster computers.
+However, the card may load slower compared to others if you are on a slow computer.
+
+There are some ways to remedying this. Both will inevitably
+remove certain features of the note.
+
+??? info "(1) Prevent document reflow"
+
+    By default, the mobile interface will not have any
+    [document reflow](https://developer.mozilla.org/en-US/docs/Glossary/Reflow),
+    so nothing has to be done for mobile.
+
+    However, on PC, the default settings forces document reflow
+    every time the back-side of the card is loaded.
+    On faster computers, this effect is virtually neglible.
+    However, this effect is more noticeable on lower end computers.
+
+    To prevent document reflow, you must change the following two {{ RTOs }}:
+
+    ```json
+    {
+      "modules": {
+        "img-utils": {
+          "resize-height-mode": "fixed", // (1)!
+          "primary-definition-picture": {
+            "use-lenience": false, // (2)!
+          }
+        }
+      }
+    }
+    ```
+
+    1. Set this to anything OTHER THAN "same-height". This may affect the display image
+        size in an undesireably way, because the height of the
+        display image will no longer be automatically adjusted.
+    2. Set this to false.
+
+
+??? info "(2) Using compile-time options"
+
+    Outside of document reflow, it appears that most of the lag
+    doesn't come from the javascript execution, but rather
+    the fact that the note has a lot of HTML (Anki's internal html and template parser)
+    and javascript text (javascript compilation time).
+    Surprisingly, the time it takes for javascript to actually run is comparatively fast
+    if the forced document reflow (see above) is remedied.
+
+    Both the amount of HTML and javascript can be reduced at the cost of removing functionality
+    using the following {{ CTOs }}:
+
+    ```json
+    "hardcoded-runtime-options": True, // (1)!
+
+    "always-filled-fields": [], // (2)!
+    "never-filled-fields": [],
+
+    "enabled-modules": [ ... ], // (3)!
+    ```
+
+    1. This removes extra javascript.
+        To customize the runtime-options, you will need to specify your options in a different file (TODO).
+    2. Fill these two fields accordingly, depending on whether you use the fields or not.
+    3. Remove any modules you do not need. This is the biggest change you can do to
+        increase the note's performance.
+
+    An example for a very optimized vocab card is shown
+    [here](compiletimeoptions.md#optimized-vocab-card-example).
+    Note that `img-utils-minimal` will still cause a document reflow unless you change the above options.
+
+
+---
+
+
 ## The sentence quotes are on completely different lines!
 If your card looks like this:
 

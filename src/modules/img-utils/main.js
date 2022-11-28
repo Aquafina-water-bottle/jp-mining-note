@@ -34,7 +34,8 @@ const JPMNImgUtils = (() => {
   const VALID_AUTO_POS_OPTS = ["auto-bottom", "auto-top"];
 
   // adjusts height even if it's tablet mode because the picture can be tall and skinny
-  const ADJUST_HEIGHT = (VW > {{ COMPILE_OPTIONS("breakpoints", "combine-picture").item() }});
+  const READ_DHLEFT_HEIGHT = ((VW > {{ COMPILE_OPTIONS("breakpoints", "combine-picture").item() }})
+      && ({{ utils.opt("modules", "img-utils", "resize-height-mode") }} === "same-height"));
   const POS_RESULT = getPrimaryDefPicturePosition();
   const USE_LENIENCE = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "use-lenience") }};
   const CALC_DEF_PIC_HEIGHT = (VALID_AUTO_POS_OPTS.includes(POS_RESULT) && USE_LENIENCE)
@@ -437,6 +438,15 @@ const JPMNImgUtils = (() => {
 
   }
 
+  function adjustHeight(ele) {
+    if (READ_DHLEFT_HEIGHT) {
+      ele.style.maxHeight = HEIGHT_LEFT + "px";
+    } else if ({{ utils.opt("modules", "img-utils", "resize-height-mode") }} === "fixed") {
+      const newHeight = {{ utils.opt("modules", "img-utils", "resize-height-fixed-value") }};
+      ele.style.maxHeight = newHeight + "px";
+    }
+  }
+
 
   function editDisplayImage() {
     // edits the display image width/height
@@ -458,7 +468,7 @@ const JPMNImgUtils = (() => {
     // so nothing has changed...
 
 
-    if (ADJUST_HEIGHT || CALC_DEF_PIC_HEIGHT) {
+    if (READ_DHLEFT_HEIGHT || CALC_DEF_PIC_HEIGHT) {
       HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
       TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
       PIC_HEIGHT = primaryDefRight === null ? 0 : primaryDefRight.offsetHeight;
@@ -488,25 +498,22 @@ const JPMNImgUtils = (() => {
     }
 
     if (somethingDisplayed) {
-      if (ADJUST_HEIGHT) {
-        dhRight.style.maxHeight = HEIGHT_LEFT + "px";
-      }
+      adjustHeight(dhRight);
 
       // setting up the modal styles and clicking
       const imgList = dhImgContainer.getElementsByTagName("img");
 
       if (imgList && imgList.length) {
         if (imgList.length >= 2) {
-          logger.warn("There are more than 2 images?");
+          logger.warn("There are more than 2 images in the Picture field. Use the PrimaryDefinitionPicture field if you wish to add more than one image.");
         }
 
         // module-global variable
         image = imgList[0];
 
         image.classList.add("dh-right__img");
-        if (ADJUST_HEIGHT) {
-          image.style.maxHeight = HEIGHT_LEFT + "px"; // restricts max height here too
-        }
+
+        adjustHeight(image); // restricts max height here too
 
         useModalAndBlur();
 
