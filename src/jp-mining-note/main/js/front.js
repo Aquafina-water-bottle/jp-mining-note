@@ -46,8 +46,6 @@ function toggleHighlightWord() {
     paButton.onclick = toggleHighlightWord;
   }
 }
-/// {% endcall %}
-
 
 { // auto-plays silence
   let elem = document.querySelector("#pa-silence-audio .soundLink, #pa-silence-audio .replaybutton");
@@ -55,6 +53,8 @@ function toggleHighlightWord() {
     elem.click();
   }
 }
+
+/// {% endcall %}
 
 
 /// {% endblock %}

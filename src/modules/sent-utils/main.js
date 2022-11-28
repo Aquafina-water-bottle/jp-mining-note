@@ -236,7 +236,7 @@ const JPMNSentUtils = (() => {
 
     processFullSentence() {
       let fullSentEle = document.getElementById("full_sentence");
-      if (fullSentEle === null) { // front side
+      if (fullSentEle === null || fullSentEle.innerHTML.trim().length === 0) { // front side or empty
         return;
       }
 
