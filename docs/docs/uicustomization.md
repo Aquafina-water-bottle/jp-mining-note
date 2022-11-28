@@ -56,6 +56,10 @@ if the furigana text is too long.
 
 
 
+{% set css_oubunsha -%}
+The following CSS only affects only the dictionary with the tag 「旺文社国語辞典 第十一版」. To use this on more than one dictionary, copy/paste the CSS multiple times, and replace the dictionary tag.
+{% endset %}
+
 
 # Hiding the first line of a definition
 <sup>See also: [How to remove the numbers in the definition](#removing-the-numbers-in-the-primary-definition)</sup>
@@ -80,6 +84,8 @@ The first line of the definition has various elements that can be hidden with {{
 
     ??? example "CSS to hide extra text *(click here)*"
         {{ feature_version("0.11.0.0") }}
+
+        {{ css_oubunsha }}
 
         1. Under `extra/style.scss`, add the following code:
 
@@ -108,6 +114,9 @@ The first line of the definition has various elements that can be hidden with {{
         This doesn't look very good on most dictionaries.
 
     ??? example "CSS to hide dictionary tag(s) *(click here)*"
+
+        {{ css_oubunsha }}
+
         1. Under `extra/style.scss`, add the following code:
             ```css
             /* hide the 「旺文社国語辞典 第十一版」 dictionary */
@@ -124,6 +133,43 @@ The first line of the definition has various elements that can be hidden with {{
             }
             ```
 
+    ??? example "CSS to hide JMdict's dictionary tag *(click here)*"
+        If you are on a modern version of JMdict, the dictionary will contain additional tags
+        to the right of the dictionary tag by default, such as (n), (vs), etc.
+        The instructions above will remove all of these tags.
+
+        You may want to only remove the dictionary tag without removing the other information tags.
+        If your JMdict dictionary tag is exactly `JMdict (English)`, then this is already the
+        default behavior.
+        However, if your dictionary tag is different, do the following
+        (you may have to replace `JMdict` with your exact JMdict dictionary tag):
+
+        1. Under `extra/style.scss`, add the following code:
+            ```css
+            /* removes the dictionary entry for jmdict */
+            .glossary-text ol li[data-details="JMdict"] .dict-group__tag-list .dict-group__tag--dict {
+              display: none;
+            }
+            /* Makes JMDict italic */
+            .glossary-text ol li[data-details="JMdict"] .dict-group__tag-list {
+              font-style: italic;
+            }
+            ```
+
+        2. (Optional) Under `extra/field.scss`, add the following code:
+            ```css
+            /* greys out dictionary entry for jmdict */
+            anki-editable ol li[data-details="JMdict"] .dict-group__tag-list .dict-group__tag--dict {
+              color: var(--text-color--3);
+            }
+            /* Makes JMDict italic */
+            anki-editable ol li[data-details="JMdict"] .dict-group__tag-list {
+              font-style: italic;
+            }
+            ```
+
+
+
 === "Hide entire first line"
     <figure markdown>
       {{ img("", "assets/uicustomization/first_line_css/first_line_hidden.png") }}
@@ -135,6 +181,8 @@ The first line of the definition has various elements that can be hidden with {{
 
     ??? example "CSS to hide the entire first line *(click here)*"
         {{ feature_version("0.11.0.0") }}
+
+        {{ css_oubunsha }}
 
         1. Under `extra/style.scss`, add the following code:
 
