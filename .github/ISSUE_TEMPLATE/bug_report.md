@@ -23,8 +23,10 @@ Steps to reproduce the behavior. Example:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Example Cards(s) & Screenshots**
-- If only specific notes are affected, please [export at least one affected note](https://aquafina-water-bottle.github.io/jp-mining-note/faq/#how-do-i-export-notes).
+**Example Cards(s)**
+- Please [export at least one affected note](https://aquafina-water-bottle.github.io/jp-mining-note/faq/#how-do-i-export-notes), even if the affected card was freshly installed.
+
+**Screenshots**
 - If applicable, add screenshots to help explain your problem. Screenshot the full window if possible.
 
 **Desktop (please complete the following information):**
