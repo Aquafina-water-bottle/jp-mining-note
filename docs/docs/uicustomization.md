@@ -651,6 +651,51 @@ the furigana on the kanjis within hover.
 
 
 
+# Changing colors
+Most color changes can be done by simply editing a CSS variable.
+These variables are shown at the very top of the main CSS sheet.
+For example, the following changes the main accent color of the card:
+
+??? example "Instructions *(click here)*"
+
+    1. Under `extra/style.scss`, add the following code:
+
+        ```css
+        :root {
+          --accent: #ff1fd1; /* hot pink */
+        }
+
+        .night_mode {
+          --accent: #ff7777; /* light red */
+        }
+        ```
+
+    !!! note
+        To change any variable color for dark mode, you cannot use `:root`, even if you are only setting
+        the color for night mode. You must use `.night_mode`.
+
+        For example, doing the following will NOT change the accent for night mode:
+        ```css
+        :root {
+          /* only changes light mode accent, and will NOT change dark mode accent! */
+          --accent: #ff7777;
+        }
+        ```
+
+        You must do this instead:
+        ```css
+        /* changes the color for both light and dark mode */
+        :root {
+          --accent: #ff7777;
+        }
+        .night_mode {
+          --accent: #ff7777;
+        }
+        ```
+
+---
+
+
 
 
 # Conclusion

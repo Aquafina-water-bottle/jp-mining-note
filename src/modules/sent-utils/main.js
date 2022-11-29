@@ -244,9 +244,9 @@ const JPMNSentUtils = (() => {
 
       if (!fullSent.match(/<(b)>/)) {
         if (!this.attemptedHighlight) {
-          // generates the highlighted word result
+          // attempts to generates the highlighted word result
           let sentHTML = document.getElementById("hidden_sentence").innerHTML;
-          this.highlightWord(sentHTML, "full-sentence");
+          this.highlightWord(sentHTML, "hidden-full-sentence");
           this.attemptedHighlight = true;
         }
 
