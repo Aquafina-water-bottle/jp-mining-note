@@ -45,7 +45,9 @@ $bp-combine-picture: 620px;
   --tooltip-max-width: 600px;
   --tooltip-font-size: #{px2rem(14px)};
 
+  /* DO NOT CHANGE THESE VARIABLES: change --accent instead if you want to customize the accent! */
   --dark-mode-accent: #fffd9e;
+  --light-mode-accent: #4660f1;
 
   --zoom: 1;
 
@@ -124,7 +126,7 @@ $bp-combine-picture: 620px;
   --info-circle-error-text-color: var(--info-circle-error-color);
 
   --pa-indicator-sentence-color: #4cd200;
-  --pa-indicator-word-color: var(--accent);
+  --pa-indicator-word-color: var(--light-mode-accent);
   --pa-indicator-none-color: #ec3a2d;
 
   --hybrid-underline-color: black;
@@ -167,7 +169,7 @@ $bp-combine-picture: 620px;
   --info-circle-hover-color: #bdbdbd;
 
   /* slightly different shade of yellow */
-  --info-circle-leech-color: var(--accent);
+  --info-circle-leech-color: var(--dark-mode-accent);
   --info-circle-leech-hover-color: #e5e386;
   --info-circle-leech-text-color: var(--info-circle-leech-color);
 
