@@ -1722,6 +1722,7 @@ ruby rt {
 
 .frequencies-overflow {
   fill: var(--card-description-color);
+  height: min-content;
 }
 
 .frequencies-overflow:hover {
