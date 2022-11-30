@@ -45,9 +45,15 @@ $bp-combine-picture: 620px;
   --tooltip-max-width: 600px;
   --tooltip-font-size: #{px2rem(14px)};
 
-  /* DO NOT CHANGE THESE VARIABLES: change --accent instead if you want to customize the accent! */
-  --dark-mode-accent: #fffd9e;
-  --light-mode-accent: #4660f1;
+  /* DO NOT CHANGE --data-* variables */
+  --data-dark-mode-accent: #fffd9e;
+  --data-light-mode-accent: #4660f1;
+
+  --data-tooltip-source-hover-color: #5f5f5f;
+
+  --data-tooltip-source-accent-color: var(--data-light-mode-accent);
+  --data-tooltip-source-accent-hover-color: #6679de;
+  /* DO NOT CHANGE THE ABOVE --data-* VARIABLES */
 
   --zoom: 1;
 
@@ -92,7 +98,7 @@ $bp-combine-picture: 620px;
   --text-odaka:                 #009e1c; /* 尾高, green */
   --text-kifuku:                #7e53c4; /* 起伏, purple */
 
-  --accent:                     #4660f1;
+  --accent:                     var(--data-light-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.05);
   --tooltip-background-darken:  hsla(0, 0%, 100%, 0.98);;
 
@@ -110,11 +116,11 @@ $bp-combine-picture: 620px;
 
   --card-description-color:     var(--text-color--4);
 
-  --info-circle-hover-color: #5f5f5f;
+  --info-circle-hover-color: var(--data-tooltip-source-hover-color);
+  --frequencies-overflow-hover-color: var(--data-tooltip-source-hover-color);
 
-  /* slightly different shade of blue */
-  --info-circle-leech-color: #3983ff;
-  --info-circle-leech-hover-color: #6679de;
+  --info-circle-leech-color: var(--data-tooltip-source-accent-color);
+  --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
 
   --info-circle-warning-color: #ff8700;
@@ -125,8 +131,13 @@ $bp-combine-picture: 620px;
   --info-circle-error-hover-color: #ff8381;
   --info-circle-error-text-color: var(--info-circle-error-color);
 
+  --word-indicator-icon-color: var(--text-color--3);
+  --word-indicator-icon-hover-color: var(--data-tooltip-source-hover-color);
+  --word-indicator-icon-new-color: var(--accent);
+  --word-indicator-icon-new-hover-color: var(--data-tooltip-source-accent-hover-color);
+
   --pa-indicator-sentence-color: #4cd200;
-  --pa-indicator-word-color: var(--light-mode-accent);
+  --pa-indicator-word-color: var(--data-light-mode-accent);
   --pa-indicator-none-color: #ec3a2d;
 
   --hybrid-underline-color: black;
@@ -136,6 +147,14 @@ $bp-combine-picture: 620px;
 }
 
 @mixin night_mode_vars {
+  /* DO NOT CHANGE --data-* variables */
+  --data-tooltip-source-hover-color: #bdbdbd;
+
+  --data-tooltip-source-accent-color: var(--data-dark-mode-accent);
+  --data-tooltip-source-accent-hover-color: #e5e386;
+  /* DO NOT CHANGE THE ABOVE --data-* VARIABLES */
+
+
   --text-color:                 white;
   --text-color--1:              hsla(0, 0%, 67.5%, 1);
   --text-color--2:              hsla(0, 0%, 67.5%, 1);
@@ -150,7 +169,7 @@ $bp-combine-picture: 620px;
   --text-odaka:                 #67e47d; /* 尾高, green */
   --text-kifuku:                #af85f4; /* 起伏, purple */
 
-  --accent:                     var(--dark-mode-accent);
+  --accent:                     var(--data-dark-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.12);
   --tooltip-background-darken:  rgba(0, 0, 0, 0.9);
 
@@ -166,11 +185,12 @@ $bp-combine-picture: 620px;
 
   --card-description-color:     var(--text-color--4);
 
-  --info-circle-hover-color: #bdbdbd;
+  --info-circle-hover-color: var(--data-tooltip-source-hover-color);
+  --frequencies-overflow-hover-color: var(--data-tooltip-source-hover-color);
 
   /* slightly different shade of yellow */
-  --info-circle-leech-color: var(--dark-mode-accent);
-  --info-circle-leech-hover-color: #e5e386;
+  --info-circle-leech-color: var(--data-tooltip-source-accent-color);
+  --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
 
   --info-circle-warning-color: #ff8d0d;
@@ -180,6 +200,11 @@ $bp-combine-picture: 620px;
   --info-circle-error-color: #f53b39;
   --info-circle-error-hover-color: #fe7776;
   --info-circle-error-text-color: var(--info-circle-error-hover-color);
+
+  --word-indicator-icon-color: var(--text-color--3);
+  --word-indicator-icon-hover-color: var(--data-tooltip-source-hover-color);
+  --word-indicator-icon-new-color: var(--accent);
+  --word-indicator-icon-new-hover-color: var(--data-tooltip-source-accent-hover-color);
 
   --pa-indicator-sentence-color: #62ff73;
   --pa-indicator-word-color: #34dbef;

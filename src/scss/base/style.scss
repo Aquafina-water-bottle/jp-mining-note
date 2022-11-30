@@ -879,7 +879,7 @@ ruby rt {
 }
 
 .dh-left__similar-words-indicator {
-  color: var(--text-color--3);
+  color: var(--word-indicator-icon-color);
   //padding: 2px;
   //box-shadow: 1px 1px 2px var(--similar-words-box-shadow-color);
   //background: #2d2d2f
@@ -887,14 +887,14 @@ ruby rt {
   //border-radius: 3px;
 }
 .dh-left__similar-words-indicator:hover {
-  color: var(--info-circle-hover-color);
+  color: var(--word-indicator-icon-hover-color);
 }
 
 .dh-left__similar-words-indicator--new {
-  color: var(--accent);
+  color: var(--word-indicator-icon-new-color);
 }
 .dh-left__similar-words-indicator--new:hover {
-  color: var(--info-circle-leech-hover-color);
+  color: var(--word-indicator-icon-new-hover-color);
 }
 
 //.dh-left__similar-words-indicator.dh-left__similar-words-indicators--togglable:active .info-circle-svg path {
@@ -987,7 +987,7 @@ ruby rt {
 
 .hover-tooltip {
   display: inline-block;
-  min-width: 100px;
+  min-width: 40px;
   background-color: var(--tooltip-background-darken);
   padding: 8px 10px 8px 10px;
   border-radius: 6px;
@@ -1723,6 +1723,11 @@ ruby rt {
 .frequencies-overflow {
   fill: var(--card-description-color);
 }
+
+.frequencies-overflow:hover {
+  fill: var(--frequencies-overflow-hover-color);
+}
+
 
 
 .hover-tooltip-wrapper--frequencies-overflow {
