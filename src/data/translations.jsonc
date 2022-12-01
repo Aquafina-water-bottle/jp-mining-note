@@ -49,6 +49,7 @@
     "full-sentence": "全ての文",
     "hint": "ヒント",
     "kanji-not-found": "漢字は見つかれません｡",
+    //"kanji-not-found": "漢字は見つかれません",
 
     "pa-indicator-prefix": "ピーチ：",
     "pa-indicator-do-not-test": "採点しないでください", // slightly different meaning but it works
