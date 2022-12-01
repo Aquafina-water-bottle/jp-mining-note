@@ -136,7 +136,7 @@ if the card doesn't look quite right.
 ---
 
 
-# Yomichan Templates Options
+# Yomichan Templates Options Summary
 
 ## Monolingual Definition
 <i><sup>Main page: [Yomichan Template Options (Categorization of Dictionaries)](yomichantemplates.md#categorization-of-dictionaries)</sup></i>

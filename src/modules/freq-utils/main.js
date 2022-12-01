@@ -18,6 +18,8 @@ const JPMNFreqUtils = (() => {
 
   //const cacheKey = `${keyHTML}.${wordReadingHTML}`
   const maxFreqCount = {{ utils.opt("modules", "freq-utils", "max") }};
+  const overflowCount = ({{ utils.opt("modules", "freq-utils", "overflow") }});
+  const collapseFreqCount = maxFreqCount + overflowCount;
 
   class JPMNFreqUtils {
     constructor() { }
@@ -45,7 +47,7 @@ const JPMNFreqUtils = (() => {
       //}
 
       // subtract 1 because the overflow indicator is already in the group
-      if (freqDisplay.children.length > maxFreqCount) {
+      if (freqDisplay.children.length > collapseFreqCount) {
         logger.debug("Collapsing frequencies...");
         this.collapseFrequencies();
       }

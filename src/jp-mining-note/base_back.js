@@ -25,6 +25,14 @@ if ({{ utils.opt("no-sentence-reading-warn") }}) {
 /// {% endcall %}
 /// {% endcall %}
 
+/// {% call IFNOT("Sentence") %}
+/// {% call IF("SentenceReading") %}
+if ({{ utils.opt("filled-sentence-reading-with-empty-sentence-warn") }}) {
+  LOGGER.warn("`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?");
+}
+/// {% endcall %}
+/// {% endcall %}
+
 
 // removes greyed out fields if they should be hidden
 if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {

@@ -78,15 +78,16 @@ nav:
     - Updating: updating.md
   - Reference:
     - User Interface: ui.md
-    - UI Customization: uicustomization.md
     - Field Reference: fieldref.md
     - Images: images.md
     - Pitch Accent: autopa.md
     - Card Types: cardtypes.md
-    - Runtime Options: runtimeoptions.md
-    - Compile-Time Options: compiletimeoptions.md
-    - Yomichan Template Options: yomichantemplates.md
     - Tooltip Results (TODO): tooltipresults.md
+    - Other UI Customization (TODO): uicustomization.md
+    - Options:
+      - Runtime Options: runtimeoptions.md
+      - Compile-Time Options: compiletimeoptions.md
+      - Yomichan Template Options (TODO): yomichantemplates.md
     - Developer Documentation:
       - Modding Overview: modding.md
       - Building: building.md

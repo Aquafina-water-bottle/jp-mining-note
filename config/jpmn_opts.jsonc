@@ -515,7 +515,14 @@
     "freq-utils": {
       "enabled": true,
       // maximum number of frequency list entries shown until it gets moved to the dropdown window
-      "max": 4
+      "max": 4,
+
+      // Amount of frequencies allowed to overflow past the max until frequencies gets collapsed.
+      // For example, suppose we have a max of "4" and an overflow of "2".
+      //  4, 5 and 6 frequencies will not be collapsed at all,
+      //  but 7 will collapse to 4 (display) and 3 (tooltip).
+      //  In other words, it collapses after 6 frequencies but shows 4 frequencies after collapsing.
+      "overflow": 0
     },
 
     // Quick-fixes the ruby text positioning by moving it closer to the word,
@@ -569,6 +576,9 @@
 
   // Warn if using the `Sentence` field instead of the `SentenceReading` field
   "no-sentence-reading-warn": false,
+
+  // Warn if the SentenceReading field is filled, but Sentence is not
+  "filled-sentence-reading-with-empty-sentence-warn": true,
 
   // Whether Anki-Connect features are enabled or disabled
   // Anki-Connect features are disabled on mobile because

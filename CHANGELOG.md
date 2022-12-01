@@ -42,16 +42,20 @@ and must use `./install.py --update`.
 - Added spacing between options in the info circle
 - Added clear cache option in info circle options (disabled by default)
 - Added a dropdown feature for frequencies when there are too many frequencies (max 4 by default)
+    - Added an overflow option so it can overflow past the max frequencies before collapsing
 - (WIP, NOT WORKING YET) Added a way to automatically update the `_jpmn_options.js` file and `config/user_jpmn_opts.json` file using the regular `install.py` script
+- Added a warning if `SentenceReading` is filled but `Sentence` isn't
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
 - Made all example urls use {{text:Word} instead of just {{Word}}
+- Fixed some css variables accidentally pointing to others
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
 - Fixed ruby sentence regex not working on non-rubified sentences
 - Fixed some modules not properly containing the cache dependency
+- Added dropdown hover color change + fixed height of hover
 
 #### Internal Changes
 - Re-ordered `sent-utils` to be under `img-utils` because that seems to speed up performance for some reason
