@@ -144,7 +144,7 @@ CONFIG = {
             "auto-highlight-word",
 
             "kanji-hover",
-            "customize-open-fields",
+            "collapsible-fields-utils",
             "word-indicators",
 
             "info-circle-utils",

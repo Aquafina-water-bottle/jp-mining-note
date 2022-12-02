@@ -11,6 +11,12 @@ anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict
 }
 
 
+/* Makes Nico/Pixiv italic */
+anki-editable ol li[data-details="Nico/Pixiv"] .dict-group__tag-list {
+  font-style: italic;
+}
+
+
 
 .pa-graphs__group[data-details="NHK"] .pa-graphs__dictionary {
   @include common.bold_highlight;

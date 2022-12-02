@@ -422,7 +422,7 @@
 
 
     // Options to set a collapsable field to be open or not
-    "customize-open-fields": {
+    "collapsible-fields-utils": {
       "enabled": false,
 
       // Force a field to be always open

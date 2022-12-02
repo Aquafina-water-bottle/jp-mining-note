@@ -35,7 +35,7 @@ if ({{ utils.opt("filled-sentence-reading-with-empty-sentence-warn") }}) {
 
 
 // removes greyed out fields if they should be hidden
-if ( !{{ utils.opt("greyed-out-collapsable-fields-when-empty") }}) {
+if ( !{{ utils.opt("greyed-out-collapsible-fields-when-empty") }}) {
   const elems = document.getElementsByClassName("glossary-details--grey");
   for (const x of elems) {
     x.style.display = "none";
