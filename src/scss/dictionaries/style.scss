@@ -21,6 +21,12 @@
 
 
 
+/* Removes the extra text for the collapsed 新和英 display */
+.glossary-text ol li[data-details="新和英"] details.glossary-text__details .glossary-text__summary .dict-group__glossary--first-line {
+  display: none;
+}
+
+
 
 /* frequency names */
 
