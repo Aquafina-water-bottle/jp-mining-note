@@ -17,3 +17,7 @@
 {{set "opt-selection-text-dictionary"            true}}
 {{set "opt-selection-text-glossary"              true}}
 {{set "opt-selection-text-glossary-attempt-bold" true}}
+
+
+
+{{~! =======   ORIGINAL YOMICHAN TEMPLATE CODE BELOW   ======= ~}}

@@ -1610,6 +1610,37 @@ ruby rt {
 
 
 
+/* stylizes collapsed dictionaries */
+.glossary-text ol li details.glossary-text__details {
+  margin-left: 0.5em;
+
+  .glossary-text__summary {
+    .dict-group__tag-list, .dict-group__glossary--first-line {
+      display: inline;
+    }
+  }
+
+  .glossary-text__details-div {
+
+    .dict-group__tag-list {
+      display: none;
+    }
+
+    .dict-group__glossary--first-line-break {
+      display: none;
+    }
+
+    border-left: 0.2em solid var(--text-color--4);
+    margin-left: 0.25em;
+    padding-left: 0.5em;
+  }
+
+}
+
+
+
+
+
 /*
  * styles for the external links
  *

@@ -14,6 +14,12 @@
 }
 
 
+/* Makes Nico/Pixiv italic */
+.glossary-text ol li[data-details="Nico/Pixiv"] .dict-group__tag-list {
+  font-style: italic;
+}
+
+
 
 
 /* frequency names */

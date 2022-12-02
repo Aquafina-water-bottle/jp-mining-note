@@ -1,12 +1,12 @@
 {# customize open fields module #}
 
 
-{% import "modules/customize-open-fields/main.js" as js with context %}
+{% import "modules/collapsible-fields-utils/main.js" as js with context %}
 
 
 {# required boilerplate #}
 {% set MOD = namespace() %}
-{% set MOD.id = "customize-open-fields" %}
+{% set MOD.id = "collapsible-fields-utils" %}
 
 {# interface for modules that change javascript #}
 {% set MOD.js = JavascriptContainer(MOD.id) %}
