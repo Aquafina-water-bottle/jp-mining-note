@@ -163,7 +163,7 @@ const JPMNCollapsibleFields = (() => {
 
 
     for (let i = ele.childNodes.length-1; i >= 0; i--) {
-      let child = ele.children[i];
+      let child = ele.childNodes[i];
       divEle.prepend(child);
     }
 
