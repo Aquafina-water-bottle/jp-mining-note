@@ -365,9 +365,8 @@ is a part of a dictionary) ~}}
 
         <span class="dict-group__glossary"> {{~s~}}
 
-            {{~! ^(<.*?>)? is to attempt to select any tag at the beginning (only works for 1 tag) ~}}
             {{#regexReplace
-                    "^(<.*?>)?(.*?)<br>"
+                    "^(<span lang=\"ja\">)?(.*?)<br>"
                     "$1<span class=\"dict-group__glossary--first-line\">$2</span><span class=\"dict-group__glossary--first-line-break\"><br></span>"
                 }}
             {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each~}}

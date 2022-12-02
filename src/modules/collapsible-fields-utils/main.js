@@ -177,6 +177,9 @@ const JPMNCollapsibleFields = (() => {
 
     for (const fStr of affectedFields) {
       const ele = strToEle[fStr];
+      if (ele === null) {
+        continue;
+      }
       const olList = ele.getElementsByTagName("ol")
       for (olEle of olList) {
         for (const [i, child] of Array.from(olEle.children).entries()) {
