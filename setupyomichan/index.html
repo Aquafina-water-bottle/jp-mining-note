@@ -554,11 +554,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#yomichan-templates-options" class="md-nav__link">
-    Yomichan Templates Options
+  <a href="#yomichan-templates-options-summary" class="md-nav__link">
+    Yomichan Templates Options Summary
   </a>
   
-    <nav class="md-nav" aria-label="Yomichan Templates Options">
+    <nav class="md-nav" aria-label="Yomichan Templates Options Summary">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -713,20 +713,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../uicustomization/" class="md-nav__link">
-        UI Customization
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../fieldref/" class="md-nav__link">
         Field Reference
       </a>
@@ -783,6 +769,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../tooltipresults/" class="md-nav__link">
+        Tooltip Results (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uicustomization/" class="md-nav__link">
+        Other UI Customization (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8" type="checkbox" id="__nav_3_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_8">
+          Options
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
         Runtime Options
       </a>
@@ -812,22 +854,15 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options
+        Yomichan Template Options (TODO)
       </a>
     </li>
   
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tooltipresults/" class="md-nav__link">
-        Tooltip Results (TODO)
-      </a>
+        </ul>
+      </nav>
     </li>
   
 
@@ -844,18 +879,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_11" type="checkbox" id="__nav_3_11" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_11">
+        <label class="md-nav__link" for="__nav_3_9">
           Developer Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_11">
+        <label class="md-nav__title" for="__nav_3_9">
           <span class="md-nav__icon md-icon"></span>
           Developer Documentation
         </label>
@@ -1048,11 +1083,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#yomichan-templates-options" class="md-nav__link">
-    Yomichan Templates Options
+  <a href="#yomichan-templates-options-summary" class="md-nav__link">
+    Yomichan Templates Options Summary
   </a>
   
-    <nav class="md-nav" aria-label="Yomichan Templates Options">
+    <nav class="md-nav" aria-label="Yomichan Templates Options Summary">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2170,7 +2205,7 @@ Notably, the picture and sentence audio is missing.</p>
 <p>Outside of that, there are some final settings you can adjust within the Yomichan templates
 if the card doesn't look quite right.</p>
 <hr />
-<h2 id="yomichan-templates-options">Yomichan Templates Options<a class="headerlink" href="#yomichan-templates-options" title="Permanent link">&para;</a></h2>
+<h2 id="yomichan-templates-options-summary">Yomichan Templates Options Summary<a class="headerlink" href="#yomichan-templates-options-summary" title="Permanent link">&para;</a></h2>
 <h3 id="monolingual-definition">Monolingual Definition<a class="headerlink" href="#monolingual-definition" title="Permanent link">&para;</a></h3>
 <p><i><sup>Main page: <a href="../yomichantemplates/#categorization-of-dictionaries">Yomichan Template Options (Categorization of Dictionaries)</a></sup></i></p>
 <p>If you want the first definition you see (the <code>PrimaryDefinition</code> field) to be monolingual,
@@ -2180,6 +2215,10 @@ change the following line at the top of the templates code:</p>
 to
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;opt-first-definition-type&quot;</span> <span class="s2">&quot;monolingual&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
 </code></pre></div></p>
+<p>Additionally, a common thing that people want to do with monolingual dictionaries is to remove the first line
+of the definition, because it may contain extra info that the user does not want.
+See <a href="../uicustomization/#hiding-the-first-line-of-a-definition" target="_blank">here</a>
+to do exactly that.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you are using monolingual dictionaries, on your first few cards,
@@ -2271,7 +2310,7 @@ for specific tips on a select few programs.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 25, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2022</span>
       
     
   </small>
