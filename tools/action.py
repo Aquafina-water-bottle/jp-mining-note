@@ -7,6 +7,32 @@ from typing import Callable
 
 from utils import invoke
 
+@dataclass
+class OptAction(ABC):
+    pass
+
+# additions and deletions do not have to be accounted for
+# as they will be automatically added / removed naturally due to the
+# updated nature of the template string
+
+@dataclass
+class MoveOptAction(OptAction):
+    key_src: str
+    key_dest: str
+
+@dataclass
+class OverwriteValueOptAction(OptAction):
+    key: str
+    value: str
+
+@dataclass
+class ChangeDefaultValueOptAction(OptAction):
+    key: str
+    value: str
+    default_val: str
+
+
+
 
 @dataclass
 class Action(ABC):

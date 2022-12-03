@@ -96,6 +96,20 @@ NOTE_DATA = {
             "output-file": "media/_jpmn-options.js",
             "type": "jinja",
         },
+
+        #{
+        #    "input-file": "jp-mining-note/_jpmn-options.js",
+        #    "output-file": "tmp/media/_jpmn-options.js",
+        #    "type": "jinja",
+        #},
+
+        #{
+        #    "input-file": "tmp/media/_jpmn-options.js",
+        #    "output-file": "media/_jpmn-options.js",
+        #    "type": "OPTIONS",
+        #    "input-dir": "build",
+        #},
+
     ],
     "media-install": {
         "static": [

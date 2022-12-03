@@ -1415,6 +1415,10 @@ ruby rt {
   display: flex;
 }
 
+.full-sentence-toggle {
+  display: none;
+}
+
 .full-sentence {
   font-size: var(--full-sentence-font-size);
   margin: 0.3em 0 0.3em 0;
@@ -1425,9 +1429,70 @@ ruby rt {
   text-align: left;
 }
 
-.full-sentence ruby rt { opacity: 0; }
-.full-sentence:hover ruby rt { opacity: 1; }
 
+/* hover */
+.full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-hover ruby rt {
+  opacity: 0;
+}
+.full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-hover:hover ruby rt {
+  opacity: 1 !important;
+}
+
+.full-sentence.full-sentence--ruby-size.full-sentence--ruby-hover ruby rt {
+  font-size: 0px;
+}
+.full-sentence.full-sentence--ruby-size.full-sentence--ruby-hover:hover ruby rt {
+  font-size: 0.5em !important;
+}
+
+
+/* click toggle */
+.full-sentence-toggle ~ .full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-toggle ruby rt {
+  opacity: 0;
+}
+.full-sentence-toggle:checked ~ .full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-toggle ruby rt {
+  opacity: 1;
+}
+
+.full-sentence-toggle ~ .full-sentence.full-sentence--ruby-size.full-sentence--ruby-toggle ruby rt {
+  font-size: 0px;
+}
+.full-sentence-toggle:checked ~ .full-sentence.full-sentence--ruby-size.full-sentence--ruby-toggle ruby rt {
+  font-size: 0.5em;
+}
+
+
+///* keybind toggle */
+// TODO
+//.full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-keybind ruby rt {
+//  opacity: 1;
+//}
+//
+//.full-sentence.full-sentence--ruby-size.full-sentence--ruby-keybind ruby rt {
+//  font-size: 0.5em;
+//}
+
+
+/* adds transitions if specified */
+/* thanks to Stazor#6633 for the idea and implementation */
+.full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition ruby rt {
+  transition: 0.2s;
+}
+.full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition.full-sentence--ruby-hover:hover ruby rt {
+  transition: 0.4s;
+}
+.full-sentence-toggle:checked ~ .full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition.full-sentence--ruby-toggle ruby rt {
+  transition: 0.4s;
+}
+
+/* adds hover effect */
+.full-sentence.full-sentence--ruby-toggle {
+  cursor: pointer;
+  //transition: filter 0.3s;
+}
+//.full-sentence.full-sentence--ruby-toggle:hover {
+//  filter: brightness(var(--image-hover-brightness));
+//}
 
 
 /*

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 from typing import Any
 from copy import deepcopy
 from abc import ABC
@@ -8,36 +9,48 @@ from dataclasses import dataclass
 
 from json_minify import json_minify
 
-from utils import javascript_format
+from note_changes import Version, NOTE_CHANGES
+import utils
+import action
 
 
 JSON = dict[str, Any]
 
-@dataclass
-class OptAction(ABC):
-    pass
+
+
+def add_args(parser: argparse.ArgumentParser):
+    group = parser.add_argument_group(title="jpmnopts_updater")
+    #group.add_argument(
+    #    "--to-latest",
+    #    action="store_true",
+    #    help="updates the settings to the latest version (default)",
+    #)
+
+    group.add_argument(
+        "--to-version",
+        type=str,
+        default=None,
+        help="updates the settings to the specified version",
+    )
+
+    group.add_argument(
+        "--dev-update-json",
+        type=str,
+        default=None,
+        help="(dev option) updates the source json file for building",
+    )
+
+    group.add_argument(
+        "--dev-update-json-output",
+        type=str,
+        default=None,
+        help="(dev option) output file for the above",
+    )
 
 
 
-# additions and deletions do not have to be accounted for
-# as they will be automatically added / removed naturally due to the
-# updated nature of the template string
 
-@dataclass
-class MoveOptAction(OptAction):
-    key_src: str
-    key_dest: str
 
-@dataclass
-class OverwriteValueOptAction(OptAction):
-    key: str
-    value: str
-
-@dataclass
-class ChangeDefaultValueOptAction(OptAction):
-    key: str
-    value: str
-    default_val: str
 
 
 class JPMNOptsUpdater:
@@ -94,7 +107,7 @@ class JPMNOptsUpdater:
 
         return result
 
-    def apply_actions(self, options: JSON, actions: list[OptAction]):
+    def apply_actions(self, options: JSON, actions: list[action.OptAction]):
         """
         - applies all actions to given options list
         - adds any options in self.options to result if doesn't already exist
@@ -102,14 +115,14 @@ class JPMNOptsUpdater:
         result = deepcopy(options)
 
         for a in actions:
-            if isinstance(a, MoveOptAction):
+            if isinstance(a, action.MoveOptAction):
                 if a.key_src in result:
                     result[a.key_dest] = result.pop(a.key_src)
                 else:
                     print(f"jpmnopts_updater warning: cannot move {a.key_src} -> {a.key_dest}")
-            elif isinstance(a, OverwriteValueOptAction):
+            elif isinstance(a, action.OverwriteValueOptAction):
                 result[a.key] = a.value
-            elif isinstance(a, ChangeDefaultValueOptAction):
+            elif isinstance(a, action.ChangeDefaultValueOptAction):
                 if result[a.key] == a.default_val:
                     result[a.key] = a.value
 
@@ -119,7 +132,7 @@ class JPMNOptsUpdater:
 
         return result
 
-    def generate(self, user_options: JSON, actions: list[OptAction]):
+    def generate(self, user_options: JSON, actions: list[action.OptAction]):
         """
         - create options in format of k1. (...) .kn: v (flattened)
         - replaces all k1. (...) .kn instances in template string with value in options
@@ -130,9 +143,31 @@ class JPMNOptsUpdater:
 
         for key, value in result_opts.items():
             find_str = '"{{ ' + key + ' }}"'
-            replace_str = javascript_format(value)
+            replace_str = utils.javascript_format(value)
 
             result_template = result_template.replace(find_str, replace_str)
 
         return result_template
+
+
+def main(args=None):
+
+    if args is None:
+        args = utils.get_args(utils.add_args, add_args)
+
+    #config = utils.get_config(args)
+
+    if args.to_version is not None:
+        to_ver = Version(args.to_version)
+        pass
+    else:
+        # latest version
+        to_ver = NOTE_CHANGES[0].version
+
+    from_ver = utils.get_version(args)
+
+
+
+
+
 
