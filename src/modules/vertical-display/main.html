@@ -1,0 +1,15 @@
+{# vertical-display module #}
+
+
+{% import "modules/vertical-display/main.js" as js with context %}
+
+
+{# required boilerplate #}
+{% set MOD = namespace() %}
+{% set MOD.id = "vertical-display" %}
+
+{# interface for modules that change javascript #}
+{% set MOD.js = JavascriptContainer(MOD.id) %}
+
+{{ MOD.js.run.set_all(js.run) }}
+

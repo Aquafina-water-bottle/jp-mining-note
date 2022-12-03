@@ -9,7 +9,7 @@
 function toggleHighlightWord() {
   const SENTENCE_SHOWN_ATTRIBUTE = "data-sentence-shown";
 
-  let paButton = document.getElementById("pa-button");
+  let paButton = document.getElementById("pa_button");
   let d = document.getElementById("display");
 
   if (paButton.hasAttribute(SENTENCE_SHOWN_ATTRIBUTE)) {
@@ -36,14 +36,14 @@ function toggleHighlightWord() {
 
 /// {% call IF("PAShowInfo") %}
 {
-  let paButton = document.getElementById("pa-button");
+  let paButton = document.getElementById("pa_button");
   if (paButton !== null) {
     paButton.onclick = toggleHighlightWord;
   }
 }
 
 { // auto-plays silence
-  let elem = document.querySelector("#pa-silence-audio .soundLink, #pa-silence-audio .replaybutton");
+  let elem = document.querySelector("#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton");
   if (elem) {
     elem.click();
   }

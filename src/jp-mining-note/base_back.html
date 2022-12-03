@@ -8,14 +8,6 @@
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
 
-<div class="card-description-right">
-  {% include "jp-mining-note/partials/version_mobile.html" %}
-  {% include "jp-mining-note/partials/frequencies.html" %}
-</div>
-
-
-
-
 <script>
 {% block top_javascript %}
 {% include "jp-mining-note/logger.js" %}
@@ -53,40 +45,63 @@
 
 
 
-<div class="card-description">
-{% filter indent(width=2) %}
-
-  <span class="card-description__card-type">
-  {% block card_type %}
-  {% endblock %}
-  </span>
-
-  {% include "jp-mining-note/partials/info_circle.html" %}
-
-  {% include "jp-mining-note/partials/version.html" %}
-
-{% endfilter %}
-</div>
 
 
-{% block card_html_top %}
-{% endblock %}
-
-{% include "jp-mining-note/partials/answer_border.html" %}
 
 
-{% block card_html_bottom %}
+<div class="card-wrapper" id="card_wrapper">
 
-{{ def_header() }}
+  <header class="card-header card-header--back">
 
-<div id="back_side" class="back-side">
+    <div class="card-description-right">
+      {% include "jp-mining-note/partials/version_mobile.html" %}
+      {% include "jp-mining-note/partials/frequencies.html" %}
+    </div>
 
-{% include "jp-mining-note/partials/full_sentence.html" %}
-{% include "jp-mining-note/partials/all_definitions.html" %}
+    <div class="card-description">
 
-{% endblock %}
+      <span class="card-description__card-type">
+      {% block card_type %}
+      {% endblock %}
+      </span>
 
-</div> <!-- backside -->
+      {% include "jp-mining-note/partials/info_circle.html" %}
+
+      {% include "jp-mining-note/partials/version.html" %}
+
+    </div>
+  </header>
+
+
+  <main class="card-main card-main--back">
+
+    <div class="expression-wrapper">
+    {% block card_html_top %}
+    {% endblock %}
+    </div>
+
+    {% include "jp-mining-note/partials/answer_border.html" %}
+
+    <div class="back-side">
+
+    {% block card_html_bottom %}
+
+      {{ def_header() }}
+
+      <div class="back-side-restrict-width">
+
+        {% include "jp-mining-note/partials/full_sentence.html" %}
+        {% include "jp-mining-note/partials/all_definitions.html" %}
+
+      </div>
+
+    {% endblock %}
+
+    </div> <!-- backside -->
+
+  </main>
+
+</div> <!-- card-wrapper -->
 
 
 <!--

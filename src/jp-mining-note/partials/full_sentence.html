@@ -1,6 +1,7 @@
 {# impl #}
 
 
+{% call IF("SentenceReading") %}
 <div class="full-sentence-center">
   <input
     type="checkbox"
@@ -31,11 +32,16 @@
       "
       for="full_sentence_toggle"
       id="full_sentence">
-    {% call IF("SentenceReading") %}
-      {{ T("furigana:SentenceReading") }}
-    {% endcall %}
-    {% call IFNOT("SentenceReading") %}
-      {{ T("Sentence") }}
-    {% endcall %}
+    {{ T("furigana:SentenceReading") }}
   </label>
 </div>
+{% endcall %}
+
+{# so ruby classes do not affect things without ruby #}
+{% call IFNOT("SentenceReading") %}
+<div class="full-sentence-center">
+  <div class="full-sentence highlight-bold" id="full_sentence">
+    {{ T("Sentence") }}
+  </div>
+</div>
+{% endcall %}
