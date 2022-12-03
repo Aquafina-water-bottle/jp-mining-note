@@ -28,6 +28,7 @@ $bp-combine-picture: 620px;
   --pa-brightness-reduce: 60%;
   --word-font-size: #{px2rem(80px)};
   --sentence-font-size: #{px2rem(52px)};
+  --vertical-sentence-font-size: #{px2rem(35px)};
   --pa-indicator-word-font-size: #{px2rem(52px)};
   --pa-indicator-sent-font-size: #{px2rem(45px)};
 
@@ -40,6 +41,9 @@ $bp-combine-picture: 620px;
 
   --glossary-font-size: #{px2rem(18px)};
   --glossary-font-size--smaller: #{px2rem(15px)};
+
+  --vertical-display-margin-top: #{px2rem(16px)};
+  --vertical-display-header-height-calc: #{px2rem(40px)};
 
   /* TODO dynamic solution */
   --tooltip-max-width: 600px;

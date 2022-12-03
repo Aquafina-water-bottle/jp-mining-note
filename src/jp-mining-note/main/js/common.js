@@ -20,7 +20,7 @@ function hybridClick() {
     }
 
     if (KEYBINDS.hasKey(e, {{ utils.opt("keybinds", "toggle-highlight-word") }})) {
-      let paButton = document.getElementById("pa-button");
+      let paButton = document.getElementById("pa_button");
       if (paButton !== null) {
         toggleHighlightWord();
       }

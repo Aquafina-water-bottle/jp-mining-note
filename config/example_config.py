@@ -142,6 +142,7 @@ CONFIG = {
 
             "sent-utils",
             "auto-highlight-word",
+            #"vertical-display",
 
             "kanji-hover",
             "collapsible-fields-utils",

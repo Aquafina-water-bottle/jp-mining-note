@@ -77,7 +77,7 @@ const JPMNKeybinds = (() => {
           hybridClick();
         } else {
         /// {% endif %}
-          let ele = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
+          let ele = document.querySelector("#sentence_audio .soundLink, #sentence_audio .replaybutton");
           if (ele) {
             ele.click();
           }

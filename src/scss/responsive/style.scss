@@ -75,14 +75,6 @@
 
   .expression {
     border-top: 30px;
-
-    // TODO better mobile support: vertical mode + collapsable div
-    //writing-mode: vertical-lr;
-    //text-align: center;
-    //position: absolute;
-    //right: 10px;
-    //top: 0px;
-    //height: 95%;
   }
 
   /* removes newlines on all */
@@ -126,6 +118,7 @@
 
 @media (max-width: common.$bp-combine-picture) {
   :root {
+    --vertical-sentence-font-size: #{common.px2rem(30px)};
     --sentence-font-size: #{common.px2rem(30px)};
     --full-sentence-font-size: #{common.px2rem(20px)};
   }

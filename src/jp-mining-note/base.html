@@ -11,11 +11,6 @@
 
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
-<div class="card-description-right">
-  {% include "jp-mining-note/partials/version_mobile.html" %}
-</div>
-
-
 <script>
 {% block top_javascript %}
 {% include "jp-mining-note/logger.js" %}
@@ -25,6 +20,7 @@
 {% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
 <script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
 {% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
+
 
 <div class="hidden">
   <div id="hidden_key">{{ T('Key') }}</div>
@@ -42,26 +38,50 @@
 
 
 
-<div class="card-description">
-{% filter indent(width=2) %}
-
-  <span class="card-description__card-type">
-  {% block card_type %}
-  {% endblock %}
-  </span>
-
-  {% include "jp-mining-note/partials/info_circle.html" %}
-
-  {% include "jp-mining-note/partials/version.html" %}
-
-{% endfilter %}
-</div>
 
 
-{% block card_html %}
-{% endblock %}
+
+<div class="card-wrapper" id="card_wrapper">
+
+  <header class="card-header card-header--front">
+
+    <div class="card-description-right">
+      {% include "jp-mining-note/partials/version_mobile.html" %}
+    </div>
+
+    <div class="card-description">
+
+      <span class="card-description__card-type">
+      {% block card_type %}
+      {% endblock %}
+      </span>
+
+      {% include "jp-mining-note/partials/info_circle.html" %}
+
+      {% include "jp-mining-note/partials/version.html" %}
+
+    </div>
+
+  </header>
+
+
+
+  <main class="card-main card-main--front">
+
+    <div class="expression-wrapper" id="display_wrapper">
+
+    {% block card_html %}
+    {% endblock %}
+
+    </div>
+
+  </main>
+
+</div> <!-- card-wrapper -->
+
 
 <div class="popup-menu" id="popup_menu"></div>
+
 
 <script>
 {% block javascript %}
