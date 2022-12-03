@@ -610,11 +610,13 @@ ruby rt {
   justify-content: center;
 }
 
-.expression__hybrid-wrapper--hover:hover + .pa-indicator, .pa-indicator--sentence {
+.expression__hybrid-wrapper--hover:hover + .pa-indicator,
+.hybrid-click-toggle:checked + .expression__hybrid-wrapper--click + .pa-indicator,
+.expression--sentence + .pa-indicator {
   font-size: var(--pa-indicator-sent-font-size);
 }
 
-.expression__hybrid-wrapper--hover-remove-flag:hover + .pa-indicator > .pa-indicator__svg {
+.expression__hybrid-wrapper--remove-pa-indicator:hover + .pa-indicator > .pa-indicator__svg {
   display: none;
 }
 
@@ -673,6 +675,13 @@ ruby rt {
     display: none;
 }
 .expression__hybrid--hover:hover > .expression__hybrid-sentence {
+    display: block;
+}
+
+.hybrid-click-toggle:checked + .expression__hybrid-wrapper .expression__hybrid-word {
+    display: none;
+}
+.hybrid-click-toggle:checked + .expression__hybrid-wrapper .expression__hybrid-sentence {
     display: block;
 }
 
@@ -1415,10 +1424,6 @@ ruby rt {
   display: flex;
 }
 
-/* checkbox input */
-.full-sentence-toggle {
-  display: none;
-}
 
 .full-sentence {
   font-size: var(--full-sentence-font-size);
@@ -1448,17 +1453,17 @@ ruby rt {
 
 
 /* click toggle */
-.full-sentence-toggle ~ .full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-toggle ruby rt {
+.full-sentence-toggle + .full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-toggle ruby rt {
   opacity: 0;
 }
-.full-sentence-toggle:checked ~ .full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-toggle ruby rt {
+.full-sentence-toggle:checked + .full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-toggle ruby rt {
   opacity: 1;
 }
 
-.full-sentence-toggle ~ .full-sentence.full-sentence--ruby-size.full-sentence--ruby-toggle ruby rt {
+.full-sentence-toggle + .full-sentence.full-sentence--ruby-size.full-sentence--ruby-toggle ruby rt {
   font-size: 0px;
 }
-.full-sentence-toggle:checked ~ .full-sentence.full-sentence--ruby-size.full-sentence--ruby-toggle ruby rt {
+.full-sentence-toggle:checked + .full-sentence.full-sentence--ruby-size.full-sentence--ruby-toggle ruby rt {
   font-size: 0.5em;
 }
 
@@ -1482,7 +1487,7 @@ ruby rt {
 .full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition.full-sentence--ruby-hover:hover ruby rt {
   transition: 0.4s;
 }
-.full-sentence-toggle:checked ~ .full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition.full-sentence--ruby-toggle ruby rt {
+.full-sentence-toggle:checked + .full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition.full-sentence--ruby-toggle ruby rt {
   transition: 0.4s;
 }
 

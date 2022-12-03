@@ -1,7 +1,14 @@
 {# impl #}
 <!-- hybrid (sentence or word) card html
   in css: default hybrid css, with click -->
-<div class="expression__hybrid-wrapper">
+
+
+<input
+  type="checkbox"
+  class="hybrid-click-toggle hidden"
+  id="hybrid_click_toggle"
+>
+<label class="expression__hybrid-wrapper expression__hybrid-wrapper--click" for="hybrid_click_toggle">
   <div class="expression expression__hybrid expression__hybrid--click expression__hybrid--click-hover-effect" id="display">
     <span class="expression--sentence expression__hybrid-sentence
               {% call IFNOT('IsSentenceCard') %} highlight-bold {% endcall %}
@@ -21,4 +28,4 @@
       {{ T("Word") }}
     </span>
   </div>
-</div>
+</label>
