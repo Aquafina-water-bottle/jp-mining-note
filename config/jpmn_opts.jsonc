@@ -452,33 +452,35 @@
       ],
 
 
-      // whether to collapse any dictionary
-      "collapse-dictionaries-enabled": false,
+      "collapse-dictionaries": {
+        "enabled": true,
 
+        "use-first-line": true,
 
-      // collapse-after-max-number:
-      //  1: the first definition is not collapsed, all others are collapsed
-      //  0: all collapsed
-      // -1: no dictionaries are ever collapsed
-      //
-      // collapse-specific-dictionaries:
-      //  - always collapses the dictionaries with the specified tags
-      //
-      // do-not-collapse-specific-dictionaries:
-      //  - never collapses the dictionaries with the specified tags
-      //    (takes precedence over the above)
-      "collapse-dictionary-fields": {
+        // collapse-after-max-number:
+        //  1: the first definition is not collapsed, all others are collapsed
+        //  0: all collapsed
+        // -1: no dictionaries are ever collapsed
+        //
+        // collapse-specific-dictionaries:
+        //  - always collapses the dictionaries with the specified tags
+        //
+        // do-not-collapse-specific-dictionaries:
+        //  - never collapses the dictionaries with the specified tags
+        //    (takes precedence over the above)
+        "fields": {
 
-        "Secondary Definition": {
-          "collapse-after-max-number": -1,
-          "collapse-specific-dictionaries": [],
-          "do-not-collapse-specific-dictionaries": ["JMdict (English)", "JMdict", "Nico/Pixiv"]
-        },
+          "Secondary Definition": {
+            "collapse-after-max-number": 0,
+            "collapse-specific-dictionaries": [],
+            "do-not-collapse-specific-dictionaries": ["JMdict (English)", "JMdict", "Nico/Pixiv"]
+          },
 
-        "Extra Definitions": {
-          "collapse-after-max-number": -1,
-          "collapse-specific-dictionaries": [],
-          "do-not-collapse-specific-dictionaries": ["JMdict (English)", "JMdict", "Nico/Pixiv"]
+          "Extra Definitions": {
+            "collapse-after-max-number": 0,
+            "collapse-specific-dictionaries": [],
+            "do-not-collapse-specific-dictionaries": ["JMdict (English)", "JMdict", "Nico/Pixiv"]
+          }
         }
       }
 
@@ -606,7 +608,7 @@
   // By default, the indicator for collapsable fields are completely removed.
   // Making this true keeps the indicator, but greys out the text to show that
   // it cannot be opened.
-  "greyed-out-collapsable-fields-when-empty": false,
+  "greyed-out-collapsible-fields-when-empty": false,
 
   // Warn if using the `Sentence` field instead of the `SentenceReading` field
   "no-sentence-reading-warn": false,
