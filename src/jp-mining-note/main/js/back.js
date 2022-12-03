@@ -8,11 +8,6 @@
 /// {% endblock %}
 
 
-/// {% block js_keybind_settings %}
-{{ super() }}
-{{ js_common.keybind_settings }}
-/// {% endblock %}
-
 
 /// {% block js_run %}
 {{ super() }}

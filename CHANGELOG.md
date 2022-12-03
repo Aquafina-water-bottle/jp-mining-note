@@ -53,6 +53,7 @@ and must use `./install.py --update`.
 - Fixed img blur eye not being on the image for wider images
 - Made all example urls use {{text:Word} instead of just {{Word}}
 - Fixed some css variables accidentally pointing to others
+- Fixed pa-indicator not being the proper size on sentences / TSCs
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
@@ -76,6 +77,7 @@ and must use `./install.py --update`.
 - Added the `cache` module (to replace global variables)
 - Updated Persistence from v1.0.0 -> v1.1.8
 - Updated documentation on yomichan templates (no longer in TODO state)
+- Removed a bunch of javascript in `hybridClick` and replaced with an input/label hack
 
 
 

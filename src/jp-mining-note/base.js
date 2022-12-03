@@ -117,8 +117,15 @@ function main() {
   /// {% endcall %}
 
 
-  // Stylizes the play button for ankidroid
   if (isMobile()) {
+    // removes the hover effect for mobile displays only
+    /// {% call IF("IsClickCard") %}
+    document.getElementById("display").classList.toggle(
+      "expression__hybrid--click-hover-effect", false);
+    /// {% endcall %}
+
+
+    // Stylizes the play button for ankidroid
     const betterPlayBtn = `<svg class="android-play-button-svg" viewBox="0 0 64 64" version="1.1"> <circle cx="32" cy="32" r="29"></circle> <path d="M56.502,32.301l-37.502,20.101l0.329,-40.804l37.173,20.703Z"></path> </svg>`
 
     function generateSVG() {

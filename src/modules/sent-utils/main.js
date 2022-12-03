@@ -164,15 +164,6 @@ const JPMNSentUtils = (() => {
         sentEle.style["padding-left"] = "0em";
       }
 
-      // removes the hover effect for mobile displays only
-      ///
-      /// {% call IF("IsClickCard") %}
-      if (isMobile()) {
-        document.getElementById("display").classList.toggle(
-          "expression__hybrid--click-hover-effect", false);
-      }
-      /// {% endcall %}
-
       // data-color-quotes: INDICATOR if the sentence quotes are colored or not
       // - attribute doesn't exist by default
       // - if exists, then the quotes are colored
@@ -183,7 +174,7 @@ const JPMNSentUtils = (() => {
         openQuoteEle.classList.add("pa-indicator-color--sentence");
         closeQuoteEle.classList.add("pa-indicator-color--sentence");
 
-        sentEle.setAttribute("data-color-quotes", "true");
+        //sentEle.setAttribute("data-color-quotes", "true");
       }
       /// {% endif %}
 
@@ -193,19 +184,19 @@ const JPMNSentUtils = (() => {
 
       if ((existingQuote || autoQuote) && {{ utils.opt("modules", "sent-utils", "pa-indicator-color-quotes") }}) {
         // data-color-quotes tag within html is sentence-div dependent (preferable over a global state)
-        sentEle.setAttribute("data-color-quotes", "true");
+        //sentEle.setAttribute("data-color-quotes", "true");
 
         if (paIndicator !== null) {
           openQuoteEle.classList.add(paIndicator.className);
           closeQuoteEle.classList.add(paIndicator.className);
         }
 
-        /// {% call IF("IsHoverCard") %}
         let elems = document.getElementsByClassName("expression__hybrid-wrapper");
         if (elems.length > 0) {
-          elems[0].classList.add("expression__hybrid-wrapper--hover-remove-flag");
+          /// {% call utils.if_any("IsHoverCard", "IsClickCard") %}
+          elems[0].classList.add("expression__hybrid-wrapper--remove-pa-indicator");
+          /// {% endcall %}
         }
-        /// {% endcall %}
 
         // neither hover & click and is either one of TSC / sentence -> removes flag
         let svgEle = document.getElementById("flag_box_svg");
@@ -215,17 +206,6 @@ const JPMNSentUtils = (() => {
         svgEle.style.display = "none";
         /// {% endcall %}
         /// {% endcall %}
-
-        // ASSUMPTION: IsClickCard + back side of the main card -> reveals sentence
-        // i.e. hybridClick() is automatically called
-        // ASSUMPTION: hybridClick() is called BEFORE this section
-        /// {% if note.side == "back" %}
-        /// {% call IF("IsClickCard") %}
-        if ({{ utils.opt("click-card-sentence-reveal-on-back-side") }}) {
-          svgEle.style.display = "none";
-        }
-        /// {% endcall %}
-        /// {% endif %}
       }
       /// {% endcall %}
       /// {% endif %}
