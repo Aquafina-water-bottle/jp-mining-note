@@ -616,7 +616,11 @@ ruby rt {
   font-size: var(--pa-indicator-sent-font-size);
 }
 
-.expression__hybrid-wrapper--remove-pa-indicator:hover + .pa-indicator > .pa-indicator__svg {
+.expression__hybrid-wrapper--hover.expression__hybrid-wrapper--remove-pa-indicator:hover + .pa-indicator > .pa-indicator__svg {
+  display: none;
+}
+
+.hybrid-click-toggle:checked + .expression__hybrid-wrapper--click.expression__hybrid-wrapper--remove-pa-indicator + .pa-indicator > .pa-indicator__svg {
   display: none;
 }
 
