@@ -47,6 +47,7 @@ and must use `./install.py --update`.
 - Added a warning if `SentenceReading` is filled but `Sentence` isn't
 - Renamed `customize-open-fields` -> `collapsible-fields-utils`
     - Added way to specify collapsed dictionaries within Secondary Definition and Extra Definitions
+- Added compile-time options to specify how ruby can be displayed in the full sentence
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
