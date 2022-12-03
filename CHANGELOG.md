@@ -20,7 +20,7 @@ by simply installing a new version of the .apkg package,
 and must use `./install.py --update`.
 
 
-## [0.11.1.0] - 2022-11-??
+## [0.11.1.0] - 2022-12-??
 #### Features
 - Primary definition picture rework:
     - Cleaned up css and made css a lot more readable
