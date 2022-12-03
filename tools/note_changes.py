@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-import jpmnopts_updater as opts
 import batch
 
 import action
@@ -65,7 +64,7 @@ class NoteChange:
     version: Version
     actions: list[action.Action]
     fields: list[str]
-    option_actions: list[opts.OptAction] = field(init=False)
+    option_actions: list[action.OptAction] = field(init=False)
 
 
 NOTE_CHANGES = [

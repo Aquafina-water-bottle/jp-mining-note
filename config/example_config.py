@@ -180,5 +180,25 @@ CONFIG = {
         "display-languages": ["en"],
         #"display-languages": ["jp", "en"],
 
+        # Options to affect how the furigana is display on the full sentence (back side) of the card.
+        "full-sentence-ruby": {
+            # Specifies when the ruby is displayed
+            # - valid options: "hover", "click", "both"
+            # - "both" means that both hovering and clicking works, i.e. clicking can
+            #   freeze / unfreeze the furigana in place.
+            "display-mode": "hover",
+
+            # Specifies how the ruby is displayed
+            # valid options: "opacity", "font-size",
+            # - "opacity" adds invisible spacing between words
+            # - "font-size" adds spacing only when ruby is displayed, which will increase the
+            #   height of the ruby, and can cause characters to overflow into the next line
+            "fill-mode": "opacity",
+
+            # An option that only affects the note when fill-mode is font size.
+            # adds a smooth transition between no furigana and furigana
+            "fill-mode-font-size-transition": True,
+        },
+
     },
 }

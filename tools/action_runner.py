@@ -272,6 +272,7 @@ class ActionRunner:
         current_ver: Version,
         new_ver: Version,
         in_order=True,
+        verify=True,
         note_changes=NOTE_CHANGES,
     ):
         """
@@ -319,12 +320,13 @@ class ActionRunner:
         if not self.changes:  # if self.changes is empty
             return
 
-        if self.new_fields is not None:
-            self.verifier = Verifier(
-                self.original_fields, self.new_fields, in_order=self.in_order
-            )
-            actions = sum((c.actions for c in self.changes), start=[])
-            self.verifier.verify(actions)
+        if verify:
+            if self.new_fields is not None:
+                self.verifier = Verifier(
+                    self.original_fields, self.new_fields, in_order=self.in_order
+                )
+                actions = sum((c.actions for c in self.changes), start=[])
+                self.verifier.verify(actions)
 
         # sees if actions edits the cards
         for data in self.changes:

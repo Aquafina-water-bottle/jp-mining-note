@@ -1,12 +1,41 @@
 {# impl #}
 
+
 <div class="full-sentence-center">
-  <div class="full-sentence highlight-bold" id="full_sentence">
+  <input
+    type="checkbox"
+    class="full-sentence-toggle"
+    id="full_sentence_toggle"
+    {% if COMPILE_OPTIONS("full-sentence-ruby", "display-mode").item() == "hover" %}
+    disabled="disabled"
+    {% endif %}
+  >
+  <label class="
+        full-sentence highlight-bold
+        {% if COMPILE_OPTIONS("full-sentence-ruby", "display-mode").item() == "hover" %}
+        full-sentence--ruby-hover
+        {% elif COMPILE_OPTIONS("full-sentence-ruby", "display-mode").item() == "click" %}
+        full-sentence--ruby-toggle
+        {% else %}
+        full-sentence--ruby-hover
+        full-sentence--ruby-toggle
+        {% endif %}
+        {% if COMPILE_OPTIONS("full-sentence-ruby", "fill-mode").item() == "opacity" %}
+        full-sentence--ruby-opacity
+        {% else %}
+        full-sentence--ruby-size
+        {% endif %}
+        {% if COMPILE_OPTIONS("full-sentence-ruby", "fill-mode-font-size-transition").item() %}
+        full-sentence--ruby-size-transition
+        {% endif %}
+      "
+      for="full_sentence_toggle"
+      id="full_sentence">
     {% call IF("SentenceReading") %}
       {{ T("furigana:SentenceReading") }}
     {% endcall %}
     {% call IFNOT("SentenceReading") %}
       {{ T("Sentence") }}
     {% endcall %}
-  </div>
+  </label>
 </div>
