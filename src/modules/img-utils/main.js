@@ -233,7 +233,7 @@ const JPMNImgUtils = (() => {
         logger.debug("Persistence is available. Not the first review, so nothing has to be done.");
       }
     } else {
-      logger.debug("Persistence is not available! Unable to init Persistence");
+      logger.debug("Persistence is not available! Unable to init Persistence", 4);
     }
 
     // visual interface for whether images should be blurred or not
@@ -250,7 +250,7 @@ const JPMNImgUtils = (() => {
       }
 
       // to display properly on the settings eye
-      logger.debug(`Setting NSFW toggle state to '${getCurrentNSFWToggleState()}'...`);
+      logger.debug(`Setting NSFW toggle state to '${getCurrentNSFWToggleState()}'...`, 2);
       setDisplayState(getCurrentNSFWToggleState(), settingsEye, false);
 
     } else {
@@ -317,7 +317,7 @@ const JPMNImgUtils = (() => {
 
     const imgIsNsfw = cardHasNSFWTag();
     const shouldBlurImgDefault = getShouldBlurNSFWDefault();
-    logger.debug(`imgIsNsfw: ${imgIsNsfw}, shouldBlurImgDefault: ${shouldBlurImgDefault}`);
+    logger.debug(`imgIsNsfw: ${imgIsNsfw}, shouldBlurImgDefault: ${shouldBlurImgDefault}`, 2);
 
     if (imgIsNsfw) {
       dhImgBlur.classList.toggle(showEyeClassName, true);
@@ -358,7 +358,7 @@ const JPMNImgUtils = (() => {
       logger.debug(`Persistence[${currentStateIndex}] returns ${currentState}`, 1);
       return currentState;
     }
-    logger.debug("Persistence not available! Falling back to default value...", 2);
+    logger.debug("Persistence not available! Falling back to default value...", 4);
     return toggleStates[0];
   }
 
@@ -571,7 +571,7 @@ const JPMNImgUtils = (() => {
   function setDefPicPosition() {
     // if the field is empty, nothing has to be done
     if (!"{{ utils.any_of_str('PrimaryDefinitionPicture') }}") {
-      logger.debug("PrimaryDefinitionPicture is empty. Nothing has to be done.");
+      logger.debug("PrimaryDefinitionPicture is empty. Nothing has to be done.", 2);
       return;
     }
 
