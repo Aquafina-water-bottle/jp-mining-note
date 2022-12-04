@@ -1,21 +1,10 @@
 
-
-TODO see the following pages instead:
-
-* [UI Customization](uicustomization.md)
-* [Field Reference](fieldref.md)
-* [Yomichan Template Options](yomichantemplates.md)
-
-
-
-
 # Overview
 
 This page is dedicated to showcasing
-how definitions (and other collapsable fields)
-can be easily chosen, overwritten and customized overall.
+how definitions can be easily chosen, overwritten and customized overall.
 
-This page is primarily for monolingual dictionary users,
+This page is primarily intended for monolingual dictionary users,
 as the sheer amount of possible monolingual dictionaries may require specific
 customizations for each individual dictionary.
 
@@ -65,7 +54,7 @@ You can check that your dictionaries are correctly categorized with the
 `{jpmn-test-dict-type}` marker.
 Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
 
-{{ img("checking dictionary categories", "assets/yomichantemplates/test_dictionary_categorization.gif") }}
+{{ img("checking dictionary categories", "assets/definitions/test_dictionary_categorization.gif") }}
 
 An example output of the above (on the word 結構) is the following:
 ```
@@ -105,6 +94,12 @@ To see how to edit the option, see [the section below](#editing-the-dictionary-r
 
 Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
 [see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki){:target="_blank"}.
+
+!!! note
+    It is recommended to not use this option, so you have as much information as possible
+    within the note.
+    If you wish to not see a dictionary, it might be easier to
+    [collapse the dictionary](#collapsing-dictionaries).
 
 
 <br>
@@ -147,7 +142,7 @@ To modify a regex string:
 The dictionary for the primary definition is the first bilingual dictionary
 (that appears on Yomichan) by default.
 
-This can be changed to the first monolingual dictionary by changing the following {{ YTCO }}:
+This can be changed to the first monolingual dictionary by changing the following {{ YTCO }} to `monolingual`:
 
 {% raw %}
 ```handlebars
@@ -253,7 +248,7 @@ The first line of the definition has various elements that can be hidden with {{
 
 === "Nothing hidden (default)"
     <figure markdown>
-      {{ img("", "assets/uicustomization/first_line_css/full.png") }}
+      {{ img("", "assets/definitions/first_line_css/full.png") }}
     </figure>
 
     * Nothing is hidden. This is the default behavior.
@@ -262,7 +257,7 @@ The first line of the definition has various elements that can be hidden with {{
 
 === "Hide extra text"
     <figure markdown>
-      {{ img("", "assets/uicustomization/first_line_css/dict_tag_only.png") }}
+      {{ img("", "assets/definitions/first_line_css/dict_tag_only.png") }}
     </figure>
 
     * This hides all the text to the right of the dictionary tag.
@@ -292,7 +287,7 @@ The first line of the definition has various elements that can be hidden with {{
 
 === "Hide dictionary tag"
     <figure markdown>
-      {{ img("", "assets/uicustomization/first_line_css/right_text_only.png") }}
+      {{ img("", "assets/definitions/first_line_css/right_text_only.png") }}
     </figure>
 
     * Removes only the dictionary tag.
@@ -357,7 +352,7 @@ The first line of the definition has various elements that can be hidden with {{
 
 === "Hide entire first line"
     <figure markdown>
-      {{ img("", "assets/uicustomization/first_line_css/first_line_hidden.png") }}
+      {{ img("", "assets/definitions/first_line_css/first_line_hidden.png") }}
     </figure>
 
     * Hides the entire first line.
@@ -440,7 +435,7 @@ The following {{ CSS }} completely nukes the numbers regardless of how many item
 
 
 ## Collapsing dictionaries
-{{ feature_version("0.11.0.0") }}
+{{ feature_version("0.11.1.0") }}
 
 This allows you collapse dictionaries within the
 Secondary Definition or Extra Definitions section.
@@ -449,13 +444,12 @@ TODO gif
 
 ??? example "Instructions *(click here)*"
 
-    ```
+    ```json
     {
       "modules": {
-        "collapsible-fields-utils": {
-          "collapse-dictionaries": {
-            "enabled": true,
-          }
+        "collapse-dictionaries": {
+          "enabled": true,
+          // ...
         }
       }
     }
@@ -507,77 +501,6 @@ instead of collapsing them.
 -->
 
 
-
-
-
-## Automatically open collapsed fields
-
-Collapsed fields are collapsed by default.
-These fields can be set to be automatically opened
-under the following {{ RTO }}:
-
-```json
-{
-  "modules": {
-    "customize-open-fields": {
-      ...
-    }
-  }
-}
-```
-
-??? example "Example Config *(click here)*"
-    ```json
-    "customize-open-fields": {
-      "enabled": false,
-
-      // Force a field to be always open
-      "open": [
-        "Secondary Definition"
-      ],
-
-      // Opens the specified collapsable field if the card is new.
-      "open-on-new-enabled": {
-        "type": "pc-mobile",
-        "pc": true,
-        "mobile": false
-      },
-
-      "open-on-new": [
-        "Extra Info"
-      ]
-    }
-    ```
-
-=== "Default"
-    {{ img("", "assets/uicustomization/open_fields/closed.png") }}
-
-=== "Using example config (new card)"
-    {{ img("", "assets/uicustomization/open_fields/open.png") }}
-
-=== "Using example config (non-new card)"
-    {{ img("", "assets/uicustomization/open_fields/partially_open.png") }}
-
-
----
-
-
-
-## Greyed out empty fields
-
-Collapsable fields that are empty are usually not shown at all.
-This {{ RTO }} allows them to be shown (but greyed out) when empty.
-```json
-{
-  "greyed-out-collapsable-fields-when-empty": ...
-}
-```
-
-=== "Empty fields greyed out (`true`)"
-    {{ img("", "assets/uicustomization/greyed_out_fields/grey.png") }}
-
-=== "Empty fields not shown (`false`, default)"
-    {{ img("", "assets/uicustomization/greyed_out_fields/hidden.png") }}
 
 
 

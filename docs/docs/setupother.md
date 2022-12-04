@@ -7,6 +7,9 @@ already setup, and the note is already working.
 
 ---
 
+
+
+
 # Yomichan Appearance
 If you want to follow my exact Yomichan popup appearance:
 
@@ -18,6 +21,10 @@ There are also plenty of css customizations for Yomichan listed out
 in the [JP Resources page](jpresources.md){:target="_blank"}.
 
 ---
+
+
+
+
 
 # JMdict
 If you are planning on using the JMdict dictionary,
@@ -41,17 +48,44 @@ which should only be a few months stale at most.
 ---
 
 
-# JMdict Surface Forms
-[(Download Link)](https://github.com/FooSoft/yomichan/issues/2183)
 
-This is a dictionary placed in the `UtilityDictionaries` field by default.
-Although I don't use it when studying Anki, it helps to use this when creating Anki notes
-for monolingual definitions.
-See [this section](jpresources.md#orthographic-variants-fix-sentence-and-frequency){:target="_blank"}
-for more information.
+
+
+
+# Other dictionaries
+
+* [**JMdict Surface Forms**](https://github.com/FooSoft/yomichan/issues/2183)
+
+    This is a dictionary placed in the `UtilityDictionaries` field by default.
+    Although I don't use it when studying Anki, it helps to use this when creating Anki notes
+    for monolingual definitions.
+    See [this](jpresources.md#orthographic-variants-fix-sentence-and-frequency){:target="_blank"}
+    for more information.
+
+* I highly recommend getting some pitch accent dictionaries and frequency lists
+    if you have not already, as these will be shown and used in the note type.
+    See [TheMoeWay's folder](https://learnjapanese.link/dictionaries) to browse through some examples.
+
+* [**JPDB frequency list**](https://github.com/MarvNC/jpdb-freq-list)
+
+    I personally recommend using the JPDB frequency list as one of your frequency lists,
+    because it has high word coverage, and seems very high quality (particularly for fiction content).
+
+* [**JPDB Kanji dictionary**](https://github.com/MarvNC/yomichan-dictionaries/#jpdb-kanji)
+
+    This dictionary is extremely useful to see the most popular words where a particular kanji is used.
+    I like using this to see how rare a kanji is at a glance.
+
+    This synergizes well with
+    [kanji frequency dictionaries](https://github.com/MarvNC/yomichan-dictionaries/#kanji-frequency).
+
+
+
 
 
 ---
+
+
 
 # Local Audio Server for Yomichan
 See
@@ -62,6 +96,8 @@ and fetch audio without a working internet connection.
 I personally recommend using this setup if you can.
 
 ---
+
+
 
 
 # Various Anki Resources

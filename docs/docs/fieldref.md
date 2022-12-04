@@ -142,45 +142,12 @@ If you do not want the hint to be hidden by default, you can use the `HintNotHid
 
 # Modifying the Back Side
 
-The main two fields that one can add text to is
-`PrimaryDefinition` and `AdditionalNotes`.
-Bolding anything in these sections will highlight the word in a light yellow tint,
-to make the bold stand out more.
-
-{{ img("", "assets/fieldref/bold.png") }}
-
-<br>
-
-
-## `PrimaryDefinition` field
-The `PrimaryDefinition` field contains the main content, and should be the main field to edit
-if one wants to put down more notes about the card.
-
-<br>
-
-
-## `AdditionalNotes` field
-The `AdditionalNotes` field is useful if you want to write down even more notes,
-but keep it in a collapsible field to reduce vertical space.
-
-Here are some ways you can use this field:
-
-* Recording the source where the scene came from
-* Adding custom notes on the scene's context
-* Recording the sentences surrounding the mined sentence
-
-In general, this field should be used for any info that is not crutial
-to understanding the tested content.
-
-<br>
-
-
-## Modifying Images and Pitch Accent
-As there are plenty of ways to modify images and pitch accent,
+As there are plenty of ways to modify the back side,
 they are discussed in their respective pages:
 
-* [Images](images.md)
-* [Pitch Accent](autopa.md)
+* [Text](text.md) (`PrimaryDefinition` and `AdditionalNotes`)
+* [Images](images.md) (`Picture` and `PrimaryDefinitionPicture`)
+* [Pitch Accent](autopa.md) (`PAOverride` and `PAOverrideText`)
 
 ---
 

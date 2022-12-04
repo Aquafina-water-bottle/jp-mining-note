@@ -46,7 +46,7 @@ and must use `./install.py --update`.
 - (WIP, NOT WORKING YET) Added a way to automatically update the `_jpmn_options.js` file and `config/user_jpmn_opts.json` file using the regular `install.py` script
 - Added a warning if `SentenceReading` is filled but `Sentence` isn't
 - Renamed `customize-open-fields` -> `open-collapsed-fields`
-- Added way to specify collapsed dictionaries within Secondary Definition and Extra Definitions
+- `collapse-dictionaries`: Added way to specify collapsed dictionaries within Secondary Definition and Extra Definitions
 - Added compile-time options to specify how ruby can be displayed in the full sentence
 - (WIP) Added support for vertical display (tested content can be displayed vertically)
 
