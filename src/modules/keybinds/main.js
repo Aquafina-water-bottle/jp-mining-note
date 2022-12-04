@@ -9,7 +9,7 @@
 
 const JPMNKeybinds = (() => {
 
-  const logger = new JPMNLogger("example");
+  const logger = new JPMNLogger("keybinds");
 
   /*
    * Toggles the display of any given details tag
@@ -141,7 +141,7 @@ const JPMNKeybinds = (() => {
 
         for (const key of Object.keys(this.funcs)) {
           const func = this.funcs[key];
-          logger.debug(`Running function ${key}`, 2);
+          logger.debug(`Running function ${key}`, 1);
           func(e);
         }
       });

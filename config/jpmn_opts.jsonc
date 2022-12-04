@@ -464,6 +464,12 @@
     "collapse-dictionaries": {
       "enabled": false,
 
+      // valid options: "collapsible-open", "collapsible-closed", "none"
+      "default-mode": {
+        "secondary-definition": "collapsible-open",
+        "extra-definitions": "collapsible-open"
+      },
+
       // in general, for any number (n) above 0, it will not collapse those (n) dictionaries.
       // examples:
       //    1: the first definition is not collapsed, all others are collapsed
@@ -471,23 +477,24 @@
       //   -1: no dictionaries are ever collapsed (special value)
       //   -2: no dictionaries are transformed (special value)
       "collapse-after-max-number": {
-        "secondary-definition": 0,
-        "extra-definitions": 0
+        "secondary-definition": 1,
+        "extra-definitions": 1
       },
 
       // specify the exact dictionary tag within the lists below
       "dictionary-options": {
 
-        // always collapses the dictionaries with the specified tags
-        //  (takes precedence over collapse-after-max-number)
-        "always-collapsed": [],
+        // Always collapses the dictionaries with the specified tags
+        // - Takes precedence over collapse-after-max-number
+        "always-collapsible-open": [],
 
-        // never collapses the dictionaries with the specified tags
-        //  (takes precedence over always-collapsed)
-        "never-collapsed": [],
+        // Never collapses the dictionaries with the specified tags
+        // - Takes precedence over always-collapsible-open
+        "always-collapsible-closed": [],
 
-        // does not transform JMdict because it is usually only one-line per definition anyways
-        "do-not-transform": ["JMdict (English)", "JMdict", "Nico/Pixiv"],
+        // - Does not transform JMdict because it is usually only one-line per definition anyways
+        // - Takes precedence over always-collapsible-closed
+        "never-collapsible": ["JMdict (English)", "JMdict", "Nico/Pixiv"],
 
         // Usually, collapsed dictionries attempt to collapse the first line only.
         // This allows you to only show the dictionary name (and not the text to the right).
