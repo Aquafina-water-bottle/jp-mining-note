@@ -28,30 +28,42 @@ const JPMNCollapseDictionaries = (() => {
   }
 
 
+  const COLLAPSIBLE_OPEN = "collapsible-open"
+  const COLLAPSIBLE_CLOSED = "collapsible-closed"
+  const NOT_COLLAPSIBLE = "none"
+
+
   const logger = new JPMNLogger("collapsible-field-utils");
 
   // to not query the util.opt for each dictionary
   function generateOpts(fName) {
     let _max = -1;
+    let _defaultMode = "";
+
     if (fName === "Secondary Definition") {
       _max = {{ utils.opt("modules", "collapse-dictionaries",
           "collapse-after-max-number", "secondary-definition") }};
+      _defaultMode = {{ utils.opt("modules", "collapse-dictionaries",
+          "default-mode", "secondary-definition") }};
     } else {
       _max = {{ utils.opt("modules", "collapse-dictionaries",
           "collapse-after-max-number", "extra-definitions") }};
+      _defaultMode = {{ utils.opt("modules", "collapse-dictionaries",
+          "default-mode", "extra-definitions") }};
     }
 
     return {
       max: _max,
+      defaultMode: _defaultMode,
 
-      dictsAlwaysCollapsed: {{ utils.opt("modules", "collapse-dictionaries",
-          "dictionary-options", "always-collapsed") }},
+      alwaysCollapsibleOpen: {{ utils.opt("modules", "collapse-dictionaries",
+          "dictionary-options", "always-collapsible-open") }},
 
-      dictsNeverCollapsed: {{ utils.opt("modules", "collapse-dictionaries",
-          "dictionary-options", "never-collapsed") }},
+      alwaysCollapsibleClosed: {{ utils.opt("modules", "collapse-dictionaries",
+          "dictionary-options", "always-collapsible-closed") }},
 
       dictsNoTransform: {{ utils.opt("modules", "collapse-dictionaries",
-          "dictionary-options", "do-not-transform") }},
+          "dictionary-options", "never-collapsible") }},
 
       dictsOnlyName: {{ utils.opt("modules", "collapse-dictionaries",
           "dictionary-options", "only-display-dictionary-name") }},
@@ -59,28 +71,54 @@ const JPMNCollapseDictionaries = (() => {
     }
   }
 
-  function dictShouldTransform(dictName, opts) {
+  //function dictShouldTransform(dictName, opts) {
+  //  if (opts.dictsNoTransform.includes(dictName)) {
+  //    return false;
+  //  }
+  //
+  //  // these 2 options override the default
+  //  const collapseDict = opts.alwaysCollapsibleOpen.includes(dictName);
+  //  const openDict = opts.alwaysCollapsibleClosed.includes(dictName);
+  //
+  //  const doNotTransformDefault = (opts.max === -2);
+  //  const doNotTransform = doNotTransformDefault && !(collapseDict || openDict);
+  //  return !doNotTransform;
+  //}
+
+
+  // returns: COLLAPSIBLE_OPEN, COLLAPSIBLE_CLOSED, NOT_COLLAPSIBLE
+  function getDictMode(dictName, i, opts) {
     if (opts.dictsNoTransform.includes(dictName)) {
-      return false;
+      return NOT_COLLAPSIBLE;
+    }
+    if (opts.alwaysCollapsibleClosed.includes(dictName)) {
+      return COLLAPSIBLE_CLOSED;
+    }
+    if (opts.alwaysCollapsibleOpen.includes(dictName)) {
+      return COLLAPSIBLE_OPEN;
     }
 
-    // these 2 options override the default
-    const collapseDict = opts.dictsAlwaysCollapsed.includes(dictName);
-    const openDict = opts.dictsNeverCollapsed.includes(dictName);
+    if (opts.max !== -1 && i >= opts.max) {
+      return COLLAPSIBLE_CLOSED;
+    }
 
-    const doNotTransformDefault = (opts.max === -2);
-    const doNotTransform = doNotTransformDefault && !(collapseDict || openDict);
-    return !doNotTransform;
+    // falls back to default
+    if (![COLLAPSIBLE_OPEN, COLLAPSIBLE_CLOSED, NOT_COLLAPSIBLE].includes(opts.defaultMode)) {
+      logger.warn(`Invalid default mode ${opts.defaultMode}. Using ${COLLAPSIBLE_OPEN}...`)
+      return COLLAPSIBLE_OPEN;
+    }
+    return opts.defaultMode;
+
   }
 
-  function dictShouldBeOpen(dictName, i, opts) {
-    const collapseMax = (opts.max !== -1 && i >= opts.max);
-    const collapseDict = opts.dictsAlwaysCollapsed.includes(dictName);
-    const openDict = opts.dictsNeverCollapsed.includes(dictName);
+  //function dictShouldBeOpen(dictName, i, opts) {
+  //  const collapseMax = (opts.max !== -1 && i >= opts.max);
+  //  const collapseDict = opts.alwaysCollapsibleOpen.includes(dictName);
+  //  const openDict = opts.alwaysCollapsibleClosed.includes(dictName);
 
-    const shouldCollapse = ((collapseMax || collapseDict) && !openDict);
-    return !shouldCollapse;
-  }
+  //  const shouldCollapse = ((collapseMax || collapseDict) && !openDict);
+  //  return !shouldCollapse;
+  //}
 
   function changetoCollapsedDict(ele, dictName, isOpen, useName) {
     /*
@@ -170,10 +208,23 @@ const JPMNCollapseDictionaries = (() => {
           if (child.tagName === "LI" && child.hasAttribute("data-details")) {
             const dictName = child.getAttribute("data-details");
 
-            if (dictName !== null && dictShouldTransform(dictName, opts)) {
-              const isOpen = dictShouldBeOpen(dictName, i, opts)
+            //if (dictName !== null && dictShouldTransform(dictName, opts)) {
+            //  const isOpen = dictShouldBeOpen(dictName, i, opts)
+            //  const useName = opts.dictsOnlyName.includes(dictName);
+            //  logger.debug(`Collapsing ${dictName} in ${fStr} (open: ${isOpen})`, 2)
+            //  changetoCollapsedDict(child, dictName, isOpen, useName);
+            //}
+
+            if (dictName !== null) {
+              const dictMode = getDictMode(dictName, i, opts);
+              if (dictMode === NOT_COLLAPSIBLE) {
+                continue
+              }
+
+              const isOpen = (dictMode === COLLAPSIBLE_OPEN)
               const useName = opts.dictsOnlyName.includes(dictName);
               logger.debug(`Collapsing ${dictName} in ${fStr} (open: ${isOpen})`, 2)
+
               changetoCollapsedDict(child, dictName, isOpen, useName);
             }
 
