@@ -38,7 +38,7 @@ const JPMNExample = (() => {
 /// {% set run %}
 
 if ({{ utils.opt("modules", "example", "enabled") }}) {
-  const example = new JPMNExample()
+  const example = new JPMNExample();
   example.run();
 }
 

@@ -1,5 +1,6 @@
 {# impl #}
 
+{% set _disp_mode = COMPILE_OPTIONS("full-sentence-ruby", "display-mode").item() %}
 
 {% call IF("SentenceReading") %}
 <div class="full-sentence-center">
@@ -7,19 +8,20 @@
     type="checkbox"
     class="full-sentence-toggle hidden"
     id="full_sentence_toggle"
-    {% if COMPILE_OPTIONS("full-sentence-ruby", "display-mode").item() == "hover" %}
+    {% if _disp_mode == "hover" or _disp_mode == "always" %}
     disabled="disabled"
     {% endif %}
   >
   <label class="
         full-sentence highlight-bold
-        {% if COMPILE_OPTIONS("full-sentence-ruby", "display-mode").item() == "hover" %}
+        {% if _disp_mode == "hover" or _disp_mode == "both" %}
         full-sentence--ruby-hover
-        {% elif COMPILE_OPTIONS("full-sentence-ruby", "display-mode").item() == "click" %}
+        {% endif %}
+        {% if _disp_mode == "click" or _disp_mode == "both" %}
         full-sentence--ruby-toggle
-        {% else %}
-        full-sentence--ruby-hover
-        full-sentence--ruby-toggle
+        {% endif %}
+        {% if _disp_mode == "never" %}
+        hide-ruby
         {% endif %}
         {% if COMPILE_OPTIONS("full-sentence-ruby", "fill-mode").item() == "opacity" %}
         full-sentence--ruby-opacity

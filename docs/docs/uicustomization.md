@@ -56,273 +56,6 @@ if the furigana text is too long.
 
 
 
-{% macro oubunsha_msg(css) -%}
-The following {{ css }} only affects only the dictionary with the tag 「旺文社国語辞典 第十一版」. To use this on more than one dictionary, copy/paste the {{ css }} multiple times, and replace the dictionary tag.
-{% endmacro %}
-
-{% set css_oubunsha -%}{{ oubunsha_msg("CSS") }}{% endset %}
-{% set scss_oubunsha -%}{{ oubunsha_msg("SCSS") }}{% endset %}
-
-
-# Hiding the first line of a definition
-<sup>See also: [How to remove the numbers in the definition](#removing-the-numbers-in-the-primary-definition)</sup>
-
-The first line of the definition has various elements that can be hidden with {{ CSS }}.
-
-=== "Nothing hidden (default)"
-    <figure markdown>
-      {{ img("", "assets/uicustomization/first_line_css/full.png") }}
-    </figure>
-
-    * Nothing is hidden. This is the default behavior.
-
-
-
-=== "Hide extra text"
-    <figure markdown>
-      {{ img("", "assets/uicustomization/first_line_css/dict_tag_only.png") }}
-    </figure>
-
-    * This hides all the text to the right of the dictionary tag.
-
-    ??? example "CSS to hide extra text *(click here)*"
-        {{ feature_version("0.11.0.0") }}
-
-        {{ css_oubunsha }}
-
-        1. Under `extra/style.scss`, add the following code:
-
-            ```css
-            /* hide the text after the 「旺文社国語辞典 第十一版」 dictionary tag */
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
-              display: none;
-            }
-            ```
-
-        2. (Optional) Under `extra/field.scss`, add the following code:
-
-            ```css
-            /* greys out the text after the 「旺文社国語辞典 第十一版」 dictionary tag */
-            anki-editable ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
-              color: var(--text-color--3);
-            }
-            ```
-
-=== "Hide dictionary tag"
-    <figure markdown>
-      {{ img("", "assets/uicustomization/first_line_css/right_text_only.png") }}
-    </figure>
-
-    * Removes only the dictionary tag.
-        This doesn't look very good on most dictionaries.
-
-    ??? example "CSS to hide dictionary tag(s) *(click here)*"
-
-        {{ css_oubunsha }}
-
-        1. Under `extra/style.scss`, add the following code:
-            ```css
-            /* hide the 「旺文社国語辞典 第十一版」 dictionary */
-            ol li[data-details="旺文社国語辞典 第十一版"] .dict-group__tag-list {
-              display: none;
-            }
-            ```
-
-        2. (Optional) Under `extra/field.scss`, add the following code:
-            ```css
-            /* greys out the 「旺文社国語辞典 第十一版」 dictionary */
-            anki-editable ol li[data-details="旺文社国語辞典 第十一版"] .dict-group__tag-list {
-              color: var(--text-color--3);
-            }
-            ```
-
-    ??? example "CSS to hide JMdict's dictionary tag *(click here)*"
-        If you are on a modern version of JMdict, the dictionary will contain additional tags
-        to the right of the dictionary tag by default, such as (n), (vs), etc.
-        The instructions above will remove all of these tags.
-
-        You may want to only remove the dictionary tag without removing the other information tags.
-        If your JMdict dictionary tag is exactly `JMdict (English)`, then this is already the
-        default behavior.
-        However, if your dictionary tag is different, do the following
-        (you may have to replace `JMdict` with your exact JMdict dictionary tag):
-
-        1. Under `extra/style.scss`, add the following code:
-            ```css
-            /* removes the dictionary entry for jmdict */
-            .glossary-text ol li[data-details="JMdict"] .dict-group__tag-list .dict-group__tag--dict {
-              display: none;
-            }
-            /* Makes JMDict italic */
-            .glossary-text ol li[data-details="JMdict"] .dict-group__tag-list {
-              font-style: italic;
-            }
-            ```
-
-        2. (Optional) Under `extra/field.scss`, add the following code:
-            ```css
-            /* greys out dictionary entry for jmdict */
-            anki-editable ol li[data-details="JMdict"] .dict-group__tag-list .dict-group__tag--dict {
-              color: var(--text-color--3);
-            }
-            /* Makes JMDict italic */
-            anki-editable ol li[data-details="JMdict"] .dict-group__tag-list {
-              font-style: italic;
-            }
-            ```
-
-
-
-=== "Hide entire first line"
-    <figure markdown>
-      {{ img("", "assets/uicustomization/first_line_css/first_line_hidden.png") }}
-    </figure>
-
-    * Hides the entire first line.
-        This is a combination of the last two,
-        meaning it hides the dictionary tag and the text to the right.
-
-    ??? example "CSS to hide the entire first line *(click here)*"
-        {{ feature_version("0.11.0.0") }}
-
-        {{ scss_oubunsha }}
-
-        1. Under `extra/style.scss`, add the following code:
-
-            ```css
-            /* hide the first line for the 「旺文社国語辞典 第十一版」 dictionary */
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] {
-              .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
-                display: none;
-              }
-            }
-
-            ```
-
-        2. (Optional) Under `extra/field.scss`, add the following code:
-
-            ```css
-            anki-editable ol li[data-details="明鏡国語辞典 第二版"] {
-              .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
-                display: none;
-              }
-            }
-            ```
-
-        !!! note
-            The above examples are SCSS, and not CSS.
-            If you are using CSS, do not flatten the classes after the first line.
-
-            Example Raw CSS:
-
-            ```css
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__tag-list {
-              display: none;
-            }
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
-              display: none;
-            }
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line-break {
-              display: none;
-            }
-            ```
-
----
-
-
-
-
-# Removing the numbers in the primary definition
-
-Currently, I am not aware of an easy way to only remove the numbers if there is only one
-item (and having them remain for multple definitions) with only CSS.
-
-The following {{ CSS }} completely nukes the numbers regardless of how many items there are in the list.
-
-
-??? example "Instructions *(click here)*"
-
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        .glossary-text--primary-definition ol {
-          list-style: none;
-          padding-left: 0em;
-        }
-        ```
-
----
-
-
-
-
-
-# Automatically open collapsed fields
-
-Collapsed fields are collapsed by default.
-These fields can be set to be automatically opened
-under the following {{ RTO }}:
-
-```json
-{
-  "modules": {
-    "customize-open-fields": {
-      ...
-    }
-  }
-}
-```
-
-??? example "Example Config *(click here)*"
-    ```json
-    "customize-open-fields": {
-      "enabled": false,
-
-      // Force a field to be always open
-      "open": [
-        "Secondary Definition"
-      ],
-
-      // Opens the specified collapsable field if the card is new.
-      "open-on-new-enabled": {
-        "type": "pc-mobile",
-        "pc": true,
-        "mobile": false
-      },
-
-      "open-on-new": [
-        "Extra Info"
-      ]
-    }
-    ```
-
-=== "Default"
-    {{ img("", "assets/uicustomization/open_fields/closed.png") }}
-
-=== "Using example config (new card)"
-    {{ img("", "assets/uicustomization/open_fields/open.png") }}
-
-=== "Using example config (non-new card)"
-    {{ img("", "assets/uicustomization/open_fields/partially_open.png") }}
-
-
----
-
-# Greyed out empty fields
-
-Collapsable fields that are empty are usually not shown at all.
-This {{ RTO }} allows them to be shown (but greyed out) when empty.
-```json
-{
-  "greyed-out-collapsable-fields-when-empty": ...
-}
-```
-
-=== "Empty fields greyed out (`true`)"
-    {{ img("", "assets/uicustomization/greyed_out_fields/grey.png") }}
-
-=== "Empty fields not shown (`false`, default)"
-    {{ img("", "assets/uicustomization/greyed_out_fields/hidden.png") }}
 
 
 # External Links
@@ -427,33 +160,6 @@ with {{ C_CSS }}.
 ---
 
 
-# Limiting number of dictionaries
-This {{ CSS }} allows you to limit the number of displayed dictionaries shown in "Extra Definitions".
-
-
-??? example "Instructions *(click here)*"
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        /* max 4 definitions shown */
-        .glossary-text--extra-definitions ol li:nth-child(n+5) {
-          display: none;
-        }
-        ```
-
-    2. (Optional) Under `extra/field.scss`, add the following code:
-
-        ```css
-        /* max 4 definitions shown */
-        anki-editable[field="ExtraDefinitions"] ol li:nth-child(n+5) {
-          color: var(--text-color--3);
-        }
-        ```
-        This will grey out the definitions past the 4th definition in the editor.
-
-
----
-
 # Limiting number of frequencies
 This {{ CSS }} allows you to limit the number of frequencies shown at the top right corner.
 
@@ -516,6 +222,162 @@ To change the display language (say, to Japanese), use the following {{ CTO }}:
     will still be in English.
 
 ---
+
+
+
+# SentenceReading Furigana Options
+
+By default, the furigana for the full sentence (on the back side of the card) is shown on hover.
+The following options change how the furigana is displayed.
+
+<br>
+
+## SentenceReading: When to show furigana
+
+{{ feature_version("0.11.1.0") }}
+
+By default, furigana is shown on hover.
+This can be changed to only be shown on click, or always/never shown.
+
+
+=== "On click"
+    TODO gif: show on click
+
+    ??? example "Instructions *(click here)*"
+        Change the following {{ CTO }}:
+
+        ```json
+        "full-sentence-ruby": {
+            "display-mode": "click",
+        }
+        ```
+
+        This is commonly paired with the [hide furigana spacing](#sentencereading-hide-spacing) option,
+        so furigana does not impede with the sentence whatsoever until toggled.
+
+
+=== "On hover (default)"
+    TODO gif: show on hover
+
+    This is the default behavior.
+
+    ??? example "Instructions *(click here)*"
+        Change the following {{ CTO }}:
+
+        ```json
+        "full-sentence-ruby": {
+            "display-mode": "hover",
+        }
+        ```
+
+=== "Always revealed"
+    TODO gif: static with mouseover
+
+    This is not recommended, because you should
+    not be relying on furigana to understand Japanese.
+
+    ??? example "Instructions *(click here)*"
+        Change the following {{ CTO }}:
+
+        ```json
+        "full-sentence-ruby": {
+            "display-mode": "always",
+        }
+        ```
+
+=== "Never revealed"
+    TODO gif: static with mouseover
+
+    If you are looking to not see furigana at all, feel free to use this option.
+    However, I personally recommend toggling on click instead of removing furigana completely.
+
+    ??? example "Instructions *(click here)*"
+        Change the following {{ CTO }}:
+
+        ```json
+        "full-sentence-ruby": {
+            "display-mode": "never",
+        }
+        ```
+
+
+
+<br>
+
+
+## SentenceReading: Hide spacing
+
+{{ feature_version("0.11.1.0") }}
+
+Furigana that extends past the length of the kanji will add additional spacing around the kanjis,
+which is unpleasant for some people to look at.
+
+One solution to this is to simply hide the spacing until hover or click.
+This has the unintentional consequence where kanjis can potentionally change position, or overflow
+into the next line.
+There is also a possibility that the entire sentence shifts over a bit to the left
+due to (what I think is a) chromium based bug[^1].
+
+[^1]: 
+    See \#4 in the [minor visual bugs list](https://github.com/Aquafina-water-bottle/jp-mining-note/issues/1).
+
+
+=== "Hide Spacing"
+    TODO img
+
+    ??? example "Instructions *(click here)*"
+        Change the following {{ CTOs }}:
+
+        ```json
+        "full-sentence-ruby": {
+            "fill-mode": "font-size",
+            "fill-mode-font-size-transition": True,
+        }
+        ```
+
+
+=== "Hide spacing with no transition"
+    TODO img
+
+    ??? example "Instructions *(click here)*"
+        Change the following {{ CTOs }}:
+
+        ```json
+        "full-sentence-ruby": {
+            "fill-mode": "font-size",
+            "fill-mode-font-size-transition": False,
+        }
+        ```
+
+
+=== "Keep spacing (default)"
+    TODO img
+
+    This is the default behavior.
+
+    ??? example "Instructions *(click here)*"
+        Change the following {{ CTO }}:
+
+        ```json
+        "full-sentence-ruby": {
+            "fill-mode": "opacity",
+        }
+        ```
+
+
+!!! note
+    All of the examples above are shown with furigana on hover.
+    They will also work with furigana on click.
+
+
+
+---
+
+
+
+
+
+
 
 
 
@@ -702,13 +564,15 @@ For example, the following changes the main accent color of the card:
 
 For users who are only using one card type
 (e.g. only vocab cards with no sentence cards, TSCs, or anything else),
-it might be better to remove the tested content above the tested line.
+it might be better to remove the tested content and the line below it.
 
 The tested content is shown at the back by default to allow the user to differentiate
 between card types on both sides of the card.
 However, this take up extra vertical space which is unnecessary if you are only using one card type.
 
 ??? example "Instructions *(click here)*"
+
+    Use the following {{ CSS }}:
 
     1. Under `extra/style.scss`, add the following code:
 

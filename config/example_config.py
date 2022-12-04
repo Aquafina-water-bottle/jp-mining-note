@@ -145,7 +145,8 @@ CONFIG = {
             #"vertical-display",
 
             "kanji-hover",
-            "collapsible-fields-utils",
+            "collapse-dictionaries",
+            "open-collapsed-fields",
             "word-indicators",
 
             "info-circle-utils",
@@ -184,9 +185,10 @@ CONFIG = {
         # Options to affect how the furigana is display on the full sentence (back side) of the card.
         "full-sentence-ruby": {
             # Specifies when the ruby is displayed
-            # - valid options: "hover", "click", "both"
+            # - valid options: "hover", "click", "both", "always", "never"
             # - "both" means that both hovering and clicking works, i.e. clicking can
             #   freeze / unfreeze the furigana in place.
+            # - "always" means that furigana is always shown. This is not recommended.
             "display-mode": "hover",
 
             # Specifies how the ruby is displayed
