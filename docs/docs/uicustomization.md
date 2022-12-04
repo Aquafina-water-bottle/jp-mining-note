@@ -696,6 +696,31 @@ For example, the following changes the main accent color of the card:
 ---
 
 
+# Removing the word / sentence at the top of the back side
+
+{{ feature_version("0.11.1.0") }}
+
+For users who are only using one card type
+(e.g. only vocab cards with no sentence cards, TSCs, or anything else),
+it might be better to remove the tested content above the tested line.
+
+The tested content is shown at the back by default to allow the user to differentiate
+between card types on both sides of the card.
+However, this take up extra vertical space which is unnecessary if you are only using one card type.
+
+??? example "Instructions *(click here)*"
+
+    1. Under `extra/style.scss`, add the following code:
+
+        ```css
+        .card-main--back .expression-wrapper {
+          display: none;
+        }
+        ```
+
+---
+
+
 
 
 # Conclusion
