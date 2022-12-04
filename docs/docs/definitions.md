@@ -15,67 +15,139 @@ This page is dedicated to showcasing
 how definitions (and other collapsable fields)
 can be easily chosen, overwritten and customized overall.
 
+This page is primarily for monolingual dictionary users,
+as the sheer amount of possible monolingual dictionaries may require specific
+customizations for each individual dictionary.
 
 
-# Summary of Dictionary Placement
+
+# Dictionary Placement
+This section deals with how the custom Yomichan Templates categorizes dictionaries,
+and how to properly customize them for your setup.
+
+
+## Expected Dictionary Placement
 Dictionaries from Yomichan are sorted into the following fields:
 
-* `PrimaryDefinition`
-* `SecondaryDefinition`
-* `ExtraDefinitions`
-* `UtillityDictionaries`
+* `PrimaryDefinition`:
+    A dictionary specified by the user. Bilingual by default.
+
+    This can be changed [in many different ways](#primary-definition-selection).
+
+* `SecondaryDefinition`:
+    All bilingual dictionaries outside of the one in `PrimaryDefinition`
+
+* `ExtraDefinitions`:
+    All monolingual dictionaries outside of the one in `PrimaryDefinition`
+
+* `UtilityDictionaries`:
+    All traditionally-formatted dictionaries that
+    do not belong in any of the above categories
+    (in other words, does not provide the meaning of the word).
+
+    An example is the
+    [JMdict Surface Forms](https://github.com/FooSoft/yomichan/issues/2183) dictionary
+
+    !!! note
+        This does not include pitch accent dictionaries, frequency lists, or kanji dictionaries,
+        as these are not traditionally-formatted dictionaries.
 
 
-TODO write the template code for 2nd way of organizing
-before attempting to flesh this section out
+The way that the dictionaries are sorted into the appropriate fields is by assigning
+a category to each individual dictionary.
 
 
-1. Primary, Bilingual, Monolingual (default)
+<br>
 
-    * `PrimaryDefinition`:
-        A dictionary specified by the user.
+## Verifying Categories
 
-    * `SecondaryDefinition`:
-        All bilingual dictionaries outside of the one in `PrimaryDefinition`
+You can check that your dictionaries are correctly categorized with the
+`{jpmn-test-dict-type}` marker.
+Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
 
-    * `ExtraDefinitions`:
-        All monolingual dictionaries outside of the one in `PrimaryDefinition`
+{{ img("checking dictionary categories", "assets/yomichantemplates/test_dictionary_categorization.gif") }}
 
-2. Primary, Secondary, Extra
+An example output of the above (on the word 結構) is the following:
+```
+「旺文社国語辞典 第十一版」: monolingual
+「明鏡国語辞典 第二版」: monolingual
+「ハイブリッド新辞林」: monolingual
+「新明解国語辞典 第五版」: monolingual
+「デジタル大辞泉」: monolingual
+「NHK日本語発音アクセント新辞典」: utility
+「JMDict Surface Forms」: utility
+「JMdict (English)」: bilingual
+「JMdict (English)」: bilingual
+「JMdict (English)」: bilingual
+「JMdict (English)」: bilingual
+「JMdict (English)」: bilingual
+「新和英」: bilingual
+```
 
-{% filter indent(4) %}
-{{ feature_version("0.11.1.0") }}
-{% endfilter %}
 
-    * `PrimaryDefinition`:
-        A dictionary specified by the user.
+If a dictionary is miscategorized,
+you will have to edit `bilingual-dict-regex` or `utility-dict-regex`
+at the top of the template code.
+Monolingual dictionaries are considered to be dictionaries that aren't either
+of the two above, so no handlebars code has to be changed if one were to
+use more monolingual dictionaries.
 
-    * `SecondaryDefinition`:
-        A second dictionary specified by the user.
+To see how to edit the regex, go to [this section](#editing-the-dictionary-regex).
 
-    * `ExtraDefinitions`:
-        All dictionaries outside of the one in `PrimaryDefinition` and `SecondaryDefinition`.
 
-For both modes, `UtilityDictionaries` will contain
-all traditionally-formatted dictionaries that
-do not belong in any of the above categories
-(in other words, does not provide the meaning of the word).
-An example is the
-[JMdict Surface Forms](https://github.com/FooSoft/yomichan/issues/2183) dictionary.
+<br>
 
-This does not include pitch accent dictionaries, frequency lists, or kanji dictionaries,
-as these are not traditionally-formatted dictionaries.
+## Ignoring a Dictionary
+If you want to see the dictionary on Yomichan but not have it show on Anki,
+you can use the `ignored-dict-regex` option.
 
-To switch between the modes, TODO.
+To see how to edit the option, see [the section below](#editing-the-dictionary-regex).
+
+Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
+[see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki){:target="_blank"}.
+
+
+<br>
+
+## Editing the dictionary regex
+
+To modify a regex string:
+
+1. Determine the exact tag your dictionary has.
+    To see this, take a word that has a definition in the desired dictionary, and test
+    `{jpmn-test-dict-type}` like above.
+    The string inside the quotes 「」 is exactly the tag of the dictionary.
+
+2. Add the dictionary tag to the string, by replacing `ADD_x_DICTIONARIES_HERE`.
+    For example, if your bilingual dictionary tag is `Amazing Dictionary`, change
+    `ADD_BILINGUAL_DICTIONARIES_HERE` to
+    `Amazing Dictionary`.
+
+    If you want to add more than one dictionary, they have to be joined with the `|` character.
+    For example, if you want to add the bilingual dictionaries
+    `Amazing Dictionary` and `Somewhat-Okay-Dictionary`, change
+    `ADD_BILINGUAL_DICTIONARIES_HERE` to
+    `Amazing Dictionary|Somewhat-Okay-Dictionary`.
+
+    {% raw %}
+    For completeness, here is the modified line for the second example:
+    ```handlebars
+    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|Amazing Dictionary|Somewhat-Okay-Dictionary)$ {{~/set~}}
+    ```
+    {% endraw %}
 
 ---
 
 
-# Primary Definition: Automatic Selection
-For both selection modes, the dictionary for the primary definition is the
-first bilingual dictionary by default.
-This can be changed to the first monolingual dictionary
-by changing the following {{ YTCO }}:
+
+
+# Primary Definition Selection
+
+## Automatic Selection (Bilingual or Monolingual)
+The dictionary for the primary definition is the first bilingual dictionary
+(that appears on Yomichan) by default.
+
+This can be changed to the first monolingual dictionary by changing the following {{ YTCO }}:
 
 {% raw %}
 ```handlebars
@@ -87,17 +159,13 @@ by changing the following {{ YTCO }}:
 ---
 
 
-
-
-# Selecting Dictionaries
-
-## Primary Definition: Manual Selection
+## Manual Selection
 Sometimes, you may want to override the primary definition,
 or highlight the definition that makes sense with the context.
 
 By default, selecting (highlighting) the text **will do nothing**,
 to prevent any unexpected errors from happening.
-However, the user can set the following {{ YCTO }} to allow selecting text to override the
+However, the user can set the following {{ YTCO }} to allow selecting text to override the
 automatic dictionary selection behavior:
 
 {% raw %}
@@ -161,26 +229,6 @@ Setting this option will enable the following behavior:
 ---
 
 
-
-## Secondary Definition Selection
-{{ feature_version("0.11.1.0") }}
-
-TODO
-
-<!--
-As said in the summary, the secondary definition is selected differently
-to specify
--->
-
----
-
-## Categorization of Dictionaries
-
-TODO
-
-<!--
-As mentioned above, the template code will automatically separate
--->
 
 
 
@@ -391,12 +439,49 @@ The following {{ CSS }} completely nukes the numbers regardless of how many item
 
 
 
+## Collapsing dictionaries
+{{ feature_version("0.11.0.0") }}
 
+This allows you collapse dictionaries within the
+Secondary Definition or Extra Definitions section.
+
+TODO gif
+
+??? example "Instructions *(click here)*"
+
+    ```
+    {
+      "modules": {
+        "collapsible-fields-utils": {
+          "collapse-dictionaries": {
+            "enabled": true,
+          }
+        }
+      }
+    }
+    ```
+
+!!! note
+
+    There are many options for the above the above module,
+    such as overriding what dictionaries should be collapsed or not.
+    These will not be documented here, but will be documented in the
+    runtime options file.
+
+---
+
+
+
+
+<!--
 ## Limiting number of dictionaries
-This {{ CSS }} allows you to limit the number of displayed dictionaries shown in "Extra Definitions".
+As an alternative to the above, it is possible to simply remove the extra dictionaries
+instead of collapsing them.
 
 
 ??? example "Instructions *(click here)*"
+    Use the following {{ CSS }}:
+
     1. Under `extra/style.scss`, add the following code:
 
         ```css
@@ -418,6 +503,10 @@ This {{ CSS }} allows you to limit the number of displayed dictionaries shown in
 
 
 ---
+
+-->
+
+
 
 
 
@@ -471,6 +560,8 @@ under the following {{ RTO }}:
 
 
 ---
+
+
 
 ## Greyed out empty fields
 

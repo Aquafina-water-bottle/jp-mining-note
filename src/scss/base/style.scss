@@ -269,6 +269,12 @@ ruby rt {
 }
 
 
+/* removes furigana entirely */
+.hide-ruby ruby rt {
+  display: none;
+}
+
+
 .hidden {
   display: none;
 }
