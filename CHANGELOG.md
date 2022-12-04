@@ -48,6 +48,7 @@ and must use `./install.py --update`.
 - Renamed `customize-open-fields` -> `collapsible-fields-utils`
     - Added way to specify collapsed dictionaries within Secondary Definition and Extra Definitions
 - Added compile-time options to specify how ruby can be displayed in the full sentence
+- (WIP) Added support for vertical display (tested content can be displayed vertically)
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
@@ -78,6 +79,8 @@ and must use `./install.py --update`.
 - Updated Persistence from v1.0.0 -> v1.1.8
 - Updated documentation on yomichan templates (no longer in TODO state)
 - Removed a bunch of javascript in `hybridClick` and replaced with an input/label hack
+- Reordered the html to have standard tags such has header / main
+- Added divs to wrap around various elements
 
 
 
