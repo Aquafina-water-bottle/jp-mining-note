@@ -741,6 +741,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../definitions/" class="md-nav__link">
+        Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../images/" class="md-nav__link">
         Images
       </a>
@@ -802,18 +816,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8" type="checkbox" id="__nav_3_8" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_8">
+        <label class="md-nav__link" for="__nav_3_9">
           Options
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Options" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_8">
+        <label class="md-nav__title" for="__nav_3_9">
           <span class="md-nav__icon md-icon"></span>
           Options
         </label>
@@ -854,7 +868,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
+        Yomichan Template Options
       </a>
     </li>
   
@@ -879,18 +893,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_9">
+        <label class="md-nav__link" for="__nav_3_10">
           Developer Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_9">
+        <label class="md-nav__title" for="__nav_3_10">
           <span class="md-nav__icon md-icon"></span>
           Developer Documentation
         </label>
@@ -2214,7 +2228,6 @@ if the card doesn't look quite right.</p>
 <hr />
 <h2 id="yomichan-templates-options-summary">Yomichan Templates Options Summary<a class="headerlink" href="#yomichan-templates-options-summary" title="Permanent link">&para;</a></h2>
 <h3 id="monolingual-definition">Monolingual Definition<a class="headerlink" href="#monolingual-definition" title="Permanent link">&para;</a></h3>
-<p><i><sup>Main page: <a href="../yomichantemplates/#categorization-of-dictionaries">Yomichan Template Options (Categorization of Dictionaries)</a></sup></i></p>
 <p>If you want the first definition you see (the <code>PrimaryDefinition</code> field) to be monolingual,
 change the following line at the top of the templates code:</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{{</span><span class="m m-Attribute">~#set</span> <span class="s2">&quot;opt-first-definition-type&quot;</span> <span class="s2">&quot;bilingual&quot;</span><span class="cp">}}{{</span><span class="m m-Attribute">/set~</span><span class="cp">}}</span><span class="x"></span>
@@ -2224,7 +2237,7 @@ to
 </code></pre></div></p>
 <p>Additionally, a common thing that people want to do with monolingual dictionaries is to remove the first line
 of the definition, because it may contain extra info that the user does not want.
-See <a href="../uicustomization/#hiding-the-first-line-of-a-definition" target="_blank">here</a>
+See <a href="../definitions/#hiding-the-first-line-of-a-definition" target="_blank">here</a>
 to do exactly that.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2234,11 +2247,10 @@ Extra bilingual definitions should be under <code>Secondary Definition</code>,
 and extra monolingual definitions should be under <code>Extra Definitions</code>.</p>
 <p>If your dictionaries are ending up in the wrong sections,
 then it is likely a problem with how the template code categorizes the dictionaries.
-See <a href="../yomichantemplates/#categorization-of-dictionaries" target="_blank">here</a> for more info.</p>
+See <a href="../definitions/#dictionary-placement" target="_blank">here</a> for more info.</p>
 </div>
 <p><br></p>
 <h3 id="selected-text-as-the-definition">Selected Text as the Definition<a class="headerlink" href="#selected-text-as-the-definition" title="Permanent link">&para;</a></h3>
-<p><i><sup>Main page: <a href="../yomichantemplates/#selected-text">Yomichan Template Options (Selected Text)</a></sup></i></p>
 <p>If you want to select the text to use instead of the definition,
 simply set <code>opt-selection-text-enabled</code> to <code>true</code>.</p>
 <p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/setupyomichan/selected_text.mp4" type="video/mp4" /></video></div></p>
@@ -2253,7 +2265,7 @@ simply set <code>opt-selection-text-enabled</code> to <code>true</code>.</p>
 <p class="admonition-title">Note</p>
 <p>Selecting parts of a definition to bold the text does not always work,
 especially when used across text with formatting or newlines.
-See <a href="../yomichantemplates/#overriding-the-definition" target="_blank">this</a> for more details.</p>
+See <a href="../definitions/#manual-selection" target="_blank">this</a> for more details.</p>
 <p>With this being said, selecting the dictionary should always work.</p>
 </div>
 <hr />
@@ -2317,7 +2329,7 @@ for specific tips on a select few programs.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 4, 2022</span>
       
     
   </small>
