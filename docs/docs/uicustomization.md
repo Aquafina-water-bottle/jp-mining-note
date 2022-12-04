@@ -230,7 +230,7 @@ To change the display language (say, to Japanese), use the following {{ CTO }}:
 By default, the furigana for the full sentence (on the back side of the card) is shown on hover.
 The following options change how the furigana is displayed.
 
-<br>
+---
 
 ## SentenceReading: When to show furigana
 
@@ -302,7 +302,7 @@ This can be changed to only be shown on click, or always/never shown.
 
 
 
-<br>
+---
 
 
 ## SentenceReading: Hide spacing
@@ -372,6 +372,83 @@ due to (what I think is a) chromium based bug[^1].
 
 
 ---
+
+
+
+
+
+# Collapsed Fields
+
+---
+
+## Automatically open collapsed fields
+
+Collapsed fields are collapsed by default.
+These fields can be set to be automatically opened
+under the following {{ RTO }}:
+
+```json
+{
+  "modules": {
+    "customize-open-fields": {
+      ...
+    }
+  }
+}
+```
+
+??? example "Example Config *(click here)*"
+    ```json
+    "customize-open-fields": {
+      "enabled": false,
+
+      // Force a field to be always open
+      "open": [
+        "Secondary Definition"
+      ],
+
+      // Opens the specified collapsable field if the card is new.
+      "open-on-new-enabled": {
+        "type": "pc-mobile",
+        "pc": true,
+        "mobile": false
+      },
+
+      "open-on-new": [
+        "Extra Info"
+      ]
+    }
+    ```
+
+=== "Default"
+    {{ img("", "assets/uicustomization/open_fields/closed.png") }}
+
+=== "Using example config (new card)"
+    {{ img("", "assets/uicustomization/open_fields/open.png") }}
+
+=== "Using example config (non-new card)"
+    {{ img("", "assets/uicustomization/open_fields/partially_open.png") }}
+
+
+---
+
+
+
+## Do not hide empty collapsed fields
+
+Collapsable fields that are empty are usually not shown at all.
+This {{ RTO }} allows them to be shown (but greyed out) when empty.
+```json
+{
+  "greyed-out-collapsable-fields-when-empty": ...
+}
+```
+
+=== "Empty fields greyed out (`true`)"
+    {{ img("", "assets/uicustomization/greyed_out_fields/grey.png") }}
+
+=== "Empty fields not shown (`false`, default)"
+    {{ img("", "assets/uicustomization/greyed_out_fields/hidden.png") }}
 
 
 
@@ -495,6 +572,8 @@ To override this option, you can use the following {{ C_CSS }}:
 The following {{ CSS }} removes the furigana on the word reading, while keeping
 the furigana on the kanjis within hover.
 
+TODO image
+
 ??? example "Instructions *(click here)*"
 
     1. Under `extra/style.scss`, add the following code:
@@ -565,6 +644,8 @@ For example, the following changes the main accent color of the card:
 For users who are only using one card type
 (e.g. only vocab cards with no sentence cards, TSCs, or anything else),
 it might be better to remove the tested content and the line below it.
+
+TODO image
 
 The tested content is shown at the back by default to allow the user to differentiate
 between card types on both sides of the card.
