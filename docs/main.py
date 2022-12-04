@@ -204,19 +204,19 @@ FIELDS = {
     "SecondaryDefinition": {
         "auto_fill": True,
         "binary_field": False,
-        "reference": "yomichantemplates.md#expected-dictionary-placement",
+        "reference": "definitions.md#expected-dictionary-placement",
         "setup": "{jpmn-secondary-definition}",
     },
     "ExtraDefinitions": {
         "auto_fill": True,
         "binary_field": False,
-        "reference": "yomichantemplates.md#expected-dictionary-placement",
+        "reference": "definitions.md#expected-dictionary-placement",
         "setup": "{jpmn-extra-definitions}",
     },
     "UtilityDictionaries": {
         "auto_fill": True,
         "binary_field": False,
-        "reference": "yomichantemplates.md#expected-dictionary-placement",
+        "reference": "definitions.md#expected-dictionary-placement",
         "setup": "{jpmn-utility-dictionaries}",
     },
     "Comment": {

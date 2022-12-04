@@ -80,6 +80,8 @@ nav:
     - User Interface: ui.md
     - UI Customization: uicustomization.md
     - Field Reference: fieldref.md
+    - Definitions: definitions.md
+    - "Text & Collapsible Fields": text.md
     - Images: images.md
     - Pitch Accent: autopa.md
     - Card Types: cardtypes.md
@@ -87,7 +89,7 @@ nav:
     - Options:
       - Runtime Options: runtimeoptions.md
       - Compile-Time Options: compiletimeoptions.md
-      - Yomichan Template Options (TODO): yomichantemplates.md
+      - Yomichan Template Options: yomichantemplates.md
     - Developer Documentation:
       - Modding Overview: modding.md
       - Building: building.md

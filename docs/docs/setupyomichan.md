@@ -139,8 +139,6 @@ if the card doesn't look quite right.
 # Yomichan Templates Options Summary
 
 ## Monolingual Definition
-<i><sup>Main page: [Yomichan Template Options (Categorization of Dictionaries)](yomichantemplates.md#categorization-of-dictionaries)</sup></i>
-
 If you want the first definition you see (the `PrimaryDefinition` field) to be monolingual,
 change the following line at the top of the templates code:
 
@@ -157,7 +155,7 @@ to
 
 Additionally, a common thing that people want to do with monolingual dictionaries is to remove the first line
 of the definition, because it may contain extra info that the user does not want.
-See [here](uicustomization.md#hiding-the-first-line-of-a-definition){:target="_blank"}
+See [here](definitions.md#hiding-the-first-line-of-a-definition){:target="_blank"}
 to do exactly that.
 
 
@@ -170,16 +168,13 @@ to do exactly that.
 
     If your dictionaries are ending up in the wrong sections,
     then it is likely a problem with how the template code categorizes the dictionaries.
-    See [here](yomichantemplates.md#categorization-of-dictionaries){:target="_blank"} for more info.
+    See [here](definitions.md#dictionary-placement){:target="_blank"} for more info.
 
 
 <br>
 
 
 ## Selected Text as the Definition
-<i><sup>Main page: [Yomichan Template Options (Selected Text)](yomichantemplates.md#selected-text)</sup></i>
-
-
 If you want to select the text to use instead of the definition,
 simply set `opt-selection-text-enabled` to `true`.
 
@@ -195,7 +190,7 @@ By default, this enable the following behavior:
 !!! note
     Selecting parts of a definition to bold the text does not always work,
     especially when used across text with formatting or newlines.
-    See [this](yomichantemplates.md#overriding-the-definition){:target="_blank"} for more details.
+    See [this](definitions.md#manual-selection){:target="_blank"} for more details.
 
     With this being said, selecting the dictionary should always work.
 
