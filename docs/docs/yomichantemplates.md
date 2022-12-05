@@ -1,6 +1,8 @@
 
-This page contains info on how to access the Yomichan template options,
-and how to use various custom markers.
+Yomichan template options are options that are specified, as you may have guessed,
+in Yomichan's templates.
+These options are applied on card creation, so
+changing these options will only affect cards created in the future.
 
 ---
 

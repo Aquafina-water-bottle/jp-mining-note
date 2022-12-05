@@ -310,7 +310,7 @@ This can be changed to only be shown on click, or always/never shown.
 {{ feature_version("0.11.1.0") }}
 
 Furigana that extends past the length of the kanji will add additional spacing around the kanjis,
-which is unpleasant for some people to look at.
+which may be unpleasant to look at.
 
 One solution to this is to simply hide the spacing until hover or click.
 This has the unintentional consequence where kanjis can potentionally change position, or overflow
