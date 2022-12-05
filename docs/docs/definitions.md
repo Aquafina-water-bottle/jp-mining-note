@@ -1,13 +1,14 @@
 
-# Overview
-
 This page is dedicated to showcasing
 how definitions can be easily chosen, overwritten and customized overall.
 
-This page is primarily intended for monolingual dictionary users,
-as the sheer amount of possible monolingual dictionaries may require specific
-customizations for each individual dictionary.
 
+!!! note
+    This page is primarily intended for monolingual dictionary users,
+    as the sheer amount of possible monolingual dictionaries may require specific
+    customizations for each individual dictionary.
+
+---
 
 
 # Dictionary Placement
