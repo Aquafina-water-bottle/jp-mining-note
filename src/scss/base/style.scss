@@ -643,7 +643,7 @@ ruby rt {
 }
 
 .expression__hybrid-wrapper--hover:hover + .pa-indicator,
-.hybrid-click-toggle:checked + .expression__hybrid-wrapper--click + .pa-indicator,
+.hybrid-click-toggle:checked + .expression__hybrid-wrapper + .pa-indicator,
 .expression--sentence + .pa-indicator {
   font-size: var(--pa-indicator-sent-font-size);
 }
@@ -652,7 +652,7 @@ ruby rt {
   display: none;
 }
 
-.hybrid-click-toggle:checked + .expression__hybrid-wrapper--click.expression__hybrid-wrapper--remove-pa-indicator + .pa-indicator > .pa-indicator__svg {
+.hybrid-click-toggle:checked + .expression__hybrid-wrapper.expression__hybrid-wrapper--remove-pa-indicator + .pa-indicator > .pa-indicator__svg {
   display: none;
 }
 
