@@ -245,17 +245,19 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     may not work in the future.
 
 1. Get [BetterDiscord](https://betterdiscord.app/) so you can use custom CSS.
-2. In Discord Settings -> `Custom CSS` section, add the following:
+2. In Discord Settings →  `Custom CSS` section, add the following:
     ```css
     :lang(ja), :lang(ja-JP) {
-        --font-primary: "gg sans","YOUR-PREFERRED-FONT","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+        --font-primary: "gg sans","YOUR-PREFERRED-FONT","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+        --font-display: var(--font-primary);
     }
     ```
 
 ??? examplecode "Example CSS for Noto Sans *(click here)*"
     ```css
     :lang(ja), :lang(ja-JP) {
-        --font-primary: "gg sans","Noto Sans CJK JP","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,Osaka,"MS PGothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+        --font-primary: "gg sans","Noto Sans CJK JP","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+        --font-display: var(--font-primary);
     }
     ```
 
@@ -263,6 +265,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     ```css
     :lang(ja), :lang(ja-JP) {
         --font-primary: "gg sans","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+        --font-display: "gg sans","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     }
     ```
 
@@ -272,7 +275,9 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     I personally don't use this, so I'll leave it to the user to figure out the settings. ;)
 
 ??? example "Changelog"
-    `22/12/01`: Changed `Whitney` to `gg sans` to match with Discord's new font
+
+    - `22/12/01`: Changed `Whitney` to `gg sans` to match with Discord's new font
+    - `22/12/05`: Added `--font-display`, added missing `Noto Sans` to all the fonts
 
 ---
 
