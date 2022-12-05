@@ -4,7 +4,9 @@
 
 function hybridClick() {
   const toggleEle = document.getElementById("hybrid_click_toggle");
-  toggleEle.checked = !toggleEle.checked;
+  if (toggleEle !== null) {
+    toggleEle.checked = !toggleEle.checked;
+  }
 }
 
 
@@ -12,11 +14,7 @@ function hybridClick() {
 
   function sentenceKeybinds(e) {
     if (KEYBINDS.hasKey(e, {{ utils.opt("keybinds", "toggle-hybrid-sentence") }})) {
-      let hSent = document.getElementById("hybrid-sentence");
-      let hWord = document.getElementById("hybrid-word");
-      if (hSent !== null && hWord !== null) {
-        hybridClick();
-      }
+      hybridClick();
     }
 
     if (KEYBINDS.hasKey(e, {{ utils.opt("keybinds", "toggle-highlight-word") }})) {

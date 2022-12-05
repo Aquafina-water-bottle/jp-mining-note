@@ -1,7 +1,17 @@
 {# impl #}
-<!-- fallback card card html
-  in css: default hybrid css, but with hover instead of click -->
-<div class="expression__hybrid-wrapper expression__hybrid-wrapper--hover">
+<!--
+  fallback card card html
+  - in css: default hybrid css, but with hover instead of click
+  - checkbox is here specifically so hybridClick() works on hover cards
+-->
+
+<input
+  type="checkbox"
+  class="hybrid-click-toggle hidden"
+  id="hybrid_click_toggle"
+  disabled="disabled"
+>
+<label class="expression__hybrid-wrapper expression__hybrid-wrapper--hover" for="hybrid_click_toggle">
   <div class="expression expression__hybrid expression__hybrid--hover" id="display">
     <span class="expression--sentence expression__hybrid-sentence
                  {% call IFNOT('IsSentenceCard') %} highlight-bold {% endcall %}
@@ -22,4 +32,4 @@
     </span>
   </div>
 
-</div>
+</label>
