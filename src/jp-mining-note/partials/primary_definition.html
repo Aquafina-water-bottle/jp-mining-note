@@ -15,30 +15,31 @@
     " id="primary_definition">
 
 
-  <div class="glossary-primary-definition__right
-      {% if not _use_external_links %} glossary-primary-definition__right--completely-hide {% endif %}
-      " id="primary_definition_right">
-    {% if _use_external_links %}
-      <div class="glossary__external-links">
-        {% include "jp-mining-note/partials/external_links.html" %}
-      </div>
-    {% endif %}
-    <div class="glossary-primary-definition__img">
-      {{ T("PrimaryDefinitionPicture") }}
-    </div>
-  </div>
-
-
   <div class="glossary-primary-definition__wrapper" id="primary_definition_wrapper">
 
     <div class="glossary-text glossary-text--primary-definition" id="primary_definition_text">
+
+      <div class="glossary-primary-definition__right
+          {% if not _use_external_links %} glossary-primary-definition__right--completely-hide {% endif %}
+          " id="primary_definition_right">
+        {% if _use_external_links %}
+          <div class="glossary__external-links">
+            {% include "jp-mining-note/partials/external_links.html" %}
+          </div>
+        {% endif %}
+        <div class="glossary-primary-definition__img">
+          {{ T("PrimaryDefinitionPicture") }}
+        </div>
+      </div>
+
       {{ T("furigana:PrimaryDefinition") }}
       {% filter indent(4) %}
       {% include "jp-mining-note/partials/0pxdiv.html" %}
       {% endfilter %}
+
     </div>
 
-    <!-- placed outside of glossary-text so it doesn't get converted automatically -->
+    <!-- placed outside of glossary-text so picture and glossary can be flipped with css -->
     <div class="glossary-primary-definition__left" id="primary_definition_left">
       <div class="glossary-primary-definition__img">
         {{ T("PrimaryDefinitionPicture") }}
