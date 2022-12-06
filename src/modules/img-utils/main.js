@@ -46,6 +46,8 @@ const JPMNImgUtils = (() => {
   //const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 
   const imgClickClassName = "dh-right__img-container--clickable";
+  const primDefRawImgClassName = "glossary-primary-definition__raw-img";
+
   const showEyeClassName = "dh-right__show-eye";
   const nsfwBlurInitClassName = "nsfw-blur-init";
   const nsfwBlurClassName = "nsfw-blur";
@@ -537,6 +539,25 @@ const JPMNImgUtils = (() => {
 
   }
 
+  // looks for the PrimaryDefinitionPicture if it exists & marks first
+  // placed before searchImages so the searchImages() function can properly determine
+  // what is a primary definition picture VS what should be collapsed
+  function markPrimaryDefPics() {
+    for (const picEle of [primaryDefRight, primaryDefLeft]) {
+      if (picEle === null) {
+        continue;
+      }
+      const imgs = picEle.getElementsByTagName("img");
+      for (const imgEle of imgs) {
+        if (imgEle !== null) {
+          imgEle.onclick = getActivateModalFunc(imgEle);
+          imgEle.classList.add(imgClickClassName);
+          imgEle.classList.add(primDefRawImgClassName);
+        }
+      }
+    }
+  }
+
   function searchImages() {
 
     // goes through each blockquote and searches for yomichan inserted images
@@ -557,7 +578,8 @@ const JPMNImgUtils = (() => {
       const imgTags = searchEle.getElementsByTagName("img");
       for (const imgEle of imgTags) {
         if (!imgEle.classList.contains("glossary__image-hover-media") &&
-            !(imgEle.getAttribute("data-do-not-convert"))
+            !(imgEle.getAttribute("data-do-not-convert")) &&
+            !(imgEle.classList.contains(primDefRawImgClassName))
         ) { // created by us
           logger.debug(`Converting user-inserted image ${imgEle.src}...`);
           const shouldBlur = !!imgEle.getAttribute("data-blur-image"); // double ! casts to bool
@@ -569,27 +591,14 @@ const JPMNImgUtils = (() => {
   }
 
   function setDefPicPosition() {
+    // placed after image searches to allow main definition to be properly resized first
+
     // if the field is empty, nothing has to be done
     if (!"{{ utils.any_of_str('PrimaryDefinitionPicture') }}") {
       logger.debug("PrimaryDefinitionPicture is empty. Nothing has to be done.", 2);
       return;
     }
 
-
-    // looks for the PrimaryDefinitionPicture if it exists
-    // placed after image searches to allow main definition to be properly resized first
-    for (const picEle of [primaryDefRight, primaryDefLeft]) {
-      if (picEle === null) {
-        continue;
-      }
-      const imgs = picEle.getElementsByTagName("img");
-      for (const imgEle of imgs) {
-        if (imgEle !== null) {
-          imgEle.onclick = getActivateModalFunc(imgEle);
-          imgEle.classList.add(imgClickClassName);
-        }
-      }
-    }
 
     let posResult = POS_RESULT;
 
@@ -650,10 +659,14 @@ const JPMNImgUtils = (() => {
     run() {
       editDisplayImage();
 
+      markPrimaryDefPics();
+
       if ({{ utils.opt("modules", "img-utils", "stylize-images-in-glossary") }}) {
         searchImages();
       }
 
+      // should be done after the search images function
+      // so height is properly calculated with collapsed images
       if ({{ utils.opt("modules", "img-utils", "primary-definition-picture", "enabled") }}) {
         setDefPicPosition();
       }

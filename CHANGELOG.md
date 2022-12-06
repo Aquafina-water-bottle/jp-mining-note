@@ -55,6 +55,8 @@ and must use `./install.py --update`.
 - Made all example urls use {{text:Word} instead of just {{Word}}
 - Fixed some css variables accidentally pointing to others
 - Fixed pa-indicator not being the proper size on sentences / TSCs
+- Fixed `PrimaryDefinitionPicture` not acting like a float right when there's too much text
+    - When text extends past to below the picture, it is expected that the text takes up the space below the picture
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
