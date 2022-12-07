@@ -67,13 +67,14 @@ const JPMNKeybinds = (() => {
 
       /// {% call IF("SentenceAudio") %}
       if (_hasKey(e, {{ utils.opt("keybinds", "play-sentence-audio") }})) {
-        let hSent = document.getElementById("hybrid-sentence");
+        //let hSent = document.getElementById("hybrid-sentence");
+        const toggleEle = document.getElementById("hybrid_click_toggle");
 
         /// {% if note.card_type == "main" and note.side == "front" %}
         if ({{ utils.opt("hybrid-sentence-open-on-play-sentence") }}
             && '{{ utils.any_of_str("IsHoverCard", "IsClickCard") }}'
             && '{{ utils.any_of_str("IsTargetedSentenceCard", "IsSentenceCard") }}'
-            && hSent !== null && !hSent.classList.contains("override-display-inline-block")) {
+            && toggleEle !== null && !toggleEle.checked) {
           hybridClick();
         } else {
         /// {% endif %}
