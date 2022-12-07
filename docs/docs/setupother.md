@@ -152,8 +152,8 @@ I also provide a small list of other popular add-ons that I don't use, but may b
     * [AJT Flexible Grading](https://ankiweb.net/shared/info/1715096333)
         * I use this to change Anki to pass/fail
         * If you are using Anki dark mode, I recommend these colors (change in the config):
-            * Again: `#ff8c74`
-            * Good: `#9cff98`
+            * `"again": "#ff8c74"`
+            * `"good": "#9cff98"`
     * [Paste Images As WebP](https://ankiweb.net/shared/info/1151815987)
 
     **Other:**

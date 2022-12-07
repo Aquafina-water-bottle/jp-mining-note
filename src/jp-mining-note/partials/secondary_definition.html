@@ -4,7 +4,7 @@
     <summary>{{ TRANSLATOR.get('secondary-definition') }}</summary>
     <blockquote class="glossary-blockquote highlight-bold">
       <div class="glossary-text glossary-text--secondary-definition">
-        {{ T("SecondaryDefinition") }}
+        <span class="glossary-text--raw-text">{{ T("SecondaryDefinition") }}</span>
         {% filter indent(8) %}
         {% include "jp-mining-note/partials/0pxdiv.html" %}
         {% endfilter %}

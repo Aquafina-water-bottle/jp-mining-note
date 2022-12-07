@@ -15,13 +15,15 @@ const JPMNImgUtils = (() => {
   const dhLeft = document.getElementById("dh_left");
   const dhLeftAudioBtns = document.getElementById("dh_left_audio_buttons");
   const primaryDefBlockquote = document.getElementById("primary_definition");
-  const primaryDefText = document.getElementById("primary_definition_text");
+  const primaryDefRawText = document.getElementById("primary_definition_raw_text");
   const primaryDefRight = document.getElementById("primary_definition_right")
   const primaryDefLeft = document.getElementById("primary_definition_left")
+  const primaryDefRightImg = document.getElementById("primary_definition_right_img")
+  const primaryDefLeftImg = document.getElementById("primary_definition_left_img")
   const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
   let HEIGHT_LEFT = 0;
-  let TEXT_HEIGHT = 0
-  let PIC_HEIGHT = 0
+  //let TEXT_HEIGHT = 0
+  //let PIC_HEIGHT = 0
 
 
   const dhRight = document.getElementById("dh_right");
@@ -37,8 +39,10 @@ const JPMNImgUtils = (() => {
   const READ_DHLEFT_HEIGHT = ((VW > {{ COMPILE_OPTIONS("breakpoints", "combine-picture").item() }})
       && ({{ utils.opt("modules", "img-utils", "resize-height-mode") }} === "auto-height"));
   const POS_RESULT = getPrimaryDefPicturePosition();
-  const USE_LENIENCE = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "use-lenience") }};
-  const CALC_DEF_PIC_HEIGHT = (VALID_AUTO_POS_OPTS.includes(POS_RESULT) && USE_LENIENCE)
+  // {#
+  //const USE_LENIENCE = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "use-lenience") }};
+  //const CALC_DEF_PIC_HEIGHT = (VALID_AUTO_POS_OPTS.includes(POS_RESULT) && USE_LENIENCE)
+  // #}
 
   // TODO?
   //const MOBILE_ATTEMPT_PLACE_AROUND = false;
@@ -47,6 +51,7 @@ const JPMNImgUtils = (() => {
 
   const imgClickClassName = "dh-right__img-container--clickable";
   const primDefRawImgClassName = "glossary-primary-definition__raw-img";
+  const noDefinitionClassName = "glossary-primary-definition--no-definition"
 
   const showEyeClassName = "dh-right__show-eye";
   const nsfwBlurInitClassName = "nsfw-blur-init";
@@ -341,7 +346,6 @@ const JPMNImgUtils = (() => {
 
   function setToggleStatesIfEmpty() {
     // toggleStates is module-global
-    // TODO change this option to use the {"type": "pc-mobile"}
     if (toggleStates.length === 0) {
       toggleStates = {{ utils.opt("modules", "img-utils", "image-blur", "toggle-states") }};
     }
@@ -441,6 +445,10 @@ const JPMNImgUtils = (() => {
   }
 
   function adjustHeight(ele) {
+    if (ele === null) {
+      return;
+    }
+
     if (READ_DHLEFT_HEIGHT) {
       ele.style.maxHeight = HEIGHT_LEFT + "px";
     } else if ({{ utils.opt("modules", "img-utils", "resize-height-mode") }} === "fixed") {
@@ -470,13 +478,6 @@ const JPMNImgUtils = (() => {
     // so nothing has changed...
 
 
-    if (READ_DHLEFT_HEIGHT || CALC_DEF_PIC_HEIGHT) {
-      HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
-      TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
-      PIC_HEIGHT = primaryDefRight === null ? 0 : primaryDefRight.offsetHeight;
-    }
-
-
     let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
 
     // attempts to add image according to the tag
@@ -500,8 +501,6 @@ const JPMNImgUtils = (() => {
     }
 
     if (somethingDisplayed) {
-      adjustHeight(dhRight);
-
       // setting up the modal styles and clicking
       const imgList = dhImgContainer.getElementsByTagName("img");
 
@@ -514,8 +513,6 @@ const JPMNImgUtils = (() => {
         image = imgList[0];
 
         image.classList.add("dh-right__img");
-
-        adjustHeight(image); // restricts max height here too
 
         useModalAndBlur();
 
@@ -539,6 +536,12 @@ const JPMNImgUtils = (() => {
 
   }
 
+  function markPrimaryDefPic(imgEle) {
+    imgEle.onclick = getActivateModalFunc(imgEle);
+    imgEle.classList.add(imgClickClassName);
+    imgEle.classList.add(primDefRawImgClassName);
+  }
+
   // looks for the PrimaryDefinitionPicture if it exists & marks first
   // placed before searchImages so the searchImages() function can properly determine
   // what is a primary definition picture VS what should be collapsed
@@ -550,51 +553,154 @@ const JPMNImgUtils = (() => {
       const imgs = picEle.getElementsByTagName("img");
       for (const imgEle of imgs) {
         if (imgEle !== null) {
-          imgEle.onclick = getActivateModalFunc(imgEle);
-          imgEle.classList.add(imgClickClassName);
-          imgEle.classList.add(primDefRawImgClassName);
+          markPrimaryDefPic(imgEle);
         }
       }
     }
   }
 
-  function searchImages() {
+  // get mode based on tags and runtime options
+  function getDefaultStylizeMode(yomichan=false) {
 
-    // goes through each blockquote and searches for yomichan inserted images
-    //const imageSearchElements = document.getElementsByTagName("blockquote");
-    const imageSearchElements = document.querySelectorAll("blockquote.glossary-blockquote .glossary-text");
+    const stylizeModeTagsNone = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "none") }};
+    const stylizeModeTagsCollapse = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "collapse") }};
+    const stylizeModeTagsFloat = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "float") }};
+
+    // tags specific to type (yomichan or user)
+    let stylizeTypeModeTagsNone = null;
+    let stylizeTypeModeTagsCollapse = null;
+    let stylizeTypeModeTagsFloat = null;
+    if (yomichan) {
+      stylizeTypeModeTagsNone = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "yomichan-none") }};
+      stylizeTypeModeTagsCollapse = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "yomichan-collapse") }};
+      stylizeTypeModeTagsFloat = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "yomichan-float") }};
+    } else {
+      stylizeTypeModeTagsNone = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "user-none") }};
+      stylizeTypeModeTagsCollapse = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "user-collapse") }};
+      stylizeTypeModeTagsFloat = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode-override-tags", "user-float") }};
+    }
+
+    // default
+    let stylizeMode = null;
+    if (yomichan) {
+      stylizeMode = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode", "yomichan") }};
+    } else {
+      stylizeMode = {{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "mode", "user") }};
+    }
+
+    // prioritizes specific type
+    if (checkArrayIsSubset(stylizeTypeModeTagsNone, TAGS_LIST)) {
+      stylizeMode = "none";
+    } else if (checkArrayIsSubset(stylizeTypeModeTagsCollapse, TAGS_LIST)) {
+      stylizeMode = "collapse";
+    } else if (checkArrayIsSubset(stylizeTypeModeTagsFloat, TAGS_LIST)) {
+      stylizeMode = "float";
+    // otherwise goes to all types
+    } else if (checkArrayIsSubset(stylizeModeTagsNone, TAGS_LIST)) {
+      stylizeMode = "none";
+    } else if (checkArrayIsSubset(stylizeModeTagsCollapse, TAGS_LIST)) {
+      stylizeMode = "collapse";
+    } else if (checkArrayIsSubset(stylizeModeTagsFloat, TAGS_LIST)) {
+      stylizeMode = "float";
+    }
+
+    return stylizeMode;
+
+  }
+
+
+  function attemptConvertYomichanImg(atag, toPrimaryDefImg=false) {
+
+    const imgFileName = atag.getAttribute("href");
+    if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
+      logger.debug(`Converting yomichan image ${imgFileName} (toPrimaryDefImg=${toPrimaryDefImg})...`);
+
+      if (toPrimaryDefImg) {
+        const imgEle = document.createElement('img');
+        imgEle.src = imgFileName;
+
+        primaryDefRightImg.appendChild(imgEle.cloneNode(true));
+        primaryDefLeftImg.appendChild(imgEle);
+
+        atag.parentNode.removeChild(atag);
+      } else {
+        const fragment = createImgContainer(imgFileName);
+        atag.parentNode.replaceChild(fragment, atag);
+      }
+    }
+
+
+  }
+
+  function searchImages() {
+    const textNotPrimary = ".glossary-text--raw-text:not(.glossary-text--raw-text-primary)"
+    const imageSearchElements = document.querySelectorAll(textNotPrimary);
     for (const searchEle of imageSearchElements) {
+
+      // looks for yomichan inserted images
       const anchorTags = searchEle.getElementsByTagName("a");
       for (const atag of anchorTags) {
-        const imgFileName = atag.getAttribute("href");
-        if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
-          logger.debug(`Converting yomichan image ${imgFileName}...`);
-          const fragment = createImgContainer(imgFileName);
-          atag.parentNode.replaceChild(fragment, atag);
-        }
+        attemptConvertYomichanImg(atag);
       }
+    }
+  }
 
-      // looks for user inserted images
-      const imgTags = searchEle.getElementsByTagName("img");
+  function searchImagesPrimary() {
+
+    const stylizeModeUser = getDefaultStylizeMode(false);
+    const stylizeModeYomichan = getDefaultStylizeMode(true);
+
+    //const imageSearchElements = document.getElementsByTagName("blockquote");
+    //const imageSearchElements = document.querySelectorAll("blockquote.glossary-blockquote .glossary-text");
+    //const imageSearchElements = document.querySelectorAll(".glossary-text--raw-text-primary");
+    //for (const searchEle of imageSearchElements) {
+
+    // looks for yomichan inserted images
+    if (stylizeModeYomichan !== "none") {
+      const anchorTags = primaryDefRawText.getElementsByTagName("a");
+      for (const atag of anchorTags) {
+        attemptConvertYomichanImg(atag, /*toPrimaryDefImg=*/(stylizeModeYomichan === "float"));
+      }
+    }
+
+
+    // looks for user inserted images
+    if (stylizeModeUser !== "none") {
+      const imgTags = primaryDefRawText.getElementsByTagName("img");
       for (const imgEle of imgTags) {
         if (!imgEle.classList.contains("glossary__image-hover-media") &&
-            !(imgEle.getAttribute("data-do-not-convert")) &&
-            !(imgEle.classList.contains(primDefRawImgClassName))
+            !(imgEle.getAttribute("data-do-not-convert"))
         ) { // created by us
-          logger.debug(`Converting user-inserted image ${imgEle.src}...`);
+          logger.debug(`Converting user-inserted image ${imgEle.src} with mode ${stylizeModeUser}...`);
+
           const shouldBlur = !!imgEle.getAttribute("data-blur-image"); // double ! casts to bool
-          const fragment = createImgContainer(imgEle.src, shouldBlur);
-          imgEle.parentNode.replaceChild(fragment, imgEle);
+          if (stylizeModeUser === "collapse") {
+            const fragment = createImgContainer(imgEle.src, shouldBlur);
+            imgEle.parentNode.replaceChild(fragment, imgEle);
+          } else {
+            primaryDefRightImg.appendChild(imgEle.cloneNode(true));
+            primaryDefLeftImg.appendChild(imgEle);
+            // image should already be "deleted" from the main definition since it's moved
+            // to the primaryDefLeftImg
+          }
+
         }
       }
     }
+
+    // handles the case where if the images are moved from the primary definition,
+    // then the primary definition field is now empty
+    if (primaryDefRawText.innerHTML.length === 0) {
+      primaryDefBlockquote.classList.toggle(noDefinitionClassName, true);
+    }
+
   }
 
   function setDefPicPosition() {
     // placed after image searches to allow main definition to be properly resized first
 
     // if the field is empty, nothing has to be done
-    if (!"{{ utils.any_of_str('PrimaryDefinitionPicture') }}") {
+    if (primaryDefRight.innerHTML.length === 0) {
       logger.debug("PrimaryDefinitionPicture is empty. Nothing has to be done.", 2);
       return;
     }
@@ -602,41 +708,50 @@ const JPMNImgUtils = (() => {
 
     let posResult = POS_RESULT;
 
-    let removeNoLenienceCls = true;
+    // TODO: cannot calculate height of text?
+    // {#
+    //let removeNoLenienceCls = true;
 
-    if (VALID_AUTO_POS_OPTS.includes(posResult)) {
-      // compares height of definition text and image
-      let shouldFloat = null;
+    //if (VALID_AUTO_POS_OPTS.includes(posResult)) {
+    //  // compares height of definition text and image
+    //  let shouldFloat = null;
 
-      if (USE_LENIENCE) {
-        const lenience = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position-lenience") }};
+    //  if (USE_LENIENCE) {
+    //    const lenience = {{ utils.opt("modules", "img-utils", "primary-definition-picture", "position-lenience") }};
 
-        // comparison is still valid even if both textHeight and picHeight are 0
-        // (picHeight is 0 if no text because without javascript, auto-no-lenience class is enabled)
-        const textHeight = TEXT_HEIGHT * lenience;
-        const picHeight = PIC_HEIGHT;
-        shouldFloat = textHeight > picHeight;
-        logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
+    //    // comparison is still valid even if both textHeight and picHeight are 0
+    //    // (picHeight is 0 if no text because without javascript, auto-no-lenience class is enabled)
+    //    const textHeight = TEXT_HEIGHT * lenience;
+    //    const picHeight = PIC_HEIGHT;
+    //    shouldFloat = textHeight > picHeight;
+    //    logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
 
-        if (posResult === "auto-bottom") {
-          posResult = shouldFloat ? "right" : "bottom";
-        } else {
-          posResult = shouldFloat ? "right" : "top";
-        }
+    //    if (posResult === "auto-bottom") {
+    //      posResult = shouldFloat ? "right" : "bottom";
+    //    } else { // auto-top
+    //      posResult = shouldFloat ? "right" : "top";
+    //    }
 
-      } else {
-        // simply adds the appropriate class
-        // not using lenience means that:
-        // if the definition is empty:
-        //     place to left
-        // else:
-        //     placed to right
-        removeNoLenienceCls = false;
-      }
-    }
+    //  } else {
+    //    // simply adds the appropriate class
+    //    // not using lenience means that:
+    //    // if the definition is empty:
+    //    //     place to left
+    //    // else:
+    //    //     placed to right
+    //    removeNoLenienceCls = false;
+    //  }
+    //}
 
-    if (removeNoLenienceCls) {
-      primaryDefBlockquote.classList.toggle("glossary-primary-definition--auto-no-lenience", false);
+    //if (removeNoLenienceCls) {
+    //  primaryDefBlockquote.classList.toggle("glossary-primary-definition--auto-no-lenience", false);
+    //}
+    // #}
+
+    // OVERRIDE posResult==="right" if there is no definition!
+    // changes to "top" (equivalent to "bottom") which forces it to the left instead
+    if (posResult === "right" && primaryDefBlockquote.classList.contains(noDefinitionClassName)) {
+      posResult = "top";
     }
 
     logger.debug(`PrimaryDefinitionPicture position: ${posResult}`);
@@ -659,11 +774,30 @@ const JPMNImgUtils = (() => {
     run() {
       editDisplayImage();
 
-      markPrimaryDefPics();
+      if ({{ utils.opt("modules", "img-utils", "stylize-images-primary-definition", "enabled") }}) {
+        searchImagesPrimary();
+      }
 
-      if ({{ utils.opt("modules", "img-utils", "stylize-images-in-glossary") }}) {
+      if ({{ utils.opt("modules", "img-utils", "stylize-images-glossary", "enabled") }}) {
         searchImages();
       }
+
+      markPrimaryDefPics();
+
+      //if (READ_DHLEFT_HEIGHT || CALC_DEF_PIC_HEIGHT) {
+      if (READ_DHLEFT_HEIGHT) {
+        HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
+        // TODO: primaryDefRawText.offsetHeight seems to always return 0
+        //PIC_HEIGHT = primaryDefRight === null ? 0 : primaryDefRight.offsetHeight;
+        //TEXT_HEIGHT = primaryDefRawText === null ? 0 : primaryDefRawText.offsetHeight;
+
+        // adjusts the height after searchImages() so searchImages() can properly images
+        // to primary def pic if necessary
+      }
+
+      // can be a fixed height, so not placed in the above block
+      adjustHeight(dhRight);
+      adjustHeight(image); // restricts max height here too
 
       // should be done after the search images function
       // so height is properly calculated with collapsed images

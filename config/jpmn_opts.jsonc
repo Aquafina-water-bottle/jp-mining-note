@@ -320,10 +320,57 @@
       "resize-height-mode": "auto-height",
       "resize-height-fixed-value": 210, // only used if the above is "fixed"
 
-      // Replaces all images in the glossary (definition) sections
-      // with an internal representation similar to how Yomichan displays images:
-      // an `[Image]` text where you can see the image upon hover, and with click to zoom.
-      "stylize-images-in-glossary": true,
+      // Whether to stylize images in the PrimaryDefinition field at all
+      // Turning this off will leave them as is with no pre-processing.
+      "stylize-images-primary-definition": {
+
+        "enabled": true,
+
+        // If stylize-images-in-glossary is true, this specifies how the images are pre-processed.
+        // Valid options: "collapse", "float"
+        // "none":
+        // - Equivalent of disabling this entire section. I recommend setting "enabled" to false
+        //   instead of using this option.
+        // "collapse":
+        // - Replaces all images in the glossary (definition) sections
+        //   with an internal representation similar to how Yomichan displays images:
+        //   an `[Image]` text where you can see the image upon hover, and with click to zoom.
+        // "float":
+        // - makes images act as if they were in PrimaryDefinitionPicture,
+        //   which means that the pictures are positioned to the right / above / below as usual.
+        "mode": {
+          // mode for yomichan inserted images
+          "yomichan": "collapse",
+
+          // mode for user inserted images
+          "user": "float"
+        },
+
+        // tags to override the above mode
+        "mode-override-tags": {
+          // overrides both yomichan and user inserted images
+          // the yomichan and user options below have a higher priority over this
+          "none": ["img-no-styling", "jpmn-img-no-styling"],
+          "collapse": ["img-collapse", "jpmn-img-collapse"],
+          "float": ["img-float", "jpmn-img-float"],
+
+          // overrides specifically yomichan images only
+          "yomichan-none": ["img-yomichan-no-styling", "jpmn-img-yomichan-no-styling"],
+          "yomichan-collapse": ["img-yomichan-collapse", "jpmn-img-yomichan-collapse"],
+          "yomichan-float": ["img-yomichan-float", "jpmn-img-yomichan-float"],
+
+          // overrides specifically user inserted images only
+          "user-none": ["img-user-no-styling", "jpmn-img-user-no-styling"],
+          "user-collapse": ["img-user-collapse", "jpmn-img-user-collapse"],
+          "user-float": ["img-user-float", "jpmn-img-user-float"]
+        }
+      },
+
+      // Whether to stylize images in the SecondaryDefinition and ExtraDefinitions fields
+      // Currently, only the collapse mode is supported for these two fields.
+      "stylize-images-glossary": {
+        "enabled": true
+      },
 
       "primary-definition-picture": {
 
@@ -336,6 +383,9 @@
         // Valid options (case sensitive): "auto-bottom", "auto-top", "bottom", "right", "top"
         "position": "auto-bottom",
 
+        // NOTE: LENIENCE IS CURRENTLY DISABLED due to a strange javascript bug.
+        // use-lenience and position-lenience will NOT work
+
         // If the position is either "auto-top" or "auto-bottom", this option specifies
         // whether to use the `position-lenience` variable below to calculate
         // where the image is positioned.
@@ -346,11 +396,11 @@
         //   This will cause the picture to be placed to the right if there is ANY text,
         //   and placed to the left if there is no text.
         //   This is equivalent to setting `position-lenience` to a very large number.
-        "use-lenience": {
-          "type": "pc-mobile",
-          "pc": true,
-          "mobile": false
-        },
+        //"use-lenience": {
+        //  "type": "pc-mobile",
+        //  "pc": true,
+        //  "mobile": false
+        //},
 
         // A constant that allows the picture to be placed to the right even if
         // the text height is X times smaller than the picture.
@@ -363,7 +413,7 @@
         //     If you want the picture to always be placed to the right if there is text,
         //     it is best to set `auto-use-lenience` to `false` and `position` to any `auto-X`
         //     option (say, `auto-top`).
-        "position-lenience": 2,
+        //"position-lenience": 2,
 
         // Tags to override auto positioning
         // Case sensitive

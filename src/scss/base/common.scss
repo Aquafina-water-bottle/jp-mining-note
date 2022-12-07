@@ -118,6 +118,8 @@ $bp-combine-picture: 620px;
   --external-links-box-shadow-color: #464646;
   --similar-words-box-shadow-color: #464646;
 
+  --glossary-image-hover-border: 1px 1px 3px var(--text-color--1);
+
   --card-description-color:     var(--text-color--4);
 
   --info-circle-hover-color: var(--data-tooltip-source-hover-color);
@@ -186,6 +188,8 @@ $bp-combine-picture: 620px;
 
   --external-links-box-shadow-color: #000000;
   --similar-words-box-shadow-color: #000000;
+
+  --glossary-image-hover-border: 1px 1px 3px black;
 
   --card-description-color:     var(--text-color--4);
 
