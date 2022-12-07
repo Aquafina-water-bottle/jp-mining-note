@@ -49,6 +49,10 @@ and must use `./install.py --update`.
 - `collapse-dictionaries`: Added way to specify collapsed dictionaries within Secondary Definition and Extra Definitions
 - Added compile-time options to specify how ruby can be displayed in the full sentence
 - (WIP) Added support for vertical display (tested content can be displayed vertically)
+- Removed lenience calculation (height of the text box is no longer calculated) due to an internal javascript bug that I can't figure out how to resolve
+- Added further support for how images are stylized in the PrimaryDefinition field
+    - See `img-utils` -> `stylize-images-primary-definition`
+- Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images

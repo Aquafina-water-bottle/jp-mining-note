@@ -1714,20 +1714,25 @@ ruby rt {
 .glossary__image-hover-text:hover ~ .glossary__image-hover-media {
   display: block;
   position: absolute;
+
+  z-index: 2; /* so the hover image goes overtop of other images */
 }
 
 .glossary__image-hover-media {
   cursor: pointer;
   /* !important is added for ankidroid */
   /* see: https://docs.ankiweb.net/templates/styling.html#image-resizing */
-  max-height: 500px !important;;
-  max-width:  100px !important;;
+  max-height: 500px !important;
+  max-width:  100px !important;
+  box-shadow: var(--glossary-image-hover-border);
 }
 
 /* so the image doesn't disappear once you move your mouse away from the text */
 .glossary__image-hover-media:hover {
   display: block;
   position: absolute;
+
+  z-index: 2; /* so the hover image goes overtop of other images */
 }
 
 
