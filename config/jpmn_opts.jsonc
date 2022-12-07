@@ -343,7 +343,7 @@
           "yomichan": "collapse",
 
           // mode for user inserted images
-          "user": "float"
+          "user": "collapse"
         },
 
         // tags to override the above mode
