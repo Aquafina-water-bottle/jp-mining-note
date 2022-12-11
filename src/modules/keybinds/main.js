@@ -57,7 +57,7 @@ const JPMNKeybinds = (() => {
     baseFunc(e) {
 
       /// {% call IF("WordAudio") %}
-      if (_hasKey(e, {{ utils.opt("keybinds", "play-word-audio") }})) {
+      if (_hasKey(e, {{ utils.opt("modules", "keybinds", "play-word-audio") }})) {
         let ele = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
         if (ele) {
           ele.click();
@@ -66,7 +66,7 @@ const JPMNKeybinds = (() => {
       /// {% endcall %}
 
       /// {% call IF("SentenceAudio") %}
-      if (_hasKey(e, {{ utils.opt("keybinds", "play-sentence-audio") }})) {
+      if (_hasKey(e, {{ utils.opt("modules", "keybinds", "play-sentence-audio") }})) {
         //let hSent = document.getElementById("hybrid-sentence");
         const toggleEle = document.getElementById("hybrid_click_toggle");
 
@@ -89,13 +89,13 @@ const JPMNKeybinds = (() => {
       /// {% endcall %}
 
       toggleDetailsTagOnKey(e,
-        {{ utils.opt("keybinds", "toggle-front-full-sentence-display") }},
+        {{ utils.opt("modules", "keybinds", "toggle-front-full-sentence-display") }},
         document.getElementById("full_sentence_front_details")
       )
 
       /// {% call IF("Hint") %}
       toggleDetailsTagOnKey(e,
-        {{ utils.opt("keybinds", "toggle-hint-display") }},
+        {{ utils.opt("modules", "keybinds", "toggle-hint-display") }},
         document.getElementById("hint_details")
       )
       /// {% endcall %}
@@ -104,27 +104,27 @@ const JPMNKeybinds = (() => {
       /// {% if note.side == "back" %}
       /// {% call IF("SecondaryDefinition") %}
       toggleDetailsTagOnKey(e,
-        {{ utils.opt("keybinds", "toggle-secondary-definitions-display") }},
+        {{ utils.opt("modules", "keybinds", "toggle-secondary-definitions-display") }},
         document.getElementById("secondary_definition_details")
       )
       /// {% endcall %}
 
       /// {% call IF("AdditionalNotes") %}
       toggleDetailsTagOnKey(e,
-        {{ utils.opt("keybinds", "toggle-additional-notes-display") }},
+        {{ utils.opt("modules", "keybinds", "toggle-additional-notes-display") }},
         document.getElementById("additional_notes_details")
       )
       /// {% endcall %}
 
       /// {% call IF("ExtraDefinitions") %}
       toggleDetailsTagOnKey(e,
-        {{ utils.opt("keybinds", "toggle-extra-definitions-display") }},
+        {{ utils.opt("modules", "keybinds", "toggle-extra-definitions-display") }},
         document.getElementById("extra_definitions_details")
       )
       /// {% endcall %}
 
       toggleDetailsTagOnKey(e,
-        {{ utils.opt("keybinds", "toggle-extra-info-display") }},
+        {{ utils.opt("modules", "keybinds", "toggle-extra-info-display") }},
         document.getElementById("extra_info_details")
       )
 
