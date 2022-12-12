@@ -639,7 +639,7 @@ const JPMNImgUtils = (() => {
 
       // looks for yomichan inserted images
       const anchorTags = searchEle.getElementsByTagName("a");
-      for (const atag of anchorTags) {
+      for (const atag of Array.from(anchorTags)) {
         attemptConvertYomichanImg(atag);
       }
     }
@@ -658,7 +658,7 @@ const JPMNImgUtils = (() => {
     // looks for yomichan inserted images
     if (stylizeModeYomichan !== "none") {
       const anchorTags = primaryDefRawText.getElementsByTagName("a");
-      for (const atag of anchorTags) {
+      for (const atag of Array.from(anchorTags)) {
         attemptConvertYomichanImg(atag, /*toPrimaryDefImg=*/(stylizeModeYomichan === "float"));
       }
     }
