@@ -17,6 +17,10 @@ CONFIG = {
     # Ignores folder if it doesn't exist.
     "templates-override-folder": "overrides",
 
+    # Custom user-made theme.
+    # See (TODO link documentation here) for more info
+    "templates-theme-folder": None,
+
     "translation-file": "src/data/translations.jsonc",
 
     "compile-options": {
