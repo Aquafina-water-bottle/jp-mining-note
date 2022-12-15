@@ -20,7 +20,7 @@ by simply installing a new version of the .apkg package,
 and must use `./install.py --update`.
 
 
-## [0.11.1.0] - 2022-12-??
+## [0.12.0.0] - 2022-12-??
 #### Features
 - Primary definition picture rework:
     - Cleaned up css and made css a lot more readable
@@ -61,6 +61,7 @@ and must use `./install.py --update`.
 - Fixed pa-indicator not being the proper size on sentences / TSCs
 - Fixed `PrimaryDefinitionPicture` not acting like a float right when there's too much text
     - When text extends past to below the picture, it is expected that the text takes up the space below the picture
+- (auto-pitch-accent module) Changed nasal assert to nasal warning
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
@@ -87,6 +88,7 @@ and must use `./install.py --update`.
 - Removed a bunch of javascript in `hybridClick` and replaced with an input/label hack
 - Reordered the html to have standard tags such has header / main
 - Added divs to wrap around various elements
+- Moved multiple elements to their own modules / partials for ease of editing
 
 
 
