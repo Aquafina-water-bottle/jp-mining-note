@@ -371,8 +371,6 @@ const JPMNAutoPA = (() => {
         }
       }
 
-      logger.debug(typeof string);
-      logger.debug(string);
       if (string.includes("nasal")) {
         logger.warn(`removeNasalStr still has nasal class: ${string}`);
       }

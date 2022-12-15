@@ -351,6 +351,8 @@ templates/output/
 config.py
 config/config.py
 config/user_jpmn_opts.jsonc
+config/user_jpmn_opts2.jsonc
+config/user_jpmn_opts.json
 build/
 templates/scss/*.css
 
