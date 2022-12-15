@@ -59,6 +59,7 @@ you can skip the rest of this section.
 
 # Dark Mode
 Although light mode is supported, the recommended theme for this note is dark mode.
+With that being said, changing the theme is completely optional.
 
 The note automatically adjusts according to Anki's theme.
 To change Anki's theme, head over to:

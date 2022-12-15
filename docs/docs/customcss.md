@@ -28,6 +28,11 @@ you should already know that there are two ways of modding the note:
     Unfortunately, this **requires additional setup**, and will likely take some time to get working.
 
 ??? info "Option 1: How to directly edit the CSS *(click here)*"
+    !!! warning
+        When editing any of the style sheets below, it is recommended to append the given CSS code
+        to the *very bottom* of the existing css instead of adding to the existing CSS.
+        This is to avoid potential errors where the existing css may potentially override your custom css.
+
 
     * Any time `style.scss` is mentioned, edit the styles sheet in the Anki template.
         This can be accessed by:

@@ -4,6 +4,15 @@ import re
 
 import math
 
+
+#"auto_fill": bool,
+#"binary_field": bool,
+#"reference": str
+#"setup": str
+#"version": str
+#"anime_cards_import": str
+#"personal_setup": str
+
 FIELDS = {
     "Key": {
         "auto_fill": True,
@@ -200,6 +209,12 @@ FIELDS = {
         "binary_field": False,
         "reference": "fieldref.md#frequencysort-field",
         "setup": "{jpmn-min-freq}",
+        "version": "0.12.0.0",
+    },
+    "YomichanWordTags": {
+        "auto_fill": True,
+        "binary_field": False,
+        "setup": "{tags}",
     },
     "SecondaryDefinition": {
         "auto_fill": True,

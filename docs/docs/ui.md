@@ -152,7 +152,7 @@ The indicators are as follows:
 
 - 同 (short for 同じ) indicates that the card is a duplicate.
 - 読 (short for 読み方) indicates that there are other card(s) with the same reading (ignoring pitch accent).
-    More specifically, these are 同音異義語.
+    In Japanese, these words are 同音異義語.
     I consider this the most useful of the three.
 - 漢 (short for 漢字) indicates that there are other card(s) with the same kanji, but different reading.
 
