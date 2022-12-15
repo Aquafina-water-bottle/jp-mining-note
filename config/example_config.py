@@ -106,15 +106,25 @@ CONFIG = {
             #    #"url": "https://duckduckgo.com/?t=ffab&q=%21kotobank+{{text:Word}}",
             #    #"hover-display": "コトバンク",
             #},
+
+            # Used with elizagamedev's "Textbender" android app, to allow the user
+            # to open the word in Yomichan's search bar within android
+            # https://github.com/elizagamedev/android-textbender
+            #"yomichan-textbender": {
+            #    "icon-type": "text",
+            #    "icon-text": "Ｔ",
+            #    "url": "textbender://x?x={{text:Word}}",
+            #    "hover-display": "Yomichan (textbender)",
+            #},
         },
 
 
         # Option to have custom CSS.
         # The last takes priorty over the first,
         # i.e. the "extra" folder takes priority over base in
-        #   `["base", "responsive", "dictionaries" "extra"]`
+        #   `["base", "responsive", "dictionaries", "theme", "extra"]`
         # Don't remove "base" unless you know what you're doing.
-        "css-folders": ["base", "responsive", "dictionaries"],
+        "css-folders": ["base", "responsive", "dictionaries", "theme"],
 
 
         # Allows modules that didn't come with the note to be used.
