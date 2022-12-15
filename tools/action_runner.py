@@ -33,6 +33,7 @@ import traceback
 import utils
 from action import Action, UserAction, RenameField, MoveField, AddField, DeleteField
 from note_changes import NOTE_CHANGES, Version, NoteChange
+import difflib
 
 from typing import Any
 
@@ -128,6 +129,8 @@ class Verifier:
         called "naive diff" as it diffs naive-ly per line, without checking for groups of lines
         that are the same
         """
+        # Python has difflib but difflib isn't used because it doesn't have a way to
+        # format it between columns it seems
 
         # extends the list to the longest length
         max_len = max(len(list1), len(list2))
@@ -161,6 +164,16 @@ class Verifier:
             first_anki_fields = anki_fields[: len(self.original_fields)]
 
             if first_anki_fields != self.original_fields:
+                # for x in difflib.context_diff(
+                #    first_anki_fields,
+                #    self.original_fields,
+                #    fromfile="Anki",
+                #    tofile="Expected (Initial)",
+                #    n=3,
+                # ):
+                #    print(x)
+                # exit(1)
+
                 self.naive_diff_list(
                     first_anki_fields,
                     self.original_fields,
@@ -189,6 +202,17 @@ class Verifier:
 
         if self.in_order:
             if simulator.simulated_fields != self.new_fields:
+
+                # for x in difflib.context_diff(
+                #    simulator.simulated_fields,
+                #    self.new_fields,
+                #    fromfile="Simulated",
+                #    tofile="Expected",
+                #    n=1000,
+                # ):
+                #    print(x)
+                # exit(1)
+
                 self.naive_diff_list(
                     simulator.simulated_fields, self.new_fields, "Simulated", "Expected"
                 )

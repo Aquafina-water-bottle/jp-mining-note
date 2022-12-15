@@ -1,28 +1,5 @@
 {
 
-  "keybinds": {
-    "toggle-hybrid-sentence": ["KeyN"],
-
-    "toggle-highlight-word": ["KeyN"],
-
-    "toggle-front-full-sentence-display": ["Quote"],
-
-    "play-sentence-audio": ["KeyP"],
-
-    "play-word-audio": ["KeyW"],
-
-    "toggle-hint-display": ["Period"],
-
-    "toggle-secondary-definitions-display": ["Digit8"],
-
-    "toggle-additional-notes-display": ["Digit9"],
-
-    "toggle-extra-definitions-display": ["Digit0"],
-
-    "toggle-extra-info-display": ["BracketLeft"]
-  },
-
-
   "modules": {
 
     "time-performance": {
@@ -38,9 +15,34 @@
       "sort-func": "currentSideAvg"
     },
 
+
     "cache": {
       "clear-cache-button": false
     },
+
+
+    "keybinds": {
+      "toggle-hybrid-sentence": ["KeyN"],
+
+      "toggle-highlight-word": ["KeyN"],
+
+      "toggle-front-full-sentence-display": ["Quote"],
+
+      "play-sentence-audio": ["KeyP"],
+
+      "play-word-audio": ["KeyW"],
+
+      "toggle-hint-display": ["Period"],
+
+      "toggle-secondary-definitions-display": ["Digit8"],
+
+      "toggle-additional-notes-display": ["Digit9"],
+
+      "toggle-extra-definitions-display": ["Digit0"],
+
+      "toggle-extra-info-display": ["BracketLeft"]
+    },
+
 
     "sent-utils": {
       "enabled": true,
@@ -90,6 +92,11 @@
       ]
     },
 
+    "vertical-display": {
+      "enabled": true,
+      "front-enabled": true,
+      "back-enabled": true,
+      "back-toggle-enabled": true    },
 
     "kanji-hover": {
       "enabled": true,
@@ -167,7 +174,34 @@
 
       "resize-height-mode": "auto-height",
       "resize-height-fixed-value": 210,
-      "stylize-images-in-glossary": true,
+      "stylize-images-primary-definition": {
+
+        "enabled": true,
+
+        "mode": {
+          "yomichan": "collapse",
+
+          "user": "collapse"
+        },
+
+        "mode-override-tags": {
+          "none": ["img-no-styling", "jpmn-img-no-styling"],
+          "collapse": ["img-collapse", "jpmn-img-collapse"],
+          "float": ["img-float", "jpmn-img-float"],
+
+          "yomichan-none": ["img-yomichan-no-styling", "jpmn-img-yomichan-no-styling"],
+          "yomichan-collapse": ["img-yomichan-collapse", "jpmn-img-yomichan-collapse"],
+          "yomichan-float": ["img-yomichan-float", "jpmn-img-yomichan-float"],
+
+          "user-none": ["img-user-no-styling", "jpmn-img-user-no-styling"],
+          "user-collapse": ["img-user-collapse", "jpmn-img-user-collapse"],
+          "user-float": ["img-user-float", "jpmn-img-user-float"]
+        }
+      },
+
+      "stylize-images-glossary": {
+        "enabled": true
+      },
 
       "primary-definition-picture": {
 
@@ -175,13 +209,8 @@
 
         "position": "auto-bottom",
 
-        "use-lenience": {
-          "type": "pc-mobile",
-          "pc": true,
-          "mobile": false
-        },
 
-        "position-lenience": 2,
+
 
         "tags-bottom": ["img-bottom", "jpmn-img-buttom"],
         "tags-top": ["img-top", "jpmn-img-top"],
@@ -201,13 +230,14 @@
 
         "toggle-states": {
           "type": "pc-mobile",
-          "pc": [1, 2, 0],          "mobile": [1, 2, 0]        }
+          "pc": [1, 2, 0],
+          "mobile": [1, 2, 0]
+        }
       }
-
     },
 
 
-    "collapsible-fields-utils": {
+    "open-collapsed-fields": {
       "enabled": false,
 
       "open": [
@@ -218,28 +248,37 @@
 
       "open-on-new": [
 
-      ],
+      ]
 
+    },
 
-      "collapse-dictionaries-enabled": false,
+    "collapse-dictionaries": {
+      "enabled": false,
 
+      "default-mode": {
+        "secondary-definition": "collapsible-open",
+        "extra-definitions": "collapsible-open"
+      },
 
-      "collapse-dictionary-fields": {
+      "collapse-after-max-number": {
+        "secondary-definition": 1,
+        "extra-definitions": 1
+      },
 
-        "Secondary Definition": {
-          "collapse-after-max-number": -1,
-          "collapse-specific-dictionaries": [],
-          "do-not-collapse-specific-dictionaries": ["JMdict (English)", "JMdict", "Nico/Pixiv"]
-        },
+      "dictionary-options": {
 
-        "Extra Definitions": {
-          "collapse-after-max-number": -1,
-          "collapse-specific-dictionaries": [],
-          "do-not-collapse-specific-dictionaries": ["JMdict (English)", "JMdict", "Nico/Pixiv"]
-        }
+        "always-collapsible-open": [],
+
+        "always-collapsible-closed": [],
+
+        "never-collapsible": ["JMdict (English)", "JMdict", "Nico/Pixiv"],
+
+        "only-display-dictionary-name": []
       }
 
     },
+
+
 
     "word-indicators": {
       "enabled": true,
@@ -314,7 +353,7 @@
 
   "click-card-sentence-reveal-on-back-side": true,
 
-  "greyed-out-collapsable-fields-when-empty": false,
+  "greyed-out-collapsible-fields-when-empty": false,
 
   "no-sentence-reading-warn": false,
 

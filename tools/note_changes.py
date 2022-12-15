@@ -70,9 +70,13 @@ class NoteChange:
 NOTE_CHANGES = [
 
     NoteChange(
-        version=Version(0, 11, 1, 0),
+        version=Version(0, 12, 0, 0),
         actions=[
+            action.AddField("AAAA", 35 - 1),
             action.YomichanTemplatesChange(),
+            action.YomichanFormatChange(
+                "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
+            ),
             action.NoteToUser(
                 description="If you are using Anki version 2.1.49 or below, please see the link below:\n"
                 "https://aquafina-water-bottle.github.io/jp-mining-note/faq/#the-frequency-list-display-looks-squished"
@@ -113,6 +117,7 @@ NOTE_CHANGES = [
             "WordReadingHiragana",
             "FrequenciesStylized",
             "FrequencySort",
+            "YomichanWordTags",
             "SecondaryDefinition",
             "ExtraDefinitions",
             "UtilityDictionaries",

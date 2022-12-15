@@ -382,9 +382,9 @@ def javascript_format(data):
         return "null"
     elif isinstance(data, str):
         return '"' + data.replace("\\", "\\\\").replace('"', '\\"') + '"'
-    elif isinstance(data, dict):
+    elif isinstance(data, dict) or isinstance(data, list):
         return json.dumps(data)
-    return data
+    return str(data)
 
 
 def assert_ankiconnect_running():

@@ -166,15 +166,6 @@
       ]
     },
 
-    // TODO experimental support. Does not work very well with PAShowInfo filled,
-    // but should work for mostly everything else.
-    "vertical-display": {
-      "enabled": true,
-      "front-enabled": true,
-      "back-enabled": true,
-      "back-toggle-enabled": true // TODO currently does nothing. Planned to be default for phones.
-    },
-
     // Hover over a kanji in the word reading to see if it has been used
     // in previous cards or not.
     "kanji-hover": {
@@ -320,7 +311,8 @@
       // - "none" (not resized at all)
       // - "fixed" (uses value in resize-fixed-value)
       "resize-height-mode": "auto-height",
-      "resize-height-fixed-value": 210, // only used if the above is "fixed"
+      // resize-height-fixed-value is only used if the above is "fixed"
+      "resize-height-fixed-value": 210,
 
       // Whether to stylize images in the PrimaryDefinition field at all
       // Turning this off will leave them as is with no pre-processing.
@@ -429,22 +421,20 @@
       // and want to add the cover of the book to all of their notes.
       // This is a fall-back option that is used when the `Picture` field is empty.
       // NOTE: Remember to add the file to the media folder in order for this to work!
-      "add-image-if-contains-tags": [
-        // EXAMPLES:
 
-        // This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
-        //{
-        //  "tags": ["sample_tag"],
-        //  "file-name": "_sample_image.png"
-        //},
-
-        // This adds the image `_contains_both_tags.png` if the card has both tags
-        // `something` and `something2`.
-        //{
-        //  "tags": ["something", "something2"],
-        //  "file-name": "_contains_both_tags.png"
-        //}
-      ],
+      // EXAMPLES:
+      // - This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
+      //    {
+      //      "tags": ["sample_tag"],
+      //      "file-name": "_sample_image.png"
+      //    },
+      // - This adds the image `_contains_both_tags.png` if the card has both tags
+      //     `something` and `something2`.
+      //    {
+      //      "tags": ["something", "something2"],
+      //      "file-name": "_contains_both_tags.png"
+      //    }
+      "add-image-if-contains-tags": [],
 
       "image-blur": {
         // allows the user to mark any card as NSFW, and adds various
@@ -467,14 +457,14 @@
         // settings eye will set it to state 2, state 0, state 1, state 2.
         //
 
+        // EXAMPLE:
+        //"mobile": [0, 1, 2], // defaults to never blurred
         "toggle-states": {
           "type": "pc-mobile",
-          "pc": [1, 2, 0],     // default for non-mobile devices (usually PC)
-          "mobile": [1, 2, 0]  // default for mobile devices
-          //"mobile": [0, 1, 2], // defaults to never blurred
+          "pc": [1, 2, 0],
+          "mobile": [1, 2, 0]
         }
       }
-
     },
 
 

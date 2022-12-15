@@ -26,9 +26,76 @@
       "sort-func": "{{ modules.time-performance.sort-func }}"
     },
 
+
     "cache": {
       "clear-cache-button": "{{ modules.cache.clear-cache-button }}"
     },
+
+
+    // RESERVED KEYS (by anki):
+    // - e (edit)
+    // - r (replay)
+    // - t (stats)
+    // - y (sync)
+    // - i (card info)
+    // - o (options)
+    // - a (add)
+    // - s (idk exactly what this does tbh)
+    // - d (deck)
+    // - f (filtered deck options)
+    // - v (play recorded voice)
+    // - b (browse)
+    // - m (menu)
+    // - 1, 2, 3, 4 (again, hard, good, easy)
+    // - 5 (pause audio)
+    // - 6 (audio -5s)
+    // - 7 (audio +5s)
+    // - space (good)
+    // - enter (good)
+    //
+    // RESERVED KEYS (by AJT Flexible grading):
+    // - u (undo)
+    // - h, j, k, l: hard / again / good / easy
+    //
+    // FREE KEYS:
+    // - (left)  q w g z x c
+    // - (right) p n 8 9 0 , . ; ' [ ]
+    //
+    // If you want to customize the keybinds, you must find the exact key code
+    // that corresponds to your key. To do so, set "debug-level" to 0, press the
+    // desired key(s), and look at the bottom of the debug log (under the info
+    // circle) within the note. You may need to scroll down.
+    "keybinds": {
+      // Keybind to toggle between showing the sentence and word on click and hover cards.
+      // Equivalent to either clicking on the sentence/word on a click card,
+      // or hovering over the word on a hover card.
+      "toggle-hybrid-sentence": "{{ modules.keybinds.toggle-hybrid-sentence }}",
+
+      // Keybind to toggle between showing the tested word in a raw sentence card.
+      // Equivalent to clicking on the "show" button.
+      // This is the same as the above because both should never happen at the same time.
+      "toggle-highlight-word": "{{ modules.keybinds.toggle-highlight-word }}",
+
+      // Keybind to toggle a vocab card's full sentence display (front side).
+      "toggle-front-full-sentence-display": "{{ modules.keybinds.toggle-front-full-sentence-display }}",
+
+      "play-sentence-audio": "{{ modules.keybinds.play-sentence-audio }}",
+
+      "play-word-audio": "{{ modules.keybinds.play-word-audio }}",
+
+      // Equivalent to toggling the hint show/hide
+      "toggle-hint-display": "{{ modules.keybinds.toggle-hint-display }}",
+
+      "toggle-secondary-definitions-display": "{{ modules.keybinds.toggle-secondary-definitions-display }}",
+
+      "toggle-additional-notes-display": "{{ modules.keybinds.toggle-additional-notes-display }}",
+
+      "toggle-extra-definitions-display": "{{ modules.keybinds.toggle-extra-definitions-display }}",
+
+      "toggle-extra-info-display": "{{ modules.keybinds.toggle-extra-info-display }}"
+    },
+
+
 
     // Automatic processing to sentences
     "sent-utils": {
@@ -51,7 +118,7 @@
       // Attempts to automatically highlight the word in the sentence if nothing is highlighted.
       // https://aquafina-water-bottle.github.io/jp-mining-note/ui/#automatic-word-highlighting
       "auto-highlight-word": {
-        "enabled": "{{ modules.sent-utils.auto-highlight-word. }}",
+        "enabled": "{{ modules.sent-utils.auto-highlight-word.enabled }}",
 
         "warn-on-auto-highlight": "{{ modules.sent-utils.auto-highlight-word.warn-on-auto-highlight }}",
         "warn-if-auto-highlight-fails": "{{ modules.sent-utils.auto-highlight-word.warn-if-auto-highlight-fails }}"
@@ -83,6 +150,8 @@
 
       // quotes to search for on existing sentences,
       // to not double-quote a sentence that already has quotes on it
+      // ["\u300c", "\u300d"] is ["「", "」"]
+      // ["\u300e", "\u300f"] is ["『", "』"]
       "quote-match-strings": "{{ modules.sent-utils.quote-match-strings }}"
     },
 
@@ -140,7 +209,7 @@
       // 0: whatever is shown in WordReading (usually hiragana, but can sometimes be katakana)
       // 1: force katakana
       // 2: force katakana with long vowel marks
-      "reading-display-mode": {{ modules.auto-pitch-accent.reading-display-mode }},
+      "reading-display-mode": "{{ modules.auto-pitch-accent.reading-display-mode }}",
 
       // whether to search for the ajt word, given the field is filled out
       "search-for-ajt-word": "{{ modules.auto-pitch-accent.search-for-ajt-word }}",
@@ -166,8 +235,13 @@
       // various options for the formatting of the `PAOverride` field
       "pa-override": {
 
+        // ["・", "、"],
         "separators": "{{ modules.auto-pitch-accent.pa-override.separators }}",
+
+        // ["＼"],
         "downstep-markers": "{{ modules.auto-pitch-accent.pa-override.downstep-markers }}",
+
+        // ["￣"],
         "heiban-markers": "{{ modules.auto-pitch-accent.pa-override.heiban-markers }}",
 
         // shows a warning when PAOverride has an incorrect format
@@ -232,12 +306,60 @@
       // - "none" (not resized at all)
       // - "fixed" (uses value in resize-fixed-value)
       "resize-height-mode": "{{ modules.img-utils.resize-height-mode }}",
-      "resize-height-fixed-value": "{{ modules.img-utils.resize-height-fixed-value }}", // only used if the above is "fixed"
+      // resize-height-fixed-value is only used if the above is "fixed"
+      "resize-height-fixed-value": "{{ modules.img-utils.resize-height-fixed-value }}",
 
-      // Replaces all images in the glossary (definition) sections
-      // with an internal representation similar to how Yomichan displays images:
-      // an `[Image]` text where you can see the image upon hover, and with click to zoom.
-      "stylize-images-in-glossary": "{{ modules.img-utils.stylize-images-in-glossary }}",
+      // Whether to stylize images in the PrimaryDefinition field at all
+      // Turning this off will leave them as is with no pre-processing.
+      "stylize-images-primary-definition": {
+
+        "enabled": "{{ modules.img-utils.stylize-images-primary-definition.enabled }}",
+
+        // If stylize-images-in-glossary is true, this specifies how the images are pre-processed.
+        // Valid options: "collapse", "float"
+        // "none":
+        // - Equivalent of disabling this entire section. I recommend setting "enabled" to false
+        //   instead of using this option.
+        // "collapse":
+        // - Replaces all images in the glossary (definition) sections
+        //   with an internal representation similar to how Yomichan displays images:
+        //   an `[Image]` text where you can see the image upon hover, and with click to zoom.
+        // "float":
+        // - makes images act as if they were in PrimaryDefinitionPicture,
+        //   which means that the pictures are positioned to the right / above / below as usual.
+        "mode": {
+          // mode for yomichan inserted images
+          "yomichan": "{{ modules.img-utils.stylize-images-primary-definition.mode.yomichan }}",
+
+          // mode for user inserted images
+          "user": "{{ modules.img-utils.stylize-images-primary-definition.mode.user }}"
+        },
+
+        // tags to override the above mode
+        "mode-override-tags": {
+          // overrides both yomichan and user inserted images
+          // the yomichan and user options below have a higher priority over this
+          "none": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.none }}",
+          "collapse": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.collapse }}",
+          "float": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.float }}",
+
+          // overrides specifically yomichan images only
+          "yomichan-none": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.yomichan-none }}",
+          "yomichan-collapse": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.yomichan-collapse }}",
+          "yomichan-float": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.yomichan-float }}",
+
+          // overrides specifically user inserted images only
+          "user-none": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.user-none }}",
+          "user-collapse": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.user-collapse }}",
+          "user-float": "{{ modules.img-utils.stylize-images-primary-definition.mode-override-tags.user-float }}"
+        }
+      },
+
+      // Whether to stylize images in the SecondaryDefinition and ExtraDefinitions fields
+      // Currently, only the collapse mode is supported for these two fields.
+      "stylize-images-glossary": {
+        "enabled": "{{ modules.img-utils.stylize-images-glossary.enabled }}"
+      },
 
       "primary-definition-picture": {
 
@@ -250,6 +372,9 @@
         // Valid options (case sensitive): "auto-bottom", "auto-top", "bottom", "right", "top"
         "position": "{{ modules.img-utils.primary-definition-picture.position }}",
 
+        // NOTE: LENIENCE IS CURRENTLY DISABLED due to a strange javascript bug.
+        // use-lenience and position-lenience will NOT work
+
         // If the position is either "auto-top" or "auto-bottom", this option specifies
         // whether to use the `position-lenience` variable below to calculate
         // where the image is positioned.
@@ -260,7 +385,11 @@
         //   This will cause the picture to be placed to the right if there is ANY text,
         //   and placed to the left if there is no text.
         //   This is equivalent to setting `position-lenience` to a very large number.
-        "use-lenience": "{{ modules.img-utils.primary-definition-picture.use-lenience }}",
+        //"use-lenience": {
+        //  "type": "pc-mobile",
+        //  "pc": true,
+        //  "mobile": false
+        //},
 
         // A constant that allows the picture to be placed to the right even if
         // the text height is X times smaller than the picture.
@@ -273,7 +402,7 @@
         //     If you want the picture to always be placed to the right if there is text,
         //     it is best to set `auto-use-lenience` to `false` and `position` to any `auto-X`
         //     option (say, `auto-top`).
-        "position-lenience": "{{ modules.img-utils.primary-definition-picture.position-lenience }}",
+        //"position-lenience": 2,
 
         // Tags to override auto positioning
         // Case sensitive
@@ -287,21 +416,19 @@
       // and want to add the cover of the book to all of their notes.
       // This is a fall-back option that is used when the `Picture` field is empty.
       // NOTE: Remember to add the file to the media folder in order for this to work!
-      //
+
       // EXAMPLES:
-      //
-      // This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
-      //{
-      //  "tags": ["sample_tag"],
-      //  "file-name": "_sample_image.png"
-      //},
-      //
-      // This adds the image `_contains_both_tags.png` if the card has both tags
-      // `something` and `something2`.
-      //{
-      //  "tags": ["something", "something2"],
-      //  "file-name": "_contains_both_tags.png"
-      //}
+      // - This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
+      //    {
+      //      "tags": ["sample_tag"],
+      //      "file-name": "_sample_image.png"
+      //    },
+      // - This adds the image `_contains_both_tags.png` if the card has both tags
+      //     `something` and `something2`.
+      //    {
+      //      "tags": ["something", "something2"],
+      //      "file-name": "_contains_both_tags.png"
+      //    }
       "add-image-if-contains-tags": "{{ modules.img-utils.add-image-if-contains-tags }}",
 
       "image-blur": {
@@ -325,17 +452,18 @@
         // settings eye will set it to state 2, state 0, state 1, state 2.
         //
 
+        // EXAMPLE:
+        //"mobile": [0, 1, 2], // defaults to never blurred
         "toggle-states": "{{ modules.img-utils.image-blur.toggle-states }}"
       }
-
     },
 
 
     // various options for collapsable fields:
     // - whether they are open or closed by default
     // - whather dictionaries are collapsed or not
-    "collapsible-fields-utils": {
-      "enabled": "{{ modules.collapsible-fields-utils. }}",
+    "open-collapsed-fields": {
+      "enabled": "{{ modules.open-collapsed-fields.enabled }}",
 
       // Force a field to be always open
       //
@@ -348,10 +476,10 @@
       //  "Additional Notes",
       //  "Extra Definitions",
       //  "Extra Info"
-      "open": "{{ modules.collapsible-fields-utils. }}",
+      "open": "{{ modules.open-collapsed-fields.open }}",
 
       // Opens the specified collapsable field if the card is new.
-      "open-on-new-enabled": "{{ modules.collapsible-fields-utils. }}",
+      "open-on-new-enabled": "{{ modules.open-collapsed-fields.open-on-new-enabled }}",
 
       // Ensure that `open-on-new-enabled` is true, for this to work.
       //
@@ -364,27 +492,53 @@
       //  "Additional Notes",
       //  "Extra Definitions",
       //  "Extra Info"
-      "open-on-new": "{{ modules.collapsible-fields-utils. }}",
+      "open-on-new": "{{ modules.open-collapsed-fields.open-on-new }}"
+    },
 
 
-      // whether to collapse any dictionary
-      "collapse-dictionaries-enabled": "{{ modules.collapsible-fields-utils. }}",
+    // automatically collapses dictionaries in Secondary Definition / Extra Definitions
+    "collapse-dictionaries": {
+      "enabled": "{{ modules.collapse-dictionaries.enabled }}",
 
+      // valid options: "collapsible-open", "collapsible-closed", "none"
+      "default-mode": {
+        "secondary-definition": "{{ modules.collapse-dictionaries.default-mode.secondary-definition }}",
+        "extra-definitions": "{{ modules.collapse-dictionaries.default-mode.extra-definitions }}"
+      },
 
-      // collapse-after-max-number:
-      //  1: the first definition is not collapsed, all others are collapsed
-      //  0: all collapsed
-      // -1: no dictionaries are ever collapsed
-      //
-      // collapse-specific-dictionaries:
-      //  - always collapses the dictionaries with the specified tags
-      //
-      // do-not-collapse-specific-dictionaries:
-      //  - never collapses the dictionaries with the specified tags
-      //    (takes precedence over the above)
-      "collapse-dictionary-fields": "{{ modules.collapsible-fields-utils.collapse-dictionary-fields }}"
+      // in general, for any number (n) above 0, it will not collapse those (n) dictionaries.
+      // examples:
+      //    1: the first definition is not collapsed, all others are collapsed
+      //    0: all collapsed
+      //   -1: no dictionaries are ever collapsed (special value)
+      //   -2: no dictionaries are transformed (special value)
+      "collapse-after-max-number": {
+        "secondary-definition": "{{ modules.collapse-dictionaries.collapse-after-max-number.secondary-definition }}",
+        "extra-definitions": "{{ modules.collapse-dictionaries.collapse-after-max-number.extra-definitions }}"
+      },
+
+      // specify the exact dictionary tag within the lists below
+      "dictionary-options": {
+
+        // Always collapses the dictionaries with the specified tags
+        // - Takes precedence over collapse-after-max-number
+        "always-collapsible-open": "{{ modules.collapse-dictionaries.dictionary-options.always-collapsible-open }}",
+
+        // Never collapses the dictionaries with the specified tags
+        // - Takes precedence over always-collapsible-open
+        "always-collapsible-closed": "{{ modules.collapse-dictionaries.dictionary-options.always-collapsible-closed }}",
+
+        // - Does not transform JMdict because it is usually only one-line per definition anyways
+        // - Takes precedence over always-collapsible-closed
+        "never-collapsible": "{{ modules.collapse-dictionaries.dictionary-options.never-collapsible }}",
+
+        // Usually, collapsed dictionries attempt to collapse the first line only.
+        // This allows you to only show the dictionary name (and not the text to the right).
+        "only-display-dictionary-name": "{{ modules.collapse-dictionaries.dictionary-options.only-display-dictionary-name }}"
+      }
 
     },
+
 
     // Shows an indicator for duplicates, words with the same reading, and words with the same kanji
     "word-indicators": {
@@ -494,7 +648,7 @@
   // By default, the indicator for collapsable fields are completely removed.
   // Making this true keeps the indicator, but greys out the text to show that
   // it cannot be opened.
-  "greyed-out-collapsable-fields-when-empty": "{{ greyed-out-collapsable-fields-when-empty }}",
+  "greyed-out-collapsible-fields-when-empty": "{{ greyed-out-collapsible-fields-when-empty }}",
 
   // Warn if using the `Sentence` field instead of the `SentenceReading` field
   "no-sentence-reading-warn": "{{ no-sentence-reading-warn }}",
