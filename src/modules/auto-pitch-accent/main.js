@@ -985,8 +985,13 @@ const JPMNAutoPA = (() => {
           dispPosData.dict = "AJT Pitch Accent";
         } else {
           logger.debug("Nothing found.", this.logLvl);
-          dispPosData.posHTML = "";
           dispPosData.dict = "N/A";
+          if ({{ utils.opt("modules", "auto-pitch-accent", "show-reading-if-no-pitch") }}) {
+            let readingKana = this.getReadingKana();
+            dispPosData.posHTML = this.getNormalizeReading(readingKana)[0];
+          } else {
+            dispPosData.posHTML = "";
+          }
         }
       }
 

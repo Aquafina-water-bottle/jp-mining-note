@@ -20,6 +20,7 @@ CONFIG = {
     # Custom user-made theme.
     # See (TODO link documentation here) for more info
     "templates-theme-folder": None,
+    #"templates-theme-folder": "132_anime_card",
 
     "translation-file": "src/data/translations.jsonc",
 

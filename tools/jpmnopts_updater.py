@@ -208,7 +208,6 @@ def main(args=None):
 
     actions = get_actions(current_ver, new_ver, NOTE_CHANGES)
     print(actions)
-    return
 
     with open("src/jpmn_opts_template.jsonc") as f:
         template = f.read()
