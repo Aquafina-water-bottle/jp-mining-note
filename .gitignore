@@ -372,3 +372,4 @@ tools/tests/jinja/tests/tmp/
 .ccls-cache/
 src/scss/aquafina_extra/
 src/modules/aquafina-extra/
+overrides/scss/extra/

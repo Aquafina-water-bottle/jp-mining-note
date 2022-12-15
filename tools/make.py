@@ -11,7 +11,13 @@ import argparse
 from enum import Enum
 from distutils.dir_util import copy_tree
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape, StrictUndefined, TemplateNotFound
+from jinja2 import (
+    Environment,
+    FileSystemLoader,
+    select_autoescape,
+    StrictUndefined,
+    TemplateNotFound,
+)
 from json_minify import json_minify
 import json
 
@@ -33,6 +39,7 @@ class GenerateType(Enum):
     SASS = 2  # only one pass with `sass`
     COPY = 3
     CSS = 4  # two passes: first with jinja (to include css-folders), and the second with sass
+    COPY_SCSS = 5
 
 
 class TextContainer:
@@ -43,7 +50,7 @@ class TextContainer:
     # - prevents repeatedly having to set the variable to the same thing
     #   on each initialization
     # - var set in the main function of this script
-    #enabled_modules: list = []
+    # enabled_modules: list = []
 
     def __init__(self, module_name: str):
         self.module_name = module_name
@@ -98,9 +105,9 @@ class TextContainer:
         return self.matx[x][y]
 
     def get(self, card_type: str, side: str, enabled_modules: list[str]) -> str:
-        #if self.module_name in TextContainer.enabled_modules:
+        # if self.module_name in TextContainer.enabled_modules:
         #    return self._get(card_type, side)
-        #return ""
+        # return ""
         if self.module_name in enabled_modules:
             return self._get(card_type, side)
         return ""
@@ -124,7 +131,6 @@ class JavascriptContainer:
 
 
 class Translator:
-
     def __init__(self, languages: list[str], translations: dict[str, dict[str, str]]):
         self.languages = languages
         self.translations = translations
@@ -175,7 +181,9 @@ class Generator:
         self.css_folders = config("compile-options", "css-folders").list()
 
         root_folder = utils.get_root_folder()
-        translation_file_path = os.path.join(root_folder, config("translation-file").item())
+        translation_file_path = os.path.join(
+            root_folder, config("translation-file").item()
+        )
 
         with open(translation_file_path, encoding="utf-8") as f:
             translations = json.loads(json_minify(f.read()))
@@ -190,7 +198,6 @@ class Generator:
             "NOTE_FILES": utils.get_note_config(),
             "COMPILE_OPTIONS": config("compile-options"),
             "TRANSLATOR": translator,
-
             # helper methods
             "get_directories_with_file": self.get_directories_with_file,
             # helper classes
@@ -201,7 +208,6 @@ class Generator:
 
     def set_data(self, key, value):
         self.data[key] = value
-
 
     def get_directories_with_file(self, file_name):
         """
@@ -228,25 +234,35 @@ class Generator:
 
         4. raw css
             - problem: potentially unwanted side-effects if directly copy/paste
+            - problem: not scss, and scss does help quite a bit
             - could be an external file using <link>?
                 - won't work on fields and editor
 
         """
         CSS_ROOT = os.path.join(utils.get_root_folder(), "src", "scss")
-        #CSS_ROOT = "scss"
+        # CSS_ROOT = "scss"
+
+        scss_folders = []
+        for search_folder in self.jinja_root_folders:
+            scss_folder = os.path.join(search_folder, "scss")
+            if os.path.isdir(scss_folder):
+                scss_folders.append(scss_folder)
 
         result = []
-        for f in self.css_folders:
-            path = os.path.join(CSS_ROOT, f, file_name)
+        for d in self.css_folders:
+            for scss_root in scss_folders:
+                path = os.path.join(scss_root, d, file_name)
 
-            if os.path.isfile(path):
-                result.append(f)
+                if os.path.isfile(path):
+                    result.append(d)
+                    # only allows one copy for each css_folder
+                    break
 
             # valid code for testing via the loader
-            #try:
+            # try:
             #    self.loader.get_source(self.env, path)
             #    result.append(f)
-            #except TemplateNotFound as e:
+            # except TemplateNotFound as e:
             #    pass
 
         return result
@@ -289,6 +305,20 @@ class Generator:
             else:
                 shutil.copy(input_file, output_file)
 
+        elif type == GenerateType.COPY_SCSS:
+            # input is the templates folder (src)
+            # output is tmp/scss
+
+            # copies src/scss to tmp/scss
+
+            for search_folder in self.jinja_root_folders:
+                scss_folder = os.path.join(search_folder, "scss")
+                if os.path.isdir(scss_folder):
+                    copy_tree(scss_folder, output_file)
+
+        else:
+            raise Exception(f"invalid GenerateType: {type}")
+
         if self.to_release and release_output:
             utils.gen_dirs(release_output)
             shutil.copy(output_file, release_output)
@@ -303,6 +333,7 @@ def main(args=None):
 
     config = utils.get_config(args)
 
+    # search folders are: override, theme, src
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "src")
     overrides_folder = os.path.join(
@@ -310,7 +341,12 @@ def main(args=None):
     )
     search_folders = [overrides_folder, templates_folder]
 
-    #TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
+    theme_folder_item = config("templates-theme-folder").item()
+    if theme_folder_item is not None:
+        theme_folder = os.path.join(root_folder, "themes", theme_folder_item)
+        search_folders.insert(1, theme_folder)
+
+    # TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
 
     generator = Generator(
         search_folders,
@@ -341,6 +377,7 @@ def main(args=None):
         "scss": GenerateType.SASS,
         "jinja": GenerateType.JINJA,
         "copy": GenerateType.COPY,
+        "copy-scss": GenerateType.COPY_SCSS,
     }
 
     # generates each file in "build"

@@ -45,10 +45,17 @@ NOTE_DATA = {
         #    "type": "scss",
         #},
 
+        #{
+        #    "input-file": "scss",
+        #    "output-file": "tmp/scss",
+        #    "type": "copy",
+        #    "to-release": False,
+        #},
+
         {
-            "input-file": "scss",
+            "input-file": "",
             "output-file": "tmp/scss",
-            "type": "copy",
+            "type": "copy-scss",
             "to-release": False,
         },
 
