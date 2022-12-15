@@ -1,4 +1,4 @@
-{# test #}
+{# base #}
 
 {%- from "macros/global.html" import T, IF, IFNOT, END with context -%}
 {%- import "macros/utils.html" as utils with context -%}
@@ -43,7 +43,7 @@
 
   {% filter indent(2) %}
 
-  {{ card_header("card-header--back", True, _card_type) }}
+  {{ card_header("card-header--front", False, _card_type) }}
 
   {{ card_main_front(_card_html) }}
 

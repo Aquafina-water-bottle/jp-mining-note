@@ -214,6 +214,12 @@
       // whether to search for the ajt word, given the field is filled out
       "search-for-ajt-word": "{{ modules.auto-pitch-accent.search-for-ajt-word }}",
 
+      // Whether to display the reading at all no pitch was found.
+      // If false, shows (N/A) instead by default.
+      // See the following to remove the (N/A):
+      //  https://aquafina-water-bottle.github.io/jp-mining-note/uicustomization/#remove-the-na-on-cards-with-no-pitch-accents
+      "show-reading-if-no-pitch": "{{ modules.auto-pitch-accent.show-reading-if-no-pitch }}",
+
       "pa-positions": {
 
         // When set to false, only displays the first entry within the first dictionary.
