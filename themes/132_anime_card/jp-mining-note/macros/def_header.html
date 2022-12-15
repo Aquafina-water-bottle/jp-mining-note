@@ -21,11 +21,6 @@
   </div>
 
   <!-- everything on the right side -->
-  <!-- heavily nested elements:
-    - stop-blur-edges: requires a div outside the regular blur to remove the blurred edges
-    - nsfw-blur: `transition filter (of --clickable)` will affect the blur -> not blurred state
-      - we don't want that
-  -->
   {#{% filter indent(2) %}
   {% include "jp-mining-note/partials/image.html" %}
   {% endfilter %}#}

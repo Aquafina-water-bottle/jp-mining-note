@@ -1,3 +1,9 @@
+
+<!-- heavily nested elements:
+  - stop-blur-edges: requires a div outside the regular blur to remove the blurred edges
+  - nsfw-blur: `transition filter (of --clickable)` will affect the blur -> not blurred state
+    - we don't want that
+-->
 <div class="dh-right {% call IF("Picture") %} dh-right--contains-image {% endcall %}" id="dh_right">
   <div class="dh-right__img-container-stop-blur-edges">
     <div class="dh-right__img-container-nsfw-blur" id="dh_img_container_nsfw_blur">
