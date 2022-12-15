@@ -1,0 +1,27 @@
+{# card_main_back #}
+
+{% macro card_main_back(card_html_top, card_html_bottom) %}
+
+<main class="card-main card-main--back">
+
+  <div class="expression-wrapper">
+
+    {% filter indent(4) %}
+    {{ card_html_top }}
+    {% endfilter %}
+
+  </div>
+
+  {% include "jp-mining-note/partials/answer_border.html" %}
+
+  <div class="back-side">
+
+    {% filter indent(4) %}
+    {{ card_html_bottom }}
+    {% endfilter %}
+
+  </div> <!-- backside -->
+
+</main>
+
+{% endmacro %}

@@ -2,6 +2,8 @@
 
 {%- from "macros/global.html" import T, IF, IFNOT, END with context -%}
 {%- import "macros/utils.html" as utils with context -%}
+{%- from "jp-mining-note/macros/card_header.html" import card_header with context -%}
+{%- from "jp-mining-note/macros/card_main_front.html" import card_main_front with context -%}
 
 {%- if note.field_restrict is defined and note.field_restrict -%}
 {%- for x in note.field_restrict -%}
@@ -9,6 +11,7 @@
 {% endfor -%}
 {%- endif -%}
 
+{# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
 <script>
@@ -22,60 +25,29 @@
 {% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
 
 
-<div class="hidden">
-  <div id="hidden_key">{{ T('Key') }}</div>
-  <div id="hidden_word">{{ T('Word') }}</div>
-  <div id="hidden_word_reading">{{ T('WordReading') }}</div>
-  <div id="hidden_word_reading_kana">{{ T('kana:WordReading') }}</div>
-  <div id="hidden_word_reading_hiragana">{{ T('WordReadingHiragana') }}</div>
-  <div id="hidden_sentence">{{ T('Sentence') }}</div>
-
-  <div id="hidden_svg_settings_toggle_img_blur"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/><title>Toggle blur</title></svg></div>
-
-  <div id="hidden_svg_settings_clear_cache"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9M7 6h10v13H7V6m2 2v9h2V8H9m4 0v9h2V8h-2Z"/><title>Clear the cache</title></svg></div>
-
-</div>
+{% include "jp-mining-note/partials/hidden_front.html" %}
 
 
 
+{% set _card_type %}
+{% block card_type %}
+{% endblock %}
+{% endset %}
 
-
+{% set _card_html %}
+{% block card_html %}
+{% endblock %}
+{% endset %}
 
 <div class="card-wrapper" id="card_wrapper">
 
-  <header class="card-header card-header--front">
+  {% filter indent(2) %}
 
-    <div class="card-description-right">
-      {% include "jp-mining-note/partials/version_mobile.html" %}
-    </div>
+  {{ card_header("card-header--back", True, _card_type) }}
 
-    <div class="card-description">
+  {{ card_main_front(_card_html) }}
 
-      <span class="card-description__card-type">
-      {% block card_type %}
-      {% endblock %}
-      </span>
-
-      {% include "jp-mining-note/partials/info_circle.html" %}
-
-      {% include "jp-mining-note/partials/version.html" %}
-
-    </div>
-
-  </header>
-
-
-
-  <main class="card-main card-main--front">
-
-    <div class="expression-wrapper" id="display_wrapper">
-
-    {% block card_html %}
-    {% endblock %}
-
-    </div>
-
-  </main>
+  {% endfilter %}
 
 </div> <!-- card-wrapper -->
 

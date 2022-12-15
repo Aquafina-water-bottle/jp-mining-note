@@ -1,0 +1,36 @@
+{# header macro #}
+
+{% macro card_header(header_class, show_frequencies, card_type) %}
+
+{# header_class can be card-header--front or card-header--back #}
+<header class="card-header {{ header_class }}">
+
+  <div class="card-description-right">
+
+    {% filter indent(4) %}
+    {% include "jp-mining-note/partials/version_mobile.html" %}
+    {% if show_frequencies %}
+    {% include "jp-mining-note/partials/frequencies.html" %}
+    {% endif %}
+    {% endfilter %}
+
+  </div>
+
+  <div class="card-description">
+
+    <span class="card-description__card-type">
+    {% filter indent(4) %}
+    {{ card_type }}
+    {% endfilter %}
+    </span>
+
+    {% filter indent(4) %}
+    {% include "jp-mining-note/partials/info_circle.html" %}
+
+    {% include "jp-mining-note/partials/version.html" %}
+    {% endfilter %}
+
+  </div>
+</header>
+
+{% endmacro %}
