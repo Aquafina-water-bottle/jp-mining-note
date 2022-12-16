@@ -10,6 +10,8 @@
     "display-mode": "click",
     "fill-mode": "font-size",
     "fill-mode-font-size-transition": true
-  }
+  },
+
+  "css-folders": ["base", "dictionaries", "theme", "extra"]
 }
 

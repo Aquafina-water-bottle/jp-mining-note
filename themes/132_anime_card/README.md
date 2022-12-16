@@ -9,10 +9,8 @@ This modified version of JPMN was based off of his own modified version of the
 
 ## Limitations
 - Certain parts of this theme will not scale properly with mobile.
-- The tested content on the front-side is not shown on the back-side.
-    Instead, the word is always shown.
-    This is not a problem if you only use one card format.
-
+- Kanji hover may be cut off on the right side of the screen if the screen is not big enough.
+- Only vocab cards can be created.
 
 ## Example images
 TODO
