@@ -14,7 +14,11 @@ upon updates.
 {%- for m in modules.modules.keys() -%}
   {%- do _enabled_modules.append(m) -%}
 {%- endfor -%}
-{%- set card_json = {"compile-options": COMPILE_OPTIONS.dict(), "modules-used": _enabled_modules} -%}
+{%- set card_json = {
+  "compile-options": COMPILE_OPTIONS.dict(),
+  "modules-used": _enabled_modules,
+}
+-%}
 
 JPMN-COMPILE-TIME-OPTIONS-JSON:
 {{ card_json | tojson(indent=2) }}

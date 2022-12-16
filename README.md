@@ -13,7 +13,7 @@ Note that this project is still in its early stages.
 Better support across systems and more features are planned for the future.
 
 
-# Demos
+## Demos
 
 <!--
 - hover over furigana
@@ -69,18 +69,19 @@ Card creation:
 </details>
 
 
-# Known Limitations
-* No support for mobile. (Support for Ankidroid is planned for the future, but with no ETA.)
+## Known Limitations
+* Mobile support is slowly being worked on, but is currently unstable.
+    The mobile interface is still not finalized.
 
-# Get Started
+## Get Started
 See the documentation and setup procedure [**here**](https://aquafina-water-bottle.github.io/jp-mining-note/).
 
-# Other Info
+## Other Info
 Tested on Anki 2.1.54 (Qt6), Linux (Ubuntu) & Windows.
 
 It is recommended you use the latest version of Anki if possible.
 
-# License
+## License
 MIT. Go insane.
 
 
