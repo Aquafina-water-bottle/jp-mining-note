@@ -153,158 +153,151 @@ def read_json_or_jsonc(filename):
     return json_content
 
 
-class JPMNOptsUpdater:
-    # TODO merge this entire class with the manager class below
+def flatten(json):
+    """
+    changes json {"a": {"b": "c", "e": "f"}} to {"a.b": "c", "a.e": "f"}
+    """
 
-    def __init__(self, template: str, options: JSON = dict()):
-        self.template = template
-        self.options = options
+    result = {}
 
-    def flatten(self, json):
-        """
-        changes json {"a": {"b": "c", "e": "f"}} to {"a.b": "c", "a.e": "f"}
-        """
-
-        result = {}
-
-        for k, v in json.items():
-            if isinstance(v, dict):
-                if "type" in v:
-                    result[k] = v
-                else:
-                    for k2, v2 in self.flatten(v).items():
-                        result[f"{k}.{k2}"] = v2
-            # elif isinstance(v, list):
-            #    raise SyntaxError(f"cannot flatten list {v}")
-            else:
-                # string, number, boolean, list
+    for k, v in json.items():
+        if isinstance(v, dict):
+            if "type" in v:
                 result[k] = v
+            else:
+                for k2, v2 in flatten(v).items():
+                    result[f"{k}.{k2}"] = v2
+        # elif isinstance(v, list):
+        #    raise SyntaxError(f"cannot flatten list {v}")
+        else:
+            # string, number, boolean, list
+            result[k] = v
 
-        return result
+    return result
 
-    def unflatten(self, flattened_json):
-        """
-        changes json {"a.b": "c", "a.e": "f"} to {"a": {"b": "c", "e": "f"}}
-        """
+def unflatten(flattened_json):
+    """
+    changes json {"a.b": "c", "a.e": "f"} to {"a": {"b": "c", "e": "f"}}
+    """
 
-        result = {}
+    result = {}
 
-        for flattened_key, v in flattened_json.items():
-            keys = flattened_key.split(".")
-            result_temp = result
-            for i, k in enumerate(keys):
-                if i == len(keys) - 1:
-                    result_temp[k] = v
-                else:
-                    result_temp[k] = result_temp.get(k, dict())
-                    result_temp = result_temp[k]
+    for flattened_key, v in flattened_json.items():
+        keys = flattened_key.split(".")
+        result_temp = result
+        for i, k in enumerate(keys):
+            if i == len(keys) - 1:
+                result_temp[k] = v
+            else:
+                result_temp[k] = result_temp.get(k, dict())
+                result_temp = result_temp[k]
 
-        return result
+    return result
 
-    # def flatten_options(self):
-    #    flat_templates = self.flatten(json.loads(json_minify(self.template)))
-    #    result = {}
+# def flatten_options(self):
+#    flat_templates = self.flatten(json.loads(json_minify(self.template)))
+#    result = {}
 
-    #    for flat_key in flat_templates:
+#    for flat_key in flat_templates:
 
-    #        found_item = True
+#        found_item = True
 
-    #        # attempts to visit
-    #        item = self.options
-    #        keys = flat_key.split(".")
+#        # attempts to visit
+#        item = self.options
+#        keys = flat_key.split(".")
 
-    #        for k in keys:
-    #            if k in item:
-    #                item = item[k]
-    #            else:
-    #                found_item = False
-    #                print(f"jpmnopts_updater warning: did not find key {flat_key}")
-    #                break
+#        for k in keys:
+#            if k in item:
+#                item = item[k]
+#            else:
+#                found_item = False
+#                print(f"jpmnopts_updater warning: did not find key {flat_key}")
+#                break
 
-    #        if not found_item:
-    #            raise RuntimeError(f"Key not found: {flat_key}")
+#        if not found_item:
+#            raise RuntimeError(f"Key not found: {flat_key}")
 
-    #        # found full key / item pair
-    #        result[flat_key] = item
+#        # found full key / item pair
+#        result[flat_key] = item
 
-    #    return result
+#    return result
 
-    # def apply_actions(self, options: JSON, actions: list[action.OptAction]):
-    #    """
-    #    - applies all actions to given options list
-    #    - adds any options in self.options to result if doesn't already exist
-    #    """
-    #    result = deepcopy(options)
+# def apply_actions(self, options: JSON, actions: list[action.OptAction]):
+#    """
+#    - applies all actions to given options list
+#    - adds any options in self.options to result if doesn't already exist
+#    """
+#    result = deepcopy(options)
 
-    #    for a in actions:
-    #        if isinstance(a, action.MoveOptAction):
-    #            if a.key_src in result:
-    #                result[a.key_dest] = result.pop(a.key_src)
-    #            else:
-    #                print(
-    #                    f"jpmnopts_updater warning: cannot move {a.key_src} -> {a.key_dest}"
-    #                )
-    #        elif isinstance(a, action.OverwriteValueOptAction):
-    #            result[a.key] = a.value
-    #        elif isinstance(a, action.ChangeDefaultValueOptAction):
-    #            if result[a.key] == a.default_val:
-    #                result[a.key] = a.value
+#    for a in actions:
+#        if isinstance(a, action.MoveOptAction):
+#            if a.key_src in result:
+#                result[a.key_dest] = result.pop(a.key_src)
+#            else:
+#                print(
+#                    f"jpmnopts_updater warning: cannot move {a.key_src} -> {a.key_dest}"
+#                )
+#        elif isinstance(a, action.OverwriteValueOptAction):
+#            result[a.key] = a.value
+#        elif isinstance(a, action.ChangeDefaultValueOptAction):
+#            if result[a.key] == a.default_val:
+#                result[a.key] = a.value
 
-    #    for k in self.options:
-    #        if k not in result:
-    #            result[k] = self.options[k]
+#    for k in self.options:
+#        if k not in result:
+#            result[k] = self.options[k]
 
-    #    return result
+#    return result
 
-    def apply_actions(
-        self, flattened_opts: dict[str, Any], actions: list[action.OptAction]
-    ):
-        """
-        - applies all actions to given options list
-        - adds any options in self.options to result if doesn't already exist
-        """
-        for a in actions:
-            if isinstance(a, action.MoveOptAction):
-                if a.key_src in flattened_opts:
-                    flattened_opts[a.key_dest] = flattened_opts.pop(a.key_src)
-                else:
-                    print(
-                        f"jpmnopts_updater warning: cannot move {a.key_src} -> {a.key_dest}"
-                    )
-            elif isinstance(a, action.OverwriteValueOptAction):
+def apply_actions(
+    flattened_opts: dict[str, Any], actions: list[action.OptAction]
+):
+    """
+    - applies all actions to given options list
+    """
+    for a in actions:
+        if isinstance(a, action.MoveOptAction):
+            if a.key_src in flattened_opts:
+                flattened_opts[a.key_dest] = flattened_opts.pop(a.key_src)
+            else:
+                print(
+                    f"jpmnopts_updater warning: cannot move {a.key_src} -> {a.key_dest}"
+                )
+        elif isinstance(a, action.OverwriteValueOptAction):
+            flattened_opts[a.key] = a.value
+        elif isinstance(a, action.ChangeDefaultValueOptAction):
+            if flattened_opts[a.key] == a.default_val:
                 flattened_opts[a.key] = a.value
-            elif isinstance(a, action.ChangeDefaultValueOptAction):
-                if flattened_opts[a.key] == a.default_val:
-                    flattened_opts[a.key] = a.value
 
-    def apply_overrides(self, flattened_opts: dict[str, Any], overrides: JSON):
-        flattened_overrides = self.flatten(overrides)
-        for k, v in flattened_overrides.items():
-            flattened_opts[k] = v
+def apply_overrides(flattened_opts: dict[str, Any], overrides: JSON):
+    flattened_overrides = flatten(overrides)
+    for k, v in flattened_overrides.items():
+        flattened_opts[k] = v
 
-    def generate(self, actions: list[action.OptAction]):
-        """
-        - create options in format of k1. (...) .kn: v (flattened)
-        - replaces all k1. (...) .kn instances in template string with value in options
-        """
-
-        result_template = self.template
-        flattened_opts = self.flatten(self.options)
-        self.apply_actions(flattened_opts, actions)
-
-        for key, value in flattened_opts.items():
-            find_str = '"{{ ' + key + ' }}"'
-            replace_str = utils.javascript_format(value)
-
-            result_template = result_template.replace(find_str, replace_str)
-
-        return result_template
+#def generate(actions: list[action.OptAction]):
+#    """
+#    - create options in format of k1. (...) .kn: v (flattened)
+#    - replaces all k1. (...) .kn instances in template string with value in options
+#    """
+#
+#    result_template = template
+#    flattened_opts = flatten(options)
+#    apply_actions(flattened_opts, actions)
+#
+#    for key, value in flattened_opts.items():
+#        find_str = '"{{ ' + key + ' }}"'
+#        replace_str = utils.javascript_format(value)
+#
+#        result_template = result_template.replace(find_str, replace_str)
+#
+#    return result_template
 
 
-class JPMNOptsUpdateManager:
+class OptsUpdater:
     def __init__(
         self,
-        updater: JPMNOptsUpdater,
+        #updater: JPMNOptsUpdater,
+        template: str,
         input_file: str | None,
         output_file: str | None,
         apply_changes_update: bool,
@@ -312,7 +305,9 @@ class JPMNOptsUpdateManager:
         output_template: bool,
     ):
 
-        self.updater = updater
+        #self.updater = updater
+        self.template = template
+        self.options = {} # original options
         self.input_file = input_file
         self.output_file = output_file
         self.apply_changes_update = apply_changes_update
@@ -351,18 +346,18 @@ class JPMNOptsUpdateManager:
         else:
             json_content = read_json_or_jsonc(self.input_file)
 
-        self.updater.options = json_content
+        self.options = json_content
 
     def update(self, args):
-        flattened_opts = self.updater.flatten(self.updater.options)
+        flattened_opts = flatten(self.options)
 
         if self.apply_changes_update:
             actions = self.get_actions(args)
-            self.updater.apply_actions(flattened_opts, actions)
+            apply_actions(flattened_opts, actions)
 
         for f in self.apply_changes_from:
             json_content = read_json_or_jsonc(f)
-            self.updater.apply_overrides(flattened_opts, json_content)
+            apply_overrides(flattened_opts, json_content)
 
         self.result_flattened_opts = flattened_opts
 
@@ -375,7 +370,7 @@ class JPMNOptsUpdateManager:
             result = ""
 
         elif self.output_template and os.path.splitext(self.output_file)[1] == ".jsonc":
-            result = self.updater.template
+            result = self.template
 
             for key, value in self.result_flattened_opts.items():
                 find_str = '"{{ ' + key + ' }}"'
@@ -385,7 +380,7 @@ class JPMNOptsUpdateManager:
 
         else:
             # writes standard json
-            opts = self.updater.unflatten(self.result_flattened_opts)
+            opts = unflatten(self.result_flattened_opts)
             result = json.dumps(opts, indent=2)
 
 
@@ -484,12 +479,8 @@ def main(args=None):
     # with open("config/example_jpmn_opts.json") as f:
     #    options = json.load(f)
 
-    upt = JPMNOptsUpdater(
+    upt = OptsUpdater(
         template,
-    )
-
-    mgr = JPMNOptsUpdateManager(
-        upt,
         input_file,
         output_file,
         apply_changes_update,
@@ -497,9 +488,9 @@ def main(args=None):
         output_template,
     )
 
-    mgr.read()
-    mgr.update(args)
-    mgr.write(should_warn=(not args.no_override_warn))
+    upt.read()
+    upt.update(args)
+    upt.write(should_warn=(not args.no_override_warn))
 
     # print(upt.unflatten({"a.b": "c", "a.e": "f"}))
 
