@@ -1,4 +1,5 @@
 {{~! =======   ORIGINAL YOMICHAN TEMPLATE CODE ABOVE   ======= ~}}
+{{~! Yomichan template code version: v22.12.18.0 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
@@ -98,7 +99,7 @@ is a part of a dictionary) ~}}
 {{~#*inline "_jpmn-get-dict-if-glossary-selected"~}}
     {{~#scope~}}
         {{~#set "result-dictionary" null}}{{/set~}}
-        {{~#set "search-selection"}}{{~> _jpmn-escape-regex regexString=(get "selection") ~}}{{/set~}}
+        {{~#set "search-selection"}}{{~#regexReplace "[.*+?^${}()|[\]\\]" "\$&" "g"~}}{{~> _jpmn-selection-text ~}}{{~/regexReplace~}}{{/set~}}
 
         {{~#each definition.definitions~}}
             {{~#set "search-def"}}{{~> _jpmn-glossary-single-search . brief=../brief noDictionaryTag=../noDictionaryTag ~}}{{/set~}}
@@ -524,8 +525,8 @@ is a part of a dictionary) ~}}
             {{~! not "" <=> is a filled string ~}}
             {{~#if (op "!==" (get "selection-uses-glossary") "")~}}
 
-                {{~#set "search-selection"}}{{~> _jpmn-escape-regex regexString=(get "selection") ~}}{{/set~}}
-                {{~#set "search-selection-bold"}}<b>{{~ get "selection" ~}}</b>{{/set~}}
+                {{~#set "search-selection"}}{{~#regexReplace "[.*+?^${}()|[\]\\]" "\$&" "g"~}}{{~> _jpmn-selection-text ~}}{{~/regexReplace~}}{{/set~}}
+                {{~#set "search-selection-bold"}}<b>{{~> _jpmn-selection-text ~}}</b>{{/set~}}
 
                 {{~#regexReplace (get "search-selection") (get "search-selection-bold") "g"~}}
                     {{~> _jpmn-get-primary-definition-value . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
