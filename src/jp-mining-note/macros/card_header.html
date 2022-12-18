@@ -1,5 +1,7 @@
 {# header macro #}
 
+{% from "jp-mining-note/macros/pa_indicator.html" import pa_indicator with context %}
+
 {% macro card_header(header_class, show_frequencies, card_type) %}
 
 {# header_class can be card-header--front or card-header--back #}
@@ -27,8 +29,11 @@
     {% filter indent(4) %}
     {% include "jp-mining-note/partials/info_circle.html" %}
 
+    {{ pa_indicator("header") }}
+
     {% include "jp-mining-note/partials/version.html" %}
     {% endfilter %}
+
 
   </div>
 </header>

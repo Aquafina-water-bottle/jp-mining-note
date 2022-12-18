@@ -191,10 +191,10 @@ const JPMNSentUtils = (() => {
           closeQuoteEle.classList.add(paIndicator.className);
         }
 
-        let elems = document.getElementsByClassName("expression__hybrid-wrapper");
+        let elems = document.getElementsByClassName("expression__hybrid");
         if (elems.length > 0) {
           /// {% call utils.if_any("IsHoverCard", "IsClickCard") %}
-          elems[0].classList.add("expression__hybrid-wrapper--remove-pa-indicator");
+          elems[0].classList.add("expression__hybrid--remove-pa-indicator");
           /// {% endcall %}
         }
 

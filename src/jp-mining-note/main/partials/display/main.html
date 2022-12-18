@@ -1,6 +1,7 @@
 {# impl #}
+{% from "jp-mining-note/macros/pa_indicator.html" import pa_indicator with context %}
 
-<div class="expression expression-box">
+<div class="expression">
   {% call IF("IsHoverCard") %}
     {% filter indent(4) %}
     {% include "jp-mining-note/main/partials/display/hover.html" %}
@@ -39,10 +40,6 @@
     {% endcall %} {# IFNOT IsClickCard #}
 
   {% endcall %} {# IFNOT IsHoverCard #}
-
-  {% filter indent(2) %}
-  {% include "jp-mining-note/main/partials/display/pa_indicator.html" %}
-  {% endfilter %}
 
 </div> <!-- expression box -->
 

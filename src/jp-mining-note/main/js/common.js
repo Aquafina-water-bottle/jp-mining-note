@@ -78,14 +78,18 @@ var paIndicator = (function () {
   //  Word pitch indicator color
   // ============================
   // done in javascript to simplify templating logic
-  let circ = document.getElementById("pa_indicator_circle");
-  let svgTitle = document.getElementById("svg_title");
+  // could be multiple pa-indicator objects in the html, queries all
 
-  if (svgTitle !== null) {
+  const paIndicators = document.querySelectorAll(".pa-indicator");
+  for (const paInd of paIndicators) {
+
+    let circ = paInd.children[0].children[0];
+    let svgTitle = circ.children[0];
+
     svgTitle.textContent = "{{ TRANSLATOR.get('pa-indicator-prefix') }}" + paIndicator.tooltip;
+    circ.classList.add(paIndicator.className);
   }
 
-  circ.classList.add(paIndicator.className);
   /// {% endcall %}
 }
 /// {% endset %}
