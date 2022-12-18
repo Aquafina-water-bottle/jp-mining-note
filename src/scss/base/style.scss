@@ -522,26 +522,34 @@ ruby rt {
   grid-column-gap: 5px;
   justify-items: center;
 
-  font-family: notoserif;
+  //font-family: notoserif;
 }
 
 .pa-indicator {
   margin-left: auto;
-  grid-column-start: 1;
+  display: flex; // raises the svg to the top for some reason
 
-  font-size: var(--pa-indicator-word-font-size);
+  //grid-column-start: 1;
 
-  /*
-   * so that the svg can be placed after the sentence (to remove upon hover)
-   * while appearing to be before the sentence
-   */
-  order: -1;
+  //font-size: var(--pa-indicator-word-font-size);
+
+  ///*
+  // * so that the svg can be placed after the sentence (to remove upon hover)
+  // * while appearing to be before the sentence
+  // */
+  //order: -1;
 }
+
+/* pa indicator in header (only shown on small width devices) */
+.card-description .pa-indicator {
+  display: none;
+}
+
 
 .pa-indicator__svg {
   display: inline-block;
   vertical-align: middle;
-  height: 1.5em;
+  height: 1em;
 }
 
 .pa-indicator__circle {
@@ -585,6 +593,7 @@ ruby rt {
 
 
 .expression {
+  font-family: notoserif;
 }
 
 .expression b {
@@ -607,6 +616,9 @@ ruby rt {
 .expression--word {
   font-size: var(--word-font-size);
 }
+.expression-box__word, .expression-box__hybrid-word {
+  font-size: var(--word-font-size);
+}
 
 
 /* class used to identify exactly which div(s) contain a sentence, for js purposes */
@@ -616,6 +628,9 @@ ruby rt {
 
   text-indent: -1em;
   padding-left: 1em;
+  font-size: var(--sentence-font-size);
+}
+.expression-box__sentence, .expression-box__hybrid-sentence {
   font-size: var(--sentence-font-size);
 }
 
@@ -637,38 +652,14 @@ ruby rt {
  * -----------------
  */
 
-.expression__hybrid-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.expression__hybrid-wrapper--hover:hover + .pa-indicator,
-.hybrid-click-toggle:checked + .expression__hybrid-wrapper + .pa-indicator,
-.expression--sentence + .pa-indicator {
-  font-size: var(--pa-indicator-sent-font-size);
-}
-
-.expression__hybrid-wrapper--hover.expression__hybrid-wrapper--remove-pa-indicator:hover + .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
-.hybrid-click-toggle:checked + .expression__hybrid-wrapper.expression__hybrid-wrapper--remove-pa-indicator + .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
 
 
 .expression__hybrid {
   position: relative;
   padding-bottom: 10px; /* overriden line-height causes the buttons underneath the word to be too close */
+  display: inline-block; /* reduces hitbox */
 }
 
-/* used to specify that hovering toggles between word/sentence */
-.expression__hybrid--hover {
-}
-
-.expression__hybrid--click {
-}
 
 .expression__hybrid--click-hover-effect {
   /* transition for opacity */
@@ -687,6 +678,8 @@ ruby rt {
   line-height: 125%;
 }
 
+
+/* borders for hybrid words */
 .expression__hybrid-word--hover-indicator {
   border-bottom-style: dotted;
 }
@@ -694,14 +687,19 @@ ruby rt {
   border-bottom-style: dashed;
 }
 
+
+/* sentence indicator: sentence should be tested */
 .expression__hybrid-word--sentence-indicator {
   color: var(--accent);
   border-color: var(--accent);
 }
+/* word indicator: only the word should be tested */
 .expression__hybrid-word--word-indicator {
   border-color: var(--text-color--3);
 }
 
+
+/* experimental vertical-display support, moves borders to left */
 .card-wrapper--vertical-display {
   .expression__hybrid-word--hover-indicator {
     border-bottom-style: none;
@@ -714,23 +712,52 @@ ruby rt {
 }
 
 
-.expression__hybrid-sentence {
+/* used to specify that hovering toggles between word/sentence */
+.expression-box__hybrid-sentence {
     display: none;
 }
 
-.expression__hybrid--hover:hover > .expression__hybrid-word {
+.expression__hybrid--hover:hover > .expression-box__hybrid-word {
     display: none;
 }
-.expression__hybrid--hover:hover > .expression__hybrid-sentence {
-    display: block;
+.expression__hybrid--hover:hover > .expression-box__hybrid-sentence {
+    display: grid;
 }
 
-.hybrid-click-toggle:checked + .expression__hybrid-wrapper .expression__hybrid-word {
+.hybrid-click-toggle:checked + .expression__hybrid .expression-box__hybrid-word {
     display: none;
 }
-.hybrid-click-toggle:checked + .expression__hybrid-wrapper .expression__hybrid-sentence {
-    display: block;
+.hybrid-click-toggle:checked + .expression__hybrid .expression-box__hybrid-sentence {
+    display: grid;
 }
+
+//.expression__hybrid {
+//  border: 1px solid red;
+//}
+//.expression-box {
+//  border: 1px solid green;
+//}
+
+
+/*
+.expression__hybrid--hover:hover + .pa-indicator,
+.hybrid-click-toggle:checked + .expression__hybrid + .pa-indicator,
+.expression--sentence + .pa-indicator {
+  font-size: var(--pa-indicator-sent-font-size);
+}
+*/
+
+/* removes pa indicator only on sentence if class adde
+ * (class is added if quotes are colored, or on sentence below cards)
+ */
+.expression__hybrid--hover.expression__hybrid--remove-pa-indicator:hover .expression-box__hybrid-sentence .pa-indicator > .pa-indicator__svg {
+  display: none;
+}
+
+.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--remove-pa-indicator .expression-box__hybrid-sentence  .pa-indicator > .pa-indicator__svg {
+  display: none;
+}
+
 
 
 

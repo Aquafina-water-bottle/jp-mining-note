@@ -33,7 +33,7 @@
 @media (max-width: common.$bp-display-sentence-shrink) {
   :root {
     --sentence-font-size: #{common.px2rem(42px)};
-    --pa-indicator-sent-font-size: #{common.px2rem(35px)};
+    //--pa-indicator-sent-font-size: #{common.px2rem(35px)};
   }
 }
 
@@ -51,8 +51,8 @@
   :root {
     --word-font-size: #{common.px2rem(55px)};
     --sentence-font-size: #{common.px2rem(35px)};
-    --pa-indicator-word-font-size: #{common.px2rem(35px)};
-    --pa-indicator-sent-font-size: #{common.px2rem(29px)};
+    //--pa-indicator-word-font-size: #{common.px2rem(35px)};
+    //--pa-indicator-sent-font-size: #{common.px2rem(29px)};
 
     --description-font-size: #{common.px2rem(18px)};
     --description-footer-font-size: #{common.px2rem(8px)};
@@ -163,16 +163,30 @@
   }
 
 
-  .pa-indicator {
-    /* same size as info circle */
-    font-size: var(--pa-indicator-word-font-size) !important;
+  // shows in header
+  .card-description .pa-indicator {
+    display: inline-flex;
+    margin-left: 30px;
+    font-size: 15px;
   }
 
-  .pa-indicator__svg {
-    position: absolute;
-    top: 1px;
-    left: 30px;
+  // hides the pa indicator outside the header
+  .expression-box .pa-indicator > .pa-indicator__svg {
+    display: none;
   }
+
+  //.pa-indicator {
+  //  /* same size as info circle */
+  //  // TODO
+  //  //font-size: var(--pa-indicator-word-font-size) !important;
+  //  font-size: common.px2rem(35px);
+  //}
+
+  //.pa-indicator__svg {
+  //  position: absolute;
+  //  top: 1px;
+  //  left: 30px;
+  //}
 
 
   .full-sentence {
