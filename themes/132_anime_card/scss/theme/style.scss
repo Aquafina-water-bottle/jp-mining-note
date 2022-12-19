@@ -112,7 +112,7 @@
 
 
 /* removes ruby text on back side word */
-.dh-left__reading ruby rt {
+.dh-left__reading > ruby > rt {
   display: none;
 }
 
