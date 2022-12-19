@@ -43,6 +43,9 @@
   .expression .expression-inner br {
     display: none;
   }
+  .expression .expression--hint-sentence .expression-inner br { /* except on hint sentences */
+    display: inline;
+  }
 }
 
 
@@ -79,6 +82,9 @@
 
   /* removes newlines on all */
   .expression .expression-inner br {
+    display: none;
+  }
+  .expression .expression--hint-sentence .expression-inner br { /* including hint sentences */
     display: none;
   }
 

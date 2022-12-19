@@ -72,13 +72,94 @@ Fill the `IsTargetedSentenceCard` field.
 
 
 
+# Hint Cards
+
+Hint cards are a group of card types that display the sentence
+below the word.
+This acts as a better alternative compared to manually adding the sentence
+in the `Hint` (or `HintNotHidden`) field.
+
+
+<br>
+
+## Hint Vocab Card
+{{ feature_version("0.12.0.0") }}
+
+TODO img
+
+A hint vocab card is simply a vocab card that shows the sentence below the word.
+The tested content is the word itself, so you would test yourself as if it were a
+[TSC](#targeted-sentence-card-tsc) or
+[Hover Vocab card](#hover-vocab-card).
+
+
+**How to create:** <br>
+Fill the `IsHintCard` field.
+
+<br>
+
+
+## Hint Vocab Card (highlighted)
+{{ feature_version("0.12.0.0") }}
+
+TODO img
+
+This is exactly the same as the Hint Vocab Card,
+except the word within the sentence is automatically highlighted.
+This is tested the exact same as the Hint Vocab Card.
+
+**How to create:** <br>
+Fill the `IsHintCard` and `IsTargetedSentenceCard` fields.
+
+<br>
+
+## Hint Sentence Card
+{{ feature_version("0.12.0.0") }}
+
+TODO img
+
+A hint sentence card is very similar to a Hint Vocab card,
+except the tested content is the entire sentence.
+This is indicated by the fact that the word is colored.
+
+This is tested exactly like a [Hover Sentence Card](#hover-sentence-card).
+
+
+**How to create:** <br>
+Fill the `IsHintCard` and `IsSentenceCard` fields.
+
+<br>
+
+## Hint TSC Card
+
+TODO img
+
+Similarily to the normal TSC, this can be used to only test yourself on a specific
+portion of the sentence.
+This is tested exactly like a [Hover TSC](#hybrid-tsc).
+
+**How to create:** <br>
+Fill the `IsHintCard`, `IsSentenceCard` and `IsTargetedSentenceCard` fields.
+
+!!! note
+    For all other card types, only `IsTargetedSentenceCard` has to be filled
+    to create a TSC.
+    However, for hint cards, both `IsSentenceCard` and `IsTargetedSentenceCard`
+    must be filled out.
+
+
+---
+
+
+
+
 
 # Hybrid Cards
 
 Hybrid cards are a group of card types that attempt to combine the power of
 sentence cards and vocab cards into one.
 They all have the distinct feature that the word is shown at the front,
-but the sentence can be shown through some natural means.
+while the sentence is hidden but can be shown through some natural means.
 Additionally, all hybrid cards have some form of underline beneath
 the tested word, to differentiate it between a vocab card.
 
@@ -214,7 +295,21 @@ Similarly to the normal TSC, if you want to use the hover sentence card or click
 to only test a specific portion of the sentence, you can bold the desired
 selection of the sentence and fill `IsTargetedSentenceCard`.
 
-The above example is a Hover TSC, with the last sentence was bolded.
+The above example is a Hover TSC, with the last sentence bolded.
+
+
+## Hybrid Hint Card
+{{ feature_version("0.12.0.0") }}
+
+=== "Hover Hint"
+    TODO image
+
+=== "Click Hint"
+    TODO image
+
+Similarly to a normal hint card, filling the `IsHintCard`
+allows the hybrid card type to reveal the sentence below the word (instead of replacing the word).
+As this is simply a matter of style, you would test this like any normal hybrid card.
 
 ---
 
@@ -223,18 +318,37 @@ The above example is a Hover TSC, with the last sentence was bolded.
 
 # Card Creation Summary
 
-{% set xmark = "🗸  { .smaller-table-row }" %}
+{% set cm = "🗸  { .smaller-table-row }" %}
 
-| IsSentenceCard | IsTargetedSentenceCard | IsClickCard | IsHoverCard | Result (Card Type)                    |
-|:--------------:|:----------------------:|:-----------:|:-----------:|---------------------------------------|
-|                |                        |             |             | Vocab Card     { .smaller-table-row } |
-| {{ xmark }}    |                        |             |             | Sentence Card  { .smaller-table-row } |
-|                | {{ xmark }}            |             |             | TSC            { .smaller-table-row } |
-|                |                        | {{ xmark }} |             | Click Vocab    { .smaller-table-row } |
-| {{ xmark }}    |                        | {{ xmark }} |             | Click Sentence { .smaller-table-row } |
-|                | {{ xmark }}            | {{ xmark }} |             | Click TSC      { .smaller-table-row } |
-|                |                        |             | {{ xmark }} | Hover Vocab    { .smaller-table-row } |
-| {{ xmark }}    |                        |             | {{ xmark }} | Hover Sentence { .smaller-table-row } |
-|                | {{ xmark }}            |             | {{ xmark }} | Hover TSC      { .smaller-table-row } |
+The top row contains shorthands for the actual field names used:
+
+- Sent: `IsSentenceCard`
+- TSC: `IsTargetedSentenceCard`
+- Hint: `IsHintCard`
+- Click: `IsClickCard`
+- Hover: `IsHoverCard`
+
+
+| Sent     | TSC      | Hint     | Click    | Hover    | Result (Card Type)                          |
+|:--------:|:--------:|:--------:|:--------:|:--------:|---------------------------------------------|
+|          |          |          |          |          | Vocab Card           { .smaller-table-row } |
+| {{ cm }} |          |          |          |          | Sentence Card        { .smaller-table-row } |
+|          | {{ cm }} |          |          |          | TSC                  { .smaller-table-row } |
+|          |          | {{ cm }} |          |          | Hint Vocab Card      { .smaller-table-row } |
+|          | {{ cm }} | {{ cm }} |          |          | Hint Vocab Card (highlighted) { .smaller-table-row } |
+| {{ cm }} |          | {{ cm }} |          |          | Hint Sentence Card   { .smaller-table-row } |
+| {{ cm }} | {{ cm }} | {{ cm }} |          |          | Hint TSC             { .smaller-table-row } |
+|          |          |          | {{ cm }} |          | Click Vocab          { .smaller-table-row } |
+| {{ cm }} |          |          | {{ cm }} |          | Click Sentence       { .smaller-table-row } |
+|          | {{ cm }} |          | {{ cm }} |          | Click TSC            { .smaller-table-row } |
+|          |          | {{ cm }} | {{ cm }} |          | Click Hint Vocab     { .smaller-table-row } |
+| {{ cm }} |          | {{ cm }} | {{ cm }} |          | Click Hint Sentence  { .smaller-table-row } |
+|          | {{ cm }} | {{ cm }} | {{ cm }} |          | Click Hint TSC       { .smaller-table-row } |
+|          |          |          |          | {{ cm }} | Hover Vocab          { .smaller-table-row } |
+| {{ cm }} |          |          |          | {{ cm }} | Hover Sentence       { .smaller-table-row } |
+|          | {{ cm }} |          |          | {{ cm }} | Hover TSC            { .smaller-table-row } |
+|          |          | {{ cm }} |          | {{ cm }} | Hover Hint Vocab     { .smaller-table-row } |
+| {{ cm }} |          | {{ cm }} |          | {{ cm }} | Hover Hint Sentence  { .smaller-table-row } |
+|          | {{ cm }} | {{ cm }} |          | {{ cm }} | Hover Hint TSC       { .smaller-table-row } |
 
 

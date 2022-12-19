@@ -9,9 +9,13 @@
   type="checkbox"
   class="hybrid-click-toggle hidden"
   id="hybrid_click_toggle"
+  {% if not COMPILE_OPTIONS("allow-click-toggle-on-hover-cards").item() %}
   disabled="disabled"
+  {% endif %}
 >
-<label class="expression__hybrid expression__hybrid--hover"
+<label class="expression__hybrid expression__hybrid--hover
+              {% call IF('IsHintCard') %} expression__hybrid--hint {% endcall %}
+              "
     for="hybrid_click_toggle" id="display">
 
   <div class="expression-box expression-box__hybrid-word">
@@ -39,6 +43,7 @@
     <div class="expression--sentence expression__hybrid-sentence
                  {% call IFNOT('IsSentenceCard') %} highlight-bold {% endcall %}
                  {% call IF('IsTargetedSentenceCard') %} highlight-bold {% endcall %}
+                 {% call IF('IsHintCard') %} expression--hint-sentence {% endcall %}
                  "
           id="hybrid-sentence">
       {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
