@@ -24,6 +24,7 @@
     "card-type-separator": " / ",
     "card-type-main-hover": "Hover",
     "card-type-main-click": "Click",
+    "card-type-main-hint": "Hint ",
     "card-type-main-sentence": "Sentence",
     "card-type-main-word": "Word",
     "card-type-main-tsc": "TSC",
@@ -61,6 +62,7 @@
     "card-type-separator": "・",
     "card-type-main-hover": "かざす",
     "card-type-main-click": "クリック",
+    "card-type-main-hint": "ヒント",
     "card-type-main-sentence": "文",
     "card-type-main-word": "単語",
     "card-type-main-tsc": "TSC", // not sure how to translate this, might be easier to leave as is

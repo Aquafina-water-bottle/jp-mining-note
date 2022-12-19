@@ -3,13 +3,27 @@
 {% call IF("IsHoverCard") -%}
   {{- TRANSLATOR.get('card-type-main-hover') -}}
   {{- TRANSLATOR.get('card-type-open-bracket') -}}
-  {%- call IF("IsSentenceCard") -%}
-    {{ TRANSLATOR.get('card-type-main-sentence') }}
+
+  {%- call IF("IsHintCard") -%}
+    {{- TRANSLATOR.get('card-type-main-hint') -}}
   {%- endcall -%}
-  {%- call IFNOT("IsSentenceCard") -%}
-    {{- TRANSLATOR.get('card-type-main-word') -}}
+
+  {%- call IF("IsTargetedSentenceCard") -%}
+    {{- TRANSLATOR.get('card-type-main-tsc') -}}
   {%- endcall -%}
+
+  {%- call IFNOT("IsTargetedSentenceCard") -%}
+    {%- call IF("IsSentenceCard") -%}
+      {{- TRANSLATOR.get('card-type-main-sentence') -}}
+    {%- endcall -%}
+    {%- call IFNOT("IsSentenceCard") -%}
+      {{- TRANSLATOR.get('card-type-main-word') -}}
+    {%- endcall -%}
+
+  {%- endcall -%} {# NOT IsTargetedSentenceCard #}
+
   {{- TRANSLATOR.get('card-type-close-bracket') -}}
+
 {%- endcall -%}
 
 
@@ -18,19 +32,15 @@
   {%- call IF("IsClickCard") -%}
     {{- TRANSLATOR.get('card-type-main-click') -}}
     {{- TRANSLATOR.get('card-type-open-bracket') -}}
-    {%- call IF("IsSentenceCard") -%}
-      {{- TRANSLATOR.get('card-type-main-sentence') -}}
-    {%- endcall -%}
-    {%- call IFNOT("IsSentenceCard") -%}
-      {{- TRANSLATOR.get('card-type-main-word') -}}
-    {%- endcall -%}
-    {{- TRANSLATOR.get('card-type-close-bracket') -}}
-  {%- endcall -%}
 
-  {%- call IFNOT("IsClickCard") -%}
+    {%- call IF("IsHintCard") -%}
+      {{- TRANSLATOR.get('card-type-main-hint') -}}
+    {%- endcall -%}
+
     {%- call IF("IsTargetedSentenceCard") -%}
       {{- TRANSLATOR.get('card-type-main-tsc') -}}
     {%- endcall -%}
+
     {%- call IFNOT("IsTargetedSentenceCard") -%}
       {%- call IF("IsSentenceCard") -%}
         {{- TRANSLATOR.get('card-type-main-sentence') -}}
@@ -38,9 +48,63 @@
       {%- call IFNOT("IsSentenceCard") -%}
         {{- TRANSLATOR.get('card-type-main-word') -}}
       {%- endcall -%}
-    {%- endcall -%}  {# NOT IsTargetedSentenceCard #}
-  {%- endcall -%}  {# NOT IsClickCard #}
+
+    {%- endcall -%} {# NOT IsTargetedSentenceCard #}
+
+    {{- TRANSLATOR.get('card-type-close-bracket') -}}
+  {%- endcall -%}
+
+  {%- call IFNOT("IsClickCard") -%}
+
+    {%- call IF("IsHintCard") -%}
+      {{- TRANSLATOR.get('card-type-main-hint') -}}
+
+      {%- call IF("IsTargetedSentenceCard") -%}
+        {%- call IF("IsSentenceCard") -%}
+          {# hint cards become a TSC if both IsTargetedSentenceCard and IsSentenceCard are filled #}
+          {{- TRANSLATOR.get('card-type-main-tsc') -}}
+        {%- endcall -%}
+
+        {%- call IFNOT("IsSentenceCard") -%}
+          {# IsTargetedSentenceCard by itself is still a word #}
+          {{- TRANSLATOR.get('card-type-main-word') -}}
+        {%- endcall -%}
+      {%- endcall -%}
+
+      {%- call IFNOT("IsTargetedSentenceCard") -%}
+        {%- call IF("IsSentenceCard") -%}
+          {{- TRANSLATOR.get('card-type-main-sentence') -}}
+        {%- endcall -%}
+
+        {%- call IFNOT("IsSentenceCard") -%}
+          {{- TRANSLATOR.get('card-type-main-word') -}}
+        {%- endcall -%}
+      {%- endcall -%}
+
+    {%- endcall -%} {# IS IsHintCard #}
+
+    {%- call IFNOT("IsHintCard") -%}
+
+      {%- call IF("IsTargetedSentenceCard") -%}
+        {{- TRANSLATOR.get('card-type-main-tsc') -}}
+      {%- endcall -%}
+
+      {%- call IFNOT("IsTargetedSentenceCard") -%}
+        {%- call IF("IsSentenceCard") -%}
+          {{- TRANSLATOR.get('card-type-main-sentence') -}}
+        {%- endcall -%}
+        {%- call IFNOT("IsSentenceCard") -%}
+          {{- TRANSLATOR.get('card-type-main-word') -}}
+        {%- endcall -%}
+      {%- endcall -%} {# NOT IsTargetedSentenceCard #}
+
+    {%- endcall -%} {# NOT IsHintCard #}
+
+  {%- endcall -%} {# NOT IsClickCard #}
+
 {%- endcall -%} {# NOT IsHoverCard #}
+
+
 
 {%- call IF("PAShowInfo") -%}
 
