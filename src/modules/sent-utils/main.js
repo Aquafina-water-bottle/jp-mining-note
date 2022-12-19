@@ -191,19 +191,25 @@ const JPMNSentUtils = (() => {
           closeQuoteEle.classList.add(paIndicator.className);
         }
 
-        let elems = document.getElementsByClassName("expression__hybrid");
-        if (elems.length > 0) {
-          /// {% call utils.if_any("IsHoverCard", "IsClickCard") %}
-          elems[0].classList.add("expression__hybrid--remove-pa-indicator");
-          /// {% endcall %}
+        /// {% call utils.if_any("IsHoverCard", "IsClickCard") %}
+        let elemsHybrid = document.getElementsByClassName("expression__hybrid");
+        for (const e of elemsHybrid) {
+          e.classList.add("expression__hybrid--remove-pa-indicator");
         }
+        /// {% endcall %}
 
         // neither hover & click and is either one of TSC / sentence -> removes flag
-        let svgEle = document.getElementById("flag_box_svg");
+        //let svgEle = document.getElementById("flag_box_svg");
 
-        /// {% call utils.if_none_js("IsHoverCard", "IsClickCard") %}
+        /// {% call utils.if_none_js("IsHoverCard", "IsClickCard", "IsHintCard") %}
         /// {% call utils.if_any_js("IsTargetedSentenceCard", "IsSentenceCard") %}
-        svgEle.style.display = "none";
+        //svgEle.style.display = "none";
+
+        let elemsExpr = document.getElementsByClassName("expression");
+        for (const e of elemsExpr) {
+          e.classList.add("expression--remove-pa-indicator");
+        }
+
         /// {% endcall %}
         /// {% endcall %}
       }
