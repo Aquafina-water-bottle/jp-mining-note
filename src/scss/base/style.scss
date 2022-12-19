@@ -633,6 +633,10 @@ ruby rt {
 .expression-box__sentence, .expression-box__hybrid-sentence {
   font-size: var(--sentence-font-size);
 }
+.expression--hint-sentence {
+  font-size: var(--full-sentence-font-size);
+  max-width: common.$bp-max-width-backside;
+}
 
 .card-wrapper--vertical-display .expression--sentence {
   padding-top: 1em;
@@ -655,7 +659,7 @@ ruby rt {
 
 
 .expression__hybrid {
-  position: relative;
+  //position: relative;
   padding-bottom: 10px; /* overriden line-height causes the buttons underneath the word to be too close */
   display: inline-block; /* reduces hitbox */
 }
@@ -714,21 +718,57 @@ ruby rt {
 
 /* used to specify that hovering toggles between word/sentence */
 .expression-box__hybrid-sentence {
-    display: none;
+  display: none;
 }
 
-.expression__hybrid--hover:hover > .expression-box__hybrid-word {
+//.expression__hybrid--hover:hover > .expression-box__hybrid-word {
+//  display: none;
+//}
+//.expression__hybrid--hover:hover > .expression-box__hybrid-sentence {
+//  display: grid;
+//}
+//.expression__hybrid--hover.expression__hybrid--hint:hover > .expression-box__hybrid-word {
+//  /* hint cards retains word */
+//  display: grid;
+//}
+
+/* hover behavior for non-hint cards */
+.expression__hybrid--hover:not(.expression__hybrid--hint):hover {
+  > .expression-box__hybrid-word {
     display: none;
-}
-.expression__hybrid--hover:hover > .expression-box__hybrid-sentence {
+  }
+   > .expression-box__hybrid-sentence {
     display: grid;
+  }
+}
+
+/* hover behavior for hint cards */
+.expression__hybrid--hover.expression__hybrid--hint {
+  /* reduces horizontal space */
+  .expression-box__hybrid-word {
+    display: inline-grid;
+  }
+
+  .expression-box__hybrid-word:hover + .expression-box__hybrid-sentence {
+    display: grid;
+  }
+
+  // intentionally commented out for now (so hovering over the sentence will not preserve the sentence)
+  //.expression-box__hybrid-sentence:hover {
+  //  /* prevents sentence from disappearing on hover */
+  //  display: grid;
+  //}
 }
 
 .hybrid-click-toggle:checked + .expression__hybrid .expression-box__hybrid-word {
-    display: none;
+  display: none;
 }
 .hybrid-click-toggle:checked + .expression__hybrid .expression-box__hybrid-sentence {
-    display: grid;
+  display: grid;
+}
+.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--hint .expression-box__hybrid-word {
+  /* hint cards retains word */
+  display: inline-grid;
 }
 
 //.expression__hybrid {
@@ -758,6 +798,10 @@ ruby rt {
   display: none;
 }
 
+/* removes pa indicator entirely on sentences for hint cards */
+.expression__hybrid--hint .expression-box__hybrid-sentence .pa-indicator > .pa-indicator__svg {
+  display: none;
+}
 
 
 

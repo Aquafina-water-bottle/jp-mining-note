@@ -183,7 +183,7 @@
 {% set quote_open -%}
   {%- autoescape false -%}
   <span class="sentence-quote sentence-quote--open">
-    {{- NOTE_OPTS("modules", "sent-utils", "auto-quote-open").item() -}}
+    {{- COMPILE_OPTIONS("auto-quote-open").item() -}}
   </span><span>
   {%- endautoescape -%}
 {%- endset -%}
@@ -191,7 +191,7 @@
 {% set quote_close -%}
   {%- autoescape false -%}
   </span><span class="sentence-quote sentence-quote--close">
-    {{- NOTE_OPTS("modules", "sent-utils", "auto-quote-close").item() -}}
+    {{- COMPILE_OPTIONS("auto-quote-close").item() -}}
   </span>
   {%- endautoescape -%}
 {%- endset -%}

@@ -72,10 +72,11 @@ NOTE_CHANGES = [
     NoteChange(
         version=Version(0, 12, 0, 0),
         actions=[
-            action.AddField("AAAA", 35 - 1),
+            action.AddField("YomichanWordTags", 35 - 1),
+            action.AddField("IsHintCard", 18 - 1),
             action.YomichanTemplatesChange(),
             action.YomichanFormatChange(
-                "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
+                "YomichanWordTags", "(empty)", "{tags}"
             ),
             action.NoteToUser(
                 description="If you are using Anki version 2.1.49 or below, please see the link below:\n"
@@ -100,6 +101,7 @@ NOTE_CHANGES = [
             "IsClickCard",
             "IsHoverCard",
             "IsTargetedSentenceCard",
+            "IsHintCard",
             "PAShowInfo",
             "PATestOnlyWord",
             "PADoNotTest",

@@ -218,5 +218,12 @@ CONFIG = {
             "fill-mode-font-size-transition": True,
         },
 
+        # allows the user to click on the hover cards to toggle showing the sentence/word
+        "allow-click-toggle-on-hover-cards": False,
+
+        # quotes used when the sent-utils module is disabled
+        "auto-quote-open": "「",
+        "auto-quote-close": "」",
+
     },
 }
