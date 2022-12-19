@@ -579,11 +579,8 @@ TODO image
     1. Under `extra/style.scss`, add the following code:
 
         ```css
-        .dh-left__reading ruby rt {
+        .dh-left__reading > ruby > rt {
           display: none;
-        }
-        .hover-tooltip__word-div ruby rt {
-          display: block;
         }
         ```
 
