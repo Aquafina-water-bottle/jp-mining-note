@@ -3,10 +3,10 @@
 
 :root {
   @include common.common_vars;
+
+  --field-gap: 5px;
 }
 
 .nightMode {
   @include common.night_mode_vars;
 }
-
-

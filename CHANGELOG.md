@@ -55,6 +55,7 @@ and must use `./install.py --update`.
 - Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
 - Added a new card type: Sentence Below (`IsHintCard`)
     - Adds the sentence below the vocab (hover and click cards are also affected)
+- Added CSS to merge some editor fields into the same row
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
