@@ -127,9 +127,16 @@ CONFIG = {
         # Option to have custom CSS.
         # The last takes priorty over the first,
         # i.e. the "extra" folder takes priority over base in
-        #   `["base", "responsive", "dictionaries", "theme", "extra"]`
-        # Don't remove "base" unless you know what you're doing.
-        "css-folders": ["base", "responsive", "dictionaries", "theme"],
+        #   `["base", "responsive", "dictionaries", "editor-fields", "theme", "extra"]`
+
+        # "base": The base css that has virtually everything the note requires to work.
+        #         Don't remove this unless you know what you're doing.
+        # "responsive": CSS that helps with resizing the card for smaller screens.
+        # "dictionaries": various CSS for specific dictionaries.
+        # "editor-fields": CSS to merge certain rows within the editor together.
+        # "theme": CSS for any custom theme to work.
+        #          Don't remove this unless you know what you're doing.
+        "css-folders": ["base", "responsive", "dictionaries", "editor-fields", "theme"],
 
 
         # Allows modules that didn't come with the note to be used.
