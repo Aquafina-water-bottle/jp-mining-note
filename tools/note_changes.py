@@ -74,6 +74,7 @@ NOTE_CHANGES = [
         actions=[
             action.AddField("YomichanWordTags", 35 - 1),
             action.AddField("IsHintCard", 18 - 1),
+            action.MoveField("IsTargetedSentenceCard", 15 - 1),
             action.YomichanTemplatesChange(),
             action.YomichanFormatChange(
                 "YomichanWordTags", "(empty)", "{tags}"
@@ -98,9 +99,9 @@ NOTE_CHANGES = [
             "AltDisplayPASentenceCard",
             "AdditionalNotes",
             "IsSentenceCard",
+            "IsTargetedSentenceCard",
             "IsClickCard",
             "IsHoverCard",
-            "IsTargetedSentenceCard",
             "IsHintCard",
             "PAShowInfo",
             "PATestOnlyWord",
