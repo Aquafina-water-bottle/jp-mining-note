@@ -95,6 +95,11 @@ and must use `./install.py --update`.
 - Reworked how pa indicator is shown internally to allow it to work with `IsSentenceBelowCard`
 
 
+## [0.11.0.3] - 2022-12-21
+#### Fixes
+- Fixed links having the wrong color on Anki v2.1.55
+- Fixed kanji hover: replace method occasionally adds text when unnecessary
+
 
 ## [0.11.0.2] - 2022-11-21
 #### Fixes

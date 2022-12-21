@@ -146,7 +146,9 @@ html {
   color: white;
   background-color: #2f2f31;
 }
-.mobile .card.night_mode a {
+
+/* revert colors for anki 2.1.55 */
+.card.night_mode a {
   color: #77ccff;
 }
 

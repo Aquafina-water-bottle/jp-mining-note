@@ -434,7 +434,7 @@ function optionsNotFound() {
 
     
   <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
-  <div class="card-description-ver">JP Mining Note: Version 0.11.0.2</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.11.0.3</div>
 
 
 </div>
@@ -1403,12 +1403,14 @@ const JPMNKanjiHover = (() => {
         wordReadings[character] = this.getWordReadings(nonNewCardInfo, newCardInfo);
       }
 
-      const re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
-      const resultHTML = readingHTML.replace(re, function (matched) {
-        return `<span data-kanji-hover="${matched}">${matched}</span>`
-      });
+      if (Object.keys(kanjiDict).length > 0) { // an empty kanjiDict seems to replace every empty space
+        const re = new RegExp(Object.keys(kanjiDict).join("|"), "gi");
+        const resultHTML = readingHTML.replace(re, function (matched) {
+          return `<span data-kanji-hover="${matched}">${matched}</span>`
+        });
 
-      wordReading.innerHTML = resultHTML;
+        wordReading.innerHTML = resultHTML;
+      }
 
       for (let kanji of Object.keys(kanjiDict)) {
         for (let ele of document.querySelectorAll(`.dh-left__reading [data-kanji-hover="${kanji}"]`)) {
