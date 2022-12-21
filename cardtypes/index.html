@@ -735,6 +735,47 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hint-cards" class="md-nav__link">
+    Hint Cards
+  </a>
+  
+    <nav class="md-nav" aria-label="Hint Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hint-vocab-card" class="md-nav__link">
+    Hint Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-vocab-card-highlighted" class="md-nav__link">
+    Hint Vocab Card (highlighted)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-sentence-card" class="md-nav__link">
+    Hint Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-tsc-card" class="md-nav__link">
+    Hint TSC Card
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hybrid-cards" class="md-nav__link">
     Hybrid Cards
   </a>
@@ -773,6 +814,13 @@
           <li class="md-nav__item">
   <a href="#hybrid-tsc" class="md-nav__link">
     Hybrid TSC
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-hint-card" class="md-nav__link">
+    Hybrid Hint Card
   </a>
   
 </li>
@@ -1097,6 +1145,47 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hint-cards" class="md-nav__link">
+    Hint Cards
+  </a>
+  
+    <nav class="md-nav" aria-label="Hint Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hint-vocab-card" class="md-nav__link">
+    Hint Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-vocab-card-highlighted" class="md-nav__link">
+    Hint Vocab Card (highlighted)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-sentence-card" class="md-nav__link">
+    Hint Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-tsc-card" class="md-nav__link">
+    Hint TSC Card
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hybrid-cards" class="md-nav__link">
     Hybrid Cards
   </a>
@@ -1135,6 +1224,13 @@
           <li class="md-nav__item">
   <a href="#hybrid-tsc" class="md-nav__link">
     Hybrid TSC
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-hint-card" class="md-nav__link">
+    Hybrid Hint Card
   </a>
   
 </li>
@@ -1223,11 +1319,70 @@ but you don't have to waste your time testing other parts of the sentence.</p>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsTargetedSentenceCard</code> field.</p>
 <hr />
+<h2 id="hint-cards">Hint Cards<a class="headerlink" href="#hint-cards" title="Permanent link">&para;</a></h2>
+<p>Hint cards are a group of card types that display the sentence
+below the word.
+This acts as a better alternative compared to manually adding the sentence
+in the <code>Hint</code> (or <code>HintNotHidden</code>) field.</p>
+<p><br></p>
+<h3 id="hint-vocab-card">Hint Vocab Card<a class="headerlink" href="#hint-vocab-card" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.12.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<p>TODO img</p>
+<p>A hint vocab card is simply a vocab card that shows the sentence below the word.
+The tested content is the word itself, so you would test yourself as if it were a
+<a href="#targeted-sentence-card-tsc">TSC</a> or
+<a href="#hover-vocab-card">Hover Vocab card</a>.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHintCard</code> field.</p>
+<p><br></p>
+<h3 id="hint-vocab-card-highlighted">Hint Vocab Card (highlighted)<a class="headerlink" href="#hint-vocab-card-highlighted" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.12.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<p>TODO img</p>
+<p>This is exactly the same as the Hint Vocab Card,
+except the word within the sentence is automatically highlighted.
+This is tested the exact same as the Hint Vocab Card.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHintCard</code> and <code>IsTargetedSentenceCard</code> fields.</p>
+<p><br></p>
+<h3 id="hint-sentence-card">Hint Sentence Card<a class="headerlink" href="#hint-sentence-card" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.12.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<p>TODO img</p>
+<p>A hint sentence card is very similar to a Hint Vocab card,
+except the tested content is the entire sentence.
+This is indicated by the fact that the word is colored.</p>
+<p>This is tested exactly like a <a href="#hover-sentence-card">Hover Sentence Card</a>.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHintCard</code> and <code>IsSentenceCard</code> fields.</p>
+<p><br></p>
+<h3 id="hint-tsc-card">Hint TSC Card<a class="headerlink" href="#hint-tsc-card" title="Permanent link">&para;</a></h3>
+<p>TODO img</p>
+<p>Similarily to the normal TSC, this can be used to only test yourself on a specific
+portion of the sentence.
+This is tested exactly like a <a href="#hybrid-tsc">Hover TSC</a>.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHintCard</code>, <code>IsSentenceCard</code> and <code>IsTargetedSentenceCard</code> fields.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For all other card types, only <code>IsTargetedSentenceCard</code> has to be filled
+to create a TSC.
+However, for hint cards, both <code>IsSentenceCard</code> and <code>IsTargetedSentenceCard</code>
+must be filled out.</p>
+</div>
+<hr />
 <h2 id="hybrid-cards">Hybrid Cards<a class="headerlink" href="#hybrid-cards" title="Permanent link">&para;</a></h2>
 <p>Hybrid cards are a group of card types that attempt to combine the power of
 sentence cards and vocab cards into one.
 They all have the distinct feature that the word is shown at the front,
-but the sentence can be shown through some natural means.
+while the sentence is hidden but can be shown through some natural means.
 Additionally, all hybrid cards have some form of underline beneath
 the tested word, to differentiate it between a vocab card.</p>
 <p>The primary reason why this exists is to prevent
@@ -1329,21 +1484,49 @@ Fill the <code>IsClickCard</code> and <code>IsSentenceCard</code> fields.</p>
 <p>Similarly to the normal TSC, if you want to use the hover sentence card or click sentence card
 to only test a specific portion of the sentence, you can bold the desired
 selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
-<p>The above example is a Hover TSC, with the last sentence was bolded.</p>
+<p>The above example is a Hover TSC, with the last sentence bolded.</p>
+<h3 id="hybrid-hint-card">Hybrid Hint Card<a class="headerlink" href="#hybrid-hint-card" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.12.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Hover Hint</label><label for="__tabbed_1_2">Click Hint</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>TODO image</p>
+</div>
+<div class="tabbed-block">
+<p>TODO image</p>
+</div>
+</div>
+</div>
+<p>Similarly to a normal hint card, filling the <code>IsHintCard</code>
+allows the hybrid card type to reveal the sentence below the word (instead of replacing the word).
+As this is simply a matter of style, you would test this like any normal hybrid card.</p>
 <hr />
 <h2 id="card-creation-summary">Card Creation Summary<a class="headerlink" href="#card-creation-summary" title="Permanent link">&para;</a></h2>
+<p>The top row contains shorthands for the actual field names used:</p>
+<ul>
+<li>Sent: <code>IsSentenceCard</code></li>
+<li>TSC: <code>IsTargetedSentenceCard</code></li>
+<li>Hint: <code>IsHintCard</code></li>
+<li>Click: <code>IsClickCard</code></li>
+<li>Hover: <code>IsHoverCard</code></li>
+</ul>
 <table>
 <thead>
 <tr>
-<th align="center">IsSentenceCard</th>
-<th align="center">IsTargetedSentenceCard</th>
-<th align="center">IsClickCard</th>
-<th align="center">IsHoverCard</th>
+<th align="center">Sent</th>
+<th align="center">TSC</th>
+<th align="center">Hint</th>
+<th align="center">Click</th>
+<th align="center">Hover</th>
 <th>Result (Card Type)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -1355,11 +1538,13 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
+<td align="center"></td>
 <td class="smaller-table-row">Sentence Card</td>
 </tr>
 <tr>
 <td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td class="smaller-table-row">TSC</td>
@@ -1369,10 +1554,44 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 <td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
+<td align="center"></td>
+<td class="smaller-table-row">Hint Vocab Card</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center"></td>
+<td class="smaller-table-row">Hint Vocab Card (highlighted)</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center"></td>
+<td class="smaller-table-row">Hint Sentence Card</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center"></td>
+<td class="smaller-table-row">Hint TSC</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
 <td class="smaller-table-row">Click Vocab</td>
 </tr>
 <tr>
 <td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
 <td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
@@ -1381,11 +1600,37 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 <tr>
 <td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td class="smaller-table-row">Click TSC</td>
 </tr>
 <tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td class="smaller-table-row">Click Hint Vocab</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td class="smaller-table-row">Click Hint Sentence</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td class="smaller-table-row">Click Hint TSC</td>
+</tr>
+<tr>
+<td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
@@ -1396,6 +1641,7 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center"></td>
+<td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td class="smaller-table-row">Hover Sentence</td>
 </tr>
@@ -1403,8 +1649,33 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 <td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
+<td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td class="smaller-table-row">Hover TSC</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td class="smaller-table-row">Hover Hint Vocab</td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td class="smaller-table-row">Hover Hint Sentence</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td class="smaller-table-row">Hover Hint TSC</td>
 </tr>
 </tbody>
 </table>
@@ -1414,7 +1685,7 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2022</span>
       
     
   </small>
