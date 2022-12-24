@@ -168,6 +168,24 @@ class DeleteField(Action):
             fieldName=self.field_name,
         )
 
+@dataclass
+class ChangeFieldFontSize(Action):
+    field_name: str
+    font_size: int
+
+    def __post_init__(self):
+        raise NotImplementedError()
+
+        #self.ankiconnect_actions = {"modelFieldAdd", "modelFieldNames"}
+        self.ankiconnect_actions = set()
+        self.description = (
+            f"(TODO) Sets the font size of field `{self.field_name}` to {self.font_size}"
+        )
+        self.edits_cards = True
+
+    def run(self, **args):
+        raise NotImplementedError()
+
 
 @dataclass
 class YomichanTemplatesChange(UserAction):

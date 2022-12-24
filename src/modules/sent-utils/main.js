@@ -110,7 +110,16 @@ const JPMNSentUtils = (() => {
 
       // cloze deletion replacing bold with [...]
       if (typeof isClozeDeletion !== "undefined" && isClozeDeletion) {
-        result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
+        // uses an html parser so embedded <b> tags can be taken into account
+        const tempEle = document.createElement('span');
+        tempEle.innerHTML = result;
+        const bTags = tempEle.getElementsByTagName("b");
+        for (const bTag of bTags) {
+          bTag.innerHTML = "[...]";
+        }
+        result = tempEle.innerHTML;
+
+        //result = result.replace(/<b>.*?<\/b>/g, "<b>[...]</b>");
       }
 
       // removes the final period if exists

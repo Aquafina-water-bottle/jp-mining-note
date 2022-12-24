@@ -75,6 +75,19 @@ NOTE_CHANGES = [
             action.AddField("YomichanWordTags", 35 - 1),
             action.AddField("IsHintCard", 18 - 1),
             action.MoveField("IsTargetedSentenceCard", 15 - 1),
+            action.MoveField("Hint", 14 - 1),
+            action.MoveField("HintNotHidden", 15 - 1),
+            action.MoveField("FrequenciesStylized", 32 - 1),
+            action.MoveField("FrequencySort", 33 - 1),
+
+            # affects all previously added fields
+            # currently commented out because it's not supported in ankiconnect yet
+            #action.ChangeFieldFontSize("WordReadingHiragana", 10),
+            #action.ChangeFieldFontSize("PrimaryDefinitionPicture", 20),
+            #action.ChangeFieldFontSize("PAOverrideText", 20),
+            #action.ChangeFieldFontSize("YomichanWordTags", 10),
+            #action.ChangeFieldFontSize("IsHintCard", 10),
+
             action.YomichanTemplatesChange(),
             action.YomichanFormatChange(
                 "YomichanWordTags", "(empty)", "{tags}"
@@ -98,6 +111,8 @@ NOTE_CHANGES = [
             "AltDisplay",
             "AltDisplayPASentenceCard",
             "AdditionalNotes",
+            "Hint",
+            "HintNotHidden",
             "IsSentenceCard",
             "IsTargetedSentenceCard",
             "IsClickCard",
@@ -109,17 +124,15 @@ NOTE_CHANGES = [
             "PASeparateWordCard",
             "PASeparateSentenceCard",
             "SeparateClozeDeletionCard",
-            "Hint",
-            "HintNotHidden",
             "Picture",
             "WordAudio",
             "SentenceAudio",
             "PAGraphs",
             "PAPositions",
-            "PASilence",
-            "WordReadingHiragana",
             "FrequenciesStylized",
             "FrequencySort",
+            "PASilence",
+            "WordReadingHiragana",
             "YomichanWordTags",
             "SecondaryDefinition",
             "ExtraDefinitions",

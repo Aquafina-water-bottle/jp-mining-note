@@ -5,15 +5,33 @@
 
 <div class="expression expression--single expression--sentence highlight-bold" id="display">
   {{ utils.quote_open -}}
-  {%- call IF("AltDisplay") %}{{ utils.expression_inner_div_extra(
-    "furigana:AltDisplay",
-    "expression-inner--altdisplay expression-inner--cloze-deletion") }}
+
+  {%- call IF("AltDisplayClozeDeletionCard") -%}
+  {{ utils.expression_inner_div_extra(
+    "furigana:AltDisplayClozeDeletionCard",
+    "expression-inner--altdisplay
+    expression-inner--cloze-deletion")
+  }}
   {%- endcall -%}
-  {%- call IFNOT("AltDisplay") -%}
+
+  {%- call IFNOT("AltDisplayClozeDeletionCard") -%}
+
+    {%- call IF("AltDisplay") -%}
     {{ utils.expression_inner_div_extra(
-      "Sentence",
-      "expression-inner--cloze-deletion") }}
+      "furigana:AltDisplay",
+      "expression-inner--altdisplay
+      expression-inner--cloze-deletion")
+    }}
+    {%- endcall -%}
+    {%- call IFNOT("AltDisplay") -%}
+      {{ utils.expression_inner_div_extra(
+        "Sentence",
+        "expression-inner--cloze-deletion")
+      }}
+    {%- endcall -%}
+
   {%- endcall -%}
+
   {{- utils.quote_close }}
 </div>
 

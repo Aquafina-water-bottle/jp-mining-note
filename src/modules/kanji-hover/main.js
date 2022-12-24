@@ -123,7 +123,8 @@ const JPMNKanjiHover = (() => {
     // multi query result, in the format of
     // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
     async cardQueries(kanjiArr) {
-      const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
+      const noteName = '{{ NOTE_FILES("model-name").item() }}';
+      const cardTypeName = 'Mining Card';
 
       function constructFindCardAction(query) {
         return {
@@ -141,7 +142,7 @@ const JPMNKanjiHover = (() => {
         const keyEsc = this.ankiConnectHelper.escapeStr(keyHTML);
         const wordReadingEsc = this.ankiConnectHelper.escapeStr(wordReadingHTML);
 
-        let baseQuery = `(-"Key:${keyEsc}" Word:*${character}* "card:${cardTypeName}" -"WordReading:${wordReadingEsc}") `;
+        let baseQuery = `(-"Key:${keyEsc}" Word:*${character}* "card:${cardTypeName}" "note:${noteName}" -"WordReading:${wordReadingEsc}") `;
 
         logger.debug(`query: ${baseQuery}`, 1);
 

@@ -209,9 +209,6 @@ and follow the instructions on the AnkiconnectAndroid's README page.
 It might help to export a copy of Yomichan settings from your PC and import said settings on Android,
 instead of re-doing all of the steps on Android.
 
-In addition to the above instructions, you may have to disable duplicate checks
-in order for the application to work.
-
 There is currently no way to automatically add an image (e.g. a screenshot) automatically.
 Images must be added manually within AnkiDroid.
 
