@@ -356,10 +356,13 @@ Other websites have significantly larger resource lists that may prove useful fo
         image_field=Picture
         ```
 
-        You may want to increase the picture quality, as it's extremely low by default.
+        You may want to increase the picture and audio quality, as it's extremely low by default.
         I personally use the following:
 
         ```ini
+        # Sane values are 16k-32k for opus, 64k-128k for mp3.
+        audio_bitrate=32k
+
         # Quality of produced image files. 0 = lowest, 100=highest.
         #snapshot_quality=15
         snapshot_quality=50
@@ -390,8 +393,7 @@ Other websites have significantly larger resource lists that may prove useful fo
 
 * This addon has capabilities to
     [extract the video clip itself](https://github.com/Ajatt-Tools/mpvacious/pull/78)
-    instead of the picture.
-    However, this note does not support video clips yet.
+    as the form of a gif (autoplayable webp).
 
 ---
 

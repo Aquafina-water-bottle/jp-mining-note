@@ -55,7 +55,13 @@ and must use `./install.py --update`.
 - Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
 - Added a new card type: Sentence Below (`IsHintCard`)
     - Adds the sentence below the vocab (hover and click cards are also affected)
-- Added CSS to merge some editor fields into the same row
+- Added editor CSS:
+    - Merge some editor fields into the same row
+    - Group together related fields by separating them with a slightly larger gap
+    - Moved a bunch of fields around to work with the newly grouped together fields
+- Added `AltDisplayClozeDeletionCard` field
+- Added hotkeys to update the current card to be a cloze deletion card
+    - TODO documentation on this (specifically ways to create cloze deletion cards)
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
@@ -65,6 +71,7 @@ and must use `./install.py --update`.
 - Fixed `PrimaryDefinitionPicture` not acting like a float right when there's too much text
     - When text extends past to below the picture, it is expected that the text takes up the space below the picture
 - (auto-pitch-accent module) Changed nasal assert to nasal warning
+- Fixed cloze deletion cards with nested `<b>` tags not working properly
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
