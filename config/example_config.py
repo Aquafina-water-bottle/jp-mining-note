@@ -129,17 +129,18 @@ CONFIG = {
 
         # Option to have custom CSS.
         # The last takes priorty over the first,
-        # i.e. the "extra" folder takes priority over base in
-        #   `["base", "responsive", "dictionaries", "editor-fields", "theme", "extra"]`
+        # i.e. the "theme" folder takes priority over base in
+        #   `["base", "responsive", ..., "theme"]`
 
         # "base": The base css that has virtually everything the note requires to work.
         #         Don't remove this unless you know what you're doing.
         # "responsive": CSS that helps with resizing the card for smaller screens.
         # "dictionaries": various CSS for specific dictionaries.
         # "editor-fields": CSS to merge certain rows within the editor together.
+        # "legacy-anki_2-1-54": Legacy CSS to support Anki version 2.1.54 and below.
         # "theme": CSS for any custom theme to work.
         #          Don't remove this unless you know what you're doing.
-        "css-folders": ["base", "responsive", "dictionaries", "editor-fields", "theme"],
+        "css-folders": ["base", "responsive", "dictionaries", "editor-fields", "anki_2-1-55", "theme"],
 
 
         # Allows modules that didn't come with the note to be used.
