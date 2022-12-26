@@ -100,7 +100,7 @@ and must use `./install.py --update`.
 - Reordered the html to have standard tags such has header / main
 - Added divs to wrap around various elements
 - Moved multiple elements to their own modules / partials for ease of editing
-- Reworked how pa indicator is shown internally to allow it to work with `IsSentenceBelowCard`
+- Reworked how pa indicator is shown internally to allow it to work with `IsHintCard`
 
 
 ## [0.11.0.3] - 2022-12-21

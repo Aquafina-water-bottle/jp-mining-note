@@ -9,14 +9,18 @@ it would be best to make sure that the note aligns with exactly what you want.
 The most important step is to see if jp-mining-note (JPMN) works on your device.
 
 ## Card Creation (Yomichan)
-The card creation process is primarily done on PC (Windows, Mac, Linux).
-However, with the
-[proper setup](https://github.com/KamWithK/AnkiconnectAndroid),
-cards can be created on Android.
+The card creation process requires a working instances of Yomichan, Anki-Connect, and Anki.
+
+By default, this works on PC (Windows, Mac, Linux), and the instructions shown will be for PC.
+However, with the proper setup, one can also create cards on the following platforms:
+
+- [Android](setupyomichan.md#android-setup) (including Android based e-readers such as ONYX BOOX)
+- [Kindle](setupyomichan.md#kindle-setup) (export to PC to create)
+
 I'm not aware of a workflow for iOS that works with Yomichan.
 
 ## Anki Desktop
-Primary support is given to the latest Anki versions (2.1.54+ & Qt6).
+Primary support is given to the latest stable Anki versions (2.1.54+ & Qt6).
 Limited support will be given for older versions of Anki.
 With that being said, JPMN should work for Anki versions 2.1.49+.
 
