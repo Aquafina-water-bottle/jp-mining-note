@@ -98,5 +98,14 @@ li[data-details="シン・漢字遣い参考"] td, [data-sc-ortho="table"] td {
 }
 
 
+/* hides the button unless on android (since the app is only for android anyways) */
+.glossary__external-links a[data-details="yomichan-textbender"] {
+  display: none;
+}
+.android .glossary__external-links a[data-details="yomichan-textbender"] {
+  display: inline;
+}
+
+
 
 

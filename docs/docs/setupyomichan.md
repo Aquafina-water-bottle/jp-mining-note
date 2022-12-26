@@ -200,7 +200,7 @@ By default, this enable the following behavior:
 # Android Setup
 
 !!! warning
-    Actually using JPMN on mobile devices (e.g. for reviewing), is currently not supported.
+    Actually using JPMN on mobile devices (e.g. for reviewing), is currently not stable.
     This simply shows how to make the cards on Android.
 
 If you wish to add cards on Android, use
@@ -209,11 +209,18 @@ and follow the instructions on the AnkiconnectAndroid's README page.
 It might help to export a copy of Yomichan settings from your PC and import said settings on Android,
 instead of re-doing all of the steps on Android.
 
-There is currently no way to automatically add an image (e.g. a screenshot) automatically.
-Images must be added manually within AnkiDroid.
+!!! note
+    Occasionally, importing your Yomichan settings from the PC may lead to
+    AnkiconnectAndroid not working.
+    If AnkiconnectAndroid doesn't work after going through the entire README,
+    try resetting your Yomichan settings on Android and starting from scratch.
 
 
-!!! info "Tip"
+
+!!! note
+
+    There is currently no way to automatically add an image (e.g. a screenshot) automatically.
+    Images must be added manually within AnkiDroid.
 
     Although screenshots cannot be added automatically,
     the runtime options supports automatically adding images

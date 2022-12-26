@@ -1887,6 +1887,7 @@ ruby rt {
   font-size: var(--external-links-icon-font-size);
 
   color: var(--text-color) !important; /* !important for ankidroid */
+  background: var(--external-links-background);
   text-decoration: none !important; /* !important for ankidroid */
 
   box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
