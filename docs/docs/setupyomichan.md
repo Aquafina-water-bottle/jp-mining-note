@@ -197,7 +197,15 @@ By default, this enable the following behavior:
 ---
 
 
-# Android Setup
+# Additional Instructions for Other Platforms
+
+Outside of creating cards on the PC,
+there are some other platforms that one can create cards from.
+
+
+<br>
+
+## Android Setup
 
 !!! warning
     Actually using JPMN on mobile devices (e.g. for reviewing), is currently not stable.
@@ -216,7 +224,6 @@ instead of re-doing all of the steps on Android.
     try resetting your Yomichan settings on Android and starting from scratch.
 
 
-
 !!! note
 
     There is currently no way to automatically add an image (e.g. a screenshot) automatically.
@@ -226,6 +233,19 @@ instead of re-doing all of the steps on Android.
     the runtime options supports automatically adding images
     based off of tags. See [here](images.md#automatically-add-images-using-tags)
     for more info.
+
+<br>
+
+
+
+
+## Kindle Setup
+
+One can use something like [ann2html](https://github.com/xythh/ann2html)
+to export a Yomichan-able HTML file based on the Kindle's vocabulary builder.
+This allows you to add the cards through Yomichan on the PC.
+
+
 
 ---
 

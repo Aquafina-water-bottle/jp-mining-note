@@ -13,7 +13,7 @@ Feel free to view some other examples [here](setupother.md#various-anki-resource
 
 # Updating Anki
 
-It is highly recommended that you are using the latest
+It is highly recommended that you are using the latest (stable)
 [Anki version](faq.md#how-do-i-see-the-version-of-anki)
 (or as close as you can get to the latest Anki version).
 This includes using the Qt6 version instead of Qt5 if possible.
@@ -25,7 +25,7 @@ Using the latest version of Anki is recommended for the following reasons:
     These bugs do not exist in newer Anki versions.
 
 Worst case scenario, if any essential add-ons no longer work,
-**you can always downgrade back** to your current version.
+**you can always downgrade back** to a previous version.
 
 If you aren't upgrading Anki from an older version,
 you can skip the rest of this section.

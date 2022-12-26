@@ -47,15 +47,15 @@ These pages display the hooked content.
 Most setups documented are for clipboard based texthooker pages.
 
 ??? example "Resources *(click here)*"
-    * [Original Clipboard Inserter](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
-        * [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
+    * [**Original Clipboard Inserter**](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
+        * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
             as of Firefox version 107.0. Use the extension below if you are using Firefox.
-    * [Lap Clipboard Inserter](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
+    * [**Lap Clipboard Inserter**](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
         * Updated version of the above.
         * Works on Firefox, but Chrome (manifest 3) support is currently not supported.
-            Use the extension above if you are using a chromium based browser.
-    * [Anacreon's Texthooker Page](https://anacreondjt.gitlab.io/docs/texthooker/) (recommended)
-    * [TMW's Texthooker Page](https://learnjapanese.moe/texthooker.html)
+            Use the first extension if you are using a chromium based browser.
+    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/) (recommended)
+    * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
 
 ??? example "Guides *(click here)*"
     * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) (recommended)
@@ -190,8 +190,9 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
     * [**Animebook**](https://github.com/animebook/animebook.github.io)
         * Cross platform (chromium) browser video player.
         * Codec support is based on the browser used.
-    * All of the above require subtitle files to function. Most anime subtitle files can be found under
-        [kitsuneko](https://kitsunekko.net/dirlist.php?dir=subtitles%2Fjapanese%2F).
+    * All of the above require subtitle files to function.
+        See [here](https://learnjapanese.moe/resources/#subtitles) for a basic list of sites
+        where you can get subtitles from.
 
     **Other:**
 
@@ -226,7 +227,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
 
     **Guides:**
 
-    - [Lazy guide (recommended)](https://rentry.co/lazyXel#manga-with-yomichan)
+    - [Lazy guide](https://rentry.co/lazyXel#manga-with-yomichan) (recommended)
         - (For Windows users) Make sure to check the "Add Python to Path" on install.
         - If you are using online processing (google colab), be sure that you are
           [using the gpu](https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm)
@@ -275,8 +276,8 @@ As long as you're not using a scan (image-based), the text should already be ava
 Below will list a few ways to view these files in a browser to Yomichan.
 
 ??? example "Resources *(click here)*"
-    * [ッツ Ebook Reader](https://ttu-ebook.web.app/) (EPUBs, HTMLZ) (recommended)
-    * [Mozilla's PDF Viewer](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
+    * [**ッツ Ebook Reader**](https://ttu-ebook.web.app/) (EPUBs, HTMLZ) (recommended)
+    * [**Mozilla's PDF Viewer**](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
 
     **Other:**
 
@@ -332,7 +333,8 @@ Other websites have significantly larger resource lists that may prove useful fo
 ??? example "Resource Lists *(click here)*"
     * [TMW](https://learnjapanese.moe/resources/)
     * [Tatsumoto](https://tatsumoto.neocities.org/blog/resources.html)
-    * [itazuraneko](https://itazuraneko.neocities.org/library/librarymain.html)
+    * [itazuraneko](https://itazuraneko.neocities.org/index.html)
+    * [kuzuri](https://kuzuri.neocities.org/resources.html)
     * [Refold (JP)](https://docs.google.com/document/d/1tQmoGwCJQqmjdmaQdigAG0Ph1ODSMsGhsD7qOhlUuc0/) ([Mirror](https://refold.link/japanese))
     * [Refold (General)](https://docs.google.com/document/d/1z_5VbwqKjuyaDH8l6BqhAPJdHWAfypz-3V7pHsWHr6A/) ([Mirror](https://refold.link/Tech_and_Tools))
 
