@@ -113,11 +113,14 @@ CONFIG = {
             #},
 
             # Used with elizagamedev's "Textbender" android app, to allow the user
-            # to open the word in Yomichan's search bar within android
-            # https://github.com/elizagamedev/android-textbender
+            #  to open the word in Yomichan's search bar within android
+            # See: https://github.com/elizagamedev/android-textbender
+            # NOTE: This button will only be visible on android devices.
             #"yomichan-textbender": {
             #    "icon-type": "text",
-            #    "icon-text": "Ｔ",
+            #    "icon-text": "ﾖﾐ",
+            #    #"icon-text": "Ｔ",
+            #    #"icon-text": "読",
             #    "url": "textbender://x?x={{text:Word}}",
             #    "hover-display": "Yomichan (textbender)",
             #},

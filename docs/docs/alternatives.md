@@ -28,7 +28,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 ---
 
 
-# Lazy Guide's Modified Anime Card
+# (Lazy Guide) Xelieu's Modified Anime Card
 <sup>
 [Website & download](https://rentry.co/lazyXel#anki)
 </sup>
@@ -84,8 +84,46 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 [Website](https://github.com/Ajatt-Tools/AnkiNoteTypes)
 </sup>
 
-- A collection of user-created notes
-- Most are based off of the above TSC template
+- A collection of user-created notes. Most are based off of the above TSC template.
+- The examples below do not showcase every note. Visit the `templates` folder on the website to see all the available notes.
+
+??? example "Examples"
+
+    === "JP1K TSC (dark)"
+        <sup>
+        [/templates/Japanese JP1K TSC](https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20JP1K%20TSC)
+        </sup>
+        {{ img("", "https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/night%20back.webp?raw=true") }}
+
+    === "JP1K TSC (light)"
+        <sup>
+        [/templates/Japanese JP1K TSC](https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20JP1K%20TSC)
+        </sup>
+        {{ img("", "https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/day%20back.webp?raw=true") }}
+
+    === "Fallback"
+        <sup>
+        [/templates/Japanese fallback](https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20fallback)
+        </sup>
+        {{ img("", "https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20fallback/showcase.gif?raw=true") }}
+
+    === "Word"
+        <sup>
+        [/templates/Japanese words](https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20words)
+        </sup>
+        {{ img("", "https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20words/japanese_words.webp?raw=true") }}
+
+    === "Sentence (cyphar)"
+        <sup>
+        [/templates/Japanese Mined Sentences (cyphar)](https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20Mined%20Sentences%20(cyphar))
+        </sup>
+        {{ img("", "https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/card_back_multilingual.webp?raw=true") }}
+
+
+
+
+
+
 
 
 ---
