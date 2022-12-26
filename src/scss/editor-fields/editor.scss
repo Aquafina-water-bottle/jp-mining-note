@@ -27,8 +27,10 @@ $field-group-start--pa:      4;  /* group of 3 */
 $field-group-start--binary:  17; /* group of 11 */
 $field-group-start--autogen: 34; /* group of 4 */
 
-$extra-padding-bottom: 8, 10, 13, 16, 37, 40;
-$extra-padding-top: 7, 28;
+//$extra-padding-bottom: 8, 10, 13, 16, 37, 40;
+$extra-padding-top: 7, 9, 11, 14, 17,18,19,20, 28, 38, 41;
+
+$extra-padding-bottom: 4,5,6, 8, 10, 13, 16, 25,26,27, 34,35,36,37, 40;
 
 //$extra-padding-sides: 9, 10, 14, 15, 16;
 
@@ -62,18 +64,37 @@ $extra-padding-top: 7, 28;
 }
 
 
-
-[notetype="JP Mining Note"] .fields {
-
-  @each $i in $extra-padding-bottom {
+@mixin extra-padding-top-remove($indices) {
+  @each $i in $indices {
     > div:nth-child(#{$i}) {
-      padding-bottom: var(--larger-field-gap);
+      padding-top: 0px;
+      border-top: none;
     }
   }
+}
+
+@mixin extra-padding-bottom-remove($indices) {
+  @each $i in $indices {
+    > div:nth-child(#{$i}) {
+      padding-bottom: var(--field-gap);
+    }
+  }
+}
+
+
+
+[notetype="JP Mining Note"] .fields {
 
   @each $i in $extra-padding-top {
     > div:nth-child(#{$i}) {
       padding-top: var(--larger-field-gap-top);
+      border-top: var(--field-group-border);
+    }
+  }
+
+  @each $i in $extra-padding-bottom {
+    > div:nth-child(#{$i}) {
+      padding-bottom: var(--larger-field-gap-bottom);
     }
   }
 
@@ -102,6 +123,12 @@ $extra-padding-top: 7, 28;
 
   [notetype="JP Mining Note"] .fields {
 
+    $remove-top: 19,20;
+    $remove-bottom: 4,5, 25,26, 34,35;
+
+    @include extra-padding-top-remove($remove-top);
+    @include extra-padding-bottom-remove($remove-bottom);
+
     @include combine-row($field-group-start--pa, 2, 1);
 
     @include combine-row($field-group-start--binary, 2, 2, 2, 2, 2, 1);
@@ -110,6 +137,5 @@ $extra-padding-top: 7, 28;
 
   }
 }
-
 
 

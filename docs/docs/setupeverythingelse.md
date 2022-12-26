@@ -235,17 +235,22 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
         - Contact info: `Josuke#7212` <!-- 190480221135306752 -->
             on the Refold (JP) Discord server
         - This doesn't include instructions on how to process online (whereas the Lazy guide does)
+
+    **Other Resources:**
+
     - If you are on Android, this can be paired with
         [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
         to create Anki cards.
+    - [WeebAlt's RemoteMokuro setup](https://github.com/WeebAlt/RemoteMokuro)
+        - This includes setup instructions on using Mokuro remotely (from google drive, i.e. no disk storage)
 
     If any error occurs, check the following:
 
     - Check your Python version (`python --version`, or `python3 --version`).
         Python 3.10 is [not supported yet](https://github.com/kha-white/mokuro#installation).
 
-        If your Python version is too old, I recommend using [pyenv](https://github.com/pyenv/pyenv),
-        for Linux users. Linux users can use the
+        If your Python version is too old, I recommend using [pyenv](https://github.com/pyenv/pyenv)
+        (for Linux users). Linux users can use the
         [automatic installer](https://github.com/pyenv/pyenv#automatic-installer).
         For Windows users, it should be sufficient to uninstall `mokuro`, install a newer version of Python,
         and then re-install mokuro with the newer version.

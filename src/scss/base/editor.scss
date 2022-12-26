@@ -1,16 +1,21 @@
 
 @use "common";
 
+$_field-gap: 5px;
+$_larger-field-gap: 30px;
+
 :root {
   @include common.common_vars;
 
-  --field-gap: 5px;
-  --larger-field-gap: 20px;
+  --field-gap: 0px;
   --larger-field-gap-top: 15px;
+  --larger-field-gap-bottom: 20px;
 
-  //--padding-side: 5px;
+  --field-group-border: 1px solid var(--text-color--4);
 }
 
 .nightMode {
   @include common.night_mode_vars;
+
+  --field-group-border: 1px solid var(--text-color--4);
 }
