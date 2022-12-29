@@ -73,6 +73,7 @@ and must use `./install.py --update`.
     - When text extends past to below the picture, it is expected that the text takes up the space below the picture
 - (auto-pitch-accent module) Changed nasal assert to nasal warning
 - Fixed cloze deletion cards with nested `<b>` tags not working properly
+- Fixed highlight-word not properly escaping regex
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word
