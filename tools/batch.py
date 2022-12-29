@@ -5,6 +5,7 @@ import re
 import argparse
 
 from utils import invoke
+from typing import Callable
 
 # def request(action, **params):
 #    return {"action": action, "params": params, "version": 6}
@@ -35,31 +36,72 @@ rx_FREQ_INNER2 = re.compile(r'<span class="frequencies__dictionary-inner2">(.*?)
 rx_FURIGANA = re.compile(r" ?([^ >]+?)\[(.+?)\]");
 rx_INTEGER_ONLY = re.compile(r'^-?\d+$')
 
-def get_args():
+def get_args(public_functions: list[Callable]):
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-f",
-        "--function",
-        type=str,
-        default=None,
-        help="executes a specific function defined in this file",
-    )
+    #parser.add_argument(
+    #    "-f",
+    #    "--function",
+    #    type=str,
+    #    default=None,
+    #    help="executes a specific function defined in this file",
+    #)
+
+    subparsers = parser.add_subparsers()
+
+    for f in public_functions:
+        subparser = subparsers.add_parser(f.__name__,
+                help=f.__doc__)
+        subparser.set_defaults(func=f)
+
+        for arg, ty in f.__annotations__.items():
+
+            if f.__kwdefaults__ is not None and arg in f.__kwdefaults__:
+                subparser.add_argument(
+                    "--" + arg,
+                    type=ty,
+                    default=f.__kwdefaults__[arg]
+                )
+            else:
+                subparser.add_argument(
+                    arg,
+                    type=ty,
+                )
 
 
-    parser.add_argument(
-        "--fill-field",
-        type=str,
-        help="fills a specific field of all JPMN notes with a value",
-    )
+    #parser.add_argument(
+    #    "--fill-field",
+    #    type=str,
+    #    help="fills a specific field of all JPMN notes with a value",
+    #)
 
-    parser.add_argument(
-        "--empty-field",
-        type=str,
-        help="empties a specific field of all JPMN notes",
-    )
+    #parser.add_argument(
+    #    "--empty-field",
+    #    type=str,
+    #    help="empties a specific field of all JPMN notes",
+    #)
 
 
     return parser.parse_args()
+
+
+def batch(query):
+    def decorator(func):
+        def wrapper(**kwargs):
+            print("Querying notes...")
+            notes = invoke("findNotes", query=query)
+
+            print("Getting notes info...")
+            notes_info = invoke("notesInfo", notes=notes)
+
+            print(f"Running {func.__name__}...")
+            actions = func(notes_info, **kwargs)
+
+            print("Updating notes...")
+            notes = invoke("multi", actions=actions)
+
+        return wrapper
+
+    return decorator
 
 
 def clear_pitch_accent_data():
@@ -215,8 +257,7 @@ def rename_vn_freq():
 
 def add_sort_freq_legacy():
     """
-    Batch adds sort frequencies based off of the legacy frequency html
-
+    Batch adds sort frequencies based off of the legacy frequency html format.
     DO NOT USE THIS for any version of the card below 0.10.2.0.
     """
 
@@ -272,7 +313,10 @@ def add_sort_freq_legacy():
     notes = invoke("multi", actions=actions)
 
 
-def fill_field(field_name):
+def fill_field(*, field_name: str, value: str="1"):
+    """
+    batch set the field to `1`
+    """
 
     notes = invoke("findNotes", query=r'"note:JP Mining Note"')
 
@@ -285,7 +329,7 @@ def fill_field(field_name):
             "params": {
                 "note": {
                     "id": nid,
-                    "fields": {field_name: "1"},
+                    "fields": {field_name: value},
                 }
             },
         }
@@ -294,8 +338,34 @@ def fill_field(field_name):
 
     notes = invoke("multi", actions=actions)
 
+#@batch(r'"note:JP Mining Note"')
+#def fill_field(notes, *, field_name: str, value: str="1"):
+#    """
+#    batch set the field to `1`
+#    """
+#
+#    actions = []
+#
+#    for nid in notes:
+#        action = {
+#            "action": "updateNoteFields",
+#            "params": {
+#                "note": {
+#                    "id": nid,
+#                    "fields": {field_name: value},
+#                }
+#            },
+#        }
+#
+#        actions.append(action)
+#
+#    return actions
 
-def empty_field(field_name):
+
+def empty_field(field_name: str):
+    """
+    batch empties the field
+    """
 
     notes = invoke("findNotes", query=r'"note:JP Mining Note"')
 
@@ -333,6 +403,11 @@ def _standardize_frequencies_styling(freq):
 
 
 def standardize_frequencies_styling():
+    """
+    (0.10.1.0 -> 0.10.2.0)
+    removes the surrounding <div class="frequencies"> within the FrequenciesStylized field.
+    """
+
     query = r'"FrequenciesStylized:*<div class=\"frequencies\">*" OR "FrequenciesStylized:*<span class=\"frequencies__dictionary-inner2\">*"'
 
     notes = invoke("findNotes", query=query)
@@ -399,6 +474,10 @@ def _kata2hira(text: str, ignore: str = "") -> str:
 
 
 def fill_word_reading_hiragana_field():
+    """
+    populates the WordReadingHiragana field by the WordReading field
+    """
+
     #print(_get_kana_from_plain_reading("成[な]り 立[た]つ"))
 
     query = r'"note:JP Mining Note" -WordReading:'
@@ -465,18 +544,30 @@ def _quick_fix_convert_kana_only_reading(query):
 
 
 def quick_fix_convert_kana_only_reading_with_tag():
+    """
+    converts the WordReading field to the `Word[WordReading]` format
+    (only for notes with tag:kanareadingonly)
+    """
+
     query = r'"note:JP Mining Note" tag:kanaonlyreading'
     _quick_fix_convert_kana_only_reading(query)
 
+
 def quick_fix_convert_kana_only_reading_all_notes():
+    """
+    converts the WordReading field to the `Word[WordReading]` format
+    (for all notes)
+    """
     query = r'"note:JP Mining Note"'
     _quick_fix_convert_kana_only_reading(query)
 
 
-
 def separate_pa_override_field():
-    # if the PAOverride field is exactly a digit, then keep in PAOverride.
-    # Otherwise, move to PAOverrideText
+    """
+    (0.10.2.0 -> 0.11.0.0)
+    If the PAOverride field is exactly a digit, then keep in PAOverride.
+    Otherwise, move to PAOverrideText
+    """
 
     query = r'"note:JP Mining Note" -PAOverride:'
     print("Querying notes...")
@@ -515,19 +606,57 @@ def separate_pa_override_field():
 
 
 def main():
-    args = get_args()
 
-    if args.function:
-        assert args.function in globals(), f"function {args.function} does not exist"
-        func = globals()[args.function]
-        print(f"executing {args.function}")
-        func()
+    public_functions = [
+        clear_pitch_accent_data,
+        add_downstep_inner_span_tag,
+        set_pasilence_field,
+        rename_vn_freq,
+        add_sort_freq_legacy,
+        fill_field,
+        empty_field,
+        standardize_frequencies_styling,
+        fill_word_reading_hiragana_field,
+        quick_fix_convert_kana_only_reading_with_tag,
+        quick_fix_convert_kana_only_reading_all_notes,
+        separate_pa_override_field,
+    ]
 
-    elif args.fill_field:
-        fill_field(args.fill_field)
 
-    elif args.empty_field:
-        empty_field(args.empty_field)
+    args = get_args(public_functions)
+    if "func" in args:
+        func_args = vars(args)
+        func = func_args.pop("func")
+        func(**func_args)
+
+    #if args.function:
+    #    assert args.function in globals(), f"function {args.function} does not exist"
+    #    func = globals()[args.function]
+    #    print(f"executing {args.function}")
+    #    func()
+
+    #elif args.fill_field:
+    #    fill_field(args.fill_field)
+
+    #elif args.empty_field:
+    #    empty_field(args.empty_field)
+
+
+    #parser = argparse.ArgumentParser()
+    #subparsers = parser.add_subparsers()
+    #a = subparsers.add_parser("a")
+    #b = subparsers.add_parser("b")
+    #a.add_argument("--asdf", action="store_true")
+    #b.add_argument("--asdf", action="store_true")
+    #a.set_defaults(somevar="a")
+    #b.set_defaults(somevar="b")
+
+    #print(parser.parse_args())
+
+
+
+    return
+
 
 
 if __name__ == "__main__":
