@@ -43,14 +43,22 @@ const JPMNAutoHighlightWord = (() => {
       return replace
     }
 
+    // https://stackoverflow.com/a/6969486
+    _escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+    _escapeReplacement(string) {
+        return string.replace(/\$/g, '$$$$');
+    }
+
     highlightWord(sentence, word, wordReadingKana, wordReadingHiragana) {
       let replace = this.findReplace(sentence, word, wordReadingKana, wordReadingHiragana);
       let result = sentence;
 
       if (replace.length > 0) {
         result = sentence.replace(
-          new RegExp(replace, 'g'),
-          `<b>${replace}</b>`
+          new RegExp(this._escapeRegExp(replace), 'g'),
+          `<b>${this._escapeReplacement(replace)}</b>`
         );
       }
 
@@ -59,7 +67,8 @@ const JPMNAutoHighlightWord = (() => {
 
     // takes an expression and shortens it until it's in the sentence
     shorten(expression, sentence, minLength) {
-      while (expression.length > minLength && !sentence.match(expression)) {
+
+      while (expression.length > minLength && !sentence.includes(expression)) {
         expression = expression.substr(0, expression.length - 1);
       }
       return expression;
@@ -94,7 +103,7 @@ const JPMNAutoHighlightWord = (() => {
           replaceResult.push(beforeKanjiRegex);
         }
 
-        replaceResult.push(previous);
+        replaceResult.push(this._escapeRegExp(previous));
 
         if (this._isKana(previous) && !this._isKana(after)) { // kana + non-kana
           replaceResult.push(beforeKanjiRegex);
@@ -110,7 +119,7 @@ const JPMNAutoHighlightWord = (() => {
         let lastChr = longestSubstr[longestSubstr.length-1];
 
         replaceResult.push(lastChr)
-        if (!this._isKana(lastChr)) {
+        if (!this._isKana(this._escapeRegExp(lastChr))) {
           replaceResult.push(afterKanjiRegex);
         }
       }
