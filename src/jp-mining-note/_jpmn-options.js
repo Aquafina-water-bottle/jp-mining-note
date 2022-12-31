@@ -1,9 +1,11 @@
-// JPMN is short for JP Mining Note
-var JPMNOpts = (function (my) {
+window.JPMNOptions = {
 
-  my.settings = {% filter indent(width=4) -%}
-{{- NOTE_OPTS_JSON -}}
-{%- endfilter %}
-  return my;
-}(JPMNOpts || {}));
+  // Insert any runtime options here! They should be of the form:
+  //
+  //     "key": value,
+  //
+  // For example:
+  //
+  //     TODO
 
+}

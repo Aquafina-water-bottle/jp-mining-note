@@ -602,6 +602,14 @@ def separate_pa_override_field():
     notes = invoke("multi", actions=actions)
 
 
+def set_all_fonts(*, version=None):
+    pass
+
+def reorder_all_fields(*, version=None):
+    pass
+
+def add_all_fields(*, version=None):
+    pass
 
 
 

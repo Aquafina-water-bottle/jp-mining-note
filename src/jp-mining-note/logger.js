@@ -8,9 +8,7 @@ function nullish(a, b) {
 }
 
 function isMobile() {
-  return document.documentElement.classList.contains('mobile');
-}
-
+  return document.documentElement.classList.contains('mobile'); } 
 function getKeyPath(keys) {
   if (typeof keys === "string") {
     return keys;

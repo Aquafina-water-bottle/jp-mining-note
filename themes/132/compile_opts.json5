@@ -1,17 +1,20 @@
 {
-  "never-filled-fields": [
+  "neverFilledFields": [
     "PAShowInfo", "PATestOnlyWord", "PADoNotTest",
     "PASeparateWordCard", "PASeparateSentenceCard", "AltDisplayPASentenceCard",
     "SeparateClozeDeletionCard",
     "IsClickCard", "IsHoverCard", "IsSentenceCard", "IsTargetedSentenceCard"
   ],
 
-  "full-sentence-ruby": {
-    "display-mode": "click",
-    "fill-mode": "font-size",
-    "fill-mode-font-size-transition": true
-  },
+  "fullSentenceRuby.displayMode": "click",
+  "fullSentenceRuby.fillMode": "fontSize",
+  "fullSentenceRuby.fillModeFontSizeTransition": true,
 
-  "css-folders": ["base", "dictionaries", "theme", "extra"]
+  "cssFolders": [
+    "base",
+    "dictionaries",
+    "theme",
+    "extra"
+  ]
 }
 

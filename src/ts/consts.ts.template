@@ -1,0 +1,2 @@
+export const compileOpts = {{ COMPILE_OPTIONS.dict() | tojson(indent=2) }};
+export const runtimeOpts = {{ RUNTIME_OPTIONS.dict() | tojson(indent=2) }};

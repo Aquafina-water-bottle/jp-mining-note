@@ -1,0 +1,3 @@
+{% for field in ALL_FIELDS %}
+<div id="{{field}}_exists">{% call IF(field) %}1{% endcall %}</div>
+{% endfor %}
