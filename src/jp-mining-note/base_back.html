@@ -11,15 +11,13 @@
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
 
-{#
-<script>
-{% block top_javascript %}
-{% include "jp-mining-note/logger.js" %}
-{% endblock %}
-</script>
-#}
+{% if not COMPILE_OPTIONS("hardcodedRuntimeOptions").item() %}
+<script id="jpmn_options_script" src="_jpmn-options.js"></script>
+{% endif %}
 
-<script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
+<script>
+{% include "_js/bundle.js" %}
+</script>
 
 
 {% include "jp-mining-note/partials/hidden_back.html" %}
@@ -80,13 +78,4 @@
 
 
 <div class="popup-menu" id="popup_menu"></div>
-
-<script>
-{% block javascript %}
-{% endblock %}
-</script>
-
-
-
-
 

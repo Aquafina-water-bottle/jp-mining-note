@@ -1,5 +1,6 @@
 {
-  "debugLogLevel": 3,
+  "debug.level": 3,
+  "debug.toConsole": true,
 
   "enableAnkiconnectFeatures": true,
 

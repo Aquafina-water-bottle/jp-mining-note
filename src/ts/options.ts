@@ -111,8 +111,10 @@ function getDefaultOption<K extends keyof O>(k: K): O[K] {
 
 export function getOption<K extends keyof O>(k: K): O[K] {
   if (compileOpts.hardcodedRuntimeOptions) { // compiler optimization
+    console.log("hello?")
     return getDefaultOption(k);
   }
+  console.log("not hard coded?")
   return userOption(k) ?? getDefaultOption(k);
 }
 
