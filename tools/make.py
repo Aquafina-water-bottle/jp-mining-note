@@ -41,6 +41,16 @@ class GenerateType(Enum):
     COPY = 3
     CSS = 4  # two passes: first with jinja (to include css-folders), and the second with sass
     COPY_SCSS = 5
+    # WEBPACK = 6
+
+
+TYPE_MAP = {
+    "scss": GenerateType.SASS,
+    "jinja": GenerateType.JINJA,
+    "copy": GenerateType.COPY,
+    "copy-scss": GenerateType.COPY_SCSS,
+    # "webpack": GenerateType.WEBPACK,
+}
 
 
 # class TextContainer:
@@ -196,49 +206,23 @@ class Generator:
 
         self.data = {
             # helper methods
-            #"NOTE_OPTS_JSON": utils.get_note_opts(config),
-            #"NOTE_OPTS": utils.get_note_opts(config, as_config=True),
-
             "NOTE_FILES": utils.get_note_config(),
-
             # TODO change this to be based off of whatever version you specify
             "ALL_FIELDS": NOTE_CHANGES[0].fields,
-
-            #"COMPILE_OPTIONS": config("compile-options"),
             "COMPILE_OPTIONS": utils.get_compile_opts(config),
             "RUNTIME_OPTIONS": utils.get_runtime_opts(config),
-
-            # used
+            # all options used before pre-processing
             "ALL_OPTIONS": {
                 "compile-options": utils.get_compile_opts_all(config),
                 "runtime-options": utils.get_runtime_opts_all(config),
+                "config.py": config.dict(),
             },
-
             "TRANSLATOR": translator,
-            #"TS_CONSTS_JSON": json.dumps(self.get_ts_consts(config), indent=2),
-            #"TS_CONSTS_JSON": self.get_ts_consts(config),
+            "CARD_INFO": {},  # will be filled later
             # helper methods
             "get_directories_with_file": self.get_directories_with_file,
-            # helper classes
-            # "JavascriptContainer": JavascriptContainer,
-            # "TextContainer": TextContainer,
             "_print": print,
         }
-
-    def get_ts_consts(self, config: utils.Config):
-        return config("compileOptions").item(javascript=True)
-
-        #result = {}
-
-        #keys = [
-        #    "alwaysFilledFields",
-        #    "neverFilledFields",
-        #    "enabled-modules",
-        #]
-        #for k in keys:
-        #    result[k] = c(k).item()
-
-        #return result
 
     def set_data(self, key, value):
         self.data[key] = value
@@ -273,9 +257,6 @@ class Generator:
                 - won't work on fields and editor
 
         """
-        CSS_ROOT = os.path.join(utils.get_root_folder(), "src", "scss")
-        # CSS_ROOT = "scss"
-
         scss_folders = []
         for search_folder in self.jinja_root_folders:
             scss_folder = os.path.join(search_folder, "scss")
@@ -299,7 +280,7 @@ class Generator:
             # except TemplateNotFound as e:
             #    pass
 
-        print(result)
+        # print(result)
 
         return result
 
@@ -360,15 +341,7 @@ class Generator:
             shutil.copy(output_file, release_output)
 
 
-def main(args=None):
-
-    if args is None:
-        args = utils.get_args(utils.add_args, add_args)
-    if args.release:
-        args.to_release = True
-
-    config = utils.get_config(args)
-
+def create_generator(args: argparse.Namespace, config: utils.Config):
     # search folders are: override, theme, src
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "src")
@@ -382,8 +355,6 @@ def main(args=None):
         theme_folder = os.path.join(root_folder, "themes", theme_folder_item)
         search_folders.insert(1, theme_folder)
 
-    # TextContainer.enabled_modules = config("compile-options", "enabled-modules").list()
-
     generator = Generator(
         search_folders,
         config,
@@ -391,16 +362,61 @@ def main(args=None):
     )
     generator.set_data("VERSION", utils.get_version(args))
 
+    return generator
+
+
+def generate_cards(args: argparse.Namespace, generator: Generator):
+    root_folder = utils.get_root_folder()
     note_config = utils.get_note_config()
+
+    # generates typescript
+    build_file(
+        args,
+        generator,
+        utils.Config(
+            {
+                "input-file": "ts",
+                "output-file": "tmp/ts",
+                "type": "copy",
+                "to-release": False,
+            }
+        ),
+    )
 
     # generates for each card type
     note_model_id = note_config("id").item()
     for card_model_id in note_config("templates").dict():
-        for file_name in ("front.html", "back.html"):
+        for side in ("front", "back"):
+            file_name = side + ".html"
             input_file = os.path.join(note_model_id, card_model_id, file_name)
             output_file = os.path.join(
                 args.build_folder, note_model_id, card_model_id, file_name
             )
+
+            generator.set_data(
+                "CARD_INFO",
+                utils.Config({
+                    "cardSide": side,
+                    "cardType": card_model_id,
+                    "noteType": note_model_id,
+                }),
+            )
+
+            # generates typescript for each model
+            build_file(
+                args,
+                generator,
+                utils.Config(
+                    {
+                        "input-file": "ts/consts.ts.template",
+                        "output-file": "tmp/ts/consts.ts",
+                        "type": "jinja",
+                        "to-release": False,
+                    },
+                ),
+            )
+
+            os.system("npm run build")
 
             generator.generate(
                 GenerateType.JINJA,
@@ -409,43 +425,48 @@ def main(args=None):
                 os.path.join(root_folder, note_model_id, card_model_id, file_name),
             )
 
-    type_map = {
-        "scss": GenerateType.SASS,
-        "jinja": GenerateType.JINJA,
-        "copy": GenerateType.COPY,
-        "copy-scss": GenerateType.COPY_SCSS,
-    }
+
+def build_file(
+    args: argparse.Namespace, generator: Generator, file_config: utils.Config
+):
+    root_folder = utils.get_root_folder()
+    templates_folder = os.path.join(root_folder, "src")
+
+    gen_type = TYPE_MAP[file_config("type").item()]
+
+    input_root = file_config.get_item_if_exists("input-dir", "")
+    if input_root == "build":
+        input_file = os.path.join(args.build_folder, file_config("input-file").item())
+    elif gen_type == GenerateType.JINJA:
+        input_file = os.path.join(file_config("input-file").item())
+    else:
+        input_file = os.path.join(templates_folder, file_config("input-file").item())
+
+    output_file = os.path.join(args.build_folder, file_config("output-file").item())
+
+    release_output = ""
+    if file_config.get_item_if_exists("to-release", True):
+        release_output = os.path.join(root_folder, file_config("output-file").item())
+
+    generator.generate(gen_type, input_file, output_file, release_output)
+
+
+def main(args=None):
+
+    if args is None:
+        args = utils.get_args(utils.add_args, add_args)
+    if args.release:
+        args.to_release = True
+
+    config = utils.get_config(args)
+
+    generator = create_generator(args, config)
+    generate_cards(args, generator)
 
     # generates each file in "build"
+    note_config = utils.get_note_config()
     for file_config in note_config("build").list_items():
-        gen_type = type_map[file_config("type").item()]
-
-        input_root = file_config.get_item_if_exists("input-dir", "")
-        if input_root == "build":
-            input_file = os.path.join(
-                args.build_folder, file_config("input-file").item()
-            )
-        elif gen_type == GenerateType.JINJA:
-            input_file = os.path.join(file_config("input-file").item())
-        else:
-            input_file = os.path.join(
-                templates_folder, file_config("input-file").item()
-            )
-
-        #output_root = file_config.get_item_if_exists("output-dir", args.build_folder)
-        #if output_root == "src":
-        #    output_root = os.path.join(root_folder, "src")
-        #output_file = os.path.join(output_root, file_config("output-file").item())
-
-        output_file = os.path.join(args.build_folder, file_config("output-file").item())
-
-        release_output = ""
-        if file_config.get_item_if_exists("to-release", True):
-            release_output = os.path.join(
-                root_folder, file_config("output-file").item()
-            )
-
-        generator.generate(gen_type, input_file, output_file, release_output)
+        build_file(args, generator, file_config)
 
 
 if __name__ == "__main__":

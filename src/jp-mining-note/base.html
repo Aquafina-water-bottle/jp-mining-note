@@ -14,17 +14,14 @@
 {# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
-{#
-<script>
-{% block top_javascript %}
-{% include "jp-mining-note/logger.js" %}
-{% endblock %}
-</script>
-#}
 
 {% if not COMPILE_OPTIONS("hardcodedRuntimeOptions").item() %}
-<script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
+<script id="jpmn_options_script" src="_jpmn-options.js"></script>
 {% endif %}
+
+<script>
+{% include "_js/bundle.js" %}
+</script>
 
 
 {% include "jp-mining-note/partials/hidden_front.html" %}
@@ -55,14 +52,6 @@
 
 
 <div class="popup-menu" id="popup_menu"></div>
-
-
-<script>
-{% block javascript %}
-{% endblock %}
-</script>
-
-
 
 
 {% if note.field_restrict is defined and note.field_restrict -%}

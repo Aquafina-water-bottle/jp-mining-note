@@ -1,4 +1,17 @@
 {
+  "name": "jp-mining-note",
+  "version": "0.1.0",
+  "sideEffects": false,
+  "description": "",
+  "private": true,
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev": "webpack --mode=development --devtool=source-map"
+  },
+  "license": "MIT",
+
   "devDependencies": {
     "json5": "^2.2.2",
     "ts-loader": "^9.4.2",

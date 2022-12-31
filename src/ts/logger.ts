@@ -1,23 +1,37 @@
-import { consts } from './consts'
+import { getOption } from './options'
 
-class LoggerArgsMsg {
-  isHtml: boolean;
-  key: string | null;
+// TODO change these args to not require a constructor
+// (it seems like other APIs don't require a constructor too)
+//class LoggerArgsMsg {
+//  isHtml: boolean;
+//  key: string | null;
+//
+//  constructor() {
+//    this.isHtml = false;
+//    this.key = null;
+//  }
+//}
+//
+//class LoggerArgs extends LoggerArgsMsg {
+//  unique: boolean;
+//
+//  constructor() {
+//    super();
+//    this.unique = false;
+//  }
+//}
 
-  constructor() {
-    this.isHtml = false;
-    this.key = null;
-  }
+
+type LoggerArgsMsg = {
+  isHtml?: boolean;
+  key?: string;
 }
 
-class LoggerArgs extends LoggerArgsMsg {
-  unique: boolean;
-
-  constructor() {
-    super();
-    this.unique = false;
-  }
+type LoggerArgs = LoggerArgsMsg & {
+  unique?: boolean;
 }
+
+
 
 
 const leechClass = "info-circle-leech";
@@ -49,8 +63,8 @@ export class Logger {
 
   debug(message: string, level: number=3, args?: LoggerArgs) {
     // TODO config
-    const debugLevel = 5;
-    const debugToConsole = false;
+    const debugLevel = getOption("debug.level");
+    const debugToConsole = getOption("debug.toConsole");
 
     if (level >= debugLevel) {
       if (debugToConsole) {
@@ -77,11 +91,11 @@ export class Logger {
     this.#printMsg("", leechGroupId, leechClass);
   }
 
-  #printMsg(message: string, eleId: GroupId, colorClass: ColorClass | null, args: LoggerArgs = new LoggerArgs()) {
+  #printMsg(message: string, eleId: GroupId, colorClass: ColorClass | null, args: LoggerArgs = {}) {
 
     let key: string | null = null;
-    if (args.unique) {
-      if (args.key === null) {
+    if (args?.unique) {
+      if (args?.key) {
         key = message;
       }
       if (key !== null && this.uniqueKeys.has(key)) {
@@ -94,13 +108,17 @@ export class Logger {
       this.#appendMsg(message, groupEle, args);
     }
 
+    let infoCirc = document.getElementById("info_circle");
+    if (colorClass !== null) {
+      infoCirc?.classList.toggle(colorClass, true);
+    }
   }
 
-  #appendMsg(message: string | Array<string>, groupEle: HTMLElement, args: LoggerArgsMsg = new LoggerArgsMsg()) {
+  #appendMsg(message: string | Array<string>, groupEle: HTMLElement, args: LoggerArgsMsg = {}) {
 
     let msgEle = document.createElement('div');
     msgEle.classList.add("info-circle__message")
-    if (args.key !== null) {
+    if (args?.key) {
       msgEle.setAttribute("data-key", args.key);
     }
 
@@ -123,7 +141,7 @@ export class Logger {
         displayMsg = `(${this.name}) ${message}`;
       }
 
-      if (args.isHtml) {
+      if (args?.isHtml) {
         msgEle.innerHTML = displayMsg;
       } else {
         msgEle.textContent = displayMsg;

@@ -54,13 +54,6 @@ NOTE_DATA = {
 
 
         {
-            "input-file": "ts",
-            "output-file": "tmp/ts",
-            "type": "copy",
-            "to-release": False,
-        },
-
-        {
             "input-file": "ts/consts.ts.template",
             "output-file": "tmp/ts/consts.ts",
             "type": "jinja",
