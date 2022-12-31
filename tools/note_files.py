@@ -33,11 +33,11 @@ NOTE_DATA = {
     #    "field.scss"
     #],
     "build": [
-        # - read from (root)/templates
+        # - read from (root)/src
         # - written to (root)/(build folder)
         # - release mode copies to (root)
         # - input-dir of "build" roots input dir to (root)/(build folder)
-        #   instead of the default (root)/templates
+        #   instead of the default (root)/src
 
         #{
         #    "input-file": "scss/field.scss",
@@ -51,6 +51,22 @@ NOTE_DATA = {
         #    "type": "copy",
         #    "to-release": False,
         #},
+
+
+        {
+            "input-file": "ts",
+            "output-file": "tmp/ts",
+            "type": "copy",
+            "to-release": False,
+        },
+
+        {
+            "input-file": "ts/consts.ts.template",
+            "output-file": "tmp/ts/consts.ts",
+            "type": "jinja",
+            "to-release": False,
+        },
+
 
         {
             "input-file": "",

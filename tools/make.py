@@ -22,6 +22,7 @@ from json_minify import json_minify
 import json
 
 import utils
+from note_changes import NOTE_CHANGES
 
 
 FRONT_FILENAME = "front.html"
@@ -42,92 +43,92 @@ class GenerateType(Enum):
     COPY_SCSS = 5
 
 
-class TextContainer:
-    card_types = ["main", "pa_sent", "pa_word", "cloze_deletion"]
-    sides = ["front", "back"]
+# class TextContainer:
+#    card_types = ["main", "pa_sent", "pa_word", "cloze_deletion"]
+#    sides = ["front", "back"]
+#
+#    # - class variable because TextContainer is always initialized in templates
+#    # - prevents repeatedly having to set the variable to the same thing
+#    #   on each initialization
+#    # - var set in the main function of this script
+#    # enabled_modules: list = []
+#
+#    def __init__(self, module_name: str):
+#        self.module_name = module_name
+#
+#        # matx[side][card]
+#        self.matx = [
+#            ([""] * len(TextContainer.card_types)) for _ in TextContainer.sides
+#        ]
+#
+#    def _get_indices(self, card_type: str, side: str):
+#        assert card_type in TextContainer.card_types
+#        assert side in TextContainer.sides
+#
+#        x = TextContainer.sides.index(side)
+#        y = TextContainer.card_types.index(card_type)
+#
+#        return (x, y)
+#
+#    def set(self, card_type: str, side: str, value: str):
+#        """
+#        sets specific (card_type, side) pair
+#        """
+#        x, y = self._get_indices(card_type, side)
+#        self.matx[x][y] = value
+#
+#    def set_all(self, value: str):
+#        """
+#        sets for every card type and side
+#        """
+#        for card_type in TextContainer.card_types:
+#            for side in TextContainer.sides:
+#                x, y = self._get_indices(card_type, side)
+#                self.matx[x][y] = value
+#
+#    def set_front(self, value: str):
+#        for card_type in TextContainer.card_types:
+#            x, y = self._get_indices(card_type, "front")
+#            self.matx[x][y] = value
+#
+#    def set_back(self, value: str):
+#        for card_type in TextContainer.card_types:
+#            x, y = self._get_indices(card_type, "back")
+#            self.matx[x][y] = value
+#
+#    def set_card_type(self, card_type: str, value: str):
+#        for side in TextContainer.sides:
+#            x, y = self._get_indices(card_type, side)
+#            self.matx[x][y] = value
+#
+#    def _get(self, card_type: str, side: str) -> str:
+#        x, y = self._get_indices(card_type, side)
+#        return self.matx[x][y]
+#
+#    def get(self, card_type: str, side: str, enabled_modules: list[str]) -> str:
+#        # if self.module_name in TextContainer.enabled_modules:
+#        #    return self._get(card_type, side)
+#        # return ""
+#        if self.module_name in enabled_modules:
+#            return self._get(card_type, side)
+#        return ""
 
-    # - class variable because TextContainer is always initialized in templates
-    # - prevents repeatedly having to set the variable to the same thing
-    #   on each initialization
-    # - var set in the main function of this script
-    # enabled_modules: list = []
 
-    def __init__(self, module_name: str):
-        self.module_name = module_name
-
-        # matx[side][card]
-        self.matx = [
-            ([""] * len(TextContainer.card_types)) for _ in TextContainer.sides
-        ]
-
-    def _get_indices(self, card_type: str, side: str):
-        assert card_type in TextContainer.card_types
-        assert side in TextContainer.sides
-
-        x = TextContainer.sides.index(side)
-        y = TextContainer.card_types.index(card_type)
-
-        return (x, y)
-
-    def set(self, card_type: str, side: str, value: str):
-        """
-        sets specific (card_type, side) pair
-        """
-        x, y = self._get_indices(card_type, side)
-        self.matx[x][y] = value
-
-    def set_all(self, value: str):
-        """
-        sets for every card type and side
-        """
-        for card_type in TextContainer.card_types:
-            for side in TextContainer.sides:
-                x, y = self._get_indices(card_type, side)
-                self.matx[x][y] = value
-
-    def set_front(self, value: str):
-        for card_type in TextContainer.card_types:
-            x, y = self._get_indices(card_type, "front")
-            self.matx[x][y] = value
-
-    def set_back(self, value: str):
-        for card_type in TextContainer.card_types:
-            x, y = self._get_indices(card_type, "back")
-            self.matx[x][y] = value
-
-    def set_card_type(self, card_type: str, value: str):
-        for side in TextContainer.sides:
-            x, y = self._get_indices(card_type, side)
-            self.matx[x][y] = value
-
-    def _get(self, card_type: str, side: str) -> str:
-        x, y = self._get_indices(card_type, side)
-        return self.matx[x][y]
-
-    def get(self, card_type: str, side: str, enabled_modules: list[str]) -> str:
-        # if self.module_name in TextContainer.enabled_modules:
-        #    return self._get(card_type, side)
-        # return ""
-        if self.module_name in enabled_modules:
-            return self._get(card_type, side)
-        return ""
-
-
-class JavascriptContainer:
-    def __init__(self, module_name):
-        # Global variables, usually only used for cache.
-        # It is extremely unlikely that you will use this.
-        # Instead, please favor the `functions` variable.
-        self.globals = TextContainer(module_name)
-
-        # A place to define global classes and functions.
-        # This is where the bulk of the existing code is,
-        # as most existing code is wrapped as a self-contained module that returns a class.
-        self.functions = TextContainer(module_name)
-
-        # Equivalent to the main function of the module.
-        # Put any code you want to run upon template load here.
-        self.run = TextContainer(module_name)
+# class JavascriptContainer:
+#    def __init__(self, module_name):
+#        # Global variables, usually only used for cache.
+#        # It is extremely unlikely that you will use this.
+#        # Instead, please favor the `functions` variable.
+#        self.globals = TextContainer(module_name)
+#
+#        # A place to define global classes and functions.
+#        # This is where the bulk of the existing code is,
+#        # as most existing code is wrapped as a self-contained module that returns a class.
+#        self.functions = TextContainer(module_name)
+#
+#        # Equivalent to the main function of the module.
+#        # Put any code you want to run upon template load here.
+#        self.run = TextContainer(module_name)
 
 
 class Translator:
@@ -178,7 +179,9 @@ class Generator:
         self.sass_path = config("sass-path").item()
         self.to_release = to_release
 
-        self.css_folders = config("compile-options", "css-folders").list()
+        compile_options = utils.get_compile_opts(config)
+
+        self.css_folders = compile_options("cssFolders").list()
 
         root_folder = utils.get_root_folder()
         translation_file_path = os.path.join(
@@ -188,23 +191,54 @@ class Generator:
         with open(translation_file_path, encoding="utf-8") as f:
             translations = json.loads(json_minify(f.read()))
 
-        languages = config("compile-options", "display-languages").list()
+        languages = compile_options("displayLanguages").list()
         translator = Translator(languages, translations)
 
         self.data = {
             # helper methods
-            "NOTE_OPTS_JSON": utils.get_note_opts(config),
-            "NOTE_OPTS": utils.get_note_opts(config, as_config=True),
+            #"NOTE_OPTS_JSON": utils.get_note_opts(config),
+            #"NOTE_OPTS": utils.get_note_opts(config, as_config=True),
+
             "NOTE_FILES": utils.get_note_config(),
-            "COMPILE_OPTIONS": config("compile-options"),
+
+            # TODO change this to be based off of whatever version you specify
+            "ALL_FIELDS": NOTE_CHANGES[0].fields,
+
+            #"COMPILE_OPTIONS": config("compile-options"),
+            "COMPILE_OPTIONS": utils.get_compile_opts(config),
+            "RUNTIME_OPTIONS": utils.get_runtime_opts(config),
+
+            # used
+            "ALL_OPTIONS": {
+                "compile-options": utils.get_compile_opts_all(config),
+                "runtime-options": utils.get_runtime_opts_all(config),
+            },
+
             "TRANSLATOR": translator,
+            #"TS_CONSTS_JSON": json.dumps(self.get_ts_consts(config), indent=2),
+            #"TS_CONSTS_JSON": self.get_ts_consts(config),
             # helper methods
             "get_directories_with_file": self.get_directories_with_file,
             # helper classes
-            "JavascriptContainer": JavascriptContainer,
-            "TextContainer": TextContainer,
+            # "JavascriptContainer": JavascriptContainer,
+            # "TextContainer": TextContainer,
             "_print": print,
         }
+
+    def get_ts_consts(self, config: utils.Config):
+        return config("compileOptions").item(javascript=True)
+
+        #result = {}
+
+        #keys = [
+        #    "alwaysFilledFields",
+        #    "neverFilledFields",
+        #    "enabled-modules",
+        #]
+        #for k in keys:
+        #    result[k] = c(k).item()
+
+        #return result
 
     def set_data(self, key, value):
         self.data[key] = value
@@ -264,6 +298,8 @@ class Generator:
             #    result.append(f)
             # except TemplateNotFound as e:
             #    pass
+
+        print(result)
 
         return result
 
@@ -341,7 +377,7 @@ def main(args=None):
     )
     search_folders = [overrides_folder, templates_folder]
 
-    theme_folder_item = config("templates-theme-folder").item()
+    theme_folder_item = config("theme-folder").item()
     if theme_folder_item is not None:
         theme_folder = os.path.join(root_folder, "themes", theme_folder_item)
         search_folders.insert(1, theme_folder)
@@ -395,6 +431,11 @@ def main(args=None):
             input_file = os.path.join(
                 templates_folder, file_config("input-file").item()
             )
+
+        #output_root = file_config.get_item_if_exists("output-dir", args.build_folder)
+        #if output_root == "src":
+        #    output_root = os.path.join(root_folder, "src")
+        #output_file = os.path.join(output_root, file_config("output-file").item())
 
         output_file = os.path.join(args.build_folder, file_config("output-file").item())
 

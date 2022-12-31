@@ -1,6 +1,6 @@
 {# impl #}
 
-{%- import "modules/main.html" as modules with context -%}
+{#{%- import "modules/main.html" as modules with context -%}#}
 
 <!--
 WARNING: This template is auto-generated.
@@ -10,13 +10,17 @@ if you want to modify the card templates and css without losing your changes
 upon updates.
 
 {# list() isn't available? #}
-{%- set _enabled_modules = [] -%}
+{#{%- set _enabled_modules = [] -%}
 {%- for m in modules.modules.keys() -%}
   {%- do _enabled_modules.append(m) -%}
-{%- endfor -%}
-{%- set card_json = {
+{%- endfor -%}#}
+{#{%- set card_json = {
   "compile-options": COMPILE_OPTIONS.dict(),
   "modules-used": _enabled_modules,
+}#}
+
+{%- set card_json = {
+  "compile-options": ALL_OPTIONS,
 }
 -%}
 

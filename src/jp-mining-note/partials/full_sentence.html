@@ -1,6 +1,6 @@
 {# impl #}
 
-{% set _disp_mode = COMPILE_OPTIONS("full-sentence-ruby", "display-mode").item() %}
+{% set _disp_mode = COMPILE_OPTIONS("fullSentenceRuby.displayMode").item() %}
 
 {% call IF("SentenceReading") %}
 <div class="full-sentence-center">
@@ -23,12 +23,12 @@
         {% if _disp_mode == "never" %}
         hide-ruby
         {% endif %}
-        {% if COMPILE_OPTIONS("full-sentence-ruby", "fill-mode").item() == "opacity" %}
+        {% if COMPILE_OPTIONS("fullSentenceRuby.fillMode").item() == "opacity" %}
         full-sentence--ruby-opacity
         {% else %}
         full-sentence--ruby-size
         {% endif %}
-        {% if COMPILE_OPTIONS("full-sentence-ruby", "fill-mode-font-size-transition").item() %}
+        {% if COMPILE_OPTIONS("fullSentenceRuby.fillModeFontSizeTransition").item() %}
         full-sentence--ruby-size-transition
         {% endif %}
       "

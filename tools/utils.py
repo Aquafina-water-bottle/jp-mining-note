@@ -25,6 +25,7 @@ DEFAULT_CONFIG_PATH = "config/config.py"
 
 rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+)")
 
+JSON = dict[str, Any]
 
 
 cached_config = None
@@ -252,22 +253,121 @@ def get_config_from_path(file_path: str) -> Config:
     return config
 
 
-def get_note_opts(config: Config, as_config=False) -> Config | str:
+def defaults(*dicts: dict, strict=False):
+    # Gets keys, with the highest priority being the first dictionary.
+    # This is basically Lodash's _.defaults() method, as this only goes one layer deep
 
-    opts_file = config("opts-path").item()
+    # strict means that it will error if the key was not found in the last dictionary
+
+    result = {}
+    for d in dicts:
+        for k, v in d.items():
+            if strict and k not in dicts[-1]:
+                print(json.dumps(dicts[-1], indent=2))
+                raise KeyError(f"{k} not in default options")
+
+            if k not in result:
+                result[k] = v
+    return result
+
+def _get_opts_all(name, config: Config) -> JSON:
+    # attempts to get note options from the following places:
+    # - config
+    # - theme
+    # - default (error if not found)
+
+    import pyjson5
+
     root_folder = get_root_folder()
-    opts_path = os.path.join(root_folder, "config", opts_file)
 
-    with open(opts_path, encoding="utf-8") as f:
-        contents = f.read()
+    # gets default settings
+    default_opts_file = os.path.join(root_folder, f"src/{name}_opts.json5")
+    with open(default_opts_file, encoding="utf-8") as f:
+        default_opts = pyjson5.load(f)
 
-    if as_config:
-        # import put here so certain scripts can be ran without external dependencies
-        from json_minify import json_minify
+    # gets theme settings
+    theme_folder = config("theme-folder").item()
+    theme_opts = {}
+    if theme_folder is not None:
+        theme_opts_file = os.path.join(root_folder, "themes", theme_folder, f"{name}_opts.json5")
+        if os.path.isfile(theme_opts_file):
+            with open(theme_opts_file, encoding="utf-8") as f:
+                theme_opts = pyjson5.load(f)
 
-        return Config(json.loads(json_minify(contents)))
+    # gets user settings
+    user_opts = {}
+    user_opts_file = os.path.join(root_folder, "config", config(f"{name}-options-path").item())
+    if os.path.isfile(user_opts_file):
+        with open(user_opts_file, encoding="utf-8") as f:
+            user_opts = pyjson5.load(f)
 
-    return contents
+    # TODO convert this to some sort of actual object instead of a dict?
+    return {
+        "user": user_opts,
+        "themes": theme_opts,
+        "default": default_opts,
+    }
+
+def get_runtime_opts_all(config: Config) -> JSON:
+    return _get_opts_all("runtime", config)
+
+def get_compile_opts_all(config: Config) -> JSON:
+    return _get_opts_all("compile", config)
+
+
+def get_runtime_opts(config: Config) -> Config:
+    # requires separation of { type: ... } (override) values into the "overrides"
+    # section to be usable by typescript
+
+    runtime_opts = get_runtime_opts_all(config)
+    result = copy.deepcopy(runtime_opts["default"])
+
+    def _is_override_value(val):
+        return isinstance(val, dict) and "type" in val
+
+    # extra should NOT have "overrides"
+    if config("theme-override-user-options").item():
+        extra = defaults(runtime_opts["themes"], runtime_opts["user"])
+    else:
+        extra = defaults(runtime_opts["user"], runtime_opts["themes"])
+    for k, v in extra.items():
+        if k not in result:
+            print(json.dumps(runtime_opts['default'], indent=2))
+            raise KeyError(f"{k} not in default options")
+
+        if _is_override_value(v):
+            result["overrides"][k] = v
+        else:
+            result[k] = v
+
+    return Config(result)
+
+def get_compile_opts(config: Config) -> Config:
+    compile_opts = get_compile_opts_all(config)
+    if config("theme-override-user-options").item():
+        vals = (compile_opts["themes"], compile_opts["user"], compile_opts["default"])
+    else:
+        vals = (compile_opts["user"], compile_opts["themes"], compile_opts["default"])
+
+    return Config(defaults(*vals, strict=True))
+
+#def get_note_opts(config: Config, as_config=False) -> Config | str:
+#
+#    opts_file = config("opts-path").item()
+#    root_folder = get_root_folder()
+#    opts_path = os.path.join(root_folder, "config", opts_file)
+#
+#    with open(opts_path, encoding="utf-8") as f:
+#        contents = f.read()
+#
+#    if as_config:
+#        # import put here so certain scripts can be ran without external dependencies
+#        #from json_minify import json_minify
+#        from pyjson5 import loads
+#
+#        return Config(json.loads(loads(contents)))
+#
+#    return contents
 
 
 def get_version(args) -> str:

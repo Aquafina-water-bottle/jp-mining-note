@@ -14,15 +14,17 @@
 {# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
+{#
 <script>
 {% block top_javascript %}
 {% include "jp-mining-note/logger.js" %}
 {% endblock %}
 </script>
+#}
 
-{% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
+{% if not COMPILE_OPTIONS("hardcodedRuntimeOptions").item() %}
 <script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
-{% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
+{% endif %}
 
 
 {% include "jp-mining-note/partials/hidden_front.html" %}
