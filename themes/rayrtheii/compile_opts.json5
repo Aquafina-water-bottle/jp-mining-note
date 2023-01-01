@@ -49,8 +49,29 @@
   ],
 
 
-  "enableModule.imgUtilsMin": true,
-  "enableModule.imgUtils": false,
+  "enableModule.timePerformance":       true,
+  "enableModule.keybinds":              true,
+
+  "enableModule.autoPitchAccent":       true,
+  "enableModule.imgUtilsMin":           true,
+  "enableModule.imgUtils":              false,
+
+  "enableModule.sentUtils":             true,
+  "enableModule.autoHighlightWord":     true,
+
+  "enableModule.kanjiHover":            true,
+  "enableModule.collapseDictionaries":  true,
+  "enableModule.openCollapsedFields":   true,
+  "enableModule.wordIndicators":        true,
+
+  "enableModule.mobileUtils":           true,
+  "enableModule.infoCircleUtils":       true,
+  "enableModule.freqUtils":             true,
+  "enableModule.fixRubyPositioning":    true,
+  "enableModule.checkDuplicateKey":     true,
+
+  //"enableModule.hooks.theme":           true,
+  //"enableModule.hooks.custom":          true,
 
 
   // Allows the user to customize the displayed words on the card,

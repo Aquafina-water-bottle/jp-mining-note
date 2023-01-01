@@ -149,9 +149,26 @@
   // Whether the module shows up in the raw javascript or not.
   // If set to false, then the module's javascript will NOT exist in the template,
   // so any related behavior and runtime options will no longer function.
-  "enableModule.imgUtilsMin": false,
-  "enableModule.imgUtils": true,
+  "enableModule.timePerformance":       false,
+  "enableModule.keybinds":              true,
 
+  "enableModule.autoPitchAccent":       true,
+  "enableModule.imgUtilsMin":           false,
+  "enableModule.imgUtils":              true,
+
+  "enableModule.sentUtils":             true,
+  "enableModule.autoHighlightWord":     true,
+
+  "enableModule.kanjiHover":            true,
+  "enableModule.collapseDictionaries":  true,
+  "enableModule.openCollapsedFields":   true,
+  "enableModule.wordIndicators":        true,
+
+  "enableModule.mobileUtils":           true,
+  "enableModule.infoCircleUtils":       true,
+  "enableModule.freqUtils":             true,
+  "enableModule.fixRubyPositioning":    true,
+  "enableModule.checkDuplicateKey":     true,
 
 
 

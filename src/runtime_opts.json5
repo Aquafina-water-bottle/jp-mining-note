@@ -6,24 +6,20 @@
 
 
 
+  // ==========================================================================
+  // = timePerformance =
+  // ==========================================================================
+
+  "timePerformance.enabled": true,
+
+
+
 
   // ==========================================================================
-  // = imgUtils =
+  // = keybinds =
   // ==========================================================================
 
-  "imgUtils.enabled": true,
-  "imgUtils.resizeHeightMode": "auto-height",
-  "imgUtils.resizeHeightFixedValue": 210,
-
-  // imgUtils.stylizeImgsPriDef
-  // --------------------------------------------------------------------------
-
-  "imgUtils.stylizeImgsPriDef.modeTags.yomichan.none": [
-    "img-yomichan-no-styling",
-    "jpmn-img-yomichan-no-styling"
-  ],
-
-  "imgUtils.stylizeImgsGlossary.enabled": true,
+  "keybinds.enabled": true,
 
 
 
@@ -49,11 +45,166 @@
 
 
 
+  // ==========================================================================
+  // = imgUtilsMin =
+  // ==========================================================================
+
+  "imgUtilsMin.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = imgUtils =
+  // ==========================================================================
+
+  "imgUtils.enabled": true,
+  "imgUtils.resizeHeightMode": "auto-height",
+  "imgUtils.resizeHeightFixedValue": 210,
+
+  // imgUtils.stylizeImgsPriDef
+  // --------------------------------------------------------------------------
+
+  "imgUtils.stylizeImgsPriDef.modeTags.yomichan.none": [
+    "img-yomichan-no-styling",
+    "jpmn-img-yomichan-no-styling"
+  ],
+
+  "imgUtils.stylizeImgsGlossary.enabled": true,
+
+
+
+
+
+  // ==========================================================================
+  // = sentUtils =
+  // ==========================================================================
+
+  "sentUtils.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = autoHighlightWord =
+  // ==========================================================================
+
+  "autoHighlightWord.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = kanjiHover =
+  // ==========================================================================
+
+  "kanjiHover.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = collapseDictionaries =
+  // ==========================================================================
+
+  "collapseDictionaries.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = openCollapsedFields =
+  // ==========================================================================
+
+  "openCollapsedFields.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = wordIndicators =
+  // ==========================================================================
+
+  "wordIndicators.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = mobileUtils =
+  // ==========================================================================
+
+  "mobileUtils.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = infoCircleUtils =
+  // ==========================================================================
+
+  "infoCircleUtils.enabled": true,
+
+  // Whether the info circle can be hovered over to show the tooltip or not
+  "infoCircleUtils.isHoverable": true,
+
+  // Whether the user can lock the tooltip by clicking on the info-circle or not
+  "infoCircleUtils.togglableLock.enabled": true,
+  "infoCircleUtils.togglableLock.showPopup": true,
+
+
+
+
+
+
+  // ==========================================================================
+  // = freqUtils =
+  // ==========================================================================
+
+  "freqUtils.enabled": true,
+  "freqUtils.max": 4,
+  "freqUtils.overflow": 2,
+
+
+
+
+  // ==========================================================================
+  // = fixRubyPositioning =
+  // ==========================================================================
+
+  "fixRubyPositioning.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = checkDuplicateKey =
+  // ==========================================================================
+
+  "checkDuplicateKey.enabled": true,
+
+
+
+
+
   "overrides": {
     "enableAnkiconnectFeatures": {
       "type": "isPC",
       "resultTrue": true, // is PC
       "resultFalse": false, // not not PC (mobile)
     },
+
+    "infoCircleUtils.togglableLock.showPopup": {
+      "type": "isPC",
+      "resultTrue": true,
+      "resultFalse": false,
+    },
+
+    "infoCircleUtils.isHoverable": {
+      "type": "isPC",
+      "resultTrue": true,
+      "resultFalse": false,
+    },
+
   }
 }

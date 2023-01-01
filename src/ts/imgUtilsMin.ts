@@ -1,18 +1,18 @@
 import { getOption } from "./options"
-import { Module } from "./module"
+import { Module, ModuleId } from "./module"
 import { VW } from "./utils"
 import { compileOpts } from "./consts"
 import { Logger } from "./logger"
 
 
 export class ImgUtilsMin extends Module {
-  constructor() {
-    super();
+  constructor(id: ModuleId) {
+    super(id);
   }
 
   run() {
 
-    const logger = new Logger("img-utils-min")
+    const logger = new Logger("imgUtilsMin")
 
     // restricting the max height of image to the definition box
     const dhImgContainer = document.getElementById("dh_img_container");
