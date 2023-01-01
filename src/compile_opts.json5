@@ -2,6 +2,7 @@
   // toggles whether the runtime options should be read from a file or not.
   "hardcodedRuntimeOptions": false,
 
+  // forces the behavior of the cards to act as if the field is filled or not filled
   "alwaysFilledFields": [],
   "neverFilledFields": [],
 
@@ -56,18 +57,6 @@
     //  //hoverDisplay: "日本語俗語辞書",
     //},
 
-    // Used with elizagamedev's "Textbender" android app, to allow the user
-    // to open the word in Yomichan's search bar within android
-    // https://github.com/elizagamedev/android-textbender
-    //"yomichan-textbender": {
-    //  iconType: "text",
-    //  iconText: "ﾖﾐ",
-    //  //iconText: "Ｔ",
-    //  //iconText: "読",
-    //  url: "textbender://x?x={{text:Word}}",
-    //  hoverDisplay: "Yomichan (textbender)",
-    //},
-
     //"sakura-paris.org/dict": {
     //    iconType: "text",
     //    iconText: "広辞苑",
@@ -81,14 +70,36 @@
     //    url: "https://kotobank.jp/gs/?q={{text:Word}}",
     //    //hoverDisplay: "コトバンク",
     //},
+
+    // Used with elizagamedev's "Textbender" android app, to allow the user
+    //  to open the word in Yomichan's search bar within android
+    // See: https://github.com/elizagamedev/android-textbender
+    // NOTE: This button will only be visible on android devices.
+    //"yomichan-textbender": {
+    //    "icon-type": "text",
+    //    "icon-text": "ﾖﾐ",
+    //    //"icon-text": "Ｔ",
+    //    //"icon-text": "読",
+    //    "url": "textbender://x?x={{text:Word}}",
+    //    "hover-display": "Yomichan (textbender)",
+    //},
   },
 
 
   // Option to have custom CSS.
   // The last takes priorty over the first,
   // i.e. the "extra" folder takes priority over base in
-  //   `["base", "responsive", "dictionaries" "extra"]`
+  //   `["base", "extra"]`
   // Don't remove "base" unless you know what you're doing.
+
+  // "base": The base css that has virtually everything the note requires to work.
+  //         Don't remove this unless you know what you're doing.
+  // "responsive": CSS that helps with resizing the card for smaller screens.
+  // "dictionaries": various CSS for specific dictionaries.
+  // "editor-fields": CSS to merge certain rows within the editor together.
+  // "legacy-anki_2-1-54": Legacy CSS to support Anki version 2.1.54 and below.
+  // "theme": CSS for any custom theme to work.
+  //          Don't remove this unless you know what you're doing.
 
   "cssFolders": [
     "base",
@@ -99,15 +110,6 @@
     "extra",
   ],
 
-
-  "enableModule.imgUtilsMin": false,
-  "enableModule.imgUtils": true,
-
-
-  "breakpoints.displaySentenceShrink": 1600,
-  "breakpoints.displaySentenceRemoveNewlines": 1300,
-  "breakpoints.maxWidthBackside": 850,
-  "breakpoints.combinePicture": 620,
 
 
   // This is a hack to allow the user to triple-click the definition and copy
@@ -123,6 +125,9 @@
 
   // Allows the user to customize the displayed words on the card,
   // while specifying fallback languages if the language doesn't have the key/pair value.
+  // Currently, the following languages are supported:
+  // - "en": English
+  // - "jp": Japanese
   "displayLanguages": ["en"],
   //"displayLanguages": ["jp", "en"],
 
@@ -133,18 +138,60 @@
   "autoQuoteClose": "」",
 
 
+
+
+
+
+  // ==========================================================================
+  // = enableModule =
+  // ==========================================================================
+
+  // Whether the module shows up in the raw javascript or not.
+  // If set to false, then the module's javascript will NOT exist in the template,
+  // so any related behavior and runtime options will no longer function.
+  "enableModule.imgUtilsMin": false,
+  "enableModule.imgUtils": true,
+
+
+
+
+
+
+  // ==========================================================================
+  // = breakpoints =
+  // ==========================================================================
+
+  // viewport width breakpoints on when the note is transformed for responsiveness
+  "breakpoints.displaySentenceShrink": 1600,
+  "breakpoints.displaySentenceRemoveNewlines": 1300,
+  "breakpoints.maxWidthBackside": 850,
+  "breakpoints.combinePicture": 620,
+
+
+
+
+
   // ==========================================================================
   // = fullSentenceRuby =
   // ==========================================================================
 
-  // valid options: "hover", "click", "both", "always", "never"
+  // Specifies when the ruby is displayed
+  // - valid options: "hover", "click", "both", "always", "never"
+  // - "both" means that both hovering and clicking works, i.e. clicking can
+  //   freeze / unfreeze the furigana in place.
+  // - "always" means that furigana is always shown. This is not recommended.
   "fullSentenceRuby.displayMode": "hover",
-  // valid options: "opacity", "fontSize",
-  "fullSentenceRuby.fillMode": "opacity",
-  // valid options: true, false
-  "fullSentenceRuby.fillModeFontSizeTransition": false,
 
-  // ==========================================================================
+  // Specifies how the ruby is displayed
+  // valid options: "opacity", "font-size",
+  // - "opacity" adds invisible spacing between words
+  // - "font-size" adds spacing only when ruby is displayed, which will increase the
+  //   height of the ruby, and can cause characters to overflow into the next line
+  "fullSentenceRuby.fillMode": "opacity",
+
+  // An option that only affects the note when fill-mode is font size.
+  // adds a smooth transition between no furigana and furigana
+  "fullSentenceRuby.fillModeFontSizeTransition": false,
 
 }
 

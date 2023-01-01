@@ -15,6 +15,9 @@
     "dictionaries",
     "theme",
     "extra"
-  ]
+  ],
+
+  "enableModule.imgUtilsMin": true,
+  "enableModule.imgUtils": false,
 }
 

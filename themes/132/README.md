@@ -1,4 +1,4 @@
-# 132_anime_card
+# 132
 This is an example theme to showcase how a custom theme can be created and used.
 
 This theme was inspired by 132#0792's

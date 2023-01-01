@@ -1,3 +1,5 @@
+# This module is completely outdated!!! Do not use!
+
 """
 # template is always fixed to be src/jpmn_opts_template.jsonc
 
