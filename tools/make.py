@@ -16,7 +16,6 @@ from jinja2 import (
     FileSystemLoader,
     select_autoescape,
     StrictUndefined,
-    TemplateNotFound,
 )
 from json_minify import json_minify
 import json
@@ -33,6 +32,8 @@ CSS_FILENAME = "style.css"
 def add_args(parser: argparse.ArgumentParser):
     group = parser.add_argument_group(title="make")
     group.add_argument("--to-release", action="store_true", default=False)
+    group.add_argument("--build-source-map", action="store_true", default=False)
+    group.add_argument("--dev-generate-consts", action="store_true", default=False)
 
 
 class GenerateType(Enum):
@@ -204,6 +205,9 @@ class Generator:
         languages = compile_options("displayLanguages").list()
         translator = Translator(languages, translations)
 
+        def include_raw(file_name):
+            return self.loader.get_source(self.env, file_name)[0]
+
         self.data = {
             # helper methods
             "NOTE_FILES": utils.get_note_config(),
@@ -221,8 +225,10 @@ class Generator:
             "CARD_INFO": {},  # will be filled later
             # helper methods
             "get_directories_with_file": self.get_directories_with_file,
+            "include_raw": include_raw,
             "_print": print,
         }
+
 
     def set_data(self, key, value):
         self.data[key] = value
@@ -365,11 +371,30 @@ def create_generator(args: argparse.Namespace, config: utils.Config):
     return generator
 
 
+def generate_ts_consts(args: argparse.Namespace, generator: Generator):
+    build_file(
+        args,
+        generator,
+        utils.Config(
+            {
+                "input-file": "ts/consts.ts.template",
+                "output-file": "consts.ts",
+                "type": "jinja",
+                "output-dir": "src/ts",
+                "to-release": False,
+            },
+        ),
+    )
+
+
 def generate_cards(args: argparse.Namespace, generator: Generator):
     root_folder = utils.get_root_folder()
     note_config = utils.get_note_config()
 
+
     # generates typescript
+    generate_ts_consts(args, generator)
+
     build_file(
         args,
         generator,
@@ -382,6 +407,11 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
             }
         ),
     )
+
+    if args.build_source_map:
+        os.system("npm run dev")
+    else:
+        os.system("npm run build")
 
     # generates for each card type
     note_model_id = note_config("id").item()
@@ -396,27 +426,26 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
             generator.set_data(
                 "CARD_INFO",
                 utils.Config({
-                    "cardSide": side,
-                    "cardType": card_model_id,
-                    "noteType": note_model_id,
+                    "card-side": side,
+                    "card-type": card_model_id,
+                    "note-type": note_model_id,
+                    "js-prefix": note_config("js-prefix").item(),
                 }),
             )
 
             # generates typescript for each model
-            build_file(
-                args,
-                generator,
-                utils.Config(
-                    {
-                        "input-file": "ts/consts.ts.template",
-                        "output-file": "tmp/ts/consts.ts",
-                        "type": "jinja",
-                        "to-release": False,
-                    },
-                ),
-            )
-
-            os.system("npm run build")
+            #build_file(
+            #    args,
+            #    generator,
+            #    utils.Config(
+            #        {
+            #            "input-file": "ts/consts.ts.template",
+            #            "output-file": "tmp/ts/consts.ts",
+            #            "type": "jinja",
+            #            "to-release": False,
+            #        },
+            #    ),
+            #)
 
             generator.generate(
                 GenerateType.JINJA,
@@ -442,7 +471,13 @@ def build_file(
     else:
         input_file = os.path.join(templates_folder, file_config("input-file").item())
 
-    output_file = os.path.join(args.build_folder, file_config("output-file").item())
+    output_root = file_config.get_item_if_exists("output-dir", None)
+    if output_root is None:
+        output_root = args.build_folder
+    else:
+        output_root = os.path.join(root_folder, output_root)
+    #output_file = os.path.join(args.build_folder, file_config("output-file").item())
+    output_file = os.path.join(output_root, file_config("output-file").item())
 
     release_output = ""
     if file_config.get_item_if_exists("to-release", True):
@@ -459,8 +494,12 @@ def main(args=None):
         args.to_release = True
 
     config = utils.get_config(args)
-
     generator = create_generator(args, config)
+
+    if args.dev_generate_consts:
+        generate_ts_consts(args, generator)
+        return
+
     generate_cards(args, generator)
 
     # generates each file in "build"

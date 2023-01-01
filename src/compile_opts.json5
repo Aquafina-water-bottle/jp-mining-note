@@ -99,15 +99,15 @@
     "extra",
   ],
 
-  "enabledModules": [
-  ],
 
-  "breakpoints": {
-    "displaySentenceShrink": 1600,
-    "displaySentenceRemoveNewlines": 1300,
-    "maxWidthBackside": 850,
-    "combinePicture": 620,
-  },
+  "enableModule.imgUtilsMin": false,
+  "enableModule.imgUtils": true,
+
+
+  "breakpoints.displaySentenceShrink": 1600,
+  "breakpoints.displaySentenceRemoveNewlines": 1300,
+  "breakpoints.maxWidthBackside": 850,
+  "breakpoints.combinePicture": 620,
 
 
   // This is a hack to allow the user to triple-click the definition and copy

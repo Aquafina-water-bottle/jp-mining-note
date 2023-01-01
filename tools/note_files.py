@@ -13,6 +13,7 @@ NOTE_DATA = {
 
     "id": "jp-mining-note",
     "model-name": "JP Mining Note",
+    "js-prefix": "jpmn",
     "templates": {
         "main": {
             "name": "Mining Card",

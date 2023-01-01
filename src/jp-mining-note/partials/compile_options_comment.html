@@ -20,7 +20,9 @@ upon updates.
 }#}
 
 {%- set card_json = {
-  "compile-options": ALL_OPTIONS,
+  "all-options": ALL_OPTIONS,
+  "result-compile-options": COMPILE_OPTIONS.dict(),
+  "result-runtime-options": RUNTIME_OPTIONS.dict(),
 }
 -%}
 
