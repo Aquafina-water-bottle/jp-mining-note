@@ -3,7 +3,7 @@
     "PAShowInfo", "PATestOnlyWord", "PADoNotTest",
     "PASeparateWordCard", "PASeparateSentenceCard", "AltDisplayPASentenceCard",
     "SeparateClozeDeletionCard",
-    "IsClickCard", "IsHoverCard", "IsSentenceCard", "IsTargetedSentenceCard"
+    "IsClickCard", "IsHoverCard", "IsSentenceCard", "IsTargetedSentenceCard", "IsHintCard",
   ],
 
   "fullSentenceRuby.displayMode": "click",
