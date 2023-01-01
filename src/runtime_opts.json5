@@ -6,11 +6,12 @@
 
 
 
+
   // ==========================================================================
   // = timePerformance =
   // ==========================================================================
 
-  "timePerformance.enabled": true,
+  //"timePerformance.enabled": true,
 
 
 
@@ -19,7 +20,71 @@
   // = keybinds =
   // ==========================================================================
 
+  // RESERVED KEYS (by anki):
+  // - e (edit)
+  // - r (replay)
+  // - t (stats)
+  // - y (sync)
+  // - i (card info)
+  // - o (options)
+  // - a (add)
+  // - s (idk exactly what this does tbh)
+  // - d (deck)
+  // - f (filtered deck options)
+  // - v (play recorded voice)
+  // - b (browse)
+  // - m (menu)
+  // - 1, 2, 3, 4 (again, hard, good, easy)
+  // - 5 (pause audio)
+  // - 6 (audio -5s)
+  // - 7 (audio +5s)
+  // - space (good)
+  // - enter (good)
+  //
+  // RESERVED KEYS (by AJT Flexible grading):
+  // - u (undo)
+  // - h, j, k, l: hard / again / good / easy
+  //
+  // FREE KEYS:
+  // - (left)  q w g z x c
+  // - (right) p n 8 9 0 , . ; ' [ ]
+  //
+  // If you want to customize the keybinds, you must find the exact key code
+  // that corresponds to your key. To do so, set "debug-level" to 0, press the
+  // desired key(s), and look at the bottom of the debug log (under the info
+  // circle) within the note. You may need to scroll down.
+
   "keybinds.enabled": true,
+
+  // Keybind to toggle between showing the sentence and word on click and hover cards.
+  // Equivalent to either clicking on the sentence/word on a click card,
+  // or hovering over the word on a hover card.
+  "keybinds.toggleHybridSentence": ["KeyN"],
+
+  // Keybind to toggle between showing the tested word in a raw sentence card.
+  // Equivalent to clicking on the "show" button.
+  // This is the same as the above because both should never happen at the same time.
+  "keybinds.toggleHighlightWord": ["KeyN"],
+
+  // Keybind to toggle a vocab card's full sentence display (front side).
+  // Techinically can be Shift / n as it doesn't interfere with the other two above.
+  "keybinds.toggleFrontFullSentenceDisplay": ["Quote"],
+
+  "keybinds.playSentenceAudio": ["KeyP"],
+
+  "keybinds.playWordAudio": ["KeyW"],
+
+  // Equivalent to toggling the hint show/hide
+  "keybinds.toggleHintDisplay": ["Period"],
+
+  "keybinds.toggleSecondaryDefinitionsDisplay": ["Digit8"],
+
+  "keybinds.toggleAdditionalNotesDisplay": ["Digit9"],
+
+  "keybinds.toggleExtraDefinitionsDisplay": ["Digit0"],
+
+  "keybinds.toggleExtraInfoDisplay": ["BracketLeft"],
+
 
 
 
@@ -40,16 +105,85 @@
   // "katakana-with-long-vowel-marks"
   "autoPitchAccent.readingDisplayMode": "katakana",
 
+  // Whether to display the reading at all no pitch was found.
+  // If false, shows (N/A) instead by default.
+  // See the following to remove the (N/A):
+  //  https://aquafina-water-bottle.github.io/jp-mining-note/uicustomization/#remove-the-na-on-cards-with-no-pitch-accents
   "autoPitchAccent.showReadingIfNoPitch": false,
 
 
 
 
-  // ==========================================================================
-  // = imgUtilsMin =
-  // ==========================================================================
+  // autoPitchAccent.paPositions
+  // --------------------------------------------------------------------------
+  // various options on how to parse the `PAPositions` field
 
-  "imgUtilsMin.enabled": true,
+  // options:
+  // - "selected-result":
+  // - "selected-dictionary"
+  // - "all-results"
+  //
+  // Usually, 'selected' means the first dictionary. However, the user
+  // can bold any individual entry to select that as either the selected
+  // result or dictionary.
+  "autoPitchAccent.paPositions.displayMode": "selected-result",
+
+  "autoPitchAccent.paPositions.defaultConnector": "・",
+
+
+
+
+  // autoPitchAccent.paOverride
+  // --------------------------------------------------------------------------
+  // various options for the formatting of the `PAOverride` field
+  "autoPitchAccent.paOverride.separators": ["・", "、"],
+  "autoPitchAccent.paOverride.downstepMarkers": ["＼"],
+  "autoPitchAccent.paOverride.heibanMarkers": ["￣"],
+
+  // shows a warning when PAOverride has an incorrect format
+  "autoPitchAccent.paOverride.warnOnInvalidFormat": true,
+
+  // whether the heiban marker is required to specify heiban words
+  "autoPitchAccent.paOverride.heibanMarkerRequired": true,
+
+  // Undulation/kifuku (起伏) value, to set the pattern to kifuku
+  // (used in the PAOverride field).
+  // This sets the downstep be right before the last mora, and colors the word
+  // purple if colored-pitch-accent is enabled.
+  // Note that these values must be numbers and they CANNOT be strings.
+  "autoPitchAccent.paOverride.kifukuOveride": [-1],
+
+
+
+
+  // autoPitchAccent.coloredPitchAccent
+  // --------------------------------------------------------------------------
+  // Whether to color the tested word by pitch accent class or not.
+  // Generally: 平板 is blue, 頭高 is red, 中高 is orange and 尾高 is green.
+  // The exact colors can be changed in the css.
+  // NOTE: There are certain cases where the position cannot be inferred.
+  //  See here for more details:
+  //  https://aquafina-water-bottle.github.io/jp-mining-note/autopa/#colored-pitch-accent
+
+
+  "autoPitchAccent.coloredPitchAccent.enabled": true,
+
+  // what parts of the card to color
+  "autoPitchAccent.coloredPitchAccent.color.testedContent": true, // above line
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingOverline": true,
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana": false,
+  "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
+  "autoPitchAccent.coloredPitchAccent.color.definitions": true,
+
+  "autoPitchAccent.coloredPitchAccent.color.tooltip.wordReadingKanji": true,
+  "autoPitchAccent.coloredPitchAccent.color.tooltip.wordReadingOverline": true,
+  "autoPitchAccent.coloredPitchAccent.color.tooltip.wordReadingKana": false,
+
+  // Given that `autoPitchAccent.paPositions.displayMode` selects multiple results,
+  // this determines whether the first pitch is used to color the card according
+  // to the standard colored pitch accent.
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst": true,
 
 
 
@@ -62,16 +196,154 @@
   "imgUtils.resizeHeightMode": "auto-height",
   "imgUtils.resizeHeightFixedValue": 210,
 
-  // imgUtils.stylizeImgsPriDef
+
+
+  // Sets the image to the specified file if it contains the specified tags.
+  // This may be useful for people who primarily make cards from novels,
+  // and want to add the cover of the book to all of their notes.
+  // This is a fall-back option that is used when the `Picture` field is empty.
+  // NOTE: Remember to add the file to the media folder in order for this to work!
+
+  // EXAMPLES:
+  // - This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
+  //    {
+  //      "tags": ["sample_tag"],
+  //      "file-name": "_sample_image.png"
+  //    },
+  // - This adds the image `_contains_both_tags.png` if the card has both tags
+  //     `something` and `something2`.
+  //    {
+  //      "tags": ["something", "something2"],
+  //      "file-name": "_contains_both_tags.png"
+  //    }
+  "addImageIfContainsTags": [],
+
+
+
+  // imgUtils.stylizeImgsPrimaryDefinition
   // --------------------------------------------------------------------------
 
-  "imgUtils.stylizeImgsPriDef.modeTags.yomichan.none": [
+  "imgUtils.stylizeImgsPrimaryDefinition.enabled": true,
+
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.yomichan": "collapse",
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.user": "float",
+
+
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.general.none": [
+    "img-no-styling",
+    "jpmn-img-no-styling"
+  ],
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.general.collapse": [
+    "img-collapse",
+    "jpmn-img-collapse"
+  ],
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.general.float": [
+    "img-float",
+    "jpmn-img-float"
+  ],
+
+
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.yomichan.none": [
     "img-yomichan-no-styling",
     "jpmn-img-yomichan-no-styling"
   ],
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.yomichan.collapse": [
+    "img-yomichan-collapse",
+    "jpmn-img-yomichan-collapse"
+  ],
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.yomichan.float": [
+    "img-yomichan-float",
+    "jpmn-img-yomichan-float"
+  ],
 
+
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.user.none": [
+    "img-user-no-styling",
+    "jpmn-img-user-no-styling"
+  ],
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.user.collapse": [
+    "img-user-collapse",
+    "jpmn-img-user-collapse"
+  ],
+  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.user.float": [
+    "img-user-float",
+    "jpmn-img-user-float"
+  ],
+
+
+
+  // imgUtils.primaryDefinitionPicture
+  // --------------------------------------------------------------------------
+
+  // Whether the field is parsed with any javascript at all.
+  // The default position will be auto-bottom.
+  "imgUtils.primaryDefinitionPicture.enabled": true,
+
+  // Where to place the `PrimaryDefinitionPicture` field contents
+  //  within the primary definition section.
+  // Valid options (case sensitive): "auto", "bottom", "right", "top"
+  "imgUtils.primaryDefinitionPicture.position": "auto-bottom",
+
+  // Tags to override auto positioning
+  // Case sensitive
+  "imgUtils.primaryDefinitionPicture.tagOverride.bottom": ["img-bottom"],
+  "imgUtils.primaryDefinitionPicture.tagOverride.top": ["img-top"],
+  "imgUtils.primaryDefinitionPicture.tagOverride.right": ["img-right"]
+
+
+
+
+  // imgUtils.stylizeImgsGlossary
+  // --------------------------------------------------------------------------
+  // stylizes as collapsed
+  // otherwise does not stylize at all
   "imgUtils.stylizeImgsGlossary.enabled": true,
 
+
+
+
+
+
+  // imgUtils.imageBlur
+  // --------------------------------------------------------------------------
+
+
+  // allows the user to mark any card as NSFW, and adds various
+  // GUI elements to faciliate just that.
+  "imgUtils.imageBlur.enabled": false,
+
+  // what tags can be used to toggle the card between nsfw / not nsfw
+  // case sensitive
+  "imgUtils.imageBlur.tags": ["NSFW", "nsfw", "-NSFW"],
+
+  // Sets whether nsfw images are blurred by default or not.
+  //
+  // Available states:
+  //  0: all images will not be blurred (even if marked as NSFW)
+  //  1: only images marked as NSFW will be blurred by default
+  //  2: all images will be blurred regardless of whether it is marked as NSFW or not
+  //
+  // The first number of the list is the default state. The states cycle from left -> right
+  // For example, if the list was [1, 2, 0], it would start at state 1, and clicking on the
+  // settings eye will set it to state 2, state 0, state 1, state 2, etc.
+  "imgUtils.imageBlur.toggleStates": [1, 2, 0]
+
+  // EXAMPLE:
+  //"imgUtils.imageBlur.toggleStates": [0, 1, 2]  // defaults to never blurred
+
+  // EXAMPLE:
+  // defaults to never blurred on mobile, but blurred on pc
+  //"imgUtils.imageBlur.toggleStates": {
+  //  "type": "isPC",
+  //  "resultTrue":  [1, 2, 0], // PC
+  //  "resultFalse": [0, 1, 2], // mobile
+  //},
+
+
+  // ==========================================================================
+  // = imgUtilsMin =
+  // ==========================================================================
+  "imgUtilsMin.enabled": true,
 
 
 
@@ -81,6 +353,92 @@
   // ==========================================================================
 
   "sentUtils.enabled": true,
+
+
+
+  "sentUtils.removeFinalPeriod": true,
+  "sentUtils.removeFinalPeriod.altDisplay": false,
+
+
+
+  "sentUtils.autoHighlightWord": true,
+  "sentUtils.autoHighlightWord.warnOnAutoHighlight": false,
+  "sentUtils.autoHighlightWord.warnIfAutoHighlightFails": true,
+
+
+  // quote processMode:
+  // "add": always adds a quote
+  // "remove": always removes the quote
+  // "none" (equivalent of disabling quote processing entirely)
+
+  // NOTE: if multiple quotes / multiple lines are found,
+  // this processMode is entirely ignored in favor of attempting
+  // to extract the lines
+
+  // displayMode.quoted: "block", "flow"
+  // displayMode.unquoted: "indented", "fully-indented", "no-indent"
+
+  // recommended multi.quotedDisplayMode & multi.noQuoteDisplayMode combinations:
+  //
+  // vn-like:
+  //  displayMode.quoted.multi: "block"
+  //  displayMode.unquoted.multi: "no-indent"
+  // 「あああああああああ
+  //   ああああああああ」
+  // ええええええええええ
+  // ええええええええ
+  // 「あああああああああ
+  //   ああああああああ」
+  //
+  // novel-like:
+  //  displayMode.quoted.multi: "flow"
+  //  displayMode.unquoted.multi: "indented"
+  // 「あああああああああ
+  // ああああああああ」
+  //   えええええええええ
+  // ええええええええ
+  // 「あああああああああ
+  // ああああああああ」
+
+
+  "sentUtils.quotes.processMode": "add",
+  "sentUtils.quotes.processMode.altDisplay": "add",
+
+  "sentUtils.quotes.displayMode.quoted": "block",
+  "sentUtils.quotes.displayMode.unquoted": "no-indent",
+  "sentUtils.quotes.displayMode.quoted.multi": "block",
+  "sentUtils.quotes.displayMode.unquoted.multi": "no-indent",
+
+
+  "sentUtils.quotes.processMode.tagOverride.add": [
+    "quote-add", "jpmn-quote-add",
+  ],
+  "sentUtils.quotes.processMode.tagOverride.remove": [
+    "quote-remove", "jpmn-quote-remove",
+  ],
+  "sentUtils.quotes.processMode.tagOverride.none": [
+    "quote-no-processing", "jpmn-quote-no-processing",
+  ],
+
+  // colors the quotes instead of showing a pitch accent indicator
+  // if this is enabled
+  "sentUtils.quotes.paIndicatorcolor": true,
+
+  // automatically colors the quote with the sentence pa indicator color,
+  // on PA sentence cards
+  "sentUtils.quotes.paIndicatorcolor.paSent": true,
+
+  // the quote pair to automatically add to the sentence
+  // NOTE: overwritten in "overrides" section
+  "sentUtils.quotes.quoteOpen": "「",
+  "sentUtils.quotes.quoteClose": "」",
+
+  // quotes to search for on existing sentences,
+  // to not double-quote a sentence that already has quotes on it
+  "sentUtils.quotes.matches": [
+    { "open": "「", "close": "」" },
+    { "open": "『", "close": "』" },
+  ]
 
 
 
@@ -94,11 +452,17 @@
 
 
 
+
+
+
+
   // ==========================================================================
   // = kanjiHover =
   // ==========================================================================
 
   "kanjiHover.enabled": true,
+
+  "kanjiHover.tooltipBuilder.overrideOptions": {},
 
 
 
@@ -126,6 +490,10 @@
   // ==========================================================================
 
   "wordIndicators.enabled": true,
+  "wordIndicators.tooltipBuilder.overrideOptions": {
+    // always show pitch accent
+    "tooltipBuilder.displayPitchAccentOnHoverOnly": false,
+  },
 
 
 
@@ -186,25 +554,88 @@
 
 
 
+  // ==========================================================================
+  // = tooltipBuilder =
+  // ==========================================================================
+  // default tooltip options
+
+  // Displays the pitch accent to the right of the word
+  "tooltipBuilder.displayPitchAccent": true,
+
+  // Only displays the pitch accent if the word is hovered over
+  // (false: always show pitch accent)
+  "tooltipBuilder.displayPitchAccentOnHoverOnly": true,
+
+  // if set to true, words are able to be clicked to browse within the Anki browser
+  "tooltipBuilder.clickWordToBrowse": true,
+
+  // not new, or new + green + suspended
+  // not flagged as red and suspended
+  "tooltipBuilder.nonNewQuery": "(-is:new OR (is:suspended is:new flag:3))",
+  "tooltipBuilder.nonNewQuery.ignore": "is:suspended flag:1",
+
+  // new
+  // not suspended, and neither flagged as red or green
+  "tooltipBuilder.newQuery": "is:new",
+  "tooltipBuilder.newQuery.ignore": "is:suspended (flag:1 OR flag:3)",
+
+
+  // valid options:
+  // "time-created":
+  //  - faster to calculate, but less accurate for people who review based on frequency lists
+  // "first-review":
+  //  - slower to calculate, but the most accurate
+  "tooltipBuilder.sortMethod": "time-created",
+
+  // maximum number of words per category
+  "tooltipBuilder.categoryMax.nonNewOldest": 2,
+  "tooltipBuilder.categoryMax.nonNewLatest": 2,
+  "tooltipBuilder.categoryMax.newLatest": 2,
+
+
+  // ==========================================================================
+  // = cache =
+  // ==========================================================================
+  "cache.showClearCacheButton": false,
+
+
+
+  // ==========================================================================
+  // = overrides =
+  // ==========================================================================
 
   "overrides": {
     "enableAnkiconnectFeatures": {
       "type": "isPC",
-      "resultTrue": true, // is PC
+      "resultTrue":  true, // is PC
       "resultFalse": false, // not not PC (mobile)
     },
 
     "infoCircleUtils.togglableLock.showPopup": {
       "type": "isPC",
-      "resultTrue": true,
+      "resultTrue":  true,
       "resultFalse": false,
     },
 
     "infoCircleUtils.isHoverable": {
       "type": "isPC",
-      "resultTrue": true,
+      "resultTrue":  true,
       "resultFalse": false,
     },
+
+    "sentUtils.quotes.quoteOpen": {
+      "type": "isCardType",
+      "args": "pa_sent",
+      "resultTrue":  "『",
+      "resultFalse": "「",
+    }
+
+    "sentUtils.quotes.quoteClose": {
+      "type": "isCardType",
+      "args": "pa_sent",
+      "resultTrue":  "』",
+      "resultFalse": "」",
+    }
 
   }
 }

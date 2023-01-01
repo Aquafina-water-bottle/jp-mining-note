@@ -1,13 +1,10 @@
 import { getOption } from './options';
-import { Module, ModuleId } from './module';
+import { Module } from './module';
 import { VW } from './utils';
 import { compileOpts } from './consts';
 import { Logger } from './logger';
 
 export class ImgUtilsMin extends Module {
-  constructor(id: ModuleId) {
-    super(id);
-  }
 
   run() {
     const logger = new Logger('imgUtilsMin');

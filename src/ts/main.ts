@@ -5,21 +5,21 @@ import { fieldExists } from './utils';
 //import { TimePerformance } from "./timePerformance"
 import { Keybinds } from './keybinds';
 
+import { SentUtils } from './sentUtils';
+import { AutoHighlightWord } from './autoHighlightWord';
+
 import { AutoPitchAccent } from './autoPitchAccent';
 import { ImgUtilsMin } from './imgUtilsMin';
 import { ImgUtils } from './imgUtils';
-
-import { SentUtils } from './sentUtils';
-import { AutoHighlightWord } from './autoHighlightWord';
 
 import { KanjiHover } from './kanjiHover';
 import { CollapseDictionaries } from './collapseDictionaries';
 import { OpenCollapsedFields } from './openCollapsedFields';
 import { WordIndicators } from './wordIndicators';
+import { FreqUtils } from './freqUtils';
 
 import { MobileUtils } from './mobileUtils';
 import { InfoCircleUtils } from './infoCircleUtils';
-import { FreqUtils } from './freqUtils';
 import { FixRubyPositioning } from './fixRubyPositioning';
 import { CheckDuplicateKey } from './checkDuplicateKey';
 
@@ -89,44 +89,45 @@ export function main(cardSide: string, cardType: string, noteType: string) {
     new Keybinds('keybinds').run();
   }
 
-  if (compileOpts['enableModule.mobileUtils']) {
-    new MobileUtils('mobileUtils').run();
-  }
-
-  if (cardSide === 'back' && compileOpts['enableModule.autoPitchAccent']) {
-    new AutoPitchAccent('autoPitchAccent').run();
-  }
-
-  if (cardSide === 'back' && compileOpts['enableModule.imgUtilsMin']) {
-    new ImgUtilsMin('imgUtilsMin').run();
-  }
-
-  if (cardSide === 'back' && compileOpts['enableModule.imgUtils']) {
-    new ImgUtils('imgUtils').run();
-  }
-
   if (compileOpts['enableModule.sentUtils']) {
     new SentUtils('sentUtils').run();
   }
 
-  if (compileOpts['enableModule.autoHighlightWord']) {
+  if (compileOpts['enableModule.sentUtils.autoHighlight']) {
     new AutoHighlightWord('autoHighlightWord').run();
   }
 
-  if (cardSide === 'back' && compileOpts['enableModule.kanjiHover']) {
-    new KanjiHover('kanjiHover').run();
-  }
 
-  if (cardSide === 'back' && compileOpts['enableModule.collapseDictionaries']) {
-    new CollapseDictionaries('collapseDictionaries').run();
-  }
+  if (cardSide === 'back') {
+    if (compileOpts['enableModule.autoPitchAccent']) {
+      new AutoPitchAccent('autoPitchAccent').run();
+    }
 
-  if (cardSide === 'back' && compileOpts['enableModule.openCollapsedFields']) {
-    new OpenCollapsedFields('openCollapsedFields').run();
-  }
+    if (compileOpts['enableModule.imgUtilsMin']) {
+      new ImgUtilsMin('imgUtilsMin').run();
+    } else if (compileOpts['enableModule.imgUtils']) {
+      new ImgUtils('imgUtils').run();
+    }
 
-  if (cardSide === 'back' && compileOpts['enableModule.wordIndicators']) {
-    new WordIndicators('wordIndicators').run();
+    if (compileOpts['enableModule.kanjiHover']) {
+      new KanjiHover('kanjiHover').run();
+    }
+
+    if (compileOpts['enableModule.collapseDictionaries']) {
+      new CollapseDictionaries('collapseDictionaries').run();
+    }
+
+    if (compileOpts['enableModule.openCollapsedFields']) {
+      new OpenCollapsedFields('openCollapsedFields').run();
+    }
+
+    if (compileOpts['enableModule.wordIndicators']) {
+      new WordIndicators('wordIndicators').run();
+    }
+
+    if (compileOpts['enableModule.freqUtils']) {
+      new FreqUtils('freqUtils').run();
+    }
   }
 
   if (compileOpts['enableModule.mobileUtils']) {
@@ -135,10 +136,6 @@ export function main(cardSide: string, cardType: string, noteType: string) {
 
   if (compileOpts['enableModule.infoCircleUtils']) {
     new InfoCircleUtils('infoCircleUtils').run();
-  }
-
-  if (cardSide === 'back' && compileOpts['enableModule.freqUtils']) {
-    new FreqUtils('freqUtils').run();
   }
 
   if (compileOpts['enableModule.fixRubyPositioning']) {
