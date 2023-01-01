@@ -11,11 +11,20 @@ module.exports = {
   ],
 
 
-  entry: './build/tmp/ts/main.ts',
+  entry: {
+    jpmn_main_front:           './build/tmp/ts/jp-mining-note/main/front.ts',
+    jpmn_main_back:            './build/tmp/ts/jp-mining-note/main/back.ts',
+    jpmn_pa_sent_front:        './build/tmp/ts/jp-mining-note/pa_sent/front.ts',
+    jpmn_pa_sent_back:         './build/tmp/ts/jp-mining-note/pa_sent/back.ts',
+    jpmn_pa_word_front:        './build/tmp/ts/jp-mining-note/pa_word/front.ts',
+    jpmn_pa_word_back:         './build/tmp/ts/jp-mining-note/pa_word/back.ts',
+    jpmn_cloze_deletion_front: './build/tmp/ts/jp-mining-note/cloze_deletion/front.ts',
+    jpmn_cloze_deletion_back:  './build/tmp/ts/jp-mining-note/cloze_deletion/back.ts',
+  },
   mode: 'production',
 
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     //path: path.resolve(__dirname, 'dist'),
     path: path.resolve(__dirname, 'src/_js'),
   },

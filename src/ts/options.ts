@@ -7,7 +7,7 @@ type DO = typeof runtimeOpts;
 // sanitized options
 type O = Omit<DO, "overrides">;
 
-const overrideTypes = ["isMobile", "isPC"] as const;
+const overrideTypes = ["isMobile", "isPC"];
 type OverrideTypes = typeof overrideTypes[number]; // "foo" | "bar" | "baz"
 
 type OverrideValue<K extends keyof O> = {
@@ -49,19 +49,24 @@ function isOverrideValue(val: unknown) {
 
 // function can also take a simple value of the option, doesn't have to be an override
 // returns value, undefined if the value is invalid
-function attemptParseOverride<K extends keyof O>(
+// exported for testing
+export function attemptParseOverride<K extends keyof O>(
     val: unknown, // user option or override value
     t: O[K],      // default option
   ): O[K] | undefined {
 
+
+  let result = val;
   if (isOverrideValue(val)) {
     const override = val as OverrideValueUnknown;
 
     // valid override type
-    if (typeof override.type === 'string' && override.type in overrideTypes) {
+    if (typeof override.type === 'string' && overrideTypes.includes(override.type)) {
       let overrideType = override.type as OverrideTypes;
       let func = OVERRIDE_FUNCS[overrideType];
-      let result = func() ? override.resultTrue : override.resultFalse;
+
+      result = func() ? override.resultTrue : override.resultFalse;
+
       if (isOverrideValue(result)) {
          return attemptParseOverride(result, t);
       }
@@ -70,8 +75,8 @@ function attemptParseOverride<K extends keyof O>(
   }
 
   // verify that it's a valid option
-  if (typeof val === typeof t) {
-    return (val as typeof t);
+  if (typeof result === typeof t) {
+    return (result as typeof t);
   }
   return undefined;
 }
@@ -111,10 +116,8 @@ function getDefaultOption<K extends keyof O>(k: K): O[K] {
 
 export function getOption<K extends keyof O>(k: K): O[K] {
   if (compileOpts.hardcodedRuntimeOptions) { // compiler optimization
-    console.log("hello?")
     return getDefaultOption(k);
   }
-  console.log("not hard coded?")
   return userOption(k) ?? getDefaultOption(k);
 }
 

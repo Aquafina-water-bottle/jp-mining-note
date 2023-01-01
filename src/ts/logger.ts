@@ -70,28 +70,28 @@ export class Logger {
       if (debugToConsole) {
         console.log(message);
       } else {
-        this.#printMsg(message, debugGroupId, null, args);
+        this.printMsg(message, debugGroupId, null, args);
       }
     }
   }
 
   info(message: string, args?: LoggerArgs) {
-    this.#printMsg(message, infoGroupId, null, args);
+    this.printMsg(message, infoGroupId, null, args);
   }
 
   warn(message: string, args?: LoggerArgs) {
-    this.#printMsg(message, warnGroupId, warnClass, args);
+    this.printMsg(message, warnGroupId, warnClass, args);
   }
 
   error(message: string, args?: LoggerArgs) {
-    this.#printMsg(message, errorGroupId, errorClass, args);
+    this.printMsg(message, errorGroupId, errorClass, args);
   }
 
   leech() {
-    this.#printMsg("", leechGroupId, leechClass);
+    this.printMsg("", leechGroupId, leechClass);
   }
 
-  #printMsg(message: string, eleId: GroupId, colorClass: ColorClass | null, args: LoggerArgs = {}) {
+  private printMsg(message: string, eleId: GroupId, colorClass: ColorClass | null, args: LoggerArgs = {}) {
 
     let key: string | null = null;
     if (args?.unique) {
@@ -105,7 +105,7 @@ export class Logger {
 
     let groupEle = document.getElementById(eleId);
     if (groupEle !== null) {
-      this.#appendMsg(message, groupEle, args);
+      this.appendMsg(message, groupEle, args);
     }
 
     let infoCirc = document.getElementById("info_circle");
@@ -114,7 +114,7 @@ export class Logger {
     }
   }
 
-  #appendMsg(message: string | Array<string>, groupEle: HTMLElement, args: LoggerArgsMsg = {}) {
+  private appendMsg(message: string | Array<string>, groupEle: HTMLElement, args: LoggerArgsMsg = {}) {
 
     let msgEle = document.createElement('div');
     msgEle.classList.add("info-circle__message")
