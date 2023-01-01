@@ -1,11 +1,7 @@
-import { Module, ModuleId } from './module';
+import { Module } from './module';
 import { fieldExists, isAndroid, isMobile } from './utils';
 
 export class MobileUtils extends Module {
-  constructor(id: ModuleId) {
-    super(id);
-  }
-
   run() {
     if (!isMobile()) {
       return;

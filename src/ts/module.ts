@@ -7,7 +7,6 @@ import { Logger } from './logger';
 // this order prevents html elements / runtime options from being ran despite nothing using it
 
 export type ModuleId =
-  | 'timePerformance'
   | 'keybinds'
   | 'autoPitchAccent'
   | 'imgUtilsMin'
@@ -36,7 +35,7 @@ export abstract class Module {
 
   main() {
     if (getOption(`${this.id}.enabled`)) {
-      this.main();
+      this.run();
     }
   }
 }

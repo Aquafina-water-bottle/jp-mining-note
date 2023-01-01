@@ -14,26 +14,7 @@
 {# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
-
-{% if not COMPILE_OPTIONS("hardcodedRuntimeOptions").item() %}
-<script id="jpmn_options_script" src="_jpmn-options.js"></script>
-{% endif %}
-
-{% autoescape false %}
-<script>
-{#{% include "_js/" + "_".join([
-  CARD_INFO("js-prefix").item(),
-  CARD_INFO("card-type").item(),
-  CARD_INFO("card-side").item(),
-]) + ".js" %}#}
-{{ include_raw("_js/" + "_".join([
-  CARD_INFO("js-prefix").item(),
-  CARD_INFO("card-type").item(),
-  CARD_INFO("card-side").item(),
-]) + ".js") }}
-</script>
-{% endautoescape %}
-
+{% include "jp-mining-note/partials/javascript.html" %}
 
 {% include "jp-mining-note/partials/hidden_front.html" %}
 

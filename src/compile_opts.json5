@@ -149,26 +149,29 @@
   // Whether the module shows up in the raw javascript or not.
   // If set to false, then the module's javascript will NOT exist in the template,
   // so any related behavior and runtime options will no longer function.
-  "enableModule.timePerformance":       false,
-  "enableModule.keybinds":              true,
+  "enableModule.timePerformance":         false,
+  "enableModule.keybinds":                true,
 
-  "enableModule.autoPitchAccent":       true,
-  "enableModule.imgUtilsMin":           false,
-  "enableModule.imgUtils":              true,
+  "enableModule.sentUtils":               true,
+  "enableModule.sentUtils.autoHighlight": true,
 
-  "enableModule.sentUtils":             true,
-  "enableModule.autoHighlightWord":     true,
+  "enableModule.autoPitchAccent":         true,
+  "enableModule.autoPitchAccent.color":   true,
 
-  "enableModule.kanjiHover":            true,
-  "enableModule.collapseDictionaries":  true,
-  "enableModule.openCollapsedFields":   true,
-  "enableModule.wordIndicators":        true,
+  "enableModule.imgUtilsMin":             false, // overrides imgUtils if true
+  "enableModule.imgUtils":                true,
+  "enableModule.imgUtils.imageBlur":      true,
 
-  "enableModule.mobileUtils":           true,
-  "enableModule.infoCircleUtils":       true,
-  "enableModule.freqUtils":             true,
-  "enableModule.fixRubyPositioning":    true,
-  "enableModule.checkDuplicateKey":     true,
+  "enableModule.kanjiHover":              true,
+  "enableModule.collapseDictionaries":    true,
+  "enableModule.openCollapsedFields":     true,
+  "enableModule.wordIndicators":          true,
+  "enableModule.freqUtils":               true,
+
+  "enableModule.mobileUtils":             true,
+  "enableModule.infoCircleUtils":         true,
+  "enableModule.fixRubyPositioning":      true,
+  "enableModule.checkDuplicateKey":       true,
 
 
 
@@ -209,6 +212,15 @@
   // An option that only affects the note when fill-mode is font size.
   // adds a smooth transition between no furigana and furigana
   "fullSentenceRuby.fillModeFontSizeTransition": false,
+
+
+  // ==========================================================================
+  // = defaultQuotes =
+  // ==========================================================================
+  // see sentUtils.quotes for the appropriate documentation on what this does
+  "defaultQuote.add": true
+  "defaultQuote.displayMode": "vn"
+
 
 }
 

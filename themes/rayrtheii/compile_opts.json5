@@ -49,26 +49,34 @@
   ],
 
 
-  "enableModule.timePerformance":       true,
-  "enableModule.keybinds":              true,
+  //"enableModule.timePerformance":         true,
+  //"enableModule.keybinds":                true,
 
-  "enableModule.autoPitchAccent":       true,
-  "enableModule.imgUtilsMin":           true,
-  "enableModule.imgUtils":              false,
+  //"enableModule.autoPitchAccent":         true,
+  //"enableModule.autoPitchAccent.color":   false,
 
-  "enableModule.sentUtils":             true,
-  "enableModule.autoHighlightWord":     true,
+  //"enableModule.imgUtils":                true,
+  //"enableModule.imgUtils.isMinimal":      false,
+  //"enableModule.imgUtils.imageBlur":      false,
 
-  "enableModule.kanjiHover":            true,
-  "enableModule.collapseDictionaries":  true,
-  "enableModule.openCollapsedFields":   true,
-  "enableModule.wordIndicators":        true,
+  //"enableModule.sentUtils":               true,
+  //"enableModule.sentUtils.autoHighlight": true,
 
-  "enableModule.mobileUtils":           true,
-  "enableModule.infoCircleUtils":       true,
-  "enableModule.freqUtils":             true,
-  "enableModule.fixRubyPositioning":    true,
-  "enableModule.checkDuplicateKey":     true,
+  //"enableModule.kanjiHover":              true,
+  //"enableModule.collapseDictionaries":    true,
+  //"enableModule.openCollapsedFields":     true,
+  //"enableModule.wordIndicators":          true,
+
+  //"enableModule.mobileUtils":             true,
+  //"enableModule.infoCircleUtils":         true,
+  //"enableModule.freqUtils":               true,
+  //"enableModule.fixRubyPositioning":      true,
+  //"enableModule.checkDuplicateKey":       true,
+
+  "enableModule.timePerformance":         true,
+  "enableModule.autoPitchAccent.color":   false,
+  "enableModule.imgUtils.imageBlur":      false,
+
 
   //"enableModule.hooks.theme":           true,
   //"enableModule.hooks.custom":          true,
