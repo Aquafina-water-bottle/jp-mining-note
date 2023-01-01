@@ -11,7 +11,8 @@ CONFIG = {
     # See (TODO link documentation here) for more info
     "theme-folder": None,
     #"theme-folder": "132",
-    #"theme-folder": "aquafina",
+    #"theme-folder": "opt_vocab",
+    #"theme-folder": "rayrtheii",
 
     # whether the theme options overrides the user options or not
     "theme-override-user-options": True,
