@@ -1,0 +1,9 @@
+import { Module } from "../module"
+import { getOption } from "../options"
+
+export class {{MODULE_UPPER_CAMELCASE}} extends Module {
+
+  main() {
+    // ...
+  }
+}

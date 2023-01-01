@@ -8,6 +8,7 @@ import { Logger } from './logger';
 
 export type ModuleId =
   | 'keybinds'
+  | 'mainCardUtils'
   | 'autoPitchAccent'
   | 'imgUtilsMin'
   | 'imgUtils'
@@ -23,19 +24,29 @@ export type ModuleId =
   | 'fixRubyPositioning'
   | 'checkDuplicateKey';
 
-export abstract class Module {
-  id: ModuleId;
+export abstract class SideModule {
+  id: string;
   logger: Logger;
 
-  constructor(id: ModuleId) {
+  constructor(id: string) {
     this.id = id;
     this.logger = new Logger(id);
   }
-  abstract run(): void;
 
-  main() {
+  abstract main(): void;
+}
+
+export abstract class Module extends SideModule {
+  id: ModuleId;
+
+  constructor(id: ModuleId) {
+    super(id);
+    this.id = id; // requires another set apparently
+  }
+
+  run() {
     if (getOption(`${this.id}.enabled`)) {
-      this.run();
+      this.main();
     }
   }
 }

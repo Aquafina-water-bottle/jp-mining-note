@@ -1,8 +1,8 @@
-import { Module } from './module';
-import { fieldExists, isAndroid, isMobile } from './utils';
+import { Module } from '../module';
+import { fieldAnyExist, isAndroid, isMobile } from '../utils';
 
 export class MobileUtils extends Module {
-  run() {
+  main() {
     if (!isMobile()) {
       return;
     }
@@ -10,7 +10,7 @@ export class MobileUtils extends Module {
     //const logger = new Logger("mobileUtils")
 
     // removes the hover effect for mobile displays only
-    if (fieldExists('IsClickCard')) {
+    if (fieldAnyExist('IsClickCard')) {
       document
         .getElementById('display')
         ?.classList.toggle('expression__hybrid--click-hover-effect', false);

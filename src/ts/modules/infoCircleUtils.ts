@@ -1,6 +1,6 @@
-import { Module } from './module';
-import { getOption } from './options';
-import { isMobile, popupMenuMessage } from './utils';
+import { Module } from '../module';
+import { getOption } from '../options';
+import { isMobile, popupMenuMessage } from '../utils';
 
 const infoCircFrozen = 'info-circle--frozen';
 const infoCircTogglable = 'info-circle-svg-wrapper--togglable';
@@ -15,7 +15,7 @@ export class InfoCircleUtils extends Module {
   private readonly togglableLockshowPopup = getOption('infoCircleUtils.togglableLock.showPopup');
   private readonly togglableLockEnabled = getOption('infoCircleUtils.togglableLock.enabled');
 
-  run() {
+  main() {
     if (this.infoCircWrapper === null || this.infoCirc === null) {
       return;
     }

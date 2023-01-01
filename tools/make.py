@@ -144,15 +144,24 @@ TYPE_MAP = {
 
 class Translator:
     def __init__(self, languages: list[str], translations: dict[str, dict[str, str]]):
-        self.languages = languages
-        self.translations = translations
+        dicts = (translations[lang] for lang in languages)
+        self.calc = utils.defaults(*dicts)
 
     def get(self, key) -> str:
-        for lang in self.languages:
-            if lang in self.translations and key in self.translations[lang]:
-                return self.translations[lang][key]
+        if key not in self.calc:
+            raise Exception(f"Cannot find translation for {key}.")
+        return self.calc[key]
 
-        raise Exception(f"Cannot find translation for {key}.")
+    #def __init__(self, languages: list[str], translations: dict[str, dict[str, str]]):
+    #    self.languages = languages
+    #    self.translations = translations
+
+    #def get(self, key) -> str:
+    #    for lang in self.languages:
+    #        if lang in self.translations and key in self.translations[lang]:
+    #            return self.translations[lang][key]
+
+    #    raise Exception(f"Cannot find translation for {key}.")
 
 
 class Generator:
@@ -222,6 +231,7 @@ class Generator:
                 "config.py": config.dict(),
             },
             "TRANSLATOR": translator,
+            "TRANSLATOR_RAW": translator.calc,
             "CARD_INFO": {},  # will be filled later
             # helper methods
             "get_directories_with_file": self.get_directories_with_file,

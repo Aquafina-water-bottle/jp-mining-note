@@ -184,13 +184,13 @@
   {%- autoescape false -%}
   <span class="sentence-quote sentence-quote--open">
     {{- COMPILE_OPTIONS("autoQuoteOpen").item() -}}
-  </span><span>
+  </span>
   {%- endautoescape -%}
 {%- endset -%}
 
 {% set quote_close -%}
   {%- autoescape false -%}
-  </span><span class="sentence-quote sentence-quote--close">
+  <span class="sentence-quote sentence-quote--close">
     {{- COMPILE_OPTIONS("autoQuoteClose").item() -}}
   </span>
   {%- endautoescape -%}
@@ -220,3 +220,32 @@
   {%- call IFNOT("AltDisplay") %}{{ expression_inner_div(name) }}{% endcall -%}
   {%- if sentence -%} {{quote_close}} {%- endif -%}
 {%- endmacro -%}
+
+
+{% macro _get_quote_class(opt) -%}
+  {%- if opt == "unquoted-no-indent" -%}
+    sentence-unquoted-display-no-indent
+  {%- elif opt == "unquoted-indented" -%}
+    sentence-unquoted-display-indent
+  {%- elif opt == "unquoted-right-shifted" -%}
+    sentence-unquoted-display-right-shifted
+  {%- elif opt == "quoted-block" -%}
+    sentence-quoted-display-block
+  {%- else -%} {#- quoted-flow -#}
+    sentence-quoted-display-flow
+  {%- endif -%}
+{%- endmacro -%}
+
+{% macro default_disp_sent_quote_class() -%}
+  {%- call IF("AltDisplay") -%}
+    {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.altDisplay.displayMode").item()) }}
+  {%- endcall -%}
+  {%- call IFNOT("AltDisplay") -%}
+    {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.display.displayMode").item()) }}
+  {%- endcall -%}
+{%- endmacro -%}
+
+{% macro default_full_sent_quote_class() -%}
+  {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.fullSent.displayMode")) }}
+{%- endmacro -%}
+

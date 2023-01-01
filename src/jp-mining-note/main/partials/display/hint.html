@@ -18,6 +18,7 @@
 
   <div class="expression--sentence expression--hint-sentence
     {% call IF('IsTargetedSentenceCard') %} highlight-bold {% endcall %}
+    {{ utils.default_disp_sent_quote_class() }}
     ">
     {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
   </div>

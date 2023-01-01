@@ -1,27 +1,30 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { fieldExists } from './utils';
+import { fieldAllExists } from './utils';
 
 //import { TimePerformance } from "./timePerformance"
-import { Keybinds } from './keybinds';
+import { Keybinds } from './modules/keybinds';
 
-import { SentUtils } from './sentUtils';
-import { AutoHighlightWord } from './autoHighlightWord';
+import { MainCardUtils } from './modules/mainCardUtils';
 
-import { AutoPitchAccent } from './autoPitchAccent';
-import { ImgUtilsMin } from './imgUtilsMin';
-import { ImgUtils } from './imgUtils';
 
-import { KanjiHover } from './kanjiHover';
-import { CollapseDictionaries } from './collapseDictionaries';
-import { OpenCollapsedFields } from './openCollapsedFields';
-import { WordIndicators } from './wordIndicators';
-import { FreqUtils } from './freqUtils';
+import { SentUtils } from './modules/sentUtils';
+//import { AutoHighlightWord } from './modules/autoHighlightWord';
 
-import { MobileUtils } from './mobileUtils';
-import { InfoCircleUtils } from './infoCircleUtils';
-import { FixRubyPositioning } from './fixRubyPositioning';
-import { CheckDuplicateKey } from './checkDuplicateKey';
+import { AutoPitchAccent } from './modules/autoPitchAccent';
+import { ImgUtilsMin } from './modules/imgUtilsMin';
+import { ImgUtils } from './modules/imgUtils';
+
+import { KanjiHover } from './modules/kanjiHover';
+import { CollapseDictionaries } from './modules/collapseDictionaries';
+import { OpenCollapsedFields } from './modules/openCollapsedFields';
+import { WordIndicators } from './modules/wordIndicators';
+import { FreqUtils } from './modules/freqUtils';
+
+import { MobileUtils } from './modules/mobileUtils';
+import { InfoCircleUtils } from './modules/infoCircleUtils';
+import { FixRubyPositioning } from './modules/fixRubyPositioning';
+import { CheckDuplicateKey } from './modules/checkDuplicateKey';
 
 export function main(cardSide: string, cardType: string, noteType: string) {
   // ==========================================================================
@@ -71,7 +74,7 @@ export function main(cardSide: string, cardType: string, noteType: string) {
     );
   }
 
-  if (fieldExists('IsHoverCard', 'IsClickCard')) {
+  if (fieldAllExists('IsHoverCard', 'IsClickCard')) {
     LOGGER.warn(
       'Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.'
     );
@@ -89,12 +92,12 @@ export function main(cardSide: string, cardType: string, noteType: string) {
     new Keybinds('keybinds').run();
   }
 
-  if (compileOpts['enableModule.sentUtils']) {
-    new SentUtils('sentUtils').run();
+  if (cardType === "main") {
+    new MainCardUtils('mainCardUtils').run();
   }
 
-  if (compileOpts['enableModule.sentUtils.autoHighlight']) {
-    new AutoHighlightWord('autoHighlightWord').run();
+  if (compileOpts['enableModule.sentUtils']) {
+    new SentUtils('sentUtils').run();
   }
 
 
