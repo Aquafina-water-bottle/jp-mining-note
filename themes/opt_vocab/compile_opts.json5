@@ -3,15 +3,36 @@
   "hardcodedRuntimeOptions": true,
 
   // default card is vocab card, so all binary fields are useless
+  "alwaysFilledFields": [],
   "neverFilledFields": [
     "IsSentenceCard", "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard",
     "IsHintCard", "PAShowInfo", "PATestOnlyWord", "PADoNotTest",
     "PASeparateWordCard", "PASeparateSentenceCard", "SeparateClozeDeletionCard",
   ],
 
-  // TODO disable all other modules
-  "enableModule.imgUtilsMin": true,
-  "enableModule.imgUtils": false,
+
+
+  "enableModule.timePerformance":       false,
+  "enableModule.keybinds":              false,
+
+  "enableModule.autoPitchAccent":       false,
+  "enableModule.imgUtilsMin":           true,
+  "enableModule.imgUtils":              false,
+
+  "enableModule.sentUtils":             false,
+  "enableModule.autoHighlightWord":     false,
+
+  "enableModule.kanjiHover":            false,
+  "enableModule.collapseDictionaries":  false,
+  "enableModule.openCollapsedFields":   false,
+  "enableModule.wordIndicators":        false,
+
+  "enableModule.mobileUtils":           false,
+  "enableModule.infoCircleUtils":       false,
+  "enableModule.freqUtils":             false,
+  "enableModule.fixRubyPositioning":    false,
+  "enableModule.checkDuplicateKey":     false,
+
 }
 
 

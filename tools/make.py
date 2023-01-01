@@ -409,9 +409,11 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
     )
 
     if args.build_source_map:
-        os.system("npm run dev")
+        e = os.system("npm run dev")
     else:
-        os.system("npm run build")
+        e = os.system("npm run build")
+    if e != 0:
+        exit(e)
 
     # generates for each card type
     note_model_id = note_config("id").item()

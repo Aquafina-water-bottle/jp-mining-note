@@ -1,5 +1,6 @@
 import { compileOpts, runtimeOpts } from './consts';
 import { LOGGER } from './logger'
+import { isMobile } from './utils'
 
 // default options
 type DO = typeof runtimeOpts;
@@ -31,9 +32,9 @@ type Overrides = {
 
 const OVERRIDE_FUNCS: Record<OverrideTypes, () => boolean> = {
 
-  isMobile: () => document.documentElement.classList.contains('mobile'),
+  isMobile: isMobile,
 
-  isPC: () => !OVERRIDE_FUNCS.isMobile(),
+  isPC: () => !isMobile(),
 
 };
 

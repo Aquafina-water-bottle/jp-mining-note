@@ -1,9 +1,3 @@
-import { ModelInfo, main } from "../../main"
+import { main } from "../../main"
 
-const modelInfo: ModelInfo = {
-  cardSide: "front",
-  cardType: "pa_sent",
-  noteType: "jp-mining-note",
-};
-
-main(modelInfo);
+main("front", "pa_sent", "jp-mining-note")
