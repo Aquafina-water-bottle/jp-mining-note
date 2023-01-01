@@ -390,6 +390,12 @@
     { "open": "『", "close": "』" },
   ],
 
+
+  // sentUtils.fullSent.quotes
+  // --------------------------------------------------------------------------
+  // quotes on the full sentence (sentence shown in kanji hover & on backside of card)
+
+
   // >>> processMode <<<
   // "add": always adds a quote
   // "remove": always removes the quote
@@ -415,6 +421,11 @@
   // あああああああ」
   // ああああああああ    // <-- line 3
 
+  "sentUtils.fullSent.quotes.processMode": "remove",
+  "sentUtils.fullSent.quotes.processMode.searchMulti": true,
+
+
+
   // >>> displayMode.quoted <<<
   // "block":
   //  |「ああああああああ|
@@ -434,19 +445,13 @@
   //  |  ええええええええ|
   //  |  ええええええ    |
 
-  // >>> removeFinalPeriod <<<
-  // removes the period at the end of a sentence if `true`
-
-
-  // sentUtils.fullSent.quotes
-  // --------------------------------------------------------------------------
-  // quotes on the full sentence (sentence shown in kanji hover & on backside of card)
-
-  "sentUtils.fullSent.quotes.processMode": "remove",
-  "sentUtils.fullSent.quotes.processMode.searchMulti": true,
-
   "sentUtils.fullSent.quotes.displayMode.quoted": "block",
   "sentUtils.fullSent.quotes.displayMode.unquoted": "no-indent",
+
+
+
+  // >>> removeFinalPeriod <<<
+  // removes the period at the end of a sentence if `true`
 
   "sentUtils.fullSent.quotes.removeFinalPeriod.quoted": true,
   "sentUtils.fullSent.quotes.removeFinalPeriod.unquoted": false,

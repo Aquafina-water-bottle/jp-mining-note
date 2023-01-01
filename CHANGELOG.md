@@ -63,6 +63,11 @@ and must use `./install.py --update`.
 - Added hotkeys to update the current card to be a cloze deletion card
     - TODO documentation on this (specifically ways to create cloze deletion cards)
 - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
+- Options rework:
+    - Flattened all compile-time options and runtime options
+    - Moved compile-time options to its own json file
+    - Both are now in the json5 format for human readability purposes
+- Added better compile-time and runtime options for how quotes are displayed / not displayed
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
