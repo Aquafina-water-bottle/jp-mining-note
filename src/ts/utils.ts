@@ -1,4 +1,5 @@
 import { LOGGER } from './logger';
+import { translatorStrs } from './consts';
 
 export type Field =
   | 'Key'
@@ -79,16 +80,35 @@ export function popupMenuMessage(message: string, isHTML = false) {
 }
 
 function _fieldExists(field: Field): boolean {
-  return !!document.getElementById(field + '_exists')?.innerHTML;
+  const x = document.getElementById(field + '_exists');
+  if (x === null) {
+    return false; // should ever be reached?
+  }
+  return (x.innerHTML.length !== 0)
 }
 
-export function fieldExists(...fields: Field[]) {
+/* if every field exists */
+export function fieldAllExists(...fields: Field[]) {
   for (const field of fields) {
     if (!_fieldExists(field)) {
       return false;
     }
   }
   return true;
+}
+
+/* if any field exists */
+export function fieldAnyExist(...fields: Field[]) {
+  for (const field of fields) {
+    if (_fieldExists(field)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function fieldNoneExist(...fields: Field[]) {
+  return !fieldAnyExist(...fields);
 }
 
 export function isMobile() {
@@ -98,3 +118,82 @@ export function isMobile() {
 export function isAndroid() {
   return document.documentElement.classList.contains('android');
 }
+
+export function escapeRegExp(str: string) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+export function escapeReplacement(str: string) {
+    return str.replace(/\$/g, '$$$$');
+}
+
+// why isn't this builtin :(?
+export function countOccurancesInString(str: string, substr: string): number {
+  return ( str.match(escapeRegExp(substr)) ?? [] ).length;
+}
+
+export function arrContainsAnyOf<T>(mainArr: readonly T[], testArr: readonly T[]): boolean {
+  for (const x of testArr) {
+    if (mainArr.includes(x)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+
+type PAIndicatorType = "none" | "word" | "sentence";
+type PAIndicatorClass = "pa-indicator-color--none" | "pa-indicator-color--word" | "pa-indicator-color--sentence";
+
+export type PAIndicator = {
+  type: PAIndicatorType,
+  className: PAIndicatorClass,
+  tooltip: string,
+}
+
+export const paIndicator: PAIndicator  = (function () {
+  let type: PAIndicatorType | null = null;
+  let tooltip = null;
+
+  if (getCardType() === "pa_sent") {
+    type = "sentence";
+  } else if (fieldAnyExist("PADoNotTest", "PASeparateWordCard")) {
+    type = "none";
+  } else if (fieldAnyExist("PASeparateSentenceCard", "PATestOnlyWord")) {
+    type = "word";
+  } else if (fieldAnyExist("IsSentenceCard")) {
+    type = "sentence";
+  } else {
+    type = "word";
+  }
+
+  let className: PAIndicatorClass = `pa-indicator-color--${type}`;
+
+  if (type === "none") {
+    tooltip = translatorStrs['pa-indicator-do-not-test']
+  } else if (type == "word") {
+    tooltip = translatorStrs['pa-indicator-word']
+  } else { // sentence
+    tooltip = translatorStrs['pa-indicator-sentence']
+  }
+
+  return {
+    type: type,
+    className: className,
+    tooltip: tooltip,
+  }
+}());
+
+
+export function getCardType() {
+  return document.getElementById("hidden_card_type")?.innerHTML;
+}
+export function getCardSide() {
+  return document.getElementById("hidden_card_side")?.innerHTML;
+}
+export function getNoteType() {
+  return document.getElementById("hidden_note_type")?.innerHTML;
+}
+
+

@@ -254,10 +254,12 @@ def get_config_from_path(file_path: str) -> Config:
 
 
 def defaults(*dicts: dict, strict=False):
-    # Gets keys, with the highest priority being the first dictionary.
-    # This is basically Lodash's _.defaults() method, as this only goes one layer deep
+    """
+    Gets keys, with the highest priority being the first dictionary.
+    This is basically Lodash's _.defaults() method, as this only goes one layer deep
 
-    # strict means that it will error if the key was not found in the last dictionary
+    `strict` means that it will error if the key was not found in the last dictionary
+    """
 
     result = {}
     for d in dicts:

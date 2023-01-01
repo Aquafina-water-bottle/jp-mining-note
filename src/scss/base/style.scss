@@ -194,10 +194,38 @@ details.glossary-details > summary {
  * formats the open right quote to be to the left of the entire text box
  */
 
-.left-align-quote {
+//.left-align-quote {
+//  text-indent: -1em;
+//  padding-left: 1em;
+//}
+
+
+.sentence-quoted-display-flow {
+}
+
+.sentence-quoted-display-block {
   text-indent: -1em;
   padding-left: 1em;
 }
+
+/* unquoted sentence will get rid of quotes no matter what */
+.sentence-unquoted-display-no-indent,
+.sentence-unquoted-display-indent,
+.sentence-unquoted-display-right-shifted {
+  > .sentence-quote {
+    display: none;
+  }
+}
+
+.sentence-unquoted-display-indent {
+  text-indent: 1em;
+}
+
+.sentence-unquoted-display-right-shifted {
+  padding-left: 1em;
+}
+
+
 
 
 /*
@@ -630,8 +658,8 @@ ruby rt {
   display: inline-block;
   text-align: left;
 
-  text-indent: -1em;
-  padding-left: 1em;
+  //text-indent: -1em;
+  //padding-left: 1em;
   font-size: var(--sentence-font-size);
 }
 .expression-box__sentence, .expression-box__hybrid-sentence {

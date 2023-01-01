@@ -18,8 +18,7 @@
   "enableModule.sentUtils":             false,
 
   "enableModule.autoPitchAccent":       false,
-  "enableModule.imgUtils":              true,
-  "enableModule.imgUtils.isMinimal":    true, // overrides all imgUtils features
+  "enableModule.imgUtilsMin":           true,
 
   "enableModule.kanjiHover":            false,
   "enableModule.collapseDictionaries":  false,

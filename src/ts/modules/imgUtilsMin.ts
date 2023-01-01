@@ -1,12 +1,12 @@
-import { getOption } from './options';
-import { Module } from './module';
-import { VW } from './utils';
-import { compileOpts } from './consts';
-import { Logger } from './logger';
+import { getOption } from '../options';
+import { Module } from '../module';
+import { VW } from '../utils';
+import { compileOpts } from '../consts';
+import { Logger } from '../logger';
 
 export class ImgUtilsMin extends Module {
 
-  run() {
+  main() {
     const logger = new Logger('imgUtilsMin');
 
     // restricting the max height of image to the definition box

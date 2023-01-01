@@ -1,5 +1,5 @@
-import { Module } from './module';
-import { getOption } from './options';
+import { Module } from '../module';
+import { getOption } from '../options';
 
 export class FreqUtils extends Module {
   private readonly freqDisplay = document.getElementById('frequencies_display');
@@ -23,7 +23,7 @@ export class FreqUtils extends Module {
     this.freqOverflow.classList.toggle('hidden', false);
   }
 
-  run() {
+  main() {
     // it seems like using .innerHTML has worse performance than
     // just re-calculating everything again
     // subtract 1 because the overflow indicator is already in the group

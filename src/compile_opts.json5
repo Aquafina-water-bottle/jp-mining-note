@@ -218,9 +218,31 @@
   // = defaultQuotes =
   // ==========================================================================
   // see sentUtils.quotes for the appropriate documentation on what this does
-  "defaultQuote.add": true
-  "defaultQuote.displayMode": "vn"
+  "defaultQuote.add": true,
+  "defaultQuote.displayMode": "vn",
+
+  // >>> displayMode (quoted) <<<
+  // "quoted-block":
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  // "quoted-flow":
+  //  |「ああああああああ|
+  //  |ああああああ」    |
+
+  // >>> displayMode (unquoted) <<<
+  // "unquoted-indented":
+  //  |  ええええええええ|
+  //  |ええええええ      |
+  // "unquoted-no-indent":
+  //  |えええええええええ|
+  //  |えええええ        |
+  // "unquoted-right-shifted":
+  //  |  ええええええええ|
+  //  |  ええええええ    |
 
 
+  "defaultQuote.fullSent.displayMode": "unquoted-no-indent",
+  "defaultQuote.display.displayMode": "quoted-block",
+  "defaultQuote.altDisplay.displayMode": "unquoted-no-indent",
 }
 

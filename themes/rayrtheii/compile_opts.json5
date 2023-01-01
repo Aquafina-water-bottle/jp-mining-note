@@ -78,6 +78,15 @@
   "enableModule.imgUtils.imageBlur":      false,
 
 
+
+
+
+  // TODO re-enable
+  //"enableModule.sentUtils":               false,
+
+
+
+
   //"enableModule.hooks.theme":           true,
   //"enableModule.hooks.custom":          true,
 

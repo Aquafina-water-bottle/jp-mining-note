@@ -1,37 +1,93 @@
 import { compileOpts, runtimeOpts } from './consts';
 import { LOGGER } from './logger';
-import { isMobile } from './utils';
+import { isMobile, VW, arrContainsAnyOf, TAGS_LIST } from './utils';
 
 // default options
 type DO = typeof runtimeOpts;
 
 // sanitized options
-type O = Omit<DO, 'overrides'>;
+export type O = Omit<DO, 'overrides'>;
 
-const overrideTypes = ['isMobile', 'isPC'];
-type OverrideTypes = typeof overrideTypes[number]; // "foo" | "bar" | "baz"
+const overrideTypes = ['isMobile', 'isPC', 'cardType', 'viewport'];
+type OverrideTypes = typeof overrideTypes[number];
+
+//type OverrideArgs<K extends keyof (typeof runtimeOpts.args)> = {kjkkkjj
+//}
+
+//type StrCmpOpType = "===" | "!==";
+//type NumCmpOpType = "===" | "!==" | ">" | "<" | ">=" | "<=";
 
 type OverrideValue<K extends keyof O> = {
   readonly type: OverrideTypes;
   // allows recursive override entries
   readonly resultFalse: O[K] | OverrideValue<K>;
   readonly resultTrue: O[K] | OverrideValue<K>;
+  readonly args?: unknown; // TODO
 };
 
 type OverrideValueUnknown = {
   readonly type: unknown;
   readonly resultFalse: unknown;
   readonly resultTrue: unknown;
+  readonly args?: unknown; // TODO
 };
 
 type Overrides = {
   readonly [K in keyof O]: OverrideValue<K>;
 };
 
-const OVERRIDE_FUNCS: Record<OverrideTypes, () => boolean> = {
+
+const STR_OPS = {
+  "===": (a: any, b: any) => a === b,
+  "!==": (a: any, b: any) => a !== b,
+}
+
+const OPS = {
+  "===": <T>(a: T, b: T) => a === b,
+  "!==": <T>(a: T, b: T) => a !== b,
+  ">": <T>(a: T, b: T) => a > b,
+  "<": <T>(a: T, b: T) => a < b,
+  ">=": <T>(a: T, b: T) => a >= b,
+  "<=": <T>(a: T, b: T) => a <= b,
+}
+
+const OVERRIDE_FUNCS: Record<OverrideTypes, (args: unknown) => boolean> = {
   isMobile: isMobile,
 
   isPC: () => !isMobile(),
+
+  viewport: (args: unknown) => {
+    if (
+      args !== null &&
+      typeof args === 'object' &&
+      'op' in args &&
+      'value' in args
+    ) {
+      if ((args.op as string) in OPS) {
+        return OPS[args.op as keyof typeof OPS](VW, args.value);
+      }
+    }
+    LOGGER.warn(`invalid viewport arguments: ${args}`);
+    return true;
+  },
+
+  cardType: (args: unknown) => {
+    if (
+      args !== null &&
+      typeof args === 'object' &&
+      'op' in args &&
+      'cardType' in args
+    ) {
+      if ((args.op as string) in OPS) {
+        const actualCardType: string = document.getElementById("hidden_card_type")?.innerHTML ?? "";
+        const testCardType = args.cardType;
+        return STR_OPS[args.op as keyof typeof STR_OPS](actualCardType, testCardType);
+      }
+    }
+    LOGGER.warn(`invalid cardType arguments: ${args}`);
+    return true;
+  },
+
 };
 
 function isOverrideValue(val: unknown) {
@@ -60,7 +116,7 @@ export function attemptParseOverride<K extends keyof O>(
       let overrideType = override.type as OverrideTypes;
       let func = OVERRIDE_FUNCS[overrideType];
 
-      result = func() ? override.resultTrue : override.resultFalse;
+      result = func(override.args) ? override.resultTrue : override.resultFalse;
 
       if (isOverrideValue(result)) {
         return attemptParseOverride(result, t);
@@ -111,3 +167,20 @@ export function getOption<K extends keyof O>(k: K): O[K] {
   }
   return userOption(k) ?? getDefaultOption(k);
 }
+
+// array of [keyof O, any]
+type OptTagsToResult = ([keyof O, any])[];
+
+// given an array with entries of format [keyof O, any],
+// gets the first result where the setting contains the tag
+export function checkOptTags(tags: readonly string[], tagsToResult: OptTagsToResult) {
+  for (const [optKey, result] of tagsToResult) {
+    const opt = getOption(optKey)
+
+    if (Array.isArray(opt) && arrContainsAnyOf(tags, opt)) {
+      return result;
+    }
+  }
+  return undefined;
+}
+
