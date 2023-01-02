@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Any, Iterable
 
 import note_files
+#from note_changes import NOTE_CHANGES
 
 
 if TYPE_CHECKING:
@@ -372,13 +373,19 @@ def get_compile_opts(config: Config) -> Config:
 #    return contents
 
 
+def handle_custom_version(ver: str) -> str:
+    #if ver == "latest":
+    #    return str(NOTE_CHANGES[0].version)
+    return ver
+
+
 def get_version(args) -> str:
     """
     gets version of the jp mining note within the repo
     """
 
     if args.dev_output_version is not None:
-        return args.dev_output_version
+        return handle_custom_version(args.dev_output_version)
 
     root_folder = get_root_folder()
     with open(os.path.join(root_folder, "version.txt")) as f:
@@ -398,7 +405,7 @@ def get_version_from_anki(args) -> str:
     """
 
     if args.dev_input_version is not None:
-        return args.dev_input_version
+        return handle_custom_version(args.dev_input_version)
 
     nf_config = get_note_config()
 
