@@ -22,6 +22,9 @@ type Sentence = {
   readonly base: Element;
 };
 
+type QuoteProcessMode = 'add' | 'remove' | 'as-is' | 'none';
+type QuoteDisplayMode = 'block' | 'flow' | 'indent' | 'no-indent' | 'right-shifted';
+
 export type SentenceType = 'fullSent' | 'display';
 type OptionSentenceType = SentenceType | 'altDisplay';
 
@@ -192,7 +195,7 @@ export class SentUtils extends Module {
   private processQuotes(
     sent: Sentence,
     sentContents: string,
-    processMode: string,
+    processMode: QuoteProcessMode,
     sentType: SentenceType
   ) {
     let [o, strippedSent, c] = this.checkQuoteAndStrip(sentContents);
@@ -257,7 +260,9 @@ export class SentUtils extends Module {
     const arr = Array.from(sent.children);
     if (arr.length > 0 && arr.every((x) => x.nodeName === 'DIV')) {
       if (getOption('sentUtils.fixDivList.warnOnFix')) {
-        this.logger.warn(`Following sentence was stripped of div elements: ${sent.innerHTML}`);
+        this.logger.warn(
+          `Following sentence was stripped of div elements: ${sent.innerHTML}`
+        );
       }
       return arr.map((x) => x.innerHTML).join('<br>');
     }
@@ -267,7 +272,7 @@ export class SentUtils extends Module {
   private getQuoteProcessMode(
     optSentType: OptionSentenceType,
     checkTags = false
-  ): string {
+  ): QuoteProcessMode {
     if (checkTags) {
       const processMode = checkOptTags(this.tags, [
         ['sentUtils.display.quotes.processMode.tagOverride.add', 'add'],
@@ -280,14 +285,14 @@ export class SentUtils extends Module {
       }
     }
 
-    return getOption(`sentUtils.${optSentType}.quotes.processMode`) as string;
+    return getOption(`sentUtils.${optSentType}.quotes.processMode`) as QuoteProcessMode;
   }
 
   private getQuoteDisplayMode(
     sentType: SentenceType,
     isQuoted: boolean,
     checkTags = false
-  ): string {
+  ): QuoteDisplayMode {
     if (checkTags) {
       let displayMode;
       if (isQuoted) {
@@ -317,7 +322,7 @@ export class SentUtils extends Module {
     }
     return getOption(
       `sentUtils.${sentType}.quotes.displayMode.${isQuoted ? 'quoted' : 'unquoted'}`
-    );
+    ) as QuoteDisplayMode;
   }
 
   private processPeriod(sentContents: string): string {

@@ -162,16 +162,19 @@
   "enableModule.imgUtils":                true,
   "enableModule.imgUtils.imageBlur":      true,
 
+  "enableModule.asyncScheduler":          true, // required for kanjiHover, wordIndicators, checkDuplicateKey
+  "enableModule.asyncScheduler.front":    true, // attempts to pre-load at front
   "enableModule.kanjiHover":              true,
+  "enableModule.wordIndicators":          true,
+  "enableModule.checkDuplicateKey":       true,
+
   "enableModule.collapseDictionaries":    true,
   "enableModule.openCollapsedFields":     true,
-  "enableModule.wordIndicators":          true,
   "enableModule.freqUtils":               true,
 
   "enableModule.mobileUtils":             true,
   "enableModule.infoCircleUtils":         true,
   "enableModule.fixRubyPositioning":      true,
-  "enableModule.checkDuplicateKey":       true,
 
 
 

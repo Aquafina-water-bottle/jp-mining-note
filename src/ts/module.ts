@@ -1,4 +1,4 @@
-import { getOption } from './options';
+import { getOption, O } from './options';
 import { Logger } from './logger';
 
 // html elements: class private readonly
@@ -23,13 +23,36 @@ export type ModuleId =
   | 'fixRubyPositioning'
   | 'checkDuplicateKey';
 
+
+// TODO: using OverrideValue<K> creates an error:
+// > "Expression produces a union type that is too complex to represent"
+// TODO: extend to use overrides if necessary
+// [K in keyof O]?: O[K] | OverrideValueUnknown;
+type OptionsSubset = {
+  // all optional
+  [K in keyof O]?: O[K];
+};
+
 export abstract class SideModule {
   id: string;
   logger: Logger;
 
+  private localOpts: OptionsSubset = {};
+
   constructor(id: string) {
     this.id = id;
     this.logger = new Logger(id);
+  }
+
+  overrideOption<K extends keyof O>(k: K, o: O[K]) {
+    this.localOpts[k] = o;
+  }
+
+  getOption<K extends keyof O>(k: K) {
+    if (k in this.localOpts) {
+      return this.localOpts[k];
+    }
+    return getOption(k);
   }
 }
 
