@@ -134,6 +134,11 @@ and how to customize it.
         use the infomation on Android, where Anki-Connect isn't full supported.
 
 
+    [**KanjiEater's Kanji Connections**](https://github.com/kanjieater/anki-plugin-heisigs-rtk)
+
+    - Ability to show kanjis with heisig's RTK keywords, as well as related vocabulary.
+        Similar to Hanzi Web for Anki.
+
     !!! warning
         None of the above will work with jp-mining-note by default.
         In fact, it's almost guaranteed that Cade's Kanji Hover will conflict with
