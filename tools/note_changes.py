@@ -58,6 +58,9 @@ class Version:
     def __repr__(self):
         return f"Version({', '.join(str(x) for x in self.ints)})"
 
+    def __str__(self):
+        return f"({'.'.join(str(x) for x in self.ints)})"
+
 
 @dataclass
 class NoteChange:
@@ -74,17 +77,18 @@ NOTE_CHANGES = [
         actions=[
             action.AddField("YomichanWordTags", 35 - 1),
             action.AddField("IsHintCard", 18 - 1),
-            action.MoveField("IsTargetedSentenceCard", 15 - 1),
-            action.MoveField("Hint", 14 - 1),
-            action.MoveField("HintNotHidden", 15 - 1),
-            action.MoveField("FrequenciesStylized", 32 - 1),
-            action.MoveField("FrequencySort", 33 - 1),
+            action.AddField("AltDisplayClozeDeletionCard", 13 - 1),
+            action.MoveField("IsTargetedSentenceCard", 16 - 1),
+            action.MoveField("Hint", 15 - 1),
+            action.MoveField("HintNotHidden", 16 - 1),
+            action.MoveField("FrequenciesStylized", 33 - 1),
+            action.MoveField("FrequencySort", 34 - 1),
 
             # affects all previously added fields
             # currently commented out because it's not supported in ankiconnect yet
             #action.ChangeFieldFontSize("WordReadingHiragana", 10),
-            #action.ChangeFieldFontSize("PrimaryDefinitionPicture", 20),
-            #action.ChangeFieldFontSize("PAOverrideText", 20),
+            #action.ChangeFieldFontSize("PrimaryDefinitionPicture", 20), # default
+            #action.ChangeFieldFontSize("PAOverrideText", 20), # default
             #action.ChangeFieldFontSize("YomichanWordTags", 10),
             #action.ChangeFieldFontSize("IsHintCard", 10),
 
@@ -110,6 +114,7 @@ NOTE_CHANGES = [
             "SentenceReading",
             "AltDisplay",
             "AltDisplayPASentenceCard",
+            "AltDisplayClozeDeletionCard",
             "AdditionalNotes",
             "Hint",
             "HintNotHidden",
