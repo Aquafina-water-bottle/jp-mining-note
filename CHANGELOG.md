@@ -36,9 +36,10 @@ and must use `./install.py --update`.
         - NOTE: currently doesn't allow custom javascript / typescript
     - See `themes` folder for some examples
 
-- Javascript rework:
-    - Javascript has been ported to typescript (meaning things should theoretically be less buggy)
+- Backend Javascript rework:
+    - Javascript has been ported to Typescript (meaning things should theoretically be less buggy)
     - Backend now uses webpack to build javascript (meaning the javascript is minified and easier to deal with)
+    - TODO testing!
 
 - Options rework:
     - Flattened all compile-time options and runtime options.

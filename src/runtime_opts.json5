@@ -100,12 +100,239 @@
   "keybinds.toggleExtraInfoDisplay": ["BracketLeft"],
 
 
+
   // ==========================================================================
   // = mainCardUtils =
   // ==========================================================================
   // Does a few small but important things for the main note type to work.
   // Don't disable this unless you know what you are doing.
   "mainCardUtils.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = sentUtils =
+  // ==========================================================================
+
+  "sentUtils.enabled": true,
+
+
+  // sentUtils.fixDivList
+  // --------------------------------------------------------------------------
+  // Fixes the sentence if it's formatted as <div>line1</div> <div>line2</div> ...
+  // (and converts it to line1<br>line ...)
+  "sentUtils.fixDivList.enabled": true,
+  "sentUtils.fixDivList.warnOnFix": false,
+
+
+  // sentUtils.autoHighlightWord
+  // --------------------------------------------------------------------------
+  // Automatically attempts to highlight the word in the sentence.
+  // Base code taken from:
+  // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
+  "sentUtils.autoHighlightWord": true,
+  "sentUtils.autoHighlightWord.warnOnAutoHighlight": false,
+  "sentUtils.autoHighlightWord.warnIfAutoHighlightFails": true,
+
+
+
+  // sentUtils.quotes
+  // --------------------------------------------------------------------------
+
+
+  // the quote pair to automatically add to the sentence
+  // NOTE: overwritten in "overrides" section
+  "sentUtils.quotes.quoteOpen": "「",
+  "sentUtils.quotes.quoteClose": "」",
+
+  // quotes to search for on existing sentences,
+  // to not double-quote a sentence that already has quotes on it
+  "sentUtils.quotes.matches": [
+    { "open": "「", "close": "」" },
+    { "open": "『", "close": "』" },
+  ],
+
+
+  // sentUtils.fullSent.quotes
+  // --------------------------------------------------------------------------
+  // quotes on the full sentence (sentence shown in kanji hover & on backside of card)
+
+
+  // >>> processMode <<<
+  // "add": always adds a quote
+  // "remove": always removes the quote
+  // "as-is": does not add or remove quotes. This will still continue with the other
+  //          quote parsing options.
+  // "none": equivalent of disabling quote processing entirely
+
+  // >>> processMode.searchMulti <<<
+  // ignores the previous processMode if set to true
+  // this looks for sentences of the format
+  // where quoted lines are intentionally separated between other text
+  // with a newline by the user, i.e.
+  //
+  // ああああああああああ  <-- line 1
+  // ああああああ
+  // 「ああああああああ    <-- line 2
+  // あああああああ」
+  // ああああああああああ  <-- line 3
+  // ああああああ
+  //
+  // 「ああああああ」    // <-- line 1
+  // 「ああああああああ  // <-- line 2
+  // あああああああ」
+  // ああああああああ    // <-- line 3
+
+  "sentUtils.fullSent.quotes.processMode": "remove",
+  "sentUtils.fullSent.quotes.processMode.searchMulti": true,
+
+
+
+  // >>> displayMode.quoted <<<
+  // "block":
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  // "flow":
+  //  |「ああああああああ|
+  //  |ああああああ」    |
+
+  // >>> displayMode.unquoted <<<
+  // "indent":
+  //  |  ええええええええ|
+  //  |ええええええ      |
+  // "no-indent":
+  //  |えええええええええ|
+  //  |えええええ        |
+  // "right-shifted":
+  //  |  ええええええええ|
+  //  |  ええええええ    |
+
+  "sentUtils.fullSent.quotes.displayMode.quoted": "block",
+  "sentUtils.fullSent.quotes.displayMode.unquoted": "no-indent",
+
+
+  // sentUtils.display.quotes
+  // --------------------------------------------------------------------------
+  // quotes on the display sentence (tested content above line)
+
+  // processMode and displayMode follow the same format as above
+  "sentUtils.display.quotes.processMode": "add",
+  "sentUtils.display.quotes.processMode.searchMulti": true,
+
+  "sentUtils.altDisplay.quotes.processMode": "as-is",
+  "sentUtils.altDisplay.quotes.processMode.searchMulti": true,
+
+  "sentUtils.display.quotes.displayMode.quoted": "block",
+  "sentUtils.display.quotes.displayMode.unquoted": "no-indent",
+
+
+  // tags used to override the quote process mode
+  "sentUtils.display.quotes.processMode.tagOverride.add": [
+    "quote-add", "jpmn-quote-add",
+  ],
+  "sentUtils.display.quotes.processMode.tagOverride.remove": [
+    "quote-remove", "jpmn-quote-remove",
+  ],
+  "sentUtils.display.quotes.processMode.tagOverride.asIs": [
+    "quote-as-is", "jpmn-quote-as-is",
+  ],
+  "sentUtils.display.quotes.processMode.tagOverride.none": [
+    "quote-no-processing", "jpmn-quote-no-processing",
+  ],
+
+  // Mostly dev-related tools. You likely don't want to use these, and instead
+  // want to change the default displayMode for the desired sentence type.
+  "sentUtils.display.quotes.displayMode.quoted.tagOverride.block": [
+    "quote-disp-quoted-block", "jpmn-quote-disp-quoted-block",
+  ],
+  "sentUtils.display.quotes.displayMode.quoted.tagOverride.flow": [
+    "quote-disp-quoted-flow", "jpmn-quote-disp-quoted-flow",
+  ],
+  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.indented": [
+    "quote-disp-unquoted-indent", "jpmn-quote-disp-unquoted-indent",
+  ],
+  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.noIndent": [
+    "quote-disp-unquoted-noIndent", "jpmn-quote-disp-unquoted-no-indent",
+  ],
+  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.rightShifted": [
+    "quote-disp-unquoted-rightShifted", "jpmn-quote-disp-unquoted-right-shifted",
+  ],
+
+
+
+  // colors the quotes instead of showing a pitch accent indicator
+  // if this is enabled
+  // NOTE: overwritten below
+  "sentUtils.display.quotes.paIndicatorColor.main": false,
+  // automatically colors the quote with the sentence pa indicator color,
+  // on PA sentence cards
+  "sentUtils.display.quotes.paIndicatorColor.paSent": false,
+
+
+
+  // sentUtils.quotes.multi
+  // --------------------------------------------------------------------------
+
+  // recommended multi.displayMode.quoted & multi.displayMode.unquoted combinations:
+  //
+  // vn-like:
+  //  displayMode.quoted.multi: "block"
+  //  displayMode.unquoted.multi: "no-indent"
+  //
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  //  |えええええええええ|
+  //  |えええええ        |
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  //
+  //
+  // vn-like (v2):
+  //  displayMode.quoted.multi: "block"
+  //  displayMode.unquoted.multi: "right-shifted"
+  //
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  //  |  ええええええええ|
+  //  |  ええええええ    |
+  //  |「ああああああああ|
+  //  |  ああああああ」  |
+  //
+  //
+  // novel-like:
+  //  displayMode.quoted.multi: "flow"
+  //  displayMode.unquoted.multi: "indented"
+  //
+  //  |「ああああああああ|
+  //  |ああああああ」    |
+  //  |  ええええええええ|
+  //  |ええええええ      |
+  //  |「ああああああああ|
+  //  |ああああああ」    |
+  "sentUtils.quotes.multi.displayMode.quoted": "block",
+  "sentUtils.quotes.multi.displayMode.unquoted": "no-indent",
+
+
+
+
+  // sentUtils.removeFinalPeriod
+  // --------------------------------------------------------------------------
+  // removes the period at the end of a sentence if `true`
+
+  "sentUtils.removeFinalPeriod.validPeriods": "｡。．\\.",
+  "sentUtils.removeFinalPeriod.fullSent.quoted":     true,
+  "sentUtils.removeFinalPeriod.fullSent.unquoted":   false,
+  "sentUtils.removeFinalPeriod.display.quoted":      true,
+  "sentUtils.removeFinalPeriod.display.unquoted":    false,
+  "sentUtils.removeFinalPeriod.altDisplay.quoted":   false,
+  "sentUtils.removeFinalPeriod.altDisplay.unquoted": false,
+
+
+
+
+
+
 
 
 
@@ -369,226 +596,6 @@
 
 
 
-  // ==========================================================================
-  // = sentUtils =
-  // ==========================================================================
-
-  "sentUtils.enabled": true,
-
-
-  // sentUtils.fixDivList
-  // --------------------------------------------------------------------------
-  // Fixes the sentence if it's formatted as <div>line1</div> <div>line2</div> ...
-  // (and converts it to line1<br>line ...)
-  "sentUtils.fixDivList.enabled": true,
-  "sentUtils.fixDivList.warnOnFix": false,
-
-
-  // sentUtils.autoHighlightWord
-  // --------------------------------------------------------------------------
-  // Automatically attempts to highlight the word in the sentence.
-  // Base code taken from:
-  // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
-  "sentUtils.autoHighlightWord": true,
-  "sentUtils.autoHighlightWord.warnOnAutoHighlight": false,
-  "sentUtils.autoHighlightWord.warnIfAutoHighlightFails": true,
-
-
-
-  // sentUtils.quotes
-  // --------------------------------------------------------------------------
-
-
-  // the quote pair to automatically add to the sentence
-  // NOTE: overwritten in "overrides" section
-  "sentUtils.quotes.quoteOpen": "「",
-  "sentUtils.quotes.quoteClose": "」",
-
-  // quotes to search for on existing sentences,
-  // to not double-quote a sentence that already has quotes on it
-  "sentUtils.quotes.matches": [
-    { "open": "「", "close": "」" },
-    { "open": "『", "close": "』" },
-  ],
-
-
-  // sentUtils.fullSent.quotes
-  // --------------------------------------------------------------------------
-  // quotes on the full sentence (sentence shown in kanji hover & on backside of card)
-
-
-  // >>> processMode <<<
-  // "add": always adds a quote
-  // "remove": always removes the quote
-  // "as-is": does not add or remove quotes. This will still continue with the other
-  //          quote parsing options.
-  // "none": equivalent of disabling quote processing entirely
-
-  // >>> processMode.searchMulti <<<
-  // ignores the previous processMode if set to true
-  // this looks for sentences of the format
-  // where quoted lines are intentionally separated between other text
-  // with a newline by the user, i.e.
-  //
-  // ああああああああああ  <-- line 1
-  // ああああああ
-  // 「ああああああああ    <-- line 2
-  // あああああああ」
-  // ああああああああああ  <-- line 3
-  // ああああああ
-  //
-  // 「ああああああ」    // <-- line 1
-  // 「ああああああああ  // <-- line 2
-  // あああああああ」
-  // ああああああああ    // <-- line 3
-
-  "sentUtils.fullSent.quotes.processMode": "remove",
-  "sentUtils.fullSent.quotes.processMode.searchMulti": true,
-
-
-
-  // >>> displayMode.quoted <<<
-  // "block":
-  //  |「ああああああああ|
-  //  |  ああああああ」  |
-  // "flow":
-  //  |「ああああああああ|
-  //  |ああああああ」    |
-
-  // >>> displayMode.unquoted <<<
-  // "indented":
-  //  |  ええええええええ|
-  //  |ええええええ      |
-  // "no-indent":
-  //  |えええええええええ|
-  //  |えええええ        |
-  // "right-shifted":
-  //  |  ええええええええ|
-  //  |  ええええええ    |
-
-  "sentUtils.fullSent.quotes.displayMode.quoted": "block",
-  "sentUtils.fullSent.quotes.displayMode.unquoted": "no-indent",
-
-
-  // sentUtils.display.quotes
-  // --------------------------------------------------------------------------
-  // quotes on the display sentence (tested content above line)
-
-  // processMode and displayMode follow the same format as above
-  "sentUtils.display.quotes.processMode": "add",
-  "sentUtils.display.quotes.processMode.searchMulti": true,
-
-  "sentUtils.altDisplay.quotes.processMode": "as-is",
-  "sentUtils.altDisplay.quotes.processMode.searchMulti": true,
-
-  "sentUtils.display.quotes.displayMode.quoted": "block",
-  "sentUtils.display.quotes.displayMode.unquoted": "no-indent",
-
-
-  // tags used to override the quote process mode
-  "sentUtils.display.quotes.processMode.tagOverride.add": [
-    "quote-add", "jpmn-quote-add",
-  ],
-  "sentUtils.display.quotes.processMode.tagOverride.remove": [
-    "quote-remove", "jpmn-quote-remove",
-  ],
-  "sentUtils.display.quotes.processMode.tagOverride.asIs": [
-    "quote-as-is", "jpmn-quote-as-is",
-  ],
-  "sentUtils.display.quotes.processMode.tagOverride.none": [
-    "quote-no-processing", "jpmn-quote-no-processing",
-  ],
-
-  // Mostly dev-related tools. You likely don't want to use these, and instead
-  // want to change the default displayMode for the desired sentence type.
-  "sentUtils.display.quotes.displayMode.quoted.tagOverride.block": [
-    "quote-disp-quoted-block", "jpmn-quote-disp-quoted-block",
-  ],
-  "sentUtils.display.quotes.displayMode.quoted.tagOverride.flow": [
-    "quote-disp-quoted-flow", "jpmn-quote-disp-quoted-flow",
-  ],
-  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.indented": [
-    "quote-disp-unquoted-indent", "jpmn-quote-disp-unquoted-indent",
-  ],
-  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.noIndent": [
-    "quote-disp-unquoted-noIndent", "jpmn-quote-disp-unquoted-no-indent",
-  ],
-  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.rightShifted": [
-    "quote-disp-unquoted-rightShifted", "jpmn-quote-disp-unquoted-right-shifted",
-  ],
-
-
-
-  // colors the quotes instead of showing a pitch accent indicator
-  // if this is enabled
-  // NOTE: overwritten below
-  "sentUtils.display.quotes.paIndicatorColor.main": false,
-  // automatically colors the quote with the sentence pa indicator color,
-  // on PA sentence cards
-  "sentUtils.display.quotes.paIndicatorColor.paSent": false,
-
-
-
-  // sentUtils.quotes.multi
-  // --------------------------------------------------------------------------
-
-  // recommended multi.displayMode.quoted & multi.displayMode.unquoted combinations:
-  //
-  // vn-like:
-  //  displayMode.quoted.multi: "block"
-  //  displayMode.unquoted.multi: "no-indent"
-  //
-  //  |「ああああああああ|
-  //  |  ああああああ」  |
-  //  |えええええええええ|
-  //  |えええええ        |
-  //  |「ああああああああ|
-  //  |  ああああああ」  |
-  //
-  //
-  // vn-like (v2):
-  //  displayMode.quoted.multi: "block"
-  //  displayMode.unquoted.multi: "right-shifted"
-  //
-  //  |「ああああああああ|
-  //  |  ああああああ」  |
-  //  |  ええええええええ|
-  //  |  ええええええ    |
-  //  |「ああああああああ|
-  //  |  ああああああ」  |
-  //
-  //
-  // novel-like:
-  //  displayMode.quoted.multi: "flow"
-  //  displayMode.unquoted.multi: "indented"
-  //
-  //  |「ああああああああ|
-  //  |ああああああ」    |
-  //  |  ええええええええ|
-  //  |ええええええ      |
-  //  |「ああああああああ|
-  //  |ああああああ」    |
-  "sentUtils.quotes.multi.displayMode.quoted": "block",
-  "sentUtils.quotes.multi.displayMode.unquoted": "no-indent",
-
-
-
-
-  // sentUtils.removeFinalPeriod
-  // --------------------------------------------------------------------------
-  // removes the period at the end of a sentence if `true`
-
-  "sentUtils.removeFinalPeriod.validPeriods": "｡。．\\.",
-  "sentUtils.removeFinalPeriod.fullSent.quoted":     true,
-  "sentUtils.removeFinalPeriod.fullSent.unquoted":   false,
-  "sentUtils.removeFinalPeriod.display.quoted":      true,
-  "sentUtils.removeFinalPeriod.display.unquoted":    false,
-  "sentUtils.removeFinalPeriod.altDisplay.quoted":   false,
-  "sentUtils.removeFinalPeriod.altDisplay.unquoted": false,
-
-
-
-
 
   // ==========================================================================
   // = kanjiHover =
@@ -596,8 +603,27 @@
 
   "kanjiHover.enabled": true,
 
-  "kanjiHover.tooltipBuilder.overrideOptions": {},
+  "kanjiHover.overrideOptions.sentUtils": {},
+  "kanjiHover.overrideOptions.autoPitchAccent": {},
+  "kanjiHover.overrideOptions.imgUtils": {},
+  "kanjiHover.overrideOptions.tooltipBuilder": {},
 
+
+
+
+  // ==========================================================================
+  // = wordIndicators =
+  // ==========================================================================
+
+  "wordIndicators.enabled": true,
+
+  "wordIndicators.overrideOptions.sentUtils": {},
+  "wordIndicators.overrideOptions.autoPitchAccent": {},
+  "wordIndicators.overrideOptions.imgUtils": {},
+  "wordIndicators.overrideOptions.tooltipBuilder": {
+    // always show pitch accent
+    "tooltipBuilder.displayPitchAccentOnHoverOnly": false,
+  },
 
 
 
@@ -615,19 +641,6 @@
   // ==========================================================================
 
   "openCollapsedFields.enabled": true,
-
-
-
-
-  // ==========================================================================
-  // = wordIndicators =
-  // ==========================================================================
-
-  "wordIndicators.enabled": true,
-  "wordIndicators.tooltipBuilder.overrideOptions": {
-    // always show pitch accent
-    "tooltipBuilder.displayPitchAccentOnHoverOnly": false,
-  },
 
 
 
@@ -689,7 +702,7 @@
 
 
   // ==========================================================================
-  // = tooltipBuilder =
+  // = sm:tooltipBuilder =
   // ==========================================================================
   // default tooltip options
 
@@ -730,8 +743,13 @@
   "tooltipBuilder.categoryMax.newLatest": 2,
 
 
+  "tooltipBuilder.overrideOptions.sentUtils": {},
+  "tooltipBuilder.overrideOptions.autoPitchAccent": {},
+  "tooltipBuilder.overrideOptions.imgUtils": {},
+
+
   // ==========================================================================
-  // = cache =
+  // = sm:cache =
   // ==========================================================================
   "cache.showClearCacheButton": false,
 
