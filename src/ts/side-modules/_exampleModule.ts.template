@@ -1,0 +1,13 @@
+import { SideModule } from "../module"
+import { getOption } from "../options"
+
+export class {{MODULE_UPPER_CAMELCASE}} extends SideModule {
+
+  constructor() {
+    super("sm:{{MODULE_CAMELCASE}}");
+  }
+
+  main() {
+    // ...
+  }
+}

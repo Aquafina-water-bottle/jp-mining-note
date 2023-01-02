@@ -1,8 +1,22 @@
 {
-  "debug.level": 0,
+  // (Developer option) Used to show debug messages when debugging the card.
+  // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.
+  // Set to any number higher than 5 to disable.
+  // 0 produces the most debug messages, 5 produces the least debug messages.
+  "debug.level": 6,
+
+  // meant to be used with the following addon:
+  // https://github.com/hikaru-y/anki21-addon-ankiwebview-inspector
   "debug.toConsole": false,
 
+  // filters out debug messages to only show messages from specific modules
+  "debug.onlyShowCertainModules": false,
+  "debug.onlyShowCertainModules.modules": [],
+
   "enableAnkiconnectFeatures": true,
+
+  "warnOnNoSentenceReading": false,
+  "warnIfFilledSentenceReadingWithEmptySentence": true,
 
 
 
@@ -289,7 +303,7 @@
   // Where to place the `PrimaryDefinitionPicture` field contents
   //  within the primary definition section.
   // Valid options (case sensitive): "auto", "bottom", "right", "top"
-  "imgUtils.primaryDefinitionPicture.position": "auto-bottom",
+  "imgUtils.primaryDefinitionPicture.position": "auto",
 
   // Tags to override auto positioning
   // Case sensitive
@@ -362,15 +376,22 @@
   "sentUtils.enabled": true,
 
 
+  // sentUtils.fixDivList
+  // --------------------------------------------------------------------------
+  // Fixes the sentence if it's formatted as <div>line1</div> <div>line2</div> ...
+  // (and converts it to line1<br>line ...)
+  "sentUtils.fixDivList.enabled": true,
+  "sentUtils.fixDivList.warnOnFix": false,
+
 
   // sentUtils.autoHighlightWord
   // --------------------------------------------------------------------------
-
+  // Automatically attempts to highlight the word in the sentence.
+  // Base code taken from:
+  // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
   "sentUtils.autoHighlightWord": true,
   "sentUtils.autoHighlightWord.warnOnAutoHighlight": false,
   "sentUtils.autoHighlightWord.warnIfAutoHighlightFails": true,
-
-
 
 
 
@@ -449,19 +470,11 @@
   "sentUtils.fullSent.quotes.displayMode.unquoted": "no-indent",
 
 
-
-  // >>> removeFinalPeriod <<<
-  // removes the period at the end of a sentence if `true`
-
-  "sentUtils.fullSent.quotes.removeFinalPeriod.quoted": true,
-  "sentUtils.fullSent.quotes.removeFinalPeriod.unquoted": false,
-
-
-
   // sentUtils.display.quotes
   // --------------------------------------------------------------------------
   // quotes on the display sentence (tested content above line)
 
+  // processMode and displayMode follow the same format as above
   "sentUtils.display.quotes.processMode": "add",
   "sentUtils.display.quotes.processMode.searchMulti": true,
 
@@ -470,11 +483,6 @@
 
   "sentUtils.display.quotes.displayMode.quoted": "block",
   "sentUtils.display.quotes.displayMode.unquoted": "no-indent",
-
-  "sentUtils.display.quotes.removeFinalPeriod.quoted": true,
-  "sentUtils.display.quotes.removeFinalPeriod.unquoted": false,
-  "sentUtils.altDisplay.quotes.removeFinalPeriod.quoted": false,
-  "sentUtils.altDisplay.quotes.removeFinalPeriod.unquoted": false,
 
 
   // tags used to override the quote process mode
@@ -491,13 +499,33 @@
     "quote-no-processing", "jpmn-quote-no-processing",
   ],
 
+  // Mostly dev-related tools. You likely don't want to use these, and instead
+  // want to change the default displayMode for the desired sentence type.
+  "sentUtils.display.quotes.displayMode.quoted.tagOverride.block": [
+    "quote-disp-quoted-block", "jpmn-quote-disp-quoted-block",
+  ],
+  "sentUtils.display.quotes.displayMode.quoted.tagOverride.flow": [
+    "quote-disp-quoted-flow", "jpmn-quote-disp-quoted-flow",
+  ],
+  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.indented": [
+    "quote-disp-unquoted-indent", "jpmn-quote-disp-unquoted-indent",
+  ],
+  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.noIndent": [
+    "quote-disp-unquoted-noIndent", "jpmn-quote-disp-unquoted-no-indent",
+  ],
+  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.rightShifted": [
+    "quote-disp-unquoted-rightShifted", "jpmn-quote-disp-unquoted-right-shifted",
+  ],
+
+
 
   // colors the quotes instead of showing a pitch accent indicator
   // if this is enabled
-  "sentUtils.display.quotes.paIndicatorColor.main": true,
+  // NOTE: overwritten below
+  "sentUtils.display.quotes.paIndicatorColor.main": false,
   // automatically colors the quote with the sentence pa indicator color,
   // on PA sentence cards
-  "sentUtils.display.quotes.paIndicatorColor.paSent": true,
+  "sentUtils.display.quotes.paIndicatorColor.paSent": false,
 
 
 
@@ -546,16 +574,17 @@
 
 
 
+  // sentUtils.removeFinalPeriod
+  // --------------------------------------------------------------------------
+  // removes the period at the end of a sentence if `true`
 
-  // ==========================================================================
-  // = autoHighlightWord =
-  // ==========================================================================
-  // TODO remove
-
-  "autoHighlightWord.enabled": true,
-
-
-
+  "sentUtils.removeFinalPeriod.validPeriods": "｡。．\\.",
+  "sentUtils.removeFinalPeriod.fullSent.quoted":     true,
+  "sentUtils.removeFinalPeriod.fullSent.unquoted":   false,
+  "sentUtils.removeFinalPeriod.display.quoted":      true,
+  "sentUtils.removeFinalPeriod.display.unquoted":    false,
+  "sentUtils.removeFinalPeriod.altDisplay.quoted":   false,
+  "sentUtils.removeFinalPeriod.altDisplay.unquoted": false,
 
 
 
@@ -749,26 +778,6 @@
       },
       "resultTrue":  "』",
       "resultFalse": "」",
-    },
-
-    "sentUtils.display.quotes.paIndicatorColor.main": {
-      "type": "viewport",
-      "args": {
-        "op": ">=",
-        "value": 620, // combine pic breakpoint
-      },
-      "resultTrue":  true,
-      "resultFalse": false,
-    },
-
-    "sentUtils.display.quotes.paIndicatorColor.paSent": {
-      "type": "viewport",
-      "args": {
-        "op": ">=",
-        "value": 620, // combine pic breakpoint
-      },
-      "resultTrue":  true,
-      "resultFalse": false,
     },
 
   },

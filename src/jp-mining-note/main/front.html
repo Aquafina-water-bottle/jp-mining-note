@@ -47,23 +47,7 @@
 
     </div>
 
-    {# THIS IS NOW REPLACED with IsHintCard #}
-    {#<div class="below-display-bottom-row">
-
-      <!--
-        if the display is a word: show sentence preview (spoilered)
-      -->
-      {% call utils.if_none("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard", "IsHintCard") %}
-        {% filter indent(width=4) %}
-        {% include "jp-mining-note/partials/full_sentence_front.html" %}
-        {% endfilter %}
-      {% endcall %}
-
-    </div>#}
-
   </div>
-
-
 
 
 {% endcall %} {# PAShowInfo #}

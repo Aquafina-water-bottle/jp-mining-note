@@ -13,7 +13,6 @@ export type ModuleId =
   | 'imgUtilsMin'
   | 'imgUtils'
   | 'sentUtils'
-  | 'autoHighlightWord'
   | 'kanjiHover'
   | 'collapseDictionaries'
   | 'openCollapsedFields'
@@ -32,8 +31,6 @@ export abstract class SideModule {
     this.id = id;
     this.logger = new Logger(id);
   }
-
-  abstract main(): void;
 }
 
 export abstract class Module extends SideModule {
@@ -49,4 +46,6 @@ export abstract class Module extends SideModule {
       this.main();
     }
   }
+
+  abstract main(): void;
 }

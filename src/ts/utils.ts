@@ -43,6 +43,17 @@ export type Field =
   | 'UtilityDictionaries'
   | 'Comment';
 
+export type NoteInfo = {
+  readonly tags: string[];
+  readonly fields: {
+    readonly Field: {
+      readonly value: string;
+    };
+  };
+};
+
+
+
 export const VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
 export const TAGS_LIST: readonly string[] = (() => {
@@ -80,9 +91,10 @@ export function popupMenuMessage(message: string, isHTML = false) {
 }
 
 function _fieldExists(field: Field): boolean {
-  const x = document.getElementById(field + '_exists');
+  const x = document.getElementById(`hidden_field_exists_${field}`);
   if (x === null) {
-    return false; // should ever be reached?
+    LOGGER.warn(`_fieldExists(${field}) could not find element`);
+    return false; // shouldn't ever be reached?
   }
   return (x.innerHTML.length !== 0)
 }
@@ -105,6 +117,15 @@ export function fieldAnyExist(...fields: Field[]) {
     }
   }
   return false;
+}
+
+export function getFieldValue(field: Field): string {
+  const x = document.getElementById(`hidden_field_${field}`);
+  if (x === null) {
+    LOGGER.warn(`getFieldValue(${field}) could not find element`);
+    return "";
+  }
+  return x.innerHTML;
 }
 
 export function fieldNoneExist(...fields: Field[]) {
@@ -194,6 +215,28 @@ export function getCardSide() {
 }
 export function getNoteType() {
   return document.getElementById("hidden_note_type")?.innerHTML;
+}
+
+
+function _plainToX(str: string, filter: string) {
+  const re = / ?([^ >]+?)\[(.+?)\]/g;
+  let result = str.replace(/&nbsp;/g, " ");
+  return result.replace(re, filter);
+}
+
+/* equivalent to anki's furigana: filter */
+export function plainToRuby(str: string) {
+  return _plainToX(str, "<ruby><rb>$1</rb><rt>$2</rt></ruby>")
+}
+
+/* equivalent to anki's kana: filter */
+export function plainToKanaOnly(str: string) {
+  return _plainToX(str, "$2")
+}
+
+/* equivalent to anki's kanji: filter */
+export function plainToKanjiOnly(str: string) {
+  return _plainToX(str, "$1")
 }
 
 
