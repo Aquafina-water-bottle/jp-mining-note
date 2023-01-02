@@ -83,6 +83,7 @@
 
   // TODO re-enable
   //"enableModule.sentUtils":               false,
+  //"enableModule.sentUtils.autoHighlight": false,
 
 
 

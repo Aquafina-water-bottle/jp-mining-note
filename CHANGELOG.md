@@ -21,53 +21,80 @@ and must use `./install.py --update`.
 
 
 ## [0.12.0.0] - 2022-12-??
+
+#### BREAKING
+- Added fields: `YomichanWordTags`, `AltDisplayClozeDeletionCard`, `IsHintCard`
+- Removed lenience calculation (height of the text box is no longer calculated) due to an internal javascript bug that I can't figure out how to resolve
+
+- Options rework: Your current runtime options file will be completely invalid! See here to fix it: TODO
+
 #### Features
+
+- Themes:
+    - Proper way of defining user settings in a more portable way
+    - Allows custom html, css, compile-time options & runtime options
+        - NOTE: currently doesn't allow custom javascript / typescript
+    - See `themes` folder for some examples
+
+- Javascript rework:
+    - Javascript has been ported to typescript (meaning things should theoretically be less buggy)
+    - Backend now uses webpack to build javascript (meaning the javascript is minified and easier to deal with)
+
+- Options rework:
+    - Flattened all compile-time options and runtime options.
+    - Moved compile-time options to its own json file
+    - Both are now in the json5 format for human readability purposes
+
+- Added styles to the editor view:
+    - Merge some editor fields into the same row
+    - Group together related fields by separating them with a slightly larger gap
+    - Moved a bunch of fields around to work with the newly grouped together fields
+
 - Primary definition picture rework:
     - Cleaned up css and made css a lot more readable
     - Added more runtime options
     - Picture can now be positioned above the definition
     - Option to not use lenience value for a faster card
-- Added `jpmn-filled-if-word-is-hiragana` marker
-- Added `auto-highlight-word` module, to automatically highlight the word if the word isn't highlighted
-    - Works on both the display sentence and furigana sentence
-    - Thanks to [Marv](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence) for the idea and base implementation
-- Re-added way to specify whether newlines are removed or not, using css
-- Separated `stylize-images-in-glossary` option into `stylize-images-in-glossary` and `primary-definition-picture.enabled`
-- Added option to toggle whether click cards reveal the sentences on the back side of cards or not (`click-card-sentence-reveal-on-back-side`)
-- `sent-utils` now searches the full sentence to adjust if quoted. Sentences in kanji hover and word indicators are not covered yet.
-- Increased the size of the PrimaryDefinitionPicture img by default if there is no text in PrimaryDefinition
-- Added way to translate the card (and added English and Japanese as pre-supported options)
-- Tweaked the pitch accent display so the downstep is a bit more obvious
-- Added support to remove the primary definition blockquote if nothing is there
-- Added spacing between options in the info circle
-- Added clear cache option in info circle options (disabled by default)
-- Added a dropdown feature for frequencies when there are too many frequencies (max 4 by default)
+    - Increased the size of the PrimaryDefinitionPicture img by default if there is no text in PrimaryDefinition
+    - Added further support for how images are stylized in the PrimaryDefinition field
+        - See `img-utils` -> `stylize-images-primary-definition`
+
+- Sentence Utils:
+    - Added `autoHighlightWord` module, to automatically highlight the word if the word isn't highlighted
+        - Works on both the display sentence and furigana sentence
+        - Thanks to [Marv](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence) for the idea and base implementation
+        - TODO link
+    - Added option to fix the div list problem for sentences
+    - Added better support for parsing the full sentence (from sentUtils)
+        - i.e. searches the full sentence to remove quotes.
+    - Added better compile-time and runtime options for how quotes are displayed / not displayed
+
+- Other (larger changes):
+    - Added a new card type: Hint Sentence (`IsHintCard`)
+        - Adds the sentence below the vocab (hover and click cards are also affected)
+        - TODO link
+    - Added support for collapsing dictionaries within Anki
+        - TODO link
+    - Added way to translate the card (and added English and Japanese as pre-supported options)
+        - TODO link
+    - Added a dropdown feature for frequencies when there are too many frequencies (max 4 by default)
+        - TODO link
+    - Added compile-time options to specify how ruby can be displayed in the full sentence
+        - TODO link
+
+- Other (smaller changes):
+    - Added `jpmn-filled-if-word-is-hiragana` yomichan templates marker
+    - Re-added way to specify whether newlines are removed or not, using css
+    - Tweaked the pitch accent display so the downstep is a bit more obvious
+    - Added support to remove the primary definition blockquote if nothing is there
+    - Added spacing between options in the info circle
+    - Added clear cache option in info circle options (disabled by default)
     - Added an overflow option so it can overflow past the max frequencies before collapsing
-- (WIP, NOT WORKING YET) Added a way to automatically update the `_jpmn_options.js` file and `config/user_jpmn_opts.json` file using the regular `install.py` script
-- Added a warning if `SentenceReading` is filled but `Sentence` isn't
-- Renamed `customize-open-fields` -> `open-collapsed-fields`
-- `collapse-dictionaries`: Added way to specify collapsed dictionaries within Secondary Definition and Extra Definitions
-- Added compile-time options to specify how ruby can be displayed in the full sentence
-- (WIP) Added support for vertical display (tested content can be displayed vertically)
-- Removed lenience calculation (height of the text box is no longer calculated) due to an internal javascript bug that I can't figure out how to resolve
-- Added further support for how images are stylized in the PrimaryDefinition field
-    - See `img-utils` -> `stylize-images-primary-definition`
-- Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
-- Added a new card type: Sentence Below (`IsHintCard`)
-    - Adds the sentence below the vocab (hover and click cards are also affected)
-- Added editor CSS:
-    - Merge some editor fields into the same row
-    - Group together related fields by separating them with a slightly larger gap
-    - Moved a bunch of fields around to work with the newly grouped together fields
-- Added `AltDisplayClozeDeletionCard` field
-- Added hotkeys to update the current card to be a cloze deletion card
-    - TODO documentation on this (specifically ways to create cloze deletion cards)
-- Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
-- Options rework:
-    - Flattened all compile-time options and runtime options
-    - Moved compile-time options to its own json file
-    - Both are now in the json5 format for human readability purposes
-- Added better compile-time and runtime options for how quotes are displayed / not displayed
+    - Added a warning if `SentenceReading` is filled but `Sentence` isn't
+    - Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
+    - Added hotkeys to update the current card to be a cloze deletion card
+        - TODO documentation on this (specifically ways to create cloze deletion cards)
+    - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
@@ -100,13 +127,16 @@ and must use `./install.py --update`.
     - now has a much better interface
 - Added the `keybinds` module (to replace the existing keybinds section under `base.js`)
 - Added the `cache` module (to replace global variables)
-- Updated Persistence from v1.0.0 -> v1.1.8
 - Updated documentation on yomichan templates (no longer in TODO state)
 - Removed a bunch of javascript in `hybridClick` and replaced with an input/label hack
 - Reordered the html to have standard tags such has header / main
 - Added divs to wrap around various elements
 - Moved multiple elements to their own modules / partials for ease of editing
 - Reworked how pa indicator is shown internally to allow it to work with `IsHintCard`
+- Rewritten sentence utils entirely (and some parts of auto highlight word)
+- Persistence:
+    - Updated Persistence from v1.0.0 -> v1.1.8
+    - Integrated persistence properly with typescript with .d.ts file
 
 
 ## [0.11.0.3] - 2022-12-21

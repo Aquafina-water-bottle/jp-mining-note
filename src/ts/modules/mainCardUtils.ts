@@ -34,19 +34,19 @@ export class MainCardUtils extends Module {
   }
 
 
-  // TODO how to do keybinds???
+  // TODO how to do keybinds??? {#
   //function sentenceKeybinds(e) {
-  //  if (KEYBINDS.hasKey(e, {{ utils.opt("modules", "keybinds", "toggle-hybrid-sentence") }})) {
+  //  if (KEYBINDS.hasKey(e, { utils.opt("modules", "keybinds", "toggle-hybrid-sentence") })) {
   //    hybridClick();
   //  }
 
-  //  if (KEYBINDS.hasKey(e, {{ utils.opt("modules", "keybinds", "toggle-highlight-word") }})) {
+  //  if (KEYBINDS.hasKey(e, { utils.opt("modules", "keybinds", "toggle-highlight-word") })) {
   //    let paButton = document.getElementById("pa_button");
   //    if (paButton !== null) {
   //      toggleHighlightWord();
   //    }
   //  }
-  //}
+  //}#}
 
   //KEYBINDS.addFunc("sentenceKeybinds", sentenceKeybinds);
 

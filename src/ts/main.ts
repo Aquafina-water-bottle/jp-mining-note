@@ -1,15 +1,13 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { fieldAllExists } from './utils';
+import { fieldAllExists, fieldNoneExist } from './utils';
+import { getOption } from './options'
 
 //import { TimePerformance } from "./timePerformance"
 import { Keybinds } from './modules/keybinds';
-
 import { MainCardUtils } from './modules/mainCardUtils';
 
-
 import { SentUtils } from './modules/sentUtils';
-//import { AutoHighlightWord } from './modules/autoHighlightWord';
 
 import { AutoPitchAccent } from './modules/autoPitchAccent';
 import { ImgUtilsMin } from './modules/imgUtilsMin';
@@ -54,6 +52,7 @@ export function main(cardSide: string, cardType: string, noteType: string) {
   // = sanity checks =
   // ==========================================================================
 
+  LOGGER.debug(`------------------------------------------------------------------`);
   LOGGER.debug(`Hello world! cardType=${cardType} cardSide=${cardSide} noteType=${noteType}`);
 
   const optsScript = document.getElementById('jpmn_options_script');
@@ -79,6 +78,14 @@ export function main(cardSide: string, cardType: string, noteType: string) {
       'Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.'
     );
   }
+
+  if (fieldNoneExist('SentenceReading') && fieldAllExists('Sentence') && getOption("warnOnNoSentenceReading")) {
+    LOGGER.warn("SentenceReading is not filled out. Using Sentence field instead.");
+  }
+  if (fieldNoneExist('Sentence') && fieldAllExists('SentenceReading') && getOption("warnIfFilledSentenceReadingWithEmptySentence")) {
+    LOGGER.warn("`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?");
+  }
+
 
   // ==========================================================================
   // = run modules =

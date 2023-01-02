@@ -173,7 +173,7 @@ type OptTagsToResult = ([keyof O, any])[];
 
 // given an array with entries of format [keyof O, any],
 // gets the first result where the setting contains the tag
-export function checkOptTags(tags: readonly string[], tagsToResult: OptTagsToResult) {
+export function checkOptTags(tags: readonly string[], tagsToResult: Readonly<OptTagsToResult>) {
   for (const [optKey, result] of tagsToResult) {
     const opt = getOption(optKey)
 

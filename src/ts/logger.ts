@@ -41,9 +41,19 @@ export class Logger {
     const debugLevel = getOption('debug.level');
     const debugToConsole = getOption('debug.toConsole');
 
+    const onlyShowCertainModules = getOption('debug.onlyShowCertainModules');
+    const validModules = getOption('debug.onlyShowCertainModules.modules') as (string | null)[];
+    if (onlyShowCertainModules && !validModules.includes(this.name)) {
+      return;
+    }
+
     if (level >= debugLevel) {
       if (debugToConsole) {
-        console.log(message);
+        let displayMsg: string = message;
+        if (this.name !== null) {
+          displayMsg = `(${this.name}) ${message}`;
+        }
+        console.log(displayMsg);
       } else {
         this.printMsg(message, debugGroupId, null, args);
       }

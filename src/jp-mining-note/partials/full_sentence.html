@@ -34,7 +34,13 @@
       "
       for="full_sentence_toggle"
       id="full_sentence">
-    {{ T("furigana:SentenceReading") }}
+
+    {{ utils.quote_open -}}
+    <span>
+      {{- T("furigana:SentenceReading") -}}
+    </span>
+    {{- utils.quote_close }}
+
   </label>
 </div>
 {% endcall %}
