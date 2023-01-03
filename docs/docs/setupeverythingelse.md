@@ -47,14 +47,16 @@ These pages display the hooked content.
 Most setups documented are for clipboard based texthooker pages.
 
 ??? example "Resources *(click here)*"
-    * [**Original Clipboard Inserter**](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
+    * [**Original Clipboard Inserter (Extension)**](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
         * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
             as of Firefox version 107.0. Use the extension below if you are using Firefox.
-    * [**Lap Clipboard Inserter**](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
+    * [**Lap Clipboard Inserter (Extension)**](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
         * Updated version of the above.
         * Works on Firefox, but Chrome (manifest 3) support is currently not supported.
             Use the first extension if you are using a chromium based browser.
-    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/) (recommended)
+    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
+        * Open source and more featureful alternative to the more popular Anacreon's texthooker page.
+    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
     * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
 
 ??? example "Guides *(click here)*"
@@ -81,13 +83,21 @@ All of the options below are intended to be used with
 I'm currently unaware of a websocket-based setup that works with video content.
 
 ??? example "Resources *(click here)*"
+    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
 
-    * [**exSTATic**](https://github.com/KamWithK/exSTATic/)
+        * This texthooker page comes with built in support for both websockets and
+            clipboard inserter plugins.
 
-        * Its primary use is for automatic stats collection. Integrates seamlessly with many workflows.
+    * [**exSTATic**](https://github.com/KamWithK/exSTATic/) (recommended for stats lovers)
+
+        * Its primary use is for automatic stats collection and visualizing said statistics.
+        * Integrates seamlessly with many workflows.
         * Uses a custom texthooker page, which connects with Textractor with its own custom extension.
         * A video installation guide is available on the project's README page.
 
+    * [**Marv's Websocket Userscript**](https://github.com/MarvNC/texthooker-websocket)
+        * A more featureful version of the patch below.
+        * Written for Anacreon's texthooker page.
 
     * **Zetta's Custom Patch**
 
@@ -98,6 +108,10 @@ I'm currently unaware of a websocket-based setup that works with video content.
             However, it will likely work for most other texthooker pages.
 
         ??? examplecode "Instructions to use the patch *(click here)*"
+
+            !!! warning
+                This is a monkey patch, even according to the author. Now that better alternatives
+                have came out (see above), I recommended to use said alternatives.
 
             1. Download your favorite texthooker page into a raw html file.
             1. Copy/paste the code below to the very end of the raw html file.
@@ -146,10 +160,6 @@ I'm currently unaware of a websocket-based setup that works with video content.
             ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on {{ TMW_SERVER }}. Thanks Zetta#3033 for the code.)
             </sup>
 
-
-    * [**Marv's Websocket Userscript**](https://github.com/MarvNC/texthooker-websocket)
-        * A more featureful version of the above.
-        * Also written for Anacreon's texthooker page.
 
 ---
 
