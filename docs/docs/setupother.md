@@ -162,9 +162,10 @@ I also provide a small list of other popular add-ons that I don't use, but may b
 
 ??? example "Useful Add-ons that I don't use *(click here)*"
     * [AJT Mortician](https://ankiweb.net/shared/info/1255924302)
+    * [fsrs4anki](https://github.com/open-spaced-repetition/fsrs4anki)
     * [Edit Field During Review Cloze](https://ankiweb.net/shared/info/385888438)
-    * [Review Heatmap](https://ankiweb.net/shared/info/1771074083)
     * [Generate Batch Audio](https://ankiweb.net/shared/info/1156270186)
+    * [Review Heatmap](https://ankiweb.net/shared/info/1771074083)
 
 ---
 
