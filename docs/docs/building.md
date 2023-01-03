@@ -141,6 +141,34 @@ python3 make.py
 python3 install.py --from-build --update
 ```
 
+!!! warning
+    If you are attempting to (build and) install the bleeding edge (`dev`) version of the note
+    at ALL, use the `--dev-output-version="0.12.0.0"` flag on the
+    `install.py` (or `main.py`) script. For example:
+    ```
+    python3 main.py --dev-output-version="0.12.0.0"
+    ```
+
+    There are also some related notes for the current dev build:
+
+    - If you're on 2.1.54 or below, you'll want to add `legacy-anki_2-1-54` to the `css-folders` of the config.py, i.e.
+    ```
+    "css-folders": ["base", "responsive", "dictionaries", "editor-fields", "legacy-anki_2-1-54", "theme", "extra"],
+    ```
+
+    - The font size of some fields aren't automatically changed yet, so you'll have to adjust them manually in order for it to look nice:
+    ```
+    "WordReadingHiragana": 10,
+    "PrimaryDefinitionPicture": 20, # default
+    "PAOverrideText": 20, # default
+    "YomichanWordTags": 10,
+    "IsHintCard": 10,
+    ```
+
+    - In addition to the above, you would likely want to match the font family with all the other fields,
+        as the font family for new fields is not updated either.
+
+
 !!! note
     Running the `main.py` script is exactly equivalent of running the above two commands.
 
