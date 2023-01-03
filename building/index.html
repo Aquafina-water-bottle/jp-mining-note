@@ -1257,6 +1257,35 @@ use the <code>dev</code> branch. For example, do the following:
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Please make a backup of your collection before doing this!</span>
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>python3 install.py --from-build --update
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you are attempting to (build and) install the bleeding edge (<code>dev</code>) version of the note
+at ALL, use the <code>--dev-output-version="0.12.0.0"</code> flag on the
+<code>install.py</code> (or <code>main.py</code>) script. For example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python3 main.py --dev-output-version=&quot;0.12.0.0&quot;
+</code></pre></div></p>
+<p>There are also some related notes for the current dev build:</p>
+<ul>
+<li>
+<p>If you're on 2.1.54 or below, you'll want to add <code>legacy-anki_2-1-54</code> to the <code>css-folders</code> of the config.py, i.e.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&quot;css-folders&quot;: [&quot;base&quot;, &quot;responsive&quot;, &quot;dictionaries&quot;, &quot;editor-fields&quot;, &quot;legacy-anki_2-1-54&quot;, &quot;theme&quot;, &quot;extra&quot;],
+</code></pre></div></p>
+</li>
+<li>
+<p>The font size of some fields aren't automatically changed yet, so you'll have to adjust them manually in order for it to look nice:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&quot;WordReadingHiragana&quot;: 10,
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>&quot;PrimaryDefinitionPicture&quot;: 20, # default
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>&quot;PAOverrideText&quot;: 20, # default
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>&quot;YomichanWordTags&quot;: 10,
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>&quot;IsHintCard&quot;: 10,
+</code></pre></div></p>
+</li>
+<li>
+<p>In addition to the above, you would likely want to match the font family with all the other fields,
+    as the font family for new fields is not updated either.</p>
+</li>
+</ul>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Running the <code>main.py</code> script is exactly equivalent of running the above two commands.</p>
@@ -1267,37 +1296,37 @@ use the <code>dev</code> branch. For example, do the following:
 on an Anki profile that does NOT already have the note installed,
 you have to run the installation script twice.
 For example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python3 make.py
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python3 install.py --from-build --update
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>python3 install.py --from-build --update
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python3 make.py
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>python3 install.py --from-build --update
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>python3 install.py --from-build --update
 </code></pre></div>
 </div>
 <p>Additional things you can do with the project are shown below.</p>
 <p><br></p>
 <h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span> tools
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python3 -m pytest ./tests
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span> tools
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>python3 -m pytest ./tests
 </code></pre></div>
 <p><br></p>
 <h3 id="building-the-documentation">Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permanent link">&para;</a></h3>
 <p>To "build" the documentation, all you have to do is the following:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span> docs
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># you should now be in (root)/docs, where the mkdocs.yml is.</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>mkdocs serve
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span> docs
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># you should now be in (root)/docs, where the mkdocs.yml is.</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>mkdocs serve
 </code></pre></div></p>
 <p>This will allow you to preview the website (usually at <code>http://127.0.0.1:8000/jp-mining-note/</code>).</p>
 <p>If you are looking to edit the documentation, all related files should be found
 under this <code>docs</code> folder.
 The important markdown files are found under:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>(root)
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  L docs
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>     L docs
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        L index.md # the home page
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        L preface.md
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        L setup.md
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        L ...
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>     L mkdocs.yml
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>(root)
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  L docs
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>     L docs
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        L index.md # the home page
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        L preface.md
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        L setup.md
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        L ...
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>     L mkdocs.yml
 </code></pre></div></p>
 <hr />
 <h2 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h2>
@@ -1308,7 +1337,7 @@ The important markdown files are found under:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 3, 2023</span>
       
     
   </small>

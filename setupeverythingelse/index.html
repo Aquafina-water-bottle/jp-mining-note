@@ -1297,18 +1297,22 @@ Most setups documented are for clipboard based texthooker pages.</p>
 <details class="example">
 <summary>Resources <em>(click here)</em></summary>
 <ul>
-<li><a href="https://github.com/kmltml/clipboard-inserter"><strong>Original Clipboard Inserter</strong></a> (Chromium-based browsers)<ul>
+<li><a href="https://github.com/kmltml/clipboard-inserter"><strong>Original Clipboard Inserter (Extension)</strong></a> (Chromium-based browsers)<ul>
 <li>WARNING: <a href="https://github.com/kmltml/clipboard-inserter/issues/14">No longer works on Firefox</a>
     as of Firefox version 107.0. Use the extension below if you are using Firefox.</li>
 </ul>
 </li>
-<li><a href="https://github.com/laplus-sadness/lap-clipboard-inserter"><strong>Lap Clipboard Inserter</strong></a> (Firefox)<ul>
+<li><a href="https://github.com/laplus-sadness/lap-clipboard-inserter"><strong>Lap Clipboard Inserter (Extension)</strong></a> (Firefox)<ul>
 <li>Updated version of the above.</li>
 <li>Works on Firefox, but Chrome (manifest 3) support is currently not supported.
     Use the first extension if you are using a chromium based browser.</li>
 </ul>
 </li>
-<li><a href="https://anacreondjt.gitlab.io/docs/texthooker/"><strong>Anacreon's Texthooker Page</strong></a> (recommended)</li>
+<li><a href="https://github.com/Renji-XD/texthooker-ui"><strong>Renji's Texthooker Page</strong></a> (recommended)<ul>
+<li>Open source and more featureful alternative to the more popular Anacreon's texthooker page.</li>
+</ul>
+</li>
+<li><a href="https://anacreondjt.gitlab.io/docs/texthooker/"><strong>Anacreon's Texthooker Page</strong></a></li>
 <li><a href="https://learnjapanese.moe/texthooker.html"><strong>TMW's Texthooker Page</strong></a></li>
 </ul>
 </details>
@@ -1337,11 +1341,26 @@ I'm currently unaware of a websocket-based setup that works with video content.<
 <summary>Resources <em>(click here)</em></summary>
 <ul>
 <li>
-<p><a href="https://github.com/KamWithK/exSTATic/"><strong>exSTATic</strong></a></p>
+<p><a href="https://github.com/Renji-XD/texthooker-ui"><strong>Renji's Texthooker Page</strong></a> (recommended)</p>
 <ul>
-<li>Its primary use is for automatic stats collection. Integrates seamlessly with many workflows.</li>
+<li>This texthooker page comes with built in support for both websockets and
+    clipboard inserter plugins.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/KamWithK/exSTATic/"><strong>exSTATic</strong></a> (recommended for stats lovers)</p>
+<ul>
+<li>Its primary use is for automatic stats collection and visualizing said statistics.</li>
+<li>Integrates seamlessly with many workflows.</li>
 <li>Uses a custom texthooker page, which connects with Textractor with its own custom extension.</li>
 <li>A video installation guide is available on the project's README page.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/MarvNC/texthooker-websocket"><strong>Marv's Websocket Userscript</strong></a></p>
+<ul>
+<li>A more featureful version of the patch below.</li>
+<li>Written for Anacreon's texthooker page.</li>
 </ul>
 </li>
 <li>
@@ -1355,6 +1374,11 @@ I'm currently unaware of a websocket-based setup that works with video content.<
 </ul>
 <details class="examplecode">
 <summary>Instructions to use the patch <em>(click here)</em></summary>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a monkey patch, even according to the author. Now that better alternatives
+have came out (see above), I recommended to use said alternatives.</p>
+</div>
 <ol>
 <li>Download your favorite texthooker page into a raw html file.</li>
 <li>Copy/paste the code below to the very end of the raw html file.</li>
@@ -1402,13 +1426,6 @@ I'm currently unaware of a websocket-based setup that works with video content.<
 (<a href="https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452">Original discord message</a>, on <a href="https://learnjapanese.moe/join/">TMW server</a>. Thanks Zetta#3033 for the code.)
 </sup></p>
 </details>
-</li>
-<li>
-<p><a href="https://github.com/MarvNC/texthooker-websocket"><strong>Marv's Websocket Userscript</strong></a></p>
-<ul>
-<li>A more featureful version of the above.</li>
-<li>Also written for Anacreon's texthooker page.</li>
-</ul>
 </li>
 </ul>
 </details>
@@ -1805,7 +1822,7 @@ of creating the cards.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 26, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 3, 2023</span>
       
     
   </small>
