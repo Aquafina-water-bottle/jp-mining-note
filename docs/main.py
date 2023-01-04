@@ -209,12 +209,12 @@ FIELDS = {
         "binary_field": False,
         "reference": "fieldref.md#frequencysort-field",
         "setup": "{jpmn-min-freq}",
-        "version": "0.12.0.0",
     },
     "YomichanWordTags": {
         "auto_fill": True,
         "binary_field": False,
         "setup": "{tags}",
+        "version": "0.12.0.0",
     },
     "SecondaryDefinition": {
         "auto_fill": True,
