@@ -299,14 +299,14 @@ To change the config of any Anki add-on, head over to:
         "furigana_suffix": " (furigana)",
         "generate_on_note_add": true, // (2)!
         "note_types": [ // (3)!
-            "jp"
+            "JP Mining Note"
         ],
         "skip_kanji": false,
         "skip_numbers": false,
         "skip_words": "",
         "toolbar": {
             "clean_furigana_button": {
-                "enable": false,
+                "enable": false, // (4)!
                 "shortcut": "Alt+u",
                 "text": "削"
             },
@@ -333,6 +333,9 @@ To change the config of any Anki add-on, head over to:
         and bulk add the furigana later.
 
     3.  Similarly to the `fields` change, we change this to properly detect this note type.
+
+    4.  I personally have the buttons removed because I don't want it to clutter up the editor toolbar.
+        Feel free to have these enabled.
 
 
 
@@ -391,7 +394,7 @@ Like with AJT Furigana, the config of the add-on must be changed to work with th
         "kana_lookups": true,
         "lookup_shortcut": "Ctrl+8",
         "note_types": [
-            "jp"
+            "JP Mining Note"
         ],
         "regenerate_readings": false,
         "skip_words": "へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,です",
