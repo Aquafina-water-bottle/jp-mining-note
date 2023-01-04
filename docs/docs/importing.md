@@ -415,12 +415,12 @@ Your `WordReading` field is likely formatted in one of three ways:
 <br>
 
 
-## (5) (Optional) Batch set `WordReadingFurigana` Field
+## (5) (Optional) Batch set `WordReadingHiragana` Field
 {{ feature_version("0.11.0.0") }}
 
-The following automatically fills out the `WordReadingFurigana` field.
+The following automatically fills out the `WordReadingHiragana` field.
 
-Filling out the `WordReadingFurigana` field is optional but highly recommended.
+Filling out the `WordReadingHiragana` field is optional but highly recommended.
 This will enable the usage of [Word Indicators](ui.md#word-indicators)
 on existing cards.
 
