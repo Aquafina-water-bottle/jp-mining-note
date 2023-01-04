@@ -168,6 +168,7 @@
   "enableModule.wordIndicators":          true,
   "enableModule.checkDuplicateKey":       true,
 
+  "enableModule.websocketUtils":          true,
   "enableModule.collapseDictionaries":    true,
   "enableModule.openCollapsedFields":     true,
   "enableModule.freqUtils":               true,

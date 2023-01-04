@@ -464,7 +464,8 @@
   //      "tags": ["something", "something2"],
   //      "file-name": "_contains_both_tags.png"
   //    }
-  "addImageIfContainsTags": [],
+  // TODO typescript type
+  //"addImageIfContainsTags": [],
 
 
 
@@ -624,6 +625,22 @@
     // always show pitch accent
     "tooltipBuilder.displayPitchAccentOnHoverOnly": false,
   },
+
+
+
+
+  // ==========================================================================
+  // = collapseDictionaries =
+  // ==========================================================================
+
+  "websocketUtils.enabled": true,
+  "websocketUtils.url": "ws://localhost:6678",
+
+  // note: only sends on the back side of the card
+  // TODO order?
+  "websocketUtils.sendSentence": true,
+
+
 
 
 

@@ -77,7 +77,7 @@ export function convertHiraganaToKatakana(text: string): string {
   for (let char of text) {
     const codePoint = char.codePointAt(0);
     if (
-      typeof codePoint !== 'undefined' &&
+      codePoint !== undefined &&
       isCodePointInRange(codePoint, HIRAGANA_CONVERSION_RANGE)
     ) {
       char = String.fromCodePoint(codePoint + offset);
@@ -89,7 +89,7 @@ export function convertHiraganaToKatakana(text: string): string {
 
 export function isKana(c: string) {
   let pt = c.codePointAt(0);
-  if (typeof pt === 'undefined') {
+  if (pt === undefined) {
     return false; // why would this happen?
   }
 

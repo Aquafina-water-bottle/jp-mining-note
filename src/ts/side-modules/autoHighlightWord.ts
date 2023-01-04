@@ -153,7 +153,7 @@ export class AutoHighlightWord extends SideModule {
   ): [string, string | null] {
 
     if (this.isRubySentence(sentence) && !this.attemptedPlainReplace) {
-      if (typeof plainSentence === 'undefined') {
+      if (plainSentence === undefined) {
         // warn
       } else {
         // side effect: caches replace beforehand

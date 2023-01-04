@@ -18,6 +18,7 @@ import { CollapseDictionaries } from './modules/collapseDictionaries';
 import { OpenCollapsedFields } from './modules/openCollapsedFields';
 import { WordIndicators } from './modules/wordIndicators';
 import { FreqUtils } from './modules/freqUtils';
+import { WebsocketUtils } from './modules/websocketUtils'
 
 import { MobileUtils } from './modules/mobileUtils';
 import { InfoCircleUtils } from './modules/infoCircleUtils';
@@ -64,7 +65,7 @@ export function main(cardSide: string, cardType: string, noteType: string) {
 
   if (
     !compileOpts['hardcodedRuntimeOptions'] &&
-    typeof (window as any).JPMNOptions === 'undefined'
+    (window as any).JPMNOptions === undefined
   ) {
     LOGGER.warn(
       'JPMNOptions was not defined in the options file. Was there an error? ' +
@@ -119,8 +120,16 @@ export function main(cardSide: string, cardType: string, noteType: string) {
       new ImgUtils('imgUtils').run();
     }
 
+    // TODO async scheduler
     if (compileOpts['enableModule.kanjiHover']) {
       new KanjiHover('kanjiHover').run();
+    }
+    if (compileOpts['enableModule.wordIndicators']) {
+      new WordIndicators('wordIndicators').run();
+    }
+
+    if (compileOpts['enableModule.websocketUtils']) {
+      new WebsocketUtils('websocketUtils').run();
     }
 
     if (compileOpts['enableModule.collapseDictionaries']) {
@@ -129,10 +138,6 @@ export function main(cardSide: string, cardType: string, noteType: string) {
 
     if (compileOpts['enableModule.openCollapsedFields']) {
       new OpenCollapsedFields('openCollapsedFields').run();
-    }
-
-    if (compileOpts['enableModule.wordIndicators']) {
-      new WordIndicators('wordIndicators').run();
     }
 
     if (compileOpts['enableModule.freqUtils']) {

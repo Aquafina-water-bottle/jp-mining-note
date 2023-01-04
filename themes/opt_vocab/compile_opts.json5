@@ -12,24 +12,33 @@
 
 
 
-  "enableModule.timePerformance":       false,
-  "enableModule.keybinds":              false,
+  "enableModule.timePerformance":         false,
+  "enableModule.keybinds":                false,
 
-  "enableModule.sentUtils":             false,
+  "enableModule.sentUtils":               false,
+  "enableModule.sentUtils.autoHighlight": false,
 
-  "enableModule.autoPitchAccent":       false,
-  "enableModule.imgUtilsMin":           true,
+  "enableModule.autoPitchAccent":         false,
+  "enableModule.autoPitchAccent.color":   false,
 
-  "enableModule.kanjiHover":            false,
-  "enableModule.collapseDictionaries":  false,
-  "enableModule.openCollapsedFields":   false,
-  "enableModule.wordIndicators":        false,
-  "enableModule.freqUtils":             false,
+  "enableModule.imgUtilsMin":             true,
+  "enableModule.imgUtils":                false,
+  "enableModule.imgUtils.imageBlur":      false,
 
-  "enableModule.mobileUtils":           false,
-  "enableModule.infoCircleUtils":       false,
-  "enableModule.fixRubyPositioning":    false,
-  "enableModule.checkDuplicateKey":     false,
+  "enableModule.asyncScheduler":          false,
+  "enableModule.asyncScheduler.front":    false,
+  "enableModule.kanjiHover":              false,
+  "enableModule.wordIndicators":          false,
+  "enableModule.checkDuplicateKey":       false,
+
+  "enableModule.websocketUtils":          false,
+  "enableModule.collapseDictionaries":    false,
+  "enableModule.openCollapsedFields":     false,
+  "enableModule.freqUtils":               false,
+
+  "enableModule.mobileUtils":             false,
+  "enableModule.infoCircleUtils":         false,
+  "enableModule.fixRubyPositioning":      false,
 
 }
 
