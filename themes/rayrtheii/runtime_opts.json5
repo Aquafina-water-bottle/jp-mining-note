@@ -1,5 +1,5 @@
 {
-  "debug.level": 1,
+  "debug.level": 3,
   //"debug.toConsole": true,
   "debug.toConsole": false,
 

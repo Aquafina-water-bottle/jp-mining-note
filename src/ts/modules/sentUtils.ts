@@ -280,7 +280,7 @@ export class SentUtils extends Module {
         ['sentUtils.display.quotes.processMode.tagOverride.asIs', 'as-is'],
         ['sentUtils.display.quotes.processMode.tagOverride.none', 'none'],
       ]);
-      if (typeof processMode !== 'undefined') {
+      if (processMode !== undefined) {
         return processMode;
       }
     }
@@ -316,7 +316,7 @@ export class SentUtils extends Module {
           ],
         ]);
       }
-      if (typeof displayMode !== 'undefined') {
+      if (displayMode !== undefined) {
         return displayMode;
       }
     }

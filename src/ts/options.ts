@@ -6,6 +6,10 @@ import { isMobile, VW, arrContainsAnyOf, TAGS_LIST } from './utils';
 type DO = typeof runtimeOpts;
 
 // sanitized options
+//export type O = Omit<DO, 'overrides'> & {
+//  "debug.onlyShowCertainModules.modules": string[]; // override any arrays
+//};
+
 export type O = Omit<DO, 'overrides'>;
 
 const overrideTypes = ['isMobile', 'isPC', 'cardType', 'viewport'];
@@ -150,7 +154,7 @@ function getDefaultOption<K extends keyof O>(k: K): O[K] {
   if (k in runtimeOpts.overrides) {
     const runtimeOverrides = runtimeOpts.overrides as Overrides;
     const result = attemptParseOverride(runtimeOverrides[k], t);
-    if (typeof result === 'undefined') {
+    if (result === undefined) {
       LOGGER.warn(`Default option override for ${k} is invalid?`);
     } else {
       return result;

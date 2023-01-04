@@ -17,6 +17,7 @@ export type ModuleId =
   | 'collapseDictionaries'
   | 'openCollapsedFields'
   | 'wordIndicators'
+  | 'websocketUtils'
   | 'mobileUtils'
   | 'infoCircleUtils'
   | 'freqUtils'
@@ -28,10 +29,12 @@ export type ModuleId =
 // > "Expression produces a union type that is too complex to represent"
 // TODO: extend to use overrides if necessary
 // [K in keyof O]?: O[K] | OverrideValueUnknown;
-type OptionsSubset = {
-  // all optional
-  [K in keyof O]?: O[K];
-};
+//type OptionsSubset = {
+//  // all optional
+//  [K in keyof O]?: O[K];
+//};
+
+type OptionsSubset = Partial<O>;
 
 export abstract class SideModule {
   id: string;
@@ -48,9 +51,10 @@ export abstract class SideModule {
     this.localOpts[k] = o;
   }
 
-  getOption<K extends keyof O>(k: K) {
-    if (k in this.localOpts) {
-      return this.localOpts[k];
+  getOption<K extends keyof O>(k: K): O[K] {
+    const x = this.localOpts[k];
+    if (x !== undefined) {
+      return x;
     }
     return getOption(k);
   }
@@ -65,8 +69,14 @@ export abstract class Module extends SideModule {
   }
 
   run() {
-    if (getOption(`${this.id}.enabled`)) {
-      this.main();
+    try {
+      if (getOption(`${this.id}.enabled`)) {
+        this.main();
+      }
+    } catch (error: any) {
+      //this.logger.errorStack(error.stack);
+      this.logger.error("Error occured in module");
+      this.logger.error(error.stack);
     }
   }
 
