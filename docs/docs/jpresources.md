@@ -1039,6 +1039,75 @@ so this has helped me immensely.
 
 
 
+# Send text from Anki to your texthooker
+
+This is a very quick hack to have text from Anki to appear on a websocket based texthooker.
+This will be supported by default in jp-mining-note version `0.12.0.0`.
+
+Requires Python, written for [Renji's texthooker](https://github.com/Renji-XD/texthooker-ui).
+
+??? example "Instructions *(click here)*"
+    1. Save as `server.py`:
+        ```python
+        import asyncio
+        import websockets
+
+        CONNECTIONS = set()
+
+        async def register(websocket):
+            CONNECTIONS.add(websocket)
+            try:
+                async for message in websocket:
+                    print(f"server will now echo '{message}' to all other connections")
+                    connections = [c for c in CONNECTIONS if c != websocket]
+                    websockets.broadcast(connections, message)
+                await websocket.wait_closed()
+            finally:
+                CONNECTIONS.remove(websocket)
+
+        async def main():
+            async with websockets.serve(register, "localhost", 6678):
+                await asyncio.Future()  # run forever
+
+        if __name__ == "__main__":
+            asyncio.run(main())
+        ```
+
+    1. Paste this on the back side of your Anki template:
+        ```html
+        <script>
+        (() => {
+          function sendText(id) {
+            const sentEle = document.getElementById(id);
+            if (sentEle !== null) {
+              const sentence = sentEle.innerText.trim();
+              if (sentence.length > 0) {
+                socket.send(sentence);
+              }
+            }
+          }
+
+          const url = "ws://localhost:6678";
+          const socket = new WebSocket(url);
+
+          socket.onopen = (_e) => {
+            sendText("full_sentence");
+            sendText("primary_definition_raw_text");
+          };
+        })();
+        </script>
+        ```
+
+    1. Replace `full_sentence` and `primary_definition_raw_text` with whatever id.
+    1. Install `websockets` with pip, i.e. `pip3 install websockets`
+    1. Change the web port on the texthooker page to `6678`.
+
+    Whenever you want to connect Anki to the texthooker page:
+
+    1. Run `server.py`, i.e. `python3 server.py`
+    1. Ensure the web port is the same on the texthooker page, i.e. `6678`
+    1. Enable the websocket connection on the texthooker page.
+
 
 
 
