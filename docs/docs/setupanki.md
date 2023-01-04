@@ -301,6 +301,7 @@ To change the config of any Anki add-on, head over to:
         "note_types": [ // (3)!
             "jp"
         ],
+        "skip_kanji": false,
         "skip_numbers": false,
         "skip_words": "",
         "toolbar": {
@@ -313,6 +314,11 @@ To change the config of any Anki add-on, head over to:
                 "enable": false,
                 "shortcut": "Alt+o",
                 "text": "振"
+            },
+            "furigana_no_kanji_button": {
+                "enable": false,
+                "shortcut": "Alt+i",
+                "text": "平"
             }
         }
     }
