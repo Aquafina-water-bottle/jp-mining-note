@@ -1654,6 +1654,20 @@ allowing it to be shared easily on a place like Discord.</p>
 <h3 id="this-card-template-loads-slower-than-other-card-templates">This card template loads slower than other card templates.<a class="headerlink" href="#this-card-template-loads-slower-than-other-card-templates" title="Permanent link">&para;</a></h3>
 <p>Usually, this is not very noticeable on faster computers.
 However, the card may load slower compared to others if you are on a slow computer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note for Android (Ankidroid)</p>
+<p>Unfortunately, it seems like Ankidroid has a specific issue where fonts are loaded
+extremely slowly. This appears to be a problem with the
+chrome webview itself
+(see: <a href="https://github.com/ankidroid/Anki-Android/issues/4856">Ankidroid issue</a>,
+<a href="https://bugs.chromium.org/p/chromium/issues/detail?id=954439">Chromium issue</a>).
+This means outside of removing the custom fonts,
+there is <strong>no feasible way</strong> to considerably speed up Ankidroid.</p>
+<p>From person experiments, simply removing the fonts without changing anything else
+on jp-mining-note results in <strong>almost instanteous</strong> load times.
+This is in comparison to the same template with custom fonts included,
+which results in near <strong>one second</strong> load times.</p>
+</div>
 <p>There are some ways to remedying this. Both will inevitably
 remove certain features of the note.</p>
 <details class="info">
@@ -1997,7 +2011,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 28, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 5, 2023</span>
       
     
   </small>
