@@ -111,6 +111,7 @@ Instead, here is a small list of resources on setting up and using Anki itself:
 * [Lazy Guide: Anki](https://rentry.co/lazyXel#anki)
     * Showcases an example note type, addons used and tips
 * [Refold's Recommended Anki Setup](https://refold.la/roadmap/stage-1/a/anki-setup)
+* [FSRS4Anki](https://github.com/open-spaced-repetition/fsrs4anki)
 
 Note that every website here has different recommendations.
 You will likely have to play with the settings and actually use Anki for an extended period of time
@@ -157,12 +158,12 @@ I also provide a small list of other popular add-ons that I don't use, but may b
     * [Paste Images As WebP](https://ankiweb.net/shared/info/1151815987)
 
     **Other:**
+
     * [AnkiWebView Inspector](https://ankiweb.net/shared/info/31746032)
 
 
 ??? example "Useful Add-ons that I don't use *(click here)*"
     * [AJT Mortician](https://ankiweb.net/shared/info/1255924302)
-    * [fsrs4anki](https://github.com/open-spaced-repetition/fsrs4anki)
     * [Edit Field During Review Cloze](https://ankiweb.net/shared/info/385888438)
     * [Generate Batch Audio](https://ankiweb.net/shared/info/1156270186)
     * [Review Heatmap](https://ankiweb.net/shared/info/1771074083)
