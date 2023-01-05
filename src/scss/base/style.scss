@@ -307,11 +307,6 @@ ruby rt {
 }
 
 
-.hidden {
-  display: none;
-}
-
-
 /*
  *  ================
  *   FRONT SIDE CSS
@@ -499,8 +494,9 @@ ruby rt {
 
 .info-circle-text-settings {
   line-height: 0%;
+  margin-bottom: 10px;
   display: flex;
-  gap: 5px;
+  gap: 5px; // 2.1.54 +
 }
 
 .info-circle-text-settings-border {
@@ -509,17 +505,17 @@ ruby rt {
   margin-bottom: 4px;
   line-height: 0px;
   width: 100%;
-  display: none;
+  //display: none;
 }
 
 /* shows the border if settings aren't empty */
-.info-circle-text-settings:not(:empty) + .info-circle-text-settings-border {
-  display: block;
-}
-
-.info-circle-text-settings:not(:empty) {
-  margin-bottom: 10px;
-}
+//.info-circle-text-settings:not(:empty) + .info-circle-text-settings-border {
+//  display: block;
+//}
+//
+//.info-circle-text-settings:not(:empty) {
+//  margin-bottom: 10px;
+//}
 
 .info-circle-text-settings svg {
   width: var(--info-circle-settings-svg-size);
@@ -2139,4 +2135,12 @@ ruby rt {
 
 
 }
+
+
+/* TODO move to a new utilities folder */
+
+.hidden {
+  display: none;
+}
+
 

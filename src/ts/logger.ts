@@ -68,8 +68,11 @@ export class Logger {
     this.printMsg(message, warnGroupId, warnClass, args);
   }
 
-  error(message: string, args?: LoggerArgs) {
+  // returns string to throw if necessary
+  // i.e. throw Error(logger.error(...))
+  error(message: string, args?: LoggerArgs): string {
     this.printMsg(message, errorGroupId, errorClass, args);
+    return message;
   }
 
   leech() {

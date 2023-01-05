@@ -52,6 +52,8 @@ export type NoteInfo = {
   };
 };
 
+export type CardSide = "front" | "back";
+
 
 
 export const VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -237,6 +239,15 @@ export function plainToKanaOnly(str: string) {
 /* equivalent to anki's kanji: filter */
 export function plainToKanjiOnly(str: string) {
   return _plainToX(str, "$1")
+}
+
+
+export function throwOnNotFound(id: string): HTMLElement {
+  const result = document.getElementById(id);
+  if (result === null) {
+    throw Error(`${id} cannot be found`);
+  }
+  return result;
 }
 
 

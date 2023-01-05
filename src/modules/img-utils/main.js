@@ -542,6 +542,7 @@ const JPMNImgUtils = (() => {
     imgEle.classList.add(primDefRawImgClassName);
   }
 
+  // THIS IS NO LONGER NEEDED as primary_definition_raw_text properly wraps around the primary definition!
   // looks for the PrimaryDefinitionPicture if it exists & marks first
   // placed before searchImages so the searchImages() function can properly determine
   // what is a primary definition picture VS what should be collapsed

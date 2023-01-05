@@ -1,6 +1,6 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { fieldAllExists, fieldNoneExist } from './utils';
+import { CardSide, fieldAllExists, fieldNoneExist } from './utils';
 import { getOption } from './options'
 
 //import { TimePerformance } from "./timePerformance"
@@ -18,14 +18,14 @@ import { CollapseDictionaries } from './modules/collapseDictionaries';
 import { OpenCollapsedFields } from './modules/openCollapsedFields';
 import { WordIndicators } from './modules/wordIndicators';
 import { FreqUtils } from './modules/freqUtils';
-import { WebsocketUtils } from './modules/websocketUtils'
+import { WebSocketUtils } from './modules/webSocketUtils'
 
 import { MobileUtils } from './modules/mobileUtils';
 import { InfoCircleUtils } from './modules/infoCircleUtils';
 import { FixRubyPositioning } from './modules/fixRubyPositioning';
 import { CheckDuplicateKey } from './modules/checkDuplicateKey';
 
-export function main(cardSide: string, cardType: string, noteType: string) {
+export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
   // = error handling =
   // ==========================================================================
@@ -96,6 +96,8 @@ export function main(cardSide: string, cardType: string, noteType: string) {
   // copying/pasting code unfortunately
   // attempting to store and read things from an array doesn't seem to work!
 
+  // TODO move module id to the constructor of the class
+
   if (compileOpts['enableModule.keybinds']) {
     new Keybinds('keybinds').run();
   }
@@ -128,10 +130,6 @@ export function main(cardSide: string, cardType: string, noteType: string) {
       new WordIndicators('wordIndicators').run();
     }
 
-    if (compileOpts['enableModule.websocketUtils']) {
-      new WebsocketUtils('websocketUtils').run();
-    }
-
     if (compileOpts['enableModule.collapseDictionaries']) {
       new CollapseDictionaries('collapseDictionaries').run();
     }
@@ -145,12 +143,17 @@ export function main(cardSide: string, cardType: string, noteType: string) {
     }
   }
 
+  if (compileOpts['enableModule.webSocketUtils']) {
+    new WebSocketUtils(cardSide).run();
+  }
+
+
   if (compileOpts['enableModule.mobileUtils']) {
     new MobileUtils('mobileUtils').run();
   }
 
   if (compileOpts['enableModule.infoCircleUtils']) {
-    new InfoCircleUtils('infoCircleUtils').run();
+    new InfoCircleUtils().run();
   }
 
   if (compileOpts['enableModule.fixRubyPositioning']) {

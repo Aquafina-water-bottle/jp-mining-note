@@ -158,9 +158,10 @@
   "enableModule.autoPitchAccent":         true,
   "enableModule.autoPitchAccent.color":   true,
 
-  "enableModule.imgUtilsMin":             false, // overrides imgUtils if true
   "enableModule.imgUtils":                true,
+  "enableModule.imgUtils.resize":         true, // the recommended minimal setup
   "enableModule.imgUtils.imageBlur":      true,
+  "enableModule.imgUtils.other":          true, // all the other functionality imgutils provides
 
   "enableModule.asyncScheduler":          true, // required for kanjiHover, wordIndicators, checkDuplicateKey
   "enableModule.asyncScheduler.front":    true, // attempts to pre-load at front
@@ -168,7 +169,7 @@
   "enableModule.wordIndicators":          true,
   "enableModule.checkDuplicateKey":       true,
 
-  "enableModule.websocketUtils":          true,
+  "enableModule.webSocketUtils":          true,
   "enableModule.collapseDictionaries":    true,
   "enableModule.openCollapsedFields":     true,
   "enableModule.freqUtils":               true,
