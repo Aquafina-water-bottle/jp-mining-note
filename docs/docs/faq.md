@@ -195,6 +195,20 @@ allowing it to be shared easily on a place like Discord.
 Usually, this is not very noticeable on faster computers.
 However, the card may load slower compared to others if you are on a slow computer.
 
+!!! note "Note for Android (Ankidroid)"
+    Unfortunately, it seems like Ankidroid has a specific issue where fonts are loaded
+    extremely slowly. This appears to be a problem with the
+    chrome webview itself
+    (see: [Ankidroid issue](https://github.com/ankidroid/Anki-Android/issues/4856),
+    [Chromium issue](https://bugs.chromium.org/p/chromium/issues/detail?id=954439)).
+    This means outside of removing the custom fonts,
+    there is **no feasible way** to considerably speed up Ankidroid.
+
+    From person experiments, simply removing the fonts without changing anything else
+    on jp-mining-note results in **almost instanteous** load times.
+    This is in comparison to the same template with custom fonts included,
+    which results in near **one second** load times.
+
 There are some ways to remedying this. Both will inevitably
 remove certain features of the note.
 
