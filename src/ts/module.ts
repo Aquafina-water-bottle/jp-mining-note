@@ -6,6 +6,7 @@ import { Logger } from './logger';
 // actual constants (strings / numbers / etc): module constant
 // this order prevents html elements / runtime options from being ran despite nothing using it
 
+// required for run() -> getOption() to work
 export type ModuleId =
   | 'keybinds'
   | 'mainCardUtils'
@@ -17,7 +18,7 @@ export type ModuleId =
   | 'collapseDictionaries'
   | 'openCollapsedFields'
   | 'wordIndicators'
-  | 'websocketUtils'
+  | 'webSocketUtils'
   | 'mobileUtils'
   | 'infoCircleUtils'
   | 'freqUtils'

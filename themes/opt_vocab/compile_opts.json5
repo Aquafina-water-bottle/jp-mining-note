@@ -21,9 +21,10 @@
   "enableModule.autoPitchAccent":         false,
   "enableModule.autoPitchAccent.color":   false,
 
-  "enableModule.imgUtilsMin":             true,
-  "enableModule.imgUtils":                false,
+  "enableModule.imgUtils":                true,
+  "enableModule.imgUtils.resize":         true, // the recommended minimal setup
   "enableModule.imgUtils.imageBlur":      false,
+  "enableModule.imgUtils.other":          false, // all the other functionality imgutils provides
 
   "enableModule.asyncScheduler":          false,
   "enableModule.asyncScheduler.front":    false,
@@ -31,7 +32,7 @@
   "enableModule.wordIndicators":          false,
   "enableModule.checkDuplicateKey":       false,
 
-  "enableModule.websocketUtils":          false,
+  "enableModule.webSocketUtils":          false,
   "enableModule.collapseDictionaries":    false,
   "enableModule.openCollapsedFields":     false,
   "enableModule.freqUtils":               false,
