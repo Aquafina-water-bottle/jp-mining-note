@@ -1,5 +1,6 @@
 This page is dedicated to recording a (non-exhaustive) list of various note types,
-that isn't [JPMN](/jp-mining-note/).
+that isn't [JPMN](/jp-mining-note/). These are added in order of when I first come across
+the note type, so it's roughly ordered from the oldest to newest note types.
 
 P.S. Feel free to let me know of any note types you find interesting
 (including your own note type, or modified versions of this note),
@@ -28,6 +29,8 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 ---
 
 
+
+
 # (Lazy Guide) Xelieu's Modified Anime Card
 <sup>
 [Website & download](https://rentry.co/lazyXel#anki)
@@ -54,6 +57,9 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ---
 
+
+
+
 # stegatxins0's Modified Anime Card
 <sup>
 [Website & download](https://rentry.co/mining#anki-settings)
@@ -63,6 +69,9 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     {{ img("", "assets/alternatives/stegatxins0_eg.png") }}
 
 ---
+
+
+
 
 
 # Tatsumoto's TSC
@@ -76,8 +85,10 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 ??? example "Example image"
     {{ img("", "https://user-images.githubusercontent.com/69171671/100900075-5fc15800-34ba-11eb-9a23-bcfa5e01e35c.png") }}
 
-
 ---
+
+
+
 
 # AJATT-Tool's AnkiNoteTypes
 <sup>
@@ -119,14 +130,40 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
         </sup>
         {{ img("", "https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/card_back_multilingual.webp?raw=true") }}
 
+---
 
 
 
 
+# MoonieBiloney's Note Types
+<sup>
+[Google docs page](https://docs.google.com/document/d/1MxoRIO88KlJlGttnXNVkDVoHfZUtJqwOT_arRSS5F7Y/edit)・[Download](https://drive.google.com/drive/folders/1UFxn80dG-HIws5tlAa8sKFypnR8pmPci)
+</sup>
 
-
+- Some require a Patreon subscription to access
 
 ---
+
+
+
+
+# Kanken deck
+<sup>
+[Website & download](https://ankiweb.net/shared/info/759825185)
+</sup>
+
+- The *definitive deck* to use for learning how to write kanji
+- Not a note type used for mining
+
+??? example "Example image"
+    {{ img("", "assets/alternatives/kanken_deck_eg.png") }}
+
+---
+
+
+
+
+
 
 # Eminent Note Type
 <sup>
@@ -139,8 +176,10 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     === "Back"
         {{ img("", "https://cademcniven.com/images/card_back-9gMDHBDdD3-1350w.avif") }}
 
-
 ---
+
+
+
 
 # Elax's Note Type
 <sup>
@@ -170,9 +209,9 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/847595626220355584), on {{ TMW_SERVER }})
     </sup>
 
-
-
 ---
+
+
 
 # Timm's Anki Template
 
@@ -259,8 +298,10 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     ([Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/937090192546865282), on {{ TMW_SERVER }})
     </sup>
 
-
 ---
+
+
+
 
 
 # Tigy01's Note Type
@@ -276,8 +317,11 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     === "Back"
         {{ img("", "https://cdn.discordapp.com/attachments/1001191401830223882/1001302878473949304/Untitled_2.png") }}
 
-
 ---
+
+
+
+
 
 # Stazor's Note Type
 <sup>
@@ -296,31 +340,23 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
     === "Back (light)"
         {{ img("", "https://cdn.discordapp.com/attachments/755067984833151136/1023266290971975752/unknown.png") }}
 
+---
 
 
 
-# MoonieBiloney's Note Types
+
+# rundam's Note Type
 <sup>
-[Google docs page](https://docs.google.com/document/d/1MxoRIO88KlJlGttnXNVkDVoHfZUtJqwOT_arRSS5F7Y/edit)・[Download](https://drive.google.com/drive/folders/1UFxn80dG-HIws5tlAa8sKFypnR8pmPci)
+[Download](https://cdn.discordapp.com/attachments/797748730807320588/1060757391706181763/Mining__.apkg)・[Original discord message](https://discord.com/channels/778787713012727809/797748730807320588/1060757391211241576) ({{ REFOLD_SERVER }})
 </sup>
 
-- Some require a Patreon subscription to access
+??? example "Example video"
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Z21vy6LvdRQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ---
 
 
-# Kanken deck
-<sup>
-[Website & download](https://ankiweb.net/shared/info/759825185)
-</sup>
 
-- The *definitive deck* to use for learning how to write kanji
-- Not a note type used for mining
-
-??? example "Example image"
-    {{ img("", "assets/alternatives/kanken_deck_eg.png") }}
-
----
 
 
 # Various note types for non-Japanese learning purposes

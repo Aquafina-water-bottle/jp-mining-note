@@ -368,6 +368,7 @@ def define_env(env):
         "YTCO": '[Yomichan template option](yomichantemplates.md){:target="_blank"}',
         "TMW_SERVER": "[TMW server](https://learnjapanese.moe/join/)",
         "THEMOEWAY_LINK": "https://learnjapanese.moe/join/",
+        "REFOLD_SERVER": "Refold (JP) Server",
         "PERDITION_SERVER": "[Perdition's server](https://discord.gg/uK4HeGN)",
         "PERDITION_LINK": "https://discord.gg/uK4HeGN",
     }

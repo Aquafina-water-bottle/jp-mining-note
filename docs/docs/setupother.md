@@ -112,6 +112,8 @@ Instead, here is a small list of resources on setting up and using Anki itself:
     * Showcases an example note type, addons used and tips
 * [Refold's Recommended Anki Setup](https://refold.la/roadmap/stage-1/a/anki-setup)
 * [FSRS4Anki](https://github.com/open-spaced-repetition/fsrs4anki)
+* [Twenty Rules](https://www.supermemo.com/en/blog/twenty-rules-of-formulating-knowledge)
+    * These are general rules for learning (with an SRS), written for SuperMemo. Some rules are not applicable for specifically language learning, but I believe the first 4 rules are very important.
 
 Note that every website here has different recommendations.
 You will likely have to play with the settings and actually use Anki for an extended period of time
