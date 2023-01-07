@@ -2,6 +2,11 @@ import { Module } from '../module';
 import { fieldAnyExist, isAndroid, isMobile } from '../utils';
 
 export class MobileUtils extends Module {
+
+  constructor() {
+    super("mobileUtils");
+  }
+
   main() {
     if (!isMobile()) {
       return;

@@ -152,16 +152,14 @@
   "enableModule.timePerformance":         false,
   "enableModule.keybinds":                true,
 
-  "enableModule.sentUtils":               true,
-  "enableModule.sentUtils.autoHighlight": true,
+  "enableModule.sentenceParser":          true,
+  "enableModule.sentenceParser.autoHighlight": true,
 
   "enableModule.autoPitchAccent":         true,
   "enableModule.autoPitchAccent.color":   true,
 
-  "enableModule.imgUtils":                true,
-  "enableModule.imgUtils.resize":         true, // the recommended minimal setup
-  "enableModule.imgUtils.imageBlur":      true,
-  "enableModule.imgUtils.other":          true, // all the other functionality imgutils provides
+  "enableModule.imgStylizer":             true,
+  "enableModule.imgStylizer.imageBlur":   true,
 
   "enableModule.asyncScheduler":          true, // required for kanjiHover, wordIndicators, checkDuplicateKey
   "enableModule.asyncScheduler.front":    true, // attempts to pre-load at front
@@ -222,7 +220,7 @@
   // ==========================================================================
   // = defaultQuotes =
   // ==========================================================================
-  // see sentUtils.quotes for the appropriate documentation on what this does
+  // see sentenceParser.quotes for the appropriate documentation on what this does
   "defaultQuote.add": true,
   "defaultQuote.displayMode": "vn",
 

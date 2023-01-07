@@ -7,11 +7,10 @@ import { getOption } from './options'
 import { Keybinds } from './modules/keybinds';
 import { MainCardUtils } from './modules/mainCardUtils';
 
-import { SentUtils } from './modules/sentUtils';
+import { SentenceParser } from './modules/sentenceParser';
 
 import { AutoPitchAccent } from './modules/autoPitchAccent';
-import { ImgUtilsMin } from './modules/imgUtilsMin';
-import { ImgUtils } from './modules/imgUtils';
+import { ImgStylizer } from './modules/imgStylizer';
 
 import { KanjiHover } from './modules/kanjiHover';
 import { CollapseDictionaries } from './modules/collapseDictionaries';
@@ -99,47 +98,50 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // TODO move module id to the constructor of the class
 
   if (compileOpts['enableModule.keybinds']) {
-    new Keybinds('keybinds').run();
+    new Keybinds().run();
   }
 
   if (cardType === "main") {
-    new MainCardUtils('mainCardUtils').run();
+    new MainCardUtils().run();
   }
 
-  if (compileOpts['enableModule.sentUtils']) {
-    new SentUtils('sentUtils').run();
+  if (compileOpts['enableModule.sentenceParser']) {
+    new SentenceParser().run();
   }
 
 
   if (cardSide === 'back') {
     if (compileOpts['enableModule.autoPitchAccent']) {
-      new AutoPitchAccent('autoPitchAccent').run();
+      new AutoPitchAccent().run();
     }
 
-    if (compileOpts['enableModule.imgUtilsMin']) {
-      new ImgUtilsMin('imgUtilsMin').run();
-    } else if (compileOpts['enableModule.imgUtils']) {
-      new ImgUtils('imgUtils').run();
+    //if (compileOpts['enableModule.imgUtilsMin']) {
+    //  new ImgStylizerMin('imgUtilsMin').run();
+    //} else if (compileOpts['enableModule.imgStylizer']) {
+    //  new ImgStylizer('imgStylizer').run();
+    //}
+    if (compileOpts['enableModule.imgStylizer']) {
+      new ImgStylizer(cardSide).run();
     }
 
     // TODO async scheduler
     if (compileOpts['enableModule.kanjiHover']) {
-      new KanjiHover('kanjiHover').run();
+      new KanjiHover().run();
     }
     if (compileOpts['enableModule.wordIndicators']) {
-      new WordIndicators('wordIndicators').run();
+      new WordIndicators().run();
     }
 
     if (compileOpts['enableModule.collapseDictionaries']) {
-      new CollapseDictionaries('collapseDictionaries').run();
+      new CollapseDictionaries().run();
     }
 
     if (compileOpts['enableModule.openCollapsedFields']) {
-      new OpenCollapsedFields('openCollapsedFields').run();
+      new OpenCollapsedFields().run();
     }
 
     if (compileOpts['enableModule.freqUtils']) {
-      new FreqUtils('freqUtils').run();
+      new FreqUtils().run();
     }
   }
 
@@ -149,7 +151,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
 
   if (compileOpts['enableModule.mobileUtils']) {
-    new MobileUtils('mobileUtils').run();
+    new MobileUtils().run();
   }
 
   if (compileOpts['enableModule.infoCircleUtils']) {
@@ -157,10 +159,10 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   }
 
   if (compileOpts['enableModule.fixRubyPositioning']) {
-    new FixRubyPositioning('fixRubyPositioning').run();
+    new FixRubyPositioning().run();
   }
 
   if (compileOpts['enableModule.checkDuplicateKey']) {
-    new CheckDuplicateKey('checkDuplicateKey').run();
+    new CheckDuplicateKey().run();
   }
 }

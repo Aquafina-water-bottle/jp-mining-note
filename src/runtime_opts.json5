@@ -112,49 +112,49 @@
 
 
   // ==========================================================================
-  // = sentUtils =
+  // = sentenceParser =
   // ==========================================================================
 
-  "sentUtils.enabled": true,
+  "sentenceParser.enabled": true,
 
 
-  // sentUtils.fixDivList
+  // sentenceParser.fixDivList
   // --------------------------------------------------------------------------
   // Fixes the sentence if it's formatted as <div>line1</div> <div>line2</div> ...
   // (and converts it to line1<br>line ...)
-  "sentUtils.fixDivList.enabled": true,
-  "sentUtils.fixDivList.warnOnFix": false,
+  "sentenceParser.fixDivList.enabled": true,
+  "sentenceParser.fixDivList.warnOnFix": false,
 
 
-  // sentUtils.autoHighlightWord
+  // sentenceParser.autoHighlightWord
   // --------------------------------------------------------------------------
   // Automatically attempts to highlight the word in the sentence.
   // Base code taken from:
   // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
-  "sentUtils.autoHighlightWord": true,
-  "sentUtils.autoHighlightWord.warnOnAutoHighlight": false,
-  "sentUtils.autoHighlightWord.warnIfAutoHighlightFails": true,
+  "sentenceParser.autoHighlightWord": true,
+  "sentenceParser.autoHighlightWord.warnOnAutoHighlight": false,
+  "sentenceParser.autoHighlightWord.warnIfAutoHighlightFails": true,
 
 
 
-  // sentUtils.quotes
+  // sentenceParser.quotes
   // --------------------------------------------------------------------------
 
 
   // the quote pair to automatically add to the sentence
   // NOTE: overwritten in "overrides" section
-  "sentUtils.quotes.quoteOpen": "「",
-  "sentUtils.quotes.quoteClose": "」",
+  "sentenceParser.quotes.quoteOpen": "「",
+  "sentenceParser.quotes.quoteClose": "」",
 
   // quotes to search for on existing sentences,
   // to not double-quote a sentence that already has quotes on it
-  "sentUtils.quotes.matches": [
+  "sentenceParser.quotes.matches": [
     { "open": "「", "close": "」" },
     { "open": "『", "close": "』" },
   ],
 
 
-  // sentUtils.fullSent.quotes
+  // sentenceParser.fullSent.quotes
   // --------------------------------------------------------------------------
   // quotes on the full sentence (sentence shown in kanji hover & on backside of card)
 
@@ -184,8 +184,8 @@
   // あああああああ」
   // ああああああああ    // <-- line 3
 
-  "sentUtils.fullSent.quotes.processMode": "remove",
-  "sentUtils.fullSent.quotes.processMode.searchMulti": true,
+  "sentenceParser.fullSent.quotes.processMode": "remove",
+  "sentenceParser.fullSent.quotes.processMode.searchMulti": true,
 
 
 
@@ -208,54 +208,54 @@
   //  |  ええええええええ|
   //  |  ええええええ    |
 
-  "sentUtils.fullSent.quotes.displayMode.quoted": "block",
-  "sentUtils.fullSent.quotes.displayMode.unquoted": "no-indent",
+  "sentenceParser.fullSent.quotes.displayMode.quoted": "block",
+  "sentenceParser.fullSent.quotes.displayMode.unquoted": "no-indent",
 
 
-  // sentUtils.display.quotes
+  // sentenceParser.display.quotes
   // --------------------------------------------------------------------------
   // quotes on the display sentence (tested content above line)
 
   // processMode and displayMode follow the same format as above
-  "sentUtils.display.quotes.processMode": "add",
-  "sentUtils.display.quotes.processMode.searchMulti": true,
+  "sentenceParser.display.quotes.processMode": "add",
+  "sentenceParser.display.quotes.processMode.searchMulti": true,
 
-  "sentUtils.altDisplay.quotes.processMode": "as-is",
-  "sentUtils.altDisplay.quotes.processMode.searchMulti": true,
+  "sentenceParser.altDisplay.quotes.processMode": "as-is",
+  "sentenceParser.altDisplay.quotes.processMode.searchMulti": true,
 
-  "sentUtils.display.quotes.displayMode.quoted": "block",
-  "sentUtils.display.quotes.displayMode.unquoted": "no-indent",
+  "sentenceParser.display.quotes.displayMode.quoted": "block",
+  "sentenceParser.display.quotes.displayMode.unquoted": "no-indent",
 
 
   // tags used to override the quote process mode
-  "sentUtils.display.quotes.processMode.tagOverride.add": [
+  "sentenceParser.display.quotes.processMode.tagOverride.add": [
     "quote-add", "jpmn-quote-add",
   ],
-  "sentUtils.display.quotes.processMode.tagOverride.remove": [
+  "sentenceParser.display.quotes.processMode.tagOverride.remove": [
     "quote-remove", "jpmn-quote-remove",
   ],
-  "sentUtils.display.quotes.processMode.tagOverride.asIs": [
+  "sentenceParser.display.quotes.processMode.tagOverride.asIs": [
     "quote-as-is", "jpmn-quote-as-is",
   ],
-  "sentUtils.display.quotes.processMode.tagOverride.none": [
+  "sentenceParser.display.quotes.processMode.tagOverride.none": [
     "quote-no-processing", "jpmn-quote-no-processing",
   ],
 
   // Mostly dev-related tools. You likely don't want to use these, and instead
   // want to change the default displayMode for the desired sentence type.
-  "sentUtils.display.quotes.displayMode.quoted.tagOverride.block": [
+  "sentenceParser.display.quotes.displayMode.quoted.tagOverride.block": [
     "quote-disp-quoted-block", "jpmn-quote-disp-quoted-block",
   ],
-  "sentUtils.display.quotes.displayMode.quoted.tagOverride.flow": [
+  "sentenceParser.display.quotes.displayMode.quoted.tagOverride.flow": [
     "quote-disp-quoted-flow", "jpmn-quote-disp-quoted-flow",
   ],
-  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.indented": [
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.indented": [
     "quote-disp-unquoted-indent", "jpmn-quote-disp-unquoted-indent",
   ],
-  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.noIndent": [
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.noIndent": [
     "quote-disp-unquoted-noIndent", "jpmn-quote-disp-unquoted-no-indent",
   ],
-  "sentUtils.display.quotes.displayMode.unquoted.tagOverride.rightShifted": [
+  "sentenceParser.display.quotes.displayMode.unquoted.tagOverride.rightShifted": [
     "quote-disp-unquoted-rightShifted", "jpmn-quote-disp-unquoted-right-shifted",
   ],
 
@@ -264,14 +264,14 @@
   // colors the quotes instead of showing a pitch accent indicator
   // if this is enabled
   // NOTE: overwritten below
-  "sentUtils.display.quotes.paIndicatorColor.main": false,
+  "sentenceParser.display.quotes.paIndicatorColor.main": false,
   // automatically colors the quote with the sentence pa indicator color,
   // on PA sentence cards
-  "sentUtils.display.quotes.paIndicatorColor.paSent": false,
+  "sentenceParser.display.quotes.paIndicatorColor.paSent": false,
 
 
 
-  // sentUtils.quotes.multi
+  // sentenceParser.quotes.multi
   // --------------------------------------------------------------------------
 
   // recommended multi.displayMode.quoted & multi.displayMode.unquoted combinations:
@@ -310,23 +310,23 @@
   //  |ええええええ      |
   //  |「ああああああああ|
   //  |ああああああ」    |
-  "sentUtils.quotes.multi.displayMode.quoted": "block",
-  "sentUtils.quotes.multi.displayMode.unquoted": "no-indent",
+  "sentenceParser.quotes.multi.displayMode.quoted": "block",
+  "sentenceParser.quotes.multi.displayMode.unquoted": "no-indent",
 
 
 
 
-  // sentUtils.removeFinalPeriod
+  // sentenceParser.removeFinalPeriod
   // --------------------------------------------------------------------------
   // removes the period at the end of a sentence if `true`
 
-  "sentUtils.removeFinalPeriod.validPeriods": "｡。．\\.",
-  "sentUtils.removeFinalPeriod.fullSent.quoted":     true,
-  "sentUtils.removeFinalPeriod.fullSent.unquoted":   false,
-  "sentUtils.removeFinalPeriod.display.quoted":      true,
-  "sentUtils.removeFinalPeriod.display.unquoted":    false,
-  "sentUtils.removeFinalPeriod.altDisplay.quoted":   false,
-  "sentUtils.removeFinalPeriod.altDisplay.unquoted": false,
+  "sentenceParser.removeFinalPeriod.validPeriods": "｡。．\\.",
+  "sentenceParser.removeFinalPeriod.fullSent.quoted":     true,
+  "sentenceParser.removeFinalPeriod.fullSent.unquoted":   false,
+  "sentenceParser.removeFinalPeriod.display.quoted":      true,
+  "sentenceParser.removeFinalPeriod.display.unquoted":    false,
+  "sentenceParser.removeFinalPeriod.altDisplay.quoted":   false,
+  "sentenceParser.removeFinalPeriod.altDisplay.unquoted": false,
 
 
 
@@ -437,12 +437,10 @@
 
 
   // ==========================================================================
-  // = imgUtils =
+  // = imgStylizer =
   // ==========================================================================
+  "imgStylizer.enabled": true,
 
-  "imgUtils.enabled": true,
-  "imgUtils.resizeHeightMode": "auto-height",
-  "imgUtils.resizeHeightFixedValue": 210,
 
 
 
@@ -467,132 +465,133 @@
   // TODO typescript type
   //"addImageIfContainsTags": [],
 
+  "imgStylizer.setMainImageOnTags": [],
 
 
-  // imgUtils.stylizeImgsPrimaryDefinition
+
+
+  // imgStylizer.mainImage
   // --------------------------------------------------------------------------
 
-  "imgUtils.stylizeImgsPrimaryDefinition.enabled": true,
+  // how the image is resized on the default breakpoint (medium sized screens)
+  // options:
+  // - "auto-height" (same height as the reading section to the left of the image)
+  // - "none" (not resized at all)
+  // - "fixed" (uses value in resizeHeightFixedValue)
+  "imgStylizer.mainImage.resizeHeightMode": "auto-height",
+  "imgStylizer.mainImage.resizeHeightFixedValue": 210,
 
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.yomichan": "collapse",
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.user": "float",
 
 
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.general.none": [
+
+  // imgStylizer.glossary.mainImage.blur
+  // --------------------------------------------------------------------------
+  "imgStylizer.glossary.mainImage.blur.enabled": true,
+  // what tags can be used to toggle the card between nsfw / not nsfw
+  // case sensitive
+  "imgStylizer.glossary.mainImage.blur.tags": ["NSFW", "nsfw", "-NSFW"],
+
+
+
+
+  // Sets whether nsfw images are blurred by default or not.
+  //
+  // Available states:
+  //  "never": all images will not be blurred (even if marked as NSFW)
+  //  "only-tagged": only images marked as NSFW will be blurred by default
+  //  "always": all images will be blurred regardless of whether it is marked as NSFW or not
+  //
+  // The first number of the list is the default state. The states cycle from left -> right
+  // For example, if the list was [1, 2, 0], it would start at state 1, and clicking on the
+  // settings eye will set it to state 2, state 0, state 1, state 2.
+  "imgStylizer.glossary.mainImage.blur.startState": "only-tagged",
+
+
+
+
+  // imgStylizer.glossary.primaryDef
+  // --------------------------------------------------------------------------
+  "imgStylizer.glossary.primaryDef.enabled": true,
+
+  // Valid options: "none", "collapse", "float"
+  // "none":
+  // - Equivalent of disabling this entire section. I recommend setting
+  //   "imgStylizer.glossary.primaryDef.enabled" to false instead of using this option.
+  // "collapse":
+  // - Replaces all images in the glossary (definition) sections
+  //   with an internal representation similar to how Yomichan displays images:
+  //   an `[Image]` text where you can see the image upon hover, and with click to zoom.
+  // "float":
+  // - makes images act as if they were in PrimaryDefinitionPicture,
+  //   which means that the pictures are positioned to the right / above / below as usual.
+  "imgStylizer.glossary.primaryDef.mode.yomichan": "collapse",
+  "imgStylizer.glossary.primaryDef.mode.user": "float",
+
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.none": [
     "img-no-styling",
     "jpmn-img-no-styling"
   ],
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.general.collapse": [
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.collapse": [
     "img-collapse",
     "jpmn-img-collapse"
   ],
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.general.float": [
+  "imgStylizer.glossary.primaryDef.mode.general.tagOverride.float": [
     "img-float",
     "jpmn-img-float"
   ],
 
-
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.yomichan.none": [
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.none": [
     "img-yomichan-no-styling",
     "jpmn-img-yomichan-no-styling"
   ],
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.yomichan.collapse": [
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.collapse": [
     "img-yomichan-collapse",
     "jpmn-img-yomichan-collapse"
   ],
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.yomichan.float": [
+  "imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.float": [
     "img-yomichan-float",
     "jpmn-img-yomichan-float"
   ],
 
-
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.user.none": [
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.none": [
     "img-user-no-styling",
     "jpmn-img-user-no-styling"
   ],
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.user.collapse": [
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.collapse": [
     "img-user-collapse",
     "jpmn-img-user-collapse"
   ],
-  "imgUtils.stylizeImgsPrimaryDefinition.mode.tagOverride.user.float": [
+  "imgStylizer.glossary.primaryDef.mode.user.tagOverride.float": [
     "img-user-float",
     "jpmn-img-user-float"
   ],
 
 
 
-  // imgUtils.primaryDefinitionPicture
+
+  // imgStylizer.glossary.floatImg
   // --------------------------------------------------------------------------
 
   // Whether the field is parsed with any javascript at all.
   // The default position will be auto-bottom.
-  "imgUtils.primaryDefinitionPicture.enabled": true,
 
   // Where to place the `PrimaryDefinitionPicture` field contents
   //  within the primary definition section.
   // Valid options (case sensitive): "auto", "bottom", "right", "top"
-  "imgUtils.primaryDefinitionPicture.position": "auto",
+  "imgStylizer.glossary.floatImg.position": "auto",
 
   // Tags to override auto positioning
   // Case sensitive
-  "imgUtils.primaryDefinitionPicture.tagOverride.bottom": ["img-bottom"],
-  "imgUtils.primaryDefinitionPicture.tagOverride.top": ["img-top"],
-  "imgUtils.primaryDefinitionPicture.tagOverride.right": ["img-right"],
+  "imgStylizer.glossary.floatImg.overrideTags.bottom": ["img-bottom", "jpmn-img-bottom"],
+  "imgStylizer.glossary.floatImg.overrideTags.top": ["img-top", "jpmn-img-top"],
+  "imgStylizer.glossary.floatImg.overrideTags.right": ["img-right", "jpmn-img-right"],
 
 
 
 
-  // imgUtils.stylizeImgsGlossary
+  // imgStylizer.glossary.other
   // --------------------------------------------------------------------------
-  // stylizes as collapsed
-  // otherwise does not stylize at all
-  "imgUtils.stylizeImgsGlossary.enabled": true,
-
-
-
-
-
-
-  // imgUtils.imageBlur
-  // --------------------------------------------------------------------------
-
-
-  // allows the user to mark any card as NSFW, and adds various
-  // GUI elements to faciliate just that.
-  "imgUtils.imageBlur.enabled": false,
-
-  // what tags can be used to toggle the card between nsfw / not nsfw
-  // case sensitive
-  "imgUtils.imageBlur.tags": ["NSFW", "nsfw", "-NSFW"],
-
-  // Sets whether nsfw images are blurred by default or not.
-  //
-  // Available states:
-  //  0: all images will not be blurred (even if marked as NSFW)
-  //  1: only images marked as NSFW will be blurred by default
-  //  2: all images will be blurred regardless of whether it is marked as NSFW or not
-  //
-  // The first number of the list is the default state. The states cycle from left -> right
-  // For example, if the list was [1, 2, 0], it would start at state 1, and clicking on the
-  // settings eye will set it to state 2, state 0, state 1, state 2, etc.
-  "imgUtils.imageBlur.toggleStates": [1, 2, 0],
-
-  // EXAMPLE:
-  //"imgUtils.imageBlur.toggleStates": [0, 1, 2]  // defaults to never blurred
-
-  // EXAMPLE:
-  // defaults to never blurred on mobile, but blurred on pc
-  //"imgUtils.imageBlur.toggleStates": {
-  //  "type": "isPC",
-  //  "resultTrue":  [1, 2, 0], // PC
-  //  "resultFalse": [0, 1, 2], // mobile
-  //},
-
-
-  // ==========================================================================
-  // = imgUtilsMin =
-  // ==========================================================================
-  "imgUtilsMin.enabled": true,
+  "imgStylizer.glossary.other.enabled": true,
 
 
 
@@ -604,9 +603,9 @@
 
   "kanjiHover.enabled": true,
 
-  "kanjiHover.overrideOptions.sentUtils": {},
+  "kanjiHover.overrideOptions.sentenceParser": {},
   "kanjiHover.overrideOptions.autoPitchAccent": {},
-  "kanjiHover.overrideOptions.imgUtils": {},
+  "kanjiHover.overrideOptions.imgStylizer": {},
   "kanjiHover.overrideOptions.tooltipBuilder": {},
 
 
@@ -618,9 +617,9 @@
 
   "wordIndicators.enabled": true,
 
-  "wordIndicators.overrideOptions.sentUtils": {},
+  "wordIndicators.overrideOptions.sentenceParser": {},
   "wordIndicators.overrideOptions.autoPitchAccent": {},
-  "wordIndicators.overrideOptions.imgUtils": {},
+  "wordIndicators.overrideOptions.imgStylizer": {},
   "wordIndicators.overrideOptions.tooltipBuilder": {
     // always show pitch accent
     "tooltipBuilder.displayPitchAccentOnHoverOnly": false,
@@ -764,9 +763,9 @@
   "tooltipBuilder.categoryMax.newLatest": 2,
 
 
-  "tooltipBuilder.overrideOptions.sentUtils": {},
+  "tooltipBuilder.overrideOptions.sentenceParser": {},
   "tooltipBuilder.overrideOptions.autoPitchAccent": {},
-  "tooltipBuilder.overrideOptions.imgUtils": {},
+  "tooltipBuilder.overrideOptions.imgStylizer": {},
 
 
   // ==========================================================================
@@ -799,7 +798,7 @@
       "resultFalse": false,
     },
 
-    "sentUtils.quotes.quoteOpen": {
+    "sentenceParser.quotes.quoteOpen": {
       "type": "cardType",
       "args": {
         "op": "===",
@@ -809,7 +808,7 @@
       "resultFalse": "「",
     },
 
-    "sentUtils.quotes.quoteClose": {
+    "sentenceParser.quotes.quoteClose": {
       "type": "cardType",
       "args": {
         "op": "===",

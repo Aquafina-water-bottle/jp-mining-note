@@ -15,8 +15,8 @@
   "enableModule.timePerformance":         false,
   "enableModule.keybinds":                false,
 
-  "enableModule.sentUtils":               false,
-  "enableModule.sentUtils.autoHighlight": false,
+  "enableModule.sentenceParser":               false,
+  "enableModule.sentenceParser.autoHighlight": false,
 
   "enableModule.autoPitchAccent":         false,
   "enableModule.autoPitchAccent.color":   false,

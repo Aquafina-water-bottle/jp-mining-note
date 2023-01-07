@@ -10,6 +10,10 @@ export class FreqUtils extends Module {
   private readonly overflowCount = getOption('freqUtils.overflow');
   private readonly collapseFreqCount = this.maxFreqCount + this.overflowCount;
 
+  constructor() {
+    super('freqUtils');
+  }
+
   private collapseFrequencies() {
     if (this.freqDisplay === null || this.freqOverflow === null || this.freqOverflowText === null) {
       return;
