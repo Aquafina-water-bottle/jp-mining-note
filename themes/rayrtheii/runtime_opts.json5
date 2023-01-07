@@ -4,32 +4,32 @@
   "debug.toConsole": false,
 
   //"debug.onlyShowCertainModules": true,
-  //"debug.onlyShowCertainModules.modules": ["sentUtils"],
+  //"debug.onlyShowCertainModules.modules": ["sentenceParser"],
 
 
   // enable all warnings
   "warnOnNoSentenceReading": true,
   "warnIfFilledSentenceReadingWithEmptySentence": true,
 
-  "sentUtils.fixDivList.warnOnFix": true,
-  "sentUtils.autoHighlightWord.warnOnAutoHighlight": true,
-  "sentUtils.autoHighlightWord.warnIfAutoHighlightFails": true,
+  "sentenceParser.fixDivList.warnOnFix": true,
+  "sentenceParser.autoHighlightWord.warnOnAutoHighlight": true,
+  "sentenceParser.autoHighlightWord.warnIfAutoHighlightFails": true,
 
   "autoPitchAccent.paOverride.warnOnInvalidFormat": true,
 
 
 
   // always remove final period
-  "sentUtils.removeFinalPeriod.fullSent.quoted": true,
-  "sentUtils.removeFinalPeriod.fullSent.unquoted": true,
-  "sentUtils.removeFinalPeriod.display.quoted": true,
-  "sentUtils.removeFinalPeriod.display.unquoted": true,
-  "sentUtils.removeFinalPeriod.altDisplay.quoted": true,
-  "sentUtils.removeFinalPeriod.altDisplay.unquoted": true,
+  "sentenceParser.removeFinalPeriod.fullSent.quoted": true,
+  "sentenceParser.removeFinalPeriod.fullSent.unquoted": true,
+  "sentenceParser.removeFinalPeriod.display.quoted": true,
+  "sentenceParser.removeFinalPeriod.display.unquoted": true,
+  "sentenceParser.removeFinalPeriod.altDisplay.quoted": true,
+  "sentenceParser.removeFinalPeriod.altDisplay.unquoted": true,
 
 
   // disables on mobile
-  "sentUtils.display.quotes.paIndicatorColor.main": {
+  "sentenceParser.display.quotes.paIndicatorColor.main": {
     "type": "viewport",
     "args": {
       "op": ">=",
@@ -39,7 +39,7 @@
     "resultFalse": false,
   },
 
-  "sentUtils.display.quotes.paIndicatorColor.paSent": {
+  "sentenceParser.display.quotes.paIndicatorColor.paSent": {
     "type": "viewport",
     "args": {
       "op": ">=",

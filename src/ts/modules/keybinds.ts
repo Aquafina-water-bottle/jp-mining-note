@@ -1,10 +1,11 @@
-import { Module, ModuleId } from "../module"
-import { Logger } from "../logger"
+import { Module } from "../module"
 import { getOption } from "../options"
 
-const id = "keybinds";
-
 export class Keybinds extends Module {
+
+  constructor() {
+    super('keybinds')
+  }
 
   main() {
     // ...

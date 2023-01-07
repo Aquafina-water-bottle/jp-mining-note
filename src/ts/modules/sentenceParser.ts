@@ -60,15 +60,15 @@ type NoteInfoSentence = {
   };
 };
 
-export class SentUtils extends Module {
-  private readonly quoteMatches = getOption('sentUtils.quotes.matches');
-  private readonly autoHighlight = compileOpts['enableModule.sentUtils.autoHighlight']
+export class SentenceParser extends Module {
+  private readonly quoteMatches = getOption('sentenceParser.quotes.matches');
+  private readonly autoHighlight = compileOpts['enableModule.sentenceParser.autoHighlight']
     ? new AutoHighlightWord()
     : null;
 
   private tags = TAGS_LIST;
 
-  constructor(id: ModuleId) {
+  constructor(id: ModuleId = 'sentenceParser') {
     super(id);
   }
 
@@ -208,8 +208,8 @@ export class SentUtils extends Module {
     if (processMode === 'add') {
       if (o === '' && c === '') {
         // only adds if there weren't quotes already
-        o = getOption('sentUtils.quotes.quoteOpen');
-        c = getOption('sentUtils.quotes.quoteClose');
+        o = getOption('sentenceParser.quotes.quoteOpen');
+        c = getOption('sentenceParser.quotes.quoteClose');
       }
     } else if (processMode === 'remove') {
       o = '';
@@ -243,9 +243,9 @@ export class SentUtils extends Module {
       o !== '' &&
       fieldAnyExist('PAShowInfo') &&
       ((getCardType() === 'main' && // either main or pa sentence option
-        getOption('sentUtils.display.quotes.paIndicatorColor.main')) ||
+        getOption('sentenceParser.display.quotes.paIndicatorColor.main')) ||
         (getCardType() === 'pa_sent' &&
-          getOption('sentUtils.display.quotes.paIndicatorColor.paSent')))
+          getOption('sentenceParser.display.quotes.paIndicatorColor.paSent')))
     ) {
       this.colorQuotes(sent);
     }
@@ -259,7 +259,7 @@ export class SentUtils extends Module {
     // checks that all children are 'div's
     const arr = Array.from(sent.children);
     if (arr.length > 0 && arr.every((x) => x.nodeName === 'DIV')) {
-      if (getOption('sentUtils.fixDivList.warnOnFix')) {
+      if (getOption('sentenceParser.fixDivList.warnOnFix')) {
         this.logger.warn(
           `Following sentence was stripped of div elements: ${sent.innerHTML}`
         );
@@ -275,17 +275,17 @@ export class SentUtils extends Module {
   ): QuoteProcessMode {
     if (checkTags) {
       const processMode = checkOptTags(this.tags, [
-        ['sentUtils.display.quotes.processMode.tagOverride.add', 'add'],
-        ['sentUtils.display.quotes.processMode.tagOverride.remove', 'remove'],
-        ['sentUtils.display.quotes.processMode.tagOverride.asIs', 'as-is'],
-        ['sentUtils.display.quotes.processMode.tagOverride.none', 'none'],
+        ['sentenceParser.display.quotes.processMode.tagOverride.add', 'add'],
+        ['sentenceParser.display.quotes.processMode.tagOverride.remove', 'remove'],
+        ['sentenceParser.display.quotes.processMode.tagOverride.asIs', 'as-is'],
+        ['sentenceParser.display.quotes.processMode.tagOverride.none', 'none'],
       ]);
       if (processMode !== undefined) {
         return processMode;
       }
     }
 
-    return getOption(`sentUtils.${optSentType}.quotes.processMode`) as QuoteProcessMode;
+    return getOption(`sentenceParser.${optSentType}.quotes.processMode`) as QuoteProcessMode;
   }
 
   private getQuoteDisplayMode(
@@ -297,21 +297,21 @@ export class SentUtils extends Module {
       let displayMode;
       if (isQuoted) {
         displayMode = checkOptTags(this.tags, [
-          ['sentUtils.display.quotes.displayMode.quoted.tagOverride.block', 'block'],
-          ['sentUtils.display.quotes.displayMode.quoted.tagOverride.flow', 'flow'],
+          ['sentenceParser.display.quotes.displayMode.quoted.tagOverride.block', 'block'],
+          ['sentenceParser.display.quotes.displayMode.quoted.tagOverride.flow', 'flow'],
         ]);
       } else {
         displayMode = checkOptTags(this.tags, [
           [
-            'sentUtils.display.quotes.displayMode.unquoted.tagOverride.indented',
+            'sentenceParser.display.quotes.displayMode.unquoted.tagOverride.indented',
             'indented',
           ],
           [
-            'sentUtils.display.quotes.displayMode.unquoted.tagOverride.noIndent',
+            'sentenceParser.display.quotes.displayMode.unquoted.tagOverride.noIndent',
             'no-indent',
           ],
           [
-            'sentUtils.display.quotes.displayMode.unquoted.tagOverride.rightShifted',
+            'sentenceParser.display.quotes.displayMode.unquoted.tagOverride.rightShifted',
             'right-shifted',
           ],
         ]);
@@ -321,12 +321,12 @@ export class SentUtils extends Module {
       }
     }
     return getOption(
-      `sentUtils.${sentType}.quotes.displayMode.${isQuoted ? 'quoted' : 'unquoted'}`
+      `sentenceParser.${sentType}.quotes.displayMode.${isQuoted ? 'quoted' : 'unquoted'}`
     ) as QuoteDisplayMode;
   }
 
   private processPeriod(sentContents: string): string {
-    const periods = getOption('sentUtils.removeFinalPeriod.validPeriods');
+    const periods = getOption('sentenceParser.removeFinalPeriod.validPeriods');
     const re = new RegExp(`[${periods}]$`);
     return sentContents.replace(re, '');
   }
@@ -335,7 +335,7 @@ export class SentUtils extends Module {
     // additional logging here
     if (replace === null) {
       const msg = `Could not highlight word in ${sentType}: ${word}.`;
-      if (getOption('sentUtils.autoHighlightWord.warnIfAutoHighlightFails')) {
+      if (getOption('sentenceParser.autoHighlightWord.warnIfAutoHighlightFails')) {
         this.logger.warn(msg);
       } else {
         this.logger.debug(msg);
@@ -343,7 +343,7 @@ export class SentUtils extends Module {
     } else {
       // was able to bold something
       const msg = `Automatically highlighted word in ${sentType}: ${replace}.`;
-      if (getOption('sentUtils.autoHighlightWord.warnOnAutoHighlight')) {
+      if (getOption('sentenceParser.autoHighlightWord.warnOnAutoHighlight')) {
         this.logger.warn(msg);
       } else {
         this.logger.debug(msg);
@@ -370,7 +370,7 @@ export class SentUtils extends Module {
     // ------------------------------------------------------------------------
     // attempts to remove the weird list of div thing that can happen
 
-    if (getOption('sentUtils.fixDivList.enabled')) {
+    if (getOption('sentenceParser.fixDivList.enabled')) {
       result = this.fixDivList(sent.contents);
     }
     this.logger.debug(`fixDivList: "${result}"`, 1);
@@ -385,7 +385,7 @@ export class SentUtils extends Module {
     if (
       !result.match(/<(b)>/) &&
       this.autoHighlight !== null &&
-      getOption('sentUtils.autoHighlightWord')
+      getOption('sentenceParser.autoHighlightWord')
     ) {
       const searchStrings: SearchStrings = [
         { value: noteInfo.fields.Word.value },
@@ -409,7 +409,7 @@ export class SentUtils extends Module {
     // checks for multi (TODO)
     //if (
     //  !isMulti &&
-    //  getOption(`sentUtils.${optSentType}.quotes.processMode.searchMulti`) &&
+    //  getOption(`sentenceParser.${optSentType}.quotes.processMode.searchMulti`) &&
     //  this.canBeMulti(result)
     //) {
     //  const multi = this.attemptParseMulti(result);
@@ -437,7 +437,7 @@ export class SentUtils extends Module {
     // although realistically, periods don't appear at the end of a quote
     // or right after a quote anyways?
     const isQuoted = o.length === 0 ? 'unquoted' : 'quoted';
-    if (getOption(`sentUtils.removeFinalPeriod.${optSentType}.${isQuoted}`)) {
+    if (getOption(`sentenceParser.removeFinalPeriod.${optSentType}.${isQuoted}`)) {
       result = this.processPeriod(result);
       this.logger.debug(`processPeriod: "${result}"`, 1);
     }

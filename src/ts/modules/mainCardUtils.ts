@@ -3,6 +3,11 @@ import { fieldAnyExist, paIndicator } from '../utils';
 import { translatorStrs } from '../consts';
 
 export class MainCardUtils extends Module {
+
+  constructor() {
+    super("mainCardUtils");
+  }
+
   private hybridClick() {
     const toggleEle = document.getElementById('hybrid_click_toggle') as HTMLInputElement;
     if (toggleEle !== null) {
