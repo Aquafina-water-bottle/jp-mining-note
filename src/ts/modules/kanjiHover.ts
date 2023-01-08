@@ -1,7 +1,7 @@
-import { Module } from "../module"
+import { RunnableModule } from "../module"
 import { getOption } from "../options"
 
-export class KanjiHover extends Module {
+export class KanjiHover extends RunnableModule {
 
   constructor() {
     super('kanjiHover')

@@ -1,7 +1,7 @@
-import { Module } from "../module"
+import { RunnableModule } from "../module"
 import { getOption } from "../options"
 
-export class CollapseDictionaries extends Module {
+export class CollapseDictionaries extends RunnableModule {
 
   constructor() {
     super('collapseDictionaries')

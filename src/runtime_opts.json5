@@ -456,16 +456,14 @@
   //      "tags": ["sample_tag"],
   //      "file-name": "_sample_image.png"
   //    },
-  // - This adds the image `_contains_both_tags.png` if the card has both tags
+  // - This adds the image `_contains_both_tags.png` if the card has EITHER tags
   //     `something` and `something2`.
   //    {
   //      "tags": ["something", "something2"],
   //      "file-name": "_contains_both_tags.png"
   //    }
   // TODO typescript type
-  //"addImageIfContainsTags": [],
-
-  "imgStylizer.setMainImageOnTags": [],
+  "imgStylizer.setMainImageFromTags": [],
 
 
 
@@ -484,12 +482,12 @@
 
 
 
-  // imgStylizer.glossary.mainImage.blur
+  // imgStylizer.mainImage.blur
   // --------------------------------------------------------------------------
-  "imgStylizer.glossary.mainImage.blur.enabled": true,
+  "imgStylizer.mainImage.blur.enabled": true,
   // what tags can be used to toggle the card between nsfw / not nsfw
   // case sensitive
-  "imgStylizer.glossary.mainImage.blur.tags": ["NSFW", "nsfw", "-NSFW"],
+  "imgStylizer.mainImage.blur.tags": ["NSFW", "nsfw", "-NSFW"],
 
 
 
@@ -504,7 +502,7 @@
   // The first number of the list is the default state. The states cycle from left -> right
   // For example, if the list was [1, 2, 0], it would start at state 1, and clicking on the
   // settings eye will set it to state 2, state 0, state 1, state 2.
-  "imgStylizer.glossary.mainImage.blur.startState": "only-tagged",
+  "imgStylizer.mainImage.blur.startState": "only-tagged",
 
 
 
@@ -571,6 +569,10 @@
 
   // imgStylizer.glossary.floatImg
   // --------------------------------------------------------------------------
+
+  // additional parsing for the float image
+  // currently, this simply sets the position of the float image if it exists
+  "imgStylizer.glossary.floatImg.enabled": true,
 
   // Whether the field is parsed with any javascript at all.
   // The default position will be auto-bottom.

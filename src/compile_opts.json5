@@ -152,7 +152,7 @@
   "enableModule.timePerformance":         false,
   "enableModule.keybinds":                true,
 
-  "enableModule.sentenceParser":          true,
+  "enableModule.sentenceParser":               true,
   "enableModule.sentenceParser.autoHighlight": true,
 
   "enableModule.autoPitchAccent":         true,

@@ -1,4 +1,4 @@
-import { Module, ModuleId } from '../module';
+import { RunnableModule } from '../module';
 import { getOption, checkOptTags } from '../options';
 import {
   countOccurancesInString,
@@ -11,7 +11,7 @@ import {
   plainToKanaOnly,
 } from '../utils';
 import { compileOpts } from '../consts';
-import { AutoHighlightWord, SearchStrings } from '../side-modules/autoHighlightWord';
+import { AutoHighlightWord, SearchStrings } from './autoHighlightWord';
 
 type Sentence = {
   // open quote, sentence, closed quote
@@ -60,7 +60,7 @@ type NoteInfoSentence = {
   };
 };
 
-export class SentenceParser extends Module {
+export class SentenceParser extends RunnableModule {
   private readonly quoteMatches = getOption('sentenceParser.quotes.matches');
   private readonly autoHighlight = compileOpts['enableModule.sentenceParser.autoHighlight']
     ? new AutoHighlightWord()
@@ -68,8 +68,8 @@ export class SentenceParser extends Module {
 
   private tags = TAGS_LIST;
 
-  constructor(id: ModuleId = 'sentenceParser') {
-    super(id);
+  constructor(id?: string) {
+    super('sentenceParser', id);
   }
 
   // replaces bolded elements with [...]
@@ -78,7 +78,7 @@ export class SentenceParser extends Module {
     const tempEle = document.createElement('span');
     tempEle.innerHTML = sentContents;
 
-    const bTags = tempEle.getElementsByTagName('b');
+    const bTags = Array.from(tempEle.getElementsByTagName('b'));
     for (const bTag of bTags) {
       bTag.innerHTML = '[...]';
     }

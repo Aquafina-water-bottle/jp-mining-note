@@ -1,4 +1,4 @@
-import { SideModule } from './module';
+import { Module } from './module';
 import { getOption } from './options';
 
 export type CodePointRange = {

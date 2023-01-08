@@ -501,7 +501,7 @@ ruby rt {
 
 .info-circle-text-settings-border {
   border-bottom: 1px solid var(--text-color--4);
-  margin-top: -6px;
+  margin-top: -4px;
   margin-bottom: 4px;
   line-height: 0px;
   width: 100%;
@@ -533,7 +533,7 @@ ruby rt {
   fill: var(--text-color);
 }
 
-.info-circle-text-settings__svg--red {
+.info-circle-text-settings__svg--red > path {
   fill: var(--info-circle-error-text-color);
 }
 

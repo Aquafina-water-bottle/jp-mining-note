@@ -1,7 +1,7 @@
-import { Module } from "../module"
+import { RunnableModule } from "../module"
 import { getOption } from "../options"
 
-export class OpenCollapsedFields extends Module {
+export class OpenCollapsedFields extends RunnableModule {
 
   constructor() {
     super('openCollapsedFields')

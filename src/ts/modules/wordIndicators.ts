@@ -1,7 +1,7 @@
-import { Module } from "../module"
+import { RunnableModule } from "../module"
 import { getOption } from "../options"
 
-export class WordIndicators extends Module {
+export class WordIndicators extends RunnableModule {
 
   constructor() {
     super('wordIndicators')

@@ -1,7 +1,7 @@
-import { Module } from '../module';
+import { RunnableModule } from '../module';
 import { fieldAnyExist, isAndroid, isMobile } from '../utils';
 
-export class MobileUtils extends Module {
+export class MobileUtils extends RunnableModule {
 
   constructor() {
     super("mobileUtils");

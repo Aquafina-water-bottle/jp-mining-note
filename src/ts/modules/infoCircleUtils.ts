@@ -1,4 +1,4 @@
-import { Module } from '../module';
+import { RunnableModule } from '../module';
 import { O, getOption } from '../options';
 import { isMobile, popupMenuMessage } from '../utils';
 
@@ -7,7 +7,7 @@ const infoCircTogglable = 'info-circle-svg-wrapper--togglable';
 const infoCircWrapperTogglable = 'info-circle-svg-wrapper--hoverable';
 const infoCircHoverColor = 'info-circle--hover-color';
 
-export class InfoCircleUtils extends Module {
+export class InfoCircleUtils extends RunnableModule {
   private readonly infoCirc = document.getElementById('info_circle');
   private readonly infoCircWrapper = document.getElementById('info_circle_wrapper');
 
