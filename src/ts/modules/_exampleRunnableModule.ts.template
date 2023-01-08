@@ -1,10 +1,10 @@
 import { RunnableModule } from "../module"
 import { getOption } from "../options"
 
-export class Keybinds extends RunnableModule {
+export class {{MODULE_UPPER_CAMELCASE}} extends RunnableModule {
 
   constructor() {
-    super('keybinds')
+    super('{{MODULE_CAMELCASE}}')
   }
 
   main() {

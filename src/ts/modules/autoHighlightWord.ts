@@ -1,4 +1,4 @@
-import { SideModule } from '../module';
+import { Module } from '../module';
 import { convertHiraganaToKatakana, isKana } from '../jpUtils';
 import { escapeRegExp } from '../utils';
 
@@ -8,7 +8,7 @@ export type SearchString = {
 };
 export type SearchStrings = Readonly<SearchString[]>;
 
-export class AutoHighlightWord extends SideModule {
+export class AutoHighlightWord extends Module {
   private plainReplaceCache: Set<string> = new Set();
   private attemptedPlainReplace: boolean = false;
 

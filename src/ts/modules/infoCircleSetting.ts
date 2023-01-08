@@ -1,4 +1,4 @@
-import { SideModule } from "../module"
+import { Module } from "../module"
 import { O, getOption } from "../options"
 import { Persistence } from '../persistence'
 import { throwOnNotFound } from '../utils'
@@ -9,7 +9,7 @@ type InfoCircleSettingId =
   | 'info_circle_text_settings_restart_card'
   | 'info_circle_text_settings_clear_cache';
 
-export class InfoCircleSetting extends SideModule {
+export class InfoCircleSetting extends Module {
 
   private readonly infoCircSettings: HTMLElement = throwOnNotFound(
     'info_circle_text_settings'

@@ -1,12 +1,12 @@
-import { Module } from '../module';
+import { RunnableModule } from '../module';
 import { getOption } from '../options';
-import { InfoCircleSetting } from '../side-modules/infoCircleSetting';
+import { InfoCircleSetting } from './infoCircleSetting';
 import { CardSide, popupMenuMessage } from '../utils';
 
 const persistKey = 'jpmn-websocket';
 const settingId = 'info_circle_text_settings_websocket_toggle';
 
-export class WebSocketUtils extends Module {
+export class WebSocketUtils extends RunnableModule {
   private readonly setting = new InfoCircleSetting(settingId, persistKey);
   private readonly cardSide: CardSide;
 

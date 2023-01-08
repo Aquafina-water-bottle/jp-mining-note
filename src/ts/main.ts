@@ -52,7 +52,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // = sanity checks =
   // ==========================================================================
 
-  LOGGER.debug(`------------------------------------------------------------------`);
+  LOGGER.debug(`----------------------------DEBUG-LOGS----------------------------`);
   LOGGER.debug(`Hello world! cardType=${cardType} cardSide=${cardSide} noteType=${noteType}`);
 
   const optsScript = document.getElementById('jpmn_options_script');
@@ -114,16 +114,15 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     if (compileOpts['enableModule.autoPitchAccent']) {
       new AutoPitchAccent().run();
     }
+  }
 
-    //if (compileOpts['enableModule.imgUtilsMin']) {
-    //  new ImgStylizerMin('imgUtilsMin').run();
-    //} else if (compileOpts['enableModule.imgStylizer']) {
-    //  new ImgStylizer('imgStylizer').run();
-    //}
-    if (compileOpts['enableModule.imgStylizer']) {
-      new ImgStylizer(cardSide).run();
-    }
+  // right after auto pitch accent to prevent even more unnecessary reflow changes
+  // potentially caused by modules below
+  if (compileOpts['enableModule.imgStylizer']) {
+    new ImgStylizer(cardSide).run();
+  }
 
+  if (cardSide === 'back') {
     // TODO async scheduler
     if (compileOpts['enableModule.kanjiHover']) {
       new KanjiHover().run();

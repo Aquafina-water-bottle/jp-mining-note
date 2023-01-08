@@ -1,7 +1,7 @@
-import { Module } from '../module';
+import { RunnableModule } from '../module';
 import { getOption } from '../options';
 
-export class FreqUtils extends Module {
+export class FreqUtils extends RunnableModule {
   private readonly freqDisplay = document.getElementById('frequencies_display');
   private readonly freqOverflow = document.getElementById('frequencies_overflow');
   private readonly freqOverflowText = document.getElementById('frequencies_overflow_tooltip');

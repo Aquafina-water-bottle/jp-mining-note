@@ -36,7 +36,7 @@ export type ModuleId =
 
 type OptionsSubset = Partial<O>;
 
-export abstract class SideModule {
+export abstract class Module {
   id: string;
   logger: Logger;
 
@@ -60,17 +60,17 @@ export abstract class SideModule {
   }
 }
 
-export abstract class Module extends SideModule {
-  id: ModuleId;
+export abstract class RunnableModule extends Module {
+  rid: ModuleId; // runnable module id
 
-  constructor(id: ModuleId) {
-    super(id);
-    this.id = id; // requires another set apparently
+  constructor(rid: ModuleId, id?: string) {
+    super(id === undefined ? rid : id);
+    this.rid = rid; // requires another set apparently
   }
 
   run() {
     try {
-      if (getOption(`${this.id}.enabled`)) {
+      if (getOption(`${this.rid}.enabled`)) {
         this.main();
       }
     } catch (error: any) {

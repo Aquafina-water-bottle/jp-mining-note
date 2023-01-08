@@ -1,8 +1,8 @@
-import { Module } from '../module';
+import { RunnableModule } from '../module';
 import { fieldAnyExist, paIndicator } from '../utils';
 import { translatorStrs } from '../consts';
 
-export class MainCardUtils extends Module {
+export class MainCardUtils extends RunnableModule {
 
   constructor() {
     super("mainCardUtils");

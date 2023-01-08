@@ -1,7 +1,7 @@
-import { Module } from "../module"
+import { RunnableModule } from "../module"
 import { getOption } from "../options"
 
-export class FixRubyPositioning extends Module {
+export class FixRubyPositioning extends RunnableModule {
 
   constructor() {
     super('fixRubyPositioning')
