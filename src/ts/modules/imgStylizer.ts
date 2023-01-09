@@ -11,14 +11,138 @@ type TagToImg = {
 };
 type TagToImgList = TagToImg[];
 
+/*
+ * BackImgBlurController
+ * ImgBlur
+ * BackImgStylizer
+ *
+ * ImgStylizer
+ */
+
+
+const clsPrimDefRawImg = "glossary-primary-definition__raw-img";
+const clsNoDefinition = "glossary-primary-definition--no-definition";
+
+const clsBlurFilterInit = "img-blur-filter-init";
+const clsBlurFilter = "img-blur-filter";
+const clsBlurFilterDisable = "img-blur-filter-disable";
+
+const clsContainsImg = 'dh-right--contains-image';
+const clsAudioBtnsLeft = 'dh-left__audio-buttons--left';
+const clsImgClick = 'dh-right__img-container--clickable';
+const clsRightImg = 'dh-right__img';
+const clsShowEye = "dh-right__show-eye";
+
+const settingId = 'info_circle_text_settings_img_blur_toggle';
+const persistKey = 'jpmn-img-blur';
+
+
+
+class BackImgBlurController extends Module {
+  private readonly backImgStylizer: BackImgStylizer;
+  private readonly imgBlur: ImgBlur;
+
+  private readonly dhImgBlur = document.getElementById("dh_img_container_blur_wrapper") as HTMLElement;
+  private readonly imgEle: HTMLImageElement;
+
+  private imgCurrentlyBlurred: boolean = false;
+
+  constructor(backImgStylizer: BackImgStylizer, imgBlur: ImgBlur, imgEle: HTMLImageElement) {
+    super('sm:backImgBlurController');
+    this.backImgStylizer = backImgStylizer;
+    this.imgBlur = imgBlur;
+    this.imgEle = imgEle
+  }
+
+  initImageBlur() {
+    const state = this.imgBlur.setting.getCurrentState();
+    if (state !== undefined) {
+      this.setImageBlurToState(state, true);
+    }
+  }
+
+  setImageBlurToState(state: number, init=false) {
+    if (state === 0) { // always blurred -> never blurred
+      this.removeImgBlur();
+      if (!this.imgBlur.cardIsMarked()) {
+        // removes if necessary (non-marked image forced to be blurred -> no longer forced)
+        this.dhImgBlur.classList.toggle(clsShowEye, false);
+      }
+
+    } else if (state === 1) { // never blurred -> blur only if marked
+      if (!this.imgBlur.cardIsMarked()) {
+        // NOTE: can reach here on init as well
+        this.removeImgBlur();
+      } else if (!this.imgCurrentlyBlurred && this.imgBlur.cardIsMarked()) {
+        this.addImgBlur(init);
+      }
+
+    } else if (state === 2) { // ??? -> always blurred
+      this.addImgBlur(init);
+
+    } else {
+      this.logger.warn(`Invalid image blur state: ${state}`)
+    }
+  }
+
+  addImgBlur(init=false) {
+    // removes disable filter
+    this.dhImgBlur.classList.toggle(clsBlurFilterDisable, false);
+
+    // adds blur, prevents animation from playing on init
+    if (init) {
+      this.dhImgBlur.classList.toggle(clsBlurFilterInit, true);
+    } else {
+      this.dhImgBlur.classList.toggle(clsBlurFilter, true);
+    }
+
+    this.backImgStylizer.removeClickToZoom(this.imgEle);
+
+    // shows eye to toggle blur (top right of the image)
+    this.dhImgBlur.classList.toggle(clsShowEye, true);
+
+    this.imgCurrentlyBlurred = true;
+  }
+
+  removeImgBlur() {
+    // adds disable filter
+    this.dhImgBlur.classList.toggle(clsBlurFilterDisable, true);
+
+    // removes blur filter
+    this.dhImgBlur.classList.toggle(clsBlurFilterInit, false);
+    this.dhImgBlur.classList.toggle(clsBlurFilter, false);
+
+    this.backImgStylizer.addClickToZoom(this.imgEle);
+
+    // hides eye to toggle blur
+    this.dhImgBlur.classList.toggle(clsShowEye, true);
+
+    this.imgCurrentlyBlurred = false;
+  }
+
+}
+
+
+
 class ImgBlur extends Module {
-  private readonly setting = new InfoCircleSetting(settingId, persistKey);
+  readonly setting = new InfoCircleSetting(settingId, persistKey);
+
+  private readonly cardTags = TAGS_LIST;
+  private controller: BackImgBlurController | null = null;
 
   constructor() {
     super('sm:imgBlur');
   }
 
-  imgBlurDisplaySetting() {
+  setController(controller: BackImgBlurController) {
+    this.controller = controller
+  }
+
+  cardIsMarked() {
+    return arrContainsAnyOf(this.cardTags, getOption("imgStylizer.mainImage.blur.tags"))
+  }
+
+  displaySetting() {
     // internally, states are represented as numbers
     const defaultStateMap = {
       "never": 0,
@@ -31,7 +155,8 @@ class ImgBlur extends Module {
       defaultState = defaultStateMap[defaultStateStr as keyof typeof defaultStateMap];
     }
 
-    let state = this.setting.initDisplay(defaultState);
+    // init
+    this.setting.initDisplay(defaultState);
 
     // toggle state
     this.setting.btn.onclick = () => {
@@ -43,22 +168,19 @@ class ImgBlur extends Module {
       } else if (newState === 2) {
         popupMenuMessage("All images will be blurred.");
       } else { // 2
-        this.logger.warn(`Invalid image state: ${newState}`)
+        this.logger.warn(`Invalid image blur state: ${newState}`)
         return;
       }
       this.setting.displayAs(newState);
-    };
 
+      if (this.controller !== null) {
+        this.controller?.setImageBlurToState(newState);
+      }
+    };
   }
 }
 
-const clsContainsImg = 'dh-right--contains-image';
-const clsAudioBtnsLeft = 'dh-left__audio-buttons--left';
-const clsImgClick = 'dh-right__img-container--clickable';
-const clsRightImg = 'dh-right__img';
 
-const settingId = 'info_circle_text_settings_img_blur_toggle';
-const persistKey = 'jpmn-img-blur';
 
 class BackImgStylizer extends Module {
   private readonly cardTags = TAGS_LIST;
@@ -71,7 +193,7 @@ class BackImgStylizer extends Module {
   private readonly dhLeftAudioBtns = document.getElementById(
     'dh_left_audio_buttons'
   ) as HTMLElement;
-  private readonly dhImgContainer = document.getElementById(
+  readonly dhImgContainer = document.getElementById(
     'dh_img_container'
   ) as HTMLElement;
   private readonly modal = document.getElementById('modal') as HTMLElement;
@@ -101,7 +223,6 @@ class BackImgStylizer extends Module {
   }
 
   private adjustHeight(ele: HTMLElement) {
-    this.logger.debug('adjustHeight');
     console.log(ele);
     if (ele === null) {
       return;
@@ -170,7 +291,7 @@ class BackImgStylizer extends Module {
     // TODO nothing is necessary it seems!
   }
 
-  private addClickToZoom(ele: HTMLImageElement) {
+  addClickToZoom(ele: HTMLImageElement) {
     this.dhImgContainer.classList.toggle(clsImgClick, true);
 
     ele.onclick = () => {
@@ -179,7 +300,19 @@ class BackImgStylizer extends Module {
     };
   }
 
-  private setCanBlur(ele: HTMLElement) {}
+  removeClickToZoom(ele: HTMLImageElement) {
+    this.dhImgContainer.classList.toggle(clsImgClick, false);
+    ele.onclick = () => null;
+  }
+
+  private setCanBlur(imgEle: HTMLImageElement) {
+    if (this.imgBlur === null) {
+      return; // nothing to do!
+    }
+    const controller = new BackImgBlurController(this, this.imgBlur, imgEle)
+    this.imgBlur.setController(controller)
+    controller.initImageBlur();
+  }
 
   private stylizePrimaryDefGlossaryPics() {}
 
@@ -251,7 +384,7 @@ export class ImgStylizer extends RunnableModule {
 
     if (getOption('imgStylizer.mainImage.blur.enabled')) {
       imgBlur = new ImgBlur();
-      imgBlur.imgBlurDisplaySetting();
+      imgBlur.displaySetting();
     }
 
     // almost all the logic of this module is only done on the back side of the card anyways

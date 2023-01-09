@@ -75,7 +75,7 @@
 
   "enableModule.timePerformance":         true,
   "enableModule.autoPitchAccent.color":   false,
-  "enableModule.imgStylizer.imageBlur":      false,
+  //"enableModule.imgStylizer.imageBlur":      false,
 
 
 
