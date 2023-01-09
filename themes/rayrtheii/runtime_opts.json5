@@ -21,6 +21,8 @@
   "imgStylizer.mainImage.blur.enabled": true,
   "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module
 
+  "imgStylizer.glossary.primaryDef.mode.user": "collapse",
+
 
   // always remove final period
   "sentenceParser.removeFinalPeriod.fullSent.quoted": true,
@@ -32,7 +34,7 @@
 
 
 
-  "webSocketUtils.enabled": false,
+  "webSocketUtils.enabled": true,
 
 
 

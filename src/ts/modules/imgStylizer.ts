@@ -1,8 +1,15 @@
 import { Module, RunnableModule } from '../module';
 //import { ImgBlur } from "./imgBlur"
-import { compileOpts } from '../consts';
-import { getOption } from '../options';
-import { arrContainsAnyOf, CardSide, popupMenuMessage, TAGS_LIST, VW } from '../utils';
+import { compileOpts, translatorStrs } from '../consts';
+import { checkOptTags, getOption } from '../options';
+import {
+  arrContainsAnyOf,
+  CardSide,
+  isMobile,
+  popupMenuMessage,
+  TAGS_LIST,
+  VW,
+} from '../utils';
 import { InfoCircleSetting } from './infoCircleSetting';
 
 type TagToImg = {
@@ -10,6 +17,7 @@ type TagToImg = {
   fileName: string;
 };
 type TagToImgList = TagToImg[];
+type StylizeType = 'float' | 'collapse' | 'none';
 
 /*
  * BackImgBlurController
@@ -162,7 +170,6 @@ class BackImgBlurController extends Module {
 class ImgBlur extends Module {
   readonly setting = new InfoCircleSetting(settingId, persistKey);
 
-  private readonly cardTags = TAGS_LIST;
   private controller: BackImgBlurController | null = null;
 
   constructor() {
@@ -174,7 +181,7 @@ class ImgBlur extends Module {
   }
 
   cardIsMarked() {
-    return arrContainsAnyOf(this.cardTags, getOption('imgStylizer.mainImage.blur.tags'));
+    return arrContainsAnyOf(TAGS_LIST, getOption('imgStylizer.mainImage.blur.tags'));
   }
 
   displaySetting() {
@@ -217,7 +224,7 @@ class ImgBlur extends Module {
 }
 
 class BackImgStylizer extends Module {
-  private readonly cardTags = TAGS_LIST;
+  //private readonly cardTags = TAGS_LIST;
 
   // these shouldn't ever be null...
   // TODO rename def-header? "header" makes 0 sense here lol
@@ -227,9 +234,18 @@ class BackImgStylizer extends Module {
   private readonly dhLeftAudioBtns = document.getElementById(
     'dh_left_audio_buttons'
   ) as HTMLElement;
-  readonly dhImgContainer = document.getElementById('dh_img_container') as HTMLElement;
   private readonly modal = document.getElementById('modal') as HTMLElement;
   private readonly modalImg = document.getElementById('bigimg') as HTMLImageElement;
+  private readonly floatImgRight = document.getElementById(
+    'primary_definition_right_img'
+  ) as HTMLImageElement;
+  private readonly floatImgLeft = document.getElementById(
+    'primary_definition_left_img'
+  ) as HTMLImageElement;
+  private readonly primaryDefRawText = document.getElementById(
+    'primary_definition_raw_text'
+  ) as HTMLImageElement;
+  readonly dhImgContainer = document.getElementById('dh_img_container') as HTMLElement;
 
   private readonly imgBlur: ImgBlur | null;
   private readonly READ_DHLEFT_HEIGHT = VW > compileOpts['breakpoints.combinePicture'];
@@ -304,7 +320,7 @@ class BackImgStylizer extends Module {
     ) as unknown as TagToImgList;
     for (const tagToImg of tagToImgList) {
       const tags = tagToImg.tags;
-      if (arrContainsAnyOf(this.cardTags, tags)) {
+      if (arrContainsAnyOf(TAGS_LIST, tags)) {
         const fileName = tagToImg.fileName;
 
         const newImg = document.createElement('img');
@@ -323,13 +339,22 @@ class BackImgStylizer extends Module {
     // TODO nothing is necessary it seems!
   }
 
-  addClickToZoom(ele: HTMLImageElement) {
+  addClickToZoom(ele: HTMLElement, imgEle?: HTMLImageElement) {
     this.dhImgContainer.classList.toggle(clsImgClick, true);
 
-    ele.onclick = () => {
-      this.modal.style.display = 'block';
-      this.modalImg.src = ele.src;
-    };
+    if (imgEle === undefined) {
+      // seems like typescript requires some code repetition here
+      // likely due to impure function shenanigans
+      ele.onclick = () => {
+        this.modal.style.display = 'block';
+        this.modalImg.src = (ele as HTMLImageElement).src;
+      };
+    } else {
+      ele.onclick = () => {
+        this.modal.style.display = 'block';
+        this.modalImg.src = imgEle.src;
+      };
+    }
   }
 
   removeClickToZoom(ele: HTMLImageElement) {
@@ -346,7 +371,119 @@ class BackImgStylizer extends Module {
     controller.initImageBlur();
   }
 
-  private stylizePrimaryDefGlossaryPics() {}
+  private getStylizeMode(modeType: 'yomichan' | 'user'): StylizeType {
+    let defaultMode = getOption(`imgStylizer.glossary.primaryDef.mode.${modeType}`);
+
+    const stylizeMode = checkOptTags(TAGS_LIST, [
+      [`imgStylizer.glossary.primaryDef.mode.${modeType}.tagOverride.float`, 'float'],
+      [
+        `imgStylizer.glossary.primaryDef.mode.${modeType}.tagOverride.collapse`,
+        'collapse',
+      ],
+      [`imgStylizer.glossary.primaryDef.mode.${modeType}.tagOverride.none`, 'none'],
+      ['imgStylizer.glossary.primaryDef.mode.general.tagOverride.float', 'float'],
+      ['imgStylizer.glossary.primaryDef.mode.general.tagOverride.collapse', 'collapse'],
+      ['imgStylizer.glossary.primaryDef.mode.general.tagOverride.none', 'none'],
+    ]);
+
+    if (stylizeMode === undefined) {
+      return defaultMode as StylizeType;
+    }
+    return stylizeMode;
+  }
+
+  private createImgContainer(imgName: string) {
+    // creating this programmically:
+    // <span class="glossary__image-container">
+    //   <a class="glossary__image-hover-text" href='javascript:;'</a>
+    //   <img class="glossary__image-hover-media" src="${imgName}">
+    // </span>
+
+    const defSpan = document.createElement('span');
+    defSpan.classList.add('glossary__image-container');
+
+    const defAnc = document.createElement('a');
+    defAnc.classList.add('glossary__image-hover-text');
+    defAnc.href = 'javascript:;';
+    defAnc.textContent = translatorStrs["image-hover-text"];
+    defAnc.setAttribute('data-suppress-link-hover', 'true');
+
+    const defImg = document.createElement('img');
+    defImg.classList.add('glossary__image-hover-media');
+    defImg.src = imgName;
+
+    this.addClickToZoom(defImg);
+
+    if (!isMobile()) {
+      // prevents clicking on the image link to zoom (on mobile)
+      this.addClickToZoom(defAnc, defImg);
+    }
+
+    defSpan.appendChild(defAnc);
+    defSpan.appendChild(defImg);
+
+    return defSpan;
+  }
+
+  private convertYomichanImgs(searchEle: HTMLElement, toFloat = false) {
+    const anchorTags = searchEle.getElementsByTagName('a');
+    for (const atag of Array.from(anchorTags)) {
+      const imgFileName = atag.getAttribute('href');
+      if (imgFileName && imgFileName.substring(0, 25) === 'yomichan_dictionary_media') {
+        this.logger.debug(
+          `Converting yomichan image ${imgFileName} (toFloat=${toFloat})...`
+        );
+
+        if (toFloat) {
+          const imgEle = document.createElement('img');
+          imgEle.src = imgFileName;
+
+          this.floatImgRight.appendChild(imgEle.cloneNode(true));
+          this.floatImgLeft.appendChild(imgEle); // moves element away
+
+          atag.parentNode?.removeChild(atag);
+        } else {
+          const fragment = this.createImgContainer(imgFileName);
+          atag.parentNode?.replaceChild(fragment, atag);
+        }
+      }
+    }
+  }
+
+  private stylizePrimaryDefGlossaryPics() {
+    const stylizeModeUser = this.getStylizeMode('user');
+    const stylizeModeYomichan = this.getStylizeMode('yomichan');
+
+    // looks for yomichan inserted images
+    if (stylizeModeYomichan !== 'none') {
+      this.convertYomichanImgs(this.primaryDefRawText, stylizeModeYomichan === 'float');
+    }
+
+    // looks for user inserted images
+    if (stylizeModeUser !== 'none') {
+      const imgTags = Array.from(this.primaryDefRawText.getElementsByTagName('img'));
+      for (const imgEle of imgTags) {
+        if (
+          imgEle.classList.contains('glossary__image-hover-media') || // already converted
+          imgEle.getAttribute('data-do-not-convert') // does not require converting
+        ) {
+          continue;
+        }
+
+        this.logger.debug(
+          `Converting user-inserted image ${imgEle.src} with mode ${stylizeModeUser}...`
+        );
+
+        if (stylizeModeUser === 'collapse') {
+          const fragment = this.createImgContainer(imgEle.src);
+          imgEle.parentNode?.replaceChild(fragment, imgEle);
+        } else {
+          this.floatImgRight.appendChild(imgEle.cloneNode(true));
+          this.floatImgLeft.appendChild(imgEle); // moves element away
+        }
+      }
+    }
+  }
 
   private stylizeOtherGlossaryPics() {}
 

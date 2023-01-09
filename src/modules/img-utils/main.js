@@ -629,8 +629,6 @@ const JPMNImgUtils = (() => {
         atag.parentNode.replaceChild(fragment, atag);
       }
     }
-
-
   }
 
   function searchImages() {
