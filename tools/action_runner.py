@@ -34,6 +34,7 @@ import utils
 from action import Action, UserAction, RenameField, MoveField, AddField, DeleteField
 from note_changes import NOTE_CHANGES, Version, NoteChange
 import difflib
+from dataclasses import dataclass
 
 from typing import Any
 
@@ -289,6 +290,22 @@ class Verifier:
                     f"{new_fields - anki_fields} "
                 )
 
+#@dataclass
+#class ActionRunnable:
+#    """
+#    not a very good name, but not sure what a good name is
+#    """
+#    action: Action
+#    should_run: bool
+
+@dataclass
+class ActionMetadata:
+    """
+    not a very good name, but not sure what a good name is
+    """
+    should_run: bool
+    index: int # start from 0
+
 
 class ActionRunner:
     def __init__(
@@ -298,6 +315,7 @@ class ActionRunner:
         in_order=True,
         verify=True,
         note_changes=NOTE_CHANGES,
+        select_note_changes: list[int] | None=None,
     ):
         """
         applies changes specified in the range (current_ver, new_ver]
@@ -306,6 +324,10 @@ class ActionRunner:
         """
 
         self.changes: list[NoteChange] = []
+        self.select_changes: list[int] | None = select_note_changes
+        # tuple of: action, whether it should be ran
+        self.action_metadata: dict[Action, ActionMetadata]
+
         self.edits_cards: bool = False
         self.requires_user_action: bool = False
 
@@ -343,27 +365,49 @@ class ActionRunner:
 
         if not self.changes:  # if self.changes is empty
             return
+        self.action_metadata = self.parse_actions()
 
         if verify:
             if self.new_fields is not None:
                 self.verifier = Verifier(
                     self.original_fields, self.new_fields, in_order=self.in_order
                 )
-                actions = sum((c.actions for c in self.changes), start=[])
+                actions = self.get_filtered_actions()
                 self.verifier.verify(actions)
 
         # sees if actions edits the cards
-        for data in self.changes:
-            for action in data.actions:
-                if action.edits_cards:
-                    self.edits_cards = True
-                if isinstance(action, UserAction):
-                    self.requires_user_action = True
-                if self.edits_cards and self.requires_user_action:
-                    return  # saves some cycles
+        for action in self.get_filtered_actions():
+            if action.edits_cards:
+                self.edits_cards = True
+            if isinstance(action, UserAction):
+                self.requires_user_action = True
+            if self.edits_cards and self.requires_user_action:
+                return  # saves some cycles
+
+    def _should_run_action(self, i: int):
+        return self.select_changes is None or i+1 in self.select_changes
+
+    def parse_actions(self) -> dict[Action, ActionMetadata]:
+        i = 0
+        result = {}
+        for c in self.changes:
+            for a in c.actions:
+                result[a] = ActionMetadata(self._should_run_action(i), i)
+                i += 1
+        return result
+
+    def get_filtered_actions(self) -> list[Action] :
+        result = []
+        for c in self.changes:
+            for a in c.actions:
+                if self.action_metadata[a].should_run:
+                    result.append(a)
+        return result
 
     def clear(self):
         self.changes.clear()
+        if isinstance(self.select_changes, list):
+            self.select_changes.clear()
 
     def indent(self, desc: str, indent: str = "    ", start: str = "  - ") -> str:
         return start + desc.replace("\n", "\n" + indent)
@@ -379,8 +423,10 @@ class ActionRunner:
         desc_list.append(f"Changes from {version}:")
 
         for action in data.actions:
-            if not isinstance(action, UserAction):
-                desc_list.append(self.indent(action.description))
+            metadata = self.action_metadata[action]
+            if metadata.should_run and not isinstance(action, UserAction):
+                num_disp = "{:02d}: ".format(metadata.index+1)
+                desc_list.append(self.indent(action.description, start=num_disp))
 
         return "\n".join(desc_list)
 
@@ -393,13 +439,15 @@ class ActionRunner:
 
         for data in self.changes:
             for action in data.actions:
-                if isinstance(action, UserAction):
+                metadata = self.action_metadata[action]
+                if metadata.should_run and isinstance(action, UserAction):
+                    num_disp = "{:02d}: ".format(metadata.index+1)
                     if action.unique:
                         if action.__class__ not in user_changes_unique:
                             user_changes_unique.add(action.__class__)
-                            desc_list.append(self.indent(action.description))
+                            desc_list.append(self.indent(action.description, start=num_disp))
                     else:
-                        desc_list.append(self.indent(action.description))
+                        desc_list.append(self.indent(action.description, start=num_disp))
 
         return "\n".join(desc_list)
 

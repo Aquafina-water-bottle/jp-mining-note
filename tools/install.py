@@ -70,6 +70,13 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
+        "--dev-select-note-changes",
+        type=int,
+        nargs="+",
+        help="(dev option) bypasses the note changes section",
+    )
+
+    group.add_argument(
         "--no-backup",
         type=str,
         default=None,
@@ -159,7 +166,9 @@ class NoteUpdater:
                 self.input_folder, str(self.note_config("id").item()), template_id
             )
 
-            with open(os.path.join(dir_path, FRONT_FILENAME), encoding="utf-8") as front:
+            with open(
+                os.path.join(dir_path, FRONT_FILENAME), encoding="utf-8"
+            ) as front:
                 front_contents = front.read()
             with open(os.path.join(dir_path, BACK_FILENAME), encoding="utf-8") as back:
                 back_contents = back.read()
@@ -322,7 +331,10 @@ def main(args=None):
             current_ver = ar.Version.from_str(utils.get_version_from_anki(args))
             new_ver = ar.Version.from_str(utils.get_version(args))
             action_runner = ar.ActionRunner(
-                current_ver, new_ver, in_order=(not args.ignore_order)
+                current_ver,
+                new_ver,
+                in_order=(not args.ignore_order),
+                select_note_changes=args.dev_select_note_changes,
             )  # also verifies field changes
 
             if action_runner.has_actions():
@@ -342,7 +354,6 @@ def main(args=None):
         except Exception:
             traceback.print_exc()
             print("Cannot backup note, skipping error...")
-
 
         print(f"Updating {model_name}...")
         note_updater.update()
