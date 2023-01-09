@@ -414,7 +414,7 @@
   //  https://aquafina-water-bottle.github.io/jp-mining-note/autopa/#colored-pitch-accent
 
 
-  "autoPitchAccent.coloredPitchAccent.enabled": true,
+  "autoPitchAccent.coloredPitchAccent.enabled": false,
 
   // what parts of the card to color
   "autoPitchAccent.coloredPitchAccent.color.testedContent": true, // above line
@@ -634,7 +634,7 @@
   // = collapseDictionaries =
   // ==========================================================================
 
-  "webSocketUtils.enabled": true,
+  "webSocketUtils.enabled": false,
   "webSocketUtils.url": "ws://localhost:6678",
 
   // whether the setting is enabled by default or not

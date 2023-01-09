@@ -31,6 +31,12 @@
   "sentenceParser.removeFinalPeriod.altDisplay.unquoted": true,
 
 
+
+  "webSocketUtils.enabled": false,
+
+
+
+
   // disables on mobile
   "sentenceParser.display.quotes.paIndicatorColor.main": {
     "type": "viewport",
