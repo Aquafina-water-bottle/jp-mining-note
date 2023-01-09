@@ -12,7 +12,6 @@
 
 
 
-  "enableModule.timePerformance":         false,
   "enableModule.keybinds":                false,
 
   "enableModule.sentenceParser":               false,

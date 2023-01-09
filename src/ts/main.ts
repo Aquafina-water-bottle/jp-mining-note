@@ -3,7 +3,6 @@ import { compileOpts } from './consts';
 import { CardSide, fieldAllExists, fieldNoneExist } from './utils';
 import { getOption } from './options'
 
-//import { TimePerformance } from "./timePerformance"
 import { Keybinds } from './modules/keybinds';
 import { MainCardUtils } from './modules/mainCardUtils';
 

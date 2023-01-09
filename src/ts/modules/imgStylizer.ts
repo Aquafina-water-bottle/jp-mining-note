@@ -19,39 +19,50 @@ type TagToImgList = TagToImg[];
  * ImgStylizer
  */
 
+const clsPrimDefRawImg = 'glossary-primary-definition__raw-img';
+const clsNoDefinition = 'glossary-primary-definition--no-definition';
 
-const clsPrimDefRawImg = "glossary-primary-definition__raw-img";
-const clsNoDefinition = "glossary-primary-definition--no-definition";
-
-const clsBlurFilterInit = "img-blur-filter-init";
-const clsBlurFilter = "img-blur-filter";
-const clsBlurFilterDisable = "img-blur-filter-disable";
+const clsBlurFilterInit = 'img-blur-filter-init';
+const clsBlurFilter = 'img-blur-filter';
+const clsBlurFilterDisable = 'img-blur-filter-disable';
 
 const clsContainsImg = 'dh-right--contains-image';
 const clsAudioBtnsLeft = 'dh-left__audio-buttons--left';
 const clsImgClick = 'dh-right__img-container--clickable';
 const clsRightImg = 'dh-right__img';
-const clsShowEye = "dh-right__show-eye";
+const clsShowEye = 'dh-right__show-eye';
 
 const settingId = 'info_circle_text_settings_img_blur_toggle';
 const persistKey = 'jpmn-img-blur';
 
-
+// TODO? this is probably better implemented within HTML/css
+// like how the info circle settings work
+const EYE_PATH_RAW =
+  'M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z';
+const EYE_OFF_PATH_RAW =
+  'M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z';
 
 class BackImgBlurController extends Module {
   private readonly backImgStylizer: BackImgStylizer;
   private readonly imgBlur: ImgBlur;
 
-  private readonly dhImgBlur = document.getElementById("dh_img_container_blur_wrapper") as HTMLElement;
+  private readonly dhImgBlur = document.getElementById(
+    'dh_img_container_blur_wrapper'
+  ) as HTMLElement;
+  private readonly imgEye = document.getElementById('img_svg_eye') as HTMLElement;
   private readonly imgEle: HTMLImageElement;
 
   private imgCurrentlyBlurred: boolean = false;
 
-  constructor(backImgStylizer: BackImgStylizer, imgBlur: ImgBlur, imgEle: HTMLImageElement) {
+  constructor(
+    backImgStylizer: BackImgStylizer,
+    imgBlur: ImgBlur,
+    imgEle: HTMLImageElement
+  ) {
     super('sm:backImgBlurController');
     this.backImgStylizer = backImgStylizer;
     this.imgBlur = imgBlur;
-    this.imgEle = imgEle
+    this.imgEle = imgEle;
   }
 
   initImageBlur() {
@@ -59,33 +70,61 @@ class BackImgBlurController extends Module {
     if (state !== undefined) {
       this.setImageBlurToState(state, true);
     }
+
+    this.imgEye.onclick = () => {
+      if (this.imgCurrentlyBlurred) {
+        // should be blurred -> not blurred
+        this.removeImgBlur();
+      } else {
+        // not blurred -> should be blurred
+        this.addImgBlur();
+      }
+    };
   }
 
-  setImageBlurToState(state: number, init=false) {
-    if (state === 0) { // always blurred -> never blurred
+  // shows / hides the picture eye entirely
+  hidePictureEye() {
+    this.dhImgBlur.classList.toggle(clsShowEye, false);
+  }
+  showPictureEye() {
+    this.dhImgBlur.classList.toggle(clsShowEye, true);
+  }
+
+  // toggles the visibile state of the eye
+  pictureEyeBlur() {
+    this.imgEye.children[0].setAttributeNS(null, 'd', EYE_OFF_PATH_RAW);
+  }
+  pictureEyeNoBlur() {
+    this.imgEye.children[0].setAttributeNS(null, 'd', EYE_PATH_RAW);
+  }
+
+  setImageBlurToState(state: number, init = false) {
+    if (state === 0) {
+      // always blurred -> never blurred
       this.removeImgBlur();
       if (!this.imgBlur.cardIsMarked()) {
         // removes if necessary (non-marked image forced to be blurred -> no longer forced)
-        this.dhImgBlur.classList.toggle(clsShowEye, false);
+        // recall that the picture eye is always shown on marked cards
+        this.hidePictureEye();
       }
-
-    } else if (state === 1) { // never blurred -> blur only if marked
+    } else if (state === 1) {
+      // never blurred -> blur only if marked
       if (!this.imgBlur.cardIsMarked()) {
         // NOTE: can reach here on init as well
         this.removeImgBlur();
+        this.hidePictureEye();
       } else if (!this.imgCurrentlyBlurred && this.imgBlur.cardIsMarked()) {
         this.addImgBlur(init);
       }
-
-    } else if (state === 2) { // ??? -> always blurred
+    } else if (state === 2) {
+      // ??? -> always blurred
       this.addImgBlur(init);
-
     } else {
-      this.logger.warn(`Invalid image blur state: ${state}`)
+      this.logger.warn(`Invalid image blur state: ${state}`);
     }
   }
 
-  addImgBlur(init=false) {
+  addImgBlur(init = false) {
     // removes disable filter
     this.dhImgBlur.classList.toggle(clsBlurFilterDisable, false);
 
@@ -98,8 +137,8 @@ class BackImgBlurController extends Module {
 
     this.backImgStylizer.removeClickToZoom(this.imgEle);
 
-    // shows eye to toggle blur (top right of the image)
-    this.dhImgBlur.classList.toggle(clsShowEye, true);
+    this.showPictureEye();
+    this.pictureEyeBlur();
 
     this.imgCurrentlyBlurred = true;
   }
@@ -114,15 +153,11 @@ class BackImgBlurController extends Module {
 
     this.backImgStylizer.addClickToZoom(this.imgEle);
 
-    // hides eye to toggle blur
-    this.dhImgBlur.classList.toggle(clsShowEye, true);
+    this.pictureEyeNoBlur();
 
     this.imgCurrentlyBlurred = false;
   }
-
 }
-
-
 
 class ImgBlur extends Module {
   readonly setting = new InfoCircleSetting(settingId, persistKey);
@@ -135,20 +170,20 @@ class ImgBlur extends Module {
   }
 
   setController(controller: BackImgBlurController) {
-    this.controller = controller
+    this.controller = controller;
   }
 
   cardIsMarked() {
-    return arrContainsAnyOf(this.cardTags, getOption("imgStylizer.mainImage.blur.tags"))
+    return arrContainsAnyOf(this.cardTags, getOption('imgStylizer.mainImage.blur.tags'));
   }
 
   displaySetting() {
     // internally, states are represented as numbers
     const defaultStateMap = {
-      "never": 0,
-      "only-tagged": 1,
-      "always": 2,
-    }
+      never: 0,
+      'only-tagged': 1,
+      always: 2,
+    };
     const defaultStateStr = getOption('imgStylizer.mainImage.blur.startState');
     let defaultState = 0;
     if (defaultStateStr in defaultStateMap) {
@@ -162,13 +197,14 @@ class ImgBlur extends Module {
     this.setting.btn.onclick = () => {
       const newState = this.setting.getNextState();
       if (newState === 0) {
-        popupMenuMessage("No images will be blurred.");
+        popupMenuMessage('No images will be blurred.');
       } else if (newState === 1) {
-        popupMenuMessage("Tagged images will be blurred.");
+        popupMenuMessage('Tagged images will be blurred.');
       } else if (newState === 2) {
-        popupMenuMessage("All images will be blurred.");
-      } else { // 2
-        this.logger.warn(`Invalid image blur state: ${newState}`)
+        popupMenuMessage('All images will be blurred.');
+      } else {
+        // 2
+        this.logger.warn(`Invalid image blur state: ${newState}`);
         return;
       }
       this.setting.displayAs(newState);
@@ -179,8 +215,6 @@ class ImgBlur extends Module {
     };
   }
 }
-
-
 
 class BackImgStylizer extends Module {
   private readonly cardTags = TAGS_LIST;
@@ -193,9 +227,7 @@ class BackImgStylizer extends Module {
   private readonly dhLeftAudioBtns = document.getElementById(
     'dh_left_audio_buttons'
   ) as HTMLElement;
-  readonly dhImgContainer = document.getElementById(
-    'dh_img_container'
-  ) as HTMLElement;
+  readonly dhImgContainer = document.getElementById('dh_img_container') as HTMLElement;
   private readonly modal = document.getElementById('modal') as HTMLElement;
   private readonly modalImg = document.getElementById('bigimg') as HTMLImageElement;
 
@@ -309,8 +341,8 @@ class BackImgStylizer extends Module {
     if (this.imgBlur === null) {
       return; // nothing to do!
     }
-    const controller = new BackImgBlurController(this, this.imgBlur, imgEle)
-    this.imgBlur.setController(controller)
+    const controller = new BackImgBlurController(this, this.imgBlur, imgEle);
+    this.imgBlur.setController(controller);
     controller.initImageBlur();
   }
 

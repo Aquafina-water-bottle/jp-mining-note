@@ -18,6 +18,9 @@
   "autoPitchAccent.paOverride.warnOnInvalidFormat": true,
 
 
+  "imgStylizer.mainImage.blur.enabled": true,
+  "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module
+
 
   // always remove final period
   "sentenceParser.removeFinalPeriod.fullSent.quoted": true,
