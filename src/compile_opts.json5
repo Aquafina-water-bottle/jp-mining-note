@@ -149,7 +149,6 @@
   // Whether the module shows up in the raw javascript or not.
   // If set to false, then the module's javascript will NOT exist in the template,
   // so any related behavior and runtime options will no longer function.
-  "enableModule.timePerformance":         false,
   "enableModule.keybinds":                true,
 
   "enableModule.sentenceParser":               true,

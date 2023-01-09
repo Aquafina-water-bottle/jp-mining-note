@@ -484,7 +484,7 @@
 
   // imgStylizer.mainImage.blur
   // --------------------------------------------------------------------------
-  "imgStylizer.mainImage.blur.enabled": true,
+  "imgStylizer.mainImage.blur.enabled": false,
   // what tags can be used to toggle the card between nsfw / not nsfw
   // case sensitive
   "imgStylizer.mainImage.blur.tags": ["NSFW", "nsfw", "-NSFW"],
