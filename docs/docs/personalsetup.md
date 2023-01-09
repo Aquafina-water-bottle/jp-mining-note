@@ -1,12 +1,22 @@
 Welcome to my (hidden) personal setup page!
-This will contain condense, usually point form information on how to get my exact setup,
-and this section will be in continuous flux so long as I am learning japanese.
+This section is very likely outdated and is not very easy to go through.
 
 If you want to use this note type,
-I recommend looking at the other pages of the wiki,
-as points will be better explained.
+I recommend looking at **other pages of the wiki**.
 
 
+
+# Texthooker CSS (Renji)
+```
+main > p {
+  padding: 0rem !important;
+}
+
+main {
+  padding-left: min(5%, 5rem) !important;
+  padding-right: min(5%, 5rem) !important;
+}
+```
 
 # Anki
 plugins:
