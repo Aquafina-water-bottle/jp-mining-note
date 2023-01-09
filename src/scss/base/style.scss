@@ -1401,7 +1401,7 @@ ruby rt {
   border-radius: 5px;
 }
 
-.dh-right__img-container-nsfw-blur {
+.dh-right__img-container-blur-wrapper {
 }
 
 /* moved the hover element to the div to prevent the size transform transition from showing */
@@ -1456,14 +1456,14 @@ ruby rt {
 
 
 /* no transition so it doesn't flash the user when flipping the card */
-.nsfw-blur-init {
+.img-blur-filter-init {
   filter: blur(30px);
 }
-.nsfw-blur {
+.img-blur-filter {
   filter: blur(30px);
   transition: filter 0.2s;
 }
-.nsfw-no-blur {
+.img-blur-filter-disable {
   transition: filter 0.2s;
 }
 

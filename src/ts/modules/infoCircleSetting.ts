@@ -1,7 +1,7 @@
-import { Module } from "../module"
-import { O, getOption } from "../options"
-import { Persistence } from '../persistence'
-import { throwOnNotFound } from '../utils'
+import { Module } from '../module';
+import { O, getOption } from '../options';
+import { Persistence } from '../persistence';
+import { throwOnNotFound } from '../utils';
 
 type InfoCircleSettingId =
   | 'info_circle_text_settings_img_blur_toggle'
@@ -10,7 +10,6 @@ type InfoCircleSettingId =
   | 'info_circle_text_settings_clear_cache';
 
 export class InfoCircleSetting extends Module {
-
   private readonly infoCircSettings: HTMLElement = throwOnNotFound(
     'info_circle_text_settings'
   );
@@ -28,23 +27,8 @@ export class InfoCircleSetting extends Module {
   }
 
   getNextState(): number | undefined {
-    // find child that isn't hidden
-    if (this.btn.children.length <= 1) {
-      this.logger.warn("Cannot toggle setting with <= 1 children");
-      return undefined;
-    }
-
-    let result: number | null = null;
-    for (let i = 0; i < this.btn.children.length; i++) {
-      const c = this.btn.children[i];
-      if (!c.classList.contains("hidden")) {
-        result = i;
-        break;
-      }
-    }
-
-    if (result === null) {
-      this.logger.warn("Cannot toggle setting with all hidden children");
+    const result = this.getCurrentState();
+    if (result === undefined) {
       return undefined;
     }
 
@@ -52,10 +36,34 @@ export class InfoCircleSetting extends Module {
     return next;
   }
 
+  getCurrentState(): number | undefined {
+    // find child that isn't hidden
+    if (this.btn.children.length <= 1) {
+      this.logger.warn('Cannot toggle setting with <= 1 children');
+      return undefined;
+    }
+
+    let result: number | null = null;
+    for (let i = 0; i < this.btn.children.length; i++) {
+      const c = this.btn.children[i];
+      if (!c.classList.contains('hidden')) {
+        result = i;
+        break;
+      }
+    }
+
+    if (result === null) {
+      this.logger.warn('Cannot toggle setting with all hidden children');
+      return undefined;
+    }
+
+    return result;
+  }
+
   toggleDisplay(): number | undefined {
     // find child that isn't hidden
 
-    let next = this.getNextState()
+    let next = this.getNextState();
     if (next === undefined) {
       return undefined;
     }
@@ -65,14 +73,14 @@ export class InfoCircleSetting extends Module {
   // assumes that one can indeed toggle the display
   displayAs(next: number): number {
     // next is now an int
-    let current = next-1 === -1 ? this.btn.children.length-1 : next-1;
+    let current = next - 1 === -1 ? this.btn.children.length - 1 : next - 1;
 
     if (Persistence.isAvailable() && this.persistKey !== undefined) {
       Persistence.setItem(this.persistKey, `${next}`);
     }
 
-    this.btn.children[current].classList.toggle("hidden", true);
-    this.btn.children[next].classList.toggle("hidden", false);
+    this.btn.children[current].classList.toggle('hidden', true);
+    this.btn.children[next].classList.toggle('hidden', false);
     return next;
   }
 
@@ -84,7 +92,7 @@ export class InfoCircleSetting extends Module {
     this.btn.classList.toggle('hidden', false);
 
     if (defaultState === undefined) {
-      this.btn.children[0].classList.toggle("hidden", false);
+      this.btn.children[0].classList.toggle('hidden', false);
       return undefined;
     }
 
@@ -101,15 +109,12 @@ export class InfoCircleSetting extends Module {
       }
     } else {
       // TODO togglable warn
-      this.logger.warn("Persistence is not available. Using default state...");
+      this.logger.warn('Persistence is not available. Using default state...');
     }
 
     // state is exactly what child should be visible
-    this.btn.children[state].classList.toggle("hidden", false);
+    this.btn.children[state].classList.toggle('hidden', false);
 
     return state;
   }
-
-
-
 }
