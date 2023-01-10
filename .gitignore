@@ -373,5 +373,6 @@ src/scss/aquafina_extra/
 src/modules/aquafina-extra/
 overrides/scss/extra/
 src/ts/consts.ts
+src/ts/test/templates/
 src/_js/
 config/temp/
