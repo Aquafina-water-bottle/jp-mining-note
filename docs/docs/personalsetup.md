@@ -15,6 +15,7 @@ main > p {
 main {
   padding-left: min(5%, 5rem) !important;
   padding-right: min(5%, 5rem) !important;
+  font-family: "Noto Sans CJK JP" !important;
 }
 ```
 
