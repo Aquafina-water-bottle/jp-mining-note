@@ -448,6 +448,20 @@ Do not run this script if you have not successfully completed Step 4.
     python3 batch.py -f "fill_word_reading_hiragana_field"
     ```
 
+## (6) (Optional) Backfill the `FrequencySort` Field
+As mentioned ealier, `FrequencySort` behaves exactly the same as Marv's
+`Frequency` field as documented in
+[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency)
+page.
+That page also contains instructions on
+[how to backfill](https://github.com/MarvNC/JP-Resources#backfilling-old-cards)
+the field if it is empty.
+
+If you are following the command line instructions, use the following command:
+```bash
+python backfill.py "Word" --freq-field "FrequencySort" --query "FrequencySort: \"note:JP Mining Note\""
+```
+
 ---
 
 
