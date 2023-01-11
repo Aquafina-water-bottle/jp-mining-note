@@ -345,7 +345,9 @@ Other websites have significantly larger resource lists that may prove useful fo
     * [Tatsumoto](https://tatsumoto.neocities.org/blog/resources.html)
     * [itazuraneko](https://itazuraneko.neocities.org/index.html)
     * [kuzuri](https://kuzuri.neocities.org/resources.html)
-    * [Refold (JP)](https://docs.google.com/document/d/1tQmoGwCJQqmjdmaQdigAG0Ph1ODSMsGhsD7qOhlUuc0/) ([Mirror](https://refold.link/japanese))
+    * [Refold (JP)](https://www.notion.so/Refold-Japanese-Content-Resources-WIP-9121097535e74f6ba501c93b1773e70c)
+        ([Old Google doc](https://docs.google.com/document/d/1tQmoGwCJQqmjdmaQdigAG0Ph1ODSMsGhsD7qOhlUuc0/))
+        ([Mirror](https://refold.link/japanese))
     * [Refold (General)](https://docs.google.com/document/d/1z_5VbwqKjuyaDH8l6BqhAPJdHWAfypz-3V7pHsWHr6A/) ([Mirror](https://refold.link/Tech_and_Tools))
 
 
