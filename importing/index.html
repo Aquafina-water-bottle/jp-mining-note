@@ -638,6 +638,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6-optional-backfill-the-frequencysort-field" class="md-nav__link">
+    (6) (Optional) Backfill the FrequencySort Field
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1149,6 +1156,13 @@
           <li class="md-nav__item">
   <a href="#5-optional-batch-set-wordreadinghiragana-field" class="md-nav__link">
     (5) (Optional) Batch set WordReadingHiragana Field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-optional-backfill-the-frequencysort-field" class="md-nav__link">
+    (6) (Optional) Backfill the FrequencySort Field
   </a>
   
 </li>
@@ -1847,6 +1861,17 @@ Do not run this script if you have not successfully completed Step 4.</p>
 </div>
 </div>
 </div>
+<h3 id="6-optional-backfill-the-frequencysort-field">(6) (Optional) Backfill the <code>FrequencySort</code> Field<a class="headerlink" href="#6-optional-backfill-the-frequencysort-field" title="Permanent link">&para;</a></h3>
+<p>As mentioned ealier, <code>FrequencySort</code> behaves exactly the same as Marv's
+<code>Frequency</code> field as documented in
+<a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a>
+page.
+That page also contains instructions on
+<a href="https://github.com/MarvNC/JP-Resources#backfilling-old-cards">how to backfill</a>
+the field if it is empty.</p>
+<p>If you are following the command line instructions, use the following command:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python backfill.py <span class="s2">&quot;Word&quot;</span> --freq-field <span class="s2">&quot;FrequencySort&quot;</span> --query <span class="s2">&quot;FrequencySort: \&quot;note:JP Mining Note\&quot;&quot;</span>
+</code></pre></div></p>
 <hr />
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>If everything went smoothly,
@@ -1886,7 +1911,7 @@ so long as you have a Yomichan pitch accent dictionary installed.&#160;<a class=
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 4, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 11, 2023</span>
       
     
   </small>
