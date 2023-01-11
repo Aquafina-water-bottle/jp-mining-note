@@ -6,6 +6,11 @@
     {% call IF("FrequenciesStylized") %}
       {{ T("FrequenciesStylized") }}
     {% endcall %}
+    {% call IFNOT("FrequenciesStylized") %}
+      {% call IF("FrequencySort") %}
+        <div class="frequencies__group" data-details="sort"><div class="frequencies__number"><span class="frequencies__number-inner">{{ T("FrequencySort") }}</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner">sort</span></div></div>
+      {% endcall %}
+    {% endcall %}
   </div>
 
   <span class="

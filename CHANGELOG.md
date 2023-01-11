@@ -96,6 +96,7 @@ and must use `./install.py --update`.
     - Added hotkeys to update the current card to be a cloze deletion card
         - TODO documentation on this (specifically ways to create cloze deletion cards)
     - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
+    - Allow FrequencySort to be used as a backup in case FrequenciesStylized does not exist
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
