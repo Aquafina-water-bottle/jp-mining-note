@@ -73,7 +73,7 @@ function isCodePointInRange(codePoint: number, range: CodePointRange) {
 
 export function convertHiraganaToKatakana(text: string): string {
   let result = '';
-  const offset = KATAKANA_CONVERSION_RANGE.min - HIRAGANA_CONVERSION_RANGE.max;
+  const offset = KATAKANA_CONVERSION_RANGE.min - HIRAGANA_CONVERSION_RANGE.min;
   for (let char of text) {
     const codePoint = char.codePointAt(0);
     if (

@@ -246,21 +246,25 @@ class MediaInstaller:
         )
 
     def backup(self, file_name):
-        # attempts to file from anki
-        contents_b64 = invoke("retrieveMediaFile", filename=file_name)
-        if not contents_b64:
-            # file doesn't exist in the first place, nothing to backup
-            print(f"No backup is necessary: `{file_name}` doesn't exist")
-            return
+        try:
+            # attempts to file from anki
+            contents_b64 = invoke("retrieveMediaFile", filename=file_name)
+            if not contents_b64:
+                # file doesn't exist in the first place, nothing to backup
+                print(f"No backup is necessary: `{file_name}` doesn't exist")
+                return
 
-        contents = base64.b64decode(contents_b64).decode("utf-8")
+            backup_file_path = os.path.join(self.backup_folder, file_name)
+            print(f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ...")
 
-        backup_file_path = os.path.join(self.backup_folder, file_name)
-        print(f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ...")
+            contents = base64.b64decode(contents_b64).decode("utf-8")
 
-        utils.gen_dirs(backup_file_path)
-        with open(backup_file_path, mode="w", encoding="utf-8") as f:
-            f.write(contents)
+            utils.gen_dirs(backup_file_path)
+            with open(backup_file_path, mode="w", encoding="utf-8") as f:
+                f.write(contents)
+        except Exception:
+            traceback.print_exc()
+            print(f"Cannot backup file: {file_name}. Skipping error...")
 
     def format_media(self, media: MediaFile) -> Dict[str, Any]:
         return {
