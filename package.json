@@ -5,7 +5,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "build": "webpack",
     "dev": "webpack --mode=development --devtool=source-map"
   },

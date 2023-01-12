@@ -38,7 +38,9 @@ export class AutoHighlightWord extends Module {
       replace = replaceFilter.reduce((a, b) => (a.length > b.length ? a : b));
     }
 
-    if (replace !== null) {
+    if (replace === null) {
+      this.logger.debug("findPlainReplace: could not highlight");
+    } else {
       this.plainReplaceCache.add(replace);
     }
     return replace;
@@ -59,9 +61,16 @@ export class AutoHighlightWord extends Module {
   /* attempts to highlight the word given the rubyfied sentence */
   private highlightWordRuby(sentenceRuby: string): [string, string | null] {
 
-    const longestSubstr = Array.from(this.plainReplaceCache).reduce((a, b) =>
-      a.length > b.length ? a : b
-    );
+    const cache = Array.from(this.plainReplaceCache)
+    let longestSubstr: string | null = null;
+    if (cache.length > 0) {
+      longestSubstr = cache.reduce((a, b) =>
+        a.length > b.length ? a : b
+      );
+    }
+    if (longestSubstr === null) {
+      return [sentenceRuby, null];
+    }
 
     // ruby format example:
     // <ruby><rb>端</rb><rt>はじ</rt></ruby>
@@ -154,10 +163,13 @@ export class AutoHighlightWord extends Module {
 
     if (this.isRubySentence(sentence) && !this.attemptedPlainReplace) {
       if (plainSentence === undefined) {
-        // warn
+        this.logger.warn("plainSentence is undefined when trying to highlight ruby sentence");
       } else {
         // side effect: caches replace beforehand
-        this.findPlainReplace(plainSentence, searchStrings);
+        if (this.plainReplaceCache.size === 0) {
+          this.logger.debug("attempting to cache beforehand...");
+          this.findPlainReplace(plainSentence, searchStrings);
+        }
       }
       return this.highlightWordRuby(sentence);
     }

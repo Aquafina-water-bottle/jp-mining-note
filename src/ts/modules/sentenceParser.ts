@@ -1,5 +1,5 @@
 import { RunnableModule } from '../module';
-import { getOption, checkOptTags } from '../options';
+import { checkOptTags } from '../options';
 import {
   countOccurancesInString,
   TAGS_LIST,
@@ -13,7 +13,7 @@ import {
 import { compileOpts } from '../consts';
 import { AutoHighlightWord, SearchStrings } from './autoHighlightWord';
 
-type Sentence = {
+export type Sentence = {
   // open quote, sentence, closed quote
   readonly open: Element;
   readonly contents: Element;
@@ -37,12 +37,17 @@ const sentenceStyleClasses = [
 ];
 type SentenceStyleClass = typeof sentenceStyleClasses[number];
 
+export type QuotePair = {
+  open: string;
+  close: string;
+}
+
 // subset of an entry in anki-connect's `notesInfo` call
 //type NoteInfoTags = {
 //  readonly tags: string[];
 //}
 
-type NoteInfoSentence = {
+export type NoteInfoSentence = {
   readonly tags?: string[];
   readonly fields: {
     readonly Word: {
@@ -61,7 +66,7 @@ type NoteInfoSentence = {
 };
 
 export class SentenceParser extends RunnableModule {
-  private readonly quoteMatches = getOption('sentenceParser.quotes.matches');
+  private readonly quoteMatches = this.getOption('sentenceParser.quotes.matches');
   private readonly autoHighlight = compileOpts['enableModule.sentenceParser.autoHighlight']
     ? new AutoHighlightWord()
     : null;
@@ -208,8 +213,8 @@ export class SentenceParser extends RunnableModule {
     if (processMode === 'add') {
       if (o === '' && c === '') {
         // only adds if there weren't quotes already
-        o = getOption('sentenceParser.quotes.quoteOpen');
-        c = getOption('sentenceParser.quotes.quoteClose');
+        o = this.getOption('sentenceParser.quotes.quoteOpen');
+        c = this.getOption('sentenceParser.quotes.quoteClose');
       }
     } else if (processMode === 'remove') {
       o = '';
@@ -243,9 +248,9 @@ export class SentenceParser extends RunnableModule {
       o !== '' &&
       fieldAnyExist('PAShowInfo') &&
       ((getCardType() === 'main' && // either main or pa sentence option
-        getOption('sentenceParser.display.quotes.paIndicatorColor.main')) ||
+        this.getOption('sentenceParser.display.quotes.paIndicatorColor.main')) ||
         (getCardType() === 'pa_sent' &&
-          getOption('sentenceParser.display.quotes.paIndicatorColor.paSent')))
+          this.getOption('sentenceParser.display.quotes.paIndicatorColor.paSent')))
     ) {
       this.colorQuotes(sent);
     }
@@ -259,7 +264,7 @@ export class SentenceParser extends RunnableModule {
     // checks that all children are 'div's
     const arr = Array.from(sent.children);
     if (arr.length > 0 && arr.every((x) => x.nodeName === 'DIV')) {
-      if (getOption('sentenceParser.fixDivList.warnOnFix')) {
+      if (this.getOption('sentenceParser.fixDivList.warnOnFix')) {
         this.logger.warn(
           `Following sentence was stripped of div elements: ${sent.innerHTML}`
         );
@@ -285,7 +290,7 @@ export class SentenceParser extends RunnableModule {
       }
     }
 
-    return getOption(`sentenceParser.${optSentType}.quotes.processMode`) as QuoteProcessMode;
+    return this.getOption(`sentenceParser.${optSentType}.quotes.processMode`) as QuoteProcessMode;
   }
 
   private getQuoteDisplayMode(
@@ -320,13 +325,13 @@ export class SentenceParser extends RunnableModule {
         return displayMode;
       }
     }
-    return getOption(
+    return this.getOption(
       `sentenceParser.${sentType}.quotes.displayMode.${isQuoted ? 'quoted' : 'unquoted'}`
     ) as QuoteDisplayMode;
   }
 
   private processPeriod(sentContents: string): string {
-    const periods = getOption('sentenceParser.removeFinalPeriod.validPeriods');
+    const periods = this.getOption('sentenceParser.removeFinalPeriod.validPeriods');
     const re = new RegExp(`[${periods}]$`);
     return sentContents.replace(re, '');
   }
@@ -335,7 +340,7 @@ export class SentenceParser extends RunnableModule {
     // additional logging here
     if (replace === null) {
       const msg = `Could not highlight word in ${sentType}: ${word}.`;
-      if (getOption('sentenceParser.autoHighlightWord.warnIfAutoHighlightFails')) {
+      if (this.getOption('sentenceParser.autoHighlightWord.warnIfAutoHighlightFails')) {
         this.logger.warn(msg);
       } else {
         this.logger.debug(msg);
@@ -343,7 +348,7 @@ export class SentenceParser extends RunnableModule {
     } else {
       // was able to bold something
       const msg = `Automatically highlighted word in ${sentType}: ${replace}.`;
-      if (getOption('sentenceParser.autoHighlightWord.warnOnAutoHighlight')) {
+      if (this.getOption('sentenceParser.autoHighlightWord.warnOnAutoHighlight')) {
         this.logger.warn(msg);
       } else {
         this.logger.debug(msg);
@@ -370,7 +375,7 @@ export class SentenceParser extends RunnableModule {
     // ------------------------------------------------------------------------
     // attempts to remove the weird list of div thing that can happen
 
-    if (getOption('sentenceParser.fixDivList.enabled')) {
+    if (this.getOption('sentenceParser.fixDivList.enabled')) {
       result = this.fixDivList(sent.contents);
     }
     this.logger.debug(`fixDivList: "${result}"`, 1);
@@ -385,7 +390,7 @@ export class SentenceParser extends RunnableModule {
     if (
       !result.match(/<(b)>/) &&
       this.autoHighlight !== null &&
-      getOption('sentenceParser.autoHighlightWord')
+      this.getOption('sentenceParser.autoHighlightWord')
     ) {
       const searchStrings: SearchStrings = [
         { value: noteInfo.fields.Word.value },
@@ -393,7 +398,7 @@ export class SentenceParser extends RunnableModule {
         { value: noteInfo.fields.WordReadingHiragana.value },
       ];
       let replace: string | null;
-      [result, replace] = this.autoHighlight.highlightWord(result, searchStrings);
+      [result, replace] = this.autoHighlight.highlightWord(result, searchStrings, noteInfo.fields.Sentence.value);
       this.autoHighlightLog(sentType, replace, noteInfo.fields.Word.value);
       this.logger.debug(`autoHighlight: "${result}"`, 1);
     }
@@ -409,7 +414,7 @@ export class SentenceParser extends RunnableModule {
     // checks for multi (TODO)
     //if (
     //  !isMulti &&
-    //  getOption(`sentenceParser.${optSentType}.quotes.processMode.searchMulti`) &&
+    //  this.getOption(`sentenceParser.${optSentType}.quotes.processMode.searchMulti`) &&
     //  this.canBeMulti(result)
     //) {
     //  const multi = this.attemptParseMulti(result);
@@ -437,7 +442,7 @@ export class SentenceParser extends RunnableModule {
     // although realistically, periods don't appear at the end of a quote
     // or right after a quote anyways?
     const isQuoted = o.length === 0 ? 'unquoted' : 'quoted';
-    if (getOption(`sentenceParser.removeFinalPeriod.${optSentType}.${isQuoted}`)) {
+    if (this.getOption(`sentenceParser.removeFinalPeriod.${optSentType}.${isQuoted}`)) {
       result = this.processPeriod(result);
       this.logger.debug(`processPeriod: "${result}"`, 1);
     }
@@ -463,7 +468,7 @@ export class SentenceParser extends RunnableModule {
         fields: {
           Word: { value: getFieldValue('Word') },
           WordReading: { value: getFieldValue('WordReading') },
-          WordReadingHiragana: { value: getFieldValue('WordReading') },
+          WordReadingHiragana: { value: getFieldValue('WordReadingHiragana') },
           Sentence: { value: getFieldValue('Sentence') },
         },
       };
