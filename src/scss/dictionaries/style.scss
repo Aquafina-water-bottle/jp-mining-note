@@ -36,6 +36,12 @@
 .frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary:after {
   content: "A&J";
 }
+.frequencies__group[data-details="Anime & J-drama"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+.frequencies__group[data-details="Anime & J-drama"] .frequencies__dictionary:after {
+  content: "A&J";
+}
 
 
 .frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner {
