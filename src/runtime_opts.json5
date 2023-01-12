@@ -131,7 +131,7 @@
   // Automatically attempts to highlight the word in the sentence.
   // Base code taken from:
   // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
-  "sentenceParser.autoHighlightWord": true,
+  "sentenceParser.autoHighlightWord.enabled": true,
   "sentenceParser.autoHighlightWord.warnOnAutoHighlight": false,
   "sentenceParser.autoHighlightWord.warnIfAutoHighlightFails": true,
 

@@ -390,7 +390,7 @@ export class SentenceParser extends RunnableModule {
     if (
       !result.match(/<(b)>/) &&
       this.autoHighlight !== null &&
-      this.getOption('sentenceParser.autoHighlightWord')
+      this.getOption('sentenceParser.autoHighlightWord.enabled')
     ) {
       const searchStrings: SearchStrings = [
         { value: noteInfo.fields.Word.value },

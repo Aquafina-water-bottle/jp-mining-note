@@ -130,6 +130,31 @@ test('processSentence fixDivList space', () => {
   );
 });
 
+test('processSentence fixDivList unbolded', () => {
+  const sentStr = '<div>かわいげのある女じゃない。</div><div>さては偽者だな！</div>';
+  const sentence = createSentence(sentStr);
+  const noteInfo = createNoteInfoSent_nisemono(sentStr);
+
+  const parser = createParser();
+  parser.overrideOption('sentenceParser.autoHighlightWord.enabled', false);
+  parser.processSentence(sentence, 'fullSent', noteInfo);
+  expect(sentence.contents.innerHTML).toBe(
+    'かわいげのある女じゃない。<br>さては偽者だな！'
+  );
+});
+
+test('processSentence fixDivList empty div', () => {
+  const sentStr =
+    '<div>かわいげのある女じゃない。</div><div></div><div>さては<b>偽者</b>だな！</div>';
+  const sentence = createSentence(sentStr);
+  const noteInfo = createNoteInfoSent_nisemono(sentStr);
+
+  createParser().processSentence(sentence, 'fullSent', noteInfo);
+  expect(sentence.contents.innerHTML).toBe(
+    'かわいげのある女じゃない。<br><br>さては<b>偽者</b>だな！'
+  );
+});
+
 // auto highlight
 
 test('processSentence autoHighlight', () => {
@@ -327,15 +352,15 @@ test('processSentence quote as-is (unquoted)', () => {
   expect(sentence.close.innerHTML).toBe('');
 });
 
-
 // remove periods
+// recall that fullSent is unquoted by default
 test('processSentence removeFinalPeriod true', () => {
   const sentStr = 'かわいげのある女じゃない。さては<b>偽者</b>だな。';
   const sentence = createSentence(sentStr);
   const noteInfo = createNoteInfoSent_nisemono(sentStr);
 
   const parser = createParser();
-  parser.overrideOption("sentenceParser.removeFinalPeriod.fullSent.unquoted", true);
+  parser.overrideOption('sentenceParser.removeFinalPeriod.fullSent.unquoted', true);
   parser.processSentence(sentence, 'fullSent', noteInfo);
   expect(sentence.contents.innerHTML).toBe(
     'かわいげのある女じゃない。さては<b>偽者</b>だな'
@@ -348,7 +373,7 @@ test('processSentence removeFinalPeriod false', () => {
   const noteInfo = createNoteInfoSent_nisemono(sentStr);
 
   const parser = createParser();
-  parser.overrideOption("sentenceParser.removeFinalPeriod.fullSent.unquoted", false);
+  parser.overrideOption('sentenceParser.removeFinalPeriod.fullSent.unquoted', false);
   parser.processSentence(sentence, 'fullSent', noteInfo);
   expect(sentence.contents.innerHTML).toBe(
     'かわいげのある女じゃない。さては<b>偽者</b>だな。'
