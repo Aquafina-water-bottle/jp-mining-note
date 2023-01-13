@@ -71,7 +71,8 @@ function _hasBoldedPos(posDataList: PosData[]): boolean {
 class PosData {
   pos: number;
   isBolded: boolean;
-  isMainPos: boolean = false;
+  isMainPos: boolean = false; // not initialized with the PosData (set afterwards?)
+  allowAutoKifuku: boolean = true; // set to false for text format parsing
   separatorAfter: string | null = null;
   dictName: string | null = null;
   mora: string[] = [];
@@ -111,8 +112,8 @@ export class ParsePAPositions extends Module implements PitchParser {
     super('sm:parsePAPositions');
 
     this.autopa = autopa;
-    this.paPositions = paPositions
-    this.wordReading = wordReading
+    this.paPositions = paPositions;
+    this.wordReading = wordReading;
   }
 
   parse(): DispPosData | null {
@@ -122,20 +123,23 @@ export class ParsePAPositions extends Module implements PitchParser {
     }
 
     // converts to html element for proper parsing
-    const positionsEle = document.createElement("div");
+    const positionsEle = document.createElement('div');
     positionsEle.innerHTML = this.paPositions;
 
     try {
-      if ((positionsEle.children.length > 0)
-          && (positionsEle.children[0] !== null)
-          && (positionsEle.children[0].nodeName === "DIV")
-          && (positionsEle.children[0].classList.contains("pa-positions__group"))
+      if (
+        positionsEle.children.length > 0 &&
+        positionsEle.children[0] !== null &&
+        positionsEle.children[0].nodeName === 'DIV' &&
+        positionsEle.children[0].classList.contains('pa-positions__group')
       ) {
         return this.parseJPMN(positionsEle);
       }
     } catch (error) {
       // ignore error for now
-      this.logger.debug("Error in calcDispPosDataFromPositions -> calcDispPosDataFromJPMNPositions");
+      this.logger.debug(
+        'Error in calcDispPosDataFromPositions -> calcDispPosDataFromJPMNPositions'
+      );
     }
 
     // just search for any digit in the element
@@ -147,12 +151,12 @@ export class ParsePAPositions extends Module implements PitchParser {
     const posData = new PosData(Number(digit));
     const pitchHTML = this.autopa.buildPitchHTML([posData], this.wordReading);
 
-    return new DispPosData(pitchHTML, "PAPositions");
+    return new DispPosData(pitchHTML, 'PAPositions');
   }
 
   private getDictInfoFromGroup(groupDiv: Element): [Element[], string] {
     let dictChildren = Array.from(groupDiv.children[1].children);
-    let dictName = groupDiv.getAttribute("data-details") ?? "unknown dictionary";
+    let dictName = groupDiv.getAttribute('data-details') ?? 'unknown dictionary';
     return [dictChildren, dictName];
   }
 
@@ -161,7 +165,7 @@ export class ParsePAPositions extends Module implements PitchParser {
     // searches for a bolded element
     for (const groupDiv of positionsEle.children) {
       for (const liEle of groupDiv.children[1].children) {
-        if (liEle.innerHTML.includes("<b>")) {
+        if (liEle.innerHTML.includes('<b>')) {
           return this.getDictInfoFromGroup(groupDiv);
         }
       }
@@ -186,13 +190,13 @@ export class ParsePAPositions extends Module implements PitchParser {
     // </div>
     // ...
 
-    const displayMode = this.autopa.getOption("autoPitchAccent.paPositions.displayMode");
-    let posDataList: PosData[] = []
-    if (displayMode === "selected-result") {
+    const displayMode = this.autopa.getOption('autoPitchAccent.paPositions.displayMode');
+    let posDataList: PosData[] = [];
+    if (displayMode === 'selected-result') {
       posDataList = this.parseJPMNSingularPos(positionsEle);
-    } else if (displayMode === "selected-dictionary") {
+    } else if (displayMode === 'selected-dictionary') {
       posDataList = this.parseJPMNSingularDict(positionsEle);
-    } else if (displayMode === "all-results") {
+    } else if (displayMode === 'all-results') {
       posDataList = this.parseJPMNAllDicts(positionsEle);
     } else {
       throw Error(this.logger.error(`displayMode is invalid: ${displayMode}`));
@@ -202,7 +206,10 @@ export class ParsePAPositions extends Module implements PitchParser {
     return new DispPosData(pitchHTML);
   }
 
-  private getPosDataListFromDictChildren(dictChildren: Element[], dictName: string): PosData[] {
+  private getPosDataListFromDictChildren(
+    dictChildren: Element[],
+    dictName: string
+  ): PosData[] {
     let result: PosData[] = [];
 
     for (const c of dictChildren) {
@@ -212,7 +219,7 @@ export class ParsePAPositions extends Module implements PitchParser {
         continue;
       }
 
-      let bolded = c.innerHTML.includes("<b>");
+      let bolded = c.innerHTML.includes('<b>');
       let posData = new PosData(Number(digit), bolded);
       posData.dictName = dictName;
 
@@ -239,7 +246,7 @@ export class ParsePAPositions extends Module implements PitchParser {
         firstDigit = Number(digit);
       }
 
-      if (c.innerHTML.includes("<b>")) {
+      if (c.innerHTML.includes('<b>')) {
         const posData = new PosData(Number(digit), true);
         posData.dictName = dictName;
         return [posData];
@@ -247,7 +254,7 @@ export class ParsePAPositions extends Module implements PitchParser {
     }
 
     if (firstDigit === null) {
-      this.logger.warn("firstDigit is null?");
+      this.logger.warn('firstDigit is null?');
       return [];
     }
 
@@ -256,7 +263,6 @@ export class ParsePAPositions extends Module implements PitchParser {
     return [posData];
   }
 
-
   /*
    * Attempts to find first dictionary with bolded entry.
    * If not found, use first dictionary.
@@ -264,7 +270,7 @@ export class ParsePAPositions extends Module implements PitchParser {
    */
   private parseJPMNSingularDict(positionsEle: HTMLElement): PosData[] {
     const [dictChildren, dictName] = this.getDictInfo(positionsEle);
-    return this.getPosDataListFromDictChildren(dictChildren, dictName)
+    return this.getPosDataListFromDictChildren(dictChildren, dictName);
   }
 
   /*
@@ -297,8 +303,8 @@ export class ParsePAOverride extends Module implements PitchParser {
     super('sm:parsePAOverride');
 
     this.autopa = autopa;
-    this.paOverride = paOverride
-    this.wordReading = wordReading
+    this.paOverride = paOverride;
+    this.wordReading = wordReading;
   }
 
   parse(): DispPosData | null {
@@ -312,11 +318,12 @@ export class ParsePAOverride extends Module implements PitchParser {
     // uses whatever is in PAOverride as is without changes
     // this is to maintain backwards compatability
     if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
-      this.logger.warn(`calcPosDataList returned list of 0 length for "${this.paOverride}". Using raw text...`);
+      this.logger.warn(
+        `calcPosDataList returned list of 0 length for "${this.paOverride}". Using raw text...`
+      );
     }
     return new DispPosData(this.paOverride, 'Pitch Accent Override (Raw Text)');
   }
-
 
   /*
    * supported formats:
@@ -339,12 +346,11 @@ export class ParsePAOverride extends Module implements PitchParser {
    * returns list of positions, or empty list if nothing found
    */
   private calcPosDataList(): PosData[] {
-
     // requires html parser to calculate innerText
-    const overrideEle = document.createElement("div");
+    const overrideEle = document.createElement('div');
     overrideEle.innerHTML = this.paOverride;
 
-    let result: PosData[] = []
+    let result: PosData[] = [];
     const firstInteger = overrideEle.innerText.trim().match(/^[-]?\d+/);
 
     if (firstInteger !== null) {
@@ -353,8 +359,8 @@ export class ParsePAOverride extends Module implements PitchParser {
       if (overrideEle.innerText === overrideEle.innerHTML) {
         result = this.parseTextFormat();
       } else {
-          if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
-            this.logger.warn(`Invalid PA format: ${this.paOverride}`);
+        if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
+          this.logger.warn(`Invalid PA format: ${this.paOverride}`);
         }
       }
     }
@@ -369,19 +375,18 @@ export class ParsePAOverride extends Module implements PitchParser {
     // - spaces removed doesn't affect html
     // - if bold: per element and not across elements
 
-    let result = []
+    let result = [];
 
-    const searchHTML = this.paOverride.replace(/\s+/g, "")
-    const posStrList = searchHTML.split(",");
+    const searchHTML = this.paOverride.replace(/\s+/g, '');
+    const posStrList = searchHTML.split(',');
 
     for (const pos of posStrList) {
-      if (pos.includes("<b>")) {
+      if (pos.includes('<b>')) {
         let integer = pos.match(/[-]?\d+/);
         let posData = new PosData(Number(integer), true);
         result.push(posData);
-
       } else {
-        let posNumber = Number(pos)
+        let posNumber = Number(pos);
         if (!Number.isNaN(posNumber)) {
           let posData = new PosData(Number(pos));
           result.push(posData);
@@ -393,19 +398,18 @@ export class ParsePAOverride extends Module implements PitchParser {
   }
 
   private parseTextFormat(): PosData[] {
+    let result = [];
 
-    let result = []
+    const separators = this.autopa.getOption('autoPitchAccent.paOverride.separators');
+    const downsteps = this.autopa.getOption('autoPitchAccent.paOverride.downstepMarkers');
+    const heiban = this.autopa.getOption('autoPitchAccent.paOverride.heibanMarkers');
 
-    const separators = this.autopa.getOption("autoPitchAccent.paOverride.separators");
-    const downsteps = this.autopa.getOption("autoPitchAccent.paOverride.downstepMarkers");
-    const heiban = this.autopa.getOption("autoPitchAccent.paOverride.heibanMarkers");
-
-    const separatorsRegex = RegExp("[" + separators.join("") + "]", "g");
+    const separatorsRegex = RegExp('[' + separators.join('') + ']', 'g');
 
     // attempts to separate "・"
     // Bolded text and main pos (colored pitch accent) is not supported in this format.
     // Therefore, we use the text instead of the HTML
-    const searchText = this.paOverride.replace(/\s+/g, "") // remove whitespace
+    const searchText = this.paOverride.replace(/\s+/g, ''); // remove whitespace
     const strList = searchText.split(separatorsRegex);
     const foundSeparators = searchText.match(separatorsRegex);
 
@@ -420,7 +424,7 @@ export class ParsePAOverride extends Module implements PitchParser {
         const mora = moras[j];
         if (downsteps.includes(mora)) {
           if (pos !== null) {
-            if (this.autopa.getOption("autoPitchAccent.paOverride.warnOnInvalidFormat")) {
+            if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
               this.logger.warn(`More than one downstep marker used in ${word}`);
             }
           } else {
@@ -432,13 +436,13 @@ export class ParsePAOverride extends Module implements PitchParser {
         }
       }
 
-      if (heiban.includes(moras[moras.length-1])) {
-        moras.splice(moras.length-1, 1);
+      if (heiban.includes(moras[moras.length - 1])) {
+        moras.splice(moras.length - 1, 1);
 
         if (pos === null) {
           pos = 0;
         } else {
-          if (this.autopa.getOption("autoPitchAccent.paOverride.warnOnInvalidFormat")) {
+          if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
             this.logger.warn(`Cannot use both downstep and heiban markers in ${word}`);
           }
           continue;
@@ -447,7 +451,7 @@ export class ParsePAOverride extends Module implements PitchParser {
 
       // no downstep found: 平板 (0)
       if (pos === null) {
-        if (this.autopa.getOption("autoPitchAccent.paOverride.heibanMarkerRequired")) {
+        if (this.autopa.getOption('autoPitchAccent.paOverride.heibanMarkerRequired')) {
           this.logger.warn(`Heiban marker not found in ${word}`);
           continue;
         } else {
@@ -459,13 +463,14 @@ export class ParsePAOverride extends Module implements PitchParser {
       // differs from the above moras because by removing the downstep marker and
       // heiban marker, this allows the reading to be searchable within the
       // AJT word pitch
-      const displayMoras = this.autopa.normalizeReadingGetMoras(moras.join(""));
+      const displayMoras = this.autopa.normalizeReadingGetMoras(moras.join(''));
 
       const posData = new PosData(pos);
       posData.mora = displayMoras;
       if (foundSeparators !== null && i < foundSeparators.length) {
         posData.separatorAfter = foundSeparators[i];
       }
+      posData.allowAutoKifuku = false;
 
       result.push(posData);
     }
@@ -493,9 +498,6 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
     return null;
   }
 }
-
-
-
 
 export type AutoPitchAccentArgs = {
   attemptGlobalColor?: boolean;
@@ -530,7 +532,6 @@ export class AutoPitchAccent extends RunnableModule {
     }
     return new DispPosData('', 'N/A');
   }
-
 
   private removeNasalStr(str: string) {
     if (str.includes('nasal')) {
@@ -571,15 +572,20 @@ export class AutoPitchAccent extends RunnableModule {
 
     // TODO paint display with colors
 
-    if (this.getOption("autoPitchAccent.coloredPitchAccent.enabled")) {
-      if (this.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana")) {
-        displayEle.classList.add("pa-word-highlight-pitch-kana");
+    if (this.getOption('autoPitchAccent.coloredPitchAccent.enabled')) {
+      if (
+        this.getOption('autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana')
+      ) {
+        displayEle.classList.add('pa-word-highlight-pitch-kana');
       }
-      if (this.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline")) {
-        displayEle.classList.add("pa-word-highlight-pitch-overline");
+      if (
+        this.getOption(
+          'autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline'
+        )
+      ) {
+        displayEle.classList.add('pa-word-highlight-pitch-overline');
       }
     }
-
   }
 
   /*
@@ -831,11 +837,11 @@ export class AutoPitchAccent extends RunnableModule {
     const moraNum = result.length;
 
     if (result.length === 0) {
-      this.logger.warn("Reading has 0 mora?");
+      this.logger.warn('Reading has 0 mora?');
       return null;
     }
 
-    const kifukuList = this.getOption("autoPitchAccent.paOverride.kifukuOveride");
+    const kifukuList = this.getOption('autoPitchAccent.paOverride.kifukuOveride');
 
     // special case: 0 and length of moras === 1 (nothing needs to be done)
     // ASSUMPTION: the override kifuku value will NOT be 0 (you are insane if you do that)
@@ -845,32 +851,33 @@ export class AutoPitchAccent extends RunnableModule {
 
     const startOverline = '<span class="pitchoverline">';
     const stopOverline = `</span>`;
-    const downstep = '<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';
+    const downstep =
+      '<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';
     let paGroup: PAGroup | null = null;
 
     if (kifukuList.includes(pos)) {
       if (result.length < 2) {
         // TODO potentially lift restriction?
-        this.logger.warn("Cannot apply 起伏 on 1 mora word.");
-      } else if (result.length == 2) { // equivalent to pos == 1
+        this.logger.warn('Cannot apply 起伏 on 1 mora word.');
+      } else if (result.length == 2) {
+        // equivalent to pos == 1
         result.splice(1, 0, stopOverline + downstep); // downstep after first mora
         result.splice(0, 0, startOverline); // overline starting at the very beginning
-      } else { // equivalent to pos == #moras-1
+      } else {
+        // equivalent to pos == #moras-1
         result.splice(-1, 0, stopOverline + downstep); // insert right before last index
         result.splice(1, 0, startOverline); // insert at index 1
       }
-      paGroup = "kifuku";
-
+      paGroup = 'kifuku';
     } else if (pos === 0) {
       result.splice(1, 0, startOverline); // insert at index 1
-      result.push(stopOverline)
-      paGroup = "heiban";
-
+      result.push(stopOverline);
+      paGroup = 'heiban';
     } else if (pos === 1) {
       // start overline starts at the very beginning
       result.splice(pos, 0, stopOverline + downstep);
       result.splice(0, 0, startOverline); // insert at the very beginning
-      paGroup = "atamadaka";
+      paGroup = 'atamadaka';
 
       // - ASSUMPTION: we categorize 1 mora long words with a downstep as 尾高,
       //   e.g. 木 (き＼).
@@ -884,35 +891,41 @@ export class AutoPitchAccent extends RunnableModule {
       //    > 平板-ifying effect の often has on 尾高 words that single-mora
       //    > words are regular exceptions to.
       if (moraNum === 1) {
-        paGroup = "odaka";
+        paGroup = 'odaka';
       }
-
     } else if (pos < 0) {
       this.logger.warn(`Pitch Accent position (${pos}) is negative.`);
-
     } else {
       if (pos > result.length) {
-        this.logger.warn(`Pitch Accent position (${pos}) is greater than number of moras (${result.length}).`);
+        this.logger.warn(
+          `Pitch Accent position (${pos}) is greater than number of moras (${result.length}).`
+        );
       }
       // start overline starts over the 2nd mora
       result.splice(pos, 0, stopOverline + downstep);
       result.splice(1, 0, startOverline); // insert at index 1
 
       if (pos >= moraNum) {
-        paGroup = "odaka";
+        paGroup = 'odaka';
       } else {
-        paGroup = "nakadaka";
+        paGroup = 'nakadaka';
       }
     }
 
     // override paGroup
-    if (this.getOption("autoPitchAccent.paOverride.detectKifukuFromWordTags") && pos >= 1 && isVerb(this.wordTags)) {
-      paGroup = "kifuku";
+    // TODO custom tags to override even further?
+    if (
+      posData.allowAutoKifuku &&
+      this.getOption('autoPitchAccent.paOverride.detectKifukuFromWordTags') &&
+      pos >= 1 &&
+      isVerb(this.wordTags)
+    ) {
+      paGroup = 'kifuku';
     }
 
-    const wordInnerHTML = result.join("");
+    const wordInnerHTML = result.join('');
 
-    const wordSpan = document.createElement("span");
+    const wordSpan = document.createElement('span');
     wordSpan.innerHTML = wordInnerHTML;
     if (paGroup !== null) {
       wordSpan.classList.add(`pa-group-${paGroup}`);
@@ -923,7 +936,6 @@ export class AutoPitchAccent extends RunnableModule {
 
     return wordSpan.outerHTML;
   }
-
 
   // main function
   addPosition(displayEle: HTMLElement, noteInfo: NoteInfoPA) {
@@ -938,7 +950,7 @@ export class AutoPitchAccent extends RunnableModule {
     if (noteInfo.fields.PAOverrideText.value.length !== 0) {
       dispPosData = new DispPosData(
         noteInfo.fields.PAOverrideText.value,
-        'Pitch Accent Override Text',
+        'Pitch Accent Override Text'
       );
     }
 
@@ -984,7 +996,6 @@ export class AutoPitchAccent extends RunnableModule {
   }
 
   main() {
-
     //readonly PAOverrideText: {
     //  readonly value: string;
     //};
@@ -1013,9 +1024,9 @@ export class AutoPitchAccent extends RunnableModule {
       },
     };
 
-    const displayEle = document.getElementById("dh_word_pitch_text");
+    const displayEle = document.getElementById('dh_word_pitch_text');
     if (displayEle !== null) {
-      displayEle.removeAttribute("title");
+      displayEle.removeAttribute('title');
       this.addPosition(displayEle, noteInfo);
     }
   }
