@@ -84,6 +84,14 @@ NOTE_CHANGES = [
             action.MoveField("FrequenciesStylized", 33 - 1),
             action.MoveField("FrequencySort", 34 - 1),
 
+            # webpack branch
+            # TODO verify changes
+            action.RenameField("SeparateClozeDeletionCard", "SeparateAudioCard"),
+            action.RenameField("AltDisplayClozeDeletionCard", "AltDisplayAudioCard"),
+            action.AddField("SeparateSentenceAudioCard", 28-1),
+            action.AddField("IsAudioCard", 21-1),
+            action.AddField("IsSentenceFirstCard", 21-1),
+
             # affects all previously added fields
             # currently commented out because it's not supported in ankiconnect yet
             #action.ChangeFieldFontSize("WordReadingHiragana", 10),
@@ -91,6 +99,8 @@ NOTE_CHANGES = [
             #action.ChangeFieldFontSize("PAOverrideText", 20), # default
             #action.ChangeFieldFontSize("YomichanWordTags", 10),
             #action.ChangeFieldFontSize("IsHintCard", 10),
+            #action.ChangeFieldFontSize("IsAudioCard", 10),
+            #action.ChangeFieldFontSize("SeparateSentenceAudioCard", 10),
 
             action.YomichanTemplatesChange(),
             action.YomichanFormatChange(
@@ -114,7 +124,7 @@ NOTE_CHANGES = [
             "SentenceReading",
             "AltDisplay",
             "AltDisplayPASentenceCard",
-            "AltDisplayClozeDeletionCard",
+            "AltDisplayAudioCard",
             "AdditionalNotes",
             "Hint",
             "HintNotHidden",
@@ -123,12 +133,15 @@ NOTE_CHANGES = [
             "IsClickCard",
             "IsHoverCard",
             "IsHintCard",
+            "IsSentenceFirstCard",
+            "IsAudioCard",
             "PAShowInfo",
             "PATestOnlyWord",
             "PADoNotTest",
             "PASeparateWordCard",
             "PASeparateSentenceCard",
-            "SeparateClozeDeletionCard",
+            "SeparateAudioCard",
+            "SeparateSentenceAudioCard",
             "Picture",
             "WordAudio",
             "SentenceAudio",

@@ -25,12 +25,12 @@
 $field-group-start--word:    2;  /* group of 2 */
 $field-group-start--pa:      4;  /* group of 3 */
 $field-group-start--binary:  17; /* group of 11 */
-$field-group-start--autogen: 34; /* group of 4 */
+$field-group-start--autogen: 37; /* group of 4 */
 
 //$extra-padding-bottom: 8, 10, 13, 16, 37, 40;
-$extra-padding-top: 7, 9, 11, 14, 17,18,19,20, 28, 38, 41;
+$extra-padding-top: 7, 9, 11, 14, 17,18,19,20, 31, 41, 44;
 
-$extra-padding-bottom: 4,5,6, 8, 10, 13, 16, 25,26,27, 34,35,36,37, 40;
+$extra-padding-bottom: 4,5,6, 8, 10, 13, 16, 27,28,29,30, 37,38,39,40, 43;
 
 //$extra-padding-sides: 9, 10, 14, 15, 16;
 
@@ -112,7 +112,7 @@ $extra-padding-bottom: 4,5,6, 8, 10, 13, 16, 25,26,27, 34,35,36,37, 40;
   /* PAOverride, PAOverrideText, AJTWordPitch */
   @include combine-row($field-group-start--pa, 3);
 
-  @include combine-row($field-group-start--binary, 4, 4, 3);
+  @include combine-row($field-group-start--binary, 4, 3, 3, 4);
 
   @include combine-row($field-group-start--autogen, 4);
 
@@ -124,14 +124,14 @@ $extra-padding-bottom: 4,5,6, 8, 10, 13, 16, 25,26,27, 34,35,36,37, 40;
   [notetype="JP Mining Note"] .fields {
 
     $remove-top: 19,20;
-    $remove-bottom: 4,5, 25,26, 34,35;
+    $remove-bottom: 4,5, 27,28, 37,38;
 
     @include extra-padding-top-remove($remove-top);
     @include extra-padding-bottom-remove($remove-bottom);
 
     @include combine-row($field-group-start--pa, 2, 1);
 
-    @include combine-row($field-group-start--binary, 2, 2, 2, 2, 2, 1);
+    @include combine-row($field-group-start--binary, 2, 2, 2, 2, 2, 2, 2);
 
     @include combine-row($field-group-start--autogen, 2, 2);
 

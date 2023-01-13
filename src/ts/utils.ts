@@ -14,6 +14,7 @@ export type Field =
   | 'SentenceReading'
   | 'AltDisplay'
   | 'AltDisplayPASentenceCard'
+  | 'AltDisplayAudioCard'
   | 'AdditionalNotes'
   | 'Hint'
   | 'HintNotHidden'
@@ -22,12 +23,15 @@ export type Field =
   | 'IsClickCard'
   | 'IsHoverCard'
   | 'IsHintCard'
+  | 'IsSentenceFirstCard'
+  | 'IsAudioCard'
   | 'PAShowInfo'
   | 'PATestOnlyWord'
   | 'PADoNotTest'
   | 'PASeparateWordCard'
   | 'PASeparateSentenceCard'
-  | 'SeparateClozeDeletionCard'
+  | 'SeparateAudioCard'
+  | 'SeparateSentenceAudioCard'
   | 'Picture'
   | 'WordAudio'
   | 'SentenceAudio'
@@ -250,4 +254,22 @@ export function throwOnNotFound(id: string): HTMLElement {
   return result;
 }
 
+export function getWordTags(wordTagsStr: string): string[] {
+  if (wordTagsStr.length === 0) {
+    return [];
+  }
+  return wordTagsStr.split(", ");
+}
+
+// all verb tags that isn't 'vs'
+const ALL_VERB_TAGS = new Set(["v_unspec", "v1", "v1_s", "v2a_s", "v2b_k", "v2b_s", "v2d_k", "v2d_s", "v2g_k", "v2g_s", "v2h_k", "v2h_s", "v2k_k", "v2k_s", "v2m_k", "v2m_s", "v2n_s", "v2r_k", "v2r_s", "v2s_s", "v2t_k", "v2t_s", "v2w_s", "v2y_k", "v2y_s", "v2z_s", "v4b", "v4g", "v4h", "v4k", "v4m", "v4n", "v4r", "v4s", "v4t", "v5aru", "v5b", "v5g", "v5k", "v5k_s", "v5m", "v5n", "v5r", "v5r_i", "v5s", "v5t", "v5u", "v5u_s", "v5uru", "vi", "vk", "vn", "vr", "vs_c", "vs_i", "vs_s", "vt", "vz"]);
+
+export function isVerb(wordTags: string[]) {
+  for (const t of wordTags) {
+    if (ALL_VERB_TAGS.has(t)) {
+      return true;
+    }
+  }
+  return false;
+}
 

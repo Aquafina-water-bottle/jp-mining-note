@@ -17,6 +17,7 @@
 
   "autoPitchAccent.paOverride.warnOnInvalidFormat": true,
 
+  "autoPitchAccent.coloredPitchAccent.enabled": true,
 
   "imgStylizer.mainImage.blur.enabled": true,
   "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module

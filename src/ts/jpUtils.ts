@@ -1,3 +1,4 @@
+import {LOGGER} from './logger';
 import { Module } from './module';
 import { getOption } from './options';
 
@@ -32,7 +33,7 @@ const EXTENDED_VOWELS = {
 };
 
 // function name gore :sob:
-function convertHiraganaToKatakanaWithLongVowelMarks(reading: string): string {
+export function convertHiraganaToKatakanaWithLongVowelMarks(reading: string): string {
   // converts to katakana and changes vowels to extended vowel form
   const katakana = convertHiraganaToKatakana(reading);
   let result = [...katakana];
@@ -51,7 +52,7 @@ function convertHiraganaToKatakanaWithLongVowelMarks(reading: string): string {
 
 // shamelessly stolen from Yomichan (getKanaMorae)
 // https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
-function getMorae(text: string): string[] {
+export function getMorae(text: string): string[] {
   const morae = [];
   let i;
   for (const c of text) {
@@ -94,4 +95,43 @@ export function isKana(c: string) {
   }
 
   return isCodePointInRange(pt, HIRAGANA_RANGE) || isCodePointInRange(pt, KATAKANA_RANGE);
+}
+
+  // ー -> katakana
+export function katakanaRemoveLongVowelMarks(katakana: string) {
+  let resultArr = [...katakana];
+
+  let first = null;
+  let second = null;
+  for (const [i, c] of resultArr.entries()) {
+    const pt = c.codePointAt(0);
+    if (pt !== undefined && isCodePointInRange(pt, KATAKANA_RANGE)) {
+      if (first === null) {
+        first = c;
+      } else if (second === null) {
+        second = c;
+      } else {
+        // pushes back
+        first = second;
+        second = c;
+      }
+
+      if (first !== null && second !== null && second === "ー") {
+        let found = false;
+        for (const [searchStr, vowel] of Object.entries(LONG_VOWEL_MARKER_TO_VOWEL)) {
+          if (searchStr.includes(first)) {
+            resultArr[i] = vowel;
+            found = true;
+            break;
+          }
+        }
+
+        if (!found) {
+          LOGGER.debug(`(katakanaRemoveLongVowelMarks) Cannot find replacement: ${first} | ${second}`);
+        }
+      }
+    }
+  }
+
+  return resultArr.join("");
 }
