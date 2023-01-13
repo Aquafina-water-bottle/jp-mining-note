@@ -18,6 +18,12 @@ type TagToImg = {
 };
 type TagToImgList = TagToImg[];
 type StylizeType = 'float' | 'collapse' | 'none';
+type FloatImgPos = 'bottom' | 'top' | 'right' | 'auto';
+
+type AddClickToImgArgs = {
+  addClickClass?: boolean,
+  imgEle?: HTMLImageElement,
+}
 
 /*
  * BackImgBlurController
@@ -27,7 +33,6 @@ type StylizeType = 'float' | 'collapse' | 'none';
  * ImgStylizer
  */
 
-const clsPrimDefRawImg = 'glossary-primary-definition__raw-img';
 const clsNoDefinition = 'glossary-primary-definition--no-definition';
 
 const clsBlurFilterInit = 'img-blur-filter-init';
@@ -36,7 +41,7 @@ const clsBlurFilterDisable = 'img-blur-filter-disable';
 
 const clsContainsImg = 'dh-right--contains-image';
 const clsAudioBtnsLeft = 'dh-left__audio-buttons--left';
-const clsImgClick = 'dh-right__img-container--clickable';
+const clsImgClick = 'img-clickable';
 const clsRightImg = 'dh-right__img';
 const clsShowEye = 'dh-right__show-eye';
 
@@ -108,7 +113,7 @@ class BackImgBlurController extends Module {
 
   setImageBlurToState(state: number, init = false) {
     if (state === 0) {
-      // always blurred -> never blurred
+      // ??? -> never blurred
       this.removeImgBlur();
       if (!this.imgBlur.cardIsMarked()) {
         // removes if necessary (non-marked image forced to be blurred -> no longer forced)
@@ -116,7 +121,7 @@ class BackImgBlurController extends Module {
         this.hidePictureEye();
       }
     } else if (state === 1) {
-      // never blurred -> blur only if marked
+      // ??? -> blur only if marked
       if (!this.imgBlur.cardIsMarked()) {
         // NOTE: can reach here on init as well
         this.removeImgBlur();
@@ -159,7 +164,7 @@ class BackImgBlurController extends Module {
     this.dhImgBlur.classList.toggle(clsBlurFilterInit, false);
     this.dhImgBlur.classList.toggle(clsBlurFilter, false);
 
-    this.backImgStylizer.addClickToZoom(this.imgEle);
+    this.backImgStylizer.addClickToZoom(this.imgEle, {addClickClass: true});
 
     this.pictureEyeNoBlur();
 
@@ -245,6 +250,10 @@ class BackImgStylizer extends Module {
   private readonly primaryDefRawText = document.getElementById(
     'primary_definition_raw_text'
   ) as HTMLImageElement;
+  private readonly primaryDefBlockquote = document.getElementById(
+    'primary_definition'
+  ) as HTMLElement;
+
   readonly dhImgContainer = document.getElementById('dh_img_container') as HTMLElement;
 
   private readonly imgBlur: ImgBlur | null;
@@ -339,22 +348,22 @@ class BackImgStylizer extends Module {
     // TODO nothing is necessary it seems!
   }
 
-  addClickToZoom(ele: HTMLElement, imgEle?: HTMLImageElement) {
-    this.dhImgContainer.classList.toggle(clsImgClick, true);
-
-    if (imgEle === undefined) {
-      // seems like typescript requires some code repetition here
-      // likely due to impure function shenanigans
-      ele.onclick = () => {
-        this.modal.style.display = 'block';
-        this.modalImg.src = (ele as HTMLImageElement).src;
-      };
-    } else {
-      ele.onclick = () => {
-        this.modal.style.display = 'block';
-        this.modalImg.src = imgEle.src;
-      };
+  addClickToZoom(ele: HTMLElement, args?: AddClickToImgArgs) {
+    let imgEle: HTMLElement = ele;
+    if (args !== undefined) {
+      if (args.imgEle !== undefined) {
+        imgEle = args.imgEle;
+      }
+      if (args.addClickClass) { // defaults to false
+        imgEle.classList.toggle(clsImgClick, true);
+      }
     }
+
+    // we assume that ele is HTMLImageElement if there's no custom imgEle in the args
+    ele.onclick = () => {
+      this.modal.style.display = 'block';
+      this.modalImg.src = (imgEle as HTMLImageElement).src;
+    };
   }
 
   removeClickToZoom(ele: HTMLImageElement) {
@@ -405,7 +414,7 @@ class BackImgStylizer extends Module {
     const defAnc = document.createElement('a');
     defAnc.classList.add('glossary__image-hover-text');
     defAnc.href = 'javascript:;';
-    defAnc.textContent = translatorStrs["image-hover-text"];
+    defAnc.textContent = translatorStrs['image-hover-text'];
     defAnc.setAttribute('data-suppress-link-hover', 'true');
 
     const defImg = document.createElement('img');
@@ -416,7 +425,7 @@ class BackImgStylizer extends Module {
 
     if (!isMobile()) {
       // prevents clicking on the image link to zoom (on mobile)
-      this.addClickToZoom(defAnc, defImg);
+      this.addClickToZoom(defAnc, {imgEle: defImg});
     }
 
     defSpan.appendChild(defAnc);
@@ -485,9 +494,69 @@ class BackImgStylizer extends Module {
     }
   }
 
-  private stylizeOtherGlossaryPics() {}
+  private stylizeOtherGlossaryPics() {
+    const textNotPrimary =
+      '.glossary-text--raw-text:not(.glossary-text--raw-text-primary)';
+    const searchEles = Array.from(
+      document.querySelectorAll(textNotPrimary)
+    ) as HTMLElement[];
+    for (const searchEle of searchEles) {
+      this.convertYomichanImgs(searchEle, /*toFloat=*/ false);
+    }
+  }
 
-  private setFloatImgPosition() {}
+  private getFloatImgPos(): FloatImgPos {
+    let defaultPos = getOption('imgStylizer.glossary.floatImg.position');
+
+    const floatImgPos = checkOptTags(TAGS_LIST, [
+      ['imgStylizer.glossary.floatImg.overrideTags.bottom', 'bottom'],
+      ['imgStylizer.glossary.floatImg.overrideTags.top', 'top'],
+      ['imgStylizer.glossary.floatImg.overrideTags.right', 'right'],
+    ]);
+
+    if (floatImgPos === undefined) {
+      return defaultPos as FloatImgPos;
+    }
+    return floatImgPos;
+  }
+
+  /* sets position, and make clickable to zoom */
+  private stylizeFloatImg() {
+    if (this.floatImgRight.innerHTML.length === 0) {
+      this.logger.debug('PrimaryDefinitionPicture is empty. Nothing has to be done.', 2);
+      return;
+    }
+
+    let floatImgPos = this.getFloatImgPos();
+
+    // Overrides because if there is no text, and there is no override,
+    // then the image will not show at all. There's no reason why an image
+    // should be placed on the right if there's no definition anyways.
+    if (floatImgPos === "right" && this.primaryDefBlockquote.classList.contains(clsNoDefinition)) {
+      floatImgPos = "top";
+    }
+
+    this.logger.debug(`float image position: ${floatImgPos}`);
+
+    // resets default
+    if (floatImgPos === 'bottom') {
+      this.primaryDefBlockquote.classList.add('glossary-blockquote--picture-below');
+    } else if (floatImgPos === 'top') {
+      this.primaryDefBlockquote.classList.add('glossary-blockquote--picture-above');
+    } else if (floatImgPos === 'right') {
+      this.primaryDefBlockquote.classList.toggle(
+        'glossary-primary-definition--auto-no-lenience',
+        false
+      );
+    }
+
+    const imgList = Array.from(this.floatImgRight.getElementsByTagName('img')).concat(
+      Array.from(this.floatImgLeft.getElementsByTagName('img'))
+    );
+    for (const imgEle of imgList) {
+      this.addClickToZoom(imgEle, {addClickClass: true});
+    }
+  }
 
   private modalInit() {
     // close the modal upon click
@@ -515,7 +584,7 @@ class BackImgStylizer extends Module {
       this.adjustForNoImg();
     } else {
       this.adjustHeight(imgEle);
-      this.addClickToZoom(imgEle);
+      this.addClickToZoom(imgEle, {addClickClass: true});
       imgEle.classList.add(clsRightImg);
 
       if (getOption('imgStylizer.mainImage.blur.enabled')) {
@@ -534,8 +603,7 @@ class BackImgStylizer extends Module {
     }
 
     if (getOption('imgStylizer.glossary.floatImg.enabled')) {
-      // covers primarydefinitionpicture (left & right!)
-      this.setFloatImgPosition();
+      this.stylizeFloatImg();
     }
   }
 }

@@ -20,10 +20,8 @@
   "enableModule.autoPitchAccent":         false,
   "enableModule.autoPitchAccent.color":   false,
 
-  "enableModule.imgUtils":                true,
-  "enableModule.imgUtils.resize":         true, // the recommended minimal setup
-  "enableModule.imgUtils.imageBlur":      false,
-  "enableModule.imgUtils.other":          false, // all the other functionality imgutils provides
+  "enableModule.imgStylizer":             true, // very much recommended to have in general
+  "enableModule.imgStylizer.imageBlur":   false,
 
   "enableModule.asyncScheduler":          false,
   "enableModule.asyncScheduler.front":    false,
