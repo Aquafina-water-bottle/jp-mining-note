@@ -1,6 +1,6 @@
 {
 
-  "imgUtils.resizeHeightMode": "none",
+  "imgStylizer.mainImage.resizeHeightMode": "none",
 
   "autoPitchAccent.readingDisplayMode": "word-reading",
   "autoPitchAccent.searchForAJTWord": false,

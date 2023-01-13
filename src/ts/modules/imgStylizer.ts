@@ -21,9 +21,9 @@ type StylizeType = 'float' | 'collapse' | 'none';
 type FloatImgPos = 'bottom' | 'top' | 'right' | 'auto';
 
 type AddClickToImgArgs = {
-  addClickClass?: boolean,
-  imgEle?: HTMLImageElement,
-}
+  addClickClass?: boolean;
+  imgEle?: HTMLImageElement;
+};
 
 /*
  * BackImgBlurController
@@ -164,7 +164,7 @@ class BackImgBlurController extends Module {
     this.dhImgBlur.classList.toggle(clsBlurFilterInit, false);
     this.dhImgBlur.classList.toggle(clsBlurFilter, false);
 
-    this.backImgStylizer.addClickToZoom(this.imgEle, {addClickClass: true});
+    this.backImgStylizer.addClickToZoom(this.imgEle, { addClickClass: true });
 
     this.pictureEyeNoBlur();
 
@@ -257,7 +257,6 @@ class BackImgStylizer extends Module {
   readonly dhImgContainer = document.getElementById('dh_img_container') as HTMLElement;
 
   private readonly imgBlur: ImgBlur | null;
-  private readonly READ_DHLEFT_HEIGHT = VW > compileOpts['breakpoints.combinePicture'];
 
   private heightLeft: number | null = null;
 
@@ -285,7 +284,10 @@ class BackImgStylizer extends Module {
       return;
     }
 
-    if (this.READ_DHLEFT_HEIGHT) {
+    if (
+      getOption('imgStylizer.mainImage.resizeHeightMode') === 'auto-height' &&
+      VW > compileOpts['breakpoints.combinePicture']
+    ) {
       ele.style.maxHeight = this.getHeightLeft() + 'px';
     } else if (getOption('imgStylizer.mainImage.resizeHeightMode') === 'fixed') {
       ele.style.maxHeight =
@@ -354,7 +356,8 @@ class BackImgStylizer extends Module {
       if (args.imgEle !== undefined) {
         imgEle = args.imgEle;
       }
-      if (args.addClickClass) { // defaults to false
+      if (args.addClickClass) {
+        // defaults to false
         imgEle.classList.toggle(clsImgClick, true);
       }
     }
@@ -425,7 +428,7 @@ class BackImgStylizer extends Module {
 
     if (!isMobile()) {
       // prevents clicking on the image link to zoom (on mobile)
-      this.addClickToZoom(defAnc, {imgEle: defImg});
+      this.addClickToZoom(defAnc, { imgEle: defImg });
     }
 
     defSpan.appendChild(defAnc);
@@ -532,8 +535,11 @@ class BackImgStylizer extends Module {
     // Overrides because if there is no text, and there is no override,
     // then the image will not show at all. There's no reason why an image
     // should be placed on the right if there's no definition anyways.
-    if (floatImgPos === "right" && this.primaryDefBlockquote.classList.contains(clsNoDefinition)) {
-      floatImgPos = "top";
+    if (
+      floatImgPos === 'right' &&
+      this.primaryDefBlockquote.classList.contains(clsNoDefinition)
+    ) {
+      floatImgPos = 'top';
     }
 
     this.logger.debug(`float image position: ${floatImgPos}`);
@@ -554,7 +560,7 @@ class BackImgStylizer extends Module {
       Array.from(this.floatImgLeft.getElementsByTagName('img'))
     );
     for (const imgEle of imgList) {
-      this.addClickToZoom(imgEle, {addClickClass: true});
+      this.addClickToZoom(imgEle, { addClickClass: true });
     }
   }
 
@@ -584,7 +590,7 @@ class BackImgStylizer extends Module {
       this.adjustForNoImg();
     } else {
       this.adjustHeight(imgEle);
-      this.addClickToZoom(imgEle, {addClickClass: true});
+      this.addClickToZoom(imgEle, { addClickClass: true });
       imgEle.classList.add(clsRightImg);
 
       if (getOption('imgStylizer.mainImage.blur.enabled')) {
