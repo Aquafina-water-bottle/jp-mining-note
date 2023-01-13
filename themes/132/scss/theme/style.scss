@@ -119,9 +119,15 @@
 
 
 /* extra stuff is mostly hidden until hover */
-.glossary-details{
-  opacity: 0.2;
+.glossary-details {
+  color: var(--text-color--4);
 }
-.glossary-details:hover{
-  opacity: 1;
+.glossary-details:not(.glossary-details--grey):hover {
+  color: var(--text-color);
+}
+
+
+
+.glossary-details--grey {
+  text-decoration: line-through;
 }

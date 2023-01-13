@@ -523,7 +523,7 @@
   // - makes images act as if they were in PrimaryDefinitionPicture,
   //   which means that the pictures are positioned to the right / above / below as usual.
   "imgStylizer.glossary.primaryDef.mode.yomichan": "collapse",
-  "imgStylizer.glossary.primaryDef.mode.user": "float",
+  "imgStylizer.glossary.primaryDef.mode.user": "collapse",
 
   "imgStylizer.glossary.primaryDef.mode.general.tagOverride.none": [
     "img-no-styling",
