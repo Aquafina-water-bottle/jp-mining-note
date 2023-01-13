@@ -572,6 +572,7 @@
 
   // additional parsing for the float image
   // currently, this simply sets the position of the float image if it exists
+  // and makes it clickable to zoom
   "imgStylizer.glossary.floatImg.enabled": true,
 
   // Whether the field is parsed with any javascript at all.

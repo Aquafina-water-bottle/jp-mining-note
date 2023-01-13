@@ -307,6 +307,19 @@ ruby rt {
 }
 
 
+/* css to indicate that the image can be clicked on to zoom */
+.img-clickable {
+  cursor: pointer;
+  transition: filter 0.3s;
+}
+.img-clickable:hover {
+  filter: brightness(var(--image-hover-brightness));
+}
+
+
+
+
+
 /*
  *  ================
  *   FRONT SIDE CSS
@@ -1402,17 +1415,6 @@ ruby rt {
 }
 
 .dh-right__img-container-blur-wrapper {
-}
-
-/* moved the hover element to the div to prevent the size transform transition from showing */
-.dh-right__img-container--clickable {
-  cursor: pointer;
-  transition: filter 0.3s;
-}
-
-/* not applied to the image because of above comment (prevent showing the transition) */
-.dh-right__img-container--clickable:hover {
-  filter: brightness(var(--image-hover-brightness));
 }
 
 
