@@ -48,7 +48,6 @@ export type QuotePair = {
 //}
 
 export type NoteInfoSentence = {
-  readonly tags?: string[];
   readonly fields: {
     readonly Word: {
       readonly value: string;
@@ -456,6 +455,10 @@ export class SentenceParser extends RunnableModule {
   }
 
   extractSentenceAndProcess(sentEle: Element, sentenceType: SentenceType) {
+    if (sentEle.innerHTML.trim().length === 0) {
+      return; // nothing to do
+    }
+
     if (sentEle.children.length === 3) {
       const sent: Sentence = {
         open: sentEle.children[0] as Element,

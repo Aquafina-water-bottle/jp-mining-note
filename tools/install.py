@@ -77,6 +77,13 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
+        "--dev-do-not-verify",
+        action="store_true",
+        default=False,
+        help="(dev option) bypasses the note changes section",
+    )
+
+    group.add_argument(
         "--no-backup",
         type=str,
         default=None,
@@ -339,6 +346,7 @@ def main(args=None):
                 new_ver,
                 in_order=(not args.ignore_order),
                 select_note_changes=args.dev_select_note_changes,
+                verify=(not args.dev_do_not_verify),
             )  # also verifies field changes
 
             if action_runner.has_actions():

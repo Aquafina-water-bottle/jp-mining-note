@@ -1,3 +1,8 @@
+# TODO combine all this into one file (json?)
+# combine with docs main.py
+# combine with typescript Field type perhaps too
+
+
 from dataclasses import dataclass
 
 @dataclass
@@ -18,6 +23,7 @@ FIELDS = [
     Field("SentenceReading", 20),
     Field("AltDisplay", 20),
     Field("AltDisplayPASentenceCard", 20),
+    Field("AltDisplayAudioCard", 20),
     Field("AdditionalNotes", 20),
     Field("Hint", 15),
     Field("HintNotHidden", 15),
@@ -26,12 +32,15 @@ FIELDS = [
     Field("IsClickCard", 10),
     Field("IsHoverCard", 10),
     Field("IsHintCard", 10),
+    Field("IsSentenceFirstCard", 10),
+    Field("IsAudioCard", 10),
     Field("PAShowInfo", 10),
     Field("PATestOnlyWord", 10),
     Field("PADoNotTest", 10),
     Field("PASeparateWordCard", 10),
     Field("PASeparateSentenceCard", 10),
-    Field("SeparateClozeDeletionCard", 10),
+    Field("SeparateAudioCard", 10),
+    Field("SeparateSentenceAudioCard", 10),
     Field("Picture", 20),
     Field("WordAudio", 15),
     Field("SentenceAudio", 15),

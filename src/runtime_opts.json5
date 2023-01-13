@@ -371,8 +371,8 @@
   // - "selected-dictionary"
   // - "all-results"
   //
-  // Usually, 'selected' means the first dictionary. However, the user
-  // can bold any individual entry to select that as either the selected
+  // Usually, 'selected' means the first (i.e. selected-dictionary means first dictionary).
+  // However, the user can bold any individual entry to select that as either the selected
   // result or dictionary.
   "autoPitchAccent.paPositions.displayMode": "selected-result",
 
@@ -401,6 +401,10 @@
   // Note that these values must be numbers and they CANNOT be strings.
   "autoPitchAccent.paOverride.kifukuOveride": [-1],
 
+  // attempt to detect kifuku automatically by checking if the `YomichanWordTags` contains
+  // a tag that marks the word as a verb
+  "autoPitchAccent.paOverride.detectKifukuFromWordTags": true,
+
 
 
 
@@ -417,10 +421,10 @@
   "autoPitchAccent.coloredPitchAccent.enabled": false,
 
   // what parts of the card to color
-  "autoPitchAccent.coloredPitchAccent.color.testedContent": true, // above line
-  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
-  "autoPitchAccent.coloredPitchAccent.color.wordReadingOverline": true,
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
   "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana": false,
+  "autoPitchAccent.coloredPitchAccent.color.testedContent": true, // text above line
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
   "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
   "autoPitchAccent.coloredPitchAccent.color.definitions": true,
 
@@ -431,7 +435,10 @@
   // Given that `autoPitchAccent.paPositions.displayMode` selects multiple results,
   // this determines whether the first pitch is used to color the card according
   // to the standard colored pitch accent.
-  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst": true,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paPositions": true,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverrideIntegers": true,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverrideText": false,
+  "autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.ajtWordPitch": false,
 
 
 

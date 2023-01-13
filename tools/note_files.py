@@ -24,7 +24,7 @@ NOTE_DATA = {
         "pa_word": {
             "name": "PA Word Card",
         },
-        "cloze_deletion": {
+        "cloze_deletion": { # TODO rename!
             "name": "Cloze Deletion Card",
         },
     },
