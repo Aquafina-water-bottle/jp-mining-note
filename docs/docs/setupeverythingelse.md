@@ -286,7 +286,7 @@ As long as you're not using a scan (image-based), the text should already be ava
 Below will list a few ways to view these files in a browser to Yomichan.
 
 ??? example "Resources *(click here)*"
-    * [**ッツ Ebook Reader**](https://ttu-ebook.web.app/) (EPUBs, HTMLZ) (recommended)
+    * [**ッツ Ebook Reader**](https://reader.ttsu.app) (EPUBs, HTMLZ) (recommended)
     * [**Mozilla's PDF Viewer**](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
 
     **Other:**
