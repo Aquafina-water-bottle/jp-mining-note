@@ -68,14 +68,18 @@ function _hasBoldedPos(posDataList: PosData[]): boolean {
   return false;
 }
 
+const ajtWordSeps = /[・、]/g;
+
 class PosData {
   pos: number;
   isBolded: boolean;
-  isMainPos: boolean = false; // not initialized with the PosData (set afterwards?)
   allowAutoKifuku: boolean = true; // set to false for text format parsing
   separatorAfter: string | null = null;
   dictName: string | null = null;
   mora: string[] = [];
+
+  // only set when converting PosData -> HTML (buildWordReading)
+  paGroup: PAGroup | null = null;
 
   constructor(pos: number, isBolded = false) {
     this.pos = pos;
@@ -86,7 +90,6 @@ class PosData {
 class DispPosData {
   readonly dispHTML: string;
   readonly dictName: string | null;
-  readonly mainPaGroup: PAGroup | null = null;
 
   constructor(dispHTML: string, dictName?: string) {
     this.dispHTML = dispHTML;
@@ -199,7 +202,7 @@ export class ParsePAPositions extends Module implements PitchParser {
     } else if (displayMode === 'all-results') {
       posDataList = this.parseJPMNAllDicts(positionsEle);
     } else {
-      throw Error(this.logger.error(`displayMode is invalid: ${displayMode}`));
+      throw Error(`displayMode is invalid: ${displayMode}`);
     }
 
     const pitchHTML = this.autopa.buildPitchHTML(posDataList, this.wordReading);
@@ -486,16 +489,87 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
   private readonly autopa: AutoPitchAccent;
 
   private readonly ajtWordPitch: string;
+  private readonly removeNasal: boolean;
 
-  constructor(autopa: AutoPitchAccent, ajtWordPitch: string) {
+  constructor(autopa: AutoPitchAccent, ajtWordPitch: string, removeNasal: boolean) {
     super('sm:parseAJTWordPitch');
 
     this.autopa = autopa;
     this.ajtWordPitch = ajtWordPitch;
+    this.removeNasal = removeNasal;
+  }
+
+  getPosDataList(): PosData[] {
+    let posDataList: PosData[] = [];
+
+
+    // innerText to remove all markup (overline, devoiced, bold?)
+    const d = document.createElement("div")
+    d.innerHTML = this.ajtWordPitch;
+    let searchText = d.innerText
+    searchText = searchText.replace(/°/g, ""); // remove all nasal markers
+    const searchWords = searchText.split(ajtWordSeps);
+
+    // raw html to get the pure reading
+    let searchHTML = this.ajtWordPitch;
+    if (searchHTML.includes("<b>")) {
+      this.logger.warn("AJTWordPitch field contains bold. This will be ignored by the parser.")
+      searchHTML = searchHTML.replace(/<b>/g, '').replace(/<\/b>/g, '');
+    }
+    const searchWordsHTML = searchHTML.split(ajtWordSeps);
+    if (searchWordsHTML.length !== searchWords.length) {
+      throw Error("AJTWordPitch parser lists are of different length. Cannot parse.");
+    }
+
+    const foundSeparators = searchText.match(ajtWordSeps);
+
+    // moras -> look for downstep marker!
+    for (let i = 0; i < searchWords.length; i++) {
+      const w = searchWords[i];
+      let h = searchWordsHTML[i];
+      if (this.removeNasal) {
+        h = this.autopa.removeNasalStr(h);
+      }
+
+      const searchMora = getMorae(w);
+      console.log(searchMora);
+
+      // this finds the index of "ꜜ"
+      // pos is -1 if not found (which translates to 0)
+      let pos = searchMora.findIndex((x) => x === "ꜜ");
+      if (pos === -1) {
+        pos = 0;
+      }
+
+      let posData = new PosData(pos)
+      posData.mora = this.autopa.getMoraeOfAJTWord(h);
+      posData.allowAutoKifuku = false; // hack because reading is not parsed at all
+      posData.separatorAfter = foundSeparators?.at(i) ?? null;
+      posDataList.push(posData);
+    }
+
+    return posDataList;
+  }
+
+  generatePitchHTML(): string {
+    try {
+      const posDataList = this.getPosDataList();
+      return this.autopa.buildPitchHTML(posDataList);
+    } catch (error) {
+      // TODO log error properly!
+      this.logger.error('Error in generatePitchHTML, using raw AJTWordPitch instead');
+      return this.ajtWordPitch;
+    }
   }
 
   parse(): DispPosData | null {
-    return null;
+    if (this.ajtWordPitch.length === 0) {
+      return null;
+    }
+
+    let pitchHTML = this.generatePitchHTML();
+    return new DispPosData(pitchHTML, "AJT Pitch Accent");
+
   }
 }
 
@@ -520,10 +594,6 @@ export class AutoPitchAccent extends RunnableModule {
     this.removeNasal = args?.removeNasal ?? false;
   }
 
-  private calcDispPosDataFromAJTWordPitch(fieldContents: string): DispPosData | null {
-    return null;
-  }
-
   private getDispPosDataOnEmpty(wordReading: string): DispPosData {
     this.logger.debug('Nothing found.');
     if (this.getOption('autoPitchAccent.showReadingIfNoPitch')) {
@@ -533,7 +603,7 @@ export class AutoPitchAccent extends RunnableModule {
     return new DispPosData('', 'N/A');
   }
 
-  private removeNasalStr(str: string) {
+  removeNasalStr(str: string) {
     if (str.includes('nasal')) {
       // か行・が行
       const ka_gyou = 'カキクケコ';
@@ -627,7 +697,7 @@ export class AutoPitchAccent extends RunnableModule {
     let temp = document.createElement('div');
     temp.innerHTML = ajtHTML;
     const searchString = temp.innerText;
-    const wordSearch = searchString.split(/[・、]/g);
+    const wordSearch = searchString.split(ajtWordSeps);
     const idx = wordSearch.indexOf(normalizedReading);
 
     if (idx === -1) {
@@ -642,7 +712,7 @@ export class AutoPitchAccent extends RunnableModule {
     if (wordSearch.length == 1) {
       result = resultSearchHTML;
     } else {
-      const searchArr = resultSearchHTML.split(/[、・]/);
+      const searchArr = resultSearchHTML.split(ajtWordSeps);
       if (idx >= searchArr.length) {
         this.logger.warn(
           `searchArr of length ${searchArr.length} cannot be indexed with ${idx}`
@@ -678,9 +748,7 @@ export class AutoPitchAccent extends RunnableModule {
     } else if (readingDisplayMode === 'katakana-with-long-vowel-marks') {
       normalizedReading = convertHiraganaToKatakanaWithLongVowelMarks(wordReadingKana);
     } else {
-      throw Error(
-        this.logger.error(`readingDisplayMode of ${normalizedReading} is invalid.`)
-      );
+      throw Error(`readingDisplayMode of ${normalizedReading} is invalid.`);
     }
 
     return [normalizedReading, false];
@@ -689,7 +757,7 @@ export class AutoPitchAccent extends RunnableModule {
   /*
    * properly handles the overline / downstep / nasal parts that an ajtWordHTML contains
    */
-  private getMoraeOfAJTWord(ajtWordHTML: string) {
+  getMoraeOfAJTWord(ajtWordHTML: string) {
     let result: string[] = [];
 
     // temp element to store the flattened version of the ajt word div
@@ -749,7 +817,7 @@ export class AutoPitchAccent extends RunnableModule {
         // assumption: this is the nopron span
         result.push((c as HTMLSpanElement).outerHTML);
       } else {
-        throw Error(this.logger.error(`Unexpected flattened.childNode: ${c}`));
+        throw Error(`Unexpected flattened.childNode: ${c}`);
       }
     }
 
@@ -806,7 +874,7 @@ export class AutoPitchAccent extends RunnableModule {
         if (readingMora === null) {
           if (wordReading === undefined) {
             throw Error(
-              this.logger.error('wordReading is undefined, cannot parse postDataList')
+              'wordReading is undefined, cannot parse posDataList'
             );
           }
           const wordReadingKana = plainToKanaOnly(wordReading);
@@ -922,6 +990,7 @@ export class AutoPitchAccent extends RunnableModule {
     ) {
       paGroup = 'kifuku';
     }
+    posData.paGroup = paGroup; // used for painting the display later
 
     const wordInnerHTML = result.join('');
 
@@ -978,9 +1047,15 @@ export class AutoPitchAccent extends RunnableModule {
     if (dispPosData === null && noteInfo.fields.AJTWordPitch.value.length > 0) {
       // TODO move logic
       // TODO removeNasalStr
-      dispPosData = this.calcDispPosDataFromAJTWordPitch(
-        noteInfo.fields.AJTWordPitch.value
+      //dispPosData = this.calcDispPosDataFromAJTWordPitch(
+      //  noteInfo.fields.AJTWordPitch.value
+      //);
+      const parser = new ParseAJTWordPitch(
+        this,
+        noteInfo.fields.AJTWordPitch.value,
+        this.removeNasal,
       );
+      dispPosData = parser.parse();
     }
 
     // absolutely 0 pitches can be found
