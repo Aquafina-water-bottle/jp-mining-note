@@ -15,6 +15,10 @@ const HIRAGANA_RANGE = { min: 0x3040, max: 0x309f };
 const KATAKANA_RANGE = { min: 0x30a0, max: 0x30ff };
 const SMALL_KANA_SET = new Set(Array.from('ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ'));
 
+const KATAKANA_SMALL_KA_CODE_POINT = 0x30f5;
+const KATAKANA_SMALL_KE_CODE_POINT = 0x30f6;
+const KANA_PROLONGED_SOUND_MARK_CODE_POINT = 0x30fc;
+
 const LONG_VOWEL_MARKER_TO_VOWEL = {
   アナタサカワラヤマハャパバダザガ: 'ア',
   イニチシキリミヒピビヂジギ: 'イ',
@@ -31,6 +35,25 @@ const EXTENDED_VOWELS = {
   エ: 'ネテセケレメヘペベデゼゲ',
   オ: 'ノトソコヲロヨモホョポボドゾゴ',
 };
+
+const VOWEL_TO_KANA_MAPPING = new Map([
+    ['a', 'ぁあかがさざただなはばぱまゃやらゎわヵァアカガサザタダナハバパマャヤラヮワヵヷ'],
+    ['i', 'ぃいきぎしじちぢにひびぴみりゐィイキギシジチヂニヒビピミリヰヸ'],
+    ['u', 'ぅうくぐすずっつづぬふぶぷむゅゆるゥウクグスズッツヅヌフブプムュユルヴ'],
+    ['e', 'ぇえけげせぜてでねへべぺめれゑヶェエケゲセゼテデネヘベペメレヱヶヹ'],
+    ['o', 'ぉおこごそぞとどのほぼぽもょよろをォオコゴソゾトドノホボポモョヨロヲヺ'],
+    ['', 'のノ']
+]);
+
+const KANA_TO_VOWEL_MAPPING = (() => {
+  const map = new Map();
+  for (const [vowel, characters] of VOWEL_TO_KANA_MAPPING) {
+    for (const character of characters) {
+      map.set(character, vowel);
+    }
+  }
+  return map;
+})();
 
 // function name gore :sob:
 export function convertHiraganaToKatakanaWithLongVowelMarks(reading: string): string {
@@ -134,4 +157,44 @@ export function katakanaRemoveLongVowelMarks(katakana: string) {
   }
 
   return resultArr.join("");
+}
+
+function getProlongedHiragana(previousCharacter: string) {
+  switch (KANA_TO_VOWEL_MAPPING.get(previousCharacter)) {
+    case 'a': return 'あ';
+    case 'i': return 'い';
+    case 'u': return 'う';
+    case 'e': return 'え';
+    case 'o': return 'う';
+    default: return null;
+  }
+}
+
+// shamelessly stolen from Yomichan
+// https://github.com/FooSoft/yomichan/blob/master/ext/js/language/sandbox/japanese-util.js
+export function convertKatakanaToHiragana(text: string, keepProlongedSoundMarks=false) {
+  let result = '';
+  const offset = (HIRAGANA_CONVERSION_RANGE.min - KATAKANA_CONVERSION_RANGE.min);
+  for (let char of text) {
+    const codePoint = char.codePointAt(0);
+    switch (codePoint) {
+      case KATAKANA_SMALL_KA_CODE_POINT:
+        case KATAKANA_SMALL_KE_CODE_POINT:
+        // No change
+        break;
+      case KANA_PROLONGED_SOUND_MARK_CODE_POINT:
+        if (!keepProlongedSoundMarks && result.length > 0) {
+        const char2 = getProlongedHiragana(result[result.length - 1]);
+        if (char2 !== null) { char = char2; }
+      }
+      break;
+      default:
+        if (codePoint !== undefined && isCodePointInRange(codePoint, KATAKANA_CONVERSION_RANGE)) {
+          char = String.fromCodePoint(codePoint + offset);
+        }
+      break;
+    }
+    result += char;
+  }
+  return result;
 }
