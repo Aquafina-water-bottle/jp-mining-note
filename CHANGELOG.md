@@ -37,9 +37,8 @@ and must use `./install.py --update`.
     - See `themes` folder for some examples
 
 - Backend Javascript rework:
-    - Javascript has been ported to Typescript (meaning things should theoretically be less buggy)
-    - Backend now uses webpack to build javascript (meaning the javascript is minified and easier to deal with)
-    - TODO testing!
+    - Javascript has been finally ported to Typescript & webpack
+    - Added testing for various modules (using jest)
 
 - Options rework:
     - Flattened all compile-time options and runtime options.
@@ -60,7 +59,7 @@ and must use `./install.py --update`.
     - Added further support for how images are stylized in the PrimaryDefinition field
         - See `img-utils` -> `stylize-images-primary-definition`
 
-- Sentence Utils:
+- Sentence Parser:
     - Added `autoHighlightWord` module, to automatically highlight the word if the word isn't highlighted
         - Works on both the display sentence and furigana sentence
         - Thanks to [Marv](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence) for the idea and base implementation
@@ -69,6 +68,14 @@ and must use `./install.py --update`.
     - Added better support for parsing the full sentence (from sentUtils)
         - i.e. searches the full sentence to remove quotes.
     - Added better compile-time and runtime options for how quotes are displayed / not displayed
+
+- Auto Pitch Accent:
+    - Pitch accent color groups are now applied to each individual word
+    - AJTWordPitch field can now be read to extract the pitch accent position info
+        - This means that the field can be used as a pitch accent color group as a last resort fallback
+    - Tweaked the pitch accent display so the downstep is a bit more obvious
+    - Added support for automatic detection of kifuku accents on verbs (using `YomichanWordTags`)
+    - Added an option to show the reading without pitch accent info if no pitch accent info was found
 
 - Other (larger changes):
     - Added a new card type: Hint Sentence (`IsHintCard`)
@@ -86,7 +93,6 @@ and must use `./install.py --update`.
 - Other (smaller changes):
     - Added `jpmn-filled-if-word-is-hiragana` yomichan templates marker
     - Re-added way to specify whether newlines are removed or not, using css
-    - Tweaked the pitch accent display so the downstep is a bit more obvious
     - Added support to remove the primary definition blockquote if nothing is there
     - Added spacing between options in the info circle
     - Added clear cache option in info circle options (disabled by default)

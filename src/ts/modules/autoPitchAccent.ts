@@ -1,6 +1,7 @@
 import {
   convertHiraganaToKatakana,
   convertHiraganaToKatakanaWithLongVowelMarks,
+  convertKatakanaToHiragana,
   getMorae,
   katakanaRemoveLongVowelMarks,
 } from '../jpUtils';
@@ -489,19 +490,20 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
   private readonly autopa: AutoPitchAccent;
 
   private readonly ajtWordPitch: string;
+  private readonly wordReading: string;
   private readonly removeNasal: boolean;
 
-  constructor(autopa: AutoPitchAccent, ajtWordPitch: string, removeNasal: boolean) {
+  constructor(autopa: AutoPitchAccent, ajtWordPitch: string, wordReading: string, removeNasal: boolean) {
     super('sm:parseAJTWordPitch');
 
     this.autopa = autopa;
     this.ajtWordPitch = ajtWordPitch;
+    this.wordReading = wordReading;
     this.removeNasal = removeNasal;
   }
 
   getPosDataList(): PosData[] {
     let posDataList: PosData[] = [];
-
 
     // innerText to remove all markup (overline, devoiced, bold?)
     const d = document.createElement("div")
@@ -522,6 +524,8 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
     }
 
     const foundSeparators = searchText.match(ajtWordSeps);
+    const wordReadingKana = plainToKanaOnly(this.wordReading);
+    const normalizedReading = convertHiraganaToKatakana(wordReadingKana);
 
     // moras -> look for downstep marker!
     for (let i = 0; i < searchWords.length; i++) {
@@ -541,9 +545,16 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
         pos = 0;
       }
 
+      // saves a few cycles by repeating the logic in removeAJTDownstep
+      let ajtNormalizeSearch = this.autopa.removeAJTDownstep(w);
+      ajtNormalizeSearch = katakanaRemoveLongVowelMarks(ajtNormalizeSearch);
+
       let posData = new PosData(pos)
       posData.mora = this.autopa.getMoraeOfAJTWord(h);
-      posData.allowAutoKifuku = false; // hack because reading is not parsed at all
+      if (ajtNormalizeSearch !== normalizedReading) {
+        this.logger.debug(`cannot auto kifuku: ${ajtNormalizeSearch} | ${normalizedReading}`, 2);
+        posData.allowAutoKifuku = false; // can only allow auto kifuku on the same word
+      }
       posData.separatorAfter = foundSeparators?.at(i) ?? null;
       posDataList.push(posData);
     }
@@ -663,8 +674,7 @@ export class AutoPitchAccent extends RunnableModule {
    * also removes all ꜜ (remember that we can search for downsteps from the now empty div)
    */
   private getSearchAJTHTML(ajtHTML: string): string {
-    // remove downsteps
-    let result = ajtHTML.replace(/&#42780/g, '').replace(/ꜜ/g, '');
+    let result = this.removeAJTDownstep(ajtHTML)
 
     // remove bold
     result = result.replace(/<b>/g, '');
@@ -675,6 +685,11 @@ export class AutoPitchAccent extends RunnableModule {
     result = katakanaRemoveLongVowelMarks(result);
 
     return result;
+  }
+
+  // remove downsteps
+  removeAJTDownstep(str: string) {
+     return str.replace(/&#42780/g, '').replace(/ꜜ/g, '');
   }
 
   private getAJTWordHTML(wordReadingKana: string): string | null {
@@ -689,13 +704,13 @@ export class AutoPitchAccent extends RunnableModule {
     }
 
     // normalizes the ajt search string
-    const ajtHTML = this.getSearchAJTHTML(this.ajtHTML);
+    const ajtHTMLSearch = this.getSearchAJTHTML(this.ajtHTML);
     // removes any bold in case it messes with the formatting
     const resultSearchHTML = this.ajtHTML.replace(/<b>/g, '').replace(/<\/b>/g, '');
 
     // temp used for innerText
     let temp = document.createElement('div');
-    temp.innerHTML = ajtHTML;
+    temp.innerHTML = ajtHTMLSearch;
     const searchString = temp.innerText;
     const wordSearch = searchString.split(ajtWordSeps);
     const idx = wordSearch.indexOf(normalizedReading);
@@ -1053,6 +1068,7 @@ export class AutoPitchAccent extends RunnableModule {
       const parser = new ParseAJTWordPitch(
         this,
         noteInfo.fields.AJTWordPitch.value,
+        noteInfo.fields.WordReading.value,
         this.removeNasal,
       );
       dispPosData = parser.parse();
@@ -1060,10 +1076,6 @@ export class AutoPitchAccent extends RunnableModule {
 
     // absolutely 0 pitches can be found
     if (dispPosData === null) {
-      // TODO move logic
-      // TODO "modules", "auto-pitch-accent", "show-reading-if-no-pitch"
-      // TODO N/A optional
-      // TODO log this.logger.debug("Nothing found.");
       dispPosData = this.getDispPosDataOnEmpty(noteInfo.fields.WordReading.value);
     }
 
@@ -1071,22 +1083,6 @@ export class AutoPitchAccent extends RunnableModule {
   }
 
   main() {
-    //readonly PAOverrideText: {
-    //  readonly value: string;
-    //};
-    //readonly PAOverride: {
-    //  readonly value: string;
-    //};
-    //readonly PAPositions: {
-    //  readonly value: string;
-    //};
-    //readonly AJTWordPitch: {
-    //  readonly value: string;
-    //};
-    //readonly WordReading: {
-    //  readonly value: string;
-    //};
-
     const noteInfo: NoteInfoPA = {
       tags: TAGS_LIST,
       fields: {
