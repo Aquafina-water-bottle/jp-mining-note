@@ -236,3 +236,15 @@ test('PAOverride multiple text', () => {
   ].join(CONN_COMMA);
   testResult(noteInfo, expected);
 });
+
+// TODO: kifuku override
+
+// TODO: kifuku with proper word tags
+
+// TODO: PAPositions
+
+// TODO: PAPositions with different displayMode settings
+
+// TODO: AJTWordPitch
+
+// TODO: readingDisplayMode and searchForAJTWord (combined with all other fields)

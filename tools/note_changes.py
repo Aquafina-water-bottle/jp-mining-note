@@ -86,6 +86,7 @@ NOTE_CHANGES = [
 
             # webpack branch
             # TODO verify changes
+            # TODO merge with above honestly
             action.RenameField("SeparateClozeDeletionCard", "SeparateAudioCard"),
             action.RenameField("AltDisplayClozeDeletionCard", "AltDisplayAudioCard"),
             action.AddField("SeparateSentenceAudioCard", 28-1),
