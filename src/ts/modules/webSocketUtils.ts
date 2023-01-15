@@ -29,7 +29,7 @@ export class WebSocketUtils extends RunnableModule {
       if (getOption('webSocketUtils.sendSentence')) {
         const ele = document.getElementById('full_sentence');
         if (ele !== null) {
-          const sentence = ele.innerText.trim();
+          const sentence = ele.textContent?.trim() ?? "";
           if (sentence.length > 0) {
             this.logger.debug(`Socket sending sentence=${sentence}`);
             socket.send(sentence);

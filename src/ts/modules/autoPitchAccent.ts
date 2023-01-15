@@ -19,7 +19,7 @@ export type NoteInfoPA = {
 };
 
 
-type PAGroup = 'heiban' | 'atamadaka' | 'nakadaka' | 'odaka' | 'kifuku';
+export type PAGroup = 'heiban' | 'atamadaka' | 'nakadaka' | 'odaka' | 'kifuku';
 
 // searches for first bolded
 // if no bolded -> returns first item
