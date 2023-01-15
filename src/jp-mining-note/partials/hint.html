@@ -11,7 +11,7 @@
 <!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {% call IF("Hint") %}
   <details class="hint" id="hint_details">
-    <summary>Hint</summary>
+    <summary>{{ TRANSLATOR.get('hint') }}</summary>
     <div class="center-box-1">
       <div class="center-box-2">
         <div class="highlight-bold">{{ T("Hint") }}</div>
