@@ -1,6 +1,6 @@
 import { compileOpts, runtimeOpts } from './consts';
 import { LOGGER } from './logger';
-import { isMobile, VW, arrContainsAnyOf, TAGS_LIST } from './utils';
+import { isMobile, VW, arrContainsAnyOf } from './utils';
 
 // default options
 type DO = typeof runtimeOpts;
