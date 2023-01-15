@@ -27,13 +27,13 @@ export class MainCardUtils extends RunnableModule {
     if (paButton.hasAttribute(sentenceShownAttr)) {
       // (currently) shown -> hide
       paButton.removeAttribute(sentenceShownAttr);
-      paButton.innerText = translatorStrs['show-word-button'];
+      paButton.textContent = translatorStrs['show-word-button'];
       d.classList.toggle("highlight-bold", false);
 
     } else {
       // (currently) hidden -> show
       paButton.setAttribute(sentenceShownAttr, "true");
-      paButton.innerText = translatorStrs['hide-word-button'];
+      paButton.textContent = translatorStrs['hide-word-button'];
       d.classList.toggle("highlight-bold", true);
     }
   }

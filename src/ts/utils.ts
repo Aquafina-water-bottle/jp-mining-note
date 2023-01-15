@@ -83,7 +83,7 @@ export function popupMenuMessage(message: string, isHTML = false) {
   if (isHTML) {
     popupMessageDiv.innerHTML = message;
   } else {
-    popupMessageDiv.innerText = message;
+    popupMessageDiv.textContent = message;
   }
   popupMessageDiv.classList.add('popup-menu--animate');
 
