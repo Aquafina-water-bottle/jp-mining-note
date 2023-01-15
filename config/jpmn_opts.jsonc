@@ -660,7 +660,7 @@
     // Due to the card's error catcher, this previously-silent error is now caught and shown
     // in the card's error log, despite it not actually affecting anything.
     // Therefore, this error can be safely ignored.
-    "ReferenceError: EFDRC is not defined."
+    "ReferenceError: EFDRC is not defined"
   ],
 
   // Overrides the play keybind button to show the sentence if the
