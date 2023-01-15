@@ -72,5 +72,5 @@ test('PAOverride', () => {
   }
 
   const noteInfo = noteInfoFill(pNoteInfo);
-  testResult(noteInfo, `<span class="heiban">ニ<span class="pitchoverline">セモノ</span>`)
+  testResult(noteInfo, `<span class="pa-group-heiban">ニ<span class="pitchoverline">セモノ</span></span>`)
 });
