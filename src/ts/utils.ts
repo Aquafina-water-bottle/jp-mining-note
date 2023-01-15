@@ -179,7 +179,7 @@ export type PAIndicator = {
   tooltip: string,
 }
 
-export const paIndicator: PAIndicator  = (function () {
+export const paIndicator: PAIndicator = (function () {
   let type: PAIndicatorType | null = null;
   let tooltip = null;
 

@@ -1,46 +1,23 @@
-import {
-  convertHiraganaToKatakana,
-  convertHiraganaToKatakanaWithLongVowelMarks,
-  convertKatakanaToHiragana,
-  getMorae,
-  katakanaRemoveLongVowelMarks,
-} from '../jpUtils';
 import { Module, RunnableModule } from '../module';
 //import { getOption } from '../options';
 import { getFieldValue, getWordTags, isVerb, plainToKanaOnly, TAGS_LIST } from '../utils';
+import {
+  convertHiraganaToKatakana,
+  convertHiraganaToKatakanaWithLongVowelMarks,
+  getMorae,
+  katakanaRemoveLongVowelMarks,
+} from '../jpUtils';
 
-type NoteInfoPA = {
+export type NoteInfoPA = {
   readonly tags: readonly string[];
-  readonly fields: {
-    readonly PAOverrideText: {
-      readonly value: string;
-    };
-    readonly PAOverride: {
-      readonly value: string;
-    };
-    readonly PAPositions: {
-      readonly value: string;
-    };
-    readonly AJTWordPitch: {
-      readonly value: string;
-    };
-    readonly WordReading: {
-      readonly value: string;
-    };
-    readonly YomichanWordTags: {
-      readonly value: string;
-    };
-  };
+  readonly PAOverrideText: string;
+  readonly PAOverride: string;
+  readonly PAPositions: string;
+  readonly AJTWordPitch: string;
+  readonly WordReading: string;
+  readonly YomichanWordTags: string;
 };
 
-//type NoteInfoPAShortened = {
-//  readonly tags?: string[];
-//  readonly PAOverrideText: string,
-//  readonly PAOverride: string,
-//  readonly PAPositions: string,
-//  readonly AJTWordPitch: string,
-//  readonly WordReading: string,
-//};
 
 type PAGroup = 'heiban' | 'atamadaka' | 'nakadaka' | 'odaka' | 'kifuku';
 
@@ -1024,51 +1001,45 @@ export class AutoPitchAccent extends RunnableModule {
   // main function
   addPosition(displayEle: HTMLElement, noteInfo: NoteInfoPA) {
     // setting it early to not bubble up this field among all the functions...
-    this.ajtHTML = noteInfo.fields.AJTWordPitch.value;
-    this.wordTags = getWordTags(noteInfo.fields.YomichanWordTags.value);
+    this.ajtHTML = noteInfo.AJTWordPitch;
+    this.wordTags = getWordTags(noteInfo.YomichanWordTags);
 
-    let posResult = null;
     let dispPosData = null;
 
     // first checks PAOverrideText
-    if (noteInfo.fields.PAOverrideText.value.length !== 0) {
+    if (noteInfo.PAOverrideText.length !== 0) {
       dispPosData = new DispPosData(
-        noteInfo.fields.PAOverrideText.value,
+        noteInfo.PAOverrideText,
         'Pitch Accent Override Text'
       );
     }
 
     // then checks PAOverride
-    if (dispPosData === null && noteInfo.fields.PAOverride.value.length !== 0) {
+    if (dispPosData === null && noteInfo.PAOverride.length !== 0) {
       const parser = new ParsePAOverride(
         this,
-        noteInfo.fields.PAOverride.value,
-        noteInfo.fields.WordReading.value
+        noteInfo.PAOverride,
+        noteInfo.WordReading
       );
       dispPosData = parser.parse();
     }
 
     // if still nothing (PAOverrideText, PAOverride), -> PAPositions
-    if (dispPosData === null && noteInfo.fields.PAPositions.value.length > 0) {
+    if (dispPosData === null && noteInfo.PAPositions.length > 0) {
       const parser = new ParsePAPositions(
         this,
-        noteInfo.fields.PAPositions.value,
-        noteInfo.fields.WordReading.value
+        noteInfo.PAPositions,
+        noteInfo.WordReading
       );
       dispPosData = parser.parse();
     }
 
     // if still nothing (PAOverrideText, PAOverride, PAPositions) -> AJTWordPitch
-    if (dispPosData === null && noteInfo.fields.AJTWordPitch.value.length > 0) {
-      // TODO move logic
-      // TODO removeNasalStr
-      //dispPosData = this.calcDispPosDataFromAJTWordPitch(
-      //  noteInfo.fields.AJTWordPitch.value
-      //);
+    if (dispPosData === null && noteInfo.AJTWordPitch.length > 0) {
       const parser = new ParseAJTWordPitch(
         this,
-        noteInfo.fields.AJTWordPitch.value,
-        noteInfo.fields.WordReading.value,
+        noteInfo.AJTWordPitch,
+        noteInfo.WordReading,
         this.removeNasal,
       );
       dispPosData = parser.parse();
@@ -1076,7 +1047,7 @@ export class AutoPitchAccent extends RunnableModule {
 
     // absolutely 0 pitches can be found
     if (dispPosData === null) {
-      dispPosData = this.getDispPosDataOnEmpty(noteInfo.fields.WordReading.value);
+      dispPosData = this.getDispPosDataOnEmpty(noteInfo.WordReading);
     }
 
     this.useDispPosData(displayEle, dispPosData, noteInfo.tags);
@@ -1085,14 +1056,12 @@ export class AutoPitchAccent extends RunnableModule {
   main() {
     const noteInfo: NoteInfoPA = {
       tags: TAGS_LIST,
-      fields: {
-        PAOverrideText: { value: getFieldValue('PAOverrideText') },
-        PAOverride: { value: getFieldValue('PAOverride') },
-        PAPositions: { value: getFieldValue('PAPositions') },
-        AJTWordPitch: { value: getFieldValue('AJTWordPitch') },
-        WordReading: { value: getFieldValue('WordReading') },
-        YomichanWordTags: { value: getFieldValue('YomichanWordTags') },
-      },
+      PAOverrideText: getFieldValue('PAOverrideText'),
+      PAOverride: getFieldValue('PAOverride'),
+      PAPositions: getFieldValue('PAPositions'),
+      AJTWordPitch: getFieldValue('AJTWordPitch'),
+      WordReading: getFieldValue('WordReading'),
+      YomichanWordTags: getFieldValue('YomichanWordTags'),
     };
 
     const displayEle = document.getElementById('dh_word_pitch_text');
