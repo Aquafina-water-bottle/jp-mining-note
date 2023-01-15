@@ -327,17 +327,17 @@ export class ParsePAOverride extends Module implements PitchParser {
    * returns list of positions, or empty list if nothing found
    */
   private calcPosDataList(): PosData[] {
-    // requires html parser to calculate innerText
+    // requires html parser to calculate textContent
     const overrideEle = document.createElement('div');
     overrideEle.innerHTML = this.paOverride;
 
     let result: PosData[] = [];
-    const firstInteger = overrideEle.innerText.trim().match(/^[-]?\d+/);
+    const firstInteger = (overrideEle.textContent ?? "").trim().match(/^[-]?\d+/);
 
     if (firstInteger !== null) {
       result = this.parseIntCSV();
     } else {
-      if (overrideEle.innerText === overrideEle.innerHTML) {
+      if (overrideEle.textContent === overrideEle.innerHTML) {
         result = this.parseTextFormat();
       } else {
         if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
@@ -482,10 +482,10 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
   getPosDataList(): PosData[] {
     let posDataList: PosData[] = [];
 
-    // innerText to remove all markup (overline, devoiced, bold?)
+    // textContent to remove all markup (overline, devoiced, bold?)
     const d = document.createElement("div")
     d.innerHTML = this.ajtWordPitch;
-    let searchText = d.innerText
+    let searchText = d.textContent ?? "";
     searchText = searchText.replace(/°/g, ""); // remove all nasal markers
     const searchWords = searchText.split(ajtWordSeps);
 
@@ -685,10 +685,10 @@ export class AutoPitchAccent extends RunnableModule {
     // removes any bold in case it messes with the formatting
     const resultSearchHTML = this.ajtHTML.replace(/<b>/g, '').replace(/<\/b>/g, '');
 
-    // temp used for innerText
+    // temp used for textContent
     let temp = document.createElement('div');
     temp.innerHTML = ajtHTMLSearch;
-    const searchString = temp.innerText;
+    const searchString = temp.textContent ?? "";
     const wordSearch = searchString.split(ajtWordSeps);
     const idx = wordSearch.indexOf(normalizedReading);
 
