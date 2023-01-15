@@ -23,7 +23,15 @@ and must use `./install.py --update`.
 ## [0.12.0.0] - 2022-12-??
 
 #### BREAKING
-- Added fields: `YomichanWordTags`, `AltDisplayClozeDeletionCard`, `IsHintCard`
+- Added fields:
+    - `YomichanWordTags`
+    - `AltDisplayAudioCard`
+    - `IsHintCard`
+    - `IsSentenceFirstCard`
+    - `IsAudioCard`
+    - `SeparateSentenceAudioCard`
+- Renamed fields:
+    - `SeparateClozeDeletionCard` -> `SeparateAudioCard`
 - Removed lenience calculation (height of the text box is no longer calculated) due to an internal javascript bug that I can't figure out how to resolve
 
 - Options rework: Your current runtime options file will be completely invalid! See here to fix it: TODO
@@ -38,7 +46,7 @@ and must use `./install.py --update`.
 
 - Backend Javascript rework:
     - Javascript has been finally ported to Typescript & webpack
-    - Added testing for various modules (using jest)
+    - Added unit testing for various modules
 
 - Options rework:
     - Flattened all compile-time options and runtime options.
@@ -60,10 +68,9 @@ and must use `./install.py --update`.
         - See `img-utils` -> `stylize-images-primary-definition`
 
 - Sentence Parser:
-    - Added `autoHighlightWord` module, to automatically highlight the word if the word isn't highlighted
+    - Added the `autoHighlightWord` module, to [automatically highlight the word](https://aquafina-water-bottle.github.io/jp-mining-note/ui/#automatic-word-highlighting) if the word isn't highlighted
         - Works on both the display sentence and furigana sentence
         - Thanks to [Marv](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence) for the idea and base implementation
-        - TODO link
     - Added option to fix the div list problem for sentences
     - Added better support for parsing the full sentence (from sentUtils)
         - i.e. searches the full sentence to remove quotes.
@@ -77,10 +84,19 @@ and must use `./install.py --update`.
     - Added support for automatic detection of kifuku accents on verbs (using `YomichanWordTags`)
     - Added an option to show the reading without pitch accent info if no pitch accent info was found
 
-- Other (larger changes):
-    - Added a new card type: Hint Sentence (`IsHintCard`)
+- New Card Types:
+    - Hint Sentence (`IsHintCard`)
         - Adds the sentence below the vocab (hover and click cards are also affected)
         - TODO link
+    - Sentence First Sentence (`IsSentenceFirstCard`)
+        - Adds the word below the sentence (so the reader must read the full sentence, but only tests on the word)
+        - TODO link
+    - Audio (`IsAudioCard`)
+        - Renamed version of the previously named "Cloze Deletion Card"
+        - Allows testing of the entire sentence, or just the word
+        - TODO link
+
+- Other (larger changes):
     - Added support for collapsing dictionaries within Anki
         - TODO link
     - Added way to translate the card (and added English and Japanese as pre-supported options)
