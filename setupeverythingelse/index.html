@@ -1464,15 +1464,18 @@ have came out (see above), I recommended to use said alternatives.</p>
 <details class="example">
 <summary>Resources <em>(click here)</em></summary>
 <ul>
-<li><a href="https://github.com/Ajatt-Tools/mpvacious"><strong>mpvacious</strong></a> (recommended if you are using MPV)<ul>
+<li><a href="https://github.com/Ajatt-Tools/mpvacious"><strong>mpvacious</strong></a> (recommended for downloaded videos / if you are using mpv)<ul>
 <li>Add-on for <a href="https://mpv.io/">MPV</a>, a cross platform media player. Personally tested.</li>
-<li>Basically universal codec support.</li>
+<li>Basically universal codec support since it uses mpv.</li>
+<li>This addon has capabilities to
+    <a href="https://github.com/Ajatt-Tools/mpvacious/pull/78">extract the video clip itself</a>
+    as the form of a gif (autoplayable webp).</li>
 </ul>
 </li>
-<li><a href="https://github.com/killergerbah/asbplayer"><strong>asbplayer</strong></a><ul>
+<li><a href="https://github.com/killergerbah/asbplayer"><strong>asbplayer</strong></a> (recommended for streamed sites)<ul>
 <li>Cross platform (chromium) browser video player. Personally tested.</li>
 <li>Codec support is based on the browser used.</li>
-<li>Works on video streaming sites as well.</li>
+<li>Works on video streaming sites, as well as downloaded videos.</li>
 </ul>
 </li>
 <li><a href="https://github.com/animebook/animebook.github.io"><strong>Animebook</strong></a><ul>
@@ -1706,17 +1709,12 @@ You will likely have to create the folder.</p>
 </div>
 </li>
 <li>
-<p>The <code>SentenceReading</code> field may differ from the <code>Sentence</code> field,
-    if you export multiple lines of a subtitle in one card.
-    Because of this, you will likely want to
-    <a href="../faq/#how-do-i-disable-furigana-on-card-generation">disable automatic furigana generation on card add</a>.</p>
-<p>If you still want furigana on your cards,
-<a href="../faq/#how-do-i-bulk-generate-furigana">bulk generate it</a> after each session.</p>
-</li>
-<li>
-<p>This addon has capabilities to
-    <a href="https://github.com/Ajatt-Tools/mpvacious/pull/78">extract the video clip itself</a>
-    as the form of a gif (autoplayable webp).</p>
+<p>A common issue with mpvacious is that
+    the <code>SentenceReading</code> field may differ from the <code>Sentence</code> field,
+    say, if you export multiple subtitles into one card.
+    See the
+    <a href="../faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">FAQ</a>
+    on how to fix it.</p>
 </li>
 </ul>
 <hr />
@@ -1726,7 +1724,7 @@ You will likely have to create the folder.</p>
 <p>To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
     I recommend filling out the following fields as follows:</p>
 <details class="example">
-<summary>asbplayer Fields <em>(click here)</em></summary>
+<summary>asbplayer fields <em>(click here)</em></summary>
 <table>
 <thead>
 <tr>
@@ -1772,43 +1770,59 @@ it is fine to keep the Sentence Field empty.</p>
 </div>
 </details>
 </li>
+<li>
+<p>Any version of asbplayer released after
+    <a href="https://github.com/killergerbah/asbplayer/issues/205">2023/01/16</a> (version 0.25.0 or higher)
+    will now preserve the bolded word within the sentence!
+    However, asbplayer shares the same common issue with mpvacious, where
+    the <code>SentenceReading</code> field may differ from the <code>Sentence</code> field.
+    See the
+    <a href="../faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">FAQ</a>
+    on how to fix it.</p>
+</li>
 </ul>
-<p>There are a few common issues that asbplayer users have, when creating cards with JPMN.</p>
-<ol>
-<li>
-<p><strong>The <code>Sentence</code> field has extra info.</strong></p>
-<p>This is because asbplayer requires you to use its internal <code>Sentence</code> field
-instead of Yomichan's automatically generated sentence.</p>
-<p>However, using this will naturally lead you to the second problem:</p>
-</li>
-<li>
-<p><strong>The word in the <code>Sentence</code> field is not bolded.</strong></p>
-<p>asbplayer's generated sentence does NOT preserve the bold in the <code>Sentence</code> field.</p>
-<p>The note comes with a feature to
-<a href="../ui/#automatic-word-highlighting">automatically highlight the word</a>
-within the sentence.
-However, this is an imperfect solution,
-and there is currently no easy way to add accurate highlighting to existing sentences.
-To guarantee accurate word highlights, your options include:</p>
-<ol>
-<li>Manually bolding the word in Anki.</li>
-<li>Updating the sentence with <a href="../jpresources/#update-sentence-with-clipboard">this script</a>
-    (instead of using asbplayer's sentence field).
-    This script must be ran after each card add.</li>
-<li>Using a different program altogether,
-    such as <a href="https://github.com/Ajatt-Tools/mpvacious">mpvacious</a>.</li>
-</ol>
-</li>
-<li>
-<p><strong>The <code>SentenceReading</code> differs from the <code>Sentence</code> field, or has extra text.</strong></p>
-<p>This relates to the first problem: Yomichan's automatically generated sentence
-differs from asbplayer's sentence field.</p>
-<p>To fix this,
-<a href="../faq/#how-do-i-disable-furigana-on-card-generation">disable automatic furigana generation on card add</a>.</p>
-<p>If you still want furigana on your cards,
-<a href="../faq/#how-do-i-bulk-generate-furigana">bulk generate it</a> after each session.</p>
-</li>
-</ol>
+<!--
+
+There are a few common issues that asbplayer users have, when creating cards with JPMN.
+
+1. **The `Sentence` field has extra info.**
+
+    This is because asbplayer requires you to use its internal `Sentence` field
+    instead of Yomichan's automatically generated sentence.
+
+    However, using this will naturally lead you to the second problem:
+
+1. **The word in the `Sentence` field is not bolded.**
+
+    asbplayer's generated sentence does NOT preserve the bold in the `Sentence` field.
+
+    The note comes with a feature to
+    [automatically highlight the word](ui.md#automatic-word-highlighting)
+    within the sentence.
+    However, this is an imperfect solution,
+    and there is currently no easy way to add accurate highlighting to existing sentences.
+    To guarantee accurate word highlights, your options include:
+
+    1. Manually bolding the word in Anki.
+    1. Updating the sentence with [this script](jpresources.md#update-sentence-with-clipboard)
+        (instead of using asbplayer's sentence field).
+        This script must be ran after each card add.
+    1. Using a different program altogether,
+        such as [mpvacious](https://github.com/Ajatt-Tools/mpvacious).
+
+1. **The `SentenceReading` differs from the `Sentence` field, or has extra text.**
+
+    This relates to the first problem: Yomichan's automatically generated sentence
+    differs from asbplayer's sentence field.
+
+    To fix this,
+    [disable automatic furigana generation on card add](faq.md#how-do-i-disable-furigana-on-card-generation).
+
+    If you still want furigana on your cards,
+    [bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
+
+-->
+
 <hr />
 <h3 id="jidoujisho"><a href="https://github.com/lrorpilla/jidoujisho">jidoujisho</a><a class="headerlink" href="#jidoujisho" title="Permanent link">&para;</a></h3>
 <p>I'm not very sure how the Anki card generation works for this app,
@@ -1816,7 +1830,7 @@ since this app does not use Yomichan.</p>
 <p>The custom handlebars used by JPMN does a lot of heavy lifting
 and has plenty of customizations specifically to work JPMN.
 Unfortunately, this handlebars is not very portable between programs.</p>
-<p>If you want to use this app, I leave it to the reader to figure out the specifics
+<p>If you want to use this app, I leave it to the user to figure out the specifics
 of creating the cards.</p>
 
   <hr>
@@ -1824,7 +1838,7 @@ of creating the cards.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 13, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2023</span>
       
     
   </small>

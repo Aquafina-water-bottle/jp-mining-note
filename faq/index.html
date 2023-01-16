@@ -981,6 +981,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field" class="md-nav__link">
+    The SentenceReading field is not updated / is different from the Sentence field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-word-is-incorrectly-highlighted-not-highlighted-at-all" class="md-nav__link">
     The word is incorrectly highlighted / not highlighted at all.
   </a>
@@ -1276,6 +1283,13 @@
   
     <nav class="md-nav" aria-label="Troubleshooting">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field" class="md-nav__link">
+    The SentenceReading field is not updated / is different from the Sentence field
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#the-word-is-incorrectly-highlighted-not-highlighted-at-all" class="md-nav__link">
@@ -1592,11 +1606,46 @@ or <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/issues">subm
 <hr />
 <h2 class="text-yellow" id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <hr />
+<h3 id="the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">The <code>SentenceReading</code> field is not updated / is different from the <code>Sentence</code> field<a class="headerlink" href="#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field" title="Permanent link">&para;</a></h3>
+<p>This happens because programs such as
+<a href="https://github.com/Ajatt-Tools/mpvacious">mpvacious</a>
+and
+<a href="https://github.com/killergerbah/asbplayer">asbplayer</a>
+update the sentence manually.
+For example, assume the subtitles are the following:</p>
+<ol>
+<li>だって、麻衣さんは遅刻してきた男を、健気に一時間三十八分も</li>
+<li>待っているような可愛げのある女じゃない！さては<b>偽物</b>だな！ {.highlight-bold}</li>
+</ol>
+<p>If you make a card from the highlighted 偽物,
+the <code>Sentence</code> and <code>SentenceReading</code> field will only contain the text from the 2nd subtitle.
+If you then use mpvacious or asbplayer to grab both subtitles,
+the <code>Sentence</code> field will be updated, but the <code>SentenceReading</code> field will <strong>not be updated</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">Partial solutions</p>
+<p>Sometimes, the problem appears because one subtitle can span multiple lines.
+These partial solutions work to solve that problem. However, these do not work
+for when lines span multiple subtitles.</p>
+<ul>
+<li>
+<p>For mpvacious, use a texthooker that can remove all whitespace
+    (i.e. <a href="https://github.com/Renji-XD/texthooker-ui">Renji's Texthooker</a>).</p>
+</li>
+<li>
+<p>For asbplayer, you can remove the line breaks in the subtitle file itself
+    (i.e. with <a href="https://github.com/SubtitleEdit/subtitleedit">SubtitleEdit</a>)</p>
+</li>
+</ul>
+</div>
+<p>The only full solution I know to this is to
+<a href="./#how-do-i-disable-furigana-on-card-generation">disabling automatic furigana generation on card add</a>.
+If you still want furigana on your cards,
+<a href="./#how-do-i-bulk-generate-furigana">bulk generate it</a> after each session.</p>
+<hr />
 <h3 id="the-word-is-incorrectly-highlighted-not-highlighted-at-all">The word is incorrectly highlighted / not highlighted at all.<a class="headerlink" href="#the-word-is-incorrectly-highlighted-not-highlighted-at-all" title="Permanent link">&para;</a></h3>
 <p>The word is usually highlighted by default, but the word may not be highlighted for the following reasons:</p>
 <ul>
-<li>The sentence field got updated by an external program.
-    A notable example is <a href="../setupeverythingelse/#asbplayer">asbplayer</a>.</li>
+<li>The sentence field got updated by an external program.</li>
 <li>The card was imported from an older deck that did not highlight the tested word.</li>
 </ul>
 <p>As of version <code>0.11.1.0</code>, the card will automatically attempt to highlight the word
@@ -1799,6 +1848,8 @@ fill the <code>IsSentenceCard</code> field there.</p>
     Afterwards, restart Anki.</p>
 </li>
 </ol>
+<p>You likely want to bulk-generate the furigana if you are disabling furigana on card generation.
+See the question below to do just that.</p>
 <hr />
 <h3 id="how-do-i-bulk-generate-furigana">How do I bulk generate furigana?<a class="headerlink" href="#how-do-i-bulk-generate-furigana" title="Permanent link">&para;</a></h3>
 <ol>
@@ -2011,7 +2062,7 @@ within <a href="https://github.com/FooSoft/yomichan#frequently-asked-questions" 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 5, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2023</span>
       
     
   </small>
