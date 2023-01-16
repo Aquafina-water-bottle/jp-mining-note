@@ -106,12 +106,52 @@ or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/iss
 
 ---
 
+
+
+## The `SentenceReading` field is not updated / is different from the `Sentence` field
+
+This happens because programs such as
+[mpvacious](https://github.com/Ajatt-Tools/mpvacious)
+and
+[asbplayer](https://github.com/killergerbah/asbplayer)
+update the sentence manually.
+For example, assume the subtitles are the following:
+
+1. だって、麻衣さんは遅刻してきた男を、健気に一時間三十八分も
+2. 待っているような可愛げのある女じゃない！さては<b>偽物</b>だな！ {.highlight-bold}
+
+If you make a card from the highlighted 偽物,
+the `Sentence` and `SentenceReading` field will only contain the text from the 2nd subtitle.
+If you then use mpvacious or asbplayer to grab both subtitles,
+the `Sentence` field will be updated, but the `SentenceReading` field will **not be updated**.
+
+!!! info "Partial solutions"
+
+    Sometimes, the problem appears because one subtitle can span multiple lines.
+    These partial solutions work to solve that problem. However, these do not work
+    for when lines span multiple subtitles.
+
+    * For mpvacious, use a texthooker that can remove all whitespace
+        (i.e. [Renji's Texthooker](https://github.com/Renji-XD/texthooker-ui)).
+
+    * For asbplayer, you can remove the line breaks in the subtitle file itself
+        (i.e. with [SubtitleEdit](https://github.com/SubtitleEdit/subtitleedit))
+
+The only full solution I know to this is to
+[disabling automatic furigana generation on card add](faq.md#how-do-i-disable-furigana-on-card-generation).
+If you still want furigana on your cards,
+[bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
+
+---
+
+
+
+
 ## The word is incorrectly highlighted / not highlighted at all.
 
 The word is usually highlighted by default, but the word may not be highlighted for the following reasons:
 
 - The sentence field got updated by an external program.
-    A notable example is [asbplayer](setupeverythingelse.md#asbplayer).
 - The card was imported from an older deck that did not highlight the tested word.
 
 As of version `0.11.1.0`, the card will automatically attempt to highlight the word
@@ -361,6 +401,9 @@ You have three main options:
 
 1. If you are using the AJT Furigana addon, edit the config and set `generate_on_note_add` to `false`.
     Afterwards, restart Anki.
+
+You likely want to bulk-generate the furigana if you are disabling furigana on card generation.
+See the question below to do just that.
 
 ---
 

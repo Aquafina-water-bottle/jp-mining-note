@@ -190,13 +190,16 @@ The following are primarily for text-heavy games, such as visual novels.
 Video content includes streamed content (Youtube, Netflix, etc.) and locally downloaded files.
 
 ??? example "Resources *(click here)*"
-    * [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious) (recommended if you are using MPV)
+    * [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious) (recommended for downloaded videos / if you are using mpv)
         * Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
-        * Basically universal codec support.
-    * [**asbplayer**](https://github.com/killergerbah/asbplayer)
+        * Basically universal codec support since it uses mpv.
+        * This addon has capabilities to
+            [extract the video clip itself](https://github.com/Ajatt-Tools/mpvacious/pull/78)
+            as the form of a gif (autoplayable webp).
+    * [**asbplayer**](https://github.com/killergerbah/asbplayer) (recommended for streamed sites)
         * Cross platform (chromium) browser video player. Personally tested.
         * Codec support is based on the browser used.
-        * Works on video streaming sites as well.
+        * Works on video streaming sites, as well as downloaded videos.
     * [**Animebook**](https://github.com/animebook/animebook.github.io)
         * Cross platform (chromium) browser video player.
         * Codec support is based on the browser used.
@@ -402,17 +405,12 @@ Other websites have significantly larger resource lists that may prove useful fo
 
         Additionally, be sure to restart MPV after changing the config to apply the changes.
 
-* The `SentenceReading` field may differ from the `Sentence` field,
-    if you export multiple lines of a subtitle in one card.
-    Because of this, you will likely want to
-    [disable automatic furigana generation on card add](faq.md#how-do-i-disable-furigana-on-card-generation).
-
-    If you still want furigana on your cards,
-    [bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
-
-* This addon has capabilities to
-    [extract the video clip itself](https://github.com/Ajatt-Tools/mpvacious/pull/78)
-    as the form of a gif (autoplayable webp).
+* A common issue with mpvacious is that
+    the `SentenceReading` field may differ from the `Sentence` field,
+    say, if you export multiple subtitles into one card.
+    See the
+    [FAQ](faq.md#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field)
+    on how to fix it.
 
 ---
 
@@ -421,7 +419,7 @@ Other websites have significantly larger resource lists that may prove useful fo
 * To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
     I recommend filling out the following fields as follows:
 
-    ??? example "asbplayer Fields *(click here)*"
+    ??? example "asbplayer fields *(click here)*"
         | asbplayer field | JPMN field |
         |:-:|:-:|
         | Sentence Field   { .smaller-table-row} | `Sentence`        { .smaller-table-row} |
@@ -436,6 +434,17 @@ Other websites have significantly larger resource lists that may prove useful fo
             Chances are that you are using subtitles. However, if you are not using subtitles,
             it is fine to keep the Sentence Field empty.
 
+* Any version of asbplayer released after
+    [2023/01/16](https://github.com/killergerbah/asbplayer/issues/205) (version 0.25.0 or higher)
+    will now preserve the bolded word within the sentence!
+    However, asbplayer shares the same common issue with mpvacious, where
+    the `SentenceReading` field may differ from the `Sentence` field.
+    See the
+    [FAQ](faq.md#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field)
+    on how to fix it.
+
+
+<!--
 
 There are a few common issues that asbplayer users have, when creating cards with JPMN.
 
@@ -475,6 +484,7 @@ There are a few common issues that asbplayer users have, when creating cards wit
     If you still want furigana on your cards,
     [bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
 
+-->
 
 ---
 
@@ -487,6 +497,6 @@ The custom handlebars used by JPMN does a lot of heavy lifting
 and has plenty of customizations specifically to work JPMN.
 Unfortunately, this handlebars is not very portable between programs.
 
-If you want to use this app, I leave it to the reader to figure out the specifics
+If you want to use this app, I leave it to the user to figure out the specifics
 of creating the cards.
 
