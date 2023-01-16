@@ -118,7 +118,7 @@ update the sentence manually.
 For example, assume the subtitles are the following:
 
 1. だって、麻衣さんは遅刻してきた男を、健気に一時間三十八分も
-2. 待っているような可愛げのある女じゃない！さては<b>偽物</b>だな！ {.highlight-bold}
+2. <span class="highlight-bold">待っているような可愛げのある女じゃない！さては<b>偽物</b>だな！</span>
 
 If you make a card from the highlighted 偽物,
 the `Sentence` and `SentenceReading` field will only contain the text from the 2nd subtitle.
