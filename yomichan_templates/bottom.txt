@@ -1,5 +1,5 @@
 {{~! =======   ORIGINAL YOMICHAN TEMPLATE CODE ABOVE   ======= ~}}
-{{~! Yomichan template code version: v22.12.18.0 ~}}
+{{~! Yomichan template code version: v23.01.16.0 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
@@ -411,12 +411,25 @@ is a part of a dictionary) ~}}
     {{~/if~}}
 {{/inline}}
 
-{{~! taken from here: https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency ~}}
+{{~! base code taken from: https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency ~}}
 {{~#*inline "jpmn-min-freq"~}}
     {{~#scope~}}
         {{~#set "min-freq" 0~}}{{~/set~}}
             {{~#each definition.frequencies~}}
-                {{~#if (op "||" (op "===" (get "min-freq") 0) (op ">" (op "+" (get "min-freq")) (op "+" (regexMatch "\d" "g" this.frequency))))}}
+
+                {{~#set "rx-match-ignored-freq" ~}}
+                    {{~#regexMatch (get "ignored-freq-dict-regex") "gu"~}}{{this.dictionary}}{{~/regexMatch~}}
+                {{/set~}}
+
+                {{~#if
+                    (op "&&"
+                        (op "||"
+                            (op "===" (get "min-freq") 0)
+                            (op ">" (op "+" (get "min-freq")) (op "+" (regexMatch "\d" "g" this.frequency)))
+                        )
+                        (op "===" (get "rx-match-ignored-freq") "")
+                    )
+                ~}}
                     {{~#set "min-freq" (op "+" (regexMatch "\d" "g" this.frequency))}}{{/set~}}
                 {{~/if~}}
             {{~/each~}}
