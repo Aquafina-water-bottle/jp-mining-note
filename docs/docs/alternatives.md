@@ -356,6 +356,14 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 ---
 
 
+# jidoujisho's Note Type
+
+The app [jidoujisho](https://github.com/lrorpilla/jidoujisho)
+comes with its own Anki template, that should be automatically generated
+on the first card add when using the app.
+
+---
+
 
 
 
