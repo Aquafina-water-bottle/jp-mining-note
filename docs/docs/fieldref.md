@@ -337,6 +337,13 @@ to see how to sort and review your cards by frequency.
 ---
 
 # Cloze Deletion Cards
+
+!!! warning
+    I recently realized that I attached the wrong name to these cards.
+    These should be simply known as "Audio cards", i.e. word audio card or sentence audio card.
+    Although "Cloze Deletion" will be used throughout the templates and documentation,
+    it will be renamed to "Audio cards" when version `0.12.0.0` releases.
+
 Cloze Deletion cards are, simply put, "fill-in-the-blank cards".
 This allows you to create cards that tests word audio or sentence audio.
 
