@@ -146,6 +146,13 @@ and choosing the add-ons that seem appealing for you.
 
 > Code: `181103283`
 
+!!! warning
+    As of writing this (2023/01/18), the author still has not updated their add-on
+    to work with Anki versions 2.1.55 and over.
+    For those who are interested in patching it themselves, use
+    [this PR](https://github.com/kleinerpirat/anki-css-injector/pull/3)
+    to build the add-on, and install the add-on manually.
+
 I *strongly* recommend using this, because
 if you don't use this, the fields within the Anki field editor
 won't have certain stylizations that makes the field actually interpretable.
