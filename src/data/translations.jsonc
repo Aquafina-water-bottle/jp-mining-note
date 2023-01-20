@@ -42,8 +42,8 @@
     "primary-definition": "一番目の定義",
     "secondary-definition": "二番目の定義",
     "additional-notes": "メモ",
-    "extra-definitions": "余計な定義",
-    "extra-info": "余計な情報",
+    "extra-definitions": "他の定義",
+    "extra-info": "他の情報",
 
     "show-word-button": "表す",
     "hide-word-button": "隠す",
@@ -52,7 +52,7 @@
     "kanji-not-found": "漢字は見つかれません｡",
     //"kanji-not-found": "漢字は見つかれません",
 
-    "pa-indicator-prefix": "ピーチ：",
+    "pa-indicator-prefix": "ピッチ：",
     "pa-indicator-do-not-test": "採点しないでください", // slightly different meaning but it works
     "pa-indicator-word": "単語",
     "pa-indicator-sentence": "文",
