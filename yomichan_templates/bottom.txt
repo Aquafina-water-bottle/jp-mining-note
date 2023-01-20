@@ -320,8 +320,10 @@ is a part of a dictionary) ~}}
     {{~#scope~}}
 
         {{~#if (op "===" dictionary "NHK日本語発音アクセント新辞典")~}}
-            {{~#regexReplace "<br> ・" "<br>" "g"~}}
-                {{~> _jpmn-glossary-single2 . ~}}
+            {{~#regexReplace "<br></span> ・" "<br></span>" "g"~}}
+                {{~#regexReplace "<br> ・" "<br>" "g"~}}
+                    {{~> _jpmn-glossary-single2 . ~}}
+                {{~/regexReplace~}}
             {{~/regexReplace~}}
         {{~else~}}
             {{~> _jpmn-glossary-single2 . ~}}
