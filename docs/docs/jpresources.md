@@ -1039,6 +1039,57 @@ so this has helped me immensely.
 
 
 
+# Settings / CSS for [Renji's texthooker](https://github.com/Renji-XD/texthooker-ui)
+I use the following to make Renji's texthooker look more like Anacreon's texthooker.
+
+**Settings:**
+
+| Setting | Value |
+|-|-|
+| Preserve Whitespace | {{ UNCHECKED_CHECKBOX }} |
+| Remove Whitespace | {{ CHECKED_CHECKBOX }} |
+
+**Custom CSS:**
+```css
+main > p {
+  padding: 0rem !important;
+}
+
+main {
+  padding-left: min(5%, 5rem) !important;
+  padding-right: min(5%, 5rem) !important;
+}
+
+body > div > textarea {
+  font-size: 24px !important;
+}
+```
+
+
+??? note "Note on the font"
+    I set the font to be Noto Sans, but this will likely not work without
+    downloading and installing the font first
+    (e.g. from [here](https://github.com/googlefonts/noto-cjk/tree/main/Sans/OTF/Japanese)).
+    Below is the actual full CSS that I use in conjuction with the installed font:
+
+    ```css
+    main > p {
+      padding: 0rem !important;
+    }
+
+    main {
+      padding-left: min(5%, 5rem) !important;
+      padding-right: min(5%, 5rem) !important;
+      font-family: "Noto Sans CJK JP" !important; /* <-- new! */
+    }
+
+    body > div > textarea {
+      font-size: 24px !important;
+    }
+    ```
+
+
+
 # Send text from Anki to your texthooker
 
 This is a very quick hack to have text from Anki to appear on a websocket based texthooker.
