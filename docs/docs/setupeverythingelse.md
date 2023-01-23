@@ -35,15 +35,17 @@ This shouldn't be an issue as long as you change the appropriate the field names
 
 # Getting the Text to Create the Cards
 
-I use a texthooker setup, which is able to extract subtitles or text into the browser.
+I use a texthooker setup,
+which is able to extract subtitles or text into the browser.
 Once the text is on the browser, you can use Yomichan to select the word and create the
-Anki card (click on the green plus button).
+Anki card (by clicking on the green plus button).
 
-The classic texthooker setup works for most games, and any show with subtitle files.
+The standard texthooker setup works for most games, and any show with subtitle files.
 
 
 ## Texthooker pages (clipboard based)
-These pages display the hooked content.
+These pages display the hooked content, where the hooked content is communicated
+via automated clipboard (copy/paste) tools.
 Most setups documented are for clipboard based texthooker pages.
 
 ??? example "Resources *(click here)*"
@@ -56,6 +58,7 @@ Most setups documented are for clipboard based texthooker pages.
             Use the first extension if you are using a chromium based browser.
     * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
         * Open source and more featureful alternative to the more popular Anacreon's texthooker page.
+        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
     * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
     * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
 
@@ -70,6 +73,8 @@ Most setups documented are for clipboard based texthooker pages.
 
 
 ## Texthooker pages (Websocket based)
+These pages display the hooked content, where the hooked content is communicated
+via Websockets.
 Websocket based texthookers are better in almost every aspect:
 
 * They are generally faster and more reliable.
@@ -79,12 +84,13 @@ Websocket based texthookers are better in almost every aspect:
 However, there is usually less support and requires more specialized coordination between programs.
 
 All of the options below are intended to be used with
-[Textractor](https://github.com/Artikash/Textractor).
+[Textractor](https://github.com/Artikash/Textractor)
+(meaning that this setup only works for video games).
 I'm currently unaware of a websocket-based setup that works with video content.
 
 ??? example "Resources *(click here)*"
     * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
-
+        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
         * This texthooker page comes with built in support for both websockets and
             clipboard inserter plugins.
 
@@ -111,7 +117,7 @@ I'm currently unaware of a websocket-based setup that works with video content.
 
             !!! warning
                 This is a monkey patch, even according to the author. Now that better alternatives
-                have came out (see above), I recommended to use said alternatives.
+                have came out (see above), I recommend to use said alternatives.
 
             1. Download your favorite texthooker page into a raw html file.
             1. Copy/paste the code below to the very end of the raw html file.
