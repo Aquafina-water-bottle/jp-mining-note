@@ -1287,12 +1287,14 @@ to other note types.
 This shouldn't be an issue as long as you change the appropriate the field names.</p>
 <hr />
 <h2 id="getting-the-text-to-create-the-cards">Getting the Text to Create the Cards<a class="headerlink" href="#getting-the-text-to-create-the-cards" title="Permanent link">&para;</a></h2>
-<p>I use a texthooker setup, which is able to extract subtitles or text into the browser.
+<p>I use a texthooker setup,
+which is able to extract subtitles or text into the browser.
 Once the text is on the browser, you can use Yomichan to select the word and create the
-Anki card (click on the green plus button).</p>
-<p>The classic texthooker setup works for most games, and any show with subtitle files.</p>
+Anki card (by clicking on the green plus button).</p>
+<p>The standard texthooker setup works for most games, and any show with subtitle files.</p>
 <h3 id="texthooker-pages-clipboard-based">Texthooker pages (clipboard based)<a class="headerlink" href="#texthooker-pages-clipboard-based" title="Permanent link">&para;</a></h3>
-<p>These pages display the hooked content.
+<p>These pages display the hooked content, where the hooked content is communicated
+via automated clipboard (copy/paste) tools.
 Most setups documented are for clipboard based texthooker pages.</p>
 <details class="example">
 <summary>Resources <em>(click here)</em></summary>
@@ -1310,6 +1312,7 @@ Most setups documented are for clipboard based texthooker pages.</p>
 </li>
 <li><a href="https://github.com/Renji-XD/texthooker-ui"><strong>Renji's Texthooker Page</strong></a> (recommended)<ul>
 <li>Open source and more featureful alternative to the more popular Anacreon's texthooker page.</li>
+<li>I use <a href="../jpresources/#settings-css-for-renjis-texthooker">these settings</a> to make the text more compressed.</li>
 </ul>
 </li>
 <li><a href="https://anacreondjt.gitlab.io/docs/texthooker/"><strong>Anacreon's Texthooker Page</strong></a></li>
@@ -1327,7 +1330,9 @@ Most setups documented are for clipboard based texthooker pages.</p>
 </details>
 <hr />
 <h3 id="texthooker-pages-websocket-based">Texthooker pages (Websocket based)<a class="headerlink" href="#texthooker-pages-websocket-based" title="Permanent link">&para;</a></h3>
-<p>Websocket based texthookers are better in almost every aspect:</p>
+<p>These pages display the hooked content, where the hooked content is communicated
+via Websockets.
+Websocket based texthookers are better in almost every aspect:</p>
 <ul>
 <li>They are generally faster and more reliable.</li>
 <li>They do not flood your clipboard.</li>
@@ -1335,7 +1340,8 @@ Most setups documented are for clipboard based texthooker pages.</p>
 </ul>
 <p>However, there is usually less support and requires more specialized coordination between programs.</p>
 <p>All of the options below are intended to be used with
-<a href="https://github.com/Artikash/Textractor">Textractor</a>.
+<a href="https://github.com/Artikash/Textractor">Textractor</a>
+(meaning that this setup only works for video games).
 I'm currently unaware of a websocket-based setup that works with video content.</p>
 <details class="example">
 <summary>Resources <em>(click here)</em></summary>
@@ -1343,6 +1349,7 @@ I'm currently unaware of a websocket-based setup that works with video content.<
 <li>
 <p><a href="https://github.com/Renji-XD/texthooker-ui"><strong>Renji's Texthooker Page</strong></a> (recommended)</p>
 <ul>
+<li>I use <a href="../jpresources/#settings-css-for-renjis-texthooker">these settings</a> to make the text more compressed.</li>
 <li>This texthooker page comes with built in support for both websockets and
     clipboard inserter plugins.</li>
 </ul>
@@ -1377,7 +1384,7 @@ I'm currently unaware of a websocket-based setup that works with video content.<
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This is a monkey patch, even according to the author. Now that better alternatives
-have came out (see above), I recommended to use said alternatives.</p>
+have came out (see above), I recommend to use said alternatives.</p>
 </div>
 <ol>
 <li>Download your favorite texthooker page into a raw html file.</li>
@@ -1838,7 +1845,7 @@ of creating the cards.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 23, 2023</span>
       
     
   </small>
