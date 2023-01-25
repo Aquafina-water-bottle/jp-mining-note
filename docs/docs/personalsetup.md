@@ -417,6 +417,10 @@ code {
 - nothing is set in stone, etc. etc. things are likely not even implemented yet
 
 
+# Other
+- [TMW github source](https://github.com/shoui520/shoui520.github.io) since I keep losing this link
+
+
 
 
 

@@ -1040,7 +1040,8 @@ so this has helped me immensely.
 
 
 # Settings / CSS for [Renji's texthooker](https://github.com/Renji-XD/texthooker-ui)
-I use the following to make Renji's texthooker look more like Anacreon's texthooker.
+I use the following stylizations to remove unnecessary padding within the document,
+and to behave more similarly to Anacreon's texthooker.
 
 **Settings:**
 
@@ -1066,7 +1067,7 @@ body > div > textarea {
 ```
 
 
-??? note "Note on the font"
+??? note "Using a custom font *(click here)*"
     I set the font to be Noto Sans, but this will likely not work without
     downloading and installing the font first
     (e.g. from [here](https://github.com/googlefonts/noto-cjk/tree/main/Sans/OTF/Japanese)).

@@ -212,6 +212,17 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
     * All of the above require subtitle files to function.
         See [here](https://learnjapanese.moe/resources/#subtitles) for a basic list of sites
         where you can get subtitles from.
+    * One challenge for video content is that subtitles are usually not aligned properly
+        if the subtitles are downloaded separately from the video.
+        I've always used a combination of
+        [mkvextract](https://mkvtoolnix.download/downloads.html)
+        (to extract the subtitle file from the `.mkv` file)
+        and
+        [alass](https://github.com/kaegi/alass/)
+        (to align the native subtitles with reference subtitles, usually in a different language)
+        to get the job done.
+        If you want more options, see
+        [this page](https://zenith-raincoat-5cf.notion.site/Subtitles-0166a2d329474a43968bdbcb32739263).
 
     **Other:**
 
@@ -234,6 +245,9 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
     * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/) (animebook)
         * Contact info: `eminent#8189` <!-- 126903585152827392 -->
             on {{ PERDITION_SERVER }} or {{ TMW_SERVER }}
+
+
+
 
 ---
 
