@@ -1,6 +1,7 @@
 import { Module } from '../module';
-import { O, getOption } from '../options';
-import { Persistence } from '../persistence';
+//import { O, getOption } from '../options';
+import {selectPersist, SPersistInterface} from '../spersist';
+//import { Persistence } from '../persistence';
 import { throwOnNotFound } from '../utils';
 
 type InfoCircleSettingId =
@@ -19,11 +20,14 @@ export class InfoCircleSetting extends Module {
 
   readonly btn: HTMLElement;
   private readonly persistKey?: string;
+  private readonly persist: SPersistInterface | null;
 
   constructor(settingId: InfoCircleSettingId, persistKey?: string) {
     super(`sm:infoCircleSetting:${settingId}`);
     this.btn = throwOnNotFound(settingId);
     this.persistKey = persistKey;
+    this.persist = selectPersist("window");
+    this.logger.debug(this.persist?.getType() ?? "bruh");
   }
 
   getNextState(): number | undefined {
@@ -75,8 +79,8 @@ export class InfoCircleSetting extends Module {
     // next is now an int
     let current = next - 1 === -1 ? this.btn.children.length - 1 : next - 1;
 
-    if (Persistence.isAvailable() && this.persistKey !== undefined) {
-      Persistence.setItem(this.persistKey, `${next}`);
+    if (this.persist !== null && this.persistKey !== undefined) {
+      this.persist.set(this.persistKey, `${next}`);
     }
 
     this.btn.children[current].classList.toggle('hidden', true);
@@ -84,6 +88,7 @@ export class InfoCircleSetting extends Module {
     return next;
   }
 
+  // inits the setting icon to be whatever is stored in persistence (if any)
   // opt is used to get the default
   // optional defaultState: if defaultState is undefined, then there are no states
   initDisplay(defaultState?: number): number | undefined {
@@ -99,13 +104,12 @@ export class InfoCircleSetting extends Module {
     let state: number = defaultState;
 
     // checks persistence
-    if (Persistence.isAvailable()) {
+    if (this.persist !== null) {
       if (this.persistKey !== undefined && defaultState !== undefined) {
-        if (Persistence.getItem(this.persistKey) === null) {
-          // init
-          Persistence.setItem(this.persistKey, `${defaultState}`);
+        if (!this.persist.has(this.persistKey)) {
+          this.persist.set(this.persistKey, `${defaultState}`);
         }
-        state = Number(Persistence.getItem(this.persistKey));
+        state = Number(this.persist.get(this.persistKey));
       }
     } else {
       // TODO togglable warn
