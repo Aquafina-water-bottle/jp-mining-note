@@ -30,9 +30,8 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   // on any javascript error: log it
   window.onerror = function (_msg, _url, _lineNo, _columnNo, error) {
-    // TODO implement errorStack
-    //LOGGER.errorStack(error.stack);
-    LOGGER.error(error?.stack ?? 'Unknown runtime error');
+    LOGGER.errorStack(error?.stack ?? 'Unknown runtime error');
+    //LOGGER.error(error?.stack ?? 'Unknown runtime error');
   };
 
   // https://stackoverflow.com/a/55178672

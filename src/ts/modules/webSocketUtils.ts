@@ -2,6 +2,7 @@ import { RunnableModule } from '../module';
 import { getOption } from '../options';
 import { InfoCircleSetting } from './infoCircleSetting';
 import { CardSide, popupMenuMessage } from '../utils';
+import {selectPersist, SPersistInterface} from '../spersist';
 
 const persistKey = 'jpmn-websocket';
 const settingId = 'info_circle_text_settings_websocket_toggle';
@@ -9,33 +10,25 @@ const settingId = 'info_circle_text_settings_websocket_toggle';
 export class WebSocketUtils extends RunnableModule {
   private readonly setting = new InfoCircleSetting(settingId, persistKey);
   private readonly cardSide: CardSide;
+  private readonly persist: SPersistInterface | null;
 
   constructor(cardSide: CardSide) {
     super('webSocketUtils');
     this.cardSide = cardSide;
+    this.persist = selectPersist("window");
   }
 
-  openWebSocket() {
-    // ideally, the socket should be a global variable stored between cards
-    // but Persistence only stores strings due to its window.sessionStorage
-    // implementation.
+  fallbackSendMsg() {
+    // fallback implementation when the websocket object can't be persisted
 
     const url = getOption('webSocketUtils.url');
+
     const socket: WebSocket = new WebSocket(url);
 
     socket.onopen = (_e) => {
       this.logger.debug(`Socket initialized with url=${url}`);
 
-      if (getOption('webSocketUtils.sendSentence')) {
-        const ele = document.getElementById('full_sentence');
-        if (ele !== null) {
-          const sentence = ele.textContent?.trim() ?? "";
-          if (sentence.length > 0) {
-            this.logger.debug(`Socket sending sentence=${sentence}`);
-            socket.send(sentence);
-          }
-        }
-      }
+      this.sendMsgFromSocket(socket);
 
       this.setting.displayAs(1);
 
@@ -51,6 +44,108 @@ export class WebSocketUtils extends RunnableModule {
       this.logger.error(`Cannot open websocket.`);
       this.setting.displayAs(0); // reset display
     };
+
+
+  }
+
+  createWebSocket(sendMsgOnOpen: boolean) {
+
+    const url = getOption('webSocketUtils.url');
+    const socket = new WebSocket(url);
+
+    socket.onopen = (_e) => {
+      this.logger.debug(`Socket initialized with url=${url}`);
+      if (sendMsgOnOpen) {
+        this.sendMsg();
+      }
+    };
+
+    socket.onclose = (_e) => {
+      this.logger.debug(`Socket closed with url=${url}`);
+    };
+
+    socket.onerror = (_e) => {
+      this.logger.error(`Cannot open websocket.`);
+      this.setting.displayAs(0); // reset display
+    };
+
+    return socket;
+  }
+
+  openWebSocket() {
+    if (this.persist === null) {
+      // TODO ignore warnings?
+      this.logger.warn("No available SPersist implementation. Cannot open and persist websocket.")
+      return;
+    }
+
+    if (this.persist.has(persistKey)) {
+      const webSocket = this.persist.get(persistKey) as WebSocket;
+      if (webSocket.readyState === WebSocket.CLOSING || webSocket.readyState === WebSocket.CLOSED) {
+        // create new instance
+        this.persist.set(persistKey, this.createWebSocket(false));
+      }
+    } else {
+      this.persist.set(persistKey, this.createWebSocket(false));
+    }
+  }
+
+  // opens the websocket if it doesn't exist or it's closed,
+  // and sends the message (either on open, or instantly if already opened)
+  openAndUseWebSocket() {
+
+    if (this.persist === null) {
+      // TODO ignore warnings?
+      this.logger.warn("No available SPersist implementation. Falling back to instant open/close websocket.")
+      this.fallbackSendMsg();
+      return;
+    }
+
+    if (this.persist.has(persistKey)) {
+      const ws = this.persist.get(persistKey) as WebSocket;
+      if (ws.readyState === WebSocket.CLOSING || ws.readyState === WebSocket.CLOSED) {
+        // create new instance
+        this.persist.set(persistKey, this.createWebSocket(true));
+      } else {
+        this.sendMsg();
+      }
+    } else {
+      this.persist.set(persistKey, this.createWebSocket(true));
+    }
+
+  }
+
+  sendMsg() {
+
+    if (this.persist === null) {
+      // TODO ignore warnings?
+      this.logger.warn("No available SPersist implementation. Cannot use sendMsg().")
+      return;
+    }
+
+    if (!this.persist.has(persistKey)) {
+      this.logger.warn("Websocket not found in SPersist.")
+      return;
+    }
+
+    const ws = this.persist.get(persistKey) as WebSocket;
+    this.sendMsgFromSocket(ws);
+  }
+
+  sendMsgFromSocket(ws: WebSocket) {
+    if (getOption('webSocketUtils.sendSentence')) {
+      const ele = document.getElementById('full_sentence');
+      if (ele !== null) {
+        const sentence = ele.textContent?.trim() ?? "";
+        if (sentence.length > 0) {
+          this.logger.debug(`Socket sending sentence=${sentence}`);
+          ws.send(sentence);
+        }
+      }
+    }
+  }
+
+  closeWebSocket() {
   }
 
   main() {
@@ -60,7 +155,10 @@ export class WebSocketUtils extends RunnableModule {
     // truly amazing
     let state = this.setting.initDisplay(+!!getOption('webSocketUtils.defaultIsEnabled'));
     if (state === 1 && this.cardSide === "back") {
-      this.openWebSocket();
+      //this.openWebSocket();
+      //this.sendMsg();
+      //if (this.persist.has
+      this.openAndUseWebSocket();
     }
 
     // toggle state
@@ -72,9 +170,9 @@ export class WebSocketUtils extends RunnableModule {
       } else if (newState === 1) {
         // switched to on
         if (this.cardSide === "back") {
-          this.openWebSocket();
+          this.openAndUseWebSocket();
         } else {
-          this.setting.displayAs(newState);
+          this.openWebSocket();
         }
         popupMenuMessage("Enabled websocket");
       }
