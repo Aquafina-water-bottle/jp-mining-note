@@ -210,8 +210,11 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
         * Cross platform (chromium) browser video player.
         * Codec support is based on the browser used.
     * All of the above require subtitle files to function.
-        See [here](https://learnjapanese.moe/resources/#subtitles) for a basic list of sites
-        where you can get subtitles from.
+        See
+        [here](https://learnjapanese.moe/resources/#subtitles)
+        and/or
+        [here](https://gist.github.com/tatsumoto-ren/78ba4e5b7c53c7ed2c987015fa05cc2b)
+        for some websites where you can get subtitles from.
     * One challenge for video content is that subtitles are usually not aligned properly
         if the subtitles are downloaded separately from the video.
         I've always used a combination of
