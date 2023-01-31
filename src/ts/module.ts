@@ -22,7 +22,8 @@ export type ModuleId =
   | 'infoCircleUtils'
   | 'freqUtils'
   | 'fixRubyPositioning'
-  | 'checkDuplicateKey';
+  | 'checkDuplicateKey'
+  | 'asyncManager';
 
 
 // TODO: using OverrideValue<K> creates an error:
