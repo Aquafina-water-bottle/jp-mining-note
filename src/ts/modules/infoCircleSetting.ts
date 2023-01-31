@@ -27,7 +27,6 @@ export class InfoCircleSetting extends Module {
     this.btn = throwOnNotFound(settingId);
     this.persistKey = persistKey;
     this.persist = selectPersist("window");
-    this.logger.debug(this.persist?.getType() ?? "bruh");
   }
 
   getNextState(): number | undefined {

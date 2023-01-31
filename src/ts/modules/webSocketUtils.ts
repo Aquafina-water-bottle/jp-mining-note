@@ -165,7 +165,10 @@ export class WebSocketUtils extends RunnableModule {
 
   closeWebSocket() {
     this.setting.displayAs(0);
-    this.persist?.pop(persistKey);
+    if (this.persist?.has(persistKey)) {
+      const socket = this.persist?.pop(persistKey) as WebSocket;
+      socket.close();
+    }
   }
 
   main() {
