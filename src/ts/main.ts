@@ -22,6 +22,7 @@ import { MobileUtils } from './modules/mobileUtils';
 import { InfoCircleUtils } from './modules/infoCircleUtils';
 import { FixRubyPositioning } from './modules/fixRubyPositioning';
 import { CheckDuplicateKey } from './modules/checkDuplicateKey';
+import {AsyncManager} from './modules/asyncManager';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -121,14 +122,8 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   }
 
   if (cardSide === 'back') {
-    // TODO async scheduler
-    if (compileOpts['enableModule.kanjiHover']) {
-      new KanjiHover().run();
-    }
-    if (compileOpts['enableModule.wordIndicators']) {
-      new WordIndicators().run();
-    }
-
+    // TODO async scheduler on some modules here
+    // TODO separate these between async and synchronous somewhow?
     if (compileOpts['enableModule.collapseDictionaries']) {
       new CollapseDictionaries().run();
     }
@@ -162,4 +157,16 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   if (compileOpts['enableModule.checkDuplicateKey']) {
     new CheckDuplicateKey().run();
   }
+
+
+  const asyncManager = new AsyncManager();
+
+  if (compileOpts['enableModule.kanjiHover']) {
+    asyncManager.addModule(new KanjiHover());
+  }
+  if (compileOpts['enableModule.wordIndicators']) {
+    asyncManager.addModule(new WordIndicators());
+  }
+  asyncManager.runModules();
+
 }

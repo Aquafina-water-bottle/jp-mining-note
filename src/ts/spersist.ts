@@ -29,7 +29,7 @@ export function selectPersist(types: SPeristType[] = ["sessionStorage", "window"
   set(key: string, value: any): void;
 
   ///* Removes the key-value pair, and returns the value. */
-  //pop(key: string): void;
+  pop(key: string): any;
 
   ///* Retrieves all keys in storage. */
   //keys(): string[];
@@ -71,6 +71,12 @@ export class SPersistSessionStorage implements SPersistInterface {
     globalThis.sessionStorage.setItem(_persistenceKey + key, value);
   }
 
+  pop(key: string): any {
+    const item = this.get(key);
+    globalThis.sessionStorage.removeItem(_persistenceKey + key);
+    return item;
+  }
+
   onlyStoresStrings() {
     return true;
   }
@@ -84,7 +90,8 @@ class SPersistObj implements SPersistInterface {
   private storage: Record<string, any>;
 
   constructor(obj: object) {
-    this.storage = {};
+    (obj as any)[_persistenceKey] = {}
+    this.storage = (obj as any)[_persistenceKey];
   }
 
   //isAvailable() {
@@ -104,6 +111,12 @@ class SPersistObj implements SPersistInterface {
 
   set(key: string, value: any) {
     this.storage[key] = value;
+  }
+
+  pop(key: string): any {
+    const item = this.storage[key]
+    delete this.storage[key]
+    return item;
   }
 
   onlyStoresStrings() {
