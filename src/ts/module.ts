@@ -22,8 +22,7 @@ export type ModuleId =
   | 'infoCircleUtils'
   | 'freqUtils'
   | 'fixRubyPositioning'
-  | 'checkDuplicateKey'
-  | 'asyncManager';
+  | 'checkDuplicateKey';
 
 
 // TODO: using OverrideValue<K> creates an error:
@@ -82,4 +81,14 @@ export abstract class RunnableModule extends Module {
   }
 
   abstract main(): void;
+}
+
+
+export abstract class RunnableAsyncModule extends RunnableModule {
+  async run() {
+    // to call run() except in an async context
+    RunnableModule.prototype.run.call(this)
+  }
+
+  // still requires main() to be implemented!
 }

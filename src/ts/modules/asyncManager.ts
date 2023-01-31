@@ -1,4 +1,4 @@
-import { Module, RunnableModule } from "../module"
+import { Module, RunnableModule, RunnableAsyncModule } from "../module"
 import { getOption } from "../options"
 
 /*
@@ -15,6 +15,12 @@ TODO:
   - for issue where people can review cards very fast (faster than the sum of all sync actions)
 - make sure all async actions are run after html render
   - to prevent the weird 50ms hack
+  - the following doesn't work??? will likely still have to use the 50ms hack
+
+      window.addEventListener("load", (event) => {
+        console.log("AAA");
+      });
+
 - all things in one card should be ran as one group
 
 - naive implementation:
@@ -42,18 +48,23 @@ TODO:
 //type RunType;
 
 
-export class AsyncManager extends RunnableModule {
+export class AsyncManager extends Module {
 
   //private modules: AsyncModuleInfo[] = [];
+  private modules: RunnableAsyncModule[] = [];
 
   constructor() {
     super('asyncManager')
   }
 
-  addModule(module: RunnableModule) {
+  addModule(mod: RunnableAsyncModule) {
+    this.modules.push(mod);
   }
 
-  main() {
-    // ...
+  async runModules() {
+    for (const mod of this.modules) {
+      // runs them in order, bypassing the default asynchronous behavior
+      await mod.run();
+    }
   }
 }
