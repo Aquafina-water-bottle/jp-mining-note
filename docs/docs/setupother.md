@@ -114,6 +114,8 @@ Instead, here is a small list of resources on setting up and using Anki itself:
 * [FSRS4Anki](https://github.com/open-spaced-repetition/fsrs4anki)
 * [Twenty Rules](https://www.supermemo.com/en/blog/twenty-rules-of-formulating-knowledge)
     * These are general rules for learning (with an SRS), written for SuperMemo. Some rules are not applicable for specifically language learning, but I believe the first 4 rules are very important.
+* [Awesome Anki](https://github.com/tianshanghong/awesome-anki)
+    * "A curated list of awesome Anki add-ons, decks and resources."
 
 Note that every website here has different recommendations.
 You will likely have to play with the settings and actually use Anki for an extended period of time
