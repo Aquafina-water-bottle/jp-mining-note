@@ -574,8 +574,8 @@ export class AutoPitchAccent extends RunnableModule {
   private wordTags: string[] = [];
   private ajtHTML: null | string = null;
 
-  constructor(args?: AutoPitchAccentArgs) {
-    super('autoPitchAccent');
+  constructor(id?: string, args?: AutoPitchAccentArgs) {
+    super('autoPitchAccent', id);
 
     this.attemptGlobalColor = args?.attemptGlobalColor ?? true;
     this.showTitle = args?.showTitle ?? true;
