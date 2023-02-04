@@ -65,6 +65,11 @@ To change the card to a sentence card, fill the `IsSentenceCard` binary field.
 
 
 ## AltDisplay: Changing the Displayed Content
+<!-- TODO: real use cases that I use:
+    - bolding specific parts in TSCs (say, to test a particular sentence)
+    - replacing words with full kanji form
+    - furigana for names
+-->
 Vocab cards show the `Word` field and sentence cards show the `Sentence` fields by default.
 However, you can modify what is exactly shown in the front by using the `AltDisplay` field.
 
