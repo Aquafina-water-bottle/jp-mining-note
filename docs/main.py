@@ -208,7 +208,7 @@ FIELDS = {
         "auto_fill": True,
         "binary_field": False,
         "reference": "fieldref.md#frequencysort-field",
-        "setup": "{jpmn-min-freq}",
+        "setup": "{jpmn-frequency-sort}",
     },
     "YomichanWordTags": {
         "auto_fill": True,

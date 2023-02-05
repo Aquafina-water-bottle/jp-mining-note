@@ -6,6 +6,10 @@ Versioning only starts at v23.01.16.0 since that was the first version when
 I started explicitly recording the changes.
 
 
+## v23.02.05.1
+#### Features
+- Updated `{freq}` to match Marv's code
+
 ## v23.01.19.0
 #### Fixed
 - Fixed a minor bug where the "・" regex replace for the NHK dictionary was not working as expected with the newline span wrapper

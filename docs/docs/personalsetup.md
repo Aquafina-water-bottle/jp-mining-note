@@ -81,21 +81,38 @@ pa:
     ```handlebars
     {{~! NOTE: this MUST be put at the very top of the templates section! ~}}
 
-    {{~! REGEX ~}}
-    {{~! matches most JMdict dictionaries and 新和英 ~}}
-    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)$ {{~/set~}}
-    {{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms)$ {{~/set~}}
-    {{~#set "ignored-dict-regex"~}} ^(ADD_DICTIONARIES_HERE)$ {{~/set~}}
 
-    {{~! OPTIONS ~}}
+    {{~! ================ Dictionary Categorization Options ================= ~}}
+
     {{~! valid values: "bilingual", "monolingual" ~}}
     {{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
 
-    {{~! options related to selected text ~}}
+    {{~! matches most JMdict dictionaries and 新和英 ~}}
+    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)$ {{~/set~}}
+    {{~#set "utility-dict-regex"~}} ^(NHK日本語発音アクセント新辞典|シン・漢字遣い参考|JMDict Surface Forms)$ {{~/set~}}
+    {{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTS_HERE)$ {{~/set~}}
+
+
+    {{~! ====================== Selected Text Options ======================= ~}}
+
     {{set "opt-selection-text-enabled"               true}}
     {{set "opt-selection-text-dictionary"            true}}
     {{set "opt-selection-text-glossary"              true}}
     {{set "opt-selection-text-glossary-attempt-bold" true}}
+
+
+    {{~! ==================== Frequency Sorting Options ===================== ~}}
+
+    {{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
+    {{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
+    {{~set "opt-no-freq-default-value" 0 ~}}
+    {{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
+
+
+
+
+
+    {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE BELOW ============== ~}}
     ```
 {% endraw %}
 

@@ -1,25 +1,36 @@
 {{~! NOTE: this MUST be put at the very top of the templates section! ~}}
 
-{{~! REGEX ~}}
-{{~! matches most JMdict dictionaries and 新和英 ~}}
-{{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
-{{~#set "utility-dict-regex"~}} ^(NHK.*|シン・漢字遣い参考|JMDict Surface Forms|ADD_UTILITY_DICTIONARIES_HERE)$ {{~/set~}}
-{{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTIONARIES_HERE)$ {{~/set~}}
 
-{{~#set "ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
-
-
-{{~! OPTIONS ~}}
+{{~! ================ Dictionary Categorization Options ================= ~}}
 
 {{~! valid values: "bilingual", "monolingual" ~}}
 {{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
 
-{{~! options related to selected text ~}}
+{{~! matches most JMdict dictionaries and 新和英 ~}}
+{{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
+{{~#set "utility-dict-regex"~}} ^(NHK日本語発音アクセント新辞典|シン・漢字遣い参考|JMDict Surface Forms)$ {{~/set~}}
+{{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTIONARIES_HERE)$ {{~/set~}}
+
+
+{{~! ====================== Selected Text Options ======================= ~}}
+
 {{set "opt-selection-text-enabled"               false}}
 {{set "opt-selection-text-dictionary"            true}}
 {{set "opt-selection-text-glossary"              true}}
 {{set "opt-selection-text-glossary-attempt-bold" true}}
 
 
+{{~! ==================== Frequency Sorting Options ===================== ~}}
+{{~! See here for the official documentation on how these options work:
+    https://github.com/MarvNC/JP-Resources#freq-settings ~}}
 
-{{~! =======   ORIGINAL YOMICHAN TEMPLATE CODE BELOW   ======= ~}}
+{{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
+{{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
+{{~set "opt-no-freq-default-value" 0 ~}}
+{{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
+
+
+
+
+
+{{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE BELOW ============== ~}}

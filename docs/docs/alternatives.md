@@ -172,9 +172,9 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ??? example "Example images"
     === "Front"
-        {{ img("", "https://cademcniven.com/images/card_front-k4ZWGqFC8x-1200w.avif") }}
+        {{ img("", "https://cademcniven.com/images/card_front-M4BXXShqiw-1200w.avif") }}
     === "Back"
-        {{ img("", "https://cademcniven.com/images/card_back-9gMDHBDdD3-1350w.avif") }}
+        {{ img("", "https://cademcniven.com/images/card_back-xbXcF4wXEl-1200w.avif") }}
 
 ---
 
