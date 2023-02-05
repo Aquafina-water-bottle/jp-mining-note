@@ -1,5 +1,5 @@
-{{~! =======   ORIGINAL YOMICHAN TEMPLATE CODE ABOVE   ======= ~}}
-{{~! Yomichan template code version: v23.01.16.0 ~}}
+{{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE ============== ~}}
+{{~! Yomichan template code version: v23.02.05.1 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
@@ -414,6 +414,7 @@ is a part of a dictionary) ~}}
 {{/inline}}
 
 {{~! base code taken from: https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency ~}}
+{{~! NOTE: THIS IS ONLY KEPT FOR LEGACY PURPOSES, and is now deprecated. Please use {jpmn-frequency-sort} instead. ~}}
 {{~#*inline "jpmn-min-freq"~}}
     {{~#scope~}}
         {{~#set "min-freq" 0~}}{{~/set~}}
@@ -438,6 +439,145 @@ is a part of a dictionary) ~}}
         {{~get "min-freq"~}}
     {{~/scope~}}
 {{/inline}}
+
+
+{{#*inline "jpmn-frequency-sort"}}
+    {{~! Frequency sort handlebars: v23.02.05.1 ~}}
+    {{~! The latest version can be found at https://github.com/MarvNC/JP-Resources ~}}
+    {{~#scope~}}
+        {{~! NOTE: IF you are looking for the options, they are moved to the very top of the handlebars.
+            They should work exactly as documented: https://github.com/MarvNC/JP-Resources#freq-settings ~}}
+
+        {{~set "result-freq" -1 ~}} {{~! -1 is chosen because no frequency dictionaries should have an entry as -1 ~}}
+        {{~set "prev-freq-dict" "" ~}}
+        {{~set "t" 1 ~}}
+
+        {{~#each definition.frequencies~}}
+
+            {{~! rx-match-ignored-freq is not empty if ignored <=> rx-match-ignored-freq is empty if not ignored ~}}
+            {{~#set "rx-match-ignored-freq" ~}}
+                {{~#regexMatch (get "opt-ignored-freq-dict-regex") "gu"~}}{{this.dictionary}}{{~/regexMatch~}}
+            {{/set~}}
+            {{~#if (op "===" (get "rx-match-ignored-freq") "") ~}}
+
+                {{~!
+                    only uses the 1st frequency of any dictionary.
+                    For example, if JPDB lists 440 and 26189㋕, only the first 440 will be used.
+                ~}}
+                {{~set "read-freq" false ~}}
+                {{~#if (op "!==" (get "prev-freq-dict") this.dictionary ) ~}}
+                    {{~set "read-freq" true ~}}
+                    {{~set "prev-freq-dict" this.dictionary ~}}
+                {{/if~}}
+
+                {{~#if (op "!" (get "read-freq") ) ~}}
+                    {{~#set "rx-match-keep-freqs" ~}}
+                        {{~#regexMatch (get "opt-keep-freqs-past-first-regex") "gu"~}}{{this.dictionary}}{{~/regexMatch~}}
+                    {{/set~}}
+
+                    {{~! rx-match-keep-freqs is not empty if keep freqs ~}}
+                    {{~#if (op "!==" (get "rx-match-keep-freqs") "") ~}}
+                        {{~set "read-freq" true ~}}
+                    {{/if~}}
+                {{/if~}}
+
+                {{~#if (get "read-freq") ~}}
+                    {{~set "f" (op "+" (regexMatch "\d+" "" this.frequency)) ~}}
+
+                    {{~#if (op "===" (get "opt-freq-sorting-method") "min") ~}}
+                        {{~#if
+                            (op "||"
+                                (op "===" (get "result-freq") -1)
+                                (op ">" (get "result-freq") (get "f"))
+                            )
+                        ~}}
+                            {{~set "result-freq" (op "+" (get "f")) ~}}
+                        {{~/if~}}
+
+                    {{~else if (op "===" (get "opt-freq-sorting-method") "first") ~}}
+                        {{~#if (op "===" (get "result-freq") -1) ~}}
+                            {{~set "result-freq" (get "f") ~}}
+                        {{~/if~}}
+
+                    {{~else if (op "===" (get "opt-freq-sorting-method") "avg") ~}}
+
+                        {{~#if (op "===" (get "result-freq") -1) ~}}
+                            {{~set "result-freq" (get "f") ~}}
+                        {{~else~}}
+                            {{~!
+                                iterative mean formula (to prevent floating point overflow):
+                                    $S_{(t+1)} = S_t + \frac{1}{t+1} (x - S_t)$
+                                - example java implementation: https://stackoverflow.com/a/1934266
+                                - proof: https://www.heikohoffmann.de/htmlthesis/node134.html
+                            ~}}
+                            {{~set "result-freq"
+                                (op "+"
+                                    (get "result-freq")
+                                    (op "/"
+                                        (op "-"
+                                            (get "f")
+                                            (get "result-freq")
+                                        )
+                                        (get "t")
+                                    )
+                                )
+                            }}
+                        {{~/if~}}
+                        {{~set "t" (op "+" (get "t") 1) ~}}
+
+                    {{~else if (op "===" (get "opt-freq-sorting-method") "harmonic") ~}}
+                        {{~#if (op ">" (get "f") 0) ~}} {{~! ensures only positive numbers are used ~}}
+                            {{~#if (op "===" (get "result-freq") -1) ~}}
+                                {{~set "result-freq" (op "/" 1 (get "f")) ~}}
+                            {{~else ~}}
+                                {{~set "result-freq"
+                                    (op "+"
+                                        (get "result-freq")
+                                        (op "/" 1 (get "f"))
+                                    )
+                                }}
+                                {{~set "t" (op "+" (get "t") 1) ~}}
+                            {{~/if~}}
+                        {{~/if~}}
+
+                    {{~else if (op "===" (get "opt-freq-sorting-method") "debug") ~}}
+
+                        {{ this.dictionary }}: {{ this.frequency }} -> {{ get "f" }} <br>
+
+                    {{~else~}}
+                        (INVALID opt-freq-sorting-method value)
+                    {{~/if~}}
+
+                {{~/if~}}
+
+            {{~/if~}}
+
+        {{~/each~}}
+
+        {{~! (x) >> 0 apparently floors x: https://stackoverflow.com/a/4228528 ~}}
+        {{~#if (op "===" (get "result-freq") -1) ~}}
+            {{~set "result-freq" (get "opt-no-freq-default-value") ~}}
+        {{~ else if (op "===" (get "opt-freq-sorting-method") "avg") ~}}
+            {{~set "result-freq"
+                (op ">>" (get "result-freq") 0 )
+            ~}}
+        {{~ else if (op "===" (get "opt-freq-sorting-method") "harmonic") ~}}
+            {{~set "result-freq"
+                (op ">>"
+                    (op "*"
+                        (op "/" 1 (get "result-freq"))
+                        (get "t")
+                    )
+                    0
+                )
+            ~}}
+        {{~/if~}}
+
+        {{~get "result-freq"~}}
+    {{~/scope~}}
+{{/inline}}
+
+
 
 
 {{~!
