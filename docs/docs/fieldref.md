@@ -335,7 +335,7 @@ to see how to sort and review your cards by frequency.
 
 !!! note
     I personally use this field by re-ordering only some of the most common words in my deck,
-    and then separating it with a step of 3-5.
+    and then separating it with a step of 1.
     This ensures that every card in the deck will eventually be reached.
 
 
