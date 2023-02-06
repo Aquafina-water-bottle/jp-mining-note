@@ -613,9 +613,6 @@
 
   "kanjiHover.enabled": true,
 
-  "kanjiHover.overrideOptions.sentenceParser": {},
-  "kanjiHover.overrideOptions.autoPitchAccent": {},
-  "kanjiHover.overrideOptions.imgStylizer": {},
   "kanjiHover.overrideOptions.tooltipBuilder": {},
 
 
@@ -627,9 +624,6 @@
 
   "wordIndicators.enabled": true,
 
-  "wordIndicators.overrideOptions.sentenceParser": {},
-  "wordIndicators.overrideOptions.autoPitchAccent": {},
-  "wordIndicators.overrideOptions.imgStylizer": {},
   "wordIndicators.overrideOptions.tooltipBuilder": {
     // always show pitch accent
     "tooltipBuilder.displayPitchAccentOnHoverOnly": false,
@@ -775,13 +769,24 @@
 
   "tooltipBuilder.overrideOptions.sentenceParser": {},
   "tooltipBuilder.overrideOptions.autoPitchAccent": {},
-  "tooltipBuilder.overrideOptions.imgStylizer": {},
 
 
   // ==========================================================================
   // = sm:cache =
   // ==========================================================================
   "cache.showClearCacheButton": false,
+
+
+  // ==========================================================================
+  // = sm:asyncManager =
+  // ==========================================================================
+
+  // The delay (in milliseconds) of which this module is loaded.
+  // - 1 second is 1000ms
+  // - A delay of 0 means that it is loaded instantly.
+  // - NOTE: It is recommended for this to be higher than 0, as a delay of 0 appears to visibly
+  //   increase the loading time of the back side of any card.
+  "asyncManager.initialDelay": 50,
 
 
 

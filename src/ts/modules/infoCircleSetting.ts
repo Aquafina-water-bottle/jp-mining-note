@@ -7,7 +7,7 @@ import { throwOnNotFound } from '../utils';
 type InfoCircleSettingId =
   | 'info_circle_text_settings_img_blur_toggle'
   | 'info_circle_text_settings_websocket_toggle'
-  | 'info_circle_text_settings_restart_card'
+  | 'info_circle_text_settings_refresh_card'
   | 'info_circle_text_settings_clear_cache';
 
 export class InfoCircleSetting extends Module {
@@ -20,13 +20,12 @@ export class InfoCircleSetting extends Module {
 
   readonly btn: HTMLElement;
   private readonly persistKey?: string;
-  private readonly persist: SPersistInterface | null;
+  private readonly persist = selectPersist("window");
 
   constructor(settingId: InfoCircleSettingId, persistKey?: string) {
     super(`sm:infoCircleSetting:${settingId}`);
     this.btn = throwOnNotFound(settingId);
     this.persistKey = persistKey;
-    this.persist = selectPersist("window");
   }
 
   getNextState(): number | undefined {
