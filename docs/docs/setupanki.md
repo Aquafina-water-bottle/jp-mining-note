@@ -142,9 +142,15 @@ and choosing the add-ons that seem appealing for you.
 <br>
 
 
+<!--
 ## [CSS Injector](https://ankiweb.net/shared/info/181103283)
 
 > Code: `181103283`
+-->
+
+## CSS Injector
+
+> Code: (N/A, offline download. See below for more details.)
 
 I *strongly* recommend using this, because
 if you don't use this, the fields within the Anki field editor
@@ -152,23 +158,37 @@ won't have certain stylizations that makes the field actually interpretable.
 
 {{ img("CSS Injector comparison", "assets/setupanki/css_injector.png") }}
 
-!!! warning "Warning for Anki versions 2.1.55 and above"
-    As of writing this (2023/01/18), the author still has not updated their add-on
+
+!!! note
+    As of writing this (2023/02/06), the author has still not updated their add-on
     to work with Anki versions 2.1.55 and over.
-    For those who are interested in patching it themselves, use
+    <!--For those who are interested in patching it themselves, use
     [this PR](https://github.com/kleinerpirat/anki-css-injector/pull/3)
-    to build the add-on, and install the add-on manually.
+    to build the add-on, and install the add-on manually.-->
+    Therefore, these set of instructions are for an offline version
+    that has a hotfix applied from
+    [this PR](https://github.com/kleinerpirat/anki-css-injector/pull/3),
+    until the author finally decides to update his add-on.
+
+To download this add-on, head over to [this page](https://github.com/Aquafina-water-bottle/anki-css-injector/releases/tag/v2023-02-06.1),
+and download the `2023-02-06_anki-css-injector.ankiaddon` file.
+From there, head over to Anki, and navigate to the following: <br>
+> `Tools` →  `Add-ons` →  `Install from file...`
 
 
 There are two ways of using css injector with this note type:
 
+
+{% set css_injector_addon_id %}anki_css_injector{% endset %}
+{#{% set css_injector_addon_id %}181103283{% endset %}#}
 
 
 {% set css_injector_preliminary %}
 As a preliminary step, you will have to remove the empty `field.css` and `editor.css` files
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
-`Anki2/addons21/181103283/user_files` folder
+`Anki2/addons21/{{css_injector_addon_id}}/user_files`
+folder
 (within the [addons folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"})
 and delete both `css` files.
 {% endset %}
@@ -185,8 +205,8 @@ and delete both `css` files.
         ```bat
         :: be sure to change USERNAME to your computer username!
 
-        del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css"
-        del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css"
+        del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\{{css_injector_addon_id}}\user_files\field.css"
+        del "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\{{css_injector_addon_id}}\user_files\editor.css"
         ```
 
         Afterwards, open command prompt with elevated permissions.
@@ -204,8 +224,8 @@ and delete both `css` files.
         :: in the commands below.
         :: Make sure to replace all the fields!
 
-        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
-        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css"
+        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\{{css_injector_addon_id}}\user_files\field.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css"
+        mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\{{css_injector_addon_id}}\user_files\editor.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css"
         ```
 
     === "MacOS"
@@ -214,15 +234,15 @@ and delete both `css` files.
         {% endfilter %}
 
         ```bash
-        rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-        rm "~/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css"
+        rm "$HOME/Library/Application Support/Anki2/addons21/{{css_injector_addon_id}}/user_files/field.css"
+        rm "$HOME/Library/Application Support/Anki2/addons21/{{css_injector_addon_id}}/user_files/editor.css"
         ```
 
         Afterwards, run the following command:
         ```bash
         # be sure to change `PROFILENAME` to your Anki profile
-        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/field.css"
-        ln -s "~/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css" "~/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css"
+        ln -s "$HOME/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css" "$HOME/Library/Application Support/Anki2/addons21/{{css_injector_addon_id}}/user_files/field.css"
+        ln -s "$HOME/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css" "$HOME/Library/Application Support/Anki2/addons21/{{css_injector_addon_id}}/user_files/editor.css"
         ```
 
     === "Linux"
@@ -231,22 +251,22 @@ and delete both `css` files.
         {% endfilter %}
 
         ```bash
-        rm "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-        rm "~/.local/share/Anki2/addons21/181103283/user_files/editor.css"
+        rm "$HOME/.local/share/Anki2/addons21/{{css_injector_addon_id}}/user_files/field.css"
+        rm "$HOME/.local/share/Anki2/addons21/{{css_injector_addon_id}}/user_files/editor.css"
         ```
 
         Afterwards, run the following command:
         ```bash
         # be sure to change `PROFILENAME` to your Anki profile
-        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "~/.local/share/Anki2/addons21/181103283/user_files/field.css"
-        ln -s "~/.local/share/Anki2/PROFILENAME/collection.media/_editor.css" "~/.local/share/Anki2/addons21/181103283/user_files/editor.css"
+        ln -s "$HOME/.local/share/Anki2/PROFILENAME/collection.media/_field.css" "$HOME/.local/share/Anki2/addons21/{{css_injector_addon_id}}/user_files/field.css"
+        ln -s "$HOME/.local/share/Anki2/PROFILENAME/collection.media/_editor.css" "$HOME/.local/share/Anki2/addons21/{{css_injector_addon_id}}/user_files/editor.css"
         ```
 
 
 ??? info "Option 2: Manually without respecting updates"
 
     1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}
-        (`Anki2/addons21/181103283/user_files`)
+        (`Anki2/addons21/{{css_injector_addon_id}}/user_files`)
     2. Remove the existing `field.css` and `editor.css` files
     3. Copy the `_field.css` file and `_editor.css` file
         (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"})
