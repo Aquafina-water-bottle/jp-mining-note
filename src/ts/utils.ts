@@ -273,3 +273,9 @@ export function isVerb(wordTags: string[]) {
   return false;
 }
 
+// A key string that should be almost guaranteed to be unique per card.
+// If a card has the same key and sentence, it's safe to guess that the card
+// is functionally the same anways.
+// Useful for usage in persistance, etc.
+export const CARD_KEY = `${getFieldValue("Key")}.${getFieldValue("Sentence")}`;
+

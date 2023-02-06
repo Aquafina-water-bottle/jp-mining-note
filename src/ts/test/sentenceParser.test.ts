@@ -53,12 +53,10 @@ function createNoteInfoSent(
   sentence: string
 ): NoteInfoSentence {
   return {
-    fields: {
-      Word: { value: word },
-      WordReading: { value: wordReading },
-      WordReadingHiragana: { value: wordReadingHiragana },
-      Sentence: { value: sentence },
-    },
+      Word: word,
+      WordReading: wordReading,
+      WordReadingHiragana: wordReadingHiragana,
+      Sentence: sentence,
   };
 }
 

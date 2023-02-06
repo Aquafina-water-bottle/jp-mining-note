@@ -47,8 +47,20 @@ export abstract class Module {
     this.logger = new Logger(id);
   }
 
+  /* sets the local option to be the specified value */
   overrideOption<K extends keyof O>(k: K, o: O[K]) {
     this.localOpts[k] = o;
+  }
+
+  /* similar to overrideOption, but accepts an entire set of key/value pairs */
+  overrideOptions(options: OptionsSubset) {
+    for (const key of Object.keys(options) as Array<keyof O>) {
+      const o = options[key];
+      if (typeof o !== "undefined") {
+        this.overrideOption(key, o)
+      }
+    }
+
   }
 
   getOption<K extends keyof O>(k: K): O[K] {
@@ -85,6 +97,12 @@ export abstract class RunnableModule extends Module {
 
 
 export abstract class RunnableAsyncModule extends RunnableModule {
+  protected useCache: boolean = false;
+
+  setUseCache(useCache: boolean) {
+    this.useCache = useCache;
+  }
+
   async run() {
     // to call run() except in an async context
     RunnableModule.prototype.run.call(this)

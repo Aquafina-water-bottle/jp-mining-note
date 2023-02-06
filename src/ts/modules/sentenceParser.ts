@@ -48,20 +48,10 @@ export type QuotePair = {
 //}
 
 export type NoteInfoSentence = {
-  readonly fields: {
-    readonly Word: {
-      readonly value: string;
-    };
-    readonly WordReading: {
-      readonly value: string;
-    };
-    readonly WordReadingHiragana: {
-      readonly value: string;
-    };
-    readonly Sentence: {
-      readonly value: string;
-    };
-  };
+  readonly Word: string;
+  readonly WordReading: string;
+  readonly WordReadingHiragana: string;
+  readonly Sentence: string;
 };
 
 export class SentenceParser extends RunnableModule {
@@ -356,6 +346,7 @@ export class SentenceParser extends RunnableModule {
   }
 
   // not private since it may be used in tooltip builder
+  // isMulti is an internal argument. May be moved to a private function...
   processSentence(
     sent: Sentence,
     sentType: SentenceType,
@@ -392,13 +383,13 @@ export class SentenceParser extends RunnableModule {
       this.getOption('sentenceParser.autoHighlightWord.enabled')
     ) {
       const searchStrings: SearchStrings = [
-        { value: noteInfo.fields.Word.value },
-        { value: plainToKanaOnly(noteInfo.fields.WordReading.value) },
-        { value: noteInfo.fields.WordReadingHiragana.value },
+        { value: noteInfo.Word },
+        { value: plainToKanaOnly(noteInfo.WordReading) },
+        { value: noteInfo.WordReadingHiragana },
       ];
       let replace: string | null;
-      [result, replace] = this.autoHighlight.highlightWord(result, searchStrings, noteInfo.fields.Sentence.value);
-      this.autoHighlightLog(sentType, replace, noteInfo.fields.Word.value);
+      [result, replace] = this.autoHighlight.highlightWord(result, searchStrings, noteInfo.Sentence);
+      this.autoHighlightLog(sentType, replace, noteInfo.Word);
       this.logger.debug(`autoHighlight: "${result}"`, 1);
     }
 
@@ -468,12 +459,10 @@ export class SentenceParser extends RunnableModule {
       };
 
       const noteInfoSentence: NoteInfoSentence = {
-        fields: {
-          Word: { value: getFieldValue('Word') },
-          WordReading: { value: getFieldValue('WordReading') },
-          WordReadingHiragana: { value: getFieldValue('WordReadingHiragana') },
-          Sentence: { value: getFieldValue('Sentence') },
-        },
+          Word: getFieldValue('Word'),
+          WordReading: getFieldValue('WordReading'),
+          WordReadingHiragana: getFieldValue('WordReadingHiragana'),
+          Sentence: getFieldValue('Sentence'),
       };
 
       this.processSentence(sent, sentenceType, noteInfoSentence, false);

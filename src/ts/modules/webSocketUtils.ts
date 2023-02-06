@@ -4,9 +4,9 @@ import { InfoCircleSetting } from './infoCircleSetting';
 import { CardSide, getFieldValue, popupMenuMessage } from '../utils';
 import { selectPersist, SPersistInterface } from '../spersist';
 
+const settingId = 'info_circle_text_settings_websocket_toggle';
 const persistKeySetting = 'jpmn-websocket-setting';
 const persistKey = 'jpmn-websocket';
-const settingId = 'info_circle_text_settings_websocket_toggle';
 
 export class WebSocketUtils extends RunnableModule {
   private readonly setting = new InfoCircleSetting(settingId, persistKeySetting);

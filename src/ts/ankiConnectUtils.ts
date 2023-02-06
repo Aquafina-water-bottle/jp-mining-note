@@ -1,5 +1,15 @@
+import { SPersistInterface } from './spersist';
+
+const getQueryCacheKey = 'ankiConnectUtils.getQueryCacheKey';
+
+export type AnkiConnectAction = {
+  action: string;
+  version: number;
+  params?: Record<string, any>;
+};
+
 // https://github.com/FooSoft/anki-connect#javascript
-function invoke(action: string, params: Record<string, any> ={}) {
+export function invoke(action: string, params: Record<string, any> = {}) {
   let version = 6;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -26,12 +36,43 @@ function invoke(action: string, params: Record<string, any> ={}) {
     });
 
     xhr.open('POST', 'http://127.0.0.1:8765');
-    xhr.send(JSON.stringify({action, version, params}));
+    xhr.send(JSON.stringify({ action, version, params }));
   });
 }
 
-
 /* Escapes the string to be used in Anki-Connect queries */
-function escapeQueryStr(s: string): string {
+export function escapeQueryStr(s: string): string {
   return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+export function constructFindCardsAction(query: string): AnkiConnectAction {
+  return {
+    action: 'findCards',
+    version: 6,
+    params: {
+      query: query,
+    },
+  };
+}
+
+/* expects that persist can store objects */
+export function getQueryCache(
+  persist: SPersistInterface,
+  query: string
+): number[] | null {
+  const key = `${getQueryCacheKey}.${query}`;
+  if (persist.has(key)) {
+    return persist.get(key) as number[];
+  }
+  return null;
+}
+
+/* expects that persist can store objects */
+export function setQueryCache(
+  persist: SPersistInterface,
+  query: string,
+  queryResult: number[]
+) {
+  const key = `${getQueryCacheKey}.${query}`;
+  persist.set(key, queryResult);
 }
