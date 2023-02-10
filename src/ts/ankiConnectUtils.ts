@@ -76,3 +76,31 @@ export function setQueryCache(
   const key = `${getQueryCacheKey}.${query}`;
   persist.set(key, queryResult);
 }
+
+
+
+
+export class QueryBuilder {
+
+  private segments: string[] = []
+
+  constructor() { }
+
+  addSegment(segment: string, negate = false) {
+    if (segment.length > 0) {
+      const resultSegment = `${negate ? '-' : ''}(${segment})`;
+      this.segments.push(resultSegment);
+    }
+  }
+
+  build() {
+    return this.segments.join(' ');
+  }
+
+  clone() {
+    const qb = new QueryBuilder();
+    qb.segments = Array.from(this.segments);
+    return qb;
+  }
+}
+
