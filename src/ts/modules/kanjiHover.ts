@@ -25,7 +25,10 @@ type NoteInfoKanjiHover = {
 
 const HOVER_INFO_CACHE_KEY = 'kanjiToHoverInfoCache';
 
-type QueryResults = Record<string, number[]>
+//type QueryResults = Record<string, number[]>;
+
+type QueryResultKeys = 'nonNew.default' | 'nonNew.hidden' | 'new.default' | 'new.hidden'
+// TODO QueryResult from QueryResultKeys
 type KanjiToHover = Record<string, string>;
 
 export class KanjiHover extends RunnableAsyncModule {
@@ -88,7 +91,6 @@ export class KanjiHover extends RunnableAsyncModule {
     }
 
     for (const [kanji, builtQuery] of Object.entries(kanjiToBuiltQueries)) {
-
       // checks cache
       if (this.useCache) {
         for (const [queryKey, query] of Object.entries(builtQuery)) {
@@ -153,12 +155,41 @@ export class KanjiHover extends RunnableAsyncModule {
   }
 
   // TODO move this into tooltip builder
-  private async sortByTimeCreated(queryResults: QueryResults, kanjiToHover: KanjiToHover) {
+  private async sortByTimeCreated(
+    queryResults: QueryResults,
+    kanjiToHover: KanjiToHover
+  ) {
+    // restructures
+    const kanjiToQueryResult: Record<string, Record<string, number[]>> = {};
+    for (const qResultKey of Object.keys(queryResults)) {
+      const kanji = qResultKey.substring(0, 1);
+      const queryType = qResultKey.substring(2); // kanji.(notNew|new).(hidden|default)
+      if (!(kanji in kanjiToQueryResult)) {
+        kanjiToQueryResult[kanji] = {};
+        kanjiToQueryResult[kanji][queryType] = queryResults[qResultKey];
+      }
+    }
+
+    const maxNonNewOldest = this.getOption('tooltipBuilder.categoryMax.nonNewOldest');
+    const maxNonNewLatest = this.getOption('tooltipBuilder.categoryMax.nonNewLatest');
+    const maxNewLatest = this.getOption('tooltipBuilder.categoryMax.newLatest');
+
+    for (const [kanji, queryResult] of Object.entries(kanjiToQueryResult)) {
+      const [nonNewResultIds, newResultIds] = this.tooltipBuilder.filterCards(
+        queryResult['nonNew.default'],
+        queryResult['new.default'],
+        maxNonNewOldest,
+        maxNonNewLatest,
+        maxNewLatest
+      );
+    }
   }
 
   // TODO move this into tooltip builder
-  private async sortByFirstReview(queryResults: QueryResults, kanjiToHover: KanjiToHover) {
-  }
+  private async sortByFirstReview(
+    queryResults: QueryResults,
+    kanjiToHover: KanjiToHover
+  ) {}
 
   private async getKanjisToHover(
     noteInfo: NoteInfoKanjiHover

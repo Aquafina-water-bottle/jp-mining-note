@@ -3,7 +3,7 @@ import { Module } from '../module';
 import { AutoPitchAccent, AutoPitchAccentArgs, NoteInfoPA } from './autoPitchAccent';
 import { NoteInfoSentence, SentenceParser } from './sentenceParser';
 import { Sentence } from './sentenceParser';
-import { invoke, escapeQueryStr } from '../ankiConnectUtils';
+import { invoke, escapeQueryStr, QueryBuilder } from '../ankiConnectUtils';
 
 //export type TooltipBuilderArgs = {
 //  displayPA?: boolean;
@@ -15,10 +15,10 @@ export type NoteInfoTooltipBuilder = NoteInfoPA &
     cardId: string;
   };
 
-export type QueryPair = {
-  default: string;
-  hidden: string;
-};
+//export type QueryPair = {
+//  default: QueryBuilder;
+//  hidden: QueryBuilder;
+//};
 
 //export type QueryPairResult = {
 //  "default": number[];
@@ -163,53 +163,90 @@ export class TooltipBuilder extends Module {
       hidden: (query to get hidden cards, or "" if hidden query has nothing specified)
     }
   */
-  _buildQueryPair(baseQuery: string, type: 'new' | 'nonNew'): QueryPair {
+  //_buildQueryPair(baseQuery: string, type: 'new' | 'nonNew'): QueryPair {
+  //  const base = this.getOption(`tooltipBuilder.query.${type}.base`);
+  //  const hidden = this.getOption(`tooltipBuilder.query.${type}.hidden`);
+  //  const removed = this.getOption(`tooltipBuilder.query.${type}.removed`);
+
+  //  // function exists because a query of () or -() is not valid!
+  //  let querySegmentsDefault: string[] = [];
+  //  function pushIfNotEmpty(querySegments: string[], segment: string, negate = false) {
+  //    if (segment.length > 0) {
+  //      const resultSegment = `${negate ? '-' : ''}(${segment})`;
+  //      querySegments.push(resultSegment);
+  //    }
+  //  }
+  //  pushIfNotEmpty(querySegmentsDefault, baseQuery);
+  //  pushIfNotEmpty(querySegmentsDefault, base);
+  //  pushIfNotEmpty(querySegmentsDefault, removed);
+
+  //  let querySegmentsHidden = Array.from(querySegmentsDefault);
+  //  pushIfNotEmpty(querySegmentsDefault, hidden, true);
+  //  pushIfNotEmpty(querySegmentsHidden, hidden, false);
+
+  //  return {
+  //    default: querySegmentsDefault.join(' '),
+  //    hidden: hidden ? querySegmentsHidden.join(' ') : '',
+  //  };
+  //}
+
+
+
+  /* queries any card that isn't this current card */
+  getCardBaseQuery(Key: string): string {
+    const noteName = 'JP Mining Note';
+    const cardTypeName = 'Mining Card';
+    const key = escapeQueryStr(Key);
+
+    return `-"Key:${key}" "note:${noteName}" "card:${cardTypeName}"`;
+  }
+
+  getQueryPair(type: 'new' | 'nonNew') {
     const base = this.getOption(`tooltipBuilder.query.${type}.base`);
     const hidden = this.getOption(`tooltipBuilder.query.${type}.hidden`);
     const removed = this.getOption(`tooltipBuilder.query.${type}.removed`);
 
     // function exists because a query of () or -() is not valid!
-    let querySegmentsDefault: string[] = [];
-    function pushIfNotEmpty(querySegments: string[], segment: string, negate = false) {
-      if (segment.length > 0) {
-        const resultSegment = `${negate ? '-' : ''}(${segment})`;
-        querySegments.push(resultSegment);
-      }
-    }
-    pushIfNotEmpty(querySegmentsDefault, baseQuery);
-    pushIfNotEmpty(querySegmentsDefault, base);
-    pushIfNotEmpty(querySegmentsDefault, removed);
+    const qb = new QueryBuilder()
+    qb.addSegment(base)
+    qb.addSegment(removed, true)
 
-    let querySegmentsHidden = Array.from(querySegmentsDefault);
-    pushIfNotEmpty(querySegmentsDefault, hidden, true);
-    pushIfNotEmpty(querySegmentsHidden, hidden, false);
+    const qbHidden = qb.clone();
+    qb.addSegment(hidden, true)
+    qbHidden.addSegment(hidden, false)
 
     return {
-      default: querySegmentsDefault.join(' '),
-      hidden: hidden ? querySegmentsHidden.join(' ') : '',
+      default: qb,
+      hidden: qbHidden,
     };
   }
 
-  /* queries any card that isn't this current card */
-  buildBaseQuery(Key: string): string {
-    const noteName = 'JP Mining Note';
-    const cardTypeName = 'Mining Card';
-    const key = escapeQueryStr(Key);
-
-    return `-"Key:${key}" "card:${cardTypeName}" "note:${noteName}"`;
-  }
-
-  buildQueries(baseQuery: string): BuiltQueries {
-    const nonNewQueryPair = this._buildQueryPair(baseQuery, 'nonNew');
-    const newQueryPair = this._buildQueryPair(baseQuery, 'new');
+  getQueryGroup() {
+    const qpNew = this.getQueryPair("new");
+    const qpNonNew = this.getQueryPair("nonNew");
 
     return {
-      'nonNew.hidden': nonNewQueryPair.hidden,
-      'nonNew.default': nonNewQueryPair.default,
-      'new.hidden': newQueryPair.hidden,
-      'new.default': newQueryPair.default,
+      'nonNew.default': qpNonNew.default,
+      'nonNew.hidden': qpNonNew.hidden,
+      'new.default': qpNew.default,
+      'new.hidden': qpNew.hidden,
     };
   }
+
+
+
+
+  //buildQueries(baseQuery: string): BuiltQueries {
+  //  const nonNewQueryPair = this._buildQueryPair(baseQuery, 'nonNew');
+  //  const newQueryPair = this._buildQueryPair(baseQuery, 'new');
+
+  //  return {
+  //    'nonNew.hidden': nonNewQueryPair.hidden,
+  //    'nonNew.default': nonNewQueryPair.default,
+  //    'new.hidden': newQueryPair.hidden,
+  //    'new.default': newQueryPair.default,
+  //  };
+  //}
 
   /* goes through the HTML to search for data-cid, and then adds a guiBrowse
      call to view that cid (if it exists) */
@@ -231,7 +268,7 @@ export class TooltipBuilder extends Module {
     maxNonNewOldest: number,
     maxNonNewLatest: number,
     maxNewLatest: number
-  ) {
+  ): [number[], number[]] {
     const max = maxNonNewOldest + maxNonNewLatest + maxNewLatest;
     if (nonNewCardIds.length + newCardIds.length <= max) {
       return [nonNewCardIds, newCardIds];
