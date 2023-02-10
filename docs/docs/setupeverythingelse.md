@@ -375,6 +375,7 @@ Other websites have significantly larger resource lists that may prove useful fo
         ([Old Google doc](https://docs.google.com/document/d/1tQmoGwCJQqmjdmaQdigAG0Ph1ODSMsGhsD7qOhlUuc0/))
         ([Mirror](https://refold.link/japanese))
     * [Refold (General)](https://docs.google.com/document/d/1z_5VbwqKjuyaDH8l6BqhAPJdHWAfypz-3V7pHsWHr6A/) ([Mirror](https://refold.link/Tech_and_Tools))
+    * [IgrecL/japanese](https://github.com/IgrecL/japanese)
 
 
 ---
