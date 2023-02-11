@@ -216,6 +216,12 @@ button[title^="Add reading"] {
 ---
 
 
+## Coloring Dictionaries { .text-yellow }
+Darius has some CSS [here](https://github.com/djahandarie/yomichan-dict-css)
+that uniquely colors popular dictionaries.
+
+---
+
 
 # CSS (Other)
 
