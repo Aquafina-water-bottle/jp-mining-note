@@ -4,6 +4,7 @@ import { AutoPitchAccent, AutoPitchAccentArgs, NoteInfoPA } from './autoPitchAcc
 import { NoteInfoSentence, SentenceParser } from './sentenceParser';
 import { Sentence } from './sentenceParser';
 import { invoke, escapeQueryStr, QueryBuilder } from '../ankiConnectUtils';
+import { plainToRuby } from '../utils'
 
 //export type TooltipBuilderArgs = {
 //  displayPA?: boolean;
@@ -11,6 +12,12 @@ import { invoke, escapeQueryStr, QueryBuilder } from '../ankiConnectUtils';
 //};
 
 export type NoteInfoTooltipBuilder = NoteInfoPA & NoteInfoSentence;
+export type TooltipAddCardArgs = {
+  character?: string,
+  isNew?: boolean;
+  cardId?: number;
+}
+
   //NoteInfoSentence & {
   //  cardId: number;
   //};
@@ -59,16 +66,54 @@ export type QueryBuilderGroup = {
 
 
 
-export class TooltipBuilder extends Module {
+//export class TooltipCardDivBuilder {
+//  // separate class in order to separate itself from the Module class (and to not
+//  // waste the getOption / overrideOptions function calls)
+//
+//  private readonly tooltips: Tooltips
+//  private wordDiv: HTMLDivElement | null = null
+//  private sentDiv: HTMLDivElement | null = null
+//
+//
+//  constructor(tooltips: Tooltips) {
+//    this.tooltips = tooltips;
+//  }
+//
+//  addSentDiv(noteInfo: NoteInfoTooltipBuilder) {
+//    this.sentDiv = this.tooltips.buildSentDiv(noteInfo)
+//    return this;
+//  }
+//
+//  addWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string, cardId: number | null = null) {
+//    this.wordDiv = this.tooltips.buildWordDiv(noteInfo, character, cardId)
+//    return this;
+//  }
+//
+//  build(): HTMLDivElement {
+//
+//  }
+//
+//}
+
+export class TootipBuilder {
+  // separate class in order to separate itself from the Module class (and to not
+  // waste the getOption / overrideOptions function calls)
+
+  private readonly tooltips: Tooltips
+  constructor(tooltips: Tooltips) {
+    this.tooltips = tooltips;
+  }
+}
+
+export class Tooltips extends Module {
   private readonly autoPA: AutoPitchAccent;
   private readonly sentParser: SentenceParser;
 
   //private readonly displayPA: boolean;
   //private readonly displayPAOnHover: boolean;
 
-  //constructor(args?: TooltipBuilderArgs) {
   constructor() {
-    super('sm:tooltipBuilder');
+    super('sm:tooltips');
 
     const paArgs: AutoPitchAccentArgs = {
       attemptGlobalColor: false,
@@ -77,27 +122,28 @@ export class TooltipBuilder extends Module {
     };
     this.autoPA = new AutoPitchAccent('tb:autoPitchAccent', paArgs);
     this.autoPA.overrideOptions(
-      this.getOption('tooltipBuilder.overrideOptions.autoPitchAccent')
+      this.getOption('tooltips.overrideOptions.autoPitchAccent')
     );
 
     this.sentParser = new SentenceParser('tb:sentenceParser');
     this.sentParser.overrideOptions(
-      this.getOption('tooltipBuilder.overrideOptions.sentenceParser')
+      this.getOption('tooltips.overrideOptions.sentenceParser')
     );
 
     //this.displayPA = args?.displayPA ?? true;
     //this.displayPAOnHover = args?.displayPAOnHover ?? true;
   }
 
-  _buildWordDiv(wordReading: string, character: string | null, cardId: number | null = null) {
-    const wordDivWrapper = document.createElement('div');
 
-    const wordEle = document.createElement('span');
-    const re = / ?([^ >]+?)\[(.+?)\]/g;
+  newCardBuilder() {
+  }
+  newBuilder() {
+  }
 
-    let wordReadingRuby = wordReading.replace(/&nbsp;/g, ' ');
-    wordReadingRuby = wordReadingRuby.replace(re, '<ruby><rb>$1</rb><rt>$2</rt></ruby>');
+  buildWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string | null, cardId: number | null = null): HTMLDivElement {
+    const wordDiv = document.createElement('div');
 
+    let wordReadingRuby = plainToRuby(noteInfo.WordReading)
     if (character !== null) {
       wordReadingRuby = wordReadingRuby.replace(
         new RegExp(character, 'g'),
@@ -105,22 +151,16 @@ export class TooltipBuilder extends Module {
       );
     }
 
+    const wordEle = document.createElement('span');
     wordEle.innerHTML = wordReadingRuby;
     wordEle.classList.add('hover-tooltip__word-div');
-    wordDivWrapper.appendChild(wordEle);
-
     if (cardId !== null) {
       wordEle.setAttribute('data-cid', cardId.toString());
     }
 
-    return wordDivWrapper;
-  }
+    wordDiv.appendChild(wordEle);
 
-  /* cardId may be null due to the first entry in word indicators */
-  buildWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string, cardId: number | null = null): HTMLDivElement {
-    const wordDiv = this._buildWordDiv(noteInfo.WordReading, character, cardId);
-
-    if (this.getOption('tooltipBuilder.displayPitchAccent')) {
+    if (this.getOption('tooltips.displayPitchAccent')) {
       const displayEle = document.createElement('span');
       displayEle.classList.add('hover-tooltip__pitch-accent');
       this.autoPA.addPosition(displayEle, noteInfo);
@@ -156,10 +196,14 @@ export class TooltipBuilder extends Module {
     return sentEle;
   }
 
-  buildCardDiv(noteInfo: NoteInfoTooltipBuilder, character: string, isNew = false) {
+  addCardDiv(noteInfo: NoteInfoTooltipBuilder, args: TooltipAddCardArgs) {
+    const cardId = args.cardId ?? null;
+    const character = args.character ?? null;
+    const isNew = args.isNew ?? false;
+
     const cardDiv = document.createElement('div');
 
-    const wordDiv = this.buildWordDiv(noteInfo, character);
+    const wordDiv = this.buildWordDiv(noteInfo, character, cardId);
 
     const sentenceDiv = this.buildSentDiv(noteInfo);
 
@@ -170,7 +214,7 @@ export class TooltipBuilder extends Module {
     if (isNew) {
       cardDiv.classList.add('hover-tooltip__card--new');
     }
-    if (this.getOption('tooltipBuilder.displayPitchAccentOnHoverOnly')) {
+    if (this.getOption('tooltips.displayPitchAccentOnHoverOnly')) {
       cardDiv.classList.add('hover-tooltip__card-div--hover');
     }
 
@@ -184,9 +228,9 @@ export class TooltipBuilder extends Module {
     }
   */
   //_buildQueryPair(baseQuery: string, type: 'new' | 'nonNew'): QueryPair {
-  //  const base = this.getOption(`tooltipBuilder.query.${type}.base`);
-  //  const hidden = this.getOption(`tooltipBuilder.query.${type}.hidden`);
-  //  const removed = this.getOption(`tooltipBuilder.query.${type}.removed`);
+  //  const base = this.getOption(`tooltips.query.${type}.base`);
+  //  const hidden = this.getOption(`tooltips.query.${type}.hidden`);
+  //  const removed = this.getOption(`tooltips.query.${type}.removed`);
 
   //  // function exists because a query of () or -() is not valid!
   //  let querySegmentsDefault: string[] = [];
@@ -213,7 +257,7 @@ export class TooltipBuilder extends Module {
 
 
   /* queries any card that isn't this current card */
-  getCardBaseQuery(Key: string): string {
+  private getCardBaseQuery(Key: string): string {
     const noteName = 'JP Mining Note';
     const cardTypeName = 'Mining Card';
     const key = escapeQueryStr(Key);
@@ -222,9 +266,9 @@ export class TooltipBuilder extends Module {
   }
 
   getQueryPair(type: 'new' | 'nonNew') {
-    const base = this.getOption(`tooltipBuilder.query.${type}.base`);
-    const hidden = this.getOption(`tooltipBuilder.query.${type}.hidden`);
-    const removed = this.getOption(`tooltipBuilder.query.${type}.removed`);
+    const base = this.getOption(`tooltips.query.${type}.base`);
+    const hidden = this.getOption(`tooltips.query.${type}.hidden`);
+    const removed = this.getOption(`tooltips.query.${type}.removed`);
 
     // function exists because a query of () or -() is not valid!
     const qb = new QueryBuilder()
@@ -252,6 +296,21 @@ export class TooltipBuilder extends Module {
       'new.default': qpNew.default,
       'new.hidden': qpNew.hidden,
     };
+  }
+
+
+  /* goes through the HTML to search for data-cid, and then adds a guiBrowse
+     call to view that cid (if it exists) */
+  addBrowseOnClick(query: string) {
+    for (const ele of document.querySelectorAll(query)) {
+      let cid = ele.getAttribute('data-cid');
+      if (cid !== null) {
+        (ele as HTMLElement).onclick = () => {
+          invoke('guiBrowse', { query: `cid:${cid}` });
+        };
+        ele.classList.add('hover-tooltip__word-div--clickable');
+      }
+    }
   }
 
   //cloneQueryBuilderGroup(group: QueryBuilderGroup): QueryBuilderGroup {
@@ -304,20 +363,6 @@ export class TooltipBuilder extends Module {
   //    'new.default': newQueryPair.default,
   //  };
   //}
-
-  /* goes through the HTML to search for data-cid, and then adds a guiBrowse
-     call to view that cid (if it exists) */
-  addBrowseOnClick(query: string) {
-    for (const ele of document.querySelectorAll(query)) {
-      let cid = ele.getAttribute('data-cid');
-      if (cid !== null) {
-        (ele as HTMLElement).onclick = () => {
-          invoke('guiBrowse', { query: `cid:${cid}` });
-        };
-        ele.classList.add('hover-tooltip__word-div--clickable');
-      }
-    }
-  }
 
   //filterCards(
   //  nonNewCardIds: number[],
