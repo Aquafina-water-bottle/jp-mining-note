@@ -347,11 +347,14 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 # rundam's Note Type
 <sup>
-[Download](https://cdn.discordapp.com/attachments/797748730807320588/1060757391706181763/Mining__.apkg)・[Original discord message](https://discord.com/channels/778787713012727809/797748730807320588/1060757391211241576) ({{ REFOLD_SERVER }})
+[Website & download](https://github.com/rudnam/JP-study)
 </sup>
 
-??? example "Example video"
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/Z21vy6LvdRQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+??? example "Example images"
+    === "Vocab"
+        {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/vocab_back.png?raw=true") }}
+    === "Sentence"
+        {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/sentence_back.png?raw=true") }}
 
 ---
 
