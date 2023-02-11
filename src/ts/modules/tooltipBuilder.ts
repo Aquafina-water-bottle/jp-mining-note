@@ -10,10 +10,10 @@ import { invoke, escapeQueryStr, QueryBuilder } from '../ankiConnectUtils';
 //  displayPAOnHover?: boolean;
 //};
 
-export type NoteInfoTooltipBuilder = NoteInfoPA &
-  NoteInfoSentence & {
-    cardId: string;
-  };
+export type NoteInfoTooltipBuilder = NoteInfoPA & NoteInfoSentence;
+  //NoteInfoSentence & {
+  //  cardId: number;
+  //};
 
 //export type QueryPair = {
 //  default: QueryBuilder;
@@ -89,7 +89,7 @@ export class TooltipBuilder extends Module {
     //this.displayPAOnHover = args?.displayPAOnHover ?? true;
   }
 
-  _buildWordDiv(wordReading: string, character: string, cardId = null) {
+  _buildWordDiv(wordReading: string, character: string | null, cardId: number | null = null) {
     const wordDivWrapper = document.createElement('div');
 
     const wordEle = document.createElement('span');
@@ -110,14 +110,14 @@ export class TooltipBuilder extends Module {
     wordDivWrapper.appendChild(wordEle);
 
     if (cardId !== null) {
-      wordEle.setAttribute('data-cid', cardId);
+      wordEle.setAttribute('data-cid', cardId.toString());
     }
 
     return wordDivWrapper;
   }
 
   /* cardId may be null due to the first entry in word indicators */
-  buildWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string, cardId = null) {
+  buildWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string, cardId: number | null = null): HTMLDivElement {
     const wordDiv = this._buildWordDiv(noteInfo.WordReading, character, cardId);
 
     if (this.getOption('tooltipBuilder.displayPitchAccent')) {
@@ -319,46 +319,46 @@ export class TooltipBuilder extends Module {
     }
   }
 
-  filterCards(
-    nonNewCardIds: number[],
-    newCardIds: number[],
-    maxNonNewOldest: number,
-    maxNonNewLatest: number,
-    maxNewLatest: number
-  ): [number[], number[]] {
-    const max = maxNonNewOldest + maxNonNewLatest + maxNewLatest;
-    if (nonNewCardIds.length + newCardIds.length <= max) {
-      return [nonNewCardIds, newCardIds];
-    }
+  //filterCards(
+  //  nonNewCardIds: number[],
+  //  newCardIds: number[],
+  //  maxNonNewOldest: number,
+  //  maxNonNewLatest: number,
+  //  maxNewLatest: number
+  //): [number[], number[]] {
+  //  const max = maxNonNewOldest + maxNonNewLatest + maxNewLatest;
+  //  if (nonNewCardIds.length + newCardIds.length <= max) {
+  //    return [nonNewCardIds, newCardIds];
+  //  }
 
-    // adjusts for when there can be other cards that can fit the space
-    // for example, 6 old & 0 new, or 0 old & 6 new
-    if (newCardIds.length < maxNewLatest) {
-      let diff = maxNewLatest - newCardIds.length;
-      maxNonNewOldest += Math.floor(diff / 2);
-      maxNonNewLatest += Math.floor(diff / 2) + (diff % 2);
-    }
-    if (nonNewCardIds.length < maxNonNewOldest + maxNonNewLatest) {
-      maxNewLatest += maxNonNewOldest + maxNonNewLatest - nonNewCardIds.length;
-    }
+  //  // adjusts for when there can be other cards that can fit the space
+  //  // for example, 6 old & 0 new, or 0 old & 6 new
+  //  if (newCardIds.length < maxNewLatest) {
+  //    let diff = maxNewLatest - newCardIds.length;
+  //    maxNonNewOldest += Math.floor(diff / 2);
+  //    maxNonNewLatest += Math.floor(diff / 2) + (diff % 2);
+  //  }
+  //  if (nonNewCardIds.length < maxNonNewOldest + maxNonNewLatest) {
+  //    maxNewLatest += maxNonNewOldest + maxNonNewLatest - nonNewCardIds.length;
+  //  }
 
-    // non new: gets the earliest and latest
-    let nonNewResultIds = [];
-    if (nonNewCardIds.length > maxNonNewOldest + maxNonNewLatest) {
-      nonNewResultIds = [
-        ...nonNewCardIds.slice(0, maxNonNewOldest), // earliest
-        ...nonNewCardIds.slice(-maxNonNewLatest, nonNewCardIds.length), // latest
-      ];
-    } else {
-      nonNewResultIds = [...nonNewCardIds];
-    }
+  //  // non new: gets the earliest and latest
+  //  let nonNewResultIds = [];
+  //  if (nonNewCardIds.length > maxNonNewOldest + maxNonNewLatest) {
+  //    nonNewResultIds = [
+  //      ...nonNewCardIds.slice(0, maxNonNewOldest), // earliest
+  //      ...nonNewCardIds.slice(-maxNonNewLatest, nonNewCardIds.length), // latest
+  //    ];
+  //  } else {
+  //    nonNewResultIds = [...nonNewCardIds];
+  //  }
 
-    let newResultIds = newCardIds.slice(0, maxNewLatest);
-    this.logger.debug(
-      `(${maxNonNewOldest}, ${maxNonNewLatest}, ${maxNewLatest}) -> (${nonNewResultIds.length}, ${newResultIds.length})`,
-      2
-    );
+  //  let newResultIds = newCardIds.slice(0, maxNewLatest);
+  //  this.logger.debug(
+  //    `(${maxNonNewOldest}, ${maxNonNewLatest}, ${maxNewLatest}) -> (${nonNewResultIds.length}, ${newResultIds.length})`,
+  //    2
+  //  );
 
-    return [nonNewResultIds, newResultIds];
-  }
+  //  return [nonNewResultIds, newResultIds];
+  //}
 }
