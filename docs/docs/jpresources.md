@@ -29,8 +29,8 @@ I exist on the [TheMoeWay]({{THEMOEWAY_LINK}}) and Refold (Japanese) servers.
 
 # Local Audio Server for Yomichan
 
-See the instructions
-[here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan/tree/master/local_audio).
+See the project
+[here](https://github.com/Aquafina-water-bottle/local-audio-yomichan).
 
 
 ---
@@ -215,6 +215,12 @@ button[title^="Add reading"] {
 
 ---
 
+
+## Coloring Dictionaries { .text-yellow }
+Darius has some CSS [here](https://github.com/djahandarie/yomichan-dict-css)
+that uniquely colors popular dictionaries.
+
+---
 
 
 # CSS (Other)
