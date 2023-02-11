@@ -29,8 +29,8 @@ I exist on the [TheMoeWay]({{THEMOEWAY_LINK}}) and Refold (Japanese) servers.
 
 # Local Audio Server for Yomichan
 
-See the instructions
-[here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan/tree/master/local_audio).
+See the project
+[here](https://github.com/Aquafina-water-bottle/local-audio-yomichan).
 
 
 ---
