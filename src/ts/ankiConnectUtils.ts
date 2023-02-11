@@ -86,11 +86,12 @@ export class QueryBuilder {
 
   constructor() { }
 
-  addSegment(segment: string, negate = false) {
+  addSegment(segment: string, negate = false): QueryBuilder {
     if (segment.length > 0) {
       const resultSegment = `${negate ? '-' : ''}(${segment})`;
       this.segments.push(resultSegment);
     }
+    return this;
   }
 
   build() {
