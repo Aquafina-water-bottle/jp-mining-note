@@ -25,12 +25,14 @@ export type NoteInfoTooltipBuilder = NoteInfoPA &
 //  "hidden": number[];
 //}
 
-export type BuiltQueries = {
-  'nonNew.hidden': string;
-  'nonNew.default': string;
-  'new.hidden': string;
-  'new.default': string;
-};
+
+
+//export type BuiltQueries = {
+//  'nonNew.hidden': string;
+//  'nonNew.default': string;
+//  'new.hidden': string;
+//  'new.default': string;
+//};
 
 //export type BuiltQueriesResults = {
 //  "nonNew.hidden": number[],
@@ -38,6 +40,24 @@ export type BuiltQueries = {
 //  "new.hidden": number[],
 //  "new.default": number[],
 //}
+
+
+export type QueryBuilderGroup = {
+  'nonNew.hidden': QueryBuilder;
+  'nonNew.default': QueryBuilder;
+  'new.hidden': QueryBuilder;
+  'new.default': QueryBuilder;
+};
+//
+//
+//export type QueryGroup = {
+//  'nonNew.hidden': string;
+//  'nonNew.default': string;
+//  'new.hidden': string;
+//  'new.default': string;
+//};
+
+
 
 export class TooltipBuilder extends Module {
   private readonly autoPA: AutoPitchAccent;
@@ -208,12 +228,13 @@ export class TooltipBuilder extends Module {
 
     // function exists because a query of () or -() is not valid!
     const qb = new QueryBuilder()
-    qb.addSegment(base)
-    qb.addSegment(removed, true)
+      .addSegment(base)
+      .addSegment(removed, true);
 
-    const qbHidden = qb.clone();
-    qb.addSegment(hidden, true)
+    const qbHidden = qb.clone()
+
     qbHidden.addSegment(hidden, false)
+    qb.addSegment(hidden, true)
 
     return {
       default: qb,
@@ -221,7 +242,7 @@ export class TooltipBuilder extends Module {
     };
   }
 
-  getQueryGroup() {
+  getQueryBuilderGroup(): QueryBuilderGroup {
     const qpNew = this.getQueryPair("new");
     const qpNonNew = this.getQueryPair("nonNew");
 
@@ -232,6 +253,42 @@ export class TooltipBuilder extends Module {
       'new.hidden': qpNew.hidden,
     };
   }
+
+  //cloneQueryBuilderGroup(group: QueryBuilderGroup): QueryBuilderGroup {
+  //  return {
+  //    'nonNew.default': group['nonNew.default'].clone(),
+  //    'nonNew.hidden': group['nonNew.hidden'].clone(),
+  //    'new.default': group['new.default'].clone(),
+  //    'new.hidden': group['new.hidden'].clone(),
+  //  };
+  //}
+
+  //createQueryGroup(base: string): QueryGroup {
+  //  const qpNew = this.getQueryPair("new");
+  //  const qpNonNew = this.getQueryPair("nonNew");
+
+  //  qpNonNew.default.addSegment(base)
+  //  qpNonNew.hidden.addSegment(base)
+  //  qpNew.default.addSegment(base)
+  //  qpNew.hidden.addSegment(base)
+
+  //  return {
+  //    'nonNew.default': qpNonNew.default.build(),
+  //    'nonNew.hidden': qpNonNew.hidden.build(),
+  //    'new.default': qpNew.default.build(),
+  //    'new.hidden': qpNew.hidden.build(),
+  //  };
+  //}
+
+  //cloneQueryBuilderGroup(group: QueryBuilderGroup): QueryBuilderGroup {
+  //  return {
+  //    'nonNew.default': group['nonNew.default'].clone(),
+  //    'nonNew.hidden': group['nonNew.hidden'].clone(),
+  //    'new.default': group['new.default'].clone(),
+  //    'new.hidden': group['new.hidden'].clone(),
+  //  };
+  //}
+
 
 
 

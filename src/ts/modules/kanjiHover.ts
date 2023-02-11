@@ -2,7 +2,7 @@ import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { selectPersist } from '../spersist';
 import { getFieldValue, plainToRuby } from '../utils';
-import { BuiltQueries, TooltipBuilder } from './tooltipBuilder';
+import { TooltipBuilder, QueryBuilderGroup } from './tooltipBuilder';
 import {
   AnkiConnectAction,
   constructFindCardsAction,
@@ -10,7 +10,24 @@ import {
   getQueryCache,
   invoke,
   setQueryCache,
+  QueryBuilder,
 } from '../ankiConnectUtils';
+
+type KanjiHoverCategoryID =
+  | 'word.nonNew.hidden'
+  | 'word.nonNew.default'
+  | 'word.new.hidden'
+  | 'word.new.default'
+  | 'sent.nonNew.hidden'
+  | 'sent.nonNew.default'
+  | 'sent.new.hidden'
+  | 'sent.new.default';
+
+type QueryCategories = Record<KanjiHoverCategoryID, string>;
+type QueryResults = Record<KanjiHoverCategoryID, number[]>;
+
+type KanjiQueryCategories = Record<string, QueryCategories>;
+type KanjiQueryResults = Record<string, QueryResults>;
 
 type HoverInfo = {
   usedWords: string[];
@@ -23,12 +40,24 @@ type NoteInfoKanjiHover = {
   Key: string;
 };
 
-const HOVER_INFO_CACHE_KEY = 'kanjiToHoverInfoCache';
+//type BuiltQueries = {
+//  'word.nonNew.hidden': string;
+//  'word.nonNew.default': string;
+//  'word.new.hidden': string;
+//  'word.new.default': string;
+//
+//  'sent.nonNew.hidden': string;
+//  'sent.nonNew.default': string;
+//  'sent.new.hidden': string;
+//  'sent.new.default': string;
+//}
 
 //type QueryResults = Record<string, number[]>;
 
-type QueryResultKeys = 'nonNew.default' | 'nonNew.hidden' | 'new.default' | 'new.hidden'
+//type QueryResultKeys = 'nonNew.default' | 'nonNew.hidden' | 'new.default' | 'new.hidden';
 // TODO QueryResult from QueryResultKeys
+
+// maps a kanji to the full hover HTML (the html containing the kanji + the full popup)
 type KanjiToHover = Record<string, string>;
 
 export class KanjiHover extends RunnableAsyncModule {
@@ -73,64 +102,111 @@ export class KanjiHover extends RunnableAsyncModule {
   private async cardQueries(
     noteInfo: NoteInfoKanjiHover,
     kanjis: string[]
-  ): Promise<QueryResults> {
+  ): Promise<KanjiQueryResults> {
     // TODO how to run this across other notes / cards?
 
-    let kanjiToBuiltQueries: Record<string, BuiltQueries> = {};
+    let kanjiToQueryCategory: Record<string, QueryCategories> = {};
     // maps kanji.(notNew|new).(hidden|default) -> card ids
-    let queryResults: QueryResults = {};
+    let queryResults: KanjiQueryResults = {};
+    //let queryResultsTemp: Record<string, number[]> = {};
 
     // TODO when combining, this can be a lambda
     for (const kanji of kanjis) {
       const wordReading = escapeQueryStr(noteInfo.WordReading);
-      const base = this.tooltipBuilder.buildBaseQuery(noteInfo.Key);
-      const baseQuery = `(${base}) (-"WordReading:${wordReading}" Word:*${kanji}*)`;
 
-      const queries = this.tooltipBuilder.buildQueries(baseQuery);
-      kanjiToBuiltQueries[kanji] = queries;
+      const wordQuery = `-"WordReading:${wordReading}" Word:*${kanji}*`;
+      // should be mutually exclusive from the above
+      const sentQuery = `-"WordReading:${wordReading}" -Word:*${kanji}* Sentence:*${kanji}*`;
+
+      const queryGroup: QueryBuilderGroup = this.tooltipBuilder.getQueryBuilderGroup();
+
+      const queries: QueryCategories = {
+        'word.nonNew.hidden': '',
+        'word.nonNew.default': '',
+        'word.new.hidden': '',
+        'word.new.default': '',
+        'sent.nonNew.hidden': '',
+        'sent.nonNew.default': '',
+        'sent.new.hidden': '',
+        'sent.new.default': '',
+      };
+
+      for (const [key, qb] of Object.entries(queryGroup)) {
+        const qbSent = qb.clone();
+
+        qb.addSegment(wordQuery);
+        queries[`word.${key as keyof QueryBuilderGroup}`] = qb.build();
+
+        qbSent.addSegment(sentQuery);
+        queries[`sent.${key as keyof QueryBuilderGroup}`] = qbSent.build();
+      }
+
+      kanjiToQueryCategory[kanji] = queries;
     }
 
-    for (const [kanji, builtQuery] of Object.entries(kanjiToBuiltQueries)) {
+    for (const [kanji, queryCategory] of Object.entries(kanjiToQueryCategory)) {
+      queryResults[kanji] = {
+        'word.nonNew.hidden': [-1],
+        'word.nonNew.default': [-1],
+        'word.new.hidden': [-1],
+        'word.new.default': [-1],
+        'sent.nonNew.hidden': [-1],
+        'sent.nonNew.default': [-1],
+        'sent.new.hidden': [-1],
+        'sent.new.default': [-1],
+      };
+
       // checks cache
       if (this.useCache) {
-        for (const [queryKey, query] of Object.entries(builtQuery)) {
+        for (const [queryKey, query] of Object.entries(queryCategory)) {
           if (this.persistObj !== null) {
             const cache = getQueryCache(this.persistObj, query);
             if (cache !== null) {
-              const qResultKey = `${kanji}.${queryKey}`;
-              queryResults[qResultKey] = cache;
+              queryResults[kanji][queryKey as KanjiHoverCategoryID] = cache;
             }
           }
         }
       }
 
       // checks unnecessary query (hidden has nothing)
-      function checkUnnecessaryQuery(queryKey: 'new.hidden' | 'nonNew.hidden') {
-        if (builtQuery[queryKey] === '') {
-          const qResultKey = `${kanji}.${queryKey}`;
-          queryResults[qResultKey] = [];
+      function checkUnnecessaryQuery(
+        queryKey:
+          | 'sent.new.hidden'
+          | 'sent.nonNew.hidden'
+          | 'word.new.hidden'
+          | 'word.nonNew.hidden'
+      ) {
+        if (queryCategory[queryKey] === '') {
+          queryResults[kanji][queryKey as KanjiHoverCategoryID] = [];
         }
       }
       // for some reason, this for loop doesn't seem to work with typescript?
       //for (const queryKey of ['new.hidden', 'nonNew.hidden']) {
       //  checkUnnecessaryQuery(queryKey);
       //}
-      checkUnnecessaryQuery('new.hidden');
-      checkUnnecessaryQuery('nonNew.hidden');
+      checkUnnecessaryQuery('sent.new.hidden');
+      checkUnnecessaryQuery('sent.nonNew.hidden');
+      checkUnnecessaryQuery('word.new.hidden');
+      checkUnnecessaryQuery('word.nonNew.hidden');
     }
 
     // gets actions for queries
     // these two arrays should be the same length, as they map query key <-> query
     let queriesFlattened: string[] = [];
-    let queryKeysFlattened: string[] = [];
+    let kanjisFlattened: string[] = [];
+    let categoriesFlattened: KanjiHoverCategoryID[] = [];
     let actions: AnkiConnectAction[] = [];
 
-    for (const [kanji, builtQuery] of Object.entries(kanjiToBuiltQueries)) {
-      for (const [queryKey, query] of Object.entries(builtQuery)) {
-        const qResultKey = `${kanji}.${queryKey}`;
-        if (!(qResultKey in queryResults)) {
+    for (const [kanji, queryCategory] of Object.entries(queryResults)) {
+      for (const [categoryID, queryResult] of Object.entries(queryCategory)) {
+        //const qResultKey = `${kanji}.${queryKey}`;
+        if (queryResult.length === 1 && queryResult[0] === -1) {
+          const query = kanjiToQueryCategory[kanji][categoryID as KanjiHoverCategoryID];
           queriesFlattened.push(query);
-          queryKeysFlattened.push(qResultKey);
+
+          kanjisFlattened.push(kanji);
+          categoriesFlattened.push(categoryID as KanjiHoverCategoryID);
+
           console.log(query);
           const action = constructFindCardsAction(query);
           actions.push(action);
@@ -142,34 +218,147 @@ export class KanjiHover extends RunnableAsyncModule {
     const multiResult = (await invoke('multi', { actions: actions })) as number[][];
     for (let i = 0; i < multiResult.length; i++) {
       const query = queriesFlattened[i];
-      const queryKey = queryKeysFlattened[i];
+      const kanji = kanjisFlattened[i];
+      const categoryID = categoriesFlattened[i];
       const queryResult = multiResult[i];
 
       if (this.persistObj !== null) {
         setQueryCache(this.persistObj, query, queryResult);
       }
-      queryResults[queryKey] = queryResult;
+
+      queryResults[kanji][categoryID] = queryResult;
     }
 
     return queryResults;
   }
 
-  // TODO move this into tooltip builder
+
+  private filterCards(
+    a: number[][],
+    b: number[][],
+    aMaxFirst: number,
+    aMaxLast: number,
+    bMaxFirst: number,
+    bMaxLast: number
+  ): [number[], number[]] {
+    if (a.length !== b.length) {
+      throw Error(`Invalid lengths: ${a.length} vs ${b.length}`);
+    }
+
+    // result
+    let aRes: number[] = []
+    let bRes: number[] = []
+
+    // attempts to use all in a_arr and b_arr to fill all of the resulting 2 arrays
+    for (let i = 0; i < a.length; i++) {
+      const aArr = Array.from(a[i]).sort();
+      const bArr = Array.from(b[i]).sort();
+
+      // spreads out the limits to each other if necessary
+      // only spreads out the limits if the other array can handle it!
+      // expensive but it's guaranteed to work
+      let flip = true;
+      while ((aMaxFirst + aMaxLast) > aArr.length && (bMaxFirst + bMaxLast) < bArr.length) {
+        if (flip && aMaxFirst > 0) {
+          aMaxFirst -= 1
+          bMaxFirst += 1;
+        } else if (aMaxLast > 0) {
+          aMaxLast -= 1
+          bMaxLast += 1;
+        }
+        flip = !flip;
+      }
+      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast)
+
+      // same thing but on b array
+      flip = true;
+      while ((bMaxFirst + bMaxLast) > bArr.length && (aMaxFirst + aMaxLast) < aArr.length) {
+        if (flip && bMaxFirst > 0) {
+          bMaxFirst -= 1
+          aMaxFirst += 1;
+        } else if (bMaxLast > 0) {
+          bMaxLast -= 1
+          aMaxLast += 1;
+        }
+        flip = !flip;
+      }
+      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast)
+
+      if (aArr.length > (aMaxFirst + aMaxLast)) {
+        aRes = [...aRes, ...aArr.slice(0, aMaxFirst), ...aArr.slice(-aMaxLast, aArr.length)]
+        aMaxFirst = 0;
+        aMaxLast = 0;
+      } else {
+        aRes = [...aRes, ...aArr]
+
+        // expensive reduce once again
+        let reduceBy = aArr.length
+        while (reduceBy > 0) {
+          let foundOne = false
+          if (aMaxFirst > 0) {
+            aMaxFirst -= 1;
+            reduceBy -= 1
+            foundOne = true
+          }
+          if (reduceBy <= 0) {
+            break;
+          }
+          if (aMaxLast > 0) {
+            aMaxLast -= 1;
+            reduceBy -= 1
+            foundOne = true
+          }
+
+          if (!foundOne) {
+            this.logger.error(`Cannot reduce any further? > ${aArr} < and ${bArr}`)
+            break; // guarantees no infinite recursion, but this also implies there's an error in the code
+          }
+        }
+      }
+
+      if (bArr.length > (bMaxFirst + bMaxLast)) {
+        bMaxFirst = 0;
+        bMaxLast = 0;
+        bRes = [...bRes, ...bArr.slice(0, bMaxFirst), ...bArr.slice(-bMaxLast, bArr.length)]
+      } else {
+        bRes = [...bRes, ...bArr]
+
+        // expensive reduce once again
+        let reduceBy = bArr.length
+        while (reduceBy > 0) {
+          let foundOne = false
+          if (bMaxFirst > 0) {
+            bMaxFirst -= 1;
+            reduceBy -= 1
+            foundOne = true
+          }
+          if (reduceBy <= 0) {
+            break;
+          }
+          if (bMaxLast > 0) {
+            bMaxLast -= 1;
+            reduceBy -= 1
+            foundOne = true
+          }
+
+          if (!foundOne) {
+            this.logger.error(`Cannot reduce any further? ${aArr} and > ${bArr} <`)
+            break; // guarantees no infinite recursion
+          }
+        }
+      }
+      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast)
+
+    }
+
+    return [aRes, bRes];
+  }
+
+  // TODO move this into tooltip builder maybe?
   private async sortByTimeCreated(
     queryResults: QueryResults,
     kanjiToHover: KanjiToHover
   ) {
-    // restructures
-    const kanjiToQueryResult: Record<string, Record<string, number[]>> = {};
-    for (const qResultKey of Object.keys(queryResults)) {
-      const kanji = qResultKey.substring(0, 1);
-      const queryType = qResultKey.substring(2); // kanji.(notNew|new).(hidden|default)
-      if (!(kanji in kanjiToQueryResult)) {
-        kanjiToQueryResult[kanji] = {};
-        kanjiToQueryResult[kanji][queryType] = queryResults[qResultKey];
-      }
-    }
-
     const maxNonNewOldest = this.getOption('tooltipBuilder.categoryMax.nonNewOldest');
     const maxNonNewLatest = this.getOption('tooltipBuilder.categoryMax.nonNewLatest');
     const maxNewLatest = this.getOption('tooltipBuilder.categoryMax.newLatest');
