@@ -2,7 +2,7 @@ import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { selectPersist } from '../spersist';
 import { getFieldValue, plainToRuby } from '../utils';
-import { TooltipBuilder, QueryBuilderGroup, NoteInfoTooltipBuilder } from './tooltipBuilder';
+import { Tooltips, QueryBuilderGroup, NoteInfoTooltipBuilder } from './tooltips';
 import {
   AnkiConnectAction,
   constructFindCardsAction,
@@ -74,7 +74,7 @@ type KanjiToHover = Record<string, string>;
 export class KanjiHover extends RunnableAsyncModule {
   private readonly persist = selectPersist();
   private readonly persistObj = selectPersist('window');
-  private readonly tooltipBuilder: TooltipBuilder;
+  private readonly tooltips: Tooltips;
 
   //private wordReadingHTML = "";
 
@@ -83,9 +83,9 @@ export class KanjiHover extends RunnableAsyncModule {
     //const displayPitchAccentHover = {{ utils.opt("modules", "kanji-hover", "display-pitch-accent-hover-only") }}
 
     super('kanjiHover');
-    this.tooltipBuilder = new TooltipBuilder();
-    this.tooltipBuilder.overrideOptions(
-      getOption('kanjiHover.overrideOptions.tooltipBuilder')
+    this.tooltips = new Tooltips();
+    this.tooltips.overrideOptions(
+      getOption('kanjiHover.overrideOptions.tooltips')
     );
   }
 
@@ -127,7 +127,7 @@ export class KanjiHover extends RunnableAsyncModule {
       // should be mutually exclusive from the above
       const sentQuery = `-"WordReading:${wordReading}" -Word:*${kanji}* Sentence:*${kanji}*`;
 
-      const queryGroup: QueryBuilderGroup = this.tooltipBuilder.getQueryBuilderGroup();
+      const queryGroup: QueryBuilderGroup = this.tooltips.getQueryBuilderGroup();
 
       const queries: QueryCategories = {
         'word.nonNew.hidden': '',
@@ -366,10 +366,10 @@ export class KanjiHover extends RunnableAsyncModule {
   private sortByTimeCreated(
     kanjiQueryResults: KanjiQueryResults
   ): KanjiToFilteredCardIDs {
-    const maxNonNewOldest = this.getOption('tooltipBuilder.categoryMax.nonNew.oldest');
-    const maxNonNewNewest = this.getOption('tooltipBuilder.categoryMax.nonNew.newest');
-    const maxNewOldest = this.getOption('tooltipBuilder.categoryMax.new.oldest');
-    const maxNewNewest = this.getOption('tooltipBuilder.categoryMax.new.newest');
+    const maxNonNewOldest = this.getOption('tooltips.categoryMax.nonNew.oldest');
+    const maxNonNewNewest = this.getOption('tooltips.categoryMax.nonNew.newest');
+    const maxNewOldest = this.getOption('tooltips.categoryMax.new.oldest');
+    const maxNewNewest = this.getOption('tooltips.categoryMax.new.newest');
 
     const kanjiToFilteredCardIDs: KanjiToFilteredCardIDs = {};
 
@@ -483,12 +483,12 @@ export class KanjiHover extends RunnableAsyncModule {
   private buildTooltip(filteredCardsInfo: FilteredCardsInfo, kanji: string): string {
     for (const cardInfo of filteredCardsInfo['word.nonNew']) {
       const noteInfoTTB = this.cardInfoToNoteInfoTooltipBuilder(cardInfo);
-      const wordDiv = this.tooltipBuilder.buildWordDiv(noteInfoTTB, kanji, cardInfo.cardId);
-      const sentDiv = this.tooltipBuilder.buildSentDiv(noteInfoTTB);
+      const wordDiv = this.tooltips.buildWordDiv(noteInfoTTB, kanji, cardInfo.cardId);
+      const sentDiv = this.tooltips.buildSentDiv(noteInfoTTB);
     }
     for (const cardInfo of filteredCardsInfo['sent.nonNew']) {
       const noteInfoTTB = this.cardInfoToNoteInfoTooltipBuilder(cardInfo);
-      const sentDiv = this.tooltipBuilder.buildSentDiv(noteInfoTTB);
+      const sentDiv = this.tooltips.buildSentDiv(noteInfoTTB);
     }
   }
 
@@ -523,7 +523,7 @@ export class KanjiHover extends RunnableAsyncModule {
     // two possible handlers:
     // a) find all note infos for sorting purposes
     // b) sort by card id
-    const sortMethod = this.getOption('tooltipBuilder.sortMethod');
+    const sortMethod = this.getOption('tooltips.sortMethod');
     let kanjiToFilteredCardIDs: KanjiToFilteredCardIDs;
     if (sortMethod === 'time-created') {
       kanjiToFilteredCardIDs = this.sortByTimeCreated(queryResults);
@@ -592,6 +592,6 @@ export class KanjiHover extends RunnableAsyncModule {
     // caches card
     // TODO
 
-    this.tooltipBuilder.addBrowseOnClick(`.dh-left__reading > .hover-tooltip__word-div`);
+    this.tooltips.addBrowseOnClick(`.dh-left__reading > .hover-tooltip__word-div`);
   }
 }
