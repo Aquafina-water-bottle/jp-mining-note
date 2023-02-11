@@ -2,15 +2,17 @@ import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { selectPersist } from '../spersist';
 import { getFieldValue, plainToRuby } from '../utils';
-import { TooltipBuilder, QueryBuilderGroup } from './tooltipBuilder';
+import { TooltipBuilder, QueryBuilderGroup, NoteInfoTooltipBuilder } from './tooltipBuilder';
 import {
   AnkiConnectAction,
   constructFindCardsAction,
   escapeQueryStr,
   getQueryCache,
-  invoke,
   setQueryCache,
+  invoke,
   QueryBuilder,
+  CardInfo,
+  cardsInfo,
 } from '../ankiConnectUtils';
 
 type KanjiHoverCategoryID =
@@ -28,6 +30,13 @@ type QueryResults = Record<KanjiHoverCategoryID, number[]>;
 
 type KanjiQueryCategories = Record<string, QueryCategories>;
 type KanjiQueryResults = Record<string, QueryResults>;
+
+// TODO may have to separate preview and non-preview
+type FilteredCardCategories = 'word.nonNew' | 'sent.nonNew' | 'word.new' | 'sent.new';
+type FilteredCardIDs = Record<FilteredCardCategories, number[]>;
+type KanjiToFilteredCardIDs = Record<string, FilteredCardIDs>;
+type FilteredCardsInfo = Record<FilteredCardCategories, CardInfo[]>;
+type KanjiToFilteredCardsInfo = Record<string, FilteredCardsInfo>;
 
 type HoverInfo = {
   usedWords: string[];
@@ -56,6 +65,8 @@ type NoteInfoKanjiHover = {
 
 //type QueryResultKeys = 'nonNew.default' | 'nonNew.hidden' | 'new.default' | 'new.hidden';
 // TODO QueryResult from QueryResultKeys
+
+const hoverInfoCacheKey = 'KanjiHover.hoverInfoCacheKey';
 
 // maps a kanji to the full hover HTML (the html containing the kanji + the full popup)
 type KanjiToHover = Record<string, string>;
@@ -96,8 +107,6 @@ export class KanjiHover extends RunnableAsyncModule {
     return kanjiSet;
   }
 
-  // returns a map:
-  // kanji.(notNew|new).(hidden|default) -> card ids
   // TODO combine this with word indicators via tooltip builder at some point?
   private async cardQueries(
     noteInfo: NoteInfoKanjiHover,
@@ -232,7 +241,6 @@ export class KanjiHover extends RunnableAsyncModule {
     return queryResults;
   }
 
-
   private filterCards(
     a: number[][],
     b: number[][],
@@ -240,14 +248,14 @@ export class KanjiHover extends RunnableAsyncModule {
     aMaxLast: number,
     bMaxFirst: number,
     bMaxLast: number
-  ): [number[], number[]] {
+  ): [number[][], number[][]] {
     if (a.length !== b.length) {
       throw Error(`Invalid lengths: ${a.length} vs ${b.length}`);
     }
 
     // result
-    let aRes: number[] = []
-    let bRes: number[] = []
+    let aRes: number[][] = [];
+    let bRes: number[][] = [];
 
     // attempts to use all in a_arr and b_arr to fill all of the resulting 2 arrays
     for (let i = 0; i < a.length; i++) {
@@ -258,127 +266,231 @@ export class KanjiHover extends RunnableAsyncModule {
       // only spreads out the limits if the other array can handle it!
       // expensive but it's guaranteed to work
       let flip = true;
-      while ((aMaxFirst + aMaxLast) > aArr.length && (bMaxFirst + bMaxLast) < bArr.length) {
+      while (aMaxFirst + aMaxLast > aArr.length && bMaxFirst + bMaxLast < bArr.length) {
         if (flip && aMaxFirst > 0) {
-          aMaxFirst -= 1
+          aMaxFirst -= 1;
           bMaxFirst += 1;
         } else if (aMaxLast > 0) {
-          aMaxLast -= 1
+          aMaxLast -= 1;
           bMaxLast += 1;
         }
         flip = !flip;
       }
-      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast)
+      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast);
 
       // same thing but on b array
       flip = true;
-      while ((bMaxFirst + bMaxLast) > bArr.length && (aMaxFirst + aMaxLast) < aArr.length) {
+      while (bMaxFirst + bMaxLast > bArr.length && aMaxFirst + aMaxLast < aArr.length) {
         if (flip && bMaxFirst > 0) {
-          bMaxFirst -= 1
+          bMaxFirst -= 1;
           aMaxFirst += 1;
         } else if (bMaxLast > 0) {
-          bMaxLast -= 1
+          bMaxLast -= 1;
           aMaxLast += 1;
         }
         flip = !flip;
       }
-      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast)
+      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast);
 
-      if (aArr.length > (aMaxFirst + aMaxLast)) {
-        aRes = [...aRes, ...aArr.slice(0, aMaxFirst), ...aArr.slice(-aMaxLast, aArr.length)]
+      if (aArr.length > aMaxFirst + aMaxLast) {
+        aRes.push([...aArr.slice(0, aMaxFirst), ...aArr.slice(-aMaxLast, aArr.length)]);
         aMaxFirst = 0;
         aMaxLast = 0;
       } else {
-        aRes = [...aRes, ...aArr]
+        aRes.push(Array.from(aArr));
+        aMaxFirst = 0;
 
         // expensive reduce once again
-        let reduceBy = aArr.length
+        let reduceBy = aArr.length;
         while (reduceBy > 0) {
-          let foundOne = false
+          let foundOne = false;
           if (aMaxFirst > 0) {
             aMaxFirst -= 1;
-            reduceBy -= 1
-            foundOne = true
+            reduceBy -= 1;
+            foundOne = true;
           }
           if (reduceBy <= 0) {
             break;
           }
           if (aMaxLast > 0) {
             aMaxLast -= 1;
-            reduceBy -= 1
-            foundOne = true
+            reduceBy -= 1;
+            foundOne = true;
           }
 
           if (!foundOne) {
-            this.logger.error(`Cannot reduce any further? > ${aArr} < and ${bArr}`)
+            this.logger.error(`Cannot reduce any further? > ${aArr} < and ${bArr}`);
             break; // guarantees no infinite recursion, but this also implies there's an error in the code
           }
         }
       }
 
-      if (bArr.length > (bMaxFirst + bMaxLast)) {
+      if (bArr.length > bMaxFirst + bMaxLast) {
         bMaxFirst = 0;
         bMaxLast = 0;
-        bRes = [...bRes, ...bArr.slice(0, bMaxFirst), ...bArr.slice(-bMaxLast, bArr.length)]
+        bRes.push([...bArr.slice(0, bMaxFirst), ...bArr.slice(-bMaxLast, bArr.length)]);
       } else {
-        bRes = [...bRes, ...bArr]
+        bRes.push(Array.from(bArr));
 
         // expensive reduce once again
-        let reduceBy = bArr.length
+        let reduceBy = bArr.length;
         while (reduceBy > 0) {
-          let foundOne = false
+          let foundOne = false;
           if (bMaxFirst > 0) {
             bMaxFirst -= 1;
-            reduceBy -= 1
-            foundOne = true
+            reduceBy -= 1;
+            foundOne = true;
           }
           if (reduceBy <= 0) {
             break;
           }
           if (bMaxLast > 0) {
             bMaxLast -= 1;
-            reduceBy -= 1
-            foundOne = true
+            reduceBy -= 1;
+            foundOne = true;
           }
 
           if (!foundOne) {
-            this.logger.error(`Cannot reduce any further? ${aArr} and > ${bArr} <`)
+            this.logger.error(`Cannot reduce any further? ${aArr} and > ${bArr} <`);
             break; // guarantees no infinite recursion
           }
         }
       }
-      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast)
-
+      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast);
     }
 
     return [aRes, bRes];
   }
 
   // TODO move this into tooltip builder maybe?
-  private async sortByTimeCreated(
-    queryResults: QueryResults,
-    kanjiToHover: KanjiToHover
-  ) {
-    const maxNonNewOldest = this.getOption('tooltipBuilder.categoryMax.nonNewOldest');
-    const maxNonNewLatest = this.getOption('tooltipBuilder.categoryMax.nonNewLatest');
-    const maxNewLatest = this.getOption('tooltipBuilder.categoryMax.newLatest');
+  private sortByTimeCreated(
+    kanjiQueryResults: KanjiQueryResults
+  ): KanjiToFilteredCardIDs {
+    const maxNonNewOldest = this.getOption('tooltipBuilder.categoryMax.nonNew.oldest');
+    const maxNonNewNewest = this.getOption('tooltipBuilder.categoryMax.nonNew.newest');
+    const maxNewOldest = this.getOption('tooltipBuilder.categoryMax.new.oldest');
+    const maxNewNewest = this.getOption('tooltipBuilder.categoryMax.new.newest');
 
-    for (const [kanji, queryResult] of Object.entries(kanjiToQueryResult)) {
-      const [nonNewResultIds, newResultIds] = this.tooltipBuilder.filterCards(
-        queryResult['nonNew.default'],
-        queryResult['new.default'],
+    const kanjiToFilteredCardIDs: KanjiToFilteredCardIDs = {};
+
+    for (const [kanji, queryResult] of Object.entries(kanjiQueryResults)) {
+      const [nonNewResultIds, newResultIds] = this.filterCards(
+        [queryResult['word.nonNew.default'], queryResult['sent.nonNew.default']],
+        [queryResult['word.new.default'], queryResult['sent.new.default']],
         maxNonNewOldest,
-        maxNonNewLatest,
-        maxNewLatest
+        maxNonNewNewest,
+        maxNewOldest,
+        maxNewNewest
       );
+
+      kanjiToFilteredCardIDs[kanji] = {
+        'word.nonNew': nonNewResultIds[0],
+        'sent.nonNew': nonNewResultIds[1],
+        'word.new': newResultIds[0],
+        'sent.new': newResultIds[1],
+      };
     }
+
+    return kanjiToFilteredCardIDs;
   }
 
   // TODO move this into tooltip builder
   private async sortByFirstReview(
-    queryResults: QueryResults,
+    kanjiQueryResults: KanjiQueryResults,
     kanjiToHover: KanjiToHover
-  ) {}
+  ) {
+    throw Error('not implemented');
+  }
+
+  /* equivalent of cardsInfo() except it simply uses the cache instead */
+  private cardIDsToCardsInfo(cardIDs: number[], cardsInfoResult: Record<number, CardInfo>): CardInfo[] {
+    const result: CardInfo[] = [];
+    for (const id of cardIDs) {
+      if (!(id in cardsInfoResult)) {
+        throw Error("id not in cardsInfoResult: ${id}");
+      }
+      result.push(cardsInfoResult[id])
+    }
+    return result
+  }
+
+  private async getCardInfo(
+    kanjiToFilteredCardIDs: KanjiToFilteredCardIDs
+  ): Promise<KanjiToFilteredCardsInfo> {
+    const kanjiToFilteredCardsInfo: KanjiToFilteredCardsInfo = {};
+    // extracts the card ids and just attempts to get it
+    const cardIDs: Set<number> = new Set();
+
+    const result: KanjiToFilteredCardsInfo = {};
+
+    for (const filteredCardIDs of Object.values(kanjiToFilteredCardIDs)) {
+      // there's no set union?
+      // there's also no easy way to add all elements from an iterable to a set???
+      // therefore, you just go to for-loop through all the values???????
+      const ids = [
+        ...filteredCardIDs['word.nonNew'],
+        ...filteredCardIDs['word.new'],
+        ...filteredCardIDs['sent.nonNew'],
+        ...filteredCardIDs['sent.new'],
+      ];
+      for (const id of ids) {
+        cardIDs.add(id);
+      }
+    }
+
+    // convert set to array
+    const cardIDsArray = [...cardIDs];
+    const cardsInfoResult = await cardsInfo(cardIDsArray);
+
+    for (const [kanji, filteredCardIDs] of Object.entries(kanjiToFilteredCardIDs)) {
+      result[kanji] = {
+        'word.nonNew': this.cardIDsToCardsInfo(filteredCardIDs['word.nonNew'], cardsInfoResult),
+        'word.new': this.cardIDsToCardsInfo(filteredCardIDs['word.new'], cardsInfoResult),
+        'sent.nonNew': this.cardIDsToCardsInfo(filteredCardIDs['sent.nonNew'], cardsInfoResult),
+        'sent.new': this.cardIDsToCardsInfo(filteredCardIDs['sent.new'], cardsInfoResult),
+      };
+    }
+
+    return result;
+  }
+
+  private buildTooltips(
+    kanjiToFilteredCardIDs: KanjiToFilteredCardsInfo,
+    kanjiToHover: KanjiToHover
+  ) {
+    for (const [kanji, filteredCardsInfo] of Object.entries(kanjiToFilteredCardIDs)) {
+      kanjiToHover[kanji] = this.buildTooltip(filteredCardsInfo, kanji);
+    }
+  }
+
+
+  // transforms CardInfo into something useful for the tooltip builder
+  private cardInfoToNoteInfoTooltipBuilder(cardInfo: CardInfo): NoteInfoTooltipBuilder {
+    return {
+      "AJTWordPitch": cardInfo.fields.AJTWordPitch.value,
+      "PAOverride": cardInfo.fields.PAOverride.value,
+      "PAOverrideText": cardInfo.fields.PAOverrideText.value,
+      "PAPositions":cardInfo.fields.PAPositions.value,
+      "Sentence": cardInfo.fields.Sentence.value,
+      "Word": cardInfo.fields.Word.value,
+      "WordReading": cardInfo.fields.WordReading.value,
+      "WordReadingHiragana": cardInfo.fields.WordReading.value,
+      "YomichanWordTags": cardInfo.fields.YomichanWordTags.value,
+      "tags": []
+    }
+  }
+
+  private buildTooltip(filteredCardsInfo: FilteredCardsInfo, kanji: string): string {
+    for (const cardInfo of filteredCardsInfo['word.nonNew']) {
+      const noteInfoTTB = this.cardInfoToNoteInfoTooltipBuilder(cardInfo);
+      const wordDiv = this.tooltipBuilder.buildWordDiv(noteInfoTTB, kanji, cardInfo.cardId);
+      const sentDiv = this.tooltipBuilder.buildSentDiv(noteInfoTTB);
+    }
+    for (const cardInfo of filteredCardsInfo['sent.nonNew']) {
+      const noteInfoTTB = this.cardInfoToNoteInfoTooltipBuilder(cardInfo);
+      const sentDiv = this.tooltipBuilder.buildSentDiv(noteInfoTTB);
+    }
+  }
 
   private async getKanjisToHover(
     noteInfo: NoteInfoKanjiHover
@@ -391,7 +503,7 @@ export class KanjiHover extends RunnableAsyncModule {
     // looks for a cached hoverHTMLKey that doesn't contain the target word
     // Array.from is to shallow-copy, so it doesn't interfere with kanjiSet.delete()
     for (const kanji of Array.from(kanjiSet)) {
-      const key = `${HOVER_INFO_CACHE_KEY}.${kanji}`;
+      const key = `${hoverInfoCacheKey}.${kanji}`;
       if (this.persistObj?.has(key)) {
         const hoverInfoArray: HoverInfo[] = this.persistObj.get(key);
 
@@ -412,11 +524,16 @@ export class KanjiHover extends RunnableAsyncModule {
     // a) find all note infos for sorting purposes
     // b) sort by card id
     const sortMethod = this.getOption('tooltipBuilder.sortMethod');
+    let kanjiToFilteredCardIDs: KanjiToFilteredCardIDs;
     if (sortMethod === 'time-created') {
-      await this.sortByTimeCreated(queryResults, kanjiToHover);
+      kanjiToFilteredCardIDs = this.sortByTimeCreated(queryResults);
     } else {
-      await this.sortByFirstReview(queryResults, kanjiToHover);
+      throw Error('not implemented');
+      //await this.sortByFirstReview(queryResults, kanjiToHover);
     }
+
+    const kanjiToFilteredCardInfo = await this.getCardInfo(kanjiToFilteredCardIDs);
+    this.buildTooltips(kanjiToFilteredCardInfo, kanjiToHover);
 
     return kanjiToHover;
 

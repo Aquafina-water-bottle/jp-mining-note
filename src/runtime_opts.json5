@@ -613,6 +613,9 @@
 
   "kanjiHover.enabled": true,
 
+  // TODO implement
+  "kanjiHover.searchSentences": true,
+
   "kanjiHover.overrideOptions.tooltipBuilder": {},
 
 
@@ -762,9 +765,10 @@
   "tooltipBuilder.sortMethod": "time-created",
 
   // maximum number of words per category
-  "tooltipBuilder.categoryMax.nonNewOldest": 2,
-  "tooltipBuilder.categoryMax.nonNewLatest": 2,
-  "tooltipBuilder.categoryMax.newLatest": 2,
+  "tooltipBuilder.categoryMax.nonNew.oldest": 2,
+  "tooltipBuilder.categoryMax.nonNew.newest": 2,
+  "tooltipBuilder.categoryMax.new.oldest": 2,
+  "tooltipBuilder.categoryMax.new.newest": 0,
 
 
   "tooltipBuilder.overrideOptions.sentenceParser": {},
