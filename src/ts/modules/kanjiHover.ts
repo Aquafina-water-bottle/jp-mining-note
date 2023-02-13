@@ -2,7 +2,12 @@ import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { selectPersist } from '../spersist';
 import { getFieldValue, plainToRuby } from '../utils';
-import { Tooltips, QueryBuilderGroup, NoteInfoTooltipBuilder } from './tooltips';
+import {
+  Tooltips,
+  QueryBuilderGroup,
+  NoteInfoTooltipBuilder,
+  TooltipBuilder,
+} from './tooltips';
 import {
   AnkiConnectAction,
   constructFindCardsAction,
@@ -14,6 +19,7 @@ import {
   CardInfo,
   cardsInfo,
 } from '../ankiConnectUtils';
+import { translatorStrs } from '../consts';
 
 type KanjiHoverCategoryID =
   | 'word.nonNew.hidden'
@@ -79,14 +85,9 @@ export class KanjiHover extends RunnableAsyncModule {
   //private wordReadingHTML = "";
 
   constructor() {
-    //const displayPitchAccent = {{ utils.opt("modules", "kanji-hover", "display-pitch-accent") }}
-    //const displayPitchAccentHover = {{ utils.opt("modules", "kanji-hover", "display-pitch-accent-hover-only") }}
-
     super('kanjiHover');
     this.tooltips = new Tooltips();
-    this.tooltips.overrideOptions(
-      getOption('kanjiHover.overrideOptions.tooltips')
-    );
+    this.tooltips.overrideOptions(getOption('kanjiHover.overrideOptions.tooltips'));
   }
 
   private clearCardCache() {}
@@ -113,6 +114,8 @@ export class KanjiHover extends RunnableAsyncModule {
     kanjis: string[]
   ): Promise<KanjiQueryResults> {
     // TODO how to run this across other notes / cards?
+
+    const baseQuery = this.tooltips.getCardBaseQuery(getFieldValue('Key'));
 
     let kanjiToQueryCategory: Record<string, QueryCategories> = {};
     // maps kanji.(notNew|new).(hidden|default) -> card ids
@@ -141,8 +144,9 @@ export class KanjiHover extends RunnableAsyncModule {
       };
 
       for (const [key, qb] of Object.entries(queryGroup)) {
-        const qbSent = qb.clone();
+        qb.addSegment(baseQuery);
 
+        const qbSent = qb.clone();
         qb.addSegment(wordQuery);
         queries[`word.${key as keyof QueryBuilderGroup}`] = qb.build();
 
@@ -216,7 +220,6 @@ export class KanjiHover extends RunnableAsyncModule {
           kanjisFlattened.push(kanji);
           categoriesFlattened.push(categoryID as KanjiHoverCategoryID);
 
-          console.log(query);
           const action = constructFindCardsAction(query);
           actions.push(action);
         }
@@ -224,12 +227,13 @@ export class KanjiHover extends RunnableAsyncModule {
     }
 
     // parses multi result back into queryResults
-    const multiResult = (await invoke('multi', { actions: actions })) as number[][];
-    for (let i = 0; i < multiResult.length; i++) {
+    type MultiResult = { result: number[]; error: string | null };
+    const multiResults = (await invoke('multi', { actions: actions })) as MultiResult[];
+    for (let i = 0; i < multiResults.length; i++) {
       const query = queriesFlattened[i];
       const kanji = kanjisFlattened[i];
       const categoryID = categoriesFlattened[i];
-      const queryResult = multiResult[i];
+      const queryResult = multiResults[i].result;
 
       if (this.persistObj !== null) {
         setQueryCache(this.persistObj, query, queryResult);
@@ -239,6 +243,64 @@ export class KanjiHover extends RunnableAsyncModule {
     }
 
     return queryResults;
+  }
+
+  private filterCardsReduce1(
+    aMaxFirst: number,
+    aMaxLast: number,
+    bMaxFirst: number,
+    bMaxLast: number,
+    aArrLen: number,
+    bArrLen: number
+  ) {
+    let flip = true;
+    while (aMaxFirst + aMaxLast > aArrLen && bMaxFirst + bMaxLast < bArrLen) {
+      if (flip && aMaxFirst > 0) {
+        aMaxFirst -= 1;
+        bMaxFirst += 1;
+      } else if (aMaxLast > 0) {
+        aMaxLast -= 1;
+        bMaxLast += 1;
+      }
+      flip = !flip;
+    }
+
+    return [aMaxFirst, aMaxLast, bMaxFirst, bMaxLast];
+  }
+
+  private filterCardsReduce2(
+    aMaxFirst: number,
+    aMaxLast: number,
+    aArr: number[],
+    bArr: number[],
+  ) {
+
+    // expensive reduce once again
+    let reduceBy = aArr.length;
+    while (reduceBy > 0) {
+      let foundOne = false;
+      if (aMaxFirst > 0) {
+        aMaxFirst -= 1;
+        reduceBy -= 1;
+        foundOne = true;
+      }
+      if (reduceBy <= 0) {
+        break;
+      }
+      if (aMaxLast > 0) {
+        aMaxLast -= 1;
+        reduceBy -= 1;
+        foundOne = true;
+      }
+
+      if (!foundOne) {
+        this.logger.error(`Cannot reduce any further? > ${aArr} < and ${bArr}`);
+        break; // guarantees no infinite recursion, but this also implies there's an error in the code
+      }
+    }
+
+    return [aMaxFirst, aMaxLast]
+
   }
 
   private filterCards(
@@ -265,98 +327,50 @@ export class KanjiHover extends RunnableAsyncModule {
       // spreads out the limits to each other if necessary
       // only spreads out the limits if the other array can handle it!
       // expensive but it's guaranteed to work
-      let flip = true;
-      while (aMaxFirst + aMaxLast > aArr.length && bMaxFirst + bMaxLast < bArr.length) {
-        if (flip && aMaxFirst > 0) {
-          aMaxFirst -= 1;
-          bMaxFirst += 1;
-        } else if (aMaxLast > 0) {
-          aMaxLast -= 1;
-          bMaxLast += 1;
-        }
-        flip = !flip;
-      }
-      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast);
+      [aMaxFirst, aMaxLast, bMaxFirst, bMaxLast] = this.filterCardsReduce1(
+        aMaxFirst,
+        aMaxLast,
+        bMaxFirst,
+        bMaxLast,
+        aArr.length,
+        bArr.length,
+      );
 
-      // same thing but on b array
-      flip = true;
-      while (bMaxFirst + bMaxLast > bArr.length && aMaxFirst + aMaxLast < aArr.length) {
-        if (flip && bMaxFirst > 0) {
-          bMaxFirst -= 1;
-          aMaxFirst += 1;
-        } else if (bMaxLast > 0) {
-          bMaxLast -= 1;
-          aMaxLast += 1;
-        }
-        flip = !flip;
-      }
-      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast);
+      [bMaxFirst, bMaxLast, aMaxFirst, aMaxLast] = this.filterCardsReduce1(
+        bMaxFirst,
+        bMaxLast,
+        aMaxFirst,
+        aMaxLast,
+        bArr.length,
+        aArr.length,
+      );
 
       if (aArr.length > aMaxFirst + aMaxLast) {
-        aRes.push([...aArr.slice(0, aMaxFirst), ...aArr.slice(-aMaxLast, aArr.length)]);
+        if (aMaxLast === 0) {
+          aRes.push([...aArr.slice(0, aMaxFirst)]);
+        } else {
+          aRes.push([...aArr.slice(0, aMaxFirst), ...aArr.slice(-aMaxLast, aArr.length)]);
+        }
         aMaxFirst = 0;
         aMaxLast = 0;
       } else {
         aRes.push(Array.from(aArr));
-        aMaxFirst = 0;
-
-        // expensive reduce once again
-        let reduceBy = aArr.length;
-        while (reduceBy > 0) {
-          let foundOne = false;
-          if (aMaxFirst > 0) {
-            aMaxFirst -= 1;
-            reduceBy -= 1;
-            foundOne = true;
-          }
-          if (reduceBy <= 0) {
-            break;
-          }
-          if (aMaxLast > 0) {
-            aMaxLast -= 1;
-            reduceBy -= 1;
-            foundOne = true;
-          }
-
-          if (!foundOne) {
-            this.logger.error(`Cannot reduce any further? > ${aArr} < and ${bArr}`);
-            break; // guarantees no infinite recursion, but this also implies there's an error in the code
-          }
-        }
+        [aMaxFirst, aMaxLast] = this.filterCardsReduce2(aMaxFirst, aMaxLast, aArr, bArr)
       }
 
       if (bArr.length > bMaxFirst + bMaxLast) {
+        if (bMaxLast === 0) {
+          bRes.push([...bArr.slice(0, bMaxFirst)]);
+        } else {
+          bRes.push([...bArr.slice(0, bMaxFirst), ...bArr.slice(-bMaxLast, bArr.length)]);
+        }
         bMaxFirst = 0;
         bMaxLast = 0;
-        bRes.push([...bArr.slice(0, bMaxFirst), ...bArr.slice(-bMaxLast, bArr.length)]);
       } else {
         bRes.push(Array.from(bArr));
-
-        // expensive reduce once again
-        let reduceBy = bArr.length;
-        while (reduceBy > 0) {
-          let foundOne = false;
-          if (bMaxFirst > 0) {
-            bMaxFirst -= 1;
-            reduceBy -= 1;
-            foundOne = true;
-          }
-          if (reduceBy <= 0) {
-            break;
-          }
-          if (bMaxLast > 0) {
-            bMaxLast -= 1;
-            reduceBy -= 1;
-            foundOne = true;
-          }
-
-          if (!foundOne) {
-            this.logger.error(`Cannot reduce any further? ${aArr} and > ${bArr} <`);
-            break; // guarantees no infinite recursion
-          }
-        }
+        [bMaxFirst, bMaxLast] = this.filterCardsReduce2(bMaxFirst, bMaxLast, bArr, aArr)
       }
-      console.log(aMaxFirst, aMaxLast, bMaxFirst, bMaxLast);
+
     }
 
     return [aRes, bRes];
@@ -403,15 +417,18 @@ export class KanjiHover extends RunnableAsyncModule {
   }
 
   /* equivalent of cardsInfo() except it simply uses the cache instead */
-  private cardIDsToCardsInfo(cardIDs: number[], cardsInfoResult: Record<number, CardInfo>): CardInfo[] {
+  private cardIDsToCardsInfo(
+    cardIDs: number[],
+    cardsInfoResult: Record<number, CardInfo>
+  ): CardInfo[] {
     const result: CardInfo[] = [];
     for (const id of cardIDs) {
       if (!(id in cardsInfoResult)) {
-        throw Error("id not in cardsInfoResult: ${id}");
+        throw Error('id not in cardsInfoResult: ${id}');
       }
-      result.push(cardsInfoResult[id])
+      result.push(cardsInfoResult[id]);
     }
-    return result
+    return result;
   }
 
   private async getCardInfo(
@@ -444,9 +461,15 @@ export class KanjiHover extends RunnableAsyncModule {
 
     for (const [kanji, filteredCardIDs] of Object.entries(kanjiToFilteredCardIDs)) {
       result[kanji] = {
-        'word.nonNew': this.cardIDsToCardsInfo(filteredCardIDs['word.nonNew'], cardsInfoResult),
+        'word.nonNew': this.cardIDsToCardsInfo(
+          filteredCardIDs['word.nonNew'],
+          cardsInfoResult
+        ),
         'word.new': this.cardIDsToCardsInfo(filteredCardIDs['word.new'], cardsInfoResult),
-        'sent.nonNew': this.cardIDsToCardsInfo(filteredCardIDs['sent.nonNew'], cardsInfoResult),
+        'sent.nonNew': this.cardIDsToCardsInfo(
+          filteredCardIDs['sent.nonNew'],
+          cardsInfoResult
+        ),
         'sent.new': this.cardIDsToCardsInfo(filteredCardIDs['sent.new'], cardsInfoResult),
       };
     }
@@ -463,33 +486,106 @@ export class KanjiHover extends RunnableAsyncModule {
     }
   }
 
-
   // transforms CardInfo into something useful for the tooltip builder
-  private cardInfoToNoteInfoTooltipBuilder(cardInfo: CardInfo): NoteInfoTooltipBuilder {
+  // boldSentKanji: null => do not replace, string => remove existing bold and only bold that specified kanji
+  private cardInfoToNoteInfoTooltipBuilder(cardInfo: CardInfo, boldSentKanji: string | null = null): NoteInfoTooltipBuilder {
+    let resultSent = cardInfo.fields.Sentence.value;
+    if (boldSentKanji !== null) {
+      if (!resultSent.includes(boldSentKanji)) {
+        throw Error(`Cannot use boldSentKanji ${boldSentKanji} when kanji does not exist in sentence: ${resultSent}`)
+      }
+      resultSent = resultSent.replace(/<b>|<\/b>/g, "")
+      resultSent = resultSent.replace(new RegExp(boldSentKanji, "g"), `<b>${boldSentKanji}</b>`)
+    }
+
     return {
-      "AJTWordPitch": cardInfo.fields.AJTWordPitch.value,
-      "PAOverride": cardInfo.fields.PAOverride.value,
-      "PAOverrideText": cardInfo.fields.PAOverrideText.value,
-      "PAPositions":cardInfo.fields.PAPositions.value,
-      "Sentence": cardInfo.fields.Sentence.value,
-      "Word": cardInfo.fields.Word.value,
-      "WordReading": cardInfo.fields.WordReading.value,
-      "WordReadingHiragana": cardInfo.fields.WordReading.value,
-      "YomichanWordTags": cardInfo.fields.YomichanWordTags.value,
-      "tags": []
+      AJTWordPitch: cardInfo.fields.AJTWordPitch.value,
+      PAOverride: cardInfo.fields.PAOverride.value,
+      PAOverrideText: cardInfo.fields.PAOverrideText.value,
+      PAPositions: cardInfo.fields.PAPositions.value,
+      Sentence: resultSent,
+      Word: cardInfo.fields.Word.value,
+      WordReading: cardInfo.fields.WordReading.value,
+      WordReadingHiragana: cardInfo.fields.WordReading.value,
+      YomichanWordTags: cardInfo.fields.YomichanWordTags.value,
+      tags: [],
+    };
+  }
+
+  // helper function for buildTooltip
+  private addCardsInfoToTooltip(
+    cardsInfo: CardInfo[],
+    kanji: string,
+    tooltipBuilder: TooltipBuilder,
+    isSentCard: boolean,
+    isNew: boolean
+  ) {
+    for (const cardInfo of cardsInfo) {
+      const cardBuilder = this.tooltips.newCardBuilder();
+
+      if (isSentCard) {
+        // removes bold
+        const noteInfoTTB = this.cardInfoToNoteInfoTooltipBuilder(cardInfo, kanji);
+        cardBuilder.createSentDiv(noteInfoTTB, );
+      } else {
+        const noteInfoTTB = this.cardInfoToNoteInfoTooltipBuilder(cardInfo);
+        cardBuilder.createWordDiv(noteInfoTTB, kanji, cardInfo.cardId);
+        cardBuilder.createSentDiv(noteInfoTTB);
+      }
+      if (isNew) {
+        cardBuilder.setNew();
+      }
+
+      tooltipBuilder.addCardDiv(cardBuilder.build());
     }
   }
 
   private buildTooltip(filteredCardsInfo: FilteredCardsInfo, kanji: string): string {
-    for (const cardInfo of filteredCardsInfo['word.nonNew']) {
-      const noteInfoTTB = this.cardInfoToNoteInfoTooltipBuilder(cardInfo);
-      const wordDiv = this.tooltips.buildWordDiv(noteInfoTTB, kanji, cardInfo.cardId);
-      const sentDiv = this.tooltips.buildSentDiv(noteInfoTTB);
+    const tooltipBuilder = this.tooltips.newBuilder();
+
+    const wordLen =
+      filteredCardsInfo['word.nonNew'].length + filteredCardsInfo['word.new'].length;
+    const sentLen =
+      filteredCardsInfo['sent.nonNew'].length + filteredCardsInfo['sent.new'].length;
+
+    this.addCardsInfoToTooltip(
+      filteredCardsInfo['word.nonNew'],
+      kanji,
+      tooltipBuilder,
+      false,
+      false
+    );
+    this.addCardsInfoToTooltip(
+      filteredCardsInfo['word.new'],
+      kanji,
+      tooltipBuilder,
+      false,
+      true
+    );
+
+    if (wordLen > 0 && sentLen > 0) {
+      tooltipBuilder.addSeparator();
     }
-    for (const cardInfo of filteredCardsInfo['sent.nonNew']) {
-      const noteInfoTTB = this.cardInfoToNoteInfoTooltipBuilder(cardInfo);
-      const sentDiv = this.tooltips.buildSentDiv(noteInfoTTB);
-    }
+
+    this.addCardsInfoToTooltip(
+      filteredCardsInfo['sent.nonNew'],
+      kanji,
+      tooltipBuilder,
+      true,
+      false
+    );
+    this.addCardsInfoToTooltip(
+      filteredCardsInfo['sent.new'],
+      kanji,
+      tooltipBuilder,
+      true,
+      true
+    );
+
+    tooltipBuilder.addHoverText(kanji);
+    tooltipBuilder.addOnEmptyText(translatorStrs['kanji-not-found']);
+
+    return tooltipBuilder.build().outerHTML;
   }
 
   private async getKanjisToHover(
@@ -518,7 +614,6 @@ export class KanjiHover extends RunnableAsyncModule {
 
     // searches the remaining kanjis in kanjiSet
     const queryResults = await this.cardQueries(noteInfo, Array.from(kanjiSet));
-    console.log(queryResults);
 
     // two possible handlers:
     // a) find all note infos for sorting purposes
