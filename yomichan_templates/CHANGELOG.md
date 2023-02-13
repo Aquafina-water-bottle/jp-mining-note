@@ -6,6 +6,10 @@ Versioning only starts at v23.01.16.0 since that was the first version when
 I started explicitly recording the changes.
 
 
+## v23.02.12.1
+#### Features
+- Added support for `JMdict Forms` as a utility dictionary
+
 ## v23.02.05.1
 #### Features
 - Updated `{freq}` to match Marv's code
