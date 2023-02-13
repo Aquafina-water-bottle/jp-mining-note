@@ -1,8 +1,10 @@
 This page is dedicated to recording a (non-exhaustive) list of various note types,
-that isn't [JPMN](/jp-mining-note/). These are added in order of when I first come across
-the note type, so it's roughly ordered from the oldest to newest note types.
+that isn't [jp-mining-note](/jp-mining-note/).
+These are added in order of when I first come across the note type,
+so it's roughly ordered from the oldest to newest note types.
 
-P.S. Feel free to let me know of any note types you find interesting
+I personally try to add as many templates as I can find here, but it's likely I will miss some.
+Feel free to let me know of any note types you find interesting
 (including your own note type, or modified versions of this note),
 and I will very likely add it here!
 (Brownie points if you make a pull request for it too!)
@@ -351,10 +353,13 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 </sup>
 
 ??? example "Example images"
+    === "Full demo"
+        {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/mining_template.gif?raw=true") }}
     === "Vocab"
         {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/vocab_back.png?raw=true") }}
     === "Sentence"
         {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/sentence_back.png?raw=true") }}
+
 
 ---
 
