@@ -1312,6 +1312,11 @@ ruby rt {
   font-weight: normal;
 }
 
+.hover-tooltip .hover-tooltip__card--sentence-only .hover-tooltip__sent-div b {
+  color: var(--accent);
+  font-weight: bold;
+}
+
 .hover-tooltip__word-div--clickable {
   cursor: pointer;
 }
@@ -1323,6 +1328,12 @@ ruby rt {
 .hover-tooltip__card-div--hover:hover .hover-tooltip__pitch-accent {
   visibility: visible;
 }
+
+.hover-tooltip__card--separator {
+  margin-top: 10px;
+  border-bottom: 1px solid var(--text-color--4);
+}
+
 
 
 .hover-tooltip__pitch-accent:before {

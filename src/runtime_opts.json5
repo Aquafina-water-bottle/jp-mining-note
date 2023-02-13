@@ -771,7 +771,10 @@
   "tooltips.categoryMax.new.newest": 0,
 
 
-  "tooltips.overrideOptions.sentenceParser": {},
+  "tooltips.overrideOptions.sentenceParser": {
+    "sentenceParser.fullSent.quotes.processMode": "add",
+    "sentenceParser.display.quotes.paIndicatorColor.main": false,
+  },
   "tooltips.overrideOptions.autoPitchAccent": {},
 
 

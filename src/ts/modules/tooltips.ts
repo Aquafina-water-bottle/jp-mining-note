@@ -66,43 +66,173 @@ export type QueryBuilderGroup = {
 
 
 
-//export class TooltipCardDivBuilder {
-//  // separate class in order to separate itself from the Module class (and to not
-//  // waste the getOption / overrideOptions function calls)
-//
-//  private readonly tooltips: Tooltips
-//  private wordDiv: HTMLDivElement | null = null
-//  private sentDiv: HTMLDivElement | null = null
-//
-//
-//  constructor(tooltips: Tooltips) {
-//    this.tooltips = tooltips;
-//  }
-//
-//  addSentDiv(noteInfo: NoteInfoTooltipBuilder) {
-//    this.sentDiv = this.tooltips.buildSentDiv(noteInfo)
-//    return this;
-//  }
-//
-//  addWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string, cardId: number | null = null) {
-//    this.wordDiv = this.tooltips.buildWordDiv(noteInfo, character, cardId)
-//    return this;
-//  }
-//
-//  build(): HTMLDivElement {
-//
-//  }
-//
-//}
-
-export class TootipBuilder {
+export class TooltipCardDivBuilder {
   // separate class in order to separate itself from the Module class (and to not
   // waste the getOption / overrideOptions function calls)
 
   private readonly tooltips: Tooltips
+  private wordDiv: HTMLDivElement | null = null
+  private sentDiv: HTMLDivElement | null = null
+  private isNew = false;
+
+
   constructor(tooltips: Tooltips) {
     this.tooltips = tooltips;
   }
+
+
+  addWordDiv(div: HTMLDivElement) {
+    this.wordDiv = div;
+    return this;
+  }
+
+  addSentDiv(div: HTMLDivElement) {
+    this.sentDiv = div;
+    return this;
+  }
+
+  createWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string, cardId: number | null = null) {
+    this.wordDiv = this.tooltips.buildWordDiv(noteInfo, character, cardId)
+    return this;
+  }
+
+  createSentDiv(noteInfo: NoteInfoTooltipBuilder) {
+    this.sentDiv = this.tooltips.buildSentDiv(noteInfo)
+    return this;
+  }
+
+  /* greys out the card */
+  setNew() {
+    this.isNew = true;
+  }
+
+  build(): HTMLDivElement {
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add("hover-tooltip__card");
+
+    if (this.wordDiv === null && this.sentDiv === null) {
+      throw Error("Cannot make a card with both empty wordDiv and sentDiv");
+    }
+    if (this.wordDiv !== null) {
+      cardDiv.appendChild(this.wordDiv);
+    }
+    if (this.sentDiv !== null) {
+      cardDiv.appendChild(this.sentDiv);
+    }
+
+    if (this.sentDiv !== null && this.wordDiv === null) {
+      cardDiv.classList.add("hover-tooltip__card--sentence-only");
+    }
+
+    if (this.isNew) {
+      cardDiv.classList.add("hover-tooltip__card--new");
+    }
+    if (this.tooltips.getOption('tooltips.displayPitchAccentOnHoverOnly')) {
+      cardDiv.classList.add("hover-tooltip__card-div--hover");
+    }
+
+    return cardDiv;
+  }
+
+}
+
+export class TooltipBuilder {
+  // separate class in order to separate itself from the Module class (and to not
+  // waste the getOption / overrideOptions function calls)
+
+  private readonly tooltips: Tooltips
+  private hoverText: string | HTMLElement | null = null;
+  private onEmptyText: string | HTMLElement | null = null;
+  private cardDivs: HTMLDivElement[] = []
+
+  constructor(tooltips: Tooltips) {
+    this.tooltips = tooltips;
+  }
+
+  addCardDiv(cardDiv: HTMLDivElement) {
+    //console.log(cardDiv)
+    if (this.cardDivs.length > 0) {
+      cardDiv.classList.add("hover-tooltip--not-first")
+    }
+    this.cardDivs.push(cardDiv);
+  }
+
+  addSeparator() {
+    // TODO...
+    const sepDiv = document.createElement("div");
+    sepDiv.classList.add("hover-tooltip__card");
+    sepDiv.classList.add("hover-tooltip__card--separator");
+
+    this.cardDivs.push(sepDiv);
+  }
+
+  addHoverText(text: string | HTMLElement) {
+    this.hoverText = text;
+  }
+
+  addOnEmptyText(text: string | HTMLElement) {
+    this.onEmptyText = text;
+  }
+
+  build(): HTMLElement {
+    /*
+     * <span class="hover-wrapper">
+     *   <span class="hover-text"> (kanji) </span>
+     *   <span class="hover-tooltip-wrapper">
+     *     <span class="hover-tooltip"> ... </span>
+     *   </span>
+     * </span>
+     *
+     */
+
+    if (this.hoverText === null) {
+      throw Error("No hover text found, cannot build tooltip");
+    }
+
+    const wrapper = document.createElement('span');
+    wrapper.classList.add("hover-wrapper");
+
+    const hoverText = document.createElement('span');
+    hoverText.classList.add("hover-text");
+    if (typeof this.hoverText === "string") {
+      hoverText.innerText = this.hoverText
+    } else {
+      hoverText.appendChild(this.hoverText)
+    }
+
+    const tooltipWrapperSpan = document.createElement('span');
+    tooltipWrapperSpan.classList.add("hover-tooltip-wrapper");
+
+    const tooltipSpan = document.createElement('span');
+    tooltipSpan.classList.add("hover-tooltip");
+    //tooltipSpan.classList.add("hover-tooltip--kanji-hover");
+
+    for (const cardDiv of this.cardDivs) {
+      tooltipSpan.appendChild(cardDiv);
+    }
+
+    // 0 length checks
+    if (tooltipSpan.children.length === 0) {
+      if (this.onEmptyText === null) {
+        throw Error("Empty tooltip, but no empty text was specified");
+      }
+
+      if (typeof this.onEmptyText === "string") {
+        tooltipSpan.innerText = this.onEmptyText
+      } else {
+        tooltipSpan.appendChild(this.onEmptyText)
+      }
+
+    }
+
+    tooltipWrapperSpan.appendChild(tooltipSpan)
+    wrapper.appendChild(hoverText);
+    wrapper.appendChild(tooltipWrapperSpan);
+
+    return wrapper;
+
+  }
+
 }
 
 export class Tooltips extends Module {
@@ -135,9 +265,11 @@ export class Tooltips extends Module {
   }
 
 
-  newCardBuilder() {
+  newCardBuilder(): TooltipCardDivBuilder {
+    return new TooltipCardDivBuilder(this)
   }
-  newBuilder() {
+  newBuilder(): TooltipBuilder {
+    return new TooltipBuilder(this)
   }
 
   buildWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string | null, cardId: number | null = null): HTMLDivElement {
@@ -183,11 +315,14 @@ export class Tooltips extends Module {
     sentenceContents.innerHTML = noteInfo.Sentence;
     const sentenceClose = document.createElement('span');
     sentenceClose.innerHTML = compileOpts.autoQuoteClose;
+    sentEle.appendChild(sentenceOpen)
+    sentEle.appendChild(sentenceContents)
+    sentEle.appendChild(sentenceClose)
 
     const sent: Sentence = {
-      open: sentEle.children[0] as Element,
-      contents: sentEle.children[1] as Element,
-      close: sentEle.children[2] as Element,
+      open: sentEle.children[0],
+      contents: sentEle.children[1],
+      close: sentEle.children[2],
       base: sentEle,
     };
 
@@ -196,30 +331,30 @@ export class Tooltips extends Module {
     return sentEle;
   }
 
-  addCardDiv(noteInfo: NoteInfoTooltipBuilder, args: TooltipAddCardArgs) {
-    const cardId = args.cardId ?? null;
-    const character = args.character ?? null;
-    const isNew = args.isNew ?? false;
+  //addCardDiv(noteInfo: NoteInfoTooltipBuilder, args: TooltipAddCardArgs) {
+  //  const cardId = args.cardId ?? null;
+  //  const character = args.character ?? null;
+  //  const isNew = args.isNew ?? false;
 
-    const cardDiv = document.createElement('div');
+  //  const cardDiv = document.createElement('div');
 
-    const wordDiv = this.buildWordDiv(noteInfo, character, cardId);
+  //  const wordDiv = this.buildWordDiv(noteInfo, character, cardId);
 
-    const sentenceDiv = this.buildSentDiv(noteInfo);
+  //  const sentenceDiv = this.buildSentDiv(noteInfo);
 
-    cardDiv.appendChild(wordDiv);
-    cardDiv.appendChild(sentenceDiv);
+  //  cardDiv.appendChild(wordDiv);
+  //  cardDiv.appendChild(sentenceDiv);
 
-    cardDiv.classList.add('hover-tooltip__card');
-    if (isNew) {
-      cardDiv.classList.add('hover-tooltip__card--new');
-    }
-    if (this.getOption('tooltips.displayPitchAccentOnHoverOnly')) {
-      cardDiv.classList.add('hover-tooltip__card-div--hover');
-    }
+  //  cardDiv.classList.add('hover-tooltip__card');
+  //  if (isNew) {
+  //    cardDiv.classList.add('hover-tooltip__card--new');
+  //  }
+  //  if (this.getOption('tooltips.displayPitchAccentOnHoverOnly')) {
+  //    cardDiv.classList.add('hover-tooltip__card-div--hover');
+  //  }
 
-    return cardDiv;
-  }
+  //  return cardDiv;
+  //}
 
   /* returns:
     {
@@ -257,7 +392,7 @@ export class Tooltips extends Module {
 
 
   /* queries any card that isn't this current card */
-  private getCardBaseQuery(Key: string): string {
+  getCardBaseQuery(Key: string): string {
     const noteName = 'JP Mining Note';
     const cardTypeName = 'Mining Card';
     const key = escapeQueryStr(Key);

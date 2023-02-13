@@ -41,25 +41,25 @@
 
 
   // disables on mobile
-  "sentenceParser.display.quotes.paIndicatorColor.main": {
-    "type": "viewport",
-    "args": {
-      "op": ">=",
-      "value": 620, // combine pic breakpoint
-    },
-    "resultTrue":  true,
-    "resultFalse": false,
-  },
+  //"sentenceParser.display.quotes.paIndicatorColor.main": {
+  //  "type": "viewport",
+  //  "args": {
+  //    "op": ">=",
+  //    "value": 620, // combine pic breakpoint
+  //  },
+  //  "resultTrue":  true,
+  //  "resultFalse": false,
+  //},
 
-  "sentenceParser.display.quotes.paIndicatorColor.paSent": {
-    "type": "viewport",
-    "args": {
-      "op": ">=",
-      "value": 620, // combine pic breakpoint
-    },
-    "resultTrue":  true,
-    "resultFalse": false,
-  },
+  //"sentenceParser.display.quotes.paIndicatorColor.paSent": {
+  //  "type": "viewport",
+  //  "args": {
+  //    "op": ">=",
+  //    "value": 620, // combine pic breakpoint
+  //  },
+  //  "resultTrue":  true,
+  //  "resultFalse": false,
+  //},
 
 
 }
