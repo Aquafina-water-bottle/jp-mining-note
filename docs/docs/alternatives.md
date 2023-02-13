@@ -351,10 +351,13 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 </sup>
 
 ??? example "Example images"
+    === "Full demo"
+        {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/mining_template.gif?raw=true") }}
     === "Vocab"
         {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/vocab_back.png?raw=true") }}
     === "Sentence"
         {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/sentence_back.png?raw=true") }}
+
 
 ---
 
