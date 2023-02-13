@@ -89,7 +89,7 @@ which should only be a few months stale at most.
 
 # Local Audio Server for Yomichan
 See
-[here](jpresources.md#local-audio-server-for-yomichan)
+[here](https://github.com/Aquafina-water-bottle/local-audio-yomichan)
 if you want to be able to create Anki cards nearly instanteously,
 and fetch audio without a working internet connection.
 
@@ -140,7 +140,7 @@ I also provide a small list of other popular add-ons that I don't use, but may b
 
     **Algorithm Changing:**
 
-    * [Straight Reward](https://ankiweb.net/shared/info/957961234)
+    * [FSRS4Anki Helper](https://github.com/open-spaced-repetition/fsrs4anki)
 
     **Stats:**
 
@@ -164,6 +164,8 @@ I also provide a small list of other popular add-ons that I don't use, but may b
     **Other:**
 
     * [AnkiWebView Inspector](https://ankiweb.net/shared/info/31746032)
+    * [Local Audio Server for Yomichan](https://github.com/Aquafina-water-bottle/local-audio-yomichan)
+    * [Yomichan Forvo Server](https://ankiweb.net/shared/info/580654285)
 
 
 ??? example "Useful Add-ons that I don't use *(click here)*"
@@ -171,6 +173,7 @@ I also provide a small list of other popular add-ons that I don't use, but may b
     * [Edit Field During Review Cloze](https://ankiweb.net/shared/info/385888438)
     * [Generate Batch Audio](https://ankiweb.net/shared/info/1156270186)
     * [Review Heatmap](https://ankiweb.net/shared/info/1771074083)
+    * [Straight Reward](https://ankiweb.net/shared/info/957961234)
 
 ---
 

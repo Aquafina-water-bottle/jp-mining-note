@@ -28,10 +28,9 @@ I exist on the [TheMoeWay]({{THEMOEWAY_LINK}}) and Refold (Japanese) servers.
 
 
 # Local Audio Server for Yomichan
+[Github Repository](https://github.com/Aquafina-water-bottle/local-audio-yomichan)
 
-See the project
-[here](https://github.com/Aquafina-water-bottle/local-audio-yomichan).
-
+> This Anki add-on runs a local server of which Yomichan can fetch audio files from. With this setup, you are able to create Anki cards nearly instantaneously, and get word audio without a working internet connection.
 
 ---
 
