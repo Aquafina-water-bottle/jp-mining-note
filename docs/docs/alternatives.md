@@ -1,4 +1,4 @@
-This page is dedicated to cataloguing various note types and decks.
+This page is dedicated to gathering various note types and decks
 that isn't [**jp-mining-note**](/jp-mining-note/).
 These are added in order of when I first come across the note type,
 so it's roughly ordered from the oldest to newest note types.
@@ -39,7 +39,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ## (Lazy Guide) Xelieu's Modified Anime Card
 <sup>
-[Website & download](https://rentry.co/lazyXel#anki)・Contact: `Xelieu#8158` ({{TMW_SERVER}})
+[Website & Download](https://rentry.co/lazyXel#anki)・Contact: `Xelieu#8158` ({{TMW_SERVER}})
 </sup>
 
 ??? example "Example images (monolingual, modern)"
@@ -68,7 +68,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ## stegatxins0's Modified Anime Card
 <sup>
-[Website & download](https://rentry.co/mining#anki-settings)・Contact: Private[^1]
+[Website & Download](https://rentry.co/mining#anki-settings)・Contact: Private[^1]
 </sup>
 
 [^1]:  He seems to have left TMW Discord server, and his demo video on Youtube was privated. I assume he no longer wants to be contacted.
@@ -145,7 +145,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ## MoonieBiloney's Note Types
 <sup>
-[Google docs page](https://docs.google.com/document/d/1MxoRIO88KlJlGttnXNVkDVoHfZUtJqwOT_arRSS5F7Y/edit)・[Download](https://drive.google.com/drive/folders/1UFxn80dG-HIws5tlAa8sKFypnR8pmPci)・[Contact](https://www.patreon.com/MonnieBiloney)
+[Website](https://docs.google.com/document/d/1MxoRIO88KlJlGttnXNVkDVoHfZUtJqwOT_arRSS5F7Y/edit)・[Download](https://drive.google.com/drive/folders/1UFxn80dG-HIws5tlAa8sKFypnR8pmPci)・[Contact](https://www.patreon.com/MonnieBiloney)
 </sup>
 
 - Some require a Patreon subscription to access
@@ -157,7 +157,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ## Eminent Note Type
 <sup>
-[Website & download](https://cademcniven.com/projects/notetype2/)・Contact: `eminent#8189` ({{PERDITION_SERVER}})
+[Website & Download](https://cademcniven.com/projects/notetype2/)・Contact: `eminent#8189` ({{PERDITION_SERVER}})
 </sup>
 
 ??? example "Example images"
@@ -296,7 +296,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ## Tigy01's Note Type
 <sup>
-[Google docs guide](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)・[Download](https://drive.google.com/drive/folders/1uvpZ1JhT14W3T_JdtHxzL-o4r5XNwNwp)・Contact: `Tigy01#1231` ({{ REFOLD_SERVER }})
+[Website](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)・[Download](https://drive.google.com/drive/folders/1uvpZ1JhT14W3T_JdtHxzL-o4r5XNwNwp)・Contact: `Tigy01#1231` ({{ REFOLD_SERVER }})
 </sup>
 
 ??? example "Example images"
@@ -337,7 +337,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ## rundam's Note Type
 <sup>
-[Website & download](https://github.com/rudnam/JP-study)・Contact: `rudnam#8661` ({{ REFOLD_SERVER }})
+[Website & Download](https://github.com/rudnam/JP-study)・Contact: `rudnam#8661` ({{ REFOLD_SERVER }})
 </sup>
 
 ??? example "Example images"
@@ -365,7 +365,7 @@ on the first card add when using the app.
 
 ## Jo-Mako - Audio
 <sup>
-[Website & download & contact](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
+[Website & Download & Contact](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
 </sup>
 
 - Audio and picture at the front, everything else at the back
@@ -385,11 +385,10 @@ on the first card add when using the app.
 
 ## Jo-Mako - Reading
 <sup>
-[Website & download & contact](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
+[Website & Download & Contact](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
 </sup>
 
-- Sentence at the front (with revealable picture and reading)
-- Meaning at the back
+- Sentence at the front (with revealable picture and reading). Meaning at the back.
 
 ??? example "Example images"
     === "Example 1"
@@ -401,10 +400,25 @@ on the first card add when using the app.
 
 
 
-
-## Nocompo
+## Mally's Note Type
 <sup>
-[Website & download](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
+[Website & Download](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
+</sup>
+
+??? example "Example images"
+    === "Front"
+        {{ img("", "assets/alternatives/mally/front.png") }}
+    === "Back"
+        {{ img("", "assets/alternatives/mally/back.png") }}
+
+---
+
+
+
+
+## Nocompo's Note Type
+<sup>
+[Website & Download](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
 </sup>
 
 ??? example "Example images"
@@ -418,9 +432,10 @@ on the first card add when using the app.
 
 ## Klieret's Templates
 <sup>
-[Website & download](https://github.com/klieret/anki-card-templates)
+[Website & Download](https://github.com/klieret/anki-card-templates)
 </sup>
 
+---
 
 
 
@@ -432,7 +447,7 @@ on the first card add when using the app.
 
 ## Kanken deck
 <sup>
-[Website & download](https://ankiweb.net/shared/info/759825185)・[Contact](https://animecards.site/support/)
+[Website & Download](https://ankiweb.net/shared/info/759825185)・[Contact](https://animecards.site/support/)
 </sup>
 
 - The *definitive deck* to use for learning how to write kanji
