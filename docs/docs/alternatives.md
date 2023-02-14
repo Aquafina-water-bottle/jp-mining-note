@@ -1,5 +1,5 @@
-This page is dedicated to recording a (non-exhaustive) list of various note types,
-that isn't [jp-mining-note](/jp-mining-note/).
+This page is dedicated to cataloguing various note types and decks.
+that isn't [**jp-mining-note**](/jp-mining-note/).
 These are added in order of when I first come across the note type,
 so it's roughly ordered from the oldest to newest note types.
 
@@ -11,9 +11,13 @@ and I will very likely add it here!
 
 ---
 
-# Anime Cards
+# Note Types
+
+---
+
+## Anime Cards
 <sup>
-[Official project website](https://animecards.site/ankicards/#anime-cardsword-context-cards)・[Download](https://ankiweb.net/shared/info/151553357)
+[Website](https://animecards.site/ankicards/#anime-cardsword-context-cards)・[Download](https://ankiweb.net/shared/info/151553357)・[Contact](https://animecards.site/support/)
 </sup>
 
 ??? example "Example image"
@@ -33,9 +37,9 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# (Lazy Guide) Xelieu's Modified Anime Card
+## (Lazy Guide) Xelieu's Modified Anime Card
 <sup>
-[Website & download](https://rentry.co/lazyXel#anki)
+[Website & download](https://rentry.co/lazyXel#anki)・Contact: `Xelieu#8158` ({{TMW_SERVER}})
 </sup>
 
 ??? example "Example images (monolingual, modern)"
@@ -62,10 +66,12 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# stegatxins0's Modified Anime Card
+## stegatxins0's Modified Anime Card
 <sup>
-[Website & download](https://rentry.co/mining#anki-settings)
+[Website & download](https://rentry.co/mining#anki-settings)・Contact: Private[^1]
 </sup>
+
+[^1]:  He seems to have left TMW Discord server, and his demo video on Youtube was privated. I assume he no longer wants to be contacted.
 
 ??? example "Example image"
     {{ img("", "assets/alternatives/stegatxins0_eg.png") }}
@@ -76,13 +82,13 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# Tatsumoto's TSC
+## Tatsumoto's TSC
 <sup>
-[Official website](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards)・[Download](https://ankiweb.net/shared/info/1557722832)・[Mirror](https://t.me/ajatt_tools/16)
+[Website](https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards)・[Download](https://ankiweb.net/shared/info/1557722832)・[Mirror](https://t.me/ajatt_tools/16)・[Contact](https://tatsumoto.neocities.org/blog/join-our-community)
 </sup>
 
 - TSC is short for "Targeted sentence cards"
-- JPMN is a heavily modified version of this (to the point of it being completely rewritten)
+- jp-mining-note is a heavily modified version of this (to the point of it being completely rewritten)
 
 ??? example "Example image"
     {{ img("", "https://user-images.githubusercontent.com/69171671/100900075-5fc15800-34ba-11eb-9a23-bcfa5e01e35c.png") }}
@@ -92,9 +98,9 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# AJATT-Tool's AnkiNoteTypes
+## AJATT-Tool's AnkiNoteTypes
 <sup>
-[Website](https://github.com/Ajatt-Tools/AnkiNoteTypes)
+[Website](https://github.com/Ajatt-Tools/AnkiNoteTypes)・[Contact](https://tatsumoto.neocities.org/blog/join-our-community)
 </sup>
 
 - A collection of user-created notes. Most are based off of the above TSC template.
@@ -137,9 +143,9 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# MoonieBiloney's Note Types
+## MoonieBiloney's Note Types
 <sup>
-[Google docs page](https://docs.google.com/document/d/1MxoRIO88KlJlGttnXNVkDVoHfZUtJqwOT_arRSS5F7Y/edit)・[Download](https://drive.google.com/drive/folders/1UFxn80dG-HIws5tlAa8sKFypnR8pmPci)
+[Google docs page](https://docs.google.com/document/d/1MxoRIO88KlJlGttnXNVkDVoHfZUtJqwOT_arRSS5F7Y/edit)・[Download](https://drive.google.com/drive/folders/1UFxn80dG-HIws5tlAa8sKFypnR8pmPci)・[Contact](https://www.patreon.com/MonnieBiloney)
 </sup>
 
 - Some require a Patreon subscription to access
@@ -149,27 +155,9 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# Kanken deck
+## Eminent Note Type
 <sup>
-[Website & download](https://ankiweb.net/shared/info/759825185)
-</sup>
-
-- The *definitive deck* to use for learning how to write kanji
-- Not a note type used for mining
-
-??? example "Example image"
-    {{ img("", "assets/alternatives/kanken_deck_eg.png") }}
-
----
-
-
-
-
-
-
-# Eminent Note Type
-<sup>
-[Official project website & download](https://cademcniven.com/projects/notetype2/)
+[Website & download](https://cademcniven.com/projects/notetype2/)・Contact: `eminent#8189` ({{PERDITION_SERVER}})
 </sup>
 
 ??? example "Example images"
@@ -183,23 +171,23 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# Elax's Note Type
+## Elax's Note Type
 <sup>
-[Download](https://cdn.discordapp.com/attachments/778430038159655012/847595626257842226/AnimeCards.apkg)
+[Download](https://cdn.discordapp.com/attachments/778430038159655012/847595626257842226/AnimeCards.apkg)・Contact: `どん底#6628` ({{TMW_SERVER}})
 </sup>
 
 ??? example "Example images"
     === "Front | Dark"
-        {{ img("", "https://cdn.discordapp.com/attachments/778430038159655012/847595710199365642/anki_pn02gFA4g4.png") }}
+        {{ img("", "assets/alternatives/elax/front_dark.png") }}
 
     === "Back | Dark"
-        {{ img("", "https://cdn.discordapp.com/attachments/778430038159655012/847595755799838720/anki_WomdVVaIPj.png") }}
+        {{ img("", "assets/alternatives/elax/back_dark.png") }}
 
     === "Front | Light"
-        {{ img("", "https://cdn.discordapp.com/attachments/778430038159655012/847595806805852180/anki_GdOvg6u5Qv.png") }}
+        {{ img("", "assets/alternatives/elax/front_light.png") }}
 
     === "Back | Light"
-        {{ img("", "https://cdn.discordapp.com/attachments/778430038159655012/847595848086716506/anki_YEvyqLJeF2.png") }}
+        {{ img("", "assets/alternatives/elax/back_light.png") }}
 
 ??? quote "Description from the author"
 
@@ -215,15 +203,15 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# Timm's Anki Template
+## Timm's Anki Template
 
 <sup>
-[Download](https://cdn.discordapp.com/attachments/778430038159655012/937090193356361728/Timm_template.apkg)・[Download (alternative theme)](https://cdn.discordapp.com/attachments/778430038159655012/937095406779793488/4050fdea6bbedcaa.apkg)
+[Download](https://cdn.discordapp.com/attachments/778430038159655012/937090193356361728/Timm_template.apkg)・[Download (alternative theme)](https://cdn.discordapp.com/attachments/778430038159655012/937095406779793488/4050fdea6bbedcaa.apkg)・Contact: `Timm#3250` ({{ TMW_SERVER }})
 </sup>
 
 ??? example "Examples"
     === "Image"
-        {{ img("", "https://cdn.discordapp.com/attachments/617136489482027059/937078469064548372/unknown.png") }}
+        {{ img("", "assets/alternatives/timm.png") }}
     === "Video"
         <div style="width: 100%; height: 0px; position: relative; padding-bottom: 56.250%;"><iframe src="https://streamable.com/e/j3etpw" frameborder="0" width="100%" height="100%" allowfullscreen style="width: 100%; height: 100%; position: absolute;"></iframe></div>
 
@@ -306,18 +294,18 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# Tigy01's Note Type
+## Tigy01's Note Type
 <sup>
-[Google docs guide](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)・[Download](https://drive.google.com/drive/folders/1uvpZ1JhT14W3T_JdtHxzL-o4r5XNwNwp)
+[Google docs guide](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)・[Download](https://drive.google.com/drive/folders/1uvpZ1JhT14W3T_JdtHxzL-o4r5XNwNwp)・Contact: `Tigy01#1231` ({{ REFOLD_SERVER }})
 </sup>
 
 ??? example "Example images"
 
     === "Front"
-        {{ img("", "https://cdn.discordapp.com/attachments/1001191401830223882/1001302878079688845/Untitled.png") }}
+        {{ img("", "assets/alternatives/tigy01/front.png") }}
 
     === "Back"
-        {{ img("", "https://cdn.discordapp.com/attachments/1001191401830223882/1001302878473949304/Untitled_2.png") }}
+        {{ img("", "assets/alternatives/tigy01/back.png") }}
 
 ---
 
@@ -325,31 +313,31 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-# Stazor's Note Type
+## Stazor's Note Type
 <sup>
-[Download](https://www.mediafire.com/file/evn6ilmf9jr4zm5/Japanese_Sentence_Mining.zip/file)・[Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/1039955616287965235) (on {{ TMW_SERVER }})
+[Download](https://www.mediafire.com/file/evn6ilmf9jr4zm5/Japanese_Sentence_Mining.zip/file)・[Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/1039955616287965235)・Contact: `Stazor#6633` ({{ TMW_SERVER }})
 </sup>
 
 * The download link contains a `readme.txt` that has instructions on how to setup the fields & basic info on the card
 
 ??? example "Example images"
     === "Front"
-        {{ img("", "https://cdn.discordapp.com/attachments/755067984833151136/1023266288149217393/unknown.png") }}
+        {{ img("", "assets/alternatives/stazor/front.png") }}
     === "Front (on hover)"
-        {{ img("", "https://cdn.discordapp.com/attachments/755067984833151136/1023266288618967180/unknown.png") }}
+        {{ img("", "assets/alternatives/stazor/front_hover.png") }}
     === "Back"
-        {{ img("", "https://cdn.discordapp.com/attachments/755067984833151136/1023266289164242984/unknown.png") }}
+        {{ img("", "assets/alternatives/stazor/back.png") }}
     === "Back (light)"
-        {{ img("", "https://cdn.discordapp.com/attachments/755067984833151136/1023266290971975752/unknown.png") }}
+        {{ img("", "assets/alternatives/stazor/back_light.png") }}
 
 ---
 
 
 
 
-# rundam's Note Type
+## rundam's Note Type
 <sup>
-[Website & download](https://github.com/rudnam/JP-study)
+[Website & download](https://github.com/rudnam/JP-study)・Contact: `rudnam#8661` ({{ REFOLD_SERVER }})
 </sup>
 
 ??? example "Example images"
@@ -364,7 +352,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 ---
 
 
-# jidoujisho's Note Type
+## jidoujisho's Note Type
 
 The app [jidoujisho](https://github.com/lrorpilla/jidoujisho)
 comes with its own Anki template, that should be automatically generated
@@ -374,8 +362,67 @@ on the first card add when using the app.
 
 
 
+# Decks
 
-# Various note types for non-Japanese learning purposes
+---
+
+## Kanken deck
+<sup>
+[Website & download](https://ankiweb.net/shared/info/759825185)・[Contact](https://animecards.site/support/)
+</sup>
+
+- The *definitive deck* to use for learning how to write kanji
+- Not a note type used for mining
+- Also see: [Xelieu's alternative theme](https://drive.google.com/file/d/1KLaXaH0LL7EBe4bSVUtcf8T5oEMZPIqx/view?usp=sharing)
+
+??? example "Example image"
+    {{ img("", "assets/alternatives/kanken_deck_eg.png") }}
+
+---
+
+
+
+
+## NihongoKyoshi Anki Deck
+
+<sup>
+[Download](https://cdn.discordapp.com/attachments/778430038159655012/972368473751703572/Nihongo-Kyoshi-complete.apkg)・[Original discord message](https://discord.com/channels/617136488840429598/778430038159655012/972368474263400488)・Contact: `medamayaki#0328` ({{TMW_SERVER}})
+</sup>
+
+- Monolingual grammar deck
+
+??? example "Example images"
+    === "Front | Dark"
+        {{ img("", "assets/alternatives/nihongo_kyoshi/front_dark.png") }}
+
+    === "Back | Dark"
+        {{ img("", "assets/alternatives/nihongo_kyoshi/back_dark.png") }}
+
+    === "Front | Light"
+        {{ img("", "assets/alternatives/nihongo_kyoshi/front_light.png") }}
+
+    === "Back | Light"
+        {{ img("", "assets/alternatives/nihongo_kyoshi/back_light.png") }}
+
+
+---
+
+
+
+
+## Other Decks
+* [Decks from AJATT](https://tatsumoto.neocities.org/blog/tag_decks)
+* [Decks from TMW](https://learnjapanese.moe/resources/#vocabulary)
+
+---
+
+
+
+
+
+
+
+# Everything Else (Not made specifically to learn Japanese)
 - [Prettify](https://github.com/pranavdeshai/anki-prettify)
 - [Modern Card Themes](https://github.com/b3nj5m1n/moderncardthemes)
 - [Anki Cards Templates SuperList](https://github.com/Troyciv/anki-templates-superlist)

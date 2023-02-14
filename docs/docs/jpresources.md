@@ -29,13 +29,21 @@ I exist on the [TheMoeWay]({{THEMOEWAY_LINK}}) and Refold (Japanese) servers.
 # Master Project List
 This contains the list of all my current projects that relate to learning Japanese.
 
+* **[jp-mining-note](/jp-mining-note/)**
+
+    jp-mining-note is a highly customizable Anki card template for studying Japanese,
+    designed to be visually appealing and simple to use without sacrificing functionality.
+    Easily paired with most automatic card creation workflows,
+    this aims to make your experience with Anki as smooth as possible.
+
 * **[Local Audio Server for Yomichan](https://github.com/Aquafina-water-bottle/local-audio-yomichan)**
 
     This Anki add-on runs a local server of which Yomichan can fetch audio files from. With this setup, you are able to create Anki cards nearly instantaneously, and get word audio without a working internet connection.
 
 * **[All Anki note templates I can find](alternatives.md)**
 
-    I document all note templates I can possibly find (that isn't [jp-mining-note](/jp-mining-note/)) here.
+    I catalogue all note templates I can possibly find
+    (that isn't jp-mining-note, and made for learning Japanese) here.
 
 ---
 
