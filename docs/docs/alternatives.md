@@ -362,6 +362,70 @@ on the first card add when using the app.
 
 
 
+
+## Jo-Mako - Audio
+<sup>
+[Website & download & contact](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
+</sup>
+
+- Audio and picture at the front, everything else at the back
+
+??? example "Example images"
+    === "Front"
+        {{ img("", "assets/alternatives/jo-mako-audio/front.png") }}
+    === "Back"
+        {{ img("", "assets/alternatives/jo-mako-audio/back.png") }}
+    === "Kanji Popup"
+        {{ img("", "assets/alternatives/jo-mako-audio/popup_kanji.png") }}
+
+---
+
+
+
+
+## Jo-Mako - Reading
+<sup>
+[Website & download & contact](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
+</sup>
+
+- Sentence at the front (with revealable picture and reading)
+- Meaning at the back
+
+??? example "Example images"
+    === "Example 1"
+        {{ img("", "assets/alternatives/jo-mako-reading/back1.png") }}
+    === "Example 2"
+        {{ img("", "assets/alternatives/jo-mako-reading/back2.png") }}
+
+---
+
+
+
+
+## Nocompo
+<sup>
+[Website & download](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
+</sup>
+
+??? example "Example images"
+    === "Front"
+        {{ img("", "assets/alternatives/nocompo/front.png") }}
+    === "Back"
+        {{ img("", "assets/alternatives/nocompo/back.png") }}
+
+---
+
+
+## Klieret's Templates
+<sup>
+[Website & download](https://github.com/klieret/anki-card-templates)
+</sup>
+
+
+
+
+
+
 # Decks
 
 ---
@@ -427,5 +491,6 @@ on the first card add when using the app.
 - [Modern Card Themes](https://github.com/b3nj5m1n/moderncardthemes)
 - [Anki Cards Templates SuperList](https://github.com/Troyciv/anki-templates-superlist)
 - [Raagaception's 12STD CBSE Deck (Science stream, PCM)](https://github.com/Raagaception/raagaception-12STD-CBSE-deck)
+- [Anki Minimal Language Learning Template](https://github.com/chaosarium/anki-minimal-language-learning-template)
 
 
