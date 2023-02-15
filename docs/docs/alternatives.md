@@ -507,5 +507,6 @@ on the first card add when using the app.
 - [Anki Cards Templates SuperList](https://github.com/Troyciv/anki-templates-superlist)
 - [Raagaception's 12STD CBSE Deck (Science stream, PCM)](https://github.com/Raagaception/raagaception-12STD-CBSE-deck)
 - [Anki Minimal Language Learning Template](https://github.com/chaosarium/anki-minimal-language-learning-template)
+- [Awesome Anki](https://github.com/tianshanghong/awesome-anki)
 
 
