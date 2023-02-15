@@ -660,9 +660,10 @@ export class KanjiHover extends RunnableAsyncModule {
     if (this.useCache) {
       // checks for card cache first
       // TODO
-    } else {
-      this.clearCardCache();
-    }
+
+    }// else {
+    //  this.clearCardCache();
+    //}
 
     const noteInfo: NoteInfoKanjiHover = {
       WordReading: getFieldValue('WordReading'),
@@ -685,12 +686,11 @@ export class KanjiHover extends RunnableAsyncModule {
       // can be null because this can be ran at the front side of the card
       if (wordReadingEle !== null) {
         wordReadingEle.innerHTML = resultHTML;
+        this.tooltips.addBrowseOnClick(wordReadingEle);
       }
     }
 
     // caches card
     // TODO
-
-    this.tooltips.addBrowseOnClick(`.dh-left__reading > .hover-tooltip__word-div`);
   }
 }
