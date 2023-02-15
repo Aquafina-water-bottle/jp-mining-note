@@ -268,38 +268,17 @@ export class KanjiHover extends RunnableAsyncModule {
     return [aMaxFirst, aMaxLast, bMaxFirst, bMaxLast];
   }
 
-  private filterCardsReduce2(
-    aMaxFirst: number,
-    aMaxLast: number,
-    aArr: number[],
-    bArr: number[],
-  ) {
-
-    // expensive reduce once again
-    let reduceBy = aArr.length;
-    while (reduceBy > 0) {
-      let foundOne = false;
-      if (aMaxFirst > 0) {
-        aMaxFirst -= 1;
-        reduceBy -= 1;
-        foundOne = true;
-      }
-      if (reduceBy <= 0) {
-        break;
-      }
-      if (aMaxLast > 0) {
-        aMaxLast -= 1;
-        reduceBy -= 1;
-        foundOne = true;
-      }
-
-      if (!foundOne) {
-        this.logger.error(`Cannot reduce any further? > ${aArr} < and ${bArr}`);
-        break; // guarantees no infinite recursion, but this also implies there's an error in the code
-      }
+  private filterCardsReduce2(tempTotal: number, limit: number) {
+    if (tempTotal === 0) {
+      limit = 0;
+    } else if (tempTotal > limit) {
+      limit = 2;
+      tempTotal -= limit;
+    } else {
+      limit -= tempTotal;
+      tempTotal = 0;
     }
-
-    return [aMaxFirst, aMaxLast]
+    return [tempTotal, limit]
 
   }
 
@@ -315,6 +294,14 @@ export class KanjiHover extends RunnableAsyncModule {
       throw Error(`Invalid lengths: ${a.length} vs ${b.length}`);
     }
 
+    // store original values
+    const aMaxFirstOG = aMaxFirst;
+    const aMaxLastOG = aMaxLast;
+    const bMaxFirstOG = bMaxFirst;
+    const bMaxLastOG = bMaxLast;
+
+    let totalLimits = aMaxFirst + aMaxLast + bMaxFirst + bMaxLast;
+
     // result
     let aRes: number[][] = [];
     let bRes: number[][] = [];
@@ -324,9 +311,11 @@ export class KanjiHover extends RunnableAsyncModule {
       const aArr = Array.from(a[i]).sort();
       const bArr = Array.from(b[i]).sort();
 
+      //console.log("filter1", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+
       // spreads out the limits to each other if necessary
       // only spreads out the limits if the other array can handle it!
-      // expensive but it's guaranteed to work
+      // expensive (O(n) instead of constant) but it's guaranteed to work
       [aMaxFirst, aMaxLast, bMaxFirst, bMaxLast] = this.filterCardsReduce1(
         aMaxFirst,
         aMaxLast,
@@ -345,17 +334,18 @@ export class KanjiHover extends RunnableAsyncModule {
         aArr.length,
       );
 
+      //console.log("filter2", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+
       if (aArr.length > aMaxFirst + aMaxLast) {
         if (aMaxLast === 0) {
           aRes.push([...aArr.slice(0, aMaxFirst)]);
         } else {
           aRes.push([...aArr.slice(0, aMaxFirst), ...aArr.slice(-aMaxLast, aArr.length)]);
         }
-        aMaxFirst = 0;
-        aMaxLast = 0;
+        totalLimits -= (aMaxFirst + aMaxLast)
       } else {
         aRes.push(Array.from(aArr));
-        [aMaxFirst, aMaxLast] = this.filterCardsReduce2(aMaxFirst, aMaxLast, aArr, bArr)
+        totalLimits -= (aArr.length)
       }
 
       if (bArr.length > bMaxFirst + bMaxLast) {
@@ -364,13 +354,26 @@ export class KanjiHover extends RunnableAsyncModule {
         } else {
           bRes.push([...bArr.slice(0, bMaxFirst), ...bArr.slice(-bMaxLast, bArr.length)]);
         }
-        bMaxFirst = 0;
-        bMaxLast = 0;
+        totalLimits -= (bMaxFirst + bMaxLast)
       } else {
         bRes.push(Array.from(bArr));
-        [bMaxFirst, bMaxLast] = this.filterCardsReduce2(bMaxFirst, bMaxLast, bArr, aArr)
+        totalLimits -= (bArr.length)
       }
 
+      //console.log("filter3", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+
+      // we CANNOT break the loop here because we must add the remaining (empty) arrays
+      // to aRes and bRes it seems
+
+      // bubbles up all remaining limits in the following priority:
+      // aMaxFirst, aMaxLast, bMaxFirst, bMaxLast
+      let tempTotal = totalLimits;
+      [tempTotal, aMaxFirst] = this.filterCardsReduce2(tempTotal, aMaxFirstOG);
+      [tempTotal, aMaxLast] = this.filterCardsReduce2(tempTotal, aMaxLastOG);
+      [tempTotal, bMaxFirst] = this.filterCardsReduce2(tempTotal, bMaxFirstOG);
+      [tempTotal, bMaxLast] = this.filterCardsReduce2(tempTotal, bMaxLastOG);
+
+      //console.log("filter4", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
     }
 
     return [aRes, bRes];
@@ -626,6 +629,7 @@ export class KanjiHover extends RunnableAsyncModule {
       throw Error('not implemented');
       //await this.sortByFirstReview(queryResults, kanjiToHover);
     }
+    console.log(kanjiToFilteredCardIDs);
 
     const kanjiToFilteredCardInfo = await this.getCardInfo(kanjiToFilteredCardIDs);
     this.buildTooltips(kanjiToFilteredCardInfo, kanjiToHover);

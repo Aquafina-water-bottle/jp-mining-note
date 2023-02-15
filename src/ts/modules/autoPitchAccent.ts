@@ -513,7 +513,6 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
       }
 
       const searchMora = getMorae(w);
-      console.log(searchMora);
 
       // this finds the index of "ꜜ"
       // pos is -1 if not found (which translates to 0)
