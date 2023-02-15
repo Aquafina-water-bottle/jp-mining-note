@@ -229,10 +229,10 @@ export class TooltipBuilder {
     wrapper.appendChild(hoverText);
     wrapper.appendChild(tooltipWrapperSpan);
 
+    //this.tooltips.addBrowseOnClick(wrapper);
+
     return wrapper;
-
   }
-
 }
 
 export class Tooltips extends Module {
@@ -436,9 +436,11 @@ export class Tooltips extends Module {
 
   /* goes through the HTML to search for data-cid, and then adds a guiBrowse
      call to view that cid (if it exists) */
-  addBrowseOnClick(query: string) {
-    for (const ele of document.querySelectorAll(query)) {
+  addBrowseOnClick(parentEle: HTMLElement) {
+    console.log(parentEle);
+    for (const ele of parentEle.querySelectorAll(".hover-tooltip__word-div")) {
       let cid = ele.getAttribute('data-cid');
+      console.log(ele);
       if (cid !== null) {
         (ele as HTMLElement).onclick = () => {
           invoke('guiBrowse', { query: `cid:${cid}` });
