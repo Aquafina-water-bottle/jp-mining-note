@@ -312,6 +312,16 @@ ruby rt {
   cursor: pointer;
   transition: filter 0.3s;
 }
+
+
+/* makes code snippets look better */
+code {
+  background-color: var(--code-background-darken);
+  border-radius: 10px;
+  padding: .1em .3em;
+}
+
+
 .img-clickable:hover {
   filter: brightness(var(--image-hover-brightness));
 }
