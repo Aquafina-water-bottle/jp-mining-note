@@ -313,6 +313,11 @@ ruby rt {
   transition: filter 0.3s;
 }
 
+.img-clickable:hover {
+  filter: brightness(var(--image-hover-brightness));
+}
+
+
 
 /* makes code snippets look better */
 code {
@@ -322,9 +327,6 @@ code {
 }
 
 
-.img-clickable:hover {
-  filter: brightness(var(--image-hover-brightness));
-}
 
 
 
