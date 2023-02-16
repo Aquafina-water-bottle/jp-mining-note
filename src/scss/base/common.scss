@@ -104,6 +104,7 @@ $bp-combine-picture: 620px;
 
   --accent:                     var(--data-light-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.05);
+  --code-background-darken:     rgba(0, 0, 0, 0.05);
   --tooltip-background-darken:  hsla(0, 0%, 100%, 0.98);;
 
   --pa-overline-color:          var(--accent);
@@ -178,6 +179,7 @@ $bp-combine-picture: 620px;
 
   --accent:                     var(--data-dark-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.12);
+  --code-background-darken:     rgba(0, 0, 0, 0.25);
   --tooltip-background-darken:  rgba(0, 0, 0, 0.9);
 
   --pa-overline-color:          var(--accent);
