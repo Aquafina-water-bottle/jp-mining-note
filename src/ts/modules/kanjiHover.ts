@@ -1,7 +1,7 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { selectPersist } from '../spersist';
-import { getFieldValue, plainToRuby } from '../utils';
+import { getFieldValue, plainToRuby, CARD_KEY } from '../utils';
 import {
   Tooltips,
   QueryBuilderGroup,
@@ -15,7 +15,6 @@ import {
   getQueryCache,
   setQueryCache,
   invoke,
-  QueryBuilder,
   CardInfo,
   cardsInfo,
 } from '../ankiConnectUtils';
@@ -33,8 +32,6 @@ type KanjiHoverCategoryID =
 
 type QueryCategories = Record<KanjiHoverCategoryID, string>;
 type QueryResults = Record<KanjiHoverCategoryID, number[]>;
-
-type KanjiQueryCategories = Record<string, QueryCategories>;
 type KanjiQueryResults = Record<string, QueryResults>;
 
 // TODO may have to separate preview and non-preview
@@ -44,35 +41,13 @@ type KanjiToFilteredCardIDs = Record<string, FilteredCardIDs>;
 type FilteredCardsInfo = Record<FilteredCardCategories, CardInfo[]>;
 type KanjiToFilteredCardsInfo = Record<string, FilteredCardsInfo>;
 
-type HoverInfo = {
-  usedWords: string[];
-  hoverHTML: string;
-};
-
 type NoteInfoKanjiHover = {
   WordReadingRubyHTML: string;
   WordReading: string;
   Key: string;
 };
 
-//type BuiltQueries = {
-//  'word.nonNew.hidden': string;
-//  'word.nonNew.default': string;
-//  'word.new.hidden': string;
-//  'word.new.default': string;
-//
-//  'sent.nonNew.hidden': string;
-//  'sent.nonNew.default': string;
-//  'sent.new.hidden': string;
-//  'sent.new.default': string;
-//}
-
-//type QueryResults = Record<string, number[]>;
-
-//type QueryResultKeys = 'nonNew.default' | 'nonNew.hidden' | 'new.default' | 'new.hidden';
-// TODO QueryResult from QueryResultKeys
-
-const hoverInfoCacheKey = 'KanjiHover.hoverInfoCacheKey';
+const kanjiHoverCardCacheKey = 'KanjiHover.kanjiHoverCardCacheKey';
 
 // maps a kanji to the full hover HTML (the html containing the kanji + the full popup)
 type KanjiToHover = Record<string, string>;
@@ -82,15 +57,11 @@ export class KanjiHover extends RunnableAsyncModule {
   private readonly persistObj = selectPersist('window');
   private readonly tooltips: Tooltips;
 
-  //private wordReadingHTML = "";
-
   constructor() {
     super('kanjiHover');
     this.tooltips = new Tooltips();
     this.tooltips.overrideOptions(getOption('kanjiHover.overrideOptions.tooltips'));
   }
-
-  private clearCardCache() {}
 
   private wordReadingKanjis(noteInfo: NoteInfoKanjiHover): Set<string> {
     let kanjiSet = new Set<string>(); // set of kanjis that requires api calls
@@ -210,9 +181,9 @@ export class KanjiHover extends RunnableAsyncModule {
     let categoriesFlattened: KanjiHoverCategoryID[] = [];
     let actions: AnkiConnectAction[] = [];
 
+    // any remaining results == [-1] will actually be queried
     for (const [kanji, queryCategory] of Object.entries(queryResults)) {
       for (const [categoryID, queryResult] of Object.entries(queryCategory)) {
-        //const qResultKey = `${kanji}.${queryKey}`;
         if (queryResult.length === 1 && queryResult[0] === -1) {
           const query = kanjiToQueryCategory[kanji][categoryID as KanjiHoverCategoryID];
           queriesFlattened.push(query);
@@ -601,19 +572,6 @@ export class KanjiHover extends RunnableAsyncModule {
 
     // looks for a cached hoverHTMLKey that doesn't contain the target word
     // Array.from is to shallow-copy, so it doesn't interfere with kanjiSet.delete()
-    for (const kanji of Array.from(kanjiSet)) {
-      const key = `${hoverInfoCacheKey}.${kanji}`;
-      if (this.persistObj?.has(key)) {
-        const hoverInfoArray: HoverInfo[] = this.persistObj.get(key);
-
-        for (const hoverInfo of hoverInfoArray) {
-          if (!hoverInfo.usedWords.includes(noteInfo.WordReading)) {
-            kanjiToHover[kanji] = hoverInfo.hoverHTML;
-            break;
-          }
-        }
-      }
-    }
 
     // searches the remaining kanjis in kanjiSet
     const queryResults = await this.cardQueries(noteInfo, Array.from(kanjiSet));
@@ -635,35 +593,20 @@ export class KanjiHover extends RunnableAsyncModule {
     this.buildTooltips(kanjiToFilteredCardInfo, kanjiToHover);
 
     return kanjiToHover;
-
-    // flattens out the ids and maps to corresponding queries
-
-    // Gets the card info for all the necessary cards
-    // TODO caching!
-    // TODO change the results of these to be something like:
-    // {
-    //   "kanji": {
-    //     "nonNew": [...],
-    //     "new": [...],
-    //   },
-    //   ...
-    // }
-    //const queryResults = await this.cardQueries(kanjiArr);
-    //const cardsInfo = await this.getCardsInfo();
-
-    //this.buildHoverHTML()
-
-    //return {};
   }
 
   async main() {
-    if (this.useCache) {
-      // checks for card cache first
-      // TODO
 
-    }// else {
-    //  this.clearCardCache();
-    //}
+    const cardCacheKey = `${kanjiHoverCardCacheKey}.${CARD_KEY}`
+    let wordReadingEle = document.getElementById('dh_reading');
+
+    if (this.useCache && wordReadingEle !== null && this.persist !== null && this.persist.has(cardCacheKey)) {
+      this.logger.debug("Using cached card");
+      const resultHTML = this.persist.get(cardCacheKey);
+      wordReadingEle.innerHTML = resultHTML;
+      this.tooltips.addBrowseOnClick(wordReadingEle);
+      return;
+    }
 
     const noteInfo: NoteInfoKanjiHover = {
       WordReading: getFieldValue('WordReading'),
@@ -671,15 +614,15 @@ export class KanjiHover extends RunnableAsyncModule {
       Key: getFieldValue('Key'),
     };
 
-    let wordReadingEle = document.getElementById('dh_reading');
-
     // checks for cache per kanji character
     let kanjiToHoverHTML = await this.getKanjisToHover(noteInfo);
 
+
+    let resultHTML: string = noteInfo.WordReadingRubyHTML;
     if (Object.keys(kanjiToHoverHTML).length > 0) {
       // an empty object seems to replace every empty space
       const re = new RegExp(Object.keys(kanjiToHoverHTML).join('|'), 'gi');
-      const resultHTML = noteInfo.WordReadingRubyHTML.replace(re, function (matched) {
+      resultHTML = noteInfo.WordReadingRubyHTML.replace(re, function (matched) {
         return `<span data-kanji-hover="${matched}">${kanjiToHoverHTML[matched]}</span>`;
       });
 
@@ -691,6 +634,8 @@ export class KanjiHover extends RunnableAsyncModule {
     }
 
     // caches card
-    // TODO
+    if (this.persist !== null) {
+      this.persist.set(cardCacheKey, resultHTML);
+    }
   }
 }
