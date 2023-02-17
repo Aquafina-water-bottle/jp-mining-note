@@ -21,6 +21,16 @@ Additionally, if you downloaded Yomichan from a file, try updating that as well.
 Most users should have installed it from their browser's extension page, in which case
 nothing has to be done.
 
+!!! warning "Warning for Firefox Users"
+    There appears to be an issue where the default version for Yomichan on Firefox
+    is [three years old](https://github.com/FooSoft/yomichan/issues/2295).
+    If you are using Firefox, ensure that your Yomichan version is indeed the latest version,
+    by clicking on the Yomichan icon and clicking on the question mark.
+    If it isn't, you will have to download it [manually](https://github.com/FooSoft/yomichan/releases).
+
+    You may also have to download the Firefox Developer edition, and set `xpinstall.signatures.required`
+    to `false`.
+
 ---
 
 
