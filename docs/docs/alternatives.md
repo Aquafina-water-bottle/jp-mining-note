@@ -15,6 +15,8 @@ and I will very likely add it here!
 
 ---
 
+
+<!--
 ## Anime Cards
 <sup>
 [Website](https://animecards.site/ankicards/#anime-cardsword-context-cards)・[Download](https://ankiweb.net/shared/info/151553357)・[Contact](https://animecards.site/support/)
@@ -23,14 +25,19 @@ and I will very likely add it here!
 ??? example "Example image"
     {{ img("", "https://animecards.site/images/animecardsample.jpg") }}
 
-
-<!--
-If you're previewing this, make sure to change the preview site:
-
-    http://127.0.0.1:8000/setup/  ->  http://localhost:8000/setup/
-
-see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 -->
+
+---
+
+
+
+## Anime Cards
+<sup>
+[Website & Download](https://github.com/friedrich-de/Basic-Mining-Deck)・[Download](https://ankiweb.net/shared/info/151553357)・[Contact](https://animecards.site/support/)
+</sup>
+
+??? example "Example image"
+    {{ img("", "https://github.com/friedrich-de/Basic-Mining-Deck/blob/master/sample_image.png?raw=true") }}
 
 ---
 
@@ -60,6 +67,14 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
     === "Light"
         {{ img("", "https://imgur.com/BvxcdzI.jpg") }}
+
+<!--
+If you're previewing this, make sure to change the preview site:
+
+    http://127.0.0.1:8000/setup/  ->  http://localhost:8000/setup/
+
+see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
+-->
 
 ---
 
