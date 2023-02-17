@@ -25,10 +25,9 @@ and I will very likely add it here!
 ??? example "Example image"
     {{ img("", "https://animecards.site/images/animecardsample.jpg") }}
 
--->
-
 ---
 
+-->
 
 
 ## Anime Cards
