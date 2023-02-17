@@ -32,11 +32,15 @@ and I will very likely add it here!
 
 ## Anime Cards
 <sup>
-[Website & Download](https://github.com/friedrich-de/Basic-Mining-Deck)・[Download](https://ankiweb.net/shared/info/151553357)・[Contact](https://animecards.site/support/)
+[Website](https://github.com/friedrich-de/Basic-Mining-Deck)・[Download](https://ankiweb.net/shared/info/151553357)・[Contact](https://animecards.site/support/)
 </sup>
 
-??? example "Example image"
-    {{ img("", "https://github.com/friedrich-de/Basic-Mining-Deck/blob/master/sample_image.png?raw=true") }}
+??? example "Example images"
+    === "Image 1"
+        {{ img("", "https://animecards.site/images/anime_card.png") }}
+    === "Image 2"
+        {{ img("", "https://github.com/friedrich-de/Basic-Mining-Deck/blob/master/sample_image.png?raw=true") }}
+
 
 ---
 
