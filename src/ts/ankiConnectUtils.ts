@@ -1,35 +1,35 @@
 import { selectPersist, SPersistInterface } from './spersist';
-import { Field } from './utils'
+import { Field } from './utils';
 
 const getQueryCacheKey = 'ankiConnectUtils.getQueryCacheKey';
 const getCardInfoCacheKey = 'ankiConnectUtils.getCardInfoCacheKey';
 
 type _FieldValue = {
-  value: string,
-  order: number,
-}
+  value: string;
+  order: number;
+};
 
 // copied from https://github.com/FooSoft/anki-connect#cardsinfo
 export type CardInfo = {
-  "answer": string,
-  "question": string,
-  "deckName": string,
-  "modelName": string,
-  "fieldOrder": number,
-  "fields": Record<Field, _FieldValue>,
-  "css": string,
-  "cardId": number,
-  "interval": number,
-  "note": number,
-  "ord": number,
-  "type": number,
-  "queue": number,
-  "due": number,
-  "reps": number,
-  "lapses": number,
-  "left": number,
-  "mod": number
-}
+  answer: string;
+  question: string;
+  deckName: string;
+  modelName: string;
+  fieldOrder: number;
+  fields: Record<Field, _FieldValue>;
+  css: string;
+  cardId: number;
+  interval: number;
+  note: number;
+  ord: number;
+  type: number;
+  queue: number;
+  due: number;
+  reps: number;
+  lapses: number;
+  left: number;
+  mod: number;
+};
 
 export type AnkiConnectAction = {
   action: string;
@@ -86,27 +86,45 @@ export function constructFindCardsAction(query: string): AnkiConnectAction {
 
 /* expects that persist can store objects */
 export function getQueryCache(
-  persist: SPersistInterface,
+  persistObj: SPersistInterface,
   query: string
 ): number[] | null {
   const key = `${getQueryCacheKey}.${query}`;
-  if (persist.has(key)) {
-    return persist.get(key) as number[];
+  if (persistObj.has(key)) {
+    return persistObj.get(key) as number[];
   }
   return null;
 }
 
 /* expects that persist can store objects */
 export function setQueryCache(
-  persist: SPersistInterface,
+  persistObj: SPersistInterface,
   query: string,
   queryResult: number[]
 ) {
   const key = `${getQueryCacheKey}.${query}`;
-  persist.set(key, queryResult);
+  persistObj.set(key, queryResult);
 }
 
-
+/* expects that persist can store objects */
+export async function queryAnki(
+  persistObj: SPersistInterface | null,
+  query: string,
+  readCache: boolean,
+  writeCache: boolean
+): Promise<number[]> {
+  if (readCache && persistObj !== null) {
+    const cache = getQueryCache(persistObj, query);
+    if (cache !== null) {
+      return cache;
+    }
+  }
+  const result = await invoke('findCards', { query: query }) as number[];
+  if (writeCache && persistObj !== null) {
+    setQueryCache(persistObj, query, result);
+  }
+  return result;
+}
 
 /* expects that persist can store objects */
 export function setCardInfoCache(
@@ -130,13 +148,15 @@ export function getCardInfoCache(
   return null;
 }
 
-
-
-export async function cardsInfo(cardIDs: number[], readCache=true, writeCache=true): Promise<Record<number, CardInfo>> {
-  const result: Record<number, CardInfo> = {}
+export async function cardsInfo(
+  cardIDs: number[],
+  readCache = true,
+  writeCache = true
+): Promise<Record<number, CardInfo>> {
+  const result: Record<number, CardInfo> = {};
 
   if (readCache) {
-    const persist = selectPersist("window");
+    const persist = selectPersist('window');
     if (persist !== null) {
       for (const id of cardIDs) {
         const cache = getCardInfoCache(persist, id);
@@ -145,17 +165,16 @@ export async function cardsInfo(cardIDs: number[], readCache=true, writeCache=tr
         }
       }
     }
-
   }
 
   // gets all not originally cached
-  const searchIDs: number[] = []
+  const searchIDs: number[] = [];
   for (const id of cardIDs) {
     if (!(id in result)) {
       searchIDs.push(id);
     }
   }
-  const cardsInfoResult = await invoke("cardsInfo", {"cards": searchIDs}) as CardInfo[]
+  const cardsInfoResult = (await invoke('cardsInfo', { cards: searchIDs })) as CardInfo[];
   for (let i = 0; i < searchIDs.length; i++) {
     const id = searchIDs[i];
     const cardInfo = cardsInfoResult[i];
@@ -163,28 +182,39 @@ export async function cardsInfo(cardIDs: number[], readCache=true, writeCache=tr
   }
 
   if (writeCache) {
-    const persist = selectPersist("window");
+    const persist = selectPersist('window');
     if (persist !== null) {
-
       for (let i = 0; i < searchIDs.length; i++) {
         const id = searchIDs[i];
         const cardInfo = cardsInfoResult[i];
-        setCardInfoCache(persist, id, cardInfo)
+        setCardInfoCache(persist, id, cardInfo);
       }
-
     }
   }
 
-  return result
+  return result;
+}
+
+/* equivalent of cardsInfo() except it simply uses the cache instead */
+export function cardIDsToCardsInfo(
+  cardIDs: number[],
+  cardsInfoResult: Record<number, CardInfo>
+): CardInfo[] {
+  const result: CardInfo[] = [];
+  for (const id of cardIDs) {
+    if (!(id in cardsInfoResult)) {
+      throw Error('id not in cardsInfoResult: ${id}');
+    }
+    result.push(cardsInfoResult[id]);
+  }
+  return result;
 }
 
 
-
 export class QueryBuilder {
+  private segments: string[] = [];
 
-  private segments: string[] = []
-
-  constructor() { }
+  constructor() {}
 
   addSegment(segment: string, negate = false): QueryBuilder {
     if (segment.length > 0) {
@@ -204,4 +234,3 @@ export class QueryBuilder {
     return qb;
   }
 }
-

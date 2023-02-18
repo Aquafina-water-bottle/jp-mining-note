@@ -97,7 +97,7 @@ export abstract class RunnableModule extends Module {
 
 
 export abstract class RunnableAsyncModule extends RunnableModule {
-  protected useCache: boolean = false;
+  useCache: boolean = false;
 
   setUseCache(useCache: boolean) {
     this.useCache = useCache;

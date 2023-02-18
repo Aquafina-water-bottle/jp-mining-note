@@ -119,6 +119,10 @@ and must use `./install.py --update`.
         - TODO documentation on this (specifically ways to create cloze deletion cards)
     - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
     - Allow FrequencySort to be used as a backup in case FrequenciesStylized does not exist
+    - Added styling for inline `<code>` blocks. For example, the following sentence taken from the rust book:
+        ```
+        新しい言語を学ぶ際に、<code>Hello, world!</code>というテキストを画面に<b>出力</b>する小さなプログラムを書くことは伝統的なことなので、ここでも同じようにしましょう！
+        ```
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images

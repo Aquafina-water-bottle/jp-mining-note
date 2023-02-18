@@ -82,9 +82,9 @@ export class WebSocketUtils extends RunnableModule {
     }
 
     if (this.persist.has(persistKey)) {
-      console.log(this.persist.has(persistKey))
+      //console.log(this.persist.has(persistKey))
       const webSocket = this.persist.get(persistKey) as WebSocket;
-      console.log(webSocket)
+      //console.log(webSocket)
       if (
         webSocket.readyState === WebSocket.CLOSING ||
         webSocket.readyState === WebSocket.CLOSED

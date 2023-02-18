@@ -3,7 +3,7 @@ import { Module } from '../module';
 import { AutoPitchAccent, AutoPitchAccentArgs, NoteInfoPA } from './autoPitchAccent';
 import { NoteInfoSentence, SentenceParser } from './sentenceParser';
 import { Sentence } from './sentenceParser';
-import { invoke, escapeQueryStr, QueryBuilder } from '../ankiConnectUtils';
+import { invoke, escapeQueryStr, QueryBuilder, CardInfo } from '../ankiConnectUtils';
 import { plainToRuby } from '../utils'
 
 //export type TooltipBuilderArgs = {
@@ -91,7 +91,7 @@ export class TooltipCardDivBuilder {
     return this;
   }
 
-  createWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string, cardId: number | null = null) {
+  createWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string | null = null, cardId: number | null = null) {
     this.wordDiv = this.tooltips.buildWordDiv(noteInfo, character, cardId)
     return this;
   }
@@ -166,6 +166,7 @@ export class TooltipBuilder {
     this.cardDivs.push(sepDiv);
   }
 
+  // what text should be hovered over
   addHoverText(text: string | HTMLElement) {
     this.hoverText = text;
   }
@@ -174,34 +175,13 @@ export class TooltipBuilder {
     this.onEmptyText = text;
   }
 
-  build(): HTMLElement {
+  // TODO rename this entire class?
+  // what is the tooltip vs hover text?
+  buildTooltipOnly(): HTMLElement {
     /*
-     * <span class="hover-wrapper">
-     *   <span class="hover-text"> (kanji) </span>
-     *   <span class="hover-tooltip-wrapper">
-     *     <span class="hover-tooltip"> ... </span>
-     *   </span>
-     * </span>
+     * <span class="hover-tooltip"> ... </span>
      *
      */
-
-    if (this.hoverText === null) {
-      throw Error("No hover text found, cannot build tooltip");
-    }
-
-    const wrapper = document.createElement('span');
-    wrapper.classList.add("hover-wrapper");
-
-    const hoverText = document.createElement('span');
-    hoverText.classList.add("hover-text");
-    if (typeof this.hoverText === "string") {
-      hoverText.innerText = this.hoverText
-    } else {
-      hoverText.appendChild(this.hoverText)
-    }
-
-    const tooltipWrapperSpan = document.createElement('span');
-    tooltipWrapperSpan.classList.add("hover-tooltip-wrapper");
 
     const tooltipSpan = document.createElement('span');
     tooltipSpan.classList.add("hover-tooltip");
@@ -224,8 +204,40 @@ export class TooltipBuilder {
       }
 
     }
+    return tooltipSpan;
+  }
 
-    tooltipWrapperSpan.appendChild(tooltipSpan)
+  build(): HTMLElement {
+    /*
+     * <span class="hover-wrapper">
+     *   <span class="hover-text"> (kanji) </span>
+     *   <span class="hover-tooltip-wrapper">
+     *     <span class="hover-tooltip"> ... </span>
+     *   </span>
+     * </span>
+     *
+     */
+
+    if (this.hoverText === null) {
+      throw Error("No hover text found, cannot build tooltip");
+    }
+
+    const tooltipWrapperSpan = document.createElement('span');
+    tooltipWrapperSpan.classList.add("hover-tooltip-wrapper");
+
+    const wrapper = document.createElement('span');
+    wrapper.classList.add("hover-wrapper");
+
+    const hoverText = document.createElement('span');
+    hoverText.classList.add("hover-text");
+    if (typeof this.hoverText === "string") {
+      hoverText.innerText = this.hoverText
+    } else {
+      hoverText.appendChild(this.hoverText)
+    }
+
+    tooltipWrapperSpan.appendChild(this.buildTooltipOnly())
+
     wrapper.appendChild(hoverText);
     wrapper.appendChild(tooltipWrapperSpan);
 
@@ -271,6 +283,8 @@ export class Tooltips extends Module {
   newBuilder(): TooltipBuilder {
     return new TooltipBuilder(this)
   }
+
+
 
   buildWordDiv(noteInfo: NoteInfoTooltipBuilder, character: string | null, cardId: number | null = null): HTMLDivElement {
     const wordDiv = document.createElement('div');
@@ -437,10 +451,10 @@ export class Tooltips extends Module {
   /* goes through the HTML to search for data-cid, and then adds a guiBrowse
      call to view that cid (if it exists) */
   addBrowseOnClick(parentEle: HTMLElement) {
-    console.log(parentEle);
+    //console.log(parentEle);
     for (const ele of parentEle.querySelectorAll(".hover-tooltip__word-div")) {
       let cid = ele.getAttribute('data-cid');
-      console.log(ele);
+      //console.log(ele);
       if (cid !== null) {
         (ele as HTMLElement).onclick = () => {
           invoke('guiBrowse', { query: `cid:${cid}` });
@@ -543,4 +557,33 @@ export class Tooltips extends Module {
 
   //  return [nonNewResultIds, newResultIds];
   //}
+
+  // transforms CardInfo into something useful for the tooltip builder
+  // boldSentKanji: null => do not replace, string => remove existing bold and only bold that specified kanji
+  cardInfoToNoteInfoTooltipBuilder(cardInfo: CardInfo, boldSentKanji: string | null = null): NoteInfoTooltipBuilder {
+    let resultSent = cardInfo.fields.Sentence.value;
+    if (boldSentKanji !== null) {
+      if (!resultSent.includes(boldSentKanji)) {
+        throw Error(`Cannot use boldSentKanji ${boldSentKanji} when kanji does not exist in sentence: ${resultSent}`)
+      }
+      resultSent = resultSent.replace(/<b>|<\/b>/g, "")
+      resultSent = resultSent.replace(new RegExp(boldSentKanji, "g"), `<b>${boldSentKanji}</b>`)
+    }
+
+    return {
+      AJTWordPitch: cardInfo.fields.AJTWordPitch.value,
+      PAOverride: cardInfo.fields.PAOverride.value,
+      PAOverrideText: cardInfo.fields.PAOverrideText.value,
+      PAPositions: cardInfo.fields.PAPositions.value,
+      Sentence: resultSent,
+      Word: cardInfo.fields.Word.value,
+      WordReading: cardInfo.fields.WordReading.value,
+      WordReadingHiragana: cardInfo.fields.WordReading.value,
+      YomichanWordTags: cardInfo.fields.YomichanWordTags.value,
+      tags: [],
+    };
+  }
+
+
 }
+
