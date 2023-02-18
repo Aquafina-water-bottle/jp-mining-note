@@ -22,7 +22,7 @@ and I will very likely add it here!
 [Website](https://animecards.site/ankicards/#anime-cardsword-context-cards)・[Download](https://ankiweb.net/shared/info/151553357)・[Contact](https://animecards.site/support/)
 </sup>
 
-??? example "Example image"
+!!! example "Example image"
     {{ img("", "https://animecards.site/images/animecardsample.jpg") }}
 
 ---
@@ -35,7 +35,7 @@ and I will very likely add it here!
 [Website](https://github.com/friedrich-de/Basic-Mining-Deck)・[Download](https://ankiweb.net/shared/info/151553357)・[Contact](https://animecards.site/support/)
 </sup>
 
-??? example "Example images"
+!!! example "Example images"
     === "Image 1"
         {{ img("", "https://animecards.site/images/anime_card.png") }}
     === "Image 2"
@@ -52,23 +52,21 @@ and I will very likely add it here!
 [Website & Download](https://rentry.co/lazyXel#anki)・Contact: `Xelieu#8158` ({{TMW_SERVER}})
 </sup>
 
-??? example "Example images (monolingual, modern)"
+!!! example "Example images (bilingual examples not shown)"
 
-    === "Dark"
+    === "Modern | Dark"
         {{ img("", "https://i.imgur.com/WvdrfH0.jpg") }}
 
-    === "Light"
+    === "Modern | Light"
         {{ img("", "https://i.imgur.com/D0P1ZFX.jpg") }}
 
-??? example "Example images (monolingual, simple)"
-
-    === "Dark"
+    === "Simple | Dark"
         {{ img("", "https://i.imgur.com/Dfy9u75.jpg") }}
 
-    === "Dark (alternative)"
+    === "Simple | Dark (alternative)"
         {{ img("", "https://i.imgur.com/sWJ0Ff3.jpg") }}
 
-    === "Light"
+    === "Simple | Light"
         {{ img("", "https://imgur.com/BvxcdzI.jpg") }}
 
 <!--
@@ -91,7 +89,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 [^1]:  He seems to have left TMW Discord server, and his demo video on Youtube was privated. I assume he no longer wants to be contacted.
 
-??? example "Example image"
+!!! example "Example image"
     {{ img("", "assets/alternatives/stegatxins0_eg.png") }}
 
 ---
@@ -108,7 +106,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 - TSC is short for "Targeted sentence cards"
 - jp-mining-note is a heavily modified version of this (to the point of it being completely rewritten)
 
-??? example "Example image"
+!!! example "Example image"
     {{ img("", "https://user-images.githubusercontent.com/69171671/100900075-5fc15800-34ba-11eb-9a23-bcfa5e01e35c.png") }}
 
 ---
@@ -124,7 +122,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 - A collection of user-created notes. Most are based off of the above TSC template.
 - The examples below do not showcase every note. Visit the `templates` folder on the website to see all the available notes.
 
-??? example "Examples"
+!!! example "Examples"
 
     === "JP1K TSC (dark)"
         <sup>
@@ -178,7 +176,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 [Website & Download](https://cademcniven.com/projects/notetype2/)・Contact: `eminent#8189` ({{PERDITION_SERVER}})
 </sup>
 
-??? example "Example images"
+!!! example "Example images"
     === "Front"
         {{ img("", "https://cademcniven.com/images/card_front-M4BXXShqiw-1200w.avif") }}
     === "Back"
@@ -194,7 +192,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 [Download](https://cdn.discordapp.com/attachments/778430038159655012/847595626257842226/AnimeCards.apkg)・Contact: `どん底#6628` ({{TMW_SERVER}})
 </sup>
 
-??? example "Example images"
+!!! example "Example images"
     === "Front | Dark"
         {{ img("", "assets/alternatives/elax/front_dark.png") }}
 
@@ -227,7 +225,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 [Download](https://cdn.discordapp.com/attachments/778430038159655012/937090193356361728/Timm_template.apkg)・[Download (alternative theme)](https://cdn.discordapp.com/attachments/778430038159655012/937095406779793488/4050fdea6bbedcaa.apkg)・Contact: `Timm#3250` ({{ TMW_SERVER }})
 </sup>
 
-??? example "Examples"
+!!! example "Examples"
     === "Image"
         {{ img("", "assets/alternatives/timm.png") }}
     === "Video"
@@ -317,7 +315,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 [Website](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub)・[Download](https://drive.google.com/drive/folders/1uvpZ1JhT14W3T_JdtHxzL-o4r5XNwNwp)・Contact: `Tigy01#1231` ({{ REFOLD_SERVER }})
 </sup>
 
-??? example "Example images"
+!!! example "Example images"
 
     === "Front"
         {{ img("", "assets/alternatives/tigy01/front.png") }}
@@ -338,7 +336,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 * The download link contains a `readme.txt` that has instructions on how to setup the fields & basic info on the card
 
-??? example "Example images"
+!!! example "Example images"
     === "Front"
         {{ img("", "assets/alternatives/stazor/front.png") }}
     === "Front (on hover)"
@@ -358,7 +356,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 [Website & Download](https://github.com/rudnam/JP-study)・Contact: `rudnam#8661` ({{ REFOLD_SERVER }})
 </sup>
 
-??? example "Example images"
+!!! example "Example images"
     === "Full demo"
         {{ img("", "https://github.com/rudnam/JP-study/blob/main/images/mining_template.gif?raw=true") }}
     === "Vocab"
@@ -388,7 +386,7 @@ on the first card add when using the app.
 
 - Audio and picture at the front, everything else at the back
 
-??? example "Example images"
+!!! example "Example images"
     === "Front"
         {{ img("", "assets/alternatives/jo-mako-audio/front.png") }}
     === "Back"
@@ -408,7 +406,7 @@ on the first card add when using the app.
 
 - Sentence at the front (with revealable picture and reading). Meaning at the back.
 
-??? example "Example images"
+!!! example "Example images"
     === "Example 1"
         {{ img("", "assets/alternatives/jo-mako-reading/back1.png") }}
     === "Example 2"
@@ -423,7 +421,7 @@ on the first card add when using the app.
 [Website & Download](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
 </sup>
 
-??? example "Example images"
+!!! example "Example images"
     === "Front"
         {{ img("", "assets/alternatives/mally/front.png") }}
     === "Back"
@@ -439,7 +437,7 @@ on the first card add when using the app.
 [Website & Download](https://sites.google.com/view/jo-mako/resources/premade-card-styles)
 </sup>
 
-??? example "Example images"
+!!! example "Example images"
     === "Front"
         {{ img("", "assets/alternatives/nocompo/front.png") }}
     === "Back"
@@ -472,7 +470,7 @@ on the first card add when using the app.
 - Not a note type used for mining
 - Also see: [Xelieu's alternative theme](https://drive.google.com/file/d/1KLaXaH0LL7EBe4bSVUtcf8T5oEMZPIqx/view?usp=sharing)
 
-??? example "Example image"
+!!! example "Example image"
     {{ img("", "assets/alternatives/kanken_deck_eg.png") }}
 
 ---
@@ -488,7 +486,7 @@ on the first card add when using the app.
 
 - Monolingual grammar deck
 
-??? example "Example images"
+!!! example "Example images"
     === "Front | Dark"
         {{ img("", "assets/alternatives/nihongo_kyoshi/front_dark.png") }}
 
