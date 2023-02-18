@@ -279,7 +279,7 @@ class BackImgStylizer extends Module {
   }
 
   private adjustHeight(ele: HTMLElement) {
-    console.log(ele);
+    //console.log(ele);
     if (ele === null) {
       return;
     }

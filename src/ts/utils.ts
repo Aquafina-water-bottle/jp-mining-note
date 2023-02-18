@@ -70,6 +70,16 @@ export const TAGS_LIST: readonly string[] = (() => {
   return tagsList;
 })();
 
+// all verb tags that isn't 'vs'
+const ALL_VERB_TAGS = new Set(["v_unspec", "v1", "v1_s", "v2a_s", "v2b_k", "v2b_s", "v2d_k", "v2d_s", "v2g_k", "v2g_s", "v2h_k", "v2h_s", "v2k_k", "v2k_s", "v2m_k", "v2m_s", "v2n_s", "v2r_k", "v2r_s", "v2s_s", "v2t_k", "v2t_s", "v2w_s", "v2y_k", "v2y_s", "v2z_s", "v4b", "v4g", "v4h", "v4k", "v4m", "v4n", "v4r", "v4s", "v4t", "v5aru", "v5b", "v5g", "v5k", "v5k_s", "v5m", "v5n", "v5r", "v5r_i", "v5s", "v5t", "v5u", "v5u_s", "v5uru", "vi", "vk", "vn", "vr", "vs_c", "vs_i", "vs_s", "vt", "vz"]);
+
+// A key string that should be almost guaranteed to be unique per card.
+// If a card has the same key and sentence, it's safe to guess that the card
+// is functionally the same anways.
+// Useful for usage in persistance, etc.
+export const CARD_KEY = `${getFieldValue("Key")}.${getFieldValue("Sentence")}`;
+
+
 export function popupMenuMessage(message: string, isHTML = false) {
   let popupMenu = document.getElementById('popup_menu');
 
@@ -261,8 +271,6 @@ export function getWordTags(wordTagsStr: string): string[] {
   return wordTagsStr.split(", ");
 }
 
-// all verb tags that isn't 'vs'
-const ALL_VERB_TAGS = new Set(["v_unspec", "v1", "v1_s", "v2a_s", "v2b_k", "v2b_s", "v2d_k", "v2d_s", "v2g_k", "v2g_s", "v2h_k", "v2h_s", "v2k_k", "v2k_s", "v2m_k", "v2m_s", "v2n_s", "v2r_k", "v2r_s", "v2s_s", "v2t_k", "v2t_s", "v2w_s", "v2y_k", "v2y_s", "v2z_s", "v4b", "v4g", "v4h", "v4k", "v4m", "v4n", "v4r", "v4s", "v4t", "v5aru", "v5b", "v5g", "v5k", "v5k_s", "v5m", "v5n", "v5r", "v5r_i", "v5s", "v5t", "v5u", "v5u_s", "v5uru", "vi", "vk", "vn", "vr", "vs_c", "vs_i", "vs_s", "vt", "vz"]);
 
 export function isVerb(wordTags: string[]) {
   for (const t of wordTags) {
@@ -273,9 +281,142 @@ export function isVerb(wordTags: string[]) {
   return false;
 }
 
-// A key string that should be almost guaranteed to be unique per card.
-// If a card has the same key and sentence, it's safe to guess that the card
-// is functionally the same anways.
-// Useful for usage in persistance, etc.
-export const CARD_KEY = `${getFieldValue("Key")}.${getFieldValue("Sentence")}`;
+
+
+
+function filterCardsReduce1(
+  aMaxFirst: number,
+  aMaxLast: number,
+  bMaxFirst: number,
+  bMaxLast: number,
+  aArrLen: number,
+  bArrLen: number
+) {
+  let flip = true;
+  while (aMaxFirst + aMaxLast > aArrLen && bMaxFirst + bMaxLast < bArrLen) {
+    if (flip && aMaxFirst > 0) {
+      aMaxFirst -= 1;
+      bMaxFirst += 1;
+    } else if (aMaxLast > 0) {
+      aMaxLast -= 1;
+      bMaxLast += 1;
+    }
+    flip = !flip;
+  }
+
+  return [aMaxFirst, aMaxLast, bMaxFirst, bMaxLast];
+}
+
+function filterCardsReduce2(tempTotal: number, limit: number) {
+  if (tempTotal === 0) {
+    limit = 0;
+  } else if (tempTotal > limit) {
+    limit = 2;
+    tempTotal -= limit;
+  } else {
+    limit -= tempTotal;
+    tempTotal = 0;
+  }
+  return [tempTotal, limit]
+
+}
+
+export function filterCards(
+  a: number[][],
+  b: number[][],
+  aMaxFirst: number,
+  aMaxLast: number,
+  bMaxFirst: number,
+  bMaxLast: number
+): [number[][], number[][]] {
+  if (a.length !== b.length) {
+    throw Error(`Invalid lengths: ${a.length} vs ${b.length}`);
+  }
+
+  // store original values
+  const aMaxFirstOG = aMaxFirst;
+  const aMaxLastOG = aMaxLast;
+  const bMaxFirstOG = bMaxFirst;
+  const bMaxLastOG = bMaxLast;
+
+  let totalLimits = aMaxFirst + aMaxLast + bMaxFirst + bMaxLast;
+
+  // result
+  let aRes: number[][] = [];
+  let bRes: number[][] = [];
+
+  // attempts to use all in a_arr and b_arr to fill all of the resulting 2 arrays
+  for (let i = 0; i < a.length; i++) {
+    const aArr = Array.from(a[i]).sort();
+    const bArr = Array.from(b[i]).sort();
+
+    //console.log("filter1", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+
+    // spreads out the limits to each other if necessary
+    // only spreads out the limits if the other array can handle it!
+    // expensive (O(n) instead of constant) but it's guaranteed to work
+    [aMaxFirst, aMaxLast, bMaxFirst, bMaxLast] = filterCardsReduce1(
+      aMaxFirst,
+      aMaxLast,
+      bMaxFirst,
+      bMaxLast,
+      aArr.length,
+      bArr.length,
+    );
+
+    [bMaxFirst, bMaxLast, aMaxFirst, aMaxLast] = filterCardsReduce1(
+      bMaxFirst,
+      bMaxLast,
+      aMaxFirst,
+      aMaxLast,
+      bArr.length,
+      aArr.length,
+    );
+
+    //console.log("filter2", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+
+    if (aArr.length > aMaxFirst + aMaxLast) {
+      if (aMaxLast === 0) {
+        aRes.push([...aArr.slice(0, aMaxFirst)]);
+      } else {
+        aRes.push([...aArr.slice(0, aMaxFirst), ...aArr.slice(-aMaxLast, aArr.length)]);
+      }
+      totalLimits -= (aMaxFirst + aMaxLast)
+    } else {
+      aRes.push(Array.from(aArr));
+      totalLimits -= (aArr.length)
+    }
+
+    if (bArr.length > bMaxFirst + bMaxLast) {
+      if (bMaxLast === 0) {
+        bRes.push([...bArr.slice(0, bMaxFirst)]);
+      } else {
+        bRes.push([...bArr.slice(0, bMaxFirst), ...bArr.slice(-bMaxLast, bArr.length)]);
+      }
+      totalLimits -= (bMaxFirst + bMaxLast)
+    } else {
+      bRes.push(Array.from(bArr));
+      totalLimits -= (bArr.length)
+    }
+
+    //console.log("filter3", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+
+    // we CANNOT break the loop here because we must add the remaining (empty) arrays
+    // to aRes and bRes it seems
+
+    // bubbles up all remaining limits in the following priority:
+    // aMaxFirst, aMaxLast, bMaxFirst, bMaxLast
+    let tempTotal = totalLimits;
+    [tempTotal, aMaxFirst] = filterCardsReduce2(tempTotal, aMaxFirstOG);
+    [tempTotal, aMaxLast] = filterCardsReduce2(tempTotal, aMaxLastOG);
+    [tempTotal, bMaxFirst] = filterCardsReduce2(tempTotal, bMaxFirstOG);
+    [tempTotal, bMaxLast] = filterCardsReduce2(tempTotal, bMaxLastOG);
+
+    //console.log("filter4", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+  }
+
+  return [aRes, bRes];
+}
+
+
 
