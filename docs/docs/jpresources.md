@@ -45,6 +45,19 @@ This contains the list of all my current projects that relate to learning Japane
     I catalogue all note templates I can possibly find
     (that isn't jp-mining-note, and made for learning Japanese) here.
 
+* **[JMdict (English) for Yomichan](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan)**
+
+    This simply contains a Yomichan dictionary version of `JMdict (English)`
+    from the [main website](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
+    (from files `JMdict_e` and `JMdict_e_examp`),
+    compiled using [yomichan-import](https://github.com/FooSoft/yomichan-import).
+    (Disclaimer: I did not make any of these tools.)
+
+    This repository exists to simply give people a more up-to-date version of this dictionary,
+    for people who don't want to compile the dictionary themselves.
+    A more up-to-date version of JMdict usually provides better definitions and coverage
+    compared to older versions, so I would recommend updating this dictionary every few months.
+
 ---
 
 
