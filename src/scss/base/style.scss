@@ -469,6 +469,31 @@ code {
 }
 
 
+/* tags */
+.info-circle-text-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  span {
+    border-radius: 3px;
+    background: var(--info-circle-tag-bg-color);
+    padding: 0.1em 0.2em;
+    cursor: pointer;
+  }
+}
+.info-circle-text-tags:not(:empty) {
+  margin-top: 10px;
+}
+.info-circle-text-tags:not(:empty):before {
+  content: "Tags:"
+}
+
+/* info text */
+.info-circle-text-info:not(:empty) {
+  margin-bottom: 10px;
+}
+
 /* warning text */
 .info-circle-text-warning:not(:empty) {
   margin-bottom: 10px;
