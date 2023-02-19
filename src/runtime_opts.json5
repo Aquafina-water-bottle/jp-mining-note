@@ -718,6 +718,12 @@
 
   "infoCircleUtils.enabled": true,
 
+  // possible values:
+  // "always"
+  // "never"
+  // "back"
+  "infoCircleUtils.showTagsMode": "back",
+
   // Whether the info circle can be hovered over to show the tooltip or not
   "infoCircleUtils.isHoverable": true,
 

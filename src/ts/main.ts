@@ -96,6 +96,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   // TODO move module id to the constructor of the class
 
+  // TODO get rid of cardSide, cardType in constructors, replace with utils.getCardType and utils.getCardSide
   newKeybinds(cardSide, cardType);
   //if (compileOpts['enableModule.keybinds']) {
   //  new Keybinds().run();

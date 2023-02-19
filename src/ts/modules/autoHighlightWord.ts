@@ -77,7 +77,7 @@ export class AutoHighlightWord extends Module {
     let replaceResult: string[] = [];
     const beforeKanjiRegex = '(<ruby>(<rb>)?)';
     // \u3040-\u30ff should specify hiragana + katakana
-    // this assumes that all kanjis have readings, which may be incorrect wrong
+    // this assumes that all kanjis have readings, which may be incorrect
     const afterKanjiRegex = '((</rb><rt>[\u3040-\u30ff]*?)(</rt></ruby>))';
     const betweenKanjiRegex = `(${beforeKanjiRegex}${afterKanjiRegex})?`;
 

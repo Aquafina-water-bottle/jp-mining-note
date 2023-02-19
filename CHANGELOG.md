@@ -106,6 +106,12 @@ and must use `./install.py --update`.
         - For the current display mode (`summary`), hides all other frequencies in the dropdown
         - For the legacy display mode (`list-all`), collapses after 4-6
 
+- Info Circle:
+    - Added spacing between options in the info circle
+    - Added clear cache option in info circle options (disabled by default)
+    - Added tags display (default: only shown on the back side)
+        - These can be clicked on to search for the tag
+
 - Other (larger changes):
     - Added support for collapsing dictionaries within Anki
         - TODO link
@@ -118,8 +124,6 @@ and must use `./install.py --update`.
     - Added `jpmn-filled-if-word-is-hiragana` yomichan templates marker
     - Re-added way to specify whether newlines are removed or not, using css
     - Added support to remove the primary definition blockquote if nothing is there
-    - Added spacing between options in the info circle
-    - Added clear cache option in info circle options (disabled by default)
     - Added a warning if `SentenceReading` is filled but `Sentence` isn't
     - Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
     - Added hotkeys to update the current card to be a cloze deletion card
