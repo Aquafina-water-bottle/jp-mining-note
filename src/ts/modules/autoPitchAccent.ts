@@ -479,6 +479,7 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
     d.innerHTML = this.ajtWordPitch;
     let searchText = d.textContent ?? "";
     searchText = searchText.replace(/°/g, ""); // remove all nasal markers
+    searchText = searchText.replace(/&#42780;/g, 'ꜜ'); // normalizes text
     const searchWords = searchText.split(ajtWordSeps);
 
     // raw html to get the pure reading
@@ -662,7 +663,7 @@ export class AutoPitchAccent extends RunnableModule {
 
   // remove downsteps
   removeAJTDownstep(str: string) {
-     return str.replace(/&#42780/g, '').replace(/ꜜ/g, '');
+     return str.replace(/&#42780;/g, '').replace(/ꜜ/g, '');
   }
 
   private getAJTWordHTML(wordReadingKana: string): string | null {

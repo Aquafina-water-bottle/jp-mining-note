@@ -1,4 +1,5 @@
 import {invoke} from '../ankiConnectUtils';
+import {translatorStrs} from '../consts';
 import { RunnableModule } from '../module';
 import { O, getOption } from '../options';
 import { getCardSide, isMobile, popupMenuMessage, TAGS_LIST } from '../utils';
@@ -12,6 +13,7 @@ export class InfoCircleUtils extends RunnableModule {
   private readonly infoCirc = document.getElementById('info_circle');
   private readonly infoCircWrapper = document.getElementById('info_circle_wrapper');
   private readonly infoCircTags = document.getElementById('info_circle_text_tags');
+  private readonly infoCircTagsText = document.getElementById('info_circle_text_tags_text');
 
   constructor() {
     super("infoCircleUtils");
@@ -22,7 +24,7 @@ export class InfoCircleUtils extends RunnableModule {
     const togglableLockshowPopup = getOption('infoCircleUtils.togglableLock.showPopup');
     const togglableLockEnabled = getOption('infoCircleUtils.togglableLock.enabled');
 
-    if (this.infoCircTags !== null) {
+    if (this.infoCircTags !== null && this.infoCircTagsText !== null) {
       const showTagsMode = getOption("infoCircleUtils.showTagsMode");
       if ((showTagsMode === "always") || (showTagsMode === "back" && getCardSide() === "back")) {
         for (const tag of TAGS_LIST) {
@@ -31,8 +33,9 @@ export class InfoCircleUtils extends RunnableModule {
           tagEle.onclick = () => {
             invoke('guiBrowse', { query: `tag:${tag}` });
           }
-          this.infoCircTags.appendChild(tagEle);
+          this.infoCircTagsText.appendChild(tagEle);
         }
+        this.infoCircTags.classList.toggle("hidden", false);
       }
     }
 
