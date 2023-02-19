@@ -3,27 +3,29 @@
 <div class="frequencies" id="frequencies">
 
   <div class="frequencies-display" id="frequencies_display">
-    {% call IF("FrequenciesStylized") %}
-      {{ T("FrequenciesStylized") }}
-    {% endcall %}
-    {% call IFNOT("FrequenciesStylized") %}
-      {% call IF("FrequencySort") %}
-        <div class="frequencies__group" data-details="sort"><div class="frequencies__number"><span class="frequencies__number-inner">{{ T("FrequencySort") }}</span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner">sort</span></div></div>
-      {% endcall %}
-    {% endcall %}
+      <div class="frequencies__group" data-details="summary"><div class="frequencies__number"><span class="frequencies__number-inner">
+      {%- call IF("FrequencySort") -%}
+        {{- T("FrequencySort") -}}
+      {%- endcall -%}
+      {%- call IFNOT("FrequencySort") -%}
+        {{- TRANSLATOR.get('unknown-frequency') -}}
+      {%- endcall -%}
+      </span></div><div class="frequencies__dictionary"><span class="frequencies__dictionary-inner"></span></div></div>
   </div>
 
   <span class="
       hover-wrapper
       frequencies-overflow
+      {% call IFNOT("FrequenciesStylized") %}
       hidden
+      {% endcall %}
       " id="frequencies_overflow">
     <span class="hover-text">
       {% include "jp-mining-note/partials/dropdown_arrow_svg.html" %}
     </span>
     <span class="hover-tooltip-wrapper hover-tooltip-wrapper--frequencies-overflow">
       <span class="hover-tooltip hover-tooltip--frequencies-overflow"
-          id="frequencies_overflow_tooltip"></span>
+          id="frequencies_overflow_tooltip">{{ T("FrequenciesStylized") }}</span>
     </span>
   </span>
 

@@ -2,11 +2,12 @@ import { getOption } from './options';
 
 type LoggerArgsMsg = {
   isHtml?: boolean;
-  key?: string;
+  //key?: string;
 };
 
 type LoggerArgs = LoggerArgsMsg & {
-  unique?: boolean;
+  //unique?: boolean;
+  ignoreOptions?: boolean;
 };
 
 const leechClass = 'info-circle-leech';
@@ -30,66 +31,113 @@ type GroupId =
 
 export class Logger {
   private name: string | null;
-  private uniqueKeys: Set<string>;
+  //private uniqueKeys: Set<string>;
+  private readonly debugLevel: number;
+  private readonly toConsole: boolean;
+  private readonly debugConsoleLevel: number;
 
   constructor(name: string | null = null) {
     this.name = name;
-    this.uniqueKeys = new Set();
+    //this.uniqueKeys = new Set();
+    this.debugLevel = getOption('logger.debugLevel');
+    this.toConsole = getOption('logger.toConsole');
+    this.debugConsoleLevel = getOption('logger.debugConsoleLevel');
   }
 
   debug(message: string, level: number = 3, args?: LoggerArgs) {
-    const debugLevel = getOption('debug.level');
-    const debugToConsole = getOption('debug.toConsole');
+    //const debugToConsole = getOption('logger.consoleLevel');
 
-    const onlyShowCertainModules = getOption('debug.onlyShowCertainModules');
-    const validModules = getOption('debug.onlyShowCertainModules.modules') as (string | null)[];
+    const onlyShowCertainModules = getOption('logger.debug.onlyShowCertainModules');
+    const validModules = getOption('logger.debug.onlyShowCertainModules.modules') as (string | null)[];
     if (onlyShowCertainModules && !validModules.includes(this.name)) {
       return;
     }
 
-    if (level >= debugLevel) {
-      if (debugToConsole) {
-        let displayMsg: string = message;
-        if (this.name !== null) {
-          displayMsg = `(${this.name}) ${message}`;
-        }
-        console.log(displayMsg);
-      } else {
-        this.printMsg(message, debugGroupId, null, args);
-      }
+    //if (level >= debugLevel) {
+    //  if (debugToConsole) {
+    //    let displayMsg: string = message;
+    //    if (this.name !== null) {
+    //      displayMsg = `(${this.name}) ${message}`;
+    //    }
+    //    console.log(displayMsg);
+    //  } else {
+    //    this.printMsg(message, debugGroupId, null, args);
+    //  }
+    //}
+
+    const dispMsg = this.formatMsg(message);
+    if (level >= this.debugLevel) {
+      this.printMsg(dispMsg, debugGroupId, null, args);
     }
+    if (this.toConsole && level >= this.debugConsoleLevel) {
+      console.log(dispMsg)
+    }
+
   }
 
   info(message: string, args?: LoggerArgs) {
-    this.printMsg(message, infoGroupId, null, args);
+    const dispMsg = this.formatMsg(message);
+    this.printMsg(dispMsg, infoGroupId, null, args);
+    if (this.toConsole) {
+      console.info(dispMsg)
+    }
   }
 
   warn(message: string, args?: LoggerArgs) {
-    this.printMsg(message, warnGroupId, warnClass, args);
+    const dispMsg = this.formatMsg(message);
+    if (this.toConsole) {
+      console.warn(dispMsg)
+    }
+
+    if (!args?.ignoreOptions) {
+      let ignoredWarns = getOption("logger.warn.ignore");
+      for (let substr of ignoredWarns) {
+        if (dispMsg.includes(substr)) {
+          return;
+        }
+      }
+    }
+
+    this.printMsg(dispMsg, warnGroupId, warnClass, args);
   }
 
-  // returns string to throw if necessary
-  // i.e. throw Error(logger.error(...))
-  error(message: string, args?: LoggerArgs): string {
-    this.printMsg(message, errorGroupId, errorClass, args);
-    return message;
+  error(message: string, args?: LoggerArgs) {
+    const dispMsg = this.formatMsg(message);
+    if (this.toConsole) {
+      console.error(dispMsg)
+    }
+
+    if (!args?.ignoreOptions) {
+      let ignoredErrors = getOption("logger.error.ignore");
+      for (let substr of ignoredErrors) {
+        if (dispMsg.includes(substr)) {
+          return;
+        }
+      }
+    }
+
+    this.printMsg(dispMsg, errorGroupId, errorClass, args);
   }
 
   errorStack(stack: string) {
+    if (this.toConsole) {
+      console.error(stack);
+    }
+
     try {
-      //let ignoredErrors = utils.opt("ignored-errors");
-      //for (let substr of ignoredErrors) {
-      //  if (stack.includes(substr)) {
-      //    // ignores
-      //    return;
-      //  }
-      //}
+      let ignoredErrors = getOption("logger.error.ignore");
+      for (let substr of ignoredErrors) {
+        if (stack.includes(substr)) {
+          return;
+        }
+      }
 
       let stackList = stack.split(" at ");
       for (let i = 1; i < stackList.length; i++) {
         stackList[i] = ">>> " + stackList[i];
       }
-      this.error(stackList.join("<br>"), {isHtml: true});
+      //this.error(stackList.join("<br>"), {isHtml: true});
+      this.printMsg(stackList, errorGroupId, errorClass);
     } catch (e) {
       // in case the above fails for some reason
       // better to throw an error that is not as prettily formatted
@@ -101,23 +149,34 @@ export class Logger {
 
   leech() {
     this.printMsg('', leechGroupId, leechClass);
+    if (this.toConsole) {
+      console.info("Leech");
+    }
+  }
+
+  private formatMsg(message: string) {
+    let displayMsg: string = message;
+    if (this.name !== null) {
+      displayMsg = `(${this.name}) ${message}`;
+    }
+    return displayMsg;
   }
 
   private printMsg(
-    message: string,
+    message: string | string[],
     eleId: GroupId,
     colorClass: ColorClass | null,
     args: LoggerArgs = {}
   ) {
-    let key: string | null = null;
-    if (args?.unique) {
-      if (args?.key) {
-        key = message;
-      }
-      if (key !== null && this.uniqueKeys.has(key)) {
-        return;
-      }
-    }
+    //let key: string | null = null;
+    //if (args?.unique) {
+    //  if (args?.key) {
+    //    key = message;
+    //  }
+    //  if (key !== null && this.uniqueKeys.has(key)) {
+    //    return;
+    //  }
+    //}
 
     let groupEle = document.getElementById(eleId);
     if (groupEle !== null) {
@@ -131,15 +190,15 @@ export class Logger {
   }
 
   private appendMsg(
-    message: string | Array<string>,
+    message: string | string[],
     groupEle: HTMLElement,
     args: LoggerArgsMsg = {}
   ) {
     let msgEle = document.createElement('div');
     msgEle.classList.add('info-circle__message');
-    if (args?.key) {
-      msgEle.setAttribute('data-key', args.key);
-    }
+    //if (args?.key) {
+    //  msgEle.setAttribute('data-key', args.key);
+    //}
 
     if (Array.isArray(message)) {
       if (message.length > 0) {
@@ -152,15 +211,12 @@ export class Logger {
         }
       }
     } else {
-      let displayMsg: string = message;
-      if (this.name !== null) {
-        displayMsg = `(${this.name}) ${message}`;
-      }
+      //const displayMsg = this.formatMsg(message);
 
       if (args?.isHtml) {
-        msgEle.innerHTML = displayMsg;
+        msgEle.innerHTML = message;
       } else {
-        msgEle.textContent = displayMsg;
+        msgEle.textContent = message;
       }
     }
 

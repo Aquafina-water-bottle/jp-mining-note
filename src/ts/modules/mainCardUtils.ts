@@ -1,13 +1,15 @@
 import { RunnableModule } from '../module';
-import { fieldAnyExist, hybridClick, paIndicator } from '../utils';
+import { CardSide, fieldAnyExist, hybridClick, paIndicator } from '../utils';
 import { translatorStrs } from '../consts';
 import {addKeybindFunc, hasKey} from './keybinds';
 import {getOption} from '../options';
 
 export class MainCardUtils extends RunnableModule {
+  private readonly cardSide: CardSide;
 
-  constructor() {
+  constructor(cardSide: CardSide) {
     super("mainCardUtils");
+    this.cardSide = cardSide;
   }
 
   private toggleHighlightWord() {
@@ -50,6 +52,10 @@ export class MainCardUtils extends RunnableModule {
 
   main() {
     addKeybindFunc("sentenceKeybinds", this.sentenceKeybinds);
+
+    if (this.cardSide === "back" && getOption("clickCardRevealSentenceOnBackSide")) {
+      hybridClick();
+    }
 
     if (fieldAnyExist('PAShowInfo')) {
       const paIndicators = document.querySelectorAll('.pa-indicator');

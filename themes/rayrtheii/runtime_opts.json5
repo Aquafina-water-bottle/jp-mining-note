@@ -1,21 +1,16 @@
 {
-  "debug.level": 3,
+  "logger.debugLevel": 3,
   //"debug.toConsole": true,
-  "debug.toConsole": false,
+  "logger.toConsole": true,
+  "logger.debugConsoleLevel": 0,
 
   //"debug.onlyShowCertainModules": true,
   //"debug.onlyShowCertainModules.modules": ["sentenceParser"],
 
 
-  // enable all warnings
-  "warnOnNoSentenceReading": true,
-  "warnIfFilledSentenceReadingWithEmptySentence": true,
+  // enables all warnings
+  "logger.warn.ignore": [],
 
-  "sentenceParser.fixDivList.warnOnFix": true,
-  "sentenceParser.autoHighlightWord.warnOnAutoHighlight": true,
-  "sentenceParser.autoHighlightWord.warnIfAutoHighlightFails": true,
-
-  "autoPitchAccent.paOverride.warnOnInvalidFormat": true,
 
   //"autoPitchAccent.coloredPitchAccent.enabled": true,
   "autoPitchAccent.coloredPitchAccent.enabled": false,
@@ -25,6 +20,9 @@
 
   "imgStylizer.glossary.primaryDef.mode.user": "collapse",
 
+
+  // always add quotes to alt display
+  "sentenceParser.altDisplay.quotes.processMode": "add",
 
   // always remove final period
   "sentenceParser.removeFinalPeriod.fullSent.quoted": true,

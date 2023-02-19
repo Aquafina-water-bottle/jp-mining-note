@@ -13,6 +13,7 @@
     "full-sentence": "Full Sentence",
     "hint": "Hint",
     "kanji-not-found": "Kanji not found.",
+    "unknown-frequency": "Unknown",
 
     "pa-indicator-prefix": "PA: ",
     "pa-indicator-do-not-test": "Do not test",
@@ -51,6 +52,7 @@
     "hint": "ヒント",
     "kanji-not-found": "漢字は見つかれません｡",
     //"kanji-not-found": "漢字は見つかれません",
+    "unknown-frequency": "未知",
 
     "pa-indicator-prefix": "ピッチ：",
     "pa-indicator-do-not-test": "採点しないでください", // slightly different meaning but it works

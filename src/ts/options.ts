@@ -71,7 +71,7 @@ const OVERRIDE_FUNCS: Record<OverrideTypes, (args: unknown) => boolean> = {
         return OPS[args.op as keyof typeof OPS](VW, args.value);
       }
     }
-    LOGGER.warn(`invalid viewport arguments: ${args}`);
+    LOGGER.warn(`Invalid viewport arguments: ${args}`, {ignoreOptions: true});
     return true;
   },
 
@@ -88,7 +88,7 @@ const OVERRIDE_FUNCS: Record<OverrideTypes, (args: unknown) => boolean> = {
         return STR_OPS[args.op as keyof typeof STR_OPS](actualCardType, testCardType);
       }
     }
-    LOGGER.warn(`invalid cardType arguments: ${args}`);
+    LOGGER.warn(`Invalid cardType arguments: ${args}`, {ignoreOptions: true});
     return true;
   },
 
@@ -155,7 +155,7 @@ function getDefaultOption<K extends keyof O>(k: K): O[K] {
     const runtimeOverrides = runtimeOpts.overrides as Overrides;
     const result = attemptParseOverride(runtimeOverrides[k], t);
     if (result === undefined) {
-      LOGGER.warn(`Default option override for ${k} is invalid?`);
+      LOGGER.warn(`Default option override for ${k} is invalid?`, {ignoreOptions: true});
     } else {
       return result;
     }

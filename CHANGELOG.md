@@ -44,7 +44,7 @@ and must use `./install.py --update`.
         - NOTE: currently doesn't allow custom javascript / typescript
     - See `themes` folder for some examples
 
-- Backend Javascript rework:
+- Backend Javascript rework: (TODO)
     - Javascript has been finally ported to Typescript & webpack
     - Added unit testing for various modules
 
@@ -96,12 +96,20 @@ and must use `./install.py --update`.
         - Allows testing of the entire sentence, or just the word
         - TODO link
 
+- (TODO) Pitch accent indicator:
+    - Pitch accent indicator has been moved to the middle of the header
+    - Ideally, pitch accent indicator should be to the left of the word as normal (so the user can see it first, then test accordingly). However, this incurred too much dev time to support (many edge cases had to be supported, such as making sentences look good, etc.) and since it's a feature that I imagine most people don't use, I decided to move it to the header (even if it's a subpar solution) since it's much easier to maintain there.
+
+- Frequency display changes:
+    - Frequency changed to show summary (the FreqSort field) by default instead of listing all frequencies
+    - Added a dropdown feature for frequencies when there are too many frequencies
+        - For the current display mode (`summary`), hides all other frequencies in the dropdown
+        - For the legacy display mode (`list-all`), collapses after 4-6
+
 - Other (larger changes):
     - Added support for collapsing dictionaries within Anki
         - TODO link
     - Added way to translate the card (and added English and Japanese as pre-supported options)
-        - TODO link
-    - Added a dropdown feature for frequencies when there are too many frequencies (max 4 by default)
         - TODO link
     - Added compile-time options to specify how ruby can be displayed in the full sentence
         - TODO link
@@ -112,18 +120,17 @@ and must use `./install.py --update`.
     - Added support to remove the primary definition blockquote if nothing is there
     - Added spacing between options in the info circle
     - Added clear cache option in info circle options (disabled by default)
-    - Added an overflow option so it can overflow past the max frequencies before collapsing
     - Added a warning if `SentenceReading` is filled but `Sentence` isn't
     - Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
     - Added hotkeys to update the current card to be a cloze deletion card
         - TODO documentation on this (specifically ways to create cloze deletion cards)
     - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
-    - Allow FrequencySort to be used as a backup in case FrequenciesStylized does not exist
     - Added styling for inline `<code>` blocks. For example, the following sentence taken from the rust book:
         ```
         新しい言語を学ぶ際に、<code>Hello, world!</code>というテキストを画面に<b>出力</b>する小さなプログラムを書くことは伝統的なことなので、ここでも同じようにしましょう！
         ```
     - Kanji hover now searches sentences if there aren't enough results to be shown from just words
+    - Logger class now supports better filtering of messages and better console output
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
