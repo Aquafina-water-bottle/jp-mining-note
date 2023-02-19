@@ -261,13 +261,14 @@ export class Tooltips extends Module {
       attemptGlobalColor: false,
       showTitle: false,
       removeNasal: true,
+      debugLevel: 2,
     };
     this.autoPA = new AutoPitchAccent('tb:autoPitchAccent', paArgs);
     this.autoPA.overrideOptions(
       this.getOption('tooltips.overrideOptions.autoPitchAccent')
     );
 
-    this.sentParser = new SentenceParser('tb:sentenceParser');
+    this.sentParser = new SentenceParser('tb:sentenceParser', {debugLevel: 2});
     this.sentParser.overrideOptions(
       this.getOption('tooltips.overrideOptions.sentenceParser')
     );

@@ -13,7 +13,7 @@ import {
 import { InfoCircleSetting } from './infoCircleSetting';
 
 type TagToImg = {
-  tags: string[];
+  tag: string;
   fileName: string;
 };
 type TagToImgList = TagToImg[];
@@ -330,8 +330,9 @@ class BackImgStylizer extends Module {
       'imgStylizer.setMainImageFromTags'
     ) as unknown as TagToImgList;
     for (const tagToImg of tagToImgList) {
-      const tags = tagToImg.tags;
-      if (arrContainsAnyOf(TAGS_LIST, tags)) {
+      const tag = tagToImg.tag;
+      if (TAGS_LIST.includes(tag)) {
+      //if (arrContainsAnyOf(TAGS_LIST, tags)) {
         const fileName = tagToImg.fileName;
 
         const newImg = document.createElement('img');

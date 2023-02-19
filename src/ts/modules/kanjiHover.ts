@@ -49,6 +49,7 @@ type NoteInfoKanjiHover = {
 };
 
 const kanjiHoverCardCacheKey = 'KanjiHover.kanjiHoverCardCacheKey';
+const kanjiHoverCardMutexKey = "KanjiHover.kanjiHoverCardMutexKey";
 
 // maps a kanji to the full hover HTML (the html containing the kanji + the full popup)
 type KanjiToHover = Record<string, string>;
@@ -57,9 +58,15 @@ export class KanjiHover extends RunnableAsyncModule {
   private readonly persist = selectPersist();
   private readonly persistObj = selectPersist('window');
   private readonly tooltips: Tooltips;
+  private readonly cardCacheKey: string;
+  private readonly mutexKey: string;
 
   constructor() {
     super('kanjiHover');
+
+    this.cardCacheKey = `${kanjiHoverCardCacheKey}.${CARD_KEY}`
+    this.mutexKey = `${kanjiHoverCardMutexKey}.${CARD_KEY}`;
+
     this.tooltips = new Tooltips();
     this.tooltips.overrideOptions(getOption('kanjiHover.overrideOptions.tooltips'));
   }
@@ -420,18 +427,15 @@ export class KanjiHover extends RunnableAsyncModule {
     return kanjiToHover;
   }
 
-  async main() {
-
-    const cardCacheKey = `${kanjiHoverCardCacheKey}.${CARD_KEY}`
-    let wordReadingEle = document.getElementById('dh_reading');
-
-    if (this.useCache && wordReadingEle !== null && this.persist !== null && this.persist.has(cardCacheKey)) {
-      this.logger.debug("Using cached card");
-      const resultHTML = this.persist.get(cardCacheKey);
-      wordReadingEle.innerHTML = resultHTML;
-      this.tooltips.addBrowseOnClick(wordReadingEle);
+  async populateTooltips() {
+    if (this.persist?.has(this.mutexKey)) {
+      this.logger.debug("Cannot run due to mutex");
       return;
     }
+    this.logger.debug(`Running on ${CARD_KEY}...`);
+    this.persist?.set(this.mutexKey, "true")
+
+    let wordReadingEle = document.getElementById('dh_reading');
 
     const noteInfo: NoteInfoKanjiHover = {
       WordReading: getFieldValue('WordReading'),
@@ -460,7 +464,37 @@ export class KanjiHover extends RunnableAsyncModule {
 
     // caches card
     if (this.persist !== null) {
-      this.persist.set(cardCacheKey, resultHTML);
+      this.persist.set(this.cardCacheKey, resultHTML);
+    }
+
+    this.persist?.pop(this.mutexKey)
+    this.logger.debug(`Finished running on ${CARD_KEY}...`);
+  }
+
+  async main() {
+
+    let wordReadingEle = document.getElementById('dh_reading');
+
+    if (this.useCache && wordReadingEle !== null && this.persist !== null && this.persist.has(this.cardCacheKey)) {
+      this.logger.debug("Using cached card");
+      const resultHTML = this.persist.get(this.cardCacheKey);
+      wordReadingEle.innerHTML = resultHTML;
+      this.tooltips.addBrowseOnClick(wordReadingEle);
+      return;
+    }
+
+    if (this.getOption("kanjiHover.activateOn") === "hover") {
+      if (wordReadingEle !== null) {
+        wordReadingEle.onmouseover = (() => {
+          // replaces the function with a null function to avoid calling this function
+          if (wordReadingEle !== null) {
+            wordReadingEle.onmouseover = function() {}
+          }
+          this.populateTooltips();
+        });
+      } // otherwise front side. we do nothing! (pre-loading will lag the card)
+    } else {
+      await this.populateTooltips();
     }
   }
 }

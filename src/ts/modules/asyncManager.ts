@@ -85,26 +85,28 @@ export class AsyncManager extends Module {
     }
 
     popupMenuMessage('Refreshing card...');
-    await this.runModules(false);
+    await this.runModules(true);
 
     if (this.persist !== null) {
       this.persist.pop(refreshMutex);
     }
-    popupMenuMessage('Card successfully refreshed!');
   }
 
   // this function can be ran with the refresh button!
   // note that runModules() can be run multiple times asynchronously.
   // Each module has to implement all the necessary safeguards for this.
-  async runModules(useCache = true) {
+  async runModules(refresh = false) {
     // THIS IS A HACK because document.onload cannot be overwritten
     // so instead, we delay it by some amount of time instead to 'mimic'
     // the document being loaded before running these.
     setTimeout(async () => {
       for (const mod of this.modules) {
         // runs them in order, mostly bypassing the default asynchronous behavior
-        mod.setUseCache(useCache);
+        mod.setUseCache(!refresh);
         await mod.run();
+      }
+      if (refresh) {
+        popupMenuMessage('Card successfully refreshed!');
       }
     }, getOption('asyncManager.initialDelay'));
   }

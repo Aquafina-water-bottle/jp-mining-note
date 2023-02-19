@@ -418,5 +418,10 @@ export function filterCards(
   return [aRes, bRes];
 }
 
-
+export function hybridClick() {
+  const toggleEle = document.getElementById('hybrid_click_toggle') as HTMLInputElement;
+  if (toggleEle !== null) {
+    toggleEle.checked = !toggleEle.checked;
+  }
+}
 

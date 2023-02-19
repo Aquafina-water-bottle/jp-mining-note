@@ -17,7 +17,8 @@
 
   "autoPitchAccent.paOverride.warnOnInvalidFormat": true,
 
-  "autoPitchAccent.coloredPitchAccent.enabled": true,
+  //"autoPitchAccent.coloredPitchAccent.enabled": true,
+  "autoPitchAccent.coloredPitchAccent.enabled": false,
 
   "imgStylizer.mainImage.blur.enabled": true,
   "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module
@@ -37,6 +38,24 @@
 
   "webSocketUtils.enabled": true,
 
+  "sentenceParser.display.quotes.paIndicatorColor.main": true,
+
+
+  // random books
+  "imgStylizer.setMainImageFromTags": [
+    {
+      "tag": "青春ブタ野郎・LN1",
+      "fileName": "_青春ブタ野郎-LN1.png"
+    },
+    {
+      "tag": "天使は炭酸しか飲まない・LN1",
+      "fileName": "_天使は炭酸しか飲まない-LN1.png"
+    },
+    {
+      "tag": "rust",
+      "fileName": "rust.png"
+    },
+  ],
 
 
 
