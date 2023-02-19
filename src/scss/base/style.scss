@@ -472,6 +472,10 @@ code {
 /* tags */
 .info-circle-text-tags {
   display: flex;
+  align-items: center;
+}
+.info-circle-text-tags-text {
+  display: inline-flex;
   flex-wrap: wrap;
   gap: 5px;
 
@@ -485,8 +489,12 @@ code {
 .info-circle-text-tags:not(:empty) {
   margin-top: 10px;
 }
-.info-circle-text-tags:not(:empty):before {
-  content: "Tags:"
+
+.info-circle-text-tags svg {
+  width: var(--info-circle-settings-svg-size);
+  height: var(--info-circle-settings-svg-size);
+  fill: var(--text-color);
+  padding-right: 0.4em;
 }
 
 /* info text */
@@ -571,17 +579,14 @@ code {
 .info-circle-text-settings svg {
   width: var(--info-circle-settings-svg-size);
   height: var(--info-circle-settings-svg-size);
+  cursor: pointer;
+  fill: var(--text-color);
 }
 
 .info-circle-text-settings svg:active {
   // doesn't look very good tbh
   // not sure what a good indicator for click is
   //filter: brightness(var(--icon-click-brightness));
-}
-
-.info-circle-text-settings svg {
-  cursor: pointer;
-  fill: var(--text-color);
 }
 
 .info-circle-text-settings__svg--red > path {
