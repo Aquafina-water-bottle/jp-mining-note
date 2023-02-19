@@ -259,11 +259,9 @@ export class SentenceParser extends RunnableModule {
     // checks that all children are 'div's
     const arr = Array.from(sent.children);
     if (arr.length > 0 && arr.every((x) => x.nodeName === 'DIV')) {
-      if (this.getOption('sentenceParser.fixDivList.warnOnFix')) {
-        this.logger.warn(
-          `Following sentence was stripped of div elements: ${sent.innerHTML}`
-        );
-      }
+      this.logger.warn(
+        `Following sentence was stripped of div elements: ${sent.innerHTML}`
+      );
       return arr.map((x) => x.innerHTML).join('<br>');
     }
     return sent.innerHTML;
@@ -332,22 +330,11 @@ export class SentenceParser extends RunnableModule {
   }
 
   private autoHighlightLog(sentType: SentenceType, replace: string | null, word: string) {
-    // additional logging here
     if (replace === null) {
-      const msg = `Could not highlight word in ${sentType}: ${word}.`;
-      if (this.getOption('sentenceParser.autoHighlightWord.warnIfAutoHighlightFails')) {
-        this.logger.warn(msg);
-      } else {
-        this.logger.debug(msg);
-      }
+      this.logger.warn(`Could not highlight word in ${sentType}: ${word}.`);
     } else {
       // was able to bold something
-      const msg = `Automatically highlighted word in ${sentType}: ${replace}.`;
-      if (this.getOption('sentenceParser.autoHighlightWord.warnOnAutoHighlight')) {
-        this.logger.warn(msg);
-      } else {
-        this.logger.debug(msg);
-      }
+      this.logger.warn(`Automatically highlighted word in ${sentType}: ${replace}.`);
     }
   }
 
@@ -473,7 +460,7 @@ export class SentenceParser extends RunnableModule {
 
       this.processSentence(sent, sentenceType, noteInfoSentence, false);
     } else {
-      this.logger.warn(`invalid sentence format (${sentenceType}): ${sentEle.innerHTML}`);
+      this.logger.warn(`Invalid sentence format (${sentenceType}): ${sentEle.innerHTML}`);
     }
   }
 

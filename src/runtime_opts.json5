@@ -1,33 +1,63 @@
 {
+
+  "enableAnkiconnectFeatures": true,
+
+  "hybridSentenceOpenOnPlaySentence": true,
+  "clickCardRevealSentenceOnBackSide": true,
+
+
+
+  // ==========================================================================
+  // = logger =
+  // ==========================================================================
+
   // (Developer option) Used to show debug messages when debugging the card.
   // Use the `LOGGER.debug()` (or `logger.debug()`) function in javascript to write debug messages.
   // Set to any number higher than 5 to disable.
   // 0 produces the most debug messages, 5 produces the least debug messages.
-  "debug.level": 6,
+  "logger.debugLevel": 6,
 
   // meant to be used with the following addon:
   // https://github.com/hikaru-y/anki21-addon-ankiwebview-inspector
-  "debug.toConsole": false,
+  "logger.toConsole": true,
+  "logger.debugConsoleLevel": 3,
 
   // filters out debug messages to only show messages from specific modules
-  "debug.onlyShowCertainModules": false,
-  "debug.onlyShowCertainModules.modules": [],
+  "logger.debug.onlyShowCertainModules": false,
+  "logger.debug.onlyShowCertainModules.modules": [],
 
-  "enableAnkiconnectFeatures": true,
+  "logger.warn.ignore": [
 
-  "warnOnNoSentenceReading": false,
-  "warnIfFilledSentenceReadingWithEmptySentence": true,
+    // warning if the sentence field has its lines split through div elements
+    "(sentenceParser) Following sentence was stripped of div elements",
 
-  "hybridSentenceOpenOnPlaySentence": true,
+    // warns if the word could not be found through the autohighlighter (and is not already highlighted)
+    //"(sentenceParser) Could not highlight word in ",
 
+    // warns if the word was already highlighted
+    "(sentenceParser) Automatically highlighted word in ",
 
+    //"(sentenceParser) Invalid sentence format ",
 
+    //"SentenceReading is not filled out. Using Sentence field instead.",
+    "`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?",
 
-  // ==========================================================================
-  // = timePerformance =
-  // ==========================================================================
-
-  //"timePerformance.enabled": true,
+    // warnings when PAOverride has an incorrect format
+    //"(autoPitchAccent) calcPosDataList returned list of 0 length for",
+    "(autoPitchAccent) Invalid PA format: ",
+    "(autoPitchAccent) More than one downstep marker used in ",
+    "(autoPitchAccent) Cannot use both downstep and heiban markers in ",
+  ],
+  "logger.error.ignore": [
+    // This error is caused by the "Edit Field During Review (Cloze)" add-on.
+    // However, this error only appears during the preview and edit cards template windows.
+    // This error does not appear to actually affect any of the internal javascript within the card,
+    // and is rather caused by the add-on itself.
+    // Due to the card's error catcher, this previously-silent error is now caught and shown
+    // in the card's error log, despite it not actually affecting anything.
+    // Therefore, this error can be safely ignored.
+    "ReferenceError: EFDRC is not defined",
+  ],
 
 
 
@@ -125,7 +155,6 @@
   // Fixes the sentence if it's formatted as <div>line1</div> <div>line2</div> ...
   // (and converts it to line1<br>line ...)
   "sentenceParser.fixDivList.enabled": true,
-  "sentenceParser.fixDivList.warnOnFix": false,
 
 
   // sentenceParser.autoHighlightWord
@@ -134,8 +163,6 @@
   // Base code taken from:
   // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
   "sentenceParser.autoHighlightWord.enabled": true,
-  "sentenceParser.autoHighlightWord.warnOnAutoHighlight": false,
-  "sentenceParser.autoHighlightWord.warnIfAutoHighlightFails": true,
 
 
 
@@ -389,9 +416,6 @@
   "autoPitchAccent.paOverride.separators": ["・", "、"],
   "autoPitchAccent.paOverride.downstepMarkers": ["＼"],
   "autoPitchAccent.paOverride.heibanMarkers": ["￣"],
-
-  // shows a warning when PAOverride has an incorrect format
-  "autoPitchAccent.paOverride.warnOnInvalidFormat": true,
 
   // whether the heiban marker is required to specify heiban words
   "autoPitchAccent.paOverride.heibanMarkerRequired": true,
@@ -711,8 +735,21 @@
   // ==========================================================================
 
   "freqUtils.enabled": true,
-  "freqUtils.max": 4,
-  "freqUtils.overflow": 2,
+
+  // possible values:
+  // "list-all"
+  // "summary"
+  "freqUtils.displayMode": "summary",
+
+  // only useful when the mode is "list-all"
+
+  // possible values:
+  // "always"
+  // "if-frequencies-empty"
+  // "never"
+  "freqUtils.listAll.showSummaryMode": "if-frequencies-empty",
+  "freqUtils.listAll.max": 4,
+  "freqUtils.listAll.overflow": 2,
 
 
 

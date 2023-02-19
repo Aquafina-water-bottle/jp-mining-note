@@ -298,11 +298,9 @@ export class ParsePAOverride extends Module implements PitchParser {
 
     // uses whatever is in PAOverride as is without changes
     // this is to maintain backwards compatability
-    if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
-      this.logger.warn(
-        `calcPosDataList returned list of 0 length for "${this.paOverride}". Using raw text...`
-      );
-    }
+    this.logger.warn(
+      `calcPosDataList returned list of 0 length for "${this.paOverride}". Using raw text...`
+    );
     return new DispPosData(this.paOverride, 'Pitch Accent Override (Raw Text)');
   }
 
@@ -340,9 +338,7 @@ export class ParsePAOverride extends Module implements PitchParser {
       if (overrideEle.textContent === overrideEle.innerHTML) {
         result = this.parseTextFormat();
       } else {
-        if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
-          this.logger.warn(`Invalid PA format: ${this.paOverride}`);
-        }
+        this.logger.warn(`Invalid PA format: ${this.paOverride}`);
       }
     }
 
@@ -405,9 +401,7 @@ export class ParsePAOverride extends Module implements PitchParser {
         const mora = moras[j];
         if (downsteps.includes(mora)) {
           if (pos !== null) {
-            if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
-              this.logger.warn(`More than one downstep marker used in ${word}`);
-            }
+            this.logger.warn(`More than one downstep marker used in ${word}`);
           } else {
             pos = j;
           }
@@ -423,9 +417,7 @@ export class ParsePAOverride extends Module implements PitchParser {
         if (pos === null) {
           pos = 0;
         } else {
-          if (this.autopa.getOption('autoPitchAccent.paOverride.warnOnInvalidFormat')) {
-            this.logger.warn(`Cannot use both downstep and heiban markers in ${word}`);
-          }
+          this.logger.warn(`Cannot use both downstep and heiban markers in ${word}`);
           continue;
         }
       }

@@ -78,10 +78,10 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     );
   }
 
-  if (fieldNoneExist('SentenceReading') && fieldAllExists('Sentence') && getOption("warnOnNoSentenceReading")) {
+  if (fieldNoneExist('SentenceReading') && fieldAllExists('Sentence')) {
     LOGGER.warn("SentenceReading is not filled out. Using Sentence field instead.");
   }
-  if (fieldNoneExist('Sentence') && fieldAllExists('SentenceReading') && getOption("warnIfFilledSentenceReadingWithEmptySentence")) {
+  if (fieldNoneExist('Sentence') && fieldAllExists('SentenceReading')) {
     LOGGER.warn("`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?");
   }
 
@@ -102,7 +102,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   //}
 
   if (cardType === "main") {
-    new MainCardUtils().run();
+    new MainCardUtils(cardSide).run();
   }
 
   if (compileOpts['enableModule.sentenceParser']) {
