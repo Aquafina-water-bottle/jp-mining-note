@@ -1,6 +1,6 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { getFieldValue, filterCards, TAGS_LIST } from '../utils';
+import { getFieldValue, filterCards, TAGS_LIST, CARD_KEY } from '../utils';
 import {
   Tooltips,
   QueryBuilderGroup,
@@ -27,6 +27,7 @@ type WordIndicatorsCategoryID =
   | 'new.default';
 
 const wordIndicatorCardCacheKey = 'WordIndicators.wordIndicatorCardCacheKey';
+const wordIndicatorMutexKey = 'WordIndicators.wordIndicatorMutexKey';
 
 const clsMainWord = 'dh-left__similar-words-indicators-main-word';
 const clsWithIndicators = 'dh-left--with-similar-word-indicators';
@@ -57,6 +58,7 @@ class WordIndicator {
   private readonly wordInds: WordIndicators;
 
   private readonly cacheKey: string;
+  private readonly mutexKey: string;
 
   constructor(label: string, baseIndicatorQuery: string, wordInds: WordIndicators) {
     this.label = label;
@@ -64,7 +66,8 @@ class WordIndicator {
     //this.queryCategories = queryCategories
     this.baseIndicatorQuery = baseIndicatorQuery;
     this.wordInds = wordInds;
-    this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${getFieldValue("Key")}`;
+    this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${CARD_KEY}`;
+    this.mutexKey = `${wordIndicatorMutexKey}.${label}.${CARD_KEY}`;
 
     //this.tooltips = tooltips
     //this.useCache = useCache;
@@ -272,11 +275,18 @@ class WordIndicator {
       return;
     }
     // TODO document structure of element?
+    // TODO reset this on refreshes
     this.indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
     this.indicatorEle.style.display = 'inline-block';
 
     // TODO rework this! this also affects pitch accents!
     dhLeftEle.classList.toggle(clsWithIndicators, true);
+  }
+
+  private releaseMutex() {
+    // removes mutex
+    this.wordInds.persist?.pop(this.mutexKey)
+    this.wordInds.logger.debug(`Finished running ${this.label}`);
   }
 
   async run() {
@@ -288,28 +298,41 @@ class WordIndicator {
       return;
     }
 
+    // normal mutex
+    if (this.wordInds.persist?.has(this.mutexKey)) {
+      this.wordInds.logger.debug("Cannot run due to mutex");
+      return;
+    }
+    this.wordInds.logger.debug(`Running ${this.label}`);
+    this.wordInds.persist?.set(this.mutexKey, "true")
+
     const queryResults = await this.getQueryResults();
 
     // checks if there are any results in the first place
-    // honestly I find the normal for-loop version easier to read...
-    let sum = 0;
-    for (const item of Object.values(queryResults)) {
-      sum += item.length;
-    }
+    // doesn't work properly with hidden entries! can show an empty indicator
+    // I find the normal for-loop version easier to read than the reduce() w/ accumulate method
+    //let sum = 0;
+    //for (const item of Object.values(queryResults)) {
+    //  sum += item.length;
+    //}
+
+    // only checks non-hidden entries
+    // TODO how to deal with hidden entries?
+    const sum = (queryResults['new.default'].length + queryResults['nonNew.default'].length);
     if (sum === 0) {
+      // this part is already cached because queries are cached!
+      // i.e. there's no need to write to the cache here
+      this.releaseMutex();
       return;
     }
 
-    // equivalent of python: sum(len(x) for x in queryResults.values())
-    //if (Object.values(queryResults).reduce((accum, val) => accum + val.length, 0) === 0) {
-    //  return;
-    //}
 
     const sortMethod = this.wordInds.tooltips.getOption('tooltips.sortMethod');
     let filteredCardIds: FilteredCardIDs;
     if (sortMethod === 'time-created') {
       filteredCardIds = this.sortByTimeCreated(queryResults);
     } else {
+      this.releaseMutex();
       throw Error('not implemented');
       //await this.sortByFirstReview(queryResults, kanjiToHover);
     }
@@ -322,6 +345,7 @@ class WordIndicator {
       this.wordInds.persist.set(this.cacheKey, tooltipHTML);
       this.displayIfEleExists(tooltipHTML);
     }
+    this.releaseMutex();
   }
 }
 

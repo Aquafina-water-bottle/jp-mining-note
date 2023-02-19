@@ -123,6 +123,7 @@ and must use `./install.py --update`.
         ```
         新しい言語を学ぶ際に、<code>Hello, world!</code>というテキストを画面に<b>出力</b>する小さなプログラムを書くことは伝統的なことなので、ここでも同じようにしましょう！
         ```
+    - Kanji hover now searches sentences if there aren't enough results to be shown from just words
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
@@ -134,6 +135,7 @@ and must use `./install.py --update`.
 - (auto-pitch-accent module) Changed nasal assert to nasal warning
 - Fixed cloze deletion cards with nested `<b>` tags not working properly
 - Fixed highlight-word not properly escaping regex
+- Fixed nasal replace regex not working sometimes (when character is escaped)
 
 #### Fixes (for new updates)
 - Fixed ruby sentence regex selecting too much when auto-highlighting a word

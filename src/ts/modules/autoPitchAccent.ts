@@ -543,7 +543,9 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
       const posDataList = this.getPosDataList();
       return this.autopa.buildPitchHTML(posDataList);
     } catch (error) {
-      // TODO log error properly!
+      if (typeof error === "object" && error !== null && "stack" in error && typeof error.stack === "string") {
+        this.logger.errorStack(error.stack)
+      }
       this.logger.error('Error in generatePitchHTML, using raw AJTWordPitch instead');
       return this.ajtWordPitch;
     }
@@ -564,6 +566,7 @@ export type AutoPitchAccentArgs = {
   attemptGlobalColor?: boolean;
   showTitle?: boolean;
   removeNasal?: boolean;
+  debugLevel?: number;
 };
 
 export class AutoPitchAccent extends RunnableModule {
@@ -572,6 +575,7 @@ export class AutoPitchAccent extends RunnableModule {
   private readonly removeNasal: boolean;
   private wordTags: string[] = [];
   private ajtHTML: null | string = null;
+  private debugLevel: number;
 
   constructor(id?: string, args?: AutoPitchAccentArgs) {
     super('autoPitchAccent', id);
@@ -579,6 +583,7 @@ export class AutoPitchAccent extends RunnableModule {
     this.attemptGlobalColor = args?.attemptGlobalColor ?? true;
     this.showTitle = args?.showTitle ?? true;
     this.removeNasal = args?.removeNasal ?? false;
+    this.debugLevel = args?.debugLevel ?? 3;
   }
 
   private getDispPosDataOnEmpty(wordReading: string): DispPosData {
@@ -599,7 +604,7 @@ export class AutoPitchAccent extends RunnableModule {
       // 5 is length of the above 2 strings
       for (let i = 0; i < 5; i++) {
         str = str.replace(
-          new RegExp(`${ka_gyou[i]}<span class="nasal">°</span>`, 'g'),
+          new RegExp(`${ka_gyou[i]}<span class="nasal">(°|&#176;)</span>`, 'g'),
           ga_gyou[i]
         );
       }
@@ -625,7 +630,7 @@ export class AutoPitchAccent extends RunnableModule {
       // TODO check if multiple titles?
       displayEle.setAttribute('title', dispPosData.dictName);
     }
-    this.logger.debug(`result dictName: ${dispPosData.dictName}`);
+    this.logger.debug(`result dictName: ${dispPosData.dictName}`, this.debugLevel);
 
     // TODO paint display with colors
 

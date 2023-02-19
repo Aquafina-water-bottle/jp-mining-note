@@ -18,6 +18,8 @@
   "warnOnNoSentenceReading": false,
   "warnIfFilledSentenceReadingWithEmptySentence": true,
 
+  "hybridSentenceOpenOnPlaySentence": true,
+
 
 
 
@@ -460,14 +462,14 @@
   // EXAMPLES:
   // - This adds the image `_sample_image.png` if the card has the tag `sample_tag`.
   //    {
-  //      "tags": ["sample_tag"],
-  //      "file-name": "_sample_image.png"
+  //      "tag": "sample_tag",
+  //      "fileName": "_sample_image.png"
   //    },
   // - This adds the image `_contains_both_tags.png` if the card has EITHER tags
   //     `something` and `something2`.
   //    {
-  //      "tags": ["something", "something2"],
-  //      "file-name": "_contains_both_tags.png"
+  //      "tag": "something", "something2",
+  //      "fileName": "_contains_both_tags.png"
   //    }
   // TODO typescript type
   "imgStylizer.setMainImageFromTags": [],
@@ -613,8 +615,13 @@
 
   "kanjiHover.enabled": true,
 
-  // TODO implement
+  // TODO implement (always enabled currently)
   "kanjiHover.searchSentences": true,
+
+  // possible values:
+  // "hover"
+  // "card-load"
+  "kanjiHover.activateOn": "hover",
 
   "kanjiHover.overrideOptions.tooltips": {},
 

@@ -612,6 +612,52 @@ def add_all_fields(*, version=None):
     pass
 
 
+def remove_bolded_text_ajtwordpitch():
+    """
+    (0.11.x.x -> 0.12.0.0)
+    Removes bolded text in AJTWordPitch
+
+    TODO
+    """
+
+    query = r'"note:JP Mining Note" (AJTWordPitch:*<b>* OR AJTWordPitch:*</b>*)'
+    print("Querying notes...")
+    notes = invoke("findNotes", query=query)
+    print("Getting notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print("Removing bolded text...")
+    actions = []
+    for info in notes_info:
+        ajt_word_pitch = info["fields"]["AJTWordPitch"]["value"]
+        pa_override = info["fields"]["PAOverride"]["value"]
+        pa_override_text = info["fields"]["PAOverrideText"]["value"]
+        pa_positions = info["fields"]["PAPositions"]["value"]
+
+        field_updates = {
+            "AJTWordPitch": ajt_word_pitch.replace("<b>", "").replace("</b>", ""),
+        }
+        if (pa_positions + pa_override_text + pa_override).strip():
+            # empty, i.e. only ajt_word_pitch is currently used!
+            # safe to set PAOverrideText
+            field_updates["PAOverrideText"] = ajt_word_pitch
+
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": info["noteId"],
+                    "fields": field_updates,
+                }
+            },
+        }
+        #print(field_updates)
+
+        actions.append(action)
+
+    print("Updating notes...")
+    notes = invoke("multi", actions=actions)
+
 
 def main():
 
@@ -628,6 +674,7 @@ def main():
         quick_fix_convert_kana_only_reading_with_tag,
         quick_fix_convert_kana_only_reading_all_notes,
         separate_pa_override_field,
+        remove_bolded_text_ajtwordpitch,
     ]
 
 

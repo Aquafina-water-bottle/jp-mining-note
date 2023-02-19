@@ -3,7 +3,7 @@ import { compileOpts } from './consts';
 import { CardSide, fieldAllExists, fieldNoneExist } from './utils';
 import { getOption } from './options'
 
-import { Keybinds } from './modules/keybinds';
+import { newKeybinds } from './modules/keybinds';
 import { MainCardUtils } from './modules/mainCardUtils';
 
 import { SentenceParser } from './modules/sentenceParser';
@@ -96,9 +96,10 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   // TODO move module id to the constructor of the class
 
-  if (compileOpts['enableModule.keybinds']) {
-    new Keybinds().run();
-  }
+  newKeybinds(cardSide, cardType);
+  //if (compileOpts['enableModule.keybinds']) {
+  //  new Keybinds().run();
+  //}
 
   if (cardType === "main") {
     new MainCardUtils().run();

@@ -54,16 +54,22 @@ export type NoteInfoSentence = {
   readonly Sentence: string;
 };
 
+export type SentenceParserArgs = {
+  debugLevel?: number;
+};
+
 export class SentenceParser extends RunnableModule {
   private readonly quoteMatches = this.getOption('sentenceParser.quotes.matches');
   private readonly autoHighlight = compileOpts['enableModule.sentenceParser.autoHighlight']
     ? new AutoHighlightWord()
     : null;
 
-  private tags = TAGS_LIST;
+  private tags = TAGS_LIST; // why is this here?
+  private debugLevel: number;
 
-  constructor(id?: string) {
+  constructor(id?: string, args?: SentenceParserArgs) {
     super('sentenceParser', id);
+    this.debugLevel = args?.debugLevel ?? 3;
   }
 
   // replaces bolded elements with [...]
@@ -216,7 +222,7 @@ export class SentenceParser extends RunnableModule {
     let sentenceStyleClass: SentenceStyleClass;
     const dispMode = this.getQuoteDisplayMode(sentType, o !== '', sentType === 'display');
     this.logger.debug(
-      `${sentType} | ${processMode} -> ${o === '' ? 'unquoted' : 'quoted'} | ${dispMode}`
+      `${sentType} | ${processMode} -> ${o === '' ? 'unquoted' : 'quoted'} | ${dispMode}`, this.debugLevel
     );
 
     if (dispMode === 'indent') {

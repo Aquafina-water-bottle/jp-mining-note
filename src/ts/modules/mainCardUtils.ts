@@ -1,18 +1,13 @@
 import { RunnableModule } from '../module';
-import { fieldAnyExist, paIndicator } from '../utils';
+import { fieldAnyExist, hybridClick, paIndicator } from '../utils';
 import { translatorStrs } from '../consts';
+import {addKeybindFunc, hasKey} from './keybinds';
+import {getOption} from '../options';
 
 export class MainCardUtils extends RunnableModule {
 
   constructor() {
     super("mainCardUtils");
-  }
-
-  private hybridClick() {
-    const toggleEle = document.getElementById('hybrid_click_toggle') as HTMLInputElement;
-    if (toggleEle !== null) {
-      toggleEle.checked = !toggleEle.checked;
-    }
   }
 
   private toggleHighlightWord() {
@@ -39,23 +34,23 @@ export class MainCardUtils extends RunnableModule {
   }
 
 
-  // TODO how to do keybinds??? {#
-  //function sentenceKeybinds(e) {
-  //  if (KEYBINDS.hasKey(e, { utils.opt("modules", "keybinds", "toggle-hybrid-sentence") })) {
-  //    hybridClick();
-  //  }
+  // TODO how to do keybinds???
+  private sentenceKeybinds(e: KeyboardEvent) {
+    if (hasKey(e, getOption("keybinds.toggleHybridSentence"))) {
+      hybridClick();
+    }
 
-  //  if (KEYBINDS.hasKey(e, { utils.opt("modules", "keybinds", "toggle-highlight-word") })) {
-  //    let paButton = document.getElementById("pa_button");
-  //    if (paButton !== null) {
-  //      toggleHighlightWord();
-  //    }
-  //  }
-  //}#}
-
-  //KEYBINDS.addFunc("sentenceKeybinds", sentenceKeybinds);
+    if (hasKey(e, getOption("keybinds.toggleHighlightWord"))) {
+      let paButton = document.getElementById("pa_button");
+      if (paButton !== null) {
+        this.toggleHighlightWord();
+      }
+    }
+  }
 
   main() {
+    addKeybindFunc("sentenceKeybinds", this.sentenceKeybinds);
+
     if (fieldAnyExist('PAShowInfo')) {
       const paIndicators = document.querySelectorAll('.pa-indicator');
       for (const paInd of paIndicators) {
