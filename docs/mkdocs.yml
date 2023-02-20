@@ -81,8 +81,8 @@ nav:
     - "Definitions & Text": definitions.md
     - Sentences (TODO): sentences.md
     - Card Types: cardtypes.md
+    - More on Card Types: cardtypes2.md
     - Keybinds: keybinds.md
-    - Yomichan Templates (TODO): yomichantemplates.md
     - Images: images.md
     - Pitch Accent: autopa.md
     - Cross-Note Tools (TODO): crossnotetools.md
@@ -95,6 +95,7 @@ nav:
     - Options:
       - Runtime Options: runtimeoptions.md
       - Compile-Time Options: compiletimeoptions.md
+      - Yomichan Template Options (TODO): yomichantemplates.md
     - DEPRECATED:
       - Tooltip Results (TODO): tooltipresults.md
       - User Interface: ui.md

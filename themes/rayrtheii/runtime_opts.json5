@@ -19,6 +19,7 @@
   "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module
 
   "imgStylizer.glossary.primaryDef.mode.user": "collapse",
+  "autoPitchAccent.paOverride.heibanMarkerRequired": false,
 
 
   // always add quotes to alt display
