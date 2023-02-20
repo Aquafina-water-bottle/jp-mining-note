@@ -29,37 +29,6 @@ to further customize what happens during card creation time.
 
 <br>
 
-## Custom card types on hiragana-only cards
-{{ feature_version("0.12.0.0") }}
-
-> Markers: `{jpmn-filled-if-word-is-hiragana}`・`{jpmn-filled-if-word-is-not-hiragana}`
-
-If the word is purely comprised of hiragana,
-you can create different card types by default using these markers.
-
-For example, let's say you want the default card to be a vocab card,
-but want hiragana terms to be [TSCs](cardtypes.md#targeted-sentence-card-tsc).
-To do exactly that, do the following:
-
-* Navigate to Yomichan settings, and then to `Anki` →  `Configure Anki card format...`.
-* Set `IsTargetedSentenceCard` to `{jpmn-filled-if-word-is-hiragana}`.
-
-??? example "Example behavior *(click here)*"
-    | Example word | `{jpmn-filled-if-word-is-hiragana}` | `{jpmn-filled-if-word-is-not-hiragana}` |
-    |:-:|:-:|:-:|
-    | ふらっと | 1 |   |
-    | トイレ   |   | 1 |
-    | 成り立つ |   | 1 |
-    | ぶつぶつ | 1 |   |
-    | ブツブツ |   | 1 |
-
-
-!!! note
-    This was inspired by
-    [Marv's hint sentence for kana cards](https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards).
-
-<br>
-
 ## Automatic furigana without AJT Furigana
 {{ feature_version("0.11.0.0") }}
 
