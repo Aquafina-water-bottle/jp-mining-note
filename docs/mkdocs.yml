@@ -41,7 +41,6 @@ theme:
     - header.autohide
 
     - navigation.tabs
-    #- navigation.tabs.sticky
     - navigation.sections
 
     - content.code.annotate
@@ -77,25 +76,37 @@ nav:
     - Transfer Existing Notes: importing.md
     - Updating: updating.md
   - Reference:
-    - User Interface: ui.md
-    - UI Customization: uicustomization.md
-    - Field Reference: fieldref.md
-    - Definitions: definitions.md
+    - Quick Start (TODO): quickstart.md
+    - Common Changes (TODO): commonchanges.md
+    - "Definitions & Text": definitions.md
+    - Sentences (TODO): sentences.md
+    - Card Types: cardtypes.md
+    - Keybinds: keybinds.md
+    - Yomichan Templates (TODO): yomichantemplates.md
     - Images: images.md
     - Pitch Accent: autopa.md
-    - Card Types: cardtypes.md
-    - Tooltip Results (TODO): tooltipresults.md
+    - Cross-Note Tools (TODO): crossnotetools.md
+    - Kanji Hover (TODO): kanjihover.md
+    - Word Indicators (TODO): wordindicators.md
+    - Frequencies (TODO): frequencies.md
+    - WebSockets (TODO): websockets.md
+    - External Links (TODO): externallinks.md
+    - Other: other.md
     - Options:
       - Runtime Options: runtimeoptions.md
       - Compile-Time Options: compiletimeoptions.md
-      - Yomichan Template Options: yomichantemplates.md
-    - Developer Documentation:
-      - Modding Overview: modding.md
-      - Building: building.md
-      - Custom CSS: customcss.md
-      - Custom HTML (Overrides): overrides.md
-      - Custom JS (Modules): modules.md
-      - "Tips & Tricks": moddingtips.md
+    - DEPRECATED:
+      - Tooltip Results (TODO): tooltipresults.md
+      - User Interface: ui.md
+      - UI Customization: uicustomization.md
+      - Field Reference: fieldref.md
+  - Dev Docs:
+    - Modding Overview: modding.md
+    - Building: building.md
+    - Custom CSS: customcss.md
+    - Custom HTML (Overrides): overrides.md
+    - Custom JS (Modules): modules.md
+    - "Tips & Tricks": moddingtips.md
   - "FAQ & Troubleshooting": faq.md
   - JP Resources: jpresources.md
 

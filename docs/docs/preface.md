@@ -74,6 +74,11 @@ This project ships with [built-in tools](runtimeoptions.md) to easily disable/en
 or even completely remove them from the base template via [compile-time options](compiletimeoptions.md).
 Additionally, there are [many built-in ways](modding.md) to extend the note to suit your exact needs.
 
+## Documentation First
+What's the point of having a powerful tool if you don't know how to use it?
+Lots of time and resources have been put into making sure that this note type is well documented
+and updated so you can use it to the best of your ability.
+
 ## Free & Open Source
 Everything here, including the documentation itself, is completely free and open source,
 licensed under [MIT](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/LICENSE).

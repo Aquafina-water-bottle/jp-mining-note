@@ -30,7 +30,7 @@ to further customize what happens during card creation time.
 <br>
 
 ## Custom card types on hiragana-only cards
-{{ feature_version("0.11.1.0") }}
+{{ feature_version("0.12.0.0") }}
 
 > Markers: `{jpmn-filled-if-word-is-hiragana}`・`{jpmn-filled-if-word-is-not-hiragana}`
 
