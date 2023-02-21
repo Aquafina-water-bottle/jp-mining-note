@@ -14,8 +14,6 @@
 {# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
-{% include "jp-mining-note/partials/javascript.html" %}
-
 {% include "jp-mining-note/partials/hidden_front.html" %}
 
 
@@ -45,11 +43,12 @@
 
 <div class="popup-menu" id="popup_menu"></div>
 
+<!-- the script must be placed at the very bottom for it to work with ankidroid -->
+{% include "jp-mining-note/partials/javascript.html" %}
 
 {% if note.field_restrict is defined and note.field_restrict -%}
 {%- for x in note.field_restrict | reverse -%}
 {{ END(x) }}
 {% endfor -%}
 {%- endif -%}
-
 
