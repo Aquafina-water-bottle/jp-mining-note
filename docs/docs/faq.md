@@ -592,8 +592,10 @@ for more info.
 
 Preview any card. The version should be displayed at the top left corner.
 
-For mobile, the version be shown at the top right corner.
-Note that this is only displayed on mobile for versions `0.11.1.0` and above.
+For mobile, the version is shown in the info circle.
+Note that the version is only displayed on mobile for versions `0.11.1.0` and above.
+
+TODO redo image for mobile
 
 <figure markdown>
 {{ img("version location", "assets/faq/jpmn_version.png") }}

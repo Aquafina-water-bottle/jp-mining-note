@@ -339,36 +339,38 @@ code {
  *  ================
  */
 
+.card-header {
+  position: relative; /* so pa-indicator works */
+}
+
 .card-description {
   font-family: notoserif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
   text-align: left;
-  float: left;
 }
 
 .card-description-ver {
   font-size: var(--description-footer-font-size);
 }
 
-
+/* decided that this would be an absolute position because
+  setting the surroundings to float ends up not properly adjusting
+  the height of the header, which then affects the content below
+  (with this approach, card-description is not floated and can properly
+  affect the height)
+ */
 .pa-indicator {
   margin: auto;
-  display: flex;
-  align-items: center;
+  width: 100%;
+  position: absolute;
+  top: 0px;
 }
 
-
-.pa-indicator__svg {
-  //display: inline-block;
-  //vertical-align: middle;
-  height: 1em;
+.pa-indicator svg {
+  height: 1.1em;
 }
-
-//.pa-indicator__circle {
-//}
-
 
 /* pitch accent indicator colors */
 .pa-indicator-color--sentence {
@@ -391,11 +393,6 @@ code {
 
   float: right;
   font-family: notoserif;
-
-  /* hides on non-mobile */
-  .card-description-ver {
-    display: none;
-  }
 }
 
 
@@ -490,6 +487,12 @@ code {
   visibility: visible;
 }
 
+
+.info-circle-version {
+  font-size: 0.8em;
+  margin-top: 5px;
+  display: none; /* hide for normal displays, only show on mobile */
+}
 
 /* leech text */
 .info-circle-text-leech:not(:empty) {
