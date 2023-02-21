@@ -10,8 +10,6 @@
 {# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
-{% include "jp-mining-note/partials/javascript.html" %}
-
 {% include "jp-mining-note/partials/hidden_back.html" %}
 
 
@@ -70,4 +68,7 @@
 
 
 <div class="popup-menu" id="popup_menu"></div>
+
+<!-- the script must be placed at the very bottom for it to work with ankidroid -->
+{% include "jp-mining-note/partials/javascript.html" %}
 

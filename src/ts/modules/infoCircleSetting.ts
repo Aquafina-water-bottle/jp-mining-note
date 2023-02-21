@@ -20,7 +20,7 @@ export class InfoCircleSetting extends Module {
 
   readonly btn: HTMLElement;
   private readonly persistKey?: string;
-  private readonly persist = selectPersist("window");
+  private readonly persist = selectPersist("sessionStorage", "window");
 
   constructor(settingId: InfoCircleSettingId, persistKey?: string) {
     super(`sm:infoCircleSetting:${settingId}`);

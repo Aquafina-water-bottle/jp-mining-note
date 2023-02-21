@@ -384,6 +384,10 @@ export class WordIndicators extends RunnableAsyncModule {
     //  queries[`sent.${key as keyof QueryBuilderGroup}`] = qbSent.build();
     //}
 
+    if (!this.getOption("enableAnkiconnectFeatures")) {
+      return;
+    }
+
     const word = escapeQueryStr(getFieldValue('Word'));
     const wordReadingHiragana = escapeQueryStr(getFieldValue('WordReadingHiragana'));
 

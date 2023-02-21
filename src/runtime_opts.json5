@@ -292,7 +292,6 @@
 
   // colors the quotes instead of showing a pitch accent indicator
   // if this is enabled
-  // NOTE: overwritten below
   "sentenceParser.display.quotes.paIndicatorColor.main": false,
   // automatically colors the quote with the sentence pa indicator color,
   // on PA sentence cards
@@ -823,6 +822,7 @@
 
   "tooltips.overrideOptions.sentenceParser": {
     "sentenceParser.fullSent.quotes.processMode": "add",
+    // repeated here in case the user decides to set this to true
     "sentenceParser.display.quotes.paIndicatorColor.main": false,
   },
   "tooltips.overrideOptions.autoPitchAccent": {},

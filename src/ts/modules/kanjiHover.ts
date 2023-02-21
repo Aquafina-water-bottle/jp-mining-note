@@ -473,6 +473,10 @@ export class KanjiHover extends RunnableAsyncModule {
 
   async main() {
 
+    if (!this.getOption("enableAnkiconnectFeatures")) {
+      return;
+    }
+
     let wordReadingEle = document.getElementById('dh_reading');
 
     if (this.useCache && wordReadingEle !== null && this.persist !== null && this.persist.has(this.cardCacheKey)) {
