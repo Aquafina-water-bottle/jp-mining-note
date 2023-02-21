@@ -1,10 +1,4 @@
 {# impl #}
-<div class="expression-box expression-box__word">
-  {% filter indent(2) %}
-  {{ pa_indicator("word") }}
-  {% endfilter %}
-
-  <div class="expression--word" id="display">
-    {{ utils.prioritize_alt_display("Word") }}
-  </div>
+<div class="expression--word" id="display">
+  {{ utils.prioritize_alt_display("Word") }}
 </div>

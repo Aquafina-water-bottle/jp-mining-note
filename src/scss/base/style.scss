@@ -345,11 +345,62 @@ code {
   font-size: var(--description-font-size);
   line-height: 85%;
   text-align: left;
+  float: left;
 }
 
 .card-description-ver {
   font-size: var(--description-footer-font-size);
 }
+
+
+.pa-indicator {
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+
+.pa-indicator__svg {
+  //display: inline-block;
+  //vertical-align: middle;
+  height: 1em;
+}
+
+//.pa-indicator__circle {
+//}
+
+
+/* pitch accent indicator colors */
+.pa-indicator-color--sentence {
+  fill:  var(--pa-indicator-sentence-color);
+  color: var(--pa-indicator-sentence-color);
+}
+.pa-indicator-color--word {
+  fill:  var(--pa-indicator-word-color);
+  color: var(--pa-indicator-word-color);
+}
+.pa-indicator-color--none {
+  fill:  var(--pa-indicator-none-color);
+  color: var(--pa-indicator-none-color);
+}
+
+/* contains the frequencies, and version for mobile */
+.card-description-right {
+  --card-description-color: var(--text-color--4);
+  color: var(--card-description-color);
+
+  float: right;
+  font-family: notoserif;
+
+  /* hides on non-mobile */
+  .card-description-ver {
+    display: none;
+  }
+}
+
+
+
+
 
 /* info circle & tooltip */
 .info-circle {
@@ -599,63 +650,6 @@ code {
 }
 
 
-/* https://stackoverflow.com/a/38948646 (ver 5) */
-.expression-box {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  // TODO re-introduce gap to PA indicator (or just redo pa indicator entirely)
-  //grid-column-gap: 5px;
-  grid-column-gap: 0px;
-  justify-items: center;
-
-  //font-family: notoserif;
-}
-
-.pa-indicator {
-  margin-left: auto;
-  display: flex; // raises the svg to the top for some reason
-
-  //grid-column-start: 1;
-
-  //font-size: var(--pa-indicator-word-font-size);
-
-  ///*
-  // * so that the svg can be placed after the sentence (to remove upon hover)
-  // * while appearing to be before the sentence
-  // */
-  //order: -1;
-}
-
-/* pa indicator in header (only shown on small width devices) */
-.card-description .pa-indicator {
-  display: none;
-}
-
-
-.pa-indicator__svg {
-  display: inline-block;
-  vertical-align: middle;
-  height: 1em;
-}
-
-.pa-indicator__circle {
-}
-
-
-/* pitch accent indicator colors */
-.pa-indicator-color--sentence {
-  fill:  var(--pa-indicator-sentence-color);
-  color: var(--pa-indicator-sentence-color);
-}
-.pa-indicator-color--word {
-  fill:  var(--pa-indicator-word-color);
-  color: var(--pa-indicator-word-color);
-}
-.pa-indicator-color--none {
-  fill:  var(--pa-indicator-none-color);
-  color: var(--pa-indicator-none-color);
-}
-
 
 
 .below-display-wrapper {
@@ -702,9 +696,9 @@ code {
 .expression--word {
   font-size: var(--word-font-size);
 }
-.expression-box__word, .expression-box__hybrid-word {
-  font-size: var(--word-font-size);
-}
+//.expression-box__word, .expression-box__hybrid-word {
+//  font-size: var(--word-font-size);
+//}
 
 
 /* class used to identify exactly which div(s) contain a sentence, for js purposes */
@@ -716,9 +710,9 @@ code {
   //padding-left: 1em;
   font-size: var(--sentence-font-size);
 }
-.expression-box__sentence, .expression-box__hybrid-sentence, .expression-box__sf-sentence {
-  font-size: var(--sentence-font-size);
-}
+//.expression-box__sentence, .expression-box__hybrid-sentence, .expression-box__sf-sentence {
+//  font-size: var(--sentence-font-size);
+//}
 .expression--hint-sentence {
   font-size: var(--full-sentence-font-size);
   max-width: common.$bp-max-width-backside;
@@ -749,28 +743,30 @@ code {
 }
 
 /* wrapper is to show css customization (≫ ), etc while
-   hiding the true word in .expression__sf-word*/
+   hiding the true word in .expression__sf-word */
 .expression__sf-word-wrapper, .expression__sf-word-wrapper .expression__sf-word {
   font-size: var(--sentence-font-size);
 }
-
 .expression__sf-word-wrapper:before {
   content: "≫";
+  color: var(--accent);
 }
 .expression__sf-word-wrapper:after {
 }
 
-.expression__sf--hover .expression__sf-word {
+/* works with click on entire thing */
+.expression__sf--click > .expression__sf-word-wrapper > .expression__sf-word {
   display: none;
 }
-.expression__sf--click .expression__sf-word {
-  display: none;
-}
-
-.expression__sf--hover:hover .expression__sf-word {
+.sentence-first-click-toggle:checked + .expression__sf > .expression__sf-word-wrapper > .expression__sf-word {
   display: inline;
 }
-.sentence-first-click-toggle:checked + .expression__sf .expression__sf-word {
+
+/* only works on hovering over the sentence */
+.expression__sf--hover > .expression__sf-word-wrapper > .expression__sf-word {
+  display: none;
+}
+.expression__sf--hover .expression__sf-sentence--hover:hover + .expression__sf-word-wrapper > .expression__sf-word {
   display: inline;
 }
 
@@ -851,94 +847,52 @@ code {
 
 
 /* used to specify that hovering toggles between word/sentence */
-.expression-box__hybrid-sentence {
+.expression__hybrid-sentence {
   display: none;
 }
 
-//.expression__hybrid--hover:hover > .expression-box__hybrid-word {
-//  display: none;
-//}
-//.expression__hybrid--hover:hover > .expression-box__hybrid-sentence {
-//  display: grid;
-//}
-//.expression__hybrid--hover.expression__hybrid--hint:hover > .expression-box__hybrid-word {
-//  /* hint cards retains word */
-//  display: grid;
-//}
+/*
+  inline block is so the div doesn't expand all the way to the left/right
+  (i.e. so the border underneath the word doesn't expand)
+ */
+.expression__hybrid--hover.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
+}
 
 /* hover behavior for non-hint cards */
 .expression__hybrid--hover:not(.expression__hybrid--hint):hover {
-  > .expression-box__hybrid-word {
+  > .expression__hybrid-word {
     display: none;
   }
-   > .expression-box__hybrid-sentence {
-    display: grid;
+  > .expression__hybrid-sentence {
+    display: block;
   }
 }
 
 /* hover behavior for hint cards */
 .expression__hybrid--hover.expression__hybrid--hint {
-  /* reduces horizontal space */
-  .expression-box__hybrid-word {
-    display: inline-grid;
+  // explicitly only words when hovering over the word
+  > .expression__hybrid-word:hover + .expression__hybrid-sentence {
+    display: block;
   }
-
-  .expression-box__hybrid-word:hover + .expression-box__hybrid-sentence {
-    display: grid;
-  }
-
-  // intentionally commented out for now (so hovering over the sentence will not preserve the sentence)
-  //.expression-box__hybrid-sentence:hover {
-  //  /* prevents sentence from disappearing on hover */
-  //  display: grid;
-  //}
 }
 
-.hybrid-click-toggle:checked + .expression__hybrid .expression-box__hybrid-word {
+.hybrid-click-toggle:checked + .expression__hybrid .expression__hybrid-word {
   display: none;
 }
-.hybrid-click-toggle:checked + .expression__hybrid .expression-box__hybrid-sentence {
-  display: grid;
+.hybrid-click-toggle:checked + .expression__hybrid .expression__hybrid-sentence {
+  display: block;
 }
-.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--hint .expression-box__hybrid-word {
-  /* hint cards retains word */
-  display: inline-grid;
+.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
 }
-
-//.expression__hybrid {
-//  border: 1px solid red;
-//}
-//.expression-box {
-//  border: 1px solid green;
-//}
-
 
 /*
-.expression__hybrid--hover:hover + .pa-indicator,
-.hybrid-click-toggle:checked + .expression__hybrid + .pa-indicator,
-.expression--sentence + .pa-indicator {
-  font-size: var(--pa-indicator-sent-font-size);
-}
-*/
-
-/* removes pa indicator only on sentence if class adde
- * (class is added if quotes are colored, or on sentence below cards)
+  - inline block is so the div doesn't expand all the way to the left/right
+    (i.e. so the border underneath the word doesn't expand)
  */
-.expression__hybrid--hover.expression__hybrid--remove-pa-indicator:hover .expression-box__hybrid-sentence .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
-.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--remove-pa-indicator .expression-box__hybrid-sentence  .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
-/* removes pa indicator entirely on sentences for hint cards */
-.expression__hybrid--hint .expression-box__hybrid-sentence .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
-.expression--remove-pa-indicator .pa-indicator > .pa-indicator__svg {
-  display: none;
+.expression__hybrid--hover.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
 }
 
 
@@ -2072,22 +2026,6 @@ code {
 
 .glossary__external-links a:not(:hover) {
   filter: opacity(0.5) grayscale(0.5);
-}
-
-
-
-/* contains the frequencies, and version for mobile */
-.card-description-right {
-  --card-description-color: var(--text-color--4);
-  color: var(--card-description-color);
-
-  float: right;
-  font-family: notoserif;
-
-  /* hides on non-mobile */
-  .card-description-ver {
-    display: none;
-  }
 }
 
 
