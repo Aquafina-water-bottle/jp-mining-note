@@ -29,13 +29,24 @@
     {% filter indent(4) %}
     {% include "jp-mining-note/partials/info_circle.html" %}
 
-    {{ pa_indicator("header") }}
-
     {% include "jp-mining-note/partials/version.html" %}
     {% endfilter %}
 
-
   </div>
+
+  <div class="pa-indicator">
+    {% call IF("PAShowInfo") %}
+    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+      class="pa-indicator__svg">
+      <circle class="pa-indicator__circle"
+          cx="25" cy="25" r="25"
+          >
+        <title></title>
+      </circle>
+    </svg>
+    {% endcall %} {# IF PAShowInfo #}
+  </div>
+
 </header>
 
 {% endmacro %}
