@@ -31,8 +31,9 @@ export class MobileUtils extends RunnableModule {
         return x.children[0];
       }
 
-      const eles = document.querySelectorAll('.android .replaybutton svg');
+      const eles = Array.from(document.querySelectorAll('.android .replaybutton svg'));
       for (const ele of eles) {
+        console.log("android bro", ele)
         ele?.parentNode?.replaceChild(generateSVG(), ele);
       }
     }

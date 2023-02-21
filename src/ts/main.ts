@@ -94,16 +94,9 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // copying/pasting code unfortunately
   // attempting to store and read things from an array doesn't seem to work!
 
-  // TODO move module id to the constructor of the class
-
-  // TODO get rid of cardSide, cardType in constructors, replace with utils.getCardType and utils.getCardSide
-  newKeybinds(cardSide, cardType);
-  //if (compileOpts['enableModule.keybinds']) {
-  //  new Keybinds().run();
-  //}
-
+  newKeybinds();
   if (cardType === "main") {
-    new MainCardUtils(cardSide).run();
+    new MainCardUtils().run();
   }
 
   if (compileOpts['enableModule.sentenceParser']) {
@@ -120,7 +113,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // right after auto pitch accent to prevent even more unnecessary reflow changes
   // potentially caused by modules below
   if (compileOpts['enableModule.imgStylizer']) {
-    new ImgStylizer(cardSide).run();
+    new ImgStylizer().run();
   }
 
   if (cardSide === 'back') {
@@ -140,9 +133,8 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   }
 
   if (compileOpts['enableModule.webSocketUtils']) {
-    new WebSocketUtils(cardSide).run();
+    new WebSocketUtils().run();
   }
-
 
   if (compileOpts['enableModule.mobileUtils']) {
     new MobileUtils().run();

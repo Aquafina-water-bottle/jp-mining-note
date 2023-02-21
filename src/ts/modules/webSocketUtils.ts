@@ -1,7 +1,7 @@
 import { RunnableModule } from '../module';
 import { getOption } from '../options';
 import { InfoCircleSetting } from './infoCircleSetting';
-import { CardSide, getFieldValue, popupMenuMessage } from '../utils';
+import { getCardSide, getFieldValue, popupMenuMessage } from '../utils';
 import { selectPersist, SPersistInterface } from '../spersist';
 
 const settingId = 'info_circle_text_settings_websocket_toggle';
@@ -10,12 +10,10 @@ const persistKey = 'jpmn-websocket';
 
 export class WebSocketUtils extends RunnableModule {
   private readonly setting = new InfoCircleSetting(settingId, persistKeySetting);
-  private readonly cardSide: CardSide;
   private readonly persist: SPersistInterface | null;
 
-  constructor(cardSide: CardSide) {
+  constructor() {
     super('webSocketUtils');
-    this.cardSide = cardSide;
     this.persist = selectPersist('window');
   }
 
@@ -177,7 +175,9 @@ export class WebSocketUtils extends RunnableModule {
     // !! converts anything to boolean, + converts to number
     // truly amazing
     let state = this.setting.initDisplay(+!!getOption('webSocketUtils.defaultIsEnabled'));
-    if (state === 1 && this.cardSide === 'back') {
+    const cardSide = getCardSide();
+
+    if (state === 1 && cardSide === 'back') {
       //this.openWebSocket();
       //this.sendMsg();
       //if (this.persist.has
@@ -192,7 +192,7 @@ export class WebSocketUtils extends RunnableModule {
         popupMenuMessage('Disabled websocket');
       } else if (newState === 1) {
         // switched to on
-        if (this.cardSide === 'back') {
+        if (cardSide === 'back') {
           this.openAndUseWebSocket();
         } else {
           this.openWebSocket();

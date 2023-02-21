@@ -52,8 +52,8 @@
 @media (max-width: common.$bp-max-width-backside) {
 
   :root {
-    --word-font-size: #{common.px2rem(55px)};
-    --sentence-font-size: #{common.px2rem(35px)};
+    --word-font-size: #{common.px2rem(48px)};
+    --sentence-font-size: #{common.px2rem(28px)};
     //--pa-indicator-word-font-size: #{common.px2rem(35px)};
     //--pa-indicator-sent-font-size: #{common.px2rem(29px)};
 
@@ -98,7 +98,7 @@
   }
 
   .dh-left__word-pitch {
-    margin-top: 0px;
+    margin-top: 5px;
   }
 
   .dh-right {
@@ -124,9 +124,19 @@
 
 @media (max-width: common.$bp-combine-picture) {
   :root {
-    --vertical-sentence-font-size: #{common.px2rem(30px)};
-    --sentence-font-size: #{common.px2rem(30px)};
+    //--vertical-sentence-font-size: #{common.px2rem(30px)};
+    --word-font-size: #{common.px2rem(36px)};
+    --reading-font-size: #{common.px2rem(32px)};
+    --reading-pitch-font-size: #{common.px2rem(16px)};
+    --sentence-font-size: #{common.px2rem(20px)};
     --full-sentence-font-size: #{common.px2rem(20px)};
+    --pa-overline-downstep-height: 0.6em;
+
+    --pa-overline-thickness: 0.1em;
+  }
+
+  .night_mode {
+    --background-darken:          rgba(0, 0, 0, 0.16); /* slightly darker to make folder tab stand out more */
   }
 
   .card {
@@ -146,6 +156,7 @@
     margin-left: 0px;
   }
 
+  // hides card type and version below said card type
   .card-description__card-type, .card-description-ver {
     display: none;
   }
@@ -157,119 +168,126 @@
 
   .card-description-right {
     margin-right: 10px;
-
-    /* temporarily removing these for the mobile class since they clog up the space */
-    .frequencies {
-      display: none;
-    }
-
-    .card-description-ver {
-      display: block;
-    }
   }
 
   .mobile .card-description-right {
     margin-right: 0px;
   }
 
+  .pa-indicator svg {
+    height: 0.9em;
+  }
 
-  // shows in header
-  //.card-description .pa-indicator {
-  //  display: inline-flex;
-  //  margin-left: 30px;
-  //  font-size: 15px;
+  .card-header {
+    margin-bottom: 5px;
+  }
+
+  //.full-sentence-center {
+  //  position: relative;
   //}
-
-  // hides the pa indicator outside the header
-  //.expression-box .pa-indicator > .pa-indicator__svg {
-  //  display: none;
-  //}
-
-  //.pa-indicator {
-  //  /* same size as info circle */
-  //  // TODO
-  //  //font-size: var(--pa-indicator-word-font-size) !important;
-  //  font-size: common.px2rem(35px);
-  //}
-
-  //.pa-indicator__svg {
-  //  position: absolute;
-  //  top: 1px;
-  //  left: 30px;
-  //}
-
 
   .full-sentence {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
-  .dh-right {
-    position: absolute;
-    max-height: 60px !important;
-    bottom: 10px;
-    right: 10px;
-    padding-left: 0px;
-
-    .dh-right__img {
-      max-height: 60px !important;
-    }
+  /* removes furigana: takes too much vertical space */
+  .dh-left__reading > ruby > rt {
+    display: none;
   }
 
-  .dh-right__svg-eye {
-    display: none !important;
-  }
-
-  .android .dh-left {
-    padding-left:   8px;
-    padding-right:  8px;
-    padding-bottom: 8px;
-  }
-
-  .dh-left__audio-buttons {
-    padding-top: 10px;
-    //text-align: left;
-  }
-
-  //.android .dh-left__audio-buttons {
-  //  padding-top: 14px;
-  //  //text-align: left;
-  //}
-
-  //.android {
-  //  --gamer: 30px;
-  //  .dh-left__audio-buttons {
-  //    //line-height: var(--gamer);
-  //    font-size: var(--gamer)
-  //  }
-
-  //  .replaybutton {
-  //    height: var(--gamer);
-  //    width: var(--gamer);
-
-  //    border-radius: 50%;
-  //    border: solid 1px red;
-  //  }
-  //}
-
-
-  // moves play buttons to left ONLY if picture field exists
-  .dh-left__audio-buttons--left {
+  /* remove background and whatnot */
+  .dh-left {
+    background: none;
+    padding: 0em;
+    border-radius: 0px;
     text-align: left;
   }
 
-  // removes scrollbar
-  // https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
-  //.card {
-  //  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  //  scrollbar-width: none;  /* Firefox */
+  // TODO move these elsewhere!
+  .dh-right {
+    display: none;
+  }
+  .dh-left__audio-buttons {
+    display: none;
+  }
+
+  .glossary-blockquote {
+    /* removes horizontal margins */
+    margin: 0px;
+  }
+
+  .back-side-restrict-width {
+    flex-direction: column-reverse;
+  }
+
+  /* margin was previous around full-sentence, but all-definitions is now between!
+     thus, we move padding to all-definitions */
+  .full-sentence {
+    margin: 0;
+  }
+  .all-definitions {
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
+  }
+
+  .other-definitions {
+    display: none;
+  }
+
+  .folder-tab {
+    display: flex;
+    position: absolute;
+    right: 0px;
+    top: -40px;
+    height: 40px;
+    width: 110px;
+    padding-right: 7px; /* a hack because the menu button is a bit big */
+    background: var(--background-darken);
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .folder-tab > div {
+    display: flex; /* centers the items for some reason */
+  }
+
+  .folder-tab > div > svg {
+    width: var(--folder-tab-svg-size);
+    height: var(--folder-tab-svg-size);
+    fill: var(--text-color);
+  }
+
+  //.dh-right {
+  //  position: absolute;
+  //  max-height: 60px !important;
+  //  bottom: 10px;
+  //  right: 10px;
+  //  padding-left: 0px;
+
+  //  .dh-right__img {
+  //    max-height: 60px !important;
+  //  }
   //}
-  //.card::-webkit-scrollbar {
-  //  display: none;  /* Safari and Chrome */
+
+  //.dh-right__svg-eye {
+  //  display: none !important;
   //}
+
+  //.android .dh-left {
+  //  padding-left:   8px;
+  //  padding-right:  8px;
+  //  padding-bottom: 8px;
+  //}
+
+  //.dh-left__audio-buttons {
+  //  padding-top: 10px;
+  //}
+
+  //// moves play buttons to left ONLY if picture field exists
+  //.dh-left__audio-buttons--left {
+  //  text-align: left;
+  //}
+
 }
-
-
-
-
 

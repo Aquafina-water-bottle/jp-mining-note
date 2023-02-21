@@ -4,6 +4,7 @@
 
 {% call IF("SentenceReading") %}
 <div class="full-sentence-center">
+  {#<div class="full-sentence-gradient"></div>#}
   <input
     type="checkbox"
     class="full-sentence-toggle hidden"
@@ -48,6 +49,7 @@
 {# so ruby classes do not affect things without ruby #}
 {% call IFNOT("SentenceReading") %}
 <div class="full-sentence-center">
+  {#<div class="full-sentence-gradient"></div>#}
   <div class="full-sentence highlight-bold" id="full_sentence">
     {{ T("Sentence") }}
   </div>

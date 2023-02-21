@@ -4,7 +4,7 @@ import { compileOpts, translatorStrs } from '../consts';
 import { checkOptTags, getOption } from '../options';
 import {
   arrContainsAnyOf,
-  CardSide,
+  getCardSide,
   isMobile,
   popupMenuMessage,
   TAGS_LIST,
@@ -616,11 +616,9 @@ class BackImgStylizer extends Module {
 }
 
 export class ImgStylizer extends RunnableModule {
-  private readonly cardSide: CardSide;
 
-  constructor(cardSide: CardSide) {
+  constructor() {
     super('imgStylizer');
-    this.cardSide = cardSide;
   }
 
   main() {
@@ -632,7 +630,7 @@ export class ImgStylizer extends RunnableModule {
     }
 
     // almost all the logic of this module is only done on the back side of the card anyways
-    if (this.cardSide === 'back') {
+    if (getCardSide() === 'back') {
       const backStylizer = new BackImgStylizer(imgBlur);
       backStylizer.main();
     }

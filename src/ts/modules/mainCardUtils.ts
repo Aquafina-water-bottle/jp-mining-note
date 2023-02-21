@@ -1,15 +1,12 @@
 import { RunnableModule } from '../module';
-import { CardSide, fieldAnyExist, hybridClick, paIndicator } from '../utils';
+import { fieldAnyExist, getCardSide, hybridClick, isAndroid, paIndicator } from '../utils';
 import { translatorStrs } from '../consts';
 import {addKeybindFunc, hasKey} from './keybinds';
 import {getOption} from '../options';
 
 export class MainCardUtils extends RunnableModule {
-  private readonly cardSide: CardSide;
-
-  constructor(cardSide: CardSide) {
+  constructor() {
     super("mainCardUtils");
-    this.cardSide = cardSide;
   }
 
   private toggleHighlightWord() {
@@ -53,7 +50,7 @@ export class MainCardUtils extends RunnableModule {
   main() {
     addKeybindFunc("sentenceKeybinds", this.sentenceKeybinds);
 
-    if (this.cardSide === "back" && getOption("clickCardRevealSentenceOnBackSide")) {
+    if (getCardSide() === "back" && getOption("clickCardRevealSentenceOnBackSide")) {
       hybridClick();
     }
 
@@ -74,8 +71,10 @@ export class MainCardUtils extends RunnableModule {
       }
 
       // auto-plays silence
+      // TODO this doesn't work on android for some reason!
+      // it freezes the entire card so the front side no longer loads :(
       let elem = document.querySelector("#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton");
-      if (elem) {
+      if (elem && !isAndroid()) {
         (elem as HTMLAnchorElement).click();
       }
 
