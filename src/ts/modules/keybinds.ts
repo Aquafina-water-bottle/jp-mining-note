@@ -1,7 +1,6 @@
 import {LOGGER} from "../logger";
-import { RunnableModule } from "../module"
 import { getOption } from "../options"
-import { getFieldValue, CardSide, hybridClick, fieldAnyExist } from '../utils';
+import { hybridClick, fieldAnyExist, getCardSide, getCardType } from '../utils';
 
 //export class Keybinds extends RunnableModule {
 //
@@ -21,9 +20,9 @@ declare global {
   var keybindFuncs: Record<string, KeybindFunc>;
 }
 
-export function newKeybinds(cardSide: CardSide, cardType: string) {
+export function newKeybinds() {
   globalThis.keybindFuncs = {};
-  addKeybindFunc("baseFunc", constructBaseFunc(cardSide, cardType))
+  addKeybindFunc("baseFunc", constructBaseFunc())
   register();
 }
 
@@ -33,7 +32,7 @@ export function addKeybindFunc(key: string, func: KeybindFunc) {
 
 
 
-function constructBaseFunc(cardSide: CardSide, cardType: string): KeybindFunc {
+function constructBaseFunc(): KeybindFunc {
 
   function _baseFunc(e: KeyboardEvent) {
 
@@ -47,7 +46,7 @@ function constructBaseFunc(cardSide: CardSide, cardType: string): KeybindFunc {
     if (hasKey(e, getOption("keybinds.playSentenceAudio"))) {
       const toggleEle = document.getElementById("hybrid_click_toggle") as HTMLInputElement | null;
 
-      if (cardSide === "front" && cardType === "main" && getOption("hybridSentenceOpenOnPlaySentence") &&
+      if (getCardSide() === "front" && getCardType() === "main" && getOption("hybridSentenceOpenOnPlaySentence") &&
           fieldAnyExist("IsHoverCard", "IsClickCard")
         && fieldAnyExist("IsTargetedSentenceCard", "IsSentenceCard")
       && toggleEle !== null && !toggleEle.checked
