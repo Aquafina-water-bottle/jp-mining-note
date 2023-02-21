@@ -7,10 +7,23 @@
 {# header_class can be card-header--front or card-header--back #}
 <header class="card-header {{ header_class }}">
 
+  <!-- placed before everything else so we can interact with the info circle! -->
+  <div class="pa-indicator">
+    {% call IF("PAShowInfo") %}
+    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
+      class="pa-indicator__svg">
+      <circle class="pa-indicator__circle"
+          cx="25" cy="25" r="25"
+          >
+        <title></title>
+      </circle>
+    </svg>
+    {% endcall %} {# IF PAShowInfo #}
+  </div>
+
   <div class="card-description-right">
 
     {% filter indent(4) %}
-    {% include "jp-mining-note/partials/version_mobile.html" %}
     {% if show_frequencies %}
     {% include "jp-mining-note/partials/frequencies.html" %}
     {% endif %}
@@ -32,19 +45,6 @@
     {% include "jp-mining-note/partials/version.html" %}
     {% endfilter %}
 
-  </div>
-
-  <div class="pa-indicator">
-    {% call IF("PAShowInfo") %}
-    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 50 50"
-      class="pa-indicator__svg">
-      <circle class="pa-indicator__circle"
-          cx="25" cy="25" r="25"
-          >
-        <title></title>
-      </circle>
-    </svg>
-    {% endcall %} {# IF PAShowInfo #}
   </div>
 
 </header>

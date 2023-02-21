@@ -96,9 +96,10 @@ and must use `./install.py --update`.
         - Allows testing of the entire sentence, or just the word
         - TODO link
 
-- (TODO) Pitch accent indicator:
-    - Pitch accent indicator has been moved to the middle of the header
-    - Ideally, pitch accent indicator should be to the left of the word as normal (so the user can see it first, then test accordingly). However, this incurred too much dev time to support (many edge cases had to be supported, such as making sentences look good, etc.) and since it's a feature that I imagine most people don't use, I decided to move it to the header (even if it's a subpar solution) since it's much easier to maintain there.
+- Pitch accent indicator:
+    - Pitch accent indicator has been moved to the middle of the header (right above the word)
+    - Ideally, pitch accent indicator should be to the left of the word as before (so the user can see it first, then test accordingly). However, this incurred too much dev time to support (many strange edge cases had to be supported, such as making sentences look good, etc.) and since it's a feature that I imagine most people don't use, I decided to move it to the header (even if it's a subpar solution) since it's much easier to maintain there.
+    - Removed lots of html / css bloat pertaining to this pitch accent indicator
 
 - Frequency display changes:
     - Frequency changed to show summary (the FreqSort field) by default instead of listing all frequencies
@@ -111,6 +112,7 @@ and must use `./install.py --update`.
     - Added clear cache option in info circle options (disabled by default)
     - Added tags display (default: only shown on the back side)
         - These can be clicked on to search for the tag
+    - Display the card version here for mobile now
 
 - Other (larger changes):
     - Added support for collapsing dictionaries within Anki
