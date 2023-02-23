@@ -343,6 +343,10 @@ code {
   position: relative; /* so pa-indicator works */
 }
 
+.card-footer {
+  display: none;
+}
+
 .card-description {
   font-family: notoserif;
   color: var(--card-description-color);
@@ -362,13 +366,15 @@ code {
   affect the height)
  */
 .pa-indicator {
-  margin: auto;
-  width: 100%;
-  height: 100%;
   position: absolute;
-
   display: flex;
-  bottom: 0px; /* align to top of header */
+
+  /* aling to top of header */
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 0;
 }
 
 .pa-indicator svg {
@@ -1776,6 +1782,9 @@ code {
   display: none;
 }
 
+
+
+
 .glossary-blockquote {
   text-align: left;
   background: var(--background-darken);
@@ -1819,6 +1828,23 @@ code {
     max-height: calc(var(--primary-def-picture-max-height) * var(--primary-def-picture-scale-no-def));
   }
 
+}
+
+/* removes floating pictures */
+.glossary-primary-definition--remove-pictures {
+
+  .glossary-primary-definition__right .glossary-primary-definition__img {
+    display: none !important;
+  }
+
+  .glossary-primary-definition__right--completely-hide {
+    /* hides the right completely if no external links */
+    display: none !important;
+  }
+
+  .glossary-primary-definition__left {
+    display: none !important;
+  }
 }
 
 /* added on the actual img tag */

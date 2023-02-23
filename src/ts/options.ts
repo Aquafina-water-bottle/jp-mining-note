@@ -1,6 +1,6 @@
 import { compileOpts, runtimeOpts } from './consts';
 import { LOGGER } from './logger';
-import { isMobile, VW, arrContainsAnyOf } from './utils';
+import { isMobile, VW, arrContainsAnyOf, getCardType, getCardSide , fieldsAllEmpty, Field, fieldsAllFilled, fieldsAnyFilled} from './utils';
 
 // default options
 type DO = typeof runtimeOpts;
@@ -13,7 +13,7 @@ type DO = typeof runtimeOpts;
 export type O = Omit<DO, 'overrides'>;
 
 const overrideTypes = ['isMobile', 'isPC', 'cardType', 'viewport'];
-type OverrideTypes = typeof overrideTypes[number];
+type OverrideTypes = (typeof overrideTypes)[number];
 
 //type OverrideArgs<K extends keyof (typeof runtimeOpts.args)> = {kjkkkjj
 //}
@@ -40,57 +40,170 @@ type Overrides = {
   readonly [K in keyof O]: OverrideValue<K>;
 };
 
-
 const STR_OPS = {
-  "===": (a: any, b: any) => a === b,
-  "!==": (a: any, b: any) => a !== b,
-}
+  '===': (a: any, b: any) => a === b,
+  '!==': (a: any, b: any) => a !== b,
+};
 
 const OPS = {
-  "===": <T>(a: T, b: T) => a === b,
-  "!==": <T>(a: T, b: T) => a !== b,
-  ">": <T>(a: T, b: T) => a > b,
-  "<": <T>(a: T, b: T) => a < b,
-  ">=": <T>(a: T, b: T) => a >= b,
-  "<=": <T>(a: T, b: T) => a <= b,
-}
+  '===': <T>(a: T, b: T) => a === b,
+  '!==': <T>(a: T, b: T) => a !== b,
+  '>': <T>(a: T, b: T) => a > b,
+  '<': <T>(a: T, b: T) => a < b,
+  '>=': <T>(a: T, b: T) => a >= b,
+  '<=': <T>(a: T, b: T) => a <= b,
+};
 
-const OVERRIDE_FUNCS: Record<OverrideTypes, (args: unknown) => boolean> = {
-  isMobile: isMobile,
-
-  isPC: () => !isMobile(),
-
-  viewport: (args: unknown) => {
+// generates function
+function overrideFuncFields(fieldsFunc: (...fields: Field[]) => boolean) {
+   return ((args: unknown) => {
     if (
       args !== null &&
       typeof args === 'object' &&
-      'op' in args &&
-      'value' in args
+      'field' in args &&
+      Array.isArray(args.field)
     ) {
+      return fieldsFunc(...args.field as Field[])
+    }
+    LOGGER.warn(`Invalid cardType arguments: ${args}`, { ignoreOptions: true });
+    return true;
+  })
+}
+
+const OVERRIDE_FUNCS: Record<OverrideTypes, (args: unknown) => boolean> = {
+  /*
+  key: {
+    "type": "isMobile",
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  isMobile: isMobile,
+
+  /*
+  key: {
+    "type": "isPC",
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  isPC: () => !isMobile(),
+
+  /*
+  key: {
+    "type": "viewport",
+    "args": {
+      "op": MATH_OP,
+    },
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  viewport: (args: unknown) => {
+    if (args !== null && typeof args === 'object' && 'op' in args && 'value' in args) {
       if ((args.op as string) in OPS) {
         return OPS[args.op as keyof typeof OPS](VW, args.value);
       }
     }
-    LOGGER.warn(`Invalid viewport arguments: ${args}`, {ignoreOptions: true});
+    LOGGER.warn(`Invalid viewport arguments: ${args}`, { ignoreOptions: true });
     return true;
   },
 
+  /*
+  key: {
+    "type": "cardType",
+    "args": {
+      "op": STRING_OP,
+      "cardType": "front" or "back",
+    },
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
   cardType: (args: unknown) => {
     if (
       args !== null &&
       typeof args === 'object' &&
       'op' in args &&
+      typeof args.op === 'string' &&
+      args.op in STR_OPS &&
       'cardType' in args
     ) {
       if ((args.op as string) in OPS) {
-        const actualCardType: string = document.getElementById("hidden_card_type")?.innerHTML ?? "";
         const testCardType = args.cardType;
-        return STR_OPS[args.op as keyof typeof STR_OPS](actualCardType, testCardType);
+        return STR_OPS[args.op as keyof typeof STR_OPS](getCardType(), testCardType);
       }
     }
-    LOGGER.warn(`Invalid cardType arguments: ${args}`, {ignoreOptions: true});
+    LOGGER.warn(`Invalid cardType arguments: ${args}`, { ignoreOptions: true });
     return true;
   },
+
+  /*
+  key: {
+    "type": "cardSide",
+    "args": {
+      "op": STRING_OP,
+      "cardSide": "front" or "back",
+    },
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  cardSide: (args: unknown) => {
+    if (
+      args !== null &&
+      typeof args === 'object' &&
+      'op' in args &&
+      typeof args.op === 'string' &&
+      args.op in STR_OPS &&
+      'cardSide' in args
+    ) {
+      if ((args.op as string) in OPS) {
+        const testCardSide = args.cardSide;
+        return STR_OPS[args.op as keyof typeof STR_OPS](getCardSide(), testCardSide);
+      }
+    }
+    LOGGER.warn(`Invalid cardType arguments: ${args}`, { ignoreOptions: true });
+    return true;
+  },
+
+  /*
+  key: {
+    "type": "fieldsAllEmpty",
+    "args": {
+      "fields": [FIELD...],
+    },
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  fieldsAllEmpty: overrideFuncFields(fieldsAllEmpty),
+
+  /*
+  key: {
+    "type": "fieldsAllFilled",
+    "args": {
+      "fields": [FIELD...],
+    },
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  fieldsAllFilled: overrideFuncFields(fieldsAllFilled),
+
+  /*
+  key: {
+    "type": "fieldsAnyFilled",
+    "args": {
+      "fields": [FIELD...],
+    },
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  fieldsAnyFilled: overrideFuncFields(fieldsAnyFilled),
+
+  // TODO: AND & OR operators?
 
 };
 
@@ -155,7 +268,9 @@ function getDefaultOption<K extends keyof O>(k: K): O[K] {
     const runtimeOverrides = runtimeOpts.overrides as Overrides;
     const result = attemptParseOverride(runtimeOverrides[k], t);
     if (result === undefined) {
-      LOGGER.warn(`Default option override for ${k} is invalid?`, {ignoreOptions: true});
+      LOGGER.warn(`Default option override for ${k} is invalid?`, {
+        ignoreOptions: true,
+      });
     } else {
       return result;
     }
@@ -173,13 +288,16 @@ export function getOption<K extends keyof O>(k: K): O[K] {
 }
 
 // array of [keyof O, any]
-type OptTagsToResult = ([keyof O, any])[];
+type OptTagsToResult = [keyof O, any][];
 
 // given an array with entries of format [keyof O, any],
 // gets the first result where the setting contains the tag
-export function checkOptTags(tags: readonly string[], tagsToResult: Readonly<OptTagsToResult>) {
+export function checkOptTags(
+  tags: readonly string[],
+  tagsToResult: Readonly<OptTagsToResult>
+) {
   for (const [optKey, result] of tagsToResult) {
-    const opt = getOption(optKey)
+    const opt = getOption(optKey);
 
     if (Array.isArray(opt) && arrContainsAnyOf(tags, opt)) {
       return result;
@@ -187,4 +305,3 @@ export function checkOptTags(tags: readonly string[], tagsToResult: Readonly<Opt
   }
   return undefined;
 }
-

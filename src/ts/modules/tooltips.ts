@@ -452,10 +452,10 @@ export class Tooltips extends Module {
   /* goes through the HTML to search for data-cid, and then adds a guiBrowse
      call to view that cid (if it exists) */
   addBrowseOnClick(parentEle: HTMLElement) {
-    //console.log(parentEle);
-    for (const ele of parentEle.querySelectorAll(".hover-tooltip__word-div")) {
+    // ASSUMPTION: ankiconnect is active here since the tooltip can only be built
+    // when ankiconnect exists (to search for other cards)
+    for (const ele of parentEle.querySelectorAll("[data-cid]")) {
       let cid = ele.getAttribute('data-cid');
-      //console.log(ele);
       if (cid !== null) {
         (ele as HTMLElement).onclick = () => {
           invoke('guiBrowse', { query: `cid:${cid}` });
@@ -561,14 +561,22 @@ export class Tooltips extends Module {
 
   // transforms CardInfo into something useful for the tooltip builder
   // boldSentKanji: null => do not replace, string => remove existing bold and only bold that specified kanji
-  cardInfoToNoteInfoTooltipBuilder(cardInfo: CardInfo, boldSentKanji: string | null = null): NoteInfoTooltipBuilder {
+  cardInfoToNoteInfoTooltipBuilder(cardInfo: CardInfo, boldSentKanji: string | null = null, cardId: number | null = null): NoteInfoTooltipBuilder {
     let resultSent = cardInfo.fields.Sentence.value;
     if (boldSentKanji !== null) {
       if (!resultSent.includes(boldSentKanji)) {
         throw Error(`Cannot use boldSentKanji ${boldSentKanji} when kanji does not exist in sentence: ${resultSent}`)
       }
-      resultSent = resultSent.replace(/<b>|<\/b>/g, "")
-      resultSent = resultSent.replace(new RegExp(boldSentKanji, "g"), `<b>${boldSentKanji}</b>`)
+      resultSent = resultSent.replace(/<b>|<\/b>/g, "");
+      console.log("cardInfoToNoteInfoTooltipBuilder", resultSent);
+      const rx = new RegExp(boldSentKanji, "g");
+      if (cardId === null) {
+        resultSent = resultSent.replace(rx, `<b>${boldSentKanji}</b>`);
+      } else {
+        // the extra span is so auto-highlight detection properly works (it currently is a regex search on <b>)
+        resultSent = resultSent.replace(rx, `<b><span data-cid="${cardId}">${boldSentKanji}</span></b>`);
+      }
+      console.log("cardInfoToNoteInfoTooltipBuilder", resultSent);
     }
 
     return {

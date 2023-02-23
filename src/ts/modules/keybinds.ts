@@ -1,6 +1,6 @@
 import {LOGGER} from "../logger";
 import { getOption } from "../options"
-import { hybridClick, fieldAnyExist, getCardSide, getCardType } from '../utils';
+import { hybridClick, fieldsAnyFilled, getCardSide, getCardType } from '../utils';
 
 //export class Keybinds extends RunnableModule {
 //
@@ -47,8 +47,8 @@ function constructBaseFunc(): KeybindFunc {
       const toggleEle = document.getElementById("hybrid_click_toggle") as HTMLInputElement | null;
 
       if (getCardSide() === "front" && getCardType() === "main" && getOption("hybridSentenceOpenOnPlaySentence") &&
-          fieldAnyExist("IsHoverCard", "IsClickCard")
-        && fieldAnyExist("IsTargetedSentenceCard", "IsSentenceCard")
+          fieldsAnyFilled("IsHoverCard", "IsClickCard")
+        && fieldsAnyFilled("IsTargetedSentenceCard", "IsSentenceCard")
       && toggleEle !== null && !toggleEle.checked
          ) {
         hybridClick();

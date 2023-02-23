@@ -1,6 +1,6 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { CardSide, fieldAllExists, fieldNoneExist } from './utils';
+import { CardSide, fieldsAllFilled, fieldsAllEmpty } from './utils';
 import { getOption } from './options'
 
 import { newKeybinds } from './modules/keybinds';
@@ -23,6 +23,7 @@ import { InfoCircleUtils } from './modules/infoCircleUtils';
 import { FixRubyPositioning } from './modules/fixRubyPositioning';
 import { CheckDuplicateKey } from './modules/checkDuplicateKey';
 import {AsyncManager} from './modules/asyncManager';
+import {FolderTab} from './modules/folderTab';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -72,16 +73,16 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     );
   }
 
-  if (fieldAllExists('IsHoverCard', 'IsClickCard')) {
+  if (fieldsAllFilled('IsHoverCard', 'IsClickCard')) {
     LOGGER.warn(
       'Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.'
     );
   }
 
-  if (fieldNoneExist('SentenceReading') && fieldAllExists('Sentence')) {
+  if (fieldsAllEmpty('SentenceReading') && fieldsAllFilled('Sentence')) {
     LOGGER.warn("SentenceReading is not filled out. Using Sentence field instead.");
   }
-  if (fieldNoneExist('Sentence') && fieldAllExists('SentenceReading')) {
+  if (fieldsAllEmpty('Sentence') && fieldsAllFilled('SentenceReading')) {
     LOGGER.warn("`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?");
   }
 
@@ -150,6 +151,12 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   if (compileOpts['enableModule.checkDuplicateKey']) {
     new CheckDuplicateKey().run();
+  }
+
+  // very last to ensure that definitions are properly populated
+  // TODO compile opt
+  if (compileOpts['enableModule.folderTab']) {
+    new FolderTab().run();
   }
 
 

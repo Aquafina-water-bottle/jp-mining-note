@@ -4,8 +4,8 @@
   "logger.toConsole": true,
   "logger.debugConsoleLevel": 0,
 
-  //"debug.onlyShowCertainModules": true,
-  //"debug.onlyShowCertainModules.modules": ["sentenceParser"],
+  //"logger.debug.onlyShowCertainModules": true,
+  //"logger.debug.onlyShowCertainModules.modules": ["folderTab"],
 
 
   // enables all warnings

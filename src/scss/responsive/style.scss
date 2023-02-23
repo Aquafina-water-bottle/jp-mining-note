@@ -136,11 +136,18 @@
   }
 
   .night_mode {
+    /* TODO test light mode on mobile */
     --background-darken:          rgba(0, 0, 0, 0.16); /* slightly darker to make folder tab stand out more */
   }
 
   .card {
-    margin: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: var(--mobile-border);
+    margin-right: var(--mobile-border);
+  }
+  #content { /* removes margin on android */
+    margin: 0px;
   }
 
   .card-description {
@@ -204,14 +211,6 @@
     text-align: left;
   }
 
-  // TODO move these elsewhere!
-  .dh-right {
-    display: none;
-  }
-  .dh-left__audio-buttons {
-    display: none;
-  }
-
   .glossary-blockquote {
     /* removes horizontal margins */
     margin: 0px;
@@ -246,33 +245,165 @@
     background: var(--background-darken);
     justify-content: space-evenly;
     align-items: center;
+
+    user-select: none;
   }
 
-  .folder-tab > div {
+  .folder-tab > .folder-tab__button {
     display: flex; /* centers the items for some reason */
   }
 
-  .folder-tab > div > svg {
+  .folder-tab > .folder-tab__button > svg {
     width: var(--folder-tab-svg-size);
     height: var(--folder-tab-svg-size);
     fill: var(--text-color);
   }
 
+  .folder-tab__button--menu {
+    position: relative;
+  }
+
+  /* allows arbitrary horizontal text expanding */
+  .folder-tab__menu-wrapper {
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    width: 300px;
+    height: 0px;
+    display: none;
+    text-align: right;
+    z-index: 2; /* makes sure this is the first interactable over external links */
+  }
+
+  /* list of collapsible blocks */
+  .folder-tab__menu {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: left;
+    border-left: auto;
+    background-color: var(--tooltip-background-darken);
+    padding: 5px;
+    padding-right: 10px;
+    border-radius: 4px;
+  }
+
+  .folder-tab__menu-label {
+    --label-font-size: #{common.px2rem(24px)};
+    --svg-size: #{common.px2rem(32px)};
+    display: flex;
+    align-items: center;
+    font-size: var(--label-font-size);
+
+    .folder-tab-label-check {
+      visibility: hidden;
+      display: flex; /* removes extra space for some reason */
+
+      svg {
+        width: var(--svg-size);
+        fill: var(--accent);
+      }
+    }
+  }
+
+  /* bold when an item is selected */
+  .folder-tab__menu > input:checked + label {
+    font-weight: bold;
+    color: var(--accent);
+
+    > .folder-tab-label-check {
+      visibility: visible;
+    }
+  }
+
+  .folder-tab__menu > input:disabled + label {
+    /* takes precedence over the above! */
+    /* ASSUMPTION: primary definition is never disabled */
+    color: var(--text-color--4);
+  }
+
+  .folder-tab__menu > input {
+    display: none;
+  }
+
+  /* */
+  .folder-tab > input:checked + label > .folder-tab__menu-wrapper {
+    display: block;
+  }
+
+
+
+
+
+  /* making the footer display */
+  //.card-footer {
+  //  display: block;
+  //  position: fixed;
+  //  left: 0;
+  //  right: 0;
+  //  bottom: 0;
+  //  height: var(--footer-height);
+  //  background: var(--background-darken);
+  //}
+  //.header-main-wrapper {
+  //  height: calc(100vh - var(--footer-height));
+  //  overflow: scroll;
+  //}
+
+  .card-main {
+    // TODO adjust if no image, etc.
+    margin-bottom: var(--footer-height);
+  }
+
+  //body {
+  //  margin: 0px;
+  //  padding: 0px;
+  //}
+  // TODO move these elsewhere!
   //.dh-right {
-  //  position: absolute;
-  //  max-height: 60px !important;
-  //  bottom: 10px;
-  //  right: 10px;
-  //  padding-left: 0px;
-
-  //  .dh-right__img {
-  //    max-height: 60px !important;
-  //  }
+  //  display: none;
+  //}
+  //.dh-left__audio-buttons {
+  //  display: none;
   //}
 
-  //.dh-right__svg-eye {
-  //  display: none !important;
+  .card-wrapper { /* re-adds margin from body */
+  }
+
+  .dh-right {
+    position: fixed;
+    max-height: var(--mobile-footer-image-size) !important;
+    bottom: var(--mobile-border);
+    right: var(--mobile-border);
+    padding-left: 0px;
+
+    z-index: 1; /* so audio buttons and picture can be interacted with */
+
+    .dh-right__img {
+      max-height: var(--mobile-footer-image-size) !important;
+    }
+  }
+
+  .dh-right__svg-eye {
+    display: none !important;
+  }
+
+  /* moves play buttons to left */
+  // TODO shouldn't be --left? remove?
+  .dh-left__audio-buttons {
+    text-align: left;
+    position: fixed;
+    bottom: var(--mobile-border);
+    left: var(--mobile-border);
+
+    z-index: 1; /* so audio buttons and picture can be interacted with */
+  }
+
+  /* increases size of replay button */
+  //.android .replaybutton span svg {
+  //  width: 50px;
+  //  height: 50px;
   //}
+
 
   //.android .dh-left {
   //  padding-left:   8px;
@@ -282,11 +413,6 @@
 
   //.dh-left__audio-buttons {
   //  padding-top: 10px;
-  //}
-
-  //// moves play buttons to left ONLY if picture field exists
-  //.dh-left__audio-buttons--left {
-  //  text-align: left;
   //}
 
 }

@@ -5,6 +5,9 @@
   //"alwaysFilledFields": [],
   //"neverFilledFields": [],
 
+  "externalLinksPosition": "Extra Info",
+  //"externalLinksPosition": "Primary Definition",
+
   "externalLinks": {
 
     "image-search": {
@@ -93,7 +96,7 @@
 
   // Allows the user to customize the displayed words on the card,
   // while specifying fallback languages if the language doesn't have the key/pair value.
-  //"display-languages": ["en"],
+  //"displayLanguages": ["en"],
   "displayLanguages": ["jp", "en"],
 
 

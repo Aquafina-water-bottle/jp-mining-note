@@ -4,7 +4,7 @@
     <summary>{{ TRANSLATOR.get('additional-notes') }}</summary>
     <blockquote class="glossary-blockquote glossary-blockquote--small highlight-bold">
       <div class="glossary-text glossary-text--additional-notes">
-        {{ T("AdditionalNotes") }}
+        <span class="glossary-text--raw-text">{{ T("AdditionalNotes") }}</span>
         {% filter indent(8) %}
         {% include "jp-mining-note/partials/0pxdiv.html" %}
         {% endfilter %}

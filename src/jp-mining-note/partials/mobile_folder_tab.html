@@ -1,16 +1,51 @@
 {# impl #}
 <div class="folder-tab">
 
-  <div>
+  <div class="folder-tab__button folder-tab__button--left"> <!-- left -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M 19,6 6,12 19,18 Z"/></svg>
   </div>
 
-  <div>
+  <div class="folder-tab__button folder-tab__button--right"> <!-- right -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M 5,6 18,12 5,18 Z"/></svg>
   </div>
 
-  <div>
+  <!-- input checkbox hack to disable / enable the menu -->
+  <input
+    type="checkbox"
+    class="hidden"
+    id="folder_tab_button_menu_input"
+    />
+  <label for="folder_tab_button_menu_input" class="folder-tab__button folder-tab__button--menu"> <!-- menu -->
+  <!--<div class="folder-tab__button folder-tab__button--menu"> <!-- menu -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
-  </div>
+    <div class="folder-tab__menu-wrapper">
+      <form class="folder-tab__menu" id="folder_tab_menu">
+
+        {% for entry_id in [
+          "primary-definition",
+          "secondary-definition",
+          "additional-notes",
+          "extra-definitions",
+          "extra-info"] %}
+
+        <input type="radio" name="folder_tab_menu_entry"
+               id="folder_tab_menu_entry_{{ entry_id }}"
+               value="{{ entry_id }}"
+               {% if entry_id == "primary-definition" %}
+               checked
+               {% endif %}
+               />
+        <label for="folder_tab_menu_entry_{{ entry_id }}" class="folder-tab__menu-label">
+          <div class="folder-tab-label-check">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg>
+          </div>
+          <div class="folder-tab-label-text">{{ TRANSLATOR.get(entry_id) }}</div>
+        </label>
+
+        {% endfor %}
+
+      </form>
+    </div>
+  </label>
 
 </div>

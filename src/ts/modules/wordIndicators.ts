@@ -48,8 +48,6 @@ type FilteredCardsInfo = Record<FilteredCardCategories, CardInfo[]>;
 //}
 
 class WordIndicator {
-  private readonly indicatorEle: HTMLElement | null;
-
   // is also the html id for the indicator element
   private readonly label: string;
 
@@ -62,7 +60,6 @@ class WordIndicator {
 
   constructor(label: string, baseIndicatorQuery: string, wordInds: WordIndicators) {
     this.label = label;
-    this.indicatorEle = document.getElementById(label);
     //this.queryCategories = queryCategories
     this.baseIndicatorQuery = baseIndicatorQuery;
     this.wordInds = wordInds;
@@ -270,29 +267,36 @@ class WordIndicator {
   }
 
   private displayIfEleExists(tooltipHTML: string) {
+    // gets all elements here to prevent race condition at front of card
+    // i.e. if this was ran in the front of the card & the back was blocked by a mutex,
+    // then this code is still valid to run
+    const indicatorEle = document.getElementById(this.label);
     const dhLeftEle = document.getElementById('dh_left');
-    if (this.indicatorEle === null || dhLeftEle === null) {
+    if (indicatorEle === null || dhLeftEle === null) {
       return;
     }
     // TODO document structure of element?
     // TODO reset this on refreshes
-    this.indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
-    this.indicatorEle.style.display = 'inline-block';
+    indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
+    indicatorEle.style.display = 'inline-block';
 
     // TODO rework this! this also affects pitch accents!
     dhLeftEle.classList.toggle(clsWithIndicators, true);
+
+    // we cannot 
+    this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
   }
 
   private releaseMutex() {
     // removes mutex
-    this.wordInds.persist?.pop(this.mutexKey)
+    this.wordInds.persist?.pop(this.mutexKey);
     this.wordInds.logger.debug(`Finished running ${this.label}`);
   }
 
   async run() {
     // gets cache if exists
     if (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey)) {
-      this.wordInds.logger.debug("Using cached card");
+      this.wordInds.logger.debug('Using cached card');
       const tooltipHTML = this.wordInds.persist.get(this.cacheKey);
       this.displayIfEleExists(tooltipHTML);
       return;
@@ -300,11 +304,11 @@ class WordIndicator {
 
     // normal mutex
     if (this.wordInds.persist?.has(this.mutexKey)) {
-      this.wordInds.logger.debug("Cannot run due to mutex");
+      this.wordInds.logger.debug('Cannot run due to mutex');
       return;
     }
     this.wordInds.logger.debug(`Running ${this.label}`);
-    this.wordInds.persist?.set(this.mutexKey, "true")
+    this.wordInds.persist?.set(this.mutexKey, 'true');
 
     const queryResults = await this.getQueryResults();
 
@@ -318,14 +322,14 @@ class WordIndicator {
 
     // only checks non-hidden entries
     // TODO how to deal with hidden entries?
-    const sum = (queryResults['new.default'].length + queryResults['nonNew.default'].length);
+    const sum =
+      queryResults['new.default'].length + queryResults['nonNew.default'].length;
     if (sum === 0) {
       // this part is already cached because queries are cached!
       // i.e. there's no need to write to the cache here
       this.releaseMutex();
       return;
     }
-
 
     const sortMethod = this.wordInds.tooltips.getOption('tooltips.sortMethod');
     let filteredCardIds: FilteredCardIDs;
@@ -345,6 +349,7 @@ class WordIndicator {
       this.wordInds.persist.set(this.cacheKey, tooltipHTML);
       this.displayIfEleExists(tooltipHTML);
     }
+
     this.releaseMutex();
   }
 }
@@ -384,7 +389,7 @@ export class WordIndicators extends RunnableAsyncModule {
     //  queries[`sent.${key as keyof QueryBuilderGroup}`] = qbSent.build();
     //}
 
-    if (!this.getOption("enableAnkiconnectFeatures")) {
+    if (!this.getOption('enableAnkiconnectFeatures')) {
       return;
     }
 

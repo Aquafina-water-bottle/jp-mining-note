@@ -5,8 +5,8 @@ import {
   TAGS_LIST,
   paIndicator,
   getCardType,
-  fieldAnyExist,
-  fieldNoneExist,
+  fieldsAnyFilled,
+  fieldsAllEmpty,
   getFieldValue,
   plainToKanaOnly,
 } from '../utils';
@@ -172,7 +172,7 @@ export class SentenceParser extends RunnableModule {
     }
 
     // removes pa indicator for hover cards / click cards (sentences)
-    if (fieldAnyExist('IsHoverCard', 'IsClickCard')) {
+    if (fieldsAnyFilled('IsHoverCard', 'IsClickCard')) {
       let elemsHybrid = document.getElementsByClassName('expression__hybrid');
       for (const e of elemsHybrid) {
         e.classList.add('expression__hybrid--remove-pa-indicator');
@@ -181,8 +181,8 @@ export class SentenceParser extends RunnableModule {
 
     // neither hover & click and is either one of TSC / sentence -> removes flag
     if (
-      fieldNoneExist('IsHoverCard', 'IsClickCard', 'IsHintCard') &&
-      fieldAnyExist('IsTargetedSentenceCard', 'IsSentenceCard')
+      fieldsAllEmpty('IsHoverCard', 'IsClickCard', 'IsHintCard') &&
+      fieldsAnyFilled('IsTargetedSentenceCard', 'IsSentenceCard')
     ) {
       let elemsExpr = document.getElementsByClassName('expression');
       for (const e of elemsExpr) {
@@ -241,7 +241,7 @@ export class SentenceParser extends RunnableModule {
     // attempts to color quotes if quotes exists and options specify so
     if (
       o !== '' &&
-      fieldAnyExist('PAShowInfo') &&
+      fieldsAnyFilled('PAShowInfo') &&
       ((getCardType() === 'main' && // either main or pa sentence option
         this.getOption('sentenceParser.display.quotes.paIndicatorColor.main')) ||
         (getCardType() === 'pa_sent' &&
