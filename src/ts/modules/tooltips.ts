@@ -568,7 +568,6 @@ export class Tooltips extends Module {
         throw Error(`Cannot use boldSentKanji ${boldSentKanji} when kanji does not exist in sentence: ${resultSent}`)
       }
       resultSent = resultSent.replace(/<b>|<\/b>/g, "");
-      console.log("cardInfoToNoteInfoTooltipBuilder", resultSent);
       const rx = new RegExp(boldSentKanji, "g");
       if (cardId === null) {
         resultSent = resultSent.replace(rx, `<b>${boldSentKanji}</b>`);
@@ -576,7 +575,6 @@ export class Tooltips extends Module {
         // the extra span is so auto-highlight detection properly works (it currently is a regex search on <b>)
         resultSent = resultSent.replace(rx, `<b><span data-cid="${cardId}">${boldSentKanji}</span></b>`);
       }
-      console.log("cardInfoToNoteInfoTooltipBuilder", resultSent);
     }
 
     return {

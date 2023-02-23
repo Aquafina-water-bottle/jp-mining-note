@@ -150,6 +150,7 @@
     margin: 0px;
   }
 
+
   .card-description {
     margin-top: 10px;
     margin-left: 10px;
@@ -173,13 +174,24 @@
     width: 15px;
   }
 
+
+  /* frequencies */
   .card-description-right {
     margin-right: 10px;
   }
 
   .mobile .card-description-right {
+    /* already a margin added around everything on mobile */
     margin-right: 0px;
   }
+
+  .frequencies {
+    gap: 5px;
+  }
+  .hover-tooltip--frequencies-overflow {
+    column-gap: 10px;
+  }
+
 
   .pa-indicator svg {
     height: 0.9em;
@@ -189,13 +201,16 @@
     margin-bottom: 5px;
   }
 
-  //.full-sentence-center {
-  //  position: relative;
-  //}
 
+  /* margin was previous around full-sentence, but all-definitions is now between!
+     thus, we move padding to all-definitions */
   .full-sentence {
-    padding-left: 5px;
-    padding-right: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0; /* left align sentence */
+
+    //padding-left: 5px;
+    //padding-right: 5px;
   }
 
   /* removes furigana: takes too much vertical space */
@@ -220,11 +235,6 @@
     flex-direction: column-reverse;
   }
 
-  /* margin was previous around full-sentence, but all-definitions is now between!
-     thus, we move padding to all-definitions */
-  .full-sentence {
-    margin: 0;
-  }
   .all-definitions {
     margin-top: 0.6em;
     margin-bottom: 0.3em;
@@ -257,6 +267,10 @@
     width: var(--folder-tab-svg-size);
     height: var(--folder-tab-svg-size);
     fill: var(--text-color);
+  }
+
+  .folder-tab > .folder-tab__button--disabled > svg {
+    fill: var(--text-color--4);
   }
 
   .folder-tab__button--menu {
@@ -325,7 +339,7 @@
     display: none;
   }
 
-  /* */
+  /* displays menu if toggled */
   .folder-tab > input:checked + label > .folder-tab__menu-wrapper {
     display: block;
   }
@@ -402,17 +416,6 @@
   //.android .replaybutton span svg {
   //  width: 50px;
   //  height: 50px;
-  //}
-
-
-  //.android .dh-left {
-  //  padding-left:   8px;
-  //  padding-right:  8px;
-  //  padding-bottom: 8px;
-  //}
-
-  //.dh-left__audio-buttons {
-  //  padding-top: 10px;
   //}
 
 }
