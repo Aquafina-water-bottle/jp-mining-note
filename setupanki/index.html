@@ -1387,38 +1387,35 @@ and choosing the add-ons that seem appealing for you.</p>
 <p>Make sure to head over to the <a href="./#final-steps-after-installing-add-ons">final steps</a> section afterwards!</p>
 </div>
 <p><br></p>
+<h3 id="css-injector"><a href="https://ankiweb.net/shared/info/181103283">CSS Injector</a><a class="headerlink" href="#css-injector" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Code: <code>181103283</code></p>
+</blockquote>
 <!--
-## [CSS Injector](https://ankiweb.net/shared/info/181103283)
+## CSS Injector
 
-> Code: `181103283`
+> Code: (N/A, offline download. See below for more details.)
 -->
 
-<h3 id="css-injector">CSS Injector<a class="headerlink" href="#css-injector" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p>Code: (N/A, offline download. See below for more details.)</p>
-</blockquote>
 <p>I <em>strongly</em> recommend using this, because
 if you don't use this, the fields within the Anki field editor
 won't have certain stylizations that makes the field actually interpretable.</p>
 <p><a href="../assets/setupanki/css_injector.png"><img alt="CSS Injector comparison" src="../assets/setupanki/css_injector.png" /></a></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>As of writing this (2023/02/06), the author has still not updated their add-on
-to work with Anki versions 2.1.55 and over.
-<!--For those who are interested in patching it themselves, use
-<a href="https://github.com/kleinerpirat/anki-css-injector/pull/3">this PR</a>
-to build the add-on, and install the add-on manually.-->
-Therefore, these set of instructions are for an offline version
-that has a hotfix applied from
-<a href="https://github.com/kleinerpirat/anki-css-injector/pull/3">this PR</a>,
-until the author finally decides to update his add-on.</p>
-</div>
-<p>To download this add-on, head over to <a href="https://github.com/Aquafina-water-bottle/anki-css-injector/releases/tag/v2023-02-06.1">this page</a>,
-and download the <code>2023-02-06_anki-css-injector.ankiaddon</code> file.
-From there, head over to Anki, and navigate to the following: <br></p>
-<blockquote>
-<p><code>Tools</code> →  <code>Add-ons</code> →  <code>Install from file...</code></p>
-</blockquote>
+<!--
+!!! note
+    As of writing this (2023/02/06), the author has still not updated their add-on
+    to work with Anki versions 2.1.55 and over.
+    Therefore, these set of instructions are for an offline version
+    that has a hotfix applied from
+    [this PR](https://github.com/kleinerpirat/anki-css-injector/pull/3),
+    until the author finally decides to update his add-on.
+
+To download this add-on, head over to [this page](https://github.com/Aquafina-water-bottle/anki-css-injector/releases/tag/v2023-02-06.1),
+and download the `2023-02-06_anki-css-injector.ankiaddon` file.
+From there, head over to Anki, and navigate to the following: <br>
+> `Tools` →  `Add-ons` →  `Install from file...`
+-->
+
 <p>There are two ways of using css injector with this note type:</p>
 <details class="info">
 <summary>Option 1: Automatically updates with the card (recommended)</summary>
@@ -1428,14 +1425,14 @@ From there, head over to Anki, and navigate to the following: <br></p>
 <p>As a preliminary step, you will have to remove the empty <code>field.css</code> and <code>editor.css</code> files
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
-<code>Anki2/addons21/anki_css_injector/user_files</code>
+<code>Anki2/addons21/181103283/user_files</code>
 folder
 (within the <a href="../faq/#where-is-the-x-folder-in-anki" target="_blank">addons folder</a>)
 and delete both <code>css</code> files.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">:</span><span class="c1">: be sure to change USERNAME to your computer username!</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">del</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\anki_css_injector\user_files\field.css&quot;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">del</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\anki_css_injector\user_files\editor.css&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">del</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">del</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css&quot;</span>
 </code></pre></div>
 <p>Afterwards, open command prompt with elevated permissions.</p>
 <div class="admonition note">
@@ -1450,42 +1447,42 @@ If you've never used command prompt before, see
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">:</span><span class="c1">: in the commands below.</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">:</span><span class="c1">: Make sure to replace all the fields!</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">mklink</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\anki_css_injector\user_files\field.css&quot;</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css&quot;</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">mklink</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\anki_css_injector\user_files\editor.css&quot;</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css&quot;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">mklink</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\field.css&quot;</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_field.css&quot;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">mklink</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\181103283\user_files\editor.css&quot;</span> <span class="s2">&quot;C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css&quot;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>As a preliminary step, you will have to remove the empty <code>field.css</code> and <code>editor.css</code> files
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
-<code>Anki2/addons21/anki_css_injector/user_files</code>
+<code>Anki2/addons21/181103283/user_files</code>
 folder
 (within the <a href="../faq/#where-is-the-x-folder-in-anki" target="_blank">addons folder</a>)
 and delete both <code>css</code> files.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/addons21/anki_css_injector/user_files/field.css&quot;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/addons21/anki_css_injector/user_files/editor.css&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/addons21/181103283/user_files/field.css&quot;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css&quot;</span>
 </code></pre></div>
 <p>Afterwards, run the following command:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># be sure to change `PROFILENAME` to your Anki profile</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ln -s <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/addons21/anki_css_injector/user_files/field.css&quot;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>ln -s <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/addons21/anki_css_injector/user_files/editor.css&quot;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ln -s <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/PROFILENAME/collection.media/_field.css&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/addons21/181103283/user_files/field.css&quot;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>ln -s <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/PROFILENAME/collection.media/_editor.css&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/Library/Application Support/Anki2/addons21/181103283/user_files/editor.css&quot;</span>
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
 <p>As a preliminary step, you will have to remove the empty <code>field.css</code> and <code>editor.css</code> files
 that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
-<code>Anki2/addons21/anki_css_injector/user_files</code>
+<code>Anki2/addons21/181103283/user_files</code>
 folder
 (within the <a href="../faq/#where-is-the-x-folder-in-anki" target="_blank">addons folder</a>)
 and delete both <code>css</code> files.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/addons21/anki_css_injector/user_files/field.css&quot;</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/addons21/anki_css_injector/user_files/editor.css&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/addons21/181103283/user_files/field.css&quot;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rm <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/addons21/181103283/user_files/editor.css&quot;</span>
 </code></pre></div>
 <p>Afterwards, run the following command:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># be sure to change `PROFILENAME` to your Anki profile</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ln -s <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/PROFILENAME/collection.media/_field.css&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/addons21/anki_css_injector/user_files/field.css&quot;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ln -s <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/PROFILENAME/collection.media/_editor.css&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/addons21/anki_css_injector/user_files/editor.css&quot;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ln -s <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/PROFILENAME/collection.media/_field.css&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/addons21/181103283/user_files/field.css&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ln -s <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/PROFILENAME/collection.media/_editor.css&quot;</span> <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/share/Anki2/addons21/181103283/user_files/editor.css&quot;</span>
 </code></pre></div></p>
 </div>
 </div>
@@ -1495,7 +1492,7 @@ and delete both <code>css</code> files.</p>
 <summary>Option 2: Manually without respecting updates</summary>
 <ol>
 <li>Navigate to css injector <a href="../faq/#where-is-the-x-folder-in-anki" target="_blank">addon folder</a>
-    (<code>Anki2/addons21/anki_css_injector/user_files</code>)</li>
+    (<code>Anki2/addons21/181103283/user_files</code>)</li>
 <li>Remove the existing <code>field.css</code> and <code>editor.css</code> files</li>
 <li>Copy the <code>_field.css</code> file and <code>_editor.css</code> file
     (found under your profile's <a href="../faq/#where-is-the-x-folder-in-anki" target="_blank">media folder</a>)
@@ -1695,7 +1692,7 @@ if you can't make cards with it?</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 6, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 23, 2023</span>
       
     
   </small>
