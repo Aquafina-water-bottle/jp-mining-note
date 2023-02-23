@@ -1,5 +1,5 @@
 import { RunnableModule } from '../module';
-import { fieldAnyExist, getCardSide, hybridClick, isAndroid, paIndicator } from '../utils';
+import { fieldsAnyFilled, getCardSide, hybridClick, isAndroid, paIndicator, fieldsAllFilled } from '../utils';
 import { translatorStrs } from '../consts';
 import {addKeybindFunc, hasKey} from './keybinds';
 import {getOption} from '../options';
@@ -50,11 +50,11 @@ export class MainCardUtils extends RunnableModule {
   main() {
     addKeybindFunc("sentenceKeybinds", this.sentenceKeybinds);
 
-    if (getCardSide() === "back" && getOption("clickCardRevealSentenceOnBackSide")) {
+    if (getCardSide() === "back" && fieldsAllFilled("IsClickCard") && getOption("clickCardRevealSentenceOnBackSide")) {
       hybridClick();
     }
 
-    if (fieldAnyExist('PAShowInfo')) {
+    if (fieldsAnyFilled('PAShowInfo')) {
       const paIndicators = document.querySelectorAll('.pa-indicator');
       for (const paInd of paIndicators) {
         let circ = paInd.children[0].children[0];

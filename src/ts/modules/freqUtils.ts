@@ -1,6 +1,7 @@
+import {translatorStrs} from '../consts';
 import { RunnableModule } from '../module';
 import { getOption } from '../options';
-import { fieldNoneExist, fieldAnyExist } from '../utils';
+import { fieldsAllEmpty, fieldsAnyFilled } from '../utils';
 
 export class FreqUtils extends RunnableModule {
   private readonly freqDisplay = document.getElementById('frequencies_display');
@@ -11,6 +12,28 @@ export class FreqUtils extends RunnableModule {
 
   constructor() {
     super('freqUtils');
+  }
+
+  private summary() {
+    // by default, the HTML shows the summary
+    // this function only serves to set it to unknown if it's a default value
+
+    if (
+      this.freqDisplay === null
+    ) {
+      return;
+    }
+
+    const ele = this.freqDisplay.querySelector(`.frequencies__group[data-details="summary"] > .frequencies__number > .frequencies__number-inner`);
+    if (ele === null) {
+      return;
+    }
+
+    const defaultValues: string[] = getOption("freqUtils.summary.defaultValues");
+
+    if (defaultValues.includes(ele.innerHTML)) {
+      ele.innerHTML = `${translatorStrs["unknown-frequency"]} (${ele.innerHTML})`
+    }
   }
 
   private listAll() {
@@ -60,8 +83,10 @@ export class FreqUtils extends RunnableModule {
   main() {
     if (getOption('freqUtils.displayMode') === 'list-all') {
       this.listAll();
-    } else if (fieldNoneExist('FrequencySort') && fieldAnyExist('FrequenciesStylized')) {
-      this.listAll();
+    } else if (fieldsAllEmpty('FrequencySort') && fieldsAnyFilled('FrequenciesStylized')) {
+      this.listAll(); // this should ideally never happen
+    } else {
+      this.summary();
     }
   }
 }

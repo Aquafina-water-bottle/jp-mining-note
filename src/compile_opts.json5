@@ -176,6 +176,8 @@
   "enableModule.infoCircleUtils":         true,
   "enableModule.fixRubyPositioning":      true,
 
+  "enableModule.folderTab":               true,
+
 
 
 

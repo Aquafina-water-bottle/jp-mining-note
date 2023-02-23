@@ -330,9 +330,9 @@ export class KanjiHover extends RunnableAsyncModule {
       const cardBuilder = this.tooltips.newCardBuilder();
 
       if (isSentCard) {
-        // removes bold
-        const noteInfoTTB = this.tooltips.cardInfoToNoteInfoTooltipBuilder(cardInfo, kanji);
-        cardBuilder.createSentDiv(noteInfoTTB, );
+        // removes existing bold & adds bold to kanji in sentence
+        const noteInfoTTB = this.tooltips.cardInfoToNoteInfoTooltipBuilder(cardInfo, kanji, cardInfo.cardId);
+        cardBuilder.createSentDiv(noteInfoTTB);
       } else {
         const noteInfoTTB = this.tooltips.cardInfoToNoteInfoTooltipBuilder(cardInfo);
         cardBuilder.createWordDiv(noteInfoTTB, kanji, cardInfo.cardId);

@@ -75,16 +75,21 @@ $bp-combine-picture: 620px;
   --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
   --external-links-box-shadow: 1px 1px 2px;
 
-  --info-circle-settings-svg-size: 16px;
-
-  --folder-tab-svg-size: 32px;
-
   /* PrimaryDefinitionPicture fields */
   --primary-def-picture-gap: 5px;
   --primary-def-picture-border-radius: 3px;
   --primary-def-picture-max-width: 300px;
   --primary-def-picture-max-height: 150px;
   --primary-def-picture-scale-no-def: 1.3;
+
+  /* footer */
+  --mobile-footer-image-size: 80px;
+  --mobile-border: 0.5rem;
+  --footer-height: calc(var(--mobile-footer-image-size) + (2 * var(--mobile-border)));
+
+  /* other */
+  --info-circle-settings-svg-size: 16px;
+  --folder-tab-svg-size: 32px;
 
   /* light mode specific */
   --text-color:                 black;

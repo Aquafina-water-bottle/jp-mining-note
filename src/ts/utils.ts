@@ -116,7 +116,7 @@ function _fieldExists(field: Field): boolean {
 }
 
 /* if every field exists */
-export function fieldAllExists(...fields: Field[]) {
+export function fieldsAllFilled(...fields: Field[]) {
   for (const field of fields) {
     if (!_fieldExists(field)) {
       return false;
@@ -126,7 +126,7 @@ export function fieldAllExists(...fields: Field[]) {
 }
 
 /* if any field exists */
-export function fieldAnyExist(...fields: Field[]) {
+export function fieldsAnyFilled(...fields: Field[]) {
   for (const field of fields) {
     if (_fieldExists(field)) {
       return true;
@@ -144,8 +144,8 @@ export function getFieldValue(field: Field): string {
   return x.innerHTML;
 }
 
-export function fieldNoneExist(...fields: Field[]) {
-  return !fieldAnyExist(...fields);
+export function fieldsAllEmpty(...fields: Field[]) {
+  return !fieldsAnyFilled(...fields);
 }
 
 export function isMobile() {
@@ -195,11 +195,11 @@ export const paIndicator: PAIndicator = (function () {
 
   if (getCardType() === "pa_sent") {
     type = "sentence";
-  } else if (fieldAnyExist("PADoNotTest", "PASeparateWordCard")) {
+  } else if (fieldsAnyFilled("PADoNotTest", "PASeparateWordCard")) {
     type = "none";
-  } else if (fieldAnyExist("PASeparateSentenceCard", "PATestOnlyWord")) {
+  } else if (fieldsAnyFilled("PASeparateSentenceCard", "PATestOnlyWord")) {
     type = "word";
-  } else if (fieldAnyExist("IsSentenceCard")) {
+  } else if (fieldsAnyFilled("IsSentenceCard")) {
     type = "sentence";
   } else {
     type = "word";

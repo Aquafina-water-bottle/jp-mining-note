@@ -3,6 +3,7 @@
   "enableAnkiconnectFeatures": true,
 
   "hybridSentenceOpenOnPlaySentence": true,
+
   "clickCardRevealSentenceOnBackSide": true,
 
 
@@ -44,9 +45,9 @@
 
     // warnings when PAOverride has an incorrect format
     //"(autoPitchAccent) calcPosDataList returned list of 0 length for",
-    "(autoPitchAccent) Invalid PA format: ",
-    "(autoPitchAccent) More than one downstep marker used in ",
-    "(autoPitchAccent) Cannot use both downstep and heiban markers in ",
+    //"(autoPitchAccent) Invalid PA format: ",
+    //"(autoPitchAccent) More than one downstep marker used in ",
+    //"(autoPitchAccent) Cannot use both downstep and heiban markers in ",
   ],
   "logger.error.ignore": [
     // This error is caused by the "Edit Field During Review (Cloze)" add-on.
@@ -744,6 +745,7 @@
   // possible values:
   // "list-all"
   // "summary"
+  // hint: if you are considering using "list-all", make sure it is set to "summary" for mobile
   "freqUtils.displayMode": "summary",
 
   // only useful when the mode is "list-all"
@@ -756,6 +758,8 @@
   "freqUtils.listAll.max": 4,
   "freqUtils.listAll.overflow": 2,
 
+  // shows "unknown" if the summary is any of the following values
+  "freqUtils.summary.defaultValues": ["0", "999999", "9999999", "99999999", "1000000", "10000000"],
 
 
 
@@ -773,6 +777,15 @@
   // ==========================================================================
 
   "checkDuplicateKey.enabled": true,
+
+
+
+
+  // ==========================================================================
+  // = folderTab =
+  // ==========================================================================
+
+  "folderTab.enabled": true,
 
 
 

@@ -6,6 +6,7 @@
 {%- from "jp-mining-note/macros/def_header.html" import def_header with context -%}
 {%- from "jp-mining-note/macros/card_header.html" import card_header with context -%}
 {%- from "jp-mining-note/macros/card_main_back.html" import card_main_back with context -%}
+{%- from "jp-mining-note/macros/card_footer.html" import card_footer with context -%}
 
 {# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
@@ -45,10 +46,16 @@
 
 <div class="card-wrapper" id="card_wrapper">
 
-  {% filter indent(2) %}
-  {{ card_header("card-header--back", True, _card_type) }}
+  <div class="header-main-wrapper">
+    {% filter indent(4) %}
+    {{ card_header("card-header--back", True, _card_type) }}
 
-  {{ card_main_back(_card_html_top, _card_html_bottom) }}
+    {{ card_main_back(_card_html_top, _card_html_bottom) }}
+    {% endfilter %}
+  </div>
+
+  {% filter indent(2) %}
+  {{ card_footer("card-footer--back") }}
   {% endfilter %}
 
 </div> <!-- card-wrapper -->

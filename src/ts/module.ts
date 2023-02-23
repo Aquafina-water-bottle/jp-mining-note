@@ -22,7 +22,9 @@ export type ModuleId =
   | 'infoCircleUtils'
   | 'freqUtils'
   | 'fixRubyPositioning'
-  | 'checkDuplicateKey';
+  | 'checkDuplicateKey'
+  | 'folderTab'
+  ;
 
 
 // TODO: using OverrideValue<K> creates an error:
