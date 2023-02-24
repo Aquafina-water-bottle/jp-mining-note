@@ -1,5 +1,26 @@
+TODO intro
 
+# UI Summary
 
+important things to notice:
+- tested content (front side of the card) is always above the line
+- frequencies exist at the top right corner
+    - shows FreqSort by default, dropdown shows all other frequencies
+- info circle at the top left shows a bunch of random info,
+    including any warnings and errors (acts like a notification system)
+
+<br>
+
+## Mobile UI Summary
+
+(image)
+
+- mostly the same as the standard desktop design, except:
+    - the definition is placed above the sentence and image,
+        in order to prioritize the definition (prevents scrolling down)
+    - switching between definitions is done through the `<`, `>` and `menu` buttons
+
+---
 
 
 - Quickstart (page after setup: for the most important things of the card!)

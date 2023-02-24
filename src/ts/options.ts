@@ -12,65 +12,8 @@ type DO = typeof runtimeOpts;
 
 export type O = Omit<DO, 'overrides'>;
 
-const overrideTypes = ['isMobile', 'isPC', 'cardType', 'viewport'];
-type OverrideTypes = (typeof overrideTypes)[number];
 
-//type OverrideArgs<K extends keyof (typeof runtimeOpts.args)> = {kjkkkjj
-//}
-
-//type StrCmpOpType = "===" | "!==";
-//type NumCmpOpType = "===" | "!==" | ">" | "<" | ">=" | "<=";
-
-type OverrideValue<K extends keyof O> = {
-  readonly type: OverrideTypes;
-  // allows recursive override entries
-  readonly resultFalse: O[K] | OverrideValue<K>;
-  readonly resultTrue: O[K] | OverrideValue<K>;
-  readonly args?: unknown; // TODO
-};
-
-type OverrideValueUnknown = {
-  readonly type: unknown;
-  readonly resultFalse: unknown;
-  readonly resultTrue: unknown;
-  readonly args?: unknown; // TODO
-};
-
-type Overrides = {
-  readonly [K in keyof O]: OverrideValue<K>;
-};
-
-const STR_OPS = {
-  '===': (a: any, b: any) => a === b,
-  '!==': (a: any, b: any) => a !== b,
-};
-
-const OPS = {
-  '===': <T>(a: T, b: T) => a === b,
-  '!==': <T>(a: T, b: T) => a !== b,
-  '>': <T>(a: T, b: T) => a > b,
-  '<': <T>(a: T, b: T) => a < b,
-  '>=': <T>(a: T, b: T) => a >= b,
-  '<=': <T>(a: T, b: T) => a <= b,
-};
-
-// generates function
-function overrideFuncFields(fieldsFunc: (...fields: Field[]) => boolean) {
-   return ((args: unknown) => {
-    if (
-      args !== null &&
-      typeof args === 'object' &&
-      'field' in args &&
-      Array.isArray(args.field)
-    ) {
-      return fieldsFunc(...args.field as Field[])
-    }
-    LOGGER.warn(`Invalid cardType arguments: ${args}`, { ignoreOptions: true });
-    return true;
-  })
-}
-
-const OVERRIDE_FUNCS: Record<OverrideTypes, (args: unknown) => boolean> = {
+const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
   /*
   key: {
     "type": "isMobile",
@@ -205,7 +148,66 @@ const OVERRIDE_FUNCS: Record<OverrideTypes, (args: unknown) => boolean> = {
 
   // TODO: AND & OR operators?
 
+} as const;
+
+
+//const overrideTypes = ['isMobile', 'isPC', 'cardType', 'viewport'];
+type OverrideTypes = keyof typeof OVERRIDE_FUNCS;
+
+//type OverrideArgs<K extends keyof (typeof runtimeOpts.args)> = {kjkkkjj
+//}
+
+//type StrCmpOpType = "===" | "!==";
+//type NumCmpOpType = "===" | "!==" | ">" | "<" | ">=" | "<=";
+
+type OverrideValue<K extends keyof O> = {
+  readonly type: OverrideTypes;
+  // allows recursive override entries
+  readonly resultFalse: O[K] | OverrideValue<K>;
+  readonly resultTrue: O[K] | OverrideValue<K>;
+  readonly args?: unknown; // TODO
 };
+
+type OverrideValueUnknown = {
+  readonly type: unknown;
+  readonly resultFalse: unknown;
+  readonly resultTrue: unknown;
+  readonly args?: unknown; // TODO
+};
+
+type Overrides = {
+  readonly [K in keyof O]: OverrideValue<K>;
+};
+
+const STR_OPS = {
+  '===': (a: any, b: any) => a === b,
+  '!==': (a: any, b: any) => a !== b,
+};
+
+const OPS = {
+  '===': <T>(a: T, b: T) => a === b,
+  '!==': <T>(a: T, b: T) => a !== b,
+  '>': <T>(a: T, b: T) => a > b,
+  '<': <T>(a: T, b: T) => a < b,
+  '>=': <T>(a: T, b: T) => a >= b,
+  '<=': <T>(a: T, b: T) => a <= b,
+};
+
+// generates function
+function overrideFuncFields(fieldsFunc: (...fields: Field[]) => boolean) {
+   return ((args: unknown) => {
+    if (
+      args !== null &&
+      typeof args === 'object' &&
+      'field' in args &&
+      Array.isArray(args.field)
+    ) {
+      return fieldsFunc(...args.field as Field[])
+    }
+    LOGGER.warn(`Invalid cardType arguments: ${args}`, { ignoreOptions: true });
+    return true;
+  })
+}
 
 function isOverrideValue(val: unknown) {
   return (
@@ -229,7 +231,7 @@ export function attemptParseOverride<K extends keyof O>(
     const override = val as OverrideValueUnknown;
 
     // valid override type
-    if (typeof override.type === 'string' && overrideTypes.includes(override.type)) {
+    if (typeof override.type === 'string' && override.type in OVERRIDE_FUNCS) {
       let overrideType = override.type as OverrideTypes;
       let func = OVERRIDE_FUNCS[overrideType];
 
