@@ -44,6 +44,9 @@ and must use `./install.py --update`.
         - NOTE: currently doesn't allow custom javascript / typescript
     - See `themes` folder for some examples
 
+- Mobile design rework
+    - TODO link writeup?
+
 - Backend Javascript rework: (TODO)
     - Javascript has been finally ported to Typescript & webpack
     - Added unit testing for various modules

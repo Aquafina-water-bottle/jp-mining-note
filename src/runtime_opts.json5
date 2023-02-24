@@ -859,7 +859,6 @@
   "asyncManager.initialDelay": 50,
 
 
-
   // ==========================================================================
   // = overrides =
   // ==========================================================================
@@ -901,6 +900,16 @@
       },
       "resultTrue":  "』",
       "resultFalse": "」",
+    },
+
+    "asyncManager.initialDelay": {
+      "type": "cardSide",
+      "args": {
+        "op": "===",
+        "cardSide": "front",
+      },
+      "resultTrue": 300,
+      "resultFalse": 50,
     },
 
   },

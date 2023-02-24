@@ -34,6 +34,7 @@ design decisions with mobile template:
 - button friendly
     - replace collapsible sections with buttons for easier mobile navigation
 
+- furigana removed because of vertical space
 
 
 
