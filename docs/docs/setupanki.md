@@ -142,15 +142,15 @@ and choosing the add-ons that seem appealing for you.
 <br>
 
 
-<!--
 ## [CSS Injector](https://ankiweb.net/shared/info/181103283)
 
 > Code: `181103283`
--->
 
+<!--
 ## CSS Injector
 
 > Code: (N/A, offline download. See below for more details.)
+-->
 
 I *strongly* recommend using this, because
 if you don't use this, the fields within the Anki field editor
@@ -158,13 +158,10 @@ won't have certain stylizations that makes the field actually interpretable.
 
 {{ img("CSS Injector comparison", "assets/setupanki/css_injector.png") }}
 
-
+<!--
 !!! note
     As of writing this (2023/02/06), the author has still not updated their add-on
     to work with Anki versions 2.1.55 and over.
-    <!--For those who are interested in patching it themselves, use
-    [this PR](https://github.com/kleinerpirat/anki-css-injector/pull/3)
-    to build the add-on, and install the add-on manually.-->
     Therefore, these set of instructions are for an offline version
     that has a hotfix applied from
     [this PR](https://github.com/kleinerpirat/anki-css-injector/pull/3),
@@ -174,13 +171,13 @@ To download this add-on, head over to [this page](https://github.com/Aquafina-wa
 and download the `2023-02-06_anki-css-injector.ankiaddon` file.
 From there, head over to Anki, and navigate to the following: <br>
 > `Tools` →  `Add-ons` →  `Install from file...`
+-->
 
 
 There are two ways of using css injector with this note type:
 
-
-{% set css_injector_addon_id %}anki_css_injector{% endset %}
-{#{% set css_injector_addon_id %}181103283{% endset %}#}
+{#{% set css_injector_addon_id %}anki_css_injector{% endset %}#}
+{% set css_injector_addon_id %}181103283{% endset %}
 
 
 {% set css_injector_preliminary %}
