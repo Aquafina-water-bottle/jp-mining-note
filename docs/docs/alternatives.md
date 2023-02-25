@@ -351,7 +351,7 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 
 
-## rundam's Note Type
+## rudnam's Note Type
 <sup>
 [Website & Download](https://github.com/rudnam/JP-study)・Contact: `rudnam#8661` ({{ REFOLD_SERVER }})
 </sup>
