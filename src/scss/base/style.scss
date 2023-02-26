@@ -550,6 +550,11 @@ code {
     padding: 0.1em 0.2em;
     cursor: pointer;
   }
+
+  [data-tag-value="leech"] {
+    color: var(--info-circle-leech-text-color);
+    font-weight: bold;
+  }
 }
 .info-circle-text-tags:not(:empty) {
   margin-top: 10px;
