@@ -23,20 +23,33 @@ export class InfoCircleUtils extends RunnableModule {
     const isHoverable = getOption('infoCircleUtils.isHoverable');
     const togglableLockshowPopup = getOption('infoCircleUtils.togglableLock.showPopup');
     const togglableLockEnabled = getOption('infoCircleUtils.togglableLock.enabled');
+    const enableAnkiconnectFeatures = getOption("enableAnkiconnectFeatures");
 
+    let displayLeechTag = false;
     if (this.infoCircTags !== null && this.infoCircTagsText !== null) {
       const showTagsMode = getOption("infoCircleUtils.showTagsMode");
       if ((showTagsMode === "always") || (showTagsMode === "back" && getCardSide() === "back")) {
         for (const tag of TAGS_LIST) {
           const tagEle = document.createElement("span")
           tagEle.innerText = tag;
-          tagEle.onclick = () => {
-            invoke('guiBrowse', { query: `tag:${tag}` });
+          if (enableAnkiconnectFeatures) {
+            tagEle.onclick = () => {
+              invoke('guiBrowse', { query: `tag:${tag}` });
+            }
           }
+          if (tag === "leech") {
+            displayLeechTag = true;
+          }
+          tagEle.setAttribute("data-tag-value", tag);
           this.infoCircTagsText.appendChild(tagEle);
         }
         this.infoCircTags.classList.toggle("hidden", false);
       }
+    }
+
+    // not ran in the above loop to avoid coloring the info circle on the front side
+    if (getCardSide() === "back" && TAGS_LIST.includes("leech")) {
+      this.logger.leech(!displayLeechTag);
     }
 
     if (this.infoCircWrapper === null || this.infoCirc === null) {

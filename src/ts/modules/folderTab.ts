@@ -65,15 +65,21 @@ export class FolderTab extends RunnableModule {
     super('folderTab')
   }
 
-  private updateButton(btn: HTMLElement, entry: FolderMenuEntry | null, eles: FolderTabElements) {
+  private updateButton(btn: HTMLElement, entry: FolderMenuEntry | null) {
     // disable if null
     btn.classList.toggle("folder-tab__button--disabled", entry === null)
 
     if (entry === null) {
       btn.onclick = () => {}; // nothing
     } else {
+      const menuEntryEle = document.getElementById(`folder_tab_menu_entry_${entry.entryId}`);
+
       btn.onclick = () => {
-        this.selectEntry(entry, eles)
+        if (menuEntryEle !== null) {
+          menuEntryEle.click();
+        }
+
+        //this.selectEntry(entry, eles)
       }
     }
 
@@ -91,8 +97,8 @@ export class FolderTab extends RunnableModule {
     const prevEntry = i === 0 ? null : this.availableEntries[i-1];
     const nextEntry = i === this.availableEntries.length-1 ? null : this.availableEntries[i+1];
 
-    this.updateButton(eles.btnLeft, prevEntry, eles);
-    this.updateButton(eles.btnRight, nextEntry, eles);
+    this.updateButton(eles.btnLeft, prevEntry);
+    this.updateButton(eles.btnRight, nextEntry);
   }
 
   private selectEntry(entry: FolderMenuEntry, eles: FolderTabElements) {
@@ -171,10 +177,10 @@ type EntryId =   */
 
       this.availableEntries.push(entry);
 
-      const entryEle = document.getElementById(`folder_tab_menu_entry_${entry.entryId}`);
+      const menuEntryEle = document.getElementById(`folder_tab_menu_entry_${entry.entryId}`);
 
-      if (entryEle) {
-        entryEle.onclick = () => {
+      if (menuEntryEle) {
+        menuEntryEle.onclick = () => {
           this.selectEntry(entry, eles);
         }
       }

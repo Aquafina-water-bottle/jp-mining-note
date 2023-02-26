@@ -51,7 +51,7 @@
       "fileName": "_青春ブタ野郎-LN1.png"
     },
     {
-      "tag": "天使は炭酸しか飲まない・LN1",
+      "tag": "天使は炭酸しか飲まない・LN",
       "fileName": "_天使は炭酸しか飲まない-LN1.png"
     },
     {
@@ -83,5 +83,6 @@
   //  "resultFalse": false,
   //},
 
+  //"infoCircleUtils.showTagsMode": "never",
 
 }

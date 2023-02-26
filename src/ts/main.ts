@@ -1,6 +1,6 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { CardSide, fieldsAllFilled, fieldsAllEmpty } from './utils';
+import { CardSide, fieldsAllFilled, fieldsAllEmpty, TAGS_LIST } from './utils';
 import { getOption } from './options'
 
 import { newKeybinds } from './modules/keybinds';

@@ -267,6 +267,11 @@ class WordIndicator {
   }
 
   private displayIfEleExists(tooltipHTML: string) {
+    // tooltipHTML can actually be an empty string, to store the fact that nothing has to be shown
+    if (tooltipHTML.length === 0) {
+      return;
+    }
+
     // gets all elements here to prevent race condition at front of card
     // i.e. if this was ran in the front of the card & the back was blocked by a mutex,
     // then this code is still valid to run
@@ -327,6 +332,12 @@ class WordIndicator {
     if (sum === 0) {
       // this part is already cached because queries are cached!
       // i.e. there's no need to write to the cache here
+
+      // caches empty html
+      if (this.wordInds.persist !== null) {
+        this.wordInds.persist.set(this.cacheKey, "");
+      }
+
       this.releaseMutex();
       return;
     }

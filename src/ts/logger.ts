@@ -147,8 +147,13 @@ export class Logger {
 
   }
 
-  leech() {
-    this.printMsg('', leechGroupId, leechClass);
+  leech(displayMsg=true) {
+    if (displayMsg) {
+      this.printMsg('', leechGroupId, leechClass);
+    } else {
+      let infoCirc = document.getElementById('info_circle');
+      infoCirc?.classList.toggle(leechClass, true);
+    }
     if (this.toConsole) {
       console.info("Leech");
     }
