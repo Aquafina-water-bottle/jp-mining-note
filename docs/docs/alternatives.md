@@ -455,6 +455,17 @@ on the first card add when using the app.
 
 
 
+## Anacreon's Template
+<sup>
+[Website & Download](https://anacreondjt.gitlab.io/docs/anki_css/)
+</sup>
+
+!!! example "Example image"
+    {{ img("", "https://anacreondjt.gitlab.io/img/with_css.png") }}
+
+
+---
+
 
 
 # Decks
