@@ -1,5 +1,5 @@
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE ============== ~}}
-{{~! Yomichan template code version: v23.02.12.1 ~}}
+{{~! Yomichan template code version: v23.02.27.1 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
@@ -442,15 +442,45 @@ is a part of a dictionary) ~}}
 
 
 {{#*inline "jpmn-frequency-sort"}}
-    {{~! Frequency sort handlebars: v23.02.05.1 ~}}
-    {{~! The latest version can be found at https://github.com/MarvNC/JP-Resources ~}}
+    {{~! Frequency sort handlebars: v23.02.27.1 ~}}
+    {{~! The latest version can be found at https://github.com/MarvNC/JP-Resources#freq-handlebar ~}}
     {{~#scope~}}
-        {{~! NOTE: IF you are looking for the options, they are moved to the very top of the handlebars.
-            They should work exactly as documented: https://github.com/MarvNC/JP-Resources#freq-settings ~}}
+        {{~! Options ~}}
+        {{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
+        {{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
+        {{~set "opt-no-freq-default-value" 9999999 ~}}
+        {{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
 
+        {{~set "opt-grammar-override" true ~}}
+        {{~set "opt-grammar-override-value" 0 ~}}
+        {{~#set "opt-grammar-override-dict-regex"~}} ^(日本語文法辞典\(全集\)|毎日のんびり日本語教師|JLPT文法解説まとめ|どんなときどう使う 日本語表現文型辞典|絵でわかる日本語)$ {{~/set~}}
+        {{~! End of options ~}}
+
+        {{~! Do not change the code below unless you know what you are doing. ~}}
         {{~set "result-freq" -1 ~}} {{~! -1 is chosen because no frequency dictionaries should have an entry as -1 ~}}
         {{~set "prev-freq-dict" "" ~}}
         {{~set "t" 1 ~}}
+        {{~set "found-grammar-dict" false ~}}
+
+        {{~! search for grammar dictionary ~}}
+        {{~#each definition.definitions~}}
+            {{~#set "rx-match-grammar-dicts" ~}}
+                {{~#regexMatch (get "opt-grammar-override-dict-regex") "gu"~}}{{this.dictionary}}{{~/regexMatch~}}
+            {{/set~}}
+            {{~! rx-match-grammar-dicts is not empty if a grammar dictionary was found ~}}
+            {{~#if (op "!==" (get "rx-match-grammar-dicts") "") ~}}
+                {{~set "found-grammar-dict" true ~}}
+            {{/if~}}
+        {{~/each~}}
+
+        {{~! Additional case when "Result grouping mode" is set to "No Grouping"~}}
+        {{~#set "rx-match-grammar-dicts" ~}}
+            {{~#regexMatch (get "opt-grammar-override-dict-regex") "gu"~}}{{this.definition.dictionary}}{{~/regexMatch~}}
+        {{/set~}}
+        {{~! rx-match-grammar-dicts is not empty if a grammar dictionary was found ~}}
+        {{~#if (op "!==" (get "rx-match-grammar-dicts") "") ~}}
+            {{~set "found-grammar-dict" true ~}}
+        {{/if~}}
 
         {{~#each definition.frequencies~}}
 
@@ -572,6 +602,16 @@ is a part of a dictionary) ~}}
                 )
             ~}}
         {{~/if~}}
+
+        {{~! override final result if grammar dictionary ~}}
+        {{~#if (
+            op "&&"
+                (op "===" (get "found-grammar-dict") true)
+                (op "===" (get "opt-grammar-override") true)
+            )
+        ~}}
+            {{~set "result-freq" (get "opt-grammar-override-value") ~}}
+        {{/if}}
 
         {{~get "result-freq"~}}
     {{~/scope~}}
