@@ -308,13 +308,12 @@ function filterCardsReduce1(
 }
 
 function filterCardsReduce2(tempTotal: number, limit: number) {
-  if (tempTotal === 0) {
+  if (tempTotal === 0) { // nothing to do
     limit = 0;
-  } else if (tempTotal > limit) {
-    limit = 2;
+  } else if (tempTotal >= limit) { // can remove total limit
     tempTotal -= limit;
-  } else {
-    limit -= tempTotal;
+  } else { // tempTotal !== 0 && tempTotal < limit
+    limit = tempTotal; // gets remaining amount
     tempTotal = 0;
   }
   return [tempTotal, limit]
@@ -350,7 +349,7 @@ export function filterCards(
     const aArr = Array.from(a[i]).sort();
     const bArr = Array.from(b[i]).sort();
 
-    //console.log("filter1", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+    //console.log("filter1", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits, aArr.length, bArr.length);
 
     // spreads out the limits to each other if necessary
     // only spreads out the limits if the other array can handle it!
@@ -364,6 +363,8 @@ export function filterCards(
       bArr.length,
     );
 
+    //console.log("filter2", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+
     [bMaxFirst, bMaxLast, aMaxFirst, aMaxLast] = filterCardsReduce1(
       bMaxFirst,
       bMaxLast,
@@ -373,7 +374,7 @@ export function filterCards(
       aArr.length,
     );
 
-    //console.log("filter2", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+    //console.log("filter3", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
 
     if (aArr.length > aMaxFirst + aMaxLast) {
       if (aMaxLast === 0) {
@@ -399,7 +400,7 @@ export function filterCards(
       totalLimits -= (bArr.length)
     }
 
-    //console.log("filter3", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+    //console.log("filter4", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
 
     // we CANNOT break the loop here because we must add the remaining (empty) arrays
     // to aRes and bRes it seems
@@ -412,7 +413,7 @@ export function filterCards(
     [tempTotal, bMaxFirst] = filterCardsReduce2(tempTotal, bMaxFirstOG);
     [tempTotal, bMaxLast] = filterCardsReduce2(tempTotal, bMaxLastOG);
 
-    //console.log("filter4", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
+    //console.log("filter5", aMaxFirst, aMaxLast, bMaxFirst, bMaxLast, totalLimits);
   }
 
   return [aRes, bRes];
