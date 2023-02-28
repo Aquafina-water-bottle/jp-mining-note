@@ -407,6 +407,7 @@ export class KanjiHover extends RunnableAsyncModule {
 
     // searches the remaining kanjis in kanjiSet
     const queryResults = await this.cardQueries(noteInfo, Array.from(kanjiSet));
+    //console.log("queryResults", queryResults);
 
     // two possible handlers:
     // a) find all note infos for sorting purposes
@@ -419,9 +420,10 @@ export class KanjiHover extends RunnableAsyncModule {
       throw Error('not implemented');
       //await this.sortByFirstReview(queryResults, kanjiToHover);
     }
-    //console.log(kanjiToFilteredCardIDs);
+    //console.log("kanjiToFilteredCardIDs", kanjiToFilteredCardIDs);
 
     const kanjiToFilteredCardInfo = await this.getCardInfo(kanjiToFilteredCardIDs);
+    //console.log("kanjiToFilteredCardInfo", kanjiToFilteredCardInfo)
     this.buildTooltips(kanjiToFilteredCardInfo, kanjiToHover);
 
     return kanjiToHover;
