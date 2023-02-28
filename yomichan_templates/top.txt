@@ -26,8 +26,12 @@
 
 {{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
 {{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
-{{~set "opt-no-freq-default-value" 0 ~}}
+{{~set "opt-no-freq-default-value" 9999999 ~}}
 {{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
+
+{{~set "opt-grammar-override" true ~}}
+{{~set "opt-grammar-override-value" 0 ~}}
+{{~#set "opt-grammar-override-dict-regex"~}} ^(日本語文法辞典\(全集\)|毎日のんびり日本語教師|JLPT文法解説まとめ|どんなときどう使う 日本語表現文型辞典|絵でわかる日本語)$ {{~/set~}}
 
 
 
