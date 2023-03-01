@@ -44,18 +44,16 @@
 {% endblock %}
 {% endset %}
 
-<div class="card-wrapper" id="card_wrapper">
+<div class="jpmn jpmn--back jpmn--{{CARD_INFO('card-type')}}" id="jpmn">
 
-  <div class="header-main-wrapper">
-    {% filter indent(4) %}
-    {{ card_header("card-header--back", True, _card_type) }}
+  {% filter indent(4) %}
+  {{ card_header(True, _card_type) }}
 
-    {{ card_main_back(_card_html_top, _card_html_bottom) }}
-    {% endfilter %}
-  </div>
+  {{ card_main_back(_card_html_top, _card_html_bottom) }}
+  {% endfilter %}
 
   {% filter indent(2) %}
-  {{ card_footer("card-footer--back") }}
+  {{ card_footer() }}
   {% endfilter %}
 
 </div> <!-- card-wrapper -->

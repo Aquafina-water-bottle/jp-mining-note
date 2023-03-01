@@ -1,9 +1,8 @@
 {# header macro #}
 
-{% macro card_header(header_class, show_frequencies, card_type) %}
+{% macro card_header(show_frequencies, card_type) %}
 
-{# header_class can be card-header--front or card-header--back #}
-<header class="card-header {{ header_class }}">
+<header class="card-header">
 
   <!-- placed before everything else so we can interact with the info circle! -->
   <div class="pa-indicator">

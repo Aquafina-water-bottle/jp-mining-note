@@ -28,11 +28,11 @@
 {% endblock %}
 {% endset %}
 
-<div class="card-wrapper" id="card_wrapper">
+<div class="jpmn jpmn--front jpmn--{{CARD_INFO('card-type')}}" id="jpmn">
 
   {% filter indent(2) %}
 
-  {{ card_header("card-header--front", False, _card_type) }}
+  {{ card_header(False, _card_type) }}
 
   {{ card_main_front(_card_html) }}
 

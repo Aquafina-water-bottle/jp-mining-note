@@ -737,10 +737,10 @@ code {
   max-width: common.$bp-max-width-backside;
 }
 
-.card-wrapper--vertical-display .expression--sentence {
-  padding-top: 1em;
-  padding-left: 0em;
-}
+//.card-wrapper--vertical-display .expression--sentence {
+//  padding-top: 1em;
+//  padding-left: 0em;
+//}
 
 
 .hint {
@@ -852,17 +852,17 @@ code {
 }
 
 
-/* experimental vertical-display support, moves borders to left */
-.card-wrapper--vertical-display {
-  .expression__hybrid-word--hover-indicator {
-    border-bottom-style: none;
-    border-left-style: dotted;
-  }
-  .expression__hybrid-word--click-indicator {
-    border-bottom-style: none;
-    border-left-style: dashed;
-  }
-}
+///* experimental vertical-display support, moves borders to left */
+//.card-wrapper--vertical-display {
+//  .expression__hybrid-word--hover-indicator {
+//    border-bottom-style: none;
+//    border-left-style: dotted;
+//  }
+//  .expression__hybrid-word--click-indicator {
+//    border-bottom-style: none;
+//    border-left-style: dashed;
+//  }
+//}
 
 
 /* used to specify that hovering toggles between word/sentence */
@@ -1780,9 +1780,9 @@ code {
  *  Definitions and collapsable boxes
  * -----------------------------------
  */
-.all-definitions {
-  position: relative;
-}
+//.all-definitions {
+//  position: relative;
+//}
 .folder-tab {
   display: none;
 }
@@ -2182,94 +2182,94 @@ code {
 
 
 
-/*
- * =======================
- *  vertical text support
- * =======================
- * TODO: test on mobile (padding & max-height!)
- */
-
-.card-wrapper--vertical-display.card-wrapper {
-  display: grid;
-  grid-template-rows: max-content 1fr;
-  height: calc(100vh - var(--vertical-display-header-height-calc));
-}
-
-.card-wrapper--vertical-display {
-  .card-header {
-    //border: solid 1px red;
-  }
-
-  .expression--sentence {
-    font-size: var(--vertical-sentence-font-size);
-  }
-
-
-  .card-main--front {
-    display: flex;
-    //border: solid 1px green;
-    writing-mode: vertical-rl;
-
-    .expression-wrapper {
-      // centers text
-      margin-left: auto;
-      margin-right: auto;
-      //border: solid 1px blue;
-    }
-  }
-
-  .card-main--back {
-    display: flex;
-    flex-direction: row-reverse;
-    margin-right: auto;
-    margin-left: auto;
-
-    /* so quote aligns with top better */
-    //.expression--sentence {
-    //  padding-top: 0em;
-    //}
-
-    .expression-wrapper {
-      writing-mode: vertical-rl;
-      height: calc(100vh - var(--vertical-display-header-height-calc) - var(--vertical-display-margin-top));
-
-      position: sticky;
-      top: 0px;
-    }
-
-    //  //border: solid 1px green;
-    //  writing-mode: vertical-rl;
-    //  margin-right: auto;
-    //  margin-top: auto; // I'm not sure why this works but it aligns the text to the top?
-
-    .back-side {
-      margin-top: var(--vertical-display-margin-top);
-      writing-mode: initial;
-      //margin-left: auto;
-    }
-
-
-    /* the line honestly looks ugly here */
-    .answer-border {
-      display: none;
-    }
-
-  }
-
-
-  /* only affects the front */
-  .below-display-top-row {
-    margin-top: 0px;
-    margin-bottom: auto;
-
-    .pa-button, .sentence_audio {
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
-
-}
+///*
+// * =======================
+// *  vertical text support
+// * =======================
+// * TODO: test on mobile (padding & max-height!)
+// */
+//
+//.card-wrapper--vertical-display.card-wrapper {
+//  display: grid;
+//  grid-template-rows: max-content 1fr;
+//  height: calc(100vh - var(--vertical-display-header-height-calc));
+//}
+//
+//.card-wrapper--vertical-display {
+//  .card-header {
+//    //border: solid 1px red;
+//  }
+//
+//  .expression--sentence {
+//    font-size: var(--vertical-sentence-font-size);
+//  }
+//
+//
+//  .card-main--front {
+//    display: flex;
+//    //border: solid 1px green;
+//    writing-mode: vertical-rl;
+//
+//    .expression-wrapper {
+//      // centers text
+//      margin-left: auto;
+//      margin-right: auto;
+//      //border: solid 1px blue;
+//    }
+//  }
+//
+//  .card-main--back {
+//    display: flex;
+//    flex-direction: row-reverse;
+//    margin-right: auto;
+//    margin-left: auto;
+//
+//    /* so quote aligns with top better */
+//    //.expression--sentence {
+//    //  padding-top: 0em;
+//    //}
+//
+//    .expression-wrapper {
+//      writing-mode: vertical-rl;
+//      height: calc(100vh - var(--vertical-display-header-height-calc) - var(--vertical-display-margin-top));
+//
+//      position: sticky;
+//      top: 0px;
+//    }
+//
+//    //  //border: solid 1px green;
+//    //  writing-mode: vertical-rl;
+//    //  margin-right: auto;
+//    //  margin-top: auto; // I'm not sure why this works but it aligns the text to the top?
+//
+//    .back-side {
+//      margin-top: var(--vertical-display-margin-top);
+//      writing-mode: initial;
+//      //margin-left: auto;
+//    }
+//
+//
+//    /* the line honestly looks ugly here */
+//    .answer-border {
+//      display: none;
+//    }
+//
+//  }
+//
+//
+//  /* only affects the front */
+//  .below-display-top-row {
+//    margin-top: 0px;
+//    margin-bottom: auto;
+//
+//    .pa-button, .sentence_audio {
+//      margin-left: auto;
+//      margin-right: auto;
+//    }
+//  }
+//
+//
+//}
 
 
 /* TODO move to a new utilities folder */
