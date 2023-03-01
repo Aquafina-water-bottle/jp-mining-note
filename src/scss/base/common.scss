@@ -83,13 +83,16 @@ $bp-combine-picture: 620px;
   --primary-def-picture-scale-no-def: 1.3;
 
   /* footer */
-  --mobile-footer-image-size: 80px;
+  --mobile-footer-image-size: 110px; /* TODO change dynamically and remove variable */
   --mobile-border: 0.5rem;
   --footer-height: calc(var(--mobile-footer-image-size) + (2 * var(--mobile-border)));
 
   /* other */
   --info-circle-settings-svg-size: 16px;
   --folder-tab-svg-size: 32px;
+  --folder-tab-margin-left: 15px;
+  --folder-tab-width: 130px;
+  --folder-tab-height: 30px;
 
   /* light mode specific */
   --text-color:                 black;

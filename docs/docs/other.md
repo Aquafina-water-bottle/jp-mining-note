@@ -164,8 +164,10 @@ However, this take up extra vertical space which is unnecessary if you are only 
 
     1. Under `extra/style.scss`, add the following code:
 
+        TODO verify this with new CSS!
+
         ```css
-        .card-main--back .expression-wrapper {
+        .jpmn--back > .card-main .expression-wrapper {
           display: none;
         }
         ```

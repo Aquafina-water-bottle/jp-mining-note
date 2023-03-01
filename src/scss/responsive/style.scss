@@ -214,17 +214,48 @@
   }
 
   /* removes furigana: takes too much vertical space */
-  .dh-left__reading > ruby > rt {
-    display: none;
-  }
+  //.dh-left__reading > ruby > rt {
+  //  display: none;
+  //}
+
+
 
   /* remove background and whatnot */
+  .def-header {
+    justify-content: flex-start;
+  }
+
   .dh-left {
     background: none;
     padding: 0em;
     border-radius: 0px;
     text-align: left;
+    //flex: 0 1 auto; /* reset to default */
+    margin-bottom: var(--folder-tab-height);
+    min-width: calc(var(--folder-tab-width) + var(--folder-tab-margin-left));
   }
+
+  .dh-right {
+    //position: fixed;
+    max-height: var(--mobile-footer-image-size) !important;
+    //bottom: var(--mobile-border);
+    //right: var(--mobile-border);
+    padding-left: 0px;
+
+    margin-left: auto; /* centers */
+    margin-right: auto;
+
+    //flex: 1; /* takes up as much space as possible */
+
+    //z-index: 1; /* so audio buttons and picture can be interacted with */
+
+    .dh-right__img {
+      max-height: var(--mobile-footer-image-size) !important;
+      margin-right: 0.5rem;
+    }
+  }
+
+
 
   .glossary-blockquote {
     /* removes horizontal margins */
@@ -244,32 +275,45 @@
     display: none;
   }
 
+  .primary-def-blockquote-wrapper {
+    position: relative;
+  }
+
   .folder-tab {
     display: flex;
     position: absolute;
-    right: 0px;
-    top: -40px;
-    height: 40px;
-    width: 110px;
-    padding-right: 7px; /* a hack because the menu button is a bit big */
-    background: var(--background-darken);
-    justify-content: space-evenly;
-    align-items: center;
-
+    bottom: 100%;
+    height: var(--folder-tab-height);
+    width: var(--folder-tab-width);
+    margin-left: var(--folder-tab-margin-left);
     user-select: none;
   }
 
-  .folder-tab > .folder-tab__button {
+  .folder-tab-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: end;
+    margin-left: 13px; /* makes buttons magically align properly with svg */
+  }
+
+  .folder-tab-background {
+    position: absolute;
+    z-index: -1;
+    fill: var(--background-darken);
+    bottom: 0px;
+  }
+
+  .folder-tab__button {
     display: flex; /* centers the items for some reason */
   }
 
-  .folder-tab > .folder-tab__button > svg {
+  .folder-tab__button > svg {
     width: var(--folder-tab-svg-size);
     height: var(--folder-tab-svg-size);
     fill: var(--text-color);
   }
 
-  .folder-tab > .folder-tab__button--disabled > svg {
+  .folder-tab-buttons > .folder-tab__button--disabled > svg {
     fill: var(--text-color--4);
   }
 
@@ -278,14 +322,16 @@
   }
 
   /* allows arbitrary horizontal text expanding */
+  // TODO test on longer texts (en) + width adjusting
   .folder-tab__menu-wrapper {
+    /* change to right: 0px; text-align: right; to show menu to left of button instead of right */
     position: absolute;
     top: 100%;
-    right: 0px;
+    left: 0px;
     width: 300px;
     height: 0px;
     display: none;
-    text-align: right;
+    text-align: left;
     z-index: 2; /* makes sure this is the first interactable over external links */
   }
 
@@ -340,7 +386,7 @@
   }
 
   /* displays menu if toggled */
-  .folder-tab > input:checked + label > .folder-tab__menu-wrapper {
+  .folder-tab-buttons > input:checked + label > .folder-tab__menu-wrapper {
     display: block;
   }
 
@@ -380,22 +426,8 @@
   //  display: none;
   //}
 
-  .card-wrapper { /* re-adds margin from body */
-  }
-
-  .dh-right {
-    position: fixed;
-    max-height: var(--mobile-footer-image-size) !important;
-    bottom: var(--mobile-border);
-    right: var(--mobile-border);
-    padding-left: 0px;
-
-    z-index: 1; /* so audio buttons and picture can be interacted with */
-
-    .dh-right__img {
-      max-height: var(--mobile-footer-image-size) !important;
-    }
-  }
+  //.card-wrapper { /* re-adds margin from body */
+  //}
 
   .dh-right__svg-eye {
     display: none !important;
