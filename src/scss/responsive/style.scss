@@ -328,7 +328,7 @@
     position: absolute;
     top: 100%;
     left: 0px;
-    width: 300px;
+    width: 220px;
     height: 0px;
     display: none;
     text-align: left;
@@ -348,11 +348,12 @@
   }
 
   .folder-tab__menu-label {
-    --label-font-size: #{common.px2rem(24px)};
+    --label-font-size: #{common.px2rem(16px)};
     --svg-size: #{common.px2rem(32px)};
     display: flex;
     align-items: center;
     font-size: var(--label-font-size);
+    padding-right: common.px2rem(4px);
 
     .folder-tab-label-check {
       visibility: hidden;

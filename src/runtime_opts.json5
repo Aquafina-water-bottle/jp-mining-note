@@ -787,6 +787,12 @@
 
   "folderTab.enabled": true,
 
+  // possible options:
+  // "switch"
+  // "selection"
+  // "selection-unique"
+  "folderTab.mode": "",
+
 
 
 
