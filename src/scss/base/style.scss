@@ -1024,7 +1024,7 @@ code {
   border-bottom: 1px solid;
   margin-top: 10px;
   margin-bottom: 15px;
-  width: 95%;
+  width: min(90% + 5rem, 100%);
 }
 
 

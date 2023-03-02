@@ -1,6 +1,7 @@
 import { compileOpts, runtimeOpts } from './consts';
 import { LOGGER } from './logger';
-import { isMobile, VW, arrContainsAnyOf, getCardType, getCardSide , fieldsAllEmpty, Field, fieldsAllFilled, fieldsAnyFilled} from './utils';
+import { isMobile, arrContainsAnyOf, getCardType, getCardSide , fieldsAllEmpty, Field, fieldsAllFilled, fieldsAnyFilled} from './utils';
+import { getViewportWidth } from './reflow';
 
 // default options
 type DO = typeof runtimeOpts;
@@ -45,7 +46,7 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
   viewport: (args: unknown) => {
     if (args !== null && typeof args === 'object' && 'op' in args && 'value' in args) {
       if ((args.op as string) in OPS) {
-        return OPS[args.op as keyof typeof OPS](VW, args.value);
+        return OPS[args.op as keyof typeof OPS](getViewportWidth(), args.value);
       }
     }
     LOGGER.warn(`Invalid viewport arguments: ${args}`, { ignoreOptions: true });

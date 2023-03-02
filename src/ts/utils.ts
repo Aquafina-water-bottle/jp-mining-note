@@ -59,16 +59,21 @@ export type NoteInfo = {
 export type CardSide = "front" | "back";
 
 
+//export const VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
-export const VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+let tagsList: null | readonly string[] = null;
 
-export const TAGS_LIST: readonly string[] = (() => {
-  let tagsList = '{{Tags}}'.split(' ');
-  if (tagsList.length === 1 && tagsList[0] === '') {
-    return [];
+export function getTags() {
+  if (tagsList === null) {
+    let tags = '{{Tags}}'.split(' ');
+    if (tags.length === 1 && tags[0] === '') {
+      tagsList = [];
+    } else {
+      tagsList = tags;
+    }
   }
   return tagsList;
-})();
+}
 
 // all verb tags that isn't 'vs'
 const ALL_VERB_TAGS = new Set(["v_unspec", "v1", "v1_s", "v2a_s", "v2b_k", "v2b_s", "v2d_k", "v2d_s", "v2g_k", "v2g_s", "v2h_k", "v2h_s", "v2k_k", "v2k_s", "v2m_k", "v2m_s", "v2n_s", "v2r_k", "v2r_s", "v2s_s", "v2t_k", "v2t_s", "v2w_s", "v2y_k", "v2y_s", "v2z_s", "v4b", "v4g", "v4h", "v4k", "v4m", "v4n", "v4r", "v4s", "v4t", "v5aru", "v5b", "v5g", "v5k", "v5k_s", "v5m", "v5n", "v5r", "v5r_i", "v5s", "v5t", "v5u", "v5u_s", "v5uru", "vi", "vk", "vn", "vr", "vs_c", "vs_i", "vs_s", "vt", "vz"]);
@@ -77,8 +82,14 @@ const ALL_VERB_TAGS = new Set(["v_unspec", "v1", "v1_s", "v2a_s", "v2b_k", "v2b_
 // If a card has the same key and sentence, it's safe to guess that the card
 // is functionally the same anways.
 // Useful for usage in persistance, etc.
+//let cardKey: string | null = null;
+//export function getCardKey() {
+//  if (cardKey !== null) {
+//    cardKey = `${getFieldValue("Key")}.${getFieldValue("Sentence")}`;
+//  }
+//  return cardKey;
+//}
 export const CARD_KEY = `${getFieldValue("Key")}.${getFieldValue("Sentence")}`;
-
 
 export function popupMenuMessage(message: string, isHTML = false) {
   let popupMenu = document.getElementById('popup_menu');

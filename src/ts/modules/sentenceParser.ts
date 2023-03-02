@@ -2,13 +2,13 @@ import { RunnableModule } from '../module';
 import { checkOptTags } from '../options';
 import {
   countOccurancesInString,
-  TAGS_LIST,
   paIndicator,
   getCardType,
   fieldsAnyFilled,
   fieldsAllEmpty,
   getFieldValue,
   plainToKanaOnly,
+  getTags,
 } from '../utils';
 import { compileOpts } from '../consts';
 import { AutoHighlightWord, SearchStrings } from './autoHighlightWord';
@@ -64,7 +64,6 @@ export class SentenceParser extends RunnableModule {
     ? new AutoHighlightWord()
     : null;
 
-  private tags = TAGS_LIST; // why is this here?
   private debugLevel: number;
 
   constructor(id?: string, args?: SentenceParserArgs) {
@@ -272,7 +271,7 @@ export class SentenceParser extends RunnableModule {
     checkTags = false
   ): QuoteProcessMode {
     if (checkTags) {
-      const processMode = checkOptTags(this.tags, [
+      const processMode = checkOptTags(getTags(), [
         ['sentenceParser.display.quotes.processMode.tagOverride.add', 'add'],
         ['sentenceParser.display.quotes.processMode.tagOverride.remove', 'remove'],
         ['sentenceParser.display.quotes.processMode.tagOverride.asIs', 'as-is'],
@@ -294,12 +293,12 @@ export class SentenceParser extends RunnableModule {
     if (checkTags) {
       let displayMode;
       if (isQuoted) {
-        displayMode = checkOptTags(this.tags, [
+        displayMode = checkOptTags(getTags(), [
           ['sentenceParser.display.quotes.displayMode.quoted.tagOverride.block', 'block'],
           ['sentenceParser.display.quotes.displayMode.quoted.tagOverride.flow', 'flow'],
         ]);
       } else {
-        displayMode = checkOptTags(this.tags, [
+        displayMode = checkOptTags(getTags(), [
           [
             'sentenceParser.display.quotes.displayMode.unquoted.tagOverride.indented',
             'indented',
@@ -325,8 +324,26 @@ export class SentenceParser extends RunnableModule {
 
   private processPeriod(sentContents: string): string {
     const periods = this.getOption('sentenceParser.removeFinalPeriod.validPeriods');
-    const re = new RegExp(`[${periods}]$`);
-    return sentContents.replace(re, '');
+    const rxLastPeriod = new RegExp(`[${periods}]$`);
+    const rxPeriods = new RegExp(`[${periods}]`, 'g');
+
+    // we use regex to remove tags instead of the safer alternative of invoking an HTML parser
+    // since this should be much faster + this is a simple enough case
+    const rxTags = new RegExp(`<.*?>`, 'g');
+
+    // the last period can be part of an html tag, i.e. `(text)<b>(text)。</b>`
+    // therefore, we strip the tags to search, and then if found, remove the last found period
+    // within the actual sentContents
+    if (rxLastPeriod.test(sentContents.replace(rxTags, ""))) {
+      const results = Array.from(sentContents.matchAll(rxPeriods));
+      if (results.length > 0) {
+        const i = results[results.length-1].index; // position of last period
+        if (i !== undefined) {
+          return sentContents.substring(0, i) + sentContents.substring(i+1);
+        }
+      }
+    }
+    return sentContents;
   }
 
   private autoHighlightLog(sentType: SentenceType, replace: string | null, word: string) {

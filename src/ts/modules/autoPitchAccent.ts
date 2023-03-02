@@ -1,6 +1,6 @@
 import { Module, RunnableModule } from '../module';
 //import { getOption } from '../options';
-import { getFieldValue, getWordTags, isVerb, plainToKanaOnly, TAGS_LIST } from '../utils';
+import { getFieldValue, getWordTags, isVerb, plainToKanaOnly, getTags } from '../utils';
 import {
   convertHiraganaToKatakana,
   convertHiraganaToKatakanaWithLongVowelMarks,
@@ -1052,7 +1052,7 @@ export class AutoPitchAccent extends RunnableModule {
 
   main() {
     const noteInfo: NoteInfoPA = {
-      tags: TAGS_LIST,
+      tags: getTags(),
       PAOverrideText: getFieldValue('PAOverrideText'),
       PAOverride: getFieldValue('PAOverride'),
       PAPositions: getFieldValue('PAPositions'),
