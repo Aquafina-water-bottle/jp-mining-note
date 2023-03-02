@@ -1,6 +1,6 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { getFieldValue, filterCards, TAGS_LIST, CARD_KEY } from '../utils';
+import { getFieldValue, filterCards, getTags, CARD_KEY } from '../utils';
 import {
   Tooltips,
   QueryBuilderGroup,
@@ -225,7 +225,7 @@ class WordIndicator {
       WordReading: getFieldValue('WordReading'),
       WordReadingHiragana: getFieldValue('WordReading'),
       YomichanWordTags: getFieldValue('YomichanWordTags'),
-      tags: TAGS_LIST,
+      tags: getTags(),
     };
     const currentCardBuilder = this.wordInds.tooltips.newCardBuilder();
     currentCardBuilder.createWordDiv(currentCardInfo);

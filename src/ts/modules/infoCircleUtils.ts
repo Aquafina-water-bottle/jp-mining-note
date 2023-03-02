@@ -2,7 +2,7 @@ import {invoke} from '../ankiConnectUtils';
 import {translatorStrs} from '../consts';
 import { RunnableModule } from '../module';
 import { O, getOption } from '../options';
-import { getCardSide, isMobile, popupMenuMessage, TAGS_LIST } from '../utils';
+import { getCardSide, isMobile, popupMenuMessage, getTags } from '../utils';
 
 const infoCircFrozen = 'info-circle--frozen';
 const infoCircTogglable = 'info-circle-svg-wrapper--togglable';
@@ -29,7 +29,7 @@ export class InfoCircleUtils extends RunnableModule {
     if (this.infoCircTags !== null && this.infoCircTagsText !== null) {
       const showTagsMode = getOption("infoCircleUtils.showTagsMode");
       if ((showTagsMode === "always") || (showTagsMode === "back" && getCardSide() === "back")) {
-        for (const tag of TAGS_LIST) {
+        for (const tag of getTags()) {
           const tagEle = document.createElement("span")
           tagEle.innerText = tag;
           if (enableAnkiconnectFeatures) {
@@ -48,7 +48,7 @@ export class InfoCircleUtils extends RunnableModule {
     }
 
     // not ran in the above loop to avoid coloring the info circle on the front side
-    if (getCardSide() === "back" && TAGS_LIST.includes("leech")) {
+    if (getCardSide() === "back" && getTags().includes("leech")) {
       this.logger.leech(!displayLeechTag);
     }
 

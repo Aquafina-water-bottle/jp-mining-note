@@ -5,12 +5,12 @@ import { checkOptTags, getOption } from '../options';
 import {
   arrContainsAnyOf,
   getCardSide,
+  getTags,
   isMobile,
   popupMenuMessage,
-  TAGS_LIST,
-  VW,
 } from '../utils';
 import { InfoCircleSetting } from './infoCircleSetting';
+import {getViewportWidth} from '../reflow';
 
 type TagToImg = {
   tag: string;
@@ -186,7 +186,7 @@ class ImgBlur extends Module {
   }
 
   cardIsMarked() {
-    return arrContainsAnyOf(TAGS_LIST, getOption('imgStylizer.mainImage.blur.tags'));
+    return arrContainsAnyOf(getTags(), getOption('imgStylizer.mainImage.blur.tags'));
   }
 
   displaySetting() {
@@ -286,7 +286,7 @@ class BackImgStylizer extends Module {
 
     if (
       getOption('imgStylizer.mainImage.resizeHeightMode') === 'auto-height' &&
-      VW > compileOpts['breakpoints.combinePicture']
+      getViewportWidth() > compileOpts['breakpoints.combinePicture']
     ) {
       ele.style.maxHeight = this.getHeightLeft() + 'px';
     } else if (getOption('imgStylizer.mainImage.resizeHeightMode') === 'fixed') {
@@ -331,7 +331,7 @@ class BackImgStylizer extends Module {
     ) as unknown as TagToImgList;
     for (const tagToImg of tagToImgList) {
       const tag = tagToImg.tag;
-      if (TAGS_LIST.includes(tag)) {
+      if (getTags().includes(tag)) {
       //if (arrContainsAnyOf(TAGS_LIST, tags)) {
         const fileName = tagToImg.fileName;
 
@@ -387,7 +387,7 @@ class BackImgStylizer extends Module {
   private getStylizeMode(modeType: 'yomichan' | 'user'): StylizeType {
     let defaultMode = getOption(`imgStylizer.glossary.primaryDef.mode.${modeType}`);
 
-    const stylizeMode = checkOptTags(TAGS_LIST, [
+    const stylizeMode = checkOptTags(getTags(), [
       [`imgStylizer.glossary.primaryDef.mode.${modeType}.tagOverride.float`, 'float'],
       [
         `imgStylizer.glossary.primaryDef.mode.${modeType}.tagOverride.collapse`,
@@ -512,7 +512,7 @@ class BackImgStylizer extends Module {
   private getFloatImgPos(): FloatImgPos {
     let defaultPos = getOption('imgStylizer.glossary.floatImg.position');
 
-    const floatImgPos = checkOptTags(TAGS_LIST, [
+    const floatImgPos = checkOptTags(getTags(), [
       ['imgStylizer.glossary.floatImg.overrideTags.bottom', 'bottom'],
       ['imgStylizer.glossary.floatImg.overrideTags.top', 'top'],
       ['imgStylizer.glossary.floatImg.overrideTags.right', 'right'],

@@ -5,7 +5,7 @@
  * method names to be the exact same as the original...
  */
 
-import { LOGGER } from './logger';
+//import { LOGGER } from './logger';
 
 export type SPersistType = 'window' | 'sessionStorage';
 
@@ -127,7 +127,8 @@ class SPersistObj implements SPersistInterface {
     return 'window';
   }
 }
-LOGGER.debug('spersist control');
+//LOGGER.debug('spersist control');
+console.log("spersist control")
 // wrappers to ensure that these are defined only once
 if (
   !('_SPersist_sessionStorage' in window) &&
@@ -135,7 +136,7 @@ if (
   typeof globalThis.sessionStorage === 'object'
 ) {
   (window as any)._SPersist_sessionStorage = new SPersistSessionStorage();
-  LOGGER.debug('Initializing _SPersist_sessionStorage');
+  console.log("Initializing _SPersist_sessionStorage")
 }
 
 //if (!('_SPersist_windowKey' in window)) {
@@ -160,10 +161,12 @@ if (
 
 if (!('_SPersist_windowKey' in window)) {
   if (typeof (window as any).py === 'object') {
-    LOGGER.debug('Initializing _SPersist_windowKey.py');
+    //LOGGER.debug('Initializing _SPersist_windowKey.py');
+    console.log("Initializing _SPersist_windowKey.py");
     (window as any)._SPersist_windowKey = new SPersistObj((window as any).py);
   } else if (typeof (window as any).qt === 'object') {
-    LOGGER.debug('Initializing _SPersist_windowKey.qt');
+    //LOGGER.debug('Initializing _SPersist_windowKey.qt');
+    console.log('Initializing _SPersist_windowKey.qt');
     (window as any)._SPersist_windowKey = new SPersistObj((window as any).qt);
   }
 }
@@ -185,6 +188,16 @@ export function selectPersist(...types: SPersistType[]): SPersistInterface | nul
   }
   return null;
 }
+
+// TODO deprecate selectPersist with these two methods
+export function selectPersistStr(): SPersistInterface | null {
+  return selectPersist("sessionStorage", "window");
+}
+
+export function selectPersistObj(): SPersistInterface | null {
+  return selectPersist("window");
+}
+
 
 //export function clearAllPersists() {
 //  for (const persistObj of Object.values(persistObjs)) {
