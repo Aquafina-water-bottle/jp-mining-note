@@ -1,4 +1,9 @@
-/* a hack to no longer depend on the installed font (to speed up card load times) */
+/*
+ * a hack to no longer depend on the installed font (to speed up card load times).
+ * see:
+ * https://github.com/ankidroid/Anki-Android/issues/4856
+ * https://github.com/ankidroid/Anki-Android/issues/5213
+ */
 
 @use "../base/common" as common;
 

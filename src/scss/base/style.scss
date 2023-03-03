@@ -15,6 +15,9 @@
 
 @use "common";
 
+/* Consider uncommenting the import below if fonts don't work (especially for Android): */
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap'); */
+
 /* defines the REM value */
 html {
   font-size: 16px;
