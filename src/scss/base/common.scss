@@ -6,8 +6,9 @@ $bp-max-width-backside: 850px;
 $bp-combine-picture: 620px;
 
 $jp-serif: notoserif,
-          "Noto Serif",
           "Noto Serif CJK JP",
+          "Noto Serif JP",
+          "Noto Serif",
           "Droid Serif",
           "Roboto Slab",
           "IPAPMincho",
@@ -16,8 +17,9 @@ $jp-serif: notoserif,
           serif;
 
 $jp-sans: notosans,
-          "Noto Sans",
           "Noto Sans CJK JP",
+          "Noto Sans JP",
+          "Noto Sans",
           "Open Sans",
           "Droid Sans",
           "Ubuntu",
@@ -28,8 +30,10 @@ $jp-sans: notosans,
           "Koruri",
           sans-serif;
 
-$jp-serif-android: "Noto Serif",
+$jp-serif-android:
           "Noto Serif CJK JP",
+          "Noto Serif JP",
+          "Noto Serif",
           "Droid Serif",
           "Roboto Slab",
           "IPAPMincho",
@@ -37,8 +41,10 @@ $jp-serif-android: "Noto Serif",
           "HanaMinB",
           serif;
 
-$jp-sans-android: "Noto Sans",
+$jp-sans-android:
           "Noto Sans CJK JP",
+          "Noto Sans JP",
+          "Noto Sans",
           "Open Sans",
           "Droid Sans",
           "Ubuntu",

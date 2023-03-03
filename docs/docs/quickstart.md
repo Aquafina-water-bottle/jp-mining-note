@@ -20,6 +20,17 @@ important things to notice:
         in order to prioritize the definition (prevents scrolling down)
     - switching between definitions is done through the `<`, `>` and `menu` buttons
 
+TODO (move this to setup actually)
+
+- android:
+    - may have to uncomment @import statement
+    - may have to adjust pitch accent for their device:
+        ```
+        .android {
+          --pa-overline-height-above-text: 0.2em;
+        }
+        ```
+
 ---
 
 
