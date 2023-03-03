@@ -203,7 +203,7 @@ class WordIndicator {
 
     // convert set to array
     const cardIDsArray = [...cardIDs];
-    const cardsInfoResult = await cardsInfo(cardIDsArray);
+    const cardsInfoResult = await cardsInfo(cardIDsArray, this.wordInds.useCache);
 
     const result: FilteredCardsInfo = {
       nonNew: cardIDsToCardsInfo(filteredCardIDs['nonNew'], cardsInfoResult),

@@ -47,6 +47,13 @@ export class MainCardUtils extends RunnableModule {
     }
   }
 
+  playSilence() {
+    let elem = document.querySelector("#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton");
+    if (elem) {
+      (elem as HTMLAnchorElement).click();
+    }
+  }
+
   main() {
     addKeybindFunc("sentenceKeybinds", this.sentenceKeybinds);
 
@@ -71,11 +78,16 @@ export class MainCardUtils extends RunnableModule {
       }
 
       // auto-plays silence
-      // TODO this doesn't work on android for some reason!
-      // it freezes the entire card so the front side no longer loads :(
-      let elem = document.querySelector("#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton");
-      if (elem && !isAndroid()) {
-        (elem as HTMLAnchorElement).click();
+      if (isAndroid()) {
+        // for some reason, without the delay, it freezes the entire card
+        // so the front side no longer loads :(
+        // I'm guessing it's some weird race condition happening
+        setTimeout(() => {
+          this.playSilence();
+        }, 5000);
+      } else {
+        // plays it instantly because why not
+        this.playSilence()
       }
 
     }

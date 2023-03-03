@@ -44,7 +44,7 @@
 {% endblock %}
 {% endset %}
 
-<div class="jpmn jpmn--back jpmn--{{CARD_INFO('card-type')}}" id="jpmn">
+<div class="jpmn jpmn--back jpmn--{{CARD_INFO('card-type').item()}}" id="jpmn">
 
   {% filter indent(4) %}
   {{ card_header(True, _card_type) }}

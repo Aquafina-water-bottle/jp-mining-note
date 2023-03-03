@@ -759,7 +759,7 @@
   "freqUtils.listAll.overflow": 2,
 
   // shows "unknown" if the summary is any of the following values
-  "freqUtils.summary.defaultValues": ["0", "999999", "9999999", "99999999", "1000000", "10000000"],
+  "freqUtils.summary.defaultValues": ["999999", "9999999", "99999999", "1000000", "10000000"],
 
 
 

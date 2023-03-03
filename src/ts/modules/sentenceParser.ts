@@ -337,6 +337,7 @@ export class SentenceParser extends RunnableModule {
     if (rxLastPeriod.test(sentContents.replace(rxTags, ""))) {
       const results = Array.from(sentContents.matchAll(rxPeriods));
       if (results.length > 0) {
+        // lastIndexOf only works on strings and not regex it seems?
         const i = results[results.length-1].index; // position of last period
         if (i !== undefined) {
           return sentContents.substring(0, i) + sentContents.substring(i+1);

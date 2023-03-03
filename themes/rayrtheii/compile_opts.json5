@@ -46,7 +46,11 @@
     "responsive",
     "dictionaries",
     "editor-fields",
-    "legacy-anki-2-1-54",
+    "android-fonts",
+
+    //"fix-img-height",
+    //"legacy-anki-2-1-54",
+
     "theme",
     "extra",
   ],
