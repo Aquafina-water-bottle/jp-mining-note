@@ -44,8 +44,10 @@ and must use `./install.py --update`.
         - NOTE: currently doesn't allow custom javascript / typescript
     - See `themes` folder for some examples
 
-- Mobile design rework
-    - TODO link writeup?
+- Vastly improved mobile support
+    - Completely reworked the mobile design (TODO link?)
+    - Fixed silence playing no longer working on Ankidroid
+    - Removed using downloaded font for Ankidroid in order to make loading times sane
 
 - Backend Javascript rework: (TODO)
     - Javascript has been finally ported to Typescript & webpack
@@ -109,6 +111,7 @@ and must use `./install.py --update`.
     - Added a dropdown feature for frequencies when there are too many frequencies
         - For the current display mode (`summary`), hides all other frequencies in the dropdown
         - For the legacy display mode (`list-all`), collapses after 4-6
+    - Added "unknown" display on default values (where the value itself is hidden on mobile)
 
 - Info Circle:
     - Added spacing between options in the info circle

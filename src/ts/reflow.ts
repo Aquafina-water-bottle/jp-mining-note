@@ -10,9 +10,6 @@ const widthKey = "jpmn.reflow.widthKey";
 
 type TimeoutValue = ReturnType<typeof setTimeout>;
 
-let timeout: TimeoutValue | null = null; // holder for timeout id
-let delay = 250; // delay after event is "complete" to run callback
-
 function getVWForceReflow(): number {
   LOGGER.debug("Running getVWForceReflow...");
   return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -29,6 +26,8 @@ function setWidthCache(persist: SPersistInterface) {
 
 
 function setResizeListener(persist: SPersistInterface) {
+  let timeout: TimeoutValue | null = null; // holder for timeout id
+  let delay = 500; // delay after event is "complete" to run callback
 
   window.onresize = (event) => {
     // clear the timeout

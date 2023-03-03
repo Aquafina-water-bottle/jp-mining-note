@@ -106,6 +106,10 @@
     "responsive",
     "dictionaries",
     "editor-fields",
+    "android-fonts",
+
+    //"legacy-anki_2-1-54",
+
     "theme",
     "extra",
   ],
@@ -166,7 +170,9 @@
   "enableModule.wordIndicators":          true,
   "enableModule.checkDuplicateKey":       true,
 
-  "enableModule.webSocketUtils":          true,
+  // I recommend using AJT autocopy instead of websocketUtils:
+  // https://ankiweb.net/shared/info/1995103628
+  "enableModule.webSocketUtils":          false,
   "enableModule.collapseDictionaries":    true,
   "enableModule.openCollapsedFields":     true,
   "enableModule.freqUtils":               true,

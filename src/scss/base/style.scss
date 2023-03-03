@@ -31,8 +31,7 @@ html {
 
 
 .card {
-  /*font-family: notoserif;*/
-  font-family: notosans;
+  font-family: common.$jp-sans;
   text-align: center;
   font-style: normal;
 
@@ -348,7 +347,7 @@ code {
 }
 
 .card-description {
-  font-family: notoserif;
+  font-family: common.$jp-serif;
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
@@ -403,7 +402,7 @@ code {
   color: var(--card-description-color);
 
   float: right;
-  font-family: notoserif;
+  font-family: common.$jp-serif;
 }
 
 
@@ -448,7 +447,7 @@ code {
   min-width: 200px;
   max-width: var(--tooltip-max-width);
 
-  font-family: notosans;
+  font-family: common.$jp-sans;
   font-size: var(--tooltip-font-size);
   text-align: left;
 
@@ -692,7 +691,7 @@ code {
 
 
 .expression {
-  font-family: notoserif;
+  font-family: common.$jp-serif;
 }
 
 .expression b {
@@ -707,7 +706,7 @@ code {
 /* used in other cards where PA flag is not shown */
 .expression--single {
   font-size: var(--sentence-font-size);
-  font-family: notoserif;
+  font-family: common.$jp-serif;
 }
 
 
@@ -1079,7 +1078,7 @@ code {
 
 .dh-left__reading {
   font-size: var(--reading-font-size);
-  font-family: notoserif;
+  font-family: common.$jp-serif;
   white-space: nowrap; /* so the reading can expand ouside of the max width */
 }
 
@@ -1364,7 +1363,7 @@ code {
   color: var(--text-color);
 
   font-size: 18px;
-  font-family: notosans;
+  font-family: common.$jp-sans;
   text-align: left;
   position: absolute;
   width: 620px;
@@ -1702,7 +1701,7 @@ code {
 .full-sentence {
   font-size: var(--full-sentence-font-size);
   margin: 0.3em 0 0.3em 0;
-  font-family: notoserif;
+  font-family: common.$jp-serif;
 
   margin-left: auto;
   margin-right: auto;
@@ -1958,7 +1957,8 @@ code {
   display: inline-block;
 }
 
-.glossary__image-hover-text {
+a.glossary__image-hover-text {
+  text-decoration: none !important; /* override styles for ankidroid */
 }
 
 .glossary__image-hover-media {
@@ -2092,7 +2092,7 @@ code {
 .frequencies {
   display: flex;
   gap: 10px;
-  font-family: notoserif;
+  font-family: common.$jp-serif;
   font-size: var(--description-font-size);
   line-height: 85%;
 }
@@ -2124,6 +2124,13 @@ code {
 
 .frequencies-overflow:hover {
   fill: var(--frequencies-overflow-hover-color);
+}
+
+.unknown-freq-number:before {
+  content: " ("
+}
+.unknown-freq-number:after {
+  content: ")"
 }
 
 

@@ -70,6 +70,7 @@ export class AsyncManager extends Module {
   }
 
   async refreshCard() {
+    // TODO: move this out of async manager and as its own module
     const refreshMutex = 'jpmn-asyncManager-refresh-mutex' + CARD_KEY;
 
     if (this.persist === null) {
@@ -84,7 +85,6 @@ export class AsyncManager extends Module {
       this.persist.set(refreshMutex, 'running');
     }
 
-    popupMenuMessage('Refreshing card...');
     await this.runModules(true);
 
     if (this.persist !== null) {
