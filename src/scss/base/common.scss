@@ -121,6 +121,8 @@ $jp-sans-android:
   --pa-overline-downstep-left-offset: 1px;
 
 
+  --dh-right-image-gap: 35px;
+
   /* external links */
   --external-links-icon-size: 20px;
   --external-links-icon-font-size: 14px;
@@ -355,6 +357,10 @@ $jp-sans-android:
     left: 0px;
   }
 
+
+  .pitchterm {
+    white-space: nowrap;
+  }
 
 
   .nopron {

@@ -12,7 +12,8 @@ type TimeoutValue = ReturnType<typeof setTimeout>;
 
 function getVWForceReflow(): number {
   LOGGER.debug("Running getVWForceReflow...");
-  return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+  //return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+  return document.documentElement.clientWidth || 0;
 }
 
 //function _getVHForceReflow(): number {
