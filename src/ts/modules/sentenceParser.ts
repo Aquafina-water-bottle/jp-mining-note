@@ -161,34 +161,34 @@ export class SentenceParser extends RunnableModule {
   //  return null;
   //}
 
-  private colorQuotes(sent: Sentence) {
-    sent.open.classList.add(paIndicator.className);
-    sent.close.classList.add(paIndicator.className);
+  //private colorQuotes(sent: Sentence) {
+  //  sent.open.classList.add(paIndicator.className);
+  //  sent.close.classList.add(paIndicator.className);
 
-    // the things below are only for the main card type
-    if (getCardType() !== 'main') {
-      return;
-    }
+  //  // the things below are only for the main card type
+  //  if (getCardType() !== 'main') {
+  //    return;
+  //  }
 
-    // removes pa indicator for hover cards / click cards (sentences)
-    if (fieldsAnyFilled('IsHoverCard', 'IsClickCard')) {
-      let elemsHybrid = document.getElementsByClassName('expression__hybrid');
-      for (const e of elemsHybrid) {
-        e.classList.add('expression__hybrid--remove-pa-indicator');
-      }
-    }
+  //  // removes pa indicator for hover cards / click cards (sentences)
+  //  if (fieldsAnyFilled('IsHoverCard', 'IsClickCard')) {
+  //    let elemsHybrid = document.getElementsByClassName('expression__hybrid');
+  //    for (const e of elemsHybrid) {
+  //      e.classList.add('expression__hybrid--remove-pa-indicator');
+  //    }
+  //  }
 
-    // neither hover & click and is either one of TSC / sentence -> removes flag
-    if (
-      fieldsAllEmpty('IsHoverCard', 'IsClickCard', 'IsHintCard') &&
-      fieldsAnyFilled('IsTargetedSentenceCard', 'IsSentenceCard')
-    ) {
-      let elemsExpr = document.getElementsByClassName('expression');
-      for (const e of elemsExpr) {
-        e.classList.add('expression--remove-pa-indicator');
-      }
-    }
-  }
+  //  // neither hover & click and is either one of TSC / sentence -> removes flag
+  //  if (
+  //    fieldsAllEmpty('IsHoverCard', 'IsClickCard', 'IsHintCard') &&
+  //    fieldsAnyFilled('IsTargetedSentenceCard', 'IsSentenceCard')
+  //  ) {
+  //    let elemsExpr = document.getElementsByClassName('expression');
+  //    for (const e of elemsExpr) {
+  //      e.classList.add('expression--remove-pa-indicator');
+  //    }
+  //  }
+  //}
 
   // note: this function adds css!
   private processQuotes(
@@ -238,16 +238,16 @@ export class SentenceParser extends RunnableModule {
     }
 
     // attempts to color quotes if quotes exists and options specify so
-    if (
-      o !== '' &&
-      fieldsAnyFilled('PAShowInfo') &&
-      ((getCardType() === 'main' && // either main or pa sentence option
-        this.getOption('sentenceParser.display.quotes.paIndicatorColor.main')) ||
-        (getCardType() === 'pa_sent' &&
-          this.getOption('sentenceParser.display.quotes.paIndicatorColor.paSent')))
-    ) {
-      this.colorQuotes(sent);
-    }
+    //if (
+    //  o !== '' &&
+    //  fieldsAnyFilled('PAShowInfo') &&
+    //  ((getCardType() === 'main' && // either main or pa sentence option
+    //    this.getOption('sentenceParser.display.quotes.paIndicatorColor.main')) ||
+    //    (getCardType() === 'pa_sent' &&
+    //      this.getOption('sentenceParser.display.quotes.paIndicatorColor.paSent')))
+    //) {
+    //  this.colorQuotes(sent);
+    //}
 
     sent.base.classList.toggle(sentenceStyleClass, true);
 

@@ -102,13 +102,12 @@
   }
 
   .dh-right {
-    //max-height: 120px !important;
+    // TODO un-comment these!
     max-width: 215px !important;
     padding-left: 20px;
 
     .dh-right__img {
-      //max-height: 120px !important;
-      max-width: 215px !important;
+       max-width: 215px !important;
     }
   }
 
@@ -133,6 +132,10 @@
     --pa-overline-downstep-height: 0.6em;
 
     --pa-overline-thickness: 0.1em;
+    --dh-right-image-gap: 0.5rem;
+  }
+  .android {
+    --pa-overline-height-above-text: -0.1em;
   }
 
   .night_mode {
@@ -210,7 +213,7 @@
   .full-sentence {
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: 0; /* left align sentence */
+    //margin-left: 0; /* left align sentence */
 
     //padding-left: 5px;
     //padding-right: 5px;
@@ -232,18 +235,53 @@
     background: none;
     padding: 0em;
     border-radius: 0px;
-    text-align: left;
-    //flex: 0 1 auto; /* reset to default */
+    flex: 0 1 auto; /* reset to default, i.e. don't attempt to take up all available space */
     margin-bottom: var(--folder-tab-height);
-    min-width: calc(var(--folder-tab-width) + var(--folder-tab-margin-left));
+    min-width: calc(var(--folder-tab-width) + 2 * var(--folder-tab-margin-left));
+
+    /* WILL BE ADJUSTED with javascript if necessary (i.e. wraps past screen) */
+    /* Ideally, this should be done with container queries, but we don't have this yet in Anki... */
+
+    // CONTAINER QUERIES DON'T WORK IN ANKI YET!
+    // these must be done in raw javascript for now...
+    //container-type: inline-size;
+    //container-name: dh-left-container;
+  }
+  //@container dh-left-container (max-width: 300px) {
+  //  .dh-left__word-pitch {
+  //    text-align: left;
+  //    border: solid 1px red;
+  //  }
+  //}
+
+  .dh-left__reading {
+    white-space: nowrap;
+  }
+
+  .dh-left--word-past-screen .dh-left__reading {
+    white-space: initial;
+    text-align: left;
+    margin-bottom: 0px;
+  }
+  .dh-left--word-past-screen + .dh-right {
+    /* a horrible hack to work with words that wrap around the screen to a certain extent */
+    position: absolute;
+    right: 0px;
+  }
+
+  //.dh-left--word-past-tab .dh-left__word-pitch {
+  .dh-left--word-past-screen .dh-left__word-pitch {
+    text-align: left;
+    margin-left: 0.2em;
   }
 
   .dh-right {
     //position: fixed;
+    // TODO dynamic max height
     max-height: var(--mobile-footer-image-size) !important;
     //bottom: var(--mobile-border);
     //right: var(--mobile-border);
-    padding-left: 0px;
+    //padding-left: 0px;
 
     margin-left: auto; /* centers */
     margin-right: auto;
@@ -256,8 +294,12 @@
       max-height: var(--mobile-footer-image-size) !important;
       margin-right: 0.5rem;
     }
+
   }
 
+  .dh-right--contains-image {
+    padding-left: var(--dh-right-image-gap);
+  }
 
 
   .glossary-blockquote {
@@ -452,6 +494,11 @@
   //.android .replaybutton span svg {
   //  width: 50px;
   //  height: 50px;
+  //}
+
+  //.answer-border {
+  //  margin-top: 10px;
+  //  margin-bottom: 10px;
   //}
 
 }

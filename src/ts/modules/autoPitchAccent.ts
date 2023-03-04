@@ -876,6 +876,8 @@ export class AutoPitchAccent extends RunnableModule {
       if (hasBoldedPos && !posData.isBolded) {
         wordPitchHTML = `<b>${wordPitchHTML}</b>`;
       }
+      // wraps each pitch as a "term", in order to prevent pitch accents wrapping
+      wordPitchHTML = `<span class="pitchterm">${wordPitchHTML}</span>`;
       result.push(wordPitchHTML);
       if (i < connectors.length) {
         result.push(connectors[i]);

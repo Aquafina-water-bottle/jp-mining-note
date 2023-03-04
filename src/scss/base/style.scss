@@ -1498,7 +1498,7 @@ code {
 
 
 .dh-right--contains-image {
-  padding-left: 35px;
+  padding-left: var(--dh-right-image-gap);
 }
 
 
