@@ -281,7 +281,6 @@ class WordIndicator {
       return;
     }
     // TODO document structure of element?
-    // TODO reset this on refreshes
     indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
     indicatorEle.classList.toggle("dh-left__similar-words-indicator--visible", true);
 
@@ -299,6 +298,10 @@ class WordIndicator {
   }
 
   async run() {
+    // resets on refresh
+    const indicatorEle = document.getElementById(this.label);
+    indicatorEle?.classList.toggle("dh-left__similar-words-indicator--visible", false);
+
     // gets cache if exists
     if (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey)) {
       this.wordInds.logger.debug('Using cached card');

@@ -183,6 +183,7 @@
   "enableModule.fixRubyPositioning":      true,
 
   "enableModule.folderTab":               true,
+  "enableModule.refreshCard":             true,
 
 
 

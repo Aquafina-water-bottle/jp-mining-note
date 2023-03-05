@@ -24,6 +24,7 @@ export type ModuleId =
   | 'fixRubyPositioning'
   | 'checkDuplicateKey'
   | 'folderTab'
+  | 'refreshCard'
   ;
 
 

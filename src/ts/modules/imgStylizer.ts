@@ -588,6 +588,21 @@ export class ImgStylizer extends RunnableModule {
     super('imgStylizer');
   }
 
+  // public interface to get image element
+  getDisplayImg() {
+    const dhImgContainer = document.getElementById('dh_img_container');
+    if (dhImgContainer === null) {
+      return null;
+    }
+
+    const imgEleList = dhImgContainer.getElementsByTagName("img");
+    if (!imgEleList) {
+      return;
+    }
+
+    return imgEleList[0];
+  }
+
   main() {
     let imgBlur = null;
 

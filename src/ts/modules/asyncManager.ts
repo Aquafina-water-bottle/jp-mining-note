@@ -1,8 +1,6 @@
-import { Module, RunnableModule, RunnableAsyncModule } from '../module';
+import { Module, RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { selectPersist, SPersistInterface } from '../spersist';
-import { CARD_KEY, popupMenuMessage } from '../utils';
-import { InfoCircleSetting } from './infoCircleSetting';
+import { popupMenuMessage } from '../utils';
 
 /*
 
@@ -49,65 +47,40 @@ TODO:
 
 //type RunType;
 
-const settingId = 'info_circle_text_settings_refresh_card';
-
 export class AsyncManager extends Module {
   //private modules: AsyncModuleInfo[] = [];
   private modules: RunnableAsyncModule[] = [];
-  private readonly persist = selectPersist();
-  private readonly setting = new InfoCircleSetting(settingId);
 
   constructor() {
     super('sm:asyncManager');
-    this.setting.initDisplay();
-    this.setting.btn.onclick = () => {
-      this.refreshCard();
-    }
   }
 
   addModule(mod: RunnableAsyncModule) {
     this.modules.push(mod);
   }
 
-  async refreshCard() {
-    // TODO: move this out of async manager and as its own module
-    const refreshMutex = 'jpmn-asyncManager-refresh-mutex' + CARD_KEY;
-
-    if (this.persist === null) {
-      this.logger.warn(
-        'Persistence is not available. Refreshing the card will not check whether the async processes are currently running.'
-      );
-    } else if (this.persist.has(refreshMutex)) {
-      // TODO make popup look good
-      popupMenuMessage('Async processes are already running. Card cannot be refreshed.');
-      return;
-    } else {
-      this.persist.set(refreshMutex, 'running');
+  async runModules(refresh = false) {
+    for (const mod of this.modules) {
+      // runs them in order, mostly bypassing the default asynchronous behavior
+      mod.setUseCache(!refresh);
+      await mod.run();
     }
-
-    await this.runModules(true);
-
-    if (this.persist !== null) {
-      this.persist.pop(refreshMutex);
+    if (refresh) {
+      popupMenuMessage('Card successfully refreshed!');
     }
   }
 
   // this function can be ran with the refresh button!
   // note that runModules() can be run multiple times asynchronously.
   // Each module has to implement all the necessary safeguards for this.
-  async runModules(refresh = false) {
+  async runModulesDelay() {
+    const delay: number = getOption('asyncManager.initialDelay');
+
     // THIS IS A HACK because document.onload cannot be overwritten
     // so instead, we delay it by some amount of time instead to 'mimic'
     // the document being loaded before running these.
-    setTimeout(async () => {
-      for (const mod of this.modules) {
-        // runs them in order, mostly bypassing the default asynchronous behavior
-        mod.setUseCache(!refresh);
-        await mod.run();
-      }
-      if (refresh) {
-        popupMenuMessage('Card successfully refreshed!');
-      }
-    }, getOption('asyncManager.initialDelay'));
+    setTimeout(() => {
+      this.runModules();
+    }, delay);
   }
 }

@@ -23,6 +23,7 @@ import { FixRubyPositioning } from './modules/fixRubyPositioning';
 import { CheckDuplicateKey } from './modules/checkDuplicateKey';
 import {AsyncManager} from './modules/asyncManager';
 import {FolderTab} from './modules/folderTab';
+import {RefreshCard} from './modules/refreshCard'
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -94,6 +95,8 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // copying/pasting code unfortunately
   // attempting to store and read things from an array doesn't seem to work!
 
+  const refreshCard = new RefreshCard();
+
   newKeybinds();
   if (cardType === "main") {
     new MainCardUtils().run();
@@ -113,7 +116,9 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // right after auto pitch accent to prevent even more unnecessary reflow changes
   // potentially caused by modules below
   if (compileOpts['enableModule.imgStylizer']) {
-    new ImgStylizer().run();
+    const imgStylizer = new ImgStylizer();
+    imgStylizer.run();
+    refreshCard.addImgStylizer(imgStylizer);
   }
 
   if (cardSide === 'back') {
@@ -158,8 +163,9 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     new FolderTab().run();
   }
 
-
   const asyncManager = new AsyncManager();
+  refreshCard.addAsyncManager(asyncManager);
+  refreshCard.run();
 
   if (compileOpts['enableModule.kanjiHover']) {
     asyncManager.addModule(new KanjiHover());
@@ -167,6 +173,5 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   if (compileOpts['enableModule.wordIndicators']) {
     asyncManager.addModule(new WordIndicators());
   }
-  asyncManager.runModules();
-
+  asyncManager.runModulesDelay();
 }
