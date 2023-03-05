@@ -283,7 +283,7 @@ class WordIndicator {
     // TODO document structure of element?
     // TODO reset this on refreshes
     indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
-    indicatorEle.style.display = 'inline-block';
+    indicatorEle.classList.toggle("dh-left__similar-words-indicator--visible", true);
 
     // TODO rework this! this also affects pitch accents!
     dhLeftEle.classList.toggle(clsWithIndicators, true);

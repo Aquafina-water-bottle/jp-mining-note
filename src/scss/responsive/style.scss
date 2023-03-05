@@ -331,110 +331,149 @@
     height: var(--folder-tab-height);
     width: var(--folder-tab-width);
     margin-left: var(--folder-tab-margin-left);
-    user-select: none;
-  }
+    //user-select: none;
 
-  .folder-tab-buttons {
-    display: flex;
     justify-content: space-evenly;
-    align-items: end;
-    margin-left: 13px; /* makes buttons magically align properly with svg */
+    align-items: center;
   }
 
-  .folder-tab-background {
-    position: absolute;
-    z-index: -1;
-    fill: var(--background-darken);
-    bottom: 0px;
-  }
+  //.folder-tab-buttons {
+  //  //background: var(--background-darken);
+  //  display: flex;
+  //  justify-content: space-evenly;
+  //  align-items: center;
+  //  //gap: 2px;
+  //  //padding-left: 4px;
+  //  //padding-right: 4px;
+  //  //margin-left: 13px; /* makes buttons magically align properly with svg */
+  //}
+
+  //.folder-tab-background {
+  //  position: absolute;
+  //  z-index: -1;
+  //  fill: var(--background-darken);
+  //  bottom: 0px;
+  //}
 
   .folder-tab__button {
     display: flex; /* centers the items for some reason */
+    width: var(--folder-tab-button-size);
+    height: var(--folder-tab-button-size);
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* takes up all remaining space */
   }
 
   .folder-tab__button > svg {
     width: var(--folder-tab-svg-size);
     height: var(--folder-tab-svg-size);
-    fill: var(--text-color);
   }
 
-  .folder-tab-buttons > .folder-tab__button--disabled > svg {
+  .folder-tab > input + .folder-tab__button { /* unchecked, default */
+    > svg {
+      fill: var(--text-color--4);
+    }
+  }
+  .folder-tab > input:checked + .folder-tab__button {
+    background: var(--background-darken);
+    > svg {
+      fill: var(--text-color);
+    }
+  }
+
+  // disabled specifies that it shouldn't ever be selected
+  .folder-tab > input:disabled + .folder-tab__button {
+    display: none;
+  }
+
+  // TEMP
+  //.folder-tab__button--primary-def {
+  //  background: var(--background-darken);
+  //  > svg {
+  //    fill: var(--text-color);
+  //  }
+  //}
+
+  //.folder-tab-buttons > .folder-tab__button--disabled > svg {
+
+  .folder-tab__button > svg {
     fill: var(--text-color--4);
   }
 
-  .folder-tab__button--menu {
-    position: relative;
-  }
+  //.folder-tab__button--menu {
+  //  position: relative;
+  //}
 
-  /* allows arbitrary horizontal text expanding */
-  // TODO test on longer texts (en) + width adjusting
-  .folder-tab__menu-wrapper {
-    /* change to right: 0px; text-align: right; to show menu to left of button instead of right */
-    position: absolute;
-    top: 100%;
-    left: 0px;
-    width: 220px;
-    height: 0px;
-    display: none;
-    text-align: left;
-    z-index: 2; /* makes sure this is the first interactable over external links */
-  }
+  ///* allows arbitrary horizontal text expanding */
+  //// TODO test on longer texts (en) + width adjusting
+  //.folder-tab__menu-wrapper {
+  //  /* change to right: 0px; text-align: right; to show menu to left of button instead of right */
+  //  position: absolute;
+  //  top: 100%;
+  //  left: 0px;
+  //  width: 220px;
+  //  height: 0px;
+  //  display: none;
+  //  text-align: left;
+  //  z-index: 2; /* makes sure this is the first interactable over external links */
+  //}
 
-  /* list of collapsible blocks */
-  .folder-tab__menu {
-    display: inline-flex;
-    flex-direction: column;
-    text-align: left;
-    border-left: auto;
-    background-color: var(--tooltip-background-darken);
-    padding: 5px;
-    padding-right: 10px;
-    border-radius: 4px;
-  }
+  ///* list of collapsible blocks */
+  //.folder-tab__menu {
+  //  display: inline-flex;
+  //  flex-direction: column;
+  //  text-align: left;
+  //  border-left: auto;
+  //  background-color: var(--tooltip-background-darken);
+  //  padding: 5px;
+  //  padding-right: 10px;
+  //  border-radius: 4px;
+  //}
 
-  .folder-tab__menu-label {
-    --label-font-size: #{common.px2rem(16px)};
-    --svg-size: #{common.px2rem(32px)};
-    display: flex;
-    align-items: center;
-    font-size: var(--label-font-size);
-    padding-right: common.px2rem(4px);
+  //.folder-tab__menu-label {
+  //  --label-font-size: #{common.px2rem(16px)};
+  //  --svg-size: #{common.px2rem(32px)};
+  //  display: flex;
+  //  align-items: center;
+  //  font-size: var(--label-font-size);
+  //  padding-right: common.px2rem(4px);
 
-    .folder-tab-label-check {
-      visibility: hidden;
-      display: flex; /* removes extra space for some reason */
+  //  .folder-tab-label-check {
+  //    visibility: hidden;
+  //    display: flex; /* removes extra space for some reason */
 
-      svg {
-        width: var(--svg-size);
-        fill: var(--accent);
-      }
-    }
-  }
+  //    svg {
+  //      width: var(--svg-size);
+  //      fill: var(--accent);
+  //    }
+  //  }
+  //}
 
-  /* bold when an item is selected */
-  .folder-tab__menu > input:checked + label {
-    font-weight: bold;
-    color: var(--accent);
+  ///* bold when an item is selected */
+  //.folder-tab__menu > input:checked + label {
+  //  font-weight: bold;
+  //  color: var(--accent);
 
-    > .folder-tab-label-check {
-      visibility: visible;
-    }
-  }
+  //  > .folder-tab-label-check {
+  //    visibility: visible;
+  //  }
+  //}
 
-  .folder-tab__menu > input:disabled + label {
-    /* takes precedence over the above! */
-    /* ASSUMPTION: primary definition is never disabled */
-    color: var(--text-color--4);
-  }
+  //.folder-tab__menu > input:disabled + label {
+  //  /* takes precedence over the above! */
+  //  /* ASSUMPTION: primary definition is never disabled */
+  //  color: var(--text-color--4);
+  //}
 
-  .folder-tab__menu > input {
-    display: none;
-  }
+  //.folder-tab__menu > input {
+  //  display: none;
+  //}
 
-  /* displays menu if toggled */
-  .folder-tab-buttons > input:checked + label > .folder-tab__menu-wrapper {
-    display: block;
-  }
+  ///* displays menu if toggled */
+  ////.folder-tab-buttons > input:checked + label > .folder-tab__menu-wrapper {
+  //.folder-tab > input:checked + label > .folder-tab__menu-wrapper {
+  //  display: block;
+  //}
 
 
 
@@ -500,6 +539,10 @@
   //  margin-top: 10px;
   //  margin-bottom: 10px;
   //}
+
+  .dh-left__similar-words-indicator--visible {
+    display: none; /* always disables on mobile */
+  }
 
 }
 

@@ -348,16 +348,16 @@ class BackImgStylizer extends Module {
       // NOTE: border*3 to account for gap between picture and reading :skull:
       // this is another horrible hack, TODO
       if ((dhLeftWidth >= VW) || (this.dhLeft.scrollWidth > VW - ele.scrollWidth - border*3)) {
-        //console.log("bro", this.dhLeft.scrollWidth, this.dhLeft.offsetWidth);
         // magic number 5 to make it slightly more separated from the word above
         this.dhRight.style.setProperty("margin-top", `${dhReadingHeight+5}px`, "important");
         dhWordPitch.style.setProperty("text-align", `left`, "important");
-        console.log("bro it worked");
       }
     };
 
     if (ele !== null) {
       ///let imgLoaded = false;
+      // TODO is this a race condition?
+      // test it with setTimeout()...
       ele.onload = () => {
         //imgLoaded = true;
         adjustWordOverflow(ele);

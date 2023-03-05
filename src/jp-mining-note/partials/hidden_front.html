@@ -1,6 +1,8 @@
 {# hidden keys for front side #}
 
 <div class="hidden">
+  <div id="deck" deck_name="{{Deck}}"></div> <!-- to work with fsrs -->
+
   {% filter indent(2) %}
   {% include "jp-mining-note/partials/hidden/all_fields.html" %}
 
