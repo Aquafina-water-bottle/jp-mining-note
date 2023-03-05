@@ -396,14 +396,15 @@ class BackImgStylizer extends Module {
     defImg.src = imgName;
 
     this.addClickToZoom(defImg);
-
-    if (!isMobile()) {
-      // prevents clicking on the image link to zoom (on mobile)
-      this.addClickToZoom(defAnc, { imgEle: defImg });
-    }
+    this.addClickToZoom(defAnc, { imgEle: defImg });
 
     defSpan.appendChild(defAnc);
     defSpan.appendChild(defImg);
+
+    if (isMobile()) { // always hidden on mobile, must tap text to see image
+      //defImg.classList.toggle("hidden", true); // this doesn't work?
+      defImg.style.display = "none";
+    }
 
     return defSpan;
   }
