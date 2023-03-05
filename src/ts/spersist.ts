@@ -198,6 +198,9 @@ export function selectPersistObj(): SPersistInterface | null {
   return selectPersist("window");
 }
 
+export function selectPersistAny(): SPersistInterface | null {
+  return selectPersist("sessionStorage", "window");
+}
 
 //export function clearAllPersists() {
 //  for (const persistObj of Object.values(persistObjs)) {

@@ -5,6 +5,7 @@ import { LOGGER } from './logger';
 import { selectPersistStr, SPersistInterface } from './spersist';
 import { getOption } from './options';
 import { compileOpts } from './consts';
+import {ImgStylizer} from './modules/imgStylizer';
 
 const widthKey = 'jpmn.reflow.widthKey';
 //const heightKey = "jpmn.reflow.heightKey";
@@ -26,6 +27,7 @@ function setWidthCache(persist: SPersistInterface) {
   persist.set(widthKey, VW.toString());
 }
 
+// TODO potentially turn this into a module to add the imgStylizer thing (to refresh layout)
 function setResizeListener(persist: SPersistInterface) {
   let timeout: TimeoutValue | null = null; // holder for timeout id
   let delay = 500; // delay after event is "complete" to run callback
@@ -63,7 +65,7 @@ function pxToNumber(px: string): number {
 }
 
 function adjustMobile(
-  ele: HTMLImageElement | null,
+  imgEle: HTMLImageElement | null,
   wordBoxEle: HTMLElement,
   imgBoxEle: HTMLElement
 ) {
@@ -117,8 +119,8 @@ function adjustMobile(
     border * 3
   }px - (2 * var(--dh-right-image-gap)) - ${dhLeftWidth}px, 128px)`;
   imgBoxEle.style.setProperty('max-width', maxWidthCSS, 'important');
-  if (ele !== null) {
-    ele.style.setProperty('max-width', maxWidthCSS, 'important'); // ensures the max-width doesn't pass the image
+  if (imgEle !== null) {
+    imgEle.style.setProperty('max-width', maxWidthCSS, 'important'); // ensures the max-width doesn't pass the image
   }
 
   let imgLoaded = false;
@@ -142,15 +144,15 @@ function adjustMobile(
     }
   };
 
-  if (ele !== null) {
+  if (imgEle !== null) {
     // THIS IS A RACE CONDITION
-    ele.onload = () => {
-      adjustWordOverflow(ele);
-      LOGGER.debug("adjustWordOverflow: ele.onload")
+    imgEle.onload = () => {
+      adjustWordOverflow(imgEle);
+      LOGGER.debug("adjustWordOverflow: imgEle.onload")
     };
-    if (ele.complete) { // this is usually true despite ele.onload being called???
-      LOGGER.debug("adjustWordOverflow: ele.complete")
-      adjustWordOverflow(ele);
+    if (imgEle.complete) { // this is usually true despite imgEle.onload being called???
+      LOGGER.debug("adjustWordOverflow: imgEle.complete")
+      adjustWordOverflow(imgEle);
     }
   }
 }
@@ -166,14 +168,37 @@ function setHeight(
   imgBoxEle.style.maxHeight = height + 'px';
 }
 
+// resets everything for card refreshes
+function resetProperties(
+  imgEle: HTMLImageElement | null,
+  wordBoxEle: HTMLElement,
+  imgBoxEle: HTMLElement
+) {
+  // resets setHeight
+  imgEle?.style.removeProperty("max-height");
+  imgBoxEle.style.removeProperty("max-height");
+
+  // resets adjustMobile
+  const dhWordPitch = document.getElementById('dh_word_pitch');
+  dhWordPitch?.style.removeProperty("max-width");
+  dhWordPitch?.style.removeProperty("text-align");
+  imgBoxEle.style.removeProperty('max-width');
+  imgBoxEle.style.removeProperty('margin-top');
+  imgEle?.style.removeProperty('max-width');
+}
+
+/*
+ * adjust sizes of various elements within the word-img-box
+ * - can be called with refresh card
+ */
 export function adjustElements(
   imgEle: HTMLImageElement | null,
   wordBoxEle: HTMLElement,
   imgBoxEle: HTMLElement
 ) {
-  if (getViewportWidth() > compileOpts['breakpoints.combinePicture']) {
-    // pc
+  resetProperties(imgEle, wordBoxEle, imgBoxEle);
 
+  if (getViewportWidth() > compileOpts['breakpoints.combinePicture']) { // pc
     if (getOption('imgStylizer.mainImage.resizeHeightMode') === 'auto-height') {
       const wordBoxEleHeight = wordBoxEle.offsetHeight;
       setHeight(imgEle, imgBoxEle, wordBoxEleHeight);
@@ -184,6 +209,15 @@ export function adjustElements(
   } else if (getOption("imgStylizer.mainImage.resizeOnMobile")) {
     // mobile
     adjustMobile(imgEle, wordBoxEle, imgBoxEle);
+  }
+}
+
+export function refreshAdjustElements(imgStylizer: ImgStylizer) {
+  const wordBoxEle = document.getElementById('dh_left');
+  const imgBoxEle = document.getElementById('dh_right');
+  if (wordBoxEle !== null && imgBoxEle !== null) {
+    const imgEle = imgStylizer?.getDisplayImg() ?? null;
+    adjustElements(imgEle, wordBoxEle, imgBoxEle);
   }
 }
 
