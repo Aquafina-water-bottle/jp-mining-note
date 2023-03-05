@@ -43,6 +43,7 @@ const clsContainsImg = 'dh-right--contains-image';
 const clsAudioBtnsLeft = 'dh-left__audio-buttons--left';
 const clsImgClick = 'img-clickable';
 const clsRightImg = 'dh-right__img';
+const clsWordImgBoxNoImg = 'def-header--no-img';
 const clsShowEye = 'dh-right__show-eye';
 
 const settingId = 'info_circle_text_settings_img_blur_toggle';
@@ -316,7 +317,8 @@ class BackImgStylizer extends Module {
   }
 
   private adjustForNoImg() {
-    // TODO nothing is necessary it seems!
+    const defHeader = document.getElementById('def_header') as HTMLElement;
+    defHeader.classList.toggle(clsWordImgBoxNoImg, true);
   }
 
   addClickToZoom(ele: HTMLElement, args?: AddClickToImgArgs) {

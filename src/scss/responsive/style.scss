@@ -54,6 +54,7 @@
   :root {
     --word-font-size: #{common.px2rem(48px)};
     --sentence-font-size: #{common.px2rem(28px)};
+    --picture-font-size: #{common.px2rem(28px)};
     //--pa-indicator-word-font-size: #{common.px2rem(35px)};
     //--pa-indicator-sent-font-size: #{common.px2rem(29px)};
 
@@ -114,6 +115,9 @@
   .def-header {
     align-items: flex-start;
   }
+  .def-header--no-img { /* text should be centered as always */
+    align-items: center;
+  }
 
   .full-sentence br {
     display: none;
@@ -128,6 +132,7 @@
     --reading-font-size: #{common.px2rem(32px)};
     --reading-pitch-font-size: #{common.px2rem(16px)};
     --sentence-font-size: #{common.px2rem(20px)};
+    --picture-font-size: #{common.px2rem(20px)};
     --full-sentence-font-size: #{common.px2rem(20px)};
     --pa-overline-downstep-height: 0.6em;
 
