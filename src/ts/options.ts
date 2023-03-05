@@ -38,6 +38,7 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
     "type": "viewport",
     "args": {
       "op": MATH_OP,
+      "value": VALUE,
     },
     "resultTrue": ...,
     "resultFalse": ...,
