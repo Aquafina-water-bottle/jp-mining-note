@@ -1107,6 +1107,10 @@ code {
   display: none; /* so it's not shown and doesn't affect the card without javascript */
 }
 
+.dh-left__similar-words-indicator--visible {
+  display: inline-block;
+}
+
 .dh-left__similar-words-indicators .hover-tooltip-wrapper {
   line-height: initial;
 }
