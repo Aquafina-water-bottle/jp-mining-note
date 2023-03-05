@@ -121,7 +121,9 @@ $jp-sans-android:
   --pa-overline-downstep-left-offset: 1px;
 
 
-  --dh-right-image-gap: 35px;
+  --dh-right-image-gap: 35px; /* is also used as a padding to the left for mobile */
+  --dh-right-image-max-height: 110px; // NOTE: dynamically gotten with javascript and ignored
+  --mobile-border: 0.5rem;
 
   /* external links */
   --external-links-icon-size: 20px;
@@ -138,9 +140,8 @@ $jp-sans-android:
   --primary-def-picture-scale-no-def: 1.3;
 
   /* footer */
-  --mobile-footer-image-size: 70px; /* TODO change dynamically and remove variable */
-  --mobile-border: 0.5rem;
-  --footer-height: calc(var(--mobile-footer-image-size) + (2 * var(--mobile-border)));
+  --mobile-footer-height-size: 70px; /* TODO change dynamically and remove variable */
+  --footer-height: calc(var(--mobile-footer-height-size) + (2 * var(--mobile-border)));
 
   /* other */
   --info-circle-settings-svg-size: 16px;

@@ -276,23 +276,13 @@
   }
 
   .dh-right {
-    //position: fixed;
-    // TODO dynamic max height
-    max-height: var(--mobile-footer-image-size) !important;
-    //bottom: var(--mobile-border);
-    //right: var(--mobile-border);
-    //padding-left: 0px;
-
+    max-height: var(--dh-right-image-max-height) !important;
     margin-left: auto; /* centers */
     margin-right: auto;
 
-    //flex: 1; /* takes up as much space as possible */
-
-    //z-index: 1; /* so audio buttons and picture can be interacted with */
-
     .dh-right__img {
-      max-height: var(--mobile-footer-image-size) !important;
-      margin-right: 0.5rem;
+      max-height: var(--dh-right-image-max-height) !important;
+      margin-right: var(--dh-right-image-gap);
     }
 
   }

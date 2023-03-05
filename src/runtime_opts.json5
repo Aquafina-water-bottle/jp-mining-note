@@ -504,13 +504,17 @@
   // imgStylizer.mainImage
   // --------------------------------------------------------------------------
 
-  // how the image is resized on the default breakpoint (medium sized screens)
+  // how the image (and its surrounding elements) are resized on the default breakpoint (medium sized screens)
   // options:
   // - "auto-height" (same height as the reading section to the left of the image)
   // - "none" (not resized at all)
   // - "fixed" (uses value in resizeHeightFixedValue)
   "imgStylizer.mainImage.resizeHeightMode": "auto-height",
   "imgStylizer.mainImage.resizeHeightFixedValue": 210,
+
+  // Adjusts the image and surrounding elements on mobile displays.
+  // You may want to turn this off if you're using a custom theme.
+  "imgStylizer.mainImage.resizeOnMobile": true,
 
 
 

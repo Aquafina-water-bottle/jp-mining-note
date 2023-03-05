@@ -10,7 +10,7 @@ import {
   popupMenuMessage,
 } from '../utils';
 import { InfoCircleSetting } from './infoCircleSetting';
-import {getViewportWidth} from '../reflow';
+import {getViewportWidth, adjustElements} from '../reflow';
 
 type TagToImg = {
   tag: string;
@@ -258,128 +258,9 @@ class BackImgStylizer extends Module {
 
   private readonly imgBlur: ImgBlur | null;
 
-  private _heightLeft: number | null = null;
-
   constructor(imgBlur: ImgBlur | null) {
     super('sm:backImgStylizer');
     this.imgBlur = imgBlur;
-  }
-
-  private readHeightLeft() {
-    // this is a performance bottleneck!
-    // forced reflow happens here if used
-    this._heightLeft = this.dhLeft.offsetHeight;
-  }
-
-  private getHeightLeft() {
-    if (this._heightLeft === null) {
-      this.readHeightLeft();
-    }
-    return this._heightLeft;
-  }
-
-  private adjustHeight(ele: HTMLElement) {
-    //console.log(ele);
-    if (ele === null) {
-      return;
-    }
-
-    if (
-      getOption('imgStylizer.mainImage.resizeHeightMode') === 'auto-height'
-    ) {
-      ele.style.maxHeight = this.getHeightLeft() + 'px';
-    } else if (getOption('imgStylizer.mainImage.resizeHeightMode') === 'fixed') {
-      ele.style.maxHeight =
-        getOption('imgStylizer.mainImage.resizeHeightFixedValue') + 'px';
-    }
-  }
-
-  private pxToNumber(px: string): number {
-    if (!px.endsWith("px")) {
-      throw Error(`pxToNumber: cannot convert to number (${px})`);
-    }
-    return Number(px.substring(0, px.length-2));
-  }
-
-  private adjustMobile(ele: HTMLImageElement | null) {
-    // does a lot of height/width reads here
-    // as all reads are grouped, only one forced reflow should happen
-    const dhReading = document.getElementById("dh_reading") as HTMLElement;
-    const dhWordPitch = document.getElementById("dh_word_pitch") as HTMLElement;
-
-    // scrollWidth ensures it gets the width of the overflowed text
-    const dhLeftWidth = this.dhLeft.scrollWidth;
-    //const dhLeftOffsetWidth = this.dhLeft.offsetWidth; // width of the div without overflowed text
-    const dhReadingHeight = dhReading.scrollHeight;
-    const dhWordPitchWidth = dhWordPitch.offsetWidth; // saves width if necessary (if word overflows past screen)
-    const VW = getViewportWidth();
-
-    const dhLeftStyle = getComputedStyle(this.dhLeft)
-    const ftWidth = this.pxToNumber(dhLeftStyle.getPropertyValue("--folder-tab-width"));
-    const ftMarginLeft = this.pxToNumber(dhLeftStyle.getPropertyValue("--folder-tab-margin-left"));
-    const ftFullWidth = ftMarginLeft*2 + ftWidth;
-
-    // TODO temporary borders variable
-    const border = 8;
-
-    // TODO ideally should check for borders, but how to compare px with rem?
-    // computedstyle can work probably :thinxel:
-    if (dhLeftWidth >= VW - border*2) {
-      this.dhLeft.classList.toggle("dh-left--word-past-screen", true);
-      // TODO: this doesn't seem to always work?
-      dhWordPitch.style.setProperty("max-width", `${dhWordPitchWidth}px`, "important");
-    }
-
-    if (dhLeftWidth > ftFullWidth) {
-      this.dhLeft.classList.toggle("dh-left--word-past-tab", true);
-    }
-
-    // hardcoded min
-    // when using dhLeftWidth, we assume that dhLeftWidth will never change,
-    // but this assumption breaks when pitch accent is longer than the word!
-    const maxWidthCSS = `max(100vw - ${border*3}px - (2 * var(--dh-right-image-gap)) - ${dhLeftWidth}px, 128px)`;
-    this.dhRight.style.setProperty("max-width", maxWidthCSS, "important");
-    if (ele !== null) {
-      ele.style.setProperty("max-width", maxWidthCSS, "important"); // ensures the max-width doesn't pass the image
-    }
-
-    const adjustWordOverflow = (ele: HTMLImageElement) => {
-      //if ((dhLeftWidth >= VW) || (this.dhLeft.scrollWidth > this.dhLeft.offsetWidth)) {
-      // NOTE: border*3 to account for gap between picture and reading :skull:
-      // this is another horrible hack, TODO
-      if ((dhLeftWidth >= VW) || (this.dhLeft.scrollWidth > VW - ele.scrollWidth - border*3)) {
-        // magic number 5 to make it slightly more separated from the word above
-        this.dhRight.style.setProperty("margin-top", `${dhReadingHeight+5}px`, "important");
-        dhWordPitch.style.setProperty("text-align", `left`, "important");
-      }
-    };
-
-    if (ele !== null) {
-      ///let imgLoaded = false;
-      // TODO is this a race condition?
-      // test it with setTimeout()...
-      ele.onload = () => {
-        //imgLoaded = true;
-        adjustWordOverflow(ele);
-      }
-      //if (ele.complete && !imgLoaded) {
-      //  // race condition??? why is ele.complete always true????
-      //  // does onload() always work????????
-      //  adjustWordOverflow(ele, "A");
-      //  // when image element loaded before setting onload
-      //}
-    }
-
-    // this means the text flowed into the image!!!!
-    // however, remember that the width was calculated before the above CSS
-    // how should this be done, if at all?
-    // performance doesn't seem bad fortunately: the 2nd forced reflow takes up much less time than the 1st
-    // better or-statement to prevent reflow on past-screen widths
-    // THIS SOLUTION DOES NOT WORK: it depends on the width of the image actually loading before this was ran!
-    //if ((dhLeftWidth >= VW) || (this.dhLeft.scrollWidth > this.dhLeft.offsetWidth)) {
-    //  this.dhRight.style.setProperty("margin-top", `${dhReadingHeight}px`, "important");
-    //}
-
   }
 
   private getDisplayImg(): HTMLImageElement | null {
@@ -672,14 +553,7 @@ class BackImgStylizer extends Module {
       imgEle = this.attemptAddImageFromTags();
     }
 
-    if (getViewportWidth() > compileOpts['breakpoints.combinePicture']) {
-      this.adjustHeight(this.dhRight);
-      if (imgEle !== null) {
-        this.adjustHeight(imgEle);
-      }
-    } else { // TODO togglable option for themes
-      this.adjustMobile(imgEle);
-    }
+    adjustElements(imgEle, this.dhLeft, this.dhRight);
 
     if (imgEle === null) {
       this.adjustForNoImg();
