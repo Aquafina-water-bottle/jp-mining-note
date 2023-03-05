@@ -82,6 +82,7 @@ $jp-sans-android:
   --word-font-size: #{px2rem(80px)};
   --sentence-font-size: #{px2rem(52px)};
   --vertical-sentence-font-size: #{px2rem(35px)};
+  --picture-font-size: #{px2rem(40px)}; /* font size if text is used in place of the Picture field */
   //--pa-indicator-word-font-size: #{px2rem(52px)};
   //--pa-indicator-sent-font-size: #{px2rem(45px)};
 

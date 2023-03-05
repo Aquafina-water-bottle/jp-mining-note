@@ -332,9 +332,6 @@ code {
 
 
 
-
-
-
 /*
  *  ================
  *   FRONT SIDE CSS
@@ -1494,7 +1491,7 @@ code {
 
 
 .dh-right {
-  font-size: 40px;
+  font-size: var(--picture-font-size);
   max-width: 400px;
   max-height: 210px;
   position: relative;
