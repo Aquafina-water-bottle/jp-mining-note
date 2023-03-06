@@ -65,6 +65,13 @@
   ],
 
 
+  "keepBlockquotesWhenEmpty": true,
+  "folderTab.keepTabsWhenEmpty": true,
+
+  // TEMP
+  //"folderTab.mode": "multiple",
+
+
 
   // disables on mobile
   //"sentenceParser.display.quotes.paIndicatorColor.main": {

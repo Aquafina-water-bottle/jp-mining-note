@@ -73,7 +73,6 @@
     --primary-def-picture-max-width: 200px;
     --primary-def-picture-max-height: 100px;
 
-    /* TODO more portable solution */
     --tooltip-max-width: 350px;
     --tooltip-font-size: #{common.px2rem(12px)};
   }
@@ -138,6 +137,10 @@
 
     --pa-overline-thickness: 0.1em;
     --dh-right-image-gap: 0.5rem;
+
+    /* 40px: magic number to encompass info circle + tooltip arrow */
+    /* 40px is too small for the cards... window for some reason, but it works everywhere else */
+    --tooltip-max-width: min(350px, 100vw - 2 * var(--mobile-border) - 40px);
   }
   .android {
     --pa-overline-height-above-text: -0.1em;
@@ -337,6 +340,10 @@
     align-items: center;
   }
 
+  .primary-def-folder-tab-text {
+    display: block;
+  }
+
   //.folder-tab-buttons {
   //  //background: var(--background-darken);
   //  display: flex;
@@ -382,9 +389,40 @@
   }
 
   // disabled specifies that it shouldn't ever be selected
-  .folder-tab > input:disabled + .folder-tab__button {
+  .folder-tab:not(.folder-tab--show-when-empty) > input:disabled + .folder-tab__button {
     display: none;
   }
+
+
+
+  // lines
+  .primary-def-folder-tab-text__line {
+    font-size: 0.75em;
+    color: var(--text-color--3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+
+    .primary-def-folder-tab-text__line-left {
+      background: var(--text-color--3);
+      height: 1px;
+      flex: 1;
+    }
+
+    .primary-def-folder-tab-text__line-text {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+    }
+
+    .primary-def-folder-tab-text__line-right {
+      background: var(--text-color--3);
+      height: 1px;
+      flex: 1;
+    }
+  }
+
+
 
   // TEMP
   //.folder-tab__button--primary-def {
