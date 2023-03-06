@@ -125,7 +125,8 @@ export class FolderTab extends RunnableModule {
   //  this.updateButton(eles.btnRight, nextEntry);
   //}
 
-  private selectEntry(buttonEle: HTMLInputElement, entry: FolderMenuEntry, eles: FolderTabElements) {
+  //private selectEntry(buttonEle: HTMLInputElement, entry: FolderMenuEntry, eles: FolderTabElements) {
+  private selectEntry(entry: FolderMenuEntry, eles: FolderTabElements) {
     // TODO handle checkbox
 
     // clears out current text
@@ -270,7 +271,7 @@ type EntryId =   */
         continue;
       }
       // exception for extra info since it's implemented differently in the templates
-      if (entry.entryId === 'extra-info' && ele.style.display === 'none') {
+      if (entry.entryId === 'extra-info' && document.getElementById("extra_info_outer_display")?.classList.contains("outer-display2")) {
         this.setDisabled(entry);
         continue;
       }
@@ -282,6 +283,10 @@ type EntryId =   */
       } else if (entry.entryId === 'primary-definition') {
         // special case: primary_definition is itself a blockquote
         this.definitionStorage[entry.entryId] = ele.children[0] as HTMLElement;
+        if (ele.classList.contains("hidden")) {
+          this.setDisabled(entry);
+          continue; // is not actually available
+        }
       } else {
         this.logger.debug(`Cannot set glossary-blockquote from ${entry.eleId}`);
         return;
@@ -293,15 +298,32 @@ type EntryId =   */
 
       if (buttonEle) {
         buttonEle.onclick = () => {
-          this.selectEntry(buttonEle as HTMLInputElement, entry, eles);
+          //this.selectEntry(buttonEle as HTMLInputElement, entry, eles);
+          this.selectEntry(entry, eles);
         };
       }
     }
 
     // hard codes current left/right buttons
-    //if (this.availableEntries.length > 0) {
-    //  this.updateButtons(this.availableEntries[0], eles);
-    //}
+    if (this.availableEntries.length > 0) {
+      // edge case: when nothing is shown in the primary definition,
+      // but others are available
+      const primaryDefEle = document.getElementById(ENTRIES[0].eleId)
+      primaryDefEle?.classList.toggle("glossary-primary-definition--folder-tab", true);
+      primaryDefEle?.classList.toggle("hidden", false); // shows regardless
+
+      // TODO handle checkboxes
+      this.selectEntry(this.availableEntries[0], eles);
+      const firstInputEle = document.getElementById(this.availableEntries[0].inputId) as HTMLInputElement | null;
+      if (firstInputEle !== null) {
+        firstInputEle.checked = true; // so it's visually checked
+      }
+    } else {
+      // horrible edge case: no tabs to show
+      document.getElementById("dh_left")?.classList.toggle("dh-left--no-folder-tabs", true);
+    }
+
+
   }
 
   main() {
