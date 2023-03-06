@@ -253,6 +253,11 @@
     //container-name: dh-left-container;
   }
 
+  .dh-left--no-folder-tabs { /* i.e. literally no definitions to show (why would this ever happen) */
+    margin-top: calc(var(--folder-tab-height) / 2);
+    margin-bottom: calc(var(--folder-tab-height) / 2);
+  }
+
   .def-header--no-img .dh-left {
     flex: 1; /* reset above to center on no image */
   }
@@ -538,6 +543,17 @@
   .dh-left__similar-words-indicator--visible {
     display: none; /* always disables on mobile */
   }
+
+
+  /* overrides glossary-primary-definition--no-definition */
+  .glossary-primary-definition--folder-tab .glossary-text {
+    display: inline;
+  }
+
+  ///* overrides hidden */
+  //.glossary-primary-definition--folder-tab {
+  //  display: block !important;
+  //}
 
 }
 
