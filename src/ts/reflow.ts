@@ -69,6 +69,12 @@ function adjustMobile(
   wordBoxEle: HTMLElement,
   imgBoxEle: HTMLElement
 ) {
+
+  if (imgEle === null) {
+    // nothing needs to be adjust if no image
+    return;
+  }
+
   // does a lot of height/width reads here
   // as all reads are grouped, only one forced reflow should happen
   const dhReading = document.getElementById('dh_reading') as HTMLElement;
@@ -100,7 +106,7 @@ function adjustMobile(
   const cardWidth = VW - border * 2;
   if (dhLeftWidth >= cardWidth) {
     wordBoxEle.classList.toggle('dh-left--word-past-screen', true);
-    dhWordPitch.style.setProperty('max-width', `${dhWordPitchWidth}px`, 'important');
+    dhWordPitch.style.setProperty('max-width', `${dhWordPitchWidth}px`);
   }
 
   if (dhLeftWidth > ftFullWidth) {
@@ -118,10 +124,8 @@ function adjustMobile(
   const maxWidthCSS = `max(100vw - ${
     border * 3
   }px - (2 * var(--dh-right-image-gap)) - ${dhLeftWidth}px, 128px)`;
-  imgBoxEle.style.setProperty('max-width', maxWidthCSS, 'important');
-  if (imgEle !== null) {
-    imgEle.style.setProperty('max-width', maxWidthCSS, 'important'); // ensures the max-width doesn't pass the image
-  }
+  imgBoxEle.style.setProperty('max-width', maxWidthCSS);
+  imgEle.style.setProperty('max-width', maxWidthCSS); // ensures the max-width doesn't pass the image
 
   let imgLoaded = false;
   const adjustWordOverflow = (imgEle: HTMLImageElement) => {
@@ -139,8 +143,8 @@ function adjustMobile(
     // imageMargin: only subtract the image margin of one side (because we want to maintain this gap)
     if (dhLeftWidth >= VW || wordBoxEle.scrollWidth > VW - imgEle.scrollWidth - border * 2 - imageMargin) {
       // magic number 5 to make it slightly more separated from the word above
-      imgBoxEle.style.setProperty('margin-top', `${dhReadingHeight + 5}px`, 'important');
-      dhWordPitch.style.setProperty('text-align', `left`, 'important');
+      imgBoxEle.style.setProperty('margin-top', `${dhReadingHeight + 5}px`);
+      dhWordPitch.style.setProperty('text-align', `left`);
     }
   };
 

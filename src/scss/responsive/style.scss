@@ -64,6 +64,7 @@
     --reading-font-size: #{common.px2rem(44px)};
     --reading-pitch-font-size: #{common.px2rem(18px)};
     --full-sentence-font-size: #{common.px2rem(24px)};
+    --dh-right-image-gap:  #{common.px2rem(20px)};
 
     --glossary-font-size: #{common.px2rem(15px)};
     --glossary-font-size--smaller: #{common.px2rem(13px)};
@@ -103,19 +104,18 @@
   }
 
   .dh-right {
-    // TODO un-comment these!
-    max-width: 215px !important;
-    padding-left: 20px;
+    // TODO variable
+    max-width: 215px;
 
     .dh-right__img {
-       max-width: 215px !important;
+       max-width: 215px;
     }
   }
 
   .def-header {
-    align-items: flex-start;
+    align-items: flex-start; /* moves image to top */
   }
-  .def-header--no-img { /* text should be centered as always */
+  .def-header--text-img { /* text should be centered as always */
     align-items: center;
   }
 
@@ -252,6 +252,11 @@
     //container-type: inline-size;
     //container-name: dh-left-container;
   }
+
+  .def-header--no-img .dh-left {
+    flex: 1; /* reset above to center on no image */
+  }
+
   //@container dh-left-container (max-width: 300px) {
   //  .dh-left__word-pitch {
   //    text-align: left;
@@ -291,11 +296,6 @@
     }
 
   }
-
-  .dh-right--contains-image {
-    padding-left: var(--dh-right-image-gap);
-  }
-
 
   .glossary-blockquote {
     /* removes horizontal margins */

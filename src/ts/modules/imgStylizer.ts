@@ -4,6 +4,7 @@ import { compileOpts, translatorStrs } from '../consts';
 import { checkOptTags, getOption } from '../options';
 import {
   arrContainsAnyOf,
+  fieldIsFilled,
   getCardSide,
   getTags,
   isMobile,
@@ -39,11 +40,13 @@ const clsBlurFilterInit = 'img-blur-filter-init';
 const clsBlurFilter = 'img-blur-filter';
 const clsBlurFilterDisable = 'img-blur-filter-disable';
 
-const clsContainsImg = 'dh-right--contains-image';
-const clsAudioBtnsLeft = 'dh-left__audio-buttons--left';
+//const clsContainsImg = 'dh-right--contains-image';
+//const clsAudioBtnsLeft = 'dh-left__audio-buttons--left';
 const clsImgClick = 'img-clickable';
 const clsRightImg = 'dh-right__img';
+const clsWordImgBoxHasImg = 'def-header--has-img';
 const clsWordImgBoxNoImg = 'def-header--no-img';
+const clsWordImgBoxTextImg = 'def-header--text-img'; // if it's text only, *has-img is still added!
 const clsShowEye = 'dh-right__show-eye';
 
 const settingId = 'info_circle_text_settings_img_blur_toggle';
@@ -254,6 +257,7 @@ class BackImgStylizer extends Module {
   private readonly primaryDefBlockquote = document.getElementById(
     'primary_definition'
   ) as HTMLElement;
+  private readonly wordImgBox = document.getElementById('def_header') as HTMLElement;
 
   readonly dhImgContainer = document.getElementById('dh_img_container') as HTMLElement;
 
@@ -265,7 +269,7 @@ class BackImgStylizer extends Module {
   }
 
   private getDisplayImg(): HTMLImageElement | null {
-    if (!this.hasDisplayImg()) {
+    if (!fieldIsFilled("Picture")) {
       return null;
     }
 
@@ -283,15 +287,15 @@ class BackImgStylizer extends Module {
     return null;
   }
 
-  private hasDisplayImg() {
-    return this.dhImgContainer.innerHTML.length > 0; // TODO check this function to make sure it works
-  }
+  //private hasDisplayImg() {
+  //  return this.dhImgContainer.innerHTML.length > 0; // TODO check this function to make sure it works
+  //}
 
   private attemptAddImageFromTags(): HTMLImageElement | null {
     // perhaps move to arguments?
     // for now, image stylizer will remain specifically for one card
 
-    if (this.hasDisplayImg()) {
+    if (!fieldIsFilled("Picture")) {
       return null;
     }
 
@@ -307,8 +311,9 @@ class BackImgStylizer extends Module {
         const newImg = document.createElement('img');
         newImg.src = fileName;
         this.dhImgContainer.appendChild(newImg);
-        this.dhRight.classList.toggle(clsContainsImg, true);
-        this.dhLeftAudioBtns.classList.toggle(clsAudioBtnsLeft, true);
+        this.wordImgBox.classList.toggle(clsWordImgBoxHasImg, true)
+        this.wordImgBox.classList.toggle(clsWordImgBoxNoImg, false)
+        //this.dhLeftAudioBtns.classList.toggle(clsAudioBtnsLeft, true);
         return newImg;
       }
     }
@@ -317,8 +322,14 @@ class BackImgStylizer extends Module {
   }
 
   private adjustForNoImg() {
-    const defHeader = document.getElementById('def_header') as HTMLElement;
-    defHeader.classList.toggle(clsWordImgBoxNoImg, true);
+    if (fieldIsFilled("Picture")) {
+      // text only field!
+      this.wordImgBox.classList.toggle(clsWordImgBoxTextImg, true);
+    } else {
+      // completely empty
+      //this.wordImgBox.classList.toggle(clsWordImgBoxNoImg, true);
+      // the above should already be done by templates
+    }
   }
 
   addClickToZoom(ele: HTMLElement, args?: AddClickToImgArgs) {
