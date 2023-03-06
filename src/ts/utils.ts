@@ -117,10 +117,10 @@ export function popupMenuMessage(message: string, isHTML = false) {
   }, 1000 * (0.6 + 3 + 0.75));
 }
 
-function _fieldExists(field: Field): boolean {
+export function fieldIsFilled(field: Field): boolean {
   const x = document.getElementById(`hidden_field_exists_${field}`);
   if (x === null) {
-    LOGGER.warn(`_fieldExists(${field}) could not find element`);
+    LOGGER.warn(`fieldIsFilled(${field}) could not find element`);
     return false; // shouldn't ever be reached?
   }
   return (x.innerHTML.length !== 0)
@@ -129,7 +129,7 @@ function _fieldExists(field: Field): boolean {
 /* if every field exists */
 export function fieldsAllFilled(...fields: Field[]) {
   for (const field of fields) {
-    if (!_fieldExists(field)) {
+    if (!fieldIsFilled(field)) {
       return false;
     }
   }
@@ -139,7 +139,7 @@ export function fieldsAllFilled(...fields: Field[]) {
 /* if any field exists */
 export function fieldsAnyFilled(...fields: Field[]) {
   for (const field of fields) {
-    if (_fieldExists(field)) {
+    if (fieldIsFilled(field)) {
       return true;
     }
   }

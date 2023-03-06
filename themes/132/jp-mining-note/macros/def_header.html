@@ -4,7 +4,11 @@
 
 {% macro def_header(border_class="", word_pitch_class="") %}
 
-<div class="def-header" id="def_header">
+<div class="def-header
+    {% call IF("Picture") %}def-header--has-img{% endcall %}
+    {% call IFNOT("Picture") %}def-header--no-img{% endcall %}
+    "
+    id="def_header">
 
   <!-- everything on the left side -->
   {# border_class can be "dh-left--blue-border" #}

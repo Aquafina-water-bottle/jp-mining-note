@@ -1498,7 +1498,8 @@ code {
 }
 
 
-.dh-right--contains-image {
+.def-header--has-img > .dh-right {
+  /* this is padding to prevent overriding the margin-left, margin-right variables in responsive */
   padding-left: var(--dh-right-image-gap);
 }
 
@@ -1517,14 +1518,14 @@ code {
 
 
 
-/* experimental mobile class */
-.dh-right--around-word {
-  max-height: 50px !important;
-
-  .dh-right__img {
-    max-height: 50px !important;
-  }
-}
+///* experimental mobile class */
+//.dh-right--around-word {
+//  max-height: 50px !important;
+//
+//  .dh-right__img {
+//    max-height: 50px !important;
+//  }
+//}
 
 
 
