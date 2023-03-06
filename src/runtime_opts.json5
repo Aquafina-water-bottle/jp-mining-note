@@ -6,6 +6,9 @@
 
   "clickCardRevealSentenceOnBackSide": true,
 
+  // If set to true, greys out the field instead of removing it entirely.
+  // To set tabs on mobile to be always visible when empty, see "folderTab.keepTabsWhenEmpty" 
+  "keepBlockquotesWhenEmpty": false, // TODO implement
 
 
   // ==========================================================================
@@ -789,13 +792,18 @@
   // = folderTab =
   // ==========================================================================
 
+  // overwritten below (only enabled for mobile devices)
   "folderTab.enabled": true,
 
   // possible options:
-  // "switch"
-  // "selection"
-  // "selection-unique"
-  "folderTab.mode": "",
+  // "unique"
+  // "multiple"
+  "folderTab.mode": "unique",
+
+  // if set to true, sets the icon to a small dot instead of removing it entirely
+  "folderTab.keepTabsWhenEmpty": false,
+
+
 
 
 
@@ -931,16 +939,15 @@
       "resultFalse": 50,
     },
 
-  },
+    "folderTab.enabled": {
+      "type": "viewport",
+      "args": {
+        "op": "<=",
+        "value": 620,
+      },
+      "resultTrue": true,
+      "resultFalse": false,
+    },
 
-  //"args": {
-  //  "viewport": {
-  //    "op": ">=",
-  //    "value": 100,
-  //  },
-  //  "cardType": {
-  //    "op": "===",
-  //    "cardType": "pa_sent",
-  //  },
-  //}
+  },
 }

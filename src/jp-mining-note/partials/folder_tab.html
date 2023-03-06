@@ -12,139 +12,82 @@
 
 
 
-<div class="folder-tab">
+<div class="folder-tab" id="folder_tab">
 
-  {#<svg class="folder-tab-background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m 4,18 h 16 c 1.5,0 4,6 4,6 H 0 c 0,0 2.5,-6 4,-6 z"/></svg>#}
+  {# TODO for loop #}
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_primary_def"
+    />
+  <label
+    for="folder_tab_input_primary_def"
+    title="{{ TRANSLATOR.get('primary-definition') }}"
+    class="folder-tab__button folder-tab__button--primary-def"
+    id="folder_tab_button_primary_def"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _primary_def_path }}/></svg>
+  </label>
 
-  {#<form class="folder-tab-buttons">#}
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_secondary_def"
+    />
+  <label
+    for="folder_tab_input_secondary_def"
+    title="{{ TRANSLATOR.get('secondary-definition') }}"
+    class="folder-tab__button folder-tab__button--secondary-def"
+    id="folder_tab_button_secondary_def"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _secondary_def_path }}/></svg>
+  </label>
 
-    <input
-      type="radio"
-      class="hidden"
-      name="folder_tab_input"
-      id="folder_tab_input_primary_def"
-      checked
-      />
-    <label
-      for="folder_tab_input_primary_def"
-      title="{{ TRANSLATOR.get('primary-definition') }}"
-      class="folder-tab__button folder-tab__button--primary-def"
-      id="folder_tab_button_primary_def"
-      >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _primary_def_path }}/></svg>
-    </label>
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_additional_notes"
+    />
+  <label
+    for="folder_tab_input_additional_notes"
+    title="{{ TRANSLATOR.get('additional-notes') }}"
+    class="folder-tab__button folder-tab__button--additional-notes"
+    id="folder_tab_button_additional_notes"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _additional_notes_path }}/></svg>
+  </label>
 
-    <input
-      type="radio"
-      class="hidden"
-      name="folder_tab_input"
-      id="folder_tab_input_secondary_def"
-      />
-    <label
-      for="folder_tab_input_secondary_def"
-      title="{{ TRANSLATOR.get('secondary-definition') }}"
-      class="folder-tab__button folder-tab__button--secondary-def"
-      id="folder_tab_button_secondary_def"
-      >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _secondary_def_path }}/></svg>
-    </label>
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_extra_def"
+    />
+  <label
+    for="folder_tab_input_extra_def"
+    title="{{ TRANSLATOR.get('extra-definitions') }}"
+    class="folder-tab__button folder-tab__button--extra-def"
+    id="folder_tab_button_extra_def"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _extra_def_path }}/></svg>
+  </label>
 
-    <input
-      type="radio"
-      class="hidden"
-      name="folder_tab_input"
-      id="folder_tab_input_additional_notes"
-      />
-    <label
-      for="folder_tab_input_additional_notes"
-      title="{{ TRANSLATOR.get('additional-notes') }}"
-      class="folder-tab__button folder-tab__button--additional-notes"
-      id="folder_tab_button_additional_notes"
-      >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _additional_notes_path }}/></svg>
-    </label>
-
-    <input
-      type="radio"
-      class="hidden"
-      name="folder_tab_input"
-      id="folder_tab_input_extra_def"
-      />
-    <label
-      for="folder_tab_input_extra_def"
-      title="{{ TRANSLATOR.get('extra-definitions') }}"
-      class="folder-tab__button folder-tab__button--extra-def"
-      id="folder_tab_button_extra_def"
-      >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _extra_def_path }}/></svg>
-    </label>
-
-    <input
-      type="radio"
-      class="hidden"
-      name="folder_tab_input"
-      id="folder_tab_input_extra_info"
-      />
-    <label
-      for="folder_tab_input_extra_info"
-      title="{{ TRANSLATOR.get('extra-info') }}"
-      class="folder-tab__button folder-tab__button--extra-info"
-      id="folder_tab_button_extra_info"
-      >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _extra_info_path }}/></svg>
-    </label>
-
-    {#<div class="folder-tab__button folder-tab__button--left"
-      id="folder_tab_button_left"
-      > <!-- left -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M 19,6 6,12 19,18 Z"/></svg>
-    </div>
-
-    <div class="folder-tab__button folder-tab__button--right"
-      id="folder_tab_button_right"
-      > <!-- right -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M 5,6 18,12 5,18 Z"/></svg>
-    </div>
-
-    <!-- input checkbox hack to disable / enable the menu -->
-    <input
-      type="checkbox"
-      class="hidden"
-      id="folder_tab_button_menu_input"
-      />
-    <label for="folder_tab_button_menu_input" class="folder-tab__button folder-tab__button--menu"> <!-- menu -->
-    <!--<div class="folder-tab__button folder-tab__button--menu"> <!-- menu -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
-      <div class="folder-tab__menu-wrapper">
-        <div class="folder-tab__menu" id="folder_tab_menu">
-
-          {% for entry_id in [
-            "primary-definition",
-            "secondary-definition",
-            "additional-notes",
-            "extra-definitions",
-            "extra-info"] %}
-
-          <input type="radio" name="folder_tab_menu_entry"
-                 id="folder_tab_menu_entry_{{ entry_id }}"
-                 value="{{ entry_id }}"
-                 {% if entry_id == "primary-definition" %}
-                 checked
-                 {% endif %}
-                 />
-          <label for="folder_tab_menu_entry_{{ entry_id }}" class="folder-tab__menu-label">
-            <div class="folder-tab-label-check">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg>
-            </div>
-            <div class="folder-tab-label-text">{{ TRANSLATOR.get(entry_id) }}</div>
-          </label>
-
-          {% endfor %}
-
-        </div>
-      </div>
-    </label>#}
-
-  {#</form>#}
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_extra_info"
+    />
+  <label
+    for="folder_tab_input_extra_info"
+    title="{{ TRANSLATOR.get('extra-info') }}"
+    class="folder-tab__button folder-tab__button--extra-info"
+    id="folder_tab_button_extra_info"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _extra_info_path }}/></svg>
+  </label>
 
 </div>

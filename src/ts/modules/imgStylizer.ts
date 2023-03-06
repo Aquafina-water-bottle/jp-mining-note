@@ -40,8 +40,6 @@ const clsBlurFilterInit = 'img-blur-filter-init';
 const clsBlurFilter = 'img-blur-filter';
 const clsBlurFilterDisable = 'img-blur-filter-disable';
 
-//const clsContainsImg = 'dh-right--contains-image';
-//const clsAudioBtnsLeft = 'dh-left__audio-buttons--left';
 const clsImgClick = 'img-clickable';
 const clsRightImg = 'dh-right__img';
 const clsWordImgBoxHasImg = 'def-header--has-img';
@@ -287,15 +285,12 @@ class BackImgStylizer extends Module {
     return null;
   }
 
-  //private hasDisplayImg() {
-  //  return this.dhImgContainer.innerHTML.length > 0; // TODO check this function to make sure it works
-  //}
-
   private attemptAddImageFromTags(): HTMLImageElement | null {
     // perhaps move to arguments?
     // for now, image stylizer will remain specifically for one card
 
-    if (!fieldIsFilled("Picture")) {
+    if (fieldIsFilled("Picture")) {
+      // don't do anything if there's already something in the Picture field
       return null;
     }
 

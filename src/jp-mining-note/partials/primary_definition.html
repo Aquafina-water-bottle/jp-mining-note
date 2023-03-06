@@ -2,7 +2,6 @@
 
 {% set _use_external_links = COMPILE_OPTIONS("externalLinks").item() and COMPILE_OPTIONS("externalLinksPosition").item() == "Primary Definition" %}
 
-{#<details open class="glossary-details" id="primary_definition_details">#}
 <div class="primary-def-blockquote-wrapper">
 
   {% include "jp-mining-note/partials/folder_tab.html" %}
@@ -47,7 +46,40 @@
 
     </div>
 
+    <div class="primary-def-folder-tab-text">
+      <div class="hidden" id="folder_tab_text_secondary_def">
+        <div class="primary-def-folder-tab-text__line">
+          <div class="primary-def-folder-tab-text__line-left"></div>
+          <div class="primary-def-folder-tab-text__line-text">{{ TRANSLATOR.get('secondary-definition') }}</div>
+          <div class="primary-def-folder-tab-text__line-right"></div>
+        </div>
+      </div>
+
+      <div class="hidden" id="folder_tab_text_additional_notes">
+        <div class="primary-def-folder-tab-text__line">
+          <div class="primary-def-folder-tab-text__line-left"></div>
+          <div class="primary-def-folder-tab-text__line-text">{{ TRANSLATOR.get('additional-notes') }}</div>
+          <div class="primary-def-folder-tab-text__line-right"></div>
+        </div>
+      </div>
+
+      <div class="hidden" id="folder_tab_text_extra_def">
+        <div class="primary-def-folder-tab-text__line">
+          <div class="primary-def-folder-tab-text__line-left"></div>
+          <div class="primary-def-folder-tab-text__line-text">{{ TRANSLATOR.get('extra-definitions') }}</div>
+          <div class="primary-def-folder-tab-text__line-right"></div>
+        </div>
+      </div>
+
+      <div class="hidden" id="folder_tab_text_extra_info">
+        <div class="primary-def-folder-tab-text__line">
+          <div class="primary-def-folder-tab-text__line-left"></div>
+          <div class="primary-def-folder-tab-text__line-text">{{ TRANSLATOR.get('extra-info') }}</div>
+          <div class="primary-def-folder-tab-text__line-right"></div>
+        </div>
+      </div>
+    </div>
+
   </blockquote>
 
-{#</details>#}
 </div>
