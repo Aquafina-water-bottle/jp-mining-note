@@ -182,7 +182,7 @@
   "enableModule.infoCircleUtils":         true,
   "enableModule.fixRubyPositioning":      true,
 
-  "enableModule.folderTab":               true,
+  "enableModule.blockquotes":             true,
   "enableModule.refreshCard":             true,
 
 

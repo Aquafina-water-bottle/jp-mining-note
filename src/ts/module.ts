@@ -23,7 +23,7 @@ export type ModuleId =
   | 'freqUtils'
   | 'fixRubyPositioning'
   | 'checkDuplicateKey'
-  | 'folderTab'
+  | 'blockquotes'
   | 'refreshCard'
   ;
 
