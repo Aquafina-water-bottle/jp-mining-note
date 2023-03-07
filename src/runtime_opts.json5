@@ -6,10 +6,6 @@
 
   "clickCardRevealSentenceOnBackSide": true,
 
-  // If set to true, greys out the field instead of removing it entirely.
-  // To set tabs on mobile to be always visible when empty, see "folderTab.keepTabsWhenEmpty" 
-  "keepBlockquotesWhenEmpty": false, // TODO implement
-
 
   // ==========================================================================
   // = logger =
@@ -789,21 +785,42 @@
 
 
   // ==========================================================================
-  // = folderTab =
+  // = blockquotes =  (definitions + additional notes + extra info)
   // ==========================================================================
 
   // overwritten below (only enabled for mobile devices)
-  "folderTab.enabled": true,
+  "blockquotes.enabled": true,
+
+  // If set to true, greys out the field instead of removing it entirely.
+  // To set tabs on mobile to be always visible when empty, see "blockquotes.folderTab.showDotWhenEmpty"
+  "blockquotes.showTextWhenEmpty": false, // TODO implement
+
+  // TODO better name than blockquotes?
+  "blockquotes.open.enabled": false,
+  "blockquotes.open.primaryDefinition": false,
+  "blockquotes.open.secondaryDefinition": false,
+  "blockquotes.open.additionalNotes": false,
+  "blockquotes.open.extraDefinitions": false,
+  "blockquotes.open.extraInfo": false,
+
+  "blockquotes.openOnNew.enabled": false,
+  "blockquotes.openOnNew.primaryDefinition": false,
+  "blockquotes.openOnNew.secondaryDefinition": false,
+  "blockquotes.openOnNew.additionalNotes": false,
+  "blockquotes.openOnNew.extraDefinitions": false,
+  "blockquotes.openOnNew.extraInfo": false,
+
+
+  // NOTE: overwritten below
+  "blockquotes.folderTab.enabled": true,
 
   // possible options:
   // "unique"
   // "multiple"
-  "folderTab.mode": "unique",
+  "blockquotes.folderTab.mode": "unique",
 
   // if set to true, sets the icon to a small dot instead of removing it entirely
-  "folderTab.keepTabsWhenEmpty": false,
-
-
+  "blockquotes.folderTab.showDotWhenEmpty": false,
 
 
 
@@ -939,7 +956,7 @@
       "resultFalse": 50,
     },
 
-    "folderTab.enabled": {
+    "blockquotes.folderTab.enabled": {
       "type": "viewport",
       "args": {
         "op": "<=",

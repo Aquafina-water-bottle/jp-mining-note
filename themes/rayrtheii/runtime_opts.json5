@@ -65,11 +65,11 @@
   ],
 
 
-  "keepBlockquotesWhenEmpty": true,
-  "folderTab.keepTabsWhenEmpty": true,
+  "blockquotes.showTextWhenEmpty": true,
+  "blockquotes.folderTab.showDotWhenEmpty": true,
 
   // TEMP
-  //"folderTab.mode": "multiple",
+  //"blockquotes.folderTab.mode": "multiple",
 
 
 
@@ -95,5 +95,15 @@
   //},
 
   //"infoCircleUtils.showTagsMode": "never",
+
+
+
+  // TEMP
+  //"blockquotes.open.enabled": true,
+  //"blockquotes.open.primaryDefinition": false,
+  //"blockquotes.open.secondaryDefinition": true,
+  //"blockquotes.open.additionalNotes": false,
+  //"blockquotes.open.extraDefinitions": false,
+  //"blockquotes.open.extraInfo": false,
 
 }

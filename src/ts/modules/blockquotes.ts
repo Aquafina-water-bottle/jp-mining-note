@@ -1,12 +1,6 @@
 import { RunnableModule } from '../module';
 import { getOption } from '../options';
-
-type EleId =
-  | 'primary_definition'
-  | 'secondary_definition_details'
-  | 'additional_notes_details'
-  | 'extra_definitions_details'
-  | 'extra_info_details';
+import {getCardSide} from '../utils';
 
 type EntryId =
   | 'primary-definition'
@@ -15,73 +9,51 @@ type EntryId =
   | 'extra-definitions'
   | 'extra-info';
 
-type ButtonId =
-  | 'folder_tab_button_primary_def'
-  | 'folder_tab_button_secondary_def'
-  | 'folder_tab_button_additional_notes'
-  | 'folder_tab_button_extra_def'
-  | 'folder_tab_button_extra_info';
-
-type InputId =
-  | 'folder_tab_input_primary_def'
-  | 'folder_tab_input_secondary_def'
-  | 'folder_tab_input_additional_notes'
-  | 'folder_tab_input_extra_def'
-  | 'folder_tab_input_extra_info';
-
-type CheckboxTextId =
-  | 'folder_tab_text_primary_def'
-  | 'folder_tab_text_secondary_def'
-  | 'folder_tab_text_additional_notes'
-  | 'folder_tab_text_extra_def'
-  | 'folder_tab_text_extra_info';
-
-
-type FolderMenuEntry = {
-  eleId: EleId;
-  entryId: EntryId;
-  buttonId: ButtonId;
-  inputId: InputId;
-  checkboxTextId: CheckboxTextId;
-};
-
-const ENTRIES: FolderMenuEntry[] = [
+const ENTRIES = [
   {
+    optionId: "primaryDefinition",
     eleId: 'primary_definition',
     entryId: 'primary-definition',
     buttonId: 'folder_tab_button_primary_def',
     inputId: 'folder_tab_input_primary_def',
     checkboxTextId: 'folder_tab_text_primary_def',
-  },
+  } as const,
   {
+    optionId: "secondaryDefinition",
     eleId: 'secondary_definition_details',
     entryId: 'secondary-definition',
     buttonId: 'folder_tab_button_secondary_def',
     inputId: 'folder_tab_input_secondary_def',
     checkboxTextId: 'folder_tab_text_secondary_def',
-  },
+  } as const,
   {
+    optionId: "additionalNotes",
     eleId: 'additional_notes_details',
     entryId: 'additional-notes',
     buttonId: 'folder_tab_button_additional_notes',
     inputId: 'folder_tab_input_additional_notes',
     checkboxTextId: 'folder_tab_text_additional_notes',
-  },
+  } as const,
   {
+    optionId: "extraDefinitions",
     eleId: 'extra_definitions_details',
     entryId: 'extra-definitions',
     buttonId: 'folder_tab_button_extra_def',
     inputId: 'folder_tab_input_extra_def',
     checkboxTextId: 'folder_tab_text_extra_def',
-  },
+  } as const,
   {
+    optionId: "extraInfo",
     eleId: 'extra_info_details',
     entryId: 'extra-info',
     buttonId: 'folder_tab_button_extra_info',
     inputId: 'folder_tab_input_extra_info',
     checkboxTextId: 'folder_tab_text_extra_info',
-  },
-];
+  } as const,
+] as const;
+
+type BlockquoteEntry = typeof ENTRIES[number];
+
 
 const smallDotPath = "M 12,14 C 11.45,14 10.979333,13.804 10.588,13.412 10.196,13.020667 10,12.55 10,12 10,11.45 10.196,10.979 10.588,10.587 10.979333,10.195667 11.45,10 12,10 c 0.55,0 1.021,0.195667 1.413,0.587 C 13.804333,10.979 14,11.45 14,12 14,12.55 13.804333,13.020667 13.413,13.412 13.021,13.804 12.55,14 12,14 Z";
 
@@ -92,21 +64,26 @@ type FolderTabElements = {
   //btnRight: HTMLElement;
 };
 
-export class FolderTab extends RunnableModule {
+function openDetailsTag(ele: HTMLDetailsElement) {
+  ele.setAttribute("open", "true");
+}
+
+
+export class Blockquotes extends RunnableModule {
   // we store the actual HTML element instead of the raw HTML because the raw html string
   // will NOT preserve javascript event handlers
   private definitionStorage: Partial<Record<EntryId, HTMLElement>> = {};
-  private availableEntries: FolderMenuEntry[] = [];
+  private availableEntries: BlockquoteEntry[] = [];
   //private currentEntryId: EntryId = 'primary-definition';
-  private readonly keepTabsWhenEmpty = getOption("folderTab.keepTabsWhenEmpty");
-  private readonly mode = getOption("folderTab.mode");
+  private readonly showDotWhenEmpty = getOption("blockquotes.folderTab.showDotWhenEmpty");
+  private readonly folderTabMode = getOption("blockquotes.folderTab.mode");
 
   constructor() {
-    super('folderTab');
+    super('blockquotes');
   }
 
-  private selectEntry(entry: FolderMenuEntry, eles: FolderTabElements) {
-    if (this.mode === "unique") {
+  private selectEntry(entry: BlockquoteEntry, eles: FolderTabElements) {
+    if (this.folderTabMode === "unique") {
       // clears out current text
       eles.primaryDefBlockquoteEle.innerHTML = '';
       const c = this.definitionStorage[entry.entryId];
@@ -134,14 +111,14 @@ export class FolderTab extends RunnableModule {
 
   }
 
-  private setDisabled(entry: FolderMenuEntry) {
+  private setDisabled(entry: BlockquoteEntry) {
     const entryEle = document.getElementById(entry.inputId);
     if (entryEle !== null) {
       this.logger.debug(`setting ${entry.entryId} to disabled...`);
       (entryEle as HTMLInputElement).disabled = true;
     }
 
-    if (this.keepTabsWhenEmpty) {
+    if (this.showDotWhenEmpty) {
       const buttonEle = document.getElementById(entry.buttonId);
       if (buttonEle) {
         // svg -> path
@@ -173,7 +150,7 @@ export class FolderTab extends RunnableModule {
         continue;
       }
 
-      if (this.mode === "multiple") {
+      if (this.folderTabMode === "multiple") {
         const inputEle = document.getElementById(entry.inputId);
         if (inputEle !== null) {
           (inputEle as HTMLInputElement).type = "checkbox";
@@ -202,7 +179,7 @@ export class FolderTab extends RunnableModule {
         return;
       }
 
-      if (this.mode === "multiple") { // loads into the text divs beforehand
+      if (this.folderTabMode === "multiple") { // loads into the text divs beforehand
         const checkboxTextEle = document.getElementById(entry.checkboxTextId);
         const c = this.definitionStorage[entry.entryId];
 
@@ -241,15 +218,60 @@ export class FolderTab extends RunnableModule {
       document.getElementById("dh_left")?.classList.toggle("dh-left--no-folder-tabs", true);
     }
 
-    if (this.keepTabsWhenEmpty) {
-      const folderTabEle = document.getElementById("folder_tab");
-      folderTabEle?.classList.toggle("folder-tab--show-when-empty", true)
+    if (this.showDotWhenEmpty) {
+      const blockquotesEle = document.getElementById("folder_tab");
+      blockquotesEle?.classList.toggle("folder-tab--show-when-empty", true)
     }
 
   }
 
-  main() {
+  main() { // only ran on back side, according to main.ts
+
+    // removes instead of greys out
+    if (!getOption("blockquotes.showTextWhenEmpty")) {
+      const elems = document.getElementsByClassName("glossary-details--grey");
+      for (const x of elems) { // doesn't require Array.from() since size doesn't change
+        (x as HTMLElement).style.display = "none";
+      }
+    }
+
     // note that the default options specifically disables this on non-mobile devices! (VW >= 620)
-    this.populateFolderTab();
+    if (getOption("blockquotes.folderTab.enabled")) {
+      this.populateFolderTab();
+    }
+
+    if (getOption("blockquotes.open.enabled")) {
+      if (getOption("blockquotes.folderTab.enabled")) {
+        if (getOption("blockquotes.folderTab.mode") !== "multiple") { // AND check number
+          // TODO check number
+          //this.logger.warn("Cannot open by default if blockquotes.folderTab.mode is not 'multiple'")
+        }
+
+        // TODO combine logic with if new
+        for (const entry of ENTRIES) {
+          if (getOption(`blockquotes.open.${entry.optionId}`)) {
+            const buttonEle = document.getElementById(entry.buttonId);
+            // TODO check if input is already open (to avoid closing things)
+            if (buttonEle !== null) {
+              buttonEle.click();
+            }
+          }
+        }
+
+      } else {
+        // default
+        for (const entry of ENTRIES) {
+          if (getOption(`blockquotes.open.${entry.optionId}`)) {
+            const ele = document.getElementById(entry.eleId);
+
+            // check for nodeName to handle primaryDef edge case
+            // TODO what if primary definition does have a details tag?
+            if (ele !== null && ele.nodeName === "DETAILS") {
+              openDetailsTag(ele as HTMLDetailsElement)
+            }
+          }
+        }
+      }
+    }
   }
 }

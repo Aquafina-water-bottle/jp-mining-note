@@ -22,7 +22,7 @@ import { InfoCircleUtils } from './modules/infoCircleUtils';
 import { FixRubyPositioning } from './modules/fixRubyPositioning';
 import { CheckDuplicateKey } from './modules/checkDuplicateKey';
 import {AsyncManager} from './modules/asyncManager';
-import {FolderTab} from './modules/folderTab';
+import {Blockquotes} from './modules/blockquotes';
 import {RefreshCard} from './modules/refreshCard'
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
@@ -124,17 +124,25 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   if (cardSide === 'back') {
     // TODO async scheduler on some modules here
     // TODO separate these between async and synchronous somewhow?
-    if (compileOpts['enableModule.collapseDictionaries']) {
-      new CollapseDictionaries().run();
-    }
+    //if (compileOpts['enableModule.collapseDictionaries']) {
+    //  new CollapseDictionaries().run();
+    //}
 
-    if (compileOpts['enableModule.openCollapsedFields']) {
-      new OpenCollapsedFields().run();
-    }
+    //if (compileOpts['enableModule.openCollapsedFields']) {
+    //  new OpenCollapsedFields().run();
+    //}
 
     if (compileOpts['enableModule.freqUtils']) {
       new FreqUtils().run();
     }
+
+
+    // very last to ensure that definitions are properly populated
+    // TODO compile opt
+    if (compileOpts['enableModule.blockquotes']) {
+      new Blockquotes().run();
+    }
+
   }
 
   if (compileOpts['enableModule.webSocketUtils']) {
@@ -155,12 +163,6 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   if (compileOpts['enableModule.checkDuplicateKey']) {
     new CheckDuplicateKey().run();
-  }
-
-  // very last to ensure that definitions are properly populated
-  // TODO compile opt
-  if (compileOpts['enableModule.folderTab']) {
-    new FolderTab().run();
   }
 
   const asyncManager = new AsyncManager();
