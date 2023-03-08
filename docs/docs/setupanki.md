@@ -308,7 +308,7 @@ To change the config of any Anki add-on, head over to:
 
 > `Tools` →  `Add-ons` →  (select the add-on) →  `Config`.
 
-??? examplecode "Click here to see the full AJT Furigana config"
+??? examplecode "Click here to see the full AJT Japanese config"
 
     The important things to change in the config are:
 
