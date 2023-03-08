@@ -60,7 +60,7 @@ To do exactly that, do the following:
 
 <br>
 
-## Automatic furigana without AJT Furigana
+## Automatic furigana without AJT Japanese
 {{ feature_version("0.11.0.0") }}
 
 > Marker: `{jpmn-sentence-bolded-furigana-plain}`
@@ -70,8 +70,8 @@ add furigana to your sentence. Use this under `SentenceReading`.
 
 This is useful if:
 
-* You are not using [AJT Furigana](setupanki.md#ajt-furigana), or
-* You are using a device that doesn't have AJT Furigana installed (say, a phone),
+* You are not using [AJT Japanese](setupanki.md#ajt-japanese), or
+* You are using a device that doesn't have AJT Japanese installed (say, a phone),
     and you do not want to bulk generate furigana after each session.
 
 
