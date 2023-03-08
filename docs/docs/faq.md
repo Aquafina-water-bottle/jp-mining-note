@@ -399,15 +399,16 @@ You have three main options:
 1. In [Yomichan's Anki Card Format](setupyomichan.md#yomichan-fields),
     ensure that the `SentenceReading` field is empty.
 
-1. If you are using the AJT Japanese addon, edit the config and under the profile named `Add furigana for sentence`, set `note_type` to `AJT_JAPANESE_IGNORE_PROFILE`.
+1. If you are using the AJT Furigana addon, edit the config and set `generate_on_note_add` to `false`.
     Afterwards, restart Anki.
+    Please note that this step will also disable generation of pitch accents.
 
 You likely want to bulk-generate the furigana if you are disabling furigana on card generation.
 See the question below to do just that.
 
 ---
 
-## How do I bulk generate furigana?
+## How do I bulk generate furigana and pitch accents?
 
 1. Head to the Card Browser window:
 
@@ -420,34 +421,21 @@ See the question below to do just that.
 
 1. Head over to:
 
-    > `Edit` (top left corner) →  `Bulk-add furigana`.
-
-
----
-
-## How do I bulk generate pitch accents?
+    > `Edit` (top left corner) →  `AJT: Bulk-add`.
 
 !!! note
-    This will only batch generate the `AJTWordPitch` field.
+    Bulk generating pitch accents will only batch generate the `AJTWordPitch` field.
     Pitch accent graphs and positions cannot be automatically generated.
     This is important to note if you are using colored pitch accent.
     If `PAPositions` is not filled, then the card cannot be automatically colored.
 
-1. Head to the Card Browser window:
+    <!-- TODO -->
+    In version `0.12.0.0`, this no longer matters, because the pitch accent info is properly
+    parsed from AJTWordPitch.
 
-    > Main Window →  `Browse`
-
-1. Select all notes with an empty `AJTWordPitch` field, with the following search:
-    ```
-    "note:JP Mining Note" AJTWordPitch:
-    ```
-
-1. Head over to:
-
-    > `Edit` (top left corner) →  `Bulk-add pitch accents`.
-
-There may be some cards that still have an empty `AJTWordPitch` field.
-This is simply because the add-on did not contain the pitch data for those words.
+!!! note
+    There may be some cards that still have an empty `AJTWordPitch` field.
+    This is simply because the add-on did not contain the pitch data for those words.
 
 ---
 

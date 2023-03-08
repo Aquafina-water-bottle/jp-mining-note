@@ -423,6 +423,7 @@ To change the config of any Anki add-on, head over to:
         If you are likely to change the sentence after adding the note,
         then it is possible to leave this as `false`,
         and bulk add the furigana later.
+        However, this will also disable automatic generation of pitch accents.
 
     2. `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
         in the example note.
