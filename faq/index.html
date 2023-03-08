@@ -1071,15 +1071,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-do-i-bulk-generate-furigana" class="md-nav__link">
-    How do I bulk generate furigana?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-do-i-bulk-generate-pitch-accents" class="md-nav__link">
-    How do I bulk generate pitch accents?
+  <a href="#how-do-i-bulk-generate-furigana-and-pitch-accents" class="md-nav__link">
+    How do I bulk generate furigana and pitch accents?
   </a>
   
 </li>
@@ -1375,15 +1368,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-do-i-bulk-generate-furigana" class="md-nav__link">
-    How do I bulk generate furigana?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-do-i-bulk-generate-pitch-accents" class="md-nav__link">
-    How do I bulk generate pitch accents?
+  <a href="#how-do-i-bulk-generate-furigana-and-pitch-accents" class="md-nav__link">
+    How do I bulk generate furigana and pitch accents?
   </a>
   
 </li>
@@ -1844,14 +1830,15 @@ fill the <code>IsSentenceCard</code> field there.</p>
     ensure that the <code>SentenceReading</code> field is empty.</p>
 </li>
 <li>
-<p>If you are using the AJT Japanese addon, edit the config and under the profile named <code>Add furigana for sentence</code>, set <code>note_type</code> to <code>AJT_JAPANESE_IGNORE_PROFILE</code>.
-    Afterwards, restart Anki.</p>
+<p>If you are using the AJT Furigana addon, edit the config and set <code>generate_on_note_add</code> to <code>false</code>.
+    Afterwards, restart Anki.
+    Please note that this step will also disable generation of pitch accents.</p>
 </li>
 </ol>
 <p>You likely want to bulk-generate the furigana if you are disabling furigana on card generation.
 See the question below to do just that.</p>
 <hr />
-<h3 id="how-do-i-bulk-generate-furigana">How do I bulk generate furigana?<a class="headerlink" href="#how-do-i-bulk-generate-furigana" title="Permanent link">&para;</a></h3>
+<h3 id="how-do-i-bulk-generate-furigana-and-pitch-accents">How do I bulk generate furigana and pitch accents?<a class="headerlink" href="#how-do-i-bulk-generate-furigana-and-pitch-accents" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Head to the Card Browser window:</p>
@@ -1867,40 +1854,25 @@ See the question below to do just that.</p>
 <li>
 <p>Head over to:</p>
 <blockquote>
-<p><code>Edit</code> (top left corner) →  <code>Bulk-add furigana</code>.</p>
+<p><code>Edit</code> (top left corner) →  <code>AJT: Bulk-add</code>.</p>
 </blockquote>
 </li>
 </ol>
-<hr />
-<h3 id="how-do-i-bulk-generate-pitch-accents">How do I bulk generate pitch accents?<a class="headerlink" href="#how-do-i-bulk-generate-pitch-accents" title="Permanent link">&para;</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This will only batch generate the <code>AJTWordPitch</code> field.
+<p>Bulk generating pitch accents will only batch generate the <code>AJTWordPitch</code> field.
 Pitch accent graphs and positions cannot be automatically generated.
 This is important to note if you are using colored pitch accent.
 If <code>PAPositions</code> is not filled, then the card cannot be automatically colored.</p>
+<p><!-- TODO -->
+In version <code>0.12.0.0</code>, this no longer matters, because the pitch accent info is properly
+parsed from AJTWordPitch.</p>
 </div>
-<ol>
-<li>
-<p>Head to the Card Browser window:</p>
-<blockquote>
-<p>Main Window →  <code>Browse</code></p>
-</blockquote>
-</li>
-<li>
-<p>Select all notes with an empty <code>AJTWordPitch</code> field, with the following search:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&quot;note:JP Mining Note&quot; AJTWordPitch:
-</code></pre></div></p>
-</li>
-<li>
-<p>Head over to:</p>
-<blockquote>
-<p><code>Edit</code> (top left corner) →  <code>Bulk-add pitch accents</code>.</p>
-</blockquote>
-</li>
-</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>There may be some cards that still have an empty <code>AJTWordPitch</code> field.
 This is simply because the add-on did not contain the pitch data for those words.</p>
+</div>
 <hr />
 <h3 id="how-do-i-remove-an-empty-card-without-deleting-the-entire-note">How do I remove an empty card without deleting the entire note?<a class="headerlink" href="#how-do-i-remove-an-empty-card-without-deleting-the-entire-note" title="Permanent link">&para;</a></h3>
 <div class="admonition quote">
