@@ -1,6 +1,7 @@
 import { compileOpts, runtimeOpts } from './consts';
 import { LOGGER } from './logger';
-import { isMobile, arrContainsAnyOf, getCardType, getCardSide , fieldsAllEmpty, Field, fieldsAllFilled, fieldsAnyFilled} from './utils';
+import { isMobile, arrContainsAnyOf, getCardType, getCardSide } from './utils';
+import { fieldsAllEmpty, Field, fieldsAllFilled, fieldsAnyFilled } from './fields';
 import { getViewportWidth } from './reflow';
 
 // default options
@@ -12,7 +13,6 @@ type DO = typeof runtimeOpts;
 //};
 
 export type O = Omit<DO, 'overrides'>;
-
 
 const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
   /*
@@ -149,9 +149,7 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
   fieldsAnyFilled: overrideFuncFields(fieldsAnyFilled),
 
   // TODO: AND & OR operators?
-
 } as const;
-
 
 //const overrideTypes = ['isMobile', 'isPC', 'cardType', 'viewport'];
 type OverrideTypes = keyof typeof OVERRIDE_FUNCS;
@@ -197,18 +195,18 @@ const OPS = {
 
 // generates function
 function overrideFuncFields(fieldsFunc: (...fields: Field[]) => boolean) {
-   return ((args: unknown) => {
+  return (args: unknown) => {
     if (
       args !== null &&
       typeof args === 'object' &&
       'field' in args &&
       Array.isArray(args.field)
     ) {
-      return fieldsFunc(...args.field as Field[])
+      return fieldsFunc(...(args.field as Field[]));
     }
     LOGGER.warn(`Invalid cardType arguments: ${args}`, { ignoreOptions: true });
     return true;
-  })
+  };
 }
 
 function isOverrideValue(val: unknown) {

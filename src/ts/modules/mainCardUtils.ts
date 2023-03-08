@@ -1,5 +1,6 @@
 import { RunnableModule } from '../module';
-import { fieldsAnyFilled, getCardSide, hybridClick, isAndroid, paIndicator, fieldsAllFilled } from '../utils';
+import { getCardSide, hybridClick, isAndroid, paIndicator } from '../utils';
+import { fieldsAnyFilled, fieldsAllFilled } from '../fields';
 import { translatorStrs } from '../consts';
 import {addKeybindFunc, hasKey} from './keybinds';
 import {getOption} from '../options';

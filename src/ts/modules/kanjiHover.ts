@@ -1,7 +1,9 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { selectPersist } from '../spersist';
-import { getFieldValue, plainToRuby, CARD_KEY, filterCards } from '../utils';
+import { plainToRuby, CARD_KEY, filterCards } from '../utils';
+import { getFieldValue, Field, cacheFieldValue } from '../fields';
+
 import {
   Tooltips,
   QueryBuilderGroup,
@@ -69,6 +71,18 @@ export class KanjiHover extends RunnableAsyncModule {
 
     this.tooltips = new Tooltips();
     this.tooltips.overrideOptions(getOption('kanjiHover.overrideOptions.tooltips'));
+
+
+    // ran synchronously, so fields will 100% be cached
+    const cacheFields: readonly Field[] = [
+      'Key',
+      'Word',
+      'WordReading',
+    ] as const;
+    for (const f of cacheFields) {
+      cacheFieldValue(f);
+    }
+
   }
 
   private wordReadingKanjis(noteInfo: NoteInfoKanjiHover): Set<string> {

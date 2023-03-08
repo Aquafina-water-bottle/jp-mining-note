@@ -1,6 +1,7 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { CardSide, fieldsAllFilled, fieldsAllEmpty } from './utils';
+import { CardSide } from './utils';
+import { fieldsAllFilled, fieldsAllEmpty } from './fields';
 
 import { newKeybinds } from './modules/keybinds';
 import { MainCardUtils } from './modules/mainCardUtils';
@@ -11,19 +12,17 @@ import { AutoPitchAccent } from './modules/autoPitchAccent';
 import { ImgStylizer } from './modules/imgStylizer';
 
 import { KanjiHover } from './modules/kanjiHover';
-import { CollapseDictionaries } from './modules/collapseDictionaries';
-import { OpenCollapsedFields } from './modules/openCollapsedFields';
 import { WordIndicators } from './modules/wordIndicators';
 import { FreqUtils } from './modules/freqUtils';
-import { WebSocketUtils } from './modules/webSocketUtils'
+import { WebSocketUtils } from './modules/webSocketUtils';
 
 import { MobileUtils } from './modules/mobileUtils';
 import { InfoCircleUtils } from './modules/infoCircleUtils';
-import { FixRubyPositioning } from './modules/fixRubyPositioning';
+
 import { CheckDuplicateKey } from './modules/checkDuplicateKey';
-import {AsyncManager} from './modules/asyncManager';
-import {Blockquotes} from './modules/blockquotes';
-import {RefreshCard} from './modules/refreshCard'
+import { AsyncManager } from './modules/asyncManager';
+import { Blockquotes } from './modules/blockquotes';
+import { RefreshCard } from './modules/refreshCard';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -53,12 +52,16 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
 
   LOGGER.debug(`----------------------------DEBUG-LOGS----------------------------`);
-  LOGGER.debug(`Hello world! cardType=${cardType} cardSide=${cardSide} noteType=${noteType}`);
+  LOGGER.debug(
+    `Hello world! cardType=${cardType} cardSide=${cardSide} noteType=${noteType}`
+  );
 
   const optsScript = document.getElementById('jpmn_options_script');
   if (optsScript) {
     optsScript.onerror = () => {
-      LOGGER.warn('Options file not found. Did you place the options file in the media directory?');
+      LOGGER.warn(
+        'Options file not found. Did you place the options file in the media directory?'
+      );
     };
   }
 
@@ -80,12 +83,13 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   }
 
   if (fieldsAllEmpty('SentenceReading') && fieldsAllFilled('Sentence')) {
-    LOGGER.warn("SentenceReading is not filled out. Using Sentence field instead.");
+    LOGGER.warn('SentenceReading is not filled out. Using Sentence field instead.');
   }
   if (fieldsAllEmpty('Sentence') && fieldsAllFilled('SentenceReading')) {
-    LOGGER.warn("`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?");
+    LOGGER.warn(
+      '`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?'
+    );
   }
-
 
   // ==========================================================================
   // = run modules =
@@ -98,14 +102,13 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   const refreshCard = new RefreshCard();
 
   newKeybinds();
-  if (cardType === "main") {
+  if (cardType === 'main') {
     new MainCardUtils().run();
   }
 
   if (compileOpts['enableModule.sentenceParser']) {
     new SentenceParser().run();
   }
-
 
   if (cardSide === 'back') {
     if (compileOpts['enableModule.autoPitchAccent']) {
@@ -136,13 +139,11 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
       new FreqUtils().run();
     }
 
-
     // very last to ensure that definitions are properly populated
     // TODO compile opt
     if (compileOpts['enableModule.blockquotes']) {
       new Blockquotes().run();
     }
-
   }
 
   if (compileOpts['enableModule.webSocketUtils']) {
@@ -157,9 +158,9 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     new InfoCircleUtils().run();
   }
 
-  if (compileOpts['enableModule.fixRubyPositioning']) {
-    new FixRubyPositioning().run();
-  }
+  //if (compileOpts['enableModule.fixRubyPositioning']) {
+  //  new FixRubyPositioning().run();
+  //}
 
   if (compileOpts['enableModule.checkDuplicateKey']) {
     new CheckDuplicateKey().run();

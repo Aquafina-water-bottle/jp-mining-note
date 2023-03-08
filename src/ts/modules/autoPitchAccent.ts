@@ -1,6 +1,7 @@
 import { Module, RunnableModule } from '../module';
 //import { getOption } from '../options';
-import { getFieldValue, getWordTags, isVerb, plainToKanaOnly, getTags } from '../utils';
+import { getWordTags, isVerb, plainToKanaOnly, getTags } from '../utils';
+import { getFieldValue } from '../fields';
 import {
   convertHiraganaToKatakana,
   convertHiraganaToKatakanaWithLongVowelMarks,

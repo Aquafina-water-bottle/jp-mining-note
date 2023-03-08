@@ -1,7 +1,8 @@
 import { RunnableModule } from '../module';
 import { getOption } from '../options';
 import { InfoCircleSetting } from './infoCircleSetting';
-import { getCardSide, getFieldValue, popupMenuMessage } from '../utils';
+import { getCardSide, popupMenuMessage } from '../utils';
+import { getFieldValue } from '../fields';
 import { selectPersist, SPersistInterface } from '../spersist';
 
 const settingId = 'info_circle_text_settings_websocket_toggle';

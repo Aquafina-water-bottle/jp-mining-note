@@ -1,6 +1,9 @@
 import {LOGGER} from "../logger";
 import { getOption } from "../options"
-import { hybridClick, fieldsAnyFilled, getCardSide, getCardType } from '../utils';
+import { hybridClick, getCardSide, getCardType } from '../utils';
+import {
+  fieldsAnyFilled,
+} from '../fields';
 
 //export class Keybinds extends RunnableModule {
 //

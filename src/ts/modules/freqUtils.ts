@@ -1,7 +1,7 @@
 import {translatorStrs} from '../consts';
 import { RunnableModule } from '../module';
 import { getOption } from '../options';
-import { fieldsAllEmpty, fieldsAnyFilled } from '../utils';
+import { fieldsAllEmpty, fieldsAnyFilled } from '../fields';
 
 export class FreqUtils extends RunnableModule {
   private readonly freqDisplay = document.getElementById('frequencies_display');

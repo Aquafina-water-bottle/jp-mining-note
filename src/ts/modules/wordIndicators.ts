@@ -1,6 +1,7 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { getFieldValue, filterCards, getTags, CARD_KEY } from '../utils';
+import { filterCards, getTags, CARD_KEY } from '../utils';
+import { getFieldValue, Field, cacheFieldValue } from '../fields';
 import {
   Tooltips,
   QueryBuilderGroup,
@@ -39,14 +40,6 @@ type FilteredCardCategories = 'nonNew' | 'new';
 type FilteredCardIDs = Record<FilteredCardCategories, number[]>;
 type FilteredCardsInfo = Record<FilteredCardCategories, CardInfo[]>;
 
-//type WordIndicatorData = {
-//  indicator: HTMLElement | null,
-//  tooltip: HTMLElement | null,
-//
-//  queryCategories: QueryCategories,
-//  label: string,
-//}
-
 class WordIndicator {
   // is also the html id for the indicator element
   private readonly label: string;
@@ -66,8 +59,22 @@ class WordIndicator {
     this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${CARD_KEY}`;
     this.mutexKey = `${wordIndicatorMutexKey}.${label}.${CARD_KEY}`;
 
-    //this.tooltips = tooltips
-    //this.useCache = useCache;
+    // ran synchronously, so fields will 100% be cached
+    const cacheFields: readonly Field[] = [
+      'Key',
+      'AJTWordPitch',
+      'PAOverride',
+      'PAOverrideText',
+      'PAPositions',
+      'Sentence',
+      'Word',
+      'WordReading',
+      'WordReadingHiragana',
+      'YomichanWordTags',
+    ] as const;
+    for (const f of cacheFields) {
+      cacheFieldValue(f);
+    }
   }
 
   private async getQueryResults() {
@@ -223,7 +230,7 @@ class WordIndicator {
       Sentence: getFieldValue('Sentence'),
       Word: getFieldValue('Word'),
       WordReading: getFieldValue('WordReading'),
-      WordReadingHiragana: getFieldValue('WordReading'),
+      WordReadingHiragana: getFieldValue('WordReadingHiragana'),
       YomichanWordTags: getFieldValue('YomichanWordTags'),
       tags: getTags(),
     };
@@ -282,12 +289,12 @@ class WordIndicator {
     }
     // TODO document structure of element?
     indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
-    indicatorEle.classList.toggle("dh-left__similar-words-indicator--visible", true);
+    indicatorEle.classList.toggle('dh-left__similar-words-indicator--visible', true);
 
     // TODO rework this! this also affects pitch accents!
     dhLeftEle.classList.toggle(clsWithIndicators, true);
 
-    // we cannot 
+    // we cannot
     this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
   }
 
@@ -300,7 +307,7 @@ class WordIndicator {
   async run() {
     // resets on refresh
     const indicatorEle = document.getElementById(this.label);
-    indicatorEle?.classList.toggle("dh-left__similar-words-indicator--visible", false);
+    indicatorEle?.classList.toggle('dh-left__similar-words-indicator--visible', false);
 
     // gets cache if exists
     if (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey)) {
@@ -338,7 +345,7 @@ class WordIndicator {
 
       // caches empty html
       if (this.wordInds.persist !== null) {
-        this.wordInds.persist.set(this.cacheKey, "");
+        this.wordInds.persist.set(this.cacheKey, '');
       }
 
       this.releaseMutex();

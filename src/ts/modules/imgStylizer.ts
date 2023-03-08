@@ -4,12 +4,14 @@ import { compileOpts, translatorStrs } from '../consts';
 import { checkOptTags, getOption } from '../options';
 import {
   arrContainsAnyOf,
-  fieldIsFilled,
   getCardSide,
   getTags,
   isMobile,
   popupMenuMessage,
 } from '../utils';
+import {
+  fieldIsFilled,
+} from '../fields';
 import { InfoCircleSetting } from './infoCircleSetting';
 import {getViewportWidth, adjustElements} from '../reflow';
 
