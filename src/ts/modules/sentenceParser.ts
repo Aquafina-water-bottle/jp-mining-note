@@ -1,15 +1,7 @@
 import { RunnableModule } from '../module';
 import { checkOptTags } from '../options';
-import {
-  countOccurancesInString,
-  paIndicator,
-  getCardType,
-  fieldsAnyFilled,
-  fieldsAllEmpty,
-  getFieldValue,
-  plainToKanaOnly,
-  getTags,
-} from '../utils';
+import { getFieldValue } from '../fields';
+import { plainToKanaOnly, getTags } from '../utils';
 import { compileOpts } from '../consts';
 import { AutoHighlightWord, SearchStrings } from './autoHighlightWord';
 
@@ -35,12 +27,12 @@ const sentenceStyleClasses = [
   'sentence-quoted-display-block',
   'sentence-quoted-display-flow',
 ];
-type SentenceStyleClass = typeof sentenceStyleClasses[number];
+type SentenceStyleClass = (typeof sentenceStyleClasses)[number];
 
 export type QuotePair = {
   open: string;
   close: string;
-}
+};
 
 // subset of an entry in anki-connect's `notesInfo` call
 //type NoteInfoTags = {
@@ -60,7 +52,9 @@ export type SentenceParserArgs = {
 
 export class SentenceParser extends RunnableModule {
   private readonly quoteMatches = this.getOption('sentenceParser.quotes.matches');
-  private readonly autoHighlight = compileOpts['enableModule.sentenceParser.autoHighlight']
+  private readonly autoHighlight = compileOpts[
+    'enableModule.sentenceParser.autoHighlight'
+  ]
     ? new AutoHighlightWord()
     : null;
 
@@ -221,7 +215,8 @@ export class SentenceParser extends RunnableModule {
     let sentenceStyleClass: SentenceStyleClass;
     const dispMode = this.getQuoteDisplayMode(sentType, o !== '', sentType === 'display');
     this.logger.debug(
-      `${sentType} | ${processMode} -> ${o === '' ? 'unquoted' : 'quoted'} | ${dispMode}`, this.debugLevel
+      `${sentType} | ${processMode} -> ${o === '' ? 'unquoted' : 'quoted'} | ${dispMode}`,
+      this.debugLevel
     );
 
     if (dispMode === 'indent') {
@@ -282,7 +277,9 @@ export class SentenceParser extends RunnableModule {
       }
     }
 
-    return this.getOption(`sentenceParser.${optSentType}.quotes.processMode`) as QuoteProcessMode;
+    return this.getOption(
+      `sentenceParser.${optSentType}.quotes.processMode`
+    ) as QuoteProcessMode;
   }
 
   private getQuoteDisplayMode(
@@ -334,13 +331,13 @@ export class SentenceParser extends RunnableModule {
     // the last period can be part of an html tag, i.e. `(text)<b>(text)。</b>`
     // therefore, we strip the tags to search, and then if found, remove the last found period
     // within the actual sentContents
-    if (rxLastPeriod.test(sentContents.replace(rxTags, ""))) {
+    if (rxLastPeriod.test(sentContents.replace(rxTags, ''))) {
       const results = Array.from(sentContents.matchAll(rxPeriods));
       if (results.length > 0) {
         // lastIndexOf only works on strings and not regex it seems?
-        const i = results[results.length-1].index; // position of last period
+        const i = results[results.length - 1].index; // position of last period
         if (i !== undefined) {
-          return sentContents.substring(0, i) + sentContents.substring(i+1);
+          return sentContents.substring(0, i) + sentContents.substring(i + 1);
         }
       }
     }
@@ -399,7 +396,11 @@ export class SentenceParser extends RunnableModule {
         { value: noteInfo.WordReadingHiragana },
       ];
       let replace: string | null;
-      [result, replace] = this.autoHighlight.highlightWord(result, searchStrings, noteInfo.Sentence);
+      [result, replace] = this.autoHighlight.highlightWord(
+        result,
+        searchStrings,
+        noteInfo.Sentence
+      );
       this.autoHighlightLog(sentType, replace, noteInfo.Word);
       this.logger.debug(`autoHighlight: "${result}"`, 1);
     }
@@ -470,10 +471,10 @@ export class SentenceParser extends RunnableModule {
       };
 
       const noteInfoSentence: NoteInfoSentence = {
-          Word: getFieldValue('Word'),
-          WordReading: getFieldValue('WordReading'),
-          WordReadingHiragana: getFieldValue('WordReadingHiragana'),
-          Sentence: getFieldValue('Sentence'),
+        Word: getFieldValue('Word'),
+        WordReading: getFieldValue('WordReading'),
+        WordReadingHiragana: getFieldValue('WordReadingHiragana'),
+        Sentence: getFieldValue('Sentence'),
       };
 
       this.processSentence(sent, sentenceType, noteInfoSentence, false);

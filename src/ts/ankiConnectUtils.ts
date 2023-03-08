@@ -1,5 +1,5 @@
 import { selectPersist, SPersistInterface } from './spersist';
-import { Field } from './utils';
+import { Field } from './fields';
 
 const getQueryCacheKey = 'ankiConnectUtils.getQueryCacheKey';
 const getCardInfoCacheKey = 'ankiConnectUtils.getCardInfoCacheKey';

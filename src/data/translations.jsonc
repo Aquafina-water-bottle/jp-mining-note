@@ -50,8 +50,7 @@
     "hide-word-button": "隠す",
     "full-sentence": "全ての文",
     "hint": "ヒント",
-    "kanji-not-found": "漢字は見つかれません｡",
-    //"kanji-not-found": "漢字は見つかれません",
+    "kanji-not-found": "漢字は見つかりません｡",
     "unknown-frequency": "未知",
 
     "pa-indicator-prefix": "ピッチ：",

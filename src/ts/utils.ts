@@ -1,51 +1,6 @@
 import { LOGGER } from './logger';
 import { translatorStrs } from './consts';
-
-export type Field =
-  | 'Key'
-  | 'Word'
-  | 'WordReading'
-  | 'PAOverride'
-  | 'PAOverrideText'
-  | 'AJTWordPitch'
-  | 'PrimaryDefinition'
-  | 'PrimaryDefinitionPicture'
-  | 'Sentence'
-  | 'SentenceReading'
-  | 'AltDisplay'
-  | 'AltDisplayPASentenceCard'
-  | 'AltDisplayAudioCard'
-  | 'AdditionalNotes'
-  | 'Hint'
-  | 'HintNotHidden'
-  | 'IsSentenceCard'
-  | 'IsTargetedSentenceCard'
-  | 'IsClickCard'
-  | 'IsHoverCard'
-  | 'IsHintCard'
-  | 'IsSentenceFirstCard'
-  | 'IsAudioCard'
-  | 'PAShowInfo'
-  | 'PATestOnlyWord'
-  | 'PADoNotTest'
-  | 'PASeparateWordCard'
-  | 'PASeparateSentenceCard'
-  | 'SeparateAudioCard'
-  | 'SeparateSentenceAudioCard'
-  | 'Picture'
-  | 'WordAudio'
-  | 'SentenceAudio'
-  | 'PAGraphs'
-  | 'PAPositions'
-  | 'FrequenciesStylized'
-  | 'FrequencySort'
-  | 'PASilence'
-  | 'WordReadingHiragana'
-  | 'YomichanWordTags'
-  | 'SecondaryDefinition'
-  | 'ExtraDefinitions'
-  | 'UtilityDictionaries'
-  | 'Comment';
+import {getFieldValue, fieldsAnyFilled } from './fields';
 
 export type NoteInfo = {
   readonly tags: string[];
@@ -115,48 +70,6 @@ export function popupMenuMessage(message: string, isHTML = false) {
     popupMenu?.removeChild(popupMessageDiv);
     LOGGER.debug(`Removed popup: "${message}"`, 2);
   }, 1000 * (0.6 + 3 + 0.75));
-}
-
-export function fieldIsFilled(field: Field): boolean {
-  const x = document.getElementById(`hidden_field_exists_${field}`);
-  if (x === null) {
-    LOGGER.warn(`fieldIsFilled(${field}) could not find element`);
-    return false; // shouldn't ever be reached?
-  }
-  return (x.innerHTML.length !== 0)
-}
-
-/* if every field exists */
-export function fieldsAllFilled(...fields: Field[]) {
-  for (const field of fields) {
-    if (!fieldIsFilled(field)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/* if any field exists */
-export function fieldsAnyFilled(...fields: Field[]) {
-  for (const field of fields) {
-    if (fieldIsFilled(field)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-export function getFieldValue(field: Field): string {
-  const x = document.getElementById(`hidden_field_${field}`);
-  if (x === null) {
-    LOGGER.warn(`getFieldValue(${field}) could not find element`);
-    return "";
-  }
-  return x.innerHTML;
-}
-
-export function fieldsAllEmpty(...fields: Field[]) {
-  return !fieldsAnyFilled(...fields);
 }
 
 export function isMobile() {
