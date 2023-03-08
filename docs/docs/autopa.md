@@ -7,7 +7,7 @@ and various ways to edit said display.
 # What Is Pitch Accent?
 
 Here is a (slightly modified) excerpt taken from the
-[AJT Pitch Accent add-on page](https://ankiweb.net/shared/info/1225470483)
+[AJT Japanese Github page](https://github.com/Ajatt-Tools/Japanese#pitch-accent-what-is-that)
 that explains the notation well:
 
 !!! quote
