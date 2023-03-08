@@ -78,7 +78,7 @@ However, here are a few tips:
 
 1. Leave `AJTWordPitch` and `SentenceReading` empty.
 
-    These fields can be empty as the AJT plugins
+    These fields can be empty as AJT Japanese
     can batch generate both word pitches and sentence furigana.
 
 1. You may have some word pitch fields already in your card.
