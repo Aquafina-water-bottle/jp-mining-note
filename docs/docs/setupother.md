@@ -135,8 +135,7 @@ I also provide a small list of other popular add-ons that I don't use, but may b
 
     * [Anki-Connect](https://ankiweb.net/shared/info/2055492159)
     * [CSS Injector](https://ankiweb.net/shared/info/181103283)
-    * [AJT Furigana](https://ankiweb.net/shared/info/1344485230)
-    * [AJT Pitch Accent](https://ankiweb.net/shared/info/1225470483)
+    * [AJT Japanese](https://ankiweb.net/shared/info/1344485230)
 
     **Algorithm Changing:**
 

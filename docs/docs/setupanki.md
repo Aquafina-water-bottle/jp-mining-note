@@ -281,15 +281,24 @@ and delete both `css` files.
 
 
 
-## [AJT Furigana](https://ankiweb.net/shared/info/1344485230)
+## [AJT Japanese](https://ankiweb.net/shared/info/1344485230)
 
 > Code: `1344485230`
 
-Alternative and up-to-date version of JapaneseSupport.
-Automatically generates furigana upon Yomichan card creation.
+This is an add-on that automatically adds furigana and pitch accents to
+cards upon Yomichan card creation.
+Previously known as `AJT Furigana`, and now comes packaged with `AJT Pitch Accent`.
 
-This add-on is optional, because the card will simply show the sentence without
-furigana (on hover) if there is no furigana generated sentence.
+If this add-on is not used, then the following features will be missing:
+
+- Automatically generated furigana
+- Devoiced and nasal information to pitch accents
+- Less coverage on pitch accents
+    - If your Yomichan pitch accent dictionaries did not contain any pitch accent info for the word
+      but the add-on does, then it will use the add-on data.
+      This will likely happen for expressions containing more than one word.
+      Fortunately, AJT Japanese can usually detect the existence of multiple words,
+      and add the pitch accent for each individual word.
 
 ### Config Changes
 
@@ -305,61 +314,139 @@ To change the config of any Anki add-on, head over to:
 
     * `generate_on_note_add`
     * `fields`
-    * `note_types`
+    * `profiles`
+    * `pitch_accent.reading_separator`
+    * `pitch_accent.word_separator`
+    * `pitch_accent.maximum_results`
 
     ```json
     {
-        "context_menu": {
-            "generate_furigana": true,
-            "generate_furigana_no_kanji": true,
-            "to_hiragana": true,
-            "to_katakana": true
+      "generate_on_note_add": true, // (1)!
+      "regenerate_readings": false,
+      "cache_lookups": 1024,
+      "last_file_save_location": "",
+      "styles": { // (2)!
+          "&#42780;": "<span class=\"downstep\"><span class=\"downstep-inner\">&#42780;</span></span>",
+          "class=\"overline\"": "style=\"text-decoration:overline;\" class=\"pitchoverline\""
+      },
+      "profiles": [ // (3)!
+        {
+          "name": "Add pitch accent html",
+          "note_type": "JP Mining Note",
+          "source": "Word",
+          "destination": "AJTWordPitch",
+          "mode": "pitch",
+          "output_format": "html",
+          "split_morphemes": false
         },
-        "fields": [ // (1)!
-            {
-                "destination": "SentenceReading",
-                "source": "Sentence"
-            }
-        ],
-        "furigana_suffix": " (furigana)",
-        "generate_on_note_add": true, // (2)!
-        "note_types": [ // (3)!
-            "JP Mining Note"
-        ],
-        "skip_kanji": false,
-        "skip_numbers": false,
-        "skip_words": "",
-        "toolbar": {
-            "clean_furigana_button": {
-                "enable": false, // (4)!
-                "shortcut": "Alt+u",
-                "text": "削"
-            },
-            "furigana_button": {
-                "enable": false,
-                "shortcut": "Alt+o",
-                "text": "振"
-            },
-            "furigana_no_kanji_button": {
-                "enable": false,
-                "shortcut": "Alt+i",
-                "text": "平"
-            }
+        {
+          "name": "Add pitch accent number -- UNUSED BY jp-mining-note",
+          "note_type": "AJT_JAPANESE_IGNORE_PROFILE",
+          "source": "VocabKanji",
+          "destination": "VocabPitchNum",
+          "mode": "pitch",
+          "output_format": "number",
+          "split_morphemes": false
+        },
+        {
+          "name": "Add furigana for sentence",
+          "note_type": "JP Mining Note",
+          "source": "Sentence",
+          "destination": "SentenceReading",
+          "mode": "furigana",
+          "split_morphemes": true
+        },
+        {
+          "name": "Add furigana for word -- UNUSED BY jp-mining-note",
+          "note_type": "AJT_JAPANESE_IGNORE_PROFILE",
+          "source": "VocabKanji",
+          "destination": "VocabFurigana",
+          "mode": "furigana",
+          "split_morphemes": false
         }
+      ],
+      "pitch_accent": {
+        "lookup_shortcut": "Ctrl+8",
+        "output_hiragana": false,
+        "kana_lookups": true,
+        "skip_numbers": true,
+        "reading_separator": "・", // (4)!
+        "word_separator": "、",
+        "blocklisted_words": "こと,へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,する,です,ない",
+        "maximum_results": 100, // (5)!
+        "discard_mode": "keep_first"
+      },
+      "furigana": {
+        "database_lookups": true,
+        "skip_numbers": true,
+        "prefer_literal_pronunciation": false,
+        "reading_separator": ", ",
+        "blocklisted_words": "人",
+        "mecab_only": "彼,猫,首,母,顔,木,頭,私,弟,空,体,行く",
+        "counters": "つ,月,日,人,筋,隻,丁,品,番,枚,時,回,円,万,歳,限,万人",
+        "maximum_results": 1, // (6)!
+        "discard_mode": "keep_first"
+      },
+      "context_menu": {
+        "generate_furigana": true,
+        "to_katakana": true,
+        "to_hiragana": true,
+        "literal_pronunciation": true
+      },
+      "toolbar": { // (7)!
+        "regenerate_all_button": {
+          "enabled": false,
+          "shortcut": "Alt+P",
+          "text": "再"
+        },
+        "furigana_button": {
+          "enabled": false,
+          "shortcut": "",
+          "text": "振"
+        },
+       "hiragana_button": {
+          "enabled": false,
+          "shortcut": "",
+          "text": "平"
+        },
+        "clean_furigana_button": {
+          "enabled": false,
+          "shortcut": "",
+          "text": "削"
+        }
+      }
     }
     ```
 
-    1.  We change the field names to match this note type.
-
-    2.  This ensures that the pitch accent is added upon initial note creation.
+    1.  This ensures that the pitch accent and furigana is added upon initial note creation.
         Note that this is technically optional.
         If you are likely to change the sentence after adding the note,
         then it is possible to leave this as `false`,
         and bulk add the furigana later.
 
-    3.  Similarly to the `fields` change, we change this to properly detect this note type.
+    2. `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
+        in the example note.
+        Without this, the default styles will look like the word
+        you see in the official add-on page.
 
-    4.  I personally have the buttons removed because I don't want it to clutter up the editor toolbar.
+    3. The `Add pitch accent number` and `Add furigana for word` profiles are not used.
+        In order to disable them, the note type is set to `AJT_JAPANESE_IGNORE_PROFILE`,
+        which only matches note types containing the string `AJT_JAPANESE_IGNORE_PROFILE`.
+        It is very unlikely that your Anki notes will unintentionally contain this string.
+
+    4. This makes the separators behave like the old version, and has to be changed to this
+        for the default config of jp-mining-note to work.
+
+    5. This is set to a high number in order for many pitch accents to be displayed for long expressions.
+        This is fine because the pitch accent display is usually overwritten by
+        the `PAPositions` field, so it's rare to see the `AJTWordPitch` field results anyways.
+        Additionally, a higher number increases the sample size for the internal
+        auto-pitch-accent module, to better search for devoiced and nasal markers.
+
+    6. This is to restrict the generated furigana to only show one reading.
+        Feel free to leave this as the default (`3`).
+
+    7.  I personally have the buttons removed because I don't want it to clutter up the editor toolbar.
         Feel free to have these enabled.
 
 
@@ -369,83 +456,15 @@ Furigana generation is occasionally incorrect,
 so if you plan on using furigana regularly, you should double-check the readings
 to make sure they are correct.
 
-??? info "JapaneseSupport v.s. AJT Furigana"
+??? info "JapaneseSupport v.s. AJT Japanese (Furigana)"
 
     If you use [JapaneseSupport](https://ankiweb.net/shared/info/3918629684), bolded words and other styles within a field
     are not transferred over from the original field to the reading field.
     Additionally, JapaneseSupport does not have an option to automatically add
     the reading upon card creation.
-    AJT Furigana supports both of those of those features.
-
-
+    AJT Japanese supports both of those of those features.
 
 <br>
-
-## [AJT Pitch Accent](https://ankiweb.net/shared/info/1225470483)
-
-> Code: `1225470483`
-
-Automatically adds pitch accent info given the word.
-
-For the purposes of the card, this add-on serves does the following:
-
-- Adds devoiced and nasal information to the existing reading, if the data is available.
-- If your Yomichan pitch accent dictionaries did not contain any pitch accent info for the word
-    but the add-on does, then it will use the add-on data.
-    This will likely happen for expressions containing more than one word.
-
-
-### Config Changes
-Like with AJT Furigana, the config of the add-on must be changed to work with this note.
-
-
-??? examplecode "Click here to see the full AJT Pitch Accent config"
-
-    The important things to change in the config are:
-
-    * `generate_on_note_add`
-    * `destination_fields`
-    * `source_fields`
-    * `note_types`
-    * `styles`
-
-
-    ```json
-    {
-        "destination_fields": [
-            "AJTWordPitch"
-        ],
-        "generate_on_note_add": true, // (1)!
-        "kana_lookups": true,
-        "lookup_shortcut": "Ctrl+8",
-        "note_types": [
-            "JP Mining Note"
-        ],
-        "regenerate_readings": false,
-        "skip_words": "へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,です",
-        "source_fields": [
-            "Word"
-        ],
-        "styles": { // (2)!
-            "&#42780;": "<span class=\"downstep\"><span class=\"downstep-inner\">&#42780;</span></span>",
-            "class=\"overline\"": "style=\"text-decoration:overline;\" class=\"pitchoverline\""
-        },
-        "use_hiragana": false,
-        "use_mecab": true
-    }
-    ```
-
-    1.  We change `generate_on_note_add` and `note_types` for the exact same reasons as the
-        AJT Furigana Config section.
-        The `destination_fields` and `source_fields` options are changed similarily to the
-        `fields` option in the AJT Furigana Config section.
-
-    2. `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
-        in the example note.
-        Without this, the default styles will look like the word
-        you see in the official add-on page.
-
----
 
 
 

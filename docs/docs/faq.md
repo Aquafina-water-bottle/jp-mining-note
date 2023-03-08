@@ -399,7 +399,7 @@ You have three main options:
 1. In [Yomichan's Anki Card Format](setupyomichan.md#yomichan-fields),
     ensure that the `SentenceReading` field is empty.
 
-1. If you are using the AJT Furigana addon, edit the config and set `generate_on_note_add` to `false`.
+1. If you are using the AJT Japanese addon, edit the config and under the profile named `Add furigana for sentence`, set `note_type` to `AJT_JAPANESE_IGNORE_PROFILE`.
     Afterwards, restart Anki.
 
 You likely want to bulk-generate the furigana if you are disabling furigana on card generation.
