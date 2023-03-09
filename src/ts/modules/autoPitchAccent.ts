@@ -21,24 +21,45 @@ export type NoteInfoPA = {
 
 
 export type PAGroup = 'heiban' | 'atamadaka' | 'nakadaka' | 'odaka' | 'kifuku';
+//type ValueOf<T> = T[keyof T];
+
+type PAOverrideParseMethod = "integer" | "text";
+
+const COLOR_TAGS = {
+  "平板": "heiban",
+  "heiban": "heiban",
+
+  "頭高": "atamadaka",
+  "atamadaka": "atamadaka",
+
+  "中高": "nakadaka",
+  "nakadaka": "nakadaka",
+
+  "尾高": "odaka",
+  "odaka": "odaka",
+
+  "起伏": "kifuku",
+  "kifuku": "kifuku",
+} as const;
+
 
 // searches for first bolded
 // if no bolded -> returns first item
-function _getFirstBoldedOrFirstPos(posDataList: PosData[]): PosData | null {
-  if (posDataList.length === 0) {
-    return null;
-  }
+//function _getFirstBoldedOrFirstPos(posDataList: readonly PosData[]): PosData | null {
+//  if (posDataList.length === 0) {
+//    return null;
+//  }
+//
+//  for (const posData of posDataList) {
+//    if (posData.isBolded) {
+//      return posData;
+//    }
+//  }
+//
+//  return posDataList[0];
+//}
 
-  for (const posData of posDataList) {
-    if (posData.isBolded) {
-      return posData;
-    }
-  }
-
-  return posDataList[0];
-}
-
-function _hasBoldedPos(posDataList: PosData[]): boolean {
+function _hasBoldedPos(posDataList: readonly PosData[]): boolean {
   for (const posData of posDataList) {
     if (posData.isBolded) {
       return true;
@@ -69,10 +90,12 @@ class PosData {
 class DispPosData {
   readonly dispHTML: string;
   readonly dictName: string | null;
+  readonly mainPAGroup: PAGroup | null;
 
-  constructor(dispHTML: string, dictName?: string) {
+  constructor(dispHTML: string, dictName: string | null = null, paGroup: PAGroup | null = null) {
     this.dispHTML = dispHTML;
-    this.dictName = dictName ?? null;
+    this.dictName = dictName;
+    this.mainPAGroup = paGroup;
   }
 }
 
@@ -132,8 +155,9 @@ export class ParsePAPositions extends Module implements PitchParser {
 
     const posData = new PosData(Number(digit));
     const pitchHTML = this.autopa.buildPitchHTML([posData], this.wordReading);
+    const paGroup = this.autopa.getMainPAGroup([posData], this.autopa.getOption("autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paPositions"));
 
-    return new DispPosData(pitchHTML, 'PAPositions');
+    return new DispPosData(pitchHTML, 'PAPositions', paGroup);
   }
 
   private getDictInfoFromGroup(groupDiv: Element): [Element[], string] {
@@ -185,11 +209,12 @@ export class ParsePAPositions extends Module implements PitchParser {
     }
 
     const pitchHTML = this.autopa.buildPitchHTML(posDataList, this.wordReading);
-    return new DispPosData(pitchHTML);
+    const paGroup = this.autopa.getMainPAGroup(posDataList, this.autopa.getOption(`autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paPositions`));
+    return new DispPosData(pitchHTML, null, paGroup);
   }
 
   private getPosDataListFromDictChildren(
-    dictChildren: Element[],
+    dictChildren: readonly Element[],
     dictName: string
   ): PosData[] {
     let result: PosData[] = [];
@@ -261,10 +286,11 @@ export class ParsePAPositions extends Module implements PitchParser {
   private parseJPMNAllDicts(positionsEle: HTMLElement): PosData[] {
     let result: PosData[] = [];
 
+    // TODO: should be unique pitches only
     for (const groupDiv of positionsEle.children) {
       const [dictChildren, dictName] = this.getDictInfoFromGroup(groupDiv);
       const dictPosDataList = this.getPosDataListFromDictChildren(dictChildren, dictName);
-      result.concat(dictPosDataList);
+      result = result.concat(dictPosDataList);
     }
 
     return result;
@@ -290,11 +316,12 @@ export class ParsePAOverride extends Module implements PitchParser {
   }
 
   parse(): DispPosData | null {
-    let posDataList = this.calcPosDataList();
-    let pitchHTML: string;
-    if (posDataList.length > 0) {
-      pitchHTML = this.autopa.buildPitchHTML(posDataList, this.wordReading);
-      return new DispPosData(pitchHTML, 'Pitch Accent Override');
+    let [posDataList, parseMethod] = this.calcPosDataList();
+    if (posDataList.length > 0 && parseMethod !== null) {
+      const pitchHTML = this.autopa.buildPitchHTML(posDataList, this.wordReading);
+      const paGroup = this.autopa.getMainPAGroup(posDataList, this.autopa.getOption(`autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverride.${parseMethod}`));
+      return new DispPosData(pitchHTML, 'Pitch Accent Override', paGroup);
+      //return new DispPosData(pitchHTML, 'Pitch Accent Override');
     }
 
     // uses whatever is in PAOverride as is without changes
@@ -325,25 +352,24 @@ export class ParsePAOverride extends Module implements PitchParser {
    *
    * returns list of positions, or empty list if nothing found
    */
-  private calcPosDataList(): PosData[] {
+  private calcPosDataList(): [PosData[], PAOverrideParseMethod | null] {
     // requires html parser to calculate textContent
     const overrideEle = document.createElement('div');
     overrideEle.innerHTML = this.paOverride;
 
-    let result: PosData[] = [];
     const firstInteger = (overrideEle.textContent ?? "").trim().match(/^[-]?\d+/);
 
     if (firstInteger !== null) {
-      result = this.parseIntCSV();
+      return [this.parseIntCSV(), "integer"];
     } else {
       if (overrideEle.textContent === overrideEle.innerHTML) {
-        result = this.parseTextFormat();
+        return [this.parseTextFormat(), "text"];
       } else {
         this.logger.warn(`Invalid PA format: ${this.paOverride}`);
       }
     }
 
-    return result;
+    return [[], null];
   }
 
   private parseIntCSV(): PosData[] {
@@ -532,27 +558,27 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
     return posDataList;
   }
 
-  generatePitchHTML(): string {
-    try {
-      const posDataList = this.getPosDataList();
-      return this.autopa.buildPitchHTML(posDataList);
-    } catch (error) {
-      if (typeof error === "object" && error !== null && "stack" in error && typeof error.stack === "string") {
-        this.logger.errorStack(error.stack)
-      }
-      this.logger.error('Error in generatePitchHTML, using raw AJTWordPitch instead');
-      return this.ajtWordPitch;
-    }
-  }
-
   parse(): DispPosData | null {
     if (this.ajtWordPitch.length === 0) {
       return null;
     }
 
-    let pitchHTML = this.generatePitchHTML();
-    return new DispPosData(pitchHTML, "AJT Pitch Accent");
+    let pitchHTML: string;
+    let paGroup: PAGroup | null
+    try {
+      const posDataList = this.getPosDataList();
+      pitchHTML = this.autopa.buildPitchHTML(posDataList);
+      paGroup = this.autopa.getMainPAGroup(posDataList, this.autopa.getOption("autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.ajtWordPitch"));
+    } catch (error) {
+      if (typeof error === "object" && error !== null && "stack" in error && typeof error.stack === "string") {
+        this.logger.errorStack(error.stack)
+      }
+      this.logger.error('Error in generatePitchHTML, using raw AJTWordPitch instead');
+      pitchHTML = this.ajtWordPitch;
+      paGroup = null;
+    }
 
+    return new DispPosData(pitchHTML, "AJT Pitch Accent", paGroup);
   }
 }
 
@@ -610,6 +636,62 @@ export class AutoPitchAccent extends RunnableModule {
     return str;
   }
 
+  getPAColorTag(tags: readonly string[]): PAGroup | null {
+    for (const ct of Object.keys(COLOR_TAGS)) {
+      if (tags.includes(ct)) {
+        return COLOR_TAGS[ct as keyof typeof COLOR_TAGS];
+      }
+    }
+    return null;
+  }
+
+  private paintDisplay(paGroup: PAGroup) {
+    const wordClass = "pa-word-highlight-" + paGroup;
+    const sentClass = "pa-sentence-highlight-" + paGroup;
+
+    // adds to reading
+    if (this.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")) {
+      const readingEle = document.getElementById("dh_reading");
+      readingEle?.classList.add(wordClass);
+    }
+
+    if (this.getOption("autoPitchAccent.coloredPitchAccent.color.testedContent")) {
+      // adds to display sentence
+      // .highlight-bold is added to the query to ensure that we are not highlighting
+      // a sentence that wasn't highlighted already.
+      const sentences = document.querySelectorAll(".expression--sentence.highlight-bold")
+      if (sentences !== null) {
+        for (const sent of sentences) {
+          sent.classList.add(sentClass);
+        }
+      }
+
+      // adds to display word
+      const words = document.querySelectorAll(".expression--word")
+      if (words !== null) {
+        for (const word of words) {
+          word.classList.add(wordClass);
+        }
+      }
+    }
+
+    // full sentence (back side)
+    if (this.getOption("autoPitchAccent.coloredPitchAccent.color.fullSentence")) {
+      const fullSentEle = document.getElementById("full_sentence");
+      fullSentEle?.classList.add(sentClass);
+    }
+
+    if (this.getOption("autoPitchAccent.coloredPitchAccent.color.definitions")) {
+      const defs = document.querySelectorAll(".glossary-text")
+      if (defs !== null) {
+        for (const def of defs) {
+          // uses setProperty instead to deal with custom dictionary bold / highlights
+          (def as HTMLElement).style.setProperty('--highlight-bold-color', `var(--text-${paGroup})`);
+        }
+      }
+    }
+  }
+
   /*
    * Displays the dispPosData on the displayEle
    * - optionally paints the display with pitch accent colors
@@ -626,9 +708,17 @@ export class AutoPitchAccent extends RunnableModule {
     }
     this.logger.debug(`result dictName: ${dispPosData.dictName}`, this.debugLevel);
 
-    // TODO paint display with colors
-
     if (this.getOption('autoPitchAccent.coloredPitchAccent.enabled')) {
+
+      if (this.attemptGlobalColor) {
+        const paColorTag = this.getPAColorTag(tags);
+        if (paColorTag !== null) {
+          this.paintDisplay(paColorTag);
+        } else if (dispPosData.mainPAGroup !== null) {
+          this.paintDisplay(dispPosData.mainPAGroup);
+        }
+      }
+
       if (
         this.getOption('autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana')
       ) {
@@ -824,11 +914,35 @@ export class AutoPitchAccent extends RunnableModule {
     return result;
   }
 
+  /* returns null if nothing has to be done, otherwise gets paGroup */
+  getMainPAGroup(posDataList: readonly PosData[], multiplePitchesColorAsFirst: boolean): null | PAGroup {
+    if (!this.getOption('autoPitchAccent.coloredPitchAccent.enabled')) {
+      return null;
+    }
+    if (posDataList.length > 1 && !multiplePitchesColorAsFirst) {
+      return null;
+    }
+
+    let firstPAGroup: PAGroup | null = null;
+    for (const posData of posDataList) {
+      // gets first bolded
+      if (posData.paGroup !== null && firstPAGroup === null) {
+        firstPAGroup = posData.paGroup;
+      }
+      if (posData.isBolded && posData.paGroup !== null) {
+        return posData.paGroup;
+      }
+    }
+    // otherwise gets first non-null
+    return firstPAGroup;
+  }
+
+
   /*
    * builds the pitch HTML according to the posData list
    * - recall bold is inverted internally in the css (<b></b> tags will grey out characters!)
    */
-  buildPitchHTML(posDataList: PosData[], wordReading?: string): string {
+  buildPitchHTML(posDataList: readonly PosData[], wordReading?: string): string {
     let result = [];
 
     // cache

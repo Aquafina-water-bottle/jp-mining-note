@@ -68,6 +68,9 @@
   "blockquotes.showTextWhenEmpty": true,
   "blockquotes.folderTab.showDotWhenEmpty": true,
 
+  "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
+
+
   // TEMP
   //"blockquotes.folderTab.mode": "multiple",
 
