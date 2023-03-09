@@ -7,7 +7,7 @@
   <div class="expression--word
       {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-indicator {% endcall %}
       ">
-    {{ T("Word") }}
+    {{ utils.prioritize_alt_display("Word") }}
   </div>
 
   <div class="expression--sentence expression--hint-sentence
