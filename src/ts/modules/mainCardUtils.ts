@@ -5,34 +5,35 @@ import { translatorStrs } from '../consts';
 import {addKeybindFunc, hasKey} from './keybinds';
 import {getOption} from '../options';
 
+// this function has to be moved out of the class in order for the kebind to run???
+function toggleHighlightWord() {
+  const sentenceShownAttr = "data-sentence-shown";
+
+  let paButton = document.getElementById("pa_button");
+  let d = document.getElementById("display");
+  if (paButton === null || d === null) {
+    return;
+  }
+
+  if (paButton.hasAttribute(sentenceShownAttr)) {
+    // (currently) shown -> hide
+    paButton.removeAttribute(sentenceShownAttr);
+    paButton.textContent = translatorStrs['show-word-button'];
+    d.classList.toggle("highlight-bold", false);
+
+  } else {
+    // (currently) hidden -> show
+    paButton.setAttribute(sentenceShownAttr, "true");
+    paButton.textContent = translatorStrs['hide-word-button'];
+    d.classList.toggle("highlight-bold", true);
+  }
+}
+
+
 export class MainCardUtils extends RunnableModule {
   constructor() {
     super("mainCardUtils");
   }
-
-  private toggleHighlightWord() {
-    const sentenceShownAttr = "data-sentence-shown";
-
-    let paButton = document.getElementById("pa_button");
-    let d = document.getElementById("display");
-    if (paButton === null || d === null) {
-      return;
-    }
-
-    if (paButton.hasAttribute(sentenceShownAttr)) {
-      // (currently) shown -> hide
-      paButton.removeAttribute(sentenceShownAttr);
-      paButton.textContent = translatorStrs['show-word-button'];
-      d.classList.toggle("highlight-bold", false);
-
-    } else {
-      // (currently) hidden -> show
-      paButton.setAttribute(sentenceShownAttr, "true");
-      paButton.textContent = translatorStrs['hide-word-button'];
-      d.classList.toggle("highlight-bold", true);
-    }
-  }
-
 
   // TODO how to do keybinds???
   private sentenceKeybinds(e: KeyboardEvent) {
@@ -41,10 +42,11 @@ export class MainCardUtils extends RunnableModule {
     }
 
     if (hasKey(e, getOption("keybinds.toggleHighlightWord"))) {
-      let paButton = document.getElementById("pa_button");
-      if (paButton !== null) {
-        this.toggleHighlightWord();
-      }
+      toggleHighlightWord();
+      //let paButton = document.getElementById("pa_button");
+      //if (paButton !== null) {
+      //  this.toggleHighlightWord();
+      //}
     }
   }
 
@@ -75,7 +77,9 @@ export class MainCardUtils extends RunnableModule {
 
       let paButton = document.getElementById("pa_button");
       if (paButton !== null) {
-        paButton.onclick = this.toggleHighlightWord;
+        paButton.onclick = () => {
+          toggleHighlightWord();
+        };
       }
 
       // auto-plays silence
