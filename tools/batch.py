@@ -637,7 +637,7 @@ def remove_bolded_text_ajtwordpitch():
         field_updates = {
             "AJTWordPitch": ajt_word_pitch.replace("<b>", "").replace("</b>", ""),
         }
-        if (pa_positions + pa_override_text + pa_override).strip():
+        if (pa_positions + pa_override_text + pa_override).strip() == "":
             # empty, i.e. only ajt_word_pitch is currently used!
             # safe to set PAOverrideText
             field_updates["PAOverrideText"] = ajt_word_pitch
