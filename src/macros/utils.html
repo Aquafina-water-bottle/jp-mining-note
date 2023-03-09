@@ -209,16 +209,24 @@
   {{ expression_inner_div_extra(field_name, "expression-inner--altdisplay") }}
 {%- endmacro %}
 
-{% set furigana_alt_display -%}
-  {{ expression_inner_div_altdisplay('furigana:AltDisplay') }}
+{% set furigana_alt_display_sent -%}
+  {{ expression_inner_div_altdisplay('furigana:AltDisplaySentence') }}
+{%- endset -%}
+{% set furigana_alt_display_word -%}
+  {{ expression_inner_div_altdisplay('furigana:AltDisplayWord') }}
 {%- endset -%}
 
 {# adds quotes (if sentence), always attempts to use altdisplay instead of name #}
 {% macro prioritize_alt_display(name, sentence=False) -%}
-  {%- if sentence -%} {{quote_open}} {%- endif -%}
-  {%- call IF("AltDisplay") %}{{ furigana_alt_display }}{% endcall -%}
-  {%- call IFNOT("AltDisplay") %}{{ expression_inner_div(name) }}{% endcall -%}
-  {%- if sentence -%} {{quote_close}} {%- endif -%}
+  {%- if sentence -%}
+  {{ quote_open }}
+    {%- call IF("AltDisplaySentence") %}{{ furigana_alt_display_sent }}{% endcall -%}
+    {%- call IFNOT("AltDisplaySentence") %}{{ expression_inner_div(name) }}{% endcall -%}
+  {{ quote_close }}
+  {%- else -%}
+    {%- call IF("AltDisplayWord") %}{{ furigana_alt_display_word }}{% endcall -%}
+    {%- call IFNOT("AltDisplayWord") %}{{ expression_inner_div(name) }}{% endcall -%}
+  {%- endif -%}
 {%- endmacro -%}
 
 
@@ -237,10 +245,10 @@
 {%- endmacro -%}
 
 {% macro default_disp_sent_quote_class() -%}
-  {%- call IF("AltDisplay") -%}
+  {%- call IF("AltDisplaySentence") -%}
     {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.altDisplay.displayMode").item()) }}
   {%- endcall -%}
-  {%- call IFNOT("AltDisplay") -%}
+  {%- call IFNOT("AltDisplaySentence") -%}
     {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.display.displayMode").item()) }}
   {%- endcall -%}
 {%- endmacro -%}

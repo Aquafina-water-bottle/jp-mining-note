@@ -9,7 +9,7 @@
 <!-- option 1: AltDisplay (only if the original card is not a sentence card or hybrid card) -->
 <div class="outer-display1
     {% call utils.if_none('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %}
-    {% call IF('AltDisplay') %}
+    {% call IF('AltDisplaySentence') %}
       outer-display2
     {% endcall %}
     {% endcall %}
@@ -23,7 +23,7 @@
 
   <!-- if altdisplay, AND none of (click, hover, sentence, TSC) -->
   <div class="expression expression--single expression--word inner-display2">
-    {{ utils.expression_inner_div_altdisplay('furigana:AltDisplay') }}
+    {{ utils.expression_inner_div_altdisplay('furigana:AltDisplaySentence') }}
   </div>
 </div>
 
