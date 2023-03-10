@@ -18,6 +18,7 @@ import { WebSocketUtils } from './modules/webSocketUtils';
 
 import { MobileUtils } from './modules/mobileUtils';
 import { InfoCircleUtils } from './modules/infoCircleUtils';
+import { FixRubyPositioning } from './modules/fixRubyPositioning';
 
 import { CheckDuplicateKey } from './modules/checkDuplicateKey';
 import { AsyncManager } from './modules/asyncManager';
@@ -158,9 +159,9 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     new InfoCircleUtils().run();
   }
 
-  //if (compileOpts['enableModule.fixRubyPositioning']) {
-  //  new FixRubyPositioning().run();
-  //}
+  if (compileOpts['enableModule.fixRubyPositioning']) {
+    new FixRubyPositioning().run();
+  }
 
   if (compileOpts['enableModule.checkDuplicateKey']) {
     new CheckDuplicateKey().run();

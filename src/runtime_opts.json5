@@ -776,6 +776,7 @@
   // = fixRubyPositioning =
   // ==========================================================================
 
+  // OVERWRITTEN BELOW
   "fixRubyPositioning.enabled": true,
 
 
@@ -964,12 +965,18 @@
     },
 
     "blockquotes.folderTab.enabled": {
-      "type": "viewport",
+      "type": "viewportWidth",
       "args": {
         "op": "<=",
         "value": 620,
       },
       "resultTrue": true,
+      "resultFalse": false,
+    },
+
+    "fixRubyPositioning.enabled": {
+      "type": "isiPhoneiPad",
+      "resultTrue": true, // it seems like the AnkiMobile release only supports qt5 as of writing this
       "resultFalse": false,
     },
 
