@@ -66,12 +66,12 @@ See [here TODO]() to see the reasons why these design decisions were made.
 
 
 ## UI Summary: Mobile
-(image)
+(TODO image, mark w/ numbers)
 
 The interface for mobile should be mostly the same as the desktop.
 However, there are a few important differences to note:
 
-1. Instead of collapsing sections, sections are switched using tabs (below the word).
+1. Instead of collapsing sections, these are replaced with tabs.
 1. The sentence appears below the definition instead of above.
 1. The audio buttons appear at the bottom left of the card, instead of right below the pitch accent.
 
@@ -195,6 +195,8 @@ within "JP Mining Note" types.
 
 * Pitch accents are shown when you hover over a particular word
     within the tooltip. You can change this to always be shown with {{ rto("tooltips.displayPitchAccent") }}.
+
+* If there are not enough results to display, the kanji is searched within the sentences of existing cards.
 
 * You can click on the word to open the specified card within Anki's card browser.
 
@@ -343,55 +345,48 @@ TODO update video with new colors + interface
 
 Only important fields will be discussed below TODO
 
-<br>
-
 ## Key
+> Field: `Key`
 
-The **`Key`** field contains the tested word.
-In other words, this contains the exact same content as the `Word`.
-However, this field is purposefully not displayed anywhere in the card template.
-This is to allow the user to modify the key if duplicates arise,
-while still being able to test the word.
+*   This field contains the tested word.
+    In other words, this contains the exact same content as the `Word`.
+    However, this field is purposefully not displayed anywhere in the card template.
+    This is to allow the user to modify the key if duplicates arise,
+    while still being able to test the word.
 
-For example, if I were to test different usages of 上,
-I can change this key value to `上 (preposition)`, `上 (grammar)`,
-etc. and add a new card.
+    For example, if I were to test different usages of 上,
+    I can change this key value to `上 (preposition)`, `上 (grammar)`,
+    etc. and add a new card.
 
-It is expected that this `Key` field is unique;
-a warning will appear on cards that have a duplicate key.
-
-<br>
+    It is expected that this `Key` field is unique;
+    a warning will appear on cards that have a duplicate key.
 
 ## Primary Definition
+> Field: `PrimaryDefinition`
 
-The **`PrimaryDefinition`** field contains the main content, and is the only
-block of text that is shown by default.
-This field should have everything you require to understand the tested content.
-
-<br>
+*   This field contains the main content, and is the only
+    block of text that is shown by default.
+    This field should have everything you require to understand the tested content.
 
 ## Additional Notes
+> Field: `AdditionalNotes`
 
-The **`AdditionalNotes`** field is useful if you want to write down even more notes,
-but keep it in a collapsible field to space.
+*   This field is useful if you want to write down even more notes,
+    but keep it in a collapsible field to space.
 
-Here are some suggestions on how you can use this field:
+    Here are some suggestions on how you can use this field:
 
-* Recording the source where the scene came from
-* Adding custom notes on the scene's context
-* Recording the sentences surrounding the mined sentence
+    * Recording the source where the scene came from
+    * Adding custom notes on the scene's context
+    * Recording the sentences surrounding the mined sentence
 
-In general, this field should be used for any info that is not crucial
-to understanding the tested content.
-
-<br>
+    In general, this field should be used for any info that is not crucial
+    to understanding the tested content.
 
 ## Alternate Display Fields
 > Fields: `AltDisplayWord`, `AltDisplaySentence`, and anything else that beings with `AltDisplay`
 
 TODO
-
-<br>
 
 
 ## Binary Fields
@@ -400,14 +395,15 @@ TODO
 - screenshot of yomichan
 
 
-<br>
 
 ## Sorting by Frequency
-This note type comes with a **`FrequencySort`** field,
-which is the equivalent of Marv's `Frequency` field in
-[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
-Visit the aformentioned link (and scroll down to `Usage`)
-to see how to sort and review your cards by frequency.
+> Fields: `FrequencySort`
+
+*   This note type comes with a `FrequencySort` field,
+    which is the equivalent of Marv's `Frequency` field in
+    [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
+    Visit the aformentioned link (and scroll down to `Usage`)
+    to see how to sort and review your cards by frequency.
 
 
 
