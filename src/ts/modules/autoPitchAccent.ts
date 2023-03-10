@@ -719,11 +719,11 @@ export class AutoPitchAccent extends RunnableModule {
         }
       }
 
-      if (
-        this.getOption('autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana')
-      ) {
-        displayEle.classList.add('pa-word-highlight-pitch-kana');
-      }
+      //if (
+      //  this.getOption('autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana')
+      //) {
+      //  displayEle.classList.add('pa-word-highlight-pitch-kana');
+      //}
       if (
         this.getOption(
           'autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline'
@@ -991,8 +991,6 @@ export class AutoPitchAccent extends RunnableModule {
       if (hasBoldedPos && !posData.isBolded) {
         wordPitchHTML = `<b>${wordPitchHTML}</b>`;
       }
-      // wraps each pitch as a "term", in order to prevent pitch accents wrapping
-      wordPitchHTML = `<span class="pitchterm">${wordPitchHTML}</span>`;
       result.push(wordPitchHTML);
       if (i < connectors.length) {
         result.push(connectors[i]);
@@ -1105,6 +1103,8 @@ export class AutoPitchAccent extends RunnableModule {
     if (paGroup !== null) {
       wordSpan.classList.add(`pa-group-${paGroup}`);
     }
+    // wraps each pitch as a "term", in order to prevent pitch accents wrapping
+    wordSpan.classList.add("pitchterm");
     if (this.showTitle && posData.dictName !== null) {
       wordSpan.setAttribute('title', posData.dictName);
     }

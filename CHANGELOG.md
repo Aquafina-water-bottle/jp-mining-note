@@ -82,12 +82,15 @@ and must use `./install.py --update`.
     - Added better compile-time and runtime options for how quotes are displayed / not displayed
 
 - Auto Pitch Accent:
-    - Pitch accent color groups are now applied to each individual word
+    - Pitch accent color groups are now applied to the graphs on each individual word
     - AJTWordPitch field can now be read to extract the pitch accent position info
         - This means that the field can be used as a pitch accent color group as a last resort fallback
     - Tweaked the pitch accent display so the downstep is a bit more obvious
     - Added support for automatic detection of kifuku accents on verbs (using `YomichanWordTags`)
     - Added an option to show the reading without pitch accent info if no pitch accent info was found
+    - Words in the pitch accent should no longer wrap in between a word unexpectedly
+    - Pitch accent coloring now affects the accent in the definitions by default
+    - Pitch accent coloring is now shown in tooltips (kanji hover / word indicators)
 
 - New Card Types:
     - Hint Sentence (`IsHintCard`)
@@ -143,6 +146,7 @@ and must use `./install.py --update`.
         ```
     - Kanji hover now searches sentences if there aren't enough results to be shown from just words
     - Logger class now supports better filtering of messages and better console output
+    - Made the 頭高 (red) pitch accent color slightly deeper, to better differentiate it from 中高 (orange)
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images

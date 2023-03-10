@@ -12,8 +12,8 @@
   "logger.warn.ignore": [],
 
 
-  //"autoPitchAccent.coloredPitchAccent.enabled": true,
-  "autoPitchAccent.coloredPitchAccent.enabled": false,
+  "autoPitchAccent.coloredPitchAccent.enabled": true,
+  //"autoPitchAccent.coloredPitchAccent.enabled": false,
 
   "imgStylizer.mainImage.blur.enabled": true,
   "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module
@@ -69,6 +69,10 @@
   "blockquotes.folderTab.showDotWhenEmpty": true,
 
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
+
+  //"tooltips.overrideOptions.autoPitchAccent": {
+  //  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": false,
+  //},
 
 
   // TEMP
