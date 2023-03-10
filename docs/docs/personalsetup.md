@@ -87,10 +87,10 @@ pa:
     {{~! valid values: "bilingual", "monolingual" ~}}
     {{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
 
-    {{~! matches most JMdict dictionaries and 新和英 ~}}
-    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*)$ {{~/set~}}
-    {{~#set "utility-dict-regex"~}} ^(NHK日本語発音アクセント新辞典|シン・漢字遣い参考|JMDict Surface Forms)$ {{~/set~}}
-    {{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTS_HERE)$ {{~/set~}}
+    {{~! matches most JMdict dictionaries, 新和英 and 日本語文法辞典(全集)~}}
+    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
+    {{~#set "utility-dict-regex"~}} ^(NHK日本語発音アクセント新辞典|シン・漢字遣い参考|[Jj][Mm][Dd]ict( Surface)? Forms)$ {{~/set~}}
+    {{~#set "ignored-dict-regex"~}} ^(新和英)$ {{~/set~}}
 
 
     {{~! ====================== Selected Text Options ======================= ~}}
@@ -102,11 +102,17 @@ pa:
 
 
     {{~! ==================== Frequency Sorting Options ===================== ~}}
+    {{~! See here for the official documentation on how these options work:
+        https://github.com/MarvNC/JP-Resources#freq-settings ~}}
 
     {{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
     {{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
-    {{~set "opt-no-freq-default-value" 0 ~}}
+    {{~set "opt-no-freq-default-value" 9999999 ~}}
     {{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
+
+    {{~set "opt-grammar-override" true ~}}
+    {{~set "opt-grammar-override-value" 0 ~}}
+    {{~#set "opt-grammar-override-dict-regex"~}} ^(日本語文法辞典\(全集\)|毎日のんびり日本語教師|JLPT文法解説まとめ|どんなときどう使う 日本語表現文型辞典|絵でわかる日本語)$ {{~/set~}}
 
 
 
