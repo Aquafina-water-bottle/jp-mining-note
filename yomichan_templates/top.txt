@@ -6,10 +6,11 @@
 {{~! valid values: "bilingual", "monolingual" ~}}
 {{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
 
-{{~! matches most JMdict dictionaries and 新和英 ~}}
-{{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英.*|日本語文法辞典.*|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
+{{~! matches most JMdict dictionaries, 新和英 and 日本語文法辞典(全集)~}}
+{{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
 {{~#set "utility-dict-regex"~}} ^(NHK日本語発音アクセント新辞典|シン・漢字遣い参考|[Jj][Mm][Dd]ict( Surface)? Forms)$ {{~/set~}}
 {{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTIONARIES_HERE)$ {{~/set~}}
+
 
 
 {{~! ====================== Selected Text Options ======================= ~}}
