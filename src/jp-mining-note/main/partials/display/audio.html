@@ -1,0 +1,34 @@
+{# impl #}
+
+<div class="expression--sentence highlight-bold {{ utils.default_disp_sent_quote_class() }}" id="display">
+  {{ utils.quote_open }}
+  {%- call IF("IsSentenceCard") -%}
+    <span class="expression-inner"><b>？</b></span>
+  {%- endcall -%}
+  {%- call IFNOT("IsSentenceCard") -%}
+    {%- call IF("AltDisplaySentence") -%}
+      {{ utils.expression_inner_div_extra(
+        'furigana:AltDisplaySentence',
+        'expression-inner--altdisplay
+         expression-inner--cloze-deletion')
+      }}
+    {%- endcall -%}
+    {%- call IFNOT("AltDisplaySentence") -%}
+      {{ utils.expression_inner_div_extra(
+        'Sentence',
+        'expression-inner--cloze-deletion')
+      }}
+    {%- endcall -%}
+  {%- endcall -%}
+  {{ utils.quote_close }}
+</div>
+
+
+{% if CARD_INFO('card-side').item() == "front" %}
+  <div>
+  {% call IF("SentenceAudio") %}
+    <span id="sentence_audio"> {{ T("SentenceAudio") }} </span>
+  {% endcall %}
+  </div>
+{% endif %}
+

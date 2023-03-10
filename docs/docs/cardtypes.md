@@ -105,7 +105,7 @@ The word(s) that are hidden are exactly the words that are bolded in the `Senten
 
 This is simply a regular audio card, but the entire sentence is tested.
 
-**Indicator:** The displayed text is exactly <span class="jpmn-highlight">**「...」**</span>
+**Indicator:** The displayed text is exactly 「<span class="jpmn-highlight">**？**</span>」
 
 **How to test:** <br>
 
