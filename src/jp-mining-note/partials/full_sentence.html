@@ -51,7 +51,11 @@
 <div class="full-sentence-center">
   {#<div class="full-sentence-gradient"></div>#}
   <div class="full-sentence highlight-bold" id="full_sentence">
-    {{ T("Sentence") }}
+    {{ utils.quote_open -}}
+    <span>
+      {{- T("Sentence") -}}
+    </span>
+    {{- utils.quote_close }}
   </div>
 </div>
 {% endcall %}
