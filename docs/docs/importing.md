@@ -55,7 +55,7 @@ To do this, follow the proceeding steps:
 2. Select all the cards that you want to switch.
 
     !!! note "Tip"
-        `ctrl+a` selects all cards in the browser.
+        ++ctrl+a++ selects all cards in the browser.
 
 3. Right click the selection →  `Notes` →  `Change Note Type...`
 
@@ -263,7 +263,7 @@ Sentences are usually formatted in one of three ways, as shown below:
         ```
         "note:JP Mining Note"
         ```
-        Afterwards, you can do `ctrl+a` to select all of the resulting cards.
+        Afterwards, you can do ++ctrl+a++ to select all of the resulting cards.
 
 3. Head over to:
 

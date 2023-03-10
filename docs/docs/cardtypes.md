@@ -123,13 +123,12 @@ Fill the `IsAudioCard` and `IsSentenceCard` field.
 
 
 
-# Hybrid Cards
+# Reveal Cards
 
-Hybrid cards are a group of card types that attempt to combine the power of
-sentence cards and vocab cards into one.
-They all have the distinct feature that the word is shown at the front,
+Reveal cards are a group of card types that
+have the distinct feature that the word is shown at the front,
 while the sentence is hidden but can be shown through some natural means.
-Additionally, all hybrid cards have some form of underline beneath
+Additionally, all reveal cards have some form of underline beneath
 the tested word, to differentiate it between a vocab card.
 
 The primary reason why this exists is to prevent
@@ -139,7 +138,7 @@ you may only remember the tested word due to its surrounding context.
 
 
 !!! note "Notes"
-    * For all forms of hybrid cards, you can press `n` to toggle
+    * For all forms of reveal cards, you can press `n` to toggle
         whether the sentence is shown or not.
 
     * The "How to test" sections are simply recommended ways of testing,
@@ -256,7 +255,7 @@ Fill the `IsClickCard` and `IsSentenceCard` fields.
 
 <br>
 
-## Hybrid TSC
+## Reveal TSC
 
 {{ img("", "assets/cardtypes/hover_tsc.gif") }}
 
@@ -267,7 +266,7 @@ selection of the sentence and fill `IsTargetedSentenceCard`.
 The above example is a Hover TSC, with the last sentence bolded.
 
 
-## Hybrid Hint Card
+## Reveal Hint Card
 {{ feature_version("0.12.0.0") }}
 
 === "Hover Hint"
@@ -277,8 +276,8 @@ The above example is a Hover TSC, with the last sentence bolded.
     TODO image
 
 Similarly to a normal hint card, filling the `IsHintCard`
-allows the hybrid card type to reveal the sentence below the word (instead of replacing the word).
-You would test this like any normal hybrid card,
+allows the reveal card type to reveal the sentence below the word (instead of replacing the word).
+You would test this like any normal reveal card,
 because this is simply a change in the style of how the information is displayed.
 
 ---
@@ -325,7 +324,7 @@ This is tested the exact same as the Hint Vocab Card.
 The reason why a highlighted word is not the default is because I found that I was focusing
 too heavily on the highlighted word instead of the word itself.
 To guarantee that you do not see the sentence unless you actually want to,
-see [hybrid cards](#hybrid-ards).
+see [reveal cards](#reveal-cards).
 
 **How to create:** <br>
 Fill the `IsHintCard` and `IsTargetedSentenceCard` fields.

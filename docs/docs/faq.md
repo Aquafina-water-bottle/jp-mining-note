@@ -1,6 +1,5 @@
 ---
 hide:
-  - navigation
   - footer
 ---
 
@@ -454,7 +453,7 @@ See the question below to do just that.
 ## How do I edit the field's raw HTML?
 Within the card browser,
 select a field to edit,
-and then type `ctrl+shift+x`.
+and then type ++ctrl+shift+x++.
 
 Alternatively, on newer versions of Anki, you can click on the top-right corner
 on the code button.
@@ -564,7 +563,7 @@ for more info.
 
     > Main Window →  `Browse`
 
-1. Select a note. Hold down `ctrl` to select multiple individual notes.
+1. Select a note. Hold down ++ctrl++ to select multiple individual notes.
 
 1. Right click the selected notes, and navigate to:
 

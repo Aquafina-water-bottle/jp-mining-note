@@ -5,7 +5,7 @@ how images can be displayed and interacted with.
 
 
 # Main Image
-The main image (shown to the right of the word reading)
+The main image (shown to the right of the word box)
 is exactly the contents of the `Picture` field.
 As you likely already know, this image can be clicked to zoom in.
 

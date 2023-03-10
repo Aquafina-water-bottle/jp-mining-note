@@ -7,7 +7,8 @@ design decisions with main template:
     - potential issue: people who speed through cards
     - potential solution: use theme
 - front side has no guarantee to be consistent
-    - thus, word is repeated again below the line
+    - thus, for vocab cards, the word is repeated again below the line
+    - similarly, for sentence cards, the sentence is repeated again
     - also see: cardtypes.md
 - word and pitch accent are on separate lines
     - because both can expand very far to the left/right
@@ -31,10 +32,9 @@ design decisions with mobile template:
         - otherwise, will take up too much room or will require scrolling to see
         - goal is to always be able to immediately see the image on card flip
 
-- button friendly
-    - replace collapsible sections with buttons for easier mobile navigation
-
-- furigana removed because of vertical space
+- mobile-friendly interface
+    - replace collapsible sections with tabs for easier mobile navigation
+    - prevents unnecessary scrolling
 
 
 
