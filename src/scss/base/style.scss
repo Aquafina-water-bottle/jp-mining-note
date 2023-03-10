@@ -1276,28 +1276,35 @@ code {
 
 .hover-tooltip .hover-tooltip__pitch-accent {
   @include common.bold-pitch;
-
+//}
+//
+//.hover-tooltip .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-kana) {
   /* cancels out bolded colors */
   b {
-    color: var(--text-color);
+    --pa-overline-color: var(--text-color);
   }
+  .nopron {
+    --pa-overline-color: var(--text-color);
+  }
+}
 
+
+.hover-tooltip .hover-tooltip__pitch-accent:empty:before {
+  content: "(N/A)"
+}
+
+.hover-tooltip .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
   /* cancels out extra colors */
   .pitchoverline:after, b .pitchoverline:after {
-    background: var(--text-color--1);
+    --pa-overline-color: var(--text-color--1);
   }
   .downstep:before, b .downstep:before {
-    background: var(--text-color--1);
-  }
-
-  .nopron {
-    color: var(--text-color);
+    --pa-overline-color: var(--text-color--1);
   }
 
   //.nasal {
   //  display: none;
   //}
-
 }
 
 
@@ -1318,10 +1325,6 @@ code {
     .downstep:before {
       filter: opacity(70%);
     }
-
-    //.nopron, .nasal {
-    //  filter: opacity(70%);
-    //}
 
     .nopron {
       color: var(--text-color--1);
@@ -1358,8 +1361,8 @@ code {
 
 
 
-.hover-tooltip__pitch-accent:before {
-  content: "　";
+.hover-tooltip__pitch-accent {
+  margin-left: 1em;
 }
 
 .hover-tooltip-wrapper {

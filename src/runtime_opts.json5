@@ -449,7 +449,7 @@
   // what parts of the card to color
   // by default, virtually all of the default accent color is replaced with the pitch accent group color
   "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
-  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana": false,
+  //"autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana": false,
   "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
   "autoPitchAccent.coloredPitchAccent.color.testedContent": true, // highlight word above line
   "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
@@ -652,7 +652,8 @@
   // "card-load"
   "kanjiHover.activateOn": "hover",
 
-  "kanjiHover.overrideOptions.tooltips": {},
+  "kanjiHover.overrideOptions.tooltips": {
+  },
 
 
 
@@ -884,7 +885,8 @@
     // repeated here in case the user decides to set this to true
     //"sentenceParser.display.quotes.paIndicatorColor.main": false,
   },
-  "tooltips.overrideOptions.autoPitchAccent": {},
+  "tooltips.overrideOptions.autoPitchAccent": {
+  },
 
 
   // ==========================================================================
