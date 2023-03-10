@@ -36,74 +36,94 @@ TODO add demo for windows to opening the file & editing
 
 {{ feature_version("0.11.0.0") }}
 
+All runtime options are formatted as a key/value pair.
+A simple example is the following:
+
+```json
+{
+  // ...
+  "kanjiHover.enabled": true,
+  // ...
+}
+```
+
+In the above example, the key is `kanjiHover.enabled`, whereas the value is `true`.
+
 All runtime options can take special values, which are always formatted as the following:
 
 ```json
 {
   "type": "IDENTIFIER_STRING",
-  // other options ...
+  // potentially extra arguments in "args": { ... }
+  "resultTrue": VALUE,
+  "resultFalse": VALUE,
 },
 ```
 
-For example, take any key-value pair, such as:
-```json
-"enabled": true,
-```
+For example, we can change the above `kanjiHover.enabled` to use this special value,
+with type type of `isMobile`:
 
 This can be changed to:
 ```json
-"enabled": {
-  "type": "..."
-  // other options...
-},
+{
+  "kanjiHover.enabled": {
+    "type": "isPC",
+    "resultTrue": true, // kanji hover is enabled on PC
+    "resultFalse": false, // kanji hover is not enabled on non-PC devices, i.e. mobile
+  },
+}
 ```
+
+A full list of special option types is shown below.
 
 
 
 
 <br>
 
-## `pc-mobile` Type
+## `isMobile` and `isPC`
 
-{{ feature_version("0.11.0.0") }}
+{{ feature_version("0.12.0.0") }}
 
-The `pc-mobile` type allows you to specify different values depending if
+The `isMobile` and `isPC` type allows you to specify different values depending if
 you are using Anki on a mobile device, or PC (non-mobile).
 
-This is formatted as the following:
-
 ```json
-{
-  "type": "pc-mobile",
-  "pc": VALUE_FOR_PC,
-  "mobile": VALUE_FOR_MOBILE
+"key": {
+  "type": "isMobile",
+  "resultTrue": VALUE_IF_MOBILE,
+  "resultFalse": VALUE_IF_PC,
 },
 ```
 
-??? examplecode "Example *(click here)*"
+`isPC` is the exact opposite of `isMobile`, and be used similarly.
 
-    Take a sample key-value pair:
-    ```json
-    "enabled": true,
-    ```
-
-    The value can be changed to be `true` for PC, and `false` for mobile.
-
-    ```json
-    "enabled": {
-      "type": "pc-mobile",
-      "pc": true,
-      "mobile": false
-    },
-    ```
+```json
+"key": {
+  "type": "isPC",
+  "resultTrue": VALUE_IF_PC,
+  "resultFalse": VALUE_IF_MOBILE,
+},
+```
 
 <br>
 
-## `viewport-width-is` Type
 
-{{ feature_version("0.11.0.0") }}
 
-The `viewport-width-is` type allows you to specify different values depending
+## `isiPhoneiPad`
+
+TODO
+
+<br>
+
+
+
+
+## `viewportWidth`
+
+{{ feature_version("0.12.0.0") }}
+
+The `viewportWidth` type allows you to specify different values depending
 on the screen width.
 Note that the viewport width is read for each card flip.
 This means that viewport width changes after resizing a window will not be detected,
@@ -113,27 +133,65 @@ and will only be updated when you flip the side or go to a new card.
 This is formatted as the following:
 
 ```json
-{
-  "type": "viewport-width-is",
-  "value": AN_INTEGER, // measured in pixels
-  "greater": VALUE_FOR_GREATER, // the value used if the current width is greater than "value"
-  "lesser": VALUE_FOR_LESSER // the value used if the current width is lesser than (or equal to) "value"
+"key": {
+  "type": "viewportWidth",
+  "args": {
+    "op": MATH_OP,
+    "value": WIDTH,
+  },
+  "resultTrue": VALUE_IF_PC,
+  "resultFalse": VALUE_IF_MOBILE,
 },
 ```
 
-??? examplecode "Example *(click here)*"
+TODO `MATH_OP` and `WIDTH`
 
-    This will enable `pa-indicator-color-quotes`
-    on screens that have a viewport width of 1300 pixels or less.
+<br>
 
-    ```json
-    "pa-indicator-color-quotes": {
-      "type": "viewport-width-is",
-      "value": 1300,
-      "greater": false,
-      "lesser": true
-    },
-    ```
+## `cardType`
+
+TODO
+
+<br>
+
+
+
+## `cardSide`
+
+TODO
+
+<br>
+
+
+
+
+## `fieldsAllEmpty`
+
+TODO
+
+<br>
+
+
+
+
+## `fieldsAllFilled`
+
+TODO
+
+<br>
+
+
+
+
+## `fieldsAnyFilled`
+
+TODO
+
+
+
+
+
+
 
 ---
 

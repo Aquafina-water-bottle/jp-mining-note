@@ -16,7 +16,7 @@ export type O = Omit<DO, 'overrides'>;
 
 const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
   /*
-  key: {
+  "key": {
     "type": "isMobile",
     "resultTrue": ...,
     "resultFalse": ...,
@@ -33,9 +33,21 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
    */
   isPC: () => !isMobile(),
 
+
   /*
   key: {
-    "type": "viewport",
+    "type": "isiPhoneiPad",
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  isiPhoneiPad: () => {
+    return document.documentElement.classList.contains('iphone') || document.documentElement.classList.contains('ipad');
+  },
+
+  /*
+  key: {
+    "type": "viewportWidth",
     "args": {
       "op": MATH_OP,
       "value": VALUE,
@@ -44,13 +56,13 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
     "resultFalse": ...,
   },
    */
-  viewport: (args: unknown) => {
+  viewportWidth: (args: unknown) => {
     if (args !== null && typeof args === 'object' && 'op' in args && 'value' in args) {
       if ((args.op as string) in OPS) {
         return OPS[args.op as keyof typeof OPS](getViewportWidth(), args.value);
       }
     }
-    LOGGER.warn(`Invalid viewport arguments: ${args}`, { ignoreOptions: true });
+    LOGGER.warn(`Invalid viewportWidth arguments: ${args}`, { ignoreOptions: true });
     return true;
   },
 
