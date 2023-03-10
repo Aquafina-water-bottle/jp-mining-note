@@ -133,9 +133,9 @@ The following shows how to fill in the proper fields to test pitch accent:
 To clarify some of the above:
 
 * By default, if only `PAShowInfo` is filled, then the entire display is tested
-    * For vocab cards, targeted sentence cards, and hybrid vocab cards,
+    * For vocab cards, targeted sentence cards, and reveal vocab cards,
       only the word PA is tested (PA indicator: blue).
-    * For sentence cards and hybrid sentence,
+    * For sentence cards and reveal sentence cards,
       the entire sentence PA is tested (PA indicator: green).
 * To test just the word pitch accent, fill the `PATestOnlyWord` field.
 * To create completely separate cards to just test pitch accent on,
@@ -169,12 +169,9 @@ With that being said, here is currently what I have found out from testing out m
     If you want to test this yourself, try using hover cards for a while,
     and see if you only remember what the word means when you hover over the word.
 
-    This is especially evident during immersion, because I notice that I usually do not remember
-    the word whatsoever when the card was tested as a TSC or hover card.
+**Do not use reveal sentence cards.**
 
-**Do not use hybrid sentence cards.**
-
--   The problem with hybrid sentence cards is that they test too many different things,
+-   The problem with reveal sentence cards is that they test too many different things,
     breaking the standard i+1 principle.
 
     I previously tried to use these as a cheap excuse to test the word,
@@ -189,7 +186,7 @@ With that being said, here is currently what I have found out from testing out m
     beforehand (without add-ons), and according to the Anki documentation,
     [this was by design](https://faqs.ankiweb.net/can-i-reveal-parts-of-a-card-one-at-a-time.html).
 
-    Instead of using hybrid sentence cards, make a firm decision on what you want to test.
+    Instead of using reveal sentence cards, make a firm decision on what you want to test.
     If there are too many unknowns but you still want to test the sentence / have the context,
     do one of the following:
 

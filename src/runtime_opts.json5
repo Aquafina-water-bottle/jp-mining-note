@@ -549,6 +549,9 @@
   // --------------------------------------------------------------------------
   "imgStylizer.glossary.primaryDef.enabled": true,
 
+  // imgStylizer.glossary.primaryDef.mode:
+  // - `yomichan` affects images imported from Yomichan.
+  // - `user` affects images manually pasted from the user.
   // Valid options: "none", "collapse", "float"
   // "none":
   // - Equivalent of disabling this entire section. I recommend setting

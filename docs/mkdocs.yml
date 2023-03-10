@@ -77,19 +77,18 @@ nav:
     - Updating: updating.md
   - Reference:
     - Quick Start (TODO): quickstart.md
-    - Common Changes (TODO): commonchanges.md
-    - "Definitions & Text": definitions.md
+    - Definitions: definitions.md
+    - Text Sections (TODO): blockquotes.md
     - Sentences (TODO): sentences.md
     - Card Types: cardtypes.md
     - More on Card Types: cardtypes2.md
     - Keybinds: keybinds.md
     - Images: images.md
     - Pitch Accent: autopa.md
-    - Cross-Note Tools (TODO): crossnotetools.md
     - Kanji Hover (TODO): kanjihover.md
     - Word Indicators (TODO): wordindicators.md
+    - Info Circle (TODO): infocircle.md
     - Frequencies (TODO): frequencies.md
-    - WebSockets (TODO): websockets.md
     - External Links (TODO): externallinks.md
     - Other: other.md
     - Options:
@@ -127,6 +126,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.keys
 
   - admonition
   - pymdownx.details
