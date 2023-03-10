@@ -1,5 +1,5 @@
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE ============== ~}}
-{{~! Yomichan template code version: v23.02.27.1 ~}}
+{{~! Yomichan template code version: v23.03.09.1 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
@@ -445,16 +445,6 @@ is a part of a dictionary) ~}}
     {{~! Frequency sort handlebars: v23.02.27.1 ~}}
     {{~! The latest version can be found at https://github.com/MarvNC/JP-Resources#freq-handlebar ~}}
     {{~#scope~}}
-        {{~! Options ~}}
-        {{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
-        {{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
-        {{~set "opt-no-freq-default-value" 9999999 ~}}
-        {{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
-
-        {{~set "opt-grammar-override" true ~}}
-        {{~set "opt-grammar-override-value" 0 ~}}
-        {{~#set "opt-grammar-override-dict-regex"~}} ^(日本語文法辞典\(全集\)|毎日のんびり日本語教師|JLPT文法解説まとめ|どんなときどう使う 日本語表現文型辞典|絵でわかる日本語)$ {{~/set~}}
-        {{~! End of options ~}}
 
         {{~! Do not change the code below unless you know what you are doing. ~}}
         {{~set "result-freq" -1 ~}} {{~! -1 is chosen because no frequency dictionaries should have an entry as -1 ~}}
@@ -923,6 +913,108 @@ thanks to:
         {{~/if~}}
     {{~/scope~}}
 {{/inline}}
+
+
+
+{{#*inline "jpmn-filled-if-grammar-point"}}
+    {{~#scope~}}
+        {{~set "found-grammar-dict" false ~}}
+
+        {{~! search for grammar dictionary ~}}
+        {{~#each definition.definitions~}}
+            {{~#set "rx-match-grammar-dicts" ~}}
+                {{~#regexMatch (get "opt-grammar-override-dict-regex") "gu"~}}{{this.dictionary}}{{~/regexMatch~}}
+            {{/set~}}
+            {{~! rx-match-grammar-dicts is not empty if a grammar dictionary was found ~}}
+            {{~#if (op "!==" (get "rx-match-grammar-dicts") "") ~}}
+                {{~set "found-grammar-dict" true ~}}
+            {{/if~}}
+        {{~/each~}}
+
+        {{~! Additional case when "Result grouping mode" is set to "No Grouping"~}}
+        {{~#set "rx-match-grammar-dicts" ~}}
+            {{~#regexMatch (get "opt-grammar-override-dict-regex") "gu"~}}{{this.definition.dictionary}}{{~/regexMatch~}}
+        {{/set~}}
+        {{~! rx-match-grammar-dicts is not empty if a grammar dictionary was found ~}}
+        {{~#if (op "!==" (get "rx-match-grammar-dicts") "") ~}}
+            {{~set "found-grammar-dict" true ~}}
+        {{/if~}}
+
+        {{~#if (get "found-grammar-dict") ~}}
+            1
+        {{~/if~}}
+
+    {{~/scope~}}
+{{/inline}}
+
+{{#*inline "jpmn-filled-if-not-grammar-point"}}
+    {{~#scope~}}
+        {{~#set "filled" ~}}{{> jpmn-filled-if-grammar-point}}{{/set~}}
+        {{~#if (op "===" (get "filled") "")~}}
+            1
+        {{~/if~}}
+    {{~/scope~}}
+{{/inline}}
+
+
+
+
+{{#*inline "jpmn-filled-if-on-mim"}}
+    {{~#scope~}}
+        {{~#set "rx-match-on-mim" ~}}
+            {{~#regexMatch "(, |^)on-mim(, |$)" "gu"~}}{{> tags }}{{~/regexMatch~}}
+        {{/set~}}
+
+        {{~#if (op "!==" (get "rx-match-on-mim") "") ~}}
+            1
+        {{/if~}}
+    {{~/scope~}}
+{{/inline}}
+
+{{#*inline "jpmn-filled-if-not-on-mim"}}
+    {{~#scope~}}
+        {{~#set "filled" ~}}{{> jpmn-filled-if-not-on-mim}}{{/set~}}
+        {{~#if (op "===" (get "filled") "")~}}
+            1
+        {{~/if~}}
+    {{~/scope~}}
+{{/inline}}
+
+
+
+
+{{~! my personal settings:
+- sentence card if grammar point
+- otherwise, if it's on-mim, then hint card
+- otherwise, default
+~}}
+
+{{#*inline "jpmn-is-sentence-card"}}
+    {{~> jpmn-filled-if-grammar-point ~}}
+{{/inline}}
+
+{{#*inline "jpmn-is-hint-card"}}
+    {{~#scope~}}
+        {{~#set "filled" ~}}{{> jpmn-is-sentence-card}}{{/set~}}
+        {{~#if (op "===" (get "filled") "")~}}
+            {{~> jpmn-filled-if-on-mim ~}}
+        {{~/if~}}
+    {{~/scope~}}
+{{/inline}}
+
+{{#*inline "jpmn-is-click-card"}}
+    {{~#scope~}}
+        {{~#set "filled1" ~}}{{> jpmn-is-hint-card}}{{/set~}}
+        {{~#set "filled2" ~}}{{> jpmn-is-sentence-card}}{{/set~}}
+        {{~#if (op "&&"
+            (op "===" (get "filled1") "")
+            (op "===" (get "filled2") "")
+        )~}}
+            1
+        {{~/if~}}
+    {{~/scope~}}
+{{/inline}}
+
 
 
 
