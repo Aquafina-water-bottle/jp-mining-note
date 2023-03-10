@@ -386,6 +386,7 @@ export class SentenceParser extends RunnableModule {
     // ------------------------------------------------------------------------
     // auto highlight
     if (
+      result.length > 0 &&
       !result.match(/<(b)>/) &&
       this.autoHighlight !== null &&
       this.getOption('sentenceParser.autoHighlightWord.enabled')
