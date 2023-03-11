@@ -1,4 +1,5 @@
-TODO intro
+Welcome to jp-mining-note's Quick Start page!
+This page summarizes the main features that jp-mining-note has to offer.
 
 # UI Summary
 
