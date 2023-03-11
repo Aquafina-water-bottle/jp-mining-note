@@ -1284,7 +1284,7 @@ code {
     --pa-overline-color: var(--text-color);
   }
   .nopron {
-    --pa-overline-color: var(--text-color);
+      color: var(--text-color);
   }
 }
 
