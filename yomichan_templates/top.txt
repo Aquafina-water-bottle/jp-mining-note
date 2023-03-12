@@ -36,6 +36,10 @@
 
 
 
+{{~! ========================== Other Options ============================ ~}}
+{{~set "opt-wrap-first-line-spans" true ~}}
+{{~set "opt-primary-def-one-dict-entry-only" false ~}}
+
 
 
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE BELOW ============== ~}}
