@@ -39,6 +39,27 @@
 {{~! ========================== Other Options ============================ ~}}
 {{~set "opt-wrap-first-line-spans" true ~}}
 {{~set "opt-primary-def-one-dict-entry-only" false ~}}
+{{~set "opt-jmdict-list-format" false ~}}
+
+
+
+{{~! ======================== Non-JPMN Options =========================== ~}}
+
+{{~!
+    WARNING: DO NOT CHANGE THESE OPTIONS if you are using the jp-mining-note template.
+    These options will change the general layout of the HTML, which may cause errors within the template
+    in the future.
+
+    The equivalent of all these options for jp-mining-note users can be found in the documentation:
+    (TODO link)
+    These hide specific elements using CSS instead of modifying the raw HTML behind it.
+~}}
+
+{{~set "opt__non-jpmn__stylize-glossary" true ~}}
+{{~set "opt__non-jpmn__one-dict-entry-only-no-list" false ~}}
+{{~set "opt__non-jpmn__export-dictionary-tag" true ~}}
+{{~set "opt__non-jpmn__remove-first-line-enabled" false ~}}
+{{~#set "opt__non-jpmn__remove-first-line-except-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
 
 
 

@@ -115,3 +115,42 @@ li[data-details="シン・漢字遣い参考"] td, [data-sc-ortho="table"] td {
 
 
 
+/* better formatting for the new version of Yomichan JMdict dictionary (jmdict_extra) */
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary {
+  > ul {
+    display: inline;
+    padding-left: 0em;
+  }
+
+  > ul > li {
+    display: inline-block;
+    padding-right: 0.3em;
+    margin-right: 0.3em;
+    border-right: 1px solid var(--text-color--3);
+  }
+  > ul > li:last-of-type {
+    padding-right: 0px;
+    margin-right: 0px;
+    border-right: 0px solid;
+  }
+}
+
+.dict-group__glossary ul[data-sc-content="glossary"] {
+  display: inline;
+  padding-left: 0em;
+
+  li {
+    display: inline-block;
+    padding-right: 0.3em;
+    margin-right: 0.3em;
+    border-right: 1px solid var(--text-color--3);
+  }
+
+  li:last-of-type {
+    padding-right: 0px;
+    margin-right: 0px;
+    border-right: 0px solid;
+  }
+}
+
+

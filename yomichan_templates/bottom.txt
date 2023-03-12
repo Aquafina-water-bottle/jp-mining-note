@@ -1,5 +1,5 @@
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE ============== ~}}
-{{~! Yomichan template code version: v23.03.09.1 ~}}
+{{~! Yomichan template code version: v23.03.11.1 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
@@ -410,8 +410,6 @@ is a part of a dictionary) ~}}
     ~}}
     {{~#scope~}}
 
-        <ol> {{~s~}}
-
         {{~#if
             (op "&&"
                 (op "!==" (get "search-selection") "")
@@ -421,6 +419,10 @@ is a part of a dictionary) ~}}
             {{~! text was highlighted -> use primary dictionary entry with highlighted text ~}}
 
             {{~set "found-dict-entry" false ~}}
+
+            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+            <ol>
+            {{~/if~}}
 
             {{~#each definition.definitions~}}
 
@@ -437,17 +439,33 @@ is a part of a dictionary) ~}}
                         )
                     )
                 ~}}
+
+                    {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
                     <li data-details="{{~dictionary~}}">
-                        {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                    {{~/if~}}
+
+                    {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+
+                    {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
                     </li>
+                    {{~/if~}}
+
                     {{~set "found-dict-entry" true ~}}
                 {{~/if~}}
             {{~/each~}}
+
+            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+            </ol>
+            {{~/if~}}
 
         {{~else if (op "===" (get "opt-primary-def-one-dict-entry-only") true) ~}}
             {{~! use first primary dictionary entry ~}}
 
             {{~set "found-dict-entry" false ~}}
+
+            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+            <ol>
+            {{~/if~}}
 
             {{~#each definition.definitions~}}
                 {{~#if
@@ -456,27 +474,52 @@ is a part of a dictionary) ~}}
                         (op "===" dictionary (get "primary-dictionary"))
                     )
                 ~}}
+
+                    {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
                     <li data-details="{{~dictionary~}}">
-                        {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                    {{~/if~}}
+
+                    {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+
+                    {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
                     </li>
+                    {{~/if~}}
+
                     {{~set "found-dict-entry" true ~}}
                 {{~/if~}}
             {{~/each~}}
 
+            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+            </ol>
+            {{~/if~}}
+
         {{~else~}}
             {{~! use all primary dictionary entries ~}}
 
-            {{~#each definition.definitions~}}
-                {{~#if (op "===" dictionary (get "primary-dictionary"))~}}
-                    <li data-details="{{~dictionary~}}">
-                        {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
-                    </li>
-                {{~/if~}}
-            {{~/each~}}
+            {{~#if (op "&&"
+                (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") true)
+                (op "<=" glossary.length 1)
+            )
+            ~}}
+                {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+
+            {{~else~}}
+
+                <ol>
+
+                {{~#each definition.definitions~}}
+                    {{~#if (op "===" dictionary (get "primary-dictionary"))~}}
+                        <li data-details="{{~dictionary~}}">
+                            {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                        </li>
+                    {{~/if~}}
+                {{~/each~}}
+
+                </ol> {{~s~}}
+
+            {{~/if~}}
 
         {{~/if~}}
-
-        </ol> {{~s~}}
 
     {{~/scope~}}
 
@@ -512,59 +555,131 @@ is a part of a dictionary) ~}}
 
     {{~#scope~}}
 
-        <span class="dict-group__tag-list"> {{~s~}}
+        {{~#if (op "===" (get "opt__non-jpmn__stylize-glossary") true) ~}}
 
-            {{~! only italics if jp-characters-regex finds no matches ~}}
-            {{~#set "italics-start"}}{{/set~}}
-            {{~#set "italics-end"}}{{/set~}}
+            <span class="dict-group__tag-list"> {{~s~}}
 
-            {{~#set "any" false}}{{/set~}}
-            {{~#each definitionTags~}}
+                {{~#each definitionTags~}}
 
-                <span class="dict-group__tag dict-group__tag--name"> {{~s~}}
+                    <span class="dict-group__tag dict-group__tag--name"> {{~s~}}
+                        <span class="dict-group__tag-inner"> {{~s~}}
+                            {{~name~}}
+                        </span> {{~s~}}
+                    </span> {{~s~}}
+
+                {{~/each~}}
+
+                <span class="dict-group__tag dict-group__tag--dict"> {{~s~}}
                     <span class="dict-group__tag-inner"> {{~s~}}
-                        {{~name~}}
+                        {{~dictionary~}}
                     </span> {{~s~}}
                 </span> {{~s~}}
 
-            {{~/each~}}
-
-            <span class="dict-group__tag dict-group__tag--dict"> {{~s~}}
-                <span class="dict-group__tag-inner"> {{~s~}}
-                    {{~dictionary~}}
-                </span> {{~s~}}
             </span> {{~s~}}
 
-            {{~#if (get "any")}}){{#get "italics-end"}}{{/get}} {{/if~}}
+        {{~else~}}
 
-        </span> {{~s~}}
+            {{~#scope~}}
+                {{~#set "any" false}}{{/set~}}
+                {{~#each definitionTags~}}
+                    {{~#if (get "any")}}, {{else}}({{/if~}}
+                    {{name}}
+                    {{~#set "any" true}}{{/set~}}
+                {{~/each~}}
+                {{~#if (op "===" (get "opt__non-jpmn__export-dictionary-tag") true)~}}
+                    {{~#if (get "any")}}, {{else}}({{/if~}}
+                    {{dictionary}}
+                    {{~#set "any" true}}{{/set~}}
+                {{~/if~}}
+                {{~#if (get "any")}}) {{/if~}}
+            {{~/scope~}}
+            {{~#if only~}}({{#each only}}{{.}}{{#unless @last}}, {{/unless}}{{/each}} only) {{/if~}}
 
+        {{~/if~}}
+
+        {{~#if (op "===" (get "opt__non-jpmn__stylize-glossary") true) ~}}
         <span class="dict-group__glossary"> {{~s~}}
+        {{~/if~}}
 
-            {{~!
-                option to not wrap with spans because it may break dictionaries
-                (this is the hell that is parsing html with regex)
+        {{~!
+            option to not wrap with spans because it may break dictionaries
+            (this is the hell that is parsing html with regex)
+        ~}}
+        {{~#if (op "&&"
+            (op "===" (get "opt-wrap-first-line-spans") true)
+            (op "===" (get "opt__non-jpmn__stylize-glossary") true)
+        )
+        }}
+            {{~#regexReplace
+                    "^(<span lang=\"ja\">)?(.*?)<br>"
+                    "$1<span class=\"dict-group__glossary--first-line\">$2</span><span class=\"dict-group__glossary--first-line-break\"><br></span>"
             ~}}
-            {{~#if (op "===" (get "opt-wrap-first-line-spans") true)}}
-                {{#regexReplace
+
+                {{~> _jpmn-glossary-single3 . ~}}
+
+            {{~/regexReplace~}}
+
+        {{~else if (op "===" (get "opt__non-jpmn__remove-first-line-enabled") true)~}}
+
+            {{~#set "rx-match-except-first-line" ~}}
+                {{~#regexMatch (get "opt__non-jpmn__remove-first-line-except-dicts-regex") "gu"~}}{{dictionary}}{{~/regexMatch~}}
+            {{/set~}}
+
+            {{~#if (op "===" (get "rx-match-except-first-line") "") ~}}
+                {{~! none match means the dictionary is not an exception, i.e. replace newline ~}}
+                {{~#regexReplace
                         "^(<span lang=\"ja\">)?(.*?)<br>"
-                        "$1<span class=\"dict-group__glossary--first-line\">$2</span><span class=\"dict-group__glossary--first-line-break\"><br></span>"
-                    }}
-                {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each~}}
+                        "$1"
+                ~}}
+                    {{~> _jpmn-glossary-single3 . ~}}
                 {{~/regexReplace~}}
-
             {{~else~}}
+                {{~> _jpmn-glossary-single3 . ~}}
+            {{~/if~}}
 
-                {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each~}}
+        {{~else~}}
+            {{~> _jpmn-glossary-single3 . ~}}
+        {{~/if~}}
 
-            {{/if~}}
-
+        {{~#if (op "===" (get "opt__non-jpmn__stylize-glossary") true) ~}}
         </span> {{~s~}}
+        {{~/if~}}
 
     {{~/scope~}}
 
     {{~#if only~}}({{#each only}}{{.}}{{#unless @last}}, {{/unless}}{{/each}} only) {{/if~}}
 {{/inline}}
+
+
+
+
+{{#*inline "_jpmn-glossary-single3"}}
+
+    {{~#scope~}}
+
+        {{~#if (op "&&"
+            (op "===" (get "opt-jmdict-list-format") true)
+            (op "||"
+                (op "===" dictionary "JMdict (English)")
+                (op "===" dictionary "JMdict")
+            )
+        )
+        ~}}
+            {{~#if (op "<=" glossary.length 1)~}}
+                {{#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{/each}}
+            {{~else~}}
+                <ul>{{#each glossary}}<li>{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}</li>{{/each}}</ul>
+            {{~/if~}}
+        {{~else~}}
+            {{~#each glossary}}{{#formatGlossary ../dictionary}}{{{.}}}{{/formatGlossary}}{{#unless @last}} | {{/unless}}{{/each~}}
+        {{~/if~}}
+
+    {{~/scope~}}
+
+{{/inline}}
+
+
+
 
 
 {{~!
@@ -894,6 +1009,7 @@ is a part of a dictionary) ~}}
             {{~! not "" <=> is a filled string ~}}
             {{~#if (op "!==" (get "selection-uses-glossary") "")~}}
 
+                {{~! escape regex ~}}
                 {{~#set "search-selection"}}{{~#regexReplace "[.*+?^${}()|[\]\\]" "\$&" "g"~}}{{~> _jpmn-selection-text ~}}{{~/regexReplace~}}{{/set~}}
                 {{~#set "search-selection-bold"}}<b>{{~> _jpmn-selection-text ~}}</b>{{/set~}}
 
