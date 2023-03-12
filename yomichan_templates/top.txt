@@ -46,13 +46,15 @@
 {{~! ======================== Non-JPMN Options =========================== ~}}
 
 {{~!
-    WARNING: DO NOT CHANGE THESE OPTIONS if you are using the jp-mining-note template.
-    These options will change the general layout of the HTML, which may cause errors within the template
-    in the future.
+    WARNING: DO NOT CHANGE THESE OPTIONS if you are using the
+    jp-mining-note template. These options will change the general layout
+    of the HTML, WHICH MAY CAUSE ERRORS in the future.
 
-    The equivalent of all these options for jp-mining-note users can be found in the documentation:
+    The equivalent of all these options for jp-mining-note users can be found
+    in the documentation:
     (TODO link)
-    These hide specific elements using CSS instead of modifying the raw HTML behind it.
+    These hide specific elements using CSS instead of modifying the raw HTML
+    structure behind it.
 ~}}
 
 {{~set "opt__non-jpmn__stylize-glossary" true ~}}
