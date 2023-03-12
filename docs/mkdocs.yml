@@ -108,7 +108,11 @@ nav:
     - Custom JS (Modules): modules.md
     - "Tips & Tricks": moddingtips.md
   - "FAQ & Troubleshooting": faq.md
-  - JP Resources: jpresources.md
+  - JP Resources:
+    - JP Resources: jpresources.md
+    - JPMN Handlebars Package: jpresources/jpmnhandlebars.md
+    - Anki Scripts: jpresources/scripts.md
+    - Other: jpresources/other.md
 
 extra_css:
   - stylesheets/extra.css
