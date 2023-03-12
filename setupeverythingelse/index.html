@@ -561,15 +561,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#texthooker-pages-clipboard-based" class="md-nav__link">
-    Texthooker pages (clipboard based)
+  <a href="#texthooker-websocket-based" class="md-nav__link">
+    Texthooker: Websocket based
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#texthooker-pages-websocket-based" class="md-nav__link">
-    Texthooker pages (Websocket based)
+  <a href="#texthooker-clipboard-based" class="md-nav__link">
+    Texthooker: Clipboard based
   </a>
   
 </li>
@@ -1137,15 +1137,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#texthooker-pages-clipboard-based" class="md-nav__link">
-    Texthooker pages (clipboard based)
+  <a href="#texthooker-websocket-based" class="md-nav__link">
+    Texthooker: Websocket based
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#texthooker-pages-websocket-based" class="md-nav__link">
-    Texthooker pages (Websocket based)
+  <a href="#texthooker-clipboard-based" class="md-nav__link">
+    Texthooker: Clipboard based
   </a>
   
 </li>
@@ -1292,57 +1292,18 @@ which is able to extract subtitles or text into the browser.
 Once the text is on the browser, you can use Yomichan to select the word and create the
 Anki card (by clicking on the green plus button).</p>
 <p>The standard texthooker setup works for most games, and any show with subtitle files.</p>
-<h3 id="texthooker-pages-clipboard-based">Texthooker pages (clipboard based)<a class="headerlink" href="#texthooker-pages-clipboard-based" title="Permanent link">&para;</a></h3>
-<p>These pages display the hooked content, where the hooked content is communicated
-via automated clipboard (copy/paste) tools.
-Most setups documented are for clipboard based texthooker pages.</p>
-<details class="example">
-<summary>Resources <em>(click here)</em></summary>
-<ul>
-<li><a href="https://github.com/kmltml/clipboard-inserter"><strong>Original Clipboard Inserter (Extension)</strong></a> (Chromium-based browsers)<ul>
-<li>WARNING: <a href="https://github.com/kmltml/clipboard-inserter/issues/14">No longer works on Firefox</a>
-    as of Firefox version 107.0. Use the extension below if you are using Firefox.</li>
-</ul>
-</li>
-<li><a href="https://github.com/laplus-sadness/lap-clipboard-inserter"><strong>Lap Clipboard Inserter (Extension)</strong></a> (Firefox)<ul>
-<li>Updated version of the above.</li>
-<li>Works on Firefox, but Chrome (manifest 3) support is currently not supported.
-    Use the first extension if you are using a chromium based browser.</li>
-</ul>
-</li>
-<li><a href="https://github.com/Renji-XD/texthooker-ui"><strong>Renji's Texthooker Page</strong></a> (recommended)<ul>
-<li>Open source and more featureful alternative to the more popular Anacreon's texthooker page.</li>
-<li>I use <a href="../jpresources/#settings-css-for-renjis-texthooker">these settings</a> to make the text more compressed.</li>
-</ul>
-</li>
-<li><a href="https://anacreondjt.gitlab.io/docs/texthooker/"><strong>Anacreon's Texthooker Page</strong></a></li>
-<li><a href="https://learnjapanese.moe/texthooker.html"><strong>TMW's Texthooker Page</strong></a></li>
-</ul>
-</details>
-<details class="example">
-<summary>Guides <em>(click here)</em></summary>
-<ul>
-<li><a href="https://rentry.co/mining#browser">stegatxins0's mining guide: Texthooker</a> (recommended)</li>
-<li><a href="https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese">TMW: Texthooker &amp; Visual Novels</a></li>
-<li><a href="https://rentry.co/lazyXel#clipboard-inserter">Lazy Guide: Texthooker</a></li>
-<li><a href="https://animecards.site/visualnovels/">Anime Cards: Texthooker &amp; Visual Novels</a></li>
-</ul>
-</details>
 <hr />
-<h3 id="texthooker-pages-websocket-based">Texthooker pages (Websocket based)<a class="headerlink" href="#texthooker-pages-websocket-based" title="Permanent link">&para;</a></h3>
+<h3 id="texthooker-websocket-based">Texthooker: Websocket based<a class="headerlink" href="#texthooker-websocket-based" title="Permanent link">&para;</a></h3>
 <p>These pages display the hooked content, where the hooked content is communicated
 via Websockets.
-Websocket based texthookers are better in almost every aspect:</p>
+Websocket based texthookers are better than the classic clipboard-based texthookers
+in almost every aspect:</p>
 <ul>
 <li>They are generally faster and more reliable.</li>
 <li>They do not flood your clipboard.</li>
 <li>They do not require an extension that constantly polls the clipboard.</li>
 </ul>
-<p>However, there is usually less support and requires more specialized coordination between programs.</p>
-<p>All of the options below are intended to be used with
-<a href="https://github.com/Artikash/Textractor">Textractor</a>
-(meaning that this setup only works for video games).
-I'm currently unaware of a websocket-based setup that works with video content.</p>
+<p>However, it requires more specialized coordination between programs.</p>
 <details class="example">
 <summary>Resources <em>(click here)</em></summary>
 <ul>
@@ -1363,6 +1324,18 @@ I'm currently unaware of a websocket-based setup that works with video content.<
 <li>A video installation guide is available on the project's README page.</li>
 </ul>
 </li>
+</ul>
+<p><strong>Supported Workflows:</strong></p>
+<ul>
+<li><a href="https://github.com/Artikash/Textractor"><strong>Textractor</strong></a> with <a href="https://github.com/sadolit/textractor-websocket"><strong>textractor-websocket</strong></a> or <a href="https://github.com/KamWithK/TextractorSender"><strong>TextractorSender</strong></a></li>
+<li><a href="https://mpv.io"><strong>mpv</strong></a> with <a href="https://github.com/kuroahna/mpv_websocket"><strong>mpv_websocket</strong></a></li>
+</ul>
+</details>
+<details class="example">
+<summary>Legacy Resources <em>(click here)</em></summary>
+<p>These resources are considered legacy, and I highly recommend using the
+standard resources above in favor of these.</p>
+<ul>
 <li>
 <p><a href="https://github.com/MarvNC/texthooker-websocket"><strong>Marv's Websocket Userscript</strong></a></p>
 <ul>
@@ -1436,6 +1409,44 @@ have came out (see above), I recommend to use said alternatives.</p>
 </li>
 </ul>
 </details>
+<hr />
+<h3 id="texthooker-clipboard-based">Texthooker: Clipboard based<a class="headerlink" href="#texthooker-clipboard-based" title="Permanent link">&para;</a></h3>
+<p>These pages display the hooked content, where the hooked content is communicated
+via automated clipboard (copy/paste) tools.
+Most classic setups documented are for clipboard based texthooker pages.</p>
+<details class="example">
+<summary>Resources <em>(click here)</em></summary>
+<ul>
+<li><a href="https://github.com/kmltml/clipboard-inserter"><strong>Original Clipboard Inserter (Extension)</strong></a> (Chromium-based browsers)<ul>
+<li>WARNING: <a href="https://github.com/kmltml/clipboard-inserter/issues/14">No longer works on Firefox</a>
+    as of Firefox version 107.0. Use the extension below if you are using Firefox.</li>
+</ul>
+</li>
+<li><a href="https://github.com/laplus-sadness/lap-clipboard-inserter"><strong>Lap Clipboard Inserter (Extension)</strong></a> (Firefox)<ul>
+<li>Updated version of the above.</li>
+<li>Works on Firefox, but Chrome (manifest 3) support is currently not supported.
+    Use the first extension if you are using a chromium based browser.</li>
+</ul>
+</li>
+<li><a href="https://github.com/Renji-XD/texthooker-ui"><strong>Renji's Texthooker Page</strong></a> (recommended)<ul>
+<li>Open source and more featureful alternative to the more popular Anacreon's texthooker page.</li>
+<li>I use <a href="../jpresources/#settings-css-for-renjis-texthooker">these settings</a> to make the text more compressed.</li>
+</ul>
+</li>
+<li><a href="https://anacreondjt.gitlab.io/docs/texthooker/"><strong>Anacreon's Texthooker Page</strong></a></li>
+<li><a href="https://learnjapanese.moe/texthooker.html"><strong>TMW's Texthooker Page</strong></a></li>
+</ul>
+</details>
+<details class="example">
+<summary>Guides <em>(click here)</em></summary>
+<ul>
+<li><a href="https://rentry.co/mining#browser">stegatxins0's mining guide: Texthooker</a> (recommended)</li>
+<li><a href="https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese">TMW: Texthooker &amp; Visual Novels</a></li>
+<li><a href="https://rentry.co/lazyXel#clipboard-inserter">Lazy Guide: Texthooker</a></li>
+<li><a href="https://animecards.site/visualnovels/">Anime Cards: Texthooker &amp; Visual Novels</a></li>
+</ul>
+</details>
+<hr />
 <hr />
 <h2 id="game-like-content-getting-text">Game-Like Content: Getting Text<a class="headerlink" href="#game-like-content-getting-text" title="Permanent link">&para;</a></h2>
 <p>The following are primarily for text-heavy games, such as visual novels.</p>
@@ -1860,7 +1871,7 @@ of creating the cards.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 10, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 12, 2023</span>
       
     
   </small>

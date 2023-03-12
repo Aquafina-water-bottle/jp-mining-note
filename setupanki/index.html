@@ -1261,9 +1261,9 @@
   <h1>Setup: Anki</h1>
 
 <h2 id="new-to-anki">New to Anki?<a class="headerlink" href="#new-to-anki" title="Permanent link">&para;</a></h2>
-<p>If you have never used Anki before, I recommend reading through
-<a href="https://tatsumoto.neocities.org/blog/setting-up-anki.html">Tatsumoto's blog: Setting up Anki</a>
-to understand how Anki works and get the appropriate settings for language learning.</p>
+<p>If you have never used Anki before, I recommend using
+<a href="https://github.com/open-spaced-repetition/fsrs4anki">fsrs4anki</a>
+to get more optimized settings than the default settings.</p>
 <p>That article showcases only one way of setting up Anki's settings for language learning.
 Feel free to view some other examples <a href="../setupother/#various-anki-resources" target="_blank">here</a>.</p>
 <hr />
@@ -1688,15 +1688,26 @@ If the css injector add-on is installed correctly, your Anki field editor should
 <p>Additionally, now that Anki-Connect is installed, kanji hover should also be functioning.
 Hover over a kanji within the word reading to make sure that a popup appears.
 In particular, the 者 kanji in the example 偽者 and 不審者 cards should point to each other.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Hovering over the other kanjis will display a <code>Kanji not found.</code> message,
+because the template only searches for kanjis within existing jp-mining-note cards.</p>
+<p>If you wish to see usages of the kanji within words outside of your deck,
+I highly recommend using Marv's
+<a href="https://github.com/MarvNC/yomichan-dictionaries/#jpdb-kanji">JPDB Kanji Yomichan Dictionary</a>.</p>
+</div>
 <hr />
 <h2 id="transfer-existing-notes">Transfer Existing Notes<a class="headerlink" href="#transfer-existing-notes" title="Permanent link">&para;</a></h2>
-<p>If you wish to transfer existing cards into this note type,
+<p>If you wish to transfer existing cards into this note type
+(say, to make kanji hover work on existing cards),
 please see <a href="../importing/" target="_blank">this page</a>.</p>
 <hr />
 <h2 id="updating-the-note">Updating the Note<a class="headerlink" href="#updating-the-note" title="Permanent link">&para;</a></h2>
 <p>If you wish to update the note, follow the steps in <a href="../updating/" target="_blank">this page</a>.</p>
-<p>Be assured that this note doesn't auto-update,
-and you have to manually update the note if you want it to update.</p>
+<p>This note does not auto-update. This should keep your setup stable,
+as long as you do not update Anki.</p>
+<p>When updating Anki, don't forget to check if there is a new version of this note available,
+because this note should update along with Anki.</p>
 <hr />
 <h2 id="setting-up-yomichan">Setting up Yomichan<a class="headerlink" href="#setting-up-yomichan" title="Permanent link">&para;</a></h2>
 <p>Of course, you can have an Anki template, but what's the point of it
@@ -1709,7 +1720,7 @@ if you can't make cards with it?</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 8, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 12, 2023</span>
       
     
   </small>
