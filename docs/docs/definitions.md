@@ -228,7 +228,7 @@ Setting this option will enable the following behavior:
 
 
 
-# UI Options
+# CSS Options
 
 
 ## Hiding the first line of a definition
@@ -414,6 +414,8 @@ The first line of the definition has various elements that can be hidden with {{
 
 ## Removing the numbers in the primary definition
 
+TODO image
+
 Currently, I am not aware of an easy way to only remove the numbers if there is only one
 item (and having them remain for multple definitions) with only CSS.
 
@@ -463,8 +465,54 @@ TODO gif
     These will not be documented here, but will be documented in the
     runtime options file.
 
+---
 
 
+# Handlebars Options
+
+## Exporting only one dictionary entry
+
+TODO `opt-primary-def-one-dict-entry-only`
+
+---
+
+
+
+
+
+## JMdict (Extra) Support
+
+TODO `opt-jmdict-list-format`
+
+---
+
+
+
+
+## First line removal: When HTML can break
+
+TODO `opt-wrap-first-line-spans`
+
+---
+
+
+
+
+## Non-JPMN User Options
+
+??? warning
+    TODO not meant for people using jp-mining-note! The above allows you to do
+    the exact same thing and more!
+
+??? example TODO
+
+    ```
+    {{~set "opt__non-jpmn__stylize-glossary" true ~}}
+    {{~set "opt__non-jpmn__one-dict-entry-only-no-list" false ~}}
+    {{~set "opt__non-jpmn__export-dictionary-tag" true ~}}
+    {{~set "opt__non-jpmn__remove-first-line-enabled" false ~}}
+    {{~#set "opt__non-jpmn__remove-first-line-except-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
+    ```
 
 
 
