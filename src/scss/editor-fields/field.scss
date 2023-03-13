@@ -1,7 +1,7 @@
 /* TODO move this into a different folder */
 
 /* weird hack to remove the last br that always appears for some reason */
-anki-editable[field=Sentence] br:last-of-type {
+anki-editable[field=Sentence] > br:last-of-type {
   display: none;
 }
 
