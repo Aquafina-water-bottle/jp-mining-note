@@ -36,9 +36,9 @@ This contains the list of all my current projects that relate to learning Japane
     Easily paired with most automatic card creation workflows,
     this aims to make your experience with Anki as smooth as possible.
 
-* **[Local Audio Server for Yomichan](https://github.com/Aquafina-water-bottle/local-audio-yomichan)**
+* **[Local Audio Server for Yomichan](https://github.com/themoeway/local-audio-yomichan)**
 
-    This Anki add-on runs a local server of which Yomichan can fetch audio files from. With this setup, you are able to create Anki cards nearly instantaneously, and get word audio without a working internet connection.
+    This Anki add-on runs a local server of which Yomichan can fetch audio files from, using a database containing over 200,000 unique expressions. With this setup, you are able to create Anki cards nearly instantaneously, and get word audio without a working internet connection.
 
 * **[All Anki note templates I can find](alternatives.md)**
 
