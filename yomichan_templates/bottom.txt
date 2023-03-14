@@ -1,5 +1,5 @@
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE ============== ~}}
-{{~! Yomichan template code version: v23.03.11.1 ~}}
+{{~! Yomichan template code version: v23.03.14.1 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
@@ -496,16 +496,31 @@ is a part of a dictionary) ~}}
         {{~else~}}
             {{~! use all primary dictionary entries ~}}
 
-            {{~#if (op "&&"
-                (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") true)
-                (op "<=" glossary.length 1)
-            )
-            ~}}
-                {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") true) ~}}
+                {{~! must manually calculate number of primary-dictionary entries... ~}}
+
+                {{~set "t" 0 ~}}
+                {{~#each definition.definitions~}}
+                    {{~#if (op "===" dictionary (get "primary-dictionary"))~}}
+                        {{~set "t" (op "+" (get "t") 1) ~}}
+                    {{~/if~}}
+                {{~/each~}}
+
+                {{~#if (op ">=" (get "t") 2)~}} <ol> {{~/if~}}
+
+                {{~#each definition.definitions~}}
+                    {{~#if (op "===" dictionary (get "primary-dictionary"))~}}
+                        {{~#if (op ">=" (get "t") 2)~}} <li data-details="{{~dictionary~}}"> {{~/if~}}
+                            {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
+                        {{~#if (op ">=" (get "t") 2)~}} </li> {{~/if~}}
+                    {{~/if~}}
+                {{~/each~}}
+
+                {{~#if (op ">=" (get "t") 2)~}} </ol> {{~/if~}}
 
             {{~else~}}
 
-                <ol>
+                <ol> {{~s~}}
 
                 {{~#each definition.definitions~}}
                     {{~#if (op "===" dictionary (get "primary-dictionary"))~}}
@@ -526,9 +541,34 @@ is a part of a dictionary) ~}}
 {{~/inline~}}
 
 
+{{~!
+    if (mode === "except" and (regex doesn't match) or mode === "only" and (regex matches)):
+        return true
+    return null
+~}}
 
+{{#*inline "_jpmn-check-first-line-dict"}}
+    {{~#scope~}}
 
+        {{~#set "rx-match-first-line-dict" ~}}
+            {{~#regexMatch (get "opt-first-line-dicts-regex") "u"~}}{{dictionary}}{{~/regexMatch~}}
+        {{/set~}}
 
+        {{~#if (op "||"
+            (op "&&"
+                (op "===" (get "opt-first-line-regex-mode") "except")
+                (op "===" (get "rx-match-first-line-dict") "")
+            )
+            (op "&&"
+                (op "===" (get "opt-first-line-regex-mode") "only")
+                (op "!==" (get "rx-match-first-line-dict") "")
+            )
+        )
+        ~}}
+            true
+        {{~/if~}}
+    {{~/scope~}}
+{{~/inline~}}
 
 {{~! custom glossary-single function for additional regex parsing per dictionary ~}}
 {{~! OVERRIDES brief and noDictionaryTag ~}}
@@ -610,22 +650,25 @@ is a part of a dictionary) ~}}
             (op "===" (get "opt__non-jpmn__stylize-glossary") true)
         )
         }}
-            {{~#regexReplace
-                    "^(<span lang=\"ja\">)?(.*?)<br>"
-                    "$1<span class=\"dict-group__glossary--first-line\">$2</span><span class=\"dict-group__glossary--first-line-break\"><br></span>"
-            ~}}
 
+            {{~#set "modify-first-line" ~}}{{> _jpmn-check-first-line-dict dictionary=dictionary }}{{~/set~}}
+
+            {{~#if (get "modify-first-line") ~}}
+                {{~#regexReplace
+                        "^(<span lang=\"ja\">)?(.*?)<br>"
+                        "$1<span class=\"dict-group__glossary--first-line\">$2</span><span class=\"dict-group__glossary--first-line-break\"><br></span>"
+                ~}}
+                    {{~> _jpmn-glossary-single3 . ~}}
+                {{~/regexReplace~}}
+            {{~else~}}
                 {{~> _jpmn-glossary-single3 . ~}}
-
-            {{~/regexReplace~}}
+            {{~/if~}}
 
         {{~else if (op "===" (get "opt__non-jpmn__remove-first-line-enabled") true)~}}
 
-            {{~#set "rx-match-except-first-line" ~}}
-                {{~#regexMatch (get "opt__non-jpmn__remove-first-line-except-dicts-regex") "gu"~}}{{dictionary}}{{~/regexMatch~}}
-            {{/set~}}
+            {{~#set "modify-first-line" ~}}{{> _jpmn-check-first-line-dict dictionary=dictionary }}{{~/set~}}
 
-            {{~#if (op "===" (get "rx-match-except-first-line") "") ~}}
+            {{~#if (get "modify-first-line") ~}}
                 {{~! none match means the dictionary is not an exception, i.e. replace newline ~}}
                 {{~#regexReplace
                         "^(<span lang=\"ja\">)?(.*?)<br>"
