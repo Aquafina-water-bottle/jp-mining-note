@@ -1,9 +1,9 @@
 
 # New to Anki?
 
-If you have never used Anki before, I recommend reading through
-[Tatsumoto's blog: Setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html)
-to understand how Anki works and get the appropriate settings for language learning.
+If you have never used Anki before, I recommend using
+[fsrs4anki](https://github.com/open-spaced-repetition/fsrs4anki)
+to get more optimized settings than the default settings.
 
 That article showcases only one way of setting up Anki's settings for language learning.
 Feel free to view some other examples [here](setupother.md#various-anki-resources){:target="_blank"}.

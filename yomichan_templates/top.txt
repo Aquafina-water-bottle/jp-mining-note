@@ -4,7 +4,7 @@
 {{~! ================ Dictionary Categorization Options ================= ~}}
 
 {{~! valid values: "bilingual", "monolingual" ~}}
-{{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
+{{~set "opt-first-definition-type" "bilingual" ~}}
 
 {{~! matches most JMdict dictionaries, 新和英 and 日本語文法辞典(全集)~}}
 {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
@@ -35,6 +35,33 @@
 {{~#set "opt-grammar-override-dict-regex"~}} ^(日本語文法辞典\(全集\)|毎日のんびり日本語教師|JLPT文法解説まとめ|どんなときどう使う 日本語表現文型辞典|絵でわかる日本語)$ {{~/set~}}
 
 
+
+{{~! ========================== Other Options ============================ ~}}
+{{~set "opt-wrap-first-line-spans" true ~}}
+{{~set "opt-primary-def-one-dict-entry-only" false ~}}
+{{~set "opt-jmdict-list-format" false ~}}
+
+
+
+{{~! ======================== Non-JPMN Options =========================== ~}}
+
+{{~!
+    WARNING: DO NOT CHANGE THESE OPTIONS if you are using the
+    jp-mining-note template. These options will change the general layout
+    of the HTML, WHICH MAY CAUSE ERRORS in the future.
+
+    The equivalent of all these options for jp-mining-note users can be found
+    in the documentation:
+    (TODO link)
+    These hide specific elements using CSS instead of modifying the raw HTML
+    structure behind it.
+~}}
+
+{{~set "opt__non-jpmn__stylize-glossary" true ~}}
+{{~set "opt__non-jpmn__one-dict-entry-only-no-list" false ~}}
+{{~set "opt__non-jpmn__export-dictionary-tag" true ~}}
+{{~set "opt__non-jpmn__remove-first-line-enabled" false ~}}
+{{~#set "opt__non-jpmn__remove-first-line-except-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
 
 
 
