@@ -27,6 +27,7 @@
     https://github.com/MarvNC/JP-Resources#freq-settings ~}}
 
 {{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
+{{~#set "opt-ignored-freq-value-regex"~}} ❌ {{~/set~}}
 {{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
 {{~set "opt-no-freq-default-value" 9999999 ~}}
 {{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
