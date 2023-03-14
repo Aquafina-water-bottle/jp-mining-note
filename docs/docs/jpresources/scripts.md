@@ -20,7 +20,7 @@ The following scripts have the following changes:
 - They have been rewritten so it can be presented in human-readable format
     right below the one-liner.
 - The one-liners can be re-compiled from the source code at your own discretion
-    (by [building the documentation](building.md#building-the-documentation)).
+    (by [building the documentation](/building.md#building-the-documentation)).
     All the powershell source code can be found
     [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/docs/docs/sharex_input.ps1).
 
@@ -205,7 +205,7 @@ However, some tips for ShareX and AutoKey are given below.
 
     If you want, you can even use the Python scripts with ShareX, so long as you have Python installed.
     To use Python with ShareX, follow all the steps
-    (shown [above](jpresources.md#how-to-running-with-sharex)),
+    (shown [above](/jpresources.md#how-to-running-with-sharex)),
     until you set the action values.
 
     - The command should be the `DRIVE:\PATH\TO\python.exe` (instead of the path to `powershell.exe`).
@@ -262,7 +262,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
     After running this script, you must manually generate the `SentenceReading` field
     if you want the furigana reading.
     Of course, this can be done in bulk at any point,
-    as shown [here](faq.md#how-do-i-bulk-generate-furigana).
+    as shown [here](/faq.md#how-do-i-bulk-generate-furigana).
 
 ??? info "How-To: Fix incorrectly-bolded words *(click here)*"
 
@@ -287,7 +287,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
         and add that word instead.
 
         ??? example "Demo *(click here)*"
-            {{ img("Add the definition from the popup dictionary", "assets/jpresources/incorrect_bold.png") }}
+            {{ img("Add the definition from the popup dictionary", "/assets/jpresources/incorrect_bold.png") }}
 
     2. Copy the desired sentence.
 

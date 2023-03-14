@@ -472,9 +472,42 @@ TODO gif
 
 ## Exporting only one dictionary entry
 
-TODO `opt-primary-def-one-dict-entry-only`
+> `opt-primary-def-one-dict-entry-only`
 
----
+A "dictionary entry" in this context is the single section of text corresponding to a
+dictionary tag (with `Compact tags` turned off in Yomichan).
+
+For example, recent version of the Yomichan JMdict dictionaries stores its definitions
+as multiple entries.
+It is almost never the case that monolingual dictionaries has multiple dictionary entries.
+Most monolingual dictionaries store the definition as one gigantic entry
+
+=== "Multiple Entries"
+    TODO
+=== "Only one entry"
+    TODO
+
+
+By default, all dictionary entries are exported in the primary definition.
+However, if `opt-primary-def-one-dict-entry-only` is set to `true`,
+then only the first (or [manually selected](#manual-selection)) dictionary entry
+will be imported into the primary definition.
+
+=== "Export all entries (default)"
+    TODO
+
+=== "Export one entry"
+    TODO
+
+    This uses the following option:
+    {% raw %}
+    ```handlebars
+    {{~set "opt-primary-def-one-dict-entry-only" true ~}}
+    ```
+    {% endraw %}
+
+
+<br>
 
 
 
@@ -482,37 +515,57 @@ TODO `opt-primary-def-one-dict-entry-only`
 
 ## JMdict (Extra) Support
 
-TODO `opt-jmdict-list-format`
+> `opt-jmdict-list-format`
 
----
+TODO
+
+This is an option because there are many version of JMdict Yomichan dictionaries,
+so it is impossible to automatically detect whether you are using the extra version or not.
+
+<br>
 
 
 
 
 ## First line removal: When HTML can break
 
-TODO `opt-wrap-first-line-spans`
-
----
+> `opt-wrap-first-line-spans`
 
 
 
+<br>
 
-## Non-JPMN User Options
 
-??? warning
+
+
+## Non-JPMN Options
+
+!!! warning
     TODO not meant for people using jp-mining-note! The above allows you to do
     the exact same thing and more!
 
-??? example TODO
+??? example "Reveal Non-JPMN Options *(click here)*"
 
-    ```
-    {{~set "opt__non-jpmn__stylize-glossary" true ~}}
-    {{~set "opt__non-jpmn__one-dict-entry-only-no-list" false ~}}
-    {{~set "opt__non-jpmn__export-dictionary-tag" true ~}}
-    {{~set "opt__non-jpmn__remove-first-line-enabled" false ~}}
-    {{~#set "opt__non-jpmn__remove-first-line-except-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
-    ```
+    **`opt__non-jpmn__stylize-glossary`**:
+
+    - TODO
+
+    **`opt__non-jpmn__one-dict-entry-only-no-list`**:
+
+    - TODO
+
+    **`opt__non-jpmn__export-dictionary-tag`**:
+
+    - TODO
+
+    **`opt__non-jpmn__remove-first-line-enabled`**:
+
+    - TODO
+
+    **`opt__non-jpmn__remove-first-line-except-dicts-regex`**:
+
+    - TODO
+
 
 
 
