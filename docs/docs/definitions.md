@@ -140,6 +140,7 @@ To modify a regex string:
 # Primary Definition Selection
 
 ## Automatic Selection (Bilingual or Monolingual)
+
 The dictionary for the primary definition is the first bilingual dictionary
 (that appears on Yomichan) by default.
 
@@ -468,7 +469,31 @@ TODO gif
 ---
 
 
-# Handlebars Options
+# First line removal: When HTML can break
+
+TODO `opt-wrap-first-line-spans`
+
+<br>
+
+## Select Dictionaries to remove the first line
+
+TODO `opt-first-line-regex-mode` and `opt-first-line-dicts-regex`
+
+{% raw %}
+```
+{{~set "opt-first-line-regex-mode" "except"~}}
+{{~#set "opt-first-line-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
+```
+{% endraw %}
+
+
+
+---
+
+
+
+
+# Other Handlebars Options
 
 ## Exporting only one dictionary entry
 
@@ -480,7 +505,7 @@ dictionary tag (with `Compact tags` turned off in Yomichan).
 For example, recent version of the Yomichan JMdict dictionaries stores its definitions
 as multiple entries.
 It is almost never the case that monolingual dictionaries has multiple dictionary entries.
-Most monolingual dictionaries store the definition as one gigantic entry
+Instead, most monolingual dictionaries store the definition as one gigantic entry.
 
 === "Multiple Entries"
     TODO
@@ -527,15 +552,6 @@ so it is impossible to automatically detect whether you are using the extra vers
 
 
 
-## First line removal: When HTML can break
-
-> `opt-wrap-first-line-spans`
-
-
-
-<br>
-
-
 
 
 ## Non-JPMN Options
@@ -546,25 +562,34 @@ so it is impossible to automatically detect whether you are using the extra vers
 
 ??? example "Reveal Non-JPMN Options *(click here)*"
 
-    **`opt__non-jpmn__stylize-glossary`**:
+    TODO
+
+    **`opt__non-jpmn__stylize-glossary`** (default: `true`):
+
+    - main option you absolutely want to set to `false` to format the HTML
+        to be the same as the default
+    - one exception: the div that left aligns the text is not present
+        - if this breaks your card, try surrounding your definition field, i.e. if your field name is `Definition`:
+            {% raw %}
+            ```html
+            <div style="text-align: left"> {{Definition}} </div>
+            ```
+            {% endraw %}
+    - invalidates `opt-wrap-first-line-spans` entirely, users must now rely on
+        `opt__non-jpmn__remove-first-line-enabled`
+
+    **`opt__non-jpmn__one-dict-entry-only-no-list`** (default: `false`):
 
     - TODO
 
-    **`opt__non-jpmn__one-dict-entry-only-no-list`**:
+    **`opt__non-jpmn__export-dictionary-tag`** (default: `true`):
 
-    - TODO
+    - whether the dictionary tag is exported or not
 
-    **`opt__non-jpmn__export-dictionary-tag`**:
+    **`opt__non-jpmn__remove-first-line-enabled`** (default: `false`):
 
-    - TODO
-
-    **`opt__non-jpmn__remove-first-line-enabled`**:
-
-    - TODO
-
-    **`opt__non-jpmn__remove-first-line-except-dicts-regex`**:
-
-    - TODO
+    - whether the first line of a dictionary is removed or not
+    - uses the same options from the [first line removal section](#first-line-removal-when-html-can-break)
 
 
 
