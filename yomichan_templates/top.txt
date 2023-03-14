@@ -21,6 +21,7 @@
 {{set "opt-selection-text-glossary-attempt-bold" true}}
 
 
+
 {{~! ==================== Frequency Sorting Options ===================== ~}}
 {{~! See here for the official documentation on how these options work:
     https://github.com/MarvNC/JP-Resources#freq-settings ~}}
@@ -36,9 +37,7 @@
 
 
 
-{{~! ========================== Other Options ============================ ~}}
-{{~set "opt-primary-def-one-dict-entry-only" false ~}}
-{{~set "opt-jmdict-list-format" false ~}}
+{{~! ============== Dictionary First Line Removal Options =============== ~}}
 {{~set "opt-wrap-first-line-spans" true ~}}
 
 {{~! valid values: "except", "only" ~}}
@@ -46,12 +45,24 @@
 {{~#set "opt-first-line-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
 
 
-{{~! ======================== Non-JPMN Options =========================== ~}}
+
+{{~! ========================== Other Options =========================== ~}}
+{{~set "opt-primary-def-one-dict-entry-only" false ~}}
+{{~set "opt-jmdict-list-format" false ~}}
+
+
+
+
+
+
+
+
+{{~! ======================== Non-JPMN Options ========================== ~}}
 
 {{~!
     WARNING: DO NOT CHANGE THESE OPTIONS if you are using the
     jp-mining-note template. These options will change the general layout
-    of the HTML, WHICH MAY CAUSE ERRORS in the future.
+    of the HTML, WHICH MAY CAUSE ERRORS from the internal javascript.
 
     The equivalent of all these options for jp-mining-note users can be found
     in the documentation:
