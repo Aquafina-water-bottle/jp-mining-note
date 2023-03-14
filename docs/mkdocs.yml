@@ -110,9 +110,9 @@ nav:
   - "FAQ & Troubleshooting": faq.md
   - JP Resources:
     - JP Resources: jpresources.md
-    - JPMN Handlebars Package: jpresources/jpmnhandlebars.md
-    - Anki Scripts: jpresources/scripts.md
-    - Other: jpresources/other.md
+    - JPMN Handlebars Package: jpmnhandlebars.md
+    - Anki Scripts: scripts.md
+    - Other: jpresourcesother.md
 
 extra_css:
   - stylesheets/extra.css

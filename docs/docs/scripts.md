@@ -205,7 +205,7 @@ However, some tips for ShareX and AutoKey are given below.
 
     If you want, you can even use the Python scripts with ShareX, so long as you have Python installed.
     To use Python with ShareX, follow all the steps
-    (shown [above](/jpresources.md#how-to-running-with-sharex)),
+    (shown [above](jpresources.md#how-to-running-with-sharex)),
     until you set the action values.
 
     - The command should be the `DRIVE:\PATH\TO\python.exe` (instead of the path to `powershell.exe`).
@@ -262,7 +262,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
     After running this script, you must manually generate the `SentenceReading` field
     if you want the furigana reading.
     Of course, this can be done in bulk at any point,
-    as shown [here](/faq.md#how-do-i-bulk-generate-furigana).
+    as shown [here](faq.md#how-do-i-bulk-generate-furigana).
 
 ??? info "How-To: Fix incorrectly-bolded words *(click here)*"
 
@@ -287,7 +287,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
         and add that word instead.
 
         ??? example "Demo *(click here)*"
-            {{ img("Add the definition from the popup dictionary", "/assets/jpresources/incorrect_bold.png") }}
+            {{ img("Add the definition from the popup dictionary", "assets/jpresources/incorrect_bold.png") }}
 
     2. Copy the desired sentence.
 
