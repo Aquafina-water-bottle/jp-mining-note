@@ -1,5 +1,5 @@
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE ============== ~}}
-{{~! Yomichan template code version: v23.03.14.1 ~}}
+{{~! Yomichan template code version: v23.03.14.2 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}

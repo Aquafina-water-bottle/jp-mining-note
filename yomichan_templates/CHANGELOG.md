@@ -5,7 +5,11 @@ of the changes.
 Versioning only starts at v23.01.16.0 since that was the first version when
 I started explicitly recording the changes.
 
-## v23.03.??.??
+
+## v23.03.14.2
+- Updated `{freq}` to match Marv's code (v23.03.13.1)
+
+## v23.03.14.1
 - added a bunch of options:
     ```
     {{~! ========================== Other Options ============================ ~}}
