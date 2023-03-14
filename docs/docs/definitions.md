@@ -229,10 +229,8 @@ Setting this option will enable the following behavior:
 
 
 
-# CSS Options
 
-
-## Hiding the first line of a definition
+# Hiding the first line of a definition
 <sup>See also: [How to remove the numbers in the definition](#removing-the-numbers-in-the-primary-definition)</sup>
 
 
@@ -406,6 +404,27 @@ The first line of the definition has various elements that can be hidden with {{
             }
             ```
 
+
+## When HTML can break
+
+TODO `opt-wrap-first-line-spans`
+
+<br>
+
+## Select dictionaries to remove the first line
+
+TODO `opt-first-line-regex-mode` and `opt-first-line-dicts-regex`
+
+{% raw %}
+```
+{{~set "opt-first-line-regex-mode" "except"~}}
+{{~#set "opt-first-line-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
+```
+{% endraw %}
+
+
+
+
 ---
 
 
@@ -413,7 +432,7 @@ The first line of the definition has various elements that can be hidden with {{
 
 
 
-## Removing the numbers in the primary definition
+# Removing the numbers in the primary definition
 
 TODO image
 
@@ -438,6 +457,7 @@ The following {{ CSS }} completely nukes the numbers regardless of how many item
 
 
 
+<!--
 ## Collapsing dictionaries
 {{ feature_version("0.12.0.0") }}
 
@@ -468,36 +488,12 @@ TODO gif
 
 ---
 
-
-# First line removal: When HTML can break
-
-TODO `opt-wrap-first-line-spans`
-
-<br>
-
-## Select Dictionaries to remove the first line
-
-TODO `opt-first-line-regex-mode` and `opt-first-line-dicts-regex`
-
-{% raw %}
-```
-{{~set "opt-first-line-regex-mode" "except"~}}
-{{~#set "opt-first-line-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
-```
-{% endraw %}
-
-
-
----
+-->
 
 
 
 
-# Other Handlebars Options
-
-## Exporting only one dictionary entry
-
-> `opt-primary-def-one-dict-entry-only`
+# Exporting only one dictionary entry
 
 A "dictionary entry" in this context is the single section of text corresponding to a
 dictionary tag (with `Compact tags` turned off in Yomichan).
@@ -532,13 +528,14 @@ will be imported into the primary definition.
     {% endraw %}
 
 
-<br>
+---
 
 
 
 
 
-## JMdict (Extra) Support
+
+# JMdict (Extra) Support
 
 > `opt-jmdict-list-format`
 
@@ -547,14 +544,14 @@ TODO
 This is an option because there are many version of JMdict Yomichan dictionaries,
 so it is impossible to automatically detect whether you are using the extra version or not.
 
-<br>
+---
 
 
 
 
 
 
-## Non-JPMN Options
+# Non-JPMN Options
 
 !!! warning
     TODO not meant for people using jp-mining-note! The above allows you to do
@@ -566,15 +563,20 @@ so it is impossible to automatically detect whether you are using the extra vers
 
     **`opt__non-jpmn__stylize-glossary`** (default: `true`):
 
-    - main option you absolutely want to set to `false` to format the HTML
-        to be the same as the default
-    - one exception: the div that left aligns the text is not present
-        - if this breaks your card, try surrounding your definition field, i.e. if your field name is `Definition`:
-            {% raw %}
-            ```html
-            <div style="text-align: left"> {{Definition}} </div>
-            ```
-            {% endraw %}
+    - main option you absolutely want to set to `false` to ensure that the HTML format
+        is virtually the same as the default
+    - exceptions:
+        - the dictionary and tags are not italicized, to prevent italic kanjis/kana from showing
+        - the div that left aligns the text is not present
+            - if this breaks your card, try surrounding your definition field, i.e. if your field name is `Definition`:
+                {% raw %}
+                ```html
+                <div style="text-align: left"> {{Definition}} </div>
+                ```
+                {% endraw %}
+        - dictionaries with only one entry be formatted as a list of one element by default
+            - see the `opt__non-jpmn__one-dict-entry-only-no-list` option to disable this
+
     - invalidates `opt-wrap-first-line-spans` entirely, users must now rely on
         `opt__non-jpmn__remove-first-line-enabled`
 

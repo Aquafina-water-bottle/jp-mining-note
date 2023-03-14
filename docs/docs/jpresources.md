@@ -431,7 +431,7 @@ Adds the following Yomichan Fields:
 > Adds: `{selection-text-or-glossary}`
 
 !!! tip
-    I recommend using the [JPMN Handlebars Package](jpresources/jpmnhandlebars.md)
+    I recommend using the [JPMN Handlebars Package](jpmnhandlebars.md)
     instead of this handlebars, because the handlebars package does this and much more.
 
 Allows you to export only a section of a glossary by highlighting over it,
