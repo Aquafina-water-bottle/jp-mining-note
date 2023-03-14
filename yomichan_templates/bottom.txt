@@ -784,7 +784,7 @@ is a part of a dictionary) ~}}
 
 
 {{#*inline "jpmn-frequency-sort"}}
-    {{~! Frequency sort handlebars: v23.02.27.1 ~}}
+    {{~! Frequency sort handlebars: v23.03.13.1 ~}}
     {{~! The latest version can be found at https://github.com/MarvNC/JP-Resources#freq-handlebar ~}}
     {{~#scope~}}
 
@@ -797,7 +797,7 @@ is a part of a dictionary) ~}}
         {{~! search for grammar dictionary ~}}
         {{~#each definition.definitions~}}
             {{~#set "rx-match-grammar-dicts" ~}}
-                {{~#regexMatch (get "opt-grammar-override-dict-regex") "gu"~}}{{this.dictionary}}{{~/regexMatch~}}
+                {{~#regexMatch (get "opt-grammar-override-dict-regex") "u"~}}{{this.dictionary}}{{~/regexMatch~}}
             {{/set~}}
             {{~! rx-match-grammar-dicts is not empty if a grammar dictionary was found ~}}
             {{~#if (op "!==" (get "rx-match-grammar-dicts") "") ~}}
@@ -807,7 +807,7 @@ is a part of a dictionary) ~}}
 
         {{~! Additional case when "Result grouping mode" is set to "No Grouping"~}}
         {{~#set "rx-match-grammar-dicts" ~}}
-            {{~#regexMatch (get "opt-grammar-override-dict-regex") "gu"~}}{{this.definition.dictionary}}{{~/regexMatch~}}
+            {{~#regexMatch (get "opt-grammar-override-dict-regex") "u"~}}{{this.definition.dictionary}}{{~/regexMatch~}}
         {{/set~}}
         {{~! rx-match-grammar-dicts is not empty if a grammar dictionary was found ~}}
         {{~#if (op "!==" (get "rx-match-grammar-dicts") "") ~}}
@@ -818,9 +818,13 @@ is a part of a dictionary) ~}}
 
             {{~! rx-match-ignored-freq is not empty if ignored <=> rx-match-ignored-freq is empty if not ignored ~}}
             {{~#set "rx-match-ignored-freq" ~}}
-                {{~#regexMatch (get "opt-ignored-freq-dict-regex") "gu"~}}{{this.dictionary}}{{~/regexMatch~}}
+                {{~#regexMatch (get "opt-ignored-freq-dict-regex") "u"~}}{{this.dictionary}}{{~/regexMatch~}}
             {{/set~}}
-            {{~#if (op "===" (get "rx-match-ignored-freq") "") ~}}
+
+            {{~#set "rx-match-ignored-value" ~}}
+                {{~#regexMatch (get "opt-ignored-freq-value-regex") "u"~}}{{this.frequency}}{{~/regexMatch~}}
+            {{/set~}}
+            {{~#if (op "&&" (op "===" (get "rx-match-ignored-freq") "") (op "===" (get "rx-match-ignored-value") ""))~}}
 
                 {{~!
                     only uses the 1st frequency of any dictionary.
@@ -834,7 +838,7 @@ is a part of a dictionary) ~}}
 
                 {{~#if (op "!" (get "read-freq") ) ~}}
                     {{~#set "rx-match-keep-freqs" ~}}
-                        {{~#regexMatch (get "opt-keep-freqs-past-first-regex") "gu"~}}{{this.dictionary}}{{~/regexMatch~}}
+                        {{~#regexMatch (get "opt-keep-freqs-past-first-regex") "u"~}}{{this.dictionary}}{{~/regexMatch~}}
                     {{/set~}}
 
                     {{~! rx-match-keep-freqs is not empty if keep freqs ~}}
