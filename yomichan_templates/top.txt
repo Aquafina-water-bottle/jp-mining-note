@@ -67,7 +67,9 @@
 
     The equivalent of all these options for jp-mining-note users can be found
     in the documentation:
-    (TODO link)
+
+        https://aquafina-water-bottle.github.io/jp-mining-note/definitions/
+
     These hide specific elements using CSS instead of modifying the raw HTML
     structure behind it.
 ~}}
