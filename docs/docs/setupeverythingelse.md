@@ -42,51 +42,19 @@ Anki card (by clicking on the green plus button).
 
 The standard texthooker setup works for most games, and any show with subtitle files.
 
-
-## Texthooker pages (clipboard based)
-These pages display the hooked content, where the hooked content is communicated
-via automated clipboard (copy/paste) tools.
-Most setups documented are for clipboard based texthooker pages.
-
-??? example "Resources *(click here)*"
-    * [**Original Clipboard Inserter (Extension)**](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
-        * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
-            as of Firefox version 107.0. Use the extension below if you are using Firefox.
-    * [**Lap Clipboard Inserter (Extension)**](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
-        * Updated version of the above.
-        * Works on Firefox, but Chrome (manifest 3) support is currently not supported.
-            Use the first extension if you are using a chromium based browser.
-    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
-        * Open source and more featureful alternative to the more popular Anacreon's texthooker page.
-        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
-    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
-    * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
-
-??? example "Guides *(click here)*"
-    * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) (recommended)
-    * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
-    * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
-    * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/)
-
-
 ---
 
-
-## Texthooker pages (Websocket based)
+## Texthooker: Websocket based
 These pages display the hooked content, where the hooked content is communicated
 via Websockets.
-Websocket based texthookers are better in almost every aspect:
+Websocket based texthookers are better than the classic clipboard-based texthookers
+in almost every aspect:
 
 * They are generally faster and more reliable.
 * They do not flood your clipboard.
 * They do not require an extension that constantly polls the clipboard.
 
-However, there is usually less support and requires more specialized coordination between programs.
-
-All of the options below are intended to be used with
-[Textractor](https://github.com/Artikash/Textractor)
-(meaning that this setup only works for video games).
-I'm currently unaware of a websocket-based setup that works with video content.
+However, it requires more specialized coordination between programs.
 
 ??? example "Resources *(click here)*"
     * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
@@ -100,6 +68,15 @@ I'm currently unaware of a websocket-based setup that works with video content.
         * Integrates seamlessly with many workflows.
         * Uses a custom texthooker page, which connects with Textractor with its own custom extension.
         * A video installation guide is available on the project's README page.
+
+    **Supported Workflows:**
+
+    - [**Textractor**](https://github.com/Artikash/Textractor) with [**textractor-websocket**](https://github.com/sadolit/textractor-websocket) or [**TextractorSender**](https://github.com/KamWithK/TextractorSender)
+    - [**mpv**](https://mpv.io) with [**mpv_websocket**](https://github.com/kuroahna/mpv_websocket)
+
+??? example "Legacy Resources *(click here)*"
+    These resources are considered legacy, and I highly recommend using the
+    standard resources above in favor of these.
 
     * [**Marv's Websocket Userscript**](https://github.com/MarvNC/texthooker-websocket)
         * A more featureful version of the patch below.
@@ -165,6 +142,38 @@ I'm currently unaware of a websocket-based setup that works with video content.
             <sup>
             ([Original discord message](https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452), on {{ TMW_SERVER }}. Thanks Zetta#3033 for the code.)
             </sup>
+
+
+
+---
+
+## Texthooker: Clipboard based
+These pages display the hooked content, where the hooked content is communicated
+via automated clipboard (copy/paste) tools.
+Most classic setups documented are for clipboard based texthooker pages.
+
+??? example "Resources *(click here)*"
+    * [**Original Clipboard Inserter (Extension)**](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
+        * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
+            as of Firefox version 107.0. Use the extension below if you are using Firefox.
+    * [**Lap Clipboard Inserter (Extension)**](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
+        * Updated version of the above.
+        * Works on Firefox, but Chrome (manifest 3) support is currently not supported.
+            Use the first extension if you are using a chromium based browser.
+    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
+        * Open source and more featureful alternative to the more popular Anacreon's texthooker page.
+        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
+    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
+    * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
+
+??? example "Guides *(click here)*"
+    * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) (recommended)
+    * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
+    * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
+    * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/)
+
+
+---
 
 
 ---

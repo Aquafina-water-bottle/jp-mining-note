@@ -478,11 +478,20 @@ Hover over a kanji within the word reading to make sure that a popup appears.
 In particular, the 者 kanji in the example 偽者 and 不審者 cards should point to each other.
 
 
+!!! note
+    Hovering over the other kanjis will display a `Kanji not found.` message,
+    because the template only searches for kanjis within existing jp-mining-note cards.
+
+    If you wish to see usages of the kanji within words outside of your deck,
+    I highly recommend using Marv's
+    [JPDB Kanji Yomichan Dictionary](https://github.com/MarvNC/yomichan-dictionaries/#jpdb-kanji).
+
 ---
 
 
 # Transfer Existing Notes
-If you wish to transfer existing cards into this note type,
+If you wish to transfer existing cards into this note type
+(say, to make kanji hover work on existing cards),
 please see [this page](importing.md){:target="_blank"}.
 
 ---
@@ -492,8 +501,11 @@ please see [this page](importing.md){:target="_blank"}.
 # Updating the Note
 If you wish to update the note, follow the steps in [this page](updating.md){:target="_blank"}.
 
-Be assured that this note doesn't auto-update,
-and you have to manually update the note if you want it to update.
+This note does not auto-update. This should keep your setup stable,
+as long as you do not update Anki.
+
+When updating Anki, don't forget to check if there is a new version of this note available,
+because this note should update along with Anki.
 
 
 ---
