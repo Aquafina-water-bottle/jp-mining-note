@@ -559,12 +559,11 @@ so it is impossible to automatically detect whether you are using the extra vers
 
 ??? example "Reveal Non-JPMN Options *(click here)*"
 
-    TODO
-
-    **`opt__non-jpmn__stylize-glossary`** (default: `true`):
+    <h2>`opt__non-jpmn__stylize-glossary`</h2>
 
     - main option you absolutely want to set to `false` to ensure that the HTML format
         is virtually the same as the default
+
     - exceptions:
         - the dictionary and tags are not italicized, to prevent italic kanjis/kana from showing
         - the div that left aligns the text is not present
@@ -580,15 +579,15 @@ so it is impossible to automatically detect whether you are using the extra vers
     - invalidates `opt-wrap-first-line-spans` entirely, users must now rely on
         `opt__non-jpmn__remove-first-line-enabled`
 
-    **`opt__non-jpmn__one-dict-entry-only-no-list`** (default: `false`):
+    <h2>`opt__non-jpmn__one-dict-entry-only-no-list`</h2>
 
     - TODO
 
-    **`opt__non-jpmn__export-dictionary-tag`** (default: `true`):
+    <h2>`opt__non-jpmn__export-dictionary-tag`</h2>
 
     - whether the dictionary tag is exported or not
 
-    **`opt__non-jpmn__remove-first-line-enabled`** (default: `false`):
+    <h2>`opt__non-jpmn__remove-first-line-enabled`</h2>
 
     - whether the first line of a dictionary is removed or not
     - uses the same options from the [first line removal section](#first-line-removal-when-html-can-break)

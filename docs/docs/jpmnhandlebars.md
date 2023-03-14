@@ -12,11 +12,11 @@ TODO
 All of the features that comes with the standard jp-mining-note installation:
 
 - A primary dictionary selector that automatically chooses the first bilingual or monolingual dictionary (depending on your settings)
-- Automatic separation of auxillary dictionaries into monolingual and bilingual dictionaries
 - Ability to manually select a dictionary or highlight a definition, to override the primary dictionary selector
+- Automatic separation of auxillary dictionaries into monolingual and bilingual dictionaries
 - Option to hide the first line of monolingual dictionaries
 - Resulting HTML format is virtually the same as the default handlebars
-- Compatability with [most other handlebars](#compatability-with-other-handlebars)
+- Compatability with [other portable handlebars](#compatability-with-other-handlebars)
 
 
 # Setup
@@ -77,6 +77,10 @@ Information about the opther options should be scattered around in the
 # Compatability with other Handlebars
 - compatability with other handlebars:
     - fully compatable SO LONG AS your other handlebars do not modify an existing marker in place
+    - examples:
+        - if the required markers come from an outdated set of default handlebars (i.e. classic animecard's `{test}`)
+        - if a default marker was explicitly changed (i.e. eminent note 2.4 handlebars with `{expression}`)
+            - TODO contact before releasing in order to fix this!!!
     - everything is purposefully prefixed with `jpmn` (or `_jpmn`) to not interfere with other handlebars
 - e.g. you can use marv's `freq` handlebars by simply copy/pasting and using it as normal
     - since `freq` is not an existing marker
