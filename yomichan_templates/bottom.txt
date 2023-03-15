@@ -1,5 +1,5 @@
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE ============== ~}}
-{{~! Yomichan template code version: v23.03.14.2 ~}}
+{{~! Yomichan template code version: v23.03.14.3 ~}}
 
 
 {{~! NOTE: this should be put at the very bottom of the templates section! ~}}
@@ -420,7 +420,7 @@ is a part of a dictionary) ~}}
 
             {{~set "found-dict-entry" false ~}}
 
-            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+            {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") false) ~}}
             <ol>
             {{~/if~}}
 
@@ -440,13 +440,13 @@ is a part of a dictionary) ~}}
                     )
                 ~}}
 
-                    {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+                    {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") false) ~}}
                     <li data-details="{{~dictionary~}}">
                     {{~/if~}}
 
                     {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
 
-                    {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+                    {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") false) ~}}
                     </li>
                     {{~/if~}}
 
@@ -454,7 +454,7 @@ is a part of a dictionary) ~}}
                 {{~/if~}}
             {{~/each~}}
 
-            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+            {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") false) ~}}
             </ol>
             {{~/if~}}
 
@@ -463,7 +463,7 @@ is a part of a dictionary) ~}}
 
             {{~set "found-dict-entry" false ~}}
 
-            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+            {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") false) ~}}
             <ol>
             {{~/if~}}
 
@@ -475,13 +475,13 @@ is a part of a dictionary) ~}}
                     )
                 ~}}
 
-                    {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+                    {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") false) ~}}
                     <li data-details="{{~dictionary~}}">
                     {{~/if~}}
 
                     {{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}
 
-                    {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+                    {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") false) ~}}
                     </li>
                     {{~/if~}}
 
@@ -489,14 +489,14 @@ is a part of a dictionary) ~}}
                 {{~/if~}}
             {{~/each~}}
 
-            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") false) ~}}
+            {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") false) ~}}
             </ol>
             {{~/if~}}
 
         {{~else~}}
             {{~! use all primary dictionary entries ~}}
 
-            {{~#if (op "===" (get "opt__non-jpmn__one-dict-entry-only-no-list") true) ~}}
+            {{~#if (op "===" (get "opt__plaintext__one-dict-entry-only-no-list") true) ~}}
                 {{~! must manually calculate number of primary-dictionary entries... ~}}
 
                 {{~set "t" 0 ~}}
@@ -595,7 +595,7 @@ is a part of a dictionary) ~}}
 
     {{~#scope~}}
 
-        {{~#if (op "===" (get "opt__non-jpmn__stylize-glossary") true) ~}}
+        {{~#if (op "===" (get "opt__plaintext__stylize-glossary") true) ~}}
 
             <span class="dict-group__tag-list"> {{~s~}}
 
@@ -626,7 +626,7 @@ is a part of a dictionary) ~}}
                     {{name}}
                     {{~#set "any" true}}{{/set~}}
                 {{~/each~}}
-                {{~#if (op "===" (get "opt__non-jpmn__export-dictionary-tag") true)~}}
+                {{~#if (op "===" (get "opt__plaintext__export-dictionary-tag") true)~}}
                     {{~#if (get "any")}}, {{else}}({{/if~}}
                     {{dictionary}}
                     {{~#set "any" true}}{{/set~}}
@@ -637,7 +637,7 @@ is a part of a dictionary) ~}}
 
         {{~/if~}}
 
-        {{~#if (op "===" (get "opt__non-jpmn__stylize-glossary") true) ~}}
+        {{~#if (op "===" (get "opt__plaintext__stylize-glossary") true) ~}}
         <span class="dict-group__glossary"> {{~s~}}
         {{~/if~}}
 
@@ -647,7 +647,7 @@ is a part of a dictionary) ~}}
         ~}}
         {{~#if (op "&&"
             (op "===" (get "opt-wrap-first-line-spans") true)
-            (op "===" (get "opt__non-jpmn__stylize-glossary") true)
+            (op "===" (get "opt__plaintext__stylize-glossary") true)
         )
         }}
 
@@ -664,7 +664,7 @@ is a part of a dictionary) ~}}
                 {{~> _jpmn-glossary-single3 . ~}}
             {{~/if~}}
 
-        {{~else if (op "===" (get "opt__non-jpmn__remove-first-line-enabled") true)~}}
+        {{~else if (op "===" (get "opt__plaintext__remove-first-line-enabled") true)~}}
 
             {{~#set "modify-first-line" ~}}{{> _jpmn-check-first-line-dict dictionary=dictionary }}{{~/set~}}
 
@@ -684,7 +684,7 @@ is a part of a dictionary) ~}}
             {{~> _jpmn-glossary-single3 . ~}}
         {{~/if~}}
 
-        {{~#if (op "===" (get "opt__non-jpmn__stylize-glossary") true) ~}}
+        {{~#if (op "===" (get "opt__plaintext__stylize-glossary") true) ~}}
         </span> {{~s~}}
         {{~/if~}}
 
