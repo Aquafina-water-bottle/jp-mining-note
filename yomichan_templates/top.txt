@@ -58,15 +58,15 @@
 
 
 
-{{~! ======================== Non-JPMN Options ========================== ~}}
+{{~! ======================== Plaintext Options ========================= ~}}
 
 {{~!
-    WARNING: DO NOT CHANGE THESE OPTIONS if you are using the
+    WARNING: I recommend not changing these options if you are using the
     jp-mining-note template. These options will change the general layout
-    of the HTML, WHICH MAY CAUSE ERRORS from the internal javascript.
+    of the HTML, which will prevent certain features or stylizations
+    from properly working.
 
-    The equivalent of all these options for jp-mining-note users can be found
-    in the documentation:
+    Instead of using these options, see here:
 
         https://aquafina-water-bottle.github.io/jp-mining-note/definitions/
 
@@ -74,10 +74,10 @@
     structure behind it.
 ~}}
 
-{{~set "opt__non-jpmn__stylize-glossary" true ~}}
-{{~set "opt__non-jpmn__one-dict-entry-only-no-list" false ~}}
-{{~set "opt__non-jpmn__export-dictionary-tag" true ~}}
-{{~set "opt__non-jpmn__remove-first-line-enabled" false ~}}
+{{~set "opt__plaintext__stylize-glossary" true ~}}
+{{~set "opt__plaintext__one-dict-entry-only-no-list" false ~}}
+{{~set "opt__plaintext__export-dictionary-tag" true ~}}
+{{~set "opt__plaintext__remove-first-line-enabled" false ~}}
 
 
 
