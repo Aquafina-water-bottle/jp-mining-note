@@ -1,4 +1,4 @@
-import { Module, RunnableAsyncModule } from '../module';
+import { Module, AsyncManagerRunnableModule } from '../module';
 import { getOption } from '../options';
 import { popupMenuMessage } from '../utils';
 
@@ -49,13 +49,26 @@ TODO:
 
 export class AsyncManager extends Module {
   //private modules: AsyncModuleInfo[] = [];
-  private modules: RunnableAsyncModule[] = [];
+  private modules: AsyncManagerRunnableModule[] = [];
 
   constructor() {
     super('sm:asyncManager');
   }
 
-  addModule(mod: RunnableAsyncModule) {
+  addFunction(func: (...args : any[]) => any) {
+    // wraps function with temporary module to run
+    // what am I looking at here
+    const funcModule: AsyncManagerRunnableModule = {
+      setUseCache: (_: boolean) => { },
+      run: () => new Promise((resolve) => {
+        func(),
+        resolve(void 0);
+      })
+    }
+    this.modules.push(funcModule);
+  }
+
+  addModule(mod: AsyncManagerRunnableModule) {
     this.modules.push(mod);
   }
 

@@ -1,6 +1,6 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { filterCards, getTags, CARD_KEY } from '../utils';
+import { filterCards, getTags, CARD_KEY, getCardSide } from '../utils';
 import { getFieldValue, Field, cacheFieldValue } from '../fields';
 import {
   Tooltips,
@@ -20,6 +20,7 @@ import {
   cardIDsToCardsInfo,
   escapeQueryStr,
 } from '../ankiConnectUtils';
+import {cardIsNew} from '../isNew';
 
 type WordIndicatorsCategoryID =
   | 'nonNew.hidden'
@@ -273,7 +274,7 @@ class WordIndicator {
     return tooltipBuilder.buildTooltipOnly().innerHTML;
   }
 
-  private displayIfEleExists(tooltipHTML: string) {
+  private async displayIfEleExists(tooltipHTML: string) {
     // tooltipHTML can actually be an empty string, to store the fact that nothing has to be shown
     if (tooltipHTML.length === 0) {
       return;
@@ -291,10 +292,14 @@ class WordIndicator {
     indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
     indicatorEle.classList.toggle('dh-left__similar-words-indicator--visible', true);
 
+    // TODO potential race condition here!!!
+    if (getCardSide() === "back" && await cardIsNew("back")) {
+      indicatorEle.classList.toggle('dh-left__similar-words-indicator--new', true);
+    }
+
     // TODO rework this! this also affects pitch accents!
     dhLeftEle.classList.toggle(clsWithIndicators, true);
 
-    // we cannot
     this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
   }
 
@@ -310,8 +315,10 @@ class WordIndicator {
     indicatorEle?.classList.toggle('dh-left__similar-words-indicator--visible', false);
 
     // gets cache if exists
+    // this section is before the mutex in case this was called
+    // on the back side of the card while the front side is still running
     if (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey)) {
-      this.wordInds.logger.debug('Using cached card');
+      this.wordInds.logger.debug('Using cached indicator');
       const tooltipHTML = this.wordInds.persist.get(this.cacheKey);
       this.displayIfEleExists(tooltipHTML);
       return;

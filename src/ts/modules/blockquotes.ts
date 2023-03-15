@@ -1,6 +1,6 @@
+import {cardIsNew} from '../isNew';
 import { RunnableModule } from '../module';
 import { getOption } from '../options';
-import {getCardSide} from '../utils';
 
 type EntryId =
   | 'primary-definition'
@@ -225,6 +225,46 @@ export class Blockquotes extends RunnableModule {
 
   }
 
+  private openBlockquotes(mode: "open" | "openOnNew") {
+    if (getOption("blockquotes.folderTab.enabled")) {
+      if (getOption("blockquotes.folderTab.mode") !== "multiple") { // AND check number
+        // TODO check number
+        //this.logger.warn("Cannot open by default if blockquotes.folderTab.mode is not 'multiple'")
+      }
+
+      // TODO combine logic with if new
+      for (const entry of ENTRIES) {
+        if (getOption(`blockquotes.${mode}.${entry.optionId}`)) {
+          const buttonEle = document.getElementById(entry.buttonId);
+          // TODO check if input is already open (to avoid closing things)
+          if (buttonEle !== null) {
+            buttonEle.click();
+          }
+        }
+      }
+
+    } else {
+      // default
+      for (const entry of ENTRIES) {
+        if (getOption(`blockquotes.${mode}.${entry.optionId}`)) {
+          const ele = document.getElementById(entry.eleId);
+
+          // check for nodeName to handle primaryDef edge case
+          // TODO what if primary definition does have a details tag?
+          if (ele !== null && ele.nodeName === "DETAILS") {
+            openDetailsTag(ele as HTMLDetailsElement)
+          }
+        }
+      }
+    }
+  }
+
+  private async attemptOpenBlockquotesNew() {
+    if (await cardIsNew("back")) {
+      this.openBlockquotes("openOnNew");
+    }
+  }
+
   main() { // only ran on back side, according to main.ts
 
     // removes instead of greys out
@@ -241,37 +281,13 @@ export class Blockquotes extends RunnableModule {
     }
 
     if (getOption("blockquotes.open.enabled")) {
-      if (getOption("blockquotes.folderTab.enabled")) {
-        if (getOption("blockquotes.folderTab.mode") !== "multiple") { // AND check number
-          // TODO check number
-          //this.logger.warn("Cannot open by default if blockquotes.folderTab.mode is not 'multiple'")
-        }
-
-        // TODO combine logic with if new
-        for (const entry of ENTRIES) {
-          if (getOption(`blockquotes.open.${entry.optionId}`)) {
-            const buttonEle = document.getElementById(entry.buttonId);
-            // TODO check if input is already open (to avoid closing things)
-            if (buttonEle !== null) {
-              buttonEle.click();
-            }
-          }
-        }
-
-      } else {
-        // default
-        for (const entry of ENTRIES) {
-          if (getOption(`blockquotes.open.${entry.optionId}`)) {
-            const ele = document.getElementById(entry.eleId);
-
-            // check for nodeName to handle primaryDef edge case
-            // TODO what if primary definition does have a details tag?
-            if (ele !== null && ele.nodeName === "DETAILS") {
-              openDetailsTag(ele as HTMLDetailsElement)
-            }
-          }
-        }
-      }
+      this.openBlockquotes("open");
     }
+    if (getOption("blockquotes.openOnNew.enabled")) {
+      this.attemptOpenBlockquotesNew();
+    }
+
+
+
   }
 }
