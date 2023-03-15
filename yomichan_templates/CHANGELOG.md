@@ -6,6 +6,9 @@ Versioning only starts at v23.01.16.0 since that was the first version when
 I started explicitly recording the changes.
 
 
+## v23.03.14.3
+- Renamed `opt__non-jpmn__*` -> `opt__plaintext__*`
+
 ## v23.03.14.2
 - Updated `{freq}` to match Marv's code (v23.03.13.1)
 - Reworked first line removal options to be shared among jpmn and non-jpmn settings:
