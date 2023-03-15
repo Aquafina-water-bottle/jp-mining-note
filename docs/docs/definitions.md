@@ -551,46 +551,45 @@ so it is impossible to automatically detect whether you are using the extra vers
 
 
 
-# Non-JPMN Options
+# Plaintext Options
 
 !!! warning
     TODO not meant for people using jp-mining-note! The above allows you to do
     the exact same thing and more!
 
-??? example "Reveal Non-JPMN Options *(click here)*"
 
-    <h2>`opt__non-jpmn__stylize-glossary`</h2>
+## `opt__plaintext__stylize-glossary`
 
-    - main option you absolutely want to set to `false` to ensure that the HTML format
-        is virtually the same as the default
+- main option you absolutely want to set to `false` to ensure that the HTML format
+    is virtually the same as the default
 
-    - exceptions:
-        - the dictionary and tags are not italicized, to prevent italic kanjis/kana from showing
-        - the div that left aligns the text is not present
-            - if this breaks your card, try surrounding your definition field, i.e. if your field name is `Definition`:
-                {% raw %}
-                ```html
-                <div style="text-align: left"> {{Definition}} </div>
-                ```
-                {% endraw %}
-        - dictionaries with only one entry be formatted as a list of one element by default
-            - see the `opt__non-jpmn__one-dict-entry-only-no-list` option to disable this
+- exceptions:
+    - the dictionary and tags are not italicized, to prevent italic kanjis/kana from showing
+    - the div that left aligns the text is not present
+        - if this breaks your card, try surrounding your definition field, i.e. if your field name is `Definition`:
+            {% raw %}
+            ```html
+            <div style="text-align: left"> {{Definition}} </div>
+            ```
+            {% endraw %}
+    - dictionaries with only one entry be formatted as a list of one element by default
+        - see the `opt__plaintext__one-dict-entry-only-no-list` option to disable this
 
-    - invalidates `opt-wrap-first-line-spans` entirely, users must now rely on
-        `opt__non-jpmn__remove-first-line-enabled`
+- invalidates `opt-wrap-first-line-spans` entirely, users must now rely on
+    `opt__plaintext__remove-first-line-enabled`
 
-    <h2>`opt__non-jpmn__one-dict-entry-only-no-list`</h2>
+## `opt__plaintext__one-dict-entry-only-no-list`
 
-    - TODO
+- TODO
 
-    <h2>`opt__non-jpmn__export-dictionary-tag`</h2>
+## `opt__plaintext__export-dictionary-tag`
 
-    - whether the dictionary tag is exported or not
+- whether the dictionary tag is exported or not
 
-    <h2>`opt__non-jpmn__remove-first-line-enabled`</h2>
+## `opt__plaintext__remove-first-line-enabled`
 
-    - whether the first line of a dictionary is removed or not
-    - uses the same options from the [first line removal section](#first-line-removal-when-html-can-break)
+- whether the first line of a dictionary is removed or not
+- uses the same options from the [first line removal section](#first-line-removal-when-html-can-break)
 
 
 
