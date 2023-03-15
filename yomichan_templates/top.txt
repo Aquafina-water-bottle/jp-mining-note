@@ -64,7 +64,8 @@
     WARNING: I recommend not changing these options if you are using the
     jp-mining-note template. These options will change the general layout
     of the HTML, which will prevent certain features or stylizations
-    from properly working.
+    from properly working. (If you aren't using jp-mining-note, please feel
+    free to change these options!)
 
     Instead of using these options, see here:
 
