@@ -89,7 +89,7 @@ export class MainCardUtils extends RunnableModule {
         // I'm guessing it's some weird race condition happening
         setTimeout(() => {
           this.playSilence();
-        }, 5000);
+        }, 500); // hopefully half a second is long enough...
       } else {
         // plays it instantly because why not
         this.playSilence()
