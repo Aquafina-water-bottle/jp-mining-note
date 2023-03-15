@@ -74,9 +74,9 @@
     structure behind it.
 ~}}
 
-{{~set "opt__plaintext__stylize-glossary" true ~}}
+{{~set "opt__plaintext__enabled" false ~}}
 {{~set "opt__plaintext__one-dict-entry-only-no-list" false ~}}
-{{~set "opt__plaintext__export-dictionary-tag" true ~}}
+{{~set "opt__plaintext__remove-dictionary-tag" false ~}}
 {{~set "opt__plaintext__remove-first-line-enabled" false ~}}
 
 
