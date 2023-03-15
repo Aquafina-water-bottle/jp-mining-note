@@ -1,9 +1,23 @@
 # Yomichan Templates Changelog
-The versioning differs from the card template version:
-it simply refers to the year/month/date
-of the changes.
-Versioning only starts at v23.01.16.0 since that was the first version when
-I started explicitly recording the changes.
+
+The yomichan template versions will be incremented thusly:
+- Major: Increment if any public-facing marker is removed, or changed in a large way that causes
+    the default behavior to be different
+- Minor: Incremented when any new features or markers are added
+- Patch: Incremented when any bugfix, settings variable change, comment change, basic refactor, etc. is made
+
+Public facing markers are markers starting with `jpmn` (whereas private markers are ones starting with `_jpmn`).
+
+The Yomichan template version is incremented independently from the jp-mining-note version.
+
+## v1.0.0
+Changed versioning to semantic versioning since it's honestly easier to bump the versions this way.
+- Date versions work the best for things that don't change very often, and it seems like this has been
+    changing frequently enough to warrant proper semantic versioning.
+
+- Versioning before this point simply refers to the year/month/date of the changes.
+    Versioning only starts at v23.01.16.0 since that was the first version when
+    I started explicitly recording the changes.
 
 ## v23.03.15.1
 - Renamed a few plaintext options so that all defaults are `false`
