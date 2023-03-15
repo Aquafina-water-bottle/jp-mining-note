@@ -5,6 +5,9 @@ of the changes.
 Versioning only starts at v23.01.16.0 since that was the first version when
 I started explicitly recording the changes.
 
+## v23.03.15.1
+- Renamed a few plaintext options so that all defaults are `false`
+- Changed some options to check for booleans without `===` operator (i.e. if (x) instead if (x === false))
 
 ## v23.03.14.3
 - Renamed `opt__non-jpmn__*` -> `opt__plaintext__*`
