@@ -8,6 +8,10 @@ I started explicitly recording the changes.
 
 ## v23.03.14.2
 - Updated `{freq}` to match Marv's code (v23.03.13.1)
+- Reworked first line removal options to be shared among jpmn and non-jpmn settings:
+    - Renamed `opt__non-jpmn__remove-first-line-except-dicts-regex` -> `opt-first-line-dicts-regex`
+    - Added `opt-first-line-regex-mode`
+- Fixed `opt-primary-def-one-dict-entry-only` not working if `opt__non-jpmn__one-dict-entry-only-no-list` is set to false (default)
 
 ## v23.03.14.1
 - added a bunch of options:
