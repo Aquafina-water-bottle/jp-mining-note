@@ -173,8 +173,6 @@
   // I recommend using AJT autocopy instead of websocketUtils:
   // https://ankiweb.net/shared/info/1995103628
   "enableModule.webSocketUtils":          false,
-  "enableModule.collapseDictionaries":    true,
-  "enableModule.openCollapsedFields":     true,
   "enableModule.freqUtils":               true,
 
   "enableModule.mobileUtils":             true,

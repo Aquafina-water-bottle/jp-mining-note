@@ -408,6 +408,7 @@ export class Tooltips extends Module {
 
   /* queries any card that isn't this current card */
   getCardBaseQuery(Key: string): string {
+    // TODO generalize / don't hardcode?
     const noteName = 'JP Mining Note';
     const cardTypeName = 'Mining Card';
     const key = escapeQueryStr(Key);

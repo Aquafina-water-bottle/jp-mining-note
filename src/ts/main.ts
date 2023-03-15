@@ -24,6 +24,8 @@ import { CheckDuplicateKey } from './modules/checkDuplicateKey';
 import { AsyncManager } from './modules/asyncManager';
 import { Blockquotes } from './modules/blockquotes';
 import { RefreshCard } from './modules/refreshCard';
+import {cardIsNew} from './isNew';
+import {selectPersistAny} from './spersist';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -170,6 +172,15 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   const asyncManager = new AsyncManager();
   refreshCard.addAsyncManager(asyncManager);
   refreshCard.run();
+
+  if (cardSide === "front") {
+    // only necessary to cache at the front side
+    // the backside will call cardIsNew() as normal
+    const cardIsNewFuncWrapper = () => {
+      cardIsNew(cardSide);
+    }
+    asyncManager.addFunction(cardIsNewFuncWrapper);
+  }
 
   if (compileOpts['enableModule.kanjiHover']) {
     asyncManager.addModule(new KanjiHover());

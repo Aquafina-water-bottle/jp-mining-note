@@ -68,6 +68,9 @@
   "blockquotes.showTextWhenEmpty": true,
   "blockquotes.folderTab.showDotWhenEmpty": true,
 
+  "blockquotes.openOnNew.enabled": true,
+  "blockquotes.openOnNew.extraInfo": true,
+
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
 
   //"tooltips.overrideOptions.autoPitchAccent": {

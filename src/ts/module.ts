@@ -14,8 +14,6 @@ export type ModuleId =
   | 'imgStylizer'
   | 'sentenceParser'
   | 'kanjiHover'
-  | 'collapseDictionaries'
-  | 'openCollapsedFields'
   | 'wordIndicators'
   | 'webSocketUtils'
   | 'mobileUtils'
@@ -99,7 +97,16 @@ export abstract class RunnableModule extends Module {
 }
 
 
-export abstract class RunnableAsyncModule extends RunnableModule {
+// TODO organize the typescript better, i.e. assets folder? types folder? etc.
+// definitely need to google this...
+// this is a generalized version of the below to allow more things
+// to run in the AsyncManager
+export interface AsyncManagerRunnableModule {
+  setUseCache(useCache: boolean): void;
+  run(): Promise<void>;
+}
+
+export abstract class RunnableAsyncModule extends RunnableModule implements AsyncManagerRunnableModule {
   useCache: boolean = false;
 
   setUseCache(useCache: boolean) {
