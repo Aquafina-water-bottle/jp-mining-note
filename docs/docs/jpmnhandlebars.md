@@ -20,17 +20,19 @@ All of the features that comes with the standard jp-mining-note installation:
 
 
 # Setup
+
 1. Follow the setup instructions under the
     [Setup Yomichan: Yomichan Templates](setupyomichan.md#yomichan-templates) section,
      as if you were installing jp-mining-note.
+
 2. After setting up the templates, change the following Yomichan template options
     (this flips all plaintext options, in order to use plaintext):
     {% raw %}
     ```handlebars
-    {{~set "opt__plaintext__stylize-glossary" false ~}}
+    {{~set "opt__plaintext__stylize-glossary"            true ~}}
     {{~set "opt__plaintext__one-dict-entry-only-no-list" true ~}}
-    {{~set "opt__plaintext__export-dictionary-tag" false ~}}
-    {{~set "opt__plaintext__remove-first-line-enabled" true ~}}
+    {{~set "opt__plaintext__export-dictionary-tag"       true ~}}
+    {{~set "opt__plaintext__remove-first-line-enabled"   true ~}}
     ```
     {% endraw %}
 
