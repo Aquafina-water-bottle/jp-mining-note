@@ -1,4 +1,10 @@
-{{~! NOTE: this MUST be put at the very top of the templates section! ~}}
+
+{{~!                                                                      ~}}
+{{~! ==================== jp-mining-note handlebars ===================== ~}}
+{{~!                            v23.03.15.1                               ~}}
+{{~!                                                                      ~}}
+{{~!       https://aquafina-water-bottle.github.io/jp-mining-note/        ~}}
+{{~!       -------------------------------------------------------        ~}}
 
 
 {{~! ================ Dictionary Categorization Options ================= ~}}
