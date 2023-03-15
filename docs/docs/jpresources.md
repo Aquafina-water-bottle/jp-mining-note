@@ -462,7 +462,7 @@ and uses the glossary by default if you don't have anything highlighted.
 > Adds: `{first-dictionary}`
 
 !!! tip
-    I recommend using the [JPMN Handlebars Package](jpresources/jpmnhandlebars.md)
+    I recommend using the [JPMN Handlebars Package](jpmnhandlebars.md)
     instead of this handlebars, because the handlebars package does this and much more.
 
 The following grabs the first dictionary
