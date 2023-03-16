@@ -1,5 +1,6 @@
 {
 
+  // OVERWRITTEN BELOW
   "enableAnkiconnectFeatures": true,
 
   "hybridSentenceOpenOnPlaySentence": true,
@@ -746,7 +747,7 @@
   // "never"
   "freqUtils.listAll.showSummaryMode": "if-frequencies-empty",
   "freqUtils.listAll.max": 4,
-  "freqUtils.listAll.overflow": 2,
+  "freqUtils.listAll.overflow": 0,
 
   // shows "unknown" if the summary is any of the following values
   "freqUtils.summary.defaultValues": ["999999", "9999999", "99999999", "1000000", "10000000"],
@@ -891,6 +892,7 @@
   // - A delay of 0 means that it is loaded instantly.
   // - NOTE: It is recommended for this to be higher than 0, as a delay of 0 appears to visibly
   //   increase the loading time of the back side of any card.
+  // OVERWRITTEN BELOW
   "asyncManager.initialDelay": 50,
 
 

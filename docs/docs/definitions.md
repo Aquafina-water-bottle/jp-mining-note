@@ -246,6 +246,57 @@ The following {{ css }} only affects only the dictionary with the tag 「旺文�
 
 The first line of the definition has various elements that can be hidden with {{ CSS }}.
 
+
+
+=== "Hide entire first line"
+    <figure markdown>
+      {{ img("", "assets/definitions/first_line_css/first_line_hidden.png") }}
+    </figure>
+
+    * Hides the entire first line.
+        This is a combination of "Hide extra text" and "Hide dictionary tag",
+        meaning it hides the dictionary tag and the text to the right.
+
+    ??? example "CSS to hide the entire first line for all dictionaries *(click here)*"
+        {{ feature_version("0.11.0.0") }}
+
+        1. Under `extra/style.scss`, add the following code:
+
+            === "CSS"
+                ```css
+                /* hide the first line for the all dictionaries */
+                .glossary-text ol li .dict-group__tag-list {
+                  display: none;
+                }
+                .glossary-text ol li .dict-group__glossary--first-line {
+                  display: none;
+                }
+                .glossary-text ol li .dict-group__glossary--first-line-break {
+                  display: none;
+                }
+                ```
+
+            === "SCSS"
+                ```css
+                /* hide the first line for the all dictionaries */
+                .glossary-text ol li {
+                  .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
+                    display: none;
+                  }
+                }
+                ```
+
+        2. (Optional) Under `extra/field.scss`, add the following code:
+
+            ```css
+            anki-editable ol li {
+              .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
+                display: none;
+              }
+            }
+            ```
+
+
 === "Nothing hidden (default)"
     <figure markdown>
       {{ img("", "assets/definitions/first_line_css/full.png") }}
@@ -348,70 +399,15 @@ The first line of the definition has various elements that can be hidden with {{
             }
             ```
 
-
-
-=== "Hide entire first line"
-    <figure markdown>
-      {{ img("", "assets/definitions/first_line_css/first_line_hidden.png") }}
-    </figure>
-
-    * Hides the entire first line.
-        This is a combination of the last two,
-        meaning it hides the dictionary tag and the text to the right.
-
-    ??? example "CSS to hide the entire first line *(click here)*"
-        {{ feature_version("0.11.0.0") }}
-
-        {{ scss_oubunsha }}
-
-        1. Under `extra/style.scss`, add the following code:
-
-            ```css
-            /* hide the first line for the 「旺文社国語辞典 第十一版」 dictionary */
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] {
-              .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
-                display: none;
-              }
-            }
-
-            ```
-
-        2. (Optional) Under `extra/field.scss`, add the following code:
-
-            ```css
-            anki-editable ol li[data-details="明鏡国語辞典 第二版"] {
-              .dict-group__tag-list, .dict-group__glossary--first-line, .dict-group__glossary--first-line-break {
-                display: none;
-              }
-            }
-            ```
-
-        !!! note
-            The above examples are SCSS, and not CSS.
-            If you are using CSS, do not flatten the classes after the first line.
-
-            Example Raw CSS:
-
-            ```css
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__tag-list {
-              display: none;
-            }
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line {
-              display: none;
-            }
-            .glossary-text ol li[data-details="明鏡国語辞典 第二版"] .dict-group__glossary--first-line-break {
-              display: none;
-            }
-            ```
-
-
 ## When HTML can break
+{{ feature_version("0.12.0.0") }}
 
 TODO `opt-wrap-first-line-spans`
 
 <br>
 
-## Select dictionaries to remove the first line
+## Hide the first line for select dictionaries
+{{ feature_version("0.12.0.0") }}
 
 TODO `opt-first-line-regex-mode` and `opt-first-line-dicts-regex`
 

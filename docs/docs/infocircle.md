@@ -6,8 +6,17 @@ hello world
     <figure markdown>
       {{ img("info circle example", "assets/info_circle/info.gif") }}
       <figcaption>
-        On hover, the info circle on the top left corner just shows some basic info.
+        On hover, the info circle on the top left corner just shows some basic info,
         However, it also serves as a notification system to the user, when it has a color.
+      </figcaption>
+    </figure>
+
+=== "Default (back)"
+    <figure markdown>
+      (TODO IMAGE)
+      <figcaption>
+        By default, the info circle shows the tags at the back side of the card only.
+        These tags can be clicked on (to search for the tag).
       </figcaption>
     </figure>
 
@@ -44,6 +53,7 @@ hello world
 
 
 
+---
 
 # Locking the Info Circle
 
@@ -51,3 +61,15 @@ hello world
 
 You can toggle (click on) the info circle to lock the tooltip in place.
 This may be useful for copying/pasting errors and other debugging purposes.
+
+
+---
+
+# Buttons
+
+- Image Blur Toggle Button
+    - toggles global status of image blur for the session (link)
+- Refresh Button
+    - refreshes kanji hover and word indicators (link)
+
+
