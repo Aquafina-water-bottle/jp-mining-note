@@ -209,7 +209,8 @@ such as (but not limited to):
 - across multiple items in a list (common with JMdict)
 
 Additionally, there are very rare edge cases when the highlighted text is found
-in an internal HTML element, leading to invalid HTML.
+in an internal HTML element, leading to invalid HTML and (almost certainly)
+the incorrect definition.
 For example, suppose a monolingual definition exported with an image.
 Due to Yomichan's implementation details, definitions with images contain a
 `border` property in the internal style attribute.
