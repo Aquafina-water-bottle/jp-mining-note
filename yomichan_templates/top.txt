@@ -81,10 +81,10 @@
     structure behind it.
 ~}}
 
-{{~set "opt__plaintext__enabled" false ~}}
+{{~set "opt__plaintext__enabled"                     false ~}}
 {{~set "opt__plaintext__one-dict-entry-only-no-list" false ~}}
-{{~set "opt__plaintext__remove-dictionary-tag" false ~}}
-{{~set "opt__plaintext__remove-first-line-enabled" false ~}}
+{{~set "opt__plaintext__remove-dictionary-tag"       false ~}}
+{{~set "opt__plaintext__remove-first-line-enabled"   false ~}}
 
 
 
