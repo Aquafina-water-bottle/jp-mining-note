@@ -1,11 +1,11 @@
-UNUSED DOCUMENT FOR NOW
-
-# Definitions
+# Display sentence vs Full sentence
 We will use the following terms to differentiate between the different sentences present in this note:
 
-* "Display sentence" refer to the sentence(s) shown at the front side of the card.
+* **Display sentence** refer to the sentence(s) shown at the front side of the card.
     Most topics on this page will be relating to the display sentence.
-* "Full sentence" to refer to the sentence(s) shown at the back with furigana.
+* **Full sentence** to refer to the sentence(s) shown at the back with furigana.
+    This is called the "full sentence" as this is usually just the `Sentence`
+    (or `SentenceReading`) field with minimal styling.
 
 
 TODO image
@@ -13,41 +13,76 @@ TODO image
 
 ---
 
-# Sentence Cards
+# Sentence cards
 
-<i><sup>Main Page: [Card Types](cardtypes.md)</sup></i>
+If you are looking on how to make sentence cards or targeted sentence cards
+(sentence cards where the tested word is bolded), see
+[Card Types: Sentence Card](cardtypes.md#sentence-card)
+and
+[Card Types: Targeted Sentence Card](cardtypes.md#targeted-sentence-card-tsc)
+respectively.
 
-=== "Vocab card"
+---
+
+# Customize the display sentence
+
+You can use the `AltDisplaySentence` field you ever wish to customize the display
+sentence without modifying the full sentence (`Sentence` field),
+
+<!-- TODO fieldref →  sentences -->
+
+
+=== "Last sentence only"
     <figure markdown>
-    {{ img("vocab card example", "assets/nisemono_word_blank.png") }}
-      <figcaption>
-        The default card type is a vocab card,
-        where the tested content is simply the word.
-      </figcaption>
+      {{ img("altdisplay with only last sentence", "assets/fieldref/altdisplay_last_sent.png") }}
+    </figure>
+    For example, we can use `AltDisplaySentence` to only test the last sentence.
+
+
+=== "Furigana"
+    <figure markdown>
+    {{ img("altdisplay with furigana", "assets/fieldref/altdisplay_furigana.gif") }}
     </figure>
 
-=== "Sentence card"
+    One nice feature is that `AltDisplaySentence` has hoverable furigana text
+    enabled by default. In other words, you can write furigana within the field.
+    I personally use this to insert furigana for certain names, since I'm usually not
+    testing myself on how to read a name.
+
+    For example, the card below has the following HTML:
+    ```html
+    上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの
+    ```
+
+=== "Kanjifying the word"
     <figure markdown>
-    {{ img("sentence card example", "assets/nisemono_sentence_blank.png") }}
-      <figcaption>
-        To change the card to a sentence card, fill the `IsSentenceCard` binary field.
-      </figcaption>
+      TODO image
     </figure>
 
-=== "Targeted Sentence card"
-    <figure markdown>
-    {{ img("sentence card example", "assets/nisemono_tsc.png") }}
-      <figcaption>
-        This is a card where the word is highlighted within the sentence.
-        To do this, fill the `IsTargetedSentenceCard` binary field.
-      </figcaption>
-    </figure>
+    It is not uncommon for words to be written in kana, but have a kanji variant.
+    Instead of modifying the `Sentence` field, you can copy the `Sentence` field
+    into the `AltDisplaySentence` field, and then manually replace the kana
+    with its kanji variant. This may be useful for any card type that isn't
+    a vocab or audio card.
 
+---
+
+# Adding line breaks
+
+TODO this is basically the only time I ever edit the `Sentence` field
+
+- if you have furigana, make sure you refresh the `SentenceReading` field,
+    i.e. with the `AJT Japanese` plugin
+
+TODO compile option to add the line lmao
+
+- warnings: some things don't behave nicely (i.e. enter at the end of the sentence)
 
 ---
 
 
-# Automatic Word Highlighting
+
+# Automatic word highlighting
 
 {{ feature_version("0.12.0.0") }}
 
@@ -80,64 +115,74 @@ I recommend manually bolding the word if the word is incorrectly highlighted.
 
 ---
 
-# Removing Sentence Periods
+# Removing sentence periods
 The display sentence will have the period at the end of the sentence
 removed by default.
-If you want to keep the period, you can set the following {{ RTOs }} to `false`:
+If you want to keep the period, you can set the desired {{ RTOs }} to `false`:
 
-```
+```json
 {
-  "modules": {
-    "sent-utils": {
-      // removes the 「。」 character (and other periods) if it is the last character of the sentence
-      "remove-final-period": false, // default: true
-      "remove-final-period-on-altdisplay": false, // default: false
-    }
-  }
+  "sentenceParser.removeFinalPeriod.fullSent.quoted":     true, // (1)!
+  "sentenceParser.removeFinalPeriod.fullSent.unquoted":   false,
+  "sentenceParser.removeFinalPeriod.display.quoted":      true,
+  "sentenceParser.removeFinalPeriod.display.unquoted":    false,
+  "sentenceParser.removeFinalPeriod.altDisplay.quoted":   false,
+  "sentenceParser.removeFinalPeriod.altDisplay.unquoted": false,
 }
 ```
+
+1.  For example, `"sentenceParser.removeFinalPeriod.fullSent.quoted": true,`
+    means that the final period is removed from the full sentence if it is quoted.
+    The other options follow similarly.
 
 TODO image
 
 
+
 ---
 
-# Removing Sentence Quotes
-
-TODO tags on customizing it!
+# Adding or removing quotes
 
 The sentence display has quotes surrounding the sentence by default, to provide
-an easy indicator to differentiate between a sentence and vocab card.
+a simple indicator to differentiate between a sentence and vocab card.
 
-If you want to remove the quotes, you can set the following {{ RTOs }} to `false`:
+If you do not want quotes around the sentence, you can set the following {{ RTOs }} to `remove`:
 
-```
+```json
 {
-  "modules": {
-    "sent-utils": {
-      // automatically adds quotes to the sentence (if not alt display)
-      "auto-quote-sentence": false, // default: true
-
-      // automatically adds quotes to the sentence (if alt display)
-      "auto-quote-alt-display-sentence": false, // default: true
-    }
-  }
+  "sentenceParser.fullSent.quotes.processMode": "remove",
+  "sentenceParser.display.quotes.processMode": "add",
+  "sentenceParser.altDisplay.quotes.processMode": "as-is",
 }
 ```
 
+All available process modes are explained within the example config file.
 
-TODO image
+If you want to add or remove quotes on a card-by-card basis,
+add the `quote-add` tag or `quote-remove` tag to the card, respectively.
 
 
-
-# SentenceReading Furigana Options
-
-By default, the furigana for the full sentence (on the back side of the card) is shown on hover.
-The following options change how the furigana is displayed.
+TODO image????
 
 ---
 
-## SentenceReading: When to show furigana
+
+# `SentenceReading` Furigana Options
+
+By default, the furigana for the full sentence (on the back side of the card)
+is shown on hover, given that this `SentenceReading` field is filled out.
+If `SentenceReading` is not filled out, then the sentence will show as usual
+(without furigana).
+
+The following options change how the furigana is displayed within the full sentence,
+if any exists.
+
+!!! note
+    These options do NOT affect furigana elsewhere, such as any in the displayed sentence.
+
+<br>
+
+## Furigana: When to show
 
 {{ feature_version("0.12.0.0") }}
 
@@ -205,12 +250,12 @@ This can be changed to only be shown on click, or always/never shown.
         }
         ```
 
+<br>
 
 
----
 
 
-## SentenceReading: Hide spacing
+## Furigana: Hide spacing
 
 {{ feature_version("0.12.0.0") }}
 
@@ -332,7 +377,6 @@ To override this option, you can use the following {{ C_CSS }}:
             }
             ```
 
----
 
 
 

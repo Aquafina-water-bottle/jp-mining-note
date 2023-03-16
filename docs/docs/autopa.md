@@ -70,10 +70,6 @@ and must be enabled in the {{ RTO_FILE }}:
 
 ![type:video](assets/autopa/pa_override_color.mp4)
 
-!!! note
-
-    The 起伏 pattern is not automatically detected.
-    To use this color, you must manually set the `PAOverride` field to `-1`.
 
 <br>
 
@@ -92,10 +88,11 @@ and must be enabled in the {{ RTO_FILE }}:
 
 ## When Pitch Is Not Automatically Colored
 Pitch accent coloring requires a numeric position value somewhere within the card.
-This is usually found in one of two places:
+This is usually found in one of these places:
 
 * `PAPositions`
 * `PAOverride`
+* `AJTWordPitch` (the numeric position is automatically calculated through the HTML)
 
 Usually, `PAPositions` is automatically filled.
 
@@ -103,6 +100,20 @@ In the cases where pitch accent coloring does not work as expected, your two mai
 
 1. Using `PAOverride` with [a number](autopa.md#specifying-pitch-accent) (recommended).
 2. Force the pitch accent group with tags (see below).
+
+
+<br>
+
+## Kifuku Coloring
+{{ feature_version("0.12.0.0") }}
+A word is automatically colored as 起伏 if the `WordTags` field contains a verb tag,
+and its pitch accent group is not 平板.
+
+This `WordTags` field can only be filled out if you have a modern version of the
+[JMdict dictionary for Yomichan](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan)
+For old cards that do not have this field filled, you will have to manually mark
+the word with `-1` (in `PAOverride`).
+
 
 <br>
 
@@ -344,6 +355,8 @@ By default, the first pitch of the first dictionary is shown.
 ## Show All Possibilities in Dictionary
 {{ feature_version("0.11.0.0") }}
 
+TODO: update pictures with correct config + add new config value for all dictionaries
+
 Sometimes, pitch accent dictionaries show multiple pitch accents for a word.
 However, only the first pitch accent is shown by default.
 
@@ -466,8 +479,11 @@ This covers some details if you are directly using `PAOverrideText`,
 and want to have a similar format to the generated pitch accent.
 You very likely won't be doing this.
 
-* The generated style is exactly the generated style of the AJTWordPitch field.
-    To display the style properly, copy and edit the HTML tags directly.
+* The generated style is very similar to the generated style of the AJTWordPitch field.
+    To display the style properly, you can simply copy and edit the HTML tags directly.
+    If you want to see the true generated output, use the
+    [AnkiWebView Inspector](https://ankiweb.net/shared/info/31746032)
+    and inspect the element.
 
 * If you want to grey out other words, you will have to use the bold `<b>` tag.
     However, you must wrap **the greyed out words** with the `<b>` tag.
