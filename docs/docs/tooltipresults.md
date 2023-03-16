@@ -4,11 +4,12 @@ TODO add intro
 - TODO generalize this page to not only be for kanji hover
 
 
-# Details
+# Pitch Accent Display
 - pitch accents should be exactly the same pitch accents as shown on the specified card
 - pitch accents are stripped of extra information (nasal and devoiced)
     - all the extra color was very distracting, and stole the attention away from the important part
         (the example words found)
+
 
 
 # Result Queries & Categorization
@@ -70,5 +71,23 @@ This can be changed in the {{ RTO_FILE}}:
   "new-query": ...
 }
 ```
+
+# Customizing Sentences & Pitch Accent
+
+Any {{ RTO }} under the `sentParser` and `autoPA` group can be set under
+`tooltips.overrideOptions.sentenceParser` and
+`tooltips.overrideOptions.autoPitchAccent`
+respectively.
+Additionally, the `kanjiHover` and `wordIndicators` category
+has their own `overrideOptions` section that behaves the exact same as the above,
+except they only affect Kanji Hover and Word Indicators, respectively.
+
+This allows for very fine grained control on how the sentences and pitch accent
+should be displayed.
+
+!!! note
+    When the sentence is being parsed by the tooltip builder,
+    it is considered a "full sentence" internally.
+    Therefore, only the `fullSent` group of options will affect the resulting sentence.
 
 

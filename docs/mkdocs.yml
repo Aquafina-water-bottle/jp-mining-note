@@ -87,6 +87,7 @@ nav:
     - Pitch Accent: autopa.md
     - Kanji Hover (TODO): kanjihover.md
     - Word Indicators (TODO): wordindicators.md
+    - Tooltip Results (TODO): tooltipresults.md
     - Info Circle (TODO): infocircle.md
     - Frequencies (TODO): frequencies.md
     - External Links (TODO): externallinks.md
@@ -95,11 +96,10 @@ nav:
       - Runtime Options: runtimeoptions.md
       - Compile-Time Options: compiletimeoptions.md
       - Yomichan Template Options (TODO): yomichantemplates.md
-    - DEPRECATED:
-      - Tooltip Results (TODO): tooltipresults.md
-      - User Interface: ui.md
-      - UI Customization: uicustomization.md
-      - Field Reference: fieldref.md
+   #- DEPRECATED:
+   #  - User Interface: ui.md
+   #  - UI Customization: uicustomization.md
+   #  - Field Reference: fieldref.md
   - Dev Docs:
     - Modding Overview: modding.md
     - Building: building.md

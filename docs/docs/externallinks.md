@@ -1,15 +1,10 @@
-TODO intro
+External links are usually found under the `Extra Info` section of the note,
+to the top right corner.
 
+TODO image
 
-# External links in primary definition
-{{ feature_version("0.11.0.0") }}
+Naturally, these can be customized to your liking.
 
-External links usually appear in the "Extra Info" section.
-If you wish to have the external links to be on the primary definition section,
-set `external-links-position` to `"Primary Definition"`
-in the {{ CTO_FILE }}.
-
-{{ img("external links in primary definition", "assets/uicustomization/external_links_primary_def.png") }}
 
 ---
 
@@ -17,31 +12,38 @@ in the {{ CTO_FILE }}.
 # Customize external links
 {{ feature_version("0.10.3.0") }}
 
-Custom external links can be specified under the `external-links` section
-in the {{ CTO_FILE }}.
+Custom external links can be specified under the `externalLinks` section
+in the {{ CTOs }}.
 
-Creating external links is self explanatory and is explained further in the config file.
-Additionally, some commented-out examples are provided within the file.
+Creating external links is is explained in the config file,
+and there are plenty of commented-out examples that should work.
+
+<br>
 
 
-??? info "Remove all external links *(click here)*"
-    If you want to remove all external links, set `external-links` to `{}`
-    in the {{ CTO_FILE }}.
+## Removing all external links
+If you want to remove all external links, set `externalLinks` to `{}`
+in the {{ CTOs }}.
 
-    For example:
-    ```
-    "external-links": {},
-    ```
+For example:
+```json
+{
+  "externalLinks": {},
+},
+```
 
-??? info "Icons with multiple text characters *(click here)*"
+<br>
 
-    When using text instead of a picture, it is recommended that you use single characters
-    (e.g. one kanji) to represent the icon.
+## Icons with multiple text characters
 
-    However, in the cases where you want to use more characters,
-    the default CSS rules causes the icon will use the minimum amount of space,
-    which may mis-aligned the surrounding icons.
+When using text instead of a picture, it is recommended that you use single characters
+(e.g. one kanji) to represent the icon.
 
+However, in the cases where you want to use more characters,
+the default CSS rules causes the icon will use the minimum amount of space,
+which may mis-aligned the surrounding icons.
+
+??? example "Fixing this with SCSS *(click here)*"
 
     Using the [custom SCSS](customcss.md), you can specify
     the amount of space it takes (in terms of number of icons):
@@ -75,5 +77,17 @@ Additionally, some commented-out examples are provided within the file.
 
     An example of this can be found in `src/scss/dictionaries/style.scss`
 
+
 ---
+
+
+# External links in primary definition
+{{ feature_version("0.11.0.0") }}
+
+External links usually appear in the "Extra Info" section.
+If you wish to have the external links to be on the primary definition section,
+set `externalLinksPosition` to `"Primary Definition"`
+in the {{ CTOs }}.
+
+{{ img("external links in primary definition", "assets/uicustomization/external_links_primary_def.png") }}
 

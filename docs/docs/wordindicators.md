@@ -24,6 +24,7 @@ in your deck are found.
     but different reading.
 
 
+---
 
 
 # Interface
@@ -53,5 +54,15 @@ After the first review, the indicator will be the same color as the default info
 
     Just like with Kanji Hover, you can click on the word to open the
     specified card within Anki's card browser.
+
+---
+
+
+# Refresh Button
+
+TODO
+- Connected with Kanji Hover: editing some other card shown in the results
+    will not show due to cache
+- pressing the refresh button on the info circle should fix
 
 

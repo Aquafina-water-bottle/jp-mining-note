@@ -72,6 +72,17 @@ This {{ CSS }} allows the words to be highlighted within the sentence.
 
 ---
 
+# Refresh Button
+
+TODO
+- If editing `WordReading` field or some other card shown as the results,
+    the changes will not show due to cache
+- pressing the refresh button on the info circle + hovering over the kanji again
+    should work
+
+
+---
+
 # Related Programs
 
 !!! warning
