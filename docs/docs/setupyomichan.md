@@ -204,6 +204,28 @@ By default, this enable the following behavior:
 
     With this being said, selecting the dictionary should always work.
 
+
+<br>
+
+
+## Fixing JMdict Extra
+
+If you are using the
+[JMdict Extra version](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan)
+(JMdict with example sentences, antonyms, etc.),
+then the exported compact list will not be fully compact.
+This is a [known issue](https://github.com/FooSoft/yomichan/issues/2297) with Yomichan's
+default handlebars.
+
+However, with the power of custom CSS and handlebars, the issue is fixed in this note type.
+To fix it, set `opt-jmdict-list-format` to `true`, i.e.
+
+{% raw %}
+```handlebars
+{{~set "opt-jmdict-list-format" true ~}}
+```
+{% endraw %}
+
 ---
 
 
@@ -279,6 +301,8 @@ From here, you likely fall under one of the two categories below:
     1. Getting the pictures and/or sentence audio from the media into the card.
 
     Head over to the [Setup: Everything Else](setupeverythingelse.md) page to see exactly that.
+    If you are also new to Yomichan, I also recommend downloading
+    [these dictionaries](setupother.md#other-dictionaries).
 
 
 1. **I already have a sentence mining workflow.**

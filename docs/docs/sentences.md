@@ -168,6 +168,7 @@ TODO image????
 
 
 # `SentenceReading` Furigana Options
+{{ feature_version("0.12.0.0") }}
 
 By default, the furigana for the full sentence (on the back side of the card)
 is shown on hover, given that this `SentenceReading` field is filled out.
@@ -183,7 +184,6 @@ if any exists.
 <br>
 
 ## Furigana: When to show
-
 {{ feature_version("0.12.0.0") }}
 
 By default, furigana is shown on hover.
@@ -256,7 +256,6 @@ This can be changed to only be shown on click, or always/never shown.
 
 
 ## Furigana: Hide spacing
-
 {{ feature_version("0.12.0.0") }}
 
 Furigana that extends past the length of the kanji will add additional spacing around the kanjis,
