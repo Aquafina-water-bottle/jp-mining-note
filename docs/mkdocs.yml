@@ -77,8 +77,8 @@ nav:
     - Updating: updating.md
   - Reference:
     - Quick Start (TODO): quickstart.md
-    - Definitions (TODO): definitions.md
     - Blockquotes (TODO): blockquotes.md
+    - Definitions (TODO): definitions.md
     - Sentences (TODO): sentences.md
     - Card Types: cardtypes.md
     - More on Card Types: cardtypes2.md

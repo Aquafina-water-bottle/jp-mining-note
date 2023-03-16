@@ -27,15 +27,17 @@ in the [JP Resources page](jpresources.md){:target="_blank"}.
 
 
 # JMdict
+
 If you are planning on using the JMdict dictionary,
 the ones provided from most sources
-(TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
+(TMW's google drive - The "JMdict Extra" version is fine, Matt's video on Yomichan,
+and Yomichan's main github page)
 are all somewhat outdated, which usually means less accurate definitions and less coverage.
 
 To get the most recent version of JMdict,
 download it from the
 [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
-(download `JMdict_e.gz`)
+(download `JMdict_e_examp.gz`)
 and use [yomichan-import](https://github.com/FooSoft/yomichan-import)
 to get the latest JMdict version available.
 

@@ -28,7 +28,7 @@ those notes will not be included in the resulting popup.
     within the tooltip. You can change this to always be shown with
     {{ rto("tooltips.displayPitchAccent") }}.
 
-=== "Sentences instead of words"
+=== "Sentence Search"
 
     (TODO image)
 

@@ -73,6 +73,7 @@ Fill the `IsTargetedSentenceCard` field.
 
 
 # Audio Cards
+{{ feature_version("0.12.0.0") }}
 
 (TODO new image)
 

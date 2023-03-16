@@ -16,23 +16,22 @@ For those topics, see the [Definitions](#definitions.md) page instead.
 ---
 
 
-# Interface
+# Desktop Interface
 
-The interface is relatively straight forward on both Anki Desktop, and on mobile devices.
+TODO image
 
-=== "Desktop Interface"
-    TODO image
+On desktop, only the Primary definition is revealed by default.
+All other blockquotes are shown by un-collapsing the individual sections.
 
-    On desktop, only the Primary definition is revealed by default.
-    All other blockquotes are shown by un-collapsing the individual sections.
+---
 
-=== "Mobile Interface"
-    TODO
+# Mobile Interface
+TODO
 
-    On mobile, the collapsible sections are replaced with tabs.
-    Clicking on these tabs reveal the relevant section.
+On mobile, the collapsible sections are replaced with tabs.
+Clicking on these tabs reveal the relevant section.
 
-    TODO table of icon to section
+TODO table of icon to section
 
 ---
 
