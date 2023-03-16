@@ -416,7 +416,7 @@ TODO `opt-wrap-first-line-spans`
 TODO `opt-first-line-regex-mode` and `opt-first-line-dicts-regex`
 
 {% raw %}
-```
+```handlebars
 {{~set "opt-first-line-regex-mode" "except"~}}
 {{~#set "opt-first-line-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
 ```

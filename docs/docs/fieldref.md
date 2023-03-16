@@ -105,7 +105,6 @@ For example, the card below has the following HTML:
 上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの
 ```
 
-{{ img("altdisplay with furigana", "assets/fieldref/altdisplay_furigana.gif") }}
 
 <br>
 

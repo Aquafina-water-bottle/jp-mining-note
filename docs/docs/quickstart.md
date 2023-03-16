@@ -181,25 +181,8 @@ Kanji hover shows you if you have seen the kanji in previous cards or not.
 This is useful if you want to check whether you have seen the reading
 in a previous card, to differentiate between similar kanjis, etc.
 
-By default, it searches for the kanji within the "Word" field,
-within "JP Mining Note" types.
-
 {{ img("kanji hover demo", "assets/ui/kanji_hover.gif") }}
 
-
-**Various Details:**
-
-* You may have noticed that some results are greyed out.
-    These represent words from cards that have not been reviewed yet.
-    Conversely, as non-greyed out results come from cards that you have already reviewed,
-    they should represent words that you already know.
-
-* Pitch accents are shown when you hover over a particular word
-    within the tooltip. You can change this to always be shown with {{ rto("tooltips.displayPitchAccent") }}.
-
-* If there are not enough results to display, the kanji is searched within the sentences of existing cards.
-
-* You can click on the word to open the specified card within Anki's card browser.
 
 ---
 
@@ -211,32 +194,28 @@ within "JP Mining Note" types.
 
 {{ feature_version("0.11.0.0") }}
 
-Indicators will be shown to the top-left of the reading when similar words in your deck are found.
-The indicators are as follows:
+Indicators will be shown to the top-left of the reading when similar words
+in your deck are found.
 
-- 同 (short for 同じ) indicates that the card is a duplicate.
-- 読 (short for 読み方) indicates that there are other card(s) with the same reading (ignoring pitch accent).
-    In Japanese, these words are 同音異義語.
-    I consider this the most useful of the three.
-- 字 (short for 漢字) indicates that there are other card(s) with the same kanji, but different reading.
+=== "同 (同じ)"
+    (TODO image)
 
-{{ img("same reading indicator eg", "assets/ui/same_reading_indicator.gif") }}
+    This indicates the card is a duplicate.
 
-As you can see from the above, the 字 section ignores pitch accent.
-The word 自身 is still shown, despite having a different pitch accent
-to 地震.
+=== "音 (同音異義語)"
+    (TODO update image)
 
+    {{ img("same reading indicator eg", "assets/ui/same_reading_indicator.gif") }}
 
-!!! note
-    This indicator will be yellow (or blue on light mode) for new cards only.
-    After the first review, the indicator will be the same color as the default info circle (grey).
+    This shows cards with the same reading, **ignoring pitch accent**.
+    For example, the word 自身 is still shown,
+    despite having a different pitch accent to 地震.
 
-The tooltip behaves very similarly properties to Kanji hover's tooltip:
+=== "字 (漢字)"
+    (TODO image)
 
-* New cards are greyed out.
-* You can click on words to open them in Anki's card browser.
-* Pitch accent is shown without requiring the user to hover over the word by default.
-    This is different from Kanji hover's tooltip.
+    This indicates that there are other card(s) with the same kanji,
+    but different reading.
 
 
 ---
@@ -279,8 +258,12 @@ The tooltip behaves very similarly properties to Kanji hover's tooltip:
 The main image can be blurred on specific cards, if desired.
 
 This behavior is **disabled by default**,
-and must be manually enabled by setting {{ rto("imgStylizer.mainImage.blur.enabled") }}
-to `true`.
+and must be manually enabled by setting the following {{ RTO }} to `true`:
+```json
+{
+  "imgStylizer.mainImage.blur.enabled": true,
+}
+```
 
 After setting the {{ RTO }}, you can blur the image of any card by marking as NSFW.
 To mark a card as NSFW, add any of the following tags to the card:
@@ -309,6 +292,8 @@ If you don't know what pitch accent is, see [here](autopa.md#what-is-pitch-accen
 The displayed pitch accent is usually the first position found in `PAPositions`.
 However, you can override this automatically chosen position using the `PAOverride` field.
 
+TODO update video with interface
+
 ![type:video](assets/autopa/pa_override.mp4)
 
 
@@ -320,9 +305,12 @@ However, you can override this automatically chosen position using the `PAOverri
 The card can be colored according to the pitch accent of the word, if desired.
 
 This behavior is **disabled by default**,
-and must be manually enabled by setting
-{{ rto("autoPitchAccent.coloredPitchAccent.enabled") }}
-to `true`.
+and must be manually enabled by setting the following {{ RTO }} to `true`:
+```json
+{
+  "autoPitchAccent.coloredPitchAccent.enabled": true,
+}
+```
 
 TODO update video with new colors + interface
 

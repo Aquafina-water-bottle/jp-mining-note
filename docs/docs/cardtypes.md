@@ -90,7 +90,7 @@ Audio cards allows you to create cards that tests word or sentence audio.
 **How to create:** <br>
 Fill the `IsAudioCard` field.
 The word(s) that are hidden are exactly the words that are bolded in the `Sentence`
-(or the `AltDisplay`) field.
+(or the `AltDisplaySentence`) field.
 
 !!! note
     Before version `0.12.0.0`, these were misnamed as "Cloze Deletion Cards, and the field was misnamed as `IsClozeDeletionCard`".
@@ -394,7 +394,7 @@ Fill the `IsSentenceFirstCard` field.
 Just like a TSC, if you only want to read one specific portion of the sentence,
 you can highlight that specific portion.
 
-It is expected that you use the `IsAltDisplay` field to set the custom highlight.
+It is expected that you use the `AltDisplaySentence` field to set the custom highlight.
 There is no reason to use this with the default highlighted word
 (because you would then test it exactly the same as a normal TSC).
 

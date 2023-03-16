@@ -78,7 +78,7 @@ nav:
   - Reference:
     - Quick Start (TODO): quickstart.md
     - Definitions (TODO): definitions.md
-    - Text Sections (TODO): blockquotes.md
+    - Blockquotes (TODO): blockquotes.md
     - Sentences (TODO): sentences.md
     - Card Types: cardtypes.md
     - More on Card Types: cardtypes2.md
@@ -90,7 +90,7 @@ nav:
     - Info Circle (TODO): infocircle.md
     - Frequencies (TODO): frequencies.md
     - External Links (TODO): externallinks.md
-    - Other: other.md
+    - Other (TODO): other.md
     - Options:
       - Runtime Options: runtimeoptions.md
       - Compile-Time Options: compiletimeoptions.md
