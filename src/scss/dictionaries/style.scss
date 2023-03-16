@@ -4,15 +4,68 @@
 
 @use "../base/common" as common;
 
-/* Makes JMDict italic */
-.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
-  font-style: italic;
-}
-/* removes the dictionary entry for jmdict */
-.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
-  display: none;
+@mixin jmdict_compact {
+
+  li[data-details="JMdict (English)"] .dict-group__glossary,
+  li[data-details="JMdict"] .dict-group__glossary {
+    > ul {
+      display: inline;
+      padding-left: 0em;
+    }
+
+    > ul > li {
+      display: inline;
+      padding-right: 0em;
+      margin-right: 0em;
+    }
+
+    > ul > li::after {
+      content: " | ";
+      white-space: pre-wrap;
+      //color: var(--text-color--3);
+    }
+    > ul > li:last-of-type:after {
+      display: none;
+    }
+
+  }
+
+  .dict-group__glossary ul[data-sc-content="glossary"] {
+    display: inline;
+    padding-left: 0em;
+
+    li {
+      display: inline;
+      padding-right: 0em;
+      margin-right: 0em;
+    }
+    li::after {
+      content: " | ";
+      white-space: pre-wrap;
+      //color: var(--text-color--3);
+    }
+    li:last-of-type:after {
+      display: none;
+    }
+  }
+
+
+
 }
 
+
+/* Makes JMdict italic */
+.glossary-text ol li[data-details="JMdict (English)"],
+.glossary-text ol li[data-details="JMdict"] {
+  .dict-group__tag-list {
+    font-style: italic;
+  }
+
+  /* removes the dictionary entry for jmdict */
+  .dict-group__tag-list .dict-group__tag--dict {
+    display: none;
+  }
+}
 
 /* Makes Nico/Pixiv italic */
 .glossary-text ol li[data-details="Nico/Pixiv"] .dict-group__tag-list {
@@ -116,42 +169,8 @@ li[data-details="シン・漢字遣い参考"] td, [data-sc-ortho="table"] td {
 
 
 /* better formatting for the new version of Yomichan JMdict dictionary (jmdict_extra) */
-.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary,
-.glossary-text li[data-details="JMdict"] .dict-group__glossary {
-  > ul {
-    display: inline;
-    padding-left: 0em;
-  }
 
-  > ul > li {
-    display: inline-block;
-    padding-right: 0.3em;
-    margin-right: 0.3em;
-    border-right: 1px solid var(--text-color--3);
-  }
-  > ul > li:last-of-type {
-    padding-right: 0px;
-    margin-right: 0px;
-    border-right: 0px solid;
-  }
+.glossary-text {
+  @include jmdict_compact;
 }
-
-.dict-group__glossary ul[data-sc-content="glossary"] {
-  display: inline;
-  padding-left: 0em;
-
-  li {
-    display: inline-block;
-    padding-right: 0.3em;
-    margin-right: 0.3em;
-    border-right: 1px solid var(--text-color--3);
-  }
-
-  li:last-of-type {
-    padding-right: 0px;
-    margin-right: 0px;
-    border-right: 0px solid;
-  }
-}
-
 
