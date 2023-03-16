@@ -137,9 +137,7 @@ To modify a regex string:
 
 
 
-# Primary Definition Selection
-
-## Automatic Selection (Bilingual or Monolingual)
+# Primary Definition Selection: Automatic
 
 The dictionary for the primary definition is the first bilingual dictionary
 (that appears on Yomichan) by default.
@@ -156,7 +154,7 @@ This can be changed to the first monolingual dictionary by changing the followin
 ---
 
 
-## Manual Selection
+# Primary Definition Selection: Manual
 Sometimes, you may want to override the primary definition,
 or highlight the definition that makes sense with the context.
 
@@ -192,35 +190,54 @@ Setting this option will enable the following behavior:
     that *only* the selected text is shown in the first definition,
     then set `opt-selection-text-glossary-attempt-bold` to `false`.
 
+<br>
 
-    ??? info "Where automatic bolding can fail *(click here)*"
+## Where automatic bolding can fail
 
-        Automatic bolding may not always work: if the highlighted text could not be automatically
-        detected from the custom template code, then it will fallback to simply
-        using the highlighted text (as if you used the `{selection-text}` marker).
+Automatic bolding works by searching through every dictionary in Yomichan order,
+until the highlighted text is found in one of the definitions.
 
-        This is most likely to fail if you select formatted parts of text,
-        such as (but not limited to):
+This automatic bolding may not always work: if the highlighted text could not be automatically
+detected from the custom template code, then it will fallback to simply
+using the highlighted text (as if you used the `{selection-text}` marker).
 
-        - line breaks
-        - furigana
-        - across multiple items in a list (common with JMdict)
+This is most likely to fail if you select formatted parts of text,
+such as (but not limited to):
 
-    ??? info "Where dictionary selection can fail *(click here)*"
+- line breaks
+- furigana (including subscripted or superscripted text)
+- across multiple items in a list (common with JMdict)
 
-        This may occasionally select the wrong dictionary,
-        but this only happens if the selected text also appears in a dictionary above the selected text.
+Additionally, there are very rare edge cases when the highlighted text is found
+in an internal HTML element, leading to invalid HTML.
+For example, suppose a monolingual definition exported with an image.
+Due to Yomichan's implementation details, definitions with images contain a
+`border` property in the internal style attribute.
+If the word `border` was highlighted, and the monolingual definition was placed
+before a bilingual definition, the monolingual definition with the image will
+be incorrectly selected.
 
-        For example, suppose you have two bilingual dictionaries. and for the word タコ,
-        you highlight the word "octopus" and create the card.
-        Both bilingual dictionaries will list "octopus", so even if you highlight the word "octopus"
-        in the second bilingual dictionary, only the first bilingual dictionary will be chosen.
+!!! note
+    The above example happened to me with the word 垣根,
+    using デジタル大辞泉 and highlighting the word `border`.
 
-        This is usually not a problem even if the same text appears in a dictionary above
-        because it's the same definition regardless.
-        Additionally, monolingual dictionaries almost never have the exact same definition for the same word.
-        However, if you still want a specific dictionary, highlight the dictionary tag
-        [as shown above](#overriding-a-dictionary).
+<br>
+
+## Where dictionary selection can fail
+
+This may occasionally select the wrong dictionary,
+but this only happens if the selected text also appears in a dictionary above the selected text.
+
+For example, suppose you have two bilingual dictionaries. and for the word タコ,
+you highlight the word "octopus" and create the card.
+Both bilingual dictionaries will list "octopus", so even if you highlight the word "octopus"
+in the second bilingual dictionary, only the first bilingual dictionary will be chosen.
+
+This is usually not a problem even if the same text appears in a dictionary above
+because it's the same definition regardless.
+Additionally, monolingual dictionaries almost never have the exact same definition for the same word.
+However, if you still want a specific dictionary, highlight the dictionary tag
+[as shown above](#overriding-a-dictionary).
 
 
 ---
