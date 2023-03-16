@@ -116,7 +116,8 @@ li[data-details="シン・漢字遣い参考"] td, [data-sc-ortho="table"] td {
 
 
 /* better formatting for the new version of Yomichan JMdict dictionary (jmdict_extra) */
-.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary {
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary,
+.glossary-text li[data-details="JMdict"] .dict-group__glossary {
   > ul {
     display: inline;
     padding-left: 0em;
