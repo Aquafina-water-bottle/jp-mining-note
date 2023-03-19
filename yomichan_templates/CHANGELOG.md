@@ -10,6 +10,9 @@ Public facing markers are markers starting with `jpmn` (whereas private markers 
 
 The Yomichan template version is incremented independently from the jp-mining-note version.
 
+## v1.0.1
+- Added JMedict to utility dictionaries regex
+
 ## v1.0.0
 Changed versioning to semantic versioning since it's honestly easier to bump the versions this way.
 - Date versions work the best for things that don't change very often, and it seems like this has been
