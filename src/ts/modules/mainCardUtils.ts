@@ -83,17 +83,28 @@ export class MainCardUtils extends RunnableModule {
       }
 
       // auto-plays silence
-      if (isAndroid()) {
-        // for some reason, without the delay, it freezes the entire card
-        // so the front side no longer loads :(
-        // I'm guessing it's some weird race condition happening
-        setTimeout(() => {
-          this.playSilence();
-        }, 500); // hopefully half a second is long enough...
-      } else {
-        // plays it instantly because why not
-        this.playSilence()
-      }
+      this.playSilence()
+      //if (isAndroid()) {
+      //  // for some reason, without the delay, it freezes the entire card
+      //  // so the front side no longer loads :(
+      //  // I'm guessing it's some weird race condition happening
+      //  //setTimeout(() => {
+      //  //  this.playSilence();
+      //  //}, 500); // hopefully half a second is long enough...
+
+      //  //if (getCardSide() === "front") {
+      //  //  this.logger.warn("playing sentence audio");
+      //  //  let elem = document.querySelector("#sentence_audio .soundLink, #sentence_audio .replaybutton");
+      //  //  if (elem) {
+      //  //    (elem as HTMLAnchorElement).click();
+      //  //  }
+      //  //  this.logger.warn("played sentence audio");
+      //  //}
+
+      //} else {
+      //  // plays it instantly because why not
+      //  this.playSilence()
+      //}
 
     }
   }

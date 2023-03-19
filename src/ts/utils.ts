@@ -1,6 +1,6 @@
 import { LOGGER } from './logger';
 import { translatorStrs } from './consts';
-import {getFieldValue, fieldsAnyFilled } from './fields';
+import {getFieldValue, fieldsAnyFilled, fieldIsFilled } from './fields';
 
 export type NoteInfo = {
   readonly tags: string[];
@@ -119,6 +119,16 @@ export const paIndicator: PAIndicator = (function () {
 
   if (getCardType() === "pa_sent") {
     type = "sentence";
+  } else if (fieldIsFilled("IsAudioCard")) { // ignores word cards and sentence cards for now, TODO?
+    if (fieldIsFilled("PADoNotTest")) {
+      type = "none";
+    } else if (fieldIsFilled("PATestOnlyWord")) {
+      type = "word";
+    //} else if (fieldIsFilled("IsSentenceCard")) {
+    //  type = "sentence";
+    } else {
+      type = "sentence";
+    }
   } else if (fieldsAnyFilled("PADoNotTest", "PASeparateWordCard")) {
     type = "none";
   } else if (fieldsAnyFilled("PASeparateSentenceCard", "PATestOnlyWord")) {
