@@ -1,14 +1,20 @@
-{{~! NOTE: this MUST be put at the very top of the templates section! ~}}
+
+{{~!                                                                      ~}}
+{{~! ==================== jp-mining-note handlebars ===================== ~}}
+{{~!                               v1.0.1                                 ~}}
+{{~!                                                                      ~}}
+{{~!       https://aquafina-water-bottle.github.io/jp-mining-note/        ~}}
+{{~!       -------------------------------------------------------        ~}}
 
 
 {{~! ================ Dictionary Categorization Options ================= ~}}
 
 {{~! valid values: "bilingual", "monolingual" ~}}
-{{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
+{{~set "opt-first-definition-type" "bilingual" ~}}
 
 {{~! matches most JMdict dictionaries, 新和英 and 日本語文法辞典(全集)~}}
 {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
-{{~#set "utility-dict-regex"~}} ^(NHK日本語発音アクセント新辞典|シン・漢字遣い参考|[Jj][Mm][Dd]ict( Surface)? Forms)$ {{~/set~}}
+{{~#set "utility-dict-regex"~}} ^(NHK日本語発音アクセント新辞典|シン・漢字遣い参考|[Jj][Mm][Dd]ict( Surface)? Forms|JMedict)$ {{~/set~}}
 {{~#set "ignored-dict-regex"~}} ^(ADD_IGNORED_DICTIONARIES_HERE)$ {{~/set~}}
 
 
@@ -21,11 +27,13 @@
 {{set "opt-selection-text-glossary-attempt-bold" true}}
 
 
+
 {{~! ==================== Frequency Sorting Options ===================== ~}}
 {{~! See here for the official documentation on how these options work:
     https://github.com/MarvNC/JP-Resources#freq-settings ~}}
 
 {{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
+{{~#set "opt-ignored-freq-value-regex"~}} ❌ {{~/set~}}
 {{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
 {{~set "opt-no-freq-default-value" 9999999 ~}}
 {{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
@@ -35,6 +43,48 @@
 {{~#set "opt-grammar-override-dict-regex"~}} ^(日本語文法辞典\(全集\)|毎日のんびり日本語教師|JLPT文法解説まとめ|どんなときどう使う 日本語表現文型辞典|絵でわかる日本語)$ {{~/set~}}
 
 
+
+{{~! ============== Dictionary First Line Removal Options =============== ~}}
+{{~set "opt-wrap-first-line-spans" true ~}}
+
+{{~! valid values: "except", "only" ~}}
+{{~set "opt-first-line-regex-mode" "except"~}}
+{{~#set "opt-first-line-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
+
+
+
+{{~! ========================== Other Options =========================== ~}}
+{{~set "opt-primary-def-one-dict-entry-only" false ~}}
+{{~set "opt-jmdict-list-format" false ~}}
+
+
+
+
+
+
+
+
+{{~! ======================== Plaintext Options ========================= ~}}
+
+{{~!
+    WARNING: I recommend not changing these options if you are using the
+    jp-mining-note template. These options will change the general layout
+    of the HTML, which will prevent certain features or stylizations
+    from properly working. (If you aren't using jp-mining-note, please feel
+    free to change these options!)
+
+    Instead of using these options, see here:
+
+        https://aquafina-water-bottle.github.io/jp-mining-note/definitions/
+
+    These hide specific elements using CSS instead of modifying the raw HTML
+    structure behind it.
+~}}
+
+{{~set "opt__plaintext__enabled"                     false ~}}
+{{~set "opt__plaintext__one-dict-entry-only-no-list" false ~}}
+{{~set "opt__plaintext__remove-dictionary-tag"       false ~}}
+{{~set "opt__plaintext__remove-first-line-enabled"   false ~}}
 
 
 
