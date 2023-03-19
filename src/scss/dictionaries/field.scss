@@ -1,13 +1,22 @@
 @use "../base/common" as common;
+@use "./style" as dictionaries;
 
-/* Makes JMDict italic */
-anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list {
-  font-style: italic;
+anki-editable ol li[data-details="JMdict (English)"],
+anki-editable ol li[data-details="JMdict"] {
+  /* Makes JMDict italic */
+  .dict-group__tag-list {
+    font-style: italic;
+  }
+
+  /* greys out dictionary entry for jmdict */
+ .dict-group__tag-list .dict-group__tag--dict {
+    color: var(--text-color--3);
+  }
 }
 
-/* greys out dictionary entry for jmdict */
-anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
-  color: var(--text-color--3);
+anki-editable[field="PrimaryDefinition"],
+anki-editable[field="SecondaryDefinition"] {
+  @include dictionaries.jmdict_compact;
 }
 
 
