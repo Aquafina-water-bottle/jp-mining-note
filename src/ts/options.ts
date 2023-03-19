@@ -262,16 +262,19 @@ export function attemptParseOverride<K extends keyof O>(
   return undefined;
 }
 
-// user option is defined under the window's JPMNOptions object
-// a user option will ALWAYS override the default option, obviously
-// if it doesn't exist, the _jpmn_opts.js file doesn't exist too btw
-// hard-coded options will hard-code into consts.ts (runtimeOpts)
+// - user option is defined under the window's JPMNOptions object
+// - a user option will ALWAYS override the default option
+// - if it doesn't exist, the _jpmn-opts.js file doesn't exist too btw
+// - hard-coded options will hard-code into consts.ts (runtimeOpts)
 function userOption<K extends keyof O>(k: K): O[K] | undefined {
   const jpmnOpts = (window as any).JPMNOptions;
   const userOptions: Record<string, unknown> = jpmnOpts ?? {};
 
   const t = runtimeOpts[k]; // default
   const val = userOptions[k];
+  if (typeof val === undefined) {
+    return undefined;
+  }
   return attemptParseOverride(val, t);
 }
 

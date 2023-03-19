@@ -108,12 +108,6 @@ NOTE_DATA = {
             "input-dir": "build",
         },
 
-        {
-            "input-file": "jp-mining-note/_jpmn-options.js",
-            "output-file": "media/_jpmn-options.js",
-            "type": "jinja",
-        },
-
         #{
         #    "input-file": "jp-mining-note/_jpmn-options.js",
         #    "output-file": "tmp/media/_jpmn-options.js",
@@ -127,6 +121,11 @@ NOTE_DATA = {
         #    "input-dir": "build",
         #},
 
+        {
+            "input-file": "jp-mining-note/_jpmn-options.js",
+            "output-file": "media/_jpmn-options.js",
+            "type": "copy",
+        },
     ],
     "media-install": {
         "static": [
