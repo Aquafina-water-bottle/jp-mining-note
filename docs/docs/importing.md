@@ -33,7 +33,7 @@ in the Yomichan Templates section.
 
 Before doing anything that affects your Anki collection in a major way
 (for example, basically everything on this page),
-please make a [complete backup](faq.md#how-do-i-backup-my-anki-data){:target="_blank"} of your collection.
+please make a [complete backup](faq.md#how-do-i-backup-my-anki-data) of your collection.
 
 
 !!! note
@@ -146,7 +146,7 @@ If your sentence fields have been highlighted in a way that isn't using `<b>`,
 then it will be incompatable with JPMN by default.
 
 To see what the formatting of the sentence is,
-[view the raw HTML](faq.md#how-do-i-edit-the-fields-raw-html){:target="_blank"}
+[view the raw HTML](faq.md#how-do-i-edit-the-fields-raw-html)
 of the `Sentence` field.
 
 Sentences are usually formatted in one of three ways, as shown below:
@@ -380,7 +380,7 @@ Your `WordReading` field is likely formatted in one of three ways:
 
         To do this, you will have to run a Python script from the repository.
         For Windows users, see the first 3 steps for the Windows instructions
-        [here](updating.md#running-the-script){:target="_blank"}
+        [here](updating.md#running-the-script)
         if you haven't use Python before.
 
         Afterwards, [create a backup](faq.md#how-do-i-backup-my-anki-data) and run the following:
@@ -427,7 +427,7 @@ on existing cards.
 To do this, you will have to run a Python script.
 Again, for Windows users, if you have not used Python before,
 see the first 3 steps for the "Windows" instructions
-[here](updating.md#running-the-script){:target="_blank"}.
+[here](updating.md#running-the-script).
 
 The following script assumes that Step 4 is done
 (which means your `WordReading` field is formatted as plain furigana).

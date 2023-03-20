@@ -201,7 +201,7 @@ For example, the following changes the main accent color of the card:
 
 # Removing the word / sentence at the top of the back side
 
-{{ feature_version("0.11.1.0") }}
+{{ feature_version("0.12.0.0") }}
 
 For users who are only using one card type
 (e.g. only vocab cards with no sentence cards, TSCs, or anything else),

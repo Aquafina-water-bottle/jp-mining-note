@@ -668,6 +668,9 @@
 
   "wordIndicators.enabled": true,
 
+  // If set to false, attempts to load word indicators at the front side of the card.
+  // This improves performance (from the user perspective), but can potentially lead to
+  // word indicators displaying on wrong cards under very specific circumstances.
   "wordIndicators.safe": true,
 
   "wordIndicators.overrideOptions.tooltips": {
@@ -780,11 +783,6 @@
   // ==========================================================================
 
   "blockquotes.enabled": true,
-
-  // If set to true, greys out the field instead of removing it entirely.
-  // To set tabs on mobile to be always visible when empty, see "blockquotes.folderTab.showDotWhenEmpty"
-  // TODO ask around if setting this to be `true` by default is a good idea!!!
-  "blockquotes.showTextWhenEmpty": false, // TODO implement
 
   // Automatically open blockquotes if specified.
   "blockquotes.open.enabled": false,

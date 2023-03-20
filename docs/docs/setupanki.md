@@ -6,7 +6,7 @@ If you have never used Anki before, I recommend using
 to get more optimized settings than the default settings.
 
 That article showcases only one way of setting up Anki's settings for language learning.
-Feel free to view some other examples [here](setupother.md#various-anki-resources){:target="_blank"}.
+Feel free to view some other examples [here](setupother.md#various-anki-resources).
 
 ---
 
@@ -186,7 +186,7 @@ that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
 `Anki2/addons21/{{css_injector_addon_id}}/user_files`
 folder
-(within the [addons folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"})
+(within the [addons folder](faq.md#where-is-the-x-folder-in-anki))
 and delete both `css` files.
 {% endset %}
 
@@ -262,11 +262,11 @@ and delete both `css` files.
 
 ??? info "Option 2: Manually without respecting updates"
 
-    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}
+    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki)
         (`Anki2/addons21/{{css_injector_addon_id}}/user_files`)
     2. Remove the existing `field.css` and `editor.css` files
     3. Copy the `_field.css` file and `_editor.css` file
-        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"})
+        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki))
         into the css injector add-on directory.
     4. Rename `_field.css` to `field.css`.
     4. Rename `_editor.css` to `editor.css`.
@@ -492,14 +492,14 @@ In particular, the 者 kanji in the example 偽者 and 不審者 cards should po
 # Transfer Existing Notes
 If you wish to transfer existing cards into this note type
 (say, to make kanji hover work on existing cards),
-please see [this page](importing.md){:target="_blank"}.
+please see [this page](importing.md).
 
 ---
 
 
 
 # Updating the Note
-If you wish to update the note, follow the steps in [this page](updating.md){:target="_blank"}.
+If you wish to update the note, follow the steps in [this page](updating.md).
 
 This note does not auto-update. This should keep your setup stable,
 as long as you do not update Anki.

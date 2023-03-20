@@ -13,7 +13,7 @@ This section will go over the minimal Yomichan setup to work with this card type
 
 # Preliminary Steps
 If you have used Yomichan before, please make a
-[backup of your settings](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
+[backup of your settings](faq.md#how-do-i-backup-yomichan-settings)
 (just in case).
 
 
@@ -165,7 +165,7 @@ to
 
 Additionally, a common thing that people want to do with monolingual dictionaries is to remove the first line
 of the definition, because it may contain extra info that the user does not want.
-See [here](definitions.md#hiding-the-first-line-of-a-definition){:target="_blank"}
+See [here](definitions.md#hiding-the-first-line-of-a-definition)
 to do exactly that.
 
 
@@ -178,7 +178,7 @@ to do exactly that.
 
     If your dictionaries are ending up in the wrong sections,
     then it is likely a problem with how the template code categorizes the dictionaries.
-    See [here](definitions.md#dictionary-placement){:target="_blank"} for more info.
+    See [here](definitions.md#dictionary-placement) for more info.
 
 
 <br>
@@ -200,7 +200,7 @@ By default, this enable the following behavior:
 !!! note
     Selecting parts of a definition to bold the text does not always work,
     especially when used across text with formatting or newlines.
-    See [this](definitions.md#manual-selection){:target="_blank"} for more details.
+    See [this](definitions.md#manual-selection) for more details.
 
     With this being said, selecting the dictionary should always work.
 

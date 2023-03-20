@@ -8,7 +8,7 @@ as binary options are options that only affects the one note.
 # Accessing & Editing
 
 To access the runtime options, navigate to your profile's
-[media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"},
+[media folder](faq.md#where-is-the-x-folder-in-anki),
 and open the `_jpmn-options.js` file as a text file.
 
 The contents of the file should look something like the following:
