@@ -12,12 +12,10 @@ All other frequencies can be viewed by hovering over the dropdown arrow.
 
 Older versions of the note displayed the frequencies similarly to
 Yomichan: as a list of existing frequencies.
-If you wish to do this, set the following {{ RTO }} to `summary`:
+If you wish to do this, set the following {{ RTO }} to `list-all`:
 
 ```json
-{
-  "freqUtils.displayMode": "summary",
-}
+"freqUtils.displayMode": "list-all",
 ```
 
 (TODO IMAGE)
@@ -31,7 +29,5 @@ before overflowing into the dropdown.
 This limit can be changed with the following {{ RTO }}:
 
 ```json
-{
-  "freqUtils.listAll.max": 4,
-}
+"freqUtils.listAll.max": 4,
 ```

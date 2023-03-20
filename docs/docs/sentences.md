@@ -74,9 +74,15 @@ TODO this is basically the only time I ever edit the `Sentence` field
 - if you have furigana, make sure you refresh the `SentenceReading` field,
     i.e. with the `AJT Japanese` plugin
 
-TODO compile option to add the line lmao
 
-- warnings: some things don't behave nicely (i.e. enter at the end of the sentence)
+
+<br>
+
+## Sentence Max Width Indicator
+
+TODO `sentence-max-width` under `cssFolders`
+
+- warning: experimental, may have weird bugs
 
 ---
 

@@ -27,9 +27,7 @@ in the {{ CTOs }}.
 
 For example:
 ```json
-{
-  "externalLinks": {},
-},
+"externalLinks": {},
 ```
 
 <br>
