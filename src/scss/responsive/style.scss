@@ -49,7 +49,35 @@
 }
 
 
+/* specifically when there's not enough horizontal space */
 @media (max-width: common.$bp-max-width-backside) {
+
+  .dh-right {
+    // TODO variable
+    max-width: 215px;
+
+    .dh-right__img {
+       max-width: 215px;
+    }
+  }
+
+  .def-header {
+    align-items: flex-start; /* moves image to top */
+  }
+  .def-header--text-img { /* text should be centered as always */
+    align-items: center;
+  }
+
+  .full-sentence br {
+    display: none;
+  }
+
+  .dh-left__reading {
+    white-space: initial; /* in case the word is too long */
+  }
+}
+
+@media (max-width: common.$bp-max-width-backside), (max-height: common.$bp-tablet-height) {
 
   :root {
     --word-font-size: #{common.px2rem(48px)};
@@ -94,32 +122,8 @@
     width: 13px;
   }
 
-  .dh-left__reading {
-    white-space: initial; /* in case the word is too long */
-  }
-
   .dh-left__word-pitch {
     margin-top: 5px;
-  }
-
-  .dh-right {
-    // TODO variable
-    max-width: 215px;
-
-    .dh-right__img {
-       max-width: 215px;
-    }
-  }
-
-  .def-header {
-    align-items: flex-start; /* moves image to top */
-  }
-  .def-header--text-img { /* text should be centered as always */
-    align-items: center;
-  }
-
-  .full-sentence br {
-    display: none;
   }
 
 }
