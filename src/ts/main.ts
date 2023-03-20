@@ -1,6 +1,6 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { CardSide } from './utils';
+import { addOnShownHook, CardSide } from './utils';
 import { fieldsAllFilled, fieldsAllEmpty } from './fields';
 
 import { newKeybinds } from './modules/keybinds';
@@ -188,5 +188,5 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   if (compileOpts['enableModule.wordIndicators']) {
     asyncManager.addModule(new WordIndicators());
   }
-  asyncManager.runModulesDelay();
+  addOnShownHook(() => { asyncManager.runModules() });
 }
