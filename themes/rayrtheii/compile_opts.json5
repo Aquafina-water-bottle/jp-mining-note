@@ -50,54 +50,9 @@
     "sentence-max-width",
     "android-fonts",
 
-    //"fix-img-height",
-    //"legacy-anki-2-1-54",
-
     "theme",
     "extra",
   ],
-
-
-  //"enableModule.timePerformance":         true,
-  //"enableModule.keybinds":                true,
-
-  //"enableModule.autoPitchAccent":         true,
-  //"enableModule.autoPitchAccent.color":   false,
-
-  //"enableModule.imgUtils":                true,
-  //"enableModule.imgUtils.isMinimal":      false,
-  //"enableModule.imgUtils.imageBlur":      false,
-
-  //"enableModule.sentUtils":               true,
-  //"enableModule.sentUtils.autoHighlight": true,
-
-  //"enableModule.kanjiHover":              true,
-  //"enableModule.collapseDictionaries":    true,
-  //"enableModule.openCollapsedFields":     true,
-  //"enableModule.wordIndicators":          true,
-
-  //"enableModule.mobileUtils":             true,
-  //"enableModule.infoCircleUtils":         true,
-  //"enableModule.freqUtils":               true,
-  //"enableModule.fixRubyPositioning":      true,
-  //"enableModule.checkDuplicateKey":       true,
-
-  //"enableModule.timePerformance":         true,
-  "enableModule.autoPitchAccent.color":   false,
-
-
-
-
-
-  // TODO re-enable
-  //"enableModule.sentUtils":               false,
-  //"enableModule.sentUtils.autoHighlight": false,
-
-
-
-
-  //"enableModule.hooks.theme":           true,
-  //"enableModule.hooks.custom":          true,
 
 
   // Allows the user to customize the displayed words on the card,

@@ -160,7 +160,6 @@
   "enableModule.sentenceParser.autoHighlight": true,
 
   "enableModule.autoPitchAccent":         true,
-  "enableModule.autoPitchAccent.color":   true,
 
   "enableModule.imgStylizer":             true,
   "enableModule.imgStylizer.imageBlur":   true,
@@ -230,6 +229,7 @@
   // = defaultQuotes =
   // ==========================================================================
   // see sentenceParser.quotes for the appropriate documentation on what this does
+  // TODO implement this somewhere?
   "defaultQuote.add": true,
   "defaultQuote.displayMode": "vn",
 
