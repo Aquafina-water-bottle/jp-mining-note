@@ -47,6 +47,7 @@
     "responsive",
     "dictionaries",
     "editor-fields",
+    "sentence-max-width",
     "android-fonts",
 
     //"fix-img-height",
