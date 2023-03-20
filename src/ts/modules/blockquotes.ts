@@ -285,15 +285,6 @@ export class Blockquotes extends RunnableModule {
   main() {
     // only ran on back side, according to main.ts
 
-    // removes instead of greys out
-    if (!getOption('blockquotes.showTextWhenEmpty')) {
-      const elems = document.getElementsByClassName('glossary-details--grey');
-      for (const x of elems) {
-        // doesn't require Array.from() since size doesn't change
-        (x as HTMLElement).style.display = 'none';
-      }
-    }
-
     // note that the default options specifically disables this on non-mobile devices! (VW >= 620)
     if (getOption('blockquotes.folderTab.enabled')) {
       this.populateFolderTab();
