@@ -160,11 +160,17 @@ export const paIndicator: PAIndicator = (function () {
 export function getCardType() {
   return document.getElementById("hidden_card_type")?.innerHTML;
 }
+export function getCardTypeName() {
+  return document.getElementById("hidden_card_type_name")?.innerHTML;
+}
 export function getCardSide() {
   return document.getElementById("hidden_card_side")?.innerHTML;
 }
 export function getNoteType() {
   return document.getElementById("hidden_note_type")?.innerHTML;
+}
+export function getModelName() {
+  return document.getElementById("hidden_model_name")?.innerHTML;
 }
 
 
