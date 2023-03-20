@@ -739,6 +739,7 @@
 
   "freqUtils.enabled": true,
 
+  // TODO rename to "list", since "list-all" suggests everything is listed instead of the first x
   // possible values:
   // "list-all"
   // "summary"
