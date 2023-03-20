@@ -890,9 +890,6 @@
   // The delay (in milliseconds) of which this module is loaded.
   // - 1 second is 1000ms
   // - A delay of 0 means that it is loaded instantly.
-  // - NOTE: It is recommended for this to be higher than 0, as a delay of 0 appears to visibly
-  //   increase the loading time of the back side of any card.
-  // OVERWRITTEN BELOW
   "asyncManager.initialDelay": 50,
 
 
@@ -937,16 +934,6 @@
       },
       "resultTrue":  "』",
       "resultFalse": "」",
-    },
-
-    "asyncManager.initialDelay": {
-      "type": "cardSide",
-      "args": {
-        "op": "===",
-        "cardSide": "front",
-      },
-      "resultTrue": 300,
-      "resultFalse": 50,
     },
 
     "blockquotes.folderTab.enabled": {
