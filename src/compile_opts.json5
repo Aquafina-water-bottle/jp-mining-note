@@ -103,6 +103,7 @@
 
   "cssFolders": [
     "base",
+    "responsive-font",
     "responsive",
     "dictionaries",
     "editor-fields",

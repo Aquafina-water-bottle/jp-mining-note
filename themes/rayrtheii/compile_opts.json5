@@ -43,6 +43,7 @@
   // Option to have custom CSS.
   "cssFolders": [
     "base",
+    "responsive-font",
     "responsive",
     "dictionaries",
     "editor-fields",

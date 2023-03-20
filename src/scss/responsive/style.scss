@@ -1,9 +1,9 @@
 @use "../base/common" as common;
 
 /*
- * ================
- *  mobile support
- * ================
+ * ==================================
+ *  mobile support (everything else)
+ * ==================================
  */
 
 // stolen from Anki's scss
@@ -30,15 +30,8 @@
 }
 
 
-@media (max-width: common.$bp-display-sentence-shrink) {
-  :root {
-    --sentence-font-size: #{common.px2rem(42px)};
-    //--pa-indicator-sent-font-size: #{common.px2rem(35px)};
-  }
-}
 
-
-@media (max-width: common.$bp-display-sentence-remove-newlines) {
+@media (max-width: common.$bp-display-sentence-remove-newlines) and (min-height: common.$bp-tablet-height) {
   /* removes newlines */
   .expression .expression-inner br {
     display: none;
@@ -68,45 +61,12 @@
     align-items: center;
   }
 
-  .full-sentence br {
-    display: none;
-  }
-
   .dh-left__reading {
     white-space: initial; /* in case the word is too long */
   }
-}
 
-@media (max-width: common.$bp-max-width-backside), (max-height: common.$bp-tablet-height) {
-
-  :root {
-    --word-font-size: #{common.px2rem(48px)};
-    --sentence-font-size: #{common.px2rem(28px)};
-    --picture-font-size: #{common.px2rem(28px)};
-    //--pa-indicator-word-font-size: #{common.px2rem(35px)};
-    //--pa-indicator-sent-font-size: #{common.px2rem(29px)};
-
-    --description-font-size: #{common.px2rem(18px)};
-    --description-footer-font-size: #{common.px2rem(8px)};
-
-    --reading-font-size: #{common.px2rem(44px)};
-    --reading-pitch-font-size: #{common.px2rem(18px)};
-    --full-sentence-font-size: #{common.px2rem(24px)};
-    --dh-right-image-gap:  #{common.px2rem(20px)};
-
-    --glossary-font-size: #{common.px2rem(15px)};
-    --glossary-font-size--smaller: #{common.px2rem(13px)};
-
-    /* PrimaryDefinitionPicture fields */
-    --primary-def-picture-max-width: 200px;
-    --primary-def-picture-max-height: 100px;
-
-    --tooltip-max-width: 350px;
-    --tooltip-font-size: #{common.px2rem(12px)};
-  }
-
-  .expression {
-    border-top: 30px;
+  .full-sentence br {
+    display: none;
   }
 
   /* removes newlines on all */
@@ -115,6 +75,19 @@
   }
   .expression .expression--hint-sentence .expression-inner br { /* including hint sentences */
     display: none;
+  }
+}
+
+@media (max-width: common.$bp-max-width-backside), (max-height: common.$bp-tablet-height) {
+
+  :root {
+    /* PrimaryDefinitionPicture fields */
+    --primary-def-picture-max-width: 200px;
+    --primary-def-picture-max-height: 100px;
+  }
+
+  .expression {
+    border-top: 30px;
   }
 
   .info-circle svg {
@@ -130,18 +103,6 @@
 
 @media (max-width: common.$bp-combine-picture) {
   :root {
-    //--vertical-sentence-font-size: #{common.px2rem(30px)};
-    --word-font-size: #{common.px2rem(36px)};
-    --reading-font-size: #{common.px2rem(32px)};
-    --reading-pitch-font-size: #{common.px2rem(16px)};
-    --sentence-font-size: #{common.px2rem(20px)};
-    --picture-font-size: #{common.px2rem(20px)};
-    --full-sentence-font-size: #{common.px2rem(20px)};
-    --pa-overline-downstep-height: 0.6em;
-
-    --pa-overline-thickness: 0.1em;
-    --dh-right-image-gap: 0.5rem;
-
     /* 40px: magic number to encompass info circle + tooltip arrow */
     /* 40px is too small for the cards... window for some reason, but it works everywhere else */
     --tooltip-max-width: min(350px, 100vw - 2 * var(--mobile-border) - 40px);
