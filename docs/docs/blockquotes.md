@@ -44,20 +44,16 @@ These fields can be set to be automatically opened
 under the following {{ RTO }}:
 
 ```json
-{
-  "blockquotes.open.enabled": true,
-}
+"blockquotes.open.enabled": true,
 ```
 
 ??? example "Example Config *(click here)*"
     ```json
-    {
-      "blockquotes.open.enabled": true,
-      "blockquotes.open.secondaryDefinition": true,
+    "blockquotes.open.enabled": true,
+    "blockquotes.open.secondaryDefinition": true,
 
-      "blockquotes.openOnNew.enabled": true, // (1)!
-      "blockquotes.openOnNew.extraInfo": true,
-    }
+    "blockquotes.openOnNew.enabled": true, // (1)!
+    "blockquotes.openOnNew.extraInfo": true,
     ```
 
     1.  This allows a blockquote to be open on new cards only.
@@ -119,9 +115,7 @@ These can be hidden instead, using {{ CSS }}.
 On mobile, the tabs will be hidden when empty.
 This {{ RTO }} allows them to be shown (but replaced with a small dot) when empty.
 ```json
-{
-  "blockquotes.folderTab.showDotWhenEmpty": true,
-}
+"blockquotes.folderTab.showDotWhenEmpty": true,
 ```
 
 === "Dot replacing empty tabs (`true`)"
@@ -139,9 +133,7 @@ Some users may prefer seeing multiple definitions at the same time.
 To do this, set the following {{ RTO }}:
 
 ```json
-{
-  "blockquotes.folderTab.mode": "multiple",
-}
+"blockquotes.folderTab.mode": "multiple",
 ```
 
 TODO image

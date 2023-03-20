@@ -260,9 +260,7 @@ The main image can be blurred on specific cards, if desired.
 This behavior is **disabled by default**,
 and must be manually enabled by setting the following {{ RTO }} to `true`:
 ```json
-{
-  "imgStylizer.mainImage.blur.enabled": true,
-}
+"imgStylizer.mainImage.blur.enabled": true,
 ```
 
 After setting the {{ RTO }}, you can blur the image of any card by marking as NSFW.
@@ -307,9 +305,7 @@ The card can be colored according to the pitch accent of the word, if desired.
 This behavior is **disabled by default**,
 and must be manually enabled by setting the following {{ RTO }} to `true`:
 ```json
-{
-  "autoPitchAccent.coloredPitchAccent.enabled": true,
-}
+"autoPitchAccent.coloredPitchAccent.enabled": true,
 ```
 
 TODO update video with new colors + interface

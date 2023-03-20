@@ -82,7 +82,7 @@ See the video demo below to see exactly what happens.
 
 ## How to Disable Collapsed Images
 
-There are three ways of disabling collapsed images.
+There are several ways of disabling collapsed images.
 
 1. Place your images in the `PrimaryDefinitionPicture` field, as shown in the [section below](images.md#the-primarydefinitionpicture-field).
 
@@ -101,7 +101,7 @@ There are three ways of disabling collapsed images.
     [edit the HTML](faq.md#how-do-i-edit-the-fields-raw-html)
     of the desired field, and add `data-do-not-convert="true"`.
 
-    An example is shown below:
+    For example:
     ```html
     <img src="your_image.png" data-do-not-convert="true">
     ```
@@ -128,28 +128,6 @@ compared to using the monolingual definition.
       </figcaption>
     </figure>
 
-
-=== "Below the definition"
-    <figure markdown>
-      {{ img("Primary Definition Picture (bottom)", "assets/images/primarydefinitionpicture/below_def.png") }}
-      <figcaption>
-        <span style="font-style: normal">(雑巾)</span>
-        If there is too little text, the image is automatically positioned below the text.
-        This will happen if there are only one or two lines of text for the definition.
-      </figcaption>
-    </figure>
-
-=== "Above the definition"
-    <figure markdown>
-      {{ img("Primary Definition Picture (above)", "assets/images/primarydefinitionpicture/above_def.png") }}
-      <figcaption>
-        <span style="font-style: normal">(雑巾)</span>
-        If there is too little text and the [correct options](#changing-automatic-positioning-behavior)
-        are set, the image is automatically positioned above the text.
-      </figcaption>
-    </figure>
-
-
 === "No Definition"
     <figure markdown>
       {{ img("Primary Definition Picture (no definition)", "assets/images/primarydefinitionpicture/no_def.png") }}
@@ -159,6 +137,30 @@ compared to using the monolingual definition.
         As of version `0.12.0.0`, the size of the picture will also be slightly increased.
       </figcaption>
     </figure>
+
+
+=== "Below the definition"
+    <figure markdown>
+      {{ img("Primary Definition Picture (bottom)", "assets/images/primarydefinitionpicture/below_def.png") }}
+      <figcaption>
+        <span style="font-style: normal">(雑巾)</span>
+        The image is below the definition if the
+        [appropriate options](#changing-automatic-positioning-behavior)
+        are set.
+      </figcaption>
+    </figure>
+
+=== "Above the definition"
+    <figure markdown>
+      {{ img("Primary Definition Picture (above)", "assets/images/primarydefinitionpicture/above_def.png") }}
+      <figcaption>
+        <span style="font-style: normal">(雑巾)</span>
+        The image is above the definition if the
+        [appropriate options](#changing-automatic-positioning-behavior)
+        are set.
+      </figcaption>
+    </figure>
+
 
 
 !!! note
@@ -212,10 +214,8 @@ images unless the following setting is explicitly enabled
 in the {{ RTO_FILE }}:
 
 ```json
-{
-  "imgStylizer.enabled": true, // (1)!
-  "imgStylizer.mainImage.blur.enabled": true,
-}
+"imgStylizer.enabled": true, // (1)!
+"imgStylizer.mainImage.blur.enabled": true,
 ```
 
 1.  The `imgStylizer` module must be enabled to use the image blur feature.
