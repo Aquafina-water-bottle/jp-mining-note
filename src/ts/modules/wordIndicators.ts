@@ -49,14 +49,15 @@ class WordIndicator {
 
   private readonly wordInds: WordIndicators;
 
+  private readonly indicatorEle: HTMLElement | null;
   private readonly cacheKey: string;
   private readonly mutexKey: string;
 
-  constructor(label: string, baseIndicatorQuery: string, wordInds: WordIndicators) {
+  constructor(label: string, baseIndicatorQuery: string, wordInds: WordIndicators, indicatorEle: HTMLElement | null) {
     this.label = label;
-    //this.queryCategories = queryCategories
     this.baseIndicatorQuery = baseIndicatorQuery;
     this.wordInds = wordInds;
+    this.indicatorEle = indicatorEle;
     this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${CARD_KEY}`;
     this.mutexKey = `${wordIndicatorMutexKey}.${label}.${CARD_KEY}`;
 
@@ -283,8 +284,8 @@ class WordIndicator {
     // gets all elements here to prevent race condition at front of card
     // i.e. if this was ran in the front of the card & the back was blocked by a mutex,
     // then this code is still valid to run
-    const indicatorEle = document.getElementById(this.label);
-    const dhLeftEle = document.getElementById('dh_left');
+    const indicatorEle = this.indicatorEle ?? document.getElementById(this.label);
+    const dhLeftEle = this.wordInds.dhLeftEle ?? document.getElementById('dh_left');
     if (indicatorEle === null || dhLeftEle === null) {
       return;
     }
@@ -385,7 +386,17 @@ class WordIndicator {
 export class WordIndicators extends RunnableAsyncModule {
   readonly persist = selectPersist();
   readonly persistObj = selectPersist('window');
+
+  // elements gotten here for safety from async calls
+  private readonly indicatorEleSameWord = document.getElementById("same_word_indicator");
+  private readonly indicatorEleSameKanji = document.getElementById("same_kanji_indicator");
+  private readonly indicatorEleSameReading = document.getElementById("same_reading_indicator");
+  readonly dhLeftEle = document.getElementById('dh_left');
+
   readonly tooltips: Tooltips;
+
+  // caches here for safety from async calls
+  private readonly cardSide = getCardSide();
 
   constructor() {
     super('wordIndicators');
@@ -393,33 +404,17 @@ export class WordIndicators extends RunnableAsyncModule {
     this.tooltips.overrideOptions(getOption('wordIndicators.overrideOptions.tooltips'));
   }
 
-  //private async getQueries() {
-  //  // not the current note
-  //  const baseQuery = this.tooltips.getCardBaseQuery(getFieldValue('Key'));
-
-  //  let cardIdsNonNew = await queryAnki(newQuery, this.persistObj, true, true); // read cache, write cache
-  //  let cardIdsNew = await queryAnki(nonNewQuery, this.persistObj, true, true);
-
-  //}
-
   async main() {
-    //constructor(label: string, indicatorEle: HTMLElement, queryCategories: QueryCategories, wordInds: WordIndicators) {
-
-    //const queryGroup: QueryBuilderGroup = this.tooltips.getQueryBuilderGroup();
-    //for (const [key, qb] of Object.entries(queryGroup)) {
-    //  qb.addSegment(baseQuery);
-
-    //  const qbSent = qb.clone();
-    //  qb.addSegment(wordQuery);
-    //  queries[`word.${key as keyof QueryBuilderGroup}`] = qb.build();
-
-    //  qbSent.addSegment(sentQuery);
-    //  queries[`sent.${key as keyof QueryBuilderGroup}`] = qbSent.build();
-    //}
 
     if (!this.getOption('enableAnkiconnectFeatures')) {
       return;
     }
+
+    if (this.getOption('wordIndicators.safe') && this.cardSide === "front") {
+      return;
+    }
+    // ASSUMPTION: if safe, then should be backside of card -> this.indicatorEle* and this.dhLeftEle
+    // are all non-null!
 
     const word = escapeQueryStr(getFieldValue('Word'));
     const wordReadingHiragana = escapeQueryStr(getFieldValue('WordReadingHiragana'));
@@ -429,14 +424,12 @@ export class WordIndicators extends RunnableAsyncModule {
     const baseReadingQuery = `-"Word:${word}"  "WordReadingHiragana:${wordReadingHiragana}"`;
 
     const indicators: WordIndicator[] = [
-      new WordIndicator('same_word_indicator', baseWordQuery, this),
-      new WordIndicator('same_kanji_indicator', baseKanjiQuery, this),
-      new WordIndicator('same_reading_indicator', baseReadingQuery, this),
+      new WordIndicator('same_word_indicator', baseWordQuery, this, this.indicatorEleSameWord),
+      new WordIndicator('same_kanji_indicator', baseKanjiQuery, this, this.indicatorEleSameKanji),
+      new WordIndicator('same_reading_indicator', baseReadingQuery, this, this.indicatorEleSameReading),
     ];
     for (const indicator of indicators) {
       await indicator.run();
     }
-
-    //this.addBrowseOnClick();
   }
 }
