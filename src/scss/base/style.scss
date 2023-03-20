@@ -329,16 +329,17 @@ code {
   font-size: 85%;
 }
 
-
-/* THIS IS AN ANKIDROID HACK!!!
- * There seems to be a strange issue with using javascript to automatically play audio
- * and the mathjax module being ran (despite there being no mathjax: \[ and \]
- * are in regex expressions) that prevents the mathjax module from fully running for some reason?
- * and thus, doesn't remove mathjax-needs-to-render, making the card impossible to view for some reason
- */
-.android .card.mathjax-needs-to-render {
-  visibility: visible;
-}
+// This hack is no longer needed with onShownHook!
+//
+///* THIS IS AN ANKIDROID HACK!!!
+// * There seems to be a strange issue with using javascript to automatically play audio
+// * and the mathjax module being ran (despite there being no mathjax: \[ and \]
+// * are in regex expressions) that prevents the mathjax module from fully running for some reason?
+// * and thus, doesn't remove mathjax-needs-to-render, making the card impossible to view for some reason
+// */
+//.android .card.mathjax-needs-to-render {
+//  visibility: visible;
+//}
 
 
 
