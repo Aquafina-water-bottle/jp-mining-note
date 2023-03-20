@@ -668,6 +668,8 @@
 
   "wordIndicators.enabled": true,
 
+  "wordIndicators.safe": true,
+
   "wordIndicators.overrideOptions.tooltips": {
     // always show pitch accent
     "tooltips.displayPitchAccentOnHoverOnly": false,

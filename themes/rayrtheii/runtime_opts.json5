@@ -73,6 +73,9 @@
 
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
 
+
+  "wordIndicators.safe": false,
+
   //"tooltips.overrideOptions.autoPitchAccent": {
   //  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": false,
   //},
