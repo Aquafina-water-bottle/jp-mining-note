@@ -50,10 +50,20 @@ export class MainCardUtils extends RunnableModule {
     }
   }
 
-  playSilence() {
-    let elem = document.querySelector("#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton");
-    if (elem) {
-      (elem as HTMLAnchorElement).click();
+  playSilenceOnLoad() {
+    async function playSilence() {
+      let elem = document.querySelector("#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton");
+      if (elem) {
+        console.log("(playSilence) Clicking on silence file");
+        (elem as HTMLAnchorElement).click();
+        console.log("(playSilence) Clicked on silence file");
+      }
+    }
+    let onShownHook = (window as any).onShownHook;
+    if (onShownHook !== undefined && Array.isArray(onShownHook)) {
+      onShownHook.push(playSilence);
+    } else {
+      console.log("(playSilence) onShownHook is invalid or doesn't exist");
     }
   }
 
@@ -83,7 +93,7 @@ export class MainCardUtils extends RunnableModule {
       }
 
       // auto-plays silence
-      this.playSilence()
+      this.playSilenceOnLoad()
       //if (isAndroid()) {
       //  // for some reason, without the delay, it freezes the entire card
       //  // so the front side no longer loads :(
