@@ -121,14 +121,12 @@ removed by default.
 If you want to keep the period, you can set the desired {{ RTOs }} to `false`:
 
 ```json
-{
-  "sentenceParser.removeFinalPeriod.fullSent.quoted":     true, // (1)!
-  "sentenceParser.removeFinalPeriod.fullSent.unquoted":   false,
-  "sentenceParser.removeFinalPeriod.display.quoted":      true,
-  "sentenceParser.removeFinalPeriod.display.unquoted":    false,
-  "sentenceParser.removeFinalPeriod.altDisplay.quoted":   false,
-  "sentenceParser.removeFinalPeriod.altDisplay.unquoted": false,
-}
+"sentenceParser.removeFinalPeriod.fullSent.quoted":     true, // (1)!
+"sentenceParser.removeFinalPeriod.fullSent.unquoted":   false,
+"sentenceParser.removeFinalPeriod.display.quoted":      true,
+"sentenceParser.removeFinalPeriod.display.unquoted":    false,
+"sentenceParser.removeFinalPeriod.altDisplay.quoted":   false,
+"sentenceParser.removeFinalPeriod.altDisplay.unquoted": false,
 ```
 
 1.  For example, `"sentenceParser.removeFinalPeriod.fullSent.quoted": true,`
@@ -149,11 +147,9 @@ a simple indicator to differentiate between a sentence and vocab card.
 If you do not want quotes around the sentence, you can set the following {{ RTOs }} to `remove`:
 
 ```json
-{
-  "sentenceParser.fullSent.quotes.processMode": "remove",
-  "sentenceParser.display.quotes.processMode": "add",
-  "sentenceParser.altDisplay.quotes.processMode": "as-is",
-}
+"sentenceParser.fullSent.quotes.processMode": "remove",
+"sentenceParser.display.quotes.processMode": "add",
+"sentenceParser.altDisplay.quotes.processMode": "as-is",
 ```
 
 All available process modes are explained within the example config file.
@@ -197,9 +193,7 @@ This can be changed to only be shown on click, or always/never shown.
         Change the following {{ CTO }}:
 
         ```json
-        "full-sentence-ruby": {
-            "display-mode": "click",
-        }
+        "fullSentenceRuby.displayMode": "click",
         ```
 
         This is commonly paired with the [hide furigana spacing](#sentencereading-hide-spacing) option,
@@ -215,9 +209,20 @@ This can be changed to only be shown on click, or always/never shown.
         Change the following {{ CTO }}:
 
         ```json
-        "full-sentence-ruby": {
-            "display-mode": "hover",
-        }
+        "fullSentenceRuby.displayMode": "hover",
+        ```
+
+
+=== "On hover and click"
+    TODO gif: show on hover and click
+
+    This allows furigana to be shown on hover, and toggled on click.
+
+    ??? example "Instructions *(click here)*"
+        Change the following {{ CTO }}:
+
+        ```json
+        "fullSentenceRuby.displayMode": "both",
         ```
 
 === "Always revealed"
@@ -230,9 +235,7 @@ This can be changed to only be shown on click, or always/never shown.
         Change the following {{ CTO }}:
 
         ```json
-        "full-sentence-ruby": {
-            "display-mode": "always",
-        }
+        "fullSentenceRuby.displayMode": "always",
         ```
 
 === "Never revealed"
@@ -245,9 +248,7 @@ This can be changed to only be shown on click, or always/never shown.
         Change the following {{ CTO }}:
 
         ```json
-        "full-sentence-ruby": {
-            "display-mode": "never",
-        }
+        "fullSentenceRuby.displayMode": "never",
         ```
 
 <br>
@@ -278,10 +279,8 @@ due to (what I think is a) chromium based bug[^1].
         Change the following {{ CTOs }}:
 
         ```json
-        "full-sentence-ruby": {
-            "fill-mode": "font-size",
-            "fill-mode-font-size-transition": True,
-        }
+        "fullSentenceRuby.fillMode": "font-size",
+        "fullSentenceRuby.fillModeFontSizeTransition": true,
         ```
 
 
@@ -292,10 +291,8 @@ due to (what I think is a) chromium based bug[^1].
         Change the following {{ CTOs }}:
 
         ```json
-        "full-sentence-ruby": {
-            "fill-mode": "font-size",
-            "fill-mode-font-size-transition": False,
-        }
+        "fullSentenceRuby.fillMode": "font-size",
+        "fullSentenceRuby.fillModeFontSizeTransition": false,
         ```
 
 
@@ -308,9 +305,7 @@ due to (what I think is a) chromium based bug[^1].
         Change the following {{ CTO }}:
 
         ```json
-        "full-sentence-ruby": {
-            "fill-mode": "opacity",
-        }
+        "fullSentenceRuby.fillMode": "opacity",
         ```
 
 

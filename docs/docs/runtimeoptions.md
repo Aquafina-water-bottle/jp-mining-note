@@ -40,11 +40,7 @@ All runtime options are formatted as a key/value pair.
 A simple example is the following:
 
 ```json
-{
-  // ...
-  "kanjiHover.enabled": true,
-  // ...
-}
+"kanjiHover.enabled": true,
 ```
 
 In the above example, the key is `kanjiHover.enabled`, whereas the value is `true`.
@@ -65,13 +61,11 @@ with type type of `isMobile`:
 
 This can be changed to:
 ```json
-{
-  "kanjiHover.enabled": {
-    "type": "isPC",
-    "resultTrue": true, // kanji hover is enabled on PC
-    "resultFalse": false, // kanji hover is not enabled on non-PC devices, i.e. mobile
-  },
-}
+"kanjiHover.enabled": {
+  "type": "isPC",
+  "resultTrue": true, // kanji hover is enabled on PC
+  "resultFalse": false, // kanji hover is not enabled on non-PC devices, i.e. mobile
+},
 ```
 
 A full list of special option types is shown below.
@@ -139,8 +133,8 @@ This is formatted as the following:
     "op": MATH_OP,
     "value": WIDTH,
   },
-  "resultTrue": VALUE_IF_PC,
-  "resultFalse": VALUE_IF_MOBILE,
+  "resultTrue": ...,
+  "resultFalse": ...,
 },
 ```
 

@@ -10,36 +10,37 @@ those notes will not be included in the resulting popup.
 
 # Interface
 
-=== "New Cards"
+## Interface: New Cards
 
-    (TODO image)
+You may have noticed that some results are greyed out.
+These represent words from cards that have not been reviewed yet.
+Conversely, as non-greyed out results come from cards that you have already reviewed,
+they should represent words that you already know.
 
-    You may have noticed that some results are greyed out.
-    These represent words from cards that have not been reviewed yet.
-    Conversely, as non-greyed out results come from cards that you have already reviewed,
-    they should represent words that you already know.
-
-
-=== "Pitch Accents"
-
-    (TODO image)
-
-    Pitch accents are shown when you hover over a particular word
-    within the tooltip. You can change this to always be shown with
-    {{ rto("tooltips.displayPitchAccent") }}.
-
-=== "Sentence Search"
-
-    (TODO image)
-
-    If there are not enough results to display, the kanji is searched within the sentences of existing cards.
+(TODO image)
 
 
-=== "Open Card"
+## Interface: Pitch Accents
 
-    (TODO image)
+Pitch accents are shown when you hover over a particular word
+within the tooltip. You can change this to always be shown with
+{{ rto("tooltips.displayPitchAccent") }}.
 
-    You can click on the word to open the specified card within Anki's card browser.
+(TODO image)
+
+
+## Interface: Sentence Search
+
+If there are not enough results to display, the kanji is searched within the sentences of existing cards.
+
+(TODO image)
+
+
+## Interface: Open Card
+
+You can click on the word to open the specified card within Anki's card browser.
+
+(TODO image)
 
 ---
 
@@ -73,8 +74,10 @@ This {{ CSS }} allows the words to be highlighted within the sentence.
 ---
 
 # Refresh Button
+{{ feature_version("0.12.0.0") }}
 
 TODO
+
 - If editing `WordReading` field or some other card shown as the results,
     the changes will not show due to cache
 - pressing the refresh button on the info circle + hovering over the kanji again
@@ -88,7 +91,7 @@ TODO
 !!! warning
     None of the above will work with jp-mining-note by default.
     In fact, it's almost guaranteed that Cade's Kanji Hover will conflict with
-    this note's kanji hover ability.
+    this note's kanji hover ability, if placed directly in the word reading field.
 
 ## [Cade's Kanji Hover](https://cademcniven.com/projects/kanjihover/)
 

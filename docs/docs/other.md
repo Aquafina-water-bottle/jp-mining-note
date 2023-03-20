@@ -73,9 +73,7 @@ If the furigana appears higher than normal on your card,
 the following {{ RTO }} serves as a quick fix to lower the furigana:
 
 ```json
-{
-  "fix-ruby-positioning": ...
-}
+"fixRubyPositioning.enabled": true,
 ```
 
 See the pictures below to compare between furigana positions.
