@@ -25,7 +25,6 @@ import { AsyncManager } from './modules/asyncManager';
 import { Blockquotes } from './modules/blockquotes';
 import { RefreshCard } from './modules/refreshCard';
 import {cardIsNew} from './isNew';
-import {selectPersistAny} from './spersist';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -165,10 +164,6 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     new FixRubyPositioning().run();
   }
 
-  if (compileOpts['enableModule.checkDuplicateKey']) {
-    new CheckDuplicateKey().run();
-  }
-
   const asyncManager = new AsyncManager();
   refreshCard.addAsyncManager(asyncManager);
   refreshCard.run();
@@ -188,5 +183,10 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   if (compileOpts['enableModule.wordIndicators']) {
     asyncManager.addModule(new WordIndicators());
   }
+  if (cardSide === "back" && compileOpts['enableModule.checkDuplicateKey']) {
+    // only necessary at the back to avoid distractions at the front
+    asyncManager.addModule(new CheckDuplicateKey());
+  }
+
   addOnShownHook(() => { asyncManager.runModules() });
 }

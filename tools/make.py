@@ -440,6 +440,8 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
                 utils.Config({
                     "card-side": side,
                     "card-type": card_model_id,
+                    "card-type-name": note_config("templates", card_model_id, "name").item(),
+                    "model-name": note_config("model-name").item(),
                     "note-type": note_model_id,
                     "js-prefix": note_config("js-prefix").item(),
                 }),
