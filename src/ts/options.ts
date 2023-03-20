@@ -66,6 +66,29 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
     return true;
   },
 
+
+  /*
+  key: {
+    "type": "viewportWidthBreakpoint",
+    "args": {
+      "op": MATH_OP,
+      "value": VALUE,
+    },
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  viewportWidthBreakpoint: (args: unknown) => {
+    if (args !== null && typeof args === 'object' && 'op' in args && 'value' in args) {
+      if ((args.op as string) in OPS && (args.value as string in VIEWPORT_WIDTH_BPS)) {
+        const bp = VIEWPORT_WIDTH_BPS[args.value as keyof typeof VIEWPORT_WIDTH_BPS];
+        return OPS[args.op as keyof typeof OPS](getViewportWidth(), bp);
+      }
+    }
+    LOGGER.warn(`Invalid viewportWidth arguments: ${args}`, { ignoreOptions: true });
+    return true;
+  },
+
   /*
   key: {
     "type": "cardType",
@@ -204,6 +227,14 @@ const OPS = {
   '>=': <T>(a: T, b: T) => a >= b,
   '<=': <T>(a: T, b: T) => a <= b,
 };
+
+const VIEWPORT_WIDTH_BPS = {
+  "displaySentenceShrink": compileOpts['breakpoints.width.displaySentenceShrink'],
+  "displaySentenceRemoveNewlines": compileOpts['breakpoints.width.displaySentenceRemoveNewlines'],
+  "maxWidthBackside": compileOpts['breakpoints.width.maxWidthBackside'],
+  "combinePicture": compileOpts['breakpoints.width.combinePicture'],
+} as const;
+
 
 // generates function
 function overrideFuncFields(fieldsFunc: (...fields: Field[]) => boolean) {

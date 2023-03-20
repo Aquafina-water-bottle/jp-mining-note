@@ -202,7 +202,7 @@ export function adjustElements(
 ) {
   resetProperties(imgEle, wordBoxEle, imgBoxEle);
 
-  if (getViewportWidth() > compileOpts['breakpoints.combinePicture']) { // pc
+  if (getViewportWidth() > compileOpts['breakpoints.width.combinePicture']) { // pc
     if (getOption('imgStylizer.mainImage.resizeHeightMode') === 'auto-height') {
       const wordBoxEleHeight = wordBoxEle.offsetHeight;
       setHeight(imgEle, imgBoxEle, wordBoxEleHeight);
