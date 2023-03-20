@@ -67,3 +67,10 @@ TODO
 - pressing the refresh button on the info circle should fix
 
 
+---
+
+# Prefetching Results
+
+TODO safe mode
+
+

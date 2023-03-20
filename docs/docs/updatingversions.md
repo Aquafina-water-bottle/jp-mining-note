@@ -17,6 +17,16 @@ due to new way of how the options are defined.
 1. Run this command: TODO
 1. If you have any changed options, change the equivalent options back. See here on how to do this: TODO
 
+
+## Note Editor
+- may have noticed editor looks fancy now
+- ensure fields are in the correct order: TODO
+- ensure fields have the correct font sizes: TODO
+- ensure certain fields are collapsed: TODO
+    - at least CardCache should be collapsed
+    - I also collapse: SecondaryDefinition, ExtraDefinitions, UtilityDictionaries, AltDisplayPASentenceCard, AltDisplayAudioCard
+
+
 ## Developer Notes
 If you have been using any custom overrides, CSS, or Javascript,
 you will want to check that all of these are updated.
