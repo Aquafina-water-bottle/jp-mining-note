@@ -360,3 +360,16 @@ export function hybridClick() {
   }
 }
 
+
+/* taken from Anki: https://github.com/ankitects/anki/blob/09a946574b2c4410d772330ee03e2235fdf4799a/ts/reviewer/index.ts */
+type Callback = () => void | Promise<void>;
+
+export function addOnShownHook(callback: Callback) {
+  let onShownHook: Callback[] | undefined = (window as any).onShownHook;
+  if (onShownHook !== undefined && Array.isArray(onShownHook)) {
+    onShownHook.push(callback);
+  } else {
+    console.log("(playSilence) onShownHook is invalid or doesn't exist");
+  }
+}
+

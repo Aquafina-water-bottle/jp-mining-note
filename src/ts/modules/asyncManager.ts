@@ -88,12 +88,16 @@ export class AsyncManager extends Module {
   // Each module has to implement all the necessary safeguards for this.
   async runModulesDelay() {
     const delay: number = getOption('asyncManager.initialDelay');
-
-    // THIS IS A HACK because document.onload cannot be overwritten
-    // so instead, we delay it by some amount of time instead to 'mimic'
-    // the document being loaded before running these.
-    setTimeout(() => {
+    if (delay === 0) {
       this.runModules();
-    }, delay);
+    } else {
+      // THIS IS A HACK because document.onload cannot be overwritten
+      // so instead, we delay it by some amount of time instead to 'mimic'
+      // the document being loaded before running these.
+      setTimeout(() => {
+        this.runModules();
+      }, delay);
+    }
+
   }
 }

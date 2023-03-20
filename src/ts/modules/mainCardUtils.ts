@@ -1,5 +1,5 @@
 import { RunnableModule } from '../module';
-import { getCardSide, hybridClick, isAndroid, paIndicator } from '../utils';
+import { addOnShownHook, getCardSide, hybridClick, isAndroid, paIndicator } from '../utils';
 import { fieldsAnyFilled, fieldsAllFilled } from '../fields';
 import { translatorStrs } from '../consts';
 import {addKeybindFunc, hasKey} from './keybinds';
@@ -59,12 +59,7 @@ export class MainCardUtils extends RunnableModule {
         console.log("(playSilence) Clicked on silence file");
       }
     }
-    let onShownHook = (window as any).onShownHook;
-    if (onShownHook !== undefined && Array.isArray(onShownHook)) {
-      onShownHook.push(playSilence);
-    } else {
-      console.log("(playSilence) onShownHook is invalid or doesn't exist");
-    }
+    addOnShownHook(playSilence);
   }
 
   main() {
