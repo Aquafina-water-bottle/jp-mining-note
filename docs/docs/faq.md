@@ -77,7 +77,7 @@ If none of the above worked, the following will be some general troubleshooting 
 that can help you figure out what the error is:
 
 <!-- Un-comment this when any conflicting add-ons are actually discovered
-1. Do you have a [conflicting addon](setup.md#conflicting-add-ons){:target="_blank"} installed?
+1. Do you have a [conflicting addon](setup.md#conflicting-add-ons) installed?
 -->
 
 1. Try disabling all of your add-ons other than the mandatory ones listed in the setup page.
@@ -153,7 +153,7 @@ The word is usually highlighted by default, but the word may not be highlighted 
 - The sentence field got updated by an external program.
 - The card was imported from an older deck that did not highlight the tested word.
 
-As of version `0.11.1.0`, the card will automatically attempt to highlight the word
+As of version `0.12.0.0`, the card will automatically attempt to highlight the word
 if the word was not highlighted in the first place.
 However, this highlight may yield incorrect results.
 *This is expected behavior*, and you are expected to manually bold the sentence
@@ -373,7 +373,7 @@ You have three main options:
     [backup your Anki data](faq.md#how-do-i-backup-my-anki-data).
 
 
-1. [Batch Editing Addon](https://ankiweb.net/shared/info/291119185){:target="_blank"}
+1. [Batch Editing Addon](https://ankiweb.net/shared/info/291119185)
 
 2. Python script:
 
@@ -537,7 +537,7 @@ The following makes a temporary backup of your collection, not including media:
 
 > Main Window →  `File` (top left corner) →  `Create Backup`
 
-See [Anki's official documentation](https://docs.ankiweb.net/backups.html){:target="_blank"}
+See [Anki's official documentation](https://docs.ankiweb.net/backups.html)
 for more info.
 
 ---
@@ -580,7 +580,7 @@ for more info.
 Preview any card. The version should be displayed at the top left corner.
 
 For mobile, the version is shown in the info circle.
-Note that the version is only displayed on mobile for versions `0.11.1.0` and above.
+Note that the version is only displayed on mobile for versions `0.12.0.0` and above.
 
 TODO redo image for mobile
 
@@ -641,7 +641,7 @@ Unfortunately, other languages outside of Japanese will not be supported.
 
 The reason for this decision is best explained in the
 "When are you going to add support for $MYLANGUAGE?" question
-within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-questions){:target="_blank"}:
+within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-questions)
 
 !!! quote
     Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.

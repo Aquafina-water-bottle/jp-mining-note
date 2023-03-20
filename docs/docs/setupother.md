@@ -18,7 +18,7 @@ If you want to follow my exact Yomichan popup appearance:
 * Set `Compact tags` to OFF.
 
 There are also plenty of css customizations for Yomichan listed out
-in the [JP Resources page](jpresources.md){:target="_blank"}.
+in the [JP Resources page](jpresources.md).
 
 ---
 
@@ -61,7 +61,7 @@ which should only be a few months stale at most.
     This is a dictionary placed in the `UtilityDictionaries` field by default.
     Although I don't use it when studying Anki, it helps to use this when creating Anki notes
     for monolingual definitions.
-    See [this](jpresources.md#orthographic-variants-fix-sentence-and-frequency){:target="_blank"}
+    See [this](jpresources.md#orthographic-variants-fix-sentence-and-frequency)
     for more information.
 
 * I highly recommend getting some pitch accent dictionaries and frequency lists

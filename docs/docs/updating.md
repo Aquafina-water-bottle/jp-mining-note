@@ -186,7 +186,8 @@ To fix this, there are a few cases to go through.
     Unfortunately, there is no way to ignore removed or renamed fields.
     If you removed a field, please re-add the field.
     Likewise, if you renamed a field, please rename it back to the original name.
-    See [here](moddingtips.md#field-list-editing){:target="_blank"} for more info on why they cannot be ignored.
+    See [here](moddingtips.md#field-list-editing)
+    for more info on why they cannot be ignored.
 
 
 
@@ -213,7 +214,7 @@ To fix this, there are a few cases to go through.
     To see if the fields have been changed, compare the
     first two numbers in the version you want to install
     to the first two numbers of the current
-    [card version](faq.md#how-do-i-see-the-version-of-jp-mining-note){:target="_blank"}.
+    [card version](faq.md#how-do-i-see-the-version-of-jp-mining-note)
     If the first two numbers match, then you are likely safe to manually update the card.
 
     If they don't match, then you MAY be able to get away with installing it anyways and transferring
@@ -259,7 +260,7 @@ then **the field will not show up automatically in Yomichan**.
 ??? example "Video Demo *(click here)*"
     ![type:video](assets/updating/updating_yomichan_fields.mp4)
 
-1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
+1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings)
     of your Yomichan settings, just in case.
 1. After running `install.py --update`, create a temporary copy of the note by: <br>
     `Tools` <br>
@@ -269,14 +270,14 @@ then **the field will not show up automatically in Yomichan**.
     →  Name the note anything you want (the following examples will use `JP Mining Note copy`)  →  `Ok`<br>
     →  `Close`
 1. If you are currently viewing Yomichan Settings, please refresh the page.
-1. Head over to Anki Card Format [as before](setupyomichan.md#yomichan-fields){:target="_blank"}.
+1. Head over to Anki Card Format [as before](setupyomichan.md#yomichan-fields).
 1. In the top right corner, change `Model` to `JP Mining Note copy`,
     and then change it back to `JP Mining Note`.
     (If you don't see `JP Mining Note copy`, please refresh the page.)
 1. Update the fields as specified.
     - It should be specified in the text you see when running `install.py --update`.
     - However, you should also simply compare the table on the
-        [setup page](setupyomichan.md#yomichan-fields){:target="_blank"} to your filled out fields.
+        [setup page](setupyomichan.md#yomichan-fields) to your filled out fields.
 1. Remove the temporary note: <br>
     `Tools` <br>
     →  `Manage Note Types` <br>
@@ -295,9 +296,9 @@ then **the field will not show up automatically in Yomichan**.
 
 
 # Updating Yomichan Templates
-Like the above, you can simply follow the steps already specified in [setup](setupyomichan.md#yomichan-templates){:target="_blank"}.
+Like the above, you can simply follow the steps already specified in [setup](setupyomichan.md#yomichan-templates).
 
-Again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
+Again, please make a [backup](faq.md#how-do-i-backup-yomichan-settings)
 of your Yomichan settings just in case,
 and again, please make sure you **reset the existing templates** (unless you know what you are doing).
 

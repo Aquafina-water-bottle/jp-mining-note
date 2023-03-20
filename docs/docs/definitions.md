@@ -94,7 +94,7 @@ you can use the `ignored-dict-regex` option.
 To see how to edit the option, see [the section below](#editing-the-dictionary-regex).
 
 Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
-[see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki){:target="_blank"}.
+[see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki).
 
 !!! note
     It is recommended to not use this option, so you have as much information as possible

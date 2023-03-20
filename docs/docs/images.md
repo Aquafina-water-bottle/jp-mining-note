@@ -50,21 +50,15 @@ to automatically set the image to the cover of the book.
 This is specified under the {{ RTO_FILE }}:
 
 ```json
-"modules": {
-  "img-utils": {
-    "add-image-if-contains-tags": [
-        ...
-    ]
-  }
-}
+"imgStylizer.setMainImageFromTags": [],
 ```
 
 Example:
 
 ```json
-"add-image-if-contains-tags": [
+"imgStylizer.setMainImageFromTags": [
   {
-    "tags": ["青春ブタ野郎・LN1"],
+    "tag": "青春ブタ野郎・LN1",
     "file-name": "_青春ブタ野郎-LN1.png"
   }
 ],
@@ -92,22 +86,24 @@ There are three ways of disabling collapsed images.
 
 1. Place your images in the `PrimaryDefinitionPicture` field, as shown in the [section below](images.md#the-primarydefinitionpicture-field).
 
+1. Disable it globally in the {{ RTO_FILE }}:
+
+    ```json
+    // alternatively, try "none" instead of "float".
+    "imgStylizer.glossary.primaryDef.mode.yomichan": "float",
+    ```
+
+1. Disable it per card, by adding the following tag: `img-yomichan-float`.
+    Alternatively, try adding `img-yomichan-no-styling`.
+
+
 1. To disable this for only specific images,
-    [edit the HTML](faq.md#how-do-i-edit-the-fields-raw-html){:target="_blank"}
+    [edit the HTML](faq.md#how-do-i-edit-the-fields-raw-html)
     of the desired field, and add `data-do-not-convert="true"`.
 
     An example is shown below:
     ```html
     <img src="your_image.png" data-do-not-convert="true">
-    ```
-
-1. Disable it globally in the {{ RTO_FILE }}:
-
-    ```json
-    "img-utils": {
-      "stylize-images-in-glossary": false,
-      // ...
-    }
     ```
 
 ---
@@ -160,7 +156,7 @@ compared to using the monolingual definition.
       <figcaption>
         <span style="font-style: normal">(雑巾)</span>
         Naturally, the picture appears to the left if there is no definition.
-        As of version `0.11.1.0`, the size of the picture will also be slightly increased.
+        As of version `0.12.0.0`, the size of the picture will also be slightly increased.
       </figcaption>
     </figure>
 
@@ -173,65 +169,21 @@ compared to using the monolingual definition.
 <br>
 
 ## Changing Automatic Positioning Behavior
-{{ feature_version("0.11.1.0") }}
+{{ feature_version("0.12.0.0") }}
 
-There are a few {{ RTOs }} that affect where the picture is positioned.
+The following {{ RTO }} can be used to change how the primary definition picture is positioned:
 
-* **`position` option**:
-    ```json
-    "modules": {
-      "img-utils": {
-        "primary-definition-picture": {
-          // Valid options (case sensitive): "auto-bottom", "auto-top", "bottom", "right", "top"
-          "position": "auto-bottom",
-        }
-      }
-    }
-    ```
-    The options `bottom`, `right`, and `top` force the image to always be placed
-    below, to the right, and above the definition, respectively.
+```json
+// Valid options (case sensitive): "auto", "bottom", "right", "top"
+"imgStylizer.glossary.floatImg.position": "auto",
+```
+The options `bottom`, `right`, and `top` force the image to always be placed
+below, to the right, and above the definition, respectively.
 
-    `auto-bottom` is the default behavior, and will automatically position the picture
-    below the definition if there is too little text.
-    `auto-top` does the opposite: the picture will be positioned above the definition
-    if there is too little text.
-    Both `auto-bottom` and `auto-top` will position the picture to the right if there
-    is sufficient amounts of text.
+`auto` is the default behavior, and will automatically position the picture
+to the left if there is no text. Otherwise, the image is placed to the right.
 
-* **`position-lenience` option**:
-    ```json
-    "modules": {
-      "img-utils": {
-        "primary-definition-picture": {
-          // Any integer
-          "position-lenience": ...
-        }
-      }
-    }
-    ```
-    This is a constant that allows the picture to be placed to the right even if
-    the text height is <i>positionLenience</i> times smaller than the picture.
-
-    The exact formula used is the following:
-    ```
-    positionToRight = (textHeight * positionLenience) > picHeight
-    ```
-
-* **`use-lenience` option**:
-    ```json
-    "modules": {
-      "img-utils": {
-        "primary-definition-picture": {
-          // Valid options: true, false
-          "use-lenience": ...
-        }
-      }
-    }
-    ```
-    Setting this to false is equivalent of setting the `position-lenience` to a very large number.
-    This will cause the picture to be placed to the right if there is ANY text,
-    and placed to the left if there is no text.
-
+<br>
 
 
 ## Force Positioning
@@ -259,18 +211,14 @@ This behavior is **disabled by default**. In other words, you will not be able t
 images unless the following setting is explicitly enabled
 in the {{ RTO_FILE }}:
 
-??? examplecode "Enabling image blur *(click here)*"
-    ```json
-    "img-utils": {
-      "enabled": true, // (1)!
-      "nsfw-toggle": {
-        "enabled": true,
-        // ...
-      }
-    }
-    ```
+```json
+{
+  "imgStylizer.enabled": true, // (1)!
+  "imgStylizer.mainImage.blur.enabled": true,
+}
+```
 
-    1.  The `img-utils` module must be enabled to use the image blur feature.
+1.  The `imgStylizer` module must be enabled to use the image blur feature.
 
 <figure markdown>
   {{ img("example toggle blur gif", "assets/images/anki_blur/example.gif") }}

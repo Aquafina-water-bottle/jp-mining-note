@@ -30,6 +30,8 @@ and must use `./install.py --update`.
     - `IsSentenceFirstCard`
     - `IsAudioCard`
     - `SeparateSentenceAudioCard`
+    - `CardCache`
+    - TODO is there more?
 - Renamed fields:
     - `SeparateClozeDeletionCard` -> `SeparateAudioCard`
 - Removed lenience calculation (height of the text box is no longer calculated) due to an internal javascript bug that I can't figure out how to resolve
@@ -44,10 +46,11 @@ and must use `./install.py --update`.
         - NOTE: currently doesn't allow custom javascript / typescript
     - See `themes` folder for some examples
 
-- Vastly improved mobile support
+- Vastly improved mobile support (and other screen size support)
     - Completely reworked the mobile design (TODO link?)
-    - Fixed silence playing no longer working on Ankidroid
-    - Removed using downloaded font for Ankidroid in order to make loading times sane
+    - Fixed silence playing not working on Ankidroid
+    - Uses system fonts for Ankidroid in order to make loading times sane
+    - Added a height media query to make the card smaller for lower screen resolutions
 
 - Backend Javascript rework: (TODO)
     - Javascript has been finally ported to Typescript & webpack

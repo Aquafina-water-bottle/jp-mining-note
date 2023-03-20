@@ -88,21 +88,27 @@ under the following {{ RTO }}:
 
 
 
-# Do not hide empty collapsed fields
+# Hide empty collapsed fields
 
-Collapsable fields that are empty are usually not shown at all.
-This {{ RTO }} allows them to be shown (but greyed out) when empty.
-```json
-{
-  "blockquotes.showTextWhenEmpty": true,
-}
-```
 
-=== "Empty fields greyed out (`true`)"
+=== "Empty fields greyed out (default)"
     {{ img("", "assets/uicustomization/greyed_out_fields/grey.png") }}
 
-=== "Empty fields not shown (`false`, default)"
+=== "Empty fields not shown"
     {{ img("", "assets/uicustomization/greyed_out_fields/hidden.png") }}
+
+
+Collapsable fields that are empty are greyed out by default.
+These can be hidden instead, using {{ CSS }}.
+
+
+??? example "CSS to hide empty collapsed fields *(click here)*"
+    1. Under `extra/style.scss`, add the following code:
+    ```css
+    .glossary-details--grey {
+      display: none;
+    }
+    ```
 
 
 ---
