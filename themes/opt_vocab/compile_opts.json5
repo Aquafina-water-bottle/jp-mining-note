@@ -18,7 +18,6 @@
   "enableModule.sentenceParser.autoHighlight": false,
 
   "enableModule.autoPitchAccent":         false,
-  "enableModule.autoPitchAccent.color":   false,
 
   "enableModule.imgStylizer":             true, // very much recommended to have in general
   "enableModule.imgStylizer.imageBlur":   false,
