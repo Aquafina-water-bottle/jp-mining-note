@@ -1,7 +1,7 @@
 
 {{~!                                                                      ~}}
 {{~! ==================== jp-mining-note handlebars ===================== ~}}
-{{~!                               v1.0.1                                 ~}}
+{{~!                               v1.0.2                                 ~}}
 {{~!                                                                      ~}}
 {{~!       https://aquafina-water-bottle.github.io/jp-mining-note/        ~}}
 {{~!       -------------------------------------------------------        ~}}
@@ -21,7 +21,7 @@
 
 {{~! ====================== Selected Text Options ======================= ~}}
 
-{{set "opt-selection-text-enabled"               false}}
+{{set "opt-selection-text-enabled"               true}}
 {{set "opt-selection-text-dictionary"            true}}
 {{set "opt-selection-text-glossary"              true}}
 {{set "opt-selection-text-glossary-attempt-bold" true}}
