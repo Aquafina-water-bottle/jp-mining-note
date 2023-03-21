@@ -185,12 +185,12 @@ to do exactly that.
 
 
 ## Selected Text as the Definition
-If you want to select the text to use instead of the definition,
-simply set `opt-selection-text-enabled` to `true`.
+If you don't want to use the first definition,
+you can select the dictionary or text that you want to use.
 
 ![type:video](assets/setupyomichan/selected_text.mp4)
 
-By default, this enable the following behavior:
+Here is exactly what's happening:
 
 1. If nothing is selected, then the first dictionary is chosen just like normal.
 1. If a dictionary is selected, then that dictionary will replace the first definition.
@@ -200,7 +200,7 @@ By default, this enable the following behavior:
 !!! note
     Selecting parts of a definition to bold the text does not always work,
     especially when used across text with formatting or newlines.
-    See [this](definitions.md#manual-selection) for more details.
+    See [this](definitions.md#primary-definition-selection-manual) for more details.
 
     With this being said, selecting the dictionary should always work.
 

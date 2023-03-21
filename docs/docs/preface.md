@@ -20,28 +20,27 @@ However, with the proper setup, one can also create cards on the following platf
 I'm not aware of a workflow for iOS that works with Yomichan.
 
 ## Anki Desktop
-Primary support is given to the latest stable Anki versions (2.1.54+ & Qt6).
-Limited support will be given for older versions of Anki.
-With that being said, JPMN should work for Anki versions 2.1.49+.
+This note supports Anki versions 2.1.50 and above, with
+primary support given to the latest stable Anki versions (2.1.60+ & Qt6).
+Limited support will be given for older versions of Anki,
+and there are certain features that are known to break on Anki versions 2.1.49 and below.
 
 ## Mobile (AnkiDroid and AnkiMobile)
-Mobile support is slowly being worked on,[^1]
-but JPMN (on mobile) is currently not stable.
-Do not expect the note to work on mobile.
-Therefore, if you *absolutely must* use Anki on mobile,
-I recommend **not using this note**.
-
+jp-mining-note finally supports AnkiDroid and AnkiMobile,
+paired with a new interface specifically designed for mobile devices.
+However, JPMN wasn't tested heavily on these apps as of writing this[^1].
+Because of this, please [let me know](faq.md#contact-info) if you come across any bugs!
 
 [^1]:
-    Written as of 2022/10/31.
+    Written as of 2023/03/20.
 
 ## AnkiWeb
-There is no support for AnkiWeb,
-and there are no plans to support AnkiWeb.
+JPMN is not tested on AnkiWeb,
+and there are currently no plans to support AnkiWeb.
 
 ## Themes
 Both light mode and dark mode are supported.
-However, dark mode is recommended as the main theme of this note.
+The note's theme changes accordingly with your Anki theme.
 
 ## Updating
 If you ever wish to update the note, this can only be done on PC,
@@ -53,6 +52,11 @@ The note does not auto-update; you must manually update the note.
 
 
 
+<!--
+superseeded by index.md?
+principles still apply though, its just repeating some things from the landing page
+-->
+
 # Theme & Design Principles
 
 ## Made for Japanese Learning
@@ -62,6 +66,7 @@ Every feature you see is to simply make this learning process easier and smoothe
 ## Minimalistic Design
 This note is visually designed to be minimalistic because the fundamental goal is to learn Japanese,
 not to have eye catching graphics.
+The main focus is on the content, not the fluff.
 
 ## Minimal Dependencies
 The only fundamental dependencies are `Yomichan` (to create the note) and the `Anki-Connect` add-on
@@ -83,7 +88,6 @@ and updated so you can use it to the best of your ability.
 Everything here, including the documentation itself, is completely free and open source,
 licensed under [MIT](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/LICENSE).
 Rest easy knowing you will keep full ownership of your note, forever.
-
 
 ---
 

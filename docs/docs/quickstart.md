@@ -253,7 +253,7 @@ in your deck are found.
 ---
 
 # Image Blur
-<i><sup>Main Page: [Images: Image Blur TODO]()</sup></i>
+<i><sup>Main Page: [Images: Image Blur](images.md#image-blur)</sup></i>
 
 The main image can be blurred on specific cards, if desired.
 
@@ -295,10 +295,11 @@ TODO update video with interface
 ![type:video](assets/autopa/pa_override.mp4)
 
 
-
 <br>
 
+
 ## Pitch Accent Coloring
+<i><sup>Main Page: [Pitch Accent](autopa.md)</sup></i>
 
 The card can be colored according to the pitch accent of the word, if desired.
 

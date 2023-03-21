@@ -35,8 +35,9 @@ Dictionaries from Yomichan are sorted into the following fields:
     do not belong in any of the above categories
     (in other words, does not provide the meaning of the word).
 
-    An example is the
-    [JMdict Surface Forms](https://github.com/FooSoft/yomichan/issues/2183) dictionary
+    Some examples include:
+    - [JMdict Surface Forms](https://github.com/FooSoft/yomichan/issues/2183)
+    - [JMedict TODO link]()
 
     !!! note
         This does not include pitch accent dictionaries, frequency lists, or kanji dictionaries,
@@ -147,7 +148,7 @@ This can be changed to the first monolingual dictionary by changing the followin
 {% raw %}
 ```handlebars
 {{~! valid values: "bilingual", "monolingual" ~}}
-{{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
+{{~set "opt-first-definition-type" "monolingual" ~}}
 ```
 {% endraw %}
 
@@ -158,22 +159,13 @@ This can be changed to the first monolingual dictionary by changing the followin
 Sometimes, you may want to override the primary definition,
 or highlight the definition that makes sense with the context.
 
-By default, selecting (highlighting) the text **will do nothing**,
-to prevent any unexpected errors from happening.
-However, the user can set the following {{ YTCO }} to allow selecting text to override the
-automatic dictionary selection behavior:
-
-{% raw %}
-```handlebars
-{{~! options related to selected text ~}}
-{{set "opt-selection-text-enabled" true}}
-```
-{% endraw %}
+This is enabled by default.
+In case you want to disable this behavior, set `opt-selection-text-enabled` to `false`.
 
 ![type:video](assets/setupyomichan/selected_text.mp4)
 
 
-Setting this option will enable the following behavior:
+This manual selection behavior does the following:
 
 1. If nothing is selected, then the first dictionary is chosen just like normal.
 
@@ -559,54 +551,6 @@ This is an option because there are many version of JMdict Yomichan dictionaries
 so it is impossible to automatically detect whether you are using the extra version or not.
 
 ---
-
-
-
-
-
-
-# Plaintext Options
-
-!!! warning
-    TODO not meant for people using jp-mining-note! The above allows you to do
-    the exact same thing and more!
-
-
-## `opt__plaintext__stylize-glossary`
-
-- main option you absolutely want to set to `false` to ensure that the HTML format
-    is virtually the same as the default
-
-- exceptions:
-    - the dictionary and tags are not italicized, to prevent italic kanjis/kana from showing
-    - the div that left aligns the text is not present
-        - if this breaks your card, try surrounding your definition field, i.e. if your field name is `Definition`:
-            {% raw %}
-            ```html
-            <div style="text-align: left"> {{Definition}} </div>
-            ```
-            {% endraw %}
-    - dictionaries with only one entry be formatted as a list of one element by default
-        - see the `opt__plaintext__one-dict-entry-only-no-list` option to disable this
-
-- invalidates `opt-wrap-first-line-spans` entirely, users must now rely on
-    `opt__plaintext__remove-first-line-enabled`
-
-## `opt__plaintext__one-dict-entry-only-no-list`
-
-- TODO
-
-## `opt__plaintext__export-dictionary-tag`
-
-- whether the dictionary tag is exported or not
-
-## `opt__plaintext__remove-first-line-enabled`
-
-- whether the first line of a dictionary is removed or not
-- uses the same options from the [first line removal section](#first-line-removal-when-html-can-break)
-
-
-
 
 
 
