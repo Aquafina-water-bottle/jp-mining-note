@@ -647,13 +647,19 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
     Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.
 
 
-# Discord Contact Info { .text-yellow }
+# Contact Info { .text-yellow }
+
+## Discord Contact Info { .text-yellow }
 Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
 
 Servers:
 
 * [TheMoeWay]({{THEMOEWAY_LINK}}) (I recommend using the `jp-mining-note` thread in the `#resources-sharing` channel)
 * Refold (JP) server  (I recommend using the `jp-mining-note` thread in the `#sentence-mining-workflows` channel)
+
+
+## Github
+If you don't want to use Discord, please shoot your message [here](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
 
 
 
