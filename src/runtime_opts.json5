@@ -892,6 +892,7 @@
   // The delay (in milliseconds) of which this module is loaded.
   // - 1 second is 1000ms
   // - A delay of 0 means that it is loaded instantly.
+  // OVERWRITTEN BELOW
   "asyncManager.initialDelay": 50,
 
 
@@ -952,6 +953,16 @@
       "type": "isiPhoneiPad",
       "resultTrue": true, // it seems like the AnkiMobile release only supports qt5 as of writing this
       "resultFalse": false,
+    },
+
+    "asyncManager.initialDelay": {
+      "type": "cardSide",
+      "args": {
+        "op": "===",
+        "cardType": "front",
+      },
+      "resultTrue":  300,
+      "resultFalse": 50,
     },
 
   },
