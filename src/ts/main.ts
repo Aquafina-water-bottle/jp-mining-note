@@ -188,5 +188,6 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     asyncManager.addModule(new CheckDuplicateKey());
   }
 
-  addOnShownHook(() => { asyncManager.runModules() });
+  //addOnShownHook(() => { asyncManager.runModules() });
+  addOnShownHook(() => { asyncManager.runModulesDelay() });
 }
