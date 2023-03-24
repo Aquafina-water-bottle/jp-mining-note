@@ -505,6 +505,7 @@ export class KanjiHover extends RunnableAsyncModule {
 
     if (this.getOption("kanjiHover.activateOn") === "hover") {
       if (wordReadingEle !== null) {
+
         wordReadingEle.onmouseover = (() => {
           // replaces the function with a null function to avoid calling this function
           if (wordReadingEle !== null) {
