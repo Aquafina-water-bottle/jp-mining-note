@@ -1,6 +1,6 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { filterCards, getTags, CARD_KEY, getCardSide } from '../utils';
+import { filterCards, getTags, CARD_KEY, getCardSide, CardSide } from '../utils';
 import { getFieldValue, Field, cacheFieldValue } from '../fields';
 import {
   Tooltips,
@@ -8,7 +8,7 @@ import {
   NoteInfoTooltipBuilder,
   TooltipBuilder,
 } from './tooltips';
-import { selectPersist } from '../spersist';
+import { selectPersistAny, selectPersistObj } from '../spersist';
 import {
   getQueryCache,
   AnkiConnectAction,
@@ -29,7 +29,10 @@ type WordIndicatorsCategoryID =
   | 'new.default';
 
 const wordIndicatorCardCacheKey = 'WordIndicators.wordIndicatorCardCacheKey';
-const wordIndicatorMutexKey = 'WordIndicators.wordIndicatorMutexKey';
+const wordIndicatorsCardResultCacheKey = 'WordIndicators.wordIndicatorsCardResultCacheKey';
+
+const cardResultsCacheKey = `${wordIndicatorsCardResultCacheKey}.${CARD_KEY}`;
+
 
 const clsMainWord = 'dh-left__similar-words-indicators-main-word';
 const clsWithIndicators = 'dh-left--with-similar-word-indicators';
@@ -51,7 +54,6 @@ class WordIndicator {
 
   private readonly indicatorEle: HTMLElement | null;
   private readonly cacheKey: string;
-  private readonly mutexKey: string;
 
   constructor(label: string, baseIndicatorQuery: string, wordInds: WordIndicators, indicatorEle: HTMLElement | null) {
     this.label = label;
@@ -59,7 +61,6 @@ class WordIndicator {
     this.wordInds = wordInds;
     this.indicatorEle = indicatorEle;
     this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${CARD_KEY}`;
-    this.mutexKey = `${wordIndicatorMutexKey}.${label}.${CARD_KEY}`;
 
     // ran synchronously, so fields will 100% be cached
     const cacheFields: readonly Field[] = [
@@ -275,26 +276,36 @@ class WordIndicator {
     return tooltipBuilder.buildTooltipOnly().innerHTML;
   }
 
-  private async displayIfEleExists(tooltipHTML: string) {
+  // this is only expected to be called at the backside of the card
+  async display() {
+    if (!this.isCached()) {
+      this.wordInds.logger.debug(`${this.label} -> nothing cached?`);
+      return;
+    }
+    const tooltipHTML = this.wordInds.persist?.get(this.cacheKey);
+
     // tooltipHTML can actually be an empty string, to store the fact that nothing has to be shown
     if (tooltipHTML.length === 0) {
+      this.wordInds.logger.debug(`${this.label} -> empty`);
+      return;
+    }
+    this.wordInds.logger.debug(`${this.label} -> displaying...`);
+
+    // elements are gotten in the constructor of WordIndicators, so these cannot
+    // accidentally grab the wrong element
+    const indicatorEle = this.indicatorEle;
+    const dhLeftEle = this.wordInds.dhLeftEle;
+
+    if (indicatorEle === null || dhLeftEle === null) {
+      this.wordInds.logger.warn(`Cannot display indicator: ${this.label}`)
       return;
     }
 
-    // gets all elements here to prevent race condition at front of card
-    // i.e. if this was ran in the front of the card & the back was blocked by a mutex,
-    // then this code is still valid to run
-    const indicatorEle = this.indicatorEle ?? document.getElementById(this.label);
-    const dhLeftEle = this.wordInds.dhLeftEle ?? document.getElementById('dh_left');
-    if (indicatorEle === null || dhLeftEle === null) {
-      return;
-    }
     // TODO document structure of element?
     indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
     indicatorEle.classList.toggle('dh-left__similar-words-indicator--visible', true);
 
-    // TODO potential race condition here!!!
-    if (getCardSide() === "back" && await cardIsNew("back")) {
+    if (await cardIsNew("back")) {
       indicatorEle.classList.toggle('dh-left__similar-words-indicator--new', true);
     }
 
@@ -304,13 +315,11 @@ class WordIndicator {
     this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
   }
 
-  private releaseMutex() {
-    // removes mutex
-    this.wordInds.persist?.pop(this.mutexKey);
-    this.wordInds.logger.debug(`Finished running ${this.label}`);
+  isCached() {
+    return (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey));
   }
 
-  async run() {
+  async getResult(cardSide: CardSide | undefined) {
     // resets on refresh
     const indicatorEle = document.getElementById(this.label);
     indicatorEle?.classList.toggle('dh-left__similar-words-indicator--visible', false);
@@ -318,20 +327,15 @@ class WordIndicator {
     // gets cache if exists
     // this section is before the mutex in case this was called
     // on the back side of the card while the front side is still running
-    if (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey)) {
-      this.wordInds.logger.debug('Using cached indicator');
-      const tooltipHTML = this.wordInds.persist.get(this.cacheKey);
-      this.displayIfEleExists(tooltipHTML);
+    //if (this.isCached() && cardSide === "back") {
+    if (this.isCached()) {
+      this.wordInds.logger.debug('Has cached indicator');
+      //const tooltipHTML = this.wordInds.persist?.get(this.cacheKey);
+      //this.display(tooltipHTML);
       return;
     }
 
-    // normal mutex
-    if (this.wordInds.persist?.has(this.mutexKey)) {
-      this.wordInds.logger.debug('Cannot run due to mutex');
-      return;
-    }
     this.wordInds.logger.debug(`Running ${this.label}`);
-    this.wordInds.persist?.set(this.mutexKey, 'true');
 
     const queryResults = await this.getQueryResults();
 
@@ -355,8 +359,8 @@ class WordIndicator {
       if (this.wordInds.persist !== null) {
         this.wordInds.persist.set(this.cacheKey, '');
       }
+      this.wordInds.logger.debug(`Finished running ${this.label}: nothing found`);
 
-      this.releaseMutex();
       return;
     }
 
@@ -365,7 +369,6 @@ class WordIndicator {
     if (sortMethod === 'time-created') {
       filteredCardIds = this.sortByTimeCreated(queryResults);
     } else {
-      this.releaseMutex();
       throw Error('not implemented');
       //await this.sortByFirstReview(queryResults, kanjiToHover);
     }
@@ -376,16 +379,17 @@ class WordIndicator {
     // caches
     if (this.wordInds.persist !== null) {
       this.wordInds.persist.set(this.cacheKey, tooltipHTML);
-      this.displayIfEleExists(tooltipHTML);
+      this.wordInds.logger.debug(`Finished running ${this.label}: cached result`);
+      //if (cardSide === "back") {
+      //  this.display(tooltipHTML);
+      //}
     }
-
-    this.releaseMutex();
   }
 }
 
 export class WordIndicators extends RunnableAsyncModule {
-  readonly persist = selectPersist();
-  readonly persistObj = selectPersist('window');
+  readonly persist = selectPersistAny();
+  readonly persistObj = selectPersistObj();
 
   // elements gotten here for safety from async calls
   private readonly indicatorEleSameWord = document.getElementById("same_word_indicator");
@@ -410,7 +414,9 @@ export class WordIndicators extends RunnableAsyncModule {
       return;
     }
 
-    if (this.getOption('wordIndicators.safe') && this.cardSide === "front") {
+    const getResultFront = this.getOption('wordIndicators.getResultsFront');
+
+    if (!getResultFront && this.cardSide === "front") {
       return;
     }
     // ASSUMPTION: if safe, then should be backside of card -> this.indicatorEle* and this.dhLeftEle
@@ -428,8 +434,48 @@ export class WordIndicators extends RunnableAsyncModule {
       new WordIndicator('same_kanji_indicator', baseKanjiQuery, this, this.indicatorEleSameKanji),
       new WordIndicator('same_reading_indicator', baseReadingQuery, this, this.indicatorEleSameReading),
     ];
-    for (const indicator of indicators) {
-      await indicator.run();
+
+    const persistObj = selectPersistObj();
+
+    if (getResultFront || (!getResultFront && this.cardSide === "back")) {
+      if (persistObj === null) {
+        // abort because this will probably be too expensive...
+        this.logger.warn("cannot persist, will not get results...")
+      } else {
+
+        // global variable to store whether the indicators have gotten the results or not
+        let getResults = (async () => {
+          // these should run very quickly if something is cached (as it immediately returns)
+          for (const indicator of indicators) {
+            // ASSUMPTION: this actually awaits for the result!
+            await indicator.getResult(this.cardSide);
+          }
+          return true;
+        });
+
+        if (persistObj.has(cardResultsCacheKey)) {
+          // no reason to get results: already queued
+          // NO-OP
+
+        } else {
+          persistObj.set(cardResultsCacheKey, getResults());
+        }
+
+      }
+
+      if (this.cardSide === "back") {
+        if (persistObj !== null && persistObj.has(cardResultsCacheKey)) {
+          await persistObj.get(cardResultsCacheKey);
+
+          for (const indicator of indicators) {
+            // ASSUMPTION: this actually awaits for the result!
+            indicator.display();
+          }
+
+        } else {
+          this.logger.warn("cannot persist or results are not cached");
+        }
+      }
     }
   }
 }
