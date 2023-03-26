@@ -73,7 +73,7 @@
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
 
 
-  "wordIndicators.safe": false,
+  "wordIndicators.getResultsFront": true,
 
   //"tooltips.overrideOptions.autoPitchAccent": {
   //  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": false,

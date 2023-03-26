@@ -164,7 +164,7 @@ export function getCardTypeName() {
   return document.getElementById("hidden_card_type_name")?.innerHTML;
 }
 export function getCardSide() {
-  return document.getElementById("hidden_card_side")?.innerHTML;
+  return document.getElementById("hidden_card_side")?.innerHTML as CardSide | undefined;
 }
 export function getNoteType() {
   return document.getElementById("hidden_note_type")?.innerHTML;

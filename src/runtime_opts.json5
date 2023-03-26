@@ -672,7 +672,7 @@
   // If set to false, attempts to load word indicators at the front side of the card.
   // This improves performance (from the user perspective), but can potentially lead to
   // word indicators displaying on wrong cards under very specific circumstances.
-  "wordIndicators.safe": true,
+  "wordIndicators.getResultsFront": true,
 
   "wordIndicators.overrideOptions.tooltips": {
     // always show pitch accent
