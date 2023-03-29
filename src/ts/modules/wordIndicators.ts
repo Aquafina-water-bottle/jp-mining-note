@@ -201,8 +201,6 @@ class WordIndicator {
   ): Promise<FilteredCardsInfo> {
     const cardIDs: Set<number> = new Set();
 
-    //const result: FilteredCardsInfo = {};
-
     // there's no set union?
     // there's also no easy way to add all elements from an iterable to a set???
     // therefore, you just go to for-loop through all the values???????
@@ -316,10 +314,11 @@ class WordIndicator {
   }
 
   isCached() {
+    // notice this.wordInds.useCache (refresh button naturally works)
     return (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey));
   }
 
-  async getResult(cardSide: CardSide | undefined) {
+  async getResult() {
     // resets on refresh
     const indicatorEle = document.getElementById(this.label);
     indicatorEle?.classList.toggle('dh-left__similar-words-indicator--visible', false);
@@ -327,11 +326,8 @@ class WordIndicator {
     // gets cache if exists
     // this section is before the mutex in case this was called
     // on the back side of the card while the front side is still running
-    //if (this.isCached() && cardSide === "back") {
     if (this.isCached()) {
       this.wordInds.logger.debug('Has cached indicator');
-      //const tooltipHTML = this.wordInds.persist?.get(this.cacheKey);
-      //this.display(tooltipHTML);
       return;
     }
 
@@ -380,9 +376,6 @@ class WordIndicator {
     if (this.wordInds.persist !== null) {
       this.wordInds.persist.set(this.cacheKey, tooltipHTML);
       this.wordInds.logger.debug(`Finished running ${this.label}: cached result`);
-      //if (cardSide === "back") {
-      //  this.display(tooltipHTML);
-      //}
     }
   }
 }
@@ -437,6 +430,7 @@ export class WordIndicators extends RunnableAsyncModule {
 
     const persistObj = selectPersistObj();
 
+    // if getResultFront, this code will always fire regardless of side
     if (getResultFront || (!getResultFront && this.cardSide === "back")) {
       if (persistObj === null) {
         // abort because this will probably be too expensive...
@@ -448,7 +442,7 @@ export class WordIndicators extends RunnableAsyncModule {
           // these should run very quickly if something is cached (as it immediately returns)
           for (const indicator of indicators) {
             // ASSUMPTION: this actually awaits for the result!
-            await indicator.getResult(this.cardSide);
+            await indicator.getResult();
           }
           return true;
         });
