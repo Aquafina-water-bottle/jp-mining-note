@@ -462,7 +462,7 @@ and uses the glossary by default if you don't have anything highlighted.
 
 ## Grab only the first dictionary { .text-yellow }
 
-> Adds: `{first-dictionary}`
+> Adds: `{glossary-first}`
 
 The following grabs the first dictionary
 (including every definition within said dictionary).
