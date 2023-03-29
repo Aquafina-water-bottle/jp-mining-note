@@ -35,7 +35,6 @@ export class CheckDuplicateKey extends RunnableAsyncModule {
     const queryStr = `"Key:${keyText}" "card:${this.cardTypeName}" "note:${this.noteName}"`;
 
     const result = await invoke("findCards", {"query": queryStr}) as Array<number>;
-    console.log("bro", queryStr, result);
 
     if (result.length === 0) {
       this.logger.warn("Cannot find own card?")
