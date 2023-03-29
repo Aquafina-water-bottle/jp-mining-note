@@ -459,7 +459,7 @@ and uses the glossary by default if you don't have anything highlighted.
 
 ## Grab only the first dictionary { .text-yellow }
 
-> Adds: `{first-dictionary}`
+> Adds: `{glossary-first}`
 
 !!! tip
     I recommend using `{jpmn-primary-definition}` from the [JPMN Handlebars Package](jpmnhandlebars.md)
