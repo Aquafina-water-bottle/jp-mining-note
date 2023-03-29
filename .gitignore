@@ -352,6 +352,7 @@ config.py
 config/config.py
 config/user_jpmn_opts*.json*
 config/user_jpmn_opts.json
+config/config.json*
 build/
 templates/scss/*.css
 
@@ -377,3 +378,4 @@ src/ts/test/templates/
 src/_js/
 config/temp/
 src/svg/folder-tab/unused/
+

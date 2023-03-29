@@ -39,6 +39,8 @@ export type AnkiConnectAction = {
 
 // https://github.com/FooSoft/anki-connect#javascript
 export function invoke(action: string, params: Record<string, any> = {}): unknown {
+  //console.log(`invoke(${action}, ${JSON.stringify(params)}`);
+
   let version = 6;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
