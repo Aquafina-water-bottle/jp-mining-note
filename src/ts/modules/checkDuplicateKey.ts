@@ -1,6 +1,7 @@
 import {escapeQueryStr, invoke} from "../ankiConnectUtils";
 import { getFieldValue } from "../fields";
 import { RunnableAsyncModule } from "../module"
+import {getOption} from "../options";
 import { selectPersistStr } from '../spersist';
 import {getModelName, getCardTypeName} from "../utils";
 
@@ -16,6 +17,10 @@ export class CheckDuplicateKey extends RunnableAsyncModule {
   }
 
   async main() {
+    if (!getOption("enableAnkiconnectFeatures")) {
+      return;
+    }
+
     const cacheKey = `checkDuplicateKey.${this.key}`;
 
     const persist = selectPersistStr();
@@ -25,7 +30,7 @@ export class CheckDuplicateKey extends RunnableAsyncModule {
     }
 
     // queries to check
-    this.logger.debug("Key is unique (cached result).")
+    this.logger.debug("Checking if key is unique...")
     const keyText = escapeQueryStr(this.key);
     const queryStr = `"Key:${keyText}" "card:${this.cardTypeName}" "note:${this.noteName}"`;
 
