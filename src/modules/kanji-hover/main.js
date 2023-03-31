@@ -123,7 +123,7 @@ const JPMNKanjiHover = (() => {
     // multi query result, in the format of
     // [kanji 1 (non-new), kanji 1 (new), kanji 2 (non-new), kanji 2 (new), etc.]
     async cardQueries(kanjiArr) {
-      const noteName = '{{ NOTE_FILES("model-name").item() }}';
+      const noteName = '{{ NOTE_DATA("model-name").item() }}';
       const cardTypeName = 'Mining Card';
 
       function constructFindCardAction(query) {

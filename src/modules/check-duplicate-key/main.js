@@ -21,8 +21,8 @@ const JPMNCheckDuplicateKey = (() => {
       }
 
       const keyText = this.ankiConnectHelper.escapeStr(key);
-      const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
-      const noteName = '{{ NOTE_FILES("model-name").item() }}';
+      const cardTypeName = '{{ NOTE_DATA("templates", note.card_type, "name").item() }}';
+      const noteName = '{{ NOTE_DATA("model-name").item() }}';
 
       const query = `"Key:${keyText}" "card:${cardTypeName}" "note:${noteName}"`;
       const result = await this.ankiConnectHelper.query(query, /*cache=*/false);
