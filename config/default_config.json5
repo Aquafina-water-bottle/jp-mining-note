@@ -24,8 +24,6 @@
   //   at least make sure the file contains {}
   "runtime-options-path": "config/runtime_opts.json5",
   "compile-options-path": "config/compile_opts.json5",
-  "note-changes-path": "tools/data/note_changes.json5",
-  "note-data-path": "tools/data/note_data.json5",
 
 
   // - File searched under (root).

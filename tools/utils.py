@@ -14,7 +14,9 @@ import urllib.error
 from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Any, Iterable
 
-import note_files
+from json_handler import JsonHandler
+
+#import note_files
 #from note_changes import NOTE_CHANGES
 
 
@@ -67,6 +69,21 @@ def add_args(parser: argparse.ArgumentParser):
         type=str,
         default=None,
         help="(dev option) custom output version to be used instead of version.txt"
+    )
+
+
+    group.add_argument(
+        "--dev-read-json5",
+        action="store_true",
+        default=False,
+        help="(dev option) read json5 config files instead of json files"
+    )
+
+    group.add_argument(
+        "--dev-emit-json",
+        action="store_true",
+        default=False,
+        help="(dev option) emits json files whenever reading a json5 file"
     )
 
 
@@ -399,7 +416,7 @@ def note_is_installed(note_name) -> bool:
     return note_name in result
 
 
-def get_version_from_anki(args) -> str:
+def get_version_from_anki(args, note_data: Config) -> str:
     """
     gets version of the jp mining note from the installed note in anki
     """
@@ -407,11 +424,9 @@ def get_version_from_anki(args) -> str:
     if args.dev_input_version is not None:
         return handle_custom_version(args.dev_input_version)
 
-    nf_config = get_note_config()
-
     result = invoke(
         "modelTemplates",
-        modelName=nf_config("model-name").item(),
+        modelName=note_data("model-name").item(),
     )
 
     assert result.keys()
@@ -459,9 +474,17 @@ def get_config(args: argparse.Namespace) -> Config:
     return config
 
 
+def create_json_handler(args: argparse.Namespace):
+    # we emit json by default on release builds
+    return JsonHandler(args.dev_read_json5, True if args.to_release else args.dev_emit_json)
 
-def get_note_config() -> Config:
-    return Config(note_files.NOTE_DATA)
+
+# TODO: get_note_config -> get_note_data
+def get_note_config(json_handler: JsonHandler) -> Config:
+    #path = os.path.join(get_root_folder(), config("note-data-path").item())
+    path = os.path.join(get_root_folder(), "tools/data/note_data.json5")
+    data = json_handler.read_file(path)
+    return Config(data)
 
 
 def gen_dirs(file_path: str):

@@ -17,11 +17,12 @@ from jinja2 import (
     select_autoescape,
     StrictUndefined,
 )
-from json_minify import json_minify
-import json
+#from json_minify import json_minify
+#import json
 
 import utils
 from note_changes import NOTE_CHANGES
+from json_handler import JsonHandler
 
 
 FRONT_FILENAME = "front.html"
@@ -173,6 +174,7 @@ class Generator:
         self,
         jinja_root_folders: list[str],
         config: utils.Config,
+        json_handler: JsonHandler,
         to_release: bool = False,
     ):
         self.jinja_root_folders = jinja_root_folders
@@ -183,6 +185,7 @@ class Generator:
             undefined=StrictUndefined,
             extensions=["jinja2.ext.do"],
         )
+        self.json_handler = json_handler
 
         filters = {
             # https://eengstrom.github.io/musings/add-bitwise-operations-to-ansible-jinja2
@@ -208,8 +211,9 @@ class Generator:
             root_folder, config("translation-file").item()
         )
 
-        with open(translation_file_path, encoding="utf-8") as f:
-            translations = json.loads(json_minify(f.read()))
+        translations = self.json_handler.read_file(translation_file_path)
+        #with open(translation_file_path, encoding="utf-8") as f:
+        #    translations = self.json_handler.read_file(f)
 
         languages = compile_options("displayLanguages").list()
         translator = Translator(languages, translations)
@@ -219,7 +223,7 @@ class Generator:
 
         self.data = {
             # helper methods
-            "NOTE_FILES": utils.get_note_config(),
+            "NOTE_FILES": utils.get_note_config(self.json_handler),
             # TODO change this to be based off of whatever version you specify
             "ALL_FIELDS": NOTE_CHANGES[0].fields,
             "COMPILE_OPTIONS": utils.get_compile_opts(config),
@@ -356,7 +360,6 @@ class Generator:
             utils.gen_dirs(release_output)
             shutil.copy(output_file, release_output)
 
-
 def create_generator(args: argparse.Namespace, config: utils.Config):
     # search folders are: override, theme, src
     root_folder = utils.get_root_folder()
@@ -371,9 +374,12 @@ def create_generator(args: argparse.Namespace, config: utils.Config):
         theme_folder = os.path.join(root_folder, "themes", theme_folder_item)
         search_folders.insert(1, theme_folder)
 
+    json_handler = utils.create_json_handler(args)
+
     generator = Generator(
         search_folders,
         config,
+        json_handler,
         to_release=args.to_release,
     )
     generator.set_data("VERSION", utils.get_version(args))
@@ -399,7 +405,7 @@ def generate_ts_consts(args: argparse.Namespace, generator: Generator):
 
 def generate_cards(args: argparse.Namespace, generator: Generator):
     root_folder = utils.get_root_folder()
-    note_config = utils.get_note_config()
+    note_config = utils.get_note_config(generator.json_handler)
 
 
     # generates typescript
@@ -517,7 +523,7 @@ def main(args=None):
     generate_cards(args, generator)
 
     # generates each file in "build"
-    note_config = utils.get_note_config()
+    note_config = utils.get_note_config(generator.json_handler)
     for file_config in note_config("build").list_items():
         build_file(args, generator, file_config)
 
