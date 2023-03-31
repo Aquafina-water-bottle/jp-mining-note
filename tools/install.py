@@ -308,7 +308,8 @@ def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
 
-    note_config = utils.get_note_config()
+    json_handler = utils.create_json_handler(args)
+    note_config = utils.get_note_config(json_handler)
     model_name = note_config("model-name").item()
 
     root_folder = utils.get_root_folder()
@@ -339,7 +340,7 @@ def main(args=None):
 
         # checks for note changes between versions
         if not args.dev_ignore_note_changes:
-            current_ver = ar.Version.from_str(utils.get_version_from_anki(args))
+            current_ver = ar.Version.from_str(utils.get_version_from_anki(args, note_config))
             new_ver = ar.Version.from_str(utils.get_version(args))
             action_runner = ar.ActionRunner(
                 current_ver,
