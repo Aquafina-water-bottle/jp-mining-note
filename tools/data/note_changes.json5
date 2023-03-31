@@ -20,7 +20,8 @@ action:
 */
 
 {
-  [
+  // starting as an object so it's valid json
+  "note_changes": [
 
     // ========================================================================
 
