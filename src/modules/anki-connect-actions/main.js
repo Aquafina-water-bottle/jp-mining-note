@@ -196,7 +196,7 @@ const JPMNAnkiConnectActions = (() => {
       }
       logger.debug("Testing for new card...", 2);
 
-      const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
+      const cardTypeName = '{{ NOTE_DATA("templates", note.card_type, "name").item() }}';
       const query = `is:new ${this.getKeySentQuery()} "card:${cardTypeName}"`
       const result = await this.query(query, /*cache=*/false);
       const isNew = (result.length > 0);
@@ -224,8 +224,8 @@ const JPMNAnkiConnectActions = (() => {
      * Returns 0 if cannot find the displayed card
      */
     async _getDisplayedCardId() {
-      const cardTypeName = '{{ NOTE_FILES("templates", note.card_type, "name").item() }}';
-      const noteName = '{{ NOTE_FILES("model-name").item() }}';
+      const cardTypeName = '{{ NOTE_DATA("templates", note.card_type, "name").item() }}';
+      const noteName = '{{ NOTE_DATA("model-name").item() }}';
 
       let cachable = true;
 

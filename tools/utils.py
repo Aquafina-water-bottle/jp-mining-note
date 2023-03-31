@@ -480,7 +480,7 @@ def create_json_handler(args: argparse.Namespace):
 
 
 # TODO: get_note_config -> get_note_data
-def get_note_config(json_handler: JsonHandler) -> Config:
+def get_note_data(json_handler: JsonHandler) -> Config:
     #path = os.path.join(get_root_folder(), config("note-data-path").item())
     path = os.path.join(get_root_folder(), "tools/data/note_data.json5")
     data = json_handler.read_file(path)

@@ -16,7 +16,7 @@ const JPMNSameReadingIndicator = (() => {
   const queryWordDiv = `.dh-left__similar-words-indicators .hover-tooltip__word-div`;
 
   const cardTypeName = 'Mining Card';
-  const noteName = '{{ NOTE_FILES("model-name").item() }}';
+  const noteName = '{{ NOTE_DATA("model-name").item() }}';
   const wordHTML = document.getElementById("hidden_word").innerHTML;
   const wrhHTML = document.getElementById("hidden_word_reading_hiragana").innerHTML;
 

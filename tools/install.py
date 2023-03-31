@@ -109,16 +109,16 @@ class NoteUpdater:
     def __init__(
         self,
         input_folder: str,
-        note_config: utils.Config,
+        note_data: utils.Config,
         backup_folder: str | None = None,
     ):
         self.input_folder = input_folder
         self.backup_folder = backup_folder
-        self.note_config = note_config
+        self.note_data = note_data
 
     def read_css(self) -> str:
         input_path = os.path.join(
-            self.input_folder, str(self.note_config("id").item()), CSS_FILENAME
+            self.input_folder, str(self.note_data("id").item()), CSS_FILENAME
         )
         with open(input_path, encoding="utf-8") as f:
             return f.read()
@@ -136,7 +136,7 @@ class NoteUpdater:
               ...
         """
         assert self.backup_folder is not None
-        model_name = self.note_config("model-name").item()
+        model_name = self.note_data("model-name").item()
         if model_name not in invoke("modelNames"):
             print(f"Nothing to backup, {model_name} not installed")
             return
@@ -167,10 +167,10 @@ class NoteUpdater:
         """
 
         templates = []
-        for template_id, template_config in self.note_config("templates").dict_items():
+        for template_id, template_config in self.note_data("templates").dict_items():
             template_name = template_config("name").item()
             dir_path = os.path.join(
-                self.input_folder, str(self.note_config("id").item()), template_id
+                self.input_folder, str(self.note_data("id").item()), template_id
             )
 
             with open(
@@ -185,7 +185,7 @@ class NoteUpdater:
         return templates
 
     def read_model(self) -> NoteType:
-        model_name = self.note_config("model-name").item()
+        model_name = self.note_data("model-name").item()
 
         return NoteType(
             name=model_name,
@@ -213,10 +213,10 @@ class NoteUpdater:
         if invoke("updateModelTemplates", **self.format_templates(model)) is None:
             template_names = [t.name for t in model.templates]
             print(
-                f"Updated {self.note_config('id').item()} templates {template_names} successfully."
+                f"Updated {self.note_data('id').item()} templates {template_names} successfully."
             )
         if invoke("updateModelStyling", **self.format_styling(model)) is None:
-            print(f"Updated {self.note_config('id').item()} css successfully.")
+            print(f"Updated {self.note_data('id').item()} css successfully.")
 
 
 def b64_decode(contents):
@@ -309,8 +309,8 @@ def main(args=None):
         args = utils.get_args(utils.add_args, add_args)
 
     json_handler = utils.create_json_handler(args)
-    note_config = utils.get_note_config(json_handler)
-    model_name = note_config("model-name").item()
+    note_data = utils.get_note_data(json_handler)
+    model_name = note_data("model-name").item()
 
     root_folder = utils.get_root_folder()
     search_folder = args.build_folder if args.from_build else root_folder
@@ -324,7 +324,7 @@ def main(args=None):
 
     backup = not args.no_backup
 
-    note_updater = NoteUpdater(search_folder, note_config, backup_folder)
+    note_updater = NoteUpdater(search_folder, note_data, backup_folder)
     media_installer = MediaInstaller(media_folder, static_folder, media_backup_folder)
 
     is_installed = utils.note_is_installed(model_name)
@@ -340,7 +340,7 @@ def main(args=None):
 
         # checks for note changes between versions
         if not args.dev_ignore_note_changes:
-            current_ver = ar.Version.from_str(utils.get_version_from_anki(args, note_config))
+            current_ver = ar.Version.from_str(utils.get_version_from_anki(args, note_data))
             new_ver = ar.Version.from_str(utils.get_version(args))
             action_runner = ar.ActionRunner(
                 current_ver,
@@ -371,7 +371,7 @@ def main(args=None):
         print(f"Updating {model_name}...")
         note_updater.update()
 
-        for option_file in note_config("media-install", "options").list():
+        for option_file in note_data("media-install", "options").list():
             if args.install_options or not media_installer.media_exists(option_file):
                 media_installer.install(option_file, static=False, backup=backup)
 
@@ -384,11 +384,11 @@ def main(args=None):
         invoke("importPackage", path=install_path)
 
     media_installer.install_from_list(
-        note_config("media-install", "static").list(), static=True
+        note_data("media-install", "static").list(), static=True
     )
 
     media_installer.install_from_list(
-        note_config("media-install", "dynamic").list(), static=False, backup=backup
+        note_data("media-install", "dynamic").list(), static=False, backup=backup
     )
 
     if action_runner is not None and action_runner.has_actions():
