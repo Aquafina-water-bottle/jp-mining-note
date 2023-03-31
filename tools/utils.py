@@ -1,30 +1,20 @@
 from __future__ import annotations
 
 import re
-import sys
 import copy
 import json
-import shutil
 import os.path
 import argparse
-import importlib.util
 import urllib.request
 import urllib.error
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Any, Iterable
+from typing import Callable, Any, Iterable
 
 from json_handler import JsonHandler
 
-#import note_files
-#from note_changes import NOTE_CHANGES
-
-
-if TYPE_CHECKING:
-    import types
-
-EXAMPLE_CONFIG_PATH = "config/example_config.py"
-DEFAULT_CONFIG_PATH = "config/config.py"
+USER_CONFIG_PATH = "config/config.json5"
+DEFAULT_CONFIG_PATH = "config/default_config.json5"
 
 rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+)")
 
@@ -60,30 +50,29 @@ def add_args(parser: argparse.ArgumentParser):
         default=None,
         help="(dev option) custom input version to be used instead of the current version in the "
         "existing Anki note"
-        #help="Installs an older version of the card. "
-        #"This option only works on first install, and not when updating the note.",
+        # help="Installs an older version of the card. "
+        # "This option only works on first install, and not when updating the note.",
     )
 
     group.add_argument(
         "--dev-output-version",
         type=str,
         default=None,
-        help="(dev option) custom output version to be used instead of version.txt"
+        help="(dev option) custom output version to be used instead of version.txt",
     )
-
 
     group.add_argument(
         "--dev-read-json5",
         action="store_true",
         default=False,
-        help="(dev option) read json5 config files instead of json files"
+        help="(dev option) read json5 config files instead of json files",
     )
 
     group.add_argument(
         "--dev-emit-json",
         action="store_true",
         default=False,
-        help="(dev option) emits json files whenever reading a json5 file"
+        help="(dev option) emits json files whenever reading a json5 file",
     )
 
 
@@ -193,43 +182,10 @@ class Config:
         return current_config
 
     def get_path(self):
-        return '.'.join([str(x) for x in self.path])
+        return ".".join([str(x) for x in self.path])
 
     def __repr__(self):
         return f"Config({self.get_path()})"
-
-
-# https://stackoverflow.com/a/41595552
-def import_source_file(fname: str, modname: str) -> "types.ModuleType":
-    """
-    Import a Python source file and return the loaded module.
-
-    Args:
-        fname: The full path to the source file.  It may container characters like `.`
-            or `-`.
-        modname: The name for the loaded module.  It may contain `.` and even characters
-            that would normally not be allowed (e.g., `-`).
-    Return:
-        The imported module
-
-    Raises:
-        ImportError: If the file cannot be imported (e.g, if it's not a `.py` file or if
-            it does not exist).
-        Exception: Any exception that is raised while executing the module (e.g.,
-            :exc:`SyntaxError).  These are errors made by the author of the module!
-    """
-    # https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
-    spec = importlib.util.spec_from_file_location(modname, fname)
-    if spec is None:
-        raise ImportError(f"Could not load spec for module '{modname}' at: {fname}")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[modname] = module
-    try:
-        assert spec.loader is not None
-        spec.loader.exec_module(module)
-    except FileNotFoundError as e:
-        raise ImportError(f"{e.strerror}: {fname}") from e
-    return module
 
 
 # taken from https://github.com/FooSoft/anki-connect#python
@@ -255,22 +211,6 @@ def invoke(action: str, **params):
     return response["result"]
 
 
-def get_config_data_from_path(file_path: str) -> dict[str, Any]:
-    module = import_source_file(file_path, "config")
-    if module is None:
-        raise Exception("Module is None and cannot be imported")
-    if not hasattr(module, "CONFIG"):
-        raise Exception("CONFIG variable is not defined in the config file")
-
-    return module.CONFIG
-
-def get_config_from_path(file_path: str) -> Config:
-    config_data = get_config_data_from_path(file_path)
-
-    config = Config(config_data, path=["root"])
-    return config
-
-
 def defaults(*dicts: dict, strict=False):
     """
     Gets keys, with the highest priority being the first dictionary.
@@ -289,6 +229,7 @@ def defaults(*dicts: dict, strict=False):
             if k not in result:
                 result[k] = v
     return result
+
 
 def _get_opts_all(name, config: Config) -> JSON:
     # attempts to get note options from the following places:
@@ -309,14 +250,18 @@ def _get_opts_all(name, config: Config) -> JSON:
     theme_folder = config("theme-folder").item()
     theme_opts = {}
     if theme_folder is not None:
-        theme_opts_file = os.path.join(root_folder, "themes", theme_folder, f"{name}_opts.json5")
+        theme_opts_file = os.path.join(
+            root_folder, "themes", theme_folder, f"{name}_opts.json5"
+        )
         if os.path.isfile(theme_opts_file):
             with open(theme_opts_file, encoding="utf-8") as f:
                 theme_opts = pyjson5.load(f)
 
     # gets user settings
     user_opts = {}
-    user_opts_file = os.path.join(root_folder, "config", config(f"{name}-options-path").item())
+    user_opts_file = os.path.join(
+        root_folder, "config", config(f"{name}-options-path").item()
+    )
     if os.path.isfile(user_opts_file):
         with open(user_opts_file, encoding="utf-8") as f:
             user_opts = pyjson5.load(f)
@@ -328,8 +273,10 @@ def _get_opts_all(name, config: Config) -> JSON:
         "default": default_opts,
     }
 
+
 def get_runtime_opts_all(config: Config) -> JSON:
     return _get_opts_all("runtime", config)
+
 
 def get_compile_opts_all(config: Config) -> JSON:
     return _get_opts_all("compile", config)
@@ -352,7 +299,8 @@ def get_runtime_opts(config: Config) -> Config:
         extra = defaults(runtime_opts["user"], runtime_opts["themes"])
     for k, v in extra.items():
         if k not in result:
-            print(json.dumps(runtime_opts['default'], indent=2))
+            # TODO more detailed error message
+            print(json.dumps(runtime_opts["default"], indent=2))
             raise KeyError(f"{k} not in default options")
 
         if _is_override_value(v):
@@ -361,6 +309,7 @@ def get_runtime_opts(config: Config) -> Config:
             result[k] = v
 
     return Config(result)
+
 
 def get_compile_opts(config: Config) -> Config:
     compile_opts = get_compile_opts_all(config)
@@ -371,27 +320,9 @@ def get_compile_opts(config: Config) -> Config:
 
     return Config(defaults(*vals, strict=True))
 
-#def get_note_opts(config: Config, as_config=False) -> Config | str:
-#
-#    opts_file = config("opts-path").item()
-#    root_folder = get_root_folder()
-#    opts_path = os.path.join(root_folder, "config", opts_file)
-#
-#    with open(opts_path, encoding="utf-8") as f:
-#        contents = f.read()
-#
-#    if as_config:
-#        # import put here so certain scripts can be ran without external dependencies
-#        #from json_minify import json_minify
-#        from pyjson5 import loads
-#
-#        return Config(json.loads(loads(contents)))
-#
-#    return contents
-
 
 def handle_custom_version(ver: str) -> str:
-    #if ver == "latest":
+    # if ver == "latest":
     #    return str(NOTE_CHANGES[0].version)
     return ver
 
@@ -439,7 +370,7 @@ def get_version_from_anki(args, note_data: Config) -> str:
     return match.group(1)
 
 
-def get_config(args: argparse.Namespace) -> Config:
+def get_config(args: argparse.Namespace, json_handler: JsonHandler) -> Config:
     """
     creates the config file from the example config if it doesn't exist
     """
@@ -448,40 +379,40 @@ def get_config(args: argparse.Namespace) -> Config:
     if cached_config is not None:
         return cached_config
 
-    file_path = args.config_file
+    root_folder = get_root_folder()
 
-    tools_folder = os.path.dirname(os.path.abspath(__file__))
-    root_folder = os.path.join(tools_folder, "..")
-
-    example_config_path = os.path.join(root_folder, EXAMPLE_CONFIG_PATH)
+    override_path = args.config_file
+    user_config_path = os.path.join(root_folder, USER_CONFIG_PATH)
     default_config_path = os.path.join(root_folder, DEFAULT_CONFIG_PATH)
 
-    if file_path is None:
-        file_path = default_config_path
+    user_config_json = {}
+    default_config_json = json_handler.read_file(default_config_path)
 
-        if args.release:
-            file_path = example_config_path
-            print(f"Building release: using the example config...")
+    # first condition: overidden config
+    # second condition: release build uses default config (unless overidden for some reason)
+    #   and tests to see if the user config exists in the first place
+    # otherwise, no user config exists -> use the default only
+    if override_path is not None:
+        user_config_json = json_handler.read_file(override_path)
+    elif not args.release and os.path.isfile(user_config_path):
+        user_config_json = json_handler.read_file(user_config_path)
 
-        elif not os.path.isfile(default_config_path):
-            print(f"Creating the config file under '{file_path}'...")
-            if not os.path.isfile(example_config_path):
-                raise Exception("Example config file does not exist")
-            shutil.copy(example_config_path, default_config_path)
+    # simple override
+    config_json = defaults(user_config_json, default_config_json, strict=True)
+    config = Config(config_json, path=["root"])
 
-    config = get_config_from_path(file_path)
     cached_config = config
     return config
 
 
 def create_json_handler(args: argparse.Namespace):
     # we emit json by default on release builds
-    return JsonHandler(args.dev_read_json5, True if args.to_release else args.dev_emit_json)
+    return JsonHandler(
+        args.dev_read_json5, True if args.to_release else args.dev_emit_json
+    )
 
 
-# TODO: get_note_config -> get_note_data
 def get_note_data(json_handler: JsonHandler) -> Config:
-    #path = os.path.join(get_root_folder(), config("note-data-path").item())
     path = os.path.join(get_root_folder(), "tools/data/note_data.json5")
     data = json_handler.read_file(path)
     return Config(data)

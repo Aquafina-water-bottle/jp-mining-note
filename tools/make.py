@@ -360,7 +360,7 @@ class Generator:
             utils.gen_dirs(release_output)
             shutil.copy(output_file, release_output)
 
-def create_generator(args: argparse.Namespace, config: utils.Config):
+def create_generator(args: argparse.Namespace, config: utils.Config, json_handler: JsonHandler):
     # search folders are: override, theme, src
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "src")
@@ -373,8 +373,6 @@ def create_generator(args: argparse.Namespace, config: utils.Config):
     if theme_folder_item is not None:
         theme_folder = os.path.join(root_folder, "themes", theme_folder_item)
         search_folders.insert(1, theme_folder)
-
-    json_handler = utils.create_json_handler(args)
 
     generator = Generator(
         search_folders,
@@ -453,20 +451,6 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
                 }),
             )
 
-            # generates typescript for each model
-            #build_file(
-            #    args,
-            #    generator,
-            #    utils.Config(
-            #        {
-            #            "input-file": "ts/consts.ts.template",
-            #            "output-file": "tmp/ts/consts.ts",
-            #            "type": "jinja",
-            #            "to-release": False,
-            #        },
-            #    ),
-            #)
-
             generator.generate(
                 GenerateType.JINJA,
                 input_file,
@@ -513,8 +497,9 @@ def main(args=None):
     if args.release:
         args.to_release = True
 
-    config = utils.get_config(args)
-    generator = create_generator(args, config)
+    json_handler = utils.create_json_handler(args)
+    config = utils.get_config(args, json_handler)
+    generator = create_generator(args, config, json_handler)
 
     if args.dev_generate_consts:
         generate_ts_consts(args, generator)
@@ -523,7 +508,7 @@ def main(args=None):
     generate_cards(args, generator)
 
     # generates each file in "build"
-    note_data = utils.get_note_data(generator.json_handler)
+    note_data = utils.get_note_data(json_handler)
     for file_config in note_data("build").list_items():
         build_file(args, generator, file_config)
 
