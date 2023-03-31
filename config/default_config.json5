@@ -31,7 +31,7 @@
   "templates-override-folder": "overrides",
 
   // - File searched under (root).
-  "translation-file": "src/data/translations.jsonc",
+  "translation-file": "src/data/translations.json5",
 
   // - You need dart-sass!
   "sass-path": "sass",
