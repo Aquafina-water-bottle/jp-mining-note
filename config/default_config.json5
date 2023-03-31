@@ -18,12 +18,15 @@
   // = File Options =
   // ==========================================================================
 
-  // - File searched under (root)/config.
+  // - File searched under (root).
   // - Ignores if it doesn't exist.
   // - Must be valid json5! If you want it to be empty,
   //   at least make sure the file contains {}
-  "runtime-options-path": "runtime_opts.json5",
-  "compile-options-path": "compile_opts.json5",
+  "runtime-options-path": "config/runtime_opts.json5",
+  "compile-options-path": "config/compile_opts.json5",
+  "note-changes-path": "tools/data/note_changes.json5",
+  "note-data-path": "tools/data/note_data.json5",
+
 
   // - File searched under (root).
   // - Ignores folder if it doesn't exist.
