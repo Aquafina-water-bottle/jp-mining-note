@@ -44,7 +44,14 @@ const ALL_VERB_TAGS = new Set(["v_unspec", "v1", "v1_s", "v2a_s", "v2b_k", "v2b_
 //  }
 //  return cardKey;
 //}
-export const CARD_KEY = `${getFieldValue("Key")}.${getFieldValue("Sentence")}`;
+let _cardKey: string | null = null;
+export function getCardKey() {
+  if (_cardKey !== null) {
+    return _cardKey;
+  }
+  _cardKey = `${getFieldValue("Key")}.${getFieldValue("Sentence")}`;
+  return _cardKey;
+}
 
 export function popupMenuMessage(message: string, isHTML = false) {
   let popupMenu = document.getElementById('popup_menu');
@@ -113,7 +120,14 @@ export type PAIndicator = {
   tooltip: string,
 }
 
-export const paIndicator: PAIndicator = (function () {
+
+let _paIndicator: PAIndicator | null = null;
+
+export function getPAIndicator() {
+  if (_paIndicator !== null) {
+    return _paIndicator;
+  }
+
   let type: PAIndicatorType | null = null;
   let tooltip = null;
 
@@ -149,12 +163,14 @@ export const paIndicator: PAIndicator = (function () {
     tooltip = translatorStrs['pa-indicator-sentence']
   }
 
-  return {
+  _paIndicator = {
     type: type,
     className: className,
     tooltip: tooltip,
   }
-}());
+
+  return _paIndicator
+}
 
 
 export function getCardType() {

@@ -131,6 +131,7 @@ class SPersistObj implements SPersistInterface {
 console.log("spersist control")
 // wrappers to ensure that these are defined only once
 if (
+  "window" in globalThis &&
   !('_SPersist_sessionStorage' in window) &&
   globalThis.sessionStorage !== null &&
   typeof globalThis.sessionStorage === 'object'
@@ -159,7 +160,7 @@ if (
 //  }
 //}
 
-if (!('_SPersist_windowKey' in window)) {
+if ("window" in globalThis && !('_SPersist_windowKey' in window)) {
   if (typeof (window as any).py === 'object') {
     //LOGGER.debug('Initializing _SPersist_windowKey.py');
     console.log("Initializing _SPersist_windowKey.py");
@@ -172,8 +173,8 @@ if (!('_SPersist_windowKey' in window)) {
 }
 
 const persistObjs = {
-  sessionStorage: (window as any)._SPersist_sessionStorage,
-  window: (window as any)._SPersist_windowKey,
+  sessionStorage: "window" in globalThis ? (window as any)._SPersist_sessionStorage : undefined,
+  window: "window" in globalThis ? (window as any)._SPersist_windowKey : undefined,
 };
 
 /* this function removes the need for isAvailable(), since it will be null if not available */
