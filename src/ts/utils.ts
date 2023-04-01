@@ -1,14 +1,11 @@
 import { LOGGER } from './logger';
 import { translatorStrs } from './consts';
-import {getFieldValue, fieldsAnyFilled, fieldIsFilled } from './fields';
+import {getFieldValue, fieldsAnyFilled, fieldIsFilled, Field } from './fields';
 
+// TODO: move this to a different file? why is this even here?
 export type NoteInfo = {
   readonly tags: string[];
-  readonly fields: {
-    readonly Field: {
-      readonly value: string;
-    };
-  };
+  readonly fields: Record<Field, {value: string}>
 };
 
 export type CardSide = "front" | "back";
