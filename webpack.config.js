@@ -1,5 +1,5 @@
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+//const nodeExternals = require('webpack-node-externals');
 
 
 //const webpack = require("webpack");
@@ -8,8 +8,8 @@ const nodeExternals = require('webpack-node-externals');
 //const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 cacheConfig = {
-  target: "node",
-  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
+  //target: "node",
+  //externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
 
   plugins: [ ],
 

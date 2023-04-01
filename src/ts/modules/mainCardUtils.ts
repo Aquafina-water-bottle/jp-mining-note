@@ -1,5 +1,5 @@
 import { RunnableModule } from '../module';
-import { addOnShownHook, getCardSide, hybridClick, isAndroid, paIndicator } from '../utils';
+import { addOnShownHook, getCardSide, hybridClick, getPAIndicator } from '../utils';
 import { fieldsAnyFilled, fieldsAllFilled } from '../fields';
 import { translatorStrs } from '../consts';
 import {addKeybindFunc, hasKey} from './keybinds';
@@ -76,8 +76,8 @@ export class MainCardUtils extends RunnableModule {
         let svgTitle = circ.children[0];
 
         svgTitle.textContent =
-          translatorStrs['pa-indicator-prefix'] + paIndicator.tooltip;
-        circ.classList.add(paIndicator.className);
+          translatorStrs['pa-indicator-prefix'] + getPAIndicator().tooltip;
+        circ.classList.add(getPAIndicator().className);
       }
 
       let paButton = document.getElementById("pa_button");

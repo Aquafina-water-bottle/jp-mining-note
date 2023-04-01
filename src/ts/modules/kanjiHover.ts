@@ -1,7 +1,7 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { selectPersist } from '../spersist';
-import { plainToRuby, CARD_KEY, filterCards } from '../utils';
+import { plainToRuby, getCardKey, filterCards } from '../utils';
 import { getFieldValue, Field, cacheFieldValue } from '../fields';
 
 import {
@@ -66,8 +66,8 @@ export class KanjiHover extends RunnableAsyncModule {
   constructor() {
     super('kanjiHover');
 
-    this.cardCacheKey = `${kanjiHoverCardCacheKey}.${CARD_KEY}`
-    this.mutexKey = `${kanjiHoverCardMutexKey}.${CARD_KEY}`;
+    this.cardCacheKey = `${kanjiHoverCardCacheKey}.${getCardKey()}`
+    this.mutexKey = `${kanjiHoverCardMutexKey}.${getCardKey()}`;
 
     this.tooltips = new Tooltips();
     this.tooltips.overrideOptions(getOption('kanjiHover.overrideOptions.tooltips'));
@@ -448,7 +448,7 @@ export class KanjiHover extends RunnableAsyncModule {
       this.logger.debug("Cannot run due to mutex");
       return;
     }
-    this.logger.debug(`Running on ${CARD_KEY}...`);
+    this.logger.debug(`Running on ${getCardKey()}...`);
     this.persist?.set(this.mutexKey, "true")
 
     let wordReadingEle = document.getElementById('dh_reading');
@@ -484,7 +484,7 @@ export class KanjiHover extends RunnableAsyncModule {
     }
 
     this.persist?.pop(this.mutexKey)
-    this.logger.debug(`Finished running on ${CARD_KEY}...`);
+    this.logger.debug(`Finished running on ${getCardKey()}...`);
   }
 
   async main() {
