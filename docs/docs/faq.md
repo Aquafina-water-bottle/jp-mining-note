@@ -421,7 +421,7 @@ See the question below to do just that.
 
 1. Head over to:
 
-    > `Edit` (top left corner) →  `AJT: Bulk-add`.
+    > `Edit` (top left corner) →  `AJT: Bulk-generate`.
 
 !!! note
     Bulk generating pitch accents will only batch generate the `AJTWordPitch` field.
