@@ -46,7 +46,7 @@ async function calcKanjiHover() {
     console.log("Key:", info.fields.Key.value);
     simulateEnv(info);
 
-    const kanjiHover = new KanjiHover();
+    const kanjiHover = new KanjiHover(null);
     kanjiHover.main();
     break;
   }

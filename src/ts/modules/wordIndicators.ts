@@ -223,6 +223,7 @@ class WordIndicator {
 
   // adds this to the tooltip because the tooltip covers up the current word
   private addCurrentCardToTooltip(tooltipBuilder: TooltipBuilder) {
+    // TODO shouldn't this be cached in the constructor?
     const currentCardInfo: NoteInfoTooltipBuilder = {
       AJTWordPitch: getFieldValue('AJTWordPitch'),
       PAOverride: getFieldValue('PAOverride'),
