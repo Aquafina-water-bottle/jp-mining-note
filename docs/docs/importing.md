@@ -95,6 +95,11 @@ However, here are a few tips:
 
 1. If you have a field that stores the source of the media, I recommend mapping that to `AdditionalNotes`.
 
+1. The `WordReading` field should ideally be a simplified furigana format.
+    For example, if the word is 成り立つ, this field should be 「成[な]り 立[た]つ」.
+    If you do not have any field that resembles this, use the kana reading (なりたつ) or true furigana
+    (<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ), and continue with the steps below.
+
 1. I recommend **not** setting `FrequenciesStylized` to anything, even if you have a field for
     frequency lists[^1].
 
@@ -248,8 +253,12 @@ Sentences are usually formatted in one of three ways, as shown below:
 
 ## (2) Batch generate pitch accents and sentence furigana
 
+<!-- TODO outdated! rerecord! -->
 ![type:video](assets/importing/batch_editing.mp4)
 
+This step requires the `AJT Japanese` addon to be [correctly setup](setupanki.md#ajt-japanese).
+Although this step is optional, pitch accents likely won't show for imported cards if you had nothing
+to import into `PAPositions`. In that case, this step is highly recommended.
 
 1. Head to the Card Browser window:
 
@@ -267,12 +276,7 @@ Sentences are usually formatted in one of three ways, as shown below:
 
 3. Head over to:
 
-    > `Edit` (top left corner) →  `Bulk-add pitch accents`.
-
-4. Again, head over to:
-
-    > `Edit` (top left corner) →  `Bulk-add furigana`.
-
+    > `Edit` (top left corner) →  `AJT: Bulk-generate`.
 
 <br>
 
