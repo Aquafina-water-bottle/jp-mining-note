@@ -145,13 +145,18 @@ $jp-sans-android:
   --mobile-footer-height-size: 70px; /* TODO change dynamically and remove variable */
   --footer-height: calc(var(--mobile-footer-height-size) + (2 * var(--mobile-border)));
 
-  /* other */
-  --info-circle-settings-svg-size: 16px;
+  /* folder tab */
   --folder-tab-svg-size: 20px;
   --folder-tab-button-size: 26px;
   --folder-tab-margin-left: 10px;
   --folder-tab-width: 130px;
   --folder-tab-height: 26px;
+
+  /* mobile-popup */
+  --mobile-popup-border: 2vw;
+
+  /* other */
+  --info-circle-settings-svg-size: 16px;
 
   /* light mode specific */
   --text-color:                 black;

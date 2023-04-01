@@ -1009,6 +1009,24 @@ code {
 
 
 
+/*
+ * --------------
+ *  Mobile Popup
+ * --------------
+ */
+
+// TODO move to responsive???
+.mobile-popup {
+  position: fixed;
+  height: calc(50vh - var(--mobile-popup-border));
+  width: calc(100vw - 2 * var(--mobile-popup-border));
+  background-color: var(--tooltip-background-darken);
+  bottom: 0px;
+}
+
+
+
+
 
 /*
  *  ===============
@@ -2000,7 +2018,7 @@ a.glossary__image-hover-text {
   /* see: https://docs.ankiweb.net/templates/styling.html#image-resizing */
   max-height: 500px !important;
   max-width:  100px !important;
-  box-shadow: var(--glossary-image-hover-border);
+  box-shadow: var(--glossary-image-hover-border) !important; /* !important to override minimalist-mode */
 }
 
 /* so the image doesn't disappear once you move your mouse away from the text */
@@ -2087,7 +2105,7 @@ a.glossary__image-hover-text {
   background: var(--external-links-background);
   text-decoration: none !important; /* !important for ankidroid */
 
-  box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
+  box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color) !important; /* !important to override minimalist-mode */
   border-radius: 2px;
 
   //transition: filter 0.2s;

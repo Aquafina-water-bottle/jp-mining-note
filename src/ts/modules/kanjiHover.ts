@@ -1,6 +1,6 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { selectPersist } from '../spersist';
+import { SPersistInterface, selectPersist } from '../spersist';
 import { plainToRuby, getCardKey, filterCards } from '../utils';
 import { getFieldValue, Field, cacheFieldValue } from '../fields';
 
@@ -22,6 +22,9 @@ import {
   cardIDsToCardsInfo,
 } from '../ankiConnectUtils';
 import { translatorStrs } from '../consts';
+import {getViewportWidth} from '../reflow';
+import {compileOpts} from '../consts';
+import {MobilePopup} from '../mobilePopup';
 
 type KanjiHoverCategoryID =
   | 'word.nonNew.hidden'
@@ -50,8 +53,6 @@ type NoteInfoKanjiHover = {
   Key: string;
 };
 
-const kanjiHoverCardCacheKey = 'KanjiHover.kanjiHoverCardCacheKey';
-const kanjiHoverCardMutexKey = "KanjiHover.kanjiHoverCardMutexKey";
 
 // maps a kanji to the full hover HTML (the html containing the kanji + the full popup)
 type KanjiToHover = Record<string, string>;
@@ -60,18 +61,28 @@ export class KanjiHover extends RunnableAsyncModule {
   private readonly persist = selectPersist();
   private readonly persistObj = selectPersist('window');
   private readonly tooltips: Tooltips;
-  private readonly cardCacheKey: string;
+  private readonly cardCacheKey: string; // wordReadingResult
+  private readonly wordKanjisCacheKey: string; // wordReadingResult
   private readonly mutexKey: string;
+  private readonly mobilePopup: MobilePopup | null;
 
-  constructor() {
+  private readonly noteInfo: NoteInfoKanjiHover = {
+    WordReading: getFieldValue('WordReading'),
+    WordReadingRubyHTML: plainToRuby(getFieldValue('WordReading')),
+    Key: getFieldValue('Key'),
+  } as const;
+
+  constructor(mobilePopup: MobilePopup | null) {
     super('kanjiHover');
-
-    this.cardCacheKey = `${kanjiHoverCardCacheKey}.${getCardKey()}`
-    this.mutexKey = `${kanjiHoverCardMutexKey}.${getCardKey()}`;
 
     this.tooltips = new Tooltips();
     this.tooltips.overrideOptions(getOption('kanjiHover.overrideOptions.tooltips'));
 
+    this.cardCacheKey = `KanjiHover.cardCacheKey.${getCardKey()}`
+    this.wordKanjisCacheKey = `KanjiHover.wordKanjisCacheKey.${getCardKey()}`;
+    this.mutexKey = `KanjiHover.mutexKey.${getCardKey()}`;
+
+    this.mobilePopup = mobilePopup;
 
     // ran synchronously, so fields will 100% be cached
     const cacheFields: readonly Field[] = [
@@ -83,6 +94,10 @@ export class KanjiHover extends RunnableAsyncModule {
       cacheFieldValue(f);
     }
 
+  }
+
+  private getCardKanjiCacheKey(kanji: string) {
+    return this.cardCacheKey + "." + kanji;
   }
 
   private wordReadingKanjis(noteInfo: NoteInfoKanjiHover): Set<string> {
@@ -411,13 +426,12 @@ export class KanjiHover extends RunnableAsyncModule {
   private async getKanjisToHover(
     noteInfo: NoteInfoKanjiHover
   ): Promise<Record<string, string>> {
+    // Nothing is cached in this function directly, caching happens in
+    // the ankiConnectUtils queries / cardsInfo
     let kanjiSet = this.wordReadingKanjis(noteInfo);
 
     // maps a kanji to the full hover HTML (the html containing the kanji + the full popup)
     let kanjiToHover: Record<string, string> = {};
-
-    // looks for a cached hoverHTMLKey that doesn't contain the target word
-    // Array.from is to shallow-copy, so it doesn't interfere with kanjiSet.delete()
 
     // searches the remaining kanjis in kanjiSet
     const queryResults = await this.cardQueries(noteInfo, Array.from(kanjiSet));
@@ -443,6 +457,19 @@ export class KanjiHover extends RunnableAsyncModule {
     return kanjiToHover;
   }
 
+  private getWordReadingResult(kanjiToHoverHTML: Record<string, string>, wordReadingRubyHTML: string): string {
+
+    let resultHTML = wordReadingRubyHTML;
+    if (Object.keys(kanjiToHoverHTML).length > 0) {
+      // an empty object seems to replace every empty space
+      const re = new RegExp(Object.keys(kanjiToHoverHTML).join('|'), 'gi');
+      resultHTML = wordReadingRubyHTML.replace(re, function (matched) {
+        return `<span data-kanji-hover="${matched}">${kanjiToHoverHTML[matched]}</span>`;
+      });
+    }
+    return resultHTML;
+  }
+
   async populateTooltips() {
     if (this.persist?.has(this.mutexKey)) {
       this.logger.debug("Cannot run due to mutex");
@@ -451,40 +478,75 @@ export class KanjiHover extends RunnableAsyncModule {
     this.logger.debug(`Running on ${getCardKey()}...`);
     this.persist?.set(this.mutexKey, "true")
 
+    // gets popup for each kanji character and cache
+    let kanjiToHoverHTML = await this.getKanjisToHover(this.noteInfo);
+    if (this.persist !== null) {
+      let kanjis = "" // string of all kanjis available (string for storing in persistence)
+      for (const [kanji, value] of Object.entries(kanjiToHoverHTML)) {
+        //const cardKanjiCacheKey = this.cardCacheKey + "." + key;
+        this.persist.set(this.getCardKanjiCacheKey(kanji), value);
+        kanjis += kanji;
+      }
+      this.persist.set(this.wordKanjisCacheKey, kanjis);
+    }
+
+    // this technically can be optimized depending on mobile or not, but imo
+    // it's safer to save this on both pc/mobile display
+    let resultHTML = this.getWordReadingResult(kanjiToHoverHTML, this.noteInfo.WordReadingRubyHTML)
+
+    // caches final result per card
+    if (this.persist !== null) {
+      this.persist.set(this.cardCacheKey, resultHTML);
+    }
+
+    // mobilePopup is not null <=> bp < combinePicture <=> should display mobile
     let wordReadingEle = document.getElementById('dh_reading');
-
-    const noteInfo: NoteInfoKanjiHover = {
-      WordReading: getFieldValue('WordReading'),
-      WordReadingRubyHTML: plainToRuby(getFieldValue('WordReading')),
-      Key: getFieldValue('Key'),
-    };
-
-    // checks for cache per kanji character
-    let kanjiToHoverHTML = await this.getKanjisToHover(noteInfo);
-
-
-    let resultHTML: string = noteInfo.WordReadingRubyHTML;
-    if (Object.keys(kanjiToHoverHTML).length > 0) {
-      // an empty object seems to replace every empty space
-      const re = new RegExp(Object.keys(kanjiToHoverHTML).join('|'), 'gi');
-      resultHTML = noteInfo.WordReadingRubyHTML.replace(re, function (matched) {
-        return `<span data-kanji-hover="${matched}">${kanjiToHoverHTML[matched]}</span>`;
-      });
-
+    if (wordReadingEle !== null) {
+      if (this.mobilePopup !== null) {
+        this.mobilePopup.displayKanjiHover(kanjiToHoverHTML, wordReadingEle, this.noteInfo.WordReadingRubyHTML);
+      } else { // display normally
       // can be null because this can be ran at the front side of the card
-      if (wordReadingEle !== null) {
         wordReadingEle.innerHTML = resultHTML;
         this.tooltips.addBrowseOnClick(wordReadingEle);
       }
     }
 
-    // caches card
-    if (this.persist !== null) {
-      this.persist.set(this.cardCacheKey, resultHTML);
-    }
-
     this.persist?.pop(this.mutexKey)
     this.logger.debug(`Finished running on ${getCardKey()}...`);
+  }
+
+  private displayCachedResult(persist: SPersistInterface, wordReadingEle: HTMLElement) {
+    this.logger.debug("Using cached card");
+
+    // mobilePopup is not null <=> bp < combinePicture <=> should display mobile
+    if (this.mobilePopup !== null) {
+      // construct kanjiToHoverHTML from cache
+      const kanjiToHoverHTML: Record<string, string> = {}
+
+      const kanjis = persist.get(this.wordKanjisCacheKey);
+      if (kanjis === null) {
+        this.logger.warn("Cannot find kanjis?")
+        return;
+      }
+
+      for (const kanji of kanjis) {
+        const hoverResult = persist.get(this.getCardKanjiCacheKey(kanji));
+        if (hoverResult === null) {
+          this.logger.warn(`Skipping un-cached kanji ${kanji}...`)
+        } else {
+          kanjiToHoverHTML[kanji] = hoverResult;
+        }
+      }
+
+      this.mobilePopup.displayKanjiHover(kanjiToHoverHTML, wordReadingEle, this.noteInfo.WordReadingRubyHTML);
+      // TODO addBrowseOnClick on mobile?
+
+    } else { // display normally
+      const resultHTML = persist.get(this.cardCacheKey);
+      wordReadingEle.innerHTML = resultHTML;
+      this.tooltips.addBrowseOnClick(wordReadingEle);
+    }
+
   }
 
   async main() {
@@ -496,10 +558,7 @@ export class KanjiHover extends RunnableAsyncModule {
     let wordReadingEle = document.getElementById('dh_reading');
 
     if (this.useCache && wordReadingEle !== null && this.persist !== null && this.persist.has(this.cardCacheKey)) {
-      this.logger.debug("Using cached card");
-      const resultHTML = this.persist.get(this.cardCacheKey);
-      wordReadingEle.innerHTML = resultHTML;
-      this.tooltips.addBrowseOnClick(wordReadingEle);
+      this.displayCachedResult(this.persist, wordReadingEle);
       return;
     }
 
