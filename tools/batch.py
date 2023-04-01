@@ -602,6 +602,81 @@ def separate_pa_override_field():
     notes = invoke("multi", actions=actions)
 
 
+def combine_backup_xelieu():
+    """
+    adhoc function where one can use a backup of old notes in a different profile
+    to update notes in the current profile.
+
+    Only use this if you know what you are doing!
+    """
+
+    query = r'"note:Mining Format" Glossary:'
+    print("Querying monolingual notes...")
+    notes = invoke("findNotes", query=query)
+    print("Getting notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print("Combining monolingual & bilingual fields...")
+    bilingual_fields = ["JMDict", "Kenkyusha"]
+    monolingual_fields = ["Shinjirin", "Oukoku", "Daijisen", "Meikyou", "Jitsuyou", "Shinmeikai"]
+
+    def combine_defs(defs):
+        return "<ol>" + "".join(f"<li>{x}</li>" for x in defs) + "</ol>"
+
+    actions = []
+    for info in notes_info:
+        glossary_sel_txt = info["fields"]["Glossary-Selected"]["value"]
+        bilingual_def_txt = info["fields"]["Glossary"]["value"]
+
+        bilingual_defs = [info["fields"][x]["value"].strip() for x in bilingual_fields]
+        bilingual_defs = [x for x in bilingual_defs if x] # filters out all empty fields
+
+        monolingual_defs = [info["fields"][x]["value"].strip() for x in monolingual_fields]
+        monolingual_defs = [x for x in monolingual_defs if x] # filters out all empty fields
+
+        if glossary_sel_txt: # almost always bilingual according to bilingual_def_txt
+            primary_def_txt = glossary_sel_txt
+            secondary_def_txt = bilingual_def_txt
+            extra_defs_txt = combine_defs(monolingual_defs)
+
+        elif bilingual_def_txt:
+            primary_def_txt = bilingual_def_txt
+            secondary_def_txt = ""
+            extra_defs_txt = combine_defs(monolingual_defs)
+
+        else:
+            primary_def_txt = monolingual_defs[0] if monolingual_defs else ""
+            secondary_def_txt = combine_defs(bilingual_defs)
+            extra_defs = monolingual_defs[1:]
+            if len(extra_defs) == 0:
+                extra_defs_txt = ""
+            else:
+                extra_defs_txt = "<ol>" + "".join(f"<li>{x}</li>" for x in extra_defs) + "</ol>"
+
+
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": info["noteId"],
+                    "fields": {
+                        "PrimaryDefinition": primary_def_txt,
+                        "SecondaryDefinition": secondary_def_txt,
+                        "ExtraDefinitions": extra_defs_txt
+                    },
+                }
+            },
+        }
+
+        actions.append(action)
+
+    user_input = input(f"Will update {len(actions)} notes. Type 'yes' once you switched to JPMN deck.\n> ")
+    if user_input != "yes":
+        print("Input was not 'yes', exiting...")
+        return
+    notes = invoke("multi", actions=actions)
+
+
 
 
 
