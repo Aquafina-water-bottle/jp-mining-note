@@ -4,6 +4,7 @@ import {KanjiHover, NoteInfoKanjiHover} from '../modules/kanjiHover';
 import {invoke} from '../ankiConnectUtils';
 import {NoteInfo, plainToRuby} from '../utils';
 import {Field} from '../fields';
+import {manuallyCreateObjPersist} from '../spersist';
 
 
 
@@ -70,7 +71,9 @@ async function calcKanjisToHover(info: NoteInfo) {
 function constructCacheEle(epochTime: number, kanjiToHoverHTML: Record<string, string>): HTMLElement {
   const base = document.createElement("div");
   base.setAttribute("data-cache-version", "1");
-  base.setAttribute("data-cache-time", `${epochTime}`);
+  base.setAttribute("data-cache-write-time", `${epochTime}`);
+  base.setAttribute("data-cache-expires", `9`);
+
 
   const kanjiHoverBaseEle = document.createElement("div");
   kanjiHoverBaseEle.setAttribute("data-cache-type", "kanji-hover");
@@ -107,6 +110,9 @@ async function main() {
   //globalThis.XMLHttpRequest = xhr2;
   globalThis.XMLHttpRequest = require('xhr2');
 
+  // fake a persist obj
+  manuallyCreateObjPersist();
+
   const notesInfo = await getNotesInfo();
 
   const epochTime = Date.now();
@@ -118,9 +124,9 @@ async function main() {
     const action = constructWriteAction(cacheEle.outerHTML, info,);
     actions.push(action)
     //console.log(action)
-    console.log(JSON.stringify(action, null, 2))
+    //console.log(JSON.stringify(action, null, 2))
 
-    break; // TODO temp
+    //break; // TODO temp
   }
 
   await invoke("multi", {actions: actions});
