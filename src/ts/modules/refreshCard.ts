@@ -1,5 +1,5 @@
 import { RunnableModule } from "../module"
-import { CARD_KEY, popupMenuMessage } from '../utils';
+import { getCardKey, popupMenuMessage } from '../utils';
 import { refreshAdjustElements } from '../reflow';
 import { InfoCircleSetting } from './infoCircleSetting';
 import { selectPersistAny } from '../spersist';
@@ -27,7 +27,7 @@ export class RefreshCard extends RunnableModule {
   }
 
   async refreshCard() {
-    const refreshMutex = 'jpmn-asyncManager-refresh-mutex' + CARD_KEY;
+    const refreshMutex = 'jpmn-asyncManager-refresh-mutex' + getCardKey();
 
     if (this.persist === null) {
       this.logger.warn(

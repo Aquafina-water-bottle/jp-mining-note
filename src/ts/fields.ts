@@ -45,6 +45,7 @@ export type Field =
   | 'SecondaryDefinition'
   | 'ExtraDefinitions'
   | 'UtilityDictionaries'
+  | 'CardCache'
   | 'Comment';
 
 
@@ -118,5 +119,17 @@ export function getFieldValue(field: Field): string {
     return "";
   }
   return x.innerHTML;
+}
+
+
+// NOTE: not currently cached!!!
+// TODO: cache?
+export function getFieldValueEle(field: Field): HTMLElement | null {
+  const x = document.getElementById(`hidden_field_${field}`);
+  if (x === null) {
+    LOGGER.warn(`getFieldValueEle(${field}) could not find element`);
+    return null;
+  }
+  return x;
 }
 

@@ -51,15 +51,19 @@ and must use `./install.py --update`.
     - Fixed silence playing not working on Ankidroid
     - Uses system fonts for Ankidroid in order to make loading times sane
     - Added a height media query to make the card smaller for lower screen resolutions
+    - `cache.ts` was added to allow caching of kanji hover and word indicator results in the card itself
+        - This means that kanji hover and word indicators have results on mobile!
+    - Made kanji hover and word indicator results show better on mobile
 
 - Backend Javascript rework: (TODO)
     - Javascript has been finally ported to Typescript & webpack
     - Added unit testing for various modules
 
-- Options rework:
+- Builder & Options rework:
     - Flattened all compile-time options and runtime options.
     - Moved compile-time options to its own json file
-    - Both are now in the json5 format for human readability purposes
+    - Most config files now use .json5 for human readability purposes (and can be switched with json for portability)
+        - Removed deprecated importlib in favor of these json config files
 
 - Added styles to the editor view:
     - Merge some editor fields into the same row
@@ -150,6 +154,7 @@ and must use `./install.py --update`.
     - Kanji hover now searches sentences if there aren't enough results to be shown from just words
     - Logger class now supports better filtering of messages and better console output
     - Made the 頭高 (red) pitch accent color slightly deeper, to better differentiate it from 中高 (orange)
+    - Word indicators now load on the front side of the card instead of the back
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images

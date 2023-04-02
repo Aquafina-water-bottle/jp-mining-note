@@ -1,6 +1,6 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { filterCards, getTags, CARD_KEY, getCardSide, CardSide } from '../utils';
+import { filterCards, getTags, getCardKey, getCardSide, CardSide } from '../utils';
 import { getFieldValue, Field, cacheFieldValue } from '../fields';
 import {
   Tooltips,
@@ -31,7 +31,7 @@ type WordIndicatorsCategoryID =
 const wordIndicatorCardCacheKey = 'WordIndicators.wordIndicatorCardCacheKey';
 const wordIndicatorsCardResultCacheKey = 'WordIndicators.wordIndicatorsCardResultCacheKey';
 
-const cardResultsCacheKey = `${wordIndicatorsCardResultCacheKey}.${CARD_KEY}`;
+const cardResultsCacheKey = `${wordIndicatorsCardResultCacheKey}.${getCardKey()}`;
 
 
 const clsMainWord = 'dh-left__similar-words-indicators-main-word';
@@ -60,7 +60,7 @@ class WordIndicator {
     this.baseIndicatorQuery = baseIndicatorQuery;
     this.wordInds = wordInds;
     this.indicatorEle = indicatorEle;
-    this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${CARD_KEY}`;
+    this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${getCardKey()}`;
 
     // ran synchronously, so fields will 100% be cached
     const cacheFields: readonly Field[] = [
@@ -223,6 +223,7 @@ class WordIndicator {
 
   // adds this to the tooltip because the tooltip covers up the current word
   private addCurrentCardToTooltip(tooltipBuilder: TooltipBuilder) {
+    // TODO shouldn't this be cached in the constructor?
     const currentCardInfo: NoteInfoTooltipBuilder = {
       AJTWordPitch: getFieldValue('AJTWordPitch'),
       PAOverride: getFieldValue('PAOverride'),

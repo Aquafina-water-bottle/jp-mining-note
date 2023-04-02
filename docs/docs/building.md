@@ -96,7 +96,7 @@ Some additional options with `venv` are shown below.
     (including dependencies for building documentation):
     ```bash
     pip3 install \
-            JSON-minify jinja2 black pytest \
+            pyjson5 jinja2 black pytest \
             mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin \
             mkdocs-git-revision-date-localized-plugin
     ```
