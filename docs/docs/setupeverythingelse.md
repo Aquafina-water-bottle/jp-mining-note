@@ -450,7 +450,7 @@ Other websites have significantly larger resource lists that may prove useful fo
     on how to fix it.
 
 * To create cards with mpvacious, first add a card from Yomichan (usually via a texthooker),
-    and then press ++ctrl+m++ in mpv.
+    and then press `ctrl`+`m` in mpv.
 
 
 ---
