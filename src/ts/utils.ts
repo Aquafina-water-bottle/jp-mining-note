@@ -4,6 +4,8 @@ import {getFieldValue, fieldsAnyFilled, fieldIsFilled, Field } from './fields';
 
 // TODO: move this to a different file? why is this even here?
 export type NoteInfo = {
+  readonly noteId: number;
+  readonly modelName: string;
   readonly tags: string[];
   readonly fields: Record<Field, {value: string}>
 };
