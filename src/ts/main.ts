@@ -17,6 +17,7 @@ import { FreqUtils } from './modules/freqUtils';
 import { WebSocketUtils } from './modules/webSocketUtils';
 
 import { MobileUtils } from './modules/mobileUtils';
+import {MobilePopup} from './mobilePopup';
 import { InfoCircleUtils } from './modules/infoCircleUtils';
 import { FixRubyPositioning } from './modules/fixRubyPositioning';
 
@@ -25,6 +26,7 @@ import { AsyncManager } from './modules/asyncManager';
 import { Blockquotes } from './modules/blockquotes';
 import { RefreshCard } from './modules/refreshCard';
 import {cardIsNew} from './isNew';
+import {getViewportWidth} from './reflow';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -156,6 +158,12 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     new MobileUtils().run();
   }
 
+  // TODO: compileOpts togglable??
+  let mobilePopup: MobilePopup | null = null;
+  if (getViewportWidth() < compileOpts["breakpoints.width.combinePicture"]) {
+    mobilePopup = new MobilePopup();
+  }
+
   if (compileOpts['enableModule.infoCircleUtils']) {
     new InfoCircleUtils().run();
   }
@@ -178,7 +186,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   }
 
   if (compileOpts['enableModule.kanjiHover']) {
-    asyncManager.addModule(new KanjiHover());
+    asyncManager.addModule(new KanjiHover(mobilePopup));
   }
   if (compileOpts['enableModule.wordIndicators']) {
     asyncManager.addModule(new WordIndicators());

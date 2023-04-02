@@ -118,6 +118,9 @@
   --md-footer-fg-color: #FFFFFF;
 }
 
+.md-footer-meta__inner {
+  display: none;
+}
 
 /*
 [data-md-color-scheme="slate"] .md-annotation__index {

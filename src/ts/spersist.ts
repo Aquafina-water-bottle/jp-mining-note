@@ -127,54 +127,64 @@ class SPersistObj implements SPersistInterface {
     return 'window';
   }
 }
-//LOGGER.debug('spersist control');
-console.log("spersist control")
-// wrappers to ensure that these are defined only once
-if (
-  !('_SPersist_sessionStorage' in window) &&
-  globalThis.sessionStorage !== null &&
-  typeof globalThis.sessionStorage === 'object'
-) {
-  (window as any)._SPersist_sessionStorage = new SPersistSessionStorage();
-  console.log("Initializing _SPersist_sessionStorage")
+
+type PersistObjs = {
+  sessionStorage: null | SPersistInterface,
+  window: null | SPersistInterface,
 }
 
-//if (!('_SPersist_windowKey' in window)) {
-//  if (typeof (window as any).py === 'object') {
-//    LOGGER.debug('Initializing _SPersist_windowKey.py');
-//    (window as any)._SPersist_windowKey = new SPersistObj((window as any).py);
-//  } else {
-//    // if titleStartIndex > 0, window.location is useful
-//    // logic taken exactly from the original anki persistence
-//    let titleStartIndex = window.location.toString().indexOf('title');
-//    let titleContentIndex = window.location.toString().indexOf('main', titleStartIndex);
-//    if (
-//      titleStartIndex > 0 &&
-//      titleContentIndex > 0 &&
-//      titleContentIndex - titleStartIndex < 10
-//    ) {
-//      LOGGER.debug('Initializing _SPersist_windowKey.qt');
-//      (window as any)._SPersist_windowKey = new SPersistObj((window as any).qt);
-//    }
-//  }
-//}
+const persistObjs: PersistObjs = {
+  sessionStorage: null,
+  window: null,
+};
 
-if (!('_SPersist_windowKey' in window)) {
-  if (typeof (window as any).py === 'object') {
-    //LOGGER.debug('Initializing _SPersist_windowKey.py');
-    console.log("Initializing _SPersist_windowKey.py");
+export function manuallyCreateObjPersist() {
+  // WARNING: you very very very likely don't want to call this function
+  // outside this module unless you know what you are doing!
+
+  if ("window" in globalThis && !('_SPersist_windowKey' in window)) {
+    if (typeof (window as any).py === 'object') {
+      return; // nothing to do
+    }
+    console.log("Manually created .py persist...");
+    (window as any).py = {};
     (window as any)._SPersist_windowKey = new SPersistObj((window as any).py);
-  } else if (typeof (window as any).qt === 'object') {
-    //LOGGER.debug('Initializing _SPersist_windowKey.qt');
-    console.log('Initializing _SPersist_windowKey.qt');
-    (window as any)._SPersist_windowKey = new SPersistObj((window as any).qt);
+    calculatePersists();
   }
 }
 
-const persistObjs = {
-  sessionStorage: (window as any)._SPersist_sessionStorage,
-  window: (window as any)._SPersist_windowKey,
-};
+function calculatePersists() {
+  console.log("spersist control")
+  // wrappers to ensure that these are defined only once
+  if (
+    "window" in globalThis &&
+    !('_SPersist_sessionStorage' in window) &&
+    globalThis.sessionStorage !== null &&
+    typeof globalThis.sessionStorage === 'object'
+  ) {
+    (window as any)._SPersist_sessionStorage = new SPersistSessionStorage();
+    console.log("Initializing _SPersist_sessionStorage")
+  }
+
+  if ("window" in globalThis && !('_SPersist_windowKey' in window)) {
+    if (typeof (window as any).py === 'object') {
+      //LOGGER.debug('Initializing _SPersist_windowKey.py');
+      console.log("Initializing _SPersist_windowKey.py");
+      (window as any)._SPersist_windowKey = new SPersistObj((window as any).py);
+    } else if (typeof (window as any).qt === 'object') {
+      //LOGGER.debug('Initializing _SPersist_windowKey.qt');
+      console.log('Initializing _SPersist_windowKey.qt');
+      (window as any)._SPersist_windowKey = new SPersistObj((window as any).qt);
+    }
+  }
+
+  persistObjs.sessionStorage = "window" in globalThis ? (window as any)._SPersist_sessionStorage : null;
+  persistObjs.window = "window" in globalThis ? (window as any)._SPersist_windowKey : null;
+}
+calculatePersists();
+
+export function recalculatePersists() {
+}
 
 /* this function removes the need for isAvailable(), since it will be null if not available */
 export function selectPersist(...types: SPersistType[]): SPersistInterface | null {
@@ -182,7 +192,8 @@ export function selectPersist(...types: SPersistType[]): SPersistInterface | nul
     types = ["sessionStorage", "window"];
   }
   for (const t of types) {
-    if (typeof persistObjs[t] !== 'undefined') {
+    const persist = persistObjs[t]
+    if (typeof persist !== 'undefined') {
       return persistObjs[t];
     }
   }

@@ -33,7 +33,7 @@
 
     "card-type-pa-sentence": "PA Sentence",
     "card-type-pa-word": "PA Word",
-    "card-type-cloze-deletion": "Cloze Deletion"
+    "card-type-cloze-deletion": "Cloze Deletion",
   },
 
   // I think these are correct, but feel free to let me know if there are any mistakes!
@@ -71,6 +71,6 @@
 
     "card-type-pa-sentence": "ピッチ（文）",
     "card-type-pa-word": "ピッチ（単語）",
-    "card-type-cloze-deletion": "穴埋め問題" // took this from the translated anki documentation
-  }
+    "card-type-cloze-deletion": "穴埋め問題", // took this from the translated anki documentation
+  },
 }
