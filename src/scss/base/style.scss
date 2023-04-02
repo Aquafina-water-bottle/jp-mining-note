@@ -1019,11 +1019,26 @@ code {
 .mobile-popup {
   position: fixed;
   height: calc(50vh - var(--mobile-popup-border));
-  width: calc(100vw - 2 * var(--mobile-popup-border));
+  width: calc(100% - 2 * var(--mobile-popup-border) - 20px);
   background-color: var(--tooltip-background-darken);
-  bottom: 0px;
+  bottom: var(--mobile-popup-border);
+  left: var(--mobile-popup-border);
+  z-index: 10;
+
+  /* TODO not px values??? also see above width */
+  padding: 8px 10px 8px 10px;
+  border-radius: 6px;
+  overflow: scroll;
 }
 
+.mobile-popup--kanji-hover {
+  text-align: left;
+}
+
+:root:not(.mobile) .mobile-popup::-webkit-scrollbar {
+  /* removes ugly scrollbar on PC */
+  display: none;
+}
 
 
 

@@ -198,7 +198,7 @@ export class TooltipBuilder {
       }
 
       if (typeof this.onEmptyText === "string") {
-        tooltipSpan.innerText = this.onEmptyText
+        tooltipSpan.textContent = this.onEmptyText
       } else {
         tooltipSpan.appendChild(this.onEmptyText)
       }
@@ -231,9 +231,9 @@ export class TooltipBuilder {
     const hoverText = document.createElement('span');
     hoverText.classList.add("hover-text");
     if (typeof this.hoverText === "string") {
-      hoverText.innerText = this.hoverText
+      hoverText.textContent = this.hoverText
     } else {
-      hoverText.appendChild(this.hoverText)
+      hoverText.appendChild(this.hoverText);
     }
 
     tooltipWrapperSpan.appendChild(this.buildTooltipOnly())
