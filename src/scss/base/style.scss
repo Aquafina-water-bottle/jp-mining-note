@@ -1318,11 +1318,9 @@ code {
   border-radius: 6px;
 }
 
-.hover-tooltip .hover-tooltip__pitch-accent {
+.hover-tooltip__pitch-accent {
   @include common.bold-pitch;
-//}
-//
-//.hover-tooltip .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-kana) {
+
   /* cancels out bolded colors */
   b {
     --pa-overline-color: var(--text-color);
@@ -1333,11 +1331,11 @@ code {
 }
 
 
-.hover-tooltip .hover-tooltip__pitch-accent:empty:before {
+.hover-tooltip__pitch-accent:empty:before {
   content: "(N/A)"
 }
 
-.hover-tooltip .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
+.hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
   /* cancels out extra colors */
   .pitchoverline:after, b .pitchoverline:after {
     --pa-overline-color: var(--text-color--1);
@@ -1352,7 +1350,7 @@ code {
 }
 
 
-.hover-tooltip .hover-tooltip__word-div b {
+.hover-tooltip__word-div b {
   @include common.bold_highlight;
 }
 
@@ -1377,11 +1375,11 @@ code {
   }
 }
 
-.hover-tooltip .hover-tooltip__sent-div b {
+.hover-tooltip__sent-div b {
   font-weight: normal;
 }
 
-.hover-tooltip .hover-tooltip__card--sentence-only .hover-tooltip__sent-div b {
+.hover-tooltip__card--sentence-only .hover-tooltip__sent-div b {
   color: var(--accent);
   font-weight: bold;
 }

@@ -552,10 +552,6 @@ export class KanjiHover extends RunnableAsyncModule {
 
   async main() {
 
-    if (!this.getOption("enableAnkiconnectFeatures")) {
-      return;
-    }
-
     if (this.useCache && this.wordReadingEle !== null) {
       // checks for CardCache field first
       const cardCacheEle = getFieldValueEle("CardCache");
@@ -582,6 +578,10 @@ export class KanjiHover extends RunnableAsyncModule {
         this.displayCachedResult(this.persist, this.wordReadingEle);
         return;
       }
+    }
+
+    if (!this.getOption("enableAnkiconnectFeatures")) {
+      return;
     }
 
     if (this.getOption("kanjiHover.activateOn") === "hover") {
