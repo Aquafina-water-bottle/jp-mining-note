@@ -26,7 +26,7 @@ I unfortunately **will not** be able to provide very detailed support.
 Instead, I would recommend that you contact the creators of the guides / programs,
 or the communities surrounding said guides / programs.
 
-Additionally, the guides listed here do not use JPMN, and instead link
+Additionally, the guides listed here usually do not use JPMN, and instead link
 to other note types.
 This shouldn't be an issue as long as you change the appropriate the field names.
 
@@ -377,7 +377,7 @@ Here are the two popular approaches to automatically adding the image and senten
 Other websites have significantly larger resource lists that may prove useful for you.
 
 ??? example "Resource Lists *(click here)*"
-    * [TMW](https://learnjapanese.moe/resources/)
+    * [TheMoeWay](https://learnjapanese.moe/resources/)
     * [Tatsumoto](https://tatsumoto.neocities.org/blog/resources.html)
     * [itazuraneko](https://itazuraneko.neocities.org/index.html)
     * [kuzuri](https://kuzuri.neocities.org/resources.html)
@@ -386,7 +386,7 @@ Other websites have significantly larger resource lists that may prove useful fo
         ([Mirror](https://refold.link/japanese))
     * [Refold (General)](https://docs.google.com/document/d/1z_5VbwqKjuyaDH8l6BqhAPJdHWAfypz-3V7pHsWHr6A/) ([Mirror](https://refold.link/Tech_and_Tools))
     * [IgrecL/japanese](https://github.com/IgrecL/japanese)
-    * [donkuri/jp-resources](https://donkuri.github.io/jp-resources/)
+    * [donkuri/learn-japanese](https://donkuri.github.io/learn-japanese/resources/)
 
 
 ---
@@ -401,6 +401,8 @@ Other websites have significantly larger resource lists that may prove useful fo
     ??? examplecode "Click here to see some basic config changes to get it working with JPMN."
 
         ```ini
+        # Be sure to change deck_name to whatever your deck is!
+
         # Model names are listed in `Tools -> Manage note types` menu in Anki.
         model_name=JP Mining Note
 
@@ -446,6 +448,10 @@ Other websites have significantly larger resource lists that may prove useful fo
     See the
     [FAQ](faq.md#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field)
     on how to fix it.
+
+* To create cards with mpvacious, first add a card from Yomichan (usually via a texthooker),
+    and then press ++ctrl+m++ in mpv.
+
 
 ---
 
