@@ -6,57 +6,6 @@ $bp-max-width-backside: 850px;
 $bp-tablet-height: 700px;
 $bp-combine-picture: 620px;
 
-$jp-serif: notoserif,
-          "Noto Serif CJK JP",
-          "Noto Serif JP",
-          "Noto Serif",
-          "Droid Serif",
-          "Roboto Slab",
-          "IPAPMincho",
-          "HanaMinA",
-          "HanaMinB",
-          serif;
-
-$jp-sans: notosans,
-          "Noto Sans CJK JP",
-          "Noto Sans JP",
-          "Noto Sans",
-          "Open Sans",
-          "Droid Sans",
-          "Ubuntu",
-          "Roboto",
-          "Source Han Sans JP",
-          "IPAPGothic",
-          "VL PGothic",
-          "Koruri",
-          sans-serif;
-
-$jp-serif-android:
-          "Noto Serif CJK JP",
-          "Noto Serif JP",
-          "Noto Serif",
-          "Droid Serif",
-          "Roboto Slab",
-          "IPAPMincho",
-          "HanaMinA",
-          "HanaMinB",
-          serif;
-
-$jp-sans-android:
-          "Noto Sans CJK JP",
-          "Noto Sans JP",
-          "Noto Sans",
-          "Open Sans",
-          "Droid Sans",
-          "Ubuntu",
-          "Roboto",
-          "Source Han Sans JP",
-          "IPAPGothic",
-          "VL PGothic",
-          "Koruri",
-          sans-serif;
-
-
 
 //$bp-adjust-play-buttons: 400px;
 
@@ -228,6 +177,33 @@ $jp-sans-android:
 
   --image-hover-brightness: 85%;
   --icon-click-brightness: 85%;
+
+  /* font families */
+
+  --jp-serif: notoserif,
+          "Noto Serif CJK JP",
+          "Noto Serif JP",
+          "Noto Serif",
+          "Droid Serif",
+          "Roboto Slab",
+          "IPAPMincho",
+          "HanaMinA",
+          "HanaMinB",
+          serif;
+
+  --jp-sans: notosans,
+          "Noto Sans CJK JP",
+          "Noto Sans JP",
+          "Noto Sans",
+          "Open Sans",
+          "Droid Sans",
+          "Ubuntu",
+          "Roboto",
+          "Source Han Sans JP",
+          "IPAPGothic",
+          "VL PGothic",
+          "Koruri",
+          sans-serif;
 }
 
 @mixin night_mode_vars {

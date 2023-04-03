@@ -34,7 +34,7 @@ html {
 
 
 .card {
-  font-family: common.$jp-sans;
+  font-family: var(--jp-sans);
   text-align: center;
   font-style: normal;
 
@@ -44,8 +44,44 @@ html {
 }
 
 
+/*
+ * a hack to no longer depend on the installed font (to speed up card load times).
+ * see:
+ * https://github.com/ankidroid/Anki-Android/issues/4856
+ * https://github.com/ankidroid/Anki-Android/issues/5213
+ */
 
-/* fixing colors on mobile */
+.android {
+  --jp-serif: /*notoserif,*/
+          "Noto Serif CJK JP",
+          "Noto Serif JP",
+          "Noto Serif",
+          "Droid Serif",
+          "Roboto Slab",
+          "IPAPMincho",
+          "HanaMinA",
+          "HanaMinB",
+          serif;
+
+  --jp-sans: /*notosans,*/
+          "Noto Sans CJK JP",
+          "Noto Sans JP",
+          "Noto Sans",
+          "Open Sans",
+          "Droid Sans",
+          "Ubuntu",
+          "Roboto",
+          "Source Han Sans JP",
+          "IPAPGothic",
+          "VL PGothic",
+          "Koruri",
+          sans-serif;
+}
+
+
+
+
+/* fixing colors on mobile (TODO no longer necessary on alpha ver) */
 .mobile .card.night_mode {
   color: white;
   background-color: #2f2f31;
@@ -358,7 +394,7 @@ code {
 }
 
 .card-description {
-  font-family: common.$jp-serif;
+  font-family: var(--jp-serif);
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
@@ -413,7 +449,7 @@ code {
   color: var(--card-description-color);
 
   float: right;
-  font-family: common.$jp-serif;
+  font-family: var(--jp-serif);
 }
 
 
@@ -458,7 +494,7 @@ code {
   min-width: 200px;
   max-width: var(--tooltip-max-width);
 
-  font-family: common.$jp-sans;
+  font-family: var(--jp-sans);
   font-size: var(--tooltip-font-size);
   text-align: left;
 
@@ -702,7 +738,7 @@ code {
 
 
 .expression {
-  font-family: common.$jp-serif;
+  font-family: var(--jp-serif);
 }
 
 .expression b {
@@ -717,7 +753,7 @@ code {
 /* used in other cards where PA flag is not shown */
 .expression--single {
   font-size: var(--sentence-font-size);
-  font-family: common.$jp-serif;
+  font-family: var(--jp-serif);
 }
 
 
@@ -1122,7 +1158,7 @@ code {
 
 .dh-left__reading {
   font-size: var(--reading-font-size);
-  font-family: common.$jp-serif;
+  font-family: var(--jp-serif);
   white-space: nowrap; /* so the reading can expand ouside of the max width */
 }
 
@@ -1412,7 +1448,7 @@ code {
   color: var(--text-color);
 
   font-size: 18px;
-  font-family: common.$jp-sans;
+  font-family: var(--jp-sans);
   text-align: left;
   position: absolute;
   width: 620px;
@@ -1751,7 +1787,7 @@ code {
 .full-sentence {
   font-size: var(--full-sentence-font-size);
   margin: 0.3em 0 0.3em 0;
-  font-family: common.$jp-serif;
+  font-family: var(--jp-serif);
 
   margin-left: auto;
   margin-right: auto;
@@ -2145,7 +2181,7 @@ a.glossary__image-hover-text {
 .frequencies {
   display: flex;
   gap: 10px;
-  font-family: common.$jp-serif;
+  font-family: var(--jp-serif);
   font-size: var(--description-font-size);
   line-height: 85%;
 }
