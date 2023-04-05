@@ -32,9 +32,6 @@ export class FreqUtils extends RunnableModule {
     const defaultValues: string[] = getOption("freqUtils.summary.defaultValues");
 
     if (defaultValues.includes(ele.innerHTML)) {
-      //const unknownEle = document.createElement("span");
-      //unknownEle.setAttribute("data-is-unknown", "true");
-      //unknownEle.inner
       ele.innerHTML = `<span data-is-unknown="true">${translatorStrs["unknown-frequency"]}<span class="unknown-freq-number">${ele.innerHTML}</span></span>`
     }
   }
