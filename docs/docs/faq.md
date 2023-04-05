@@ -106,6 +106,35 @@ or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/iss
 ---
 
 
+## The font on the card template is incorrect
+
+TODO bullet pt to sentences
+
+TODO example picture of the wrong font
+
+- if everything is correct, then fonts should actually be japanese (see: 直す)
+- easy way to check for correct fonts: look at bolded serif font
+    - should look good (example picture)
+- if not, wrong fonts are likely being used
+
+- steps
+    - ensure fonts are downloaded and in the correct folder (media folder)
+        - show screenshot of this!
+    - ensure fonts are valid (could be corrupted)
+        - show gif of opening in windows
+    - restart your entire computer
+        - sometimes, restarting Anki isn't enough
+
+---
+
+## The font on the card editor is incorrect
+
+- TODO link to TheMoeWay
+- TODO batch script maybe?
+
+
+---
+
 
 ## The `SentenceReading` field is not updated / is different from the `Sentence` field
 
@@ -649,17 +678,23 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
 
 # Contact Info { .text-yellow }
 
-## Discord Contact Info { .text-yellow }
-Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
+## Discord Contact Info
+* Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
 
-Servers:
+* Servers:
 
-* [TheMoeWay]({{THEMOEWAY_LINK}}) (I recommend using the `jp-mining-note` thread in the `#resources-sharing` channel)
-* Refold (JP) server  (I recommend using the `jp-mining-note` thread in the `#sentence-mining-workflows` channel)
+    * [TheMoeWay]({{THEMOEWAY_LINK}})
+        (I recommend using the
+        [jp-mining-note](https://discord.com/channels/617136488840429598/1041466793094557879)
+        thread in the `#resources-sharing` channel)
+    * Refold (JP) server
+        (I recommend using the
+        [jp-mining-note](https://discord.com/channels/778787713012727809/1031068624447873055)
+        thread in the `#sentence-mining-workflows` channel)
 
 
 ## Github
-If you don't want to use Discord, please shoot your message [here](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
+* If you don't want to use Discord, please shoot your message [here](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
 
 
 
