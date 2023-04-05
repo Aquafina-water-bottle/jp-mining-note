@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 """
 https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/antp/updater.py
 https://github.com/FooSoft/anki-connect#model-actions
@@ -19,6 +20,7 @@ import utils
 from utils import invoke
 
 import action_runner as ar
+import note_changes as nc
 
 
 FRONT_FILENAME = "front.html"
@@ -69,11 +71,17 @@ def add_args(parser: argparse.ArgumentParser):
         help="(dev option) bypasses the note changes section",
     )
 
+    #group.add_argument(
+    #    "--dev-select-note-changes",
+    #    type=int,
+    #    nargs="+",
+    #    help="(dev option) bypasses the note changes section",
+    #)
+
     group.add_argument(
-        "--dev-select-note-changes",
-        type=int,
-        nargs="+",
-        help="(dev option) bypasses the note changes section",
+        "--dev-custom-note-changes",
+        type=str,
+        help="(dev option) input a custom note_changes json5 (or json) file",
     )
 
     group.add_argument(
@@ -262,7 +270,9 @@ class MediaInstaller:
                 return
 
             backup_file_path = os.path.join(self.backup_folder, file_name)
-            print(f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ...")
+            print(
+                f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ..."
+            )
 
             contents = base64.b64decode(contents_b64).decode("utf-8")
 
@@ -340,13 +350,17 @@ def main(args=None):
 
         # checks for note changes between versions
         if not args.dev_ignore_note_changes:
-            current_ver = ar.Version.from_str(utils.get_version_from_anki(args, note_data))
+            current_ver = ar.Version.from_str(
+                utils.get_version_from_anki(args, note_data)
+            )
             new_ver = ar.Version.from_str(utils.get_version(args))
+            note_changes = nc.get_note_changes_file(json_handler, args.dev_custom_note_changes)
             action_runner = ar.ActionRunner(
+                note_changes,
                 current_ver,
                 new_ver,
                 in_order=(not args.ignore_order),
-                select_note_changes=args.dev_select_note_changes,
+                #select_note_changes=args.dev_select_note_changes,
                 verify=(not args.dev_do_not_verify),
             )  # also verifies field changes
 
