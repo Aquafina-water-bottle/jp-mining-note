@@ -77,7 +77,7 @@ Card creation:
 See the documentation and setup procedure [**here**](https://aquafina-water-bottle.github.io/jp-mining-note/).
 
 ## Other Info
-Tested on Anki 2.1.54 (Qt6), Linux (Ubuntu) & Windows.
+Tested on Anki 2.1.61 (Qt6), Linux (Ubuntu) & Windows.
 
 It is recommended you use the latest version of Anki if possible.
 
