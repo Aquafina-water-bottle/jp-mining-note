@@ -8,12 +8,13 @@ from utils import invoke
 from typing import Callable, Type, Any, Optional
 
 
-
-rx_END_DIV = re.compile(r'</div>$')
-rx_FREQ_INNER2 = re.compile(r'<span class="frequencies__dictionary-inner2">(.*?)</span>')
-rx_FURIGANA = re.compile(r" ?([^ >]+?)\[(.+?)\]");
-rx_INTEGER_ONLY = re.compile(r'^-?\d+$')
-
+rx_END_DIV = re.compile(r"</div>$")
+rx_FREQ_INNER2 = re.compile(
+    r'<span class="frequencies__dictionary-inner2">(.*?)</span>'
+)
+rx_FURIGANA = re.compile(r" ?([^ >]+?)\[(.+?)\]")
+rx_INTEGER_ONLY = re.compile(r"^-?\d+$")
+rx_HTML = re.compile("<.*?>")
 
 
 # ==================
@@ -27,18 +28,19 @@ def batch(query):
             print("Querying notes...")
             notes = invoke("findNotes", query=query)
 
-            print("Getting notes info...")
+            print(f"Getting {len(notes)} notes info...")
             notes_info = invoke("notesInfo", notes=notes)
 
             print(f"Running {func.__name__}...")
             actions = func(notes_info, **kwargs)
 
-            print("Updating notes...")
+            print(f"Updating {len(actions)} notes...")
             notes = invoke("multi", actions=actions)
 
         return wrapper
 
     return decorator
+
 
 def _update_note_action(nid: int, **fields):
     return {
@@ -46,12 +48,14 @@ def _update_note_action(nid: int, **fields):
         "params": {"note": {"id": nid, "fields": fields}},
     }
 
+
 def _get_kana_from_plain_reading(plain_reading):
     result = plain_reading.replace("&nbsp;", " ")
-    result = rx_FURIGANA.sub(r'\2', result, count=0)
+    result = rx_FURIGANA.sub(r"\2", result, count=0)
     result = result.strip()
 
     return result
+
 
 def _kata2hira(text: str, ignore: str = "") -> str:
     # taken directly from jaconv's source code
@@ -61,17 +65,22 @@ def _kata2hira(text: str, ignore: str = "") -> str:
 
     def _to_dict(_from, _to):
         return dict(zip(_from, _to))
+
     def _to_ord_list(chars):
         return list(map(ord, chars))
 
-    HIRAGANA = list('ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず'
-                    'せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ'
-                    'ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ'
-                    'をんーゎゐゑゕゖゔゝゞ・「」。、')
-    FULL_KANA = list('ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ'
-                     'ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ'
-                     'ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ'
-                     'ヽヾ・「」。、')
+    HIRAGANA = list(
+        "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず"
+        "せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ"
+        "ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ"
+        "をんーゎゐゑゕゖゔゝゞ・「」。、"
+    )
+    FULL_KANA = list(
+        "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ"
+        "ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ"
+        "ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ"
+        "ヽヾ・「」。、"
+    )
     FULL_KANA_ORD = _to_ord_list(FULL_KANA)
     K2H_TABLE = _to_dict(FULL_KANA_ORD, HIRAGANA)
 
@@ -87,12 +96,10 @@ def _kata2hira(text: str, ignore: str = "") -> str:
     return _convert(text, _conv_map)
 
 
-
-
-
 # =================
 #  Batch functions
 # =================
+
 
 def clear_pitch_accent_data():
     """
@@ -127,7 +134,6 @@ def add_downstep_inner_span_tag():
     actions = []
 
     for info in notes_info:
-
         field_val = info["fields"]["WordPitch"]["value"]
 
         SPAN_DOWNSTEP_EMPTY = '<span class="downstep" style="">ꜜ</span>'
@@ -202,7 +208,6 @@ def rename_vn_freq():
 
     actions = []
     for info in notes_info:
-
         field_val = info["fields"]["FrequenciesStylized"]["value"]
         field_val = field_val.replace(">VN Freq<", ">VN Freq Percent<")
         field_val = field_val.replace('"VN Freq"', '"VN Freq Percent"')
@@ -241,7 +246,7 @@ def add_sort_freq_legacy():
         if freqs:
             return min(freqs)
 
-        #return None
+        # return None
         return 0
 
     ignored = ["VN Freq Percent"]
@@ -264,7 +269,7 @@ def add_sort_freq_legacy():
     notes = invoke("multi", actions=actions)
 
 
-def fill_field(field_name: str, value: str="1", query: Optional[str] = None):
+def fill_field(field_name: str, value: str = "1", query: Optional[str] = None):
     """
     batch set the field to `1`
     """
@@ -302,7 +307,7 @@ def empty_field(field_name: str, query: Optional[str] = None):
     notes = invoke("multi", actions=actions)
 
 
-def copy_field_to(src: str, dest: str, query: Optional[str] = None):
+def copy_field(src: str, dest: str, query: Optional[str] = None):
     """
     copies the field contents of src to dest
     """
@@ -327,7 +332,6 @@ def copy_field_to(src: str, dest: str, query: Optional[str] = None):
     notes = invoke("multi", actions=actions)
 
 
-
 def _standardize_frequencies_styling(freq):
     # updating legacy freq styling 0.10.1.0 -> 0.10.2.0:
     # example of legacy freq styling (0.10.1.0):
@@ -338,7 +342,7 @@ def _standardize_frequencies_styling(freq):
         freq = freq.replace(DIV_FREQ, "")
         freq = rx_END_DIV.sub("", freq)
 
-    freq = rx_FREQ_INNER2.sub(r'\1', freq, count=0)
+    freq = rx_FREQ_INNER2.sub(r"\1", freq, count=0)
     return freq
 
 
@@ -362,7 +366,11 @@ def standardize_frequencies_styling():
             "params": {
                 "note": {
                     "id": info["noteId"],
-                    "fields": {"FrequenciesStylized": _standardize_frequencies_styling(field_val)},
+                    "fields": {
+                        "FrequenciesStylized": _standardize_frequencies_styling(
+                            field_val
+                        )
+                    },
                 }
             },
         }
@@ -372,13 +380,12 @@ def standardize_frequencies_styling():
     notes = invoke("multi", actions=actions)
 
 
-
 def fill_word_reading_hiragana_field():
     """
     populates the WordReadingHiragana field by the WordReading field
     """
 
-    #print(_get_kana_from_plain_reading("成[な]り 立[た]つ"))
+    # print(_get_kana_from_plain_reading("成[な]り 立[た]つ"))
 
     query = r'"note:JP Mining Note" -WordReading:'
     print("Querying notes...")
@@ -405,12 +412,10 @@ def fill_word_reading_hiragana_field():
         }
 
         actions.append(action)
-        #print(field_val, hiragana)
+        # print(field_val, hiragana)
 
     print("Updating notes...")
     notes = invoke("multi", actions=actions)
-
-
 
 
 def _quick_fix_convert_kana_only_reading(query):
@@ -481,26 +486,21 @@ def separate_pa_override_field():
         field_val = info["fields"]["PAOverride"]["value"]
 
         if not rx_INTEGER_ONLY.match(field_val.strip()):
-
             action = {
                 "action": "updateNoteFields",
                 "params": {
                     "note": {
                         "id": info["noteId"],
-                        "fields": {
-                            "PAOverride": "",
-                            "PAOverrideText": field_val
-                        },
+                        "fields": {"PAOverride": "", "PAOverrideText": field_val},
                     }
                 },
             }
 
             actions.append(action)
-            #print(info["fields"]["Key"]["value"], field_val)
+            # print(info["fields"]["Key"]["value"], field_val)
 
     print("Updating notes...")
     notes = invoke("multi", actions=actions)
-
 
 
 def remove_bolded_text_ajtwordpitch():
@@ -542,13 +542,12 @@ def remove_bolded_text_ajtwordpitch():
                 }
             },
         }
-        #print(field_updates)
+        # print(field_updates)
 
         actions.append(action)
 
     print("Updating notes...")
     notes = invoke("multi", actions=actions)
-
 
 
 def combine_backup_xelieu():
@@ -565,7 +564,14 @@ def combine_backup_xelieu():
 
     print("Combining monolingual & bilingual fields...")
     bilingual_fields = ["JMDict", "Kenkyusha"]
-    monolingual_fields = ["Shinjirin", "Oukoku", "Daijisen", "Meikyou", "Jitsuyou", "Shinmeikai"]
+    monolingual_fields = [
+        "Shinjirin",
+        "Oukoku",
+        "Daijisen",
+        "Meikyou",
+        "Jitsuyou",
+        "Shinmeikai",
+    ]
 
     def combine_defs(defs):
         return "<ol>" + "".join(f"<li>{x}</li>" for x in defs) + "</ol>"
@@ -576,12 +582,18 @@ def combine_backup_xelieu():
         bilingual_def_txt = info["fields"]["Glossary"]["value"]
 
         bilingual_defs = [info["fields"][x]["value"].strip() for x in bilingual_fields]
-        bilingual_defs = [x for x in bilingual_defs if x] # filters out all empty fields
+        bilingual_defs = [
+            x for x in bilingual_defs if x
+        ]  # filters out all empty fields
 
-        monolingual_defs = [info["fields"][x]["value"].strip() for x in monolingual_fields]
-        monolingual_defs = [x for x in monolingual_defs if x] # filters out all empty fields
+        monolingual_defs = [
+            info["fields"][x]["value"].strip() for x in monolingual_fields
+        ]
+        monolingual_defs = [
+            x for x in monolingual_defs if x
+        ]  # filters out all empty fields
 
-        if glossary_sel_txt: # almost always bilingual according to bilingual_def_txt
+        if glossary_sel_txt:  # almost always bilingual according to bilingual_def_txt
             primary_def_txt = glossary_sel_txt
             secondary_def_txt = bilingual_def_txt
             extra_defs_txt = combine_defs(monolingual_defs)
@@ -598,8 +610,9 @@ def combine_backup_xelieu():
             if len(extra_defs) == 0:
                 extra_defs_txt = ""
             else:
-                extra_defs_txt = "<ol>" + "".join(f"<li>{x}</li>" for x in extra_defs) + "</ol>"
-
+                extra_defs_txt = (
+                    "<ol>" + "".join(f"<li>{x}</li>" for x in extra_defs) + "</ol>"
+                )
 
         action = {
             "action": "updateNoteFields",
@@ -609,7 +622,7 @@ def combine_backup_xelieu():
                     "fields": {
                         "PrimaryDefinition": primary_def_txt,
                         "SecondaryDefinition": secondary_def_txt,
-                        "ExtraDefinitions": extra_defs_txt
+                        "ExtraDefinitions": extra_defs_txt,
                     },
                 }
             },
@@ -617,43 +630,89 @@ def combine_backup_xelieu():
 
         actions.append(action)
 
-    user_input = input(f"Will update {len(actions)} notes. Type 'yes' once you switched to JPMN deck.\n> ")
+    user_input = input(
+        f"Will update {len(actions)} notes. Type 'yes' once you switched to JPMN deck.\n> "
+    )
     if user_input != "yes":
         print("Input was not 'yes', exiting...")
         return
     notes = invoke("multi", actions=actions)
 
 
+def remove_html(field_name: str):
+    """
+    naively removes all HTML from a particular field, with this regex: <.*?>
+    """
+
+    print("Querying notes...")
+    query = f'"note:JP Mining Note" "{field_name}:*<*"' # only queries notes with that HTML field
+    notes = invoke("findNotes", query=query)
+
+    print(f"Getting {len(notes)} notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print(f"Removing HTML from {field_name}...")
+    actions = []
+    for info in notes_info:
+        nid = info["noteId"]
+        field_val = info["fields"][field_name]["value"]
+        field_val = re.sub(rx_HTML, '', field_val)
+        action = _update_note_action(nid, **{field_name: field_val})
+        actions.append(action)
+
+    print(f"Updating {len(actions)} notes...")
+    notes = invoke("multi", actions=actions)
+
+
 def set_all_fonts(version=None):
     pass
 
+
 def reorder_all_fields(version=None):
     pass
+
 
 def add_all_fields(version=None):
     pass
 
 
-
-
+# NOTE: ideally, this would be best done with google.Fire, but this would introduce
+# a dependency...
 FUNC_ARGS: dict[Callable, dict[str, Type]] = {
     fill_field: {"field_name": str},
     empty_field: {"field_name": str},
-    copy_field_to: {
+    copy_field: {
         "src": str,
         "dest": str,
-    }
+    },
+    remove_html: {"field_name": str},
 }
 
 FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
-    fill_field: {
-        "value": (str, "1"),
-        "query": (str, None)
-    },
+    fill_field: {"value": (str, "1"), "query": (str, None)},
     empty_field: {"query": (str, None)},
-    copy_field_to: {"query": (str, None)},
+    copy_field: {"query": (str, None)},
 }
 
+
+PUBLIC_FUNCTIONS = [
+    clear_pitch_accent_data,
+    add_downstep_inner_span_tag,
+    set_pasilence_field,
+    rename_vn_freq,
+    add_sort_freq_legacy,
+    fill_field,
+    empty_field,
+    standardize_frequencies_styling,
+    fill_word_reading_hiragana_field,
+    quick_fix_convert_kana_only_reading_with_tag,
+    quick_fix_convert_kana_only_reading_all_notes,
+    separate_pa_override_field,
+    remove_bolded_text_ajtwordpitch,
+    combine_backup_xelieu,
+    copy_field,
+    remove_html,
+]
 
 
 def get_args(public_functions: list[Callable]):
@@ -662,8 +721,7 @@ def get_args(public_functions: list[Callable]):
     subparsers = parser.add_subparsers()
 
     for f in public_functions:
-        subparser = subparsers.add_parser(f.__name__,
-                help=f.__doc__)
+        subparser = subparsers.add_parser(f.__name__, help=f.__doc__)
         subparser.set_defaults(func=f)
 
         if f in FUNC_ARGS:
@@ -675,38 +733,13 @@ def get_args(public_functions: list[Callable]):
 
         if f in FUNC_KWARGS:
             for arg, (ty, default) in FUNC_KWARGS[f].items():
-                subparser.add_argument(
-                    "--" + arg,
-                    type=ty,
-                    default=default
-                )
+                subparser.add_argument("--" + arg, type=ty, default=default)
 
     return parser.parse_args()
 
 
-
 def main():
-
-    public_functions = [
-        clear_pitch_accent_data,
-        add_downstep_inner_span_tag,
-        set_pasilence_field,
-        rename_vn_freq,
-        add_sort_freq_legacy,
-        fill_field,
-        empty_field,
-        standardize_frequencies_styling,
-        fill_word_reading_hiragana_field,
-        quick_fix_convert_kana_only_reading_with_tag,
-        quick_fix_convert_kana_only_reading_all_notes,
-        separate_pa_override_field,
-        remove_bolded_text_ajtwordpitch,
-        combine_backup_xelieu,
-        copy_field_to,
-    ]
-
-
-    args = get_args(public_functions)
+    args = get_args(PUBLIC_FUNCTIONS)
     if "func" in args:
         func_args = vars(args)
         func = func_args.pop("func")
@@ -715,4 +748,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

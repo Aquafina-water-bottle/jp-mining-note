@@ -361,7 +361,7 @@ class ActionRunner:
                 break
 
         # basic error checking
-        assert self.original_fields is not None
+        assert self.original_fields is not None, current_ver
 
         if not self.changes:  # if self.changes is empty
             return

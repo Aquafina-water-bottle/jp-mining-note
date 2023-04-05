@@ -6,6 +6,7 @@ import os
 
 from version import Version
 import action
+import batch
 import utils
 
 
@@ -26,7 +27,7 @@ ACTION_TYPE_TO_OBJECT_CLASS = {
 }
 
 
-def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = None) -> list[NoteChange]:
+def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = None) -> tuple[NoteChange]:
     if file_path is None:
         file_path = os.path.join(utils.get_root_folder(), "tools", "data", "note_changes.json5")
     json_data = json_handler.read_file(file_path)
@@ -37,27 +38,34 @@ def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = No
     # fills from bottom-up
     note_changes: list[NoteChange] = []
 
+    batch_func_str_to_func = {f.__name__: f for f in batch.PUBLIC_FUNCTIONS}
+
     for note_change_data in reversed(json_data["note_changes"]):
         version = Version.from_str(note_change_data["version"])
 
         # actions
         actions = []
-        for action_data in json_data["actions"]:
+        for action_data in note_change_data["actions"]:
             action_type = action_data["type"]
             action_obj_cls = ACTION_TYPE_TO_OBJECT_CLASS[action_type]
 
             if action_type == "BatchUpdate":
                 # override the batch_func parameter with the one in batch.py
-                pass
+                params = action_data["params"]
+                params["batch_func"] = batch_func_str_to_func[params["batch_func"]]
+                action_obj = action_obj_cls(**params)
 
-            if "params" in action_data:
+            elif "params" in action_data:
                 params = action_data["params"]
                 if isinstance(params, list):
                     action_obj = action_obj_cls(*params)
                 else:
                     assert isinstance(params, dict)
                     action_obj = action_obj_cls(**params)
+            else:
+                action_obj = action_obj_cls()
 
+            actions.append(action_obj)
 
         # fields
         fields = note_change_data["fields"]
@@ -66,11 +74,12 @@ def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = No
             if previous_fields is None:
                 raise RuntimeError("Cannot use SAME fields without any fields to begin with")
             fields = previous_fields.copy() # shallow copy
+        previous_fields = fields.copy()
 
         nc = NoteChange(version, actions, fields)
         note_changes.append(nc)
 
-    return note_changes
+    return tuple(reversed(note_changes))
 
 
 #NOTE_CHANGES = [

@@ -28,6 +28,24 @@ action:
     {
       version: "0.12.0.0",
       actions: [
+        { type: "MoveField", params: [ "SeparateClozeDeletionCard", 24 ] },
+        { type: "MoveField", params: [ "Hint", 13 ] },
+        { type: "MoveField", params: [ "HintNotHidden", 14 ] },
+        { type: "RenameField", params: [ "SeparateClozeDeletionCard", "SeparateAudioCard" ] },
+        { type: "RenameField", params: [ "AltDisplay", "AltDisplaySentence" ] },
+        { type: "AddField", params: [ "AltDisplayWord", 10 ] },
+        { type: "AddField", params: [ "AltDisplayPASentenceCard", 12 ] },
+        { type: "AddField", params: [ "AltDisplayAudioCard", 13 ] },
+        { type: "MoveField", params: [ "IsTargetedSentenceCard", 18 ] },
+        { type: "AddField", params: [ "IsHintCard", 21 ] },
+        { type: "AddField", params: [ "IsSentenceFirstCard", 22 ] },
+        { type: "AddField", params: [ "IsAudioCard", 23 ] },
+        { type: "AddField", params: [ "SeparateSentenceAudioCard", 30 ] },
+        { type: "MoveField", params: [ "PASilence", 39 ] },
+        { type: "MoveField", params: [ "WordReadingHiragana", 39 ] },
+        { type: "AddField", params: [ "YomichanWordTags", 40 ] },
+        { type: "AddField", params: [ "CardCache", 44 ] },
+
 
       ],
 
@@ -72,7 +90,7 @@ action:
           }
         },
 
-        { type: "YomichanTemplatesChange", },
+        //{ type: "YomichanTemplatesChange", },
 
         //{ type: "YomichanFormatChange", params: [
         //  "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
