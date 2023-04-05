@@ -21,13 +21,17 @@ I'm not aware of a workflow for iOS that works with Yomichan.
 
 !!! note
     JPMN currently requires Yomichan to create the Anki cards.
+    Yomichan requires your text to be present in a web browser in order to work.
+
     There are many popular setups out there that do not use Yomichan
     and instead have their own card exporter,
     such as
     [JL](https://github.com/rampaa/JL)
     and
     [jidoujisho](https://github.com/lrorpilla/jidoujisho).
-    Unfortunately, there is no support for other card exporters outside of Yomichan.
+    Although it may be possible to replicate certain parts of the setup
+    with these card exporters, it is very likely that certain features
+    will be missing.
 
 ## Anki Desktop
 This note supports Anki versions 2.1.50 and above, with
@@ -38,10 +42,8 @@ and there are certain features that are known to break on Anki versions 2.1.49 a
 In other words, this note is incompatable for Anki versions 2.1.49 or older.
 
 ## Mobile (AnkiDroid and AnkiMobile)
-jp-mining-note finally supports AnkiDroid and AnkiMobile,
+JPMN, as of (TODO), finally supports AnkiDroid and AnkiMobile,
 paired with a new interface specifically designed for mobile devices.
-However, JPMN wasn't tested heavily on these apps as of writing this[^1].
-Because of this, please [let me know](faq.md#contact-info) if you come across any bugs!
 
 [^1]:
     Written as of 2023/03/20.
@@ -57,7 +59,7 @@ The note's theme changes accordingly with your Anki theme.
 ## Updating
 If you ever wish to update the note, this can only be done on PC,
 and cannot be done on mobile.
-The note does not auto-update; you must manually update the note.
+The note does not auto-update; it must be done manually.
 
 ---
 

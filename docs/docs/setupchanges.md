@@ -33,8 +33,17 @@ TODO
       for instructions on how to update Anki Card Format.
 
 ## Frequency Display
-- default to frequency sort
-- if you prefer the list display, TODO
+The frequency at the top right now defaults to using the FrequencySort value.
+This is because it is usually more useful to see a summary of the values,
+instead of all the literal values itself.
+
+If you prefer the list display, see [here](frequencies.md#list-mode).
+
+## Greyed out collapsible fields
+Collapsible fields are now greyed out by default, instead of removed entirely.
+
+If you want to hide these collapsible fields, see [here](blockquotes.md#hide-empty-collapsed-fields)
+
 
 ---
 
