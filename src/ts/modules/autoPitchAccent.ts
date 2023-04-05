@@ -1,6 +1,6 @@
 import { Module, RunnableModule } from '../module';
 //import { getOption } from '../options';
-import { getWordTags, isVerb, plainToKanaOnly, getTags } from '../utils';
+import { getWordTags, isVerbOrIAdj, plainToKanaOnly, getTags } from '../utils';
 import { getFieldValue } from '../fields';
 import {
   convertHiraganaToKatakana,
@@ -1090,7 +1090,7 @@ export class AutoPitchAccent extends RunnableModule {
       posData.allowAutoKifuku &&
       this.getOption('autoPitchAccent.paOverride.detectKifukuFromWordTags') &&
       pos >= 1 &&
-      isVerb(this.wordTags)
+      isVerbOrIAdj(this.wordTags)
     ) {
       paGroup = 'kifuku';
     }

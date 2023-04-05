@@ -231,7 +231,7 @@ def defaults(*dicts: dict, strict=False):
     return result
 
 
-def _get_opts_all(name, config: Config) -> JSON:
+def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> JSON:
     # attempts to get note options from the following places:
     # - config
     # - theme
@@ -244,8 +244,9 @@ def _get_opts_all(name, config: Config) -> JSON:
 
     # gets default settings
     default_opts_file = os.path.join(root_folder, f"src/{name}_opts.json5")
-    with open(default_opts_file, encoding="utf-8") as f:
-        default_opts = pyjson5.load(f)
+    default_opts = json_handler.read_file(default_opts_file)
+    #with open(default_opts_file, encoding="utf-8") as f:
+    #    default_opts = pyjson5.load(f)
 
     # gets theme settings
     theme_folder = config("theme-folder").item()
@@ -255,8 +256,9 @@ def _get_opts_all(name, config: Config) -> JSON:
             root_folder, "themes", theme_folder, f"{name}_opts.json5"
         )
         if os.path.isfile(theme_opts_file):
-            with open(theme_opts_file, encoding="utf-8") as f:
-                theme_opts = pyjson5.load(f)
+            theme_opts = json_handler.read_file(theme_opts_file)
+            #with open(theme_opts_file, encoding="utf-8") as f:
+            #    theme_opts = pyjson5.load(f)
 
     # gets user settings
     user_opts = {}
@@ -264,8 +266,9 @@ def _get_opts_all(name, config: Config) -> JSON:
         root_folder, "config", config(f"{name}-options-path").item()
     )
     if os.path.isfile(user_opts_file):
-        with open(user_opts_file, encoding="utf-8") as f:
-            user_opts = pyjson5.load(f)
+        user_opts = json_handler.read_file(user_opts_file)
+        #with open(user_opts_file, encoding="utf-8") as f:
+        #    user_opts = pyjson5.load(f)
 
     # TODO convert this to some sort of actual object instead of a dict?
     return {
@@ -275,19 +278,19 @@ def _get_opts_all(name, config: Config) -> JSON:
     }
 
 
-def get_runtime_opts_all(config: Config) -> JSON:
-    return _get_opts_all("runtime", config)
+def get_runtime_opts_all(config: Config, json_handler: JsonHandler) -> JSON:
+    return _get_opts_all("runtime", config, json_handler)
 
 
-def get_compile_opts_all(config: Config) -> JSON:
-    return _get_opts_all("compile", config)
+def get_compile_opts_all(config: Config, json_handler: JsonHandler) -> JSON:
+    return _get_opts_all("compile", config, json_handler)
 
 
-def get_runtime_opts(config: Config) -> Config:
+def get_runtime_opts(config: Config, json_handler: JsonHandler) -> Config:
     # requires separation of { type: ... } (override) values into the "overrides"
     # section to be usable by typescript
 
-    runtime_opts = get_runtime_opts_all(config)
+    runtime_opts = get_runtime_opts_all(config, json_handler)
     result = copy.deepcopy(runtime_opts["default"])
 
     def _is_override_value(val):
@@ -312,8 +315,8 @@ def get_runtime_opts(config: Config) -> Config:
     return Config(result)
 
 
-def get_compile_opts(config: Config) -> Config:
-    compile_opts = get_compile_opts_all(config)
+def get_compile_opts(config: Config, json_handler: JsonHandler) -> Config:
+    compile_opts = get_compile_opts_all(config, json_handler)
     if config("theme-override-user-options").item():
         vals = (compile_opts["themes"], compile_opts["user"], compile_opts["default"])
     else:

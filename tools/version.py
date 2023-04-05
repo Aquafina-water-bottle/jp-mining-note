@@ -20,7 +20,7 @@ class Version:
             x.x.x.x-prerelease-1
         """
         assert str_ver.count(".") == 3
-        assert str_ver.replace(".", "").isdigit()
+        #assert str_ver.replace(".", "").isdigit()
         elements = str_ver.split(".")
         main = int(elements[0])
         major = int(elements[1])
@@ -78,7 +78,7 @@ class Version:
         return not (self < other)
 
     def __repr__(self):
-        return f"Version({', '.join(str(x) for x in self.ints)})"
+        return f"Version({self})"
 
     def __str__(self):
-        return f"({'.'.join(str(x) for x in self.ints)})"
+        return f"({'.'.join(str(x) for x in self.ints)}{'' if self.pre_release is None else '-prerelease-' + str(self.pre_release)})"

@@ -21,7 +21,7 @@ from jinja2 import (
 #import json
 
 import utils
-from note_changes import NOTE_CHANGES
+from note_changes import get_note_changes
 from json_handler import JsonHandler
 
 
@@ -202,7 +202,7 @@ class Generator:
         self.sass_path = config("sass-path").item()
         self.to_release = to_release
 
-        compile_options = utils.get_compile_opts(config)
+        compile_options = utils.get_compile_opts(config, json_handler)
 
         self.css_folders = compile_options("cssFolders").list()
 
@@ -225,13 +225,13 @@ class Generator:
             # helper methods
             "NOTE_DATA": utils.get_note_data(self.json_handler),
             # TODO change this to be based off of whatever version you specify
-            "ALL_FIELDS": NOTE_CHANGES[0].fields,
-            "COMPILE_OPTIONS": utils.get_compile_opts(config),
-            "RUNTIME_OPTIONS": utils.get_runtime_opts(config),
+            "ALL_FIELDS": get_note_changes(json_handler)[0].fields,
+            "COMPILE_OPTIONS": utils.get_compile_opts(config, json_handler),
+            "RUNTIME_OPTIONS": utils.get_runtime_opts(config, json_handler),
             # all options used before pre-processing
             "ALL_OPTIONS": {
-                "compile-options": utils.get_compile_opts_all(config),
-                "runtime-options": utils.get_runtime_opts_all(config),
+                "compile-options": utils.get_compile_opts_all(config, json_handler),
+                "runtime-options": utils.get_runtime_opts_all(config, json_handler),
                 "config.py": config.dict(),
             },
             "TRANSLATOR": translator,
