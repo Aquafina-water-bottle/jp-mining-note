@@ -16,7 +16,7 @@ from json_handler import JsonHandler
 USER_CONFIG_PATH = "config/config.json5"
 DEFAULT_CONFIG_PATH = "config/default_config.json5"
 
-rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+)")
+rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+(-prerelease-\d+)?)")
 
 JSON = dict[str, Any]
 
