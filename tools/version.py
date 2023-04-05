@@ -26,7 +26,7 @@ class Version:
         major = int(elements[1])
         minor = int(elements[2])
 
-        patch = elements[2]
+        patch = elements[3]
         PREREL_SEP = "-prerelease-"
         if PREREL_SEP in patch:
             patch, pre_release = (int(x) for x in patch.split(PREREL_SEP))
@@ -53,10 +53,10 @@ class Version:
 
         if self.pre_release is not None and other.pre_release is not None:
             return 1 if (self.pre_release > other.pre_release) else -1
-        elif self.pre_release is not None:  # self > other
-            return 1
-        elif other.pre_release is not None:  # self < other
+        elif self.pre_release is not None:  # self < other
             return -1
+        elif other.pre_release is not None:  # self > other
+            return 1
         return 0
 
     def __eq__(self, other):
