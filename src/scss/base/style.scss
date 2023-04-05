@@ -2215,12 +2215,22 @@ a.glossary__image-hover-text {
   fill: var(--frequencies-overflow-hover-color);
 }
 
+
+.unknown-freq-number {
+  display: none;
+}
+
+/*
+The following can be used instead of the above to display the unknown frequency number
+(default number for unkonwn frequencies):
+
 .unknown-freq-number:before {
   content: " ("
 }
 .unknown-freq-number:after {
   content: ")"
 }
+ */
 
 
 
