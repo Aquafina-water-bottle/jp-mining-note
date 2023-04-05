@@ -5,83 +5,20 @@ import re
 import argparse
 
 from utils import invoke
-from typing import Callable
-
-# def request(action, **params):
-#    return {"action": action, "params": params, "version": 6}
-#
-#
-# def invoke(action, **params):
-#    requestJson = json.dumps(request(action, **params)).encode("utf-8")
-#    response = json.load(
-#        urllib.request.urlopen(
-#            urllib.request.Request("http://localhost:8765", requestJson)
-#        )
-#    )
-#    if len(response) != 2:
-#        raise Exception("response has an unexpected number of fields")
-#    if "error" not in response:
-#        raise Exception("response is missing required error field")
-#    if "result" not in response:
-#        raise Exception("response is missing required result field")
-#    if response["error"] is not None:
-#        raise Exception(response["error"])
-#    return response["result"]
+from typing import Callable, Type, Any, Optional
 
 
-# removes all no pitch accent data fields
 
 rx_END_DIV = re.compile(r'</div>$')
 rx_FREQ_INNER2 = re.compile(r'<span class="frequencies__dictionary-inner2">(.*?)</span>')
 rx_FURIGANA = re.compile(r" ?([^ >]+?)\[(.+?)\]");
 rx_INTEGER_ONLY = re.compile(r'^-?\d+$')
 
-def get_args(public_functions: list[Callable]):
-    parser = argparse.ArgumentParser()
-    #parser.add_argument(
-    #    "-f",
-    #    "--function",
-    #    type=str,
-    #    default=None,
-    #    help="executes a specific function defined in this file",
-    #)
-
-    subparsers = parser.add_subparsers()
-
-    for f in public_functions:
-        subparser = subparsers.add_parser(f.__name__,
-                help=f.__doc__)
-        subparser.set_defaults(func=f)
-
-        for arg, ty in f.__annotations__.items():
-
-            if f.__kwdefaults__ is not None and arg in f.__kwdefaults__:
-                subparser.add_argument(
-                    "--" + arg,
-                    type=ty,
-                    default=f.__kwdefaults__[arg]
-                )
-            else:
-                subparser.add_argument(
-                    arg,
-                    type=ty,
-                )
 
 
-    #parser.add_argument(
-    #    "--fill-field",
-    #    type=str,
-    #    help="fills a specific field of all JPMN notes with a value",
-    #)
-
-    #parser.add_argument(
-    #    "--empty-field",
-    #    type=str,
-    #    help="empties a specific field of all JPMN notes",
-    #)
-
-
-    return parser.parse_args()
+# ==================
+#  Helper functions
+# ==================
 
 
 def batch(query):
@@ -103,6 +40,59 @@ def batch(query):
 
     return decorator
 
+def _update_note_action(nid: int, **fields):
+    return {
+        "action": "updateNoteFields",
+        "params": {"note": {"id": nid, "fields": fields}},
+    }
+
+def _get_kana_from_plain_reading(plain_reading):
+    result = plain_reading.replace("&nbsp;", " ")
+    result = rx_FURIGANA.sub(r'\2', result, count=0)
+    result = result.strip()
+
+    return result
+
+def _kata2hira(text: str, ignore: str = "") -> str:
+    # taken directly from jaconv's source code
+    # separate function instead of using `jaconv` for the sake of fewer dependencies
+    # for end users
+    # NOTE: doesn't convert long katakana marks unfortunately
+
+    def _to_dict(_from, _to):
+        return dict(zip(_from, _to))
+    def _to_ord_list(chars):
+        return list(map(ord, chars))
+
+    HIRAGANA = list('ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず'
+                    'せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ'
+                    'ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ'
+                    'をんーゎゐゑゕゖゔゝゞ・「」。、')
+    FULL_KANA = list('ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ'
+                     'ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ'
+                     'ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ'
+                     'ヽヾ・「」。、')
+    FULL_KANA_ORD = _to_ord_list(FULL_KANA)
+    K2H_TABLE = _to_dict(FULL_KANA_ORD, HIRAGANA)
+
+    def _exclude_ignorechar(ignore, conv_map):
+        for character in map(ord, ignore):
+            conv_map[character] = character
+        return conv_map
+
+    def _convert(text, conv_map):
+        return text.translate(conv_map)
+
+    _conv_map = _exclude_ignorechar(ignore, K2H_TABLE.copy())
+    return _convert(text, _conv_map)
+
+
+
+
+
+# =================
+#  Batch functions
+# =================
 
 def clear_pitch_accent_data():
     """
@@ -117,11 +107,7 @@ def clear_pitch_accent_data():
     actions = []
 
     for nid in notes:
-        action = {
-            "action": "updateNoteFields",
-            "params": {"note": {"id": nid, "fields": {"PAGraphs": ""}}},
-        }
-
+        action = _update_note_action(nid, PAGraphs="")
         actions.append(action)
 
     notes = invoke("multi", actions=actions)
@@ -129,6 +115,7 @@ def clear_pitch_accent_data():
 
 def add_downstep_inner_span_tag():
     """
+    (0.8.x.x -> 0.9.0.0)
     adds the inner span tag to all pitch accents
     """
 
@@ -177,17 +164,8 @@ def add_downstep_inner_span_tag():
 
         # print(info["fields"]["Key"]["value"], field_val)
 
-        action = {
-            "action": "updateNoteFields",
-            "params": {
-                "note": {
-                    "id": info["noteId"],
-                    "fields": {
-                        "WordPitch": field_val,
-                    },
-                }
-            },
-        }
+        nid = info["noteId"]
+        action = _update_note_action(nid, WordPitch=field_val)
 
         actions.append(action)
 
@@ -205,16 +183,7 @@ def set_pasilence_field():
     actions = []
 
     for nid in notes:
-        action = {
-            "action": "updateNoteFields",
-            "params": {
-                "note": {
-                    "id": nid,
-                    "fields": {"PASilence": "[sound:_silence.wav]"},
-                }
-            },
-        }
-
+        action = _update_note_action(nid, PASilence="[sound:_silence.wav]")
         actions.append(action)
 
     notes = invoke("multi", actions=actions)
@@ -238,18 +207,8 @@ def rename_vn_freq():
         field_val = field_val.replace(">VN Freq<", ">VN Freq Percent<")
         field_val = field_val.replace('"VN Freq"', '"VN Freq Percent"')
 
-        action = {
-            "action": "updateNoteFields",
-            "params": {
-                "note": {
-                    "id": info["noteId"],
-                    "fields": {
-                        "FrequenciesStylized": field_val,
-                    },
-                }
-            },
-        }
-
+        nid = info["noteId"]
+        action = _update_note_action(nid, FrequenciesStylized=field_val)
         actions.append(action)
 
     notes = invoke("multi", actions=actions)
@@ -259,6 +218,8 @@ def add_sort_freq_legacy():
     """
     Batch adds sort frequencies based off of the legacy frequency html format.
     DO NOT USE THIS for any version of the card below 0.10.2.0.
+
+    Requires BeautifulSoup.
     """
 
     # pip3 install beautifulsoup4
@@ -295,97 +256,76 @@ def add_sort_freq_legacy():
 
         min_freq = parse_str(field_val, ignored)
         if min_freq is not None:
-            action = {
-                "action": "updateNoteFields",
-                "params": {
-                    "note": {
-                        "id": info["noteId"],
-                        "fields": {
-                            "FrequencySort": str(min_freq),
-                        },
-                    }
-                },
-            }
-
+            nid = info["noteId"]
+            action = _update_note_action(nid, FrequencySort=str(min_freq))
             actions.append(action)
 
     # print(actions)
     notes = invoke("multi", actions=actions)
 
 
-def fill_field(*, field_name: str, value: str="1"):
+def fill_field(field_name: str, value: str="1", query: Optional[str] = None):
     """
     batch set the field to `1`
     """
 
-    notes = invoke("findNotes", query=r'"note:JP Mining Note"')
+    if query is None:
+        query = '"note:JP Mining Note"'
+    notes = invoke("findNotes", query=query)
 
     # creates multi request
     actions = []
 
     for nid in notes:
-        action = {
-            "action": "updateNoteFields",
-            "params": {
-                "note": {
-                    "id": nid,
-                    "fields": {field_name: value},
-                }
-            },
-        }
-
+        action = _update_note_action(nid, **{field_name: value})
         actions.append(action)
 
     notes = invoke("multi", actions=actions)
 
-#@batch(r'"note:JP Mining Note"')
-#def fill_field(notes, *, field_name: str, value: str="1"):
-#    """
-#    batch set the field to `1`
-#    """
-#
-#    actions = []
-#
-#    for nid in notes:
-#        action = {
-#            "action": "updateNoteFields",
-#            "params": {
-#                "note": {
-#                    "id": nid,
-#                    "fields": {field_name: value},
-#                }
-#            },
-#        }
-#
-#        actions.append(action)
-#
-#    return actions
 
-
-def empty_field(field_name: str):
+def empty_field(field_name: str, query: Optional[str] = None):
     """
     batch empties the field
     """
 
-    notes = invoke("findNotes", query=r'"note:JP Mining Note"')
+    if query is None:
+        query = '"note:JP Mining Note"'
+    notes = invoke("findNotes", query=query)
 
     # creates multi request
     actions = []
 
     for nid in notes:
-        action = {
-            "action": "updateNoteFields",
-            "params": {
-                "note": {
-                    "id": nid,
-                    "fields": {field_name: ""},
-                }
-            },
-        }
-
+        action = _update_note_action(nid, **{field_name: ""})
         actions.append(action)
 
     notes = invoke("multi", actions=actions)
+
+
+def copy_field_to(src: str, dest: str, query: Optional[str] = None):
+    """
+    copies the field contents of src to dest
+    """
+
+    print("Querying notes...")
+    if query is None:
+        query = '"note:JP Mining Note"'
+    notes = invoke("findNotes", query=query)
+
+    print("Getting notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print(f"Copying field {src} to {dest}...")
+    actions = []
+    for info in notes_info:
+        nid = info["noteId"]
+        field_val = info["fields"][src]["value"]
+        action = _update_note_action(nid, **{dest: field_val})
+        actions.append(action)
+
+    print("Updating notes...")
+    notes = invoke("multi", actions=actions)
+
 
 
 def _standardize_frequencies_styling(freq):
@@ -431,46 +371,6 @@ def standardize_frequencies_styling():
 
     notes = invoke("multi", actions=actions)
 
-
-def _get_kana_from_plain_reading(plain_reading):
-    result = plain_reading.replace("&nbsp;", " ")
-    result = rx_FURIGANA.sub(r'\2', result, count=0)
-    result = result.strip()
-
-    return result
-
-def _kata2hira(text: str, ignore: str = "") -> str:
-    # taken directly from jaconv's source code
-    # separate function instead of using `jaconv` for the sake of fewer dependencies
-    # for end users
-    # NOTE: doesn't convert long katakana marks unfortunately
-
-    def _to_dict(_from, _to):
-        return dict(zip(_from, _to))
-    def _to_ord_list(chars):
-        return list(map(ord, chars))
-
-    HIRAGANA = list('ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず'
-                    'せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ'
-                    'ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ'
-                    'をんーゎゐゑゕゖゔゝゞ・「」。、')
-    FULL_KANA = list('ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ'
-                     'ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ'
-                     'ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ'
-                     'ヽヾ・「」。、')
-    FULL_KANA_ORD = _to_ord_list(FULL_KANA)
-    K2H_TABLE = _to_dict(FULL_KANA_ORD, HIRAGANA)
-
-    def _exclude_ignorechar(ignore, conv_map):
-        for character in map(ord, ignore):
-            conv_map[character] = character
-        return conv_map
-
-    def _convert(text, conv_map):
-        return text.translate(conv_map)
-
-    _conv_map = _exclude_ignorechar(ignore, K2H_TABLE.copy())
-    return _convert(text, _conv_map)
 
 
 def fill_word_reading_hiragana_field():
@@ -603,12 +503,58 @@ def separate_pa_override_field():
 
 
 
+def remove_bolded_text_ajtwordpitch():
+    """
+    (0.11.x.x -> 0.12.0.0)
+    Removes bolded text in AJTWordPitch
+
+    TODO
+    """
+
+    query = r'"note:JP Mining Note" (AJTWordPitch:*<b>* OR AJTWordPitch:*</b>*)'
+    print("Querying notes...")
+    notes = invoke("findNotes", query=query)
+    print("Getting notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print("Removing bolded text...")
+    actions = []
+    for info in notes_info:
+        ajt_word_pitch = info["fields"]["AJTWordPitch"]["value"]
+        pa_override = info["fields"]["PAOverride"]["value"]
+        pa_override_text = info["fields"]["PAOverrideText"]["value"]
+        pa_positions = info["fields"]["PAPositions"]["value"]
+
+        field_updates = {
+            "AJTWordPitch": ajt_word_pitch.replace("<b>", "").replace("</b>", ""),
+        }
+        if (pa_positions + pa_override_text + pa_override).strip() == "":
+            # empty, i.e. only ajt_word_pitch is currently used!
+            # safe to set PAOverrideText
+            field_updates["PAOverrideText"] = ajt_word_pitch
+
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": info["noteId"],
+                    "fields": field_updates,
+                }
+            },
+        }
+        #print(field_updates)
+
+        actions.append(action)
+
+    print("Updating notes...")
+    notes = invoke("multi", actions=actions)
+
+
+
 def combine_backup_xelieu():
     """
-    adhoc function where one can use a backup of old notes in a different profile
-    to update notes in the current profile.
-
-    Only use this if you know what you are doing!
+    (0.11.x.x -> 0.12.0.0)
+    adhoc function to transfer Xelieu's notes to JPMN, combining monolingual fields properly
     """
 
     query = r'"note:Mining Format" Glossary:'
@@ -678,61 +624,65 @@ def combine_backup_xelieu():
     notes = invoke("multi", actions=actions)
 
 
-def set_all_fonts(*, version=None):
+def set_all_fonts(version=None):
     pass
 
-def reorder_all_fields(*, version=None):
+def reorder_all_fields(version=None):
     pass
 
-def add_all_fields(*, version=None):
+def add_all_fields(version=None):
     pass
 
 
-def remove_bolded_text_ajtwordpitch():
-    """
-    (0.11.x.x -> 0.12.0.0)
-    Removes bolded text in AJTWordPitch
 
-    TODO
-    """
 
-    query = r'"note:JP Mining Note" (AJTWordPitch:*<b>* OR AJTWordPitch:*</b>*)'
-    print("Querying notes...")
-    notes = invoke("findNotes", query=query)
-    print("Getting notes info...")
-    notes_info = invoke("notesInfo", notes=notes)
+FUNC_ARGS: dict[Callable, dict[str, Type]] = {
+    fill_field: {"field_name": str},
+    empty_field: {"field_name": str},
+    copy_field_to: {
+        "src": str,
+        "dest": str,
+    }
+}
 
-    print("Removing bolded text...")
-    actions = []
-    for info in notes_info:
-        ajt_word_pitch = info["fields"]["AJTWordPitch"]["value"]
-        pa_override = info["fields"]["PAOverride"]["value"]
-        pa_override_text = info["fields"]["PAOverrideText"]["value"]
-        pa_positions = info["fields"]["PAPositions"]["value"]
+FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
+    fill_field: {
+        "value": (str, "1"),
+        "query": (str, None)
+    },
+    empty_field: {"query": (str, None)},
+    copy_field_to: {"query": (str, None)},
+}
 
-        field_updates = {
-            "AJTWordPitch": ajt_word_pitch.replace("<b>", "").replace("</b>", ""),
-        }
-        if (pa_positions + pa_override_text + pa_override).strip() == "":
-            # empty, i.e. only ajt_word_pitch is currently used!
-            # safe to set PAOverrideText
-            field_updates["PAOverrideText"] = ajt_word_pitch
 
-        action = {
-            "action": "updateNoteFields",
-            "params": {
-                "note": {
-                    "id": info["noteId"],
-                    "fields": field_updates,
-                }
-            },
-        }
-        #print(field_updates)
 
-        actions.append(action)
+def get_args(public_functions: list[Callable]):
+    parser = argparse.ArgumentParser()
 
-    print("Updating notes...")
-    notes = invoke("multi", actions=actions)
+    subparsers = parser.add_subparsers()
+
+    for f in public_functions:
+        subparser = subparsers.add_parser(f.__name__,
+                help=f.__doc__)
+        subparser.set_defaults(func=f)
+
+        if f in FUNC_ARGS:
+            for arg, ty in FUNC_ARGS[f].items():
+                subparser.add_argument(
+                    arg,
+                    type=ty,
+                )
+
+        if f in FUNC_KWARGS:
+            for arg, (ty, default) in FUNC_KWARGS[f].items():
+                subparser.add_argument(
+                    "--" + arg,
+                    type=ty,
+                    default=default
+                )
+
+    return parser.parse_args()
+
 
 
 def main():
@@ -751,6 +701,8 @@ def main():
         quick_fix_convert_kana_only_reading_all_notes,
         separate_pa_override_field,
         remove_bolded_text_ajtwordpitch,
+        combine_backup_xelieu,
+        copy_field_to,
     ]
 
 
@@ -759,35 +711,6 @@ def main():
         func_args = vars(args)
         func = func_args.pop("func")
         func(**func_args)
-
-    #if args.function:
-    #    assert args.function in globals(), f"function {args.function} does not exist"
-    #    func = globals()[args.function]
-    #    print(f"executing {args.function}")
-    #    func()
-
-    #elif args.fill_field:
-    #    fill_field(args.fill_field)
-
-    #elif args.empty_field:
-    #    empty_field(args.empty_field)
-
-
-    #parser = argparse.ArgumentParser()
-    #subparsers = parser.add_subparsers()
-    #a = subparsers.add_parser("a")
-    #b = subparsers.add_parser("b")
-    #a.add_argument("--asdf", action="store_true")
-    #b.add_argument("--asdf", action="store_true")
-    #a.set_defaults(somevar="a")
-    #b.set_defaults(somevar="b")
-
-    #print(parser.parse_args())
-
-
-
-    return
-
 
 
 if __name__ == "__main__":

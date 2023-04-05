@@ -237,7 +237,8 @@ def _get_opts_all(name, config: Config) -> JSON:
     # - theme
     # - default (error if not found)
 
-    import pyjson5
+    #import pyjson5
+    # TODO use json handler!!!! what on earth is this
 
     root_folder = get_root_folder()
 
@@ -408,7 +409,7 @@ def get_config(args: argparse.Namespace, json_handler: JsonHandler) -> Config:
 def create_json_handler(args: argparse.Namespace):
     # we emit json by default on release builds
     return JsonHandler(
-        args.dev_read_json5, True if args.to_release else args.dev_emit_json
+        args.dev_read_json5, True if args.release else args.dev_emit_json
     )
 
 
