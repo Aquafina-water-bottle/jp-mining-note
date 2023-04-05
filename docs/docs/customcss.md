@@ -1,5 +1,11 @@
 
 !!! warning
+    This entire section will be **completely overhauled** in version 0.12.0.0,
+    meaning that this information will be completely changed when that version releases.
+    See the `webpack` branch on Github if you want to see the work in progress.
+
+<!--
+!!! warning
 
     Since this note is still in beta, the CSS itself,
     including the class names and structure of the HTML,
@@ -9,7 +15,7 @@
 
     If you are planning on changing the CSS,
     be vigilant with potential changes in future updates!
-
+-->
 
 ---
 
