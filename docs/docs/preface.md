@@ -32,8 +32,10 @@ I'm not aware of a workflow for iOS that works with Yomichan.
 ## Anki Desktop
 This note supports Anki versions 2.1.50 and above, with
 primary support given to the latest stable Anki versions (2.1.60+ & Qt6).
+
 Limited support will be given for older versions of Anki,
 and there are certain features that are known to break on Anki versions 2.1.49 and below.
+In other words, this note is incompatable for Anki versions 2.1.49 or older.
 
 ## Mobile (AnkiDroid and AnkiMobile)
 jp-mining-note finally supports AnkiDroid and AnkiMobile,
