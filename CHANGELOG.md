@@ -295,23 +295,6 @@ and must use `./install.py --update`.
 - Added a debug div within the info circle to display monospaced debug messages
 - Added additional css to be able to remove the "(N/A)" display
 
-#### Update Notes (0.11.0.0)
-- Update Yomichan's 'Anki Card Templates' section.
-    - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichan-templates)
-      for instructions on how to update Anki Card Templates.
-- Update Yomichan's 'Anki Card format' section WordReadingHiragana: `(empty)` -> `{jpmn-word-reading-hiragana}`.
-    - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichans-anki-card-format)
-      for instructions on how to update Anki Card Format.
-- If you are using the nsfw-toggle function, the option name was changed
-  from `nsfw-toggle` to `image-blur`. Please change it in your runtime options
-  to continue using it.
-  [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
-- The way keybinds are specified has been changed (to allow keys to still function as expected
-  even with CapsLock enabled.)
-  Keybinds will no longer work until you update the runtime options values.
-  For example, update `n` to `KeyN`.
-  [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
-
 
 ## [0.10.3.0] - 2022-10-21
 

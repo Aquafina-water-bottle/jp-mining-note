@@ -701,7 +701,10 @@ is a part of a dictionary) ~}}
             (op "===" (get "opt-jmdict-list-format") true)
             (op "||"
                 (op "===" dictionary "JMdict (English)")
-                (op "===" dictionary "JMdict")
+                (op "||"
+                    (op "===" dictionary "JMdict Extra")
+                    (op "===" dictionary "JMdict")
+                )
             )
         )
         ~}}
