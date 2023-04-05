@@ -19,6 +19,16 @@ However, with the proper setup, one can also create cards on the following platf
 
 I'm not aware of a workflow for iOS that works with Yomichan.
 
+!!! note
+    JPMN currently requires Yomichan to create the Anki cards.
+    There are many popular setups out there that do not use Yomichan
+    and instead have their own card exporter,
+    such as
+    [JL](https://github.com/rampaa/JL)
+    and
+    [jidoujisho](https://github.com/lrorpilla/jidoujisho).
+    Unfortunately, there is no support for other card exporters outside of Yomichan.
+
 ## Anki Desktop
 This note supports Anki versions 2.1.50 and above, with
 primary support given to the latest stable Anki versions (2.1.60+ & Qt6).

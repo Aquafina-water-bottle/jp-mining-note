@@ -84,7 +84,7 @@ nav:
     - "Setup: Other": setupother.md
     - Transfer Existing Notes: importing.md
     - Updating: updating.md
-    - Version Changes: updatingversions.md
+    - Setup Changes: setupchanges.md
   - Reference:
     - Quick Start (TODO): quickstart.md
     - Blockquotes (TODO): blockquotes.md
