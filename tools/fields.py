@@ -3,56 +3,50 @@
 # combine with typescript Field type perhaps too
 
 
+import os
 from dataclasses import dataclass
+from typing import Optional
+from json_handler import JsonHandler
+
+import utils
 
 @dataclass
 class Field:
     name: str
-    font_size: int
+    font: int # font size
+    auto_fill: bool # whether this field should be auto-filled by some program (i.e. Yomichan, mpvacious, etc.)
+    binary_field: bool
 
-FIELDS = [
-    Field("Key", 40),
-    Field("Word", 20),
-    Field("WordReading", 20),
-    Field("PAOverride", 20),
-    Field("PAOverrideText", 20),
-    Field("AJTWordPitch", 20),
-    Field("PrimaryDefinition", 20),
-    Field("PrimaryDefinitionPicture", 20),
-    Field("Sentence", 20),
-    Field("SentenceReading", 20),
-    Field("AltDisplay", 20),
-    Field("AltDisplayPASentenceCard", 20),
-    Field("AltDisplayAudioCard", 20),
-    Field("AdditionalNotes", 20),
-    Field("Hint", 15),
-    Field("HintNotHidden", 15),
-    Field("IsSentenceCard", 10),
-    Field("IsTargetedSentenceCard", 10),
-    Field("IsClickCard", 10),
-    Field("IsHoverCard", 10),
-    Field("IsHintCard", 10),
-    Field("IsSentenceFirstCard", 10),
-    Field("IsAudioCard", 10),
-    Field("PAShowInfo", 10),
-    Field("PATestOnlyWord", 10),
-    Field("PADoNotTest", 10),
-    Field("PASeparateWordCard", 10),
-    Field("PASeparateSentenceCard", 10),
-    Field("SeparateAudioCard", 10),
-    Field("SeparateSentenceAudioCard", 10),
-    Field("Picture", 20),
-    Field("WordAudio", 15),
-    Field("SentenceAudio", 15),
-    Field("PAGraphs", 15),
-    Field("PAPositions", 15),
-    Field("FrequenciesStylized", 15),
-    Field("FrequencySort", 10),
-    Field("PASilence", 10),
-    Field("WordReadingHiragana", 10),
-    Field("YomichanWordTags", 10),
-    Field("SecondaryDefinition", 15),
-    Field("ExtraDefinitions", 15),
-    Field("UtilityDictionaries", 15),
-    Field("Comment", 20),
-]
+    # exact text used for Yomichan's "Anki Card Format"
+    setup: Optional[str] = None
+
+    # personal setup of the above
+    personal_setup: Optional[str] = None
+
+    # what animecards field maps to this card
+    anime_cards_import: Optional[str] = None
+
+    # when this field was introduced
+    version: Optional[bool] = None
+
+    # additional notes on the field
+    notes: Optional[str] = None
+
+    # whether it is collapsed by default or not
+    default_collapsed: Optional[bool] = None
+
+
+def get_fields(json_handler: JsonHandler):
+    fields = []
+    file_path = os.path.join(utils.get_root_folder(), "src", "data", "fields.json5")
+    for json_data in json_handler.read_file(file_path)["fields"]:
+        field = Field(**json_data)
+        fields.append(field)
+
+    return fields
+
+
+if __name__ == "__main__":
+    json_handler = JsonHandler(True, True)
+    print(get_fields(json_handler))
+

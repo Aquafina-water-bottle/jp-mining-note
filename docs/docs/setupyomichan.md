@@ -154,11 +154,11 @@ change the following line at the top of the templates code:
 
 {% raw %}
 ```handlebars
-{{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
+{{~set "opt-first-definition-type" "bilingual" ~}}
 ```
 to
 ```handlebars
-{{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
+{{~set "opt-first-definition-type" "monolingual" ~}}
 ```
 {% endraw %}
 
@@ -239,10 +239,6 @@ there are some other platforms that one can create cards from.
 
 ## Android Setup
 
-!!! warning
-    Actually using JPMN on mobile devices (e.g. for reviewing), is currently not stable.
-    This simply shows how to make the cards on Android.
-
 If you wish to add cards on Android, use
 [AnkiconnectAndroid](https://github.com/KamWithK/AnkiconnectAndroid)
 and follow the instructions on the AnkiconnectAndroid's README page.
@@ -252,8 +248,8 @@ instead of re-doing all of the steps on Android.
 !!! note
     Occasionally, importing your Yomichan settings from the PC may lead to
     AnkiconnectAndroid not working.
-    If AnkiconnectAndroid doesn't work after going through the entire README,
-    try resetting your Yomichan settings on Android and starting from scratch.
+    See [here](https://github.com/KamWithK/AnkiconnectAndroid#common-errors-and-solutions)
+    for additional troubleshooting.
 
 
 !!! note
@@ -263,7 +259,8 @@ instead of re-doing all of the steps on Android.
 
     Although screenshots cannot be added automatically,
     the runtime options supports automatically adding images
-    based off of tags. See [here](images.md#automatically-add-images-using-tags)
+    based off of tags, which is mostly useful for novels.
+    See [here](images.md#automatically-add-images-using-tags)
     for more info.
 
 <br>

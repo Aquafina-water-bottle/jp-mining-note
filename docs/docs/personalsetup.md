@@ -85,7 +85,7 @@ pa:
     {{~! ================ Dictionary Categorization Options ================= ~}}
 
     {{~! valid values: "bilingual", "monolingual" ~}}
-    {{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
+    {{~set "opt-first-definition-type" "monolingual" ~}}
 
     {{~! matches most JMdict dictionaries, 新和英 and 日本語文法辞典(全集)~}}
     {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
@@ -401,23 +401,11 @@ div#dictionary-entries > div.entry:nth-child(n + 2) .kanji-glyph-data > tbody > 
 
 ## Yomichan Fields
 
-{% macro getarg(f, v) -%}
-  {%- set result = v.get("personal_setup", None) -%}
-  {%- if result == None -%}
-    {%- set result = v.get("setup", None) -%}
-  {%- endif -%}
-  {%- if result != None -%}
-    `{{result}}` { .smaller-table-row }
-  {%- endif -%}
-{%- endmacro %}
-
 ??? example
 
-    | Anki Fields | Yomichan Format |
-    |-------------|-----------------|
-    {% for f, v in FIELDS.items() -%}
-    | {{ f }} { .smaller-table-row } | {{ getarg(f, v) }} |
-    {% endfor %}
+{% filter indent(4) %}
+{{ personal_setup_table() }}
+{% endfilter %}
 
 
 # Discord
