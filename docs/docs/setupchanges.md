@@ -1,7 +1,8 @@
 
-This page documents any changes that should be done to the setup,
-including note changes, handlebars changes, and most importantly,
-breaking changes from external programs and how to fix or workaround them.
+This page documents any changes to the setup as recorded in previous pages,
+as well as any important handlebars and JPMN updates.
+Most importantly, this documents the existance of breaking changes from external
+programs and if there are fixes or workarounds for them.
 
 If something breaks, and you suspect it's due to an external program updating,
 please check here first! If you can't find any solution,
@@ -18,30 +19,35 @@ Afterwards, see below for the other necessary changes that must be made to prope
 
 ## Config Rework
 
-TODO
+The `_jpmn-options.js` runtime options file has been completely reworked, meaning
+any changes to your config will no longer work.
+To fix your config file, do the following steps:
 
-- common config changes that people probably made:
-    - pitch accent
-    - image blur
+1. [Locate the `_jpmn-options.js` file](runtimeoptions.md#accessing-editing).
+1. Make a backup of this file, say, by copying the file into your `Documents` folder.
+1. Edit the file, and replace its contents entirely with the [example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
+    - TODO REMOVE THIS: link above is currently outdated because master
+    - actual link you should use is this: [https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js)
+1. Re-add any runtime options you had changed before.
+
 
 ## Handlebars
-- Yomichan's 'Anki Card Format' section was updated, and the following fields must be changed:
-    - `FrequencySort`: `{jpmn-min-freq}` →  `{jpmn-frequency-sort}`
-        - Newer users might already have this set correctly. In that case, you don't have to change anything
-    - `YomichanWordTags`: `(empty)` →  `{tags}`
-    - See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichans-anki-card-format)
-      for instructions on how to update Anki Card Format.
+Yomichan's 'Anki Card Format' section was updated, and the following fields must be changed:
+
+- `FrequencySort`: `{jpmn-min-freq}` →  `{jpmn-frequency-sort}`
+    - Newer users might already have this set correctly. In that case, you don't have to change anything
+- `YomichanWordTags`: `(empty)` →  `{tags}`
+- See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichans-anki-card-format)
+  for instructions on how to update Anki Card Format.
 
 ## Frequency Display
 The frequency at the top right now defaults to using the FrequencySort value.
 This is because it is usually more useful to see a summary of the values,
 instead of all the literal values itself.
-
 If you prefer the list display, see [here](frequencies.md#list-mode).
 
 ## Greyed out collapsible fields
 Collapsible fields are now greyed out by default, instead of removed entirely.
-
 If you want to hide these collapsible fields, see [here](blockquotes.md#hide-empty-collapsed-fields)
 
 

@@ -13,12 +13,10 @@ and open the `_jpmn-options.js` file as a text file.
 
 The contents of the file should look something like the following:
 ```javascript
-var JPMNOpts = (function (my) {
-  my.settings = {
-    // ... (a bunch of settings)
-  }
-  return my;
-}(JPMNOpts || {}));
+window.JPMNOptions = {
+  // Add your runtime options here.
+
+}
 ```
 
 !!! note
