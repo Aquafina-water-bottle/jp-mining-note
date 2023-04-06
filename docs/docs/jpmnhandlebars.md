@@ -38,59 +38,75 @@ Anki note templates, and will likely work on yours as well.
 ---
 
 
-# Setup
+# Setup Handlebars
 
-1. [Make a backup of your Yomichan settings.](faq.md#how-do-i-backup-yomichan-settings)
+Before doing anything, please
+[make a backup of your Yomichan settings.](faq.md#how-do-i-backup-yomichan-settings)
 
-1. Follow the setup instructions under the
-    [Setup Yomichan: Yomichan Templates](setupyomichan.md#yomichan-templates) section,
-     as if you were installing jp-mining-note.
-     Stop once you see "Make an example card!".
 
-1. After setting up the templates, navigate to the top of the newly added templates.
-    From there, change the following options:
+??? example "Video demo"
+    ![type:video](assets/setupyomichan/import_yomichan_templates.mp4)
 
-    {% raw %}
-    ```handlebars
-    {{~set "opt__plaintext__stylize-glossary"            true ~}}
-    {{~set "opt__plaintext__one-dict-entry-only-no-list" true ~}}
-    {{~set "opt__plaintext__export-dictionary-tag"       true ~}}
-    {{~set "opt__plaintext__remove-first-line-enabled"   true ~}}
-    ```
-    {% endraw %}
+1. Navigate to Yomichan Settings.
+1. Make sure that advanced settings are turned on (bottom left corner).
+1. Go to the `Anki` section
+1. Select `Configure Anki card templates...`
+1. If you have existing template code already, I highly recommend
+   **resetting the templates** (bottom right corner, red button)
+   unless you know exactly what you are doing.
 
-    TODO video
+After resetting the templates,
+**without** removing any of the existing template code,
+add the following template code as follows:
 
-1. Below are a few common options that most people likely change:
-    - `opt-first-definition-type`:
-        Whether the primary definition is monolingual or bilingual.
-        This is bilingual by default.
-        [See here for more info](definitions.md#primary-definition-selection-automatic).
+1. Copy and paste the code below to the **top** of the default Yomichan template code:
 
-    - `opt-selection-text-enabled`:
-        Whether you can select the definitions and dictionaries
-        to override the primary definition. This is disabled by default,
-        and you very likely want to set this to `true`.
-        [See here for more info](definitions.md#primary-definition-selection-manual).
+    ??? examplecode "Click here to show the template code to copy."
 
-    - `opt-primary-def-one-dict-entry-only`:
-        Whether something with multiple dictionary entries
-        has all entries exported into the primary definition, or only the first one.
-        Exports all entries by default.
-        [See here for more info](definitions.md#exporting-only-one-dictionary-entry).
+        ```handlebars
+        {% filter indent(width=8) -%}
+        {{ plaintext_true(TOP_YOMICHAN) }}
+        {% endfilter %}
+        ```
+
+2. Copy and paste the code below to the **bottom** of the default Yomichan template code:
+
+    ??? examplecode "Click here to show the template code to copy."
+
+        ```handlebars
+        {% filter indent(width=8) -%}
+        {{ BOTTOM_YOMICHAN }}
+        {% endfilter %}
+        ```
+
+Below are a few common options that most people likely change:
+
+- `opt-first-definition-type`:
+    By default, the handlebars exports bilingual cards.
+    Set this to `monolingual` for monolingual Anki cards.
+    [See here for more info](definitions.md#primary-definition-selection-automatic).
+
+- `opt-primary-def-one-dict-entry-only`:
+    This specifies whether something with multiple dictionary entries
+    has all entries exported into the primary definition, or only the first one.
+    Exports all entries by default.
+    [See here for more info](definitions.md#exporting-only-one-dictionary-entry).
 
 
 ---
 
 
-# Usage
+# Setup Fields
 
 TODO video
 
 1. Navigate to Yomichan Settings.
 1. Go to the `Anki` section.
 1. Select `Anki card format...`.
-1. Under your definition field (`Glossary`, `VocabDef`, etc.), replace the contents with `{jpmn-primary-definition}`.
+1. Under your definition field (`Glossary`, `VocabDef`, etc.),
+    type `{jpmn-primary-definition}` into the input box.
+1. If you have a field for bilingual definitions, set that field to `{jpmn-secondary-definition}`
+1. If you have a field for all other definitions, set that field to `{jpmn-extra-definitions}`
 
 ---
 
