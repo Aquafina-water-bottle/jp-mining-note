@@ -3,244 +3,53 @@ import os
 import re
 
 import math
+import pyjson5
+from typing import Optional
 
 
-#"auto_fill": bool,
-#"binary_field": bool,
-#"reference": str
-#"setup": str
-#"version": str
-#"anime_cards_import": str
-#"personal_setup": str
 
-FIELDS = {
-    "Key": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "fieldref.md#key-field",
-        "setup": "{expression}",
-        "anime_cards_import": "front",
-    },
-    "Word": {
-        "auto_fill": True,
-        "binary_field": False,
-        "setup": "{expression}",
-        "anime_cards_import": "front",
-    },
-    "WordReading": {
-        "auto_fill": True,
-        "binary_field": False,
-        "setup": "{furigana-plain}",
-        "anime_cards_import": "Reading",
-    },
-    "PAOverride": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "autopa.md#how-pitch-accent-is-selected",
-    },
-    "PAOverrideText": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "autopa.md#how-pitch-accent-is-selected",
-        "version": "0.11.0.0",
-    },
-    "AJTWordPitch": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "autopa.md#how-pitch-accent-is-selected",
-    },
-    "PrimaryDefinition": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "images.md#main-image",
-        "setup": "{jpmn-primary-definition}",
-        "anime_cards_import": "Glossary",
-    },
-    "PrimaryDefinitionPicture": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "images.md#the-primarydefinitionpicture-field",
-        "version": "0.11.0.0",
-    },
-    "Sentence": {
-        "auto_fill": True,
-        "binary_field": False,
-        "setup": "{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}",
-        "anime_cards_import": "Sentence",
-    },
-    "SentenceReading": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "setup.md#ajt-furigana",
-    },
-    "AltDisplay": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "fieldref.md#changing-the-displayed-content",
-    },
-    "AltDisplayPASentenceCard": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "fieldref.md#modifying-pitch-accent-sentence-cards",
-    },
-    "AdditionalNotes": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "fieldref.md#modifying-the-back-side",
-    },
-    "IsSentenceCard": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "cardtypes.md#sentence-card",
-    },
-    "IsClickCard": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "cardtypes.md#hybrid-cards",
-        "personal_setup": "{jpmn-filled-if-word-is-not-hiragana}",
-    },
-    "IsHoverCard": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "cardtypes.md#hybrid-cards",
-    },
-    "IsTargetedSentenceCard": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "cardtypes.md#targetted-sentence-card-tsc",
-        "personal_setup": "{jpmn-filled-if-word-is-hiragana}",
-    },
-    "PAShowInfo": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "fieldref.md#testing-pitch-accent",
-        "personal_setup": "1",
-    },
-    "PATestOnlyWord": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "fieldref.md#selecting-the-pitch-accent",
-        "personal_setup": "1",
-    },
-    "PADoNotTest": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "fieldref.md#selecting-the-pitch-accent",
-    },
-    "PASeparateWordCard": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "fieldref.md#selecting-the-pitch-accent",
-    },
-    "PASeparateSentenceCard": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "fieldref.md#selecting-the-pitch-accent",
-    },
-    "SeparateClozeDeletionCard": {
-        "auto_fill": False,
-        "binary_field": True,
-        "reference": "fieldref.md#cloze-deletion-cards",
-    },
-    "Hint": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "fieldref.md#hints",
-    },
-    "HintNotHidden": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "fieldref.md#hints",
-        "anime_cards_import": "Hint",
-    },
-    "Picture": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "images.md",
-        "anime_cards_import": "Picture",
-    },
-    "WordAudio": {
-        "auto_fill": True,
-        "binary_field": False,
-        "setup": "{audio}",
-        "anime_cards_import": "Audio",
-    },
-    "SentenceAudio": {
-        "auto_fill": True,
-        "binary_field": False,
-        "anime_cards_import": "SentenceAudio",
-    },
-    "PAGraphs": {
-        "auto_fill": True,
-        "binary_field": False,
-        "setup": "{jpmn-pitch-accent-graphs}",
-        "notes": "Do not edit this field.",
-        "anime_cards_import": "Graph",
-    },
-    "PAPositions": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "autopa.md#how-pitch-accent-is-selected",
-        "notes": "Do not edit this field.",
-        "setup": "{jpmn-pitch-accent-positions}",
-    },
-    "PASilence": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "faq.md#what-is-the-point-of-the-pasilence-field",
-        "notes": "Do not edit this field.",
-        "setup": "[sound:_silence.wav]",
-    },
-    "WordReadingHiragana": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "ui.md#word-indicators",
-        "setup": "{jpmn-word-reading-hiragana}",
-        "version": "0.11.0.0",
-    },
-    "FrequenciesStylized": {
-        "auto_fill": True,
-        "binary_field": False,
-        "notes": "Do not edit this field.",
-        "setup": "{jpmn-frequencies}",
-    },
-    "FrequencySort": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "fieldref.md#frequencysort-field",
-        "setup": "{jpmn-frequency-sort}",
-    },
-    "YomichanWordTags": {
-        "auto_fill": True,
-        "binary_field": False,
-        "setup": "{tags}",
-        "version": "0.12.0.0",
-    },
-    "SecondaryDefinition": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "definitions.md#expected-dictionary-placement",
-        "setup": "{jpmn-secondary-definition}",
-    },
-    "ExtraDefinitions": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "definitions.md#expected-dictionary-placement",
-        "setup": "{jpmn-extra-definitions}",
-    },
-    "UtilityDictionaries": {
-        "auto_fill": True,
-        "binary_field": False,
-        "reference": "definitions.md#expected-dictionary-placement",
-        "setup": "{jpmn-utility-dictionaries}",
-    },
-    "Comment": {
-        "auto_fill": False,
-        "binary_field": False,
-        "reference": "fieldref.md#comment-field",
-        "personal_setup": "DICTIONARY:「{_jpmn-get-primary-definition-dict}」<br>SELECTION:「{_jpmn-selection-text}」",
-    },
-}
+@dataclass
+class Field:
+    name: str
+    font: int # font size
+    auto_fill: bool # whether this field should be auto-filled by some program (i.e. Yomichan, mpvacious, etc.)
+    binary_field: bool
+
+    # exact text used for Yomichan's "Anki Card Format"
+    setup: Optional[str] = None
+
+    # personal setup of the above
+    personal_setup: Optional[str] = None
+
+    # what animecards field maps to this card
+    anime_cards_import: Optional[str] = None
+
+    # when this field was introduced
+    version: Optional[bool] = None
+
+    # additional notes on the field
+    notes: Optional[str] = None
+
+    # whether it is collapsed by default or not
+    default_collapsed: Optional[bool] = None
+
+def get_root_folder():
+    tools_folder = os.path.dirname(os.path.abspath(__file__))
+    root_folder = os.path.join(tools_folder, "..")
+
+    return root_folder
+
+def get_fields() -> list[Field]:
+    fields = []
+    file_path = os.path.join(get_root_folder(), "src", "data", "fields.json5")
+    with open(file_path) as f:
+        for json_data in pyjson5.load(f)["fields"]:
+            field = Field(**json_data)
+            fields.append(field)
+
+    return fields
+
+FIELDS = get_fields()
 
 
 rx_MORE_THAN_ONE_NEWLINE = re.compile(r"[\n]+")
@@ -362,14 +171,9 @@ class Version:
         return f"({'.'.join(str(x) for x in self.ints)}{'' if self.pre_release is None else '-prerelease-' + str(self.pre_release)})"
 
 
-def define_env(env):
-    "Hook function"
-
+def define_env_vars(env):
     top = ""
     bottom = ""
-
-    with open("../version.txt") as f:
-        CURRENT_VERSION_STR = f.read().strip()
 
     with open(os.path.join("..", "yomichan_templates", "top.txt")) as f:
         top = f.read()
@@ -381,7 +185,7 @@ def define_env(env):
         version = f.read().strip()
 
     data = {
-        "FIELDS": FIELDS,
+        #"FIELDS": FIELDS,
         "TOP_YOMICHAN": top,
         "BOTTOM_YOMICHAN": bottom,
         "VERSION": version,
@@ -410,6 +214,17 @@ def define_env(env):
 
     for k, v in data.items():
         env.variables[k] = v
+
+
+def define_env(env):
+    "Hook function"
+    define_env_vars(env)
+
+    # TODO do not hardcode this!!!
+    #with open("../version.txt") as f:
+    #    CURRENT_VERSION_STR = f.read().strip()
+    CURRENT_VERSION_STR = "0.12.0.0"
+
 
     @env.macro
     def sharex_post(sharex_code):
@@ -519,39 +334,6 @@ def define_env(env):
     def _ceil(x):
         return math.ceil(x)
 
-    # @env.macro
-    # def field_quick_jump_table_cols(num_columns: int):
-
-    #    rows = []
-
-    #    # top row
-    #    rows.append("|" + "|".join(["Field"]*num_columns) + "|")
-
-    #    # sep row
-    #    rows.append("|" + "|".join(["-"]*num_columns) + "|")
-
-    #    col_len = math.ceil(len(FIELDS) / num_columns)
-
-    #    field_ordered = tuple((k, v) for k, v in FIELDS.items())
-
-    #    for i in range(col_len):
-    #        row = []
-    #        for j in range(num_columns):
-    #            k = i + j*col_len
-
-    #            if k >= len(field_ordered):
-    #                ele = ""
-    #            else:
-    #                f = field_ordered[k]
-
-    #                ele = f"[{f[0]}]({f[1]['reference']})" if 'reference' in f[1] else f[0]
-    #                ele += " { .smaller-table-row }"
-
-    #            row.append(ele)
-    #        rows.append("|".join(row))
-
-    #    return "\n".join(rows)
-
     @env.macro
     def field_quick_jump_table():
 
@@ -563,13 +345,12 @@ def define_env(env):
         # sep row
         rows.append("|:-:|:-:|:-:|:-:|")
 
-        for k, v in FIELDS.items():
-            field = f"[{k}]({v['reference']})" if "reference" in v else k
-            auto_filled = CHECKED_CHECKBOX if v["auto_fill"] else UNCHECKED_CHECKBOX
-            binary_field = CHECKED_CHECKBOX if v["binary_field"] else UNCHECKED_CHECKBOX
-            notes = v.get("notes", "")
+        for field in FIELDS:
+            auto_filled = CHECKED_CHECKBOX if field.auto_fill else UNCHECKED_CHECKBOX
+            binary_field = CHECKED_CHECKBOX if field.binary_field else UNCHECKED_CHECKBOX
+            notes = "" if field.notes is None else field.notes
 
-            elements = [field, auto_filled, binary_field, notes]
+            elements = [field.name, auto_filled, binary_field, notes]
             elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
 
             rows.append("|" + "|".join(elements) + "|")
@@ -581,23 +362,23 @@ def define_env(env):
         rows = []
 
         # top row
-        rows.append("| Anki Fields | Yomichan Format | Notes |")
+        rows.append("| Anki Fields | Yomichan Format | Version Introduced |")
 
         # sep row
         rows.append("|-|-|-|")
 
         current_ver = Version.from_str(CURRENT_VERSION_STR)
 
-        for k, v in FIELDS.items():
+        for field in FIELDS:
 
-            anki_field = ("*" if v["binary_field"] else "") + k
+            anki_field = ("*" if field.binary_field else "") + field.name
             yomichan_format = ""
-            if "setup" in v:
-                yomichan_format = f"`{v['setup']}`"
+            if field.setup is not None:
+                yomichan_format = "`" + str(field.setup) + "`"
             notes = ""
 
-            if "version" in v:
-                ver = v["version"]
+            if field.version is not None:
+                ver = field.version
                 feature_ver = Version.from_str(ver)
                 if feature_ver > current_ver:
                     # anki_field = f'~~{anki_field}~~'
@@ -605,7 +386,7 @@ def define_env(env):
                     # notes = f"New in version `{ver}` (currently not available)"
                     continue  # skips the element altogether
 
-                notes = f"New in version `{ver}`"
+                notes = f"`{ver}`"
 
             elements = [anki_field, yomichan_format, notes]
             elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
@@ -625,23 +406,56 @@ def define_env(env):
 
         current_ver = Version.from_str(CURRENT_VERSION_STR)
 
-        for k, v in FIELDS.items():
+        for field in FIELDS:
 
             # skips the element altogether if not in current version
-            if "version" in v:
-                ver = v["version"]
+            if field.version is not None:
+                ver = field.version
                 feature_ver = Version.from_str(ver)
                 if feature_ver > current_ver:
                     continue
 
-            jpmn_field = k
-            ac_field = v.get("anime_cards_import", "")  # anime card field
+            ac_field = "" if field.anime_cards_import is None else field.anime_cards_import
 
-            elements = [jpmn_field, ac_field]
+            elements = [field.name, ac_field]
             elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
             rows.append("|" + "|".join(elements) + "|")
 
         return "\n".join(rows)
+
+    @env.macro
+    def personal_setup_table():
+        rows = []
+
+        # top row
+        rows.append("| Anki Fields | Yomichan Format |")
+
+        # sep row
+        rows.append("|-|-|")
+
+        current_ver = Version.from_str(CURRENT_VERSION_STR)
+
+        for field in FIELDS:
+
+            # skips the element altogether if not in current version
+            if field.version is not None:
+                ver = field.version
+                feature_ver = Version.from_str(ver)
+                if feature_ver > current_ver:
+                    continue
+
+            result = ""
+            if field.personal_setup is not None:
+                result = field.personal_setup
+            elif field.setup is not None:
+                result = field.setup
+
+            elements = [field.name, result]
+            elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
+            rows.append("|" + "|".join(elements) + "|")
+
+        return "\n".join(rows)
+
 
     @env.macro
     def gen_regex_table(args: RegexTableArgs):

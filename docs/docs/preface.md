@@ -21,7 +21,7 @@ I'm not aware of a workflow for iOS that works with Yomichan.
 
 !!! note
     JPMN currently requires Yomichan to create the Anki cards.
-    Yomichan requires your text to be present in a web browser in order to work.
+    As common as Yomichan is, this dependency to Yomichan can be considered a weakness.
 
     There are many popular setups out there that do not use Yomichan
     and instead have their own card exporter,
@@ -30,7 +30,7 @@ I'm not aware of a workflow for iOS that works with Yomichan.
     and
     [jidoujisho](https://github.com/lrorpilla/jidoujisho).
     Although it may be possible to replicate certain parts of the setup
-    with these card exporters, it is very likely that certain features
+    with these card exporters, it is almost certain that select features
     will be missing.
 
 ## Anki Desktop

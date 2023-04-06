@@ -1,5 +1,6 @@
 import { LOGGER } from './logger';
 
+// TODO use src/data/fields.json5
 export type Field =
   | 'Key'
   | 'Word'

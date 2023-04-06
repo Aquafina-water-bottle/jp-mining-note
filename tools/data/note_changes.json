@@ -1,7 +1,7 @@
 {
   "note_changes": [
     {
-      "version": "0.12.0.0",
+      "version": "0.12.0.0-prerelease-1",
       "actions": [
         {
           "type": "MoveField",

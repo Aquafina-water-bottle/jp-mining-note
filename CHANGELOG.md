@@ -147,11 +147,14 @@ and must use `./install.py --update`.
     - Added hotkeys to update the current card to be a cloze deletion card
         - TODO documentation on this (specifically ways to create cloze deletion cards)
     - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
-    - Added styling for inline `<code>` blocks. For example, the following sentence taken from the rust book:
+    - Added styling for inline `<code>` blocks. For example, the following sentence taken from the rust book
+        is now formatted nicely:
         ```
         新しい言語を学ぶ際に、<code>Hello, world!</code>というテキストを画面に<b>出力</b>する小さなプログラムを書くことは伝統的なことなので、ここでも同じようにしましょう！
         ```
     - Kanji hover now searches sentences if there aren't enough results to be shown from just words
+    - Kanji hover should no longer immediately activate on card flip (when the mouse is idling over the kanji),
+        unless already cached
     - Logger class now supports better filtering of messages and better console output
     - Made the 頭高 (red) pitch accent color slightly deeper, to better differentiate it from 中高 (orange)
     - Word indicators now load on the front side of the card instead of the back
