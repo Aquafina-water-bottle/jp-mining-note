@@ -129,8 +129,7 @@ To modify a regex string:
     {% raw %}
     For completeness, here is the modified line for the second example:
     ```handlebars
-
-    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|KireiCake|Amazing Dictionary|Somewhat-Okay-Dictionary)$ {{~/set~}}
+    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|KireiCake|NEW斎藤和英大辞典||Amazing Dictionary|Somewhat-Okay-Dictionary)$ {{~/set~}}
     ```
     {% endraw %}
 

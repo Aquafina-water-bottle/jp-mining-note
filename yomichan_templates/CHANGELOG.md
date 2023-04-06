@@ -11,7 +11,8 @@ Public facing markers are markers starting with `jpmn` (whereas private markers 
 The Yomichan template version is incremented independently from the jp-mining-note version.
 
 ## v1.0.3
-- Added KireiCake to `bilingual-dict-regex`
+- Added `KireiCake` and `NEW斎藤和英大辞典` to `bilingual-dict-regex`
+- Added `JMdict Extra` as a valid 'Extra' version
 
 ## v1.0.2
 - Changed `opt-selection-text-enabled` to `true` by default
