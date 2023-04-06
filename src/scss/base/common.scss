@@ -6,6 +6,39 @@ $bp-max-width-backside: 850px;
 $bp-tablet-height: 700px;
 $bp-combine-picture: 620px;
 
+$font-backup-serif:
+          "Noto Serif CJK JP",
+          "Noto Serif JP",
+          "Noto Serif",
+          "Droid Serif",
+          "Roboto Slab",
+          "IPAPMincho",
+          "HanaMinA",
+          "HanaMinB",
+          serif;
+
+$font-backup-sans:
+          "Noto Sans CJK JP",
+          "Noto Sans JP",
+          "Noto Sans",
+          "Source Han Sans JP",
+          "IPAPGothic",
+          "VL PGothic",
+          "Koruri",
+          "Hiragino Sans",
+          "ヒラギノ角ゴ ProN W3",
+          "Hiragino Kaku Gothic ProN",
+          "メイリオ",
+          "Meiryo",
+          "Osaka",
+          "MS PGothic"
+          "Open Sans",
+          "Droid Sans",
+          "Ubuntu",
+          "Roboto",
+          sans-serif;
+
+
 
 //$bp-adjust-play-buttons: 400px;
 
@@ -180,37 +213,8 @@ $bp-combine-picture: 620px;
 
   /* font families */
 
-  --jp-serif: notoserif,
-          "Noto Serif CJK JP",
-          "Noto Serif JP",
-          "Noto Serif",
-          "Droid Serif",
-          "Roboto Slab",
-          "IPAPMincho",
-          "HanaMinA",
-          "HanaMinB",
-          serif;
-
-  --jp-sans: notosans,
-          "Noto Sans CJK JP",
-          "Noto Sans JP",
-          "Noto Sans",
-          "Source Han Sans JP",
-          "IPAPGothic",
-          "VL PGothic",
-          "Koruri",
-          "Hiragino Sans",
-          "ヒラギノ角ゴ ProN W3",
-          "Hiragino Kaku Gothic ProN",
-          "メイリオ",
-          "Meiryo",
-          "Osaka",
-          "MS PGothic"
-          "Open Sans",
-          "Droid Sans",
-          "Ubuntu",
-          "Roboto",
-          sans-serif;
+  --jp-serif: notoserif, #{$font-backup-serif};
+  --jp-sans: notosans, #{$font-backup-sans};
 }
 
 @mixin night_mode_vars {
