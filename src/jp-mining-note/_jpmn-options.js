@@ -4,8 +4,12 @@ window.JPMNOptions = {
   //
   //     "key": value,
   //
-  // For example:
-  //
-  //     TODO
+  // Some common examples are shown below.
+
+  // Enables colored pitch accent
+  //"autoPitchAccent.coloredPitchAccent.enabled": true,
+
+  // Enables image blur
+  //"imgStylizer.mainImage.blur.enabled": true,
 
 }
