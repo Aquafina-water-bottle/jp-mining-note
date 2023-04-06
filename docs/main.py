@@ -339,7 +339,7 @@ def define_env(env):
         lines = []
         for line in top_yomichan.splitlines(keepends=False):
             if line.startswith('{{~set "opt__plaintext__'):
-                line = line.replace('false ~}}', 'true ~}} {{~! Overwritten to `true` ~}}')
+                line = line.replace('false ~}}', 'true ~}} {{~! Default overwritten ~}}')
             lines.append(line)
         return "\n".join(lines)
 

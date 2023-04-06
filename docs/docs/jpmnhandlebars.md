@@ -44,7 +44,7 @@ Before doing anything, please
 [make a backup of your Yomichan settings.](faq.md#how-do-i-backup-yomichan-settings)
 
 
-??? example "Video demo"
+??? example "Video demo *(click here)*"
     ![type:video](assets/setupyomichan/import_yomichan_templates.mp4)
 
 1. Navigate to Yomichan Settings.
@@ -98,7 +98,9 @@ Below are a few common options that most people likely change:
 
 # Setup Fields
 
-TODO video
+
+??? example "Video demo TODO *(click here)*"
+    TODO video
 
 1. Navigate to Yomichan Settings.
 1. Go to the `Anki` section.
