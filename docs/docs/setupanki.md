@@ -57,6 +57,22 @@ you can skip the rest of this section.
 ---
 
 
+# Enable Animations
+Starting Anki 2.1.61, animations are disabled by default.
+The note works best with animations enabled.
+To enable animations, head over to:
+> `Tools` →  `Preferences` →  `Appearance` →  `Reduce Motion` →  `(unchecked)`
+
+!!! note
+    The reason why animations are disabled by default is to workaround an internal
+    Anki bug. In the future, animations will be enabled by default again. [^1]
+
+[^1]:  [https://forums.ankiweb.net/t/reduce-motion-affecting-card-templates-bug-or-intentional/28973](https://forums.ankiweb.net/t/reduce-motion-affecting-card-templates-bug-or-intentional/28973)
+
+
+---
+
+
 # Dark Mode
 Although light mode is supported, the recommended theme for this note is dark mode.
 With that being said, changing the theme is completely optional.

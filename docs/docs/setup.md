@@ -136,6 +136,9 @@ Please check the following in particular:
     Kanji hover may not work yet. If it doesn't work,
     read the Anki-Connect setup instructions on the next page.
 
+    If the image suddenly appears without a zoom animation,
+    then you must [enable animations on Anki](setupanki.md#enable-animations).
+
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
     see the [Fix Ruby Positioning](uicustomization.md#fix-ruby-positioning-for-legacy-anki-versions) option.
 
