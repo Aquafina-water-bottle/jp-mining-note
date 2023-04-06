@@ -15,8 +15,11 @@
 
 @use "common";
 
-/* Consider uncommenting the import below if fonts don't work (especially for Android): */
-/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap'); */
+/* Backup font, primarily for Android. Defines "Noto Serif JP" and "Noto Sans JP" */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
+
 
 /* defines the REM value */
 html {
@@ -52,37 +55,8 @@ html {
  */
 
 .android {
-  --jp-serif: /*notoserif,*/
-          "Noto Serif CJK JP",
-          "Noto Serif JP",
-          "Noto Serif",
-          "Droid Serif",
-          "Roboto Slab",
-          "IPAPMincho",
-          "HanaMinA",
-          "HanaMinB",
-          serif;
-
-  --jp-sans: /*notosans,*/
-          "Noto Sans CJK JP",
-          "Noto Sans JP",
-          "Noto Sans",
-          "Source Han Sans JP",
-          "IPAPGothic",
-          "VL PGothic",
-          "Koruri",
-          "Hiragino Sans",
-          "ヒラギノ角ゴ ProN W3",
-          "Hiragino Kaku Gothic ProN",
-          "メイリオ",
-          "Meiryo",
-          "Osaka",
-          "MS PGothic"
-          "Open Sans",
-          "Droid Sans",
-          "Ubuntu",
-          "Roboto",
-          sans-serif;
+  --jp-serif: #{common.$font-backup-serif};
+  --jp-sans: #{common.$font-backup-sans};
 }
 
 
