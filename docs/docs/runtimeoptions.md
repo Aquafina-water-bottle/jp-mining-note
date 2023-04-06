@@ -67,6 +67,7 @@ This can be changed to:
 ```
 
 A full list of special option types is shown below.
+The source code for these can be found under src/ts/options.ts (TODO link).
 
 
 

@@ -13,7 +13,8 @@ please check here first! If you can't find any solution,
 
 # 2023/??/?? (JPMN 0.12.0.0)
 
-A new version of jp-mining-note has been released!
+This version of jp-mining-note comes with many changes,
+including an entire backend javascript rework.
 See the [Updating](updating.md#overview) page on how to update the note.
 Afterwards, see below for the other necessary changes that must be made to properly update the note.
 
@@ -35,9 +36,10 @@ To fix your config file, do the following steps:
 Yomichan's 'Anki Card Format' section was updated, and the following fields must be changed:
 
 - `FrequencySort`: `{jpmn-min-freq}` →  `{jpmn-frequency-sort}`
-    - Newer users might already have this set correctly. In that case, you don't have to change anything
+    - Newer users might already have this set correctly.
+        In that case, you don't have to change anything.
 - `YomichanWordTags`: `(empty)` →  `{tags}`
-- See [here](https://aquafina-water-bottle.github.io/jp-mining-note/updating/#updating-yomichans-anki-card-format)
+- See [here](updating.md#updating-yomichans-anki-card-format)
   for instructions on how to update Anki Card Format.
 
 ## Frequency Display
@@ -48,7 +50,10 @@ If you prefer the list display, see [here](frequencies.md#list-mode).
 
 ## Greyed out collapsible fields
 Collapsible fields are now greyed out by default, instead of removed entirely.
-If you want to hide these collapsible fields, see [here](blockquotes.md#hide-empty-collapsed-fields)
+If you want to hide these collapsible fields, see [here](blockquotes.md#hide-empty-collapsed-fields).
+
+## Final Steps
+After changing everything, don't forget to [test that the card works!](updating.md#final-steps)
 
 
 ---

@@ -12,35 +12,7 @@ as well as provide basic support for required steps outside of Anki.
 
 ---
 
-# Updating: Via Python Script
-
-The recommended way to install the note is by using a python script.
-This will change the note in place, and gives you various options on how
-the note will be changed.
-Lastly, it will give you warnings on anything you have to change manually,
-such as Yomichan Templates.
-
-??? question "Why can't I just copy/paste the templates, or just re-install the .apkg file to update the note?"
-
-    It's not uncommon for updates to contain many changes outside of just the templates
-    alone. For example, required Yomichan settings, add-on config changes,
-    or sometimes even the data within the note fields must be changed.
-    Additionally, the field list is changed somewhat frequently.
-
-    Although settings outside of Anki cannot be changed automatically,
-    almost all settings within Anki are automatically updated
-    with the python script.
-    Additionally, the python script will give you plenty of instructions on
-    exactly how to update any Yomichan setting or add-on config change.
-
-    Finally, installing the .apkg file when the field list is in any way different
-    will actually create a new version of the note
-    instead of replacing the old note, which may prove to be an even bigger hassle.
-
-
-<br>
-
-## Preliminary steps
+# Preliminary steps
 Ensure that your note is named exactly `JP Mining Note`.
 To do this, head over to:
 
@@ -51,34 +23,105 @@ If your note is named differently, please rename it to `JP Mining Note`.
 !!! note
     You can always change the name back after updating.
 
+---
+
+# Updating the Note
+
+You can update the note in one of two ways:
+
+1. Via an Anki Add-on
+2. Via a Python script
+    (recommended for people who know used `python` and `git` before)
+
+
+{% set post_install %}
+There may be further steps outside of just updating the card,
+such as updating Yomichan's templates / format.
+These should be recorded in the [Setup Changes](setupchanges.md) page.
+
+Afterward seeing that page, please view the [final steps](updating.md#final-steps) section.
+{% endset %}
+
+??? info "Option 1: Via Anki Add-on *(click here)*"
+
+    This add-on simply wraps around the python script mentioned below,
+    and should do the exact same operations as running the script manually.
+
+    1. Install the add-on with the following code: `TODO`
+        - TODO actually write add-on...
+        - If you already have this add-on installed, check for updates by TODO.
+    1. Navigate to `Tools` →  `jp-mining-note` →  `Update`,
+        and follow the instructions from there.
+
+{% filter indent(4) %}
+{{ post_install }}
+{% endfilter %}
+
+
+??? info "Option 2: Via Python Script *(click here)*"
+
+    === "Windows"
+        ```bat
+        :: assuming you are at the root of the repo, i.e. after the following commands:
+        ::  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
+        ::  $ cd jp-mining-note
+
+        :: grabs the latest version of the master branch
+        git pull origin/master
+
+        :: Make sure you have Anki open and Anki-Connect installed!
+        :: Also ensure that your python version is 3.10.6 or higher.
+        python tools\install.py
+        ```
+
+
+    === "Linux & MacOS"
+        ```bash
+        # assuming you are at the root of the repo, i.e. after the following commands:
+        #  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
+        #  $ cd jp-mining-note
+
+        # grabs the latest version of the master branch
+        git pull origin/master
+
+        # Make sure you have Anki open and Anki-Connect installed!
+        # Also ensure that your python version is 3.10.6 or higher.
+        python3 tools/install.py
+        ```
+
+{% filter indent(4) %}
+{{ post_install }}
+{% endfilter %}
+
+
+    <!--
+    This will change the note in place, and gives you various options on how
+    the note will be changed.
+    Lastly, it will give you warnings on anything you have to change manually,
+    such as Yomichan Templates.
+    -->
+
 <br>
 
-## Running the Script
+??? question "Why can't I just copy/paste the templates, or just re-install the .apkg file to update the note?"
 
-=== "Command Line"
+    In short, updating via Anki or Python performs many operations that cannot be done with
+    a simple note transfer. Most importantly, there are operations
+    (usually under [batch.py](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/tools/batch.py))
+    that change the data within the actual fields themselves, and these are ran
+    automatically on note update. If you attempt to update your note manually,
+    these actions will not be ran, and can result in unwanted changes to your note!
 
-    The cross platform command line summary is shown below.
+    Additionally, many manual operations are done for you by updating the note.
+    with Python, such as automatically creating and re-arranging new fields.
 
-    A more user friendly set of instructions for Windows users
-    is also available on the second tab,
-    for people who have never used `python` or `git` before.
+    If you still want to attempt manually updating the note, then there will be
+    little to no support given.
 
-    ```bash
-    # assuming you are at the root of the repo, i.e. after the following commands:
-    #  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
-    #  $ cd jp-mining-note
 
-    # grabs the latest version of the master branch
-    git pull origin/master
 
-    cd tools
 
-    # Make sure you have Anki open and Anki-Connect installed!
-    # Also ensure that your python version is 3.10.6 or higher.
-    # Note: Linux users may have to use `python3` instead of `python`.
-    python install.py --update
-    ```
-
+<!--
 === "Windows"
 
     This section explains how to run the script on Windows if you have never used
@@ -109,10 +152,12 @@ If your note is named differently, please rename it to `JP Mining Note`.
         Once you run the command, further instructions should be given to you through the command
         line interface.
 
+-->
+
 ---
 
 # Common Errors
-This section will document common errors that occur when running the `install.py` script.
+This section will document common errors that occur when running the installation script.
 
 <br>
 
@@ -140,7 +185,7 @@ The field list can be accessed by navigating to the following:
 
 > (Main window) →  `Browse` →  `Fields...`.
 
-The `install.py` is picky about fields and its order, and by default, the script will reject
+The installation script is picky about fields and its order, and by default, the script will reject
 any note type with modifications to the field list.
 
 To fix this, there are a few cases to go through.
@@ -190,10 +235,11 @@ To fix this, there are a few cases to go through.
     for more info on why they cannot be ignored.
 
 
-
-
-
 ---
+
+
+<!--
+
 
 # Updating: Manually
 
@@ -230,15 +276,7 @@ To fix this, there are a few cases to go through.
 
 ---
 
-# After Updating the Card
-There may be further steps outside of just updating the card,
-such as updating Yomichan's templates / format.
-Further instructions on these are written below.
-
-
-Afterwards, please see the [final steps](updating.md#final-steps) section.
-
----
+-->
 
 
 
@@ -254,6 +292,7 @@ then **the field will not show up automatically in Yomichan**.
     Doing the above WILL clear all the fields that you previously had, unless there
     is a matching field in that other card.
 
+<br>
 
 ## Refreshing Yomichan Fields
 
@@ -262,7 +301,7 @@ then **the field will not show up automatically in Yomichan**.
 
 1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings)
     of your Yomichan settings, just in case.
-1. After running `install.py --update`, create a temporary copy of the note by: <br>
+1. After installing the note update, create a temporary copy of the note by: <br>
     `Tools` <br>
     →  `Manage Note Types` <br>
     →  `Add` <br>
@@ -275,8 +314,8 @@ then **the field will not show up automatically in Yomichan**.
     and then change it back to `JP Mining Note`.
     (If you don't see `JP Mining Note copy`, please refresh the page.)
 1. Update the fields as specified.
-    - It should be specified in the text you see when running `install.py --update`.
-    - However, you should also simply compare the table on the
+    - It should be specified in the text you see when updating.
+        However, you should also simply compare the table on the
         [setup page](setupyomichan.md#yomichan-fields) to your filled out fields.
 1. Remove the temporary note: <br>
     `Tools` <br>

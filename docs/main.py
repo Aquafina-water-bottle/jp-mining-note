@@ -335,6 +335,15 @@ def define_env(env):
         return math.ceil(x)
 
     @env.macro
+    def plaintext_true(top_yomichan: str):
+        lines = []
+        for line in top_yomichan.splitlines(keepends=False):
+            if line.startswith('{{~set "opt__plaintext__'):
+                line = line.replace('false ~}}', 'true ~}} {{~! Overwritten to `true` ~}}')
+            lines.append(line)
+        return "\n".join(lines)
+
+    @env.macro
     def field_quick_jump_table():
 
         rows = []
