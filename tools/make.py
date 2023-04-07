@@ -405,7 +405,6 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
     root_folder = utils.get_root_folder()
     note_data = utils.get_note_data(generator.json_handler)
 
-
     # generates typescript
     generate_ts_consts(args, generator)
 

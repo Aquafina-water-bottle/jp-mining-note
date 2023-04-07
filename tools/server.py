@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 Use this in Anki, replacing "full_sentence" with whatever
 

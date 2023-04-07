@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 class Version:
     def __init__(
         self,

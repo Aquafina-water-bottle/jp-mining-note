@@ -2,6 +2,7 @@
 # combine with docs main.py
 # combine with typescript Field type perhaps too
 
+from __future__ import annotations
 
 import os
 from dataclasses import dataclass
