@@ -21,6 +21,7 @@ def main():
     args.from_build = True
     args.update = True
     args.dev_read_json5 = True
+    args.dev_emit_json = True
 
     make.main(args=args)
     install.main(args=args)
