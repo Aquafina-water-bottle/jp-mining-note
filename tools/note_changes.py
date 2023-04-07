@@ -29,7 +29,7 @@ ACTION_TYPE_TO_OBJECT_CLASS = {
 
 def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = None) -> tuple[NoteChange]:
     if file_path is None:
-        file_path = os.path.join(utils.get_root_folder(), "tools", "data", "note_changes.json5")
+        file_path = os.path.join(utils.get_root_folder(), "data", "note_changes.json5")
     json_data = json_handler.read_file(file_path)
 
     previous_fields: list[str] | None = None

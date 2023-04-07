@@ -26,7 +26,7 @@
   "compile-options-path": "config/compile_opts.json5",
 
   // - File searched under (root).
-  "translation-file": "src/data/translations.json5",
+  "translation-file": "data/translations.json5",
 
   // - File searched under (root).
   // - Ignores folder if it doesn't exist.
