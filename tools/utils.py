@@ -263,7 +263,7 @@ def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> JSON:
     # gets user settings
     user_opts = {}
     user_opts_file = os.path.join(
-        root_folder, "config", config(f"{name}-options-path").item()
+        root_folder, config(f"{name}-options-path").item()
     )
     if os.path.isfile(user_opts_file):
         user_opts = json_handler.read_file(user_opts_file)
