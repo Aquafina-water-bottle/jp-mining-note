@@ -243,7 +243,7 @@ def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> JSON:
     root_folder = get_root_folder()
 
     # gets default settings
-    default_opts_file = os.path.join(root_folder, f"src/{name}_opts.json5")
+    default_opts_file = os.path.join(root_folder, "data", f"{name}_opts.json5")
     default_opts = json_handler.read_file(default_opts_file)
     #with open(default_opts_file, encoding="utf-8") as f:
     #    default_opts = pyjson5.load(f)
@@ -417,7 +417,7 @@ def create_json_handler(args: argparse.Namespace):
 
 
 def get_note_data(json_handler: JsonHandler) -> Config:
-    path = os.path.join(get_root_folder(), "tools/data/note_data.json5")
+    path = os.path.join(get_root_folder(), "data/note_data.json5")
     data = json_handler.read_file(path)
     return Config(data)
 

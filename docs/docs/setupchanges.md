@@ -26,7 +26,8 @@ To fix your config file, do the following steps:
 
 1. [Locate the `_jpmn-options.js` file](runtimeoptions.md#accessing-editing).
 1. Make a backup of this file, say, by copying the file into your `Documents` folder.
-1. Edit the file, and replace its contents entirely with the [example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
+1. Edit the file with your favorite text editor, and replace its contents entirely with the
+    [example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
     - TODO REMOVE THIS: link above is currently outdated because master
     - actual link you should use is this: [https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js)
 1. Re-add any runtime options you had changed before.
