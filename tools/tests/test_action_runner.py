@@ -1,7 +1,8 @@
 import pytest
 
 from tools.action_runner import Version, FieldEditSimulator, Verifier
-import tools.note_changes as note_changes
+import tools.note_changes as nc
+from tools.json_handler import JsonHandler
 
 
 def test_version_cmp():
@@ -28,11 +29,14 @@ def test_note_changes():
     # s.simulate(actions)
     # s.verify(note_changes.NOTE_CHANGES[0].fields)
 
-    original_fields = note_changes.NOTE_CHANGES[-1].fields
-    new_fields = note_changes.NOTE_CHANGES[0].fields
+    json_handler = JsonHandler()
+    NOTE_CHANGES = nc.get_note_changes(json_handler)
+
+    original_fields = NOTE_CHANGES[-1].fields
+    new_fields = NOTE_CHANGES[0].fields
     verifier = Verifier(original_fields, new_fields)
     actions = sum(
-        (data.actions for data in reversed(note_changes.NOTE_CHANGES)), start=[]
+        (data.actions for data in reversed(NOTE_CHANGES)), start=[]
     )
     verifier.verify_simulator(actions)
 

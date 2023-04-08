@@ -663,7 +663,7 @@ def remove_html(field_name: str):
     notes = invoke("multi", actions=actions)
 
 
-def set_all_fonts(version=None):
+def set_all_fonts():
     pass
 
 
