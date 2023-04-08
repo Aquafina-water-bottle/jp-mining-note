@@ -59,6 +59,17 @@ After changing everything, don't forget to [test that the card works!](updating.
 
 ---
 
+
+# 2023/04/07 (AJT Japanese Update)
+AJT Japanese got updated to include automatic audio file downloading.
+The [example config](setupanki.md#config-changes)
+was updated to disable this by default, because having it enabled increased Anki startup time.
+Feel free to re-enable this if you plan on using this feature.
+
+
+---
+
+
 # 2023/04/01 (Anki 2.1.61)
 Anki 2.1.61 sets `Reduce motion` to be enabled by default. This breaks all animations in templates.
 To re-enable animations in templates, please turn this option off.
