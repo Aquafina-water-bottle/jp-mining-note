@@ -310,7 +310,7 @@ class Verifier:
 class ActionRunner:
     def __init__(
         self,
-        note_changes,
+        note_changes: list[NoteChange],
         current_ver: Version,
         new_ver: Version,
         in_order=True,
@@ -365,7 +365,6 @@ class ActionRunner:
 
         if not self.changes:  # if self.changes is empty
             return
-        #self.action_metadata = self.parse_actions()
 
         if verify:
             if self.new_fields is not None:
@@ -384,32 +383,15 @@ class ActionRunner:
             if self.edits_cards and self.requires_user_action:
                 return  # saves some cycles
 
-    #def _should_run_action(self, i: int):
-    #    #return self.select_changes is None or i+1 in self.select_changes
-    #    return True
-
-    #def parse_actions(self) -> dict[Action, ActionMetadata]:
-    #    i = 0
-    #    result = {}
-    #    for c in self.changes:
-    #        for a in c.actions:
-    #            result[a] = ActionMetadata(self._should_run_action(i), i)
-    #            i += 1
-    #    return result
-
     def get_filtered_actions(self) -> list[Action] :
         result = []
         for c in self.changes:
             for a in c.actions:
-                #if self.action_metadata[a].should_run:
-                #    result.append(a)
                 result.append(a)
         return result
 
     def clear(self):
         self.changes.clear()
-        #if isinstance(self.select_changes, list):
-        #    self.select_changes.clear()
 
     def indent(self, desc: str, indent: str = "    ", start: str = "  - ") -> str:
         return start + desc.replace("\n", "\n" + indent)

@@ -82,6 +82,22 @@ def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = No
     return tuple(reversed(note_changes))
 
 
+def get_version_fields(note_changes: list[NoteChange], current_ver: Version):
+    original_fields = None
+
+    for data in reversed(note_changes):
+        ver = data.version
+        if ver <= current_ver:
+            # records last known fields_check
+            original_fields = data.fields
+        else:
+            break
+
+    assert original_fields is not None
+    return original_fields
+
+
+
 #NOTE_CHANGES = [
 #
 #    NoteChange(
