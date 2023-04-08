@@ -324,6 +324,8 @@ To change the config of any Anki add-on, head over to:
 
 > `Tools` →  `Add-ons` →  (select the add-on) →  `Config`.
 
+An example config is shown below that you can copy/paste.
+
 ??? examplecode "Click here to see the full AJT Japanese config"
 
     The important things to change in the config are:
@@ -379,6 +381,14 @@ To change the config of any Anki add-on, head over to:
           "destination": "VocabFurigana",
           "mode": "furigana",
           "split_morphemes": false
+        },
+        {
+          "name": "Add audio for word -- UNUSED BY jp-mining-note",
+          "note_type": "AJT_JAPANESE_IGNORE_PROFILE",
+          "source": "VocabKanji",
+          "destination": "VocabAudio",
+          "mode": "audio",
+          "split_morphemes": false
         }
       ],
       "pitch_accent": {
@@ -390,10 +400,9 @@ To change the config of any Anki add-on, head over to:
         "word_separator": "、",
         "blocklisted_words": "こと,へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,する,です,ない",
         "maximum_results": 100, // (5)!
-        "discard_mode": "keep_first"
+        "discard_mode": "discard_extra"
       },
       "furigana": {
-        "database_lookups": true,
         "skip_numbers": true,
         "prefer_literal_pronunciation": false,
         "reading_separator": ", ",
@@ -401,7 +410,7 @@ To change the config of any Anki add-on, head over to:
         "mecab_only": "彼,猫,首,母,顔,木,頭,私,弟,空,体,行く",
         "counters": "つ,月,日,人,筋,隻,丁,品,番,枚,時,回,円,万,歳,限,万人",
         "maximum_results": 1, // (6)!
-        "discard_mode": "keep_first"
+        "discard_mode": "discard_extra"
       },
       "context_menu": {
         "generate_furigana": true,
@@ -420,7 +429,7 @@ To change the config of any Anki add-on, head over to:
           "shortcut": "",
           "text": "振"
         },
-       "hiragana_button": {
+      "hiragana_button": {
           "enabled": false,
           "shortcut": "",
           "text": "平"
@@ -430,6 +439,23 @@ To change the config of any Anki add-on, head over to:
           "shortcut": "",
           "text": "削"
         }
+      },
+      "audio_sources": [
+        {
+          "enabled": false, // (8)!
+          "name": "NHK-2016",
+          "url": "https://github.com/Ajatt-Tools/nhk_2016_pronunciations_index/releases/download/v1.0/NHK_extended.zip"
+        },
+        {
+          "enabled": false,
+          "name": "NHK-1998",
+          "url": "https://github.com/Ajatt-Tools/nhk_1998_pronunciations_index/releases/download/v1.0/NHK_main.zip"
+        }
+      ],
+      "audio_settings": {
+        "dictionary_download_timeout": 30,
+        "audio_download_timeout": 6,
+        "attempts": 4
       }
     }
     ```
@@ -460,11 +486,16 @@ To change the config of any Anki add-on, head over to:
         Additionally, a higher number increases the sample size for the internal
         auto-pitch-accent module, to better search for devoiced and nasal markers.
 
-    6. This is to restrict the generated furigana to only show one reading.
+    6. (Optional) This is to restrict the generated furigana to only show one reading.
         Feel free to leave this as the default (`3`).
 
-    7.  I personally have the buttons removed because I don't want it to clutter up the editor toolbar.
+    7.  (Optional) I personally have the buttons removed because I don't want it to clutter
+        up the editor toolbar.
         Feel free to have these enabled.
+
+    8.  (Optional) These are disabled because it slows down Anki's startup time.
+        Additionally, the note does not use this feature.
+        If you want to use this feature, feel free to enable these.
 
 
 
