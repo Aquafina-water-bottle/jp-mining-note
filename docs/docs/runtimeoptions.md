@@ -29,6 +29,21 @@ TODO add demo for windows to opening the file & editing
 
 ---
 
+# Available options
+
+- TODO link and explain: [https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/data/runtime_opts.json5](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/data/runtime_opts.json5)
+- TODO not webpack branch
+- TODO explain overrides
+    - not used in the name
+
+<br>
+
+## Override Options
+- TODO put any options used by the module to override
+
+
+---
+
 
 # Special Option Values
 

@@ -291,15 +291,6 @@
 
 
 
-  // colors the quotes instead of showing a pitch accent indicator
-  // if this is enabled
-  //"sentenceParser.display.quotes.paIndicatorColor.main": false,
-  // automatically colors the quote with the sentence pa indicator color,
-  // on PA sentence cards
-  //"sentenceParser.display.quotes.paIndicatorColor.paSent": false,
-
-
-
   // sentenceParser.quotes.multi
   // --------------------------------------------------------------------------
 
@@ -846,6 +837,13 @@
   // if set to true, words are able to be clicked to browse within the Anki browser
   "tooltips.clickWordToBrowse": true,
 
+  // base:
+  // - Anki query section used for every Anki query
+  // hidden:
+  // - Used to show 'X hidden' at the bottom
+  // removed:
+  // - A stricter version of the above. Results will be completely ignored
+
   // not new, or new + green + suspended
   // not flagged as red and suspended
   "tooltips.query.nonNew.base": "-is:new OR (is:suspended is:new flag:3)",
@@ -874,10 +872,9 @@
   "tooltips.categoryMax.new.newest": 0,
 
 
+  // TODO link to documentation about override options
   "tooltips.overrideOptions.sentenceParser": {
     "sentenceParser.fullSent.quotes.processMode": "add",
-    // repeated here in case the user decides to set this to true
-    //"sentenceParser.display.quotes.paIndicatorColor.main": false,
   },
   "tooltips.overrideOptions.autoPitchAccent": {
   },
