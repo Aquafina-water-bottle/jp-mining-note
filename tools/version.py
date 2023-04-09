@@ -38,12 +38,15 @@ class Version:
 
         return cls(main, major, minor, patch)
 
-    def cmp(self, other):
+    def cmp(self, other, check_prerelease=False):
         """
         returns:
         -1 if self < other
         1  if self > other
         0  if self == other
+
+        check_prerelease determines whether the prerelease number is compared
+        when comparing versions
         """
         assert isinstance(other, Version), other
 
@@ -53,13 +56,14 @@ class Version:
             if i > j:
                 return 1
 
-        # DO NOT DO PRERELEASE CHECKS
-        #if self.pre_release is not None and other.pre_release is not None:
-        #    return 1 if (self.pre_release > other.pre_release) else -1
-        #elif self.pre_release is not None:  # self < other
-        #    return -1
-        #elif other.pre_release is not None:  # self > other
-        #    return 1
+        # TODO write tests for this
+        if check_prerelease:
+            if self.pre_release is not None and other.pre_release is not None:
+                return 1 if (self.pre_release > other.pre_release) else -1
+            elif self.pre_release is not None:  # self < other
+                return -1
+            elif other.pre_release is not None:  # self > other
+                return 1
 
         return 0
 
