@@ -32,7 +32,7 @@
   "sentenceParser.removeFinalPeriod.altDisplay.quoted": true,
   //"sentenceParser.removeFinalPeriod.altDisplay.unquoted": true,
 
-  "clickCardRevealSentenceOnBackSide": false,
+  //"clickCardRevealSentenceOnBackSide": false,
 
 
   //"webSocketUtils.enabled": {
