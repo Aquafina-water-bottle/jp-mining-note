@@ -351,7 +351,7 @@ def main(args=None):
         # checks for note changes between versions
         if not args.dev_ignore_note_changes:
             current_ver = ar.Version.from_str(
-                utils.get_version_from_anki(args, note_data)
+                utils.get_version_from_anki(note_data, args.dev_input_version)
             )
             new_ver = ar.Version.from_str(utils.get_version(args))
             note_changes = nc.get_note_changes(json_handler, args.dev_custom_note_changes)

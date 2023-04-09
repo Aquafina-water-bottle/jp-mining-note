@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 
 import os
 
+from typing import Sequence, Optional
+from json_handler import JsonHandler
 from version import Version
 import action
 import batch
@@ -82,7 +84,7 @@ def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = No
     return tuple(reversed(note_changes))
 
 
-def get_version_fields(note_changes: list[NoteChange], current_ver: Version):
+def get_version_fields(note_changes: Sequence[NoteChange], current_ver: Version):
     original_fields = None
 
     for data in reversed(note_changes):
@@ -95,6 +97,19 @@ def get_version_fields(note_changes: list[NoteChange], current_ver: Version):
 
     assert original_fields is not None
     return original_fields
+
+
+def get_expected_fields(version_str: Optional[str] = None):
+    json_handler = JsonHandler()
+    note_data = utils.get_note_data(json_handler)
+    if version_str is None:
+        version_str = utils.get_version_from_anki(note_data)
+    version = Version.from_str(version_str)
+    note_changes = get_note_changes(json_handler)
+    expected_fields = get_version_fields(note_changes, version)
+
+    return expected_fields
+
 
 
 

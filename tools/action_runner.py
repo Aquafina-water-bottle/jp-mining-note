@@ -33,9 +33,8 @@ import traceback
 import utils
 from action import Action, UserAction, RenameField, MoveField, AddField, DeleteField
 #from note_changes import NOTE_CHANGES, Version, NoteChange
-from note_changes import NoteChange
+import note_changes as nc
 from version import Version
-from dataclasses import dataclass
 
 
 
@@ -116,14 +115,6 @@ class Verifier:
         self.new_fields = new_fields
         self.in_order = in_order
         self.anki_fields: None | list[str] = None
-
-    def get_anki_fields(self) -> list[str]:
-        if self.anki_fields is None:
-            self.anki_fields = utils.invoke(
-                "modelFieldNames", modelName="JP Mining Note"
-            )
-
-        return self.anki_fields
 
     def naive_diff_list(self, list1: list, list2: list, title1: str, title2: str):
         """
@@ -310,7 +301,7 @@ class Verifier:
 class ActionRunner:
     def __init__(
         self,
-        note_changes: list[NoteChange],
+        note_changes: list[nc.NoteChange],
         current_ver: Version,
         new_ver: Version,
         in_order=True,
@@ -323,7 +314,7 @@ class ActionRunner:
         - verifies field changes by default
         """
 
-        self.changes: list[NoteChange] = []
+        self.changes: list[nc.NoteChange] = []
         #self.select_changes: list[int] | None = select_note_changes
         # tuple of: action, whether it should be ran
         #self.action_metadata: dict[Action, ActionMetadata]
@@ -396,7 +387,7 @@ class ActionRunner:
     def indent(self, desc: str, indent: str = "    ", start: str = "  - ") -> str:
         return start + desc.replace("\n", "\n" + indent)
 
-    def get_version_actions_desc(self, data: NoteChange) -> str:
+    def get_version_actions_desc(self, data: nc.NoteChange) -> str:
         """
         description w/out global changes
         """
