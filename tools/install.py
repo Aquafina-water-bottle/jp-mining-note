@@ -102,6 +102,13 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
+        "--backup-folder",
+        type=str,
+        default="backup",
+        help="Backup folder path, starting from root."
+    )
+
+    group.add_argument(
         "--ignore-order",
         action="store_true",
         help="Ignores the order of the fields list when updating. Adds the field to the end of the "
@@ -332,7 +339,7 @@ def main(args: argparse.Namespace | None = None) -> str | None:
     media_folder = os.path.join(search_folder, "media")
     static_folder = os.path.join(root_folder, "media")
     backup_folder = os.path.join(
-        root_folder, "backup", datetime.datetime.now().strftime(TIME_FORMAT)
+        root_folder, args.backup_folder, datetime.datetime.now().strftime(TIME_FORMAT)
     )
     media_backup_folder = os.path.join(backup_folder, "media")
 
@@ -355,7 +362,7 @@ def main(args: argparse.Namespace | None = None) -> str | None:
         # checks for note changes between versions
         if not args.dev_ignore_note_changes:
             current_ver = ar.Version.from_str(
-                utils.get_version_from_anki(note_data, args.dev_input_version)
+                utils.get_version_from_anki(note_data("model-name").item(), args.dev_input_version)
             )
             new_ver = ar.Version.from_str(utils.get_version(args))
             note_changes = nc.get_note_changes(json_handler, args.dev_custom_note_changes)
