@@ -62,7 +62,7 @@ To fix your config file, do the following steps:
     - TODO REMOVE THIS: link above is currently outdated because master
     - actual link you should use is this: [https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js)
 1. Re-add any runtime options you had changed before.
-    To see all availble runtime options, see [Runtime Options: Available Options](runtimeoptions.md#available-options)
+    To see all available runtime options, see [Runtime Options: Available Options](runtimeoptions.md#available-options)
 
 
 <br>
