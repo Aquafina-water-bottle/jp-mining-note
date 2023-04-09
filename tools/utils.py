@@ -9,7 +9,7 @@ import urllib.request
 import urllib.error
 
 from pathlib import Path
-from typing import Callable, Any, Iterable
+from typing import Callable, Any, Iterable, Optional
 
 from json_handler import JsonHandler
 
@@ -351,13 +351,14 @@ def note_is_installed(note_name) -> bool:
     return note_name in result
 
 
-def get_version_from_anki(args, note_data: Config) -> str:
+
+def get_version_from_anki(note_data: Config, dev_input_version: Optional[str] = None) -> str:
     """
     gets version of the jp mining note from the installed note in anki
     """
 
-    if args.dev_input_version is not None:
-        return handle_custom_version(args.dev_input_version)
+    if dev_input_version is not None:
+        return handle_custom_version(dev_input_version)
 
     result = invoke(
         "modelTemplates",

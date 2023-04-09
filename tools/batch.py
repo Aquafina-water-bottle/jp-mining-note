@@ -3,8 +3,11 @@ from __future__ import annotations
 import re
 import argparse
 
+import utils
 from utils import invoke
 from typing import Callable, Type, Any, Optional
+import action_runner as ac
+import note_changes as nc
 
 
 rx_END_DIV = re.compile(r"</div>$")
@@ -667,12 +670,63 @@ def set_all_fonts():
     pass
 
 
-def reorder_all_fields(version=None):
-    pass
+def verify_fields(version: Optional[str] = None):
+    """
+    checks that the fields are all there, in the correct order
+    """
+    expected_fields = nc.get_expected_fields(version)
+    anki_fields = utils.invoke("modelFieldNames", modelName="JP Mining Note")
+    v = ac.Verifier(anki_fields, expected_fields)
+    fields_equal = expected_fields == anki_fields
+
+    # TODO return something different?
+    if not fields_equal:
+        v.naive_diff_list(anki_fields, expected_fields, "Anki", "Expected")
+    return fields_equal
 
 
-def add_all_fields(version=None):
-    pass
+def _construct_add_field(field: str, index: int):
+    return {
+        "action": "modelFieldAdd",
+        "version": 6,
+        "params": {
+            "modelName": "JP Mining Note",
+            "fieldName": field,
+            "index": index
+        }
+    }
+
+
+def _construct_reposition_field(field: str, index: int):
+    return {
+        "action": "modelFieldReposition",
+        "version": 6,
+        "params": {
+            "modelName": "JP Mining Note",
+            "fieldName": field,
+            "index": index
+        }
+    }
+
+
+def _reorder_or_add_fields(construct_action: Callable, version=None):
+    expected_fields = nc.get_expected_fields(version)
+
+    # manually runs all the actions manually, no call to ActionRunner
+    actions = []
+    for i, field in enumerate(expected_fields):
+        action = construct_action(field, i)
+        actions.append(action)
+
+    invoke("multi", actions=actions)
+
+
+def reposition_fields(version=None):
+    _reorder_or_add_fields(_construct_reposition_field, version)
+
+
+def add_fields(version=None):
+    _reorder_or_add_fields(_construct_add_field, version)
 
 
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
@@ -691,6 +745,9 @@ FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
     fill_field: {"value": (str, "1"), "query": (str, None)},
     empty_field: {"query": (str, None)},
     copy_field: {"query": (str, None)},
+    verify_fields: {"version": (str, None)},
+    reposition_fields: {"version": (str, None)},
+    add_fields: {"version": (str, None)},
 }
 
 
@@ -711,6 +768,9 @@ PUBLIC_FUNCTIONS = [
     combine_backup_xelieu,
     copy_field,
     remove_html,
+    verify_fields,
+    reposition_fields,
+    add_fields,
 ]
 
 
