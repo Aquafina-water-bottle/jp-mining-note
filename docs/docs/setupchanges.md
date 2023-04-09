@@ -67,8 +67,11 @@ To fix your config file, do the following steps:
 <br>
 
 ## Handlebars
-Yomichan's 'Anki Card Format' section was updated, and the following fields must be changed:
+Yomichan's Handlebars has been updated, with some new markers and features being added.
 
+- To update your handlebars templates, see [here](updating.md#updating-yomichan-templates).
+
+After updating the templates, the following fields must be changed:
 - `FrequencySort`: `{jpmn-min-freq}` →  `{jpmn-frequency-sort}`
     - Newer users might already have this set correctly.
         In that case, you don't have to change anything.
