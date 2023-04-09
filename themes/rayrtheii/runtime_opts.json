@@ -3,7 +3,7 @@
   "logger.toConsole": true,
   "logger.debugConsoleLevel": 0,
   "logger.warn.ignore": [],
-  "autoPitchAccent.coloredPitchAccent.enabled": false,
+  "autoPitchAccent.coloredPitchAccent.enabled": true,
   "imgStylizer.mainImage.blur.enabled": true,
   "imgStylizer.mainImage.blur.startState": "never",
   "imgStylizer.glossary.primaryDef.mode.user": "collapse",
@@ -33,5 +33,8 @@
   "blockquotes.openOnNew.extraInfo": true,
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
   "wordIndicators.getResultsFront": true,
-  "blockquotes.hideEmpty": false
+  "blockquotes.hideEmpty": false,
+  "kanjiHover.overrideOptions.tooltips": {
+    "tooltips.displayPitchAccentOnHoverOnly": false
+  }
 }

@@ -450,15 +450,10 @@
   // what parts of the card to color
   // by default, virtually all of the default accent color is replaced with the pitch accent group color
   "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
-  //"autoPitchAccent.coloredPitchAccent.color.wordReadingPitchKana": false,
   "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
   "autoPitchAccent.coloredPitchAccent.color.testedContent": true, // highlight word above line
   "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
   "autoPitchAccent.coloredPitchAccent.color.definitions": true,
-
-  //"autoPitchAccent.coloredPitchAccent.color.tooltip.wordReadingKanji": true,
-  //"autoPitchAccent.coloredPitchAccent.color.tooltip.wordReadingOverline": true,
-  //"autoPitchAccent.coloredPitchAccent.color.tooltip.wordReadingKana": false,
 
   // Given that `autoPitchAccent.paPositions.displayMode` selects multiple results,
   // this determines whether the first or bolded pitch is used to color the card according
