@@ -290,6 +290,8 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
         to create Anki cards.
     - [WeebAlt's RemoteMokuro setup](https://github.com/WeebAlt/RemoteMokuro)
         - This includes setup instructions on using Mokuro remotely (from google drive, i.e. no disk storage)
+    - [leermangamokureado](https://leermangamokureado.duckdns.org/)
+        is a site with various manga ran through mokuro.
 
     If any error occurs, check the following:
 
@@ -337,6 +339,14 @@ Below will list a few ways to view these files in a browser to Yomichan.
         if you are on Android, this can be paired with
         [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
         to create Anki cards.
+
+---
+
+# Audio/Video with No Subtitles
+
+[KanjiEater's AudiobookTextSync](https://github.com/kanjieater/AudiobookTextSync)
+is a relatively new set of tools that generates subtitles using machine learned models.
+
 
 ---
 
