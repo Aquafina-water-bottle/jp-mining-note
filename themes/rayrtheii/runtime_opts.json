@@ -36,5 +36,8 @@
   "blockquotes.hideEmpty": false,
   "kanjiHover.overrideOptions.tooltips": {
     "tooltips.displayPitchAccentOnHoverOnly": false
+  },
+  "tooltips.overrideOptions.autoPitchAccent": {
+    "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true
   }
 }
