@@ -31,12 +31,15 @@
 
     // warning if the sentence field has its lines split through div elements
     "(sentenceParser) Following sentence was stripped of div elements",
+    "(tb:sentenceParser) Following sentence was stripped of div elements",
 
     // warns if the word could not be found through the autohighlighter (and is not already highlighted)
     //"(sentenceParser) Could not highlight word in ",
+    //"(tb:sentenceParser) Could not highlight word in ",
 
     // warns if the word was already highlighted
     "(sentenceParser) Automatically highlighted word in ",
+    "(tb:sentenceParser) Automatically highlighted word in ",
 
     //"(sentenceParser) Invalid sentence format ",
 
