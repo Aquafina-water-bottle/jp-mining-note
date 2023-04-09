@@ -62,7 +62,7 @@ To fix your config file, do the following steps:
     - TODO REMOVE THIS: link above is currently outdated because master
     - actual link you should use is this: [https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js)
 1. Re-add any runtime options you had changed before.
-    To see all available runtime options, see [Runtime Options: Available Options](runtimeoptions.md#available-options)
+    To see all available runtime options, see [Runtime Options: Available Options](runtimeoptions.md#available-options).
 
 
 <br>
@@ -73,6 +73,7 @@ Yomichan's Handlebars has been updated, with some new markers and features being
 - To update your handlebars templates, see [here](updating.md#updating-yomichan-templates).
 
 After updating the templates, the following fields must be changed:
+
 - `FrequencySort`: `{jpmn-min-freq}` →  `{jpmn-frequency-sort}`
     - Newer users might already have this set correctly.
         In that case, you don't have to change anything.
