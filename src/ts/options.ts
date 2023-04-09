@@ -347,8 +347,22 @@ export function checkOptTags(
   for (const [optKey, result] of tagsToResult) {
     const opt = getOption(optKey);
 
-    if (Array.isArray(opt) && arrContainsAnyOf(tags, opt)) {
-      return result;
+    // TODO workaround for some crazy typescript bug?
+    // for some reason, x can be of type number[]
+    // when defining these two separately:
+    //    "tooltips.overrideOptions.autoPitchAccent": {
+    //      "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
+    //    },
+    //    "kanjiHover.overrideOptions.tooltips": {
+    //      "tooltips.displayPitchAccentOnHoverOnly": false,
+    //    },
+    // we removed the usage of arrContainsAnyOf and replaced with this
+    if (Array.isArray(opt)) {
+      for (const x of opt) {
+        if (typeof x === "string" && tags.includes(x)) {
+          return result;
+        }
+      }
     }
   }
   return undefined;
