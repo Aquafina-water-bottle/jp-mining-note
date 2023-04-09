@@ -46,8 +46,13 @@ Feel free to automatially collapse any fields you don't use, or very rarely use.
 
 ## Config Rework
 
-The `_jpmn-options.js` runtime options file has been completely reworked, meaning
-any changes to your config will no longer work.
+You will get the following warning on all cards:
+```
+JPMNOptions was not defined in the options file. Was there an error?
+```
+
+This is because the `_jpmn-options.js` runtime options file has been completely reworked,
+meaning your config will no longer work.
 To fix your config file, do the following steps:
 
 1. [Locate the `_jpmn-options.js` file](runtimeoptions.md#accessing-editing).

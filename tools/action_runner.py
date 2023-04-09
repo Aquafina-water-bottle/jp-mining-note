@@ -124,7 +124,7 @@ class Verifier:
 
         return self.anki_fields
 
-    def naive_diff_list(self, list1: list, list2: list, title1: str, title2: str):
+    def naive_diff_list(self, list1: list, list2: list, title1: str, title2: str) -> str:
         """
         called "naive diff" as it diffs naive-ly per line, without checking for groups of lines
         that are the same
@@ -144,15 +144,19 @@ class Verifier:
         str_format = "{:<" + str(max1) + "} {:<" + str(max2) + "}"
 
         # naive diff (compares per line without any line group matching
-        print("    " + str_format.format(title1, title2))
+        msg = ""
+        msg += ("    " + str_format.format(title1, title2) + "\n")
         for x, y in zip(list1, list2):
-            print(">>> " if x != y else "    ", end="")
-            print(str_format.format(x, y))
+            msg += (">>> " if x != y else "    ")
+            msg += (str_format.format(x, y) + "\n")
+        print(msg) # TODO: optinal print?
+        return msg
 
-    def naive_diff_set(self, set1: set, set2: set, title1: str, title2: str):
-        if set1 != set2:
-            print(f"Fields in {title1} that aren't in {title2}: {set1-set2}")
-            print(f"Fields in {title2} that aren't in {title1}: {set2-set1}")
+    def naive_diff_set(self, set1: set, set2: set, title1: str, title2: str) -> str:
+        msg = f"Fields in {title1} that aren't in {title2}: {set1-set2}\n"
+        msg += f"Fields in {title2} that aren't in {title1}: {set2-set1}"
+        print(msg) # TODO: optinal print?
+        return msg
 
     def verify_initial_fields(self):
         # makes sure that the anki fields are the same
@@ -514,11 +518,10 @@ class ActionRunner:
                 traceback.print_exc()
                 print("Post-field check failed, skipping error...")
 
-    def post_message(self):
+    def get_post_message(self) -> str | None:
         if self.requires_user_action:
-            print()
-            print("Make sure you don't forget to do the following actions afterwards:")
-            print(self.get_user_actions_desc())
+            return ("Make sure you don't forget to do the following actions afterwards:\n"
+                f"{self.get_user_actions_desc()}")
 
 
 if __name__ == "__main__":

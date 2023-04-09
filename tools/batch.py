@@ -670,7 +670,7 @@ def set_all_fonts():
     pass
 
 
-def verify_fields(version: Optional[str] = None):
+def verify_fields(version: Optional[str] = None) -> str | None:
     """
     checks that the fields are all there, in the correct order
     """
@@ -679,10 +679,8 @@ def verify_fields(version: Optional[str] = None):
     v = ac.Verifier(anki_fields, expected_fields)
     fields_equal = expected_fields == anki_fields
 
-    # TODO return something different?
     if not fields_equal:
-        v.naive_diff_list(anki_fields, expected_fields, "Anki", "Expected")
-    return fields_equal
+        return v.naive_diff_list(anki_fields, expected_fields, "Anki", "Expected")
 
 
 def _construct_add_field(field: str, index: int):
@@ -773,8 +771,32 @@ PUBLIC_FUNCTIONS = [
     add_fields,
 ]
 
+# functions available for the anki addon (should be everything but the xelieu function)
+PUBLIC_FUNCTIONS_ANKI = [
+    clear_pitch_accent_data,
+    add_downstep_inner_span_tag,
+    set_pasilence_field,
+    rename_vn_freq,
+    add_sort_freq_legacy,
+    fill_field,
+    empty_field,
+    standardize_frequencies_styling,
+    fill_word_reading_hiragana_field,
+    quick_fix_convert_kana_only_reading_with_tag,
+    quick_fix_convert_kana_only_reading_all_notes,
+    separate_pa_override_field,
+    remove_bolded_text_ajtwordpitch,
+    #combine_backup_xelieu,
+    copy_field,
+    remove_html,
+    verify_fields,
+    reposition_fields,
+    add_fields,
+]
 
-def get_args(public_functions: list[Callable]):
+
+
+def get_args(public_functions: list[Callable], args: Optional[list[str]] = None):
     parser = argparse.ArgumentParser()
 
     subparsers = parser.add_subparsers()
@@ -794,7 +816,9 @@ def get_args(public_functions: list[Callable]):
             for arg, (ty, default) in FUNC_KWARGS[f].items():
                 subparser.add_argument("--" + arg, type=ty, default=default)
 
-    return parser.parse_args()
+    if args is None:
+        return parser.parse_args()
+    return parser.parse_args(args)
 
 
 def main():
@@ -807,3 +831,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

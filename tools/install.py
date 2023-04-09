@@ -312,7 +312,11 @@ class MediaInstaller:
         self.send_media(media)
 
 
-def main(args=None):
+def main(args: argparse.Namespace | None = None) -> str | None:
+    """
+    - installs or updates the note, depending on the flag used
+    - returns post message if there exists one
+    """
     utils.assert_ankiconnect_running()
 
     if args is None:
@@ -407,7 +411,9 @@ def main(args=None):
     )
 
     if action_runner is not None and action_runner.has_actions():
-        action_runner.post_message()
+        post_message = action_runner.get_post_message()
+        print(post_message)
+        return post_message
 
 
 if __name__ == "__main__":
