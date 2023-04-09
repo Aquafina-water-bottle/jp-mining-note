@@ -1313,23 +1313,6 @@ code {
   font-weight: bold;
 }
 
-/* a bit of a hack since the word has to affect the sentence */
-.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-heiban > .hover-tooltip__sent-div b {
-  color: var(--text-heiban);
-}
-.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-atamadaka > .hover-tooltip__sent-div b {
-  color: var(--text-atamadaka);
-}
-.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-nakadaka > .hover-tooltip__sent-div b {
-  color: var(--text-nakadaka);
-}
-.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-odaka > .hover-tooltip__sent-div b {
-  color: var(--text-odaka);
-}
-.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-kifuku > .hover-tooltip__sent-div b {
-  color: var(--text-kifuku);
-}
-
 .hover-tooltip__word-div--clickable {
   cursor: pointer;
 }

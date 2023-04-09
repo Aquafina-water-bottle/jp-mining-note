@@ -3,6 +3,7 @@ TODO add intro
 - for kanji hover and same reading indicator
 - TODO generalize this page to not only be for kanji hover
 
+---
 
 # Pitch Accent Display
 - pitch accents should be exactly the same pitch accents as shown on the specified card
@@ -11,6 +12,7 @@ TODO add intro
         (the example words found)
 
 
+---
 
 # Result Queries & Categorization
 The exact results shown through Kanji Hover is not completely trivial,
@@ -44,6 +46,8 @@ TODO: add this to each query to hide results from cards that are due today
 -(prop:due=0 -rated:1)
 ```
 
+---
+
 
 # Results Sorting
 The above makes the assumption that you are reviewing in order of creation date,
@@ -56,6 +60,7 @@ For people who review in order of frequency only, then the assumption above is c
 Unfortunately, there is currently no way to order the results by anything
 other than by the creation date.
 
+---
 
 
 # Suspended Cards
@@ -71,6 +76,9 @@ This can be changed in the {{ RTO_FILE}}:
   "new-query": ...
 }
 ```
+
+
+---
 
 # Customizing Sentences & Pitch Accent
 
@@ -89,5 +97,30 @@ should be displayed.
     When the sentence is being parsed by the tooltip builder,
     it is considered a "full sentence" internally.
     Therefore, only the `fullSent` group of options will affect the resulting sentence.
+
+
+---
+
+
+# Highlight the word within the tooltips
+{{ feature_version("0.12.0.0") }}
+
+Within the tooltips, the word within the sentence is not highlighted by default.
+This is to emphasize the importance of the kanji over the word.
+However, this comes at the cost of having to scan through the entire sentence to find the word.
+
+The following {{ RTO }} re-enables the highlighted word:
+```json
+"tooltips.highlightWordInSentence": true,
+```
+
+=== "Highlighted"
+    {{ img("", "assets/uicustomization/tooltip/highlighted.png") }}
+
+    TODO this is no longer bolded
+
+
+=== "Not Highlighted (default)"
+    {{ img("", "assets/uicustomization/tooltip/not_highlighted.png") }}
 
 

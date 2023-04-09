@@ -1,6 +1,6 @@
 import { compileOpts } from '../consts';
 import { Module } from '../module';
-import { AutoPitchAccent, AutoPitchAccentArgs, NoteInfoPA } from './autoPitchAccent';
+import { AutoPitchAccent, AutoPitchAccentArgs, NoteInfoPA, PAGroup } from './autoPitchAccent';
 import { NoteInfoSentence, SentenceParser } from './sentenceParser';
 import { Sentence } from './sentenceParser';
 import { invoke, escapeQueryStr, QueryBuilder, CardInfo } from '../ankiConnectUtils';
@@ -26,6 +26,7 @@ export class TooltipCardDivBuilder {
 
   private readonly tooltips: Tooltips;
   private wordDiv: HTMLDivElement | null = null;
+  private mainPAGroup: PAGroup | null = null
   private sentDiv: HTMLDivElement | null = null;
   private isNew = false;
 
@@ -48,7 +49,7 @@ export class TooltipCardDivBuilder {
     character: string | null = null,
     cardId: number | null = null
   ) {
-    this.wordDiv = this.tooltips.buildWordDiv(noteInfo, character, cardId);
+    [this.wordDiv, this.mainPAGroup] = this.tooltips.buildWordDiv(noteInfo, character, cardId);
     return this;
   }
 
@@ -69,6 +70,26 @@ export class TooltipCardDivBuilder {
     if (this.wordDiv === null && this.sentDiv === null) {
       throw Error('Cannot make a card with both empty wordDiv and sentDiv');
     }
+
+    if (this.mainPAGroup) {
+      // here because tooltips shouldn't store this info
+      // TODO refactor this? feels hacky to have this here...
+      // highlights the kanji
+      if (this.tooltips.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")) {
+        const wordClass = "pa-sentence-highlight-" + this.mainPAGroup; // sentence so it only highlights bold
+        this.wordDiv?.classList.add(wordClass);
+      }
+      // highlights the sentence
+      if (this.tooltips.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.fullSentence")
+         && this.tooltips.getOption("tooltips.highlightWordInSentence")) {
+        this.sentDiv?.classList.add(`pa-sentence-highlight-${this.mainPAGroup}`);
+      }
+    }
+    if (this.tooltips.getOption('tooltips.highlightWordInSentence')) {
+      this.sentDiv?.classList.add('highlight-bold');
+    }
+
+
     if (this.wordDiv !== null) {
       cardDiv.appendChild(this.wordDiv);
     }
@@ -200,7 +221,7 @@ export class TooltipBuilder {
 }
 
 export class Tooltips extends Module {
-  private readonly autoPA: AutoPitchAccent;
+  public readonly autoPA: AutoPitchAccent;
   private readonly sentParser: SentenceParser;
 
   constructor() {
@@ -234,7 +255,7 @@ export class Tooltips extends Module {
     noteInfo: NoteInfoTooltipBuilder,
     character: string | null,
     cardId: number | null = null
-  ): HTMLDivElement {
+  ): [HTMLDivElement, PAGroup | null] {
     const wordDiv = document.createElement('div');
     wordDiv.classList.add('hover-tooltip__word-div');
 
@@ -255,30 +276,18 @@ export class Tooltips extends Module {
 
     wordDiv.appendChild(wordEle);
 
+    let mainPAGroup = null;
     if (this.getOption('tooltips.displayPitchAccent')) {
       const displayEle = document.createElement('span');
       displayEle.classList.add('hover-tooltip__pitch-accent');
+
       const dispPosData = this.autoPA.addPosition(displayEle, noteInfo);
-
-
-      const mainPAGroup = dispPosData?.mainPAGroup;
-      if (mainPAGroup) {
-        // highlights the kanji
-        //if (this.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")) {
-        //  const wordClass = "pa-sentence-highlight-" + mainPAGroup; // sentence so it only highlights bold
-        //  wordDiv.classList.add(wordClass);
-        //}
-        // highlights the sentence
-        // TODO make this work with css
-        //if (this.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")) {
-        //  wordDiv.classList.add("hover-tooltip__word-div--pitch-color-sentence");
-        //}
-      }
+      mainPAGroup = dispPosData?.mainPAGroup ?? null;
 
       wordDiv.appendChild(displayEle);
     }
 
-    return wordDiv;
+    return [wordDiv, mainPAGroup];
   }
 
   buildSentDiv(noteInfo: NoteInfoTooltipBuilder) {

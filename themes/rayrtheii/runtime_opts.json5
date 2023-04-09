@@ -79,12 +79,22 @@
 
   "kanjiHover.overrideOptions.tooltips": {
     // always show pitch accent
-    "tooltips.displayPitchAccentOnHoverOnly": false,
+    //"tooltips.displayPitchAccentOnHoverOnly": false,
   },
 
-  "tooltips.overrideOptions.autoPitchAccent": {
-    "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
-  },
+  //"tooltips.overrideOptions.autoPitchAccent": {
+  //  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": false,
+  //  "autoPitchAccent.coloredPitchAccent.color.fullSentence": false,
+  //},
+
+  //"tooltips.overrideOptions.autoPitchAccent": {
+  //  // highlights bolded kanji
+  //  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
+  //  // highlights bolded sentence below word
+  //  "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
+  //},
+
+  //"tooltips.highlightWordInSentence": true,
 
 
   // TEMP

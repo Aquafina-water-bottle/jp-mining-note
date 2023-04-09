@@ -840,6 +840,9 @@
   // if set to true, words are able to be clicked to browse within the Anki browser
   "tooltips.clickWordToBrowse": true,
 
+  // whether the word is highlighted in the sentence or not (for word results only)
+  "tooltips.highlightWordInSentence": false,
+
   // base:
   // - Anki query section used for every Anki query
   // hidden:
@@ -880,6 +883,10 @@
     "sentenceParser.fullSent.quotes.processMode": "add",
   },
   "tooltips.overrideOptions.autoPitchAccent": {
+    // highlights bolded kanji
+    "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": false,
+    // highlights bolded sentence below word
+    "autoPitchAccent.coloredPitchAccent.color.fullSentence": false,
   },
 
 
