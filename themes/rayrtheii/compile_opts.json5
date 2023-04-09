@@ -48,7 +48,6 @@
     "dictionaries",
     "editor-fields",
     "sentence-max-width",
-    //"android-fonts",
 
     "theme",
     "extra",
@@ -67,8 +66,8 @@
 
   // valid options: "hover", "click", "both", "always", "never"
   "fullSentenceRuby.displayMode": "click",
-  // valid options: "opacity", "fontSize",
-  "fullSentenceRuby.fillMode": "fontSize",
+  // valid options: "opacity", "font-size",
+  "fullSentenceRuby.fillMode": "font-size",
   // valid options: true, false
   "fullSentenceRuby.fillModeFontSizeTransition": true,
 
