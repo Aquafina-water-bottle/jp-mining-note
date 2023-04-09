@@ -10,12 +10,6 @@
   "autoPitchAccent.paOverride.heibanMarkerRequired": false,
   "sentenceParser.altDisplay.quotes.processMode": "add",
   "sentenceParser.removeFinalPeriod.altDisplay.quoted": true,
-  "clickCardRevealSentenceOnBackSide": false,
-  "webSocketUtils.enabled": {
-    "type": "isPC",
-    "resultTrue": true,
-    "resultFalse": false
-  },
   "imgStylizer.setMainImageFromTags": [
     {
       "tag": "\u9752\u6625\u30d6\u30bf\u91ce\u90ce\u30fbLN1",
