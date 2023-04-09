@@ -53,12 +53,14 @@ class Version:
             if i > j:
                 return 1
 
-        if self.pre_release is not None and other.pre_release is not None:
-            return 1 if (self.pre_release > other.pre_release) else -1
-        elif self.pre_release is not None:  # self < other
-            return -1
-        elif other.pre_release is not None:  # self > other
-            return 1
+        # DO NOT DO PRERELEASE CHECKS
+        #if self.pre_release is not None and other.pre_release is not None:
+        #    return 1 if (self.pre_release > other.pre_release) else -1
+        #elif self.pre_release is not None:  # self < other
+        #    return -1
+        #elif other.pre_release is not None:  # self > other
+        #    return 1
+
         return 0
 
     def __eq__(self, other):

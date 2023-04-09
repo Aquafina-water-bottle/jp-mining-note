@@ -18,6 +18,7 @@ class NoteChange:
     actions: list[action.Action]
     fields: list[str]
 
+# hard coded for now to prevent arbitrary code injection type things
 ACTION_TYPE_TO_OBJECT_CLASS = {
         "BatchUpdate": action.BatchUpdate,
         "NoteToUser": action.NoteToUser,
@@ -26,6 +27,8 @@ ACTION_TYPE_TO_OBJECT_CLASS = {
         "MoveField": action.MoveField,
         "DeleteField": action.DeleteField,
         "SetField": action.SetField,
+        "YomichanTemplatesChange": action.YomichanTemplatesChange,
+        "YomichanFormatChange": action.YomichanFormatChange,
 }
 
 

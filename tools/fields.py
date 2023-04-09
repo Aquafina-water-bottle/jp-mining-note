@@ -39,7 +39,7 @@ class Field:
 
 def get_fields(json_handler: JsonHandler):
     fields = []
-    file_path = os.path.join(utils.get_root_folder(), "src", "data", "fields.json5")
+    file_path = os.path.join(utils.get_root_folder(), "data", "fields.json5")
     for json_data in json_handler.read_file(file_path)["fields"]:
         field = Field(**json_data)
         fields.append(field)
