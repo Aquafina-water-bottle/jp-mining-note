@@ -199,7 +199,6 @@ class Generator:
         for k, v in filters.items():
             self.env.filters[k] = v
 
-        self.sass_path = config("sass-path").item()
         self.to_release = to_release
 
         compile_options = utils.get_compile_opts(config, json_handler)
@@ -330,7 +329,7 @@ class Generator:
                 file.write(result)
 
         elif type == GenerateType.SASS:
-            command = f"{self.sass_path} {input_file} {output_file}"
+            command = f"npx sass {input_file} {output_file}"
             error_code = os.system(command)
             if error_code != 0:
                 print(f"attempted sass command: `{command}`")
