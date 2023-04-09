@@ -91,11 +91,6 @@ instead of all the literal values itself.
 
 <br>
 
-## Greyed out collapsible fields
-Collapsible fields are now greyed out by default, instead of removed entirely.
-If you want to hide these collapsible fields, see [here](blockquotes.md#hide-empty-collapsed-fields).
-
-<br>
 
 ## Final Steps
 After changing everything, don't forget to [test that the card works!](updating.md#final-steps)

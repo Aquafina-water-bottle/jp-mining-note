@@ -25,21 +25,21 @@
   // always add quotes to alt display
   "sentenceParser.altDisplay.quotes.processMode": "add",
 
-  // always remove final period
-  "sentenceParser.removeFinalPeriod.fullSent.quoted": true,
-  "sentenceParser.removeFinalPeriod.fullSent.unquoted": true,
-  "sentenceParser.removeFinalPeriod.display.quoted": true,
-  "sentenceParser.removeFinalPeriod.display.unquoted": true,
+  //"sentenceParser.removeFinalPeriod.fullSent.quoted": true,
+  //"sentenceParser.removeFinalPeriod.fullSent.unquoted": true,
+  //"sentenceParser.removeFinalPeriod.display.quoted": true,
+  //"sentenceParser.removeFinalPeriod.display.unquoted": true,
   "sentenceParser.removeFinalPeriod.altDisplay.quoted": true,
-  "sentenceParser.removeFinalPeriod.altDisplay.unquoted": true,
+  //"sentenceParser.removeFinalPeriod.altDisplay.unquoted": true,
+
+  "clickCardRevealSentenceOnBackSide": false,
 
 
-
-  "webSocketUtils.enabled": {
-    "type": "isPC",
-    "resultTrue":  true, // is PC
-    "resultFalse": false, // not not PC (mobile)
-  },
+  //"webSocketUtils.enabled": {
+  //  "type": "isPC",
+  //  "resultTrue":  true, // is PC
+  //  "resultFalse": false, // not not PC (mobile)
+  //},
 
   //"sentenceParser.display.quotes.paIndicatorColor.main": true,
 
@@ -74,6 +74,8 @@
 
 
   "wordIndicators.getResultsFront": true,
+
+  "blockquotes.hideEmpty": false,
 
   //"tooltips.overrideOptions.autoPitchAccent": {
   //  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": false,

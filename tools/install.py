@@ -71,13 +71,6 @@ def add_args(parser: argparse.ArgumentParser):
         help="(dev option) bypasses the note changes section",
     )
 
-    #group.add_argument(
-    #    "--dev-select-note-changes",
-    #    type=int,
-    #    nargs="+",
-    #    help="(dev option) bypasses the note changes section",
-    #)
-
     group.add_argument(
         "--dev-custom-note-changes",
         type=str,
@@ -89,6 +82,13 @@ def add_args(parser: argparse.ArgumentParser):
         action="store_true",
         default=False,
         help="(dev option) bypasses the note changes section",
+    )
+
+    group.add_argument(
+        "--dev-never-warn",
+        action="store_true",
+        default=False,
+        help="(dev option) never warns the user even if there are note changes",
     )
 
     group.add_argument(
@@ -360,12 +360,13 @@ def main(args=None):
                 current_ver,
                 new_ver,
                 in_order=(not args.ignore_order),
-                #select_note_changes=args.dev_select_note_changes,
                 verify=(not args.dev_do_not_verify),
             )  # also verifies field changes
 
             if action_runner.has_actions():
-                if not action_runner.warn():  # == false
+                if args.dev_never_warn:
+                    pass
+                elif not action_runner.warn():
                     return
 
                 # must run before the note templates gets updated, in case

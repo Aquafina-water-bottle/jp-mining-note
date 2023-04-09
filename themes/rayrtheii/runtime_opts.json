@@ -9,12 +9,8 @@
   "imgStylizer.glossary.primaryDef.mode.user": "collapse",
   "autoPitchAccent.paOverride.heibanMarkerRequired": false,
   "sentenceParser.altDisplay.quotes.processMode": "add",
-  "sentenceParser.removeFinalPeriod.fullSent.quoted": true,
-  "sentenceParser.removeFinalPeriod.fullSent.unquoted": true,
-  "sentenceParser.removeFinalPeriod.display.quoted": true,
-  "sentenceParser.removeFinalPeriod.display.unquoted": true,
   "sentenceParser.removeFinalPeriod.altDisplay.quoted": true,
-  "sentenceParser.removeFinalPeriod.altDisplay.unquoted": true,
+  "clickCardRevealSentenceOnBackSide": false,
   "webSocketUtils.enabled": {
     "type": "isPC",
     "resultTrue": true,
@@ -42,5 +38,6 @@
   "blockquotes.openOnNew.enabled": true,
   "blockquotes.openOnNew.extraInfo": true,
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
-  "wordIndicators.getResultsFront": true
+  "wordIndicators.getResultsFront": true,
+  "blockquotes.hideEmpty": false
 }

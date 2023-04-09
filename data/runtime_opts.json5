@@ -786,6 +786,10 @@
 
   "blockquotes.enabled": true,
 
+  // hides the entire blockquote when empty.
+  // If this is set to false, the blockquote text is greyed out instead.
+  "blockquotes.hideEmpty": true,
+
   // Automatically open blockquotes if specified.
   "blockquotes.open.enabled": false,
   "blockquotes.open.primaryDefinition": false,

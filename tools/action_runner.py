@@ -116,6 +116,14 @@ class Verifier:
         self.in_order = in_order
         self.anki_fields: None | list[str] = None
 
+    def get_anki_fields(self) -> list[str]:
+        if self.anki_fields is None:
+            self.anki_fields = utils.invoke(
+                "modelFieldNames", modelName="JP Mining Note"
+            )
+
+        return self.anki_fields
+
     def naive_diff_list(self, list1: list, list2: list, title1: str, title2: str):
         """
         called "naive diff" as it diffs naive-ly per line, without checking for groups of lines
@@ -301,7 +309,7 @@ class Verifier:
 class ActionRunner:
     def __init__(
         self,
-        note_changes: list[nc.NoteChange],
+        note_changes: tuple[nc.NoteChange],
         current_ver: Version,
         new_ver: Version,
         in_order=True,
