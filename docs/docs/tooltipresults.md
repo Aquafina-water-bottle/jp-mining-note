@@ -15,6 +15,9 @@ TODO add intro
 ---
 
 # Result Queries & Categorization
+
+TODO add writeup on new.newest
+
 The exact results shown through Kanji Hover is not completely trivial,
 so this process is explained below.
 
@@ -30,14 +33,14 @@ Conversely, the first two categories (the non-new cards) represent words that yo
 know, so they are not greyed out.
 
 The exact numbers shown in each category can be changed in the
-{{ RTO_FILE}}:
+{{ RTO }}:
 
-```
-"kanji-hover": {
-  "max-non-new-oldest": ...
-  "max-non-new-latest": ...
-  "max-new-latest": ...
-}
+```json
+// maximum number of words per category
+"tooltips.categoryMax.nonNew.oldest": 2,
+"tooltips.categoryMax.nonNew.newest": 2,
+"tooltips.categoryMax.new.oldest": 2,
+"tooltips.categoryMax.new.newest": 0,
 ```
 
 
@@ -64,6 +67,8 @@ other than by the creation date.
 
 
 # Suspended Cards
+TODO add difference between hidden and removed
+
 Some assumptions are made about suspended cards.
 For example, suspended cards flagged as `green` are counted in the "non-new" cards category
 (known words), and suspended cards flagged as `red` are counted as words that you
@@ -71,10 +76,9 @@ do not know AND will not study in the future (not shown in any category).
 This can be changed in the {{ RTO_FILE}}:
 
 ```
-"kanji-hover": {
-  "non-new-query": ...
-  "new-query": ...
-}
+"tooltips.query.nonNew.base": "-is:new OR (is:suspended is:new flag:3)",
+"tooltips.query.nonNew.hidden": "is:suspended flag:1",
+"tooltips.query.nonNew.removed": "",
 ```
 
 

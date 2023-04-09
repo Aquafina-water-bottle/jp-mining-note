@@ -34,6 +34,5 @@
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
   "wordIndicators.getResultsFront": true,
   "blockquotes.hideEmpty": false,
-  "kanjiHover.overrideOptions.tooltips": {},
-  "tooltips.highlightWordInSentence": true
+  "kanjiHover.overrideOptions.tooltips": {}
 }
