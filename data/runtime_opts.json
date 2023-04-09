@@ -9,11 +9,14 @@
   "logger.debug.onlyShowCertainModules.modules": [],
   "logger.warn.ignore": [
     "(sentenceParser) Following sentence was stripped of div elements",
+    "(tb:sentenceParser) Following sentence was stripped of div elements",
     "(sentenceParser) Automatically highlighted word in ",
+    "(tb:sentenceParser) Automatically highlighted word in ",
     "`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?"
   ],
   "logger.error.ignore": [
-    "ReferenceError: EFDRC is not defined"
+    "ReferenceError: EFDRC is not defined",
+    "/_anki/js/reviewer.js:7:112035)"
   ],
   "keybinds.enabled": true,
   "keybinds.toggleHybridSentence": [

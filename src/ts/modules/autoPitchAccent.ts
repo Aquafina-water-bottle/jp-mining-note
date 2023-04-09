@@ -1113,7 +1113,7 @@ export class AutoPitchAccent extends RunnableModule {
   }
 
   // main function
-  addPosition(displayEle: HTMLElement, noteInfo: NoteInfoPA) {
+  addPosition(displayEle: HTMLElement, noteInfo: NoteInfoPA): DispPosData | null {
     // setting it early to not bubble up this field among all the functions...
     this.ajtHTML = noteInfo.AJTWordPitch;
     this.wordTags = getWordTags(noteInfo.YomichanWordTags);
@@ -1165,6 +1165,8 @@ export class AutoPitchAccent extends RunnableModule {
     }
 
     this.useDispPosData(displayEle, dispPosData, noteInfo.tags);
+
+    return dispPosData;
   }
 
   main() {

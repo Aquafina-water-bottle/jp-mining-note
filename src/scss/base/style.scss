@@ -1209,94 +1209,6 @@ code {
 
 
 
-/*
- * -----------------------------------------
- *  Def Header Left - Word PA bold override
- * -----------------------------------------
- * overwriting the bold ability:
- * - bold == not the correct sound used in the sound clip
- *
- */
-
-.dh-left__word-pitch {
-  @include common.bold-pitch;
-}
-
-.dh-left__word-pitch-text:empty:before {
-  content: "(N/A)"
-}
-
-
-.pa-word-highlight-pitch-overline {
-  .pa-group-heiban {
-    --pa-overline-color: var(--text-heiban);
-  }
-  .pa-group-atamadaka  {
-    --pa-overline-color: var(--text-atamadaka);
-  }
-  .pa-group-nakadaka {
-    --pa-overline-color: var(--text-nakadaka);
-  }
-  .pa-group-odaka {
-    --pa-overline-color: var(--text-odaka);
-  }
-  .pa-group-kifuku {
-    --pa-overline-color: var(--text-kifuku);
-  }
-}
-
-.pa-word-highlight-pitch-kana {
-  .pa-group-heiban {
-    color: var(--text-heiban);
-  }
-  .pa-group-atamadaka  {
-    color: var(--text-atamadaka);
-  }
-  .pa-group-nakadaka {
-    color: var(--text-nakadaka);
-  }
-  .pa-group-odaka {
-    color: var(--text-odaka);
-  }
-  .pa-group-kifuku {
-    color: var(--text-kifuku);
-  }
-}
-
-
-.pa-word-highlight-heiban {
-  color: var(--text-heiban);
-}
-.pa-word-highlight-atamadaka {
-  color: var(--text-atamadaka);
-}
-.pa-word-highlight-nakadaka {
-  color: var(--text-nakadaka);
-}
-.pa-word-highlight-odaka {
-  color: var(--text-odaka);
-}
-.pa-word-highlight-kifuku {
-  color: var(--text-kifuku);
-}
-
-.pa-sentence-highlight-heiban b {
-  color: var(--text-heiban);
-}
-.pa-sentence-highlight-atamadaka b {
-  color: var(--text-atamadaka);
-}
-.pa-sentence-highlight-nakadaka b {
-  color: var(--text-nakadaka);
-}
-.pa-sentence-highlight-odaka b {
-  color: var(--text-odaka);
-}
-.pa-sentence-highlight-kifuku b {
-  color: var(--text-kifuku);
-}
-
-
 
 /*
  * <span class="hover-wrapper">
@@ -1401,6 +1313,23 @@ code {
   font-weight: bold;
 }
 
+/* a bit of a hack since the word has to affect the sentence */
+.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-heiban > .hover-tooltip__sent-div b {
+  color: var(--text-heiban);
+}
+.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-atamadaka > .hover-tooltip__sent-div b {
+  color: var(--text-atamadaka);
+}
+.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-nakadaka > .hover-tooltip__sent-div b {
+  color: var(--text-nakadaka);
+}
+.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-odaka > .hover-tooltip__sent-div b {
+  color: var(--text-odaka);
+}
+.hover-tooltip__word-div--pitch-color-sentence.pa-word-highlight-kifuku > .hover-tooltip__sent-div b {
+  color: var(--text-kifuku);
+}
+
 .hover-tooltip__word-div--clickable {
   cursor: pointer;
 }
@@ -1503,6 +1432,97 @@ code {
   /* the arrow */
   border-color: transparent var(--tooltip-background-darken) transparent transparent;
 }
+
+
+
+
+/*
+ * -----------------------------------------
+ *  Def Header Left - Word PA bold override
+ * -----------------------------------------
+ * overwriting the bold ability:
+ * - bold == not the correct sound used in the sound clip
+ *
+ */
+
+.dh-left__word-pitch {
+  @include common.bold-pitch;
+}
+
+.dh-left__word-pitch-text:empty:before {
+  content: "(N/A)"
+}
+
+
+.pa-word-highlight-pitch-overline {
+  .pa-group-heiban {
+    --pa-overline-color: var(--text-heiban);
+  }
+  .pa-group-atamadaka  {
+    --pa-overline-color: var(--text-atamadaka);
+  }
+  .pa-group-nakadaka {
+    --pa-overline-color: var(--text-nakadaka);
+  }
+  .pa-group-odaka {
+    --pa-overline-color: var(--text-odaka);
+  }
+  .pa-group-kifuku {
+    --pa-overline-color: var(--text-kifuku);
+  }
+}
+
+.pa-word-highlight-pitch-kana {
+  .pa-group-heiban {
+    color: var(--text-heiban);
+  }
+  .pa-group-atamadaka  {
+    color: var(--text-atamadaka);
+  }
+  .pa-group-nakadaka {
+    color: var(--text-nakadaka);
+  }
+  .pa-group-odaka {
+    color: var(--text-odaka);
+  }
+  .pa-group-kifuku {
+    color: var(--text-kifuku);
+  }
+}
+
+
+.pa-word-highlight-heiban {
+  color: var(--text-heiban);
+}
+.pa-word-highlight-atamadaka {
+  color: var(--text-atamadaka);
+}
+.pa-word-highlight-nakadaka {
+  color: var(--text-nakadaka);
+}
+.pa-word-highlight-odaka {
+  color: var(--text-odaka);
+}
+.pa-word-highlight-kifuku {
+  color: var(--text-kifuku);
+}
+
+.pa-sentence-highlight-heiban b {
+  color: var(--text-heiban);
+}
+.pa-sentence-highlight-atamadaka b {
+  color: var(--text-atamadaka);
+}
+.pa-sentence-highlight-nakadaka b {
+  color: var(--text-nakadaka);
+}
+.pa-sentence-highlight-odaka b {
+  color: var(--text-odaka);
+}
+.pa-sentence-highlight-kifuku b {
+  color: var(--text-kifuku);
+}
+
 
 
 

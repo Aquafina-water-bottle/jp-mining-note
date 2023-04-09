@@ -12,8 +12,8 @@
   "logger.warn.ignore": [],
 
 
-  //"autoPitchAccent.coloredPitchAccent.enabled": true,
-  "autoPitchAccent.coloredPitchAccent.enabled": false,
+  "autoPitchAccent.coloredPitchAccent.enabled": true,
+  //"autoPitchAccent.coloredPitchAccent.enabled": false,
 
   "imgStylizer.mainImage.blur.enabled": true,
   "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module
@@ -77,9 +77,14 @@
 
   "blockquotes.hideEmpty": false,
 
-  //"tooltips.overrideOptions.autoPitchAccent": {
-  //  "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": false,
-  //},
+  "kanjiHover.overrideOptions.tooltips": {
+    // always show pitch accent
+    "tooltips.displayPitchAccentOnHoverOnly": false,
+  },
+
+  "tooltips.overrideOptions.autoPitchAccent": {
+    "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
+  },
 
 
   // TEMP

@@ -36,6 +36,6 @@
     "en"
   ],
   "fullSentenceRuby.displayMode": "click",
-  "fullSentenceRuby.fillMode": "fontSize",
+  "fullSentenceRuby.fillMode": "font-size",
   "fullSentenceRuby.fillModeFontSizeTransition": true
 }

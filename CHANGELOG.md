@@ -98,6 +98,7 @@ and must use `./install.py --update`.
     - Words in the pitch accent should no longer wrap in between a word unexpectedly
     - Pitch accent coloring now affects the accent in the definitions by default
     - Pitch accent coloring is now shown in tooltips (kanji hover / word indicators)
+    - Tone of certain colors were slightly changed so they stand out a bit more
 
 - New Card Types:
     - Hint Sentence (`IsHintCard`)

@@ -236,6 +236,7 @@ export class Tooltips extends Module {
     cardId: number | null = null
   ): HTMLDivElement {
     const wordDiv = document.createElement('div');
+    wordDiv.classList.add('hover-tooltip__word-div');
 
     let wordReadingRuby = plainToRuby(noteInfo.WordReading);
     if (character !== null) {
@@ -247,7 +248,7 @@ export class Tooltips extends Module {
 
     const wordEle = document.createElement('span');
     wordEle.innerHTML = wordReadingRuby;
-    wordEle.classList.add('hover-tooltip__word-div');
+    wordEle.classList.add('hover-tooltip__word-span');
     if (cardId !== null) {
       wordEle.setAttribute('data-cid', cardId.toString());
     }
@@ -257,7 +258,22 @@ export class Tooltips extends Module {
     if (this.getOption('tooltips.displayPitchAccent')) {
       const displayEle = document.createElement('span');
       displayEle.classList.add('hover-tooltip__pitch-accent');
-      this.autoPA.addPosition(displayEle, noteInfo);
+      const dispPosData = this.autoPA.addPosition(displayEle, noteInfo);
+
+
+      const mainPAGroup = dispPosData?.mainPAGroup;
+      if (mainPAGroup) {
+        // highlights the kanji
+        //if (this.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")) {
+        //  const wordClass = "pa-sentence-highlight-" + mainPAGroup; // sentence so it only highlights bold
+        //  wordDiv.classList.add(wordClass);
+        //}
+        // highlights the sentence
+        // TODO make this work with css
+        //if (this.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")) {
+        //  wordDiv.classList.add("hover-tooltip__word-div--pitch-color-sentence");
+        //}
+      }
 
       wordDiv.appendChild(displayEle);
     }

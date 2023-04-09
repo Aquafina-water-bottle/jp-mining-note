@@ -158,6 +158,12 @@ $font-backup-sans:
   --text-odaka:                 #009e1c; /* 尾高, green */
   --text-kifuku:                #7e53c4; /* 起伏, purple */
 
+  --text-tooltips-heiban:       var(--text-heiban);
+  --text-tooltips-atamadaka:    #ff3131;
+  --text-tooltips-nakadaka:     #ff974d;
+  --text-tooltips-odaka:        var(--text-odaka);
+  --text-tooltips-kifuku:       var(--text-kifuku);
+
   --accent:                     var(--data-light-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.05);
   --code-background-darken:     rgba(0, 0, 0, 0.05);
@@ -239,6 +245,12 @@ $font-backup-sans:
   --text-nakadaka:              #ff9b54; /* 中高, orange */
   --text-odaka:                 #67e47d; /* 尾高, green */
   --text-kifuku:                #af85f4; /* 起伏, purple */
+
+  --text-tooltips-heiban:       var(--text-heiban);
+  --text-tooltips-atamadaka:    var(--text-atamadaka);
+  --text-tooltips-nakadaka:     var(--text-nakadaka);
+  --text-tooltips-odaka:        var(--text-odaka);
+  --text-tooltips-kifuku:       var(--text-kifuku);
 
   --accent:                     var(--data-dark-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.12);
