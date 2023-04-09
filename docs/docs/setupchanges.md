@@ -18,6 +18,32 @@ including an entire backend javascript rework.
 See the [Updating](updating.md#overview) page on how to update the note.
 Afterwards, see below for the other necessary changes that must be made to properly update the note.
 
+<br>
+
+## Field Font Size
+The fields within the note editor may look a bit off, due to the font and font sizes being wrong.
+When Anki-Connect finally updates, these fonts will be changed automatically upon installation.
+However, until then, it will have to be done manually.
+All info about the field font sizes should be found in the [fields table](fields.md).
+
+Additionally, all new fields will have the default font, which likely
+does not display Japanese characters correctly.
+Please set this to match your other fields.
+
+
+<br>
+
+
+## Automatic Field Collapsing
+For newer versions of Anki,
+you can set a field to be collapsed by default by heading over to:
+> (Note editor) →  `Fields...` →  `Collapse by default`
+
+Feel free to automatially collapse any fields you don't use, or very rarely use.
+
+<br>
+
+
 ## Config Rework
 
 The `_jpmn-options.js` runtime options file has been completely reworked, meaning
@@ -33,6 +59,8 @@ To fix your config file, do the following steps:
 1. Re-add any runtime options you had changed before.
 
 
+<br>
+
 ## Handlebars
 Yomichan's 'Anki Card Format' section was updated, and the following fields must be changed:
 
@@ -43,15 +71,31 @@ Yomichan's 'Anki Card Format' section was updated, and the following fields must
 - See [here](updating.md#updating-yomichans-anki-card-format)
   for instructions on how to update Anki Card Format.
 
+<br>
+
 ## Frequency Display
 The frequency at the top right now defaults to using the FrequencySort value.
 This is because it is usually more useful to see a summary of the values,
 instead of all the literal values itself.
-If you prefer the list display, see [here](frequencies.md#list-mode).
+
+- If you prefer the list display, see [Frequencies: List Mode](frequencies.md#list-mode).
+- If you prefer the frequency sort display but you don't have a frequency sort value,
+    [backfill the frequencies](importing.md#6-optional-backfill-the-frequencysort-field).
+- If you prefer the frequency sort display but your frequency sort is somehow invalid:
+    1. Clear out your `FrequencySort` field entirely through the following command:
+        ```
+        python3 scripts/tools.py clear_field "FrequencySort"
+        ```
+    2.  Follow the backfill frequencies instructions in the second point.
+
+
+<br>
 
 ## Greyed out collapsible fields
 Collapsible fields are now greyed out by default, instead of removed entirely.
 If you want to hide these collapsible fields, see [here](blockquotes.md#hide-empty-collapsed-fields).
+
+<br>
 
 ## Final Steps
 After changing everything, don't forget to [test that the card works!](updating.md#final-steps)

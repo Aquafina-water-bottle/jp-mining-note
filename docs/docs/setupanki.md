@@ -73,6 +73,16 @@ To enable animations, head over to:
 ---
 
 
+# Fixing your Editor Fonts
+
+By default, your editor fonts may not show Japanese characters correctly.
+
+TODO ...
+
+
+---
+
+
 # Dark Mode
 Although light mode is supported, the recommended theme for this note is dark mode.
 With that being said, changing the theme is completely optional.
