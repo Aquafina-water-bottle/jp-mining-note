@@ -285,6 +285,12 @@ export class Blockquotes extends RunnableModule {
   main() {
     // only ran on back side, according to main.ts
 
+    if (getOption('blockquotes.hideEmpty')) {
+      for (const ele of document.querySelectorAll('.glossary-details--grey')) {
+        ele.classList.add("hidden");
+      }
+    }
+
     // note that the default options specifically disables this on non-mobile devices! (VW >= 620)
     if (getOption('blockquotes.folderTab.enabled')) {
       this.populateFolderTab();

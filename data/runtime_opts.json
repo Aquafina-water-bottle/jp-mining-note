@@ -248,6 +248,7 @@
   "fixRubyPositioning.enabled": true,
   "checkDuplicateKey.enabled": true,
   "blockquotes.enabled": true,
+  "blockquotes.hideEmpty": true,
   "blockquotes.open.enabled": false,
   "blockquotes.open.primaryDefinition": false,
   "blockquotes.open.secondaryDefinition": false,

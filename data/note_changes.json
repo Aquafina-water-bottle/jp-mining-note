@@ -121,6 +121,12 @@
             "CardCache",
             44
           ]
+        },
+        {
+          "type": "NoteToUser",
+          "params": [
+            "Update Notes Permalink: TODO"
+          ]
         }
       ],
       "fields": [
@@ -223,9 +229,20 @@
           }
         },
         {
+          "type": "YomichanTemplatesChange"
+        },
+        {
+          "type": "YomichanFormatChange",
+          "params": [
+            "WordReadingHiragana",
+            "(empty)",
+            "{jpmn-word-reading-hiragana}"
+          ]
+        },
+        {
           "type": "NoteToUser",
           "params": [
-            "Update Notes Permalink: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/CHANGELOG.md#update-notes-01100"
+            "Update Notes Permalink: TODO"
           ]
         }
       ],
@@ -285,12 +302,6 @@
             ],
             "description": "Updates the FrequenciesStylized field to match the styling of all the other stylized Yomichan fields (PAGraphs, PAPositions)"
           }
-        },
-        {
-          "type": "NoteToUser",
-          "params": [
-            "Update Notes Permalink: TODO"
-          ]
         }
       ],
       "fields": "SAME"
@@ -327,9 +338,11 @@
           ]
         },
         {
-          "type": "NoteToUser",
+          "type": "YomichanFormatChange",
           "params": [
-            "Update Notes Permalink: TODO"
+            "PAPositions",
+            "(empty)",
+            "{jpmn-pitch-accent-positions}"
           ]
         }
       ],
@@ -408,9 +421,14 @@
           ]
         },
         {
-          "type": "NoteToUser",
+          "type": "YomichanTemplatesChange"
+        },
+        {
+          "type": "YomichanFormatChange",
           "params": [
-            "Update Notes Permalink: TODO"
+            "FrequencySort",
+            "(empty)",
+            "{jpmn-min-freq}"
           ]
         }
       ],
@@ -470,6 +488,17 @@
           "type": "SetField",
           "params": [
             "PASilence",
+            "[sound:_silence.wav]"
+          ]
+        },
+        {
+          "type": "YomichanTemplatesChange"
+        },
+        {
+          "type": "YomichanFormatChange",
+          "params": [
+            "PASilence",
+            "[sound:silence.wav]",
             "[sound:_silence.wav]"
           ]
         },
