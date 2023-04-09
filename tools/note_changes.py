@@ -104,9 +104,10 @@ def get_version_fields(note_changes: Sequence[NoteChange], current_ver: Version)
 
 def get_expected_fields(version_str: Optional[str] = None):
     json_handler = JsonHandler()
-    note_data = utils.get_note_data(json_handler)
+    #note_data = utils.get_note_data(json_handler)
+    note_name = "JP Mining Note"
     if version_str is None:
-        version_str = utils.get_version_from_anki(note_data)
+        version_str = utils.get_version_from_anki(note_name)
     version = Version.from_str(version_str)
     note_changes = get_note_changes(json_handler)
     expected_fields = get_version_fields(note_changes, version)

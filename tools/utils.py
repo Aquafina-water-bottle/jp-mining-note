@@ -353,7 +353,7 @@ def note_is_installed(note_name) -> bool:
 
 
 
-def get_version_from_anki(note_data: Config, dev_input_version: Optional[str] = None) -> str:
+def get_version_from_anki(model_name: str, dev_input_version: Optional[str] = None) -> str:
     """
     gets version of the jp mining note from the installed note in anki
     """
@@ -363,7 +363,7 @@ def get_version_from_anki(note_data: Config, dev_input_version: Optional[str] = 
 
     result = invoke(
         "modelTemplates",
-        modelName=note_data("model-name").item(),
+        modelName=model_name,
     )
 
     assert result.keys()
