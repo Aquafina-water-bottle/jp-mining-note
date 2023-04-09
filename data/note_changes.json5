@@ -46,6 +46,13 @@ action:
         { type: "AddField", params: [ "YomichanWordTags", 40 ] },
         { type: "AddField", params: [ "CardCache", 44 ] },
 
+        // TODO update this!
+        {
+          type: "NoteToUser", params: [
+            "Update Notes Permalink: TODO"
+          ]
+        },
+
 
       ],
 
@@ -90,16 +97,16 @@ action:
           }
         },
 
-        //{ type: "YomichanTemplatesChange", },
+        { type: "YomichanTemplatesChange", },
 
-        //{ type: "YomichanFormatChange", params: [
-        //  "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
-        //] },
+        { type: "YomichanFormatChange", params: [
+          "WordReadingHiragana", "(empty)", "{jpmn-word-reading-hiragana}"
+        ] },
 
         // TODO update this!
         {
           type: "NoteToUser", params: [
-            "Update Notes Permalink: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/CHANGELOG.md#update-notes-01100"
+            "Update Notes Permalink: TODO"
           ]
         },
 
@@ -129,12 +136,6 @@ action:
           }
         },
 
-        {
-          type: "NoteToUser", params: [
-            "Update Notes Permalink: TODO"
-          ]
-        },
-
       ],
 
       fields: "SAME",
@@ -153,11 +154,9 @@ action:
         { type: "AddField", params: [ "PAPositions", 27 ] },
         { type: "MoveField", params: [ "AJTWordPitch", 4 ] },
 
-        {
-          type: "NoteToUser", params: [
-            "Update Notes Permalink: TODO"
-          ]
-        },
+        { type: "YomichanFormatChange", params: [
+          "PAPositions", "(empty)", "{jpmn-pitch-accent-positions}"
+        ] },
 
       ],
 
@@ -217,11 +216,10 @@ action:
 
         { type: "SetField", params: [ "PASilence", "[sound:_silence.wav]" ] },
 
-        {
-          type: "NoteToUser", params: [
-            "Update Notes Permalink: TODO"
-          ]
-        },
+        { type: "YomichanTemplatesChange" },
+        { type: "YomichanFormatChange", params: [
+          "FrequencySort", "(empty)", "{jpmn-min-freq}"
+        ] },
 
       ],
 
@@ -286,6 +284,11 @@ action:
 
         { type: "SetField", params: [ "PASilence", "[sound:_silence.wav]" ] },
 
+        { type: "YomichanTemplatesChange" },
+        { type: "YomichanFormatChange", params: [
+          "PASilence", "[sound:silence.wav]", "[sound:_silence.wav]"
+        ] },
+
         {
           type: "NoteToUser", params: [
             "Update Notes Permalink: TODO"
@@ -303,7 +306,8 @@ action:
 
     {
       version: "0.0.0.0",
-      actions: [ ],
+      actions: [
+      ],
 
       fields: [
         "Key",
