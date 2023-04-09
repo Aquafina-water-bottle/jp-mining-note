@@ -8,6 +8,7 @@ from typing import Optional
 
 
 
+
 @dataclass
 class Field:
     name: str
@@ -33,55 +34,6 @@ class Field:
     # whether it is collapsed by default or not
     default_collapsed: Optional[bool] = None
 
-def get_root_folder():
-    tools_folder = os.path.dirname(os.path.abspath(__file__))
-    root_folder = os.path.join(tools_folder, "..")
-
-    return root_folder
-
-def get_fields() -> list[Field]:
-    fields = []
-    file_path = os.path.join(get_root_folder(), "src", "data", "fields.json5")
-    with open(file_path) as f:
-        for json_data in pyjson5.load(f)["fields"]:
-            field = Field(**json_data)
-            fields.append(field)
-
-    return fields
-
-FIELDS = get_fields()
-
-
-rx_MORE_THAN_ONE_NEWLINE = re.compile(r"[\n]+")
-rx_COMMENT = re.compile(r"\n\s*#.*")
-rx_TRAILING_WHITESPACE = re.compile(r"\n\s*")
-rx_SKIP_NEWLINE = re.compile(r"\s*`\s*\n")
-
-
-CHECKED_CHECKBOX = '<input type="checkbox" disabled="disabled" checked />'
-UNCHECKED_CHECKBOX = '<input type="checkbox" disabled="disabled" />'
-
-
-REGEX_TABLE_TEMPLATE = """
-| Field name | Value |
-|:-|:-|
-| **Find:** { .smaller-table-row } | %s  { .smaller-table-row } |
-| **Replace With:** { .smaller-table-row } | %s { .smaller-table-row } |
-| **In:** { .smaller-table-row } | %s { .smaller-table-row } |
-| Selected notes only { .smaller-table-row } | %s { .smaller-table-row } |
-| Ignore case { .smaller-table-row } | %s { .smaller-table-row } |
-| Treat input as a<br>regular expression { .smaller-table-row } | %s { .smaller-table-row } |
-"""
-
-
-@dataclass
-class RegexTableArgs:
-    find: str
-    replace: str
-    field: str
-    selected_notes_only: bool = True
-    ignore_case: bool = False
-    input_is_regex: bool = True
 
 
 # copy/paste from tools/note_changes.py
@@ -138,12 +90,12 @@ class Version:
             if i > j:
                 return 1
 
-        if self.pre_release is not None and other.pre_release is not None:
-            return 1 if (self.pre_release > other.pre_release) else -1
-        elif self.pre_release is not None:  # self < other
-            return -1
-        elif other.pre_release is not None:  # self > other
-            return 1
+        #if self.pre_release is not None and other.pre_release is not None:
+        #    return 1 if (self.pre_release > other.pre_release) else -1
+        #elif self.pre_release is not None:  # self < other
+        #    return -1
+        #elif other.pre_release is not None:  # self > other
+        #    return 1
         return 0
 
     def __eq__(self, other):
@@ -169,6 +121,102 @@ class Version:
 
     def __str__(self):
         return f"({'.'.join(str(x) for x in self.ints)}{'' if self.pre_release is None else '-prerelease-' + str(self.pre_release)})"
+
+
+
+
+
+
+# TODO do not hardcode this!!!
+with open("../version.txt") as f:
+    CURRENT_VERSION_STR = f.read().strip()
+#CURRENT_VERSION_STR = "0.12.0.0"
+
+CURRENT_VER = Version.from_str(CURRENT_VERSION_STR)
+
+
+def get_root_folder():
+    tools_folder = os.path.dirname(os.path.abspath(__file__))
+    root_folder = os.path.join(tools_folder, "..")
+
+    return root_folder
+
+
+def get_fields() -> list[Field]:
+    fields = []
+    file_path = os.path.join(get_root_folder(), "data", "fields.json5")
+    with open(file_path) as f:
+        for json_data in pyjson5.load(f)["fields"]:
+            field = Field(**json_data)
+            fields.append(field)
+
+    return fields
+
+
+def get_fields_in_cur_version() -> list[Field]:
+    """
+    gets all fields that exist in the current version
+    """
+    result_fields = []
+    for field in get_fields():
+
+        # skips the element altogether if not in current version
+        if field.version is not None:
+            ver = field.version
+            feature_ver = Version.from_str(ver)
+            if feature_ver > CURRENT_VER:
+                continue
+            result_fields.append(field)
+        else:
+            result_fields.append(field)
+    return result_fields
+
+
+def get_checked(x, show_string=False, show_unchecked=True):
+    if show_string:
+        checked = f"Checked ({CHECKED_CHECKBOX})"
+        unchecked = f"Unchecked ({UNCHECKED_CHECKBOX})"
+    else:
+        checked = f"{CHECKED_CHECKBOX}"
+        unchecked = f"{UNCHECKED_CHECKBOX}"
+    if not show_unchecked:
+        unchecked = ""
+
+    if x:
+        return checked
+    return unchecked
+
+
+rx_MORE_THAN_ONE_NEWLINE = re.compile(r"[\n]+")
+rx_COMMENT = re.compile(r"\n\s*#.*")
+rx_TRAILING_WHITESPACE = re.compile(r"\n\s*")
+rx_SKIP_NEWLINE = re.compile(r"\s*`\s*\n")
+
+
+CHECKED_CHECKBOX = '<input type="checkbox" disabled="disabled" checked />'
+UNCHECKED_CHECKBOX = '<input type="checkbox" disabled="disabled" />'
+
+
+REGEX_TABLE_TEMPLATE = """
+| Field name | Value |
+|:-|:-|
+| **Find:** { .smaller-table-row } | %s  { .smaller-table-row } |
+| **Replace With:** { .smaller-table-row } | %s { .smaller-table-row } |
+| **In:** { .smaller-table-row } | %s { .smaller-table-row } |
+| Selected notes only { .smaller-table-row } | %s { .smaller-table-row } |
+| Ignore case { .smaller-table-row } | %s { .smaller-table-row } |
+| Treat input as a<br>regular expression { .smaller-table-row } | %s { .smaller-table-row } |
+"""
+
+
+@dataclass
+class RegexTableArgs:
+    find: str
+    replace: str
+    field: str
+    selected_notes_only: bool = True
+    ignore_case: bool = False
+    input_is_regex: bool = True
 
 
 def define_env_vars(env):
@@ -219,11 +267,6 @@ def define_env_vars(env):
 def define_env(env):
     "Hook function"
     define_env_vars(env)
-
-    # TODO do not hardcode this!!!
-    #with open("../version.txt") as f:
-    #    CURRENT_VERSION_STR = f.read().strip()
-    CURRENT_VERSION_STR = "0.12.0.0"
 
 
     @env.macro
@@ -303,10 +346,9 @@ def define_env(env):
     @env.macro
     def bleeding_edge_only(feature_version_str: str):
         feature_ver = Version.from_str(feature_version_str)
-        current_ver = Version.from_str(CURRENT_VERSION_STR)
 
         template = "(Only available on the [bleeding edge release](building.md))"
-        if feature_ver > current_ver:
+        if feature_ver > CURRENT_VER:
             return template.format(feature_version_str, CURRENT_VERSION_STR)
         return ""
 
@@ -318,8 +360,7 @@ def define_env(env):
 """
 
         feature_ver = Version.from_str(feature_version_str)
-        current_ver = Version.from_str(CURRENT_VERSION_STR)
-        if feature_ver > current_ver:
+        if feature_ver > CURRENT_VER:
             return (
                 "!!! warning\n"
                 f"    New as of version `{feature_version_str}`. "
@@ -354,7 +395,7 @@ def define_env(env):
         # sep row
         rows.append("|:-:|:-:|:-:|:-:|")
 
-        for field in FIELDS:
+        for field in get_fields():
             auto_filled = CHECKED_CHECKBOX if field.auto_fill else UNCHECKED_CHECKBOX
             binary_field = CHECKED_CHECKBOX if field.binary_field else UNCHECKED_CHECKBOX
             notes = "" if field.notes is None else field.notes
@@ -371,33 +412,19 @@ def define_env(env):
         rows = []
 
         # top row
-        rows.append("| Anki Fields | Yomichan Format | Version Introduced |")
+        rows.append("| Anki Fields | Yomichan Format |")
 
         # sep row
-        rows.append("|-|-|-|")
+        rows.append("|-|-|")
 
-        current_ver = Version.from_str(CURRENT_VERSION_STR)
-
-        for field in FIELDS:
+        for field in get_fields():
 
             anki_field = ("*" if field.binary_field else "") + field.name
             yomichan_format = ""
             if field.setup is not None:
                 yomichan_format = "`" + str(field.setup) + "`"
-            notes = ""
 
-            if field.version is not None:
-                ver = field.version
-                feature_ver = Version.from_str(ver)
-                if feature_ver > current_ver:
-                    # anki_field = f'~~{anki_field}~~'
-                    # yomichan_format = f'~~{yomichan_format}~~' if yomichan_format else ""
-                    # notes = f"New in version `{ver}` (currently not available)"
-                    continue  # skips the element altogether
-
-                notes = f"`{ver}`"
-
-            elements = [anki_field, yomichan_format, notes]
+            elements = [anki_field, yomichan_format]
             elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
             rows.append("|" + "|".join(elements) + "|")
 
@@ -413,17 +440,7 @@ def define_env(env):
         # sep row
         rows.append("|-|-|")
 
-        current_ver = Version.from_str(CURRENT_VERSION_STR)
-
-        for field in FIELDS:
-
-            # skips the element altogether if not in current version
-            if field.version is not None:
-                ver = field.version
-                feature_ver = Version.from_str(ver)
-                if feature_ver > current_ver:
-                    continue
-
+        for field in get_fields_in_cur_version():
             ac_field = "" if field.anime_cards_import is None else field.anime_cards_import
 
             elements = [field.name, ac_field]
@@ -442,16 +459,7 @@ def define_env(env):
         # sep row
         rows.append("|-|-|")
 
-        current_ver = Version.from_str(CURRENT_VERSION_STR)
-
-        for field in FIELDS:
-
-            # skips the element altogether if not in current version
-            if field.version is not None:
-                ver = field.version
-                feature_ver = Version.from_str(ver)
-                if feature_ver > current_ver:
-                    continue
+        for field in get_fields_in_cur_version():
 
             result = ""
             if field.personal_setup is not None:
@@ -465,22 +473,49 @@ def define_env(env):
 
         return "\n".join(rows)
 
+    @env.macro
+    def gen_fields_info_table():
+        rows = []
+
+        # top row
+        rows.append("| Fields | Font Size | Collapsed | Binary | Notes |")
+
+        # sep row
+        rows.append("|-|:-:|:-:|:-:|-|")
+
+        for field in get_fields_in_cur_version():
+
+            #field_name = f"**{field.name}**"
+            field_name = field.name
+            font_size = f"`{field.font}`"
+            collapsed = get_checked(field.default_collapsed, show_unchecked=False)
+            binary = get_checked(field.binary_field, show_unchecked=False)
+
+            if field.notes is not None:
+                notes = field.notes
+            elif field.version is not None:
+                notes = f"New in `v{field.version}`"
+            else:
+                notes = ""
+
+            elements = [field_name, font_size, collapsed, binary, notes]
+            elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
+            rows.append("|" + "|".join(elements) + "|")
+
+        return "\n".join(rows)
+
+
 
     @env.macro
     def gen_regex_table(args: RegexTableArgs):
-        get_checked = (
-            lambda x: f"Checked ({CHECKED_CHECKBOX})"
-            if x
-            else f"Unchecked ({UNCHECKED_CHECKBOX})"
-        )
 
         format_args = (
             args.find,
             args.replace,
             args.field,
-            get_checked(args.selected_notes_only),
-            get_checked(args.ignore_case),
-            get_checked(args.input_is_regex),
+            get_checked(args.selected_notes_only, show_string=True),
+            get_checked(args.ignore_case, show_string=True),
+            get_checked(args.input_is_regex, show_string=True),
         )
 
         return REGEX_TABLE_TEMPLATE % format_args

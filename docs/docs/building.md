@@ -37,11 +37,9 @@ More info about this is shown later.
     - I recommend [pyenv](https://github.com/pyenv/pyenv) to upgrade your python version
       if you're running Linux.
 - [git](https://git-scm.com/downloads)
-- [sass](https://sass-lang.com/dart-sass) (dart implementation)
-    - The dart implementation is required to use the latest features of sass.
 - [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/)
+- [Anki-Connect](https://github.com/FooSoft/anki-connect#anki-connect)
 - Anki 2.1.54+ or higher
-- Anki-Connect addon
 
 
 <br>
@@ -82,12 +80,12 @@ so that packages aren't installed into your global python environment.
 # assuming you are under the root folder, usu. jp-mining-note
 
 # You may have to use `python` instead of `python3`, and `pip` instead of `pip3`.
-python3 -m venv .
+python3 -m venv .venv
 
 # The following is for POSIX (bash/zsh) only.
 # See how to activate venv on your system in the official documentation:
 # https://docs.python.org/3/library/venv.html
-source ./bin/activate
+source ./.venv/bin/activate
 
 pip3 install -r tools/requirements.txt
 ```
@@ -105,9 +103,9 @@ Some additional options with `venv` are shown below.
     # run this only if you're already in a venv
     deactivate
 
-    rm -r bin lib
-    python3 -m venv .
-    source ./bin/activate
+    rm -r ./venv
+    python3 -m venv .venv
+    source ./.venv/bin/activate
     pip3 install -r tools/requirements.txt
     ```
 
