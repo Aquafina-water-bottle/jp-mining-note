@@ -76,9 +76,10 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
 
-def get_args(*args: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
+def get_args(*add_args_funcs: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
+    # exit_on_error is False if custom args are given
     parser = argparse.ArgumentParser()
-    for add_args_func in args:
+    for add_args_func in add_args_funcs:
         add_args_func(parser)
     return parser.parse_args()
 
