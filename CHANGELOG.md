@@ -208,6 +208,46 @@ and must use `./install.py --update`.
     - Integrated persistence properly with typescript with .d.ts file
 
 
+
+
+## [0.11.0.4] - 2023-04-10
+#### Fixes
+- Fixed the default config to now ignore two errors:
+    - An [Anki internal error](https://forums.ankiweb.net/t/windows-console-error-uncaught-typeerror-cannot-read-properties-of-null-reading-style/29185)
+        introduced in Anki 2.1.61 for Windows users:
+        ```
+        Uncaught TypeError: Cannot read properties of null (reading 'style')
+            at Ar (reviewer.js:7:112035)
+        ```
+    - Fixed `ReferenceError: EFDRC is not defined` error not being properly ignored.
+
+Due to implementation details, default config changes are **not propagated between updates**
+(this will be changed in 0.12.0.0).
+Therefore, if you experience either error, you must manually replace the `ignored-errors`
+key in the
+[runtime options](https://aquafina-water-bottle.github.io/jp-mining-note/runtimeoptions/#accessing-editing)
+with the following:
+```js
+      // Errors that contain the following the following strings will be ignored and not displayed.
+      "ignored-errors": [
+        // This error is caused by the "Edit Field During Review (Cloze)" add-on.
+        // However, this error only appears during the preview and edit cards template windows.
+        // This error does not appear to actually affect any of the internal javascript within the card,
+        // and is rather caused by the add-on itself.
+        // Due to the card's error catcher, this previously-silent error is now caught and shown
+        // in the card's error log, despite it not actually affecting anything.
+        // Therefore, this error can be safely ignored.
+        "ReferenceError: EFDRC is not defined",
+
+        // Vanilla Anki 2.1.61 seems to introduce this error on Windows. It doesn't seem to affect
+        // anything visible, so hopefully this is fine to ignore.
+        // Related report: https://forums.ankiweb.net/t/29185
+        "/_anki/js/reviewer.js:7:112035)"
+      ],
+```
+
+
+
 ## [0.11.0.3] - 2022-12-21
 #### Fixes
 - Fixed links having the wrong color on Anki v2.1.55

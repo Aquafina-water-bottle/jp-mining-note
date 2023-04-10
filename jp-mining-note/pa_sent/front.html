@@ -176,7 +176,7 @@ var JPMNLogger = (() => {
 
     errorStack(stack) {
       try {
-        let ignoredErrors = getSetting(['ignored-errors',],['ReferenceError: EFDRC is not defined.']);
+        let ignoredErrors = getSetting(['ignored-errors',],['ReferenceError: EFDRC is not defined', '/_anki/js/reviewer.js:7:112035)']);
         for (let substr of ignoredErrors) {
           if (stack.includes(substr)) {
             // ignores
@@ -417,7 +417,7 @@ function optionsNotFound() {
 
     
   <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
-  <div class="card-description-ver">JP Mining Note: Version 0.11.0.3</div>
+  <div class="card-description-ver">JP Mining Note: Version 0.11.0.4</div>
 
 
 </div>
