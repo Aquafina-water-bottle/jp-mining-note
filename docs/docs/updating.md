@@ -42,6 +42,8 @@ These should be recorded in the [Setup Changes](setupchanges.md) page.
 Afterward seeing that page, please view the [final steps](updating.md#final-steps) section.
 {% endset %}
 
+{% set JPMN_MGR_CODE %}1732829476{% endset %}
+
 ??? info "Option 1: Via Anki Add-on *(click here)*"
 
     This add-on simply wraps around the python script mentioned below,
@@ -51,7 +53,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
 
     TODO non-prereleases version!
 
-    1. If you haven't installed JPMN Manager yet, do so with the following code: `1732829476`.
+    1. If you haven't installed JPMN Manager yet, do so with the following code: `{{ JPMN_MGR_CODE }}`.
         Be sure to restart Anki after installing.
     1. Make sure there is something to update to in the first place.
         You can do this by:
