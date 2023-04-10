@@ -42,13 +42,12 @@ There are three ways of installing the note:
     This method is recommended for people who are familiar with `git` and `python`,
     and don't want to download another Anki add-on.
 3. **Manually**, using Anki.
-    This tends to be more error-prone, due to various human error like
-    font files being incorrectly installed.
+    This tends to be more error-prone due to having many more potential points of failure.
     Therefore, I wouldn't recommend installing the note this way,
     and should only be used if the first two options didn't work for some reason.
 
 
-{% set JPMN_MGR_CODE %}1732829476 {% endset %}
+{% set JPMN_MGR_CODE %}1732829476{% endset %}
 
 ??? info "Option 1: JPMN Manager *(click here)*"
 
@@ -144,7 +143,7 @@ Please check the following in particular:
 1. The fonts should match with the above example.
 
     If the fonts don't match, try restarting Anki.
-    If the fonts still don't match, the note was likely installed with "Option 2: The Manual Way".
+    If the fonts still don't match, the note was likely installed manually.
     Please verify you manually installed the fonts and placed them in the correct folder
     (see steps 3 and 4).
 
