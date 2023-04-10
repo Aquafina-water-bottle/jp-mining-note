@@ -486,7 +486,12 @@ var JPMNOpts = (function (my) {
         // Due to the card's error catcher, this previously-silent error is now caught and shown
         // in the card's error log, despite it not actually affecting anything.
         // Therefore, this error can be safely ignored.
-        "ReferenceError: EFDRC is not defined."
+        "ReferenceError: EFDRC is not defined",
+
+        // Vanilla Anki 2.1.61 seems to introduce this error on Windows. It doesn't seem to affect
+        // anything visible, so hopefully this is fine to ignore.
+        // Related report: https://forums.ankiweb.net/t/29185
+        "/_anki/js/reviewer.js:7:112035)"
       ],
 
       // Overrides the play keybind button to show the sentence if the
