@@ -65,6 +65,10 @@ and must use `./install.py --update`.
     - Most config files now use .json5 for human readability purposes (and can be switched with json for portability)
         - Removed deprecated importlib in favor of these json config files
 
+- JPMN Manager
+    - A small Anki add-on was released specifically to install and update jp-mining-note.
+        This prevents people from having to install Python and run scripts through command line.
+
 - Added styles to the editor view:
     - Merge some editor fields into the same row
     - Group together related fields by separating them with a slightly larger gap
