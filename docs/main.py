@@ -258,6 +258,7 @@ def define_env_vars(env):
         "REFOLD_SERVER": "[Refold (JP) Server](https://refold.la/join)",
         "PERDITION_SERVER": "[Perdition's server](https://discord.gg/uK4HeGN)",
         "PERDITION_LINK": "https://discord.gg/uK4HeGN",
+        "BATCH_CMD": "[batch command](batch.md)",
     }
 
     for k, v in data.items():

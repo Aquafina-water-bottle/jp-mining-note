@@ -34,13 +34,45 @@ I recommend downloading the latest version, to avoid having to do extra steps du
 ---
 
 # Installing jp-mining-note
-There are two ways of installing the note:
+There are three ways of installing the note:
+
+1. Via **JPMN Manager**, a small Anki add-on that can install and update jp-mining-note.
+    *If you don't know which method to choose, choose this one*.
+2. Via **command line**.
+    This method is recommended for people who are familiar with `git` and `python`,
+    and don't want to download another Anki add-on.
+3. **Manually**, using Anki.
+    This tends to be more error-prone, due to various human error like
+    font files being incorrectly installed.
+    Therefore, I wouldn't recommend installing the note this way,
+    and should only be used if the first two options didn't work for some reason.
 
 
+{% set JPMN_MGR_CODE %}1732829476 {% endset %}
 
-??? info "Option 1: The Automatic Way *(click here)*"
+??? info "Option 1: JPMN Manager *(click here)*"
 
-    If you know what `git` and `python` is, here's all you have to do:
+    TODO video
+
+    TODO non-prereleases version!
+
+    1. Install
+        [JPMN Manager](https://ankiweb.net/shared/info/{{ JPMN_MGR_CODE }})
+        and
+        [Anki-Connect](https://ankiweb.net/shared/info/2055492159)
+        by using the following add-on codes code:
+        ```
+        {{ JPMN_MGR_CODE }} 2055492159
+        ```
+    1. Restart Anki, to load the new add-ons.
+    1. Within Anki, navigate to the following:
+
+        > `Tools` →  `JPMN Manager` →  `Install jp-mining-note`
+
+        This will install latest stable version of the note,
+        as well as the fonts required for the note to work.
+
+??? info "Option 2: Command Line *(click here)*"
 
     === "Windows"
 
@@ -48,7 +80,7 @@ There are two ways of installing the note:
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
         cd jp-mining-note
 
-        :: Ensure you have Anki open, and with anki-connect running
+        :: Ensure you have Anki open, and with Anki-Connect running
         :: Also ensure that you have python 3.10+ installed.
         :: It *MAY* work with lower versions of python, but I make no such guarantee. ;)
         python tools\install.py
@@ -60,7 +92,7 @@ There are two ways of installing the note:
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
         cd jp-mining-note
 
-        # Ensure you have Anki open, and with anki-connect running
+        # Ensure you have Anki open, and with Anki-Connect running
         # Also ensure that you have python 3.10+ installed.
         # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
 
@@ -68,17 +100,10 @@ There are two ways of installing the note:
         python tools/install.py
         ```
 
-    The above does the following:
+    `install.py` will install latest stable version of the note,
+    as well as the fonts required for the note to work.
 
-    - Installs the latest stable version of the note
-    - Installs the fonts required for the note
-
-    If the above made no sense to you,
-    or you just want to install this normally,
-    see the second option below.
-
-
-??? info "Option 2: The Manual Way *(click here)*"
+??? info "Option 3: Manually *(click here)*"
 
 
     1. Go to the

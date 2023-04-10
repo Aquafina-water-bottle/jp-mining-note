@@ -29,24 +29,20 @@ I'm not aware of a workflow for iOS that works with Yomichan.
     [JL](https://github.com/rampaa/JL)
     and
     [jidoujisho](https://github.com/lrorpilla/jidoujisho).
-    Although it may be possible to replicate certain parts of the setup
-    with these card exporters, it is almost certain that select features
+    Although it is likely possible to replicate certain parts of the setup
+    with these card exporters, it is almost guaranteed that select features
     will be missing.
 
 ## Anki Desktop
 This note supports Anki versions 2.1.50 and above, with
-primary support given to the latest stable Anki versions (2.1.60+ & Qt6).
+primary support given to the latest stable Anki versions (2.1.61+ & Qt6).
 
-Limited support will be given for older versions of Anki,
-and there are certain features that are known to break on Anki versions 2.1.49 and below.
-In other words, this note is incompatable for Anki versions 2.1.49 or older.
+It is important to note that **this note is no longer supported for Anki versions 2.1.49 or older**.
+There are certain features that are known to break on these versions.
 
 ## Mobile (AnkiDroid and AnkiMobile)
-JPMN, as of (TODO), finally supports AnkiDroid and AnkiMobile,
-paired with a new interface specifically designed for mobile devices.
-
-[^1]:
-    Written as of 2023/03/20.
+JPMN finally supports AnkiDroid and AnkiMobile,
+and comes with a new interface specifically designed for mobile devices.
 
 ## AnkiWeb
 JPMN is not tested on AnkiWeb,

@@ -1,6 +1,6 @@
+# Design Decisions
 
-
-design decisions with main template:
+# PC Template Design Decisions
 
 - everything should be available to the user even for words with very long definitions
     - the definitions are below everything specifically due to that
@@ -18,7 +18,7 @@ design decisions with main template:
     - TODO option to have a consistent shape?
 
 
-design decisions with mobile template:
+## Mobile Template Design Decisions
 
 - make definition show up ASAP, i.e. by the first quarter of the screen
     - this means elements that were previously above the definition on the PC version, like the audio buttons, image, and sentence, is now below the definition
@@ -37,20 +37,6 @@ design decisions with mobile template:
     - prevents unnecessary scrolling
 
 
-
-
-
-
-
-
-This page showcases many examples on how you can customize the user interface to your liking.
-As there are many examples that you likely won't use,
-I recommend quickly skimming through this page to see if there is anything you would like
-your note to do.
-
-!!! note
-    * If you want to change something for a card-per-card basis, see the [Field Reference](fieldref.md) page.
-    * These customizations make heavy use of {{ RTOs }} and {{ C_CSS }}.
 
 ---
 
@@ -226,5 +212,19 @@ However, this take up extra vertical space which is unnecessary if you are only 
         ```
 
 
+
+
+
+
+<!--
+This page showcases many examples on how you can customize the user interface to your liking.
+As there are many examples that you likely won't use,
+I recommend quickly skimming through this page to see if there is anything you would like
+your note to do.
+
+!!! note
+    * If you want to change something for a card-per-card basis, see the [Field Reference](fieldref.md) page.
+    * These customizations make heavy use of {{ RTOs }} and {{ C_CSS }}.
+-->
 
 

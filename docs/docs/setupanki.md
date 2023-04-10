@@ -104,14 +104,6 @@ To change Anki's theme, head over to:
 # Anki Add-ons
 There are certain add-ons that must be installed for this note type to work.
 
-<!--
-There are also certain add-ons that will **not** be supported by this note type.
-Please disable them and restart Anki before continuing.
--->
-
-## Conflicting Add-ons
-There are no conflicting add-ons, since I'm not aware of any currently.
-Let me know if you find one!
 
 ## Downloading Add-ons
 To download an add-on, copy the add-on's code, and navigate to the following to paste the code: <br>
@@ -130,7 +122,12 @@ To download an add-on, copy the add-on's code, and navigate to the following to 
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the add-on.
 
-!!! note "Note for Anki versions 2.1.49 and below"
+If you installed JPMN Manager, you likely already have this installed.
+
+??? note "Note for Anki versions 2.1.49 and below"
+
+    This is left for legacy purposes, because jp-mining-note
+    no longer officially supports versions 2.1.49 or below.
 
     Anki versions 2.1.49 and below require a hack to the Anki-Connect
     config for certain features within the card to work.

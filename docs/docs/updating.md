@@ -29,7 +29,7 @@ If your note is named differently, please rename it to `JP Mining Note`.
 
 You can update the note in one of two ways:
 
-1. Via an Anki Add-on
+1. Via JPMN Manager (an Anki add-on)
 2. Via a Python script
     (recommended for people who know used `python` and `git` before)
 
@@ -47,11 +47,17 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
     This add-on simply wraps around the python script mentioned below,
     and should do the exact same operations as running the script manually.
 
-    1. Install the add-on with the following code: `TODO`
-        - TODO actually write add-on...
-        - If you already have this add-on installed, check for updates by TODO.
-    1. Navigate to `Tools` →  `jp-mining-note` →  `Update`,
-        and follow the instructions from there.
+    TODO video
+
+    TODO non-prereleases version!
+
+    1. If you haven't installed JPMN Manager yet, do so with the following code: `1732829476`.
+        Be sure to restart Anki after installing.
+    1. Make sure there is something to update to in the first place.
+        You can do this by:
+        > `Tools` →  `JPMN Manager` →  `Check for note updates`
+    1. Update the note by navigating to the following:
+        > `Tools` →  `JPMN Manager` →  `Update jp-mining-note`
 
 {% filter indent(4) %}
 {{ post_install }}

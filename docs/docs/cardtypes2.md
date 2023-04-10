@@ -143,12 +143,14 @@ To clarify some of the above:
 * If a PA word card is created, then the default card does not test pitch accent.
   Similarly, if a PA sentence card is created, then the default card only tests the word pitch accent.
 
+
+
+
+
+
+<!--
+
 ---
-
-
-
-
-
 
 # Personal Commentary
 
@@ -162,12 +164,15 @@ To clarify some of the above:
 
 With that being said, here is currently what I have found out from testing out most of these card types:
 
+
 **TSCs and (plain) hover cards are not good general card types, because they form too many context-based memories.**
 
 -   I find myself not knowing the word until I read the surrounding context, which defeats the purpose
     of testing myself on the word.
     If you want to test this yourself, try using hover cards for a while,
     and see if you only remember what the word means when you hover over the word.
+
+    TODO reword this better!!!!
 
 **Do not use reveal sentence cards.**
 
@@ -209,5 +214,7 @@ As of writing, I'm testing out the following card types, so I don't have any str
 - Sentence-first cards
 - Audio cards
 
+
+-->
 
 
