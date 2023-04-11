@@ -144,6 +144,9 @@ AJT Japanese takes the place of AJT Furigana, and should've be automatically upd
 To use this new add-on, the config must be updated.
 This new config can be found [here](https://aquafina-water-bottle.github.io/jp-mining-note/setupanki/#ajt-japanese).
 
+Additionally, please disable or remove the "AJT Pitch Accent" add-on, as it is now redundant
+and may interfere with "AJT Japanese".
+
 ---
 
 # 2023/02/22 (CSS Injector Update)
