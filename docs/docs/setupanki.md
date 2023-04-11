@@ -356,24 +356,6 @@ An example config is shown below that you can copy/paste.
       },
       "profiles": [ // (3)!
         {
-          "name": "Add pitch accent html",
-          "note_type": "JP Mining Note",
-          "source": "Word",
-          "destination": "AJTWordPitch",
-          "mode": "pitch",
-          "output_format": "html",
-          "split_morphemes": false
-        },
-        {
-          "name": "Add pitch accent number -- UNUSED BY jp-mining-note",
-          "note_type": "AJT_JAPANESE_IGNORE_PROFILE",
-          "source": "VocabKanji",
-          "destination": "VocabPitchNum",
-          "mode": "pitch",
-          "output_format": "number",
-          "split_morphemes": false
-        },
-        {
           "name": "Add furigana for sentence",
           "note_type": "JP Mining Note",
           "source": "Sentence",
@@ -387,6 +369,15 @@ An example config is shown below that you can copy/paste.
           "source": "VocabKanji",
           "destination": "VocabFurigana",
           "mode": "furigana",
+          "split_morphemes": false
+        },
+        {
+          "name": "Add pitch accent html",
+          "note_type": "JP Mining Note",
+          "source": "Word",
+          "destination": "AJTWordPitch",
+          "mode": "pitch",
+          "output_format": "html",
           "split_morphemes": false
         },
         {
@@ -462,7 +453,10 @@ An example config is shown below that you can copy/paste.
       "audio_settings": {
         "dictionary_download_timeout": 30,
         "audio_download_timeout": 6,
-        "attempts": 4
+        "attempts": 4,
+        "maximum_results": 99,
+        "ignore_inflections": false,
+        "stop_if_one_source_has_results": false
       }
     }
     ```
