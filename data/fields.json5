@@ -436,6 +436,16 @@
 
 
     {
+      "name": "CardCache",
+      "font": 20,
+      "auto_fill": false,
+      "binary_field": false,
+
+      "default_collapsed": true,
+    },
+
+
+    {
       "name": "Comment",
       "font": 20,
       "auto_fill": false,
