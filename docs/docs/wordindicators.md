@@ -8,7 +8,7 @@ in your deck are found.
 
     (TODO image)
 
-=== "音 (同音異義語)"
+=== "読 (読み方・同音異義語)"
     This shows cards with the same reading, **ignoring pitch accent**.
     For example, the word 自身 is still shown,
     despite having a different pitch accent to 地震.

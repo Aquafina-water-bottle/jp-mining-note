@@ -86,3 +86,20 @@ TODO
 - Has stylization options to show maturity and difficulty (number of possible readings)
     for each individual kanji.
 
+
+## [KanjiKeywordOverlay](https://github.com/fanatic84/KanjiKeywordOverlay)
+- Shows kanji hover on info, based off of existing cards.
+    Works similarly to KanjiEater's Kanji Connections add-on.
+
+
+## [Anki-WaniKani-Hints](https://github.com/MattWeinberg24/Anki-WaniKani-Hints)
+- Shows WaniKani information on kanji hover, which includes stories for radicals and pronunciations.
+
+
+## [Glutanimate's Pop-up Dictionary](https://ankiweb.net/shared/info/153625306)
+- An old add-on that searches highlighted text across all cards.
+- Requires a download from file
+- Also see
+    [p1000's version](https://cdn.discordapp.com/attachments/778430038159655012/1086425849856790569/popup_dictionary.7z),
+    which should work with jp-mining-note by default
+

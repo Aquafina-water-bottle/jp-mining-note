@@ -120,6 +120,8 @@ in order to fit the extremely diverse needs of the Japanese learning community.
 # It's just Yomichan!
 The card is created from the popular Yomichan setup that you're likely already familiar with.
 Cards are created instantly, no extra steps necessary.
+
+TODO change video
 ![type:video](https://user-images.githubusercontent.com/17107540/192704164-dd075092-58da-4964-9ddf-d89627f60d3c.mp4)
 
 

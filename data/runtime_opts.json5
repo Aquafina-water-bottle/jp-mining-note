@@ -452,7 +452,7 @@
   "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
   "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
   "autoPitchAccent.coloredPitchAccent.color.testedContent": true, // highlight word above line
-  "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
+  "autoPitchAccent.coloredPitchAccent.color.fullSentence": true, // highlight word in full sentence
   "autoPitchAccent.coloredPitchAccent.color.definitions": true,
 
   // Given that `autoPitchAccent.paPositions.displayMode` selects multiple results,

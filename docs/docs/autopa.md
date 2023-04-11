@@ -79,6 +79,37 @@ and must be enabled in the {{ RTO_FILE }}:
 
 <br>
 
+## Controlling What Gets Colored
+{{ feature_version("0.12.0.0") }}
+
+There are many {{ RTOs }} that change exactly what is colored.
+By default, everything except words found in tooltips (kanji hover and word indicators)
+are highlighted.
+
+```json
+"autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
+"autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
+"autoPitchAccent.coloredPitchAccent.color.testedContent": true,
+"autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
+"autoPitchAccent.coloredPitchAccent.color.definitions": true,
+
+"tooltips.overrideOptions.autoPitchAccent": {
+  // highlights bolded kanji
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": false,
+  // highlights bolded sentence below word
+  "autoPitchAccent.coloredPitchAccent.color.fullSentence": false, // (1)!
+},
+```
+
+1.  If you want enable word coloring within the sentence,
+    the word within the sentence must be able to be highlighted in the first place.
+    To enable this, use the following runtime option:
+    ```json
+    "tooltips.highlightWordInSentence": true,
+    ```
+
+<br>
+
 ## When Pitch Is Not Automatically Colored
 Pitch accent coloring requires a numeric position value somewhere within the card.
 This is usually found in one of these places:
