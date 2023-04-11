@@ -276,17 +276,20 @@ def fill_field(field_name: str, value: str = "1", query: Optional[str] = None):
     batch set the field to `1`
     """
 
+    print(f"Querying notes...")
     if query is None:
         query = '"note:JP Mining Note"'
     notes = invoke("findNotes", query=query)
 
     # creates multi request
+    print(f"Creating actions...")
     actions = []
 
     for nid in notes:
         action = _update_note_action(nid, **{field_name: value})
         actions.append(action)
 
+    print(f"Filling {len(notes)} notes with {repr(value)}...")
     notes = invoke("multi", actions=actions)
 
 
@@ -295,17 +298,20 @@ def empty_field(field_name: str, query: Optional[str] = None):
     batch empties the field
     """
 
+    print(f"Querying notes...")
     if query is None:
-        query = '"note:JP Mining Note"'
+        query = f'"note:JP Mining Note" -"{field_name}:"'
     notes = invoke("findNotes", query=query)
 
     # creates multi request
+    print(f"Creating actions...")
     actions = []
 
     for nid in notes:
         action = _update_note_action(nid, **{field_name: ""})
         actions.append(action)
 
+    print(f"Emptying {len(notes)} notes...")
     notes = invoke("multi", actions=actions)
 
 

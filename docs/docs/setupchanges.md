@@ -62,8 +62,18 @@ To fix your config file, do the following steps:
     - TODO REMOVE THIS: link above is currently outdated because master
     - actual link you should use is this: [https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js)
 1. Re-add any runtime options you had changed before.
+    Common runtime-options (pitch accent coloring and image blur) are included as examples;
+    remove the comment to re-enable them.
     To see all available runtime options, see [Runtime Options: Available Options](runtimeoptions.md#available-options).
 
+!!! note
+    For people using pitch accent coloring, the entire card is now highlighted with the pitch accent group.
+    To restore the previous behavior, use these runtime options:
+
+    ```json
+    "autoPitchAccent.coloredPitchAccent.color.fullSentence": false,
+    "autoPitchAccent.coloredPitchAccent.color.definitions": false,
+    ```
 
 <br>
 
@@ -97,9 +107,6 @@ instead of all the literal values itself.
         python3 tools/batch.py clear_field "FrequencySort"
         ```
     2.  Follow the backfill frequencies instructions in the second point.
-
-
-<br>
 
 
 ## Final Steps
