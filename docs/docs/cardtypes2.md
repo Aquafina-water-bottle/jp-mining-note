@@ -20,10 +20,8 @@ TODO FAQ
 <br>
 
 
-## Default card type for hiragana-only cards
+## Is Hiragana
 {{ feature_version("0.12.0.0") }}
-
-TODO where to put these?
 
 > Markers: `{jpmn-filled-if-word-is-hiragana}`・`{jpmn-filled-if-word-is-not-hiragana}`
 
@@ -50,6 +48,22 @@ To do exactly that, do the following:
 !!! note
     This was inspired by
     [Marv's hint sentence for kana cards](https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards).
+
+<br>
+
+## Is Grammar point
+
+- TODO check if word exists in a grammar dictionary
+- TODO only works if you have any grammar dictionary installed in the first place
+- TODO `opt-grammar-override-dict-regex`
+
+<br>
+
+## Is Onomatopoeia
+
+- TODO check if tag contains `on-mim` (only works if you have a modern JMdict Yomichan dictionary installed)
+
+<br>
 
 ---
 

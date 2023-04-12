@@ -93,6 +93,27 @@ After updating the templates, the following fields must be changed:
 
 <br>
 
+### Handlebars: JMdict Extra
+<i><sup>Main Page: [Setup Yomichan: Fixing JMdict Extra](setupyomichan.md#fixing-jmdict-extra)</sup></i>
+
+A new version of JMdict was released for Yomichan, called
+[JMdict Extra](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan).
+This version of JMdict contains many things ontop of the the definition, including
+example sentences, antonyms, etc.
+
+There are certain issues with exporting the definition with default settings.
+If you are using JMdict extra, set the
+`opt-jmdict-list-format` Yomichan template option to `true`.
+For example:
+
+{% raw %}
+```handlebars
+{{~set "opt-jmdict-list-format" true ~}}
+```
+{% endraw %}
+
+<br>
+
 ## Frequency Display
 The frequency at the top right now defaults to using the FrequencySort value.
 This is because it is usually more useful to see a summary of the values,
@@ -109,8 +130,12 @@ instead of all the literal values itself.
     2.  Follow the backfill frequencies instructions in the second point.
 
 
+<br>
+
 ## Final Steps
 After changing everything, don't forget to [test that the card works!](updating.md#final-steps)
+If you reached this point, then congratulations! You are finally done with updating the note!
+Enjoy `0.12.x.x` and all its new features!
 
 
 ---

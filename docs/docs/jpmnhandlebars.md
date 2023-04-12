@@ -1,9 +1,8 @@
 This section documents how to use the jp-mining-note handlebars on any template
 that **is not jp-mining-note**.
 If you are using jp-mining-note, please see the
-[Definitions](definitions.md) and
-[Yomichan Templates](yomichantemplates.md)
-pages instead.
+[Definitions](definitions.md)
+page instead.
 
 
 ---
@@ -11,19 +10,22 @@ pages instead.
 
 # Features
 
-All of the features that comes with the standard jp-mining-note installation:
+This package provides all of the features that comes with the standard jp-mining-note installation:
 
 - A primary dictionary selector that automatically chooses the first bilingual or monolingual dictionary (depending on your settings)
 - Ability to manually select a dictionary or highlight a definition, to override the primary dictionary selector
 - Automatic separation of auxillary dictionaries into monolingual and bilingual dictionaries
 - Option to hide the first line of monolingual dictionaries
-- Definition HTML format is virtually the same as the default handlebars
 - Compatability with [other portable handlebars](#compatability-with-other-handlebars)
 
+Additionally, these definitions can be exported in a minimalistic HTML format,
+which almost completely conforms with the default Yomichan handlebars.
 
 ---
 
 
+<!--
+TODO
 # Demos
 
 As a proof of concept, the following demonstrates that the handlebars works on a diverse set of
@@ -36,6 +38,7 @@ Anki note templates, and will likely work on yours as well.
 
 
 ---
+-->
 
 
 # Setup Handlebars
@@ -89,7 +92,8 @@ Below are a few common options that most people likely change:
 - `opt-primary-def-one-dict-entry-only`:
     This specifies whether something with multiple dictionary entries
     has all entries exported into the primary definition, or only the first one.
-    Exports all entries by default.
+    Exports all entries by default (`false`).
+    If you only want to export one definition, set this to `true`.
     [See here for more info](definitions.md#exporting-only-one-dictionary-entry).
 
 
@@ -117,26 +121,38 @@ Below are a few common options that most people likely change:
 # Introduced Handlebars
 
 ## Definitions
+<i><sup>Main Page: [Definitions: Dictionary Placement](definitions.md#dictionary-placement)</sup></i>
+
 The most important handlebars that this package introduces is `{jpmn-primary-definition}`.
 This handlebars automatically selects the first monolingual or bilingual dictionary,
 depending on the `opt-first-definition-type` option.
 
-If you want to select a different dictionary, set `opt-selection-text-enabled` TODO
+To summarize the introduced definition handlebars:
 
-- general info on the templates:
-    - `{jpmn-primary-definition}`
-    - `{jpmn-secondary-definition}`
-    - `{jpmn-extra-definitions}`
-    - `{jpmn-utility-dictionaries}`
-    - link to definitions page for more info (Dictionary Placement)
+| Handlebars | Description |
+|-|-|
+| `{jpmn-primary-definition}` | The highest priority monolingual or bilingual dictionary (depending on the value of `opt-first-definition-type`) |
+| `{jpmn-secondary-definition}` | All bilingual dictionaries outside of the one selected in the primary definition |
+| `{jpmn-extra-definitions}` | All monolingual dictionaries outside of the one selected in the primary definition |
+| `{jpmn-utility-dictionaries}` | All dictionaries that fall outside the category of bilingual or monolingual. For example, JMedict, or JMdict Forms. |
 
-- general info on selecting the definition
+
+If you want to select a different dictionary, highlight the dictionary, or a portion of the definition
+before importing. This will override the primary definition with the selected dictionary / definition.
+
+![type:video](assets/setupyomichan/selected_text.mp4)
+
 
 <br>
 
 ## Frequency Sorting
-- alternative to marv's `freq`: `jpmn-frequency-sort`
-    (it is literally the exact same as `freq`, but with the options moved to the top for convenience)
+This package introduces `{jpmn-frequency-sort}`, which behaves the exact same as
+[Marv's `{freq}` handlebars](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency).
+The only difference is that the options are placed at the very top of the handlebars,
+instead of within the function.
+
+In other words, feel free to use this the exact same was as you would for `{freq}`.
+
 
 <br>
 
@@ -150,42 +166,111 @@ If you want to select a different dictionary, set `opt-selection-text-enabled` T
 ---
 
 
-# Options
-Information about the opther options should be scattered around in the
+# Piaintext Options
+This section describes all the plaintext options, which are all prefixed with `opt__plaintext__`.
+
+- If you are not using jp-mining-note, all these options should be set to `true` by default.
+    This means definitions are as minimal as possible in both internal HTML structure
+    and in content.
+
+- If you are using jp-mining-note, then all of these should be set to `false` by default.
+
+
+If you are looking for information about the opther options, please see the
 [Definitions](definitions.md) page.
+
+<br>
 
 ## `opt__plaintext__stylize-glossary`
 
-- main option you absolutely want to set to `false` to ensure that the HTML format
-    is virtually the same as the default
+Setting this option to `true` will no longer stylize the definition handlebars for jp-mining-note
+usage, and instead stylizes it to be virtually the same as Yomichan's default HTML structure.
 
-- exceptions:
-    - the dictionary and tags are not italicized, to prevent italic kanjis/kana from showing
-    - the div that left aligns the text is not present
-        - if this breaks your card, try surrounding your definition field, i.e. if your field name is `Definition`:
-            {% raw %}
-            ```html
-            <div style="text-align: left"> {{Definition}} </div>
-            ```
-            {% endraw %}
-    - dictionaries with only one entry is formatted as a list of one element by default
-        - see the `opt__plaintext__one-dict-entry-only-no-list` option to disable this
+??? example "Differences between default Yomichan format and JPMN plaintext *(click here)*"
+    There are a few minor differences between Yomichan's format and these non-stylized definitions:
 
-- invalidates `opt-wrap-first-line-spans` entirely, users must now rely on
-    `opt__plaintext__remove-first-line-enabled`
+    - The dictionary and tags are not italicized. This is to avoid seeing italic kanjis/kana.
+    - The div that left-aligns the text is not present.
+        If this breaks your card, (for example, the definition gets centered),
+        try surrounding your definition field.
+        For example, if your field name is `Definition`, then within your Anki card templates,
+        surround `{{Definition}}` with the following:
+
+        {% raw %}
+        ```html
+        <div style="text-align: left"> {{Definition}} </div>
+        ```
+        {% endraw %}
+
+    - Dictionaries with only one entry is formatted as a list of one element by default.
+        This is usually not desired. To disable this behavior and make the behavior more like
+        Yomichan, set `opt__plaintext__one-dict-entry-only-no-list` to `true`.
+
+    - The first line for most dictionaries are removed by default.
+        This can be controlled with the following options:
+        - `opt__plaintext__remove-first-line-enabled`
+        - `opt-first-line-dicts-regex`
+
+<br>
 
 ## `opt__plaintext__one-dict-entry-only-no-list`
 
-- TODO
+If this is `true`, then a definition that only contains one dictionary entry will export
+without being in a list.
 
-## `opt__plaintext__export-dictionary-tag`
+For the following examples, we take the definition of 絨毯 from the
+旺文社国語辞典 第十一版 dictionary.
 
-- whether the dictionary tag is exported or not
+=== "`true` (single definition has no list)"
+    > 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
+    > 《季・冬》
+=== "`false` (single definition exported in list)"
+    > 1. 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
+    >   《季・冬》
+
+!!! note
+    If there are multiple definitions, then it is exported in a list format by default.
+    This is almost never present in monolingual dictionaries, but almost always present for JMdict.
+    For example, 地雷 (in the old JMdict dictionary) will always be exported as the following, regardless
+    of the setting:
+
+    > 1. (n, JMdict (English)) land mine
+    > 1. (n, col, JMdict (English)) topic that sets someone off | sensitive topic | taboo topic | trigger
+    > 1. (n, col, JMdict (English)) something that seems fine at first but turns out to be very bad (e.g. product, business) | booby trap | pitfall
+
+
+<br>
+
+## `opt__plaintext__remove-dictionary-tag`
+
+Whether the dictionary tag is exported or not.
+
+=== "`true` (no dictionary tag)"
+    > (旺文社国語辞典 第十一版) じゅう‐たん【△絨△毯・△絨△緞】<br>
+    > 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
+    > 《季・冬》
+=== "`false` (keep dictionary tag)"
+    > じゅう‐たん【△絨△毯・△絨△緞】<br>
+    > 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
+    > 《季・冬》
+
+<br>
 
 ## `opt__plaintext__remove-first-line-enabled`
 
-- whether the first line of a dictionary is removed or not
-- uses the same options from the [first line removal section](#first-line-removal-when-html-can-break)
+Whether the first line is exported or not.
+
+=== "`true` (first line removed)"
+    > 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
+    > 《季・冬》
+=== "`false` (first line kept)"
+    > じゅう‐たん【△絨△毯・△絨△緞】<br>
+    > 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
+    > 《季・冬》
+
+This affects almost all dictionaries by default.
+If you want to ignore certain dictionaries, use the `opt-first-line-dicts-regex` option
+as described [here](definitions.md#when-html-can-break).
 
 ---
 
@@ -197,13 +282,21 @@ Information about the opther options should be scattered around in the
 
 
 # Compatability with other Handlebars
-- compatability with other handlebars:
-    - fully compatable SO LONG AS your other handlebars are based off of the most recent set of default handlebars
-    - main example: classic animecard's `{test}` is based around outdated handlebars, and is therefore incompatible with these handlebars.
-    - everything is purposefully prefixed with `jpmn` (or `_jpmn`) to not interfere with other handlebars
-- e.g. you can use marv's `freq` handlebars by simply copy/pasting and using it as normal
-    - since `freq` is not an existing marker
 
+These handlebars are fully compatable SO LONG AS your other handlebars are based off of the most
+recent set of default handlebars.
+A non-example is the classic animecard's `{test}`.
+`{test}` requires outdated handlebars in order to work,
+and is therefore incompatible with these handlebars.
+
+There are two reasons why these handlebars are compatible with most other handlebars:
+
+- Everything is prefixed with `jpmn` (or `_jpmn`).
+    These prefixes prevent the JPMN handlebars from overriding any other custom handlebars
+    you may have defined.
+- These handlebars do not modify the default handlebars code. This is in order to preserve
+    the original handlebars functionality, and so other handlebars
+    can rely on the original handlebars to work properly.
 
 
 

@@ -36,7 +36,7 @@ Dictionaries from Yomichan are sorted into the following fields:
     (in other words, does not provide the meaning of the word).
 
     Some examples include:
-    - [JMdict Surface Forms](https://github.com/FooSoft/yomichan/issues/2183)
+    - [JMdict Surface Forms](https://github.com/FooSoft/yomichan/issues/2183) (TODO update link)
     - [JMedict TODO link]()
 
     !!! note
@@ -200,6 +200,8 @@ such as (but not limited to):
 - furigana (including subscripted or superscripted text)
 - across multiple items in a list (common with JMdict)
 
+TODO picture of non-examples!
+
 Additionally, there are very rare edge cases when the highlighted text is found
 in an internal HTML element, leading to invalid HTML and (almost certainly)
 the incorrect definition.
@@ -256,6 +258,8 @@ The following {{ css }} only affects only the dictionary with the tag 「旺文�
 
 The first line of the definition has various elements that can be hidden with {{ CSS }}.
 
+
+TODO change this to a RTO + tags to enable/disable
 
 
 === "Hide entire first line"
@@ -412,14 +416,26 @@ The first line of the definition has various elements that can be hidden with {{
 ## When HTML can break
 {{ feature_version("0.12.0.0") }}
 
-TODO `opt-wrap-first-line-spans`
+In order to even have the possibility of removing the first line,
+the HTML is parsed with regex in order to find the text before the first line break.
+In computer science, it is well known that
+[you should not parse HTML with regex](https://stackoverflow.com/a/1732454),
+because it is mathematically impossible to correctly parse HTML with regex.
+Unfortunately, Yomichan's handlebars does not expose any HTML parser,
+so we are left with using regex to parse our HTML.
+Due to this, an unexpected dictionary format may cause the resulting export to
+be invalid HTML.
+
+If you do not plan on using this feature, you should set `opt-wrap-first-line-spans` to `false`
+to remove the possibility of invalid HTML.
 
 <br>
 
 ## Hide the first line for select dictionaries
 {{ feature_version("0.12.0.0") }}
 
-TODO `opt-first-line-regex-mode` and `opt-first-line-dicts-regex`
+The following two options are useful if you want to ignore certain problematic dictionaries,
+that do not play well with the regex above.
 
 {% raw %}
 ```handlebars
@@ -427,6 +443,11 @@ TODO `opt-first-line-regex-mode` and `opt-first-line-dicts-regex`
 {{~#set "opt-first-line-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv)$ {{~/set~}}
 ```
 {% endraw %}
+
+`opt-first-line-dicts-regex` specifies the list of dictionaries that should be ignored or kept.
+Whether the dictionaries are ignored or kept is defined in `opt-first-line-regex-mode`
+(`except` means that the specified dictionaries are ignored, and `only` means that only the
+specified dictionaries can have their first lines removed.)
 
 
 
