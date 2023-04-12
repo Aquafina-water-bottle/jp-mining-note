@@ -1,9 +1,9 @@
 # Display sentence vs Full sentence
 We will use the following terms to differentiate between the different sentences present in this note:
 
-* **Display sentence** refer to the sentence(s) shown at the front side of the card.
+* **Display sentence** refers to the sentence(s) shown at the front side of the card.
     Most topics on this page will be relating to the display sentence.
-* **Full sentence** to refer to the sentence(s) shown at the back with furigana.
+* **Full sentence** to refers to the sentence(s) shown at the back with furigana.
     This is called the "full sentence" as this is usually just the `Sentence`
     (or `SentenceReading`) field with minimal styling.
 
@@ -326,6 +326,39 @@ due to (what I think is a) chromium based bug[^1].
 
 
 
+# Generating Sentence Furigana
+
+TODO AJT Japanese and `{jpmn-sentence-bolded-furigana-plain}`
+
+<br>
+
+## Furigana Generation: AJT Japanese
+TODO
+
+<br>
+
+## Furigana Generation: Yomichan Marker
+{{ feature_version("0.11.0.0") }}
+
+> Marker: `{jpmn-sentence-bolded-furigana-plain}`
+
+TODO add details on how to even use this
+
+This automatically uses Yomichan's internal furigana generator to
+add furigana to your sentence. Use this under `SentenceReading`.
+
+This is useful if:
+
+* You are not using [AJT Japanese](setupanki.md#ajt-japanese), or
+* You are using a device that doesn't have AJT Japanese installed (say, a phone),
+    and you do not want to bulk generate furigana after each session.
+
+
+
+
+
+---
+
 # Keeping and removing newlines within the display sentence
 {{ feature_version("0.12.0.0") }}
 
@@ -376,8 +409,4 @@ To override this option, you can use the following {{ C_CSS }}:
               display: none !important;
             }
             ```
-
-
-
-
 
