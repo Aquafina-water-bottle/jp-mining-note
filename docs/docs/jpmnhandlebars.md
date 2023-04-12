@@ -82,7 +82,8 @@ add the following template code as follows:
         {% endfilter %}
         ```
 
-Below are a few common options that most people likely change:
+There are a few common options that most people likely change.
+These options can be found at the very top of the handlebars.
 
 - `opt-first-definition-type`:
     By default, the handlebars exports bilingual cards.
@@ -151,7 +152,7 @@ This package introduces `{jpmn-frequency-sort}`, which behaves the exact same as
 The only difference is that the options are placed at the very top of the handlebars,
 instead of within the function.
 
-In other words, feel free to use this the exact same was as you would for `{freq}`.
+In other words, feel free to use this in the exact same way as you would with `{freq}`.
 
 
 <br>
