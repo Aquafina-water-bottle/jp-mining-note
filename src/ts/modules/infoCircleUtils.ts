@@ -14,33 +14,66 @@ export class InfoCircleUtils extends RunnableModule {
   private readonly infoCircWrapper = document.getElementById('info_circle_wrapper');
   private readonly infoCircTags = document.getElementById('info_circle_text_tags');
   private readonly infoCircTagsText = document.getElementById('info_circle_text_tags_text');
+  private readonly enableAnkiconnectFeatures = getOption("enableAnkiconnectFeatures");
 
   constructor() {
     super("infoCircleUtils");
+  }
+
+  partitionTags(): [string[], string[]] {
+    // partitions tags into two different groups: data tags and media tags
+    // data tags are greyed out and shown at the very end, where media tags are shown
+    // at the beginning
+
+    const dataTags: string[] = [];
+    const mediaTags: string[] = [];
+
+    const possibleDataTagsArr = (getOption("infoCircleUtils.jpmnDataTags") as string[]).concat(getOption("infoCircleUtils.userDataTags"))
+    const possibleDataTags = new Set(possibleDataTagsArr);
+
+    for (const tag of getTags()) {
+      if (possibleDataTags.has(tag)) {
+        dataTags.push(tag)
+      } else {
+        mediaTags.push(tag)
+      }
+    }
+
+    return [dataTags, mediaTags];
+  }
+
+  createTagEle(tag: string, grey: boolean) {
+    const tagEle = document.createElement("span")
+    tagEle.innerText = tag;
+    if (this.enableAnkiconnectFeatures) {
+      tagEle.onclick = () => {
+        invoke('guiBrowse', { query: `tag:${tag}` });
+      }
+    }
+    tagEle.setAttribute("data-tag-value", tag);
+    tagEle.classList.add("info-circle-tag");
+    if (grey) {
+      tagEle.classList.add("info-circle-tag--grey");
+    }
+    return tagEle;
   }
 
   main() {
     const isHoverable = getOption('infoCircleUtils.isHoverable');
     const togglableLockshowPopup = getOption('infoCircleUtils.togglableLock.showPopup');
     const togglableLockEnabled = getOption('infoCircleUtils.togglableLock.enabled');
-    const enableAnkiconnectFeatures = getOption("enableAnkiconnectFeatures");
 
-    let displayLeechTag = false;
+    const [dataTags, mediaTags] = this.partitionTags();
+
     if (this.infoCircTags !== null && this.infoCircTagsText !== null) {
       const showTagsMode = getOption("infoCircleUtils.showTagsMode");
       if ((showTagsMode === "always") || (showTagsMode === "back" && getCardSide() === "back")) {
-        for (const tag of getTags()) {
-          const tagEle = document.createElement("span")
-          tagEle.innerText = tag;
-          if (enableAnkiconnectFeatures) {
-            tagEle.onclick = () => {
-              invoke('guiBrowse', { query: `tag:${tag}` });
-            }
-          }
-          if (tag === "leech") {
-            displayLeechTag = true;
-          }
-          tagEle.setAttribute("data-tag-value", tag);
+        for (const tag of mediaTags) {
+          const tagEle = this.createTagEle(tag, false)
+          this.infoCircTagsText.appendChild(tagEle);
+        }
+        for (const tag of dataTags) {
+          const tagEle = this.createTagEle(tag, true)
           this.infoCircTagsText.appendChild(tagEle);
         }
         this.infoCircTags.classList.toggle("hidden", false);
@@ -49,7 +82,7 @@ export class InfoCircleUtils extends RunnableModule {
 
     // not ran in the above loop to avoid coloring the info circle on the front side
     if (getCardSide() === "back" && getTags().includes("leech")) {
-      this.logger.leech(!displayLeechTag);
+      this.logger.leech(false);
     }
 
     if (this.infoCircWrapper === null || this.infoCirc === null) {

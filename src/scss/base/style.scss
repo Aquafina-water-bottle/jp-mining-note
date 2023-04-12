@@ -571,11 +571,15 @@ code {
   flex-wrap: wrap;
   gap: 5px;
 
-  span {
+  .info-circle-tag {
     border-radius: 3px;
     background: var(--info-circle-tag-bg-color);
     padding: 0.1em 0.2em;
     cursor: pointer;
+  }
+
+  .info-circle-tag--grey {
+    color: var(--text-color--2);
   }
 
   [data-tag-value="leech"] {
@@ -1881,6 +1885,35 @@ code {
 .glossary-details {
   font-size: var(--glossary-font-size);
   margin: 0.5em 0 0 0;
+}
+
+.glossary-blockquote--hide-first-line .glossary-text ol li {
+  .dict-group__tag-list {
+    display: none;
+  }
+  .dict-group__glossary--first-line {
+    display: none;
+  }
+  .dict-group__glossary--first-line-break {
+    display: none;
+  }
+}
+
+.glossary-blockquote--hide-tags .glossary-text ol li {
+  .dict-group__tag-list {
+    display: none;
+  }
+}
+
+.glossary-blockquote--hide-extra-text .glossary-text ol li {
+  .dict-group__glossary--first-line {
+    display: none;
+  }
+}
+
+.glossary-blockquote--hide-list-numbers ol {
+  list-style: none;
+  padding-left: 0em;
 }
 
 

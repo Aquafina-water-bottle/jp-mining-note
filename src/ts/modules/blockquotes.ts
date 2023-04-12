@@ -1,6 +1,7 @@
 import { cardIsNew } from '../isNew';
 import { RunnableModule } from '../module';
-import { getOption } from '../options';
+import { checkOptTags, getOption } from '../options';
+import {getTags} from '../utils';
 
 type EntryId =
   | 'primary-definition'
@@ -8,6 +9,11 @@ type EntryId =
   | 'additional-notes'
   | 'extra-definitions'
   | 'extra-info';
+
+type HideFirstLineMode =
+  "show" | "first-line" | "extra-text" | "tags";
+
+type RemoveListMode = "always"| "never"| "on-singular";
 
 const ENTRIES = [
   {
@@ -282,6 +288,72 @@ export class Blockquotes extends RunnableModule {
     }
   }
 
+  private getParseFirstLineMode(modeType: 'primaryDefinition' | 'secondaryDefinition' | null): HideFirstLineMode {
+    let defaultMode = getOption(`blockquotes.simplifyDefinitions.hideFirstLineMode`);
+
+    if (modeType !== null) {
+
+      const lineMode = checkOptTags(getTags(), [
+        [`blockquotes.simplifyDefinitions.tagOverride.${modeType}.hideFirstLine`, 'first-line'],
+        [`blockquotes.simplifyDefinitions.tagOverride.${modeType}.showFirstLine`, 'show'],
+      ]);
+
+      if (lineMode !== undefined) {
+        return lineMode;
+      }
+    }
+
+    return defaultMode as HideFirstLineMode;
+  }
+
+  // hides the first line (or parts of it)
+  private parseFirstLine(eleId: string, lineMode: HideFirstLineMode) {
+    const ele = document.getElementById(eleId);
+    if (ele === null) {
+      return;
+    }
+
+    // TODO actually select the blockquote! nothing but primary definition does currently!
+    if (lineMode === "first-line") {
+      ele.classList.add("glossary-blockquote--hide-first-line");
+    } else if (lineMode === "tags") {
+      ele.classList.add("glossary-blockquote--hide-tags");
+    } else if (lineMode === "extra-text") {
+      ele.classList.add("glossary-blockquote--hide-extra-text");
+    }
+  }
+
+  // hides the list numbers if necessary
+  private attemptHideList(removeListMode: "always" | "on-singular") {
+    const ele = document.getElementById("primary_definition");
+    if (ele === null) {
+      return;
+    }
+
+    if (removeListMode === "always") {
+      ele.classList.add("glossary-blockquote--hide-list-numbers");
+    }
+
+    if (removeListMode === "on-singular") {
+      const eleText = document.getElementById("primary_definition_raw_text");
+      const len = eleText?.querySelectorAll("ol > li").length;
+      if (len && len == 1) { // found only one li element
+        ele.classList.add("glossary-blockquote--hide-list-numbers");
+      }
+    }
+  }
+
+  private parseFirstLines() {
+    this.parseFirstLine("primary_definition", this.getParseFirstLineMode("primaryDefinition"));
+    this.parseFirstLine("secondary_definition_details", this.getParseFirstLineMode("secondaryDefinition"));
+    this.parseFirstLine("extra_definitions_details", this.getParseFirstLineMode(null));
+
+    const removeListMode = getOption("blockquotes.simplifyDefinitions.removeListMode") as RemoveListMode
+    if (removeListMode !== "never") {
+      this.attemptHideList(removeListMode);
+    }
+  }
+
   main() {
     // only ran on back side, according to main.ts
 
@@ -294,6 +366,10 @@ export class Blockquotes extends RunnableModule {
     // note that the default options specifically disables this on non-mobile devices! (VW >= 620)
     if (getOption('blockquotes.folderTab.enabled')) {
       this.populateFolderTab();
+    }
+
+    if (getOption('blockquotes.simplifyDefinitions.enabled')) {
+      this.parseFirstLines();
     }
 
     if (getOption('blockquotes.open.enabled')) {

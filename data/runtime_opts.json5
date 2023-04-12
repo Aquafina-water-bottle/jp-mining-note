@@ -722,6 +722,70 @@
   "infoCircleUtils.togglableLock.enabled": true,
   "infoCircleUtils.togglableLock.showPopup": true,
 
+  // tags to grey out / deprioritize
+  "infoCircleUtils.userDataTags": [],
+
+  // data tags defined by jp-mining-note. You likely want to change the userDataTags list
+  // instead of this list.
+  "infoCircleUtils.jpmnDataTags": [
+
+    // first line hide/show
+    "line-hide",     "jpmn-line-hide",
+    "line-hide-1st", "jpmn-line-hide-1st",
+
+    "line-show",     "jpmn-line-show",
+    "line-show-1st", "jpmn-line-show-1st",
+
+    "line-hide-2nd", "jpmn-line-hide-2nd",
+    "line-show-2nd", "jpmn-line-show-2nd",
+
+    // quotes
+    "quote-add", "jpmn-quote-add",
+    "quote-remove", "jpmn-quote-remove",
+    "quote-as-is", "jpmn-quote-as-is",
+    "quote-no-processing", "jpmn-quote-no-processing",
+
+    "quote-disp-quoted-block", "jpmn-quote-disp-quoted-block",
+    "quote-disp-quoted-flow", "jpmn-quote-disp-quoted-flow",
+    "quote-disp-unquoted-indent", "jpmn-quote-disp-unquoted-indent",
+    "quote-disp-unquoted-noIndent", "jpmn-quote-disp-unquoted-no-indent",
+    "quote-disp-unquoted-rightShifted", "jpmn-quote-disp-unquoted-right-shifted",
+
+    // img positioning
+    "img-no-styling",
+    "jpmn-img-no-styling",
+    "img-collapse",
+    "jpmn-img-collapse",
+    "img-float",
+    "jpmn-img-float",
+
+    "img-yomichan-no-styling",
+    "jpmn-img-yomichan-no-styling",
+    "img-yomichan-collapse",
+    "jpmn-img-yomichan-collapse",
+    "img-yomichan-float",
+    "jpmn-img-yomichan-float",
+
+    "img-user-no-styling",
+    "jpmn-img-user-no-styling",
+    "img-user-collapse",
+    "jpmn-img-user-collapse",
+    "img-user-float",
+    "jpmn-img-user-float",
+
+    // img float repositioning
+    "img-bottom", "jpmn-img-bottom",
+    "img-top", "jpmn-img-top",
+    "img-right", "jpmn-img-right",
+
+    // pitch accent groups
+    "平板", "heiban",
+    "頭高", "atamadaka",
+    "中高", "nakadaka",
+    "尾高", "odaka",
+    "起伏", "kifuku",
+  ],
+
 
 
 
@@ -814,6 +878,34 @@
   "blockquotes.folderTab.showDotWhenEmpty": false,
 
 
+  "blockquotes.simplifyDefinitions.enabled": false,
+
+  // valid options:
+  // "show", "first-line", "extra-text", "tags"
+  "blockquotes.simplifyDefinitions.hideFirstLineMode": "first-line",
+
+  // valid options:
+  // "always", "never", "on-singular"
+  "blockquotes.simplifyDefinitions.removeListMode": "on-singular",
+
+  // tags to override whether the first line is shown or hidden
+  "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.hideFirstLine": [
+    "line-hide",     "jpmn-line-hide",
+    "line-hide-1st", "jpmn-line-hide-1st",
+  ],
+
+  "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.showFirstLine": [
+    "line-show",     "jpmn-line-show",
+    "line-show-1st", "jpmn-line-show-1st",
+  ],
+
+  "blockquotes.simplifyDefinitions.tagOverride.secondaryDefinition.hideFirstLine": [
+    "line-hide-2nd", "jpmn-line-hide-2nd",
+  ],
+
+  "blockquotes.simplifyDefinitions.tagOverride.secondaryDefinition.showFirstLine": [
+    "line-show-2nd", "jpmn-line-show-2nd",
+  ],
 
 
   // ==========================================================================

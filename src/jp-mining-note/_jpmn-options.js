@@ -12,4 +12,6 @@ window.JPMNOptions = {
   // Enables image blur
   //"imgStylizer.mainImage.blur.enabled": true,
 
+  // Hides the first line of most definitions, as well as the number
+  //"blockquotes.simplifyDefinitions.enabled": true,
 }

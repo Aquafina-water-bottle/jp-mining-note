@@ -133,6 +133,7 @@ and must use `./install.py --update`.
     - Added clear cache option in info circle options (disabled by default)
     - Added tags display (default: only shown on the back side)
         - These can be clicked on to search for the tag
+        - All data tags (tags used to modify the look of the card) are greyed by default
     - Display the card version here for mobile now
 
 - Other (larger changes):
