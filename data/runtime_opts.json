@@ -336,6 +336,11 @@
   "blockquotes.folderTab.showDotWhenEmpty": false,
   "blockquotes.simplifyDefinitions.enabled": false,
   "blockquotes.simplifyDefinitions.hideFirstLineMode": "first-line",
+  "blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode": {
+    "JMdict (English)": "none",
+    "JMdict": "none",
+    "JMdict Extra": "none"
+  },
   "blockquotes.simplifyDefinitions.removeListMode": "on-singular",
   "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.hideFirstLine": [
     "line-hide",
