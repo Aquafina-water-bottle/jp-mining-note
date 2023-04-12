@@ -14,9 +14,9 @@ This package provides all of the features that comes with the standard jp-mining
 
 - A primary dictionary selector that automatically chooses the first bilingual or monolingual dictionary (depending on your settings)
 - Ability to manually select a dictionary or highlight a definition, to override the primary dictionary selector
-- Automatic separation of auxillary dictionaries into monolingual and bilingual dictionaries
+- Automatic separation of auxiliary dictionaries into monolingual and bilingual dictionaries
 - Option to hide the first line of monolingual dictionaries
-- Compatability with [other portable handlebars](#compatability-with-other-handlebars)
+- Compatibility with [other portable handlebars](#compatability-with-other-handlebars)
 
 Additionally, these definitions can be exported in a minimalistic HTML format,
 which almost completely conforms with the default Yomichan handlebars.
@@ -177,7 +177,7 @@ This section describes all the plaintext options, which are all prefixed with `o
 - If you are using jp-mining-note, then all of these should be set to `false` by default.
 
 
-If you are looking for information about the opther options, please see the
+If you are looking for information about the other options, please see the
 [Definitions](definitions.md) page.
 
 <br>
@@ -282,7 +282,7 @@ as described [here](definitions.md#when-html-can-break).
 
 
 
-# Compatability with other Handlebars
+# Compatibility with other Handlebars
 
 These handlebars are fully compatable SO LONG AS your other handlebars are based off of the most
 recent set of default handlebars.
