@@ -242,24 +242,49 @@ However, if you still want a specific dictionary, highlight the dictionary tag
 
 
 
-# Hiding the first line of a definition
-<sup>See also: [How to remove the numbers in the definition](#removing-the-numbers-in-the-primary-definition)</sup>
+# Simplifying the Definition
+
+If you use a monolingual dictionary, there is usually a bunch of extra information in the first line.
+Additionally, there is usually only one dictionary entry, making the list number redundant.
+Both of these can be automatically hidden with the following {{ RTO }}:
+
+```json
+"blockquotes.simplifyDefinitions.enabled": true,
+```
+
+TODO image
+
+<br>
+
+## Card-by-Card Control
+
+For some cards, this might not be valid. For example, consider the following definition:
+
+> TODO example with redirect
+
+Fortunately, you can force the first line of the definition to show by
+adding the `line-show` tag to the card.
+
+TODO image with tag, figure markdown
+
+Similarly, if you want to show the list for a particular card,
+you can add the `list-show` tag to the card.
+
+TODO image with both tags.
 
 
 
-{% macro oubunsha_msg(css) -%}
-The following {{ css }} only affects only the dictionary with the tag 「旺文社国語辞典 第十一版」. To use this on more than one dictionary, copy/paste the {{ css }} multiple times, and replace the dictionary tag.
-{% endmacro %}
-
-{% set css_oubunsha -%}{{ oubunsha_msg("CSS") }}{% endset %}
-{% set scss_oubunsha -%}{{ oubunsha_msg("SCSS") }}{% endset %}
+<!--
+<br>
 
 
+## CSS Simplifying Options
 
-The first line of the definition has various elements that can be hidden with {{ CSS }}.
+
+TODO is this necessary?
 
 
-TODO change this to a RTO + tags to enable/disable
+There are many ways to control exactly what content is removed, and in what way.
 
 
 === "Hide entire first line"
@@ -413,6 +438,17 @@ TODO change this to a RTO + tags to enable/disable
             }
             ```
 
+-->
+
+---
+
+# Simplifying Options: How does it work?
+
+TODO wrap CSS
+
+<br>
+
+
 ## When HTML can break
 {{ feature_version("0.12.0.0") }}
 
@@ -458,6 +494,7 @@ specified dictionaries can have their first lines removed.)
 
 
 
+<!--
 
 # Removing the numbers in the primary definition
 
@@ -484,7 +521,6 @@ The following {{ CSS }} completely nukes the numbers regardless of how many item
 
 
 
-<!--
 ## Collapsing dictionaries
 {{ feature_version("0.12.0.0") }}
 

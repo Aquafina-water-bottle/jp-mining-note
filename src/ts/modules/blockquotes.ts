@@ -11,7 +11,7 @@ type EntryId =
   | 'extra-info';
 
 type HideFirstLineMode =
-  "show" | "first-line" | "extra-text" | "tags";
+  "show" | "first-line" | "extra-text" | "tags" | "none";
 
 type RemoveListMode = "always"| "never"| "on-singular";
 
@@ -307,20 +307,30 @@ export class Blockquotes extends RunnableModule {
   }
 
   // hides the first line (or parts of it)
-  private parseFirstLine(eleId: string, lineMode: HideFirstLineMode) {
+  private parseFirstLine(eleId: string, lineMode: HideFirstLineMode, dictsOverride: Record<string, string>) {
     const ele = document.getElementById(eleId);
     if (ele === null) {
       return;
     }
+    for (const liEle of ele.querySelectorAll("ol li[data-details]")) {
+      const dictName = liEle.getAttribute("data-details");
 
-    // TODO actually select the blockquote! nothing but primary definition does currently!
-    if (lineMode === "first-line") {
-      ele.classList.add("glossary-blockquote--hide-first-line");
-    } else if (lineMode === "tags") {
-      ele.classList.add("glossary-blockquote--hide-tags");
-    } else if (lineMode === "extra-text") {
-      ele.classList.add("glossary-blockquote--hide-extra-text");
+      // attempts to get dictsOverride[dictName], fallsback to lineMode
+      const dictMode = dictName === null ? lineMode : (dictsOverride[dictName] ?? lineMode);
+      console.log(lineMode, dictMode, dictName, dictsOverride[dictName ?? ""])
+
+      if (dictMode === "first-line") {
+        ele.classList.add("glossary-blockquote--hide-first-line");
+      } else if (dictMode === "tags") {
+        ele.classList.add("glossary-blockquote--hide-tags");
+      } else if (dictMode === "extra-text") {
+        ele.classList.add("glossary-blockquote--hide-extra-text");
+      } else if (dictMode === "show") {
+        ele.classList.add("glossary-blockquote--show");
+      } // "none" is ignored
+
     }
+
   }
 
   // hides the list numbers if necessary
@@ -344,9 +354,11 @@ export class Blockquotes extends RunnableModule {
   }
 
   private parseFirstLines() {
-    this.parseFirstLine("primary_definition", this.getParseFirstLineMode("primaryDefinition"));
-    this.parseFirstLine("secondary_definition_details", this.getParseFirstLineMode("secondaryDefinition"));
-    this.parseFirstLine("extra_definitions_details", this.getParseFirstLineMode(null));
+    const dictsOverride = getOption("blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode");
+
+    this.parseFirstLine("primary_definition", this.getParseFirstLineMode("primaryDefinition"), dictsOverride);
+    this.parseFirstLine("secondary_definition_details", this.getParseFirstLineMode("secondaryDefinition"), dictsOverride);
+    this.parseFirstLine("extra_definitions_details", this.getParseFirstLineMode(null), dictsOverride);
 
     const removeListMode = getOption("blockquotes.simplifyDefinitions.removeListMode") as RemoveListMode
     if (removeListMode !== "never") {

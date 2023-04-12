@@ -739,6 +739,10 @@
     "line-hide-2nd", "jpmn-line-hide-2nd",
     "line-show-2nd", "jpmn-line-show-2nd",
 
+    // definition lists
+    "list-hide", "jpmn-hide-hide",
+    "list-show", "jpmn-list-show",
+
     // quotes
     "quote-add", "jpmn-quote-add",
     "quote-remove", "jpmn-quote-remove",
@@ -881,12 +885,34 @@
   "blockquotes.simplifyDefinitions.enabled": false,
 
   // valid options:
-  // "show", "first-line", "extra-text", "tags"
+  // "show", "first-line", "extra-text", "tags", "none"
+  // "show": force show the first line, including tags
+  // "first-line": completely hides the first line
+  // "tags": only hides the tag(s)
+  // "extra-text": only hides stuff after the tag(s)
   "blockquotes.simplifyDefinitions.hideFirstLineMode": "first-line",
+
+  "blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode": {
+    "JMdict (English)": "none",
+    "JMdict": "none",
+    "JMdict Extra": "none",
+  },
 
   // valid options:
   // "always", "never", "on-singular"
+  // "always": always hide the list numbers no matter what
+  // "on-singular": only hide the list numbers if there is one entry
+  // "never": always show the list numbers
   "blockquotes.simplifyDefinitions.removeListMode": "on-singular",
+
+  // TODO use
+  "blockquotes.simplifyDefinitions.removeListMode.tagOverride.always": [
+    "list-hide", "jpmn-hide-hide",
+  ],
+  "blockquotes.simplifyDefinitions.removeListMode.tagOverride.never": [
+    "list-show", "jpmn-list-show",
+  ],
+
 
   // tags to override whether the first line is shown or hidden
   "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.hideFirstLine": [
