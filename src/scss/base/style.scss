@@ -2254,9 +2254,10 @@ The following can be used instead of the above to display the unknown frequency 
 .hover-tooltip-wrapper--frequencies-overflow {
   /* 20px is to account for the width of the dropdown arrow I think */
   --overflow-min-width: 200px;
-  left: calc(-1 * max(60vw - 20px, var(--overflow-min-width) - 20px));
+  --overflow-max-width: 400px;
+  left: calc(-1 * max(min(60vw, var(--overflow-max-width)) - 20px, var(--overflow-min-width) - 20px));
   bottom: 0px;
-  width: max(var(--overflow-min-width), 60vw);
+  width: max(var(--overflow-min-width), min(60vw, var(--overflow-max-width)));
   text-align: right;
 }
 
