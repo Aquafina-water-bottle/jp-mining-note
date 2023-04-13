@@ -973,6 +973,8 @@ code {
 
   bottom: 30px;
   right: 30px;
+
+  z-index: 5;
 }
 
 .popup-menu--animate {
@@ -980,11 +982,10 @@ code {
   align-items: center; /* Vertical center alignment */
   justify-content: center; /* Horizontal center alignment */
 
-  z-index: 5;
-
-  min-width: 250px;
+  width: 250px;
   min-height: 65px;
   text-align: center;
+  padding: 10px;
 
   border-radius: 4px;
   background-color: var(--tooltip-background-darken);
