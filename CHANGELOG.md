@@ -162,6 +162,8 @@ and must use `./install.py --update`.
     - Logger class now supports better filtering of messages and better console output
     - Made the 頭高 (red) pitch accent color slightly deeper, to better differentiate it from 中高 (orange)
     - Word indicators now load on the front side of the card instead of the back
+    - Custom scss folders can now be defined in overrides and themes
+    - Added "data tags", i.e. tags that are greyed out in the info circle
 
 #### Fixes
 - Fixed img blur eye not being on the image for wider images
@@ -205,6 +207,24 @@ and must use `./install.py --update`.
 - Persistence:
     - Updated Persistence from v1.0.0 -> v1.1.8
     - Integrated persistence properly with typescript with .d.ts file
+
+#### 0.12.0.0 Prerelease Changelog
+
+<details>
+<summary> Prerelease 2 </summary>
+
+**Features**:
+- Info circle shows as a dialog instead of a popup (mobile only)
+- Added source map files to main card type, for easier debugging of production files
+
+**Fixes**:
+- Custom scss folders are now applied in the correct order
+- Frequencies popup no longer cuts off to the right on mobile
+- Frequencies popup now has a smaller max width, to hopefully not takeup the entire width of the mobile screen
+- Added "data tags", i.e. tags that are greyed out in the info circle
+- Added runtime options to simplify the definitions as an alternative to CSS
+
+</details>
 
 
 
