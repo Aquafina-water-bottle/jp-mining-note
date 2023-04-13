@@ -1,20 +1,24 @@
 import {invoke} from '../ankiConnectUtils';
-import {translatorStrs} from '../consts';
+import {compileOpts, translatorStrs} from '../consts';
 import { RunnableModule } from '../module';
 import { O, getOption } from '../options';
+import {getViewportWidth} from '../reflow';
 import { getCardSide, isMobile, popupMenuMessage, getTags } from '../utils';
 
 const infoCircFrozen = 'info-circle--frozen';
 const infoCircTogglable = 'info-circle-svg-wrapper--togglable';
 const infoCircWrapperTogglable = 'info-circle-svg-wrapper--hoverable';
 const infoCircHoverColor = 'info-circle--hover-color';
+const infoCircZoomOut = 'info-circle-text-wrapper--zoom-out';
 
 export class InfoCircleUtils extends RunnableModule {
   private readonly infoCirc = document.getElementById('info_circle');
   private readonly infoCircWrapper = document.getElementById('info_circle_wrapper');
+  private readonly infoCircTextWrapper = document.getElementById('info_circle_text_wrapper');
   private readonly infoCircTags = document.getElementById('info_circle_text_tags');
   private readonly infoCircTagsText = document.getElementById('info_circle_text_tags_text');
   private readonly enableAnkiconnectFeatures = getOption("enableAnkiconnectFeatures");
+
 
   constructor() {
     super("infoCircleUtils");
@@ -58,10 +62,65 @@ export class InfoCircleUtils extends RunnableModule {
     return tagEle;
   }
 
+  // clicks on the info circle to freeze the popup (good for debugging and all)
+  setToggleClick() {
+    if (this.infoCircWrapper === null || this.infoCirc === null || this.infoCircTextWrapper === null) {
+      return;
+    }
+
+    const _isMobile = isMobile();
+    const vwMobile = (getViewportWidth() < compileOpts['breakpoints.width.combinePicture'])
+
+    // functions to toggle the info circle through clicks
+    const freeze = () => {
+      this.infoCirc?.classList.add(infoCircFrozen);
+      if (!_isMobile) {
+        popupMenuMessage(`Info circle tooltip locked.`, true);
+      }
+    }
+    const unfreeze = () => {
+      this.infoCirc?.classList.remove(infoCircFrozen);
+      if (!_isMobile) {
+        popupMenuMessage(`Info circle tooltip unlocked.`, true);
+      }
+    }
+
+    if (vwMobile) {
+      // disables when clicking on background
+      this.infoCircTextWrapper.onclick = (e: Event) => {
+        if (e.target === e.currentTarget) {
+          this.infoCirc?.classList.add(infoCircZoomOut);
+
+          setTimeout(() => {
+            this.infoCirc?.classList.remove(infoCircZoomOut);
+            unfreeze();
+          }, 200);
+        }
+      }
+    }
+
+    if (!_isMobile) { // touch display
+      this.infoCircWrapper?.classList.toggle(infoCircTogglable, true);
+    }
+
+    // can toggle on pc and mobile
+    this.infoCircWrapper.onclick = () => {
+      if (this.infoCircWrapper === null || this.infoCirc === null) {
+        return;
+      }
+
+      if (this.infoCirc.classList.contains(infoCircFrozen)) {
+        unfreeze();
+      } else {
+        freeze();
+      }
+    };
+
+  }
+
   main() {
-    const isHoverable = getOption('infoCircleUtils.isHoverable');
-    const togglableLockshowPopup = getOption('infoCircleUtils.togglableLock.showPopup');
-    const togglableLockEnabled = getOption('infoCircleUtils.togglableLock.enabled');
+    //const isHoverable = getOption('infoCircleUtils.isHoverable');
+    //const togglableLockEnabled = getOption('infoCircleUtils.togglableLock.enabled');
 
     const [dataTags, mediaTags] = this.partitionTags();
 
@@ -85,38 +144,11 @@ export class InfoCircleUtils extends RunnableModule {
       this.logger.leech(false);
     }
 
-    if (this.infoCircWrapper === null || this.infoCirc === null) {
-      return;
-    }
+    this.setToggleClick();
 
-    // clicks on the info circle to freeze the popup (good for debugging and all)
-    if (togglableLockEnabled) {
-      if (!isMobile()) {
-        this.infoCircWrapper?.classList.toggle(infoCircTogglable, true);
-      }
-
-      this.infoCircWrapper.onclick = () => {
-        if (this.infoCircWrapper === null || this.infoCirc === null) {
-          return;
-        }
-
-        if (this.infoCirc.classList.contains(infoCircFrozen)) {
-          this.infoCirc.classList.remove(infoCircFrozen);
-          if (togglableLockshowPopup) {
-            popupMenuMessage(`Info circle tooltip unlocked.`, true);
-          }
-        } else {
-          this.infoCirc.classList.add(infoCircFrozen);
-          if (togglableLockshowPopup) {
-            popupMenuMessage(`Info circle tooltip locked.`, true);
-          }
-        }
-      };
-    }
-
-    if (!isHoverable) {
-      this.infoCircWrapper.classList.toggle(infoCircWrapperTogglable, false);
-      this.infoCirc.classList.toggle(infoCircHoverColor, false);
+    if (isMobile()) { // makes the info circle NOT hoverable to display
+      this.infoCircWrapper?.classList.toggle(infoCircWrapperTogglable, false);
+      this.infoCirc?.classList.toggle(infoCircHoverColor, false);
     }
   }
 }

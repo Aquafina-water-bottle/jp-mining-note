@@ -85,6 +85,7 @@ $font-backup-sans:
   /* TODO dynamic solution */
   --tooltip-max-width: 600px;
   --tooltip-font-size: #{px2rem(14px)};
+  --tooltip-font-size--debug: #{px2rem(12px)};
 
   /* DO NOT CHANGE --data-* variables */
   --data-dark-mode-accent: #fffd9e;
@@ -166,6 +167,7 @@ $font-backup-sans:
 
   --accent:                     var(--data-light-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.05);
+  --tooltip-behind-darken:      rgba(0, 0, 0, 0.15);
   --code-background-darken:     rgba(0, 0, 0, 0.05);
   --tooltip-background-darken:  hsla(0, 0%, 100%, 0.98);;
 
@@ -254,6 +256,7 @@ $font-backup-sans:
 
   --accent:                     var(--data-dark-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.12);
+  --tooltip-behind-darken:      rgba(0, 0, 0, 0.25);
   --code-background-darken:     rgba(0, 0, 0, 0.18);
   --tooltip-background-darken:  rgba(0, 0, 0, 0.9);
 

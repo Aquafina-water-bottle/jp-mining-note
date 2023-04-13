@@ -233,9 +233,6 @@
   "mobileUtils.enabled": true,
   "infoCircleUtils.enabled": true,
   "infoCircleUtils.showTagsMode": "back",
-  "infoCircleUtils.isHoverable": true,
-  "infoCircleUtils.togglableLock.enabled": true,
-  "infoCircleUtils.togglableLock.showPopup": true,
   "infoCircleUtils.userDataTags": [],
   "infoCircleUtils.jpmnDataTags": [
     "line-hide",
@@ -250,6 +247,10 @@
     "jpmn-line-hide-2nd",
     "line-show-2nd",
     "jpmn-line-show-2nd",
+    "list-hide",
+    "jpmn-hide-hide",
+    "list-show",
+    "jpmn-list-show",
     "quote-add",
     "jpmn-quote-add",
     "quote-remove",
@@ -342,6 +343,14 @@
     "JMdict Extra": "none"
   },
   "blockquotes.simplifyDefinitions.removeListMode": "on-singular",
+  "blockquotes.simplifyDefinitions.removeListMode.tagOverride.always": [
+    "list-hide",
+    "jpmn-hide-hide"
+  ],
+  "blockquotes.simplifyDefinitions.removeListMode.tagOverride.never": [
+    "list-show",
+    "jpmn-list-show"
+  ],
   "blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.hideFirstLine": [
     "line-hide",
     "jpmn-line-hide",
@@ -389,16 +398,6 @@
   "asyncManager.initialDelay": 50,
   "overrides": {
     "enableAnkiconnectFeatures": {
-      "type": "isPC",
-      "resultTrue": true,
-      "resultFalse": false
-    },
-    "infoCircleUtils.togglableLock.showPopup": {
-      "type": "isPC",
-      "resultTrue": true,
-      "resultFalse": false
-    },
-    "infoCircleUtils.isHoverable": {
       "type": "isPC",
       "resultTrue": true,
       "resultFalse": false

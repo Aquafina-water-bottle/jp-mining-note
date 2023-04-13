@@ -172,7 +172,7 @@ class Generator:
 
     def __init__(
         self,
-        jinja_root_folders: list[str],
+        jinja_root_folders: list[str], # override, [theme], src
         config: utils.Config,
         json_handler: JsonHandler,
         to_release: bool = False,

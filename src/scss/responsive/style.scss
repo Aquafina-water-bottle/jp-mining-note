@@ -84,13 +84,15 @@
     /* PrimaryDefinitionPicture fields */
     --primary-def-picture-max-width: 200px;
     --primary-def-picture-max-height: 100px;
+
+    --info-circle-settings-svg-size: 20px;
   }
 
   .expression {
     border-top: 30px;
   }
 
-  .info-circle svg {
+  .info-circle > .info-circle-svg-wrapper svg {
     /* TODO variable */
     width: 13px;
   }
@@ -103,9 +105,7 @@
 
 @media (max-width: common.$bp-combine-picture) {
   :root {
-    /* 40px: magic number to encompass info circle + tooltip arrow */
-    /* 40px is too small for the cards... window for some reason, but it works everywhere else */
-    --tooltip-max-width: min(350px, 100vw - 2 * var(--mobile-border) - 40px);
+    --tooltip-max-width: 85vw;
   }
   .android {
     --pa-overline-height-above-text: -0.1em;
@@ -129,7 +129,6 @@
 
   .card-description {
     margin-top: 10px;
-    margin-left: 10px;
   }
 
   .info-circle-version {
@@ -140,25 +139,93 @@
     margin-left: 0px;
   }
 
-  // hides card type and version below said card type
+  /* hides card type and version below said card type*/
   .card-description__card-type, .card-description-ver {
     display: none;
   }
 
-  .info-circle svg {
+  .info-circle > .info-circle-svg-wrapper svg {
     /* TODO variable */
     width: 15px;
   }
 
+  .info-circle-text-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: none;
+    z-index: 2;
 
-  /* frequencies */
-  .card-description-right {
-    margin-right: 10px;
+    background-color: var(--tooltip-behind-darken);
+
+    animation-name: info-circle-zoom;
+    animation-duration: 0.25s;
   }
 
-  .mobile .card-description-right {
-    /* already a margin added around everything on mobile */
-    margin-right: 0px;
+  .info-circle-text-wrapper--zoom-out {
+    animation-name: info-circle-zoom-out;
+    animation-duration: 0.25s;
+  }
+
+  @keyframes info-circle-zoom {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+
+    0.001% {
+      display: flex;
+      opacity: 0;
+    }
+
+    100% {
+      display: flex;
+      opacity: 100;
+    }
+  }
+
+
+  @keyframes info-circle-zoom-out {
+    0% {
+      display: flex;
+      opacity: 100;
+    }
+    99.999% {
+      display: flex;
+      opacity: 0;
+    }
+    100% {
+      display: none;
+      opacity: 0;
+    }
+  }
+
+
+
+  /* guaranteed that info-circle is toggled by frozen class */
+  .info-circle--frozen > .info-circle-svg-wrapper {
+    + .info-circle-text-wrapper > .info-circle-text {
+      visibility: visible;
+    }
+    + .info-circle-text-wrapper {
+      display: flex;
+    }
+  }
+
+  /* Tooltip text */
+  .info-circle-text {
+    position: initial; /* not absolute */
+    display: block;
+    visibility: visible;
+    margin: auto;
+
+    min-height: 50px;
+    max-height: 75vh;
+    width: var(--tooltip-max-width);
+
+    overflow-y: scroll;
   }
 
   .frequencies {
@@ -183,18 +250,7 @@
   .full-sentence {
     margin-top: 0;
     margin-bottom: 0;
-    //margin-left: 0; /* left align sentence */
-
-    //padding-left: 5px;
-    //padding-right: 5px;
   }
-
-  /* removes furigana: takes too much vertical space */
-  //.dh-left__reading > ruby > rt {
-  //  display: none;
-  //}
-
-
 
   /* remove background and whatnot */
   .def-header {
@@ -306,24 +362,6 @@
     display: block;
   }
 
-  //.folder-tab-buttons {
-  //  //background: var(--background-darken);
-  //  display: flex;
-  //  justify-content: space-evenly;
-  //  align-items: center;
-  //  //gap: 2px;
-  //  //padding-left: 4px;
-  //  //padding-right: 4px;
-  //  //margin-left: 13px; /* makes buttons magically align properly with svg */
-  //}
-
-  //.folder-tab-background {
-  //  position: absolute;
-  //  z-index: -1;
-  //  fill: var(--background-darken);
-  //  bottom: 0px;
-  //}
-
   .folder-tab__button {
     display: flex; /* centers the items for some reason */
     width: var(--folder-tab-button-size);
@@ -385,134 +423,14 @@
   }
 
 
-
-  // TEMP
-  //.folder-tab__button--primary-def {
-  //  background: var(--background-darken);
-  //  > svg {
-  //    fill: var(--text-color);
-  //  }
-  //}
-
-  //.folder-tab-buttons > .folder-tab__button--disabled > svg {
-
   .folder-tab__button > svg {
     fill: var(--text-color--4);
   }
-
-  //.folder-tab__button--menu {
-  //  position: relative;
-  //}
-
-  ///* allows arbitrary horizontal text expanding */
-  //// TODO test on longer texts (en) + width adjusting
-  //.folder-tab__menu-wrapper {
-  //  /* change to right: 0px; text-align: right; to show menu to left of button instead of right */
-  //  position: absolute;
-  //  top: 100%;
-  //  left: 0px;
-  //  width: 220px;
-  //  height: 0px;
-  //  display: none;
-  //  text-align: left;
-  //  z-index: 2; /* makes sure this is the first interactable over external links */
-  //}
-
-  ///* list of collapsible blocks */
-  //.folder-tab__menu {
-  //  display: inline-flex;
-  //  flex-direction: column;
-  //  text-align: left;
-  //  border-left: auto;
-  //  background-color: var(--tooltip-background-darken);
-  //  padding: 5px;
-  //  padding-right: 10px;
-  //  border-radius: 4px;
-  //}
-
-  //.folder-tab__menu-label {
-  //  --label-font-size: #{common.px2rem(16px)};
-  //  --svg-size: #{common.px2rem(32px)};
-  //  display: flex;
-  //  align-items: center;
-  //  font-size: var(--label-font-size);
-  //  padding-right: common.px2rem(4px);
-
-  //  .folder-tab-label-check {
-  //    visibility: hidden;
-  //    display: flex; /* removes extra space for some reason */
-
-  //    svg {
-  //      width: var(--svg-size);
-  //      fill: var(--accent);
-  //    }
-  //  }
-  //}
-
-  ///* bold when an item is selected */
-  //.folder-tab__menu > input:checked + label {
-  //  font-weight: bold;
-  //  color: var(--accent);
-
-  //  > .folder-tab-label-check {
-  //    visibility: visible;
-  //  }
-  //}
-
-  //.folder-tab__menu > input:disabled + label {
-  //  /* takes precedence over the above! */
-  //  /* ASSUMPTION: primary definition is never disabled */
-  //  color: var(--text-color--4);
-  //}
-
-  //.folder-tab__menu > input {
-  //  display: none;
-  //}
-
-  ///* displays menu if toggled */
-  ////.folder-tab-buttons > input:checked + label > .folder-tab__menu-wrapper {
-  //.folder-tab > input:checked + label > .folder-tab__menu-wrapper {
-  //  display: block;
-  //}
-
-
-
-
-
-  /* making the footer display */
-  //.card-footer {
-  //  display: block;
-  //  position: fixed;
-  //  left: 0;
-  //  right: 0;
-  //  bottom: 0;
-  //  height: var(--footer-height);
-  //  background: var(--background-darken);
-  //}
-  //.header-main-wrapper {
-  //  height: calc(100vh - var(--footer-height));
-  //  overflow: scroll;
-  //}
 
   .card-main {
     // TODO adjust if no image, etc.
     margin-bottom: var(--footer-height);
   }
-
-  //body {
-  //  margin: 0px;
-  //  padding: 0px;
-  //}
-  // TODO move these elsewhere!
-  //.dh-right {
-  //  display: none;
-  //}
-  //.dh-left__audio-buttons {
-  //  display: none;
-  //}
-
-  //.card-wrapper { /* re-adds margin from body */
-  //}
 
   .dh-right__svg-eye {
     display: none !important;
@@ -529,31 +447,14 @@
     z-index: 1; /* so audio buttons and picture can be interacted with */
   }
 
-  /* increases size of replay button */
-  //.android .replaybutton span svg {
-  //  width: 50px;
-  //  height: 50px;
-  //}
-
-  //.answer-border {
-  //  margin-top: 10px;
-  //  margin-bottom: 10px;
-  //}
-
   .dh-left__similar-words-indicator--visible {
     display: none; /* always disables on mobile */
   }
-
 
   /* overrides glossary-primary-definition--no-definition */
   .glossary-primary-definition--folder-tab .glossary-text {
     display: inline;
   }
-
-  ///* overrides hidden */
-  //.glossary-primary-definition--folder-tab {
-  //  display: block !important;
-  //}
 
 }
 
