@@ -84,8 +84,6 @@
     /* PrimaryDefinitionPicture fields */
     --primary-def-picture-max-width: 200px;
     --primary-def-picture-max-height: 100px;
-
-    --info-circle-settings-svg-size: 20px;
   }
 
   .expression {
@@ -106,6 +104,8 @@
 @media (max-width: common.$bp-combine-picture) {
   :root {
     --tooltip-max-width: 85vw;
+
+    --info-circle-settings-svg-size: 20px; /* increase tap size on mobile */
   }
   .android {
     --pa-overline-height-above-text: -0.1em;
