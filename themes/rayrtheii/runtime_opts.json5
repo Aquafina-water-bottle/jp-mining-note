@@ -1,5 +1,5 @@
 {
-  "logger.debugLevel": 3,
+  //"logger.debugLevel": 3,
   //"debug.toConsole": true,
   "logger.toConsole": true,
   "logger.debugConsoleLevel": 0,
@@ -81,7 +81,7 @@
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
 
 
-  "blockquotes.simplifyDefinitions.enabled": true,
+  //"blockquotes.simplifyDefinitions.enabled": true,
 
   "wordIndicators.getResultsFront": true,
 

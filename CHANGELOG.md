@@ -42,12 +42,15 @@ and must use `./install.py --update`.
 
 - Themes:
     - Proper way of defining user settings in a more portable way
-    - Allows custom html, css, compile-time options & runtime options
+    - Allows custom html, CSS, compile-time options & runtime options
         - NOTE: currently doesn't allow custom javascript / typescript
     - See `themes` folder for some examples
 
-- Vastly improved mobile support (and other screen size support)
+- Mobile (and other screen sizes) now have 1st class support
     - Completely reworked the mobile design (TODO link?)
+        - Info circle shows as a dialog instead of a popup, on mobile
+        - Blockquotes are shown in togglable tags rather than collapsible fields
+        - Image now shows to the right of the word, and play buttons to the bottom left of the card
     - Fixed silence playing not working on Ankidroid
     - Uses system fonts for Ankidroid in order to make loading times sane
     - Added a height media query to make the card smaller for lower screen resolutions
@@ -75,13 +78,11 @@ and must use `./install.py --update`.
     - Moved a bunch of fields around to work with the newly grouped together fields
 
 - Primary definition picture rework:
-    - Cleaned up css and made css a lot more readable
-    - Added more runtime options
+    - Cleaned up CSS and made CSS a lot more readable
+    - Added ability to override the position of the picture through tags
     - Picture can now be positioned above the definition
-    - Option to not use lenience value for a faster card
+    - Lenience value is now removed due to a bug I can't seem to fix (height px could not be read)
     - Increased the size of the PrimaryDefinitionPicture img by default if there is no text in PrimaryDefinition
-    - Added further support for how images are stylized in the PrimaryDefinition field
-        - See `img-utils` -> `stylize-images-primary-definition`
 
 - Sentence Parser:
     - Added the `autoHighlightWord` module, to [automatically highlight the word](https://aquafina-water-bottle.github.io/jp-mining-note/ui/#automatic-word-highlighting) if the word isn't highlighted
@@ -112,7 +113,6 @@ and must use `./install.py --update`.
         - Adds the word below the sentence (so the reader must read the full sentence, but only tests on the word)
         - TODO link
     - Audio (`IsAudioCard`)
-        - Renamed version of the previously named "Cloze Deletion Card"
         - Allows testing of the entire sentence, or just the word
         - TODO link
 
@@ -137,7 +137,7 @@ and must use `./install.py --update`.
     - Display the card version here for mobile now
 
 - Other (larger changes):
-    - Added support for collapsing dictionaries within Anki
+    - Added runtime options to simplify the definitions as an alternative to CSS
         - TODO link
     - Added way to translate the card (and added English and Japanese as pre-supported options)
         - TODO link
@@ -150,8 +150,6 @@ and must use `./install.py --update`.
     - Added support to remove the primary definition blockquote if nothing is there
     - Added a warning if `SentenceReading` is filled but `Sentence` isn't
     - Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
-    - Added hotkeys to update the current card to be a cloze deletion card
-        - TODO documentation on this (specifically ways to create cloze deletion cards)
     - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
     - Added styling for inline `<code>` blocks. For example, the following sentence taken from the rust book
         is now formatted nicely:

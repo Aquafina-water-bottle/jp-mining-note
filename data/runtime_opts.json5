@@ -715,13 +715,6 @@
   // "back"
   "infoCircleUtils.showTagsMode": "back",
 
-  // Whether the info circle can be hovered over to show the tooltip or not
-  "infoCircleUtils.isHoverable": true,
-
-  // Whether the user can lock the tooltip by clicking on the info-circle or not
-  "infoCircleUtils.togglableLock.enabled": true,
-  "infoCircleUtils.togglableLock.showPopup": true,
-
   // tags to grey out / deprioritize
   "infoCircleUtils.userDataTags": [],
 
@@ -1034,18 +1027,6 @@
       "type": "isPC",
       "resultTrue":  true, // is PC
       "resultFalse": false, // not not PC (mobile)
-    },
-
-    "infoCircleUtils.togglableLock.showPopup": {
-      "type": "isPC",
-      "resultTrue":  true,
-      "resultFalse": false,
-    },
-
-    "infoCircleUtils.isHoverable": {
-      "type": "isPC",
-      "resultTrue":  true,
-      "resultFalse": false,
     },
 
     "sentenceParser.quotes.quoteOpen": {
