@@ -66,6 +66,16 @@
       "input-dir": "build"
     },
     {
+      "input-file": "_js/jpmn_main_back.js.map",
+      "output-file": "media/_jpmn_main_back.js.map",
+      "type": "copy"
+    },
+    {
+      "input-file": "_js/jpmn_main_front.js.map",
+      "output-file": "media/_jpmn_main_front.js.map",
+      "type": "copy"
+    },
+    {
       "input-file": "jp-mining-note/_jpmn-options.js",
       "output-file": "media/_jpmn-options.js",
       "type": "copy"
@@ -87,7 +97,9 @@
     ],
     "dynamic": [
       "_editor.css",
-      "_field.css"
+      "_field.css",
+      "_jpmn_main_front.js.map",
+      "_jpmn_main_back.js.map"
     ],
     "options": [
       "_jpmn-options.js"

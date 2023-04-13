@@ -356,20 +356,6 @@ reset your Yomichan template options after updating.
 
 ---
 
-# Updating the Runtime Options File
-The {{ RTO_FILE }} does not automatically update with each note update,
-as to not override the user's configuration on each update.
-If the options file isn't updated, then the note will simply use the default value for the option.
-
-However, if certain runtime options no longer work, you may have to update this file,
-as it is possible for the configuration file layout to have changed between versions.
-The most recent version of the options file can always be found
-[here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js).
-if you want to update it.
-
-
----
-
 # Final Steps
 
 By now, you should be done updating the note!

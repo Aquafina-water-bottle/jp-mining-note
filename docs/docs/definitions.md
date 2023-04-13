@@ -252,7 +252,7 @@ Both of these can be automatically hidden with the following {{ RTO }}:
 "blockquotes.simplifyDefinitions.enabled": true,
 ```
 
-TODO image
+TODO image comparison
 
 <br>
 

@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest --verbose",
     "build": "webpack",
-    "dev": "webpack --mode=development --devtool=source-map"
+    "dev": "webpack --mode=development"
   },
   "license": "MIT",
   "devDependencies": {
