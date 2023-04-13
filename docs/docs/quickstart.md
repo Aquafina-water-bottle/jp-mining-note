@@ -112,9 +112,16 @@ TODO description
 
 
 ## Simplify definitions
-{{ feature_version("0.11.0.0") }}
+{{ feature_version("0.12.0.0") }}
 
-TODO summarize css in definitions.md and link
+If you want to remove the list numbers, as well as the first line
+of most definitions, set the following {{ RTO }}:
+
+```json
+"blockquotes.simplifyDefinitions.enabled": true,
+```
+
+TODO image comparison
 
 
 
@@ -184,6 +191,10 @@ in a previous card, to differentiate between similar kanjis, etc.
 {{ img("kanji hover demo", "assets/ui/kanji_hover.gif") }}
 
 
+!!! note
+    Kanji hover does not show words outside of your collection.
+
+
 ---
 
 
@@ -202,12 +213,13 @@ in your deck are found.
 
     This indicates the card is a duplicate.
 
-=== "音 (同音異義語)"
+=== "読 (読み方)"
     (TODO update image)
 
     {{ img("same reading indicator eg", "assets/ui/same_reading_indicator.gif") }}
 
-    This shows cards with the same reading, **ignoring pitch accent**.
+    This shows cards with the same reading, **ignoring pitch accent**
+    (also known as 同音異義語.)
     For example, the word 自身 is still shown,
     despite having a different pitch accent to 地震.
 

@@ -31,10 +31,37 @@ TODO add demo for windows to opening the file & editing
 
 # Available options
 
-- TODO link and explain: [https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/data/runtime_opts.json5](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/data/runtime_opts.json5)
-- TODO not webpack branch
-- TODO explain overrides
-    - not used in the name
+All available options can be found in the
+[runtime_opts.json5](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/data/runtime_opts.json5)
+file. (TODO not webpack branch!)
+
+You can safely copy/paste anything there (outside of `overrides`) into your runtime options file.
+
+(TODO video! maybe record in Windows to prevent confusion?)
+
+!!! warning
+    This `json5` file is, strictly speaking, NOT an example configuration file.
+    There are a few minor between the `runtime_opts.json5` file
+    and the actual `_jpmn-opts.js` configuration file:
+
+    1. `runtime_opts.json5` does not have the `window.JPMNOptions` variable set at the very top.
+    2. `runtime_opts.json5` has an additional `overrides` key at the very bottom.
+        This `overrides` key is an implementation detail, and should NOT be used anywhere in the true configuration file.
+
+        The `overrides` key contains a dictionary that overrides the true value
+        of the original key/value pair defined.
+        For example,
+        ```
+        "kanjiHover.enabled": true,
+        "overrides": {
+            "kanjiHover.enabled": false,
+        }
+        ```
+
+        renders in the built card as:
+        ```
+        "kanjiHover.enabled": false,
+        ```
 
 <br>
 
@@ -210,31 +237,11 @@ TODO record specific errors
 
 If you have any error, or an option is simply not working, please check the following:
 
-1. There are commas and double-quotes in the [correct places](https://www.json.org/json-en.html).
-
-    ??? examplecode "Example *(click here)*"
-        ```json
-        "add-image-if-contains-tags": [
-          {
-            "tags": ["sample_tag"], // <-- HERE
-            "file-name": "_sample_image.png"
-          }, // <-- HERE
-          {
-            "tags": ["something", "something2"], // <-- HERE
-            "file-name": "_contains_both_tags.png"
-          }
-        ], // <-- HERE
-
-        // ...
-        ```
-
 1. If a runtime option is not working,
-    ensure that the
-    [runtime options file is updated](updating.md#updating-the-runtime-options-file).
-    The option may have been renamed or repositioned.
-
-1.  If an error is saying that an option doesn't exist, just like for the above, ensure
-    that the [runtime options file is updated](updating.md#updating-the-runtime-options-file).
+    or you get an error saying that an option doesn't exist,
+    you may have an outdated option.
+    Please check that your option is indeed recorded in the
+    [available options](#available-options).
 
 
 

@@ -2,7 +2,13 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 
-//const webpack = require("webpack");
+const webpack = require("webpack");
+const srcMapPlugin = new webpack.SourceMapDevToolPlugin({
+  filename: '[file].map',
+  // absolute path so Anki can find the map file
+  append: `\n//# sourceMappingURL=/_[url]\n//# sourceURL=_[file]`
+})
+
 //const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 //const ModuleReplacement = require('./webpack.module-replacement.config');
 //const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -11,12 +17,15 @@ cacheConfig = {
   target: "node",
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
 
-  plugins: [ ],
+  plugins: [
+    srcMapPlugin
+  ],
 
   entry: {
     jpmn_card_cache:  './build/tmp/ts/jp-mining-note/cache.ts',
   },
   mode: 'production',
+  devtool: 'source-map',
 
   output: {
     filename: '[name].js',
@@ -41,7 +50,10 @@ cacheConfig = {
 
 
 exportConfig = {
-  plugins: [ ],
+
+  plugins: [
+    srcMapPlugin
+  ],
 
   entry: {
     jpmn_main_front:           './build/tmp/ts/jp-mining-note/main/front.ts',
