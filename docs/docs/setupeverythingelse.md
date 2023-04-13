@@ -255,6 +255,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
     * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub) (asbplayer)
         * Contact info: `Tigy01#1231` <!-- 451194927515172864 -->
             on the Refold (JP) Discord server
+    * [Brian's "Sentence mining from Netflix and YouTube with asbplayer"](https://soyuz18.notion.site/Sentence-mining-from-Netflix-and-YouTube-with-asbplayer-83a03590cd8349ba81ca10340645b565#92ca8ce0251f4eeba89776950b8cef11)
     * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/) (animebook)
         * Contact info: `eminent#8189` <!-- 126903585152827392 -->
             on {{ PERDITION_SERVER }} or {{ TMW_SERVER }}

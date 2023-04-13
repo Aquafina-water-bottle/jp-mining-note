@@ -347,7 +347,9 @@ class Generator:
 
             # copies src/scss to tmp/scss
 
-            for search_folder in self.jinja_root_folders:
+            # search reversed, so first item is copied last (and overrides all)
+            # making the first item the highest priority
+            for search_folder in reversed(self.jinja_root_folders):
                 scss_folder = os.path.join(search_folder, "scss")
                 if os.path.isdir(scss_folder):
                     copy_tree(scss_folder, output_file)
@@ -371,7 +373,13 @@ def create_generator(args: argparse.Namespace, config: utils.Config, json_handle
     theme_folder_item = config("theme-folder").item()
     if theme_folder_item is not None:
         theme_folder = os.path.join(root_folder, "themes", theme_folder_item)
-        search_folders.insert(1, theme_folder)
+
+        if config("theme-override-user-options").item():
+            # first search theme
+            search_folders.insert(0, theme_folder)
+        else:
+            # search theme after overrides
+            search_folders.insert(1, theme_folder)
 
     generator = Generator(
         search_folders,

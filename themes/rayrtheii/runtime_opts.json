@@ -1,4 +1,5 @@
 {
+  "logger.debugLevel": 3,
   "logger.toConsole": true,
   "logger.debugConsoleLevel": 0,
   "logger.warn.ignore": [],
