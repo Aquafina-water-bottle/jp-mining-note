@@ -228,3 +228,23 @@ your note to do.
 -->
 
 
+# Mobile Unbolded Text
+
+By default, most text that would be bolded on desktop is unbolded in mobile.
+This is because the bolded text makes the kanji feel much more squished together,
+especially on Android where the custom bold font cannot be used.
+Additionally, the bolded text is still highlighted in the accent color of the note,
+so the text still stands out compared to other text.
+
+If you want to bold the text again, use the following {{ CSS }}:
+
+(TODO link to extra/style.scss and all)
+
+```
+@media (max-width: 620px) {
+  :root {
+    --bold-font-weight: bold;
+  }
+}
+```
+

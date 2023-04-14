@@ -101,8 +101,9 @@ A new version of JMdict was released for Yomichan, called
 This version of JMdict contains many things ontop of the the definition, including
 example sentences, antonyms, etc.
 
-There are certain issues with exporting the definition with default settings.
-If you are using JMdict extra, set the
+When exporting this dictionary with default settings,
+the entries are sometimes displayed in list format instead of compact format.
+If you want a consistently compact format, set the
 `opt-jmdict-list-format` Yomichan template option to `true`.
 For example:
 
@@ -129,6 +130,13 @@ instead of all the literal values itself.
         ```
     2.  Follow the backfill frequencies instructions in the second point.
 
+
+<br>
+
+## Custom SCSS
+For people who are using custom SCSS (usually through `src/scss/extra`),
+it is now recommended that the `extra` folder is moved to the `overrides/scss` folder.
+This is purely a stylistic change, to better separate user-defined changes and source code.
 
 <br>
 

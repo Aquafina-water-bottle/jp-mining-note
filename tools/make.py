@@ -362,7 +362,7 @@ class Generator:
             shutil.copy(output_file, release_output)
 
 def create_generator(args: argparse.Namespace, config: utils.Config, json_handler: JsonHandler):
-    # search folders are: override, theme, src
+    # search folders are: override, theme, src (or theme, override, src)
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "src")
     overrides_folder = os.path.join(

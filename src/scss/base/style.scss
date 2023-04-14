@@ -1781,6 +1781,10 @@ code {
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+
+  b {
+    font-weight: var(--bold-font-weight);
+  }
 }
 
 
@@ -1877,10 +1881,14 @@ code {
 
   /* so pictures can be encased properly */
   overflow: hidden;
-}
 
-.glossary-blockquote p {
-  display: inline;
+  p {
+    display: inline;
+  }
+
+  b {
+    font-weight: var(--bold-font-weight);
+  }
 }
 
 .glossary-details {

@@ -104,8 +104,8 @@
 @media (max-width: common.$bp-combine-picture) {
   :root {
     --tooltip-max-width: 85vw;
-
     --info-circle-settings-svg-size: 20px; /* increase tap size on mobile */
+    --bold-font-weight: normal; /* unbolds text because kanji looks squished when bolded */
   }
   .android {
     --pa-overline-height-above-text: -0.1em;
