@@ -8,6 +8,7 @@ from utils import invoke
 from typing import Callable, Type, Any, Optional
 import action_runner as ac
 import note_changes as nc
+import fields as flds
 
 
 rx_END_DIV = re.compile(r"</div>$")
@@ -672,8 +673,64 @@ def remove_html(field_name: str):
     notes = invoke("multi", actions=actions)
 
 
-def set_all_fonts():
-    pass
+
+def _construct_set_font_size(field: str, font_size: int):
+    return {
+        "action": "modelFieldSetFontSize",
+        "version": 6,
+        "params": {
+            "modelName": "JP Mining Note",
+            "fieldName": field,
+            "fontSize": font_size
+        }
+    }
+
+
+def set_font_sizes() -> str | None:
+    """
+    sets the font size to be the expected font size for all fields
+    """
+    json_handler = utils.JsonHandler()
+    fields = flds.get_fields(json_handler)
+    anki_fields = set(utils.invoke("modelFieldNames", modelName="JP Mining Note"))
+    actions = []
+
+    for f in fields:
+        if f.name in anki_fields:
+            action = _construct_set_font_size(f.name, f.font)
+            actions.append(action)
+
+    invoke("multi", actions=actions)
+
+
+def _construct_set_font(field: str, font: str):
+    return {
+        "action": "modelFieldSetFont",
+        "version": 6,
+        "params": {
+            "modelName": "JP Mining Note",
+            "fieldName": field,
+            "font": font
+        }
+    }
+
+
+def set_fonts_to_key_font() -> str | None:
+    """
+    sets the font name for all fields to be the exact same as whatever
+    is set for the 'Key' field
+    """
+    fonts = utils.invoke("modelFieldFonts", modelName="JP Mining Note")
+    anki_fields = utils.invoke("modelFieldNames", modelName="JP Mining Note")
+    key_font = fonts["Key"]["font"]
+    actions = []
+
+    for f in anki_fields:
+        action = _construct_set_font(f, key_font)
+        actions.append(action)
+
+    invoke("multi", actions=actions)
+
 
 
 def verify_fields(version: Optional[str] = None) -> str | None:
@@ -775,6 +832,8 @@ PUBLIC_FUNCTIONS = [
     verify_fields,
     reposition_fields,
     add_fields,
+    set_font_sizes,
+    set_fonts_to_key_font,
 ]
 
 # functions available for the anki addon (should be everything but the xelieu function)
@@ -798,6 +857,8 @@ PUBLIC_FUNCTIONS_ANKI = [
     verify_fields,
     reposition_fields,
     add_fields,
+    set_font_sizes,
+    set_fonts_to_key_font,
 ]
 
 

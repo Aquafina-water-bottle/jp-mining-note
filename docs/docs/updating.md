@@ -201,15 +201,24 @@ To fix this, there are a few cases to go through.
 
     If the field order has been changed, and nothing else has been changed,
     you should be able to preserve your existing field list order by running the installation script
-    with the `--ignore-order` flag (i.e. `python3 install.py --ignore-order`).
+    with the `--ignore-order` flag:
 
-    Alternatively, you can simply re-order the fields back to their original position.
+    === "JPMN Manager"
+        > `Tools` →  `JPMN Manager` →  `Run installer with arguments`
 
-    !!! note
-        If you use `--ignore-order`, all new fields will be added to the very end
-        of the field list (i.e. under `Comment`).
-        Additionally, any fields that were supposed to be repositioned will stay in place.
-        It is up to you to move the fields to the appropriate places.
+        ```
+        --update --ignore-order
+        ```
+    === "Python Script"
+        ```
+        python3 install.py --update --ignore-order
+        ```
+
+    Alternatively, you can re-order the field list beforehand.
+    This can be done with the following {{BATCH_CMD}}:
+    ```
+    reposition_fields
+    ```
 
 ??? info "New field(s) have been created."
 
