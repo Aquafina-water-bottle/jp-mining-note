@@ -16,7 +16,6 @@ If you are looking to setup jp-mining-note, see [this](setup.md) page instead.
     If you already have a sentence mining workflow, you can likely
     skip to [this section](#notes-on-various-programs).
 
----
 
 ## Troubleshooting & Support
 
@@ -42,7 +41,6 @@ Anki card (by clicking on the green plus button).
 
 The standard texthooker setup works for most games, and any show with subtitle files.
 
----
 
 ## Texthooker: Websocket based
 These pages display the hooked content, where the hooked content is communicated
@@ -145,7 +143,6 @@ However, it requires more specialized coordination between programs.
 
 
 
----
 
 ## Texthooker: Clipboard based
 These pages display the hooked content, where the hooked content is communicated
@@ -175,8 +172,6 @@ Most classic setups documented are for clipboard based texthooker pages.
 
 ---
 
-
----
 
 
 # Game-Like Content: Getting Text
@@ -464,7 +459,6 @@ Other websites have significantly larger resource lists that may prove useful fo
     and then press `ctrl`+`m` in mpv.
 
 
----
 
 ## [asbplayer](https://github.com/killergerbah/asbplayer)
 
@@ -538,7 +532,6 @@ There are a few common issues that asbplayer users have, when creating cards wit
 
 -->
 
----
 
 ## [jidoujisho](https://github.com/lrorpilla/jidoujisho)
 

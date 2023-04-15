@@ -64,7 +64,6 @@ and must be enabled in the {{ RTO_FILE }}:
 ![type:video](assets/autopa/pa_override_color.mp4)
 
 
-<br>
 
 ## Pitch Accent Groups
 
@@ -77,7 +76,6 @@ and must be enabled in the {{ RTO_FILE }}:
 | kifuku    | 起伏   | 驚く {.pa-kifuku}    | おどろ＼く   |
 
 
-<br>
 
 ## Controlling What Gets Colored
 {{ feature_version("0.12.0.0") }}
@@ -108,7 +106,6 @@ are highlighted.
     "tooltips.highlightWordInSentence": true,
     ```
 
-<br>
 
 ## When Pitch Is Not Automatically Colored
 Pitch accent coloring requires a numeric position value somewhere within the card.
@@ -126,7 +123,6 @@ In the cases where pitch accent coloring does not work as expected, your two mai
 2. Force the pitch accent group with tags (see below).
 
 
-<br>
 
 ## Kifuku Coloring
 {{ feature_version("0.12.0.0") }}
@@ -139,7 +135,6 @@ For old cards that do not have this field filled, you will have to manually mark
 the word with `-1` (in `PAOverride`).
 
 
-<br>
 
 
 ## Override Pitch Accent Group
@@ -223,7 +218,6 @@ then the field is displayed without any special formatting.
 This will act just like `PAOverrideText`.
 
 
-<br>
 
 
 ## (2.1) PAOverride: Positions Format
@@ -271,7 +265,6 @@ This is useful to highlight the correct pitch accent among all possiblities.
     but `0,<b>1,2</b>,3` and `0,<b>1,</b>2,3` are invalid.
 
 
-<br>
 
 
 ## (2.2) PAOverride: Text Format
@@ -346,7 +339,6 @@ This is particularly useful on expressions with multiple words, such as 「毒�
     This means that bold, italics, overlines, etc. cannot be present in the field.
     For example, the input `<b>にせもの</b>` will be rejected.
 
-<br>
 
 ## (2.3) PAOverride: Raw Text
 As a last case resort, if the input of this field cannot be parsed as either of the two,
@@ -365,7 +357,6 @@ and the tested word is covered in said dictionary.
 By default, the first pitch of the first dictionary is shown.
 
 
-<br>
 
 ## Show All Possibilities in Dictionary
 {{ feature_version("0.11.0.0") }}
@@ -428,7 +419,6 @@ By default, the word reading is selected based on the following priority:
 1. `WordReading`
 
 
-<br>
 
 ## Reading: AJTWordPitch
 Usually, the reading is selected from `AJTWordPitch`.
@@ -446,7 +436,6 @@ This has a few features over the raw word reading:
     ```
 
 
-<br>
 
 ## Reading: WordReading
 If the word cannot be found under `AJTWordPitch`, then the default reading

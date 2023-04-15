@@ -42,7 +42,6 @@ More info about this is shown later.
 - Anki 2.1.54+ or higher
 
 
-<br>
 
 
 ## Initialization (git)
@@ -67,7 +66,6 @@ git fetch
 git checkout dev
 ```
 
-<br>
 
 
 
@@ -129,7 +127,6 @@ Some additional options with `venv` are shown below.
 pip3 install neovim anki aqt
 -->
 
-<br>
 
 ## Initialization (npm)
 
@@ -143,7 +140,6 @@ npm ci
 
 
 
-<br>
 
 ## Building and Installing
 
@@ -205,7 +201,6 @@ python3 tools/main.py
 
 Additional things you can do with the project are shown below.
 
-<br>
 
 ## Running Tests
 ```bash
@@ -213,7 +208,6 @@ cd tools
 python3 -m pytest ./tests
 ```
 
-<br>
 
 ## Building the Documentation
 

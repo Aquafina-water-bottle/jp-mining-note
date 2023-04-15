@@ -181,7 +181,6 @@ to do exactly that.
     See [here](definitions.md#dictionary-placement) for more info.
 
 
-<br>
 
 
 ## Selected Text as the Definition
@@ -205,7 +204,6 @@ Here is exactly what's happening:
     With this being said, selecting the dictionary should always work.
 
 
-<br>
 
 
 ## Fixing JMdict Extra
@@ -235,7 +233,6 @@ Outside of creating cards on the PC,
 there are some other platforms that one can create cards from.
 
 
-<br>
 
 ## Android Setup
 
@@ -263,7 +260,6 @@ instead of re-doing all of the steps on Android.
     See [here](images.md#automatically-add-images-using-tags)
     for more info.
 
-<br>
 
 
 

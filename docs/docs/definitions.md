@@ -48,7 +48,6 @@ The way that the dictionaries are sorted into the appropriate fields is by assig
 a category to each individual dictionary.
 
 
-<br>
 
 ## Verifying Categories
 
@@ -86,7 +85,6 @@ use more monolingual dictionaries.
 To see how to edit the regex, go to [this section](#editing-the-dictionary-regex).
 
 
-<br>
 
 ## Ignoring a Dictionary
 If you want to see the dictionary on Yomichan but not have it show on Anki,
@@ -104,7 +102,6 @@ Conversely, if you want to not see the dictionary on Yomichan but want it to sho
     [collapse the dictionary](#collapsing-dictionaries).
 
 
-<br>
 
 ## Editing the dictionary regex
 
@@ -182,7 +179,6 @@ This manual selection behavior does the following:
     that *only* the selected text is shown in the first definition,
     then set `opt-selection-text-glossary-attempt-bold` to `false`.
 
-<br>
 
 ## Where automatic bolding can fail
 
@@ -216,7 +212,6 @@ be incorrectly selected.
     The above example happened to me with the word 垣根,
     using デジタル大辞泉 and highlighting the word `border`.
 
-<br>
 
 ## Where dictionary selection can fail
 
@@ -254,7 +249,6 @@ Both of these can be automatically hidden with the following {{ RTO }}:
 
 TODO image comparison
 
-<br>
 
 ## Card-by-Card Control
 
@@ -275,7 +269,6 @@ TODO image with both tags.
 
 
 <!--
-<br>
 
 
 ## CSS Simplifying Options
@@ -446,7 +439,6 @@ There are many ways to control exactly what content is removed, and in what way.
 
 TODO wrap CSS
 
-<br>
 
 
 ## When HTML can break
@@ -465,7 +457,6 @@ be invalid HTML.
 If you do not plan on using this feature, you should set `opt-wrap-first-line-spans` to `false`
 to remove the possibility of invalid HTML.
 
-<br>
 
 ## Hide the first line for select dictionaries
 {{ feature_version("0.12.0.0") }}

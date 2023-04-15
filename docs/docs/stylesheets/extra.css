@@ -122,6 +122,14 @@
   display: none;
 }
 
+.md-typeset h3 {
+  margin-top: 3.0em;
+}
+
+.md-typeset h4 {
+  margin-top: 2.8em;
+}
+
 /*
 [data-md-color-scheme="slate"] .md-annotation__index {
   --md-accent-fg-color:              #d9d786 !important;

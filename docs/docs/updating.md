@@ -57,8 +57,10 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
         Be sure to restart Anki after installing.
     1. Make sure there is something to update to in the first place.
         You can do this by:
+
         > `Tools` →  `JPMN Manager` →  `Check for note updates`
-    1. Update the note by navigating to the following:
+    1. Update the note by navigating to the following: <br>
+
         > `Tools` →  `JPMN Manager` →  `Update jp-mining-note`
 
 {% filter indent(4) %}
@@ -109,7 +111,6 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
     such as Yomichan Templates.
     -->
 
-<br>
 
 ??? question "Why can't I just copy/paste the templates, or just re-install the .apkg file to update the note?"
 
@@ -167,7 +168,6 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
 # Common Errors
 This section will document common errors that occur when running the installation script.
 
-<br>
 
 ## Anki-Connect is missing actions
 Anki-Connect is likely outdated.
@@ -181,7 +181,6 @@ To fix this, remove and re-download Anki-Connect from the
     instead of using this feature.
 
 
-<br>
 
 ## FieldVerifierException
 
@@ -300,7 +299,6 @@ then **the field will not show up automatically in Yomichan**.
     Doing the above WILL clear all the fields that you previously had, unless there
     is a matching field in that other card.
 
-<br>
 
 ## Refreshing Yomichan Fields
 

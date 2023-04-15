@@ -76,7 +76,6 @@ TODO this is basically the only time I ever edit the `Sentence` field
 
 
 
-<br>
 
 ## Sentence Max Width Indicator
 
@@ -183,7 +182,6 @@ if any exists.
 !!! note
     These options do NOT affect furigana elsewhere, such as any in the displayed sentence.
 
-<br>
 
 ## Furigana: When to show
 {{ feature_version("0.12.0.0") }}
@@ -257,7 +255,6 @@ This can be changed to only be shown on click, or always/never shown.
         "fullSentenceRuby.displayMode": "never",
         ```
 
-<br>
 
 
 
@@ -330,12 +327,10 @@ due to (what I think is a) chromium based bug[^1].
 
 TODO AJT Japanese and `{jpmn-sentence-bolded-furigana-plain}`
 
-<br>
 
 ## Furigana Generation: AJT Japanese
 TODO
 
-<br>
 
 ## Furigana Generation: Yomichan Marker
 {{ feature_version("0.11.0.0") }}

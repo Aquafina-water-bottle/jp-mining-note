@@ -144,7 +144,6 @@ before importing. This will override the primary definition with the selected di
 ![type:video](assets/setupyomichan/selected_text.mp4)
 
 
-<br>
 
 ## Frequency Sorting
 This package introduces `{jpmn-frequency-sort}`, which behaves the exact same as
@@ -155,7 +154,6 @@ instead of within the function.
 In other words, feel free to use this in the exact same way as you would with `{freq}`.
 
 
-<br>
 
 
 ## Other handlebars
@@ -180,7 +178,6 @@ This section describes all the plaintext options, which are all prefixed with `o
 If you are looking for information about the other options, please see the
 [Definitions](definitions.md) page.
 
-<br>
 
 ## `opt__plaintext__stylize-glossary`
 
@@ -212,7 +209,6 @@ usage, and instead stylizes it to be virtually the same as Yomichan's default HT
         - `opt__plaintext__remove-first-line-enabled`
         - `opt-first-line-dicts-regex`
 
-<br>
 
 ## `opt__plaintext__one-dict-entry-only-no-list`
 
@@ -240,7 +236,6 @@ For the following examples, we take the definition of 絨毯 from the
     > 1. (n, col, JMdict (English)) something that seems fine at first but turns out to be very bad (e.g. product, business) | booby trap | pitfall
 
 
-<br>
 
 ## `opt__plaintext__remove-dictionary-tag`
 
@@ -255,7 +250,6 @@ Whether the dictionary tag is exported or not.
     > 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
     > 《季・冬》
 
-<br>
 
 ## `opt__plaintext__remove-first-line-enabled`
 

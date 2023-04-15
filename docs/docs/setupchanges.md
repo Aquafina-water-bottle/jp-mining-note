@@ -18,7 +18,6 @@ including an entire backend javascript rework.
 See the [Updating](updating.md#overview) page on how to update the note.
 Afterwards, see below for the other necessary changes that must be made to properly update the note.
 
-<br>
 
 ## Field Font Size
 The fields within the note editor may look a bit off, due to the font and font sizes being wrong.
@@ -31,7 +30,6 @@ does not display Japanese characters correctly.
 Please set this to match your other fields.
 
 
-<br>
 
 
 ## Automatic Field Collapsing
@@ -41,7 +39,6 @@ you can set a field to be collapsed by default by heading over to:
 
 Feel free to automatially collapse any fields you don't use, or very rarely use.
 
-<br>
 
 
 ## Config Rework
@@ -75,7 +72,6 @@ To fix your config file, do the following steps:
     "autoPitchAccent.coloredPitchAccent.color.definitions": false,
     ```
 
-<br>
 
 ## Handlebars
 Yomichan's Handlebars has been updated, with some new markers and features being added.
@@ -91,7 +87,6 @@ After updating the templates, the following fields must be changed:
 - See [here](updating.md#updating-yomichans-anki-card-format)
   for instructions on how to update Anki Card Format.
 
-<br>
 
 ### Handlebars: JMdict Extra
 <i><sup>Main Page: [Setup Yomichan: Fixing JMdict Extra](setupyomichan.md#fixing-jmdict-extra)</sup></i>
@@ -113,7 +108,6 @@ For example:
 ```
 {% endraw %}
 
-<br>
 
 ## Frequency Display
 The frequency at the top right now defaults to using the FrequencySort value.
@@ -131,14 +125,12 @@ instead of all the literal values itself.
     2.  Follow the backfill frequencies instructions in the second point.
 
 
-<br>
 
 ## Custom SCSS
 For people who are using custom SCSS (usually through `src/scss/extra`),
 it is now recommended that the `extra` folder is moved to the `overrides/scss` folder.
 This is purely a stylistic change, to better separate user-defined changes and source code.
 
-<br>
 
 ## Final Steps
 After changing everything, don't forget to [test that the card works!](updating.md#final-steps)
@@ -218,6 +210,8 @@ See the setup instructions [here](https://aquafina-water-bottle.github.io/jp-min
   [Example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/media/_jpmn-options.js)
 
 ---
+
+# Everything before
 
 Lower versions of JPMN are not recorded here.
 Full details of the changes can be found in the main

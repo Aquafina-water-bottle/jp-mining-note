@@ -25,7 +25,6 @@ is not shown here, by design.
     You may notice some buttons to the top left.
     These are explained here TODO.
 
-<br>
 
 ## UI Summary: Back
 
@@ -63,7 +62,6 @@ auxilary information is hidden behind tooltips and dropdowns.
 See [here TODO]() to see the reasons why these design decisions were made.
 -->
 
-<br>
 
 
 ## UI Summary: Mobile
@@ -108,7 +106,6 @@ TODO Summarize compile time options and runtime options here
 
 TODO description
 
-<br>
 
 
 ## Simplify definitions
@@ -125,7 +122,6 @@ TODO image comparison
 
 
 
-<br>
 
 
 
@@ -147,7 +143,6 @@ with {{ C_CSS }}.
         }
         ```
 
-<br>
 
 
 ## Adjusting Font Size
@@ -160,7 +155,6 @@ TODO list CSS variables
 
 
 
-<br>
 
 ## Changing the display language
 {{ feature_version("0.12.0.0") }}
@@ -295,7 +289,6 @@ To mark a card as NSFW, add any of the following tags to the card:
 This note template displays pitch accent using binary pitch over katakana by default.
 If you don't know what pitch accent is, see [here](autopa.md#what-is-pitch-accent).
 
-<br>
 
 ## Pitch Accent Modification
 
@@ -307,7 +300,6 @@ TODO update video with interface
 ![type:video](assets/autopa/pa_override.mp4)
 
 
-<br>
 
 
 ## Pitch Accent Coloring

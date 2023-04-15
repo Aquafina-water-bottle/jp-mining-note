@@ -162,8 +162,6 @@ and choosing the add-ons that seem appealing for you.
     Make sure to head over to the [final steps](setupanki.md#final-steps-after-installing-add-ons) section afterwards!
 
 
-<br>
-
 
 ## [CSS Injector](https://ankiweb.net/shared/info/181103283)
 
@@ -298,8 +296,6 @@ and delete both `css` files.
 
         If either of the two css files ever update,
         you will have to manually copy and rename the file again.
-
-<br>
 
 
 
@@ -513,8 +509,7 @@ to make sure they are correct.
     the reading upon card creation.
     AJT Japanese supports both of those of those features.
 
-<br>
-
+---
 
 
 # Final Steps: After Installing Add-ons

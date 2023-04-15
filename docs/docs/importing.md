@@ -236,7 +236,6 @@ Sentences are usually formatted in one of three ways, as shown below:
             [here](https://docs.ankiweb.net/searching.html?highlight=regex#regular-expressions)
             to see Anki's official documentation on regex.
 
-<br>
 
 
 ## (2) Batch generate pitch accents and sentence furigana
@@ -267,7 +266,6 @@ to import into `PAPositions`. In that case, this step is highly recommended.
 
     > `Edit` (top left corner) →  `AJT: Bulk-generate`.
 
-<br>
 
 
 ## (3) Batch Set `PASilence` Field
@@ -304,7 +302,6 @@ This can be done within Anki itself, or with a {{ BATCH_CMD }}.
     ```
 
 
-<br>
 
 
 ## (4) Correctly Formatting `WordReading` Field
@@ -380,7 +377,6 @@ Your `WordReading` field is likely formatted in one of three ways:
         quick_fix_convert_kana_only_reading_with_tag
         ```
 
-<br>
 
 
 ## (5) (Optional) Batch set `WordReadingHiragana` Field
@@ -397,7 +393,6 @@ To do this, run the following {{ BATCH_CMD }}:
 fill_word_reading_hiragana_field
 ```
 
-<br>
 
 ## (6) (Optional) Backfill the `FrequencySort` Field
 As mentioned ealier, `FrequencySort` behaves exactly the same as Marv's

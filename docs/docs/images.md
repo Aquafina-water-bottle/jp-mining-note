@@ -168,7 +168,6 @@ compared to using the monolingual definition.
     does not need to contain pictures.
     For example, one can add text, tables, or links to the field.
 
-<br>
 
 ## Changing Automatic Positioning Behavior
 {{ feature_version("0.12.0.0") }}
@@ -185,7 +184,6 @@ below, to the right, and above the definition, respectively.
 `auto` is the default behavior, and will automatically position the picture
 to the left if there is no text. Otherwise, the image is placed to the right.
 
-<br>
 
 
 ## Force Positioning

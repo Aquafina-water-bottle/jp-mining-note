@@ -146,7 +146,6 @@ you may only remember the tested word due to its surrounding context.
         and are by no means the required way of testing yourself.
         Feel free to test yourself differently depending on whatever you think works the best.
 
-<br>
 
 ## Hover Vocab Card
 
@@ -175,7 +174,6 @@ Fill the `IsHoverCard` field.
 
 
 
-<br>
 
 ## Click Vocab Card
 
@@ -207,7 +205,6 @@ Fill the `IsClickCard` field.
 
 
 
-<br>
 
 ## Hover Sentence Card
 
@@ -230,7 +227,6 @@ Fill the `IsHoverCard` and `IsSentenceCard` fields.
 
 
 
-<br>
 
 ## Click Sentence Card
 
@@ -254,7 +250,6 @@ so you must click the word to test the entire display
 Fill the `IsClickCard` and `IsSentenceCard` fields.
 
 
-<br>
 
 ## Reveal TSC
 
@@ -294,7 +289,6 @@ This acts as a better alternative compared to manually adding the sentence
 in the `Hint` (or `HintNotHidden`) field.
 
 
-<br>
 
 ## Hint Vocab Card
 {{ feature_version("0.12.0.0") }}
@@ -310,7 +304,6 @@ The tested content is the word itself, so you would test yourself as if it were 
 **How to create:** <br>
 Fill the `IsHintCard` field.
 
-<br>
 
 
 ## Hint Vocab Card (highlighted)
@@ -330,7 +323,6 @@ see [reveal cards](#reveal-cards).
 **How to create:** <br>
 Fill the `IsHintCard` and `IsTargetedSentenceCard` fields.
 
-<br>
 
 ## Hint Sentence Card
 {{ feature_version("0.12.0.0") }}
@@ -347,7 +339,6 @@ This is tested exactly like a [Hover Sentence Card](#hover-sentence-card).
 **How to create:** <br>
 Fill the `IsHintCard` and `IsSentenceCard` fields.
 
-<br>
 
 ## Hint TSCs
 
@@ -385,7 +376,6 @@ This differs from TSCs, because with TSCs, you do not need to read the entire se
 Fill the `IsSentenceFirstCard` field.
 
 
-<br>
 
 ## Sentence-First TSCs
 {{ feature_version("0.12.0.0") }}
@@ -402,7 +392,6 @@ There is no reason to use this with the default highlighted word
 **How to create:** <br>
 Fill the `IsSentenceFirstCard` and `IsTargetedSentenceCard` fields.
 
-<br>
 
 
 ## Sentence-First Cards: Hiding the word
