@@ -223,6 +223,7 @@ and must use `./install.py --update`.
 - Frequencies popup now has a smaller max width, to hopefully not takeup the entire width of the mobile screen
 - Added "data tags", i.e. tags that are greyed out in the info circle
 - Added runtime options to simplify the definitions as an alternative to CSS
+- Unbolded some text on mobile, to avoid lines in the kanji looking squished together
 
 </details>
 
