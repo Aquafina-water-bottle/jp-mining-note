@@ -216,13 +216,13 @@ and must use `./install.py --update`.
 **Features**:
 - Info circle shows as a dialog instead of a popup (mobile only)
 - Added source map files to main card type, for easier debugging of production files
+- Added "data tags", i.e. tags that are greyed out in the info circle
+- Added runtime options to simplify the definitions as an alternative to CSS
 
 **Fixes**:
 - Custom scss folders are now applied in the correct order
 - Frequencies popup no longer cuts off to the right on mobile
 - Frequencies popup now has a smaller max width, to hopefully not takeup the entire width of the mobile screen
-- Added "data tags", i.e. tags that are greyed out in the info circle
-- Added runtime options to simplify the definitions as an alternative to CSS
 - Unbolded some text on mobile, to avoid lines in the kanji looking squished together
 
 </details>
