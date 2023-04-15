@@ -20,6 +20,13 @@ Afterwards, see below for the other necessary changes that must be made to prope
 
 
 ## Field Font Size
+TODO: batch commands
+
+```
+set_font_sizes
+set_fonts_to_key_font
+```
+
 The fields within the note editor may look a bit off, due to the font and font sizes being wrong.
 When Anki-Connect finally updates, these fonts will be changed automatically upon installation.
 However, until then, it will have to be done manually.
