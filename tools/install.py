@@ -92,6 +92,13 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
+        "--dev-raise-anki-error",
+        action="store_true",
+        default=False,
+        help="(dev option) raises errors instead of print & return",
+    )
+
+    group.add_argument(
         "--no-backup",
         type=str,
         default=None,
@@ -353,6 +360,11 @@ def main(args: argparse.Namespace | None = None) -> str | None:
 
     if is_installed:
         if not args.update:
+            if args.dev_raise_anki_error:
+                raise RuntimeError(
+                    f"{model_name} is already installed. Did you mean to update?\n"
+                )
+
             print(
                 f"{model_name} is already installed. Did you mean to update?\n"
                 "To update, run `python3 install.py --update`",
@@ -402,6 +414,11 @@ def main(args: argparse.Namespace | None = None) -> str | None:
                 media_installer.install(option_file, static=False, backup=backup)
 
     else:
+        if args.update and args.dev_raise_anki_error:
+            raise RuntimeError(
+                f"{model_name} cannot be found. Please check that your note\n"
+                f"is named exactly '{model_name}'."
+            )
         print(f"Installing {model_name}...")
         version = utils.get_version(args)
         install_path = os.path.join(

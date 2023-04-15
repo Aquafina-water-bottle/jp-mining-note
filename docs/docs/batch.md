@@ -82,3 +82,10 @@ Checks that the fields and its order is correct
 with the current version.
 
 
+## reposition_fields
+
+> usage: `reposition_fields [-h] [--version VERSION]`
+
+Automatically reorders the field list to be the expected order
+
+
