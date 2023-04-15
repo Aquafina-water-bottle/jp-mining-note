@@ -40,7 +40,6 @@ If you want the full list, run the following command:
 python3 tools/batch.py --help
 ```
 
-<br>
 
 ## fill_field
 
@@ -58,7 +57,6 @@ fill_field IsSentenceCard --value "x"
 ```
 
 
-<br>
 
 ## empty_field
 
@@ -67,7 +65,6 @@ fill_field IsSentenceCard --value "x"
 Empties the given field.
 
 
-<br>
 
 
 ## copy_field
@@ -76,7 +73,6 @@ Empties the given field.
 
 Copies the contents of the source (src) field to the destination (dest) field.
 
-<br>
 
 ## verify_fields
 

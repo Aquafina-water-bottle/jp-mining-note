@@ -18,7 +18,6 @@ in the {{ CTOs }}.
 Creating external links is is explained in the config file,
 and there are plenty of commented-out examples that should work.
 
-<br>
 
 
 ## Removing all external links
@@ -30,7 +29,6 @@ For example:
 "externalLinks": {},
 ```
 
-<br>
 
 ## Icons with multiple text characters
 

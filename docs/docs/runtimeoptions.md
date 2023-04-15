@@ -63,7 +63,6 @@ You can safely copy/paste anything there (outside of `overrides`) into your runt
         "kanjiHover.enabled": false,
         ```
 
-<br>
 
 ## Override Options
 - TODO put any options used by the module to override
@@ -114,7 +113,6 @@ The source code for these can be found under src/ts/options.ts (TODO link).
 
 
 
-<br>
 
 ## `isMobile` and `isPC`
 
@@ -141,7 +139,6 @@ you are using Anki on a mobile device, or PC (non-mobile).
 },
 ```
 
-<br>
 
 
 
@@ -149,7 +146,6 @@ you are using Anki on a mobile device, or PC (non-mobile).
 
 TODO
 
-<br>
 
 
 
@@ -181,13 +177,11 @@ This is formatted as the following:
 
 TODO `MATH_OP` and `WIDTH`
 
-<br>
 
 ## `cardType`
 
 TODO
 
-<br>
 
 
 
@@ -195,7 +189,6 @@ TODO
 
 TODO
 
-<br>
 
 
 
@@ -204,7 +197,6 @@ TODO
 
 TODO
 
-<br>
 
 
 
@@ -213,7 +205,6 @@ TODO
 
 TODO
 
-<br>
 
 
 

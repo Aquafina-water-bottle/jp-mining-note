@@ -17,7 +17,6 @@ If you do not want the hint to be hidden by default, you can use the `HintNotHid
 
 TODO FAQ
 
-<br>
 
 
 ## Is Hiragana
@@ -49,7 +48,6 @@ To do exactly that, do the following:
     This was inspired by
     [Marv's hint sentence for kana cards](https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards).
 
-<br>
 
 ## Is Grammar point
 
@@ -57,13 +55,11 @@ To do exactly that, do the following:
 - TODO only works if you have any grammar dictionary installed in the first place
 - TODO `opt-grammar-override-dict-regex`
 
-<br>
 
 ## Is Onomatopoeia
 
 - TODO check if tag contains `on-mim` (only works if you have a modern JMdict Yomichan dictionary installed)
 
-<br>
 
 ---
 
@@ -86,7 +82,6 @@ so you are free to choose either to test the pitch accent on all cards, or no ca
 To test for pitch accent, fill the `PAShowInfo` field.
 You should see a circle to the left of the word or sentence.
 
-<br>
 
 
 ## Pitch Accent Indicator
@@ -126,7 +121,6 @@ Alternatively, you can look at the top right of the screen and look at the value
     This is only here to check your hearing with your guessed pitch accent, when used
     in conjunction with the sentence play button.
 
-<br>
 
 
 ## Selecting the Pitch Accent

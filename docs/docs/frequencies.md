@@ -20,7 +20,6 @@ If you wish to do this, set the following {{ RTO }} to `list-all`:
 
 (TODO IMAGE)
 
-<br>
 
 ## List Mode Maximum
 
