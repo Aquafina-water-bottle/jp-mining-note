@@ -54,7 +54,7 @@ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
 cd jp-mining-note
 
 # alternatively, if you already have the repository on your system:
-git pull origin/master
+git pull origin master
 ```
 
 The `master` branch is the stable version of the note.
