@@ -77,7 +77,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
         ::  $ cd jp-mining-note
 
         :: grabs the latest version of the master branch
-        git pull origin/master
+        git pull origin master
 
         :: Make sure you have Anki open and Anki-Connect installed!
         :: Also ensure that your python version is 3.10.6 or higher.
@@ -92,7 +92,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
         #  $ cd jp-mining-note
 
         # grabs the latest version of the master branch
-        git pull origin/master
+        git pull origin master
 
         # Make sure you have Anki open and Anki-Connect installed!
         # Also ensure that your python version is 3.10.6 or higher.
