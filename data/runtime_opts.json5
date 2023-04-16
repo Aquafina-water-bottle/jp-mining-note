@@ -781,6 +781,12 @@
     "中高", "nakadaka",
     "尾高", "odaka",
     "起伏", "kifuku",
+
+    // other
+    "yomichan",
+    "yomitan",
+    "subs2srs",
+    "asbplayer",
   ],
 
 
