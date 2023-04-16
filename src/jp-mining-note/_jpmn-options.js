@@ -4,7 +4,11 @@ window.JPMNOptions = {
   //
   //     "key": value,
   //
+  // To see all available options, visit the following link: (TODO non prerelease!)
+  // https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/runtimeoptions/#available-options
+  //
   // Some common examples are shown below.
+  // To enable them, remove the `//` characters before the key: value pair.
 
   // Enables colored pitch accent
   //"autoPitchAccent.coloredPitchAccent.enabled": true,
