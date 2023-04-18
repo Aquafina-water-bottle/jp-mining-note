@@ -126,7 +126,7 @@ Fill the `IsAudioCard` and `IsSentenceCard` field.
 
 # Reveal Cards
 
-Reveal cards are a group of card types that
+Reveal cards (previously known as hybrid cards) are a group of card types that
 have the distinct feature that the word is shown at the front,
 while the sentence is hidden but can be shown through some natural means.
 Additionally, all reveal cards have some form of underline beneath
@@ -346,7 +346,7 @@ TODO img
 
 Similarily to the normal TSC, this can be used to only test yourself on a specific
 portion of the sentence.
-This is tested exactly like a [Hover TSC](#hybrid-tsc).
+This is tested exactly like a [Hover TSC](#reveal-tsc).
 
 **How to create:** <br>
 Fill the `IsHintCard`, `IsSentenceCard` and `IsTargetedSentenceCard` fields.

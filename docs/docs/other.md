@@ -100,7 +100,7 @@ if the furigana text is too long.
 If the word has no pitch accent, the pitch accent is usually displayed as `(N/A)`.
 This indicator can be removed with the following {{ CSS }}:
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
 
     1. Under `extra/style.scss`, add the following code:
 
@@ -123,7 +123,7 @@ the furigana on the kanjis within hover.
 
 TODO image
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
 
     1. Under `extra/style.scss`, add the following code:
 
@@ -143,7 +143,7 @@ Most color changes can be done by simply editing a CSS variable.
 These variables are shown at the very top of the main CSS sheet.
 For example, the following changes the main accent color of the card:
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
 
     1. Under `extra/style.scss`, add the following code:
 
@@ -197,7 +197,7 @@ The tested content is shown at the back by default to allow the user to differen
 between card types on both sides of the card.
 However, this take up extra vertical space which is unnecessary if you are only using one card type.
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
 
     Use the following {{ CSS }}:
 

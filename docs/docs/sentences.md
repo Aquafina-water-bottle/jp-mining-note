@@ -105,7 +105,7 @@ In order to keep the javascript lightweight, any improper highlighting
 *is considered as expected behavior*, and will not be changed or fixed.
 I recommend manually bolding the word if the word is incorrectly highlighted.
 
-??? example "Examples *(click here)*"
+??? example "Examples <small>(click here)</small>"
     Any text in red is not highlighted automatically.
     They are considered as examples of when automatic highlighting doesn't work.
 
@@ -193,7 +193,7 @@ This can be changed to only be shown on click, or always/never shown.
 === "On click"
     TODO gif: show on click
 
-    ??? example "Instructions *(click here)*"
+    ??? example "Instructions <small>(click here)</small>"
         Change the following {{ CTO }}:
 
         ```json
@@ -209,7 +209,7 @@ This can be changed to only be shown on click, or always/never shown.
 
     This is the default behavior.
 
-    ??? example "Instructions *(click here)*"
+    ??? example "Instructions <small>(click here)</small>"
         Change the following {{ CTO }}:
 
         ```json
@@ -222,7 +222,7 @@ This can be changed to only be shown on click, or always/never shown.
 
     This allows furigana to be shown on hover, and toggled on click.
 
-    ??? example "Instructions *(click here)*"
+    ??? example "Instructions <small>(click here)</small>"
         Change the following {{ CTO }}:
 
         ```json
@@ -235,7 +235,7 @@ This can be changed to only be shown on click, or always/never shown.
     This is not recommended, because you should
     not be relying on furigana to understand Japanese.
 
-    ??? example "Instructions *(click here)*"
+    ??? example "Instructions <small>(click here)</small>"
         Change the following {{ CTO }}:
 
         ```json
@@ -248,7 +248,7 @@ This can be changed to only be shown on click, or always/never shown.
     If you are looking to not see furigana at all, feel free to use this option.
     However, I personally recommend toggling on click instead of removing furigana completely.
 
-    ??? example "Instructions *(click here)*"
+    ??? example "Instructions <small>(click here)</small>"
         Change the following {{ CTO }}:
 
         ```json
@@ -278,7 +278,7 @@ due to (what I think is a) chromium based bug[^1].
 === "Hide Spacing"
     TODO img
 
-    ??? example "Instructions *(click here)*"
+    ??? example "Instructions <small>(click here)</small>"
         Change the following {{ CTOs }}:
 
         ```json
@@ -290,7 +290,7 @@ due to (what I think is a) chromium based bug[^1].
 === "Hide spacing with no transition"
     TODO img
 
-    ??? example "Instructions *(click here)*"
+    ??? example "Instructions <small>(click here)</small>"
         Change the following {{ CTOs }}:
 
         ```json
@@ -304,7 +304,7 @@ due to (what I think is a) chromium based bug[^1].
 
     This is the default behavior.
 
-    ??? example "Instructions *(click here)*"
+    ??? example "Instructions <small>(click here)</small>"
         Change the following {{ CTO }}:
 
         ```json
@@ -366,7 +366,7 @@ However, these newlines are automatically removed from the display sentence
 if the width of the screen is determined to be too small.
 To override this option, you can use the following {{ C_CSS }}:
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
 
     === "Keep all newlines"
 

@@ -55,11 +55,15 @@ This automatic coloring behavior is **disabled by default**,
 and must be enabled in the {{ RTO_FILE }}:
 
 ```json
-"autoPitchAccent.enabled": true, // (1)!
-"autoPitchAccent.coloredPitchAccent.enabled": true,
+"autoPitchAccent.coloredPitchAccent.enabled": true, // (1)!
 ```
+1.  The `autoPitchAccent` module must be enabled to use colored pitch accent.
+    For example:
+    ```json
+    "autoPitchAccent.enabled": true,
+    ```
+    This is enabled by default, so you likely don't need to manually enable this module.
 
-1.  The `auto-pitch-accent` module must be enabled to use colored pitch accent.
 
 ![type:video](assets/autopa/pa_override_color.mp4)
 
@@ -270,7 +274,7 @@ This is useful to highlight the correct pitch accent among all possiblities.
 ## (2.2) PAOverride: Text Format
 {{ feature_version("0.11.0.0") }}
 
-??? info "How To Type Special Characters *(click here)*"
+??? info "How To Type Special Characters <small>(click here)</small>"
 
     This section requires you to type certain special characters.
     You can type these characters on any standard IME.
@@ -294,7 +298,7 @@ For words with no downstep (平板型), the 「￣」 character must be placed
 at the end of the word.
 For example, 身長 should be written as 「しんちょう￣」.
 
-??? info "Removing the required ￣ symbol *(click here)*"
+??? info "Removing the required ￣ symbol <small>(click here)</small>"
     The restriction that 平板 words require the ￣ symbol at the end can be removed
     using the following {{ RTO }}:
 
@@ -463,7 +467,7 @@ This covers some details if you are directly using `PAOverrideText`,
 and want to have a similar format to the generated pitch accent.
 You very likely won't be doing this.
 
-??? example "Styling Details *(click here)*"
+??? example "Styling Details <small>(click here)</small>"
 
     * The generated style is very similar to the generated style of the AJTWordPitch field.
         To display the style properly, you can simply copy and edit the HTML tags directly.

@@ -49,7 +49,7 @@ There are three ways of installing the note:
 
 {% set JPMN_MGR_CODE %}1732829476{% endset %}
 
-??? info "Option 1: JPMN Manager *(click here)*"
+??? info "Option 1: JPMN Manager <small>(click here)</small>"
 
     TODO video
 
@@ -71,7 +71,7 @@ There are three ways of installing the note:
         This will install latest stable version of the note,
         as well as the fonts required for the note to work.
 
-??? info "Option 2: Command Line *(click here)*"
+??? info "Option 2: Command Line <small>(click here)</small>"
 
     === "Windows"
 
@@ -102,7 +102,7 @@ There are three ways of installing the note:
     `install.py` will install latest stable version of the note,
     as well as the fonts required for the note to work.
 
-??? info "Option 3: Manually *(click here)*"
+??? info "Option 3: Manually <small>(click here)</small>"
 
 
     1. Go to the

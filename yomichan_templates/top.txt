@@ -55,7 +55,7 @@
 
 {{~! ========================== Other Options =========================== ~}}
 {{~set "opt-primary-def-one-dict-entry-only" false ~}}
-{{~set "opt-jmdict-list-format" false ~}}
+{{~set "opt-jmdict-list-format" true ~}}
 
 
 

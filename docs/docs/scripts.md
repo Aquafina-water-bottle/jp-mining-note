@@ -186,7 +186,7 @@ you can simply run a python script with command line.
 python3 /path/to/jp-mining-note/tools/hotkey.py -f FUNCTION_NAME
 ```
 
-??? example "Examples *(click here)*"
+??? example "Examples <small>(click here)</small>"
 
     ```bash
     # default
@@ -264,7 +264,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
     Of course, this can be done in bulk at any point,
     as shown [here](faq.md#how-do-i-bulk-generate-furigana).
 
-??? info "How-To: Fix incorrectly-bolded words *(click here)*"
+??? info "How-To: Fix incorrectly-bolded words <small>(click here)</small>"
 
     As an example, The target word 希望 in the sentence 「入部希望なんですけど…」
     will be parsed by Yomichan as the following:
@@ -286,7 +286,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
     1. Highlight over the header word itself (or the word in the orthographic forms dictionary),
         and add that word instead.
 
-        ??? example "Demo *(click here)*"
+        ??? example "Demo <small>(click here)</small>"
             {{ img("Add the definition from the popup dictionary", "assets/jpresources/incorrect_bold.png") }}
 
     2. Copy the desired sentence.
@@ -298,7 +298,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
         [multiple popups enabled](https://learnjapanese.moe/monolingual/#optimizing-yomichan-settings).
 
 
-??? info "How the bolded word is preserved *(click here)*"
+??? info "How the bolded word is preserved <small>(click here)</small>"
 
     The bolded word is preserved if the exact content within the bolded word is found within the clipboard,
     which should be almost always the case.

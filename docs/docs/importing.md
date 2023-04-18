@@ -120,7 +120,7 @@ However, here are a few tips:
 
 An example with [Anime cards](https://animecards.site/ankicards/) is shown below.
 
-??? example "Example for Anime Cards *(click here)*"
+??? example "Example for Anime Cards <small>(click here)</small>"
 
     {{ anime_cards_table() | indent(4) }}
 
@@ -133,7 +133,7 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 # Batch Editing
 After switching your notes, you will have to do the following few steps:
 
-## (1) Correctly Formatting `Sentence` Field
+## 1. Correctly Formatting `Sentence` Field { #correctly-formatting-sentence-field }
 
 If your sentence fields have been highlighted in a way that isn't using `<b>`,
 then it will be incompatable with JPMN by default.
@@ -178,7 +178,7 @@ Sentences are usually formatted in one of three ways, as shown below:
     今日も、なんか、昼<span style="color: #ffc2c7">爆睡</span>してしまったんので…
     ```
 
-    ??? example "Instructions to port formatted sentences *(click here)*"
+    ??? example "Instructions to port formatted sentences <small>(click here)</small>"
 
         !!! note
             You may want to make another backup before doing the following, just in case.
@@ -218,7 +218,7 @@ Sentences are usually formatted in one of three ways, as shown below:
                     "`Sentence`",
                 )) | indent(12) }}
 
-            ??? example "Example image *(click here)*"
+            ??? example "Example image <small>(click here)</small>"
 
                 <figure markdown>
                 {{ img("The above table in Anki", "assets/importing/fix_formatted_sentences.png") }}
@@ -238,7 +238,7 @@ Sentences are usually formatted in one of three ways, as shown below:
 
 
 
-## (2) Batch generate pitch accents and sentence furigana
+## 2. Batch generate pitch accents and sentence furigana { #batch-generate-pitch-accents-and-sentence-furigana }
 
 TODO outdated! rerecord!
 
@@ -268,7 +268,7 @@ to import into `PAPositions`. In that case, this step is highly recommended.
 
 
 
-## (3) Batch Set `PASilence` Field
+## 3. Batch set `PASilence` Field { #batch-set-pasilence-field }
 
 This will ensure all `PASilence` are filled correctly.
 See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
@@ -290,7 +290,7 @@ This can be done within Anki itself, or with a {{ BATCH_CMD }}.
                 selected_notes_only=False,
             )) | indent(8) }}
 
-        ??? example "Example image *(click here)*"
+        ??? example "Example image <small>(click here)</small>"
             <figure markdown>
             {{ img("The above table in Anki", "assets/importing/bulk_add_silencewav.png") }}
             </figure>
@@ -304,7 +304,7 @@ This can be done within Anki itself, or with a {{ BATCH_CMD }}.
 
 
 
-## (4) Correctly Formatting `WordReading` Field
+## 4. Correctly Formatting `WordReading` Field { #correctly-formatting-wordreading-field }
 
 Your `WordReading` field is likely formatted in one of three ways:
 
@@ -327,7 +327,7 @@ Your `WordReading` field is likely formatted in one of three ways:
     it would be ideal to convert this into plain furigana
     so the note can properly parse the field.
 
-    ??? example "Instructions for converting furigana into plain furigana *(click here)*"
+    ??? example "Instructions for converting furigana into plain furigana <small>(click here)</small>"
 
         1. Head to the Card Browser window.
         1. Right click a card, and then head to:
@@ -356,7 +356,7 @@ Your `WordReading` field is likely formatted in one of three ways:
     Some examples include the kanji hover tooltip as well as
     to the left of the picture field.
 
-    ??? example "Instructions for converting kana readings into (plain) furigana *(click here)*"
+    ??? example "Instructions for converting kana readings into (plain) furigana <small>(click here)</small>"
 
         The solution provided below is imperfect, but passable.
         This will format all of the `WordReading` fields to be `Word[WordReading]`,
@@ -379,7 +379,7 @@ Your `WordReading` field is likely formatted in one of three ways:
 
 
 
-## (5) (Optional) Batch set `WordReadingHiragana` Field
+## 5. Batch set `WordReadingHiragana` Field <small>(optional)</small> { #batch-set-wordreadinghiragana-field data-toc-label="5. Batch set WordReadingHiragana Field" }
 {{ feature_version("0.11.0.0") }}
 
 The following automatically fills out the `WordReadingHiragana` field.
@@ -393,8 +393,7 @@ To do this, run the following {{ BATCH_CMD }}:
 fill_word_reading_hiragana_field
 ```
 
-
-## (6) (Optional) Backfill the `FrequencySort` Field
+## 6. Backfill the `FrequencySort` Field <small>(optional)</small> { #backfill-the-frequencysort-field data-toc-label="6. Backfill the FrequencySort Field" }
 As mentioned ealier, `FrequencySort` behaves exactly the same as Marv's
 `Frequency` field as documented in
 [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency)

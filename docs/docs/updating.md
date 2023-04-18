@@ -44,7 +44,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
 
 {% set JPMN_MGR_CODE %}1732829476{% endset %}
 
-??? info "Option 1: Via Anki Add-on *(click here)*"
+??? info "Option 1: Via JPMN Manager <small>(click here)</small>"
 
     This add-on simply wraps around the python script mentioned below,
     and should do the exact same operations as running the script manually.
@@ -68,7 +68,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
 {% endfilter %}
 
 
-??? info "Option 2: Via Python Script *(click here)*"
+??? info "Option 2: Via a Python Script <small>(click here)</small>"
 
     === "Windows"
         ```bat
@@ -166,7 +166,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
 ---
 
 # Common Errors
-This section will document common errors that occur when running the installation script.
+This section will document common errors that occur when attempting to update the note.
 
 
 ## Anki-Connect is missing actions
@@ -311,7 +311,7 @@ then **the field will not show up automatically in Yomichan**.
 
 ## Refreshing Yomichan Fields
 
-??? example "Video Demo *(click here)*"
+??? example "Video Demo <small>(click here)</small>"
     ![type:video](assets/updating/updating_yomichan_fields.mp4)
 
 1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings)

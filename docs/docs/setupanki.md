@@ -30,7 +30,7 @@ Worst case scenario, if any essential add-ons no longer work,
 If you aren't upgrading Anki from an older version,
 you can skip the rest of this section.
 
-??? example "Tips on Updating Anki *(click here)*"
+??? example "Tips on Updating Anki <small>(click here)</small>"
 
     <h4>Official Documentation</h4>
 

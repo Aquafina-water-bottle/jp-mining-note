@@ -31,7 +31,7 @@ body > div > textarea {
 ```
 
 
-??? note "Using a custom font *(click here)*"
+??? note "Using a custom font <small>(click here)</small>"
     I set the font to be Noto Sans, but this will likely not work without
     downloading and installing the font first
     (e.g. from [here](https://github.com/googlefonts/noto-cjk/tree/main/Sans/OTF/Japanese)).
@@ -67,7 +67,7 @@ This is a very quick hack to have text from Anki to appear on a websocket based 
 
 Requires Python, written for [Renji's texthooker](https://github.com/Renji-XD/texthooker-ui).
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
     1. Save as `server.py`:
         ```python
         import asyncio

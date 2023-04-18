@@ -259,6 +259,7 @@ def define_env_vars(env):
         "PERDITION_SERVER": "[Perdition's server](https://discord.gg/uK4HeGN)",
         "PERDITION_LINK": "https://discord.gg/uK4HeGN",
         "BATCH_CMD": "[batch command](batch.md)",
+        "CLICK_HERE": "<small>(click here)</small>",
     }
 
     for k, v in data.items():
@@ -377,12 +378,16 @@ def define_env(env):
         return math.ceil(x)
 
     @env.macro
-    def plaintext_true(top_yomichan: str):
+    def plaintext_change_defaults(top_yomichan: str):
         lines = []
         for line in top_yomichan.splitlines(keepends=False):
             if line.startswith('{{~set "opt__plaintext__'):
                 line = line.replace('false ~}}', 'true ~}} {{~! Default overwritten ~}}')
             lines.append(line)
+            if line.strip() == '{{~set "opt-primary-def-one-dict-entry-only" false ~}}':
+                lines.append('{{~set "opt-primary-def-one-dict-entry-only" true ~}}')
+            if line.strip() == '{{~set "opt-jmdict-list-format" true ~}}':
+                lines.append('{{~set "opt-jmdict-list-format" false ~}}')
         return "\n".join(lines)
 
     @env.macro

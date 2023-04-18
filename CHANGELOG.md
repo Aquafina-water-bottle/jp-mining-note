@@ -211,6 +211,15 @@ and must use `./install.py --update`.
 #### 0.12.0.0 Prerelease Changelog
 
 <details>
+<summary> Prerelease 3 </summary>
+
+TODO
+
+</details>
+
+
+
+<details>
 <summary> Prerelease 2 </summary>
 
 **Features**:

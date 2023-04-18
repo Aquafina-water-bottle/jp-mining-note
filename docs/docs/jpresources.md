@@ -63,7 +63,7 @@ To add custom CSS in Yomichan, do the following:
 1. Add the CSS to the top section.
 1. Close the window.
 
-??? example "Demo *(click here)*"
+??? example "Demo <small>(click here)</small>"
 
     {{ img("how to add custom css to Yomichan", "assets/jpresources/yomichan/howto_css.gif") }}
 
@@ -105,7 +105,7 @@ span.frequency-group-item:nth-child(n+3) {
 <sup>(Thanks Marv#5144 for the CSS.
 [Original message](http://discordapp.com/channels/617136488840429598/778430038159655012/1012950954770960464) on {{ TMW_SERVER }})</sup>
 
-??? example "Demo *(click here)*"
+??? example "Demo <small>(click here)</small>"
 
     {{ img("limit frequencies demo", "assets/jpresources/yomichan/limit_frequencies.gif") }}
 
@@ -138,7 +138,7 @@ to any dictionary you find to be of higher quality)
 }
 ```
 
-??? example "Demo *(click here)*"
+??? example "Demo <small>(click here)</small>"
 
     {{ img("limit pitch accent dictionaries demo", "assets/jpresources/yomichan/limit_pitch_accents.gif") }}
 
@@ -166,7 +166,7 @@ li.definition-item[data-dictionary='DICTIONARY'] {
 }
 ```
 
-??? examplecode "Example CSS for JMdict *(click here)*"
+??? examplecode "Example CSS for JMdict <small>(click here)</small>"
 
     ```css
     li.definition-item[data-dictionary='JMdict (English)'] {
@@ -174,7 +174,7 @@ li.definition-item[data-dictionary='DICTIONARY'] {
     }
     ```
 
-??? example "Demo *(click here)*"
+??? example "Demo <small>(click here)</small>"
 
     {{ img("hide dictionary in Yomichan", "assets/jpresources/yomichan/hide_dictionary.gif") }}
 
@@ -194,7 +194,7 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
 ```
 
 
-??? examplecode "Example CSS for JMdict *(click here)*"
+??? examplecode "Example CSS for JMdict <small>(click here)</small>"
     ```css
     li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
       opacity: 0;
@@ -204,7 +204,7 @@ li.definition-item[data-dictionary='DICTIONARY']:hover .gloss-list {
     }
     ```
 
-??? example "Demo *(click here)*"
+??? example "Demo <small>(click here)</small>"
 
     {{ img("hide bilingual dictionaries until hover", "assets/jpresources/yomichan/bilingual_hover.gif") }}
 
@@ -222,7 +222,7 @@ button[title^="Add reading"] {
 }
 ```
 
-??? example "Demo *(click here)*"
+??? example "Demo <small>(click here)</small>"
 
     <figure markdown>
       {{ img("remove add reading button", "assets/jpresources/yomichan/hide_add_reading.png") }}
@@ -277,7 +277,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     }
     ```
 
-??? examplecode "Example CSS for Noto Sans *(click here)*"
+??? examplecode "Example CSS for Noto Sans <small>(click here)</small>"
     ```css
     :lang(ja), :lang(ja-JP) {
         --font-primary: "gg sans","Noto Sans CJK JP","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -285,7 +285,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
     }
     ```
 
-??? examplecode "Discord's default CSS *(click here)*"
+??? examplecode "Discord's default CSS <small>(click here)</small>"
     ```css
     :lang(ja), :lang(ja-JP) {
         --font-primary: "gg sans","Hiragino Sans","ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN",メイリオ,Meiryo,Osaka,"MS PGothic","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -321,7 +321,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 1. Go to the `Anki` section.
 1. Select `Anki card format...`.
 
-??? example "Demo *(click here)*"
+??? example "Demo <small>(click here)</small>"
 
     {{ img("how to edit yomichan fields", "assets/jpresources/yomichan/howto_format.gif") }}
 
@@ -336,7 +336,7 @@ An example JSFiddle can be found [here](https://jsfiddle.net/Aquafina_water_bott
 1. Go to the `Anki` section
 1. Select `Configure Anki card templates...`
 
-??? example "Demo *(click here)*"
+??? example "Demo <small>(click here)</small>"
 
     {{ img("how to edit yomichan templates", "assets/jpresources/yomichan/howto_templates.gif") }}
 
@@ -354,7 +354,7 @@ Adds the following Yomichan Fields:
 
 {% raw %}
 
-??? examplecode "Template code *(click here)*"
+??? examplecode "Template code <small>(click here)</small>"
     ```handlebars
     {{#*inline "pitch-accent-list-single-dict"}}
         {{~#if (op ">" pitchCount 1)~}}<ol>{{~/if~}}
@@ -383,7 +383,7 @@ Adds the following Yomichan Fields:
     {{/inline}}
     ```
 
-??? examplecode "Modified version of the above for Anime Cards *(click here)*"
+??? examplecode "Modified version of the above for Anime Cards <small>(click here)</small>"
 
     ```handlebars
     {{#*inline "pitch-accent-list-single-dict"}}
@@ -437,7 +437,7 @@ Adds the following Yomichan Fields:
 Allows you to export only a section of a glossary by highlighting over it,
 and uses the glossary by default if you don't have anything highlighted.
 
-??? examplecode "Template code *(click here)*"
+??? examplecode "Template code <small>(click here)</small>"
 
     {% raw %}
     ```handlebars
@@ -473,7 +473,7 @@ For further customization on how the first dictionary is selected
 see the handlebars code used by jp-mining-note [here](setupyomichan.md#yomichan-templates).
 
 
-??? examplecode "Template code *(click here)*"
+??? examplecode "Template code <small>(click here)</small>"
 
     {% raw %}
     ```handlebars
@@ -585,7 +585,7 @@ This does the following:
 To use this in Anki, add `furigana:` in front of the field within the template code.
 For example, if your field is `SentenceReading`, use `{{furigana:SentenceReading}}`.
 
-??? examplecode "Template code *(click here)*"
+??? examplecode "Template code <small>(click here)</small>"
     ```handlebars
     {{#*inline "sentence-bolded-furigana-plain"}}
         {{~#if definition.cloze~}}
@@ -627,7 +627,7 @@ For example, if your field is `SentenceReading`, use `{{furigana:SentenceReading
 
 {% endraw %}
 
-??? example "Comparisons to alternatives *(click here)*"
+??? example "Comparisons to alternatives <small>(click here)</small>"
 
     - [AJT Furigana](https://ankiweb.net/shared/info/1344485230) can auto-generate furigana on card add
         and can add furigana to any text within a field even after a card add.

@@ -206,11 +206,32 @@ Here is exactly what's happening:
 
 
 
-## Fixing JMdict Extra
+## Legacy JMdict
 
-If you are using the
-[JMdict Extra version](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan)
-(JMdict with example sentences, antonyms, etc.),
+The newest JMdict Yomichan dictionary, informally known as "JMdict Extra",
+contains many things outside of the plain definitions,
+including antonyms, example sentences, and alternate forms.
+This dictionary can be downloaded
+[here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan).
+
+If you are using JMdict Extra, then nothing has to be done.
+
+However, if you are using a legacy versions of JMdict,
+your definitions will export incorrectly (in a non-compact form).
+
+??? example "Compact Legacy JMdict Option {{ CLICK_HERE }}"
+    To export legacy JMdict in compact form, change the following option:
+    set the following option to `false`:
+
+    {% raw %}
+    ```handlebars
+    {{~set "opt-jmdict-list-format" false ~}}
+    ```
+    {% endraw %}
+
+
+
+<!--
 then the exported compact list will not be fully compact.
 This is a [known issue](https://github.com/FooSoft/yomichan/issues/2297) with Yomichan's
 default handlebars.
@@ -224,6 +245,7 @@ To fix it, set `opt-jmdict-list-format` to `true`, i.e.
 ```
 {% endraw %}
 
+-->
 ---
 
 

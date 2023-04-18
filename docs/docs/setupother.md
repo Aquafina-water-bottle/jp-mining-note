@@ -131,7 +131,7 @@ to find the most optimal setup for yourself.
 If you're interested in copying my setup, I provide the list of addons I personally use here.
 I also provide a small list of other popular add-ons that I don't use, but may be useful for you.
 
-??? example "List of Add-ons I use *(click here)*"
+??? example "List of Add-ons I use <small>(click here)</small>"
 
     **Documented above** (I use all required and optional addons for the note type):
 
@@ -169,7 +169,7 @@ I also provide a small list of other popular add-ons that I don't use, but may b
     * [Yomichan Forvo Server](https://ankiweb.net/shared/info/580654285)
 
 
-??? example "Useful Add-ons that I don't use *(click here)*"
+??? example "Useful Add-ons that I don't use <small>(click here)</small>"
     * [AJT Mortician](https://ankiweb.net/shared/info/1255924302)
     * [Edit Field During Review Cloze](https://ankiweb.net/shared/info/385888438)
     * [Generate Batch Audio](https://ankiweb.net/shared/info/1156270186)

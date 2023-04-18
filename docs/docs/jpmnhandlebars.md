@@ -47,7 +47,7 @@ Before doing anything, please
 [make a backup of your Yomichan settings.](faq.md#how-do-i-backup-yomichan-settings)
 
 
-??? example "Video demo *(click here)*"
+??? example "Video demo <small>(click here)</small>"
     ![type:video](assets/setupyomichan/import_yomichan_templates.mp4)
 
 1. Navigate to Yomichan Settings.
@@ -68,7 +68,7 @@ add the following template code as follows:
 
         ```handlebars
         {% filter indent(width=8) -%}
-        {{ plaintext_true(TOP_YOMICHAN) }}
+        {{ plaintext_change_defaults(TOP_YOMICHAN) }}
         {% endfilter %}
         ```
 
@@ -82,21 +82,10 @@ add the following template code as follows:
         {% endfilter %}
         ```
 
-There are a few common options that most people likely change.
-These options can be found at the very top of the handlebars.
-
-- `opt-first-definition-type`:
-    By default, the handlebars exports bilingual cards.
-    Set this to `monolingual` for monolingual Anki cards.
-    [See here for more info](definitions.md#primary-definition-selection-automatic).
-
-- `opt-primary-def-one-dict-entry-only`:
-    This specifies whether something with multiple dictionary entries
-    has all entries exported into the primary definition, or only the first one.
-    Exports all entries by default (`false`).
-    If you only want to export one definition, set this to `true`.
-    [See here for more info](definitions.md#exporting-only-one-dictionary-entry).
-
+## Monolingual definitions
+By default, the handlebars exports bilingual cards.
+Set `opt-first-definition-type` to `monolingual` if you want monolingual Anki cards.
+[See here for more info](definitions.md#primary-definition-selection-automatic).
 
 ---
 
@@ -104,7 +93,7 @@ These options can be found at the very top of the handlebars.
 # Setup Fields
 
 
-??? example "Video demo TODO *(click here)*"
+??? example "Video demo TODO <small>(click here)</small>"
     TODO video
 
 1. Navigate to Yomichan Settings.
@@ -184,7 +173,7 @@ If you are looking for information about the other options, please see the
 Setting this option to `true` will no longer stylize the definition handlebars for jp-mining-note
 usage, and instead stylizes it to be virtually the same as Yomichan's default HTML structure.
 
-??? example "Differences between default Yomichan format and JPMN plaintext *(click here)*"
+??? example "Differences between default Yomichan format and JPMN plaintext <small>(click here)</small>"
     There are a few minor differences between Yomichan's format and these non-stylized definitions:
 
     - The dictionary and tags are not italicized. This is to avoid seeing italic kanjis/kana.

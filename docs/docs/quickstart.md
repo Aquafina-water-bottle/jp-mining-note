@@ -131,7 +131,7 @@ You can increase (or decrease) the size of the card,
 with {{ C_CSS }}.
 
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
     1. Under `extra/style.scss`, add the following code:
 
         ```css
