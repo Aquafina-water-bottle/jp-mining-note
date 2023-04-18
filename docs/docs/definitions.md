@@ -36,8 +36,9 @@ Dictionaries from Yomichan are sorted into the following fields:
     (in other words, does not provide the meaning of the word).
 
     Some examples include:
-    - [JMdict Surface Forms](https://github.com/FooSoft/yomichan/issues/2183) (TODO update link)
-    - [JMedict TODO link]()
+
+    - [JMdict Forms](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan)
+    - [JMedict](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan)
 
     !!! note
         This does not include pitch accent dictionaries, frequency lists, or kanji dictionaries,
@@ -135,8 +136,12 @@ To modify a regex string:
 
 
 
-# Primary Definition Selection: Automatic
+# Primary Definition Selection
+The primary definition can either be selected automatically, or manually via highlighting
+the dictionary name or a section of the definition.
 
+
+## Primary Definition Selection: Automatic
 The dictionary for the primary definition is the first bilingual dictionary
 (that appears on Yomichan) by default.
 
@@ -149,10 +154,13 @@ This can be changed to the first monolingual dictionary by changing the followin
 ```
 {% endraw %}
 
----
+TODO re-record with only automatic
 
 
-# Primary Definition Selection: Manual
+## Primary Definition Selection: Manual
+
+TODO re-record with only manual
+
 Sometimes, you may want to override the primary definition,
 or highlight the definition that makes sense with the context.
 
@@ -180,11 +188,135 @@ This manual selection behavior does the following:
     then set `opt-selection-text-glossary-attempt-bold` to `false`.
 
 
-## Where automatic bolding can fail
+## When Manual Selection Fails
 
-Automatic bolding works by searching through every dictionary in Yomichan order,
-until the highlighted text is found in one of the definitions.
+In an ideal world, we would have access to exactly what dictionary was selected from
+the handlebars. For example, a handlebars function could tell us if the n'th dictionary
+was highlighted.
+Unfortunately, we do not live in this ideal world, so we must get this information manually.
 
+The handlebars algorithm runs thusly:
+
+- If the selected text exactly matches any dictionary in the exported definition,
+    then the dictionary entry is selected as the primary definition.
+- Otherwise, we do the same search as the above, except we search through every dictionary's HTML (in Yomichan's order) for the selected text.
+- If the selected text was found in some dictionary, then that dictionary is chosen.
+    Otherwise, we fallback to the selected text itself.
+
+Due to us having to find the information ourselves,
+there are many edge-cases where this algorithm fails.
+
+<!--
+Although this may sound perfectly fine, the highlighted text is searched specifically
+from the generated HTML of the definitions.
+Additionally, the highlighted text is itself plaintext, and cannot store
+any highlighted HTML.
+In the case that automatic bolding fails, the highlighted text itself is simply used instead.
+-->
+
+<!--### 1. Selecting formatted text { #selecting-formatted-text}-->
+<!--### 2. Same selected text appearing in multiple dictionaries { #same-selected-text-appearing-in-multiple-dictionaries }-->
+<!--### 3. Selected text in HTML markup { #selecting-text-in-html-markup}-->
+
+1. **Selecting formatted text**
+
+    If you select formatted parts of text then automatic bolding will fail.
+    An incomplete list of of formatted sections is shown below:
+
+    ??? example "Line breaks"
+        Line breaks cannot be properly captured by the selected text.
+
+        === "Incorrect"
+            <figure markdown>
+            {{ img("", "assets/definitions/highlight_fail/toomaki_incorrect.png") }}
+            </figure>
+        === "Correct"
+            <figure markdown>
+            {{ img("", "assets/definitions/highlight_fail/toomaki_correct.png") }}
+            </figure>
+
+    ??? example "Furigana"
+        Just like line breaks, furigana cannot be properly captured by the selected text.
+
+        === "Incorrect"
+            <figure markdown>
+            {{ img("", "assets/definitions/highlight_fail/kinngyo_incorrect.png") }}
+            </figure>
+        === "Correct"
+            <figure markdown>
+            {{ img("", "assets/definitions/highlight_fail/kinngyo_correct.png") }}
+            </figure>
+
+    ??? example "List Items <small>(common with JMdict)</small>"
+        Avoid highlighting multiple items in a list if you want automatic bolding to work.
+
+        === "Incorrect"
+            <figure markdown>
+            {{ img("", "assets/definitions/highlight_fail/mirenn_incorrect.png") }}
+            </figure>
+        === "Correct"
+            <figure markdown>
+            {{ img("", "assets/definitions/highlight_fail/mirenn_correct.png") }}
+            </figure>
+
+2. **Same selected text appearing in multiple dictionaries**
+
+    Manual selection may occasionally select the wrong dictionary,
+    but this only happens if the selected text also appears in a dictionary above the selected text.
+
+    For example, suppose you have two bilingual dictionaries. and for the word 蛸,
+    you highlight the word "octopus" and create the card.
+    Both bilingual dictionaries will list "octopus", so even if you highlight the word "octopus"
+    in the second bilingual dictionary, only the first bilingual dictionary will be chosen.
+
+    ??? example "Example: 蛸"
+        <figure markdown>
+        {{ img("", "assets/definitions/highlight_fail/tako.png") }}
+        </figure>
+
+    This is usually not a problem even if the same text appears in a dictionary above,
+    because you'll be seeing the same definition regardless.
+    However, if you still want a specific dictionary, highlight the dictionary tag
+    [as shown above](#primary-definition-selection-manual).
+
+
+3. **Selected text in HTML markup**
+
+    There are very rare edge cases when the highlighted text can be found
+    in the internal HTML markup, leading to invalid HTML and (almost certainly)
+    the incorrect definition.
+
+    ??? example "Example: 垣根"
+
+        On the word 垣根, if you have the デジタル大辞泉 dictionary before JMdict
+        in Yomichan and you highlight `border`,
+        then デジタル大辞泉 will be incorrectly selected as the primary definition.
+
+        <figure markdown>
+        {{ img("", "assets/definitions/highlight_fail/kakine.png") }}
+        </figure>
+
+        <figure markdown>
+        {{ img("", "assets/definitions/highlight_fail/kakine_def.png") }}
+        </figure>
+
+        This is due to a perfect storm of events:
+
+        * Due to Yomichan's implementation details, definitions with images contain a
+        `border` property in an internal style attribute.
+        * デジタル大辞泉 indeed has images for the word 垣根.
+        * デジタル大辞泉 is ordered before JMdict in Yomichan
+
+        With all these three combined, デジタル大辞泉 is prioritized over JMdict,
+        leading to an incorrect dictionary selected and invalid HTML.
+
+        <figure markdown>
+        {{ img("", "assets/definitions/highlight_fail/kakine_html.png") }}
+        </figure>
+
+
+
+<!--
 This automatic bolding may not always work: if the highlighted text could not be automatically
 detected from the custom template code, then it will fallback to simply
 using the highlighted text (as if you used the `{selection-text}` marker).
@@ -196,39 +328,11 @@ such as (but not limited to):
 - furigana (including subscripted or superscripted text)
 - across multiple items in a list (common with JMdict)
 
-TODO picture of non-examples!
-
-Additionally, there are very rare edge cases when the highlighted text is found
-in an internal HTML element, leading to invalid HTML and (almost certainly)
-the incorrect definition.
-For example, suppose a monolingual definition exported with an image.
-Due to Yomichan's implementation details, definitions with images contain a
-`border` property in the internal style attribute.
-If the word `border` was highlighted, and the monolingual definition was placed
-before a bilingual definition, the monolingual definition with the image will
-be incorrectly selected.
-
-!!! note
-    The above example happened to me with the word 垣根,
-    using デジタル大辞泉 and highlighting the word `border`.
 
 
 ## Where dictionary selection can fail
 
-This may occasionally select the wrong dictionary,
-but this only happens if the selected text also appears in a dictionary above the selected text.
-
-For example, suppose you have two bilingual dictionaries. and for the word タコ,
-you highlight the word "octopus" and create the card.
-Both bilingual dictionaries will list "octopus", so even if you highlight the word "octopus"
-in the second bilingual dictionary, only the first bilingual dictionary will be chosen.
-
-This is usually not a problem even if the same text appears in a dictionary above
-because it's the same definition regardless.
-Additionally, monolingual dictionaries almost never have the exact same definition for the same word.
-However, if you still want a specific dictionary, highlight the dictionary tag
-[as shown above](#overriding-a-dictionary).
-
+-->
 
 ---
 
@@ -247,8 +351,14 @@ Both of these can be automatically hidden with the following {{ RTO }}:
 "blockquotes.simplifyDefinitions.enabled": true,
 ```
 
-TODO image comparison
+=== "Simple"
+    {{ img("", "assets/definitions/simple_def/simple.png") }}
+=== "Default"
+    {{ img("", "assets/definitions/simple_def/normal.png") }}
 
+
+<!--
+TODO find examples that this is useful for...
 
 ## Card-by-Card Control
 
@@ -265,7 +375,7 @@ Similarly, if you want to show the list for a particular card,
 you can add the `list-show` tag to the card.
 
 TODO image with both tags.
-
+-->
 
 
 <!--
@@ -289,7 +399,7 @@ There are many ways to control exactly what content is removed, and in what way.
         This is a combination of "Hide extra text" and "Hide dictionary tag",
         meaning it hides the dictionary tag and the text to the right.
 
-    ??? example "CSS to hide the entire first line for all dictionaries *(click here)*"
+    ??? example "CSS to hide the entire first line for all dictionaries <small>(click here)</small>"
         {{ feature_version("0.11.0.0") }}
 
         1. Under `extra/style.scss`, add the following code:
@@ -345,7 +455,7 @@ There are many ways to control exactly what content is removed, and in what way.
 
     * This hides all the text to the right of the dictionary tag.
 
-    ??? example "CSS to hide extra text *(click here)*"
+    ??? example "CSS to hide extra text <small>(click here)</small>"
         {{ feature_version("0.11.0.0") }}
 
         {{ css_oubunsha }}
@@ -376,7 +486,7 @@ There are many ways to control exactly what content is removed, and in what way.
     * Removes only the dictionary tag.
         This doesn't look very good on most dictionaries.
 
-    ??? example "CSS to hide dictionary tag(s) *(click here)*"
+    ??? example "CSS to hide dictionary tag(s) <small>(click here)</small>"
 
         {{ css_oubunsha }}
 
@@ -396,7 +506,7 @@ There are many ways to control exactly what content is removed, and in what way.
             }
             ```
 
-    ??? example "CSS to hide JMdict's dictionary tag *(click here)*"
+    ??? example "CSS to hide JMdict's dictionary tag <small>(click here)</small>"
         If you are on a modern version of JMdict, the dictionary will contain additional tags
         to the right of the dictionary tag by default, such as (n), (vs), etc.
         The instructions above will remove all of these tags.
@@ -433,11 +543,37 @@ There are many ways to control exactly what content is removed, and in what way.
 
 -->
 
----
 
-# Simplifying Options: How does it work?
+## Removing the first line: Algorithms Discussion
 
-TODO wrap CSS
+TODO a few options
+
+- remove directly in handlebars
+    - advantages:
+        - clean export
+    - disadvantages:
+        - can lead to invalid HTML
+        - removes info from the export
+- remove directly in javascript template
+    - advantages:
+        - standard export (can even work with default handlebars)
+        - all info is present
+        - access to html parser
+    - disadvantages:
+        - must assume certain HTML structure(s) in definition field itself
+            - problem comes when the user edits the field: can change it to whatever they want
+            - therefore, this approach is usually more brittle
+        - javascript must be ran (slowing down card load)
+- wrap spans around existing HTML on handlebars import
+    - advantages:
+        - does not technically require javascript (and the optional javascript that is ran is fast)
+        - all info is present
+    - disadvantages:
+        - not immediately portable: must copy/paste CSS to port between note types
+        - expects a certain HTML structure in order to work
+            - will not work on standard plaintext or standard Yomichan imports
+        - can lead to invalid HTML
+    - the chosen method for this note, primarily due to speed and no info loss
 
 
 
@@ -446,9 +582,9 @@ TODO wrap CSS
 
 In order to even have the possibility of removing the first line,
 the HTML is parsed with regex in order to find the text before the first line break.
-In computer science, it is well known that
+In computer science, it is recommended that
 [you should not parse HTML with regex](https://stackoverflow.com/a/1732454),
-because it is mathematically impossible to correctly parse HTML with regex.
+because it is mathematically impossible to fully describe and parse HTML with regex.
 Unfortunately, Yomichan's handlebars does not expose any HTML parser,
 so we are left with using regex to parse our HTML.
 Due to this, an unexpected dictionary format may cause the resulting export to
@@ -497,7 +633,7 @@ item (and having them remain for multple definitions) with only CSS.
 The following {{ CSS }} completely nukes the numbers regardless of how many items there are in the list.
 
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
 
     1. Under `extra/style.scss`, add the following code:
 
@@ -520,7 +656,7 @@ Secondary Definition or Extra Definitions section.
 
 TODO gif
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
 
     ```json
     {
@@ -550,37 +686,41 @@ TODO gif
 # Exporting only one dictionary entry
 
 A "dictionary entry" in this context is the single section of text corresponding to a
+number indicated by Yomichan, to the very far left.
+
+In the following example, 旺文社国語辞典 第十一版 and 明鏡国語辞典 第二版 each have one single entry,
+corresponding to `1` and `2` respectively.
+`JMdict (English)` has two entries, corresponding to `3` and `4`.
+
+<figure markdown>
+{{ img("", "assets/definitions/fugou.png") }}
+</figure>
+
+As you may have noticed, it is almost never the case that monolingual dictionaries has
+multiple dictionary entries.
+Instead, most monolingual dictionaries store the definition as one gigantic entry.
+
+
+<!--
+A "dictionary entry" in this context is the single section of text corresponding to a
 dictionary tag (with `Compact tags` turned off in Yomichan).
 
 For example, recent version of the Yomichan JMdict dictionaries stores its definitions
 as multiple entries.
 It is almost never the case that monolingual dictionaries has multiple dictionary entries.
 Instead, most monolingual dictionaries store the definition as one gigantic entry.
-
-=== "Multiple Entries"
-    TODO
-=== "Only one entry"
-    TODO
-
+-->
 
 By default, all dictionary entries are exported in the primary definition.
 However, if `opt-primary-def-one-dict-entry-only` is set to `true`,
 then only the first (or [manually selected](#manual-selection)) dictionary entry
 will be imported into the primary definition.
 
-=== "Export all entries (default)"
-    TODO
+=== "Export all entries <small>(default)</small>"
+    {{ img("", "assets/definitions/fugou_multiple.png") }}
 
 === "Export one entry"
-    TODO
-
-    This uses the following option:
-    {% raw %}
-    ```handlebars
-    {{~set "opt-primary-def-one-dict-entry-only" true ~}}
-    ```
-    {% endraw %}
-
+    {{ img("", "assets/definitions/fugou_single.png") }}
 
 ---
 
@@ -614,7 +754,7 @@ As an alternative to the above, it is possible to simply remove the extra dictio
 instead of collapsing them.
 
 
-??? example "Instructions *(click here)*"
+??? example "Instructions <small>(click here)</small>"
     Use the following {{ CSS }}:
 
     1. Under `extra/style.scss`, add the following code:

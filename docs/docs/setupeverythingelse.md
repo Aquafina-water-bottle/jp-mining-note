@@ -53,8 +53,9 @@ in almost every aspect:
 * They do not require an extension that constantly polls the clipboard.
 
 However, it requires more specialized coordination between programs.
+Fortunately, most common workflows support websockets nowadays.
 
-??? example "Resources *(click here)*"
+??? example "Resources <small>(click here)</small>"
     * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
         * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
         * This texthooker page comes with built in support for both websockets and
@@ -72,7 +73,7 @@ However, it requires more specialized coordination between programs.
     - [**Textractor**](https://github.com/Artikash/Textractor) with [**textractor-websocket**](https://github.com/sadolit/textractor-websocket) or [**TextractorSender**](https://github.com/KamWithK/TextractorSender)
     - [**mpv**](https://mpv.io) with [**mpv_websocket**](https://github.com/kuroahna/mpv_websocket)
 
-??? example "Legacy Resources *(click here)*"
+??? example "Legacy Resources <small>(click here)</small>"
     These resources are considered legacy, and I highly recommend using the
     standard resources above in favor of these.
 
@@ -88,7 +89,7 @@ However, it requires more specialized coordination between programs.
         * This patch was written for Anacreon's texthooker page.
             However, it will likely work for most other texthooker pages.
 
-        ??? examplecode "Instructions to use the patch *(click here)*"
+        ??? examplecode "Instructions to use the patch <small>(click here)</small>"
 
             !!! warning
                 This is a monkey patch, even according to the author. Now that better alternatives
@@ -149,7 +150,7 @@ These pages display the hooked content, where the hooked content is communicated
 via automated clipboard (copy/paste) tools.
 Most classic setups documented are for clipboard based texthooker pages.
 
-??? example "Resources *(click here)*"
+??? example "Resources <small>(click here)</small>"
     * [**Original Clipboard Inserter (Extension)**](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
         * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
             as of Firefox version 107.0. Use the extension below if you are using Firefox.
@@ -163,7 +164,7 @@ Most classic setups documented are for clipboard based texthooker pages.
     * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
     * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
 
-??? example "Guides *(click here)*"
+??? example "Guides <small>(click here)</small>"
     * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) (recommended)
     * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
     * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
@@ -177,12 +178,12 @@ Most classic setups documented are for clipboard based texthooker pages.
 # Game-Like Content: Getting Text
 The following are primarily for text-heavy games, such as visual novels.
 
-??? example "Resources *(click here)*"
+??? example "Resources <small>(click here)</small>"
     * [Textractor](https://github.com/Artikash/Textractor) (recommended)
     * [agent](https://github.com/0xDC00/agent)
         * This is a good fallback for when Textractor doesn't work
 
-??? example "Guides *(click here)*"
+??? example "Guides <small>(click here)</small>"
     * [TMW: Installing Visual Novels](https://learnjapanese.moe/vn-setup/)
     * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
     * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/) (slightly outdated compared to others)
@@ -199,7 +200,7 @@ The following are primarily for text-heavy games, such as visual novels.
 # Video Content: Getting Text, Sentence Audio, Picture
 Video content includes streamed content (Youtube, Netflix, etc.) and locally downloaded files.
 
-??? example "Resources *(click here)*"
+??? example "Resources <small>(click here)</small>"
     * [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious) (recommended for downloaded videos / if you are using mpv)
         * Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
         * Basically universal codec support since it uses mpv.
@@ -242,7 +243,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
             The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
             This is listed here for completeness only.
 
-??? example "Guides *(click here)*"
+??? example "Guides <small>(click here)</small>"
     * [mikumino's mining workflow](https://www.youtube.com/watch?v=B60cj69MSmA&ab_channel=mikumino) (asbplayer + jp-mining-note)
     * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (asbplayer)
         * Contact info: `boundary-of-emptiness#3065` <!-- 152563705345867778 -->
@@ -319,7 +320,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
 As long as you're not using a scan (image-based), the text should already be available.
 Below will list a few ways to view these files in a browser to Yomichan.
 
-??? example "Resources *(click here)*"
+??? example "Resources <small>(click here)</small>"
     * [**ッツ Ebook Reader**](https://reader.ttsu.app) (EPUBs, HTMLZ) (recommended)
     * [**Mozilla's PDF Viewer**](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
 
@@ -330,7 +331,7 @@ Below will list a few ways to view these files in a browser to Yomichan.
         * Uses [ッツ Ebook Reader](https://ttu-ebook.web.app/) as its backend.
         * See [this note on jidoujisho](#jidoujisho).
 
-??? example "Guides *(click here)*"
+??? example "Guides <small>(click here)</small>"
     - Like with Mokuro,
         if you are on Android, this can be paired with
         [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
@@ -382,7 +383,7 @@ Here are the two popular approaches to automatically adding the image and senten
 # Resource Lists
 Other websites have significantly larger resource lists that may prove useful for you.
 
-??? example "Resource Lists *(click here)*"
+??? example "Resource Lists <small>(click here)</small>"
     * [TheMoeWay](https://learnjapanese.moe/resources/)
     * [Tatsumoto](https://tatsumoto.neocities.org/blog/resources.html)
     * [itazuraneko](https://itazuraneko.neocities.org/index.html)
@@ -465,7 +466,7 @@ Other websites have significantly larger resource lists that may prove useful fo
 * To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
     I recommend filling out the following fields as follows:
 
-    ??? example "asbplayer fields *(click here)*"
+    ??? example "asbplayer fields <small>(click here)</small>"
         | asbplayer field | JPMN field |
         |:-:|:-:|
         | Sentence Field   { .smaller-table-row} | `Sentence`        { .smaller-table-row} |

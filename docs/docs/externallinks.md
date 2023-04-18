@@ -39,7 +39,7 @@ However, in the cases where you want to use more characters,
 the default CSS rules causes the icon will use the minimum amount of space,
 which may mis-aligned the surrounding icons.
 
-??? example "Fixing this with SCSS *(click here)*"
+??? example "Fixing this with SCSS <small>(click here)</small>"
 
     Using the [custom SCSS](customcss.md), you can specify
     the amount of space it takes (in terms of number of icons):

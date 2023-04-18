@@ -34,7 +34,7 @@ To do exactly that, do the following:
 * Navigate to Yomichan settings, and then to `Anki` →  `Configure Anki card format...`.
 * Set `IsTargetedSentenceCard` to `{jpmn-filled-if-word-is-hiragana}`.
 
-??? example "Example behavior *(click here)*"
+??? example "Example behavior <small>(click here)</small>"
     | Example word | `{jpmn-filled-if-word-is-hiragana}` | `{jpmn-filled-if-word-is-not-hiragana}` |
     |:-:|:-:|:-:|
     | ふらっと | 1 |   |

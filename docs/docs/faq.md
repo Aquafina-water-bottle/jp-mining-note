@@ -51,7 +51,7 @@ There are two ways to fix this:
 1. [Update Anki](setupanki.md#updating-anki) to a higher version.
 1. Compile the card with [hard-coded defaults](moddingtips.md#custom-runtime-options).
 
-??? info "Why this happens *(click here)*"
+??? info "Why this happens <small>(click here)</small>"
 
     The `<script ... src="_jpmn-options.js">` tag seems to runs asynchronously on 2.1.49 and below,
     meaning that the order of when this is ran is not constant compared to the main javascript block.
@@ -344,7 +344,7 @@ For example, the above should be changed into:
 マスターと行動を共にするとは万死に値するデース
 ```
 
-??? info "Why this can happen *(click here)*"
+??? info "Why this can happen <small>(click here)</small>"
 
     This happens if you copy/paste directly from certain pages into the sentence field,
     such as some texthooker pages.

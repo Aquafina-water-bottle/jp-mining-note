@@ -212,11 +212,15 @@ images unless the following setting is explicitly enabled
 in the {{ RTO_FILE }}:
 
 ```json
-"imgStylizer.enabled": true, // (1)!
-"imgStylizer.mainImage.blur.enabled": true,
+"imgStylizer.mainImage.blur.enabled": true, // (1)!
 ```
 
 1.  The `imgStylizer` module must be enabled to use the image blur feature.
+    For example:
+    ```json
+    "imgStylizer.enabled": true,
+    ```
+    This is enabled by default, so you likely don't need to manually enable this module.
 
 <figure markdown>
   {{ img("example toggle blur gif", "assets/images/anki_blur/example.gif") }}
@@ -262,7 +266,7 @@ By default, states cycle from left to right.
     | {{ img("", "assets/images/anki_blur/unmarked_revealed.png") }} | {{ img("", "assets/images/anki_blur/marked_revealed.png") }} |
 
 
-??? example "Demos *(click here)*"
+??? example "Demos <small>(click here)</small>"
 
     === "Regular, unmarked card"
         {{ img("", "assets/images/anki_blur/example_session_toggle_unmarked.gif") }}

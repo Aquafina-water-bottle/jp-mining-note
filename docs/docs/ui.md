@@ -116,7 +116,7 @@ within "JP Mining Note" types.
 See [here](tooltipresults.md) for information on how the examples are chosen,
 and how to customize it.
 
-??? example "Related Programs *(click here)*"
+??? example "Related Programs <small>(click here)</small>"
 
     [**Cade's Kanji Hover**](https://cademcniven.com/projects/kanjihover/)
 

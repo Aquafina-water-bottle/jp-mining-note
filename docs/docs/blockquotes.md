@@ -47,7 +47,7 @@ under the following {{ RTO }}:
 "blockquotes.open.enabled": true,
 ```
 
-??? example "Example Config *(click here)*"
+??? example "Example Config <small>(click here)</small>"
     ```json
     "blockquotes.open.enabled": true,
     "blockquotes.open.secondaryDefinition": true,
