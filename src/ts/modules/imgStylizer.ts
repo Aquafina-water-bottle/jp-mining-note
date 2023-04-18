@@ -446,8 +446,16 @@ class BackImgStylizer extends Module {
     const stylizeModeUser = this.getStylizeMode('user');
     const stylizeModeYomichan = this.getStylizeMode('yomichan');
 
-    // looks for yomichan inserted images
-    if (stylizeModeYomichan !== 'none') {
+    if (stylizeModeYomichan === 'none') {
+      // force do-not-convert for all yomichan images
+      const imgTags = Array.from(this.primaryDefRawText.getElementsByTagName('img'));
+      for (const imgEle of imgTags) {
+        if (imgEle.src.includes('yomichan_dictionary_media')) {
+          imgEle.setAttribute('data-do-not-convert', 'true');
+        }
+      }
+    } else {
+      // looks for yomichan inserted images
       this.convertYomichanImgs(this.primaryDefRawText, stylizeModeYomichan === 'float');
     }
 
