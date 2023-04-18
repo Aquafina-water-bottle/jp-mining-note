@@ -12,6 +12,7 @@
     "(tb:sentenceParser) Following sentence was stripped of div elements",
     "(sentenceParser) Automatically highlighted word in ",
     "(tb:sentenceParser) Automatically highlighted word in ",
+    "SentenceReading is not filled out. Using Sentence field instead.",
     "`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?"
   ],
   "logger.error.ignore": [
@@ -302,7 +303,11 @@
     "\u5c3e\u9ad8",
     "odaka",
     "\u8d77\u4f0f",
-    "kifuku"
+    "kifuku",
+    "yomichan",
+    "yomitan",
+    "subs2srs",
+    "asbplayer"
   ],
   "freqUtils.enabled": true,
   "freqUtils.displayMode": "summary",
