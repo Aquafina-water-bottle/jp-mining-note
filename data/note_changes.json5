@@ -56,7 +56,34 @@ action:
 
       ],
 
-      // TODO add post-actions (fonts)
+      post_actions: [
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "set_font_sizes",
+            ankiconnect_actions: [
+              "modelFieldNames",
+              "modelFieldSetFontSize",
+              "multi",
+            ],
+            description: "Sets the font sizes for all fields to the expected font size",
+          }
+        },
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "set_fonts_to_key_font",
+            ankiconnect_actions: [
+              "modelFieldFonts",
+              "modelFieldNames",
+              "modelFieldSetFont",
+              "multi",
+            ],
+            description: "Sets the font for all fields to the font of the Key field",
+          }
+        },
+
+      ]
 
       fields: ["Key", "Word", "WordReading", "PAOverride", "PAOverrideText", "AJTWordPitch", "PrimaryDefinition", "PrimaryDefinitionPicture", "Sentence", "SentenceReading", "AltDisplayWord", "AltDisplaySentence", "AltDisplayPASentenceCard", "AltDisplayAudioCard", "AdditionalNotes", "Hint", "HintNotHidden", "IsSentenceCard", "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard", "IsHintCard", "IsSentenceFirstCard", "IsAudioCard", "PAShowInfo", "PATestOnlyWord", "PADoNotTest", "PASeparateWordCard", "PASeparateSentenceCard", "SeparateAudioCard", "SeparateSentenceAudioCard", "Picture", "WordAudio", "SentenceAudio", "PAGraphs", "PAPositions", "FrequenciesStylized", "FrequencySort", "PASilence", "WordReadingHiragana", "YomichanWordTags", "SecondaryDefinition", "ExtraDefinitions", "UtilityDictionaries", "CardCache", "Comment"],
     },
