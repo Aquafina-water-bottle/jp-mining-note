@@ -44,7 +44,7 @@
     //"(sentenceParser) Invalid sentence format ",
 
     "SentenceReading is not filled out. Using Sentence field instead.",
-    "`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?",
+    //"`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?",
 
     // warnings when PAOverride has an incorrect format
     //"(autoPitchAccent) calcPosDataList returned list of 0 length for",
