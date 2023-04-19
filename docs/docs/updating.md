@@ -80,7 +80,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
         git pull origin master
 
         :: Make sure you have Anki open and Anki-Connect installed!
-        :: Also ensure that your python version is 3.10.6 or higher.
+        :: Also ensure that your python version is 3.9 or higher.
         python tools\install.py
         ```
 
@@ -95,7 +95,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
         git pull origin master
 
         # Make sure you have Anki open and Anki-Connect installed!
-        # Also ensure that your python version is 3.10.6 or higher.
+        # Also ensure that your python version is 3.9 or higher.
         python3 tools/install.py
         ```
 

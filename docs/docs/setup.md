@@ -43,8 +43,8 @@ There are three ways of installing the note:
     and don't want to download another Anki add-on.
 3. **Manually**, using Anki.
     This tends to be more error-prone due to having many more potential points of failure.
-    Therefore, I wouldn't recommend installing the note this way,
-    and should only be used if the first two options didn't work for some reason.
+    Therefore, I wouldn't recommend installing the note this way.
+    It should only be used if the first two options didn't work.
 
 
 ??? info "Option 1: JPMN Manager <small>(click here)</small>"
@@ -68,8 +68,8 @@ There are three ways of installing the note:
         > `Tools` →  `JPMN Manager` →  `Install jp-mining-note`
 
         This will install latest stable version of the note,
-        as well as the fonts required for the note to work.
-        Please note that installing the note might take a while, and Anki may appear frozen.
+        as well as the fonts required for the note to work. <br>
+        Note: Installing jp-mining-note might take a while, and Anki may appear frozen.
 
     ![type:video](assets/setup/jpmn_manager-0.12.0.0-prerelease-2.mp4)
 
@@ -82,7 +82,7 @@ There are three ways of installing the note:
         cd jp-mining-note
 
         :: Ensure you have Anki open, and with Anki-Connect running
-        :: Also ensure that you have python 3.10+ installed.
+        :: Also ensure that you have python 3.9+ installed.
         :: It *MAY* work with lower versions of python, but I make no such guarantee. ;)
         python tools\install.py
         ```
@@ -94,7 +94,7 @@ There are three ways of installing the note:
         cd jp-mining-note
 
         # Ensure you have Anki open, and with Anki-Connect running
-        # Also ensure that you have python 3.10+ installed.
+        # Also ensure that you have python 3.9+ installed.
         # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
 
         # You may have to use `python3` instead of `python`.

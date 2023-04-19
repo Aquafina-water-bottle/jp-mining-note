@@ -11,7 +11,7 @@ please check here first! If you can't find any solution,
 
 ---
 
-# 2023/??/?? (JPMN 0.12.0.0)
+# 2023/??/?? (JPMN 0.12.0.0) { #v0-12-0-0 }
 
 This version of jp-mining-note comes with many changes,
 including an entire backend javascript rework.
@@ -40,7 +40,7 @@ Please set this to match your other fields.
 
 
 
-## Config Rework
+## Config Rework { #v0-12-0-0-config-rework }
 
 You will get the following warning on all cards:
 ```
@@ -49,21 +49,39 @@ JPMNOptions was not defined in the options file. Was there an error?
 
 This is because the `_jpmn-options.js` runtime options file has been completely reworked,
 meaning your config will no longer work.
-To fix your config file, do the following steps:
+To fix your config file, do one of the following:
 
-1. [Locate the `_jpmn-options.js` file](runtimeoptions.md#accessing-editing).
-1. Make a backup of this file, say, by copying the file into your `Documents` folder.
-1. Edit the file with your favorite text editor, and replace its contents entirely with the following:
+??? info "Option 1: JPMN Manager {{ CLICK_HERE }}"
+    Run the following {{ BATCH_CMD }}:
+    ```aconf
+    replace_runtime_options_file_anki
+    ```
 
-    ??? example "New runtime options file {{CLICKHERE}}"
+??? info "Option 2: Command Line {{ CLICK_HERE }}"
+    Run the following {{ BATCH_CMD }}:
+    ```aconf
+    python3 tools/batch.py replace_runtime_options_file
+    ```
+
+??? info "Option 3: Manually {{ CLICK_HERE }}"
+
+    1. [Locate the `_jpmn-options.js` file](runtimeoptions.md#accessing-editing).
+    1. Make a backup of this file, say, by copying the file into your `Documents` folder.
+    1. Edit the file with your favorite text editor, and replace its contents entirely with the following:
+
         ```js title="_jpmn-options.js"
         {% filter indent(8) %}{{ JPMN_OPTIONS_EXAMPLE}}{% endfilter %}
         ```
 
-1. Re-add any runtime options you had changed before.
-    Common runtime-options (pitch accent coloring and image blur) are included as examples;
-    remove the comment to re-enable them.
-    To see all available runtime options, see [Runtime Options: Available Options](runtimeoptions.md#available-options).
+Afterwards, re-add any runtime options you had changed before.
+The runtime options file can be found [here](runtimeoptions.md#accessing-editing).
+
+Common runtime-options (pitch accent coloring and image blur) are included as examples;
+remove the comment to re-enable them.
+To see all available runtime options, see
+[Runtime Options: Available Options](runtimeoptions.md#available-options).
+
+
 
 !!! note
     For people using pitch accent coloring, the entire card is now highlighted with the pitch accent group.
@@ -75,7 +93,7 @@ To fix your config file, do the following steps:
     ```
 
 
-## Handlebars
+## Handlebars { #v0-12-0-0-handlebars }
 Yomichan's Handlebars has been updated, with some new markers and features being added.
 
 - To update Yomichan's Anki Card Format, see [here](updating.md#updating-yomichans-anki-card-format).
@@ -91,7 +109,7 @@ After updating the templates, the following fields must be changed:
   for instructions on how to update Anki Card Format.
 
 
-## AnkiConnectAndroid
+## AnkiConnectAndroid { #v0-12-0-0-ankiconnectandroid }
 If you are using AnkiConnectAndroid, please repeat the steps above for updating Yomichan.
 It will likely [error until updated](https://github.com/KamWithK/AnkiconnectAndroid#problem-on-card-add-i-get-incorrect-flds-argument).
 
@@ -119,7 +137,7 @@ For example:
 -->
 
 
-## Frequency Display
+## Frequency Display { #v0-12-0-0-frequency-display }
 The frequency at the top right now defaults to using the FrequencySort value.
 This is because it is usually more useful to see a summary of the values,
 instead of all the literal values itself.
@@ -137,7 +155,7 @@ instead of all the literal values itself.
 
 
 
-## Automatic Field Collapsing
+## Automatic Field Collapsing { #v0-12-0-0-automatic-field-collapsing }
 For newer versions of Anki,
 you can set a field to be collapsed by default by heading over to:
 
@@ -153,13 +171,13 @@ By default, the following fields are collapsed by default (but are not updated a
 - `CardCache`
 
 
-## Custom SCSS
+## Custom SCSS { #v0-12-0-0-custom-scss }
 For people who are using custom SCSS (usually through `src/scss/extra`),
 it is now recommended that the `extra` folder is moved to the `overrides/scss` folder.
 This is purely a stylistic change, to better separate user-defined changes and source code.
 
 
-## Final Steps
+## Final Steps { #v0-12-0-0-final-steps }
 After changing everything, don't forget to [test that the card works!](updating.md#final-steps)
 If you reached this point, then congratulations! You are finally done with updating the note!
 Enjoy `0.12.x.x` and all its new features!
@@ -220,7 +238,7 @@ See the setup instructions [here](https://aquafina-water-bottle.github.io/jp-min
 
 ---
 
-# 2022/11/19 (JPMN 0.11.0.0)
+# 2022/11/19 (JPMN 0.11.0.0) { #v0-11-0-0 }
 - Yomichan's handlebars was updated. See how to update your handlebars [here](updating.md#updating-yomichan-templates).
 - Yomichan's 'Anki Card Format' section was updated, and the following fields must be changed:
     - `WordReadingHiragana`: `(empty)` →  `{jpmn-word-reading-hiragana}`

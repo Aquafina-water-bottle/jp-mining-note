@@ -809,13 +809,13 @@ def _replace_runtime_options_file(backup_folder: str):
     media_installer.install("_jpmn-options.js", backup=True)
 
 
-def replace_runtime_options_file(backup_folder: str):
+def replace_runtime_options_file():
     root_folder = utils.get_root_folder()
     backup_folder = os.path.join(root_folder, "backup", utils.get_time_str())
     _replace_runtime_options_file(backup_folder)
 
 
-def replace_runtime_options_file_anki(backup_folder: str):
+def replace_runtime_options_file_anki():
     root_folder = utils.get_root_folder()
     backup_folder = os.path.join(root_folder, "user_files", "backup", utils.get_time_str())
     _replace_runtime_options_file(backup_folder)
