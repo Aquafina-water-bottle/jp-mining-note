@@ -108,7 +108,7 @@ rather than Anki itself, so little will be written about the details of Anki her
 
 Instead, here is a small list of resources on setting up and using Anki itself:
 
-* [Cade's blog: Optimizing Anki for Language Learning](https://cademcniven.com/posts/20210410/) (recommended)
+* [Cade's blog: Optimizing Anki for Language Learning](https://cademcniven.com/posts/20210410/)
 * [Tatsumoto's blog: Setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html)
 * [Lazy Guide: Anki](https://rentry.co/lazyXel#anki)
     * Showcases an example note type, addons used and tips

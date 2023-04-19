@@ -10,7 +10,7 @@ page instead.
 
 # Features
 
-This package provides all of the features that comes with the standard jp-mining-note installation:
+This handlebars package provides all of the features that comes with the standard jp-mining-note installation:
 
 - A primary dictionary selector that automatically chooses the first bilingual or monolingual dictionary (depending on your settings)
 - Ability to manually select a dictionary or highlight a definition, to override the primary dictionary selector
@@ -18,8 +18,11 @@ This package provides all of the features that comes with the standard jp-mining
 - Option to hide the first line of monolingual dictionaries
 - Compatibility with [other portable handlebars](#compatability-with-other-handlebars)
 
-Additionally, these definitions can be exported in a minimalistic HTML format,
-which almost completely conforms with the default Yomichan handlebars.
+The main difference between these handlebars and the handlebars used by jp-mining-note
+is that some default settings have been manually changed,
+so that definitions are exported in a minimalistic HTML format.
+This minimal format (almost) completely conforms with the default Yomichan handlebars,
+so it should work for any note type.
 
 ---
 
@@ -124,7 +127,7 @@ To summarize the introduced definition handlebars:
 | `{jpmn-primary-definition}` | The highest priority monolingual or bilingual dictionary (depending on the value of `opt-first-definition-type`) |
 | `{jpmn-secondary-definition}` | All bilingual dictionaries outside of the one selected in the primary definition |
 | `{jpmn-extra-definitions}` | All monolingual dictionaries outside of the one selected in the primary definition |
-| `{jpmn-utility-dictionaries}` | All dictionaries that fall outside the category of bilingual or monolingual. For example, JMedict, or JMdict Forms. |
+| `{jpmn-utility-dictionaries}` | All dictionaries that fall outside the category of bilingual or monolingual. For example, JMnedict or JMdict Forms. |
 
 
 If you want to select a different dictionary, highlight the dictionary, or a portion of the definition
@@ -231,11 +234,11 @@ For the following examples, we take the definition of 絨毯 from the
 Whether the dictionary tag is exported or not.
 
 === "`true` (no dictionary tag)"
-    > (旺文社国語辞典 第十一版) じゅう‐たん【△絨△毯・△絨△緞】<br>
+    > じゅう‐たん【△絨△毯・△絨△緞】<br>
     > 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
     > 《季・冬》
 === "`false` (keep dictionary tag)"
-    > じゅう‐たん【△絨△毯・△絨△緞】<br>
+    > (旺文社国語辞典 第十一版) じゅう‐たん【△絨△毯・△絨△緞】<br>
     > 床の敷物にする厚い毛織物。カーペット。「床に―を敷く」 <br>
     > 《季・冬》
 

@@ -8,6 +8,27 @@ All other frequencies can be viewed by hovering over the dropdown arrow.
 
 ---
 
+# Sorting by Frequency
+This note type comes with a `FrequencySort` field,
+which is the equivalent of Marv's `Frequency` field in
+[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
+
+To summarize how `FrequencySort` is generated: all frequencies
+(filtering out the useless ones) are averaged using a
+[harmonic mean](https://en.wikipedia.org/wiki/Harmonic_mean),
+which can be thought of as a mean that heavily leans towards the minimum.
+
+However, some exceptions apply:
+- If the word exists in a downloaded grammar dictionary, then the frequency value is set to 0, because we make the assumption that grammar points should be studied as soon as possible.
+- If there are no frequencies, then it is set to `9999999`.
+
+By default, nothing is done to re-order your cards according to this value.
+You will need to manually re-order your cards, or use an add-on to automatically do so.
+Visit the aformentioned link (and scroll down to `Usage`)
+to see exactly that.
+
+---
+
 # List Mode
 
 Older versions of the note displayed the frequencies similarly to
