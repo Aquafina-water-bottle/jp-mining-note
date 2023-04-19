@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 import argparse
 
@@ -9,6 +10,7 @@ from typing import Callable, Type, Any, Optional
 import action_runner as ac
 import note_changes as nc
 import fields as flds
+import install as instl
 
 
 rx_END_DIV = re.compile(r"</div>$")
@@ -783,11 +785,40 @@ def _reorder_or_add_fields(construct_action: Callable, version=None):
 
 
 def reposition_fields(version=None):
+    """
+    repositions all existing fields in the fields list
+    """
     _reorder_or_add_fields(_construct_reposition_field, version)
 
 
 def add_fields(version=None):
+    """
+    adds all missing fields for the given version
+    """
     _reorder_or_add_fields(_construct_add_field, version)
+
+
+def _replace_runtime_options_file(backup_folder: str):
+    """
+    replace _jpmn-options.js with the example config
+    """
+    root_folder = utils.get_root_folder()
+    input_folder = os.path.join(root_folder, "media")
+    static_folder = os.path.join(root_folder, "media")
+    media_installer = instl.MediaInstaller(input_folder, static_folder, backup_folder)
+    media_installer.install("_jpmn-options.js", backup=True)
+
+
+def replace_runtime_options_file(backup_folder: str):
+    root_folder = utils.get_root_folder()
+    backup_folder = os.path.join(root_folder, "backup", utils.get_time_str())
+    _replace_runtime_options_file(backup_folder)
+
+
+def replace_runtime_options_file_anki(backup_folder: str):
+    root_folder = utils.get_root_folder()
+    backup_folder = os.path.join(root_folder, "user_files", "backup", utils.get_time_str())
+    _replace_runtime_options_file(backup_folder)
 
 
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
@@ -834,6 +865,7 @@ PUBLIC_FUNCTIONS = [
     add_fields,
     set_font_sizes,
     set_fonts_to_key_font,
+    replace_runtime_options_file,
 ]
 
 # functions available for the anki addon (should be everything but the xelieu function)
@@ -859,6 +891,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     add_fields,
     set_font_sizes,
     set_fonts_to_key_font,
+    replace_runtime_options_file_anki,
 ]
 
 

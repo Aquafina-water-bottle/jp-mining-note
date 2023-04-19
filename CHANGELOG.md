@@ -213,7 +213,9 @@ and must use `./install.py --update`.
 <details>
 <summary> Prerelease 3 </summary>
 
-TODO
+**Fixes**:
+- Fixed `img-yomichan-no-styling` not working as expected (it got stylized as a user image instead)
+
 
 </details>
 
