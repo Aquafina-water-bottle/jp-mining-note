@@ -381,13 +381,16 @@ def define_env(env):
     def plaintext_change_defaults(top_yomichan: str):
         lines = []
         for line in top_yomichan.splitlines(keepends=False):
+
+            # override lines
             if line.startswith('{{~set "opt__plaintext__'):
                 line = line.replace('false ~}}', 'true ~}} {{~! jpmn default: false ~}}')
+            elif line.strip() == '{{~set "opt-primary-def-one-dict-entry-only" false ~}}':
+                line = '{{~set "opt-primary-def-one-dict-entry-only" true ~}} {{~! jpmn default: false ~}}'
+            elif line.strip() == '{{~set "opt-jmdict-list-format" true ~}}':
+                line = '{{~set "opt-jmdict-list-format" false ~}} {{~! jpmn default: true ~}}'
+
             lines.append(line)
-            if line.strip() == '{{~set "opt-primary-def-one-dict-entry-only" false ~}}':
-                lines.append('{{~set "opt-primary-def-one-dict-entry-only" true ~}} {{~! jpmn default: false ~}}')
-            if line.strip() == '{{~set "opt-jmdict-list-format" true ~}}':
-                lines.append('{{~set "opt-jmdict-list-format" false ~}} {{~! jpmn default: true ~}}')
         return "\n".join(lines)
 
     @env.macro

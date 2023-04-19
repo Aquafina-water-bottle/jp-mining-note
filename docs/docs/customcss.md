@@ -25,7 +25,7 @@ you should already know that there are two ways of modding the note:
 
 ---
 
-# Option 1: How to directly edit the CSS
+# Option 1: How to directly edit the CSS { #how-to-directly-edit-the-css }
 !!! warning
     When editing any of the style sheets below, it is recommended to append the given CSS code
     to the *very bottom* of the existing CSS instead of adding to the existing CSS.
@@ -52,7 +52,7 @@ you should already know that there are two ways of modding the note:
 
 ---
 
-# Option 2: How to extend the CSS
+# Option 2: How to extend the CSS { #how-to-extend-the-css }
 
 TODO video!
 
@@ -102,16 +102,3 @@ TODO video!
     In other words, if you don't know any SCSS, you can write normal CSS
     and have it behave completely the same.
 
-
-
-# Examples
-See the [UI Customization](uicustomization.md) page for many examples on how CSS can be used.
-
-
-<!--
-!!! note
-    Unlike [regular overrides](overrides.md) and [modules](modules.md),
-    custom CSS cannot be defined in the `overrides` folder,
-    due to a complication in the current build system.
-    I will be working on a way to define this in the `overrides` folder in the future.
--->

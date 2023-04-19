@@ -32,27 +32,27 @@ you can skip the rest of this section.
 
 ??? example "Tips on Updating Anki <small>(click here)</small>"
 
-    <h4>Official Documentation</h4>
+    **Official Documentation**:
 
-    The official documentation on how to install and upgrade Anki is shown below:
+    -   The official documentation on how to install and upgrade Anki is shown below:
 
-    > [Windows](https://docs.ankiweb.net/platform/windows/installing.html)・[MacOS](https://docs.ankiweb.net/platform/mac/installing.html)・[Linux](https://docs.ankiweb.net/platform/linux/installing.html)
+        > [Windows](https://docs.ankiweb.net/platform/windows/installing.html)・[MacOS](https://docs.ankiweb.net/platform/mac/installing.html)・[Linux](https://docs.ankiweb.net/platform/linux/installing.html)
 
-    Note that for all three, there are additional sections in the table of contents to the left
-    that could be helpful.
+        Note that for all three, there are additional sections in the table of contents to the left
+        that could be helpful.
 
 
-    <h4>Add-ons Breaking</h4>
+    **Add-ons Breaking**:
 
-    If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:
+    -   If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:
 
-    - As a sanity check, click the `Check for Updates` button on Anki's `Addons` window.
-    - Check that the add-on supports the current version of Anki in the official AnkiWeb page.
-        If the page says that the current Anki version is supported,
-        try reinstalling it again from AnkiWeb.
+        - As a sanity check, click the `Check for Updates` button on Anki's `Addons` window.
+        - Check that the add-on supports the current version of Anki in the official AnkiWeb page.
+            If the page says that the current Anki version is supported,
+            try reinstalling it again from AnkiWeb.
 
-        Occasionally, the `Check for Updates` button doesn't properly work,
-        so this method ensures that your addon is actually updated.
+            Occasionally, the `Check for Updates` button doesn't properly work,
+            so this method ensures that your addon is actually updated.
 
 ---
 

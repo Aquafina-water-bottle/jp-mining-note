@@ -52,7 +52,7 @@ the execution of the code).
 
 ---
 
-# Fix Ruby Positioning (for legacy Anki versions)
+# Fix Ruby Positioning <small>(for legacy Anki versions)</small> { #fix-ruby-positioning }
 {{ feature_version("0.11.0.0") }}
 
 If the furigana appears higher than normal on your card,

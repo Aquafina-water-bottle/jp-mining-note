@@ -1,7 +1,7 @@
 
 Runtime options are card options that are applied globally to all JPMN cards.
 This differs from binary fields,
-as binary options are options that only affects the one note.
+as binary options are options that only affects the one card.
 
 ---
 
@@ -9,22 +9,24 @@ as binary options are options that only affects the one note.
 
 To access the runtime options, navigate to your profile's
 [media folder](faq.md#where-is-the-x-folder-in-anki),
-and open the `_jpmn-options.js` file as a text file.
+and open the `_jpmn-options.js` file with your favorite text editor.
 
 The contents of the file should look something like the following:
 ```javascript
 window.JPMNOptions = {
   // Add your runtime options here.
 
+  // ...
+
 }
 ```
 
+<!--
 !!! note
 
     To open the file as a text file on Windows, right click the file and select `Edit`.
     Do not double-click the file.
-
-TODO add demo for windows to opening the file & editing
+-->
 
 ---
 
@@ -87,7 +89,22 @@ You can safely copy/paste anything there (outside of `overrides`) into your runt
 
 
 ## Override Options
-- TODO put any options used by the module to override
+There are a few option groups that can be used to override other options:
+
+- `tooltips.overrideOptions.sentenceParser`
+- `tooltips.overrideOptions.autoPitchAccent`
+- `kanjiHover.overrideOptions.tooltips`
+- `wordIndicators.overrideOptions.tooltips`
+
+The tooltips internally use an instance of the sentence parser and auto pitch accent
+modules to display the content.
+However, one may want to display content differently in tooltips than in
+the regular card.
+If that is desired, these override options can be used to exactly define
+what options are used by the internal
+sentence parser, auto pitch accent and/or tooltips modules.
+
+
 
 
 ---
@@ -130,7 +147,9 @@ This can be changed to:
 ```
 
 A full list of special option types is shown below.
-The source code for these can be found under src/ts/options.ts (TODO link).
+The source code for these can be found under
+[src/ts/options.ts](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/ts/options.ts).
+(TODO not webpack)
 
 
 
@@ -173,7 +192,6 @@ TODO
 
 
 ## `viewportWidth`
-
 {{ feature_version("0.12.0.0") }}
 
 The `viewportWidth` type allows you to specify different values depending
@@ -198,6 +216,29 @@ This is formatted as the following:
 ```
 
 TODO `MATH_OP` and `WIDTH`
+
+
+## `viewportWidthBreakpoint`
+{{ feature_version("0.12.0.0") }}
+
+```json
+"key": {
+  "type": "viewportWidthBreakpoint",
+  "args": {
+    "op": MATH_OP,
+    "value": BREAKPOINT_VAR,
+  },
+  "resultTrue": ...,
+  "resultFalse": ...,
+},
+```
+
+`BREAKPOINT_VAR` can be one of:
+
+- `displaySentenceShrink`
+- `displaySentenceRemoveNewlines`
+- `maxWidthBackside` (tablet)
+- `combinePicture` (mobile)
 
 
 ## `cardType`

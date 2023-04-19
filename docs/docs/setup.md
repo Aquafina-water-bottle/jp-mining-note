@@ -51,18 +51,19 @@ There are three ways of installing the note:
 
 ??? info "Option 1: JPMN Manager <small>(click here)</small>"
 
-    TODO video
+    1.  To install any Anki add-on, navigate to:
 
-    TODO non-prereleases version!
+        > `Tools` →  `Add-ons` →  `Get Add-ons...`
 
-    1. Install
+        From here, you can install
         [JPMN Manager](https://ankiweb.net/shared/info/{{ JPMN_MGR_CODE }})
         and
         [Anki-Connect](https://ankiweb.net/shared/info/2055492159)
-        by using the following add-on codes code:
+        by using the following add-on codes:
         ```
         {{ JPMN_MGR_CODE }} 2055492159
         ```
+
     1. Restart Anki, to load the new add-ons.
     1. Within Anki, navigate to the following:
 
@@ -70,6 +71,9 @@ There are three ways of installing the note:
 
         This will install latest stable version of the note,
         as well as the fonts required for the note to work.
+        Please note that installing the note might take a while, and Anki may appear frozen.
+
+    ![type:video](assets/setup/jpmn_manager-0.12.0.0-prerelease-2.mp4)
 
 ??? info "Option 2: Command Line <small>(click here)</small>"
 
@@ -164,7 +168,7 @@ Please check the following in particular:
     then you must [enable animations on Anki](setupanki.md#enable-animations).
 
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
-    see the [Fix Ruby Positioning](uicustomization.md#fix-ruby-positioning-for-legacy-anki-versions) option.
+    see the [Fix Ruby Positioning](other.md#fix-ruby-positioning) option.
 
 
 ---
