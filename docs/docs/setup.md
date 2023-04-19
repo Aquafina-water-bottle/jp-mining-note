@@ -47,8 +47,6 @@ There are three ways of installing the note:
     and should only be used if the first two options didn't work for some reason.
 
 
-{% set JPMN_MGR_CODE %}1732829476{% endset %}
-
 ??? info "Option 1: JPMN Manager <small>(click here)</small>"
 
     1.  To install any Anki add-on, navigate to:

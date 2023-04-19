@@ -266,6 +266,8 @@ def define_env_vars(env):
         "BATCH_CMD": "[batch command](batch.md)",
         "CLICK_HERE": "<small>(click here)</small>",
         "CLICKHERE": "<small>(click here)</small>",
+        "JPMN_MGR_CODE": "1732829476",
+
     }
 
     for k, v in data.items():

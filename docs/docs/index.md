@@ -22,6 +22,19 @@ Welcome to jp-mining-note's documentation!
 
 [Click here to get started!](preface.md){ .md-button }
 
+---
+
+# TODO: 0.12.0.0
+- Mobile kanji hover and word indicators (using cache.js)
+- Compile-time option: collapse primary definition
+- AND and OR operators for options.ts
+- Attempt to remove most `TODO`s from typescript code
+- Make template better for developers:
+    - Ability to somehow inject custom typescript?
+    - Separate more things into partials
+    - Redo 132 theme with things above
+- Documentation
+
 
 ---
 

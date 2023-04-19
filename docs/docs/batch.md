@@ -11,7 +11,8 @@ Before running any batch command, ensure Anki is open, and Anki-Connect is insta
 
 There are two ways of running batch commands.
 
-1. If you are using [JPMN Manager](https://github.com/Aquafina-water-bottle/jpmn-manager),
+1. If you are using
+    [JPMN Manager](https://ankiweb.net/shared/info/{{ JPMN_MGR_CODE }}),
     you can run it by navigating to the following:
 
     > `Tools` →  `JPMN Manager` →  `Run batch command`
