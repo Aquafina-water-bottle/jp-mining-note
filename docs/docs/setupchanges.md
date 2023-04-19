@@ -94,6 +94,7 @@ After updating the templates, the following fields must be changed:
   for instructions on how to update Anki Card Format.
 
 
+<!--
 ### Handlebars: JMdict Extra
 <i><sup>Main Page: [Setup Yomichan: Fixing JMdict Extra](setupyomichan.md#fixing-jmdict-extra)</sup></i>
 
@@ -113,6 +114,7 @@ For example:
 {{~set "opt-jmdict-list-format" true ~}}
 ```
 {% endraw %}
+-->
 
 
 ## Frequency Display
@@ -122,7 +124,7 @@ instead of all the literal values itself.
 
 - If you prefer the list display, see [Frequencies: List Mode](frequencies.md#list-mode).
 - If you prefer the frequency sort display but you don't have a frequency sort value,
-    [backfill the frequencies](importing.md#6-optional-backfill-the-frequencysort-field).
+    [backfill the frequencies](importing.md#backfill-the-frequencysort-field).
 - If you prefer the frequency sort display but your frequency sort is somehow invalid:
     1. Clear out your `FrequencySort` field entirely through the following command:
         ```

@@ -56,15 +56,16 @@ However, it requires more specialized coordination between programs.
 Fortunately, most common workflows support websockets nowadays.
 
 ??? example "Resources <small>(click here)</small>"
-    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
-        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
+    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) <small>(recommended)</small>
+        * Open source and more featureful alternative to the more popular Anacreon's texthooker page.
         * This texthooker page comes with built in support for both websockets and
             clipboard inserter plugins.
+        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker)
+            to make the text more compressed.
 
-    * [**exSTATic**](https://github.com/KamWithK/exSTATic/) (recommended for stats lovers)
-
+    * [**exSTATic**](https://github.com/KamWithK/exSTATic/) <small>(recommended for stats lovers)</small>
         * Its primary use is for automatic stats collection and visualizing said statistics.
-        * Integrates seamlessly with many workflows.
+        * Integrates seamlessly with many workflows, including non-texthooker related workflows.
         * Uses a custom texthooker page, which connects with Textractor with its own custom extension.
         * A video installation guide is available on the project's README page.
 
@@ -151,25 +152,34 @@ via automated clipboard (copy/paste) tools.
 Most classic setups documented are for clipboard based texthooker pages.
 
 ??? example "Resources <small>(click here)</small>"
-    * [**Original Clipboard Inserter (Extension)**](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
-        * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
-            as of Firefox version 107.0. Use the extension below if you are using Firefox.
-    * [**Lap Clipboard Inserter (Extension)**](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
-        * Updated version of the above.
-        * Works on Firefox, but Chrome (manifest 3) support is currently not supported.
-            Use the first extension if you are using a chromium based browser.
-    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
+    * [**Clipboard Inserter Redux (Extension)**](https://github.com/Onurtag/clipboard-inserter)
+        * Updated version of the original Clipboard Inserter extension
+        * Still using manifest v2, so this extension will be deprecated in the future unless updated
+    * [**Lap Clipboard Inserter (Extension)**](https://github.com/laplus-sadness/lap-clipboard-inserter) <small>(Firefox)</small>
+        * Rewritten version of the original Clipboard Inserter extension, to use manifest v3
+        * Works on Firefox, but Chrome is
+            [currently not supported](https://github.com/laplus-sadness/lap-clipboard-inserter#chrome).
+            Use Clipboard Inserter Redux if you are using a chromium based browser.
+    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) <small>(recommended)</small>
         * Open source and more featureful alternative to the more popular Anacreon's texthooker page.
-        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
-    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
-    * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
+        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker)
+            to make the text more compressed.
 
 ??? example "Guides <small>(click here)</small>"
-    * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) (recommended)
+    * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) <small>(recommended)</small>
     * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
     * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
     * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/)
 
+??? example "Legacy Resources <small>(click here)</small>"
+    These resources are considered legacy, and I highly recommend using the
+    standard resources above in favor of these.
+
+    * [**Original Clipboard Inserter (Extension)**](https://github.com/kmltml/clipboard-inserter) <small>(WARNING: NO LONGER MAINTAINED!)</small>
+        * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
+            as of Firefox version 107.0. Use either extensions above if you are using Firefox.
+    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
+    * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
 
 ---
 
@@ -209,11 +219,13 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
             as the form of a gif (autoplayable webp).
     * [**asbplayer**](https://github.com/killergerbah/asbplayer) (recommended for streamed sites)
         * Cross platform (chromium) browser video player. Personally tested.
-        * Codec support is based on the browser used.
         * Works on video streaming sites, as well as downloaded videos.
+        * Does not require a texthooker: subtitles are displayed on the site itself.
+        * Codec support is limited, and depends on the browser used.
     * [**Animebook**](https://github.com/animebook/animebook.github.io)
         * Cross platform (chromium) browser video player.
-        * Codec support is based on the browser used.
+        * Does not require a texthooker: subtitles are displayed on the site itself.
+        * Codec support is limited, and depends on the browser used.
     * All of the above require subtitle files to function.
         See
         [here](https://learnjapanese.moe/resources/#subtitles)

@@ -26,6 +26,28 @@ window.JPMNOptions = {
 
 TODO add demo for windows to opening the file & editing
 
+---
+
+# Adding Options
+
+You can add a runtime option anywhere between the two outer-most curly brackets.
+For example:
+
+```javascript
+window.JPMNOptions = {
+  // Add your runtime options here.
+
+  "autoPitchAccent.coloredPitchAccent.enabled": true,
+  // ...
+}
+```
+
+!!! note
+    You should only add options that you want to override.
+    This is to allow the default options to change, which usually
+    only happens if the old option is no longer valid due to implementation details.
+    In the rare occasion that default options do change, they will be recorded under the
+    [Setup Changes](setupchanges.md) page.
 
 ---
 
@@ -41,7 +63,7 @@ You can safely copy/paste anything there (outside of `overrides`) into your runt
 
 !!! warning
     This `json5` file is, strictly speaking, NOT an example configuration file.
-    There are a few minor between the `runtime_opts.json5` file
+    There are a few differences between the `runtime_opts.json5` file
     and the actual `_jpmn-opts.js` configuration file:
 
     1. `runtime_opts.json5` does not have the `window.JPMNOptions` variable set at the very top.

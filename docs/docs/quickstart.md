@@ -382,11 +382,13 @@ TODO
 ## Binary Fields
 > Fields: `IsSentenceCard`, `IsTargetedSentenceCard`, etc.
 
-- screenshot of yomichan
+- TODO screenshot of yomichan
+- TODO explain
 
 
 
 ## Sorting by Frequency
+<i><sup>Main Page: [Frequencies: Sorting by Frequency](frequencies.md#sorting-by-frequency)</sup></i>
 > Fields: `FrequencySort`
 
 *   This note type comes with a `FrequencySort` field,

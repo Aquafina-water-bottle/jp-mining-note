@@ -558,27 +558,33 @@ TODO a few options
     - advantages:
         - standard export (can even work with default handlebars)
         - all info is present
-        - access to html parser
+        - access to html parser, meaning that html should remain valid
+        - should theoretically work on previously exported cards
     - disadvantages:
-        - must assume certain HTML structure(s) in definition field itself
+        - must assume certain HTML structure(s) in entire definition field itself
             - problem comes when the user edits the field: can change it to whatever they want
             - therefore, this approach is usually more brittle
         - javascript must be ran (slowing down card load)
+        - not immediately portable: must copy/paste the JS to port between notes
+    - may be implemented in the future if there is enough demand for it
 - wrap spans around existing HTML on handlebars import
     - advantages:
         - does not technically require javascript (and the optional javascript that is ran is fast)
         - all info is present
+        - very easy to implement
     - disadvantages:
         - not immediately portable: must copy/paste CSS to port between note types
-        - expects a certain HTML structure in order to work
-            - will not work on standard plaintext or standard Yomichan imports
+        - expects a certain HTML structure in the exported definition in order to work
+            - will not work on older cards exported with different handlebars
         - can lead to invalid HTML
-    - the chosen method for this note, primarily due to speed and no info loss
+    - the chosen method for this note, primarily due to speed, no info loss and simplicity
 
 
 
 ## When HTML can break
 {{ feature_version("0.12.0.0") }}
+
+TODO rework with the previous section
 
 In order to even have the possibility of removing the first line,
 the HTML is parsed with regex in order to find the text before the first line break.
@@ -597,6 +603,8 @@ to remove the possibility of invalid HTML.
 ## Hide the first line for select dictionaries
 {{ feature_version("0.12.0.0") }}
 
+TODO rework with the previous sections
+
 The following two options are useful if you want to ignore certain problematic dictionaries,
 that do not play well with the regex above.
 
@@ -612,73 +620,11 @@ Whether the dictionaries are ignored or kept is defined in `opt-first-line-regex
 (`except` means that the specified dictionaries are ignored, and `only` means that only the
 specified dictionaries can have their first lines removed.)
 
-
-
-
 ---
 
 
 
 
-
-<!--
-
-# Removing the numbers in the primary definition
-
-TODO image
-
-Currently, I am not aware of an easy way to only remove the numbers if there is only one
-item (and having them remain for multple definitions) with only CSS.
-
-The following {{ CSS }} completely nukes the numbers regardless of how many items there are in the list.
-
-
-??? example "Instructions <small>(click here)</small>"
-
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        .glossary-text--primary-definition ol {
-          list-style: none;
-          padding-left: 0em;
-        }
-        ```
-
----
-
-
-
-## Collapsing dictionaries
-{{ feature_version("0.12.0.0") }}
-
-This allows you collapse dictionaries within the
-Secondary Definition or Extra Definitions section.
-
-TODO gif
-
-??? example "Instructions <small>(click here)</small>"
-
-    ```json
-    {
-      "modules": {
-        "collapse-dictionaries": {
-          "enabled": true,
-          // ...
-        }
-      }
-    }
-    ```
-
-!!! note
-
-    There are many options for the above the above module,
-    such as overriding what dictionaries should be collapsed or not.
-    These will not be documented here, but will be documented in the
-    runtime options file.
-
----
-
--->
 
 
 
@@ -729,16 +675,18 @@ will be imported into the primary definition.
 
 
 
-# JMdict (Extra) Support
+# Legacy JMdict Support
 
-> `opt-jmdict-list-format`
+By default, JMdict is exported in a list format,
+which allows the note's CSS to re-compact the list.
+This is required over plaintext, because
+[JMdict Extra](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan)
+cannot compact export a compact definition normally.
+This is a [known issue](https://github.com/FooSoft/yomichan/issues/2297) with Yomichan's
+default handlebars.
 
-TODO
-
-This is an option because there are many version of JMdict Yomichan dictionaries,
-so it is impossible to automatically detect whether you are using the extra version or not.
-
----
+If you prefer using a legacy version of JMdict and prefer a full line of plaintext
+instead of a CSS list, you can set `opt-jmdict-list-format` to `false`.
 
 
 

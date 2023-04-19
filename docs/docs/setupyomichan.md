@@ -22,14 +22,28 @@ Most users should have installed it from their browser's extension page, in whic
 nothing has to be done.
 
 !!! warning "Warning for Firefox Users"
-    There appears to be an issue where the default version for Yomichan on Firefox
-    is [three years old](https://github.com/FooSoft/yomichan/issues/2295).
+    The default version for Yomichan on Firefox
+    is [over three years old](https://github.com/FooSoft/yomichan/issues/2295),
+    and is not compatible with this note.
     If you are using Firefox, ensure that your Yomichan version is indeed the latest version,
     by clicking on the Yomichan icon and clicking on the question mark.
-    If it isn't, you will have to download it [manually](https://github.com/FooSoft/yomichan/releases).
 
-    You may also have to download the Firefox Developer edition, and set `xpinstall.signatures.required`
+    If it isn't, then I recommend to switch to Chrome (or Chromium) for immersion.
+
+    <!--
+    TODO Yomitan, once it's stable...
+
+    If it isn't, there are two main ways of fixing it:
+
+    1. [Manual Download](https://github.com/FooSoft/yomichan/releases)
+        with
+        [Firefox: Developer edition](https://www.mozilla.org/en-US/firefox/developer/)
+        The manual download will NOT work on regular firefox, because it is unsigned.
+        `xpinstall.signatures.required`
+
+    You may also have to download the Firefox Developer edition, and set 
     to `false`.
+    -->
 
 ---
 
@@ -118,6 +132,8 @@ add the following template code as follows:
 ---
 
 # Make an example card!
+TODO re-record with renji's texthooker, and show result card
+
 At this point, you should be able to make cards with Yomichan!
 
 ??? example "Click here to show some example Japanese sentences."
@@ -206,6 +222,11 @@ Here is exactly what's happening:
 
 
 
+<!--
+
+IT WORKS WITH OLD JMDICT!!
+THIS SECTION IS NO LONGER NECESSARY!!!
+
 ## Legacy JMdict
 
 The newest JMdict Yomichan dictionary, informally known as "JMdict Extra",
@@ -231,7 +252,6 @@ your definitions will export incorrectly (in a non-compact form).
 
 
 
-<!--
 then the exported compact list will not be fully compact.
 This is a [known issue](https://github.com/FooSoft/yomichan/issues/2297) with Yomichan's
 default handlebars.
