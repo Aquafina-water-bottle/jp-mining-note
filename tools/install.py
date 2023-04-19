@@ -11,7 +11,6 @@ import os
 import base64
 import shutil
 import argparse
-import datetime
 import traceback
 
 from dataclasses import dataclass
@@ -27,7 +26,6 @@ import note_changes as nc
 FRONT_FILENAME = "front.html"
 BACK_FILENAME = "back.html"
 CSS_FILENAME = "style.css"
-TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
 
 
 @dataclass(frozen=True)
@@ -388,7 +386,7 @@ def main(args: argparse.Namespace | None = None) -> str | None:
     media_folder = os.path.join(search_folder, "media")
     static_folder = os.path.join(root_folder, "media")
     backup_folder = os.path.join(
-        root_folder, args.backup_folder, datetime.datetime.now().strftime(TIME_FORMAT)
+        root_folder, args.backup_folder, utils.get_time_str()
     )
     media_backup_folder = os.path.join(backup_folder, "media")
 

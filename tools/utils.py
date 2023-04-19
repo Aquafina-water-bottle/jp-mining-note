@@ -5,6 +5,7 @@ import copy
 import json
 import os.path
 import argparse
+import datetime
 import urllib.request
 import urllib.error
 
@@ -15,8 +16,10 @@ from json_handler import JsonHandler
 
 USER_CONFIG_PATH = "config/config.json5"
 DEFAULT_CONFIG_PATH = "config/default_config.json5"
+TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
 
 rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+(-prerelease-\d+)?)")
+
 
 JSON = dict[str, Any]
 
@@ -437,7 +440,7 @@ def get_root_folder() -> str:
     """
 
     tools_folder = os.path.dirname(os.path.abspath(__file__))
-    root_folder = os.path.join(tools_folder, "..")
+    root_folder = os.path.realpath(os.path.join(tools_folder, ".."))
 
     return root_folder
 
@@ -464,6 +467,9 @@ def assert_ankiconnect_running():
             "Ankiconnect is not running. Is Anki open, and is Ankiconnect installed and enabled?"
         )
 
+
+def get_time_str():
+    return datetime.datetime.now().strftime(TIME_FORMAT)
 
 if __name__ == "__main__":
     # write temporary tests here
