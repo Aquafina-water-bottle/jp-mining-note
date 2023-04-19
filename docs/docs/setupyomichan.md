@@ -32,6 +32,7 @@ nothing has to be done.
 
     <!--
     TODO Yomitan, once it's stable...
+    -->
 
     If it isn't, there are two main ways of fixing it:
 
