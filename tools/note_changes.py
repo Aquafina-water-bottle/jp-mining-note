@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 import os
 
@@ -16,6 +16,7 @@ import utils
 class NoteChange:
     version: Version
     actions: list[action.Action]
+    post_actions: list[action.Action]
     fields: list[str]
 
 # hard coded for now to prevent arbitrary code injection type things
@@ -32,6 +33,35 @@ ACTION_TYPE_TO_OBJECT_CLASS = {
 }
 
 
+def parse_actions(actions_data):
+    batch_func_str_to_func = {f.__name__: f for f in batch.PUBLIC_FUNCTIONS}
+
+    # actions
+    actions = []
+    for action_data in actions_data:
+        action_type = action_data["type"]
+        action_obj_cls = ACTION_TYPE_TO_OBJECT_CLASS[action_type]
+
+        if action_type == "BatchUpdate":
+            # override the batch_func parameter with the one in batch.py
+            params = action_data["params"]
+            params["batch_func"] = batch_func_str_to_func[params["batch_func"]]
+            action_obj = action_obj_cls(**params)
+
+        elif "params" in action_data:
+            params = action_data["params"]
+            if isinstance(params, list):
+                action_obj = action_obj_cls(*params)
+            else:
+                assert isinstance(params, dict)
+                action_obj = action_obj_cls(**params)
+        else:
+            action_obj = action_obj_cls()
+
+        actions.append(action_obj)
+
+    return actions
+
 def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = None) -> tuple[NoteChange]:
     if file_path is None:
         file_path = os.path.join(utils.get_root_folder(), "data", "note_changes.json5")
@@ -43,34 +73,14 @@ def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = No
     # fills from bottom-up
     note_changes: list[NoteChange] = []
 
-    batch_func_str_to_func = {f.__name__: f for f in batch.PUBLIC_FUNCTIONS}
-
     for note_change_data in reversed(json_data["note_changes"]):
         version = Version.from_str(note_change_data["version"])
 
-        # actions
-        actions = []
-        for action_data in note_change_data["actions"]:
-            action_type = action_data["type"]
-            action_obj_cls = ACTION_TYPE_TO_OBJECT_CLASS[action_type]
-
-            if action_type == "BatchUpdate":
-                # override the batch_func parameter with the one in batch.py
-                params = action_data["params"]
-                params["batch_func"] = batch_func_str_to_func[params["batch_func"]]
-                action_obj = action_obj_cls(**params)
-
-            elif "params" in action_data:
-                params = action_data["params"]
-                if isinstance(params, list):
-                    action_obj = action_obj_cls(*params)
-                else:
-                    assert isinstance(params, dict)
-                    action_obj = action_obj_cls(**params)
-            else:
-                action_obj = action_obj_cls()
-
-            actions.append(action_obj)
+        actions = parse_actions(note_change_data["actions"])
+        if "post_actions" in note_change_data:
+            post_actions = parse_actions(note_change_data["post_actions"])
+        else:
+            post_actions = []
 
         # fields
         fields = note_change_data["fields"]
@@ -81,7 +91,7 @@ def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = No
             fields = previous_fields.copy() # shallow copy
         previous_fields = fields.copy()
 
-        nc = NoteChange(version, actions, fields)
+        nc = NoteChange(version, actions, post_actions, fields)
         note_changes.append(nc)
 
     return tuple(reversed(note_changes))

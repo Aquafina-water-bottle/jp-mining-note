@@ -449,6 +449,9 @@ def main(args: argparse.Namespace | None = None) -> str | None:
 
         print(f"Updating {model_name}...")
         note_updater.update()
+        if action_runner:
+            print("Running post actions...")
+            action_runner.run_post()
 
         for option_file in note_data("media-install", "options").list():
             if args.install_options or not media_installer.media_exists(option_file):

@@ -327,9 +327,7 @@ class ActionRunner:
         """
 
         self.changes: list[nc.NoteChange] = []
-        #self.select_changes: list[int] | None = select_note_changes
-        # tuple of: action, whether it should be ran
-        #self.action_metadata: dict[Action, ActionMetadata]
+        self.post_changes: list[nc.NoteChange] = []
 
         self.edits_cards: bool = False
         self.requires_user_action: bool = False
@@ -386,10 +384,23 @@ class ActionRunner:
             if self.edits_cards and self.requires_user_action:
                 return  # saves some cycles
 
-    def get_filtered_actions(self) -> list[Action] :
+    def get_filtered_actions(self) -> list[Action]:
+        """
+        simply flattens the actions from the changes.
+        """
         result = []
         for c in self.changes:
             for a in c.actions:
+                result.append(a)
+        return result
+
+    def get_filtered_post_actions(self) -> list[Action]:
+        """
+        simply flattens the actions from the changes.
+        """
+        result = []
+        for c in self.changes:
+            for a in c.post_actions:
                 result.append(a)
         return result
 
@@ -517,6 +528,11 @@ class ActionRunner:
             except Exception:
                 traceback.print_exc()
                 print("Post-field check failed, skipping error...")
+
+    def run_post(self):
+        for data in self.changes:
+            for action in data.post_actions:
+                action.run(**self.action_args)
 
     def get_post_message(self) -> str | None:
         if self.requires_user_action:
