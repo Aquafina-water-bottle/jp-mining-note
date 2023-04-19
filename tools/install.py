@@ -9,6 +9,7 @@ updateModelTemplates
 
 import os
 import base64
+import shutil
 import argparse
 import datetime
 import traceback
@@ -47,6 +48,7 @@ class NoteType:
 class MediaFile:
     name: str
     contents: str
+    path: str
 
 
 def add_args(parser: argparse.ArgumentParser):
@@ -260,18 +262,21 @@ class MediaInstaller:
     updates (and backs up, if specified) arbitrary media files
     """
 
-    def __init__(self, input_folder: str, static_folder: str, backup_folder: str):
+    def __init__(self, input_folder: str, static_folder: str, backup_folder: str, attempt_copy: bool=True):
         self.input_folder = input_folder
         self.static_folder = static_folder
         self.backup_folder = backup_folder
+        self.attempt_copy = attempt_copy
+        self.media_dir = None
+        self.attempted_get_media_dir = False
 
     def get_media_file(self, file_name, static=False) -> MediaFile:
         input_folder = self.static_folder if static else self.input_folder
-
-        with open(os.path.join(input_folder, file_name), mode="rb") as f:
+        path = os.path.join(input_folder, file_name)
+        with open(path, mode="rb") as f:
             contents = f.read()
         return MediaFile(
-            name=file_name, contents=base64.b64encode(contents).decode("utf-8")
+            name=file_name, contents=b64_encode(contents), path=path
         )
 
     def backup(self, file_name):
@@ -288,7 +293,7 @@ class MediaInstaller:
                 f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ..."
             )
 
-            contents = base64.b64decode(contents_b64).decode("utf-8")
+            contents = b64_decode(contents_b64)
 
             utils.gen_dirs(backup_file_path)
             with open(backup_file_path, mode="w", encoding="utf-8") as f:
@@ -314,6 +319,39 @@ class MediaInstaller:
         for file in file_list:
             self.install(file, **kwargs)
 
+    def get_media_dir(self) -> str | None:
+        if self.media_dir is None and not self.attempted_get_media_dir:
+            try:
+                self.media_dir = invoke("getMediaDirPath")
+            except Exception:
+                print("Could not get getMediaDirPath.")
+                traceback.print_exc()
+        self.attempted_get_media_dir = True
+        return self.media_dir
+
+    def attempt_copy_media_file(self, media: MediaFile):
+        """
+        Attempts to copy the actual media file, instead of using storeMediaFile.
+        This should greatly improve performance.
+
+        Returns whether the attempt was successful or not
+        """
+        if not self.attempt_copy: # don't even try in the first place
+            return False
+
+        media_dir = self.get_media_dir()
+        if media_dir is None:
+            return False
+        try:
+            src = media.path
+            dst = os.path.join(media_dir, media.name)
+            shutil.copy(src, dst)
+        except Exception:
+            print("Could not get getMediaDirPath.")
+            traceback.print_exc()
+            return False
+        return True
+
     def install(self, file_name: str, static=False, backup=False):
         if static:
             # only adds if the media file doesn't already exist
@@ -323,6 +361,9 @@ class MediaInstaller:
             self.backup(file_name)
 
         media = self.get_media_file(file_name, static=static)
+        if self.attempt_copy_media_file(media): # success
+            return
+
         self.send_media(media)
 
 
