@@ -7,6 +7,9 @@ as binary options are options that only affects the one card.
 
 # Accessing & Editing
 
+??? example "Video demo {{ CLICK_HERE }}"
+    ![type:video](assets/runtimeoptions/open_rto.mp4)
+
 To access the runtime options, navigate to your profile's
 [media folder](faq.md#where-is-the-x-folder-in-anki),
 and open the `_jpmn-options.js` file with your favorite text editor.
@@ -60,8 +63,6 @@ All available options can be found in the
 file. (TODO not webpack branch!)
 
 You can safely copy/paste anything there (outside of `overrides`) into your runtime options file.
-
-(TODO video! maybe record in Windows to prevent confusion?)
 
 !!! warning
     This `json5` file is, strictly speaking, NOT an example configuration file.
