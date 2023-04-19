@@ -374,6 +374,8 @@ class ActionRunner:
                 )
                 actions = self.get_filtered_actions()
                 self.verifier.verify(actions)
+                post_actions = self.get_filtered_post_actions()
+                self.verifier.verify_api_reflect(post_actions)
 
         # sees if actions edits the cards
         for action in self.get_filtered_actions():
