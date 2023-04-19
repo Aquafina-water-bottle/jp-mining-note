@@ -32,37 +32,48 @@ There are two main reasons that Anki-Connect can fail:
 
 ## (Warning) JPMNOpts was not defined in the options file. Was there an error?
 
-If you see this as an isolated warning without any other errors,
-it is very likely that you are using Anki version 2.1.49 or below.
-Please check your Anki version to confirm this:
+There are two reasons why you would be getting this warning:
 
-> Main Window →  `Help` →  `About...`
+1. You updated your note from a version before `0.12.0.0`,
+    to `0.12.0.0` or higher.
+    In this case, you will have to
+    [update your config file](setupchanges.md#v0-12-0-0-config-rework).
 
-If your Anki version is indeed 2.1.49 or below, then this should only appear on the front side of your first card of the session.
-To check, try flipping the card and back. This warning should dissappear once you do.
+1. You are using Anki version 2.1.49 or below.
 
-The only side effect of this is that the user-defined runtime options will not be used for the front side of the first card,
-and the defaults will be used instead.
+    Please check your Anki version to confirm this:
 
-There are two ways to fix this:
+    > Main Window →  `Help` →  `About...`
 
-1. [Update Anki](setupanki.md#updating-anki) to a higher version.
-1. Compile the card with [hard-coded defaults](moddingtips.md#custom-runtime-options).
+    ??? example "How to fix {{ CLICKHERE }}"
 
-??? info "Why this happens <small>(click here)</small>"
+        If your Anki version is indeed 2.1.49 or below, then this should only appear on
+        the front side of your first card of the session.
+        To check, try flipping the card and back. This warning should dissappear once you do.
 
-    The `<script ... src="_jpmn-options.js">` tag seems to runs asynchronously on 2.1.49 and below,
-    meaning that the order of when this is ran is not constant compared to the main javascript block.
-    With that being said, the exact tag seems to run synchronously on 2.1.50 and above,
-    so it is guaranteed to run before the main javascript block on these versions.
+        The only side effect of this is that the user-defined runtime options
+        will not be used for the front side of the first card,
+        and the defaults will be used instead.
 
-    With my current knowledge, the only way to guarantee the order of this import is asynchronous functions,
-    or some other asynchronous features.
-    For example, a simple `await import(...)` should work.
-    However, asynchronous features have been avoided throughout the development of this,
-    as it currently seems to
-    [behave unpredictably](moddingtips.md#avoid-asynchronous-javascript-features-in-anki)
-    within Anki.
+        There are two ways to fix this:
+
+        1. [Update Anki](setupanki.md#updating-anki) to a higher version. <small>(highly recommended)</small>
+        1. Compile the card with [hard-coded defaults](moddingtips.md#custom-runtime-options).
+
+        ??? info "Why this happens <small>(click here)</small>"
+
+            The `<script ... src="_jpmn-options.js">` tag seems to runs asynchronously on 2.1.49 and below,
+            meaning that the order of when this is ran is not constant compared to the main javascript block.
+            With that being said, the exact tag seems to run synchronously on 2.1.50 and above,
+            so it is guaranteed to run before the main javascript block on these versions.
+
+            With my current knowledge, the only way to guarantee the order of this import is asynchronous functions,
+            or some other asynchronous features.
+            For example, a simple `await import(...)` should work.
+            However, asynchronous features have been avoided throughout the development of this,
+            as it currently seems to
+            [behave unpredictably](moddingtips.md#avoid-asynchronous-javascript-features-in-anki)
+            within Anki.
 
 
 

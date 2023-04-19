@@ -246,17 +246,17 @@ def define_env_vars(env):
         "UNCHECKED_CHECKBOX": UNCHECKED_CHECKBOX,
         "RegexTableArgs": RegexTableArgs,
         # runtime options file
-        "RTO_FILE": '[runtime options](runtimeoptions.md){:target="_blank"}',
-        "RTOs": '[runtime options](runtimeoptions.md){:target="_blank"}',
-        "RTO": '[runtime option](runtimeoptions.md){:target="_blank"}',
+        "RTO_FILE": '[runtime options](runtimeoptions.md)',
+        "RTOs": '[runtime options](runtimeoptions.md)',
+        "RTO": '[runtime option](runtimeoptions.md)',
         "rto": lambda x: f"`RTO:{x}`", # TODO automatically link
-        "C_CSS": '[custom CSS](customcss.md){:target="_blank"}',
-        "CSS": '[CSS](customcss.md){:target="_blank"}',
-        "CTO_FILE": '[compile-time options](compiletimeoptions.md){:target="_blank"}',
-        "CTOs": '[compile-time options](compiletimeoptions.md){:target="_blank"}',
-        "CTO": '[compile-time option](compiletimeoptions.md){:target="_blank"}',
-        "YTCOs": '[Yomichan template options](yomichantemplates.md){:target="_blank"}',
-        "YTCO": '[Yomichan template option](yomichantemplates.md){:target="_blank"}',
+        "C_CSS": '[custom CSS](customcss.md)',
+        "CSS": '[CSS](customcss.md)',
+        "CTO_FILE": '[compile-time options](compiletimeoptions.md)',
+        "CTOs": '[compile-time options](compiletimeoptions.md)',
+        "CTO": '[compile-time option](compiletimeoptions.md)',
+        "YTCOs": '[Yomichan template options](yomichantemplates.md)',
+        "YTCO": '[Yomichan template option](yomichantemplates.md)',
         "TMW_SERVER": "[TMW server](https://learnjapanese.moe/join/)",
         "THEMOEWAY_LINK": "https://learnjapanese.moe/join/",
         "TMW_LINK": "https://learnjapanese.moe/join/",
@@ -375,7 +375,6 @@ def define_env(env):
                 "!!! warning\n"
                 f"    New as of version `{feature_version_str}`. "
                 "This version is currently [bleeding edge](building.md)"
-                '{:target="_blank"}'
                 ", so this feature **cannot be used** unless you compile the templates from the dev branch."
             )
 
