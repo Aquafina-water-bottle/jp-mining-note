@@ -229,6 +229,10 @@ def define_env_vars(env):
     with open(os.path.join("..", "yomichan_templates", "bottom.txt")) as f:
         bottom = f.read()
 
+    with open(os.path.join("..", "src", "jp-mining-note", "_jpmn-options.js")) as f:
+        runtime_opts_ex = f.read()
+
+
     with open("../version.txt") as f:
         version = f.read().strip()
 
@@ -236,6 +240,7 @@ def define_env_vars(env):
         #"FIELDS": FIELDS,
         "TOP_YOMICHAN": top,
         "BOTTOM_YOMICHAN": bottom,
+        "JPMN_OPTIONS_EXAMPLE": runtime_opts_ex,
         "VERSION": version,
         "CHECKED_CHECKBOX": CHECKED_CHECKBOX,
         "UNCHECKED_CHECKBOX": UNCHECKED_CHECKBOX,
@@ -260,6 +265,7 @@ def define_env_vars(env):
         "PERDITION_LINK": "https://discord.gg/uK4HeGN",
         "BATCH_CMD": "[batch command](batch.md)",
         "CLICK_HERE": "<small>(click here)</small>",
+        "CLICKHERE": "<small>(click here)</small>",
     }
 
     for k, v in data.items():

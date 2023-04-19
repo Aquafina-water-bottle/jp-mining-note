@@ -19,6 +19,7 @@ See the [Updating](updating.md#overview) page on how to update the note.
 Afterwards, see below for the other necessary changes that must be made to properly update the note.
 
 
+<!--
 ## Field Font Size
 TODO: batch commands
 
@@ -35,16 +36,7 @@ All info about the field font sizes should be found in the [fields table](fields
 Additionally, all new fields will have the default font, which likely
 does not display Japanese characters correctly.
 Please set this to match your other fields.
-
-
-
-
-## Automatic Field Collapsing
-For newer versions of Anki,
-you can set a field to be collapsed by default by heading over to:
-> (Note editor) →  `Fields...` →  `Collapse by default`
-
-Feel free to automatially collapse any fields you don't use, or very rarely use.
+-->
 
 
 
@@ -61,9 +53,13 @@ To fix your config file, do the following steps:
 
 1. [Locate the `_jpmn-options.js` file](runtimeoptions.md#accessing-editing).
 1. Make a backup of this file, say, by copying the file into your `Documents` folder.
-1. Edit the file with your favorite text editor, and replace its contents entirely with the
-    [example config](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/jp-mining-note/_jpmn-options.js).
-    - TODO LINK TO MASTER AFTER PRERELEASE
+1. Edit the file with your favorite text editor, and replace its contents entirely with the following:
+
+    ??? example "New runtime options file {{CLICKHERE}}"
+        ```js title="_jpmn-options.js"
+        {% filter indent(8) %}{{ JPMN_OPTIONS_EXAMPLE}}{% endfilter %}
+        ```
+
 1. Re-add any runtime options you had changed before.
     Common runtime-options (pitch accent coloring and image blur) are included as examples;
     remove the comment to re-enable them.
@@ -82,6 +78,7 @@ To fix your config file, do the following steps:
 ## Handlebars
 Yomichan's Handlebars has been updated, with some new markers and features being added.
 
+- To update Yomichan's Anki Card Format, see [here](updating.md#updating-yomichans-anki-card-format).
 - To update your handlebars templates, see [here](updating.md#updating-yomichan-templates).
 
 After updating the templates, the following fields must be changed:
@@ -92,6 +89,11 @@ After updating the templates, the following fields must be changed:
 - `YomichanWordTags`: `(empty)` →  `{tags}`
 - See [here](updating.md#updating-yomichans-anki-card-format)
   for instructions on how to update Anki Card Format.
+
+
+## AnkiConnectAndroid
+If you are using AnkiConnectAndroid, please repeat the steps above for updating Yomichan.
+It will likely [error until updated](https://github.com/KamWithK/AnkiconnectAndroid#problem-on-card-add-i-get-incorrect-flds-argument).
 
 
 <!--
@@ -130,8 +132,25 @@ instead of all the literal values itself.
         ```
         python3 tools/batch.py clear_field "FrequencySort"
         ```
-    2.  Follow the backfill frequencies instructions in the second point.
+    2.  [Backfill the frequencies](importing.md#backfill-the-frequencysort-field).
 
+
+
+
+## Automatic Field Collapsing
+For newer versions of Anki,
+you can set a field to be collapsed by default by heading over to:
+
+> (Note editor) →  `Fields...` →  `Collapse by default`
+
+Feel free to automatially collapse any fields you don't use, or very rarely use.
+By default, the following fields are collapsed by default (but are not updated automatically):
+
+- `AltDisplayPASentenceCard`
+- `AltDisplayAudioCard`
+- `SecondaryDefinition`
+- `ExtraDefinitions`
+- `CardCache`
 
 
 ## Custom SCSS

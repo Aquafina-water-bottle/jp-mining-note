@@ -13,7 +13,6 @@ may show up on the info circle at the top right.
 {{ img("info circle error example", "assets/info_circle/error.gif") }}
 </figure>
 
----
 
 
 
@@ -28,7 +27,6 @@ There are two main reasons that Anki-Connect can fail:
     see the note in the Anki-Connect setup section
     [here](setupanki.md#anki-connect).
 
----
 
 
 
@@ -68,7 +66,6 @@ There are two ways to fix this:
 
 
 
----
 
 
 ## General Error Troubleshooting
@@ -103,7 +100,6 @@ or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/iss
 
 # Troubleshooting { .text-yellow }
 
----
 
 
 ## The font on the card template is incorrect
@@ -125,7 +121,6 @@ TODO example picture of the wrong font
     - restart your entire computer
         - sometimes, restarting Anki isn't enough
 
----
 
 ## The font on the card editor is incorrect
 
@@ -133,7 +128,6 @@ TODO example picture of the wrong font
 - TODO batch script maybe?
 
 
----
 
 
 ## The `SentenceReading` field is not updated / is different from the `Sentence` field
@@ -170,7 +164,6 @@ The only full solution I know to this is to
 If you still want furigana on your cards,
 [bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
 
----
 
 
 
@@ -190,7 +183,6 @@ if the highlight is incorrect.
 
 See [here](ui.md#automatic-word-highlighting) for more info.
 
----
 
 
 
@@ -201,7 +193,6 @@ field and nothing in that field is bolded, then the show/hide button will do not
 
 This potentially relates to the issue above.
 
----
 
 
 ## The replay audio button plays the sentence, word, and then sentence.
@@ -217,7 +208,6 @@ go to:
 →  Toggle `Skip question when replaying answer`
 
 
----
 
 ## The `Tools` →  `Check Media` interface removes the font files.
 This is a known bug, and unfortunately, this bug will **not be fixed**.
@@ -232,7 +222,6 @@ When a user is asked to export a card, the exported file will not contain the fo
 meaning that the result `.apkg` file will be about 1MB instead of some 20MB,
 allowing it to be shared easily on a place like Discord.
 
----
 
 
 ## This card template loads slower than other card templates.
@@ -321,7 +310,6 @@ remove certain features of the note.
     Note that `img-utils-minimal` will still cause a document reflow unless you change the above options.
 
 
----
 
 
 ## The sentence quotes are on completely different lines!
@@ -359,7 +347,6 @@ For example, the above should be changed into:
 
 # Card Editing { .text-yellow }
 
----
 
 ## How do I set the default card type?
 In [Yomichan's Anki Card Format](setupyomichan.md#yomichan-fields),
@@ -368,7 +355,6 @@ you can simply fill the field.
 For example, if you want to set the default card type to be a sentence card,
 fill the `IsSentenceCard` field there.
 
----
 
 ## How do I automatically change the value of a binary field on multiple existing cards?
 
@@ -397,7 +383,6 @@ You have three main options:
 
 3. Regex Search (TODO)
 
----
 
 ## How do I disable furigana on card generation?
 
@@ -411,7 +396,6 @@ You have three main options:
 You likely want to bulk-generate the furigana if you are disabling furigana on card generation.
 See the question below to do just that.
 
----
 
 ## How do I bulk generate furigana and pitch accents?
 
@@ -442,7 +426,6 @@ See the question below to do just that.
     There may be some cards that still have an empty `AJTWordPitch` field.
     This is simply because the add-on did not contain the pitch data for those words.
 
----
 
 ## How do I remove an empty card without deleting the entire note?
 !!! quote
@@ -453,7 +436,6 @@ See the question below to do just that.
     Taken directly from [Anki's official documentation](https://docs.ankiweb.net/files.html#file-locations).
     </sup>
 
----
 
 
 ## How do I edit the field's raw HTML?
@@ -466,7 +448,6 @@ on the code button.
 
 {{ img("Anki edit html", "assets/faq/edit_html.gif") }}
 
----
 
 
 ## How do I use this note type as an Anime Card?
@@ -484,7 +465,6 @@ use the `HintNotHidden` field.
 
 # Other Questions { .text-yellow }
 
----
 
 
 
@@ -527,7 +507,6 @@ The location of this folder is different for each operating system.
 * Your **media folder** is under `Anki2/PROFILE_NAME/collections.media`.
 * Your **addons folder** is under `Anki2/addons21`.
 
----
 
 
 
@@ -546,7 +525,6 @@ The following makes a temporary backup of your collection, not including media:
 See [Anki's official documentation](https://docs.ankiweb.net/backups.html)
 for more info.
 
----
 
 
 
@@ -558,7 +536,6 @@ for more info.
 
 {{ img("how-to import Yomichan settings", "assets/faq/yomichan_import_settings.gif") }}
 
----
 
 
 
@@ -575,7 +552,6 @@ for more info.
 
     > `Notes` →  `Export Notes...`
 
----
 
 
 
@@ -594,7 +570,6 @@ TODO redo image for mobile
 {{ img("version location", "assets/faq/jpmn_version.png") }}
 </figure>
 
----
 
 
 
@@ -608,7 +583,6 @@ Navigate to:
 {{ img("version location", "assets/faq/anki_version.png") }}
 </figure>
 
----
 
 
 
@@ -622,7 +596,6 @@ because everyone has their own preferences on what card types they like.
 I recommend being open about it and experiment with them, to see which one you like.
 
 
----
 
 
 
@@ -637,7 +610,6 @@ i.e. with `PAShowInfo` filled.
 In particular, this will cause Anki to autoplay the sentence audio on
 the front side of cards that test pitch accent, which is undesirable.
 
----
 
 
 
@@ -651,6 +623,15 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
 
 !!! quote
     Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.
+
+
+
+## How was this documentation made?
+Through [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+This site generator is what many other popular sites use,
+including [TheMoeWay](https://learnjapanese.moe/) and [AnimeCards](https://animecards.site/).
+
+---
 
 
 # Contact Info { .text-yellow }
