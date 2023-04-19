@@ -26,7 +26,7 @@ action:
     // ========================================================================
 
     {
-      version: "0.12.0.0-prerelease-1",
+      version: "0.12.0.0",
       actions: [
         { type: "MoveField", params: [ "SeparateClozeDeletionCard", 24 ] },
         { type: "MoveField", params: [ "Hint", 13 ] },
@@ -83,7 +83,7 @@ action:
           }
         },
 
-      ]
+      ],
 
       fields: ["Key", "Word", "WordReading", "PAOverride", "PAOverrideText", "AJTWordPitch", "PrimaryDefinition", "PrimaryDefinitionPicture", "Sentence", "SentenceReading", "AltDisplayWord", "AltDisplaySentence", "AltDisplayPASentenceCard", "AltDisplayAudioCard", "AdditionalNotes", "Hint", "HintNotHidden", "IsSentenceCard", "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard", "IsHintCard", "IsSentenceFirstCard", "IsAudioCard", "PAShowInfo", "PATestOnlyWord", "PADoNotTest", "PASeparateWordCard", "PASeparateSentenceCard", "SeparateAudioCard", "SeparateSentenceAudioCard", "Picture", "WordAudio", "SentenceAudio", "PAGraphs", "PAPositions", "FrequenciesStylized", "FrequencySort", "PASilence", "WordReadingHiragana", "YomichanWordTags", "SecondaryDefinition", "ExtraDefinitions", "UtilityDictionaries", "CardCache", "Comment"],
     },

@@ -310,7 +310,7 @@ class MediaInstaller:
 
     def send_media(self, media: MediaFile):
         if invoke("storeMediaFile", **self.format_media(media)) == media.name:
-            print(f"Updated '{media.name}' media file successfully.")
+            print(f"Updated '{media.name}' media file (via storeMediaFile) successfully.")
 
     def media_exists(self, file_name: str):
         return bool(invoke("getMediaFilesNames", pattern=file_name))
@@ -350,6 +350,7 @@ class MediaInstaller:
             print("Could not get getMediaDirPath.")
             traceback.print_exc()
             return False
+        print(f"Updated '{media.name}' media file successfully.")
         return True
 
     def install(self, file_name: str, static=False, backup=False):
