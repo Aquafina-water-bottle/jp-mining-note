@@ -14,6 +14,7 @@ site_url: https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/
 theme:
   name: material
   custom_dir: docs/overrides
+  logo: assets/logo.png
 
   palette:
     # Palette toggle for dark mode
@@ -30,7 +31,6 @@ theme:
         name: Switch to dark mode
 
 
-  #logo: assets/ideogram-cjk-variant.svg
   #favicon: assets/smallmarisa.png
   features:
     # single page application
