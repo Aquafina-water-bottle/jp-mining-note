@@ -71,7 +71,7 @@ There are three ways of installing the note:
         as well as the fonts required for the note to work. <br>
         Note: Installing jp-mining-note might take a while, and Anki may appear frozen.
 
-    ![type:video](assets/setup/jpmn_manager-0.12.0.0-prerelease-2.mp4)
+    ![type:video](assets/setup/jpmn_manager-0.12.0.0-prerelease-3.mp4)
 
 ??? info "Option 2: Command Line <small>(click here)</small>"
 
