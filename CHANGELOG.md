@@ -215,7 +215,8 @@ and must use `./install.py --update`.
 
 **Fixes**:
 - Fixed `img-yomichan-no-styling` not working as expected (it got stylized as a user image instead)
-- Temporarily made info circle links point to prerelease docs instead of the standard docs
+- Temporarily made info circle links point to prerelease docs instead of the standard docs, to prevent confusion
+- Fixed ignoring wrong SentenceReading warning
 
 
 </details>

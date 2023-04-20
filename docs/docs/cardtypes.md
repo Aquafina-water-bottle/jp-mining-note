@@ -52,7 +52,7 @@ Fill the `IsSentenceCard` field.
 
 
 
-# Targeted Sentence Card (TSC)
+# Targeted Sentence Card <small>(TSC)</small> { #targeted-sentence-card data-toc-label="Targeted Sentence Card" }
 
 {{ img("", "assets/cardtypes/tsc.png") }}
 
@@ -297,7 +297,7 @@ TODO img
 
 A hint vocab card is simply a vocab card that shows the sentence below the word.
 The tested content is the word itself, so you would test yourself as if it were a
-[TSC](#targeted-sentence-card-tsc) or
+[TSC](#targeted-sentence-card) or
 [Hover Vocab card](#hover-vocab-card).
 
 
