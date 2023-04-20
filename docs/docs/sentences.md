@@ -19,7 +19,7 @@ If you are looking on how to make sentence cards or targeted sentence cards
 (sentence cards where the tested word is bolded), see
 [Card Types: Sentence Card](cardtypes.md#sentence-card)
 and
-[Card Types: Targeted Sentence Card](cardtypes.md#targeted-sentence-card-tsc)
+[Card Types: Targeted Sentence Card](cardtypes.md#targeted-sentence-card)
 respectively.
 
 ---

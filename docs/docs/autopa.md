@@ -57,6 +57,7 @@ and must be enabled in the {{ RTO_FILE }}:
 ```json
 "autoPitchAccent.coloredPitchAccent.enabled": true, // (1)!
 ```
+
 1.  The `autoPitchAccent` module must be enabled to use colored pitch accent.
     For example:
     ```json
