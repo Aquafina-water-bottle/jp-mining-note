@@ -355,6 +355,16 @@ def note_is_installed(note_name) -> bool:
     return note_name in result
 
 
+def get_version_from_template_side(template_side: str, error=False) -> str | None:
+    match = rx_GET_VERSION.search(template_side)
+
+    if match is None:
+        if error:
+            raise RuntimeError("Cannot find jpmn version from template side")
+        else:
+            return None
+    return match.group(1)
+
 
 def get_version_from_anki(model_name: str, dev_input_version: Optional[str] = None) -> str:
     """
@@ -372,11 +382,12 @@ def get_version_from_anki(model_name: str, dev_input_version: Optional[str] = No
     assert result.keys()
 
     # doesn't matter which card it is
-    what = list(result.values())[0]["Front"]
-    match = rx_GET_VERSION.search(what)
+    # TODO: check all sides before erroring
+    side = list(result.values())[0]["Front"]
+    jpmn_version = get_version_from_template_side(side)
 
-    assert match is not None
-    return match.group(1)
+    assert jpmn_version is not None
+    return jpmn_version
 
 
 def get_config(args: argparse.Namespace, json_handler: JsonHandler) -> Config:
