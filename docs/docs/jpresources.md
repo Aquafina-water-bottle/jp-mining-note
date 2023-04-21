@@ -31,6 +31,12 @@ This contains the list of all my current projects that relate to learning Japane
 
     This Anki add-on runs a local server of which Yomichan can fetch audio files from, using a database containing over 200,000 unique expressions. With this setup, you are able to create Anki cards nearly instantaneously, and get word audio without a working internet connection.
 
+* **[JPMN Handlebars Package](jpmnhandlebars.md)**
+
+    Instructions on how to use the JPMN handlebars for any note type.
+    Most notably, these handlebars make it very easy to select and export
+    dictionaries into Anki.
+
 * **[All Anki note templates I can find](alternatives.md)**
 
     I catalogue all note templates I can possibly find
