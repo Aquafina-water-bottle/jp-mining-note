@@ -51,7 +51,7 @@ There are three ways of installing the note:
 
     1.  To install any Anki add-on, navigate to:
 
-        > `Tools` →  `Add-ons` →  `Get Add-ons...`
+        > (Main Window) →  `Tools` →  `Add-ons` →  `Get Add-ons...`
 
         From here, you can install
         [JPMN Manager](https://ankiweb.net/shared/info/{{ JPMN_MGR_CODE }})
@@ -65,7 +65,7 @@ There are three ways of installing the note:
     1. Restart Anki, to load the new add-ons.
     1. Within Anki, navigate to the following:
 
-        > `Tools` →  `JPMN Manager` →  `Install jp-mining-note`
+        > (Main Window) →  `Tools` →  `JPMN Manager` →  `Install jp-mining-note`
 
         This will install latest stable version of the note,
         as well as the fonts required for the note to work. <br>

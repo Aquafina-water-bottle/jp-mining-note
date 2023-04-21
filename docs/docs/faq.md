@@ -522,8 +522,9 @@ The location of this folder is different for each operating system.
 
 
 
-{{ img("anki export package", "assets/faq/media_export.png", 'align=right width="300"') }}
 ## How do I backup my Anki data?
+
+{{ img("anki export package", "assets/faq/media_export.png", 'align=right width="300"') }}
 
 The following makes a **complete backup** of your collection, including media:
 

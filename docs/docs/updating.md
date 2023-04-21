@@ -29,9 +29,11 @@ If your note is named differently, please rename it to `JP Mining Note`.
 
 You can update the note in one of two ways:
 
-1. Via JPMN Manager (an Anki add-on)
-2. Via a Python script
-    (recommended for people who know used `python` and `git` before)
+1. Via **JPMN Manager**, an Anki add-on.
+    *If you don't know which method to choose, choose this one*.
+2. Via **command line**.
+    This method is recommended for people who are familiar with `git` and `python`,
+    and don't want to download an Anki add-on.
 
 
 {% set post_install %}
@@ -47,28 +49,29 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
 ??? info "Option 1: Via JPMN Manager <small>(click here)</small>"
 
     This add-on simply wraps around the python script mentioned below,
-    and should do the exact same operations as running the script manually.
+    and should behave the exact same as running the script manually.
 
-    TODO video
+    ??? example "Video demo {{ CLICK_HERE }}"
+        ![type:video](assets/updating/update_jpmn_manager-0.12.0.0-prerelease-3.mp4)
 
-    TODO non-prereleases version!
-
-    1. If you haven't installed JPMN Manager yet, do so with the following code: `{{ JPMN_MGR_CODE }}`.
+    1. If you haven't installed the JPMN Manager add-on yet, do so with the following code:
+        `{{ JPMN_MGR_CODE }}`.
         Be sure to restart Anki after installing.
     1. Make sure there is something to update to in the first place.
         You can do this by:
 
-        > `Tools` →  `JPMN Manager` →  `Check for note updates`
+        > (Main Window) →  `Tools` →  `JPMN Manager` →  `Check for note updates`
     1. Update the note by navigating to the following: <br>
 
-        > `Tools` →  `JPMN Manager` →  `Update jp-mining-note`
+        > (Main Window) →  `Tools` →  `JPMN Manager` →  `Update jp-mining-note`
+
 
 {% filter indent(4) %}
 {{ post_install }}
 {% endfilter %}
 
 
-??? info "Option 2: Via a Python Script <small>(click here)</small>"
+??? info "Option 2: Via Command Line <small>(click here)</small>"
 
     === "Windows"
         ```bat
@@ -121,47 +124,12 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
     automatically on note update. If you attempt to update your note manually,
     these actions will not be ran, and can result in unwanted changes to your note!
 
-    Additionally, many manual operations are done for you by updating the note.
-    with Python, such as automatically creating and re-arranging new fields.
+    Additionally, many manual operations are done for you by updating the note with the
+    Python script, such as automatically creating and re-arranging new fields.
 
     If you still want to attempt manually updating the note, then there will be
     little to no support given.
 
-
-
-
-<!--
-=== "Windows"
-
-    This section explains how to run the script on Windows if you have never used
-    `python` or `git` before.
-
-    1. Install [Python](https://www.python.org/) version 3.10.6 or above, if you haven't already.
-        I recommend using the latest stable version if you have not downloaded Python before.
-
-        Additionally, make sure the box for "Add Python to PATH" is checked.
-        (This is a common error for people to make. Please pay attention to this step!)
-
-    1. Get the latest version of the repository.
-        The easiest way to do this is by heading to the
-        [main repository](https://github.com/Aquafina-water-bottle/jp-mining-note),
-        click on the green `Code` dropdown, and then download the zip by the `Download Zip` button.
-        After that, unzip the directory.
-
-    1. Open command prompt, and cd (change directory) into `jp-mining-note/tools`.
-        If you don't know how to do that, see
-        [this](https://www.howtogeek.com/659411/how-to-change-directories-in-command-prompt-on-windows-10/)
-        or
-        [this](https://www.itechtics.com/open-command-window-folder/#using-cmd-command-in-file-explorer-to-open-command-prompt-window).
-
-    1. With your current directory being the `tools` directory, run the following command:
-        ```bash
-        python install.py --update
-        ```
-        Once you run the command, further instructions should be given to you through the command
-        line interface.
-
--->
 
 ---
 
@@ -252,47 +220,6 @@ To fix this, there are a few cases to go through.
 
 
 ---
-
-
-<!--
-
-
-# Updating: Manually
-
-!!! warning
-    This method is **not recommended whatsoever**. Furthermore, **very limited support** will
-    be given if you attempt this method.
-
-??? info "Click here to see the steps on how to update the note manually."
-
-    Sometimes, you may be able to update the card simply by re-installing the newer version of the
-    `.apkg`.
-    However, this has the main caveat where
-    if any of the fields are added, renamed, repositioned or deleted between card versions,
-    this will **not work** (and instead add a new version of `JP Mining Note`,
-    e.g. named `JP Mining Note-b320fa`).
-    Additionally, if you manually edited any of the fields, then this method will not work.
-
-    To see if the fields have been changed, compare the
-    first two numbers in the version you want to install
-    to the first two numbers of the current
-    [card version](faq.md#how-do-i-see-the-version-of-jp-mining-note)
-    If the first two numbers match, then you are likely safe to manually update the card.
-
-    If they don't match, then you MAY be able to get away with installing it anyways and transferring
-    the old note types to the new note type.
-    For example, a possible way to update the note is:
-
-    1. Install the new version of the note.
-    1. Select all the cards you want to transfer to the version, and change note type.
-    1. Remove the old note type.
-    1. Rename the new note type to the old note type name (`JP Mining Note`).
-    See the changelog to see how the fields have changed and how you have to map the old fields
-    to the new fields.
-
----
-
--->
 
 
 

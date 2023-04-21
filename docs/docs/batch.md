@@ -17,14 +17,19 @@ There are two ways of running batch commands.
 
     > `Tools` →  `JPMN Manager` →  `Run batch command`
 
-1. You can also run it directly through command line:
+1. Alternatively, you can run batch commands directly through command line:
 
     === "Windows"
-        ```
+        ```bat
+        :: Ensure you have Anki open, and with Anki-Connect running
+        :: Also ensure that you have python 3.9+ installed.
         python tools\batch.py YOUR_BATCH_COMMAND
         ```
     === "MacOS & Linux"
-        ```
+        ```bash
+        # Ensure you have Anki open, and with Anki-Connect running
+        # Also ensure that you have python 3.9+ installed.
+        # You may have to use `python3` instead of `python`.
         python3 tools/batch.py YOUR_BATCH_COMMAND
         ```
 
