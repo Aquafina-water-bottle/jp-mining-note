@@ -59,8 +59,12 @@ class Version:
         # TODO write tests for this
         if check_prerelease:
             if self.pre_release is not None and other.pre_release is not None:
-                return 1 if (self.pre_release > other.pre_release) else -1
-            elif self.pre_release is not None:  # self < other
+                if self.pre_release > other.pre_release:
+                    return 1
+                if self.pre_release < other.pre_release:
+                    return -1
+                return 0
+            if self.pre_release is not None:  # self < other
                 return -1
             elif other.pre_release is not None:  # self > other
                 return 1
@@ -89,4 +93,4 @@ class Version:
         return f"Version({self})"
 
     def __str__(self):
-        return f"({'.'.join(str(x) for x in self.ints)}{'' if self.pre_release is None else '-prerelease-' + str(self.pre_release)})"
+        return f"{'.'.join(str(x) for x in self.ints)}{'' if self.pre_release is None else '-prerelease-' + str(self.pre_release)}"
