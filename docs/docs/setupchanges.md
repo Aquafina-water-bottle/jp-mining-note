@@ -162,14 +162,7 @@ you can set a field to be collapsed by default by heading over to:
 > (Note editor) →  `Fields...` →  `Collapse by default`
 
 Feel free to automatially collapse any fields you don't use, or very rarely use.
-By default, the following fields are collapsed by default (but are not updated automatically):
-
-- `AltDisplayPASentenceCard`
-- `AltDisplayAudioCard`
-- `SecondaryDefinition`
-- `ExtraDefinitions`
-- `CardCache`
-
+The fields that are collapsed by default can be found [here](fields.md).
 
 ## Custom SCSS { #v0-12-0-0-custom-scss }
 For people who are using custom SCSS (usually through `src/scss/extra`),
