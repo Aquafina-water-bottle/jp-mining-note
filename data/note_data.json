@@ -18,12 +18,6 @@
   },
   "build": [
     {
-      "input-file": "ts/consts.ts.template",
-      "output-file": "tmp/ts/consts.ts",
-      "type": "jinja",
-      "to-release": false
-    },
-    {
       "input-file": "",
       "output-file": "tmp/scss",
       "type": "copy-scss",

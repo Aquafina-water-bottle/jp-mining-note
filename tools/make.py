@@ -415,18 +415,18 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
     # generates typescript
     generate_ts_consts(args, generator)
 
-    build_file(
-        args,
-        generator,
-        utils.Config(
-            {
-                "input-file": "ts",
-                "output-file": "tmp/ts",
-                "type": "copy",
-                "to-release": False,
-            }
-        ),
-    )
+    #build_file(
+    #    args,
+    #    generator,
+    #    utils.Config(
+    #        {
+    #            "input-file": "ts",
+    #            "output-file": "tmp/ts",
+    #            "type": "copy",
+    #            "to-release": False,
+    #        }
+    #    ),
+    #)
 
     if args.build_dev:
         e = os.system("npm run dev")

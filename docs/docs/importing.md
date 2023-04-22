@@ -54,7 +54,7 @@ To do this, follow the proceeding steps:
 
 2. Select all the cards that you want to switch.
 
-    !!! note "Tip"
+    !!! tip "Tip"
         ++ctrl+a++ selects all cards in the browser.
 
 3. Right click the selection →  `Notes` →  `Change Note Type...`
@@ -254,13 +254,14 @@ to import into `PAPositions`. In that case, this step is highly recommended.
 
 2. Select all of your newly imported notes.
 
-    !!! note "Tip"
+    !!! tip "Tip"
         The following query should reveal all of your newly imported notes.
         Make sure you include the double quotes in the query search.
         ```
         "note:JP Mining Note"
         ```
         Afterwards, you can do ++ctrl+a++ to select all of the resulting cards.
+        <p></p> <!-- TODO why was this removed? seems like it has to do with mkdocs-video for some reason -->
 
 3. Head over to:
 
@@ -272,7 +273,13 @@ to import into `PAPositions`. In that case, this step is highly recommended.
 
 This will ensure all `PASilence` are filled correctly.
 See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
-This can be done within Anki itself, or with a {{ BATCH_CMD }}.
+This can be done with a {{ BATCH_CMD }}, or manually within Anki itself.
+
+=== "Batch Command"
+
+    ```aconf
+    set_pasilence_field
+    ```
 
 === "Within Anki"
 
@@ -295,11 +302,6 @@ This can be done within Anki itself, or with a {{ BATCH_CMD }}.
             {{ img("The above table in Anki", "assets/importing/bulk_add_silencewav.png") }}
             </figure>
 
-=== "Batch Command"
-
-    ```aconf
-    set_pasilence_field
-    ```
 
 
 

@@ -49,12 +49,13 @@
       //},
 
 
-    {
-      "input-file": "ts/consts.ts.template",
-        "output-file": "tmp/ts/consts.ts",
-        "type": "jinja",
-        "to-release": false,
-    },
+    // typescript is built directly in make.py generate_cards
+    //{
+    //  "input-file": "ts/consts.ts.template",
+    //    "output-file": "../src/ts/consts.ts",
+    //    "type": "jinja",
+    //    "to-release": false,
+    //},
 
 
     {
