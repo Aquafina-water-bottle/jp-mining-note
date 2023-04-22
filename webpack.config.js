@@ -22,7 +22,7 @@ cacheConfig = {
   ],
 
   entry: {
-    jpmn_card_cache:  './build/tmp/ts/jp-mining-note/cache.ts',
+    jpmn_card_cache:  './src/ts/jp-mining-note/cache.ts',
   },
   mode: 'production',
   devtool: 'source-map',
@@ -56,14 +56,14 @@ exportConfig = {
   ],
 
   entry: {
-    jpmn_main_front:           './build/tmp/ts/jp-mining-note/main/front.ts',
-    jpmn_main_back:            './build/tmp/ts/jp-mining-note/main/back.ts',
-    jpmn_pa_sent_front:        './build/tmp/ts/jp-mining-note/pa_sent/front.ts',
-    jpmn_pa_sent_back:         './build/tmp/ts/jp-mining-note/pa_sent/back.ts',
-    jpmn_pa_word_front:        './build/tmp/ts/jp-mining-note/pa_word/front.ts',
-    jpmn_pa_word_back:         './build/tmp/ts/jp-mining-note/pa_word/back.ts',
-    jpmn_cloze_deletion_front: './build/tmp/ts/jp-mining-note/cloze_deletion/front.ts',
-    jpmn_cloze_deletion_back:  './build/tmp/ts/jp-mining-note/cloze_deletion/back.ts',
+    jpmn_main_front:           './src/ts/jp-mining-note/main/front.ts',
+    jpmn_main_back:            './src/ts/jp-mining-note/main/back.ts',
+    jpmn_pa_sent_front:        './src/ts/jp-mining-note/pa_sent/front.ts',
+    jpmn_pa_sent_back:         './src/ts/jp-mining-note/pa_sent/back.ts',
+    jpmn_pa_word_front:        './src/ts/jp-mining-note/pa_word/front.ts',
+    jpmn_pa_word_back:         './src/ts/jp-mining-note/pa_word/back.ts',
+    jpmn_cloze_deletion_front: './src/ts/jp-mining-note/cloze_deletion/front.ts',
+    jpmn_cloze_deletion_back:  './src/ts/jp-mining-note/cloze_deletion/back.ts',
   },
   mode: 'production',
 
