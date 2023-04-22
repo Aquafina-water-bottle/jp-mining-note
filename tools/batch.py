@@ -22,6 +22,22 @@ rx_INTEGER_ONLY = re.compile(r"^-?\d+$")
 rx_HTML = re.compile("<.*?>")
 
 
+HIRAGANA = list(
+    "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず"
+    "せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ"
+    "ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ"
+    "をんーゎゐゑゕゖゔゝゞ・「」。、"
+)
+HIRAGANA_SET = set(HIRAGANA)
+FULL_KANA = list(
+    "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ"
+    "ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ"
+    "ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ"
+    "ヽヾ・「」。、"
+)
+
+
+
 # ==================
 #  Helper functions
 # ==================
@@ -74,18 +90,6 @@ def _kata2hira(text: str, ignore: str = "") -> str:
     def _to_ord_list(chars):
         return list(map(ord, chars))
 
-    HIRAGANA = list(
-        "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず"
-        "せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ"
-        "ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ"
-        "をんーゎゐゑゕゖゔゝゞ・「」。、"
-    )
-    FULL_KANA = list(
-        "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ"
-        "ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ"
-        "ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ"
-        "ヽヾ・「」。、"
-    )
     FULL_KANA_ORD = _to_ord_list(FULL_KANA)
     K2H_TABLE = _to_dict(FULL_KANA_ORD, HIRAGANA)
 
@@ -99,6 +103,14 @@ def _kata2hira(text: str, ignore: str = "") -> str:
 
     _conv_map = _exclude_ignorechar(ignore, K2H_TABLE.copy())
     return _convert(text, _conv_map)
+
+
+def _is_hiragana(text: str) -> bool:
+    for c in text:
+        if c not in HIRAGANA_SET:
+            return False
+    return True
+
 
 
 # =================
@@ -821,6 +833,31 @@ def replace_runtime_options_file_anki():
     _replace_runtime_options_file(backup_folder)
 
 
+def fill_field_if_hiragana(field_name: str, value: str = "1", query: str | None = None):
+    """
+    fills the field_name with '1' if the Word field is purely hiragana
+    """
+
+    print(f"Querying notes...")
+    if query is None:
+        query = '"note:JP Mining Note"'
+
+    notes = invoke("findNotes", query=query)
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print(f"Creating actions...")
+    actions = []
+    for info in notes_info:
+        nid = info["noteId"]
+        field_val = info["fields"]["Word"]["value"]
+        if _is_hiragana(field_val):
+            action = _update_note_action(nid, **{field_name: value})
+            actions.append(action)
+
+    print(f"Filling {len(actions)} notes with {repr(value)}...")
+    notes = invoke("multi", actions=actions)
+
+
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
 # a dependency...
 FUNC_ARGS: dict[Callable, dict[str, Type]] = {
@@ -831,6 +868,7 @@ FUNC_ARGS: dict[Callable, dict[str, Type]] = {
         "dest": str,
     },
     remove_html: {"field_name": str},
+    fill_field_if_hiragana: {"field_name": str},
 }
 
 FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
@@ -840,6 +878,7 @@ FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
     verify_fields: {"version": (str, None)},
     reposition_fields: {"version": (str, None)},
     add_fields: {"version": (str, None)},
+    fill_field_if_hiragana: {"value": (str, "1"), "query": (str, None)},
 }
 
 
@@ -866,6 +905,7 @@ PUBLIC_FUNCTIONS = [
     set_font_sizes,
     set_fonts_to_key_font,
     replace_runtime_options_file,
+    fill_field_if_hiragana,
 ]
 
 # functions available for the anki addon (should be everything but the xelieu function)
@@ -892,6 +932,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     set_font_sizes,
     set_fonts_to_key_font,
     replace_runtime_options_file_anki,
+    fill_field_if_hiragana,
 ]
 
 
