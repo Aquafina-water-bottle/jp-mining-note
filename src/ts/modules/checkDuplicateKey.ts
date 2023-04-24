@@ -37,7 +37,7 @@ export class CheckDuplicateKey extends RunnableAsyncModule {
     const result = await invoke("findCards", {"query": queryStr}) as Array<number>;
 
     if (result.length === 0) {
-      this.logger.warn("Cannot find own card?")
+      this.logger.warn(`Cannot find own card. If you renamed your note, certain features will be missing. See <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#warning-cannot-find-own-card">here</a> for more info`, {isHtml: true})
     } else if (result.length === 1) {
       persist?.set(cacheKey, "true");
       this.logger.debug("Key is unique.")

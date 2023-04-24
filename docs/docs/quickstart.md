@@ -1,6 +1,8 @@
 Welcome to jp-mining-note's Quick Start page!
 This page summarizes the main features that jp-mining-note has to offer.
 
+---
+
 # UI Summary
 
 ## UI Summary: Front
@@ -9,7 +11,7 @@ This page summarizes the main features that jp-mining-note has to offer.
 
 The front side of the card was designed to be as minimal as possible.
 Information such as tags, source, frequency, reading, audio, etc.
-is not shown here, by design.
+are not shown here, by design.
 
 === "**Tested content**"
     This can be a sentence, word, etc. depending on the [card type](cardtypes.md)
@@ -33,7 +35,7 @@ is not shown here, by design.
 Compared to the front side of the card, the back side was designed to
 contain as much as information as possible.
 However, only the important information is shown by default, while all the
-auxilary information is hidden behind tooltips and dropdowns.
+auxilary information is hidden behind various tooltips and dropdowns.
 
 === "**Tested content**"
     The tested content is repeated on the back side of the card, and is separated by a line.
@@ -48,13 +50,14 @@ auxilary information is hidden behind tooltips and dropdowns.
     in that order.
 
 === "**Main image**"
-    This is where the image from the `Picture` field appears (if an image exists in the first place).
+    This is where the image from the `Picture` field appears.
+    If there is no picture, then the word box takes up the entire spacethe word box takes up the entire space.
 
 === "**Primary Definition**"
     This is where the text in `PrimaryDefinition`, and optionally, the picture(s)
     in `PrimaryDefinitionPicture` appears.
 
-=== "**Text Sections**"
+=== "**Blockquotes**"
     In general, this contains all the other information and dictionaries from Yomichan.
     See [here TODO]() for more info.
 
@@ -87,17 +90,53 @@ TODO (move this to setup actually)
         }
         ```
 
----
-
-# Themes
+<!--
+## Themes
 If you don't like these layouts, jp-mining-note supports themes!
 TODO showcase / link to main page.
+-->
+
+
+---
+
+# Changing the Card Type
+<i><sup>Main Page: [Changing Card Type](changingcardtype.md)</sup></i>
+
+> Fields: `IsSentenceCard`, `IsTargetedSentenceCard`, etc.
+
+- TODO changing card type
+- TODO explanation: done within Anki, affects only one card
+- TODO: example: sentence card
+- TODO video
+
+> (main window) -> `Browse` -> (select any created jp-mining-note card) -> fill a binary field with any character, say `1`
+
+As you may have noticed, this only changes the card type of one individual card.
+
+- If you want to change the card type for all new cards, see
+    [here](changingcardtype.md#default-card-type).
+- If you want to change the card type for all exising cards, see
+    [here](changingcardtype.md#batch-change-card-type).
+
+
+<!--
+- TODO basic explanation of how it works + screenshot in Anki
+    - example `IsSentenceCard`
+- TODO link to Changing Card Type
+- TODO how to make it default for new cards: Yomichan →  "Anki Card Format"
+- TODO backfill batch commands: link to cardtypes.md
+-->
+
 
 
 ---
 
 # Options
 TODO Summarize compile time options and runtime options here
+
+- what they are
+- term will be used commonly through the documentation
+- link to how to edit them
 
 
 ---
@@ -331,9 +370,24 @@ TODO update video with new colors + interface
 
 ---
 
+# Sorting by Frequency
+<i><sup>Main Page: [Frequencies: Sorting by Frequency](frequencies.md#sorting-by-frequency)</sup></i>
+> Fields: `FrequencySort`
+
+This note type comes with a `FrequencySort` field,
+which is the equivalent of Marv's `Frequency` field in
+[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
+Visit the aformentioned link (and scroll down to `Usage`)
+to see how to sort and review your cards by frequency.
+
+
+
+
+---
+
 # Field Summary
 
-Only important fields will be discussed below TODO
+Some important fields that were not introduced above will be discussed below.
 
 ## Key
 > Field: `Key`
@@ -373,30 +427,15 @@ Only important fields will be discussed below TODO
     In general, this field should be used for any info that is not crucial
     to understanding the tested content.
 
+
+<!--
+
 ## Alternate Display Fields
 > Fields: `AltDisplayWord`, `AltDisplaySentence`, and anything else that beings with `AltDisplay`
 
 TODO
 
-
-## Binary Fields
-> Fields: `IsSentenceCard`, `IsTargetedSentenceCard`, etc.
-
-- TODO screenshot of yomichan
-- TODO explain
-
-
-
-## Sorting by Frequency
-<i><sup>Main Page: [Frequencies: Sorting by Frequency](frequencies.md#sorting-by-frequency)</sup></i>
-> Fields: `FrequencySort`
-
-*   This note type comes with a `FrequencySort` field,
-    which is the equivalent of Marv's `Frequency` field in
-    [this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
-    Visit the aformentioned link (and scroll down to `Usage`)
-    to see how to sort and review your cards by frequency.
-
+-->
 
 
 # Conclusion

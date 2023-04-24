@@ -74,7 +74,7 @@ plugins:
 
 nav:
   - Home:
-    - Home: index.md
+    - Home (TODO): index.md
     - Getting Started:
       - Preface: preface.md
       - Alternatives: alternatives.md
@@ -93,7 +93,8 @@ nav:
     - Definitions (TODO): definitions.md
     - Sentences (TODO): sentences.md
     - Card Types: cardtypes.md
-    - More on Card Types: cardtypes2.md
+    - Changing Card Type (TODO): changingcardtype.md
+    - More on Card Types (TODO): cardtypes2.md
     - Keybinds: keybinds.md
     - Images: images.md
     - Pitch Accent: autopa.md
@@ -107,8 +108,8 @@ nav:
     - Batch Commands (TODO): batch.md
     - Other (TODO): other.md
     - Options:
-      - Runtime Options: runtimeoptions.md
-      - Compile-Time Options: compiletimeoptions.md
+      - Runtime Options (TODO): runtimeoptions.md
+      - Compile-Time Options (TODO): compiletimeoptions.md
       - Yomichan Template Options (TODO): yomichantemplates.md
    #- DEPRECATED:
    #  - User Interface: ui.md
@@ -117,15 +118,15 @@ nav:
   - Dev Docs:
     - Modding Overview: modding.md
     - Building: building.md
-    - Custom CSS: customcss.md
-    - Custom HTML (Overrides): overrides.md
-    - Custom JS (Modules): modules.md
-    - "Tips & Tricks": moddingtips.md
+    - Custom CSS (TODO): customcss.md
+    - Custom HTML (Overrides) (TODO): overrides.md
+    - Custom JS (Modules) (TODO): modules.md
+    - "Tips & Tricks (TODO)": moddingtips.md
   - "FAQ & Troubleshooting": faq.md
   - JP Resources:
     - JP Resources: jpresources.md
     - JPMN Handlebars Package: jpmnhandlebars.md
-    - Anki Scripts: scripts.md
+    - Anki Scripts (TODO): scripts.md
     - Other: jpresourcesother.md
 
 extra:

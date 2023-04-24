@@ -264,6 +264,7 @@ def define_env_vars(env):
         "PERDITION_SERVER": "[Perdition's server](https://discord.gg/uK4HeGN)",
         "PERDITION_LINK": "https://discord.gg/uK4HeGN",
         "BATCH_CMD": "[batch command](batch.md)",
+        "BATCH_CMDS": "[batch commands](batch.md)",
         "CLICK_HERE": "<small>(click here)</small>",
         "CLICKHERE": "<small>(click here)</small>",
         "JPMN_MGR_CODE": "1732829476",
