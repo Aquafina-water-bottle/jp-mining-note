@@ -76,7 +76,16 @@ There are two reasons why you would be getting this warning:
             within Anki.
 
 
+## (Warning) Cannot find own card
+This warning usually only appears if you renamed the note from `JP Mining Note` to something else.
+If you rename the note, certain features will no longer function as expected, such as:
 
+- Kanji Hover
+- Word Indicators
+- Most batch commands
+- Automatic duplicate `Key` field checks
+
+To remedy this, it is recommended that you change the note name back to `JP Mining Note`.
 
 
 ## General Error Troubleshooting
@@ -135,8 +144,7 @@ TODO example picture of the wrong font
 
 ## The font on the card editor is incorrect
 
-- TODO link to TheMoeWay
-- TODO batch script maybe?
+- TODO link to setupanki.md
 
 
 
@@ -233,7 +241,15 @@ When a user is asked to export a card, the exported file will not contain the fo
 meaning that the result `.apkg` file will be about 1MB instead of some 20MB,
 allowing it to be shared easily on a place like Discord.
 
+---
 
+
+<!--
+
+author note: Pretty much all of these problems have been solved.
+There is value in keeping the info for disabling unnecessary modules and/or auto filling
+certain fields, but that can be discussed somewhere else.
+TODO where to move it?
 
 ## This card template loads slower than other card templates.
 
@@ -320,8 +336,12 @@ remove certain features of the note.
     [here](compiletimeoptions.md#optimized-vocab-card-example).
     Note that `img-utils-minimal` will still cause a document reflow unless you change the above options.
 
+-->
 
 
+<!--
+
+author note: removed because 0.12.0.0 solves it
 
 ## The sentence quotes are on completely different lines!
 If your card looks like this:
@@ -353,18 +373,15 @@ For example, the above should be changed into:
     The [updating sentence with clipboard hotkey](jpresources.md#update-sentence-with-clipboard)
     shouldn't have this problem, as `<div>` tags are not present by default.
 
----
+-->
 
 
 # Card Editing { .text-yellow }
 
 
+<!--
 ## How do I set the default card type?
-In [Yomichan's Anki Card Format](setupyomichan.md#yomichan-fields),
-you can simply fill the field.
-
-For example, if you want to set the default card type to be a sentence card,
-fill the `IsSentenceCard` field there.
+TODO link to [C](cardtypes2.md#default-card-type)
 
 
 ## How do I automatically change the value of a binary field on multiple existing cards?
@@ -394,6 +411,7 @@ You have three main options:
 
 3. Regex Search (TODO)
 
+-->
 
 ## How do I disable furigana on card generation?
 

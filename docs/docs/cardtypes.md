@@ -1,4 +1,4 @@
-# Overview
+# Preface
 
 Previously, this note type only had vocab and sentence cards.
 Although I was originally fine with this,
@@ -21,7 +21,14 @@ outside of the fundamental vocab and sentence cards.
 
 ---
 
+# Changing Card Type
+The rest of this page will document all card types that this note can create,
+and will use certain terminology such as "filling a field".
+If you do not know what this means, see the
+[quickstart page](quickstart.md#changing-the-card-type) on just that.
 
+
+---
 
 # Vocab Card
 

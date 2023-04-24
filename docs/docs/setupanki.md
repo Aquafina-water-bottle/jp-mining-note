@@ -77,7 +77,9 @@ To enable animations, head over to:
 
 By default, your editor fonts may not show Japanese characters correctly.
 
-TODO ...
+- TODO test on 直す card
+- TODO link to TheMoeWay
+- TODO batch command: `set_fonts_to_key_font`
 
 
 ---

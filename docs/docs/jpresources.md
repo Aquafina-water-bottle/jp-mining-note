@@ -27,13 +27,18 @@ This contains the list of all my current projects that relate to learning Japane
     Easily paired with most automatic card creation workflows,
     this aims to make your experience with Anki as smooth as possible.
 
+    * **[JPMN Manager](https://github.com/Aquafina-water-bottle/jpmn-manager)**
+
+        JPMN Manager is a simple Anki add-on that makes it possible to seemlessly
+        install and update jp-mining-note, and makes working with the note a little easier.
+
 * **[Local Audio Server for Yomichan](https://github.com/themoeway/local-audio-yomichan)**
 
     This Anki add-on runs a local server of which Yomichan can fetch audio files from, using a database containing over 200,000 unique expressions. With this setup, you are able to create Anki cards nearly instantaneously, and get word audio without a working internet connection.
 
 * **[JPMN Handlebars Package](jpmnhandlebars.md)**
 
-    Instructions on how to use the JPMN handlebars for any note type.
+    Instructions on how to use the JPMN handlebars for *any* note type, not just jp-mining-note.
     Most notably, these handlebars make it very easy to select and export
     dictionaries into Anki.
 
@@ -438,7 +443,7 @@ Adds the following Yomichan Fields:
 
 !!! tip
     I recommend using `{jpmn-primary-definition}` from the [JPMN Handlebars Package](jpmnhandlebars.md)
-    instead of this handlebars, because the handlebars package does this and much more.
+    instead of this handlebars, because the handlebars package can do this and much more.
 
 Allows you to export only a section of a glossary by highlighting over it,
 and uses the glossary by default if you don't have anything highlighted.
@@ -469,7 +474,7 @@ and uses the glossary by default if you don't have anything highlighted.
 
 !!! tip
     I recommend using `{jpmn-primary-definition}` from the [JPMN Handlebars Package](jpmnhandlebars.md)
-    instead of this handlebars, because the handlebars package does this and much more.
+    instead of this handlebars, because the handlebars package can do this and much more.
 
 The following grabs the first dictionary
 (including every definition within said dictionary).
@@ -518,7 +523,6 @@ see the handlebars code used by jp-mining-note [here](setupyomichan.md#yomichan-
 ## Automatically highlight the tested word within the sentence upon card creation { .text-yellow }
 
 ??? info "Option 1: Bold only"
-    **Yomichan Fields**:
     ```
     {cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}
     ```
@@ -570,8 +574,10 @@ see the handlebars code used by jp-mining-note [here](setupyomichan.md#yomichan-
         the desired region (say, with ++ctrl+b++) instead of having to edit
         the raw HTML of the field (say, with ++ctrl+shift+x++).
 
+<sup>
 See also: [How to automatically highlight the targetted word within the sentence
-    *for already existing cards*](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence).
+*for already existing cards*](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence).
+</sup>
 
 ---
 
