@@ -10,8 +10,12 @@ Public facing markers are markers starting with `jpmn` (whereas private markers 
 
 The Yomichan template version is incremented independently from the jp-mining-note version.
 
+
+## v1.0.6
+- Changed the order of dictionary categorization from ignored -> bilingual -> utility, to ignored -> utility -> bilingual
+
 ## v1.0.5
-- Changedd `opt-jmdict-list-format` to be `true` by default
+- Changed `opt-jmdict-list-format` to be `true` by default
 
 ## v1.0.4
 - Added warning when "Result grouping mode" is set to "No grouping"
