@@ -30,21 +30,20 @@ nothing has to be done.
 
     If it isn't, then I recommend to switch to Chrome (or Chromium) for immersion.
 
-    <!--
-    TODO Yomitan, once it's stable...
-    -->
+<!--
+TODO Yomitan, once it's stable...
 
-    If it isn't, there are two main ways of fixing it:
+If it isn't, there are two main ways of fixing it:
 
-    1. [Manual Download](https://github.com/FooSoft/yomichan/releases)
-        with
-        [Firefox: Developer edition](https://www.mozilla.org/en-US/firefox/developer/)
-        The manual download will NOT work on regular firefox, because it is unsigned.
-        `xpinstall.signatures.required`
+1. [Manual Download](https://github.com/FooSoft/yomichan/releases)
+    with
+    [Firefox: Developer edition](https://www.mozilla.org/en-US/firefox/developer/)
+    The manual download will NOT work on regular firefox, because it is unsigned.
+    `xpinstall.signatures.required`
 
-    You may also have to download the Firefox Developer edition, and set 
-    to `false`.
-    -->
+You may also have to download the Firefox Developer edition, and set 
+to `false`.
+-->
 
 ---
 
@@ -196,29 +195,6 @@ to do exactly that.
     If your dictionaries are ending up in the wrong sections,
     then it is likely a problem with how the template code categorizes the dictionaries.
     See [here](definitions.md#dictionary-placement) for more info.
-
-
-
-
-## Selected Text as the Definition
-If you don't want to use the first definition,
-you can select the dictionary or text that you want to use.
-
-![type:video](assets/setupyomichan/selected_text.mp4)
-
-Here is exactly what's happening:
-
-1. If nothing is selected, then the first dictionary is chosen just like normal.
-1. If a dictionary is selected, then that dictionary will replace the first definition.
-1. If a section of text is selected, then that dictionary will replace the first definition.
-    Additionally, that section of text will be highlighted (bolded).
-
-!!! note
-    Selecting parts of a definition to bold the text does not always work,
-    especially when used across text with formatting or newlines.
-    See [this](definitions.md#primary-definition-selection-manual) for more details.
-
-    With this being said, selecting the dictionary should always work.
 
 
 
