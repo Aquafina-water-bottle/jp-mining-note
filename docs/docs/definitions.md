@@ -19,6 +19,7 @@ and how to properly customize them for your setup.
 ## Expected Dictionary Placement
 Dictionaries from Yomichan are sorted into the following fields:
 
+<!--
 * `PrimaryDefinition`:
     A dictionary specified by the user. Bilingual by default.
 
@@ -44,6 +45,15 @@ Dictionaries from Yomichan are sorted into the following fields:
         This does not include pitch accent dictionaries, frequency lists, or kanji dictionaries,
         as these are not traditionally-formatted dictionaries.
 
+-->
+
+
+| Field | Description |
+|-|-|
+| PrimaryDefinition | The highest priority monolingual or bilingual dictionary (depending on the value of `opt-first-definition-type`). If you want to manually select a different dictionary, see [here](definitions.md#primary-definition-selection) |
+| SecondaryDefinition | All bilingual dictionaries outside of the one selected in the primary definition. |
+| ExtraDefinition | All monolingual dictionaries outside of the one selected in the primary definition. |
+| UtilityDictionaries | All dictionaries that fall outside the category of bilingual or monolingual. For example, [JMnedict](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan) or [JMdict Forms](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan). |
 
 The way that the dictionaries are sorted into the appropriate fields is by assigning
 a category to each individual dictionary.
@@ -356,6 +366,12 @@ Both of these can be automatically hidden with the following {{ RTO }}:
 === "Default"
     {{ img("", "assets/definitions/simple_def/normal.png") }}
 
+
+
+## Simpifying the definition per blockquote
+
+- TODO implement RTO
+- TODO briefly document existing RTOs
 
 <!--
 TODO find examples that this is useful for...

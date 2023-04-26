@@ -1,5 +1,6 @@
-Welcome to jp-mining-note's Quick Start page!
-This page summarizes the main features that jp-mining-note has to offer.
+Welcome to jp-mining-note's quick start page!
+This page summarizes the main features that jp-mining-note has to offer,
+as well as common changes that people may want to make with the note.
 
 ---
 
@@ -14,7 +15,7 @@ Information such as tags, source, frequency, reading, audio, etc.
 are not shown here, by design.
 
 === "**Tested content**"
-    This can be a sentence, word, etc. depending on the [card type](cardtypes.md)
+    This can be a sentence, word, etc. depending on the [card type](cardtypes.md).
 
 === "**Card type**"
     This simply describes exactly what the card type is.
@@ -79,6 +80,9 @@ However, there are a few important differences to note:
 
 See [here TODO]() to see the reasons why these design decisions were made.
 
+---
+
+<!--
 TODO (move this to setup actually)
 
 - android:
@@ -90,6 +94,9 @@ TODO (move this to setup actually)
         }
         ```
 
+---
+-->
+
 <!--
 ## Themes
 If you don't like these layouts, jp-mining-note supports themes!
@@ -97,7 +104,20 @@ TODO showcase / link to main page.
 -->
 
 
+<!--
+
 ---
+
+# Options
+TODO Summarize compile time options and runtime options here
+
+- what they are
+- term will be used commonly through the documentation
+- link to how to edit them
+- example options in runtime cover most common options
+
+-->
+
 
 # Changing the Card Type
 <i><sup>Main Page: [Changing Card Type](changingcardtype.md)</sup></i>
@@ -131,23 +151,35 @@ As you may have noticed, this only changes the card type of one individual card.
 
 ---
 
-# Options
-TODO Summarize compile time options and runtime options here
 
-- what they are
-- term will be used commonly through the documentation
-- link to how to edit them
+
+# Selecting Definitions
+<i><sup>Main Page: [Definitions: Primary Definition Selection (Manual)](definitions.md#primary-definition-selection-manual)</sup></i>
+
+If you don't want to use the first bilingual/monolingual definition,
+you can select the dictionary or text that you want to use.
+
+![type:video](assets/setupyomichan/selected_text.mp4)
+
+Here is exactly what's happening:
+
+1. If nothing is selected, then the first dictionary is chosen just like normal.
+1. If a dictionary is selected, then that dictionary will replace the first definition.
+1. If a section of text is selected, then that dictionary will replace the first definition.
+    Additionally, that section of text will be highlighted (bolded).
+
+!!! note
+    Selecting parts of a definition to bold the text does not always work,
+    especially when used across text with formatting or newlines.
+    See [this](definitions.md#primary-definition-selection-manual) for more details.
+
+    With this being said, selecting the dictionary should always work.
+
 
 
 ---
 
-# Common Changes
-
-TODO description
-
-
-
-## Simplify definitions
+# Simplify Definitions
 {{ feature_version("0.12.0.0") }}
 
 If you want to remove the list numbers, as well as the first line
@@ -164,54 +196,8 @@ TODO image comparison
 
 
 
-## Adjusting Zoom
-You can increase (or decrease) the size of the card,
-(without affecting any of Anki's GUI)
-with {{ C_CSS }}.
-
-
-??? example "Instructions <small>(click here)</small>"
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        :root {
-          /* Times 1.1 of the original size.
-           * If you want to make the note smaller, use a value below 1, like 0.9.
-           */
-          --zoom: 1.1;
-        }
-        ```
-
-
-
-## Adjusting Font Size
-
-In case overall zoom isn't enough, you can adjust the font sizes for individual
-sections of the card.
-
-TODO list CSS variables
-
-
-
-
-
-## Changing the display language
-{{ feature_version("0.12.0.0") }}
-
-By default, the display language is in English.
-Currently, Japanese and English are supported as display languages.
-
-To change the display language (say, to Japanese), use the following {{ CTO }}:
-```
-"display-languages": ["jp", "en"],
-```
-
-!!! note
-    Currently, only some text is supported.
-    This means that various tooltips on hover, warning messages, etc.
-    will still be in English.
-
 ---
+
 
 
 # Kanji Hover
@@ -361,14 +347,62 @@ TODO update video with new colors + interface
 
 
 
-# Selecting Definitions
-<i><sup>Main Page: [Definitions: TODO](definitions.md)</sup></i>
+# Other Common Changes
 
-- warning on jmdict!
-- maybe move this to a separate page?
+TODO description
 
+
+
+
+## Adjusting Zoom
+You can increase (or decrease) the size of the card,
+(without affecting any of Anki's GUI)
+with {{ C_CSS }}.
+
+
+??? example "Instructions <small>(click here)</small>"
+    1. Under `extra/style.scss`, add the following code:
+
+        ```css
+        :root {
+          /* Times 1.1 of the original size.
+           * If you want to make the note smaller, use a value below 1, like 0.9.
+           */
+          --zoom: 1.1;
+        }
+        ```
+
+
+
+## Adjusting Font Size
+
+In case overall zoom isn't enough, you can adjust the font sizes for individual
+sections of the card.
+
+TODO list CSS variables
+
+
+
+
+
+## Changing the display Language
+{{ feature_version("0.12.0.0") }}
+
+By default, the display language is in English.
+Currently, Japanese and English are supported as display languages.
+
+To change the display language (say, to Japanese), use the following {{ CTO }}:
+```
+"display-languages": ["jp", "en"],
+```
+
+!!! note
+    Currently, only some text is supported.
+    This means that various tooltips on hover, warning messages, etc.
+    will still be in English.
 
 ---
+
 
 # Sorting by Frequency
 <i><sup>Main Page: [Frequencies: Sorting by Frequency](frequencies.md#sorting-by-frequency)</sup></i>

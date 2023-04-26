@@ -124,10 +124,10 @@ To summarize the introduced definition handlebars:
 
 | Handlebars | Description |
 |-|-|
-| `{jpmn-primary-definition}` | The highest priority monolingual or bilingual dictionary (depending on the value of `opt-first-definition-type`) |
-| `{jpmn-secondary-definition}` | All bilingual dictionaries outside of the one selected in the primary definition |
-| `{jpmn-extra-definitions}` | All monolingual dictionaries outside of the one selected in the primary definition |
-| `{jpmn-utility-dictionaries}` | All dictionaries that fall outside the category of bilingual or monolingual. For example, JMnedict or JMdict Forms. |
+| `{jpmn-primary-definition}` | The highest priority monolingual or bilingual dictionary (depending on the value of `opt-first-definition-type`). |
+| `{jpmn-secondary-definition}` | All bilingual dictionaries outside of the one selected in the primary definition. |
+| `{jpmn-extra-definitions}` | All monolingual dictionaries outside of the one selected in the primary definition. |
+| `{jpmn-utility-dictionaries}` | All dictionaries that fall outside the category of bilingual or monolingual. For example, [JMnedict](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan) or [JMdict Forms](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan). |
 
 
 If you want to select a different dictionary, highlight the dictionary, or a portion of the definition

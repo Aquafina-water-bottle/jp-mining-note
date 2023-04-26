@@ -1,7 +1,7 @@
 
 Runtime options are card options that are applied globally to all JPMN cards.
 This differs from binary fields,
-as binary options are options that only affects the one card.
+as binary fields are options that only affects the one card.
 
 ---
 
