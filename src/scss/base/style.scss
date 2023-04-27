@@ -1037,20 +1037,28 @@ code {
  * --------------
  */
 
-// TODO move to responsive???
-.mobile-popup {
+.mobile-popup-wrapper {
   position: fixed;
-  height: calc(50vh - var(--mobile-popup-border));
-  width: calc(100% - 2 * var(--mobile-popup-border) - 20px);
+  display: flex;
+  height: calc(50vh);
+  width: calc(100%);
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+
+.mobile-popup {
+  margin: auto;
+  max-height: calc(100% - 2 * var(--mobile-popup-border));
+  width: calc(100% - 2 * var(--mobile-popup-border));
   background-color: var(--tooltip-background-darken);
   bottom: var(--mobile-popup-border);
   left: var(--mobile-popup-border);
-  z-index: 10;
 
-  /* TODO not px values??? also see above width */
-  padding: 8px 10px 8px 10px;
   border-radius: 6px;
   overflow: scroll;
+  padding: 8px 10px 8px 10px;
 }
 
 .mobile-popup--kanji-hover {

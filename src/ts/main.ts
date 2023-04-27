@@ -189,7 +189,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     asyncManager.addModule(new KanjiHover(mobilePopup));
   }
   if (compileOpts['enableModule.wordIndicators']) {
-    asyncManager.addModule(new WordIndicators());
+    asyncManager.addModule(new WordIndicators(mobilePopup));
   }
   if (cardSide === "back" && compileOpts['enableModule.checkDuplicateKey']) {
     // only necessary at the back to avoid distractions at the front

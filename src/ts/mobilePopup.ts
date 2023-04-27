@@ -1,9 +1,12 @@
 /**
  * controls the display of the mobile popup (bottom half of the screen)
  */
+
 export class MobilePopup {
+  private readonly wrapperEle = document.getElementById('mobile_popup_wrapper') as HTMLElement | null;
   private readonly ele = document.getElementById('mobile_popup') as HTMLElement | null;
 
+  // gets the actual tooltip contents, since the current output is
   transformKanjiHover(hoverHTML: string): string {
     // TODO cache
     // NOTE: this is highly dependent on the output of the kanji hover popup!
@@ -31,7 +34,7 @@ export class MobilePopup {
     const kanjiEles = wordReadingEle.querySelectorAll('span[data-kanji-hover]');
     for (const kanjiEle of kanjiEles) {
       (kanjiEle as HTMLElement).onclick = () => {
-        if (this.ele === null) {
+        if (this.ele === null || this.wrapperEle === null) {
           return;
         }
 
@@ -44,15 +47,15 @@ export class MobilePopup {
         baseEle.setAttribute("data-kanji", kanji ?? "");
 
         // TODO generalize this, i.e. X button, etc.
-        if (this.ele.classList.contains('hidden') || (previousKanji !== null && previousKanji !== kanji)) {
+        if (this.wrapperEle.classList.contains('hidden') || (previousKanji !== null && previousKanji !== kanji)) {
           // hidden -> shown
           if (kanji !== null && kanji in kanjiToHoverHTML) {
             baseEle.innerHTML = this.transformKanjiHover(kanjiToHoverHTML[kanji]);
           }
-          this.ele.classList.toggle('hidden', false);
+          this.wrapperEle.classList.toggle('hidden', false);
         } else {
           // shown -> hidden
-          this.ele.classList.toggle('hidden', true);
+          this.wrapperEle.classList.toggle('hidden', true);
         }
         this.ele.appendChild(baseEle);
       };
