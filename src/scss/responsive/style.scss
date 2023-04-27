@@ -165,8 +165,10 @@
   }
 
   .info-circle-text-wrapper--zoom-out {
-    animation-name: info-circle-zoom-out;
-    animation-duration: 0.25s;
+    .info-circle-text-wrapper {
+      animation-name: info-circle-zoom-out;
+      animation-duration: 0.25s;
+    }
   }
 
   @keyframes info-circle-zoom {

@@ -5,6 +5,7 @@ import {invoke} from '../ankiConnectUtils';
 import {NoteInfo, plainToRuby} from '../utils';
 import {Field} from '../fields';
 import {manuallyCreateObjPersist} from '../spersist';
+import {WordIndicatorLabel, WordIndicators} from '../modules/wordIndicators';
 
 
 
@@ -32,7 +33,8 @@ function simulateEnv(noteInfo: NoteInfo) {
 
 async function getNotesInfo(): Promise<NoteInfo[]> {
   // TODO cli flags
-  const query = `"note:JP Mining Note" prop:due=0`;
+  //const query = `"note:JP Mining Note" prop:due=0`;
+  const query = `"note:JP Mining Note" key:端`;
   console.log("Querying due notes...")
   const notes = await invoke("findNotes", { query: query }) as number[];
 
@@ -41,10 +43,6 @@ async function getNotesInfo(): Promise<NoteInfo[]> {
 }
 
 async function calcKanjisToHover(info: NoteInfo) {
-
-  console.log("Key:", info.fields.Key.value);
-  simulateEnv(info);
-
   const kanjiHover = new KanjiHover(null);
 
   const noteInfo: NoteInfoKanjiHover = {
@@ -54,7 +52,21 @@ async function calcKanjisToHover(info: NoteInfo) {
   } as const;
 
   return kanjiHover.getKanjisToHover(noteInfo);
+}
 
+async function calcWordIndicatorTooltips(): Promise<Record<WordIndicatorLabel, string | null>> {
+  const result: Record<WordIndicatorLabel, string | null> = {
+    'same_word_indicator': null,
+    'same_kanji_indicator': null,
+    'same_reading_indicator': null,
+  }
+  const wordIndicators = new WordIndicators(null);
+  const indicators = wordIndicators.getIndicators()
+  for (const indicator of indicators) {
+    const tooltipHTML = await indicator.getTooltipHTML();
+    result[indicator.label] = tooltipHTML;
+  }
+  return result;
 }
 
 /*
@@ -68,7 +80,7 @@ async function calcKanjisToHover(info: NoteInfo) {
 </span>
 
 */
-function constructCacheEle(epochTime: number, kanjiToHoverHTML: Record<string, string>): HTMLElement {
+function constructCacheEle(epochTime: number, kanjiToHoverHTML: Record<string, string>, wordIndicatorTooltips: Record<WordIndicatorLabel, string | null>): HTMLElement {
   const base = document.createElement("div");
   base.setAttribute("data-cache-version", "1");
   base.setAttribute("data-cache-write-time", `${epochTime}`);
@@ -84,6 +96,16 @@ function constructCacheEle(epochTime: number, kanjiToHoverHTML: Record<string, s
     kanjiHoverBaseEle.appendChild(kanjiHoverEle);
   }
   base.appendChild(kanjiHoverBaseEle);
+
+  const wordIndsBaseEle = document.createElement("div");
+  wordIndsBaseEle.setAttribute("data-cache-type", "word-indicators");
+  for (const [label, tooltip] of Object.entries(wordIndicatorTooltips)) {
+    const wordIndsEle = document.createElement("div");
+    wordIndsEle.setAttribute("data-cache-label", label);
+    wordIndsEle.innerHTML = tooltip ?? ""; // WordIndicators.display expects an empty string when empty
+    wordIndsBaseEle.appendChild(wordIndsEle);
+  }
+  base.appendChild(wordIndsBaseEle);
 
   return base;
 }
@@ -119,8 +141,13 @@ async function main() {
 
   const actions: ReturnType<typeof constructWriteAction>[] = [];
   for (const info of notesInfo) {
+    console.log("Key:", info.fields.Key.value);
+    simulateEnv(info);
+
     const kanjiToHoverHTML = await calcKanjisToHover(info);
-    const cacheEle = constructCacheEle(epochTime, kanjiToHoverHTML);
+    const wordIndicatorTooltips = await calcWordIndicatorTooltips();
+
+    const cacheEle = constructCacheEle(epochTime, kanjiToHoverHTML, wordIndicatorTooltips);
     const action = constructWriteAction(cacheEle.outerHTML, info,);
     actions.push(action)
     //console.log(action)

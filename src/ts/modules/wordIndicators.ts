@@ -1,7 +1,7 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { filterCards, getTags, getCardKey, getCardSide, CardSide } from '../utils';
-import { getFieldValue, Field, cacheFieldValue } from '../fields';
+import { filterCards, getTags, getCardKey, getCardSide, cardCacheExpired } from '../utils';
+import { getFieldValue, Field, cacheFieldValue, getFieldValueEle } from '../fields';
 import {
   Tooltips,
   QueryBuilderGroup,
@@ -21,6 +21,7 @@ import {
   escapeQueryStr,
 } from '../ankiConnectUtils';
 import {cardIsNew} from '../isNew';
+import {MobilePopup} from '../mobilePopup';
 
 type WordIndicatorsCategoryID =
   | 'nonNew.hidden'
@@ -31,11 +32,8 @@ type WordIndicatorsCategoryID =
 const wordIndicatorCardCacheKey = 'WordIndicators.wordIndicatorCardCacheKey';
 const wordIndicatorsCardResultCacheKey = 'WordIndicators.wordIndicatorsCardResultCacheKey';
 
-const cardResultsCacheKey = `${wordIndicatorsCardResultCacheKey}.${getCardKey()}`;
-
-
 const clsMainWord = 'dh-left__similar-words-indicators-main-word';
-const clsWithIndicators = 'dh-left--with-similar-word-indicators';
+//const clsWithIndicators = 'dh-left--with-similar-word-indicators';
 
 type QueryCategories = Record<WordIndicatorsCategoryID, string>;
 type QueryResults = Record<WordIndicatorsCategoryID, number[]>;
@@ -44,18 +42,19 @@ type FilteredCardCategories = 'nonNew' | 'new';
 type FilteredCardIDs = Record<FilteredCardCategories, number[]>;
 type FilteredCardsInfo = Record<FilteredCardCategories, CardInfo[]>;
 
+export type WordIndicatorLabel = 'same_word_indicator' |
+                                 'same_kanji_indicator' |
+            'same_reading_indicator'
+
 class WordIndicator {
   // is also the html id for the indicator element
-  private readonly label: string;
-
+  readonly label: WordIndicatorLabel;
   private readonly baseIndicatorQuery: string;
-
   private readonly wordInds: WordIndicators;
-
   private readonly indicatorEle: HTMLElement | null;
-  private readonly cacheKey: string;
+  readonly cacheKey: string;
 
-  constructor(label: string, baseIndicatorQuery: string, wordInds: WordIndicators, indicatorEle: HTMLElement | null) {
+  constructor(label: WordIndicatorLabel, baseIndicatorQuery: string, wordInds: WordIndicators, indicatorEle: HTMLElement | null) {
     this.label = label;
     this.baseIndicatorQuery = baseIndicatorQuery;
     this.wordInds = wordInds;
@@ -277,7 +276,7 @@ class WordIndicator {
 
   // this is only expected to be called at the backside of the card
   async display() {
-    if (!this.isCached()) {
+    if (!this.wordInds.persist?.has(this.cacheKey)) {
       this.wordInds.logger.debug(`${this.label} -> nothing cached?`);
       return;
     }
@@ -309,17 +308,16 @@ class WordIndicator {
     }
 
     // TODO rework this! this also affects pitch accents!
-    dhLeftEle.classList.toggle(clsWithIndicators, true);
+    //dhLeftEle.classList.toggle(clsWithIndicators, true);
 
     this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
   }
 
   isCached() {
-    // notice this.wordInds.useCache (refresh button naturally works)
     return (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey));
   }
 
-  async getResult() {
+  async getTooltipHTML(): Promise<string> {
     // resets on refresh
     const indicatorEle = document.getElementById(this.label);
     indicatorEle?.classList.toggle('dh-left__similar-words-indicator--visible', false);
@@ -329,7 +327,7 @@ class WordIndicator {
     // on the back side of the card while the front side is still running
     if (this.isCached()) {
       this.wordInds.logger.debug('Has cached indicator');
-      return;
+      return "";
     }
 
     this.wordInds.logger.debug(`Running ${this.label}`);
@@ -357,8 +355,7 @@ class WordIndicator {
         this.wordInds.persist.set(this.cacheKey, '');
       }
       this.wordInds.logger.debug(`Finished running ${this.label}: nothing found`);
-
-      return;
+      return "";
     }
 
     const sortMethod = this.wordInds.tooltips.getOption('tooltips.sortMethod');
@@ -372,12 +369,7 @@ class WordIndicator {
 
     const filteredCardInfo = await this.getCardInfo(filteredCardIds);
     const tooltipHTML = this.buildTooltip(filteredCardInfo);
-
-    // caches
-    if (this.wordInds.persist !== null) {
-      this.wordInds.persist.set(this.cacheKey, tooltipHTML);
-      this.wordInds.logger.debug(`Finished running ${this.label}: cached result`);
-    }
+    return tooltipHTML;
   }
 }
 
@@ -390,29 +382,24 @@ export class WordIndicators extends RunnableAsyncModule {
   private readonly indicatorEleSameKanji = document.getElementById("same_kanji_indicator");
   private readonly indicatorEleSameReading = document.getElementById("same_reading_indicator");
   readonly dhLeftEle = document.getElementById('dh_left');
+  private readonly mobilePopup: MobilePopup | null;
+  private readonly cardCacheEle: HTMLElement | null;
 
   readonly tooltips: Tooltips;
 
   // caches here for safety from async calls
   private readonly cardSide = getCardSide();
 
-  constructor() {
+  constructor(mobilePopup: MobilePopup | null) {
     super('wordIndicators');
     this.tooltips = new Tooltips();
     this.tooltips.overrideOptions(getOption('wordIndicators.overrideOptions.tooltips'));
+
+    this.mobilePopup = mobilePopup;
+    this.cardCacheEle = getFieldValueEle("CardCache");
   }
 
-  async main() {
-
-    if (!this.getOption('enableAnkiconnectFeatures')) {
-      return;
-    }
-
-    const getResultFront = this.getOption('wordIndicators.getResultsFront');
-
-    if (!getResultFront && this.cardSide === "front") {
-      return;
-    }
+  getIndicators(): WordIndicator[] {
     // ASSUMPTION: if safe, then should be backside of card -> this.indicatorEle* and this.dhLeftEle
     // are all non-null!
 
@@ -423,35 +410,77 @@ export class WordIndicators extends RunnableAsyncModule {
     const baseKanjiQuery = `"Word:${word}" -"WordReadingHiragana:${wordReadingHiragana}"`;
     const baseReadingQuery = `-"Word:${word}"  "WordReadingHiragana:${wordReadingHiragana}"`;
 
-    const indicators: WordIndicator[] = [
+    return [
       new WordIndicator('same_word_indicator', baseWordQuery, this, this.indicatorEleSameWord),
       new WordIndicator('same_kanji_indicator', baseKanjiQuery, this, this.indicatorEleSameKanji),
       new WordIndicator('same_reading_indicator', baseReadingQuery, this, this.indicatorEleSameReading),
     ];
+  }
 
+  async main() {
+    // checks for CardCache field first
+    // if it exists, the calculation at the front side will also be skipped here
+    if (this.useCache && this.persist !== null) {
+      if (this.cardCacheEle !== null && !cardCacheExpired(this.cardCacheEle)) {
+        const wordIndsData = this.cardCacheEle?.querySelector(`[data-cache-type="word-indicators"]`);
+        if (wordIndsData) {
+          this.logger.debug("Using CardCache");
+          const indicators = this.getIndicators();
+          for (const indicator of indicators) {
+            const tooltipHTML = wordIndsData.querySelector(`[data-cache-label="${indicator.label}"]`)?.innerHTML ?? "";
+            if (tooltipHTML !== null && this.cardSide === "back") {
+              this.persist.set(indicator.cacheKey, tooltipHTML);
+              indicator.display();
+            }
+          }
+          return;
+        }
+      }
+    }
+
+    const getResultFront = this.getOption('wordIndicators.getResultsFront');
+    if (!getResultFront && this.cardSide === "front") {
+      return;
+    }
+
+    const indicators = this.getIndicators();
     const persistObj = selectPersistObj();
 
     // if getResultFront, this code will always fire regardless of side
     if (getResultFront || (!getResultFront && this.cardSide === "back")) {
+
+      // not a constant due to cache.ts erroring on import step
+      const cardResultsCacheKey = `${wordIndicatorsCardResultCacheKey}.${getCardKey()}`;
+
       if (persistObj === null) {
         // abort because this will probably be too expensive...
         this.logger.warn("cannot persist, will not get results...")
       } else {
+
+        // properly calculates the results here, AKA uses anki-connect
+        if (!this.getOption('enableAnkiconnectFeatures')) {
+          return;
+        }
 
         // global variable to store whether the indicators have gotten the results or not
         let getResults = (async () => {
           // these should run very quickly if something is cached (as it immediately returns)
           for (const indicator of indicators) {
             // ASSUMPTION: this actually awaits for the result!
-            await indicator.getResult();
+            const tooltipHTML = await indicator.getTooltipHTML();
+
+            // caches
+            if (this.persist !== null) {
+              this.persist.set(indicator.cacheKey, tooltipHTML);
+              this.logger.debug(`Finished running ${indicator.label}; cached result of length ${tooltipHTML.length}`);
+            }
+
           }
           return true;
         });
 
-        if (persistObj.has(cardResultsCacheKey)) {
-          // no reason to get results: already queued
-          // NO-OP
-
+        if (this.useCache && persistObj.has(cardResultsCacheKey)) {
+          this.logger.debug("no reason to get results: already queued")
         } else {
           persistObj.set(cardResultsCacheKey, getResults());
         }
@@ -460,10 +489,9 @@ export class WordIndicators extends RunnableAsyncModule {
 
       if (this.cardSide === "back") {
         if (persistObj !== null && persistObj.has(cardResultsCacheKey)) {
-          await persistObj.get(cardResultsCacheKey);
+          await persistObj.get(cardResultsCacheKey); // so it's no longer a promise
 
           for (const indicator of indicators) {
-            // ASSUMPTION: this actually awaits for the result!
             indicator.display();
           }
 
