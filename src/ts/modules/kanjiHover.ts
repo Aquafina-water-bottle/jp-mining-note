@@ -504,7 +504,7 @@ export class KanjiHover extends RunnableAsyncModule {
 
     // mobilePopup is not null <=> bp < combinePicture <=> should display mobile
     if (this.mobilePopup !== null) {
-      this.mobilePopup.displayKanjiHover(kanjiToHoverHTML, wordReadingEle, this.noteInfo.WordReadingRubyHTML);
+      this.mobilePopup.setupKanjiHover(kanjiToHoverHTML, wordReadingEle, this.noteInfo.WordReadingRubyHTML);
     } else { // display normally
       wordReadingEle.innerHTML = resultHTML;
       this.tooltips.addBrowseOnClick(wordReadingEle);
@@ -518,7 +518,7 @@ export class KanjiHover extends RunnableAsyncModule {
     if (this.mobilePopup !== null) {
       const kanjiToHoverHTML: KanjiToHoverHTML = JSON.parse(persist.get(this.cardHoverHTMLCacheKey));
 
-      this.mobilePopup.displayKanjiHover(kanjiToHoverHTML, wordReadingEle, this.noteInfo.WordReadingRubyHTML);
+      this.mobilePopup.setupKanjiHover(kanjiToHoverHTML, wordReadingEle, this.noteInfo.WordReadingRubyHTML);
       // TODO addBrowseOnClick on mobile?
 
     } else { // display normally

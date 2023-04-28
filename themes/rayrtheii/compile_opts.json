@@ -17,7 +17,7 @@
     "yomichan-textbender": {
       "iconType": "text",
       "iconText": "\uff96\uff90",
-      "url": "textbender://x?x={{text:Word}}",
+      "url": "textbender://x?x={{text:Sentence}}",
       "hoverDisplay": "Yomichan (textbender)"
     }
   },

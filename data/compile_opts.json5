@@ -58,17 +58,17 @@
     //},
 
     //"sakura-paris.org/dict": {
-    //    iconType: "text",
-    //    iconText: "広辞苑",
-    //    url: "https://sakura-paris.org/dict/%E5%BA%83%E8%BE%9E%E8%8B%91/prefix/{{text:Word}}",
-    //    //hoverDisplay: "広辞苑無料検索",
+    //  iconType: "text",
+    //  iconText: "広辞苑",
+    //  url: "https://sakura-paris.org/dict/%E5%BA%83%E8%BE%9E%E8%8B%91/prefix/{{text:Word}}",
+    //  //hoverDisplay: "広辞苑無料検索",
     //},
 
     //"kotobank.jp": {
-    //    iconType: "text",
-    //    iconText: "コ",
-    //    url: "https://kotobank.jp/gs/?q={{text:Word}}",
-    //    //hoverDisplay: "コトバンク",
+    //  iconType: "text",
+    //  iconText: "コ",
+    //  url: "https://kotobank.jp/gs/?q={{text:Word}}",
+    //  //hoverDisplay: "コトバンク",
     //},
 
     // Used with elizagamedev's "Textbender" android app, to allow the user
@@ -76,12 +76,12 @@
     // See: https://github.com/elizagamedev/android-textbender
     // NOTE: This button will only be visible on android devices.
     //"yomichan-textbender": {
-    //    "icon-type": "text",
-    //    "icon-text": "ﾖﾐ",
-    //    //"icon-text": "Ｔ",
-    //    //"icon-text": "読",
-    //    "url": "textbender://x?x={{text:Word}}",
-    //    "hover-display": "Yomichan (textbender)",
+    //  "icon-type": "text",
+    //  "icon-text": "ﾖﾐ",
+    //  //"icon-text": "Ｔ",
+    //  //"icon-text": "読",
+    //  "url": "textbender://x?x={{text:Sentence}}",
+    //  "hover-display": "Yomichan (textbender)",
     //},
   },
 

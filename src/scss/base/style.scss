@@ -386,6 +386,15 @@ code {
   font-size: var(--description-footer-font-size);
 }
 
+.card-description__word-indicators {
+  display: none; /* only displayed on mobile */
+}
+
+.card-description__word-indicator--selected {
+  color: var(--accent);
+}
+
+
 /* decided that this would be an absolute position because
   setting the surroundings to float ends up not properly adjusting
   the height of the header, which then affects the content below
@@ -1049,6 +1058,7 @@ code {
 
 
 .mobile-popup {
+  text-align: left;
   margin: auto;
   max-height: calc(100% - 2 * var(--mobile-popup-border));
   width: calc(100% - 2 * var(--mobile-popup-border));
@@ -1061,16 +1071,69 @@ code {
   padding: 8px 10px 8px 10px;
 }
 
-.mobile-popup--kanji-hover {
-  text-align: left;
-}
-
 :root:not(.mobile) .mobile-popup::-webkit-scrollbar {
   /* removes ugly scrollbar on PC */
   display: none;
 }
 
 
+/* close button + press animations */
+.mobile-popup-title-close {
+  height: 1.2em;
+  position: sticky;
+  display: flex;
+  float: right;
+  top: 0px;
+  user-select: none;
+}
+
+.mobile-popup-title-close:not(.THIS-CLASS-DOES-NOT-EXIST) { /* temporary hack for minimalist mode */
+  /* we have a backdrop-filter blur because I have no idea how to get rid of background text otherwise */
+  backdrop-filter: blur(1.2px) !important; /* !important for minimalist mode */
+  border-radius: 3px;
+}
+
+.mobile-popup-title-close svg {
+  height: 1.2em;
+  fill: var(--text-color);
+  position: sticky;
+}
+
+.mobile-popup-title-close:active {
+  box-shadow: 0px 0px 2px var(--text-color--2) !important; /* !important for minimalist mode */
+}
+
+.mobile-popup-title-close:active svg {
+  margin-top: 1px;
+}
+
+
+
+
+// looks like microsoft XP style...
+//.mobile-popup-title-close:not(.CLASS-DOES-NOT-EXIST) { /* hack for non-fancy display... */
+//  backdrop-filter: blur(5px) !important;
+//  box-shadow: 1px 1px 1.5px var(--text-color--4) !important;
+//}
+//
+//.mobile-popup-title-close svg {
+//  height: 1.2em;
+//  fill: var(--text-color);
+//  position: sticky;
+//}
+//
+//.mobile-popup-title-close:active {
+//    box-shadow: 0px 0px 1px var(--text-color--4) !important;
+//}
+//
+//.mobile-popup-title-close svg {
+//  margin-right: 0px;
+//}
+//.mobile-popup-title-close:active svg {
+//  margin-top: 1px;
+//  margin-right: -1px;
+//  margin-left: 1px;
+//}
 
 
 /*
@@ -1154,6 +1217,10 @@ code {
   font-size: var(--reading-font-size);
   font-family: var(--jp-serif);
   white-space: nowrap; /* so the reading can expand ouside of the max width */
+}
+
+.dh-left__reading--kanji-selected {
+  color: var(--accent);
 }
 
 .dh-left__word-pitch {
@@ -2200,6 +2267,10 @@ a.glossary__image-hover-text {
   height: var(--external-links-icon-size);
 }
 
+.glossary__external-links a:active .glossary__external-links-inner {
+  margin-top: 1px;
+  filter: opacity(0.6);
+}
 
 .glossary__external-links a:not(:hover) {
   filter: opacity(0.5) grayscale(0.5);

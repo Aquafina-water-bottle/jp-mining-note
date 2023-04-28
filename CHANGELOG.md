@@ -56,7 +56,7 @@ and must use `./install.py --update`.
     - Added a height media query to make the card smaller for lower screen resolutions
     - `cache.ts` was added to allow caching of kanji hover and word indicator results in the card itself
         - This means that kanji hover and word indicators have results on mobile!
-    - Made kanji hover and word indicator results show better on mobile
+    - Made kanji hover and word indicator results show better on mobile (via a popup at the bottom half of the screen)
 
 - Backend Javascript rework: (TODO)
     - Javascript has been finally ported to Typescript & webpack
@@ -151,6 +151,7 @@ and must use `./install.py --update`.
     - Added a warning if `SentenceReading` is filled but `Sentence` isn't
     - Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
     - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
+        - Sends the raw sentence field by default
     - Added styling for inline `<code>` blocks. For example, the following sentence taken from the rust book
         is now formatted nicely:
         ```
