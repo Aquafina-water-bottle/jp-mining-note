@@ -307,8 +307,9 @@ and delete both `css` files.
 > Code: `1344485230`
 
 !!! warning
-    As of writing this, AJT Japanese is only guaranteed to work on Anki versions 2.1.60 and above,
-    because it is no longer maintained on previous versions.
+    As of writing this (2023/04/28), AJT Japanese is only guaranteed to work on
+    Anki versions 2.1.60 and above, because it is no longer maintained on previous versions.
+    If you are using an older version of Anki, please update Anki or do not use this add-on.
 
 This is an add-on that automatically adds furigana and pitch accents to
 cards upon Yomichan card creation.
