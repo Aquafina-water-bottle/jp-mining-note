@@ -33,8 +33,8 @@ function simulateEnv(noteInfo: NoteInfo) {
 
 async function getNotesInfo(): Promise<NoteInfo[]> {
   // TODO cli flags
-  //const query = `"note:JP Mining Note" prop:due=0`;
-  const query = `"note:JP Mining Note" key:家族`;
+  const query = `"note:JP Mining Note" (prop:due=0)`;
+  //const query = "cid:1679876913516 OR cid:1670735670843 OR cid:1679878188028 OR cid:1670735845619 OR cid:1679878820999 OR cid:1679879962917 OR cid:1670736430754 OR cid:1670751054470 OR cid:1670751627638 OR cid:1670752182179 OR cid:1670752828713 OR cid:1670753452666 OR cid:1670754404523 OR cid:1670759984783 OR cid:1670767693507 OR cid:1670812672583 OR cid:1670813402590 OR cid:1670840591380 OR cid:1670841005409 OR cid:1670844752574 OR cid:1670845767977 OR cid:1670920871892 OR cid:1670920994917 OR cid:1670921670805 OR cid:1670973359742 OR cid:1670995157666 OR cid:1670996099016 OR cid:1671006862874 OR cid:1671008336839"
   console.log("Querying due notes...")
   const notes = await invoke("findNotes", { query: query }) as number[];
 
@@ -125,37 +125,52 @@ function constructWriteAction(cacheEleHTML: string, info: NoteInfo) {
 }
 
 async function main() {
-  //console.log("Hello world!");
+  // CREATE/SUPPRESS GLOBAL OBJECTS
   const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p><div id="hidden"></div>`);
   globalThis.document = dom.window.document;
-
-  //globalThis.XMLHttpRequest = xhr2;
   globalThis.XMLHttpRequest = require('xhr2');
-
-  // fake a persist obj
-  manuallyCreateObjPersist();
+  manuallyCreateObjPersist(); // fake a persist obj
+  // literally clears out console output, because otherwise it spams... (we use print instead)
+  const print = console.log;
+  console.log = () => {};
 
   const notesInfo = await getNotesInfo();
-
   const epochTime = Date.now();
+  let actions: ReturnType<typeof constructWriteAction>[] = [];
 
-  const actions: ReturnType<typeof constructWriteAction>[] = [];
-  for (const info of notesInfo) {
-    console.log("Key:", info.fields.Key.value);
-    simulateEnv(info);
+  // write buffer
+  const maxBuffer = 10;
+  let currentBuffer = 0;
 
-    const kanjiToHoverHTML = await calcKanjisToHover(info);
-    const wordIndicatorTooltips = await calcWordIndicatorTooltips();
+  for (const [i, info] of notesInfo.entries()) {
+    print(`Caching note ${i}/${notesInfo.length}...`)
+    //console.log("Key:", info.fields.Key.value);
 
-    const cacheEle = constructCacheEle(epochTime, kanjiToHoverHTML, wordIndicatorTooltips);
-    const action = constructWriteAction(cacheEle.outerHTML, info,);
-    actions.push(action)
-    //console.log(action)
-    //console.log(JSON.stringify(action, null, 2))
+    try {
+      simulateEnv(info);
 
-    //break; // TODO temp
+      const kanjiToHoverHTML = await calcKanjisToHover(info);
+      const wordIndicatorTooltips = await calcWordIndicatorTooltips();
+
+      const cacheEle = constructCacheEle(epochTime, kanjiToHoverHTML, wordIndicatorTooltips);
+      const action = constructWriteAction(cacheEle.outerHTML, info,);
+      actions.push(action)
+      //console.log(action)
+      //console.log(JSON.stringify(action, null, 2))
+
+      //break; // TODO temp
+      currentBuffer++;
+      if (currentBuffer >= maxBuffer) {
+        currentBuffer = 0;
+        await invoke("multi", {actions: actions});
+        actions = []
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
 
+  // in case the buffer wasn't ran
   await invoke("multi", {actions: actions});
 }
 

@@ -858,6 +858,22 @@ def fill_field_if_hiragana(field_name: str, value: str = "1", query: str | None 
     notes = invoke("multi", actions=actions)
 
 
+def get_new_due_cards(limit: int):
+    print(f"Querying cards...")
+    query = '"note:JP Mining Note" is:new -is:suspended'
+    cards = invoke("findCards", query=query)
+
+    print(f"Getting {len(cards)} cards info...")
+    cards_info = invoke("cardsInfo", cards=cards)
+
+    print(f"Sorting cards...")
+    new_due_cards = sorted(cards_info, key=lambda x: x["due"])[:limit]
+
+    ids = [x["cardId"] for x in new_due_cards]
+    print(ids)
+    return ids
+
+
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
 # a dependency...
 FUNC_ARGS: dict[Callable, dict[str, Type]] = {
@@ -869,6 +885,7 @@ FUNC_ARGS: dict[Callable, dict[str, Type]] = {
     },
     remove_html: {"field_name": str},
     fill_field_if_hiragana: {"field_name": str},
+    get_new_due_cards: {"limit": int},
 }
 
 FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
@@ -906,6 +923,7 @@ PUBLIC_FUNCTIONS = [
     set_fonts_to_key_font,
     replace_runtime_options_file,
     fill_field_if_hiragana,
+    get_new_due_cards,
 ]
 
 # functions available for the anki addon (should be everything but the xelieu function)
@@ -933,6 +951,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     set_fonts_to_key_font,
     replace_runtime_options_file_anki,
     fill_field_if_hiragana,
+    get_new_due_cards,
 ]
 
 
