@@ -144,6 +144,11 @@
     display: none;
   }
 
+  .card-description__word-indicators {
+    display: inline; /* only displayed on mobile */
+    margin-left: 0.5em;
+  }
+
   .info-circle > .info-circle-svg-wrapper svg {
     /* TODO variable */
     width: 15px;
@@ -156,7 +161,7 @@
     top: 0px;
     left: 0px;
     display: none;
-    z-index: 2;
+    z-index: 20; /* kanji hover / word indicators popup has z-index of 10 */
 
     background-color: var(--tooltip-behind-darken);
 
@@ -432,6 +437,11 @@
   .card-main {
     // TODO adjust if no image, etc.
     margin-bottom: var(--footer-height);
+  }
+
+  .card-main--half-screen {
+    /* used when the mobile popup is active, so the user can still scroll */
+    margin-bottom: 51vh;
   }
 
   .dh-right__svg-eye {

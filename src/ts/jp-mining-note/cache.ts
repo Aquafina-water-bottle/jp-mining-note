@@ -34,7 +34,7 @@ function simulateEnv(noteInfo: NoteInfo) {
 async function getNotesInfo(): Promise<NoteInfo[]> {
   // TODO cli flags
   //const query = `"note:JP Mining Note" prop:due=0`;
-  const query = `"note:JP Mining Note" key:端`;
+  const query = `"note:JP Mining Note" key:家族`;
   console.log("Querying due notes...")
   const notes = await invoke("findNotes", { query: query }) as number[];
 

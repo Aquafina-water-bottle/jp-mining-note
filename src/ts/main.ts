@@ -154,6 +154,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     new WebSocketUtils().run();
   }
 
+  // depends on sentenceParser, for textbender sentence
   if (compileOpts['enableModule.mobileUtils']) {
     new MobileUtils().run();
   }
@@ -161,7 +162,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // TODO: compileOpts togglable??
   let mobilePopup: MobilePopup | null = null;
   if (getViewportWidth() < compileOpts["breakpoints.width.combinePicture"]) {
-    mobilePopup = new MobilePopup();
+    mobilePopup = new MobilePopup("mobilePopup");
   }
 
   if (compileOpts['enableModule.infoCircleUtils']) {

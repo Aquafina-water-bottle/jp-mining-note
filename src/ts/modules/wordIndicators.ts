@@ -46,19 +46,21 @@ export type WordIndicatorLabel = 'same_word_indicator' |
                                  'same_kanji_indicator' |
             'same_reading_indicator'
 
-class WordIndicator {
+export class WordIndicator {
   // is also the html id for the indicator element
-  readonly label: WordIndicatorLabel;
   private readonly baseIndicatorQuery: string;
   private readonly wordInds: WordIndicators;
-  private readonly indicatorEle: HTMLElement | null;
+  readonly label: WordIndicatorLabel;
+  readonly indicatorEle: HTMLElement | null;
+  readonly infoCircIndicatorEle: HTMLElement | null;
   readonly cacheKey: string;
 
-  constructor(label: WordIndicatorLabel, baseIndicatorQuery: string, wordInds: WordIndicators, indicatorEle: HTMLElement | null) {
+  constructor(label: WordIndicatorLabel, baseIndicatorQuery: string, wordInds: WordIndicators, indicatorEle: HTMLElement | null, infoCircIndicatorEle: HTMLElement | null) {
     this.label = label;
     this.baseIndicatorQuery = baseIndicatorQuery;
     this.wordInds = wordInds;
     this.indicatorEle = indicatorEle;
+    this.infoCircIndicatorEle = infoCircIndicatorEle;
     this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${getCardKey()}`;
 
     // ran synchronously, so fields will 100% be cached
@@ -276,6 +278,7 @@ class WordIndicator {
 
   // this is only expected to be called at the backside of the card
   async display() {
+    // doesn't use isCached() function, because useCache is false on refresh
     if (!this.wordInds.persist?.has(this.cacheKey)) {
       this.wordInds.logger.debug(`${this.label} -> nothing cached?`);
       return;
@@ -289,28 +292,35 @@ class WordIndicator {
     }
     this.wordInds.logger.debug(`${this.label} -> displaying...`);
 
-    // elements are gotten in the constructor of WordIndicators, so these cannot
-    // accidentally grab the wrong element
-    const indicatorEle = this.indicatorEle;
-    const dhLeftEle = this.wordInds.dhLeftEle;
+    // mobilePopup is not null <=> bp < combinePicture <=> should display mobile
+    if (this.wordInds.mobilePopup !== null) {
+      this.wordInds.mobilePopup.setupWordIndicator(this, this.wordInds.infoCircIndicatorsGroupEle, tooltipHTML);
+    } else {
 
-    if (indicatorEle === null || dhLeftEle === null) {
-      this.wordInds.logger.warn(`Cannot display indicator: ${this.label}`)
-      return;
+      // elements are gotten in the constructor of WordIndicators, so these cannot
+      // accidentally grab the wrong element
+      const indicatorEle = this.indicatorEle;
+      const dhLeftEle = this.wordInds.dhLeftEle;
+
+      if (indicatorEle === null || dhLeftEle === null) {
+        this.wordInds.logger.warn(`Cannot display indicator: ${this.label}`)
+        return;
+      }
+
+      // TODO document structure of element?
+      indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
+      indicatorEle.classList.toggle('dh-left__similar-words-indicator--visible', true);
+
+      if (await cardIsNew("back")) {
+        indicatorEle.classList.toggle('dh-left__similar-words-indicator--new', true);
+      }
+
+      // TODO rework this! this also affects pitch accents!
+      //dhLeftEle.classList.toggle(clsWithIndicators, true);
+
+      this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
+
     }
-
-    // TODO document structure of element?
-    indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
-    indicatorEle.classList.toggle('dh-left__similar-words-indicator--visible', true);
-
-    if (await cardIsNew("back")) {
-      indicatorEle.classList.toggle('dh-left__similar-words-indicator--new', true);
-    }
-
-    // TODO rework this! this also affects pitch accents!
-    //dhLeftEle.classList.toggle(clsWithIndicators, true);
-
-    this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
   }
 
   isCached() {
@@ -381,8 +391,14 @@ export class WordIndicators extends RunnableAsyncModule {
   private readonly indicatorEleSameWord = document.getElementById("same_word_indicator");
   private readonly indicatorEleSameKanji = document.getElementById("same_kanji_indicator");
   private readonly indicatorEleSameReading = document.getElementById("same_reading_indicator");
+
+  readonly infoCircIndicatorsGroupEle = document.getElementById("ic_similar_words_indicators");
+  private readonly infoCircIndicatorEleSameWord = document.getElementById("ic_same_word_indicator");
+  private readonly infoCircIndicatorEleSameKanji = document.getElementById("ic_same_kanji_indicator");
+  private readonly infoCircIndicatorEleSameReading = document.getElementById("ic_same_reading_indicator");
+
   readonly dhLeftEle = document.getElementById('dh_left');
-  private readonly mobilePopup: MobilePopup | null;
+  readonly mobilePopup: MobilePopup | null;
   private readonly cardCacheEle: HTMLElement | null;
 
   readonly tooltips: Tooltips;
@@ -411,9 +427,9 @@ export class WordIndicators extends RunnableAsyncModule {
     const baseReadingQuery = `-"Word:${word}"  "WordReadingHiragana:${wordReadingHiragana}"`;
 
     return [
-      new WordIndicator('same_word_indicator', baseWordQuery, this, this.indicatorEleSameWord),
-      new WordIndicator('same_kanji_indicator', baseKanjiQuery, this, this.indicatorEleSameKanji),
-      new WordIndicator('same_reading_indicator', baseReadingQuery, this, this.indicatorEleSameReading),
+      new WordIndicator('same_word_indicator', baseWordQuery, this, this.indicatorEleSameWord, this.infoCircIndicatorEleSameWord),
+      new WordIndicator('same_kanji_indicator', baseKanjiQuery, this, this.indicatorEleSameKanji, this.infoCircIndicatorEleSameKanji),
+      new WordIndicator('same_reading_indicator', baseReadingQuery, this, this.indicatorEleSameReading, this.infoCircIndicatorEleSameReading),
     ];
   }
 
@@ -443,6 +459,11 @@ export class WordIndicators extends RunnableAsyncModule {
       return;
     }
 
+    // starts to properly calculate the results here, AKA uses anki-connect
+    if (!this.getOption('enableAnkiconnectFeatures')) {
+      return;
+    }
+
     const indicators = this.getIndicators();
     const persistObj = selectPersistObj();
 
@@ -456,11 +477,6 @@ export class WordIndicators extends RunnableAsyncModule {
         // abort because this will probably be too expensive...
         this.logger.warn("cannot persist, will not get results...")
       } else {
-
-        // properly calculates the results here, AKA uses anki-connect
-        if (!this.getOption('enableAnkiconnectFeatures')) {
-          return;
-        }
 
         // global variable to store whether the indicators have gotten the results or not
         let getResults = (async () => {

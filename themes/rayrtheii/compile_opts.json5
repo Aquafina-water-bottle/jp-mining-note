@@ -33,7 +33,7 @@
       iconText: "ﾖﾐ",
       //iconText: "Ｔ",
       //iconText: "読",
-      url: "textbender://x?x={{text:Word}}",
+      url: "textbender://x?x={{text:Sentence}}",
       hoverDisplay: "Yomichan (textbender)",
     },
 
