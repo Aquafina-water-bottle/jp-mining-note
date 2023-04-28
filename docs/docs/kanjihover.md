@@ -64,6 +64,7 @@ TODO
     In fact, it's almost guaranteed that Cade's Kanji Hover will conflict with
     this note's kanji hover ability, if placed directly in the word reading field.
 
+
 ## [Cade's Kanji Hover](https://cademcniven.com/projects/kanjihover/)
 
 - Hover over a kanji to see its readings, meanings (english), and other info.

@@ -44,6 +44,10 @@ There are certain features that are known to break on these versions.
 JPMN finally supports AnkiDroid and AnkiMobile,
 and comes with a new interface specifically designed for mobile devices.
 
+However, there are some limitations on mobile. Mainly, anything requiring
+Anki-Connect within the note (kanji hover and word indicators) will not work.
+The current workaround is to [cache the tooltip results](tooltipresults.md#cache-tooltip-results).
+
 ## AnkiWeb
 JPMN is not tested on AnkiWeb,
 and there are currently no plans to support AnkiWeb.
