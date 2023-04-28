@@ -50,7 +50,7 @@ export type Field =
   | 'Comment';
 
 
-const fieldFilledCache: Partial<Record<Field, boolean>> = {};
+let fieldFilledCache: Partial<Record<Field, boolean>> = {};
 
 export function cacheFieldFilled(field: Field, value: boolean) {
   fieldFilledCache[field] = value;
@@ -95,7 +95,7 @@ export function fieldsAllEmpty(...fields: Field[]) {
 
 
 // per card
-const fieldValueCache: Partial<Record<Field, string>> = {};
+let fieldValueCache: Partial<Record<Field, string>> = {};
 
 // specifically to cache for asynchronous functions
 // (when the getElementById can return a different elemnt)
@@ -134,3 +134,13 @@ export function getFieldValueEle(field: Field): HTMLElement | null {
   return x;
 }
 
+
+/*
+ * This is prefixed with `_` to indicate that this should not be used under normal circumstances.
+ * These values should be reset after each card flip normally, but has to be manually reset
+ * with cache.ts
+ */
+export function _resetGlobalState() {
+  fieldValueCache = {};
+  fieldFilledCache = {};
+}

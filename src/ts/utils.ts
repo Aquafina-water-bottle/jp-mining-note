@@ -15,18 +15,18 @@ export type CardSide = "front" | "back";
 
 //export const VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
-let tagsList: null | readonly string[] = null;
+let _tagsList: null | readonly string[] = null;
 
 export function getTags() {
-  if (tagsList === null) {
+  if (_tagsList === null) {
     let tags = '{{Tags}}'.split(' ');
     if (tags.length === 1 && tags[0] === '') {
-      tagsList = [];
+      _tagsList = [];
     } else {
-      tagsList = tags;
+      _tagsList = tags;
     }
   }
-  return tagsList;
+  return _tagsList;
 }
 
 // all verb tags that isn't 'vs'
@@ -50,6 +50,16 @@ export function getCardKey() {
   }
   _cardKey = `${getFieldValue("Key")}.${getFieldValue("Sentence")}`;
   return _cardKey;
+}
+
+/*
+ * This is prefixed with `_` to indicate that this should not be used under normal circumstances.
+ * These values should be reset after each card flip normally, but has to be manually reset
+ * with cache.ts
+ */
+export function _resetGlobalState() {
+  _cardKey = null;
+  _tagsList = null;
 }
 
 export function popupMenuMessage(message: string, isHTML = false) {

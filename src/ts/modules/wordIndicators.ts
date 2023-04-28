@@ -75,6 +75,7 @@ export class WordIndicator {
       'WordReading',
       'WordReadingHiragana',
       'YomichanWordTags',
+      'CardCache',
     ] as const;
     for (const f of cacheFields) {
       cacheFieldValue(f);
@@ -337,7 +338,7 @@ export class WordIndicator {
     // on the back side of the card while the front side is still running
     if (this.isCached()) {
       this.wordInds.logger.debug('Has cached indicator');
-      return "";
+      return this.wordInds.persist?.get(this.cacheKey) ?? "";
     }
 
     this.wordInds.logger.debug(`Running ${this.label}`);

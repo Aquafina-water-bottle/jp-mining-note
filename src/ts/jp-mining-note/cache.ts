@@ -2,8 +2,8 @@ import { JSDOM } from 'jsdom';
 //import { xhr2 } from 'xhr2';
 import {KanjiHover, NoteInfoKanjiHover} from '../modules/kanjiHover';
 import {invoke} from '../ankiConnectUtils';
-import {NoteInfo, plainToRuby} from '../utils';
-import {Field} from '../fields';
+import {NoteInfo, plainToRuby, _resetGlobalState as _resetGlobalStateUtils} from '../utils';
+import {Field, _resetGlobalState as _resetGlobalStateFields} from '../fields';
 import {manuallyCreateObjPersist} from '../spersist';
 import {WordIndicatorLabel, WordIndicators} from '../modules/wordIndicators';
 
@@ -29,12 +29,14 @@ function simulateEnv(noteInfo: NoteInfo) {
     h.appendChild(eleExists);
   }
 
+  _resetGlobalStateUtils();
+  _resetGlobalStateFields();
 }
 
 async function getNotesInfo(): Promise<NoteInfo[]> {
   // TODO cli flags
-  const query = `"note:JP Mining Note" (prop:due=0)`;
-  //const query = "cid:1679876913516 OR cid:1670735670843 OR cid:1679878188028 OR cid:1670735845619 OR cid:1679878820999 OR cid:1679879962917 OR cid:1670736430754 OR cid:1670751054470 OR cid:1670751627638 OR cid:1670752182179 OR cid:1670752828713 OR cid:1670753452666 OR cid:1670754404523 OR cid:1670759984783 OR cid:1670767693507 OR cid:1670812672583 OR cid:1670813402590 OR cid:1670840591380 OR cid:1670841005409 OR cid:1670844752574 OR cid:1670845767977 OR cid:1670920871892 OR cid:1670920994917 OR cid:1670921670805 OR cid:1670973359742 OR cid:1670995157666 OR cid:1670996099016 OR cid:1671006862874 OR cid:1671008336839"
+  //const query = `"note:JP Mining Note" (prop:due=0)`;
+  const query = "cid:1679876913516 OR cid:1670735670843"
   console.log("Querying due notes...")
   const notes = await invoke("findNotes", { query: query }) as number[];
 
@@ -61,6 +63,7 @@ async function calcWordIndicatorTooltips(): Promise<Record<WordIndicatorLabel, s
     'same_reading_indicator': null,
   }
   const wordIndicators = new WordIndicators(null);
+  wordIndicators.setUseCache(false); // 
   const indicators = wordIndicators.getIndicators()
   for (const indicator of indicators) {
     const tooltipHTML = await indicator.getTooltipHTML();
@@ -132,7 +135,7 @@ async function main() {
   manuallyCreateObjPersist(); // fake a persist obj
   // literally clears out console output, because otherwise it spams... (we use print instead)
   const print = console.log;
-  console.log = () => {};
+  //console.log = () => {};
 
   const notesInfo = await getNotesInfo();
   const epochTime = Date.now();
@@ -151,6 +154,7 @@ async function main() {
 
       const kanjiToHoverHTML = await calcKanjisToHover(info);
       const wordIndicatorTooltips = await calcWordIndicatorTooltips();
+      print(wordIndicatorTooltips)
 
       const cacheEle = constructCacheEle(epochTime, kanjiToHoverHTML, wordIndicatorTooltips);
       const action = constructWriteAction(cacheEle.outerHTML, info,);
