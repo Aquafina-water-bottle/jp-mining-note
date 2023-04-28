@@ -209,14 +209,35 @@ and must use `./install.py --update`.
     - Updated Persistence from v1.0.0 -> v1.1.8
     - Integrated persistence properly with typescript with .d.ts file
 
-#### 0.12.0.0 Prerelease Changelog
+#### 0.12.0.0 Pre-release Changelog
+
 
 <details>
-<summary> Prerelease 3 </summary>
+<summary> Pre-release 4 </summary>
+
+This pre-release primarily changes some internals with how word indicators work,
+but should not have any outward affecting changes. As always, please let me know
+if anything looks off.
+
+**Features**:
+- Implemented caching word indicators with cache.ts
+- Reworked mobile tooltip (kanji hover, word indicators):
+    - Added close button
+    - Height is automatically fitted to the content
+    - Additional height is added to the main card to allow scrolling past the tooltip
+    - Kanji and word indicator is highlighted on selection
+- cache.ts now writes for every 10 cards (just in case)
+
+
+</details>
+
+
+<details>
+<summary> Pre-release 3 </summary>
 
 **Fixes**:
 - Fixed `img-yomichan-no-styling` not working as expected (it got stylized as a user image instead)
-- Temporarily made info circle links point to prerelease docs instead of the standard docs, to prevent confusion
+- Temporarily made info circle links point to pre-release docs instead of the standard docs, to prevent confusion
 - Fixed ignoring wrong SentenceReading warning
 
 
@@ -225,7 +246,7 @@ and must use `./install.py --update`.
 
 
 <details>
-<summary> Prerelease 2 </summary>
+<summary> Pre-release 2 </summary>
 
 **Features**:
 - Info circle shows as a dialog instead of a popup (mobile only)
