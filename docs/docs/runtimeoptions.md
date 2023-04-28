@@ -90,6 +90,8 @@ You can safely copy/paste anything there (outside of `overrides`) into your runt
 
 
 ## Override Options
+TODO link to tooltipresults? or visa versa?
+
 There are a few option groups that can be used to override other options:
 
 - `tooltips.overrideOptions.sentenceParser`

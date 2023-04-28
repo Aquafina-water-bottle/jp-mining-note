@@ -11,6 +11,28 @@ TODO add intro
     - all the extra color was very distracting, and stole the attention away from the important part
         (the example words found)
 
+---
+
+# Cache Tooltip Results
+
+TODO
+
+- problem: mobile (and anki-web) does not have access to Anki-Connect
+    - yes, Android has AnkiConnect Android, but its implementation is incomplete
+    - even if it were complete, it is currently a lot slower than the standard desktop Anki-Connect
+    - kanji hover and word indicators fully depend on Anki-Connect in order to work!
+- solution: cache results of kanji hover and word indicators, into the `CardCache` field
+- requires building the note!!!
+    - may be implemented as a separate note in the future (so you can run the script within Anki)
+- also requires node (npx node)
+
+how to:
+
+```bash
+# assumption: the current note version has been successfully built
+node ./src/_js/jpmn_card_cache.js
+```
+
 
 ---
 
@@ -85,6 +107,8 @@ This can be changed in the {{ RTO_FILE}}:
 ---
 
 # Customizing Sentences & Pitch Accent
+
+TODO link to runtime options? or visa versa?
 
 Any {{ RTO }} under the `sentParser` and `autoPA` group can be set under
 `tooltips.overrideOptions.sentenceParser` and
