@@ -147,6 +147,7 @@
   .card-description__word-indicators {
     display: inline; /* only displayed on mobile */
     margin-left: 0.5em;
+    color: var(--text-color--2);
   }
 
   .info-circle > .info-circle-svg-wrapper svg {
@@ -161,7 +162,7 @@
     top: 0px;
     left: 0px;
     display: none;
-    z-index: 20; /* kanji hover / word indicators popup has z-index of 10 */
+    z-index: 20; /* kanji hover / word indicators popup has z-index of 10, popup menu has 30 */
 
     background-color: var(--tooltip-behind-darken);
 
