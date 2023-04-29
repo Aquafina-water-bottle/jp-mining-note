@@ -74,6 +74,7 @@ $font-backup-sans:
 
   --reading-font-size: #{px2rem(55px)};
   --reading-pitch-font-size: #{px2rem(23px)};
+  --reading-bold-pitch-font-size: 0.7em;
   --full-sentence-font-size: #{px2rem(28px)};
 
   --glossary-font-size: #{px2rem(18px)};
@@ -399,7 +400,7 @@ $font-backup-sans:
 
     font-weight: normal;
     filter: opacity(30%);
-    font-size: 15px;
+    font-size: var(--reading-bold-pitch-font-size);
   }
 
 }
