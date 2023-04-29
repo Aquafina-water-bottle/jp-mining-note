@@ -199,7 +199,9 @@ export class SentenceParser extends RunnableModule {
     }
 
     if (processMode === 'add') {
-      if (o === '' && c === '') {
+      // no quotes are added if the sentence is empty in the first place
+      // this could be a runtime option, but only if there is demand and/or a use case
+      if (o === '' && c === '' && sent.contents.innerHTML.length > 0) {
         // only adds if there weren't quotes already
         o = this.getOption('sentenceParser.quotes.quoteOpen');
         c = this.getOption('sentenceParser.quotes.quoteClose');
