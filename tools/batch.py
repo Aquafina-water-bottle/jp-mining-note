@@ -858,7 +858,7 @@ def fill_field_if_hiragana(field_name: str, value: str = "1", query: str | None 
     notes = invoke("multi", actions=actions)
 
 
-def get_new_due_cards(limit: int):
+def get_new_due_cards(limit: int, as_query=True):
     print(f"Querying cards...")
     query = '"note:JP Mining Note" is:new -is:suspended'
     cards = invoke("findCards", query=query)
@@ -870,8 +870,12 @@ def get_new_due_cards(limit: int):
     new_due_cards = sorted(cards_info, key=lambda x: x["due"])[:limit]
 
     ids = [x["cardId"] for x in new_due_cards]
-    print(ids)
-    return ids
+    if as_query:
+        result = " OR ".join([f"cid:{id}" for id in ids])
+    else:
+        result = ids
+    print(result)
+    return result
 
 
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
