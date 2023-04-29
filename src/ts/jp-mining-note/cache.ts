@@ -35,8 +35,8 @@ function simulateEnv(noteInfo: NoteInfo) {
 
 async function getNotesInfo(): Promise<NoteInfo[]> {
   // TODO cli flags
-  //const query = `"note:JP Mining Note" (prop:due=0)`;
-  const query = "cid:1679876913516 OR cid:1670735670843"
+  const query = `"note:JP Mining Note" (prop:due=0)`;
+  //const query = "cid:1679878820999 OR cid:1679879962917 OR cid:1670736430754 OR cid:1670751054470 OR cid:1670751627638 OR cid:1670752182179 OR cid:1670752828713 OR cid:1670753452666 OR cid:1670754404523 OR cid:1670759984783 OR cid:1670767693507 OR cid:1670812672583 OR cid:1670813402590 OR cid:1670840591380 OR cid:1670841005409 OR cid:1670844752574 OR cid:1670845767977 OR cid:1670920871892 OR cid:1670920994917 OR cid:1670921670805 OR cid:1670973359742 OR cid:1670995157666 OR cid:1670996099016 OR cid:1671006862874 OR cid:1671008336839 OR cid:1671053146364 OR cid:1671053913946 OR cid:1671054128008 OR cid:1671054316614 OR cid:1671055545564"
   console.log("Querying due notes...")
   const notes = await invoke("findNotes", { query: query }) as number[];
 
@@ -135,7 +135,7 @@ async function main() {
   manuallyCreateObjPersist(); // fake a persist obj
   // literally clears out console output, because otherwise it spams... (we use print instead)
   const print = console.log;
-  //console.log = () => {};
+  console.log = () => {};
 
   const notesInfo = await getNotesInfo();
   const epochTime = Date.now();
@@ -146,7 +146,7 @@ async function main() {
   let currentBuffer = 0;
 
   for (const [i, info] of notesInfo.entries()) {
-    print(`Caching note ${i}/${notesInfo.length}...`)
+    print(`Caching note ${i+1}/${notesInfo.length}...`)
     //console.log("Key:", info.fields.Key.value);
 
     try {
@@ -154,7 +154,6 @@ async function main() {
 
       const kanjiToHoverHTML = await calcKanjisToHover(info);
       const wordIndicatorTooltips = await calcWordIndicatorTooltips();
-      print(wordIndicatorTooltips)
 
       const cacheEle = constructCacheEle(epochTime, kanjiToHoverHTML, wordIndicatorTooltips);
       const action = constructWriteAction(cacheEle.outerHTML, info,);
