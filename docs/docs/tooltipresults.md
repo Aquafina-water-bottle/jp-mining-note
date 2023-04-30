@@ -152,3 +152,15 @@ The following {{ RTO }} re-enables the highlighted word:
     {{ img("", "assets/uicustomization/tooltip/not_highlighted.png") }}
 
 
+---
+
+# Display newlines in mobile tooltip sentences
+
+TODO wrap with custom css text
+
+```css
+.mobile-popup .hover-tooltip__sent-div br {
+  display: inline;
+}
+```
+

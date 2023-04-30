@@ -1107,6 +1107,11 @@ code {
   margin-top: 1px;
 }
 
+/* hides all newlines on mobile popup sentences in particular */
+.mobile-popup .hover-tooltip__sent-div br {
+  display: none;
+}
+
 
 
 
@@ -2031,7 +2036,7 @@ code {
 
 }
 
-/* removes floating pictures */
+/* removes floating pictures (TODO: what is this for???) */
 .glossary-primary-definition--remove-pictures {
 
   .glossary-primary-definition__right .glossary-primary-definition__img {
@@ -2066,6 +2071,11 @@ code {
   .glossary__external-links, .glossary-primary-definition__img {
     margin-left: auto;
   }
+
+  .glossary-primary-definition__img {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
 }
 
 
@@ -2093,7 +2103,7 @@ code {
  */
 
 /*
- * Purpose of glossary-primary-definition--auto-no-lenience classes:
+ * Purpose of glossary-primary-definition--auto-no-lenience class:
  *
  * if the definition is empty:
  *     place to left
