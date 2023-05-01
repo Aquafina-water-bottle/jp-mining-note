@@ -1337,10 +1337,10 @@ code {
 
   /* cancels out bolded colors */
   b {
-    --pa-overline-color: var(--text-color);
+    --pa-overline-color: var(--text-color--1);
   }
   .nopron {
-      color: var(--text-color);
+      color: var(--text-color--1);
   }
 }
 
@@ -1352,11 +1352,11 @@ code {
 .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
   /* cancels out extra colors */
   .pitchoverline:after, .downstep:before {
-    --pa-overline-color: var(--text-color);
+    --pa-overline-color: var(--text-color--1);
   }
 
   b .pitchoverline:after, b .downstep:before {
-    --pa-overline-color: var(--text-color--1);
+    --pa-overline-color: var(--text-color--2);
   }
 }
 
@@ -1372,7 +1372,6 @@ code {
 
   .hover-tooltip__pitch-accent {
 
-    /* TODO: how to handle bolded pitches? */
     .pitchoverline:after, .downstep:before {
       --pa-overline-color: var(--text-color--1);
     }
@@ -1384,17 +1383,58 @@ code {
   }
 }
 
-/* tests for pixel density (>= 2ddpx condition is usually for phones) */
-@media (max-resolution: 2dppx) { /* <= 2dppx */
-  .pitchoverline:after, .downstep:before {
-    filter: opacity(0.7); /* because regular computer screens seem to display it brighter than normal? */
-  }
-}
+
+
 @media (min-resolution: 2dppx) { /* >= 2dppx */
-  .pitchoverline:after, .downstep:before {
-    filter: opacity(0.95); /* even phone screens still display it lighter than normal??? */
+
+  .hover-tooltip__pitch-accent {
+    /* cancels out bolded colors */
+    b {
+      --pa-overline-color: var(--text-color);
+    }
+    .nopron {
+        color: var(--text-color);
+    }
   }
+
+  .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
+    /* cancels out extra colors */
+    .pitchoverline:after, .downstep:before {
+      --pa-overline-color: var(--text-color);
+    }
+
+    b .pitchoverline:after, b .downstep:before {
+      --pa-overline-color: var(--text-color--1);
+    }
+  }
+
+  /* greys out the card if new (not reviewed yet) */
+  /* this is repeated code so the above doesn't override the standard colors */
+  .hover-tooltip__card--new {
+    .hover-tooltip__pitch-accent {
+      .pitchoverline:after, .downstep:before {
+        --pa-overline-color: var(--text-color--1);
+      }
+    }
+  }
+
 }
+
+
+
+
+///* tests for pixel density (>= 2ddpx condition is usually for phones) */
+//@media (max-resolution: 2dppx) { /* <= 2dppx */
+//  .pitchoverline:after, .downstep:before {
+//    /* TODO HOW TO HANDLE THE DEFAULT CASE??? */
+//    /*filter: opacity(0.7); /* because regular computer screens seem to display it brighter than normal? */
+//  }
+//}
+//@media (min-resolution: 2dppx) { /* >= 2dppx */
+//  .pitchoverline:after, .downstep:before {
+//    filter: opacity(0.95); /* even phone screens still display it lighter than normal??? */
+//  }
+//}
 
 .hover-tooltip__sent-div b {
   font-weight: normal;
