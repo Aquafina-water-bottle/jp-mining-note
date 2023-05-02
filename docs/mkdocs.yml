@@ -7,7 +7,7 @@ site_description: Documentation for the jp-mining-note project.
 repo_url: https://github.com/Aquafina-water-bottle/jp-mining-note
 repo_name: jp-mining-note
 #edit_uri: edit/master/docs/docs/
-edit_uri: edit/webpack/docs/docs/
+edit_uri: edit/dev/docs/docs/
 #site_url: https://aquafina-water-bottle.github.io/jp-mining-note/
 site_url: https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/
 

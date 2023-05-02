@@ -70,10 +70,10 @@ git checkout dev
 
 
 If you want to build the pre-release version of the note,
-use the `webpack` branch. For example, do the following:
+use the `dev` branch. For example, do the following:
 ```bash
 git fetch
-git checkout webpack
+git checkout dev
 ```
 
 
