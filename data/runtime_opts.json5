@@ -65,7 +65,8 @@
     // Vanilla Anki 2.1.61 seems to introduce this error on Windows. It doesn't seem to affect
     // anything visible, so hopefully this is fine to ignore.
     // Related report: https://forums.ankiweb.net/t/29185
-    "/_anki/js/reviewer.js:7:112035)",
+    "/_anki/js/reviewer.js:7:112035)", // 2.1.61
+    "/_anki/js/reviewer.js:7:113091)", // 2.1.62
   ],
 
 
