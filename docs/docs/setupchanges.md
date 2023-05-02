@@ -42,6 +42,8 @@ Please set this to match your other fields.
 
 ## Config Rework { #v0-12-0-0-config-rework }
 
+<!--
+
 You will get the following warning on all cards:
 ```
 JPMNOptions was not defined in the options file. Was there an error?
@@ -75,11 +77,30 @@ To fix your config file, do one of the following:
 
 Afterwards, re-add any runtime options you had changed before.
 The runtime options file can be found [here](runtimeoptions.md#accessing-editing).
+-->
 
+The `_jpmn-options.js` runtime options file has been completely reworked,
+meaning your config will no longer work.
+With this update, the file has been replaced automatically.
+The runtime options file can be found [here](runtimeoptions.md#accessing-editing).
+
+If you have edited your runtime options before, you will need to re-enable them.
 Common runtime-options (pitch accent coloring and image blur) are included as examples;
 remove the comment to re-enable them.
 To see all available runtime options, see
 [Runtime Options: Available Options](runtimeoptions.md#available-options).
+
+A backup of your previous runtime options should be made.
+The location of the backup is different depending on the updating method used:
+
+=== "JPMN Manager"
+    ```
+    Anki2/addons21/1732829476/user_files/backup
+    ```
+=== "Command Line"
+    ```
+    (repo root)/backup
+    ```
 
 
 
