@@ -59,16 +59,6 @@ git pull origin master
 
 The `master` branch is the stable version of the note.
 
-<!--
-If you want to build the bleeding edge version of the note,
-use the `dev` branch. For example, do the following:
-```bash
-git fetch
-git checkout dev
-```
--->
-
-
 If you want to build the pre-release version of the note,
 use the `dev` branch. For example, do the following:
 ```bash

@@ -83,6 +83,17 @@ action:
           }
         },
 
+
+        {
+          type: "BatchUpdate", params: {
+            batch_func: "replace_runtime_options_file",
+            ankiconnect_actions: [
+              "storeMediaFile",
+            ],
+            description: "Makes a backup and replaces the existing user runtime options file",
+          }
+        },
+
       ],
 
       fields: ["Key", "Word", "WordReading", "PAOverride", "PAOverrideText", "AJTWordPitch", "PrimaryDefinition", "PrimaryDefinitionPicture", "Sentence", "SentenceReading", "AltDisplayWord", "AltDisplaySentence", "AltDisplayPASentenceCard", "AltDisplayAudioCard", "AdditionalNotes", "Hint", "HintNotHidden", "IsSentenceCard", "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard", "IsHintCard", "IsSentenceFirstCard", "IsAudioCard", "PAShowInfo", "PATestOnlyWord", "PADoNotTest", "PASeparateWordCard", "PASeparateSentenceCard", "SeparateAudioCard", "SeparateSentenceAudioCard", "Picture", "WordAudio", "SentenceAudio", "PAGraphs", "PAPositions", "FrequenciesStylized", "FrequencySort", "PASilence", "WordReadingHiragana", "YomichanWordTags", "SecondaryDefinition", "ExtraDefinitions", "UtilityDictionaries", "CardCache", "Comment"],

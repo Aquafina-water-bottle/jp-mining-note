@@ -125,7 +125,7 @@
         {
           "type": "NoteToUser",
           "params": [
-            "Update Notes Permalink: TODO"
+            "Required changes: https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupchanges/#v0-12-0-0"
           ]
         }
       ],
@@ -153,6 +153,16 @@
               "multi"
             ],
             "description": "Sets the font for all fields to the font of the Key field"
+          }
+        },
+        {
+          "type": "BatchUpdate",
+          "params": {
+            "batch_func": "replace_runtime_options_file",
+            "ankiconnect_actions": [
+              "storeMediaFile"
+            ],
+            "description": "Makes a backup and replaces the existing user runtime options file"
           }
         }
       ],

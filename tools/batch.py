@@ -823,10 +823,15 @@ def _replace_runtime_options_file(backup_folder: str):
 
 def replace_runtime_options_file():
     root_folder = utils.get_root_folder()
-    backup_folder = os.path.join(root_folder, "backup", utils.get_time_str())
+    user_files_path = os.path.join(root_folder, "user_files")
+    if os.path.isdir(user_files_path): # if user_files exists, then we are very likely using jpmn-manager
+        backup_folder = os.path.join(user_files_path, "backup", utils.get_time_str())
+    else:
+        backup_folder = os.path.join(root_folder, "backup", utils.get_time_str())
     _replace_runtime_options_file(backup_folder)
 
 
+# TODO deprecated, remove for 0.12.0.0 release
 def replace_runtime_options_file_anki():
     root_folder = utils.get_root_folder()
     backup_folder = os.path.join(root_folder, "user_files", "backup", utils.get_time_str())
@@ -953,7 +958,8 @@ PUBLIC_FUNCTIONS_ANKI = [
     add_fields,
     set_font_sizes,
     set_fonts_to_key_font,
-    replace_runtime_options_file_anki,
+    replace_runtime_options_file_anki, # TODO deprecated, remove for 0.12.0.0 release
+    replace_runtime_options_file,
     fill_field_if_hiragana,
     get_new_due_cards,
 ]

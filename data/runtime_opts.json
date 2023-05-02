@@ -16,7 +16,8 @@
   ],
   "logger.error.ignore": [
     "ReferenceError: EFDRC is not defined",
-    "/_anki/js/reviewer.js:7:112035)"
+    "/_anki/js/reviewer.js:7:112035)",
+    "/_anki/js/reviewer.js:7:113091)"
   ],
   "keybinds.enabled": true,
   "keybinds.toggleHybridSentence": [
