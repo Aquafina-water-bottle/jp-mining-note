@@ -372,10 +372,16 @@ tools/tests/jinja/tests/tmp/
 .ccls-cache/
 src/scss/aquafina_extra/
 src/modules/aquafina-extra/
-overrides/scss/extra/
 src/ts/consts.ts
 src/ts/test/templates/
 src/_js/
 config/temp/
 src/svg/folder-tab/unused/
 
+
+# Created by Windows when setting up python / Dependecies
+Scripts/
+
+# Technically the directory should be overwritten in opts, but not everyone does that
+overrides/*
+!overrides/.gitkeep
