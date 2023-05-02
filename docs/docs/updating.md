@@ -15,7 +15,7 @@ as well as provide basic support for required steps outside of Anki.
 # Changelog
 
 If you are interested in seeing the exact changes between versions, see the
-[CHANGELOG.md](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/CHANGELOG.md)
+[CHANGELOG.md](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/CHANGELOG.md)
 file. <!-- TODO: webpack -> master -->
 
 ---

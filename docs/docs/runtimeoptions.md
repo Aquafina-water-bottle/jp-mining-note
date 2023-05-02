@@ -59,8 +59,8 @@ window.JPMNOptions = {
 # Available options
 
 All available options can be found in the
-[runtime_opts.json5](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/data/runtime_opts.json5)
-file. (TODO not webpack branch!)
+[runtime_opts.json5](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/data/runtime_opts.json5)
+file. (TODO not dev branch!)
 
 You can safely copy/paste anything there (outside of `overrides`) into your runtime options file.
 
@@ -151,8 +151,8 @@ This can be changed to:
 
 A full list of special option types is shown below.
 The source code for these can be found under
-[src/ts/options.ts](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/webpack/src/ts/options.ts).
-(TODO not webpack)
+[src/ts/options.ts](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/src/ts/options.ts).
+(TODO not dev branch)
 
 
 
