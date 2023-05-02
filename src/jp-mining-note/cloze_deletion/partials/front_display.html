@@ -6,24 +6,25 @@
 <div class="expression expression--single expression--sentence highlight-bold" id="display">
   {{ utils.quote_open -}}
 
-  {%- call IF("AltDisplayClozeDeletionCard") -%}
+  {%- call IF("AltDisplayAudioCard") -%}
   {{ utils.expression_inner_div_extra(
-    "furigana:AltDisplayClozeDeletionCard",
+    "furigana:AltDisplayAudioCard",
     "expression-inner--altdisplay
     expression-inner--cloze-deletion")
   }}
   {%- endcall -%}
 
-  {%- call IFNOT("AltDisplayClozeDeletionCard") -%}
+  {%- call IFNOT("AltDisplayAudioCard") -%}
 
-    {%- call IF("AltDisplay") -%}
+    {# TODO AltDisplayAudioCard #}
+    {%- call IF("AltDisplaySentence") -%}
     {{ utils.expression_inner_div_extra(
-      "furigana:AltDisplay",
+      "furigana:AltDisplaySentence",
       "expression-inner--altdisplay
       expression-inner--cloze-deletion")
     }}
     {%- endcall -%}
-    {%- call IFNOT("AltDisplay") -%}
+    {%- call IFNOT("AltDisplaySentence") -%}
       {{ utils.expression_inner_div_extra(
         "Sentence",
         "expression-inner--cloze-deletion")

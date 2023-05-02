@@ -1,6 +1,5 @@
 ---
 hide:
-  - navigation
   - footer
 ---
 
@@ -14,7 +13,6 @@ may show up on the info circle at the top right.
 {{ img("info circle error example", "assets/info_circle/error.gif") }}
 </figure>
 
----
 
 
 
@@ -29,47 +27,65 @@ There are two main reasons that Anki-Connect can fail:
     see the note in the Anki-Connect setup section
     [here](setupanki.md#anki-connect).
 
----
 
 
 
 ## (Warning) JPMNOpts was not defined in the options file. Was there an error?
 
-If you see this as an isolated warning without any other errors,
-it is very likely that you are using Anki version 2.1.49 or below.
-Please check your Anki version to confirm this:
+There are two reasons why you would be getting this warning:
 
-> Main Window →  `Help` →  `About...`
+1. You updated your note from a version before `0.12.0.0`,
+    to `0.12.0.0` or higher.
+    In this case, you will have to
+    [update your config file](setupchanges.md#v0-12-0-0-config-rework).
 
-If your Anki version is indeed 2.1.49 or below, then this should only appear on the front side of your first card of the session.
-To check, try flipping the card and back. This warning should dissappear once you do.
+1. You are using Anki version 2.1.49 or below.
 
-The only side effect of this is that the user-defined runtime options will not be used for the front side of the first card,
-and the defaults will be used instead.
+    Please check your Anki version to confirm this:
 
-There are two ways to fix this:
+    > Main Window →  `Help` →  `About...`
 
-1. [Update Anki](setupanki.md#updating-anki) to a higher version.
-1. Compile the card with [hard-coded defaults](moddingtips.md#custom-runtime-options).
+    ??? example "How to fix {{ CLICKHERE }}"
 
-??? info "Why this happens *(click here)*"
+        If your Anki version is indeed 2.1.49 or below, then this should only appear on
+        the front side of your first card of the session.
+        To check, try flipping the card and back. This warning should dissappear once you do.
 
-    The `<script ... src="_jpmn-options.js">` tag seems to runs asynchronously on 2.1.49 and below,
-    meaning that the order of when this is ran is not constant compared to the main javascript block.
-    With that being said, the exact tag seems to run synchronously on 2.1.50 and above,
-    so it is guaranteed to run before the main javascript block on these versions.
+        The only side effect of this is that the user-defined runtime options
+        will not be used for the front side of the first card,
+        and the defaults will be used instead.
 
-    With my current knowledge, the only way to guarantee the order of this import is asynchronous functions,
-    or some other asynchronous features.
-    For example, a simple `await import(...)` should work.
-    However, asynchronous features have been avoided throughout the development of this,
-    as it currently seems to
-    [behave unpredictably](moddingtips.md#avoid-asynchronous-javascript-features-in-anki)
-    within Anki.
+        There are two ways to fix this:
+
+        1. [Update Anki](setupanki.md#updating-anki) to a higher version. <small>(highly recommended)</small>
+        1. Compile the card with [hard-coded defaults](moddingtips.md#custom-runtime-options).
+
+        ??? info "Why this happens <small>(click here)</small>"
+
+            The `<script ... src="_jpmn-options.js">` tag seems to runs asynchronously on 2.1.49 and below,
+            meaning that the order of when this is ran is not constant compared to the main javascript block.
+            With that being said, the exact tag seems to run synchronously on 2.1.50 and above,
+            so it is guaranteed to run before the main javascript block on these versions.
+
+            With my current knowledge, the only way to guarantee the order of this import is asynchronous functions,
+            or some other asynchronous features.
+            For example, a simple `await import(...)` should work.
+            However, asynchronous features have been avoided throughout the development of this,
+            as it currently seems to
+            [behave unpredictably](moddingtips.md#avoid-asynchronous-javascript-features-in-anki)
+            within Anki.
 
 
+## (Warning) Cannot find own card
+This warning usually only appears if you renamed the note from `JP Mining Note` to something else.
+If you rename the note, certain features will no longer function as expected, such as:
 
----
+- Kanji Hover
+- Word Indicators
+- Most batch commands
+- Automatic duplicate `Key` field checks
+
+To remedy this, it is recommended that you change the note name back to `JP Mining Note`.
 
 
 ## General Error Troubleshooting
@@ -78,7 +94,7 @@ If none of the above worked, the following will be some general troubleshooting 
 that can help you figure out what the error is:
 
 <!-- Un-comment this when any conflicting add-ons are actually discovered
-1. Do you have a [conflicting addon](setup.md#conflicting-add-ons){:target="_blank"} installed?
+1. Do you have a [conflicting addon](setup.md#conflicting-add-ons) installed?
 -->
 
 1. Try disabling all of your add-ons other than the mandatory ones listed in the setup page.
@@ -104,7 +120,32 @@ or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/iss
 
 # Troubleshooting { .text-yellow }
 
----
+
+
+## The font on the card template is incorrect
+
+TODO bullet pt to sentences
+
+TODO example picture of the wrong font
+
+- if everything is correct, then fonts should actually be japanese (see: 直す)
+- easy way to check for correct fonts: look at bolded serif font
+    - should look good (example picture)
+- if not, wrong fonts are likely being used
+
+- steps
+    - ensure fonts are downloaded and in the correct folder (media folder)
+        - show screenshot of this!
+    - ensure fonts are valid (could be corrupted)
+        - show gif of opening in windows
+    - restart your entire computer
+        - sometimes, restarting Anki isn't enough
+
+
+## The font on the card editor is incorrect
+
+- TODO link to setupanki.md
+
 
 
 
@@ -142,7 +183,6 @@ The only full solution I know to this is to
 If you still want furigana on your cards,
 [bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
 
----
 
 
 
@@ -154,7 +194,7 @@ The word is usually highlighted by default, but the word may not be highlighted 
 - The sentence field got updated by an external program.
 - The card was imported from an older deck that did not highlight the tested word.
 
-As of version `0.11.1.0`, the card will automatically attempt to highlight the word
+As of version `0.12.0.0`, the card will automatically attempt to highlight the word
 if the word was not highlighted in the first place.
 However, this highlight may yield incorrect results.
 *This is expected behavior*, and you are expected to manually bold the sentence
@@ -162,30 +202,6 @@ if the highlight is incorrect.
 
 See [here](ui.md#automatic-word-highlighting) for more info.
 
----
-
-
-
-## The frequency list display looks squished.
-
-{{ img("anki export package", "assets/faq/frequency_comparison.png", 'align=right') }}
-
-This is because you are using Anki version 2.1.49 or below.
-There are two main ways of fixing this:
-
-1. Update to a higher version of Anki (recommended).
-1. If you do not wish to update Anki, add the following {{ CSS }}:
-    ```css
-    .frequencies__group {
-      margin-left: 20px;
-    }
-
-    .frequencies-overflow {
-      margin-left: 10px;
-    }
-    ```
-
----
 
 
 
@@ -196,7 +212,6 @@ field and nothing in that field is bolded, then the show/hide button will do not
 
 This potentially relates to the issue above.
 
----
 
 
 ## The replay audio button plays the sentence, word, and then sentence.
@@ -212,7 +227,6 @@ go to:
 →  Toggle `Skip question when replaying answer`
 
 
----
 
 ## The `Tools` →  `Check Media` interface removes the font files.
 This is a known bug, and unfortunately, this bug will **not be fixed**.
@@ -229,6 +243,13 @@ allowing it to be shared easily on a place like Discord.
 
 ---
 
+
+<!--
+
+author note: Pretty much all of these problems have been solved.
+There is value in keeping the info for disabling unnecessary modules and/or auto filling
+certain fields, but that can be discussed somewhere else.
+TODO where to move it?
 
 ## This card template loads slower than other card templates.
 
@@ -315,9 +336,12 @@ remove certain features of the note.
     [here](compiletimeoptions.md#optimized-vocab-card-example).
     Note that `img-utils-minimal` will still cause a document reflow unless you change the above options.
 
+-->
 
----
 
+<!--
+
+author note: removed because 0.12.0.0 solves it
 
 ## The sentence quotes are on completely different lines!
 If your card looks like this:
@@ -339,7 +363,7 @@ For example, the above should be changed into:
 マスターと行動を共にするとは万死に値するデース
 ```
 
-??? info "Why this can happen *(click here)*"
+??? info "Why this can happen <small>(click here)</small>"
 
     This happens if you copy/paste directly from certain pages into the sentence field,
     such as some texthooker pages.
@@ -349,21 +373,16 @@ For example, the above should be changed into:
     The [updating sentence with clipboard hotkey](jpresources.md#update-sentence-with-clipboard)
     shouldn't have this problem, as `<div>` tags are not present by default.
 
----
+-->
 
 
 # Card Editing { .text-yellow }
 
----
 
+<!--
 ## How do I set the default card type?
-In [Yomichan's Anki Card Format](setupyomichan.md#yomichan-fields),
-you can simply fill the field.
+TODO link to [C](cardtypes2.md#default-card-type)
 
-For example, if you want to set the default card type to be a sentence card,
-fill the `IsSentenceCard` field there.
-
----
 
 ## How do I automatically change the value of a binary field on multiple existing cards?
 
@@ -374,7 +393,7 @@ You have three main options:
     [backup your Anki data](faq.md#how-do-i-backup-my-anki-data).
 
 
-1. [Batch Editing Addon](https://ankiweb.net/shared/info/291119185){:target="_blank"}
+1. [Batch Editing Addon](https://ankiweb.net/shared/info/291119185)
 
 2. Python script:
 
@@ -392,7 +411,7 @@ You have three main options:
 
 3. Regex Search (TODO)
 
----
+-->
 
 ## How do I disable furigana on card generation?
 
@@ -406,7 +425,6 @@ You have three main options:
 You likely want to bulk-generate the furigana if you are disabling furigana on card generation.
 See the question below to do just that.
 
----
 
 ## How do I bulk generate furigana and pitch accents?
 
@@ -437,7 +455,6 @@ See the question below to do just that.
     There may be some cards that still have an empty `AJTWordPitch` field.
     This is simply because the add-on did not contain the pitch data for those words.
 
----
 
 ## How do I remove an empty card without deleting the entire note?
 !!! quote
@@ -448,20 +465,18 @@ See the question below to do just that.
     Taken directly from [Anki's official documentation](https://docs.ankiweb.net/files.html#file-locations).
     </sup>
 
----
 
 
 ## How do I edit the field's raw HTML?
 Within the card browser,
 select a field to edit,
-and then type `ctrl+shift+x`.
+and then type ++ctrl+shift+x++.
 
 Alternatively, on newer versions of Anki, you can click on the top-right corner
 on the code button.
 
 {{ img("Anki edit html", "assets/faq/edit_html.gif") }}
 
----
 
 
 ## How do I use this note type as an Anime Card?
@@ -479,7 +494,6 @@ use the `HintNotHidden` field.
 
 # Other Questions { .text-yellow }
 
----
 
 
 
@@ -522,13 +536,13 @@ The location of this folder is different for each operating system.
 * Your **media folder** is under `Anki2/PROFILE_NAME/collections.media`.
 * Your **addons folder** is under `Anki2/addons21`.
 
----
 
 
 
+
+## How do I backup my Anki data?
 
 {{ img("anki export package", "assets/faq/media_export.png", 'align=right width="300"') }}
-## How do I backup my Anki data?
 
 The following makes a **complete backup** of your collection, including media:
 
@@ -538,10 +552,9 @@ The following makes a temporary backup of your collection, not including media:
 
 > Main Window →  `File` (top left corner) →  `Create Backup`
 
-See [Anki's official documentation](https://docs.ankiweb.net/backups.html){:target="_blank"}
+See [Anki's official documentation](https://docs.ankiweb.net/backups.html)
 for more info.
 
----
 
 
 
@@ -553,7 +566,6 @@ for more info.
 
 {{ img("how-to import Yomichan settings", "assets/faq/yomichan_import_settings.gif") }}
 
----
 
 
 
@@ -564,13 +576,12 @@ for more info.
 
     > Main Window →  `Browse`
 
-1. Select a note. Hold down `ctrl` to select multiple individual notes.
+1. Select a note. Hold down ++ctrl++ to select multiple individual notes.
 
 1. Right click the selected notes, and navigate to:
 
     > `Notes` →  `Export Notes...`
 
----
 
 
 
@@ -580,14 +591,15 @@ for more info.
 
 Preview any card. The version should be displayed at the top left corner.
 
-For mobile, the version be shown at the top right corner.
-Note that this is only displayed on mobile for versions `0.11.1.0` and above.
+For mobile, the version is shown in the info circle.
+Note that the version is only displayed on mobile for versions `0.12.0.0` and above.
+
+TODO redo image for mobile
 
 <figure markdown>
 {{ img("version location", "assets/faq/jpmn_version.png") }}
 </figure>
 
----
 
 
 
@@ -601,7 +613,6 @@ Navigate to:
 {{ img("version location", "assets/faq/anki_version.png") }}
 </figure>
 
----
 
 
 
@@ -615,7 +626,6 @@ because everyone has their own preferences on what card types they like.
 I recommend being open about it and experiment with them, to see which one you like.
 
 
----
 
 
 
@@ -630,7 +640,6 @@ i.e. with `PAShowInfo` filled.
 In particular, this will cause Anki to autoplay the sentence audio on
 the front side of cards that test pitch accent, which is undesirable.
 
----
 
 
 
@@ -640,19 +649,40 @@ Unfortunately, other languages outside of Japanese will not be supported.
 
 The reason for this decision is best explained in the
 "When are you going to add support for $MYLANGUAGE?" question
-within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-questions){:target="_blank"}:
+within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-questions)
 
 !!! quote
     Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.
 
 
-# Discord Contact Info { .text-yellow }
-Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
 
-Servers:
+## How was this documentation made?
+Through [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+This site generator is what many other popular sites use,
+including [TheMoeWay](https://learnjapanese.moe/) and [AnimeCards](https://animecards.site/).
 
-* [TheMoeWay]({{THEMOEWAY_LINK}}) (I recommend using the `jp-mining-note` thread in the `#resources-sharing` channel)
-* Refold (JP) server  (I recommend using the `jp-mining-note` thread in the `#sentence-mining-workflows` channel)
+---
+
+
+# Contact Info { .text-yellow }
+
+## Discord Contact Info
+* Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
+
+* Servers:
+
+    * [TheMoeWay]({{THEMOEWAY_LINK}})
+        (I recommend using the
+        [jp-mining-note](https://discord.com/channels/617136488840429598/1041466793094557879)
+        thread in the `#resources-sharing` channel)
+    * Refold (JP) server
+        (I recommend using the
+        [jp-mining-note](https://discord.com/channels/778787713012727809/1031068624447873055)
+        thread in the `#sentence-mining-workflows` channel)
+
+
+## Github
+* If you don't want to use Discord, please shoot your message [here](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
 
 
 

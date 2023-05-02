@@ -13,37 +13,25 @@
               expression__hybrid--click-hover-effect"
     for="hybrid_click_toggle" id="display">
 
-  <div class="expression-box expression-box__hybrid-word">
-    {% filter indent(4) %}
-    {{ pa_indicator("word") }}
-    {% endfilter %}
-
-    <div class="expression--word expression__hybrid-word
-        {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-indicator {% endcall %}
-        {% call IFNOT('IsTargetedSentenceCard') %}
-          {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-indicator {% endcall %}
-          {% call IFNOT('IsSentenceCard') %} expression__hybrid-word--word-indicator {% endcall %}
-        {% endcall %}
-        expression__hybrid-word--click-indicator"
-        id="hybrid-word">
-      {{ T("Word") }}
-    </div>
+  <div class="expression--word expression__hybrid-word
+      {% call IF('IsTargetedSentenceCard') %} expression__hybrid-word--sentence-indicator {% endcall %}
+      {% call IFNOT('IsTargetedSentenceCard') %}
+        {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-indicator {% endcall %}
+        {% call IFNOT('IsSentenceCard') %} expression__hybrid-word--word-indicator {% endcall %}
+      {% endcall %}
+      expression__hybrid-word--click-indicator"
+      id="hybrid-word">
+    {{ utils.prioritize_alt_display("Word") }}
   </div>
 
-
-  <div class="expression-box expression-box__hybrid-sentence">
-    {% filter indent(4) %}
-    {{ pa_indicator("sentence") }}
-    {% endfilter %}
-
-    <div class="expression--sentence expression__hybrid-sentence
-              {% call IFNOT('IsSentenceCard') %} highlight-bold {% endcall %}
-              {% call IF('IsTargetedSentenceCard') %} highlight-bold {% endcall %}
-              {% call IF('IsHintCard') %} expression--hint-sentence {% endcall %}
-              "
-          id="hybrid-sentence">
-      {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
-    </div>
+  <div class="expression--sentence expression__hybrid-sentence
+            {% call IFNOT('IsSentenceCard') %} highlight-bold {% endcall %}
+            {% call IF('IsTargetedSentenceCard') %} highlight-bold {% endcall %}
+            {% call IF('IsHintCard') %} expression--hint-sentence {% endcall %}
+            {{ utils.default_disp_sent_quote_class() }}
+            "
+        id="hybrid-sentence">
+    {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
   </div>
 
 

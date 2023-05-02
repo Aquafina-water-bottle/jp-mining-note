@@ -3,15 +3,43 @@ TODO add intro
 - for kanji hover and same reading indicator
 - TODO generalize this page to not only be for kanji hover
 
+---
 
-# Details
+# Pitch Accent Display
 - pitch accents should be exactly the same pitch accents as shown on the specified card
 - pitch accents are stripped of extra information (nasal and devoiced)
     - all the extra color was very distracting, and stole the attention away from the important part
         (the example words found)
 
+---
+
+# Cache Tooltip Results
+
+TODO
+
+- problem: mobile (and anki-web) does not have access to Anki-Connect
+    - yes, Android has AnkiConnect Android, but its implementation is incomplete
+    - even if it were complete, it is currently a lot slower than the standard desktop Anki-Connect
+    - kanji hover and word indicators fully depend on Anki-Connect in order to work!
+- solution: cache results of kanji hover and word indicators, into the `CardCache` field
+- requires building the note!!!
+    - may be implemented as a separate note in the future (so you can run the script within Anki)
+- also requires node (npx node)
+
+how to:
+
+```bash
+# assumption: the current note version has been successfully built
+node ./src/_js/jpmn_card_cache.js
+```
+
+
+---
 
 # Result Queries & Categorization
+
+TODO add writeup on new.newest
+
 The exact results shown through Kanji Hover is not completely trivial,
 so this process is explained below.
 
@@ -27,14 +55,14 @@ Conversely, the first two categories (the non-new cards) represent words that yo
 know, so they are not greyed out.
 
 The exact numbers shown in each category can be changed in the
-{{ RTO_FILE}}:
+{{ RTO }}:
 
-```
-"kanji-hover": {
-  "max-non-new-oldest": ...
-  "max-non-new-latest": ...
-  "max-new-latest": ...
-}
+```json
+// maximum number of words per category
+"tooltips.categoryMax.nonNew.oldest": 2,
+"tooltips.categoryMax.nonNew.newest": 2,
+"tooltips.categoryMax.new.oldest": 2,
+"tooltips.categoryMax.new.newest": 0,
 ```
 
 
@@ -42,6 +70,8 @@ TODO: add this to each query to hide results from cards that are due today
 ```
 -(prop:due=0 -rated:1)
 ```
+
+---
 
 
 # Results Sorting
@@ -55,9 +85,12 @@ For people who review in order of frequency only, then the assumption above is c
 Unfortunately, there is currently no way to order the results by anything
 other than by the creation date.
 
+---
 
 
 # Suspended Cards
+TODO add difference between hidden and removed
+
 Some assumptions are made about suspended cards.
 For example, suspended cards flagged as `green` are counted in the "non-new" cards category
 (known words), and suspended cards flagged as `red` are counted as words that you
@@ -65,10 +98,69 @@ do not know AND will not study in the future (not shown in any category).
 This can be changed in the {{ RTO_FILE}}:
 
 ```
-"kanji-hover": {
-  "non-new-query": ...
-  "new-query": ...
-}
+"tooltips.query.nonNew.base": "-is:new OR (is:suspended is:new flag:3)",
+"tooltips.query.nonNew.hidden": "is:suspended flag:1",
+"tooltips.query.nonNew.removed": "",
 ```
 
+
+---
+
+# Customizing Sentences & Pitch Accent
+
+TODO link to runtime options? or visa versa?
+
+Any {{ RTO }} under the `sentParser` and `autoPA` group can be set under
+`tooltips.overrideOptions.sentenceParser` and
+`tooltips.overrideOptions.autoPitchAccent`
+respectively.
+Additionally, the `kanjiHover` and `wordIndicators` category
+has their own `overrideOptions` section that behaves the exact same as the above,
+except they only affect Kanji Hover and Word Indicators, respectively.
+
+This allows for very fine grained control on how the sentences and pitch accent
+should be displayed.
+
+!!! note
+    When the sentence is being parsed by the tooltip builder,
+    it is considered a "full sentence" internally.
+    Therefore, only the `fullSent` group of options will affect the resulting sentence.
+
+
+---
+
+
+# Highlight the word within the tooltips
+{{ feature_version("0.12.0.0") }}
+
+Within the tooltips, the word within the sentence is not highlighted by default.
+This is to emphasize the importance of the kanji over the word.
+However, this comes at the cost of having to scan through the entire sentence to find the word.
+
+The following {{ RTO }} re-enables the highlighted word:
+```json
+"tooltips.highlightWordInSentence": true,
+```
+
+=== "Highlighted"
+    {{ img("", "assets/uicustomization/tooltip/highlighted.png") }}
+
+    TODO this is no longer bolded
+
+
+=== "Not Highlighted (default)"
+    {{ img("", "assets/uicustomization/tooltip/not_highlighted.png") }}
+
+
+---
+
+# Display newlines in mobile tooltip sentences
+
+TODO wrap with custom css text
+
+```css
+.mobile-popup .hover-tooltip__sent-div br {
+  display: inline;
+}
+```
 

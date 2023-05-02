@@ -1,10 +1,37 @@
 from __future__ import annotations
 
 import re
+import json
 import argparse
-from typing import Callable, Any
+import urllib.request
+import urllib.error
+from typing import Callable, Any, Dict, List
 
-from utils import invoke
+
+
+# copied/pasted from utils to not require any weird utils dependencies
+
+# taken from https://github.com/FooSoft/anki-connect#python
+def request(action: str, **params):
+    return {"action": action, "params": params, "version": 6}
+
+def invoke(action: str, **params):
+    requestJson = json.dumps(request(action, **params)).encode("utf-8")
+    response = json.load(
+        urllib.request.urlopen(
+            urllib.request.Request("http://localhost:8765", requestJson)
+        )
+    )
+    if len(response) != 2:
+        raise Exception("response has an unexpected number of fields")
+    if "error" not in response:
+        raise Exception("response is missing required error field")
+    if "result" not in response:
+        raise Exception("response is missing required result field")
+    if response["error"] is not None:
+        raise Exception(response["error"])
+    return response["result"]
+
 
 
 rx_BOLD = re.compile(r"<b>(.+)</b>")
@@ -14,7 +41,7 @@ def _browse_anki(query):
     invoke("guiBrowse", query=query)
 
 
-def _get_sorted_list() -> list[str]:
+def _get_sorted_list() -> List[str]:
     added_notes = invoke("findNotes", query="added:1")
 
     # sorts from newest to oldest
@@ -28,7 +55,7 @@ def _field_value(data, field_name) -> str:
 
 
 def _update_field_clipboard(
-    format_field_params: Callable[[str], dict[str, Any]], replace_newline="<br>"
+    format_field_params: Callable[[str], Dict[str, Any]], replace_newline="<br>"
 ):
     import pyperclip
 

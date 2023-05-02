@@ -1,26 +1,9 @@
 {# impl #}
 
-{%- import "modules/main.html" as modules with context -%}
-
 <!--
 WARNING: This template is auto-generated.
 Any changes to this template WILL BE LOST if you decide to update the card.
 See https://aquafina-water-bottle.github.io/jp-mining-note/modding/
 if you want to modify the card templates and css without losing your changes
 upon updates.
-
-{# list() isn't available? #}
-{%- set _enabled_modules = [] -%}
-{%- for m in modules.modules.keys() -%}
-  {%- do _enabled_modules.append(m) -%}
-{%- endfor -%}
-{%- set card_json = {
-  "compile-options": COMPILE_OPTIONS.dict(),
-  "modules-used": _enabled_modules,
-}
--%}
-
-JPMN-COMPILE-TIME-OPTIONS-JSON:
-{{ card_json | tojson(indent=2) }}
-
 -->

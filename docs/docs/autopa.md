@@ -54,28 +54,21 @@ in Migaku style colors, according to the pitch accent.
 This automatic coloring behavior is **disabled by default**,
 and must be enabled in the {{ RTO_FILE }}:
 
-??? examplecode "Enabling colored pitch accent *(click here)*"
-    ```json
-    "auto-pitch-accent": {
-      "enabled": true, // (1)!
-      "colored-pitch-accent": {
-        "enabled": true,
-        // ...
-      }
-      // ...
-    }
-    ```
+```json
+"autoPitchAccent.coloredPitchAccent.enabled": true, // (1)!
+```
 
-    1.  The `auto-pitch-accent` module must be enabled to use colored pitch accent.
+1.  The `autoPitchAccent` module must be enabled to use colored pitch accent.
+    For example:
+    ```json
+    "autoPitchAccent.enabled": true,
+    ```
+    This is enabled by default, so you likely don't need to manually enable this module.
+
 
 ![type:video](assets/autopa/pa_override_color.mp4)
 
-!!! note
 
-    The 起伏 pattern is not automatically detected.
-    To use this color, you must manually set the `PAOverride` field to `-1`.
-
-<br>
 
 ## Pitch Accent Groups
 
@@ -88,14 +81,44 @@ and must be enabled in the {{ RTO_FILE }}:
 | kifuku    | 起伏   | 驚く {.pa-kifuku}    | おどろ＼く   |
 
 
-<br>
+
+## Controlling What Gets Colored
+{{ feature_version("0.12.0.0") }}
+
+There are many {{ RTOs }} that change exactly what is colored.
+By default, everything except words found in tooltips (kanji hover and word indicators)
+are highlighted.
+
+```json
+"autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
+"autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
+"autoPitchAccent.coloredPitchAccent.color.testedContent": true,
+"autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
+"autoPitchAccent.coloredPitchAccent.color.definitions": true,
+
+"tooltips.overrideOptions.autoPitchAccent": {
+  // highlights bolded kanji
+  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": false,
+  // highlights bolded sentence below word
+  "autoPitchAccent.coloredPitchAccent.color.fullSentence": false, // (1)!
+},
+```
+
+1.  If you want enable word coloring within the sentence,
+    the word within the sentence must be able to be highlighted in the first place.
+    To enable this, use the following runtime option:
+    ```json
+    "tooltips.highlightWordInSentence": true,
+    ```
+
 
 ## When Pitch Is Not Automatically Colored
 Pitch accent coloring requires a numeric position value somewhere within the card.
-This is usually found in one of two places:
+This is usually found in one of these places:
 
 * `PAPositions`
 * `PAOverride`
+* `AJTWordPitch` (the numeric position is automatically calculated through the HTML)
 
 Usually, `PAPositions` is automatically filled.
 
@@ -104,7 +127,19 @@ In the cases where pitch accent coloring does not work as expected, your two mai
 1. Using `PAOverride` with [a number](autopa.md#specifying-pitch-accent) (recommended).
 2. Force the pitch accent group with tags (see below).
 
-<br>
+
+
+## Kifuku Coloring
+{{ feature_version("0.12.0.0") }}
+A word is automatically colored as 起伏 if the `WordTags` field contains a verb tag,
+and its pitch accent group is not 平板.
+
+This `WordTags` field can only be filled out if you have a modern version of the
+[JMdict dictionary for Yomichan](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan)
+For old cards that do not have this field filled, you will have to manually mark
+the word with `-1` (in `PAOverride`).
+
+
 
 
 ## Override Pitch Accent Group
@@ -188,7 +223,6 @@ then the field is displayed without any special formatting.
 This will act just like `PAOverrideText`.
 
 
-<br>
 
 
 ## (2.1) PAOverride: Positions Format
@@ -236,13 +270,12 @@ This is useful to highlight the correct pitch accent among all possiblities.
     but `0,<b>1,2</b>,3` and `0,<b>1,</b>2,3` are invalid.
 
 
-<br>
 
 
 ## (2.2) PAOverride: Text Format
 {{ feature_version("0.11.0.0") }}
 
-??? info "How To Type Special Characters *(click here)*"
+??? info "How To Type Special Characters <small>(click here)</small>"
 
     This section requires you to type certain special characters.
     You can type these characters on any standard IME.
@@ -266,21 +299,12 @@ For words with no downstep (平板型), the 「￣」 character must be placed
 at the end of the word.
 For example, 身長 should be written as 「しんちょう￣」.
 
-??? info "Removing the required ￣ symbol *(click here)*"
+??? info "Removing the required ￣ symbol <small>(click here)</small>"
     The restriction that 平板 words require the ￣ symbol at the end can be removed
     using the following {{ RTO }}:
 
     ```json
-    {
-      "modules": {
-        "auto-pitch-accent": {
-          "pa-override": {
-            // set to false (default: true)
-            "heiban-marker-required": false,
-          }
-        }
-      }
-    }
+    "autoPitchAccent.paOverride.heibanMarkerRequired": false,
     ```
 
     This would allow any words without any downstep marker to be rendered as 平板.
@@ -320,7 +344,6 @@ This is particularly useful on expressions with multiple words, such as 「毒�
     This means that bold, italics, overlines, etc. cannot be present in the field.
     For example, the input `<b>にせもの</b>` will be rejected.
 
-<br>
 
 ## (2.3) PAOverride: Raw Text
 As a last case resort, if the input of this field cannot be parsed as either of the two,
@@ -339,10 +362,11 @@ and the tested word is covered in said dictionary.
 By default, the first pitch of the first dictionary is shown.
 
 
-<br>
 
 ## Show All Possibilities in Dictionary
 {{ feature_version("0.11.0.0") }}
+
+TODO: update pictures with correct config + add new config value for all dictionaries
 
 Sometimes, pitch accent dictionaries show multiple pitch accents for a word.
 However, only the first pitch accent is shown by default.
@@ -364,16 +388,7 @@ If you want to show all of the pitch accent entries (in the first dictionary),
 use the following {{ RTO }}:
 
 ```json
-{
-  "modules": {
-    "auto-pitch-accent": {
-      "pa-positions": {
-        // default: true
-        "display-entire-dictionary": false
-      }
-    }
-  }
-}
+"autoPitchAccent.paPositions.displayMode": "selected-dictionary",
 ```
 
 If you want to select the correct pitch accent, bold that position in `PAPositions`
@@ -388,7 +403,7 @@ If you want to select the correct pitch accent, bold that position in `PAPositio
 
 
 # (4) AJTWordPitch
-If you have the optional [AJT Pitch Accent](setupanki.md#ajt-pitch-accent)
+If you have the optional [AJT Japanese](setupanki.md#ajt-japanese)
 add-on installed and correctly configured,
 then this field is automatically generated on all cards.
 
@@ -409,7 +424,6 @@ By default, the word reading is selected based on the following priority:
 1. `WordReading`
 
 
-<br>
 
 ## Reading: AJTWordPitch
 Usually, the reading is selected from `AJTWordPitch`.
@@ -423,37 +437,25 @@ This has a few features over the raw word reading:
     change the following {{ RTO }} to `false`:
 
     ```json
-    {
-      "modules": {
-        "auto-pitch-accent": {
-          // set to false (default: true)
-          "search-for-ajt-word": false,
-        }
-      }
-    }
+    "autoPitchAccent.searchForAJTWord": false,
     ```
 
 
-<br>
 
 ## Reading: WordReading
 If the word cannot be found under `AJTWordPitch`, then the default reading
 in `WordReading` is used, and displayed in katakana.
 
-Unlike `AJTWordPitch`, this reading can be changed to hiragana, katakana,
-or katakana with long vowel marks in the {{ RTO_FILE }}:
+Unlike `AJTWordPitch`, this reading can be changed to the word reading kana (usually hiragana),
+katakana, or katakana with long vowel marks in the {{ RTO_FILE }}:
 
 ```json
-{
-  "modules": {
-    "auto-pitch-accent": {
-      // 0: whatever is shown in WordReading (usually hiragana, but can sometimes be katakana)
-      // 1: force katakana
-      // 2: force katakana with long vowel marks
-      "reading-display-mode": 1,
-    }
-  }
-}
+// The reading display to show if nothing is generated by AJT Japanese.
+// Valid options:
+// "word-reading"
+// "katakana"
+// "katakana-with-long-vowel-marks"
+"autoPitchAccent.readingDisplayMode": "katakana",
 ```
 
 
@@ -466,19 +468,24 @@ This covers some details if you are directly using `PAOverrideText`,
 and want to have a similar format to the generated pitch accent.
 You very likely won't be doing this.
 
-* The generated style is exactly the generated style of the AJTWordPitch field.
-    To display the style properly, copy and edit the HTML tags directly.
+??? example "Styling Details <small>(click here)</small>"
 
-* If you want to grey out other words, you will have to use the bold `<b>` tag.
-    However, you must wrap **the greyed out words** with the `<b>` tag.
+    * The generated style is very similar to the generated style of the AJTWordPitch field.
+        To display the style properly, you can simply copy and edit the HTML tags directly.
+        If you want to see the true generated output, use the
+        [AnkiWebView Inspector](https://ankiweb.net/shared/info/31746032)
+        and inspect the element.
 
-    This is the opposite of what would expect from everything
-    in this page, but the behavior is this way due to restrictions in the current
-    CSS specification.
+    * If you want to grey out other words, you will have to use the bold `<b>` tag.
+        However, you must wrap **the greyed out words** with the `<b>` tag.
 
-* Example with all possible styles:
-    ```html
-    チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span><span class="nopron">ク</span>セイ<b>・チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span><span class="nopron">ク</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セイ</b>
-    ```
+        This is the opposite of what would expect from everything
+        in this page, but the behavior is this way due to restrictions in the current
+        CSS specification.
+
+    * Example with all possible styles:
+        ```html
+        チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span><span class="nopron">ク</span>セイ<b>・チュ<span style="text-decoration:overline;" class="pitchoverline">ーカ<span class="nasal">°</span><span class="nopron">ク</span></span><span class="downstep"><span class="downstep-inner">ꜜ</span></span>セイ</b>
+        ```
 
 

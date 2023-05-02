@@ -1,12 +1,13 @@
 {# extra info #}
 
-{% set _use_external_links = COMPILE_OPTIONS("external-links").item() and COMPILE_OPTIONS("external-links-position").item() == "Extra Info" %}
+{% set _use_external_links = COMPILE_OPTIONS("externalLinks").item() and COMPILE_OPTIONS("externalLinksPosition").item() == "Extra Info" %}
 {% if not _use_external_links %}
 <!-- no external links, or external links but not shown here -->
 <div class="outer-display1
     {% call utils.if_none('PAGraphs', 'UtilityDictionaries') %}
       outer-display2
     {% endcall %}"
+    id="extra_info_outer_display"
   >
 {% endif %}
 

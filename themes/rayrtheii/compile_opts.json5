@@ -1,0 +1,76 @@
+{
+  // toggles whether the runtime options should be read from a file or not.
+  "hardcodedRuntimeOptions": true,
+
+  //"alwaysFilledFields": [],
+  //"neverFilledFields": [],
+
+  "externalLinksPosition": "Extra Info",
+  //"externalLinksPosition": "Primary Definition",
+
+  "externalLinks": {
+
+    "image-search": {
+      iconType: "image",
+      iconImageLight: "_icon_image_black.svg",
+      iconImageDark:  "_icon_image_white.svg",
+      url: "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
+      hoverDisplay: "google.co.jp (Image search)",
+    },
+
+    "zokugo-dict.com": {
+      iconType: "text",
+      iconText: "俗",
+      url: "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{text:Word}}",
+      //hoverDisplay: "日本語俗語辞書",
+    },
+
+    // Used with elizagamedev's "Textbender" android app, to allow the user
+    // to open the word in Yomichan's search bar within android
+    // https://github.com/elizagamedev/android-textbender
+    "yomichan-textbender": {
+      iconType: "text",
+      iconText: "ﾖﾐ",
+      //iconText: "Ｔ",
+      //iconText: "読",
+      url: "textbender://x?x={{text:Sentence}}",
+      hoverDisplay: "Yomichan (textbender)",
+    },
+
+  },
+
+
+  // Option to have custom CSS.
+  "cssFolders": [
+    "base",
+    "responsive-font",
+    "responsive",
+    "dictionaries",
+    "editor-fields",
+    "sentence-max-width",
+
+    "theme",
+    "extra",
+  ],
+
+
+  // Allows the user to customize the displayed words on the card,
+  // while specifying fallback languages if the language doesn't have the key/pair value.
+  //"displayLanguages": ["en"],
+  "displayLanguages": ["jp", "en"],
+
+
+  // ==========================================================================
+  // = fullSentenceRuby =
+  // ==========================================================================
+
+  // valid options: "hover", "click", "both", "always", "never"
+  "fullSentenceRuby.displayMode": "click",
+  // valid options: "opacity", "font-size",
+  "fullSentenceRuby.fillMode": "font-size",
+  // valid options: true, false
+  "fullSentenceRuby.fillModeFontSizeTransition": true,
+
+  // ==========================================================================
+}
+

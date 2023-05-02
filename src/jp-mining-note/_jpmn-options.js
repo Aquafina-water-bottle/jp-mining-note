@@ -1,9 +1,21 @@
-// JPMN is short for JP Mining Note
-var JPMNOpts = (function (my) {
+window.JPMNOptions = {
 
-  my.settings = {% filter indent(width=4) -%}
-{{- NOTE_OPTS_JSON -}}
-{%- endfilter %}
-  return my;
-}(JPMNOpts || {}));
+  // Insert any runtime options here! They should be of the form:
+  //
+  //     "key": value,
+  //
+  // To see all available options, visit the following link: (TODO non prerelease!)
+  // https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/runtimeoptions/#available-options
+  //
+  // Some common examples are shown below.
+  // To enable them, remove the `//` characters before the key: value pair.
 
+  // Enables colored pitch accent
+  //"autoPitchAccent.coloredPitchAccent.enabled": true,
+
+  // Enables image blur
+  //"imgStylizer.mainImage.blur.enabled": true,
+
+  // Hides the first line of most definitions, as well as the number in the list
+  //"blockquotes.simplifyDefinitions.enabled": true,
+}

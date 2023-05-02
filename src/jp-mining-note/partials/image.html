@@ -4,10 +4,10 @@
   - nsfw-blur: `transition filter (of --clickable)` will affect the blur -> not blurred state
     - we don't want that
 -->
-<div class="dh-right {% call IF("Picture") %} dh-right--contains-image {% endcall %}" id="dh_right">
+<div class="dh-right" id="dh_right">
   <div class="dh-right__img-container-stop-blur-edges">
-    <div class="dh-right__img-container-nsfw-blur" id="dh_img_container_nsfw_blur">
-      <div class="dh-right__img-container dh-right__img-container--clickable" id="dh_img_container">{{ T("Picture") }}</div>
+    <div class="dh-right__img-container-blur-wrapper" id="dh_img_container_blur_wrapper">
+      <div class="dh-right__img-container" id="dh_img_container">{{ T("Picture") }}</div>
     </div>
     <svg class="dh-right__svg-eye" id="img_svg_eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/><title>Toggle blur temporarily</title></svg>
   </div>

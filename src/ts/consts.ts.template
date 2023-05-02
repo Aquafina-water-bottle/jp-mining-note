@@ -1,0 +1,9 @@
+/*
+ * Runtime options here are separated into `overrides` to maintain proper types
+ * for typescript, and will remain like that internally. This behavior should not
+ * be replicated in the user config.
+ */
+
+export const compileOpts = {{ COMPILE_OPTIONS.dict() | tojson(indent=2) }};
+export const runtimeOpts = {{ RUNTIME_OPTIONS.dict() | tojson(indent=2) }};
+export const translatorStrs = {{ TRANSLATOR_RAW | tojson(indent=2) }};

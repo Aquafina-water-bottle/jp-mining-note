@@ -1,45 +1,85 @@
 {# impl #}
 
-{% set _use_external_links = COMPILE_OPTIONS("external-links").item() and COMPILE_OPTIONS("external-links-position").item() == "Primary Definition" %}
+{% set _use_external_links = COMPILE_OPTIONS("externalLinks").item() and COMPILE_OPTIONS("externalLinksPosition").item() == "Primary Definition" %}
 
-<blockquote class="glossary-blockquote
-    highlight-bold
-    glossary-blockquote--primary-definition
-    glossary-primary-definition--auto-no-lenience
-    {% call IFNOT('PrimaryDefinition') %} glossary-primary-definition--no-definition {% endcall %}
-    {% if not _use_external_links %}
-      {% call utils.if_none('PrimaryDefinition', 'PrimaryDefinitionPicture') %}
-        hidden
-      {% endcall %}
-    {% endif %}
-    " id="primary_definition">
+<div class="primary-def-blockquote-wrapper">
+
+  {% include "jp-mining-note/partials/folder_tab.html" %}
+
+  <blockquote class="glossary-blockquote
+      highlight-bold
+      glossary-blockquote--primary-definition
+      glossary-primary-definition--auto-no-lenience
+      {% call IFNOT('PrimaryDefinition') %} glossary-primary-definition--no-definition {% endcall %}
+      {% if not _use_external_links %}
+        {% call utils.if_none('PrimaryDefinition', 'PrimaryDefinitionPicture') %}
+          hidden
+        {% endcall %}
+      {% endif %}
+      " id="primary_definition">
 
 
-  <div class="glossary-primary-definition__wrapper" id="primary_definition_wrapper">
+    <div class="glossary-primary-definition__wrapper" id="primary_definition_wrapper">
 
-    <div class="glossary-text glossary-text--primary-definition">
+      <div class="glossary-text glossary-text--primary-definition">
 
-      <div class="glossary-primary-definition__right
-          {% if not _use_external_links %} glossary-primary-definition__right--completely-hide {% endif %}
-          " id="primary_definition_right">
-        {% if _use_external_links %}
-          <div class="glossary__external-links">
-            {% include "jp-mining-note/partials/external_links.html" %}
-          </div>
-        {% endif %}
-        <div class="glossary-primary-definition__img" id="primary_definition_right_img">{{ T("PrimaryDefinitionPicture") }}</div>
+        <div class="glossary-primary-definition__right
+            {% if not _use_external_links %} glossary-primary-definition__right--completely-hide {% endif %}
+            " id="primary_definition_right">
+          {% if _use_external_links %}
+            <div class="glossary__external-links">
+              {% include "jp-mining-note/partials/external_links.html" %}
+            </div>
+          {% endif %}
+          <div class="glossary-primary-definition__img" id="primary_definition_right_img">{{ T("PrimaryDefinitionPicture") }}</div>
+        </div>
+
+        <span class="glossary-text--raw-text glossary-text--raw-text-primary" id="primary_definition_raw_text">{{ T("furigana:PrimaryDefinition") }}</span>
+        {% include "jp-mining-note/partials/0pxdiv.html" %}
+
       </div>
 
-      <span class="glossary-text--raw-text glossary-text--raw-text-primary" id="primary_definition_raw_text">{{ T("furigana:PrimaryDefinition") }}</span>
-      {% include "jp-mining-note/partials/0pxdiv.html" %}
+      <!-- placed outside of glossary-text so picture and glossary can be flipped with css -->
+      <div class="glossary-primary-definition__left" id="primary_definition_left">
+        <div class="glossary-primary-definition__img" id="primary_definition_left_img">{{ T("PrimaryDefinitionPicture") }}</div>
+      </div>
 
     </div>
 
-    <!-- placed outside of glossary-text so picture and glossary can be flipped with css -->
-    <div class="glossary-primary-definition__left" id="primary_definition_left">
-      <div class="glossary-primary-definition__img" id="primary_definition_left_img">{{ T("PrimaryDefinitionPicture") }}</div>
+    <div class="primary-def-folder-tab-text">
+      <div class="hidden" id="folder_tab_text_secondary_def">
+        <div class="primary-def-folder-tab-text__line">
+          <div class="primary-def-folder-tab-text__line-left"></div>
+          <div class="primary-def-folder-tab-text__line-text">{{ TRANSLATOR.get('secondary-definition') }}</div>
+          <div class="primary-def-folder-tab-text__line-right"></div>
+        </div>
+      </div>
+
+      <div class="hidden" id="folder_tab_text_additional_notes">
+        <div class="primary-def-folder-tab-text__line">
+          <div class="primary-def-folder-tab-text__line-left"></div>
+          <div class="primary-def-folder-tab-text__line-text">{{ TRANSLATOR.get('additional-notes') }}</div>
+          <div class="primary-def-folder-tab-text__line-right"></div>
+        </div>
+      </div>
+
+      <div class="hidden" id="folder_tab_text_extra_def">
+        <div class="primary-def-folder-tab-text__line">
+          <div class="primary-def-folder-tab-text__line-left"></div>
+          <div class="primary-def-folder-tab-text__line-text">{{ TRANSLATOR.get('extra-definitions') }}</div>
+          <div class="primary-def-folder-tab-text__line-right"></div>
+        </div>
+      </div>
+
+      <div class="hidden" id="folder_tab_text_extra_info">
+        <div class="primary-def-folder-tab-text__line">
+          <div class="primary-def-folder-tab-text__line-left"></div>
+          <div class="primary-def-folder-tab-text__line-text">{{ TRANSLATOR.get('extra-info') }}</div>
+          <div class="primary-def-folder-tab-text__line-right"></div>
+        </div>
+      </div>
     </div>
 
-  </div>
+  </blockquote>
 
-</blockquote>
+</div>

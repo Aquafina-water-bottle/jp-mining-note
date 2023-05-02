@@ -1,0 +1,41 @@
+{
+  "hardcodedRuntimeOptions": true,
+  "externalLinksPosition": "Extra Info",
+  "externalLinks": {
+    "image-search": {
+      "iconType": "image",
+      "iconImageLight": "_icon_image_black.svg",
+      "iconImageDark": "_icon_image_white.svg",
+      "url": "https://www.google.co.jp/search?q={{text:Word}}&tbm=isch",
+      "hoverDisplay": "google.co.jp (Image search)"
+    },
+    "zokugo-dict.com": {
+      "iconType": "text",
+      "iconText": "\u4fd7",
+      "url": "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{text:Word}}"
+    },
+    "yomichan-textbender": {
+      "iconType": "text",
+      "iconText": "\uff96\uff90",
+      "url": "textbender://x?x={{text:Sentence}}",
+      "hoverDisplay": "Yomichan (textbender)"
+    }
+  },
+  "cssFolders": [
+    "base",
+    "responsive-font",
+    "responsive",
+    "dictionaries",
+    "editor-fields",
+    "sentence-max-width",
+    "theme",
+    "extra"
+  ],
+  "displayLanguages": [
+    "jp",
+    "en"
+  ],
+  "fullSentenceRuby.displayMode": "click",
+  "fullSentenceRuby.fillMode": "font-size",
+  "fullSentenceRuby.fillModeFontSizeTransition": true
+}

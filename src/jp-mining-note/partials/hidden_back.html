@@ -5,25 +5,15 @@
      in order to prevent escaping errors (e.g. if the field contains a `"`)
 -->
 <div class="hidden">
-  <div id="hidden_key">{{ T('Key') }}</div>
-  <div id="hidden_pa_positions">{{ T('PAPositions') }}</div>
-  <div id="hidden_word">{{ T('Word') }}</div>
-  <div id="hidden_word_reading">{{ T('WordReading') }}</div>
-  <div id="hidden_word_reading_kana">{{ T('kana:WordReading') }}</div>
-  <div id="hidden_word_reading_hiragana">{{ T('WordReadingHiragana') }}</div>
-  <div id="hidden_ajt_word_pitch">{{ T('AJTWordPitch') }}</div>
-  <div id="hidden_pa_override">{{ T('PAOverride') }}</div>
-  <div id="hidden_pa_override_text">{{ T('PAOverrideText') }}</div>
-  <div id="hidden_sentence">{{ T('Sentence') }}</div>
+  <div id="deck" deck_name="{{ T('Deck') }}"></div> <!-- to work with fsrs -->
 
+  {% filter indent(2) %}
+  {% include "jp-mining-note/partials/hidden/all_fields.html" %}
 
-  <div id="hidden_svg_settings_toggle_img_blur"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/><title>Toggle blur</title></svg></div>
+  {% include "jp-mining-note/partials/hidden/field_values.html" %}
 
-  <div id="hidden_svg_settings_clear_cache"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9M7 6h10v13H7V6m2 2v9h2V8H9m4 0v9h2V8h-2Z"/><title>Clear the cache</title></svg></div>
-
-  <!-- THIS IS A HACK to ensure the "_field.css" and "_editor.css" file is included upon Anki export -->
-  <img src="_field.css">
-  <img src="_editor.css">
+  {% include "jp-mining-note/partials/hidden/card_info.html" %}
+  {% endfilter %}
 </div>
 
 

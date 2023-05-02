@@ -1,0 +1,165 @@
+{
+  "logger.debugLevel": 3,
+  //"debug.toConsole": true,
+  "logger.toConsole": true,
+  "logger.debugConsoleLevel": 0,
+
+  //"logger.debug.onlyShowCertainModules": true,
+  //"logger.debug.onlyShowCertainModules.modules": ["folderTab"],
+
+
+  // enables all warnings
+  "logger.warn.ignore": [],
+
+
+  //"autoPitchAccent.coloredPitchAccent.enabled": true,
+  "autoPitchAccent.coloredPitchAccent.enabled": false,
+
+  "imgStylizer.mainImage.blur.enabled": true,
+  "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module
+
+  "imgStylizer.glossary.primaryDef.mode.user": "collapse",
+  "autoPitchAccent.paOverride.heibanMarkerRequired": false,
+
+
+  // always add quotes to alt display
+  "sentenceParser.altDisplay.quotes.processMode": "add",
+
+  //"sentenceParser.removeFinalPeriod.fullSent.quoted": true,
+  //"sentenceParser.removeFinalPeriod.fullSent.unquoted": true,
+  //"sentenceParser.removeFinalPeriod.display.quoted": true,
+  //"sentenceParser.removeFinalPeriod.display.unquoted": true,
+  "sentenceParser.removeFinalPeriod.altDisplay.quoted": true,
+  //"sentenceParser.removeFinalPeriod.altDisplay.unquoted": true,
+
+  //"clickCardRevealSentenceOnBackSide": false,
+
+
+  //"webSocketUtils.enabled": {
+  //  "type": "isPC",
+  //  "resultTrue":  true, // is PC
+  //  "resultFalse": false, // not not PC (mobile)
+  //},
+
+  //"sentenceParser.display.quotes.paIndicatorColor.main": true,
+
+
+  // random books
+  "imgStylizer.setMainImageFromTags": [
+    {
+      "tag": "青春ブタ野郎・LN1",
+      "fileName": "_青春ブタ野郎-LN1.png"
+    },
+    {
+      "tag": "青春ブタ野郎・LN2",
+      "fileName": "_青春ブタ野郎-LN2.png"
+    },
+    {
+      "tag": "青春ブタ野郎・LN3",
+      "fileName": "_青春ブタ野郎-LN3.png"
+    },
+    {
+      "tag": "ヴァイオレット・エヴァーガーデン・上-LN",
+      "fileName": "_ヴァイオレット・エヴァーガーデン・上-LN.png"
+    },
+    {
+      "tag": "天使は炭酸しか飲まない・LN",
+      "fileName": "_天使は炭酸しか飲まない-LN1.png"
+    },
+    {
+      "tag": "rust",
+      "fileName": "rust.png"
+    },
+  ],
+
+
+  "blockquotes.folderTab.showDotWhenEmpty": true,
+
+  "blockquotes.openOnNew.enabled": true,
+  "blockquotes.openOnNew.extraInfo": true,
+
+  "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
+
+
+  //"blockquotes.simplifyDefinitions.enabled": true,
+
+  "wordIndicators.getResultsFront": true,
+
+  "blockquotes.hideEmpty": false,
+
+  "infoCircleUtils.userDataTags": [
+    "media",
+    "voice",
+    "grammar",
+    "mobile",
+    "asbplayer",
+    "mobile-untagged",
+    "duplicate",
+    "firefox",
+    "cloze_deletion",
+    "android",
+    "geography",
+    "jpmn-example",
+    "keigo",
+    "manual_reorder",
+  ],
+
+  //"kanjiHover.overrideOptions.tooltips": {
+  //  // always show pitch accent
+  //  //"tooltips.displayPitchAccentOnHoverOnly": false,
+  //},
+
+  //"tooltips.overrideOptions.autoPitchAccent": {
+  //  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": false,
+  //  "autoPitchAccent.coloredPitchAccent.color.fullSentence": false,
+  //},
+
+  //"tooltips.overrideOptions.autoPitchAccent": {
+  //  // highlights bolded kanji
+  //  "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": true,
+  //  // highlights bolded sentence below word
+  //  "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
+  //},
+
+  //"tooltips.highlightWordInSentence": true,
+
+
+  // TEMP
+  //"blockquotes.folderTab.mode": "multiple",
+
+
+
+  // disables on mobile
+  //"sentenceParser.display.quotes.paIndicatorColor.main": {
+  //  "type": "viewport",
+  //  "args": {
+  //    "op": ">=",
+  //    "value": 620, // combine pic breakpoint
+  //  },
+  //  "resultTrue":  true,
+  //  "resultFalse": false,
+  //},
+
+  //"sentenceParser.display.quotes.paIndicatorColor.paSent": {
+  //  "type": "viewport",
+  //  "args": {
+  //    "op": ">=",
+  //    "value": 620, // combine pic breakpoint
+  //  },
+  //  "resultTrue":  true,
+  //  "resultFalse": false,
+  //},
+
+  //"infoCircleUtils.showTagsMode": "never",
+
+
+
+  // TEMP
+  //"blockquotes.open.enabled": true,
+  //"blockquotes.open.primaryDefinition": false,
+  //"blockquotes.open.secondaryDefinition": true,
+  //"blockquotes.open.additionalNotes": false,
+  //"blockquotes.open.extraDefinitions": false,
+  //"blockquotes.open.extraInfo": false,
+
+}

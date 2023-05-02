@@ -1,0 +1,93 @@
+{# impl #}
+
+{% set _primary_def_path %}"M19 19H5V5h14m0-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-7 14h2V7h-4v2h2"{% endset %}
+
+{% set _secondary_def_path %}"M15 15h-4v-2h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H9v2h4v2h-2a2 2 0 0 0-2 2v4h6m4 2H5V5h14m0-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"{% endset %}
+
+{% set _additional_notes_path %}"M14 10h5.5L14 4.5V10M5 3h10l6 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2m0 2v14h14v-7h-7V5H5Z"{% endset %}
+
+{% set _extra_def_path %}"M14 9.9V8.2q.825-.35 1.688-.525Q16.55 7.5 17.5 7.5q.65 0 1.275.1.625.1 1.225.25v1.6q-.6-.225-1.212-.337Q18.175 9 17.5 9q-.95 0-1.825.238Q14.8 9.475 14 9.9Zm0 5.5v-1.7q.825-.35 1.688-.525Q16.55 13 17.5 13q.65 0 1.275.1.625.1 1.225.25v1.6q-.6-.225-1.212-.337-.613-.113-1.288-.113-.95 0-1.825.225T14 15.4Zm0-2.75v-1.7q.825-.35 1.688-.525.862-.175 1.812-.175.65 0 1.275.1.625.1 1.225.25v1.6q-.6-.225-1.212-.337-.613-.113-1.288-.113-.95 0-1.825.238-.875.237-1.675.662ZM6.5 16q1.175 0 2.288.262 1.112.263 2.212.788V7.2q-1.025-.6-2.175-.9Q7.675 6 6.5 6q-.9 0-1.787.175Q3.825 6.35 3 6.7v9.9q.875-.3 1.738-.45Q5.6 16 6.5 16Zm6.5 1.05q1.1-.525 2.213-.788Q16.325 16 17.5 16q.9 0 1.763.15.862.15 1.737.45V6.7q-.825-.35-1.712-.525Q18.4 6 17.5 6q-1.175 0-2.325.3-1.15.3-2.175.9ZM12 20q-1.2-.95-2.6-1.475Q8 18 6.5 18q-1.05 0-2.062.275-1.013.275-1.938.775-.525.275-1.012-.025Q1 18.725 1 18.15V6.1q0-.275.138-.525.137-.25.412-.375 1.15-.6 2.4-.9Q5.2 4 6.5 4q1.45 0 2.838.375Q10.725 4.75 12 5.5q1.275-.75 2.663-1.125Q16.05 4 17.5 4q1.3 0 2.55.3 1.25.3 2.4.9.275.125.413.375.137.25.137.525v12.05q0 .575-.487.875-.488.3-1.013.025-.925-.5-1.938-.775Q18.55 18 17.5 18q-1.5 0-2.9.525T12 20Zm-5-8.35Z"{% endset %}
+
+{% set _extra_info_path %}"M5 3c-1.11 0-2 .89-2 2v14c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2H5m0 2h14v14H5V5m2 2v2h10V7H7m0 4v2h10v-2H7m0 4v2h7v-2H7Z"{% endset %}
+
+
+
+<div class="folder-tab" id="folder_tab">
+
+  {# TODO for loop #}
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_primary_def"
+    />
+  <label
+    for="folder_tab_input_primary_def"
+    title="{{ TRANSLATOR.get('primary-definition') }}"
+    class="folder-tab__button folder-tab__button--primary-def"
+    id="folder_tab_button_primary_def"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _primary_def_path }}/></svg>
+  </label>
+
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_secondary_def"
+    />
+  <label
+    for="folder_tab_input_secondary_def"
+    title="{{ TRANSLATOR.get('secondary-definition') }}"
+    class="folder-tab__button folder-tab__button--secondary-def"
+    id="folder_tab_button_secondary_def"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _secondary_def_path }}/></svg>
+  </label>
+
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_additional_notes"
+    />
+  <label
+    for="folder_tab_input_additional_notes"
+    title="{{ TRANSLATOR.get('additional-notes') }}"
+    class="folder-tab__button folder-tab__button--additional-notes"
+    id="folder_tab_button_additional_notes"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _additional_notes_path }}/></svg>
+  </label>
+
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_extra_def"
+    />
+  <label
+    for="folder_tab_input_extra_def"
+    title="{{ TRANSLATOR.get('extra-definitions') }}"
+    class="folder-tab__button folder-tab__button--extra-def"
+    id="folder_tab_button_extra_def"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _extra_def_path }}/></svg>
+  </label>
+
+  <input
+    type="radio"
+    class="hidden"
+    name="folder_tab_input"
+    id="folder_tab_input_extra_info"
+    />
+  <label
+    for="folder_tab_input_extra_info"
+    title="{{ TRANSLATOR.get('extra-info') }}"
+    class="folder-tab__button folder-tab__button--extra-info"
+    id="folder_tab_button_extra_info"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d={{ _extra_info_path }}/></svg>
+  </label>
+
+</div>

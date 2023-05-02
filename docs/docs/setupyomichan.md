@@ -13,7 +13,7 @@ This section will go over the minimal Yomichan setup to work with this card type
 
 # Preliminary Steps
 If you have used Yomichan before, please make a
-[backup of your settings](faq.md#how-do-i-backup-yomichan-settings){:target="_blank"}
+[backup of your settings](faq.md#how-do-i-backup-yomichan-settings)
 (just in case).
 
 
@@ -22,14 +22,28 @@ Most users should have installed it from their browser's extension page, in whic
 nothing has to be done.
 
 !!! warning "Warning for Firefox Users"
-    There appears to be an issue where the default version for Yomichan on Firefox
-    is [three years old](https://github.com/FooSoft/yomichan/issues/2295).
+    The default version for Yomichan on Firefox
+    is [over three years old](https://github.com/FooSoft/yomichan/issues/2295),
+    and is not compatible with this note.
     If you are using Firefox, ensure that your Yomichan version is indeed the latest version,
     by clicking on the Yomichan icon and clicking on the question mark.
-    If it isn't, you will have to download it [manually](https://github.com/FooSoft/yomichan/releases).
 
-    You may also have to download the Firefox Developer edition, and set `xpinstall.signatures.required`
-    to `false`.
+    If it isn't, then I recommend to switch to Chrome (or Chromium) for immersion.
+
+<!--
+TODO Yomitan, once it's stable...
+
+If it isn't, there are two main ways of fixing it:
+
+1. [Manual Download](https://github.com/FooSoft/yomichan/releases)
+    with
+    [Firefox: Developer edition](https://www.mozilla.org/en-US/firefox/developer/)
+    The manual download will NOT work on regular firefox, because it is unsigned.
+    `xpinstall.signatures.required`
+
+You may also have to download the Firefox Developer edition, and set 
+to `false`.
+-->
 
 ---
 
@@ -118,6 +132,8 @@ add the following template code as follows:
 ---
 
 # Make an example card!
+TODO re-record with renji's texthooker, and show result card
+
 At this point, you should be able to make cards with Yomichan!
 
 ??? example "Click here to show some example Japanese sentences."
@@ -154,18 +170,18 @@ change the following line at the top of the templates code:
 
 {% raw %}
 ```handlebars
-{{~#set "opt-first-definition-type" "bilingual"}}{{/set~}}
+{{~set "opt-first-definition-type" "bilingual" ~}}
 ```
 to
 ```handlebars
-{{~#set "opt-first-definition-type" "monolingual"}}{{/set~}}
+{{~set "opt-first-definition-type" "monolingual" ~}}
 ```
 {% endraw %}
 
 
 Additionally, a common thing that people want to do with monolingual dictionaries is to remove the first line
 of the definition, because it may contain extra info that the user does not want.
-See [here](definitions.md#hiding-the-first-line-of-a-definition){:target="_blank"}
+See [here](definitions.md#hiding-the-first-line-of-a-definition)
 to do exactly that.
 
 
@@ -178,32 +194,55 @@ to do exactly that.
 
     If your dictionaries are ending up in the wrong sections,
     then it is likely a problem with how the template code categorizes the dictionaries.
-    See [here](definitions.md#dictionary-placement){:target="_blank"} for more info.
+    See [here](definitions.md#dictionary-placement) for more info.
 
 
-<br>
 
 
-## Selected Text as the Definition
-If you want to select the text to use instead of the definition,
-simply set `opt-selection-text-enabled` to `true`.
+<!--
 
-![type:video](assets/setupyomichan/selected_text.mp4)
+IT WORKS WITH OLD JMDICT!!
+THIS SECTION IS NO LONGER NECESSARY!!!
 
-By default, this enable the following behavior:
+## Legacy JMdict
 
-1. If nothing is selected, then the first dictionary is chosen just like normal.
-1. If a dictionary is selected, then that dictionary will replace the first definition.
-1. If a section of text is selected, then that dictionary will replace the first definition.
-    Additionally, that section of text will be highlighted (bolded).
+The newest JMdict Yomichan dictionary, informally known as "JMdict Extra",
+contains many things outside of the plain definitions,
+including antonyms, example sentences, and alternate forms.
+This dictionary can be downloaded
+[here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan).
 
-!!! note
-    Selecting parts of a definition to bold the text does not always work,
-    especially when used across text with formatting or newlines.
-    See [this](definitions.md#manual-selection){:target="_blank"} for more details.
+If you are using JMdict Extra, then nothing has to be done.
 
-    With this being said, selecting the dictionary should always work.
+However, if you are using a legacy versions of JMdict,
+your definitions will export incorrectly (in a non-compact form).
 
+??? example "Compact Legacy JMdict Option {{ CLICK_HERE }}"
+    To export legacy JMdict in compact form, change the following option:
+    set the following option to `false`:
+
+    {% raw %}
+    ```handlebars
+    {{~set "opt-jmdict-list-format" false ~}}
+    ```
+    {% endraw %}
+
+
+
+then the exported compact list will not be fully compact.
+This is a [known issue](https://github.com/FooSoft/yomichan/issues/2297) with Yomichan's
+default handlebars.
+
+However, with the power of custom CSS and handlebars, the issue is fixed in this note type.
+To fix it, set `opt-jmdict-list-format` to `true`, i.e.
+
+{% raw %}
+```handlebars
+{{~set "opt-jmdict-list-format" true ~}}
+```
+{% endraw %}
+
+-->
 ---
 
 
@@ -213,13 +252,8 @@ Outside of creating cards on the PC,
 there are some other platforms that one can create cards from.
 
 
-<br>
 
 ## Android Setup
-
-!!! warning
-    Actually using JPMN on mobile devices (e.g. for reviewing), is currently not stable.
-    This simply shows how to make the cards on Android.
 
 If you wish to add cards on Android, use
 [AnkiconnectAndroid](https://github.com/KamWithK/AnkiconnectAndroid)
@@ -230,8 +264,8 @@ instead of re-doing all of the steps on Android.
 !!! note
     Occasionally, importing your Yomichan settings from the PC may lead to
     AnkiconnectAndroid not working.
-    If AnkiconnectAndroid doesn't work after going through the entire README,
-    try resetting your Yomichan settings on Android and starting from scratch.
+    See [here](https://github.com/KamWithK/AnkiconnectAndroid#common-errors-and-solutions)
+    for additional troubleshooting.
 
 
 !!! note
@@ -241,10 +275,10 @@ instead of re-doing all of the steps on Android.
 
     Although screenshots cannot be added automatically,
     the runtime options supports automatically adding images
-    based off of tags. See [here](images.md#automatically-add-images-using-tags)
+    based off of tags, which is mostly useful for novels.
+    See [here](images.md#automatically-add-images-using-tags)
     for more info.
 
-<br>
 
 
 
@@ -279,6 +313,8 @@ From here, you likely fall under one of the two categories below:
     1. Getting the pictures and/or sentence audio from the media into the card.
 
     Head over to the [Setup: Everything Else](setupeverythingelse.md) page to see exactly that.
+    If you are also new to Yomichan, I also recommend downloading
+    [these dictionaries](setupother.md#other-dictionaries).
 
 
 1. **I already have a sentence mining workflow.**

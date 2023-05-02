@@ -1,0 +1,61 @@
+{
+  "logger.debugLevel": 3,
+  "logger.toConsole": true,
+  "logger.debugConsoleLevel": 0,
+  "logger.warn.ignore": [],
+  "autoPitchAccent.coloredPitchAccent.enabled": false,
+  "imgStylizer.mainImage.blur.enabled": true,
+  "imgStylizer.mainImage.blur.startState": "never",
+  "imgStylizer.glossary.primaryDef.mode.user": "collapse",
+  "autoPitchAccent.paOverride.heibanMarkerRequired": false,
+  "sentenceParser.altDisplay.quotes.processMode": "add",
+  "sentenceParser.removeFinalPeriod.altDisplay.quoted": true,
+  "imgStylizer.setMainImageFromTags": [
+    {
+      "tag": "\u9752\u6625\u30d6\u30bf\u91ce\u90ce\u30fbLN1",
+      "fileName": "_\u9752\u6625\u30d6\u30bf\u91ce\u90ce-LN1.png"
+    },
+    {
+      "tag": "\u9752\u6625\u30d6\u30bf\u91ce\u90ce\u30fbLN2",
+      "fileName": "_\u9752\u6625\u30d6\u30bf\u91ce\u90ce-LN2.png"
+    },
+    {
+      "tag": "\u9752\u6625\u30d6\u30bf\u91ce\u90ce\u30fbLN3",
+      "fileName": "_\u9752\u6625\u30d6\u30bf\u91ce\u90ce-LN3.png"
+    },
+    {
+      "tag": "\u30f4\u30a1\u30a4\u30aa\u30ec\u30c3\u30c8\u30fb\u30a8\u30f4\u30a1\u30fc\u30ac\u30fc\u30c7\u30f3\u30fb\u4e0a-LN",
+      "fileName": "_\u30f4\u30a1\u30a4\u30aa\u30ec\u30c3\u30c8\u30fb\u30a8\u30f4\u30a1\u30fc\u30ac\u30fc\u30c7\u30f3\u30fb\u4e0a-LN.png"
+    },
+    {
+      "tag": "\u5929\u4f7f\u306f\u70ad\u9178\u3057\u304b\u98f2\u307e\u306a\u3044\u30fbLN",
+      "fileName": "_\u5929\u4f7f\u306f\u70ad\u9178\u3057\u304b\u98f2\u307e\u306a\u3044-LN1.png"
+    },
+    {
+      "tag": "rust",
+      "fileName": "rust.png"
+    }
+  ],
+  "blockquotes.folderTab.showDotWhenEmpty": true,
+  "blockquotes.openOnNew.enabled": true,
+  "blockquotes.openOnNew.extraInfo": true,
+  "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
+  "wordIndicators.getResultsFront": true,
+  "blockquotes.hideEmpty": false,
+  "infoCircleUtils.userDataTags": [
+    "media",
+    "voice",
+    "grammar",
+    "mobile",
+    "asbplayer",
+    "mobile-untagged",
+    "duplicate",
+    "firefox",
+    "cloze_deletion",
+    "android",
+    "geography",
+    "jpmn-example",
+    "keigo",
+    "manual_reorder"
+  ]
+}

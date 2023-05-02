@@ -1,0 +1,37 @@
+{
+  // ==========================================================================
+  // = Custom Theme =
+  // ==========================================================================
+
+  // See (TODO link documentation here) for more info
+  "theme-folder": null,
+  //"theme-folder": "132",
+  //"theme-folder": "opt_vocab",
+  //"theme-folder": "rayrtheii",
+
+  // whether the theme options overrides the user options or not
+  "theme-override-user-options": true,
+
+
+
+  // ==========================================================================
+  // = File Options =
+  // ==========================================================================
+
+  // - File searched under (root).
+  // - Ignores if it doesn't exist.
+  // - Must be valid json5! If you want it to be empty,
+  //   at least make sure the file contains {}
+  "runtime-options-path": "config/runtime_opts.json5",
+  "compile-options-path": "config/compile_opts.json5",
+
+  // - File searched under (root).
+  "translation-file": "data/translations.json5",
+
+  // - File searched under (root).
+  // - Ignores folder if it doesn't exist.
+  "templates-override-folder": "overrides",
+
+  // - You need dart-sass!
+  "sass-path": "sass",
+}

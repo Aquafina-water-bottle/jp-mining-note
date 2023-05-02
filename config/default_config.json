@@ -1,0 +1,9 @@
+{
+  "theme-folder": null,
+  "theme-override-user-options": true,
+  "runtime-options-path": "config/runtime_opts.json5",
+  "compile-options-path": "config/compile_opts.json5",
+  "translation-file": "data/translations.json5",
+  "templates-override-folder": "overrides",
+  "sass-path": "sass"
+}

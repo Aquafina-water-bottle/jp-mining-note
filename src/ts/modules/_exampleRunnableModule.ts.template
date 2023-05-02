@@ -1,0 +1,13 @@
+import { RunnableModule } from "../module"
+import { getOption } from "../options"
+
+export class {{MODULE_UPPER_CAMELCASE}} extends RunnableModule {
+
+  constructor() {
+    super('{{MODULE_CAMELCASE}}')
+  }
+
+  main() {
+    // ...
+  }
+}

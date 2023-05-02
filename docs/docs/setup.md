@@ -34,13 +34,46 @@ I recommend downloading the latest version, to avoid having to do extra steps du
 ---
 
 # Installing jp-mining-note
-There are two ways of installing the note:
+There are three ways of installing the note:
+
+1. Via **JPMN Manager**, a small Anki add-on that can install and update jp-mining-note.
+    *If you don't know which method to choose, choose this one*.
+2. Via **command line**.
+    This method is recommended for people who are familiar with `git` and `python`,
+    and don't want to download another Anki add-on.
+3. **Manually**, using Anki.
+    This tends to be more error-prone due to having many more potential points of failure.
+    Therefore, I wouldn't recommend installing the note this way.
+    It should only be used if the first two options didn't work.
 
 
+??? info "Option 1: JPMN Manager <small>(click here)</small>"
 
-??? info "Option 1: The Automatic Way *(click here)*"
+    1.  To install any Anki add-on, navigate to:
 
-    If you know what `git` and `python` is, here's all you have to do:
+        > (Main Window) →  `Tools` →  `Add-ons` →  `Get Add-ons...`
+
+        From here, you can install
+        [JPMN Manager](https://ankiweb.net/shared/info/{{ JPMN_MGR_CODE }})
+        and
+        [Anki-Connect](https://ankiweb.net/shared/info/2055492159)
+        by using the following add-on codes:
+        ```
+        {{ JPMN_MGR_CODE }} 2055492159
+        ```
+
+    1. Restart Anki, to load the new add-ons.
+    1. Within Anki, navigate to the following:
+
+        > (Main Window) →  `Tools` →  `JPMN Manager` →  `Install jp-mining-note`
+
+        This will install latest stable version of the note,
+        as well as the fonts required for the note to work. <br>
+        Note: Installing jp-mining-note might take a while, and Anki may appear frozen.
+
+    ![type:video](assets/setup/jpmn_manager-0.12.0.0-prerelease-3.mp4)
+
+??? info "Option 2: Command Line <small>(click here)</small>"
 
     === "Windows"
 
@@ -48,8 +81,8 @@ There are two ways of installing the note:
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
         cd jp-mining-note
 
-        :: Ensure you have Anki open, and with anki-connect running
-        :: Also ensure that you have python 3.10+ installed.
+        :: Ensure you have Anki open, and with Anki-Connect running
+        :: Also ensure that you have python 3.9+ installed.
         :: It *MAY* work with lower versions of python, but I make no such guarantee. ;)
         python tools\install.py
         ```
@@ -60,25 +93,18 @@ There are two ways of installing the note:
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
         cd jp-mining-note
 
-        # Ensure you have Anki open, and with anki-connect running
-        # Also ensure that you have python 3.10+ installed.
+        # Ensure you have Anki open, and with Anki-Connect running
+        # Also ensure that you have python 3.9+ installed.
         # It *MAY* work with lower versions of python, but I make no such guarantee. ;)
 
         # You may have to use `python3` instead of `python`.
         python tools/install.py
         ```
 
-    The above does the following:
+    `install.py` will install latest stable version of the note,
+    as well as the fonts required for the note to work.
 
-    - Installs the latest stable version of the note
-    - Installs the fonts required for the note
-
-    If the above made no sense to you,
-    or you just want to install this normally,
-    see the second option below.
-
-
-??? info "Option 2: The Manual Way *(click here)*"
+??? info "Option 3: Manually <small>(click here)</small>"
 
 
     1. Go to the
@@ -119,7 +145,7 @@ Please check the following in particular:
 1. The fonts should match with the above example.
 
     If the fonts don't match, try restarting Anki.
-    If the fonts still don't match, the note was likely installed with "Option 2: The Manual Way".
+    If the fonts still don't match, the note was likely installed manually.
     Please verify you manually installed the fonts and placed them in the correct folder
     (see steps 3 and 4).
 
@@ -140,11 +166,7 @@ Please check the following in particular:
     then you must [enable animations on Anki](setupanki.md#enable-animations).
 
 1. If the furigana on your card seems to appear higher above the kanji compared to the picture,
-    see the [Fix Ruby Positioning](uicustomization.md#fix-ruby-positioning-for-legacy-anki-versions) option.
-
-1. If the frequency list on the top right appears to be squished (with no spacing between the elements)
-    see the FAQ on
-    [fixing the frequency list display](faq.md#the-frequency-list-display-looks-squished).
+    see the [Fix Ruby Positioning](other.md#fix-ruby-positioning) option.
 
 
 ---

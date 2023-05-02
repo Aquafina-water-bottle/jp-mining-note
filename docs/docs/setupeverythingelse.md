@@ -16,7 +16,6 @@ If you are looking to setup jp-mining-note, see [this](setup.md) page instead.
     If you already have a sentence mining workflow, you can likely
     skip to [this section](#notes-on-various-programs).
 
----
 
 ## Troubleshooting & Support
 
@@ -42,7 +41,6 @@ Anki card (by clicking on the green plus button).
 
 The standard texthooker setup works for most games, and any show with subtitle files.
 
----
 
 ## Texthooker: Websocket based
 These pages display the hooked content, where the hooked content is communicated
@@ -55,17 +53,19 @@ in almost every aspect:
 * They do not require an extension that constantly polls the clipboard.
 
 However, it requires more specialized coordination between programs.
+Fortunately, most common workflows support websockets nowadays.
 
-??? example "Resources *(click here)*"
-    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
-        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
+??? example "Resources <small>(click here)</small>"
+    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) <small>(recommended)</small>
+        * Open source and more featureful alternative to the more popular Anacreon's texthooker page.
         * This texthooker page comes with built in support for both websockets and
             clipboard inserter plugins.
+        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker)
+            to make the text more compressed.
 
-    * [**exSTATic**](https://github.com/KamWithK/exSTATic/) (recommended for stats lovers)
-
+    * [**exSTATic**](https://github.com/KamWithK/exSTATic/) <small>(recommended for stats lovers)</small>
         * Its primary use is for automatic stats collection and visualizing said statistics.
-        * Integrates seamlessly with many workflows.
+        * Integrates seamlessly with many workflows, including non-texthooker related workflows.
         * Uses a custom texthooker page, which connects with Textractor with its own custom extension.
         * A video installation guide is available on the project's README page.
 
@@ -74,7 +74,7 @@ However, it requires more specialized coordination between programs.
     - [**Textractor**](https://github.com/Artikash/Textractor) with [**textractor-websocket**](https://github.com/sadolit/textractor-websocket) or [**TextractorSender**](https://github.com/KamWithK/TextractorSender)
     - [**mpv**](https://mpv.io) with [**mpv_websocket**](https://github.com/kuroahna/mpv_websocket)
 
-??? example "Legacy Resources *(click here)*"
+??? example "Legacy Resources <small>(click here)</small>"
     These resources are considered legacy, and I highly recommend using the
     standard resources above in favor of these.
 
@@ -90,7 +90,7 @@ However, it requires more specialized coordination between programs.
         * This patch was written for Anacreon's texthooker page.
             However, it will likely work for most other texthooker pages.
 
-        ??? examplecode "Instructions to use the patch *(click here)*"
+        ??? examplecode "Instructions to use the patch <small>(click here)</small>"
 
             !!! warning
                 This is a monkey patch, even according to the author. Now that better alternatives
@@ -145,49 +145,55 @@ However, it requires more specialized coordination between programs.
 
 
 
----
 
 ## Texthooker: Clipboard based
 These pages display the hooked content, where the hooked content is communicated
 via automated clipboard (copy/paste) tools.
 Most classic setups documented are for clipboard based texthooker pages.
 
-??? example "Resources *(click here)*"
-    * [**Original Clipboard Inserter (Extension)**](https://github.com/kmltml/clipboard-inserter) (Chromium-based browsers)
-        * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
-            as of Firefox version 107.0. Use the extension below if you are using Firefox.
-    * [**Lap Clipboard Inserter (Extension)**](https://github.com/laplus-sadness/lap-clipboard-inserter) (Firefox)
-        * Updated version of the above.
-        * Works on Firefox, but Chrome (manifest 3) support is currently not supported.
-            Use the first extension if you are using a chromium based browser.
-    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) (recommended)
+??? example "Resources <small>(click here)</small>"
+    * [**Clipboard Inserter Redux (Extension)**](https://github.com/Onurtag/clipboard-inserter)
+        * Updated version of the original Clipboard Inserter extension
+        * Still using manifest v2, so this extension will be deprecated in the future unless updated
+    * [**Lap Clipboard Inserter (Extension)**](https://github.com/laplus-sadness/lap-clipboard-inserter) <small>(Firefox)</small>
+        * Rewritten version of the original Clipboard Inserter extension, to use manifest v3
+        * Works on Firefox, but Chrome is
+            [currently not supported](https://github.com/laplus-sadness/lap-clipboard-inserter#chrome).
+            Use Clipboard Inserter Redux if you are using a chromium based browser.
+    * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) <small>(recommended)</small>
         * Open source and more featureful alternative to the more popular Anacreon's texthooker page.
-        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker) to make the text more compressed.
-    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
-    * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
+        * I use [these settings](jpresources.md#settings-css-for-renjis-texthooker)
+            to make the text more compressed.
 
-??? example "Guides *(click here)*"
-    * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) (recommended)
+??? example "Guides <small>(click here)</small>"
+    * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) <small>(recommended)</small>
     * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
     * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
     * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/)
 
+??? example "Legacy Resources <small>(click here)</small>"
+    These resources are considered legacy, and I highly recommend using the
+    standard resources above in favor of these.
+
+    * [**Original Clipboard Inserter (Extension)**](https://github.com/kmltml/clipboard-inserter) <small>(WARNING: NO LONGER MAINTAINED!)</small>
+        * WARNING: [No longer works on Firefox](https://github.com/kmltml/clipboard-inserter/issues/14)
+            as of Firefox version 107.0. Use either extensions above if you are using Firefox.
+    * [**Anacreon's Texthooker Page**](https://anacreondjt.gitlab.io/docs/texthooker/)
+    * [**TMW's Texthooker Page**](https://learnjapanese.moe/texthooker.html)
 
 ---
 
-
----
 
 
 # Game-Like Content: Getting Text
 The following are primarily for text-heavy games, such as visual novels.
 
-??? example "Resources *(click here)*"
+??? example "Resources <small>(click here)</small>"
     * [Textractor](https://github.com/Artikash/Textractor) (recommended)
     * [agent](https://github.com/0xDC00/agent)
         * This is a good fallback for when Textractor doesn't work
 
-??? example "Guides *(click here)*"
+??? example "Guides <small>(click here)</small>"
     * [TMW: Installing Visual Novels](https://learnjapanese.moe/vn-setup/)
     * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
     * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/) (slightly outdated compared to others)
@@ -204,7 +210,7 @@ The following are primarily for text-heavy games, such as visual novels.
 # Video Content: Getting Text, Sentence Audio, Picture
 Video content includes streamed content (Youtube, Netflix, etc.) and locally downloaded files.
 
-??? example "Resources *(click here)*"
+??? example "Resources <small>(click here)</small>"
     * [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious) (recommended for downloaded videos / if you are using mpv)
         * Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
         * Basically universal codec support since it uses mpv.
@@ -213,11 +219,13 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
             as the form of a gif (autoplayable webp).
     * [**asbplayer**](https://github.com/killergerbah/asbplayer) (recommended for streamed sites)
         * Cross platform (chromium) browser video player. Personally tested.
-        * Codec support is based on the browser used.
         * Works on video streaming sites, as well as downloaded videos.
+        * Does not require a texthooker: subtitles are displayed on the site itself.
+        * Codec support is limited, and depends on the browser used.
     * [**Animebook**](https://github.com/animebook/animebook.github.io)
         * Cross platform (chromium) browser video player.
-        * Codec support is based on the browser used.
+        * Does not require a texthooker: subtitles are displayed on the site itself.
+        * Codec support is limited, and depends on the browser used.
     * All of the above require subtitle files to function.
         See
         [here](https://learnjapanese.moe/resources/#subtitles)
@@ -247,7 +255,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
             The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
             This is listed here for completeness only.
 
-??? example "Guides *(click here)*"
+??? example "Guides <small>(click here)</small>"
     * [mikumino's mining workflow](https://www.youtube.com/watch?v=B60cj69MSmA&ab_channel=mikumino) (asbplayer + jp-mining-note)
     * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (asbplayer)
         * Contact info: `boundary-of-emptiness#3065` <!-- 152563705345867778 -->
@@ -255,6 +263,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
     * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub) (asbplayer)
         * Contact info: `Tigy01#1231` <!-- 451194927515172864 -->
             on the Refold (JP) Discord server
+    * [Brian's "Sentence mining from Netflix and YouTube with asbplayer"](https://soyuz18.notion.site/Sentence-mining-from-Netflix-and-YouTube-with-asbplayer-83a03590cd8349ba81ca10340645b565#92ca8ce0251f4eeba89776950b8cef11)
     * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/) (animebook)
         * Contact info: `eminent#8189` <!-- 126903585152827392 -->
             on {{ PERDITION_SERVER }} or {{ TMW_SERVER }}
@@ -290,6 +299,8 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
         to create Anki cards.
     - [WeebAlt's RemoteMokuro setup](https://github.com/WeebAlt/RemoteMokuro)
         - This includes setup instructions on using Mokuro remotely (from google drive, i.e. no disk storage)
+    - [leermangamokureado](https://leermangamokureado.duckdns.org/)
+        is a site with various manga ran through mokuro.
 
     If any error occurs, check the following:
 
@@ -321,7 +332,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
 As long as you're not using a scan (image-based), the text should already be available.
 Below will list a few ways to view these files in a browser to Yomichan.
 
-??? example "Resources *(click here)*"
+??? example "Resources <small>(click here)</small>"
     * [**ッツ Ebook Reader**](https://reader.ttsu.app) (EPUBs, HTMLZ) (recommended)
     * [**Mozilla's PDF Viewer**](https://mozilla.github.io/pdf.js/web/viewer.html) (PDF)
 
@@ -332,11 +343,19 @@ Below will list a few ways to view these files in a browser to Yomichan.
         * Uses [ッツ Ebook Reader](https://ttu-ebook.web.app/) as its backend.
         * See [this note on jidoujisho](#jidoujisho).
 
-??? example "Guides *(click here)*"
+??? example "Guides <small>(click here)</small>"
     - Like with Mokuro,
         if you are on Android, this can be paired with
         [Anki Connect for Android](https://github.com/KamWithK/AnkiconnectAndroid)
         to create Anki cards.
+
+---
+
+# Audio/Video with No Subtitles
+
+[KanjiEater's AudiobookTextSync](https://github.com/kanjieater/AudiobookTextSync)
+is a relatively new set of tools that generates subtitles using machine learned models.
+
 
 ---
 
@@ -376,7 +395,7 @@ Here are the two popular approaches to automatically adding the image and senten
 # Resource Lists
 Other websites have significantly larger resource lists that may prove useful for you.
 
-??? example "Resource Lists *(click here)*"
+??? example "Resource Lists <small>(click here)</small>"
     * [TheMoeWay](https://learnjapanese.moe/resources/)
     * [Tatsumoto](https://tatsumoto.neocities.org/blog/resources.html)
     * [itazuraneko](https://itazuraneko.neocities.org/index.html)
@@ -453,14 +472,13 @@ Other websites have significantly larger resource lists that may prove useful fo
     and then press `ctrl`+`m` in mpv.
 
 
----
 
 ## [asbplayer](https://github.com/killergerbah/asbplayer)
 
 * To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
     I recommend filling out the following fields as follows:
 
-    ??? example "asbplayer fields *(click here)*"
+    ??? example "asbplayer fields <small>(click here)</small>"
         | asbplayer field | JPMN field |
         |:-:|:-:|
         | Sentence Field   { .smaller-table-row} | `Sentence`        { .smaller-table-row} |
@@ -527,7 +545,6 @@ There are a few common issues that asbplayer users have, when creating cards wit
 
 -->
 
----
 
 ## [jidoujisho](https://github.com/lrorpilla/jidoujisho)
 

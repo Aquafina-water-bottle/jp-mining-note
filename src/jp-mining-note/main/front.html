@@ -19,60 +19,47 @@
 <!-- displays the audio and show/hide button, used only when testing pitch accent -->
 {% call IF("PAShowInfo") %}
 
-  <div class="below-display-wrapper">
+  {% call IFNOT("IsAudioCard") %}
 
-    <div class="below-display-top-row">
+    <div class="below-display-wrapper">
 
-      <!-- only shown if:
-        - word PA should be tested
-        - sentence card
-          - TSC and hybrid cards already shows the word
-      -->
-      {% call IF("IsSentenceCard") %}
-      {% call utils.if_none("PADoNotTest", "PASeparateWordCard",
-          "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard", "IsHintCard") %}
-      {% call utils.if_any("PASeparateSentenceCard", "PATestOnlyWord") %}
+      <div class="below-display-top-row">
 
-        <button class="pa-button" id="pa_button">{{ TRANSLATOR.get("show-word-button") }}</button>
+        <!-- only shown if:
+          - word PA should be tested
+          - sentence card
+            - TSC and hybrid cards already shows the word
+        -->
+        {% call IF("IsSentenceCard") %}
+        {% call utils.if_none("PADoNotTest", "PASeparateWordCard",
+            "IsTargetedSentenceCard", "IsClickCard", "IsHoverCard", "IsHintCard") %}
+        {% call utils.if_any("PASeparateSentenceCard", "PATestOnlyWord") %}
 
-      {% endcall %}
-      {% endcall %}
-      {% endcall %}
+          <button class="pa-button" id="pa_button">{{ TRANSLATOR.get("show-word-button") }}</button>
 
-      <div id="pa_silence_audio" style="display:none">{{ T("PASilence") }}</div>
+        {% endcall %}
+        {% endcall %}
+        {% endcall %}
 
-      {% call IF("SentenceAudio") %}
-        <div id="sentence_audio"> {{ T("SentenceAudio") }} </div>
-      {% endcall %}
+        <div id="pa_silence_audio" style="display:none">{{ T("PASilence") }}</div>
+
+        {% call IF("SentenceAudio") %}
+          <div id="sentence_audio"> {{ T("SentenceAudio") }} </div>
+        {% endcall %}
+
+      </div>
 
     </div>
 
-    {# THIS IS NOW REPLACED with IsHintCard #}
-    {#<div class="below-display-bottom-row">
-
-      <!--
-        if the display is a word: show sentence preview (spoilered)
-      -->
-      {% call utils.if_none("IsSentenceCard", "IsHoverCard", "IsClickCard", "IsTargetedSentenceCard", "IsHintCard") %}
-        {% filter indent(width=4) %}
-        {% include "jp-mining-note/partials/full_sentence_front.html" %}
-        {% endfilter %}
-      {% endcall %}
-
-    </div>#}
-
-  </div>
-
-
-
+  {% endcall %} {# IsAudioCard #}
 
 {% endcall %} {# PAShowInfo #}
 
 {% endblock %}
 
 
-{% block javascript %}
+{#{% block javascript %}
 {{ super() }}
 {% include "jp-mining-note/main/js/front.js" %}
-{% endblock %}
+{% endblock %}#}
 

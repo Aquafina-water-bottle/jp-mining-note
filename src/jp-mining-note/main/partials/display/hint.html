@@ -4,20 +4,15 @@
 -->
 
 <div id="display">
-  <div class="expression-box expression-box__word">
-    {% filter indent(2) %}
-    {{ pa_indicator("word") }}
-    {% endfilter %}
-
-    <div class="expression--word
-        {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-indicator {% endcall %}
-        ">
-      {{ T("Word") }}
-    </div>
+  <div class="expression--word
+      {% call IF('IsSentenceCard') %} expression__hybrid-word--sentence-indicator {% endcall %}
+      ">
+    {{ utils.prioritize_alt_display("Word") }}
   </div>
 
   <div class="expression--sentence expression--hint-sentence
     {% call IF('IsTargetedSentenceCard') %} highlight-bold {% endcall %}
+    {{ utils.default_disp_sent_quote_class() }}
     ">
     {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
   </div>

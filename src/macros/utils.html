@@ -22,7 +22,7 @@
   {%- set anyof = namespace() -%}
   {%- set anyof.always_filled = False -%}
   {%- for a in args -%}
-    {%- if a in COMPILE_OPTIONS("always-filled-fields").list() -%}
+    {%- if a in COMPILE_OPTIONS("alwaysFilledFields").list() -%}
       {%- set anyof.always_filled = True -%}
     {%- endif -%}
   {%- endfor -%}
@@ -36,7 +36,7 @@
     {#- removes anything that is in never-filled -#}
     {%- set anyof.filtered_args = [] -%}
     {%- for a in args -%}
-      {%- if a not in COMPILE_OPTIONS("never-filled-fields").list() -%}
+      {%- if a not in COMPILE_OPTIONS("neverFilledFields").list() -%}
         {%- do anyof.filtered_args.append(a) -%}
       {%- endif -%}
     {%- endfor -%}
@@ -87,7 +87,7 @@
   {%- set anyof = namespace() -%}
   {%- set anyof.always_filled = False -%}
   {%- for a in varargs -%}
-    {%- if a in COMPILE_OPTIONS("always-filled-fields").list() -%}
+    {%- if a in COMPILE_OPTIONS("alwaysFilledFields").list() -%}
       {%- set anyof.always_filled = True -%}
     {%- endif -%}
   {%- endfor -%}
@@ -96,7 +96,7 @@
     ALWAYS_FILLED
   {%- else -%}
     {%- for name in varargs -%}
-      {%- if name not in COMPILE_OPTIONS("never-filled-fields").list() -%}
+      {%- if name not in COMPILE_OPTIONS("neverFilledFields").list() -%}
         {{ "{" }}{{ "{" }}{{ "#" }}{{name}}{{ "}" }}{{ "}" }}FILLED{{ "{" }}{{ "{" }}{{ "/" }}{{name}}{{ "}" }}{{ "}" }}
       {%- endif -%}
     {%- endfor -%}
@@ -124,7 +124,7 @@
   {%- set noneof = namespace() -%}
   {%- set noneof.always_filled = False -%}
   {%- for a in args -%}
-    {%- if a in COMPILE_OPTIONS("always-filled-fields").list() -%}
+    {%- if a in COMPILE_OPTIONS("alwaysFilledFields").list() -%}
       {%- set noneof.always_filled = True -%}
     {%- endif -%}
   {%- endfor -%}
@@ -134,7 +134,7 @@
     {#- removes anything that is in never-filled -#}
     {%- set noneof.filtered_args = [] -%}
     {%- for a in args -%}
-      {%- if a not in COMPILE_OPTIONS("never-filled-fields").list() -%}
+      {%- if a not in COMPILE_OPTIONS("neverFilledFields").list() -%}
         {%- do noneof.filtered_args.append(a) -%}
       {%- endif -%}
     {%- endfor -%}
@@ -164,7 +164,7 @@
 
 
 
-{% macro opt() -%}
+{#{% macro opt() -%}
   {%- autoescape false -%}
     {%- if COMPILE_OPTIONS("hardcoded-runtime-options").item() -%}
       (parseSetting({{NOTE_OPTS(*varargs).item(javascript=True)}}, "{{NOTE_OPTS(*varargs).get_path()}}"))
@@ -176,22 +176,22 @@
       {{ "]," }}{{NOTE_OPTS(*varargs).item(javascript=True)}}{{ ")" }}
     {%- endif -%}
   {%- endautoescape -%}
-{%- endmacro %}
+{%- endmacro %}#}
 
 
 
 {% set quote_open -%}
   {%- autoescape false -%}
   <span class="sentence-quote sentence-quote--open">
-    {{- COMPILE_OPTIONS("auto-quote-open").item() -}}
-  </span><span>
+    {{- COMPILE_OPTIONS("autoQuoteOpen").item() -}}
+  </span>
   {%- endautoescape -%}
 {%- endset -%}
 
 {% set quote_close -%}
   {%- autoescape false -%}
-  </span><span class="sentence-quote sentence-quote--close">
-    {{- COMPILE_OPTIONS("auto-quote-close").item() -}}
+  <span class="sentence-quote sentence-quote--close">
+    {{- COMPILE_OPTIONS("autoQuoteClose").item() -}}
   </span>
   {%- endautoescape -%}
 {%- endset -%}
@@ -209,14 +209,51 @@
   {{ expression_inner_div_extra(field_name, "expression-inner--altdisplay") }}
 {%- endmacro %}
 
-{% set furigana_alt_display -%}
-  {{ expression_inner_div_altdisplay('furigana:AltDisplay') }}
+{% set furigana_alt_display_sent -%}
+  {{ expression_inner_div_altdisplay('furigana:AltDisplaySentence') }}
+{%- endset -%}
+{% set furigana_alt_display_word -%}
+  {{ expression_inner_div_altdisplay('furigana:AltDisplayWord') }}
 {%- endset -%}
 
 {# adds quotes (if sentence), always attempts to use altdisplay instead of name #}
 {% macro prioritize_alt_display(name, sentence=False) -%}
-  {%- if sentence -%} {{quote_open}} {%- endif -%}
-  {%- call IF("AltDisplay") %}{{ furigana_alt_display }}{% endcall -%}
-  {%- call IFNOT("AltDisplay") %}{{ expression_inner_div(name) }}{% endcall -%}
-  {%- if sentence -%} {{quote_close}} {%- endif -%}
+  {%- if sentence -%}
+  {{ quote_open }}
+    {%- call IF("AltDisplaySentence") %}{{ furigana_alt_display_sent }}{% endcall -%}
+    {%- call IFNOT("AltDisplaySentence") %}{{ expression_inner_div(name) }}{% endcall -%}
+  {{ quote_close }}
+  {%- else -%}
+    {%- call IF("AltDisplayWord") %}{{ furigana_alt_display_word }}{% endcall -%}
+    {%- call IFNOT("AltDisplayWord") %}{{ expression_inner_div(name) }}{% endcall -%}
+  {%- endif -%}
 {%- endmacro -%}
+
+
+{% macro _get_quote_class(opt) -%}
+  {%- if opt == "unquoted-no-indent" -%}
+    sentence-unquoted-display-no-indent
+  {%- elif opt == "unquoted-indented" -%}
+    sentence-unquoted-display-indent
+  {%- elif opt == "unquoted-right-shifted" -%}
+    sentence-unquoted-display-right-shifted
+  {%- elif opt == "quoted-block" -%}
+    sentence-quoted-display-block
+  {%- else -%} {#- quoted-flow -#}
+    sentence-quoted-display-flow
+  {%- endif -%}
+{%- endmacro -%}
+
+{% macro default_disp_sent_quote_class() -%}
+  {%- call IF("AltDisplaySentence") -%}
+    {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.altDisplay.displayMode").item()) }}
+  {%- endcall -%}
+  {%- call IFNOT("AltDisplaySentence") -%}
+    {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.display.displayMode").item()) }}
+  {%- endcall -%}
+{%- endmacro -%}
+
+{% macro default_full_sent_quote_class() -%}
+  {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.fullSent.displayMode")) }}
+{%- endmacro -%}
+

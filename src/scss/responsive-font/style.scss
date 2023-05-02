@@ -1,0 +1,55 @@
+@use "../base/common" as common;
+
+/*
+ * ==================================
+ *  mobile support (font sizes only)
+ * ==================================
+ */
+
+@media (max-width: common.$bp-display-sentence-shrink) {
+  :root {
+    --sentence-font-size: #{common.px2rem(42px)};
+  }
+}
+
+
+@media (max-width: common.$bp-max-width-backside), (max-height: common.$bp-tablet-height) {
+
+  :root {
+    --word-font-size: #{common.px2rem(48px)};
+    --sentence-font-size: #{common.px2rem(28px)};
+    --picture-font-size: #{common.px2rem(28px)};
+
+    --description-font-size: #{common.px2rem(18px)};
+    --description-footer-font-size: #{common.px2rem(8px)};
+
+    --reading-font-size: #{common.px2rem(44px)};
+    --reading-pitch-font-size: #{common.px2rem(18px)};
+    --full-sentence-font-size: #{common.px2rem(24px)};
+    --dh-right-image-gap:  #{common.px2rem(20px)};
+
+    --glossary-font-size: #{common.px2rem(15px)};
+    --glossary-font-size--smaller: #{common.px2rem(13px)};
+  }
+
+}
+
+@media (max-width: common.$bp-combine-picture) {
+  :root {
+    --word-font-size: #{common.px2rem(36px)};
+    --reading-font-size: #{common.px2rem(32px)};
+    --reading-pitch-font-size: #{common.px2rem(16px)};
+    --sentence-font-size: #{common.px2rem(20px)};
+    --picture-font-size: #{common.px2rem(20px)};
+    --full-sentence-font-size: #{common.px2rem(20px)};
+    --pa-overline-downstep-height: 0.6em;
+
+    --pa-overline-thickness: 0.1em;
+    --dh-right-image-gap: 0.5rem;
+  }
+  .android {
+    --pa-overline-height-above-text: -0.1em;
+  }
+
+}
+

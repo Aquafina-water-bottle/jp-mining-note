@@ -3,7 +3,43 @@ $bp-enlarge-max-width-backside: 2250px;
 $bp-display-sentence-shrink: 1600px;
 $bp-display-sentence-remove-newlines: 1300px;
 $bp-max-width-backside: 850px;
+$bp-tablet-height: 700px;
 $bp-combine-picture: 620px;
+
+$font-backup-serif:
+          "Noto Serif CJK JP",
+          "Noto Serif JP",
+          "Noto Serif",
+          "Droid Serif",
+          "Roboto Slab",
+          "IPAPMincho",
+          "HanaMinA",
+          "HanaMinB",
+          serif;
+
+$font-backup-sans:
+          "Noto Sans CJK JP",
+          "Noto Sans JP",
+          "Noto Sans",
+          "Source Han Sans JP",
+          "IPAPGothic",
+          "VL PGothic",
+          "Koruri",
+          "Hiragino Sans",
+          "ヒラギノ角ゴ ProN W3",
+          "Hiragino Kaku Gothic ProN",
+          "メイリオ",
+          "Meiryo",
+          "Osaka",
+          "MS PGothic"
+          "Open Sans",
+          "Droid Sans",
+          "Ubuntu",
+          "Roboto",
+          sans-serif;
+
+
+
 //$bp-adjust-play-buttons: 400px;
 
 @use "sass:math";
@@ -29,6 +65,7 @@ $bp-combine-picture: 620px;
   --word-font-size: #{px2rem(80px)};
   --sentence-font-size: #{px2rem(52px)};
   --vertical-sentence-font-size: #{px2rem(35px)};
+  --picture-font-size: #{px2rem(40px)}; /* font size if text is used in place of the Picture field */
   //--pa-indicator-word-font-size: #{px2rem(52px)};
   //--pa-indicator-sent-font-size: #{px2rem(45px)};
 
@@ -37,6 +74,7 @@ $bp-combine-picture: 620px;
 
   --reading-font-size: #{px2rem(55px)};
   --reading-pitch-font-size: #{px2rem(23px)};
+  --reading-bold-pitch-font-size: 0.7em;
   --full-sentence-font-size: #{px2rem(28px)};
 
   --glossary-font-size: #{px2rem(18px)};
@@ -48,6 +86,7 @@ $bp-combine-picture: 620px;
   /* TODO dynamic solution */
   --tooltip-max-width: 600px;
   --tooltip-font-size: #{px2rem(14px)};
+  --tooltip-font-size--debug: #{px2rem(12px)};
 
   /* DO NOT CHANGE --data-* variables */
   --data-dark-mode-accent: #fffd9e;
@@ -68,6 +107,10 @@ $bp-combine-picture: 620px;
   --pa-overline-downstep-left-offset: 1px;
 
 
+  --dh-right-image-gap: 35px; /* is also used as a padding to the left for mobile */
+  --dh-right-image-max-height: 110px; // NOTE: dynamically gotten with javascript and ignored
+  --mobile-border: 0.5rem;
+
   /* external links */
   --external-links-icon-size: 20px;
   --external-links-icon-font-size: 14px;
@@ -75,14 +118,30 @@ $bp-combine-picture: 620px;
   --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
   --external-links-box-shadow: 1px 1px 2px;
 
-  --info-circle-settings-svg-size: 16px;
-
   /* PrimaryDefinitionPicture fields */
   --primary-def-picture-gap: 5px;
   --primary-def-picture-border-radius: 3px;
   --primary-def-picture-max-width: 300px;
   --primary-def-picture-max-height: 150px;
   --primary-def-picture-scale-no-def: 1.3;
+
+  /* footer */
+  --mobile-footer-height-size: 70px; /* TODO change dynamically and remove variable */
+  --footer-height: calc(var(--mobile-footer-height-size) + (2 * var(--mobile-border)));
+
+  /* folder tab */
+  --folder-tab-svg-size: 20px;
+  --folder-tab-button-size: 26px;
+  --folder-tab-margin-left: 10px;
+  --folder-tab-width: 130px;
+  --folder-tab-height: 26px;
+
+  /* mobile-popup */
+  --mobile-popup-border: 16px;
+
+  /* other */
+  --info-circle-settings-svg-size: 16px;
+  --bold-font-weight: bold; /* affects full sentence and definitions */
 
   /* light mode specific */
   --text-color:                 black;
@@ -102,8 +161,15 @@ $bp-combine-picture: 620px;
   --text-odaka:                 #009e1c; /* 尾高, green */
   --text-kifuku:                #7e53c4; /* 起伏, purple */
 
+  --text-tooltips-heiban:       var(--text-heiban);
+  --text-tooltips-atamadaka:    #ff3131;
+  --text-tooltips-nakadaka:     #ff974d;
+  --text-tooltips-odaka:        var(--text-odaka);
+  --text-tooltips-kifuku:       var(--text-kifuku);
+
   --accent:                     var(--data-light-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.05);
+  --tooltip-behind-darken:      rgba(0, 0, 0, 0.15);
   --code-background-darken:     rgba(0, 0, 0, 0.05);
   --tooltip-background-darken:  hsla(0, 0%, 100%, 0.98);;
 
@@ -131,6 +197,8 @@ $bp-combine-picture: 620px;
   --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
 
+  --info-circle-tag-bg-color: #eeeeee;
+
   --info-circle-warning-color: #ff8700;
   --info-circle-warning-hover-color: #ffb341;
   --info-circle-warning-text-color: var(--info-circle-warning-color);
@@ -152,6 +220,11 @@ $bp-combine-picture: 620px;
 
   --image-hover-brightness: 85%;
   --icon-click-brightness: 85%;
+
+  /* font families */
+
+  --jp-serif: notoserif, #{$font-backup-serif};
+  --jp-sans: notosans, #{$font-backup-sans};
 }
 
 @mixin night_mode_vars {
@@ -172,13 +245,20 @@ $bp-combine-picture: 620px;
   --text-color-link-hover:      #1390dd;
 
   --text-heiban:                #59b2ff; /* 平板, blue */
-  --text-atamadaka:             #ff6666; /* 頭高, red */
+  --text-atamadaka:             #ee4b56; /* 頭高, red */
   --text-nakadaka:              #ff9b54; /* 中高, orange */
   --text-odaka:                 #67e47d; /* 尾高, green */
   --text-kifuku:                #af85f4; /* 起伏, purple */
 
+  --text-tooltips-heiban:       var(--text-heiban);
+  --text-tooltips-atamadaka:    var(--text-atamadaka);
+  --text-tooltips-nakadaka:     var(--text-nakadaka);
+  --text-tooltips-odaka:        var(--text-odaka);
+  --text-tooltips-kifuku:       var(--text-kifuku);
+
   --accent:                     var(--data-dark-mode-accent);
   --background-darken:          rgba(0, 0, 0, 0.12);
+  --tooltip-behind-darken:      rgba(0, 0, 0, 0.25);
   --code-background-darken:     rgba(0, 0, 0, 0.18);
   --tooltip-background-darken:  rgba(0, 0, 0, 0.9);
 
@@ -204,6 +284,8 @@ $bp-combine-picture: 620px;
   --info-circle-leech-color: var(--data-tooltip-source-accent-color);
   --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
+
+  --info-circle-tag-bg-color: #222222;
 
   --info-circle-warning-color: #ff8d0d;
   --info-circle-warning-hover-color: #f9c24e;
@@ -289,6 +371,10 @@ $bp-combine-picture: 620px;
   }
 
 
+  .pitchterm {
+    white-space: nowrap;
+  }
+
 
   .nopron {
     color: var(--pa-no-pron-color);
@@ -314,7 +400,7 @@ $bp-combine-picture: 620px;
 
     font-weight: normal;
     filter: opacity(30%);
-    font-size: 15px;
+    font-size: var(--reading-bold-pitch-font-size);
   }
 
 }

@@ -116,7 +116,7 @@ within "JP Mining Note" types.
 See [here](tooltipresults.md) for information on how the examples are chosen,
 and how to customize it.
 
-??? example "Related Programs *(click here)*"
+??? example "Related Programs <small>(click here)</small>"
 
     [**Cade's Kanji Hover**](https://cademcniven.com/projects/kanjihover/)
 
@@ -211,40 +211,6 @@ Click on the desired icon to visit to the desired site.
 {{ img("external links demo", "assets/ui/external_links.gif") }}
 
 See also: [UI Customization (External Links)](uicustomization.md#external-links).
-
----
-
-
-# Automatic Word Highlighting
-
-{{ feature_version("0.11.1.0") }}
-
-Usually, the word within the sentence is already bolded by Yomichan.
-However, there are some cases where the word within the sentence may not be bold,
-such as when external programs update the `Sentence` field, or if you are using
-imported cards.
-
-By default, the note attempts to highlight the word within the sentence.
-
-With that being said, it is not uncommon that the automatic highlighting
-fails to highlight the full word.
-For example, verb and i-adj. conjugations are not highlighted whatsoever.
-In order to keep the javascript lightweight, any improper highlighting
-*is considered as expected behavior*, and will not be changed or fixed.
-I recommend manually bolding the word if the word is incorrectly highlighted.
-
-??? example "Examples *(click here)*"
-    Any text in red is not highlighted automatically.
-    They are considered as examples of when automatic highlighting doesn't work.
-
-    {% filter indent(4) %}{{ gen_auto_word_highlight_table() }}{% endfilter %}
-
-
-!!! note
-    Much of the base code was taken from
-    [Marv's implementation](https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence)
-    of the same thing.
-
 
 ---
 

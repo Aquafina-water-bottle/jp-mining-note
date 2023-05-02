@@ -18,7 +18,7 @@ If you want to follow my exact Yomichan popup appearance:
 * Set `Compact tags` to OFF.
 
 There are also plenty of css customizations for Yomichan listed out
-in the [JP Resources page](jpresources.md){:target="_blank"}.
+in the [JP Resources page](jpresources.md).
 
 ---
 
@@ -27,15 +27,17 @@ in the [JP Resources page](jpresources.md){:target="_blank"}.
 
 
 # JMdict
+
 If you are planning on using the JMdict dictionary,
 the ones provided from most sources
-(TMW's google drive, Matt's video on Yomichan, and Yomichan's main github page)
+(TMW's google drive - The "JMdict Extra" version is fine, Matt's video on Yomichan,
+and Yomichan's main github page)
 are all somewhat outdated, which usually means less accurate definitions and less coverage.
 
 To get the most recent version of JMdict,
 download it from the
 [official site](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
-(download `JMdict_e.gz`)
+(download `JMdict_e_examp.gz`)
 and use [yomichan-import](https://github.com/FooSoft/yomichan-import)
 to get the latest JMdict version available.
 
@@ -59,7 +61,7 @@ which should only be a few months stale at most.
     This is a dictionary placed in the `UtilityDictionaries` field by default.
     Although I don't use it when studying Anki, it helps to use this when creating Anki notes
     for monolingual definitions.
-    See [this](jpresources.md#orthographic-variants-fix-sentence-and-frequency){:target="_blank"}
+    See [this](jpresources.md#orthographic-variants-fix-sentence-and-frequency)
     for more information.
 
 * I highly recommend getting some pitch accent dictionaries and frequency lists
@@ -106,7 +108,7 @@ rather than Anki itself, so little will be written about the details of Anki her
 
 Instead, here is a small list of resources on setting up and using Anki itself:
 
-* [Cade's blog: Optimizing Anki for Language Learning](https://cademcniven.com/posts/20210410/) (recommended)
+* [Cade's blog: Optimizing Anki for Language Learning](https://cademcniven.com/posts/20210410/)
 * [Tatsumoto's blog: Setting up Anki](https://tatsumoto.neocities.org/blog/setting-up-anki.html)
 * [Lazy Guide: Anki](https://rentry.co/lazyXel#anki)
     * Showcases an example note type, addons used and tips
@@ -129,7 +131,7 @@ to find the most optimal setup for yourself.
 If you're interested in copying my setup, I provide the list of addons I personally use here.
 I also provide a small list of other popular add-ons that I don't use, but may be useful for you.
 
-??? example "List of Add-ons I use *(click here)*"
+??? example "List of Add-ons I use <small>(click here)</small>"
 
     **Documented above** (I use all required and optional addons for the note type):
 
@@ -167,7 +169,7 @@ I also provide a small list of other popular add-ons that I don't use, but may b
     * [Yomichan Forvo Server](https://ankiweb.net/shared/info/580654285)
 
 
-??? example "Useful Add-ons that I don't use *(click here)*"
+??? example "Useful Add-ons that I don't use <small>(click here)</small>"
     * [AJT Mortician](https://ankiweb.net/shared/info/1255924302)
     * [Edit Field During Review Cloze](https://ankiweb.net/shared/info/385888438)
     * [Generate Batch Audio](https://ankiweb.net/shared/info/1156270186)

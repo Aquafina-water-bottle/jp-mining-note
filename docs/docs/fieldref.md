@@ -105,7 +105,6 @@ For example, the card below has the following HTML:
 上条[かみじょう] 恭介[きょうすけ]君のことお<b>慕い</b>してましたの
 ```
 
-{{ img("altdisplay with furigana", "assets/fieldref/altdisplay_furigana.gif") }}
 
 <br>
 
@@ -129,19 +128,6 @@ For example, the card below has the following HTML:
 <br>
 
 
-
-## Hints
-Finally, you can include a customized hint to show at the front of the card, by using the `Hint` field.
-This will show as a collapsible field at the front of card.
-
-If you do not want the hint to be hidden by default, you can use the `HintNotHidden` field instead.
-
-=== "Hint"
-    {{ img("hint field demo", "assets/fieldref/hint.gif") }}
-=== "HintNotHidden"
-    {{ img("HintNotHidden field demo", "assets/fieldref/hint_not_hidden.png") }}
-
----
 
 
 
@@ -188,87 +174,6 @@ they are discussed in their respective pages:
 ---
 
 
-
-
-
-# Testing Pitch Accent
-This note type provides many options to target exactly what parts of pitch accent
-you want to test yourself on.
-By default, no special indicator is shown on whether pitch accent is tested or not.
-
-To test for pitch accent, fill the `PAShowInfo` field.
-You should see a circle to the left of the word or sentence.
-
-
-
-## Pitch Accent Indicator
-This circle you see is called the "Pitch Accent Indicator", or "PA Indicator" for short.
-How this card indicates what pitch accent is tested is by the PA indicator's color.
-
-
-{{ img("pitch accent indicators", "assets/fieldref/pa_indicators.png") }}
-
-
-Here are what the colors represent:
-
-* **Green:** The *entire sentence* is tested.
-* **Blue:** Only the *word* is tested.
-* **Red:** Pitch accent should *not be tested* in any way.
-
-If you ever forget what the colors mean, you can hover your mouse over the circle to
-get a description of what is being tested.
-
-Alternatively, you can look at the top right of the screen and look at the value after the `/`.
-
-{{ img("pitch accent indicator hover demo", "assets/fieldref/pa_indicator_hover.gif") }}
-
-
-!!! note
-    If the tested content is a sentence (card), but you want to only test for word pitch accent,
-    you would not be able to see the word normally.
-    To see the word that is tested, there is a button to toggle whether the word is highlighted or not.
-    The content that is highlighted is exactly what is bolded in the `Sentence`
-    (or `AltDisplay` / `AltDisplayPASentenceCard`) field, which is the added word by default.
-
-    {{ img("show word button demo", "assets/fieldref/show_word_button.gif") }}
-
-
-!!! note
-    If your card is a vocab card, then full sentence is shown as a collapsed field by default.
-    This is only here to check your hearing with your guessed pitch accent, when used
-    in conjunction with the sentence play button.
-
-
-## Selecting the Pitch Accent
-
-The following shows how to fill in the proper fields to test pitch accent:
-
-
-| Filled fields | PA Indicator | Separated Cards |
-|-|-|-|
-| (None, default) | (Doesn't exist) |     |
-| `PAShowInfo` | Green (sentence) or blue (word), <br> depending on the tested content |     |
-| `PAShowInfo` & <br> `PADoNotTest` | Red (not tested) |     |
-| `PAShowInfo` & <br> `PATestOnlyWord` | Blue (word) |     |
-| `PAShowInfo` & <br> `PASeparateWordCard` | Red (not tested) | Word |
-| `PAShowInfo` & <br> `PASeparateSentenceCard` | Blue (word) | Sentence |
-| `PAShowInfo` & <br> `PASeparateWordCard` & <br> `PASeparateSentenceCard` | Red (not tested) | Word & Sentence |
-
-To clarify some of the above:
-
-* By default, if only `PAShowInfo` is filled, then the entire display is tested
-    * For vocab cards, targeted sentence cards, and hybrid vocab cards,
-      only the word PA is tested (PA indicator: blue).
-    * For sentence cards and hybrid sentence,
-      the entire sentence PA is tested (PA indicator: green).
-* To test just the word pitch accent, fill the `PATestOnlyWord` field.
-* To create completely separate cards to just test pitch accent on,
-  use the fields `PASeparateSentenceCard` and/or `PASeparateWordCard`.
-* If a PA word card is created, then the default card does not test pitch accent.
-  Similarly, if a PA sentence card is created, then the default card only tests the word pitch accent.
-
-
-
 ## Modifying Pitch Accent Sentence Cards
 The field `AltDisplayPASentenceCard` exists to customize the display of the
 PA sentence card, if it exists.
@@ -276,25 +181,6 @@ It works similarly to `AltDisplay`, and takes priority over `AltDisplay`
 in the PA sentence card.
 
 
-
-## Colored Quotes Instead of PA Indicator
-(TODO)
-
-
-Runtime Options:
-
-```
-"modules": {
-  "sent-utils": {
-    "pa-indicator-color-quotes": ...
-  }
-}
-```
-
-TODO picture comparisons between word PA indicator in quotes / word PA with PA indicator
-
-
----
 
 
 
@@ -340,26 +226,4 @@ to see how to sort and review your cards by frequency.
 
 
 ---
-
-# Cloze Deletion Cards
-
-!!! warning
-    I recently realized that I attached the wrong name to these cards.
-    These should be simply known as "Audio cards", i.e. word audio card or sentence audio card.
-    Although "Cloze Deletion" will be used throughout the templates and documentation,
-    it will be renamed to "Audio cards" when version `0.12.0.0` releases.
-
-Cloze Deletion cards are, simply put, "fill-in-the-blank cards".
-This allows you to create cards that tests word audio or sentence audio.
-
-To create a cloze deletion card, simply fill in the `SeparateClozeDeletionCard` field.
-The words that are hidden are exactly the words that are bolded in the `Sentence` (or `AltDisplay`) field.
-
-To create a sentence audio card, copy/paste the sentence into `AltDisplay`, and bold the entire `AltDisplay` field (say, with `ctrl+a` and `ctrl+b`).
-There's currently no shortcut to creating a sentence audio card.
-
-
-{{ img("cloze deletion card", "assets/fieldref/cloze_deletion.png") }}
-
-
 

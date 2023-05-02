@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 """
 https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/antp/updater.py
 https://github.com/FooSoft/anki-connect#model-actions
@@ -8,8 +9,8 @@ updateModelTemplates
 
 import os
 import base64
+import shutil
 import argparse
-import datetime
 import traceback
 
 from dataclasses import dataclass
@@ -19,12 +20,12 @@ import utils
 from utils import invoke
 
 import action_runner as ar
+import note_changes as nc
 
 
 FRONT_FILENAME = "front.html"
 BACK_FILENAME = "back.html"
 CSS_FILENAME = "style.css"
-TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
 
 
 @dataclass(frozen=True)
@@ -45,6 +46,7 @@ class NoteType:
 class MediaFile:
     name: str
     contents: str
+    path: str
 
 
 def add_args(parser: argparse.ArgumentParser):
@@ -70,6 +72,33 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
+        "--dev-custom-note-changes",
+        type=str,
+        help="(dev option) input a custom note_changes json5 (or json) file",
+    )
+
+    group.add_argument(
+        "--dev-do-not-verify",
+        action="store_true",
+        default=False,
+        help="(dev option) bypasses the note changes section",
+    )
+
+    group.add_argument(
+        "--dev-never-warn",
+        action="store_true",
+        default=False,
+        help="(dev option) never warns the user even if there are note changes",
+    )
+
+    group.add_argument(
+        "--dev-raise-anki-error",
+        action="store_true",
+        default=False,
+        help="(dev option) raises errors instead of print & return",
+    )
+
+    group.add_argument(
         "--no-backup",
         type=str,
         default=None,
@@ -77,6 +106,13 @@ def add_args(parser: argparse.ArgumentParser):
         "Note that it's still highly recommended to backup your cards the normal way (through Anki). "
         "This way of backing up is primarily for debugging purposes, and in case someone accidentally "
         "overwrites their note type.",
+    )
+
+    group.add_argument(
+        "--backup-folder",
+        type=str,
+        default="backup",
+        help="Backup folder path, starting from root."
     )
 
     group.add_argument(
@@ -95,16 +131,16 @@ class NoteUpdater:
     def __init__(
         self,
         input_folder: str,
-        note_config: utils.Config,
+        note_data: utils.Config,
         backup_folder: str | None = None,
     ):
         self.input_folder = input_folder
         self.backup_folder = backup_folder
-        self.note_config = note_config
+        self.note_data = note_data
 
     def read_css(self) -> str:
         input_path = os.path.join(
-            self.input_folder, str(self.note_config("id").item()), CSS_FILENAME
+            self.input_folder, str(self.note_data("id").item()), CSS_FILENAME
         )
         with open(input_path, encoding="utf-8") as f:
             return f.read()
@@ -122,7 +158,7 @@ class NoteUpdater:
               ...
         """
         assert self.backup_folder is not None
-        model_name = self.note_config("model-name").item()
+        model_name = self.note_data("model-name").item()
         if model_name not in invoke("modelNames"):
             print(f"Nothing to backup, {model_name} not installed")
             return
@@ -153,13 +189,15 @@ class NoteUpdater:
         """
 
         templates = []
-        for template_id, template_config in self.note_config("templates").dict_items():
+        for template_id, template_config in self.note_data("templates").dict_items():
             template_name = template_config("name").item()
             dir_path = os.path.join(
-                self.input_folder, str(self.note_config("id").item()), template_id
+                self.input_folder, str(self.note_data("id").item()), template_id
             )
 
-            with open(os.path.join(dir_path, FRONT_FILENAME), encoding="utf-8") as front:
+            with open(
+                os.path.join(dir_path, FRONT_FILENAME), encoding="utf-8"
+            ) as front:
                 front_contents = front.read()
             with open(os.path.join(dir_path, BACK_FILENAME), encoding="utf-8") as back:
                 back_contents = back.read()
@@ -169,7 +207,7 @@ class NoteUpdater:
         return templates
 
     def read_model(self) -> NoteType:
-        model_name = self.note_config("model-name").item()
+        model_name = self.note_data("model-name").item()
 
         return NoteType(
             name=model_name,
@@ -197,10 +235,10 @@ class NoteUpdater:
         if invoke("updateModelTemplates", **self.format_templates(model)) is None:
             template_names = [t.name for t in model.templates]
             print(
-                f"Updated {self.note_config('id').item()} templates {template_names} successfully."
+                f"Updated {self.note_data('id').item()} templates {template_names} successfully."
             )
         if invoke("updateModelStyling", **self.format_styling(model)) is None:
-            print(f"Updated {self.note_config('id').item()} css successfully.")
+            print(f"Updated {self.note_data('id').item()} css successfully.")
 
 
 def b64_decode(contents):
@@ -222,36 +260,45 @@ class MediaInstaller:
     updates (and backs up, if specified) arbitrary media files
     """
 
-    def __init__(self, input_folder: str, static_folder: str, backup_folder: str):
+    def __init__(self, input_folder: str, static_folder: str, backup_folder: str, attempt_copy: bool=True):
         self.input_folder = input_folder
         self.static_folder = static_folder
         self.backup_folder = backup_folder
+        self.attempt_copy = attempt_copy
+        self.media_dir = None
+        self.attempted_get_media_dir = False
 
     def get_media_file(self, file_name, static=False) -> MediaFile:
         input_folder = self.static_folder if static else self.input_folder
-
-        with open(os.path.join(input_folder, file_name), mode="rb") as f:
+        path = os.path.join(input_folder, file_name)
+        with open(path, mode="rb") as f:
             contents = f.read()
         return MediaFile(
-            name=file_name, contents=base64.b64encode(contents).decode("utf-8")
+            name=file_name, contents=b64_encode(contents), path=path
         )
 
     def backup(self, file_name):
-        # attempts to file from anki
-        contents_b64 = invoke("retrieveMediaFile", filename=file_name)
-        if not contents_b64:
-            # file doesn't exist in the first place, nothing to backup
-            print(f"No backup is necessary: `{file_name}` doesn't exist")
-            return
+        try:
+            # attempts to file from anki
+            contents_b64 = invoke("retrieveMediaFile", filename=file_name)
+            if not contents_b64:
+                # file doesn't exist in the first place, nothing to backup
+                print(f"No backup is necessary: `{file_name}` doesn't exist")
+                return
 
-        contents = base64.b64decode(contents_b64).decode("utf-8")
+            backup_file_path = os.path.join(self.backup_folder, file_name)
+            print(
+                f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ..."
+            )
 
-        backup_file_path = os.path.join(self.backup_folder, file_name)
-        print(f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ...")
+            contents = b64_decode(contents_b64)
 
-        utils.gen_dirs(backup_file_path)
-        with open(backup_file_path, mode="w", encoding="utf-8") as f:
-            f.write(contents)
+            utils.gen_dirs(backup_file_path)
+            with open(backup_file_path, mode="w", encoding="utf-8") as f:
+                f.write(contents)
+        except Exception:
+            traceback.print_exc()
+            print(f"Cannot backup file: {file_name}. Skipping error...")
 
     def format_media(self, media: MediaFile) -> Dict[str, Any]:
         return {
@@ -261,7 +308,7 @@ class MediaInstaller:
 
     def send_media(self, media: MediaFile):
         if invoke("storeMediaFile", **self.format_media(media)) == media.name:
-            print(f"Updated '{media.name}' media file successfully.")
+            print(f"Updated '{media.name}' media file (via storeMediaFile) successfully.")
 
     def media_exists(self, file_name: str):
         return bool(invoke("getMediaFilesNames", pattern=file_name))
@@ -269,6 +316,40 @@ class MediaInstaller:
     def install_from_list(self, file_list, **kwargs):
         for file in file_list:
             self.install(file, **kwargs)
+
+    def get_media_dir(self) -> str | None:
+        if self.media_dir is None and not self.attempted_get_media_dir:
+            try:
+                self.media_dir = invoke("getMediaDirPath")
+            except Exception:
+                print("Could not get getMediaDirPath.")
+                traceback.print_exc()
+        self.attempted_get_media_dir = True
+        return self.media_dir
+
+    def attempt_copy_media_file(self, media: MediaFile):
+        """
+        Attempts to copy the actual media file, instead of using storeMediaFile.
+        This should greatly improve performance.
+
+        Returns whether the attempt was successful or not
+        """
+        if not self.attempt_copy: # don't even try in the first place
+            return False
+
+        media_dir = self.get_media_dir()
+        if media_dir is None:
+            return False
+        try:
+            src = media.path
+            dst = os.path.join(media_dir, media.name)
+            shutil.copy(src, dst)
+        except Exception:
+            print("Could not get getMediaDirPath.")
+            traceback.print_exc()
+            return False
+        print(f"Updated '{media.name}' media file successfully.")
+        return True
 
     def install(self, file_name: str, static=False, backup=False):
         if static:
@@ -279,17 +360,25 @@ class MediaInstaller:
             self.backup(file_name)
 
         media = self.get_media_file(file_name, static=static)
+        if self.attempt_copy_media_file(media): # success
+            return
+
         self.send_media(media)
 
 
-def main(args=None):
+def main(args: argparse.Namespace | None = None) -> str | None:
+    """
+    - installs or updates the note, depending on the flag used
+    - returns post message if there exists one
+    """
     utils.assert_ankiconnect_running()
 
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
 
-    note_config = utils.get_note_config()
-    model_name = note_config("model-name").item()
+    json_handler = utils.create_json_handler(args)
+    note_data = utils.get_note_data(json_handler)
+    model_name = note_data("model-name").item()
 
     root_folder = utils.get_root_folder()
     search_folder = args.build_folder if args.from_build else root_folder
@@ -297,13 +386,13 @@ def main(args=None):
     media_folder = os.path.join(search_folder, "media")
     static_folder = os.path.join(root_folder, "media")
     backup_folder = os.path.join(
-        root_folder, "backup", datetime.datetime.now().strftime(TIME_FORMAT)
+        root_folder, args.backup_folder, utils.get_time_str()
     )
     media_backup_folder = os.path.join(backup_folder, "media")
 
     backup = not args.no_backup
 
-    note_updater = NoteUpdater(search_folder, note_config, backup_folder)
+    note_updater = NoteUpdater(search_folder, note_data, backup_folder)
     media_installer = MediaInstaller(media_folder, static_folder, media_backup_folder)
 
     is_installed = utils.note_is_installed(model_name)
@@ -311,6 +400,11 @@ def main(args=None):
 
     if is_installed:
         if not args.update:
+            if args.dev_raise_anki_error:
+                raise RuntimeError(
+                    f"{model_name} is already installed. Did you mean to update?\n"
+                )
+
             print(
                 f"{model_name} is already installed. Did you mean to update?\n"
                 "To update, run `python3 install.py --update`",
@@ -319,14 +413,23 @@ def main(args=None):
 
         # checks for note changes between versions
         if not args.dev_ignore_note_changes:
-            current_ver = ar.Version.from_str(utils.get_version_from_anki(args))
+            current_ver = ar.Version.from_str(
+                utils.get_version_from_anki(note_data("model-name").item(), args.dev_input_version)
+            )
             new_ver = ar.Version.from_str(utils.get_version(args))
+            note_changes = nc.get_note_changes(json_handler, args.dev_custom_note_changes)
             action_runner = ar.ActionRunner(
-                current_ver, new_ver, in_order=(not args.ignore_order)
+                note_changes,
+                current_ver,
+                new_ver,
+                in_order=(not args.ignore_order),
+                verify=(not args.dev_do_not_verify),
             )  # also verifies field changes
 
             if action_runner.has_actions():
-                if not action_runner.warn():  # == false
+                if args.dev_never_warn:
+                    pass
+                elif not action_runner.warn():
                     return
 
                 # must run before the note templates gets updated, in case
@@ -343,15 +446,22 @@ def main(args=None):
             traceback.print_exc()
             print("Cannot backup note, skipping error...")
 
-
         print(f"Updating {model_name}...")
         note_updater.update()
+        if action_runner:
+            print("Running post actions...")
+            action_runner.run_post()
 
-        for option_file in note_config("media-install", "options").list():
+        for option_file in note_data("media-install", "options").list():
             if args.install_options or not media_installer.media_exists(option_file):
                 media_installer.install(option_file, static=False, backup=backup)
 
     else:
+        if args.update and args.dev_raise_anki_error:
+            raise RuntimeError(
+                f"{model_name} cannot be found. Please check that your note\n"
+                f"is named exactly '{model_name}'."
+            )
         print(f"Installing {model_name}...")
         version = utils.get_version(args)
         install_path = os.path.join(
@@ -360,15 +470,17 @@ def main(args=None):
         invoke("importPackage", path=install_path)
 
     media_installer.install_from_list(
-        note_config("media-install", "static").list(), static=True
+        note_data("media-install", "static").list(), static=True
     )
 
     media_installer.install_from_list(
-        note_config("media-install", "dynamic").list(), static=False, backup=backup
+        note_data("media-install", "dynamic").list(), static=False, backup=backup
     )
 
     if action_runner is not None and action_runner.has_actions():
-        action_runner.post_message()
+        post_message = action_runner.get_post_message()
+        print(post_message)
+        return post_message
 
 
 if __name__ == "__main__":

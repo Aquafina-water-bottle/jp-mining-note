@@ -1,9 +1,9 @@
 @use "../base/common" as common;
 
 /*
- * ================
- *  mobile support
- * ================
+ * ==================================
+ *  mobile support (everything else)
+ * ==================================
  */
 
 // stolen from Anki's scss
@@ -30,15 +30,8 @@
 }
 
 
-@media (max-width: common.$bp-display-sentence-shrink) {
-  :root {
-    --sentence-font-size: #{common.px2rem(42px)};
-    //--pa-indicator-sent-font-size: #{common.px2rem(35px)};
-  }
-}
 
-
-@media (max-width: common.$bp-display-sentence-remove-newlines) {
+@media (max-width: common.$bp-display-sentence-remove-newlines) and (min-height: common.$bp-tablet-height) {
   /* removes newlines */
   .expression .expression-inner br {
     display: none;
@@ -49,35 +42,31 @@
 }
 
 
+/* specifically when there's not enough horizontal space */
 @media (max-width: common.$bp-max-width-backside) {
 
-  :root {
-    --word-font-size: #{common.px2rem(55px)};
-    --sentence-font-size: #{common.px2rem(35px)};
-    //--pa-indicator-word-font-size: #{common.px2rem(35px)};
-    //--pa-indicator-sent-font-size: #{common.px2rem(29px)};
+  .dh-right {
+    // TODO variable
+    max-width: 215px;
 
-    --description-font-size: #{common.px2rem(18px)};
-    --description-footer-font-size: #{common.px2rem(8px)};
-
-    --reading-font-size: #{common.px2rem(44px)};
-    --reading-pitch-font-size: #{common.px2rem(18px)};
-    --full-sentence-font-size: #{common.px2rem(24px)};
-
-    --glossary-font-size: #{common.px2rem(15px)};
-    --glossary-font-size--smaller: #{common.px2rem(13px)};
-
-    /* PrimaryDefinitionPicture fields */
-    --primary-def-picture-max-width: 200px;
-    --primary-def-picture-max-height: 100px;
-
-    /* TODO more portable solution */
-    --tooltip-max-width: 350px;
-    --tooltip-font-size: #{common.px2rem(12px)};
+    .dh-right__img {
+       max-width: 215px;
+    }
   }
 
-  .expression {
-    border-top: 30px;
+  .def-header {
+    align-items: flex-start; /* moves image to top */
+  }
+  .def-header--text-img { /* text should be centered as always */
+    align-items: center;
+  }
+
+  .dh-left__reading {
+    white-space: initial; /* in case the word is too long */
+  }
+
+  .full-sentence br {
+    display: none;
   }
 
   /* removes newlines on all */
@@ -87,185 +76,403 @@
   .expression .expression--hint-sentence .expression-inner br { /* including hint sentences */
     display: none;
   }
+}
 
-  .info-circle svg {
+@media (max-width: common.$bp-max-width-backside), (max-height: common.$bp-tablet-height) {
+
+  :root {
+    /* PrimaryDefinitionPicture fields */
+    --primary-def-picture-max-width: 200px;
+    --primary-def-picture-max-height: 100px;
+  }
+
+  .expression {
+    border-top: 30px;
+  }
+
+  .info-circle > .info-circle-svg-wrapper svg {
     /* TODO variable */
     width: 13px;
   }
 
-  .dh-left__reading {
-    white-space: initial; /* in case the word is too long */
-  }
-
   .dh-left__word-pitch {
-    margin-top: 0px;
-  }
-
-  .dh-right {
-    //max-height: 120px !important;
-    max-width: 215px !important;
-    padding-left: 20px;
-
-    .dh-right__img {
-      //max-height: 120px !important;
-      max-width: 215px !important;
-    }
-  }
-
-  .def-header {
-    align-items: flex-start;
-  }
-
-  .full-sentence br {
-    display: none;
+    margin-top: 5px;
   }
 
 }
 
 @media (max-width: common.$bp-combine-picture) {
   :root {
-    --vertical-sentence-font-size: #{common.px2rem(30px)};
-    --sentence-font-size: #{common.px2rem(30px)};
-    --full-sentence-font-size: #{common.px2rem(20px)};
+    --tooltip-max-width: 85vw;
+    --info-circle-settings-svg-size: 20px; /* increase tap size on mobile */
+    --bold-font-weight: normal; /* unbolds text because kanji looks squished when bolded */
+  }
+  .android {
+    --pa-overline-height-above-text: -0.1em;
+  }
+
+  .night_mode {
+    /* TODO test light mode on mobile */
+    --background-darken:          rgba(0, 0, 0, 0.16); /* slightly darker to make folder tab stand out more */
   }
 
   .card {
-    margin: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: var(--mobile-border);
+    margin-right: var(--mobile-border);
   }
+  #content { /* removes margin on android */
+    margin: 0px;
+  }
+
 
   .card-description {
     margin-top: 10px;
-    margin-left: 10px;
+  }
+
+  .info-circle-version {
+    display: block;
   }
 
   .mobile .card-description {
     margin-left: 0px;
   }
 
+  /* hides card type and version below said card type*/
   .card-description__card-type, .card-description-ver {
     display: none;
   }
 
-  .info-circle svg {
+  .card-description__word-indicators {
+    display: inline; /* only displayed on mobile */
+    margin-left: 0.5em;
+    color: var(--text-color--2);
+  }
+
+  .info-circle > .info-circle-svg-wrapper svg {
     /* TODO variable */
     width: 15px;
   }
 
-  .card-description-right {
-    margin-right: 10px;
-
-    /* temporarily removing these for the mobile class since they clog up the space */
-    .frequencies {
-      display: none;
-    }
-
-    .card-description-ver {
-      display: block;
-    }
-  }
-
-  .mobile .card-description-right {
-    margin-right: 0px;
-  }
-
-
-  // shows in header
-  .card-description .pa-indicator {
-    display: inline-flex;
-    margin-left: 30px;
-    font-size: 15px;
-  }
-
-  // hides the pa indicator outside the header
-  .expression-box .pa-indicator > .pa-indicator__svg {
+  .info-circle-text-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
     display: none;
+    z-index: 20; /* kanji hover / word indicators popup has z-index of 10, popup menu has 30 */
+
+    background-color: var(--tooltip-behind-darken);
+
+    animation-name: info-circle-zoom;
+    animation-duration: 0.25s;
   }
 
-  //.pa-indicator {
-  //  /* same size as info circle */
-  //  // TODO
-  //  //font-size: var(--pa-indicator-word-font-size) !important;
-  //  font-size: common.px2rem(35px);
-  //}
+  .info-circle-text-wrapper--zoom-out {
+    .info-circle-text-wrapper {
+      animation-name: info-circle-zoom-out;
+      animation-duration: 0.25s;
+    }
+  }
 
-  //.pa-indicator__svg {
-  //  position: absolute;
-  //  top: 1px;
-  //  left: 30px;
-  //}
+  @keyframes info-circle-zoom {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+
+    0.001% {
+      display: flex;
+      opacity: 0;
+    }
+
+    100% {
+      display: flex;
+      opacity: 100;
+    }
+  }
 
 
+  @keyframes info-circle-zoom-out {
+    0% {
+      display: flex;
+      opacity: 100;
+    }
+    99.999% {
+      display: flex;
+      opacity: 0;
+    }
+    100% {
+      display: none;
+      opacity: 0;
+    }
+  }
+
+
+
+  /* guaranteed that info-circle is toggled by frozen class */
+  .info-circle--frozen > .info-circle-svg-wrapper {
+    + .info-circle-text-wrapper > .info-circle-text {
+      visibility: visible;
+    }
+    + .info-circle-text-wrapper {
+      display: flex;
+    }
+  }
+
+  /* Tooltip text */
+  .info-circle-text {
+    position: initial; /* not absolute */
+    display: block;
+    visibility: visible;
+    margin: auto;
+
+    min-height: 50px;
+    max-height: 75vh;
+    width: var(--tooltip-max-width);
+
+    overflow-y: scroll;
+  }
+
+  .frequencies {
+    gap: 5px;
+  }
+  .hover-tooltip--frequencies-overflow {
+    column-gap: 10px;
+  }
+
+
+  .pa-indicator svg {
+    height: 0.9em;
+  }
+
+  .card-header {
+    margin-bottom: 5px;
+  }
+
+
+  /* margin was previous around full-sentence, but all-definitions is now between!
+     thus, we move padding to all-definitions */
   .full-sentence {
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* remove background and whatnot */
+  .def-header {
+    justify-content: flex-start;
+  }
+
+  .dh-left {
+    background: none;
+    padding: 0em;
+    border-radius: 0px;
+    flex: 0 1 auto; /* reset to default, i.e. don't attempt to take up all available space */
+    margin-bottom: var(--folder-tab-height);
+    min-width: calc(var(--folder-tab-width) + 2 * var(--folder-tab-margin-left));
+
+    /* WILL BE ADJUSTED with javascript if necessary (i.e. wraps past screen) */
+    /* Ideally, this should be done with container queries, but we don't have this yet in Anki... */
+
+    // CONTAINER QUERIES DON'T WORK IN ANKI YET!
+    // these must be done in raw javascript for now...
+    //container-type: inline-size;
+    //container-name: dh-left-container;
+  }
+
+  .dh-left--no-folder-tabs { /* i.e. literally no definitions to show (why would this ever happen) */
+    margin-top: calc(var(--folder-tab-height) / 2);
+    margin-bottom: calc(var(--folder-tab-height) / 2);
+  }
+
+  .def-header--no-img .dh-left {
+    flex: 1; /* reset above to center on no image */
+  }
+
+  //@container dh-left-container (max-width: 300px) {
+  //  .dh-left__word-pitch {
+  //    text-align: left;
+  //    border: solid 1px red;
+  //  }
+  //}
+
+  .dh-left__reading {
+    white-space: nowrap;
+  }
+
+  .dh-left--word-past-screen .dh-left__reading {
+    white-space: initial;
+    text-align: left;
+    margin-bottom: 0px;
+  }
+  .dh-left--word-past-screen + .dh-right {
+    /* a horrible hack to work with words that wrap around the screen to a certain extent */
+    position: absolute;
+    right: 0px;
+  }
+
+  //.dh-left--word-past-tab .dh-left__word-pitch {
+  .dh-left--word-past-screen .dh-left__word-pitch {
+    text-align: left;
+    margin-left: 0.2em;
   }
 
   .dh-right {
-    position: absolute;
-    max-height: 60px !important;
-    bottom: 10px;
-    right: 10px;
-    padding-left: 0px;
+    max-height: var(--dh-right-image-max-height) !important;
+    margin-left: auto; /* centers */
+    margin-right: auto;
 
     .dh-right__img {
-      max-height: 60px !important;
+      max-height: var(--dh-right-image-max-height) !important;
+      margin-right: var(--dh-right-image-gap);
     }
+
+  }
+
+  .glossary-blockquote {
+    /* removes horizontal margins */
+    margin: 0px;
+  }
+
+  .back-side-restrict-width {
+    flex-direction: column-reverse;
+  }
+
+  .all-definitions {
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
+  }
+
+  .other-definitions {
+    display: none;
+  }
+
+  .primary-def-blockquote-wrapper {
+    position: relative;
+  }
+
+  .folder-tab {
+    display: flex;
+    position: absolute;
+    bottom: 100%;
+    height: var(--folder-tab-height);
+    width: var(--folder-tab-width);
+    margin-left: var(--folder-tab-margin-left);
+    //user-select: none;
+
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .primary-def-folder-tab-text {
+    display: block;
+  }
+
+  .folder-tab__button {
+    display: flex; /* centers the items for some reason */
+    width: var(--folder-tab-button-size);
+    height: var(--folder-tab-button-size);
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* takes up all remaining space */
+  }
+
+  .folder-tab__button > svg {
+    width: var(--folder-tab-svg-size);
+    height: var(--folder-tab-svg-size);
+  }
+
+  .folder-tab > input + .folder-tab__button { /* unchecked, default */
+    > svg {
+      fill: var(--text-color--4);
+    }
+  }
+  .folder-tab > input:checked + .folder-tab__button {
+    background: var(--background-darken);
+    > svg {
+      fill: var(--text-color);
+    }
+  }
+
+  // disabled specifies that it shouldn't ever be selected
+  .folder-tab:not(.folder-tab--show-when-empty) > input:disabled + .folder-tab__button {
+    display: none;
+  }
+
+
+
+  // lines
+  .primary-def-folder-tab-text__line {
+    font-size: 0.75em;
+    color: var(--text-color--3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+
+    .primary-def-folder-tab-text__line-left {
+      background: var(--text-color--3);
+      height: 1px;
+      flex: 1;
+    }
+
+    .primary-def-folder-tab-text__line-text {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+    }
+
+    .primary-def-folder-tab-text__line-right {
+      background: var(--text-color--3);
+      height: 1px;
+      flex: 1;
+    }
+  }
+
+
+  .folder-tab__button > svg {
+    fill: var(--text-color--4);
+  }
+
+  .card-main {
+    // TODO adjust if no image, etc.
+    margin-bottom: var(--footer-height);
+  }
+
+  .card-main--half-screen {
+    /* used when the mobile popup is active, so the user can still scroll */
+    margin-bottom: 51vh;
   }
 
   .dh-right__svg-eye {
     display: none !important;
   }
 
-  .android .dh-left {
-    padding-left:   8px;
-    padding-right:  8px;
-    padding-bottom: 8px;
-  }
-
+  /* moves play buttons to left */
+  // TODO shouldn't be --left? remove?
   .dh-left__audio-buttons {
-    padding-top: 10px;
-    //text-align: left;
-  }
-
-  //.android .dh-left__audio-buttons {
-  //  padding-top: 14px;
-  //  //text-align: left;
-  //}
-
-  //.android {
-  //  --gamer: 30px;
-  //  .dh-left__audio-buttons {
-  //    //line-height: var(--gamer);
-  //    font-size: var(--gamer)
-  //  }
-
-  //  .replaybutton {
-  //    height: var(--gamer);
-  //    width: var(--gamer);
-
-  //    border-radius: 50%;
-  //    border: solid 1px red;
-  //  }
-  //}
-
-
-  // moves play buttons to left ONLY if picture field exists
-  .dh-left__audio-buttons--left {
     text-align: left;
+    position: fixed;
+    bottom: var(--mobile-border);
+    left: var(--mobile-border);
+
+    z-index: 1; /* so audio buttons and picture can be interacted with */
   }
 
-  // removes scrollbar
-  // https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
-  //.card {
-  //  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  //  scrollbar-width: none;  /* Firefox */
+  .dh-left__similar-words-indicator--visible {
+    display: none; /* always disables on mobile */
+  }
+
+  /* overrides glossary-primary-definition--no-definition */
+  .glossary-primary-definition--folder-tab .glossary-text {
+    display: inline;
+  }
+
+  //.glossary-primary-definition__right {
+  //  /* only restrain on right side - left side <=> top or bottom, 100% width usage */
+  //  max-width: 60%;
   //}
-  //.card::-webkit-scrollbar {
-  //  display: none;  /* Safari and Chrome */
-  //}
+
 }
-
-
-
-
 

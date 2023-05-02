@@ -14,17 +14,6 @@
 {# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
 
-<script>
-{% block top_javascript %}
-{% include "jp-mining-note/logger.js" %}
-{% endblock %}
-</script>
-
-{% if not COMPILE_OPTIONS("hardcoded-runtime-options").item() %}
-<script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
-{% endif %} {# COMPILE_OPTIONS("hardcoded-runtime-options").item() #}
-
-
 {% include "jp-mining-note/partials/hidden_front.html" %}
 
 
@@ -39,11 +28,11 @@
 {% endblock %}
 {% endset %}
 
-<div class="card-wrapper" id="card_wrapper">
+<div class="jpmn jpmn--front jpmn--{{CARD_INFO('card-type').item()}}" id="jpmn">
 
   {% filter indent(2) %}
 
-  {{ card_header("card-header--front", False, _card_type) }}
+  {{ card_header(False, _card_type) }}
 
   {{ card_main_front(_card_html) }}
 
@@ -54,19 +43,14 @@
 
 <div class="popup-menu" id="popup_menu"></div>
 
+{% include "jp-mining-note/partials/mobile_popup.html" %}
 
-<script>
-{% block javascript %}
-{% endblock %}
-</script>
-
-
-
+<!-- the script must be placed at the very bottom for it to work with ankidroid -->
+{% include "jp-mining-note/partials/javascript.html" %}
 
 {% if note.field_restrict is defined and note.field_restrict -%}
 {%- for x in note.field_restrict | reverse -%}
 {{ END(x) }}
 {% endfor -%}
 {%- endif -%}
-
 

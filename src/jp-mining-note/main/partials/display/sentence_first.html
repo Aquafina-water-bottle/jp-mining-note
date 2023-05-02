@@ -1,0 +1,50 @@
+{# impl #}
+<!--
+  sentence first card
+-->
+{#
+
+TODO
+  {% if not COMPILE_OPTIONS("allowClickToggleOnHoverCards").item() %}
+  disabled="disabled"
+  {% endif %}
+
+#}
+
+<input
+  type="checkbox"
+  class="sentence-first-click-toggle hidden"
+  id="hybrid_click_toggle"
+  {% call IF('IsHoverCard') %}
+  {% if not COMPILE_OPTIONS("allowClickToggleOnHoverCards").item() %}
+  disabled="disabled"
+  {% endif %}
+  {% endcall %}
+  {% call utils.if_none('IsHoverCard', 'IsClickCard') %}
+  disabled="disabled"
+  {% endcall %}
+>
+<label class="expression__sf
+              {% call IF('IsClickCard') %}
+                expression__sf--click
+                expression__sf--click-hover-effect
+              {% endcall %}
+              {% call IF('IsHoverCard') %} expression__sf--hover {% endcall %}
+              {% call IF('IsTargetedSentenceCard') %} highlight-bold {% endcall %}
+              "
+    for="hybrid_click_toggle" id="display">
+
+  <div class="expression--sentence expression__sf-sentence
+               {{ utils.default_disp_sent_quote_class() }}
+                {% call IF('IsHoverCard') %} expression__sf-sentence--hover {% endcall %}
+               "
+        id="sf_sentence">
+    {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
+  </div>
+
+  <div class="expression__sf-word-wrapper"><span class="expression--word expression__sf-word" id="sf_word">
+    {{- utils.prioritize_alt_display("Word") -}}
+  </span></div>
+
+</label>
+

@@ -1,10 +1,6 @@
 {# impl #}
-<div class="expression-box expression-box__sentence">
-  {% filter indent(2) %}
-  {{ pa_indicator("sentence") }}
-  {% endfilter %}
-
-  <div class="expression--sentence highlight-bold" id="display">
-      {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
-  </div>
+<div class="expression--sentence highlight-bold
+    {{ utils.default_disp_sent_quote_class() }}
+    " id="display">
+  {{ utils.prioritize_alt_display("Sentence", sentence=True) }}
 </div>

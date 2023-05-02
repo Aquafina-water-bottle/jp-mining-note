@@ -6,7 +6,7 @@ If you have never used Anki before, I recommend using
 to get more optimized settings than the default settings.
 
 That article showcases only one way of setting up Anki's settings for language learning.
-Feel free to view some other examples [here](setupother.md#various-anki-resources){:target="_blank"}.
+Feel free to view some other examples [here](setupother.md#various-anki-resources).
 
 ---
 
@@ -30,29 +30,29 @@ Worst case scenario, if any essential add-ons no longer work,
 If you aren't upgrading Anki from an older version,
 you can skip the rest of this section.
 
-??? example "Tips on Updating Anki *(click here)*"
+??? example "Tips on Updating Anki <small>(click here)</small>"
 
-    <h4>Official Documentation</h4>
+    **Official Documentation**:
 
-    The official documentation on how to install and upgrade Anki is shown below:
+    -   The official documentation on how to install and upgrade Anki is shown below:
 
-    > [Windows](https://docs.ankiweb.net/platform/windows/installing.html)・[MacOS](https://docs.ankiweb.net/platform/mac/installing.html)・[Linux](https://docs.ankiweb.net/platform/linux/installing.html)
+        > [Windows](https://docs.ankiweb.net/platform/windows/installing.html)・[MacOS](https://docs.ankiweb.net/platform/mac/installing.html)・[Linux](https://docs.ankiweb.net/platform/linux/installing.html)
 
-    Note that for all three, there are additional sections in the table of contents to the left
-    that could be helpful.
+        Note that for all three, there are additional sections in the table of contents to the left
+        that could be helpful.
 
 
-    <h4>Add-ons Breaking</h4>
+    **Add-ons Breaking**:
 
-    If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:
+    -   If an add-on (that worked in a previous version of Anki) no longer works, you have a few options you can try:
 
-    - As a sanity check, click the `Check for Updates` button on Anki's `Addons` window.
-    - Check that the add-on supports the current version of Anki in the official AnkiWeb page.
-        If the page says that the current Anki version is supported,
-        try reinstalling it again from AnkiWeb.
+        - As a sanity check, click the `Check for Updates` button on Anki's `Addons` window.
+        - Check that the add-on supports the current version of Anki in the official AnkiWeb page.
+            If the page says that the current Anki version is supported,
+            try reinstalling it again from AnkiWeb.
 
-        Occasionally, the `Check for Updates` button doesn't properly work,
-        so this method ensures that your addon is actually updated.
+            Occasionally, the `Check for Updates` button doesn't properly work,
+            so this method ensures that your addon is actually updated.
 
 ---
 
@@ -68,6 +68,18 @@ To enable animations, head over to:
     Anki bug. In the future, animations will be enabled by default again. [^1]
 
 [^1]:  [https://forums.ankiweb.net/t/reduce-motion-affecting-card-templates-bug-or-intentional/28973](https://forums.ankiweb.net/t/reduce-motion-affecting-card-templates-bug-or-intentional/28973)
+
+
+---
+
+
+# Fixing your Editor Fonts
+
+By default, your editor fonts may not show Japanese characters correctly.
+
+- TODO test on 直す card
+- TODO link to TheMoeWay
+- TODO batch command: `set_fonts_to_key_font`
 
 
 ---
@@ -94,14 +106,6 @@ To change Anki's theme, head over to:
 # Anki Add-ons
 There are certain add-ons that must be installed for this note type to work.
 
-<!--
-There are also certain add-ons that will **not** be supported by this note type.
-Please disable them and restart Anki before continuing.
--->
-
-## Conflicting Add-ons
-There are no conflicting add-ons, since I'm not aware of any currently.
-Let me know if you find one!
 
 ## Downloading Add-ons
 To download an add-on, copy the add-on's code, and navigate to the following to paste the code: <br>
@@ -120,7 +124,12 @@ To download an add-on, copy the add-on's code, and navigate to the following to 
 Required for Yomichan and most other Anki-related automated tasks to work.
 I use the default config that comes with the add-on.
 
-!!! note "Note for Anki versions 2.1.49 and below"
+If you installed JPMN Manager, you likely already have this installed.
+
+??? note "Note for Anki versions 2.1.49 and below {{CLICK_HERE}}"
+
+    This is left for legacy purposes, because jp-mining-note
+    no longer officially supports versions 2.1.49 or below.
 
     Anki versions 2.1.49 and below require a hack to the Anki-Connect
     config for certain features within the card to work.
@@ -154,8 +163,6 @@ and choosing the add-ons that seem appealing for you.
 !!! note
     Make sure to head over to the [final steps](setupanki.md#final-steps-after-installing-add-ons) section afterwards!
 
-
-<br>
 
 
 ## [CSS Injector](https://ankiweb.net/shared/info/181103283)
@@ -202,7 +209,7 @@ that comes with the add-on.
 That can be done through command line (below), or you can simply navigate to the
 `Anki2/addons21/{{css_injector_addon_id}}/user_files`
 folder
-(within the [addons folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"})
+(within the [addons folder](faq.md#where-is-the-x-folder-in-anki))
 and delete both `css` files.
 {% endset %}
 
@@ -278,11 +285,11 @@ and delete both `css` files.
 
 ??? info "Option 2: Manually without respecting updates"
 
-    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"}
+    1. Navigate to css injector [addon folder](faq.md#where-is-the-x-folder-in-anki)
         (`Anki2/addons21/{{css_injector_addon_id}}/user_files`)
     2. Remove the existing `field.css` and `editor.css` files
     3. Copy the `_field.css` file and `_editor.css` file
-        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki){:target="_blank"})
+        (found under your profile's [media folder](faq.md#where-is-the-x-folder-in-anki))
         into the css injector add-on directory.
     4. Rename `_field.css` to `field.css`.
     4. Rename `_editor.css` to `editor.css`.
@@ -291,8 +298,6 @@ and delete both `css` files.
 
         If either of the two css files ever update,
         you will have to manually copy and rename the file again.
-
-<br>
 
 
 
@@ -511,8 +516,7 @@ to make sure they are correct.
     the reading upon card creation.
     AJT Japanese supports both of those of those features.
 
-<br>
-
+---
 
 
 # Final Steps: After Installing Add-ons
@@ -538,14 +542,14 @@ In particular, the 者 kanji in the example 偽者 and 不審者 cards should po
 # Transfer Existing Notes
 If you wish to transfer existing cards into this note type
 (say, to make kanji hover work on existing cards),
-please see [this page](importing.md){:target="_blank"}.
+please see [this page](importing.md).
 
 ---
 
 
 
 # Updating the Note
-If you wish to update the note, follow the steps in [this page](updating.md){:target="_blank"}.
+If you wish to update the note, follow the steps in [this page](updating.md).
 
 This note does not auto-update. This should keep your setup stable,
 as long as you do not update Anki.

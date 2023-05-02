@@ -6,19 +6,10 @@
 {%- from "jp-mining-note/macros/def_header.html" import def_header with context -%}
 {%- from "jp-mining-note/macros/card_header.html" import card_header with context -%}
 {%- from "jp-mining-note/macros/card_main_back.html" import card_main_back with context -%}
+{%- from "jp-mining-note/macros/card_footer.html" import card_footer with context -%}
 
 {# DO NOT DELETE THIS #}
 {% include "jp-mining-note/partials/compile_options_comment.html" %}
-
-
-<script>
-{% block top_javascript %}
-{% include "jp-mining-note/logger.js" %}
-{% endblock %}
-</script>
-
-<script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
-
 
 {% include "jp-mining-note/partials/hidden_back.html" %}
 
@@ -53,12 +44,16 @@
 {% endblock %}
 {% endset %}
 
-<div class="card-wrapper" id="card_wrapper">
+<div class="jpmn jpmn--back jpmn--{{CARD_INFO('card-type').item()}}" id="jpmn">
 
-  {% filter indent(2) %}
-  {{ card_header("card-header--back", True, _card_type) }}
+  {% filter indent(4) %}
+  {{ card_header(True, _card_type) }}
 
   {{ card_main_back(_card_html_top, _card_html_bottom) }}
+  {% endfilter %}
+
+  {% filter indent(2) %}
+  {{ card_footer() }}
   {% endfilter %}
 
 </div> <!-- card-wrapper -->
@@ -79,12 +74,8 @@
 
 <div class="popup-menu" id="popup_menu"></div>
 
-<script>
-{% block javascript %}
-{% endblock %}
-</script>
+{% include "jp-mining-note/partials/mobile_popup.html" %}
 
-
-
-
+<!-- the script must be placed at the very bottom for it to work with ankidroid -->
+{% include "jp-mining-note/partials/javascript.html" %}
 

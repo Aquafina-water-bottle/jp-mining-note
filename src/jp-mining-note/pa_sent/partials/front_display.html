@@ -16,7 +16,7 @@
 {% endcall%}
 
 {% call IFNOT('AltDisplayPASentenceCard') %}
-  {% call IF('AltDisplay') %}
+  {% call IF('AltDisplaySentence') %}
 
     <div class="outer-display1
         {% call utils.if_none('IsClickCard', 'IsHoverCard', 'IsSentenceCard', 'IsTargetedSentenceCard') %}
@@ -25,7 +25,7 @@
         "
       style="display: inline-block;" id="display">
 
-      <!-- option 2: AltDisplay (only if the original card is a (sentence card or TSC or click or hybrid)) -->
+      <!-- option 2: AltDisplaySentence (only if the original card is a (sentence card or TSC or click or hybrid)) -->
       <!-- if any of (click, hover, sentence, TSC) -->
       <div class="expression expression--single expression--sentence inner-display1">
         {{ utils.quote_open -}}
@@ -43,7 +43,7 @@
 
   {% endcall %}
 
-  {% call IFNOT('AltDisplay') %}
+  {% call IFNOT('AltDisplaySentence') %}
     <div class="expression expression--single expression--sentence" id="display">
       {{ utils.quote_open -}}
       {{ utils.expression_inner_div('Sentence') }}

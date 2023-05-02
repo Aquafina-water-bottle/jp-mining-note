@@ -15,6 +15,12 @@
 
 @use "common";
 
+/* Backup font, primarily for Android. Defines "Noto Serif JP" and "Noto Sans JP" */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
+
+
 /* defines the REM value */
 html {
   font-size: 16px;
@@ -31,8 +37,7 @@ html {
 
 
 .card {
-  /*font-family: notoserif;*/
-  font-family: notosans;
+  font-family: var(--jp-sans);
   text-align: center;
   font-style: normal;
 
@@ -42,8 +47,22 @@ html {
 }
 
 
+/*
+ * a hack to no longer depend on the installed font (to speed up card load times).
+ * see:
+ * https://github.com/ankidroid/Anki-Android/issues/4856
+ * https://github.com/ankidroid/Anki-Android/issues/5213
+ */
 
-/* fixing colors on mobile */
+.android {
+  --jp-serif: #{common.$font-backup-serif};
+  --jp-sans: #{common.$font-backup-sans};
+}
+
+
+
+
+/* fixing colors on mobile (TODO no longer necessary on alpha ver) */
 .mobile .card.night_mode {
   color: white;
   background-color: #2f2f31;
@@ -194,10 +213,38 @@ details.glossary-details > summary {
  * formats the open right quote to be to the left of the entire text box
  */
 
-.left-align-quote {
+//.left-align-quote {
+//  text-indent: -1em;
+//  padding-left: 1em;
+//}
+
+
+.sentence-quoted-display-flow {
+}
+
+.sentence-quoted-display-block {
   text-indent: -1em;
   padding-left: 1em;
 }
+
+/* unquoted sentence will get rid of quotes no matter what */
+.sentence-unquoted-display-no-indent,
+.sentence-unquoted-display-indent,
+.sentence-unquoted-display-right-shifted {
+  > .sentence-quote {
+    display: none;
+  }
+}
+
+.sentence-unquoted-display-indent {
+  text-indent: 1em;
+}
+
+.sentence-unquoted-display-right-shifted {
+  padding-left: 1em;
+}
+
+
 
 
 /*
@@ -279,17 +326,38 @@ ruby rt {
 }
 
 
+/* css to indicate that the image can be clicked on to zoom */
+.img-clickable {
+  cursor: pointer;
+  transition: filter 0.3s;
+}
+
+.img-clickable:hover {
+  filter: brightness(var(--image-hover-brightness));
+}
+
+
+
 /* makes code snippets look better */
 code {
   background-color: var(--code-background-darken);
   border-radius: 10px;
   padding: .1em .3em;
+  font-size: 85%;
 }
 
+// This hack is no longer needed with onShownHook!
+//
+///* THIS IS AN ANKIDROID HACK!!!
+// * There seems to be a strange issue with using javascript to automatically play audio
+// * and the mathjax module being ran (despite there being no mathjax: \[ and \]
+// * are in regex expressions) that prevents the mathjax module from fully running for some reason?
+// * and thus, doesn't remove mathjax-needs-to-render, making the card impossible to view for some reason
+// */
+//.android .card.mathjax-needs-to-render {
+//  visibility: visible;
+//}
 
-.hidden {
-  display: none;
-}
 
 
 /*
@@ -298,8 +366,16 @@ code {
  *  ================
  */
 
+.card-header {
+  position: relative; /* so pa-indicator works */
+}
+
+.card-footer {
+  display: none;
+}
+
 .card-description {
-  font-family: notoserif;
+  font-family: var(--jp-serif);
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
@@ -309,6 +385,66 @@ code {
 .card-description-ver {
   font-size: var(--description-footer-font-size);
 }
+
+.card-description__word-indicators {
+  display: none; /* only displayed on mobile */
+}
+
+.card-description__word-indicator--selected {
+  color: var(--accent);
+}
+
+
+/* decided that this would be an absolute position because
+  setting the surroundings to float ends up not properly adjusting
+  the height of the header, which then affects the content below
+  (with this approach, card-description is not floated and can properly
+  affect the height)
+ */
+.pa-indicator {
+  position: absolute;
+  display: flex;
+
+  /* aling to top of header */
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 0;
+}
+
+.pa-indicator svg {
+  height: 1.1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* pitch accent indicator colors */
+.pa-indicator-color--sentence {
+  fill:  var(--pa-indicator-sentence-color);
+  color: var(--pa-indicator-sentence-color);
+}
+.pa-indicator-color--word {
+  fill:  var(--pa-indicator-word-color);
+  color: var(--pa-indicator-word-color);
+}
+.pa-indicator-color--none {
+  fill:  var(--pa-indicator-none-color);
+  color: var(--pa-indicator-none-color);
+}
+
+/* contains the frequencies, and version for mobile */
+.card-description-right {
+  --card-description-color: var(--text-color--4);
+  color: var(--card-description-color);
+
+  float: right;
+  font-family: var(--jp-serif);
+}
+
+
+
+
 
 /* info circle & tooltip */
 .info-circle {
@@ -348,7 +484,7 @@ code {
   min-width: 200px;
   max-width: var(--tooltip-max-width);
 
-  font-family: notosans;
+  font-family: var(--jp-sans);
   font-size: var(--tooltip-font-size);
   text-align: left;
 
@@ -399,6 +535,12 @@ code {
 }
 
 
+.info-circle-version {
+  font-size: 0.8em;
+  margin-top: 5px;
+  display: none; /* hide for normal displays, only show on mobile */
+}
+
 /* leech text */
 .info-circle-text-leech:not(:empty) {
   margin-bottom: 10px;
@@ -427,6 +569,48 @@ code {
   margin-top: 10px;
 }
 
+
+/* tags */
+.info-circle-text-tags {
+  display: flex;
+  align-items: center;
+}
+.info-circle-text-tags-text {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  .info-circle-tag {
+    border-radius: 3px;
+    background: var(--info-circle-tag-bg-color);
+    padding: 0.1em 0.2em;
+    cursor: pointer;
+  }
+
+  .info-circle-tag--grey {
+    color: var(--text-color--2);
+  }
+
+  [data-tag-value="leech"] {
+    color: var(--info-circle-leech-text-color);
+    font-weight: bold;
+  }
+}
+.info-circle-text-tags:not(:empty) {
+  margin-top: 10px;
+}
+
+.info-circle-text-tags svg {
+  width: var(--info-circle-settings-svg-size);
+  height: var(--info-circle-settings-svg-size);
+  fill: var(--text-color);
+  padding-right: 0.4em;
+}
+
+/* info text */
+.info-circle-text-info:not(:empty) {
+  margin-bottom: 10px;
+}
 
 /* warning text */
 .info-circle-text-warning:not(:empty) {
@@ -479,31 +663,34 @@ code {
 
 .info-circle-text-settings {
   line-height: 0%;
+  margin-bottom: 10px;
   display: flex;
-  gap: 5px;
+  gap: 5px; // 2.1.54 +
 }
 
 .info-circle-text-settings-border {
   border-bottom: 1px solid var(--text-color--4);
-  margin-top: -6px;
+  margin-top: -4px;
   margin-bottom: 4px;
   line-height: 0px;
   width: 100%;
-  display: none;
+  //display: none;
 }
 
 /* shows the border if settings aren't empty */
-.info-circle-text-settings:not(:empty) + .info-circle-text-settings-border {
-  display: block;
-}
-
-.info-circle-text-settings:not(:empty) {
-  margin-bottom: 10px;
-}
+//.info-circle-text-settings:not(:empty) + .info-circle-text-settings-border {
+//  display: block;
+//}
+//
+//.info-circle-text-settings:not(:empty) {
+//  margin-bottom: 10px;
+//}
 
 .info-circle-text-settings svg {
   width: var(--info-circle-settings-svg-size);
   height: var(--info-circle-settings-svg-size);
+  cursor: pointer;
+  fill: var(--text-color);
 }
 
 .info-circle-text-settings svg:active {
@@ -512,12 +699,7 @@ code {
   //filter: brightness(var(--icon-click-brightness));
 }
 
-.info-circle-text-settings svg {
-  cursor: pointer;
-  fill: var(--text-color);
-}
-
-.info-circle-text-settings__svg--red {
+.info-circle-text-settings__svg--red > path {
   fill: var(--info-circle-error-text-color);
 }
 
@@ -526,61 +708,6 @@ code {
   fill: var(--text-color--4);
 }
 
-
-/* https://stackoverflow.com/a/38948646 (ver 5) */
-.expression-box {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-column-gap: 5px;
-  justify-items: center;
-
-  //font-family: notoserif;
-}
-
-.pa-indicator {
-  margin-left: auto;
-  display: flex; // raises the svg to the top for some reason
-
-  //grid-column-start: 1;
-
-  //font-size: var(--pa-indicator-word-font-size);
-
-  ///*
-  // * so that the svg can be placed after the sentence (to remove upon hover)
-  // * while appearing to be before the sentence
-  // */
-  //order: -1;
-}
-
-/* pa indicator in header (only shown on small width devices) */
-.card-description .pa-indicator {
-  display: none;
-}
-
-
-.pa-indicator__svg {
-  display: inline-block;
-  vertical-align: middle;
-  height: 1em;
-}
-
-.pa-indicator__circle {
-}
-
-
-/* pitch accent indicator colors */
-.pa-indicator-color--sentence {
-  fill:  var(--pa-indicator-sentence-color);
-  color: var(--pa-indicator-sentence-color);
-}
-.pa-indicator-color--word {
-  fill:  var(--pa-indicator-word-color);
-  color: var(--pa-indicator-word-color);
-}
-.pa-indicator-color--none {
-  fill:  var(--pa-indicator-none-color);
-  color: var(--pa-indicator-none-color);
-}
 
 
 
@@ -605,7 +732,7 @@ code {
 
 
 .expression {
-  font-family: notoserif;
+  font-family: var(--jp-serif);
 }
 
 .expression b {
@@ -620,7 +747,7 @@ code {
 /* used in other cards where PA flag is not shown */
 .expression--single {
   font-size: var(--sentence-font-size);
-  font-family: notoserif;
+  font-family: var(--jp-serif);
 }
 
 
@@ -628,9 +755,9 @@ code {
 .expression--word {
   font-size: var(--word-font-size);
 }
-.expression-box__word, .expression-box__hybrid-word {
-  font-size: var(--word-font-size);
-}
+//.expression-box__word, .expression-box__hybrid-word {
+//  font-size: var(--word-font-size);
+//}
 
 
 /* class used to identify exactly which div(s) contain a sentence, for js purposes */
@@ -638,22 +765,22 @@ code {
   display: inline-block;
   text-align: left;
 
-  text-indent: -1em;
-  padding-left: 1em;
+  //text-indent: -1em;
+  //padding-left: 1em;
   font-size: var(--sentence-font-size);
 }
-.expression-box__sentence, .expression-box__hybrid-sentence {
-  font-size: var(--sentence-font-size);
-}
+//.expression-box__sentence, .expression-box__hybrid-sentence, .expression-box__sf-sentence {
+//  font-size: var(--sentence-font-size);
+//}
 .expression--hint-sentence {
   font-size: var(--full-sentence-font-size);
   max-width: common.$bp-max-width-backside;
 }
 
-.card-wrapper--vertical-display .expression--sentence {
-  padding-top: 1em;
-  padding-left: 0em;
-}
+//.card-wrapper--vertical-display .expression--sentence {
+//  padding-top: 1em;
+//  padding-left: 0em;
+//}
 
 
 .hint {
@@ -661,6 +788,56 @@ code {
 }
 
 
+/*
+ * -------------------------
+ *  Sentence First card css
+ * -------------------------
+ */
+
+.expression__sf {
+  //position: relative;
+  padding-bottom: 10px; /* overriden line-height causes the buttons underneath the word to be too close */
+  display: inline-block; /* reduces hitbox */
+  text-align: left; /* entire div is still centered! */
+}
+
+/* wrapper is to show css customization (≫ ), etc while
+   hiding the true word in .expression__sf-word */
+.expression__sf-word-wrapper, .expression__sf-word-wrapper .expression__sf-word {
+  font-size: var(--sentence-font-size);
+}
+.expression__sf-word-wrapper:before {
+  content: "≫";
+  color: var(--accent);
+}
+.expression__sf-word-wrapper:after {
+}
+
+/* works with click on entire thing */
+.expression__sf--click > .expression__sf-word-wrapper > .expression__sf-word {
+  display: none;
+}
+.sentence-first-click-toggle:checked + .expression__sf > .expression__sf-word-wrapper > .expression__sf-word {
+  display: inline;
+}
+
+/* only works on hovering over the sentence */
+.expression__sf--hover > .expression__sf-word-wrapper > .expression__sf-word {
+  display: none;
+}
+.expression__sf--hover .expression__sf-sentence--hover:hover + .expression__sf-word-wrapper > .expression__sf-word {
+  display: inline;
+}
+
+
+.expression__sf--click-hover-effect {
+  /* transition for opacity */
+  transition: 0.3s;
+}
+.expression__sf--click-hover-effect:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
 
 /*
  * -----------------
@@ -715,108 +892,66 @@ code {
 }
 
 
-/* experimental vertical-display support, moves borders to left */
-.card-wrapper--vertical-display {
-  .expression__hybrid-word--hover-indicator {
-    border-bottom-style: none;
-    border-left-style: dotted;
-  }
-  .expression__hybrid-word--click-indicator {
-    border-bottom-style: none;
-    border-left-style: dashed;
-  }
-}
+///* experimental vertical-display support, moves borders to left */
+//.card-wrapper--vertical-display {
+//  .expression__hybrid-word--hover-indicator {
+//    border-bottom-style: none;
+//    border-left-style: dotted;
+//  }
+//  .expression__hybrid-word--click-indicator {
+//    border-bottom-style: none;
+//    border-left-style: dashed;
+//  }
+//}
 
 
 /* used to specify that hovering toggles between word/sentence */
-.expression-box__hybrid-sentence {
+.expression__hybrid-sentence {
   display: none;
 }
 
-//.expression__hybrid--hover:hover > .expression-box__hybrid-word {
-//  display: none;
-//}
-//.expression__hybrid--hover:hover > .expression-box__hybrid-sentence {
-//  display: grid;
-//}
-//.expression__hybrid--hover.expression__hybrid--hint:hover > .expression-box__hybrid-word {
-//  /* hint cards retains word */
-//  display: grid;
-//}
+/*
+  inline block is so the div doesn't expand all the way to the left/right
+  (i.e. so the border underneath the word doesn't expand)
+ */
+.expression__hybrid--hover.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
+}
 
 /* hover behavior for non-hint cards */
 .expression__hybrid--hover:not(.expression__hybrid--hint):hover {
-  > .expression-box__hybrid-word {
+  > .expression__hybrid-word {
     display: none;
   }
-   > .expression-box__hybrid-sentence {
-    display: grid;
+  > .expression__hybrid-sentence {
+    display: block;
   }
 }
 
 /* hover behavior for hint cards */
 .expression__hybrid--hover.expression__hybrid--hint {
-  /* reduces horizontal space */
-  .expression-box__hybrid-word {
-    display: inline-grid;
+  // explicitly only words when hovering over the word
+  > .expression__hybrid-word:hover + .expression__hybrid-sentence {
+    display: block;
   }
-
-  .expression-box__hybrid-word:hover + .expression-box__hybrid-sentence {
-    display: grid;
-  }
-
-  // intentionally commented out for now (so hovering over the sentence will not preserve the sentence)
-  //.expression-box__hybrid-sentence:hover {
-  //  /* prevents sentence from disappearing on hover */
-  //  display: grid;
-  //}
 }
 
-.hybrid-click-toggle:checked + .expression__hybrid .expression-box__hybrid-word {
+.hybrid-click-toggle:checked + .expression__hybrid .expression__hybrid-word {
   display: none;
 }
-.hybrid-click-toggle:checked + .expression__hybrid .expression-box__hybrid-sentence {
-  display: grid;
+.hybrid-click-toggle:checked + .expression__hybrid .expression__hybrid-sentence {
+  display: block;
 }
-.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--hint .expression-box__hybrid-word {
-  /* hint cards retains word */
-  display: inline-grid;
+.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
 }
-
-//.expression__hybrid {
-//  border: 1px solid red;
-//}
-//.expression-box {
-//  border: 1px solid green;
-//}
-
 
 /*
-.expression__hybrid--hover:hover + .pa-indicator,
-.hybrid-click-toggle:checked + .expression__hybrid + .pa-indicator,
-.expression--sentence + .pa-indicator {
-  font-size: var(--pa-indicator-sent-font-size);
-}
-*/
-
-/* removes pa indicator only on sentence if class adde
- * (class is added if quotes are colored, or on sentence below cards)
+  - inline block is so the div doesn't expand all the way to the left/right
+    (i.e. so the border underneath the word doesn't expand)
  */
-.expression__hybrid--hover.expression__hybrid--remove-pa-indicator:hover .expression-box__hybrid-sentence .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
-.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--remove-pa-indicator .expression-box__hybrid-sentence  .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
-/* removes pa indicator entirely on sentences for hint cards */
-.expression__hybrid--hint .expression-box__hybrid-sentence .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
-.expression--remove-pa-indicator .pa-indicator > .pa-indicator__svg {
-  display: none;
+.expression__hybrid--hover.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
 }
 
 
@@ -847,6 +982,8 @@ code {
 
   bottom: 30px;
   right: 30px;
+
+  z-index: 30;
 }
 
 .popup-menu--animate {
@@ -854,11 +991,10 @@ code {
   align-items: center; /* Vertical center alignment */
   justify-content: center; /* Horizontal center alignment */
 
-  z-index: 1;
-
-  min-width: 250px;
+  width: 250px;
   min-height: 65px;
   text-align: center;
+  padding: 10px;
 
   border-radius: 4px;
   background-color: var(--tooltip-background-darken);
@@ -904,6 +1040,106 @@ code {
 
 
 
+/*
+ * --------------
+ *  Mobile Popup
+ * --------------
+ */
+
+.mobile-popup-wrapper {
+  position: fixed;
+  display: flex;
+  height: calc(50vh);
+  width: calc(100%);
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+
+.mobile-popup {
+  text-align: left;
+  margin: auto;
+  max-height: calc(100% - 2 * var(--mobile-popup-border));
+  width: calc(100% - 2 * var(--mobile-popup-border));
+  background-color: var(--tooltip-background-darken);
+  bottom: var(--mobile-popup-border);
+  left: var(--mobile-popup-border);
+
+  border-radius: 6px;
+  overflow: scroll;
+  padding: 8px 10px 8px 10px;
+}
+
+:root:not(.mobile) .mobile-popup::-webkit-scrollbar {
+  /* removes ugly scrollbar on PC */
+  display: none;
+}
+
+
+/* close button + press animations */
+.mobile-popup-title-close {
+  height: 1.2em;
+  position: sticky;
+  display: flex;
+  float: right;
+  top: 0px;
+  user-select: none;
+}
+
+.mobile-popup-title-close:not(.THIS-CLASS-DOES-NOT-EXIST) { /* temporary hack for minimalist mode */
+  /* we have a backdrop-filter blur because I have no idea how to get rid of background text otherwise */
+  backdrop-filter: blur(1.2px) !important; /* !important for minimalist mode */
+  border-radius: 3px;
+}
+
+.mobile-popup-title-close svg {
+  height: 1.2em;
+  fill: var(--text-color);
+  position: sticky;
+}
+
+.mobile-popup-title-close:active {
+  box-shadow: 0px 0px 2px var(--text-color--2) !important; /* !important for minimalist mode */
+}
+
+.mobile-popup-title-close:active svg {
+  margin-top: 1px;
+}
+
+/* hides all newlines on mobile popup sentences in particular */
+.mobile-popup .hover-tooltip__sent-div br {
+  display: none;
+}
+
+
+
+
+// looks like microsoft XP style...
+//.mobile-popup-title-close:not(.CLASS-DOES-NOT-EXIST) { /* hack for non-fancy display... */
+//  backdrop-filter: blur(5px) !important;
+//  box-shadow: 1px 1px 1.5px var(--text-color--4) !important;
+//}
+//
+//.mobile-popup-title-close svg {
+//  height: 1.2em;
+//  fill: var(--text-color);
+//  position: sticky;
+//}
+//
+//.mobile-popup-title-close:active {
+//    box-shadow: 0px 0px 1px var(--text-color--4) !important;
+//}
+//
+//.mobile-popup-title-close svg {
+//  margin-right: 0px;
+//}
+//.mobile-popup-title-close:active svg {
+//  margin-top: 1px;
+//  margin-right: -1px;
+//  margin-left: 1px;
+//}
+
 
 /*
  *  ===============
@@ -920,13 +1156,16 @@ code {
   max-width: common.$bp-max-width-backside;
   margin: auto;
   padding: 0px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .answer-border {
   border-bottom: 1px solid;
   margin-top: 10px;
   margin-bottom: 15px;
-  width: 95%;
+  width: min(90% + 5rem, 100%);
 }
 
 
@@ -981,8 +1220,12 @@ code {
 
 .dh-left__reading {
   font-size: var(--reading-font-size);
-  font-family: notoserif;
+  font-family: var(--jp-serif);
   white-space: nowrap; /* so the reading can expand ouside of the max width */
+}
+
+.dh-left__reading--kanji-selected {
+  color: var(--accent);
 }
 
 .dh-left__word-pitch {
@@ -1007,11 +1250,15 @@ code {
   display: none; /* so it's not shown and doesn't affect the card without javascript */
 }
 
+.dh-left__similar-words-indicator--visible {
+  display: inline-block;
+}
+
 .dh-left__similar-words-indicators .hover-tooltip-wrapper {
   line-height: initial;
 }
 
-.dh-left__similar-words-indicators-main-word .hover-tooltip__word-div {
+.dh-left__similar-words-indicators-main-word .hover-tooltip__word-span {
   //font-size: 24px;
   color: var(--accent);
   font-weight: bold;
@@ -1045,57 +1292,6 @@ code {
 //}
 
 
-
-
-/*
- * -----------------------------------------
- *  Def Header Left - Word PA bold override
- * -----------------------------------------
- * overwriting the bold ability:
- * - bold == not the correct sound used in the sound clip
- *
- */
-
-.dh-left__word-pitch {
-  @include common.bold-pitch;
-}
-
-.dh-left__word-pitch-text:empty:before {
-  content: "(N/A)"
-}
-
-
-.pa-word-highlight-heiban {
-  color: var(--text-heiban);
-}
-.pa-word-highlight-atamadaka {
-  color: var(--text-atamadaka);
-}
-.pa-word-highlight-nakadaka {
-  color: var(--text-nakadaka);
-}
-.pa-word-highlight-odaka {
-  color: var(--text-odaka);
-}
-.pa-word-highlight-kifuku {
-  color: var(--text-kifuku);
-}
-
-.pa-sentence-highlight-heiban b {
-  color: var(--text-heiban);
-}
-.pa-sentence-highlight-atamadaka b {
-  color: var(--text-atamadaka);
-}
-.pa-sentence-highlight-nakadaka b {
-  color: var(--text-nakadaka);
-}
-.pa-sentence-highlight-odaka b {
-  color: var(--text-odaka);
-}
-.pa-sentence-highlight-kifuku b {
-  color: var(--text-kifuku);
-}
 
 
 
@@ -1136,34 +1332,37 @@ code {
   border-radius: 6px;
 }
 
-.hover-tooltip .hover-tooltip__pitch-accent {
+.hover-tooltip__pitch-accent {
   @include common.bold-pitch;
 
   /* cancels out bolded colors */
   b {
-    color: var(--text-color);
+    --pa-overline-color: var(--text-color--1);
   }
-
-  /* cancels out extra colors */
-  .pitchoverline:after, b .pitchoverline:after {
-    background: var(--text-color--1);
-  }
-  .downstep:before, b .downstep:before {
-    background: var(--text-color--1);
-  }
-
   .nopron {
-    color: var(--text-color);
+      color: var(--text-color--1);
   }
-
-  //.nasal {
-  //  display: none;
-  //}
-
 }
 
 
-.hover-tooltip .hover-tooltip__word-div b {
+.hover-tooltip__pitch-accent:empty:before {
+  content: "(N/A)"
+}
+
+.hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
+  /* cancels out extra colors */
+  .pitchoverline:after, .downstep:before {
+    --pa-overline-color: var(--text-color--1);
+  }
+
+  b .pitchoverline:after, b .downstep:before {
+    --pa-overline-color: var(--text-color--2);
+  }
+}
+
+
+/* used to highlight kanji-hover kanjis */
+.hover-tooltip__word-span b {
   @include common.bold_highlight;
 }
 
@@ -1173,17 +1372,9 @@ code {
 
   .hover-tooltip__pitch-accent {
 
-    .pitchoverline:after {
-      filter: opacity(70%);
+    .pitchoverline:after, .downstep:before {
+      --pa-overline-color: var(--text-color--1);
     }
-
-    .downstep:before {
-      filter: opacity(70%);
-    }
-
-    //.nopron, .nasal {
-    //  filter: opacity(70%);
-    //}
 
     .nopron {
       color: var(--text-color--1);
@@ -1192,8 +1383,66 @@ code {
   }
 }
 
-.hover-tooltip .hover-tooltip__sent-div b {
+
+
+@media (min-resolution: 2dppx) { /* >= 2dppx */
+
+  .hover-tooltip__pitch-accent {
+    /* cancels out bolded colors */
+    b {
+      --pa-overline-color: var(--text-color);
+    }
+    .nopron {
+        color: var(--text-color);
+    }
+  }
+
+  .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
+    /* cancels out extra colors */
+    .pitchoverline:after, .downstep:before {
+      --pa-overline-color: var(--text-color);
+    }
+
+    b .pitchoverline:after, b .downstep:before {
+      --pa-overline-color: var(--text-color--1);
+    }
+  }
+
+  /* greys out the card if new (not reviewed yet) */
+  /* this is repeated code so the above doesn't override the standard colors */
+  .hover-tooltip__card--new {
+    .hover-tooltip__pitch-accent {
+      .pitchoverline:after, .downstep:before {
+        --pa-overline-color: var(--text-color--1);
+      }
+    }
+  }
+
+}
+
+
+
+
+///* tests for pixel density (>= 2ddpx condition is usually for phones) */
+//@media (max-resolution: 2dppx) { /* <= 2dppx */
+//  .pitchoverline:after, .downstep:before {
+//    /* TODO HOW TO HANDLE THE DEFAULT CASE??? */
+//    /*filter: opacity(0.7); /* because regular computer screens seem to display it brighter than normal? */
+//  }
+//}
+//@media (min-resolution: 2dppx) { /* >= 2dppx */
+//  .pitchoverline:after, .downstep:before {
+//    filter: opacity(0.95); /* even phone screens still display it lighter than normal??? */
+//  }
+//}
+
+.hover-tooltip__sent-div b {
   font-weight: normal;
+}
+
+.hover-tooltip__card--sentence-only .hover-tooltip__sent-div b {
+  color: var(--accent);
+  font-weight: bold;
 }
 
 .hover-tooltip__word-div--clickable {
@@ -1208,9 +1457,15 @@ code {
   visibility: visible;
 }
 
+.hover-tooltip__card--separator {
+  margin-top: 10px;
+  border-bottom: 1px solid var(--text-color--4);
+}
 
-.hover-tooltip__pitch-accent:before {
-  content: "　";
+
+
+.hover-tooltip__pitch-accent {
+  margin-left: 1em;
 }
 
 .hover-tooltip-wrapper {
@@ -1218,7 +1473,7 @@ code {
   color: var(--text-color);
 
   font-size: 18px;
-  font-family: notosans;
+  font-family: var(--jp-sans);
   text-align: left;
   position: absolute;
   width: 620px;
@@ -1296,6 +1551,97 @@ code {
 
 
 
+/*
+ * -----------------------------------------
+ *  Def Header Left - Word PA bold override
+ * -----------------------------------------
+ * overwriting the bold ability:
+ * - bold == not the correct sound used in the sound clip
+ *
+ */
+
+.dh-left__word-pitch {
+  @include common.bold-pitch;
+}
+
+.dh-left__word-pitch-text:empty:before {
+  content: "(N/A)"
+}
+
+
+.pa-word-highlight-pitch-overline {
+  .pa-group-heiban {
+    --pa-overline-color: var(--text-heiban);
+  }
+  .pa-group-atamadaka  {
+    --pa-overline-color: var(--text-atamadaka);
+  }
+  .pa-group-nakadaka {
+    --pa-overline-color: var(--text-nakadaka);
+  }
+  .pa-group-odaka {
+    --pa-overline-color: var(--text-odaka);
+  }
+  .pa-group-kifuku {
+    --pa-overline-color: var(--text-kifuku);
+  }
+}
+
+.pa-word-highlight-pitch-kana {
+  .pa-group-heiban {
+    color: var(--text-heiban);
+  }
+  .pa-group-atamadaka  {
+    color: var(--text-atamadaka);
+  }
+  .pa-group-nakadaka {
+    color: var(--text-nakadaka);
+  }
+  .pa-group-odaka {
+    color: var(--text-odaka);
+  }
+  .pa-group-kifuku {
+    color: var(--text-kifuku);
+  }
+}
+
+
+.pa-word-highlight-heiban {
+  color: var(--text-heiban);
+}
+.pa-word-highlight-atamadaka {
+  color: var(--text-atamadaka);
+}
+.pa-word-highlight-nakadaka {
+  color: var(--text-nakadaka);
+}
+.pa-word-highlight-odaka {
+  color: var(--text-odaka);
+}
+.pa-word-highlight-kifuku {
+  color: var(--text-kifuku);
+}
+
+.pa-sentence-highlight-heiban b {
+  color: var(--text-heiban);
+}
+.pa-sentence-highlight-atamadaka b {
+  color: var(--text-atamadaka);
+}
+.pa-sentence-highlight-nakadaka b {
+  color: var(--text-nakadaka);
+}
+.pa-sentence-highlight-odaka b {
+  color: var(--text-odaka);
+}
+.pa-sentence-highlight-kifuku b {
+  color: var(--text-kifuku);
+}
+
+
+
+
+
 
 
 
@@ -1342,15 +1688,16 @@ code {
 
 
 .dh-right {
-  font-size: 40px;
+  font-size: var(--picture-font-size);
   max-width: 400px;
   max-height: 210px;
   position: relative;
 }
 
 
-.dh-right--contains-image {
-  padding-left: 35px;
+.def-header--has-img > .dh-right {
+  /* this is padding to prevent overriding the margin-left, margin-right variables in responsive */
+  padding-left: var(--dh-right-image-gap);
 }
 
 
@@ -1368,14 +1715,14 @@ code {
 
 
 
-/* experimental mobile class */
-.dh-right--around-word {
-  max-height: 50px !important;
-
-  .dh-right__img {
-    max-height: 50px !important;
-  }
-}
+///* experimental mobile class */
+//.dh-right--around-word {
+//  max-height: 50px !important;
+//
+//  .dh-right__img {
+//    max-height: 50px !important;
+//  }
+//}
 
 
 
@@ -1385,18 +1732,7 @@ code {
   border-radius: 5px;
 }
 
-.dh-right__img-container-nsfw-blur {
-}
-
-/* moved the hover element to the div to prevent the size transform transition from showing */
-.dh-right__img-container--clickable {
-  cursor: pointer;
-  transition: filter 0.3s;
-}
-
-/* not applied to the image because of above comment (prevent showing the transition) */
-.dh-right__img-container--clickable:hover {
-  filter: brightness(var(--image-hover-brightness));
+.dh-right__img-container-blur-wrapper {
 }
 
 
@@ -1440,14 +1776,14 @@ code {
 
 
 /* no transition so it doesn't flash the user when flipping the card */
-.nsfw-blur-init {
+.img-blur-filter-init {
   filter: blur(30px);
 }
-.nsfw-blur {
+.img-blur-filter {
   filter: blur(30px);
   transition: filter 0.2s;
 }
-.nsfw-no-blur {
+.img-blur-filter-disable {
   transition: filter 0.2s;
 }
 
@@ -1558,15 +1894,24 @@ code {
   display: flex;
 }
 
+//.full-sentence-gradient {
+//  position: absolute;
+//  width: 100%;
+//  height: 100%;
+//}
 
 .full-sentence {
   font-size: var(--full-sentence-font-size);
   margin: 0.3em 0 0.3em 0;
-  font-family: notoserif;
+  font-family: var(--jp-serif);
 
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+
+  b {
+    font-weight: var(--bold-font-weight);
+  }
 }
 
 
@@ -1640,6 +1985,19 @@ code {
  *  Definitions and collapsable boxes
  * -----------------------------------
  */
+//.all-definitions {
+//  position: relative;
+//}
+.folder-tab {
+  display: none;
+}
+.primary-def-folder-tab-text {
+  display: none;
+}
+
+
+
+
 .glossary-blockquote {
   text-align: left;
   background: var(--background-darken);
@@ -1650,15 +2008,48 @@ code {
 
   /* so pictures can be encased properly */
   overflow: hidden;
-}
 
-.glossary-blockquote p {
-  display: inline;
+  p {
+    display: inline;
+  }
+
+  b {
+    font-weight: var(--bold-font-weight);
+  }
 }
 
 .glossary-details {
   font-size: var(--glossary-font-size);
   margin: 0.5em 0 0 0;
+}
+
+.glossary-blockquote--hide-first-line .glossary-text ol li {
+  .dict-group__tag-list {
+    display: none;
+  }
+  .dict-group__glossary--first-line {
+    display: none;
+  }
+  .dict-group__glossary--first-line-break {
+    display: none;
+  }
+}
+
+.glossary-blockquote--hide-tags .glossary-text ol li {
+  .dict-group__tag-list {
+    display: none;
+  }
+}
+
+.glossary-blockquote--hide-extra-text .glossary-text ol li {
+  .dict-group__glossary--first-line {
+    display: none;
+  }
+}
+
+.glossary-blockquote--hide-list-numbers ol {
+  list-style: none;
+  padding-left: 0em;
 }
 
 
@@ -1685,6 +2076,23 @@ code {
 
 }
 
+/* removes floating pictures (TODO: what is this for???) */
+.glossary-primary-definition--remove-pictures {
+
+  .glossary-primary-definition__right .glossary-primary-definition__img {
+    display: none !important;
+  }
+
+  .glossary-primary-definition__right--completely-hide {
+    /* hides the right completely if no external links */
+    display: none !important;
+  }
+
+  .glossary-primary-definition__left {
+    display: none !important;
+  }
+}
+
 /* added on the actual img tag */
 .glossary-primary-definition__raw-img {
 }
@@ -1702,6 +2110,11 @@ code {
   /* aligns boxes within float to right */
   .glossary__external-links, .glossary-primary-definition__img {
     margin-left: auto;
+  }
+
+  .glossary-primary-definition__img {
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 }
 
@@ -1730,7 +2143,7 @@ code {
  */
 
 /*
- * Purpose of glossary-primary-definition--auto-no-lenience classes:
+ * Purpose of glossary-primary-definition--auto-no-lenience class:
  *
  * if the definition is empty:
  *     place to left
@@ -1791,7 +2204,8 @@ code {
   display: inline-block;
 }
 
-.glossary__image-hover-text {
+a.glossary__image-hover-text {
+  text-decoration: none !important; /* override styles for ankidroid */
 }
 
 .glossary__image-hover-media {
@@ -1811,7 +2225,7 @@ code {
   /* see: https://docs.ankiweb.net/templates/styling.html#image-resizing */
   max-height: 500px !important;
   max-width:  100px !important;
-  box-shadow: var(--glossary-image-hover-border);
+  box-shadow: var(--glossary-image-hover-border) !important; /* !important to override minimalist-mode */
 }
 
 /* so the image doesn't disappear once you move your mouse away from the text */
@@ -1898,7 +2312,7 @@ code {
   background: var(--external-links-background);
   text-decoration: none !important; /* !important for ankidroid */
 
-  box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
+  box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color) !important; /* !important to override minimalist-mode */
   border-radius: 2px;
 
   //transition: filter 0.2s;
@@ -1910,25 +2324,13 @@ code {
   height: var(--external-links-icon-size);
 }
 
+.glossary__external-links a:active .glossary__external-links-inner {
+  margin-top: 1px;
+  filter: opacity(0.6);
+}
 
 .glossary__external-links a:not(:hover) {
   filter: opacity(0.5) grayscale(0.5);
-}
-
-
-
-/* contains the frequencies, and version for mobile */
-.card-description-right {
-  --card-description-color: var(--text-color--4);
-  color: var(--card-description-color);
-
-  float: right;
-  font-family: notoserif;
-
-  /* hides on non-mobile */
-  .card-description-ver {
-    display: none;
-  }
 }
 
 
@@ -1941,7 +2343,7 @@ code {
 .frequencies {
   display: flex;
   gap: 10px;
-  font-family: notoserif;
+  font-family: var(--jp-serif);
   font-size: var(--description-font-size);
   line-height: 85%;
 }
@@ -1976,11 +2378,31 @@ code {
 }
 
 
+.unknown-freq-number {
+  display: none;
+}
+
+/*
+The following can be used instead of the above to display the unknown frequency number
+(default number for unkonwn frequencies):
+
+.unknown-freq-number:before {
+  content: " ("
+}
+.unknown-freq-number:after {
+  content: ")"
+}
+ */
+
+
 
 .hover-tooltip-wrapper--frequencies-overflow {
-  left: -372px;
-  top: 27px;
-  width: 400px;
+  /* 20px is to account for the width of the dropdown arrow I think */
+  --overflow-min-width: 200px;
+  --overflow-max-width: 400px;
+  left: calc(-1 * max(min(60vw, var(--overflow-max-width)) - 20px, var(--overflow-min-width) - 20px));
+  bottom: 0px;
+  width: max(var(--overflow-min-width), min(60vw, var(--overflow-max-width)));
   text-align: right;
 }
 
@@ -1993,15 +2415,9 @@ code {
   justify-content: flex-end;
 }
 
+/* the arrow (removed) */
 .hover-tooltip--frequencies-overflow:after {
-  content: "";
-  /* position tooltip correctly */
-  left: 371px;
-  top: -16px;
-  /* the arrow */
-  z-index: 1;
-  border: 8px solid transparent;
-  border-color:  transparent transparent  var(--tooltip-background-darken) transparent;
+  display: none;
 }
 
 
@@ -2031,92 +2447,100 @@ code {
 
 
 
-/*
- * =======================
- *  vertical text support
- * =======================
- * TODO: test on mobile (padding & max-height!)
- */
+///*
+// * =======================
+// *  vertical text support
+// * =======================
+// * TODO: test on mobile (padding & max-height!)
+// */
+//
+//.card-wrapper--vertical-display.card-wrapper {
+//  display: grid;
+//  grid-template-rows: max-content 1fr;
+//  height: calc(100vh - var(--vertical-display-header-height-calc));
+//}
+//
+//.card-wrapper--vertical-display {
+//  .card-header {
+//    //border: solid 1px red;
+//  }
+//
+//  .expression--sentence {
+//    font-size: var(--vertical-sentence-font-size);
+//  }
+//
+//
+//  .card-main--front {
+//    display: flex;
+//    //border: solid 1px green;
+//    writing-mode: vertical-rl;
+//
+//    .expression-wrapper {
+//      // centers text
+//      margin-left: auto;
+//      margin-right: auto;
+//      //border: solid 1px blue;
+//    }
+//  }
+//
+//  .card-main--back {
+//    display: flex;
+//    flex-direction: row-reverse;
+//    margin-right: auto;
+//    margin-left: auto;
+//
+//    /* so quote aligns with top better */
+//    //.expression--sentence {
+//    //  padding-top: 0em;
+//    //}
+//
+//    .expression-wrapper {
+//      writing-mode: vertical-rl;
+//      height: calc(100vh - var(--vertical-display-header-height-calc) - var(--vertical-display-margin-top));
+//
+//      position: sticky;
+//      top: 0px;
+//    }
+//
+//    //  //border: solid 1px green;
+//    //  writing-mode: vertical-rl;
+//    //  margin-right: auto;
+//    //  margin-top: auto; // I'm not sure why this works but it aligns the text to the top?
+//
+//    .back-side {
+//      margin-top: var(--vertical-display-margin-top);
+//      writing-mode: initial;
+//      //margin-left: auto;
+//    }
+//
+//
+//    /* the line honestly looks ugly here */
+//    .answer-border {
+//      display: none;
+//    }
+//
+//  }
+//
+//
+//  /* only affects the front */
+//  .below-display-top-row {
+//    margin-top: 0px;
+//    margin-bottom: auto;
+//
+//    .pa-button, .sentence_audio {
+//      margin-left: auto;
+//      margin-right: auto;
+//    }
+//  }
+//
+//
+//}
 
-.card-wrapper--vertical-display.card-wrapper {
-  display: grid;
-  grid-template-rows: max-content 1fr;
-  height: calc(100vh - var(--vertical-display-header-height-calc));
+
+/* TODO move to a new utilities folder */
+
+.hidden {
+  display: none;
 }
 
-.card-wrapper--vertical-display {
-  .card-header {
-    //border: solid 1px red;
-  }
-
-  .expression--sentence {
-    font-size: var(--vertical-sentence-font-size);
-  }
-
-
-  .card-main--front {
-    display: flex;
-    //border: solid 1px green;
-    writing-mode: vertical-rl;
-
-    .expression-wrapper {
-      // centers text
-      margin-left: auto;
-      margin-right: auto;
-      //border: solid 1px blue;
-    }
-  }
-
-  .card-main--back {
-    display: flex;
-    flex-direction: row-reverse;
-    margin-right: auto;
-    margin-left: auto;
-
-    /* so quote aligns with top better */
-    //.expression--sentence {
-    //  padding-top: 0em;
-    //}
-
-    .expression-wrapper {
-      writing-mode: vertical-rl;
-      height: calc(100vh - var(--vertical-display-header-height-calc) - var(--vertical-display-margin-top));
-
-      position: sticky;
-      top: 0px;
-    }
-
-    //  //border: solid 1px green;
-    //  writing-mode: vertical-rl;
-    //  margin-right: auto;
-    //  margin-top: auto; // I'm not sure why this works but it aligns the text to the top?
-
-    .back-side {
-      margin-top: var(--vertical-display-margin-top);
-      writing-mode: initial;
-      //margin-left: auto;
-    }
-
-
-    /* the line honestly looks ugly here */
-    .answer-border {
-      display: none;
-    }
-
-  }
-
-
-  /* only affects the front */
-  .below-display-top-row {
-    margin-top: 0px;
-    margin-bottom: auto;
-
-    .pa-button, .sentence_audio {
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
-
-}
 

@@ -1,55 +1,73 @@
 {# impl #}
-{% from "jp-mining-note/macros/pa_indicator.html" import pa_indicator with context %}
 
 <div class="expression">
-  {% call IF("IsHoverCard") %}
+
+  {% call IF("IsAudioCard") %}
     {% filter indent(4) %}
-    {% include "jp-mining-note/main/partials/display/hover.html" %}
+    {% include "jp-mining-note/main/partials/display/audio.html" %}
     {% endfilter %}
-  {% endcall %} {# IF IsHoverCard #}
+  {% endcall %} {# IF IsAudioCard #}
 
-  {% call IFNOT("IsHoverCard") %}
-    {% call IF("IsClickCard") %}
-      {% filter indent(6) %}
-      {% include "jp-mining-note/main/partials/display/click.html" %}
+  {% call IFNOT("IsAudioCard") %}
+    {% call IF("IsSentenceFirstCard") %}
+      {% filter indent(4) %}
+      {% include "jp-mining-note/main/partials/display/sentence_first.html" %}
       {% endfilter %}
-    {% endcall %} {# IF IsClickCard #}
+    {% endcall %} {# IF IsSentenceFirstCard #}
 
-    {% call IFNOT("IsClickCard") %}
-
-      {% call IF("IsHintCard") %}
-        {% filter indent(8) %}
-        {% include "jp-mining-note/main/partials/display/hint.html" %}
+    {% call IFNOT("IsSentenceFirstCard") %}
+      {% call IF("IsHoverCard") %}
+        {% filter indent(6) %}
+        {% include "jp-mining-note/main/partials/display/hover.html" %}
         {% endfilter %}
-      {% endcall %}
+      {% endcall %} {# IF IsHoverCard #}
 
-      {% call IFNOT("IsHintCard") %}
-
-        {% call IF("IsTargetedSentenceCard") %}
+      {% call IFNOT("IsHoverCard") %}
+        {% call IF("IsClickCard") %}
           {% filter indent(8) %}
-          {% include "jp-mining-note/main/partials/display/tsc.html" %}
+          {% include "jp-mining-note/main/partials/display/click.html" %}
           {% endfilter %}
-        {% endcall %}
+        {% endcall %} {# IF IsClickCard #}
 
-        {% call IFNOT("IsTargetedSentenceCard") %}
-          {% call IF("IsSentenceCard") %}
+        {% call IFNOT("IsClickCard") %}
+
+          {% call IF("IsHintCard") %}
             {% filter indent(10) %}
-            {% include "jp-mining-note/main/partials/display/sentence.html" %}
+            {% include "jp-mining-note/main/partials/display/hint.html" %}
             {% endfilter %}
           {% endcall %}
 
-          {% call IFNOT("IsSentenceCard") %}
-            {% filter indent(10) %}
-            {% include "jp-mining-note/main/partials/display/word.html" %}
-            {% endfilter %}
-          {% endcall %}
-        {% endcall %} {# ISNOT IsTargetedSentenceCard #}
+          {% call IFNOT("IsHintCard") %}
 
-      {% endcall %} {# ISNOT IsHintCard #}
+            {% call IF("IsTargetedSentenceCard") %}
+              {% filter indent(12) %}
+              {% include "jp-mining-note/main/partials/display/tsc.html" %}
+              {% endfilter %}
+            {% endcall %}
 
-    {% endcall %} {# IFNOT IsClickCard #}
+            {% call IFNOT("IsTargetedSentenceCard") %}
+              {% call IF("IsSentenceCard") %}
+                {% filter indent(14) %}
+                {% include "jp-mining-note/main/partials/display/sentence.html" %}
+                {% endfilter %}
+              {% endcall %}
 
-  {% endcall %} {# IFNOT IsHoverCard #}
+              {% call IFNOT("IsSentenceCard") %}
+                {% filter indent(14) %}
+                {% include "jp-mining-note/main/partials/display/word.html" %}
+                {% endfilter %}
+              {% endcall %}
+            {% endcall %} {# ISNOT IsTargetedSentenceCard #}
+
+          {% endcall %} {# ISNOT IsHintCard #}
+
+        {% endcall %} {# IFNOT IsClickCard #}
+
+      {% endcall %} {# IFNOT IsHoverCard #}
+
+    {% endcall %} {# IFNOT IsSentenceFirstCard #}
+
+  {% endcall %} {# IFNOT IsAudioCard #}
 
 </div> <!-- expression box -->
 

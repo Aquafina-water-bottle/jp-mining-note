@@ -1,5 +1,5 @@
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE =============== ~}}
-{{~!                               v1.0.1                                 ~}}
+{{~!                               v1.0.6                                 ~}}
 
 {{~!
     ==================
@@ -16,20 +16,20 @@
         {{~#set "rx-match-ignored" ~}}
             {{~#regexMatch (get "ignored-dict-regex") "gu"~}}{{dictionaryName}}{{~/regexMatch~}}
         {{/set~}}
-        {{~#set "rx-match-bilingual" ~}}
-            {{~#regexMatch (get "bilingual-dict-regex") "gu"~}}{{dictionaryName}}{{~/regexMatch~}}
-        {{/set~}}
         {{~#set "rx-match-utility" ~}}
             {{~#regexMatch (get "utility-dict-regex") "gu"~}}{{dictionaryName}}{{~/regexMatch~}}
+        {{/set~}}
+        {{~#set "rx-match-bilingual" ~}}
+            {{~#regexMatch (get "bilingual-dict-regex") "gu"~}}{{dictionaryName}}{{~/regexMatch~}}
         {{/set~}}
 
 
         {{~#if (op "!==" (get "rx-match-ignored") "")~}}
             ignored
-        {{~else if (op "!==" (get "rx-match-bilingual") "")~}}
-            bilingual
         {{~else if (op "!==" (get "rx-match-utility") "")~}}
             utility
+        {{~else if (op "!==" (get "rx-match-bilingual") "")~}}
+            bilingual
         {{~else~}}
             {{~! assumed that anything else is a monolingual dictionary ~}}
             monolingual
@@ -701,7 +701,10 @@ is a part of a dictionary) ~}}
             (op "===" (get "opt-jmdict-list-format") true)
             (op "||"
                 (op "===" dictionary "JMdict (English)")
-                (op "===" dictionary "JMdict")
+                (op "||"
+                    (op "===" dictionary "JMdict Extra")
+                    (op "===" dictionary "JMdict")
+                )
             )
         )
         ~}}
@@ -1039,6 +1042,13 @@ is a part of a dictionary) ~}}
 {{~#*inline "jpmn-primary-definition"~}}
 
     {{~#scope~}}
+
+        {{~! output warning if no dictionaries are found ~}}
+        {{~#if (op "===" definition.definitions.length undefined)~}}
+WARNING: JPMN Handlebars cannot find any definitions to export.
+This is usually because your Yomichan settings has "Result grouping mode"
+set to "No grouping". Please set this to "Group term-reading pairs".
+        {{~/if~}}
 
         {{~#set "primary-dictionary"}}{{~> _jpmn-get-primary-definition-dict . ~}}{{/set~}}
 

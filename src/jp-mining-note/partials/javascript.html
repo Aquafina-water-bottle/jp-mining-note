@@ -1,0 +1,17 @@
+{# impl #}
+
+{% if not COMPILE_OPTIONS("hardcodedRuntimeOptions").item() %}
+<script id="jpmn_options_script" src="_jpmn-options.js"></script>
+{% endif %}
+
+<!-- See here for the source typescript code: https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/src/ts -->
+{% autoescape false %}
+<script>
+{{- include_raw("_js/" + "_".join([
+  CARD_INFO("js-prefix").item(),
+  CARD_INFO("card-type").item(),
+  CARD_INFO("card-side").item(),
+]) + ".js") -}}
+</script>
+{% endautoescape %}
+

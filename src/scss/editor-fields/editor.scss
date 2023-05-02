@@ -24,13 +24,13 @@
 /* index number of where the field group starts (all indices start at 1) */
 $field-group-start--word:    2;  /* group of 2 */
 $field-group-start--pa:      4;  /* group of 3 */
-$field-group-start--binary:  17; /* group of 11 */
-$field-group-start--autogen: 34; /* group of 4 */
+$field-group-start--binary:  18; /* group of 11 */
+$field-group-start--autogen: 38; /* group of 4 */
 
 //$extra-padding-bottom: 8, 10, 13, 16, 37, 40;
-$extra-padding-top: 7, 9, 11, 14, 17,18,19,20, 28, 38, 41;
+$extra-padding-top: 7, 9, 11, 15, 18,19,20,21, 32, 42, 45;
 
-$extra-padding-bottom: 4,5,6, 8, 10, 13, 16, 25,26,27, 34,35,36,37, 40;
+$extra-padding-bottom: 4,5,6, 8, 10, 14, 17, 28,29,30,31, 38,39,40,41, 44;
 
 //$extra-padding-sides: 9, 10, 14, 15, 16;
 
@@ -112,7 +112,7 @@ $extra-padding-bottom: 4,5,6, 8, 10, 13, 16, 25,26,27, 34,35,36,37, 40;
   /* PAOverride, PAOverrideText, AJTWordPitch */
   @include combine-row($field-group-start--pa, 3);
 
-  @include combine-row($field-group-start--binary, 4, 4, 3);
+  @include combine-row($field-group-start--binary, 4, 3, 3, 4);
 
   @include combine-row($field-group-start--autogen, 4);
 
@@ -123,15 +123,15 @@ $extra-padding-bottom: 4,5,6, 8, 10, 13, 16, 25,26,27, 34,35,36,37, 40;
 
   [notetype="JP Mining Note"] .fields {
 
-    $remove-top: 19,20;
-    $remove-bottom: 4,5, 25,26, 34,35;
+    $remove-top: 20,21;
+    $remove-bottom: 4,5, 28,29, 38,39;
 
     @include extra-padding-top-remove($remove-top);
     @include extra-padding-bottom-remove($remove-bottom);
 
     @include combine-row($field-group-start--pa, 2, 1);
 
-    @include combine-row($field-group-start--binary, 2, 2, 2, 2, 2, 1);
+    @include combine-row($field-group-start--binary, 2, 2, 2, 2, 2, 2, 2);
 
     @include combine-row($field-group-start--autogen, 2, 2);
 

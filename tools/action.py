@@ -7,32 +7,6 @@ from typing import Callable
 
 from utils import invoke
 
-@dataclass
-class OptAction(ABC):
-    pass
-
-# additions and deletions do not have to be accounted for
-# as they will be automatically added / removed naturally due to the
-# updated nature of the template string
-
-@dataclass
-class MoveOptAction(OptAction):
-    key_src: str
-    key_dest: str
-
-@dataclass
-class OverwriteValueOptAction(OptAction):
-    key: str
-    value: str
-
-@dataclass
-class ChangeDefaultValueOptAction(OptAction):
-    key: str
-    value: str
-    default_val: str
-
-
-
 
 @dataclass
 class Action(ABC):
@@ -42,6 +16,11 @@ class Action(ABC):
 
     def run(self, **args):
         pass
+
+    # I have to define it for every object??? just having it here doesn't work
+    # pretty sure it has to do with dataclass somehow
+    #def __hash__(self) -> int:
+    #    return hash(id(self))
 
 
 @dataclass
@@ -83,6 +62,9 @@ class SetField(Action):
 
         return invoke("multi", actions=actions)
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class RenameField(Action):
@@ -104,6 +86,9 @@ class RenameField(Action):
             newFieldName=self.new_field_name,
         )
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class MoveField(Action):
@@ -124,6 +109,9 @@ class MoveField(Action):
                 fieldName=self.field_name,
                 index=self.index,
             )
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 @dataclass
@@ -151,6 +139,9 @@ class AddField(Action):
             index=index,
         )
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class DeleteField(Action):
@@ -167,6 +158,9 @@ class DeleteField(Action):
             modelName="JP Mining Note",
             fieldName=self.field_name,
         )
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 @dataclass
 class ChangeFieldFontSize(Action):
@@ -186,6 +180,9 @@ class ChangeFieldFontSize(Action):
     def run(self, **args):
         raise NotImplementedError()
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class YomichanTemplatesChange(UserAction):
@@ -197,6 +194,9 @@ class YomichanTemplatesChange(UserAction):
         self.edits_cards = False
         self.unique = True
         self.ankiconnect_actions = set()
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 @dataclass
@@ -215,6 +215,9 @@ class YomichanFormatChange(UserAction):
         self.unique = False
         self.ankiconnect_actions = set()
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class AJTPitchAccentConfigChange(UserAction):
@@ -229,6 +232,9 @@ class AJTPitchAccentConfigChange(UserAction):
         self.unique = False
         self.ankiconnect_actions = set()
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class AJTFuriganaconfigChange(UserAction):
@@ -242,6 +248,9 @@ class AJTFuriganaconfigChange(UserAction):
         self.edits_cards = False
         self.unique = False
         self.ankiconnect_actions = set()
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 @dataclass
@@ -262,6 +271,9 @@ class BatchUpdate(Action):
                 traceback.print_exc()
                 print("Batch update failed. Please report this to the developer! Skipping error...")
 
+    def __hash__(self) -> int:
+        return hash(id(self))
+
 
 @dataclass
 class NoteToUser(UserAction):
@@ -271,6 +283,9 @@ class NoteToUser(UserAction):
         self.edits_cards = False
         self.unique = False
         self.ankiconnect_actions = set()
+
+    def __hash__(self) -> int:
+        return hash(id(self))
 
 
 if __name__ == "__main__":

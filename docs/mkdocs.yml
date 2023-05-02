@@ -6,12 +6,15 @@ site_description: Documentation for the jp-mining-note project.
 
 repo_url: https://github.com/Aquafina-water-bottle/jp-mining-note
 repo_name: jp-mining-note
-edit_uri: edit/master/docs/docs/
-site_url: https://aquafina-water-bottle.github.io/jp-mining-note/
+#edit_uri: edit/master/docs/docs/
+edit_uri: edit/dev/docs/docs/
+#site_url: https://aquafina-water-bottle.github.io/jp-mining-note/
+site_url: https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/
 
 theme:
   name: material
   custom_dir: docs/overrides
+  logo: assets/logo.png
 
   palette:
     # Palette toggle for dark mode
@@ -28,7 +31,6 @@ theme:
         name: Switch to dark mode
 
 
-  #logo: assets/ideogram-cjk-variant.svg
   #favicon: assets/smallmarisa.png
   features:
     # single page application
@@ -41,10 +43,18 @@ theme:
     - header.autohide
 
     - navigation.tabs
-    #- navigation.tabs.sticky
     - navigation.sections
 
     - content.code.annotate
+
+    # copy-to-clipboard buttons for all code blocks
+    - content.code.copy
+
+    # view source
+    - content.action.view
+
+    # arrows <- and -> in footer
+    - navigation.footer
 
   icon:
     repo: fontawesome/brands/github
@@ -64,7 +74,7 @@ plugins:
 
 nav:
   - Home:
-    - Home: index.md
+    - Home (TODO): index.md
     - Getting Started:
       - Preface: preface.md
       - Alternatives: alternatives.md
@@ -76,28 +86,51 @@ nav:
     - "Setup: Other": setupother.md
     - Transfer Existing Notes: importing.md
     - Updating: updating.md
+    - Setup Changes: setupchanges.md
   - Reference:
-    - User Interface: ui.md
-    - UI Customization: uicustomization.md
-    - Field Reference: fieldref.md
-    - Definitions: definitions.md
+    - Quick Start (TODO): quickstart.md
+    - Blockquotes (TODO): blockquotes.md
+    - Definitions (TODO): definitions.md
+    - Sentences (TODO): sentences.md
+    - Card Types: cardtypes.md
+    - Changing Card Type (TODO): changingcardtype.md
+    - More on Card Types (TODO): cardtypes2.md
+    - Keybinds: keybinds.md
     - Images: images.md
     - Pitch Accent: autopa.md
-    - Card Types: cardtypes.md
+    - Kanji Hover (TODO): kanjihover.md
+    - Word Indicators (TODO): wordindicators.md
     - Tooltip Results (TODO): tooltipresults.md
+    - Info Circle (TODO): infocircle.md
+    - Frequencies (TODO): frequencies.md
+    - External Links (TODO): externallinks.md
+    - Fields (TODO): fields.md
+    - Batch Commands (TODO): batch.md
+    - Other (TODO): other.md
     - Options:
-      - Runtime Options: runtimeoptions.md
-      - Compile-Time Options: compiletimeoptions.md
-      - Yomichan Template Options: yomichantemplates.md
-    - Developer Documentation:
-      - Modding Overview: modding.md
-      - Building: building.md
-      - Custom CSS: customcss.md
-      - Custom HTML (Overrides): overrides.md
-      - Custom JS (Modules): modules.md
-      - "Tips & Tricks": moddingtips.md
+      - Runtime Options (TODO): runtimeoptions.md
+      - Compile-Time Options (TODO): compiletimeoptions.md
+      - Yomichan Template Options (TODO): yomichantemplates.md
+   #- DEPRECATED:
+   #  - User Interface: ui.md
+   #  - UI Customization: uicustomization.md
+   #  - Field Reference: fieldref.md
+  - Dev Docs:
+    - Modding Overview: modding.md
+    - Building: building.md
+    - Custom CSS (TODO): customcss.md
+    - Custom HTML (Overrides) (TODO): overrides.md
+    - Custom JS (Modules) (TODO): modules.md
+    - "Tips & Tricks (TODO)": moddingtips.md
   - "FAQ & Troubleshooting": faq.md
-  - JP Resources: jpresources.md
+  - JP Resources:
+    - JP Resources: jpresources.md
+    - JPMN Handlebars Package: jpmnhandlebars.md
+    - Anki Scripts (TODO): scripts.md
+    - Other: jpresourcesother.md
+
+extra:
+  generator: false
 
 extra_css:
   - stylesheets/extra.css
@@ -115,6 +148,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.keys
 
   - admonition
   - pymdownx.details
