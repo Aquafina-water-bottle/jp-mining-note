@@ -489,7 +489,7 @@
     // anything visible, so hopefully this is fine to ignore.
     // Related report: https://forums.ankiweb.net/t/29185
     "/_anki/js/reviewer.js:7:112035)", // 2.1.61
-    "/_anki/js/reviewer.js:7:113091)", // 2.1.62
+    "/_anki/js/reviewer.js:7:113091)" // 2.1.62
   ],
 
   // Overrides the play keybind button to show the sentence if the
