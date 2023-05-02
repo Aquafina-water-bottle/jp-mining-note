@@ -49,7 +49,7 @@ action:
         // TODO update this!
         {
           type: "NoteToUser", params: [
-            "Update Notes Permalink: TODO"
+            "Required changes: https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupchanges/#v0-12-0-0"
           ]
         },
 
