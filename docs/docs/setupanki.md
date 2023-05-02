@@ -126,7 +126,7 @@ I use the default config that comes with the add-on.
 
 If you installed JPMN Manager, you likely already have this installed.
 
-??? note "Note for Anki versions 2.1.49 and below"
+??? note "Note for Anki versions 2.1.49 and below {{CLICK_HERE}}"
 
     This is left for legacy purposes, because jp-mining-note
     no longer officially supports versions 2.1.49 or below.
