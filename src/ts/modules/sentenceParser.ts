@@ -505,7 +505,7 @@ export class SentenceParser extends RunnableModule {
   private compareSentenceReading() {
     const sentence = getFieldValue("Sentence")
     const sentReading = plainToKanjiOnly(getFieldValue("SentenceReading"));
-    if (sentence !== sentReading) {
+    if (sentReading.trim().length !== 0 && sentence.trim() !== sentReading.trim()) {
       this.logger.warn(`The Sentence field is not the same as the SentenceReading field. Your sentence might be displayed incorrectly. See <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">here</a> for more info.`, {isHtml: true})
     }
   }
