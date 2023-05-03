@@ -109,12 +109,13 @@ export class MobilePopup extends Module {
     wordReadingEle: HTMLElement,
     wordReadingRubyHTML: string
   ) {
-    const re = new RegExp(Object.keys(kanjiToHoverHTML).join('|'), 'gi');
-    const resultHTML = wordReadingRubyHTML.replace(re, function (matched) {
-      return `<span data-kanji-hover="${matched}">${matched}</span>`;
-    });
-
-    wordReadingEle.innerHTML = resultHTML;
+    if (Object.keys(kanjiToHoverHTML).length > 0) {
+      const re = new RegExp(Object.keys(kanjiToHoverHTML).join('|'), 'gi');
+      const resultHTML = wordReadingRubyHTML.replace(re, function (matched) {
+        return `<span data-kanji-hover="${matched}">${matched}</span>`;
+      });
+      wordReadingEle.innerHTML = resultHTML;
+    }
 
     // onclick listeners to show popup
     const kanjiEles = wordReadingEle.querySelectorAll('span[data-kanji-hover]');
