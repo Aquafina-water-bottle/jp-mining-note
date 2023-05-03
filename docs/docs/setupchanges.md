@@ -102,8 +102,6 @@ The location of the backup is different depending on the updating method used:
     (repo root)/backup
     ```
 
-
-
 !!! note
     For people using pitch accent coloring, the entire card is now highlighted with the pitch accent group.
     To restore the previous behavior, use these runtime options:
@@ -112,6 +110,47 @@ The location of the backup is different depending on the updating method used:
     "autoPitchAccent.coloredPitchAccent.color.fullSentence": false,
     "autoPitchAccent.coloredPitchAccent.color.definitions": false,
     ```
+
+## Updating Multiple Devices { #v0-12-0-0-multiple-devices }
+
+A common issue with updating multiple devices (for example, updating your phone)
+is that the new runtime options file may not be synced properly.
+This will lead into one of two behaviors:
+
+- On anything that is not AnkiMobile, you will get the following warning:
+    ```
+    JPMNOptions was not defined in the options file. Was there an error?
+    ```
+- On AnkiMobile, no javascript is ran, meaning the mobile tabs will not work.
+
+The official documentation says that
+[adding or removing a media file](https://docs.ankiweb.net/syncing.html?highlight=sync%20media#media)
+should fix this issue.
+However, I received various reports from people saying this does not work.
+A [fool-proof workaround](https://forums.ankiweb.net/t/how-to-sync-updated-css-external-file/5455/3)
+that is guaranteed to work is documented below.
+
+=== "Batch Commands"
+    1. Make sure all devices are synced.
+    1. Run the following {{BATCH_COMMAND}}:
+        ```move_runtime_options_file_to_temp```
+    1. Sync to AnkiWeb
+    1. Run the following {{BATCH_COMMAND}}:
+        ```move_runtime_options_file_to_original```
+    1. Sync to AnkiWeb
+    1. On all other devices, sync from AnkiWeb
+
+=== "Manually"
+    1. Make sure all devices are synced.
+    1. Run the following {{BATCH_COMMAND}}:
+        Rename the `_jpmn-options.js` file to something different manually,
+        i.e. `_jpmn-options-TEMP.js`.
+    1. Sync to AnkiWeb
+    1. Run the following {{BATCH_COMMAND}}:
+        Rename the temporary file (in the example above: `_jpmn-options-TEMP.js`)
+        to the original name (`_jpmn-options.js`).
+    1. Sync to AnkiWeb
+    1. On all other devices, sync from AnkiWeb
 
 
 ## Handlebars { #v0-12-0-0-handlebars }

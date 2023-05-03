@@ -831,6 +831,32 @@ def replace_runtime_options_file():
     _replace_runtime_options_file(backup_folder)
 
 
+def _move_runtime_options_file(to_temp: bool):
+    TEMP_FILE = "_jpmn-options-TEMP.js"
+    OG_FILE = "_jpmn-options.js"
+    media_dir_path = invoke("getMediaDirPath")
+    temp_path = os.path.join(media_dir_path, TEMP_FILE)
+    og_path = os.path.join(media_dir_path, OG_FILE)
+
+    if to_temp: # og -> temp
+        if os.path.isfile(og_path):
+            os.rename(og_path, temp_path)
+            return "Please sync, and then run 'move_runtime_options_file_to_original'"
+        raise RuntimeError("Original runtime options file could not be found. Cannot move to temp file.")
+    else: # temp -> og
+        if os.path.isfile(temp_path):
+            os.rename(temp_path, og_path)
+            return "Please sync again. The options file should be properly updated on all machines after syncing on said machines."
+        raise RuntimeError("Original runtime options file could not be found. Cannot move back to original file.")
+
+
+def move_runtime_options_file_to_temp():
+    return _move_runtime_options_file(to_temp=True)
+
+def move_runtime_options_file_to_original():
+    return _move_runtime_options_file(to_temp=False)
+
+
 # TODO deprecated, remove for 0.12.0.0 release
 def replace_runtime_options_file_anki():
     root_folder = utils.get_root_folder()
@@ -933,6 +959,8 @@ PUBLIC_FUNCTIONS = [
     replace_runtime_options_file,
     fill_field_if_hiragana,
     get_new_due_cards,
+    move_runtime_options_file_to_temp,
+    move_runtime_options_file_to_original,
 ]
 
 # functions available for the anki addon (should be everything but the xelieu function)
@@ -962,6 +990,8 @@ PUBLIC_FUNCTIONS_ANKI = [
     replace_runtime_options_file,
     fill_field_if_hiragana,
     get_new_due_cards,
+    move_runtime_options_file_to_temp,
+    move_runtime_options_file_to_original,
 ]
 
 
@@ -996,7 +1026,9 @@ def main():
     if "func" in args:
         func_args = vars(args)
         func = func_args.pop("func")
-        func(**func_args)
+        result = func(**func_args)
+        if result is not None:
+            print(result)
 
 
 if __name__ == "__main__":

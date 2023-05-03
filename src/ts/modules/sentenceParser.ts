@@ -1,9 +1,10 @@
 import { RunnableModule } from '../module';
 import { checkOptTags } from '../options';
 import { getFieldValue } from '../fields';
-import { plainToKanaOnly, getTags } from '../utils';
+import { plainToKanaOnly, getTags, getCardSide } from '../utils';
 import { compileOpts } from '../consts';
 import { AutoHighlightWord, SearchStrings } from './autoHighlightWord';
+import {plainToKanjiOnly} from '../utils';
 
 export type Sentence = {
   // open quote, sentence, closed quote
@@ -501,8 +502,19 @@ export class SentenceParser extends RunnableModule {
     }
   }
 
+  private compareSentenceReading() {
+    const sentence = getFieldValue("Sentence")
+    const sentReading = plainToKanjiOnly(getFieldValue("SentenceReading"));
+    if (sentence !== sentReading) {
+      this.logger.warn(`The Sentence field is not the same as the SentenceReading field. Your sentence might be displayed incorrectly. See <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">here</a> for more info.`, {isHtml: true})
+    }
+  }
+
   main() {
     this.processDisplaySentences();
     this.processFullSentence();
+    if (getCardSide() === "back" && this.getOption("sentenceParser.checkSentenceReadingEqualsSentence")) {
+      this.compareSentenceReading();
+    }
   }
 }

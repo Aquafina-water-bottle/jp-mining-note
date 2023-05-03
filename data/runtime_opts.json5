@@ -174,6 +174,9 @@
   // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
   "sentenceParser.autoHighlightWord.enabled": true,
 
+  // additional check to make sure the non-furigana'd version of SentenceReading is the exact
+  // same as the Sentence field.
+  "sentenceParser.checkSentenceReadingEqualsSentence": true,
 
 
   // sentenceParser.quotes

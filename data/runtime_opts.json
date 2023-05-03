@@ -54,6 +54,7 @@
   "sentenceParser.enabled": true,
   "sentenceParser.fixDivList.enabled": true,
   "sentenceParser.autoHighlightWord.enabled": true,
+  "sentenceParser.checkSentenceReadingEqualsSentence": true,
   "sentenceParser.quotes.quoteOpen": "\u300c",
   "sentenceParser.quotes.quoteClose": "\u300d",
   "sentenceParser.quotes.matches": [
