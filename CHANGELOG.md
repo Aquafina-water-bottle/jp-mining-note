@@ -213,6 +213,24 @@ and must use `./install.py --update`.
 
 
 <details>
+<summary> Pre-release 5 </summary>
+
+**Features**:
+
+**Fixes**:
+- Implemented caching word indicators with cache.ts
+- Reworked mobile tooltip (kanji hover, word indicators):
+    - Added close button
+    - Height is automatically fitted to the content
+    - Additional height is added to the main card to allow scrolling past the tooltip
+    - Kanji and word indicator is highlighted on selection
+- cache.ts now writes for every 10 cards (just in case)
+
+
+</details>
+
+
+<details>
 <summary> Pre-release 4 </summary>
 
 This pre-release primarily changes some internals with how word indicators work,

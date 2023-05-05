@@ -8,6 +8,7 @@ updateModelTemplates
 """
 
 import os
+import re
 import base64
 import shutil
 import argparse
@@ -26,6 +27,20 @@ import note_changes as nc
 FRONT_FILENAME = "front.html"
 BACK_FILENAME = "back.html"
 CSS_FILENAME = "style.css"
+
+
+CUSTOM_CSS_COMMENT = """
+/*
+ * Any CSS below the line should be preserved between updates.
+ * If you plan on modifying the styles, please insert them below
+ * the line below instead of directly modifying the CSS above.
+ *
+ * DO NOT CHANGE / REMOVE / REPOSITION THE LINE BELOW,
+ * UNLESS YOU KNOW WHAT YOU ARE DOING!!!
+ */
+"""
+CUSTOM_CSS_COMMENT_SEPARATOR = "/* ================ jp-mining-note: INSERT CUSTOM CSS BELOW ================ */"
+rx_CUSTOM_CSS_COMMENT_SEPARATOR = re.compile(r"""/\* ================ jp-mining-note: INSERT CUSTOM CSS BELOW ================ \*/(.*)""", re.DOTALL) # DOTALL is so . matches newline
 
 
 @dataclass(frozen=True)
@@ -96,6 +111,13 @@ def add_args(parser: argparse.ArgumentParser):
         action="store_true",
         default=False,
         help="(dev option) raises errors instead of print & return",
+    )
+
+    group.add_argument(
+        "--override-styling", # TODO use option
+        action="store_true",
+        default=False,
+        help="overrides the css styling of the note, instead of trying to preserve user styles",
     )
 
     group.add_argument(
@@ -206,7 +228,10 @@ class NoteUpdater:
 
         return templates
 
-    def read_model(self) -> NoteType:
+    def read_built_model(self) -> NoteType:
+        """
+        reads the model from the build folder
+        """
         model_name = self.note_data("model-name").item()
 
         return NoteType(
@@ -227,18 +252,41 @@ class NoteUpdater:
             }
         }
 
-    def format_styling(self, model: NoteType) -> Dict[str, Any]:
-        return {"model": {"name": model.name, "css": model.css}}
 
-    def update(self):
-        model = self.read_model()
+    def update_templates(self, model: NoteType):
         if invoke("updateModelTemplates", **self.format_templates(model)) is None:
             template_names = [t.name for t in model.templates]
             print(
                 f"Updated {self.note_data('id').item()} templates {template_names} successfully."
             )
-        if invoke("updateModelStyling", **self.format_styling(model)) is None:
+
+    def update_styling(self, model: NoteType):
+        styling = model.css + CUSTOM_CSS_COMMENT + CUSTOM_CSS_COMMENT_SEPARATOR
+
+        try:
+            # attempts to use user styling
+            # modelStyling returns dictionary of { "css": ... }
+            card_styling = invoke("modelStyling", modelName=model.name)["css"]
+            separator_search = rx_CUSTOM_CSS_COMMENT_SEPARATOR.search(card_styling)
+            if separator_search is not None:
+                styling += separator_search.group(1)
+        except Exception:
+            msg = ("Cannot get existing styling of note. "
+                "The note likely is not installed yet. "
+                "Skipping inline CSS update...")
+            print(msg)
+            styling += "\n" * 10
+
+        if invoke("updateModelStyling", **self.format_styling(model.name, styling)) is None:
             print(f"Updated {self.note_data('id').item()} css successfully.")
+
+    def format_styling(self, model_name: str, model_css: str) -> Dict[str, Any]:
+        return {"model": {"name": model_name, "css": model_css}}
+
+    def update(self):
+        model = self.read_built_model()
+        self.update_templates(model)
+        self.update_styling(model)
 
 
 def b64_decode(contents):

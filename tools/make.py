@@ -329,7 +329,7 @@ class Generator:
                 file.write(result)
 
         elif type == GenerateType.SASS:
-            command = f"npx sass {input_file} {output_file}"
+            command = f"npx sass {input_file} {output_file} --source-map"
             error_code = os.system(command)
             if error_code != 0:
                 print(f"attempted sass command: `{command}`")

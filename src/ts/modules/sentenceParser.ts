@@ -503,6 +503,7 @@ export class SentenceParser extends RunnableModule {
   }
 
   private compareSentenceReading() {
+    // checks whether Sentence == nofurigana(SentenceReading)
     const sentence = getFieldValue("Sentence")
     const sentReading = plainToKanjiOnly(getFieldValue("SentenceReading"));
     if (sentReading.trim().length !== 0 && sentence.trim() !== sentReading.trim()) {
