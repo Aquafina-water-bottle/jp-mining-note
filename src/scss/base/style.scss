@@ -138,16 +138,6 @@ details.glossary-details > summary {
   user-select: none;
 }
 
-/* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
-/* wrap elements in two divs: center-box-1 and center-box-2 */
-.center-box-1 {
-  text-align: center;
-}
-
-.center-box-2 {
-  display: inline-block;
-  text-align: left;
-}
 
 :root {
   --show-toggle-light: inline-block;
@@ -787,7 +777,18 @@ code {
 
 
 .hint {
-  font-size: 16px;
+  font-size: var(--hint-reveal-font-size);
+}
+
+/* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
+.hint--text-wrapper {
+  text-align: center;
+}
+
+.hint-text {
+  font-size: var(--hint-font-size);
+  display: inline-block;
+  text-align: left;
 }
 
 
@@ -1698,7 +1699,6 @@ code {
 .dh-right {
   font-size: var(--picture-font-size);
   max-width: 400px;
-  max-height: 210px;
   position: relative;
 }
 
@@ -1720,6 +1720,12 @@ code {
   user-select: none;
 }
 
+/* sane image limits for when it cannot be adjusted for whatever reason */
+.dh-right--no-js,
+.dh-right--no-js img,
+.dh-right--no-js .dh-right__img-container {
+  max-height: var(--dh-right-image-max-height);
+}
 
 
 

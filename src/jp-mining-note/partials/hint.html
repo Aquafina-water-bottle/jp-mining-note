@@ -1,21 +1,15 @@
 {# impl #}
 {% call IF("HintNotHidden") %}
-  <div class="center-box-1 hint">
-    <div class="center-box-2">
-      <div class="highlight-bold">{{ T("HintNotHidden") }}</div>
-    </div>
+  <div class="hint hint--text-wrapper hint--not-hidden">
+    <div class="hint-text highlight-bold">{{ T("HintNotHidden") }}</div>
   </div>
 {% endcall %}
 
-<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
-<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
 {% call IF("Hint") %}
   <details class="hint" id="hint_details">
     <summary>{{ TRANSLATOR.get('hint') }}</summary>
-    <div class="center-box-1">
-      <div class="center-box-2">
-        <div class="highlight-bold">{{ T("Hint") }}</div>
-      </div>
+    <div class="hint--text-wrapper">
+      <div class="highlight-bold hint-text">{{ T("Hint") }}</div>
     </div>
   </details>
 {% endcall %}

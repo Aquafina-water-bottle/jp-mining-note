@@ -235,17 +235,9 @@ export class SentenceParser extends RunnableModule {
       sentenceStyleClass = 'sentence-quoted-display-block';
     }
 
-    // attempts to color quotes if quotes exists and options specify so
-    //if (
-    //  o !== '' &&
-    //  fieldsAnyFilled('PAShowInfo') &&
-    //  ((getCardType() === 'main' && // either main or pa sentence option
-    //    this.getOption('sentenceParser.display.quotes.paIndicatorColor.main')) ||
-    //    (getCardType() === 'pa_sent' &&
-    //      this.getOption('sentenceParser.display.quotes.paIndicatorColor.paSent')))
-    //) {
-    //  this.colorQuotes(sent);
-    //}
+    // resets existing class if it exists (if javascript fails, full-sentence is unquoted by default)
+    // TODO: reset all classes?
+    sent.base.classList.toggle("sentence-unquoted-display-no-indent", false);
 
     sent.base.classList.toggle(sentenceStyleClass, true);
 

@@ -46,6 +46,8 @@
 @media (max-width: common.$bp-max-width-backside) {
 
   .dh-right {
+    --dh-right-image-max-height: 180px; // sane default for no js
+
     // TODO variable
     max-width: 215px;
 
@@ -320,16 +322,24 @@
   }
 
   .dh-right {
-    max-height: var(--dh-right-image-max-height) !important;
+    --dh-right-image-max-height: 110px; // sane default for no js
+
     margin-left: auto; /* centers */
     margin-right: auto;
 
     .dh-right__img {
-      max-height: var(--dh-right-image-max-height) !important;
       margin-right: var(--dh-right-image-gap);
     }
 
   }
+
+  /* mobile requires a fixed height. JS adjusts width instead of height. */
+  .dh-right,
+  .dh-right img,
+  .dh-right .dh-right__img-container {
+    max-height: var(--dh-right-image-max-height);
+  }
+
 
   .glossary-blockquote {
     /* removes horizontal margins */

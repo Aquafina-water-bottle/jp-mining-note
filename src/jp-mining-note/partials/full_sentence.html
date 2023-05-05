@@ -49,8 +49,7 @@
 {# so ruby classes do not affect things without ruby #}
 {% call IFNOT("SentenceReading") %}
 <div class="full-sentence-center">
-  {#<div class="full-sentence-gradient"></div>#}
-  <div class="full-sentence highlight-bold" id="full_sentence">
+  <div class="full-sentence highlight-bold sentence-unquoted-display-no-indent" id="full_sentence">
     {{ utils.quote_open -}}
     <span>
       {{- T("Sentence") -}}

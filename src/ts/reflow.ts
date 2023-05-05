@@ -64,6 +64,7 @@ function pxToNumber(px: string): number {
   return Number(px.substring(0, px.length - 2));
 }
 
+// NOTE: adjust width only! assumes a sane height, and decreases if necessary
 function adjustMobile(
   imgEle: HTMLImageElement | null,
   wordBoxEle: HTMLElement,
@@ -176,8 +177,12 @@ function setHeight(
 function resetProperties(
   imgEle: HTMLImageElement | null,
   wordBoxEle: HTMLElement,
-  imgBoxEle: HTMLElement
+  imgBoxEle: HTMLElement,
 ) {
+  // we are using js
+  const dhRight = document.getElementById('dh_right');
+  dhRight?.classList.toggle("dh-right--no-js", false);
+
   // resets setHeight
   imgEle?.style.removeProperty("max-height");
   imgBoxEle.style.removeProperty("max-height");
@@ -198,7 +203,7 @@ function resetProperties(
 export function adjustElements(
   imgEle: HTMLImageElement | null,
   wordBoxEle: HTMLElement,
-  imgBoxEle: HTMLElement
+  imgBoxEle: HTMLElement,
 ) {
   resetProperties(imgEle, wordBoxEle, imgBoxEle);
 

@@ -64,6 +64,8 @@ $font-backup-sans:
   --pa-brightness-reduce: 60%;
   --word-font-size: #{px2rem(80px)};
   --sentence-font-size: #{px2rem(52px)};
+  --hint-font-size: #{px2rem(20px)};
+  --hint-reveal-font-size: #{px2rem(16px)};
   --vertical-sentence-font-size: #{px2rem(35px)};
   --picture-font-size: #{px2rem(40px)}; /* font size if text is used in place of the Picture field */
   //--pa-indicator-word-font-size: #{px2rem(52px)};
@@ -108,7 +110,7 @@ $font-backup-sans:
 
 
   --dh-right-image-gap: 35px; /* is also used as a padding to the left for mobile */
-  --dh-right-image-max-height: 110px; // NOTE: dynamically gotten with javascript and ignored
+  --dh-right-image-max-height: 210px; // NOTE: dynamically gotten with javascript and ignored
   --mobile-border: 0.5rem;
 
   /* external links */
