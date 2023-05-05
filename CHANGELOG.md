@@ -216,15 +216,15 @@ and must use `./install.py --update`.
 <summary> Pre-release 5 </summary>
 
 **Features**:
+- Added custom CSS section at the bottom of the template, that should be preserved between updates
+- Runtime options are automatically replaced on 0.12.0.0 update
+- Added warning when `SentenceReading` is not the same as `Reading`
 
 **Fixes**:
-- Implemented caching word indicators with cache.ts
-- Reworked mobile tooltip (kanji hover, word indicators):
-    - Added close button
-    - Height is automatically fitted to the content
-    - Additional height is added to the main card to allow scrolling past the tooltip
-    - Kanji and word indicator is highlighted on selection
-- cache.ts now writes for every 10 cards (just in case)
+- Sentence parser now doesn't add quotes on empty sentences (even if the mode is to add quotes)
+- Removed newlines in mobile popup
+- Removed bold weight in mobile popup
+- Kanji hover on mobile display with ruby text but no kanji no longer shows raw html
 
 
 </details>
