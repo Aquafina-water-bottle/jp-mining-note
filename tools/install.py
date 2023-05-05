@@ -266,6 +266,8 @@ class NoteUpdater:
         styling = model.css + CUSTOM_CSS_COMMENT + CUSTOM_CSS_COMMENT_SEPARATOR
 
         if self.override_styling:
+            styling += "\n" * 10
+        else:
             try:
                 # attempts to use user styling
                 # modelStyling returns dictionary of { "css": ... }
@@ -279,8 +281,6 @@ class NoteUpdater:
                     "Skipping inline CSS update...")
                 print(msg)
                 styling += "\n" * 10
-        else:
-            styling += "\n" * 10
 
         if invoke("updateModelStyling", **self.format_styling(model.name, styling)) is None:
             print(f"Updated {self.note_data('id').item()} css successfully.")
