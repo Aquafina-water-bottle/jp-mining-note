@@ -14,6 +14,6 @@
 #    - ./package.sh VERSION
 #    - update ankiweb
 
-python3 tools/main.py --release --install-options --dev-ignore-note-changes
+python3 tools/main.py --release --install-options --dev-ignore-note-changes --override-styling
 python3 tools/export.py
 python3 tools/main.py --install-options

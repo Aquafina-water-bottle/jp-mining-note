@@ -114,7 +114,7 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
     group.add_argument(
-        "--override-styling", # TODO use option
+        "--override-styling",
         action="store_true",
         default=False,
         help="overrides the css styling of the note, instead of trying to preserve user styles",
@@ -155,10 +155,12 @@ class NoteUpdater:
         input_folder: str,
         note_data: utils.Config,
         backup_folder: str | None = None,
+        override_styling: bool=False,
     ):
         self.input_folder = input_folder
         self.backup_folder = backup_folder
         self.note_data = note_data
+        self.override_styling = override_styling
 
     def read_css(self) -> str:
         input_path = os.path.join(
@@ -263,18 +265,21 @@ class NoteUpdater:
     def update_styling(self, model: NoteType):
         styling = model.css + CUSTOM_CSS_COMMENT + CUSTOM_CSS_COMMENT_SEPARATOR
 
-        try:
-            # attempts to use user styling
-            # modelStyling returns dictionary of { "css": ... }
-            card_styling = invoke("modelStyling", modelName=model.name)["css"]
-            separator_search = rx_CUSTOM_CSS_COMMENT_SEPARATOR.search(card_styling)
-            if separator_search is not None:
-                styling += separator_search.group(1)
-        except Exception:
-            msg = ("Cannot get existing styling of note. "
-                "The note likely is not installed yet. "
-                "Skipping inline CSS update...")
-            print(msg)
+        if self.override_styling:
+            try:
+                # attempts to use user styling
+                # modelStyling returns dictionary of { "css": ... }
+                card_styling = invoke("modelStyling", modelName=model.name)["css"]
+                separator_search = rx_CUSTOM_CSS_COMMENT_SEPARATOR.search(card_styling)
+                if separator_search is not None:
+                    styling += separator_search.group(1)
+            except Exception:
+                msg = ("Cannot get existing styling of note. "
+                    "The note likely is not installed yet. "
+                    "Skipping inline CSS update...")
+                print(msg)
+                styling += "\n" * 10
+        else:
             styling += "\n" * 10
 
         if invoke("updateModelStyling", **self.format_styling(model.name, styling)) is None:
@@ -440,7 +445,7 @@ def main(args: argparse.Namespace | None = None) -> str | None:
 
     backup = not args.no_backup
 
-    note_updater = NoteUpdater(search_folder, note_data, backup_folder)
+    note_updater = NoteUpdater(search_folder, note_data, backup_folder, args.override_styling)
     media_installer = MediaInstaller(media_folder, static_folder, media_backup_folder)
 
     is_installed = utils.note_is_installed(model_name)
