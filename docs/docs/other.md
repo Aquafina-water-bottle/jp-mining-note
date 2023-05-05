@@ -100,15 +100,11 @@ if the furigana text is too long.
 If the word has no pitch accent, the pitch accent is usually displayed as `(N/A)`.
 This indicator can be removed with the following {{ CSS }}:
 
-??? example "Instructions <small>(click here)</small>"
-
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        .dh-left__word-pitch-text:empty:before {
-          content: ""
-        }
-        ```
+```css
+.dh-left__word-pitch-text:empty:before {
+  content: ""
+}
+```
 
 ---
 
@@ -118,20 +114,16 @@ This indicator can be removed with the following {{ CSS }}:
 
 # Removing the furigana on the word reading
 
+TODO image
+
 The following {{ CSS }} removes the furigana on the word reading, while keeping
 the furigana on the kanjis within hover.
 
-TODO image
-
-??? example "Instructions <small>(click here)</small>"
-
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        .dh-left__reading > ruby > rt {
-          display: none;
-        }
-        ```
+```css
+.dh-left__reading > ruby > rt {
+  display: none;
+}
+```
 
 ---
 
@@ -143,42 +135,38 @@ Most color changes can be done by simply editing a CSS variable.
 These variables are shown at the very top of the main CSS sheet.
 For example, the following changes the main accent color of the card:
 
-??? example "Instructions <small>(click here)</small>"
+```css
+:root {
+  --accent: #ff1fd1; /* hot pink */
+}
 
-    1. Under `extra/style.scss`, add the following code:
+.night_mode {
+  --accent: #ff7777; /* light red */
+}
+```
 
-        ```css
-        :root {
-          --accent: #ff1fd1; /* hot pink */
-        }
+!!! note
+    To change any variable color for dark mode, you cannot use `:root`, even if you are only setting
+    the color for night mode. You must use `.night_mode`.
 
-        .night_mode {
-          --accent: #ff7777; /* light red */
-        }
-        ```
+    For example, doing the following will NOT change the accent for night mode:
+    ```css
+    :root {
+      /* only changes light mode accent, and will NOT change dark mode accent! */
+      --accent: #ff7777;
+    }
+    ```
 
-    !!! note
-        To change any variable color for dark mode, you cannot use `:root`, even if you are only setting
-        the color for night mode. You must use `.night_mode`.
-
-        For example, doing the following will NOT change the accent for night mode:
-        ```css
-        :root {
-          /* only changes light mode accent, and will NOT change dark mode accent! */
-          --accent: #ff7777;
-        }
-        ```
-
-        You must do this instead:
-        ```css
-        /* changes the color for both light and dark mode */
-        :root {
-          --accent: #ff7777;
-        }
-        .night_mode {
-          --accent: #ff7777;
-        }
-        ```
+    You must do this instead:
+    ```css
+    /* changes the color for both light and dark mode */
+    :root {
+      --accent: #ff7777;
+    }
+    .night_mode {
+      --accent: #ff7777;
+    }
+    ```
 
 ---
 
@@ -187,29 +175,28 @@ For example, the following changes the main accent color of the card:
 
 {{ feature_version("0.12.0.0") }}
 
+=== "Hidden tested content"
+    TODO image
+=== "Shown tested content <small>(default)</small>"
+    TODO image
+
 For users who are only using one card type
 (e.g. only vocab cards with no sentence cards, TSCs, or anything else),
 it might be better to remove the tested content and the line below it.
 
-TODO image
-
 The tested content is shown at the back by default to allow the user to differentiate
 between card types on both sides of the card.
 However, this take up extra vertical space which is unnecessary if you are only using one card type.
+This can be hidden with the following {{ CSS }}:
 
-??? example "Instructions <small>(click here)</small>"
-
-    Use the following {{ CSS }}:
-
-    1. Under `extra/style.scss`, add the following code:
-
-        TODO verify this with new CSS!
-
-        ```css
-        .jpmn--back > .card-main .expression-wrapper {
-          display: none;
-        }
-        ```
+```css
+.jpmn--back > .card-main .expression-wrapper {
+  display: none;
+}
+.jpmn--back > .card-main .answer-border {
+  display: none;
+}
+```
 
 
 

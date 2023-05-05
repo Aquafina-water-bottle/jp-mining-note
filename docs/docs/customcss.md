@@ -1,42 +1,50 @@
 
-TODO redo this entire page...
+TODO introduction
 
-- videos for post-build setup
-- link extra/style.scss to the correct setup
-- link styles tab to the correct setup
+- CSS: styles for the note
+- can change font size, colors, hide elements, reposition certain elements, etc.
 
 ---
 
 # How To Add Custom CSS
 
-If you have already read the [Modding Overview](modding.md) page,
-you should already know that there are two ways of modding the note:
+There are two options to add custom CSS:
 
-1. You can [directly edit the note's CSS](#option-1-how-to-directly-edit-the-css),
-    but lose all the changes you made when you update.
+1.  **Edit the styles directly.**
 
-    This is the plug-and-play solution and requires no additional setup.
+    This is the recommended way for most people to modify the CSS.
 
-1. *(Recommended)* [Create new CSS files](#option-2-how-to-extend-the-css),
-    which are built with the note to extend the current CSS.
-    This allows you to **not lose changes** between updates.
+1.  **Add SCSS files.**
 
-    Unfortunately, this **requires additional setup**, and will likely take some time to get working.
+    These SCSS files are built with the note to extend the current CSS.
 
----
-
-# Option 1: How to directly edit the CSS { #how-to-directly-edit-the-css }
-!!! warning
-    When editing any of the style sheets below, it is recommended to append the given CSS code
-    to the *very bottom* of the existing CSS instead of adding to the existing CSS.
-    This is to avoid potential errors where the existing CSS may potentially override your custom CSS.
-    This would also help with copying/pasting your CSS changes between updates.
+    This is recommended way for people who [build the note](building.md).
 
 
-* Any time `style.scss` is mentioned, edit the styles sheet in the Anki template.
-    This can be accessed by:
+<!--
 
-    > (Main window) →  `Browse` →  `Cards...` (middle of the screen) →  `Styling` (top left)
+You can [directly edit the note's CSS](#option-1-how-to-directly-edit-the-css),
+but lose all the changes you made when you update.
+
+If you want to keep CSS changes between updates, please only **add** CSS
+to the very end of the styles sheet.
+
+-->
+
+
+
+??? info "Option 1: Edit the styles directly {{CLICKHERE}}"
+
+    TODO video
+
+    1. Navigate to the following:
+
+        > (Main window) →  `Browse` →  `Cards...` (middle of the screen) →  `Styling` (top left)
+
+    1. Scroll all the way to the bottom, and add any CSS to the bottom of the styles.
+
+
+<!--
 
 * Any time `fields.scss` is mentioned, edit the `fields.css` file under the
     [addons folder](faq.md#where-is-the-x-folder-in-anki):
@@ -49,56 +57,54 @@ you should already know that there are two ways of modding the note:
     ```
     Anki2/addons21/181103283/user_files/editor.css
     ```
+-->
 
----
+??? info "Option 2: Add SCSS Files {{CLICKHERE}}"
 
-# Option 2: How to extend the CSS { #how-to-extend-the-css }
+    1. [Build the note](building.md) if you haven't already, and ensure everything works.
 
-TODO video!
+    1. Create the following folder structure: `(project root)/overrides/scss/extra`.
+        The project root is usually `jp-mining-note`.
 
-1. [Build the note](building.md) if you haven't already, and ensure everything works.
+    1. Add the folder to the end of `css-folders` list in `config.py`.
+        For example:
+        ```
+        "css-folders": ["base", "responsive", "dictionaries", "extra"],
+        ```
 
-1. Create the following folder structure: `(project root)/overrides/scss/extra`.
-    The project root is usually `jp-mining-note`.
+        TODO update the exact folders
 
-1. Add the folder to the end of `css-folders` in `config.py`.
-    This should result in the following:
-    ```
-    "css-folders": ["base", "responsive", "dictionaries", "extra"],
-    ```
+    1. Under the `extra` folder, use the following files to override the correct CSS:
 
-    TODO update the exact folders
+        - `style.scss`: The main CSS for the card templates.
+            This is likely the file you want to edit, when adding custom CSS.
+        - `field.scss`: The CSS used by [CSS injector](setupanki.md#css-injector)
+            to customize individual fields.
+        - `editor.scss`: The CSS used by CSS injector to customize the editor around the fields.
 
-1. Under the `extra` folder, use the following files to override the correct CSS:
+        All of the files are optional. This means you do not need to create all three files
+        for the folder to be valid.
 
-    - `style.scss`: The main CSS for the card templates.
-    - `field.scss`: The CSS used by [CSS injector](setupanki.md#css-injector)
-        to customize individual fields.
-    - `editor.scss`: The CSS used by CSS injector to customize the editor around the fields.
+        The resulting folder should be of the format:
+        ```
+        (project root)
+          L overrides
+             L scss
+                L extra
+                   L field.scss
+                   L editor.scss
+                   L style.scss
+        ```
 
-    All of the files are optional. This means you do not need to create all three files
-    for the folder to be valid.
-
-    The resulting folder should be of the format:
-    ```
-    (project root)
-      L overrides
-         L scss
-            L extra
-               L field.scss
-               L editor.scss
-               L style.scss
-    ```
-
-1. Rebuild and reinstall the template.
-    The CSS should be automatically applied to the note.
+    1. Rebuild and reinstall the template.
+        The CSS should be automatically applied to the note.
 
 
+<!--
 !!! note
-
     You might have noticed that this is the SCSS, not CSS.
     However, SCSS is complete superset of CSS
     (with some small exceptions).
     In other words, if you don't know any SCSS, you can write normal CSS
     and have it behave completely the same.
-
+-->

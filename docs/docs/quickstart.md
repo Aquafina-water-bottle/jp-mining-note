@@ -359,18 +359,14 @@ You can increase (or decrease) the size of the card,
 (without affecting any of Anki's GUI)
 with {{ C_CSS }}.
 
-
-??? example "Instructions <small>(click here)</small>"
-    1. Under `extra/style.scss`, add the following code:
-
-        ```css
-        :root {
-          /* Times 1.1 of the original size.
-           * If you want to make the note smaller, use a value below 1, like 0.9.
-           */
-          --zoom: 1.1;
-        }
-        ```
+```css
+:root {
+  /* Times 1.1 of the original size.
+   * If you want to make the note smaller, use a value below 1, like 0.9.
+   */
+  --zoom: 1.1;
+}
+```
 
 
 

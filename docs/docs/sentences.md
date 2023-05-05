@@ -204,7 +204,7 @@ This can be changed to only be shown on click, or always/never shown.
         so furigana does not impede with the sentence whatsoever until toggled.
 
 
-=== "On hover (default)"
+=== "On hover <small>(default)</small>"
     TODO gif: show on hover
 
     This is the default behavior.
@@ -299,7 +299,7 @@ due to (what I think is a) chromium based bug[^1].
         ```
 
 
-=== "Keep spacing (default)"
+=== "Keep spacing <small>(default)</small>"
     TODO img
 
     This is the default behavior.
@@ -370,38 +370,32 @@ To override this option, you can use the following {{ C_CSS }}:
 
     === "Keep all newlines"
 
-        1. Under `extra/style.scss`, add the following code:
-
-            ```css
-            .expression .expression-inner br {
-              display: inline !important;
-            }
-            ```
+        ```css
+        .expression .expression-inner br {
+          display: inline !important;
+        }
+        ```
 
     === "Remove all newlines"
 
-        1. Under `extra/style.scss`, add the following code:
-
-            ```css
-            .expression .expression-inner br {
-              display: none !important;
-            }
-            ```
+        ```css
+        .expression .expression-inner br {
+          display: none !important;
+        }
+        ```
 
     === "Remove all newlines when AltDisplay is not used"
 
         This only removes newlines when the `AltDisplay` (or `AltDisplayPASentenceCard`)
         field is not being used as the display sentence.
 
-        1. Under `extra/style.scss`, add the following code:
+        ```css
+        .expression .expression-inner br {
+          display: inline !important;
+        }
 
-            ```css
-            .expression .expression-inner br {
-              display: inline !important;
-            }
-
-            .expression .expression-inner:not(.expression-inner--altdisplay) br {
-              display: none !important;
-            }
-            ```
+        .expression .expression-inner:not(.expression-inner--altdisplay) br {
+          display: none !important;
+        }
+        ```
 
