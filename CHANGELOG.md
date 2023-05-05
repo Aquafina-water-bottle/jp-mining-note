@@ -225,6 +225,7 @@ and must use `./install.py --update`.
 - Removed newlines in mobile popup
 - Removed bold weight in mobile popup
 - Kanji hover on mobile display with ruby text but no kanji no longer shows raw html
+- Ignore 2.1.62 error
 
 
 </details>
