@@ -1269,7 +1269,7 @@ code {
 .dh-left__similar-words-indicators-main-word .hover-tooltip__word-span {
   //font-size: 24px;
   color: var(--accent);
-  font-weight: bold;
+  font-weight: var(--bold-font-weight);
 }
 
 .dh-left__similar-words-indicators .hover-wrapper .hover-text {
@@ -1450,7 +1450,7 @@ code {
 
 .hover-tooltip__card--sentence-only .hover-tooltip__sent-div b {
   color: var(--accent);
-  font-weight: bold;
+  font-weight: var(--bold-font-weight);
 }
 
 .hover-tooltip__word-div--clickable {
