@@ -537,7 +537,7 @@ export class WordIndicators extends RunnableAsyncModule {
             if (this.persist !== null) {
               this.persist.set(indicator.cacheKey, tooltipHTML);
               this.logger.debug(
-                `Finished running ${indicator.label}; cached result of length ${tooltipHTML.length}`
+                `${indicator.label}: cached result of length ${tooltipHTML.length}`
               );
             }
           }

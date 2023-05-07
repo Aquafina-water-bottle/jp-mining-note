@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+import * as util from 'util';
 //import { xhr2 } from 'xhr2';
 
 
@@ -54,19 +55,25 @@ async function getNewDueCards(limit: number): Promise<number[]> {
   const cardsInfo = await invoke("cardsInfo", {cards: cards}) as Array<CardInfo>;
   cardsInfo.sort((a: any, b: any) => a.due - b.due); // sort by due cards
   // takes first ${LIMIT} and only returns card ids
-  const newDueCards = cardsInfo.slice(limit).map((val) => val.cardId);
+  const newDueCards = cardsInfo.slice(0, limit).map((val) => val.cardId);
   return newDueCards;
 }
 
 
-async function getNotes(dayBuffer: number, newCardsPerDay: number): Promise<number[]> {
+async function generateQuery(dayBuffer: number, newCardsPerDay: number): Promise<string> {
   let query = `"note:JP Mining Note" (prop:due>=0 prop:due<=${dayBuffer})`;
   if (newCardsPerDay > 0) {
-    _print("Calculating new cards...");
-    const newDueCards = await getNewDueCards(newCardsPerDay);
+    _print("Calculating new due cards...");
+    const newDueCards = await getNewDueCards(newCardsPerDay * dayBuffer);
+    _print(`Found ${newDueCards.length} new due cards.`);
     const newDueCardsQuery = newDueCards.map(cid => `cid:${cid}`).join(" OR ");
     query = `(${query}) OR (${newDueCardsQuery})`;
   }
+  return query;
+}
+
+
+async function getNotes(query: string): Promise<number[]> {
   return getNotesFromQuery(query);
 }
 
@@ -170,13 +177,16 @@ function constructWriteAction(cacheEleHTML: string, info: NoteInfo) {
 }
 
 const HELP_MESSAGE = (
+  "\n" +
   "Usage: \n" +
   "--new-cards-per-day=INT    Number of new JPMN cards you expect to review per day\n" +
   "--day-buffer=INT           Number of days you want to cache for\n" +
   "--expires=INT              Number of days the cache is valid for. This should be greater than day-buffer.\n" +
   "--custom-query=STR         Query to use instead of the generated query. Ignores all\n" +
   "--[no-]suppress-log        Whether console.log output from the internal modules are suppressed or not.\n" +
-  "--[no-]print-notes-only    Only prints out the note IDs. Does not calculate cache results.\n"
+  "--[no-]print-notes-only    Only prints out the note IDs. Does not calculate cache results.\n" +
+  "\n" +
+  "NOTE: You will NOT be able to use Anki while running this script."
 )
 
 function parseArgs(): CacheArgs {
@@ -211,6 +221,7 @@ function parseArgs(): CacheArgs {
   // get rid of aliases???
   delete args["0"];
   delete args["1"];
+  delete args["2"];
   // get rid of empty argument
   delete args["_"];
 
@@ -243,20 +254,21 @@ async function main() {
   }
 
   let notes: number[];
-  const customQuery = args['custom-query'];
-  if (customQuery === null) {
-    notes = await getNotes(args["day-buffer"], args["new-cards-per-day"]);
-  } else {
-    notes = await getNotesFromQuery(customQuery);
+  let query = args['custom-query'];
+  if (query === null) {
+    query = await generateQuery(args["day-buffer"], args["new-cards-per-day"])
   }
+  notes = await getNotesFromQuery(query);
 
+  _print(`Number of notes found: ${notes.length}`);
   if (args["print-notes-only"]) {
-    _print(notes);
+    _print("Query:", query);
+    // util.inspect is required to print the full array
+    _print(util.inspect(notes, { maxArrayLength: null }));
     return;
   }
 
   const notesInfo = await getNotesInfo(notes);
-  _print(`Number of notes found: ${notesInfo.length}`);
   const epochTime = Date.now();
   let actions: ReturnType<typeof constructWriteAction>[] = [];
 
