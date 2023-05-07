@@ -64,10 +64,16 @@ async function generateQuery(dayBuffer: number, newCardsPerDay: number): Promise
   let query = `"note:JP Mining Note" (prop:due>=0 prop:due<=${dayBuffer})`;
   if (newCardsPerDay > 0) {
     _print("Calculating new due cards...");
-    const newDueCards = await getNewDueCards(newCardsPerDay * dayBuffer);
+    // dayBuffer starts at 0, so we must increase it by 1
+    // dayBuffer+1 <= 0 only happens if dayBuffer is -1. We want to calculate the new cards still,
+    // even with -1 as the argument.
+    const newCardDays = ((dayBuffer+1) <= 0 ? 1 : dayBuffer + 1);
+    const newDueCards = await getNewDueCards(newCardsPerDay * newCardDays);
     _print(`Found ${newDueCards.length} new due cards.`);
     const newDueCardsQuery = newDueCards.map(cid => `cid:${cid}`).join(" OR ");
-    query = `(${query}) OR (${newDueCardsQuery})`;
+    if (newDueCardsQuery.length !== 0) {
+      query = `(${query}) OR (${newDueCardsQuery})`;
+    }
   }
   return query;
 }
@@ -180,7 +186,7 @@ const HELP_MESSAGE = (
   "\n" +
   "Usage: \n" +
   "--new-cards-per-day=INT    Number of new JPMN cards you expect to review per day\n" +
-  "--day-buffer=INT           Number of days you want to cache for\n" +
+  "--day-buffer=INT           Number of days you want to cache for. Set to -1 to not cache any reviewed cards.\n" +
   "--expires=INT              Number of days the cache is valid for. This should be greater than day-buffer.\n" +
   "--custom-query=STR         Query to use instead of the generated query. Ignores all\n" +
   "--[no-]suppress-log        Whether console.log output from the internal modules are suppressed or not.\n" +

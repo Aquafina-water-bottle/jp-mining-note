@@ -299,7 +299,7 @@ export function attemptParseOverride<K extends keyof O>(
 // - hard-coded options will hard-code into consts.ts (runtimeOpts)
 function userOption<K extends keyof O>(k: K): O[K] | undefined {
   let userOptions: Record<string, unknown> = {};
-  if (typeof(window) !== "undefined") {
+  if (typeof(window) !== "undefined") { // window can be undefined in cache.ts
     const jpmnOpts = (window as any)?.JPMNOptions;
     userOptions = jpmnOpts ?? {};
   }

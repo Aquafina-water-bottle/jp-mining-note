@@ -26,12 +26,35 @@ TODO
     - may be implemented as a separate note in the future (so you can run the script within Anki)
 - also requires node (npx node)
 
-how to:
+## General warnings
 
-```bash
-# assumption: the current note version has been successfully built
-node ./src/_js/jpmn_card_cache.js
-```
+- cannot use Anki while running the script (Anki-Connect blocks using Anki, and the script continuously makes calls to Anki-Connect during its lifetime)
+- will take a long time to run!!! this is because Anki-Connect itself is a bit slow when doing mass operations like this
+
+## How to (first time)
+
+1. open Anki (so that Anki-Connect is running)
+1. Build the note! You might have to refresh the npm dependencies `npm ci`
+1. Test the script out first, by running it on a single card.
+    For example, take a note ID of any JPMN note (Card browser →  Right click a note →  `Info...`), and use the following:
+    ```
+    node ./src/_js/jpmn_card_cache.js --custom-query="nid:1234567890"
+    ```
+1. Sync on both PC and mobile.
+1. Check that kanji hover and word indicators work!
+
+
+## How to (every other time)
+1. open Anki (so that Anki-Connect is running)
+1. build the note, if you haven't already
+1. Run the following:
+    ```bash
+    node ./src/_js/jpmn_card_cache.js
+    ```
+
+- above caches for 8 days (expected that you run this, say, once every saturday)
+- run with `--help` for list of all available flags
+- TODO: MacOS cannot find Anki-Connect???
 
 
 ---
