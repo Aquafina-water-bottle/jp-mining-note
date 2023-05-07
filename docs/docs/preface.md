@@ -9,7 +9,7 @@ it would be best to make sure that the note aligns with exactly what you want.
 The most important step is to see if jp-mining-note (JPMN) works on your device.
 
 ## Card Creation (Yomichan)
-The card creation process requires a working instances of Yomichan, Anki-Connect, and Anki.
+The card creation process requires a working instance of Yomichan, Anki-Connect, and Anki.
 
 By default, this works on PC (Windows, Mac, Linux), and the instructions shown will be for PC.
 However, with the proper setup, one can also create cards on the following platforms:

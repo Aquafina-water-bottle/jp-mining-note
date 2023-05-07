@@ -28,22 +28,9 @@ nothing has to be done.
     If you are using Firefox, ensure that your Yomichan version is indeed the latest version,
     by clicking on the Yomichan icon and clicking on the question mark.
 
-    If it isn't, then I recommend to switch to Chrome (or Chromium) for immersion.
-
-<!--
-TODO Yomitan, once it's stable...
-
-If it isn't, there are two main ways of fixing it:
-
-1. [Manual Download](https://github.com/FooSoft/yomichan/releases)
-    with
-    [Firefox: Developer edition](https://www.mozilla.org/en-US/firefox/developer/)
-    The manual download will NOT work on regular firefox, because it is unsigned.
-    `xpinstall.signatures.required`
-
-You may also have to download the Firefox Developer edition, and set 
-to `false`.
--->
+    If it isn't, you will have to download it
+    [manually](https://github.com/FooSoft/yomichan/releases/tag/22.10.23.0)
+    (use `a708116f79104891acbd-22.10.23.0.xpi`).
 
 ---
 
