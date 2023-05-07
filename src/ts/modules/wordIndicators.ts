@@ -1,6 +1,12 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { filterCards, getTags, getCardKey, getCardSide, cardCacheExpired } from '../utils';
+import {
+  filterCards,
+  getTags,
+  getCardKey,
+  getCardSide,
+  cardCacheExpired,
+} from '../utils';
 import { getFieldValue, Field, cacheFieldValue, getFieldValueEle } from '../fields';
 import {
   Tooltips,
@@ -20,8 +26,8 @@ import {
   cardIDsToCardsInfo,
   escapeQueryStr,
 } from '../ankiConnectUtils';
-import {cardIsNew} from '../isNew';
-import {MobilePopup} from '../mobilePopup';
+import { cardIsNew } from '../isNew';
+import { MobilePopup } from '../mobilePopup';
 
 type WordIndicatorsCategoryID =
   | 'nonNew.hidden'
@@ -30,7 +36,8 @@ type WordIndicatorsCategoryID =
   | 'new.default';
 
 const wordIndicatorCardCacheKey = 'WordIndicators.wordIndicatorCardCacheKey';
-const wordIndicatorsCardResultCacheKey = 'WordIndicators.wordIndicatorsCardResultCacheKey';
+const wordIndicatorsCardResultCacheKey =
+  'WordIndicators.wordIndicatorsCardResultCacheKey';
 
 const clsMainWord = 'dh-left__similar-words-indicators-main-word';
 //const clsWithIndicators = 'dh-left--with-similar-word-indicators';
@@ -42,9 +49,10 @@ type FilteredCardCategories = 'nonNew' | 'new';
 type FilteredCardIDs = Record<FilteredCardCategories, number[]>;
 type FilteredCardsInfo = Record<FilteredCardCategories, CardInfo[]>;
 
-export type WordIndicatorLabel = 'same_word_indicator' |
-                                 'same_kanji_indicator' |
-            'same_reading_indicator'
+export type WordIndicatorLabel =
+  | 'same_word_indicator'
+  | 'same_kanji_indicator'
+  | 'same_reading_indicator';
 
 export class WordIndicator {
   // is also the html id for the indicator element
@@ -55,7 +63,13 @@ export class WordIndicator {
   readonly infoCircIndicatorEle: HTMLElement | null;
   readonly cacheKey: string;
 
-  constructor(label: WordIndicatorLabel, baseIndicatorQuery: string, wordInds: WordIndicators, indicatorEle: HTMLElement | null, infoCircIndicatorEle: HTMLElement | null) {
+  constructor(
+    label: WordIndicatorLabel,
+    baseIndicatorQuery: string,
+    wordInds: WordIndicators,
+    indicatorEle: HTMLElement | null,
+    infoCircIndicatorEle: HTMLElement | null
+  ) {
     this.label = label;
     this.baseIndicatorQuery = baseIndicatorQuery;
     this.wordInds = wordInds;
@@ -295,16 +309,19 @@ export class WordIndicator {
 
     // mobilePopup is not null <=> bp < combinePicture <=> should display mobile
     if (this.wordInds.mobilePopup !== null) {
-      this.wordInds.mobilePopup.setupWordIndicator(this, this.wordInds.infoCircIndicatorsGroupEle, tooltipHTML);
+      this.wordInds.mobilePopup.setupWordIndicator(
+        this,
+        this.wordInds.infoCircIndicatorsGroupEle,
+        tooltipHTML
+      );
     } else {
-
       // elements are gotten in the constructor of WordIndicators, so these cannot
       // accidentally grab the wrong element
       const indicatorEle = this.indicatorEle;
       const dhLeftEle = this.wordInds.dhLeftEle;
 
       if (indicatorEle === null || dhLeftEle === null) {
-        this.wordInds.logger.warn(`Cannot display indicator: ${this.label}`)
+        this.wordInds.logger.warn(`Cannot display indicator: ${this.label}`);
         return;
       }
 
@@ -312,7 +329,7 @@ export class WordIndicator {
       indicatorEle.children[1].children[0].innerHTML = tooltipHTML;
       indicatorEle.classList.toggle('dh-left__similar-words-indicator--visible', true);
 
-      if (await cardIsNew("back")) {
+      if (await cardIsNew('back')) {
         indicatorEle.classList.toggle('dh-left__similar-words-indicator--new', true);
       }
 
@@ -320,12 +337,11 @@ export class WordIndicator {
       //dhLeftEle.classList.toggle(clsWithIndicators, true);
 
       this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
-
     }
   }
 
   isCached() {
-    return (this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey));
+    return this.wordInds.useCache && this.wordInds.persist?.has(this.cacheKey);
   }
 
   async getTooltipHTML(): Promise<string> {
@@ -338,7 +354,7 @@ export class WordIndicator {
     // on the back side of the card while the front side is still running
     if (this.isCached()) {
       this.wordInds.logger.debug('Has cached indicator');
-      return this.wordInds.persist?.get(this.cacheKey) ?? "";
+      return this.wordInds.persist?.get(this.cacheKey) ?? '';
     }
 
     this.wordInds.logger.debug(`Running ${this.label}`);
@@ -366,7 +382,7 @@ export class WordIndicator {
         this.wordInds.persist.set(this.cacheKey, '');
       }
       this.wordInds.logger.debug(`Finished running ${this.label}: nothing found`);
-      return "";
+      return '';
     }
 
     const sortMethod = this.wordInds.tooltips.getOption('tooltips.sortMethod');
@@ -389,14 +405,25 @@ export class WordIndicators extends RunnableAsyncModule {
   readonly persistObj = selectPersistObj();
 
   // elements gotten here for safety from async calls
-  private readonly indicatorEleSameWord = document.getElementById("same_word_indicator");
-  private readonly indicatorEleSameKanji = document.getElementById("same_kanji_indicator");
-  private readonly indicatorEleSameReading = document.getElementById("same_reading_indicator");
+  private readonly indicatorEleSameWord = document.getElementById('same_word_indicator');
+  private readonly indicatorEleSameKanji =
+    document.getElementById('same_kanji_indicator');
+  private readonly indicatorEleSameReading = document.getElementById(
+    'same_reading_indicator'
+  );
 
-  readonly infoCircIndicatorsGroupEle = document.getElementById("ic_similar_words_indicators");
-  private readonly infoCircIndicatorEleSameWord = document.getElementById("ic_same_word_indicator");
-  private readonly infoCircIndicatorEleSameKanji = document.getElementById("ic_same_kanji_indicator");
-  private readonly infoCircIndicatorEleSameReading = document.getElementById("ic_same_reading_indicator");
+  readonly infoCircIndicatorsGroupEle = document.getElementById(
+    'ic_similar_words_indicators'
+  );
+  private readonly infoCircIndicatorEleSameWord = document.getElementById(
+    'ic_same_word_indicator'
+  );
+  private readonly infoCircIndicatorEleSameKanji = document.getElementById(
+    'ic_same_kanji_indicator'
+  );
+  private readonly infoCircIndicatorEleSameReading = document.getElementById(
+    'ic_same_reading_indicator'
+  );
 
   readonly dhLeftEle = document.getElementById('dh_left');
   readonly mobilePopup: MobilePopup | null;
@@ -413,7 +440,7 @@ export class WordIndicators extends RunnableAsyncModule {
     this.tooltips.overrideOptions(getOption('wordIndicators.overrideOptions.tooltips'));
 
     this.mobilePopup = mobilePopup;
-    this.cardCacheEle = getFieldValueEle("CardCache");
+    this.cardCacheEle = getFieldValueEle('CardCache');
   }
 
   getIndicators(): WordIndicator[] {
@@ -428,9 +455,27 @@ export class WordIndicators extends RunnableAsyncModule {
     const baseReadingQuery = `-"Word:${word}"  "WordReadingHiragana:${wordReadingHiragana}"`;
 
     return [
-      new WordIndicator('same_word_indicator', baseWordQuery, this, this.indicatorEleSameWord, this.infoCircIndicatorEleSameWord),
-      new WordIndicator('same_kanji_indicator', baseKanjiQuery, this, this.indicatorEleSameKanji, this.infoCircIndicatorEleSameKanji),
-      new WordIndicator('same_reading_indicator', baseReadingQuery, this, this.indicatorEleSameReading, this.infoCircIndicatorEleSameReading),
+      new WordIndicator(
+        'same_word_indicator',
+        baseWordQuery,
+        this,
+        this.indicatorEleSameWord,
+        this.infoCircIndicatorEleSameWord
+      ),
+      new WordIndicator(
+        'same_kanji_indicator',
+        baseKanjiQuery,
+        this,
+        this.indicatorEleSameKanji,
+        this.infoCircIndicatorEleSameKanji
+      ),
+      new WordIndicator(
+        'same_reading_indicator',
+        baseReadingQuery,
+        this,
+        this.indicatorEleSameReading,
+        this.infoCircIndicatorEleSameReading
+      ),
     ];
   }
 
@@ -439,13 +484,17 @@ export class WordIndicators extends RunnableAsyncModule {
     // if it exists, the calculation at the front side will also be skipped here
     if (this.useCache && this.persist !== null) {
       if (this.cardCacheEle !== null && !cardCacheExpired(this.cardCacheEle)) {
-        const wordIndsData = this.cardCacheEle?.querySelector(`[data-cache-type="word-indicators"]`);
+        const wordIndsData = this.cardCacheEle?.querySelector(
+          `[data-cache-type="word-indicators"]`
+        );
         if (wordIndsData) {
-          this.logger.debug("Using CardCache");
+          this.logger.debug('Using CardCache');
           const indicators = this.getIndicators();
           for (const indicator of indicators) {
-            const tooltipHTML = wordIndsData.querySelector(`[data-cache-label="${indicator.label}"]`)?.innerHTML ?? "";
-            if (tooltipHTML !== null && this.cardSide === "back") {
+            const tooltipHTML =
+              wordIndsData.querySelector(`[data-cache-label="${indicator.label}"]`)
+                ?.innerHTML ?? '';
+            if (tooltipHTML !== null && this.cardSide === 'back') {
               this.persist.set(indicator.cacheKey, tooltipHTML);
               indicator.display();
             }
@@ -456,7 +505,7 @@ export class WordIndicators extends RunnableAsyncModule {
     }
 
     const getResultFront = this.getOption('wordIndicators.getResultsFront');
-    if (!getResultFront && this.cardSide === "front") {
+    if (!getResultFront && this.cardSide === 'front') {
       return;
     }
 
@@ -469,18 +518,16 @@ export class WordIndicators extends RunnableAsyncModule {
     const persistObj = selectPersistObj();
 
     // if getResultFront, this code will always fire regardless of side
-    if (getResultFront || (!getResultFront && this.cardSide === "back")) {
-
+    if (getResultFront || (!getResultFront && this.cardSide === 'back')) {
       // not a constant due to cache.ts erroring on import step
       const cardResultsCacheKey = `${wordIndicatorsCardResultCacheKey}.${getCardKey()}`;
 
       if (persistObj === null) {
         // abort because this will probably be too expensive...
-        this.logger.warn("cannot persist, will not get results...")
+        this.logger.warn('cannot persist, will not get results...');
       } else {
-
         // global variable to store whether the indicators have gotten the results or not
-        let getResults = (async () => {
+        let getResults = async () => {
           // these should run very quickly if something is cached (as it immediately returns)
           for (const indicator of indicators) {
             // ASSUMPTION: this actually awaits for the result!
@@ -489,31 +536,30 @@ export class WordIndicators extends RunnableAsyncModule {
             // caches
             if (this.persist !== null) {
               this.persist.set(indicator.cacheKey, tooltipHTML);
-              this.logger.debug(`Finished running ${indicator.label}; cached result of length ${tooltipHTML.length}`);
+              this.logger.debug(
+                `Finished running ${indicator.label}; cached result of length ${tooltipHTML.length}`
+              );
             }
-
           }
           return true;
-        });
+        };
 
         if (this.useCache && persistObj.has(cardResultsCacheKey)) {
-          this.logger.debug("no reason to get results: already queued")
+          this.logger.debug('no reason to get results: already queued');
         } else {
           persistObj.set(cardResultsCacheKey, getResults());
         }
-
       }
 
-      if (this.cardSide === "back") {
+      if (this.cardSide === 'back') {
         if (persistObj !== null && persistObj.has(cardResultsCacheKey)) {
           await persistObj.get(cardResultsCacheKey); // so it's no longer a promise
 
           for (const indicator of indicators) {
             indicator.display();
           }
-
         } else {
-          this.logger.warn("cannot persist or results are not cached");
+          this.logger.warn('cannot persist or results are not cached');
         }
       }
     }
