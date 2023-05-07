@@ -26,10 +26,9 @@ nothing has to be done.
     is [three years old](https://github.com/FooSoft/yomichan/issues/2295).
     If you are using Firefox, ensure that your Yomichan version is indeed the latest version,
     by clicking on the Yomichan icon and clicking on the question mark.
-    If it isn't, you will have to download it [manually](https://github.com/FooSoft/yomichan/releases).
-
-    You may also have to download the Firefox Developer edition, and set `xpinstall.signatures.required`
-    to `false`.
+    If it isn't, you will have to download it
+    [manually](https://github.com/FooSoft/yomichan/releases/tag/22.10.23.0)
+    (use `a708116f79104891acbd-22.10.23.0.xpi`).
 
 ---
 
