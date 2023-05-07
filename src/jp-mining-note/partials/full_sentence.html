@@ -2,6 +2,9 @@
 
 {% set _disp_mode = COMPILE_OPTIONS("fullSentenceRuby.displayMode").item() %}
 
+<!-- NOTE: sentence-unquoted-display-no-indent is automatically removed if javascript is ran.
+  It is dependent on runtime options. -->
+
 {% call IF("SentenceReading") %}
 <div class="full-sentence-center">
   {#<div class="full-sentence-gradient"></div>#}
@@ -14,7 +17,7 @@
     {% endif %}
   >
   <label class="
-        full-sentence highlight-bold
+        full-sentence highlight-bold sentence-unquoted-display-no-indent
         {% if _disp_mode == "hover" or _disp_mode == "both" %}
         full-sentence--ruby-hover
         {% endif %}
