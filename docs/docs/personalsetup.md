@@ -77,49 +77,11 @@ pa:
 
 
 {% raw %}
-??? examplecode "Yomichan Template Options"
-    ```handlebars
-    {{~! NOTE: this MUST be put at the very top of the templates section! ~}}
-
-
-    {{~! ================ Dictionary Categorization Options ================= ~}}
-
-    {{~! valid values: "bilingual", "monolingual" ~}}
-    {{~set "opt-first-definition-type" "monolingual" ~}}
-
-    {{~! matches most JMdict dictionaries, 新和英 and 日本語文法辞典(全集)~}}
-    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|ADD_BILINGUAL_DICTIONARIES_HERE)$ {{~/set~}}
-    {{~#set "utility-dict-regex"~}} ^(NHK日本語発音アクセント新辞典|シン・漢字遣い参考|[Jj][Mm][Dd]ict( Surface)? Forms)$ {{~/set~}}
-    {{~#set "ignored-dict-regex"~}} ^(新和英)$ {{~/set~}}
-
-
-    {{~! ====================== Selected Text Options ======================= ~}}
-
-    {{set "opt-selection-text-enabled"               true}}
-    {{set "opt-selection-text-dictionary"            true}}
-    {{set "opt-selection-text-glossary"              true}}
-    {{set "opt-selection-text-glossary-attempt-bold" true}}
-
-
-    {{~! ==================== Frequency Sorting Options ===================== ~}}
-    {{~! See here for the official documentation on how these options work:
-        https://github.com/MarvNC/JP-Resources#freq-settings ~}}
-
-    {{~#set "opt-ignored-freq-dict-regex"~}} ^(JLPT_Level)$ {{~/set~}}
-    {{~#set "opt-keep-freqs-past-first-regex"~}} ^()$ {{~/set~}}
-    {{~set "opt-no-freq-default-value" 9999999 ~}}
-    {{~set "opt-freq-sorting-method" "harmonic" ~}} {{~! "min", "first", "avg", "harmonic" ~}}
-
-    {{~set "opt-grammar-override" true ~}}
-    {{~set "opt-grammar-override-value" 0 ~}}
-    {{~#set "opt-grammar-override-dict-regex"~}} ^(日本語文法辞典\(全集\)|毎日のんびり日本語教師|JLPT文法解説まとめ|どんなときどう使う 日本語表現文型辞典|絵でわかる日本語)$ {{~/set~}}
-
-
-
-
-
-    {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE BELOW ============== ~}}
-    ```
+```handlebars
+{{~set "opt-first-definition-type" "monolingual" ~}}
+{{~#set "ignored-dict-regex"~}} ^(新和英)$ {{~/set~}}
+{{~set "opt-jmdict-list-format" false ~}} {{~! still using regular jmdict ~}}
+```
 {% endraw %}
 
 
@@ -177,6 +139,25 @@ div#dictionary-entries > div.entry:nth-child(n + 2) .kanji-glyph-data > tbody > 
  */
 
 {% endset %}
+
+
+
+{% set restrict_pitch_css %}
+
+/* only shows the first 2 pitch dictionaries */
+li.pronunciation-group:nth-child(n+3) {
+  display: none;
+}
+/* makes 大辞泉 and NHK have white text, and all other pitch dictionaries have grey text */
+.tag[data-category="pronunciation-dictionary"] {
+  --tag-text-color: #c8bfdb;
+}
+.tag[data-details="大辞泉"], .tag[data-details="NHK"] {
+  --tag-text-color: #FFFFFF;
+}
+
+{% endset %}
+
 -->
 
 ## monolingual profile
@@ -184,55 +165,47 @@ div#dictionary-entries > div.entry:nth-child(n + 2) .kanji-glyph-data > tbody > 
 - scale: 110%
 - condition: modifier keys are shift
 
-??? examplecode "CSS"
-    ```css
+```css
 
-{% filter indent(4) %}
 {{ global_css }}
-{% endfilter %}
+
+{{ restrict_pitch_css }}
+
+li.definition-item[data-dictionary='NHK日本語発音アクセント新辞典'] {
+  display: none;
+}
 
 
-    /* only shows the first 2 pitch dictionaries */
-    li.pronunciation-group:nth-child(n+3) {
-      display: none;
-    }
-    /* makes 大辞泉 and NHK have white text, and all other pitch dictionaries have grey text */
-    .tag[data-category="pronunciation-dictionary"] {
-      --tag-text-color: #c8bfdb;
-    }
-    .tag[data-details="大辞泉"], .tag[data-details="NHK"] {
-      --tag-text-color: #FFFFFF;
-    }
+li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
+  opacity: 0;
+}
+li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
+  opacity: 1;
+}
+
+li.definition-item[data-dictionary='新和英'] .gloss-list {
+  opacity: 0;
+}
+li.definition-item[data-dictionary='新和英']:hover .gloss-list {
+  opacity: 1;
+}
 
 
-    li.definition-item[data-dictionary='NHK日本語発音アクセント新辞典'] {
-      display: none;
-    }
+li.definition-item[data-dictionary='日本語文法辞典(全集)'] .gloss-list {
+  opacity: 0;
+}
+li.definition-item[data-dictionary='日本語文法辞典(全集)']:hover .gloss-list {
+  opacity: 1;
+}
+```
 
 
-    li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
-      opacity: 0;
-    }
-    li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
-      opacity: 1;
-    }
-
-    li.definition-item[data-dictionary='新和英'] .gloss-list {
-      opacity: 0;
-    }
-    li.definition-item[data-dictionary='新和英']:hover .gloss-list {
-      opacity: 1;
-    }
-
-
-    li.definition-item[data-dictionary='日本語文法辞典(全集)'] .gloss-list {
-      opacity: 0;
-    }
-    li.definition-item[data-dictionary='日本語文法辞典(全集)']:hover .gloss-list {
-      opacity: 1;
-    }
-    ```
-
+## other monolingual profiles
+```
+URL - Matches Domain - doc.rust-jp.rs
+    - tag: rust
+    - scale: 90%
+```
 
 ## bilingual profile
 
@@ -241,162 +214,186 @@ div#dictionary-entries > div.entry:nth-child(n + 2) .kanji-glyph-data > tbody > 
 - condition: modifier keys are ctrl
 
 
-??? examplecode "CSS"
-    ```css
 
-{% filter indent(4) %}
+```css
+
 {{ global_css }}
-{% endfilter %}
 
-    li.definition-item[data-dictionary='旺文社国語辞典 第十一版'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='明鏡国語辞典'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='明鏡国語辞典 第二版'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='ハイブリッド新辞林'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='新明解国語辞典 第五版'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='デジタル大辞泉'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='漢字源'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='実用日本語表現辞典'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='毎日のんびり日本語教師'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='学研 四字熟語辞典'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='新明解四字熟語辞典'] {
-      display: none;
-    }
+{{ restrict_pitch_css }}
+
+li.definition-item[data-dictionary='旺文社国語辞典 第十一版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='明鏡国語辞典'] {
+  display: none;
+}
+li.definition-item[data-dictionary='明鏡国語辞典 第二版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='ハイブリッド新辞林'] {
+  display: none;
+}
+li.definition-item[data-dictionary='新明解国語辞典 第五版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='デジタル大辞泉'] {
+  display: none;
+}
+li.definition-item[data-dictionary='漢字源'] {
+  display: none;
+}
+li.definition-item[data-dictionary='実用日本語表現辞典'] {
+  display: none;
+}
+li.definition-item[data-dictionary='毎日のんびり日本語教師'] {
+  display: none;
+}
+li.definition-item[data-dictionary='学研 四字熟語辞典'] {
+  display: none;
+}
+li.definition-item[data-dictionary='新明解四字熟語辞典'] {
+  display: none;
+}
+li.definition-item[data-dictionary='三省堂国語辞典　第七版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='大辞林 第三版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='新明解国語辞典　第七版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='surasura 擬声語'] {
+  display: none;
+}
+li.definition-item[data-dictionary='surasura 擬声語'] {
+  display: none;
+}
+li.definition-item[data-dictionary='大辞林 第三版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='日本語俗語辞書'] {
+  display: none;
+}
 
 
-    /* only shows the first 2 pitch dictionaries */
-    li.pronunciation-group:nth-child(n+3) {
-      display: none;
-    }
-    /* makes 大辞泉 and NHK have white text, and all other pitch dictionaries have grey text */
-    .tag[data-category="pronunciation-dictionary"] {
-      --tag-text-color: #c8bfdb;
-    }
-    .tag[data-details="大辞泉"], .tag[data-details="NHK"] {
-      --tag-text-color: #FFFFFF;
-    }
-    ```
+
+```
 
 ## PA and grammar profile
 
 - scale: 100%
 
-??? examplecode "CSS"
-    ```css
+```css
 
-{% filter indent(4) %}
 {{ global_css }}
-{% endfilter %}
 
 
-    li.definition-item[data-dictionary='旺文社国語辞典 第十一版'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='明鏡国語辞典'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='明鏡国語辞典 第二版'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='ハイブリッド新辞林'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='新明解国語辞典 第五版'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='デジタル大辞泉'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='漢字源'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='実用日本語表現辞典'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='学研 四字熟語辞典'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='新明解四字熟語辞典'] {
-      display: none;
-    }
 
-    li.definition-item[data-dictionary='JMdict (English)'] {
-      display: none;
-    }
-    li.definition-item[data-dictionary='新和英'] {
-      display: none;
-    }
-    ```
+li.definition-item[data-dictionary='旺文社国語辞典 第十一版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='明鏡国語辞典'] {
+  display: none;
+}
+li.definition-item[data-dictionary='明鏡国語辞典 第二版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='ハイブリッド新辞林'] {
+  display: none;
+}
+li.definition-item[data-dictionary='新明解国語辞典 第五版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='デジタル大辞泉'] {
+  display: none;
+}
+li.definition-item[data-dictionary='漢字源'] {
+  display: none;
+}
+li.definition-item[data-dictionary='実用日本語表現辞典'] {
+  display: none;
+}
+li.definition-item[data-dictionary='毎日のんびり日本語教師'] {
+  display: none;
+}
+li.definition-item[data-dictionary='学研 四字熟語辞典'] {
+  display: none;
+}
+li.definition-item[data-dictionary='新明解四字熟語辞典'] {
+  display: none;
+}
+li.definition-item[data-dictionary='三省堂国語辞典　第七版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='大辞林 第三版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='新明解国語辞典　第七版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='surasura 擬声語'] {
+  display: none;
+}
+li.definition-item[data-dictionary='surasura 擬声語'] {
+  display: none;
+}
+li.definition-item[data-dictionary='大辞林 第三版'] {
+  display: none;
+}
+li.definition-item[data-dictionary='日本語俗語辞書'] {
+  display: none;
+}
+
+li.definition-item[data-dictionary='JMdict (English)'] {
+  display: none;
+}
+li.definition-item[data-dictionary='新和英'] {
+  display: none;
+}
+
+li.definition-item[data-dictionary='Nico/Pixiv'] {
+  display: none;
+}
+
+```
 
 
 ## Phone profile
+- 新和英 is not installed on the phone
 
-- because it's a phone, less dictionaries are going to be installed (for performance reasons)
-    - anki cards and searches will be less detailed than the ideal max
+```css
 
-??? example "List of dictionaries"
-
-    - [x] 旺文社国語辞典 第十一版 rev.OUKOKU11_1.6
-    - [x] 明鏡国語辞典 第二版 rev.MEIKYO2.v1
-    - [ ] ハイブリッド新辞林 rev.shinjirin
-    - [ ] 新明解国語辞典 第五版 rev.Shinmeikai5
-    - [ ] デジタル大辞泉 rev.daijisen_20210506;2021-07-27
-    - [x] 実用日本語表現辞典 rev.jitsuyou1
-    - [x] 毎日のんびり日本語教師 rev.nihongo_no_sensei_v_1.03 ;2022-04-30;embedded urls, p of speech indicators(N5-N0)
-
-    - [x] 新明解四字熟語辞典 rev.shinmeikai_yojijukugo;2021-07-12
-    - [x] 毎日のんびり日本語教師 rev.nihongo_no_sensei_v_1.03 ;2022-04-30;embedded urls, p of speech indicators(N5-N0)
-    - [ ] NHK日本語発音アクセント新辞典 rev.1.0-->
-    - [x] JMDict Surface Forms rev.JMdict 2022-07-19
-    - [x] JMdict (English) rev.jmdict4
-    - [ ] 新和英 rev.Shinwaei1
-    - [x] 日本語文法辞典(全集) rev.DOJG_v1.01;2022-04-30;better formatting
-    - [x] Anime & Jdrama Freq: rev.frequency1
-    - [ ] Innocent Ranked rev.frequency1
-    - [x] JPDB rev.JPDB_by-frequency-global_2022-05-10T03:27:02.930Z
-    - [x] VN Freq rev.frequency1
-    - [x] KANJIDIC (English) rev.kanjidic2
-    - [x] NHK rev.pitch_1.0.1.1
-    - [x] 大辞泉 rev.pitch_1.0.0.1
-    - [ ] アクセント辞典 rev.pitch1
-    - [x] Kanjium rev.pitch1
-
-
-
-??? examplecode "CSS"
-    ```css
-
-{% filter indent(4) %}
 {{ global_css }}
-{% endfilter %}
+
+{{ restrict_pitch_css }}
+
+/* Only shows the first freq list */
+span.frequency-group-item:nth-child(n+2) {
+  display: none;
+}
 
 
-    /* Only shows the first 2 frequency lists */
-    span.frequency-group-item:nth-child(n+3) {
-      display: none;
-    }
+li.definition-item[data-dictionary='NHK日本語発音アクセント新辞典'] {
+  display: none;
+}
 
 
-    ```
+li.definition-item[data-dictionary='JMdict (English)'] .gloss-list {
+  opacity: 0;
+}
+li.definition-item[data-dictionary='JMdict (English)']:hover .gloss-list {
+  opacity: 1;
+}
+
+li.definition-item[data-dictionary='日本語文法辞典(全集)'] .gloss-list {
+  opacity: 0;
+}
+li.definition-item[data-dictionary='日本語文法辞典(全集)']:hover .gloss-list {
+  opacity: 1;
+}
+
+```
 
 
 ## Yomichan Fields
