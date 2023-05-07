@@ -761,6 +761,17 @@ code {
   //text-indent: -1em;
   //padding-left: 1em;
   font-size: var(--sentence-font-size);
+
+  /*
+   * width_fs/font_fs = width_expr/font_expr
+   * width_expr = width_fs/font_fs*font_expr
+   *
+   * NOTE: --full-sentence-font-size = 1.75(rem) and
+   *       --sentence-font-size = 3.25(rem)
+   * However, we cannot use anything but numbers in the denominator of css calc,
+   * so we are stuck with pretty much hard coding the values...
+   */
+  max-width: calc(common.$bp-max-width-backside / 1.75 * 3.25);
 }
 //.expression-box__sentence, .expression-box__hybrid-sentence, .expression-box__sf-sentence {
 //  font-size: var(--sentence-font-size);
