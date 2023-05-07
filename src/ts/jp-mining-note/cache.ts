@@ -1,13 +1,26 @@
 import { JSDOM } from 'jsdom';
 //import { xhr2 } from 'xhr2';
+
+
 import {KanjiHover, NoteInfoKanjiHover} from '../modules/kanjiHover';
 import {invoke} from '../ankiConnectUtils';
-import {NoteInfo, plainToRuby, _resetGlobalState as _resetGlobalStateUtils} from '../utils';
-import {Field, _resetGlobalState as _resetGlobalStateFields} from '../fields';
+import {type NoteInfo, type CardInfo, plainToRuby, _resetGlobalState as _resetGlobalStateUtils} from '../utils';
+import {type Field, _resetGlobalState as _resetGlobalStateFields} from '../fields';
 import {manuallyCreateObjPersist} from '../spersist';
 import {WordIndicatorLabel, WordIndicators} from '../modules/wordIndicators';
 
 
+type CacheArgs = {
+  "new-cards-per-day": number,
+  "day-buffer": number,
+  "custom-query": null | string,
+  "suppress-log": boolean,
+  "expires": number,
+  "print-notes-only": boolean,
+}
+
+// required for printing, since console.log is completely suppressed for now
+const _print = console.log;
 
 function simulateEnv(noteInfo: NoteInfo) {
   const h = document.getElementById("hidden") as HTMLElement;
@@ -33,14 +46,40 @@ function simulateEnv(noteInfo: NoteInfo) {
   _resetGlobalStateFields();
 }
 
-async function getNotesInfo(): Promise<NoteInfo[]> {
-  // TODO cli flags
-  const query = `"note:JP Mining Note" (prop:due=0)`;
-  //const query = "cid:1679878820999 OR cid:1679879962917 OR cid:1670736430754 OR cid:1670751054470 OR cid:1670751627638 OR cid:1670752182179 OR cid:1670752828713 OR cid:1670753452666 OR cid:1670754404523 OR cid:1670759984783 OR cid:1670767693507 OR cid:1670812672583 OR cid:1670813402590 OR cid:1670840591380 OR cid:1670841005409 OR cid:1670844752574 OR cid:1670845767977 OR cid:1670920871892 OR cid:1670920994917 OR cid:1670921670805 OR cid:1670973359742 OR cid:1670995157666 OR cid:1670996099016 OR cid:1671006862874 OR cid:1671008336839 OR cid:1671053146364 OR cid:1671053913946 OR cid:1671054128008 OR cid:1671054316614 OR cid:1671055545564"
-  console.log("Querying due notes...")
-  const notes = await invoke("findNotes", { query: query }) as number[];
 
-  console.log("Getting notes info...")
+// logic equivalent to batch.py's get_new_due_cards
+async function getNewDueCards(limit: number): Promise<number[]> {
+  const query = '"note:JP Mining Note" is:new -is:suspended';
+  const cards = await invoke("findCards", {query: query});
+  const cardsInfo = await invoke("cardsInfo", {cards: cards}) as Array<CardInfo>;
+  cardsInfo.sort((a: any, b: any) => a.due - b.due); // sort by due cards
+  // takes first ${LIMIT} and only returns card ids
+  const newDueCards = cardsInfo.slice(limit).map((val) => val.cardId);
+  return newDueCards;
+}
+
+
+async function getNotes(dayBuffer: number, newCardsPerDay: number): Promise<number[]> {
+  let query = `"note:JP Mining Note" (prop:due>=0 prop:due<=${dayBuffer})`;
+  if (newCardsPerDay > 0) {
+    _print("Calculating new cards...");
+    const newDueCards = await getNewDueCards(newCardsPerDay);
+    const newDueCardsQuery = newDueCards.map(cid => `cid:${cid}`).join(" OR ");
+    query = `(${query}) OR (${newDueCardsQuery})`;
+  }
+  return getNotesFromQuery(query);
+}
+
+
+async function getNotesFromQuery(query: string): Promise<number[]> {
+  _print("Querying due notes...")
+  _print("Query:", query);
+  return invoke("findNotes", { query: query }) as number[];
+}
+
+
+async function getNotesInfo(notes: number[]): Promise<NoteInfo[]> {
+  _print("Getting notes info...")
   return invoke("notesInfo", { notes: notes }) as NoteInfo[];
 }
 
@@ -73,21 +112,24 @@ async function calcWordIndicatorTooltips(): Promise<Record<WordIndicatorLabel, s
 }
 
 /*
-
-<span data-cache-version="1">
-  <span data-cache-type="kanji-hover">
-    <span data-cache-kanji="(KANJI)">
+<div data-cache-version="1" data-cache-write-time="EPOCH_TIME" data-cache-expires="NUM_OF_DAYS">
+  <div data-cache-type="kanji-hover">
+    <div data-cache-kanji="(KANJI)">
       (KANJI HOVER RESULT)
-    </span>
-  </span>
-</span>
-
+    </div>
+  </div>
+  <div data-cache-type="word-indicators">
+    <div data-cache-label="LABEL"> <!-- LABEL is of type WordIndicatorLabel -->
+      (WORD INDICTOR RESULT)
+    </div>
+  </div>
+</div>
 */
-function constructCacheEle(epochTime: number, kanjiToHoverHTML: Record<string, string>, wordIndicatorTooltips: Record<WordIndicatorLabel, string | null>): HTMLElement {
+function constructCacheEle(epochTime: number, kanjiToHoverHTML: Record<string, string>, wordIndicatorTooltips: Record<WordIndicatorLabel, string | null>, expires: number): HTMLElement {
   const base = document.createElement("div");
   base.setAttribute("data-cache-version", "1");
   base.setAttribute("data-cache-write-time", `${epochTime}`);
-  base.setAttribute("data-cache-expires", `9`);
+  base.setAttribute("data-cache-expires", `${expires}`);
 
 
   const kanjiHoverBaseEle = document.createElement("div");
@@ -127,17 +169,94 @@ function constructWriteAction(cacheEleHTML: string, info: NoteInfo) {
   };
 }
 
+const HELP_MESSAGE = (
+  "Usage: \n" +
+  "--new-cards-per-day=INT    Number of new JPMN cards you expect to review per day\n" +
+  "--day-buffer=INT           Number of days you want to cache for\n" +
+  "--expires=INT              Number of days the cache is valid for. This should be greater than day-buffer.\n" +
+  "--custom-query=STR         Query to use instead of the generated query. Ignores all\n" +
+  "--[no-]suppress-log        Whether console.log output from the internal modules are suppressed or not.\n" +
+  "--[no-]print-notes-only    Only prints out the note IDs. Does not calculate cache results.\n"
+)
+
+function parseArgs(): CacheArgs {
+  const defaultOpts = {
+    "new-cards-per-day": 20,
+    "day-buffer": 8,
+    "custom-query": null,
+    "suppress-log": true,
+    "expires": 14,
+    "print-notes-only": false,
+  } as const;
+  const opts = {
+    alias: [
+      "new-cards-per-day",
+      "day-buffer",
+      "expires",
+    ],
+    unknown: (arg: string) => {
+      throw Error(`Unknown option: ${arg}`);
+    },
+    string: [
+      "custom-query",
+    ],
+    boolean: [
+      "suppress-log",
+      "print-notes-only",
+    ],
+    default: defaultOpts,
+  }
+  const args = require('minimist')(process.argv.slice(2), opts);
+
+  // get rid of aliases???
+  delete args["0"];
+  delete args["1"];
+  // get rid of empty argument
+  delete args["_"];
+
+  if (args["expires"] < args["day-buffer"]) {
+    throw Error(`--expires cannot be lower than --day-buffer: ${args}`);
+  }
+
+  return args;
+}
+
 async function main() {
   // CREATE/SUPPRESS GLOBAL OBJECTS
   const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p><div id="hidden"></div>`);
   globalThis.document = dom.window.document;
   globalThis.XMLHttpRequest = require('xhr2');
   manuallyCreateObjPersist(); // fake a persist obj
-  // literally clears out console output, because otherwise it spams... (we use print instead)
-  const print = console.log;
-  console.log = () => {};
 
-  const notesInfo = await getNotesInfo();
+  // help message
+  if (process.argv[2] === "--help") {
+    _print(HELP_MESSAGE);
+    return;
+  }
+
+  const args = parseArgs();
+  _print("Arguments:", args);
+
+  if (args['suppress-log']) {
+    // literally clears out console output, because otherwise it spams... (we use print instead)
+    console.log = () => {};
+  }
+
+  let notes: number[];
+  const customQuery = args['custom-query'];
+  if (customQuery === null) {
+    notes = await getNotes(args["day-buffer"], args["new-cards-per-day"]);
+  } else {
+    notes = await getNotesFromQuery(customQuery);
+  }
+
+  if (args["print-notes-only"]) {
+    _print(notes);
+    return;
+  }
+
+  const notesInfo = await getNotesInfo(notes);
+  _print(`Number of notes found: ${notesInfo.length}`);
   const epochTime = Date.now();
   let actions: ReturnType<typeof constructWriteAction>[] = [];
 
@@ -146,8 +265,7 @@ async function main() {
   let currentBuffer = 0;
 
   for (const [i, info] of notesInfo.entries()) {
-    print(`Caching note ${i+1}/${notesInfo.length}...`)
-    //console.log("Key:", info.fields.Key.value);
+    _print(`Caching note ${i+1}/${notesInfo.length}...`)
 
     try {
       simulateEnv(info);
@@ -155,13 +273,10 @@ async function main() {
       const kanjiToHoverHTML = await calcKanjisToHover(info);
       const wordIndicatorTooltips = await calcWordIndicatorTooltips();
 
-      const cacheEle = constructCacheEle(epochTime, kanjiToHoverHTML, wordIndicatorTooltips);
+      const cacheEle = constructCacheEle(epochTime, kanjiToHoverHTML, wordIndicatorTooltips, args.expires);
       const action = constructWriteAction(cacheEle.outerHTML, info,);
       actions.push(action)
-      //console.log(action)
-      //console.log(JSON.stringify(action, null, 2))
 
-      //break; // TODO temp
       currentBuffer++;
       if (currentBuffer >= maxBuffer) {
         currentBuffer = 0;

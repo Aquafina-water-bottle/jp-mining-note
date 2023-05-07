@@ -10,6 +10,14 @@ export type NoteInfo = {
   readonly fields: Record<Field, {value: string}>
 };
 
+export type CardInfo = {
+  // TODO: incomplete!
+  readonly cardId: number;
+  readonly due: number;
+  readonly fields: Record<Field, {value: string}>
+};
+
+
 export type CardSide = "front" | "back";
 
 
