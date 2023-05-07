@@ -7,13 +7,13 @@
   //"logger.debug.onlyShowCertainModules": true,
   //"logger.debug.onlyShowCertainModules.modules": ["folderTab"],
 
-
   // enables all warnings
   "logger.warn.ignore": [],
 
 
   //"autoPitchAccent.coloredPitchAccent.enabled": true,
   "autoPitchAccent.coloredPitchAccent.enabled": false,
+  //"tooltips.highlightWordInSentence": true,
 
   "imgStylizer.mainImage.blur.enabled": true,
   "imgStylizer.mainImage.blur.startState": "never", // never blurred, basically disabling the module
@@ -121,7 +121,6 @@
   //  "autoPitchAccent.coloredPitchAccent.color.fullSentence": true,
   //},
 
-  //"tooltips.highlightWordInSentence": true,
 
 
   // TEMP

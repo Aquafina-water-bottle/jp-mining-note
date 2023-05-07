@@ -35,6 +35,14 @@ TODO
 
 1. open Anki (so that Anki-Connect is running)
 1. Build the note! You might have to refresh the npm dependencies `npm ci`
+1. If using runtime options (i.e. colored pitch accent), Use the following CTO:
+    ```
+    "hardcodedRuntimeOptions": true,
+    ```
+
+    - required because runtime options currently cannot be read from Anki.
+    - must also use runtime_options.json(5) if you want any runtime options
+
 1. Test the script out first, by running it on a single card.
     For example, take a note ID of any JPMN note (Card browser →  Right click a note →  `Info...`), and use the following:
     ```
