@@ -385,3 +385,6 @@ Scripts/
 # Technically the directory should be overwritten in opts, but not everyone does that
 overrides/*
 !overrides/.gitkeep
+
+themes/parfait/
+data/rto_overrides.json*
