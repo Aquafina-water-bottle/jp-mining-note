@@ -30,6 +30,13 @@
 }
 
 
+/* Hide audio buttons on AnkiMobile (position: fixed does NOT seem to work on AnkiMobile...) */
+.iphone, .ipad {
+  .dh-left__audio-buttons {
+    display: none;
+  }
+}
+
 
 @media (max-width: common.$bp-display-sentence-remove-newlines) and (min-height: common.$bp-tablet-height) {
   /* removes newlines */
