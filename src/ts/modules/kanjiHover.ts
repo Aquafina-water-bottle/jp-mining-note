@@ -1,8 +1,9 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { SPersistInterface, selectPersist } from '../spersist';
-import { plainToRuby, getCardKey, filterCards, cardCacheExpired } from '../utils';
+import { plainToRuby, getCardKey, filterCards } from '../utils';
 import { getFieldValue, getFieldValueEle, Field, cacheFieldValue } from '../fields';
+import { type CardCache } from './cardCache';
 
 import {
   Tooltips,
@@ -64,7 +65,7 @@ export class KanjiHover extends RunnableAsyncModule {
   private readonly cardHoverHTMLCacheKey: string;
   private readonly mobilePopup: MobilePopup | null;
   private readonly wordReadingEle: HTMLElement | null;
-  private readonly cardCacheEle: HTMLElement | null;
+  private readonly cardCache: CardCache | null;
 
   private readonly noteInfo: NoteInfoKanjiHover = {
     WordReading: getFieldValue('WordReading'),
@@ -72,7 +73,7 @@ export class KanjiHover extends RunnableAsyncModule {
     Key: getFieldValue('Key'),
   } as const;
 
-  constructor(mobilePopup: MobilePopup | null) {
+  constructor(cardCache: CardCache | null, mobilePopup: MobilePopup | null) {
     super('kanjiHover');
 
     this.tooltips = new Tooltips();
@@ -84,7 +85,7 @@ export class KanjiHover extends RunnableAsyncModule {
     this.mobilePopup = mobilePopup;
 
     this.wordReadingEle = document.getElementById('dh_reading');
-    this.cardCacheEle = getFieldValueEle("CardCache");
+    this.cardCache = cardCache;
 
     // ran synchronously, so fields will 100% be cached
     const cacheFields: readonly Field[] = [
@@ -534,9 +535,9 @@ export class KanjiHover extends RunnableAsyncModule {
     // checks for all caches first
     if (this.useCache && this.wordReadingEle !== null) {
 
-      if (this.cardCacheEle !== null && !cardCacheExpired(this.cardCacheEle)) {
+      if (this.cardCache?.shouldUse()) {
         // checks for CardCache field first
-        const kanjiHoverData = this.cardCacheEle.querySelector(`[data-cache-type="kanji-hover"]`);
+        const kanjiHoverData = this.cardCache.getKanjiHoverData();
         if (kanjiHoverData) {
           // format said data into kanjiToHoverHTML
           const kanjiToHoverHTML: KanjiToHoverHTML = {};

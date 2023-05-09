@@ -413,22 +413,3 @@ export function addOnShownHook(callback: Callback) {
 }
 
 
-export function cardCacheExpired(cardCacheEle: HTMLElement) {
-  const writeTimeStr = cardCacheEle?.querySelector(`[data-cache-write-time]`)?.getAttribute("data-cache-write-time")
-  const expiryDurationStr = cardCacheEle?.querySelector(`[data-cache-expires]`)?.getAttribute("data-cache-expires")
-  if (!writeTimeStr || !expiryDurationStr) { // skip if any are null/undefined
-    return;
-  }
-  const writeTime = Number(writeTimeStr);
-  const expiryDurationDays = Number(expiryDurationStr);
-
-  // 24/1 hour/day
-  // 60/1 -> minute/hour
-  // 60/1 -> second/minute
-  // 1000/1 -> ms/s
-  const expiryDuration = expiryDurationDays * 1000 * 60 * 60 * 24; // milliseconds
-  // caching expired result is likely not worth it here
-  const isExpired = (expiryDuration + writeTime < Date.now());
-  return isExpired;
-}
-

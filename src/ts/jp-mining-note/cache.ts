@@ -97,7 +97,7 @@ async function getNotesInfo(notes: number[]): Promise<NoteInfo[]> {
 }
 
 async function calcKanjisToHover(info: NoteInfo) {
-  const kanjiHover = new KanjiHover(null);
+  const kanjiHover = new KanjiHover(null, null);
 
   const noteInfo: NoteInfoKanjiHover = {
     WordReading: info.fields.WordReading.value,
@@ -114,7 +114,7 @@ async function calcWordIndicatorTooltips(): Promise<Record<WordIndicatorLabel, s
     'same_kanji_indicator': null,
     'same_reading_indicator': null,
   }
-  const wordIndicators = new WordIndicators(null);
+  const wordIndicators = new WordIndicators(null, null);
   wordIndicators.setUseCache(false); // 
   const indicators = wordIndicators.getIndicators()
   for (const indicator of indicators) {

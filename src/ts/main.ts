@@ -27,6 +27,7 @@ import { Blockquotes } from './modules/blockquotes';
 import { RefreshCard } from './modules/refreshCard';
 import {cardIsNew} from './isNew';
 import {getViewportWidth} from './reflow';
+import {CardCache} from './modules/cardCache';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -186,11 +187,13 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     asyncManager.addFunction(cardIsNewFuncWrapper);
   }
 
+  const cardCache = new CardCache();
+
   if (compileOpts['enableModule.kanjiHover']) {
-    asyncManager.addModule(new KanjiHover(mobilePopup));
+    asyncManager.addModule(new KanjiHover(cardCache, mobilePopup));
   }
   if (compileOpts['enableModule.wordIndicators']) {
-    asyncManager.addModule(new WordIndicators(mobilePopup));
+    asyncManager.addModule(new WordIndicators(cardCache, mobilePopup));
   }
   if (cardSide === "back" && compileOpts['enableModule.checkDuplicateKey']) {
     // only necessary at the back to avoid distractions at the front

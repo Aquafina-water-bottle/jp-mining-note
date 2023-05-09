@@ -5,7 +5,6 @@ import {
   getTags,
   getCardKey,
   getCardSide,
-  cardCacheExpired,
 } from '../utils';
 import { getFieldValue, Field, cacheFieldValue, getFieldValueEle } from '../fields';
 import {
@@ -28,6 +27,7 @@ import {
 } from '../ankiConnectUtils';
 import { cardIsNew } from '../isNew';
 import { MobilePopup } from '../mobilePopup';
+import { type CardCache } from './cardCache';
 
 type WordIndicatorsCategoryID =
   | 'nonNew.hidden'
@@ -89,7 +89,6 @@ export class WordIndicator {
       'WordReading',
       'WordReadingHiragana',
       'YomichanWordTags',
-      'CardCache',
     ] as const;
     for (const f of cacheFields) {
       cacheFieldValue(f);
@@ -427,20 +426,20 @@ export class WordIndicators extends RunnableAsyncModule {
 
   readonly dhLeftEle = document.getElementById('dh_left');
   readonly mobilePopup: MobilePopup | null;
-  private readonly cardCacheEle: HTMLElement | null;
+  private readonly cardCache: CardCache | null;
 
   readonly tooltips: Tooltips;
 
   // caches here for safety from async calls
   private readonly cardSide = getCardSide();
 
-  constructor(mobilePopup: MobilePopup | null) {
+  constructor(cardCache: CardCache | null, mobilePopup: MobilePopup | null) {
     super('wordIndicators');
     this.tooltips = new Tooltips();
     this.tooltips.overrideOptions(getOption('wordIndicators.overrideOptions.tooltips'));
 
     this.mobilePopup = mobilePopup;
-    this.cardCacheEle = getFieldValueEle('CardCache');
+    this.cardCache = cardCache;
   }
 
   getIndicators(): WordIndicator[] {
@@ -482,25 +481,21 @@ export class WordIndicators extends RunnableAsyncModule {
   async main() {
     // checks for CardCache field first
     // if it exists, the calculation at the front side will also be skipped here
-    if (this.useCache && this.persist !== null) {
-      if (this.cardCacheEle !== null && !cardCacheExpired(this.cardCacheEle)) {
-        const wordIndsData = this.cardCacheEle?.querySelector(
-          `[data-cache-type="word-indicators"]`
-        );
-        if (wordIndsData) {
-          this.logger.debug('Using CardCache');
-          const indicators = this.getIndicators();
-          for (const indicator of indicators) {
-            const tooltipHTML =
-              wordIndsData.querySelector(`[data-cache-label="${indicator.label}"]`)
-                ?.innerHTML ?? '';
-            if (tooltipHTML !== null && this.cardSide === 'back') {
-              this.persist.set(indicator.cacheKey, tooltipHTML);
-              indicator.display();
-            }
+    if (this.useCache && this.persist !== null && this.cardCache?.shouldUse()) {
+      const wordIndsData = this.cardCache.getWordIndsData()
+      if (wordIndsData) {
+        this.logger.debug('Using CardCache');
+        const indicators = this.getIndicators();
+        for (const indicator of indicators) {
+          const tooltipHTML =
+            wordIndsData.querySelector(`[data-cache-label="${indicator.label}"]`)
+              ?.innerHTML ?? '';
+          if (tooltipHTML !== null && this.cardSide === 'back') {
+            this.persist.set(indicator.cacheKey, tooltipHTML);
+            indicator.display();
           }
-          return;
         }
+        return;
       }
     }
 
