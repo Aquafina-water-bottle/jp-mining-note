@@ -104,6 +104,13 @@
     "manual_reorder",
   ],
 
+  //"cardCache.enabled": {
+  //  "type": "isMobile",
+  //  "resultTrue":  true,
+  //  "resultFalse": false,
+  //}
+
+
   //"kanjiHover.overrideOptions.tooltips": {
   //  // always show pitch accent
   //  //"tooltips.displayPitchAccentOnHoverOnly": false,

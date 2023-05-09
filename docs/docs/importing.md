@@ -22,9 +22,11 @@ as well as present a small example for Anime Cards.
 Additionally, although you maybe able to import most of the card,
 it is unlikely that you will have complete 100% full
 functionality after importing the notes.
+<!--
 The biggest example is frequency list information,
-as it requires special HTML + css formatting that can only be specified
+as it requires special HTML + CSS formatting that can only be specified
 in the Yomichan Templates section.
+-->
 
 ---
 
@@ -99,6 +101,8 @@ However, here are a few tips:
 
 1. I recommend **not** setting `FrequenciesStylized` to anything, even if you have a field for
     frequency lists[^1].
+
+1. When in doubt, look at the format in the example notes.
 
 
 [^1]: `FrequenciesStylized` uses a custom set of handlebars to

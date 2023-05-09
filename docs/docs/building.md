@@ -117,7 +117,7 @@ Some additional options with `venv` are shown below.
     ```bash
     pip3 install \
             pyjson5 jinja2 black pytest \
-            mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin \
+            mkdocs mkdocs-video mkdocs-material mkdocs-macros-plugin mkdocs-redirects \
             mkdocs-git-revision-date-localized-plugin
     ```
 

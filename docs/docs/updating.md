@@ -88,7 +88,9 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
         ::  $ cd jp-mining-note
 
         :: grabs the latest version of the master branch
-        git pull origin master
+        :: NOTE: use the `testing` branch if you want to install pre-releases, i.e.
+        ::git checkout testing
+        git pull --force
 
         :: Make sure you have Anki open and Anki-Connect installed!
         :: Also ensure that your python version is 3.9 or higher.
@@ -103,7 +105,9 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
         #  $ cd jp-mining-note
 
         # grabs the latest version of the master branch
-        git pull origin master
+        # NOTE: use the `testing` branch if you want to install pre-releases, i.e.
+        #git checkout testing
+        git pull --force
 
         # Make sure you have Anki open and Anki-Connect installed!
         # Also ensure that your python version is 3.9 or higher.

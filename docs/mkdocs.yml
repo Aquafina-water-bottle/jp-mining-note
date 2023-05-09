@@ -70,7 +70,9 @@ plugins:
       video_autoplay: False
   - macros
   - git-revision-date-localized:
-      type: date
+  - redirects:
+      redirect_maps:
+        'setupeverythingelse.md': 'setuptextmedia.md'
 
 nav:
   - Home:
@@ -82,11 +84,17 @@ nav:
     - "Setup: Installing": setup.md
     - "Setup: Anki": setupanki.md
     - "Setup: Yomichan": setupyomichan.md
-    - "Setup: Everything Else": setupeverythingelse.md
-    - "Setup: Other": setupother.md
-    - Transfer Existing Notes: importing.md
-    - Updating: updating.md
-    - Setup Changes: setupchanges.md
+    - "Setup: Text & Media": setuptextmedia.md
+    - Extra Setup:
+      - "Extra: Yomichan": setupextrayomichan.md
+      - "Extra: Anki": setupextraanki.md
+      - "Extra: Android": setupandroid.md
+      - "Extra: iOS": setupios.md
+      - "Extra: eReaders": setupereaders.md
+      - Transfer Existing Notes: importing.md
+    - Updating:
+      - Updating: updating.md
+      - Setup Changes: setupchanges.md
   - Reference:
     - Quick Start (TODO): quickstart.md
     - Blockquotes (TODO): blockquotes.md

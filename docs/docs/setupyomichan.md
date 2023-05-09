@@ -6,8 +6,8 @@ or under the Chrome web store.
 
 This section will go over the minimal Yomichan setup to work with this card type.
 
-**If you have never used Yomichan before**, please see
-[this page](https://learnjapanese.moe/yomichan/) first to get it working.
+**If you have never used Yomichan before, please see
+[this page](https://learnjapanese.moe/yomichan/) first to get it working.**
 
 ---
 
@@ -17,6 +17,7 @@ If you have used Yomichan before, please make a
 (just in case).
 
 
+<!--
 Additionally, if you downloaded Yomichan from a file, try updating that as well.
 Most users should have installed it from their browser's extension page, in which case
 nothing has to be done.
@@ -31,6 +32,8 @@ nothing has to be done.
     If it isn't, you will have to download it
     [manually](https://github.com/FooSoft/yomichan/releases/tag/22.10.23.0)
     (use `a708116f79104891acbd-22.10.23.0.xpi`).
+
+-->
 
 ---
 
@@ -233,52 +236,6 @@ To fix it, set `opt-jmdict-list-format` to `true`, i.e.
 ---
 
 
-# Additional Instructions for Other Platforms
-
-Outside of creating cards on the PC,
-there are some other platforms that one can create cards from.
-
-
-
-## Android Setup
-
-If you wish to add cards on Android, use
-[AnkiconnectAndroid](https://github.com/KamWithK/AnkiconnectAndroid)
-and follow the instructions on the AnkiconnectAndroid's README page.
-It might help to export a copy of Yomichan settings from your PC and import said settings on Android,
-instead of re-doing all of the steps on Android.
-
-!!! note
-    Occasionally, importing your Yomichan settings from the PC may lead to
-    AnkiconnectAndroid not working.
-    See [here](https://github.com/KamWithK/AnkiconnectAndroid#common-errors-and-solutions)
-    for additional troubleshooting.
-
-
-!!! note
-
-    There is currently no way to automatically add an image (e.g. a screenshot) automatically.
-    Images must be added manually within AnkiDroid.
-
-    Although screenshots cannot be added automatically,
-    the runtime options supports automatically adding images
-    based off of tags, which is mostly useful for novels.
-    See [here](images.md#automatically-add-images-using-tags)
-    for more info.
-
-
-
-
-
-## Kindle Setup
-
-One can use something like [ann2html](https://github.com/xythh/ann2html)
-to export a Yomichan-able HTML file based on the Kindle's vocabulary builder.
-This allows you to add the cards through Yomichan on the PC.
-
-
-
----
 
 
 # Enjoy your new one-click cards!
@@ -299,9 +256,7 @@ From here, you likely fall under one of the two categories below:
     1. Getting the actual text to use Yomichan on.
     1. Getting the pictures and/or sentence audio from the media into the card.
 
-    Head over to the [Setup: Everything Else](setupeverythingelse.md) page to see exactly that.
-    If you are also new to Yomichan, I also recommend downloading
-    [these dictionaries](setupother.md#other-dictionaries).
+    Head over to the [Setup: Text & Media](setuptextmedia.md) page to see exactly that.
 
 
 1. **I already have a sentence mining workflow.**
@@ -315,7 +270,7 @@ From here, you likely fall under one of the two categories below:
     Other than that, you are completely finished with the setup process!
 
     !!! note
-        See [Setup: Everything Else (Notes on Various Programs)](setupeverythingelse.md#notes-on-various-programs)
+        See [Setup: Text & Media (Notes on Various Programs)](setuptextmedia.md#notes-on-various-programs)
         for specific tips on a select few programs.
 
 

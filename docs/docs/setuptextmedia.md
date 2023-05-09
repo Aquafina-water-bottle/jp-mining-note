@@ -201,7 +201,7 @@ The following are primarily for text-heavy games, such as visual novels.
     * [Playing Emulated DS, 3DS, PSP and Gameboy Advanced games on Android devices](https://docs.google.com/document/d/1iUfG_omRDaC3huup_XuAg1ztt2VSkezI2kL-O-Pf3-4/edit?usp=sharing)
         * Contact info: `OrangeLightX#2907` <!-- 1011824983351250965 -->
             on the Refold (JP) Discord server or {{ TMW_SERVER }}
-    * See [this section](setupeverythingelse.md#getting-images-sentence-audio-manually)
+    * See [this section](setuptextmedia.md#getting-images-sentence-audio-manually)
         to get sentence audio and images
 
 ---
@@ -248,7 +248,6 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
 
     * [jidoujisho](https://github.com/lrorpilla/jidoujisho)
         * Android e-book reader and media player. Advertises itself as an all-in-one app.
-        * See [this note on jidoujisho](#jidoujisho).
     * [Immersive](https://github.com/Ben-Kerman/immersive)
         * Add-on for MPV. Alternative to mpvacious.
         * WARNING: This is potentially outdated and/or abandoned.
@@ -341,7 +340,6 @@ Below will list a few ways to view these files in a browser to Yomichan.
     * [jidoujisho](https://github.com/lrorpilla/jidoujisho)
         * Android e-book reader and media player. Advertises itself as an all-in-one app.
         * Uses [ッツ Ebook Reader](https://ttu-ebook.web.app/) as its backend.
-        * See [this note on jidoujisho](#jidoujisho).
 
 ??? example "Guides <small>(click here)</small>"
     - Like with Mokuro,
@@ -545,16 +543,4 @@ There are a few common issues that asbplayer users have, when creating cards wit
 
 -->
 
-
-## [jidoujisho](https://github.com/lrorpilla/jidoujisho)
-
-I'm not very sure how the Anki card generation works for this app,
-since this app does not use Yomichan.
-
-The custom handlebars used by JPMN does a lot of heavy lifting
-and has plenty of customizations specifically to work JPMN.
-Unfortunately, this handlebars is not very portable between programs.
-
-If you want to use this app, I leave it to the user to figure out the specifics
-of creating the cards.
 

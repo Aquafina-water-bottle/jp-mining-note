@@ -400,7 +400,7 @@
     "autoPitchAccent.coloredPitchAccent.color.wordReadingKanji": false,
     "autoPitchAccent.coloredPitchAccent.color.fullSentence": false
   },
-  "cache.showClearCacheButton": false,
+  "cardCache.enabled": true,
   "asyncManager.initialDelay": 50,
   "overrides": {
     "enableAnkiconnectFeatures": {

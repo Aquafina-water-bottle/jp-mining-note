@@ -16,7 +16,7 @@ to setup the card exporter to create cards with this note type.
 Getting the text (the first part)
 and getting the image and sentence audio (the optional part of part two)
 are not heavily focused on within this site,
-but can be found under [Setup: Everything Else](setupeverythingelse.md)
+but can be found under [Setup: Text & Media](setuptextmedia.md)
 page.
 
 

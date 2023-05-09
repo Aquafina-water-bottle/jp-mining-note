@@ -6,7 +6,7 @@ If you have never used Anki before, I recommend using
 to get more optimized settings than the default settings.
 
 That article showcases only one way of setting up Anki's settings for language learning.
-Feel free to view some other examples [here](setupother.md#various-anki-resources).
+Feel free to view some other examples [here](setupextraanki.md#various-anki-resources).
 
 ---
 
