@@ -453,8 +453,15 @@
   }
 
   .card-main {
-    // TODO adjust if no image, etc.
+    // TODO adjust if no audio
     margin-bottom: var(--footer-height);
+  }
+
+  .iphone, .ipad {
+    .card-main {
+      // ASSUMPTION: audio buttons are hidden!
+      margin-bottom: 0px;
+    }
   }
 
   .card-main--half-screen {

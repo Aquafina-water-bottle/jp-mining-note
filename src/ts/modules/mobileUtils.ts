@@ -1,6 +1,6 @@
 import { RunnableModule } from '../module';
 import { isMobile } from '../utils';
-import { fieldsAnyFilled, getFieldValue } from '../fields';
+import { fieldsAnyFilled } from '../fields';
 
 export class MobileUtils extends RunnableModule {
   constructor() {

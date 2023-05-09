@@ -225,7 +225,7 @@ and must use `./install.py --update`.
 - Un-bolded more things on mobile
 - Audio buttons are now completely hidden on AnkiMobile
 - `fixRubyPositioning.enabled` is now `false` for all devices (to fix AnkiMobile's uncentered furigana)
-
+- Card refreshes now persist changes to kanji hover and word indicators for the session
 
 </details>
 
