@@ -203,6 +203,7 @@ This is because it is usually more useful to see a summary of the values,
 instead of all the literal values itself.
 
 - If you prefer the list display, see [Frequencies: List Mode](frequencies.md#list-mode).
+    Also see [Frequencies: List Mode Maximum](frequencies.md#list-mode-maximum).
 - If you prefer the frequency sort display but you don't have a frequency sort value,
     [backfill the frequencies](importing.md#backfill-the-frequencysort-field).
 - If you prefer the frequency sort display but your frequency sort is somehow invalid:

@@ -201,7 +201,7 @@ function parseArgs(): CacheArgs {
     "day-buffer": 8,
     "custom-query": null,
     "suppress-log": true,
-    "expires": 14,
+    "expires": 10,
     "print-notes-only": false,
   } as const;
   const opts = {

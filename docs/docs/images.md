@@ -278,12 +278,18 @@ By default, states cycle from left to right.
         Both examples have the info circle toggled (clicked), so the tooltip persists.
 
 
+## Mobile Usage
+
+- TODO the eye to the top right of the image is not shown to prevent fat finger unblurs
+- if you want to unblur, you must change review session state via the info circle as shown above
+
+
 ## Additional Details
 
 - The eyeball to toggle the blur between an image will not be shown unless the card is marked as NSFW
     (or the review session state is "Always Blurred").
 - Clicking on the blurred image will do nothing; you must click on the eye to un-blur the image.
-    Forcing the user to click in a smaller area makes accidental reveals less common.
+    Forcing the user to click in a smaller area makes accidental unblurs less common.
 - After revealing the image, you can click on the image to zoom, as normal.
     You cannot click on a blurred image to zoom.
 - Most things can be changed in the runtime options,

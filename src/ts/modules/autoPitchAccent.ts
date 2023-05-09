@@ -757,11 +757,13 @@ export class AutoPitchAccent extends RunnableModule {
      return str.replace(/&#42780;/g, '').replace(/ꜜ/g, '');
   }
 
+  /*
+   * grabs the raw html split between the ・ characters, if it matches the wordReadingKana
+   * ASSUMPTION: no html element is split between the ・ characters
+   * (apart from <b>, which are ignored)
+   */
   private getAJTWordHTML(wordReadingKana: string): string | null {
     const normalizedReading = convertHiraganaToKatakana(wordReadingKana);
-    // grabs the raw html split between the ・ characters
-    // ASSUMPTION: no html element is split between the ・ characters
-    // (apart from <b>, which are ignored)
 
     if (this.ajtHTML === null || this.ajtHTML.length === 0) {
       this.logger.debug(`ajtHTML is empty`);

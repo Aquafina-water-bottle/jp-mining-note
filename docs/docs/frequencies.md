@@ -8,6 +8,22 @@ All other frequencies can be viewed by hovering over the dropdown arrow.
 
 ---
 
+# Unknown Frequency
+
+TODO image of unknown
+
+- TODO if you see "unknown" at the top right of all your cards, you likely don't have any frequency list installed
+- "unknown" shows if both FrequenciesStylized and FrequencySort are not filled
+- recommend [backfilling](importing.md#backfill-the-frequencysort-field) existing cards
+- if you don't want to see "unknown", you can remove with {{CSS}}:
+    ```css
+    .frequencies [data-is-unknown] {
+      display: none;
+    }
+    ```
+
+---
+
 # Sorting by Frequency
 This note type comes with a `FrequencySort` field,
 which is the equivalent of Marv's `Frequency` field in
@@ -39,7 +55,7 @@ If you wish to do this, set the following {{ RTO }} to `list-all`:
 "freqUtils.displayMode": "list-all",
 ```
 
-(TODO IMAGE)
+(TODO GIF with dropdown)
 
 
 ## List Mode Maximum
@@ -51,3 +67,6 @@ This limit can be changed with the following {{ RTO }}:
 ```json
 "freqUtils.listAll.max": 4,
 ```
+
+(TODO IMAGE without dropdown)
+

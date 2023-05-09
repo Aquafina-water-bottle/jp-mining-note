@@ -26,24 +26,30 @@ TODO
     - may be implemented as a separate note in the future (so you can run the script within Anki)
 - also requires node (npx node)
 
-## General warnings
+## Cache Script Warnings
 
 - cannot use Anki while running the script (Anki-Connect blocks using Anki, and the script continuously makes calls to Anki-Connect during its lifetime)
 - will take a long time to run!!! this is because Anki-Connect itself is a bit slow when doing mass operations like this
+    - 1000 cards took about 45 minutes for me
 
-## How to (first time)
+## Prerequisites
 
-1. open Anki (so that Anki-Connect is running)
-1. Build the note! You might have to refresh the npm dependencies `npm ci`
+1. Open Anki (so that Anki-Connect is running)
+1. Build the note! You might have to refresh the npm dependencies `npm ci`.
+
 1. If using runtime options (i.e. colored pitch accent), Use the following CTO:
     ```
     "hardcodedRuntimeOptions": true,
     ```
 
     - required because runtime options currently cannot be read from Anki.
-    - must also use runtime_options.json(5) if you want any runtime options
+    - must also use `runtime_options.json(5)` file if you want any runtime options
 
-1. Test the script out first, by running it on a single card.
+1. Close your card viewer, so you are not viewing any card when running the script.
+
+## Test Cache Script - Single Card
+
+1. Test the script out first, by running it on a single card (preferably one with visible word indicators)
     For example, take a note ID of any JPMN note (Card browser →  Right click a note →  `Info...`), and use the following:
     ```
     node ./src/_js/jpmn_card_cache.js --custom-query="nid:1234567890"
@@ -52,9 +58,12 @@ TODO
 1. Check that kanji hover and word indicators work!
 
 
-## How to (every other time)
-1. open Anki (so that Anki-Connect is running)
-1. build the note, if you haven't already
+## Test Cache Script - Show Card List
+
+TODO `--print-notes-only`
+
+
+## Run Cache Script
 1. Run the following:
     ```bash
     node ./src/_js/jpmn_card_cache.js
@@ -64,6 +73,18 @@ TODO
 - run with `--help` for list of all available flags
 - TODO: MacOS cannot find Anki-Connect???
 
+
+## Ignore Cache Results
+
+- TODO results are ignored by default on PC (TODO not currently the case as of writing)
+    - so PC always gets the most current results, at the cost of slight performance
+- can be edited via runtime option `cardCache.enabled`
+
+
+## Remove Cached Results
+
+- TODO can clear the `CacheField` field (make sure to edit HTML! TODO link FAQ)
+- can remove all results via `clear_field CardCache` batch command
 
 ---
 
