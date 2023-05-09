@@ -830,8 +830,8 @@
   // = fixRubyPositioning =
   // ==========================================================================
 
-  // OVERWRITTEN BELOW
-  "fixRubyPositioning.enabled": true,
+  // NOTE: not properly working on iPhone / iPad, so it is disabled for now
+  "fixRubyPositioning.enabled": false,
 
 
 
@@ -1070,11 +1070,11 @@
       "resultFalse": false,
     },
 
-    "fixRubyPositioning.enabled": {
-      "type": "isiPhoneiPad",
-      "resultTrue": true, // it seems like the AnkiMobile release only supports qt5 as of writing this
-      "resultFalse": false,
-    },
+    //"fixRubyPositioning.enabled": {
+    //  "type": "isiPhoneiPad",
+    //  "resultTrue": true, // it seems like the AnkiMobile release only supports qt5 as of writing this
+    //  "resultFalse": false,
+    //},
 
   },
 }

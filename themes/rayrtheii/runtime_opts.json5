@@ -104,11 +104,11 @@
     "manual_reorder",
   ],
 
-  //"cardCache.enabled": {
-  //  "type": "isMobile",
-  //  "resultTrue":  true,
-  //  "resultFalse": false,
-  //}
+  "cardCache.enabled": {
+    "type": "isMobile",
+    "resultTrue":  true,
+    "resultFalse": false,
+  }
 
 
   //"kanjiHover.overrideOptions.tooltips": {
