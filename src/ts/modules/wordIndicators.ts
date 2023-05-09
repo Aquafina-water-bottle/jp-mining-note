@@ -1,11 +1,6 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import {
-  filterCards,
-  getTags,
-  getCardKey,
-  getCardSide,
-} from '../utils';
+import { filterCards, getTags, getCardKey, getCardSide } from '../utils';
 import { getFieldValue, Field, cacheFieldValue, getFieldValueEle } from '../fields';
 import {
   Tooltips,
@@ -13,7 +8,7 @@ import {
   NoteInfoTooltipBuilder,
   TooltipBuilder,
 } from './tooltips';
-import { selectPersistAny, selectPersistObj } from '../spersist';
+import { selectPersistAny, selectPersistObj, type SPersistInterface } from '../spersist';
 import {
   getQueryCache,
   AnkiConnectAction,
@@ -478,24 +473,57 @@ export class WordIndicators extends RunnableAsyncModule {
     ];
   }
 
-  async main() {
-    // checks for CardCache field first
-    // if it exists, the calculation at the front side will also be skipped here
-    if (this.useCache && this.persist !== null && this.cardCache?.shouldUse()) {
-      const wordIndsData = this.cardCache.getWordIndsData()
-      if (wordIndsData) {
-        this.logger.debug('Using CardCache');
-        const indicators = this.getIndicators();
+  async displayIndicatorsFromCache(
+    persistObj: SPersistInterface,
+    indicators: WordIndicator[],
+    cardResultsCacheKey: string,
+  ) {
+    if (this.cardSide === 'back') {
+      if (persistObj !== null && persistObj.has(cardResultsCacheKey)) {
+        this.logger.debug('Displaying results from cache');
+        await persistObj.get(cardResultsCacheKey); // so it's no longer a promise
+
         for (const indicator of indicators) {
-          const tooltipHTML =
-            wordIndsData.querySelector(`[data-cache-label="${indicator.label}"]`)
-              ?.innerHTML ?? '';
-          if (tooltipHTML !== null && this.cardSide === 'back') {
-            this.persist.set(indicator.cacheKey, tooltipHTML);
-            indicator.display();
-          }
+          indicator.display();
         }
+      } else {
+        this.logger.warn('cannot persist or results are not cached');
+      }
+    }
+  }
+
+  async main() {
+    // not a constant in the global scope due to cache.ts erroring on import step
+    // getCardKey is guaranteed to be cached by its usage in the constructor
+    const cardResultsCacheKey = `${wordIndicatorsCardResultCacheKey}.${getCardKey()}`;
+    const persistObj = selectPersistObj();
+
+    if (this.useCache && this.persist !== null) {
+      // standard cache
+      if (persistObj?.has(cardResultsCacheKey)) {
+        const indicators = this.getIndicators();
+        await this.displayIndicatorsFromCache(persistObj, indicators, cardResultsCacheKey);
         return;
+      }
+
+      // checks for CardCache field
+      // if it exists, the calculation at the front side will also be skipped here
+      if (this.cardCache?.shouldUse()) {
+        const wordIndsData = this.cardCache.getWordIndsData();
+        if (wordIndsData) {
+          this.logger.debug('Using CardCache');
+          const indicators = this.getIndicators();
+          for (const indicator of indicators) {
+            const tooltipHTML =
+              wordIndsData.querySelector(`[data-cache-label="${indicator.label}"]`)
+                ?.innerHTML ?? '';
+            if (tooltipHTML !== null && this.cardSide === 'back') {
+              this.persist.set(indicator.cacheKey, tooltipHTML);
+              indicator.display();
+            }
+          }
+          return;
+        }
       }
     }
 
@@ -509,17 +537,18 @@ export class WordIndicators extends RunnableAsyncModule {
       return;
     }
 
-    const indicators = this.getIndicators();
-    const persistObj = selectPersistObj();
-
     // if getResultFront, this code will always fire regardless of side
     if (getResultFront || (!getResultFront && this.cardSide === 'back')) {
-      // not a constant due to cache.ts erroring on import step
-      const cardResultsCacheKey = `${wordIndicatorsCardResultCacheKey}.${getCardKey()}`;
+      const indicators = this.getIndicators();
 
       if (persistObj === null) {
         // abort because this will probably be too expensive...
         this.logger.warn('cannot persist, will not get results...');
+        return;
+      }
+
+      if (this.useCache && persistObj.has(cardResultsCacheKey)) {
+        this.logger.debug('no reason to get results: already queued');
       } else {
         // global variable to store whether the indicators have gotten the results or not
         let getResults = async () => {
@@ -538,25 +567,9 @@ export class WordIndicators extends RunnableAsyncModule {
           }
           return true;
         };
-
-        if (this.useCache && persistObj.has(cardResultsCacheKey)) {
-          this.logger.debug('no reason to get results: already queued');
-        } else {
-          persistObj.set(cardResultsCacheKey, getResults());
-        }
+        persistObj.set(cardResultsCacheKey, getResults());
       }
-
-      if (this.cardSide === 'back') {
-        if (persistObj !== null && persistObj.has(cardResultsCacheKey)) {
-          await persistObj.get(cardResultsCacheKey); // so it's no longer a promise
-
-          for (const indicator of indicators) {
-            indicator.display();
-          }
-        } else {
-          this.logger.warn('cannot persist or results are not cached');
-        }
-      }
+      await this.displayIndicatorsFromCache(persistObj, indicators, cardResultsCacheKey);
     }
   }
 }

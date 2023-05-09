@@ -322,7 +322,7 @@
     "1000000",
     "10000000"
   ],
-  "fixRubyPositioning.enabled": true,
+  "fixRubyPositioning.enabled": false,
   "checkDuplicateKey.enabled": true,
   "blockquotes.enabled": true,
   "blockquotes.hideEmpty": true,
@@ -432,11 +432,6 @@
         "op": "<=",
         "value": "combinePicture"
       },
-      "resultTrue": true,
-      "resultFalse": false
-    },
-    "fixRubyPositioning.enabled": {
-      "type": "isiPhoneiPad",
       "resultTrue": true,
       "resultFalse": false
     }

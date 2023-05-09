@@ -1014,7 +1014,7 @@
   // ==========================================================================
   // = sm:cardCache =
   // ==========================================================================
-  // TODO: only enable on mobile?
+  // TODO: only enable on mobile once overrides are reworked
   "cardCache.enabled": true,
 
 

@@ -535,6 +535,13 @@ export class KanjiHover extends RunnableAsyncModule {
     // checks for all caches first
     if (this.useCache && this.wordReadingEle !== null) {
 
+      // checks for standard persist first, to allow refreshing to stick for the session
+      if (this.persist !== null && this.persist.has(this.cardWordReadingResultKey)) {
+        this.displayCachedResult(this.persist, this.wordReadingEle);
+        return;
+      }
+
+      // then checks card cache
       if (this.cardCache?.shouldUse()) {
         // checks for CardCache field first
         const kanjiHoverData = this.cardCache.getKanjiHoverData();
@@ -554,12 +561,6 @@ export class KanjiHover extends RunnableAsyncModule {
           this.displayResultFromKanjiToHoverHTML(kanjiToHoverHTML, this.wordReadingEle);
           return;
         }
-      }
-
-      // checks for standard persist after
-      if (this.persist !== null && this.persist.has(this.cardWordReadingResultKey)) {
-        this.displayCachedResult(this.persist, this.wordReadingEle);
-        return;
       }
     }
 

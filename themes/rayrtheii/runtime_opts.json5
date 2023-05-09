@@ -104,6 +104,7 @@
     "manual_reorder",
   ],
 
+  // TODO: only enable on mobile once overrides are reworked
   "cardCache.enabled": {
     "type": "isMobile",
     "resultTrue":  true,
