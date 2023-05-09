@@ -49,8 +49,10 @@ I personally like using this field to test handlebars from Yomichan.
 This is named `Comment` in reference to comments in code (comments do not change
 the execution of the code).
 
-
 ---
+
+
+<!--
 
 # Fix Ruby Positioning <small>(for legacy Anki versions)</small> { #fix-ruby-positioning }
 {{ feature_version("0.11.0.0") }}
@@ -92,6 +94,8 @@ This fix is imperfect because it adds even more spacing to the left and right th
 if the furigana text is too long.
 
 ---
+
+-->
 
 
 # Remove the "(N/A)" on cards with no pitch accents

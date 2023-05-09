@@ -213,6 +213,26 @@ and must use `./install.py --update`.
 
 
 <details>
+<summary> Pre-release 6 </summary>
+
+**Features**:
+- `--override-styling` flag for `install.py` to override user CSS
+- Card cache script now supports command line arguments, making it usable to the public
+- Constrained width of display sentence to be similar to the full sentence
+- `cardCache.enabled` RTO (you can disable `CardCache` on PC with this)
+
+**Fixes**:
+- Un-bolded more things on mobile
+- Audio buttons are now completely hidden on AnkiMobile
+- `fixRubyPositioning.enabled` is now `false` for all devices (to fix AnkiMobile's uncentered furigana)
+
+
+</details>
+
+
+
+
+<details>
 <summary> Pre-release 5 </summary>
 
 **Features**:
