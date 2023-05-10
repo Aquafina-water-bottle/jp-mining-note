@@ -35,10 +35,7 @@ export class InfoCircleUtils extends RunnableModule {
     const dataTags: string[] = [];
     const mediaTags: string[] = [];
 
-    const possibleDataTagsArr = (
-      getOption('infoCircleUtils.jpmnDataTags') as string[]
-    ).concat(getOption('infoCircleUtils.userDataTags'));
-    const possibleDataTags = new Set(possibleDataTagsArr);
+    const possibleDataTags = new Set(getOption('infoCircleUtils.dataTags') as string[]);
 
     for (const tag of getTags()) {
       if (possibleDataTags.has(tag)) {

@@ -12,7 +12,7 @@ type DO = typeof runtimeOpts;
 //  "debug.onlyShowCertainModules.modules": string[]; // override any arrays
 //};
 
-export type O = Omit<DO, 'overrides'>;
+export type O = Omit<DO, '_overrides'>;
 
 const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
   /*
@@ -212,7 +212,7 @@ type OverrideValueUnknown = {
 };
 
 type Overrides = {
-  readonly [K in keyof O]: OverrideValue<K>;
+  readonly [K in keyof O]: OverrideValue<K> | O[K];
 };
 
 const STR_OPS = {
@@ -317,8 +317,8 @@ function userOption<K extends keyof O>(k: K): O[K] | undefined {
 function getDefaultOption<K extends keyof O>(k: K): O[K] {
   const t = runtimeOpts[k];
 
-  if (k in runtimeOpts.overrides) {
-    const runtimeOverrides = runtimeOpts.overrides as Overrides;
+  if (k in runtimeOpts._overrides) {
+    const runtimeOverrides = runtimeOpts._overrides as Overrides;
     const result = attemptParseOverride(runtimeOverrides[k], t);
     if (result === undefined) {
       LOGGER.warn(`Default option override for ${k} is invalid?`, {

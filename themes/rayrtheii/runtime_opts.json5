@@ -87,29 +87,33 @@
 
   "blockquotes.hideEmpty": false,
 
-  "infoCircleUtils.userDataTags": [
-    "media",
-    "voice",
-    "grammar",
-    "mobile",
-    "asbplayer",
-    "mobile-untagged",
-    "duplicate",
-    "firefox",
-    "cloze_deletion",
-    "android",
-    "geography",
-    "jpmn-example",
-    "keigo",
-    "manual_reorder",
-  ],
+  // to be parsed by the builder
+  "_modifyActions": {
 
-  // TODO: only enable on mobile once overrides are reworked
-  "cardCache.enabled": {
-    "type": "isMobile",
-    "resultTrue":  true,
-    "resultFalse": false,
+    "infoCircleUtils.dataTags": [
+      {
+        "type": "add-all",
+        "values": [
+          "media",
+          "voice",
+          "grammar",
+          "mobile",
+          "asbplayer",
+          "mobile-untagged",
+          "duplicate",
+          "firefox",
+          "cloze_deletion",
+          "android",
+          "geography",
+          "jpmn-example",
+          "keigo",
+          "manual_reorder",
+        ]
+      },
+    ],
+
   }
+
 
 
   //"kanjiHover.overrideOptions.tooltips": {

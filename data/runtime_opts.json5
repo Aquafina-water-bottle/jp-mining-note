@@ -1,6 +1,6 @@
 {
 
-  // OVERWRITTEN BELOW
+  // OVERWRITTEN in rto_overrides.json
   "enableAnkiconnectFeatures": true,
 
   "hybridSentenceOpenOnPlaySentence": true,
@@ -184,7 +184,7 @@
 
 
   // the quote pair to automatically add to the sentence
-  // NOTE: overwritten in "overrides" section
+  // OVERWRITTEN in rto_overrides.json
   "sentenceParser.quotes.quoteOpen": "「",
   "sentenceParser.quotes.quoteClose": "」",
 
@@ -719,12 +719,9 @@
   // "back"
   "infoCircleUtils.showTagsMode": "back",
 
-  // tags to grey out / deprioritize
-  "infoCircleUtils.userDataTags": [],
-
   // data tags defined by jp-mining-note. You likely want to change the userDataTags list
   // instead of this list.
-  "infoCircleUtils.jpmnDataTags": [
+  "infoCircleUtils.dataTags": [
 
     // first line hide/show
     "line-hide",     "jpmn-line-hide",
@@ -871,7 +868,7 @@
   "blockquotes.openOnNew.extraInfo": false,
 
 
-  // NOTE: overwritten below
+  // OVERWRITTEN in rto_overrides.json
   // You likely don't want to change this.
   // This simply allows the javascript to run at the proper screen resolution.
   "blockquotes.folderTab.enabled": true,
@@ -1014,7 +1011,7 @@
   // ==========================================================================
   // = sm:cardCache =
   // ==========================================================================
-  // TODO: only enable on mobile once overrides are reworked
+  // OVERWRITTEN in rto_overrides.json
   "cardCache.enabled": true,
 
 

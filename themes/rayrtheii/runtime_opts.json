@@ -42,25 +42,27 @@
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
   "wordIndicators.getResultsFront": true,
   "blockquotes.hideEmpty": false,
-  "infoCircleUtils.userDataTags": [
-    "media",
-    "voice",
-    "grammar",
-    "mobile",
-    "asbplayer",
-    "mobile-untagged",
-    "duplicate",
-    "firefox",
-    "cloze_deletion",
-    "android",
-    "geography",
-    "jpmn-example",
-    "keigo",
-    "manual_reorder"
-  ],
-  "cardCache.enabled": {
-    "type": "isMobile",
-    "resultTrue": true,
-    "resultFalse": false
+  "_modifyActions": {
+    "infoCircleUtils.dataTags": [
+      {
+        "type": "add-all",
+        "values": [
+          "media",
+          "voice",
+          "grammar",
+          "mobile",
+          "asbplayer",
+          "mobile-untagged",
+          "duplicate",
+          "firefox",
+          "cloze_deletion",
+          "android",
+          "geography",
+          "jpmn-example",
+          "keigo",
+          "manual_reorder"
+        ]
+      }
+    ]
   }
 }

@@ -235,8 +235,7 @@
   "mobileUtils.enabled": true,
   "infoCircleUtils.enabled": true,
   "infoCircleUtils.showTagsMode": "back",
-  "infoCircleUtils.userDataTags": [],
-  "infoCircleUtils.jpmnDataTags": [
+  "infoCircleUtils.dataTags": [
     "line-hide",
     "jpmn-line-hide",
     "line-hide-1st",
@@ -401,39 +400,5 @@
     "autoPitchAccent.coloredPitchAccent.color.fullSentence": false
   },
   "cardCache.enabled": true,
-  "asyncManager.initialDelay": 50,
-  "overrides": {
-    "enableAnkiconnectFeatures": {
-      "type": "isPC",
-      "resultTrue": true,
-      "resultFalse": false
-    },
-    "sentenceParser.quotes.quoteOpen": {
-      "type": "cardType",
-      "args": {
-        "op": "===",
-        "cardType": "pa_sent"
-      },
-      "resultTrue": "\u300e",
-      "resultFalse": "\u300c"
-    },
-    "sentenceParser.quotes.quoteClose": {
-      "type": "cardType",
-      "args": {
-        "op": "===",
-        "cardType": "pa_sent"
-      },
-      "resultTrue": "\u300f",
-      "resultFalse": "\u300d"
-    },
-    "blockquotes.folderTab.enabled": {
-      "type": "viewportWidthBreakpoint",
-      "args": {
-        "op": "<=",
-        "value": "combinePicture"
-      },
-      "resultTrue": true,
-      "resultFalse": false
-    }
-  }
+  "asyncManager.initialDelay": 50
 }

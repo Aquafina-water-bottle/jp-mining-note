@@ -10,7 +10,7 @@ import urllib.request
 import urllib.error
 
 from pathlib import Path
-from typing import Callable, Any, Iterable, Optional
+from typing import Callable, Any, Iterable, Optional, TypedDict, Literal
 
 from json_handler import JsonHandler
 
@@ -24,6 +24,14 @@ rx_GET_VERSION = re.compile(
 
 
 JSON = dict[str, Any]
+
+class OptsDict(TypedDict):
+    user: JSON
+    themes: JSON
+    default: JSON
+
+OptsDictKey = Literal["user", "themes", "default"]
+
 
 
 cached_config = None
@@ -239,7 +247,7 @@ def defaults(*dicts: dict, strict=False):
     return result
 
 
-def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> JSON:
+def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> OptsDict:
     # attempts to get note options from the following places:
     # - config
     # - theme
@@ -284,16 +292,61 @@ def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> JSON:
     }
 
 
-def get_runtime_opts_all(config: Config, json_handler: JsonHandler) -> JSON:
+def get_runtime_opts_all(config: Config, json_handler: JsonHandler):
     return _get_opts_all("runtime", config, json_handler)
 
 
-def get_compile_opts_all(config: Config, json_handler: JsonHandler) -> JSON:
+def get_compile_opts_all(config: Config, json_handler: JsonHandler):
     return _get_opts_all("compile", config, json_handler)
 
 
+def apply_modify_action(dst: dict[str, Any], opt: str, action: JSON):
+    """
+    modifies dst in place with various actions.
+    NOTE: not 100% general. To make 100% general, "option" -> "path"
+        and should be a list of strings
+    """
+    type = action["type"]
+
+    if type == "set": # dictionary set
+        key = action["key"]
+        value = action["value"]
+
+        assert isinstance(dst[opt], dict)
+        dst[opt][key] = value
+
+    elif type == "delete": # dictionary pop
+        key = action["key"]
+
+        assert isinstance(dst[opt], dict)
+        if key in dst[opt]:
+            dst[opt].pop()
+
+    if type == "add": # list add
+        index = action["index"]
+        value = action["value"]
+
+        assert isinstance(dst[opt], list)
+        if index is not None:
+            dst[opt].insert(index, value)
+        else:
+            dst[opt].push(value) # applies at the end
+
+    if type == "add-all": # list add
+        values = action["values"]
+        assert isinstance(dst[opt], list)
+        dst[opt].extend(values)
+
+    elif type == "remove": # list remove
+        value = action["value"]
+
+        assert isinstance(dst[opt], list)
+        if value in dst[opt]:
+            dst[opt].remove(value)
+
 def apply_runtime_opts(
-    src: dict[str, Any], dst: dict[str, Any], overrides: dict[str, Any]
+        all_opts: OptsDict, key: OptsDictKey, dst: dict[str, Any], overrides: dict[str, Any],
+    error_if_unknown_key: bool = False
 ):
     """
     applies all runtime options from src -> dst (modifies in place)
@@ -305,7 +358,29 @@ def apply_runtime_opts(
         - logic should be implemented in compile-time for optimization, but also
             implemented in JS for usage in the true _jpmn-options.js file
     """
-    pass
+
+    def _is_override_value(val):
+        return isinstance(val, dict) and "type" in val
+
+    src = all_opts[key]
+    for k, v in src.items():
+        if _is_override_value(v):
+            if key == "default":
+                raise RuntimeError(f"default key cannot be override {k}: {v}")
+            overrides[k] = v
+        elif k in overrides and key != "default":
+            overrides[k] = v
+        elif k == "_modifyActions":
+            for k2, v2 in v.items():
+                for action in v2:
+                    apply_modify_action(dst, k2, action)
+        else:
+            if error_if_unknown_key and k not in dst:
+                # TODO more detailed error message
+                print(all_opts["default"])
+                raise KeyError(f"{k} not in default options (but was defined in {key})")
+
+            dst[k] = v
 
 
 def get_rto_overrides(json_handler: JsonHandler):
@@ -315,34 +390,26 @@ def get_rto_overrides(json_handler: JsonHandler):
 
 
 def get_runtime_opts(config: Config, json_handler: JsonHandler) -> Config:
-    # requires separation of { type: ... } (override) values into the "overrides"
-    # section to be usable by typescript
+    # requires separation of { type: ... } (override) values into the "overrides", for typescript to work
+    # overrides section is separately combined
     # NOTE: existing keys in overrides should be correctly overwwritten by themes/user RTOs!
 
-    runtime_opts = get_runtime_opts_all(config, json_handler)
-    result = copy.deepcopy(runtime_opts["default"])
+    all_runtime_opts = get_runtime_opts_all(config, json_handler)
     rto_overrides = get_rto_overrides(json_handler)
 
-    def _is_override_value(val):
-        return isinstance(val, dict) and "type" in val
-
     # extra should NOT have "overrides"
-    if config("theme-override-user-options").item():
-        extra = defaults(runtime_opts["themes"], runtime_opts["user"])
+    result_opts = {}
+    apply_runtime_opts(all_runtime_opts, "default", result_opts, rto_overrides)
+    if config("theme-override-user-options").item(): # themes is added last => theme has highest priority
+        apply_runtime_opts(all_runtime_opts, "user", result_opts, rto_overrides)
+        apply_runtime_opts(all_runtime_opts, "themes", result_opts, rto_overrides)
     else:
-        extra = defaults(runtime_opts["user"], runtime_opts["themes"])
-    for k, v in extra.items():
-        if k not in result:
-            # TODO more detailed error message
-            print(json.dumps(runtime_opts["default"], indent=2))
-            raise KeyError(f"{k} not in default options")
+        apply_runtime_opts(all_runtime_opts, "themes", result_opts, rto_overrides)
+        apply_runtime_opts(all_runtime_opts, "user", result_opts, rto_overrides)
 
-        if _is_override_value(v):
-            result["overrides"][k] = v
-        else:
-            result[k] = v
+    result_opts["_overrides"] = rto_overrides
 
-    return Config(result)
+    return Config(result_opts)
 
 
 def get_compile_opts(config: Config, json_handler: JsonHandler) -> Config:

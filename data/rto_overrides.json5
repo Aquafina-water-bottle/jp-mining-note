@@ -41,4 +41,10 @@
   //  "resultFalse": false,
   //},
 
+  "cardCache.enabled": {
+    "type": "isMobile",
+    "resultTrue":  true,
+    "resultFalse": false,
+  },
+
 }
