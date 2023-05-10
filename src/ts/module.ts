@@ -22,9 +22,7 @@ export type ModuleId =
   | 'fixRubyPositioning'
   | 'checkDuplicateKey'
   | 'blockquotes'
-  | 'refreshCard'
-  ;
-
+  | 'refreshCard';
 
 // TODO: using OverrideValue<K> creates an error:
 // > "Expression produces a union type that is too complex to represent"
@@ -57,11 +55,10 @@ export abstract class Module {
   overrideOptions(options: OptionsSubset) {
     for (const key of Object.keys(options) as Array<keyof O>) {
       const o = options[key];
-      if (typeof o !== "undefined") {
-        this.overrideOption(key, o)
+      if (typeof o !== 'undefined') {
+        this.overrideOption(key, o);
       }
     }
-
   }
 
   getOption<K extends keyof O>(k: K): O[K] {
@@ -96,7 +93,6 @@ export abstract class RunnableModule extends Module {
   abstract main(): void;
 }
 
-
 // TODO organize the typescript better, i.e. assets folder? types folder? etc.
 // definitely need to google this...
 // this is a generalized version of the below to allow more things
@@ -106,7 +102,10 @@ export interface AsyncManagerRunnableModule {
   run(): Promise<void>;
 }
 
-export abstract class RunnableAsyncModule extends RunnableModule implements AsyncManagerRunnableModule {
+export abstract class RunnableAsyncModule
+  extends RunnableModule
+  implements AsyncManagerRunnableModule
+{
   useCache: boolean = false;
 
   setUseCache(useCache: boolean) {
@@ -115,7 +114,7 @@ export abstract class RunnableAsyncModule extends RunnableModule implements Asyn
 
   async run() {
     // to call run() except in an async context
-    RunnableModule.prototype.run.call(this)
+    RunnableModule.prototype.run.call(this);
   }
 
   // still requires main() to be implemented!

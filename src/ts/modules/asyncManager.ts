@@ -55,16 +55,16 @@ export class AsyncManager extends Module {
     super('sm:asyncManager');
   }
 
-  addFunction(func: (...args : any[]) => any) {
+  addFunction(func: (...args: any[]) => any) {
     // wraps function with temporary module to run
     // what am I looking at here
     const funcModule: AsyncManagerRunnableModule = {
-      setUseCache: (_: boolean) => { },
-      run: () => new Promise((resolve) => {
-        func(),
-        resolve(void 0);
-      })
-    }
+      setUseCache: (_: boolean) => {},
+      run: () =>
+        new Promise((resolve) => {
+          func(), resolve(void 0);
+        }),
+    };
     this.modules.push(funcModule);
   }
 
@@ -98,6 +98,5 @@ export class AsyncManager extends Module {
         this.runModules();
       }, delay);
     }
-
   }
 }

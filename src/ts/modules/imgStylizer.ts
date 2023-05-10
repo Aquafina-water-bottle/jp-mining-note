@@ -9,11 +9,9 @@ import {
   isMobile,
   popupMenuMessage,
 } from '../utils';
-import {
-  fieldIsFilled,
-} from '../fields';
+import { fieldIsFilled } from '../fields';
 import { InfoCircleSetting } from './infoCircleSetting';
-import {getViewportWidth, adjustElements} from '../reflow';
+import { getViewportWidth, adjustElements } from '../reflow';
 
 type TagToImg = {
   tag: string;
@@ -269,7 +267,7 @@ class BackImgStylizer extends Module {
   }
 
   private getDisplayImg(): HTMLImageElement | null {
-    if (!fieldIsFilled("Picture")) {
+    if (!fieldIsFilled('Picture')) {
       return null;
     }
 
@@ -291,7 +289,7 @@ class BackImgStylizer extends Module {
     // perhaps move to arguments?
     // for now, image stylizer will remain specifically for one card
 
-    if (fieldIsFilled("Picture")) {
+    if (fieldIsFilled('Picture')) {
       // don't do anything if there's already something in the Picture field
       return null;
     }
@@ -302,14 +300,14 @@ class BackImgStylizer extends Module {
     for (const tagToImg of tagToImgList) {
       const tag = tagToImg.tag;
       if (getTags().includes(tag)) {
-      //if (arrContainsAnyOf(TAGS_LIST, tags)) {
+        //if (arrContainsAnyOf(TAGS_LIST, tags)) {
         const fileName = tagToImg.fileName;
 
         const newImg = document.createElement('img');
         newImg.src = fileName;
         this.dhImgContainer.appendChild(newImg);
-        this.wordImgBox.classList.toggle(clsWordImgBoxHasImg, true)
-        this.wordImgBox.classList.toggle(clsWordImgBoxNoImg, false)
+        this.wordImgBox.classList.toggle(clsWordImgBoxHasImg, true);
+        this.wordImgBox.classList.toggle(clsWordImgBoxNoImg, false);
         //this.dhLeftAudioBtns.classList.toggle(clsAudioBtnsLeft, true);
         return newImg;
       }
@@ -319,7 +317,7 @@ class BackImgStylizer extends Module {
   }
 
   private adjustForNoImg() {
-    if (fieldIsFilled("Picture")) {
+    if (fieldIsFilled('Picture')) {
       // text only field!
       this.wordImgBox.classList.toggle(clsWordImgBoxTextImg, true);
     } else {
@@ -409,9 +407,10 @@ class BackImgStylizer extends Module {
     defSpan.appendChild(defAnc);
     defSpan.appendChild(defImg);
 
-    if (isMobile()) { // always hidden on mobile, must tap text to see image
+    if (isMobile()) {
+      // always hidden on mobile, must tap text to see image
       //defImg.classList.toggle("hidden", true); // this doesn't work?
-      defImg.style.display = "none";
+      defImg.style.display = 'none';
     }
 
     return defSpan;
@@ -602,7 +601,6 @@ class BackImgStylizer extends Module {
 }
 
 export class ImgStylizer extends RunnableModule {
-
   constructor() {
     super('imgStylizer');
   }
@@ -614,7 +612,7 @@ export class ImgStylizer extends RunnableModule {
       return null;
     }
 
-    const imgEleList = dhImgContainer.getElementsByTagName("img");
+    const imgEleList = dhImgContainer.getElementsByTagName('img');
     if (!imgEleList) {
       return;
     }

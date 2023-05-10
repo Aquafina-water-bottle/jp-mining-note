@@ -149,8 +149,8 @@ export class WebSocketUtils extends RunnableModule {
       //  }
       //}
 
-      const sentenceField = getFieldValue("Sentence");
-      const ele = document.createElement("span"); // to strip html
+      const sentenceField = getFieldValue('Sentence');
+      const ele = document.createElement('span'); // to strip html
       ele.innerHTML = sentenceField;
       //const sentence = ele.textContent?.trim() ?? '';
       const sentence = ele.textContent?.trim() ?? '';
@@ -158,7 +158,6 @@ export class WebSocketUtils extends RunnableModule {
         this.logger.debug(`Socket sending sentence=${sentence}`);
         ws.send(sentence);
       }
-
     }
   }
 
@@ -189,7 +188,7 @@ export class WebSocketUtils extends RunnableModule {
     this.setting.btn.onclick = () => {
       const newState = this.setting.getNextState();
       if (newState === 0) {
-        this.closeWebSocket()
+        this.closeWebSocket();
         popupMenuMessage('Disabled websocket');
       } else if (newState === 1) {
         // switched to on

@@ -1,7 +1,7 @@
 import { cardIsNew } from '../isNew';
 import { RunnableModule } from '../module';
 import { checkOptTags, getOption } from '../options';
-import {getTags} from '../utils';
+import { getTags } from '../utils';
 
 type EntryId =
   | 'primary-definition'
@@ -10,10 +10,9 @@ type EntryId =
   | 'extra-definitions'
   | 'extra-info';
 
-type HideFirstLineMode =
-  "show" | "first-line" | "extra-text" | "tags" | "none";
+type HideFirstLineMode = 'show' | 'first-line' | 'extra-text' | 'tags' | 'none';
 
-type RemoveListMode = "always"| "never"| "on-singular";
+type RemoveListMode = 'always' | 'never' | 'on-singular';
 
 const ENTRIES = [
   {
@@ -288,13 +287,17 @@ export class Blockquotes extends RunnableModule {
     }
   }
 
-  private getParseFirstLineMode(modeType: 'primaryDefinition' | 'secondaryDefinition' | null): HideFirstLineMode {
+  private getParseFirstLineMode(
+    modeType: 'primaryDefinition' | 'secondaryDefinition' | null
+  ): HideFirstLineMode {
     let defaultMode = getOption(`blockquotes.simplifyDefinitions.hideFirstLineMode`);
 
     if (modeType !== null) {
-
       const lineMode = checkOptTags(getTags(), [
-        [`blockquotes.simplifyDefinitions.tagOverride.${modeType}.hideFirstLine`, 'first-line'],
+        [
+          `blockquotes.simplifyDefinitions.tagOverride.${modeType}.hideFirstLine`,
+          'first-line',
+        ],
         [`blockquotes.simplifyDefinitions.tagOverride.${modeType}.showFirstLine`, 'show'],
       ]);
 
@@ -307,61 +310,80 @@ export class Blockquotes extends RunnableModule {
   }
 
   // hides the first line (or parts of it)
-  private parseFirstLine(eleId: string, lineMode: HideFirstLineMode, dictsOverride: Record<string, string>) {
+  private parseFirstLine(
+    eleId: string,
+    lineMode: HideFirstLineMode,
+    dictsOverride: Record<string, string>
+  ) {
     const ele = document.getElementById(eleId);
     if (ele === null) {
       return;
     }
-    for (const liEle of ele.querySelectorAll("ol li[data-details]")) {
-      const dictName = liEle.getAttribute("data-details");
+    for (const liEle of ele.querySelectorAll('ol li[data-details]')) {
+      const dictName = liEle.getAttribute('data-details');
 
       // attempts to get dictsOverride[dictName], fallsback to lineMode
-      const dictMode = dictName === null ? lineMode : (dictsOverride[dictName] ?? lineMode);
-      console.log(lineMode, dictMode, dictName, dictsOverride[dictName ?? ""])
+      const dictMode = dictName === null ? lineMode : dictsOverride[dictName] ?? lineMode;
+      console.log(lineMode, dictMode, dictName, dictsOverride[dictName ?? '']);
 
-      if (dictMode === "first-line") {
-        ele.classList.add("glossary-blockquote--hide-first-line");
-      } else if (dictMode === "tags") {
-        ele.classList.add("glossary-blockquote--hide-tags");
-      } else if (dictMode === "extra-text") {
-        ele.classList.add("glossary-blockquote--hide-extra-text");
-      } else if (dictMode === "show") {
-        ele.classList.add("glossary-blockquote--show");
+      if (dictMode === 'first-line') {
+        ele.classList.add('glossary-blockquote--hide-first-line');
+      } else if (dictMode === 'tags') {
+        ele.classList.add('glossary-blockquote--hide-tags');
+      } else if (dictMode === 'extra-text') {
+        ele.classList.add('glossary-blockquote--hide-extra-text');
+      } else if (dictMode === 'show') {
+        ele.classList.add('glossary-blockquote--show');
       } // "none" is ignored
-
     }
-
   }
 
   // hides the list numbers if necessary
-  private attemptHideList(removeListMode: "always" | "on-singular") {
-    const ele = document.getElementById("primary_definition");
+  private attemptHideList(removeListMode: 'always' | 'on-singular') {
+    const ele = document.getElementById('primary_definition');
     if (ele === null) {
       return;
     }
 
-    if (removeListMode === "always") {
-      ele.classList.add("glossary-blockquote--hide-list-numbers");
+    if (removeListMode === 'always') {
+      ele.classList.add('glossary-blockquote--hide-list-numbers');
     }
 
-    if (removeListMode === "on-singular") {
-      const eleText = document.getElementById("primary_definition_raw_text");
-      const len = eleText?.querySelectorAll("ol > li").length;
-      if (len && len == 1) { // found only one li element
-        ele.classList.add("glossary-blockquote--hide-list-numbers");
+    if (removeListMode === 'on-singular') {
+      const eleText = document.getElementById('primary_definition_raw_text');
+      const len = eleText?.querySelectorAll('ol > li').length;
+      if (len && len == 1) {
+        // found only one li element
+        ele.classList.add('glossary-blockquote--hide-list-numbers');
       }
     }
   }
 
   private parseFirstLines() {
-    const dictsOverride = getOption("blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode");
+    const dictsOverride = getOption(
+      'blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode'
+    );
 
-    this.parseFirstLine("primary_definition", this.getParseFirstLineMode("primaryDefinition"), dictsOverride);
-    this.parseFirstLine("secondary_definition_details", this.getParseFirstLineMode("secondaryDefinition"), dictsOverride);
-    this.parseFirstLine("extra_definitions_details", this.getParseFirstLineMode(null), dictsOverride);
+    this.parseFirstLine(
+      'primary_definition',
+      this.getParseFirstLineMode('primaryDefinition'),
+      dictsOverride
+    );
+    this.parseFirstLine(
+      'secondary_definition_details',
+      this.getParseFirstLineMode('secondaryDefinition'),
+      dictsOverride
+    );
+    this.parseFirstLine(
+      'extra_definitions_details',
+      this.getParseFirstLineMode(null),
+      dictsOverride
+    );
 
-    const removeListMode = getOption("blockquotes.simplifyDefinitions.removeListMode") as RemoveListMode
-    if (removeListMode !== "never") {
+    const removeListMode = getOption(
+      'blockquotes.simplifyDefinitions.removeListMode'
+    ) as RemoveListMode;
+    if (removeListMode !== 'never') {
       this.attemptHideList(removeListMode);
     }
   }
@@ -371,7 +393,7 @@ export class Blockquotes extends RunnableModule {
 
     if (getOption('blockquotes.hideEmpty')) {
       for (const ele of document.querySelectorAll('.glossary-details--grey')) {
-        ele.classList.add("hidden");
+        ele.classList.add('hidden');
       }
     }
 

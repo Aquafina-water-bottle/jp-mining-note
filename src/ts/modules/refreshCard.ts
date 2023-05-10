@@ -1,10 +1,10 @@
-import { RunnableModule } from "../module"
+import { RunnableModule } from '../module';
 import { getCardKey, popupMenuMessage } from '../utils';
 import { refreshAdjustElements } from '../reflow';
 import { InfoCircleSetting } from './infoCircleSetting';
 import { selectPersistAny } from '../spersist';
-import {AsyncManager} from "./asyncManager";
-import {ImgStylizer} from "./imgStylizer";
+import { AsyncManager } from './asyncManager';
+import { ImgStylizer } from './imgStylizer';
 
 const settingId = 'info_circle_text_settings_refresh_card';
 
@@ -15,7 +15,7 @@ export class RefreshCard extends RunnableModule {
   private asyncManager: AsyncManager | null = null;
 
   constructor() {
-    super('refreshCard')
+    super('refreshCard');
   }
 
   addImgStylizer(imgStylizer: ImgStylizer) {

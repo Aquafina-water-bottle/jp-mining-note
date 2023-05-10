@@ -17,7 +17,7 @@ import { FreqUtils } from './modules/freqUtils';
 import { WebSocketUtils } from './modules/webSocketUtils';
 
 import { MobileUtils } from './modules/mobileUtils';
-import {MobilePopup} from './mobilePopup';
+import { MobilePopup } from './mobilePopup';
 import { InfoCircleUtils } from './modules/infoCircleUtils';
 import { FixRubyPositioning } from './modules/fixRubyPositioning';
 
@@ -25,9 +25,9 @@ import { CheckDuplicateKey } from './modules/checkDuplicateKey';
 import { AsyncManager } from './modules/asyncManager';
 import { Blockquotes } from './modules/blockquotes';
 import { RefreshCard } from './modules/refreshCard';
-import {cardIsNew} from './isNew';
-import {getViewportWidth} from './reflow';
-import {CardCache} from './modules/cardCache';
+import { cardIsNew } from './isNew';
+import { getViewportWidth } from './reflow';
+import { CardCache } from './modules/cardCache';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -162,8 +162,8 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   // TODO: compileOpts togglable??
   let mobilePopup: MobilePopup | null = null;
-  if (getViewportWidth() < compileOpts["breakpoints.width.combinePicture"]) {
-    mobilePopup = new MobilePopup("mobilePopup");
+  if (getViewportWidth() < compileOpts['breakpoints.width.combinePicture']) {
+    mobilePopup = new MobilePopup('mobilePopup');
   }
 
   if (compileOpts['enableModule.infoCircleUtils']) {
@@ -178,12 +178,12 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   refreshCard.addAsyncManager(asyncManager);
   refreshCard.run();
 
-  if (cardSide === "front") {
+  if (cardSide === 'front') {
     // only necessary to cache at the front side
     // the backside will call cardIsNew() as normal
     const cardIsNewFuncWrapper = () => {
       cardIsNew(cardSide);
-    }
+    };
     asyncManager.addFunction(cardIsNewFuncWrapper);
   }
 
@@ -195,11 +195,13 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   if (compileOpts['enableModule.wordIndicators']) {
     asyncManager.addModule(new WordIndicators(cardCache, mobilePopup));
   }
-  if (cardSide === "back" && compileOpts['enableModule.checkDuplicateKey']) {
+  if (cardSide === 'back' && compileOpts['enableModule.checkDuplicateKey']) {
     // only necessary at the back to avoid distractions at the front
     asyncManager.addModule(new CheckDuplicateKey());
   }
 
   //addOnShownHook(() => { asyncManager.runModules() });
-  addOnShownHook(() => { asyncManager.runModulesDelay() });
+  addOnShownHook(() => {
+    asyncManager.runModulesDelay();
+  });
 }

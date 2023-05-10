@@ -1,8 +1,8 @@
-import {invoke} from '../ankiConnectUtils';
-import {compileOpts, translatorStrs} from '../consts';
+import { invoke } from '../ankiConnectUtils';
+import { compileOpts, translatorStrs } from '../consts';
 import { RunnableModule } from '../module';
 import { O, getOption } from '../options';
-import {getViewportWidth} from '../reflow';
+import { getViewportWidth } from '../reflow';
 import { getCardSide, isMobile, popupMenuMessage, getTags } from '../utils';
 
 const infoCircFrozen = 'info-circle--frozen';
@@ -14,14 +14,17 @@ const infoCircZoomOut = 'info-circle-text-wrapper--zoom-out';
 export class InfoCircleUtils extends RunnableModule {
   private readonly infoCirc = document.getElementById('info_circle');
   private readonly infoCircWrapper = document.getElementById('info_circle_wrapper');
-  private readonly infoCircTextWrapper = document.getElementById('info_circle_text_wrapper');
+  private readonly infoCircTextWrapper = document.getElementById(
+    'info_circle_text_wrapper'
+  );
   private readonly infoCircTags = document.getElementById('info_circle_text_tags');
-  private readonly infoCircTagsText = document.getElementById('info_circle_text_tags_text');
-  private readonly enableAnkiconnectFeatures = getOption("enableAnkiconnectFeatures");
-
+  private readonly infoCircTagsText = document.getElementById(
+    'info_circle_text_tags_text'
+  );
+  private readonly enableAnkiconnectFeatures = getOption('enableAnkiconnectFeatures');
 
   constructor() {
-    super("infoCircleUtils");
+    super('infoCircleUtils');
   }
 
   partitionTags(): [string[], string[]] {
@@ -32,14 +35,16 @@ export class InfoCircleUtils extends RunnableModule {
     const dataTags: string[] = [];
     const mediaTags: string[] = [];
 
-    const possibleDataTagsArr = (getOption("infoCircleUtils.jpmnDataTags") as string[]).concat(getOption("infoCircleUtils.userDataTags"))
+    const possibleDataTagsArr = (
+      getOption('infoCircleUtils.jpmnDataTags') as string[]
+    ).concat(getOption('infoCircleUtils.userDataTags'));
     const possibleDataTags = new Set(possibleDataTagsArr);
 
     for (const tag of getTags()) {
       if (possibleDataTags.has(tag)) {
-        dataTags.push(tag)
+        dataTags.push(tag);
       } else {
-        mediaTags.push(tag)
+        mediaTags.push(tag);
       }
     }
 
@@ -47,29 +52,33 @@ export class InfoCircleUtils extends RunnableModule {
   }
 
   createTagEle(tag: string, grey: boolean) {
-    const tagEle = document.createElement("span")
+    const tagEle = document.createElement('span');
     tagEle.innerText = tag;
     if (this.enableAnkiconnectFeatures) {
       tagEle.onclick = () => {
         invoke('guiBrowse', { query: `tag:${tag}` });
-      }
+      };
     }
-    tagEle.setAttribute("data-tag-value", tag);
-    tagEle.classList.add("info-circle-tag");
+    tagEle.setAttribute('data-tag-value', tag);
+    tagEle.classList.add('info-circle-tag');
     if (grey) {
-      tagEle.classList.add("info-circle-tag--grey");
+      tagEle.classList.add('info-circle-tag--grey');
     }
     return tagEle;
   }
 
   // clicks on the info circle to freeze the popup (good for debugging and all)
   setToggleClick() {
-    if (this.infoCircWrapper === null || this.infoCirc === null || this.infoCircTextWrapper === null) {
+    if (
+      this.infoCircWrapper === null ||
+      this.infoCirc === null ||
+      this.infoCircTextWrapper === null
+    ) {
       return;
     }
 
     const _isMobile = isMobile();
-    const vwMobile = (getViewportWidth() < compileOpts['breakpoints.width.combinePicture'])
+    const vwMobile = getViewportWidth() < compileOpts['breakpoints.width.combinePicture'];
 
     // functions to toggle the info circle through clicks
     const freeze = () => {
@@ -77,13 +86,13 @@ export class InfoCircleUtils extends RunnableModule {
       if (!_isMobile) {
         popupMenuMessage(`Info circle tooltip locked.`, true);
       }
-    }
+    };
     const unfreeze = () => {
       this.infoCirc?.classList.remove(infoCircFrozen);
       if (!_isMobile) {
         popupMenuMessage(`Info circle tooltip unlocked.`, true);
       }
-    }
+    };
 
     if (vwMobile) {
       // disables when clicking on background
@@ -96,10 +105,11 @@ export class InfoCircleUtils extends RunnableModule {
             unfreeze();
           }, 200);
         }
-      }
+      };
     }
 
-    if (!_isMobile) { // touch display
+    if (!_isMobile) {
+      // touch display
       this.infoCircWrapper?.classList.toggle(infoCircTogglable, true);
     }
 
@@ -115,7 +125,6 @@ export class InfoCircleUtils extends RunnableModule {
         freeze();
       }
     };
-
   }
 
   main() {
@@ -125,28 +134,32 @@ export class InfoCircleUtils extends RunnableModule {
     const [dataTags, mediaTags] = this.partitionTags();
 
     if (this.infoCircTags !== null && this.infoCircTagsText !== null) {
-      const showTagsMode = getOption("infoCircleUtils.showTagsMode");
-      if ((showTagsMode === "always") || (showTagsMode === "back" && getCardSide() === "back")) {
+      const showTagsMode = getOption('infoCircleUtils.showTagsMode');
+      if (
+        showTagsMode === 'always' ||
+        (showTagsMode === 'back' && getCardSide() === 'back')
+      ) {
         for (const tag of mediaTags) {
-          const tagEle = this.createTagEle(tag, false)
+          const tagEle = this.createTagEle(tag, false);
           this.infoCircTagsText.appendChild(tagEle);
         }
         for (const tag of dataTags) {
-          const tagEle = this.createTagEle(tag, true)
+          const tagEle = this.createTagEle(tag, true);
           this.infoCircTagsText.appendChild(tagEle);
         }
-        this.infoCircTags.classList.toggle("hidden", false);
+        this.infoCircTags.classList.toggle('hidden', false);
       }
     }
 
     // not ran in the above loop to avoid coloring the info circle on the front side
-    if (getCardSide() === "back" && getTags().includes("leech")) {
+    if (getCardSide() === 'back' && getTags().includes('leech')) {
       this.logger.leech(false);
     }
 
     this.setToggleClick();
 
-    if (isMobile()) { // makes the info circle NOT hoverable to display
+    if (isMobile()) {
+      // makes the info circle NOT hoverable to display
       this.infoCircWrapper?.classList.toggle(infoCircWrapperTogglable, false);
       this.infoCirc?.classList.toggle(infoCircHoverColor, false);
     }

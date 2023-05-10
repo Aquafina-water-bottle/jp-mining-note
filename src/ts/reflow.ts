@@ -5,7 +5,7 @@ import { LOGGER } from './logger';
 import { selectPersistStr, SPersistInterface } from './spersist';
 import { getOption } from './options';
 import { compileOpts } from './consts';
-import {ImgStylizer} from './modules/imgStylizer';
+import { ImgStylizer } from './modules/imgStylizer';
 
 const widthKey = 'jpmn.reflow.widthKey';
 //const heightKey = "jpmn.reflow.heightKey";
@@ -70,7 +70,6 @@ function adjustMobile(
   wordBoxEle: HTMLElement,
   imgBoxEle: HTMLElement
 ) {
-
   if (imgEle === null) {
     // nothing needs to be adjust if no image
     return;
@@ -142,7 +141,10 @@ function adjustMobile(
     // -imgEle.scrollWidth: self explanatory
     // border * 2: left/right border of the card
     // imageMargin: only subtract the image margin of one side (because we want to maintain this gap)
-    if (dhLeftWidth >= VW || wordBoxEle.scrollWidth > VW - imgEle.scrollWidth - border * 2 - imageMargin) {
+    if (
+      dhLeftWidth >= VW ||
+      wordBoxEle.scrollWidth > VW - imgEle.scrollWidth - border * 2 - imageMargin
+    ) {
       // magic number 5 to make it slightly more separated from the word above
       imgBoxEle.style.setProperty('margin-top', `${dhReadingHeight + 5}px`);
       dhWordPitch.style.setProperty('text-align', `left`);
@@ -153,10 +155,11 @@ function adjustMobile(
     // THIS IS A RACE CONDITION
     imgEle.onload = () => {
       adjustWordOverflow(imgEle);
-      LOGGER.debug("adjustWordOverflow: imgEle.onload")
+      LOGGER.debug('adjustWordOverflow: imgEle.onload');
     };
-    if (imgEle.complete) { // this is usually true despite imgEle.onload being called???
-      LOGGER.debug("adjustWordOverflow: imgEle.complete")
+    if (imgEle.complete) {
+      // this is usually true despite imgEle.onload being called???
+      LOGGER.debug('adjustWordOverflow: imgEle.complete');
       adjustWordOverflow(imgEle);
     }
   }
@@ -177,20 +180,20 @@ function setHeight(
 function resetProperties(
   imgEle: HTMLImageElement | null,
   wordBoxEle: HTMLElement,
-  imgBoxEle: HTMLElement,
+  imgBoxEle: HTMLElement
 ) {
   // we are using js
   const dhRight = document.getElementById('dh_right');
-  dhRight?.classList.toggle("dh-right--no-js", false);
+  dhRight?.classList.toggle('dh-right--no-js', false);
 
   // resets setHeight
-  imgEle?.style.removeProperty("max-height");
-  imgBoxEle.style.removeProperty("max-height");
+  imgEle?.style.removeProperty('max-height');
+  imgBoxEle.style.removeProperty('max-height');
 
   // resets adjustMobile
   const dhWordPitch = document.getElementById('dh_word_pitch');
-  dhWordPitch?.style.removeProperty("max-width");
-  dhWordPitch?.style.removeProperty("text-align");
+  dhWordPitch?.style.removeProperty('max-width');
+  dhWordPitch?.style.removeProperty('text-align');
   imgBoxEle.style.removeProperty('max-width');
   imgBoxEle.style.removeProperty('margin-top');
   imgEle?.style.removeProperty('max-width');
@@ -203,11 +206,12 @@ function resetProperties(
 export function adjustElements(
   imgEle: HTMLImageElement | null,
   wordBoxEle: HTMLElement,
-  imgBoxEle: HTMLElement,
+  imgBoxEle: HTMLElement
 ) {
   resetProperties(imgEle, wordBoxEle, imgBoxEle);
 
-  if (getViewportWidth() > compileOpts['breakpoints.width.combinePicture']) { // pc
+  if (getViewportWidth() > compileOpts['breakpoints.width.combinePicture']) {
+    // pc
     if (getOption('imgStylizer.mainImage.resizeHeightMode') === 'auto-height') {
       const wordBoxEleHeight = wordBoxEle.offsetHeight;
       setHeight(imgEle, imgBoxEle, wordBoxEleHeight);
@@ -215,7 +219,7 @@ export function adjustElements(
       const height = getOption('imgStylizer.mainImage.resizeHeightFixedValue');
       setHeight(imgEle, imgBoxEle, height);
     }
-  } else if (getOption("imgStylizer.mainImage.resizeOnMobile")) {
+  } else if (getOption('imgStylizer.mainImage.resizeOnMobile')) {
     // mobile
     adjustMobile(imgEle, wordBoxEle, imgBoxEle);
   }

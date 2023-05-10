@@ -19,7 +19,10 @@ export class AutoHighlightWord extends Module {
   // Base code taken from:
   // https://github.com/MarvNC/JP-Resources#anki-automatically-highlight-in-sentence
   // side effect: caches in plainReplaceCache
-  private findPlainReplace(sentence: string, searchStrings: SearchStrings): string | null {
+  private findPlainReplace(
+    sentence: string,
+    searchStrings: SearchStrings
+  ): string | null {
     let possibleReplaces: string[] = [];
 
     for (const searchString of searchStrings) {
@@ -39,7 +42,7 @@ export class AutoHighlightWord extends Module {
     }
 
     if (replace === null) {
-      this.logger.debug("findPlainReplace: could not highlight");
+      this.logger.debug('findPlainReplace: could not highlight');
     } else {
       this.plainReplaceCache.add(replace);
     }
@@ -60,13 +63,10 @@ export class AutoHighlightWord extends Module {
 
   /* attempts to highlight the word given the rubyfied sentence */
   private highlightWordRuby(sentenceRuby: string): [string, string | null] {
-
-    const cache = Array.from(this.plainReplaceCache)
+    const cache = Array.from(this.plainReplaceCache);
     let longestSubstr: string | null = null;
     if (cache.length > 0) {
-      longestSubstr = cache.reduce((a, b) =>
-        a.length > b.length ? a : b
-      );
+      longestSubstr = cache.reduce((a, b) => (a.length > b.length ? a : b));
     }
     if (longestSubstr === null) {
       return [sentenceRuby, null];
@@ -160,14 +160,15 @@ export class AutoHighlightWord extends Module {
     searchStrings: SearchStrings,
     plainSentence?: string
   ): [string, string | null] {
-
     if (this.isRubySentence(sentence) && !this.attemptedPlainReplace) {
       if (plainSentence === undefined) {
-        this.logger.warn("plainSentence is undefined when trying to highlight ruby sentence");
+        this.logger.warn(
+          'plainSentence is undefined when trying to highlight ruby sentence'
+        );
       } else {
         // side effect: caches replace beforehand
         if (this.plainReplaceCache.size === 0) {
-          this.logger.debug("attempting to cache beforehand...");
+          this.logger.debug('attempting to cache beforehand...');
           this.findPlainReplace(plainSentence, searchStrings);
         }
       }

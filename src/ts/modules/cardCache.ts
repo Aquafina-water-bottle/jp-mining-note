@@ -1,6 +1,6 @@
 import { Module } from '../module';
 import { getFieldValueEle } from '../fields';
-import {getOption} from '../options';
+import { getOption } from '../options';
 
 export class CardCache extends Module {
   private readonly cardCacheEle: HTMLElement | null;
@@ -11,16 +11,12 @@ export class CardCache extends Module {
 
   shouldUse(): boolean {
     return (
-      getOption("cardCache.enabled")
-      && this.cardCacheEle !== null
-      && !this.isExpired()
+      getOption('cardCache.enabled') && this.cardCacheEle !== null && !this.isExpired()
     );
   }
 
   getWordIndsData() {
-    return this.cardCacheEle?.querySelector(
-      `[data-cache-type="word-indicators"]`
-    );
+    return this.cardCacheEle?.querySelector(`[data-cache-type="word-indicators"]`);
   }
 
   getKanjiHoverData() {
@@ -28,9 +24,14 @@ export class CardCache extends Module {
   }
 
   isExpired() {
-    const writeTimeStr = this.cardCacheEle?.querySelector(`[data-cache-write-time]`)?.getAttribute("data-cache-write-time")
-    const expiryDurationStr = this.cardCacheEle?.querySelector(`[data-cache-expires]`)?.getAttribute("data-cache-expires")
-    if (!writeTimeStr || !expiryDurationStr) { // skip if any are null/undefined
+    const writeTimeStr = this.cardCacheEle
+      ?.querySelector(`[data-cache-write-time]`)
+      ?.getAttribute('data-cache-write-time');
+    const expiryDurationStr = this.cardCacheEle
+      ?.querySelector(`[data-cache-expires]`)
+      ?.getAttribute('data-cache-expires');
+    if (!writeTimeStr || !expiryDurationStr) {
+      // skip if any are null/undefined
       return;
     }
     const writeTime = Number(writeTimeStr);
@@ -42,8 +43,7 @@ export class CardCache extends Module {
     // 1000/1 -> ms/s
     const expiryDuration = expiryDurationDays * 1000 * 60 * 60 * 24; // milliseconds
     // caching expired result is likely not worth it here
-    const isExpired = (expiryDuration + writeTime < Date.now());
+    const isExpired = expiryDuration + writeTime < Date.now();
     return isExpired;
   }
-
 }

@@ -2,15 +2,15 @@ import { RunnableModule } from '../module';
 import { addOnShownHook, getCardSide, hybridClick, getPAIndicator } from '../utils';
 import { fieldsAnyFilled, fieldsAllFilled } from '../fields';
 import { translatorStrs } from '../consts';
-import {addKeybindFunc, hasKey} from './keybinds';
-import {getOption} from '../options';
+import { addKeybindFunc, hasKey } from './keybinds';
+import { getOption } from '../options';
 
 // this function has to be moved out of the class in order for the kebind to run???
 function toggleHighlightWord() {
-  const sentenceShownAttr = "data-sentence-shown";
+  const sentenceShownAttr = 'data-sentence-shown';
 
-  let paButton = document.getElementById("pa_button");
-  let d = document.getElementById("display");
+  let paButton = document.getElementById('pa_button');
+  let d = document.getElementById('display');
   if (paButton === null || d === null) {
     return;
   }
@@ -19,29 +19,27 @@ function toggleHighlightWord() {
     // (currently) shown -> hide
     paButton.removeAttribute(sentenceShownAttr);
     paButton.textContent = translatorStrs['show-word-button'];
-    d.classList.toggle("highlight-bold", false);
-
+    d.classList.toggle('highlight-bold', false);
   } else {
     // (currently) hidden -> show
-    paButton.setAttribute(sentenceShownAttr, "true");
+    paButton.setAttribute(sentenceShownAttr, 'true');
     paButton.textContent = translatorStrs['hide-word-button'];
-    d.classList.toggle("highlight-bold", true);
+    d.classList.toggle('highlight-bold', true);
   }
 }
 
-
 export class MainCardUtils extends RunnableModule {
   constructor() {
-    super("mainCardUtils");
+    super('mainCardUtils');
   }
 
   // TODO how to do keybinds???
   private sentenceKeybinds(e: KeyboardEvent) {
-    if (hasKey(e, getOption("keybinds.toggleHybridSentence"))) {
+    if (hasKey(e, getOption('keybinds.toggleHybridSentence'))) {
       hybridClick();
     }
 
-    if (hasKey(e, getOption("keybinds.toggleHighlightWord"))) {
+    if (hasKey(e, getOption('keybinds.toggleHighlightWord'))) {
       toggleHighlightWord();
       //let paButton = document.getElementById("pa_button");
       //if (paButton !== null) {
@@ -52,20 +50,26 @@ export class MainCardUtils extends RunnableModule {
 
   playSilenceOnLoad() {
     async function playSilence() {
-      let elem = document.querySelector("#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton");
+      let elem = document.querySelector(
+        '#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton'
+      );
       if (elem) {
-        console.log("(playSilence) Clicking on silence file");
+        console.log('(playSilence) Clicking on silence file');
         (elem as HTMLAnchorElement).click();
-        console.log("(playSilence) Clicked on silence file");
+        console.log('(playSilence) Clicked on silence file');
       }
     }
     addOnShownHook(playSilence);
   }
 
   main() {
-    addKeybindFunc("sentenceKeybinds", this.sentenceKeybinds);
+    addKeybindFunc('sentenceKeybinds', this.sentenceKeybinds);
 
-    if (getCardSide() === "back" && fieldsAllFilled("IsClickCard") && getOption("clickCardRevealSentenceOnBackSide")) {
+    if (
+      getCardSide() === 'back' &&
+      fieldsAllFilled('IsClickCard') &&
+      getOption('clickCardRevealSentenceOnBackSide')
+    ) {
       hybridClick();
     }
 
@@ -80,7 +84,7 @@ export class MainCardUtils extends RunnableModule {
         circ.classList.add(getPAIndicator().className);
       }
 
-      let paButton = document.getElementById("pa_button");
+      let paButton = document.getElementById('pa_button');
       if (paButton !== null) {
         paButton.onclick = () => {
           toggleHighlightWord();
@@ -88,7 +92,7 @@ export class MainCardUtils extends RunnableModule {
       }
 
       // auto-plays silence
-      this.playSilenceOnLoad()
+      this.playSilenceOnLoad();
       //if (isAndroid()) {
       //  // for some reason, without the delay, it freezes the entire card
       //  // so the front side no longer loads :(
@@ -110,7 +114,6 @@ export class MainCardUtils extends RunnableModule {
       //  // plays it instantly because why not
       //  this.playSilence()
       //}
-
     }
   }
 }

@@ -49,7 +49,6 @@ export type Field =
   | 'CardCache'
   | 'Comment';
 
-
 let fieldFilledCache: Partial<Record<Field, boolean>> = {};
 
 export function cacheFieldFilled(field: Field, value: boolean) {
@@ -66,7 +65,7 @@ export function fieldIsFilled(field: Field): boolean {
     LOGGER.warn(`fieldIsFilled(${field}) could not find element`);
     return false; // shouldn't ever be reached?
   }
-  return (x.innerHTML.length !== 0)
+  return x.innerHTML.length !== 0;
 }
 
 /* if every field exists */
@@ -93,7 +92,6 @@ export function fieldsAllEmpty(...fields: Field[]) {
   return !fieldsAnyFilled(...fields);
 }
 
-
 // per card
 let fieldValueCache: Partial<Record<Field, string>> = {};
 
@@ -117,11 +115,10 @@ export function getFieldValue(field: Field): string {
   const x = document.getElementById(`hidden_field_${field}`);
   if (x === null) {
     LOGGER.warn(`getFieldValue(${field}) could not find element`);
-    return "";
+    return '';
   }
   return x.innerHTML;
 }
-
 
 // NOTE: not currently cached!!!
 // TODO: cache?
@@ -133,7 +130,6 @@ export function getFieldValueEle(field: Field): HTMLElement | null {
   }
   return x;
 }
-
 
 /*
  * This is prefixed with `_` to indicate that this should not be used under normal circumstances.

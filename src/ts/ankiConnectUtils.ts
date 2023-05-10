@@ -121,7 +121,7 @@ export async function queryAnki(
       return cache;
     }
   }
-  const result = await invoke('findCards', { query: query }) as number[];
+  const result = (await invoke('findCards', { query: query })) as number[];
   if (writeCache && persistObj !== null) {
     setQueryCache(persistObj, query, result);
   }
@@ -211,7 +211,6 @@ export function cardIDsToCardsInfo(
   }
   return result;
 }
-
 
 export class QueryBuilder {
   private segments: string[] = [];

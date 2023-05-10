@@ -1,11 +1,11 @@
-import {escapeQueryStr, invoke} from './ankiConnectUtils';
-import {getFieldValue} from './fields';
+import { escapeQueryStr, invoke } from './ankiConnectUtils';
+import { getFieldValue } from './fields';
 import { LOGGER } from './logger';
-import {getOption} from './options';
-import {selectPersistAny} from './spersist';
-import {CardSide, isAndroid} from './utils';
+import { getOption } from './options';
+import { selectPersistAny } from './spersist';
+import { CardSide, isAndroid } from './utils';
 
-const cardIsNewKey = "isNew.cardIsNewKey";
+const cardIsNewKey = 'isNew.cardIsNewKey';
 
 function cardIsNewAndroid() {
   //const jsApi = {"version" : "0.0.1",
@@ -15,7 +15,7 @@ function cardIsNewAndroid() {
 
   //if (api['markCard']) {
   //  console.log("API mark card available");
-  //}   
+  //}
   //AnkiDroidJS.ankiGetCardType()
 
   // TODO: is there a stable way of using the ankidroid js api?
@@ -23,7 +23,7 @@ function cardIsNewAndroid() {
 }
 
 export async function cardIsNew(cardSide: CardSide) {
-  if (!getOption("enableAnkiconnectFeatures")) {
+  if (!getOption('enableAnkiconnectFeatures')) {
     return false; // we don't know without ankiconnect!
   }
 
@@ -31,12 +31,12 @@ export async function cardIsNew(cardSide: CardSide) {
     return cardIsNewAndroid();
   }
 
-  const spersist = selectPersistAny()
+  const spersist = selectPersistAny();
 
-  const key = escapeQueryStr(getFieldValue("Key"));
-  const sent = escapeQueryStr(getFieldValue("Sentence"));
+  const key = escapeQueryStr(getFieldValue('Key'));
+  const sent = escapeQueryStr(getFieldValue('Sentence'));
 
-  const cacheKey = `${cardIsNewKey}.${key}.${sent}`
+  const cacheKey = `${cardIsNewKey}.${key}.${sent}`;
 
   // only attempts to query if:
   // - not stored in cache yet
@@ -51,28 +51,26 @@ export async function cardIsNew(cardSide: CardSide) {
     if (!cacheVal) {
       return cacheVal;
     }
-    if (cardSide === "back") {
+    if (cardSide === 'back') {
       return cacheVal;
     }
   }
 
-  LOGGER.debug("Testing for new card...", 2);
+  LOGGER.debug('Testing for new card...', 2);
 
   // TODO generalize / don't hardcode?
   const noteName = 'JP Mining Note';
   const cardTypeName = 'Mining Card';
 
-  const query = `is:new "Key:${key}" "Sentence:${sent}" "note:${noteName}" "card:${cardTypeName}"`
+  const query = `is:new "Key:${key}" "Sentence:${sent}" "note:${noteName}" "card:${cardTypeName}"`;
   const result = await invoke('findCards', { query: query });
-  const isNew = (Array.isArray(result) && result.length > 0);
+  const isNew = Array.isArray(result) && result.length > 0;
   LOGGER.debug(`is new: ${isNew}, query: ${query}, result: ${result}`, 1);
 
-  spersist?.set(cacheKey, isNew ? "true" : "");
+  spersist?.set(cacheKey, isNew ? 'true' : '');
 
   //CACHE.get("isNewCardCache", cacheKey, isNew);
   //this.isNewCardLocalCache = isNew;
 
   return isNew;
-
-
 }

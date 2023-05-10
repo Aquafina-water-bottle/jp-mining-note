@@ -1,6 +1,11 @@
 import { compileOpts } from '../consts';
 import { Module } from '../module';
-import { AutoPitchAccent, AutoPitchAccentArgs, NoteInfoPA, PAGroup } from './autoPitchAccent';
+import {
+  AutoPitchAccent,
+  AutoPitchAccentArgs,
+  NoteInfoPA,
+  PAGroup,
+} from './autoPitchAccent';
 import { NoteInfoSentence, SentenceParser } from './sentenceParser';
 import { Sentence } from './sentenceParser';
 import { invoke, escapeQueryStr, QueryBuilder, CardInfo } from '../ankiConnectUtils';
@@ -26,7 +31,7 @@ export class TooltipCardDivBuilder {
 
   private readonly tooltips: Tooltips;
   private wordDiv: HTMLDivElement | null = null;
-  private mainPAGroup: PAGroup | null = null
+  private mainPAGroup: PAGroup | null = null;
   private sentDiv: HTMLDivElement | null = null;
   private isNew = false;
 
@@ -49,7 +54,11 @@ export class TooltipCardDivBuilder {
     character: string | null = null,
     cardId: number | null = null
   ) {
-    [this.wordDiv, this.mainPAGroup] = this.tooltips.buildWordDiv(noteInfo, character, cardId);
+    [this.wordDiv, this.mainPAGroup] = this.tooltips.buildWordDiv(
+      noteInfo,
+      character,
+      cardId
+    );
     return this;
   }
 
@@ -75,20 +84,27 @@ export class TooltipCardDivBuilder {
       // here because tooltips shouldn't store this info
       // TODO refactor this? feels hacky to have this here...
       // highlights the kanji
-      if (this.tooltips.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")) {
-        const wordClass = "pa-sentence-highlight-" + this.mainPAGroup; // sentence so it only highlights bold
+      if (
+        this.tooltips.autoPA.getOption(
+          'autoPitchAccent.coloredPitchAccent.color.wordReadingKanji'
+        )
+      ) {
+        const wordClass = 'pa-sentence-highlight-' + this.mainPAGroup; // sentence so it only highlights bold
         this.wordDiv?.classList.add(wordClass);
       }
       // highlights the sentence
-      if (this.tooltips.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.fullSentence")
-         && this.tooltips.getOption("tooltips.highlightWordInSentence")) {
+      if (
+        this.tooltips.autoPA.getOption(
+          'autoPitchAccent.coloredPitchAccent.color.fullSentence'
+        ) &&
+        this.tooltips.getOption('tooltips.highlightWordInSentence')
+      ) {
         this.sentDiv?.classList.add(`pa-sentence-highlight-${this.mainPAGroup}`);
       }
     }
     if (this.tooltips.getOption('tooltips.highlightWordInSentence')) {
       this.sentDiv?.classList.add('highlight-bold');
     }
-
 
     if (this.wordDiv !== null) {
       cardDiv.appendChild(this.wordDiv);

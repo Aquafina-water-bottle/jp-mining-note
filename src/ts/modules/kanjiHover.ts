@@ -5,11 +5,7 @@ import { plainToRuby, getCardKey, filterCards } from '../utils';
 import { getFieldValue, getFieldValueEle, Field, cacheFieldValue } from '../fields';
 import { type CardCache } from './cardCache';
 
-import {
-  Tooltips,
-  QueryBuilderGroup,
-  TooltipBuilder,
-} from './tooltips';
+import { Tooltips, QueryBuilderGroup, TooltipBuilder } from './tooltips';
 import {
   AnkiConnectAction,
   constructFindCardsAction,
@@ -53,7 +49,6 @@ export type NoteInfoKanjiHover = {
   Key: string;
 };
 
-
 // maps a kanji to the full hover HTML (the html containing the kanji + the full popup)
 type KanjiToHover = Record<string, string>;
 
@@ -79,7 +74,7 @@ export class KanjiHover extends RunnableAsyncModule {
     this.tooltips = new Tooltips();
     this.tooltips.overrideOptions(getOption('kanjiHover.overrideOptions.tooltips'));
 
-    this.cardWordReadingResultKey = `KanjiHover.cardWordReadingResultKey.${getCardKey()}`
+    this.cardWordReadingResultKey = `KanjiHover.cardWordReadingResultKey.${getCardKey()}`;
     this.cardHoverHTMLCacheKey = `KanjiHover.cardHoverHTMLCacheKey.${getCardKey()}`;
 
     this.mobilePopup = mobilePopup;
@@ -88,15 +83,10 @@ export class KanjiHover extends RunnableAsyncModule {
     this.cardCache = cardCache;
 
     // ran synchronously, so fields will 100% be cached
-    const cacheFields: readonly Field[] = [
-      'Key',
-      'Word',
-      'WordReading',
-    ] as const;
+    const cacheFields: readonly Field[] = ['Key', 'Word', 'WordReading'] as const;
     for (const f of cacheFields) {
       cacheFieldValue(f);
     }
-
   }
 
   private wordReadingKanjis(noteInfo: NoteInfoKanjiHover): Set<string> {
@@ -359,7 +349,11 @@ export class KanjiHover extends RunnableAsyncModule {
 
       if (isSentCard) {
         // removes existing bold & adds bold to kanji in sentence
-        const noteInfoTTB = this.tooltips.cardInfoToNoteInfoTooltipBuilder(cardInfo, kanji, cardInfo.cardId);
+        const noteInfoTTB = this.tooltips.cardInfoToNoteInfoTooltipBuilder(
+          cardInfo,
+          kanji,
+          cardInfo.cardId
+        );
         cardBuilder.createSentDiv(noteInfoTTB);
       } else {
         const noteInfoTTB = this.tooltips.cardInfoToNoteInfoTooltipBuilder(cardInfo);
@@ -422,9 +416,7 @@ export class KanjiHover extends RunnableAsyncModule {
     return tooltipBuilder.build().outerHTML;
   }
 
-  async getKanjisToHover(
-    noteInfo: NoteInfoKanjiHover
-  ): Promise<Record<string, string>> {
+  async getKanjisToHover(noteInfo: NoteInfoKanjiHover): Promise<Record<string, string>> {
     // Nothing is cached in this function directly, caching happens in
     // the ankiConnectUtils queries / cardsInfo
     let kanjiSet = this.wordReadingKanjis(noteInfo);
@@ -456,8 +448,10 @@ export class KanjiHover extends RunnableAsyncModule {
     return kanjiToHover;
   }
 
-  private getWordReadingResult(kanjiToHoverHTML: KanjiToHoverHTML, wordReadingRubyHTML: string): string {
-
+  private getWordReadingResult(
+    kanjiToHoverHTML: KanjiToHoverHTML,
+    wordReadingRubyHTML: string
+  ): string {
     let resultHTML = wordReadingRubyHTML;
     if (Object.keys(kanjiToHoverHTML).length > 0) {
       // an empty object seems to replace every empty space
@@ -476,7 +470,7 @@ export class KanjiHover extends RunnableAsyncModule {
     //  return;
     //}
     if (this.wordReadingEle === null) {
-      this.logger.debug("Cannot run kanji hover due to null wordReadingEle");
+      this.logger.debug('Cannot run kanji hover due to null wordReadingEle');
       return;
     }
     this.logger.debug(`Running on ${getCardKey()}...`);
@@ -484,7 +478,7 @@ export class KanjiHover extends RunnableAsyncModule {
 
     // gets popup for each kanji character and cache
     let kanjiToHoverHTML = await this.getKanjisToHover(this.noteInfo);
-    this.displayResultFromKanjiToHoverHTML(kanjiToHoverHTML, this.wordReadingEle)
+    this.displayResultFromKanjiToHoverHTML(kanjiToHoverHTML, this.wordReadingEle);
 
     //this.persist?.pop(this.mutexKey)
     this.logger.debug(`Finished running on ${getCardKey()}...`);
@@ -494,47 +488,60 @@ export class KanjiHover extends RunnableAsyncModule {
    * - Caches all results
    * - Displays results, whether it's via cache or not
    */
-  private displayResultFromKanjiToHoverHTML(kanjiToHoverHTML: KanjiToHoverHTML, wordReadingEle: HTMLElement) {
-
+  private displayResultFromKanjiToHoverHTML(
+    kanjiToHoverHTML: KanjiToHoverHTML,
+    wordReadingEle: HTMLElement
+  ) {
     this.persist?.set(this.cardHoverHTMLCacheKey, JSON.stringify(kanjiToHoverHTML));
 
     // this technically can be optimized depending on mobile or not, but imo
     // it's safer to save this on both pc/mobile display
-    let resultHTML = this.getWordReadingResult(kanjiToHoverHTML, this.noteInfo.WordReadingRubyHTML)
+    let resultHTML = this.getWordReadingResult(
+      kanjiToHoverHTML,
+      this.noteInfo.WordReadingRubyHTML
+    );
     this.persist?.set(this.cardWordReadingResultKey, resultHTML); // caches final result per card
 
     // mobilePopup is not null <=> bp < combinePicture <=> should display mobile
     if (this.mobilePopup !== null) {
-      this.mobilePopup.setupKanjiHover(kanjiToHoverHTML, wordReadingEle, this.noteInfo.WordReadingRubyHTML);
-    } else { // display normally
+      this.mobilePopup.setupKanjiHover(
+        kanjiToHoverHTML,
+        wordReadingEle,
+        this.noteInfo.WordReadingRubyHTML
+      );
+    } else {
+      // display normally
       wordReadingEle.innerHTML = resultHTML;
       this.tooltips.addBrowseOnClick(wordReadingEle);
     }
   }
 
   private displayCachedResult(persist: SPersistInterface, wordReadingEle: HTMLElement) {
-    this.logger.debug("Using cached card");
+    this.logger.debug('Using cached card');
 
     // mobilePopup is not null <=> bp < combinePicture <=> should display mobile
     if (this.mobilePopup !== null) {
-      const kanjiToHoverHTML: KanjiToHoverHTML = JSON.parse(persist.get(this.cardHoverHTMLCacheKey));
+      const kanjiToHoverHTML: KanjiToHoverHTML = JSON.parse(
+        persist.get(this.cardHoverHTMLCacheKey)
+      );
 
-      this.mobilePopup.setupKanjiHover(kanjiToHoverHTML, wordReadingEle, this.noteInfo.WordReadingRubyHTML);
+      this.mobilePopup.setupKanjiHover(
+        kanjiToHoverHTML,
+        wordReadingEle,
+        this.noteInfo.WordReadingRubyHTML
+      );
       // TODO addBrowseOnClick on mobile?
-
-    } else { // display normally
+    } else {
+      // display normally
       const resultHTML = persist.get(this.cardWordReadingResultKey);
       wordReadingEle.innerHTML = resultHTML;
       this.tooltips.addBrowseOnClick(wordReadingEle);
     }
-
   }
 
   async main() {
-
     // checks for all caches first
     if (this.useCache && this.wordReadingEle !== null) {
-
       // checks for standard persist first, to allow refreshing to stick for the session
       if (this.persist !== null && this.persist.has(this.cardWordReadingResultKey)) {
         this.displayCachedResult(this.persist, this.wordReadingEle);
@@ -549,14 +556,14 @@ export class KanjiHover extends RunnableAsyncModule {
           // format said data into kanjiToHoverHTML
           const kanjiToHoverHTML: KanjiToHoverHTML = {};
           for (const child of kanjiHoverData.children) {
-            const kanji = child.getAttribute("data-cache-kanji");
+            const kanji = child.getAttribute('data-cache-kanji');
             const hoverHTML = child.innerHTML;
             if (kanji !== null) {
               kanjiToHoverHTML[kanji] = hoverHTML;
             }
           }
 
-          this.logger.debug("Using CardCache");
+          this.logger.debug('Using CardCache');
           console.log(kanjiToHoverHTML);
           this.displayResultFromKanjiToHoverHTML(kanjiToHoverHTML, this.wordReadingEle);
           return;
@@ -565,20 +572,19 @@ export class KanjiHover extends RunnableAsyncModule {
     }
 
     // only now do we need anki-connect, if no cache was found
-    if (!this.getOption("enableAnkiconnectFeatures")) {
+    if (!this.getOption('enableAnkiconnectFeatures')) {
       return;
     }
 
-    if (this.getOption("kanjiHover.activateOn") === "hover") {
+    if (this.getOption('kanjiHover.activateOn') === 'hover') {
       if (this.wordReadingEle !== null) {
-
-        this.wordReadingEle.onmouseover = (() => {
+        this.wordReadingEle.onmouseover = () => {
           // replaces the function with a null function to avoid calling this function
           if (this.wordReadingEle !== null) {
-            this.wordReadingEle.onmouseover = function() {}
+            this.wordReadingEle.onmouseover = function () {};
           }
           this.populateTooltips();
-        });
+        };
       } // otherwise front side. we do nothing! (pre-loading will lag the card)
     } else {
       // TODO: remove the above option! It should't be an option in the first place!

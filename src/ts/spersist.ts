@@ -90,7 +90,7 @@ class SPersistObj implements SPersistInterface {
   private storage: Record<string, any>;
 
   constructor(obj: object) {
-    (obj as any)[_persistenceKey] = {}
+    (obj as any)[_persistenceKey] = {};
     this.storage = (obj as any)[_persistenceKey];
   }
 
@@ -114,8 +114,8 @@ class SPersistObj implements SPersistInterface {
   }
 
   pop(key: string): any {
-    const item = this.storage[key]
-    delete this.storage[key]
+    const item = this.storage[key];
+    delete this.storage[key];
     return item;
   }
 
@@ -129,9 +129,9 @@ class SPersistObj implements SPersistInterface {
 }
 
 type PersistObjs = {
-  sessionStorage: null | SPersistInterface,
-  window: null | SPersistInterface,
-}
+  sessionStorage: null | SPersistInterface;
+  window: null | SPersistInterface;
+};
 
 const persistObjs: PersistObjs = {
   sessionStorage: null,
@@ -142,11 +142,11 @@ export function manuallyCreateObjPersist() {
   // WARNING: you very very very likely don't want to call this function
   // outside this module unless you know what you are doing!
 
-  if ("window" in globalThis && !('_SPersist_windowKey' in window)) {
+  if ('window' in globalThis && !('_SPersist_windowKey' in window)) {
     if (typeof (window as any).py === 'object') {
       return; // nothing to do
     }
-    console.log("Manually created .py persist...");
+    console.log('Manually created .py persist...');
     (window as any).py = {};
     (window as any)._SPersist_windowKey = new SPersistObj((window as any).py);
     calculatePersists();
@@ -154,22 +154,22 @@ export function manuallyCreateObjPersist() {
 }
 
 function calculatePersists() {
-  console.log("spersist control")
+  console.log('spersist control');
   // wrappers to ensure that these are defined only once
   if (
-    "window" in globalThis &&
+    'window' in globalThis &&
     !('_SPersist_sessionStorage' in window) &&
     globalThis.sessionStorage !== null &&
     typeof globalThis.sessionStorage === 'object'
   ) {
     (window as any)._SPersist_sessionStorage = new SPersistSessionStorage();
-    console.log("Initializing _SPersist_sessionStorage")
+    console.log('Initializing _SPersist_sessionStorage');
   }
 
-  if ("window" in globalThis && !('_SPersist_windowKey' in window)) {
+  if ('window' in globalThis && !('_SPersist_windowKey' in window)) {
     if (typeof (window as any).py === 'object') {
       //LOGGER.debug('Initializing _SPersist_windowKey.py');
-      console.log("Initializing _SPersist_windowKey.py");
+      console.log('Initializing _SPersist_windowKey.py');
       (window as any)._SPersist_windowKey = new SPersistObj((window as any).py);
     } else if (typeof (window as any).qt === 'object') {
       //LOGGER.debug('Initializing _SPersist_windowKey.qt');
@@ -178,21 +178,22 @@ function calculatePersists() {
     }
   }
 
-  persistObjs.sessionStorage = "window" in globalThis ? (window as any)._SPersist_sessionStorage : null;
-  persistObjs.window = "window" in globalThis ? (window as any)._SPersist_windowKey : null;
+  persistObjs.sessionStorage =
+    'window' in globalThis ? (window as any)._SPersist_sessionStorage : null;
+  persistObjs.window =
+    'window' in globalThis ? (window as any)._SPersist_windowKey : null;
 }
 calculatePersists();
 
-export function recalculatePersists() {
-}
+export function recalculatePersists() {}
 
 /* this function removes the need for isAvailable(), since it will be null if not available */
 export function selectPersist(...types: SPersistType[]): SPersistInterface | null {
   if (types.length === 0) {
-    types = ["sessionStorage", "window"];
+    types = ['sessionStorage', 'window'];
   }
   for (const t of types) {
-    const persist = persistObjs[t]
+    const persist = persistObjs[t];
     if (typeof persist !== 'undefined') {
       return persistObjs[t];
     }
@@ -202,15 +203,15 @@ export function selectPersist(...types: SPersistType[]): SPersistInterface | nul
 
 // TODO deprecate selectPersist with these two methods
 export function selectPersistStr(): SPersistInterface | null {
-  return selectPersist("sessionStorage", "window");
+  return selectPersist('sessionStorage', 'window');
 }
 
 export function selectPersistObj(): SPersistInterface | null {
-  return selectPersist("window");
+  return selectPersist('window');
 }
 
 export function selectPersistAny(): SPersistInterface | null {
-  return selectPersist("sessionStorage", "window");
+  return selectPersist('sessionStorage', 'window');
 }
 
 //export function clearAllPersists() {

@@ -1,11 +1,10 @@
-import { RunnableModule } from "../module"
+import { RunnableModule } from '../module';
 
-const className = "fix-ruby-positioning";
+const className = 'fix-ruby-positioning';
 
 export class FixRubyPositioning extends RunnableModule {
-
   constructor() {
-    super('fixRubyPositioning')
+    super('fixRubyPositioning');
   }
 
   addClassToEle(id: string) {
@@ -16,16 +15,15 @@ export class FixRubyPositioning extends RunnableModule {
   }
 
   main() {
-    this.addClassToEle("def_header");
-    this.addClassToEle("full_sentence");
-    this.addClassToEle("full_sentence_front");
+    this.addClassToEle('def_header');
+    this.addClassToEle('full_sentence');
+    this.addClassToEle('full_sentence_front');
 
-    const expressions = document.querySelectorAll(".expression");
+    const expressions = document.querySelectorAll('.expression');
     if (expressions !== null) {
       for (const e of expressions) {
         e.classList.add(className);
       }
     }
-
   }
 }

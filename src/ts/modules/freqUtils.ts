@@ -1,4 +1,4 @@
-import {translatorStrs} from '../consts';
+import { translatorStrs } from '../consts';
 import { RunnableModule } from '../module';
 import { getOption } from '../options';
 import { fieldsAllEmpty, fieldsAnyFilled } from '../fields';
@@ -18,21 +18,21 @@ export class FreqUtils extends RunnableModule {
     // by default, the HTML shows the summary
     // this function only serves to set it to unknown if it's a default value
 
-    if (
-      this.freqDisplay === null
-    ) {
+    if (this.freqDisplay === null) {
       return;
     }
 
-    const ele = this.freqDisplay.querySelector(`.frequencies__group[data-details="summary"] > .frequencies__number > .frequencies__number-inner`);
+    const ele = this.freqDisplay.querySelector(
+      `.frequencies__group[data-details="summary"] > .frequencies__number > .frequencies__number-inner`
+    );
     if (ele === null) {
       return;
     }
 
-    const defaultValues: string[] = getOption("freqUtils.summary.defaultValues");
+    const defaultValues: string[] = getOption('freqUtils.summary.defaultValues');
 
     if (defaultValues.includes(ele.innerHTML)) {
-      ele.innerHTML = `<span data-is-unknown="true">${translatorStrs["unknown-frequency"]}<span class="unknown-freq-number">${ele.innerHTML}</span></span>`
+      ele.innerHTML = `<span data-is-unknown="true">${translatorStrs['unknown-frequency']}<span class="unknown-freq-number">${ele.innerHTML}</span></span>`;
     }
   }
 
@@ -83,7 +83,10 @@ export class FreqUtils extends RunnableModule {
   main() {
     if (getOption('freqUtils.displayMode') === 'list-all') {
       this.listAll();
-    } else if (fieldsAllEmpty('FrequencySort') && fieldsAnyFilled('FrequenciesStylized')) {
+    } else if (
+      fieldsAllEmpty('FrequencySort') &&
+      fieldsAnyFilled('FrequenciesStylized')
+    ) {
       this.listAll(); // this should ideally never happen
     } else {
       this.summary();

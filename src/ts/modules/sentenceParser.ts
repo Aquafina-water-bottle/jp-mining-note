@@ -4,7 +4,7 @@ import { getFieldValue } from '../fields';
 import { plainToKanaOnly, getTags, getCardSide } from '../utils';
 import { compileOpts } from '../consts';
 import { AutoHighlightWord, SearchStrings } from './autoHighlightWord';
-import {plainToKanjiOnly} from '../utils';
+import { plainToKanjiOnly } from '../utils';
 
 export type Sentence = {
   // open quote, sentence, closed quote
@@ -237,7 +237,7 @@ export class SentenceParser extends RunnableModule {
 
     // resets existing class if it exists (if javascript fails, full-sentence is unquoted by default)
     // TODO: reset all classes?
-    sent.base.classList.toggle("sentence-unquoted-display-no-indent", false);
+    sent.base.classList.toggle('sentence-unquoted-display-no-indent', false);
 
     sent.base.classList.toggle(sentenceStyleClass, true);
 
@@ -496,18 +496,28 @@ export class SentenceParser extends RunnableModule {
 
   private compareSentenceReading() {
     // checks whether Sentence == nofurigana(SentenceReading)
-    const sentence = getFieldValue("Sentence")
-    const sentReading = plainToKanjiOnly(getFieldValue("SentenceReading"));
+    const sentence = getFieldValue('Sentence');
+    const sentReading = plainToKanjiOnly(getFieldValue('SentenceReading'));
     // if neither fields have 0 length, and if the Sentence field does not match the SentenceReading field with furigana stripped
-    if ((sentReading.trim().length !== 0) && (sentence.trim().length !== 0) && sentence.trim() !== sentReading.trim()) {
-      this.logger.warn(`The Sentence field is not the same as the SentenceReading field. Your sentence might be displayed incorrectly. See <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">here</a> for more info.`, {isHtml: true})
+    if (
+      sentReading.trim().length !== 0 &&
+      sentence.trim().length !== 0 &&
+      sentence.trim() !== sentReading.trim()
+    ) {
+      this.logger.warn(
+        `The Sentence field is not the same as the SentenceReading field. Your sentence might be displayed incorrectly. See <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">here</a> for more info.`,
+        { isHtml: true }
+      );
     }
   }
 
   main() {
     this.processDisplaySentences();
     this.processFullSentence();
-    if (getCardSide() === "back" && this.getOption("sentenceParser.checkSentenceReadingEqualsSentence")) {
+    if (
+      getCardSide() === 'back' &&
+      this.getOption('sentenceParser.checkSentenceReadingEqualsSentence')
+    ) {
       this.compareSentenceReading();
     }
   }

@@ -1,3 +1,3 @@
-import { main } from "../../main"
+import { main } from '../../main';
 
-main("back", "cloze_deletion", "jp-mining-note")
+main('back', 'cloze_deletion', 'jp-mining-note');

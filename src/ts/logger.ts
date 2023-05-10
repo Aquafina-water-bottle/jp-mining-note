@@ -48,7 +48,10 @@ export class Logger {
     //const debugToConsole = getOption('logger.consoleLevel');
 
     const onlyShowCertainModules = getOption('logger.debug.onlyShowCertainModules');
-    const validModules = getOption('logger.debug.onlyShowCertainModules.modules') as (string | null)[];
+    const validModules = getOption('logger.debug.onlyShowCertainModules.modules') as (
+      | string
+      | null
+    )[];
     if (onlyShowCertainModules && !validModules.includes(this.name)) {
       return;
     }
@@ -70,27 +73,26 @@ export class Logger {
       this.printMsg(dispMsg, debugGroupId, null, args);
     }
     if (this.toConsole && level >= this.debugConsoleLevel) {
-      console.log(dispMsg)
+      console.log(dispMsg);
     }
-
   }
 
   info(message: string, args?: LoggerArgs) {
     const dispMsg = this.formatMsg(message);
     this.printMsg(dispMsg, infoGroupId, null, args);
     if (this.toConsole) {
-      console.info(dispMsg)
+      console.info(dispMsg);
     }
   }
 
   warn(message: string, args?: LoggerArgs) {
     const dispMsg = this.formatMsg(message);
     if (this.toConsole) {
-      console.warn(dispMsg)
+      console.warn(dispMsg);
     }
 
     if (!args?.ignoreOptions) {
-      let ignoredWarns = getOption("logger.warn.ignore");
+      let ignoredWarns = getOption('logger.warn.ignore');
       for (let substr of ignoredWarns) {
         if (dispMsg.includes(substr)) {
           return;
@@ -104,11 +106,11 @@ export class Logger {
   error(message: string, args?: LoggerArgs) {
     const dispMsg = this.formatMsg(message);
     if (this.toConsole) {
-      console.error(dispMsg)
+      console.error(dispMsg);
     }
 
     if (!args?.ignoreOptions) {
-      let ignoredErrors = getOption("logger.error.ignore");
+      let ignoredErrors = getOption('logger.error.ignore');
       for (let substr of ignoredErrors) {
         if (dispMsg.includes(substr)) {
           return;
@@ -125,16 +127,16 @@ export class Logger {
     }
 
     try {
-      let ignoredErrors = getOption("logger.error.ignore");
+      let ignoredErrors = getOption('logger.error.ignore');
       for (let substr of ignoredErrors) {
         if (stack.includes(substr)) {
           return;
         }
       }
 
-      let stackList = stack.split(" at ");
+      let stackList = stack.split(' at ');
       for (let i = 1; i < stackList.length; i++) {
-        stackList[i] = ">>> " + stackList[i];
+        stackList[i] = '>>> ' + stackList[i];
       }
       //this.error(stackList.join("<br>"), {isHtml: true});
       this.printMsg(stackList, errorGroupId, errorClass);
@@ -144,10 +146,9 @@ export class Logger {
       // than to essentially have it go missing
       this.error(stack);
     }
-
   }
 
-  leech(displayMsg=true) {
+  leech(displayMsg = true) {
     if (displayMsg) {
       this.printMsg('', leechGroupId, leechClass);
     } else {
@@ -155,7 +156,7 @@ export class Logger {
       infoCirc?.classList.toggle(leechClass, true);
     }
     if (this.toConsole) {
-      console.info("Leech");
+      console.info('Leech');
     }
   }
 

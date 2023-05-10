@@ -1,3 +1,3 @@
-import { main } from "../../main"
+import { main } from '../../main';
 
-main("front", "main", "jp-mining-note")
+main('front', 'main', 'jp-mining-note');

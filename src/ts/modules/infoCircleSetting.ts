@@ -1,6 +1,6 @@
 import { Module } from '../module';
 //import { O, getOption } from '../options';
-import {selectPersist, SPersistInterface} from '../spersist';
+import { selectPersist, SPersistInterface } from '../spersist';
 //import { Persistence } from '../persistence';
 import { throwOnNotFound } from '../utils';
 
@@ -20,7 +20,7 @@ export class InfoCircleSetting extends Module {
 
   readonly btn: HTMLElement;
   private readonly persistKey?: string;
-  private readonly persist = selectPersist("sessionStorage", "window");
+  private readonly persist = selectPersist('sessionStorage', 'window');
 
   constructor(settingId: InfoCircleSettingId, persistKey?: string) {
     super(`sm:infoCircleSetting:${settingId}`);

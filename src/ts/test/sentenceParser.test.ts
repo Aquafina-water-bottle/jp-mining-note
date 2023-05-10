@@ -53,10 +53,10 @@ function createNoteInfoSent(
   sentence: string
 ): NoteInfoSentence {
   return {
-      Word: word,
-      WordReading: wordReading,
-      WordReadingHiragana: wordReadingHiragana,
-      Sentence: sentence,
+    Word: word,
+    WordReading: wordReading,
+    WordReadingHiragana: wordReadingHiragana,
+    Sentence: sentence,
   };
 }
 

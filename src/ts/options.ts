@@ -33,7 +33,6 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
    */
   isPC: () => !isMobile(),
 
-
   /*
   key: {
     "type": "isiPhoneiPad",
@@ -42,7 +41,10 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
   },
    */
   isiPhoneiPad: () => {
-    return document.documentElement.classList.contains('iphone') || document.documentElement.classList.contains('ipad');
+    return (
+      document.documentElement.classList.contains('iphone') ||
+      document.documentElement.classList.contains('ipad')
+    );
   },
 
   /*
@@ -66,7 +68,6 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
     return true;
   },
 
-
   /*
   key: {
     "type": "viewportWidthBreakpoint",
@@ -80,7 +81,7 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
    */
   viewportWidthBreakpoint: (args: unknown) => {
     if (args !== null && typeof args === 'object' && 'op' in args && 'value' in args) {
-      if ((args.op as string) in OPS && (args.value as string in VIEWPORT_WIDTH_BPS)) {
+      if ((args.op as string) in OPS && (args.value as string) in VIEWPORT_WIDTH_BPS) {
         const bp = VIEWPORT_WIDTH_BPS[args.value as keyof typeof VIEWPORT_WIDTH_BPS];
         return OPS[args.op as keyof typeof OPS](getViewportWidth(), bp);
       }
@@ -229,12 +230,12 @@ const OPS = {
 };
 
 const VIEWPORT_WIDTH_BPS = {
-  "displaySentenceShrink": compileOpts['breakpoints.width.displaySentenceShrink'],
-  "displaySentenceRemoveNewlines": compileOpts['breakpoints.width.displaySentenceRemoveNewlines'],
-  "maxWidthBackside": compileOpts['breakpoints.width.maxWidthBackside'],
-  "combinePicture": compileOpts['breakpoints.width.combinePicture'],
+  displaySentenceShrink: compileOpts['breakpoints.width.displaySentenceShrink'],
+  displaySentenceRemoveNewlines:
+    compileOpts['breakpoints.width.displaySentenceRemoveNewlines'],
+  maxWidthBackside: compileOpts['breakpoints.width.maxWidthBackside'],
+  combinePicture: compileOpts['breakpoints.width.combinePicture'],
 } as const;
-
 
 // generates function
 function overrideFuncFields(fieldsFunc: (...fields: Field[]) => boolean) {
@@ -299,7 +300,8 @@ export function attemptParseOverride<K extends keyof O>(
 // - hard-coded options will hard-code into consts.ts (runtimeOpts)
 function userOption<K extends keyof O>(k: K): O[K] | undefined {
   let userOptions: Record<string, unknown> = {};
-  if (typeof(window) !== "undefined") { // window can be undefined in cache.ts
+  if (typeof window !== 'undefined') {
+    // window can be undefined in cache.ts
     const jpmnOpts = (window as any)?.JPMNOptions;
     userOptions = jpmnOpts ?? {};
   }
@@ -363,7 +365,7 @@ export function checkOptTags(
     // we removed the usage of arrContainsAnyOf and replaced with this
     if (Array.isArray(opt)) {
       for (const x of opt) {
-        if (typeof x === "string" && tags.includes(x)) {
+        if (typeof x === 'string' && tags.includes(x)) {
           return result;
         }
       }

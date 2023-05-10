@@ -476,7 +476,7 @@ export class WordIndicators extends RunnableAsyncModule {
   async displayIndicatorsFromCache(
     persistObj: SPersistInterface,
     indicators: WordIndicator[],
-    cardResultsCacheKey: string,
+    cardResultsCacheKey: string
   ) {
     if (this.cardSide === 'back') {
       if (persistObj !== null && persistObj.has(cardResultsCacheKey)) {
@@ -502,7 +502,11 @@ export class WordIndicators extends RunnableAsyncModule {
       // standard cache
       if (persistObj?.has(cardResultsCacheKey)) {
         const indicators = this.getIndicators();
-        await this.displayIndicatorsFromCache(persistObj, indicators, cardResultsCacheKey);
+        await this.displayIndicatorsFromCache(
+          persistObj,
+          indicators,
+          cardResultsCacheKey
+        );
         return;
       }
 
