@@ -387,4 +387,3 @@ overrides/*
 !overrides/.gitkeep
 
 themes/parfait/
-data/rto_overrides.json*

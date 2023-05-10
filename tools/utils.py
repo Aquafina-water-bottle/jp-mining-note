@@ -290,12 +290,33 @@ def get_compile_opts_all(config: Config, json_handler: JsonHandler) -> JSON:
     return _get_opts_all("compile", config, json_handler)
 
 
+def apply_runtime_opts(src: dict[str, Any], dst: dict[str, Any], overrides: dict[str, Any]):
+    """
+    applies all runtime options from src -> dst (modifies in place)
+    - also applies all overrides found from src -> overrides (modifies in place)
+    - dst can be an empty dictionary, so things from src are applied properly
+    - TODO: get "_modifyActions" working
+        - can modify lists and dictionaries in place
+        - should be key -> list, i.e. _modifyActions: { "kanjiHover.enabled": [ ... ] }
+        - logic should be implemented in compile-time for optimization, but also
+            implemented in JS for usage in the true _jpmn-options.js file
+    """
+    pass
+
+
+def get_rto_overrides(json_handler: JsonHandler):
+    root_folder = get_root_folder()
+    rto_overrides_file = os.path.join(root_folder, "data", f"rto_overrides.json5")
+    return json_handler.read_file(rto_overrides_file)
+
 def get_runtime_opts(config: Config, json_handler: JsonHandler) -> Config:
     # requires separation of { type: ... } (override) values into the "overrides"
     # section to be usable by typescript
+    # NOTE: existing keys in overrides should be correctly overwwritten by themes/user RTOs!
 
     runtime_opts = get_runtime_opts_all(config, json_handler)
     result = copy.deepcopy(runtime_opts["default"])
+    rto_overrides = get_rto_overrides(json_handler)
 
     def _is_override_value(val):
         return isinstance(val, dict) and "type" in val

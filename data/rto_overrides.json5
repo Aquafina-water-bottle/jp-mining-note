@@ -1,0 +1,44 @@
+{
+  "enableAnkiconnectFeatures": {
+    "type": "isPC",
+    "resultTrue":  true, // is PC
+    "resultFalse": false, // not not PC (mobile)
+  },
+
+  "sentenceParser.quotes.quoteOpen": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "pa_sent",
+    },
+    "resultTrue":  "『",
+    "resultFalse": "「",
+  },
+
+  "sentenceParser.quotes.quoteClose": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "pa_sent",
+    },
+    "resultTrue":  "』",
+    "resultFalse": "」",
+  },
+
+  "blockquotes.folderTab.enabled": {
+    "type": "viewportWidthBreakpoint",
+    "args": {
+      "op": "<=",
+      "value": "combinePicture",
+    },
+    "resultTrue": true,
+    "resultFalse": false,
+  },
+
+  //"fixRubyPositioning.enabled": {
+  //  "type": "isiPhoneiPad",
+  //  "resultTrue": true, // it seems like the AnkiMobile release only supports qt5 as of writing this
+  //  "resultFalse": false,
+  //},
+
+}
