@@ -1,15 +1,15 @@
 # This module is completely outdated
 
-#import pytest
+# import pytest
 #
-#from tools.jpmnopts_updater import JPMNOptsUpdater, OptAction, MoveOptAction, OverwriteValueOptAction, ChangeDefaultValueOptAction
+# from tools.jpmnopts_updater import JPMNOptsUpdater, OptAction, MoveOptAction, OverwriteValueOptAction, ChangeDefaultValueOptAction
 #
 #
-#@pytest.fixture
-#def updater():
+# @pytest.fixture
+# def updater():
 #    template = """
-#// preserve comments
-#{
+# // preserve comments
+# {
 #    "k1": "{{ k1 }}",
 #    "k2": {
 #        "k3": "{{ k2.k3 }}",
@@ -18,8 +18,8 @@
 #        "k7": "{{ k2.k7 }}"
 #    },
 #    "k5": "{{ k5 }}"
-#}
-#"""
+# }
+# """
 #
 #    options = {
 #        "k1": "value 1",
@@ -39,14 +39,14 @@
 #
 #    return upt
 #
-#@pytest.fixture
-#def updater_small():
+# @pytest.fixture
+# def updater_small():
 #    template = """
-#// preserve comments
-#{
+# // preserve comments
+# {
 #    "k1": "{{ k1 }}",
-#}
-#"""
+# }
+# """
 #
 #    options = {
 #        "k1": "value 1",
@@ -60,7 +60,7 @@
 #    return upt
 #
 #
-#def test_flatten(updater: JPMNOptsUpdater):
+# def test_flatten(updater: JPMNOptsUpdater):
 #
 #    json = {
 #        "k1": "v1",
@@ -93,7 +93,7 @@
 ##    )
 #
 #
-#def test_flatten_options(updater: JPMNOptsUpdater):
+# def test_flatten_options(updater: JPMNOptsUpdater):
 #    assert updater.flatten_options() == {
 #        "k1": "value 1",
 #        "k2.k3": "value 3",
@@ -104,7 +104,7 @@
 #    }
 #
 #
-#def test_flatten_options_more_templates():
+# def test_flatten_options_more_templates():
 #    template = """{ "k1": "{{ k1 }}", "k2": "{{ k2 }}" }"""
 #
 #    options = {
@@ -120,7 +120,7 @@
 #        upt.flatten_options()
 #
 #
-#class TestApplyActions:
+# class TestApplyActions:
 #
 #    def test_MoveOptAction(self, updater_small: JPMNOptsUpdater):
 #        options = {"a": "b"}
@@ -157,18 +157,18 @@
 #            "a": "b",
 #        }
 #
-#class TestGenerate:
+# class TestGenerate:
 #
 #    def test_default(self, updater_small: JPMNOptsUpdater):
 #        user_options = {}
 #        actions = []
 #
 #        result_str = """
-#// preserve comments
-#{
+# // preserve comments
+# {
 #    "k1": "value 1",
-#}
-#"""
+# }
+# """
 #
 #        assert updater_small.generate(user_options, actions).strip() == result_str.strip()
 #
@@ -178,11 +178,10 @@
 #        actions = []
 #
 #        result_str = """
-#// preserve comments
-#{
+# // preserve comments
+# {
 #    "k1": "value 2",
-#}
-#"""
+# }
+# """
 #
 #        assert updater_small.generate(user_options, actions).strip() == result_str.strip()
-

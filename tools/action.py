@@ -19,7 +19,7 @@ class Action(ABC):
 
     # I have to define it for every object??? just having it here doesn't work
     # pretty sure it has to do with dataclass somehow
-    #def __hash__(self) -> int:
+    # def __hash__(self) -> int:
     #    return hash(id(self))
 
 
@@ -162,6 +162,7 @@ class DeleteField(Action):
     def __hash__(self) -> int:
         return hash(id(self))
 
+
 @dataclass
 class ChangeFieldFontSize(Action):
     field_name: str
@@ -170,11 +171,9 @@ class ChangeFieldFontSize(Action):
     def __post_init__(self):
         raise NotImplementedError()
 
-        #self.ankiconnect_actions = {"modelFieldAdd", "modelFieldNames"}
+        # self.ankiconnect_actions = {"modelFieldAdd", "modelFieldNames"}
         self.ankiconnect_actions = set()
-        self.description = (
-            f"(TODO) Sets the font size of field `{self.field_name}` to {self.font_size}"
-        )
+        self.description = f"(TODO) Sets the font size of field `{self.field_name}` to {self.font_size}"
         self.edits_cards = True
 
     def run(self, **args):
@@ -269,7 +268,9 @@ class BatchUpdate(Action):
                 self.batch_func()
             except Exception:
                 traceback.print_exc()
-                print("Batch update failed. Please report this to the developer! Skipping error...")
+                print(
+                    "Batch update failed. Please report this to the developer! Skipping error..."
+                )
 
     def __hash__(self) -> int:
         return hash(id(self))

@@ -11,11 +11,12 @@ from json_handler import JsonHandler
 
 import utils
 
+
 @dataclass
 class Field:
     name: str
-    font: int # font size
-    auto_fill: bool # whether this field should be auto-filled by some program (i.e. Yomichan, mpvacious, etc.)
+    font: int  # font size
+    auto_fill: bool  # whether this field should be auto-filled by some program (i.e. Yomichan, mpvacious, etc.)
     binary_field: bool
 
     # exact text used for Yomichan's "Anki Card Format"
@@ -50,4 +51,3 @@ def get_fields(json_handler: JsonHandler):
 if __name__ == "__main__":
     json_handler = JsonHandler(True, True)
     print(get_fields(json_handler))
-

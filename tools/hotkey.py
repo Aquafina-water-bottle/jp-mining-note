@@ -8,12 +8,13 @@ import urllib.error
 from typing import Callable, Any, Dict, List
 
 
-
 # copied/pasted from utils to not require any weird utils dependencies
+
 
 # taken from https://github.com/FooSoft/anki-connect#python
 def request(action: str, **params):
     return {"action": action, "params": params, "version": 6}
+
 
 def invoke(action: str, **params):
     requestJson = json.dumps(request(action, **params)).encode("utf-8")
@@ -31,7 +32,6 @@ def invoke(action: str, **params):
     if response["error"] is not None:
         raise Exception(response["error"])
     return response["result"]
-
 
 
 rx_BOLD = re.compile(r"<b>(.+)</b>")
@@ -138,7 +138,9 @@ def fix_sent_and_freq():
         "FrequenciesStylized": _field_value(curr_note_data, "FrequenciesStylized"),
         "Sentence": _field_value(curr_note_data, "Sentence"),
         "SentenceReading": _field_value(curr_note_data, "SentenceReading"),
-        "AltDisplayClozeDeletionCard": _field_value(curr_note_data, "AltDisplayClozeDeletionCard"),
+        "AltDisplayClozeDeletionCard": _field_value(
+            curr_note_data, "AltDisplayClozeDeletionCard"
+        ),
     }
 
     # copies frequency, sentence, sentence reading to previous note
@@ -164,6 +166,7 @@ def _bold_entire_sentence(sentence):
     result_sent = sentence.replace("<b>", "").replace("</b>", "")
     result_sent = f"<b>{result_sent}</b>"
     return result_sent
+
 
 def _create_cloze_deletion_card(note_name: str, bold_sentence: bool = False):
     """

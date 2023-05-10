@@ -19,17 +19,18 @@ class NoteChange:
     post_actions: list[action.Action]
     fields: list[str]
 
+
 # hard coded for now to prevent arbitrary code injection type things
 ACTION_TYPE_TO_OBJECT_CLASS = {
-        "BatchUpdate": action.BatchUpdate,
-        "NoteToUser": action.NoteToUser,
-        "RenameField": action.RenameField,
-        "AddField": action.AddField,
-        "MoveField": action.MoveField,
-        "DeleteField": action.DeleteField,
-        "SetField": action.SetField,
-        "YomichanTemplatesChange": action.YomichanTemplatesChange,
-        "YomichanFormatChange": action.YomichanFormatChange,
+    "BatchUpdate": action.BatchUpdate,
+    "NoteToUser": action.NoteToUser,
+    "RenameField": action.RenameField,
+    "AddField": action.AddField,
+    "MoveField": action.MoveField,
+    "DeleteField": action.DeleteField,
+    "SetField": action.SetField,
+    "YomichanTemplatesChange": action.YomichanTemplatesChange,
+    "YomichanFormatChange": action.YomichanFormatChange,
 }
 
 
@@ -62,7 +63,10 @@ def parse_actions(actions_data):
 
     return actions
 
-def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = None) -> tuple[NoteChange]:
+
+def get_note_changes(
+    json_handler: utils.JsonHandler, file_path: str | None = None
+) -> tuple[NoteChange]:
     if file_path is None:
         file_path = os.path.join(utils.get_root_folder(), "data", "note_changes.json5")
     json_data = json_handler.read_file(file_path)
@@ -85,10 +89,12 @@ def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = No
         # fields
         fields = note_change_data["fields"]
 
-        if fields == "SAME": # attempts to copy from previous
+        if fields == "SAME":  # attempts to copy from previous
             if previous_fields is None:
-                raise RuntimeError("Cannot use SAME fields without any fields to begin with")
-            fields = previous_fields.copy() # shallow copy
+                raise RuntimeError(
+                    "Cannot use SAME fields without any fields to begin with"
+                )
+            fields = previous_fields.copy()  # shallow copy
         previous_fields = fields.copy()
 
         nc = NoteChange(version, actions, post_actions, fields)
@@ -97,7 +103,9 @@ def get_note_changes(json_handler: utils.JsonHandler, file_path: str | None = No
     return tuple(reversed(note_changes))
 
 
-def get_version_fields(note_changes: Sequence[NoteChange], current_ver: Version) -> list[str]:
+def get_version_fields(
+    note_changes: Sequence[NoteChange], current_ver: Version
+) -> list[str]:
     original_fields = None
 
     for data in reversed(note_changes):
@@ -114,7 +122,7 @@ def get_version_fields(note_changes: Sequence[NoteChange], current_ver: Version)
 
 def get_expected_fields(version_str: Optional[str] = None) -> list[str]:
     json_handler = JsonHandler()
-    #note_data = utils.get_note_data(json_handler)
+    # note_data = utils.get_note_data(json_handler)
     note_name = "JP Mining Note"
     if version_str is None:
         version_str = utils.get_version_from_anki(note_name)
@@ -125,9 +133,7 @@ def get_expected_fields(version_str: Optional[str] = None) -> list[str]:
     return expected_fields
 
 
-
-
-#NOTE_CHANGES = [
+# NOTE_CHANGES = [
 #
 #    NoteChange(
 #        version=Version(0, 12, 0, 0),
@@ -561,4 +567,4 @@ def get_expected_fields(version_str: Optional[str] = None) -> list[str]:
 #            "Comment",
 #        ],
 #    ),
-#]
+# ]

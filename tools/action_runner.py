@@ -32,10 +32,10 @@ import traceback
 
 import utils
 from action import Action, UserAction, RenameField, MoveField, AddField, DeleteField
-#from note_changes import NOTE_CHANGES, Version, NoteChange
+
+# from note_changes import NOTE_CHANGES, Version, NoteChange
 import note_changes as nc
 from version import Version
-
 
 
 class FieldVerifierException(Exception):
@@ -124,7 +124,9 @@ class Verifier:
 
         return self.anki_fields
 
-    def naive_diff_list(self, list1: list, list2: list, title1: str, title2: str) -> str:
+    def naive_diff_list(
+        self, list1: list, list2: list, title1: str, title2: str
+    ) -> str:
         """
         called "naive diff" as it diffs naive-ly per line, without checking for groups of lines
         that are the same
@@ -145,17 +147,17 @@ class Verifier:
 
         # naive diff (compares per line without any line group matching
         msg = ""
-        msg += ("    " + str_format.format(title1, title2) + "\n")
+        msg += "    " + str_format.format(title1, title2) + "\n"
         for x, y in zip(list1, list2):
-            msg += (">>> " if x != y else "    ")
-            msg += (str_format.format(x, y) + "\n")
-        print(msg) # TODO: optinal print?
+            msg += ">>> " if x != y else "    "
+            msg += str_format.format(x, y) + "\n"
+        print(msg)  # TODO: optinal print?
         return msg
 
     def naive_diff_set(self, set1: set, set2: set, title1: str, title2: str) -> str:
         msg = f"Fields in {title1} that aren't in {title2}: {set1-set2}\n"
         msg += f"Fields in {title2} that aren't in {title1}: {set2-set1}"
-        print(msg) # TODO: optinal print?
+        print(msg)  # TODO: optinal print?
         return msg
 
     def verify_initial_fields(self):
@@ -206,7 +208,6 @@ class Verifier:
 
         if self.in_order:
             if simulator.simulated_fields != self.new_fields:
-
                 # for x in difflib.context_diff(
                 #    simulator.simulated_fields,
                 #    self.new_fields,
@@ -280,7 +281,6 @@ class Verifier:
                 )
                 raise FieldVerifierException("Anki fields are different")
         else:
-
             # allows fields in anki that are not in the expected beginning,
             # BUT does not allow expected fields to not be in anki at the current moment
             # (i.e. you can't delete fields)
@@ -293,16 +293,17 @@ class Verifier:
                     f"{new_fields - anki_fields} "
                 )
 
-#@dataclass
-#class ActionRunnable:
+
+# @dataclass
+# class ActionRunnable:
 #    """
 #    not a very good name, but not sure what a good name is
 #    """
 #    action: Action
 #    should_run: bool
 
-#@dataclass
-#class ActionMetadata:
+# @dataclass
+# class ActionMetadata:
 #    """
 #    not a very good name, but not sure what a good name is
 #    """
@@ -318,7 +319,7 @@ class ActionRunner:
         new_ver: Version,
         in_order=True,
         verify=True,
-        #select_note_changes: list[int] | None=None,
+        # select_note_changes: list[int] | None=None,
     ):
         """
         applies changes specified in the range (current_ver, new_ver]
@@ -423,11 +424,11 @@ class ActionRunner:
         desc_list.append(f"Changes from {version}:")
 
         for action in data.actions:
-            #metadata = self.action_metadata[action]
-            #if metadata.should_run and not isinstance(action, UserAction):
+            # metadata = self.action_metadata[action]
+            # if metadata.should_run and not isinstance(action, UserAction):
             if not isinstance(action, UserAction):
-                #num_disp = "{:02d}: ".format(metadata.index+1)
-                #desc_list.append(self.indent(action.description, start=num_disp))
+                # num_disp = "{:02d}: ".format(metadata.index+1)
+                # desc_list.append(self.indent(action.description, start=num_disp))
                 desc_list.append(self.indent(action.description))
 
         return "\n".join(desc_list)
@@ -441,17 +442,17 @@ class ActionRunner:
 
         for data in self.changes:
             for action in data.actions:
-                #metadata = self.action_metadata[action]
-                #if metadata.should_run and isinstance(action, UserAction):
+                # metadata = self.action_metadata[action]
+                # if metadata.should_run and isinstance(action, UserAction):
                 if isinstance(action, UserAction):
-                    #num_disp = "{:02d}: ".format(metadata.index+1)
+                    # num_disp = "{:02d}: ".format(metadata.index+1)
                     if action.unique:
                         if action.__class__ not in user_changes_unique:
                             user_changes_unique.add(action.__class__)
-                            #desc_list.append(self.indent(action.description, start=num_disp))
+                            # desc_list.append(self.indent(action.description, start=num_disp))
                             desc_list.append(self.indent(action.description))
                     else:
-                        #desc_list.append(self.indent(action.description, start=num_disp))
+                        # desc_list.append(self.indent(action.description, start=num_disp))
                         desc_list.append(self.indent(action.description))
 
         return "\n".join(desc_list)
@@ -538,10 +539,11 @@ class ActionRunner:
 
     def get_post_message(self) -> str | None:
         if self.requires_user_action:
-            return ("Make sure you don't forget to do the following actions afterwards:\n"
-                f"{self.get_user_actions_desc()}")
+            return (
+                "Make sure you don't forget to do the following actions afterwards:\n"
+                f"{self.get_user_actions_desc()}"
+            )
 
 
 if __name__ == "__main__":
-
     pass

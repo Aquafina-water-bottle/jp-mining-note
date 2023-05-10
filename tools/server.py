@@ -34,6 +34,7 @@ import websockets
 
 CONNECTIONS = set()
 
+
 async def register(websocket):
     CONNECTIONS.add(websocket)
     try:
@@ -45,10 +46,11 @@ async def register(websocket):
     finally:
         CONNECTIONS.remove(websocket)
 
+
 async def main():
     async with websockets.serve(register, "localhost", 6678):
         await asyncio.Future()  # run forever
 
+
 if __name__ == "__main__":
     asyncio.run(main())
-

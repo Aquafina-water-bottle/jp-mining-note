@@ -39,8 +39,13 @@ CUSTOM_CSS_COMMENT = """
  * UNLESS YOU KNOW WHAT YOU ARE DOING!!!
  */
 """
-CUSTOM_CSS_COMMENT_SEPARATOR = "/* ================ jp-mining-note: INSERT CUSTOM CSS BELOW ================ */"
-rx_CUSTOM_CSS_COMMENT_SEPARATOR = re.compile(r"""/\* ================ jp-mining-note: INSERT CUSTOM CSS BELOW ================ \*/(.*)""", re.DOTALL) # DOTALL is so . matches newline
+CUSTOM_CSS_COMMENT_SEPARATOR = (
+    "/* ================ jp-mining-note: INSERT CUSTOM CSS BELOW ================ */"
+)
+rx_CUSTOM_CSS_COMMENT_SEPARATOR = re.compile(
+    r"""/\* ================ jp-mining-note: INSERT CUSTOM CSS BELOW ================ \*/(.*)""",
+    re.DOTALL,
+)  # DOTALL is so . matches newline
 
 
 @dataclass(frozen=True)
@@ -134,7 +139,7 @@ def add_args(parser: argparse.ArgumentParser):
         "--backup-folder",
         type=str,
         default="backup",
-        help="Backup folder path, starting from root."
+        help="Backup folder path, starting from root.",
     )
 
     group.add_argument(
@@ -155,7 +160,7 @@ class NoteUpdater:
         input_folder: str,
         note_data: utils.Config,
         backup_folder: str | None = None,
-        override_styling: bool=False,
+        override_styling: bool = False,
     ):
         self.input_folder = input_folder
         self.backup_folder = backup_folder
@@ -254,7 +259,6 @@ class NoteUpdater:
             }
         }
 
-
     def update_templates(self, model: NoteType):
         if invoke("updateModelTemplates", **self.format_templates(model)) is None:
             template_names = [t.name for t in model.templates]
@@ -276,13 +280,18 @@ class NoteUpdater:
                 if separator_search is not None:
                     styling += separator_search.group(1)
             except Exception:
-                msg = ("Cannot get existing styling of note. "
+                msg = (
+                    "Cannot get existing styling of note. "
                     "The note likely is not installed yet. "
-                    "Skipping inline CSS update...")
+                    "Skipping inline CSS update..."
+                )
                 print(msg)
                 styling += "\n" * 10
 
-        if invoke("updateModelStyling", **self.format_styling(model.name, styling)) is None:
+        if (
+            invoke("updateModelStyling", **self.format_styling(model.name, styling))
+            is None
+        ):
             print(f"Updated {self.note_data('id').item()} css successfully.")
 
     def format_styling(self, model_name: str, model_css: str) -> Dict[str, Any]:
@@ -313,7 +322,13 @@ class MediaInstaller:
     updates (and backs up, if specified) arbitrary media files
     """
 
-    def __init__(self, input_folder: str, static_folder: str, backup_folder: str, attempt_copy: bool=True):
+    def __init__(
+        self,
+        input_folder: str,
+        static_folder: str,
+        backup_folder: str,
+        attempt_copy: bool = True,
+    ):
         self.input_folder = input_folder
         self.static_folder = static_folder
         self.backup_folder = backup_folder
@@ -326,9 +341,7 @@ class MediaInstaller:
         path = os.path.join(input_folder, file_name)
         with open(path, mode="rb") as f:
             contents = f.read()
-        return MediaFile(
-            name=file_name, contents=b64_encode(contents), path=path
-        )
+        return MediaFile(name=file_name, contents=b64_encode(contents), path=path)
 
     def backup(self, file_name):
         try:
@@ -361,7 +374,9 @@ class MediaInstaller:
 
     def send_media(self, media: MediaFile):
         if invoke("storeMediaFile", **self.format_media(media)) == media.name:
-            print(f"Updated '{media.name}' media file (via storeMediaFile) successfully.")
+            print(
+                f"Updated '{media.name}' media file (via storeMediaFile) successfully."
+            )
 
     def media_exists(self, file_name: str):
         return bool(invoke("getMediaFilesNames", pattern=file_name))
@@ -387,7 +402,7 @@ class MediaInstaller:
 
         Returns whether the attempt was successful or not
         """
-        if not self.attempt_copy: # don't even try in the first place
+        if not self.attempt_copy:  # don't even try in the first place
             return False
 
         media_dir = self.get_media_dir()
@@ -413,7 +428,7 @@ class MediaInstaller:
             self.backup(file_name)
 
         media = self.get_media_file(file_name, static=static)
-        if self.attempt_copy_media_file(media): # success
+        if self.attempt_copy_media_file(media):  # success
             return
 
         self.send_media(media)
@@ -438,14 +453,14 @@ def main(args: argparse.Namespace | None = None) -> str | None:
 
     media_folder = os.path.join(search_folder, "media")
     static_folder = os.path.join(root_folder, "media")
-    backup_folder = os.path.join(
-        root_folder, args.backup_folder, utils.get_time_str()
-    )
+    backup_folder = os.path.join(root_folder, args.backup_folder, utils.get_time_str())
     media_backup_folder = os.path.join(backup_folder, "media")
 
     backup = not args.no_backup
 
-    note_updater = NoteUpdater(search_folder, note_data, backup_folder, args.override_styling)
+    note_updater = NoteUpdater(
+        search_folder, note_data, backup_folder, args.override_styling
+    )
     media_installer = MediaInstaller(media_folder, static_folder, media_backup_folder)
 
     is_installed = utils.note_is_installed(model_name)
@@ -467,10 +482,14 @@ def main(args: argparse.Namespace | None = None) -> str | None:
         # checks for note changes between versions
         if not args.dev_ignore_note_changes:
             current_ver = ar.Version.from_str(
-                utils.get_version_from_anki(note_data("model-name").item(), args.dev_input_version)
+                utils.get_version_from_anki(
+                    note_data("model-name").item(), args.dev_input_version
+                )
             )
             new_ver = ar.Version.from_str(utils.get_version(args))
-            note_changes = nc.get_note_changes(json_handler, args.dev_custom_note_changes)
+            note_changes = nc.get_note_changes(
+                json_handler, args.dev_custom_note_changes
+            )
             action_runner = ar.ActionRunner(
                 note_changes,
                 current_ver,

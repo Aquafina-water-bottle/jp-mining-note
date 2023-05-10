@@ -4,7 +4,6 @@ import utils
 
 
 def main(args=None):
-
     if args is None:
         args = utils.get_args(utils.add_args)
 
@@ -13,7 +12,9 @@ def main(args=None):
 
     version = utils.get_version(args)
 
-    path = os.path.join(root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg")
+    path = os.path.join(
+        root_folder, "all_versions", f"{version}-jpmn_example_cards.apkg"
+    )
     utils.gen_dirs(path)
 
     export_params = {
@@ -24,7 +25,6 @@ def main(args=None):
 
     if not utils.invoke("exportPackage", **export_params):
         raise Exception("exportPackage returned False")
-
 
 
 if __name__ == "__main__":

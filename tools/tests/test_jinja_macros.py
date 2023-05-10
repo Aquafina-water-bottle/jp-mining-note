@@ -10,7 +10,6 @@ import shutil
 
 @pytest.fixture
 def gen():
-
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "src")
     tests_folder = os.path.join(root_folder, "tools", "tests", "jinja")
@@ -96,8 +95,12 @@ def test_if_any(gen):
 
 def test_if_any_compiled_away1(gen):
     assert_files_eq(
-        gen, "if_any.html", "if_any_no_examplefield.html", {"neverFilledFields": ["ExampleField"]}
+        gen,
+        "if_any.html",
+        "if_any_no_examplefield.html",
+        {"neverFilledFields": ["ExampleField"]},
     )
+
 
 def test_if_any_compiled_away2(gen):
     # if one is always filled -> no need to check any other field
@@ -106,25 +109,35 @@ def test_if_any_compiled_away2(gen):
     )
 
 
-
 def test_if_none(gen):
     assert_files_eq(gen, "if_none.html", "if_none.html")
 
+
 def test_if_none_compiled_away1(gen):
     # if ExampleField is never filled, then skip check
-    assert_files_eq(gen, "if_none.html", "if_none_only_examplefield2.html", {"neverFilledFields": ["ExampleField"]})
+    assert_files_eq(
+        gen,
+        "if_none.html",
+        "if_none_only_examplefield2.html",
+        {"neverFilledFields": ["ExampleField"]},
+    )
+
 
 def test_if_none_compiled_away2(gen):
     # if ExampleField is always filled, then this will return with nothing
-    assert_files_eq(gen, "if_none.html", "empty.html", {"alwaysFilledFields": ["ExampleField"]})
-
+    assert_files_eq(
+        gen, "if_none.html", "empty.html", {"alwaysFilledFields": ["ExampleField"]}
+    )
 
 
 def test_any_of_str(gen):
     assert_files_eq(gen, "any_of_str.html", "any_of_str.html")
 
+
 def test_any_of_str_compiled_away(gen):
-    assert_files_eq(gen, "any_of_str.html", "any_of_str_always_filled.html", {"alwaysFilledFields": ["ExampleField"]})
-
-
-
+    assert_files_eq(
+        gen,
+        "any_of_str.html",
+        "any_of_str_always_filled.html",
+        {"alwaysFilledFields": ["ExampleField"]},
+    )

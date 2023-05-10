@@ -17,8 +17,9 @@ from jinja2 import (
     select_autoescape,
     StrictUndefined,
 )
-#from json_minify import json_minify
-#import json
+
+# from json_minify import json_minify
+# import json
 
 import utils
 from note_changes import get_note_changes
@@ -153,11 +154,11 @@ class Translator:
             raise Exception(f"Cannot find translation for {key}.")
         return self.calc[key]
 
-    #def __init__(self, languages: list[str], translations: dict[str, dict[str, str]]):
+    # def __init__(self, languages: list[str], translations: dict[str, dict[str, str]]):
     #    self.languages = languages
     #    self.translations = translations
 
-    #def get(self, key) -> str:
+    # def get(self, key) -> str:
     #    for lang in self.languages:
     #        if lang in self.translations and key in self.translations[lang]:
     #            return self.translations[lang][key]
@@ -172,7 +173,7 @@ class Generator:
 
     def __init__(
         self,
-        jinja_root_folders: list[str], # override, [theme], src
+        jinja_root_folders: list[str],  # override, [theme], src
         config: utils.Config,
         json_handler: JsonHandler,
         to_release: bool = False,
@@ -211,7 +212,7 @@ class Generator:
         )
 
         translations = self.json_handler.read_file(translation_file_path)
-        #with open(translation_file_path, encoding="utf-8") as f:
+        # with open(translation_file_path, encoding="utf-8") as f:
         #    translations = self.json_handler.read_file(f)
 
         languages = compile_options("displayLanguages").list()
@@ -241,7 +242,6 @@ class Generator:
             "include_raw": include_raw,
             "_print": print,
         }
-
 
     def set_data(self, key, value):
         self.data[key] = value
@@ -361,7 +361,10 @@ class Generator:
             utils.gen_dirs(release_output)
             shutil.copy(output_file, release_output)
 
-def create_generator(args: argparse.Namespace, config: utils.Config, json_handler: JsonHandler):
+
+def create_generator(
+    args: argparse.Namespace, config: utils.Config, json_handler: JsonHandler
+):
     # search folders are: override, theme, src (or theme, override, src)
     root_folder = utils.get_root_folder()
     templates_folder = os.path.join(root_folder, "src")
@@ -415,7 +418,7 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
     # generates typescript
     generate_ts_consts(args, generator)
 
-    #build_file(
+    # build_file(
     #    args,
     #    generator,
     #    utils.Config(
@@ -426,7 +429,7 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
     #            "to-release": False,
     #        }
     #    ),
-    #)
+    # )
 
     if args.build_dev:
         e = os.system("npm run dev")
@@ -447,14 +450,18 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
 
             generator.set_data(
                 "CARD_INFO",
-                utils.Config({
-                    "card-side": side,
-                    "card-type": card_model_id,
-                    "card-type-name": note_data("templates", card_model_id, "name").item(),
-                    "model-name": note_data("model-name").item(),
-                    "note-type": note_model_id,
-                    "js-prefix": note_data("js-prefix").item(),
-                }),
+                utils.Config(
+                    {
+                        "card-side": side,
+                        "card-type": card_model_id,
+                        "card-type-name": note_data(
+                            "templates", card_model_id, "name"
+                        ).item(),
+                        "model-name": note_data("model-name").item(),
+                        "note-type": note_model_id,
+                        "js-prefix": note_data("js-prefix").item(),
+                    }
+                ),
             )
 
             generator.generate(
@@ -486,7 +493,7 @@ def build_file(
         output_root = args.build_folder
     else:
         output_root = os.path.join(root_folder, output_root)
-    #output_file = os.path.join(args.build_folder, file_config("output-file").item())
+    # output_file = os.path.join(args.build_folder, file_config("output-file").item())
     output_file = os.path.join(output_root, file_config("output-file").item())
 
     release_output = ""
@@ -497,7 +504,6 @@ def build_file(
 
 
 def main(args=None):
-
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
     if args.release:

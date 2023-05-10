@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 class Version:
     def __init__(
         self,
@@ -22,7 +23,7 @@ class Version:
             x.x.x.x-prerelease-1
         """
         assert str_ver.count(".") == 3
-        #assert str_ver.replace(".", "").isdigit()
+        # assert str_ver.replace(".", "").isdigit()
         elements = str_ver.split(".")
         main = int(elements[0])
         major = int(elements[1])

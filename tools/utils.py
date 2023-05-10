@@ -18,7 +18,9 @@ USER_CONFIG_PATH = "config/config.json5"
 DEFAULT_CONFIG_PATH = "config/default_config.json5"
 TIME_FORMAT = "%Y-%m-%d-%H-%M-%S"
 
-rx_GET_VERSION = re.compile(r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+(-prerelease-\d+)?)")
+rx_GET_VERSION = re.compile(
+    r"JP Mining Note: Version (\d+\.\d+\.\d+\.\d+(-prerelease-\d+)?)"
+)
 
 
 JSON = dict[str, Any]
@@ -79,7 +81,9 @@ def add_args(parser: argparse.ArgumentParser):
     )
 
 
-def get_args(*add_args_funcs: Callable[[argparse.ArgumentParser], None]) -> argparse.Namespace:
+def get_args(
+    *add_args_funcs: Callable[[argparse.ArgumentParser], None]
+) -> argparse.Namespace:
     # exit_on_error is False if custom args are given
     parser = argparse.ArgumentParser()
     for add_args_func in add_args_funcs:
@@ -241,7 +245,7 @@ def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> JSON:
     # - theme
     # - default (error if not found)
 
-    #import pyjson5
+    # import pyjson5
     # TODO use json handler!!!! what on earth is this
 
     root_folder = get_root_folder()
@@ -249,7 +253,7 @@ def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> JSON:
     # gets default settings
     default_opts_file = os.path.join(root_folder, "data", f"{name}_opts.json5")
     default_opts = json_handler.read_file(default_opts_file)
-    #with open(default_opts_file, encoding="utf-8") as f:
+    # with open(default_opts_file, encoding="utf-8") as f:
     #    default_opts = pyjson5.load(f)
 
     # gets theme settings
@@ -261,17 +265,15 @@ def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> JSON:
         )
         if os.path.isfile(theme_opts_file):
             theme_opts = json_handler.read_file(theme_opts_file)
-            #with open(theme_opts_file, encoding="utf-8") as f:
+            # with open(theme_opts_file, encoding="utf-8") as f:
             #    theme_opts = pyjson5.load(f)
 
     # gets user settings
     user_opts = {}
-    user_opts_file = os.path.join(
-        root_folder, config(f"{name}-options-path").item()
-    )
+    user_opts_file = os.path.join(root_folder, config(f"{name}-options-path").item())
     if os.path.isfile(user_opts_file):
         user_opts = json_handler.read_file(user_opts_file)
-        #with open(user_opts_file, encoding="utf-8") as f:
+        # with open(user_opts_file, encoding="utf-8") as f:
         #    user_opts = pyjson5.load(f)
 
     # TODO convert this to some sort of actual object instead of a dict?
@@ -290,7 +292,9 @@ def get_compile_opts_all(config: Config, json_handler: JsonHandler) -> JSON:
     return _get_opts_all("compile", config, json_handler)
 
 
-def apply_runtime_opts(src: dict[str, Any], dst: dict[str, Any], overrides: dict[str, Any]):
+def apply_runtime_opts(
+    src: dict[str, Any], dst: dict[str, Any], overrides: dict[str, Any]
+):
     """
     applies all runtime options from src -> dst (modifies in place)
     - also applies all overrides found from src -> overrides (modifies in place)
@@ -308,6 +312,7 @@ def get_rto_overrides(json_handler: JsonHandler):
     root_folder = get_root_folder()
     rto_overrides_file = os.path.join(root_folder, "data", f"rto_overrides.json5")
     return json_handler.read_file(rto_overrides_file)
+
 
 def get_runtime_opts(config: Config, json_handler: JsonHandler) -> Config:
     # requires separation of { type: ... } (override) values into the "overrides"
@@ -387,7 +392,9 @@ def get_version_from_template_side(template_side: str, error=False) -> str | Non
     return match.group(1)
 
 
-def get_version_from_anki(model_name: str, dev_input_version: Optional[str] = None) -> str:
+def get_version_from_anki(
+    model_name: str, dev_input_version: Optional[str] = None
+) -> str:
     """
     gets version of the jp mining note from the installed note in anki
     """
@@ -502,6 +509,7 @@ def assert_ankiconnect_running():
 
 def get_time_str():
     return datetime.datetime.now().strftime(TIME_FORMAT)
+
 
 if __name__ == "__main__":
     # write temporary tests here

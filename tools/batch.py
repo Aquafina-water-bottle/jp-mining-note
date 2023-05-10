@@ -37,7 +37,6 @@ FULL_KANA = list(
 )
 
 
-
 # ==================
 #  Helper functions
 # ==================
@@ -110,7 +109,6 @@ def _is_hiragana(text: str) -> bool:
         if c not in HIRAGANA_SET:
             return False
     return True
-
 
 
 # =================
@@ -668,7 +666,7 @@ def remove_html(field_name: str):
     """
 
     print("Querying notes...")
-    query = f'"note:JP Mining Note" "{field_name}:*<*"' # only queries notes with that HTML field
+    query = f'"note:JP Mining Note" "{field_name}:*<*"'  # only queries notes with that HTML field
     notes = invoke("findNotes", query=query)
 
     print(f"Getting {len(notes)} notes info...")
@@ -679,13 +677,12 @@ def remove_html(field_name: str):
     for info in notes_info:
         nid = info["noteId"]
         field_val = info["fields"][field_name]["value"]
-        field_val = re.sub(rx_HTML, '', field_val)
+        field_val = re.sub(rx_HTML, "", field_val)
         action = _update_note_action(nid, **{field_name: field_val})
         actions.append(action)
 
     print(f"Updating {len(actions)} notes...")
     notes = invoke("multi", actions=actions)
-
 
 
 def _construct_set_font_size(field: str, font_size: int):
@@ -695,8 +692,8 @@ def _construct_set_font_size(field: str, font_size: int):
         "params": {
             "modelName": "JP Mining Note",
             "fieldName": field,
-            "fontSize": font_size
-        }
+            "fontSize": font_size,
+        },
     }
 
 
@@ -721,11 +718,7 @@ def _construct_set_font(field: str, font: str):
     return {
         "action": "modelFieldSetFont",
         "version": 6,
-        "params": {
-            "modelName": "JP Mining Note",
-            "fieldName": field,
-            "font": font
-        }
+        "params": {"modelName": "JP Mining Note", "fieldName": field, "font": font},
     }
 
 
@@ -746,7 +739,6 @@ def set_fonts_to_key_font() -> str | None:
     invoke("multi", actions=actions)
 
 
-
 def verify_fields(version: Optional[str] = None) -> str | None:
     """
     checks that the fields are all there, in the correct order
@@ -764,11 +756,7 @@ def _construct_add_field(field: str, index: int):
     return {
         "action": "modelFieldAdd",
         "version": 6,
-        "params": {
-            "modelName": "JP Mining Note",
-            "fieldName": field,
-            "index": index
-        }
+        "params": {"modelName": "JP Mining Note", "fieldName": field, "index": index},
     }
 
 
@@ -776,11 +764,7 @@ def _construct_reposition_field(field: str, index: int):
     return {
         "action": "modelFieldReposition",
         "version": 6,
-        "params": {
-            "modelName": "JP Mining Note",
-            "fieldName": field,
-            "index": index
-        }
+        "params": {"modelName": "JP Mining Note", "fieldName": field, "index": index},
     }
 
 
@@ -824,7 +808,9 @@ def _replace_runtime_options_file(backup_folder: str):
 def replace_runtime_options_file():
     root_folder = utils.get_root_folder()
     user_files_path = os.path.join(root_folder, "user_files")
-    if os.path.isdir(user_files_path): # if user_files exists, then we are very likely using jpmn-manager
+    if os.path.isdir(
+        user_files_path
+    ):  # if user_files exists, then we are very likely using jpmn-manager
         backup_folder = os.path.join(user_files_path, "backup", utils.get_time_str())
     else:
         backup_folder = os.path.join(root_folder, "backup", utils.get_time_str())
@@ -838,20 +824,25 @@ def _move_runtime_options_file(to_temp: bool):
     temp_path = os.path.join(media_dir_path, TEMP_FILE)
     og_path = os.path.join(media_dir_path, OG_FILE)
 
-    if to_temp: # og -> temp
+    if to_temp:  # og -> temp
         if os.path.isfile(og_path):
             os.rename(og_path, temp_path)
             return "Please sync, and then run 'move_runtime_options_file_to_original'"
-        raise RuntimeError("Original runtime options file could not be found. Cannot move to temp file.")
-    else: # temp -> og
+        raise RuntimeError(
+            "Original runtime options file could not be found. Cannot move to temp file."
+        )
+    else:  # temp -> og
         if os.path.isfile(temp_path):
             os.rename(temp_path, og_path)
             return "Please sync again. The options file should be properly updated on all machines after syncing on said machines."
-        raise RuntimeError("Original runtime options file could not be found. Cannot move back to original file.")
+        raise RuntimeError(
+            "Original runtime options file could not be found. Cannot move back to original file."
+        )
 
 
 def move_runtime_options_file_to_temp():
     return _move_runtime_options_file(to_temp=True)
+
 
 def move_runtime_options_file_to_original():
     return _move_runtime_options_file(to_temp=False)
@@ -860,7 +851,9 @@ def move_runtime_options_file_to_original():
 # TODO deprecated, remove for 0.12.0.0 release
 def replace_runtime_options_file_anki():
     root_folder = utils.get_root_folder()
-    backup_folder = os.path.join(root_folder, "user_files", "backup", utils.get_time_str())
+    backup_folder = os.path.join(
+        root_folder, "user_files", "backup", utils.get_time_str()
+    )
     _replace_runtime_options_file(backup_folder)
 
 
@@ -978,7 +971,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     quick_fix_convert_kana_only_reading_all_notes,
     separate_pa_override_field,
     remove_bolded_text_ajtwordpitch,
-    #combine_backup_xelieu,
+    # combine_backup_xelieu,
     copy_field,
     remove_html,
     verify_fields,
@@ -986,14 +979,13 @@ PUBLIC_FUNCTIONS_ANKI = [
     add_fields,
     set_font_sizes,
     set_fonts_to_key_font,
-    replace_runtime_options_file_anki, # TODO deprecated, remove for 0.12.0.0 release
+    replace_runtime_options_file_anki,  # TODO deprecated, remove for 0.12.0.0 release
     replace_runtime_options_file,
     fill_field_if_hiragana,
     get_new_due_cards,
     move_runtime_options_file_to_temp,
     move_runtime_options_file_to_original,
 ]
-
 
 
 def get_args(public_functions: list[Callable], args: Optional[list[str]] = None):
@@ -1033,4 +1025,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
