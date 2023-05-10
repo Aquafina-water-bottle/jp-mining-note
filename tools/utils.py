@@ -25,13 +25,14 @@ rx_GET_VERSION = re.compile(
 
 JSON = dict[str, Any]
 
+
 class OptsDict(TypedDict):
     user: JSON
     themes: JSON
     default: JSON
 
-OptsDictKey = Literal["user", "themes", "default"]
 
+OptsDictKey = Literal["user", "themes", "default"]
 
 
 cached_config = None
@@ -308,21 +309,21 @@ def apply_modify_action(dst: dict[str, Any], opt: str, action: JSON):
     """
     type = action["type"]
 
-    if type == "set": # dictionary set
+    if type == "set":  # dictionary set
         key = action["key"]
         value = action["value"]
 
         assert isinstance(dst[opt], dict)
         dst[opt][key] = value
 
-    elif type == "delete": # dictionary pop
+    elif type == "delete":  # dictionary pop
         key = action["key"]
 
         assert isinstance(dst[opt], dict)
         if key in dst[opt]:
             dst[opt].pop()
 
-    if type == "add": # list add
+    if type == "add":  # list add
         index = action["index"]
         value = action["value"]
 
@@ -330,23 +331,27 @@ def apply_modify_action(dst: dict[str, Any], opt: str, action: JSON):
         if index is not None:
             dst[opt].insert(index, value)
         else:
-            dst[opt].push(value) # applies at the end
+            dst[opt].push(value)  # applies at the end
 
-    if type == "add-all": # list add
+    if type == "add-all":  # list add
         values = action["values"]
         assert isinstance(dst[opt], list)
         dst[opt].extend(values)
 
-    elif type == "remove": # list remove
+    elif type == "remove":  # list remove
         value = action["value"]
 
         assert isinstance(dst[opt], list)
         if value in dst[opt]:
             dst[opt].remove(value)
 
+
 def apply_runtime_opts(
-        all_opts: OptsDict, key: OptsDictKey, dst: dict[str, Any], overrides: dict[str, Any],
-    error_if_unknown_key: bool = False
+    all_opts: OptsDict,
+    key: OptsDictKey,
+    dst: dict[str, Any],
+    overrides: dict[str, Any],
+    error_if_unknown_key: bool = False,
 ):
     """
     applies all runtime options from src -> dst (modifies in place)
@@ -400,7 +405,9 @@ def get_runtime_opts(config: Config, json_handler: JsonHandler) -> Config:
     # extra should NOT have "overrides"
     result_opts = {}
     apply_runtime_opts(all_runtime_opts, "default", result_opts, rto_overrides)
-    if config("theme-override-user-options").item(): # themes is added last => theme has highest priority
+    if config(
+        "theme-override-user-options"
+    ).item():  # themes is added last => theme has highest priority
         apply_runtime_opts(all_runtime_opts, "user", result_opts, rto_overrides)
         apply_runtime_opts(all_runtime_opts, "themes", result_opts, rto_overrides)
     else:
