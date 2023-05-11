@@ -178,37 +178,6 @@ and must use `./install.py --update`.
 - Fixed highlight-word not properly escaping regex
 - Fixed nasal replace regex not working sometimes (when character is escaped)
 
-#### Fixes (for new updates)
-- Fixed ruby sentence regex selecting too much when auto-highlighting a word
-- Fixed ruby sentence regex not working on non-rubified sentences
-- Fixed some modules not properly containing the cache dependency
-- Added dropdown hover color change + fixed height of hover
-
-#### Internal Changes
-- Re-ordered `sent-utils` to be under `img-utils` because that seems to speed up performance for some reason
-- Changed `isAltDisplay` and `isClozeDeletion` to be specified in css instead of javascript
-- Cleaned up css for full-sentence
-- Added a github issue template
-- Changed images in documentation a bit to make them more clean
-    - Decrease backround brightness & saturation
-    - Added shadows behind highlighted boxes
-    - Replaces pictures that previously had red arrows
-- Made `importing.md` docs section a bit clearer
-- Moved keybinds into its own module, similar to `time-performance`
-    - now has a much better interface
-- Added the `keybinds` module (to replace the existing keybinds section under `base.js`)
-- Added the `cache` module (to replace global variables)
-- Updated documentation on yomichan templates (no longer in TODO state)
-- Removed a bunch of javascript in `hybridClick` and replaced with an input/label hack
-- Reordered the html to have standard tags such has header / main
-- Added divs to wrap around various elements
-- Moved multiple elements to their own modules / partials for ease of editing
-- Reworked how pa indicator is shown internally to allow it to work with `IsHintCard`
-- Rewritten sentence utils entirely (and some parts of auto highlight word)
-- Persistence:
-    - Updated Persistence from v1.0.0 -> v1.1.8
-    - Integrated persistence properly with typescript with .d.ts file
-
 #### 0.12.0.0 Pre-release Changelog
 
 
@@ -219,7 +188,7 @@ and must use `./install.py --update`.
 - `--override-styling` flag for `install.py` to override user CSS
 - Card cache script now supports command line arguments, making it usable to the public
 - Constrained width of display sentence to be similar to the full sentence
-- `cardCache.enabled` RTO (you can disable `CardCache` on PC with this)
+- `cardCache.enabled` RTO (`CardCache` is now disabled on PC by default)
 - `_modifyActions` in `runtime_opts.json` (not in `_jpmn-options.js`) so one can edit lists and dicts
     without having to replace the entire runtime option
 
