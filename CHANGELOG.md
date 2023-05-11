@@ -220,12 +220,15 @@ and must use `./install.py --update`.
 - Card cache script now supports command line arguments, making it usable to the public
 - Constrained width of display sentence to be similar to the full sentence
 - `cardCache.enabled` RTO (you can disable `CardCache` on PC with this)
+- `_modifyActions` in `runtime_opts.json` (not in `_jpmn-options.js`) so one can edit lists and dicts
+    without having to replace the entire runtime option
 
 **Fixes**:
 - Un-bolded more things on mobile
 - Audio buttons are now completely hidden on AnkiMobile
 - `fixRubyPositioning.enabled` is now `false` for all devices (to fix AnkiMobile's uncentered furigana)
 - Card refreshes now persist changes to kanji hover and word indicators for the session
+- Keys in "overrides" RTO can now be properly overwritten with `runtime_opts.json` files
 
 </details>
 
