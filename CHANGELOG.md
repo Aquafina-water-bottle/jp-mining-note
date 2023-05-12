@@ -180,6 +180,15 @@ and must use `./install.py --update`.
 
 #### 0.12.0.0 Pre-release Changelog
 
+<details>
+<summary> Pre-release 7 </summary>
+
+**Fixes**:
+- `console.warn` and `console.error` breaking AnkiMobile (they are now disabled by default)
+
+</details>
+
+
 
 <details>
 <summary> Pre-release 6 </summary>
