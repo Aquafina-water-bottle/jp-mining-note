@@ -426,7 +426,6 @@ export class KanjiHover extends RunnableAsyncModule {
 
     // searches the remaining kanjis in kanjiSet
     const queryResults = await this.cardQueries(noteInfo, Array.from(kanjiSet));
-    //console.log("queryResults", queryResults);
 
     // two possible handlers:
     // a) find all note infos for sorting purposes
@@ -437,12 +436,9 @@ export class KanjiHover extends RunnableAsyncModule {
       kanjiToFilteredCardIDs = this.sortByTimeCreated(queryResults);
     } else {
       throw Error('not implemented');
-      //await this.sortByFirstReview(queryResults, kanjiToHover);
     }
-    //console.log("kanjiToFilteredCardIDs", kanjiToFilteredCardIDs);
 
     const kanjiToFilteredCardInfo = await this.getCardInfo(kanjiToFilteredCardIDs);
-    //console.log("kanjiToFilteredCardInfo", kanjiToFilteredCardInfo)
     this.buildTooltips(kanjiToFilteredCardInfo, kanjiToHover);
 
     return kanjiToHover;
@@ -465,22 +461,16 @@ export class KanjiHover extends RunnableAsyncModule {
 
   // attempts to get things without cache
   async populateTooltips() {
-    //if (this.persist?.has(this.mutexKey)) {
-    //  this.logger.debug("Cannot run due to mutex");
-    //  return;
-    //}
     if (this.wordReadingEle === null) {
       this.logger.debug('Cannot run kanji hover due to null wordReadingEle');
       return;
     }
     this.logger.debug(`Running on ${getCardKey()}...`);
-    //this.persist?.set(this.mutexKey, "true")
 
     // gets popup for each kanji character and cache
     let kanjiToHoverHTML = await this.getKanjisToHover(this.noteInfo);
     this.displayResultFromKanjiToHoverHTML(kanjiToHoverHTML, this.wordReadingEle);
 
-    //this.persist?.pop(this.mutexKey)
     this.logger.debug(`Finished running on ${getCardKey()}...`);
   }
 
@@ -564,7 +554,6 @@ export class KanjiHover extends RunnableAsyncModule {
           }
 
           this.logger.debug('Using CardCache');
-          console.log(kanjiToHoverHTML);
           this.displayResultFromKanjiToHoverHTML(kanjiToHoverHTML, this.wordReadingEle);
           return;
         }

@@ -465,6 +465,6 @@ export function addOnShownHook(callback: Callback) {
   if (onShownHook !== undefined && Array.isArray(onShownHook)) {
     onShownHook.push(callback);
   } else {
-    console.log("(playSilence) onShownHook is invalid or doesn't exist");
+    LOGGER.debug("(playSilence) onShownHook is invalid or doesn't exist");
   }
 }

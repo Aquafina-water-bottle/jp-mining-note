@@ -1,7 +1,5 @@
 {
   "logger.debugLevel": 3,
-  //"debug.toConsole": true,
-  "logger.toConsole": true,
   "logger.debugConsoleLevel": 0,
 
   //"logger.debug.onlyShowCertainModules": true,
@@ -113,7 +111,6 @@
     ],
 
   }
-
 
 
   //"kanjiHover.overrideOptions.tooltips": {

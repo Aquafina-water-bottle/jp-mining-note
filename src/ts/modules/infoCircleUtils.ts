@@ -1,7 +1,7 @@
 import { invoke } from '../ankiConnectUtils';
-import { compileOpts, translatorStrs } from '../consts';
+import { compileOpts } from '../consts';
 import { RunnableModule } from '../module';
-import { O, getOption } from '../options';
+import { getOption } from '../options';
 import { getViewportWidth } from '../reflow';
 import { getCardSide, isMobile, popupMenuMessage, getTags } from '../utils';
 
