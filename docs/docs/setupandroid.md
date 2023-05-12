@@ -21,12 +21,16 @@ More tech savy users can sync their collections using a
     After your first sync, your collection may not actually be fully synced even if AnkiDroid says so.
     Keep pressing the sync button until you are sure that everything is indeed synced.
 
-## AnkiDroid Usage Tips
+---
+
+# AnkiDroid Usage Tips
 
 - Set the night theme to "Dark" if you want a similar dark theme to Anki's desktop client.
 - If you are using custom gestures, I recommend disabling most (if not all) tap gestures.
     This is because you will likely have to tap on various parts of the screen
     when reviewing, to reveal various parts of the card.
+- Under the card browser, the default settings show the `Question` and `Answer` as columns, which likely
+    looks very strange. I recommend changing the columns to `Sort field` and `Due` respectively.
 
 
 ---
