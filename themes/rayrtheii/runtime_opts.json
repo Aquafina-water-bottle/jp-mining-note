@@ -1,5 +1,5 @@
 {
-  "logger.debugLevel": 3,
+  "logger.debugLevel": 0,
   "logger.debugConsoleLevel": 0,
   "logger.warn.ignore": [],
   "autoPitchAccent.coloredPitchAccent.enabled": false,

@@ -85,8 +85,6 @@ export abstract class RunnableModule extends Module {
       }
     } catch (error: any) {
       this.logger.errorStack(error.stack);
-      //this.logger.error("Error occured in module");
-      //this.logger.error(error.stack);
     }
   }
 

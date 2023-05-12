@@ -36,10 +36,9 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   // on any javascript error: log it
   window.onerror = function (msg, url, lineNo, columnNo, error) {
-    LOGGER.error(msg.toString());
+    LOGGER.error(`${msg}`);
     LOGGER.error(`URL: ${url}, position: ${lineNo}:${columnNo}`);
     LOGGER.errorStack(error?.stack ?? 'Unknown runtime error');
-    //LOGGER.error(error?.stack ?? 'Unknown runtime error');
   };
 
   // https://stackoverflow.com/a/55178672
@@ -202,8 +201,9 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     asyncManager.addModule(new CheckDuplicateKey());
   }
 
-  //addOnShownHook(() => { asyncManager.runModules() });
   addOnShownHook(() => {
     asyncManager.runModulesDelay();
   });
+
+  LOGGER.debug("Success! End of main() reached.")
 }

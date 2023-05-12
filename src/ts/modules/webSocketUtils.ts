@@ -16,6 +16,7 @@ export class WebSocketUtils extends RunnableModule {
   constructor() {
     super('webSocketUtils');
     this.persist = selectPersist('window');
+    this.logger.warn("THIS PACKAGE IS DEPRECATED, and will be removed sometime before releasing 0.12.0.0.");
   }
 
   fallbackSendMsg() {

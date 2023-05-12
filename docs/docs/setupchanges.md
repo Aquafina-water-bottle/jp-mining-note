@@ -115,13 +115,11 @@ The location of the backup is different depending on the updating method used:
 
 A common issue with updating multiple devices (for example, updating your phone)
 is that the new runtime options file may not be synced properly.
-This will lead into one of two behaviors:
-
-- On anything that is not AnkiMobile, you will get the following warning:
-    ```
-    JPMNOptions was not defined in the options file. Was there an error?
-    ```
-- On AnkiMobile, no javascript is ran, meaning the mobile tabs will not work.
+In the case that the file is not synced properly,
+you will get the following warning:
+```
+JPMNOptions was not defined in the options file. Was there an error?
+```
 
 The official documentation says that
 [adding or removing a media file](https://docs.ankiweb.net/syncing.html?highlight=sync%20media#media)

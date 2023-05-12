@@ -25,6 +25,7 @@ function getVWForceReflow(): number {
 function setWidthCache(persist: SPersistInterface) {
   const VW = getVWForceReflow();
   persist.set(widthKey, VW.toString());
+  LOGGER.debug(`set viewport width to ${VW}`, 1);
 }
 
 // TODO potentially turn this into a module to add the imgStylizer thing (to refresh layout)
@@ -235,6 +236,7 @@ export function refreshAdjustElements(imgStylizer: ImgStylizer) {
 }
 
 export function getViewportWidth(): number {
+  LOGGER.debug(`viewport width is currently ${getViewportWidthFromCache()}`, 1);
   return getViewportWidthFromCache();
 }
 //export function getViewportHeight(): number {
