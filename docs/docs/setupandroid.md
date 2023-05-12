@@ -26,11 +26,20 @@ More tech savy users can sync their collections using a
 # AnkiDroid Usage Tips
 
 - Set the night theme to "Dark" if you want a similar dark theme to Anki's desktop client.
+- Under the card browser, the default settings show the `Question` and `Answer` as columns, which likely
+    looks very strange. I recommend changing the columns to `Sort field` and `Due` respectively.
+- If you are using pass/fail, you can remove the bottom bar by doing the following:
+
+    > `Settings` →  `Appearance` →  `Answer buttons position` →  Select `None`
+
+    In replacement of the bottom bar, you can use custom gestures. I personally use:
+
+    - Show answer: Swipe up
+    - Answer button 1: Swipe right
+    - Answer recommended: Swipe left
 - If you are using custom gestures, I recommend disabling most (if not all) tap gestures.
     This is because you will likely have to tap on various parts of the screen
     when reviewing, to reveal various parts of the card.
-- Under the card browser, the default settings show the `Question` and `Answer` as columns, which likely
-    looks very strange. I recommend changing the columns to `Sort field` and `Due` respectively.
 
 
 ---

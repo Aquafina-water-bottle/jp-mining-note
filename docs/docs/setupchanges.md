@@ -132,25 +132,27 @@ that is guaranteed to work is documented below.
 
 === "Batch Commands"
     1. Make sure all devices are synced.
-    1. Run the following {{BATCH_COMMAND}}:
+    1. Run the following {{BATCH_CMD}}:
+
         ```move_runtime_options_file_to_temp```
-    1. Sync to AnkiWeb
-    1. Run the following {{BATCH_COMMAND}}:
+
+    1. Sync to AnkiWeb (from the computer).
+    1. Run the following {{BATCH_CMD}}:
+
         ```move_runtime_options_file_to_original```
-    1. Sync to AnkiWeb
-    1. On all other devices, sync from AnkiWeb
+
+    1. Sync to AnkiWeb (from the computer).
+    1. On all other devices, sync from AnkiWeb.
 
 === "Manually"
     1. Make sure all devices are synced.
-    1. Run the following {{BATCH_COMMAND}}:
-        Rename the `_jpmn-options.js` file to something different manually,
+    1. Rename the `_jpmn-options.js` file to something different manually,
         i.e. `_jpmn-options-TEMP.js`.
-    1. Sync to AnkiWeb
-    1. Run the following {{BATCH_COMMAND}}:
-        Rename the temporary file (in the example above: `_jpmn-options-TEMP.js`)
+    1. Sync to AnkiWeb (from the computer).
+    1. Rename the temporary file (in the example above: `_jpmn-options-TEMP.js`)
         to the original name (`_jpmn-options.js`).
-    1. Sync to AnkiWeb
-    1. On all other devices, sync from AnkiWeb
+    1. Sync to AnkiWeb (from the computer).
+    1. On all other devices, sync from AnkiWeb.
 
 
 ## Handlebars { #v0-12-0-0-handlebars }
