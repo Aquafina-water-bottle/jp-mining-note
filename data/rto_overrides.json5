@@ -47,4 +47,12 @@
     "resultFalse": false,
   },
 
+  // console.warn and console.error are not defined on AnkiMobile!!!
+  // Any calls to those will crash javascript with no error message!!
+  "logger.toConsole": {
+    "type": "isiPhoneiPad",
+    "resultTrue": false,
+    "resultFalse": true,
+  },
+
 }

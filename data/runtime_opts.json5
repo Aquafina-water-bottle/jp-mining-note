@@ -20,7 +20,7 @@
 
   // meant to be used with the following addon:
   // https://github.com/hikaru-y/anki21-addon-ankiwebview-inspector
-  "logger.toConsole": true,
+  "logger.toConsole": true, // OVERWRITTEN
   "logger.debugConsoleLevel": 3,
 
   // filters out debug messages to only show messages from specific modules

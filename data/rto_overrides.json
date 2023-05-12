@@ -35,5 +35,10 @@
     "type": "isMobile",
     "resultTrue": true,
     "resultFalse": false
+  },
+  "logger.toConsole": {
+    "type": "isiPhoneiPad",
+    "resultTrue": false,
+    "resultFalse": true
   }
 }

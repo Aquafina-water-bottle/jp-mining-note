@@ -324,7 +324,6 @@ export class Blockquotes extends RunnableModule {
 
       // attempts to get dictsOverride[dictName], fallsback to lineMode
       const dictMode = dictName === null ? lineMode : dictsOverride[dictName] ?? lineMode;
-      console.log(lineMode, dictMode, dictName, dictsOverride[dictName ?? '']);
 
       if (dictMode === 'first-line') {
         ele.classList.add('glossary-blockquote--hide-first-line');
