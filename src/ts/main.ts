@@ -35,7 +35,9 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
 
   // on any javascript error: log it
-  window.onerror = function (_msg, _url, _lineNo, _columnNo, error) {
+  window.onerror = function (msg, url, lineNo, columnNo, error) {
+    LOGGER.error(msg.toString());
+    LOGGER.error(`URL: ${url}, position: ${lineNo}:${columnNo}`);
     LOGGER.errorStack(error?.stack ?? 'Unknown runtime error');
     //LOGGER.error(error?.stack ?? 'Unknown runtime error');
   };
