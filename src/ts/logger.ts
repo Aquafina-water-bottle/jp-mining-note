@@ -121,7 +121,7 @@ export class Logger {
     this.printMsg(dispMsg, errorGroupId, errorClass, args);
   }
 
-  errorStack(stack: string) {
+  errorStack(stack: string, msg?: string, url?: string, lineNo?: number, columnNo?: number) {
     if (this.toConsole) {
       console.error(stack);
     }
@@ -138,13 +138,20 @@ export class Logger {
       for (let i = 1; i < stackList.length; i++) {
         stackList[i] = '>>> ' + stackList[i];
       }
-      //this.error(stackList.join("<br>"), {isHtml: true});
+
+      stackList[0] = 'Stack: ' + stackList[0];
+      // array.splice(index, 0, item) is the equivalent of list.insert(index, item)
+      stackList.splice(0, 0, `${msg}`);
+      stackList.splice(1, 0, `URL: ${url}, position: ${lineNo}:${columnNo}`);
+
       this.printMsg(stackList, errorGroupId, errorClass);
+
     } catch (e) {
       // in case the above fails for some reason
       // better to throw an error that is not as prettily formatted
       // than to essentially have it go missing
-      this.error(stack);
+      const fullMsg = `msg: ${msg} || url: ${url} || lineNo: ${lineNo} || colNo: ${columnNo} || stack: ${stack} || Could not show standard errorStack.`;
+      this.error(fullMsg);
     }
   }
 
