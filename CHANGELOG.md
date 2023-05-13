@@ -180,8 +180,22 @@ and must use `./install.py --update`.
 
 #### 0.12.0.0 Pre-release Changelog
 
+
+<details>
+<summary> Pre-release 8 </summary>
+
+**Fixes**:
+- (regression) Properly ignore error messages in `logger.error.ignore`
+- Incorrectly highlighting certain words as 起伏 (`vt` and `vi` tags were causing this highlight)
+
+</details>
+
+
 <details>
 <summary> Pre-release 7 </summary>
+
+**Features**:
+- Made error message more detailed, specifically so AnkiMobile can have display all necessary info
 
 **Fixes**:
 - `console.warn` and `console.error` breaking AnkiMobile (they are now disabled by default)
