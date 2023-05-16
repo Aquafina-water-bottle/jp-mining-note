@@ -184,9 +184,9 @@ and must use `./install.py --update`.
 <details>
 <summary> Pre-release 8 </summary>
 
-**Fixes**:
-- (regression) Properly ignore error messages in `logger.error.ignore`
-- Incorrectly highlighting certain words as 起伏 (`vt` and `vi` tags were causing this highlight)
+- **Fixes**:
+    - (regression) Properly ignore error messages in `logger.error.ignore`
+    - Incorrectly highlighting certain words as 起伏 (`vt` and `vi` tags were causing this highlight)
 
 </details>
 
@@ -194,11 +194,11 @@ and must use `./install.py --update`.
 <details>
 <summary> Pre-release 7 </summary>
 
-**Features**:
-- Made error message more detailed, specifically so AnkiMobile can have display all necessary info
+- **Features**:
+    - Made error message more detailed, specifically so AnkiMobile can have display all necessary info
 
-**Fixes**:
-- `console.warn` and `console.error` breaking AnkiMobile (they are now disabled by default)
+- **Fixes**:
+    - `console.warn` and `console.error` breaking AnkiMobile (they are now disabled by default)
 
 </details>
 
@@ -207,20 +207,20 @@ and must use `./install.py --update`.
 <details>
 <summary> Pre-release 6 </summary>
 
-**Features**:
-- `--override-styling` flag for `install.py` to override user CSS
-- Card cache script now supports command line arguments, making it usable to the public
-- Constrained width of display sentence to be similar to the full sentence
-- `cardCache.enabled` RTO (`CardCache` is now disabled on PC by default)
-- `_modifyActions` in `runtime_opts.json` (not in `_jpmn-options.js`) so one can edit lists and dicts
-    without having to replace the entire runtime option
+- **Features**:
+    - `--override-styling` flag for `install.py` to override user CSS
+    - Card cache script now supports command line arguments, making it usable to the public
+    - Constrained width of display sentence to be similar to the full sentence
+    - `cardCache.enabled` RTO (`CardCache` is now disabled on PC by default)
+    - `_modifyActions` in `runtime_opts.json` (not in `_jpmn-options.js`) so one can edit lists and dicts
+        without having to replace the entire runtime option
 
-**Fixes**:
-- Un-bolded more things on mobile
-- Audio buttons are now completely hidden on AnkiMobile
-- `fixRubyPositioning.enabled` is now `false` for all devices (to fix AnkiMobile's uncentered furigana)
-- Card refreshes now persist changes to kanji hover and word indicators for the session
-- Keys in "overrides" RTO can now be properly overwritten with `runtime_opts.json` files
+- **Fixes**:
+    - Un-bolded more things on mobile
+    - Audio buttons are now completely hidden on AnkiMobile
+    - `fixRubyPositioning.enabled` is now `false` for all devices (to fix AnkiMobile's uncentered furigana)
+    - Card refreshes now persist changes to kanji hover and word indicators for the session
+    - Keys in "overrides" RTO can now be properly overwritten with `runtime_opts.json` files
 
 </details>
 
@@ -230,17 +230,17 @@ and must use `./install.py --update`.
 <details>
 <summary> Pre-release 5 </summary>
 
-**Features**:
-- Added custom CSS section at the bottom of the template, that should be preserved between updates
-- Runtime options are automatically replaced on 0.12.0.0 update
-- Added warning when `SentenceReading` is not the same as `Reading`
+- **Features**:
+    - Added custom CSS section at the bottom of the template, that should be preserved between updates
+    - Runtime options are automatically replaced on 0.12.0.0 update
+    - Added warning when `SentenceReading` is not the same as `Reading`
 
-**Fixes**:
-- Sentence parser now doesn't add quotes on empty sentences (even if the mode is to add quotes)
-- Removed newlines in mobile popup
-- Removed bold weight in mobile popup
-- Kanji hover on mobile display with ruby text but no kanji no longer shows raw html
-- Ignore 2.1.62 error
+- **Fixes**:
+    - Sentence parser now doesn't add quotes on empty sentences (even if the mode is to add quotes)
+    - Removed newlines in mobile popup
+    - Removed bold weight in mobile popup
+    - Kanji hover on mobile display with ruby text but no kanji no longer shows raw html
+    - Ignore 2.1.62 error
 
 
 </details>
@@ -249,18 +249,18 @@ and must use `./install.py --update`.
 <details>
 <summary> Pre-release 4 </summary>
 
-This pre-release primarily changes some internals with how word indicators work,
-but should not have any outward affecting changes. As always, please let me know
-if anything looks off.
+- This pre-release primarily changes some internals with how word indicators work,
+    but should not have any outward affecting changes. As always, please let me know
+    if anything looks off.
 
-**Features**:
-- Implemented caching word indicators with cache.ts
-- Reworked mobile tooltip (kanji hover, word indicators):
-    - Added close button
-    - Height is automatically fitted to the content
-    - Additional height is added to the main card to allow scrolling past the tooltip
-    - Kanji and word indicator is highlighted on selection
-- cache.ts now writes for every 10 cards (just in case)
+- **Features**:
+    - Implemented caching word indicators with cache.ts
+    - Reworked mobile tooltip (kanji hover, word indicators):
+        - Added close button
+        - Height is automatically fitted to the content
+        - Additional height is added to the main card to allow scrolling past the tooltip
+        - Kanji and word indicator is highlighted on selection
+    - cache.ts now writes for every 10 cards (just in case)
 
 
 </details>
@@ -269,10 +269,10 @@ if anything looks off.
 <details>
 <summary> Pre-release 3 </summary>
 
-**Fixes**:
-- Fixed `img-yomichan-no-styling` not working as expected (it got stylized as a user image instead)
-- Temporarily made info circle links point to pre-release docs instead of the standard docs, to prevent confusion
-- Fixed ignoring wrong SentenceReading warning
+- **Fixes**:
+    - Fixed `img-yomichan-no-styling` not working as expected (it got stylized as a user image instead)
+    - Temporarily made info circle links point to pre-release docs instead of the standard docs, to prevent confusion
+    - Fixed ignoring wrong SentenceReading warning
 
 
 </details>
@@ -282,17 +282,17 @@ if anything looks off.
 <details>
 <summary> Pre-release 2 </summary>
 
-**Features**:
-- Info circle shows as a dialog instead of a popup (mobile only)
-- Added source map files to main card type, for easier debugging of production files
-- Added "data tags", i.e. tags that are greyed out in the info circle
-- Added runtime options to simplify the definitions as an alternative to CSS
+- **Features**:
+    - Info circle shows as a dialog instead of a popup (mobile only)
+    - Added source map files to main card type, for easier debugging of production files
+    - Added "data tags", i.e. tags that are greyed out in the info circle
+    - Added runtime options to simplify the definitions as an alternative to CSS
 
-**Fixes**:
-- Custom scss folders are now applied in the correct order
-- Frequencies popup no longer cuts off to the right on mobile
-- Frequencies popup now has a smaller max width, to hopefully not takeup the entire width of the mobile screen
-- Unbolded some text on mobile, to avoid lines in the kanji looking squished together
+- **Fixes**:
+    - Custom scss folders are now applied in the correct order
+    - Frequencies popup no longer cuts off to the right on mobile
+    - Frequencies popup now has a smaller max width, to hopefully not takeup the entire width of the mobile screen
+    - Unbolded some text on mobile, to avoid lines in the kanji looking squished together
 
 </details>
 
