@@ -1,8 +1,12 @@
 {# impl #}
 
+{{ utils.include_js_if_nonempty("jp-mining-note/partials/js/pre_opts.js") }}
+
 {% if not COMPILE_OPTIONS("hardcodedRuntimeOptions").item() %}
 <script id="jpmn_options_script" src="_jpmn-options.js"></script>
 {% endif %}
+
+{{ utils.include_js_if_nonempty("jp-mining-note/partials/js/post_opts.js") }}
 
 <!-- See here for the source typescript code: https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/src/ts -->
 {% autoescape false %}
@@ -14,4 +18,6 @@
 ]) + ".js") -}}
 </script>
 {% endautoescape %}
+
+{{ utils.include_js_if_nonempty("jp-mining-note/partials/js/post.js") }}
 

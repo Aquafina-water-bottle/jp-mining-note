@@ -35,6 +35,7 @@ def add_args(parser: argparse.ArgumentParser):
     group = parser.add_argument_group(title="make")
     group.add_argument("--to-release", action="store_true", default=False)
     group.add_argument("--build-dev", action="store_true", default=False)
+    group.add_argument("--dev-ignore-ts", action="store_true", default=False)
     group.add_argument("--dev-generate-consts", action="store_true", default=False)
 
 
@@ -431,12 +432,13 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
     #    ),
     # )
 
-    if args.build_dev:
-        e = os.system("npm run dev")
-    else:
-        e = os.system("npm run build")
-    if e != 0:
-        exit(e)
+    if not args.dev_ignore_ts:
+        if args.build_dev:
+            e = os.system("npm run dev")
+        else:
+            e = os.system("npm run build")
+        if e != 0:
+            exit(e)
 
     # generates for each card type
     note_model_id = note_data("id").item()

@@ -257,3 +257,15 @@
   {{ _get_quote_class(COMPILE_OPTIONS("defaultQuote.fullSent.displayMode")) }}
 {%- endmacro -%}
 
+{% macro include_js_if_nonempty(path) -%}
+
+{% set _js_post %}
+{% include path %}
+{% endset %}
+
+{% if _js_post.strip() %}
+<script>{{_js_post}}</script>
+{% endif %}
+
+{%- endmacro -%}
+
