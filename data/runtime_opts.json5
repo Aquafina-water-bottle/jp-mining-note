@@ -52,6 +52,7 @@
     //"(autoPitchAccent) More than one downstep marker used in ",
     //"(autoPitchAccent) Cannot use both downstep and heiban markers in ",
   ],
+
   "logger.error.ignore": [
     // This error is caused by the "Edit Field During Review (Cloze)" add-on.
     // However, this error only appears during the preview and edit cards template windows.

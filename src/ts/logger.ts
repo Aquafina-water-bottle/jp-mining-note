@@ -31,17 +31,34 @@ type GroupId =
 
 export class Logger {
   private name: string | null;
-  //private uniqueKeys: Set<string>;
-  private readonly debugLevel: number;
-  private readonly toConsole: boolean;
-  private readonly debugConsoleLevel: number;
+  // moved to lazy getters because a call to getOption fails when the option is an override type
+  private _debugLevel: number | null = null;
+  private _toConsole: boolean | null = null;
+  private _debugConsoleLevel: number | null = null;
+
+  getDebugLevel() {
+    if (this._debugLevel === null) {
+      this._debugLevel = getOption('logger.debugLevel');
+    }
+    return this._debugLevel
+  }
+
+  getToConsole() {
+    if (this._toConsole === null) {
+      this._toConsole = getOption('logger.toConsole');
+    }
+    return this._toConsole
+  }
+
+  getDebugConsoleLevel() {
+    if (this._debugConsoleLevel === null) {
+      this._debugConsoleLevel = getOption('logger.debugConsoleLevel');
+    }
+    return this._debugConsoleLevel
+  }
 
   constructor(name: string | null = null) {
     this.name = name;
-    //this.uniqueKeys = new Set();
-    this.debugLevel = getOption('logger.debugLevel');
-    this.toConsole = getOption('logger.toConsole');
-    this.debugConsoleLevel = getOption('logger.debugConsoleLevel');
   }
 
   debug(message: string, level: number = 3, args?: LoggerArgs) {
@@ -69,10 +86,10 @@ export class Logger {
     //}
 
     const dispMsg = this.formatMsg(message);
-    if (level >= this.debugLevel) {
+    if (level >= this.getDebugLevel()) {
       this.printMsg(dispMsg, debugGroupId, null, args);
     }
-    if (this.toConsole && level >= this.debugConsoleLevel) {
+    if (this.getToConsole() && level >= this.getDebugConsoleLevel()) {
       console.log(dispMsg);
     }
   }
@@ -80,14 +97,14 @@ export class Logger {
   info(message: string, args?: LoggerArgs) {
     const dispMsg = this.formatMsg(message);
     this.printMsg(dispMsg, infoGroupId, null, args);
-    if (this.toConsole) {
+    if (this.getToConsole()) {
       console.info(dispMsg);
     }
   }
 
   warn(message: string, args?: LoggerArgs) {
     const dispMsg = this.formatMsg(message);
-    if (this.toConsole) {
+    if (this.getToConsole()) {
       console.warn(dispMsg);
     }
 
@@ -105,7 +122,7 @@ export class Logger {
 
   error(message: string, args?: LoggerArgs) {
     const dispMsg = this.formatMsg(message);
-    if (this.toConsole) {
+    if (this.getToConsole()) {
       console.error(dispMsg);
     }
 
@@ -122,7 +139,7 @@ export class Logger {
   }
 
   errorStack(stack: string, msg?: string, url?: string, lineNo?: number, columnNo?: number) {
-    if (this.toConsole) {
+    if (this.getToConsole()) {
       console.error(stack);
     }
 
@@ -162,7 +179,7 @@ export class Logger {
       let infoCirc = document.getElementById('info_circle');
       infoCirc?.classList.toggle(leechClass, true);
     }
-    if (this.toConsole) {
+    if (this.getToConsole()) {
       console.info('Leech');
     }
   }
