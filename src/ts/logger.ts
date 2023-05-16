@@ -10,6 +10,11 @@ type LoggerArgs = LoggerArgsMsg & {
   ignoreOptions?: boolean;
 };
 
+type RegexIgnore = {
+  pattern: string;
+  flags: string | null;
+};
+
 const leechClass = 'info-circle-leech';
 const warnClass = 'info-circle-warning';
 const errorClass = 'info-circle-error';
@@ -151,17 +156,32 @@ export class Logger {
         }
       }
 
-      let stackList = stack.split(' at ');
-      for (let i = 1; i < stackList.length; i++) {
-        stackList[i] = '>>> ' + stackList[i];
+      let ignoredErrorsRegex = getOption('logger.error.ignoreRegex') as RegexIgnore[];
+      for (let regexData of ignoredErrorsRegex) {
+        const regex = RegExp(regexData.pattern, regexData.flags ?? undefined)
+        const result = regex.exec(stack)
+        if (result) {
+          return;
+        }
       }
 
-      stackList[0] = 'Stack: ' + stackList[0];
-      // array.splice(index, 0, item) is the equivalent of list.insert(index, item)
-      stackList.splice(0, 0, `${msg}`);
-      stackList.splice(1, 0, `URL: ${url}, position: ${lineNo}:${columnNo}`);
+      //let stackList = stack.split(' at ');
+      //for (let i = 1; i < stackList.length; i++) {
+      //  stackList[i] = '>>> ' + stackList[i];
+      //}
 
-      this.printMsg(stackList, errorGroupId, errorClass);
+      //stackList[0] = 'Stack: ' + stackList[0];
+      //// array.splice(index, 0, item) is the equivalent of list.insert(index, item)
+      //stackList.splice(0, 0, `${msg}`);
+      //stackList.splice(1, 0, `URL: ${url}, position: ${lineNo}:${columnNo}`);
+      let fullMsg = `${stack}`;
+      if (msg) {
+        fullMsg = `${msg}\n\nStack:\n` + fullMsg;
+      }
+      if (url || lineNo || columnNo) {
+        fullMsg += `\nURL: ${url}\nPosition: ${lineNo}:${columnNo}`;
+      }
+      this.printMsg(fullMsg, errorGroupId, errorClass);
 
     } catch (e) {
       // in case the above fails for some reason
@@ -193,20 +213,11 @@ export class Logger {
   }
 
   private printMsg(
-    message: string | string[],
+    message: string,
     eleId: GroupId,
     colorClass: ColorClass | null,
     args: LoggerArgs = {}
   ) {
-    //let key: string | null = null;
-    //if (args?.unique) {
-    //  if (args?.key) {
-    //    key = message;
-    //  }
-    //  if (key !== null && this.uniqueKeys.has(key)) {
-    //    return;
-    //  }
-    //}
 
     let groupEle = document.getElementById(eleId);
     if (groupEle !== null) {
@@ -220,7 +231,7 @@ export class Logger {
   }
 
   private appendMsg(
-    message: string | string[],
+    message: string,
     groupEle: HTMLElement,
     args: LoggerArgsMsg = {}
   ) {
@@ -230,24 +241,10 @@ export class Logger {
     //  msgEle.setAttribute('data-key', args.key);
     //}
 
-    if (Array.isArray(message)) {
-      if (message.length > 0) {
-        msgEle.textContent = message[0];
-
-        for (let line of message.slice(1)) {
-          let lineEle = document.createElement('div');
-          lineEle.textContent = line;
-          msgEle.appendChild(lineEle);
-        }
-      }
+    if (args?.isHtml) {
+      msgEle.innerHTML = message;
     } else {
-      //const displayMsg = this.formatMsg(message);
-
-      if (args?.isHtml) {
-        msgEle.innerHTML = message;
-      } else {
-        msgEle.textContent = message;
-      }
+      msgEle.textContent = message;
     }
 
     groupEle.appendChild(msgEle);

@@ -633,6 +633,7 @@ code {
 
 .info-circle-text-error {
   font-family: common.$monospace-fonts;
+  white-space: pre-wrap;
 
   /* breaks the word at the end of the line regardless of whitespace */
   word-break: break-all;

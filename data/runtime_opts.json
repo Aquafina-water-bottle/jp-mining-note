@@ -15,9 +15,13 @@
     "SentenceReading is not filled out. Using Sentence field instead."
   ],
   "logger.error.ignore": [
-    "ReferenceError: EFDRC is not defined",
-    "/_anki/js/reviewer.js:7:112035)",
-    "/_anki/js/reviewer.js:7:113091)"
+    "ReferenceError: EFDRC is not defined"
+  ],
+  "logger.error.ignoreRegex": [
+    {
+      "pattern": "^TypeError: Cannot read properties of null \\(reading 'style'\\)\n    at (nc|Ar) \\(http://127.0.0.1:\\d+/_anki/js/reviewer\\.js:7:(113091|112035)\\)$",
+      "flags": null
+    }
   ],
   "keybinds.enabled": true,
   "keybinds.toggleHybridSentence": [
