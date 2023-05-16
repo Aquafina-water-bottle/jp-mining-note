@@ -88,30 +88,9 @@ If you rename the note, certain features will no longer function as expected, su
 To remedy this, it is recommended that you change the note name back to `JP Mining Note`.
 
 
-## General Error Troubleshooting
+## My error isn't listed, or the steps above do not work
 
-If none of the above worked, the following will be some general troubleshooting tips
-that can help you figure out what the error is:
-
-<!-- Un-comment this when any conflicting add-ons are actually discovered
-1. Do you have a [conflicting addon](setup.md#conflicting-add-ons) installed?
--->
-
-1. Try disabling all of your add-ons other than the mandatory ones listed in the setup page.
-    Note that you have to restart Anki after disabling the add-ons for the changes to take effect.
-
-    If it works after this step, please let me know which add-on(s) conflicts with this note type!
-    To do this, re-enable the add-ons one-by-one (remembering to restart Anki each time!).
-
-1. With all of your non-mandatory add-ons disabled, try to upgrade Anki to the latest version,
-    and see if the issue still persists.
-    If this works but an add-on you consider mandatory no longer works, please let me know!
-    (I won't be able to upgrade the add-on for you, but I can potentially point to alternatives
-    and/or add it to the documentation somewhere so others are aware of the issue.)
-
-
-If you can't manage to fix it, please reach out to me on [Discord](faq.md#discord-contact-info),
-or [submit an issue](https://github.com/Aquafina-water-bottle/jp-mining-note/issues)!
+If none of the above worked, follow the [general troubleshooting steps](#general-troubleshooting).
 
 ---
 
@@ -140,6 +119,8 @@ TODO example picture of the wrong font
         - show gif of opening in windows
     - restart your entire computer
         - sometimes, restarting Anki isn't enough
+
+
 
 
 ## The font on the card editor is incorrect
@@ -205,6 +186,20 @@ See [here](ui.md#automatic-word-highlighting) for more info.
 
 
 
+## The `Tools` →  `Check Media` interface removes the font files.
+This is a known bug, and unfortunately, this bug will **not be fixed**.
+
+If you want to use this tool, temporarily move the fonts outside of the media folder.
+If you accidentally removed the fonts,
+[redownload the fonts](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
+and re-add them into the [media folder](faq.md#where-is-the-x-folder-in-anki) of your profile.
+
+This will not be fixed because to make debugging easier for the developer.
+When a user is asked to export a card, the exported file will not contain the font files,
+meaning that the result `.apkg` file will be about 1MB instead of some 20MB,
+allowing it to be shared easily on a place like Discord.
+
+
 ## The Show/Hide button doesn't do anything.
 The show/hide button requires that the displayed sentence has a bolded element.
 For example, this means if the currently displayed sentence comes from the `AltDisplay`
@@ -227,19 +222,35 @@ go to:
 →  Toggle `Skip question when replaying answer`
 
 
+## General Troubleshooting
 
-## The `Tools` →  `Check Media` interface removes the font files.
-This is a known bug, and unfortunately, this bug will **not be fixed**.
+The following will be some general troubleshooting tips
+that can help you figure out what is causing the issue:
 
-If you want to use this tool, temporarily move the fonts outside of the media folder.
-If you accidentally removed the fonts,
-[redownload the fonts](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
-and re-add them into the [media folder](faq.md#where-is-the-x-folder-in-anki) of your profile.
+<!-- Un-comment this when any conflicting add-ons are actually discovered
+1. Do you have a [conflicting addon](setup.md#conflicting-add-ons) installed?
+-->
 
-This will not be fixed because to make debugging easier for the developer.
-When a user is asked to export a card, the exported file will not contain the font files,
-meaning that the result `.apkg` file will be about 1MB instead of some 20MB,
-allowing it to be shared easily on a place like Discord.
+1. **Disable all of your add-ons.**
+
+    To do this, start Anki while holding ++shift++.
+    Note that it is expected that you will get an Anki-Connect error (since Anki-Connect will be disabled).
+
+    If the issue was fixed after this step, please let me know which add-on(s) conflicts with this note type!
+    To do this, re-enable the add-ons one-by-one (remembering to restart Anki each time!).
+
+1. **Upgrade Anki to the latest version.**
+
+    After doing this, try disabling all of your add-ons again and see if the issue persists.
+
+1. If you manually added any custom CSS and/or runtime / compile-time options,
+    make a [backup of your collection](#how-do-i-backup-my-anki-data)
+    and then **remove all of those options**.
+    If it works after this, try re-adding those one-by-one until you find the issue.
+
+
+If you can't manage to fix it, please [let me know](#contact-info)!
+
 
 ---
 
@@ -666,23 +677,20 @@ including [TheMoeWay](https://learnjapanese.moe/) and [AnimeCards](https://anime
 
 # Contact Info { .text-yellow }
 
-## Discord Contact Info
-* Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
+* **Discord**
+    * Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
+    * Servers:
+        * [TheMoeWay]({{THEMOEWAY_LINK}})
+            (I recommend using the
+            [jp-mining-note](https://discord.com/channels/617136488840429598/1041466793094557879)
+            thread in the `#resources-sharing` channel)
+        * Refold (JP) server
+            (I recommend using the
+            [jp-mining-note](https://discord.com/channels/778787713012727809/1031068624447873055)
+            thread in the `#sentence-mining-workflows` channel)
 
-* Servers:
-
-    * [TheMoeWay]({{THEMOEWAY_LINK}})
-        (I recommend using the
-        [jp-mining-note](https://discord.com/channels/617136488840429598/1041466793094557879)
-        thread in the `#resources-sharing` channel)
-    * Refold (JP) server
-        (I recommend using the
-        [jp-mining-note](https://discord.com/channels/778787713012727809/1031068624447873055)
-        thread in the `#sentence-mining-workflows` channel)
-
-
-## Github
-* If you don't want to use Discord, please shoot your message [here](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
+* **Github**
+    * If you don't want to use Discord, please shoot your message [here](https://github.com/Aquafina-water-bottle/jp-mining-note/issues).
 
 
 

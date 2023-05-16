@@ -132,12 +132,16 @@ that is guaranteed to work is documented below.
     1. Make sure all devices are synced.
     1. Run the following {{BATCH_CMD}}:
 
-        ```move_runtime_options_file_to_temp```
+        ```
+        move_runtime_options_file_to_temp
+        ```
 
     1. Sync to AnkiWeb (from the computer).
     1. Run the following {{BATCH_CMD}}:
 
-        ```move_runtime_options_file_to_original```
+        ```
+        move_runtime_options_file_to_original
+        ```
 
     1. Sync to AnkiWeb (from the computer).
     1. On all other devices, sync from AnkiWeb.

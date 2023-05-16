@@ -51,8 +51,8 @@ window.JPMNOptions = {
     You should only add options that you want to override.
     This is to allow the default options to change, which usually
     only happens if the old option is no longer valid due to implementation details.
-    In the rare occasion that default options do change, they will be recorded under the
-    [Setup Changes](setupchanges.md) page.
+    In the rare occasion that default options do change, they will be recorded in the
+    changelog (TODO link changelog).
 
 ---
 
@@ -62,7 +62,7 @@ All available options can be found in the
 [runtime_opts.json5](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/data/runtime_opts.json5)
 file. (TODO not dev branch!)
 
-You can safely copy/paste anything there (outside of `overrides`) into your runtime options file.
+You can safely copy/paste anything there into your runtime options file.
 
 !!! warning
     This `json5` file is, strictly speaking, NOT an example configuration file.
@@ -87,6 +87,8 @@ You can safely copy/paste anything there (outside of `overrides`) into your runt
         ```
         "kanjiHover.enabled": false,
         ```
+
+        - TODO this info is outdated, refer to `rto_overrides.json5`
 
 
 ## Override Options
