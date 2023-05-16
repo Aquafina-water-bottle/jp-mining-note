@@ -126,7 +126,7 @@ An example with [Anime cards](https://animecards.site/ankicards/) is shown below
 
 ??? example "Example for Anime Cards <small>(click here)</small>"
 
-    {{ anime_cards_table() | indent(4) }}
+    {{ fields_table("jp-mining-note fields", "Anime Cards Fields", "anime_cards_import") | indent(4) }}
 
     !!! note
         Anything not specified should be set to `(Nothing)`

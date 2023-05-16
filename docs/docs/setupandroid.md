@@ -74,6 +74,7 @@ Both require AnkiDroid to be installed.
 1. [**jidoujisho**](https://github.com/lrorpilla/jidoujisho)
 
     This is a all-in-one solution app that allows you to immerse in various ways.
-    Although a great immersion tool, the main problem it has currently in relation
-    to this note is that its card exporter is not as powerful as Yomichan,
-    and certain features will not be available.
+    However, jidoujisho provides a more limited interface when exporting
+    the note, meaning that some features will be not be supported.
+    See [here](setupjidoujisho.md) for basic instructions on how to use the app
+    to export JPMN cards.

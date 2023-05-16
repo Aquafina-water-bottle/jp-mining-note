@@ -25,6 +25,9 @@ class Field:
     # what animecards field maps to this card
     anime_cards_import: Optional[str] = None
 
+    # how to map jidoujisho creator fields to this note
+    jidoujisho_export: Optional[str] = None
+
     # when this field was introduced
     version: Optional[bool] = None
 
@@ -447,24 +450,46 @@ def define_env(env):
 
         return "\n".join(rows)
 
+
     @env.macro
-    def anime_cards_table():
+    def fields_table(jpmn_title: str, alt_title: str, attr_name: str):
         rows = []
 
         # top row
-        rows.append("| jp-mining-note fields | Anime Cards Fields |")
+        rows.append(f"| {jpmn_title} | {alt_title} |")
 
         # sep row
         rows.append("|-|-|")
 
         for field in get_fields_in_cur_version():
-            ac_field = "" if field.anime_cards_import is None else field.anime_cards_import
+            attr_value = getattr(field, attr_name)
+            alt_field_value = "" if attr_value is None else attr_value
 
-            elements = [field.name, ac_field]
+            elements = [field.name, alt_field_value]
             elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
             rows.append("|" + "|".join(elements) + "|")
 
         return "\n".join(rows)
+
+
+    #@env.macro
+    #def anime_cards_table():
+    #    rows = []
+
+    #    # top row
+    #    rows.append("| jp-mining-note fields | Anime Cards Fields |")
+
+    #    # sep row
+    #    rows.append("|-|-|")
+
+    #    for field in get_fields_in_cur_version():
+    #        ac_field = "" if field.anime_cards_import is None else field.anime_cards_import
+
+    #        elements = [field.name, ac_field]
+    #        elements = [e + " { .smaller-table-row }" if e else "" for e in elements]
+    #        rows.append("|" + "|".join(elements) + "|")
+
+    #    return "\n".join(rows)
 
     @env.macro
     def personal_setup_table():

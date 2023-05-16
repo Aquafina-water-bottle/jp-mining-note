@@ -273,6 +273,8 @@ From here, you likely fall under one of the two categories below:
         See [Setup: Text & Media (Notes on Various Programs)](setuptextmedia.md#notes-on-various-programs)
         for specific tips on a select few programs.
 
+        TODO update link!
+
 
 
 

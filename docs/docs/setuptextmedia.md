@@ -15,6 +15,7 @@ If you are looking to setup jp-mining-note, see [this](setup.md) page instead.
 !!! note
     If you already have a sentence mining workflow, you can likely
     skip to [this section](#notes-on-various-programs).
+    TODO update link!
 
 
 ## Troubleshooting & Support
@@ -405,100 +406,6 @@ Other websites have significantly larger resource lists that may prove useful fo
     * [IgrecL/japanese](https://github.com/IgrecL/japanese)
     * [donkuri/learn-japanese](https://donkuri.github.io/learn-japanese/resources/)
 
-
----
-
-# Notes on Various Programs
-
-## [mpvacious](https://github.com/Ajatt-Tools/mpvacious)
-
-* You will have to change the [configuration](https://github.com/Ajatt-Tools/mpvacious#configuration)
-    in order for mpvacious to work with JPMN.
-
-    ??? examplecode "Click here to see some basic config changes to get it working with JPMN."
-
-        ```ini
-        # Be sure to change deck_name to whatever your deck is!
-
-        # Model names are listed in `Tools -> Manage note types` menu in Anki.
-        model_name=JP Mining Note
-
-        # Field names as they appear in the selected note type.
-        # If you set `audio_field` or `image_field` empty,
-        # the corresponding media file will not be created.
-        sentence_field=Sentence
-        #secondary_field=SentEng  # Not used by the note. This is ignored entirely.
-        audio_field=SentenceAudio
-        image_field=Picture
-        ```
-
-        You may want to increase the picture and audio quality, as it's extremely low by default.
-        I personally use the following:
-
-        ```ini
-        # Sane values are 16k-32k for opus, 64k-128k for mp3.
-        audio_bitrate=32k
-
-        # Quality of produced image files. 0 = lowest, 100=highest.
-        #snapshot_quality=15
-        snapshot_quality=50
-
-        # Image dimensions
-        # If either (but not both) of the width or height parameters is -2,
-        # the value will be calculated preserving the aspect-ratio.
-        #snapshot_width=-2
-        #snapshot_height=200
-        snapshot_width=800
-        snapshot_height=-2
-        ```
-
-    !!! info
-        When creating the config file, ensure that the config file is placed in the correct folder.
-        This `script-opts` folder does not exist by default.
-        You will likely have to create the folder.
-
-        Additionally, be sure to restart MPV after changing the config to apply the changes.
-
-* A common issue with mpvacious is that
-    the `SentenceReading` field may differ from the `Sentence` field,
-    say, if you export multiple subtitles into one card.
-    See the
-    [FAQ](faq.md#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field)
-    on how to fix it.
-
-* To create cards with mpvacious, first add a card from Yomichan (usually via a texthooker),
-    and then press `ctrl`+`m` in mpv.
-
-
-
-## [asbplayer](https://github.com/killergerbah/asbplayer)
-
-* To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
-    I recommend filling out the following fields as follows:
-
-    ??? example "asbplayer fields <small>(click here)</small>"
-        | asbplayer field | JPMN field |
-        |:-:|:-:|
-        | Sentence Field   { .smaller-table-row} | `Sentence`        { .smaller-table-row} |
-        | Definition Field { .smaller-table-row} | |
-        | Word Field       { .smaller-table-row} | |
-        | Audio Field      { .smaller-table-row} | `SentenceAudio`   { .smaller-table-row} |
-        | Image Field      { .smaller-table-row} | `Picture`         { .smaller-table-row} |
-        | Source Field     { .smaller-table-row} | `AdditionalNotes` { .smaller-table-row} |
-        | URL Field        { .smaller-table-row} | `AdditionalNotes` { .smaller-table-row} |
-
-        !!! note
-            Chances are that you are using subtitles. However, if you are not using subtitles,
-            it is fine to keep the Sentence Field empty.
-
-* Any version of asbplayer released after
-    [2023/01/16](https://github.com/killergerbah/asbplayer/issues/205) (version 0.25.0 or higher)
-    will now preserve the bolded word within the sentence!
-    However, asbplayer shares the same common issue with mpvacious, where
-    the `SentenceReading` field may differ from the `Sentence` field.
-    See the
-    [FAQ](faq.md#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field)
-    on how to fix it.
 
 
 <!--

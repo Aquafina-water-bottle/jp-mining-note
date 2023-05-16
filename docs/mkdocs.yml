@@ -54,7 +54,10 @@ theme:
     - content.action.view
 
     # arrows <- and -> in footer
-    - navigation.footer
+    # - removed due to left sections being too tall?
+    # - would prefer the footer to only affect the main content and right column.
+    # - for example: https://kotlinlang.org/docs/coroutines-basics.html
+    #- navigation.footer
 
   icon:
     repo: fontawesome/brands/github
@@ -85,6 +88,9 @@ nav:
     - "Setup: Anki": setupanki.md
     - "Setup: Yomichan": setupyomichan.md
     - "Setup: Text & Media": setuptextmedia.md
+    - "Text & Media":
+      - "mpvacious (TODO)": setupmpvacious.md
+      - "asbplayer (TODO)": setupasbplayer.md
     - Extra Setup:
       - "Extra: Yomichan": setupextrayomichan.md
       - "Extra: Anki": setupextraanki.md
@@ -92,9 +98,17 @@ nav:
       - "Extra: iOS": setupios.md
       - "Extra: eReaders": setupereaders.md
       - Transfer Existing Notes: importing.md
-    - Updating:
-      - Updating: updating.md
-      - Setup Changes: setupchanges.md
+    - Alternate Card Exporters:
+      - JL (TODO): setupjl.md
+      - jidoujisho (TODO): setupjidoujisho.md
+      - goldendict (TODO): setupgoldendict.md
+  - Updating:
+    - "Updating: Overview (TODO)": updating.md
+    - "Updating: JPMN": updatingjpmn.md
+    - "Updating: Yomichan": updatingyomichan.md
+    - "Setup Changes": setupchanges.md
+    - "Final Steps": updatingfinalsteps.md
+    - Changelog: https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/CHANGELOG.md
   - Reference:
     - Quick Start (TODO): quickstart.md
     - Blockquotes (TODO): blockquotes.md
@@ -113,6 +127,7 @@ nav:
     - Frequencies (TODO): frequencies.md
     - External Links (TODO): externallinks.md
     - Fields (TODO): fields.md
+    - Backfilling (TODO): backfilling.md
     - Batch Commands (TODO): batch.md
     - Other (TODO): other.md
     - Options:

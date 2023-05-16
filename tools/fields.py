@@ -28,6 +28,9 @@ class Field:
     # what animecards field maps to this card
     anime_cards_import: Optional[str] = None
 
+    # how to map jidoujisho creator fields to this note
+    jidoujisho_export: Optional[str] = None
+
     # when this field was introduced
     version: Optional[bool] = None
 

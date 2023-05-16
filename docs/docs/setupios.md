@@ -11,12 +11,18 @@ before continuing with this page.
 
 # Reviewing
 
-To review Anki cards on iOS, use
+To review Anki cards on [iOS](https://apps.ankiweb.net/#ios), use
 [**AnkiMobile**](https://apps.apple.com/us/app/ankimobile-flashcards/id373493387).
+However, note that AnkiMobile costs a bit of money.
+If you don't want to pay,
+the best free alternative is to simply use [AnkiWeb](https://apps.ankiweb.net/#).
 
 !!! warning
-    Other "Anki" apps on the App Store are not officially supported by Anki,
+    Other "Anki"-like apps on the App Store are not officially supported by Anki,
     and will almost certainly not work with this note.
+    **Please only use AnkiMobile or AnkiWeb if you are on iOS**.
+    More info can be found from the official Anki documentation
+    [here](https://faqs.ankiweb.net/ankiapp-is-not-part-of-the-anki-ecosystem.html).
 
 Unfortunately, AnkiMobile is a paid app.
 If you cannot afford AnkiMobile, then it is recommended to use AnkiWeb instead.
