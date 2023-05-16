@@ -26,15 +26,28 @@
     },
 
     // Used with elizagamedev's "Textbender" android app, to allow the user
-    // to open the word in Yomichan's search bar within android
-    // https://github.com/elizagamedev/android-textbender
-    "yomichan-textbender": {
+    //  to open the sentence in Yomichan's search bar within android
+    // See: https://github.com/elizagamedev/android-textbender
+    // NOTE: This button will only be visible on android devices.
+    "yomichan-textbender-sentence": {
       iconType: "text",
-      iconText: "ﾖﾐ",
+      //iconText: "ﾖﾐ",
+      iconText: "文",
       //iconText: "Ｔ",
       //iconText: "読",
       url: "textbender://x?x={{text:Sentence}}",
-      hoverDisplay: "Yomichan (textbender)",
+      hoverDisplay: "Sentence Yomichan (textbender)",
+    },
+
+    // Same as the above, but opens the bolded definition (or the entire primary definition
+    // if no bold exists)
+    "yomichan-textbender-definition": {
+      iconType: "text",
+      iconText: "読",
+      //iconText: "Ｔ",
+      //iconText: "読",
+      url: "textbender://x?x={{text:PrimaryDefinition}}",
+      hoverDisplay: "Definition Yomichan (textbender)",
     },
 
   },

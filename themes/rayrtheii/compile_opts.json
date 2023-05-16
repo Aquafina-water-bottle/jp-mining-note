@@ -14,11 +14,17 @@
       "iconText": "\u4fd7",
       "url": "http://search.zokugo-dict.com/search.cgi?charset=utf&q={{text:Word}}"
     },
-    "yomichan-textbender": {
+    "yomichan-textbender-sentence": {
       "iconType": "text",
-      "iconText": "\uff96\uff90",
+      "iconText": "\u6587",
       "url": "textbender://x?x={{text:Sentence}}",
-      "hoverDisplay": "Yomichan (textbender)"
+      "hoverDisplay": "Sentence Yomichan (textbender)"
+    },
+    "yomichan-textbender-definition": {
+      "iconType": "text",
+      "iconText": "\u8aad",
+      "url": "textbender://x?x={{text:PrimaryDefinition}}",
+      "hoverDisplay": "Definition Yomichan (textbender)"
     }
   },
   "cssFolders": [
