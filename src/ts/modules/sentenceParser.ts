@@ -494,15 +494,24 @@ export class SentenceParser extends RunnableModule {
     }
   }
 
+  private normalizeSentenceCompare(sentence: string): string {
+    // NOTE: "\n" -> "" is required for the edge case where the Sentence and SentenceReading
+    // is formatted in divs + newline, i.e.
+    //     <div>じゃあ 捕獲ならいいか？</div>
+    //     <div>リーダー</div>
+    // string.trim() === str.strip() in python
+    return sentence.replace("\n", "").trim();
+  }
+
   private compareSentenceReading() {
     // checks whether Sentence == nofurigana(SentenceReading)
-    const sentence = getFieldValue('Sentence');
-    const sentReading = plainToKanjiOnly(getFieldValue('SentenceReading'));
+    const sentence = this.normalizeSentenceCompare(getFieldValue('Sentence'));
+    const sentReading = this.normalizeSentenceCompare(plainToKanjiOnly(getFieldValue('SentenceReading')));
     // if neither fields have 0 length, and if the Sentence field does not match the SentenceReading field with furigana stripped
     if (
-      sentReading.trim().length !== 0 &&
-      sentence.trim().length !== 0 &&
-      sentence.trim() !== sentReading.trim()
+      sentReading.length !== 0 &&
+      sentence.length !== 0 &&
+      sentence !== sentReading
     ) {
       this.logger.warn(
         `The Sentence field is not the same as the SentenceReading field. Your sentence might be displayed incorrectly. See <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">here</a> for more info.`,
