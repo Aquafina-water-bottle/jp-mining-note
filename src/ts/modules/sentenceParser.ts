@@ -341,10 +341,10 @@ export class SentenceParser extends RunnableModule {
 
   private autoHighlightLog(sentType: SentenceType, replace: string | null, word: string) {
     if (replace === null) {
-      this.logger.warn(`Could not highlight word in ${sentType}: ${word}.`);
+      this.logger.warn(`Could not highlight word in ${sentType}: ${word}. Consider bolding the tested word to remove this warning.`);
     } else {
       // was able to bold something
-      this.logger.warn(`Automatically highlighted word in ${sentType}: ${replace}.`);
+      this.logger.warn(`Automatically highlighted word in ${sentType}: ${replace}. Consider bolding the tested word to remove this warning.`);
     }
   }
 
