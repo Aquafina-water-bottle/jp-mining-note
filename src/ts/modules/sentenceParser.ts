@@ -387,7 +387,7 @@ export class SentenceParser extends RunnableModule {
       this.getOption('sentenceParser.autoHighlightWord.enabled')
     ) {
       const searchStrings: SearchStrings = [
-        { value: noteInfo.Word },
+        { value: noteInfo.Word, isWord: true },
         { value: plainToKanaOnly(noteInfo.WordReading) },
         { value: noteInfo.WordReadingHiragana },
       ];
