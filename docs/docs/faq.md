@@ -187,18 +187,48 @@ See [here](ui.md#automatic-word-highlighting) for more info.
 
 
 ## The `Tools` →  `Check Media` interface removes the font files.
-This is a known bug, and unfortunately, this bug will **not be fixed**.
+This is a known bug, and unfortunately, this bug will **not be fixed by default**.
 
-If you want to use this tool, temporarily move the fonts outside of the media folder.
+<!--If you want to use this tool, temporarily move the fonts outside of the media folder.-->
 If you accidentally removed the fonts,
 [redownload the fonts](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
 and re-add them into the [media folder](faq.md#where-is-the-x-folder-in-anki) of your profile.
 
+TODO workaround:
+
+1. rename the files to all have `_` at the beginning, i.e. `_NotoSerifJP-Regular.otf`
+2. add the following {{CSS}}:
+
+    ```
+    @font-face {
+      font-family: notoserif;
+      src: url("_NotoSerifJP-Regular.otf");
+    }
+    @font-face {
+      font-family: notoserif;
+      src: url("_NotoSerifJP-Bold.otf");
+      font-weight: bold;
+    }
+    @font-face {
+      font-family: notosans;
+      src: url("_NotoSansJP-Regular.otf");
+    }
+    @font-face {
+      font-family: notosans;
+      src: url("_NotoSansJP-Bold.otf");
+      font-weight: bold;
+    }
+
+```
+
+TODO explanation on why this is the default
+
+<!--
 This will not be fixed because to make debugging easier for the developer.
 When a user is asked to export a card, the exported file will not contain the font files,
 meaning that the result `.apkg` file will be about 1MB instead of some 20MB,
 allowing it to be shared easily on a place like Discord.
-
+-->
 
 ## The Show/Hide button doesn't do anything.
 The show/hide button requires that the displayed sentence has a bolded element.

@@ -4,6 +4,33 @@ it would be best to make sure that the note aligns with exactly what you want.
 
 ---
 
+# Why you would want to use jp-mining-note
+- You like its layout, customizability, and its extremely vast feature set.
+- You agree to [its philosophy](principles.md). (TODO rename file!)
+
+
+# Why you would NOT want to use jp-mining-note
+- You have an existing setup and are happy with it.
+- You want to study only from pre-made decks.
+- You want to use this template to study something outside of Japanese.
+- You want an extremely minimal template, with little/no javascript.
+- You do not like its overall layout.[^1]
+- You are not comfortable with bearing a slightly higher maintenance cost than most other setups.[^2]
+
+
+
+# Alternatives
+There are many, many Anki templates out there in the wild.
+[This page](alternatives.md)
+is my attempt to assemble together some of the the popular and/or interesting card templates.
+
+If you are not satisfied with / are not interested in using this template,
+feel free to refer to the above list of alternatives.
+Alternatively, you can always start anew, and make one from scratch!
+
+
+
+---
 
 # Supported Systems
 The most important step is to see if jp-mining-note (JPMN) works on your device.
@@ -14,12 +41,16 @@ The card creation process requires a working instance of Yomichan, Anki-Connect,
 By default, this works on PC (Windows, Mac, Linux), and the instructions shown will be for PC.
 However, with the proper setup, one can also create cards on the following platforms:
 
+TODO update links with correct setup pages:
+
 - [Android](setupyomichan.md#android-setup) (including Android based e-readers such as ONYX BOOX)
 - [Kindle](setupyomichan.md#kindle-setup) (export to PC to create)
 
 I'm not aware of a workflow for iOS that works with Yomichan.
 
 !!! note
+    TODO update this note!!! other card exporters will likely be supported in the future!
+
     JPMN currently requires Yomichan to create the Anki cards.
     As common as Yomichan is, this dependency to Yomichan can be considered a weakness.
 
@@ -49,8 +80,7 @@ Anki-Connect within the note (kanji hover and word indicators) will not work.
 The current workaround is to [cache the tooltip results](tooltipresults.md#cache-tooltip-results).
 
 ## AnkiWeb
-JPMN is not tested on AnkiWeb,
-and there are currently no plans to support AnkiWeb.
+JPMN is not tested on AnkiWeb, and there are currently no plans to support AnkiWeb.
 
 ## Themes
 Both light mode and dark mode are supported.
@@ -61,55 +91,6 @@ If you ever wish to update the note, this can only be done on PC,
 and cannot be done on mobile.
 The note does not auto-update; it must be done manually.
 
----
-
-
-
-
-<!--
-superseeded by index.md?
-principles still apply though, its just repeating some things from the landing page
--->
-
-# Theme & Design Principles
-
-## Made for Japanese Learning
-The absolute fundamental goal of this note type is to **make learning Japanese easier**.
-Every feature you see is to simply make this learning process easier and smoother.
-
-## Minimalistic Design
-This note is visually designed to be minimalistic because the fundamental goal is to learn Japanese,
-not to have eye catching graphics.
-The main focus is on the content, not the fluff.
-
-## Minimal Dependencies
-The only fundamental dependencies are `Yomichan` (to create the note) and the `Anki-Connect` add-on
-(to export the note from `Yomichan`, update the note, and for certain features to work within the note).
-Absolutely nothing else is required.
-This helps with maintaining stability across various Anki versions.
-
-## Modularized, Customizable & Extendable
-This project ships with [built-in tools](runtimeoptions.md) to easily disable/enable features,
-or even completely remove them from the base template via [compile-time options](compiletimeoptions.md).
-Additionally, there are [many built-in ways](modding.md) to extend the note to suit your exact needs.
-
-## Documentation First
-What's the point of having a powerful tool if you don't know how to use it?
-Lots of time and resources have been put into making sure that this note type is well documented
-and updated so you can use it to the best of your ability.
-
-## Free & Open Source
-Everything here, including the documentation itself, is completely free and open source,
-licensed under [MIT](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/LICENSE).
-Rest easy knowing you will keep full ownership of your note, forever.
-
----
-
-
-# Alternatives
-There are many, many Anki templates out there in the wild.
-[The following page](alternatives.md)
-is my attempt to assemble together some of the the popular and/or interesting card templates.
 
 
 ---
@@ -118,4 +99,28 @@ is my attempt to assemble together some of the the popular and/or interesting ca
 Excited to take this note on a whirl?
 
 [Click here to set it up!](setup.md){ .md-button }
+
+
+
+
+[^1]:
+    TODO not point form
+
+    - most smaller things, like colors, font size, etc. can be customized fairly easily
+    - however, customizing the overall layout, i.e. where the image is placed relative to the word,
+        requires a lot more techncial skill
+    - if using a prebuilt theme, requires building, which also requires a bit of technical skill with
+        command line
+
+[^2]:
+    TODO not point form
+
+    - in general, this template is a little more fragile than other templates due to heavy usage of javascript
+        - internally attempts to mitigate as much as possible, providing plenty of fallbacks when things fail
+    - updates to anything such as Anki, add-ons, etc. can (and have been known to)
+        break more things than other setups
+        - these things usually require user intervention to deal with
+        - usually recorded under setup changes
+    - updating everything on the template side of things has been smoothlined as much as possible,
+        due to JPMN Manager
 

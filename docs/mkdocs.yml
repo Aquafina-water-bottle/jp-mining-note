@@ -79,9 +79,10 @@ plugins:
 
 nav:
   - Home:
-    - Home (TODO): index.md
+    - Home: index.md
     - Getting Started:
       - Preface: preface.md
+      - Philosophy: principles.md
       - Alternatives: alternatives.md
   - Setup:
     - "Setup: Installing": setup.md

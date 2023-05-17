@@ -1,14 +1,20 @@
 ---
+
 hide:
   - footer
 ---
 
-Welcome to jp-mining-note's documentation!
+**jp-mining-note** (JPMN) is a highly customizable Anki card template for studying Japanese,
+designed to be visually appealing and simple to use without sacrificing functionality.
+Easily paired with most automatic card creation workflows,
+this aims to make your experience with Anki as smooth as possible.
+
+Current version: `{{ VERSION }}`
+
 
 === "GUI"
     ![type:video](https://user-images.githubusercontent.com/17107540/187550103-7e50c317-9074-4c7c-a499-fa4ddc89e419.mp4)
-
-    TODO gif so it autoplays
+    TODO change this to a gif
 
 === "Front | Dark"
     {{ img("", "assets/fushinnsha/dark_front.png") }}
@@ -19,8 +25,34 @@ Welcome to jp-mining-note's documentation!
 === "Back | Light"
     {{ img("", "assets/fushinnsha/light_back.png") }}
 
+**Demos:**
+
+=== "Fields"
+    ![type:video](https://user-images.githubusercontent.com/17107540/192704142-d8587e82-3c90-4754-a23d-7b7ffff9a164.mp4)
+=== "Card Creation"
+    ![type:video](https://user-images.githubusercontent.com/17107540/192704164-dd075092-58da-4964-9ddf-d89627f60d3c.mp4)
+
 
 [Click here to get started!](preface.md){ .md-button }
+
+
+<!--
+
+TODO consider rewriting everything here (most things are now commented out):
+
+- the original idea was to be lazy and just show demo videos
+- this og idea might still be good, but one or two more video demos showcasing stuff like pitch accent coloring,
+    word indicators, etc. might be good
+- also should re-record original videos and better categorize them
+- NON-GOAL: don't want to try to 'sell' the user into liking it, i.e. attempt to make them think
+    that they want to use the template, but realize it isn't for them.
+
+add in preface:
+
+- similar to arch linux's FAQ: write about why you would NOT want to use this note
+    - https://wiki.archlinux.org/title/FAQ
+
+
 
 ---
 
@@ -29,6 +61,7 @@ Welcome to jp-mining-note's documentation!
 You might be wondering, what's so special about this template?
 
 <br>
+
 
 ---
 
@@ -124,11 +157,9 @@ TODO change video
 ![type:video](https://user-images.githubusercontent.com/17107540/192704164-dd075092-58da-4964-9ddf-d89627f60d3c.mp4)
 
 
-<!--
 TODO video should be:
 - card creation
 
--->
 
 
 ---
@@ -137,3 +168,4 @@ TODO video should be:
 
 [Click here to get started!](preface.md){ .md-button }
 
+-->

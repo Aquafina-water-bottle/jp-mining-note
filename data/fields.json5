@@ -371,6 +371,7 @@
       "binary_field": false,
 
       "setup": "{jpmn-frequency-sort}",
+      "jidoujisho_export": "Frequency",
     },
 
 
@@ -391,6 +392,7 @@
       "binary_field": false,
 
       "setup": "{jpmn-word-reading-hiragana}",
+      "jidoujisho_export": "Reading",
       "version": "0.11.0.0",
     },
 
