@@ -271,6 +271,9 @@ function _plainToX(str: string, filter: string) {
 
 /* equivalent to anki's furigana: filter */
 export function plainToRuby(str: string) {
+  // TODO: remove <rb> since it's deprecated?
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/rb
+  // only reason why it's here is because Anki has it in its internal filters...
   return _plainToX(str, '<ruby><rb>$1</rb><rt>$2</rt></ruby>');
 }
 
