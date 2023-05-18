@@ -106,6 +106,7 @@ and must use `./install.py --update`.
 
 
 
+
 ## [0.11.0.4] - 2023-04-10
 #### Fixes
 - Fixed the default config to now ignore two errors:
