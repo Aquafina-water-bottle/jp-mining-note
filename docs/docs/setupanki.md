@@ -365,8 +365,8 @@ An example config is shown below that you can copy/paste.
         {
           "name": "Add furigana for word -- UNUSED BY jp-mining-note",
           "note_type": "AJT_JAPANESE_IGNORE_PROFILE",
-          "source": "VocabKanji",
-          "destination": "VocabFurigana",
+          "source": "Word",
+          "destination": "WordReading",
           "mode": "furigana",
           "split_morphemes": false
         },
@@ -447,6 +447,11 @@ An example config is shown below that you can copy/paste.
           "enabled": false,
           "name": "NHK-1998",
           "url": "https://github.com/Ajatt-Tools/nhk_1998_pronunciations_index/releases/download/v1.0/NHK_main.zip"
+        },
+        {
+          "enabled": false,
+          "name": "Shinmeikai-8",
+          "url": "https://github.com/Ajatt-Tools/shinmeikai_8_pronunciations_index/releases/download/v1.2/Shinmeikai-8_main.zip"
         }
       ],
       "audio_settings": {
