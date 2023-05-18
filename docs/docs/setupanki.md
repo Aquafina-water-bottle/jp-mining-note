@@ -57,17 +57,18 @@ you can skip the rest of this section.
 ---
 
 
-# Enable Animations
-Starting Anki 2.1.61, animations are disabled by default.
+# Enable Animations (2.1.61 - 2.1.63)
+If you are using Anki versions 2.1.61, 2.1.62 or 2.1.63,
+animations are disabled by default.
 The note works best with animations enabled.
 To enable animations, head over to:
 > `Tools` →  `Preferences` →  `Appearance` →  `Reduce Motion` →  `(unchecked)`
 
 !!! note
-    The reason why animations are disabled by default is to workaround an internal
-    Anki bug. In the future, animations will be enabled by default again. [^1]
+    Starting Anki 2.1.64, `Reduce Motion` no longer affects animations within templates. [^1]
 
-[^1]:  [https://forums.ankiweb.net/t/reduce-motion-affecting-card-templates-bug-or-intentional/28973](https://forums.ankiweb.net/t/reduce-motion-affecting-card-templates-bug-or-intentional/28973)
+
+[^1]:  [https://github.com/ankitects/anki/commit/c54b897b4f456124f0b1956a05deb8f12e98f23c](https://github.com/ankitects/anki/commit/c54b897b4f456124f0b1956a05deb8f12e98f23c)
 
 
 ---
