@@ -147,7 +147,12 @@ nav:
     - Custom JS (Modules) (TODO): modules.md
     - Themes (TODO): themes.md
     - "Tips & Tricks (TODO)": moddingtips.md
-  - "FAQ & Troubleshooting": faq.md
+  - "FAQ & Troubleshooting":
+    - "FAQ & Troubleshooting": faq.md
+    - "FAQ: Errors & Warnings": faq/#errors-warnings
+    - "FAQ: Troubleshooting": faq/#troubleshooting
+    - "FAQ: Card Editing": faq/#card-editing
+    - "FAQ: Other": faq/#other-questions
   - JP Resources:
     - JP Resources: jpresources.md
     - JPMN Handlebars Package: jpmnhandlebars.md

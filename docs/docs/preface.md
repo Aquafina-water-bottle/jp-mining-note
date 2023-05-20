@@ -4,10 +4,6 @@ it would be best to make sure that the note aligns with exactly what you want.
 
 ---
 
-# Why you would want to use jp-mining-note
-- You like its layout, customizability, and its extremely vast feature set.
-- You agree to [its philosophy](principles.md). (TODO rename file!)
-
 
 # Why you would NOT want to use jp-mining-note
 - You have an existing setup and are happy with it.
@@ -17,6 +13,9 @@ it would be best to make sure that the note aligns with exactly what you want.
 - You do not like its overall layout.[^1]
 - You are not comfortable with bearing a slightly higher maintenance cost than most other setups.[^2]
 
+# Why you would want to use jp-mining-note
+<!-- I don't like trying to "sell" people the note. If you like it, you like it. If you don't, you don't. -->
+- It looks pretty cool. :)
 
 
 # Alternatives
@@ -24,9 +23,10 @@ There are many, many Anki templates out there in the wild.
 [This page](alternatives.md)
 is my attempt to assemble together some of the the popular and/or interesting card templates.
 
-If you are not satisfied with / are not interested in using this template,
+If you are not satisfied with, or are not interested in using this template,
 feel free to refer to the above list of alternatives.
-Alternatively, you can always start anew, and make one from scratch!
+Of course, you can always create one from scratch, or modify any of these notes
+to your heart's content.
 
 
 
