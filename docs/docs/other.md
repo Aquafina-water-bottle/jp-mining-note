@@ -135,9 +135,11 @@ the furigana on the kanjis within hover.
 
 
 # Changing colors
-Most color changes can be done by simply editing a CSS variable.
+Most color changes can be done by simply overriding a CSS variable.
 These variables are shown at the very top of the main CSS sheet.
-For example, the following changes the main accent color of the card:
+For example, `--accent` is the variable that specifies the main accent color
+of the card, as well as the color of the text when bolded.
+To override this variable, place this **at the end of the styles sheet**:
 
 ```css
 :root {
@@ -149,7 +151,7 @@ For example, the following changes the main accent color of the card:
 }
 ```
 
-!!! note
+!!! warning
     To change any variable color for dark mode, you cannot use `:root`, even if you are only setting
     the color for night mode. You must use `.night_mode`.
 
