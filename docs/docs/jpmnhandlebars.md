@@ -1,5 +1,5 @@
-This section documents how to use the jp-mining-note handlebars on any template
-that **is not jp-mining-note**.
+This section documents how to use the jp-mining-note handlebars for Yomichan
+on any template that **is not jp-mining-note**.
 If you are using jp-mining-note, please see the
 [Definitions](definitions.md)
 page instead.
@@ -16,7 +16,7 @@ This handlebars package provides all of the features that comes with the standar
 - Ability to manually select a dictionary or highlight a definition, to override the primary dictionary selector
 - Automatic separation of auxiliary dictionaries into monolingual and bilingual dictionaries
 - Option to hide the first line of monolingual dictionaries
-- Compatibility with [other portable handlebars](#compatability-with-other-handlebars)
+- Compatibility with [other portable handlebars](#compatibility-with-other-handlebars)
 
 The main difference between these handlebars and the handlebars used by jp-mining-note
 is that some default settings have been manually changed,
