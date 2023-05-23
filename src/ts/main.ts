@@ -1,6 +1,6 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { addOnShownHook, CardSide } from './utils';
+import { addOnShownHook, CardSide, BASE_DOCS_URL } from './utils';
 import { fieldsAllFilled, fieldsAllEmpty } from './fields';
 
 import { newKeybinds } from './modules/keybinds';
@@ -44,7 +44,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     if (errorEvent.reason === 'AnkiConnect failed to issue request.') {
       let reason =
         errorEvent.reason +
-        ' Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.';
+        ` Click <a href="${BASE_DOCS_URL}/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.`;
       LOGGER.error('Javascript handler error: ' + reason);
     } else {
       LOGGER.error('Javascript handler error: ' + errorEvent.reason);
@@ -75,7 +75,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   ) {
     LOGGER.warn(
       'JPMNOptions was not defined in the options file. Was there an error? ' +
-        'Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">here</a> for basic troubleshooting.',
+        `Click <a href="{BASE_DOCS_URL}/faq/#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">here</a> for basic troubleshooting.`,
       { isHtml: true }
     );
   }

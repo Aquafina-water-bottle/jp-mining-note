@@ -19,6 +19,9 @@ export type CardInfo = {
 
 export type CardSide = 'front' | 'back';
 
+// TODO use this in the HTML as well (define it under make.py)
+export const BASE_DOCS_URL = 'https://aquafina-water-bottle.github.io/jp-mining-note-prerelease';
+
 //export const VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
 let _tagsList: null | readonly string[] = null;
@@ -455,14 +458,21 @@ export function hybridClick() {
   }
 }
 
-/* taken from Anki: https://github.com/ankitects/anki/blob/09a946574b2c4410d772330ee03e2235fdf4799a/ts/reviewer/index.ts */
+/* taken from Anki: https://github.com/ankitects/anki/blob/09a946574b2c4410d772330ee03e2235fdf4799a/ts/reviewer/index.ts
+TODO: does this work on AnkiMobile?
+*/
 type Callback = () => void | Promise<void>;
 
 export function addOnShownHook(callback: Callback) {
-  let onShownHook: Callback[] | undefined = (window as any).onShownHook;
-  if (onShownHook !== undefined && Array.isArray(onShownHook)) {
-    onShownHook.push(callback);
-  } else {
+  let success = false;
+  if (typeof (window as any).onShownHook !== "undefined") {
+    let onShownHook: Callback[] = (window as any).onShownHook;
+    if (Array.isArray(onShownHook)) {
+      success = true;
+      onShownHook.push(callback);
+    }
+  }
+  if (!success) {
     LOGGER.debug("(playSilence) onShownHook is invalid or doesn't exist");
   }
 }
