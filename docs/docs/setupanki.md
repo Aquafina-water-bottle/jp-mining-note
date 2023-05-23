@@ -360,7 +360,8 @@ An example config is shown below that you can copy/paste.
           "source": "Sentence",
           "destination": "SentenceReading",
           "mode": "furigana",
-          "split_morphemes": true
+          "split_morphemes": true,
+          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add"
         },
         {
           "name": "Add furigana for word -- UNUSED BY jp-mining-note",
@@ -368,7 +369,8 @@ An example config is shown below that you can copy/paste.
           "source": "Word",
           "destination": "WordReading",
           "mode": "furigana",
-          "split_morphemes": false
+          "split_morphemes": false,
+          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add"
         },
         {
           "name": "Add pitch accent html",
@@ -377,7 +379,8 @@ An example config is shown below that you can copy/paste.
           "destination": "AJTWordPitch",
           "mode": "pitch",
           "output_format": "html",
-          "split_morphemes": false
+          "split_morphemes": false,
+          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add"
         },
         {
           "name": "Add audio for word -- UNUSED BY jp-mining-note",
@@ -385,7 +388,8 @@ An example config is shown below that you can copy/paste.
           "source": "VocabKanji",
           "destination": "VocabAudio",
           "mode": "audio",
-          "split_morphemes": false
+          "split_morphemes": false,
+          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add"
         }
       ],
       "pitch_accent": {
