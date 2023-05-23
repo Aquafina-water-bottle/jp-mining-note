@@ -459,9 +459,9 @@ You have three main options:
 1. In [Yomichan's Anki Card Format](setupyomichan.md#yomichan-fields),
     ensure that the `SentenceReading` field is empty.
 
-1. If you are using the AJT Furigana addon, edit the config and set `generate_on_note_add` to `false`.
-    Afterwards, restart Anki.
-    Please note that this step will also disable generation of pitch accents.
+1. If you are using the AJT Furigana addon, navigate to:
+
+    > `AJT` →  `Japanese Options` →  `Furigana` →  Select profile: `Add furigana for sentence` →  `Triggered by` →  Uncheck `Note Added`.
 
 You likely want to bulk-generate the furigana if you are disabling furigana on card generation.
 See the question below to do just that.
