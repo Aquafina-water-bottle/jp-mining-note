@@ -182,6 +182,24 @@ and must use `./install.py --update`.
 
 
 <details>
+<summary> Pre-release 9 </summary>
+
+- **Features**:
+    - Made some fonts a tiny bit bigger: glossary, words in kanji hover / word indicators
+    - Un-bolded the kanji in kanji hover
+    - Both are in order to make the kanjis more readable
+    - New default (commented out) external link: textbender on bolded definition text only
+    - Added javascript partials for devs to insert custom js wherever they want
+
+- **Fixes**:
+    - Sentence comparsion no longer checks for newlines, because AJT Japanese does not respect
+        multiple `div` tags + newlines
+    - Auto highlight now can highlight only one word
+
+</details>
+
+
+<details>
 <summary> Pre-release 8 </summary>
 
 - **Fixes**:
