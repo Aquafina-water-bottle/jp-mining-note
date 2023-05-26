@@ -19,72 +19,14 @@ See the [Updating](updating.md#overview) page on how to update the note.
 Afterwards, see below for the other necessary changes that must be made to properly update the note.
 
 
-<!--
-## Field Font Size
-TODO: batch commands
-
-```
-set_font_sizes
-set_fonts_to_key_font
-```
-
-The fields within the note editor may look a bit off, due to the font and font sizes being wrong.
-When Anki-Connect finally updates, these fonts will be changed automatically upon installation.
-However, until then, it will have to be done manually.
-All info about the field font sizes should be found in the [fields table](fields.md).
-
-Additionally, all new fields will have the default font, which likely
-does not display Japanese characters correctly.
-Please set this to match your other fields.
--->
-
-
-
 ## Config Rework { #v0-12-0-0-config-rework }
-
-<!--
-
-You will get the following warning on all cards:
-```
-JPMNOptions was not defined in the options file. Was there an error?
-```
-
-This is because the `_jpmn-options.js` runtime options file has been completely reworked,
-meaning your config will no longer work.
-To fix your config file, do one of the following:
-
-??? info "Option 1: JPMN Manager {{ CLICK_HERE }}"
-    Run the following {{ BATCH_CMD }}:
-    ```aconf
-    replace_runtime_options_file_anki
-    ```
-
-??? info "Option 2: Command Line {{ CLICK_HERE }}"
-    Run the following {{ BATCH_CMD }}:
-    ```aconf
-    python3 tools/batch.py replace_runtime_options_file
-    ```
-
-??? info "Option 3: Manually {{ CLICK_HERE }}"
-
-    1. [Locate the `_jpmn-options.js` file](runtimeoptions.md#accessing-editing).
-    1. Make a backup of this file, say, by copying the file into your `Documents` folder.
-    1. Edit the file with your favorite text editor, and replace its contents entirely with the following:
-
-        ```js title="_jpmn-options.js"
-        {% filter indent(8) %}{{ JPMN_OPTIONS_EXAMPLE}}{% endfilter %}
-        ```
-
-Afterwards, re-add any runtime options you had changed before.
-The runtime options file can be found [here](runtimeoptions.md#accessing-editing).
--->
 
 The `_jpmn-options.js` runtime options file has been completely reworked,
 meaning your config will no longer work.
 With this update, the file has been replaced automatically.
 The runtime options file can be found [here](runtimeoptions.md#accessing-editing).
 
-If you have edited your runtime options before, you will need to re-enable them.
+If you have changed any runtime options before, you will need change them again.
 Common runtime-options (pitch accent coloring and image blur) are included as examples;
 remove the comment to re-enable them.
 To see all available runtime options, see
@@ -229,11 +171,40 @@ you can set a field to be collapsed by default by heading over to:
 Feel free to automatially collapse any fields you don't use, or very rarely use.
 The fields that are collapsed by default can be found [here](fields.md).
 
+
 ## Custom SCSS { #v0-12-0-0-custom-scss }
-For people who are using custom SCSS (usually through `src/scss/extra`),
+For people who are using custom SCSS (usually through `src/scss/extra`, when building the note),
 it is now recommended that the `extra` folder is moved to the `overrides/scss` folder.
 This is purely a stylistic change, to better separate user-defined changes and source code.
 
+## Font Size Changes
+
+The default font sizes of certain sections have been changed to be a bit bigger,
+in order to make kanji more readable.
+If you prefer the smaller font sizes, use the following {{CSS}}:
+
+```css
+.hover-tooltip__word-div {
+  font-size: 1em;
+}
+
+.hover-tooltip__word-div b {
+  font-weight: var(--bold-font-weight);
+}
+.hover-tooltip__card--sentence-only .hover-tooltip__sent-div b {
+  font-weight: var(--bold-font-weight);
+}
+
+:root {
+  --glossary-font-size: 1.125rem;
+}
+
+@media (max-width: 850px), (max-height: 700px) {
+  :root {
+    --glossary-font-size: 0.9375rem;
+  }
+}
+```
 
 ## Final Steps { #v0-12-0-0-final-steps }
 After changing everything, don't forget to [test that the card works!](updating.md#final-steps)
