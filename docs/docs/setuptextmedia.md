@@ -256,7 +256,7 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
             This is listed here for completeness only.
 
 ??? example "Guides <small>(click here)</small>"
-    * [mikumino's mining workflow](https://www.youtube.com/watch?v=B60cj69MSmA&ab_channel=mikumino) (asbplayer + jp-mining-note)
+    * [mikumino's mining workflow](https://www.youtube.com/watch?v=B60cj69MSmA) (asbplayer + jp-mining-note)
     * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (asbplayer)
         * Contact info: `boundary-of-emptiness#3065` <!-- 152563705345867778 -->
             on the Refold (JP) Discord server
