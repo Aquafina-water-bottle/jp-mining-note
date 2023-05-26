@@ -181,7 +181,8 @@ This is purely a stylistic change, to better separate user-defined changes and s
 
 The default font sizes of certain sections have been changed to be a bit bigger,
 in order to make kanji more readable.
-If you prefer the smaller font sizes, use the following {{CSS}}:
+If you prefer the original smaller font sizes, the following {{CSS}} will revert
+the changes:
 
 ```css
 .hover-tooltip__word-div {
