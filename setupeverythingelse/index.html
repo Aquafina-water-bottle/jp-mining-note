@@ -1,15 +1,1980 @@
 
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Redirecting...</title>
-    <link rel="canonical" href="../setuptextmedia/">
-    <meta name="robots" content="noindex">
-    <script>var anchor=window.location.hash.substr(1);location.href="../setuptextmedia/"+(anchor?"#"+anchor:"")</script>
-    <meta http-equiv="refresh" content="0; url=../setuptextmedia/">
-</head>
-<body>
-Redirecting...
-</body>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the jp-mining-note project.">
+      
+      
+      
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/setupeverythingelse/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+    
+    
+      
+        <title>Setup: Everything Else - jp-mining-note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            jp-mining-note
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Setup: Everything Else
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jp-mining-note
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../setup/" class="md-tabs__link md-tabs__link--active">
+        Setup
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../ui/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../faq/" class="md-tabs__link">
+      FAQ & Troubleshooting
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../jpresources/" class="md-tabs__link">
+      JP Resources
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    jp-mining-note
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    jp-mining-note
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_2">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        Preface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alternatives/" class="md-nav__link">
+        Alternatives
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Setup: Installing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupanki/" class="md-nav__link">
+        Setup: Anki
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupyomichan/" class="md-nav__link">
+        Setup: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Setup: Everything Else
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Setup: Everything Else
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-support" class="md-nav__link">
+    Troubleshooting &amp; Support
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-the-text-to-create-the-cards" class="md-nav__link">
+    Getting the Text to Create the Cards
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting the Text to Create the Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#texthooker-websocket-based" class="md-nav__link">
+    Texthooker: Websocket based
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthooker-clipboard-based" class="md-nav__link">
+    Texthooker: Clipboard based
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game-like-content-getting-text" class="md-nav__link">
+    Game-Like Content: Getting Text
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video-content-getting-text-sentence-audio-picture" class="md-nav__link">
+    Video Content: Getting Text, Sentence Audio, Picture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manga-getting-text" class="md-nav__link">
+    Manga: Getting Text
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#books-epubs-htmlz-pdf" class="md-nav__link">
+    Books (EPUBs, HTMLZ, PDF)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-images-sentence-audio-manually" class="md-nav__link">
+    Getting Images &amp; Sentence Audio Manually
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-lists" class="md-nav__link">
+    Resource Lists
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-on-various-programs" class="md-nav__link">
+    Notes on Various Programs
+  </a>
+  
+    <nav class="md-nav" aria-label="Notes on Various Programs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mpvacious" class="md-nav__link">
+    mpvacious
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asbplayer" class="md-nav__link">
+    asbplayer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jidoujisho" class="md-nav__link">
+    jidoujisho
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupother/" class="md-nav__link">
+        Setup: Other
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        Transfer Existing Notes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updating/" class="md-nav__link">
+        Updating
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        User Interface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uicustomization/" class="md-nav__link">
+        UI Customization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fieldref/" class="md-nav__link">
+        Field Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../definitions/" class="md-nav__link">
+        Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../images/" class="md-nav__link">
+        Images
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autopa/" class="md-nav__link">
+        Pitch Accent
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tooltipresults/" class="md-nav__link">
+        Tooltip Results (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_9">
+          Options
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_9">
+          <span class="md-nav__icon md-icon"></span>
+          Options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runtimeoptions/" class="md-nav__link">
+        Runtime Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compiletimeoptions/" class="md-nav__link">
+        Compile-Time Options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yomichantemplates/" class="md-nav__link">
+        Yomichan Template Options
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_10">
+          Developer Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_10">
+          <span class="md-nav__icon md-icon"></span>
+          Developer Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modding/" class="md-nav__link">
+        Modding Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/" class="md-nav__link">
+        Building
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customcss/" class="md-nav__link">
+        Custom CSS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overrides/" class="md-nav__link">
+        Custom HTML (Overrides)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        Custom JS (Modules)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../moddingtips/" class="md-nav__link">
+        Tips & Tricks
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        FAQ & Troubleshooting
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresources/" class="md-nav__link">
+        JP Resources
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-support" class="md-nav__link">
+    Troubleshooting &amp; Support
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-the-text-to-create-the-cards" class="md-nav__link">
+    Getting the Text to Create the Cards
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting the Text to Create the Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#texthooker-websocket-based" class="md-nav__link">
+    Texthooker: Websocket based
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#texthooker-clipboard-based" class="md-nav__link">
+    Texthooker: Clipboard based
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game-like-content-getting-text" class="md-nav__link">
+    Game-Like Content: Getting Text
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video-content-getting-text-sentence-audio-picture" class="md-nav__link">
+    Video Content: Getting Text, Sentence Audio, Picture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manga-getting-text" class="md-nav__link">
+    Manga: Getting Text
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#books-epubs-htmlz-pdf" class="md-nav__link">
+    Books (EPUBs, HTMLZ, PDF)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-images-sentence-audio-manually" class="md-nav__link">
+    Getting Images &amp; Sentence Audio Manually
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-lists" class="md-nav__link">
+    Resource Lists
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-on-various-programs" class="md-nav__link">
+    Notes on Various Programs
+  </a>
+  
+    <nav class="md-nav" aria-label="Notes on Various Programs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mpvacious" class="md-nav__link">
+    mpvacious
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asbplayer" class="md-nav__link">
+    asbplayer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jidoujisho" class="md-nav__link">
+    jidoujisho
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  
+  
+  <a
+    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/docs/docs/setupeverythingelse.md"
+    title="View source of this page"
+    class="md-content__button md-icon"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+  </a>
+
+
+  <h1>Setup: Everything Else</h1>
+
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This page is dedicated to providing resources on how to do the following:</p>
+<ol>
+<li>Getting the actual text to use Yomichan on.</li>
+<li>Getting the pictures and/or sentence audio from the media.</li>
+</ol>
+<p>There are plenty of well established resources out there on how to do just that,
+ranging from software to written &amp; video guides.
+Instead of repeating what others have already said, those programs and guides
+will be linked.</p>
+<p>If you are looking to setup jp-mining-note, see <a href="../setup/">this</a> page instead.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you already have a sentence mining workflow, you can likely
+skip to <a href="#notes-on-various-programs">this section</a>.</p>
+</div>
+<hr />
+<h3 id="troubleshooting-support">Troubleshooting &amp; Support<a class="headerlink" href="#troubleshooting-support" title="Permanent link">&para;</a></h3>
+<p>If you are having troubles with any of the guides or programs below,
+I unfortunately <strong>will not</strong> be able to provide very detailed support.</p>
+<p>Instead, I would recommend that you contact the creators of the guides / programs,
+or the communities surrounding said guides / programs.</p>
+<p>Additionally, the guides listed here usually do not use JPMN, and instead link
+to other note types.
+This shouldn't be an issue as long as you change the appropriate the field names.</p>
+<hr />
+<h2 id="getting-the-text-to-create-the-cards">Getting the Text to Create the Cards<a class="headerlink" href="#getting-the-text-to-create-the-cards" title="Permanent link">&para;</a></h2>
+<p>I use a texthooker setup,
+which is able to extract subtitles or text into the browser.
+Once the text is on the browser, you can use Yomichan to select the word and create the
+Anki card (by clicking on the green plus button).</p>
+<p>The standard texthooker setup works for most games, and any show with subtitle files.</p>
+<hr />
+<h3 id="texthooker-websocket-based">Texthooker: Websocket based<a class="headerlink" href="#texthooker-websocket-based" title="Permanent link">&para;</a></h3>
+<p>These pages display the hooked content, where the hooked content is communicated
+via Websockets.
+Websocket based texthookers are better than the classic clipboard-based texthookers
+in almost every aspect:</p>
+<ul>
+<li>They are generally faster and more reliable.</li>
+<li>They do not flood your clipboard.</li>
+<li>They do not require an extension that constantly polls the clipboard.</li>
+</ul>
+<p>However, it requires more specialized coordination between programs.</p>
+<details class="example">
+<summary>Resources <em>(click here)</em></summary>
+<ul>
+<li>
+<p><a href="https://github.com/Renji-XD/texthooker-ui"><strong>Renji's Texthooker Page</strong></a> (recommended)</p>
+<ul>
+<li>I use <a href="../jpresources/#settings-css-for-renjis-texthooker">these settings</a> to make the text more compressed.</li>
+<li>This texthooker page comes with built in support for both websockets and
+    clipboard inserter plugins.</li>
+</ul>
+</li>
+<li>
+<p><a href="https://github.com/KamWithK/exSTATic/"><strong>exSTATic</strong></a> (recommended for stats lovers)</p>
+<ul>
+<li>Its primary use is for automatic stats collection and visualizing said statistics.</li>
+<li>Integrates seamlessly with many workflows.</li>
+<li>Uses a custom texthooker page, which connects with Textractor with its own custom extension.</li>
+<li>A video installation guide is available on the project's README page.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Supported Workflows:</strong></p>
+<ul>
+<li><a href="https://github.com/Artikash/Textractor"><strong>Textractor</strong></a> with <a href="https://github.com/sadolit/textractor-websocket"><strong>textractor-websocket</strong></a> or <a href="https://github.com/KamWithK/TextractorSender"><strong>TextractorSender</strong></a></li>
+<li><a href="https://mpv.io"><strong>mpv</strong></a> with <a href="https://github.com/kuroahna/mpv_websocket"><strong>mpv_websocket</strong></a></li>
+</ul>
+</details>
+<details class="example">
+<summary>Legacy Resources <em>(click here)</em></summary>
+<p>These resources are considered legacy, and I highly recommend using the
+standard resources above in favor of these.</p>
+<ul>
+<li>
+<p><a href="https://github.com/MarvNC/texthooker-websocket"><strong>Marv's Websocket Userscript</strong></a></p>
+<ul>
+<li>A more featureful version of the patch below.</li>
+<li>Written for Anacreon's texthooker page.</li>
+</ul>
+</li>
+<li>
+<p><strong>Zetta's Custom Patch</strong></p>
+<ul>
+<li>Patch Instructions for existing clipboard-based texthookers.</li>
+<li>This patch is intended to be used in conjunction with
+    <a href="https://github.com/sadolit/textractor-websocket">this Textractor extension</a>.</li>
+<li>This patch was written for Anacreon's texthooker page.
+    However, it will likely work for most other texthooker pages.</li>
+</ul>
+<details class="examplecode">
+<summary>Instructions to use the patch <em>(click here)</em></summary>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a monkey patch, even according to the author. Now that better alternatives
+have came out (see above), I recommend to use said alternatives.</p>
+</div>
+<ol>
+<li>Download your favorite texthooker page into a raw html file.</li>
+<li>Copy/paste the code below to the very end of the raw html file.</li>
+<li>If you are currently viewing the page, refresh.</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">wsStatusElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">createStatusElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;menu&#39;</span><span class="p">).</span><span class="nx">firstChild</span><span class="w"></span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;menuitem&quot;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;Reconnect&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="nx">connect</span><span class="p">()</span><span class="w"></span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">      </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="p">})</span><span class="w"></span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nx">node</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">wsStatusElem</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">updateStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">connected</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="nx">wsStatusElem</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createStatusElem</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">connected</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;Connected&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Reconnect&quot;</span><span class="w"></span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;margin-right: 1.5em; display: inline-block;&quot;</span><span class="w"></span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="nx">wsStatusElem</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">connected</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;color:rgb(24, 255, 24);&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;color:rgb(255, 24, 24);&quot;</span><span class="w"></span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">connect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="nx">socket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">&quot;ws://localhost:6677/&quot;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="nx">socket</span><span class="p">.</span><span class="nx">onopen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">updateStatus</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="nx">socket</span><span class="p">.</span><span class="nx">onclose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">updateStatus</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="nx">socket</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">updateStatus</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[error] </span><span class="si">${</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="nx">socket</span><span class="p">.</span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">container</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textlog&#39;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">textNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">      </span><span class="nx">textNode</span><span class="p">.</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="w"></span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">textNode</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">  </span><span class="nx">connect</span><span class="p">()</span><span class="w"></span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="o">&lt;</span><span class="err">/script&gt;</span><span class="w"></span>
+</code></pre></div>
+<sup>
+(<a href="https://discord.com/channels/617136488840429598/780870629426724864/952964914375442452">Original discord message</a>, on <a href="https://learnjapanese.moe/join/">TMW server</a>. Thanks Zetta#3033 for the code.)
+</sup></p>
+</details>
+</li>
+</ul>
+</details>
+<hr />
+<h3 id="texthooker-clipboard-based">Texthooker: Clipboard based<a class="headerlink" href="#texthooker-clipboard-based" title="Permanent link">&para;</a></h3>
+<p>These pages display the hooked content, where the hooked content is communicated
+via automated clipboard (copy/paste) tools.
+Most classic setups documented are for clipboard based texthooker pages.</p>
+<details class="example">
+<summary>Resources <em>(click here)</em></summary>
+<ul>
+<li><a href="https://github.com/kmltml/clipboard-inserter"><strong>Original Clipboard Inserter (Extension)</strong></a> (Chromium-based browsers)<ul>
+<li>WARNING: <a href="https://github.com/kmltml/clipboard-inserter/issues/14">No longer works on Firefox</a>
+    as of Firefox version 107.0. Use the extension below if you are using Firefox.</li>
+</ul>
+</li>
+<li><a href="https://github.com/laplus-sadness/lap-clipboard-inserter"><strong>Lap Clipboard Inserter (Extension)</strong></a> (Firefox)<ul>
+<li>Updated version of the above.</li>
+<li>Works on Firefox, but Chrome (manifest 3) support is currently not supported.
+    Use the first extension if you are using a chromium based browser.</li>
+</ul>
+</li>
+<li><a href="https://github.com/Renji-XD/texthooker-ui"><strong>Renji's Texthooker Page</strong></a> (recommended)<ul>
+<li>Open source and more featureful alternative to the more popular Anacreon's texthooker page.</li>
+<li>I use <a href="../jpresources/#settings-css-for-renjis-texthooker">these settings</a> to make the text more compressed.</li>
+</ul>
+</li>
+<li><a href="https://anacreondjt.gitlab.io/docs/texthooker/"><strong>Anacreon's Texthooker Page</strong></a></li>
+<li><a href="https://learnjapanese.moe/texthooker.html"><strong>TMW's Texthooker Page</strong></a></li>
+</ul>
+</details>
+<details class="example">
+<summary>Guides <em>(click here)</em></summary>
+<ul>
+<li><a href="https://rentry.co/mining#browser">stegatxins0's mining guide: Texthooker</a> (recommended)</li>
+<li><a href="https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese">TMW: Texthooker &amp; Visual Novels</a></li>
+<li><a href="https://rentry.co/lazyXel#clipboard-inserter">Lazy Guide: Texthooker</a></li>
+<li><a href="https://animecards.site/visualnovels/">Anime Cards: Texthooker &amp; Visual Novels</a></li>
+</ul>
+</details>
+<hr />
+<hr />
+<h2 id="game-like-content-getting-text">Game-Like Content: Getting Text<a class="headerlink" href="#game-like-content-getting-text" title="Permanent link">&para;</a></h2>
+<p>The following are primarily for text-heavy games, such as visual novels.</p>
+<details class="example">
+<summary>Resources <em>(click here)</em></summary>
+<ul>
+<li><a href="https://github.com/Artikash/Textractor">Textractor</a> (recommended)</li>
+<li><a href="https://github.com/0xDC00/agent">agent</a><ul>
+<li>This is a good fallback for when Textractor doesn't work</li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="example">
+<summary>Guides <em>(click here)</em></summary>
+<ul>
+<li><a href="https://learnjapanese.moe/vn-setup/">TMW: Installing Visual Novels</a></li>
+<li><a href="https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese">TMW: Texthooker &amp; Visual Novels</a></li>
+<li><a href="https://animecards.site/visualnovels/">Anime Cards: Texthooker &amp; Visual Novels</a> (slightly outdated compared to others)</li>
+<li><a href="https://rentry.co/lazyXel#play-visual-novel-anywhere-with-yomichan-and-mining">Lazy Guide: Playing Visual Novels on Mobile</a></li>
+<li><a href="https://docs.google.com/document/d/1iUfG_omRDaC3huup_XuAg1ztt2VSkezI2kL-O-Pf3-4/edit?usp=sharing">Playing Emulated DS, 3DS, PSP and Gameboy Advanced games on Android devices</a><ul>
+<li>Contact info: <code>OrangeLightX#2907</code> <!-- 1011824983351250965 -->
+    on the Refold (JP) Discord server or <a href="https://learnjapanese.moe/join/">TMW server</a></li>
+</ul>
+</li>
+<li>See <a href="./#getting-images-sentence-audio-manually">this section</a>
+    to get sentence audio and images</li>
+</ul>
+</details>
+<hr />
+<h2 id="video-content-getting-text-sentence-audio-picture">Video Content: Getting Text, Sentence Audio, Picture<a class="headerlink" href="#video-content-getting-text-sentence-audio-picture" title="Permanent link">&para;</a></h2>
+<p>Video content includes streamed content (Youtube, Netflix, etc.) and locally downloaded files.</p>
+<details class="example">
+<summary>Resources <em>(click here)</em></summary>
+<ul>
+<li><a href="https://github.com/Ajatt-Tools/mpvacious"><strong>mpvacious</strong></a> (recommended for downloaded videos / if you are using mpv)<ul>
+<li>Add-on for <a href="https://mpv.io/">MPV</a>, a cross platform media player. Personally tested.</li>
+<li>Basically universal codec support since it uses mpv.</li>
+<li>This addon has capabilities to
+    <a href="https://github.com/Ajatt-Tools/mpvacious/pull/78">extract the video clip itself</a>
+    as the form of a gif (autoplayable webp).</li>
+</ul>
+</li>
+<li><a href="https://github.com/killergerbah/asbplayer"><strong>asbplayer</strong></a> (recommended for streamed sites)<ul>
+<li>Cross platform (chromium) browser video player. Personally tested.</li>
+<li>Codec support is based on the browser used.</li>
+<li>Works on video streaming sites, as well as downloaded videos.</li>
+</ul>
+</li>
+<li><a href="https://github.com/animebook/animebook.github.io"><strong>Animebook</strong></a><ul>
+<li>Cross platform (chromium) browser video player.</li>
+<li>Codec support is based on the browser used.</li>
+</ul>
+</li>
+<li>All of the above require subtitle files to function.
+    See
+    <a href="https://learnjapanese.moe/resources/#subtitles">here</a>
+    and/or
+    <a href="https://gist.github.com/tatsumoto-ren/78ba4e5b7c53c7ed2c987015fa05cc2b">here</a>
+    for some websites where you can get subtitles from.</li>
+<li>One challenge for video content is that subtitles are usually not aligned properly
+    if the subtitles are downloaded separately from the video.
+    I've always used a combination of
+    <a href="https://mkvtoolnix.download/downloads.html">mkvextract</a>
+    (to extract the subtitle file from the <code>.mkv</code> file)
+    and
+    <a href="https://github.com/kaegi/alass/">alass</a>
+    (to align the native subtitles with reference subtitles, usually in a different language)
+    to get the job done.
+    If you want more options, see
+    <a href="https://zenith-raincoat-5cf.notion.site/Subtitles-0166a2d329474a43968bdbcb32739263">this page</a>.</li>
+</ul>
+<p><strong>Other:</strong></p>
+<ul>
+<li><a href="https://github.com/lrorpilla/jidoujisho">jidoujisho</a><ul>
+<li>Android e-book reader and media player. Advertises itself as an all-in-one app.</li>
+<li>See <a href="#jidoujisho">this note on jidoujisho</a>.</li>
+</ul>
+</li>
+<li><a href="https://github.com/Ben-Kerman/immersive">Immersive</a><ul>
+<li>Add-on for MPV. Alternative to mpvacious.</li>
+<li>WARNING: This is potentially outdated and/or abandoned.
+    The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
+    This is listed here for completeness only.</li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="example">
+<summary>Guides <em>(click here)</em></summary>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=B60cj69MSmA&amp;ab_channel=mikumino">mikumino's mining workflow</a> (asbplayer + jp-mining-note)</li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub">Shiki's mining workflow</a> (asbplayer)<ul>
+<li>Contact info: <code>boundary-of-emptiness#3065</code> <!-- 152563705345867778 -->
+    on the Refold (JP) Discord server</li>
+</ul>
+</li>
+<li><a href="https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub">Tigy01's mining workflow</a> (asbplayer)<ul>
+<li>Contact info: <code>Tigy01#1231</code> <!-- 451194927515172864 -->
+    on the Refold (JP) Discord server</li>
+</ul>
+</li>
+<li><a href="https://cademcniven.com/posts/20210703/">Cade's sentence mining guide</a> (animebook)<ul>
+<li>Contact info: <code>eminent#8189</code> <!-- 126903585152827392 -->
+    on <a href="https://discord.gg/uK4HeGN">Perdition's server</a> or <a href="https://learnjapanese.moe/join/">TMW server</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<hr />
+<h2 id="manga-getting-text">Manga: Getting Text<a class="headerlink" href="#manga-getting-text" title="Permanent link">&para;</a></h2>
+<details class="example">
+<summary>mokuro (recommended)</summary>
+<p><a href="https://github.com/kha-white/mokuro"><strong>mokuro</strong></a> pre-processes manga, so you don't have to run
+any OCR program afterwards.</p>
+<p><strong>Guides:</strong></p>
+<ul>
+<li><a href="https://rentry.co/lazyXel#manga-with-yomichan">Lazy guide</a> (recommended)<ul>
+<li>(For Windows users) Make sure to check the "Add Python to Path" on install.</li>
+<li>If you are using online processing (google colab), be sure that you are
+  <a href="https://www.tutorialspoint.com/google_colab/google_colab_using_free_gpu.htm">using the gpu</a>
+  to speed up the process.</li>
+</ul>
+</li>
+<li><a href="https://docs.google.com/document/d/1ddUINNHZoln6wXGAiGiVpZb4QPtonEy-jgrT1zQbXow/edit?usp=sharing">Josuke's mokuro setup guide</a><ul>
+<li>Contact info: <code>Josuke#7212</code> <!-- 190480221135306752 -->
+    on the Refold (JP) Discord server</li>
+<li>This doesn't include instructions on how to process online (whereas the Lazy guide does)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Other Resources:</strong></p>
+<ul>
+<li>If you are on Android, this can be paired with
+    <a href="https://github.com/KamWithK/AnkiconnectAndroid">Anki Connect for Android</a>
+    to create Anki cards.</li>
+<li><a href="https://github.com/WeebAlt/RemoteMokuro">WeebAlt's RemoteMokuro setup</a><ul>
+<li>This includes setup instructions on using Mokuro remotely (from google drive, i.e. no disk storage)</li>
+</ul>
+</li>
+</ul>
+<p>If any error occurs, check the following:</p>
+<ul>
+<li>
+<p>Check your Python version (<code>python --version</code>, or <code>python3 --version</code>).
+    Python 3.10 is <a href="https://github.com/kha-white/mokuro#installation">not supported yet</a>.</p>
+<p>If your Python version is too old, I recommend using <a href="https://github.com/pyenv/pyenv">pyenv</a>
+(for Linux users). Linux users can use the
+<a href="https://github.com/pyenv/pyenv#automatic-installer">automatic installer</a>.
+For Windows users, it should be sufficient to uninstall <code>mokuro</code>, install a newer version of Python,
+and then re-install mokuro with the newer version.</p>
+</li>
+<li>
+<p>Make sure your directory is a string and not a number. For example, <code>mokuro ./01</code> on unix, and <code>mokuro .\01</code> on Windows.</p>
+</li>
+</ul>
+</details>
+<details class="example">
+<summary>Manga OCR</summary>
+<p><a href="https://github.com/kha-white/manga-ocr"><strong>Manga OCR</strong></a> allows you to automatically OCR any image.
+As the name suggests, this works best on manga.</p>
+<p><strong>Guides:</strong></p>
+<ul>
+<li><a href="https://rentry.co/lazyXel#manga-ocr">Lazy guide (Windows)</a></li>
+</ul>
+</details>
+<hr />
+<h2 id="books-epubs-htmlz-pdf">Books (EPUBs, HTMLZ, PDF)<a class="headerlink" href="#books-epubs-htmlz-pdf" title="Permanent link">&para;</a></h2>
+<p>As long as you're not using a scan (image-based), the text should already be available.
+Below will list a few ways to view these files in a browser to Yomichan.</p>
+<details class="example">
+<summary>Resources <em>(click here)</em></summary>
+<ul>
+<li><a href="https://reader.ttsu.app"><strong>ッツ Ebook Reader</strong></a> (EPUBs, HTMLZ) (recommended)</li>
+<li><a href="https://mozilla.github.io/pdf.js/web/viewer.html"><strong>Mozilla's PDF Viewer</strong></a> (PDF)</li>
+</ul>
+<p><strong>Other:</strong></p>
+<ul>
+<li><a href="https://github.com/lrorpilla/jidoujisho">jidoujisho</a><ul>
+<li>Android e-book reader and media player. Advertises itself as an all-in-one app.</li>
+<li>Uses <a href="https://ttu-ebook.web.app/">ッツ Ebook Reader</a> as its backend.</li>
+<li>See <a href="#jidoujisho">this note on jidoujisho</a>.</li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="example">
+<summary>Guides <em>(click here)</em></summary>
+<ul>
+<li>Like with Mokuro,
+    if you are on Android, this can be paired with
+    <a href="https://github.com/KamWithK/AnkiconnectAndroid">Anki Connect for Android</a>
+    to create Anki cards.</li>
+</ul>
+</details>
+<hr />
+<h2 id="getting-images-sentence-audio-manually">Getting Images &amp; Sentence Audio Manually<a class="headerlink" href="#getting-images-sentence-audio-manually" title="Permanent link">&para;</a></h2>
+<p>Sometimes, there is no easy way to get the image and sentence audio other than with a screen recorder.
+The primary example for this is game-like content.</p>
+<p>Here are the two popular approaches to automatically adding the image and sentence audio:</p>
+<details class="example">
+<summary>ShareX (Windows)</summary>
+<p><a href="https://getsharex.com/"><strong>ShareX</strong></a></p>
+<ul>
+<li>Windows media recorder which can both take screenshots and record audio. Personally tested.</li>
+</ul>
+<p><strong>Guides:</strong></p>
+<ul>
+<li><a href="https://rentry.co/mining#sharex">stegatxins0's mining guide: ShareX</a> (recommended)<ul>
+<li>The scripts written <a href="../jpresources/#sharex-scripts">here</a>
+    works by default with this note.
+    These scripts are meant used with stegatxins0's setup.</li>
+</ul>
+</li>
+<li><a href="https://rentry.co/lazyXel#sharex">Xeliu's mining guide: ShareX</a><ul>
+<li>ShareX setup is based off of stegatxins0's setup</li>
+</ul>
+</li>
+<li><a href="https://animecards.site/media/">Anime Cards: Handling Media</a><ul>
+<li>Not recommended: introduces additional steps compared to the above two guides</li>
+</ul>
+</li>
+</ul>
+</details>
+<details class="example">
+<summary>ames (Linux)</summary>
+<p><a href="https://github.com/eshrh/ames"><strong>ames</strong></a></p>
+<ul>
+<li>ShareX alternative for Linux. Personally tested.</li>
+<li>Primarily used to automate audio and picture extraction to the most recently added Anki card.</li>
+</ul>
+</details>
+<hr />
+<h2 id="resource-lists">Resource Lists<a class="headerlink" href="#resource-lists" title="Permanent link">&para;</a></h2>
+<p>Other websites have significantly larger resource lists that may prove useful for you.</p>
+<details class="example">
+<summary>Resource Lists <em>(click here)</em></summary>
+<ul>
+<li><a href="https://learnjapanese.moe/resources/">TheMoeWay</a></li>
+<li><a href="https://tatsumoto.neocities.org/blog/resources.html">Tatsumoto</a></li>
+<li><a href="https://itazuraneko.neocities.org/index.html">itazuraneko</a></li>
+<li><a href="https://kuzuri.neocities.org/resources.html">kuzuri</a></li>
+<li><a href="https://www.notion.so/Refold-Japanese-Content-Resources-WIP-9121097535e74f6ba501c93b1773e70c">Refold (JP)</a>
+    (<a href="https://docs.google.com/document/d/1tQmoGwCJQqmjdmaQdigAG0Ph1ODSMsGhsD7qOhlUuc0/">Old Google doc</a>)
+    (<a href="https://refold.link/japanese">Mirror</a>)</li>
+<li><a href="https://docs.google.com/document/d/1z_5VbwqKjuyaDH8l6BqhAPJdHWAfypz-3V7pHsWHr6A/">Refold (General)</a> (<a href="https://refold.link/Tech_and_Tools">Mirror</a>)</li>
+<li><a href="https://github.com/IgrecL/japanese">IgrecL/japanese</a></li>
+<li><a href="https://donkuri.github.io/learn-japanese/resources/">donkuri/learn-japanese</a></li>
+</ul>
+</details>
+<hr />
+<h2 id="notes-on-various-programs">Notes on Various Programs<a class="headerlink" href="#notes-on-various-programs" title="Permanent link">&para;</a></h2>
+<h3 id="mpvacious"><a href="https://github.com/Ajatt-Tools/mpvacious">mpvacious</a><a class="headerlink" href="#mpvacious" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>You will have to change the <a href="https://github.com/Ajatt-Tools/mpvacious#configuration">configuration</a>
+    in order for mpvacious to work with JPMN.</p>
+<details class="examplecode">
+<summary>Click here to see some basic config changes to get it working with JPMN.</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Be sure to change deck_name to whatever your deck is!</span><span class="w"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Model names are listed in `Tools -&gt; Manage note types` menu in Anki.</span><span class="w"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="na">model_name</span><span class="o">=</span><span class="s">JP Mining Note</span><span class="w"></span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Field names as they appear in the selected note type.</span><span class="w"></span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># If you set `audio_field` or `image_field` empty,</span><span class="w"></span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># the corresponding media file will not be created.</span><span class="w"></span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="na">sentence_field</span><span class="o">=</span><span class="s">Sentence</span><span class="w"></span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1">#secondary_field=SentEng  # Not used by the note. This is ignored entirely.</span><span class="w"></span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="na">audio_field</span><span class="o">=</span><span class="s">SentenceAudio</span><span class="w"></span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="na">image_field</span><span class="o">=</span><span class="s">Picture</span><span class="w"></span>
+</code></pre></div>
+<p>You may want to increase the picture and audio quality, as it's extremely low by default.
+I personally use the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Sane values are 16k-32k for opus, 64k-128k for mp3.</span><span class="w"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="na">audio_bitrate</span><span class="o">=</span><span class="s">32k</span><span class="w"></span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Quality of produced image files. 0 = lowest, 100=highest.</span><span class="w"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">#snapshot_quality=15</span><span class="w"></span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="na">snapshot_quality</span><span class="o">=</span><span class="s">50</span><span class="w"></span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># Image dimensions</span><span class="w"></span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># If either (but not both) of the width or height parameters is -2,</span><span class="w"></span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># the value will be calculated preserving the aspect-ratio.</span><span class="w"></span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1">#snapshot_width=-2</span><span class="w"></span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1">#snapshot_height=200</span><span class="w"></span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="na">snapshot_width</span><span class="o">=</span><span class="s">800</span><span class="w"></span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="na">snapshot_height</span><span class="o">=</span><span class="s">-2</span><span class="w"></span>
+</code></pre></div>
+</details>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>When creating the config file, ensure that the config file is placed in the correct folder.
+This <code>script-opts</code> folder does not exist by default.
+You will likely have to create the folder.</p>
+<p>Additionally, be sure to restart MPV after changing the config to apply the changes.</p>
+</div>
+</li>
+<li>
+<p>A common issue with mpvacious is that
+    the <code>SentenceReading</code> field may differ from the <code>Sentence</code> field,
+    say, if you export multiple subtitles into one card.
+    See the
+    <a href="../faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">FAQ</a>
+    on how to fix it.</p>
+</li>
+<li>
+<p>To create cards with mpvacious, first add a card from Yomichan (usually via a texthooker),
+    and then press <code>ctrl</code>+<code>m</code> in mpv.</p>
+</li>
+</ul>
+<hr />
+<h3 id="asbplayer"><a href="https://github.com/killergerbah/asbplayer">asbplayer</a><a class="headerlink" href="#asbplayer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
+    I recommend filling out the following fields as follows:</p>
+<details class="example">
+<summary>asbplayer fields <em>(click here)</em></summary>
+<table>
+<thead>
+<tr>
+<th align="center">asbplayer field</th>
+<th align="center">JPMN field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" class="smaller-table-row">Sentence Field</td>
+<td align="center" class="smaller-table-row"><code>Sentence</code></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Definition Field</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Word Field</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Audio Field</td>
+<td align="center" class="smaller-table-row"><code>SentenceAudio</code></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Image Field</td>
+<td align="center" class="smaller-table-row"><code>Picture</code></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">Source Field</td>
+<td align="center" class="smaller-table-row"><code>AdditionalNotes</code></td>
+</tr>
+<tr>
+<td align="center" class="smaller-table-row">URL Field</td>
+<td align="center" class="smaller-table-row"><code>AdditionalNotes</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Chances are that you are using subtitles. However, if you are not using subtitles,
+it is fine to keep the Sentence Field empty.</p>
+</div>
+</details>
+</li>
+<li>
+<p>Any version of asbplayer released after
+    <a href="https://github.com/killergerbah/asbplayer/issues/205">2023/01/16</a> (version 0.25.0 or higher)
+    will now preserve the bolded word within the sentence!
+    However, asbplayer shares the same common issue with mpvacious, where
+    the <code>SentenceReading</code> field may differ from the <code>Sentence</code> field.
+    See the
+    <a href="../faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">FAQ</a>
+    on how to fix it.</p>
+</li>
+</ul>
+<!--
+
+There are a few common issues that asbplayer users have, when creating cards with JPMN.
+
+1. **The `Sentence` field has extra info.**
+
+    This is because asbplayer requires you to use its internal `Sentence` field
+    instead of Yomichan's automatically generated sentence.
+
+    However, using this will naturally lead you to the second problem:
+
+1. **The word in the `Sentence` field is not bolded.**
+
+    asbplayer's generated sentence does NOT preserve the bold in the `Sentence` field.
+
+    The note comes with a feature to
+    [automatically highlight the word](ui.md#automatic-word-highlighting)
+    within the sentence.
+    However, this is an imperfect solution,
+    and there is currently no easy way to add accurate highlighting to existing sentences.
+    To guarantee accurate word highlights, your options include:
+
+    1. Manually bolding the word in Anki.
+    1. Updating the sentence with [this script](jpresources.md#update-sentence-with-clipboard)
+        (instead of using asbplayer's sentence field).
+        This script must be ran after each card add.
+    1. Using a different program altogether,
+        such as [mpvacious](https://github.com/Ajatt-Tools/mpvacious).
+
+1. **The `SentenceReading` differs from the `Sentence` field, or has extra text.**
+
+    This relates to the first problem: Yomichan's automatically generated sentence
+    differs from asbplayer's sentence field.
+
+    To fix this,
+    [disable automatic furigana generation on card add](faq.md#how-do-i-disable-furigana-on-card-generation).
+
+    If you still want furigana on your cards,
+    [bulk generate it](faq.md#how-do-i-bulk-generate-furigana) after each session.
+
+-->
+
+<hr />
+<h3 id="jidoujisho"><a href="https://github.com/lrorpilla/jidoujisho">jidoujisho</a><a class="headerlink" href="#jidoujisho" title="Permanent link">&para;</a></h3>
+<p>I'm not very sure how the Anki card generation works for this app,
+since this app does not use Yomichan.</p>
+<p>The custom handlebars used by JPMN does a lot of heavy lifting
+and has plenty of customizations specifically to work JPMN.
+Unfortunately, this handlebars is not very portable between programs.</p>
+<p>If you want to use this app, I leave it to the user to figure out the specifics
+of creating the cards.</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 2, 2023</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="Footer"
+      
+    >
+
+      <!-- Link to previous page -->
+      
+        
+        <a
+          href="../setupyomichan/"
+          class="md-footer__link md-footer__link--prev"
+          aria-label="Previous: Setup: Yomichan"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Setup: Yomichan
+            </div>
+          </div>
+        </a>
+      
+
+      <!-- Link to next page -->
+      
+        
+        <a
+          href="../setupother/"
+          class="md-footer__link md-footer__link--next"
+          aria-label="Next: Setup: Other"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Setup: Other
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+
+  
+
+</footer>
+
+
+
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      
+    
+  </body>
 </html>

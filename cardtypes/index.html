@@ -10,16 +10,10 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/cardtypes/">
-      
-      
-        <link rel="prev" href="../sentences/">
-      
-      
-        <link rel="next" href="../changingcardtype/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/cardtypes/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.9">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
     
     
       
@@ -27,10 +21,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.a6bdf11c.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
       
       
 
@@ -65,7 +60,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
   
     
     
@@ -77,25 +72,12 @@
     <div data-md-component="skip">
       
         
-        <a href="#preface" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
     </div>
     <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-
-<b class="jpmn-highlight">WARNING</b>: This documentation is for the latest pre-release version of jp-mining-note, and is very WIP / incomplete. <br>
-If you are looking for the stable release documentation, see <a href="https://aquafina-water-bottle.github.io/jp-mining-note/">here</a>.
-
-
-          </div>
-          
-        </aside>
       
     </div>
     
@@ -106,7 +88,8 @@ If you are looking for the stable release documentation, see <a href="https://aq
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  <img src="../assets/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -129,31 +112,27 @@ If you are looking for the stable release documentation, see <a href="https://aq
       </div>
     </div>
     
-      
-        <form class="md-header__option" data-md-component="palette">
+      <form class="md-header__option" data-md-component="palette">
+        
           
-            
-            
-            
-            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
-            
-              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
-              </label>
-            
           
-            
-            
-            
-            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
-            
-              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
-              </label>
-            
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
           
-        </form>
-      
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+      </form>
     
     
     
@@ -183,7 +162,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -195,7 +174,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
         <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -214,7 +193,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-grid">
+  <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
@@ -252,22 +231,6 @@ If you are looking for the stable release documentation, see <a href="https://aq
         
   
   
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../updating/" class="md-tabs__link">
-        Updating
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
     
   
 
@@ -276,7 +239,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
   
     <li class="md-tabs__item">
-      <a href="../quickstart/" class="md-tabs__link md-tabs__link--active">
+      <a href="../ui/" class="md-tabs__link md-tabs__link--active">
         Reference
       </a>
     </li>
@@ -288,15 +251,11 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
 
 
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../modding/" class="md-tabs__link">
-        Dev Docs
-      </a>
-    </li>
-  
+  <li class="md-tabs__item">
+    <a href="../faq/" class="md-tabs__link">
+      FAQ & Troubleshooting
+    </a>
+  </li>
 
       
         
@@ -304,31 +263,11 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
 
 
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../faq/" class="md-tabs__link">
-        FAQ & Troubleshooting
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../jpresources/" class="md-tabs__link">
-        JP Resources
-      </a>
-    </li>
-  
+  <li class="md-tabs__item">
+    <a href="../jpresources/" class="md-tabs__link">
+      JP Resources
+    </a>
+  </li>
 
       
     </ul>
@@ -354,7 +293,8 @@ If you are looking for the stable release documentation, see <a href="https://aq
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  <img src="../assets/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     jp-mining-note
@@ -364,7 +304,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
       <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -385,18 +325,17 @@ If you are looking for the stable release documentation, see <a href="https://aq
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
       
       
-      
-        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_1">
           Home
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Home
@@ -428,18 +367,17 @@ If you are looking for the stable release documentation, see <a href="https://aq
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
       
       
-      
-        <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_1_2">
           Getting Started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
         <label class="md-nav__title" for="__nav_1_2">
           <span class="md-nav__icon md-icon"></span>
           Getting Started
@@ -454,20 +392,6 @@ If you are looking for the stable release documentation, see <a href="https://aq
     <li class="md-nav__item">
       <a href="../preface/" class="md-nav__link">
         Preface
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../principles/" class="md-nav__link">
-        Philosophy
       </a>
     </li>
   
@@ -512,18 +436,17 @@ If you are looking for the stable release documentation, see <a href="https://aq
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
-      
-        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2">
           Setup
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Setup" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Setup
@@ -578,51 +501,8 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
   
     <li class="md-nav__item">
-      <a href="../setuptextmedia/" class="md-nav__link">
-        Setup: Text & Media
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
-          Text & Media
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_5">
-          <span class="md-nav__icon md-icon"></span>
-          Text & Media
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupmpvacious/" class="md-nav__link">
-        mpvacious (TODO)
+      <a href="../setupeverythingelse/" class="md-nav__link">
+        Setup: Everything Else
       </a>
     </li>
   
@@ -635,114 +515,8 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
   
     <li class="md-nav__item">
-      <a href="../setupasbplayer/" class="md-nav__link">
-        asbplayer (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
-          Extra Setup
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_6">
-          <span class="md-nav__icon md-icon"></span>
-          Extra Setup
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupextrayomichan/" class="md-nav__link">
-        Extra: Yomichan
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupextraanki/" class="md-nav__link">
-        Extra: Anki
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupandroid/" class="md-nav__link">
-        Extra: Android
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupios/" class="md-nav__link">
-        Extra: iOS
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupereaders/" class="md-nav__link">
-        Extra: eReaders
+      <a href="../setupother/" class="md-nav__link">
+        Setup: Other
       </a>
     </li>
   
@@ -763,126 +537,6 @@ If you are looking for the stable release documentation, see <a href="https://aq
 
             
           
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
-          Alternate Card Exporters
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_7">
-          <span class="md-nav__icon md-icon"></span>
-          Alternate Card Exporters
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupjl/" class="md-nav__link">
-        JL (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupjidoujisho/" class="md-nav__link">
-        jidoujisho (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupgoldendict/" class="md-nav__link">
-        goldendict (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-          Updating
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Updating
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
             
               
   
@@ -890,77 +544,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
     <li class="md-nav__item">
       <a href="../updating/" class="md-nav__link">
-        Updating: Overview (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../updatingjpmn/" class="md-nav__link">
-        Updating: JPMN
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../updatingyomichan/" class="md-nav__link">
-        Updating: Yomichan
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../setupchanges/" class="md-nav__link">
-        Setup Changes
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../updatingfinalsteps/" class="md-nav__link">
-        Final Steps
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/CHANGELOG.md" class="md-nav__link">
-        Changelog
+        Updating
       </a>
     </li>
   
@@ -986,19 +570,18 @@ If you are looking for the stable release documentation, see <a href="https://aq
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
-      
-        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_3">
           Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_4">
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Reference
         </label>
@@ -1010,8 +593,8 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
   
     <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
-        Quick Start (TODO)
+      <a href="../ui/" class="md-nav__link">
+        User Interface
       </a>
     </li>
   
@@ -1024,8 +607,22 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
   
     <li class="md-nav__item">
-      <a href="../blockquotes/" class="md-nav__link">
-        Blockquotes (TODO)
+      <a href="../uicustomization/" class="md-nav__link">
+        UI Customization
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fieldref/" class="md-nav__link">
+        Field Reference
       </a>
     </li>
   
@@ -1039,286 +636,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
     <li class="md-nav__item">
       <a href="../definitions/" class="md-nav__link">
-        Definitions (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sentences/" class="md-nav__link">
-        Sentences (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Card Types
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Card Types
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#preface" class="md-nav__link">
-    Preface
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changing-card-type" class="md-nav__link">
-    Changing Card Type
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#vocab-card" class="md-nav__link">
-    Vocab Card
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sentence-card" class="md-nav__link">
-    Sentence Card
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#targeted-sentence-card" class="md-nav__link">
-    Targeted Sentence Card
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#audio-cards" class="md-nav__link">
-    Audio Cards
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sentence-audio-cards" class="md-nav__link">
-    Sentence Audio Cards
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reveal-cards" class="md-nav__link">
-    Reveal Cards
-  </a>
-  
-    <nav class="md-nav" aria-label="Reveal Cards">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hover-vocab-card" class="md-nav__link">
-    Hover Vocab Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#click-vocab-card" class="md-nav__link">
-    Click Vocab Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hover-sentence-card" class="md-nav__link">
-    Hover Sentence Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#click-sentence-card" class="md-nav__link">
-    Click Sentence Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reveal-tsc" class="md-nav__link">
-    Reveal TSC
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reveal-hint-card" class="md-nav__link">
-    Reveal Hint Card
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hint-cards" class="md-nav__link">
-    Hint Cards
-  </a>
-  
-    <nav class="md-nav" aria-label="Hint Cards">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hint-vocab-card" class="md-nav__link">
-    Hint Vocab Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hint-vocab-card-highlighted" class="md-nav__link">
-    Hint Vocab Card (highlighted)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hint-sentence-card" class="md-nav__link">
-    Hint Sentence Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hint-tscs" class="md-nav__link">
-    Hint TSCs
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sentence-first-cards" class="md-nav__link">
-    Sentence-First Cards
-  </a>
-  
-    <nav class="md-nav" aria-label="Sentence-First Cards">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sentence-first-tscs" class="md-nav__link">
-    Sentence-First TSCs
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sentence-first-cards-hiding-the-word" class="md-nav__link">
-    Sentence-First Cards: Hiding the word
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#card-creation-summary" class="md-nav__link">
-    Card Creation Summary
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../changingcardtype/" class="md-nav__link">
-        Changing Card Type (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cardtypes2/" class="md-nav__link">
-        More on Card Types (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../keybinds/" class="md-nav__link">
-        Keybinds
+        Definitions
       </a>
     </li>
   
@@ -1357,25 +675,172 @@ If you are looking for the stable release documentation, see <a href="https://aq
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../kanjihover/" class="md-nav__link">
-        Kanji Hover (TODO)
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Card Types
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Card Types
       </a>
-    </li>
-  
+      
+        
 
-            
-          
-            
-              
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <li class="md-nav__item">
-      <a href="../wordindicators/" class="md-nav__link">
-        Word Indicators (TODO)
-      </a>
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vocab-card" class="md-nav__link">
+    Vocab Card
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sentence-card" class="md-nav__link">
+    Sentence Card
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#targeted-sentence-card-tsc" class="md-nav__link">
+    Targeted Sentence Card (TSC)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hint-cards" class="md-nav__link">
+    Hint Cards
+  </a>
+  
+    <nav class="md-nav" aria-label="Hint Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hint-vocab-card" class="md-nav__link">
+    Hint Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-vocab-card-highlighted" class="md-nav__link">
+    Hint Vocab Card (highlighted)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-sentence-card" class="md-nav__link">
+    Hint Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hint-tsc-card" class="md-nav__link">
+    Hint TSC Card
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-cards" class="md-nav__link">
+    Hybrid Cards
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid Cards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hover-vocab-card" class="md-nav__link">
+    Hover Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#click-vocab-card" class="md-nav__link">
+    Click Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hover-sentence-card" class="md-nav__link">
+    Hover Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#click-sentence-card" class="md-nav__link">
+    Click Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-tsc" class="md-nav__link">
+    Hybrid TSC
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-hint-card" class="md-nav__link">
+    Hybrid Hint Card
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#card-creation-summary" class="md-nav__link">
+    Card Creation Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1400,9 +865,37 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
   
   
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_9">
+          Options
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Options" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_9">
+          <span class="md-nav__icon md-icon"></span>
+          Options
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../infocircle/" class="md-nav__link">
-        Info Circle (TODO)
+      <a href="../runtimeoptions/" class="md-nav__link">
+        Runtime Options
       </a>
     </li>
   
@@ -1415,8 +908,8 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
   
     <li class="md-nav__item">
-      <a href="../frequencies/" class="md-nav__link">
-        Frequencies (TODO)
+      <a href="../compiletimeoptions/" class="md-nav__link">
+        Compile-Time Options
       </a>
     </li>
   
@@ -1429,65 +922,16 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
   
     <li class="md-nav__item">
-      <a href="../externallinks/" class="md-nav__link">
-        External Links (TODO)
+      <a href="../yomichantemplates/" class="md-nav__link">
+        Yomichan Template Options
       </a>
     </li>
   
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fields/" class="md-nav__link">
-        Fields (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../backfilling/" class="md-nav__link">
-        Backfilling (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../batch/" class="md-nav__link">
-        Batch Commands (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../other/" class="md-nav__link">
-        Other (TODO)
-      </a>
+        </ul>
+      </nav>
     </li>
   
 
@@ -1504,105 +948,20 @@ If you are looking for the stable release documentation, see <a href="https://aq
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_21" >
       
       
-      
-        <label class="md-nav__link" for="__nav_4_21" id="__nav_4_21_label" tabindex="0">
-          Options
+        <label class="md-nav__link" for="__nav_3_10">
+          Developer Documentation
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_21_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_21">
+      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_10">
           <span class="md-nav__icon md-icon"></span>
-          Options
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../runtimeoptions/" class="md-nav__link">
-        Runtime Options (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../compiletimeoptions/" class="md-nav__link">
-        Compile-Time Options (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-          Dev Docs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_5">
-          <span class="md-nav__icon md-icon"></span>
-          Dev Docs
+          Developer Documentation
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1641,7 +1000,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
     <li class="md-nav__item">
       <a href="../customcss/" class="md-nav__link">
-        Custom CSS (TODO)
+        Custom CSS
       </a>
     </li>
   
@@ -1655,7 +1014,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
     <li class="md-nav__item">
       <a href="../overrides/" class="md-nav__link">
-        Custom HTML (Overrides) (TODO)
+        Custom HTML (Overrides)
       </a>
     </li>
   
@@ -1669,21 +1028,7 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
     <li class="md-nav__item">
       <a href="../modules/" class="md-nav__link">
-        Custom JS (Modules) (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../themes/" class="md-nav__link">
-        Themes (TODO)
+        Custom JS (Modules)
       </a>
     </li>
   
@@ -1697,8 +1042,15 @@ If you are looking for the stable release documentation, see <a href="https://aq
   
     <li class="md-nav__item">
       <a href="../moddingtips/" class="md-nav__link">
-        Tips & Tricks (TODO)
+        Tips & Tricks
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1714,33 +1066,6 @@ If you are looking for the stable release documentation, see <a href="https://aq
       
       
 
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-          FAQ & Troubleshooting
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          FAQ & Troubleshooting
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
   
   
   
@@ -1751,101 +1076,11 @@ If you are looking for the stable release documentation, see <a href="https://aq
     </li>
   
 
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faq/#errors-warnings" class="md-nav__link">
-        FAQ: Errors & Warnings
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faq/#troubleshooting" class="md-nav__link">
-        FAQ: Troubleshooting
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faq/#card-editing" class="md-nav__link">
-        FAQ: Card Editing
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faq/#other-questions" class="md-nav__link">
-        FAQ: Other
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
     
       
       
       
 
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
-          JP Resources
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7">
-          <span class="md-nav__icon md-icon"></span>
-          JP Resources
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
   
   
   
@@ -1853,55 +1088,6 @@ If you are looking for the stable release documentation, see <a href="https://aq
       <a href="../jpresources/" class="md-nav__link">
         JP Resources
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../jpmnhandlebars/" class="md-nav__link">
-        JPMN Handlebars Package
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../scripts/" class="md-nav__link">
-        Anki Scripts (TODO)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../jpresourcesother/" class="md-nav__link">
-        Other
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1931,15 +1117,8 @@ If you are looking for the stable release documentation, see <a href="https://aq
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#preface" class="md-nav__link">
-    Preface
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#changing-card-type" class="md-nav__link">
-    Changing Card Type
+  <a href="#overview" class="md-nav__link">
+    Overview
   </a>
   
 </li>
@@ -1959,78 +1138,9 @@ If you are looking for the stable release documentation, see <a href="https://aq
 </li>
       
         <li class="md-nav__item">
-  <a href="#targeted-sentence-card" class="md-nav__link">
-    Targeted Sentence Card
+  <a href="#targeted-sentence-card-tsc" class="md-nav__link">
+    Targeted Sentence Card (TSC)
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#audio-cards" class="md-nav__link">
-    Audio Cards
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sentence-audio-cards" class="md-nav__link">
-    Sentence Audio Cards
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reveal-cards" class="md-nav__link">
-    Reveal Cards
-  </a>
-  
-    <nav class="md-nav" aria-label="Reveal Cards">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hover-vocab-card" class="md-nav__link">
-    Hover Vocab Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#click-vocab-card" class="md-nav__link">
-    Click Vocab Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hover-sentence-card" class="md-nav__link">
-    Hover Sentence Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#click-sentence-card" class="md-nav__link">
-    Click Sentence Card
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reveal-tsc" class="md-nav__link">
-    Reveal TSC
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reveal-hint-card" class="md-nav__link">
-    Reveal Hint Card
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2064,8 +1174,8 @@ If you are looking for the stable release documentation, see <a href="https://aq
 </li>
         
           <li class="md-nav__item">
-  <a href="#hint-tscs" class="md-nav__link">
-    Hint TSCs
+  <a href="#hint-tsc-card" class="md-nav__link">
+    Hint TSC Card
   </a>
   
 </li>
@@ -2076,23 +1186,51 @@ If you are looking for the stable release documentation, see <a href="https://aq
 </li>
       
         <li class="md-nav__item">
-  <a href="#sentence-first-cards" class="md-nav__link">
-    Sentence-First Cards
+  <a href="#hybrid-cards" class="md-nav__link">
+    Hybrid Cards
   </a>
   
-    <nav class="md-nav" aria-label="Sentence-First Cards">
+    <nav class="md-nav" aria-label="Hybrid Cards">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sentence-first-tscs" class="md-nav__link">
-    Sentence-First TSCs
+  <a href="#hover-vocab-card" class="md-nav__link">
+    Hover Vocab Card
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#sentence-first-cards-hiding-the-word" class="md-nav__link">
-    Sentence-First Cards: Hiding the word
+  <a href="#click-vocab-card" class="md-nav__link">
+    Click Vocab Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hover-sentence-card" class="md-nav__link">
+    Hover Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#click-sentence-card" class="md-nav__link">
+    Click Sentence Card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-tsc" class="md-nav__link">
+    Hybrid TSC
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-hint-card" class="md-nav__link">
+    Hybrid Hint Card
   </a>
   
 </li>
@@ -2123,21 +1261,22 @@ If you are looking for the stable release documentation, see <a href="https://aq
                 
                   
 
+
+
   
   
-    
-      
-    
-    <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/raw/dev/docs/docs/cardtypes.md" title="View source of this page" class="md-content__button md-icon">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
-    </a>
-  
+  <a
+    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/docs/docs/cardtypes.md"
+    title="View source of this page"
+    class="md-content__button md-icon"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+  </a>
 
 
   <h1>Card Types</h1>
 
-<div><h2 id="preface">Preface<a class="headerlink" href="#preface" title="Permanent link">¶</a></h2>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>Previously, this note type only had vocab and sentence cards.
 Although I was originally fine with this,
 I started to realize some issues with only having these two card types:</p>
@@ -2151,31 +1290,25 @@ of the sentence that I wanted to test.
 This lead to many sentence cards, which naturally meant that Anki sessions lasted longer.</p>
 <p>I attempted to tackle these exact issues by introducing new card types
 outside of the fundamental vocab and sentence cards.</p>
-<p><a href="../assets/cardtypes/all_card_types.png"><img alt="" src="../assets/cardtypes/all_card_types.png"></a></p>
-<hr>
-<h2 id="changing-card-type">Changing Card Type<a class="headerlink" href="#changing-card-type" title="Permanent link">¶</a></h2>
-<p>The rest of this page will document all card types that this note can create,
-and will use certain terminology such as "filling a field".
-If you do not know what this means, see the
-<a href="../quickstart/#changing-the-card-type">quickstart page</a> on just that.</p>
-<hr>
-<h2 id="vocab-card">Vocab Card<a class="headerlink" href="#vocab-card" title="Permanent link">¶</a></h2>
-<p><a href="../assets/cardtypes/word.png"><img alt="" src="../assets/cardtypes/word.png"></a></p>
+<p><a href="../assets/cardtypes/all_card_types.png"><img alt="" src="../assets/cardtypes/all_card_types.png" /></a></p>
+<hr />
+<h2 id="vocab-card">Vocab Card<a class="headerlink" href="#vocab-card" title="Permanent link">&para;</a></h2>
+<p><a href="../assets/cardtypes/word.png"><img alt="" src="../assets/cardtypes/word.png" /></a></p>
 <p>A vocab card simply shows the target word at the front.
 You test yourself on the reading and definition of the word.</p>
 <p><strong>How to create:</strong> <br>
 This is the default card type.
 Nothing has to be done for the card to be a vocab card.</p>
-<hr>
-<h2 id="sentence-card">Sentence Card<a class="headerlink" href="#sentence-card" title="Permanent link">¶</a></h2>
-<p><a href="../assets/cardtypes/sentence.png"><img alt="" src="../assets/cardtypes/sentence.png"></a></p>
+<hr />
+<h2 id="sentence-card">Sentence Card<a class="headerlink" href="#sentence-card" title="Permanent link">&para;</a></h2>
+<p><a href="../assets/cardtypes/sentence.png"><img alt="" src="../assets/cardtypes/sentence.png" /></a></p>
 <p>A sentence card simply shows the entire sentence at the front.
 You test yourself on the reading and meaning of the entire sentence.</p>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsSentenceCard</code> field.</p>
-<hr>
-<h2 id="targeted-sentence-card">Targeted Sentence Card <small>(TSC)</small><a class="headerlink" href="#targeted-sentence-card" title="Permanent link">¶</a></h2>
-<p><a href="../assets/cardtypes/tsc.png"><img alt="" src="../assets/cardtypes/tsc.png"></a></p>
+<hr />
+<h2 id="targeted-sentence-card-tsc">Targeted Sentence Card (TSC)<a class="headerlink" href="#targeted-sentence-card-tsc" title="Permanent link">&para;</a></h2>
+<p><a href="../assets/cardtypes/tsc.png"><img alt="" src="../assets/cardtypes/tsc.png" /></a></p>
 <p>A targeted sentence card is a special case of the sentence card.
 The sentence is shown at the front, but only the highlighted content (only the word by default)
 is tested.
@@ -2185,45 +1318,72 @@ but you don't have to waste your time testing other parts of the sentence.</p>
 <a href="https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards">here</a>.</p>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsTargetedSentenceCard</code> field.</p>
-<hr>
-<h2 id="audio-cards">Audio Cards<a class="headerlink" href="#audio-cards" title="Permanent link">¶</a></h2>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<p>(TODO new image)</p>
-<p><a href="../assets/fieldref/cloze_deletion.png"><img alt="cloze deletion card" src="../assets/fieldref/cloze_deletion.png"></a></p>
-<p>Audio cards allows you to create cards that tests word or sentence audio.</p>
-<p><strong>Indicator:</strong> The sentence contains <span class="jpmn-highlight"><strong>[...]</strong></span></p>
-<p><strong>How to test:</strong> <br></p>
-<ol>
-<li>The audio should be automatically played on the front side of the card.
-    With this audio, test yourself on the meaning and reading of the unknown section.</li>
-</ol>
+<hr />
+<h2 id="hint-cards">Hint Cards<a class="headerlink" href="#hint-cards" title="Permanent link">&para;</a></h2>
+<p>Hint cards are a group of card types that display the sentence
+below the word.
+This acts as a better alternative compared to manually adding the sentence
+in the <code>Hint</code> (or <code>HintNotHidden</code>) field.</p>
+<p><br></p>
+<h3 id="hint-vocab-card">Hint Vocab Card<a class="headerlink" href="#hint-vocab-card" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.12.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<p>TODO img</p>
+<p>A hint vocab card is simply a vocab card that shows the sentence below the word.
+The tested content is the word itself, so you would test yourself as if it were a
+<a href="#targeted-sentence-card-tsc">TSC</a> or
+<a href="#hover-vocab-card">Hover Vocab card</a>.</p>
 <p><strong>How to create:</strong> <br>
-Fill the <code>IsAudioCard</code> field.
-The word(s) that are hidden are exactly the words that are bolded in the <code>Sentence</code>
-(or the <code>AltDisplaySentence</code>) field.</p>
+Fill the <code>IsHintCard</code> field.</p>
+<p><br></p>
+<h3 id="hint-vocab-card-highlighted">Hint Vocab Card (highlighted)<a class="headerlink" href="#hint-vocab-card-highlighted" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.12.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<p>TODO img</p>
+<p>This is exactly the same as the Hint Vocab Card,
+except the word within the sentence is automatically highlighted.
+This is tested the exact same as the Hint Vocab Card.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHintCard</code> and <code>IsTargetedSentenceCard</code> fields.</p>
+<p><br></p>
+<h3 id="hint-sentence-card">Hint Sentence Card<a class="headerlink" href="#hint-sentence-card" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.12.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<p>TODO img</p>
+<p>A hint sentence card is very similar to a Hint Vocab card,
+except the tested content is the entire sentence.
+This is indicated by the fact that the word is colored.</p>
+<p>This is tested exactly like a <a href="#hover-sentence-card">Hover Sentence Card</a>.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHintCard</code> and <code>IsSentenceCard</code> fields.</p>
+<p><br></p>
+<h3 id="hint-tsc-card">Hint TSC Card<a class="headerlink" href="#hint-tsc-card" title="Permanent link">&para;</a></h3>
+<p>TODO img</p>
+<p>Similarily to the normal TSC, this can be used to only test yourself on a specific
+portion of the sentence.
+This is tested exactly like a <a href="#hybrid-tsc">Hover TSC</a>.</p>
+<p><strong>How to create:</strong> <br>
+Fill the <code>IsHintCard</code>, <code>IsSentenceCard</code> and <code>IsTargetedSentenceCard</code> fields.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Before version <code>0.12.0.0</code>, these were misnamed as "Cloze Deletion Cards, and the field was misnamed as <code>IsClozeDeletionCard</code>".</p>
+<p>For all other card types, only <code>IsTargetedSentenceCard</code> has to be filled
+to create a TSC.
+However, for hint cards, both <code>IsSentenceCard</code> and <code>IsTargetedSentenceCard</code>
+must be filled out.</p>
 </div>
-<hr>
-<h2 id="sentence-audio-cards">Sentence Audio Cards<a class="headerlink" href="#sentence-audio-cards" title="Permanent link">¶</a></h2>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<p>(TODO image)</p>
-<p>This is simply a regular audio card, but the entire sentence is tested.</p>
-<p><strong>Indicator:</strong> The displayed text is exactly 「<span class="jpmn-highlight"><strong>？</strong></span>」</p>
-<p><strong>How to test:</strong> <br></p>
-<ol>
-<li>The audio should be automatically played on the front side of the card.
-    With this audio, test yourself on the meaning and reading of the entire sentence.</li>
-</ol>
-<p><strong>How to create:</strong> <br>
-Fill the <code>IsAudioCard</code> and <code>IsSentenceCard</code> field.</p>
-<hr>
-<h2 id="reveal-cards">Reveal Cards<a class="headerlink" href="#reveal-cards" title="Permanent link">¶</a></h2>
-<p>Reveal cards (previously known as hybrid cards) are a group of card types that
-have the distinct feature that the word is shown at the front,
+<hr />
+<h2 id="hybrid-cards">Hybrid Cards<a class="headerlink" href="#hybrid-cards" title="Permanent link">&para;</a></h2>
+<p>Hybrid cards are a group of card types that attempt to combine the power of
+sentence cards and vocab cards into one.
+They all have the distinct feature that the word is shown at the front,
 while the sentence is hidden but can be shown through some natural means.
-Additionally, all reveal cards have some form of underline beneath
+Additionally, all hybrid cards have some form of underline beneath
 the tested word, to differentiate it between a vocab card.</p>
 <p>The primary reason why this exists is to prevent
 context-based memories.
@@ -2233,7 +1393,7 @@ you may only remember the tested word due to its surrounding context.</p>
 <p class="admonition-title">Notes</p>
 <ul>
 <li>
-<p>For all forms of reveal cards, you can press <code>n</code> to toggle
+<p>For all forms of hybrid cards, you can press <code>n</code> to toggle
     whether the sentence is shown or not.</p>
 </li>
 <li>
@@ -2243,8 +1403,9 @@ you may only remember the tested word due to its surrounding context.</p>
 </li>
 </ul>
 </div>
-<h3 id="hover-vocab-card">Hover Vocab Card<a class="headerlink" href="#hover-vocab-card" title="Permanent link">¶</a></h3>
-<p><a href="../assets/cardtypes/hover_word.gif"><img alt="" src="../assets/cardtypes/hover_word.gif"></a></p>
+<p><br></p>
+<h3 id="hover-vocab-card">Hover Vocab Card<a class="headerlink" href="#hover-vocab-card" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/cardtypes/hover_word.gif"><img alt="" src="../assets/cardtypes/hover_word.gif" /></a></p>
 <p>A hover vocab word shows the tested word at the front.
 When you hover over the word,
 you can see the full sentence, with the tested word highlighted.</p>
@@ -2261,8 +1422,9 @@ However, you are given the option to see the full sentence without failing the c
 </ol>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsHoverCard</code> field.</p>
-<h3 id="click-vocab-card">Click Vocab Card<a class="headerlink" href="#click-vocab-card" title="Permanent link">¶</a></h3>
-<p><a href="../assets/cardtypes/click_word.gif"><img alt="" src="../assets/cardtypes/click_word.gif"></a></p>
+<p><br></p>
+<h3 id="click-vocab-card">Click Vocab Card<a class="headerlink" href="#click-vocab-card" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/cardtypes/click_word.gif"><img alt="" src="../assets/cardtypes/click_word.gif" /></a></p>
 <p>A click vocab word shows the tested word at the front.
 When you click on the word, you can see the full sentence,
 with the tested word highlighted.</p>
@@ -2284,8 +1446,9 @@ but you can use the sentence to guess the definition.</p>
 </ol>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsClickCard</code> field.</p>
-<h3 id="hover-sentence-card">Hover Sentence Card<a class="headerlink" href="#hover-sentence-card" title="Permanent link">¶</a></h3>
-<p><a href="../assets/cardtypes/hover_sentence.gif"><img alt="" src="../assets/cardtypes/hover_sentence.gif"></a></p>
+<p><br></p>
+<h3 id="hover-sentence-card">Hover Sentence Card<a class="headerlink" href="#hover-sentence-card" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/cardtypes/hover_sentence.gif"><img alt="" src="../assets/cardtypes/hover_sentence.gif" /></a></p>
 <p>This acts similarly to the hover vocab card.
 However, the tested content is the entire sentence,
 so you must hover over the word to test the entire sentence.</p>
@@ -2298,8 +1461,9 @@ so you must hover over the word to test the entire sentence.</p>
 </ol>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsHoverCard</code> and <code>IsSentenceCard</code> fields.</p>
-<h3 id="click-sentence-card">Click Sentence Card<a class="headerlink" href="#click-sentence-card" title="Permanent link">¶</a></h3>
-<p><a href="../assets/cardtypes/click_sentence.gif"><img alt="" src="../assets/cardtypes/click_sentence.gif"></a></p>
+<p><br></p>
+<h3 id="click-sentence-card">Click Sentence Card<a class="headerlink" href="#click-sentence-card" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/cardtypes/click_sentence.gif"><img alt="" src="../assets/cardtypes/click_sentence.gif" /></a></p>
 <p>This acts similar to the click vocab card.
 However, similarly to the hover sentence card, the tested content is the entire display,
 so you must click the word to test the entire display</p>
@@ -2314,15 +1478,19 @@ so you must click the word to test the entire display</p>
 </ol>
 <p><strong>How to create:</strong> <br>
 Fill the <code>IsClickCard</code> and <code>IsSentenceCard</code> fields.</p>
-<h3 id="reveal-tsc">Reveal TSC<a class="headerlink" href="#reveal-tsc" title="Permanent link">¶</a></h3>
-<p><a href="../assets/cardtypes/hover_tsc.gif"><img alt="" src="../assets/cardtypes/hover_tsc.gif"></a></p>
+<p><br></p>
+<h3 id="hybrid-tsc">Hybrid TSC<a class="headerlink" href="#hybrid-tsc" title="Permanent link">&para;</a></h3>
+<p><a href="../assets/cardtypes/hover_tsc.gif"><img alt="" src="../assets/cardtypes/hover_tsc.gif" /></a></p>
 <p>Similarly to the normal TSC, if you want to use the hover sentence card or click sentence card
 to only test a specific portion of the sentence, you can bold the desired
 selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 <p>The above example is a Hover TSC, with the last sentence bolded.</p>
-<h3 id="reveal-hint-card">Reveal Hint Card<a class="headerlink" href="#reveal-hint-card" title="Permanent link">¶</a></h3>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Hover Hint</label><label for="__tabbed_1_2">Click Hint</label></div>
+<h3 id="hybrid-hint-card">Hybrid Hint Card<a class="headerlink" href="#hybrid-hint-card" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>New as of version <code>0.12.0.0</code>. This version is currently <a href="../building/" target="_blank">bleeding edge</a>, so this feature <strong>cannot be used</strong> unless you compile the templates from the dev branch.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Hover Hint</label><label for="__tabbed_1_2">Click Hint</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>TODO image</p>
@@ -2333,117 +1501,26 @@ selection of the sentence and fill <code>IsTargetedSentenceCard</code>.</p>
 </div>
 </div>
 <p>Similarly to a normal hint card, filling the <code>IsHintCard</code>
-allows the reveal card type to reveal the sentence below the word (instead of replacing the word).
-You would test this like any normal reveal card,
-because this is simply a change in the style of how the information is displayed.</p>
-<hr>
-<h2 id="hint-cards">Hint Cards<a class="headerlink" href="#hint-cards" title="Permanent link">¶</a></h2>
-<p>Hint cards are a group of card types that display the sentence
-below the word.
-This acts as a better alternative compared to manually adding the sentence
-in the <code>Hint</code> (or <code>HintNotHidden</code>) field.</p>
-<h3 id="hint-vocab-card">Hint Vocab Card<a class="headerlink" href="#hint-vocab-card" title="Permanent link">¶</a></h3>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<p>TODO img</p>
-<p>A hint vocab card is simply a vocab card that shows the sentence below the word.
-The tested content is the word itself, so you would test yourself as if it were a
-<a href="#targeted-sentence-card">TSC</a> or
-<a href="#hover-vocab-card">Hover Vocab card</a>.</p>
-<p><strong>How to create:</strong> <br>
-Fill the <code>IsHintCard</code> field.</p>
-<h3 id="hint-vocab-card-highlighted">Hint Vocab Card (highlighted)<a class="headerlink" href="#hint-vocab-card-highlighted" title="Permanent link">¶</a></h3>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<p>TODO img</p>
-<p>This is exactly the same as the Hint Vocab Card,
-except the word within the sentence is automatically highlighted.
-This is tested the exact same as the Hint Vocab Card.</p>
-<p>The reason why a highlighted word is not the default is because I found that I was focusing
-too heavily on the highlighted word instead of the word itself.
-To guarantee that you do not see the sentence unless you actually want to,
-see <a href="#reveal-cards">reveal cards</a>.</p>
-<p><strong>How to create:</strong> <br>
-Fill the <code>IsHintCard</code> and <code>IsTargetedSentenceCard</code> fields.</p>
-<h3 id="hint-sentence-card">Hint Sentence Card<a class="headerlink" href="#hint-sentence-card" title="Permanent link">¶</a></h3>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<p>TODO img</p>
-<p>A hint sentence card is very similar to a Hint Vocab card,
-except the tested content is the entire sentence.
-This is indicated by the fact that the word is colored.</p>
-<p>This is tested exactly like a <a href="#hover-sentence-card">Hover Sentence Card</a>.</p>
-<p><strong>How to create:</strong> <br>
-Fill the <code>IsHintCard</code> and <code>IsSentenceCard</code> fields.</p>
-<h3 id="hint-tscs">Hint TSCs<a class="headerlink" href="#hint-tscs" title="Permanent link">¶</a></h3>
-<p>TODO img</p>
-<p>Similarily to the normal TSC, this can be used to only test yourself on a specific
-portion of the sentence.
-This is tested exactly like a <a href="#reveal-tsc">Hover TSC</a>.</p>
-<p><strong>How to create:</strong> <br>
-Fill the <code>IsHintCard</code>, <code>IsSentenceCard</code> and <code>IsTargetedSentenceCard</code> fields.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For all other card types, only <code>IsTargetedSentenceCard</code> has to be filled
-to create a TSC.
-However, for hint cards, both <code>IsSentenceCard</code> and <code>IsTargetedSentenceCard</code>
-must be filled out.</p>
-</div>
-<hr>
-<h2 id="sentence-first-cards">Sentence-First Cards<a class="headerlink" href="#sentence-first-cards" title="Permanent link">¶</a></h2>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<p>(TODO image)</p>
-<p>Sentence-first cards are a group of cards that
-show the sentence first, and then show the tested word below.
-For these cards, you must read the entire sentence,
-but you only test yourself on the tested word.
-This differs from TSCs, because with TSCs, you do not need to read the entire sentence.</p>
-<p><strong>How to create:</strong> <br>
-Fill the <code>IsSentenceFirstCard</code> field.</p>
-<h3 id="sentence-first-tscs">Sentence-First TSCs<a class="headerlink" href="#sentence-first-tscs" title="Permanent link">¶</a></h3>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<p>(TODO image)</p>
-<p>Just like a TSC, if you only want to read one specific portion of the sentence,
-you can highlight that specific portion.</p>
-<p>It is expected that you use the <code>AltDisplaySentence</code> field to set the custom highlight.
-There is no reason to use this with the default highlighted word
-(because you would then test it exactly the same as a normal TSC).</p>
-<p><strong>How to create:</strong> <br>
-Fill the <code>IsSentenceFirstCard</code> and <code>IsTargetedSentenceCard</code> fields.</p>
-<h3 id="sentence-first-cards-hiding-the-word">Sentence-First Cards: Hiding the word<a class="headerlink" href="#sentence-first-cards-hiding-the-word" title="Permanent link">¶</a></h3>
-<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Hide until hover</label><label for="__tabbed_2_2">Hide until click</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>TODO image</p>
-</div>
-<div class="tabbed-block">
-<p>TODO image</p>
-</div>
-</div>
-</div>
-<p>If you do not wish to see the word accidentally before reading the entire sentence,
-one can use the <code>IsHoverCard</code> or <code>IsClickCard</code> to hide the word
-until you hover over or click on the sentence, respectively.</p>
-<p>You would test yourself on these just like any other sentence-first card.</p>
-<hr>
-<h2 id="card-creation-summary">Card Creation Summary<a class="headerlink" href="#card-creation-summary" title="Permanent link">¶</a></h2>
+allows the hybrid card type to reveal the sentence below the word (instead of replacing the word).
+As this is simply a matter of style, you would test this like any normal hybrid card.</p>
+<hr />
+<h2 id="card-creation-summary">Card Creation Summary<a class="headerlink" href="#card-creation-summary" title="Permanent link">&para;</a></h2>
 <p>The top row contains shorthands for the actual field names used:</p>
 <ul>
 <li>Sent: <code>IsSentenceCard</code></li>
 <li>TSC: <code>IsTargetedSentenceCard</code></li>
+<li>Hint: <code>IsHintCard</code></li>
 <li>Click: <code>IsClickCard</code></li>
 <li>Hover: <code>IsHoverCard</code></li>
-<li>Audio: <code>IsAudioCard</code></li>
-<li>Hint: <code>IsHintCard</code></li>
-<li>Sent-First: <code>IsSentenceFirstCard</code></li>
 </ul>
-<p><strong>Card Creation Summary (Common Cards)</strong></p>
 <table>
 <thead>
 <tr>
 <th align="center">Sent</th>
 <th align="center">TSC</th>
+<th align="center">Hint</th>
 <th align="center">Click</th>
 <th align="center">Hover</th>
-<th align="center">Audio</th>
 <th>Result (Card Type)</th>
 </tr>
 </thead>
@@ -2478,91 +1555,11 @@ until you hover over or click on the sentence, respectively.</p>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center"></td>
-<td class="smaller-table-row">Click Vocab</td>
-</tr>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center"></td>
-<td class="smaller-table-row">Click Sentence</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center"></td>
-<td class="smaller-table-row">Click TSC</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td class="smaller-table-row">Hover Vocab</td>
-</tr>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td class="smaller-table-row">Hover Sentence</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td class="smaller-table-row">Hover TSC</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td class="smaller-table-row">Audio Card</td>
-</tr>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td class="smaller-table-row">Sentence Audio Card</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Card Creation Summary (Hint Cards)</strong></p>
-<p>This table assumes you have <code>IsHintCard</code> filled.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Hint</th>
-<th align="center">Sent</th>
-<th align="center">TSC</th>
-<th align="center">Click</th>
-<th align="center">Hover</th>
-<th>Result (Card Type)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
 <td class="smaller-table-row">Hint Vocab Card</td>
 </tr>
 <tr>
-<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -2570,8 +1567,8 @@ until you hover over or click on the sentence, respectively.</p>
 </tr>
 <tr>
 <td align="center" class="smaller-table-row">🗸</td>
-<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center"></td>
 <td class="smaller-table-row">Hint Sentence Card</td>
@@ -2585,48 +1582,96 @@ until you hover over or click on the sentence, respectively.</p>
 <td class="smaller-table-row">Hint TSC</td>
 </tr>
 <tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td class="smaller-table-row">Click Vocab</td>
+</tr>
+<tr>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td class="smaller-table-row">Click Sentence</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td class="smaller-table-row">Click TSC</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td class="smaller-table-row">Click Hint Vocab</td>
 </tr>
 <tr>
 <td align="center" class="smaller-table-row">🗸</td>
-<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td class="smaller-table-row">Click Hint Sentence</td>
 </tr>
 <tr>
-<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td class="smaller-table-row">Click Hint TSC</td>
 </tr>
 <tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td class="smaller-table-row">Hover Vocab</td>
+</tr>
+<tr>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td class="smaller-table-row">Hover Sentence</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
+<td class="smaller-table-row">Hover TSC</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td class="smaller-table-row">Hover Hint Vocab</td>
 </tr>
 <tr>
 <td align="center" class="smaller-table-row">🗸</td>
-<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td class="smaller-table-row">Hover Hint Sentence</td>
 </tr>
 <tr>
-<td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
+<td align="center" class="smaller-table-row">🗸</td>
 <td align="center" class="smaller-table-row">🗸</td>
 <td align="center"></td>
 <td align="center" class="smaller-table-row">🗸</td>
@@ -2634,70 +1679,13 @@ until you hover over or click on the sentence, respectively.</p>
 </tr>
 </tbody>
 </table>
-<p><strong>Card Creation Summary (Sentence-First Cards)</strong></p>
-<p>This table assumes you have <code>IsSentenceFirst</code> filled.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Sent-First</th>
-<th align="center">TSC</th>
-<th align="center">Click</th>
-<th align="center">Hover</th>
-<th>Result (Card Type)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td class="smaller-table-row">Sentence-First Card</td>
-</tr>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center"></td>
-<td class="smaller-table-row">Sentence-First TSC</td>
-</tr>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td class="smaller-table-row">Click Sentence-First Card</td>
-</tr>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td class="smaller-table-row">Click Sentence-First TSC</td>
-</tr>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td class="smaller-table-row">Hover Sentence-First Card</td>
-</tr>
-<tr>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td align="center"></td>
-<td align="center" class="smaller-table-row">🗸</td>
-<td class="smaller-table-row">Hover Sentence-First TSC</td>
-</tr>
-</tbody>
-</table></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2022</span>
       
     
   </small>
@@ -2716,28 +1704,82 @@ until you hover over or click on the sentence, respectively.</p>
         
       </main>
       
-        <footer class="md-footer">
+<!-- Footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
   
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-</div>
+    
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="Footer"
       
-    </div>
-  </div>
+    >
+
+      <!-- Link to previous page -->
+      
+        
+        <a
+          href="../autopa/"
+          class="md-footer__link md-footer__link--prev"
+          aria-label="Previous: Pitch Accent"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Pitch Accent
+            </div>
+          </div>
+        </a>
+      
+
+      <!-- Link to next page -->
+      
+        
+        <a
+          href="../tooltipresults/"
+          class="md-footer__link md-footer__link--next"
+          aria-label="Next: Tooltip Results (TODO)"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Tooltip Results (TODO)
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+
+  
+
 </footer>
-      
+
+
+
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate", "content.code.copy", "content.action.view"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.fac441b0.min.js"></script>
+      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
       
     
   </body>
