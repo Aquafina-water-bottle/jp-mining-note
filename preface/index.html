@@ -10,10 +10,16 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/preface/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/preface/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../principles/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.9">
     
     
       
@@ -21,11 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a6bdf11c.min.css">
       
       
 
@@ -60,7 +65,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo">
   
     
     
@@ -72,12 +77,25 @@
     <div data-md-component="skip">
       
         
-        <a href="#supported-systems" class="md-skip">
+        <a href="#why-you-would-not-want-to-use-jp-mining-note" class="md-skip">
           Skip to content
         </a>
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+
+<b class="jpmn-highlight">WARNING</b>: This documentation is for the latest pre-release version of jp-mining-note, and is very WIP / incomplete. <br>
+If you are looking for the stable release documentation, see <a href="https://aquafina-water-bottle.github.io/jp-mining-note/">here</a>.
+
+
+          </div>
+          
+        </aside>
       
     </div>
     
@@ -88,8 +106,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -112,27 +129,31 @@
       </div>
     </div>
     
-      <form class="md-header__option" data-md-component="palette">
-        
+      
+        <form class="md-header__option" data-md-component="palette">
           
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+              </label>
+            
           
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+              </label>
+            
           
-            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
-            </label>
-          
-        
-          
-          
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
-          
-            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
-            </label>
-          
-        
-      </form>
+        </form>
+      
     
     
     
@@ -162,7 +183,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -174,7 +195,7 @@
         <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -193,7 +214,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -239,7 +260,23 @@
   
   
     <li class="md-tabs__item">
-      <a href="../ui/" class="md-tabs__link">
+      <a href="../updating/" class="md-tabs__link">
+        Updating
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quickstart/" class="md-tabs__link">
         Reference
       </a>
     </li>
@@ -251,11 +288,15 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../faq/" class="md-tabs__link">
-      FAQ & Troubleshooting
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../modding/" class="md-tabs__link">
+        Dev Docs
+      </a>
+    </li>
+  
 
       
         
@@ -263,11 +304,31 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../jpresources/" class="md-tabs__link">
-      JP Resources
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq/" class="md-tabs__link">
+        FAQ & Troubleshooting
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../jpresources/" class="md-tabs__link">
+        JP Resources
+      </a>
+    </li>
+  
 
       
     </ul>
@@ -293,8 +354,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo.png" alt="logo">
 
     </a>
     jp-mining-note
@@ -304,7 +364,7 @@
       <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -327,17 +387,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1">
+        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
           Home
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Home
@@ -371,17 +432,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1_2">
+        <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
           Getting Started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1_2">
           <span class="md-nav__icon md-icon"></span>
           Getting Started
@@ -397,7 +459,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
       
@@ -422,6 +484,27 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-you-would-not-want-to-use-jp-mining-note" class="md-nav__link">
+    Why you would NOT want to use jp-mining-note
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-you-would-want-to-use-jp-mining-note" class="md-nav__link">
+    Why you would want to use jp-mining-note
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives" class="md-nav__link">
+    Alternatives
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#supported-systems" class="md-nav__link">
@@ -479,61 +562,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#theme-design-principles" class="md-nav__link">
-    Theme &amp; Design Principles
-  </a>
-  
-    <nav class="md-nav" aria-label="Theme &amp; Design Principles">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#made-for-japanese-learning" class="md-nav__link">
-    Made for Japanese Learning
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#minimalistic-design" class="md-nav__link">
-    Minimalistic Design
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#minimal-dependencies" class="md-nav__link">
-    Minimal Dependencies
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modularized-customizable-extendable" class="md-nav__link">
-    Modularized, Customizable &amp; Extendable
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#free-open-source" class="md-nav__link">
-    Free &amp; Open Source
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alternatives" class="md-nav__link">
-    Alternatives
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#setup" class="md-nav__link">
     Setup
   </a>
@@ -544,6 +572,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../principles/" class="md-nav__link">
+        Philosophy
+      </a>
     </li>
   
 
@@ -587,17 +629,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Setup
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Setup
@@ -652,8 +695,51 @@
   
   
     <li class="md-nav__item">
-      <a href="../setupeverythingelse/" class="md-nav__link">
-        Setup: Everything Else
+      <a href="../setuptextmedia/" class="md-nav__link">
+        Setup: Text & Media
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          Text & Media
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Text & Media
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupmpvacious/" class="md-nav__link">
+        mpvacious (TODO)
       </a>
     </li>
   
@@ -666,8 +752,114 @@
   
   
     <li class="md-nav__item">
-      <a href="../setupother/" class="md-nav__link">
-        Setup: Other
+      <a href="../setupasbplayer/" class="md-nav__link">
+        asbplayer (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          Extra Setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Extra Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupextrayomichan/" class="md-nav__link">
+        Extra: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupextraanki/" class="md-nav__link">
+        Extra: Anki
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupandroid/" class="md-nav__link">
+        Extra: Android
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupios/" class="md-nav__link">
+        Extra: iOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupereaders/" class="md-nav__link">
+        Extra: eReaders
       </a>
     </li>
   
@@ -688,6 +880,126 @@
 
             
           
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          Alternate Card Exporters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Alternate Card Exporters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupjl/" class="md-nav__link">
+        JL (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupjidoujisho/" class="md-nav__link">
+        jidoujisho (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupgoldendict/" class="md-nav__link">
+        goldendict (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Updating
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Updating
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
   
@@ -695,7 +1007,77 @@
   
     <li class="md-nav__item">
       <a href="../updating/" class="md-nav__link">
-        Updating
+        Updating: Overview (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingjpmn/" class="md-nav__link">
+        Updating: JPMN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingyomichan/" class="md-nav__link">
+        Updating: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupchanges/" class="md-nav__link">
+        Setup Changes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingfinalsteps/" class="md-nav__link">
+        Final Steps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/CHANGELOG.md" class="md-nav__link">
+        Changelog
       </a>
     </li>
   
@@ -719,18 +1101,19 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Reference
         </label>
@@ -742,8 +1125,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../ui/" class="md-nav__link">
-        User Interface
+      <a href="../quickstart/" class="md-nav__link">
+        Quick Start (TODO)
       </a>
     </li>
   
@@ -756,22 +1139,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../uicustomization/" class="md-nav__link">
-        UI Customization
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fieldref/" class="md-nav__link">
-        Field Reference
+      <a href="../blockquotes/" class="md-nav__link">
+        Blockquotes (TODO)
       </a>
     </li>
   
@@ -785,7 +1154,77 @@
   
     <li class="md-nav__item">
       <a href="../definitions/" class="md-nav__link">
-        Definitions
+        Definitions (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentences/" class="md-nav__link">
+        Sentences (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changingcardtype/" class="md-nav__link">
+        Changing Card Type (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes2/" class="md-nav__link">
+        More on Card Types (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keybinds/" class="md-nav__link">
+        Keybinds
       </a>
     </li>
   
@@ -826,8 +1265,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
+      <a href="../kanjihover/" class="md-nav__link">
+        Kanji Hover (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wordindicators/" class="md-nav__link">
+        Word Indicators (TODO)
       </a>
     </li>
   
@@ -853,24 +1306,123 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../infocircle/" class="md-nav__link">
+        Info Circle (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frequencies/" class="md-nav__link">
+        Frequencies (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../externallinks/" class="md-nav__link">
+        External Links (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fields/" class="md-nav__link">
+        Fields (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backfilling/" class="md-nav__link">
+        Backfilling (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch/" class="md-nav__link">
+        Batch Commands (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/" class="md-nav__link">
+        Other (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
       
     
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_21" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3_9">
+        <label class="md-nav__link" for="__nav_4_21" id="__nav_4_21_label" tabindex="0">
           Options
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Options" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_9">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_21_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_21">
           <span class="md-nav__icon md-icon"></span>
           Options
         </label>
@@ -883,7 +1435,7 @@
   
     <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
-        Runtime Options
+        Runtime Options (TODO)
       </a>
     </li>
   
@@ -897,7 +1449,7 @@
   
     <li class="md-nav__item">
       <a href="../compiletimeoptions/" class="md-nav__link">
-        Compile-Time Options
+        Compile-Time Options (TODO)
       </a>
     </li>
   
@@ -911,7 +1463,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options
+        Yomichan Template Options (TODO)
       </a>
     </li>
   
@@ -925,31 +1477,38 @@
 
             
           
-            
-              
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
   
   
   
     
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_10">
-          Developer Documentation
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Dev Docs
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_10">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          Developer Documentation
+          Dev Docs
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -988,7 +1547,7 @@
   
     <li class="md-nav__item">
       <a href="../customcss/" class="md-nav__link">
-        Custom CSS
+        Custom CSS (TODO)
       </a>
     </li>
   
@@ -1002,7 +1561,7 @@
   
     <li class="md-nav__item">
       <a href="../overrides/" class="md-nav__link">
-        Custom HTML (Overrides)
+        Custom HTML (Overrides) (TODO)
       </a>
     </li>
   
@@ -1016,7 +1575,21 @@
   
     <li class="md-nav__item">
       <a href="../modules/" class="md-nav__link">
-        Custom JS (Modules)
+        Custom JS (Modules) (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../themes/" class="md-nav__link">
+        Themes (TODO)
       </a>
     </li>
   
@@ -1030,15 +1603,8 @@
   
     <li class="md-nav__item">
       <a href="../moddingtips/" class="md-nav__link">
-        Tips & Tricks
+        Tips & Tricks (TODO)
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1054,6 +1620,33 @@
       
       
 
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          FAQ & Troubleshooting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ & Troubleshooting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
   
   
   
@@ -1064,6 +1657,69 @@
     </li>
   
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#errors-warnings" class="md-nav__link">
+        FAQ: Errors & Warnings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#troubleshooting" class="md-nav__link">
+        FAQ: Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#card-editing" class="md-nav__link">
+        FAQ: Card Editing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#other-questions" class="md-nav__link">
+        FAQ: Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
     
       
       
@@ -1072,10 +1728,86 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          JP Resources
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          JP Resources
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../jpresources/" class="md-nav__link">
         JP Resources
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpmnhandlebars/" class="md-nav__link">
+        JPMN Handlebars Package
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripts/" class="md-nav__link">
+        Anki Scripts (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresourcesother/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1103,6 +1835,27 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-you-would-not-want-to-use-jp-mining-note" class="md-nav__link">
+    Why you would NOT want to use jp-mining-note
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-you-would-want-to-use-jp-mining-note" class="md-nav__link">
+    Why you would want to use jp-mining-note
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives" class="md-nav__link">
+    Alternatives
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#supported-systems" class="md-nav__link">
@@ -1160,61 +1913,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#theme-design-principles" class="md-nav__link">
-    Theme &amp; Design Principles
-  </a>
-  
-    <nav class="md-nav" aria-label="Theme &amp; Design Principles">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#made-for-japanese-learning" class="md-nav__link">
-    Made for Japanese Learning
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#minimalistic-design" class="md-nav__link">
-    Minimalistic Design
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#minimal-dependencies" class="md-nav__link">
-    Minimal Dependencies
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modularized-customizable-extendable" class="md-nav__link">
-    Modularized, Customizable &amp; Extendable
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#free-open-source" class="md-nav__link">
-    Free &amp; Open Source
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alternatives" class="md-nav__link">
-    Alternatives
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#setup" class="md-nav__link">
     Setup
   </a>
@@ -1235,100 +1933,138 @@
                 
                   
 
-
-
   
   
-  <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/docs/docs/preface.md"
-    title="View source of this page"
-    class="md-content__button md-icon"
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
-  </a>
+    
+      
+    
+    <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/raw/dev/docs/docs/preface.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
 
 
   <h1>Preface</h1>
 
-<p>Before committing and going through the setup process,
+<div><p>Before committing and going through the setup process,
 it would be best to make sure that the note aligns with exactly what you want.</p>
-<hr />
-<h2 id="supported-systems">Supported Systems<a class="headerlink" href="#supported-systems" title="Permanent link">&para;</a></h2>
+<hr>
+<h2 id="why-you-would-not-want-to-use-jp-mining-note">Why you would NOT want to use jp-mining-note<a class="headerlink" href="#why-you-would-not-want-to-use-jp-mining-note" title="Permanent link">¶</a></h2>
+<ul>
+<li>You have an existing setup and are happy with it.</li>
+<li>You want to study only from pre-made decks.</li>
+<li>You want to use this template to study something outside of Japanese.</li>
+<li>You want an extremely minimal template, with little/no javascript.</li>
+<li>You do not like its overall layout.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></li>
+<li>You are not comfortable with bearing a slightly higher maintenance cost than most other setups.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
+</ul>
+<h2 id="why-you-would-want-to-use-jp-mining-note">Why you would want to use jp-mining-note<a class="headerlink" href="#why-you-would-want-to-use-jp-mining-note" title="Permanent link">¶</a></h2>
+<!-- I don't like trying to "sell" people the note. If you like it, you like it. If you don't, you don't. -->
+<ul>
+<li>It looks pretty cool. :)</li>
+</ul>
+<h2 id="alternatives">Alternatives<a class="headerlink" href="#alternatives" title="Permanent link">¶</a></h2>
+<p>There are many, many Anki templates out there in the wild.
+<a href="../alternatives/">This page</a>
+is my attempt to assemble together some of the the popular and/or interesting card templates.</p>
+<p>If you are not satisfied with, or are not interested in using this template,
+feel free to refer to the above list of alternatives.
+Of course, you can always create one from scratch, or modify any of these notes
+to your heart's content.</p>
+<hr>
+<h2 id="supported-systems">Supported Systems<a class="headerlink" href="#supported-systems" title="Permanent link">¶</a></h2>
 <p>The most important step is to see if jp-mining-note (JPMN) works on your device.</p>
-<h3 id="card-creation-yomichan">Card Creation (Yomichan)<a class="headerlink" href="#card-creation-yomichan" title="Permanent link">&para;</a></h3>
+<h3 id="card-creation-yomichan">Card Creation (Yomichan)<a class="headerlink" href="#card-creation-yomichan" title="Permanent link">¶</a></h3>
 <p>The card creation process requires a working instance of Yomichan, Anki-Connect, and Anki.</p>
 <p>By default, this works on PC (Windows, Mac, Linux), and the instructions shown will be for PC.
 However, with the proper setup, one can also create cards on the following platforms:</p>
+<p>TODO update links with correct setup pages:</p>
 <ul>
 <li><a href="../setupyomichan/#android-setup">Android</a> (including Android based e-readers such as ONYX BOOX)</li>
 <li><a href="../setupyomichan/#kindle-setup">Kindle</a> (export to PC to create)</li>
 </ul>
 <p>I'm not aware of a workflow for iOS that works with Yomichan.</p>
-<h3 id="anki-desktop">Anki Desktop<a class="headerlink" href="#anki-desktop" title="Permanent link">&para;</a></h3>
-<p>Primary support is given to the latest stable Anki versions (2.1.54+ &amp; Qt6).
-Limited support will be given for older versions of Anki.
-With that being said, JPMN should work for Anki versions 2.1.49+.</p>
-<h3 id="mobile-ankidroid-and-ankimobile">Mobile (AnkiDroid and AnkiMobile)<a class="headerlink" href="#mobile-ankidroid-and-ankimobile" title="Permanent link">&para;</a></h3>
-<p>Mobile support is slowly being worked on,<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>
-but JPMN (on mobile) is currently not stable.
-Do not expect the note to work on mobile.
-Therefore, if you <em>absolutely must</em> use Anki on mobile,
-I recommend <strong>not using this note</strong>.</p>
-<h3 id="ankiweb">AnkiWeb<a class="headerlink" href="#ankiweb" title="Permanent link">&para;</a></h3>
-<p>There is no support for AnkiWeb,
-and there are no plans to support AnkiWeb.</p>
-<h3 id="themes">Themes<a class="headerlink" href="#themes" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TODO update this note!!! other card exporters will likely be supported in the future!</p>
+<p>JPMN currently requires Yomichan to create the Anki cards.
+As common as Yomichan is, this dependency to Yomichan can be considered a weakness.</p>
+<p>There are many popular setups out there that do not use Yomichan
+and instead have their own card exporter,
+such as
+<a href="https://github.com/rampaa/JL">JL</a>
+and
+<a href="https://github.com/lrorpilla/jidoujisho">jidoujisho</a>.
+Although it is likely possible to replicate certain parts of the setup
+with these card exporters, it is almost guaranteed that select features
+will be missing.</p>
+</div>
+<h3 id="anki-desktop">Anki Desktop<a class="headerlink" href="#anki-desktop" title="Permanent link">¶</a></h3>
+<p>This note supports Anki versions 2.1.50 and above, with
+primary support given to the latest stable Anki versions (2.1.61+ &amp; Qt6).</p>
+<p>It is important to note that <strong>this note is no longer supported for Anki versions 2.1.49 or older</strong>.
+There are certain features that are known to break on these versions.</p>
+<h3 id="mobile-ankidroid-and-ankimobile">Mobile (AnkiDroid and AnkiMobile)<a class="headerlink" href="#mobile-ankidroid-and-ankimobile" title="Permanent link">¶</a></h3>
+<p>JPMN finally supports AnkiDroid and AnkiMobile,
+and comes with a new interface specifically designed for mobile devices.</p>
+<p>However, there are some limitations on mobile. Mainly, anything requiring
+Anki-Connect within the note (kanji hover and word indicators) will not work.
+The current workaround is to <a href="../tooltipresults/#cache-tooltip-results">cache the tooltip results</a>.</p>
+<h3 id="ankiweb">AnkiWeb<a class="headerlink" href="#ankiweb" title="Permanent link">¶</a></h3>
+<p>JPMN is not tested on AnkiWeb, and there are currently no plans to support AnkiWeb.</p>
+<h3 id="themes">Themes<a class="headerlink" href="#themes" title="Permanent link">¶</a></h3>
 <p>Both light mode and dark mode are supported.
-However, dark mode is recommended as the main theme of this note.</p>
-<h3 id="updating">Updating<a class="headerlink" href="#updating" title="Permanent link">&para;</a></h3>
+The note's theme changes accordingly with your Anki theme.</p>
+<h3 id="updating">Updating<a class="headerlink" href="#updating" title="Permanent link">¶</a></h3>
 <p>If you ever wish to update the note, this can only be done on PC,
 and cannot be done on mobile.
-The note does not auto-update; you must manually update the note.</p>
-<hr />
-<h2 id="theme-design-principles">Theme &amp; Design Principles<a class="headerlink" href="#theme-design-principles" title="Permanent link">&para;</a></h2>
-<h3 id="made-for-japanese-learning">Made for Japanese Learning<a class="headerlink" href="#made-for-japanese-learning" title="Permanent link">&para;</a></h3>
-<p>The absolute fundamental goal of this note type is to <strong>make learning Japanese easier</strong>.
-Every feature you see is to simply make this learning process easier and smoother.</p>
-<h3 id="minimalistic-design">Minimalistic Design<a class="headerlink" href="#minimalistic-design" title="Permanent link">&para;</a></h3>
-<p>This note is visually designed to be minimalistic because the fundamental goal is to learn Japanese,
-not to have eye catching graphics.</p>
-<h3 id="minimal-dependencies">Minimal Dependencies<a class="headerlink" href="#minimal-dependencies" title="Permanent link">&para;</a></h3>
-<p>The only fundamental dependencies are <code>Yomichan</code> (to create the note) and the <code>Anki-Connect</code> add-on
-(to export the note from <code>Yomichan</code>, update the note, and for certain features to work within the note).
-Absolutely nothing else is required.
-This helps with maintaining stability across various Anki versions.</p>
-<h3 id="modularized-customizable-extendable">Modularized, Customizable &amp; Extendable<a class="headerlink" href="#modularized-customizable-extendable" title="Permanent link">&para;</a></h3>
-<p>This project ships with <a href="../runtimeoptions/">built-in tools</a> to easily disable/enable features,
-or even completely remove them from the base template via <a href="../compiletimeoptions/">compile-time options</a>.
-Additionally, there are <a href="../modding/">many built-in ways</a> to extend the note to suit your exact needs.</p>
-<h3 id="free-open-source">Free &amp; Open Source<a class="headerlink" href="#free-open-source" title="Permanent link">&para;</a></h3>
-<p>Everything here, including the documentation itself, is completely free and open source,
-licensed under <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/LICENSE">MIT</a>.
-Rest easy knowing you will keep full ownership of your note, forever.</p>
-<hr />
-<h2 id="alternatives">Alternatives<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h2>
-<p>There are many, many Anki templates out there in the wild.
-<a href="../alternatives/">The following page</a>
-is my attempt to assemble together some of the the popular and/or interesting card templates.</p>
-<hr />
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+The note does not auto-update; it must be done manually.</p>
+<hr>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">¶</a></h2>
 <p>Excited to take this note on a whirl?</p>
 <p><a class="md-button" href="../setup/">Click here to set it up!</a></p>
 <div class="footnote">
-<hr />
+<hr>
 <ol>
 <li id="fn:1">
-<p>Written as of 2022/10/31.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>TODO not point form</p>
+<ul>
+<li>most smaller things, like colors, font size, etc. can be customized fairly easily</li>
+<li>however, customizing the overall layout, i.e. where the image is placed relative to the word,
+    requires a lot more techncial skill</li>
+<li>if using a prebuilt theme, requires building, which also requires a bit of technical skill with
+    command line</li>
+</ul>
+<p><a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>TODO not point form</p>
+<ul>
+<li>in general, this template is a little more fragile than other templates due to heavy usage of javascript<ul>
+<li>internally attempts to mitigate as much as possible, providing plenty of fallbacks when things fail</li>
+</ul>
+</li>
+<li>updates to anything such as Anki, add-ons, etc. can (and have been known to)
+    break more things than other setups<ul>
+<li>these things usually require user intervention to deal with</li>
+<li>usually recorded under setup changes</li>
+</ul>
+</li>
+<li>updating everything on the template side of things has been smoothlined as much as possible,
+    due to JPMN Manager</li>
+</ul>
+<p><a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 </ol>
-</div>
+</div></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 20, 2023</span>
       
     
   </small>
@@ -1347,82 +2083,28 @@ is my attempt to assemble together some of the the popular and/or interesting ca
         
       </main>
       
-<!-- Footer -->
-<footer class="md-footer">
-
-  <!-- Link to previous and/or next page -->
+        <footer class="md-footer">
   
-    
-    <nav
-      class="md-footer__inner md-grid"
-      aria-label="Footer"
-      
-    >
-
-      <!-- Link to previous page -->
-      
-        
-        <a
-          href=".."
-          class="md-footer__link md-footer__link--prev"
-          aria-label="Previous: Home"
-          rel="prev"
-        >
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Home
-            </div>
-          </div>
-        </a>
-      
-
-      <!-- Link to next page -->
-      
-        
-        <a
-          href="../alternatives/"
-          class="md-footer__link md-footer__link--next"
-          aria-label="Next: Alternatives"
-          rel="next"
-        >
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Alternatives
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
   
-
   
-
+</div>
+      
+    </div>
+  </div>
 </footer>
-
-
-
-
+      
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate", "content.code.copy", "content.action.view"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      <script src="../assets/javascripts/bundle.fac441b0.min.js"></script>
       
     
   </body>

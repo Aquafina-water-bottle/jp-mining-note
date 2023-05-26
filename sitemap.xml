@@ -1,153 +1,318 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/alternatives/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/alternatives/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/autopa/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/autopa/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/building/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/backfilling/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/cardtypes/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/batch/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/compiletimeoptions/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/blockquotes/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/customcss/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/building/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/definitions/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/cardtypes/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/faq/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/cardtypes2/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/fieldref/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/changingcardtype/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/images/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/compiletimeoptions/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/importing/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/customcss/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/jpresources/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/definitions/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/modding/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/externallinks/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/moddingtips/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/modules/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/fieldref/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/overrides/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/fields/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/personalsetup/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/frequencies/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/preface/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/images/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/runtimeoptions/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/importing/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/setup/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/infocircle/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/setupanki/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/jpmnhandlebars/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/setupeverythingelse/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/jpresources/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/setupother/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/jpresourcesother/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/setupyomichan/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/kanjihover/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/tooltipresults/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/keybinds/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/ui/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/modding/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/uicustomization/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/moddingtips/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/updating/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/modules/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://aquafina-water-bottle.github.io/jp-mining-note/yomichantemplates/</loc>
-         <lastmod>2023-05-23</lastmod>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/other/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/overrides/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/personalsetup/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/preface/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/principles/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/quickstart/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/runtimeoptions/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/scripts/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/sentences/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setup/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupandroid/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupanki/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupasbplayer/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupchanges/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupereaders/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupextraanki/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupextrayomichan/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupgoldendict/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupios/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupjidoujisho/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupjl/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupmpvacious/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupother/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setuptextmedia/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setupyomichan/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/themes/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/tooltipresults/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/ui/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/updating/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/updatingfinalsteps/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/updatingjpmn/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/updatingyomichan/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/wordindicators/</loc>
+         <lastmod>2023-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/yomichantemplates/</loc>
+         <lastmod>2023-05-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

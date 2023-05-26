@@ -118,6 +118,17 @@
   --md-footer-fg-color: #FFFFFF;
 }
 
+.md-footer-meta__inner {
+  display: none;
+}
+
+.md-typeset h3 {
+  margin-top: 3.0em;
+}
+
+.md-typeset h4 {
+  margin-top: 2.8em;
+}
 
 /*
 [data-md-color-scheme="slate"] .md-annotation__index {

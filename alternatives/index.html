@@ -10,10 +10,16 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/alternatives/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/alternatives/">
+      
+      
+        <link rel="prev" href="../principles/">
+      
+      
+        <link rel="next" href="../setup/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.9">
     
     
       
@@ -21,11 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a6bdf11c.min.css">
       
       
 
@@ -60,7 +65,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo">
   
     
     
@@ -79,6 +84,19 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+
+<b class="jpmn-highlight">WARNING</b>: This documentation is for the latest pre-release version of jp-mining-note, and is very WIP / incomplete. <br>
+If you are looking for the stable release documentation, see <a href="https://aquafina-water-bottle.github.io/jp-mining-note/">here</a>.
+
+
+          </div>
+          
+        </aside>
+      
     </div>
     
     
@@ -88,8 +106,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -112,27 +129,31 @@
       </div>
     </div>
     
-      <form class="md-header__option" data-md-component="palette">
-        
+      
+        <form class="md-header__option" data-md-component="palette">
           
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+              </label>
+            
           
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+              </label>
+            
           
-            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
-            </label>
-          
-        
-          
-          
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
-          
-            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
-            </label>
-          
-        
-      </form>
+        </form>
+      
     
     
     
@@ -162,7 +183,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -174,7 +195,7 @@
         <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -193,7 +214,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -239,7 +260,23 @@
   
   
     <li class="md-tabs__item">
-      <a href="../ui/" class="md-tabs__link">
+      <a href="../updating/" class="md-tabs__link">
+        Updating
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quickstart/" class="md-tabs__link">
         Reference
       </a>
     </li>
@@ -251,11 +288,15 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../faq/" class="md-tabs__link">
-      FAQ & Troubleshooting
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../modding/" class="md-tabs__link">
+        Dev Docs
+      </a>
+    </li>
+  
 
       
         
@@ -263,11 +304,31 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../jpresources/" class="md-tabs__link">
-      JP Resources
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq/" class="md-tabs__link">
+        FAQ & Troubleshooting
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../jpresources/" class="md-tabs__link">
+        JP Resources
+      </a>
+    </li>
+  
 
       
     </ul>
@@ -293,8 +354,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo.png" alt="logo">
 
     </a>
     jp-mining-note
@@ -304,7 +364,7 @@
       <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -327,17 +387,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1">
+        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
           Home
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Home
@@ -371,17 +432,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1_2">
+        <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
           Getting Started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1_2">
           <span class="md-nav__icon md-icon"></span>
           Getting Started
@@ -406,12 +468,26 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../principles/" class="md-nav__link">
+        Philosophy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
       
@@ -657,17 +733,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Setup
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Setup
@@ -722,8 +799,51 @@
   
   
     <li class="md-nav__item">
-      <a href="../setupeverythingelse/" class="md-nav__link">
-        Setup: Everything Else
+      <a href="../setuptextmedia/" class="md-nav__link">
+        Setup: Text & Media
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          Text & Media
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Text & Media
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupmpvacious/" class="md-nav__link">
+        mpvacious (TODO)
       </a>
     </li>
   
@@ -736,8 +856,114 @@
   
   
     <li class="md-nav__item">
-      <a href="../setupother/" class="md-nav__link">
-        Setup: Other
+      <a href="../setupasbplayer/" class="md-nav__link">
+        asbplayer (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          Extra Setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Extra Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupextrayomichan/" class="md-nav__link">
+        Extra: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupextraanki/" class="md-nav__link">
+        Extra: Anki
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupandroid/" class="md-nav__link">
+        Extra: Android
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupios/" class="md-nav__link">
+        Extra: iOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupereaders/" class="md-nav__link">
+        Extra: eReaders
       </a>
     </li>
   
@@ -758,6 +984,126 @@
 
             
           
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          Alternate Card Exporters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Alternate Card Exporters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupjl/" class="md-nav__link">
+        JL (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupjidoujisho/" class="md-nav__link">
+        jidoujisho (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupgoldendict/" class="md-nav__link">
+        goldendict (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Updating
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Updating
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
   
@@ -765,7 +1111,77 @@
   
     <li class="md-nav__item">
       <a href="../updating/" class="md-nav__link">
-        Updating
+        Updating: Overview (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingjpmn/" class="md-nav__link">
+        Updating: JPMN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingyomichan/" class="md-nav__link">
+        Updating: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupchanges/" class="md-nav__link">
+        Setup Changes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingfinalsteps/" class="md-nav__link">
+        Final Steps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/CHANGELOG.md" class="md-nav__link">
+        Changelog
       </a>
     </li>
   
@@ -789,18 +1205,19 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Reference
         </label>
@@ -812,8 +1229,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../ui/" class="md-nav__link">
-        User Interface
+      <a href="../quickstart/" class="md-nav__link">
+        Quick Start (TODO)
       </a>
     </li>
   
@@ -826,22 +1243,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../uicustomization/" class="md-nav__link">
-        UI Customization
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fieldref/" class="md-nav__link">
-        Field Reference
+      <a href="../blockquotes/" class="md-nav__link">
+        Blockquotes (TODO)
       </a>
     </li>
   
@@ -855,7 +1258,77 @@
   
     <li class="md-nav__item">
       <a href="../definitions/" class="md-nav__link">
-        Definitions
+        Definitions (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentences/" class="md-nav__link">
+        Sentences (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changingcardtype/" class="md-nav__link">
+        Changing Card Type (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes2/" class="md-nav__link">
+        More on Card Types (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keybinds/" class="md-nav__link">
+        Keybinds
       </a>
     </li>
   
@@ -896,8 +1369,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
+      <a href="../kanjihover/" class="md-nav__link">
+        Kanji Hover (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wordindicators/" class="md-nav__link">
+        Word Indicators (TODO)
       </a>
     </li>
   
@@ -923,24 +1410,123 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../infocircle/" class="md-nav__link">
+        Info Circle (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frequencies/" class="md-nav__link">
+        Frequencies (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../externallinks/" class="md-nav__link">
+        External Links (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fields/" class="md-nav__link">
+        Fields (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backfilling/" class="md-nav__link">
+        Backfilling (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch/" class="md-nav__link">
+        Batch Commands (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/" class="md-nav__link">
+        Other (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
       
     
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_21" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3_9">
+        <label class="md-nav__link" for="__nav_4_21" id="__nav_4_21_label" tabindex="0">
           Options
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Options" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_9">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_21_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_21">
           <span class="md-nav__icon md-icon"></span>
           Options
         </label>
@@ -953,7 +1539,7 @@
   
     <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
-        Runtime Options
+        Runtime Options (TODO)
       </a>
     </li>
   
@@ -967,7 +1553,7 @@
   
     <li class="md-nav__item">
       <a href="../compiletimeoptions/" class="md-nav__link">
-        Compile-Time Options
+        Compile-Time Options (TODO)
       </a>
     </li>
   
@@ -981,7 +1567,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options
+        Yomichan Template Options (TODO)
       </a>
     </li>
   
@@ -995,31 +1581,38 @@
 
             
           
-            
-              
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
   
   
   
     
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_10">
-          Developer Documentation
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Dev Docs
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_10">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          Developer Documentation
+          Dev Docs
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1058,7 +1651,7 @@
   
     <li class="md-nav__item">
       <a href="../customcss/" class="md-nav__link">
-        Custom CSS
+        Custom CSS (TODO)
       </a>
     </li>
   
@@ -1072,7 +1665,7 @@
   
     <li class="md-nav__item">
       <a href="../overrides/" class="md-nav__link">
-        Custom HTML (Overrides)
+        Custom HTML (Overrides) (TODO)
       </a>
     </li>
   
@@ -1086,7 +1679,21 @@
   
     <li class="md-nav__item">
       <a href="../modules/" class="md-nav__link">
-        Custom JS (Modules)
+        Custom JS (Modules) (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../themes/" class="md-nav__link">
+        Themes (TODO)
       </a>
     </li>
   
@@ -1100,15 +1707,8 @@
   
     <li class="md-nav__item">
       <a href="../moddingtips/" class="md-nav__link">
-        Tips & Tricks
+        Tips & Tricks (TODO)
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1124,6 +1724,33 @@
       
       
 
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          FAQ & Troubleshooting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ & Troubleshooting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
   
   
   
@@ -1134,6 +1761,69 @@
     </li>
   
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#errors-warnings" class="md-nav__link">
+        FAQ: Errors & Warnings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#troubleshooting" class="md-nav__link">
+        FAQ: Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#card-editing" class="md-nav__link">
+        FAQ: Card Editing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#other-questions" class="md-nav__link">
+        FAQ: Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
     
       
       
@@ -1142,10 +1832,86 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          JP Resources
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          JP Resources
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../jpresources/" class="md-nav__link">
         JP Resources
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpmnhandlebars/" class="md-nav__link">
+        JPMN Handlebars Package
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripts/" class="md-nav__link">
+        Anki Scripts (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresourcesother/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1375,22 +2141,21 @@
                 
                   
 
-
-
   
   
-  <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/docs/docs/alternatives.md"
-    title="View source of this page"
-    class="md-content__button md-icon"
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
-  </a>
+    
+      
+    
+    <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/raw/dev/docs/docs/alternatives.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
 
 
   <h1>Alternatives</h1>
 
-<p>This page is dedicated to gathering various note types and decks
+<div><p>This page is dedicated to gathering various note types and decks
 that isn't <a href="/jp-mining-note/"><strong>jp-mining-note</strong></a>.
 These are added in order of when I first come across the note type,
 so it's roughly ordered from the oldest to newest note types.</p>
@@ -1399,9 +2164,9 @@ Feel free to let me know of any note types you find interesting
 (including your own note type, or modified versions of this note),
 and I will very likely add it here!
 (Brownie points if you make a pull request for it too!)</p>
-<hr />
-<h2 id="note-types">Note Types<a class="headerlink" href="#note-types" title="Permanent link">&para;</a></h2>
-<hr />
+<hr>
+<h2 id="note-types">Note Types<a class="headerlink" href="#note-types" title="Permanent link">¶</a></h2>
+<hr>
 <!--
 ## Anime Cards
 <sup>
@@ -1415,46 +2180,46 @@ and I will very likely add it here!
 
 -->
 
-<h3 id="anime-cards">Anime Cards<a class="headerlink" href="#anime-cards" title="Permanent link">&para;</a></h3>
+<h3 id="anime-cards">Anime Cards<a class="headerlink" href="#anime-cards" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://github.com/friedrich-de/Basic-Mining-Deck">Website</a>・<a href="https://ankiweb.net/shared/info/151553357">Download</a>・<a href="https://animecards.site/support/">Contact</a>
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Image 1</label><label for="__tabbed_1_2">Image 2</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Image 1</label><label for="__tabbed_1_2">Image 2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="https://animecards.site/images/anime_card.png"><img alt="" src="https://animecards.site/images/anime_card.png" /></a></p>
+<p><a href="https://animecards.site/images/anime_card.png"><img alt="" src="https://animecards.site/images/anime_card.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="https://github.com/friedrich-de/Basic-Mining-Deck/blob/master/sample_image.png?raw=true"><img alt="" src="https://github.com/friedrich-de/Basic-Mining-Deck/blob/master/sample_image.png?raw=true" /></a></p>
+<p><a href="https://github.com/friedrich-de/Basic-Mining-Deck/blob/master/sample_image.png?raw=true"><img alt="" src="https://github.com/friedrich-de/Basic-Mining-Deck/blob/master/sample_image.png?raw=true"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="lazy-guide-xelieus-modified-anime-card">(Lazy Guide) Xelieu's Modified Anime Card<a class="headerlink" href="#lazy-guide-xelieus-modified-anime-card" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="lazy-guide-xelieus-modified-anime-card">(Lazy Guide) Xelieu's Modified Anime Card<a class="headerlink" href="#lazy-guide-xelieus-modified-anime-card" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://rentry.co/lazyXel#anki">Website &amp; Download</a>・Contact: <code>Xelieu#8158</code> (<a href="https://learnjapanese.moe/join/">TMW server</a>)
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example images (bilingual examples not shown)</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:5"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Modern | Dark</label><label for="__tabbed_2_2">Modern | Light</label><label for="__tabbed_2_3">Simple | Dark</label><label for="__tabbed_2_4">Simple | Dark (alternative)</label><label for="__tabbed_2_5">Simple | Light</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:5"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><input id="__tabbed_2_5" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Modern | Dark</label><label for="__tabbed_2_2">Modern | Light</label><label for="__tabbed_2_3">Simple | Dark</label><label for="__tabbed_2_4">Simple | Dark (alternative)</label><label for="__tabbed_2_5">Simple | Light</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="https://i.imgur.com/WvdrfH0.jpg"><img alt="" src="https://i.imgur.com/WvdrfH0.jpg" /></a></p>
+<p><a href="https://i.imgur.com/WvdrfH0.jpg"><img alt="" src="https://i.imgur.com/WvdrfH0.jpg"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="https://i.imgur.com/D0P1ZFX.jpg"><img alt="" src="https://i.imgur.com/D0P1ZFX.jpg" /></a></p>
+<p><a href="https://i.imgur.com/D0P1ZFX.jpg"><img alt="" src="https://i.imgur.com/D0P1ZFX.jpg"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="https://i.imgur.com/Dfy9u75.jpg"><img alt="" src="https://i.imgur.com/Dfy9u75.jpg" /></a></p>
+<p><a href="https://i.imgur.com/Dfy9u75.jpg"><img alt="" src="https://i.imgur.com/Dfy9u75.jpg"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="https://i.imgur.com/sWJ0Ff3.jpg"><img alt="" src="https://i.imgur.com/sWJ0Ff3.jpg" /></a></p>
+<p><a href="https://i.imgur.com/sWJ0Ff3.jpg"><img alt="" src="https://i.imgur.com/sWJ0Ff3.jpg"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="https://imgur.com/BvxcdzI.jpg"><img alt="" src="https://imgur.com/BvxcdzI.jpg" /></a></p>
+<p><a href="https://imgur.com/BvxcdzI.jpg"><img alt="" src="https://imgur.com/BvxcdzI.jpg"></a></p>
 </div>
 </div>
 </div>
@@ -1467,17 +2232,17 @@ If you're previewing this, make sure to change the preview site:
 see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 -->
 
-<hr />
-<h3 id="stegatxins0s-modified-anime-card">stegatxins0's Modified Anime Card<a class="headerlink" href="#stegatxins0s-modified-anime-card" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="stegatxins0s-modified-anime-card">stegatxins0's Modified Anime Card<a class="headerlink" href="#stegatxins0s-modified-anime-card" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://rentry.co/mining#anki-settings">Website &amp; Download</a>・Contact: Private<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example image</p>
-<p><a href="../assets/alternatives/stegatxins0_eg.png"><img alt="" src="../assets/alternatives/stegatxins0_eg.png" /></a></p>
+<p><a href="../assets/alternatives/stegatxins0_eg.png"><img alt="" src="../assets/alternatives/stegatxins0_eg.png"></a></p>
 </div>
-<hr />
-<h3 id="tatsumotos-tsc">Tatsumoto's TSC<a class="headerlink" href="#tatsumotos-tsc" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="tatsumotos-tsc">Tatsumoto's TSC<a class="headerlink" href="#tatsumotos-tsc" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://tatsumoto.neocities.org/blog/discussing-various-card-templates.html#targeted-sentence-cards-or-mpvacious-cards">Website</a>・<a href="https://ankiweb.net/shared/info/1557722832">Download</a>・<a href="https://t.me/ajatt_tools/16">Mirror</a>・<a href="https://tatsumoto.neocities.org/blog/join-our-community">Contact</a>
 </sup></p>
@@ -1487,10 +2252,10 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example image</p>
-<p><a href="https://user-images.githubusercontent.com/69171671/100900075-5fc15800-34ba-11eb-9a23-bcfa5e01e35c.png"><img alt="" src="https://user-images.githubusercontent.com/69171671/100900075-5fc15800-34ba-11eb-9a23-bcfa5e01e35c.png" /></a></p>
+<p><a href="https://user-images.githubusercontent.com/69171671/100900075-5fc15800-34ba-11eb-9a23-bcfa5e01e35c.png"><img alt="" src="https://user-images.githubusercontent.com/69171671/100900075-5fc15800-34ba-11eb-9a23-bcfa5e01e35c.png"></a></p>
 </div>
-<hr />
-<h3 id="ajatt-tools-ankinotetypes">AJATT-Tool's AnkiNoteTypes<a class="headerlink" href="#ajatt-tools-ankinotetypes" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="ajatt-tools-ankinotetypes">AJATT-Tool's AnkiNoteTypes<a class="headerlink" href="#ajatt-tools-ankinotetypes" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://github.com/Ajatt-Tools/AnkiNoteTypes">Website</a>・<a href="https://tatsumoto.neocities.org/blog/join-our-community">Contact</a>
 </sup></p>
@@ -1500,87 +2265,87 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Examples</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:5"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">JP1K TSC (dark)</label><label for="__tabbed_3_2">JP1K TSC (light)</label><label for="__tabbed_3_3">Fallback</label><label for="__tabbed_3_4">Word</label><label for="__tabbed_3_5">Sentence (cyphar)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:5"><input checked id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><input id="__tabbed_3_3" name="__tabbed_3" type="radio"><input id="__tabbed_3_4" name="__tabbed_3" type="radio"><input id="__tabbed_3_5" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">JP1K TSC (dark)</label><label for="__tabbed_3_2">JP1K TSC (light)</label><label for="__tabbed_3_3">Fallback</label><label for="__tabbed_3_4">Word</label><label for="__tabbed_3_5">Sentence (cyphar)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><sup>
 <a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20JP1K%20TSC">/templates/Japanese JP1K TSC</a>
 </sup>
-<a href="https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/night%20back.webp?raw=true"><img alt="" src="https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/night%20back.webp?raw=true" /></a></p>
+<a href="https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/night%20back.webp?raw=true"><img alt="" src="https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/night%20back.webp?raw=true"></a></p>
 </div>
 <div class="tabbed-block">
 <p><sup>
 <a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20JP1K%20TSC">/templates/Japanese JP1K TSC</a>
 </sup>
-<a href="https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/day%20back.webp?raw=true"><img alt="" src="https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/day%20back.webp?raw=true" /></a></p>
+<a href="https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/day%20back.webp?raw=true"><img alt="" src="https://github.com/Alksindrs/AnkiNoteTypes/blob/main/templates/Japanese%20JP1K%20TSC/day%20back.webp?raw=true"></a></p>
 </div>
 <div class="tabbed-block">
 <p><sup>
 <a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20fallback">/templates/Japanese fallback</a>
 </sup>
-<a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20fallback/showcase.gif?raw=true"><img alt="" src="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20fallback/showcase.gif?raw=true" /></a></p>
+<a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20fallback/showcase.gif?raw=true"><img alt="" src="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20fallback/showcase.gif?raw=true"></a></p>
 </div>
 <div class="tabbed-block">
 <p><sup>
 <a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20words">/templates/Japanese words</a>
 </sup>
-<a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20words/japanese_words.webp?raw=true"><img alt="" src="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20words/japanese_words.webp?raw=true" /></a></p>
+<a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20words/japanese_words.webp?raw=true"><img alt="" src="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20words/japanese_words.webp?raw=true"></a></p>
 </div>
 <div class="tabbed-block">
 <p><sup>
 <a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/tree/main/templates/Japanese%20Mined%20Sentences%20(cyphar)">/templates/Japanese Mined Sentences (cyphar)</a>
 </sup>
-<a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/card_back_multilingual.webp?raw=true"><img alt="" src="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/card_back_multilingual.webp?raw=true" /></a></p>
+<a href="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/card_back_multilingual.webp?raw=true"><img alt="" src="https://github.com/Ajatt-Tools/AnkiNoteTypes/blob/main/templates/Japanese%20Mined%20Sentences%20(cyphar)/card_back_multilingual.webp?raw=true"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="mooniebiloneys-note-types">MoonieBiloney's Note Types<a class="headerlink" href="#mooniebiloneys-note-types" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="mooniebiloneys-note-types">MoonieBiloney's Note Types<a class="headerlink" href="#mooniebiloneys-note-types" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://docs.google.com/document/d/1MxoRIO88KlJlGttnXNVkDVoHfZUtJqwOT_arRSS5F7Y/edit">Website</a>・<a href="https://drive.google.com/drive/folders/1UFxn80dG-HIws5tlAa8sKFypnR8pmPci">Download</a>・<a href="https://www.patreon.com/MonnieBiloney">Contact</a>
 </sup></p>
 <ul>
 <li>Some require a Patreon subscription to access</li>
 </ul>
-<hr />
-<h3 id="eminent-note-type">Eminent Note Type<a class="headerlink" href="#eminent-note-type" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="eminent-note-type">Eminent Note Type<a class="headerlink" href="#eminent-note-type" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://cademcniven.com/projects/notetype2/">Website &amp; Download</a>・Contact: <code>eminent#8189</code> (<a href="https://discord.gg/uK4HeGN">Perdition's server</a>)
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Front</label><label for="__tabbed_4_2">Back</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">Front</label><label for="__tabbed_4_2">Back</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="https://cademcniven.com/images/card_front-M4BXXShqiw-1200w.avif"><img alt="" src="https://cademcniven.com/images/card_front-M4BXXShqiw-1200w.avif" /></a></p>
+<p><a href="https://cademcniven.com/images/card_front-M4BXXShqiw-1200w.avif"><img alt="" src="https://cademcniven.com/images/card_front-M4BXXShqiw-1200w.avif"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="https://cademcniven.com/images/card_back-xbXcF4wXEl-1200w.avif"><img alt="" src="https://cademcniven.com/images/card_back-xbXcF4wXEl-1200w.avif" /></a></p>
+<p><a href="https://cademcniven.com/images/card_back-xbXcF4wXEl-1200w.avif"><img alt="" src="https://cademcniven.com/images/card_back-xbXcF4wXEl-1200w.avif"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="elaxs-note-type">Elax's Note Type<a class="headerlink" href="#elaxs-note-type" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="elaxs-note-type">Elax's Note Type<a class="headerlink" href="#elaxs-note-type" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://cdn.discordapp.com/attachments/778430038159655012/847595626257842226/AnimeCards.apkg">Download</a>・Contact: <code>どん底#6628</code> (<a href="https://learnjapanese.moe/join/">TMW server</a>)
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:4"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><input id="__tabbed_5_4" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Front | Dark</label><label for="__tabbed_5_2">Back | Dark</label><label for="__tabbed_5_3">Front | Light</label><label for="__tabbed_5_4">Back | Light</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:4"><input checked id="__tabbed_5_1" name="__tabbed_5" type="radio"><input id="__tabbed_5_2" name="__tabbed_5" type="radio"><input id="__tabbed_5_3" name="__tabbed_5" type="radio"><input id="__tabbed_5_4" name="__tabbed_5" type="radio"><div class="tabbed-labels"><label for="__tabbed_5_1">Front | Dark</label><label for="__tabbed_5_2">Back | Dark</label><label for="__tabbed_5_3">Front | Light</label><label for="__tabbed_5_4">Back | Light</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/elax/front_dark.png"><img alt="" src="../assets/alternatives/elax/front_dark.png" /></a></p>
+<p><a href="../assets/alternatives/elax/front_dark.png"><img alt="" src="../assets/alternatives/elax/front_dark.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/elax/back_dark.png"><img alt="" src="../assets/alternatives/elax/back_dark.png" /></a></p>
+<p><a href="../assets/alternatives/elax/back_dark.png"><img alt="" src="../assets/alternatives/elax/back_dark.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/elax/front_light.png"><img alt="" src="../assets/alternatives/elax/front_light.png" /></a></p>
+<p><a href="../assets/alternatives/elax/front_light.png"><img alt="" src="../assets/alternatives/elax/front_light.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/elax/back_light.png"><img alt="" src="../assets/alternatives/elax/back_light.png" /></a></p>
+<p><a href="../assets/alternatives/elax/back_light.png"><img alt="" src="../assets/alternatives/elax/back_light.png"></a></p>
 </div>
 </div>
 </div>
@@ -1593,20 +2358,20 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 (<a href="https://discord.com/channels/617136488840429598/778430038159655012/847595626220355584">Original discord message</a>, on <a href="https://learnjapanese.moe/join/">TMW server</a>)
 </sup></p>
 </details>
-<hr />
-<h3 id="timms-anki-template">Timm's Anki Template<a class="headerlink" href="#timms-anki-template" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="timms-anki-template">Timm's Anki Template<a class="headerlink" href="#timms-anki-template" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://cdn.discordapp.com/attachments/778430038159655012/937090193356361728/Timm_template.apkg">Download</a>・<a href="https://cdn.discordapp.com/attachments/778430038159655012/937095406779793488/4050fdea6bbedcaa.apkg">Download (alternative theme)</a>・Contact: <code>Timm#3250</code> (<a href="https://learnjapanese.moe/join/">TMW server</a>)
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Examples</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Image</label><label for="__tabbed_6_2">Video</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked id="__tabbed_6_1" name="__tabbed_6" type="radio"><input id="__tabbed_6_2" name="__tabbed_6" type="radio"><div class="tabbed-labels"><label for="__tabbed_6_1">Image</label><label for="__tabbed_6_2">Video</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/timm.png"><img alt="" src="../assets/alternatives/timm.png" /></a></p>
+<p><a href="../assets/alternatives/timm.png"><img alt="" src="../assets/alternatives/timm.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><div style="width: 100%; height: 0px; position: relative; padding-bottom: 56.250%;"><iframe src="https://streamable.com/e/j3etpw" frameborder="0" width="100%" height="100%" allowfullscreen style="width: 100%; height: 100%; position: absolute;"></iframe></div></p>
+<p></p><div style="width: 100%; height: 0px; position: relative; padding-bottom: 56.250%;"><iframe src="https://streamable.com/e/j3etpw" frameborder="0" width="100%" height="100%" allowfullscreen style="width: 100%; height: 100%; position: absolute;"></iframe></div>
 </div>
 </div>
 </div>
@@ -1643,50 +2408,50 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 <p>DM me if you have problems recreating the template (編集済)</p>
 <p><strong>CSS update:</strong></p>
 <p>Add this to the styling of the template in anki and check the yomichan screenshot above</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">.</span><span class="nc">jpsentence</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="kc">center</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">.</span><span class="nc">jpsentence</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="kc">center</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">.</span><span class="nc">pcolor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">.</span><span class="nc">pcolor</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
 </code></pre></div>
 <p>add this to .img2 and .img:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">display</span><span class="p">:</span><span class="nd">flex</span><span class="o">;</span><span class="w"></span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">justify-content</span><span class="o">:</span><span class="w"> </span><span class="nt">center</span><span class="o">;</span><span class="w"></span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">align-items</span><span class="p">:</span><span class="nd">center</span><span class="o">;</span><span class="w"></span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">margin</span><span class="o">:</span><span class="w"> </span><span class="nt">0</span><span class="w"> </span><span class="nt">auto</span><span class="o">;</span><span class="w"></span>
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">display</span><span class="p">:</span><span class="nd">flex</span><span class="o">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">justify-content</span><span class="o">:</span><span class="w"> </span><span class="nt">center</span><span class="o">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">align-items</span><span class="p">:</span><span class="nd">center</span><span class="o">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">margin</span><span class="o">:</span><span class="w"> </span><span class="nt">0</span><span class="w"> </span><span class="nt">auto</span><span class="o">;</span>
+</code></pre></div>
 <p>add this exclusively to .img2:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">margin-bottom</span><span class="o">:</span><span class="w"> </span><span class="nt">25px</span><span class="o">;</span><span class="w"></span>
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">margin-bottom</span><span class="o">:</span><span class="w"> </span><span class="nt">25px</span><span class="o">;</span>
+</code></pre></div>
 <p>Remove on the front template the div with jpsentence for the tango </p>
 <p><sup>
 (<a href="https://discord.com/channels/617136488840429598/778430038159655012/937090192546865282">Original discord message</a>, on <a href="https://learnjapanese.moe/join/">TMW server</a>)
 </sup></p>
 </details>
-<hr />
-<h3 id="tigy01s-note-type">Tigy01's Note Type<a class="headerlink" href="#tigy01s-note-type" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="tigy01s-note-type">Tigy01's Note Type<a class="headerlink" href="#tigy01s-note-type" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub">Website</a>・<a href="https://drive.google.com/drive/folders/1uvpZ1JhT14W3T_JdtHxzL-o4r5XNwNwp">Download</a>・Contact: <code>Tigy01#1231</code> (<a href="https://refold.la/join">Refold (JP) Server</a>)
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Front</label><label for="__tabbed_7_2">Back</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked id="__tabbed_7_1" name="__tabbed_7" type="radio"><input id="__tabbed_7_2" name="__tabbed_7" type="radio"><div class="tabbed-labels"><label for="__tabbed_7_1">Front</label><label for="__tabbed_7_2">Back</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/tigy01/front.png"><img alt="" src="../assets/alternatives/tigy01/front.png" /></a></p>
+<p><a href="../assets/alternatives/tigy01/front.png"><img alt="" src="../assets/alternatives/tigy01/front.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/tigy01/back.png"><img alt="" src="../assets/alternatives/tigy01/back.png" /></a></p>
+<p><a href="../assets/alternatives/tigy01/back.png"><img alt="" src="../assets/alternatives/tigy01/back.png"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="stazors-note-type">Stazor's Note Type<a class="headerlink" href="#stazors-note-type" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="stazors-note-type">Stazor's Note Type<a class="headerlink" href="#stazors-note-type" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://www.mediafire.com/file/evn6ilmf9jr4zm5/Japanese_Sentence_Mining.zip/file">Download</a>・<a href="https://discord.com/channels/617136488840429598/778430038159655012/1039955616287965235">Original discord message</a>・Contact: <code>Stazor#6633</code> (<a href="https://learnjapanese.moe/join/">TMW server</a>)
 </sup></p>
@@ -1695,51 +2460,51 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:4"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><input id="__tabbed_8_3" name="__tabbed_8" type="radio" /><input id="__tabbed_8_4" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">Front</label><label for="__tabbed_8_2">Front (on hover)</label><label for="__tabbed_8_3">Back</label><label for="__tabbed_8_4">Back (light)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:4"><input checked id="__tabbed_8_1" name="__tabbed_8" type="radio"><input id="__tabbed_8_2" name="__tabbed_8" type="radio"><input id="__tabbed_8_3" name="__tabbed_8" type="radio"><input id="__tabbed_8_4" name="__tabbed_8" type="radio"><div class="tabbed-labels"><label for="__tabbed_8_1">Front</label><label for="__tabbed_8_2">Front (on hover)</label><label for="__tabbed_8_3">Back</label><label for="__tabbed_8_4">Back (light)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/stazor/front.png"><img alt="" src="../assets/alternatives/stazor/front.png" /></a></p>
+<p><a href="../assets/alternatives/stazor/front.png"><img alt="" src="../assets/alternatives/stazor/front.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/stazor/front_hover.png"><img alt="" src="../assets/alternatives/stazor/front_hover.png" /></a></p>
+<p><a href="../assets/alternatives/stazor/front_hover.png"><img alt="" src="../assets/alternatives/stazor/front_hover.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/stazor/back.png"><img alt="" src="../assets/alternatives/stazor/back.png" /></a></p>
+<p><a href="../assets/alternatives/stazor/back.png"><img alt="" src="../assets/alternatives/stazor/back.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/stazor/back_light.png"><img alt="" src="../assets/alternatives/stazor/back_light.png" /></a></p>
+<p><a href="../assets/alternatives/stazor/back_light.png"><img alt="" src="../assets/alternatives/stazor/back_light.png"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="rudnams-note-type">rudnam's Note Type<a class="headerlink" href="#rudnams-note-type" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="rudnams-note-type">rudnam's Note Type<a class="headerlink" href="#rudnams-note-type" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://github.com/rudnam/JP-study">Website &amp; Download</a>・Contact: <code>rudnam#8661</code> (<a href="https://refold.la/join">Refold (JP) Server</a>)
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:3"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><input id="__tabbed_9_3" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">Full demo</label><label for="__tabbed_9_2">Vocab</label><label for="__tabbed_9_3">Sentence</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:3"><input checked id="__tabbed_9_1" name="__tabbed_9" type="radio"><input id="__tabbed_9_2" name="__tabbed_9" type="radio"><input id="__tabbed_9_3" name="__tabbed_9" type="radio"><div class="tabbed-labels"><label for="__tabbed_9_1">Full demo</label><label for="__tabbed_9_2">Vocab</label><label for="__tabbed_9_3">Sentence</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="https://github.com/rudnam/JP-study/blob/main/images/mining_template.gif?raw=true"><img alt="" src="https://github.com/rudnam/JP-study/blob/main/images/mining_template.gif?raw=true" /></a></p>
+<p><a href="https://github.com/rudnam/JP-study/blob/main/images/mining_template.gif?raw=true"><img alt="" src="https://github.com/rudnam/JP-study/blob/main/images/mining_template.gif?raw=true"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="https://github.com/rudnam/JP-study/blob/main/images/vocab_back.png?raw=true"><img alt="" src="https://github.com/rudnam/JP-study/blob/main/images/vocab_back.png?raw=true" /></a></p>
+<p><a href="https://github.com/rudnam/JP-study/blob/main/images/vocab_back.png?raw=true"><img alt="" src="https://github.com/rudnam/JP-study/blob/main/images/vocab_back.png?raw=true"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="https://github.com/rudnam/JP-study/blob/main/images/sentence_back.png?raw=true"><img alt="" src="https://github.com/rudnam/JP-study/blob/main/images/sentence_back.png?raw=true" /></a></p>
+<p><a href="https://github.com/rudnam/JP-study/blob/main/images/sentence_back.png?raw=true"><img alt="" src="https://github.com/rudnam/JP-study/blob/main/images/sentence_back.png?raw=true"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="jidoujishos-note-type">jidoujisho's Note Type<a class="headerlink" href="#jidoujishos-note-type" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="jidoujishos-note-type">jidoujisho's Note Type<a class="headerlink" href="#jidoujishos-note-type" title="Permanent link">¶</a></h3>
 <p>The app <a href="https://github.com/lrorpilla/jidoujisho">jidoujisho</a>
 comes with its own Anki template, that should be automatically generated
 on the first card add when using the app.</p>
-<hr />
-<h3 id="jo-mako-audio">Jo-Mako - Audio<a class="headerlink" href="#jo-mako-audio" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="jo-mako-audio">Jo-Mako - Audio<a class="headerlink" href="#jo-mako-audio" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://sites.google.com/view/jo-mako/resources/premade-card-styles">Website &amp; Download &amp; Contact</a>
 </sup></p>
@@ -1748,22 +2513,22 @@ on the first card add when using the app.</p>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:3"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><input id="__tabbed_10_3" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">Front</label><label for="__tabbed_10_2">Back</label><label for="__tabbed_10_3">Kanji Popup</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:3"><input checked id="__tabbed_10_1" name="__tabbed_10" type="radio"><input id="__tabbed_10_2" name="__tabbed_10" type="radio"><input id="__tabbed_10_3" name="__tabbed_10" type="radio"><div class="tabbed-labels"><label for="__tabbed_10_1">Front</label><label for="__tabbed_10_2">Back</label><label for="__tabbed_10_3">Kanji Popup</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/jo-mako-audio/front.png"><img alt="" src="../assets/alternatives/jo-mako-audio/front.png" /></a></p>
+<p><a href="../assets/alternatives/jo-mako-audio/front.png"><img alt="" src="../assets/alternatives/jo-mako-audio/front.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/jo-mako-audio/back.png"><img alt="" src="../assets/alternatives/jo-mako-audio/back.png" /></a></p>
+<p><a href="../assets/alternatives/jo-mako-audio/back.png"><img alt="" src="../assets/alternatives/jo-mako-audio/back.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/jo-mako-audio/popup_kanji.png"><img alt="" src="../assets/alternatives/jo-mako-audio/popup_kanji.png" /></a></p>
+<p><a href="../assets/alternatives/jo-mako-audio/popup_kanji.png"><img alt="" src="../assets/alternatives/jo-mako-audio/popup_kanji.png"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="jo-mako-reading">Jo-Mako - Reading<a class="headerlink" href="#jo-mako-reading" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="jo-mako-reading">Jo-Mako - Reading<a class="headerlink" href="#jo-mako-reading" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://sites.google.com/view/jo-mako/resources/premade-card-styles">Website &amp; Download &amp; Contact</a>
 </sup></p>
@@ -1772,71 +2537,71 @@ on the first card add when using the app.</p>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">Example 1</label><label for="__tabbed_11_2">Example 2</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked id="__tabbed_11_1" name="__tabbed_11" type="radio"><input id="__tabbed_11_2" name="__tabbed_11" type="radio"><div class="tabbed-labels"><label for="__tabbed_11_1">Example 1</label><label for="__tabbed_11_2">Example 2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/jo-mako-reading/back1.png"><img alt="" src="../assets/alternatives/jo-mako-reading/back1.png" /></a></p>
+<p><a href="../assets/alternatives/jo-mako-reading/back1.png"><img alt="" src="../assets/alternatives/jo-mako-reading/back1.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/jo-mako-reading/back2.png"><img alt="" src="../assets/alternatives/jo-mako-reading/back2.png" /></a></p>
+<p><a href="../assets/alternatives/jo-mako-reading/back2.png"><img alt="" src="../assets/alternatives/jo-mako-reading/back2.png"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="mallys-note-type">Mally's Note Type<a class="headerlink" href="#mallys-note-type" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="mallys-note-type">Mally's Note Type<a class="headerlink" href="#mallys-note-type" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://sites.google.com/view/jo-mako/resources/premade-card-styles">Website &amp; Download</a>
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">Front</label><label for="__tabbed_12_2">Back</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked id="__tabbed_12_1" name="__tabbed_12" type="radio"><input id="__tabbed_12_2" name="__tabbed_12" type="radio"><div class="tabbed-labels"><label for="__tabbed_12_1">Front</label><label for="__tabbed_12_2">Back</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/mally/front.png"><img alt="" src="../assets/alternatives/mally/front.png" /></a></p>
+<p><a href="../assets/alternatives/mally/front.png"><img alt="" src="../assets/alternatives/mally/front.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/mally/back.png"><img alt="" src="../assets/alternatives/mally/back.png" /></a></p>
+<p><a href="../assets/alternatives/mally/back.png"><img alt="" src="../assets/alternatives/mally/back.png"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="nocompos-note-type">Nocompo's Note Type<a class="headerlink" href="#nocompos-note-type" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="nocompos-note-type">Nocompo's Note Type<a class="headerlink" href="#nocompos-note-type" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://sites.google.com/view/jo-mako/resources/premade-card-styles">Website &amp; Download</a>
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">Front</label><label for="__tabbed_13_2">Back</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked id="__tabbed_13_1" name="__tabbed_13" type="radio"><input id="__tabbed_13_2" name="__tabbed_13" type="radio"><div class="tabbed-labels"><label for="__tabbed_13_1">Front</label><label for="__tabbed_13_2">Back</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/nocompo/front.png"><img alt="" src="../assets/alternatives/nocompo/front.png" /></a></p>
+<p><a href="../assets/alternatives/nocompo/front.png"><img alt="" src="../assets/alternatives/nocompo/front.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/nocompo/back.png"><img alt="" src="../assets/alternatives/nocompo/back.png" /></a></p>
+<p><a href="../assets/alternatives/nocompo/back.png"><img alt="" src="../assets/alternatives/nocompo/back.png"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="klierets-templates">Klieret's Templates<a class="headerlink" href="#klierets-templates" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="klierets-templates">Klieret's Templates<a class="headerlink" href="#klierets-templates" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://github.com/klieret/anki-card-templates">Website &amp; Download</a>
 </sup></p>
-<hr />
-<h3 id="anacreons-template">Anacreon's Template<a class="headerlink" href="#anacreons-template" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="anacreons-template">Anacreon's Template<a class="headerlink" href="#anacreons-template" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://anacreondjt.gitlab.io/docs/anki_css/">Website &amp; Download</a>
 </sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example image</p>
-<p><a href="https://anacreondjt.gitlab.io/img/with_css.png"><img alt="" src="https://anacreondjt.gitlab.io/img/with_css.png" /></a></p>
+<p><a href="https://anacreondjt.gitlab.io/img/with_css.png"><img alt="" src="https://anacreondjt.gitlab.io/img/with_css.png"></a></p>
 </div>
-<hr />
-<h2 id="decks">Decks<a class="headerlink" href="#decks" title="Permanent link">&para;</a></h2>
-<hr />
-<h3 id="kanken-deck">Kanken deck<a class="headerlink" href="#kanken-deck" title="Permanent link">&para;</a></h3>
+<hr>
+<h2 id="decks">Decks<a class="headerlink" href="#decks" title="Permanent link">¶</a></h2>
+<hr>
+<h3 id="kanken-deck">Kanken deck<a class="headerlink" href="#kanken-deck" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://ankiweb.net/shared/info/759825185">Website &amp; Download</a>・<a href="https://animecards.site/support/">Contact</a>
 </sup></p>
@@ -1847,10 +2612,10 @@ on the first card add when using the app.</p>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example image</p>
-<p><a href="../assets/alternatives/kanken_deck_eg.png"><img alt="" src="../assets/alternatives/kanken_deck_eg.png" /></a></p>
+<p><a href="../assets/alternatives/kanken_deck_eg.png"><img alt="" src="../assets/alternatives/kanken_deck_eg.png"></a></p>
 </div>
-<hr />
-<h3 id="nihongokyoshi-anki-deck">NihongoKyoshi Anki Deck<a class="headerlink" href="#nihongokyoshi-anki-deck" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="nihongokyoshi-anki-deck">NihongoKyoshi Anki Deck<a class="headerlink" href="#nihongokyoshi-anki-deck" title="Permanent link">¶</a></h3>
 <p><sup>
 <a href="https://cdn.discordapp.com/attachments/778430038159655012/972368473751703572/Nihongo-Kyoshi-complete.apkg">Download</a>・<a href="https://discord.com/channels/617136488840429598/778430038159655012/972368474263400488">Original discord message</a>・Contact: <code>medamayaki#0328</code> (<a href="https://learnjapanese.moe/join/">TMW server</a>)
 </sup></p>
@@ -1859,31 +2624,31 @@ on the first card add when using the app.</p>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example images</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="14:4"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><input id="__tabbed_14_3" name="__tabbed_14" type="radio" /><input id="__tabbed_14_4" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">Front | Dark</label><label for="__tabbed_14_2">Back | Dark</label><label for="__tabbed_14_3">Front | Light</label><label for="__tabbed_14_4">Back | Light</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:4"><input checked id="__tabbed_14_1" name="__tabbed_14" type="radio"><input id="__tabbed_14_2" name="__tabbed_14" type="radio"><input id="__tabbed_14_3" name="__tabbed_14" type="radio"><input id="__tabbed_14_4" name="__tabbed_14" type="radio"><div class="tabbed-labels"><label for="__tabbed_14_1">Front | Dark</label><label for="__tabbed_14_2">Back | Dark</label><label for="__tabbed_14_3">Front | Light</label><label for="__tabbed_14_4">Back | Light</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/nihongo_kyoshi/front_dark.png"><img alt="" src="../assets/alternatives/nihongo_kyoshi/front_dark.png" /></a></p>
+<p><a href="../assets/alternatives/nihongo_kyoshi/front_dark.png"><img alt="" src="../assets/alternatives/nihongo_kyoshi/front_dark.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/nihongo_kyoshi/back_dark.png"><img alt="" src="../assets/alternatives/nihongo_kyoshi/back_dark.png" /></a></p>
+<p><a href="../assets/alternatives/nihongo_kyoshi/back_dark.png"><img alt="" src="../assets/alternatives/nihongo_kyoshi/back_dark.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/nihongo_kyoshi/front_light.png"><img alt="" src="../assets/alternatives/nihongo_kyoshi/front_light.png" /></a></p>
+<p><a href="../assets/alternatives/nihongo_kyoshi/front_light.png"><img alt="" src="../assets/alternatives/nihongo_kyoshi/front_light.png"></a></p>
 </div>
 <div class="tabbed-block">
-<p><a href="../assets/alternatives/nihongo_kyoshi/back_light.png"><img alt="" src="../assets/alternatives/nihongo_kyoshi/back_light.png" /></a></p>
+<p><a href="../assets/alternatives/nihongo_kyoshi/back_light.png"><img alt="" src="../assets/alternatives/nihongo_kyoshi/back_light.png"></a></p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h3 id="other-decks">Other Decks<a class="headerlink" href="#other-decks" title="Permanent link">&para;</a></h3>
+<hr>
+<h3 id="other-decks">Other Decks<a class="headerlink" href="#other-decks" title="Permanent link">¶</a></h3>
 <ul>
 <li><a href="https://tatsumoto.neocities.org/blog/tag_decks">Decks from AJATT</a></li>
 <li><a href="https://learnjapanese.moe/resources/#vocabulary">Decks from TMW</a></li>
 </ul>
-<hr />
-<h2 id="everything-else-not-made-specifically-to-learn-japanese">Everything Else (Not made specifically to learn Japanese)<a class="headerlink" href="#everything-else-not-made-specifically-to-learn-japanese" title="Permanent link">&para;</a></h2>
+<hr>
+<h2 id="everything-else-not-made-specifically-to-learn-japanese">Everything Else (Not made specifically to learn Japanese)<a class="headerlink" href="#everything-else-not-made-specifically-to-learn-japanese" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="https://github.com/pranavdeshai/anki-prettify">Prettify</a></li>
 <li><a href="https://github.com/b3nj5m1n/moderncardthemes">Modern Card Themes</a></li>
@@ -1893,13 +2658,13 @@ on the first card add when using the app.</p>
 <li><a href="https://github.com/tianshanghong/awesome-anki">Awesome Anki</a></li>
 </ul>
 <div class="footnote">
-<hr />
+<hr>
 <ol>
 <li id="fn:1">
-<p>He seems to have left TMW Discord server, and his demo video on Youtube was privated. I assume he no longer wants to be contacted.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>He seems to have left TMW Discord server, and his demo video on Youtube was privated. I assume he no longer wants to be contacted. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 </ol>
-</div>
+</div></div>
 
   <hr>
 <div class="md-source-file">
@@ -1925,82 +2690,28 @@ on the first card add when using the app.</p>
         
       </main>
       
-<!-- Footer -->
-<footer class="md-footer">
-
-  <!-- Link to previous and/or next page -->
+        <footer class="md-footer">
   
-    
-    <nav
-      class="md-footer__inner md-grid"
-      aria-label="Footer"
-      
-    >
-
-      <!-- Link to previous page -->
-      
-        
-        <a
-          href="../preface/"
-          class="md-footer__link md-footer__link--prev"
-          aria-label="Previous: Preface"
-          rel="prev"
-        >
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Preface
-            </div>
-          </div>
-        </a>
-      
-
-      <!-- Link to next page -->
-      
-        
-        <a
-          href="../setup/"
-          class="md-footer__link md-footer__link--next"
-          aria-label="Next: Setup: Installing"
-          rel="next"
-        >
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Setup: Installing
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
   
-
   
-
+</div>
+      
+    </div>
+  </div>
 </footer>
-
-
-
-
+      
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate", "content.code.copy", "content.action.view"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      <script src="../assets/javascripts/bundle.fac441b0.min.js"></script>
       
     
   </body>

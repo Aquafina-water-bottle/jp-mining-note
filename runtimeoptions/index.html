@@ -10,22 +10,27 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/runtimeoptions/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/runtimeoptions/">
+      
+      
+        <link rel="prev" href="../other/">
+      
+      
+        <link rel="next" href="../compiletimeoptions/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.9">
     
     
       
-        <title>Runtime Options - jp-mining-note</title>
+        <title>Runtime Options (TODO) - jp-mining-note</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a6bdf11c.min.css">
       
       
 
@@ -60,7 +65,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo">
   
     
     
@@ -79,6 +84,19 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+
+<b class="jpmn-highlight">WARNING</b>: This documentation is for the latest pre-release version of jp-mining-note, and is very WIP / incomplete. <br>
+If you are looking for the stable release documentation, see <a href="https://aquafina-water-bottle.github.io/jp-mining-note/">here</a>.
+
+
+          </div>
+          
+        </aside>
+      
     </div>
     
     
@@ -88,8 +106,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,34 +122,38 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Runtime Options
+              Runtime Options (TODO)
             
           </span>
         </div>
       </div>
     </div>
     
-      <form class="md-header__option" data-md-component="palette">
-        
+      
+        <form class="md-header__option" data-md-component="palette">
           
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+              </label>
+            
           
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+              </label>
+            
           
-            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
-            </label>
-          
-        
-          
-          
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
-          
-            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
-            </label>
-          
-        
-      </form>
+        </form>
+      
     
     
     
@@ -162,7 +183,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -174,7 +195,7 @@
         <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -193,7 +214,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -231,6 +252,22 @@
         
   
   
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../updating/" class="md-tabs__link">
+        Updating
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
     
   
 
@@ -239,7 +276,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../ui/" class="md-tabs__link md-tabs__link--active">
+      <a href="../quickstart/" class="md-tabs__link md-tabs__link--active">
         Reference
       </a>
     </li>
@@ -251,11 +288,15 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../faq/" class="md-tabs__link">
-      FAQ & Troubleshooting
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../modding/" class="md-tabs__link">
+        Dev Docs
+      </a>
+    </li>
+  
 
       
         
@@ -263,11 +304,31 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../jpresources/" class="md-tabs__link">
-      JP Resources
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq/" class="md-tabs__link">
+        FAQ & Troubleshooting
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../jpresources/" class="md-tabs__link">
+        JP Resources
+      </a>
+    </li>
+  
 
       
     </ul>
@@ -293,8 +354,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo.png" alt="logo">
 
     </a>
     jp-mining-note
@@ -304,7 +364,7 @@
       <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -325,17 +385,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1">
+        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
           Home
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Home
@@ -367,17 +428,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1_2">
+        <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
           Getting Started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_1_2">
           <span class="md-nav__icon md-icon"></span>
           Getting Started
@@ -392,6 +454,20 @@
     <li class="md-nav__item">
       <a href="../preface/" class="md-nav__link">
         Preface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../principles/" class="md-nav__link">
+        Philosophy
       </a>
     </li>
   
@@ -436,17 +512,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Setup
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Setup
@@ -501,8 +578,51 @@
   
   
     <li class="md-nav__item">
-      <a href="../setupeverythingelse/" class="md-nav__link">
-        Setup: Everything Else
+      <a href="../setuptextmedia/" class="md-nav__link">
+        Setup: Text & Media
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          Text & Media
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Text & Media
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupmpvacious/" class="md-nav__link">
+        mpvacious (TODO)
       </a>
     </li>
   
@@ -515,8 +635,114 @@
   
   
     <li class="md-nav__item">
-      <a href="../setupother/" class="md-nav__link">
-        Setup: Other
+      <a href="../setupasbplayer/" class="md-nav__link">
+        asbplayer (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          Extra Setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Extra Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupextrayomichan/" class="md-nav__link">
+        Extra: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupextraanki/" class="md-nav__link">
+        Extra: Anki
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupandroid/" class="md-nav__link">
+        Extra: Android
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupios/" class="md-nav__link">
+        Extra: iOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupereaders/" class="md-nav__link">
+        Extra: eReaders
       </a>
     </li>
   
@@ -537,6 +763,126 @@
 
             
           
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          Alternate Card Exporters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Alternate Card Exporters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupjl/" class="md-nav__link">
+        JL (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupjidoujisho/" class="md-nav__link">
+        jidoujisho (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupgoldendict/" class="md-nav__link">
+        goldendict (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Updating
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Updating
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
   
@@ -544,7 +890,77 @@
   
     <li class="md-nav__item">
       <a href="../updating/" class="md-nav__link">
-        Updating
+        Updating: Overview (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingjpmn/" class="md-nav__link">
+        Updating: JPMN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingyomichan/" class="md-nav__link">
+        Updating: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupchanges/" class="md-nav__link">
+        Setup Changes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingfinalsteps/" class="md-nav__link">
+        Final Steps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/CHANGELOG.md" class="md-nav__link">
+        Changelog
       </a>
     </li>
   
@@ -570,18 +986,19 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Reference
         </label>
@@ -593,8 +1010,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../ui/" class="md-nav__link">
-        User Interface
+      <a href="../quickstart/" class="md-nav__link">
+        Quick Start (TODO)
       </a>
     </li>
   
@@ -607,22 +1024,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../uicustomization/" class="md-nav__link">
-        UI Customization
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fieldref/" class="md-nav__link">
-        Field Reference
+      <a href="../blockquotes/" class="md-nav__link">
+        Blockquotes (TODO)
       </a>
     </li>
   
@@ -636,7 +1039,77 @@
   
     <li class="md-nav__item">
       <a href="../definitions/" class="md-nav__link">
-        Definitions
+        Definitions (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentences/" class="md-nav__link">
+        Sentences (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changingcardtype/" class="md-nav__link">
+        Changing Card Type (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes2/" class="md-nav__link">
+        More on Card Types (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keybinds/" class="md-nav__link">
+        Keybinds
       </a>
     </li>
   
@@ -677,8 +1150,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
+      <a href="../kanjihover/" class="md-nav__link">
+        Kanji Hover (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wordindicators/" class="md-nav__link">
+        Word Indicators (TODO)
       </a>
     </li>
   
@@ -703,6 +1190,104 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../infocircle/" class="md-nav__link">
+        Info Circle (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frequencies/" class="md-nav__link">
+        Frequencies (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../externallinks/" class="md-nav__link">
+        External Links (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fields/" class="md-nav__link">
+        Fields (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backfilling/" class="md-nav__link">
+        Backfilling (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch/" class="md-nav__link">
+        Batch Commands (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/" class="md-nav__link">
+        Other (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -712,18 +1297,19 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_21" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3_9">
+        <label class="md-nav__link" for="__nav_4_21" id="__nav_4_21_label" tabindex="0">
           Options
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Options" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_9">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_21_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4_21">
           <span class="md-nav__icon md-icon"></span>
           Options
         </label>
@@ -738,17 +1324,17 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Runtime Options
+          Runtime Options (TODO)
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Runtime Options
+        Runtime Options (TODO)
       </a>
       
         
@@ -772,6 +1358,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adding-options" class="md-nav__link">
+    Adding Options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-options" class="md-nav__link">
+    Available options
+  </a>
+  
+    <nav class="md-nav" aria-label="Available options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#override-options" class="md-nav__link">
+    Override Options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#special-option-values" class="md-nav__link">
     Special Option Values
   </a>
@@ -780,15 +1393,64 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pc-mobile-type" class="md-nav__link">
-    pc-mobile Type
+  <a href="#ismobile-and-ispc" class="md-nav__link">
+    isMobile and isPC
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#viewport-width-is-type" class="md-nav__link">
-    viewport-width-is Type
+  <a href="#isiphoneipad" class="md-nav__link">
+    isiPhoneiPad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewportwidth" class="md-nav__link">
+    viewportWidth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewportwidthbreakpoint" class="md-nav__link">
+    viewportWidthBreakpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cardtype" class="md-nav__link">
+    cardType
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cardside" class="md-nav__link">
+    cardSide
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fieldsallempty" class="md-nav__link">
+    fieldsAllEmpty
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fieldsallfilled" class="md-nav__link">
+    fieldsAllFilled
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fieldsanyfilled" class="md-nav__link">
+    fieldsAnyFilled
   </a>
   
 </li>
@@ -821,7 +1483,7 @@
   
     <li class="md-nav__item">
       <a href="../compiletimeoptions/" class="md-nav__link">
-        Compile-Time Options
+        Compile-Time Options (TODO)
       </a>
     </li>
   
@@ -835,7 +1497,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options
+        Yomichan Template Options (TODO)
       </a>
     </li>
   
@@ -849,31 +1511,38 @@
 
             
           
-            
-              
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
   
   
   
     
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_10">
-          Developer Documentation
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Dev Docs
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_10">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          Developer Documentation
+          Dev Docs
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -912,7 +1581,7 @@
   
     <li class="md-nav__item">
       <a href="../customcss/" class="md-nav__link">
-        Custom CSS
+        Custom CSS (TODO)
       </a>
     </li>
   
@@ -926,7 +1595,7 @@
   
     <li class="md-nav__item">
       <a href="../overrides/" class="md-nav__link">
-        Custom HTML (Overrides)
+        Custom HTML (Overrides) (TODO)
       </a>
     </li>
   
@@ -940,7 +1609,21 @@
   
     <li class="md-nav__item">
       <a href="../modules/" class="md-nav__link">
-        Custom JS (Modules)
+        Custom JS (Modules) (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../themes/" class="md-nav__link">
+        Themes (TODO)
       </a>
     </li>
   
@@ -954,15 +1637,8 @@
   
     <li class="md-nav__item">
       <a href="../moddingtips/" class="md-nav__link">
-        Tips & Tricks
+        Tips & Tricks (TODO)
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -978,6 +1654,33 @@
       
       
 
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          FAQ & Troubleshooting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ & Troubleshooting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
   
   
   
@@ -988,6 +1691,69 @@
     </li>
   
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#errors-warnings" class="md-nav__link">
+        FAQ: Errors & Warnings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#troubleshooting" class="md-nav__link">
+        FAQ: Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#card-editing" class="md-nav__link">
+        FAQ: Card Editing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#other-questions" class="md-nav__link">
+        FAQ: Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
     
       
       
@@ -996,10 +1762,86 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          JP Resources
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          JP Resources
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../jpresources/" class="md-nav__link">
         JP Resources
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpmnhandlebars/" class="md-nav__link">
+        JPMN Handlebars Package
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripts/" class="md-nav__link">
+        Anki Scripts (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresourcesother/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1036,6 +1878,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adding-options" class="md-nav__link">
+    Adding Options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-options" class="md-nav__link">
+    Available options
+  </a>
+  
+    <nav class="md-nav" aria-label="Available options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#override-options" class="md-nav__link">
+    Override Options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#special-option-values" class="md-nav__link">
     Special Option Values
   </a>
@@ -1044,15 +1913,64 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pc-mobile-type" class="md-nav__link">
-    pc-mobile Type
+  <a href="#ismobile-and-ispc" class="md-nav__link">
+    isMobile and isPC
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#viewport-width-is-type" class="md-nav__link">
-    viewport-width-is Type
+  <a href="#isiphoneipad" class="md-nav__link">
+    isiPhoneiPad
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewportwidth" class="md-nav__link">
+    viewportWidth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewportwidthbreakpoint" class="md-nav__link">
+    viewportWidthBreakpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cardtype" class="md-nav__link">
+    cardType
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cardside" class="md-nav__link">
+    cardSide
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fieldsallempty" class="md-nav__link">
+    fieldsAllEmpty
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fieldsallfilled" class="md-nav__link">
+    fieldsAllFilled
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fieldsanyfilled" class="md-nav__link">
+    fieldsAnyFilled
   </a>
   
 </li>
@@ -1083,156 +2001,229 @@
                 
                   
 
-
-
   
   
-  <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/docs/docs/runtimeoptions.md"
-    title="View source of this page"
-    class="md-content__button md-icon"
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
-  </a>
+    
+      
+    
+    <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/raw/dev/docs/docs/runtimeoptions.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
 
 
-  <h1>Runtime Options</h1>
+  <h1>Runtime Options (TODO)</h1>
 
-<p>Runtime options are card options that are applied globally to all JPMN cards.
+<div><p>Runtime options are card options that are applied globally to all JPMN cards.
 This differs from binary fields,
-as binary options are options that only affects the one note.</p>
-<hr />
-<h2 id="accessing-editing">Accessing &amp; Editing<a class="headerlink" href="#accessing-editing" title="Permanent link">&para;</a></h2>
+as binary fields are options that only affects the one card.</p>
+<hr>
+<h2 id="accessing-editing">Accessing &amp; Editing<a class="headerlink" href="#accessing-editing" title="Permanent link">¶</a></h2>
+<details class="example">
+<summary>Video demo <small>(click here)</small></summary>
+<p><div class="video-container"><video style="width:100%;height:100%" controls alt="type:video"><source src="../assets/runtimeoptions/open_rto.mp4" type="video/mp4"></source></video></div></p>
+</details>
 <p>To access the runtime options, navigate to your profile's
-<a href="../faq/#where-is-the-x-folder-in-anki" target="_blank">media folder</a>,
-and open the <code>_jpmn-options.js</code> file as a text file.</p>
+<a href="../faq/#where-is-the-x-folder-in-anki">media folder</a>,
+and open the <code>_jpmn-options.js</code> file with your favorite text editor.</p>
 <p>The contents of the file should look something like the following:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">var</span><span class="w"> </span><span class="nx">JPMNOpts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">my</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nx">my</span><span class="p">.</span><span class="nx">settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// ... (a bunch of settings)</span><span class="w"></span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">my</span><span class="p">;</span><span class="w"></span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}(</span><span class="nx">JPMNOpts</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{}));</span><span class="w"></span>
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">window</span><span class="p">.</span><span class="nx">JPMNOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="c1">// Add your runtime options here.</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="c1">// ...</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
+</code></pre></div>
+<!--
+!!! note
+
+    To open the file as a text file on Windows, right click the file and select `Edit`.
+    Do not double-click the file.
+-->
+
+<hr>
+<h2 id="adding-options">Adding Options<a class="headerlink" href="#adding-options" title="Permanent link">¶</a></h2>
+<p>You can add a runtime option anywhere between the two outer-most curly brackets.
+For example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">window</span><span class="p">.</span><span class="nx">JPMNOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="c1">// Add your runtime options here.</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="s2">"autoPitchAccent.coloredPitchAccent.enabled"</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="c1">// ...</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+</code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To open the file as a text file on Windows, right click the file and select <code>Edit</code>.
-Do not double-click the file.</p>
+<p>You should only add options that you want to override.
+This is to allow the default options to change, which usually
+only happens if the old option is no longer valid due to implementation details.
+In the rare occasion that default options do change, they will be recorded in the
+changelog (TODO link changelog).</p>
 </div>
-<p>TODO add demo for windows to opening the file &amp; editing</p>
-<hr />
-<h2 id="special-option-values">Special Option Values<a class="headerlink" href="#special-option-values" title="Permanent link">&para;</a></h2>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.4</code>)</i></sup></p>
+<hr>
+<h2 id="available-options">Available options<a class="headerlink" href="#available-options" title="Permanent link">¶</a></h2>
+<p>All available options can be found in the
+<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/data/runtime_opts.json5">runtime_opts.json5</a>
+file. (TODO not dev branch!)</p>
+<p>You can safely copy/paste anything there into your runtime options file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This <code>json5</code> file is, strictly speaking, NOT an example configuration file.
+There are a few differences between the <code>runtime_opts.json5</code> file
+and the actual <code>_jpmn-opts.js</code> configuration file:</p>
+<ol>
+<li><code>runtime_opts.json5</code> does not have the <code>window.JPMNOptions</code> variable set at the very top.</li>
+<li>
+<p><code>runtime_opts.json5</code> has an additional <code>overrides</code> key at the very bottom.
+    This <code>overrides</code> key is an implementation detail, and should NOT be used anywhere in the true configuration file.</p>
+<p>The <code>overrides</code> key contains a dictionary that overrides the true value
+of the original key/value pair defined.
+For example,
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>"kanjiHover.enabled": true,
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>"overrides": {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    "kanjiHover.enabled": false,
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>}
+</code></pre></div>
+<p>renders in the built card as:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>"kanjiHover.enabled": false,
+</code></pre></div>
+<ul>
+<li>TODO this info is outdated, refer to <code>rto_overrides.json5</code></li>
+</ul>
+</li>
+</ol>
+</div>
+<h3 id="override-options">Override Options<a class="headerlink" href="#override-options" title="Permanent link">¶</a></h3>
+<p>TODO link to tooltipresults? or visa versa?</p>
+<p>There are a few option groups that can be used to override other options:</p>
+<ul>
+<li><code>tooltips.overrideOptions.sentenceParser</code></li>
+<li><code>tooltips.overrideOptions.autoPitchAccent</code></li>
+<li><code>kanjiHover.overrideOptions.tooltips</code></li>
+<li><code>wordIndicators.overrideOptions.tooltips</code></li>
+</ul>
+<p>The tooltips internally use an instance of the sentence parser and auto pitch accent
+modules to display the content.
+However, one may want to display content differently in tooltips than in
+the regular card.
+If that is desired, these override options can be used to exactly define
+what options are used by the internal
+sentence parser, auto pitch accent and/or tooltips modules.</p>
+<hr>
+<h2 id="special-option-values">Special Option Values<a class="headerlink" href="#special-option-values" title="Permanent link">¶</a></h2>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
+<p>All runtime options are formatted as a key/value pair.
+A simple example is the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">"kanjiHover.enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</code></pre></div>
+<p>In the above example, the key is <code>kanjiHover.enabled</code>, whereas the value is <code>true</code>.</p>
 <p>All runtime options can take special values, which are always formatted as the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IDENTIFIER_STRING&quot;</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="c1">// other options ...</span><span class="w"></span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">},</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IDENTIFIER_STRING"</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="c1">// potentially extra arguments in "args": { ... }</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">"resultTrue"</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">"resultFalse"</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">},</span>
 </code></pre></div>
-<p>For example, take any key-value pair, such as:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-</code></pre></div></p>
+<p>For example, we can change the above <code>kanjiHover.enabled</code> to use this special value,
+with type type of <code>isMobile</code>:</p>
 <p>This can be changed to:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"></span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="c1">// other options...</span><span class="w"></span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">},</span><span class="w"></span>
-</code></pre></div></p>
-<p><br></p>
-<h3 id="pc-mobile-type"><code>pc-mobile</code> Type<a class="headerlink" href="#pc-mobile-type" title="Permanent link">&para;</a></h3>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.4</code>)</i></sup></p>
-<p>The <code>pc-mobile</code> type allows you to specify different values depending if
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">"kanjiHover.enabled"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"isPC"</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">"resultTrue"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// kanji hover is enabled on PC</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">"resultFalse"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// kanji hover is not enabled on non-PC devices, i.e. mobile</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">},</span>
+</code></pre></div>
+<p>A full list of special option types is shown below.
+The source code for these can be found under
+<a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/src/ts/options.ts">src/ts/options.ts</a>.
+(TODO not dev branch)</p>
+<h3 id="ismobile-and-ispc"><code>isMobile</code> and <code>isPC</code><a class="headerlink" href="#ismobile-and-ispc" title="Permanent link">¶</a></h3>
+<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
+<p>The <code>isMobile</code> and <code>isPC</code> type allows you to specify different values depending if
 you are using Anki on a mobile device, or PC (non-mobile).</p>
-<p>This is formatted as the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pc-mobile&quot;</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_FOR_PC</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_FOR_MOBILE</span><span class="w"></span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">},</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"isMobile"</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">"resultTrue"</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_IF_MOBILE</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">"resultFalse"</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_IF_PC</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">},</span>
 </code></pre></div>
-<details class="examplecode">
-<summary>Example <em>(click here)</em></summary>
-<p>Take a sample key-value pair:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-</code></pre></div></p>
-<p>The value can be changed to be <code>true</code> for PC, and <code>false</code> for mobile.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pc-mobile&quot;</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;pc&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">},</span><span class="w"></span>
+<p><code>isPC</code> is the exact opposite of <code>isMobile</code>, and be used similarly.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"isPC"</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"resultTrue"</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_IF_PC</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">"resultFalse"</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_IF_MOBILE</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">},</span>
 </code></pre></div>
-</details>
-<p><br></p>
-<h3 id="viewport-width-is-type"><code>viewport-width-is</code> Type<a class="headerlink" href="#viewport-width-is-type" title="Permanent link">&para;</a></h3>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.4</code>)</i></sup></p>
-<p>The <code>viewport-width-is</code> type allows you to specify different values depending
+<h3 id="isiphoneipad"><code>isiPhoneiPad</code><a class="headerlink" href="#isiphoneipad" title="Permanent link">¶</a></h3>
+<p>TODO</p>
+<h3 id="viewportwidth"><code>viewportWidth</code><a class="headerlink" href="#viewportwidth" title="Permanent link">¶</a></h3>
+<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
+<p>The <code>viewportWidth</code> type allows you to specify different values depending
 on the screen width.
 Note that the viewport width is read for each card flip.
 This means that viewport width changes after resizing a window will not be detected,
 and will only be updated when you flip the side or go to a new card.</p>
 <p>This is formatted as the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;viewport-width-is&quot;</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">AN_INTEGER</span><span class="p">,</span><span class="w"> </span><span class="c1">// measured in pixels</span><span class="w"></span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">&quot;greater&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_FOR_GREATER</span><span class="p">,</span><span class="w"> </span><span class="c1">// the value used if the current width is greater than &quot;value&quot;</span><span class="w"></span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">&quot;lesser&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">VALUE_FOR_LESSER</span><span class="w"> </span><span class="c1">// the value used if the current width is lesser than (or equal to) &quot;value&quot;</span><span class="w"></span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">},</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"viewportWidth"</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="err">MATH_OP</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="err">WIDTH</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="nt">"resultTrue"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="nt">"resultFalse"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="p">},</span>
 </code></pre></div>
-<details class="examplecode">
-<summary>Example <em>(click here)</em></summary>
-<p>This will enable <code>pa-indicator-color-quotes</code>
-on screens that have a viewport width of 1300 pixels or less.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">&quot;pa-indicator-color-quotes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;viewport-width-is&quot;</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1300</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">&quot;greater&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">&quot;lesser&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">},</span><span class="w"></span>
+<p>TODO <code>MATH_OP</code> and <code>WIDTH</code></p>
+<h3 id="viewportwidthbreakpoint"><code>viewportWidthBreakpoint</code><a class="headerlink" href="#viewportwidthbreakpoint" title="Permanent link">¶</a></h3>
+<p><sup><i>New in version <code>0.12.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"viewportWidthBreakpoint"</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="err">MATH_OP</span><span class="p">,</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="err">BREAKPOINT_VAR</span><span class="p">,</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="nt">"resultTrue"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="nt">"resultFalse"</span><span class="p">:</span><span class="w"> </span><span class="err">...</span><span class="p">,</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="p">},</span>
 </code></pre></div>
-</details>
-<hr />
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p><code>BREAKPOINT_VAR</code> can be one of:</p>
+<ul>
+<li><code>displaySentenceShrink</code></li>
+<li><code>displaySentenceRemoveNewlines</code></li>
+<li><code>maxWidthBackside</code> (tablet)</li>
+<li><code>combinePicture</code> (mobile)</li>
+</ul>
+<h3 id="cardtype"><code>cardType</code><a class="headerlink" href="#cardtype" title="Permanent link">¶</a></h3>
+<p>TODO</p>
+<h3 id="cardside"><code>cardSide</code><a class="headerlink" href="#cardside" title="Permanent link">¶</a></h3>
+<p>TODO</p>
+<h3 id="fieldsallempty"><code>fieldsAllEmpty</code><a class="headerlink" href="#fieldsallempty" title="Permanent link">¶</a></h3>
+<p>TODO</p>
+<h3 id="fieldsallfilled"><code>fieldsAllFilled</code><a class="headerlink" href="#fieldsallfilled" title="Permanent link">¶</a></h3>
+<p>TODO</p>
+<h3 id="fieldsanyfilled"><code>fieldsAnyFilled</code><a class="headerlink" href="#fieldsanyfilled" title="Permanent link">¶</a></h3>
+<p>TODO</p>
+<hr>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
 <p>TODO record specific errors</p>
 <p>If you have any error, or an option is simply not working, please check the following:</p>
 <ol>
-<li>
-<p>There are commas and double-quotes in the <a href="https://www.json.org/json-en.html">correct places</a>.</p>
-<details class="examplecode">
-<summary>Example <em>(click here)</em></summary>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">&quot;add-image-if-contains-tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sample_tag&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_sample_image.png&quot;</span><span class="w"></span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="p">{</span><span class="w"></span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;something&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;something2&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="nt">&quot;file-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_contains_both_tags.png&quot;</span><span class="w"></span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="p">}</span><span class="w"></span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">],</span><span class="w"> </span><span class="c1">// &lt;-- HERE</span><span class="w"></span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="c1">// ...</span><span class="w"></span>
-</code></pre></div>
-</details>
-</li>
-<li>
-<p>If a runtime option is not working,
-    ensure that the
-    <a href="../updating/#updating-the-runtime-options-file">runtime options file is updated</a>.
-    The option may have been renamed or repositioned.</p>
-</li>
-<li>
-<p>If an error is saying that an option doesn't exist, just like for the above, ensure
-    that the <a href="../updating/#updating-the-runtime-options-file">runtime options file is updated</a>.</p>
-</li>
-</ol>
+<li>If a runtime option is not working,
+    or you get an error saying that an option doesn't exist,
+    you may have an outdated option.
+    Please check that your option is indeed recorded in the
+    <a href="#available-options">available options</a>.</li>
+</ol></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 23, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2023</span>
       
     
   </small>
@@ -1251,82 +2242,28 @@ on screens that have a viewport width of 1300 pixels or less.</p>
         
       </main>
       
-<!-- Footer -->
-<footer class="md-footer">
-
-  <!-- Link to previous and/or next page -->
+        <footer class="md-footer">
   
-    
-    <nav
-      class="md-footer__inner md-grid"
-      aria-label="Footer"
-      
-    >
-
-      <!-- Link to previous page -->
-      
-        
-        <a
-          href="../tooltipresults/"
-          class="md-footer__link md-footer__link--prev"
-          aria-label="Previous: Tooltip Results (TODO)"
-          rel="prev"
-        >
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Tooltip Results (TODO)
-            </div>
-          </div>
-        </a>
-      
-
-      <!-- Link to next page -->
-      
-        
-        <a
-          href="../compiletimeoptions/"
-          class="md-footer__link md-footer__link--next"
-          aria-label="Next: Compile-Time Options"
-          rel="next"
-        >
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Compile-Time Options
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
   
-
   
-
+</div>
+      
+    </div>
+  </div>
 </footer>
-
-
-
-
+      
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate", "content.code.copy", "content.action.view"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      <script src="../assets/javascripts/bundle.fac441b0.min.js"></script>
       
     
   </body>

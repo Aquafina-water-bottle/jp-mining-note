@@ -10,10 +10,16 @@
       
       
       
-        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note/importing/">
+        <link rel="canonical" href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/importing/">
+      
+      
+        <link rel="prev" href="../setupereaders/">
+      
+      
+        <link rel="next" href="../setupjl/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.9">
     
     
       
@@ -21,11 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.20d9efc8.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a6bdf11c.min.css">
       
       
 
@@ -60,7 +65,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo">
   
     
     
@@ -79,6 +84,19 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+
+<b class="jpmn-highlight">WARNING</b>: This documentation is for the latest pre-release version of jp-mining-note, and is very WIP / incomplete. <br>
+If you are looking for the stable release documentation, see <a href="https://aquafina-water-bottle.github.io/jp-mining-note/">here</a>.
+
+
+          </div>
+          
+        </aside>
+      
     </div>
     
     
@@ -88,8 +106,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="jp-mining-note" class="md-header__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -112,27 +129,31 @@
       </div>
     </div>
     
-      <form class="md-header__option" data-md-component="palette">
-        
+      
+        <form class="md-header__option" data-md-component="palette">
           
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+              </label>
+            
           
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+              </label>
+            
           
-            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
-            </label>
-          
-        
-          
-          
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
-          
-            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
-            </label>
-          
-        
-      </form>
+        </form>
+      
     
     
     
@@ -162,7 +183,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -174,7 +195,7 @@
         <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -193,7 +214,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -239,7 +260,23 @@
   
   
     <li class="md-tabs__item">
-      <a href="../ui/" class="md-tabs__link">
+      <a href="../updating/" class="md-tabs__link">
+        Updating
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quickstart/" class="md-tabs__link">
         Reference
       </a>
     </li>
@@ -251,11 +288,15 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../faq/" class="md-tabs__link">
-      FAQ & Troubleshooting
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../modding/" class="md-tabs__link">
+        Dev Docs
+      </a>
+    </li>
+  
 
       
         
@@ -263,11 +304,31 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../jpresources/" class="md-tabs__link">
-      JP Resources
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq/" class="md-tabs__link">
+        FAQ & Troubleshooting
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../jpresources/" class="md-tabs__link">
+        JP Resources
+      </a>
+    </li>
+  
 
       
     </ul>
@@ -293,8 +354,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="jp-mining-note" class="md-nav__button md-logo" aria-label="jp-mining-note" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <img src="../assets/logo.png" alt="logo">
 
     </a>
     jp-mining-note
@@ -304,7 +364,7 @@
       <a href="https://github.com/Aquafina-water-bottle/jp-mining-note" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
   </div>
   <div class="md-source__repository">
     jp-mining-note
@@ -325,17 +385,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1">
+        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
           Home
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           Home
@@ -367,17 +428,18 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1_2">
+        <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
           Getting Started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_1_2">
           <span class="md-nav__icon md-icon"></span>
           Getting Started
@@ -392,6 +454,20 @@
     <li class="md-nav__item">
       <a href="../preface/" class="md-nav__link">
         Preface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../principles/" class="md-nav__link">
+        Philosophy
       </a>
     </li>
   
@@ -438,17 +514,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Setup
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Setup
@@ -503,8 +580,51 @@
   
   
     <li class="md-nav__item">
-      <a href="../setupeverythingelse/" class="md-nav__link">
-        Setup: Everything Else
+      <a href="../setuptextmedia/" class="md-nav__link">
+        Setup: Text & Media
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          Text & Media
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Text & Media
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupmpvacious/" class="md-nav__link">
+        mpvacious (TODO)
       </a>
     </li>
   
@@ -517,8 +637,116 @@
   
   
     <li class="md-nav__item">
-      <a href="../setupother/" class="md-nav__link">
-        Setup: Other
+      <a href="../setupasbplayer/" class="md-nav__link">
+        asbplayer (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          Extra Setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Extra Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupextrayomichan/" class="md-nav__link">
+        Extra: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupextraanki/" class="md-nav__link">
+        Extra: Anki
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupandroid/" class="md-nav__link">
+        Extra: Android
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupios/" class="md-nav__link">
+        Extra: iOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupereaders/" class="md-nav__link">
+        Extra: eReaders
       </a>
     </li>
   
@@ -534,7 +762,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
       
@@ -604,43 +832,43 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-correctly-formatting-sentence-field" class="md-nav__link">
-    (1) Correctly Formatting Sentence Field
+  <a href="#correctly-formatting-sentence-field" class="md-nav__link">
+    1. Correctly Formatting Sentence Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-batch-generate-pitch-accents-and-sentence-furigana" class="md-nav__link">
-    (2) Batch generate pitch accents and sentence furigana
+  <a href="#batch-generate-pitch-accents-and-sentence-furigana" class="md-nav__link">
+    2. Batch generate pitch accents and sentence furigana
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-batch-set-pasilence-field" class="md-nav__link">
-    (3) Batch Set PASilence Field
+  <a href="#batch-set-pasilence-field" class="md-nav__link">
+    3. Batch set PASilence Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-correctly-formatting-wordreading-field" class="md-nav__link">
-    (4) Correctly Formatting WordReading Field
+  <a href="#correctly-formatting-wordreading-field" class="md-nav__link">
+    4. Correctly Formatting WordReading Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-optional-batch-set-wordreadinghiragana-field" class="md-nav__link">
-    (5) (Optional) Batch set WordReadingHiragana Field
+  <a href="#batch-set-wordreadinghiragana-field" class="md-nav__link">
+    5. Batch set WordReadingHiragana Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-optional-backfill-the-frequencysort-field" class="md-nav__link">
-    (6) (Optional) Backfill the FrequencySort Field
+  <a href="#backfill-the-frequencysort-field" class="md-nav__link">
+    6. Backfill the FrequencySort Field
   </a>
   
 </li>
@@ -666,6 +894,126 @@
 
             
           
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          Alternate Card Exporters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Alternate Card Exporters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupjl/" class="md-nav__link">
+        JL (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupjidoujisho/" class="md-nav__link">
+        jidoujisho (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupgoldendict/" class="md-nav__link">
+        goldendict (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Updating
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Updating
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
   
@@ -673,7 +1021,77 @@
   
     <li class="md-nav__item">
       <a href="../updating/" class="md-nav__link">
-        Updating
+        Updating: Overview (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingjpmn/" class="md-nav__link">
+        Updating: JPMN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingyomichan/" class="md-nav__link">
+        Updating: Yomichan
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setupchanges/" class="md-nav__link">
+        Setup Changes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../updatingfinalsteps/" class="md-nav__link">
+        Final Steps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/CHANGELOG.md" class="md-nav__link">
+        Changelog
       </a>
     </li>
   
@@ -697,18 +1115,19 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Reference
         </label>
@@ -720,8 +1139,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../ui/" class="md-nav__link">
-        User Interface
+      <a href="../quickstart/" class="md-nav__link">
+        Quick Start (TODO)
       </a>
     </li>
   
@@ -734,22 +1153,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../uicustomization/" class="md-nav__link">
-        UI Customization
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fieldref/" class="md-nav__link">
-        Field Reference
+      <a href="../blockquotes/" class="md-nav__link">
+        Blockquotes (TODO)
       </a>
     </li>
   
@@ -763,7 +1168,77 @@
   
     <li class="md-nav__item">
       <a href="../definitions/" class="md-nav__link">
-        Definitions
+        Definitions (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentences/" class="md-nav__link">
+        Sentences (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes/" class="md-nav__link">
+        Card Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changingcardtype/" class="md-nav__link">
+        Changing Card Type (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardtypes2/" class="md-nav__link">
+        More on Card Types (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../keybinds/" class="md-nav__link">
+        Keybinds
       </a>
     </li>
   
@@ -804,8 +1279,22 @@
   
   
     <li class="md-nav__item">
-      <a href="../cardtypes/" class="md-nav__link">
-        Card Types
+      <a href="../kanjihover/" class="md-nav__link">
+        Kanji Hover (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wordindicators/" class="md-nav__link">
+        Word Indicators (TODO)
       </a>
     </li>
   
@@ -831,24 +1320,123 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../infocircle/" class="md-nav__link">
+        Info Circle (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frequencies/" class="md-nav__link">
+        Frequencies (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../externallinks/" class="md-nav__link">
+        External Links (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fields/" class="md-nav__link">
+        Fields (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backfilling/" class="md-nav__link">
+        Backfilling (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../batch/" class="md-nav__link">
+        Batch Commands (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../other/" class="md-nav__link">
+        Other (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
       
     
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_9" type="checkbox" id="__nav_3_9" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_21" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3_9">
+        <label class="md-nav__link" for="__nav_4_21" id="__nav_4_21_label" tabindex="0">
           Options
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Options" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_9">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_21_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_21">
           <span class="md-nav__icon md-icon"></span>
           Options
         </label>
@@ -861,7 +1449,7 @@
   
     <li class="md-nav__item">
       <a href="../runtimeoptions/" class="md-nav__link">
-        Runtime Options
+        Runtime Options (TODO)
       </a>
     </li>
   
@@ -875,7 +1463,7 @@
   
     <li class="md-nav__item">
       <a href="../compiletimeoptions/" class="md-nav__link">
-        Compile-Time Options
+        Compile-Time Options (TODO)
       </a>
     </li>
   
@@ -889,7 +1477,7 @@
   
     <li class="md-nav__item">
       <a href="../yomichantemplates/" class="md-nav__link">
-        Yomichan Template Options
+        Yomichan Template Options (TODO)
       </a>
     </li>
   
@@ -903,31 +1491,38 @@
 
             
           
-            
-              
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
   
   
   
     
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_10" type="checkbox" id="__nav_3_10" >
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-        <label class="md-nav__link" for="__nav_3_10">
-          Developer Documentation
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Dev Docs
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Developer Documentation" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_10">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          Developer Documentation
+          Dev Docs
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -966,7 +1561,7 @@
   
     <li class="md-nav__item">
       <a href="../customcss/" class="md-nav__link">
-        Custom CSS
+        Custom CSS (TODO)
       </a>
     </li>
   
@@ -980,7 +1575,7 @@
   
     <li class="md-nav__item">
       <a href="../overrides/" class="md-nav__link">
-        Custom HTML (Overrides)
+        Custom HTML (Overrides) (TODO)
       </a>
     </li>
   
@@ -994,7 +1589,21 @@
   
     <li class="md-nav__item">
       <a href="../modules/" class="md-nav__link">
-        Custom JS (Modules)
+        Custom JS (Modules) (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../themes/" class="md-nav__link">
+        Themes (TODO)
       </a>
     </li>
   
@@ -1008,15 +1617,8 @@
   
     <li class="md-nav__item">
       <a href="../moddingtips/" class="md-nav__link">
-        Tips & Tricks
+        Tips & Tricks (TODO)
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1032,6 +1634,33 @@
       
       
 
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          FAQ & Troubleshooting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ & Troubleshooting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
   
   
   
@@ -1042,6 +1671,69 @@
     </li>
   
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#errors-warnings" class="md-nav__link">
+        FAQ: Errors & Warnings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#troubleshooting" class="md-nav__link">
+        FAQ: Troubleshooting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#card-editing" class="md-nav__link">
+        FAQ: Card Editing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/#other-questions" class="md-nav__link">
+        FAQ: Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
     
       
       
@@ -1050,10 +1742,86 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          JP Resources
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          JP Resources
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../jpresources/" class="md-nav__link">
         JP Resources
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpmnhandlebars/" class="md-nav__link">
+        JPMN Handlebars Package
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripts/" class="md-nav__link">
+        Anki Scripts (TODO)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jpresourcesother/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1126,43 +1894,43 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-correctly-formatting-sentence-field" class="md-nav__link">
-    (1) Correctly Formatting Sentence Field
+  <a href="#correctly-formatting-sentence-field" class="md-nav__link">
+    1. Correctly Formatting Sentence Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-batch-generate-pitch-accents-and-sentence-furigana" class="md-nav__link">
-    (2) Batch generate pitch accents and sentence furigana
+  <a href="#batch-generate-pitch-accents-and-sentence-furigana" class="md-nav__link">
+    2. Batch generate pitch accents and sentence furigana
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-batch-set-pasilence-field" class="md-nav__link">
-    (3) Batch Set PASilence Field
+  <a href="#batch-set-pasilence-field" class="md-nav__link">
+    3. Batch set PASilence Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-correctly-formatting-wordreading-field" class="md-nav__link">
-    (4) Correctly Formatting WordReading Field
+  <a href="#correctly-formatting-wordreading-field" class="md-nav__link">
+    4. Correctly Formatting WordReading Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-optional-batch-set-wordreadinghiragana-field" class="md-nav__link">
-    (5) (Optional) Batch set WordReadingHiragana Field
+  <a href="#batch-set-wordreadinghiragana-field" class="md-nav__link">
+    5. Batch set WordReadingHiragana Field
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-optional-backfill-the-frequencysort-field" class="md-nav__link">
-    (6) (Optional) Backfill the FrequencySort Field
+  <a href="#backfill-the-frequencysort-field" class="md-nav__link">
+    6. Backfill the FrequencySort Field
   </a>
   
 </li>
@@ -1193,22 +1961,21 @@
                 
                   
 
-
-
   
   
-  <a
-    href="https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/docs/docs/importing.md"
-    title="View source of this page"
-    class="md-content__button md-icon"
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
-  </a>
+    
+      
+    
+    <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/raw/dev/docs/docs/importing.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
 
 
   <h1>Transfer Existing Notes</h1>
 
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<div><h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">¶</a></h2>
 <p>This section is dedicated to explaining how you can change
 other Anki cards into this note format.</p>
 <div class="admonition note">
@@ -1217,8 +1984,8 @@ other Anki cards into this note format.</p>
 properly update all the notes in place.
 See <a href="../updating/">this section</a> instead.</p>
 </div>
-<hr />
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<hr>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
 <p>Unfortunately, there are so many card formats out there that
 it would be impossible to cover how to import from every format
 with detailed rigor.
@@ -1227,22 +1994,25 @@ on operations that will likely be common across most or all formats,
 as well as present a small example for Anime Cards.</p>
 <p>Additionally, although you maybe able to import most of the card,
 it is unlikely that you will have complete 100% full
-functionality after importing the notes.
+functionality after importing the notes.</p>
+<!--
 The biggest example is frequency list information,
-as it requires special HTML + css formatting that can only be specified
-in the Yomichan Templates section.</p>
-<hr />
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+as it requires special HTML + CSS formatting that can only be specified
+in the Yomichan Templates section.
+-->
+
+<hr>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <p>Before doing anything that affects your Anki collection in a major way
 (for example, basically everything on this page),
-please make a <a href="../faq/#how-do-i-backup-my-anki-data" target="_blank">complete backup</a> of your collection.</p>
+please make a <a href="../faq/#how-do-i-backup-my-anki-data">complete backup</a> of your collection.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Transferring your previous notes shouldn't change your media files at all.
 However I recommend exporting <strong>with media</strong> just in case, so long as you have the disk space for it.</p>
 </div>
-<hr />
-<h2 id="anki">Anki<a class="headerlink" href="#anki" title="Permanent link">&para;</a></h2>
+<hr>
+<h2 id="anki">Anki<a class="headerlink" href="#anki" title="Permanent link">¶</a></h2>
 <p>Anki provides a feature to switch between note types, without affecting scheduling information.
 To do this, follow the proceeding steps:</p>
 <ol>
@@ -1254,18 +2024,18 @@ To do this, follow the proceeding steps:</p>
 </li>
 <li>
 <p>Select all the cards that you want to switch.</p>
-<div class="admonition note">
+<div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><code>ctrl+a</code> selects all cards in the browser.</p>
+<p><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-a">A</kbd></span> selects all cards in the browser.</p>
 </div>
 </li>
 <li>
 <p>Right click the selection →  <code>Notes</code> →  <code>Change Note Type...</code></p>
 </li>
 </ol>
-<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/importing/change_notetype.mp4" type="video/mp4" /></video></div></p>
-<hr />
-<h2 id="mapping-fields">Mapping Fields<a class="headerlink" href="#mapping-fields" title="Permanent link">&para;</a></h2>
+<p><div class="video-container"><video style="width:100%;height:100%" controls alt="type:video"><source src="../assets/importing/change_notetype.mp4" type="video/mp4"></source></video></div></p>
+<hr>
+<h2 id="mapping-fields">Mapping Fields<a class="headerlink" href="#mapping-fields" title="Permanent link">¶</a></h2>
 <p>Here is where I can't give specific advice, as every note is different.
 However, here are a few tips:</p>
 <ol>
@@ -1277,6 +2047,12 @@ To import this correctly into JPMN, make sure JPMN's <code>Key</code> and <code>
 your old card's <code>Word</code> field.</p>
 </li>
 <li>
+<p>The <code>WordReading</code> field should ideally be a simplified furigana format.
+    For example, if the word is 成り立つ, this field should be 「成[な]り 立[た]つ」.
+    If you do not have any field that resembles this, use the kana reading (なりたつ) or true furigana
+    (<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ), and continue with the steps below.</p>
+</li>
+<li>
 <p>Leave <code>AJTWordPitch</code> and <code>SentenceReading</code> empty.</p>
 <p>These fields can be empty as AJT Japanese
 can batch generate both word pitches and sentence furigana.</p>
@@ -1285,32 +2061,27 @@ can batch generate both word pitches and sentence furigana.</p>
 <p>You may have some word pitch fields already in your card.
     Pitch accent graphs should be mapped to <code>PAGraphs</code>, and
     pitch accent positions should be mapped to <code>PAPositions</code>.</p>
-<p>Note that if you plan to use <a href="../autopa/#colored-pitch-accent">colored pitch accent</a>
-on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
 </li>
 <li>
 <p><code>FrequencySort</code> maps to the frequency value used to sort by frequency, which works exactly
     the same as Marv's <code>Frequency</code> field as documented in
-    <a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a>
-    page.</p>
+    <a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">Marv's Resources page</a>.</p>
 </li>
 <li>
-<p>If you have a field that stores the source of the media, I recommend mapping that to <code>AdditionalNotes</code>.</p>
-</li>
-<li>
-<p>The <code>WordReading</code> field should ideally be a simplified furigana format.
-    For example, if the word is 成り立つ, this field should be 「成[な]り 立[た]つ」.
-    If you do not have any field that resembles this, use the kana reading (なりたつ) or true furigana
-    (<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ), and continue with the steps below.</p>
+<p>If you have a field that stores the source of the media, I recommend mapping that to <code>AdditionalNotes</code>
+    or <code>Comment</code>.</p>
 </li>
 <li>
 <p>I recommend <strong>not</strong> setting <code>FrequenciesStylized</code> to anything, even if you have a field for
     frequency lists<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 </li>
+<li>
+<p>When in doubt, look at the format in the example notes.</p>
+</li>
 </ol>
 <p>An example with <a href="https://animecards.site/ankicards/">Anime cards</a> is shown below.</p>
 <details class="example">
-<summary>Example for Anime Cards <em>(click here)</em></summary>
+<summary>Example for Anime Cards <small>(click here)</small></summary>
 <table>
 <thead>
 <tr>
@@ -1360,7 +2131,11 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <td></td>
 </tr>
 <tr>
-<td class="smaller-table-row">AltDisplay</td>
+<td class="smaller-table-row">AltDisplayWord</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">AltDisplaySentence</td>
 <td></td>
 </tr>
 <tr>
@@ -1368,11 +2143,27 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <td></td>
 </tr>
 <tr>
+<td class="smaller-table-row">AltDisplayAudioCard</td>
+<td></td>
+</tr>
+<tr>
 <td class="smaller-table-row">AdditionalNotes</td>
 <td></td>
 </tr>
 <tr>
+<td class="smaller-table-row">Hint</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">HintNotHidden</td>
+<td class="smaller-table-row">Hint</td>
+</tr>
+<tr>
 <td class="smaller-table-row">IsSentenceCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">IsTargetedSentenceCard</td>
 <td></td>
 </tr>
 <tr>
@@ -1384,7 +2175,15 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <td></td>
 </tr>
 <tr>
-<td class="smaller-table-row">IsTargetedSentenceCard</td>
+<td class="smaller-table-row">IsHintCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">IsSentenceFirstCard</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">IsAudioCard</td>
 <td></td>
 </tr>
 <tr>
@@ -1408,16 +2207,12 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <td></td>
 </tr>
 <tr>
-<td class="smaller-table-row">SeparateClozeDeletionCard</td>
+<td class="smaller-table-row">SeparateAudioCard</td>
 <td></td>
 </tr>
 <tr>
-<td class="smaller-table-row">Hint</td>
+<td class="smaller-table-row">SeparateSentenceAudioCard</td>
 <td></td>
-</tr>
-<tr>
-<td class="smaller-table-row">HintNotHidden</td>
-<td class="smaller-table-row">Hint</td>
 </tr>
 <tr>
 <td class="smaller-table-row">Picture</td>
@@ -1440,6 +2235,14 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <td></td>
 </tr>
 <tr>
+<td class="smaller-table-row">FrequenciesStylized</td>
+<td></td>
+</tr>
+<tr>
+<td class="smaller-table-row">FrequencySort</td>
+<td></td>
+</tr>
+<tr>
 <td class="smaller-table-row">PASilence</td>
 <td></td>
 </tr>
@@ -1448,11 +2251,7 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <td></td>
 </tr>
 <tr>
-<td class="smaller-table-row">FrequenciesStylized</td>
-<td></td>
-</tr>
-<tr>
-<td class="smaller-table-row">FrequencySort</td>
+<td class="smaller-table-row">YomichanWordTags</td>
 <td></td>
 </tr>
 <tr>
@@ -1468,6 +2267,10 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <td></td>
 </tr>
 <tr>
+<td class="smaller-table-row">CardCache</td>
+<td></td>
+</tr>
+<tr>
 <td class="smaller-table-row">Comment</td>
 <td></td>
 </tr>
@@ -1478,24 +2281,24 @@ on old cards, you must have a pitch accent positions field.<sup id="fnref:2"><a 
 <p>Anything not specified should be set to <code>(Nothing)</code></p>
 </div>
 </details>
-<hr />
-<h2 id="batch-editing">Batch Editing<a class="headerlink" href="#batch-editing" title="Permanent link">&para;</a></h2>
+<hr>
+<h2 id="batch-editing">Batch Editing<a class="headerlink" href="#batch-editing" title="Permanent link">¶</a></h2>
 <p>After switching your notes, you will have to do the following few steps:</p>
-<h3 id="1-correctly-formatting-sentence-field">(1) Correctly Formatting <code>Sentence</code> Field<a class="headerlink" href="#1-correctly-formatting-sentence-field" title="Permanent link">&para;</a></h3>
+<h3 id="correctly-formatting-sentence-field">1. Correctly Formatting <code>Sentence</code> Field<a class="headerlink" href="#correctly-formatting-sentence-field" title="Permanent link">¶</a></h3>
 <p>If your sentence fields have been highlighted in a way that isn't using <code>&lt;b&gt;</code>,
 then it will be incompatable with JPMN by default.</p>
 <p>To see what the formatting of the sentence is,
-<a href="../faq/#how-do-i-edit-the-fields-raw-html" target="_blank">view the raw HTML</a>
+<a href="../faq/#how-do-i-edit-the-fields-raw-html">view the raw HTML</a>
 of the <code>Sentence</code> field.</p>
 <p>Sentences are usually formatted in one of three ways, as shown below:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">(1) Highlighted with <code>&lt;b&gt;</code></label><label for="__tabbed_1_2">(2) Nothing is highlighted</label><label for="__tabbed_1_3">(3) Highlighted, but not with <code>&lt;b&gt;</code></label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">(1) Highlighted with <code>&lt;b&gt;</code></label><label for="__tabbed_1_2">(2) Nothing is highlighted</label><label for="__tabbed_1_3">(3) Highlighted, but not with <code>&lt;b&gt;</code></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If the tested content is highlighted with <code>&lt;b&gt;</code>, then it is already formatted correctly.
 <strong>You can skip this step</strong>.</p>
 <p><strong>Example:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>今日も、なんか、昼<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>爆睡<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>してしまったんので…
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>今日も、なんか、昼<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>爆睡<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>してしまったんので…
+</code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>The note comes with a feature to
@@ -1505,17 +2308,17 @@ However, this is an imperfect solution,
 and there is currently no easy way to add accurate highlighting to existing sentences.</p>
 <p><strong>As there is nothing to do, you can skip this step</strong>.</p>
 <p><strong>Example:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>今日も、なんか、昼爆睡してしまったんので…
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>今日も、なんか、昼爆睡してしまったんので…
+</code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>If the tested content is highlighted with something that isn't <code>&lt;b&gt;</code>,
 then <strong>continue with the following instructions</strong> to change it.</p>
 <p><strong>Example:</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>今日も、なんか、昼<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: #ffc2c7&quot;</span><span class="p">&gt;</span>爆睡<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>してしまったんので…
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>今日も、なんか、昼<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">"color: #ffc2c7"</span><span class="p">&gt;</span>爆睡<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>してしまったんので…
+</code></pre></div>
 <details class="example">
-<summary>Instructions to port formatted sentences <em>(click here)</em></summary>
+<summary>Instructions to port formatted sentences <small>(click here)</small></summary>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You may want to make another backup before doing the following, just in case.</p>
@@ -1525,11 +2328,11 @@ then <strong>continue with the following instructions</strong> to change it.</p>
 <p><strong>Determine how the sentence is formatted.</strong></p>
 <p>We will be using the above for this example.
 This example highlights the word using a <code>&lt;span&gt;</code> with a custom color.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>今日も、なんか、昼<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: #ffc2c7&quot;</span><span class="p">&gt;</span>爆睡<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>してしまったんので…
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>今日も、なんか、昼<span class="p">&lt;</span><span class="nt">span</span> <span class="na">style</span><span class="o">=</span><span class="s">"color: #ffc2c7"</span><span class="p">&gt;</span>爆睡<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>してしまったんので…
+</code></pre></div>
 <p>The above is created from the following Yomichan fields:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{cloze-prefix}&lt;span style=&quot;color: #ffc2c7&quot;&gt;{cloze-body}&lt;/span&gt;{cloze-suffix}
-</code></pre></div></p>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{cloze-prefix}&lt;span style="color: #ffc2c7"&gt;{cloze-body}&lt;/span&gt;{cloze-suffix}
+</code></pre></div>
 </li>
 <li>
 <p><strong>Testing the Conversion.</strong></p>
@@ -1567,22 +2370,22 @@ according to your note's sentence format.</p>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Selected notes only</td>
-<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled checked>)</td>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Ignore case</td>
-<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled>)</td>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Treat input as a<br>regular expression</td>
-<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled checked>)</td>
 </tr>
 </tbody>
 </table>
 <details class="example">
-<summary>Example image <em>(click here)</em></summary>
+<summary>Example image <small>(click here)</small></summary>
 <p><figure markdown>
-<a href="../assets/importing/fix_formatted_sentences.png"><img alt="The above table in Anki" src="../assets/importing/fix_formatted_sentences.png" /></a>
+<a href="../assets/importing/fix_formatted_sentences.png"><img alt="The above table in Anki" src="../assets/importing/fix_formatted_sentences.png"></a>
 </figure></p>
 </details>
 </li>
@@ -1601,10 +2404,9 @@ to see Anki's official documentation on regex.</p>
 </div>
 </div>
 </div>
-<p><br></p>
-<h3 id="2-batch-generate-pitch-accents-and-sentence-furigana">(2) Batch generate pitch accents and sentence furigana<a class="headerlink" href="#2-batch-generate-pitch-accents-and-sentence-furigana" title="Permanent link">&para;</a></h3>
-<!-- TODO outdated! rerecord! -->
-<p><div class="video-container"><video style="width: 100%; height: 100%" controls  ><source src="../assets/importing/batch_editing.mp4" type="video/mp4" /></video></div></p>
+<h3 id="batch-generate-pitch-accents-and-sentence-furigana">2. Batch generate pitch accents and sentence furigana<a class="headerlink" href="#batch-generate-pitch-accents-and-sentence-furigana" title="Permanent link">¶</a></h3>
+<p>TODO outdated! rerecord!</p>
+<p><div class="video-container"><video style="width:100%;height:100%" controls alt="type:video"><source src="../assets/importing/batch_editing.mp4" type="video/mp4"></source></video></div></p>
 <p>This step requires the <code>AJT Japanese</code> addon to be <a href="../setupanki/#ajt-japanese">correctly setup</a>.
 Although this step is optional, pitch accents likely won't show for imported cards if you had nothing
 to import into <code>PAPositions</code>. In that case, this step is highly recommended.</p>
@@ -1617,13 +2419,14 @@ to import into <code>PAPositions</code>. In that case, this step is highly recom
 </li>
 <li>
 <p>Select all of your newly imported notes.</p>
-<div class="admonition note">
+<div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The following query should reveal all of your newly imported notes.
 Make sure you include the double quotes in the query search.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;note:JP Mining Note&quot;
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>"note:JP Mining Note"
 </code></pre></div>
-Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.</p>
+Afterwards, you can do <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-a">A</kbd></span> to select all of the resulting cards.
+<p></p> <!-- TODO why was this removed? seems like it has to do with mkdocs-video for some reason -->
 </div>
 </li>
 <li>
@@ -1633,13 +2436,16 @@ Afterwards, you can do <code>ctrl+a</code> to select all of the resulting cards.
 </blockquote>
 </li>
 </ol>
-<p><br></p>
-<h3 id="3-batch-set-pasilence-field">(3) Batch Set <code>PASilence</code> Field<a class="headerlink" href="#3-batch-set-pasilence-field" title="Permanent link">&para;</a></h3>
+<h3 id="batch-set-pasilence-field">3. Batch set <code>PASilence</code> Field<a class="headerlink" href="#batch-set-pasilence-field" title="Permanent link">¶</a></h3>
 <p>This will ensure all <code>PASilence</code> are filled correctly.
 See <a href="../faq/#what-is-the-point-of-the-pasilence-field">here</a> to understand what this field does.
-This can be done within Anki itself, or with Python.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Within Anki</label><label for="__tabbed_2_2">With Python</label></div>
+This can be done with a <a href="../batch/">batch command</a>, or manually within Anki itself.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Batch Command</label><label for="__tabbed_2_2">Within Anki</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">set_pasilence_field</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <ol>
 <li>Head to the Card Browser window.</li>
@@ -1673,42 +2479,32 @@ This can be done within Anki itself, or with Python.</p>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Selected notes only</td>
-<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled>)</td>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Ignore case</td>
-<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled>)</td>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Treat input as a<br>regular expression</td>
-<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled checked>)</td>
 </tr>
 </tbody>
 </table>
 <details class="example">
-<summary>Example image <em>(click here)</em></summary>
+<summary>Example image <small>(click here)</small></summary>
 <p><figure markdown>
-<a href="../assets/importing/bulk_add_silencewav.png"><img alt="The above table in Anki" src="../assets/importing/bulk_add_silencewav.png" /></a>
+<a href="../assets/importing/bulk_add_silencewav.png"><img alt="The above table in Anki" src="../assets/importing/bulk_add_silencewav.png"></a>
 </figure></p>
 </details>
 </li>
 </ol>
 </div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># assuming you are at the root of the repo,</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># i.e. after the `git clone ...` and `cd jp-mining-note`</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">cd</span> ./tools
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># make sure you have Anki open and Anki-Connect installed!</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>python3 ./batch.py -f <span class="s2">&quot;set_pasilence_field&quot;</span>
-</code></pre></div>
 </div>
 </div>
-</div>
-<p><br></p>
-<h3 id="4-correctly-formatting-wordreading-field">(4) Correctly Formatting <code>WordReading</code> Field<a class="headerlink" href="#4-correctly-formatting-wordreading-field" title="Permanent link">&para;</a></h3>
+<h3 id="correctly-formatting-wordreading-field">4. Correctly Formatting <code>WordReading</code> Field<a class="headerlink" href="#correctly-formatting-wordreading-field" title="Permanent link">¶</a></h3>
 <p>Your <code>WordReading</code> field is likely formatted in one of three ways:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Furigana (plain)</label><label for="__tabbed_3_2">Furigana</label><label for="__tabbed_3_3">Kana only</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><input id="__tabbed_3_3" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Furigana (plain)</label><label for="__tabbed_3_2">Furigana</label><label for="__tabbed_3_3">Kana only</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This is generated with the <code>{furigana-plain}</code> marker.</p>
@@ -1728,7 +2524,7 @@ is already formatted correctly. <strong>You can skip this step</strong>.</p>
 it would be ideal to convert this into plain furigana
 so the note can properly parse the field.</p>
 <details class="example">
-<summary>Instructions for converting furigana into plain furigana <em>(click here)</em></summary>
+<summary>Instructions for converting furigana into plain furigana <small>(click here)</small></summary>
 <ol>
 <li>Head to the Card Browser window.</li>
 <li>
@@ -1753,7 +2549,7 @@ so the note can properly parse the field.</p>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row"><strong>Replace With:</strong></td>
-<td align="left" class="smaller-table-row"><code>&nbsp;$kanji[$furigana]</code> <sup>(Keep the whitespace at the beginning!)</sup></td>
+<td align="left" class="smaller-table-row"><code> $kanji[$furigana]</code> <sup>(Keep the whitespace at the beginning!)</sup></td>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row"><strong>In:</strong></td>
@@ -1761,15 +2557,15 @@ so the note can properly parse the field.</p>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Selected notes only</td>
-<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled>)</td>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Ignore case</td>
-<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled="disabled" />)</td>
+<td align="left" class="smaller-table-row">Unchecked (<input type="checkbox" disabled>)</td>
 </tr>
 <tr>
 <td align="left" class="smaller-table-row">Treat input as a<br>regular expression</td>
-<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled="disabled" checked />)</td>
+<td align="left" class="smaller-table-row">Checked (<input type="checkbox" disabled checked>)</td>
 </tr>
 </tbody>
 </table>
@@ -1789,83 +2585,34 @@ in the proper places.
 Some examples include the kanji hover tooltip as well as
 to the left of the picture field.</p>
 <details class="example">
-<summary>Instructions for converting kana readings into (plain) furigana <em>(click here)</em></summary>
+<summary>Instructions for converting kana readings into (plain) furigana <small>(click here)</small></summary>
 <p>The solution provided below is imperfect, but passable.
 This will format all of the <code>WordReading</code> fields to be <code>Word[WordReading]</code>,
 which means kana will repeated.
 For example, a card with <code>Word</code> as 成り立つ, and <code>WordReading</code> as なりたつ,
 will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby></p>
-<p>To do this, you will have to run a Python script from the repository.
-For Windows users, see the first 3 steps for the Windows instructions
-<a href="../updating/#running-the-script" target="_blank">here</a>
-if you haven't use Python before.</p>
-<p>Afterwards, <a href="../faq/#how-do-i-backup-my-anki-data">create a backup</a> and run the following:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Windows</label><label for="__tabbed_4_2">MacOS &amp; Linux</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">:</span><span class="c1">: assuming you are in jp-mining-note/tools</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">:</span><span class="c1">: make sure you have Anki open and Anki-Connect installed!</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>python batch.py -f <span class="s2">&quot;quick_fix_convert_kana_only_reading_all_notes&quot;</span>
+<p>To do this, run the following <a href="../batch/">batch command</a>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">quick_fix_convert_kana_only_reading_all_notes</span>
 </code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># assuming you are in jp-mining-note/tools</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># make sure you have Anki open and Anki-Connect installed!</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>python3 batch.py -f <span class="s2">&quot;quick_fix_convert_kana_only_reading_all_notes&quot;</span>
-</code></pre></div>
-</div>
-</div>
-</div>
 <p>The above will affect <strong>ALL</strong> notes.
 If you instead want to affect certain notes, add the <code>kanaonlyreading</code>
-tag to all affected notes, and then run:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Windows</label><label for="__tabbed_5_2">MacOS &amp; Linux</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python batch.py -f <span class="s2">&quot;quick_fix_convert_kana_only_reading_with_tag&quot;</span>
+tag to all affected notes, and then run the following batch command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">quick_fix_convert_kana_only_reading_with_tag</span>
 </code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python3 batch.py -f <span class="s2">&quot;quick_fix_convert_kana_only_reading_with_tag&quot;</span>
-</code></pre></div>
-</div>
-</div>
-</div>
 </details>
 </div>
 </div>
 </div>
-<p><br></p>
-<h3 id="5-optional-batch-set-wordreadinghiragana-field">(5) (Optional) Batch set <code>WordReadingHiragana</code> Field<a class="headerlink" href="#5-optional-batch-set-wordreadinghiragana-field" title="Permanent link">&para;</a></h3>
-<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.11.0.4</code>)</i></sup></p>
+<h3 id="batch-set-wordreadinghiragana-field">5. Batch set <code>WordReadingHiragana</code> Field <small>(optional)</small><a class="headerlink" href="#batch-set-wordreadinghiragana-field" title="Permanent link">¶</a></h3>
+<p><sup><i>New in version <code>0.11.0.0</code> (latest version: <code>0.12.0.0-prerelease-9</code>)</i></sup></p>
 <p>The following automatically fills out the <code>WordReadingHiragana</code> field.</p>
 <p>Filling out the <code>WordReadingHiragana</code> field is optional but highly recommended.
 This will enable the usage of <a href="../ui/#word-indicators">Word Indicators</a>
 on existing cards.</p>
-<p>To do this, you will have to run a Python script.
-Again, for Windows users, if you have not used Python before,
-see the first 3 steps for the "Windows" instructions
-<a href="../updating/#running-the-script" target="_blank">here</a>.</p>
-<p>The following script assumes that Step 4 is done
-(which means your <code>WordReading</code> field is formatted as plain furigana).
-Do not run this script if you have not successfully completed Step 4.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Windows</label><label for="__tabbed_6_2">MacOS &amp; Linux</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">:</span><span class="c1">: assuming you are in jp-mining-note/tools</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="p">:</span><span class="c1">: make sure you have Anki open and Anki-Connect installed!</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>python batch.py -f <span class="s2">&quot;fill_word_reading_hiragana_field&quot;</span>
+<p>To do this, run the following <a href="../batch/">batch command</a>:
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">fill_word_reading_hiragana_field</span>
 </code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># assuming you are in jp-mining-note/tools</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># make sure you have Anki open and Anki-Connect installed!</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>python3 batch.py -f <span class="s2">&quot;fill_word_reading_hiragana_field&quot;</span>
-</code></pre></div>
-</div>
-</div>
-</div>
-<h3 id="6-optional-backfill-the-frequencysort-field">(6) (Optional) Backfill the <code>FrequencySort</code> Field<a class="headerlink" href="#6-optional-backfill-the-frequencysort-field" title="Permanent link">&para;</a></h3>
+<h3 id="backfill-the-frequencysort-field">6. Backfill the <code>FrequencySort</code> Field <small>(optional)</small><a class="headerlink" href="#backfill-the-frequencysort-field" title="Permanent link">¶</a></h3>
 <p>As mentioned ealier, <code>FrequencySort</code> behaves exactly the same as Marv's
 <code>Frequency</code> field as documented in
 <a href="https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency">this</a>
@@ -1874,15 +2621,15 @@ That page also contains instructions on
 <a href="https://github.com/MarvNC/JP-Resources#backfilling-old-cards">how to backfill</a>
 the field if it is empty.</p>
 <p>If you are following the command line instructions, use the following command:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python backfill.py <span class="s2">&quot;Word&quot;</span> --freq-field <span class="s2">&quot;FrequencySort&quot;</span> --query <span class="s2">&quot;FrequencySort: \&quot;note:JP Mining Note\&quot;&quot;</span>
-</code></pre></div></p>
-<hr />
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python<span class="w"> </span>backfill.py<span class="w"> </span><span class="s2">"Word"</span><span class="w"> </span>--freq-field<span class="w"> </span><span class="s2">"FrequencySort"</span><span class="w"> </span>--query<span class="w"> </span><span class="s2">"FrequencySort: \"note:JP Mining Note\""</span>
+</code></pre></div>
+<hr>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
 <p>If everything went smoothly,
 then you have <strong>successfully transferred your notes</strong> to the JPMN template.
 Enjoy reviewing your old cards with a new template!</p>
 <div class="footnote">
-<hr />
+<hr>
 <ol>
 <li id="fn:1">
 <p><code>FrequenciesStylized</code> uses a custom set of handlebars to
@@ -1896,26 +2643,17 @@ will result in <strong>incorrect display of data</strong>.</p>
 from arbitrary frequency lists does not seem trivial,
 and I currently provide no way of doing that
 (primarily because I'm not sure how to do it in the first place).
-If you know of a way or would like to help me out with doing this, please let me know!&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:2">
-<p>The current implementation of colored pitch accent cannot detect the pitch accent position
-from the svg graph, nor from the automatically generated pitch accent from <code>AJT Pitch Accent</code>.
-If you do not have a pitch accent positions field,
-the only way to have colored pitch accent on old cards
-is by manually setting the position for all affected cards.</p>
-<p>Of course, any new cards should have automatically generated pitch accent positions,
-so long as you have a Yomichan pitch accent dictionary installed.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+If you know of a way or would like to help me out with doing this, please let me know! <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 </ol>
-</div>
+</div></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 1, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2023</span>
       
     
   </small>
@@ -1934,82 +2672,28 @@ so long as you have a Yomichan pitch accent dictionary installed.&#160;<a class=
         
       </main>
       
-<!-- Footer -->
-<footer class="md-footer">
-
-  <!-- Link to previous and/or next page -->
+        <footer class="md-footer">
   
-    
-    <nav
-      class="md-footer__inner md-grid"
-      aria-label="Footer"
-      
-    >
-
-      <!-- Link to previous page -->
-      
-        
-        <a
-          href="../setupother/"
-          class="md-footer__link md-footer__link--prev"
-          aria-label="Previous: Setup: Other"
-          rel="prev"
-        >
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Setup: Other
-            </div>
-          </div>
-        </a>
-      
-
-      <!-- Link to next page -->
-      
-        
-        <a
-          href="../updating/"
-          class="md-footer__link md-footer__link--next"
-          aria-label="Next: Updating"
-          rel="next"
-        >
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Updating
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
   
-
   
-
+</div>
+      
+    </div>
+  </div>
 </footer>
-
-
-
-
+      
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate"], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "toc.follow", "header.autohide", "navigation.tabs", "navigation.sections", "content.code.annotate", "content.code.copy", "content.action.view"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      <script src="../assets/javascripts/bundle.fac441b0.min.js"></script>
       
     
   </body>
