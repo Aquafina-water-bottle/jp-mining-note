@@ -28,7 +28,7 @@
     --full-sentence-font-size: #{common.px2rem(24px)};
     --dh-right-image-gap:  #{common.px2rem(20px)};
 
-    --glossary-font-size: #{common.px2rem(15px)};
+    --glossary-font-size: #{common.px2rem(18px)};
     --glossary-font-size--smaller: #{common.px2rem(13px)};
   }
 
@@ -44,6 +44,9 @@
     --picture-font-size: #{common.px2rem(20px)};
     --full-sentence-font-size: #{common.px2rem(20px)};
     --pa-overline-downstep-height: 0.6em;
+
+    --glossary-font-size: #{common.px2rem(15px)};
+    --glossary-font-size--smaller: #{common.px2rem(13px)};
 
     --pa-overline-thickness: 0.1em;
     --dh-right-image-gap: 0.5rem;
