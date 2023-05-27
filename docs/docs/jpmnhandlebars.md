@@ -157,7 +157,7 @@ In other words, feel free to use this in the exact same way as you would with `{
 ---
 
 
-# Piaintext Options
+# Plaintext Options
 This section describes all the plaintext options, which are all prefixed with `opt__plaintext__`.
 
 - If you are not using jp-mining-note, all these options should be set to `true` by default.

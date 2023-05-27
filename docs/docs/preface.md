@@ -10,7 +10,7 @@ it would be best to make sure that the note aligns with exactly what you want.
 - You want to study only from pre-made decks.
 - You want to use this template to study something outside of Japanese.
 - You want an extremely minimal template, with little/no javascript.
-- You do not like its overall layout.[^1]
+- You do not like its overall layout, and are not willing to customize the note to suit your needs.[^1]
 - You are not comfortable with bearing a slightly higher maintenance cost than most other setups.[^2]
 
 # Why you would want to use jp-mining-note
