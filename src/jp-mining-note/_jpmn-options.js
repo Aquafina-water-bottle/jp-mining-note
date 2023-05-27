@@ -18,4 +18,8 @@ window.JPMNOptions = {
 
   // Hides the first line of most definitions, as well as the number in the list
   //"blockquotes.simplifyDefinitions.enabled": true,
+
+  // Makes click cards no longer show the sentence in place of the tested word
+  // on the backside of the card.
+  //"clickCardRevealSentenceOnBackSide": false,
 }
