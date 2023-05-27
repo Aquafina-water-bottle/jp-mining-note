@@ -544,7 +544,7 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
       throw Error('AJTWordPitch parser lists are of different length. Cannot parse.');
     }
 
-    const foundSeparators = searchText.match(ajtWordSeps);
+    const foundSeparators = searchText.match(ajtWordSeps) ?? [];
     const wordReadingKana = plainToKanaOnly(this.wordReading);
     const normalizedReading = convertHiraganaToKatakana(wordReadingKana);
 
@@ -578,7 +578,8 @@ export class ParseAJTWordPitch extends Module implements PitchParser {
         );
         posData.allowAutoKifuku = false; // can only allow auto kifuku on the same word
       }
-      posData.separatorAfter = foundSeparators?.at(i) ?? null;
+      // we must use the index operator instead of .at() because Qt5 Ankit doesn't support .at()
+      posData.separatorAfter = foundSeparators[i] ?? null;
       posDataList.push(posData);
     }
 
