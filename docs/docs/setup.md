@@ -36,7 +36,8 @@ I recommend downloading the latest version, to avoid having to do extra steps du
 # Installing jp-mining-note
 There are three ways of installing the note:
 
-1. Via **JPMN Manager**, a small Anki add-on that can install and update jp-mining-note.
+1. Via **JPMN Manager**, a small Anki add-on that can install and update jp-mining-note,
+    as well as notify you when updates are available.
     *If you don't know which method to choose, choose this one*.
 2. Via **command line**.
     This method is recommended for people who are familiar with `git` and `python`,
@@ -79,6 +80,8 @@ There are three ways of installing the note:
 
         ```bat
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
+        :: TODO change this to master branch
+        git checkout testing
         cd jp-mining-note
 
         :: Ensure you have Anki open, and with Anki-Connect running
@@ -91,6 +94,8 @@ There are three ways of installing the note:
 
         ```bash
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
+        :: TODO change this to master branch
+        git checkout testing
         cd jp-mining-note
 
         # Ensure you have Anki open, and with Anki-Connect running
