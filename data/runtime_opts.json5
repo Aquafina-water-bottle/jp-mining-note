@@ -20,6 +20,14 @@
 
   // meant to be used with the following addon:
   // https://github.com/hikaru-y/anki21-addon-ankiwebview-inspector
+  // WARNING: If you want this enabled, ensure that it is not enabled in AnkiMobile!
+  // If this is enabled in AnkiMobile, any warning or error will break the JavaScript.
+  // For example:
+  //"logger.toConsole": {
+  //  "type": "isiPhoneiPad",
+  //  "resultTrue": false,
+  //  "resultFalse": true,
+  //},
   "logger.toConsole": true, // OVERWRITTEN
   "logger.debugConsoleLevel": 3,
 
@@ -832,7 +840,18 @@
   // = fixRubyPositioning =
   // ==========================================================================
 
-  // NOTE: not properly working on iPhone / iPad, so it is disabled for now
+  // This module is specifically for people who are using Qt5 Anki instead of Qt6.
+  // Qt5 Anki displays the font a bit too high compared to Qt6, so this simply
+  // attempts to move the furigana back down.
+  //
+  // WARNING: this should only be enabled for PC, and not mobile.
+  // It will make the styling in Ankidroid and AnkiMobile look extremely strange
+  // For example:
+  //"fixRubyPositioning.enabled": {
+  //  "type": "isPC",
+  //  "resultTrue": true,
+  //  "resultFalse": false,
+  //}
   "fixRubyPositioning.enabled": false,
 
 
