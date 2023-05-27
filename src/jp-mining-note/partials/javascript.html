@@ -8,7 +8,18 @@
 
 {{ utils.include_js_if_nonempty("jp-mining-note/partials/js/post_opts.js") }}
 
-<!-- See here for the source typescript code: https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/src/ts -->
+<!--
+  See here for the source typescript code:
+
+      https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/src/ts
+
+  Alternatively, use the AnkiWebView add-on (https://ankiweb.net/shared/info/31746032) and:
+
+    > View the card -> Right click -> `Inspect` -> `Sources` -> `webpack://` -> `src/ts`.
+
+  The entry point is `jp-mining-note/(CARD TYPE)/(SIDE).ts`.
+  One can also insert breakpoints to see if certain things work or not.
+-->
 {% autoescape false %}
 <script>
 {{- include_raw("_js/" + "_".join([
