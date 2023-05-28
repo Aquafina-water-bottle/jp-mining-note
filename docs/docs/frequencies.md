@@ -68,5 +68,10 @@ This limit can be changed with the following {{ RTO }}:
 "freqUtils.listAll.max": 4,
 ```
 
-(TODO IMAGE without dropdown)
+(TODO IMAGE with dropdown and >= 5 frequencies)
+
+If you never want to limit the number of frequencies shown, set this to `-1`.
+
+(TODO IMAGE without dropdown and >= 5 frequencies)
+
 

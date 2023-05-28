@@ -59,7 +59,7 @@ export class FreqUtils extends RunnableModule {
       this.freqDisplay.innerHTML = '';
     }
 
-    if (this.freqOverflowText.children.length <= collapseFreqCount) {
+    if (this.freqOverflowText.children.length <= collapseFreqCount || maxFreqCount === -1) {
       // moves all from overflow -> frequencies
       // this if statement is required in order for the overflowCount variable to work!
       for (let i = this.freqOverflowText.children.length - 1; i >= 0; i--) {

@@ -435,3 +435,12 @@ To override this option, you can use the following {{ C_CSS }}:
         }
         ```
 
+---
+
+# Multiple Sentences
+{{ feature_version("0.12.0.0") }}
+
+- TODO
+- summary: split with multiple newlines, i.e. `<br><br>`
+- TODO pictures
+
