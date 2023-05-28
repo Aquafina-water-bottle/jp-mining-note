@@ -45,21 +45,21 @@ export class Logger {
     if (this._debugLevel === null) {
       this._debugLevel = getOption('logger.debugLevel');
     }
-    return this._debugLevel
+    return this._debugLevel;
   }
 
   getToConsole() {
     if (this._toConsole === null) {
       this._toConsole = getOption('logger.toConsole');
     }
-    return this._toConsole
+    return this._toConsole;
   }
 
   getDebugConsoleLevel() {
     if (this._debugConsoleLevel === null) {
       this._debugConsoleLevel = getOption('logger.debugConsoleLevel');
     }
-    return this._debugConsoleLevel
+    return this._debugConsoleLevel;
   }
 
   constructor(name: string | null = null) {
@@ -143,7 +143,13 @@ export class Logger {
     this.printMsg(dispMsg, errorGroupId, errorClass, args);
   }
 
-  errorStack(stack: string, msg?: string, url?: string, lineNo?: number, columnNo?: number) {
+  errorStack(
+    stack: string,
+    msg?: string,
+    url?: string,
+    lineNo?: number,
+    columnNo?: number
+  ) {
     if (this.getToConsole()) {
       console.error(stack);
     }
@@ -158,8 +164,8 @@ export class Logger {
 
       let ignoredErrorsRegex = getOption('logger.error.ignoreRegex') as RegexIgnore[];
       for (let regexData of ignoredErrorsRegex) {
-        const regex = RegExp(regexData.pattern, regexData.flags ?? undefined)
-        const result = regex.exec(stack)
+        const regex = RegExp(regexData.pattern, regexData.flags ?? undefined);
+        const result = regex.exec(stack);
         if (result) {
           return;
         }
@@ -182,7 +188,6 @@ export class Logger {
         fullMsg += `\nURL: ${url}\nPosition: ${lineNo}:${columnNo}`;
       }
       this.printMsg(fullMsg, errorGroupId, errorClass);
-
     } catch (e) {
       // in case the above fails for some reason
       // better to throw an error that is not as prettily formatted
@@ -218,7 +223,6 @@ export class Logger {
     colorClass: ColorClass | null,
     args: LoggerArgs = {}
   ) {
-
     let groupEle = document.getElementById(eleId);
     if (groupEle !== null) {
       this.appendMsg(message, groupEle, args);
@@ -230,11 +234,7 @@ export class Logger {
     }
   }
 
-  private appendMsg(
-    message: string,
-    groupEle: HTMLElement,
-    args: LoggerArgsMsg = {}
-  ) {
+  private appendMsg(message: string, groupEle: HTMLElement, args: LoggerArgsMsg = {}) {
     let msgEle = document.createElement('div');
     msgEle.classList.add('info-circle__message');
     //if (args?.key) {

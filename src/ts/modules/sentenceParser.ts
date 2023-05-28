@@ -121,35 +121,40 @@ export class SentenceParser extends RunnableModule {
   private preprocessForMulti(sentContents: string): string {
     // hail mary in hopes that our split doesn't result in invalid HTML caused by:
     // <br></b><br>
-    return sentContents.replace("<br></b><br>", "</b><br><br>").replace("<br><br></b>", "</b><br><br>");
+    return sentContents
+      .replace('<br></b><br>', '</b><br><br>')
+      .replace('<br><br></b>', '</b><br><br>');
   }
 
-  private attemptParseMulti(sentContents: string, sentType: SentenceType, noteInfo: NoteInfoSentence): Sentence[] | null {
+  private attemptParseMulti(
+    sentContents: string,
+    sentType: SentenceType,
+    noteInfo: NoteInfoSentence
+  ): Sentence[] | null {
     // for some reason, () results in a capture group even in .split()
     // therefore, ?: to make it a non-capturing group
     const multiBreak = /<br>(?:<br>)*<br>/;
     const sentenceStrings = sentContents.split(multiBreak);
 
     if (sentenceStrings.length <= 1) {
-      return null
+      return null;
     }
-    const result: Sentence[] = []
+    const result: Sentence[] = [];
     for (const sentStr of sentenceStrings) {
-
       // reference: src/macros/utils.html
-      const sentEle = document.createElement("div");
-      const quoteOpen = document.createElement("span");
-      quoteOpen.classList.add("sentence-quote");
-      quoteOpen.classList.add("sentence-quote--open");
+      const sentEle = document.createElement('div');
+      const quoteOpen = document.createElement('span');
+      quoteOpen.classList.add('sentence-quote');
+      quoteOpen.classList.add('sentence-quote--open');
       quoteOpen.innerHTML = compileOpts.autoQuoteOpen;
 
-      const quoteClose = document.createElement("span");
-      quoteClose.classList.add("sentence-quote");
-      quoteClose.classList.add("sentence-quote--close");
+      const quoteClose = document.createElement('span');
+      quoteClose.classList.add('sentence-quote');
+      quoteClose.classList.add('sentence-quote--close');
       quoteClose.innerHTML = compileOpts.autoQuoteClose;
 
-      const contents = document.createElement("span");
-      contents.classList.add("expression-inner");
+      const contents = document.createElement('span');
+      contents.classList.add('expression-inner');
       contents.innerHTML = sentStr;
 
       sentEle.appendChild(quoteOpen);
@@ -163,7 +168,7 @@ export class SentenceParser extends RunnableModule {
         base: sentEle,
       };
 
-      this.processSentence(sent, sentType, noteInfo, true)
+      this.processSentence(sent, sentType, noteInfo, true);
       result.push(sent);
     }
     return result;
@@ -230,7 +235,12 @@ export class SentenceParser extends RunnableModule {
     }
 
     let sentenceStyleClass: SentenceStyleClass;
-    const dispMode = this.getQuoteDisplayMode(sentType, o !== '', isMulti, sentType === 'display');
+    const dispMode = this.getQuoteDisplayMode(
+      sentType,
+      o !== '',
+      isMulti,
+      sentType === 'display'
+    );
     this.logger.debug(
       `${sentType} | ${processMode} -> ${o === '' ? 'unquoted' : 'quoted'} | ${dispMode}`,
       this.debugLevel
@@ -273,10 +283,10 @@ export class SentenceParser extends RunnableModule {
   private getQuoteProcessMode(
     optSentType: OptionSentenceType,
     isMulti: boolean,
-    checkTags: boolean,
+    checkTags: boolean
   ): QuoteProcessMode {
     if (isMulti) {
-      return "as-is"; // we should NOT be messing with quotes at all with multiple sentences
+      return 'as-is'; // we should NOT be messing with quotes at all with multiple sentences
     }
 
     if (checkTags) {
@@ -300,9 +310,10 @@ export class SentenceParser extends RunnableModule {
     sentType: SentenceType,
     isQuoted: boolean,
     isMulti: boolean,
-    checkTags: boolean,
+    checkTags: boolean
   ): QuoteDisplayMode {
-    if (checkTags) { // only true if the sentence type is display
+    if (checkTags) {
+      // only true if the sentence type is display
       let displayMode;
       if (isQuoted) {
         displayMode = checkOptTags(getTags(), [
@@ -331,7 +342,9 @@ export class SentenceParser extends RunnableModule {
     }
 
     return this.getOption(
-      `sentenceParser.${isMulti ? 'multi' : sentType}.quotes.displayMode.${isQuoted ? 'quoted' : 'unquoted'}`
+      `sentenceParser.${isMulti ? 'multi' : sentType}.quotes.displayMode.${
+        isQuoted ? 'quoted' : 'unquoted'
+      }`
     ) as QuoteDisplayMode;
   }
 
@@ -362,10 +375,14 @@ export class SentenceParser extends RunnableModule {
 
   private autoHighlightLog(sentType: SentenceType, replace: string | null, word: string) {
     if (replace === null) {
-      this.logger.warn(`Could not highlight word in ${sentType}: ${word}. Consider bolding the tested word to remove this warning.`);
+      this.logger.warn(
+        `Could not highlight word in ${sentType}: ${word}. Consider bolding the tested word to remove this warning.`
+      );
     } else {
       // was able to bold something
-      this.logger.warn(`Automatically highlighted word in ${sentType}: ${replace}. Consider bolding the tested word to remove this warning.`);
+      this.logger.warn(
+        `Automatically highlighted word in ${sentType}: ${replace}. Consider bolding the tested word to remove this warning.`
+      );
     }
   }
 
@@ -443,13 +460,14 @@ export class SentenceParser extends RunnableModule {
       this.getOption(`sentenceParser.${optSentType}.quotes.processMode.searchMulti`)
     ) {
       const multiSents = this.attemptParseMulti(result, sentType, noteInfo);
-      if (multiSents !== null) {  // it was found!
+      if (multiSents !== null) {
+        // it was found!
         // strips of any classes that came from the compilation step
         for (const cls of sentenceStyleClasses) {
           sent.base.classList.toggle(cls, false);
         }
 
-        sent.base.innerHTML = ""; // should remove all quotes
+        sent.base.innerHTML = ''; // should remove all quotes
         for (const multiSent of multiSents) {
           sent.base.appendChild(multiSent.base);
         }
@@ -460,7 +478,11 @@ export class SentenceParser extends RunnableModule {
     // ------------------------------------------------------------------------
     // deals with quotes
 
-    const processMode = this.getQuoteProcessMode(optSentType, isMulti, sentType === 'display');
+    const processMode = this.getQuoteProcessMode(
+      optSentType,
+      isMulti,
+      sentType === 'display'
+    );
     let o, c;
     if (processMode === 'none') {
       // nothing is done with the quotes
@@ -537,19 +559,17 @@ export class SentenceParser extends RunnableModule {
     //     <div>じゃあ 捕獲ならいいか？</div>
     //     <div>リーダー</div>
     // string.trim() === str.strip() in python
-    return sentence.replace("\n", "").trim();
+    return sentence.replace('\n', '').trim();
   }
 
   private compareSentenceReading() {
     // checks whether Sentence == nofurigana(SentenceReading)
     const sentence = this.normalizeSentenceCompare(getFieldValue('Sentence'));
-    const sentReading = this.normalizeSentenceCompare(plainToKanjiOnly(getFieldValue('SentenceReading')));
+    const sentReading = this.normalizeSentenceCompare(
+      plainToKanjiOnly(getFieldValue('SentenceReading'))
+    );
     // if neither fields have 0 length, and if the Sentence field does not match the SentenceReading field with furigana stripped
-    if (
-      sentReading.length !== 0 &&
-      sentence.length !== 0 &&
-      sentence !== sentReading
-    ) {
+    if (sentReading.length !== 0 && sentence.length !== 0 && sentence !== sentReading) {
       this.logger.warn(
         `The Sentence field is not the same as the SentenceReading field. Your sentence might be displayed incorrectly. See <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">here</a> for more info.`,
         { isHtml: true }

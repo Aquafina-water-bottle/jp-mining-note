@@ -20,7 +20,8 @@ export type CardInfo = {
 export type CardSide = 'front' | 'back';
 
 // TODO use this in the HTML as well (define it under make.py)
-export const BASE_DOCS_URL = 'https://aquafina-water-bottle.github.io/jp-mining-note-prerelease';
+export const BASE_DOCS_URL =
+  'https://aquafina-water-bottle.github.io/jp-mining-note-prerelease';
 
 //export const VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
@@ -465,7 +466,7 @@ type Callback = () => void | Promise<void>;
 
 export function addOnShownHook(callback: Callback) {
   let success = false;
-  if (typeof (window as any).onShownHook !== "undefined") {
+  if (typeof (window as any).onShownHook !== 'undefined') {
     let onShownHook: Callback[] = (window as any).onShownHook;
     if (Array.isArray(onShownHook)) {
       success = true;

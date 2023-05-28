@@ -36,7 +36,13 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   // on any javascript error: log it
   window.onerror = function (msg, url, lineNo, columnNo, error) {
-    LOGGER.errorStack(error?.stack ?? 'Unknown runtime error', `${msg}`, url, lineNo, columnNo);
+    LOGGER.errorStack(
+      error?.stack ?? 'Unknown runtime error',
+      `${msg}`,
+      url,
+      lineNo,
+      columnNo
+    );
   };
 
   // https://stackoverflow.com/a/55178672
@@ -203,5 +209,5 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
     asyncManager.runModulesDelay();
   });
 
-  LOGGER.debug("Success! End of main() reached.")
+  LOGGER.debug('Success! End of main() reached.');
 }

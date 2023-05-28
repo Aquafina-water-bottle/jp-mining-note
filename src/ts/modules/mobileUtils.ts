@@ -20,14 +20,19 @@ export class MobileUtils extends RunnableModule {
     }
 
     if (isAndroid()) {
-      const textBenderDef = document.querySelector(`.glossary__external-links a[data-details="yomichan-textbender-definition"]`) as HTMLAnchorElement | null;
+      const textBenderDef = document.querySelector(
+        `.glossary__external-links a[data-details="yomichan-textbender-definition"]`
+      ) as HTMLAnchorElement | null;
       if (textBenderDef) {
         // grabs all bolded text in the definition, if it exists
-        let boldText = ""
-        for (const boldTextEle of document.querySelectorAll(`#primary_definition_raw_text b`)) {
+        let boldText = '';
+        for (const boldTextEle of document.querySelectorAll(
+          `#primary_definition_raw_text b`
+        )) {
           boldText += boldTextEle.textContent;
         }
-        if (boldText.length > 0) { // bold text was actually found
+        if (boldText.length > 0) {
+          // bold text was actually found
           textBenderDef.href = `textbender://x?x=${boldText}`;
         }
       }

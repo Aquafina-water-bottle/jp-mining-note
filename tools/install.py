@@ -357,9 +357,7 @@ class MediaInstaller:
             # f"Backing up `{file_name}` -> `{os.path.relpath(backup_file_path)}` ..."
             # However, it seems like `os.path.relpath` causes errors for some Windows users for some reason???
             # Even if this is all wrapped with a try, it still fails in Anki????
-            print(
-                f"Backing up `{file_name}` -> `{backup_file_path}` ..."
-            )
+            print(f"Backing up `{file_name}` -> `{backup_file_path}` ...")
 
             contents = b64_decode(contents_b64)
 
