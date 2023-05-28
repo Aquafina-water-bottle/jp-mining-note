@@ -114,47 +114,60 @@ export class SentenceParser extends RunnableModule {
     return ['', sentContents, ''];
   }
 
-  private isQuoted(sentContents: string): boolean {
-    return this.checkQuoteAndStrip(sentContents)[0] !== '';
+  //private isQuoted(sentContents: string): boolean {
+  //  return this.checkQuoteAndStrip(sentContents)[0] !== '';
+  //}
+
+  private preprocessForMulti(sentContents: string): string {
+    // hail mary in hopes that our split doesn't result in invalid HTML caused by:
+    // <br></b><br>
+    return sentContents.replace("<br></b><br>", "</b><br><br>").replace("<br><br></b>", "</b><br><br>");
   }
 
-  // checks that either one of:
-  // - not surrounded by a quote but valid number of quotes
-  // - surrounded by a quote but valid number of more quotes
-  // - opening and closing quote numbers are equal
-  // TODO test:
-  //  "「「A」」" -> true
-  //  "「」「」" -> true
-  //  "「」A" -> true
-  //  "A「」A" -> true
-  //  "「A」" -> false
-  //  "A" -> false
-  //  "「A」」" -> false
-  //private canBeMulti(sentContents: string): boolean {
-  //  let numOpen = 0;
-  //  let numClosed = 0;
+  private attemptParseMulti(sentContents: string, sentType: SentenceType, noteInfo: NoteInfoSentence): Sentence[] | null {
+    // for some reason, () results in a capture group even in .split()
+    // therefore, ?: to make it a non-capturing group
+    const multiBreak = /<br>(?:<br>)*<br>/;
+    const sentenceStrings = sentContents.split(multiBreak);
 
-  //  for (const qp of this.quoteMatches) {
-  //    const o = countOccurancesInString(sentContents, qp.open);
-  //    const c = countOccurancesInString(sentContents, qp.close);
-  //    if (o !== c) {
-  //      this.logger.debug(`uneven # quotes for ${qp}`);
-  //      return false;
-  //    }
-  //    numOpen += o;
-  //    numClosed += c;
-  //  }
+    if (sentenceStrings.length <= 1) {
+      return null
+    }
+    const result: Sentence[] = []
+    for (const sentStr of sentenceStrings) {
 
-  //  if (this.isQuoted(sentContents)) {
-  //    return numOpen + numClosed > 2;
-  //  }
-  //  // not quoted
-  //  return numOpen + numClosed >= 2;
-  //}
+      // reference: src/macros/utils.html
+      const sentEle = document.createElement("div");
+      const quoteOpen = document.createElement("span");
+      quoteOpen.classList.add("sentence-quote");
+      quoteOpen.classList.add("sentence-quote--open");
+      quoteOpen.innerHTML = compileOpts.autoQuoteOpen;
 
-  //private attemptParseMulti(sentContents: string): Sentence[] | null {
-  //  return null;
-  //}
+      const quoteClose = document.createElement("span");
+      quoteClose.classList.add("sentence-quote");
+      quoteClose.classList.add("sentence-quote--close");
+      quoteClose.innerHTML = compileOpts.autoQuoteClose;
+
+      const contents = document.createElement("span");
+      contents.classList.add("expression-inner");
+      contents.innerHTML = sentStr;
+
+      sentEle.appendChild(quoteOpen);
+      sentEle.appendChild(contents);
+      sentEle.appendChild(quoteClose);
+
+      const sent: Sentence = {
+        open: sentEle.children[0],
+        contents: sentEle.children[1],
+        close: sentEle.children[2],
+        base: sentEle,
+      };
+
+      this.processSentence(sent, sentType, noteInfo, true)
+      result.push(sent);
+    }
+    return result;
+  }
 
   //private colorQuotes(sent: Sentence) {
   //  sent.open.classList.add(paIndicator.className);
@@ -190,7 +203,8 @@ export class SentenceParser extends RunnableModule {
     sent: Sentence,
     sentContents: string,
     processMode: QuoteProcessMode,
-    sentType: SentenceType
+    sentType: SentenceType,
+    isMulti: boolean
   ) {
     let [o, strippedSent, c] = this.checkQuoteAndStrip(sentContents);
 
@@ -216,7 +230,7 @@ export class SentenceParser extends RunnableModule {
     }
 
     let sentenceStyleClass: SentenceStyleClass;
-    const dispMode = this.getQuoteDisplayMode(sentType, o !== '', sentType === 'display');
+    const dispMode = this.getQuoteDisplayMode(sentType, o !== '', isMulti, sentType === 'display');
     this.logger.debug(
       `${sentType} | ${processMode} -> ${o === '' ? 'unquoted' : 'quoted'} | ${dispMode}`,
       this.debugLevel
@@ -258,8 +272,13 @@ export class SentenceParser extends RunnableModule {
 
   private getQuoteProcessMode(
     optSentType: OptionSentenceType,
-    checkTags = false
+    isMulti: boolean,
+    checkTags: boolean,
   ): QuoteProcessMode {
+    if (isMulti) {
+      return "as-is"; // we should NOT be messing with quotes at all with multiple sentences
+    }
+
     if (checkTags) {
       const processMode = checkOptTags(getTags(), [
         ['sentenceParser.display.quotes.processMode.tagOverride.add', 'add'],
@@ -280,9 +299,10 @@ export class SentenceParser extends RunnableModule {
   private getQuoteDisplayMode(
     sentType: SentenceType,
     isQuoted: boolean,
-    checkTags = false
+    isMulti: boolean,
+    checkTags: boolean,
   ): QuoteDisplayMode {
-    if (checkTags) {
+    if (checkTags) { // only true if the sentence type is display
       let displayMode;
       if (isQuoted) {
         displayMode = checkOptTags(getTags(), [
@@ -309,8 +329,9 @@ export class SentenceParser extends RunnableModule {
         return displayMode;
       }
     }
+
     return this.getOption(
-      `sentenceParser.${sentType}.quotes.displayMode.${isQuoted ? 'quoted' : 'unquoted'}`
+      `sentenceParser.${isMulti ? 'multi' : sentType}.quotes.displayMode.${isQuoted ? 'quoted' : 'unquoted'}`
     ) as QuoteDisplayMode;
   }
 
@@ -368,7 +389,7 @@ export class SentenceParser extends RunnableModule {
     // ------------------------------------------------------------------------
     // attempts to remove the weird list of div thing that can happen
 
-    if (this.getOption('sentenceParser.fixDivList.enabled')) {
+    if (!isMulti && this.getOption('sentenceParser.fixDivList.enabled')) {
       result = this.fixDivList(sent.contents);
     }
     this.logger.debug(`fixDivList: "${result}"`, 1);
@@ -381,6 +402,7 @@ export class SentenceParser extends RunnableModule {
     // ------------------------------------------------------------------------
     // auto highlight
     if (
+      !isMulti && // we should've already highlighted the word if it's multi
       result.length > 0 &&
       !result.match(/<b>/) &&
       this.autoHighlight !== null &&
@@ -409,21 +431,36 @@ export class SentenceParser extends RunnableModule {
     }
 
     // ------------------------------------------------------------------------
-    // checks for multi (TODO)
-    //if (
-    //  !isMulti &&
-    //  this.getOption(`sentenceParser.${optSentType}.quotes.processMode.searchMulti`) &&
-    //  this.canBeMulti(result)
-    //) {
-    //  const multi = this.attemptParseMulti(result);
-    //  if (multi !== null) {
-    //    // it was found!
-    //  }
-    //}
+    // checks for multi
+
+    // prepares for multi checking by ensuring that newlines aren't separated with </b>
+    result = this.preprocessForMulti(result);
 
     const optSentType = this.getOptSentType(sentType, isAltDisplay);
-    const processMode = this.getQuoteProcessMode(optSentType, sentType === 'display');
 
+    if (
+      !isMulti &&
+      this.getOption(`sentenceParser.${optSentType}.quotes.processMode.searchMulti`)
+    ) {
+      const multiSents = this.attemptParseMulti(result, sentType, noteInfo);
+      if (multiSents !== null) {  // it was found!
+        // strips of any classes that came from the compilation step
+        for (const cls of sentenceStyleClasses) {
+          sent.base.classList.toggle(cls, false);
+        }
+
+        sent.base.innerHTML = ""; // should remove all quotes
+        for (const multiSent of multiSents) {
+          sent.base.appendChild(multiSent.base);
+        }
+        return;
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // deals with quotes
+
+    const processMode = this.getQuoteProcessMode(optSentType, isMulti, sentType === 'display');
     let o, c;
     if (processMode === 'none') {
       // nothing is done with the quotes
@@ -431,7 +468,7 @@ export class SentenceParser extends RunnableModule {
       c = '';
     } else {
       // process quotes and add the appropriate css
-      [o, result, c] = this.processQuotes(sent, result, processMode, sentType);
+      [o, result, c] = this.processQuotes(sent, result, processMode, sentType, isMulti);
       this.logger.debug(`processQuotes: "${o}", "${result}", "${c}"`, 1);
     }
 
@@ -460,9 +497,9 @@ export class SentenceParser extends RunnableModule {
 
     if (sentEle.children.length === 3) {
       const sent: Sentence = {
-        open: sentEle.children[0] as Element,
-        contents: sentEle.children[1] as Element,
-        close: sentEle.children[2] as Element,
+        open: sentEle.children[0],
+        contents: sentEle.children[1],
+        close: sentEle.children[2],
         base: sentEle,
       };
 

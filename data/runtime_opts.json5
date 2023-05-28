@@ -224,20 +224,27 @@
   // >>> processMode.searchMulti <<<
   // ignores the previous processMode if set to true
   // this looks for sentences of the format
-  // where quoted lines are intentionally separated between other text
-  // with a newline by the user, i.e.
+  // where lines are separated with two newlines, i.e.
+  //
+  // ---------------------------------
   //
   // ああああああああああ  <-- line 1
   // ああああああ
+  //
   // 「ああああああああ    <-- line 2
   // あああああああ」
+  //
   // ああああああああああ  <-- line 3
   // ああああああ
   //
-  // 「ああああああ」    // <-- line 1
-  // 「ああああああああ  // <-- line 2
+  // ---------------------------------
+  //
+  // 「ああああああ」      <-- line 1
+  //
+  // 「ああああああああ    <-- line 2
   // あああああああ」
-  // ああああああああ    // <-- line 3
+  //
+  // ああああああああ      <-- line 3
 
   "sentenceParser.fullSent.quotes.processMode": "remove",
   "sentenceParser.fullSent.quotes.processMode.searchMulti": true,
@@ -332,6 +339,10 @@
   //  |「ああああああああ|
   //  |  ああああああ」  |
   //
+  //  |「ああああああ」  |
+  //  |えええええええ    |
+  //  |「ああああああ」  |
+  //
   //
   // vn-like (v2):
   //  displayMode.quoted.multi: "block"
@@ -344,6 +355,10 @@
   //  |「ああああああああ|
   //  |  ああああああ」  |
   //
+  //  |「ああああああ」  |
+  //  |  えええええええ  |
+  //  |「ああああああ」  |
+  //
   //
   // novel-like:
   //  displayMode.quoted.multi: "flow"
@@ -355,8 +370,12 @@
   //  |ええええええ      |
   //  |「ああああああああ|
   //  |ああああああ」    |
-  "sentenceParser.quotes.multi.displayMode.quoted": "block",
-  "sentenceParser.quotes.multi.displayMode.unquoted": "no-indent",
+  //
+  //  |「ああああああ」  |
+  //  |  えええええええ  |
+  //  |「ああああああ」  |
+  "sentenceParser.multi.quotes.displayMode.quoted": "block",
+  "sentenceParser.multi.quotes.displayMode.unquoted": "no-indent",
 
 
 

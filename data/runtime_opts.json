@@ -117,8 +117,8 @@
     "quote-disp-unquoted-rightShifted",
     "jpmn-quote-disp-unquoted-right-shifted"
   ],
-  "sentenceParser.quotes.multi.displayMode.quoted": "block",
-  "sentenceParser.quotes.multi.displayMode.unquoted": "no-indent",
+  "sentenceParser.multi.quotes.displayMode.quoted": "block",
+  "sentenceParser.multi.quotes.displayMode.unquoted": "no-indent",
   "sentenceParser.removeFinalPeriod.validPeriods": "\uff61\u3002\uff0e\\.",
   "sentenceParser.removeFinalPeriod.fullSent.quoted": true,
   "sentenceParser.removeFinalPeriod.fullSent.unquoted": false,
