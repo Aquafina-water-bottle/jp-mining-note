@@ -29,7 +29,7 @@ const KYODORU = 'きょどる';
 
 // wrap pa group
 function paGrp(paGroup: PAGroup, str: string): string {
-  return `<span class="pa-group-${paGroup}">${str}</span>`;
+  return `<span class="pa-group-${paGroup} pitchterm">${str}</span>`;
 }
 
 // wrap overline
