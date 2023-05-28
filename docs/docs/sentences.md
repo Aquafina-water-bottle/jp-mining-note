@@ -182,6 +182,42 @@ if any exists.
 !!! note
     These options do NOT affect furigana elsewhere, such as any in the displayed sentence.
 
+## Furigana: Simple CSS options
+
+Most problems that people face with ruby is that there is added spacing within the furigana.
+The following are some simple CSS-only solutions that solves this main problem.
+
+=== "Shown on sentence hover"
+
+    ```css
+    .full-sentence ruby rt {
+      visibility: visible !important;
+      font-size: 0%;
+      transition: 0.2s;
+    }
+    .full-sentence:hover ruby rt {
+      font-size: 50%;
+      transition: 0.2s;
+    }
+    ```
+
+=== "Shown on word hover"
+
+    ```css
+    .full-sentence ruby rt {
+      visibility: visible !important;
+      font-size: 0%;
+      transition: 0.2s;
+    }
+    .full-sentence ruby:hover rt {
+      font-size: 50%;
+      transition: 0.2s;
+    }
+    ```
+
+If you want more control over the furigana, more options are shown below.
+However, note that the options below require you to compile the note.
+
 
 ## Furigana: When to show
 {{ feature_version("0.12.0.0") }}
