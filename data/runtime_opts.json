@@ -5,8 +5,6 @@
   "logger.debugLevel": 6,
   "logger.toConsole": true,
   "logger.debugConsoleLevel": 3,
-  "logger.debug.onlyShowCertainModules": false,
-  "logger.debug.onlyShowCertainModules.modules": [],
   "logger.warn.ignore": [
     "(sentenceParser) Following sentence was stripped of div elements",
     "(tb:sentenceParser) Following sentence was stripped of div elements",
@@ -315,9 +313,9 @@
   ],
   "freqUtils.enabled": true,
   "freqUtils.displayMode": "summary",
-  "freqUtils.listAll.showSummaryMode": "if-frequencies-empty",
-  "freqUtils.listAll.max": 4,
-  "freqUtils.listAll.overflow": 0,
+  "freqUtils.list.showSummaryMode": "if-frequencies-empty",
+  "freqUtils.list.max": 4,
+  "freqUtils.list.overflow": 0,
   "freqUtils.summary.defaultValues": [
     "999999",
     "9999999",

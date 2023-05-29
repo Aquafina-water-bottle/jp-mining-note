@@ -22,7 +22,7 @@
   // https://github.com/hikaru-y/anki21-addon-ankiwebview-inspector
   // WARNING: If you want this enabled, ensure that it is not enabled in AnkiMobile!
   // If this is enabled in AnkiMobile, any warning or error will break the JavaScript.
-  // For example:
+  // For example, use this:
   //"logger.toConsole": {
   //  "type": "isiPhoneiPad",
   //  "resultTrue": false,
@@ -31,10 +31,7 @@
   "logger.toConsole": true, // OVERWRITTEN
   "logger.debugConsoleLevel": 3,
 
-  // filters out debug messages to only show messages from specific modules
-  "logger.debug.onlyShowCertainModules": false,
-  "logger.debug.onlyShowCertainModules.modules": [],
-
+  // TODO link messages to keys?
   "logger.warn.ignore": [
 
     // warning if the sentence field has its lines split through div elements
@@ -833,22 +830,27 @@
 
   "freqUtils.enabled": true,
 
-  // TODO rename to "list", since "list-all" suggests everything is listed instead of the first x
   // possible values:
-  // "list-all"
+  // "list"
   // "summary"
-  // hint: if you are considering using "list-all", make sure it is set to "summary" for mobile
+  //
+  // hint: if you are considering using "list", make sure it is set to "summary" for mobile, i.e.
+  //"freqUtils.displayMode": {
+  //  "type": "isPC",
+  //  "resultTrue": "list",
+  //  "resultFalse": "summary",
+  //}
   "freqUtils.displayMode": "summary",
 
-  // only useful when the mode is "list-all"
+  // only useful when the mode is "list"
 
   // possible values:
   // "always"
   // "if-frequencies-empty"
   // "never"
-  "freqUtils.listAll.showSummaryMode": "if-frequencies-empty",
-  "freqUtils.listAll.max": 4, // set this to -1 to always show all frequencies
-  "freqUtils.listAll.overflow": 0,
+  "freqUtils.list.showSummaryMode": "if-frequencies-empty",
+  "freqUtils.list.max": 4, // set this to -1 to always show all frequencies
+  "freqUtils.list.overflow": 0,
 
   // shows "unknown" if the summary is any of the following values
   "freqUtils.summary.defaultValues": ["999999", "9999999", "99999999", "1000000", "10000000"],

@@ -36,7 +36,7 @@ export class FreqUtils extends RunnableModule {
     }
   }
 
-  private listAll() {
+  private list() {
     if (
       this.freqDisplay === null ||
       this.freqOverflow === null ||
@@ -45,10 +45,10 @@ export class FreqUtils extends RunnableModule {
       return;
     }
 
-    const maxFreqCount = getOption('freqUtils.listAll.max');
-    const overflowCount = getOption('freqUtils.listAll.overflow');
+    const maxFreqCount = getOption('freqUtils.list.max');
+    const overflowCount = getOption('freqUtils.list.overflow');
     const collapseFreqCount = maxFreqCount + overflowCount;
-    const showSummaryMode = getOption('freqUtils.listAll.showSummaryMode');
+    const showSummaryMode = getOption('freqUtils.list.showSummaryMode');
 
     if (
       showSummaryMode === 'never' ||
@@ -84,13 +84,14 @@ export class FreqUtils extends RunnableModule {
   }
 
   main() {
-    if (getOption('freqUtils.displayMode') === 'list-all') {
-      this.listAll();
+    const displayMode = getOption('freqUtils.displayMode')
+    if (displayMode === 'list' || displayMode === 'list-all') {
+      this.list();
     } else if (
       fieldsAllEmpty('FrequencySort') &&
       fieldsAnyFilled('FrequenciesStylized')
     ) {
-      this.listAll(); // this should ideally never happen
+      this.list(); // this should ideally never happen
     } else {
       this.summary();
     }

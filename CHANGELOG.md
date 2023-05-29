@@ -180,6 +180,20 @@ and must use `./install.py --update`.
 
 #### 0.12.0.0 Pre-release Changelog
 
+<details>
+<summary> Pre-release 10 </summary>
+- **Features (Breaking)**:
+    - Renamed `freqUtils.displayMode` value `list-all` to `list`
+    - Renamed `freqUtils.listAll.*` to `freqUtils.list.*`
+
+- **Features**:
+    - Added a `pa-none` tag to force not coloring the card with any pitch accent color
+
+- **Fixes**:
+    - 
+
+</details>
+
 
 <details>
 <summary> Pre-release 9 </summary>

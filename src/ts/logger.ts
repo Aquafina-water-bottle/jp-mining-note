@@ -69,14 +69,14 @@ export class Logger {
   debug(message: string, level: number = 3, args?: LoggerArgs) {
     //const debugToConsole = getOption('logger.consoleLevel');
 
-    const onlyShowCertainModules = getOption('logger.debug.onlyShowCertainModules');
-    const validModules = getOption('logger.debug.onlyShowCertainModules.modules') as (
-      | string
-      | null
-    )[];
-    if (onlyShowCertainModules && !validModules.includes(this.name)) {
-      return;
-    }
+    //const onlyShowCertainModules = getOption('logger.debug.onlyShowCertainModules');
+    //const validModules = getOption('logger.debug.onlyShowCertainModules.modules') as (
+    //  | string
+    //  | null
+    //)[];
+    //if (onlyShowCertainModules && !validModules.includes(this.name)) {
+    //  return;
+    //}
 
     //if (level >= debugLevel) {
     //  if (debugToConsole) {
