@@ -85,7 +85,7 @@ export class FreqUtils extends RunnableModule {
 
   main() {
     const displayMode = getOption('freqUtils.displayMode')
-    if (displayMode === 'list' || displayMode === 'list-all') {
+    if (displayMode === 'list' || displayMode === 'list-all') { // list-all is deprecated
       this.list();
     } else if (
       fieldsAllEmpty('FrequencySort') &&
