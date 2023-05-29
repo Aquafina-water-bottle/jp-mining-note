@@ -141,7 +141,7 @@ other than by the creation date.
 
 
 # Suspended Cards
-TODO add difference between hidden and removed
+TODO make sure this is correct with `hidden` now removed
 
 Some assumptions are made about suspended cards.
 For example, suspended cards flagged as `green` are counted in the "non-new" cards category
@@ -151,8 +151,7 @@ This can be changed in the {{ RTO_FILE}}:
 
 ```
 "tooltips.query.nonNew.base": "-is:new OR (is:suspended is:new flag:3)",
-"tooltips.query.nonNew.hidden": "is:suspended flag:1",
-"tooltips.query.nonNew.removed": "",
+"tooltips.query.nonNew.removed": "is:suspended flag:1",
 ```
 
 
