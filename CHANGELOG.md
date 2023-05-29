@@ -180,6 +180,21 @@ and must use `./install.py --update`.
 
 #### 0.12.0.0 Pre-release Changelog
 
+
+<details>
+<summary> Pre-release 10 </summary>
+
+- **Features (Breaking)**:
+    - Removed `tooltips.sortMethod` (no longer a planned feature, moved to github issue #TODO)
+
+- **Features**:
+    - TODO
+
+- **Fixes**:
+    - TODO
+
+</details>
+
 <details>
 <summary> Pre-release 10 </summary>
 

@@ -1020,13 +1020,6 @@
 
 
 
-  // valid options:
-  // "time-created":
-  //  - faster to calculate, but less accurate for people who review based on frequency lists
-  // "first-review":
-  //  - slower to calculate, but the most accurate
-  //"tooltips.sortMethod": "time-created",
-
   // maximum number of words per category
   "tooltips.categoryMax.nonNew.oldest": 2,
   "tooltips.categoryMax.nonNew.newest": 2,
