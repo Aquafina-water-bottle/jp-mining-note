@@ -182,6 +182,7 @@ and must use `./install.py --update`.
 
 <details>
 <summary> Pre-release 10 </summary>
+
 - **Features (Breaking)**:
     - Renamed `freqUtils.displayMode` value `list-all` to `list`
     - Renamed `freqUtils.listAll.*` to `freqUtils.list.*`
