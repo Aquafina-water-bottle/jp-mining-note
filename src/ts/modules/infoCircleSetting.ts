@@ -1,5 +1,5 @@
 import { Module } from '../module';
-import { selectPersist } from '../spersist';
+import { selectPersistStr } from '../spersist';
 import { throwOnNotFound } from '../utils';
 
 type InfoCircleSettingId =
@@ -18,7 +18,7 @@ export class InfoCircleSetting extends Module {
 
   readonly btn: HTMLElement;
   private readonly persistKey?: string;
-  private readonly persist = selectPersist('sessionStorage', 'window');
+  private readonly persist = selectPersistStr();
 
   constructor(settingId: InfoCircleSettingId, persistKey?: string) {
     super(`sm:infoCircleSetting:${settingId}`);

@@ -1,4 +1,4 @@
-import { selectPersist, SPersistInterface } from './spersist';
+import { selectPersistObj, SPersistInterface } from './spersist';
 import { type Field } from './fields';
 
 const getQueryCacheKey = 'ankiConnectUtils.getQueryCacheKey';
@@ -166,7 +166,7 @@ export async function cardsInfo(
   const result: Record<number, CardInfo> = {};
 
   if (readCache) {
-    const persist = selectPersist('window');
+    const persist = selectPersistObj();
     if (persist !== null) {
       for (const id of cardIDs) {
         const cache = getCardInfoCache(persist, id);
@@ -192,7 +192,7 @@ export async function cardsInfo(
   }
 
   if (writeCache) {
-    const persist = selectPersist('window');
+    const persist = selectPersistObj();
     if (persist !== null) {
       for (let i = 0; i < searchIDs.length; i++) {
         const id = searchIDs[i];

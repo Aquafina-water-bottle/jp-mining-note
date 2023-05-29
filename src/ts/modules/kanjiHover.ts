@@ -1,6 +1,6 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { type SPersistInterface, selectPersist } from '../spersist';
+import { type SPersistInterface, selectPersistObj, selectPersistStr } from '../spersist';
 import { plainToRuby, getCardKey, filterCards } from '../utils';
 import { type Field, getFieldValue, cacheFieldValue } from '../fields';
 import { type CardCache } from './cardCache';
@@ -49,8 +49,8 @@ export type NoteInfoKanjiHover = {
 type KanjiToHover = Record<string, string>;
 
 export class KanjiHover extends RunnableAsyncModule {
-  private readonly persist = selectPersist();
-  private readonly persistObj = selectPersist('window');
+  private readonly persist = selectPersistStr();
+  private readonly persistObj = selectPersistObj();
   private readonly tooltips: Tooltips;
   private readonly cardWordReadingResultKey: string;
   private readonly cardHoverHTMLCacheKey: string;

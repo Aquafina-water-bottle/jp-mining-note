@@ -188,7 +188,7 @@ calculatePersists();
 export function recalculatePersists() {}
 
 /* this function removes the need for isAvailable(), since it will be null if not available */
-export function selectPersist(...types: SPersistType[]): SPersistInterface | null {
+function selectPersist(...types: SPersistType[]): SPersistInterface | null {
   if (types.length === 0) {
     types = ['sessionStorage', 'window'];
   }
@@ -201,7 +201,6 @@ export function selectPersist(...types: SPersistType[]): SPersistInterface | nul
   return null;
 }
 
-// TODO deprecate selectPersist with these two methods
 export function selectPersistStr(): SPersistInterface | null {
   return selectPersist('sessionStorage', 'window');
 }
