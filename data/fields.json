@@ -6,7 +6,8 @@
       "auto_fill": true,
       "binary_field": false,
       "setup": "{expression}",
-      "anime_cards_import": "front"
+      "anime_cards_import": "front",
+      "jidoujisho_export": "Term"
     },
     {
       "name": "Word",
@@ -14,7 +15,8 @@
       "auto_fill": true,
       "binary_field": false,
       "setup": "{expression}",
-      "anime_cards_import": "front"
+      "anime_cards_import": "front",
+      "jidoujisho_export": "Term"
     },
     {
       "name": "WordReading",
@@ -22,7 +24,8 @@
       "auto_fill": true,
       "binary_field": false,
       "setup": "{furigana-plain}",
-      "anime_cards_import": "Reading"
+      "anime_cards_import": "Reading",
+      "jidoujisho_export": "Furigana"
     },
     {
       "name": "PAOverride",
@@ -49,7 +52,8 @@
       "auto_fill": true,
       "binary_field": false,
       "setup": "{jpmn-primary-definition}",
-      "anime_cards_import": "Glossary"
+      "anime_cards_import": "Glossary",
+      "jidoujisho_export": "Meaning"
     },
     {
       "name": "PrimaryDefinitionPicture",
@@ -64,7 +68,8 @@
       "auto_fill": true,
       "binary_field": false,
       "setup": "{cloze-prefix}<b>{cloze-body}</b>{cloze-suffix}",
-      "anime_cards_import": "Sentence"
+      "anime_cards_import": "Sentence",
+      "jidoujisho_export": "Sentence"
     },
     {
       "name": "SentenceReading",
@@ -84,7 +89,7 @@
       "font": 20,
       "auto_fill": false,
       "binary_field": false,
-      "notes": "Originally `AltDisplay` before 0.12.0.0"
+      "notes": "Originally `AltDisplay` before `0.12.0.0`"
     },
     {
       "name": "AltDisplayPASentenceCard",
@@ -106,13 +111,8 @@
       "name": "AdditionalNotes",
       "font": 20,
       "auto_fill": false,
-      "binary_field": false
-    },
-    {
-      "name": "AdditionalNotes",
-      "font": 20,
-      "auto_fill": false,
-      "binary_field": false
+      "binary_field": false,
+      "jidoujisho_export": "Notes"
     },
     {
       "name": "Hint",
@@ -212,21 +212,23 @@
       "font": 10,
       "auto_fill": false,
       "binary_field": true,
-      "notes": "Originally `SeparateClozeDeletionCard` before 0.12.0.0"
+      "notes": "Originally `SeparateClozeDeletionCard` before `0.12.0.0`"
     },
     {
       "name": "SeparateSentenceAudioCard",
       "font": 10,
       "auto_fill": false,
       "binary_field": true,
-      "version": "0.12.0.0"
+      "version": "0.12.0.0",
+      "notes": "Currently doesn't do anything"
     },
     {
       "name": "Picture",
       "font": 20,
       "auto_fill": true,
       "binary_field": false,
-      "anime_cards_import": "Picture"
+      "anime_cards_import": "Picture",
+      "jidoujisho_export": "Image"
     },
     {
       "name": "WordAudio",
@@ -234,14 +236,16 @@
       "auto_fill": true,
       "binary_field": false,
       "setup": "{audio}",
-      "anime_cards_import": "Audio"
+      "anime_cards_import": "Audio",
+      "jidoujisho_export": "Term Audio"
     },
     {
       "name": "SentenceAudio",
       "font": 15,
       "auto_fill": true,
       "binary_field": false,
-      "anime_cards_import": "SentenceAudio"
+      "anime_cards_import": "SentenceAudio",
+      "jidoujisho_export": "Sentence Audio"
     },
     {
       "name": "PAGraphs",
@@ -249,15 +253,14 @@
       "auto_fill": true,
       "binary_field": false,
       "setup": "{jpmn-pitch-accent-graphs}",
-      "notes": "Do not edit this field.",
-      "anime_cards_import": "Graph"
+      "anime_cards_import": "Graph",
+      "jidoujisho_export": "Pitch Accent"
     },
     {
       "name": "PAPositions",
       "font": 15,
       "auto_fill": true,
       "binary_field": false,
-      "notes": "Do not edit this field.",
       "setup": "{jpmn-pitch-accent-positions}"
     },
     {
@@ -265,7 +268,6 @@
       "font": 15,
       "auto_fill": true,
       "binary_field": false,
-      "notes": "Do not edit this field.",
       "setup": "{jpmn-frequencies}"
     },
     {
@@ -273,14 +275,14 @@
       "font": 10,
       "auto_fill": true,
       "binary_field": false,
-      "setup": "{jpmn-frequency-sort}"
+      "setup": "{jpmn-frequency-sort}",
+      "jidoujisho_export": "Frequency"
     },
     {
       "name": "PASilence",
       "font": 10,
       "auto_fill": true,
       "binary_field": false,
-      "notes": "Do not edit this field.",
       "setup": "[sound:_silence.wav]"
     },
     {
@@ -289,6 +291,7 @@
       "auto_fill": true,
       "binary_field": false,
       "setup": "{jpmn-word-reading-hiragana}",
+      "jidoujisho_export": "Reading",
       "version": "0.11.0.0"
     },
     {
@@ -324,11 +327,20 @@
       "default_collapsed": true
     },
     {
+      "name": "CardCache",
+      "font": 20,
+      "auto_fill": false,
+      "binary_field": false,
+      "default_collapsed": true
+    },
+    {
       "name": "Comment",
       "font": 20,
       "auto_fill": false,
       "binary_field": false,
-      "personal_setup": "DICTIONARY:\u300c{_jpmn-get-primary-definition-dict}\u300d<br>SELECTION:\u300c{_jpmn-selection-text}\u300d"
+      "personal_setup": "DICTIONARY:\u300c{_jpmn-get-primary-definition-dict}\u300d<br>SELECTION:\u300c{_jpmn-selection-text}\u300d",
+      "jidoujisho_export": "Context",
+      "ignore_field_exists": true
     }
   ]
 }
