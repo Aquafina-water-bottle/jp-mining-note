@@ -679,11 +679,6 @@
   // TODO implement (always enabled currently)
   "kanjiHover.searchSentences": true,
 
-  // possible values:
-  // "hover"
-  // "card-load"
-  "kanjiHover.activateOn": "hover",
-
   "kanjiHover.overrideOptions.tooltips": {
   },
 
@@ -1008,22 +1003,20 @@
 
   // base:
   // - Anki query section used for every Anki query
-  // hidden:
-  // - Used to show 'X hidden' at the bottom
   // removed:
-  // - A stricter version of the above. Results will be completely ignored
+  // - Results from here will be completely ignored from the query
 
   // not new, or new + green + suspended
   // not flagged as red and suspended
   "tooltips.query.nonNew.base": "-is:new OR (is:suspended is:new flag:3)",
-  "tooltips.query.nonNew.hidden": "is:suspended flag:1",
-  "tooltips.query.nonNew.removed": "",
+  //"tooltips.query.nonNew.hidden": "is:suspended flag:1",
+  "tooltips.query.nonNew.removed": "is:suspended flag:1",
 
   // new
   "tooltips.query.new.base": "is:new",
   // not suspended, and neither flagged as red or green
-  "tooltips.query.new.hidden": "is:suspended (flag:1 OR flag:3)",
-  "tooltips.query.new.removed": "",
+  //"tooltips.query.new.hidden": "is:suspended (flag:1 OR flag:3)",
+  "tooltips.query.new.removed": "is:suspended (flag:1 OR flag:3)",
 
 
 
@@ -1032,7 +1025,7 @@
   //  - faster to calculate, but less accurate for people who review based on frequency lists
   // "first-review":
   //  - slower to calculate, but the most accurate
-  "tooltips.sortMethod": "time-created",
+  //"tooltips.sortMethod": "time-created",
 
   // maximum number of words per category
   "tooltips.categoryMax.nonNew.oldest": 2,

@@ -18,9 +18,7 @@ export type TooltipAddCardArgs = {
 };
 
 export type QueryBuilderGroup = {
-  'nonNew.hidden': QueryBuilder;
   'nonNew.default': QueryBuilder;
-  'new.hidden': QueryBuilder;
   'new.default': QueryBuilder;
 };
 
@@ -342,34 +340,23 @@ export class Tooltips extends Module {
     return `-"Key:${key}" "note:${noteName}" "card:${cardTypeName}"`;
   }
 
-  getQueryPair(type: 'new' | 'nonNew') {
+
+  getQuery(type: 'new' | 'nonNew') {
     const base = this.getOption(`tooltips.query.${type}.base`);
-    const hidden = this.getOption(`tooltips.query.${type}.hidden`);
     const removed = this.getOption(`tooltips.query.${type}.removed`);
 
     // function exists because a query of () or -() is not valid!
     const qb = new QueryBuilder().addSegment(base).addSegment(removed, true);
-
-    const qbHidden = qb.clone();
-
-    qbHidden.addSegment(hidden, false);
-    qb.addSegment(hidden, true);
-
-    return {
-      default: qb,
-      hidden: qbHidden,
-    };
+    return qb;
   }
 
   getQueryBuilderGroup(): QueryBuilderGroup {
-    const qpNew = this.getQueryPair('new');
-    const qpNonNew = this.getQueryPair('nonNew');
+    const qpNew = this.getQuery('new');
+    const qpNonNew = this.getQuery('nonNew');
 
     return {
-      'nonNew.default': qpNonNew.default,
-      'nonNew.hidden': qpNonNew.hidden,
-      'new.default': qpNew.default,
-      'new.hidden': qpNew.hidden,
+      'nonNew.default': qpNonNew,
+      'new.default': qpNew,
     };
   }
 

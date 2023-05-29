@@ -21,13 +21,9 @@ import { translatorStrs } from '../consts';
 import { type MobilePopup } from '../mobilePopup';
 
 type KanjiHoverCategoryID =
-  | 'word.nonNew.hidden'
   | 'word.nonNew.default'
-  | 'word.new.hidden'
   | 'word.new.default'
-  | 'sent.nonNew.hidden'
   | 'sent.nonNew.default'
-  | 'sent.new.hidden'
   | 'sent.new.default';
 
 type QueryCategories = Record<KanjiHoverCategoryID, string>;
@@ -128,13 +124,9 @@ export class KanjiHover extends RunnableAsyncModule {
       const queryGroup: QueryBuilderGroup = this.tooltips.getQueryBuilderGroup();
 
       const queries: QueryCategories = {
-        'word.nonNew.hidden': '',
         'word.nonNew.default': '',
-        'word.new.hidden': '',
         'word.new.default': '',
-        'sent.nonNew.hidden': '',
         'sent.nonNew.default': '',
-        'sent.new.hidden': '',
         'sent.new.default': '',
       };
 
@@ -154,13 +146,9 @@ export class KanjiHover extends RunnableAsyncModule {
 
     for (const [kanji, queryCategory] of Object.entries(kanjiToQueryCategory)) {
       queryResults[kanji] = {
-        'word.nonNew.hidden': [-1],
         'word.nonNew.default': [-1],
-        'word.new.hidden': [-1],
         'word.new.default': [-1],
-        'sent.nonNew.hidden': [-1],
         'sent.nonNew.default': [-1],
-        'sent.new.hidden': [-1],
         'sent.new.default': [-1],
       };
 
@@ -175,27 +163,6 @@ export class KanjiHover extends RunnableAsyncModule {
           }
         }
       }
-
-      // checks unnecessary query (hidden has nothing)
-      function checkUnnecessaryQuery(
-        queryKey:
-          | 'sent.new.hidden'
-          | 'sent.nonNew.hidden'
-          | 'word.new.hidden'
-          | 'word.nonNew.hidden'
-      ) {
-        if (queryCategory[queryKey] === '') {
-          queryResults[kanji][queryKey] = [];
-        }
-      }
-      // for some reason, this for loop doesn't seem to work with typescript?
-      //for (const queryKey of ['new.hidden', 'nonNew.hidden']) {
-      //  checkUnnecessaryQuery(queryKey);
-      //}
-      checkUnnecessaryQuery('sent.new.hidden');
-      checkUnnecessaryQuery('sent.nonNew.hidden');
-      checkUnnecessaryQuery('word.new.hidden');
-      checkUnnecessaryQuery('word.nonNew.hidden');
     }
 
     // gets actions for queries
@@ -272,18 +239,9 @@ export class KanjiHover extends RunnableAsyncModule {
     return kanjiToFilteredCardIDs;
   }
 
-  // TODO move this into tooltip builder
-  private async sortByFirstReview(
-    kanjiQueryResults: KanjiQueryResults,
-    kanjiToHover: KanjiToHover
-  ) {
-    throw Error('not implemented');
-  }
-
   private async getCardInfo(
     kanjiToFilteredCardIDs: KanjiToFilteredCardIDs
   ): Promise<KanjiToFilteredCardsInfo> {
-    const kanjiToFilteredCardsInfo: KanjiToFilteredCardsInfo = {};
     // extracts the card ids and just attempts to get it
     const cardIDs: Set<number> = new Set();
 
@@ -427,16 +385,7 @@ export class KanjiHover extends RunnableAsyncModule {
     // searches the remaining kanjis in kanjiSet
     const queryResults = await this.cardQueries(noteInfo, Array.from(kanjiSet));
 
-    // two possible handlers:
-    // a) find all note infos for sorting purposes
-    // b) sort by card id
-    const sortMethod = this.getOption('tooltips.sortMethod');
-    let kanjiToFilteredCardIDs: KanjiToFilteredCardIDs;
-    if (sortMethod === 'time-created') {
-      kanjiToFilteredCardIDs = this.sortByTimeCreated(queryResults);
-    } else {
-      throw Error('not implemented');
-    }
+    let kanjiToFilteredCardIDs = this.sortByTimeCreated(queryResults);
 
     const kanjiToFilteredCardInfo = await this.getCardInfo(kanjiToFilteredCardIDs);
     this.buildTooltips(kanjiToFilteredCardInfo, kanjiToHover);
@@ -565,19 +514,15 @@ export class KanjiHover extends RunnableAsyncModule {
       return;
     }
 
-    if (this.getOption('kanjiHover.activateOn') === 'hover') {
-      if (this.wordReadingEle !== null) {
-        this.wordReadingEle.onmouseover = () => {
-          // replaces the function with a null function to avoid calling this function
-          if (this.wordReadingEle !== null) {
-            this.wordReadingEle.onmouseover = function () {};
-          }
-          this.populateTooltips();
-        };
-      } // otherwise front side. we do nothing! (pre-loading will lag the card)
-    } else {
-      // TODO: remove the above option! It should't be an option in the first place!
-      //await this.populateTooltips();
+    // only activates on hover (there's no reason currently to have it activate any other way)
+    if (this.wordReadingEle !== null) {
+      this.wordReadingEle.onmouseover = () => {
+        // replaces the function with a null function to avoid calling this function
+        if (this.wordReadingEle !== null) {
+          this.wordReadingEle.onmouseover = function () {};
+        }
+        this.populateTooltips();
+      };
     }
   }
 }

@@ -25,9 +25,7 @@ import { type MobilePopup } from '../mobilePopup';
 import { type CardCache } from './cardCache';
 
 type WordIndicatorsCategoryID =
-  | 'nonNew.hidden'
   | 'nonNew.default'
-  | 'new.hidden'
   | 'new.default';
 
 const wordIndicatorCardCacheKey = 'WordIndicators.wordIndicatorCardCacheKey';
@@ -78,9 +76,7 @@ export class WordIndicator {
 
     // TODO!
     const queries: QueryCategories = {
-      'nonNew.hidden': '',
       'nonNew.default': '',
-      'new.hidden': '',
       'new.default': '',
     };
 
@@ -95,9 +91,7 @@ export class WordIndicator {
     }
 
     const queryResults: QueryResults = {
-      'nonNew.hidden': [-1],
       'nonNew.default': [-1],
-      'new.hidden': [-1],
       'new.default': [-1],
     };
 
@@ -112,15 +106,6 @@ export class WordIndicator {
         }
       }
     }
-
-    // checks unnecessary query (hidden has nothing)
-    function checkUnnecessaryQuery(queryKey: 'new.hidden' | 'nonNew.hidden') {
-      if (queries[queryKey] === '') {
-        queryResults[queryKey] = [];
-      }
-    }
-    checkUnnecessaryQuery('new.hidden');
-    checkUnnecessaryQuery('nonNew.hidden');
 
     // gets actions for queries
     // these two arrays should be the same length, as they map query key <-> query
@@ -359,14 +344,7 @@ export class WordIndicator {
       return '';
     }
 
-    const sortMethod = this.wordInds.tooltips.getOption('tooltips.sortMethod');
-    let filteredCardIds: FilteredCardIDs;
-    if (sortMethod === 'time-created') {
-      filteredCardIds = this.sortByTimeCreated(queryResults);
-    } else {
-      throw Error('not implemented');
-      //await this.sortByFirstReview(queryResults, kanjiToHover);
-    }
+    let filteredCardIds = this.sortByTimeCreated(queryResults);
 
     const filteredCardInfo = await this.getCardInfo(filteredCardIds);
     const tooltipHTML = this.buildTooltip(filteredCardInfo);
