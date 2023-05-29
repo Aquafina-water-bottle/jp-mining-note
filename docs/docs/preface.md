@@ -25,15 +25,14 @@ Limited support will be given for older versions of Anki.
 With that being said, JPMN should work for Anki versions 2.1.49+.
 
 ## Mobile (AnkiDroid and AnkiMobile)
-Mobile support is slowly being worked on,[^1]
+Mobile support is slowly being worked on,
 but JPMN (on mobile) is currently not stable.
 Do not expect the note to work on mobile.
 Therefore, if you *absolutely must* use Anki on mobile,
 I recommend **not using this note**.
+(EDIT: If you are still interested in using the note on mobile,
+I recommend trying out the [0.12.0.0 beta](https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/setup/)). <!-- TODO remove this when pre-release is finalized -->
 
-
-[^1]:
-    Written as of 2022/10/31.
 
 ## AnkiWeb
 There is no support for AnkiWeb,
