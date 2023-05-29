@@ -185,12 +185,19 @@ and must use `./install.py --update`.
 - **Features (Breaking)**:
     - Renamed `freqUtils.displayMode` value `list-all` to `list`
     - Renamed `freqUtils.listAll.*` to `freqUtils.list.*`
+    - Removed debug options `logger.debug.onlyShowCertainModules` and `logger.debug.onlyShowCertainModules.modules`
 
 - **Features**:
     - Added a `pa-none` tag to force not coloring the card with any pitch accent color
+    - Added .map files for all cards
+    - Support for multi sentences (sentences separated with multiple newlines)
+    - `freqUtils.list.max` can now be `-1` to have an unbounded maxiumum (always shows all frequencies)
 
 - **Fixes**:
-    - 
+    - Corrected `0.10.0.0` initial fields
+    - Backing up files debug message no longer uses relative path to prevent some strange Windows error
+    - Removed Array.at() because Qt5 Anki doesn't support it
+    - Added .map files for all cards
 
 </details>
 
