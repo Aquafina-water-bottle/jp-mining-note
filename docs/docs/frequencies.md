@@ -49,10 +49,10 @@ to see exactly that.
 
 Older versions of the note displayed the frequencies similarly to
 Yomichan: as a list of existing frequencies.
-If you wish to do this, set the following {{ RTO }} to `list-all`:
+If you wish to do this, set the following {{ RTO }} to `list`:
 
 ```json
-"freqUtils.displayMode": "list-all",
+"freqUtils.displayMode": "list",
 ```
 
 (TODO GIF with dropdown)
@@ -65,7 +65,7 @@ before overflowing into the dropdown.
 This limit can be changed with the following {{ RTO }}:
 
 ```json
-"freqUtils.listAll.max": 4,
+"freqUtils.list.max": 4,
 ```
 
 (TODO IMAGE with dropdown and >= 5 frequencies)
