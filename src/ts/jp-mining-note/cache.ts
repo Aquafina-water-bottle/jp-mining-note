@@ -3,13 +3,8 @@ import * as util from 'util';
 //import { xhr2 } from 'xhr2';
 
 import { KanjiHover, NoteInfoKanjiHover } from '../modules/kanjiHover';
-import { invoke } from '../ankiConnectUtils';
-import {
-  type NoteInfo,
-  type CardInfo,
-  plainToRuby,
-  _resetGlobalState as _resetGlobalStateUtils,
-} from '../utils';
+import { invoke, type NoteInfo, type CardInfo } from '../ankiConnectUtils';
+import { plainToRuby, _resetGlobalState as _resetGlobalStateUtils } from '../utils';
 import { type Field, _resetGlobalState as _resetGlobalStateFields } from '../fields';
 import { manuallyCreateObjPersist } from '../spersist';
 import { WordIndicatorLabel, WordIndicators } from '../modules/wordIndicators';

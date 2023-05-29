@@ -4,6 +4,7 @@
  * be replicated in the user config.
  */
 
-export const compileOpts = {{ COMPILE_OPTIONS.dict() | tojson(indent=2) }};
+export const compileOpts = {{ COMPILE_OPTIONS.dict() | tojson(indent=2) }} as const;
 export const runtimeOpts = {{ RUNTIME_OPTIONS.dict() | tojson(indent=2) }};
-export const translatorStrs = {{ TRANSLATOR_RAW | tojson(indent=2) }};
+export const translatorStrs = {{ TRANSLATOR_RAW | tojson(indent=2) }} as const;
+export const fields = {{ ALL_FIELDS_JSON_MAP | tojson(indent=2) }} as const;

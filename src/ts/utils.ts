@@ -1,22 +1,6 @@
 import { LOGGER } from './logger';
 import { translatorStrs } from './consts';
-import { getFieldValue, fieldsAnyFilled, fieldIsFilled, type Field } from './fields';
-
-// TODO: move this to a different file? why is this even here?
-export type NoteInfo = {
-  readonly noteId: number;
-  readonly modelName: string;
-  readonly tags: string[];
-  readonly fields: Record<Field, { value: string }>;
-};
-
-export type CardInfo = {
-  // TODO: incomplete!
-  readonly cardId: number;
-  readonly due: number;
-  readonly fields: Record<Field, { value: string }>;
-};
-
+import { getFieldValue, fieldsAnyFilled, fieldIsFilled } from './fields';
 export type CardSide = 'front' | 'back';
 
 // TODO use this in the HTML as well (define it under make.py)

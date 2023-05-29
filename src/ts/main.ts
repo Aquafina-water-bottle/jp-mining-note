@@ -1,6 +1,6 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { addOnShownHook, CardSide, BASE_DOCS_URL } from './utils';
+import { addOnShownHook, BASE_DOCS_URL, type CardSide } from './utils';
 import { fieldsAllFilled, fieldsAllEmpty } from './fields';
 
 import { newKeybinds } from './modules/keybinds';

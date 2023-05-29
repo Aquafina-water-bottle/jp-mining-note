@@ -9,27 +9,35 @@ type _FieldValue = {
   order: number;
 };
 
+export type NoteInfo = {
+  readonly noteId: number;
+  readonly modelName: string;
+  readonly tags: string[];
+  readonly fields: Record<Field, { value: string }>;
+};
+
 // copied from https://github.com/FooSoft/anki-connect#cardsinfo
 export type CardInfo = {
-  answer: string;
-  question: string;
-  deckName: string;
-  modelName: string;
-  fieldOrder: number;
-  fields: Record<Field, _FieldValue>;
-  css: string;
-  cardId: number;
-  interval: number;
-  note: number;
-  ord: number;
-  type: number;
-  queue: number;
-  due: number;
-  reps: number;
-  lapses: number;
-  left: number;
-  mod: number;
+  readonly answer: string;
+  readonly question: string;
+  readonly deckName: string;
+  readonly modelName: string;
+  readonly fieldOrder: number;
+  readonly fields: Record<Field, _FieldValue>;
+  readonly css: string;
+  readonly cardId: number;
+  readonly interval: number;
+  readonly note: number;
+  readonly ord: number;
+  readonly type: number;
+  readonly queue: number;
+  readonly due: number;
+  readonly reps: number;
+  readonly lapses: number;
+  readonly left: number;
+  readonly mod: number;
 };
+
 
 export type AnkiConnectAction = {
   action: string;

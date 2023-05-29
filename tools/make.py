@@ -22,7 +22,7 @@ from jinja2 import (
 # import json
 
 import utils
-from note_changes import get_note_changes
+from fields import get_fields_json, get_fields, get_fields_map
 from json_handler import JsonHandler
 
 
@@ -225,8 +225,10 @@ class Generator:
         self.data = {
             # helper methods
             "NOTE_DATA": utils.get_note_data(self.json_handler),
-            # TODO change this to be based off of whatever version you specify
-            "ALL_FIELDS": get_note_changes(json_handler)[0].fields,
+            # NOTE: this does not follow the version you specify!
+            "ALL_FIELDS": get_fields(json_handler),
+            "ALL_FIELDS_JSON": get_fields_json(json_handler),
+            "ALL_FIELDS_JSON_MAP": get_fields_map(json_handler),
             "COMPILE_OPTIONS": utils.get_compile_opts(config, json_handler),
             "RUNTIME_OPTIONS": utils.get_runtime_opts(config, json_handler),
             # all options used before pre-processing
