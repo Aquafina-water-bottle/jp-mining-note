@@ -151,7 +151,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
 
   // TODO: compileOpts togglable??
   let mobilePopup: MobilePopup | null = null;
-  if (getViewportWidth() < compileOpts['breakpoints.width.combinePicture']) {
+  if (compileOpts['enableModule.mobilePopup'] && getViewportWidth() < compileOpts['breakpoints.width.combinePicture']) {
     mobilePopup = new MobilePopup('mobilePopup');
   }
 

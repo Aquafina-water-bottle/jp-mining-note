@@ -182,6 +182,7 @@
   "enableModule.freqUtils":               true,
 
   "enableModule.mobileUtils":             true,
+  "enableModule.mobilePopup":             true,
   "enableModule.fsrsUtils":               true,
   "enableModule.infoCircleUtils":         true,
   "enableModule.fixRubyPositioning":      true,
