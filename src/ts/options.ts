@@ -1,6 +1,6 @@
 import { compileOpts, runtimeOpts } from './consts';
 import { LOGGER } from './logger';
-import { isMobile, arrContainsAnyOf, getCardType, getCardSide } from './utils';
+import { isMobile, getCardType, getCardSide } from './utils';
 import { fieldsAllEmpty, Field, fieldsAllFilled, fieldsAnyFilled } from './fields';
 import { getViewportWidth } from './reflow';
 
@@ -201,14 +201,14 @@ type OverrideValue<K extends keyof O> = {
   // allows recursive override entries
   readonly resultFalse: O[K] | OverrideValue<K>;
   readonly resultTrue: O[K] | OverrideValue<K>;
-  readonly args?: unknown; // TODO
+  readonly args?: unknown;
 };
 
 type OverrideValueUnknown = {
   readonly type: unknown;
   readonly resultFalse: unknown;
   readonly resultTrue: unknown;
-  readonly args?: unknown; // TODO
+  readonly args?: unknown;
 };
 
 type Overrides = {
@@ -353,16 +353,17 @@ export function checkOptTags(
   for (const [optKey, result] of tagsToResult) {
     const opt = getOption(optKey);
 
-    // TODO workaround for some crazy typescript bug?
-    // for some reason, x can be of type number[]
-    // when defining these two separately:
+    // This is some workaround for some crazy typescript bug:
+    // For some reason, x can be of type number[] when defining these two separately:
+    //
     //    "tooltips.overrideOptions.autoPitchAccent": {
     //      "autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline": true,
     //    },
     //    "kanjiHover.overrideOptions.tooltips": {
     //      "tooltips.displayPitchAccentOnHoverOnly": false,
     //    },
-    // we removed the usage of arrContainsAnyOf and replaced with this
+    //
+    // To workaround this, we replace arrContainsAnyOf with this:
     if (Array.isArray(opt)) {
       for (const x of opt) {
         if (typeof x === 'string' && tags.includes(x)) {
@@ -370,6 +371,7 @@ export function checkOptTags(
         }
       }
     }
+
   }
   return undefined;
 }

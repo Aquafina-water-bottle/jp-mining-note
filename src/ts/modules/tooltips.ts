@@ -2,13 +2,12 @@ import { compileOpts } from '../consts';
 import { Module } from '../module';
 import {
   AutoPitchAccent,
-  AutoPitchAccentArgs,
-  NoteInfoPA,
-  PAGroup,
+  type AutoPitchAccentArgs,
+  type NoteInfoPA,
+  type PAGroup,
 } from './autoPitchAccent';
-import { NoteInfoSentence, SentenceParser } from './sentenceParser';
-import { Sentence } from './sentenceParser';
-import { invoke, escapeQueryStr, QueryBuilder, CardInfo } from '../ankiConnectUtils';
+import { type NoteInfoSentence, type Sentence, SentenceParser } from './sentenceParser';
+import { invoke, escapeQueryStr, QueryBuilder, type CardInfo } from '../ankiConnectUtils';
 import { plainToRuby } from '../utils';
 
 export type NoteInfoTooltipBuilder = NoteInfoPA & NoteInfoSentence;
@@ -150,7 +149,6 @@ export class TooltipBuilder {
   }
 
   addSeparator() {
-    // TODO...
     const sepDiv = document.createElement('div');
     sepDiv.classList.add('hover-tooltip__card');
     sepDiv.classList.add('hover-tooltip__card--separator');

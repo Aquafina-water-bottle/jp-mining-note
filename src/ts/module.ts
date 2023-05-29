@@ -1,4 +1,4 @@
-import { getOption, O } from './options';
+import { getOption, type O } from './options';
 import { Logger } from './logger';
 
 // html elements: class private readonly
@@ -24,14 +24,6 @@ export type ModuleId =
   | 'blockquotes'
   | 'refreshCard';
 
-// TODO: using OverrideValue<K> creates an error:
-// > "Expression produces a union type that is too complex to represent"
-// TODO: extend to use overrides if necessary
-// [K in keyof O]?: O[K] | OverrideValueUnknown;
-//type OptionsSubset = {
-//  // all optional
-//  [K in keyof O]?: O[K];
-//};
 
 type OptionsSubset = Partial<O>;
 
@@ -91,8 +83,6 @@ export abstract class RunnableModule extends Module {
   abstract main(): void;
 }
 
-// TODO organize the typescript better, i.e. assets folder? types folder? etc.
-// definitely need to google this...
 // this is a generalized version of the below to allow more things
 // to run in the AsyncManager
 export interface AsyncManagerRunnableModule {

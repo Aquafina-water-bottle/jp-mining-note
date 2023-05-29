@@ -3,7 +3,7 @@ import { getFieldValue } from './fields';
 import { LOGGER } from './logger';
 import { getOption } from './options';
 import { selectPersistAny } from './spersist';
-import { CardSide, isAndroid } from './utils';
+import { type CardSide, isAndroid } from './utils';
 
 const cardIsNewKey = 'isNew.cardIsNewKey';
 

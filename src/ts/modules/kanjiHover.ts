@@ -1,24 +1,24 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
-import { SPersistInterface, selectPersist } from '../spersist';
+import { type SPersistInterface, selectPersist } from '../spersist';
 import { plainToRuby, getCardKey, filterCards } from '../utils';
-import { getFieldValue, getFieldValueEle, Field, cacheFieldValue } from '../fields';
+import { type Field, getFieldValue, cacheFieldValue } from '../fields';
 import { type CardCache } from './cardCache';
 
-import { Tooltips, QueryBuilderGroup, TooltipBuilder } from './tooltips';
+import { Tooltips, type QueryBuilderGroup, type TooltipBuilder } from './tooltips';
 import {
-  AnkiConnectAction,
+  type AnkiConnectAction,
+  type CardInfo,
   constructFindCardsAction,
   escapeQueryStr,
   getQueryCache,
   setQueryCache,
   invoke,
-  CardInfo,
   cardsInfo,
   cardIDsToCardsInfo,
 } from '../ankiConnectUtils';
 import { translatorStrs } from '../consts';
-import { MobilePopup } from '../mobilePopup';
+import { type MobilePopup } from '../mobilePopup';
 
 type KanjiHoverCategoryID =
   | 'word.nonNew.hidden'

@@ -3,7 +3,7 @@ import { checkOptTags } from '../options';
 import { getFieldValue } from '../fields';
 import { plainToKanaOnly, getTags, getCardSide } from '../utils';
 import { compileOpts } from '../consts';
-import { AutoHighlightWord, SearchStrings } from './autoHighlightWord';
+import { AutoHighlightWord, type SearchStrings } from './autoHighlightWord';
 import { plainToKanjiOnly } from '../utils';
 
 export type Sentence = {
@@ -99,7 +99,6 @@ export class SentenceParser extends RunnableModule {
       const [j1, j2] = [sentContents.length - qp.close.length, sentContents.length]; // close quote
 
       if (
-        // TODO test for arbitrary length quote openings / closings
         sentContents.substring(i1, i2) === qp.open &&
         sentContents.substring(j1, j2) === qp.close
       ) {
@@ -466,6 +465,10 @@ export class SentenceParser extends RunnableModule {
         for (const cls of sentenceStyleClasses) {
           sent.base.classList.toggle(cls, false);
         }
+
+        // marks the base sentence as a multi sentence (mostly for optional styling purposes)
+        const multiSentCls = "multi-sentence"
+        sent.base.classList.toggle(multiSentCls, true)
 
         sent.base.innerHTML = ''; // should remove all quotes
         for (const multiSent of multiSents) {

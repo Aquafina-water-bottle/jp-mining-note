@@ -201,15 +201,10 @@ details.glossary-details > summary {
 }
 
 
-
-/*
- * formats the open right quote to be to the left of the entire text box
- */
-
-//.left-align-quote {
-//  text-indent: -1em;
-//  padding-left: 1em;
-//}
+/* adds a bit of a gap between sentences */
+.multi-sentence > div:nth-child(n+2) {
+  margin-top: 0.25em;
+}
 
 
 .sentence-quoted-display-flow {

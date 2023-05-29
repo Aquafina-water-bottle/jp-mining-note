@@ -1,6 +1,6 @@
 import { Module, RunnableModule } from '../module';
 //import { ImgBlur } from "./imgBlur"
-import { compileOpts, translatorStrs } from '../consts';
+import { translatorStrs } from '../consts';
 import { checkOptTags, getOption } from '../options';
 import {
   arrContainsAnyOf,
@@ -11,7 +11,7 @@ import {
 } from '../utils';
 import { fieldIsFilled } from '../fields';
 import { InfoCircleSetting } from './infoCircleSetting';
-import { getViewportWidth, adjustElements } from '../reflow';
+import { adjustElements } from '../reflow';
 
 type TagToImg = {
   tag: string;

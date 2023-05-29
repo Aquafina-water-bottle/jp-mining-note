@@ -14,7 +14,6 @@ import { ImgStylizer } from './modules/imgStylizer';
 import { KanjiHover } from './modules/kanjiHover';
 import { WordIndicators } from './modules/wordIndicators';
 import { FreqUtils } from './modules/freqUtils';
-import { WebSocketUtils } from './modules/webSocketUtils';
 
 import { MobileUtils } from './modules/mobileUtils';
 import { MobilePopup } from './mobilePopup';
@@ -135,29 +134,14 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   }
 
   if (cardSide === 'back') {
-    // TODO async scheduler on some modules here
-    // TODO separate these between async and synchronous somewhow?
-    //if (compileOpts['enableModule.collapseDictionaries']) {
-    //  new CollapseDictionaries().run();
-    //}
-
-    //if (compileOpts['enableModule.openCollapsedFields']) {
-    //  new OpenCollapsedFields().run();
-    //}
-
     if (compileOpts['enableModule.freqUtils']) {
       new FreqUtils().run();
     }
 
     // very last to ensure that definitions are properly populated
-    // TODO compile opt
     if (compileOpts['enableModule.blockquotes']) {
       new Blockquotes().run();
     }
-  }
-
-  if (compileOpts['enableModule.webSocketUtils']) {
-    new WebSocketUtils().run();
   }
 
   // depends on sentenceParser, for textbender sentence

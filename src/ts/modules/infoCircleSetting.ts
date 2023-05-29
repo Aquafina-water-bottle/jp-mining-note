@@ -1,7 +1,5 @@
 import { Module } from '../module';
-//import { O, getOption } from '../options';
-import { selectPersist, SPersistInterface } from '../spersist';
-//import { Persistence } from '../persistence';
+import { selectPersist } from '../spersist';
 import { throwOnNotFound } from '../utils';
 
 type InfoCircleSettingId =
@@ -110,7 +108,6 @@ export class InfoCircleSetting extends Module {
         state = Number(this.persist.get(this.persistKey));
       }
     } else {
-      // TODO togglable warn
       this.logger.warn('Persistence is not available. Using default state...');
     }
 

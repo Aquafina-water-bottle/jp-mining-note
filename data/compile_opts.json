@@ -51,7 +51,6 @@
   "enableModule.kanjiHover": true,
   "enableModule.wordIndicators": true,
   "enableModule.checkDuplicateKey": true,
-  "enableModule.webSocketUtils": false,
   "enableModule.freqUtils": true,
   "enableModule.mobileUtils": true,
   "enableModule.fsrsUtils": true,

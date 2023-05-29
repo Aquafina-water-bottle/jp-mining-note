@@ -5,7 +5,7 @@ import { LOGGER } from './logger';
 import { selectPersistStr, SPersistInterface } from './spersist';
 import { getOption } from './options';
 import { compileOpts } from './consts';
-import { ImgStylizer } from './modules/imgStylizer';
+import { type ImgStylizer } from './modules/imgStylizer';
 
 const widthKey = 'jpmn.reflow.widthKey';
 //const heightKey = "jpmn.reflow.heightKey";
@@ -29,6 +29,7 @@ function setWidthCache(persist: SPersistInterface) {
 }
 
 // TODO potentially turn this into a module to add the imgStylizer thing (to refresh layout)
+// (global listeners)
 function setResizeListener(persist: SPersistInterface) {
   let timeout: TimeoutValue | null = null; // holder for timeout id
   let delay = 500; // delay after event is "complete" to run callback
@@ -96,13 +97,10 @@ function adjustMobile(
   );
   const ftFullWidth = ftMarginLeft * 2 + ftWidth;
 
-  // TODO convert from rem?
-  // I'm not sure how to convert --mobile-border (0.5rem) into pixels
-  // however, 0.5rem === 8px, so this will be used here for now.
-  // - computedstyle will return the string 0.5rem...
+  // I'm not sure how to convert --mobile-border (0.5rem) into pixels.
+  // However, 0.5rem === 8px with default settings, so this will be used here for now...
   const border = 8;
-  // same with this
-  const imageMargin = 8;
+  const imageMargin = 8;  // same with this
 
   const cardWidth = VW - border * 2;
   if (dhLeftWidth >= cardWidth) {

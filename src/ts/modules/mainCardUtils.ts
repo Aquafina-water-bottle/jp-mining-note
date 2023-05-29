@@ -33,7 +33,6 @@ export class MainCardUtils extends RunnableModule {
     super('mainCardUtils');
   }
 
-  // TODO how to do keybinds???
   private sentenceKeybinds(e: KeyboardEvent) {
     if (hasKey(e, getOption('keybinds.toggleHybridSentence'))) {
       hybridClick();
@@ -41,10 +40,6 @@ export class MainCardUtils extends RunnableModule {
 
     if (hasKey(e, getOption('keybinds.toggleHighlightWord'))) {
       toggleHighlightWord();
-      //let paButton = document.getElementById("pa_button");
-      //if (paButton !== null) {
-      //  this.toggleHighlightWord();
-      //}
     }
   }
 

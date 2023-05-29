@@ -3,8 +3,8 @@ import { getCardKey, popupMenuMessage } from '../utils';
 import { refreshAdjustElements } from '../reflow';
 import { InfoCircleSetting } from './infoCircleSetting';
 import { selectPersistAny } from '../spersist';
-import { AsyncManager } from './asyncManager';
-import { ImgStylizer } from './imgStylizer';
+import { type AsyncManager } from './asyncManager';
+import { type ImgStylizer } from './imgStylizer';
 
 const settingId = 'info_circle_text_settings_refresh_card';
 
@@ -34,7 +34,7 @@ export class RefreshCard extends RunnableModule {
         'Persistence is not available. Refreshing the card will not check whether the async processes are currently running.'
       );
     } else if (this.persist.has(refreshMutex)) {
-      // TODO make popup look good
+      // TODO why does this message never show?
       popupMenuMessage('Async processes are already running. Card cannot be refreshed.');
       return;
     } else {

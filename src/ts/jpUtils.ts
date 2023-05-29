@@ -1,6 +1,4 @@
 import { LOGGER } from './logger';
-import { Module } from './module';
-import { getOption } from './options';
 
 export type CodePointRange = {
   min: number;

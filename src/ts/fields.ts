@@ -121,7 +121,7 @@ export function getFieldValue(field: Field): string {
 }
 
 // NOTE: not currently cached!!!
-// TODO: cache?
+// Should this be cached at some point?
 export function getFieldValueEle(field: Field): HTMLElement | null {
   const x = document.getElementById(`hidden_field_${field}`);
   if (x === null) {

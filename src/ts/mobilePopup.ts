@@ -3,8 +3,7 @@
  */
 
 import { Module } from './module';
-import { translatorStrs } from './consts';
-import { WordIndicator } from './modules/wordIndicators';
+import { type WordIndicator } from './modules/wordIndicators';
 
 export class MobilePopup extends Module {
   private readonly ele = document.getElementById('mobile_popup') as HTMLElement | null;

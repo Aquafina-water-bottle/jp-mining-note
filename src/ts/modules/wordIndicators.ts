@@ -1,27 +1,27 @@
 import { RunnableAsyncModule } from '../module';
 import { getOption } from '../options';
 import { filterCards, getTags, getCardKey, getCardSide } from '../utils';
-import { getFieldValue, Field, cacheFieldValue, getFieldValueEle } from '../fields';
+import { getFieldValue, Field, cacheFieldValue } from '../fields';
 import {
   Tooltips,
-  QueryBuilderGroup,
-  NoteInfoTooltipBuilder,
-  TooltipBuilder,
+  type QueryBuilderGroup,
+  type NoteInfoTooltipBuilder,
+  type TooltipBuilder,
 } from './tooltips';
 import { selectPersistAny, selectPersistObj, type SPersistInterface } from '../spersist';
 import {
+  type CardInfo,
+  type AnkiConnectAction,
   getQueryCache,
-  AnkiConnectAction,
   constructFindCardsAction,
   invoke,
   setQueryCache,
-  CardInfo,
   cardsInfo,
   cardIDsToCardsInfo,
   escapeQueryStr,
 } from '../ankiConnectUtils';
 import { cardIsNew } from '../isNew';
-import { MobilePopup } from '../mobilePopup';
+import { type MobilePopup } from '../mobilePopup';
 import { type CardCache } from './cardCache';
 
 type WordIndicatorsCategoryID =
@@ -71,23 +71,6 @@ export class WordIndicator {
     this.indicatorEle = indicatorEle;
     this.infoCircIndicatorEle = infoCircIndicatorEle;
     this.cacheKey = `${wordIndicatorCardCacheKey}.${label}.${getCardKey()}`;
-
-    // ran synchronously, so fields will 100% be cached
-    const cacheFields: readonly Field[] = [
-      'Key',
-      'AJTWordPitch',
-      'PAOverride',
-      'PAOverrideText',
-      'PAPositions',
-      'Sentence',
-      'Word',
-      'WordReading',
-      'WordReadingHiragana',
-      'YomichanWordTags',
-    ] as const;
-    for (const f of cacheFields) {
-      cacheFieldValue(f);
-    }
   }
 
   private async getQueryResults() {
@@ -233,7 +216,7 @@ export class WordIndicator {
 
   // adds this to the tooltip because the tooltip covers up the current word
   private addCurrentCardToTooltip(tooltipBuilder: TooltipBuilder) {
-    // TODO shouldn't this be cached in the constructor?
+    // NOTE: These are all cached in the WordIndicators constructor by default
     const currentCardInfo: NoteInfoTooltipBuilder = {
       AJTWordPitch: getFieldValue('AJTWordPitch'),
       PAOverride: getFieldValue('PAOverride'),
@@ -326,9 +309,6 @@ export class WordIndicator {
       if (await cardIsNew('back')) {
         indicatorEle.classList.toggle('dh-left__similar-words-indicator--new', true);
       }
-
-      // TODO rework this! this also affects pitch accents!
-      //dhLeftEle.classList.toggle(clsWithIndicators, true);
 
       this.wordInds.tooltips.addBrowseOnClick(indicatorEle);
     }
@@ -435,6 +415,23 @@ export class WordIndicators extends RunnableAsyncModule {
 
     this.mobilePopup = mobilePopup;
     this.cardCache = cardCache;
+
+    // ran synchronously, so fields will 100% be cached
+    const cacheFields: readonly Field[] = [
+      'Key',
+      'AJTWordPitch',
+      'PAOverride',
+      'PAOverrideText',
+      'PAPositions',
+      'Sentence',
+      'Word',
+      'WordReading',
+      'WordReadingHiragana',
+      'YomichanWordTags',
+    ] as const;
+    for (const f of cacheFields) {
+      cacheFieldValue(f);
+    }
   }
 
   getIndicators(): WordIndicator[] {

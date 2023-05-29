@@ -1,6 +1,6 @@
 import { LOGGER } from './logger';
 import { translatorStrs } from './consts';
-import { getFieldValue, fieldsAnyFilled, fieldIsFilled, Field } from './fields';
+import { getFieldValue, fieldsAnyFilled, fieldIsFilled, type Field } from './fields';
 
 // TODO: move this to a different file? why is this even here?
 export type NoteInfo = {
@@ -275,9 +275,9 @@ function _plainToX(str: string, filter: string) {
 
 /* equivalent to anki's furigana: filter */
 export function plainToRuby(str: string) {
-  // TODO: remove <rb> since it's deprecated?
+  // NOTE: <rb> is deprecated (but we don't use its main feature here anyways):
   // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/rb
-  // only reason why it's here is because Anki has it in its internal filters...
+  // It might be useful to retain this for easier styling (and because Anki internally uses it)
   return _plainToX(str, '<ruby><rb>$1</rb><rt>$2</rt></ruby>');
 }
 
