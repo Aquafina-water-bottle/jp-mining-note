@@ -136,3 +136,27 @@ TODO image
 
 
 
+
+# Grey out blockquotes until hover
+
+TODO not recommended to use if you set:
+```
+"blockquotes.hideEmpty": false,
+```
+
+```css
+/* greys out the summary text until hover */
+.glossary-details > summary {
+  color: var(--text-color--3);
+}
+
+.glossary-details:hover > summary {
+  color: var(--text-color--1);
+}
+
+.glossary-details[open] > summary {
+  color: var(--text-color);
+}
+
+```
+
