@@ -6,7 +6,7 @@
 # ShareX Scripts
 Many people have already documented how to setup your ShareX to work with Anki, such as:
 
-* [stegatxins0](https://rentry.co/mining#sharex) (recommended)
+* [stegatxins0](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#sharex) (recommended)
 * [Anime Cards](https://animecards.site/media/#setting-up-sharex)
 
 Instead of re-telling the steps they have already showed,
@@ -42,7 +42,7 @@ The following scripts have the following changes:
 ### How-To
 
 Follow the steps for setting up the
-[screenshot hotkey](https://rentry.co/mining#hotkey-for-screenshot),
+[screenshot hotkey](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#hotkey-for-screenshot),
 and use this script in place of step 8's `argument`.
 
 
@@ -69,7 +69,7 @@ except rewritten in a more readable format.
 If you already have the audio hotkey setup, there is no reason to change the old script.
 
 To use this, follow the steps for setting up the
-[audio hotkey](https://rentry.co/mining#hotkey-for-audio),
+[audio hotkey](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#hotkey-for-audio),
 and use this script in place of step 14's `Argument`.
 
 {{ sharex_display(sharex.audio) }}

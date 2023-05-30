@@ -167,9 +167,9 @@ Most classic setups documented are for clipboard based texthooker pages.
             to make the text more compressed.
 
 ??? example "Guides <small>(click here)</small>"
-    * [stegatxins0's mining guide: Texthooker](https://rentry.co/mining#browser) <small>(recommended)</small>
     * [TMW: Texthooker & Visual Novels](https://learnjapanese.moe/vn/#playing-visual-novels-to-learn-japanese)
     * [Lazy Guide: Texthooker](https://rentry.co/lazyXel#clipboard-inserter)
+    * [stegatxins0's mining guide: Texthooker](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#browser)
     * [Anime Cards: Texthooker & Visual Novels](https://animecards.site/visualnovels/)
 
 ??? example "Legacy Resources <small>(click here)</small>"
@@ -372,7 +372,7 @@ Here are the two popular approaches to automatically adding the image and senten
 
     **Guides:**
 
-    * [stegatxins0's mining guide: ShareX](https://rentry.co/mining#sharex) (recommended)
+    * [stegatxins0's mining guide: ShareX](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#sharex) (recommended)
         * The scripts written [here](jpresources.md#sharex-scripts)
             works by default with this note.
             These scripts are meant used with stegatxins0's setup.

@@ -84,10 +84,10 @@ see: https://stackoverflow.com/questions/43895390/imgur-images-returning-403
 
 ## stegatxins0's Modified Anime Card
 <sup>
-[Website & Download](https://rentry.co/mining#anki-settings)・Contact: Private[^1]
+[Website & Download](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#anki-settings)・Contact: Private[^1]
 </sup>
 
-[^1]:  He seems to have left TMW Discord server, and his demo video on Youtube was privated. I assume he no longer wants to be contacted.
+[^1]:  He seems to have left TMW Discord server, and his demo video on Youtube was privated. I assume he no longer wants to be contacted. If you have any questions about this setup, you should be able to ask in {{ TMW_SERVER }} instead.
 
 !!! example "Example image"
     {{ img("", "assets/alternatives/stegatxins0_eg.png") }}
