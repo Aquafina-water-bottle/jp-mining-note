@@ -705,24 +705,6 @@
 
 
   // ==========================================================================
-  // = webSocketUtils =
-  // ==========================================================================
-
-  "webSocketUtils.enabled": false,
-  "webSocketUtils.url": "ws://localhost:6678",
-
-  // whether the setting is enabled by default or not
-  // i.e. if the websocket is connected on card startup or not
-  "webSocketUtils.defaultIsEnabled": false,
-
-  // note: only sends on the back side of the card
-  // TODO order?
-  "webSocketUtils.sendSentence": true,
-
-
-
-
-  // ==========================================================================
   // = mobileUtils =
   // ==========================================================================
 
