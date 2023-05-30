@@ -849,12 +849,12 @@ def move_runtime_options_file_to_original():
 
 
 # TODO deprecated, remove for 0.12.0.0 release
-def replace_runtime_options_file_anki():
-    root_folder = utils.get_root_folder()
-    backup_folder = os.path.join(
-        root_folder, "user_files", "backup", utils.get_time_str()
-    )
-    _replace_runtime_options_file(backup_folder)
+#def replace_runtime_options_file_anki():
+#    root_folder = utils.get_root_folder()
+#    backup_folder = os.path.join(
+#        root_folder, "user_files", "backup", utils.get_time_str()
+#    )
+#    _replace_runtime_options_file(backup_folder)
 
 
 def fill_field_if_hiragana(field_name: str, value: str = "1", query: str | None = None):
@@ -979,7 +979,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     add_fields,
     set_font_sizes,
     set_fonts_to_key_font,
-    replace_runtime_options_file_anki,  # TODO deprecated, remove for 0.12.0.0 release
+    #replace_runtime_options_file_anki,  # TODO deprecated, remove for 0.12.0.0 release
     replace_runtime_options_file,
     fill_field_if_hiragana,
     get_new_due_cards,

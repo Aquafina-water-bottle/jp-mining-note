@@ -254,9 +254,6 @@ def _get_opts_all(name, config: Config, json_handler: JsonHandler) -> OptsDict:
     # - theme
     # - default (error if not found)
 
-    # import pyjson5
-    # TODO use json handler!!!! what on earth is this
-
     root_folder = get_root_folder()
 
     # gets default settings
@@ -381,7 +378,6 @@ def apply_runtime_opts(
                     apply_modify_action(dst, k2, action)
         else:
             if error_if_unknown_key and k not in dst:
-                # TODO more detailed error message
                 print(all_opts["default"])
                 raise KeyError(f"{k} not in default options (but was defined in {key})")
 
