@@ -110,6 +110,71 @@ Set `opt-first-definition-type` to `monolingual` if you want monolingual Anki ca
 ---
 
 
+# Common Problems
+1. If you transferred from the legacy Anime Cards handlebars
+    (step 6 of [this](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#yomichan)),
+    then your pitch accent graphs might look a bit different. This is because the legacy Anime Cards
+    handlebars removes a bunch of extra styling from the exported SVG, which is unfortunately non-standard.
+
+    Nonetheless, the easy way to fix this is by simply replacing the current pitch accent handlebars
+    with Anime Card's modified pitch accent handlebars:
+
+    ??? example "Legacy pitch accent handlebars {{CLICKHERE}}"
+        {% raw %}
+        ```handlebars
+        {{! Pitch Accents }}
+        {{#*inline "pitch-accent-item"}}
+            {{~#pronunciation format=format reading=reading downstepPosition=position nasalPositions=nasalPositions devoicePositions=devoicePositions~}}{{~/pronunciation~}}
+        {{/inline}}
+
+        {{#*inline "pitch-accent-item-disambiguation"}}
+            {{~#scope~}}
+                {{~#set "exclusive" (spread exclusiveExpressions exclusiveReadings)}}{{/set~}}
+                {{~#if (op ">" (property (get "exclusive") "length") 0)~}}
+                    {{~#set "separator" ""~}}{{/set~}}
+                    <em>({{#each (get "exclusive")~}}
+                        {{~#get "separator"}}{{/get~}}{{{.}}}
+                    {{~/each}} only) </em>
+                {{~/if~}}
+            {{~/scope~}}
+        {{/inline}}
+
+        {{#*inline "pitch-accent-list"}}
+            {{~#if (op ">" pitchCount 0)~}}
+                {{~#if (op ">" pitchCount 1)~}}{{~/if~}}
+                {{~#each pitches~}}
+                    {{~#each pitches~}}
+                        {{~#if (op ">" ../../pitchCount 1)~}}{{~/if~}}
+                            {{~> pitch-accent-item-disambiguation~}}
+                            {{~> pitch-accent-item format=../../format~}}
+                        {{~#if (op ">" ../../pitchCount 1)~}}{{~/if~}}
+                    {{~/each~}}
+                {{~/each~}}
+                {{~#if (op ">" pitchCount 1)~}}{{~/if~}}
+            {{~else~}}
+            {{~/if~}}
+        {{/inline}}
+
+        {{#*inline "pitch-accents"}}
+            {{~> pitch-accent-list format='text'~}}
+        {{/inline}}
+
+        {{#*inline "pitch-accent-graphs"}}
+            {{~> pitch-accent-list format='graph'~}}
+        {{/inline}}
+
+        {{#*inline "pitch-accent-positions"}}
+            {{#regexReplace "<(.|\n)*?>" ""}}{{~> pitch-accent-list format='position'~}}{{/regexReplace}}
+        {{/inline}}
+        {{! End Pitch Accents }}
+        ```
+        {% endraw %}
+
+    Alternatively, you can use [these handlebars](jpresources.md#grab-only-the-first-pitch-accent-dictionary)
+    to get one pitch accent only. This does not modify existing handlebars.
+
+---
+
 
 # Introduced Handlebars
 
