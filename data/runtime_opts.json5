@@ -713,7 +713,7 @@
 
   "infoCircleUtils.enabled": true,
 
-  // Whether the info circle is shown as a dialog box or not.
+  // Whether the info circle is shown as a dialog box or a tooltip (like the PC).
   // Ideally, we would want this to be true for all mobile devices, as this prevents
   // a UI issue when trying to tap on the word indicators.
   // However, this is set to false on AnkiMobile by default due to this issue:

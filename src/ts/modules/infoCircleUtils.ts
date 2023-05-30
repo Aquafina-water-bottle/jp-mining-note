@@ -162,7 +162,7 @@ export class InfoCircleUtils extends RunnableModule {
     }
 
     if (getViewportWidth() < compileOpts['breakpoints.width.combinePicture'] && getOption("infoCircleUtils.mobileDialog")) {
-      document.getElementById("jpmn")?.classList.toggle("jpmn-info-circle-tooltip-use-dialog", true)
+      document.getElementById("jpmn")?.classList.toggle("js-info-circle-tooltip-use-dialog", true)
     }
 
   }
