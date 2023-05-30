@@ -12,8 +12,8 @@ from typing import Optional
 @dataclass
 class Field:
     name: str
-    font: int # font size
-    auto_fill: bool # whether this field should be auto-filled by some program (i.e. Yomichan, mpvacious, etc.)
+    font: int  # font size
+    auto_fill: bool  # whether this field should be auto-filled by some program (i.e. Yomichan, mpvacious, etc.)
     binary_field: bool
 
     # exact text used for Yomichan's "Anki Card Format"
@@ -36,6 +36,9 @@ class Field:
 
     # whether it is collapsed by default or not
     default_collapsed: Optional[bool] = None
+
+    # whether it is used in the "hidden_field_exists_*" divs in the HTML
+    ignore_field_exists: Optional[bool] = None
 
 
 
