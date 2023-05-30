@@ -333,12 +333,13 @@
 
     margin-left: auto; /* centers */
     margin-right: auto;
-
-    .dh-right__img {
-      margin-right: var(--dh-right-image-gap);
-    }
-
   }
+
+  .def-header--has-img > .dh-right {
+    /* this is padding to prevent overriding the margin-left, margin-right variables in responsive */
+    padding-right: var(--dh-right-image-gap);
+  }
+
 
   /* mobile requires a fixed height. JS adjusts width instead of height. */
   .dh-right,
