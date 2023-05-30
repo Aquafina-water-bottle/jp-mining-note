@@ -47,6 +47,14 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
     );
   },
 
+  // TODO: make this only detect AnkiMobile! Is this even possible?
+  isAnkiMobile: () => {
+    return (
+      document.documentElement.classList.contains('iphone') ||
+      document.documentElement.classList.contains('ipad')
+    );
+  },
+
   /*
   key: {
     "type": "viewportWidth",

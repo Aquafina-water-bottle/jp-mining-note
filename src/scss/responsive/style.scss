@@ -164,86 +164,92 @@
     width: 15px;
   }
 
-  .info-circle-text-wrapper {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: none;
-    z-index: 20; /* kanji hover / word indicators popup has z-index of 10, popup menu has 30 */
+  .jpmn-info-circle-tooltip-use-dialog {
 
-    background-color: var(--tooltip-behind-darken);
-
-    animation-name: info-circle-zoom;
-    animation-duration: 0.25s;
-  }
-
-  .info-circle-text-wrapper--zoom-out {
     .info-circle-text-wrapper {
-      animation-name: info-circle-zoom-out;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      display: none;
+      z-index: 20; /* kanji hover / word indicators popup has z-index of 10, popup menu has 30 */
+
+      background-color: var(--tooltip-behind-darken);
+
+      animation-name: info-circle-zoom;
       animation-duration: 0.25s;
     }
-  }
 
-  @keyframes info-circle-zoom {
-    0% {
-      display: none;
-      opacity: 0;
+    .info-circle-text-wrapper--zoom-out {
+      .info-circle-text-wrapper {
+        animation-name: info-circle-zoom-out;
+        animation-duration: 0.25s;
+      }
     }
 
-    0.001% {
-      display: flex;
-      opacity: 0;
+    @keyframes info-circle-zoom {
+      0% {
+        display: none;
+        opacity: 0;
+      }
+
+      0.001% {
+        display: flex;
+        opacity: 0;
+      }
+
+      100% {
+        display: flex;
+        opacity: 100;
+      }
     }
 
-    100% {
-      display: flex;
-      opacity: 100;
+
+    @keyframes info-circle-zoom-out {
+      0% {
+        display: flex;
+        opacity: 100;
+      }
+      99.999% {
+        display: flex;
+        opacity: 0;
+      }
+      100% {
+        display: none;
+        opacity: 0;
+      }
     }
-  }
 
 
-  @keyframes info-circle-zoom-out {
-    0% {
-      display: flex;
-      opacity: 100;
+
+    /* guaranteed that info-circle is toggled by frozen class */
+    .info-circle--frozen > .info-circle-svg-wrapper {
+      + .info-circle-text-wrapper > .info-circle-text {
+        visibility: visible;
+      }
+      + .info-circle-text-wrapper {
+        display: flex;
+      }
     }
-    99.999% {
-      display: flex;
-      opacity: 0;
-    }
-    100% {
-      display: none;
-      opacity: 0;
-    }
-  }
 
-
-
-  /* guaranteed that info-circle is toggled by frozen class */
-  .info-circle--frozen > .info-circle-svg-wrapper {
-    + .info-circle-text-wrapper > .info-circle-text {
+    /* Tooltip text */
+    .info-circle-text {
+      position: initial; /* not absolute */
+      display: block;
       visibility: visible;
+      margin: auto;
+
+      min-height: 50px;
+      max-height: 75vh;
+      width: var(--tooltip-max-width);
+
+      overflow-y: scroll;
     }
-    + .info-circle-text-wrapper {
-      display: flex;
-    }
+
+
   }
 
-  /* Tooltip text */
-  .info-circle-text {
-    position: initial; /* not absolute */
-    display: block;
-    visibility: visible;
-    margin: auto;
-
-    min-height: 50px;
-    max-height: 75vh;
-    width: var(--tooltip-max-width);
-
-    overflow-y: scroll;
-  }
 
   .frequencies {
     gap: 5px;

@@ -80,13 +80,13 @@ export class InfoCircleUtils extends RunnableModule {
     // functions to toggle the info circle through clicks
     const freeze = () => {
       this.infoCirc?.classList.add(infoCircFrozen);
-      if (!_isMobile) {
+      if (!vwMobile) {
         popupMenuMessage(`Info circle tooltip locked.`, true);
       }
     };
     const unfreeze = () => {
       this.infoCirc?.classList.remove(infoCircFrozen);
-      if (!_isMobile) {
+      if (!vwMobile) {
         popupMenuMessage(`Info circle tooltip unlocked.`, true);
       }
     };
@@ -160,5 +160,10 @@ export class InfoCircleUtils extends RunnableModule {
       this.infoCircWrapper?.classList.toggle(infoCircWrapperTogglable, false);
       this.infoCirc?.classList.toggle(infoCircHoverColor, false);
     }
+
+    if (getViewportWidth() < compileOpts['breakpoints.width.combinePicture'] && getOption("infoCircleUtils.mobileDialog")) {
+      document.getElementById("jpmn")?.classList.toggle("jpmn-info-circle-tooltip-use-dialog", true)
+    }
+
   }
 }

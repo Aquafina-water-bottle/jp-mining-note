@@ -229,12 +229,9 @@
   "wordIndicators.overrideOptions.tooltips": {
     "tooltips.displayPitchAccentOnHoverOnly": false
   },
-  "webSocketUtils.enabled": false,
-  "webSocketUtils.url": "ws://localhost:6678",
-  "webSocketUtils.defaultIsEnabled": false,
-  "webSocketUtils.sendSentence": true,
   "mobileUtils.enabled": true,
   "infoCircleUtils.enabled": true,
+  "infoCircleUtils.mobileDialog": true,
   "infoCircleUtils.showTagsMode": "back",
   "infoCircleUtils.dataTags": [
     "line-hide",

@@ -1,6 +1,8 @@
 import { RunnableModule } from '../module';
 import { isAndroid, isMobile } from '../utils';
 import { fieldsAnyFilled } from '../fields';
+import {getViewportWidth} from '../reflow';
+import {compileOpts} from '../consts';
 
 export class MobileUtils extends RunnableModule {
   constructor() {
@@ -8,6 +10,7 @@ export class MobileUtils extends RunnableModule {
   }
 
   main() {
+
     if (!isMobile()) {
       return;
     }

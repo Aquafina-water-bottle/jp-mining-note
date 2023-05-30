@@ -15,7 +15,6 @@ export type ModuleId =
   | 'sentenceParser'
   | 'kanjiHover'
   | 'wordIndicators'
-  | 'webSocketUtils'
   | 'mobileUtils'
   | 'infoCircleUtils'
   | 'freqUtils'

@@ -50,9 +50,16 @@
   // console.warn and console.error are not defined on AnkiMobile!!!
   // Any calls to those will crash javascript with no error message!!
   "logger.toConsole": {
-    "type": "isiPhoneiPad",
+    "type": "isAnkiMobile",
     "resultTrue": false,
     "resultFalse": true,
   },
+
+
+  "infoCircleUtils.mobileDialog": {
+    "type": "isAnkiMobile",
+    "resultTrue": false,
+    "resultFalse": true,
+  }
 
 }

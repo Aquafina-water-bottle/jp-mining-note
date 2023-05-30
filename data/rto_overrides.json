@@ -37,7 +37,12 @@
     "resultFalse": false
   },
   "logger.toConsole": {
-    "type": "isiPhoneiPad",
+    "type": "isAnkiMobile",
+    "resultTrue": false,
+    "resultFalse": true
+  },
+  "infoCircleUtils.mobileDialog": {
+    "type": "isAnkiMobile",
     "resultTrue": false,
     "resultFalse": true
   }
