@@ -16,7 +16,17 @@ If you want to follow my exact Yomichan popup appearance:
 There are also plenty of CSS customizations for Yomichan listed out
 in the [JP Resources page](jpresources.md).
 
+## Yomichan Themes
+I personally haven't changed the theme / color scheme of Yomichan.
+However, many others have.
+Here's a small list of some popular custom themes:
+
+- [Rudnam's Dark Mode](https://github.com/rudnam/JP-study#popup-appearance-custom-css)
+- [Nord Theme](https://learnjapanese.moe/yomicss/#example-full-nord-theme)
+- [Tutorial on editing Yomichan's color scheme](https://learnjapanese.moe/yomicss)
+
 ---
+
 
 
 
