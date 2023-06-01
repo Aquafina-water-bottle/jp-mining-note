@@ -320,8 +320,8 @@
   // recommended multi.displayMode.quoted & multi.displayMode.unquoted combinations:
   //
   // vn-like:
-  //  displayMode.quoted.multi: "block"
-  //  displayMode.unquoted.multi: "no-indent"
+  //  displayMode.quoted: "block"
+  //  displayMode.unquoted: "no-indent"
   //
   //  |「ああああああああ|
   //  |  ああああああ」  |
@@ -336,8 +336,8 @@
   //
   //
   // vn-like (v2):
-  //  displayMode.quoted.multi: "block"
-  //  displayMode.unquoted.multi: "right-shifted"
+  //  displayMode.quoted: "block"
+  //  displayMode.unquoted: "right-shifted"
   //
   //  |「ああああああああ|
   //  |  ああああああ」  |
@@ -352,8 +352,8 @@
   //
   //
   // novel-like:
-  //  displayMode.quoted.multi: "flow"
-  //  displayMode.unquoted.multi: "indented"
+  //  displayMode.quoted: "flow"
+  //  displayMode.unquoted: "indented"
   //
   //  |「ああああああああ|
   //  |ああああああ」    |
