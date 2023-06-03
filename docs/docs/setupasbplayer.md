@@ -1,5 +1,7 @@
 TODO
 
+TODO link guides and all?
+
 [asbplayer](https://github.com/killergerbah/asbplayer)
 
 * To use asbplayer, add the card with Yomichan, and then update the created note with asbplayer.
