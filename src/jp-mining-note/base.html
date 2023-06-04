@@ -29,7 +29,7 @@
 {% endblock %}
 {% endset %}
 
-<div class="jpmn jpmn--front jpmn--{{CARD_INFO('card-type').item()}}" id="jpmn">
+<div class="{% include "jp-mining-note/partials/jpmn_class_list.html" %}" id="jpmn">
 
   {% filter indent(2) %}
 
