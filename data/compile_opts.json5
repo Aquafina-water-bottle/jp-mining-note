@@ -113,6 +113,13 @@
   // "theme": CSS for any custom theme to work.
   //          Don't remove this unless you know what you're doing.
 
+  // TODO: what is a better way to build the CSS?????
+  //
+  // advantages with this current approach:
+  // - pretty much 100% control of the css
+  // problems with this current approach:
+  // - changing one item requires changing entire array, making it not very portable between versions
+
   "cssFolders": [
     "base",
     "responsive-font",
