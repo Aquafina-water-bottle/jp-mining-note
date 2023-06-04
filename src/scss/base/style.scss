@@ -17,6 +17,7 @@
  */
 
 @use "common";
+@use "consts";
 
 /* Backup font, primarily for Android. Defines "Noto Serif JP" and "Noto Sans JP" */
 
@@ -767,14 +768,14 @@ code {
    * However, we cannot use anything but numbers in the denominator of css calc,
    * so we are stuck with pretty much hard coding the values...
    */
-  max-width: calc(common.$bp-max-width-backside / 1.75 * 3.25);
+  max-width: calc(consts.$bp-max-width-backside / 1.75 * 3.25);
 }
 //.expression-box__sentence, .expression-box__hybrid-sentence, .expression-box__sf-sentence {
 //  font-size: var(--sentence-font-size);
 //}
 .expression--hint-sentence {
   font-size: var(--full-sentence-font-size);
-  max-width: common.$bp-max-width-backside;
+  max-width: consts.$bp-max-width-backside;
 }
 
 //.card-wrapper--vertical-display .expression--sentence {
@@ -1169,7 +1170,7 @@ code {
  * - only applied after the main definition header
  */
 .back-side-restrict-width {
-  max-width: common.$bp-max-width-backside;
+  max-width: consts.$bp-max-width-backside;
   margin: auto;
   padding: 0px;
 

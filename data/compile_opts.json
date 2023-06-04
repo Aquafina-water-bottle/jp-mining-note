@@ -59,6 +59,7 @@
   "enableModule.fixRubyPositioning": true,
   "enableModule.blockquotes": true,
   "enableModule.refreshCard": true,
+  "breakpoints.width.enlargeMaxWidth": 2250,
   "breakpoints.width.displaySentenceShrink": 1600,
   "breakpoints.width.displaySentenceRemoveNewlines": 1300,
   "breakpoints.width.maxWidthBackside": 850,

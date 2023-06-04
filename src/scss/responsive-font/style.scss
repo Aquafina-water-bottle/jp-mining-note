@@ -1,4 +1,5 @@
 @use "../base/common" as common;
+@use "../base/consts" as consts;
 
 /*
  * ==================================
@@ -6,14 +7,14 @@
  * ==================================
  */
 
-@media (max-width: common.$bp-display-sentence-shrink) {
+@media (max-width: consts.$bp-display-sentence-shrink) {
   :root {
     --sentence-font-size: #{common.px2rem(42px)};
   }
 }
 
 
-@media (max-width: common.$bp-max-width-backside), (max-height: common.$bp-tablet-height) {
+@media (max-width: consts.$bp-max-width-backside), (max-height: consts.$bp-tablet-height) {
 
   :root {
     --word-font-size: #{common.px2rem(48px)};
@@ -34,7 +35,7 @@
 
 }
 
-@media (max-width: common.$bp-combine-picture) {
+@media (max-width: consts.$bp-combine-picture) {
   :root {
     --word-font-size: #{common.px2rem(36px)};
     --reading-font-size: #{common.px2rem(32px)};

@@ -66,6 +66,13 @@
     },
 
     {
+      "input-file": "scss/base/consts.scss.template",
+      "output-file": "tmp/scss/base/consts.scss",
+      "type": "jinja",
+      "to-release": false,
+    },
+
+    {
       "input-file": "scss/style.scss",
       "output-file": "tmp/scss/style.scss",
       "type": "jinja",

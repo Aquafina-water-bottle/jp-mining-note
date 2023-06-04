@@ -199,6 +199,7 @@
   // ==========================================================================
 
   // viewport width breakpoints on when the note is transformed for responsiveness
+  "breakpoints.width.enlargeMaxWidth": 2250,
   "breakpoints.width.displaySentenceShrink": 1600,
   "breakpoints.width.displaySentenceRemoveNewlines": 1300,
   "breakpoints.width.maxWidthBackside": 850,

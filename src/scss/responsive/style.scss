@@ -1,4 +1,5 @@
 @use "../base/common" as common;
+@use "../base/consts" as consts;
 
 /*
  * ==================================
@@ -38,7 +39,7 @@
 }
 
 
-@media (max-width: common.$bp-display-sentence-remove-newlines) and (min-height: common.$bp-tablet-height) {
+@media (max-width: consts.$bp-display-sentence-remove-newlines) and (min-height: consts.$bp-tablet-height) {
   /* removes newlines */
   .expression .expression-inner br {
     display: none;
@@ -50,7 +51,7 @@
 
 
 /* specifically when there's not enough horizontal space */
-@media (max-width: common.$bp-max-width-backside) {
+@media (max-width: consts.$bp-max-width-backside) {
 
   .dh-right {
     --dh-right-image-max-height: 180px; // sane default for no js
@@ -87,7 +88,7 @@
   }
 }
 
-@media (max-width: common.$bp-max-width-backside), (max-height: common.$bp-tablet-height) {
+@media (max-width: consts.$bp-max-width-backside), (max-height: consts.$bp-tablet-height) {
 
   :root {
     /* PrimaryDefinitionPicture fields */
@@ -110,7 +111,7 @@
 
 }
 
-@media (max-width: common.$bp-combine-picture) {
+@media (max-width: consts.$bp-combine-picture) {
   :root {
     --tooltip-max-width: 85vw;
     --info-circle-settings-svg-size: 20px; /* increase tap size on mobile */

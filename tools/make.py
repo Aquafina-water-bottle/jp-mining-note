@@ -510,6 +510,8 @@ def build_file(
 def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
+        args.dev_read_json5 = True # always overwritten because there's no reason why they shouldn't be these values
+        args.dev_emit_json = True
     if args.release:
         args.to_release = True
 

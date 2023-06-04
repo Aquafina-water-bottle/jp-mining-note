@@ -11,30 +11,18 @@ class JsonHandler:
 
         self.pyj5 = None
 
-        if read_json5:
-            try:
-                import pyjson5 as pyj5
-
-                self.pyj5 = pyj5
-            except:
-                print(f"Cannot import pyjson5. Overriding read_json5 to False.")
-                self.read_json5 = False
+        if read_json5: # THIS MAY ERROR, but we let it error
+            import pyjson5 as pyj5
+            self.pyj5 = pyj5
 
     def _get_file_data(self, json_file_path: str, json5_file_path: str):
-        if self.read_json5:
-            try:
-                with open(json5_file_path, encoding="utf-8") as f:
-                    data = self.pyj5.load(f)
-                if self.emit_json:
-                    with open(json_file_path, "w") as f2:
-                        json.dump(data, f2, indent=2)
-                return data
-            except:
-                print(
-                    f"Failed to read json5 file: {json5_file_path}. Attempting to read json file instead..."
-                )
-                with open(json_file_path, encoding="utf-8") as f:
-                    return json.load(f)
+        if self.read_json5: # THIS MAY ERROR, but we let it error
+            with open(json5_file_path, encoding="utf-8") as f:
+                data = self.pyj5.load(f)
+            if self.emit_json:
+                with open(json_file_path, "w") as f2:
+                    json.dump(data, f2, indent=2)
+            return data
 
         with open(json_file_path, encoding="utf-8") as f:
             return json.load(f)
@@ -59,13 +47,7 @@ class JsonHandler:
         return self._get_file_data(json_file_path, json5_file_path)
 
     def read_string(self, json_str: str):
-        if self.read_json5:
-            try:
-                return self.pyj5.loads(json_str)
-            except:
-                print(
-                    f"Failed to read json5 string. Attempting to read as json instead..."
-                )
-                return json.loads(json_str)
+        if self.read_json5: # THIS MAY ERROR, but we let it error
+            return self.pyj5.loads(json_str)
 
         return json.loads(json_str)
