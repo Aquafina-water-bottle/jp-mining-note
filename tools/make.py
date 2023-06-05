@@ -452,21 +452,23 @@ def generate_cards(args: argparse.Namespace, generator: Generator):
                 args.build_folder, note_model_id, card_model_id, file_name
             )
 
-            generator.set_data(
-                "CARD_INFO",
-                utils.Config(
-                    {
-                        "card-side": side,
-                        "card-type": card_model_id,
-                        "card-type-name": note_data(
-                            "templates", card_model_id, "name"
-                        ).item(),
-                        "model-name": note_data("model-name").item(),
-                        "note-type": note_model_id,
-                        "js-prefix": note_data("js-prefix").item(),
-                    }
-                ),
+            card_info = utils.Config(
+                {
+                    "card-side": side,
+                    "card-type": card_model_id,
+                    "card-type-name": note_data(
+                        "templates", card_model_id, "name"
+                    ).item(),
+                    "model-name": note_data("model-name").item(),
+                    "note-type": note_model_id,
+                    "js-prefix": note_data("js-prefix").item(),
+                }
             )
+
+            generator.set_data("CARD_INFO", card_info)
+            compile_options = generator.data.get("COMPILE_OPTIONS", None)
+            if isinstance(compile_options, utils.Config):
+                compile_options.card_info = card_info
 
             generator.generate(
                 GenerateType.JINJA,
@@ -510,7 +512,7 @@ def build_file(
 def main(args=None):
     if args is None:
         args = utils.get_args(utils.add_args, add_args)
-        args.dev_read_json5 = True # always overwritten because there's no reason why they shouldn't be these values
+        args.dev_read_json5 = True  # always overwritten because there's no reason why they shouldn't be these values
         args.dev_emit_json = True
     if args.release:
         args.to_release = True

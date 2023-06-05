@@ -106,9 +106,10 @@ class Config:
     and to provide ease-of-access methods to access chains of key/value pairs
     """
 
-    def __init__(self, data: Any, path: list[int | str] = []):
+    def __init__(self, data: Any, path: list[int | str] = [], card_info: Optional[Config] = None):
         self.data = data
         self.path = copy.deepcopy(path)
+        self.card_info = card_info
 
     def container(self) -> dict | list:
         assert isinstance(self.data, dict) or isinstance(self.data, list)
@@ -126,9 +127,38 @@ class Config:
         assert isinstance(self.data, dict)
         return self.data.get(key, default)
 
+    def item_opt_value(self, item):
+        """
+        should be the compile-time option equivalent of runtime option values,
+        just a lot more limited
+        """
+        if (
+            self.card_info is not None
+            and isinstance(item, dict)
+            and (item_type := item.get("_type", None)) is not None
+        ):
+            print("BRO", item_type)
+            if item_type == "cardType":
+                if item["args"]["cardType"] == self.card_info("card-type").item():
+                    key = "resultTrue"
+                else:
+                    key = "resultFalse"
+                return self.item_opt_value(item[key])
+            elif item_type == "cardSide":
+                if item["args"]["cardSide"] == self.card_info("card-side").item():
+                    key = "resultTrue"
+                else:
+                    key = "resultFalse"
+                return self.item_opt_value(item[key])
+            else:
+                raise RuntimeError(f"invalid type: {item_type} on item {item}")
+        else:
+            return item
+
     def item(self, javascript=False) -> Any:
+        data = self.item_opt_value(self.data)
         if not javascript:
-            return self.data
+            return data
         var = self.data
         if var is True:
             return "true"
@@ -148,17 +178,17 @@ class Config:
     def dict_values(self) -> Iterable[Config]:
         assert isinstance(self.data, dict)
         for key in self.data.keys():
-            yield Config(self.data[key], self.path + [key])
+            yield Config(self.data[key], self.path + [key], self.card_info)
 
     def dict_items(self) -> Iterable[tuple["str", Config]]:
         assert isinstance(self.data, dict)
         for key in self.data.keys():
-            yield key, Config(self.data[key], self.path + [key])
+            yield key, Config(self.data[key], self.path + [key], self.card_info)
 
     def list_items(self) -> Iterable[Config]:
         assert isinstance(self.data, list)
         for i, item in enumerate(self.data):
-            yield Config(item, self.path + [i])
+            yield Config(item, self.path + [i], self.card_info)
 
     def __call__(self, *keys: str | int) -> Config:
         """
@@ -194,6 +224,7 @@ class Config:
             current_config = Config(
                 result,
                 path=current_config.path + [key],
+                card_info=self.card_info,
             )
 
         return current_config

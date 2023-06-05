@@ -5,7 +5,16 @@
   //"alwaysFilledFields": [],
   //"neverFilledFields": [],
 
-  "externalLinksPosition": "Extra Info",
+  //"externalLinksPosition": "Extra Info",
+  //"externalLinksPosition": {
+  //  _type: "cardType",
+  //  args: {
+  //    cardType: "pa_sent",
+  //  },
+  //  resultTrue: "Primary Definition",
+  //  resultFalse: "Extra Info",
+  //},
+
   //"externalLinksPosition": "Primary Definition",
 
   "externalLinks": {
