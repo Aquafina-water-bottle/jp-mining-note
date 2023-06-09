@@ -647,7 +647,7 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
 
 
 # Discord Contact Info { .text-yellow }
-Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
+Username: `aquafina_water_bottle` (user id: `244677612272746496`)
 
 Servers:
 
