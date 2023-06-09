@@ -696,7 +696,6 @@ within [Yomichan's README](https://github.com/FooSoft/yomichan#frequently-asked-
     Developing Yomichan requires a decent understanding of Japanese sentence structure and grammar, and other languages are likely to have their own unique set of rules for syntax, grammar, inflection, and so on. Supporting additional languages would not only require many additional changes to the codebase, it would also incur significant maintenance overhead and knowledge demands for the developers. Therefore, suggestions and contributions for supporting new languages will be declined, allowing Yomichan's focus to remain Japanese-centric.
 
 
-
 ## How was this documentation made?
 Through [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 This site generator is what many other popular sites use,
@@ -708,7 +707,7 @@ including [TheMoeWay](https://learnjapanese.moe/) and [AnimeCards](https://anime
 # Contact Info { .text-yellow }
 
 * **Discord**
-    * Username: `Aquafina water bottle#3026` (user id: `244677612272746496`)
+    * Username: `aquafina_water_bottle` (user id: `244677612272746496`)
     * Servers:
         * [TheMoeWay]({{THEMOEWAY_LINK}})
             (I recommend using the
