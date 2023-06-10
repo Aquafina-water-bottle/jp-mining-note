@@ -5,7 +5,7 @@ import json
 import argparse
 import urllib.request
 import urllib.error
-from typing import Callable, Any, Dict, List
+from typing import Callable, Any, Optional, Type
 
 
 # copied/pasted from utils to not require any weird utils dependencies
@@ -41,7 +41,7 @@ def _browse_anki(query):
     invoke("guiBrowse", query=query)
 
 
-def _get_sorted_list() -> List[str]:
+def _get_sorted_list() -> list[str]:
     added_notes = invoke("findNotes", query="added:1")
 
     # sorts from newest to oldest
@@ -54,10 +54,15 @@ def _field_value(data, field_name) -> str:
     return data[0]["fields"][field_name]["value"]
 
 
+def add_image():
+    pass
+
+
 def _update_field_clipboard(
-    format_field_params: Callable[[str], Dict[str, Any]], replace_newline="<br>"
+    format_field_params: Callable[[str], dict[str, Any]], replace_newline="<br>"
 ):
     import pyperclip
+
 
     clipboard = pyperclip.paste().strip()
     clipboard = clipboard.replace("\n", replace_newline)  # formatted for html
@@ -168,64 +173,28 @@ def _bold_entire_sentence(sentence):
     return result_sent
 
 
-def _create_cloze_deletion_card(note_name: str, bold_sentence: bool = False):
-    """
-    - suspends main card
-    - separates cloze deletion
-    - optionally bolds sentence
-    """
-    curr_note_id = _get_sorted_list()[0]
-    curr_note_data = invoke("notesInfo", notes=[curr_note_id])
 
-    card_ids = invoke("findCards", query=f'nid:{curr_note_id} "note:{note_name}"')
-    if len(card_ids) == 0:
-        print("Warning: cannot find card to suspend")
-    else:
-        if len(card_ids) >= 2:
-            print("Warning: multiple cards found, suspending only the first one...")
-        invoke(
-            "suspend",
-            cards=[card_ids[0]],
-        )
+# NOTE: ideally, this would be best done with google.Fire, but this would introduce
+# a dependency...
+FUNC_ARGS: dict[Callable, dict[str, Type]] = {
+    #fill_field: {"field_name": str},
+}
 
-    fields = {
-        "SeparateClozeDeletionCard": "1",
-    }
+FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
+    #fill_field: {"value": (str, "1"), "query": (str, None)},
+}
 
-    result_sent = _field_value(curr_note_data, "Sentence")
-    if bold_sentence:
-        result_sent = _bold_entire_sentence(result_sent)
-        fields["AltDisplayClozeDeletionCard"] = result_sent
-
-    invoke(
-        "updateNoteFields",
-        note={
-            "id": curr_note_id,
-            "fields": fields,
-        },
-    )
-
-    cloze_deletion_card_id = _get_sorted_list()[0]
-    return cloze_deletion_card_id
+PUBLIC_FUNCTIONS = [
+    add_image,
+    update_sentence,
+    update_additional_notes,
+    copy_from_previous,
+    fix_sent_and_freq,
+]
 
 
-def create_cloze_deletion_card():
-    return _create_cloze_deletion_card("JP Mining Note", bold_sentence=False)
-
-
-def create_sent_cloze_deletion_card():
-    return _create_cloze_deletion_card("JP Mining Note", bold_sentence=True)
-
-
-def get_args():
+def get_args(public_functions: list[Callable], args: Optional[list[str]] = None):
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-f",
-        "--function",
-        type=str,
-        default=None,
-        help="executes a specific function defined in this file",
-    )
 
     parser.add_argument(
         "--enable-gui-browse",
@@ -233,11 +202,33 @@ def get_args():
         help="opens the newest card on run",
     )
 
-    return parser.parse_args()
+    subparsers = parser.add_subparsers()
+
+    for f in public_functions:
+        subparser = subparsers.add_parser(f.__name__, help=f.__doc__)
+        subparser.set_defaults(func=f)
+
+        if f in FUNC_ARGS:
+            for arg, ty in FUNC_ARGS[f].items():
+                subparser.add_argument(
+                    arg,
+                    type=ty,
+                )
+
+        if f in FUNC_KWARGS:
+            for arg, (ty, default) in FUNC_KWARGS[f].items():
+                subparser.add_argument("--" + arg, type=ty, default=default)
+
+    if args is None:
+        return parser.parse_args()
+    return parser.parse_args(args)
+
+
+
 
 
 def main():
-    args = get_args()
+    args = get_args(PUBLIC_FUNCTIONS)
 
     # (comment copied from mpvacious)
     # AnkiConnect will fail to update the note if it's selected in the Anki Browser.
@@ -249,13 +240,12 @@ def main():
     if args.enable_gui_browse:
         _browse_anki("nid:1")
 
-    if args.function:
-        assert args.function in globals(), f"function {args.function} does not exist"
-        func = globals()[args.function]
-        print(f"executing {args.function}")
-        note_id = func()
+    if "func" in args:
+        func_args = vars(args)
+        func = func_args.pop("func")
+        note_id = func(**func_args)
 
-        if args.enable_gui_browse:
+        if args.enable_gui_browse and note_id is not None:
             _browse_anki(f"nid:{note_id}")
 
 
