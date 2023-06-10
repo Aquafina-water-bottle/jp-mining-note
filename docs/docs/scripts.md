@@ -3,7 +3,56 @@
 
 
 
-# ShareX Scripts
+# ShareX Hotkeys Introduction
+
+(TODO rewrite since better instructions are now documented here instead)
+
+Windows users can use [ShareX](https://getsharex.com/) as a general purpose tool
+to add images and audio to an existing card.
+There are two main hotkeys that you can setup: a screenshot hotkey, and an audio hotkey.
+Both of these will automatically send the data to your most recently added card.
+
+
+TODO demo
+
+---
+
+# ShareX Screenshot Hotkey
+
+1. **Create the hotkey**.
+    - Right click on ShareX icon and click `Hotkey Settings`.
+        (TODO image)
+    - Click `add`. Close the windows and select None on the right hand side and define key combination for screenshots. Mine is `F6`.
+        (TODO image)
+
+1. **Change the hotkey settings**.
+    1. Click on the settings icon on the left hand side.
+        (TODO image)
+    1. Select `Capture region` for `Task`.
+        (TODO image)
+    1. Check `Override after capture settings`. Uncheck `Save image to file` and `Perform actions`
+    1. Check `Override screenshot folder`. Click `Browse` and select Anki collection media location (usually something following this format `C:\Users\______\AppData\Roaming\Anki2\______\collection.media` ).
+    1. Insert `anki-screenshot` or anything you want in description .
+    1. Click on `Image` tab. Check `Override image settings`. Under `Image format` select `JPEG` to save space.
+        ![](assets/sharex_screenshot_jpeg.jpg)
+
+1. **Change the hotkey actions**.
+    - Click on `Actions` tab. Check `Override actions`. Click `Add`. A new window will pop up. Fill in the following values:
+        - **Name**: `anki-screenshot` (or anything you want)
+        - **File path**:
+            ```ps
+            C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+            ```
+        - **Argument**: (if you're not using my card type, replace `Picture` with your screenshot field name. Use [this tool](http://www.unit-conversion.info/texttools/replace-text/))
+            ```ps
+            -NoProfile -Command "$medianame = \"%input\" | Split-Path -leaf; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType 'application/json; charset=UTF-8' -Body '{\"action\": \"findNotes\", \"version\": 6, \"params\": {\"query\":\"added:1\"}}'; $sortedlist = $data.result | Sort-Object -Descending {[Long]$_}; $noteid = $sortedlist[0]; Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType 'application/json; charset=UTF-8' -Body \"{`\"action`\": `\"updateNoteFields`\", `\"version`\": 6, `\"params`\": {`\"note`\":{`\"id`\":$noteid, `\"fields`\":{`\"Picture`\":`\"<img src=$medianame>`\"}}}}\"; "
+            ```
+    1. Check `Hidden window` and click `OK`. Close `Task settings` windows.
+
+
+
+<!--
+
 Many people have already documented how to setup your ShareX to work with Anki, such as:
 
 * [stegatxins0](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#sharex) (recommended)
@@ -24,6 +73,7 @@ The following scripts have the following changes:
     All the powershell source code can be found
     [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/docs/docs/sharex_input.ps1).
 
+-->
 
 ---
 
