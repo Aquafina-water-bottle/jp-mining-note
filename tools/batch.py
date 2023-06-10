@@ -1006,7 +1006,7 @@ def get_args(public_functions: list[Callable], args: Optional[list[str]] = None)
 
         if f in FUNC_KWARGS:
             for arg, (ty, default) in FUNC_KWARGS[f].items():
-                subparser.add_argument("--" + arg, type=ty, default=default)
+                subparser.add_argument("--" + arg.replace("_", "-"), type=ty, default=default)
 
     if args is None:
         return parser.parse_args()
