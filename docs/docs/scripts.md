@@ -52,7 +52,7 @@ There are two main hotkeys that this setup introduces:
 To use these hotkeys with ShareX, you must have the following installed:
 
 - [ShareX](https://getsharex.com/)
-- [Python](https://www.python.org/)
+- [Python](https://www.python.org/) (Python 3.10 or above should work)
 - [Anki-Connect](https://ankiweb.net/shared/info/2055492159) (You probably have this installed already if you're using Yomichan or jp-mining-note).
 - `hotkey.py`
     - For CLI users, simply do `curl https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/tools/hotkey.py -O` in a place you'll remember.
@@ -130,7 +130,7 @@ To use these hotkeys with ShareX, you must have the following installed:
                 ```
             - **Argument**:
                 ```
-                "$input"
+                -i "$input" -quality 95 "$output"
                 ```
             - **Output file name extension**:
                 ```
@@ -160,19 +160,19 @@ To use these hotkeys with ShareX, you must have the following installed:
                 - Your `python.exe` file is usually under `C:\PythonXX\python.exe`,
                     where `XX` is the version number.
                     If you can't find it, you can always search for `python.exe` on the search bar,
-                    and then right clicking the result -> `Properties`.
+                    and then [copying the full path](https://www.howtogeek.com/670447/how-to-copy-the-full-path-of-a-file-on-windows-10/) of the file.
             - **Argument**: (change the path to your exact path to `hotkey.py`)
                 ```
                 C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py "$input" add_image
                 ```
-                - Remember the `hotkey.py` file from before? You can copy the direct path of the file by right clicking `hotkey.py` and pressing `copy`.
+                - This is the `hotkey.py` file from the [prerequisites](#prerequisites) step.
             - Check `Hidden window`
 
             (TODO image)
 
     !!! note "Picture field"
         The expected name of the picture field is exactly `Picture`.
-        If your card uses a different field name, say `Image`, then the following flag must be used
+        If your card uses a different field name, say `Image`, then the `--field-name` flag must be used
         (change `Image` to whatever your field name is):
         ```
         "$input" add_image --field-name Image
@@ -218,55 +218,128 @@ TODO gif
 
 1. **Change the hotkey settings**:
 
-1. Check `Override after capture settings`. Uncheck all and check the followings: `Save image to file`, `Perform actions`.
-1. Check `Override screenshot folder`. Click `Browse` and select Anki collection media location (usually something following this format `C:\Users\______\AppData\Roaming\Anki2\______\collection.media` ).
-1. Insert `anki-audio` or anything you want in description .
-1. Click on `Capture` tab. Check `Override capture settings`.
-1. Click `Select region` under `Capture` tab. Select anywhere in the screen, it doesn't really matter (see explanation above). If you select `active region` in `Task`, you can skip this step.
-1. Click on `Screen Recorder` tab. Click on `Screen recording options` and click on Download to download FFMPEG.
-    ![](assets/sharex_audio_ffmpeg_path.jpg)
-1. After finish downloading, Click `Install recorder devices`
-1. Under `Sources` select `none` for video source and `virtual-audio-capturer` for audio source.
-    ![](assets/sharex_audio_sources.jpg)
-1. Change `Audio codec` to `MP3`
-    ![](assets/sharex_audio_codec.jpg)
-1. At `Command line preview`, check `Use custom commands` and replace everything in text with the command below to trim any beginning silence and slightly reduces the audio.
-    ```
-    -y -rtbufsize 100M -f dshow -i audio="virtual-audio-capturer" -c:a libmp3lame -af "silenceremove=1:0:-50dB, loudnorm=I=-16:TP=-6.2:LRA=11:dual_mono=true" -qscale:a 4 "$output$"
-    ```
-    MAINTAINER NOTE: Previously, this was edited to be normalized by default. However, normalizing audio proved to be a bit more difficult than expected. There will be something linked in the future to properly normalize audio.
-1. Close the window. Click on `Actions` tab. Check `Override actions`. Click `Add`. A new window will pop up. Fill in the following values:
-    - **Name**: `anki-audio` (or anything you want)
-    - **File path**:
-        ```ps
-        C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+    1. Click on the gear of your new `Start/Stop screen recording ...` hotkey.
+        (TODO image)
+
+    1. Navigate to the `Task` tab.
+        - Check `Override after capture settings`.
+        - Navigate to the capture tasks dropdown, and only have the following two items selected:
+            - Save image to file
+            - Perform actions
+        - Check `Override screenshots folder`.
+        - Click `Browse` and select your Anki collection media location.
+            Your media location can be found under:
+            ```
+            C:\Users\YOUR_USER_NAME\AppData\Roaming\Anki2\YOUR_ANKI_PROFILE_NAME\collection.media
+            ```
+            This should be the exact same folder as the `anki-screenshot` hotkey.
+        - To make it easier for you to remember what this hotkey does,
+            set the `Description` to `anki-audio`.
+        - 
+        Your `Task` tab should now look something like this:
+        (TODO image)
+
+    1. Navigate to the `Capture` tab.
+        - Check `Override capture settings`.
+        - Click `Select region`, and select anywhere on the screen.
+            This region would preferably not overlap with whatever you want to capture.
+            If it does and you attempt to screenshot while using the audio hotkey,
+            then the dotted region marked by ShareX will be captured as well.
+        (TODO image)
+
+    1. Navigate to the `Capture` -> `Screen recorder` tab. Within this, tab, click on the `Screen recording options...` button to open a new window.
+        - Press the `Install recorder devices` button
+        - Set `Video source` to `None`
+        - Set `Audio source` to `virtual-audio-capturer`
+        - Set `Audio codec` to `Opus` (This will be configurable later)
+        - Check `Use custom commands`.
+        - Within the `Command line preview` box, replace the big blob of text with the following:
+            ```
+            TODO
+            ```
+        - Close this new window.
+
+1. **Add the `ffmpeg-process-audio` action**:
+
+    This adds a ffmpeg call to normalize the audio and remove the beginning silence.
+    Unfortunately, the flags to normalize the audio ends up cutting off the audio if it is placed under the
+    `Screen recording options` custom commands box.
+
+    - Navigate to the `Actions` tab.
+    - Check `Override actions`.
+    - Click `Add...`.
+    - A new window should pop up. Under this new window, fill out the following values:
+
+        ??? example "ffmpeg-to-webp action {{CLICKHERE}}"
+
+            - **Name**: `ffmpeg-to-webp` (or anything you want)
+            - **File path**:
+                ```
+                C:\Program Files\ShareX\ffmpeg.exe
+                ```
+            - **Argument**:
+                ```
+                -i "$input" "$output"
+                ```
+            - **Output file name extension**:
+                ```
+                opus
+                ```
+            - Check `Hidden window`
+            - Check `Delete input file`
+
+            (TODO image)
+
+        !!! warning
+            The `opus` file format does not work on some devices:
+
+            - AnkiMobile (iOS)
+            - AnkiWeb
+            - Very old Android devices (Android 4 and below).
+
+            If you are using any of the above, please change the `Output file name extension`
+            from `opus` to `mp3`.
+            The reason why Opus is recommended is because Opus stores
+            audio data much more efficiently than MP3. Unfortunately, MP3 is still required
+            for full compatibility with all devices.
+
+            (TODO image)
+
+1. **Add the `card-add-audio` action**:
+
+    This adds the image to the Anki card itself.
+
+    - Navigate to the `Actions` tab.
+    - Check `Override actions`.
+    - Click `Add...`.
+    - A new window should pop up. Under this new window, fill out the following values:
+
+        ??? example "card-add-audio action {{CLICKHERE}}"
+
+            - **Name**: `card-add-audio` (or anything you want)
+            - **File path**: (change the path to your exact path to `python.exe`)
+                ```
+                C:\PATH\TO\YOUR\PYTHON\EXECUTABLE\python.exe
+                ```
+            - **Argument**: (change the path to your exact path to `hotkey.py`)
+                ```
+                C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py "$input" add_audio
+                ```
+                - These paths should be the exact same as the `card-add-audio` action
+                    within the `anki-screenshot` hotkey.
+            - Check `Hidden window`
+
+            (TODO image)
+
+    !!! note "Sentence Audio field"
+        The expected name of the sentence audio field is exactly `SentenceAudio`.
+        If your card uses a different field name, say `SentAudio`, then the `--field-name` flag must be used
+        (change `SentAudio` to whatever your field name is):
         ```
-    - **Argument**: (if you're not using my card type, replace `SentenceAudio` with your sentence audio field name. Use [this tool](http://www.unit-conversion.info/texttools/replace-text/))
-        ```ps
-        -NoProfile -Command "$medianame = \"%input\" | Split-Path -leaf; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType 'application/json; charset=UTF-8' -Body '{\"action\": \"findNotes\", \"version\": 6, \"params\": {\"query\":\"added:1\"}}'; $sortedlist = $data.result | Sort-Object -Descending {[Long]$_}; $noteid = $sortedlist[0]; Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType 'application/json; charset=UTF-8' -Body \"{`\"action`\": `\"updateNoteFields`\", `\"version`\": 6, `\"params`\": {`\"note`\":{`\"id`\":$noteid, `\"fields`\":{`\"SentenceAudio`\":`\"[sound:$medianame]`\"}}}}\"; "
+        "$input" add_audio --field-name SentAudio
         ```
-1. Check `Hidden window` and click `OK`.
-1. Click `Add`. A new window will pop up. Fill in the following values:
-    - **Name**: `play-audio` (or anything you want)
-    - **File path**:
-        ```ps
-        C:\Program Files\Anki\mpv.exe
-        ```
-    - **Argument**:
-        ```ps
-        --force-window=no --loop-file=no --load-scripts=no %input
-        ```
-1. Check `Hidden window` and click `OK`.
-1. Uncheck `play-audio` if you don't want to play audio after capture. Check (default) if you want to play audio after capture to confirm the audio is correct
-1. If you find yourself recording long audio regularly, here's a script to play only the first five seconds of the audio. Replace the script above with this
-    - **File path**:
-        ```ps
-        C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-        ```
-    - **Argument**:
-        ```ps
-        -NoProfile -Command "$job = Start-Job -ScriptBlock {mpv --force-window=no --loop-file=no --load-scripts=no \"%input\"}; $job | Wait-Job -Timeout 5; $job | Where-Object {$_.State -ne \"Completed\"} | Stop-Job"
-        ```
+
+        TODO gif
 
 # Troubleshooting
 -   Do NOT view the card in the card browser when running any script,
