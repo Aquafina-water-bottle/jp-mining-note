@@ -5,6 +5,8 @@ import json
 import argparse
 import urllib.request
 import urllib.error
+
+from pathlib import Path
 from typing import Callable, Any, Optional, Type
 
 
@@ -59,12 +61,13 @@ def _field_value(data, field_name) -> str:
 
 
 def add_image(
-    file_name,
+    file_path: str,
     field_name: str = "Picture",
     no_window_tag: bool = False,
     nsfw: bool = False,
 ):
     curr_note_id = _get_sorted_list()[0]
+    file_name = Path(file_path).name
 
     # copies picture & additional notes to current note
     invoke(
@@ -91,8 +94,9 @@ def add_image(
     return curr_note_id
 
 
-def add_audio(file_name, field_name: str = "SentenceAudio"):
+def add_audio(file_path: str, field_name: str = "SentenceAudio"):
     curr_note_id = _get_sorted_list()[0]
+    file_name = Path(file_path).name
 
     # copies picture & additional notes to current note
     invoke(
@@ -226,7 +230,8 @@ def fix_sent_and_freq(fields_to_copy_csv: str = "Frequency,FrequenciesStylized,S
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
 # a dependency...
 FUNC_ARGS: dict[Callable, dict[str, Type]] = {
-    add_image: {"file_name": str},
+    add_image: {"file_path": str},
+    add_audio: {"file_path": str},
 }
 
 FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
@@ -235,6 +240,9 @@ FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
         "field_name": (str, "Picture"),
         "no_window_tag": (bool, False),
         "nsfw": (bool, False),
+    },
+    add_audio: {
+        "field_name": (str, "SentenceAudio"),
     },
     update_sentence: {
         "sentence_field": (str, "Sentence"),
@@ -308,7 +316,7 @@ def main():
         _browse_anki("nid:1")
 
     if "func" in args:
-        func_args = vars(args)
+        func_args = vars(args).copy()
         func_args.pop("enable_gui_browse") # not a function argument!
 
         func = func_args.pop("func")
