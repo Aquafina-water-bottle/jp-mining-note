@@ -60,10 +60,10 @@ def _field_value(data, field_name) -> str:
     return data[0]["fields"][field_name]["value"]
 
 
-def add_image(
+def set_picture(
     file_path: str,
     field_name: str = "Picture",
-    no_window_tag: bool = False,
+    window_tag: bool = True,
     nsfw: bool = False,
 ):
     curr_note_id = _get_sorted_list()[0]
@@ -81,7 +81,7 @@ def add_image(
         },
     )
 
-    if not no_window_tag:  # i.e. add window tag
+    if window_tag:  # i.e. add window tag
         tag_result = rx_TAG.search(file_name)
         if tag_result is not None:
             tag = tag_result.group(1)
@@ -94,7 +94,7 @@ def add_image(
     return curr_note_id
 
 
-def add_audio(file_path: str, field_name: str = "SentenceAudio"):
+def set_audio(file_path: str, field_name: str = "SentenceAudio"):
     curr_note_id = _get_sorted_list()[0]
     file_name = Path(file_path).name
 
@@ -230,18 +230,18 @@ def fix_sent_and_freq(fields_to_copy_csv: str = "Frequency,FrequenciesStylized,S
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
 # a dependency...
 FUNC_ARGS: dict[Callable, dict[str, Type]] = {
-    add_image: {"file_path": str},
-    add_audio: {"file_path": str},
+    set_picture: {"file_path": str},
+    set_audio: {"file_path": str},
 }
 
 FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
     # fill_field: {"value": (str, "1"), "query": (str, None)},
-    add_image: {
+    set_picture: {
         "field_name": (str, "Picture"),
-        "no_window_tag": (bool, False),
+        "window_tag": (bool, True),
         "nsfw": (bool, False),
     },
-    add_audio: {
+    set_audio: {
         "field_name": (str, "SentenceAudio"),
     },
     update_sentence: {
@@ -261,7 +261,8 @@ FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
 }
 
 PUBLIC_FUNCTIONS = [
-    add_image,
+    set_picture,
+    set_audio,
     update_sentence,
     update_additional_notes,
     copy_from_previous,

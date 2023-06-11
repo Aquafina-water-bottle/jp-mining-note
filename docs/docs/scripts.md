@@ -163,7 +163,7 @@ To use these hotkeys with ShareX, you must have the following installed:
                     and then [copying the full path](https://www.howtogeek.com/670447/how-to-copy-the-full-path-of-a-file-on-windows-10/) of the file.
             - **Argument**: (change the path to your exact path to `hotkey.py`)
                 ```
-                C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py "$input" add_image
+                C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py set_picture "$input"
                 ```
                 - This is the `hotkey.py` file from the [prerequisites](#prerequisites) step.
             - Check `Hidden window`
@@ -175,7 +175,7 @@ To use these hotkeys with ShareX, you must have the following installed:
         If your card uses a different field name, say `Image`, then the `--field-name` flag must be used
         (change `Image` to whatever your field name is):
         ```
-        "$input" add_image --field-name Image
+        C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py set_picture "$input" --field-name Image
         ```
 
         TODO gif
@@ -197,7 +197,7 @@ The following hotkey does the same as the above, while also adding the `-NSFW` t
     - Select `card-add-image` action.
     - Change the `Argument` to the following:
         ```
-        "$input" add_image --nsfw
+        C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py set_picture "$input" --nsfw True
         ```
 
 TODO gif
@@ -323,7 +323,7 @@ TODO gif
                 ```
             - **Argument**: (change the path to your exact path to `hotkey.py`)
                 ```
-                C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py "$input" add_audio
+                C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py set_audio "$input"
                 ```
                 - These paths should be the exact same as the `card-add-audio` action
                     within the `anki-screenshot` hotkey.
@@ -336,7 +336,7 @@ TODO gif
         If your card uses a different field name, say `SentAudio`, then the `--field-name` flag must be used
         (change `SentAudio` to whatever your field name is):
         ```
-        "$input" add_audio --field-name SentAudio
+        "$input" set_audio --field-name SentAudio
         ```
 
         TODO gif
