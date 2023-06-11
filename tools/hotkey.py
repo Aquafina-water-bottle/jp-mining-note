@@ -309,6 +309,8 @@ def main():
 
     if "func" in args:
         func_args = vars(args)
+        func_args.pop("enable_gui_browse") # not a function argument!
+
         func = func_args.pop("func")
         note_id = func(**func_args)
 
