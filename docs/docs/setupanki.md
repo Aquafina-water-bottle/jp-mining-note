@@ -345,15 +345,14 @@ An example config is shown below that you can copy/paste.
 
     ```json
     {
-      "generate_on_note_add": true, // (1)!
       "regenerate_readings": false,
       "cache_lookups": 1024,
       "last_file_save_location": "",
-      "styles": { // (2)!
+      "styles": { // (1)!
           "&#42780;": "<span class=\"downstep\"><span class=\"downstep-inner\">&#42780;</span></span>",
           "class=\"overline\"": "style=\"text-decoration:overline;\" class=\"pitchoverline\""
       },
-      "profiles": [ // (3)!
+      "profiles": [ // (2)!
         {
           "name": "Add furigana for sentence",
           "note_type": "JP Mining Note",
@@ -361,7 +360,8 @@ An example config is shown below that you can copy/paste.
           "destination": "SentenceReading",
           "mode": "furigana",
           "split_morphemes": true,
-          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add"
+          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add",
+          "overwrite_destination": false
         },
         {
           "name": "Add furigana for word -- UNUSED BY jp-mining-note",
@@ -370,7 +370,8 @@ An example config is shown below that you can copy/paste.
           "destination": "WordReading",
           "mode": "furigana",
           "split_morphemes": false,
-          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add"
+          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add",
+          "overwrite_destination": false
         },
         {
           "name": "Add pitch accent html",
@@ -380,7 +381,8 @@ An example config is shown below that you can copy/paste.
           "mode": "pitch",
           "output_format": "html",
           "split_morphemes": false,
-          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add"
+          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add",
+          "overwrite_destination": false
         },
         {
           "name": "Add audio for word -- UNUSED BY jp-mining-note",
@@ -389,7 +391,8 @@ An example config is shown below that you can copy/paste.
           "destination": "VocabAudio",
           "mode": "audio",
           "split_morphemes": false,
-          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add"
+          "triggered_by": "focus_lost,toolbar_button,note_added,bulk_add",
+          "overwrite_destination": false
         }
       ],
       "pitch_accent": {
@@ -397,10 +400,10 @@ An example config is shown below that you can copy/paste.
         "output_hiragana": false,
         "kana_lookups": true,
         "skip_numbers": true,
-        "reading_separator": "・", // (4)!
+        "reading_separator": "・", // (3)!
         "word_separator": "、",
         "blocklisted_words": "こと,へ,か,よ,ん,だ,び,の,や,ね,ば,て,と,た,が,に,な,は,も,ます,から,いる,たち,てる,う,ましょ,たい,する,です,ない",
-        "maximum_results": 100, // (5)!
+        "maximum_results": 100, // (4)!
         "discard_mode": "discard_extra"
       },
       "furigana": {
@@ -410,7 +413,7 @@ An example config is shown below that you can copy/paste.
         "blocklisted_words": "人",
         "mecab_only": "彼,猫,首,母,顔,木,頭,私,弟,空,体,行く",
         "counters": "つ,月,日,人,筋,隻,丁,品,番,枚,時,回,円,万,歳,限,万人",
-        "maximum_results": 1, // (6)!
+        "maximum_results": 1, // (5)!
         "discard_mode": "discard_extra"
       },
       "context_menu": {
@@ -419,7 +422,12 @@ An example config is shown below that you can copy/paste.
         "to_hiragana": true,
         "literal_pronunciation": true
       },
-      "toolbar": { // (7)!
+      "toolbar": { // (6)!
+        "generate_all_button": {
+          "enabled": false,
+          "shortcut": "Alt+P",
+          "text": "入"
+        },
         "regenerate_all_button": {
           "enabled": false,
           "shortcut": "Alt+P",
@@ -430,7 +438,7 @@ An example config is shown below that you can copy/paste.
           "shortcut": "",
           "text": "振"
         },
-      "hiragana_button": {
+        "hiragana_button": {
           "enabled": false,
           "shortcut": "",
           "text": "平"
@@ -439,23 +447,28 @@ An example config is shown below that you can copy/paste.
           "enabled": false,
           "shortcut": "",
           "text": "削"
+        },
+        "audio_search_button": {
+          "enabled": false,
+          "shortcut": "",
+          "text": "検"
         }
       },
       "audio_sources": [
         {
-          "enabled": false, // (8)!
+          "enabled": false, // (7)!
           "name": "NHK-2016",
-          "url": "https://github.com/Ajatt-Tools/nhk_2016_pronunciations_index/releases/download/v1.0/NHK_extended.zip"
+          "url": "https://github.com/Ajatt-Tools/nhk_2016_pronunciations_index/releases/download/v1.2/NHK_main.zip"
         },
         {
           "enabled": false,
           "name": "NHK-1998",
-          "url": "https://github.com/Ajatt-Tools/nhk_1998_pronunciations_index/releases/download/v1.0/NHK_main.zip"
+          "url": "https://github.com/Ajatt-Tools/nhk_1998_pronunciations_index/releases/download/v1.1/NHK_main.zip"
         },
         {
           "enabled": false,
           "name": "Shinmeikai-8",
-          "url": "https://github.com/Ajatt-Tools/shinmeikai_8_pronunciations_index/releases/download/v1.2/Shinmeikai-8_main.zip"
+          "url": "https://github.com/Ajatt-Tools/shinmeikai_8_pronunciations_index/releases/download/v1.3/Shinmeikai-8_main.zip"
         }
       ],
       "audio_settings": {
@@ -464,45 +477,39 @@ An example config is shown below that you can copy/paste.
         "attempts": 4,
         "maximum_results": 99,
         "ignore_inflections": false,
-        "stop_if_one_source_has_results": false
+        "stop_if_one_source_has_results": false,
+        "search_dialog_field_name": "VocabAudio"
       }
     }
     ```
 
-    1.  This ensures that the pitch accent and furigana is added upon initial note creation.
-        Note that this is technically optional.
-        If you are likely to change the sentence after adding the note,
-        then it is possible to leave this as `false`,
-        and bulk add the furigana later.
-        However, this will also disable automatic generation of pitch accents.
-
-    2. `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
+    1. `styles` adds custom stylization that creates the pitch accent lines and downsteps as you see
         in the example note.
         Without this, the default styles will look like the word
         you see in the official add-on page.
 
-    3. The `Add pitch accent number` and `Add furigana for word` profiles are not used.
+    2. The `Add pitch accent number` and `Add furigana for word` profiles are not used.
         In order to disable them, the note type is set to `AJT_JAPANESE_IGNORE_PROFILE`,
         which only matches note types containing the string `AJT_JAPANESE_IGNORE_PROFILE`.
         It is very unlikely that your Anki notes will unintentionally contain this string.
 
-    4. This makes the separators behave like the old version, and has to be changed to this
+    3. This makes the separators behave like the old version, and has to be changed to this
         for the default config of jp-mining-note to work.
 
-    5. This is set to a high number in order for many pitch accents to be displayed for long expressions.
+    4. This is set to a high number in order for many pitch accents to be displayed for long expressions.
         This is fine because the pitch accent display is usually overwritten by
         the `PAPositions` field, so it's rare to see the `AJTWordPitch` field results anyways.
         Additionally, a higher number increases the sample size for the internal
         auto-pitch-accent module, to better search for devoiced and nasal markers.
 
-    6. (Optional) This is to restrict the generated furigana to only show one reading.
+    5. (Optional) This is to restrict the generated furigana to only show one reading.
         Feel free to leave this as the default (`3`).
 
-    7.  (Optional) I personally have the buttons removed because I don't want it to clutter
+    6.  (Optional) I personally have the buttons removed because I don't want it to clutter
         up the editor toolbar.
         Feel free to have these enabled.
 
-    8.  (Optional) These are disabled because it slows down Anki's startup time.
+    7.  (Optional) These are disabled because it slows down Anki's startup time.
         Additionally, the note does not use this feature.
         If you want to use this feature, feel free to enable these.
 
