@@ -336,7 +336,6 @@ An example config is shown below that you can copy/paste.
 
     The important things to change in the config are:
 
-    * `generate_on_note_add`
     * `fields`
     * `profiles`
     * `pitch_accent.reading_separator`
