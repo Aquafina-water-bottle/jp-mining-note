@@ -45,9 +45,7 @@ There are two main hotkeys that this setup introduces:
     know Python much more than PowerShell).
 
 
----
-
-# ShareX Hotkeys Prerequisites
+## ShareX Hotkeys Prerequisites
 
 To use these hotkeys with ShareX, you must have the following installed:
 
@@ -55,6 +53,11 @@ To use these hotkeys with ShareX, you must have the following installed:
 - [Python](https://www.python.org/) (Python 3.10 or above should work)
 - [Anki-Connect](https://ankiweb.net/shared/info/2055492159) (You probably have this installed already if you're using Yomichan or jp-mining-note).
 - `hotkey.py`
+    - If you have [JPMN Manager](https://ankiweb.net/shared/info/{{ JPMN_MGR_CODE }}) installed, then this script is already available to you!
+        It is located under the [Anki folder](faq.md#where-is-the-x-folder-in-anki):
+        ```
+        Anki2/addons21/{{JPMN_MGR_CODE}}/tools/hotkey.py
+        ```
     - For CLI users, simply do `curl https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/tools/hotkey.py -O` in a place you'll remember.
     - If the above doesn't work, or you don't know what `curl` is:
         - Navigate to a folder you'll remember.
@@ -63,9 +66,8 @@ To use these hotkeys with ShareX, you must have the following installed:
         TODO gif!
 
 
----
 
-# ShareX Screenshot Hotkey
+## ShareX Screenshot Hotkey
 
 1. **Create the hotkey**:
     - Open ShareX, if you haven't already.
@@ -114,7 +116,10 @@ To use these hotkeys with ShareX, you must have the following installed:
 
 1. **Add the `ffmpeg-to-webp` action**:
 
-    This saves the image as a webp image, to reduce file space while retaining the same quality.
+    This action saves the image as a webp image, to reduce file space while retaining the same quality.
+    Unfortunately, as of writing this,
+    [ShareX does not support webp natively](https://github.com/ShareX/ShareX/issues/6090),
+    so this action is required to save the image as a webp.
 
     - Navigate to the `Actions` tab.
     - Check `Override actions`.
@@ -123,7 +128,7 @@ To use these hotkeys with ShareX, you must have the following installed:
 
         ??? example "ffmpeg-to-webp action {{CLICKHERE}}"
 
-            - **Name**: `ffmpeg-to-webp` (or anything you want)
+            - **Name**: `ffmpeg-to-webp`
             - **File path**:
                 ```
                 C:\Program Files\ShareX\ffmpeg.exe
@@ -152,7 +157,7 @@ To use these hotkeys with ShareX, you must have the following installed:
 
         ??? example "card-add-image action {{CLICKHERE}}"
 
-            - **Name**: `card-add-image` (or anything you want)
+            - **Name**: `card-add-image`
             - **File path**: (change the path to your exact path to `python.exe`)
                 ```
                 C:\PATH\TO\YOUR\PYTHON\EXECUTABLE\python.exe
@@ -183,9 +188,9 @@ To use these hotkeys with ShareX, you must have the following installed:
 1. **Test the hotkey**:
     TODO
 
----
 
-# ShareX Screenshot Hotkey (NSFW)
+
+## ShareX Screenshot Hotkey (NSFW)
 For people using jp-mining-note, or using
 [Marv's Anki Card Blur](https://github.com/MarvNC/JP-Resources#anki-card-blur),
 you might want to setup a different hotkey to specifically tag the card as NSFW when adding the image.
@@ -202,9 +207,9 @@ The following hotkey does the same as the above, while also adding the `-NSFW` t
 
 TODO gif
 
----
 
-# ShareX Audio Hotkey
+
+## ShareX Audio Hotkey
 
 1. **Create the hotkey**:
     - Open ShareX, if you haven't already.
@@ -252,10 +257,11 @@ TODO gif
         - Set `Video source` to `None`
         - Set `Audio source` to `virtual-audio-capturer`
         - Set `Audio codec` to `Opus` (This will be configurable later)
+        - Click on the `Opus` tab right underneath `Audio codec`, and ensure the quality is set to `128k`.
         - Check `Use custom commands`.
         - Within the `Command line preview` box, replace the big blob of text with the following:
             ```
-            TODO
+            -y -rtbufsize 100M -f dshow -i audio="virtual-audio-capturer" "$output$"
             ```
         - Close this new window.
 
@@ -270,16 +276,16 @@ TODO gif
     - Click `Add...`.
     - A new window should pop up. Under this new window, fill out the following values:
 
-        ??? example "ffmpeg-to-webp action {{CLICKHERE}}"
+        ??? example "ffmpeg-process-audio action {{CLICKHERE}}"
 
-            - **Name**: `ffmpeg-to-webp` (or anything you want)
+            - **Name**: `ffmpeg-process-audio`
             - **File path**:
                 ```
                 C:\Program Files\ShareX\ffmpeg.exe
                 ```
             - **Argument**:
                 ```
-                -i "$input" "$output"
+                -y -i "$input" -af "silenceremove=1:0:-50dB, loudnorm=I=-16:TP=-6.2:LRA=11:dual_mono=true" -b:a 64k "$output"
                 ```
             - **Output file name extension**:
                 ```
@@ -300,10 +306,9 @@ TODO gif
             If you are using any of the above, please change the `Output file name extension`
             from `opus` to `mp3`.
             The reason why Opus is recommended is because Opus stores
-            audio data much more efficiently than MP3. Unfortunately, MP3 is still required
-            for full compatibility with all devices.
-
-            (TODO image)
+            audio data much more efficiently than MP3, i.e. the file takes up less space on the disk
+            with the same noticable quality.
+            Unfortunately, MP3 is still required for full compatibility with all devices.
 
 1. **Add the `card-add-audio` action**:
 
@@ -316,7 +321,7 @@ TODO gif
 
         ??? example "card-add-audio action {{CLICKHERE}}"
 
-            - **Name**: `card-add-audio` (or anything you want)
+            - **Name**: `card-add-audio`
             - **File path**: (change the path to your exact path to `python.exe`)
                 ```
                 C:\PATH\TO\YOUR\PYTHON\EXECUTABLE\python.exe
@@ -341,7 +346,8 @@ TODO gif
 
         TODO gif
 
-# Troubleshooting
+
+## Troubleshooting
 -   Do NOT view the card in the card browser when running any script,
     because if you do, the affected fields may not update.
     Close the card browser before running the scripts.

@@ -156,7 +156,7 @@ nav:
   - JP Resources:
     - JP Resources: jpresources.md
     - JPMN Handlebars Package: jpmnhandlebars.md
-    - Anki Scripts (TODO): scripts.md
+    - Anki Hotkeys (TODO): scripts.md
     - Other: jpresourcesother.md
 
 extra:
