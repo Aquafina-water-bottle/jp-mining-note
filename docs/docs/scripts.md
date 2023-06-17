@@ -1,135 +1,435 @@
-{% import "sharex_input.ps1" as sharex %}
-{% from "macros.html" import sharex_display with context %}
 
+This page serves as a collection of small Anki-related scripts primarily for the usage
+automating repetitive tasks with hotkeys.
 
+It is separated into two main sections:
 
-# ShareX Hotkeys Introduction
-
-(TODO rewrite since better instructions are now documented here instead)
-
-Windows users can use [ShareX](https://getsharex.com/) as a general purpose tool
-to add images and audio to an existing card.
-There are two main hotkeys that you can setup: a screenshot hotkey, and an audio hotkey.
-Both of these will automatically send the data to your most recently added card.
-
+- ShareX Hotkeys: Hotkeys meant to be specifically used with media files generated from [ShareX](https://getsharex.com/).
+- Anki Hotkeys: General purpose hotkeys that act on the most recent card(s). Does not require media files to operate.
 
 TODO demo
 
+
+!!! note
+    The ShareX hotkeys are originally based off of
+    [Stegatxins0's Mining Setup](https://github.com/Aquafina-water-bottle/stegatxins0-mining/).
+    That was itself originally based off of
+    [AnimeCard's ShareX Setup](https://animecards.site/media/#setting-up-sharex).
+
 ---
 
-# ShareX Screenshot Hotkey
+# ShareX Hotkeys
 
-1. **Create the hotkey**.
-    - Right click on ShareX icon and click `Hotkey Settings`.
+Windows users can use [ShareX](https://getsharex.com/) as a general purpose tool
+to automatically add images and audio to your most recently created card.
+There are two main hotkeys that this setup introduces:
+
+- A screenshot hotkey
+- An audio hotkey
+
+!!! note
+    If you are using Linux, I recommend using [ames](https://github.com/eshrh/ames) instead of ShareX.
+    Unfortunately, I'm not aware of a good solution for MacOS users.
+
+
+## Feature Summary
+
+- Audio is automatically normalized, and attempts to remove silence at the beginning of the audio.
+- Images are saved as webp, to save disk space.
+- The screenshot hotkey automatically adds the Window name as a tag to the card.
+- Work with any note type, given that the correct flags are provided.
+    By default, these work with jp-mining-note and AnimeCards.
+- Instead of using PowerShell, this setup uses Python. Unfortunately, this is a little bit more
+    difficult to setup for the average user, but using Python makes it much easier to
+    develop and maintain the underlying scripts. Most people, including myself,
+    know Python much more than PowerShell.
+    Additionally, Python is generally cross platform and easy enough to setup on all operating systems.
+
+
+## ShareX Hotkeys Prerequisites
+
+To use these hotkeys with ShareX, you must have the following installed:
+
+- [ShareX](https://getsharex.com/)
+- [Python](https://www.python.org/) (Python 3.10 or above should work)
+- [Anki-Connect](https://ankiweb.net/shared/info/2055492159) (You probably have this installed already if you're using Yomichan or jp-mining-note).
+- `hotkey.py` (see below)
+
+The `hotkey.py` file can be downloaded in any of the following ways:
+
+??? info "Option 1: JPMN Manager {{CLICKHERE}}"
+    If you have [JPMN Manager](https://ankiweb.net/shared/info/{{ JPMN_MGR_CODE }}) installed,
+    then this script is already available to you!
+    It is located under the [Anki folder](faq.md#where-is-the-x-folder-in-anki):
+    ```
+    Anki2/addons21/{{JPMN_MGR_CODE}}/tools/hotkey.py
+    ```
+
+??? info "Option 2: With `git` {{CLICKHERE}}"
+    For `git` users, simply clone the JPMN repository in somewhere you'll remember:
+    ```
+    git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git
+    ```
+    The hotkey.py file will be found under `(repo root)/tools/hotkey.py`.
+    <!-- extra paragraph required due to mkdocs-video for some reason -->
+    <p></p>
+
+??? info "Option 3: Manually {{CLICKHERE}}"
+    If none of the above works / you don't know what `git` is:
+
+    - Navigate to a folder you'll remember.
+    - Right click on some blank space, and then create a new text file (`New` -> `Text Document`). Name this text file `hotkey.py`.
+    - [Copy the script text](https://raw.githubusercontent.com/Aquafina-water-bottle/jp-mining-note/dev/tools/hotkey.py) into the new text file, and save (`Ctrl+S`).
+    TODO gif!
+
+
+
+## ShareX Screenshot Hotkey
+
+1. **Create the hotkey**:
+    - Open ShareX, if you haven't already.
+    - On the sidebar to the left, click on `Hotkey settings...`.
         (TODO image)
-    - Click `add`. Close the windows and select None on the right hand side and define key combination for screenshots. Mine is `F6`.
+    - Within the Hotkey Settings window, click `Add`.
+        (TODO image)
+    - Set the task to be `Screen capture` -> `Capture region`.
+    - Set the hotkey value to whatever you want. For example, `F6`.
+
+    (TODO gif)
+
+1. **Change the hotkey settings**:
+
+    1. Click on the gear of your new `Capture Region` hotkey.
         (TODO image)
 
-1. **Change the hotkey settings**.
-    1. Click on the settings icon on the left hand side.
-        (TODO image)
-    1. Select `Capture region` for `Task`.
-        (TODO image)
-    1. Check `Override after capture settings`. Uncheck `Save image to file` and `Perform actions`
-    1. Check `Override screenshot folder`. Click `Browse` and select Anki collection media location (usually something following this format `C:\Users\______\AppData\Roaming\Anki2\______\collection.media` ).
-    1. Insert `anki-screenshot` or anything you want in description .
-    1. Click on `Image` tab. Check `Override image settings`. Under `Image format` select `JPEG` to save space.
-        ![](assets/sharex_screenshot_jpeg.jpg)
-
-1. **Change the hotkey actions**.
-    - Click on `Actions` tab. Check `Override actions`. Click `Add`. A new window will pop up. Fill in the following values:
-        - **Name**: `anki-screenshot` (or anything you want)
-        - **File path**:
-            ```ps
-            C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+    1. Navigate to the `Task` tab.
+        - Check `Override after capture settings`. ({{ CHECKED_CHECKBOX }})
+        - Navigate to the capture tasks dropdown, and only have the following two items selected:
+            - Save image to file
+            - Perform actions
+            (TODO image)
+        - Check `Override screenshots folder`. ({{ CHECKED_CHECKBOX }})
+        - Click `Browse` and select your Anki collection media location.
+            Your media location can be found under:
             ```
-        - **Argument**: (if you're not using my card type, replace `Picture` with your screenshot field name. Use [this tool](http://www.unit-conversion.info/texttools/replace-text/))
-            ```ps
-            -NoProfile -Command "$medianame = \"%input\" | Split-Path -leaf; $data = Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType 'application/json; charset=UTF-8' -Body '{\"action\": \"findNotes\", \"version\": 6, \"params\": {\"query\":\"added:1\"}}'; $sortedlist = $data.result | Sort-Object -Descending {[Long]$_}; $noteid = $sortedlist[0]; Invoke-RestMethod -Uri http://127.0.0.1:8765 -Method Post -ContentType 'application/json; charset=UTF-8' -Body \"{`\"action`\": `\"updateNoteFields`\", `\"version`\": 6, `\"params`\": {`\"note`\":{`\"id`\":$noteid, `\"fields`\":{`\"Picture`\":`\"<img src=$medianame>`\"}}}}\"; "
+            C:\Users\YOUR_USER_NAME\AppData\Roaming\Anki2\YOUR_ANKI_PROFILE_NAME\collection.media
             ```
-    1. Check `Hidden window` and click `OK`. Close `Task settings` windows.
+            Tip: An easy way to navigate to this is by entering `%APPDATA%` in the path of the file browser.
+        - To make it easier for you to remember what this hotkey does,
+            set the `Description` to `anki-screenshot`.
+        Your `Task` tab should now look something like this:
+        (TODO image)
+
+    1. Navigate to the `General` tab.
+        - Check `Override general settings`. ({{ CHECKED_CHECKBOX }})
+        (TODO image)
+
+    1. Navigate to the `General` -> `Notifications` tab.
+        - Uncheck `Play sound after capture is made`. ({{ UNCHECKED_CHECKBOX }})
+        - Uncheck `Play sound after task is completed`. ({{ UNCHECKED_CHECKBOX }})
+        The sound on screenshot is removed so one can take a screenshot while recording the audio,
+        without having the screenshot sound affect the recording.
+        (TODO image)
+
+1. **Add the `ffmpeg-to-webp` action**:
+
+    > **Explanation:**
+    > This action saves the image as a webp image, to reduce file space while retaining the same quality.
+    > Unfortunately, as of writing this,
+    > [ShareX does not support webp natively](https://github.com/ShareX/ShareX/issues/6090),
+    > so this action is required to save the image as a webp.
+
+    - Navigate to the `Actions` tab.
+    - Check `Override actions`. ({{ CHECKED_CHECKBOX }})
+    - Click `Add...`.
+    - A new window should pop up. Under this new window, fill out the following values:
+
+        ??? example "ffmpeg-to-webp action {{CLICKHERE}}"
+
+            - **Name**: `ffmpeg-to-webp`
+            - **File path**:
+                ```
+                C:\Program Files\ShareX\ffmpeg.exe
+                ```
+            - **Argument**:
+                ```
+                -i "$input" -quality 95 "$output"
+                ```
+            - **Output file name extension**:
+                ```
+                webp
+                ```
+            - Check `Hidden window` ({{ CHECKED_CHECKBOX }})
+            - Check `Delete input file` ({{ CHECKED_CHECKBOX }})
+
+            (TODO image)
+
+1. **Add the `card-add-image` action**:
+
+    > **Explanation:**
+    > This adds the image to the Anki card itself, using Anki-Connect and Python.
+
+    - Under the `Actions` tab, click `Add...`.
+    - A new window should pop up. Under this new window, fill out the following values:
+
+        ??? example "card-add-image action {{CLICKHERE}}"
+
+            - **Name**: `card-add-image`
+            - **File path**: (change the path to your exact path to `python.exe`)
+                ```
+                C:\PATH\TO\YOUR\PYTHON\EXECUTABLE\python.exe
+                ```
+                - Your `python.exe` file is usually under `C:\PythonXX\python.exe`,
+                    where `XX` is the version number.
+                    If you can't find it, you can always search for `python.exe` on the search bar,
+                    and then [copying the full path](https://www.howtogeek.com/670447/how-to-copy-the-full-path-of-a-file-on-windows-10/) of the file.
+            - **Argument**: (change the path to your exact path to `hotkey.py`)
+                ```
+                C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py set_picture "$input"
+                ```
+                - This is the `hotkey.py` file from the [prerequisites](#prerequisites) step.
+            - Check `Hidden window` ({{ CHECKED_CHECKBOX }})
+
+            (TODO image)
+
+    !!! note "Picture field"
+        The expected name of the picture field is exactly `Picture`.
+        If your card uses a different field name, say `Image`, then the `--field-name` flag must be used
+        (change `Image` to whatever your field name is):
+        ```
+        C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py set_picture "$input" --field-name Image
+        ```
+
+        TODO gif
+
+1. **Test the hotkey**:
+    TODO
+
+??? info "Explanation of the screenshot hotkey setup {{CLICKHERE}}"
+    - ShareX currently does 
+
+
+## ShareX Screenshot Hotkey (NSFW)
+For people using jp-mining-note, or using
+[Marv's Anki Card Blur](https://github.com/MarvNC/JP-Resources#anki-card-blur),
+you might want to setup a different hotkey to specifically tag the card as NSFW when adding the image.
+
+The following hotkey does the same as the above, while also adding the `-NSFW` tag to the card.
+
+1. Duplicate the screenshot hotkey above, and set the hotkey to something else (i.e. Shift+F6)
+1. Navigate to the `Actions` tab.
+    - Select `card-add-image` action.
+    - Change the `Argument` to the following:
+        ```
+        C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py set_picture "$input" --nsfw True
+        ```
+
+TODO gif
 
 
 
-<!--
+## ShareX Audio Hotkey
 
-Many people have already documented how to setup your ShareX to work with Anki, such as:
+1. **Create the hotkey**:
+    - Open ShareX, if you haven't already.
+    - On the sidebar to the left, click on `Hotkey settings...`.
+        (TODO image)
+    - Within the Hotkey Settings window, click `Add`.
+    - Set the task to be `Screen record` -> `Start/Stop screen recording using pre configured region`.
+    - Set the hotkey value to whatever you want. For example, `F7`.
 
-* [stegatxins0](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#sharex) (recommended)
-* [Anime Cards](https://animecards.site/media/#setting-up-sharex)
+    (TODO gif)
 
-Instead of re-telling the steps they have already showed,
-I present **alternative ShareX scripts**
-(the long one-liner to paste within the `Actions` argument section)
-for stegatxins0's guide.
+1. **Change the hotkey settings**:
 
-The following scripts have the following changes:
+    1. Click on the gear of your new `Start/Stop screen recording ...` hotkey.
+        (TODO image)
 
-- They all work with jp-mining-note by default.
-- They have been rewritten so it can be presented in human-readable format
-    right below the one-liner.
-- The one-liners can be re-compiled from the source code at your own discretion
-    (by [building the documentation](/building.md#building-the-documentation)).
-    All the powershell source code can be found
-    [here](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/docs/docs/sharex_input.ps1).
+    1. Navigate to the `Task` tab.
+        - Check `Override after capture settings`. ({{ CHECKED_CHECKBOX }})
+        - Navigate to the capture tasks dropdown, and only have the following two items selected:
+            - Save image to file
+            - Perform actions
+        - Check `Override screenshots folder`. ({{ CHECKED_CHECKBOX }})
+        - Click `Browse` and select your Anki collection media location.
+            Your media location can be found under:
+            ```
+            C:\Users\YOUR_USER_NAME\AppData\Roaming\Anki2\YOUR_ANKI_PROFILE_NAME\collection.media
+            ```
+            This should be the exact same folder as the `anki-screenshot` hotkey.
+        - To make it easier for you to remember what this hotkey does,
+            set the `Description` to `anki-audio`.
 
--->
+        Your `Task` tab should now look something like this:
+        (TODO image)
+
+    1. Navigate to the `Capture` tab.
+        - Check `Override capture settings`. ({{ CHECKED_CHECKBOX }})
+        - Click `Select region`, and select anywhere on the screen.
+            This region would preferably not overlap with whatever you want to capture.
+            If it does and you attempt to screenshot while using the audio hotkey,
+            then the dotted region marked by ShareX will be captured as well.
+        (TODO image)
+
+    1. Navigate to the `Capture` -> `Screen recorder` tab. Within this, tab, click on the `Screen recording options...` button to open a new window.
+        - Press the `Install recorder devices` button
+        - Set `Video source` to `None`
+        - Set `Audio source` to `virtual-audio-capturer`
+        - Set `Audio codec` to `Opus` (This will be configurable later)
+        - Click on the `Opus` tab right underneath `Audio codec`, and ensure the quality is set to `128k`.
+        - Close this new window.
+
+1. **Add the process audio action(s)**:
+
+    > **Explanation:**
+    > This adds a ffmpeg call to normalize the audio and remove the beginning silence.
+    > Ideally, we would put these audio filters in the `Screen recording options` custom commands box.
+    > Unfortunately, if placed there, the flags to normalize the audio ends up cutting off the audio.
+    > Therefore, this action is required to accurately run the desired audio filters.
+
+    You have two options:
+
+    1. **Store as Opus.**
+        The [Opus](https://opus-codec.org/) audio codec provides much better quality at lower bitrates
+        (which saves a lot of space and makes syncing large collections faster).
+        **However, Opus is NOT compatible with AnkiMobile (iOS), Android 4, and AnkiWeb.**
+        If you use any of these, please use the 2nd option (MP3 audio) below.
+    2. **Store as MP3.**
+        Older and less efficient codec, but needed for compatibility with pretty much all devices.
+
+    ??? info "Option 1. Opus {{CLICKHERE}}"
+        > **Explanation:**
+        > ShareX does not natively support storing audio as .wav or .flac files.
+        > ShareX does not provide a simply way to copy a file.
+        > FFmpeg does not allow us to read and write to the exact same file.
+        > Finally, ShareX cannot run the audio filters in the `Screen recording options` custom commands box,
+        > as mentioned above.
+        > With all these limitations, the only way to store it as opus while running the audio filters is
+        > to first convert the file to something else (we use .wav), and then
+        > re-convert it back to opus again while applying the audio filters.
+
+        - Navigate to the `Actions` tab.
+        - Check `Override actions`. ({{ CHECKED_CHECKBOX }})
+        - Create the first action, by clicking `Add...`.
+            A new window should pop up. Under this new window, fill out the following values:
+
+            ??? example "ffmpeg-process-audio-wav action {{CLICKHERE}}"
+                - **Name**: `ffmpeg-process-audio-wav`
+                - **File path**:
+                    ```
+                    C:\Program Files\ShareX\ffmpeg.exe
+                    ```
+                - **Argument**:
+                    ```
+                    -y -i "$input" "$output"
+                    ```
+                - **Output file name extension**:
+                    ```
+                    wav
+                    ```
+                - Check `Hidden window` ({{ CHECKED_CHECKBOX }})
+                - Check `Delete input file` ({{ CHECKED_CHECKBOX }})
+
+                (TODO image)
+
+        - Close the above `ffmpeg-process-audio-wav` action window.
+        - Create the second action, by clicking `Add...`.
+            A new window should pop up. Under this new window, fill out the following values:
+
+            ??? example "ffmpeg-process-audio-opus action {{CLICKHERE}}"
+                - **Name**: `ffmpeg-process-audio-opus`
+                - **File path**:
+                    ```
+                    C:\Program Files\ShareX\ffmpeg.exe
+                    ```
+                - **Argument**:
+                    ```
+                    -y -c:a opus -i "$input" -af "silenceremove=1:0:-50dB, loudnorm=I=-16:TP=-6.2:LRA=11:dual_mono=true" -b:a 64k "$output"
+                    ```
+                - **Output file name extension**:
+                    ```
+                    opus
+                    ```
+                - Check `Hidden window` ({{ CHECKED_CHECKBOX }})
+                - Check `Delete input file` ({{ CHECKED_CHECKBOX }})
+
+                (TODO image)
+
+
+    ??? info "Option 2. MP3 {{CLICKHERE}}"
+
+        - Navigate to the `Actions` tab.
+        - Check `Override actions`. ({{ CHECKED_CHECKBOX }})
+        - Click `Add...`.
+        - A new window should pop up. Under this new window, fill out the following values:
+
+            ??? example "ffmpeg-process-audio-mp3 action {{CLICKHERE}}"
+                - **Name**: `ffmpeg-process-audio-mp3`
+                - **File path**:
+                    ```
+                    C:\Program Files\ShareX\ffmpeg.exe
+                    ```
+                - **Argument**:
+                    ```
+                    -y -i "$input" -af "silenceremove=1:0:-50dB, loudnorm=I=-16:TP=-6.2:LRA=11:dual_mono=true" -q:a 3 "$output"
+                    ```
+                - **Output file name extension**:
+                    ```
+                    mp3
+                    ```
+                - Check `Hidden window` ({{ CHECKED_CHECKBOX }})
+                - Check `Delete input file` ({{ CHECKED_CHECKBOX }})
+
+                (TODO image)
+
+1. **Add the `card-add-audio` action**:
+
+    This adds the image to the Anki card itself.
+
+    - Under the `Actions` tab, click `Add...`.
+    - A new window should pop up. Under this new window, fill out the following values:
+
+        ??? example "card-add-audio action {{CLICKHERE}}"
+
+            - **Name**: `card-add-audio`
+            - **File path**: (change the path to your exact path to `python.exe`)
+                ```
+                C:\PATH\TO\YOUR\PYTHON\EXECUTABLE\python.exe
+                ```
+            - **Argument**: (change the path to your exact path to `hotkey.py`)
+                ```
+                C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py set_audio "$input"
+                ```
+                - These paths should be the exact same as the `card-add-audio` action
+                    within the `anki-screenshot` hotkey.
+            - Check `Hidden window` ({{ CHECKED_CHECKBOX }})
+
+            (TODO image)
+
+    !!! note "Sentence Audio field"
+        The expected name of the sentence audio field is exactly `SentenceAudio`.
+        If your card uses a different field name, say `SentAudio`, then the `--field-name` flag must be used
+        (change `SentAudio` to whatever your field name is):
+        ```
+        "$input" set_audio --field-name SentAudio
+        ```
+
+        TODO gif
+
+
+## Troubleshooting
+-   Do NOT view the card in the card browser when running any script,
+    because if you do, the affected fields may not update.
+    Close the card browser before running the scripts.
+
+    However, you do not need to worry about this
+    if you are running the python script with the `--enable-gui-browse` flag.
+
+
 
 ---
 
-
-## Screenshot and Clipboard Hotkey { .text-yellow }
-
-
-### Features
-
-- Adds the selected image to the note. This image is automatically shrunk
-    (within the field viewer only, if you are using Anki versions 2.1.50+).
-- Adds a tag to the note. The tag is exactly the window name of the current application.
-- Sets the `AdditionalNotes` to the current clipboard. I use this for copying/pasting context
-    (the lines surrounding the sentence).
-
-### How-To
-
-Follow the steps for setting up the
-[screenshot hotkey](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#hotkey-for-screenshot),
-and use this script in place of step 8's `argument`.
-
-
-{{ sharex_display(sharex.screenshot_and_clipboard) }}
-
----
-
-
-
-## Screenshot (only) Hotkey { .text-yellow }
-
-This is the same as the above, but without setting the `AdditionalNotes` field to the current clipboard.
-
-{{ sharex_display(sharex.screenshot) }}
-
----
-
-
-
-## Audio Hotkey { .text-yellow }
-
-This script works *exactly the same* as stegatxins0's version,
-except rewritten in a more readable format.
-If you already have the audio hotkey setup, there is no reason to change the old script.
-
-To use this, follow the steps for setting up the
-[audio hotkey](https://github.com/Aquafina-water-bottle/stegatxins0-mining/tree/master#hotkey-for-audio),
-and use this script in place of step 14's `Argument`.
-
-{{ sharex_display(sharex.audio) }}
-
----
-
-
-
-
-# Anki Scripts
+# Other Hotkeys
 
 These are a set of scripts that may help you to prevent doing repetitive actions when
 adding notes.
@@ -141,16 +441,6 @@ These scripts are written in two formats:
 one that works automatically with your usual `ShareX` setup,
 and one in Python for cross-platform portability.
 
-!!! warning
-
-    Do NOT view the card in the card browser when running any script,
-    because if you do, the affected fields may not update.
-    Close the card browser before running the scripts.
-
-    However, you do not need to worry about this
-    if you are running the python script with the `--enable-gui-browse` flag.
-
-
 ---
 
 
@@ -160,11 +450,15 @@ As shown above, ShareX has the ability to run custom user scripts.
 However, for ShareX to only run the script and do nothing else,
 the hotkey must be configured with steps shown below.
 
+<!--
+
 !!! warning
 
     Depending on the popularity of these scripts, the ShareX versions may be deprecated
     in the future in favor of the easier to use/write/maintain Python versions.
     The only downside of using the Python script is that the user must have Python installed.
+
+-->
 
 
 ### Steps
@@ -185,8 +479,8 @@ the hotkey must be configured with steps shown below.
     - Uncheck all existing actions.
     - Add a new action by clicking on `Add`.
     - Set the following values of the action:
-        - File Path: `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`
-        - Argument: (the text in `Sharex Script` for the script you want to run)
+        - File Path: `DRIVE:\PATH\TO\python.exe`
+        - Argument: `DRIVE:\PATH\TO\jp-mining-note\tools\hotkey.py FUNCTION_NAME`
 
 
 !!! note
@@ -195,7 +489,7 @@ the hotkey must be configured with steps shown below.
     and simply set the `Argument` of the action to a different script.
 
 
-??? info "Explanation"
+??? info "Explanation of the setup {{CLICKHERE}}"
 
     The reason that the `After Capture` settings include `Save Image to File`
     and `Delete Locally` is because without those settings, the `Perform Actions`
@@ -216,34 +510,25 @@ the hotkey must be configured with steps shown below.
 
 
 
-## How-To: Running with Python
-
-
-!!! warning
-    If you use the Python script as is within the repository without copying it to
-    a different directory, this script will be updated every time you update the repository.
-
-    It's always good practice to not blindly run people's code on your computer.
-    Make sure you [trust the code](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/master/tools/hotkey.py), and double check after update!
-
+## How-To: Running with Command Line
 
 If you don't want to use ShareX, or you are not using Windows,
 you can simply run a python script with command line.
 
 ```bash
-# Your python version should be 3.8 or higher.
+# Your python version should be 3.9 or higher.
 # It may work for lower python versions, but I make no guarantee.
-python3 /path/to/jp-mining-note/tools/hotkey.py -f FUNCTION_NAME
+python3 /path/to/jp-mining-note/tools/hotkey.py FUNCTION_NAME
 ```
 
 ??? example "Examples <small>(click here)</small>"
 
     ```bash
     # default
-    python3 /path/to/jp-mining-note/tools/hotkey.py -f update_sentence
+    python3 /path/to/jp-mining-note/tools/hotkey.py update_sentence
 
     # opens card browser automatically
-    python3 /path/to/jp-mining-note/tools/hotkey.py -f update_sentence --enable-gui-browse
+    python3 /path/to/jp-mining-note/tools/hotkey.py update_sentence --enable-gui-browse
     ```
 
 If you want to use these as keybinds, I will leave it up to you to determine
@@ -251,49 +536,38 @@ how to do that (as there are too many different setups and programs that people 
 However, some tips for ShareX and AutoKey are given below.
 
 
-??? info "Instructions for running Python scripts in ShareX"
+## How-To: Running with AutoKey <small>(Not AutoHotKey)</small> { #how-to-running-with-autokey data-toc-label="How-To: Running with AutoKey" }
+If you are using [AutoKey](https://github.com/autokey/autokey) for Linux, it should be possible to do the following instead:
 
-    If you want, you can even use the Python scripts with ShareX, so long as you have Python installed.
-    To use Python with ShareX, follow all the steps
-    (shown [above](jpresources.md#how-to-running-with-sharex)),
-    until you set the action values.
+1. Go to: <br>
+    `Settings` <br>
+    →  `Configure AutoKey` <br>
+    →  `Script Engine` <br>
+    →  `User Module file` <br>
+    →  (add the `jp-mining-note/tools` directory)
 
-    - The command should be the `DRIVE:\PATH\TO\python.exe` (instead of the path to `powershell.exe`).
-    - The argument should be `DRIVE:\PATH\TO\jp-mining-note\tools\hotkey.py -f FUNCTION_NAME`
-        (instead of the large one-liner.)
+2. Create a `script` type hotkey,
 
-??? info "Instructions for AutoKey (Not AutoHotKey)"
+3. Within the script, run any function thusly:
+    ```py
+    import hotkey
+    hotkey.FUNCTION_NAME()
+    ```
 
-    If you are using [AutoKey](https://github.com/autokey/autokey) for Linux, it should be possible to do the following instead:
+    Example:
+    ```py
+    import hotkey
+    hotkey.update_sentence()
+    ```
 
-    1. Go to: <br>
-        `Settings` <br>
-        →  `Configure AutoKey` <br>
-        →  `Script Engine` <br>
-        →  `User Module file` <br>
-        →  (add the `jp-mining-note/tools` directory)
+    Example with GUI:
+    ```py
+    import hotkey
+    hotkey._browse_anki("nid:1")
+    note_id = hotkey.update_sentence()
+    hotkey._browse_anki(f"nid:{note_id}")
+    ```
 
-    2. Create a `script` type hotkey,
-
-    3. Within the script, run any function thusly:
-        ```py
-        import hotkey
-        hotkey.FUNCTION_NAME()
-        ```
-
-        Example:
-        ```py
-        import hotkey
-        hotkey.update_sentence()
-        ```
-
-        Example with GUI:
-        ```py
-        import hotkey
-        hotkey._browse_anki("nid:1")
-        note_id = hotkey.update_sentence()
-        hotkey._browse_anki(f"nid:{note_id}")
-        ```
 ---
 
 
@@ -363,7 +637,7 @@ This is also useful for when Yomichan's word parser doesn't match the word itsel
     ```
     かわいげのある女じゃない。さては偽者だな！
     ```
-{{ sharex_display(sharex.update_sentence) }}
+TODO `sharex_display(sharex.update_sentence)`
 
 ---
 
@@ -378,7 +652,7 @@ The tested word, if found, is also automatically highlighted.
 This is useful to copy/paste context for the sentence (the surrounding lines
 around the sentence).
 
-{{ sharex_display(sharex.update_additional_notes) }}
+TODO `sharex_display(sharex.update_additional_notes)`
 
 
 ---
@@ -402,7 +676,7 @@ of a visual novel, as it prevents you from having to run the screenshot hotkey.
 1. Create a card from the second unknown word in the text box.
 1. Run this script.
 
-{{ sharex_display(sharex.copy_from_previous) }}
+TODO `sharex_display(sharex.copy_from_previous)`
 
 ---
 
@@ -450,7 +724,27 @@ so this has helped me immensely.
 1. Run this script.
 
 
-{{ sharex_display(sharex.fix_sent_and_freq) }}
+
+---
 
 
+# Deprecated Scripts
+
+These contain powershell code for some scripts above.
+This powershell code has been replaced with Python scripts for easier maintainability
+
+{% import "sharex_input.ps1" as sharex %}
+{% from "macros.html" import sharex_display with context %}
+
+!!! info "Update Sentence with Clipboard"
+    {{ sharex_display(sharex.update_sentence) | indent(4) }}
+
+!!! info "Update AdditionalNotes with Clipboard"
+    {{ sharex_display(sharex.update_additional_notes) | indent(4) }}
+
+!!! info "Copy from Previous Card"
+    {{ sharex_display(sharex.copy_from_previous) | indent(4) }}
+
+!!! info "Orthographic Variants: Fix Sentence and Frequency"
+    {{ sharex_display(sharex.fix_sent_and_freq) | indent(4) }}
 
