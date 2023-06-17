@@ -12,7 +12,7 @@ The Anki templates are generated through a combination of
 and `npm` (Webpack + TypeScript) for JavaScript generation.
 All of this is managed through the `tools/make.py` script.
 
-**You must build the note to use any compile-time options**.
+**You must build the note to use any compile options**.
 
 Additionally, if you want to use bleeding edge features
 (the absolute latest features, which maybe riddled with bugs),

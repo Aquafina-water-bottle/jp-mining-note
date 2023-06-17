@@ -273,7 +273,7 @@ that can help you figure out what is causing the issue:
 
     After doing this, try disabling all of your add-ons again and see if the issue persists.
 
-1. If you manually added any custom CSS and/or runtime / compile-time options,
+1. If you manually added any custom CSS and/or runtime / compile options,
     make a [backup of your collection](#how-do-i-backup-my-anki-data)
     and then **remove all of those options**.
     If it works after this, try re-adding those one-by-one until you find the issue.
@@ -346,7 +346,7 @@ remove certain features of the note.
     2. Set this to false.
 
 
-??? info "(2) Using compile-time options"
+??? info "(2) Using compile options"
 
     Outside of document reflow, it appears that most of the lag
     doesn't come from the javascript execution, but rather

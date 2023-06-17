@@ -133,7 +133,7 @@ nav:
     - Other (TODO): other.md
     - Options:
       - Runtime Options (TODO): runtimeoptions.md
-      - Compile-Time Options (TODO): compiletimeoptions.md
+      - Compile Options (TODO): compiletimeoptions.md
       - Yomichan Template Options (TODO): yomichantemplates.md
    #- DEPRECATED:
    #  - User Interface: ui.md

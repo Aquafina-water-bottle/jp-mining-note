@@ -15,7 +15,7 @@ This helps with maintaining stability across various Anki versions.
 
 # Modularized, Customizable & Extendable
 This project ships with [built-in tools](runtimeoptions.md) to easily disable/enable features,
-or even completely remove them from the base template via [compile-time options](compiletimeoptions.md).
+or even completely remove them from the base template via [compile options](compiletimeoptions.md).
 Additionally, there are [many built-in ways](modding.md) to extend the note to suit your exact needs.
 
 # Documentation First

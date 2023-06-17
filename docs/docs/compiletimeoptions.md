@@ -1,9 +1,9 @@
 
-Just like {{ RTOs }}, compile-time options are also options that are applied
+Just like {{ RTOs }}, compile options are also options that are applied
 globally to each JPMN card.
 
-The difference between runtime options and compile-time options is that
-compile-time options require you to [build the note](building.md) on your machine
+The difference between runtime options and compile options is that
+compile options require you to [build the note](building.md) on your machine
 to use.
 Runtime options can be accessed and changed without having to build the note.
 
@@ -11,12 +11,12 @@ Runtime options can be accessed and changed without having to build the note.
 
 # Accessing & Editing
 
-To access the compile-time options, [build the note](building.md).
+To access the compile options, [build the note](building.md).
 
 After building the note, a new file `config/config.py` should appear.
-The compile-time options can be found in this file.
+The compile options can be found in this file.
 
-To use these compile-time options, edit the `config.py` file,
+To use these compile options, edit the `config.py` file,
 and then re-build the note.
 
 
@@ -31,7 +31,7 @@ and then re-build the note.
 
 # Always filled & Never filled fields
 {% raw %}
-Using compile-time options,
+Using compile options,
 one can set a field to act as if it has always been filled, or it has never been filled,
 using the `always-filled-fields` and `never-filled-fields` options.
 This will remove the conditional Anki templates
@@ -83,9 +83,9 @@ for a note will have no effect on the cards.
 ---
 
 # Optimized Vocab Card Example
-An example set of compile-time options to create a more optimized vocab card is shown below.
+An example set of compile options to create a more optimized vocab card is shown below.
 
-!!! examplecode "Vocab card compile-time options example"
+!!! examplecode "Vocab card compile options example"
 
     ```json
     "compile-options": {

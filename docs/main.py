@@ -258,9 +258,9 @@ def define_env_vars(env):
         "rto": lambda x: f"`RTO:{x}`", # TODO automatically link
         "C_CSS": '[custom CSS](customcss.md)',
         "CSS": '[CSS](customcss.md)',
-        "CTO_FILE": '[compile-time options](compiletimeoptions.md)',
-        "CTOs": '[compile-time options](compiletimeoptions.md)',
-        "CTO": '[compile-time option](compiletimeoptions.md)',
+        "CTO_FILE": '[compile options](compiletimeoptions.md)', # previously known as compile time options
+        "CTOs": '[compile options](compiletimeoptions.md)',
+        "CTO": '[compile option](compiletimeoptions.md)',
         "YTCOs": '[Yomichan template options](yomichantemplates.md)',
         "YTCO": '[Yomichan template option](yomichantemplates.md)',
         "TMW_SERVER": "[TMW server](https://learnjapanese.moe/join/)",
