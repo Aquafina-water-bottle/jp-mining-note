@@ -4,6 +4,7 @@
   "logger.warn.ignore": [],
   "autoPitchAccent.coloredPitchAccent.enabled": false,
   "imgStylizer.mainImage.blur.enabled": true,
+  "imgStylizer.mainImage.blur.startState": "never",
   "imgStylizer.glossary.primaryDef.mode.user": "collapse",
   "autoPitchAccent.paOverride.heibanMarkerRequired": false,
   "sentenceParser.altDisplay.quotes.processMode": "add",

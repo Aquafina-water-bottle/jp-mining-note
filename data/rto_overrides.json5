@@ -81,6 +81,12 @@
     "type": "isAnkiMobile",
     "resultTrue": false,
     "resultFalse": true,
-  }
+  },
+
+  "freqUtils.list.max": {
+    "type": "isMobile",
+    "resultTrue":  1,
+    "resultFalse": 4,
+  },
 
 }

@@ -841,7 +841,9 @@
   // "if-frequencies-empty"
   // "never"
   "freqUtils.list.showSummaryMode": "if-frequencies-empty",
-  "freqUtils.list.max": 4, // set this to -1 to always show all frequencies
+
+  // set "freqUtils.list.max" to -1 to always show all frequencies
+  "freqUtils.list.max": 4, // OVERWRITTEN
   "freqUtils.list.overflow": 0,
 
   // shows "unknown" if the summary is any of the following values
