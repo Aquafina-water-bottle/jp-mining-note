@@ -42,7 +42,7 @@ and must use `./install.py --update`.
 
 - Themes:
     - Proper way of defining user settings in a more portable way
-    - Allows custom html, CSS, compile-time options & runtime options
+    - Allows custom html, CSS, compile options & runtime options
         - NOTE: currently doesn't allow custom javascript / typescript
     - See `themes` folder for some examples
 
@@ -63,8 +63,8 @@ and must use `./install.py --update`.
     - Added unit testing for various modules
 
 - Builder & Options rework:
-    - Flattened all compile-time options and runtime options.
-    - Moved compile-time options to its own json file
+    - Flattened all compile options and runtime options.
+    - Moved compile options to its own json file
     - Most config files now use .json5 for human readability purposes (and can be switched with json for portability)
         - Removed deprecated importlib in favor of these json config files
 
@@ -91,7 +91,7 @@ and must use `./install.py --update`.
     - Added option to fix the div list problem for sentences
     - Added better support for parsing the full sentence (from sentUtils)
         - i.e. searches the full sentence to remove quotes.
-    - Added better compile-time and runtime options for how quotes are displayed / not displayed
+    - Added better compile and runtime options for how quotes are displayed / not displayed
 
 - Auto Pitch Accent:
     - Pitch accent color groups are now applied to the graphs on each individual word
@@ -141,7 +141,7 @@ and must use `./install.py --update`.
         - TODO link
     - Added way to translate the card (and added English and Japanese as pre-supported options)
         - TODO link
-    - Added compile-time options to specify how ruby can be displayed in the full sentence
+    - Added compile options to specify how ruby can be displayed in the full sentence
         - TODO link
 
 - Other (smaller changes):
@@ -539,8 +539,8 @@ Note: changing the layout of the changelog from this point forward.
     - highlight a dictionary to override the PrimaryDefinition
     - highlight a section of the definition to override the PrimaryDefinition + bold it
         - if cannot find highlighted section, fallsback to normal selection-text
-- `keybinds-enabled` compile-time option
-- `hardcoded-runtime-options` compile-time option
+- `keybinds-enabled` compile option
+- `hardcoded-runtime-options` compile option
 
 #### Fixes
 - `_field.css` not being included on export
@@ -587,13 +587,13 @@ Note: changing the layout of the changelog from this point forward.
 Primarily a back-end only update.
 
 #### Added
-- re-implemented compile time options for always-filled and never-filled
-- comment at the top of all cards with the compile-time options
+- re-implemented compile options for always-filled and never-filled
+- comment at the top of all cards with the compile options
 
 #### Changed
 - cleaning up the code:
     - moved javascript code out into their own `modules` folder under `templates`
-      (and included them in the compile time options)
+      (and included them in the compile options)
         - added example module main.js
     - generalized "open extra info on new" into its own module
     - turned the logger definition a class, and changed the global logger object from `logger` to `LOGGER`

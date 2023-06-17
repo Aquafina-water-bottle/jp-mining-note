@@ -1,6 +1,6 @@
 import { LOGGER } from '../logger';
 import { getOption } from '../options';
-import { hybridClick, getCardSide, getCardType } from '../utils';
+import { hybridClick, getCardSide, getCardType, playAudio } from '../utils';
 import { fieldsAnyFilled } from '../fields';
 
 //export class Keybinds extends RunnableModule {
@@ -34,12 +34,7 @@ export function addKeybindFunc(key: string, func: KeybindFunc) {
 function constructBaseFunc(): KeybindFunc {
   function _baseFunc(e: KeyboardEvent) {
     if (hasKey(e, getOption('keybinds.playWordAudio'))) {
-      let ele = document.querySelector(
-        '#word-audio .soundLink, #word-audio .replaybutton'
-      );
-      if (ele) {
-        (ele as HTMLAnchorElement).click();
-      }
+      playAudio("word_audio")
     }
 
     if (hasKey(e, getOption('keybinds.playSentenceAudio'))) {
@@ -58,12 +53,7 @@ function constructBaseFunc(): KeybindFunc {
       ) {
         hybridClick();
       } else {
-        let ele = document.querySelector(
-          '#sentence_audio .soundLink, #sentence_audio .replaybutton'
-        );
-        if (ele) {
-          (ele as HTMLAnchorElement).click();
-        }
+        playAudio("sentence_audio")
       }
     }
 

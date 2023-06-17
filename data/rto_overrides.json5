@@ -5,6 +5,27 @@
     "resultFalse": false, // not not PC (mobile)
   },
 
+  // This is an extended version of:
+  // (cardType == pa_sent or card_type == cloze_deletion)
+  //"audioPlaybackMode": {
+  //  // TODO: implement or statement and use it here
+  //  "type": "cardType",
+  //  "args": {
+  //    "op": "===",
+  //    "cardType": "pa_sent",
+  //  },
+  //  "resultTrue": "sentence",
+  //  "resultFalse": {
+  //    "type": "cardType",
+  //    "args": {
+  //      "op": "===",
+  //      "cardType": "cloze_deletion",
+  //    },
+  //    "resultTrue": "sentence",
+  //    "resultFalse": "default",
+  //  },
+  //},
+
   "sentenceParser.quotes.quoteOpen": {
     "type": "cardType",
     "args": {

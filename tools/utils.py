@@ -129,7 +129,7 @@ class Config:
 
     def item_opt_value(self, item):
         """
-        should be the compile-time option equivalent of runtime option values,
+        should be the compile option equivalent of runtime option values,
         just a lot more limited
         """
         if (

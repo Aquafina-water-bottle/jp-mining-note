@@ -1,7 +1,8 @@
 import { LOGGER } from './logger';
 import { compileOpts } from './consts';
-import { addOnShownHook, BASE_DOCS_URL, type CardSide } from './utils';
+import { addOnShownHook, BASE_DOCS_URL, playAudio, isMobile, type AudioId, type CardSide } from './utils';
 import { fieldsAllFilled, fieldsAllEmpty } from './fields';
+import { getOption } from './options';
 
 import { newKeybinds } from './modules/keybinds';
 import { MainCardUtils } from './modules/mainCardUtils';
@@ -55,6 +56,37 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
       LOGGER.error('Javascript handler error: ' + errorEvent.reason);
     }
   };
+
+
+  // ==========================================================================
+  // = audio playing =
+  // ==========================================================================
+
+
+  // Checks for mobile because at least on Android, audio playback won't work unless
+  // onShownHook is used. It'll pretty much freeze the card if attempted...
+  function playAudioFunc(func: (id: AudioId) => void, id: AudioId) {
+    if (isMobile()) {
+      addOnShownHook(() => { func(id) });
+    } else {
+      // Ideally, we would want to play the function
+      func(id);
+    }
+
+  }
+
+  if (cardSide === 'front') {
+    playAudioFunc(playAudio, "pa_silence_audio")
+  } else { // back side
+    // NOTE: this is definitely a bit of a hack, because the first audio still attempts to play
+    // immediately after the card load, meaning the word audio maybe repeated.
+    const audioPlaybackMode = getOption("audioPlaybackMode")
+    if (audioPlaybackMode == "sentence") {
+      playAudioFunc(playAudio, "sentence_audio")
+    } else if (audioPlaybackMode == "word") {
+      playAudioFunc(playAudio, "word_audio")
+    }
+  }
 
   // ==========================================================================
   // = sanity checks =

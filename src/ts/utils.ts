@@ -461,3 +461,15 @@ export function addOnShownHook(callback: Callback) {
     LOGGER.debug("(playSilence) onShownHook is invalid or doesn't exist");
   }
 }
+
+export type AudioId = "pa_silence_audio" | "sentence_audio" | "word_audio"
+
+// plays the silence audio only if the pa_silence_audio ID exists somewhere in the HTML.
+export async function playAudio(id: AudioId) {
+  let ele = document.querySelector(
+    `#${id} .soundLink, #${id} .replaybutton`
+  );
+  if (ele) {
+    (ele as HTMLAnchorElement).click();
+  }
+}

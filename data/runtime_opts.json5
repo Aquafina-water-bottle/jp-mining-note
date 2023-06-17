@@ -7,6 +7,18 @@
 
   "clickCardRevealSentenceOnBackSide": true,
 
+  // Available options: "default", "sentence", "word"
+  // - "default": Nothing is done by the card. Audio playback follows your Anki settings.
+  // - "sentence": Only plays the sentence.
+  // - "word": Only plays the word.
+  //
+  // NOTE: This is specifically for audio playback on the back side of the card.
+  //   The audio playback on the front side of the card cannot be specified globally.
+  // Hint: If you want audio at the front of your card, fill the `IsAudioCard` field.
+  // WARNING: If Anki is set to auto-play audio, then the first audio usually gets played
+  //   before the javascript of this note runs, meaning that the first bit of the first audio file
+  //   is usually heard before the desired audio is heard.
+  "audioPlaybackMode": "default",
 
   // ==========================================================================
   // = logger =

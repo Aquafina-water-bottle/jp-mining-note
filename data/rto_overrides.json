@@ -4,6 +4,23 @@
     "resultTrue": true,
     "resultFalse": false
   },
+  "audioPlaybackMode": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "pa_sent"
+    },
+    "resultTrue": "sentence",
+    "resultFalse": {
+      "type": "cardType",
+      "args": {
+        "op": "===",
+        "cardType": "cloze_deletion"
+      },
+      "resultTrue": "sentence",
+      "resultFalse": "default"
+    }
+  },
   "sentenceParser.quotes.quoteOpen": {
     "type": "cardType",
     "args": {

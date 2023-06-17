@@ -2,6 +2,7 @@
   "enableAnkiconnectFeatures": true,
   "hybridSentenceOpenOnPlaySentence": true,
   "clickCardRevealSentenceOnBackSide": true,
+  "audioPlaybackMode": "default",
   "logger.debugLevel": 6,
   "logger.toConsole": true,
   "logger.debugConsoleLevel": 3,

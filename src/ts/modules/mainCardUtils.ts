@@ -43,20 +43,6 @@ export class MainCardUtils extends RunnableModule {
     }
   }
 
-  playSilenceOnLoad() {
-    async function playSilence() {
-      let elem = document.querySelector(
-        '#pa_silence_audio .soundLink, #pa_silence_audio .replaybutton'
-      );
-      if (elem) {
-        console.log('(playSilence) Clicking on silence file');
-        (elem as HTMLAnchorElement).click();
-        console.log('(playSilence) Clicked on silence file');
-      }
-    }
-    addOnShownHook(playSilence);
-  }
-
   main() {
     addKeybindFunc('sentenceKeybinds', this.sentenceKeybinds);
 
@@ -85,30 +71,6 @@ export class MainCardUtils extends RunnableModule {
           toggleHighlightWord();
         };
       }
-
-      // auto-plays silence
-      this.playSilenceOnLoad();
-      //if (isAndroid()) {
-      //  // for some reason, without the delay, it freezes the entire card
-      //  // so the front side no longer loads :(
-      //  // I'm guessing it's some weird race condition happening
-      //  //setTimeout(() => {
-      //  //  this.playSilence();
-      //  //}, 500); // hopefully half a second is long enough...
-
-      //  //if (getCardSide() === "front") {
-      //  //  this.logger.warn("playing sentence audio");
-      //  //  let elem = document.querySelector("#sentence_audio .soundLink, #sentence_audio .replaybutton");
-      //  //  if (elem) {
-      //  //    (elem as HTMLAnchorElement).click();
-      //  //  }
-      //  //  this.logger.warn("played sentence audio");
-      //  //}
-
-      //} else {
-      //  // plays it instantly because why not
-      //  this.playSilence()
-      //}
     }
   }
 }
