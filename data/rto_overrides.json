@@ -50,5 +50,14 @@
     "type": "isMobile",
     "resultTrue": 1,
     "resultFalse": 4
+  },
+  "blockquotes.collapsePrimaryDefinition": {
+    "type": "cardType",
+    "args": {
+      "op": "===",
+      "cardType": "cloze_deletion"
+    },
+    "resultTrue": true,
+    "resultFalse": false
   }
 }

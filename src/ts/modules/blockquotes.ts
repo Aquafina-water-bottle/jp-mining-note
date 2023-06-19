@@ -1,6 +1,7 @@
 import { cardIsNew } from '../isNew';
 import { RunnableModule } from '../module';
 import { checkOptTags, getOption } from '../options';
+import {getViewportWidth} from '../reflow';
 import { getTags } from '../utils';
 
 type EntryId =
@@ -21,7 +22,7 @@ const ENTRIES = [
     entryId: 'primary-definition',
     buttonId: 'folder_tab_button_primary_def',
     inputId: 'folder_tab_input_primary_def',
-    checkboxTextId: 'folder_tab_text_primary_def',
+    checkboxTextId: 'folder_tab_text_primary_def', // this doesn't exist!
   } as const,
   {
     optionId: 'secondaryDefinition',
@@ -398,7 +399,19 @@ export class Blockquotes extends RunnableModule {
 
     // note that the default options specifically disables this on non-mobile devices! (VW >= 620)
     if (getOption('blockquotes.folderTab.enabled')) {
+      // ASSUMPTION: if this is enabled, then we never collapse the primary definition.
       this.populateFolderTab();
+    } else if (getOption("blockquotes.collapsePrimaryDefinition")) {
+      const wrapper = document.getElementById("primary_definition_details_wrapper");
+      if (wrapper !== null) {
+        wrapper.classList.toggle("primary-def-open", false);
+      }
+      const defDetails = document.getElementById("primary_definition_details");
+      if (defDetails !== null) {
+        if (defDetails.hasAttribute("open")) {
+          defDetails.removeAttribute('open');
+        }
+      }
     }
 
     if (getOption('blockquotes.simplifyDefinitions.enabled')) {

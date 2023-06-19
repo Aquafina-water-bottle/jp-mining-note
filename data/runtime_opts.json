@@ -117,7 +117,7 @@
     "jpmn-quote-disp-unquoted-right-shifted"
   ],
   "sentenceParser.multi.quotes.displayMode.quoted": "block",
-  "sentenceParser.multi.quotes.displayMode.unquoted": "no-indent",
+  "sentenceParser.multi.quotes.displayMode.unquoted": "right-shifted",
   "sentenceParser.removeFinalPeriod.validPeriods": "\uff61\u3002\uff0e\\.",
   "sentenceParser.removeFinalPeriod.fullSent.quoted": true,
   "sentenceParser.removeFinalPeriod.fullSent.unquoted": false,
@@ -324,6 +324,7 @@
   "checkDuplicateKey.enabled": true,
   "blockquotes.enabled": true,
   "blockquotes.hideEmpty": true,
+  "blockquotes.collapsePrimaryDefinition": false,
   "blockquotes.open.enabled": false,
   "blockquotes.open.primaryDefinition": false,
   "blockquotes.open.secondaryDefinition": false,

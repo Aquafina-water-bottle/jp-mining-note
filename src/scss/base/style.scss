@@ -2052,6 +2052,10 @@ code {
   margin: 0.5em 0 0 0;
 }
 
+#primary_definition_details.glossary-details {
+  margin-top: 0;
+}
+
 .glossary-blockquote--hide-first-line .glossary-text ol li {
   .dict-group__tag-list {
     display: none;
@@ -2207,6 +2211,12 @@ code {
   .glossary-primary-definition__wrapper {
     flex-direction: column-reverse;
   }
+}
+
+
+/* Whether the primary definition is collapsed or not */
+.primary-def-open > details.glossary-details > summary {
+  display: none;
 }
 
 

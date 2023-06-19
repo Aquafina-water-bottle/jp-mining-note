@@ -131,29 +131,33 @@ class Config:
         """
         should be the compile option equivalent of runtime option values,
         just a lot more limited
+
+        NOTE: does NOT work with consts.ts!!!
+        Removing this feature for now since it seems impossible to support with recompiling for
+        EACH card type + side, which severly increases build time...
         """
-        if (
-            self.card_info is not None
-            and isinstance(item, dict)
-            and (item_type := item.get("_type", None)) is not None
-        ):
-            print("BRO", item_type)
-            if item_type == "cardType":
-                if item["args"]["cardType"] == self.card_info("card-type").item():
-                    key = "resultTrue"
-                else:
-                    key = "resultFalse"
-                return self.item_opt_value(item[key])
-            elif item_type == "cardSide":
-                if item["args"]["cardSide"] == self.card_info("card-side").item():
-                    key = "resultTrue"
-                else:
-                    key = "resultFalse"
-                return self.item_opt_value(item[key])
-            else:
-                raise RuntimeError(f"invalid type: {item_type} on item {item}")
-        else:
-            return item
+        # if (
+        #     self.card_info is not None
+        #     and isinstance(item, dict)
+        #     and (item_type := item.get("_type", None)) is not None
+        # ):
+        #     if item_type == "cardType": # TODO: operators? ==, !=, etc.
+        #         if item["args"]["cardType"] == self.card_info("card-type").item():
+        #             key = "resultTrue"
+        #         else:
+        #             key = "resultFalse"
+        #         return self.item_opt_value(item[key])
+        #     elif item_type == "cardSide":
+        #         if item["args"]["cardSide"] == self.card_info("card-side").item():
+        #             key = "resultTrue"
+        #         else:
+        #             key = "resultFalse"
+        #         return self.item_opt_value(item[key])
+        #     else:
+        #         raise RuntimeError(f"invalid type: {item_type} on item {item}")
+        # else:
+        #     return item
+        return item
 
     def item(self, javascript=False) -> Any:
         data = self.item_opt_value(self.data)

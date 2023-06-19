@@ -182,16 +182,20 @@ and must use `./install.py --update`.
 
 
 <details>
-<summary> Pre-release 10 </summary>
+<summary> Pre-release 11 </summary>
 
 - **Features (Breaking)**:
     - Removed `tooltips.sortMethod` (no longer a planned feature, moved to github issue #TODO)
+    - Removed `websocketUtils` (been deprecated for a while and is now properly removed)
+    - Removed `kanjHover.activateOn` runtime option (the only other available value lags the card quite a bit)
+    - Removed `tooltips.query.nonNew.hidden` (now combined with `tooltips.query.nonNew.removed`) due to code bloat for a not very useful feature
 
 - **Features**:
-    - TODO
+    - Made info circle mobile dialog togglable with `infoCircleUtils.mobileDialog` (and fallback to the default if JS fails)
+    - Autoplayed audio on the backside of the card is now togglable
 
 - **Fixes**:
-    - TODO
+    - AnkiConnect now uses `127.0.0.1` instead of `localhost` to workaround a performance issue on Windows + Python
 
 </details>
 

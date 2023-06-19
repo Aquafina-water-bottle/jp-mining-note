@@ -378,7 +378,8 @@
   //  |  えええええええ  |
   //  |「ああああああ」  |
   "sentenceParser.multi.quotes.displayMode.quoted": "block",
-  "sentenceParser.multi.quotes.displayMode.unquoted": "no-indent",
+  //"sentenceParser.multi.quotes.displayMode.unquoted": "no-indent",
+  "sentenceParser.multi.quotes.displayMode.unquoted": "right-shifted",
 
 
 
@@ -891,6 +892,10 @@
   // If this is set to false, the blockquote text is greyed out instead.
   "blockquotes.hideEmpty": true,
 
+  // OVERWRITTEN
+  "blockquotes.collapsePrimaryDefinition": false,
+
+
   // Automatically open blockquotes if specified.
   "blockquotes.open.enabled": false,
   "blockquotes.open.primaryDefinition": false,
@@ -910,6 +915,7 @@
   // OVERWRITTEN in rto_overrides.json
   // You likely don't want to change this.
   // This simply allows the javascript to run at the proper screen resolution.
+  // ASSUMPTION: if this is enabled, then we never collapse the primary definition.
   "blockquotes.folderTab.enabled": true,
 
   // possible options:
