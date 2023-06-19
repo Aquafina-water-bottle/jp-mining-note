@@ -849,7 +849,7 @@ def move_runtime_options_file_to_original():
 
 
 # TODO deprecated, remove for 0.12.0.0 release
-#def replace_runtime_options_file_anki():
+# def replace_runtime_options_file_anki():
 #    root_folder = utils.get_root_folder()
 #    backup_folder = os.path.join(
 #        root_folder, "user_files", "backup", utils.get_time_str()
@@ -979,7 +979,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     add_fields,
     set_font_sizes,
     set_fonts_to_key_font,
-    #replace_runtime_options_file_anki,  # TODO deprecated, remove for 0.12.0.0 release
+    # replace_runtime_options_file_anki,  # TODO deprecated, remove for 0.12.0.0 release
     replace_runtime_options_file,
     fill_field_if_hiragana,
     get_new_due_cards,
@@ -1006,7 +1006,9 @@ def get_args(public_functions: list[Callable], args: Optional[list[str]] = None)
 
         if f in FUNC_KWARGS:
             for arg, (ty, default) in FUNC_KWARGS[f].items():
-                subparser.add_argument("--" + arg.replace("_", "-"), type=ty, default=default)
+                subparser.add_argument(
+                    "--" + arg.replace("_", "-"), type=ty, default=default
+                )
 
     if args is None:
         return parser.parse_args()

@@ -24,9 +24,7 @@ import { cardIsNew } from '../isNew';
 import { type MobilePopup } from '../mobilePopup';
 import { type CardCache } from './cardCache';
 
-type WordIndicatorsCategoryID =
-  | 'nonNew.default'
-  | 'new.default';
+type WordIndicatorsCategoryID = 'nonNew.default' | 'new.default';
 
 const wordIndicatorCardCacheKey = 'WordIndicators.wordIndicatorCardCacheKey';
 const wordIndicatorsCardResultCacheKey =

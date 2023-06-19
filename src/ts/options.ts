@@ -379,7 +379,6 @@ export function checkOptTags(
         }
       }
     }
-
   }
   return undefined;
 }

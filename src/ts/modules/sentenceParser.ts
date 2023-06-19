@@ -467,8 +467,8 @@ export class SentenceParser extends RunnableModule {
         }
 
         // marks the base sentence as a multi sentence (mostly for optional styling purposes)
-        const multiSentCls = "multi-sentence"
-        sent.base.classList.toggle(multiSentCls, true)
+        const multiSentCls = 'multi-sentence';
+        sent.base.classList.toggle(multiSentCls, true);
 
         sent.base.innerHTML = ''; // should remove all quotes
         for (const multiSent of multiSents) {

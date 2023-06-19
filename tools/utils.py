@@ -106,7 +106,9 @@ class Config:
     and to provide ease-of-access methods to access chains of key/value pairs
     """
 
-    def __init__(self, data: Any, path: list[int | str] = [], card_info: Optional[Config] = None):
+    def __init__(
+        self, data: Any, path: list[int | str] = [], card_info: Optional[Config] = None
+    ):
         self.data = data
         self.path = copy.deepcopy(path)
         self.card_info = card_info

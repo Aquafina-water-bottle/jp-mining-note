@@ -131,5 +131,3 @@ def get_expected_fields(version_str: Optional[str] = None) -> list[str]:
     expected_fields = get_version_fields(note_changes, version)
 
     return expected_fields
-
-

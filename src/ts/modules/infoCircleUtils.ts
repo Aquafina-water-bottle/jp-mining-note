@@ -161,9 +161,13 @@ export class InfoCircleUtils extends RunnableModule {
       this.infoCirc?.classList.toggle(infoCircHoverColor, false);
     }
 
-    if (getViewportWidth() < compileOpts['breakpoints.width.combinePicture'] && getOption("infoCircleUtils.mobileDialog")) {
-      document.getElementById("jpmn")?.classList.toggle("js-info-circle-tooltip-use-dialog", true)
+    if (
+      getViewportWidth() < compileOpts['breakpoints.width.combinePicture'] &&
+      getOption('infoCircleUtils.mobileDialog')
+    ) {
+      document
+        .getElementById('jpmn')
+        ?.classList.toggle('js-info-circle-tooltip-use-dialog', true);
     }
-
   }
 }

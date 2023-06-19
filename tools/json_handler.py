@@ -11,12 +11,13 @@ class JsonHandler:
 
         self.pyj5 = None
 
-        if read_json5: # THIS MAY ERROR, but we let it error
+        if read_json5:  # THIS MAY ERROR, but we let it error
             import pyjson5 as pyj5
+
             self.pyj5 = pyj5
 
     def _get_file_data(self, json_file_path: str, json5_file_path: str):
-        if self.read_json5: # THIS MAY ERROR, but we let it error
+        if self.read_json5:  # THIS MAY ERROR, but we let it error
             with open(json5_file_path, encoding="utf-8") as f:
                 data = self.pyj5.load(f)
             if self.emit_json:
@@ -47,7 +48,7 @@ class JsonHandler:
         return self._get_file_data(json_file_path, json5_file_path)
 
     def read_string(self, json_str: str):
-        if self.read_json5: # THIS MAY ERROR, but we let it error
+        if self.read_json5:  # THIS MAY ERROR, but we let it error
             return self.pyj5.loads(json_str)
 
         return json.loads(json_str)

@@ -34,7 +34,7 @@ export function addKeybindFunc(key: string, func: KeybindFunc) {
 function constructBaseFunc(): KeybindFunc {
   function _baseFunc(e: KeyboardEvent) {
     if (hasKey(e, getOption('keybinds.playWordAudio'))) {
-      playAudio("word_audio")
+      playAudio('word_audio');
     }
 
     if (hasKey(e, getOption('keybinds.playSentenceAudio'))) {
@@ -53,7 +53,7 @@ function constructBaseFunc(): KeybindFunc {
       ) {
         hybridClick();
       } else {
-        playAudio("sentence_audio")
+        playAudio('sentence_audio');
       }
     }
 

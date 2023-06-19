@@ -340,7 +340,6 @@ export class Tooltips extends Module {
     return `-"Key:${key}" "note:${noteName}" "card:${cardTypeName}"`;
   }
 
-
   getQuery(type: 'new' | 'nonNew') {
     const base = this.getOption(`tooltips.query.${type}.base`);
     const removed = this.getOption(`tooltips.query.${type}.removed`);

@@ -676,7 +676,7 @@ export class AutoPitchAccent extends RunnableModule {
     return str;
   }
 
-  getPAColorTag(tags: readonly string[]): PAGroup | null | "none" {
+  getPAColorTag(tags: readonly string[]): PAGroup | null | 'none' {
     for (const ct of Object.keys(COLOR_TAGS)) {
       if (tags.includes(ct)) {
         return COLOR_TAGS[ct as keyof typeof COLOR_TAGS];
@@ -754,7 +754,7 @@ export class AutoPitchAccent extends RunnableModule {
     if (this.getOption('autoPitchAccent.coloredPitchAccent.enabled')) {
       if (this.attemptGlobalColor) {
         const paColorTag = this.getPAColorTag(tags);
-        if (paColorTag === "none") {
+        if (paColorTag === 'none') {
           // DO NOTHING
         } else if (paColorTag !== null) {
           this.paintDisplay(paColorTag);

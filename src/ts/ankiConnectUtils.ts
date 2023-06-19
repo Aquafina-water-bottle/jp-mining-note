@@ -38,7 +38,6 @@ export type CardInfo = {
   readonly mod: number;
 };
 
-
 export type AnkiConnectAction = {
   action: string;
   version: number;

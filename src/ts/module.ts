@@ -23,7 +23,6 @@ export type ModuleId =
   | 'blockquotes'
   | 'refreshCard';
 
-
 type OptionsSubset = Partial<O>;
 
 export abstract class Module {

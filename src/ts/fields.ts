@@ -1,5 +1,5 @@
 import { LOGGER } from './logger';
-import { fields } from './consts'
+import { fields } from './consts';
 
 export type Field = keyof typeof fields;
 

@@ -67,6 +67,7 @@ def get_fields_map(json_handler: JsonHandler) -> dict[str, Any]:
         result[field_json["name"]] = field_json
     return result
 
+
 if __name__ == "__main__":
     json_handler = JsonHandler(True, True)
     print(get_fields(json_handler))

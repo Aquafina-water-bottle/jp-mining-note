@@ -100,7 +100,7 @@ function adjustMobile(
   // I'm not sure how to convert --mobile-border (0.5rem) into pixels.
   // However, 0.5rem === 8px with default settings, so this will be used here for now...
   const border = 8;
-  const imageMargin = 8;  // same with this
+  const imageMargin = 8; // same with this
 
   const cardWidth = VW - border * 2;
   if (dhLeftWidth >= cardWidth) {

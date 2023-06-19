@@ -177,7 +177,9 @@ def copy_from_previous(fields_to_copy_csv: str = "Picture,AdditionalNotes"):
     prev_note_data = invoke("notesInfo", notes=[prev_note_id])
 
     # copies picture & additional notes to current note
-    fields = { f: _field_value(prev_note_data, f) for f in fields_to_copy_csv.split(",") },
+    fields = (
+        {f: _field_value(prev_note_data, f) for f in fields_to_copy_csv.split(",")},
+    )
     invoke(
         "updateNoteFields",
         note={
@@ -193,7 +195,9 @@ def copy_from_previous(fields_to_copy_csv: str = "Picture,AdditionalNotes"):
     return curr_note_id
 
 
-def fix_sent_and_freq(fields_to_copy_csv: str = "Frequency,FrequenciesStylized,Sentence,SentenceReading,AltDisplayClozeDeletionCard"):
+def fix_sent_and_freq(
+    fields_to_copy_csv: str = "Frequency,FrequenciesStylized,Sentence,SentenceReading,AltDisplayClozeDeletionCard",
+):
     """
     copies the following from the previous note to current note:
     - Frequency
@@ -206,7 +210,9 @@ def fix_sent_and_freq(fields_to_copy_csv: str = "Frequency,FrequenciesStylized,S
     curr_note_id, prev_note_id = _get_sorted_list()[0:2]
     curr_note_data = invoke("notesInfo", notes=[curr_note_id])
 
-    fields = { f: _field_value(curr_note_data, f) for f in fields_to_copy_csv.split(",") },
+    fields = (
+        {f: _field_value(curr_note_data, f) for f in fields_to_copy_csv.split(",")},
+    )
 
     # copies frequency, sentence, sentence reading to previous note
     invoke(
@@ -256,7 +262,10 @@ FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
         "fields_to_copy_csv": (str, "Picture,AdditionalNotes"),
     },
     fix_sent_and_freq: {
-        "fields_to_copy_csv": (str, "Frequency,FrequenciesStylized,Sentence,SentenceReading,AltDisplayClozeDeletionCard"),
+        "fields_to_copy_csv": (
+            str,
+            "Frequency,FrequenciesStylized,Sentence,SentenceReading,AltDisplayClozeDeletionCard",
+        ),
     },
 }
 
@@ -318,7 +327,7 @@ def main():
 
     if "func" in args:
         func_args = vars(args).copy()
-        func_args.pop("enable_gui_browse") # not a function argument!
+        func_args.pop("enable_gui_browse")  # not a function argument!
 
         func = func_args.pop("func")
         note_id = func(**func_args)
