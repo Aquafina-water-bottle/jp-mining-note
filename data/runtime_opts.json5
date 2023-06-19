@@ -929,6 +929,12 @@
 
   "blockquotes.simplifyDefinitions.enabled": false,
 
+  // if blockquotes.simplifyDefinitions.enabled is 'true', then the following control
+  // precisely whether the simplifying definition is enabled or not for each block.
+  "blockquotes.simplifyDefinitions.primaryDefinition.enabled": true,
+  "blockquotes.simplifyDefinitions.secondaryDefinition.enabled": true,
+  "blockquotes.simplifyDefinitions.extraDefinitions.enabled": true,
+
   // valid options:
   // "show", "first-line", "extra-text", "tags", "none"
   // "show": force show the first line, including tags

@@ -341,6 +341,9 @@
   "blockquotes.folderTab.mode": "unique",
   "blockquotes.folderTab.showDotWhenEmpty": false,
   "blockquotes.simplifyDefinitions.enabled": false,
+  "blockquotes.simplifyDefinitions.primaryDefinition.enabled": true,
+  "blockquotes.simplifyDefinitions.secondaryDefinition.enabled": true,
+  "blockquotes.simplifyDefinitions.extraDefinitions.enabled": true,
   "blockquotes.simplifyDefinitions.hideFirstLineMode": "first-line",
   "blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode": {
     "JMdict (English)": "none",

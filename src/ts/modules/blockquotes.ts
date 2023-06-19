@@ -364,21 +364,29 @@ export class Blockquotes extends RunnableModule {
       'blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode'
     );
 
-    this.parseFirstLine(
-      'primary_definition',
-      this.getParseFirstLineMode('primaryDefinition'),
-      dictsOverride
-    );
-    this.parseFirstLine(
-      'secondary_definition_details',
-      this.getParseFirstLineMode('secondaryDefinition'),
-      dictsOverride
-    );
-    this.parseFirstLine(
-      'extra_definitions_details',
-      this.getParseFirstLineMode(null),
-      dictsOverride
-    );
+    if (getOption("blockquotes.simplifyDefinitions.primaryDefinition.enabled")) {
+      this.parseFirstLine(
+        'primary_definition',
+        this.getParseFirstLineMode('primaryDefinition'),
+        dictsOverride
+      );
+    }
+
+    if (getOption("blockquotes.simplifyDefinitions.secondaryDefinition.enabled")) {
+      this.parseFirstLine(
+        'secondary_definition_details',
+        this.getParseFirstLineMode('secondaryDefinition'),
+        dictsOverride
+      );
+    }
+
+    if (getOption("blockquotes.simplifyDefinitions.extraDefinitions.enabled")) {
+      this.parseFirstLine(
+        'extra_definitions_details',
+        this.getParseFirstLineMode(null),
+        dictsOverride
+      );
+    }
 
     const removeListMode = getOption(
       'blockquotes.simplifyDefinitions.removeListMode'
