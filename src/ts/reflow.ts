@@ -199,7 +199,7 @@ function resetProperties(
 }
 
 /*
- * adjust sizes of various elements within the word-img-box
+ * adjust sizes of various elements within the word image box
  * - can be called with refresh card
  */
 export function adjustElements(

@@ -1,89 +1,45 @@
 {# impl #}
 
-{% call IF("IsHoverCard") -%}
-  {{- TRANSLATOR.get('card-type-main-hover') -}}
+
+{% call IF("IsAudioCard") -%}
+  {{- TRANSLATOR.get('card-type-main-audio') -}}
   {{- TRANSLATOR.get('card-type-open-bracket') -}}
 
-  {%- call IF("IsHintCard") -%}
-    {{- TRANSLATOR.get('card-type-main-hint') -}}
+  {%- call IF("IsSentenceCard") -%}
+    {{- TRANSLATOR.get('card-type-main-sentence') -}}
   {%- endcall -%}
-
-  {%- call IF("IsTargetedSentenceCard") -%}
-    {{- TRANSLATOR.get('card-type-main-tsc') -}}
+  {%- call IFNOT("IsSentenceCard") -%}
+    {{- TRANSLATOR.get('card-type-main-word') -}}
   {%- endcall -%}
-
-  {%- call IFNOT("IsTargetedSentenceCard") -%}
-    {%- call IF("IsSentenceCard") -%}
-      {{- TRANSLATOR.get('card-type-main-sentence') -}}
-    {%- endcall -%}
-    {%- call IFNOT("IsSentenceCard") -%}
-      {{- TRANSLATOR.get('card-type-main-word') -}}
-    {%- endcall -%}
-
-  {%- endcall -%} {# NOT IsTargetedSentenceCard #}
 
   {{- TRANSLATOR.get('card-type-close-bracket') -}}
+{% endcall -%}
 
-{%- endcall -%}
+{% call IFNOT("IsAudioCard") -%}
 
-
-{%- call IFNOT("IsHoverCard") -%}
-
-  {%- call IF("IsClickCard") -%}
-    {{- TRANSLATOR.get('card-type-main-click') -}}
+  {% call IF("IsSentenceFirstCard") -%}
+    {{- TRANSLATOR.get('card-type-main-sentence-first') -}}
     {{- TRANSLATOR.get('card-type-open-bracket') -}}
-
-    {%- call IF("IsHintCard") -%}
-      {{- TRANSLATOR.get('card-type-main-hint') -}}
-    {%- endcall -%}
 
     {%- call IF("IsTargetedSentenceCard") -%}
       {{- TRANSLATOR.get('card-type-main-tsc') -}}
     {%- endcall -%}
-
     {%- call IFNOT("IsTargetedSentenceCard") -%}
-      {%- call IF("IsSentenceCard") -%}
-        {{- TRANSLATOR.get('card-type-main-sentence') -}}
-      {%- endcall -%}
-      {%- call IFNOT("IsSentenceCard") -%}
-        {{- TRANSLATOR.get('card-type-main-word') -}}
-      {%- endcall -%}
-
-    {%- endcall -%} {# NOT IsTargetedSentenceCard #}
+      {{- TRANSLATOR.get('card-type-main-word') -}}
+    {%- endcall -%}
 
     {{- TRANSLATOR.get('card-type-close-bracket') -}}
-  {%- endcall -%}
+  {% endcall -%}
 
-  {%- call IFNOT("IsClickCard") -%}
+  {% call IFNOT("IsSentenceFirstCard") -%}
 
-    {%- call IF("IsHintCard") -%}
-      {{- TRANSLATOR.get('card-type-main-hint') -}}
+    {% call IF("IsHoverCard") -%}
+      {{- TRANSLATOR.get('card-type-main-hover') -}}
+      {{- TRANSLATOR.get('card-type-open-bracket') -}}
 
-      {%- call IF("IsTargetedSentenceCard") -%}
-        {%- call IF("IsSentenceCard") -%}
-          {# hint cards become a TSC if both IsTargetedSentenceCard and IsSentenceCard are filled #}
-          {{- TRANSLATOR.get('card-type-main-tsc') -}}
-        {%- endcall -%}
-
-        {%- call IFNOT("IsSentenceCard") -%}
-          {# IsTargetedSentenceCard by itself is still a word #}
-          {{- TRANSLATOR.get('card-type-main-word') -}}
-        {%- endcall -%}
+      {%- call IF("IsHintCard") -%}
+        {{- TRANSLATOR.get('card-type-main-hint') -}}
       {%- endcall -%}
-
-      {%- call IFNOT("IsTargetedSentenceCard") -%}
-        {%- call IF("IsSentenceCard") -%}
-          {{- TRANSLATOR.get('card-type-main-sentence') -}}
-        {%- endcall -%}
-
-        {%- call IFNOT("IsSentenceCard") -%}
-          {{- TRANSLATOR.get('card-type-main-word') -}}
-        {%- endcall -%}
-      {%- endcall -%}
-
-    {%- endcall -%} {# IS IsHintCard #}
-
-    {%- call IFNOT("IsHintCard") -%}
 
       {%- call IF("IsTargetedSentenceCard") -%}
         {{- TRANSLATOR.get('card-type-main-tsc') -}}
@@ -96,13 +52,94 @@
         {%- call IFNOT("IsSentenceCard") -%}
           {{- TRANSLATOR.get('card-type-main-word') -}}
         {%- endcall -%}
+
       {%- endcall -%} {# NOT IsTargetedSentenceCard #}
 
-    {%- endcall -%} {# NOT IsHintCard #}
+      {{- TRANSLATOR.get('card-type-close-bracket') -}}
 
-  {%- endcall -%} {# NOT IsClickCard #}
+    {%- endcall -%}
 
-{%- endcall -%} {# NOT IsHoverCard #}
+
+    {%- call IFNOT("IsHoverCard") -%}
+
+      {%- call IF("IsClickCard") -%}
+        {{- TRANSLATOR.get('card-type-main-click') -}}
+        {{- TRANSLATOR.get('card-type-open-bracket') -}}
+
+        {%- call IF("IsHintCard") -%}
+          {{- TRANSLATOR.get('card-type-main-hint') -}}
+        {%- endcall -%}
+
+        {%- call IF("IsTargetedSentenceCard") -%}
+          {{- TRANSLATOR.get('card-type-main-tsc') -}}
+        {%- endcall -%}
+
+        {%- call IFNOT("IsTargetedSentenceCard") -%}
+          {%- call IF("IsSentenceCard") -%}
+            {{- TRANSLATOR.get('card-type-main-sentence') -}}
+          {%- endcall -%}
+          {%- call IFNOT("IsSentenceCard") -%}
+            {{- TRANSLATOR.get('card-type-main-word') -}}
+          {%- endcall -%}
+
+        {%- endcall -%} {# NOT IsTargetedSentenceCard #}
+
+        {{- TRANSLATOR.get('card-type-close-bracket') -}}
+      {%- endcall -%}
+
+      {%- call IFNOT("IsClickCard") -%}
+
+        {%- call IF("IsHintCard") -%}
+          {{- TRANSLATOR.get('card-type-main-hint') -}}
+
+          {%- call IF("IsTargetedSentenceCard") -%}
+            {%- call IF("IsSentenceCard") -%}
+              {# hint cards become a TSC if both IsTargetedSentenceCard and IsSentenceCard are filled #}
+              {{- TRANSLATOR.get('card-type-main-tsc') -}}
+            {%- endcall -%}
+
+            {%- call IFNOT("IsSentenceCard") -%}
+              {# IsTargetedSentenceCard by itself is still a word #}
+              {{- TRANSLATOR.get('card-type-main-word') -}}
+            {%- endcall -%}
+          {%- endcall -%}
+
+          {%- call IFNOT("IsTargetedSentenceCard") -%}
+            {%- call IF("IsSentenceCard") -%}
+              {{- TRANSLATOR.get('card-type-main-sentence') -}}
+            {%- endcall -%}
+
+            {%- call IFNOT("IsSentenceCard") -%}
+              {{- TRANSLATOR.get('card-type-main-word') -}}
+            {%- endcall -%}
+          {%- endcall -%}
+
+        {%- endcall -%} {# IS IsHintCard #}
+
+        {%- call IFNOT("IsHintCard") -%}
+
+          {%- call IF("IsTargetedSentenceCard") -%}
+            {{- TRANSLATOR.get('card-type-main-tsc') -}}
+          {%- endcall -%}
+
+          {%- call IFNOT("IsTargetedSentenceCard") -%}
+            {%- call IF("IsSentenceCard") -%}
+              {{- TRANSLATOR.get('card-type-main-sentence') -}}
+            {%- endcall -%}
+            {%- call IFNOT("IsSentenceCard") -%}
+              {{- TRANSLATOR.get('card-type-main-word') -}}
+            {%- endcall -%}
+          {%- endcall -%} {# NOT IsTargetedSentenceCard #}
+
+        {%- endcall -%} {# NOT IsHintCard #}
+
+      {%- endcall -%} {# NOT IsClickCard #}
+
+    {%- endcall -%} {# NOT IsHoverCard #}
+
+  {% endcall -%} {# NOT IsSentenceFirstCard #}
+
+{% endcall -%} {# NOT IsAudioCard  #}
 
 
 
