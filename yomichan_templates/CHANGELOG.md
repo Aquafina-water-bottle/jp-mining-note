@@ -11,6 +11,9 @@ Public facing markers are markers starting with `jpmn` (whereas private markers 
 The Yomichan template version is incremented independently from the jp-mining-note version.
 
 
+## v1.0.7
+- Fixed inline-bold not searching the raw text, leading to incorrect definition selections under rare circumstances
+
 ## v1.0.6
 - Changed the order of dictionary categorization from ignored -> bilingual -> utility, to ignored -> utility -> bilingual
 

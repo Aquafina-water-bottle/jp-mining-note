@@ -1,5 +1,5 @@
 {{~! ============== ORIGINAL YOMICHAN TEMPLATE CODE ABOVE =============== ~}}
-{{~!                               v1.0.6                                 ~}}
+{{~!                               v1.0.7                                 ~}}
 
 {{~!
     ==================
@@ -73,8 +73,14 @@
 
 
 
-{{~! gives the raw glossary as the search string (for searching to see if the selected text
-is a part of a dictionary) ~}}
+{{~!
+    Gives the raw glossary as the search string
+    (for searching to see if the selected text is a part of a dictionary)
+
+    Remember: we should NOT use _jpmn-glossary-single because it preprocesses the text!
+    If the selected text was on the first line and the first line is removed,
+    then using _jpmn-glossary-single will fail to find the selected text!
+~}}
 {{#*inline "_jpmn-glossary-single-search"}}
 
     {{~#scope~}}
@@ -424,7 +430,7 @@ is a part of a dictionary) ~}}
             {{~#each definition.definitions~}}
 
                 {{~#set "rx-match-dict-entry" ~}}
-                    {{~#regexMatch (get "search-selection") "gu"~}}{{~> _jpmn-glossary-single . brief=../brief noDictionaryTag=../noDictionaryTag ~}}{{~/regexMatch~}}
+                    {{~#regexMatch (get "search-selection") "gu"~}}{{~> _jpmn-glossary-single-search . brief=../brief noDictionaryTag=../noDictionaryTag ~}}{{~/regexMatch~}}
                 {{/set~}}
 
                 {{~#if
@@ -1060,7 +1066,7 @@ set to "No grouping". Please set this to "Group term-reading pairs".
                 {{~> _jpmn-selection-uses-glossary . ~}}
             {{~/set~}}
 
-            {{~! not "" <=> is a filled string ~}}
+            {{~! not "" <=> is a filled string, i.e. selection uses glossary ~}}
             {{~#if (op "!==" (get "selection-uses-glossary") "")~}}
 
                 {{~! escape regex ~}}
