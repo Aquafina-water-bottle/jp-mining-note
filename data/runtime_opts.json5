@@ -683,7 +683,6 @@
 
   "kanjiHover.enabled": true,
 
-  // TODO implement (always enabled currently)
   "kanjiHover.searchSentences": true,
 
   "kanjiHover.overrideOptions.tooltips": {

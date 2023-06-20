@@ -353,20 +353,23 @@ export class KanjiHover extends RunnableAsyncModule {
       tooltipBuilder.addSeparator();
     }
 
-    this.addCardsInfoToTooltip(
-      filteredCardsInfo['sent.nonNew'],
-      kanji,
-      tooltipBuilder,
-      true,
-      false
-    );
-    this.addCardsInfoToTooltip(
-      filteredCardsInfo['sent.new'],
-      kanji,
-      tooltipBuilder,
-      true,
-      true
-    );
+    // TODO: show number of sentences / words not shown...
+    if (this.getOption("kanjiHover.searchSentences")) {
+      this.addCardsInfoToTooltip(
+        filteredCardsInfo['sent.nonNew'],
+        kanji,
+        tooltipBuilder,
+        true,
+        false
+      );
+      this.addCardsInfoToTooltip(
+        filteredCardsInfo['sent.new'],
+        kanji,
+        tooltipBuilder,
+        true,
+        true
+      );
+    }
 
     tooltipBuilder.addHoverText(kanji);
     tooltipBuilder.addOnEmptyText(translatorStrs['kanji-not-found']);
