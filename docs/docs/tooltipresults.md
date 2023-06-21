@@ -71,7 +71,7 @@ TODO `--print-notes-only`
 
 - above caches for 8 days (expected that you run this, say, once every saturday)
 - run with `--help` for list of all available flags
-- TODO: MacOS cannot find Anki-Connect???
+- TODO: macOS cannot find Anki-Connect???
 
 
 ## Ignore Cache Results

@@ -74,3 +74,13 @@ I also provide a small list of other popular add-ons that I don't use, but may b
     * [Straight Reward](https://ankiweb.net/shared/info/957961234)
 
 
+---
+
+# Minimalist Mode
+Did you know that Anki comes with a theme that makes the display a lot simpler?
+
+{{ img("Anki Minimalist Mode Example", "assets/anki_minimalist_mode.png") }}
+
+If you like this look, then it can be enabled by heading over to:
+> `Tools` →  `Preferences` →  `Distractions` →  `Minimalist mode`
+

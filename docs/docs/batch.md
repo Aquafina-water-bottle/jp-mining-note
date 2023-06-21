@@ -25,7 +25,7 @@ There are two ways of running batch commands.
         :: Also ensure that you have python 3.9+ installed.
         python tools\batch.py YOUR_BATCH_COMMAND
         ```
-    === "MacOS & Linux"
+    === "macOS & Linux"
         ```bash
         # Ensure you have Anki open, and with Anki-Connect running
         # Also ensure that you have python 3.9+ installed.

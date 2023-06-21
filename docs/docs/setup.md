@@ -90,7 +90,7 @@ There are three ways of installing the note:
         python tools\install.py
         ```
 
-    === "MacOS & Linux"
+    === "macOS & Linux"
 
         ```bash
         git clone "https://github.com/Aquafina-water-bottle/jp-mining-note.git"
@@ -149,7 +149,7 @@ Please check the following in particular:
 
 1. The fonts should match with the above example.
 
-    If the fonts don't match, try restarting Anki.
+    If the fonts don't match, try restarting Anki and/or your computer.
     If the fonts still don't match, the note was likely installed manually.
     Please verify you manually installed the fonts and placed them in the correct folder
     (see steps 3 and 4).

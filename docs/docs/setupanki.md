@@ -36,7 +36,7 @@ you can skip the rest of this section.
 
     -   The official documentation on how to install and upgrade Anki is shown below:
 
-        > [Windows](https://docs.ankiweb.net/platform/windows/installing.html)・[MacOS](https://docs.ankiweb.net/platform/mac/installing.html)・[Linux](https://docs.ankiweb.net/platform/linux/installing.html)
+        > [Windows](https://docs.ankiweb.net/platform/windows/installing.html)・[macOS](https://docs.ankiweb.net/platform/mac/installing.html)・[Linux](https://docs.ankiweb.net/platform/linux/installing.html)
 
         Note that for all three, there are additional sections in the table of contents to the left
         that could be helpful.
@@ -76,26 +76,63 @@ To enable animations, head over to:
 
 # Fixing your Editor Fonts
 
-By default, your editor fonts may not show Japanese characters correctly.
+By default, your editor fonts may be showing Japanese characters using a Chinese font.
+To determine this, compare the 直 character in the 叩き直す example card
+with the following pictures:
 
-- TODO test on 直す card
-- TODO link to TheMoeWay
-- TODO batch command: `set_fonts_to_key_font`
+=== "Japanese (correct)"
+    <figure markdown>
+    {{ img("Example Japanese Font", "assets/takinaosu_font/japanese.png") }}
+    </figure>
+=== "Chinese (incorrect!)"
+    <figure markdown>
+    {{ img("Example Chinese Font", "assets/takinaosu_font/chinese.png") }}
+    </figure>
 
+If you are using a Chinese font, you likely want to switch to using a Japanese font.
+
+??? info "How to fix Chinese Fonts within Anki Card Editor {{CLICKHERE}}"
+
+    {{ img("How to access and change Anki editor fonts", "assets/anki_fix_editor_font.png") }}
+
+    1. Within Anki's card browser, select any JPMN card.
+        You may have to select a deck on the left sidebar.
+    1. Click on the `Fields` tab within the card editor.
+    1. Change the `Editing Font` to a Japanese font.
+
+        If you don't know what Japanese fonts exist, try searching for any of the following
+        ([courtesy of TMW](https://learnjapanese.moe/font/#forcing-japanese-font-in-anki)):
+
+        - IPAexGothic
+        - Meiryo
+        - MS Gothic
+        - Yu Gothic
+        - Hiragino Kaku Gothic Pro
+        - Noto Sans CJK JP Regular
+
+        If you cannot find any of these, you may have to
+        [install a Japanese font](https://learnjapanese.moe/font).
+    1. After finding a correct font, you will have to set all other fields to this same font.
+        This can be done manually, or with the following {{ BATCH_CMD }}:
+        ```aconf
+        set_fonts_to_key_font
+        ```
+        The above batch command sets the font of all fields to the font in the `Key` field.
+
+More info on how to change the font everywhere else can be found [here](https://learnjapanese.moe/font).
 
 ---
 
 
 # Dark Mode
-Although light mode is supported, the recommended theme for this note is dark mode.
-With that being said, changing the theme is completely optional.
+Both light mode and dark mode are supported by this note.
 
 The note automatically adjusts according to Anki's theme.
 To change Anki's theme, head over to:
 > `Tools` →  `Preferences` →  `Basic` →  `Theme (dropdown)`
 
 
-{{ img("install Anki addons", "assets/setupanki/dark_mode.png") }}
+{{ img("install Anki addons", "assets/dark_mode.png") }}
 
 !!! note
     The note's theme currently cannot be forced to be a particular
@@ -249,7 +286,7 @@ and delete both `css` files.
         mklink "C:\Users\USERNAME\AppData\Roaming\Anki2\addons21\{{css_injector_addon_id}}\user_files\editor.css" "C:\Users\USERNAME\AppData\Roaming\Anki2\PROFILENAME\collection.media\_editor.css"
         ```
 
-    === "MacOS"
+    === "macOS"
         {% filter indent(8) -%}
         {{ css_injector_preliminary }}
         {% endfilter %}
@@ -310,7 +347,8 @@ and delete both `css` files.
 !!! warning
     As of writing this (2023/04/28), AJT Japanese is only guaranteed to work on
     Anki versions 2.1.60 and above, because it is no longer maintained on previous versions.
-    If you are using an older version of Anki, please update Anki or do not use this add-on.
+    If you are using an older version of Anki and you want to use this add-on,
+    please update Anki to 2.1.60 or above.
 
 This is an add-on that automatically adds furigana and pitch accents to
 cards upon Yomichan card creation.

@@ -20,7 +20,7 @@ Additionally, there are [many built-in ways](modding.md) to extend the note to s
 
 # Documentation First
 What's the point of having a powerful tool if you don't know how to use it?
-Lots of time and resources have been put into making sure that this note type is well documented
+Lots of time has been spent in order to make sure that this note type is well documented
 and updated so you can use it to the best of your ability.
 
 # Free & Open Source

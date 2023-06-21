@@ -1,19 +1,52 @@
 
 [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious)
+is a user script made for of [mpv](https://mpv.io/), a cross platform media player.
+mpv itself can be used on pretty much anything, including streamed videos.
+However, `mpvacious` was made for downloaded videos,
+and almost certainly does not worked on streamed videos.
 
-TODO
+If you are looking to create cards using streamed videos, I recommend [asbplayer](setupasbplayer.md).
 
 ---
 
 # Installation
 
-<!-- TODO more detailed steps? -->
+Installation steps for mpvacious can be found
+[here](https://github.com/Ajatt-Tools/mpvacious#installation).
 
-Installation steps should be found [here](https://github.com/Ajatt-Tools/mpvacious#installation).
-
-For Windows users, you must install this under your
+You must install this under your
 [mpv scripts folder](https://github.com/mpv-player/mpv/wiki/User-Scripts).
-The `scripts` folder does not exist by default; it must be created manually.
+This `scripts` folder does not exist by default; it must be created manually.
+
+<!--
+For some reason, the standard tree format doesn't show up properly on browsers?
+The dash is shown as two characters instead of one...
+-->
+
+??? example "Expected file structure {{CLICKHERE}}"
+
+    === "Windows"
+        ```
+        C:/Users/Username/AppData/Roaming
+        └─ mpv
+            └─ scripts
+                └─ mpvacious
+                    ├─ ankiconnect.lua
+                    ├─ main.lua
+                    ├─ subs2srs.lua
+                    └─ ...
+        ```
+    === "macOS and Linux"
+        ```
+        ~/.config
+        └─ mpv
+            └─ scripts
+                └─ mpvacious
+                    ├─ ankiconnect.lua
+                    ├─ main.lua
+                    ├─ subs2srs.lua
+                    └─ ...
+        ```
 
 ---
 
@@ -21,8 +54,6 @@ The `scripts` folder does not exist by default; it must be created manually.
 
 You will have to change [mpvacious's configuration](https://github.com/Ajatt-Tools/mpvacious#configuration)
 in order for mpvacious to work with JPMN.
-
-## Creating the configuration
 
 !!! note
     In case nothing works, always make sure to check the
@@ -45,22 +76,25 @@ in order for mpvacious to work with JPMN.
         notepad should work.
         TODO exact steps on creating the text file
     1. Copy/paste the following, and save as `subs2srs.conf`:
-        ```ini
-        # Model names are listed in `Tools -> Manage note types` menu in Anki.
-        model_name=JP Mining Note
 
-        # Field names as they appear in the selected note type.
-        # If you set `audio_field` or `image_field` empty,
-        # the corresponding media file will not be created.
-        sentence_field=Sentence
-        #secondary_field=SentEng  # Not used by the note. This is ignored entirely.
-        audio_field=SentenceAudio
-        image_field=Picture
-        ```
+        ??? example "Example config file {{CLICKHERE}}"
+            ```ini
+            {{ MPVACIOUS_CONF | indent(12) }}
+            ```
+
         Ensure that your file is indeed a .conf file when saved.
         If your file browser says that it is a text file, then
         the file was likely incorrectly saved as `subs2srs.conf.txt`.
         TODO exact instructions on renaming
+
+    ??? example "Expected file structure {{CLICKHERE}}"
+        ```
+        C:/Users/Username/AppData/Roaming
+        └─ mpv
+            └─ script-opts
+                └─ subs2srs.conf
+        ```
+
 
 
 === "Mac / Linux (Terminal)"
@@ -76,43 +110,27 @@ in order for mpvacious to work with JPMN.
 Be sure to restart mpv after changing the config to make sure your configuration is applied.
 
 
-## Other configuration changes
+The example configuration includes plenty of commonly changed settings by default.
+In general, I recommend looking through the
+[example configuration](https://github.com/Ajatt-Tools/mpvacious/blob/master/.github/RELEASE/subs2srs.conf)
+to see if there are other options that you may want to change.
 
-* You may want to increase the picture and audio quality, as it's extremely low by default.
-    I personally use the following:
+---
 
-    ```ini
-    # Sane values are 16k-32k for opus, 64k-128k for mp3.
-    audio_bitrate=32k
+# Card Creation
 
-    # Quality of produced image files. 0 = lowest, 100=highest.
-    #snapshot_quality=15
-    snapshot_quality=50
+To create JPMN cards with mpvacious:
 
-    # Image dimensions
-    # If either (but not both) of the width or height parameters is -2,
-    # the value will be calculated preserving the aspect-ratio.
-    #snapshot_width=-2
-    #snapshot_height=200
-    snapshot_width=800
-    snapshot_height=-2
-    ```
-
-* By default, you can see secondary subs (usually subtitles in your native language)
-    if you hover to the top 15% of the screen. If you don't want to see this, use the following:
-    ```
-    secondary_sub_visibility=auto
-    ```
-
-* You might not want the Anki browser to appear every time you add the card.
-    In that case, use the following:
-    ```
-    disable_gui_browse=yes
-    ```
-
-* In general, I recommend looking through the
-    [example configuration](https://github.com/Ajatt-Tools/mpvacious/blob/master/.github/RELEASE/subs2srs.conf)
-    to see if there are other options that you may want to change.
+- Create a card from Yomichan.
+    The text is usually gotten via a
+    [texthooker](setuptextmedia.md#getting-the-text-to-create-the-cards).
+- Within mpv, navigate to the desired subtitle, and then press ++ctrl+m++.
+    - If you instead want to add audio from multiple subtitles at a time:
+        - Navigate to the beginning subtitle.
+        - Press ++a+c++
+        - Navigate to the ending subtitle.
+        - Press ++m++.
+- Much more can be found under [mpvacious's usage section](https://github.com/Ajatt-Tools/mpvacious#usage).
 
 ---
 
@@ -126,7 +144,6 @@ Be sure to restart mpv after changing the config to make sure your configuration
     [FAQ](faq.md#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field)
     on how to fix it.
 
-* To create cards with mpvacious, first add a card from Yomichan (usually via a texthooker),
-    and then press `ctrl`+`m` in mpv.
+* You have to export the audio as `mp3` if you plan on using AnkiMobile (iOS), or AnkiWeb.
 
 

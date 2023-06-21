@@ -54,7 +54,7 @@ in almost every aspect:
 * They do not require an extension that constantly polls the clipboard.
 
 However, it requires more specialized coordination between programs.
-Fortunately, most common workflows support websockets nowadays.
+Fortunately, most standard workflows support websockets nowadays.
 
 ??? example "Resources <small>(click here)</small>"
     * [**Renji's Texthooker Page**](https://github.com/Renji-XD/texthooker-ui) <small>(recommended)</small>
@@ -151,6 +151,8 @@ Fortunately, most common workflows support websockets nowadays.
 These pages display the hooked content, where the hooked content is communicated
 via automated clipboard (copy/paste) tools.
 Most classic setups documented are for clipboard based texthooker pages.
+If possible, I highly recommend trying out a
+[websocket based texthooker approach](#texthooker-websocket-based) instead.
 
 ??? example "Resources <small>(click here)</small>"
     * [**Clipboard Inserter Redux (Extension)**](https://github.com/Onurtag/clipboard-inserter)
@@ -213,20 +215,27 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
 
 ??? example "Resources <small>(click here)</small>"
     * [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious) (recommended for downloaded videos / if you are using mpv)
-        * Add-on for [MPV](https://mpv.io/), a cross platform media player. Personally tested.
+        * Add-on for [mpv](https://mpv.io/), a cross platform media player. Personally tested.
         * Basically universal codec support since it uses mpv.
         * This addon has capabilities to
             [extract the video clip itself](https://github.com/Ajatt-Tools/mpvacious/pull/78)
             as the form of a gif (autoplayable webp).
+        * **See [here](setupmpvacious.md) for basic setup instructions.**
     * [**asbplayer**](https://github.com/killergerbah/asbplayer) (recommended for streamed sites)
         * Cross platform (chromium) browser video player. Personally tested.
         * Works on video streaming sites, as well as downloaded videos.
-        * Does not require a texthooker: subtitles are displayed on the site itself.
+        * Does not require a texthooker page: subtitles are displayed on the site itself.
         * Codec support is limited, and depends on the browser used.
+        * **See [here](setupasbplayer.md) for basic setup instructions.**
     * [**Animebook**](https://github.com/animebook/animebook.github.io)
         * Cross platform (chromium) browser video player.
-        * Does not require a texthooker: subtitles are displayed on the site itself.
+        * Does not require a texthooker page: subtitles are displayed on the site itself.
         * Codec support is limited, and depends on the browser used.
+        * See [**Cade's sentence mining guide**](https://cademcniven.com/posts/20210703/)
+            for basic setup instructions.
+            Note that the aformentioned guide is not using JPMN.
+            * Contact info: `eminent#8189` <!-- 126903585152827392 -->
+                on {{ PERDITION_SERVER }} or {{ TMW_SERVER }})
     * All of the above require subtitle files to function.
         See
         [here](https://learnjapanese.moe/resources/#subtitles)
@@ -254,19 +263,6 @@ Video content includes streamed content (Youtube, Netflix, etc.) and locally dow
         * WARNING: This is potentially outdated and/or abandoned.
             The most recent commit as of writing (2022/10/19) was done in 2022/01/27.
             This is listed here for completeness only.
-
-??? example "Guides <small>(click here)</small>"
-    * [mikumino's mining workflow](https://www.youtube.com/watch?v=B60cj69MSmA) (asbplayer + jp-mining-note)
-    * [Shiki's mining workflow](https://docs.google.com/document/d/e/2PACX-1vQuEAoZFoJbULZzCJ3_tW7ayT_DcQl9eDlrXMnuPGTwDk62r5fQrXak3ayxBsEgkL85_Z-YY5W4yUom/pub) (asbplayer)
-        * Contact info: `boundary-of-emptiness#3065` <!-- 152563705345867778 -->
-            on the Refold (JP) Discord server
-    * [Tigy01's mining workflow](https://docs.google.com/document/d/e/2PACX-1vTnCEECFTJ_DyBID0uIQ5AZkbrb5ynSmYgkdi6OVyvX-fs9X40btEbpSToTmsct5JzrQJ2e9wcrc6h-/pub) (asbplayer)
-        * Contact info: `Tigy01#1231` <!-- 451194927515172864 -->
-            on the Refold (JP) Discord server
-    * [Brian's "Sentence mining from Netflix and YouTube with asbplayer"](https://soyuz18.notion.site/Sentence-mining-from-Netflix-and-YouTube-with-asbplayer-83a03590cd8349ba81ca10340645b565#92ca8ce0251f4eeba89776950b8cef11)
-    * [Cade's sentence mining guide](https://cademcniven.com/posts/20210703/) (animebook)
-        * Contact info: `eminent#8189` <!-- 126903585152827392 -->
-            on {{ PERDITION_SERVER }} or {{ TMW_SERVER }}
 
 
 

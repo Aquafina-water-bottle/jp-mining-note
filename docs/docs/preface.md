@@ -7,7 +7,8 @@ it would be best to make sure that the note aligns with exactly what you want.
 
 # Why you would NOT want to use jp-mining-note
 - You have an existing setup and are happy with it.
-- You want to study only from pre-made decks.
+- You want to study only from pre-made decks
+    (or are not willing to spend the time to import notes into this template).
 - You want to use this template to study something outside of Japanese.
 - You want an extremely minimal template, with little/no javascript.
 - You do not like its overall layout, and are not willing to customize the note to suit your needs.[^1]
@@ -15,7 +16,7 @@ it would be best to make sure that the note aligns with exactly what you want.
 
 # Why you would want to use jp-mining-note
 <!-- I don't like trying to "sell" people the note. If you like it, you like it. If you don't, you don't. -->
-- It looks pretty cool. :)
+- You agree with [jp-mining-note's philosophy](principles.md).
 
 
 # Alternatives
@@ -23,7 +24,7 @@ There are many, many Anki templates out there in the wild.
 [This page](alternatives.md)
 is my attempt to assemble together some of the the popular and/or interesting card templates.
 
-If you are not satisfied with, or are not interested in using this template,
+If you are not satisfied with this template, or are not interested in using this template,
 feel free to refer to the above list of alternatives.
 Of course, you can always create one from scratch, or modify any of these notes
 to your heart's content.
@@ -41,18 +42,15 @@ The card creation process requires a working instance of Yomichan, Anki-Connect,
 By default, this works on PC (Windows, Mac, Linux), and the instructions shown will be for PC.
 However, with the proper setup, one can also create cards on the following platforms:
 
-TODO update links with correct setup pages:
-
-- [Android](setupyomichan.md#android-setup) (including Android based e-readers such as ONYX BOOX)
-- [Kindle](setupyomichan.md#kindle-setup) (export to PC to create)
+- [Android](setupandroid.md) (including Android based e-readers such as ONYX BOOX)
+- [Kindle](setupkindle.md) (export a list of sentences to the PC to manually create)
 
 I'm not aware of a workflow for iOS that works with Yomichan.
 
 !!! note
-    TODO update this note!!! other card exporters will likely be supported in the future!
-
     JPMN currently requires Yomichan to create the Anki cards.
-    As common as Yomichan is, this dependency to Yomichan can be considered a weakness.
+    As common as Yomichan is, this dependency to Yomichan can be considered a weakness
+    (especially now that Yomichan is no longer getting updates).
 
     There are many popular setups out there that do not use Yomichan
     and instead have their own card exporter,
@@ -60,9 +58,11 @@ I'm not aware of a workflow for iOS that works with Yomichan.
     [JL](https://github.com/rampaa/JL)
     and
     [jidoujisho](https://github.com/lrorpilla/jidoujisho).
-    Although it is likely possible to replicate certain parts of the setup
-    with these card exporters, it is almost guaranteed that select features
-    will be missing.
+
+    It is almost guaranteed that one can create JPMN cards with these card exporters.
+    However, it is also almost guaranteed that various minor features will likely be missing.
+
+    In the future, more workarounds will be developed to work with alternative card exporters.
 
 ## Anki Desktop
 This note supports Anki versions 2.1.50 and above, with
@@ -104,23 +104,23 @@ Excited to take this note on a whirl?
 
 
 [^1]:
-    TODO not point form
-
-    - most smaller things, like colors, font size, etc. can be customized fairly easily
-    - however, customizing the overall layout, i.e. where the image is placed relative to the word,
-        requires a lot more techncial skill
-    - if using a prebuilt theme, requires building, which also requires a bit of technical skill with
-        command line
+    Most minor things, such as colors, font size, etc. can be customized fairly easily with {{C_CSS}}.
+    However, customizing the overall layout
+    (i.e. customizing where the image is placed relative to the word),
+    requires a lot more technical skill.
+    Alternatively, if plan on using a custom theme within the `themes` folder,
+    these require you to build the note, which at least requires basic knowlwedge of command line.
 
 [^2]:
-    TODO not point form
+    In general, this template is a little more fragile than other templates due to its
+    heavy usage of JavaScript.
+    This is combined with updates to Anki and external add-ons.
+    These updates have been known to break a bit more compared to other setups,
+    and usually require some user intervention to deal with (whether it is updating the note,
+    or manually changing some settings outside the note).
+    If something breaks and a fix is released, they will usually be recorded under
+    [Setup Changes](setupchanges.md).
 
-    - in general, this template is a little more fragile than other templates due to heavy usage of javascript
-        - internally attempts to mitigate as much as possible, providing plenty of fallbacks when things fail
-    - updates to anything such as Anki, add-ons, etc. can (and have been known to)
-        break more things than other setups
-        - these things usually require user intervention to deal with
-        - usually recorded under setup changes
-    - updating everything on the template side of things has been smoothlined as much as possible,
-        due to JPMN Manager
+    Note that updating the template itself has been smoothlined as much as possible,
+    due to JPMN Manager.
 

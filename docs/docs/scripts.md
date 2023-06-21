@@ -29,7 +29,7 @@ There are two main hotkeys that this setup introduces:
 
 !!! note
     If you are using Linux, I recommend using [ames](https://github.com/eshrh/ames) instead of ShareX.
-    Unfortunately, I'm not aware of a good solution for MacOS users.
+    Unfortunately, I'm not aware of a good solution for macOS users.
 
 
 ## Feature Summary

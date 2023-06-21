@@ -238,6 +238,9 @@ def define_env_vars(env):
     with open(os.path.join("..", "src", "jp-mining-note", "_jpmn-options.js")) as f:
         runtime_opts_ex = f.read()
 
+    with open(os.path.join("docs", "assets", "setupmpvacious", "subs2srs.conf")) as f:
+        mpvacious_conf = f.read()
+
 
     with open("../version.txt") as f:
         version = f.read().strip()
@@ -248,6 +251,7 @@ def define_env_vars(env):
         "BOTTOM_YOMICHAN": bottom,
         "JPMN_OPTIONS_EXAMPLE": runtime_opts_ex,
         "VERSION": version,
+        "MPVACIOUS_CONF": mpvacious_conf,
         "CHECKED_CHECKBOX": CHECKED_CHECKBOX,
         "UNCHECKED_CHECKBOX": UNCHECKED_CHECKBOX,
         "RegexTableArgs": RegexTableArgs,

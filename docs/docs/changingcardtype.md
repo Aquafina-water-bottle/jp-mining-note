@@ -23,6 +23,7 @@ For example, if you want to set the default card type to be a sentence card:
 * Set `IsSentenceCard` to `1`.
 
 This will set all new cards to be a sentence card by default.
+
 However, what if we don't want *ALL* new cards to be sentence cards?
 With the power of Yomichan handlebars, we can selectively fill fields depending
 on select properties of the target word.
@@ -79,13 +80,13 @@ To do exactly that, do the following:
 
 # Batch Change Card Type
 
-- TODO explanation: may have old cards ported from previous cards, or cards not created by Yomichan
-
+You may want to change the card type of many existing cards all at once.
+For example, you may have cards imported into JPMN,
+or cards that were simply not created by Yomichan in the first place.
 
 !!! warning
     As always, before mass editing your collection, please
     [backup your Anki data](faq.md#how-do-i-backup-my-anki-data).
-
 
 There are three ways of batch changing the card type:
 
@@ -105,9 +106,24 @@ There are three ways of batch changing the card type:
 
 
 ## Batch Change: Is Hiragana
-- hiragana: `fill_field_if_hiragana` batch command
-- reminder: above will affect all cards, create a backup!
-- 
+If you used to have
+[Marv's "Automatic Hint Sentence for Kana Cards"](https://github.com/MarvNC/JP-Resources#anki-automatic-hint-sentence-for-kana-cards)
+setup, you might be interested in replicating that for old cards.
+In order to do so, the `fill_field_if_hiragana` {{ BATCH_CMD }} is provided
+to fill the provided field of all cards that have hiragana-only terms.
+
+For example, the following batch command fills the `IsHintCard`,
+which turns all cards with hiragana-only terms into [Hint Cards](cardtypes.md#hint-cards),
+meaning a hint sentence is shown below the word.
+
+
+```aconf
+fill_field_if_hiragana IsHintCard
+```
+
+If you want to have this be the default for all new cards,
+see [here](#is-hiragana).
+
 
 
 

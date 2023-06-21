@@ -88,7 +88,7 @@ Afterward seeing that page, please view the [final steps](updating.md#final-step
         ```
 
 
-    === "Linux & MacOS"
+    === "Linux & macOS"
         ```bash
         # assuming you are at the root of the repo, i.e. after the following commands:
         #  $ git clone https://github.com/Aquafina-water-bottle/jp-mining-note.git

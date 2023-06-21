@@ -122,31 +122,30 @@ TODO Summarize compile time options and runtime options here
 # Changing the Card Type
 <i><sup>Main Page: [Changing Card Type](changingcardtype.md)</sup></i>
 
-> Fields: `IsSentenceCard`, `IsTargetedSentenceCard`, etc.
+For the purposes of this documentation, the "card type" of a card
+refers to how the content is displayed and tested.
+For example, vocab cards and sentence cards are two different "card types".
 
-- TODO changing card type
-- TODO explanation: done within Anki, affects only one card
-- TODO: example: sentence card
-- TODO video
+In order to change the card type of any card:
 
-> (main window) -> `Browse` -> (select any created jp-mining-note card) -> fill a binary field with any character, say `1`
+(TODO video)
 
-As you may have noticed, this only changes the card type of one individual card.
+1. Select any JPMN card within Anki's Card browser
+1. Within the card editor, fill in any [binary field](fields.md).
+    For example, fill `IsSentenceCard` with `1`.
+1. Preview the card. You should now see that the card is a sentence card!
 
-- If you want to change the card type for all new cards, see
+As you can tell, this only changes the card type for **one individual card**.
+Of course, this does not mean you must manually edit each individual card
+to change its card type!
+
+- If you want to **change the default card type**
+    (i.e. change the card type for all new/future cards), see
     [here](changingcardtype.md#default-card-type).
-- If you want to change the card type for all exising cards, see
+- If you want to change the card type for **all exising cards**, see
     [here](changingcardtype.md#batch-change-card-type).
-
-
-<!--
-- TODO basic explanation of how it works + screenshot in Anki
-    - example `IsSentenceCard`
-- TODO link to Changing Card Type
-- TODO how to make it default for new cards: Yomichan →  "Anki Card Format"
-- TODO backfill batch commands: link to cardtypes.md
--->
-
+- A comprehensive list of all possible card types can be found
+    [here](cardtypes.md).
 
 
 ---
@@ -406,8 +405,12 @@ To change the display language (say, to Japanese), use the following {{ CTO }}:
 
 This note type comes with a `FrequencySort` field,
 which is the equivalent of Marv's `Frequency` field in
-[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency) guide.
-Visit the aformentioned link (and scroll down to `Usage`)
+[his guide](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency).
+
+**This note does not sort via frequency by default.**
+It simply contains the frequency data so you can sort by frequency if you choose to do so.
+Visit [Marv's guide](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency)
+(and scroll down to `Usage`)
 to see how to sort and review your cards by frequency.
 
 
@@ -420,7 +423,6 @@ to see how to sort and review your cards by frequency.
 Some important fields that were not introduced above will be discussed below.
 
 ## Key
-> Field: `Key`
 
 *   This field contains the tested word.
     In other words, this contains the exact same content as the `Word`.
@@ -435,15 +437,13 @@ Some important fields that were not introduced above will be discussed below.
     It is expected that this `Key` field is unique;
     a warning will appear on cards that have a duplicate key.
 
-## Primary Definition
-> Field: `PrimaryDefinition`
+## PrimaryDefinition
 
 *   This field contains the main content, and is the only
     block of text that is shown by default.
     This field should have everything you require to understand the tested content.
 
-## Additional Notes
-> Field: `AdditionalNotes`
+## AdditionalNotes
 
 *   This field is useful if you want to write down even more notes,
     but keep it in a collapsible field to space.

@@ -1,8 +1,10 @@
 # Overview
 
 [Yomichan](https://github.com/FooSoft/yomichan)
-is the main program that will create the cards. You can download Yomichan as a Firefox extension
-or under the Chrome web store.
+is the main program that will create the cards. You can download Yomichan as a
+[Firefox extension](https://github.com/FooSoft/yomichan/releases/download/22.10.23.0/a708116f79104891acbd-22.10.23.0.xpi)
+or under the
+[Chrome web store](https://chrome.google.com/webstore/detail/yomichan/ogmnaimimemjmbakcfefmnahgdfhfami).
 
 This section will go over the minimal Yomichan setup to work with this card type.
 
@@ -17,13 +19,8 @@ If you have used Yomichan before, please make a
 (just in case).
 
 
-<!--
-Additionally, if you downloaded Yomichan from a file, try updating that as well.
-Most users should have installed it from their browser's extension page, in which case
-nothing has to be done.
-
 !!! warning "Warning for Firefox Users"
-    The default version for Yomichan on Firefox
+    The default version for Yomichan on Firefox's Add-ons page
     is [over three years old](https://github.com/FooSoft/yomichan/issues/2295),
     and is not compatible with this note.
     If you are using Firefox, ensure that your Yomichan version is indeed the latest version,
@@ -32,8 +29,6 @@ nothing has to be done.
     If it isn't, you will have to download it
     [manually](https://github.com/FooSoft/yomichan/releases/tag/22.10.23.0)
     (use `a708116f79104891acbd-22.10.23.0.xpi`).
-
--->
 
 ---
 
@@ -61,14 +56,15 @@ a basic **vocab card** in **bilingual format**,
 with all other definitions in collapsable fields.
 
 !!! note
-    Anything field marked with `*` are binary fields, and
-    **should be configured to each user's personal preferences.**
+    Anything field marked with `*` are fields used to determine the resulting card type,
+    and **should be configured to each user's personal preferences.**
 
     To change the default value of any of the fields, simply fill
     the field in within the aforementioned `Anki card format...` section.
-
     For example, if you want the card to be a sentence card by default,
-    fill the `IsSentenceCard` field here.
+    fill the `IsSentenceCard` field with anything, e.g. `1`.
+
+    See the [Changing Card Type](changingcardtype.md) page for more info.
 
 
 The custom markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
@@ -131,13 +127,13 @@ At this point, you should be able to make cards with Yomichan!
     「や、いらっしゃい。ま、毒を食らわば皿までって言うしね。あ、違うか。乗り掛かった船？」
     { .jp-quote-text }
 
-    「なによぅ…甲斐甲斐しく会いに来た女に対して、最初に言うセリフがそれ？」
-    { .jp-quote-text }
-
     「あの時逃げ出した私の罰…あの時の汚辱は今ここで、全部そそいでやるんだ…」
     { .jp-quote-text }
 
-    「貴方なんなんです？なにか、妙に銃口慣れしていますね…若者特有の空威張りという訳でもなさそうですし…」
+    「とにかく利敵行為さえしないようにすれば基本的に問題はないはずですし、決まりきったムーブだけで絶対に勝てるというわけでも無いので、その時々の状況を落ち着いて見て、柔軟に行動することが大切です」
+    { .jp-quote-text }
+
+    「浮動小数点数は、IEEE-754規格に従って表現されています。`f32`が単精度浮動小数点数、 `f64`が倍精度浮動小数点数です」
     { .jp-quote-text }
 
 {{ img("adding a card with Yomichan", "assets/setupyomichan/add_card.gif") }}
@@ -265,19 +261,9 @@ From here, you likely fall under one of the two categories below:
     you may have to do some minor tweaks to your current workflow
     to match the new field names.
     For example, the exporting sentence audio and picture fields may be different
-    compared to your previous card.
+    compared to your previous card, and have should be set to
+    `SentenceAudio` and `Picture` respectively.
 
     Other than that, you are completely finished with the setup process!
-
-    !!! note
-        See [Setup: Text & Media (Notes on Various Programs)](setuptextmedia.md#notes-on-various-programs)
-        for specific tips on a select few programs.
-
-        TODO update link!
-
-
-
-
-
 
 
