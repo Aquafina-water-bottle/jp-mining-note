@@ -24,19 +24,24 @@ and must use `./install.py --update`.
 
 #### BREAKING
 - Added fields:
-    - `YomichanWordTags`
+    - `AltDisplayWord`
+    - `AltDisplayPASentenceCard`
     - `AltDisplayAudioCard`
     - `IsHintCard`
     - `IsSentenceFirstCard`
     - `IsAudioCard`
     - `SeparateSentenceAudioCard`
+    - `YomichanWordTags`
     - `CardCache`
-    - TODO is there more?
 - Renamed fields:
     - `SeparateClozeDeletionCard` -> `SeparateAudioCard`
+    - `AltDisplay` -> `AltDisplaySentence`
+
 - Removed lenience calculation (height of the text box is no longer calculated) due to an internal javascript bug that I can't figure out how to resolve
 
-- Options rework: Your current runtime options file will be completely invalid! See here to fix it: TODO
+- Options rework: Your current runtime options file will be completely replaced,
+    and any previously-set options must be set again
+    [See here for more info](). (TODO)
 
 #### Features
 
@@ -61,12 +66,16 @@ and must use `./install.py --update`.
 - Backend Javascript rework: (TODO)
     - Javascript has been finally ported to Typescript & webpack
     - Added unit testing for various modules
+    - .map files are available for all cards for debugging purposes
+        (and to "prove" that the minified javascript comes from the correct source)
 
 - Builder & Options rework:
     - Flattened all compile options and runtime options.
     - Moved compile options to its own json file
     - Most config files now use .json5 for human readability purposes (and can be switched with json for portability)
         - Removed deprecated importlib in favor of these json config files
+    - Added `_modifyActions` in `runtime_opts.json` (not in `_jpmn-options.js`) so one can edit lists and dicts
+        without having to replace the entire runtime option
 
 - JPMN Manager
     - A small Anki add-on was released specifically to install and update jp-mining-note.
@@ -136,50 +145,32 @@ and must use `./install.py --update`.
         - All data tags (tags used to modify the look of the card) are greyed by default
     - Display the card version here for mobile now
 
-- Other (larger changes):
+- Other:
     - Added runtime options to simplify the definitions as an alternative to CSS
         - TODO link
-    - Added way to translate the card (and added English and Japanese as pre-supported options)
+    - Added language display options to the card (currently English and Japanese are available)
         - TODO link
     - Added compile options to specify how ruby can be displayed in the full sentence
         - TODO link
-
-- Other (smaller changes):
-    - Added `jpmn-filled-if-word-is-hiragana` yomichan templates marker
-    - Re-added way to specify whether newlines are removed or not, using css
-    - Added support to remove the primary definition blockquote if nothing is there
-    - Added a warning if `SentenceReading` is filled but `Sentence` isn't
-    - Added a shadow around images shown on hover (images under `[Image]`) to better distinguish them between background objects
-    - Added example external link for [textbender](https://github.com/elizagamedev/android-textbender)
-        - Sends the raw sentence field by default
+    - CSS at the bottom of the styles sheet is now preserved between updates
     - Added styling for inline `<code>` blocks. For example, the following sentence taken from the rust book
         is now formatted nicely:
         ```
         新しい言語を学ぶ際に、<code>Hello, world!</code>というテキストを画面に<b>出力</b>する小さなプログラムを書くことは伝統的なことなので、ここでも同じようにしましょう！
         ```
-    - Kanji hover now searches sentences if there aren't enough results to be shown from just words
-    - Kanji hover should no longer immediately activate on card flip (when the mouse is idling over the kanji),
-        unless already cached
-    - Logger class now supports better filtering of messages and better console output
-    - Made the 頭高 (red) pitch accent color slightly deeper, to better differentiate it from 中高 (orange)
+    - Kanji hover now searches sentences if there aren't enough results to be shown from just words.
+        This is togglable with `kanjiHover.searchSentences`.
     - Word indicators now load on the front side of the card instead of the back
     - Custom scss folders can now be defined in overrides and themes
-    - Added "data tags", i.e. tags that are greyed out in the info circle
+    - Constrained width of display sentence to be similar to the full sentence
+    - Improved the readability kanjis a bit:
+        - Made some fonts a tiny bit bigger: glossary, words in kanji hover / word indicators
+        - Un-bolded things on mobile, to make the characters more readable on the smaller display.
+    - Many, many, many other small features and bug fixes.
+        Because there are so many, these are not listed here for brevity.
 
-#### Fixes
-- Fixed img blur eye not being on the image for wider images
-- Made all example urls use {{text:Word} instead of just {{Word}}
-- Fixed some css variables accidentally pointing to others
-- Fixed pa-indicator not being the proper size on sentences / TSCs
-- Fixed `PrimaryDefinitionPicture` not acting like a float right when there's too much text
-    - When text extends past to below the picture, it is expected that the text takes up the space below the picture
-- (auto-pitch-accent module) Changed nasal assert to nasal warning
-- Fixed cloze deletion cards with nested `<b>` tags not working properly
-- Fixed highlight-word not properly escaping regex
-- Fixed nasal replace regex not working sometimes (when character is escaped)
 
 #### 0.12.0.0 Pre-release Changelog
-
 
 <details>
 <summary> Pre-release 11 </summary>
@@ -192,10 +183,15 @@ and must use `./install.py --update`.
 
 - **Features**:
     - Made info circle mobile dialog togglable with `infoCircleUtils.mobileDialog` (and fallback to the default if JS fails)
-    - Autoplayed audio on the backside of the card is now togglable
+    - What audio is autoplayed on the backside of the card is now togglable
+    - Properly implemented `kanjiHover.searchSentences`
+    - Added some options to only simplify definitions on certain blockquotes
+    - Primary definition can be collapsible as a runtime option
 
 - **Fixes**:
     - AnkiConnect now uses `127.0.0.1` instead of `localhost` to workaround a performance issue on Windows + Python
+    - Show one frequency value instead of 4 on mobile by default (if `FrequencySort` is empty)
+    - Card type not properly showing on the left corner
 
 </details>
 
