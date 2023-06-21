@@ -241,76 +241,7 @@ Sentences are usually formatted in one of three ways, as shown below:
             to see Anki's official documentation on regex.
 
 
-
-## 2. Batch generate pitch accents and sentence furigana { #batch-generate-pitch-accents-and-sentence-furigana }
-
-TODO outdated! rerecord!
-
-![type:video](assets/importing/batch_editing.mp4)
-
-This step requires the `AJT Japanese` addon to be [correctly setup](setupanki.md#ajt-japanese).
-Although this step is optional, pitch accents likely won't show for imported cards if you had nothing
-to import into `PAPositions`. In that case, this step is highly recommended.
-
-1. Head to the Card Browser window:
-
-    > Main Window →  `Browse`
-
-2. Select all of your newly imported notes.
-
-    !!! tip "Tip"
-        The following query should reveal all of your newly imported notes.
-        Make sure you include the double quotes in the query search.
-        ```
-        "note:JP Mining Note"
-        ```
-        Afterwards, you can do ++ctrl+a++ to select all of the resulting cards.
-        <p></p> <!-- TODO why was this removed? seems like it has to do with mkdocs-video for some reason -->
-
-3. Head over to:
-
-    > `Edit` (top left corner) →  `AJT: Bulk-generate`.
-
-
-
-## 3. Batch set `PASilence` Field { #batch-set-pasilence-field }
-
-This will ensure all `PASilence` are filled correctly.
-See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
-This can be done with a {{ BATCH_CMD }}, or manually within Anki itself.
-
-=== "Batch Command"
-
-    ```aconf
-    set_pasilence_field
-    ```
-
-=== "Within Anki"
-
-    1. Head to the Card Browser window.
-    1. Right click a card, and then head to:
-
-        > `Notes` →  `Find and Replace...`
-
-    1. Set the fields to the following:
-
-        {{ gen_regex_table(RegexTableArgs(
-                "`.*`",
-                "`[sound:_silence.wav]`",
-                "`PASilence` <sup>(IMPORTANT! Do not forget this field!)</sup>",
-                selected_notes_only=False,
-            )) | indent(8) }}
-
-        ??? example "Example image <small>(click here)</small>"
-            <figure markdown>
-            {{ img("The above table in Anki", "assets/importing/bulk_add_silencewav.png") }}
-            </figure>
-
-
-
-
-
-## 4. Correctly Formatting `WordReading` Field { #correctly-formatting-wordreading-field }
+## 2. Correctly Formatting `WordReading` Field { #correctly-formatting-wordreading-field }
 
 Your `WordReading` field is likely formatted in one of three ways:
 
@@ -383,35 +314,39 @@ Your `WordReading` field is likely formatted in one of three ways:
         quick_fix_convert_kana_only_reading_with_tag
         ```
 
+## 3. Backfill Other Fields
+{{ feature_version("0.12.0.0") }}
 
-
-## 5. Batch set `WordReadingHiragana` Field <small>(optional)</small> { #batch-set-wordreadinghiragana-field data-toc-label="5. Batch set WordReadingHiragana Field" }
-{{ feature_version("0.11.0.0") }}
-
-The following automatically fills out the `WordReadingHiragana` field.
-
-Filling out the `WordReadingHiragana` field is optional but highly recommended.
-This will enable the usage of [Word Indicators](ui.md#word-indicators)
-on existing cards.
-
-To do this, run the following {{ BATCH_CMD }}:
+Run the following {{ BATCH_CMD }}:
 ```aconf
-fill_word_reading_hiragana_field
+cleanup
 ```
 
-## 6. Backfill the `FrequencySort` Field <small>(optional)</small> { #backfill-the-frequencysort-field data-toc-label="6. Backfill the FrequencySort Field" }
-As mentioned ealier, `FrequencySort` behaves exactly the same as Marv's
-`Frequency` field as documented in
-[this](https://github.com/MarvNC/JP-Resources#sorting-mined-anki-cards-by-frequency)
-page.
-That page also contains instructions on
-[how to backfill](https://github.com/MarvNC/JP-Resources#backfilling-old-cards)
-the field if it is empty.
+This batch command backfills both
+[WordReadingHiragana](backfilling.md#backfill-wordreadinghiragana)
+and
+[PASilence](backfilling.md#backfill-pasilence).
 
-If you are following the command line instructions, use the following command:
-```bash
-python backfill.py "Word" --freq-field "FrequencySort" --query "FrequencySort: \"note:JP Mining Note\""
-```
+- TODO implement!
+
+
+
+## 4. Batch Generate Pitch Accents and Sentence Furigana <small>(optional)</small> { #batch-generate-pitch-accents-and-sentence-furigana data-toc-label="4. Batch Generate Pitch Accents and Sentence Furigana" }
+
+This step requires the `AJT Japanese` addon to be [correctly setup](setupanki.md#ajt-japanese).
+Although this step is technically optional,
+pitch accents likely won't show for imported cards if you had nothing
+to import into `PAPositions`. In that case, this step is highly recommended.
+
+See [here](backfilling.md#backfill-pitch-accents-and-sentence-furigana)
+on how to backfill pitch accents and sentence furigana.
+
+
+
+
+## 5. Backfill the `FrequencySort` Field <small>(optional)</small> { #backfill-the-frequencysort-field data-toc-label="5. Backfill the FrequencySort Field" }
+See [here](backfilling.md#backfill-frequencysort) if you want to backfill the `FrequencySort` field.
+
 
 ---
 

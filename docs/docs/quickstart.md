@@ -52,7 +52,7 @@ auxilary information is hidden behind various tooltips and dropdowns.
 
 === "**Main image**"
     This is where the image from the `Picture` field appears.
-    If there is no picture, then the word box takes up the entire spacethe word box takes up the entire space.
+    If there is no picture, then the word box takes up the entire space.
 
 === "**Primary Definition**"
     This is where the text in `PrimaryDefinition`, and optionally, the picture(s)
@@ -74,7 +74,7 @@ See [here TODO]() to see the reasons why these design decisions were made.
 The interface for mobile should be mostly the same as the desktop.
 However, there are a few important differences to note:
 
-1. Instead of collapsing sections, these are replaced with tabs.
+1. Collapsing sections, are replaced with tabs.
 1. The sentence appears below the definition instead of above.
 1. The audio buttons appear at the bottom left of the card, instead of right below the pitch accent.
 

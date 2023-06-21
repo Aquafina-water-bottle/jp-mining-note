@@ -1,6 +1,6 @@
 # Design Decisions
 
-# PC Template Design Decisions
+## PC Template Design Decisions
 
 - everything should be available to the user even for words with very long definitions
     - the definitions are below everything specifically due to that
@@ -28,14 +28,12 @@
             actually more important, otherwise the sentence can easily push down the bulk of the definition
             (and thus you must scroll to see the definition)
         - comes at the cost of potentially not being able to see the sentence without scrolling
-    - the image is small by design
-        - otherwise, will take up too much room or will require scrolling to see
-        - goal is to always be able to immediately see the image on card flip
 
-- mobile-friendly interface
-    - replace collapsible sections with tabs for easier mobile navigation
-    - prevents unnecessary scrolling
+- the image is small by design
+    - otherwise, will take up too much room or will require scrolling to see
+    - goal is to always be able to immediately see the image on card flip
 
+- replace collapsible sections with tabs for easier mobile navigation, and to prevent unnecessary scrolling
 
 
 ---

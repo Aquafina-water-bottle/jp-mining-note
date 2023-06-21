@@ -90,8 +90,8 @@ nav:
     - "Setup: Yomichan": setupyomichan.md
     - "Setup: Text & Media": setuptextmedia.md
     - "Text & Media":
-      - "mpvacious (TODO)": setupmpvacious.md
-      - "asbplayer (TODO)": setupasbplayer.md
+      - "mpvacious": setupmpvacious.md
+      - "asbplayer": setupasbplayer.md
     - Extra Setup:
       - "Extra: Yomichan": setupextrayomichan.md
       - "Extra: Anki": setupextraanki.md
