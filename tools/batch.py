@@ -408,7 +408,7 @@ def fill_word_reading_hiragana_field():
 
     # print(_get_kana_from_plain_reading("成[な]り 立[た]つ"))
 
-    query = r'"note:JP Mining Note" -WordReading:'
+    query = r'"note:JP Mining Note" -WordReading: WordReadingHiragana:'
     print("Querying notes...")
     notes = invoke("findNotes", query=query)
     print("Getting notes info...")
@@ -902,6 +902,11 @@ def get_new_due_cards(limit: int, as_query=True):
     return result
 
 
+def cleanup():
+    set_pasilence_field()
+    fill_word_reading_hiragana_field()
+
+
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
 # a dependency...
 FUNC_ARGS: dict[Callable, dict[str, Type]] = {
@@ -954,6 +959,7 @@ PUBLIC_FUNCTIONS = [
     get_new_due_cards,
     move_runtime_options_file_to_temp,
     move_runtime_options_file_to_original,
+    cleanup,
 ]
 
 # functions available for the anki addon (should be everything but the xelieu function)
@@ -985,6 +991,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     get_new_due_cards,
     move_runtime_options_file_to_temp,
     move_runtime_options_file_to_original,
+    cleanup,
 ]
 
 
