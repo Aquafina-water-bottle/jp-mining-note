@@ -187,17 +187,19 @@ See [here](ui.md#automatic-word-highlighting) for more info.
 
 
 ## The `Tools` →  `Check Media` interface removes the font files.
-This is a known bug, and unfortunately, this bug will **not be fixed by default**.
+This is a known bug, and unfortunately, this bug will not be fixed by default. [^1]
 
-<!--If you want to use this tool, temporarily move the fonts outside of the media folder.-->
 If you accidentally removed the fonts,
 [redownload the fonts](https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/media)
 and re-add them into the [media folder](faq.md#where-is-the-x-folder-in-anki) of your profile.
+Alternatively, updating the note with JPMN manager should automatically re-install the required font files.
 
-TODO workaround:
+It is possible to fix this by using the following workaround:
 
-1. rename the files to all have `_` at the beginning, i.e. `_NotoSerifJP-Regular.otf`
-2. add the following {{CSS}}:
+1. Within the [media folder](faq.md#where-is-the-x-folder-in-anki),
+    rename all the font files such that they all have `_` at the beginning.
+    For example, `NotoSerifJP-Regular.otf` should be renamed to `_NotoSerifJP-Regular.otf`.
+2. Add the following {{C_CSS}} to the very bottom (do not modify the existing CSS!):
 
     ```
     @font-face {
@@ -218,24 +220,20 @@ TODO workaround:
       src: url("_NotoSansJP-Bold.otf");
       font-weight: bold;
     }
+    ```
 
-```
+[^1]:
+    This will not be fixed by default because to make debugging easier for the developer.
+    When a user is asked to export a card, the exported file will not contain the font files,
+    meaning that the result `.apkg` file will be about 1MB instead of some 20MB,
+    allowing it to be shared easily on a place like Discord.
 
-TODO explanation on why this is the default
 
-<!--
-This will not be fixed because to make debugging easier for the developer.
-When a user is asked to export a card, the exported file will not contain the font files,
-meaning that the result `.apkg` file will be about 1MB instead of some 20MB,
-allowing it to be shared easily on a place like Discord.
--->
 
 ## The Show/Hide button doesn't do anything.
 The show/hide button requires that the displayed sentence has a bolded element.
 For example, this means if the currently displayed sentence comes from the `AltDisplay`
 field and nothing in that field is bolded, then the show/hide button will do nothing.
-
-This potentially relates to the issue above.
 
 
 
