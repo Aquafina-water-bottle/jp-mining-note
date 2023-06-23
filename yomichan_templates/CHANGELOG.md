@@ -10,6 +10,8 @@ Public facing markers are markers starting with `jpmn` (whereas private markers 
 
 The Yomichan template version is incremented independently from the jp-mining-note version.
 
+## v1.0.8
+- Added various Chinese bilingual dictionaries into bilingual-dict-regex by default
 
 ## v1.0.7
 - Fixed inline-bold not searching the raw text, leading to incorrect definition selections under rare circumstances
