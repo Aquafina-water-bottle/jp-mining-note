@@ -805,10 +805,13 @@
     "起伏", "kifuku",
 
     // other
-    "yomichan",
-    "yomitan",
-    "subs2srs",
-    "asbplayer",
+    //"yomichan",
+    //"yomitan",
+    //"subs2srs",
+    //"asbplayer",
+    //"jidoujisho",
+    //"jl",
+    //"goldendict",
   ],
 
 
