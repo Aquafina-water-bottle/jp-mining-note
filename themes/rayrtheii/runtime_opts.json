@@ -32,7 +32,7 @@
     },
     {
       "tag": "rust",
-      "fileName": "rust.png"
+      "fileName": "_rust.png"
     }
   ],
   "blockquotes.folderTab.showDotWhenEmpty": true,
@@ -63,5 +63,6 @@
         ]
       }
     ]
-  }
+  },
+  "tooltips.query.new.removed": "is:suspended (flag:1 OR flag:3) -tag:jpmn-example"
 }
