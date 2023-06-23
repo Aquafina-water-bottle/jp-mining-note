@@ -84,6 +84,15 @@
   "wordIndicators.getResultsFront": true,
 
   "blockquotes.hideEmpty": false,
+  //"blockquotes.hideEmpty": {
+  //  type: "deckName",
+  //  args: {
+  //    "op": "===",
+  //    "deckName": "Mining",
+  //  },
+  //  resultTrue: true,
+  //  resultFalse: false,
+  //},
 
   // to be parsed by the builder
   "_modifyActions": {

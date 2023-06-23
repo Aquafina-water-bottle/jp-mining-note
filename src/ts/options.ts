@@ -1,6 +1,6 @@
 import { compileOpts, runtimeOpts } from './consts';
 import { LOGGER } from './logger';
-import { isMobile, getCardType, getCardSide } from './utils';
+import { isMobile, getCardType, getCardSide, getDeckName } from './utils';
 import { fieldsAllEmpty, Field, fieldsAllFilled, fieldsAnyFilled } from './fields';
 import { getViewportWidth } from './reflow';
 
@@ -153,6 +153,36 @@ const OVERRIDE_FUNCS: Record<string, (args: unknown) => boolean> = {
       }
     }
     LOGGER.warn(`Invalid cardType arguments: ${args}`, { ignoreOptions: true });
+    return true;
+  },
+
+  /*
+  key: {
+    "type": "deckName",
+    "args": {
+      "op": STRING_OP,
+      "deckName": "DECK_NAME"
+    },
+    "resultTrue": ...,
+    "resultFalse": ...,
+  },
+   */
+  deckName: (args: unknown) => {
+    if (
+      args !== null &&
+      typeof args === 'object' &&
+      'op' in args &&
+      typeof args.op === 'string' &&
+      args.op in STR_OPS &&
+      'deckName' in args &&
+      typeof args.deckName === 'string'
+    ) {
+      if ((args.op as string) in OPS) {
+        const deckName = args.deckName;
+        return STR_OPS[args.op as keyof typeof STR_OPS](getDeckName(), deckName);
+      }
+    }
+    LOGGER.warn(`Invalid deckName arguments: ${args}`, { ignoreOptions: true });
     return true;
   },
 

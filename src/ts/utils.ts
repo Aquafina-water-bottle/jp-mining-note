@@ -244,6 +244,9 @@ export function getCardTypeName() {
 export function getCardSide() {
   return document.getElementById('hidden_card_side')?.innerHTML as CardSide | undefined;
 }
+export function getDeckName() {
+  return document.getElementById('deck')?.getAttribute("deck_name");
+}
 export function getNoteType() {
   return document.getElementById('hidden_note_type')?.innerHTML;
 }
