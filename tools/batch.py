@@ -20,6 +20,7 @@ rx_FREQ_INNER2 = re.compile(
 rx_FURIGANA = re.compile(r" ?([^ >]+?)\[(.+?)\]")
 rx_INTEGER_ONLY = re.compile(r"^-?\d+$")
 rx_HTML = re.compile("<.*?>")
+rx_SOUND_TAG = re.compile(r"\[sound:(_[^]]+)\]")
 
 
 HIRAGANA = list(
@@ -848,15 +849,6 @@ def move_runtime_options_file_to_original():
     return _move_runtime_options_file(to_temp=False)
 
 
-# TODO deprecated, remove for 0.12.0.0 release
-# def replace_runtime_options_file_anki():
-#    root_folder = utils.get_root_folder()
-#    backup_folder = os.path.join(
-#        root_folder, "user_files", "backup", utils.get_time_str()
-#    )
-#    _replace_runtime_options_file(backup_folder)
-
-
 def fill_field_if_hiragana(field_name: str, value: str = "1", query: str | None = None):
     """
     fills the field_name with '1' if the Word field is purely hiragana
@@ -905,6 +897,39 @@ def get_new_due_cards(limit: int, as_query=True):
 def cleanup():
     set_pasilence_field()
     fill_word_reading_hiragana_field()
+
+
+def split_audio():
+    """
+    Splits two audio files from WordAudio -> WordAudio, SentenceAudio
+    TODO: More options?
+    """
+    search_field = "WordAudio"
+    #first_field = "WordAudio"
+
+    print(f"Querying notes...")
+    query = f'"note:JP Mining Note -{search_field}:"'
+    notes = invoke("findNotes", query=query)
+
+    print(f"Getting {len(notes)} notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print(f"Creating actions...")
+    actions = []
+    for info in notes_info:
+        nid = info["noteId"]
+        field_val = info["fields"][search_field]["value"]
+
+        results = rx_SOUND_TAG.findall(field_val)
+        if len(results) != 2:
+            continue
+        word_audio, sentence_audio = results
+
+        action = _update_note_action(nid, **{"WordAudio": word_audio, "SentenceAudio": sentence_audio})
+        actions.append(action)
+
+    print(f"Updating {len(actions)} notes...")
+    notes = invoke("multi", actions=actions)
 
 
 # NOTE: ideally, this would be best done with google.Fire, but this would introduce
@@ -960,6 +985,7 @@ PUBLIC_FUNCTIONS = [
     move_runtime_options_file_to_temp,
     move_runtime_options_file_to_original,
     cleanup,
+    split_audio,
 ]
 
 # functions available for the anki addon (should be everything but the xelieu function)
@@ -985,13 +1011,13 @@ PUBLIC_FUNCTIONS_ANKI = [
     add_fields,
     set_font_sizes,
     set_fonts_to_key_font,
-    # replace_runtime_options_file_anki,  # TODO deprecated, remove for 0.12.0.0 release
     replace_runtime_options_file,
     fill_field_if_hiragana,
     get_new_due_cards,
     move_runtime_options_file_to_temp,
     move_runtime_options_file_to_original,
     cleanup,
+    split_audio,
 ]
 
 
