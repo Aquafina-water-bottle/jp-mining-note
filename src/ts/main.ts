@@ -11,7 +11,7 @@ import {
 import { fieldsAllFilled, fieldsAllEmpty } from './fields';
 import { getOption } from './options';
 
-import { newKeybinds } from './modules/keybinds';
+//import { newKeybinds } from './modules/keybinds';
 import { MainCardUtils } from './modules/mainCardUtils';
 
 import { SentenceParser } from './modules/sentenceParser';
@@ -35,6 +35,7 @@ import { RefreshCard } from './modules/refreshCard';
 import { cardIsNew } from './isNew';
 import { getViewportWidth } from './reflow';
 import { CardCache } from './modules/cardCache';
+import {GlobalEventManager} from './globalEventManager';
 
 export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // ==========================================================================
@@ -99,9 +100,8 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // = sanity checks =
   // ==========================================================================
 
-  LOGGER.debug(`----------------------------DEBUG-LOGS----------------------------`);
   LOGGER.debug(
-    `Hello world! cardType=${cardType} cardSide=${cardSide} noteType=${noteType}`
+    `JPMN(${cardType}, ${cardSide}, ${noteType})`
   );
 
   const optsScript = document.getElementById('jpmn_options_script');
@@ -148,10 +148,11 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // attempting to store and read things from an array doesn't seem to work!
 
   const refreshCard = new RefreshCard();
+  const globalEventManager = new GlobalEventManager();
 
-  newKeybinds();
+  //newKeybinds();
   if (cardType === 'main') {
-    new MainCardUtils().run();
+    new MainCardUtils(globalEventManager).run();
   }
 
   if (compileOpts['enableModule.sentenceParser']) {
@@ -167,7 +168,7 @@ export function main(cardSide: CardSide, cardType: string, noteType: string) {
   // right after auto pitch accent to prevent even more unnecessary reflow changes
   // potentially caused by modules below
   if (compileOpts['enableModule.imgStylizer']) {
-    const imgStylizer = new ImgStylizer();
+    const imgStylizer = new ImgStylizer(globalEventManager);
     imgStylizer.run();
     refreshCard.addImgStylizer(imgStylizer);
   }

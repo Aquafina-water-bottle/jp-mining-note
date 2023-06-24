@@ -2,8 +2,8 @@ import { RunnableModule } from '../module';
 import { addOnShownHook, getCardSide, hybridClick, getPAIndicator } from '../utils';
 import { fieldsAnyFilled, fieldsAllFilled } from '../fields';
 import { translatorStrs } from '../consts';
-import { addKeybindFunc, hasKey } from './keybinds';
 import { getOption } from '../options';
+import {type GlobalEventManager, hasKey} from '../globalEventManager';
 
 // this function has to be moved out of the class in order for the kebind to run???
 function toggleHighlightWord() {
@@ -28,23 +28,28 @@ function toggleHighlightWord() {
   }
 }
 
-export class MainCardUtils extends RunnableModule {
-  constructor() {
-    super('mainCardUtils');
+
+function sentenceKeybinds(e: KeyboardEvent) {
+  if (hasKey(e, getOption('keybinds.toggleHybridSentence'))) {
+    hybridClick();
   }
 
-  private sentenceKeybinds(e: KeyboardEvent) {
-    if (hasKey(e, getOption('keybinds.toggleHybridSentence'))) {
-      hybridClick();
-    }
+  if (hasKey(e, getOption('keybinds.toggleHighlightWord'))) {
+    toggleHighlightWord();
+  }
+}
 
-    if (hasKey(e, getOption('keybinds.toggleHighlightWord'))) {
-      toggleHighlightWord();
-    }
+export class MainCardUtils extends RunnableModule {
+  private readonly globalEventManager;
+
+  constructor(globalEventManager: GlobalEventManager) {
+    super('mainCardUtils');
+
+    this.globalEventManager = globalEventManager;
   }
 
   main() {
-    addKeybindFunc('sentenceKeybinds', this.sentenceKeybinds);
+    this.globalEventManager.addKeybindFunc('sentenceKeybinds', sentenceKeybinds);
 
     if (
       getCardSide() === 'back' &&

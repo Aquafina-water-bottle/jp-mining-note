@@ -12,6 +12,7 @@ import {
 import { fieldIsFilled } from '../fields';
 import { InfoCircleSetting } from './infoCircleSetting';
 import { adjustElements } from '../reflow';
+import {type GlobalEventManager} from '../globalEventManager';
 
 type TagToImg = {
   tag: string;
@@ -260,10 +261,12 @@ class BackImgStylizer extends Module {
   readonly dhImgContainer = document.getElementById('dh_img_container') as HTMLElement;
 
   private readonly imgBlur: ImgBlur | null;
+  private readonly globalEventManager;
 
-  constructor(imgBlur: ImgBlur | null) {
+  constructor(imgBlur: ImgBlur | null, globalEventManager: GlobalEventManager) {
     super('sm:backImgStylizer');
     this.imgBlur = imgBlur;
+    this.globalEventManager = globalEventManager;
   }
 
   private getDisplayImg(): HTMLImageElement | null {
@@ -572,6 +575,9 @@ class BackImgStylizer extends Module {
     }
 
     adjustElements(imgEle, this.dhLeft, this.dhRight);
+    this.globalEventManager.addWindowResizeFunc("adjustElements", (e) => {
+      adjustElements(imgEle, this.dhLeft, this.dhRight);
+    })
 
     if (imgEle === null) {
       this.adjustForNoImg();
@@ -601,8 +607,10 @@ class BackImgStylizer extends Module {
 }
 
 export class ImgStylizer extends RunnableModule {
-  constructor() {
+  private readonly globalEventManager;
+  constructor(globalEventManager: GlobalEventManager) {
     super('imgStylizer');
+    this.globalEventManager = globalEventManager;
   }
 
   // public interface to get image element
@@ -630,7 +638,7 @@ export class ImgStylizer extends RunnableModule {
 
     // almost all the logic of this module is only done on the back side of the card anyways
     if (getCardSide() === 'back') {
-      const backStylizer = new BackImgStylizer(imgBlur);
+      const backStylizer = new BackImgStylizer(imgBlur, this.globalEventManager);
       backStylizer.main();
     }
   }

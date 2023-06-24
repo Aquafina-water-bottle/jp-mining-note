@@ -1,5 +1,6 @@
 // manager to get viewport width and viewport height
 // this is here in order to prevent unnecessary reflows on each card open!
+// Also see: globalEventManager.ts
 
 import { LOGGER } from './logger';
 import { selectPersistStr, SPersistInterface } from './spersist';
@@ -9,8 +10,6 @@ import { type ImgStylizer } from './modules/imgStylizer';
 
 const widthKey = 'jpmn.reflow.widthKey';
 //const heightKey = "jpmn.reflow.heightKey";
-
-type TimeoutValue = ReturnType<typeof setTimeout>;
 
 function getVWForceReflow(): number {
   LOGGER.debug('Running getVWForceReflow...');
@@ -22,28 +21,10 @@ function getVWForceReflow(): number {
 //  return Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 //}
 
-function setWidthCache(persist: SPersistInterface) {
+export function setWidthCache(persist: SPersistInterface) {
   const VW = getVWForceReflow();
   persist.set(widthKey, VW.toString());
   LOGGER.debug(`set viewport width to ${VW}`, 1);
-}
-
-// TODO potentially turn this into a module to add the imgStylizer thing (to refresh layout)
-// (global listeners)
-function setResizeListener(persist: SPersistInterface) {
-  let timeout: TimeoutValue | null = null; // holder for timeout id
-  let delay = 500; // delay after event is "complete" to run callback
-
-  window.onresize = (event) => {
-    // clear the timeout
-    if (timeout !== null) {
-      clearTimeout(timeout);
-    }
-    // start timing for event "completion"
-    timeout = setTimeout(() => {
-      setWidthCache(persist);
-    }, delay);
-  };
 }
 
 function getViewportWidthFromCache(): number {
@@ -53,7 +34,7 @@ function getViewportWidthFromCache(): number {
   } else {
     if (!persist.has(widthKey)) {
       setWidthCache(persist);
-      setResizeListener(persist);
+      //setResizeListener(persist);
     }
     return Number(persist.get(widthKey));
   }
@@ -207,6 +188,7 @@ export function adjustElements(
   wordBoxEle: HTMLElement,
   imgBoxEle: HTMLElement
 ) {
+  LOGGER.debug("adjustElements");
   resetProperties(imgEle, wordBoxEle, imgBoxEle);
 
   if (getViewportWidth() > compileOpts['breakpoints.width.combinePicture']) {
