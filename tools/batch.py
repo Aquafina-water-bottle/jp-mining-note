@@ -20,7 +20,8 @@ rx_FREQ_INNER2 = re.compile(
 rx_FURIGANA = re.compile(r" ?([^ >]+?)\[(.+?)\]")
 rx_INTEGER_ONLY = re.compile(r"^-?\d+$")
 rx_HTML = re.compile("<.*?>")
-rx_SOUND_TAG = re.compile(r"\[sound:(_[^]]+)\]")
+#rx_SOUND_TAG = re.compile(r"\[sound:([^]]+)\]") # captures just the file name
+rx_SOUND_TAG = re.compile(r"\[sound:[^]]+\]")
 
 
 HIRAGANA = list(
@@ -897,6 +898,8 @@ def get_new_due_cards(limit: int, as_query=True):
 def cleanup():
     set_pasilence_field()
     fill_word_reading_hiragana_field()
+    split_audio()
+    split_picture()
 
 
 def split_audio():
@@ -908,7 +911,7 @@ def split_audio():
     #first_field = "WordAudio"
 
     print(f"Querying notes...")
-    query = f'"note:JP Mining Note -{search_field}:"'
+    query = f'"note:JP Mining Note" -{search_field}: SentenceAudio:'
     notes = invoke("findNotes", query=query)
 
     print(f"Getting {len(notes)} notes info...")
@@ -926,6 +929,56 @@ def split_audio():
         word_audio, sentence_audio = results
 
         action = _update_note_action(nid, **{"WordAudio": word_audio, "SentenceAudio": sentence_audio})
+        actions.append(action)
+
+    print(f"Updating {len(actions)} notes...")
+    notes = invoke("multi", actions=actions)
+
+
+def split_picture():
+    """
+    Splits two or more image files from Picture -> Picture, PrimaryDefinitionPicture
+    TODO: More options?
+
+    Requires beautifulsoup4, which should come with Anki by default.
+    """
+
+    try:
+        # pip3 install beautifulsoup4
+        from bs4 import BeautifulSoup
+    except ImportError:
+        BeautifulSoup = None
+
+    if BeautifulSoup is None:
+        print("Cannot run split_picture, beautifulsoup4 is not installed")
+        return
+
+    print(f"Querying notes...")
+    query = f'"note:JP Mining Note" -Picture: PrimaryDefinitionPicture:'
+    notes = invoke("findNotes", query=query)
+
+    print(f"Getting {len(notes)} notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print(f"Creating actions...")
+    actions = []
+    for info in notes_info:
+        nid = info["noteId"]
+        field_val = info["fields"]["Picture"]["value"]
+
+        soup = BeautifulSoup(field_val, "html.parser")
+        images = [str(x) for x in soup.find_all("img")]
+        if len(images) == 0:
+            continue # nothing to do
+        if len(images) == 1:
+            # currently nothing to do. Might be useful to set the field eventually though,
+            # to get rid of extra stuff like extraneous <br>'s?
+            continue
+
+        primary_pic = images[0]
+        other_pics = images[1:]
+
+        action = _update_note_action(nid, **{"Picture": primary_pic, "PrimaryDefinitionPicture": "".join(other_pics)})
         actions.append(action)
 
     print(f"Updating {len(actions)} notes...")
@@ -986,6 +1039,7 @@ PUBLIC_FUNCTIONS = [
     move_runtime_options_file_to_original,
     cleanup,
     split_audio,
+    split_picture,
 ]
 
 # functions available for the anki addon (should be everything but the xelieu function)
@@ -1018,6 +1072,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     move_runtime_options_file_to_original,
     cleanup,
     split_audio,
+    split_picture,
 ]
 
 
