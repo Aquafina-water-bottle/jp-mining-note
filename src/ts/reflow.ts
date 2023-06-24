@@ -12,7 +12,7 @@ const widthKey = 'jpmn.reflow.widthKey';
 //const heightKey = "jpmn.reflow.heightKey";
 
 function getVWForceReflow(): number {
-  LOGGER.debug('Running getVWForceReflow...');
+  LOGGER.debug('Running getVWForceReflow...', 2);
   //return Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
   return document.documentElement.clientWidth || 0;
 }
@@ -188,7 +188,7 @@ export function adjustElements(
   wordBoxEle: HTMLElement,
   imgBoxEle: HTMLElement
 ) {
-  LOGGER.debug("adjustElements");
+  LOGGER.debug("Running adjustElements...", 1);
   resetProperties(imgEle, wordBoxEle, imgBoxEle);
 
   if (getViewportWidth() > compileOpts['breakpoints.width.combinePicture']) {
