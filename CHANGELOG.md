@@ -187,6 +187,9 @@ and must use `./install.py --update`.
     - Properly implemented `kanjiHover.searchSentences`
     - Added some options to only simplify definitions on certain blockquotes
     - Primary definition can be collapsible as a runtime option
+    - Added `deckName` option value
+    - Added (untested) `split_audio` batch command
+    - GlobalEventManager (images are now resized automatically on window resize)
 
 - **Fixes**:
     - AnkiConnect now uses `127.0.0.1` instead of `localhost` to workaround a performance issue on Windows + Python
