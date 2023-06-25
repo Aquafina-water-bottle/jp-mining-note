@@ -241,80 +241,8 @@ Sentences are usually formatted in one of three ways, as shown below:
             to see Anki's official documentation on regex.
 
 
-## 2. Correctly Formatting `WordReading` Field { #correctly-formatting-wordreading-field }
 
-Your `WordReading` field is likely formatted in one of three ways:
-
-
-=== "Furigana (plain)"
-    This is generated with the `{furigana-plain}` marker.
-
-    > Example: 成[な]り 立[た]つ
-
-    If your `WordReading` field is formatted this way, then the `WordReading` field
-    is already formatted correctly. **You can skip this step**.
-
-=== "Furigana"
-    This is generated with the `{furigana}` marker.
-
-    > Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
-    > (HTML: `<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ`)
-
-    If your `WordReading` field is formatted this way,
-    it would be ideal to convert this into plain furigana
-    so the note can properly parse the field.
-
-    ??? example "Instructions for converting furigana into plain furigana <small>(click here)</small>"
-
-        1. Head to the Card Browser window.
-        1. Right click a card, and then head to:
-
-            > `Notes` →  `Find and Replace...`
-
-        1. Set the fields to the following:
-
-            {{ gen_regex_table(RegexTableArgs(
-                    "`<ruby>(<rb>)?(?P<kanji>.*?)(</rb>)?<rt>(?P<furigana>.*?)</rt></ruby>`",
-                    "<code>&nbsp;$kanji[$furigana]</code> <sup>(Keep the whitespace at the beginning!)</sup>",
-                    "`WordReading`",
-                    selected_notes_only=False,
-                )) | indent(12) }}
-
-
-=== "Kana only"
-    This is generated with the `{reading}` marker.
-
-    > Example: なりたつ
-
-    This means that your old cards only have a kana reading.
-    It would be ideal to have the `WordReading` as the kanji word with furigana.
-    You likely want the kanji word with the furigana, so the kanjis actually show
-    in the proper places.
-    Some examples include the kanji hover tooltip as well as
-    to the left of the picture field.
-
-    ??? example "Instructions for converting kana readings into (plain) furigana <small>(click here)</small>"
-
-        The solution provided below is imperfect, but passable.
-        This will format all of the `WordReading` fields to be `Word[WordReading]`,
-        which means kana will repeated.
-        For example, a card with `Word` as 成り立つ, and `WordReading` as なりたつ,
-        will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby>
-
-        To do this, run the following {{ BATCH_CMD }}:
-        ```aconf
-        quick_fix_convert_kana_only_reading_all_notes
-        ```
-
-        The above will affect **ALL** notes.
-        If you instead want to affect certain notes, add the `kanaonlyreading`
-        tag to all affected notes, and then run the following batch command:
-
-        ```aconf
-        quick_fix_convert_kana_only_reading_with_tag
-        ```
-
-## 3. Backfill Other Fields
+## 2. Cleanup Other Fields { #cleanup-other-fields }
 {{ feature_version("0.12.0.0") }}
 
 Run the following {{ BATCH_CMD }}:
@@ -322,16 +250,26 @@ Run the following {{ BATCH_CMD }}:
 cleanup
 ```
 
-This batch command backfills both
-[WordReadingHiragana](backfilling.md#backfill-wordreadinghiragana)
-and
-[PASilence](backfilling.md#backfill-pasilence).
+<!--
+TODO: cleanup command on new notes only / with a specified query
+-->
 
-- TODO implement!
+Expected this batch command to take quite a bit of time,
+especially on collections containing many thousands of cards.
+This is because the batch command does quite a bit behind the scenes:
+
+- Corrects `WordReading` if it is ruby text or regular text.
+- Backfills `WordReadingHiragana`.
+- Backfills `PASilence`.
+- Moves extra pictures in the `Picture` field into the `PrimaryDefinitionPicture` field.
+    - Note that this requires `beautifulsoup4` installed (`pip install beautifulsoup4`).
+        This is installed by default on Anki, so this will be properly ran if the batch command
+        was ran with JPMN Manager.
+- Moves extra audio in the `WordAudio` field into the `SentenceAudio` field.
 
 
 
-## 4. Batch Generate Pitch Accents and Sentence Furigana <small>(optional)</small> { #batch-generate-pitch-accents-and-sentence-furigana data-toc-label="4. Batch Generate Pitch Accents and Sentence Furigana" }
+## 3. Batch Generate Pitch Accents and Sentence Furigana <small>(optional)</small> { #batch-generate-pitch-accents-and-sentence-furigana data-toc-label="3. Batch Generate Pitch Accents and Sentence Furigana" }
 
 This step requires the `AJT Japanese` addon to be [correctly setup](setupanki.md#ajt-japanese).
 Although this step is technically optional,
@@ -344,7 +282,7 @@ on how to backfill pitch accents and sentence furigana.
 
 
 
-## 5. Backfill the `FrequencySort` Field <small>(optional)</small> { #backfill-the-frequencysort-field data-toc-label="5. Backfill the FrequencySort Field" }
+## 4. Backfill the `FrequencySort` Field <small>(optional)</small> { #backfill-the-frequencysort-field data-toc-label="4. Backfill the FrequencySort Field" }
 See [here](backfilling.md#backfill-frequencysort) if you want to backfill the `FrequencySort` field.
 
 
@@ -357,5 +295,130 @@ then you have **successfully transferred your notes** to the JPMN template.
 Enjoy reviewing your old cards with a new template!
 
 
+---
 
 
+# Legacy Instructions
+
+Most steps have now been combined all into the one `cleanup` batch command.
+The legacy instructions for dealing with those steps individually are recorded
+below just in case.
+
+??? example "Legacy instructions: Batch Set `PASilence` Field"
+
+    This will ensure all `PASilence` are filled correctly.
+    See [here](faq.md#what-is-the-point-of-the-pasilence-field) to understand what this field does.
+    This can be done with a {{ BATCH_CMD }}, or manually within Anki itself.
+
+    === "Batch Command"
+
+        ```aconf
+        set_pasilence_field
+        ```
+
+    === "Within Anki"
+
+        1. Head to the Card Browser window.
+        1. Right click a card, and then head to:
+
+            > `Notes` →  `Find and Replace...`
+
+        1. Set the fields to the following:
+
+            {{ gen_regex_table(RegexTableArgs(
+                    "`.*`",
+                    "`[sound:_silence.wav]`",
+                    "`PASilence` <sup>(IMPORTANT! Do not forget this field!)</sup>",
+                    selected_notes_only=False,
+                )) | indent(8) }}
+
+            ??? example "Example image <small>(click here)</small>"
+                <figure markdown>
+                {{ img("The above table in Anki", "assets/importing/bulk_add_silencewav.png") }}
+                </figure>
+
+
+??? example "Legacy instructions: Correctly Formatting `WordReading` Field"
+
+    Your `WordReading` field is likely formatted in one of three ways:
+
+    === "Furigana (plain)"
+        This is generated with the `{furigana-plain}` marker.
+
+        > Example: 成[な]り 立[た]つ
+
+        If your `WordReading` field is formatted this way, then the `WordReading` field
+        is already formatted correctly. **You can skip this step**.
+
+    === "Furigana"
+        This is generated with the `{furigana}` marker.
+
+        > Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
+        > (HTML: `<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ`)
+
+        If your `WordReading` field is formatted this way,
+        it would be ideal to convert this into plain furigana
+        so the note can properly parse the field.
+
+        ??? example "Instructions for converting furigana into plain furigana <small>(click here)</small>"
+
+            1. Head to the Card Browser window.
+            1. Right click a card, and then head to:
+
+                > `Notes` →  `Find and Replace...`
+
+            1. Set the fields to the following:
+
+                {{ gen_regex_table(RegexTableArgs(
+                        "`<ruby>(<rb>)?(?P<kanji>.*?)(</rb>)?<rt>(?P<furigana>.*?)</rt></ruby>`",
+                        "<code>&nbsp;$kanji[$furigana]</code> <sup>(Keep the whitespace at the beginning!)</sup>",
+                        "`WordReading`",
+                        selected_notes_only=False,
+                    )) | indent(12) }}
+
+
+    === "Kana only"
+        This is generated with the `{reading}` marker.
+
+        > Example: なりたつ
+
+        This means that your old cards only have a kana reading.
+        It would be ideal to have the `WordReading` as the kanji word with furigana.
+        You likely want the kanji word with the furigana, so the kanjis actually show
+        in the proper places.
+        Some examples include the kanji hover tooltip as well as
+        to the left of the picture field.
+
+        ??? example "Instructions for converting kana readings into (plain) furigana <small>(click here)</small>"
+
+            The solution provided below is imperfect, but passable.
+            This will format all of the `WordReading` fields to be `Word[WordReading]`,
+            which means kana will repeated.
+            For example, a card with `Word` as 成り立つ, and `WordReading` as なりたつ,
+            will turn into: <ruby><rb>成り立つ</rb><rt>なりたつ</rt></ruby>
+
+            To do this, run the following {{ BATCH_CMD }}:
+            ```aconf
+            quick_fix_convert_kana_only_reading_all_notes
+            ```
+
+            The above will affect **ALL** notes.
+            If you instead want to affect certain notes, add the `kanaonlyreading`
+            tag to all affected notes, and then run the following batch command:
+
+            ```aconf
+            quick_fix_convert_kana_only_reading_with_tag
+            ```
+
+??? example "Legacy instructions: Batch set `WordReadingHiragana` Field"
+
+    The following automatically fills out the `WordReadingHiragana` field.
+
+    Filling out the `WordReadingHiragana` field is optional but highly recommended.
+    This will enable the usage of [Word Indicators](ui.md#word-indicators)
+    on existing cards.
+
+    To do this, run the following {{ BATCH_CMD }}:
+    ```aconf
+    fill_word_reading_hiragana_field
+    ```

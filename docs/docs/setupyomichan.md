@@ -41,7 +41,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 1. Navigate to Yomichan Settings.
 1. Go to the `Anki` section.
 1. Select `Anki card format...`.
-1. Set "Model" as `JP Mining Note`.
+1. Set "Model" as `JP Mining Note`, and "Deck" to whatever your Anki deck is.
 1. Copy and paste the following values into the fields
    (the custom markers won't be available in the dropdown arrow):
 

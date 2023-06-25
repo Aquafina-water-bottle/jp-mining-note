@@ -11,6 +11,7 @@ import action_runner as ac
 import note_changes as nc
 import fields as flds
 import install as instl
+from jp_utils import kata2hira, is_hiragana, distribute_furigana, segments_to_plain_furigana
 
 
 rx_END_DIV = re.compile(r"</div>$")
@@ -22,21 +23,9 @@ rx_INTEGER_ONLY = re.compile(r"^-?\d+$")
 rx_HTML = re.compile("<.*?>")
 #rx_SOUND_TAG = re.compile(r"\[sound:([^]]+)\]") # captures just the file name
 rx_SOUND_TAG = re.compile(r"\[sound:[^]]+\]")
+rx_RUBY = re.compile(r"<ruby>(<rb>)?(?P<kanji>.*?)(</rb>)?<rt>(?P<furigana>.*?)</rt></ruby>")
 
 
-HIRAGANA = list(
-    "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすず"
-    "せぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴ"
-    "ふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわ"
-    "をんーゎゐゑゕゖゔゝゞ・「」。、"
-)
-HIRAGANA_SET = set(HIRAGANA)
-FULL_KANA = list(
-    "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソ"
-    "ゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペ"
-    "ホボポマミムメモャヤュユョヨラリルレロワヲンーヮヰヱヵヶヴ"
-    "ヽヾ・「」。、"
-)
 
 
 # ==================
@@ -78,39 +67,6 @@ def _get_kana_from_plain_reading(plain_reading):
 
     return result
 
-
-def _kata2hira(text: str, ignore: str = "") -> str:
-    # taken directly from jaconv's source code
-    # separate function instead of using `jaconv` for the sake of fewer dependencies
-    # for end users
-    # NOTE: doesn't convert long katakana marks unfortunately
-
-    def _to_dict(_from, _to):
-        return dict(zip(_from, _to))
-
-    def _to_ord_list(chars):
-        return list(map(ord, chars))
-
-    FULL_KANA_ORD = _to_ord_list(FULL_KANA)
-    K2H_TABLE = _to_dict(FULL_KANA_ORD, HIRAGANA)
-
-    def _exclude_ignorechar(ignore, conv_map):
-        for character in map(ord, ignore):
-            conv_map[character] = character
-        return conv_map
-
-    def _convert(text, conv_map):
-        return text.translate(conv_map)
-
-    _conv_map = _exclude_ignorechar(ignore, K2H_TABLE.copy())
-    return _convert(text, _conv_map)
-
-
-def _is_hiragana(text: str) -> bool:
-    for c in text:
-        if c not in HIRAGANA_SET:
-            return False
-    return True
 
 
 # =================
@@ -422,7 +378,7 @@ def fill_word_reading_hiragana_field():
         field_val = info["fields"]["WordReading"]["value"]
         reading = _get_kana_from_plain_reading(field_val)
         # standardizes all katakana -> hiragana
-        hiragana = _kata2hira(reading)
+        hiragana = kata2hira(reading)
 
         action = {
             "action": "updateNoteFields",
@@ -475,6 +431,8 @@ def quick_fix_convert_kana_only_reading_with_tag():
     """
     converts the WordReading field to the `Word[WordReading]` format
     (only for notes with tag:kanareadingonly)
+
+    DEPRECATED for 0.12.0.0!
     """
 
     query = r'"note:JP Mining Note" tag:kanaonlyreading'
@@ -488,6 +446,52 @@ def quick_fix_convert_kana_only_reading_all_notes():
     """
     query = r'"note:JP Mining Note"'
     _quick_fix_convert_kana_only_reading(query)
+
+
+def clean_word_reading_field(query: Optional[str] = None):
+    """
+    Converts the WordReading field to the plain furigana (Word[WordReading]) format,
+    given the WordReading is either plain kana, or raw ruby text.
+    """
+    print("Querying notes...")
+    if query is None:
+        query = r'"note:JP Mining Note"'
+    notes = invoke("findNotes", query=query)
+    print("Getting notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print("Converting WordReading -> Word[WordReading]")
+    actions = []
+    for info in notes_info:
+        word_field = info["fields"]["Word"]["value"].strip()
+        word_reading_field = info["fields"]["WordReading"]["value"].strip()
+
+        # Sanity checks
+        if word_field == word_reading_field:
+            continue
+        if "[" in word_reading_field or "]" in word_reading_field:
+            continue # nothing to do, it's already plain furigana!
+
+        if "<ruby>" in word_reading_field:
+            result = rx_RUBY.sub(r" \g<kanji>[\g<furigana>]", word_reading_field)
+        else:
+            result = segments_to_plain_furigana(distribute_furigana(word_field, word_reading_field))
+
+        action = {
+            "action": "updateNoteFields",
+            "params": {
+                "note": {
+                    "id": info["noteId"],
+                    "fields": {"WordReading": result},
+                }
+            },
+        }
+
+        actions.append(action)
+        print(word_reading_field, "->", result)
+
+    print("Updating notes...")
+    notes = invoke("multi", actions=actions)
 
 
 def separate_pa_override_field():
@@ -867,7 +871,7 @@ def fill_field_if_hiragana(field_name: str, value: str = "1", query: str | None 
     for info in notes_info:
         nid = info["noteId"]
         field_val = info["fields"]["Word"]["value"]
-        if _is_hiragana(field_val):
+        if is_hiragana(field_val):
             action = _update_note_action(nid, **{field_name: value})
             actions.append(action)
 
@@ -897,7 +901,8 @@ def get_new_due_cards(limit: int, as_query=True):
 
 def cleanup():
     set_pasilence_field()
-    fill_word_reading_hiragana_field()
+    clean_word_reading_field() # must be placed before fill_word_reading_hiragana_field
+    fill_word_reading_hiragana_field() # expects plain furigana format in WordReading
     split_audio()
     split_picture()
 
@@ -1007,6 +1012,7 @@ FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
     reposition_fields: {"version": (str, None)},
     add_fields: {"version": (str, None)},
     fill_field_if_hiragana: {"value": (str, "1"), "query": (str, None)},
+    clean_word_reading_field: {"query": (str, None)}
 }
 
 
@@ -1022,6 +1028,7 @@ PUBLIC_FUNCTIONS = [
     fill_word_reading_hiragana_field,
     quick_fix_convert_kana_only_reading_with_tag,
     quick_fix_convert_kana_only_reading_all_notes,
+    clean_word_reading_field,
     separate_pa_override_field,
     remove_bolded_text_ajtwordpitch,
     combine_backup_xelieu,
@@ -1055,6 +1062,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     fill_word_reading_hiragana_field,
     quick_fix_convert_kana_only_reading_with_tag,
     quick_fix_convert_kana_only_reading_all_notes,
+    clean_word_reading_field,
     separate_pa_override_field,
     remove_bolded_text_ajtwordpitch,
     # combine_backup_xelieu,
