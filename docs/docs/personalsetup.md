@@ -132,6 +132,11 @@ div#dictionary-entries > div.entry:nth-child(n + 2) .kanji-glyph-data > tbody > 
   border-top: none !important;
 }
 
+/* Only shows the first 4 frequency lists */
+span.frequency-group-item:nth-child(n+5) {
+  display: none;
+}
+
 /*
  * ============
  *  global end

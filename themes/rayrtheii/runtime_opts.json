@@ -47,8 +47,6 @@
     "resultFalse": false
   },
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
-  "blockquotes.folderTab.mode": "linked",
-  "blockquotes.folderTab.linkedTabs": "12-3-4-5",
   "wordIndicators.getResultsFront": true,
   "blockquotes.hideEmpty": false,
   "_modifyActions": {

@@ -262,8 +262,7 @@ export class KanjiHover extends RunnableAsyncModule {
       }
     }
 
-    // convert set to array
-    const cardIDsArray = [...cardIDs];
+    const cardIDsArray = [...cardIDs]; // convert set to array
     const cardsInfoResult = await cardsInfo(cardIDsArray, this.useCache);
 
     for (const [kanji, filteredCardIDs] of Object.entries(kanjiToFilteredCardIDs)) {
