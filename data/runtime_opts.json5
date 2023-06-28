@@ -959,6 +959,14 @@
     "JMdict (English)": "none",
     "JMdict": "none",
     "JMdict Extra": "none",
+    "Nico/Pixiv": "none",
+
+    // All jitenon dictionaries from stephenmk separate the first line with a span, which is
+    // different from most other dictionaries. Special support for dictionaries like these
+    // may be added in the future, but for now, they are 100% ignored to prevent any errors.
+    "故事・ことわざ・慣用句オンライン": "none",
+    "四字熟語辞典オンライン": "none",
+    "国語辞典オンライン": "none",
   },
 
   // valid options:
