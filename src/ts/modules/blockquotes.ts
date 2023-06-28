@@ -1,7 +1,6 @@
 import { cardIsNew } from '../isNew';
 import { RunnableModule } from '../module';
 import { checkOptTags, getOption } from '../options';
-import { getViewportWidth } from '../reflow';
 import { getTags } from '../utils';
 
 type EntryId =
@@ -15,6 +14,14 @@ type HideFirstLineMode = 'show' | 'first-line' | 'extra-text' | 'tags' | 'none';
 
 type RemoveListMode = 'always' | 'never' | 'on-singular';
 
+// TODO: These names are pretty horrible and don't really describe what they're supposed to do...
+//
+// optionId: the name used in runtime options
+// eleId: the details element, or the blockquote element if primary definition
+// entryId: internal ID used for definitionStorage
+// buttonId: the label element ID
+// inputId: the input element ID
+// checkboxTextId: a hidden div in the primary definition, used to store and show multiple definitions.
 const ENTRIES = [
   {
     optionId: 'primaryDefinition',
@@ -82,9 +89,30 @@ export class Blockquotes extends RunnableModule {
   //private currentEntryId: EntryId = 'primary-definition';
   private readonly showDotWhenEmpty = getOption('blockquotes.folderTab.showDotWhenEmpty');
   private readonly folderTabMode = getOption('blockquotes.folderTab.mode');
+  private linkedEntries: Record<EntryId, Set<EntryId>> | null = null
 
   constructor() {
     super('blockquotes');
+  }
+
+  // toggleValue <=> do not show entry
+  // NOTE: This does not actually "click" the entry. It just toggles the text under the main definition.
+  private clickEntry(entry: BlockquoteEntry, inputEle: HTMLInputElement, toggleValue: boolean | undefined = undefined) {
+    if (entry.entryId === 'primary-definition') {
+      // exception to maintain html format
+      document
+        .getElementById('primary_definition_wrapper')
+        ?.classList.toggle('hidden', toggleValue ?? inputEle.checked);
+    } else {
+      // standard
+      const checkboxTextEle = document.getElementById(entry.checkboxTextId);
+      if (checkboxTextEle === null) {
+        // shouldn't happen
+        return;
+      }
+      checkboxTextEle.classList.toggle('hidden', toggleValue ?? inputEle.checked);
+    }
+
   }
 
   private selectEntry(entry: BlockquoteEntry, eles: FolderTabElements) {
@@ -95,35 +123,50 @@ export class Blockquotes extends RunnableModule {
       if (c) {
         eles.primaryDefBlockquoteEle.appendChild(c);
       }
-    } else {
-      const inputEle = document.getElementById(entry.inputId) as HTMLInputElement | null;
-      if (inputEle === null) {
+    } else { // multiple or linked
+
+      const mainInputEle = document.getElementById(entry.inputId) as HTMLInputElement | null;
+      if (mainInputEle === null) {
         // shouldn't happen
         return;
       }
 
-      if (entry.entryId === 'primary-definition') {
-        // exception to maintain html format
-        document
-          .getElementById('primary_definition_wrapper')
-          ?.classList.toggle('hidden', inputEle.checked);
-      } else {
-        // standard
-        const checkboxTextEle = document.getElementById(entry.checkboxTextId);
-        if (checkboxTextEle === null) {
-          // shouldn't happen
-          return;
+      if (this.folderTabMode === 'multiple') {
+        this.clickEntry(entry, mainInputEle);
+      } else { // mode === linked
+        // ASSUMPTION: we maintain the status that all linked entries within a group must be checked together.
+        if (mainInputEle.checked) {
+          return // nothing to do, it's already selected
         }
-        checkboxTextEle.classList.toggle('hidden', inputEle.checked);
+
+        // The user is now selecting a different group.
+        // Iterate through once, and disable and enable as necessary.
+        const linkedEntries = this.linkedEntries?.[entry.entryId]
+        for (const e of ENTRIES) {
+          const inputEle = document.getElementById(e.inputId) as HTMLInputElement | null;
+          if (inputEle === null) {
+            // shouldn't happen
+            continue;
+          }
+
+          const isLinkedEntry = linkedEntries?.has(e.entryId) ?? false;
+          // a bit of a hack to ensure that the current button can no longer be pressed
+          if (!inputEle.getAttribute("data-permanently-disabled")) {
+            this.clickEntry(e, inputEle, !isLinkedEntry);
+            inputEle.disabled = isLinkedEntry; // disables re-toggling the current entry
+            inputEle.checked = isLinkedEntry;
+          }
+        }
       }
     }
   }
 
   private setDisabled(entry: BlockquoteEntry) {
-    const entryEle = document.getElementById(entry.inputId);
-    if (entryEle !== null) {
+    const inputEle = document.getElementById(entry.inputId);
+    if (inputEle !== null) {
       this.logger.debug(`setting ${entry.entryId} to disabled...`);
-      (entryEle as HTMLInputElement).disabled = true;
+      (inputEle as HTMLInputElement).disabled = true;
+      inputEle.setAttribute("data-permanently-disabled", "true");
     }
 
     if (this.showDotWhenEmpty) {
@@ -135,6 +178,7 @@ export class Blockquotes extends RunnableModule {
     }
   }
 
+  // TODO: ensure that folder tabs are shown when PrimaryDefinition is empty? (external links)
   populateFolderTab() {
     const primaryDefBlockquoteEle = document.getElementById(
       'primary_definition'
@@ -149,20 +193,44 @@ export class Blockquotes extends RunnableModule {
       primaryDefBlockquoteEle: primaryDefBlockquoteEle,
     } as const;
 
-    for (const entry of ENTRIES) {
-      // this works since in the templates, the element is not assigned an id if greyed out / not shown
-      const ele = document.getElementById(entry.eleId);
-      if (ele === null) {
-        // shouldn't happen
-        this.setDisabled(entry);
-        continue;
-      }
+    // calculates linked elements
+    // ASSUMPTION: the input is always correct. No error checking will be done for speed purposes.
+    if (this.folderTabMode === "linked") {
+      const linkedEntries: Partial<Record<EntryId, Set<EntryId>>> = {}
 
-      if (this.folderTabMode === 'multiple') {
+      const linkedElesSpecifier = getOption("blockquotes.folderTab.linkedTabs");
+      for (const specifierGroup of linkedElesSpecifier.split("-")) {
+        const entriesGroup: Set<EntryId> = new Set();
+        for (const c of specifierGroup) {
+          entriesGroup.add(ENTRIES[Number(c)-1].entryId);
+        }
+
+        // removes the line indicating what the text is unless it's part of a group of > 1 elements
+        // ASSUMPTION: each group must have 1 or more numbers
+        document.getElementById((ENTRIES[Number(specifierGroup[0])-1]).checkboxTextId)?.classList.toggle("primary-def-folder-tab-text--hide");
+
+        for (const entryId of entriesGroup) { // ASSUMPTION: no deepcopy is fine
+          linkedEntries[entryId] = entriesGroup;
+        }
+      }
+      this.linkedEntries = linkedEntries as Record<EntryId, Set<EntryId>>;
+
+    }
+
+    for (const entry of ENTRIES) {
+      // must be ran before the setDisabled block below, to ensure everything is properly a checkbox
+      if (this.folderTabMode === 'multiple' || this.folderTabMode === 'linked') {
         const inputEle = document.getElementById(entry.inputId);
         if (inputEle !== null) {
           (inputEle as HTMLInputElement).type = 'checkbox';
         }
+      }
+
+      // this works since in the templates, the element is not assigned an id if greyed out / not shown
+      const ele = document.getElementById(entry.eleId);
+      if (ele === null) {
+        this.setDisabled(entry);
+        continue;
       }
 
       // exception for extra info since it's implemented differently in the templates
@@ -192,7 +260,7 @@ export class Blockquotes extends RunnableModule {
         return;
       }
 
-      if (this.folderTabMode === 'multiple') {
+      if (this.folderTabMode === 'multiple' || this.folderTabMode === 'linked') {
         // loads into the text divs beforehand
         const checkboxTextEle = document.getElementById(entry.checkboxTextId);
         const c = this.definitionStorage[entry.entryId];
@@ -221,6 +289,7 @@ export class Blockquotes extends RunnableModule {
       primaryDefEle?.classList.toggle('glossary-primary-definition--folder-tab', true);
       primaryDefEle?.classList.toggle('hidden', false); // shows regardless
 
+      // hard code selecting the primary definition
       this.selectEntry(this.availableEntries[0], eles);
       const firstInputEle = document.getElementById(
         this.availableEntries[0].inputId
@@ -243,15 +312,15 @@ export class Blockquotes extends RunnableModule {
 
   private openBlockquotes(mode: 'open' | 'openOnNew') {
     if (getOption('blockquotes.folderTab.enabled')) {
-      if (getOption('blockquotes.folderTab.mode') === 'multiple') {
+      if (this.folderTabMode === 'multiple' || this.folderTabMode === 'linked') {
         // AND check number
 
-        // TODO combine logic with if new
         for (const entry of ENTRIES) {
           if (getOption(`blockquotes.${mode}.${entry.optionId}`)) {
             const buttonEle = document.getElementById(entry.buttonId);
-            // TODO check if input is already open (to avoid closing things)
-            if (buttonEle !== null) {
+            const inputEle = document.getElementById(entry.inputId) as HTMLInputElement | null;
+            // inputEle is used to check if it was already open
+            if (buttonEle !== null && inputEle !== null && !inputEle.checked) {
               buttonEle.click();
             }
           }
@@ -261,7 +330,7 @@ export class Blockquotes extends RunnableModule {
         for (const entry of ENTRIES) {
           if (getOption(`blockquotes.${mode}.${entry.optionId}`)) {
             this.logger.warn(
-              `Cannot open ${entry.optionId} by default if blockquotes.folderTab.mode is not 'multiple'`
+              `Cannot open ${entry.optionId} by default if blockquotes.folderTab.mode is not 'multiple' or 'linked'`
             );
           }
         }

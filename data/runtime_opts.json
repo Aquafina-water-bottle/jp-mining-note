@@ -335,6 +335,7 @@
   "blockquotes.openOnNew.extraInfo": false,
   "blockquotes.folderTab.enabled": true,
   "blockquotes.folderTab.mode": "unique",
+  "blockquotes.folderTab.linkedTabs": "12-3-4-5",
   "blockquotes.folderTab.showDotWhenEmpty": false,
   "blockquotes.simplifyDefinitions.enabled": false,
   "blockquotes.simplifyDefinitions.primaryDefinition.enabled": true,

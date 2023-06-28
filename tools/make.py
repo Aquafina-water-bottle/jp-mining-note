@@ -34,7 +34,7 @@ CSS_FILENAME = "style.css"
 def add_args(parser: argparse.ArgumentParser):
     group = parser.add_argument_group(title="make")
     group.add_argument("--to-release", action="store_true", default=False)
-    group.add_argument("--build-dev", action="store_true", default=False)
+    group.add_argument("--build-dev", action="store_true", default=False, help="build dev typescript")
     group.add_argument("--dev-ignore-ts", action="store_true", default=False)
     group.add_argument("--dev-generate-consts", action="store_true", default=False)
 

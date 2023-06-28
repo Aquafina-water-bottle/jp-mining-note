@@ -429,6 +429,10 @@
 
 
   // lines
+  .primary-def-folder-tab-text--hide .primary-def-folder-tab-text__line {
+    display: none;
+  }
+
   .primary-def-folder-tab-text__line {
     font-size: 0.75em;
     color: var(--text-color--3);

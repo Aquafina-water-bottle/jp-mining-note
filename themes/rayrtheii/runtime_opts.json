@@ -37,8 +37,18 @@
   ],
   "blockquotes.folderTab.showDotWhenEmpty": true,
   "blockquotes.openOnNew.enabled": true,
-  "blockquotes.openOnNew.extraInfo": true,
+  "blockquotes.openOnNew.extraInfo": {
+    "type": "viewportWidthBreakpoint",
+    "args": {
+      "op": ">=",
+      "value": "combinePicture"
+    },
+    "resultTrue": true,
+    "resultFalse": false
+  },
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
+  "blockquotes.folderTab.mode": "linked",
+  "blockquotes.folderTab.linkedTabs": "12-3-4-5",
   "wordIndicators.getResultsFront": true,
   "blockquotes.hideEmpty": false,
   "_modifyActions": {

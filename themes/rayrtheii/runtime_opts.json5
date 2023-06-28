@@ -74,9 +74,22 @@
   "blockquotes.folderTab.showDotWhenEmpty": true,
 
   "blockquotes.openOnNew.enabled": true,
-  "blockquotes.openOnNew.extraInfo": true,
+  "blockquotes.openOnNew.extraInfo": {
+    "type": "viewportWidthBreakpoint",
+    "args": {
+      "op": ">=",
+      "value": "combinePicture",
+    },
+    resultTrue: true,
+    resultFalse: false,
+  },
 
   "autoPitchAccent.paPositions.displayMode": "selected-dictionary",
+
+  // TODO: how to make it better with new cards?
+  //"blockquotes.folderTab.mode": "linked",
+  //"blockquotes.folderTab.linkedTabs": "15-2-3-4",
+  //"blockquotes.folderTab.linkedTabs": "12-3-4-5",
 
 
   //"blockquotes.simplifyDefinitions.enabled": true,

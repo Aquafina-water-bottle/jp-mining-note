@@ -177,9 +177,8 @@ def copy_from_previous(fields_to_copy_csv: str = "Picture,AdditionalNotes"):
     prev_note_data = invoke("notesInfo", notes=[prev_note_id])
 
     # copies picture & additional notes to current note
-    fields = (
-        {f: _field_value(prev_note_data, f) for f in fields_to_copy_csv.split(",")},
-    )
+    fields = {f: _field_value(prev_note_data, f) for f in fields_to_copy_csv.split(",")}
+
     invoke(
         "updateNoteFields",
         note={
