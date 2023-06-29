@@ -345,7 +345,11 @@
   "blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode": {
     "JMdict (English)": "none",
     "JMdict": "none",
-    "JMdict Extra": "none"
+    "JMdict Extra": "none",
+    "Nico/Pixiv": "none",
+    "\u6545\u4e8b\u30fb\u3053\u3068\u308f\u3056\u30fb\u6163\u7528\u53e5\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u56db\u5b57\u719f\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u56fd\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none"
   },
   "blockquotes.simplifyDefinitions.removeListMode": "on-singular",
   "blockquotes.simplifyDefinitions.removeListMode.tagOverride.always": [
