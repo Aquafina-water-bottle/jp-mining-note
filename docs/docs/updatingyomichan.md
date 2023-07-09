@@ -1,4 +1,4 @@
-TODO introduction?
+This section is dedicated to updating Yomichan settings required to use JPMN.
 
 
 ---
@@ -12,15 +12,12 @@ The most important difference is that if a new field was added or a field has be
 then **the field will not show up automatically in Yomichan**.
 
 
-!!! warning
-    Doing the above WILL clear all the fields that you previously had, unless there
-    is a matching field in that other card.
-
-
 ## Refreshing Yomichan Fields
 
 ??? example "Video Demo <small>(click here)</small>"
     ![type:video](assets/updating/updating_yomichan_fields.mp4)
+
+    TODO update the video...
 
 1. As always, create a [backup](faq.md#how-do-i-backup-yomichan-settings)
     of your Yomichan settings, just in case.
@@ -29,7 +26,8 @@ then **the field will not show up automatically in Yomichan**.
     →  `Manage Note Types` <br>
     →  `Add` <br>
     →  Select `Clone: JP Mining Note` →  `Ok` <br>
-    →  Name the note anything you want (the following examples will use `JP Mining Note copy`)  →  `Ok`<br>
+    →  Name this to anything you want. The following examples will use `JP Mining Note copy`. <br>
+    →  `Ok`<br>
     →  `Close`
 1. If you are currently viewing Yomichan Settings, please refresh the page.
 1. Head over to Anki Card Format [as before](setupyomichan.md#yomichan-fields).

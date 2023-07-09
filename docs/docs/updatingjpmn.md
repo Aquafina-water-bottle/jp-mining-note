@@ -1,8 +1,9 @@
-TODO introduction?
+This section is dedicated to updating the JPMN template in Anki.
 
 ---
 
 # Preliminary steps
+
 1. Ensure that your note is named exactly `JP Mining Note`.
     To do this, head over to:
 
@@ -10,11 +11,9 @@ TODO introduction?
 
     If your note is named differently, please rename it to `JP Mining Note`.
 
-    !!! note
-        You can always change the name back after updating.
-
-1. [Make a backup of your entire Anki collection](faq.md#how-do-i-backup-my-anki-data),
+1. [Please make a backup of your entire Anki collection](faq.md#how-do-i-backup-my-anki-data),
     if you haven't already.
+
 
 
 ---

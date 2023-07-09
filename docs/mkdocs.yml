@@ -92,19 +92,20 @@ nav:
     - "Text & Media":
       - "mpvacious": setupmpvacious.md
       - "asbplayer": setupasbplayer.md
+    - Transfer Existing Notes:
+      - Transfer Existing Notes: importing.md
     - Extra Setup:
       - "Extra: Yomichan": setupextrayomichan.md
       - "Extra: Anki": setupextraanki.md
       - "Extra: Android": setupandroid.md
       - "Extra: iOS": setupios.md
       - "Extra: eReaders": setupereaders.md
-      - Transfer Existing Notes: importing.md
     - Alternate Card Exporters:
       - JL (TODO): setupjl.md
       - jidoujisho (TODO): setupjidoujisho.md
       - goldendict (TODO): setupgoldendict.md
   - Updating:
-    - "Updating: Overview (TODO)": updating.md
+    - "Updating: Overview": updating.md
     - "Updating: JPMN": updatingjpmn.md
     - "Updating: Yomichan": updatingyomichan.md
     - "Setup Changes": setupchanges.md

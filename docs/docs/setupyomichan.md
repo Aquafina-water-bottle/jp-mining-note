@@ -11,13 +11,6 @@ This section will go over the minimal Yomichan setup to work with this card type
 **If you have never used Yomichan before, please see
 [this page](https://learnjapanese.moe/yomichan/) first to get it working.**
 
----
-
-# Preliminary Steps
-If you have used Yomichan before, please make a
-[backup of your settings](faq.md#how-do-i-backup-yomichan-settings)
-(just in case).
-
 
 !!! warning "Warning for Firefox Users"
     The default version for Yomichan on Firefox's Add-ons page
@@ -29,6 +22,22 @@ If you have used Yomichan before, please make a
     If it isn't, you will have to download it
     [manually](https://github.com/FooSoft/yomichan/releases/tag/22.10.23.0)
     (use `a708116f79104891acbd-22.10.23.0.xpi`).
+
+
+---
+
+# Preliminary Steps
+*   If you have used Yomichan before, please make a
+    [backup of your settings](faq.md#how-do-i-backup-yomichan-settings)
+    (just in case).
+
+*   On top of the standard dictionaries, I highly recommend installing some frequency and
+    pitch accent dictionaries, as that information is used by jp-mining-note.
+    Many of these dictionaries can be found within
+    [TheMoeWay's drive](https://learnjapanese.link/dictionaries).
+    These dictionaries are installed in the exact same way as the standard Yomichan dictionaries.
+
+    In particular, I recommend the [**JPDB frequency list**](https://github.com/MarvNC/jpdb-freq-list).
 
 ---
 
@@ -148,9 +157,7 @@ if the card doesn't look quite right.
 ---
 
 
-# Yomichan Templates Options Summary
-
-## Monolingual Definition
+# Monolingual Cards
 If you want the first definition you see (the `PrimaryDefinition` field) to be monolingual,
 change the following line at the top of the templates code:
 
@@ -239,7 +246,7 @@ To fix it, set `opt-jmdict-list-format` to `true`, i.e.
 If you've made it this far, then congratulations!
 Most fields of the cards have been automatically filled out, just from Yomichan alone!
 
-This concludes the setup process for creating cards with Yomichan.
+This concludes the minimal setup process for creating cards with Yomichan.
 
 From here, you likely fall under one of the two categories below:
 
@@ -264,6 +271,10 @@ From here, you likely fall under one of the two categories below:
     compared to your previous card, and have should be set to
     `SentenceAudio` and `Picture` respectively.
 
-    Other than that, you are completely finished with the setup process!
+
+Finally, remember that up until now, this has been the **minimum setup** in order to use jp-mining-note.
+There are likely many ways you can improve this current setup.
+See the "Extra Setup" pages to the left sidebar for more information.
+
 
 

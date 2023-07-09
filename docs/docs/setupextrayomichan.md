@@ -15,6 +15,10 @@ If you want to follow my exact Yomichan popup appearance:
 
 There are also plenty of CSS customizations for Yomichan listed out
 in the [JP Resources page](jpresources.md).
+Some popular customizations within that page include:
+
+- Setting the max number of frequency lists or pitch accent dictionaries shown
+- Hiding bilingual dictionaries by default, until hovered over
 
 ## Yomichan Themes
 I personally haven't changed the theme / color scheme of Yomichan.
@@ -51,12 +55,8 @@ If you don't want to compile it from source, I provide a download link
 [here](https://github.com/Aquafina-water-bottle/jmdict-english-yomichan),
 which should only be a few months stale at most.
 
-<!-- TODO github actions to re-compile it daily -->
 
 ---
-
-
-
 
 
 

@@ -115,7 +115,7 @@ sentence parser, auto pitch accent and/or tooltips modules.
 ---
 
 
-# Special Option Values
+# Option Branch Values
 
 {{ feature_version("0.11.0.0") }}
 
@@ -128,7 +128,8 @@ A simple example is the following:
 
 In the above example, the key is `kanjiHover.enabled`, whereas the value is `true`.
 
-All runtime options can take special values, which are always formatted as the following:
+All runtime options can take special values (known as "option branch values"),
+which are always formatted as the following:
 
 ```json
 {
@@ -139,7 +140,7 @@ All runtime options can take special values, which are always formatted as the f
 },
 ```
 
-For example, we can change the above `kanjiHover.enabled` to use this special value,
+For example, we can change the above `kanjiHover.enabled` to use this branch value,
 with type type of `isMobile`:
 
 This can be changed to:
@@ -151,7 +152,7 @@ This can be changed to:
 },
 ```
 
-A full list of special option types is shown below.
+A full list of option branch values is shown below.
 The source code for these can be found under
 [src/ts/options.ts](https://github.com/Aquafina-water-bottle/jp-mining-note/blob/dev/src/ts/options.ts).
 (TODO not dev branch)

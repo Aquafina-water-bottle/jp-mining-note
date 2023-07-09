@@ -8,22 +8,6 @@ All other frequencies can be viewed by hovering over the dropdown arrow.
 
 ---
 
-# Unknown Frequency
-
-TODO image of unknown
-
-- TODO if you see "unknown" at the top right of all your cards, you likely don't have any frequency list installed
-- "unknown" shows if both FrequenciesStylized and FrequencySort are not filled
-- recommend [backfilling](importing.md#backfill-the-frequencysort-field) existing cards
-- if you don't want to see "unknown", you can remove with {{CSS}}:
-    ```css
-    .frequencies [data-is-unknown] {
-      display: none;
-    }
-    ```
-
----
-
 # Sorting by Frequency
 This note type comes with a `FrequencySort` field,
 which is the equivalent of Marv's `Frequency` field in
@@ -35,6 +19,7 @@ To summarize how `FrequencySort` is generated: all frequencies
 which can be thought of as a mean that heavily leans towards the minimum.
 
 However, some exceptions apply:
+
 - If the word exists in a downloaded grammar dictionary, then the frequency value is set to 0, because we make the assumption that grammar points should be studied as soon as possible.
 - If there are no frequencies, then it is set to `9999999`.
 
@@ -74,4 +59,28 @@ If you never want to limit the number of frequencies shown, set this to `-1`.
 
 (TODO IMAGE without dropdown and >= 5 frequencies)
 
+---
+
+# Unknown Frequency
+
+When no frequency can be found for a particular word, "unknown" is instead shown.
+
+TODO image of unknown
+
+!!! note
+    If you see "unknown" for all your cards, you likely don't have any
+    [Yomichan frequency dictionaries]()
+    installed.
+
+    If you have many cards like this, I recommend
+    [backfilling](backfilling.md#backfill-frequencysort) existing cards.
+
+# Hiding Unknown Frequency Marker
+
+If you don't want to see this "unknown", you can remove it with the following {{CSS}}:
+```css
+.frequencies [data-is-unknown] {
+  display: none;
+}
+```
 

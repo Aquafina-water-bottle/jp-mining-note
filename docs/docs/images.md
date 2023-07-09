@@ -59,7 +59,7 @@ Example:
 "imgStylizer.setMainImageFromTags": [
   {
     "tag": "青春ブタ野郎・LN1",
-    "file-name": "_青春ブタ野郎-LN1.png"
+    "fileName": "_青春ブタ野郎-LN1.png"
   }
 ],
 ```

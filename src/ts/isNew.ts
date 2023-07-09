@@ -7,28 +7,40 @@ import { isAndroid, type CardSide } from './utils';
 
 const cardIsNewKey = 'isNew.cardIsNewKey';
 
+// global empty declaration so typescript doesn't fail
+declare global {
+  var AnkiDroidJS: any;
+}
+
 function cardIsNewAndroid() {
+  // TODO: Make this work?
+
   //const jsApi = {"version" : "0.0.1",
   //  "Aquafina-water-bottle" : "17107540+Aquafina-water-bottle@users.noreply.github.com"};
-  //const apiStatus = AnkiDroidJS.init(JSON.stringify(jsApi));
-  //const api = JSON.parse(apiStatus);
-
-  //if (api['markCard']) {
-  //  console.log("API mark card available");
+  //if (typeof globalThis.AnkiDroidJS === "undefined" || globalThis.AnkiDroidJS.init === "undefined") {
+  //  LOGGER.warn("android undefined");
+  //  return false;
   //}
-  //AnkiDroidJS.ankiGetCardType()
 
-  // TODO: is there a stable way of using the ankidroid js api?
+  //const apiStatus = globalThis.AnkiDroidJS.init(JSON.stringify(jsApi));
+  //const api = JSON.parse(apiStatus);
+  //if (api['ankiGetCardType']) {
+  //  const cardType = globalThis.AnkiDroidJS.ankiGetCardType();
+  //  LOGGER.warn("cardType " + cardType);
+  //  return (cardType === 0); // 0 means new
+  //}
+  //LOGGER.warn("android getcardtype undefined");
+  //LOGGER.warn(apiStatus);
   return false;
 }
 
 export async function cardIsNew(cardSide: CardSide) {
-  if (!getOption('enableAnkiconnectFeatures')) {
-    return false; // we don't know without ankiconnect!
-  }
-
   if (isAndroid()) {
     return cardIsNewAndroid();
+  }
+
+  if (!getOption('enableAnkiconnectFeatures')) {
+    return false; // we don't know without ankiconnect!
   }
 
   const spersist = selectPersistAny();

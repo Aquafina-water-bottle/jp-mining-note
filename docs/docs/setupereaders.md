@@ -17,7 +17,7 @@ This allows you to add the cards through Yomichan on the PC.
 # ONYX BOOX
 
 ONYX BOOX internally uses Android.
-You should be able to follow the steps under the [Android setup](setupextraandroid.md) page
+You should be able to follow the steps under the [Android setup](setupandroid.md) page
 in order to get this eReader working.
 
 Also see:

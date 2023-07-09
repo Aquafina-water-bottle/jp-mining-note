@@ -3,20 +3,26 @@ This page is dedicated to showcasing
 how definitions can be easily chosen, overwritten and customized overall.
 
 
+<!-- No longer true?
 !!! note
     This page is primarily intended for monolingual dictionary users,
     as the sheer amount of possible monolingual dictionaries may require specific
     customizations for each individual dictionary.
+-->
 
 ---
 
 
 # Dictionary Placement
+
+<!--
 This section deals with how the custom Yomichan Templates categorizes dictionaries,
 and how to properly customize them for your setup.
 
 
 ## Expected Dictionary Placement
+-->
+
 Dictionaries from Yomichan are sorted into the following fields:
 
 <!--
@@ -106,12 +112,6 @@ To see how to edit the option, see [the section below](#editing-the-dictionary-r
 Conversely, if you want to not see the dictionary on Yomichan but want it to show up on Anki,
 [see here](jpresources.md#hide-the-dictionary-but-allow-it-to-be-used-by-anki).
 
-!!! note
-    It is recommended to not use this option, so you have as much information as possible
-    within the note.
-    If you wish to not see a dictionary, it might be easier to
-    [collapse the dictionary](#collapsing-dictionaries).
-
 
 
 ## Editing the dictionary regex
@@ -130,16 +130,9 @@ To modify a regex string:
 
     If you want to add more than one dictionary, they have to be joined with the `|` character.
     For example, if you want to add the bilingual dictionaries
-    `Amazing Dictionary` and `Somewhat-Okay-Dictionary`, change
+    `Amazing Dictionary` and `Amazing-Dictionary-2`, change
     `ADD_BILINGUAL_DICTIONARIES_HERE` to
-    `Amazing Dictionary|Somewhat-Okay-Dictionary`.
-
-    {% raw %}
-    For completeness, here is the modified line for the second example:
-    ```handlebars
-    {{~#set "bilingual-dict-regex"~}} ^(([Jj][Mm][Dd]ict)(?! Surface Forms)(.*)|新和英|日本語文法辞典\(全集\)|KireiCake|NEW斎藤和英大辞典||Amazing Dictionary|Somewhat-Okay-Dictionary)$ {{~/set~}}
-    ```
-    {% endraw %}
+    `Amazing Dictionary|Amazing-Dictionary-2`.
 
 ---
 
@@ -324,6 +317,48 @@ In the case that automatic bolding fails, the highlighted text itself is simply 
         {{ img("", "assets/definitions/highlight_fail/kakine_html.png") }}
         </figure>
 
+## Usage on Yomichan's Search Page / Clipboard Page
+
+On Yomichan's Search Page or Clipboard Page, the word is usually highlighted within the
+example sentence when searching for the word. For example, the word 「人里離れた」 is highlighted
+in the following image:
+
+<figure markdown>
+  {{ img("", "assets/yomichan/search_page_highlight.png") }}
+</figure>
+
+This highlighted word interferes with the definition selector used by the handlebars,
+and may cause unexpected definitions to be selected as the primary definition instead.
+
+In order to fix this, you have a few different options:
+
+- Simply don't use the search page or clipboard page. Instead, you can use a
+    [texthooker setup](setuptextmedia.md#getting-the-text-to-create-the-cards).
+- Create a new Yomichan profile that matches the desired page(s),
+    and disable `Selected matching text` within your new profile in the Yomichan settings.
+    If you must use the search page or clipboard page,
+    this is the recommended way to deal with the issue,
+    as it has minimal impact on the rest of your workflow.
+- Ensure you always manually select something in the definition.
+- Simply disable the `opt-selection-text-glossary` handlebars option completely.
+
+??? info "Explanation {{CLICKHERE}}"
+    Under normal circumstances, i.e. within an embedded popup,
+    the selected text in a sentence does not interfere with the handlebars, because the selected
+    text is not within the popup itself.
+    However, within the search page / clipboard page, the sentence and its selected text is found
+    directly within the page itself.
+
+    Internally, the handlebars to get the selected text cannot distinguish between whether the
+    text is selected within a definition or somewhere else.
+    As mentioned before, the handlebars has no way of actually knowing which dictionary entry
+    or dictionary is selected, and must use [this algorithm](#when-manual-selection-fails)
+    to search for the correct entry.
+    With these two combined, **the selected text within the sentence is used to search the definition**.
+    This may be especially confusing to see for people who remove
+    the first line of monolingual dictionaries,
+    because it is usually the first line of monolingual dictionaries that is matched and bolded.
+
 
 
 <!--
@@ -370,8 +405,21 @@ Both of these can be automatically hidden with the following {{ RTO }}:
 
 ## Simpifying the definition per blockquote
 
-- TODO implement RTO
-- TODO briefly document existing RTOs
+By default, if the above option is enabled,
+all definitions within the Primary Definition, Secondary Definition
+and Extra Definitions blockquotes are simplified.
+One can grant finer control to only simplify definitions within these particular blockquotes:
+
+```json
+// Remember to enable this so the options can be used!
+"blockquotes.simplifyDefinitions.enabled": true,
+
+// The following controls precisely whether the simplifying definition is enabled
+// or not for each block.
+"blockquotes.simplifyDefinitions.primaryDefinition.enabled": true,
+"blockquotes.simplifyDefinitions.secondaryDefinition.enabled": true,
+"blockquotes.simplifyDefinitions.extraDefinitions.enabled": true,
+```
 
 <!--
 TODO find examples that this is useful for...
@@ -562,48 +610,80 @@ There are many ways to control exactly what content is removed, and in what way.
 
 ## Removing the first line: Algorithms Discussion
 
-TODO a few options
+There are plenty of ways to remove the first line within the definition.
+In order to better understand how these handlebars work as well as its pitfalls,
+pretty much all possible options are listed below.
 
-- remove directly in handlebars
-    - advantages:
-        - clean export
-    - disadvantages:
-        - can lead to invalid HTML
-        - removes info from the export
-- remove directly in javascript template
-    - advantages:
-        - standard export (can even work with default handlebars)
-        - all info is present
-        - access to html parser, meaning that html should remain valid
-        - should theoretically work on previously exported cards
-    - disadvantages:
-        - must assume certain HTML structure(s) in entire definition field itself
-            - problem comes when the user edits the field: can change it to whatever they want
-            - therefore, this approach is usually more brittle
-        - javascript must be ran (slowing down card load)
-        - not immediately portable: must copy/paste the JS to port between notes
-    - may be implemented in the future if there is enough demand for it
-- wrap spans around existing HTML on handlebars import
-    - advantages:
-        - does not technically require javascript (and the optional javascript that is ran is fast)
-        - all info is present
-        - very easy to implement
-    - disadvantages:
-        - not immediately portable: must copy/paste CSS to port between note types
-        - expects a certain HTML structure in the exported definition in order to work
-            - will not work on older cards exported with different handlebars
-        - can lead to invalid HTML
-    - the chosen method for this note, primarily due to speed, no info loss and simplicity
+1. **Remove the first line completely, using Handlebars.**
+
+    Advantanges:
+
+    -   The biggest advantage this has is the exported definition is as clean and
+        minimalistic it can possibly be.
+
+    Disadvantages:
+
+    -   This can lead to invalid HTML, because Handlebars does not expose
+        a HTML parser. Additionally, removing the first line completely will
+        remove info from the export.
+
+1. **Use JavaScript within the note template to remove the first line.**
+
+    Advantages:
+
+    - No special handlebars are particularly required in order for this method to work,
+        i.e. default handlebars can usually do the trick.
+    - All info is present / not lost.
+    - Anki's card reviewer is based off a web browser, so the JavaScript has access
+        to a html parser. In other words, html should remain valid.
+    - This approach should theoretically work on previously exported cards.
+
+    Disadvantages:
+
+    - The JavaScript algorithm must assume the definition is of a particular
+        HTML structure, i.e. all `<ol>` elements contain a list of definitions.
+        This is problematic if the user edits the field, as they can change it to
+        pretty much whatever they want.
+    - Javascript must be ran, which will slow down card loads.
+    - This is not immediately portable between note types,
+        because the JS must be copied/pasted for each note type.
+    - If the user decides that they want to include the first line,
+        it will likely be non-trivial to do so.
+        Editing the raw HTML may be required to simply specify whether the
+        first line should be removed or not.
+
+1. **Wrap the first line with some HTML, using Handlebars.**
+
+    Advantages:
+
+    - This does not require JS to be run at all; Only special CSS has to be used.
+        Note that internally, some extra JS is actually run in order to further filter
+        between dictionaries (`blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode`).
+        However, this JS is faster than the above option, because the JS only adds CSS classes
+        to particular elements, and does not do any string or HTML parsing.
+    - All info is present / not lost.
+    - This algorithm is relatively simple to implement.
+    - Including the first line is slightly more intuitive compared to the 2nd option:
+        Delete the `<li>` node and create a fresh node.
+
+    Disadvantages:
+
+    - Just like the first option, this can lead to invalid HTML.
+    - This is technically not immediately portable, because the CSS must be copied/pasted for each note type.
+    - This solution will not work on older cards exported with different handlebars, i.e. handlebars
+        that do not wrap the first line.
+
+    This is currently the chosen method for this note, primarily due to speed, no info loss and simplicity.
+    The second option may be implemented in the future as a fallback, or for special case handling
+    for specific dictionaries.
 
 
 
 ## When HTML can break
 {{ feature_version("0.12.0.0") }}
 
-TODO rework with the previous section
-
-In order to even have the possibility of removing the first line,
-the HTML is parsed with regex in order to find the text before the first line break.
+As mentioned in the algorithms discussion, the method used by this note can lead to invalid HTML.
+This is because the resulting HTML is parsed with regex in order to match that first line.
 In computer science, it is recommended that
 [you should not parse HTML with regex](https://stackoverflow.com/a/1732454),
 because it is mathematically impossible to fully describe and parse HTML with regex.
@@ -618,8 +698,6 @@ to remove the possibility of invalid HTML.
 
 ## Hide the first line for select dictionaries
 {{ feature_version("0.12.0.0") }}
-
-TODO rework with the previous sections
 
 The following two options are useful if you want to ignore certain problematic dictionaries,
 that do not play well with the regex above.

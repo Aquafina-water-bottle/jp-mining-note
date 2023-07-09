@@ -103,12 +103,12 @@ The `hotkey.py` file can be downloaded in any of the following ways:
         (TODO image)
 
     1. Navigate to the `Task` tab.
-        - Check `Override after capture settings`. ({{ CHECKED_CHECKBOX }})
+        - Check `Override after capture settings` ({{ CHECKED_CHECKBOX }})
         - Navigate to the capture tasks dropdown, and only have the following two items selected:
             - Save image to file
             - Perform actions
             (TODO image)
-        - Check `Override screenshots folder`. ({{ CHECKED_CHECKBOX }})
+        - Check `Override screenshots folder` ({{ CHECKED_CHECKBOX }})
         - Click `Browse` and select your Anki collection media location.
             Your media location can be found under:
             ```
@@ -121,12 +121,12 @@ The `hotkey.py` file can be downloaded in any of the following ways:
         (TODO image)
 
     1. Navigate to the `General` tab.
-        - Check `Override general settings`. ({{ CHECKED_CHECKBOX }})
+        - Check `Override general settings` ({{ CHECKED_CHECKBOX }})
         (TODO image)
 
     1. Navigate to the `General` -> `Notifications` tab.
-        - Uncheck `Play sound after capture is made`. ({{ UNCHECKED_CHECKBOX }})
-        - Uncheck `Play sound after task is completed`. ({{ UNCHECKED_CHECKBOX }})
+        - Uncheck `Play sound after capture is made` ({{ UNCHECKED_CHECKBOX }})
+        - Uncheck `Play sound after task is completed` ({{ UNCHECKED_CHECKBOX }})
         The sound on screenshot is removed so one can take a screenshot while recording the audio,
         without having the screenshot sound affect the recording.
         (TODO image)
@@ -137,10 +137,10 @@ The `hotkey.py` file can be downloaded in any of the following ways:
     > This action saves the image as a webp image, to reduce file space while retaining the same quality.
     > Unfortunately, as of writing this,
     > [ShareX does not support webp natively](https://github.com/ShareX/ShareX/issues/6090),
-    > so this action is required to save the image as a webp.
+    > so this action must be explicitly defined to save the image as a webp.
 
     - Navigate to the `Actions` tab.
-    - Check `Override actions`. ({{ CHECKED_CHECKBOX }})
+    - Check `Override actions` ({{ CHECKED_CHECKBOX }})
     - Click `Add...`.
     - A new window should pop up. Under this new window, fill out the following values:
 
@@ -205,12 +205,9 @@ The `hotkey.py` file can be downloaded in any of the following ways:
 1. **Test the hotkey**:
     TODO
 
-??? info "Explanation of the screenshot hotkey setup {{CLICKHERE}}"
-    - ShareX currently does 
-
 
 ## ShareX Screenshot Hotkey (NSFW)
-For people using jp-mining-note, or using
+For people using jp-mining-note or using
 [Marv's Anki Card Blur](https://github.com/MarvNC/JP-Resources#anki-card-blur),
 you might want to setup a different hotkey to specifically tag the card as NSFW when adding the image.
 
@@ -246,11 +243,11 @@ TODO gif
         (TODO image)
 
     1. Navigate to the `Task` tab.
-        - Check `Override after capture settings`. ({{ CHECKED_CHECKBOX }})
+        - Check `Override after capture settings` ({{ CHECKED_CHECKBOX }})
         - Navigate to the capture tasks dropdown, and only have the following two items selected:
             - Save image to file
             - Perform actions
-        - Check `Override screenshots folder`. ({{ CHECKED_CHECKBOX }})
+        - Check `Override screenshots folder` ({{ CHECKED_CHECKBOX }})
         - Click `Browse` and select your Anki collection media location.
             Your media location can be found under:
             ```
@@ -264,7 +261,7 @@ TODO gif
         (TODO image)
 
     1. Navigate to the `Capture` tab.
-        - Check `Override capture settings`. ({{ CHECKED_CHECKBOX }})
+        - Check `Override capture settings` ({{ CHECKED_CHECKBOX }})
         - Click `Select region`, and select anywhere on the screen.
             This region would preferably not overlap with whatever you want to capture.
             If it does and you attempt to screenshot while using the audio hotkey,
@@ -309,7 +306,7 @@ TODO gif
         > re-convert it back to opus again while applying the audio filters.
 
         - Navigate to the `Actions` tab.
-        - Check `Override actions`. ({{ CHECKED_CHECKBOX }})
+        - Check `Override actions` ({{ CHECKED_CHECKBOX }})
         - Create the first action, by clicking `Add...`.
             A new window should pop up. Under this new window, fill out the following values:
 
@@ -359,7 +356,7 @@ TODO gif
     ??? info "Option 2. MP3 {{CLICKHERE}}"
 
         - Navigate to the `Actions` tab.
-        - Check `Override actions`. ({{ CHECKED_CHECKBOX }})
+        - Check `Override actions` ({{ CHECKED_CHECKBOX }})
         - Click `Add...`.
         - A new window should pop up. Under this new window, fill out the following values:
 
@@ -479,14 +476,14 @@ the hotkey must be configured with steps shown below.
     - Uncheck all existing actions.
     - Add a new action by clicking on `Add`.
     - Set the following values of the action:
-        - File Path: `DRIVE:\PATH\TO\python.exe`
-        - Argument: `DRIVE:\PATH\TO\jp-mining-note\tools\hotkey.py FUNCTION_NAME`
+        - File Path: `C:\PATH\TO\python.exe`
+        - Argument: `C:\PATH\TO\YOUR\HOTKEY\FILE\hotkey.py FUNCTION_NAME`
 
 
 !!! note
     If you are adding multiple scripts with ShareX, instead of re-doing all of the
     steps above, you can instead duplicate the keybind,
-    and simply set the `Argument` of the action to a different script.
+    and simply set the `Argument` of the action to a different function name.
 
 
 ??? info "Explanation of the setup {{CLICKHERE}}"
@@ -736,15 +733,41 @@ This powershell code has been replaced with Python scripts for easier maintainab
 {% import "sharex_input.ps1" as sharex %}
 {% from "macros.html" import sharex_display with context %}
 
-!!! info "Update Sentence with Clipboard"
+??? info "Screenshot and Clipboard Hotkey"
+
+    Follow the steps for setting up the
+    [screenshot hotkey](https://rentry.co/mining#hotkey-for-screenshot),
+    and use this script in place of step 8's `argument`.
+
+    {{ sharex_display(sharex.screenshot_and_clipboard) | indent(4) }}
+
+??? info "Screenshot (only) Hotkey"
+
+    This is the same as the above, but without setting the `AdditionalNotes` field to the current clipboard.
+
+    {{ sharex_display(sharex.screenshot) | indent(4) }}
+
+??? info "Audio Hotkey"
+
+    This script works *exactly the same* as stegatxins0's version,
+    except rewritten in a more readable format.
+    If you already have the audio hotkey setup, there is no reason to change the old script.
+
+    To use this, follow the steps for setting up the
+    [audio hotkey](https://rentry.co/mining#hotkey-for-audio),
+    and use this script in place of step 14's `Argument`.
+
+    {{ sharex_display(sharex.audio) | indent(4) }}
+
+??? info "Update Sentence with Clipboard"
     {{ sharex_display(sharex.update_sentence) | indent(4) }}
 
-!!! info "Update AdditionalNotes with Clipboard"
+??? info "Update AdditionalNotes with Clipboard"
     {{ sharex_display(sharex.update_additional_notes) | indent(4) }}
 
-!!! info "Copy from Previous Card"
+??? info "Copy from Previous Card"
     {{ sharex_display(sharex.copy_from_previous) | indent(4) }}
 
-!!! info "Orthographic Variants: Fix Sentence and Frequency"
+??? info "Orthographic Variants: Fix Sentence and Frequency"
     {{ sharex_display(sharex.fix_sent_and_freq) | indent(4) }}
 

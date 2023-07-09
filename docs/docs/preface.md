@@ -43,7 +43,7 @@ By default, this works on PC (Windows, Mac, Linux), and the instructions shown w
 However, with the proper setup, one can also create cards on the following platforms:
 
 - [Android](setupandroid.md) (including Android based e-readers such as ONYX BOOX)
-- [Kindle](setupkindle.md) (export a list of sentences to the PC to manually create)
+- [Kindle](setupextrakindle.md) (export a list of sentences to the PC to manually create)
 
 I'm not aware of a workflow for iOS that works with Yomichan.
 

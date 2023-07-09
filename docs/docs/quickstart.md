@@ -60,7 +60,7 @@ auxilary information is hidden behind various tooltips and dropdowns.
 
 === "**Blockquotes**"
     In general, this contains all the other information and dictionaries from Yomichan.
-    See [here TODO]() for more info.
+    See [here](blockquotes.md) for more info.
 
 <!--
 See [here TODO]() to see the reasons why these design decisions were made.
@@ -142,7 +142,7 @@ to change its card type!
 - If you want to **change the default card type**
     (i.e. change the card type for all new/future cards), see
     [here](changingcardtype.md#default-card-type).
-- If you want to change the card type for **all exising cards**, see
+- If you want to change the card type for **all currently existing cards**, see
     [here](changingcardtype.md#batch-change-card-type).
 - A comprehensive list of all possible card types can be found
     [here](cardtypes.md).
@@ -188,7 +188,10 @@ of most definitions, set the following {{ RTO }}:
 "blockquotes.simplifyDefinitions.enabled": true,
 ```
 
-TODO image comparison
+=== "Simple"
+    {{ img("", "assets/definitions/simple_def/simple.png") }}
+=== "Default"
+    {{ img("", "assets/definitions/simple_def/normal.png") }}
 
 
 
@@ -276,9 +279,10 @@ in your deck are found.
     However, you may want existing images in `PrimaryDefinition` to not be collapsed.
     To do this, there are two runtime options that you can set:
 
-    * {{ rto("imgStylizer.glossary.primaryDef.mode.yomichan") }}
-    * {{ rto("imgStylizer.glossary.primaryDef.mode.user") }}
-
+    ```json
+    "imgStylizer.glossary.primaryDef.mode.yomichan": "none",
+    "imgStylizer.glossary.primaryDef.mode.user": "none",
+    ```
 
 ---
 
@@ -348,9 +352,6 @@ TODO update video with new colors + interface
 
 # Other Common Changes
 
-TODO description
-
-
 
 
 ## Adjusting Zoom
@@ -401,7 +402,6 @@ To change the display language (say, to Japanese), use the following {{ CTO }}:
 
 # Sorting by Frequency
 <i><sup>Main Page: [Frequencies: Sorting by Frequency](frequencies.md#sorting-by-frequency)</sup></i>
-> Fields: `FrequencySort`
 
 This note type comes with a `FrequencySort` field,
 which is the equivalent of Marv's `Frequency` field in
@@ -418,24 +418,29 @@ to see how to sort and review your cards by frequency.
 
 ---
 
+
+# Key Field
+
+This field contains the tested word.
+In other words, this contains the exact same content as the `Word`.
+However, this field is purposefully not displayed anywhere in the card template.
+This is so **you can modify the key if duplicates arise**,
+while still being able to test the word.
+
+For example, if you want to test different usages of 上,
+you can change this key value to `上 (preposition)`, `上 (grammar)`,
+etc. and add a new card.
+
+It is expected that this `Key` field is unique for internal purposes;
+a warning will appear on cards that have a duplicate key.
+
+<!--
+
+
 # Field Summary
 
 Some important fields that were not introduced above will be discussed below.
 
-## Key
-
-*   This field contains the tested word.
-    In other words, this contains the exact same content as the `Word`.
-    However, this field is purposefully not displayed anywhere in the card template.
-    This is to allow the user to modify the key if duplicates arise,
-    while still being able to test the word.
-
-    For example, if I were to test different usages of 上,
-    I can change this key value to `上 (preposition)`, `上 (grammar)`,
-    etc. and add a new card.
-
-    It is expected that this `Key` field is unique;
-    a warning will appear on cards that have a duplicate key.
 
 ## PrimaryDefinition
 
@@ -458,7 +463,6 @@ Some important fields that were not introduced above will be discussed below.
     to understanding the tested content.
 
 
-<!--
 
 ## Alternate Display Fields
 > Fields: `AltDisplayWord`, `AltDisplaySentence`, and anything else that beings with `AltDisplay`
@@ -470,8 +474,10 @@ TODO
 
 # Conclusion
 
-TODO conclusion
-
+Congratulations, you have reached the end of the Quick Start page,
+and are ready to use jp-mining-note to its fullest!
+If you did not find what you want within this page,
+feel free to look through the other pages on the left sidebar.
 
 
 

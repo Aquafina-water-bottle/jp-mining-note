@@ -21,10 +21,9 @@ Afterwards, see below for the other necessary changes that must be made to prope
 
 ## Config Rework { #v0-12-0-0-config-rework }
 
-The `_jpmn-options.js` runtime options file has been completely reworked,
-meaning your config will no longer work.
-With this update, the file has been replaced automatically.
-The runtime options file can be found [here](runtimeoptions.md#accessing-editing).
+The `_jpmn-options.js` [runtime options file](runtimeoptions.md#accessing-editing)
+has been completely reworked, meaning your previous config will no longer work.
+With this update, the file has been replaced automatically, so the note can work for future versions.
 
 If you have changed any runtime options before, you will need change them again.
 Common runtime-options (pitch accent coloring and image blur) are included as examples;
@@ -99,7 +98,7 @@ that is guaranteed to work is documented below.
     1. On all other devices, sync from AnkiWeb.
 
 
-## Handlebars { #v0-12-0-0-handlebars }
+## Yomichan Handlebars { #v0-12-0-0-handlebars }
 Yomichan's Handlebars has been updated, with some new markers and features being added.
 
 - To update Yomichan's Anki Card Format, see [here](updating.md#updating-yomichans-anki-card-format).
@@ -115,9 +114,9 @@ After updating the templates, the following fields must be changed:
   for instructions on how to update Anki Card Format.
 
 
-## AnkiConnectAndroid { #v0-12-0-0-ankiconnectandroid }
-If you are using AnkiConnectAndroid, please repeat the steps above for updating Yomichan.
-It will likely [error until updated](https://github.com/KamWithK/AnkiconnectAndroid#problem-on-card-add-i-get-incorrect-flds-argument).
+!!! note
+    Remember that these settings must be updated on every device that you use Yomichan on!
+    This includes **Android** (if you use AnkiConnectAndroid), and **all active Yomichan profiles**.
 
 
 <!--
@@ -153,11 +152,11 @@ instead of all the literal values itself.
 - If you prefer the frequency sort display but you don't have a frequency sort value,
     [backfill the frequencies](importing.md#backfill-the-frequencysort-field).
 - If you prefer the frequency sort display but your frequency sort is somehow invalid:
-    1. Clear out your `FrequencySort` field entirely through the following command:
+    1. Clear out your `FrequencySort` field entirely through the following {{ BATCH_CMD }}:
+        ```aconf
+        clear_field "FrequencySort"
         ```
-        python3 tools/batch.py clear_field "FrequencySort"
-        ```
-    2.  [Backfill the frequencies](importing.md#backfill-the-frequencysort-field).
+    2.  [Backfill the frequencies](backfilling.md#backfill-frequencysort).
 
 
 

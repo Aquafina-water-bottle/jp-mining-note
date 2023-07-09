@@ -2,8 +2,8 @@
 [**mpvacious**](https://github.com/Ajatt-Tools/mpvacious)
 is a user script made for of [mpv](https://mpv.io/), a cross platform media player.
 mpv itself can be used on pretty much anything, including streamed videos.
-However, `mpvacious` was made for downloaded videos,
-and almost certainly does not worked on streamed videos.
+However, `mpvacious` was designed for downloaded videos,
+and almost certainly does not work on streamed videos.
 
 If you are looking to create cards using streamed videos, I recommend [asbplayer](setupasbplayer.md).
 
@@ -27,7 +27,7 @@ The dash is shown as two characters instead of one...
 
     === "Windows"
         ```
-        C:/Users/Username/AppData/Roaming
+        C:/Users/USERNAME/AppData/Roaming
         └─ mpv
             └─ scripts
                 └─ mpvacious
