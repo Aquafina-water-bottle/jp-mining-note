@@ -107,7 +107,7 @@ However, here are a few tips:
 
 [^1]: `FrequenciesStylized` uses a custom set of handlebars to
     store the frequency info in a way that css styles can be easily applied without javascript.
-    This differs heavily from the `{frequencies}` marker provided by Yomichan.
+    This differs heavily from the `{frequencies}` helper provided by Yomichan.
     Mapping an existing field that stores frequencies using `{frequencies}`
     to `FrequenciesStylized`
     will result in **incorrect display of data**.
@@ -343,7 +343,7 @@ below just in case.
     Your `WordReading` field is likely formatted in one of three ways:
 
     === "Furigana (plain)"
-        This is generated with the `{furigana-plain}` marker.
+        This is generated with the `{furigana-plain}` helper.
 
         > Example: 成[な]り 立[た]つ
 
@@ -351,7 +351,7 @@ below just in case.
         is already formatted correctly. **You can skip this step**.
 
     === "Furigana"
-        This is generated with the `{furigana}` marker.
+        This is generated with the `{furigana}` helper.
 
         > Example: <ruby><rb>成</rb><rt>な</rt></ruby>り<ruby><rb>立</rb><rt>た</rt></ruby>つ
         > (HTML: `<ruby>成<rt>な</rt></ruby>り<ruby>立<rt>た</rt></ruby>つ`)
@@ -378,7 +378,7 @@ below just in case.
 
 
     === "Kana only"
-        This is generated with the `{reading}` marker.
+        This is generated with the `{reading}` helper.
 
         > Example: なりたつ
 

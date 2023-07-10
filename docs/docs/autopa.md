@@ -396,7 +396,7 @@ If you want to select the correct pitch accent, bold that position in `PAPositio
 
 
 !!! note
-    This option only works on cards formatted with JPMN's `{jpmn-pitch-accent-positions}` marker.
+    This option only works on cards formatted with JPMN's `{jpmn-pitch-accent-positions}` helper.
     This means this option will not work on old cards that were imported to the `JPMN` format.
 
 ---

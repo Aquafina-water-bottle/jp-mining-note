@@ -368,10 +368,10 @@ TODO AJT Japanese and `{jpmn-sentence-bolded-furigana-plain}`
 TODO
 
 
-## Furigana Generation: Yomichan Marker
+## Furigana Generation: Yomichan Helper
 {{ feature_version("0.11.0.0") }}
 
-> Marker: `{jpmn-sentence-bolded-furigana-plain}`
+> helper: `{jpmn-sentence-bolded-furigana-plain}`
 
 TODO add details on how to even use this
 

@@ -24,19 +24,18 @@ For example, if you want to set the default card type to be a sentence card:
 
 This will set all new cards to be a sentence card by default.
 
-However, what if we don't want *ALL* new cards to be sentence cards?
-With the power of Yomichan handlebars, we can selectively fill fields depending
+However, what if you don't want *ALL* new cards to be sentence cards?
+With the power of Yomichan handlebars, it is possible to selectively fill fields depending
 on select properties of the target word.
-
 
 
 ## Is Hiragana
 {{ feature_version("0.12.0.0") }}
 
-> Markers: `{jpmn-filled-if-word-is-hiragana}`・`{jpmn-filled-if-word-is-not-hiragana}`
+> Helpers: `{jpmn-filled-if-word-is-hiragana}`・`{jpmn-filled-if-word-is-not-hiragana}`
 
 If the word is purely comprised of hiragana,
-you can create different card types by default using these markers.
+you can create different card types by default using these helpers.
 
 For example, let's say you want the default card to be a vocab card,
 but want hiragana terms to be [TSCs](cardtypes.md#targeted-sentence-card).
@@ -63,17 +62,24 @@ To do exactly that, do the following:
 ## Is Grammar point
 {{ feature_version("0.12.0.0") }}
 
-- TODO check if word exists in a grammar dictionary
-- TODO only works if you have any grammar dictionary installed in the first place
-    - TODO link these!
-- TODO `opt-grammar-override-dict-regex`
+> Helpers: `{jpmn-filled-if-grammar-point}`・`{jpmn-filled-if-not-grammar-point}`
+
+These helpers check if the word exists in a
+[grammar dictionary](https://github.com/aiko-tanaka/Grammar-Dictionaries).
+Of course, this can only work if you have a grammar dictionary installed in the first place.
+
+The exact list of grammar dictionaries can be customized with the `opt-grammar-override-dict-regex` option.
 
 
 ## Is Onomatopoeia
 {{ feature_version("0.12.0.0") }}
 
-- TODO check if tag contains `on-mim` (only works if you have a modern JMdict Yomichan dictionary installed)
+> Helpers: `{jpmn-filled-if-on-mim}`・`{jpmn-filled-if-on-mim}`
 
+These helpers check if a dictionary entry is an Onomatopoeia word.
+It does this specifically by checking if the `on-mim` tag exists on any dictionary entry.
+This design is unique to JMdict, so you must have a JMdict dictionary installed
+in order for this helper to function.
 
 ---
 

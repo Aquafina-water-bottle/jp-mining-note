@@ -52,7 +52,7 @@ To edit the fields that Yomichan will automatically fill out, do the following:
 1. Select `Anki card format...`.
 1. Set "Model" as `JP Mining Note`, and "Deck" to whatever your Anki deck is.
 1. Copy and paste the following values into the fields
-   (the custom markers won't be available in the dropdown arrow):
+   (the custom helpers won't be available in the dropdown arrow):
 
 
 ??? example "Click here to see the fields to copy and paste."
@@ -76,8 +76,8 @@ with all other definitions in collapsable fields.
     See the [Changing Card Type](changingcardtype.md) page for more info.
 
 
-The custom markers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
-See the section below to make these markers usable.
+The custom helpers like `{jpmn-primary-definition}` is not provided by Yomichan by default.
+See the section below to make these helpers usable.
 
 ---
 
@@ -88,7 +88,7 @@ Yomichan supports user inserted template code that allows the automatic
 separation of bilingual and monolingual dictionary definitions, custom stylization, etc.
 This note type makes heavy use of these custom templates.
 
-To make the new markers usable, do the following:
+To make the new helpers usable, do the following:
 
 ![type:video](assets/setupyomichan/import_yomichan_templates.mp4)
 

@@ -99,7 +99,7 @@ that is guaranteed to work is documented below.
 
 
 ## Yomichan Handlebars { #v0-12-0-0-handlebars }
-Yomichan's Handlebars has been updated, with some new markers and features being added.
+Yomichan's Handlebars has been updated, with some new helpers and features being added.
 
 - To update Yomichan's Anki Card Format, see [here](updating.md#updating-yomichans-anki-card-format).
 - To update your handlebars templates, see [here](updating.md#updating-yomichan-templates).

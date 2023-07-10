@@ -649,7 +649,7 @@ For example, if your field is `SentenceReading`, use `{{furigana:SentenceReading
         Nonetheless, I recommend keeping AJT Furigana so furigana can be generated even after editing
         the sentence field.
 
-    - The `{furigana}` marker provided by default in Yomichan does not generate plain style furigana,
+    - The `{furigana}` helper provided by default in Yomichan does not generate plain style furigana,
         which makes editing furigana more difficult in Anki.
 
 
@@ -667,7 +667,7 @@ Official documentation om Yomichan's templates:
 
 Example template code can be found here:
 
-- Markers for individual dictionaries:
+- Helpers for individual dictionaries:
     [here](https://gist.github.com/Rudo2204/55f418885c2447ccbdc95b0511e20336)
     - This has certain extended capabilities over my template code, such as removing the first line.
 

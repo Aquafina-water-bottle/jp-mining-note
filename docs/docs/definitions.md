@@ -69,7 +69,7 @@ a category to each individual dictionary.
 ## Verifying Categories
 
 You can check that your dictionaries are correctly categorized with the
-`{jpmn-test-dict-type}` marker.
+`{jpmn-test-dict-type}` helper.
 Under the Anki Templates code, replace `Card field` with `{jpmn-test-dict-type}` and press `Test`.
 
 {{ img("checking dictionary categories", "assets/definitions/test_dictionary_categorization.gif") }}
@@ -364,7 +364,7 @@ In order to fix this, you have a few different options:
 <!--
 This automatic bolding may not always work: if the highlighted text could not be automatically
 detected from the custom template code, then it will fallback to simply
-using the highlighted text (as if you used the `{selection-text}` marker).
+using the highlighted text (as if you used the `{selection-text}` helper).
 
 This is most likely to fail if you select formatted parts of text,
 such as (but not limited to):
