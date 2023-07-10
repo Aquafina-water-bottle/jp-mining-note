@@ -263,8 +263,14 @@ usage, and instead stylizes it to be virtually the same as Yomichan's default HT
 
     - The first line for most dictionaries are removed by default.
         This can be controlled with the following options:
+
         - `opt__plaintext__remove-first-line-enabled`
         - `opt-first-line-dicts-regex`
+
+        There are som dictionaries simply cannot have their first line be removed by the handlebars,
+        due to its complicated internal structure.
+        Those dictionaries are specified under `opt-first-line-dicts-regex` by default.
+
 
 
 ## `opt__plaintext__one-dict-entry-only-no-list`
