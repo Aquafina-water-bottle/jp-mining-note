@@ -54,9 +54,9 @@
 {{~set "opt-first-line-regex-mode" "except"~}}
 
 {{~!
-    JMdict and jitenon dictionaries from stephenmk are ignored
+    JMdict and jitenbot dictionaries from stephenmk are ignored
     (the latter because the handlebars cannot properly detect the first line.)
-    In particular, removing the first line from jitenon dictionaries with handlebars alone
+    In particular, removing the first line from jitenbot dictionaries with handlebars alone
     is not trivial, so that feature will not be supported.
 ~}}
 {{~#set "opt-first-line-dicts-regex"~}} ^(JMdict.*|Nico/Pixiv|故事・ことわざ・慣用句オンライン|四字熟語辞典オンライン|国語辞典オンライン|大辞林　第四版|新明解国語辞典　第八版)$ {{~/set~}}

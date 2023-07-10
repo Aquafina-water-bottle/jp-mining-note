@@ -2066,6 +2066,11 @@ code {
   .dict-group__glossary--first-line-break {
     display: none;
   }
+
+  /* jitenbot dictionaries */
+  span[data-sc-name="見出部"] {
+    display: none;
+  }
 }
 
 .glossary-blockquote--hide-tags .glossary-text ol li {
@@ -2076,6 +2081,11 @@ code {
 
 .glossary-blockquote--hide-extra-text .glossary-text ol li {
   .dict-group__glossary--first-line {
+    display: none;
+  }
+
+  /* jitenbot dictionaries */
+  span[data-sc-name="見出部"] {
     display: none;
   }
 }

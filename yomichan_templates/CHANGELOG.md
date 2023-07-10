@@ -11,10 +11,10 @@ Public facing markers are markers starting with `jpmn` (whereas private markers 
 The Yomichan template version is incremented independently from the jp-mining-note version.
 
 ## v1.0.10
-- Ignore more of stephenmk's jitenon dictionaries for first line grabbing. If this pattern continues, consider changing `opt-first-line-regex-mode` to `only`, and whitelisting dictionaries instead of blacklisting dictionaries.
+- Ignore more of stephenmk's jitenbot dictionaries for first line grabbing. If this pattern continues, consider changing `opt-first-line-regex-mode` to `only`, and whitelisting dictionaries instead of blacklisting dictionaries.
 
 ## v1.0.9
-- Ignore stephenmk's jitenon dictionaries for first line grabbing, as they are structured differently than expected and the first line replace will fail
+- Ignore stephenmk's jitenbot dictionaries for first line grabbing, as they are structured differently than expected and the first line replace will fail
 
 ## v1.0.8
 - Added various Chinese bilingual dictionaries into bilingual-dict-regex by default

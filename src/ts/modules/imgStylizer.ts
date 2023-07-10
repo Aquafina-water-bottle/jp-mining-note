@@ -12,7 +12,7 @@ import {
 import { fieldIsFilled } from '../fields';
 import { InfoCircleSetting } from './infoCircleSetting';
 import { adjustElements } from '../reflow';
-import {type GlobalEventManager} from '../globalEventManager';
+import { type GlobalEventManager } from '../globalEventManager';
 
 type TagToImg = {
   tag: string;
@@ -402,6 +402,7 @@ class BackImgStylizer extends Module {
 
     const defImg = document.createElement('img');
     defImg.classList.add('glossary__image-hover-media');
+    defImg.setAttribute('data-jpmn-processed', 'true');
     defImg.src = imgName;
 
     this.addClickToZoom(defImg);
@@ -419,16 +420,21 @@ class BackImgStylizer extends Module {
     return defSpan;
   }
 
-  private convertYomichanImgs(searchEle: HTMLElement, toFloat = false) {
+  // ASSUMPTION: after running this, all yomichan img tags elements will be one of the following:
+  // - contain the `data-jpmn-processed` attribute
+  // - moved away from the search element, and into the float div
+  private convertYomichanImgs(searchEle: HTMLElement, mode: StylizeType) {
     const anchorTags = searchEle.getElementsByTagName('a');
     for (const atag of Array.from(anchorTags)) {
       const imgFileName = atag.getAttribute('href');
-      if (imgFileName && imgFileName.substring(0, 25) === 'yomichan_dictionary_media') {
-        this.logger.debug(
-          `Converting yomichan image ${imgFileName} (toFloat=${toFloat})...`
-        );
+      if (
+        imgFileName &&
+        imgFileName.substring(0, 25) === 'yomichan_dictionary_media' &&
+        !atag.getAttribute('data-jpmn-processed') // not processed yet
+      ) {
+        this.logger.debug(`Converting yomichan image ${imgFileName} (mode=${mode})...`);
 
-        if (toFloat) {
+        if (mode === 'float') {
           const imgEle = document.createElement('img');
           imgEle.src = imgFileName;
 
@@ -436,10 +442,33 @@ class BackImgStylizer extends Module {
           this.floatImgLeft.appendChild(imgEle); // moves element away
 
           atag.parentNode?.removeChild(atag);
-        } else {
+        } else if (mode === 'collapse') {
           const fragment = this.createImgContainer(imgFileName);
           atag.parentNode?.replaceChild(fragment, atag);
+        } else {
+          // force data-jpmn-processed for all yomichan images, i.e. do not process it any further
+          const imgTags = Array.from(atag.getElementsByTagName('img'));
+          for (const imgEle of imgTags) {
+            if (imgEle.src.includes('yomichan_dictionary_media')) {
+              imgEle.setAttribute('data-jpmn-processed', 'true');
+            }
+          }
         }
+
+        atag.setAttribute('data-jpmn-processed', 'true');
+      }
+    }
+  }
+
+  private stylizeDictionaryGlossaryPics() {
+    // finds the list elements containing the dictionary, and exports as is
+    const dictsOverride = getOption('imgStylizer.glossary.dictsOverride.mode.yomichan');
+    for (const [name, mode] of Object.entries(dictsOverride)) {
+      // TODO: proper escaping?
+      for (const dictEle of Array.from(
+        document.querySelectorAll(`ol li[data-details="${name}"]`)
+      )) {
+        this.convertYomichanImgs(dictEle as HTMLElement, mode as StylizeType); // sorry typescript gods
       }
     }
   }
@@ -448,25 +477,14 @@ class BackImgStylizer extends Module {
     const stylizeModeUser = this.getStylizeMode('user');
     const stylizeModeYomichan = this.getStylizeMode('yomichan');
 
-    if (stylizeModeYomichan === 'none') {
-      // force do-not-convert for all yomichan images
-      const imgTags = Array.from(this.primaryDefRawText.getElementsByTagName('img'));
-      for (const imgEle of imgTags) {
-        if (imgEle.src.includes('yomichan_dictionary_media')) {
-          imgEle.setAttribute('data-do-not-convert', 'true');
-        }
-      }
-    } else {
-      // looks for yomichan inserted images
-      this.convertYomichanImgs(this.primaryDefRawText, stylizeModeYomichan === 'float');
-    }
+    this.convertYomichanImgs(this.primaryDefRawText, stylizeModeYomichan);
 
     // looks for user inserted images
     if (stylizeModeUser !== 'none') {
       const imgTags = Array.from(this.primaryDefRawText.getElementsByTagName('img'));
       for (const imgEle of imgTags) {
         if (
-          imgEle.classList.contains('glossary__image-hover-media') || // already converted
+          imgEle.getAttribute('data-jpmn-processed') || // already converted
           imgEle.getAttribute('data-do-not-convert') // does not require converting
         ) {
           continue;
@@ -494,7 +512,7 @@ class BackImgStylizer extends Module {
       document.querySelectorAll(textNotPrimary)
     ) as HTMLElement[];
     for (const searchEle of searchEles) {
-      this.convertYomichanImgs(searchEle, /*toFloat=*/ false);
+      this.convertYomichanImgs(searchEle, 'collapse');
     }
   }
 
@@ -575,9 +593,9 @@ class BackImgStylizer extends Module {
     }
 
     adjustElements(imgEle, this.dhLeft, this.dhRight);
-    this.globalEventManager.addWindowResizeFunc("adjustElements", (e) => {
+    this.globalEventManager.addWindowResizeFunc('adjustElements', (e) => {
       adjustElements(imgEle, this.dhLeft, this.dhRight);
-    })
+    });
 
     if (imgEle === null) {
       this.adjustForNoImg();
@@ -591,6 +609,8 @@ class BackImgStylizer extends Module {
     }
 
     this.modalInit();
+
+    this.stylizeDictionaryGlossaryPics();
 
     if (getOption('imgStylizer.glossary.primaryDef.enabled')) {
       this.stylizePrimaryDefGlossaryPics();

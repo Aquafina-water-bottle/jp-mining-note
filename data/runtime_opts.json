@@ -168,6 +168,13 @@
     "-NSFW"
   ],
   "imgStylizer.mainImage.blur.startState": "only-tagged",
+  "imgStylizer.glossary.dictsOverride.mode.yomichan": {
+    "\u6545\u4e8b\u30fb\u3053\u3068\u308f\u3056\u30fb\u6163\u7528\u53e5\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u56db\u5b57\u719f\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u56fd\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u5927\u8f9e\u6797\u3000\u7b2c\u56db\u7248": "none",
+    "\u65b0\u660e\u89e3\u56fd\u8a9e\u8f9e\u5178\u3000\u7b2c\u516b\u7248": "none"
+  },
   "imgStylizer.glossary.primaryDef.enabled": true,
   "imgStylizer.glossary.primaryDef.mode.yomichan": "collapse",
   "imgStylizer.glossary.primaryDef.mode.user": "collapse",
@@ -349,7 +356,9 @@
     "Nico/Pixiv": "none",
     "\u6545\u4e8b\u30fb\u3053\u3068\u308f\u3056\u30fb\u6163\u7528\u53e5\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
     "\u56db\u5b57\u719f\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
-    "\u56fd\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none"
+    "\u56fd\u8a9e\u8f9e\u5178\u30aa\u30f3\u30e9\u30a4\u30f3": "none",
+    "\u5927\u8f9e\u6797\u3000\u7b2c\u56db\u7248": "none",
+    "\u65b0\u660e\u89e3\u56fd\u8a9e\u8f9e\u5178\u3000\u7b2c\u516b\u7248": "none"
   },
   "blockquotes.simplifyDefinitions.removeListMode": "on-singular",
   "blockquotes.simplifyDefinitions.removeListMode.tagOverride.always": [
