@@ -19,7 +19,7 @@ type TagToImg = {
   fileName: string;
 };
 type TagToImgList = TagToImg[];
-type StylizeType = 'float' | 'collapse' | 'none';
+type StylizeType = 'float' | 'collapse' | 'match-yomichan' | 'none';
 type FloatImgPos = 'bottom' | 'top' | 'right' | 'auto';
 
 type AddClickToImgArgs = {
@@ -420,6 +420,16 @@ class BackImgStylizer extends Module {
     return defSpan;
   }
 
+  // force data-jpmn-processed for all yomichan images, i.e. do not process it any further
+  private setImgProcessed(ele: HTMLElement) {
+    const imgTags = Array.from(ele.getElementsByTagName('img'));
+    for (const imgEle of imgTags) {
+      if (imgEle.src.includes('yomichan_dictionary_media')) {
+        imgEle.setAttribute('data-jpmn-processed', 'true');
+      }
+    }
+  }
+
   // ASSUMPTION: after running this, all yomichan img tags elements will be one of the following:
   // - contain the `data-jpmn-processed` attribute
   // - moved away from the search element, and into the float div
@@ -445,14 +455,17 @@ class BackImgStylizer extends Module {
         } else if (mode === 'collapse') {
           const fragment = this.createImgContainer(imgFileName);
           atag.parentNode?.replaceChild(fragment, atag);
-        } else {
-          // force data-jpmn-processed for all yomichan images, i.e. do not process it any further
-          const imgTags = Array.from(atag.getElementsByTagName('img'));
-          for (const imgEle of imgTags) {
-            if (imgEle.src.includes('yomichan_dictionary_media')) {
-              imgEle.setAttribute('data-jpmn-processed', 'true');
-            }
+        } else if (mode === "match-yomichan") {
+          // to determine whether a dictionary is exported as collapsed or not, check the first span
+          // x.children[0].style.display
+          if ((atag.children[0] as HTMLElement | undefined)?.style?.display === "none") { // collapse
+            const fragment = this.createImgContainer(imgFileName);
+            atag.parentNode?.replaceChild(fragment, atag);
+          } else { // don't process
+            this.setImgProcessed(atag);
           }
+        } else {
+          this.setImgProcessed(atag);
         }
 
         atag.setAttribute('data-jpmn-processed', 'true');
@@ -480,7 +493,7 @@ class BackImgStylizer extends Module {
     this.convertYomichanImgs(this.primaryDefRawText, stylizeModeYomichan);
 
     // looks for user inserted images
-    if (stylizeModeUser !== 'none') {
+    if (stylizeModeUser !== 'none' && stylizeModeUser !== 'match-yomichan') {
       const imgTags = Array.from(this.primaryDefRawText.getElementsByTagName('img'));
       for (const imgEle of imgTags) {
         if (

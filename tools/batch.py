@@ -286,6 +286,32 @@ def empty_field(field_name: str, query: Optional[str] = None):
     notes = invoke("multi", actions=actions)
 
 
+def add_to_field(field_name: str, value: str, query: Optional[str] = None):
+    """
+    concatenates the given value to the existing field value
+    """
+
+    print("Querying notes...")
+    if query is None:
+        query = '"note:JP Mining Note"'
+    notes = invoke("findNotes", query=query)
+
+    print("Getting notes info...")
+    notes_info = invoke("notesInfo", notes=notes)
+
+    print(f"Adding '{value}' to {field_name}...")
+    actions = []
+    for info in notes_info:
+        nid = info["noteId"]
+        field_val = info["fields"][field_name]["value"]
+        action = _update_note_action(nid, **{field_name: field_val + value})
+        actions.append(action)
+
+    print("Updating notes...")
+    notes = invoke("multi", actions=actions)
+
+
+
 def copy_field(src: str, dest: str, query: Optional[str] = None):
     """
     copies the field contents of src to dest
@@ -995,6 +1021,10 @@ def split_picture():
 FUNC_ARGS: dict[Callable, dict[str, Type]] = {
     fill_field: {"field_name": str},
     empty_field: {"field_name": str},
+    add_to_field: {
+        "field_name": str,
+        "value": str
+    },
     copy_field: {
         "src": str,
         "dest": str,
@@ -1007,6 +1037,7 @@ FUNC_ARGS: dict[Callable, dict[str, Type]] = {
 FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
     fill_field: {"value": (str, "1"), "query": (str, None)},
     empty_field: {"query": (str, None)},
+    add_to_field: {"query": (str, None)},
     copy_field: {"query": (str, None)},
     verify_fields: {"version": (str, None)},
     reposition_fields: {"version": (str, None)},
@@ -1015,39 +1046,6 @@ FUNC_KWARGS: dict[Callable, dict[str, tuple[Type, Any]]] = {
     clean_word_reading_field: {"query": (str, None)}
 }
 
-
-PUBLIC_FUNCTIONS = [
-    clear_pitch_accent_data,
-    add_downstep_inner_span_tag,
-    set_pasilence_field,
-    rename_vn_freq,
-    add_sort_freq_legacy,
-    fill_field,
-    empty_field,
-    standardize_frequencies_styling,
-    fill_word_reading_hiragana_field,
-    quick_fix_convert_kana_only_reading_with_tag,
-    quick_fix_convert_kana_only_reading_all_notes,
-    clean_word_reading_field,
-    separate_pa_override_field,
-    remove_bolded_text_ajtwordpitch,
-    combine_backup_xelieu,
-    copy_field,
-    remove_html,
-    verify_fields,
-    reposition_fields,
-    add_fields,
-    set_font_sizes,
-    set_fonts_to_key_font,
-    replace_runtime_options_file,
-    fill_field_if_hiragana,
-    get_new_due_cards,
-    move_runtime_options_file_to_temp,
-    move_runtime_options_file_to_original,
-    cleanup,
-    split_audio,
-    split_picture,
-]
 
 # functions available for the anki addon (should be everything but the xelieu function)
 PUBLIC_FUNCTIONS_ANKI = [
@@ -1058,6 +1056,7 @@ PUBLIC_FUNCTIONS_ANKI = [
     add_sort_freq_legacy,
     fill_field,
     empty_field,
+    add_to_field,
     standardize_frequencies_styling,
     fill_word_reading_hiragana_field,
     quick_fix_convert_kana_only_reading_with_tag,
@@ -1082,6 +1081,42 @@ PUBLIC_FUNCTIONS_ANKI = [
     split_audio,
     split_picture,
 ]
+
+
+PUBLIC_FUNCTIONS = PUBLIC_FUNCTIONS_ANKI + [combine_backup_xelieu]
+
+#PUBLIC_FUNCTIONS = [
+#    clear_pitch_accent_data,
+#    add_downstep_inner_span_tag,
+#    set_pasilence_field,
+#    rename_vn_freq,
+#    add_sort_freq_legacy,
+#    fill_field,
+#    empty_field,
+#    standardize_frequencies_styling,
+#    fill_word_reading_hiragana_field,
+#    quick_fix_convert_kana_only_reading_with_tag,
+#    quick_fix_convert_kana_only_reading_all_notes,
+#    clean_word_reading_field,
+#    separate_pa_override_field,
+#    remove_bolded_text_ajtwordpitch,
+#    combine_backup_xelieu,
+#    copy_field,
+#    remove_html,
+#    verify_fields,
+#    reposition_fields,
+#    add_fields,
+#    set_font_sizes,
+#    set_fonts_to_key_font,
+#    replace_runtime_options_file,
+#    fill_field_if_hiragana,
+#    get_new_due_cards,
+#    move_runtime_options_file_to_temp,
+#    move_runtime_options_file_to_original,
+#    cleanup,
+#    split_audio,
+#    split_picture,
+#]
 
 
 def get_args(public_functions: list[Callable], args: Optional[list[str]] = None):

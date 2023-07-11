@@ -579,16 +579,6 @@
   "imgStylizer.mainImage.blur.startState": "only-tagged",
 
 
-  // jitenbot dictionaries from stephenmk usually have images in replacement of certain tags.
-  // TODO: differentiate between collapsible images and regular images? Example: 犁 + 三省堂国語辞典　第七版
-  "imgStylizer.glossary.dictsOverride.mode.yomichan": {
-    "故事・ことわざ・慣用句オンライン": "none",
-    "四字熟語辞典オンライン": "none",
-    "国語辞典オンライン": "none",
-    "大辞林　第四版": "none",
-    "新明解国語辞典　第八版": "none",
-  },
-
 
   // imgStylizer.glossary.primaryDef
   // --------------------------------------------------------------------------
@@ -599,15 +589,20 @@
   // - `user` affects images manually pasted from the user.
   // Valid options: "none", "collapse", "float"
   // "none":
-  // - Equivalent of disabling this entire section. I recommend setting
-  //   "imgStylizer.glossary.primaryDef.enabled" to false instead of using this option.
+  //   - Equivalent of disabling this entire section. I recommend setting
+  //     "imgStylizer.glossary.primaryDef.enabled" to false instead of using this option.
   // "collapse":
-  // - Replaces all images in the glossary (definition) sections
-  //   with an internal representation similar to how Yomichan displays images:
-  //   an `[Image]` text where you can see the image upon hover, and with click to zoom.
+  //   - Replaces all images in the glossary (definition) sections
+  //     with an internal representation similar to how Yomichan displays images:
+  //     an `[Image]` text where you can see the image upon hover, and with click to zoom.
+  // "match-yomichan":
+  //   - Matches whatever Yomichan exports the image as within Anki.
+  //     It can export it as collapsed or not collapsed. When collapsed, it is parsed as "collapse".
+  //     When not collapsed, it is parsed as "none".
+  //   - Does not work for user inserted images.
   // "float":
-  // - makes images act as if they were in PrimaryDefinitionPicture,
-  //   which means that the pictures are positioned to the right / above / below as usual.
+  //   - makes images act as if they were in PrimaryDefinitionPicture,
+  //     which means that the pictures are positioned to the right / above / below as usual.
   "imgStylizer.glossary.primaryDef.mode.yomichan": "collapse",
   "imgStylizer.glossary.primaryDef.mode.user": "collapse",
 
@@ -682,6 +677,17 @@
   // --------------------------------------------------------------------------
   "imgStylizer.glossary.other.enabled": true,
 
+
+  // Specify dictionaries to use particular image processing modes. Works on all glossary elements.
+  // - jitenbot dictionaries from stephenmk usually have images in replacement of certain tags.
+  //   Example: 犁 + 三省堂国語辞典　第七版
+  "imgStylizer.glossary.dictsOverride.mode.yomichan": {
+    "故事・ことわざ・慣用句オンライン": "match-yomichan",
+    "四字熟語辞典オンライン": "match-yomichan",
+    "国語辞典オンライン": "match-yomichan",
+    "大辞林　第四版": "match-yomichan",
+    "新明解国語辞典　第八版": "match-yomichan",
+  },
 
 
 
@@ -971,8 +977,7 @@
     "Nico/Pixiv": "none",
 
     // All jitenbot dictionaries from stephenmk separate the first line with a span, which is
-    // different from most other dictionaries. Special support for dictionaries like these
-    // may be added in the future, but for now, they are 100% ignored to prevent any errors.
+    // different from most other dictionaries.
     "故事・ことわざ・慣用句オンライン": "none",
     "四字熟語辞典オンライン": "none",
     "国語辞典オンライン": "none",
