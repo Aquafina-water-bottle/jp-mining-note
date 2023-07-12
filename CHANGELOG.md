@@ -173,6 +173,22 @@ and must use `./install.py --update`.
 #### 0.12.0.0 Pre-release Changelog
 
 <details>
+<summary> Pre-release 12 </summary>
+
+- **Features**:
+    - Improved importing scripts a bit (split pictures, distribute furigana)
+    - Added linked folder tabs
+    - Added an option to display the image if it's supposed to be display, and collapsed if it's supposed to be collapsed. Primary use is for support with the jitenbot dictionaries.
+
+- **Fixes**:
+    - Explicitly ignore removing the first line for jitenbot ditionaries as the styling is incompatible
+
+</details>
+
+
+
+
+<details>
 <summary> Pre-release 11 </summary>
 
 - **Features (Breaking)**:
