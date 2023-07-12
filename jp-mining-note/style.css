@@ -1,19 +1,22 @@
 @charset "UTF-8";
-/* stolen from mkdocs material */
-/* stolen from discord's inspect element css */
 /*
- * WARNING: This css is auto-generated.
- * Any changes to this css WILL BE LOST if you decide to update the card.
+ * WARNING: This CSS is auto-generated.
+ * Any changes to this CSS >>> WILL BE LOST <<< if you decide to update the card.
  *
- * See https://aquafina-water-bottle.github.io/jp-mining-note/modding/
- * if you want to modify the card templates and css without losing your changes
- * upon updates.
+ * If you want to modify the CSS without losing your changes, please only add CSS
+ * to the end of this styles sheet (scroll all the way down).
+ *
+ * See: https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/customcss/
+ * for more info.
  */
 /*
  *  ============
  *   GLOBAL CSS
  *  ============
  */
+/* Backup font, primarily for Android. Defines "Noto Serif JP" and "Noto Sans JP" */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap");
 /* defines the REM value */
 html {
   font-size: 16px;
@@ -23,30 +26,66 @@ html {
   --pa-brightness-reduce: 60%;
   --word-font-size: 5rem;
   --sentence-font-size: 3.25rem;
-  --pa-indicator-word-font-size: 3.25rem;
-  --pa-indicator-sent-font-size: 2.8125rem;
+  --hint-font-size: 1.25rem;
+  --hint-reveal-font-size: 1rem;
+  --vertical-sentence-font-size: 2.1875rem;
+  --picture-font-size: 2.5rem; /* font size if text is used in place of the Picture field */
   --description-font-size: 1.25rem;
   --description-footer-font-size: 0.5625rem;
   --reading-font-size: 3.4375rem;
   --reading-pitch-font-size: 1.4375rem;
+  --reading-bold-pitch-font-size: 0.7em;
   --full-sentence-font-size: 1.75rem;
-  --glossary-font-size: 1.125rem;
+  --glossary-font-size: 1.25rem;
   --glossary-font-size--smaller: 0.9375rem;
+  --vertical-display-margin-top: 1rem;
+  --vertical-display-header-height-calc: 2.5rem;
   /* TODO dynamic solution */
   --tooltip-max-width: 600px;
   --tooltip-font-size: 0.875rem;
-  --dark-mode-accent: #fffd9e;
+  --tooltip-font-size--debug: 0.75rem;
+  /* DO NOT CHANGE --data-* variables */
+  --data-dark-mode-accent: #fffd9e;
+  --data-light-mode-accent: #4660f1;
+  --data-tooltip-source-hover-color: #5f5f5f;
+  --data-tooltip-source-accent-color: var(--data-light-mode-accent);
+  --data-tooltip-source-accent-hover-color: #6679de;
+  /* DO NOT CHANGE THE ABOVE --data-* VARIABLES */
   --zoom: 1;
+  --pa-overline-height-above-text: 0px;
+  --pa-overline-downstep-padding: 3px;
+  --pa-overline-thickness: 2px;
+  --pa-overline-downstep-height: 0.4em;
+  --pa-overline-downstep-left-offset: 1px;
+  --dh-right-image-gap: 35px; /* is also used as a padding to the left for mobile */
+  --dh-right-image-max-height: 210px;
+  --mobile-border: 0.5rem;
   /* external links */
   --external-links-icon-size: 20px;
   --external-links-icon-font-size: 14px;
   --external-links-gap: 3px;
   --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
   --external-links-box-shadow: 1px 1px 2px;
-  --info-circle-settings-svg-size: 16px;
   /* PrimaryDefinitionPicture fields */
+  --primary-def-picture-gap: 5px;
+  --primary-def-picture-border-radius: 3px;
   --primary-def-picture-max-width: 300px;
   --primary-def-picture-max-height: 150px;
+  --primary-def-picture-scale-no-def: 1.3;
+  /* footer */
+  --mobile-footer-height-size: 70px; /* TODO change dynamically and remove variable */
+  --footer-height: calc(var(--mobile-footer-height-size) + (2 * var(--mobile-border)));
+  /* folder tab */
+  --folder-tab-svg-size: 20px;
+  --folder-tab-button-size: 26px;
+  --folder-tab-margin-left: 10px;
+  --folder-tab-width: 130px;
+  --folder-tab-height: 26px;
+  /* mobile-popup */
+  --mobile-popup-border: 16px;
+  /* other */
+  --info-circle-settings-svg-size: 16px;
+  --bold-font-weight: bold; /* affects full sentence and definitions */
   /* light mode specific */
   --text-color: black;
   --text-color--1: hsla(0, 0%, 50%, 1);
@@ -62,36 +101,58 @@ html {
   --text-nakadaka: #e8701b; /* 中高, orange */
   --text-odaka: #009e1c; /* 尾高, green */
   --text-kifuku: #7e53c4; /* 起伏, purple */
-  --accent: #4660f1;
+  --text-tooltips-heiban: var(--text-heiban);
+  --text-tooltips-atamadaka: #ff3131;
+  --text-tooltips-nakadaka: #ff974d;
+  --text-tooltips-odaka: var(--text-odaka);
+  --text-tooltips-kifuku: var(--text-kifuku);
+  --accent: var(--data-light-mode-accent);
   --background-darken: rgba(0, 0, 0, 0.05);
+  --tooltip-behind-darken: rgba(0, 0, 0, 0.15);
+  --code-background-darken: rgba(0, 0, 0, 0.05);
   --tooltip-background-darken: hsla(0, 0%, 100%, 0.98);
   --pa-overline-color: var(--accent);
   --pa-no-pron-color: #2b94f7;
   --pa-nasal-color: #f12a2a;
   --highlight-bold-color: var(--accent);
+  --external-links-background: #FFFFFF;
   --external-links-box-shadow-color: #464646;
   --similar-words-box-shadow-color: #464646;
+  --glossary-image-hover-border: 1px 1px 3px var(--text-color--1);
   --card-description-color: var(--text-color--4);
-  --info-circle-hover-color: #5f5f5f;
-  /* slightly different shade of blue */
-  --info-circle-leech-color: #3983ff;
-  --info-circle-leech-hover-color: #6679de;
+  --info-circle-hover-color: var(--data-tooltip-source-hover-color);
+  --frequencies-overflow-hover-color: var(--data-tooltip-source-hover-color);
+  --info-circle-leech-color: var(--data-tooltip-source-accent-color);
+  --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
+  --info-circle-tag-bg-color: #eeeeee;
   --info-circle-warning-color: #ff8700;
   --info-circle-warning-hover-color: #ffb341;
   --info-circle-warning-text-color: var(--info-circle-warning-color);
   --info-circle-error-color: #f05c59;
   --info-circle-error-hover-color: #ff8381;
   --info-circle-error-text-color: var(--info-circle-error-color);
+  --word-indicator-icon-color: var(--text-color--3);
+  --word-indicator-icon-hover-color: var(--data-tooltip-source-hover-color);
+  --word-indicator-icon-new-color: var(--accent);
+  --word-indicator-icon-new-hover-color: var(--data-tooltip-source-accent-hover-color);
   --pa-indicator-sentence-color: #4cd200;
-  --pa-indicator-word-color: var(--accent);
+  --pa-indicator-word-color: var(--data-light-mode-accent);
   --pa-indicator-none-color: #ec3a2d;
   --hybrid-underline-color: black;
   --image-hover-brightness: 85%;
   --icon-click-brightness: 85%;
+  /* font families */
+  --jp-serif: notoserif, Noto Serif CJK JP, Noto Serif JP, Noto Serif, Droid Serif, Roboto Slab, IPAPMincho, HanaMinA, HanaMinB, serif;
+  --jp-sans: notosans, Noto Sans CJK JP, Noto Sans JP, Noto Sans, Source Han Sans JP, IPAPGothic, VL PGothic, Koruri, Hiragino Sans, ヒラギノ角ゴ ProN W3, Hiragino Kaku Gothic ProN, メイリオ, Meiryo, Osaka, MS PGothic Open Sans, Droid Sans, Ubuntu, Roboto, sans-serif;
 }
 
 .night_mode {
+  /* DO NOT CHANGE --data-* variables */
+  --data-tooltip-source-hover-color: #bdbdbd;
+  --data-tooltip-source-accent-color: var(--data-dark-mode-accent);
+  --data-tooltip-source-accent-hover-color: #e5e386;
+  /* DO NOT CHANGE THE ABOVE --data-* VARIABLES */
   --text-color: white;
   --text-color--1: hsla(0, 0%, 67.5%, 1);
   --text-color--2: hsla(0, 0%, 67.5%, 1);
@@ -99,31 +160,46 @@ html {
   --text-color--4: hsla(0, 0%, 34.5%, 1);
   --text-color-link-hover: #1390dd;
   --text-heiban: #59b2ff; /* 平板, blue */
-  --text-atamadaka: #ff6666; /* 頭高, red */
+  --text-atamadaka: #ee4b56; /* 頭高, red */
   --text-nakadaka: #ff9b54; /* 中高, orange */
   --text-odaka: #67e47d; /* 尾高, green */
   --text-kifuku: #af85f4; /* 起伏, purple */
-  --accent: var(--dark-mode-accent);
+  --text-tooltips-heiban: var(--text-heiban);
+  --text-tooltips-atamadaka: var(--text-atamadaka);
+  --text-tooltips-nakadaka: var(--text-nakadaka);
+  --text-tooltips-odaka: var(--text-odaka);
+  --text-tooltips-kifuku: var(--text-kifuku);
+  --accent: var(--data-dark-mode-accent);
   --background-darken: rgba(0, 0, 0, 0.12);
+  --tooltip-behind-darken: rgba(0, 0, 0, 0.25);
+  --code-background-darken: rgba(0, 0, 0, 0.18);
   --tooltip-background-darken: rgba(0, 0, 0, 0.9);
   --pa-overline-color: var(--accent);
   --pa-no-pron-color: #42a3ff;
   --pa-nasal-color: #f12a2a;
   --highlight-bold-color: var(--accent);
+  --external-links-background: none;
   --external-links-box-shadow-color: #000000;
   --similar-words-box-shadow-color: #000000;
+  --glossary-image-hover-border: 1px 1px 3px black;
   --card-description-color: var(--text-color--4);
-  --info-circle-hover-color: #bdbdbd;
+  --info-circle-hover-color: var(--data-tooltip-source-hover-color);
+  --frequencies-overflow-hover-color: var(--data-tooltip-source-hover-color);
   /* slightly different shade of yellow */
-  --info-circle-leech-color: var(--accent);
-  --info-circle-leech-hover-color: #e5e386;
+  --info-circle-leech-color: var(--data-tooltip-source-accent-color);
+  --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
+  --info-circle-tag-bg-color: #222222;
   --info-circle-warning-color: #ff8d0d;
   --info-circle-warning-hover-color: #f9c24e;
   --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
   --info-circle-error-color: #f53b39;
   --info-circle-error-hover-color: #fe7776;
   --info-circle-error-text-color: var(--info-circle-error-hover-color);
+  --word-indicator-icon-color: var(--text-color--3);
+  --word-indicator-icon-hover-color: var(--data-tooltip-source-hover-color);
+  --word-indicator-icon-new-color: var(--accent);
+  --word-indicator-icon-new-hover-color: var(--data-tooltip-source-accent-hover-color);
   --pa-indicator-sentence-color: #62ff73;
   --pa-indicator-word-color: #34dbef;
   --pa-indicator-none-color: #ff6b66;
@@ -133,15 +209,25 @@ html {
 }
 
 .card {
-  /*font-family: notoserif;*/
-  font-family: notosans;
+  font-family: var(--jp-sans);
   text-align: center;
   font-style: normal;
   color: var(--text-color);
   zoom: var(--zoom);
 }
 
-/* fixing colors on mobile */
+/*
+ * a hack to no longer depend on the installed font (to speed up card load times).
+ * see:
+ * https://github.com/ankidroid/Anki-Android/issues/4856
+ * https://github.com/ankidroid/Anki-Android/issues/5213
+ */
+.android {
+  --jp-serif: Noto Serif CJK JP, Noto Serif JP, Noto Serif, Droid Serif, Roboto Slab, IPAPMincho, HanaMinA, HanaMinB, serif;
+  --jp-sans: Noto Sans CJK JP, Noto Sans JP, Noto Sans, Source Han Sans JP, IPAPGothic, VL PGothic, Koruri, Hiragino Sans, ヒラギノ角ゴ ProN W3, Hiragino Kaku Gothic ProN, メイリオ, Meiryo, Osaka, MS PGothic Open Sans, Droid Sans, Ubuntu, Roboto, sans-serif;
+}
+
+/* fixing colors on mobile (TODO no longer necessary on alpha ver) */
 .mobile .card.night_mode {
   color: white;
   background-color: #2f2f31;
@@ -201,19 +287,8 @@ details > summary {
   padding-right: 20px;
 }
 */
-details > summary {
+details.glossary-details > summary {
   user-select: none;
-}
-
-/* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
-/* wrap elements in two divs: center-box-1 and center-box-2 */
-.center-box-1 {
-  text-align: center;
-}
-
-.center-box-2 {
-  display: inline-block;
-  text-align: left;
 }
 
 :root {
@@ -269,11 +344,28 @@ details > summary {
   display: none;
 }
 
-/*
- * formats the open right quote to be to the left of the entire text box
- */
-.left-align-quote {
+/* adds a bit of a gap between sentences */
+.multi-sentence > div:nth-child(n+2) {
+  margin-top: 0.25em;
+}
+
+.sentence-quoted-display-block {
   text-indent: -1em;
+  padding-left: 1em;
+}
+
+/* unquoted sentence will get rid of quotes no matter what */
+.sentence-unquoted-display-no-indent > .sentence-quote,
+.sentence-unquoted-display-indent > .sentence-quote,
+.sentence-unquoted-display-right-shifted > .sentence-quote {
+  display: none;
+}
+
+.sentence-unquoted-display-indent {
+  text-indent: 1em;
+}
+
+.sentence-unquoted-display-right-shifted {
   padding-left: 1em;
 }
 
@@ -349,8 +441,27 @@ ruby rt {
   text-align: center;
 }
 
-.hidden {
+/* removes furigana entirely */
+.hide-ruby ruby rt {
   display: none;
+}
+
+/* css to indicate that the image can be clicked on to zoom */
+.img-clickable {
+  cursor: pointer;
+  transition: filter 0.3s;
+}
+
+.img-clickable:hover {
+  filter: brightness(var(--image-hover-brightness));
+}
+
+/* makes code snippets look better */
+code {
+  background-color: var(--code-background-darken);
+  border-radius: 10px;
+  padding: 0.1em 0.3em;
+  font-size: 85%;
 }
 
 /*
@@ -358,8 +469,16 @@ ruby rt {
  *   FRONT SIDE CSS
  *  ================
  */
+.card-header {
+  position: relative; /* so pa-indicator works */
+}
+
+.card-footer {
+  display: none;
+}
+
 .card-description {
-  font-family: notoserif;
+  font-family: var(--jp-serif);
   color: var(--card-description-color);
   font-size: var(--description-font-size);
   line-height: 85%;
@@ -368,6 +487,61 @@ ruby rt {
 
 .card-description-ver {
   font-size: var(--description-footer-font-size);
+}
+
+.card-description__word-indicators {
+  display: none; /* only displayed on mobile */
+}
+
+.card-description__word-indicator--selected {
+  color: var(--accent);
+}
+
+/* decided that this would be an absolute position because
+  setting the surroundings to float ends up not properly adjusting
+  the height of the header, which then affects the content below
+  (with this approach, card-description is not floated and can properly
+  affect the height)
+ */
+.pa-indicator {
+  position: absolute;
+  display: flex;
+  /* aling to top of header */
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 0;
+}
+
+.pa-indicator svg {
+  height: 1.1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* pitch accent indicator colors */
+.pa-indicator-color--sentence {
+  fill: var(--pa-indicator-sentence-color);
+  color: var(--pa-indicator-sentence-color);
+}
+
+.pa-indicator-color--word {
+  fill: var(--pa-indicator-word-color);
+  color: var(--pa-indicator-word-color);
+}
+
+.pa-indicator-color--none {
+  fill: var(--pa-indicator-none-color);
+  color: var(--pa-indicator-none-color);
+}
+
+/* contains the frequencies, and version for mobile */
+.card-description-right {
+  --card-description-color: var(--text-color--4);
+  color: var(--card-description-color);
+  float: right;
+  font-family: var(--jp-serif);
 }
 
 /* info circle & tooltip */
@@ -402,7 +576,7 @@ ruby rt {
   visibility: hidden;
   min-width: 200px;
   max-width: var(--tooltip-max-width);
-  font-family: notosans;
+  font-family: var(--jp-sans);
   font-size: var(--tooltip-font-size);
   text-align: left;
   background-color: var(--tooltip-background-darken);
@@ -443,6 +617,12 @@ ruby rt {
   visibility: visible;
 }
 
+.info-circle-version {
+  font-size: 0.8em;
+  margin-top: 5px;
+  display: none; /* hide for normal displays, only show on mobile */
+}
+
 /* leech text */
 .info-circle-text-leech:not(:empty) {
   margin-bottom: 10px;
@@ -471,6 +651,47 @@ ruby rt {
   margin-top: 10px;
 }
 
+/* tags */
+.info-circle-text-tags {
+  display: flex;
+  align-items: center;
+}
+
+.info-circle-text-tags-text {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.info-circle-text-tags-text .info-circle-tag {
+  border-radius: 3px;
+  background: var(--info-circle-tag-bg-color);
+  padding: 0.1em 0.2em;
+  cursor: pointer;
+}
+.info-circle-text-tags-text .info-circle-tag--grey {
+  color: var(--text-color--2);
+}
+.info-circle-text-tags-text [data-tag-value=leech] {
+  color: var(--info-circle-leech-text-color);
+  font-weight: bold;
+}
+
+.info-circle-text-tags:not(:empty) {
+  margin-top: 10px;
+}
+
+.info-circle-text-tags svg {
+  width: var(--info-circle-settings-svg-size);
+  height: var(--info-circle-settings-svg-size);
+  fill: var(--text-color);
+  padding-right: 0.4em;
+}
+
+/* info text */
+.info-circle-text-info:not(:empty) {
+  margin-bottom: 10px;
+}
+
 /* warning text */
 .info-circle-text-warning:not(:empty) {
   margin-bottom: 10px;
@@ -497,6 +718,7 @@ ruby rt {
 
 .info-circle-text-error {
   font-family: Consolas, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Monaco, Courier New, Courier, monospace;
+  white-space: pre-wrap;
   /* breaks the word at the end of the line regardless of whitespace */
   word-break: break-all;
 }
@@ -517,37 +739,28 @@ ruby rt {
 
 .info-circle-text-settings {
   line-height: 0%;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 5px;
 }
 
 .info-circle-text-settings-border {
   border-bottom: 1px solid var(--text-color--4);
-  margin-top: -6px;
+  margin-top: -4px;
   margin-bottom: 4px;
   line-height: 0px;
   width: 100%;
-  display: none;
 }
 
 /* shows the border if settings aren't empty */
-.info-circle-text-settings:not(:empty) + .info-circle-text-settings-border {
-  display: block;
-}
-
-.info-circle-text-settings:not(:empty) {
-  margin-bottom: 10px;
-}
-
 .info-circle-text-settings svg {
   width: var(--info-circle-settings-svg-size);
   height: var(--info-circle-settings-svg-size);
-}
-
-.info-circle-text-settings svg {
   cursor: pointer;
   fill: var(--text-color);
 }
 
-.info-circle-text-settings__svg--red {
+.info-circle-text-settings__svg--red > path {
   fill: var(--info-circle-error-text-color);
 }
 
@@ -556,46 +769,24 @@ ruby rt {
   fill: var(--text-color--4);
 }
 
-/* https://stackoverflow.com/a/38948646 (ver 5) */
-.expression-box {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-column-gap: 5px;
-  justify-items: center;
-  font-family: notoserif;
+.below-display-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-.pa-indicator {
+.below-display-top-row {
+  display: flex;
   margin-left: auto;
-  grid-column-start: 1;
-  font-size: var(--pa-indicator-word-font-size);
-  /*
-   * so that the svg can be placed after the sentence (to remove upon hover)
-   * while appearing to be before the sentence
-   */
-  order: -1;
+  margin-right: auto;
+  gap: 5px;
+}
+.below-display-top-row .pa-button, .below-display-top-row .sentence_audio {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-.pa-indicator__svg {
-  display: inline-block;
-  vertical-align: middle;
-  height: 1.5em;
-}
-
-/* pitch accent indicator colors */
-.pa-indicator-color--sentence {
-  fill: var(--pa-indicator-sentence-color);
-  color: var(--pa-indicator-sentence-color);
-}
-
-.pa-indicator-color--word {
-  fill: var(--pa-indicator-word-color);
-  color: var(--pa-indicator-word-color);
-}
-
-.pa-indicator-color--none {
-  fill: var(--pa-indicator-none-color);
-  color: var(--pa-indicator-none-color);
+.expression {
+  font-family: var(--jp-serif);
 }
 
 .expression b {
@@ -614,7 +805,7 @@ ruby rt {
 /* used in other cards where PA flag is not shown */
 .expression--single {
   font-size: var(--sentence-font-size);
-  font-family: notoserif;
+  font-family: var(--jp-serif);
 }
 
 /* used when the front side display is a word and not a sentence (increase font size) */
@@ -626,13 +817,87 @@ ruby rt {
 .expression--sentence {
   display: inline-block;
   text-align: left;
-  text-indent: -1em;
-  padding-left: 1em;
   font-size: var(--sentence-font-size);
+  /*
+   * width_fs/font_fs = width_expr/font_expr
+   * width_expr = width_fs/font_fs*font_expr
+   *
+   * NOTE: --full-sentence-font-size = 1.75(rem) and
+   *       --sentence-font-size = 3.25(rem)
+   * However, we cannot use anything but numbers in the denominator of css calc,
+   * so we are stuck with pretty much hard coding the values...
+   */
+  max-width: 1578.5714285714px;
+}
+
+.expression--hint-sentence {
+  font-size: var(--full-sentence-font-size);
+  max-width: 850px;
 }
 
 .hint {
-  font-size: 16px;
+  font-size: var(--hint-reveal-font-size);
+}
+
+/* https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left */
+.hint--text-wrapper {
+  text-align: center;
+}
+
+.hint-text {
+  font-size: var(--hint-font-size);
+  display: inline-block;
+  text-align: left;
+}
+
+/*
+ * -------------------------
+ *  Sentence First card css
+ * -------------------------
+ */
+.expression__sf {
+  padding-bottom: 10px; /* overriden line-height causes the buttons underneath the word to be too close */
+  display: inline-block; /* reduces hitbox */
+  text-align: left; /* entire div is still centered! */
+}
+
+/* wrapper is to show css customization (≫ ), etc while
+   hiding the true word in .expression__sf-word */
+.expression__sf-word-wrapper, .expression__sf-word-wrapper .expression__sf-word {
+  font-size: var(--sentence-font-size);
+}
+
+.expression__sf-word-wrapper:before {
+  content: "≫";
+  color: var(--accent);
+}
+
+/* works with click on entire thing */
+.expression__sf--click > .expression__sf-word-wrapper > .expression__sf-word {
+  display: none;
+}
+
+.sentence-first-click-toggle:checked + .expression__sf > .expression__sf-word-wrapper > .expression__sf-word {
+  display: inline;
+}
+
+/* only works on hovering over the sentence */
+.expression__sf--hover > .expression__sf-word-wrapper > .expression__sf-word {
+  display: none;
+}
+
+.expression__sf--hover .expression__sf-sentence--hover:hover + .expression__sf-word-wrapper > .expression__sf-word {
+  display: inline;
+}
+
+.expression__sf--click-hover-effect {
+  /* transition for opacity */
+  transition: 0.3s;
+}
+
+.expression__sf--click-hover-effect:hover {
+  opacity: 0.85;
+  cursor: pointer;
 }
 
 /*
@@ -640,25 +905,11 @@ ruby rt {
  *  Hybrid card css
  * -----------------
  */
-.expression__hybrid-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.expression__hybrid-wrapper--hover:hover + .pa-indicator, .pa-indicator--sentence {
-  font-size: var(--pa-indicator-sent-font-size);
-}
-
-.expression__hybrid-wrapper--hover-remove-flag:hover + .pa-indicator > .pa-indicator__svg {
-  display: none;
-}
-
 .expression__hybrid {
-  position: relative;
   padding-bottom: 10px; /* overriden line-height causes the buttons underneath the word to be too close */
+  display: inline-block; /* reduces hitbox */
 }
 
-/* used to specify that hovering toggles between word/sentence */
 .expression__hybrid--click-hover-effect {
   /* transition for opacity */
   transition: 0.3s;
@@ -677,6 +928,7 @@ ruby rt {
   line-height: 125%;
 }
 
+/* borders for hybrid words */
 .expression__hybrid-word--hover-indicator {
   border-bottom-style: dotted;
 }
@@ -685,25 +937,61 @@ ruby rt {
   border-bottom-style: dashed;
 }
 
+/* sentence indicator: sentence should be tested */
 .expression__hybrid-word--sentence-indicator {
   color: var(--accent);
-  border-bottom-color: var(--accent);
+  border-color: var(--accent);
 }
 
+/* word indicator: only the word should be tested */
 .expression__hybrid-word--word-indicator {
-  border-bottom-color: var(--text-color--3);
+  border-color: var(--text-color--3);
 }
 
+/* used to specify that hovering toggles between word/sentence */
 .expression__hybrid-sentence {
   display: none;
 }
 
-.expression__hybrid--hover:hover > .expression__hybrid-word {
+/*
+  inline block is so the div doesn't expand all the way to the left/right
+  (i.e. so the border underneath the word doesn't expand)
+ */
+.expression__hybrid--hover.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
+}
+
+/* hover behavior for non-hint cards */
+.expression__hybrid--hover:not(.expression__hybrid--hint):hover > .expression__hybrid-word {
+  display: none;
+}
+.expression__hybrid--hover:not(.expression__hybrid--hint):hover > .expression__hybrid-sentence {
+  display: block;
+}
+
+/* hover behavior for hint cards */
+.expression__hybrid--hover.expression__hybrid--hint > .expression__hybrid-word:hover + .expression__hybrid-sentence {
+  display: block;
+}
+
+.hybrid-click-toggle:checked + .expression__hybrid .expression__hybrid-word {
   display: none;
 }
 
-.expression__hybrid--hover:hover > .expression__hybrid-sentence {
+.hybrid-click-toggle:checked + .expression__hybrid .expression__hybrid-sentence {
   display: block;
+}
+
+.hybrid-click-toggle:checked + .expression__hybrid.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
+}
+
+/*
+  - inline block is so the div doesn't expand all the way to the left/right
+    (i.e. so the border underneath the word doesn't expand)
+ */
+.expression__hybrid--hover.expression__hybrid--hint .expression__hybrid-word {
+  display: inline-block;
 }
 
 /*
@@ -719,16 +1007,17 @@ ruby rt {
   row-gap: 3px;
   bottom: 30px;
   right: 30px;
+  z-index: 30;
 }
 
 .popup-menu--animate {
   display: flex;
   align-items: center; /* Vertical center alignment */
   justify-content: center; /* Horizontal center alignment */
-  z-index: 1;
-  min-width: 250px;
+  width: 250px;
   min-height: 65px;
   text-align: center;
+  padding: 10px;
   border-radius: 4px;
   background-color: var(--tooltip-background-darken);
   animation-name: popup-menu-in, popup-menu-stay, popup-menu-fade;
@@ -763,6 +1052,78 @@ ruby rt {
   }
 }
 /*
+ * --------------
+ *  Mobile Popup
+ * --------------
+ */
+.mobile-popup-wrapper {
+  position: fixed;
+  display: flex;
+  height: 50vh;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.mobile-popup {
+  text-align: left;
+  margin: auto;
+  max-height: calc(100% - 2 * var(--mobile-popup-border));
+  width: calc(100% - 2 * var(--mobile-popup-border));
+  background-color: var(--tooltip-background-darken);
+  bottom: var(--mobile-popup-border);
+  left: var(--mobile-popup-border);
+  border-radius: 6px;
+  overflow: scroll;
+  padding: 8px 10px 8px 10px;
+}
+
+:root:not(.mobile) .mobile-popup::-webkit-scrollbar {
+  /* removes ugly scrollbar on PC */
+  display: none;
+}
+
+/* close button + press animations */
+.mobile-popup-title-close {
+  height: 1.2em;
+  position: sticky;
+  display: flex;
+  float: right;
+  top: 0px;
+  user-select: none;
+}
+
+.mobile-popup-title-close:not(.THIS-CLASS-DOES-NOT-EXIST) { /* temporary hack for minimalist mode */
+  /* we have a backdrop-filter blur because I have no idea how to get rid of background text otherwise */
+  backdrop-filter: blur(1.2px) !important; /* !important for minimalist mode */
+  border-radius: 3px;
+}
+
+.mobile-popup-title-close svg {
+  height: 1.2em;
+  fill: var(--text-color);
+  position: sticky;
+}
+
+.mobile-popup-title-close:active {
+  box-shadow: 0px 0px 2px var(--text-color--2) !important; /* !important for minimalist mode */
+}
+
+.mobile-popup-title-close:active svg {
+  margin-top: 1px;
+}
+
+/* hides all newlines on mobile popup sentences in particular */
+.mobile-popup .hover-tooltip__sent-div br {
+  display: none;
+}
+
+.mobile-popup .hover-tooltip__card b {
+  font-weight: var(--bold-font-weight);
+}
+
+/*
  *  ===============
  *   BACK SIDE CSS
  *  ===============
@@ -771,17 +1132,19 @@ ruby rt {
  * adds a width constraint to the backside to make things look better
  * - only applied after the main definition header
  */
-.back-side {
+.back-side-restrict-width {
   max-width: 850px;
   margin: auto;
   padding: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .answer-border {
   border-bottom: 1px solid;
   margin-top: 10px;
   margin-bottom: 15px;
-  width: 95%;
+  width: min(90% + 5rem, 100%);
 }
 
 /*
@@ -810,17 +1173,18 @@ ruby rt {
 .downstep {
   color: var(--pa-overline-color);
   position: relative;
+  margin-right: var(--pa-overline-downstep-padding);
 }
 
 .downstep:before {
   content: "";
-  width: 2px;
-  height: 18%;
+  width: var(--pa-overline-thickness);
+  height: var(--pa-overline-downstep-height);
   background: var(--pa-overline-color);
   position: absolute;
   display: block;
-  top: 0px;
-  left: 0px;
+  top: var(--pa-overline-height-above-text);
+  left: var(--pa-overline-downstep-left-offset);
 }
 
 .pitchoverline {
@@ -831,12 +1195,16 @@ ruby rt {
 
 .pitchoverline:after {
   content: "";
-  width: 100%;
-  height: 2px;
+  width: calc(100% + var(--pa-overline-downstep-padding) - var(--pa-overline-thickness));
+  height: var(--pa-overline-thickness);
   background: var(--pa-overline-color);
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: var(--pa-overline-height-above-text);
+  left: 0px;
+}
+
+.pitchterm {
+  white-space: nowrap;
 }
 
 .nopron {
@@ -894,8 +1262,12 @@ ruby rt {
 
 .dh-left__reading {
   font-size: var(--reading-font-size);
-  font-family: notoserif;
+  font-family: var(--jp-serif);
   white-space: nowrap; /* so the reading can expand ouside of the max width */
+}
+
+.dh-left__reading--kanji-selected {
+  color: var(--accent);
 }
 
 .dh-left__word-pitch {
@@ -919,13 +1291,17 @@ ruby rt {
   display: none; /* so it's not shown and doesn't affect the card without javascript */
 }
 
+.dh-left__similar-words-indicator--visible {
+  display: inline-block;
+}
+
 .dh-left__similar-words-indicators .hover-tooltip-wrapper {
   line-height: initial;
 }
 
-.dh-left__similar-words-indicators-main-word .hover-tooltip__word-div {
+.dh-left__similar-words-indicators-main-word .hover-tooltip__word-span {
   color: var(--accent);
-  font-weight: bold;
+  font-weight: var(--bold-font-weight);
 }
 
 .dh-left__similar-words-indicators .hover-wrapper .hover-text {
@@ -933,97 +1309,19 @@ ruby rt {
 }
 
 .dh-left__similar-words-indicator {
-  color: var(--text-color--3);
+  color: var(--word-indicator-icon-color);
 }
 
 .dh-left__similar-words-indicator:hover {
-  color: var(--info-circle-hover-color);
+  color: var(--word-indicator-icon-hover-color);
 }
 
 .dh-left__similar-words-indicator--new {
-  color: var(--accent);
+  color: var(--word-indicator-icon-new-color);
 }
 
 .dh-left__similar-words-indicator--new:hover {
-  color: var(--info-circle-leech-hover-color);
-}
-
-/*
- * -----------------------------------------
- *  Def Header Left - Word PA bold override
- * -----------------------------------------
- * overwriting the bold ability:
- * - bold == not the correct sound used in the sound clip
- *
- */
-.dh-left__word-pitch b {
-  font-weight: normal;
-  filter: opacity(30%);
-  font-size: 15px;
-}
-.dh-left__word-pitch b .pitchoverline:after {
-  content: "";
-  width: 100%;
-  height: 1px;
-  background: var(--pa-overline-color);
-  position: absolute;
-  top: -1px;
-  right: -1px;
-}
-.dh-left__word-pitch b .downstep:before {
-  content: "";
-  width: 1px;
-  height: 25%;
-  background: var(--pa-overline-color);
-  /*filter: brightness(var(--pa-brightness-reduce));*/
-  position: absolute;
-  display: block;
-  top: -1px;
-  left: 0px;
-}
-
-.dh-left__word-pitch-text:empty:before {
-  content: "(N/A)";
-}
-
-.pa-word-highlight-heiban {
-  color: var(--text-heiban);
-}
-
-.pa-word-highlight-atamadaka {
-  color: var(--text-atamadaka);
-}
-
-.pa-word-highlight-nakadaka {
-  color: var(--text-nakadaka);
-}
-
-.pa-word-highlight-odaka {
-  color: var(--text-odaka);
-}
-
-.pa-word-highlight-kifuku {
-  color: var(--text-kifuku);
-}
-
-.pa-sentence-highlight-heiban b {
-  color: var(--text-heiban);
-}
-
-.pa-sentence-highlight-atamadaka b {
-  color: var(--text-atamadaka);
-}
-
-.pa-sentence-highlight-nakadaka b {
-  color: var(--text-nakadaka);
-}
-
-.pa-sentence-highlight-odaka b {
-  color: var(--text-odaka);
-}
-
-.pa-sentence-highlight-kifuku b {
-  color: var(--text-kifuku);
+  color: var(--word-indicator-icon-new-hover-color);
 }
 
 /*
@@ -1051,55 +1349,47 @@ ruby rt {
 
 .hover-tooltip {
   display: inline-block;
-  min-width: 100px;
+  min-width: 40px;
   background-color: var(--tooltip-background-darken);
   padding: 8px 10px 8px 10px;
   border-radius: 6px;
 }
 
-.hover-tooltip .hover-tooltip__pitch-accent {
+.hover-tooltip__pitch-accent {
   /* cancels out bolded colors */
-  /* cancels out extra colors */
 }
-.hover-tooltip .hover-tooltip__pitch-accent b {
+.hover-tooltip__pitch-accent b {
+  --pa-overline-height-above-text: -1px;
+  --pa-overline-downstep-padding: 2px;
+  --pa-overline-thickness: 1px;
+  --pa-overline-downstep-left-offset: 1px;
   font-weight: normal;
   filter: opacity(30%);
-  font-size: 15px;
+  font-size: var(--reading-bold-pitch-font-size);
 }
-.hover-tooltip .hover-tooltip__pitch-accent b .pitchoverline:after {
-  content: "";
-  width: 100%;
-  height: 1px;
-  background: var(--pa-overline-color);
-  position: absolute;
-  top: -1px;
-  right: -1px;
+.hover-tooltip__pitch-accent b {
+  --pa-overline-color: var(--text-color--1);
 }
-.hover-tooltip .hover-tooltip__pitch-accent b .downstep:before {
-  content: "";
-  width: 1px;
-  height: 25%;
-  background: var(--pa-overline-color);
-  /*filter: brightness(var(--pa-brightness-reduce));*/
-  position: absolute;
-  display: block;
-  top: -1px;
-  left: 0px;
-}
-.hover-tooltip .hover-tooltip__pitch-accent b {
-  color: var(--text-color);
-}
-.hover-tooltip .hover-tooltip__pitch-accent .pitchoverline:after, .hover-tooltip .hover-tooltip__pitch-accent b .pitchoverline:after {
-  background: var(--text-color--1);
-}
-.hover-tooltip .hover-tooltip__pitch-accent .downstep:before, .hover-tooltip .hover-tooltip__pitch-accent b .downstep:before {
-  background: var(--text-color--1);
-}
-.hover-tooltip .hover-tooltip__pitch-accent .nopron {
-  color: var(--text-color);
+.hover-tooltip__pitch-accent .nopron {
+  color: var(--text-color--1);
 }
 
-.hover-tooltip .hover-tooltip__word-div b {
+.hover-tooltip__pitch-accent:empty:before {
+  content: "(N/A)";
+}
+
+.hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
+  /* cancels out extra colors */
+}
+.hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) .pitchoverline:after, .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) .downstep:before {
+  --pa-overline-color: var(--text-color--1);
+}
+.hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) b .pitchoverline:after, .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) b .downstep:before {
+  --pa-overline-color: var(--text-color--2);
+}
+
+/* used to highlight kanji-hover kanjis */
+.hover-tooltip__word-span b {
   color: var(--highlight-bold-color);
 }
 
@@ -1107,18 +1397,49 @@ ruby rt {
 .hover-tooltip__card--new {
   color: var(--text-color--1);
 }
-.hover-tooltip__card--new .hover-tooltip__pitch-accent .pitchoverline:after {
-  filter: opacity(70%);
-}
-.hover-tooltip__card--new .hover-tooltip__pitch-accent .downstep:before {
-  filter: opacity(70%);
+.hover-tooltip__card--new .hover-tooltip__pitch-accent .pitchoverline:after, .hover-tooltip__card--new .hover-tooltip__pitch-accent .downstep:before {
+  --pa-overline-color: var(--text-color--1);
 }
 .hover-tooltip__card--new .hover-tooltip__pitch-accent .nopron {
   color: var(--text-color--1);
 }
 
-.hover-tooltip .hover-tooltip__sent-div b {
+@media (min-resolution: 2dppx) { /* >= 2dppx */
+  .hover-tooltip__pitch-accent {
+    /* cancels out bolded colors */
+  }
+  .hover-tooltip__pitch-accent b {
+    --pa-overline-color: var(--text-color);
+  }
+  .hover-tooltip__pitch-accent .nopron {
+    color: var(--text-color);
+  }
+  .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) {
+    /* cancels out extra colors */
+  }
+  .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) .pitchoverline:after, .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) .downstep:before {
+    --pa-overline-color: var(--text-color);
+  }
+  .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) b .pitchoverline:after, .hover-tooltip__pitch-accent:not(.pa-word-highlight-pitch-overline) b .downstep:before {
+    --pa-overline-color: var(--text-color--1);
+  }
+  /* greys out the card if new (not reviewed yet) */
+  /* this is repeated code so the above doesn't override the standard colors */
+  .hover-tooltip__card--new .hover-tooltip__pitch-accent .pitchoverline:after, .hover-tooltip__card--new .hover-tooltip__pitch-accent .downstep:before {
+    --pa-overline-color: var(--text-color--1);
+  }
+}
+.hover-tooltip__word-div {
+  font-size: 1.25em;
+}
+
+.hover-tooltip__word-div b,
+.hover-tooltip__sent-div b {
   font-weight: normal;
+}
+
+.hover-tooltip__card--sentence-only .hover-tooltip__sent-div b {
+  color: var(--accent);
 }
 
 .hover-tooltip__word-div--clickable {
@@ -1134,15 +1455,20 @@ ruby rt {
   visibility: visible;
 }
 
-.hover-tooltip__pitch-accent:before {
-  content: "　";
+.hover-tooltip__card--separator {
+  margin-top: 10px;
+  border-bottom: 1px solid var(--text-color--4);
+}
+
+.hover-tooltip__pitch-accent {
+  margin-left: 1em;
 }
 
 .hover-tooltip-wrapper {
   /* overrides any existing pitch accent coloring, if it exists */
   color: var(--text-color);
   font-size: 18px;
-  font-family: notosans;
+  font-family: var(--jp-sans);
   text-align: left;
   position: absolute;
   width: 620px;
@@ -1214,6 +1540,100 @@ ruby rt {
 }
 
 /*
+ * -----------------------------------------
+ *  Def Header Left - Word PA bold override
+ * -----------------------------------------
+ * overwriting the bold ability:
+ * - bold == not the correct sound used in the sound clip
+ *
+ */
+.dh-left__word-pitch b {
+  --pa-overline-height-above-text: -1px;
+  --pa-overline-downstep-padding: 2px;
+  --pa-overline-thickness: 1px;
+  --pa-overline-downstep-left-offset: 1px;
+  font-weight: normal;
+  filter: opacity(30%);
+  font-size: var(--reading-bold-pitch-font-size);
+}
+
+.dh-left__word-pitch-text:empty:before {
+  content: "(N/A)";
+}
+
+.pa-word-highlight-pitch-overline .pa-group-heiban {
+  --pa-overline-color: var(--text-heiban);
+}
+.pa-word-highlight-pitch-overline .pa-group-atamadaka {
+  --pa-overline-color: var(--text-atamadaka);
+}
+.pa-word-highlight-pitch-overline .pa-group-nakadaka {
+  --pa-overline-color: var(--text-nakadaka);
+}
+.pa-word-highlight-pitch-overline .pa-group-odaka {
+  --pa-overline-color: var(--text-odaka);
+}
+.pa-word-highlight-pitch-overline .pa-group-kifuku {
+  --pa-overline-color: var(--text-kifuku);
+}
+
+.pa-word-highlight-pitch-kana .pa-group-heiban {
+  color: var(--text-heiban);
+}
+.pa-word-highlight-pitch-kana .pa-group-atamadaka {
+  color: var(--text-atamadaka);
+}
+.pa-word-highlight-pitch-kana .pa-group-nakadaka {
+  color: var(--text-nakadaka);
+}
+.pa-word-highlight-pitch-kana .pa-group-odaka {
+  color: var(--text-odaka);
+}
+.pa-word-highlight-pitch-kana .pa-group-kifuku {
+  color: var(--text-kifuku);
+}
+
+.pa-word-highlight-heiban {
+  color: var(--text-heiban);
+}
+
+.pa-word-highlight-atamadaka {
+  color: var(--text-atamadaka);
+}
+
+.pa-word-highlight-nakadaka {
+  color: var(--text-nakadaka);
+}
+
+.pa-word-highlight-odaka {
+  color: var(--text-odaka);
+}
+
+.pa-word-highlight-kifuku {
+  color: var(--text-kifuku);
+}
+
+.pa-sentence-highlight-heiban b {
+  color: var(--text-heiban);
+}
+
+.pa-sentence-highlight-atamadaka b {
+  color: var(--text-atamadaka);
+}
+
+.pa-sentence-highlight-nakadaka b {
+  color: var(--text-nakadaka);
+}
+
+.pa-sentence-highlight-odaka b {
+  color: var(--text-odaka);
+}
+
+.pa-sentence-highlight-kifuku b {
+  color: var(--text-kifuku);
+}
+
+/*
  * ----------------------------
  *  Def Header Left - PA cards
  * ----------------------------
@@ -1243,13 +1663,14 @@ ruby rt {
  * ------------------
  */
 .dh-right {
-  font-size: 40px;
+  font-size: var(--picture-font-size);
   max-width: 400px;
-  max-height: 210px;
+  position: relative;
 }
 
-.dh-right--contains-image {
-  padding-left: 35px;
+.def-header--has-img > .dh-right {
+  /* this is padding to prevent overriding the margin-left, margin-right variables in responsive */
+  padding-left: var(--dh-right-image-gap);
 }
 
 .dh-right__img {
@@ -1262,29 +1683,17 @@ ruby rt {
   user-select: none;
 }
 
-/* experimental mobile class */
-.dh-right--around-word {
-  max-height: 50px !important;
-}
-.dh-right--around-word .dh-right__img {
-  max-height: 50px !important;
+/* sane image limits for when it cannot be adjusted for whatever reason */
+.dh-right--no-js,
+.dh-right--no-js img,
+.dh-right--no-js .dh-right__img-container {
+  max-height: var(--dh-right-image-max-height);
 }
 
 .dh-right__img-container-stop-blur-edges {
   /* removes blur overflow */
   overflow: hidden;
   border-radius: 5px;
-}
-
-/* moved the hover element to the div to prevent the size transform transition from showing */
-.dh-right__img-container--clickable {
-  cursor: pointer;
-  transition: filter 0.3s;
-}
-
-/* not applied to the image because of above comment (prevent showing the transition) */
-.dh-right__img-container--clickable:hover {
-  filter: brightness(var(--image-hover-brightness));
 }
 
 .dh-right__svg-eye {
@@ -1322,16 +1731,16 @@ ruby rt {
 }
 
 /* no transition so it doesn't flash the user when flipping the card */
-.nsfw-blur-init {
+.img-blur-filter-init {
   filter: blur(30px);
 }
 
-.nsfw-blur {
+.img-blur-filter {
   filter: blur(30px);
   transition: filter 0.2s;
 }
 
-.nsfw-no-blur {
+.img-blur-filter-disable {
   transition: filter 0.2s;
 }
 
@@ -1416,18 +1825,74 @@ ruby rt {
  *  Full sentence
  * ---------------
  */
+/* wrapper to center properly */
+.full-sentence-center {
+  display: flex;
+}
+
 .full-sentence {
   font-size: var(--full-sentence-font-size);
   margin: 0.3em 0 0.3em 0;
-  font-family: notoserif;
+  font-family: var(--jp-serif);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+.full-sentence b {
+  font-weight: var(--bold-font-weight);
 }
 
-.full-sentence ruby rt {
+/* hover */
+.full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-hover ruby rt {
   opacity: 0;
 }
 
-.full-sentence:hover ruby rt {
+.full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-hover:hover ruby rt {
+  opacity: 1 !important;
+}
+
+.full-sentence.full-sentence--ruby-size.full-sentence--ruby-hover ruby rt {
+  font-size: 0px;
+}
+
+.full-sentence.full-sentence--ruby-size.full-sentence--ruby-hover:hover ruby rt {
+  font-size: 0.5em !important;
+}
+
+/* click toggle */
+.full-sentence-toggle + .full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-toggle ruby rt {
+  opacity: 0;
+}
+
+.full-sentence-toggle:checked + .full-sentence.full-sentence--ruby-opacity.full-sentence--ruby-toggle ruby rt {
   opacity: 1;
+}
+
+.full-sentence-toggle + .full-sentence.full-sentence--ruby-size.full-sentence--ruby-toggle ruby rt {
+  font-size: 0px;
+}
+
+.full-sentence-toggle:checked + .full-sentence.full-sentence--ruby-size.full-sentence--ruby-toggle ruby rt {
+  font-size: 0.5em;
+}
+
+/* adds transitions if specified */
+/* thanks to Stazor#6633 for the idea and implementation */
+.full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition ruby rt {
+  transition: 0.2s;
+}
+
+.full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition.full-sentence--ruby-hover:hover ruby rt {
+  transition: 0.2s;
+}
+
+.full-sentence-toggle:checked + .full-sentence.full-sentence--ruby-size.full-sentence--ruby-size-transition.full-sentence--ruby-toggle ruby rt {
+  transition: 0.2s;
+}
+
+/* adds hover effect */
+.full-sentence.full-sentence--ruby-toggle {
+  cursor: pointer;
 }
 
 /*
@@ -1435,6 +1900,14 @@ ruby rt {
  *  Definitions and collapsable boxes
  * -----------------------------------
  */
+.folder-tab {
+  display: none;
+}
+
+.primary-def-folder-tab-text {
+  display: none;
+}
+
 .glossary-blockquote {
   text-align: left;
   background: var(--background-darken);
@@ -1445,9 +1918,11 @@ ruby rt {
   /* so pictures can be encased properly */
   overflow: hidden;
 }
-
 .glossary-blockquote p {
   display: inline;
+}
+.glossary-blockquote b {
+  font-weight: var(--bold-font-weight);
 }
 
 .glossary-details {
@@ -1455,66 +1930,149 @@ ruby rt {
   margin: 0.5em 0 0 0;
 }
 
-.glossary-primary-definition-right {
-  float: right;
-  display: none;
-  padding-left: 5px;
-  /*padding-top: 3px;*/
-  text-align: right;
+#primary_definition_details.glossary-details {
+  margin-top: 0;
 }
-.glossary-primary-definition-right img {
-  border-radius: 3px;
+
+.glossary-blockquote--hide-first-line .glossary-text ol li {
+  /* jitenbot dictionaries */
+}
+.glossary-blockquote--hide-first-line .glossary-text ol li .dict-group__tag-list {
+  display: none;
+}
+.glossary-blockquote--hide-first-line .glossary-text ol li .dict-group__glossary--first-line {
+  display: none;
+}
+.glossary-blockquote--hide-first-line .glossary-text ol li .dict-group__glossary--first-line-break {
+  display: none;
+}
+.glossary-blockquote--hide-first-line .glossary-text ol li span[data-sc-name=見出部] {
+  display: none;
+}
+
+.glossary-blockquote--hide-tags .glossary-text ol li .dict-group__tag-list {
+  display: none;
+}
+
+.glossary-blockquote--hide-extra-text .glossary-text ol li {
+  /* jitenbot dictionaries */
+}
+.glossary-blockquote--hide-extra-text .glossary-text ol li .dict-group__glossary--first-line {
+  display: none;
+}
+.glossary-blockquote--hide-extra-text .glossary-text ol li span[data-sc-name=見出部] {
+  display: none;
+}
+
+.glossary-blockquote--hide-list-numbers ol {
+  list-style: none;
+  padding-left: 0em;
+}
+
+.glossary-primary-definition__img {
+  display: flex; /* for some reason, this removes additional padding at the bottom */
+  gap: var(--primary-def-picture-gap); /* gap between multiple images */
+}
+.glossary-primary-definition__img img {
+  border-radius: var(--primary-def-border-radius);
   max-width: var(--primary-def-picture-max-width);
   max-height: var(--primary-def-picture-max-height);
 }
 
-.glossary-primary-definition-right:not(:empty) {
-  display: block;
+/* increases the max width and height of the image when the definition is empty */
+.glossary-primary-definition--no-definition .glossary-primary-definition__img {
+  gap: calc(var(--primary-def-picture-gap) * var(--primary-def-picture-scale-no-def));
+}
+.glossary-primary-definition--no-definition .glossary-primary-definition__img img {
+  border-radius: calc(var(--primary-def-border-radius) * var(--primary-def-picture-scale-no-def));
+  max-width: calc(var(--primary-def-picture-max-width) * var(--primary-def-picture-scale-no-def));
+  max-height: calc(var(--primary-def-picture-max-height) * var(--primary-def-picture-scale-no-def));
 }
 
-.glossary-blockquote--primary-definition .glossary__external-links--float {
-  display: none;
+/* removes floating pictures (TODO: what is this for???) */
+.glossary-primary-definition--remove-pictures .glossary-primary-definition__right .glossary-primary-definition__img {
+  display: none !important;
 }
-.glossary-blockquote--primary-definition .glossary-primary-definition-right--bottom {
-  display: none;
+.glossary-primary-definition--remove-pictures .glossary-primary-definition__right--completely-hide {
+  /* hides the right completely if no external links */
+  display: none !important;
+}
+.glossary-primary-definition--remove-pictures .glossary-primary-definition__left {
+  display: none !important;
 }
 
-.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary-primary-definition-right--bottom {
-  display: block;
-}
-.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary__external-links--float {
+/* added on the actual img tag */
+.glossary-primary-definition__right {
+  /* padding between external links & picture if it exists */
   display: flex;
+  flex-direction: column;
+  gap: 5px;
+  float: right;
+  padding-left: 10px; /* so text doesn't go too close to the image */
+  text-align: right;
+  /* aligns boxes within float to right */
 }
-.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary-primary-definition-right--float {
-  display: none;
-}
-
-/* aligns boxes within float to right */
-.glossary-primary-definition-right--float {
-  display: block;
-}
-
-.glossary-primary-definition-right--float .glossary__external-links {
+.glossary-primary-definition__right .glossary__external-links, .glossary-primary-definition__right .glossary-primary-definition__img {
   margin-left: auto;
 }
-
-/* padding between external links & picture if it exists */
-.glossary-primary-definition-right--float .glossary__external-links + .glossary-primary-definition-right-img:not(:empty) {
-  padding-top: 5px;
+.glossary-primary-definition__right .glossary-primary-definition__img {
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
-.glossary-blockquote--picture-below .glossary-primary-definition-right {
-  float: none;
-  padding-left: 0px;
+.glossary-primary-definition__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.glossary-blockquote--picture-below .glossary-primary-definition-right.glossary-primary-definition-right--above-text {
-  padding-top: 10px;
+/* default: show to */
+.glossary-blockquote--primary-definition .glossary-primary-definition__left {
+  display: none;
 }
 
-.glossary-primary-definition-right-img {
-  display: flex; /* for some reason, this removes additional padding at the bottom */
-  gap: 5px;
+/*
+ * hides the right, shows the left if has either (javascript added) classes:
+ * - glossary-blockquote--picture-below
+ * - glossary-blockquote--picture-above
+ */
+/*
+ * Purpose of glossary-primary-definition--auto-no-lenience class:
+ *
+ * if the definition is empty:
+ *     place to left
+ * else:
+ *     placed to right
+ */
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary-primary-definition__right .glossary-primary-definition__img,
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-above .glossary-primary-definition__right .glossary-primary-definition__img,
+.glossary-primary-definition--auto-no-lenience.glossary-primary-definition--no-definition .glossary-primary-definition__right .glossary-primary-definition__img {
+  display: none;
+}
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary-primary-definition__right--completely-hide,
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-above .glossary-primary-definition__right--completely-hide,
+.glossary-primary-definition--auto-no-lenience.glossary-primary-definition--no-definition .glossary-primary-definition__right--completely-hide {
+  /* hides the right completely if no external links */
+  display: none;
+}
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-below .glossary-primary-definition__left,
+.glossary-blockquote--primary-definition.glossary-blockquote--picture-above .glossary-primary-definition__left,
+.glossary-primary-definition--auto-no-lenience.glossary-primary-definition--no-definition .glossary-primary-definition__left {
+  display: block;
+}
+
+.glossary-primary-definition--no-definition .glossary-text {
+  display: none;
+}
+
+/* flips the position of picture and glossary (so now picture is on top) */
+.glossary-blockquote--picture-above .glossary-primary-definition__wrapper {
+  flex-direction: column-reverse;
+}
+
+/* Whether the primary definition is collapsed or not */
+.primary-def-open > details.glossary-details > summary {
+  display: none;
 }
 
 .glossary-details--grey {
@@ -1535,6 +2093,10 @@ ruby rt {
   display: inline-block;
 }
 
+a.glossary__image-hover-text {
+  text-decoration: none !important; /* override styles for ankidroid */
+}
+
 .glossary__image-hover-media {
   display: none;
 }
@@ -1542,6 +2104,7 @@ ruby rt {
 .glossary__image-hover-text:hover ~ .glossary__image-hover-media {
   display: block;
   position: absolute;
+  z-index: 2; /* so the hover image goes overtop of other images */
 }
 
 .glossary__image-hover-media {
@@ -1550,12 +2113,33 @@ ruby rt {
   /* see: https://docs.ankiweb.net/templates/styling.html#image-resizing */
   max-height: 500px !important;
   max-width: 100px !important;
+  box-shadow: var(--glossary-image-hover-border) !important; /* !important to override minimalist-mode */
 }
 
 /* so the image doesn't disappear once you move your mouse away from the text */
 .glossary__image-hover-media:hover {
   display: block;
   position: absolute;
+  z-index: 2; /* so the hover image goes overtop of other images */
+}
+
+/* stylizes collapsed dictionaries */
+.glossary-text ol li details.glossary-text__details {
+  margin-left: 0.5em;
+}
+.glossary-text ol li details.glossary-text__details .glossary-text__summary .dict-group__tag-list, .glossary-text ol li details.glossary-text__details .glossary-text__summary .dict-group__glossary--first-line {
+  display: inline;
+}
+.glossary-text ol li details.glossary-text__details .glossary-text__details-div {
+  border-left: 0.2em solid var(--text-color--4);
+  margin-left: 0.25em;
+  padding-left: 0.5em;
+}
+.glossary-text ol li details.glossary-text__details .glossary-text__details-div .dict-group__tag-list {
+  display: none;
+}
+.glossary-text ol li details.glossary-text__details .glossary-text__details-div .dict-group__glossary--first-line-break {
+  display: none;
 }
 
 /*
@@ -1574,12 +2158,12 @@ ruby rt {
   max-width: calc(var(--external-links-icon-size) * var(--external-links-max-icons-per-row) + (var(--external-links-max-icons-per-row) - 1) * var(--external-links-gap));
 }
 
+/* used in extra info section */
 .glossary__external-links--float {
   float: right;
   padding-left: 5px;
 }
 
-/* external links are moved to the left if field is completely empty */
 .glossary__external-links a {
   text-align: center;
   vertical-align: middle;
@@ -1588,8 +2172,9 @@ ruby rt {
   line-height: var(--external-links-icon-size);
   font-size: var(--external-links-icon-font-size);
   color: var(--text-color) !important; /* !important for ankidroid */
+  background: var(--external-links-background);
   text-decoration: none !important; /* !important for ankidroid */
-  box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color);
+  box-shadow: var(--external-links-box-shadow) var(--external-links-box-shadow-color) !important; /* !important to override minimalist-mode */
   border-radius: 2px;
 }
 
@@ -1597,6 +2182,11 @@ ruby rt {
   background: transparent;
   width: var(--external-links-icon-size);
   height: var(--external-links-icon-size);
+}
+
+.glossary__external-links a:active .glossary__external-links-inner {
+  margin-top: 1px;
+  filter: opacity(0.6);
 }
 
 .glossary__external-links a:not(:hover) {
@@ -1609,23 +2199,73 @@ ruby rt {
  * ------------------------------
  */
 .frequencies {
-  --card-description-color: var(--text-color--4);
   display: flex;
-  float: right;
-  font-family: notoserif;
-  color: var(--card-description-color);
+  gap: 10px;
+  font-family: var(--jp-serif);
   font-size: var(--description-font-size);
   line-height: 85%;
 }
 
+.frequencies-display {
+  display: flex;
+  gap: 20px;
+}
+
 .frequencies__group {
   display: block;
-  padding-left: 20px;
   text-align: right;
 }
 
 .frequencies__dictionary {
   font-size: var(--description-footer-font-size);
+}
+
+.frequencies-overflow {
+  fill: var(--card-description-color);
+  height: min-content;
+}
+
+.frequencies-overflow:hover {
+  fill: var(--frequencies-overflow-hover-color);
+}
+
+.unknown-freq-number {
+  display: none;
+}
+
+/*
+The following can be used instead of the above to display the unknown frequency number
+(default number for unkonwn frequencies):
+
+.unknown-freq-number:before {
+  content: " ("
+}
+.unknown-freq-number:after {
+  content: ")"
+}
+ */
+.hover-tooltip-wrapper--frequencies-overflow {
+  /* 20px is to account for the width of the dropdown arrow I think */
+  --overflow-min-width: 200px;
+  --overflow-max-width: 400px;
+  left: calc(-1 * max(min(60vw, var(--overflow-max-width)) - 20px, var(--overflow-min-width) - 20px));
+  bottom: 0px;
+  width: max(var(--overflow-min-width), min(60vw, var(--overflow-max-width)));
+  text-align: right;
+}
+
+.hover-tooltip--frequencies-overflow {
+  display: inline-flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 5px;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+/* the arrow (removed) */
+.hover-tooltip--frequencies-overflow:after {
+  display: none;
 }
 
 /*
@@ -1647,10 +2287,59 @@ ruby rt {
   display: none;
 }
 
+/* TODO move to a new utilities folder */
+.hidden {
+  display: none;
+}
+
 /*
- * ================
- *  mobile support
- * ================
+ * ==================================
+ *  mobile support (font sizes only)
+ * ==================================
+ */
+@media (max-width: 1600px) {
+  :root {
+    --sentence-font-size: 2.625rem;
+  }
+}
+@media (max-width: 850px), (max-height: 700px) {
+  :root {
+    --word-font-size: 3rem;
+    --sentence-font-size: 1.75rem;
+    --picture-font-size: 1.75rem;
+    --description-font-size: 1.125rem;
+    --description-footer-font-size: 0.5rem;
+    --reading-font-size: 2.75rem;
+    --reading-pitch-font-size: 1.125rem;
+    --full-sentence-font-size: 1.5rem;
+    --dh-right-image-gap: 1.25rem;
+    --glossary-font-size: 1.125rem;
+    --glossary-font-size--smaller: 0.8125rem;
+  }
+}
+@media (max-width: 620px) {
+  :root {
+    --word-font-size: 2.25rem;
+    --reading-font-size: 2rem;
+    --reading-pitch-font-size: 1rem;
+    --sentence-font-size: 1.25rem;
+    --hint-font-size: px2rem(16px);
+    --picture-font-size: 1.25rem;
+    --full-sentence-font-size: 1.25rem;
+    --pa-overline-downstep-height: 0.6em;
+    --glossary-font-size: 0.9375rem;
+    --glossary-font-size--smaller: 0.8125rem;
+    --pa-overline-thickness: 0.1em;
+    --dh-right-image-gap: 0.5rem;
+  }
+  .android {
+    --pa-overline-height-above-text: -0.1em;
+  }
+}
+/*
+ * ==================================
+ *  mobile support (everything else)
+ * ==================================
  */
 .android .replaybutton span {
   text-decoration: none;
@@ -1669,138 +2358,384 @@ ruby rt {
   fill: #414141;
 }
 
-@media (max-width: 1600px) {
-  :root {
-    --sentence-font-size: 2.625rem;
-    --pa-indicator-sent-font-size: 2.1875rem;
-  }
+/* Hide audio buttons on AnkiMobile (position: fixed does NOT seem to work on AnkiMobile...) */
+.iphone .dh-left__audio-buttons, .ipad .dh-left__audio-buttons {
+  display: none;
 }
-@media (max-width: 1300px) {
-  .expression br {
+
+@media (max-width: 1300px) and (min-height: 700px) {
+  /* removes newlines */
+  .expression .expression-inner br {
     display: none;
   }
+  .expression .expression--hint-sentence .expression-inner br { /* except on hint sentences */
+    display: inline;
+  }
 }
+/* specifically when there's not enough horizontal space */
 @media (max-width: 850px) {
-  :root {
-    --word-font-size: 3.4375rem;
-    --sentence-font-size: 2.1875rem;
-    --pa-indicator-word-font-size: 2.1875rem;
-    --pa-indicator-sent-font-size: 1.8125rem;
-    --description-font-size: 1.125rem;
-    --description-footer-font-size: 0.5rem;
-    --reading-font-size: 2.75rem;
-    --reading-pitch-font-size: 1.125rem;
-    --full-sentence-font-size: 1.5rem;
-    --glossary-font-size: 0.9375rem;
-    --glossary-font-size--smaller: 0.8125rem;
-    /* PrimaryDefinitionPicture fields */
-    --primary-def-picture-max-width: 200px;
-    --primary-def-picture-max-height: 100px;
-    /* TODO more portable solution */
-    --tooltip-max-width: 350px;
-    --tooltip-font-size: 0.75rem;
+  .dh-right {
+    --dh-right-image-max-height: 180px;
+    max-width: 215px;
   }
-  .expression {
-    border-top: 30px;
+  .dh-right .dh-right__img {
+    max-width: 215px;
   }
-  .info-circle svg {
-    /* TODO variable */
-    width: 13px;
+  .def-header {
+    align-items: flex-start; /* moves image to top */
+  }
+  .def-header--text-img { /* text should be centered as always */
+    align-items: center;
   }
   .dh-left__reading {
     white-space: initial; /* in case the word is too long */
   }
-  .dh-left__word-pitch {
-    margin-top: 0px;
-  }
-  .dh-right {
-    max-width: 215px !important;
-    padding-left: 20px;
-  }
-  .dh-right .dh-right__img {
-    max-width: 215px !important;
-  }
-  .def-header {
-    align-items: flex-start;
-  }
   .full-sentence br {
     display: none;
+  }
+  /* removes newlines on all */
+  .expression .expression-inner br {
+    display: none;
+  }
+  .expression .expression--hint-sentence .expression-inner br { /* including hint sentences */
+    display: none;
+  }
+}
+@media (max-width: 850px), (max-height: 700px) {
+  :root {
+    /* PrimaryDefinitionPicture fields */
+    --primary-def-picture-max-width: 200px;
+    --primary-def-picture-max-height: 100px;
+  }
+  .expression {
+    border-top: 30px;
+  }
+  .info-circle > .info-circle-svg-wrapper svg {
+    /* TODO variable */
+    width: 13px;
+  }
+  .dh-left__word-pitch {
+    margin-top: 5px;
   }
 }
 @media (max-width: 620px) {
   :root {
-    --sentence-font-size: 1.875rem;
-    --full-sentence-font-size: 1.25rem;
+    --tooltip-max-width: 85vw;
+    --info-circle-settings-svg-size: 20px; /* increase tap size on mobile */
+    --bold-font-weight: normal; /* unbolds text because kanji looks squished when bolded */
+  }
+  .android {
+    --pa-overline-height-above-text: -0.1em;
+  }
+  .night_mode {
+    /* TODO test light mode on mobile */
+    --background-darken: rgba(0, 0, 0, 0.16); /* slightly darker to make folder tab stand out more */
   }
   .card {
-    margin: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: var(--mobile-border);
+    margin-right: var(--mobile-border);
+  }
+  #content { /* removes margin on android */
+    margin: 0px;
   }
   .card-description {
     margin-top: 10px;
-    margin-left: 10px;
+  }
+  .info-circle-version {
+    display: block;
   }
   .mobile .card-description {
     margin-left: 0px;
   }
+  /* hides card type and version below said card type*/
   .card-description__card-type, .card-description-ver {
     display: none;
   }
-  .info-circle svg {
+  .card-description__word-indicators {
+    display: inline; /* only displayed on mobile */
+    margin-left: 0.5em;
+    color: var(--text-color--1);
+  }
+  .info-circle > .info-circle-svg-wrapper svg {
     /* TODO variable */
     width: 15px;
   }
-  /* temporarily removing these for the mobile class since they clog up the space */
-  .frequencies {
+  .js-info-circle-tooltip-use-dialog {
+    /* guaranteed that info-circle is toggled by frozen class */
+    /* Tooltip text */
+  }
+  .js-info-circle-tooltip-use-dialog .info-circle-text-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
     display: none;
+    z-index: 20; /* kanji hover / word indicators popup has z-index of 10, popup menu has 30 */
+    background-color: var(--tooltip-behind-darken);
+    animation-name: info-circle-zoom;
+    animation-duration: 0.25s;
   }
-  .pa-indicator {
-    /* same size as info circle */
-    font-size: var(--pa-indicator-word-font-size) !important;
+  .js-info-circle-tooltip-use-dialog .info-circle-text-wrapper--zoom-out .info-circle-text-wrapper {
+    animation-name: info-circle-zoom-out;
+    animation-duration: 0.25s;
   }
-  .pa-indicator__svg {
-    position: absolute;
-    top: 1px;
-    left: 30px;
+  @keyframes info-circle-zoom {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+    0.001% {
+      display: flex;
+      opacity: 0;
+    }
+    100% {
+      display: flex;
+      opacity: 100;
+    }
   }
+  @keyframes info-circle-zoom-out {
+    0% {
+      display: flex;
+      opacity: 100;
+    }
+    99.999% {
+      display: flex;
+      opacity: 0;
+    }
+    100% {
+      display: none;
+      opacity: 0;
+    }
+  }
+  .js-info-circle-tooltip-use-dialog .info-circle--frozen > .info-circle-svg-wrapper + .info-circle-text-wrapper > .info-circle-text {
+    visibility: visible;
+  }
+  .js-info-circle-tooltip-use-dialog .info-circle--frozen > .info-circle-svg-wrapper + .info-circle-text-wrapper {
+    display: flex;
+  }
+  .js-info-circle-tooltip-use-dialog .info-circle-text {
+    position: initial; /* not absolute */
+    display: block;
+    visibility: visible;
+    margin: auto;
+    min-height: 50px;
+    max-height: 75vh;
+    width: var(--tooltip-max-width);
+    overflow-y: scroll;
+  }
+  .frequencies {
+    gap: 5px;
+  }
+  .hover-tooltip--frequencies-overflow {
+    column-gap: 10px;
+  }
+  .pa-indicator svg {
+    height: 0.9em;
+  }
+  .card-header {
+    margin-bottom: 5px;
+  }
+  /* margin was previous around full-sentence, but all-definitions is now between!
+     thus, we move padding to all-definitions */
   .full-sentence {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  /* remove background and whatnot */
+  .def-header {
+    justify-content: flex-start;
+  }
+  .dh-left {
+    background: none;
+    padding: 0em;
+    border-radius: 0px;
+    flex: 0 1 auto; /* reset to default, i.e. don't attempt to take up all available space */
+    margin-bottom: var(--folder-tab-height);
+    min-width: calc(var(--folder-tab-width) + 2 * var(--folder-tab-margin-left));
+    /* WILL BE ADJUSTED with javascript if necessary (i.e. wraps past screen) */
+    /* Ideally, this should be done with container queries, but we don't have this yet in Anki... */
+  }
+  .dh-left--no-folder-tabs { /* i.e. literally no definitions to show (why would this ever happen) */
+    margin-top: calc(var(--folder-tab-height) / 2);
+    margin-bottom: calc(var(--folder-tab-height) / 2);
+  }
+  .def-header--no-img .dh-left {
+    flex: 1; /* reset above to center on no image */
+  }
+  .dh-left__reading {
+    white-space: nowrap;
+  }
+  .dh-left--word-past-screen .dh-left__reading {
+    white-space: initial;
+    text-align: left;
+    margin-bottom: 0px;
+  }
+  .dh-left--word-past-screen + .dh-right {
+    /* a horrible hack to work with words that wrap around the screen to a certain extent */
+    position: absolute;
+    right: 0px;
+  }
+  .dh-left--word-past-screen .dh-left__word-pitch {
+    text-align: left;
+    margin-left: 0.2em;
   }
   .dh-right {
-    position: absolute;
-    max-height: 60px !important;
-    bottom: 10px;
-    right: 10px;
-    padding-left: 0px;
+    --dh-right-image-max-height: 110px;
+    margin-left: auto; /* centers */
+    margin-right: auto;
   }
-  .dh-right .dh-right__img {
-    max-height: 60px !important;
+  .def-header--has-img > .dh-right {
+    /* this is padding to prevent overriding the margin-left, margin-right variables in responsive */
+    padding-right: var(--dh-right-image-gap);
+  }
+  /* mobile requires a fixed height. JS adjusts width instead of height. */
+  .dh-right,
+  .dh-right img,
+  .dh-right .dh-right__img-container {
+    max-height: var(--dh-right-image-max-height);
+  }
+  .glossary-blockquote {
+    /* removes horizontal margins */
+    margin: 0px;
+  }
+  .back-side-restrict-width {
+    flex-direction: column-reverse;
+  }
+  .all-definitions {
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
+  }
+  .other-definitions {
+    display: none;
+  }
+  .primary-def-blockquote-wrapper {
+    position: relative;
+  }
+  .folder-tab {
+    display: flex;
+    position: absolute;
+    bottom: 100%;
+    height: var(--folder-tab-height);
+    width: var(--folder-tab-width);
+    margin-left: var(--folder-tab-margin-left);
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .primary-def-folder-tab-text {
+    display: block;
+  }
+  .folder-tab__button {
+    display: flex; /* centers the items for some reason */
+    width: var(--folder-tab-button-size);
+    height: var(--folder-tab-button-size);
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* takes up all remaining space */
+  }
+  .folder-tab__button > svg {
+    width: var(--folder-tab-svg-size);
+    height: var(--folder-tab-svg-size);
+  }
+  .folder-tab > input + .folder-tab__button { /* unchecked, default */ }
+  .folder-tab > input + .folder-tab__button > svg {
+    fill: var(--text-color--4);
+  }
+  .folder-tab > input:checked + .folder-tab__button {
+    background: var(--background-darken);
+  }
+  .folder-tab > input:checked + .folder-tab__button > svg {
+    fill: var(--text-color);
+  }
+  .folder-tab:not(.folder-tab--show-when-empty) > input:disabled + .folder-tab__button {
+    display: none;
+  }
+  .primary-def-folder-tab-text--hide .primary-def-folder-tab-text__line {
+    display: none;
+  }
+  .primary-def-folder-tab-text__line {
+    font-size: 0.75em;
+    color: var(--text-color--3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+  }
+  .primary-def-folder-tab-text__line .primary-def-folder-tab-text__line-left {
+    background: var(--text-color--3);
+    height: 1px;
+    flex: 1;
+  }
+  .primary-def-folder-tab-text__line .primary-def-folder-tab-text__line-text {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+  .primary-def-folder-tab-text__line .primary-def-folder-tab-text__line-right {
+    background: var(--text-color--3);
+    height: 1px;
+    flex: 1;
+  }
+  .folder-tab__button > svg {
+    fill: var(--text-color--4);
+  }
+  .card-main {
+    margin-bottom: var(--footer-height);
+  }
+  .iphone .card-main, .ipad .card-main {
+    margin-bottom: 0px;
+  }
+  .card-main--half-screen {
+    /* used when the mobile popup is active, so the user can still scroll */
+    margin-bottom: 51vh;
   }
   .dh-right__svg-eye {
     display: none !important;
   }
-  .android .dh-left {
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-bottom: 8px;
-  }
+  /* moves play buttons to left */
   .dh-left__audio-buttons {
-    padding-top: 10px;
-  }
-  .dh-left__audio-buttons--left {
     text-align: left;
+    position: fixed;
+    bottom: var(--mobile-border);
+    left: var(--mobile-border);
+    z-index: 1; /* so audio buttons and picture can be interacted with */
+  }
+  .dh-left__similar-words-indicator--visible {
+    display: none; /* always disables on mobile */
+  }
+  /* overrides glossary-primary-definition--no-definition */
+  .glossary-primary-definition--folder-tab .glossary-text {
+    display: inline;
   }
 }
 /*
  * customization for specific dictionaries
  */
-/* Makes JMDict italic */
-.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list {
+/* Makes JMdict italic */
+.glossary-text ol li[data-details="JMdict (English)"],
+.glossary-text ol li[data-details=JMdict],
+.glossary-text ol li[data-details="JMdict Extra"] {
+  /* removes the dictionary entry for jmdict */
+}
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list,
+.glossary-text ol li[data-details=JMdict] .dict-group__tag-list,
+.glossary-text ol li[data-details="JMdict Extra"] .dict-group__tag-list {
+  font-style: italic;
+}
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict,
+.glossary-text ol li[data-details=JMdict] .dict-group__tag-list .dict-group__tag--dict,
+.glossary-text ol li[data-details="JMdict Extra"] .dict-group__tag-list .dict-group__tag--dict {
+  display: none;
+}
+
+/* Makes Nico/Pixiv italic */
+.glossary-text ol li[data-details="Nico/Pixiv"] .dict-group__tag-list {
   font-style: italic;
 }
 
-/* removes the dictionary entry for jmdict */
-.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
+/* Removes the extra text for the collapsed 新和英 display */
+.glossary-text ol li[data-details=新和英] details.glossary-text__details .glossary-text__summary .dict-group__glossary--first-line {
   display: none;
 }
 
@@ -1810,6 +2745,14 @@ ruby rt {
 }
 
 .frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary:after {
+  content: "A&J";
+}
+
+.frequencies__group[data-details="Anime & J-drama"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+
+.frequencies__group[data-details="Anime & J-drama"] .frequencies__dictionary:after {
   content: "A&J";
 }
 
@@ -1871,6 +2814,53 @@ li[data-details=シン・漢字遣い参考] td, [data-sc-ortho=table] td {
 /* this says that the external link should take up 2 icon slots instead of 1 */
 .glossary__external-links a[data-details="sakura-paris.org/dict"] {
   width: calc(var(--external-links-icon-size) * 2 + 1 * var(--external-links-gap));
+}
+
+/* hides the button unless on android (since the app is only for android anyways) */
+.glossary__external-links a[data-details=yomichan-textbender],
+.glossary__external-links a[data-details=yomichan-textbender-sentence],
+.glossary__external-links a[data-details=yomichan-textbender-definition] {
+  display: none;
+}
+
+.android .glossary__external-links a[data-details=yomichan-textbender],
+.android .glossary__external-links a[data-details=yomichan-textbender-sentence],
+.android .glossary__external-links a[data-details=yomichan-textbender-definition] {
+  display: inline;
+}
+
+/* better formatting for the new version of Yomichan JMdict dictionary (jmdict_extra) */
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary > ul, .glossary-text li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary],
+.glossary-text li[data-details=JMdict] .dict-group__glossary > ul,
+.glossary-text li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary],
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary > ul,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] {
+  display: inline;
+  padding-left: 0em;
+}
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary > ul > li, .glossary-text li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li,
+.glossary-text li[data-details=JMdict] .dict-group__glossary > ul > li,
+.glossary-text li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary > ul > li,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li {
+  display: inline;
+  padding-right: 0em;
+  margin-right: 0em;
+}
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary > ul > li::after, .glossary-text li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+.glossary-text li[data-details=JMdict] .dict-group__glossary > ul > li::after,
+.glossary-text li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary > ul > li::after,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li::after {
+  content: " | ";
+  white-space: pre-wrap;
+}
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary > ul > li:last-of-type:after, .glossary-text li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+.glossary-text li[data-details=JMdict] .dict-group__glossary > ul > li:last-of-type:after,
+.glossary-text li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary > ul > li:last-of-type:after,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

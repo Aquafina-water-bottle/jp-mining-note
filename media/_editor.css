@@ -1,34 +1,68 @@
 @charset "UTF-8";
-/* stolen from mkdocs material */
-/* stolen from discord's inspect element css */
 :root {
   --pa-brightness-reduce: 60%;
   --word-font-size: 5rem;
   --sentence-font-size: 3.25rem;
-  --pa-indicator-word-font-size: 3.25rem;
-  --pa-indicator-sent-font-size: 2.8125rem;
+  --hint-font-size: 1.25rem;
+  --hint-reveal-font-size: 1rem;
+  --vertical-sentence-font-size: 2.1875rem;
+  --picture-font-size: 2.5rem; /* font size if text is used in place of the Picture field */
   --description-font-size: 1.25rem;
   --description-footer-font-size: 0.5625rem;
   --reading-font-size: 3.4375rem;
   --reading-pitch-font-size: 1.4375rem;
+  --reading-bold-pitch-font-size: 0.7em;
   --full-sentence-font-size: 1.75rem;
-  --glossary-font-size: 1.125rem;
+  --glossary-font-size: 1.25rem;
   --glossary-font-size--smaller: 0.9375rem;
+  --vertical-display-margin-top: 1rem;
+  --vertical-display-header-height-calc: 2.5rem;
   /* TODO dynamic solution */
   --tooltip-max-width: 600px;
   --tooltip-font-size: 0.875rem;
-  --dark-mode-accent: #fffd9e;
+  --tooltip-font-size--debug: 0.75rem;
+  /* DO NOT CHANGE --data-* variables */
+  --data-dark-mode-accent: #fffd9e;
+  --data-light-mode-accent: #4660f1;
+  --data-tooltip-source-hover-color: #5f5f5f;
+  --data-tooltip-source-accent-color: var(--data-light-mode-accent);
+  --data-tooltip-source-accent-hover-color: #6679de;
+  /* DO NOT CHANGE THE ABOVE --data-* VARIABLES */
   --zoom: 1;
+  --pa-overline-height-above-text: 0px;
+  --pa-overline-downstep-padding: 3px;
+  --pa-overline-thickness: 2px;
+  --pa-overline-downstep-height: 0.4em;
+  --pa-overline-downstep-left-offset: 1px;
+  --dh-right-image-gap: 35px; /* is also used as a padding to the left for mobile */
+  --dh-right-image-max-height: 210px;
+  --mobile-border: 0.5rem;
   /* external links */
   --external-links-icon-size: 20px;
   --external-links-icon-font-size: 14px;
   --external-links-gap: 3px;
   --external-links-max-icons-per-row: 5; /* assumes one character or one image per icon */
   --external-links-box-shadow: 1px 1px 2px;
-  --info-circle-settings-svg-size: 16px;
   /* PrimaryDefinitionPicture fields */
+  --primary-def-picture-gap: 5px;
+  --primary-def-picture-border-radius: 3px;
   --primary-def-picture-max-width: 300px;
   --primary-def-picture-max-height: 150px;
+  --primary-def-picture-scale-no-def: 1.3;
+  /* footer */
+  --mobile-footer-height-size: 70px; /* TODO change dynamically and remove variable */
+  --footer-height: calc(var(--mobile-footer-height-size) + (2 * var(--mobile-border)));
+  /* folder tab */
+  --folder-tab-svg-size: 20px;
+  --folder-tab-button-size: 26px;
+  --folder-tab-margin-left: 10px;
+  --folder-tab-width: 130px;
+  --folder-tab-height: 26px;
+  /* mobile-popup */
+  --mobile-popup-border: 16px;
+  /* other */
+  --info-circle-settings-svg-size: 16px;
+  --bold-font-weight: bold; /* affects full sentence and definitions */
   /* light mode specific */
   --text-color: black;
   --text-color--1: hsla(0, 0%, 50%, 1);
@@ -44,36 +78,62 @@
   --text-nakadaka: #e8701b; /* 中高, orange */
   --text-odaka: #009e1c; /* 尾高, green */
   --text-kifuku: #7e53c4; /* 起伏, purple */
-  --accent: #4660f1;
+  --text-tooltips-heiban: var(--text-heiban);
+  --text-tooltips-atamadaka: #ff3131;
+  --text-tooltips-nakadaka: #ff974d;
+  --text-tooltips-odaka: var(--text-odaka);
+  --text-tooltips-kifuku: var(--text-kifuku);
+  --accent: var(--data-light-mode-accent);
   --background-darken: rgba(0, 0, 0, 0.05);
+  --tooltip-behind-darken: rgba(0, 0, 0, 0.15);
+  --code-background-darken: rgba(0, 0, 0, 0.05);
   --tooltip-background-darken: hsla(0, 0%, 100%, 0.98);
   --pa-overline-color: var(--accent);
   --pa-no-pron-color: #2b94f7;
   --pa-nasal-color: #f12a2a;
   --highlight-bold-color: var(--accent);
+  --external-links-background: #FFFFFF;
   --external-links-box-shadow-color: #464646;
   --similar-words-box-shadow-color: #464646;
+  --glossary-image-hover-border: 1px 1px 3px var(--text-color--1);
   --card-description-color: var(--text-color--4);
-  --info-circle-hover-color: #5f5f5f;
-  /* slightly different shade of blue */
-  --info-circle-leech-color: #3983ff;
-  --info-circle-leech-hover-color: #6679de;
+  --info-circle-hover-color: var(--data-tooltip-source-hover-color);
+  --frequencies-overflow-hover-color: var(--data-tooltip-source-hover-color);
+  --info-circle-leech-color: var(--data-tooltip-source-accent-color);
+  --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
+  --info-circle-tag-bg-color: #eeeeee;
   --info-circle-warning-color: #ff8700;
   --info-circle-warning-hover-color: #ffb341;
   --info-circle-warning-text-color: var(--info-circle-warning-color);
   --info-circle-error-color: #f05c59;
   --info-circle-error-hover-color: #ff8381;
   --info-circle-error-text-color: var(--info-circle-error-color);
+  --word-indicator-icon-color: var(--text-color--3);
+  --word-indicator-icon-hover-color: var(--data-tooltip-source-hover-color);
+  --word-indicator-icon-new-color: var(--accent);
+  --word-indicator-icon-new-hover-color: var(--data-tooltip-source-accent-hover-color);
   --pa-indicator-sentence-color: #4cd200;
-  --pa-indicator-word-color: var(--accent);
+  --pa-indicator-word-color: var(--data-light-mode-accent);
   --pa-indicator-none-color: #ec3a2d;
   --hybrid-underline-color: black;
   --image-hover-brightness: 85%;
   --icon-click-brightness: 85%;
+  /* font families */
+  --jp-serif: notoserif, Noto Serif CJK JP, Noto Serif JP, Noto Serif, Droid Serif, Roboto Slab, IPAPMincho, HanaMinA, HanaMinB, serif;
+  --jp-sans: notosans, Noto Sans CJK JP, Noto Sans JP, Noto Sans, Source Han Sans JP, IPAPGothic, VL PGothic, Koruri, Hiragino Sans, ヒラギノ角ゴ ProN W3, Hiragino Kaku Gothic ProN, メイリオ, Meiryo, Osaka, MS PGothic Open Sans, Droid Sans, Ubuntu, Roboto, sans-serif;
+  --field-gap: 0px;
+  --larger-field-gap-top: 15px;
+  --larger-field-gap-bottom: 20px;
+  --field-group-border: 1px solid var(--text-color--4);
 }
 
 .nightMode {
+  /* DO NOT CHANGE --data-* variables */
+  --data-tooltip-source-hover-color: #bdbdbd;
+  --data-tooltip-source-accent-color: var(--data-dark-mode-accent);
+  --data-tooltip-source-accent-hover-color: #e5e386;
+  /* DO NOT CHANGE THE ABOVE --data-* VARIABLES */
   --text-color: white;
   --text-color--1: hsla(0, 0%, 67.5%, 1);
   --text-color--2: hsla(0, 0%, 67.5%, 1);
@@ -81,37 +141,370 @@
   --text-color--4: hsla(0, 0%, 34.5%, 1);
   --text-color-link-hover: #1390dd;
   --text-heiban: #59b2ff; /* 平板, blue */
-  --text-atamadaka: #ff6666; /* 頭高, red */
+  --text-atamadaka: #ee4b56; /* 頭高, red */
   --text-nakadaka: #ff9b54; /* 中高, orange */
   --text-odaka: #67e47d; /* 尾高, green */
   --text-kifuku: #af85f4; /* 起伏, purple */
-  --accent: var(--dark-mode-accent);
+  --text-tooltips-heiban: var(--text-heiban);
+  --text-tooltips-atamadaka: var(--text-atamadaka);
+  --text-tooltips-nakadaka: var(--text-nakadaka);
+  --text-tooltips-odaka: var(--text-odaka);
+  --text-tooltips-kifuku: var(--text-kifuku);
+  --accent: var(--data-dark-mode-accent);
   --background-darken: rgba(0, 0, 0, 0.12);
+  --tooltip-behind-darken: rgba(0, 0, 0, 0.25);
+  --code-background-darken: rgba(0, 0, 0, 0.18);
   --tooltip-background-darken: rgba(0, 0, 0, 0.9);
   --pa-overline-color: var(--accent);
   --pa-no-pron-color: #42a3ff;
   --pa-nasal-color: #f12a2a;
   --highlight-bold-color: var(--accent);
+  --external-links-background: none;
   --external-links-box-shadow-color: #000000;
   --similar-words-box-shadow-color: #000000;
+  --glossary-image-hover-border: 1px 1px 3px black;
   --card-description-color: var(--text-color--4);
-  --info-circle-hover-color: #bdbdbd;
+  --info-circle-hover-color: var(--data-tooltip-source-hover-color);
+  --frequencies-overflow-hover-color: var(--data-tooltip-source-hover-color);
   /* slightly different shade of yellow */
-  --info-circle-leech-color: var(--accent);
-  --info-circle-leech-hover-color: #e5e386;
+  --info-circle-leech-color: var(--data-tooltip-source-accent-color);
+  --info-circle-leech-hover-color: var(--data-tooltip-source-accent-hover-color);
   --info-circle-leech-text-color: var(--info-circle-leech-color);
+  --info-circle-tag-bg-color: #222222;
   --info-circle-warning-color: #ff8d0d;
   --info-circle-warning-hover-color: #f9c24e;
   --info-circle-warning-text-color: var(--info-circle-warning-hover-color);
   --info-circle-error-color: #f53b39;
   --info-circle-error-hover-color: #fe7776;
   --info-circle-error-text-color: var(--info-circle-error-hover-color);
+  --word-indicator-icon-color: var(--text-color--3);
+  --word-indicator-icon-hover-color: var(--data-tooltip-source-hover-color);
+  --word-indicator-icon-new-color: var(--accent);
+  --word-indicator-icon-new-hover-color: var(--data-tooltip-source-accent-hover-color);
   --pa-indicator-sentence-color: #62ff73;
   --pa-indicator-word-color: #34dbef;
   --pa-indicator-none-color: #ff6b66;
   --hybrid-underline-color: white;
   --image-hover-brightness: 80%;
   --icon-click-brightness: 80%;
+  --field-group-border: 1px solid var(--text-color--4);
+}
+
+/* css to collapse certain fields into the same row */
+[notetype="JP Mining Note"] .fields {
+  display: inline-block !important;
+}
+[notetype="JP Mining Note"] .fields > div {
+  display: inline-block !important;
+  width: 100%;
+  padding-bottom: var(--field-gap);
+}
+
+/* index number of where the field group starts (all indices start at 1) */
+/* group of 2 */
+/* group of 3 */
+/* group of 11 */
+/* group of 4 */
+[notetype="JP Mining Note"] .fields {
+  /* Word, WordReading */
+  /* PAOverride, PAOverrideText, AJTWordPitch */
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(7) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(9) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(11) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(15) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(18) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(19) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(20) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(21) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(32) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(42) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(45) {
+  padding-top: var(--larger-field-gap-top);
+  border-top: var(--field-group-border);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(4) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(5) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(6) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(8) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(10) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(14) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(17) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(28) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(29) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(30) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(31) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(38) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(39) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(40) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(41) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(44) {
+  padding-bottom: var(--larger-field-gap-bottom);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(2) {
+  width: calc(100%/2);
+  padding-left: 0px;
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(3) {
+  width: calc(100%/2);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(4) {
+  width: calc(100%/3);
+  padding-left: 0px;
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(5) {
+  width: calc(100%/3);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(6) {
+  width: calc(100%/3);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(18) {
+  width: calc(100%/4);
+  padding-left: 0px;
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(19) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(20) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(21) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(22) {
+  width: calc(100%/3);
+  padding-left: 0px;
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(23) {
+  width: calc(100%/3);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(24) {
+  width: calc(100%/3);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(25) {
+  width: calc(100%/3);
+  padding-left: 0px;
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(26) {
+  width: calc(100%/3);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(27) {
+  width: calc(100%/3);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(28) {
+  width: calc(100%/4);
+  padding-left: 0px;
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(29) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(30) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(31) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(38) {
+  width: calc(100%/4);
+  padding-left: 0px;
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(39) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(40) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+[notetype="JP Mining Note"] .fields > div:nth-child(41) {
+  width: calc(100%/4);
+  padding-left: var(--field-gap);
+}
+
+@media (max-width: 1000px) {
+  [notetype="JP Mining Note"] .fields > div:nth-child(20) {
+    padding-top: 0px;
+    border-top: none;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(21) {
+    padding-top: 0px;
+    border-top: none;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(4) {
+    padding-bottom: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(5) {
+    padding-bottom: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(28) {
+    padding-bottom: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(29) {
+    padding-bottom: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(38) {
+    padding-bottom: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(39) {
+    padding-bottom: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(4) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(5) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(6) {
+    width: calc(100%/1);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(18) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(19) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(20) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(21) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(22) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(23) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(24) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(25) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(26) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(27) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(28) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(29) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(30) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(31) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(38) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(39) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(40) {
+    width: calc(100%/2);
+    padding-left: 0px;
+  }
+  [notetype="JP Mining Note"] .fields > div:nth-child(41) {
+    width: calc(100%/2);
+    padding-left: var(--field-gap);
+  }
 }
 
 /*# sourceMappingURL=_editor.css.map */

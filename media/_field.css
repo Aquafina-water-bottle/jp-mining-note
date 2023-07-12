@@ -1,13 +1,12 @@
 @charset "UTF-8";
-/* stolen from mkdocs material */
-/* stolen from discord's inspect element css */
 /* makes the primary definition bolded sections colored */
 anki-editable[field=PrimaryDefinition] b,
 anki-editable[field=Sentence] b,
 anki-editable[field=SentenceReading] b,
 anki-editable[field=AdditionalNotes] b,
-anki-editable[field=AltDisplay] b,
+anki-editable[field=AltDisplaySentence] b,
 anki-editable[field=AltDisplayPASentenceCard] b,
+anki-editable[field=AltDisplayClozeDeletionCard] b,
 anki-editable[field=SecondaryDefinition] b,
 anki-editable[field=PAPositions] b,
 anki-editable[field=PAOverride] b {
@@ -16,31 +15,13 @@ anki-editable[field=PAOverride] b {
 
 anki-editable[field=AJTWordPitch] b,
 anki-editable[field=PAOverrideText] b {
+  --pa-overline-height-above-text: -1px;
+  --pa-overline-downstep-padding: 2px;
+  --pa-overline-thickness: 1px;
+  --pa-overline-downstep-left-offset: 1px;
   font-weight: normal;
   filter: opacity(30%);
-  font-size: 15px;
-}
-anki-editable[field=AJTWordPitch] b .pitchoverline:after,
-anki-editable[field=PAOverrideText] b .pitchoverline:after {
-  content: "";
-  width: 100%;
-  height: 1px;
-  background: var(--pa-overline-color);
-  position: absolute;
-  top: -1px;
-  right: -1px;
-}
-anki-editable[field=AJTWordPitch] b .downstep:before,
-anki-editable[field=PAOverrideText] b .downstep:before {
-  content: "";
-  width: 1px;
-  height: 25%;
-  background: var(--pa-overline-color);
-  /*filter: brightness(var(--pa-brightness-reduce));*/
-  position: absolute;
-  display: block;
-  top: -1px;
-  left: 0px;
+  font-size: var(--reading-bold-pitch-font-size);
 }
 
 anki-editable[field=FrequenciesStylized] {
@@ -107,17 +88,18 @@ anki-editable[field=PAPositions] {
 .downstep {
   color: var(--pa-overline-color);
   position: relative;
+  margin-right: var(--pa-overline-downstep-padding);
 }
 
 .downstep:before {
   content: "";
-  width: 2px;
-  height: 18%;
+  width: var(--pa-overline-thickness);
+  height: var(--pa-overline-downstep-height);
   background: var(--pa-overline-color);
   position: absolute;
   display: block;
-  top: 0px;
-  left: 0px;
+  top: var(--pa-overline-height-above-text);
+  left: var(--pa-overline-downstep-left-offset);
 }
 
 .pitchoverline {
@@ -128,12 +110,16 @@ anki-editable[field=PAPositions] {
 
 .pitchoverline:after {
   content: "";
-  width: 100%;
-  height: 2px;
+  width: calc(100% + var(--pa-overline-downstep-padding) - var(--pa-overline-thickness));
+  height: var(--pa-overline-thickness);
   background: var(--pa-overline-color);
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: var(--pa-overline-height-above-text);
+  left: 0px;
+}
+
+.pitchterm {
+  white-space: nowrap;
 }
 
 .nopron {
@@ -148,14 +134,234 @@ anki-editable[field=PAPositions] {
   display: none;
 }
 
-/* Makes JMDict italic */
-anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list {
+/*
+ * customization for specific dictionaries
+ */
+/* Makes JMdict italic */
+.glossary-text ol li[data-details="JMdict (English)"],
+.glossary-text ol li[data-details=JMdict],
+.glossary-text ol li[data-details="JMdict Extra"] {
+  /* removes the dictionary entry for jmdict */
+}
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list,
+.glossary-text ol li[data-details=JMdict] .dict-group__tag-list,
+.glossary-text ol li[data-details="JMdict Extra"] .dict-group__tag-list {
+  font-style: italic;
+}
+.glossary-text ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict,
+.glossary-text ol li[data-details=JMdict] .dict-group__tag-list .dict-group__tag--dict,
+.glossary-text ol li[data-details="JMdict Extra"] .dict-group__tag-list .dict-group__tag--dict {
+  display: none;
+}
+
+/* Makes Nico/Pixiv italic */
+.glossary-text ol li[data-details="Nico/Pixiv"] .dict-group__tag-list {
   font-style: italic;
 }
 
-/* greys out dictionary entry for jmdict */
-anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict {
+/* Removes the extra text for the collapsed 新和英 display */
+.glossary-text ol li[data-details=新和英] details.glossary-text__details .glossary-text__summary .dict-group__glossary--first-line {
+  display: none;
+}
+
+/* frequency names */
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+
+.frequencies__group[data-details="Anime & Jdrama Freq:"] .frequencies__dictionary:after {
+  content: "A&J";
+}
+
+.frequencies__group[data-details="Anime & J-drama"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+
+.frequencies__group[data-details="Anime & J-drama"] .frequencies__dictionary:after {
+  content: "A&J";
+}
+
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+
+.frequencies__group[data-details="VN Freq"] .frequencies__dictionary:after {
+  content: "VN";
+}
+
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__dictionary:after {
+  content: "VN%";
+}
+
+.frequencies__group[data-details="VN Freq Percent"] .frequencies__number .frequencies__number-inner:after {
+  content: "%";
+}
+
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary .frequencies__dictionary-inner {
+  display: none;
+}
+
+.frequencies__group[data-details="Innocent Ranked"] .frequencies__dictionary:after {
+  content: "Inn.";
+}
+
+/* Custom highlights for NHK and 大辞泉 */
+.pa-graphs__group[data-details=NHK] .pa-graphs__dictionary {
+  color: var(--highlight-bold-color);
+  font-weight: bold;
+}
+
+.pa-graphs__group[data-details=大辞泉] .pa-graphs__dictionary {
+  color: var(--highlight-bold-color);
+  font-weight: bold;
+}
+
+/*
+ * TODO orthography dictionary
+ *
+ * ★  Common
+ * ●  Valid
+ * ⛬  Outdated
+ * ⚠  Irregular
+ * 🠋  Rarely-used kanji form
+ *
+ */
+/* makes the symbols centered */
+li[data-details=シン・漢字遣い参考] td, [data-sc-ortho=table] td {
+  text-align: center;
+  line-height: 150%;
+}
+
+/* this says that the external link should take up 2 icon slots instead of 1 */
+.glossary__external-links a[data-details="sakura-paris.org/dict"] {
+  width: calc(var(--external-links-icon-size) * 2 + 1 * var(--external-links-gap));
+}
+
+/* hides the button unless on android (since the app is only for android anyways) */
+.glossary__external-links a[data-details=yomichan-textbender],
+.glossary__external-links a[data-details=yomichan-textbender-sentence],
+.glossary__external-links a[data-details=yomichan-textbender-definition] {
+  display: none;
+}
+
+.android .glossary__external-links a[data-details=yomichan-textbender],
+.android .glossary__external-links a[data-details=yomichan-textbender-sentence],
+.android .glossary__external-links a[data-details=yomichan-textbender-definition] {
+  display: inline;
+}
+
+/* better formatting for the new version of Yomichan JMdict dictionary (jmdict_extra) */
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary > ul, .glossary-text li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary],
+.glossary-text li[data-details=JMdict] .dict-group__glossary > ul,
+.glossary-text li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary],
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary > ul,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] {
+  display: inline;
+  padding-left: 0em;
+}
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary > ul > li, .glossary-text li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li,
+.glossary-text li[data-details=JMdict] .dict-group__glossary > ul > li,
+.glossary-text li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary > ul > li,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li {
+  display: inline;
+  padding-right: 0em;
+  margin-right: 0em;
+}
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary > ul > li::after, .glossary-text li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+.glossary-text li[data-details=JMdict] .dict-group__glossary > ul > li::after,
+.glossary-text li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary > ul > li::after,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li::after {
+  content: " | ";
+  white-space: pre-wrap;
+}
+.glossary-text li[data-details="JMdict (English)"] .dict-group__glossary > ul > li:last-of-type:after, .glossary-text li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+.glossary-text li[data-details=JMdict] .dict-group__glossary > ul > li:last-of-type:after,
+.glossary-text li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary > ul > li:last-of-type:after,
+.glossary-text li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after {
+  display: none;
+}
+
+anki-editable ol li[data-details="JMdict (English)"],
+anki-editable ol li[data-details=JMdict] {
+  /* Makes JMDict italic */
+  /* greys out dictionary entry for jmdict */
+}
+anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list,
+anki-editable ol li[data-details=JMdict] .dict-group__tag-list {
+  font-style: italic;
+}
+anki-editable ol li[data-details="JMdict (English)"] .dict-group__tag-list .dict-group__tag--dict,
+anki-editable ol li[data-details=JMdict] .dict-group__tag-list .dict-group__tag--dict {
   color: var(--text-color--3);
+}
+
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary > ul, anki-editable[field=PrimaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary],
+anki-editable[field=PrimaryDefinition] li[data-details=JMdict] .dict-group__glossary > ul,
+anki-editable[field=PrimaryDefinition] li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary],
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary > ul,
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary],
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary > ul,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary],
+anki-editable[field=SecondaryDefinition] li[data-details=JMdict] .dict-group__glossary > ul,
+anki-editable[field=SecondaryDefinition] li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary],
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary > ul,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] {
+  display: inline;
+  padding-left: 0em;
+}
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary > ul > li, anki-editable[field=PrimaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li,
+anki-editable[field=PrimaryDefinition] li[data-details=JMdict] .dict-group__glossary > ul > li,
+anki-editable[field=PrimaryDefinition] li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li,
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary > ul > li,
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary > ul > li,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li,
+anki-editable[field=SecondaryDefinition] li[data-details=JMdict] .dict-group__glossary > ul > li,
+anki-editable[field=SecondaryDefinition] li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary > ul > li,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li {
+  display: inline;
+  padding-right: 0em;
+  margin-right: 0em;
+}
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary > ul > li::after, anki-editable[field=PrimaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+anki-editable[field=PrimaryDefinition] li[data-details=JMdict] .dict-group__glossary > ul > li::after,
+anki-editable[field=PrimaryDefinition] li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary > ul > li::after,
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary > ul > li::after,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+anki-editable[field=SecondaryDefinition] li[data-details=JMdict] .dict-group__glossary > ul > li::after,
+anki-editable[field=SecondaryDefinition] li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li::after,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary > ul > li::after,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li::after {
+  content: " | ";
+  white-space: pre-wrap;
+}
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary > ul > li:last-of-type:after, anki-editable[field=PrimaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+anki-editable[field=PrimaryDefinition] li[data-details=JMdict] .dict-group__glossary > ul > li:last-of-type:after,
+anki-editable[field=PrimaryDefinition] li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary > ul > li:last-of-type:after,
+anki-editable[field=PrimaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary > ul > li:last-of-type:after,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict (English)"] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+anki-editable[field=SecondaryDefinition] li[data-details=JMdict] .dict-group__glossary > ul > li:last-of-type:after,
+anki-editable[field=SecondaryDefinition] li[data-details=JMdict] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary > ul > li:last-of-type:after,
+anki-editable[field=SecondaryDefinition] li[data-details="JMdict Extra"] .dict-group__glossary ul[data-sc-content=glossary] > li:last-of-type:after {
+  display: none;
+}
+
+/* Makes Nico/Pixiv italic */
+anki-editable ol li[data-details="Nico/Pixiv"] .dict-group__tag-list {
+  font-style: italic;
 }
 
 .pa-graphs__group[data-details=NHK] .pa-graphs__dictionary {
@@ -172,5 +378,8 @@ anki-editable[field=UtilityDictionaries] ol li[data-details=シン・漢字遣�
   text-align: center;
   line-height: 150%;
 }
+
+/* max 4 definitions shown */
+/* Limits the number of frequency lists shown to 5 */
 
 /*# sourceMappingURL=_field.css.map */

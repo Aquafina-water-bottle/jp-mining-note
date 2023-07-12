@@ -1,1690 +1,381 @@
 
 
 {{#PASeparateWordCard}}
+
+
+
 <!--
 WARNING: This template is auto-generated.
 Any changes to this template WILL BE LOST if you decide to update the card.
 See https://aquafina-water-bottle.github.io/jp-mining-note/modding/
 if you want to modify the card templates and css without losing your changes
 upon updates.
-
-JPMN-COMPILE-TIME-OPTIONS-JSON:
-{
-  "compile-options": {
-    "allow-user-defined-modules": false,
-    "always-filled-fields": [],
-    "css-folders": [
-      "base",
-      "responsive",
-      "dictionaries"
-    ],
-    "enabled-modules": [
-      "sent-utils",
-      "kanji-hover",
-      "auto-pitch-accent",
-      "img-utils",
-      "customize-open-fields",
-      "word-indicators",
-      "info-circle-utils",
-      "fix-ruby-positioning",
-      "check-duplicate-key"
-    ],
-    "external-links": {
-      "image_search": {
-        "hover-display": "google.co.jp (Image search)",
-        "icon-image-dark": "_icon_image_white.svg",
-        "icon-image-light": "_icon_image_black.svg",
-        "icon-type": "image",
-        "url": "https://www.google.co.jp/search?q={{text:Word}}\u0026tbm=isch"
-      },
-      "jisho.org": {
-        "icon-image-dark": "_icon_jisho_darkmode.png",
-        "icon-image-light": "_icon_jisho_lightmode.png",
-        "icon-type": "image",
-        "url": "https://jisho.org/search/{{Word}}"
-      },
-      "jpdb.io": {
-        "icon-image-dark": "_icon_jpdb_darkmode.png",
-        "icon-image-light": "_icon_jpdb_lightmode.png",
-        "icon-type": "image",
-        "url": "https://jpdb.io/search?q={{text:Word}}"
-      }
-    },
-    "external-links-position": "Extra Info",
-    "hardcoded-runtime-options": false,
-    "keybinds-enabled": true,
-    "never-filled-fields": []
-  },
-  "modules-used": [
-    "sent-utils",
-    "kanji-hover",
-    "tooltip-builder",
-    "anki-connect-actions",
-    "auto-pitch-accent",
-    "jp-utils",
-    "img-utils",
-    "customize-open-fields",
-    "word-indicators",
-    "info-circle-utils",
-    "fix-ruby-positioning",
-    "check-duplicate-key"
-  ]
-}
-
 -->
 
 
-<script>
-
-
-/* quick fix for legacy anki versions (replaces ?? operator) */
-function nullish(a, b) {
-  if ((typeof a === "undefined") || (a === null)) {
-    return b;
-  }
-  return a;
-}
-
-function isMobile() {
-  return document.documentElement.classList.contains('mobile');
-}
-
-function getKeyPath(keys) {
-  if (typeof keys === "string") {
-    return keys;
-  }
-  return keys.join(".");
-}
-
-// placed outside as a global variable
-var VW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-
-// keys can be a string, or array of strings
-function parseSetting(obj, keys) {
-  // checks for an object with "type"
-  // https://stackoverflow.com/a/8511350
-  if (
-    typeof obj === 'object' &&
-    !Array.isArray(obj) &&
-    obj !== null &&
-    "type" in obj
-  ) {
-    if (obj.type === "pc-mobile") {
-      if (isMobile()) {
-        return obj["mobile"];
-      } else {
-        return obj["pc"];
-      }
-    } else if (obj.type === "viewport-width-is") {
-      if (VW > obj["value"]) {
-        return obj["greater"];
-      } else {
-        return obj["lesser"];
-      }
-
-    } else {
-      LOGGER.warn(`Unknown type ${obj.type} for Option ${getKeyPath(keys)}. Using the entire object instead...`);
-      return obj;
-    }
-  }
-
-  return obj;
-}
-
-
-/// 
-function getSetting(keys, defaultVal) {
-  if (typeof JPMNOpts === "undefined") {
-    return parseSetting(defaultVal, keys);
-  }
-
-  let keyList = ["settings"].concat(keys);
-
-  let obj = JPMNOpts;
-  for (let key of keyList) {
-    if (!(key in obj)) {
-
-      // checks if we need to warn, manual search
-      if ("settings" in JPMNOpts && "debug" in JPMNOpts["settings"] && JPMNOpts["settings"]["debug"]) {
-        LOGGER.warn("Option " + keys.join(".") + " is not defined in the options file.");
-      }
-      return parseSetting(defaultVal, keys);
-    }
-    obj = obj[key];
-  }
-
-  return parseSetting(obj, keys);
-};
-///  
-
-
-var JPMNLogger = (() => {
-  class JPMNLogger {
-    constructor(name=null) {
-      this._name = name;
-      this._uniqueKeys = new Set();
-    }
-
-
-    error(message, isHtml=false) {
-      let groupEle = document.getElementById("info_circle_text_error");
-      this._appendMsg(message, groupEle, isHtml);
-      let infoCirc = document.getElementById("info_circle");
-      infoCirc.classList.toggle("info-circle-error", true)
-    }
-
-    errorStack(stack) {
-      try {
-        let ignoredErrors = getSetting(['ignored-errors',],['ReferenceError: EFDRC is not defined', '/_anki/js/reviewer.js:7:112035)']);
-        for (let substr of ignoredErrors) {
-          if (stack.includes(substr)) {
-            // ignores
-            return;
-          }
-        }
-
-        let stackList = stack.split(" at ");
-        for (let i = 1; i < stackList.length; i++) {
-          stackList[i] = ">>> " + stackList[i];
-        }
-        this.error(stackList);
-      } catch (e) {
-        // in case the above fails for some reason
-        // better to throw an error that is not as prettily formatted
-        // than to essentially have it go missing
-        this.error(stack);
-      }
-
-    }
-
-
-    assert(condition, message) {
-      if (!condition) {
-        this.error("(assert) " + message);
-      }
-    }
-
-    removeWarn(key) {
-      // assumes that this is a unique warn message
-
-      if (!this._uniqueKeys.has(key)) {
-        return;
-      }
-
-      let groupEle = document.getElementById("info_circle_text_warning");
-      for (let e of groupEle.children) {
-        if (e.getAttribute("data-key") === key) {
-          groupEle.removeChild(e);
-        }
-      }
-
-      let infoCirc = document.getElementById("info_circle");
-      if (groupEle.children.length === 0) {
-        infoCirc.classList.toggle("info-circle-warning", false)
-      }
-
-      this._uniqueKeys.delete(key);
-    }
-
-    // key defaults to the message if unique is true and key is null
-    // key is ignored if unique == false
-    // TODO extend functionality of uniqueness to other logger functions
-    // TODO change to args struct
-    warn(message, isHtml=false, unique=false, key=null) {
-
-      // skips any non-unique warns as defined by the key
-      if (unique) {
-        if (key === null) {
-          key = message;
-        }
-
-        if (this._uniqueKeys.has(key)) {
-          return;
-        }
-      }
-
-      let groupEle = document.getElementById("info_circle_text_warning");
-      this._appendMsg(message, groupEle, isHtml, key);
-      let infoCirc = document.getElementById("info_circle");
-      infoCirc.classList.toggle("info-circle-warning", true);
-
-      if (key !== null) {
-        this._uniqueKeys.add(key);
-      }
-
-    }
-
-    info(message) {
-      let groupEle = document.getElementById("info_circle_text_info");
-      this._appendMsg(message, groupEle);
-    }
-
-    // higher the level -> more severe
-    // i.e. lower levels == more messages
-    // currently goes from 0 - 5:
-    debug(message, level=3) {
-      if (level >= getSetting(['debug-level',],6)) {
-        let groupEle = document.getElementById("info_circle_text_debug");
-        this._appendMsg(message, groupEle);
-      }
-    }
-
-    leech() {
-      let groupEle = document.getElementById("info_circle_text_leech");
-      this._appendMsg("", groupEle);
-      let infoCirc = document.getElementById("info_circle");
-      infoCirc.classList.toggle("info-circle-leech", true);
-    }
-
-    _appendMsg(message, groupEle, isHtml=false, key=null) {
-      // I think this stops an infinite loop somewhere if you log a null for some reason...
-      if (message === null) {
-        message = "null";
-      }
-
-      if (this._name !== null) {
-        message = `(${this._name}) ${message}`;
-      }
-
-      let msgEle = document.createElement('div');
-      msgEle.classList.add("info-circle__message")
-      if (key !== null) {
-        msgEle.setAttribute("data-key", key);
-      }
-
-      if (Array.isArray(message)) {
-        if (message.length > 0) {
-          msgEle.textContent = message[0];
-
-          for (let line of message.slice(1)) {
-            let lineEle = document.createElement('div');
-            lineEle.textContent = line;
-            msgEle.appendChild(lineEle);
-          }
-        }
-
-      } else {
-        if (isHtml) {
-          msgEle.innerHTML = message;
-        } else {
-          msgEle.textContent = message;
-        }
-      }
-      groupEle.appendChild(msgEle);
-    }
-
-  }
-
-  return JPMNLogger;
-})();
-
-
-/* global logger object for any javascript outside of modules that needs logging */
-var LOGGER = new JPMNLogger();
-
-
-// on any javascript error: log it
-window.onerror = function(msg, url, lineNo, columnNo, error) {
-  LOGGER.errorStack(error.stack);
-}
-
-// https://stackoverflow.com/a/55178672
-window.onunhandledrejection = function(errorEvent) {
-  if (errorEvent.reason === "AnkiConnect failed to issue request.") {
-    let reason = errorEvent.reason + ' Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.';
-    LOGGER.error("Javascript handler error: " + reason, /*isHtml=*/true);
-  } else {
-    LOGGER.error("Javascript handler error: " + errorEvent.reason);
-  }
-}
-
-
-function optionsNotFound() {
-  LOGGER.warn("Options file not found. Did you place the options file in the media directory?");
-}
-
-
-
-</script>
-
-
-<script onerror="optionsNotFound();" src="_jpmn-options.js"></script>
- 
 
 <div class="hidden">
-  <div id="hidden_key">{{Key}}</div>
-  <div id="hidden_word_reading">{{WordReading}}</div>
-  <div id="hidden_sentence">{{Sentence}}</div>
+  <div id="deck" deck_name="{{Deck}}"></div> <!-- to work with fsrs -->
+
+  
+    
+  <div id="hidden_field_exists_Key">{{#Key}}1{{/Key}}</div>
+  <div id="hidden_field_exists_Word">{{#Word}}1{{/Word}}</div>
+  <div id="hidden_field_exists_WordReading">{{#WordReading}}1{{/WordReading}}</div>
+  <div id="hidden_field_exists_PAOverride">{{#PAOverride}}1{{/PAOverride}}</div>
+  <div id="hidden_field_exists_PAOverrideText">{{#PAOverrideText}}1{{/PAOverrideText}}</div>
+  <div id="hidden_field_exists_AJTWordPitch">{{#AJTWordPitch}}1{{/AJTWordPitch}}</div>
+  <div id="hidden_field_exists_PrimaryDefinition">{{#PrimaryDefinition}}1{{/PrimaryDefinition}}</div>
+  <div id="hidden_field_exists_PrimaryDefinitionPicture">{{#PrimaryDefinitionPicture}}1{{/PrimaryDefinitionPicture}}</div>
+  <div id="hidden_field_exists_Sentence">{{#Sentence}}1{{/Sentence}}</div>
+  <div id="hidden_field_exists_SentenceReading">{{#SentenceReading}}1{{/SentenceReading}}</div>
+  <div id="hidden_field_exists_AltDisplayWord">{{#AltDisplayWord}}1{{/AltDisplayWord}}</div>
+  <div id="hidden_field_exists_AltDisplaySentence">{{#AltDisplaySentence}}1{{/AltDisplaySentence}}</div>
+  <div id="hidden_field_exists_AltDisplayPASentenceCard">{{#AltDisplayPASentenceCard}}1{{/AltDisplayPASentenceCard}}</div>
+  <div id="hidden_field_exists_AltDisplayAudioCard">{{#AltDisplayAudioCard}}1{{/AltDisplayAudioCard}}</div>
+  <div id="hidden_field_exists_AdditionalNotes">{{#AdditionalNotes}}1{{/AdditionalNotes}}</div>
+  <div id="hidden_field_exists_Hint">{{#Hint}}1{{/Hint}}</div>
+  <div id="hidden_field_exists_HintNotHidden">{{#HintNotHidden}}1{{/HintNotHidden}}</div>
+  <div id="hidden_field_exists_IsSentenceCard">{{#IsSentenceCard}}1{{/IsSentenceCard}}</div>
+  <div id="hidden_field_exists_IsTargetedSentenceCard">{{#IsTargetedSentenceCard}}1{{/IsTargetedSentenceCard}}</div>
+  <div id="hidden_field_exists_IsClickCard">{{#IsClickCard}}1{{/IsClickCard}}</div>
+  <div id="hidden_field_exists_IsHoverCard">{{#IsHoverCard}}1{{/IsHoverCard}}</div>
+  <div id="hidden_field_exists_IsHintCard">{{#IsHintCard}}1{{/IsHintCard}}</div>
+  <div id="hidden_field_exists_IsSentenceFirstCard">{{#IsSentenceFirstCard}}1{{/IsSentenceFirstCard}}</div>
+  <div id="hidden_field_exists_IsAudioCard">{{#IsAudioCard}}1{{/IsAudioCard}}</div>
+  <div id="hidden_field_exists_PAShowInfo">{{#PAShowInfo}}1{{/PAShowInfo}}</div>
+  <div id="hidden_field_exists_PATestOnlyWord">{{#PATestOnlyWord}}1{{/PATestOnlyWord}}</div>
+  <div id="hidden_field_exists_PADoNotTest">{{#PADoNotTest}}1{{/PADoNotTest}}</div>
+  <div id="hidden_field_exists_PASeparateWordCard">{{#PASeparateWordCard}}1{{/PASeparateWordCard}}</div>
+  <div id="hidden_field_exists_PASeparateSentenceCard">{{#PASeparateSentenceCard}}1{{/PASeparateSentenceCard}}</div>
+  <div id="hidden_field_exists_SeparateAudioCard">{{#SeparateAudioCard}}1{{/SeparateAudioCard}}</div>
+  <div id="hidden_field_exists_SeparateSentenceAudioCard">{{#SeparateSentenceAudioCard}}1{{/SeparateSentenceAudioCard}}</div>
+  <div id="hidden_field_exists_Picture">{{#Picture}}1{{/Picture}}</div>
+  <div id="hidden_field_exists_WordAudio">{{#WordAudio}}1{{/WordAudio}}</div>
+  <div id="hidden_field_exists_SentenceAudio">{{#SentenceAudio}}1{{/SentenceAudio}}</div>
+  <div id="hidden_field_exists_PAGraphs">{{#PAGraphs}}1{{/PAGraphs}}</div>
+  <div id="hidden_field_exists_PAPositions">{{#PAPositions}}1{{/PAPositions}}</div>
+  <div id="hidden_field_exists_FrequenciesStylized">{{#FrequenciesStylized}}1{{/FrequenciesStylized}}</div>
+  <div id="hidden_field_exists_FrequencySort">{{#FrequencySort}}1{{/FrequencySort}}</div>
+  <div id="hidden_field_exists_PASilence">{{#PASilence}}1{{/PASilence}}</div>
+  <div id="hidden_field_exists_WordReadingHiragana">{{#WordReadingHiragana}}1{{/WordReadingHiragana}}</div>
+  <div id="hidden_field_exists_YomichanWordTags">{{#YomichanWordTags}}1{{/YomichanWordTags}}</div>
+  <div id="hidden_field_exists_SecondaryDefinition">{{#SecondaryDefinition}}1{{/SecondaryDefinition}}</div>
+  <div id="hidden_field_exists_ExtraDefinitions">{{#ExtraDefinitions}}1{{/ExtraDefinitions}}</div>
+  <div id="hidden_field_exists_UtilityDictionaries">{{#UtilityDictionaries}}1{{/UtilityDictionaries}}</div>
+  <div id="hidden_field_exists_CardCache">{{#CardCache}}1{{/CardCache}}</div>
+
+    
+
+  <div id="hidden_field_Key">{{Key}}</div>
+  <div id="hidden_field_PAPositions">{{PAPositions}}</div>
+  <div id="hidden_field_Word">{{Word}}</div>
+  <div id="hidden_field_WordReading">{{WordReading}}</div>
+  <div id="hidden_field_WordReadingHiragana">{{WordReadingHiragana}}</div>
+  <div id="hidden_field_AJTWordPitch">{{AJTWordPitch}}</div>
+  <div id="hidden_field_PAOverride">{{PAOverride}}</div>
+  <div id="hidden_field_PAOverrideText">{{PAOverrideText}}</div>
+  <div id="hidden_field_Sentence">{{Sentence}}</div>
+  <div id="hidden_field_SentenceReading">{{SentenceReading}}</div>
+  <div id="hidden_field_YomichanWordTags">{{YomichanWordTags}}</div>
+  <div id="hidden_field_CardCache">{{CardCache}}</div>
+
+    
+  <div id="hidden_card_side">front</div>
+  <div id="hidden_card_type">pa_word</div>
+  <div id="hidden_card_type_name">PA Word Card</div>
+  <div id="hidden_note_type">jp-mining-note</div>
+  <div id="hidden_model_name">JP Mining Note</div>
+    
+
 </div>
 
 
 
-<div class="card-description">
 
 
-    <span class="card-description__card-type">
+
+
+
+
+
+
+<div class="jpmn jpmn--front jpmn--pa_word
+ {{#IsSentenceCard}} jpmn-field--IsSentenceCard {{/IsSentenceCard}}  {{#IsTargetedSentenceCard}} jpmn-field--IsTargetedSentenceCard {{/IsTargetedSentenceCard}}  {{#IsClickCard}} jpmn-field--IsClickCard {{/IsClickCard}}  {{#IsHoverCard}} jpmn-field--IsHoverCard {{/IsHoverCard}}  {{#IsHintCard}} jpmn-field--IsHintCard {{/IsHintCard}}  {{#IsSentenceFirstCard}} jpmn-field--IsSentenceFirstCard {{/IsSentenceFirstCard}}  {{#IsAudioCard}} jpmn-field--IsAudioCard {{/IsAudioCard}}  {{#PAShowInfo}} jpmn-field--PAShowInfo {{/PAShowInfo}}  {{#PATestOnlyWord}} jpmn-field--PATestOnlyWord {{/PATestOnlyWord}}  {{#PADoNotTest}} jpmn-field--PADoNotTest {{/PADoNotTest}}  {{#PASeparateWordCard}} jpmn-field--PASeparateWordCard {{/PASeparateWordCard}}  {{#PASeparateSentenceCard}} jpmn-field--PASeparateSentenceCard {{/PASeparateSentenceCard}}  {{#SeparateAudioCard}} jpmn-field--SeparateAudioCard {{/SeparateAudioCard}}  {{#SeparateSentenceAudioCard}} jpmn-field--SeparateSentenceAudioCard {{/SeparateSentenceAudioCard}} " id="jpmn">
+
+  
+
     
 
+  <header class="card-header">
+
+    <!-- placed before everything else so we can interact with the info circle! -->
     
-  PA Word
 
-    </span>
+    <div class="card-description-right">
 
-    
-  <span class="info-circle info-circle--hover-color" id="info_circle">
-    <span class="info-circle-svg-wrapper info-circle-svg-wrapper--hoverable", id="info_circle_wrapper">
+      
+          
+          
+
+    </div>
+
+    <div class="card-description">
+
+      <span class="card-description__card-type">
+      
+          
 
 
-      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="info-circle-svg" viewBox="0 0 16 16">
-        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-      </svg>
+
+      PA Word
 
 
-    </span>
-
-    <span class="info-circle-text-wrapper" id="info_circle_text_wrapper">
-      <span class="info-circle-text" id="info_circle_text">
-        <div class="info-circle-text-settings" id="info_circle_text_settings"></div>
-        <div class="info-circle-text-settings-border"></div>
-
-        <div class="info-circle-text-error" id="info_circle_text_error"></div>
-        <div class="info-circle-text-warning" id="info_circle_text_warning"></div>
-        <div class="info-circle-text-leech" id="info_circle_text_leech"></div>
-
-        <div class="info-circle-text-info" id="info_circle_text_info">
-          <div>
-            Need help? View the
-            <a href="https://aquafina-water-bottle.github.io/jp-mining-note/">documentation</a>.
-          </div>
-          <div>
-            Have an issue?
-            <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/issues">Report it here</a>.
-          </div>
-          <div>
-            View the
-            <a href="https://github.com/Aquafina-water-bottle/jp-mining-note">source code</a>.
-          </div>
-        </div>
-
-        <div class="info-circle-text-debug" id="info_circle_text_debug"></div>
-
+          
       </span>
 
-    </span>
-  </span>
+      
+          
+      <span class="info-circle info-circle--hover-color" id="info_circle">
+        <span class="info-circle-svg-wrapper info-circle-svg-wrapper--hoverable", id="info_circle_wrapper">
+
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="info-circle-svg" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+          </svg>
+
+
+        </span>
+
+        <span class="info-circle-text-wrapper" id="info_circle_text_wrapper">
+          <span class="info-circle-text" id="info_circle_text">
+
+            <div class="info-circle-text-settings hidden" id="info_circle_text_settings">
+
+              
+                      
+
+              <div class="hidden" id="info_circle_text_settings_img_blur_toggle">
+                <svg class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/><title>Toggle blur</title></svg>
+                <svg class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/><title>Toggle blur</title></svg>
+                <svg class="hidden info-circle-text-settings__svg--red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/><title>Toggle blur</title></svg>
+              </div>
+                      
+
+              <div class="hidden" id="info_circle_text_settings_websocket_toggle">
+                <svg class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20.84 22.73-5.53-5.53-.81.8v3h-5v-3L6 14.5V9c0-.3.1-.59.25-.86L1.11 3l1.28-1.27 19.72 19.73-1.27 1.27M18 14.5V9c0-1-1-2-2-2V3h-2v4h-3.8l7.65 7.65.15-.15M10 3H8v1.8l2 2V3Z"/><title>Toggle websocket</title></svg>
+                <svg class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 7V3h-2v4h-4V3H8v4C7 7 6 8 6 9v5.5L9.5 18v3h5v-3l3.5-3.5V9c0-1-1-2-2-2Z"/><title>Toggle websocket</title></svg>
+              </div>
+                      
+              <div class="hidden" id="info_circle_text_settings_refresh_card">
+                <svg class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4a8 8 0 0 0-8 8 8 8 0 0 0 8 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18a6 6 0 0 1-6-6 6 6 0 0 1 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35Z"/><title>Refresh card</title></svg>
+              </div>
+
+                      
+
+              <div class="hidden" id="info_circle_text_settings_clear_cache">
+                <svg class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v1H4v2h1v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1V4h-5V3H9M7 6h10v13H7V6m2 2v9h2V8H9m4 0v9h2V8h-2Z"/><title>Clear the cache</title></svg>
+              </div>
+
+                      
+
+            </div>
+            <div class="info-circle-text-settings-border hidden" id="info_circle_text_settings_border"></div>
+
+            <div class="info-circle-text-error" id="info_circle_text_error"></div>
+            <div class="info-circle-text-warning" id="info_circle_text_warning"></div>
+            <div class="info-circle-text-leech" id="info_circle_text_leech"></div>
+            <div class="info-circle-text-info" id="info_circle_text_info"></div>
+
+            <div class="info-circle-text-info-default" id="info_circle_text_info_default">
+              <div>
+                Need help? View the
+                <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/">documentation</a>.
+              </div>
+              <div>
+                Have an issue?
+                <a href="https://github.com/Aquafina-water-bottle/jp-mining-note/issues">Report it here</a>.
+              </div>
+              <div>
+                View the
+                <a href="https://github.com/Aquafina-water-bottle/jp-mining-note">source code</a>.
+              </div>
+              <div>
+                Have questions or feedback?
+                <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#contact-info">Contact me!</a>
+              </div>
+
+              <div class="info-circle-version">jp-mining-note 0.12.0.0-prerelease-12</div>
+            </div>
+
+            <div class="info-circle-text-debug" id="info_circle_text_debug"></div>
+            <div class="info-circle-text-tags hidden" id="info_circle_text_tags">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.41 11.58L12.41 2.58A2 2 0 0 0 11 2H4A2 2 0 0 0 2 4V11A2 2 0 0 0 2.59 12.42L11.59 21.42A2 2 0 0 0 13 22A2 2 0 0 0 14.41 21.41L21.41 14.41A2 2 0 0 0 22 13A2 2 0 0 0 21.41 11.58M13 20L4 11V4H11L20 13M6.5 5A1.5 1.5 0 1 1 5 6.5A1.5 1.5 0 0 1 6.5 5Z"></path><title>Card tags</title></svg>
+              <span class="info-circle-text-tags-text" id="info_circle_text_tags_text"></span>
+            </div>
+
+          </span>
+
+        </span>
+      </span>
+
+          
+      <!--
+        DO NOT CHANGE/REMOVE THIS: this is used to record the installed version when updating the note.
+        If you don't want to see this, use the following css instead of changing / removing it:
+
+        .card-description-ver {
+          display: none;
+        }
+      -->
+      <div class="card-description-ver hidden">JP Mining Note: Version 0.12.0.0-prerelease-12</div>
+      <div class="card-description-ver">jp-mining-note: v0.12.0.0-prerelease-12</div>
+
+          
+      <span class="card-description__word-indicators" id="ic_similar_words_indicators">
+        <span class="card-description__word-indicator hidden" id="ic_same_word_indicator">
+          同 <!-- 同じ -->
+        </span>
+        <span class="card-description__word-indicator hidden" id="ic_same_kanji_indicator">
+          字 <!-- 文字 -->
+        </span>
+        <span class="card-description__word-indicator hidden" id="ic_same_reading_indicator">
+          読 <!-- 読み方 (chosen over something like 音 because pitch can be different) -->
+        </span>
+      </span>
+
+
+          
+
+
+    </div>
+
+  </header>
+
+
 
     
-  <!-- DO NOT CHANGE/REMOVE THIS: this is used to record the version when updating the note. -->
-  <div class="card-description-ver">JP Mining Note: Version 0.11.0.4</div>
 
+  <main class="card-main card-main--front">
 
-</div>
+    <div class="expression-wrapper" id="display_wrapper">
 
-
-
-
-
+      
+          
 
 
 
 
 
-<!-- note that for the PA separate word card, the front is ALWAYS a word -->
-<!-- priority: AltDisplay -> Word -->
-
-<!-- option 1: AltDisplay (only if the original card is not a sentence card or hybrid card) -->
-<div class="outer-display1
-    {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}}
-    {{#AltDisplay}}
-      outer-display2
-    {{/AltDisplay}}
-    {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}}
-    "
-  id="display">
-
-  <!-- if NOT (altdisplay, AND none of (click, hover, sentence, TSC)) -->
-  <div class="expression expression--single expression--word inner-display1">
-    {{Word}}
-  </div>
-
-  <!-- if altdisplay, AND none of (click, hover, sentence, TSC) -->
-  <div class="expression expression--single expression--word inner-display2">
-    {{furigana:AltDisplay}}
-  </div>
-</div>
 
 
-{{#HintNotHidden}}
-  <div class="center-box-1 hint">
-    <div class="center-box-2">
-      <div class="highlight-bold">{{HintNotHidden}}</div>
-    </div>
-  </div>
-{{/HintNotHidden}}
 
-<!-- https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left -->
-<!-- tl;dr wrap anything you want centered + left justified with center-box-1 and center-box-2 -->
-{{#Hint}}
-  <details class="hint" id="hint_details">
-    <summary>Hint</summary>
-    <div class="center-box-1">
-      <div class="center-box-2">
-        <div class="highlight-bold">{{Hint}}</div>
+      <!-- note that for the PA separate word card, the front is ALWAYS a word -->
+      <!-- priority: AltDisplay -> Word -->
+
+      <!-- option 1: AltDisplay (only if the original card is not a sentence card or hybrid card) -->
+      <div class="outer-display1
+          {{^IsClickCard}}{{^IsHoverCard}}{{^IsSentenceCard}}{{^IsTargetedSentenceCard}}
+          {{#AltDisplaySentence}}
+            outer-display2
+          {{/AltDisplaySentence}}
+          {{/IsTargetedSentenceCard}}{{/IsSentenceCard}}{{/IsHoverCard}}{{/IsClickCard}}
+          "
+        id="display">
+
+        <!-- if NOT (altdisplay, AND none of (click, hover, sentence, TSC)) -->
+        <div class="expression expression--single expression--word inner-display1">
+          <span class="expression-inner">{{Word}}</span>
+        </div>
+
+        <!-- if altdisplay, AND none of (click, hover, sentence, TSC) -->
+        <div class="expression expression--single expression--word inner-display2">
+          <span class="expression-inner expression-inner--altdisplay">{{furigana:AltDisplaySentence}}</span>
+        </div>
       </div>
-    </div>
-  </details>
-{{/Hint}}
 
+
+      {{#HintNotHidden}}
+        <div class="hint hint--text-wrapper hint--not-hidden">
+          <div class="hint-text highlight-bold">{{HintNotHidden}}</div>
+        </div>
+      {{/HintNotHidden}}
+
+      {{#Hint}}
+        <details class="hint" id="hint_details">
+          <summary>Hint</summary>
+          <div class="hint--text-wrapper">
+            <div class="highlight-bold hint-text">{{Hint}}</div>
+          </div>
+        </details>
+      {{/Hint}}
+
+
+
+          
+
+    </div>
+
+  </main>
+
+
+
+    
+
+</div> <!-- card-wrapper -->
 
 
 <div class="popup-menu" id="popup_menu"></div>
 
-<script>
 
 
 
-// v1.0.0 - https://github.com/SimonLammer/anki-persistence/blob/cd2ca88e019dc3b8f32dad623932c1eabdba7e21/script.js
-if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki-persistence/",_defaultKey="_default";if(window.Persistence_sessionStorage=function(){var e=!1;try{"object"==typeof window.sessionStorage&&(e=!0,this.clear=function(){for(var e=0;e<sessionStorage.length;e++){var t=sessionStorage.key(e);0==t.indexOf(_persistenceKey)&&(sessionStorage.removeItem(t),e--)}},this.setItem=function(e,t){null==t&&(t=e,e=_defaultKey),sessionStorage.setItem(_persistenceKey+e,JSON.stringify(t))},this.getItem=function(e){return null==e&&(e=_defaultKey),JSON.parse(sessionStorage.getItem(_persistenceKey+e))},this.removeItem=function(e){null==e&&(e=_defaultKey),sessionStorage.removeItem(_persistenceKey+e)})}catch(e){}this.isAvailable=function(){return e}},window.Persistence_windowKey=function(e){var t=window[e],n=!1;"object"==typeof t&&(n=!0,this.clear=function(){t[_persistenceKey]={}},this.setItem=function(e,n){null==n&&(n=e,e=_defaultKey),t[_persistenceKey][e]=n},this.getItem=function(e){return null==e&&(e=_defaultKey),null==t[_persistenceKey][e]?null:t[_persistenceKey][e]},this.removeItem=function(e){null==e&&(e=_defaultKey),delete t[_persistenceKey][e]},null==t[_persistenceKey]&&this.clear()),this.isAvailable=function(){return n}},window.Persistence=new Persistence_sessionStorage,Persistence.isAvailable()||(window.Persistence=new Persistence_windowKey("py")),!Persistence.isAvailable()){var titleStartIndex=window.location.toString().indexOf("title"),titleContentIndex=window.location.toString().indexOf("main",titleStartIndex);titleStartIndex>0&&titleContentIndex>0&&titleContentIndex-titleStartIndex<10&&(window.Persistence=new Persistence_windowKey("qt"))}}
 
-// for testing purposes
-//Persistence.isAvailable = function() {return false;}
+<div class="mobile-popup-wrapper hidden" id="mobile_popup_wrapper">
+  <div class="mobile-popup" id="mobile_popup">
+    <div class="mobile-popup-title-close" id="mobile_popup_title_close">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+    </div>
+    <div class="mobile-popup-text" id="mobile_popup_text">
+    </div>
+  </div>
+</div>
 
+<!-- the script must be placed at the very bottom for it to work with ankidroid -->
 
 
 
 
 
 
-// GLOBALS: kanji-hover
 
+<script id="jpmn_options_script" src="_jpmn-options.js"></script>
 
-// global cache for an entire card's kanji hover html
-// maps key.word_reading -> html string
-var kanjiHoverCardCache = nullish(kanjiHoverCardCache, {});
 
-// maps kanji -> [{set of used words}, html string]
-var kanjiHoverCache = nullish(kanjiHoverCache, {});
 
 
-/// 
 
 
+<!--
+  See here for the source typescript code:
 
+      https://github.com/Aquafina-water-bottle/jp-mining-note/tree/master/src/ts
 
+  Alternatively, use the AnkiWebView add-on (https://ankiweb.net/shared/info/31746032) and:
 
-// GLOBALS: anki-connect-actions
+    > View the card -> Right click -> `Inspect` -> `Sources` -> `webpack://` -> `src/ts`.
 
+  The entry point is `jp-mining-note/(CARD TYPE)/(SIDE).ts`.
+  One can also insert breakpoints to see if certain things work or not.
+-->
 
-// note that this cache will NOT respect card review undos,
-// but that should be a niche enough case to not warrent caching.
-// maps cacheKey -> bool
-var isNewCardCache = nullish(isNewCardCache, {});
+<script>(()=>{"use strict";const e=620,t={_overrides:{"blockquotes.collapsePrimaryDefinition":{args:{cardType:"cloze_deletion",op:"==="},resultFalse:!1,resultTrue:!0,type:"cardType"},"blockquotes.folderTab.enabled":{args:{op:"<=",value:"combinePicture"},resultFalse:!1,resultTrue:!0,type:"viewportWidthBreakpoint"},"cardCache.enabled":{resultFalse:!1,resultTrue:!0,type:"isMobile"},enableAnkiconnectFeatures:{resultFalse:!1,resultTrue:!0,type:"isPC"},"freqUtils.list.max":{resultFalse:4,resultTrue:1,type:"isMobile"},"infoCircleUtils.mobileDialog":{resultFalse:!0,resultTrue:!1,type:"isAnkiMobile"},"logger.toConsole":{resultFalse:!0,resultTrue:!1,type:"isAnkiMobile"},"sentenceParser.quotes.quoteClose":{args:{cardType:"pa_sent",op:"==="},resultFalse:"」",resultTrue:"』",type:"cardType"},"sentenceParser.quotes.quoteOpen":{args:{cardType:"pa_sent",op:"==="},resultFalse:"「",resultTrue:"『",type:"cardType"}},"asyncManager.initialDelay":50,audioPlaybackMode:"default","autoPitchAccent.coloredPitchAccent.color.definitions":!0,"autoPitchAccent.coloredPitchAccent.color.fullSentence":!0,"autoPitchAccent.coloredPitchAccent.color.testedContent":!0,"autoPitchAccent.coloredPitchAccent.color.wordReadingKanji":!0,"autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline":!0,"autoPitchAccent.coloredPitchAccent.enabled":!1,"autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.ajtWordPitch":!0,"autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverride.integer":!0,"autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverride.text":!1,"autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paPositions":!0,"autoPitchAccent.enabled":!0,"autoPitchAccent.paOverride.detectKifukuFromWordTags":!0,"autoPitchAccent.paOverride.downstepMarkers":["＼"],"autoPitchAccent.paOverride.heibanMarkerRequired":!0,"autoPitchAccent.paOverride.heibanMarkers":["￣"],"autoPitchAccent.paOverride.kifukuOveride":[-1],"autoPitchAccent.paOverride.separators":["・","、"],"autoPitchAccent.paPositions.defaultConnector":"・","autoPitchAccent.paPositions.displayMode":"selected-result","autoPitchAccent.readingDisplayMode":"katakana","autoPitchAccent.searchForAJTWord":!0,"autoPitchAccent.showReadingIfNoPitch":!1,"blockquotes.collapsePrimaryDefinition":!1,"blockquotes.enabled":!0,"blockquotes.folderTab.enabled":!0,"blockquotes.folderTab.linkedTabs":"12-3-4-5","blockquotes.folderTab.mode":"unique","blockquotes.folderTab.showDotWhenEmpty":!1,"blockquotes.hideEmpty":!0,"blockquotes.open.additionalNotes":!1,"blockquotes.open.enabled":!1,"blockquotes.open.extraDefinitions":!1,"blockquotes.open.extraInfo":!1,"blockquotes.open.primaryDefinition":!1,"blockquotes.open.secondaryDefinition":!1,"blockquotes.openOnNew.additionalNotes":!1,"blockquotes.openOnNew.enabled":!1,"blockquotes.openOnNew.extraDefinitions":!1,"blockquotes.openOnNew.extraInfo":!1,"blockquotes.openOnNew.primaryDefinition":!1,"blockquotes.openOnNew.secondaryDefinition":!1,"blockquotes.simplifyDefinitions.dictsOverride.hideFirstLineMode":{JMdict:"none","JMdict (English)":"none","JMdict Extra":"none","Nico/Pixiv":"none",四字熟語辞典オンライン:"none",国語辞典オンライン:"none","大辞林　第四版":"none","故事・ことわざ・慣用句オンライン":"none","新明解国語辞典　第八版":"none"},"blockquotes.simplifyDefinitions.enabled":!1,"blockquotes.simplifyDefinitions.extraDefinitions.enabled":!0,"blockquotes.simplifyDefinitions.hideFirstLineMode":"first-line","blockquotes.simplifyDefinitions.primaryDefinition.enabled":!0,"blockquotes.simplifyDefinitions.removeListMode":"on-singular","blockquotes.simplifyDefinitions.removeListMode.tagOverride.always":["list-hide","jpmn-hide-hide"],"blockquotes.simplifyDefinitions.removeListMode.tagOverride.never":["list-show","jpmn-list-show"],"blockquotes.simplifyDefinitions.secondaryDefinition.enabled":!0,"blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.hideFirstLine":["line-hide","jpmn-line-hide","line-hide-1st","jpmn-line-hide-1st"],"blockquotes.simplifyDefinitions.tagOverride.primaryDefinition.showFirstLine":["line-show","jpmn-line-show","line-show-1st","jpmn-line-show-1st"],"blockquotes.simplifyDefinitions.tagOverride.secondaryDefinition.hideFirstLine":["line-hide-2nd","jpmn-line-hide-2nd"],"blockquotes.simplifyDefinitions.tagOverride.secondaryDefinition.showFirstLine":["line-show-2nd","jpmn-line-show-2nd"],"cardCache.enabled":!0,"checkDuplicateKey.enabled":!0,clickCardRevealSentenceOnBackSide:!0,enableAnkiconnectFeatures:!0,"fixRubyPositioning.enabled":!1,"freqUtils.displayMode":"summary","freqUtils.enabled":!0,"freqUtils.list.max":4,"freqUtils.list.overflow":0,"freqUtils.list.showSummaryMode":"if-frequencies-empty","freqUtils.summary.defaultValues":["999999","9999999","99999999","1000000","10000000"],hybridSentenceOpenOnPlaySentence:!0,"imgStylizer.enabled":!0,"imgStylizer.glossary.dictsOverride.mode.yomichan":{四字熟語辞典オンライン:"match-yomichan",国語辞典オンライン:"match-yomichan","大辞林　第四版":"match-yomichan","故事・ことわざ・慣用句オンライン":"match-yomichan","新明解国語辞典　第八版":"match-yomichan"},"imgStylizer.glossary.floatImg.enabled":!0,"imgStylizer.glossary.floatImg.overrideTags.bottom":["img-bottom","jpmn-img-bottom"],"imgStylizer.glossary.floatImg.overrideTags.right":["img-right","jpmn-img-right"],"imgStylizer.glossary.floatImg.overrideTags.top":["img-top","jpmn-img-top"],"imgStylizer.glossary.floatImg.position":"auto","imgStylizer.glossary.other.enabled":!0,"imgStylizer.glossary.primaryDef.enabled":!0,"imgStylizer.glossary.primaryDef.mode.general.tagOverride.collapse":["img-collapse","jpmn-img-collapse"],"imgStylizer.glossary.primaryDef.mode.general.tagOverride.float":["img-float","jpmn-img-float"],"imgStylizer.glossary.primaryDef.mode.general.tagOverride.none":["img-no-styling","jpmn-img-no-styling"],"imgStylizer.glossary.primaryDef.mode.user":"collapse","imgStylizer.glossary.primaryDef.mode.user.tagOverride.collapse":["img-user-collapse","jpmn-img-user-collapse"],"imgStylizer.glossary.primaryDef.mode.user.tagOverride.float":["img-user-float","jpmn-img-user-float"],"imgStylizer.glossary.primaryDef.mode.user.tagOverride.none":["img-user-no-styling","jpmn-img-user-no-styling"],"imgStylizer.glossary.primaryDef.mode.yomichan":"collapse","imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.collapse":["img-yomichan-collapse","jpmn-img-yomichan-collapse"],"imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.float":["img-yomichan-float","jpmn-img-yomichan-float"],"imgStylizer.glossary.primaryDef.mode.yomichan.tagOverride.none":["img-yomichan-no-styling","jpmn-img-yomichan-no-styling"],"imgStylizer.mainImage.blur.enabled":!1,"imgStylizer.mainImage.blur.startState":"only-tagged","imgStylizer.mainImage.blur.tags":["NSFW","nsfw","-NSFW"],"imgStylizer.mainImage.resizeHeightFixedValue":210,"imgStylizer.mainImage.resizeHeightMode":"auto-height","imgStylizer.mainImage.resizeOnMobile":!0,"imgStylizer.setMainImageFromTags":[],"infoCircleUtils.dataTags":["line-hide","jpmn-line-hide","line-hide-1st","jpmn-line-hide-1st","line-show","jpmn-line-show","line-show-1st","jpmn-line-show-1st","line-hide-2nd","jpmn-line-hide-2nd","line-show-2nd","jpmn-line-show-2nd","list-hide","jpmn-hide-hide","list-show","jpmn-list-show","quote-add","jpmn-quote-add","quote-remove","jpmn-quote-remove","quote-as-is","jpmn-quote-as-is","quote-no-processing","jpmn-quote-no-processing","quote-disp-quoted-block","jpmn-quote-disp-quoted-block","quote-disp-quoted-flow","jpmn-quote-disp-quoted-flow","quote-disp-unquoted-indent","jpmn-quote-disp-unquoted-indent","quote-disp-unquoted-noIndent","jpmn-quote-disp-unquoted-no-indent","quote-disp-unquoted-rightShifted","jpmn-quote-disp-unquoted-right-shifted","img-no-styling","jpmn-img-no-styling","img-collapse","jpmn-img-collapse","img-float","jpmn-img-float","img-yomichan-no-styling","jpmn-img-yomichan-no-styling","img-yomichan-collapse","jpmn-img-yomichan-collapse","img-yomichan-float","jpmn-img-yomichan-float","img-user-no-styling","jpmn-img-user-no-styling","img-user-collapse","jpmn-img-user-collapse","img-user-float","jpmn-img-user-float","img-bottom","jpmn-img-bottom","img-top","jpmn-img-top","img-right","jpmn-img-right","平板","heiban","頭高","atamadaka","中高","nakadaka","尾高","odaka","起伏","kifuku"],"infoCircleUtils.enabled":!0,"infoCircleUtils.mobileDialog":!0,"infoCircleUtils.showTagsMode":"back","kanjiHover.enabled":!0,"kanjiHover.overrideOptions.tooltips":{},"kanjiHover.searchSentences":!0,"keybinds.enabled":!0,"keybinds.playSentenceAudio":["KeyP"],"keybinds.playWordAudio":["KeyW"],"keybinds.toggleAdditionalNotesDisplay":["Digit9"],"keybinds.toggleExtraDefinitionsDisplay":["Digit0"],"keybinds.toggleExtraInfoDisplay":["BracketLeft"],"keybinds.toggleFrontFullSentenceDisplay":["Quote"],"keybinds.toggleHighlightWord":["KeyN"],"keybinds.toggleHintDisplay":["Period"],"keybinds.toggleHybridSentence":["KeyN"],"keybinds.toggleSecondaryDefinitionsDisplay":["Digit8"],"logger.debugConsoleLevel":3,"logger.debugLevel":6,"logger.error.ignore":["ReferenceError: EFDRC is not defined"],"logger.error.ignoreRegex":[{flags:null,pattern:"^TypeError: Cannot read properties of null \\(reading 'style'\\)\n    at (nc|Ar) \\(http://127.0.0.1:\\d+/_anki/js/reviewer\\.js:7:(113091|112035)\\)$"}],"logger.toConsole":!0,"logger.warn.ignore":["(sentenceParser) Following sentence was stripped of div elements","(tb:sentenceParser) Following sentence was stripped of div elements","(sentenceParser) Automatically highlighted word in ","(tb:sentenceParser) Automatically highlighted word in ","SentenceReading is not filled out. Using Sentence field instead."],"mainCardUtils.enabled":!0,"mobileUtils.enabled":!0,"refreshCard.enabled":!0,"sentenceParser.altDisplay.quotes.processMode":"as-is","sentenceParser.altDisplay.quotes.processMode.searchMulti":!0,"sentenceParser.autoHighlightWord.enabled":!0,"sentenceParser.checkSentenceReadingEqualsSentence":!0,"sentenceParser.display.quotes.displayMode.quoted":"block","sentenceParser.display.quotes.displayMode.quoted.tagOverride.block":["quote-disp-quoted-block","jpmn-quote-disp-quoted-block"],"sentenceParser.display.quotes.displayMode.quoted.tagOverride.flow":["quote-disp-quoted-flow","jpmn-quote-disp-quoted-flow"],"sentenceParser.display.quotes.displayMode.unquoted":"no-indent","sentenceParser.display.quotes.displayMode.unquoted.tagOverride.indented":["quote-disp-unquoted-indent","jpmn-quote-disp-unquoted-indent"],"sentenceParser.display.quotes.displayMode.unquoted.tagOverride.noIndent":["quote-disp-unquoted-noIndent","jpmn-quote-disp-unquoted-no-indent"],"sentenceParser.display.quotes.displayMode.unquoted.tagOverride.rightShifted":["quote-disp-unquoted-rightShifted","jpmn-quote-disp-unquoted-right-shifted"],"sentenceParser.display.quotes.processMode":"add","sentenceParser.display.quotes.processMode.searchMulti":!0,"sentenceParser.display.quotes.processMode.tagOverride.add":["quote-add","jpmn-quote-add"],"sentenceParser.display.quotes.processMode.tagOverride.asIs":["quote-as-is","jpmn-quote-as-is"],"sentenceParser.display.quotes.processMode.tagOverride.none":["quote-no-processing","jpmn-quote-no-processing"],"sentenceParser.display.quotes.processMode.tagOverride.remove":["quote-remove","jpmn-quote-remove"],"sentenceParser.enabled":!0,"sentenceParser.fixDivList.enabled":!0,"sentenceParser.fullSent.quotes.displayMode.quoted":"block","sentenceParser.fullSent.quotes.displayMode.unquoted":"no-indent","sentenceParser.fullSent.quotes.processMode":"remove","sentenceParser.fullSent.quotes.processMode.searchMulti":!0,"sentenceParser.multi.quotes.displayMode.quoted":"block","sentenceParser.multi.quotes.displayMode.unquoted":"right-shifted","sentenceParser.quotes.matches":[{close:"」",open:"「"},{close:"』",open:"『"}],"sentenceParser.quotes.quoteClose":"」","sentenceParser.quotes.quoteOpen":"「","sentenceParser.removeFinalPeriod.altDisplay.quoted":!1,"sentenceParser.removeFinalPeriod.altDisplay.unquoted":!1,"sentenceParser.removeFinalPeriod.display.quoted":!0,"sentenceParser.removeFinalPeriod.display.unquoted":!1,"sentenceParser.removeFinalPeriod.fullSent.quoted":!0,"sentenceParser.removeFinalPeriod.fullSent.unquoted":!1,"sentenceParser.removeFinalPeriod.validPeriods":"｡。．\\.","tooltips.categoryMax.new.newest":0,"tooltips.categoryMax.new.oldest":2,"tooltips.categoryMax.nonNew.newest":2,"tooltips.categoryMax.nonNew.oldest":2,"tooltips.clickWordToBrowse":!0,"tooltips.displayPitchAccent":!0,"tooltips.displayPitchAccentOnHoverOnly":!0,"tooltips.highlightWordInSentence":!1,"tooltips.overrideOptions.autoPitchAccent":{"autoPitchAccent.coloredPitchAccent.color.fullSentence":!1,"autoPitchAccent.coloredPitchAccent.color.wordReadingKanji":!1},"tooltips.overrideOptions.sentenceParser":{"sentenceParser.fullSent.quotes.processMode":"add"},"tooltips.query.new.base":"is:new","tooltips.query.new.removed":"is:suspended (flag:1 OR flag:3)","tooltips.query.nonNew.base":"-is:new OR (is:suspended is:new flag:3)","tooltips.query.nonNew.removed":"is:suspended flag:1","wordIndicators.enabled":!0,"wordIndicators.getResultsFront":!0,"wordIndicators.overrideOptions.tooltips":{"tooltips.displayPitchAccentOnHoverOnly":!1}};let i={};function n(e){const t=i[e];if(void 0!==t)return t;const n=document.getElementById(`hidden_field_exists_${e}`);return null===n?(le.warn(`fieldIsFilled(${e}) could not find element`),!1):0!==n.innerHTML.length}function o(...e){for(const t of e)if(!n(t))return!1;return!0}function s(...e){for(const t of e)if(n(t))return!0;return!1}function r(...e){return!s(...e)}let l={};function a(e){if(void 0!==l[e])return;const t=d(e);l[e]=t}function d(e){const t=l[e];if(void 0!==t)return t;const i=document.getElementById(`hidden_field_${e}`);return null===i?(le.warn(`getFieldValue(${e}) could not find element`),""):i.innerHTML}let c=null;function u(){if(null===c){let e="{{Tags}}".split(" ");c=1===e.length&&""===e[0]?[]:e}return c}const h=new Set(["v_unspec","v1","v1_s","v2a_s","v2b_k","v2b_s","v2d_k","v2d_s","v2g_k","v2g_s","v2h_k","v2h_s","v2k_k","v2k_s","v2m_k","v2m_s","v2n_s","v2r_k","v2r_s","v2s_s","v2t_k","v2t_s","v2w_s","v2y_k","v2y_s","v2z_s","v4b","v4g","v4h","v4k","v4m","v4n","v4r","v4s","v4t","v5aru","v5b","v5g","v5k","v5k_s","v5m","v5n","v5r","v5r_i","v5s","v5t","v5u","v5u_s","v5uru","vk","vn","vr","vz","adj-i"]);let g=null;function p(){return null!==g||(g=`${d("Key")}.${d("Sentence")}`),g}function m(e,t=!1){let i=document.getElementById("popup_menu");if(null===i)return void le.warn("popup menu cannot be found?");const n=document.createElement("div");t?n.innerHTML=e:n.textContent=e,n.classList.add("popup-menu--animate"),i.appendChild(n),setTimeout((()=>{null==i||i.removeChild(n),le.debug(`Removed popup: "${e}"`,2)}),4350)}function f(){return document.documentElement.classList.contains("mobile")}function y(){return document.documentElement.classList.contains("android")}function v(e){return e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}function w(){var e;return null===(e=document.getElementById("hidden_card_type"))||void 0===e?void 0:e.innerHTML}function b(){var e;return null===(e=document.getElementById("hidden_card_side"))||void 0===e?void 0:e.innerHTML}function P(e,t){return e.replace(/&nbsp;/g," ").replace(/ ?([^ >]+?)\[(.+?)\]/g,t)}function T(e){return P(e,"<ruby><rb>$1</rb><rt>$2</rt></ruby>")}function C(e){return P(e,"$2")}function I(e){const t=document.getElementById(e);if(null===t)throw Error(`${e} cannot be found`);return t}function S(e,t,i,n,o,s){let r=!0;for(;e+t>o&&i+n<s;)r&&e>0?(e-=1,i+=1):t>0&&(t-=1,n+=1),r=!r;return[e,t,i,n]}function k(e,t){return 0===e?t=0:e>=t?e-=t:(t=e,e=0),[e,t]}function A(e,t,i,n,o,s){if(e.length!==t.length)throw Error(`Invalid lengths: ${e.length} vs ${t.length}`);const r=i,l=n,a=o,d=s;let c=i+n+o+s,u=[],h=[];for(let g=0;g<e.length;g++){const p=Array.from(e[g]).sort(),m=Array.from(t[g]).sort();[i,n,o,s]=S(i,n,o,s,p.length,m.length),[o,s,i,n]=S(o,s,i,n,m.length,p.length),p.length>i+n?(0===n?u.push([...p.slice(0,i)]):u.push([...p.slice(0,i),...p.slice(-n,p.length)]),c-=i+n):(u.push(Array.from(p)),c-=p.length),m.length>o+s?(0===s?h.push([...m.slice(0,o)]):h.push([...m.slice(0,o),...m.slice(-s,m.length)]),c-=o+s):(h.push(Array.from(m)),c-=m.length);let f=c;[f,i]=k(f,r),[f,n]=k(f,l),[f,o]=k(f,a),[f,s]=k(f,d)}return[u,h]}function _(){const e=document.getElementById("hybrid_click_toggle");null!==e&&(e.checked=!e.checked)}function E(e){let t=!1;if(void 0!==window.onShownHook){let i=window.onShownHook;Array.isArray(i)&&(t=!0,i.push(e))}t||le.debug("(playSilence) onShownHook is invalid or doesn't exist")}function L(e){return t=this,i=void 0,o=function*(){let t=document.querySelector(`#${e} .soundLink, #${e} .replaybutton`);t&&t.click()},new((n=void 0)||(n=Promise))((function(e,s){function r(e){try{a(o.next(e))}catch(e){s(e)}}function l(e){try{a(o.throw(e))}catch(e){s(e)}}function a(t){var i;t.done?e(t.value):(i=t.value,i instanceof n?i:new n((function(e){e(i)}))).then(r,l)}a((o=o.apply(t,i||[])).next())}));var t,i,n,o}const M="github.com/Aquafina-water-bottle/jp-mining-note/";class O{constructor(){}isAvailable(){return null!==globalThis.sessionStorage&&"object"==typeof globalThis.sessionStorage}has(e){return null!==globalThis.sessionStorage.getItem(M+e)}get(e){return globalThis.sessionStorage.getItem(M+e)}set(e,t){globalThis.sessionStorage.setItem(M+e,t)}pop(e){const t=this.get(e);return globalThis.sessionStorage.removeItem(M+e),t}onlyStoresStrings(){return!0}getType(){return"sessionStorage"}}class q{constructor(e){e[M]={},this.storage=e[M]}has(e){return e in this.storage}get(e){return this.has(e)?this.storage[e]:null}set(e,t){this.storage[e]=t}pop(e){const t=this.storage[e];return delete this.storage[e],t}onlyStoresStrings(){return!1}getType(){return"window"}}const x={sessionStorage:null,window:null};function D(...e){0===e.length&&(e=["sessionStorage","window"]);for(const t of e)if(void 0!==x[t])return x[t];return null}function j(){return D("sessionStorage","window")}function $(){return D("window")}function R(){return D("sessionStorage","window")}console.log("spersist control"),"window"in globalThis&&!("_SPersist_sessionStorage"in window)&&null!==globalThis.sessionStorage&&"object"==typeof globalThis.sessionStorage&&(window._SPersist_sessionStorage=new O,console.log("Initializing _SPersist_sessionStorage")),"window"in globalThis&&!("_SPersist_windowKey"in window)&&("object"==typeof window.py?(console.log("Initializing _SPersist_windowKey.py"),window._SPersist_windowKey=new q(window.py)):"object"==typeof window.qt&&(console.log("Initializing _SPersist_windowKey.qt"),window._SPersist_windowKey=new q(window.qt))),x.sessionStorage="window"in globalThis?window._SPersist_sessionStorage:null,x.window="window"in globalThis?window._SPersist_windowKey:null;const N="jpmn.reflow.widthKey";function H(){return le.debug("Running getVWForceReflow...",2),document.documentElement.clientWidth||0}function W(e){const t=H();e.set(N,t.toString()),le.debug(`set viewport width to ${t}`,1)}function B(){const e=j();return null===e?H():(e.has(N)||W(e),Number(e.get(N)))}function z(e){if(!e.endsWith("px"))throw Error(`pxToNumber: cannot convert to number (${e})`);return Number(e.substring(0,e.length-2))}function F(e,t,i){null!==e&&(e.style.maxHeight=i+"px"),t.style.maxHeight=i+"px"}function K(t,i,n){le.debug("Running adjustElements...",1),function(e,t,i){const n=document.getElementById("dh_right");null==n||n.classList.toggle("dh-right--no-js",!1),null==e||e.style.removeProperty("max-height"),i.style.removeProperty("max-height");const o=document.getElementById("dh_word_pitch");null==o||o.style.removeProperty("max-width"),null==o||o.style.removeProperty("text-align"),i.style.removeProperty("max-width"),i.style.removeProperty("margin-top"),null==e||e.style.removeProperty("max-width")}(t,0,n),J()>e?"auto-height"===te("imgStylizer.mainImage.resizeHeightMode")?F(t,n,i.offsetHeight):"fixed"===te("imgStylizer.mainImage.resizeHeightMode")&&F(t,n,te("imgStylizer.mainImage.resizeHeightFixedValue")):te("imgStylizer.mainImage.resizeOnMobile")&&function(e,t,i){if(null===e)return;const n=document.getElementById("dh_reading"),o=document.getElementById("dh_word_pitch"),s=t.scrollWidth,r=n.scrollHeight,l=o.offsetWidth,a=J(),d=getComputedStyle(t),c=z(d.getPropertyValue("--folder-tab-width")),u=2*z(d.getPropertyValue("--folder-tab-margin-left"))+c;s>=a-16&&(t.classList.toggle("dh-left--word-past-screen",!0),o.style.setProperty("max-width",`${l}px`)),s>u&&t.classList.toggle("dh-left--word-past-tab",!0);const h=`max(100vw - 24px - (2 * var(--dh-right-image-gap)) - ${s}px, 128px)`;i.style.setProperty("max-width",h),e.style.setProperty("max-width",h);let g=!1;const p=e=>{g||(g=!0,(s>=a||t.scrollWidth>a-e.scrollWidth-16-8)&&(i.style.setProperty("margin-top",`${r+5}px`),o.style.setProperty("text-align","left")))};null!==e&&(e.onload=()=>{p(e),le.debug("adjustWordOverflow: imgEle.onload")},e.complete&&(le.debug("adjustWordOverflow: imgEle.complete"),p(e)))}(t,i,n)}function J(){return le.debug(`viewport width is currently ${B()}`,1),B()}const G={isMobile:f,isPC:()=>!f(),isiPhoneiPad:()=>document.documentElement.classList.contains("iphone")||document.documentElement.classList.contains("ipad"),isAnkiMobile:()=>document.documentElement.classList.contains("iphone")||document.documentElement.classList.contains("ipad"),viewportWidth:e=>null!==e&&"object"==typeof e&&"op"in e&&"value"in e&&e.op in Q?Q[e.op](J(),e.value):(le.warn(`Invalid viewportWidth arguments: ${e}`,{ignoreOptions:!0}),!0),viewportWidthBreakpoint:e=>{if(null!==e&&"object"==typeof e&&"op"in e&&"value"in e&&e.op in Q&&e.value in V){const t=V[e.value];return Q[e.op](J(),t)}return le.warn(`Invalid viewportWidth arguments: ${e}`,{ignoreOptions:!0}),!0},cardType:e=>{if(null!==e&&"object"==typeof e&&"op"in e&&"string"==typeof e.op&&e.op in U&&"cardType"in e&&e.op in Q){const t=e.cardType;return U[e.op](w(),t)}return le.warn(`Invalid cardType arguments: ${e}`,{ignoreOptions:!0}),!0},cardSide:e=>{if(null!==e&&"object"==typeof e&&"op"in e&&"string"==typeof e.op&&e.op in U&&"cardSide"in e&&e.op in Q){const t=e.cardSide;return U[e.op](b(),t)}return le.warn(`Invalid cardType arguments: ${e}`,{ignoreOptions:!0}),!0},deckName:e=>{if(null!==e&&"object"==typeof e&&"op"in e&&"string"==typeof e.op&&e.op in U&&"deckName"in e&&"string"==typeof e.deckName&&e.op in Q){const i=e.deckName;return U[e.op](null===(t=document.getElementById("deck"))||void 0===t?void 0:t.getAttribute("deck_name"),i)}var t;return le.warn(`Invalid deckName arguments: ${e}`,{ignoreOptions:!0}),!0},fieldsAllEmpty:Y(r),fieldsAllFilled:Y(o),fieldsAnyFilled:Y(s)},U={"===":(e,t)=>e===t,"!==":(e,t)=>e!==t},Q={"===":(e,t)=>e===t,"!==":(e,t)=>e!==t,">":(e,t)=>e>t,"<":(e,t)=>e<t,">=":(e,t)=>e>=t,"<=":(e,t)=>e<=t},V={displaySentenceShrink:1600,displaySentenceRemoveNewlines:1300,maxWidthBackside:850,combinePicture:e};function Y(e){return t=>null!==t&&"object"==typeof t&&"field"in t&&Array.isArray(t.field)?e(...t.field):(le.warn(`Invalid cardType arguments: ${t}`,{ignoreOptions:!0}),!0)}function Z(e){return null!==e&&"object"==typeof e&&"type"in e&&"resultTrue"in e&&"resultFalse"in e}function X(e,t){let i=e;if(Z(e)){const n=e;if("string"==typeof n.type&&n.type in G){let e=n.type;if(i=(0,G[e])(n.args)?n.resultTrue:n.resultFalse,Z(i))return X(i,t)}}if(typeof i==typeof t)return i}function ee(e){const i=t[e];if(e in t._overrides){const n=X(t._overrides[e],i);if(void 0!==n)return n;le.warn(`Default option override for ${e} is invalid?`,{ignoreOptions:!0})}return i}function te(e){var i;return null!==(i=function(e){let i={};if("undefined"!=typeof window){const e=null===window||void 0===window?void 0:window.JPMNOptions;i=null!=e?e:{}}const n=t[e],o=i[e];if(void 0!==typeof o)return X(o,n)}(e))&&void 0!==i?i:ee(e)}function ie(e,t){for(const[i,n]of t){const t=te(i);if(Array.isArray(t))for(const i of t)if("string"==typeof i&&e.includes(i))return n}}const ne="info-circle-leech",oe="info-circle-error",se="info_circle_text_error";class re{getDebugLevel(){return null===this._debugLevel&&(this._debugLevel=te("logger.debugLevel")),this._debugLevel}getToConsole(){return null===this._toConsole&&(this._toConsole=te("logger.toConsole")),this._toConsole}getDebugConsoleLevel(){return null===this._debugConsoleLevel&&(this._debugConsoleLevel=te("logger.debugConsoleLevel")),this._debugConsoleLevel}constructor(e=null){this._debugLevel=null,this._toConsole=null,this._debugConsoleLevel=null,this.name=e}debug(e,t=3,i){const n=this.formatMsg(e);t>=this.getDebugLevel()&&this.printMsg(n,"info_circle_text_debug",null,i),this.getToConsole()&&t>=this.getDebugConsoleLevel()&&console.log(n)}info(e,t){const i=this.formatMsg(e);this.printMsg(i,"info_circle_text_info",null,t),this.getToConsole()&&console.info(i)}warn(e,t){const i=this.formatMsg(e);if(this.getToConsole()&&console.warn(i),!(null==t?void 0:t.ignoreOptions)){let e=te("logger.warn.ignore");for(let t of e)if(i.includes(t))return}this.printMsg(i,"info_circle_text_warning","info-circle-warning",t)}error(e,t){const i=this.formatMsg(e);if(this.getToConsole()&&console.error(i),!(null==t?void 0:t.ignoreOptions)){let e=te("logger.error.ignore");for(let t of e)if(i.includes(t))return}this.printMsg(i,se,oe,t)}errorStack(e,t,i,n,o){var s;this.getToConsole()&&console.error(e);try{let r=te("logger.error.ignore");for(let t of r)if(e.includes(t))return;let l=te("logger.error.ignoreRegex");for(let t of l){if(RegExp(t.pattern,null!==(s=t.flags)&&void 0!==s?s:void 0).exec(e))return}let a=`${e}`;t&&(a=`${t}\n\nStack:\n`+a),(i||n||o)&&(a+=`\nURL: ${i}\nPosition: ${n}:${o}`),this.printMsg(a,se,oe)}catch(s){const r=`msg: ${t} || url: ${i} || lineNo: ${n} || colNo: ${o} || stack: ${e} || Could not show standard errorStack.`;this.error(r)}}leech(e=!0){if(e)this.printMsg("","info_circle_text_leech",ne);else{let e=document.getElementById("info_circle");null==e||e.classList.toggle(ne,!0)}this.getToConsole()&&console.info("Leech")}formatMsg(e){let t=e;return null!==this.name&&(t=`(${this.name}) ${e}`),t}printMsg(e,t,i,n={}){let o=document.getElementById(t);null!==o&&this.appendMsg(e,o,n);let s=document.getElementById("info_circle");null!==i&&(null==s||s.classList.toggle(i,!0))}appendMsg(e,t,i={}){let n=document.createElement("div");n.classList.add("info-circle__message"),(null==i?void 0:i.isHtml)?n.innerHTML=e:n.textContent=e,t.appendChild(n)}}const le=new re;class ae{constructor(e){this.localOpts={},this.id=e,this.logger=new re(e)}overrideOption(e,t){this.localOpts[e]=t}overrideOptions(e){for(const t of Object.keys(e)){const i=e[t];void 0!==i&&this.overrideOption(t,i)}}getOption(e){const t=this.localOpts[e];return void 0!==t?t:te(e)}}class de extends ae{constructor(e,t){super(void 0===t?e:t),this.rid=e}run(){try{te(`${this.rid}.enabled`)&&this.main()}catch(e){this.logger.errorStack(e.stack)}}}class ce extends de{constructor(){super(...arguments),this.useCache=!1}setUseCache(e){this.useCache=e}run(){return e=this,t=void 0,n=function*(){de.prototype.run.call(this)},new((i=void 0)||(i=Promise))((function(o,s){function r(e){try{a(n.next(e))}catch(e){s(e)}}function l(e){try{a(n.throw(e))}catch(e){s(e)}}function a(e){var t;e.done?o(e.value):(t=e.value,t instanceof i?t:new i((function(e){e(t)}))).then(r,l)}a((n=n.apply(e,t||[])).next())}));var e,t,i,n}}function ue(e,t=null){return null!==t&&t.includes(e.code)}function he(e,t,i){ue(e,t)&&null!==i&&function(e){null!==e&&(e.hasAttribute("open")?e.removeAttribute("open"):e.setAttribute("open","true"))}(i)}class ge extends ae{constructor(){super("gEventManager"),this.keybindFuncs={},this.windowResizeFuncs={},this.windowResizeTimeout=null,this.register()}addKeybindFunc(e,t){this.keybindFuncs[e]=t}addWindowResizeFunc(e,t){this.windowResizeFuncs[e]=t}register(){document.onkeyup=e=>{this.logger.debug(`KeyboardEvent: code=${e.code}`,0),function(e){if(ue(e,te("keybinds.playWordAudio"))&&L("word_audio"),ue(e,te("keybinds.playSentenceAudio"))){const e=document.getElementById("hybrid_click_toggle");"front"===b()&&"main"===w()&&te("hybridSentenceOpenOnPlaySentence")&&s("IsHoverCard","IsClickCard")&&s("IsTargetedSentenceCard","IsSentenceCard")&&null!==e&&!e.checked?_():L("sentence_audio")}he(e,te("keybinds.toggleFrontFullSentenceDisplay"),document.getElementById("full_sentence_front_details")),he(e,te("keybinds.toggleHintDisplay"),document.getElementById("hint_details")),he(e,te("keybinds.toggleSecondaryDefinitionsDisplay"),document.getElementById("secondary_definition_details")),he(e,te("keybinds.toggleAdditionalNotesDisplay"),document.getElementById("additional_notes_details")),he(e,te("keybinds.toggleExtraDefinitionsDisplay"),document.getElementById("extra_definitions_details")),he(e,te("keybinds.toggleExtraInfoDisplay"),document.getElementById("extra_info_details"))}(e);for(const[t,i]of Object.entries(this.keybindFuncs))this.logger.debug(`Running keybind function ${t}`,1),i(e)};const e=j();null!==e&&(window.onresize=t=>{null!==this.windowResizeTimeout&&clearTimeout(this.windowResizeTimeout),this.windowResizeTimeout=setTimeout((()=>{W(e),this.logger.debug("onResizeEvent",0);for(const[e,i]of Object.entries(this.windowResizeFuncs))this.logger.debug(`Running windowResize function ${e}`,1),i(t)}),500)})}}const pe={min:12353,max:12438},me=12449,fe={min:12352,max:12447},ye={min:12448,max:12543},ve=new Set(Array.from("ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ")),we={アナタサカワラヤマハャパバダザガ:"ア",イニチシキリミヒピビヂジギ:"イ",ウヌツスクルユムフュプブヅズグ:"ウ",エネテセケレメヘペベデゼゲ:"イ",ノトソコヲロヨモホョポボドゾゴ:"ウ",オ:"オ"},be={ア:"ナタサカワラヤマハャパバダザガ",イ:"ニチシキリミヒピビヂジギネテセケレメヘペベデゼゲ",ウ:"ヌツスクルユムフュプブヅズグノトソコヲロヨモホョポボドゾゴ",エ:"ネテセケレメヘペベデゼゲ",オ:"ノトソコヲロヨモホョポボドゾゴ"},Pe=new Map([["a","ぁあかがさざただなはばぱまゃやらゎわヵァアカガサザタダナハバパマャヤラヮワヵヷ"],["i","ぃいきぎしじちぢにひびぴみりゐィイキギシジチヂニヒビピミリヰヸ"],["u","ぅうくぐすずっつづぬふぶぷむゅゆるゥウクグスズッツヅヌフブプムュユルヴ"],["e","ぇえけげせぜてでねへべぺめれゑヶェエケゲセゼテデネヘベペメレヱヶヹ"],["o","ぉおこごそぞとどのほぼぽもょよろをォオコゴソゾトドノホボポモョヨロヲヺ"],["","のノ"]]);function Te(e){const t=[];let i;for(const n of e)ve.has(n)&&(i=t.length)>0?t[i-1]+=n:t.push(n);return t}function Ce(e,t){return e>=t.min&&e<=t.max}function Ie(e){let t="";const i=me-pe.min;for(let n of e){const e=n.codePointAt(0);void 0!==e&&Ce(e,pe)&&(n=String.fromCodePoint(e+i)),t+=n}return t}function Se(e){let t=e.codePointAt(0);return void 0!==t&&(Ce(t,fe)||Ce(t,ye))}function ke(e){let t=[...e],i=null,n=null;for(const[e,o]of t.entries()){const s=o.codePointAt(0);if(void 0!==s&&Ce(s,ye)&&(null===i?i=o:(null===n||(i=n),n=o),null!==i&&null!==n&&"ー"===n)){let o=!1;for(const[n,s]of Object.entries(we))if(n.includes(i)){t[e]=s,o=!0;break}o||le.debug(`(katakanaRemoveLongVowelMarks) Cannot find replacement: ${i} | ${n}`)}}return t.join("")}(()=>{const e=new Map;for(const[t,i]of Pe)for(const n of i)e.set(n,t)})();class Ae extends ae{constructor(){super("sm:autoHighlightWord"),this.plainReplaceCache=new Set,this.attemptedPlainReplace=!1}findPlainReplace(e,t){let i=[];for(const n of t){const t=n.isWord?1:2;i.push(this.shorten(n.value,e,t)),i.push(this.shorten(Ie(n.value),e,2))}let n=i.filter((t=>t&&e.includes(t))),o=null;return n.length>0&&(o=n.reduce(((e,t)=>e.length>t.length?e:t))),null===o?this.logger.debug("findPlainReplace: could not highlight"):this.plainReplaceCache.add(o),o}shorten(e,t,i){for(;e.length>i&&!t.includes(e);)e=e.substring(0,e.length-1);return e}isRubySentence(e){return e.includes("<ruby>")}highlightWordRuby(e){const t=Array.from(this.plainReplaceCache);let i=null;if(t.length>0&&(i=t.reduce(((e,t)=>e.length>t.length?e:t))),null===i)return[e,null];let n=[];const o="(<ruby>(<rb>)?)",s="((</rb><rt>[぀-ヿ]*?)(</rt></ruby>))",r=`(${o}${s})?`;for(let e=0;e<i.length-1;e++){const t=i[e],l=i[e+1];0!==e||Se(t)||n.push(o),n.push(v(t)),Se(t)&&!Se(l)?n.push(o):!Se(t)&&Se(l)?n.push(s):Se(t)||Se(l)||n.push(r)}if(i.length){const e=i[i.length-1];n.push(e),Se(v(e))||n.push(s)}const l=`((${n.join("")})|(${i}))`,a=new RegExp(l,"g"),d=e.match(a),c=e.replace(a,"<b>$1</b>");return this.logger.debug(`highlightWordRuby replace: ${l}`,2),this.logger.debug(`highlightWordRuby sentenceRuby: ${e}`,2),this.logger.debug(`highlightWordRuby result: ${c}`,2),[c,null===d?null:d[0]]}highlightWordPlain(e,t){let i=this.findPlainReplace(e,t),n=e;return null!==i&&i.length>0&&(n=e.replace(new RegExp(`(${v(i)})`,"g"),"<b>$1</b>")),this.logger.debug(`highlightWordPlain sentence: ${e}`,2),this.logger.debug(`highlightWordPlain result: ${n}`,2),this.logger.debug(`highlightWordPlain replace: ${i}`,2),[n,i]}highlightWord(e,t,i){return this.isRubySentence(e)&&!this.attemptedPlainReplace?(void 0===i?this.logger.warn("plainSentence is undefined when trying to highlight ruby sentence"):0===this.plainReplaceCache.size&&(this.logger.debug("attempting to cache beforehand..."),this.findPlainReplace(i,t)),this.highlightWordRuby(e)):this.highlightWordPlain(e,t)}}const _e=["sentence-unquoted-display-indent","sentence-unquoted-display-no-indent","sentence-unquoted-display-right-shifted","sentence-quoted-display-block","sentence-quoted-display-flow"];class Ee extends de{constructor(e,t){var i;super("sentenceParser",e),this.quoteMatches=this.getOption("sentenceParser.quotes.matches"),this.autoHighlight=new Ae,this.debugLevel=null!==(i=null==t?void 0:t.debugLevel)&&void 0!==i?i:3}clozeReplaceBold(e){const t=document.createElement("span");t.innerHTML=e;const i=Array.from(t.getElementsByTagName("b"));for(const e of i)e.innerHTML="[...]";return t.innerHTML}getOptSentType(e,t){return"display"===e&&t?"altDisplay":e}checkQuoteAndStrip(e){for(const t of this.quoteMatches){const[i,n]=[0,t.open.length],[o,s]=[e.length-t.close.length,e.length];if(e.substring(i,n)===t.open&&e.substring(o,s)===t.close)return[e.substring(i,n),e.substring(n,o),e.substring(o,s)]}return["",e,""]}preprocessForMulti(e){return e.replace("<br></b><br>","</b><br><br>").replace("<br><br></b>","</b><br><br>")}attemptParseMulti(e,t,i){const n=e.split(/<br>(?:<br>)*<br>/);if(n.length<=1)return null;const o=[];for(const e of n){const n=document.createElement("div"),s=document.createElement("span");s.classList.add("sentence-quote"),s.classList.add("sentence-quote--open"),s.innerHTML="「";const r=document.createElement("span");r.classList.add("sentence-quote"),r.classList.add("sentence-quote--close"),r.innerHTML="」";const l=document.createElement("span");l.classList.add("expression-inner"),l.innerHTML=e,n.appendChild(s),n.appendChild(l),n.appendChild(r);const a={open:n.children[0],contents:n.children[1],close:n.children[2],base:n};this.processSentence(a,t,i,!0),o.push(a)}return o}processQuotes(e,t,i,n,o){let s,[r,l,a]=this.checkQuoteAndStrip(t);for(const t of _e)e.base.classList.toggle(t,!1);"add"===i?""===r&&""===a&&e.contents.innerHTML.length>0&&(r=this.getOption("sentenceParser.quotes.quoteOpen"),a=this.getOption("sentenceParser.quotes.quoteClose")):"remove"===i&&(r="",a="");const d=this.getQuoteDisplayMode(n,""!==r,o,"display"===n);return this.logger.debug(`${n} | ${i} -> ${""===r?"unquoted":"quoted"} | ${d}`,this.debugLevel),s="indent"===d?"sentence-unquoted-display-indent":"no-indent"===d?"sentence-unquoted-display-no-indent":"right-shifted"===d?"sentence-unquoted-display-right-shifted":"flow"===d?"sentence-quoted-display-flow":"sentence-quoted-display-block",e.base.classList.toggle("sentence-unquoted-display-no-indent",!1),e.base.classList.toggle(s,!0),[r,l,a]}fixDivList(e){const t=Array.from(e.children);return t.length>0&&t.every((e=>"DIV"===e.nodeName))?(this.logger.warn(`Following sentence was stripped of div elements: ${e.innerHTML}`),t.map((e=>e.innerHTML)).join("<br>")):e.innerHTML}getQuoteProcessMode(e,t,i){if(t)return"as-is";if(i){const e=ie(u(),[["sentenceParser.display.quotes.processMode.tagOverride.add","add"],["sentenceParser.display.quotes.processMode.tagOverride.remove","remove"],["sentenceParser.display.quotes.processMode.tagOverride.asIs","as-is"],["sentenceParser.display.quotes.processMode.tagOverride.none","none"]]);if(void 0!==e)return e}return this.getOption(`sentenceParser.${e}.quotes.processMode`)}getQuoteDisplayMode(e,t,i,n){if(n){let e;if(e=ie(u(),t?[["sentenceParser.display.quotes.displayMode.quoted.tagOverride.block","block"],["sentenceParser.display.quotes.displayMode.quoted.tagOverride.flow","flow"]]:[["sentenceParser.display.quotes.displayMode.unquoted.tagOverride.indented","indented"],["sentenceParser.display.quotes.displayMode.unquoted.tagOverride.noIndent","no-indent"],["sentenceParser.display.quotes.displayMode.unquoted.tagOverride.rightShifted","right-shifted"]]),void 0!==e)return e}return this.getOption(`sentenceParser.${i?"multi":e}.quotes.displayMode.${t?"quoted":"unquoted"}`)}processPeriod(e){const t=this.getOption("sentenceParser.removeFinalPeriod.validPeriods"),i=new RegExp(`[${t}]$`),n=new RegExp(`[${t}]`,"g"),o=new RegExp("<.*?>","g");if(i.test(e.replace(o,""))){const t=Array.from(e.matchAll(n));if(t.length>0){const i=t[t.length-1].index;if(void 0!==i)return e.substring(0,i)+e.substring(i+1)}}return e}autoHighlightLog(e,t,i){null===t?this.logger.warn(`Could not highlight word in ${e}: ${i}. Consider bolding the tested word to remove this warning.`):this.logger.warn(`Automatically highlighted word in ${e}: ${t}. Consider bolding the tested word to remove this warning.`)}processSentence(e,t,i,n=!1){const o=e.contents.classList.contains("expression-inner--altdisplay"),s=e.contents.classList.contains("expression-inner--cloze-deletion");let r=e.contents.innerHTML;if(this.logger.debug(`init: "${r}"`,1),!n&&this.getOption("sentenceParser.fixDivList.enabled")&&(r=this.fixDivList(e.contents)),this.logger.debug(`fixDivList: "${r}"`,1),r=r.trim(),this.logger.debug(`trim: "${r}"`,1),!n&&r.length>0&&!r.match(/<b>/)&&null!==this.autoHighlight&&this.getOption("sentenceParser.autoHighlightWord.enabled")){const e=[{value:i.Word,isWord:!0},{value:C(i.WordReading)},{value:i.WordReadingHiragana}];let n;[r,n]=this.autoHighlight.highlightWord(r,e,i.Sentence),this.autoHighlightLog(t,n,i.Word),this.logger.debug(`autoHighlight: "${r}"`,1)}"display"===t&&s&&(r=this.clozeReplaceBold(r),this.logger.debug(`clozeReplaceBold: "${r}"`,1)),r=this.preprocessForMulti(r);const l=this.getOptSentType(t,o);if(!n&&this.getOption(`sentenceParser.${l}.quotes.processMode.searchMulti`)){const n=this.attemptParseMulti(r,t,i);if(null!==n){for(const t of _e)e.base.classList.toggle(t,!1);const t="multi-sentence";e.base.classList.toggle(t,!0),e.base.innerHTML="";for(const t of n)e.base.appendChild(t.base);return}}const a=this.getQuoteProcessMode(l,n,"display"===t);let d,c;"none"===a?(d="",c=""):([d,r,c]=this.processQuotes(e,r,a,t,n),this.logger.debug(`processQuotes: "${d}", "${r}", "${c}"`,1));const u=0===d.length?"unquoted":"quoted";this.getOption(`sentenceParser.removeFinalPeriod.${l}.${u}`)&&(r=this.processPeriod(r),this.logger.debug(`processPeriod: "${r}"`,1)),e.open.innerHTML=d,e.contents.innerHTML=r,e.close.innerHTML=c,this.logger.debug(`final: "${d}${r}${c}"`,1)}extractSentenceAndProcess(e,t){if(0!==e.innerHTML.trim().length)if(3===e.children.length){const i={open:e.children[0],contents:e.children[1],close:e.children[2],base:e},n={Word:d("Word"),WordReading:d("WordReading"),WordReadingHiragana:d("WordReadingHiragana"),Sentence:d("Sentence")};this.processSentence(i,t,n,!1)}else this.logger.warn(`Invalid sentence format (${t}): ${e.innerHTML}`)}processDisplaySentences(){const e=document.querySelectorAll(".expression--sentence");for(const t of e)this.extractSentenceAndProcess(t,"display")}processFullSentence(){const e=document.getElementById("full_sentence");null!==e&&this.extractSentenceAndProcess(e,"fullSent")}normalizeSentenceCompare(e){return e.replace("\n","").trim()}compareSentenceReading(){const e=this.normalizeSentenceCompare(d("Sentence")),t=this.normalizeSentenceCompare(P(d("SentenceReading"),"$1"));0!==t.length&&0!==e.length&&e!==t&&this.logger.warn('The Sentence field is not the same as the SentenceReading field. Your sentence might be displayed incorrectly. See <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/faq/#the-sentencereading-field-is-not-updated-is-different-from-the-sentence-field">here</a> for more info.',{isHtml:!0})}main(){this.processDisplaySentences(),this.processFullSentence(),"back"===b()&&this.getOption("sentenceParser.checkSentenceReadingEqualsSentence")&&this.compareSentenceReading()}}const Le={平板:"heiban",heiban:"heiban",頭高:"atamadaka",atamadaka:"atamadaka",中高:"nakadaka",nakadaka:"nakadaka",尾高:"odaka",odaka:"odaka",起伏:"kifuku",kifuku:"kifuku","pa-none":"none"},Me=/[・、]/g;class Oe{constructor(e,t=!1){this.allowAutoKifuku=!0,this.separatorAfter=null,this.dictName=null,this.mora=[],this.paGroup=null,this.pos=e,this.isBolded=t}}class qe{constructor(e,t=null,i=null){this.dispHTML=e,this.dictName=t,this.mainPAGroup=i}}class xe extends ae{constructor(e,t,i){super("sm:parsePAPositions"),this.autopa=e,this.paPositions=t,this.wordReading=i}parse(){if(0===this.paPositions.length)return null;const e=document.createElement("div");e.innerHTML=this.paPositions;try{if(e.children.length>0&&null!==e.children[0]&&"DIV"===e.children[0].nodeName&&e.children[0].classList.contains("pa-positions__group"))return this.parseJPMN(e)}catch(e){this.logger.debug("Error in calcDispPosDataFromPositions -> calcDispPosDataFromJPMNPositions")}let t=this.paPositions.match(/\d+/);if(null===t)return null;const i=new Oe(Number(t)),n=this.autopa.buildPitchHTML([i],this.wordReading),o=this.autopa.getMainPAGroup([i],this.autopa.getOption("autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paPositions"));return new qe(n,"PAPositions",o)}getDictInfoFromGroup(e){var t;return[Array.from(e.children[1].children),null!==(t=e.getAttribute("data-details"))&&void 0!==t?t:"unknown dictionary"]}getDictInfo(e){for(const t of e.children)for(const e of t.children[1].children)if(e.innerHTML.includes("<b>"))return this.getDictInfoFromGroup(t);const t=e.children[0];return this.getDictInfoFromGroup(t)}parseJPMN(e){const t=this.autopa.getOption("autoPitchAccent.paPositions.displayMode");let i=[];if("selected-result"===t)i=this.parseJPMNSingularPos(e);else if("selected-dictionary"===t)i=this.parseJPMNSingularDict(e);else{if("all-results"!==t)throw Error(`displayMode is invalid: ${t}`);i=this.parseJPMNAllDicts(e)}const n=this.autopa.buildPitchHTML(i,this.wordReading),o=this.autopa.getMainPAGroup(i,this.autopa.getOption("autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paPositions"));return new qe(n,null,o)}getPosDataListFromDictChildren(e,t){let i=[];for(const n of e){let e=n.innerHTML.match(/\d+/);if(null===e){this.logger.debug(`Skipping invalid value? ${n.innerHTML}`);continue}let o=n.innerHTML.includes("<b>"),s=new Oe(Number(e),o);s.dictName=t,i.push(s)}return i}parseJPMNSingularPos(e){const[t,i]=this.getDictInfo(e);let n=null;for(const e of t){let t=e.innerHTML.match(/\d+/);if(null!==t){if(null===n&&(n=Number(t)),e.innerHTML.includes("<b>")){const e=new Oe(Number(t),!0);return e.dictName=i,[e]}}else this.logger.debug(`Skipping invalid value? ${e.innerHTML}`)}if(null===n)return this.logger.warn("firstDigit is null?"),[];const o=new Oe(n,!0);return o.dictName=i,[o]}parseJPMNSingularDict(e){const[t,i]=this.getDictInfo(e);return this.getPosDataListFromDictChildren(t,i)}parseJPMNAllDicts(e){let t=[];for(const i of e.children){const[e,n]=this.getDictInfoFromGroup(i),o=this.getPosDataListFromDictChildren(e,n);t=t.concat(o)}return t}}class De extends ae{constructor(e,t,i){super("sm:parsePAOverride"),this.autopa=e,this.paOverride=t,this.wordReading=i}parse(){let[e,t]=this.calcPosDataList();if(e.length>0&&null!==t){const i=this.autopa.buildPitchHTML(e,this.wordReading),n=this.autopa.getMainPAGroup(e,this.autopa.getOption(`autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.paOverride.${t}`));return new qe(i,"Pitch Accent Override",n)}return this.logger.warn(`calcPosDataList returned list of 0 length for "${this.paOverride}". Using raw text...`),new qe(this.paOverride,"Pitch Accent Override (Raw Text)")}calcPosDataList(){var e;const t=document.createElement("div");return t.innerHTML=this.paOverride,null!==(null!==(e=t.textContent)&&void 0!==e?e:"").trim().match(/^[-]?\d+/)?[this.parseIntCSV(),"integer"]:t.textContent===t.innerHTML?[this.parseTextFormat(),"text"]:(this.logger.warn(`Invalid PA format: ${this.paOverride}`),[[],null])}parseIntCSV(){let e=[];const t=this.paOverride.replace(/\s+/g,"").split(",");for(const i of t)if(i.includes("<b>")){let t=i.match(/[-]?\d+/),n=new Oe(Number(t),!0);e.push(n)}else{let t=Number(i);if(!Number.isNaN(t)){let t=new Oe(Number(i));e.push(t)}}return e}parseTextFormat(){let e=[];const t=this.autopa.getOption("autoPitchAccent.paOverride.separators"),i=this.autopa.getOption("autoPitchAccent.paOverride.downstepMarkers"),n=this.autopa.getOption("autoPitchAccent.paOverride.heibanMarkers"),o=RegExp("["+t.join("")+"]","g"),s=this.paOverride.replace(/\s+/g,""),r=s.split(o),l=s.match(o);for(const[t,o]of r.entries()){let s=Te(o),r=null,a=0;for(;a<s.length;){const e=s[a];i.includes(e)?(null!==r?this.logger.warn(`More than one downstep marker used in ${o}`):r=a,s.splice(a,1)):a++}if(n.includes(s[s.length-1])){if(s.splice(s.length-1,1),null!==r){this.logger.warn(`Cannot use both downstep and heiban markers in ${o}`);continue}r=0}if(null===r){if(this.autopa.getOption("autoPitchAccent.paOverride.heibanMarkerRequired")){this.logger.warn(`Heiban marker not found in ${o}`);continue}r=0}const d=this.autopa.normalizeReadingGetMoras(s.join("")),c=new Oe(r);c.mora=d,null!==l&&t<l.length&&(c.separatorAfter=l[t]),c.allowAutoKifuku=!1,e.push(c)}return e}}class je extends ae{constructor(e,t,i,n){super("sm:parseAJTWordPitch"),this.autopa=e,this.ajtWordPitch=t,this.wordReading=i,this.removeNasal=n}getPosDataList(){var e,t,i;let n=[];const o=document.createElement("div");o.innerHTML=this.ajtWordPitch;let s=null!==(e=o.textContent)&&void 0!==e?e:"";s=s.replace(/°/g,""),s=s.replace(/&#42780;/g,"ꜜ");const r=s.split(Me);let l=this.ajtWordPitch;l.includes("<b>")&&(this.logger.warn("AJTWordPitch field contains bold. This will be ignored by the parser."),l=l.replace(/<b>/g,"").replace(/<\/b>/g,""));const a=l.split(Me);if(a.length!==r.length)throw Error("AJTWordPitch parser lists are of different length. Cannot parse.");const d=null!==(t=s.match(Me))&&void 0!==t?t:[],c=Ie(C(this.wordReading));for(let e=0;e<r.length;e++){const t=r[e];let o=a[e];this.removeNasal&&(o=this.autopa.removeNasalStr(o));let s=Te(t).findIndex((e=>"ꜜ"===e));-1===s&&(s=0);let l=this.autopa.removeAJTDownstep(t);l=ke(l);let u=new Oe(s);u.mora=this.autopa.getMoraeOfAJTWord(o),l!==c&&(this.logger.debug(`cannot auto kifuku: ${l} | ${c}`,2),u.allowAutoKifuku=!1),u.separatorAfter=null!==(i=d[e])&&void 0!==i?i:null,n.push(u)}return n}parse(){if(0===this.ajtWordPitch.length)return null;let e,t;try{const i=this.getPosDataList();e=this.autopa.buildPitchHTML(i),t=this.autopa.getMainPAGroup(i,this.autopa.getOption("autoPitchAccent.coloredPitchAccent.multiplePitchesColorAsFirst.ajtWordPitch"))}catch(i){"object"==typeof i&&null!==i&&"stack"in i&&"string"==typeof i.stack&&this.logger.errorStack(i.stack),this.logger.error("Error in generatePitchHTML, using raw AJTWordPitch instead"),e=this.ajtWordPitch,t=null}return new qe(e,"AJT Pitch Accent",t)}}class $e extends de{constructor(e,t){var i,n,o,s;super("autoPitchAccent",e),this.wordTags=[],this.ajtHTML=null,this.attemptGlobalColor=null===(i=null==t?void 0:t.attemptGlobalColor)||void 0===i||i,this.showTitle=null===(n=null==t?void 0:t.showTitle)||void 0===n||n,this.removeNasal=null!==(o=null==t?void 0:t.removeNasal)&&void 0!==o&&o,this.debugLevel=null!==(s=null==t?void 0:t.debugLevel)&&void 0!==s?s:3}getDispPosDataOnEmpty(e){if(this.logger.debug("Nothing found."),this.getOption("autoPitchAccent.showReadingIfNoPitch")){let t=C(e);return new qe(t,"WordReading")}return new qe("","N/A")}removeNasalStr(e){if(e.includes("nasal")){const t="カキクケコ",i="ガギグゲゴ";for(let n=0;n<5;n++)e=e.replace(new RegExp(`${t[n]}<span class="nasal">(°|&#176;)</span>`,"g"),i[n])}return e.includes("nasal")&&this.logger.warn(`string after removeNasalStr still has nasal class: ${e}`),e}getPAColorTag(e){for(const t of Object.keys(Le))if(e.includes(t))return Le[t];return null}paintDisplay(e){const t="pa-word-highlight-"+e,i="pa-sentence-highlight-"+e;if(this.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")){const e=document.getElementById("dh_reading");null==e||e.classList.add(t)}if(this.getOption("autoPitchAccent.coloredPitchAccent.color.testedContent")){const e=document.querySelectorAll(".expression--sentence.highlight-bold");if(null!==e)for(const t of e)t.classList.add(i);const n=document.querySelectorAll(".expression--word");if(null!==n)for(const e of n)e.classList.add(t)}if(this.getOption("autoPitchAccent.coloredPitchAccent.color.fullSentence")){const e=document.getElementById("full_sentence");null==e||e.classList.add(i)}if(this.getOption("autoPitchAccent.coloredPitchAccent.color.definitions")){const t=document.querySelectorAll(".glossary-text");if(null!==t)for(const i of t)i.style.setProperty("--highlight-bold-color",`var(--text-${e})`)}}useDispPosData(e,t,i){if(e.innerHTML=t.dispHTML,this.showTitle&&null!==t.dictName&&e.setAttribute("title",t.dictName),this.logger.debug(`result dictName: ${t.dictName}`,this.debugLevel),this.getOption("autoPitchAccent.coloredPitchAccent.enabled")){if(this.attemptGlobalColor){const e=this.getPAColorTag(i);"none"===e||(null!==e?this.paintDisplay(e):null!==t.mainPAGroup&&this.paintDisplay(t.mainPAGroup))}this.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingPitchOverline")&&e.classList.add("pa-word-highlight-pitch-overline")}}getSearchAJTHTML(e){let t=this.removeAJTDownstep(e);return t=t.replace(/<b>/g,""),t=t.replace(/<\/b>/g,""),t=this.removeNasalStr(t),t=ke(t),t}removeAJTDownstep(e){return e.replace(/&#42780;/g,"").replace(/ꜜ/g,"")}getAJTWordHTML(e){var t;const i=Ie(e);if(null===this.ajtHTML||0===this.ajtHTML.length)return this.logger.debug("ajtHTML is empty"),null;const n=this.getSearchAJTHTML(this.ajtHTML),o=this.ajtHTML.replace(/<b>/g,"").replace(/<\/b>/g,"");let s=document.createElement("div");s.innerHTML=n;const r=(null!==(t=s.textContent)&&void 0!==t?t:"").split(Me),l=r.indexOf(i);if(-1===l)return this.logger.debug(`AJT word: ${i} not found among [${r.join(", ")}]`),null;let a=null;if(1==r.length)a=o;else{const e=o.split(Me);if(l>=e.length)return this.logger.warn(`searchArr of length ${e.length} cannot be indexed with ${l}`),null;a=e[l]}return this.removeNasal&&(a=this.removeNasalStr(a)),a}getNormalizedReading(e){if(this.getOption("autoPitchAccent.searchForAJTWord")){let t=this.getAJTWordHTML(e);if(null!==t)return[t,!0]}let t="",i=this.getOption("autoPitchAccent.readingDisplayMode");if("word-reading"===i)t=e;else if("katakana"===i)t=Ie(e);else{if("katakana-with-long-vowel-marks"!==i)throw Error(`readingDisplayMode of ${t} is invalid.`);t=function(e){let t=[...Ie(e)];for(let e=1;e<t.length;e++)t[e]in be&&be[t[e]].includes(t[e-1])&&(t[e]="ー");return t.join("")}(e)}return[t,!1]}getMoraeOfAJTWord(e){let t=[];const i=document.createElement("div"),n=document.createElement("div");n.innerHTML=e;for(const e of n.childNodes)if("SPAN"===e.nodeName&&e.classList.contains("pitchoverline"))for(const t of e.childNodes)i.appendChild(t.cloneNode(!0));else"SPAN"===e.nodeName&&e.classList.contains("downstep")||i.appendChild(e.cloneNode(!0));e.includes("nopron")&&(i.innerHTML=i.innerHTML.replace(/<span class="nopron">(.)<\/span>([ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ])/g,'<span class="nopron">$1$2</span>'));for(const e of i.childNodes)if("#text"===e.nodeName){const i=Te(e.data);t=t.concat(i)}else if("SPAN"===e.nodeName&&e.classList.contains("nasal"))t[t.length-1]=t[t.length-1]+e.outerHTML;else{if("SPAN"!==e.nodeName||!e.classList.contains("nopron"))throw Error(`Unexpected flattened.childNode: ${e}`);t.push(e.outerHTML)}return t}normalizeReadingGetMoras(e){const[t,i]=this.getNormalizedReading(e);return i?this.getMoraeOfAJTWord(t):Te(t)}getMainPAGroup(e,t){if(!this.getOption("autoPitchAccent.coloredPitchAccent.enabled"))return null;if(e.length>1&&!t)return null;let i=null;for(const t of e)if(null!==t.paGroup&&null===i&&(i=t.paGroup),t.isBolded&&null!==t.paGroup)return t.paGroup;return i}buildPitchHTML(e,t){var i;let n=[],o=function(e){for(const t of e)if(t.isBolded)return!0;return!1}(e),s=[];const r=this.getOption("autoPitchAccent.paPositions.defaultConnector");for(const[t,n]of e.entries())t<e.length-1&&s.push(null!==(i=n.separatorAfter)&&void 0!==i?i:r);if(o)for(let t=0;t<e.length-1;t++){const i=e[t],n=e[t+1];i.isBolded&&n.isBolded||(s[t]=`<b>${s[t]}</b>`)}let l=null;for(const[i,r]of e.entries()){if(0===r.mora.length){if(null===l){if(void 0===t)throw Error("wordReading is undefined, cannot parse posDataList");const e=C(t);l=this.normalizeReadingGetMoras(e)}r.mora=Array.from(l)}let e=this.buildWordReading(r);o&&!r.isBolded&&(e=`<b>${e}</b>`),n.push(e),i<s.length&&n.push(s[i])}return n.join("")}buildWordReading(e){const t=e.pos;let i=Array.from(e.mora);const n=i.length;if(0===i.length)return this.logger.warn("Reading has 0 mora?"),null;const o=this.getOption("autoPitchAccent.paOverride.kifukuOveride");if(0===t&&1===i.length)return i[0];const s='<span class="pitchoverline">',r="</span>",l='<span class="downstep"><span class="downstep-inner">ꜜ</span></span>';let a=null;o.includes(t)?(i.length<2?this.logger.warn("Cannot apply 起伏 on 1 mora word."):2==i.length?(i.splice(1,0,r+l),i.splice(0,0,s)):(i.splice(-1,0,r+l),i.splice(1,0,s)),a="kifuku"):0===t?(i.splice(1,0,s),i.push(r),a="heiban"):1===t?(i.splice(t,0,r+l),i.splice(0,0,s),a="atamadaka",1===n&&(a="odaka")):t<0?this.logger.warn(`Pitch Accent position (${t}) is negative.`):(t>i.length&&this.logger.warn(`Pitch Accent position (${t}) is greater than number of moras (${i.length}).`),i.splice(t,0,r+l),i.splice(1,0,s),a=t>=n?"odaka":"nakadaka"),e.allowAutoKifuku&&this.getOption("autoPitchAccent.paOverride.detectKifukuFromWordTags")&&t>=1&&function(e){for(const t of e)if(h.has(t))return!0;return!1}(this.wordTags)&&(a="kifuku"),e.paGroup=a;const d=i.join(""),c=document.createElement("span");return c.innerHTML=d,null!==a&&c.classList.add(`pa-group-${a}`),c.classList.add("pitchterm"),this.showTitle&&null!==e.dictName&&c.setAttribute("title",e.dictName),c.outerHTML}addPosition(e,t){var i;this.ajtHTML=t.AJTWordPitch,this.wordTags=0===(i=t.YomichanWordTags).length?[]:i.split(", ");let n=null;return 0!==t.PAOverrideText.length&&(n=new qe(t.PAOverrideText,"Pitch Accent Override Text")),null===n&&0!==t.PAOverride.length&&(n=new De(this,t.PAOverride,t.WordReading).parse()),null===n&&t.PAPositions.length>0&&(n=new xe(this,t.PAPositions,t.WordReading).parse()),null===n&&t.AJTWordPitch.length>0&&(n=new je(this,t.AJTWordPitch,t.WordReading,this.removeNasal).parse()),null===n&&(n=this.getDispPosDataOnEmpty(t.WordReading)),this.useDispPosData(e,n,t.tags),n}main(){const e={tags:u(),PAOverrideText:d("PAOverrideText"),PAOverride:d("PAOverride"),PAPositions:d("PAPositions"),AJTWordPitch:d("AJTWordPitch"),WordReading:d("WordReading"),YomichanWordTags:d("YomichanWordTags")},t=document.getElementById("dh_word_pitch_text");null!==t&&(t.removeAttribute("title"),this.addPosition(t,e))}}class Re extends ae{constructor(e,t){super(`sm:infoCircleSetting:${e}`),this.infoCircSettings=I("info_circle_text_settings"),this.infoCircSettingsBorder=I("info_circle_text_settings_border"),this.persist=j(),this.btn=I(e),this.persistKey=t}getNextState(){const e=this.getCurrentState();if(void 0!==e)return(e+1)%this.btn.children.length}getCurrentState(){if(this.btn.children.length<=1)return void this.logger.warn("Cannot toggle setting with <= 1 children");let e=null;for(let t=0;t<this.btn.children.length;t++)if(!this.btn.children[t].classList.contains("hidden")){e=t;break}if(null!==e)return e;this.logger.warn("Cannot toggle setting with all hidden children")}toggleDisplay(){let e=this.getNextState();if(void 0!==e)return this.displayAs(e)}displayAs(e){let t=e-1==-1?this.btn.children.length-1:e-1;return null!==this.persist&&void 0!==this.persistKey&&this.persist.set(this.persistKey,`${e}`),this.btn.children[t].classList.toggle("hidden",!0),this.btn.children[e].classList.toggle("hidden",!1),e}initDisplay(e){if(this.infoCircSettings.classList.toggle("hidden",!1),this.infoCircSettingsBorder.classList.toggle("hidden",!1),this.btn.classList.toggle("hidden",!1),void 0===e)return void this.btn.children[0].classList.toggle("hidden",!1);let t=e;return null!==this.persist?void 0!==this.persistKey&&void 0!==e&&(this.persist.has(this.persistKey)||this.persist.set(this.persistKey,`${e}`),t=Number(this.persist.get(this.persistKey))):this.logger.warn("Persistence is not available. Using default state..."),this.btn.children[t].classList.toggle("hidden",!1),t}}const Ne="img-blur-filter-init",He="img-blur-filter",We="img-blur-filter-disable",Be="img-clickable",ze="dh-right__show-eye";class Fe extends ae{constructor(e,t,i){super("sm:backImgBlurController"),this.dhImgBlur=document.getElementById("dh_img_container_blur_wrapper"),this.imgEye=document.getElementById("img_svg_eye"),this.imgCurrentlyBlurred=!1,this.backImgStylizer=e,this.imgBlur=t,this.imgEle=i}initImageBlur(){const e=this.imgBlur.setting.getCurrentState();void 0!==e&&this.setImageBlurToState(e,!0),this.imgEye.onclick=()=>{this.imgCurrentlyBlurred?this.removeImgBlur():this.addImgBlur()}}hidePictureEye(){this.dhImgBlur.classList.toggle(ze,!1)}showPictureEye(){this.dhImgBlur.classList.toggle(ze,!0)}pictureEyeBlur(){this.imgEye.children[0].setAttributeNS(null,"d","M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z")}pictureEyeNoBlur(){this.imgEye.children[0].setAttributeNS(null,"d","M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z")}setImageBlurToState(e,t=!1){0===e?(this.removeImgBlur(),this.imgBlur.cardIsMarked()||this.hidePictureEye()):1===e?this.imgBlur.cardIsMarked()?!this.imgCurrentlyBlurred&&this.imgBlur.cardIsMarked()&&this.addImgBlur(t):(this.removeImgBlur(),this.hidePictureEye()):2===e?this.addImgBlur(t):this.logger.warn(`Invalid image blur state: ${e}`)}addImgBlur(e=!1){this.dhImgBlur.classList.toggle(We,!1),e?this.dhImgBlur.classList.toggle(Ne,!0):this.dhImgBlur.classList.toggle(He,!0),this.backImgStylizer.removeClickToZoom(this.imgEle),this.showPictureEye(),this.pictureEyeBlur(),this.imgCurrentlyBlurred=!0}removeImgBlur(){this.dhImgBlur.classList.toggle(We,!0),this.dhImgBlur.classList.toggle(Ne,!1),this.dhImgBlur.classList.toggle(He,!1),this.backImgStylizer.addClickToZoom(this.imgEle,{addClickClass:!0}),this.pictureEyeNoBlur(),this.imgCurrentlyBlurred=!1}}class Ke extends ae{constructor(){super("sm:imgBlur"),this.setting=new Re("info_circle_text_settings_img_blur_toggle","jpmn-img-blur"),this.controller=null}setController(e){this.controller=e}cardIsMarked(){return function(e,t){for(const i of t)if(e.includes(i))return!0;return!1}(u(),te("imgStylizer.mainImage.blur.tags"))}displaySetting(){const e={never:0,"only-tagged":1,always:2},t=te("imgStylizer.mainImage.blur.startState");let i=0;t in e&&(i=e[t]),this.setting.initDisplay(i),this.setting.btn.onclick=()=>{var e;const t=this.setting.getNextState();if(0===t)m("No images will be blurred.");else if(1===t)m("Tagged images will be blurred.");else{if(2!==t)return void this.logger.warn(`Invalid image blur state: ${t}`);m("All images will be blurred.")}this.setting.displayAs(t),null!==this.controller&&(null===(e=this.controller)||void 0===e||e.setImageBlurToState(t))}}}class Je extends ae{constructor(e,t){super("sm:backImgStylizer"),this.dhRight=document.getElementById("dh_right"),this.dhLeft=document.getElementById("dh_left"),this.dhLeftAudioBtns=document.getElementById("dh_left_audio_buttons"),this.modal=document.getElementById("modal"),this.modalImg=document.getElementById("bigimg"),this.floatImgRight=document.getElementById("primary_definition_right_img"),this.floatImgLeft=document.getElementById("primary_definition_left_img"),this.primaryDefRawText=document.getElementById("primary_definition_raw_text"),this.primaryDefBlockquote=document.getElementById("primary_definition"),this.wordImgBox=document.getElementById("def_header"),this.dhImgContainer=document.getElementById("dh_img_container"),this.imgBlur=e,this.globalEventManager=t}getDisplayImg(){if(!n("Picture"))return null;const e=Array.from(this.dhImgContainer.getElementsByTagName("img"));return e&&e.length>0?(e.length>=2&&this.logger.warn("There are more than 2 images in the Picture field. Use the PrimaryDefinitionPicture field if you wish to add more than one image."),e[0]):null}attemptAddImageFromTags(){if(n("Picture"))return null;const e=te("imgStylizer.setMainImageFromTags");for(const t of e){const e=t.tag;if(u().includes(e)){const e=t.fileName,i=document.createElement("img");return i.src=e,this.dhImgContainer.appendChild(i),this.wordImgBox.classList.toggle("def-header--has-img",!0),this.wordImgBox.classList.toggle("def-header--no-img",!1),i}}return null}adjustForNoImg(){n("Picture")&&this.wordImgBox.classList.toggle("def-header--text-img",!0)}addClickToZoom(e,t){let i=e;void 0!==t&&(void 0!==t.imgEle&&(i=t.imgEle),t.addClickClass&&i.classList.toggle(Be,!0)),e.onclick=()=>{this.modal.style.display="block",this.modalImg.src=i.src}}removeClickToZoom(e){this.dhImgContainer.classList.toggle(Be,!1),e.onclick=()=>null}setCanBlur(e){if(null===this.imgBlur)return;const t=new Fe(this,this.imgBlur,e);this.imgBlur.setController(t),t.initImageBlur()}getStylizeMode(e){let t=te(`imgStylizer.glossary.primaryDef.mode.${e}`);const i=ie(u(),[[`imgStylizer.glossary.primaryDef.mode.${e}.tagOverride.float`,"float"],[`imgStylizer.glossary.primaryDef.mode.${e}.tagOverride.collapse`,"collapse"],[`imgStylizer.glossary.primaryDef.mode.${e}.tagOverride.none`,"none"],["imgStylizer.glossary.primaryDef.mode.general.tagOverride.float","float"],["imgStylizer.glossary.primaryDef.mode.general.tagOverride.collapse","collapse"],["imgStylizer.glossary.primaryDef.mode.general.tagOverride.none","none"]]);return void 0===i?t:i}createImgContainer(e){const t=document.createElement("span");t.classList.add("glossary__image-container");const i=document.createElement("a");i.classList.add("glossary__image-hover-text"),i.href="javascript:;",i.textContent="[Image]",i.setAttribute("data-suppress-link-hover","true");const n=document.createElement("img");return n.classList.add("glossary__image-hover-media"),n.setAttribute("data-jpmn-processed","true"),n.src=e,this.addClickToZoom(n),this.addClickToZoom(i,{imgEle:n}),t.appendChild(i),t.appendChild(n),f()&&(n.style.display="none"),t}setImgProcessed(e){const t=Array.from(e.getElementsByTagName("img"));for(const e of t)e.src.includes("yomichan_dictionary_media")&&e.setAttribute("data-jpmn-processed","true")}convertYomichanImgs(e,t){var i,n,o,s,r;const l=e.getElementsByTagName("a");for(const e of Array.from(l)){const l=e.getAttribute("href");if(l&&"yomichan_dictionary_media"===l.substring(0,25)&&!e.getAttribute("data-jpmn-processed")){if(this.logger.debug(`Converting yomichan image ${l} (mode=${t})...`),"float"===t){const t=document.createElement("img");t.src=l,this.floatImgRight.appendChild(t.cloneNode(!0)),this.floatImgLeft.appendChild(t),null===(i=e.parentNode)||void 0===i||i.removeChild(e)}else if("collapse"===t){const t=this.createImgContainer(l);null===(n=e.parentNode)||void 0===n||n.replaceChild(t,e)}else if("match-yomichan"===t)if("none"===(null===(s=null===(o=e.children[0])||void 0===o?void 0:o.style)||void 0===s?void 0:s.display)){const t=this.createImgContainer(l);null===(r=e.parentNode)||void 0===r||r.replaceChild(t,e)}else this.setImgProcessed(e);else this.setImgProcessed(e);e.setAttribute("data-jpmn-processed","true")}}}stylizeDictionaryGlossaryPics(){const e=te("imgStylizer.glossary.dictsOverride.mode.yomichan");for(const[t,i]of Object.entries(e))for(const e of Array.from(document.querySelectorAll(`ol li[data-details="${t}"]`)))this.convertYomichanImgs(e,i)}stylizePrimaryDefGlossaryPics(){var e;const t=this.getStylizeMode("user"),i=this.getStylizeMode("yomichan");if(this.convertYomichanImgs(this.primaryDefRawText,i),"none"!==t&&"match-yomichan"!==t){const i=Array.from(this.primaryDefRawText.getElementsByTagName("img"));for(const n of i)if(!n.getAttribute("data-jpmn-processed")&&!n.getAttribute("data-do-not-convert"))if(this.logger.debug(`Converting user-inserted image ${n.src} with mode ${t}...`),"collapse"===t){const t=this.createImgContainer(n.src);null===(e=n.parentNode)||void 0===e||e.replaceChild(t,n)}else this.floatImgRight.appendChild(n.cloneNode(!0)),this.floatImgLeft.appendChild(n)}}stylizeOtherGlossaryPics(){const e=Array.from(document.querySelectorAll(".glossary-text--raw-text:not(.glossary-text--raw-text-primary)"));for(const t of e)this.convertYomichanImgs(t,"collapse")}getFloatImgPos(){let e=te("imgStylizer.glossary.floatImg.position");const t=ie(u(),[["imgStylizer.glossary.floatImg.overrideTags.bottom","bottom"],["imgStylizer.glossary.floatImg.overrideTags.top","top"],["imgStylizer.glossary.floatImg.overrideTags.right","right"]]);return void 0===t?e:t}stylizeFloatImg(){if(0===this.floatImgRight.innerHTML.length)return void this.logger.debug("PrimaryDefinitionPicture is empty. Nothing has to be done.",2);let e=this.getFloatImgPos();"right"===e&&this.primaryDefBlockquote.classList.contains("glossary-primary-definition--no-definition")&&(e="top"),this.logger.debug(`float image position: ${e}`),"bottom"===e?this.primaryDefBlockquote.classList.add("glossary-blockquote--picture-below"):"top"===e?this.primaryDefBlockquote.classList.add("glossary-blockquote--picture-above"):"right"===e&&this.primaryDefBlockquote.classList.toggle("glossary-primary-definition--auto-no-lenience",!1);const t=Array.from(this.floatImgRight.getElementsByTagName("img")).concat(Array.from(this.floatImgLeft.getElementsByTagName("img")));for(const e of t)this.addClickToZoom(e,{addClickClass:!0})}modalInit(){this.modal.onclick=()=>{this.modalImg.classList.add("modal-img__zoom-out"),this.modal.classList.add("modal-img__zoom-out"),setTimeout((()=>{this.modal.style.display="none",this.modalImg.className="modal-img",this.modal.className="modal"}),200)}}main(){let e=this.getDisplayImg();null===e&&(e=this.attemptAddImageFromTags()),K(e,this.dhLeft,this.dhRight),this.globalEventManager.addWindowResizeFunc("adjustElements",(t=>{K(e,this.dhLeft,this.dhRight)})),null===e?this.adjustForNoImg():(this.addClickToZoom(e,{addClickClass:!0}),e.classList.add("dh-right__img"),te("imgStylizer.mainImage.blur.enabled")&&this.setCanBlur(e)),this.modalInit(),this.stylizeDictionaryGlossaryPics(),te("imgStylizer.glossary.primaryDef.enabled")&&this.stylizePrimaryDefGlossaryPics(),te("imgStylizer.glossary.other.enabled")&&this.stylizeOtherGlossaryPics(),te("imgStylizer.glossary.floatImg.enabled")&&this.stylizeFloatImg()}}class Ge extends de{constructor(e){super("imgStylizer"),this.globalEventManager=e}getDisplayImg(){const e=document.getElementById("dh_img_container");if(null===e)return null;const t=e.getElementsByTagName("img");return t?t[0]:void 0}main(){let e=null;te("imgStylizer.mainImage.blur.enabled")&&(e=new Ke,e.displaySetting()),"back"===b()&&new Je(e,this.globalEventManager).main()}}const Ue="ankiConnectUtils.getQueryCacheKey",Qe="ankiConnectUtils.getCardInfoCacheKey";function Ve(e,t={}){return new Promise(((i,n)=>{const o=new XMLHttpRequest;o.addEventListener("error",(()=>n("AnkiConnect failed to issue request."))),o.addEventListener("load",(()=>{try{const e=JSON.parse(o.responseText);if(2!=Object.getOwnPropertyNames(e).length)throw"response has an unexpected number of fields";if(!e.hasOwnProperty("error"))throw"response is missing required error field";if(!e.hasOwnProperty("result"))throw"response is missing required result field";if(e.error)throw e.error;i(e.result)}catch(e){n(e)}})),o.open("POST","http://127.0.0.1:8765"),o.send(JSON.stringify({action:e,version:6,params:t}))}))}function Ye(e){return e.replace(/\\/g,"\\\\").replace(/"/g,'\\"')}function Ze(e){return{action:"findCards",version:6,params:{query:e}}}function Xe(e,t){const i=`${Ue}.${t}`;return e.has(i)?e.get(i):null}function et(e,t,i){const n=`${Ue}.${t}`;e.set(n,i)}function tt(e,t,i){const n=`${Qe}.${t}`;e.set(n,i)}function it(e,t){const i=`${Qe}.${t}`;return e.has(i)?e.get(i):null}function nt(e,t=!0,i=!0){return n=this,o=void 0,r=function*(){const n={};if(t){const t=$();if(null!==t)for(const i of e){const e=it(t,i);null!==e&&(n[i]=e)}}const o=[];for(const t of e)t in n||o.push(t);const s=yield Ve("cardsInfo",{cards:o});for(let e=0;e<o.length;e++){const t=o[e],i=s[e];n[t]=i}if(i){const e=$();if(null!==e)for(let t=0;t<o.length;t++)tt(e,o[t],s[t])}return n},new((s=void 0)||(s=Promise))((function(e,t){function i(e){try{a(r.next(e))}catch(e){t(e)}}function l(e){try{a(r.throw(e))}catch(e){t(e)}}function a(t){var n;t.done?e(t.value):(n=t.value,n instanceof s?n:new s((function(e){e(n)}))).then(i,l)}a((r=r.apply(n,o||[])).next())}));var n,o,s,r}function ot(e,t){const i=[];for(const n of e){if(!(n in t))throw Error("id not in cardsInfoResult: ${id}");i.push(t[n])}return i}class st{constructor(){this.segments=[]}addSegment(e,t=!1){if(e.length>0){const i=`${t?"-":""}(${e})`;this.segments.push(i)}return this}build(){return this.segments.join(" ")}clone(){const e=new st;return e.segments=Array.from(this.segments),e}}class rt{constructor(e){this.wordDiv=null,this.mainPAGroup=null,this.sentDiv=null,this.isNew=!1,this.tooltips=e}addWordDiv(e){return this.wordDiv=e,this}addSentDiv(e){return this.sentDiv=e,this}createWordDiv(e,t=null,i=null){return[this.wordDiv,this.mainPAGroup]=this.tooltips.buildWordDiv(e,t,i),this}createSentDiv(e){return this.sentDiv=this.tooltips.buildSentDiv(e),this}setNew(){this.isNew=!0}build(){var e,t,i;const n=document.createElement("div");if(n.classList.add("hover-tooltip__card"),null===this.wordDiv&&null===this.sentDiv)throw Error("Cannot make a card with both empty wordDiv and sentDiv");if(this.mainPAGroup){if(this.tooltips.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.wordReadingKanji")){const t="pa-sentence-highlight-"+this.mainPAGroup;null===(e=this.wordDiv)||void 0===e||e.classList.add(t)}this.tooltips.autoPA.getOption("autoPitchAccent.coloredPitchAccent.color.fullSentence")&&this.tooltips.getOption("tooltips.highlightWordInSentence")&&(null===(t=this.sentDiv)||void 0===t||t.classList.add(`pa-sentence-highlight-${this.mainPAGroup}`))}return this.tooltips.getOption("tooltips.highlightWordInSentence")&&(null===(i=this.sentDiv)||void 0===i||i.classList.add("highlight-bold")),null!==this.wordDiv&&n.appendChild(this.wordDiv),null!==this.sentDiv&&n.appendChild(this.sentDiv),null!==this.sentDiv&&null===this.wordDiv&&n.classList.add("hover-tooltip__card--sentence-only"),this.isNew&&n.classList.add("hover-tooltip__card--new"),this.tooltips.getOption("tooltips.displayPitchAccentOnHoverOnly")&&n.classList.add("hover-tooltip__card-div--hover"),n}}class lt{constructor(e){this.hoverText=null,this.onEmptyText=null,this.cardDivs=[],this.tooltips=e}addCardDiv(e){this.cardDivs.length>0&&e.classList.add("hover-tooltip--not-first"),this.cardDivs.push(e)}addSeparator(){const e=document.createElement("div");e.classList.add("hover-tooltip__card"),e.classList.add("hover-tooltip__card--separator"),this.cardDivs.push(e)}addHoverText(e){this.hoverText=e}addOnEmptyText(e){this.onEmptyText=e}buildTooltipOnly(){const e=document.createElement("span");e.classList.add("hover-tooltip");for(const t of this.cardDivs)e.appendChild(t);if(0===e.children.length){if(null===this.onEmptyText)throw Error("Empty tooltip, but no empty text was specified");"string"==typeof this.onEmptyText?e.textContent=this.onEmptyText:e.appendChild(this.onEmptyText)}return e}build(){if(null===this.hoverText)throw Error("No hover text found, cannot build tooltip");const e=document.createElement("span");e.classList.add("hover-tooltip-wrapper");const t=document.createElement("span");t.classList.add("hover-wrapper");const i=document.createElement("span");return i.classList.add("hover-text"),"string"==typeof this.hoverText?i.textContent=this.hoverText:i.appendChild(this.hoverText),e.appendChild(this.buildTooltipOnly()),t.appendChild(i),t.appendChild(e),t}}class at extends ae{constructor(){super("sm:tooltips"),this.autoPA=new $e("tb:autoPitchAccent",{attemptGlobalColor:!1,showTitle:!1,removeNasal:!0,debugLevel:2}),this.autoPA.overrideOptions(this.getOption("tooltips.overrideOptions.autoPitchAccent")),this.sentParser=new Ee("tb:sentenceParser",{debugLevel:2}),this.sentParser.overrideOptions(this.getOption("tooltips.overrideOptions.sentenceParser"))}newCardBuilder(){return new rt(this)}newBuilder(){return new lt(this)}buildWordDiv(e,t,i=null){var n;const o=document.createElement("div");o.classList.add("hover-tooltip__word-div");let s=T(e.WordReading);null!==t&&(s=s.replace(new RegExp(t,"g"),`<b>${t}</b>`));const r=document.createElement("span");r.innerHTML=s,r.classList.add("hover-tooltip__word-span"),null!==i&&r.setAttribute("data-cid",i.toString()),o.appendChild(r);let l=null;if(this.getOption("tooltips.displayPitchAccent")){const t=document.createElement("span");t.classList.add("hover-tooltip__pitch-accent");const i=this.autoPA.addPosition(t,e);l=null!==(n=null==i?void 0:i.mainPAGroup)&&void 0!==n?n:null,o.appendChild(t)}return[o,l]}buildSentDiv(e){const t=document.createElement("div");t.classList.add("hover-tooltip__sent-div"),t.classList.add("left-align-quote");const i=document.createElement("span");i.innerHTML="「";const n=document.createElement("span");n.innerHTML=e.Sentence;const o=document.createElement("span");o.innerHTML="」",t.appendChild(i),t.appendChild(n),t.appendChild(o);const s={open:t.children[0],contents:t.children[1],close:t.children[2],base:t};return this.sentParser.processSentence(s,"fullSent",e),t}getCardBaseQuery(e){return`-"Key:${Ye(e)}" "note:JP Mining Note" "card:Mining Card"`}getQuery(e){const t=this.getOption(`tooltips.query.${e}.base`),i=this.getOption(`tooltips.query.${e}.removed`);return(new st).addSegment(t).addSegment(i,!0)}getQueryBuilderGroup(){const e=this.getQuery("new");return{"nonNew.default":this.getQuery("nonNew"),"new.default":e}}addBrowseOnClick(e){for(const t of e.querySelectorAll("[data-cid]")){let e=t.getAttribute("data-cid");null!==e&&(t.onclick=()=>{Ve("guiBrowse",{query:`cid:${e}`})},t.classList.add("hover-tooltip__word-div--clickable"))}}cardInfoToNoteInfoTooltipBuilder(e,t=null,i=null){let n=e.fields.Sentence.value;if(null!==t){if(!n.includes(t))throw Error(`Cannot use boldSentKanji ${t} when kanji does not exist in sentence: ${n}`);n=n.replace(/<b>|<\/b>/g,"");const e=new RegExp(t,"g");n=null===i?n.replace(e,`<b>${t}</b>`):n.replace(e,`<b><span data-cid="${i}">${t}</span></b>`)}return{AJTWordPitch:e.fields.AJTWordPitch.value,PAOverride:e.fields.PAOverride.value,PAOverrideText:e.fields.PAOverrideText.value,PAPositions:e.fields.PAPositions.value,Sentence:n,Word:e.fields.Word.value,WordReading:e.fields.WordReading.value,WordReadingHiragana:e.fields.WordReading.value,YomichanWordTags:e.fields.YomichanWordTags.value,tags:[]}}}var dt=function(e,t,i,n){return new(i||(i=Promise))((function(o,s){function r(e){try{a(n.next(e))}catch(e){s(e)}}function l(e){try{a(n.throw(e))}catch(e){s(e)}}function a(e){var t;e.done?o(e.value):(t=e.value,t instanceof i?t:new i((function(e){e(t)}))).then(r,l)}a((n=n.apply(e,t||[])).next())}))};class ct extends ce{constructor(e,t){super("kanjiHover"),this.persist=j(),this.persistObj=$(),this.noteInfo={WordReading:d("WordReading"),WordReadingRubyHTML:T(d("WordReading")),Key:d("Key")},this.tooltips=new at,this.tooltips.overrideOptions(te("kanjiHover.overrideOptions.tooltips")),this.cardWordReadingResultKey=`KanjiHover.cardWordReadingResultKey.${p()}`,this.cardHoverHTMLCacheKey=`KanjiHover.cardHoverHTMLCacheKey.${p()}`,this.mobilePopup=t,this.wordReadingEle=document.getElementById("dh_reading"),this.cardCache=e;const i=["Key","Word","WordReading"];for(const e of i)a(e)}wordReadingKanjis(e){let t=new Set;const i=e.WordReading.matchAll(/([\u4E00-\u9FAF])(?![^<]*>|[^<>]*<\/g)/g);for(const e of i)for(const i of e)t.add(i);return t}cardQueries(e,t){return dt(this,void 0,void 0,(function*(){const i=this.tooltips.getCardBaseQuery(d("Key"));let n={},o={};for(const o of t){const t=Ye(e.WordReading),s=`-"WordReading:${t}" Word:*${o}*`,r=`-"WordReading:${t}" -Word:*${o}* Sentence:*${o}*`,l=this.tooltips.getQueryBuilderGroup(),a={"word.nonNew.default":"","word.new.default":"","sent.nonNew.default":"","sent.new.default":""};for(const[e,t]of Object.entries(l)){t.addSegment(i);const n=t.clone();t.addSegment(s),a[`word.${e}`]=t.build(),n.addSegment(r),a[`sent.${e}`]=n.build()}n[o]=a}for(const[e,t]of Object.entries(n))if(o[e]={"word.nonNew.default":[-1],"word.new.default":[-1],"sent.nonNew.default":[-1],"sent.new.default":[-1]},this.useCache)for(const[i,n]of Object.entries(t))if(null!==this.persistObj){const t=Xe(this.persistObj,n);null!==t&&(o[e][i]=t)}let s=[],r=[],l=[],a=[];for(const[e,t]of Object.entries(o))for(const[i,o]of Object.entries(t))if(1===o.length&&-1===o[0]){const t=n[e][i];s.push(t),r.push(e),l.push(i);const o=Ze(t);a.push(o)}const c=yield Ve("multi",{actions:a});for(let e=0;e<c.length;e++){const t=s[e],i=r[e],n=l[e],a=c[e].result;null!==this.persistObj&&et(this.persistObj,t,a),o[i][n]=a}return o}))}sortByTimeCreated(e){const t=this.getOption("tooltips.categoryMax.nonNew.oldest"),i=this.getOption("tooltips.categoryMax.nonNew.newest"),n=this.getOption("tooltips.categoryMax.new.oldest"),o=this.getOption("tooltips.categoryMax.new.newest"),s={};for(const[r,l]of Object.entries(e)){const[e,a]=A([l["word.nonNew.default"],l["sent.nonNew.default"]],[l["word.new.default"],l["sent.new.default"]],t,i,n,o);s[r]={"word.nonNew":e[0],"sent.nonNew":e[1],"word.new":a[0],"sent.new":a[1]}}return s}getCardInfo(e){return dt(this,void 0,void 0,(function*(){const t=new Set,i={};for(const i of Object.values(e)){const e=[...i["word.nonNew"],...i["word.new"],...i["sent.nonNew"],...i["sent.new"]];for(const i of e)t.add(i)}const n=[...t],o=yield nt(n,this.useCache);for(const[t,n]of Object.entries(e))i[t]={"word.nonNew":ot(n["word.nonNew"],o),"word.new":ot(n["word.new"],o),"sent.nonNew":ot(n["sent.nonNew"],o),"sent.new":ot(n["sent.new"],o)};return i}))}buildTooltips(e,t){for(const[i,n]of Object.entries(e))t[i]=this.buildTooltip(n,i)}addCardsInfoToTooltip(e,t,i,n,o){for(const s of e){const e=this.tooltips.newCardBuilder();if(n){const i=this.tooltips.cardInfoToNoteInfoTooltipBuilder(s,t,s.cardId);e.createSentDiv(i)}else{const i=this.tooltips.cardInfoToNoteInfoTooltipBuilder(s);e.createWordDiv(i,t,s.cardId),e.createSentDiv(i)}o&&e.setNew(),i.addCardDiv(e.build())}}buildTooltip(e,t){const i=this.tooltips.newBuilder(),n=e["word.nonNew"].length+e["word.new"].length,o=e["sent.nonNew"].length+e["sent.new"].length;return this.addCardsInfoToTooltip(e["word.nonNew"],t,i,!1,!1),this.addCardsInfoToTooltip(e["word.new"],t,i,!1,!0),n>0&&o>0&&i.addSeparator(),this.getOption("kanjiHover.searchSentences")&&(this.addCardsInfoToTooltip(e["sent.nonNew"],t,i,!0,!1),this.addCardsInfoToTooltip(e["sent.new"],t,i,!0,!0)),i.addHoverText(t),i.addOnEmptyText("Kanji not found."),i.build().outerHTML}getKanjisToHover(e){return dt(this,void 0,void 0,(function*(){let t=this.wordReadingKanjis(e),i={};const n=yield this.cardQueries(e,Array.from(t));let o=this.sortByTimeCreated(n);const s=yield this.getCardInfo(o);return this.buildTooltips(s,i),i}))}getWordReadingResult(e,t){let i=t;if(Object.keys(e).length>0){const n=new RegExp(Object.keys(e).join("|"),"gi");i=t.replace(n,(function(t){return`<span data-kanji-hover="${t}">${e[t]}</span>`}))}return i}populateTooltips(){return dt(this,void 0,void 0,(function*(){if(null===this.wordReadingEle)return void this.logger.debug("Cannot run kanji hover due to null wordReadingEle");this.logger.debug(`Running on ${p()}...`);let e=yield this.getKanjisToHover(this.noteInfo);this.displayResultFromKanjiToHoverHTML(e,this.wordReadingEle),this.logger.debug(`Finished running on ${p()}...`)}))}displayResultFromKanjiToHoverHTML(e,t){var i,n;null===(i=this.persist)||void 0===i||i.set(this.cardHoverHTMLCacheKey,JSON.stringify(e));let o=this.getWordReadingResult(e,this.noteInfo.WordReadingRubyHTML);null===(n=this.persist)||void 0===n||n.set(this.cardWordReadingResultKey,o),null!==this.mobilePopup?this.mobilePopup.setupKanjiHover(e,t,this.noteInfo.WordReadingRubyHTML):(t.innerHTML=o,this.tooltips.addBrowseOnClick(t))}displayCachedResult(e,t){if(this.logger.debug("Using cached card"),null!==this.mobilePopup){const i=JSON.parse(e.get(this.cardHoverHTMLCacheKey));this.mobilePopup.setupKanjiHover(i,t,this.noteInfo.WordReadingRubyHTML)}else{const i=e.get(this.cardWordReadingResultKey);t.innerHTML=i,this.tooltips.addBrowseOnClick(t)}}main(){var e;return dt(this,void 0,void 0,(function*(){if(this.useCache&&null!==this.wordReadingEle){if(null!==this.persist&&this.persist.has(this.cardWordReadingResultKey))return void this.displayCachedResult(this.persist,this.wordReadingEle);if(null===(e=this.cardCache)||void 0===e?void 0:e.shouldUse()){const e=this.cardCache.getKanjiHoverData();if(e){const t={};for(const i of e.children){const e=i.getAttribute("data-cache-kanji"),n=i.innerHTML;null!==e&&(t[e]=n)}return this.logger.debug("Using CardCache"),void this.displayResultFromKanjiToHoverHTML(t,this.wordReadingEle)}}}this.getOption("enableAnkiconnectFeatures")&&null!==this.wordReadingEle&&(this.wordReadingEle.onmouseover=()=>{null!==this.wordReadingEle&&(this.wordReadingEle.onmouseover=function(){}),this.populateTooltips()})}))}}function ut(e){return t=this,i=void 0,o=function*(){if(y())return!1;if(!te("enableAnkiconnectFeatures"))return!1;const t=R(),i=Ye(d("Key")),n=Ye(d("Sentence")),o=`isNew.cardIsNewKey.${i}.${n}`;if(null==t?void 0:t.has(o)){const i=t.get(o);if(!i)return i;if("back"===e)return i}le.debug("Testing for new card...",2);const s=`is:new "Key:${i}" "Sentence:${n}" "note:JP Mining Note" "card:Mining Card"`,r=yield Ve("findCards",{query:s}),l=Array.isArray(r)&&r.length>0;return le.debug(`is new: ${l}, query: ${s}, result: ${r}`,1),null==t||t.set(o,l?"true":""),l},new((n=void 0)||(n=Promise))((function(e,s){function r(e){try{a(o.next(e))}catch(e){s(e)}}function l(e){try{a(o.throw(e))}catch(e){s(e)}}function a(t){var i;t.done?e(t.value):(i=t.value,i instanceof n?i:new n((function(e){e(i)}))).then(r,l)}a((o=o.apply(t,i||[])).next())}));var t,i,n,o}var ht=function(e,t,i,n){return new(i||(i=Promise))((function(o,s){function r(e){try{a(n.next(e))}catch(e){s(e)}}function l(e){try{a(n.throw(e))}catch(e){s(e)}}function a(e){var t;e.done?o(e.value):(t=e.value,t instanceof i?t:new i((function(e){e(t)}))).then(r,l)}a((n=n.apply(e,t||[])).next())}))};class gt{constructor(e,t,i,n,o){this.label=e,this.baseIndicatorQuery=t,this.wordInds=i,this.indicatorEle=n,this.infoCircIndicatorEle=o,this.cacheKey=`WordIndicators.wordIndicatorCardCacheKey.${e}.${p()}`}getQueryResults(){return ht(this,void 0,void 0,(function*(){const e=this.wordInds.tooltips.getCardBaseQuery(d("Key")),t={"nonNew.default":"","new.default":""},i=this.wordInds.tooltips.getQueryBuilderGroup();for(const[n,o]of Object.entries(i))o.addSegment(e),o.addSegment("-WordReadingHiragana:"),o.addSegment(this.baseIndicatorQuery),t[`${n}`]=o.build();const n={"nonNew.default":[-1],"new.default":[-1]};if(this.wordInds.useCache)for(const[e,i]of Object.entries(t))if(null!==this.wordInds.persistObj){const t=Xe(this.wordInds.persistObj,i);null!==t&&(n[e]=t)}let o=[],s=[],r=[];for(const[e,i]of Object.entries(n))if(1===i.length&&-1===i[0]){const i=t[e];o.push(i),s.push(e);const n=Ze(i);r.push(n)}const l=yield Ve("multi",{actions:r});for(let e=0;e<l.length;e++){const t=o[e],i=s[e],r=l[e].result;null!==this.wordInds.persistObj&&et(this.wordInds.persistObj,t,r),n[i]=r}return n}))}sortByTimeCreated(e){const t=this.wordInds.tooltips.getOption("tooltips.categoryMax.nonNew.oldest"),i=this.wordInds.tooltips.getOption("tooltips.categoryMax.nonNew.newest"),n=this.wordInds.tooltips.getOption("tooltips.categoryMax.new.oldest"),o=this.wordInds.tooltips.getOption("tooltips.categoryMax.new.newest"),[s,r]=A([e["nonNew.default"],[]],[e["new.default"],[]],t,i,n,o);return{nonNew:s[0],new:r[0]}}getCardInfo(e){return ht(this,void 0,void 0,(function*(){const t=new Set,i=[...e.nonNew,...e.new];for(const e of i)t.add(e);const n=[...t],o=yield nt(n,this.wordInds.useCache);return{nonNew:ot(e.nonNew,o),new:ot(e.new,o)}}))}addCurrentCardToTooltip(e){const t={AJTWordPitch:d("AJTWordPitch"),PAOverride:d("PAOverride"),PAOverrideText:d("PAOverrideText"),PAPositions:d("PAPositions"),Sentence:d("Sentence"),Word:d("Word"),WordReading:d("WordReading"),WordReadingHiragana:d("WordReadingHiragana"),YomichanWordTags:d("YomichanWordTags"),tags:u()},i=this.wordInds.tooltips.newCardBuilder();i.createWordDiv(t);const n=i.build();n.classList.add("dh-left__similar-words-indicators-main-word"),e.addCardDiv(n)}addCardsInfoToTooltip(e,t,i){for(const n of e){const e=this.wordInds.tooltips.newCardBuilder(),o=this.wordInds.tooltips.cardInfoToNoteInfoTooltipBuilder(n);e.createWordDiv(o,null,n.cardId),e.createSentDiv(o),i&&e.setNew(),t.addCardDiv(e.build())}}buildTooltip(e){const t=this.wordInds.tooltips.newBuilder();return this.addCurrentCardToTooltip(t),this.addCardsInfoToTooltip(e.nonNew,t,!1),this.addCardsInfoToTooltip(e.new,t,!0),t.buildTooltipOnly().innerHTML}display(){var e,t;return ht(this,void 0,void 0,(function*(){if(!(null===(e=this.wordInds.persist)||void 0===e?void 0:e.has(this.cacheKey)))return void this.wordInds.logger.debug(`${this.label} -> nothing cached?`);const i=null===(t=this.wordInds.persist)||void 0===t?void 0:t.get(this.cacheKey);if(0!==i.length)if(this.wordInds.logger.debug(`${this.label} -> displaying...`),null!==this.wordInds.mobilePopup)this.wordInds.mobilePopup.setupWordIndicator(this,this.wordInds.infoCircIndicatorsGroupEle,i);else{const e=this.indicatorEle,t=this.wordInds.dhLeftEle;if(null===e||null===t)return void this.wordInds.logger.warn(`Cannot display indicator: ${this.label}`);e.children[1].children[0].innerHTML=i,e.classList.toggle("dh-left__similar-words-indicator--visible",!0),(yield ut("back"))&&e.classList.toggle("dh-left__similar-words-indicator--new",!0),this.wordInds.tooltips.addBrowseOnClick(e)}else this.wordInds.logger.debug(`${this.label} -> empty`)}))}isCached(){var e;return this.wordInds.useCache&&(null===(e=this.wordInds.persist)||void 0===e?void 0:e.has(this.cacheKey))}getTooltipHTML(){var e,t;return ht(this,void 0,void 0,(function*(){const i=document.getElementById(this.label);if(null==i||i.classList.toggle("dh-left__similar-words-indicator--visible",!1),this.isCached())return this.wordInds.logger.debug("Has cached indicator"),null!==(t=null===(e=this.wordInds.persist)||void 0===e?void 0:e.get(this.cacheKey))&&void 0!==t?t:"";this.wordInds.logger.debug(`Running ${this.label}`);const n=yield this.getQueryResults();if(0===n["new.default"].length+n["nonNew.default"].length)return null!==this.wordInds.persist&&this.wordInds.persist.set(this.cacheKey,""),this.wordInds.logger.debug(`Finished running ${this.label}: nothing found`),"";let o=this.sortByTimeCreated(n);const s=yield this.getCardInfo(o);return this.buildTooltip(s)}))}}class pt extends ce{constructor(e,t){super("wordIndicators"),this.persist=R(),this.persistObj=$(),this.indicatorEleSameWord=document.getElementById("same_word_indicator"),this.indicatorEleSameKanji=document.getElementById("same_kanji_indicator"),this.indicatorEleSameReading=document.getElementById("same_reading_indicator"),this.infoCircIndicatorsGroupEle=document.getElementById("ic_similar_words_indicators"),this.infoCircIndicatorEleSameWord=document.getElementById("ic_same_word_indicator"),this.infoCircIndicatorEleSameKanji=document.getElementById("ic_same_kanji_indicator"),this.infoCircIndicatorEleSameReading=document.getElementById("ic_same_reading_indicator"),this.dhLeftEle=document.getElementById("dh_left"),this.cardSide=b(),this.tooltips=new at,this.tooltips.overrideOptions(te("wordIndicators.overrideOptions.tooltips")),this.mobilePopup=t,this.cardCache=e;const i=["Key","AJTWordPitch","PAOverride","PAOverrideText","PAPositions","Sentence","Word","WordReading","WordReadingHiragana","YomichanWordTags"];for(const e of i)a(e)}getIndicators(){const e=Ye(d("Word")),t=Ye(d("WordReadingHiragana")),i=`"Word:${e}" -"WordReadingHiragana:${t}"`,n=`-"Word:${e}"  "WordReadingHiragana:${t}"`;return[new gt("same_word_indicator",`"Word:${e}"  "WordReadingHiragana:${t}"`,this,this.indicatorEleSameWord,this.infoCircIndicatorEleSameWord),new gt("same_kanji_indicator",i,this,this.indicatorEleSameKanji,this.infoCircIndicatorEleSameKanji),new gt("same_reading_indicator",n,this,this.indicatorEleSameReading,this.infoCircIndicatorEleSameReading)]}displayIndicatorsFromCache(e,t,i){return ht(this,void 0,void 0,(function*(){if("back"===this.cardSide)if(null!==e&&e.has(i)){this.logger.debug("Displaying results from cache"),yield e.get(i);for(const e of t)e.display()}else this.logger.warn("cannot persist or results are not cached")}))}main(){var e,t,i;return ht(this,void 0,void 0,(function*(){const n=`WordIndicators.wordIndicatorsCardResultCacheKey.${p()}`,o=$();if(this.useCache&&null!==this.persist){if(null==o?void 0:o.has(n)){const e=this.getIndicators();return void(yield this.displayIndicatorsFromCache(o,e,n))}if(null===(e=this.cardCache)||void 0===e?void 0:e.shouldUse()){const e=this.cardCache.getWordIndsData();if(e){this.logger.debug("Using CardCache");const n=this.getIndicators();for(const o of n){const n=null!==(i=null===(t=e.querySelector(`[data-cache-label="${o.label}"]`))||void 0===t?void 0:t.innerHTML)&&void 0!==i?i:"";null!==n&&"back"===this.cardSide&&(this.persist.set(o.cacheKey,n),o.display())}return}}}const s=this.getOption("wordIndicators.getResultsFront");if((s||"front"!==this.cardSide)&&this.getOption("enableAnkiconnectFeatures")&&(s||!s&&"back"===this.cardSide)){const e=this.getIndicators();if(null===o)return void this.logger.warn("cannot persist, will not get results...");if(this.useCache&&o.has(n))this.logger.debug("no reason to get results: already queued");else{let t=()=>ht(this,void 0,void 0,(function*(){for(const t of e){const e=yield t.getTooltipHTML();null!==this.persist&&(this.persist.set(t.cacheKey,e),this.logger.debug(`${t.label}: cached result of length ${e.length}`))}return!0}));o.set(n,t())}yield this.displayIndicatorsFromCache(o,e,n)}}))}}class mt extends de{constructor(){super("mobileUtils")}main(){var e;if(f()&&(s("IsClickCard")&&(null===(e=document.getElementById("display"))||void 0===e||e.classList.toggle("expression__hybrid--click-hover-effect",!1)),y())){const e=document.querySelector('.glossary__external-links a[data-details="yomichan-textbender-definition"]');if(e){let t="";for(const e of document.querySelectorAll("#primary_definition_raw_text b"))t+=e.textContent;t.length>0&&(e.href=`textbender://x?x=${t}`)}}}}class ft extends ae{constructor(){super(...arguments),this.ele=document.getElementById("mobile_popup"),this.textEle=document.getElementById("mobile_popup_text"),this.titleCloseEle=document.getElementById("mobile_popup_title_close"),this.wrapperEle=document.getElementById("mobile_popup_wrapper"),this.mainEle=document.querySelector(".card-main"),this.wordIndsGroupEle=null,this.kanjiEles=null}getKanjiHoverTooltip(e){var t;const i=document.createElement("span");i.innerHTML=e;const n=i.querySelector(".hover-tooltip-wrapper > .hover-tooltip");return null!==(t=null==n?void 0:n.innerHTML)&&void 0!==t?t:""}resetSelectionIndicators(){var e;const t=null===(e=this.wordIndsGroupEle)||void 0===e?void 0:e.querySelectorAll(".card-description__word-indicator");if(void 0!==t)for(const e of t)e.classList.toggle("card-description__word-indicator--selected",!1);if(null!==this.kanjiEles)for(const e of this.kanjiEles)e.classList.toggle("dh-left__reading--kanji-selected",!1)}adjustCardHeight(e,t,i){const n=i.offsetHeight,o=t.offsetHeight;e.style.marginBottom=`calc(${n/2+o/2}px + 2vh)`}resetCardHeight(e){e.style.removeProperty("margin-bottom")}setupWordIndicator(e,t,i){this.wordIndsGroupEle=t;const n=e.infoCircIndicatorEle;null!==n&&null!==t?(n.classList.toggle("hidden",!1),n.onclick=()=>{var t;if(this.resetSelectionIndicators(),null===this.ele||null===this.wrapperEle||null===this.mainEle||null===this.textEle)return;const o=null===(t=this.ele.querySelector("[data-word-indicator-search]"))||void 0===t?void 0:t.getAttribute("data-word-indicator-search"),s=document.createElement("div"),r=e.label;s.setAttribute("data-word-indicator-search",r),this.wrapperEle.classList.contains("hidden")||null!==o&&o!==r?(s.innerHTML=i,this.wrapperEle.classList.toggle("hidden",!1),this.textEle.innerHTML="",this.textEle.appendChild(s),this.adjustCardHeight(this.mainEle,this.ele,this.wrapperEle),n.classList.toggle("card-description__word-indicator--selected",!0)):(this.wrapperEle.classList.toggle("hidden",!0),this.resetCardHeight(this.mainEle))}):this.logger.warn(`Cannot display indicator: ${e.label}`)}setupKanjiHover(e,t,i){if(Object.keys(e).length>0){const n=new RegExp(Object.keys(e).join("|"),"gi"),o=i.replace(n,(function(e){return`<span data-kanji-hover="${e}">${e}</span>`}));t.innerHTML=o}const n=t.querySelectorAll("span[data-kanji-hover]");this.kanjiEles=Array.from(n);for(const t of n)t.onclick=()=>{var i;if(this.resetSelectionIndicators(),null===this.ele||null===this.wrapperEle||null===this.mainEle||null===this.textEle)return void this.logger.warn("Cannot display kanji for kanji hover");const n=null===(i=this.ele.querySelector("[data-kanji-search]"))||void 0===i?void 0:i.getAttribute("data-kanji-search"),o=document.createElement("div"),s=t.getAttribute("data-kanji-hover");o.setAttribute("data-kanji-search",null!=s?s:""),this.wrapperEle.classList.contains("hidden")||null!==n&&n!==s?(null!==s&&s in e&&(o.innerHTML=this.getKanjiHoverTooltip(e[s])),this.wrapperEle.classList.toggle("hidden",!1),this.textEle.innerHTML="",this.textEle.appendChild(o),this.adjustCardHeight(this.mainEle,this.ele,this.wrapperEle),t.classList.toggle("dh-left__reading--kanji-selected",!0)):(this.wrapperEle.classList.toggle("hidden",!0),this.resetCardHeight(this.mainEle))};null!==this.titleCloseEle&&(this.titleCloseEle.onclick=()=>{var e;this.resetSelectionIndicators(),null===(e=this.wrapperEle)||void 0===e||e.classList.toggle("hidden",!0),null!==this.mainEle&&this.resetCardHeight(this.mainEle)})}}const yt="info-circle--frozen",vt="info-circle-text-wrapper--zoom-out";class wt extends de{constructor(){super("infoCircleUtils"),this.infoCirc=document.getElementById("info_circle"),this.infoCircWrapper=document.getElementById("info_circle_wrapper"),this.infoCircTextWrapper=document.getElementById("info_circle_text_wrapper"),this.infoCircTags=document.getElementById("info_circle_text_tags"),this.infoCircTagsText=document.getElementById("info_circle_text_tags_text"),this.enableAnkiconnectFeatures=te("enableAnkiconnectFeatures")}partitionTags(){const e=[],t=[],i=new Set(te("infoCircleUtils.dataTags"));for(const n of u())i.has(n)?e.push(n):t.push(n);return[e,t]}createTagEle(e,t){const i=document.createElement("span");return i.innerText=e,this.enableAnkiconnectFeatures&&(i.onclick=()=>{Ve("guiBrowse",{query:`tag:${e}`})}),i.setAttribute("data-tag-value",e),i.classList.add("info-circle-tag"),t&&i.classList.add("info-circle-tag--grey"),i}setToggleClick(){var t;if(null===this.infoCircWrapper||null===this.infoCirc||null===this.infoCircTextWrapper)return;const i=f(),n=J()<e,o=()=>{var e;null===(e=this.infoCirc)||void 0===e||e.classList.add(yt),n||m("Info circle tooltip locked.",!0)},s=()=>{var e;null===(e=this.infoCirc)||void 0===e||e.classList.remove(yt),n||m("Info circle tooltip unlocked.",!0)};n&&(this.infoCircTextWrapper.onclick=e=>{var t;e.target===e.currentTarget&&(null===(t=this.infoCirc)||void 0===t||t.classList.add(vt),setTimeout((()=>{var e;null===(e=this.infoCirc)||void 0===e||e.classList.remove(vt),s()}),200))}),i||null===(t=this.infoCircWrapper)||void 0===t||t.classList.toggle("info-circle-svg-wrapper--togglable",!0),this.infoCircWrapper.onclick=()=>{null!==this.infoCircWrapper&&null!==this.infoCirc&&(this.infoCirc.classList.contains(yt)?s():o())}}main(){var t,i,n;const[o,s]=this.partitionTags();if(null!==this.infoCircTags&&null!==this.infoCircTagsText){const e=te("infoCircleUtils.showTagsMode");if("always"===e||"back"===e&&"back"===b()){for(const e of s){const t=this.createTagEle(e,!1);this.infoCircTagsText.appendChild(t)}for(const e of o){const t=this.createTagEle(e,!0);this.infoCircTagsText.appendChild(t)}this.infoCircTags.classList.toggle("hidden",!1)}}"back"===b()&&u().includes("leech")&&this.logger.leech(!1),this.setToggleClick(),f()&&(null===(t=this.infoCircWrapper)||void 0===t||t.classList.toggle("info-circle-svg-wrapper--hoverable",!1),null===(i=this.infoCirc)||void 0===i||i.classList.toggle("info-circle--hover-color",!1)),J()<e&&te("infoCircleUtils.mobileDialog")&&(null===(n=document.getElementById("jpmn"))||void 0===n||n.classList.toggle("js-info-circle-tooltip-use-dialog",!0))}}const bt="fix-ruby-positioning";class Pt extends de{constructor(){super("fixRubyPositioning")}addClassToEle(e){const t=document.getElementById(e);null!==t&&t.classList.toggle(bt,!0)}main(){this.addClassToEle("def_header"),this.addClassToEle("full_sentence"),this.addClassToEle("full_sentence_front");const e=document.querySelectorAll(".expression");if(null!==e)for(const t of e)t.classList.add(bt)}}var Tt=function(e,t,i,n){return new(i||(i=Promise))((function(o,s){function r(e){try{a(n.next(e))}catch(e){s(e)}}function l(e){try{a(n.throw(e))}catch(e){s(e)}}function a(e){var t;e.done?o(e.value):(t=e.value,t instanceof i?t:new i((function(e){e(t)}))).then(r,l)}a((n=n.apply(e,t||[])).next())}))};class Ct extends ae{constructor(){super("sm:asyncManager"),this.modules=[]}addFunction(e){const t={setUseCache:e=>{},run:()=>new Promise((t=>{e(),t(void 0)}))};this.modules.push(t)}addModule(e){this.modules.push(e)}runModules(e=!1){return Tt(this,void 0,void 0,(function*(){for(const t of this.modules)t.setUseCache(!e),yield t.run();e&&m("Card successfully refreshed!")}))}runModulesDelay(){return Tt(this,void 0,void 0,(function*(){const e=te("asyncManager.initialDelay");0===e?this.runModules():setTimeout((()=>{this.runModules()}),e)}))}}class It extends de{constructor(){super("refreshCard"),this.setting=new Re("info_circle_text_settings_refresh_card"),this.persist=R(),this.imgStylizer=null,this.asyncManager=null}addImgStylizer(e){this.imgStylizer=e}addAsyncManager(e){this.asyncManager=e}refreshCard(){var e,t,i,n,o;return t=this,i=void 0,o=function*(){const t="jpmn-asyncManager-refresh-mutex"+p();if(null===this.persist)this.logger.warn("Persistence is not available. Refreshing the card will not check whether the async processes are currently running.");else{if(this.persist.has(t))return void m("Async processes are already running. Card cannot be refreshed.");this.persist.set(t,"running")}null!==this.imgStylizer&&function(e){var t;const i=document.getElementById("dh_left"),n=document.getElementById("dh_right");null!==i&&null!==n&&K(null!==(t=null==e?void 0:e.getDisplayImg())&&void 0!==t?t:null,i,n)}(this.imgStylizer),yield null===(e=this.asyncManager)||void 0===e?void 0:e.runModules(!0),null!==this.persist&&this.persist.pop(t)},new((n=void 0)||(n=Promise))((function(e,s){function r(e){try{a(o.next(e))}catch(e){s(e)}}function l(e){try{a(o.throw(e))}catch(e){s(e)}}function a(t){var i;t.done?e(t.value):(i=t.value,i instanceof n?i:new n((function(e){e(i)}))).then(r,l)}a((o=o.apply(t,i||[])).next())}))}main(){this.setting.initDisplay(),this.setting.btn.onclick=()=>{this.refreshCard()}}}class St extends ae{constructor(){super("sm:cardCache"),this.cardCacheEle=function(e){const t=document.getElementById(`hidden_field_${e}`);return null===t?(le.warn(`getFieldValueEle(${e}) could not find element`),null):t}("CardCache")}shouldUse(){return te("cardCache.enabled")&&null!==this.cardCacheEle&&!this.isExpired()}getWordIndsData(){var e;return null===(e=this.cardCacheEle)||void 0===e?void 0:e.querySelector('[data-cache-type="word-indicators"]')}getKanjiHoverData(){var e;return null===(e=this.cardCacheEle)||void 0===e?void 0:e.querySelector('[data-cache-type="kanji-hover"]')}isExpired(){var e,t,i,n;const o=null===(t=null===(e=this.cardCacheEle)||void 0===e?void 0:e.querySelector("[data-cache-write-time]"))||void 0===t?void 0:t.getAttribute("data-cache-write-time"),s=null===(n=null===(i=this.cardCacheEle)||void 0===i?void 0:i.querySelector("[data-cache-expires]"))||void 0===n?void 0:n.getAttribute("data-cache-expires");if(!o||!s)return;const r=Number(o);return 1e3*Number(s)*60*60*24+r<Date.now()}}!function(t,i,n){function s(e,t){f()?E((()=>{e(t)})):e(t)}window.onerror=function(e,t,i,n,o){var s;le.errorStack(null!==(s=null==o?void 0:o.stack)&&void 0!==s?s:"Unknown runtime error",`${e}`,t,i,n)},window.onunhandledrejection=function(e){if("AnkiConnect failed to issue request."===e.reason){let t=e.reason+' Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note-prerelease/#error-ankiconnect-failed-to-issue-request">here</a> for basic troubleshooting.';le.error("Javascript handler error: "+t)}else le.error("Javascript handler error: "+e.reason)},s(L,"pa_silence_audio"),le.debug(`JPMN(${i}, ${t}, jp-mining-note)`);const l=document.getElementById("jpmn_options_script");l&&(l.onerror=()=>{le.warn("Options file not found. Did you place the options file in the media directory?")}),void 0!==window.JPMNOptions||le.warn('JPMNOptions was not defined in the options file. Was there an error? Click <a href="{BASE_DOCS_URL}/faq/#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">here</a> for basic troubleshooting.',{isHtml:!0}),o("IsHoverCard","IsClickCard")&&le.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once."),r("SentenceReading")&&o("Sentence")&&le.warn("SentenceReading is not filled out. Using Sentence field instead."),r("Sentence")&&o("SentenceReading")&&le.warn("`SentenceReading` is filled out, but the `Sentence` field is not. Is this a mistake?");const a=new It,d=new ge;(new Ee).run();{const e=new Ge(d);e.run(),a.addImgStylizer(e)}(new mt).run();let c=null;J()<e&&(c=new ft("mobilePopup")),(new wt).run(),(new Pt).run();const u=new Ct;a.addAsyncManager(u),a.run();{const e=()=>{ut(t)};u.addFunction(e)}const h=new St;u.addModule(new ct(h,c)),u.addModule(new pt(h,c)),E((()=>{u.runModulesDelay()})),le.debug("Success! End of main() reached.")}("front","pa_word")})();
+//# sourceMappingURL=/_jpmn_pa_word_front.js.map
+//# sourceURL=_jpmn_pa_word_front.js</script>
 
-// maps card_id -> (card info retrieved by Anki-Connect)
-var cardsInfoCache = nullish(cardsInfoCache, {});
 
-// maps query_str -> [card ids]
-var cardQueryCache = nullish(cardQueryCache, {});
 
-// maps key.sentence -> card id
-var cardIdCache = nullish(cardIdCache, {});
-
-/// 
-
-
-
-
-
-
-
-
-
-
-
-// GLOBALS: word-indicators
-
-
-//var sameReadingCardCache = nullish(sameReadingCardCache, {});
-var similarWordsCardCache = nullish(similarWordsCardCache, {});
-
-/// 
-
-
-
-
-
-
-
-// GLOBALS: check-duplicate-key
-
-
-
-// contains all unique keys
-var uniqueKeysCache = nullish(uniqueKeysCache, []);
-
-/// 
-
-
-
-
-
-
-(function () { // restricts ALL javascript to hidden scope
-
-
-
-
-const TAGS_LIST = "{{Tags}}".split(" ");
-
-
-// "global" variables within the hidden scope
-let note = (function () {
-  let my = {};
-  return my;
-}());
-
-
-
-/*
- * Toggles the display of any given details tag
- */
-function toggleDetailsTag(ele) {
-  if (ele.hasAttribute('open')) {
-    ele.removeAttribute('open');
-  } else {
-    ele.setAttribute("open", "true");
-  }
-}
-
-function popupMenuMessage(message, isHTML=false) {
-  let popupMenu = document.getElementById("popup_menu");
-
-  // creates message
-  const popupMessageDiv = document.createElement("div");
-  if (isHTML) {
-    popupMessageDiv.innerHTML = message;
-  } else {
-    popupMessageDiv.innerText = message;
-  }
-  popupMessageDiv.classList.add("popup-menu--animate");
-
-  popupMenu.appendChild(popupMessageDiv);
-
-  // kills the popup after the animations play
-  setTimeout(() => {
-    popupMenu.removeChild(popupMessageDiv);
-    LOGGER.debug(`Removed popup: "${message}"`, 2);
-  }, 1000*(0.6+3+0.75))
-}
-
-
-
-// START_BLOCK: js_functions
-
-
-// END_BLOCK: js_functions
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// =============
-//  Image Utils
-// =============
-
-const JPMNImgUtils = (() => {
-
-  const logger = new JPMNLogger("img-utils");
-
-  const modal = document.getElementById('modal');
-  const modalImg = document.getElementById("bigimg");
-
-  const dhLeft = document.getElementById("dh_left");
-  const dhLeftAudioBtns = document.getElementById("dh_left_audio_buttons");
-  const primaryDefText = document.getElementById("primary_definition_text");
-  const primaryDefPicEle = document.getElementById("primary_definition_picture")
-  const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
-  let HEIGHT_LEFT = 0;
-  let TEXT_HEIGHT = 0
-  let PIC_HEIGHT = 0
-  let FLOAT_PIC_HEIGHT = 0
-
-
-  const dhRight = document.getElementById("dh_right");
-  const imgEye = document.getElementById("img_svg_eye"); // null on the front
-  const imgEyePathEle = imgEye === null ? null : imgEye.children[0];
-  const dhImgContainer = document.getElementById("dh_img_container");
-  const dhImgBlur = document.getElementById("dh_img_container_nsfw_blur");
-
-
-  // adjusts height even if it's tablet mode because the picture can be tall and skinny
-  const ADJUST_HEIGHT = (VW > 620);
-  const POS_RESULT = getPrimaryDefPicturePosition();
-
-  // TODO?
-  //const MOBILE_ATTEMPT_PLACE_AROUND = false;
-  // https://stackoverflow.com/questions/1248081/how-to-get-the-browser-viewport-dimensions
-  //const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-
-  const imgClickClassName = "dh-right__img-container--clickable";
-  const showEyeClassName = "dh-right__show-eye";
-  const nsfwBlurInitClassName = "nsfw-blur-init";
-  const nsfwBlurClassName = "nsfw-blur";
-  const nsfwNoBlurClassName = "nsfw-no-blur";
-
-  const EYE_PATH_RAW = "M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z";
-  const EYE_OFF_PATH_RAW = "M11.83 9 15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8 1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22 21 20.73 3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z";
-
-  const TOGGLE_STATE_INDEX_KEY = "jpmn-image-blur-state-index";
-
-  const TOGGLE_STATE_DISABLED = -1;
-  const TOGGLE_STATE_ALWAYS_SHOWN = 0;
-  const TOGGLE_STATE_ONLY_BLUR_NSFW = 1;
-  const TOGGLE_STATE_ALWAYS_BLURRED = 2;
-
-  // card side state for image eye
-  let imgCurrentlyBlurred = false;
-  let toggleStates = [];
-
-  // main image, global variable
-  let image = null;
-
-
-  // gets the function to activate the modal with the img
-  const getActivateModalFunc = function(image) {
-    return function() {
-      modal.style.display = "block";
-      modalImg.src = image.src;
-    }
-  }
-
-  // sets the image to be blurred
-  const setImgBlur = function(init=false) {
-    logger.debug("Setting image blur...", 2)
-
-    dhImgContainer.classList.toggle(imgClickClassName, false);
-    dhImgBlur.classList.toggle(nsfwNoBlurClassName, false);
-
-    if (init) {
-      dhImgBlur.classList.toggle(nsfwBlurInitClassName, true);
-    } else {
-      dhImgBlur.classList.toggle(nsfwBlurClassName, true);
-    }
-
-    if (image !== null) {
-      image.onclick = null;
-    }
-    imgEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
-
-    imgCurrentlyBlurred = true;
-  }
-
-  // doesn't require the image to be currently blurred for this function to be ran
-  const removeImgBlur = function() {
-    logger.debug("Removing image blur...", 2)
-
-    dhImgContainer.classList.add(imgClickClassName);
-
-    dhImgBlur.classList.toggle(nsfwBlurClassName, false);
-    dhImgBlur.classList.toggle(nsfwBlurInitClassName, false);
-    dhImgBlur.classList.add(nsfwNoBlurClassName);
-
-    if (image !== null) {
-      const activateModalFunc = getActivateModalFunc(image);
-      image.onclick = activateModalFunc;
-    }
-    imgEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
-
-    imgCurrentlyBlurred = false;
-  }
-
-  // sets display state of settings eye
-  function setDisplayState(state, settingsEye, displayPopup=true) {
-    let settingsEyePathEle = settingsEye.children[0];
-    let settingsEyeTitleEle = settingsEye.children[1];
-    const alwaysBlurredClass = "info-circle-text-settings__svg--red";
-    const settingsDisabledClass = "info-circle-text-settings__svg--disabled";
-
-    switch (state) {
-      case TOGGLE_STATE_DISABLED:
-        settingsEyeTitleEle.textContent = "Persistence is not available. This option cannot be set.";
-        settingsEyePathEle.classList.add(settingsDisabledClass);
-
-        if (getShouldBlurNSFWDefault()) {
-          settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
-        } else {
-          settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
-        }
-        break;
-
-      case TOGGLE_STATE_ALWAYS_SHOWN:
-        // never blurs
-        settingsEyePathEle.setAttributeNS(null, "d", EYE_PATH_RAW);
-        settingsEyeTitleEle.textContent = "NSFW images are not blurred by default. Click to toggle.";
-
-        settingsEyePathEle.classList.toggle(alwaysBlurredClass, false);
-
-        if (displayPopup) {
-          popupMenuMessage("No images will be blurred.");
-        }
-        break;
-
-      case TOGGLE_STATE_ONLY_BLUR_NSFW:
-        // should blur on nsfw images
-        settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
-        settingsEyeTitleEle.textContent = "NSFW images are blurred by default. Click to toggle.";
-        settingsEyePathEle.classList.toggle(alwaysBlurredClass, false);
-
-        if (displayPopup) {
-          popupMenuMessage("NSFW images will be blurred.");
-        }
-        break;
-
-      case TOGGLE_STATE_ALWAYS_BLURRED:
-        // always blurs on nsfw images
-        settingsEyePathEle.setAttributeNS(null, "d", EYE_OFF_PATH_RAW);
-        settingsEyePathEle.classList.add(alwaysBlurredClass);
-        settingsEyeTitleEle.textContent = "All images are blurred. Click to toggle.";
-
-        if (displayPopup) {
-          popupMenuMessage("All images will be blurred.");
-        }
-        break;
-    }
-  }
-
-  function setImageBlurToState(toggleState, init=false) {
-    if (imgEye == null) {
-      return;
-    }
-
-    logger.debug(`Setting blur state to '${toggleState}' ...`, 2);
-    switch (toggleState) {
-      case 0: // ??? -> never blurred
-        removeImgBlur();
-        if (!cardHasNSFWTag()) {
-          // removes if necessary (non-nsfw image forced to be blurred -> no longer forced)
-          dhImgBlur.classList.toggle(showEyeClassName, false);
-        }
-        break;
-
-      case 1: // ??? -> blur only if nsfw
-        if (!cardHasNSFWTag()) {
-
-          // can reach here on init as well
-          removeImgBlur();
-
-        } else if (!imgCurrentlyBlurred && cardHasNSFWTag()) {
-          setImgBlur(init);
-        }
-
-        break;
-
-      case 2: // ??? -> always blurred
-        setImgBlur(init);
-        if (!cardHasNSFWTag()) {
-          dhImgBlur.classList.toggle(showEyeClassName, true);
-        }
-        break;
-
-      default:
-        logger.warning(`Invalid NSFW state: ${toggleState}`);
-    }
-  }
-
-
-  function initPersistence() {
-    let settingsEye = generateEyeSettingSVG();
-
-    if (!getSetting(['modules','img-utils','image-blur','enabled',],false)) {
-      // persistence only needs to be initialized if nsfw toggle is enabled
-      return;
-    } else {
-      logger.debug("NSFW toggle enabled");
-    }
-
-    // inits persistence key
-    const infoCircleSettings = document.getElementById("info_circle_text_settings");
-
-    if (Persistence.isAvailable()) {
-      if (Persistence.getItem(TOGGLE_STATE_INDEX_KEY) === null) {
-        logger.debug(`First review, setting Persistence to ${0}`);
-        Persistence.setItem(TOGGLE_STATE_INDEX_KEY, 0);
-      } else {
-        logger.debug("Persistence is available. Not the first review, so nothing has to be done.");
-      }
-    } else {
-      logger.debug("Persistence is not available! Unable to init Persistence");
-    }
-
-    // visual interface for whether images should be blurred or not
-    infoCircleSettings.appendChild(settingsEye);
-
-    if (Persistence.isAvailable()) {
-
-      // allows the usage of the global option
-      settingsEye.onclick = function() {
-        setNextNSFWToggleState();
-        let toggleState = getCurrentNSFWToggleState();
-        setImageBlurToState(toggleState)
-        setDisplayState(toggleState, settingsEye);
-      }
-
-      // to display properly on the settings eye
-      logger.debug(`Setting NSFW toggle state to '${getCurrentNSFWToggleState()}'...`);
-      setDisplayState(getCurrentNSFWToggleState(), settingsEye, false);
-
-    } else {
-      setDisplayState(TOGGLE_STATE_DISABLED, settingsEye, false);
-    }
-  }
-
-
-  // creates a custom image container to hold yomichan images
-  function createImgContainer(imgName, shouldBlur) {
-    // creating this programmically:
-    // <span class="glossary__image-container">
-    //   <a class="glossary__image-hover-text" href='javascript:;'</a>
-    //   <img class="glossary__image-hover-media" src="${imgName}">
-    // </span>
-
-    const defSpan = document.createElement('span');
-    defSpan.classList.add("glossary__image-container");
-
-    const defAnc = document.createElement('a');
-    defAnc.classList.add("glossary__image-hover-text");
-    defAnc.href = "javascript:;";
-    defAnc.textContent = "[Image]";
-    defAnc.setAttribute("data-suppress-link-hover", "true");
-
-    const defImg = document.createElement('img');
-    defImg.classList.add("glossary__image-hover-media");
-    defImg.src = imgName;
-
-    defImg.onclick = function() {
-      modal.style.display = "block";
-      modalImg.src = this.src;
-    }
-
-    // prevents clicking on the image link to zoom (on mobile)
-    if (!isMobile()) {
-      defAnc.onclick = function() {
-        modal.style.display = "block";
-        modalImg.src = defImg.src;
-      }
-    }
-
-    defSpan.appendChild(defAnc);
-    defSpan.appendChild(defImg);
-
-    return defSpan;
-  }
-
-  function generateEyeSettingSVG() {
-    // a bit of a hacky way to do it without dealing with a bunch of raw js
-    const svgStr = '<svg id="settings_nsfw_toggle_eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/><title>Toggle blur</title></svg>';
-
-    const x = document.createElement("span");
-    x.innerHTML = svgStr;
-    return x.children[0];
-  }
-
-  function useNSFWToggle() {
-
-    imgEye.onclick = function() {
-      if (imgCurrentlyBlurred) { // should be blurred -> not blurred
-        removeImgBlur();
-      } else { // not blurred -> should be blurred
-        setImgBlur();
-      }
-    }
-
-    const imgIsNsfw = cardHasNSFWTag();
-    const shouldBlurImgDefault = getShouldBlurNSFWDefault();
-    logger.debug(`imgIsNsfw: ${imgIsNsfw}, shouldBlurImgDefault: ${shouldBlurImgDefault}`);
-
-    if (imgIsNsfw) {
-      dhImgBlur.classList.toggle(showEyeClassName, true);
-    }
-
-    let toggleState = getCurrentNSFWToggleState();
-    setImageBlurToState(toggleState, /*init=*/true);
-  }
-
-
-  function useModalAndBlur() {
-
-    if (getSetting(['modules','img-utils','image-blur','enabled',],false)) {
-      useNSFWToggle();
-    } else {
-      image.onclick = getActivateModalFunc(image);
-    }
-  }
-
-  function setToggleStatesIfEmpty() {
-    // toggleStates is module-global
-    // TODO change this option to use the {"type": "pc-mobile"}
-    if (toggleStates.length === 0) {
-      toggleStates = getSetting(['modules','img-utils','image-blur','toggle-states',],{"type": "pc-mobile", "pc": [1, 2, 0], "mobile": [1, 2, 0]});
-    }
-  }
-
-  function getDefaultNSFWToggleState() {
-    setToggleStatesIfEmpty();
-    return toggleStates[0];
-  }
-
-  function getCurrentNSFWToggleState() {
-    setToggleStatesIfEmpty();
-    if (Persistence.isAvailable()) {
-      const currentStateIndex = Persistence.getItem(TOGGLE_STATE_INDEX_KEY);
-      const currentState = toggleStates[currentStateIndex]
-      logger.debug(`Persistence[${currentStateIndex}] returns ${currentState}`, 1);
-      return currentState;
-    }
-    logger.debug("Persistence not available! Falling back to default value...", 2);
-    return toggleStates[0];
-  }
-
-  function setNextNSFWToggleState() {
-    setToggleStatesIfEmpty();
-
-    let currentStateIndex = Persistence.getItem(TOGGLE_STATE_INDEX_KEY);
-    let nextStateIndex = (currentStateIndex + 1) % toggleStates.length;
-    logger.debug(`Setting Persistence: ${nextStateIndex}`, 2)
-    Persistence.setItem(TOGGLE_STATE_INDEX_KEY, nextStateIndex);
-
-    return toggleStates[nextStateIndex];
-  }
-
-
-  function getShouldBlurNSFWDefault() {
-    return (getDefaultNSFWToggleState() >= 1);
-  }
-
-  //function getTags() {
-  //  return document.getElementById("tags").innerText.split(" ");
-  //}
-
-  // checks if A is a subset of B
-  // in other words, if any item in A is in B
-  function checkArrayIsSubset(A, B) {
-    for (item of A) {
-      if (B.includes(item)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function cardHasNSFWTag() {
-    //const tags = getTags();
-    const nsfwTags = getSetting(['modules','img-utils','image-blur','tags',],['NSFW', 'nsfw', '-NSFW']);
-
-    return checkArrayIsSubset(nsfwTags, TAGS_LIST);
-  }
-
-  function cardContainsAllTags(tagList) {
-    //const tags = document.getElementById("tags").innerText.split(" ");
-
-    let count = 0;
-    for (t of tagList) {
-      if (TAGS_LIST.includes(t)) {
-        count += 1;
-      }
-    }
-
-    return (count === tagList.length);
-  }
-
-  function getPrimaryDefPicturePosition() {
-    let posResult = "auto";
-
-    const posOpt = getSetting(['modules','img-utils','primary-definition-picture','position',],'auto');
-    const tagsBottom = getSetting(['modules','img-utils','primary-definition-picture','tags-bottom',],['img-bottom', 'jpmn-img-buttom']);
-    const tagsRight = getSetting(['modules','img-utils','primary-definition-picture','tags-right',],['img-right', 'jpmn-img-right']);
-
-    if (checkArrayIsSubset(tagsBottom, TAGS_LIST)) { // priority on tag
-      posResult = "bottom";
-    } else if (checkArrayIsSubset(tagsRight, TAGS_LIST)) {
-      posResult = "right";
-    } else if (posOpt === "bottom") { // lower priority on posOpt
-      posResult = "bottom";
-    } else if (posOpt === "right") {
-      posResult = "right";
-    } else if (posOpt === "auto") {
-      posResult = "auto";
-    } else {
-      logger.warn(`Invalid option value for 'primary-definition-picture-position': ${posOpt}. Defaulting to auto.`);
-      posResult = "auto";
-    }
-
-    return posResult;
-
-  }
-
-
-  function editDisplayImage() {
-    // edits the display image width/height
-    // makes the display image clickable to zoom
-    // makes the modal clickable to un-zoom
-
-    // restricting the max height of image to the definition box
-    // TODO this one line of code seems to reflow the document, causing noticeable delay in the js
-    // https://stackoverflow.com/questions/45960181/what-is-the-fastest-way-to-get-height-width-of-unstyled-element-in-javascript
-    // https://stackoverflow.com/questions/19815810/avoiding-html-document-reflows/19816067#19816067
-
-    // this appears to be the main bottleneck in performance for some awful reason
-    // and it seems virtually impossible to remove it...
-    // the best I can do is group all the calls together so only the first .offsetHeight read
-    // slows the program down.
-    // This code also CANNOT be placed at the top where global variables are defined,
-    // because the height is dependent on the height of the resulting pitch accent.
-    // Even if the code could be placed at the top, it still seems to cause a reflow,
-    // so nothing has changed...
-
-
-    if (ADJUST_HEIGHT || POS_RESULT === "auto") {
-      HEIGHT_LEFT = dhLeft === null ? 0 : dhLeft.offsetHeight;
-      TEXT_HEIGHT = primaryDefText === null ? 0 : primaryDefText.offsetHeight;
-      PIC_HEIGHT = primaryDefPicEle === null ? 0 : primaryDefPicEle.offsetHeight;
-      FLOAT_PIC_HEIGHT = primaryDefExtLinks === null ? 0 : primaryDefExtLinks.offsetHeight;
-    }
-
-
-    let somethingDisplayed = dhImgContainer.innerHTML.length > 0;
-
-    // attempts to add image according to the tag
-    const addTagsInfo = getSetting(['modules','img-utils','add-image-if-contains-tags',],[]);
-    if (!somethingDisplayed && addTagsInfo) {
-      for (const info of addTagsInfo) {
-        const tags = info["tags"];
-        const fileName = info["file-name"];
-
-        if (cardContainsAllTags(tags)) {
-          const newImg = document.createElement('img');
-          newImg.src = fileName;
-          dhImgContainer.appendChild(newImg);
-          dhRight.classList.add("dh-right--contains-image");
-          dhLeftAudioBtns.classList.add("dh-left__audio-buttons--left");
-          somethingDisplayed = true;
-
-          break;
-        }
-      }
-    }
-
-    if (somethingDisplayed) {
-      if (ADJUST_HEIGHT) {
-        dhRight.style.maxHeight = HEIGHT_LEFT + "px";
-      }
-
-      // setting up the modal styles and clicking
-      const imgList = dhImgContainer.getElementsByTagName("img");
-
-      if (imgList && imgList.length) {
-        if (imgList.length >= 2) {
-          logger.warn("There are more than 2 images?");
-        }
-
-        // module-global variable
-        image = imgList[0];
-
-        image.classList.add("dh-right__img");
-        if (ADJUST_HEIGHT) {
-          image.style.maxHeight = HEIGHT_LEFT + "px"; // restricts max height here too
-        }
-
-        useModalAndBlur();
-
-      } else { // otherwise we hope that there are 0 images here
-        // support for no images here: remove the fade-in / fade-out on text
-        logger.debug("No images found. Removing clickable class...");
-        dhImgContainer.classList.remove(imgClickClassName);
-      }
-    }
-
-    // close the modal upon click
-    modal.onclick = function() {
-      bigimg.classList.add("modal-img__zoom-out");
-      modal.classList.add("modal-img__zoom-out");
-      setTimeout(function() {
-        modal.style.display = "none";
-        bigimg.className = "modal-img";
-        modal.className = "modal";
-      }, 200);
-    }
-
-  }
-
-  function searchImages() {
-
-    // goes through each blockquote and searches for yomichan inserted images
-    //const imageSearchElements = document.getElementsByTagName("blockquote");
-    const imageSearchElements = document.querySelectorAll("blockquote.glossary-blockquote .glossary-text");
-    for (const searchEle of imageSearchElements) {
-      const anchorTags = searchEle.getElementsByTagName("a");
-      for (const atag of anchorTags) {
-        const imgFileName = atag.getAttribute("href");
-        if (imgFileName && imgFileName.substring(0, 25) === "yomichan_dictionary_media") {
-          logger.debug(`Converting yomichan image ${imgFileName}...`);
-          const fragment = createImgContainer(imgFileName);
-          atag.parentNode.replaceChild(fragment, atag);
-        }
-      }
-
-      // looks for user inserted images
-      const imgTags = searchEle.getElementsByTagName("img");
-      for (const imgEle of imgTags) {
-        if (!imgEle.classList.contains("glossary__image-hover-media") &&
-            !(imgEle.getAttribute("data-do-not-convert"))
-        ) { // created by us
-          logger.debug(`Converting user-inserted image ${imgEle.src}...`);
-          const shouldBlur = !!imgEle.getAttribute("data-blur-image"); // double ! casts to bool
-          const fragment = createImgContainer(imgEle.src, shouldBlur);
-          imgEle.parentNode.replaceChild(fragment, imgEle);
-        }
-      }
-    }
-
-
-    // looks for the PrimaryDefinitionPicture if it exists
-    // placed after image searches to allow main definition to be properly resized first
-    const primaryDefPicEle = document.getElementById("primary_definition_picture")
-    const primaryDefPicBottomEle = document.getElementById("primary_definition_picture_bottom")
-    for (const picEle of [primaryDefPicEle, primaryDefPicBottomEle]) {
-      if (picEle === null) {
-        continue;
-      }
-      const imgs = picEle.getElementsByTagName("img");
-      for (const imgEle of imgs) {
-        if (imgEle !== null) {
-          imgEle.onclick = getActivateModalFunc(imgEle);
-          imgEle.classList.add(imgClickClassName);
-        }
-      }
-    }
-
-    //const tags = getTags();
-    const primaryDefBlockquote = document.getElementById("primary_definition");
-
-    let posResult = POS_RESULT;
-
-    if (posResult === "auto") {
-      // compares height of definition text and image
-      //const primaryDefExtLinks = document.getElementById("external_links_primary_def_float");
-      //const primaryDefText = document.getElementById("primary_definition_text");
-      const lenience = getSetting(['modules','img-utils','primary-definition-picture','position-lenience',],2);
-
-      const textHeight = TEXT_HEIGHT * lenience;
-      const picHeight = PIC_HEIGHT + FLOAT_PIC_HEIGHT;
-      const shouldFloat = textHeight > picHeight;
-      logger.debug(`shouldFloat=${shouldFloat}, textHeight=${textHeight}, picHeight=${picHeight}`);
-
-      posResult = shouldFloat ? "right" : "bottom";
-    }
-    logger.debug(`PrimaryDefinitionPicture position: ${posResult}`);
-
-    // nothing has to be done for "right" as that is the default
-    if (posResult === "bottom") {
-      primaryDefBlockquote.classList.add("glossary-blockquote--picture-below");
-    }
-
-
-  }
-
-  class JPMNImgUtils {
-    constructor() {
-      initPersistence()
-    }
-
-    run() {
-      editDisplayImage();
-
-      if (getSetting(['modules','img-utils','stylize-images-in-glossary',],true)) {
-        searchImages();
-      }
-    }
-  }
-
-
-  return JPMNImgUtils;
-
-})();
-
-
-
-/// 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ===================
-//  Info Circle Utils
-// ===================
-
-const JPMNInfoCircleUtils = (() => {
-
-  const logger = new JPMNLogger("info-circle-utils");
-
-  // private functions and variables here
-  // ...
-
-  class JPMNInfoCircleUtils {
-    constructor() { }
-
-    run() {
-
-      let infoCirc = document.getElementById("info_circle");
-      let infoCircWrapper = document.getElementById("info_circle_wrapper");
-
-      // clicks on the info circle to freeze the popup (good for debugging and all)
-      if (getSetting(['modules','info-circle-utils','togglable-lock','enabled',],true)) {
-
-        const showPopup = getSetting(['modules','info-circle-utils','togglable-lock','show-popup',],{"type": "pc-mobile", "pc": true, "mobile": false});
-
-        //function addLockFunc(clickEle, circEle, displayName, frozenClassName, togglableClassName, showPopup) {
-        //  if (clickEle === null || circEle === null) {
-        //    return;
-        //  }
-
-        //  clickEle.classList.add(togglableClassName);
-        //  clickEle.onclick = function() {
-        //    if (circEle.classList.contains(frozenClassName)) {
-        //      circEle.classList.remove(frozenClassName);
-        //      if (showPopup) {
-        //        popupMenuMessage(`${displayName} unlocked.`, true);
-        //      }
-        //    } else {
-        //      circEle.classList.add(frozenClassName);
-        //      if (showPopup) {
-        //        popupMenuMessage(`${displayName} locked.`, true);
-        //      }
-        //    }
-        //  }
-
-        //}
-
-        // main info circle
-        const infoCircFrozen = "info-circle--frozen";
-        const infoCircTogglable = "info-circle-svg-wrapper--togglable";
-        //addLockFunc(infoCircWrapper, infoCirc, "Info circle tooltip", infoCircFrozen, infoCircTogglable, showPopup);
-
-        //if (infoCircWrapper === null || infoCirc === null) {
-        //  return;
-        //}
-
-        if (!isMobile()) {
-          infoCircWrapper.classList.toggle(infoCircTogglable, true);
-        }
-
-        infoCircWrapper.onclick = function() {
-          if (infoCirc.classList.contains(infoCircFrozen)) {
-            infoCirc.classList.remove(infoCircFrozen);
-            if (showPopup) {
-              popupMenuMessage(`Info circle tooltip unlocked.`, true);
-            }
-          } else {
-            infoCirc.classList.add(infoCircFrozen);
-            if (showPopup) {
-              popupMenuMessage(`Info circle tooltip locked.`, true);
-            }
-          }
-        }
-      }
-
-      if (!getSetting(['modules','info-circle-utils','is-hoverable',],{"type": "pc-mobile", "pc": true, "mobile": false})) {
-        infoCircWrapper.classList.toggle("info-circle-svg-wrapper--hoverable", false);
-        infoCirc.classList.toggle("info-circle--hover-color", false);
-      }
-
-    }
-  }
-
-
-  return JPMNInfoCircleUtils;
-
-})();
-
-/// 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// a general function to implement all keybinds necessary by the card.
-// NOTICE: we MUST use document.onkeyup instead of document.addEventListener(...)
-// because functions persist and cannot be easily removed within anki,
-// whereas .onkeyup = ... replaces the previous function with the current.
-document.onkeyup = (e => {
-  LOGGER.debug(`KeyboardEvent: code=${e.code}`, 0);
-
-  let keys = null;
-  let ele = null;
-
-  // START_BLOCK: js_keybind_settings
-
-
-
-
-  // END_BLOCK: js_keybind_settings
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /// {{#WordAudio}}
-  keys = getSetting(['keybinds','play-word-audio',],['KeyW']);
-
-  if (keys !== null && keys.includes(e.code)) {
-    ele = document.querySelector("#word-audio .soundLink, #word-audio .replaybutton");
-    if (ele) {
-      ele.click();
-    }
-  }
-  /// {{/WordAudio}}
-
-  /// {{#SentenceAudio}}
-  keys = getSetting(['keybinds','play-sentence-audio',],['KeyP']);
-  if (keys !== null && keys.includes(e.code)) {
-
-    let hSent = document.getElementById("hybrid-sentence");
-
-    /// 
-      ele = document.querySelector("#sentence-audio .soundLink, #sentence-audio .replaybutton");
-      if (ele) {
-        ele.click();
-      }
-    /// 
-  }
-  /// {{/SentenceAudio}}
-
-  keys = getSetting(['keybinds','toggle-front-full-sentence-display',],['Quote']);
-  ele = document.getElementById("full_sentence_front_details");
-  if (keys !== null && ele && keys.includes(e.code)) {
-    toggleDetailsTag(ele)
-  }
-
-  /// {{#Hint}}
-  keys = getSetting(['keybinds','toggle-hint-display',],['Period']);
-  ele = document.getElementById("hint_details");
-  if (keys !== null && ele && keys.includes(e.code)) {
-    toggleDetailsTag(ele)
-  }
-  /// {{/Hint}}
-
-  ///  
-
-})
-///  
-
-
-
-
-
-function main() {
-  
-
-  
-
-
-  // sanity check: options
-  /// 
-  if (typeof JPMNOpts === 'undefined') {
-    LOGGER.warn('JPMNOpts was not defined in the options file. Was there an error? ' +
-      'Click <a href="https://aquafina-water-bottle.github.io/jp-mining-note/faq/#warning-jpmnopts-was-not-defined-in-the-options-file-was-there-an-error">here</a> for basic troubleshooting.', isHtml=true);
-  }
-  ///  
-
-  // sanity check: checks that both `IsHoverCard` and `IsClickCard` are both not activated
-  /// {{#IsHoverCard}}
-  /// {{#IsClickCard}}
-  LOGGER.warn("Both `IsHoverCard` and `IsClickCard` are filled. At most one should be filled at once.");
-  /// {{/IsClickCard}}
-  /// {{/IsHoverCard}}
-
-
-  // Stylizes the play button for ankidroid
-  if (isMobile()) {
-    const betterPlayBtn = `<svg class="android-play-button-svg" viewBox="0 0 64 64" version="1.1"> <circle cx="32" cy="32" r="29"></circle> <path d="M56.502,32.301l-37.502,20.101l0.329,-40.804l37.173,20.703Z"></path> </svg>`
-
-    function generateSVG() {
-      const x = document.createElement("span");
-      x.innerHTML = betterPlayBtn;
-      return x.children[0];
-    }
-
-    const eles = document.querySelectorAll(".android .replaybutton svg");
-    for (const ele of eles) {
-      ele.parentNode.replaceChild(generateSVG(), ele);
-    }
-  }
-
-
-  // START_BLOCK: js_run
-
-
-
-
-  // END_BLOCK: js_run
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  try { // RUN: img-utils
-
-    
-
-    
-        
-
-    if (getSetting(['modules','img-utils','enabled',],true) && getSetting(['modules','img-utils','image-blur','enabled',],false)) {
-      // ran just to call constructor
-      const imgUtils = new JPMNImgUtils();
-    }
-
-    /// 
-        
-
-    
-
-  } catch (error) {
-    LOGGER.error("Error in module img-utils:");
-    LOGGER.errorStack(error.stack);
-  }
-
-
-
-
-
-
-
-
-  try { // RUN: info-circle-utils
-
-    
-
-    
-        
-
-    if (getSetting(['modules','info-circle-utils','enabled',],true)) {
-      const infoCircleUtils = new JPMNInfoCircleUtils()
-      infoCircleUtils.run();
-    }
-
-    /// 
-        
-
-    
-
-  } catch (error) {
-    LOGGER.error("Error in module info-circle-utils:");
-    LOGGER.errorStack(error.stack);
-  }
-
-
-
-
-  try { // RUN: fix-ruby-positioning
-
-    
-
-    
-        
-
-    if (getSetting(['modules','fix-ruby-positioning','enabled',],{"type": "pc-mobile", "pc": false, "mobile": false})) {
-      // module not big enough to require a class
-
-      const className = "fix-ruby-positioning";
-      const defHeader = document.getElementById("def_header");
-      if (defHeader !== null) {
-        defHeader.classList.add(className);
-      }
-
-      const expressions = document.querySelectorAll(".expression");
-      if (expressions !== null) {
-        for (const e of expressions) {
-          e.classList.add(className);
-        }
-      }
-
-    }
-
-    /// 
-        
-
-    
-
-  } catch (error) {
-    LOGGER.error("Error in module fix-ruby-positioning:");
-    LOGGER.errorStack(error.stack);
-  }
-
-
-
-
-
-
-  
-
-}
-
-
-
-
-
-main();
-
-
-
-}());
-
-</script>
 
 
 
